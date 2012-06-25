@@ -88,8 +88,8 @@ public:
     }
 
     /// @brief Access to a random number from a normal distribution
-    static inline SUMOReal randNorm(SUMOReal mean, SUMOReal variance) {
-        return (SUMOReal) RandHelper::myRandomNumberGenerator.randNorm(mean, variance);
+    static inline SUMOReal randNorm(SUMOReal mean, SUMOReal variance, MTRand& rng=myRandomNumberGenerator) {
+        return (SUMOReal) rng.randNorm(mean, variance);
     }
 
     /// @brief Returns a random element from the given vector
