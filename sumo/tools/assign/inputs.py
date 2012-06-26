@@ -24,7 +24,6 @@ def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
     periodList = []
     if verbose:
         print 'matrix:', str(matrix)
-
     odpairs = 0
     origins = 0
     dest= 0
