@@ -213,6 +213,9 @@ private:
     static const char allowedStatesInitializer[];
     static const std::string ALLOWED_STATES;
 
+private:
+    /// @brief Invalidated assignment operator
+    NBTrafficLightLogic& operator=(const NBTrafficLightLogic& s);
 
 };
 

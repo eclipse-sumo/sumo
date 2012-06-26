@@ -93,9 +93,6 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
     : GUIDetectorWrapper("E2OverLanes detector", detector.getID()),
       myDetector(detector) {
     for (LaneDetMap::const_iterator i = detectors.begin(); i != detectors.end(); ++i) {
-        MSLane* l = (*i).first;
-        GUIEdge& edge = static_cast<GUIEdge&>(l->getEdge());
-        GUILaneWrapper& w = edge.getLaneGeometry(l);
         GUI_E2_ZS_Collector* c = static_cast<GUI_E2_ZS_Collector*>((*i).second);
         GUIDetectorWrapper* dw = c->buildDetectorGUIRepresentation();
         mySubWrappers.push_back(dw);

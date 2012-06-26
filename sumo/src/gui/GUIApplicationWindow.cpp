@@ -807,7 +807,7 @@ GUIApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
 }
 
 
-long GUIApplicationWindow::onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr) {
+long GUIApplicationWindow::onClipboardRequest(FXObject* /* sender */, FXSelector /* sel */, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     FXString string = GUIUserIO::clipped.c_str();
     setDNDData(FROM_CLIPBOARD, event->target, string);

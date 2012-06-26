@@ -76,7 +76,7 @@ MSCFModel_Wiedemann::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, SUMOReal /* speed */, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
     return _v(veh, predSpeed, gap2pred);
 }
 
@@ -172,7 +172,7 @@ MSCFModel_Wiedemann::approaching(SUMOReal dv, SUMOReal dx, SUMOReal bx) const {
 
 
 SUMOReal
-MSCFModel_Wiedemann::emergency(SUMOReal dv, SUMOReal dx) const {
+MSCFModel_Wiedemann::emergency(SUMOReal /* dv */, SUMOReal /* dx */) const {
     /* emergency according to A.Stebens
     // wiedemann assumes that dx will always be larger than myAX (sumo may
     // violate this assumption when crashing (-:

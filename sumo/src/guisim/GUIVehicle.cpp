@@ -943,8 +943,8 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 */
     }
     // draw best lanes
+    /*
     if (true) {
-        /*
         const MSLane &l = veh->getLane();
         SUMOReal r1 = veh->allowedContinuationsLength(&l, 0);
         SUMOReal r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;
@@ -962,8 +962,8 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2f(-.4, 0);
         glVertex2f(-.4, r3/mmax/2.);
         glEnd();
-        */
     }
+    */
     glPopMatrix();
     drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLength() / 2),
              s.scale, s.vehicleName);

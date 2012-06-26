@@ -355,6 +355,8 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time) const {
         }
         return result;
     }
+#else
+    UNUSED_PARAMETER(time);
 #endif
     MSLane* insertionLane = getDepartLane(static_cast<MSVehicle&>(v));
     return insertionLane != 0 && insertionLane->insertVehicle(static_cast<MSVehicle&>(v));

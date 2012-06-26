@@ -283,8 +283,8 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
                 */
     }
     // draw best lanes
+    /*
     if (true) {
-        /*
         const MSLane &l = veh->getLane();
         SUMOReal r1 = veh->allowedContinuationsLength(&l, 0);
         SUMOReal r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;
@@ -302,8 +302,8 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2f(-.4, 0);
         glVertex2f(-.4, r3/mmax/2.);
         glEnd();
-        */
     }
+    */
     glPopMatrix();
     /*
     drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLength() / 2),
@@ -313,7 +313,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
+GUIPerson::drawGLAdditional(GUISUMOAbstractView* const /* parent */, const GUIVisualizationSettings& /* s */) const {
     glPushName(getGlID());
     glPushMatrix();
     /*
@@ -380,7 +380,7 @@ GUIPerson::setColor(const GUIVisualizationSettings& s) const {
 
 
 bool
-GUIPerson::setFunctionalColor(size_t activeScheme) const {
+GUIPerson::setFunctionalColor(size_t /* activeScheme */) const {
     /*
     switch (activeScheme) {
         case 1: {
@@ -431,7 +431,7 @@ GUIPerson::setFunctionalColor(size_t activeScheme) const {
 
 
 SUMOReal
-GUIPerson::getColorValue(size_t activeScheme) const {
+GUIPerson::getColorValue(size_t /* activeScheme */) const {
     /*
     switch (activeScheme) {
         case 7:

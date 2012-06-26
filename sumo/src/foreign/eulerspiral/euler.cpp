@@ -222,7 +222,7 @@ void EulerSpiral::compute_es_params ()
   double k0 = k0_init_est;
   double L = L_init_est;
 
-  double e1, e2, e3, e4;
+  double e1, e2, e3, e4 = 0;
 
   for (int i=0;i<MAX_NUM_ITERATIONS;i++)
   {

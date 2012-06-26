@@ -181,6 +181,10 @@ private:
     /// @brief vsafe from krauss since Wiedemann is deficient at approaching
     // standing obstacles (see MSCFModel_Krauss::_vsafe)
     SUMOReal krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const;
+
+private:
+    /// @brief Invalidated assignment operator
+    MSCFModel_Wiedemann& operator=(const MSCFModel_Wiedemann& s);
 };
 
 #endif	/* MSCFModel_Wiedemann_H */

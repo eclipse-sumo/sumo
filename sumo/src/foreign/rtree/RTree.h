@@ -1053,8 +1053,8 @@ int RTREE_QUAL::PickBranch(Rect* a_rect, Node* a_node)
   ELEMTYPEREAL increase;
   ELEMTYPEREAL bestIncr = (ELEMTYPEREAL)-1;
   ELEMTYPEREAL area;
-  ELEMTYPEREAL bestArea;
-  int best;
+  ELEMTYPEREAL bestArea = 0;
+  int best = 0;
   Rect tempRect;
 
   for(int index=0; index < a_node->m_count; ++index)
@@ -1242,7 +1242,7 @@ void RTREE_QUAL::ChoosePartition(PartitionVars* a_parVars, int a_minFill)
   ASSERT(a_parVars);
   
   ELEMTYPEREAL biggestDiff;
-  int group, chosen, betterGroup;
+  int group, chosen = 0, betterGroup = 0;
   
   InitParVars(a_parVars, a_parVars->m_branchCount, a_minFill);
   PickSeeds(a_parVars);

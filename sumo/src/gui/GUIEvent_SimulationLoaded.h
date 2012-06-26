@@ -83,6 +83,9 @@ public:
     /// the name of the settings file to load
     const std::vector<std::string> mySettingsFiles;
 
+private:
+    /// @brief Invalidated assignment operator
+    GUIEvent_SimulationLoaded& operator=(const GUIEvent_SimulationLoaded& s);
 };
 
 

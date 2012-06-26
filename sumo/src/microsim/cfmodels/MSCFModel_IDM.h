@@ -180,6 +180,10 @@ private:
 
     /// @brief A computational shortcut
     const SUMOReal myTwoSqrtAccelDecel;
+
+private:
+    /// @brief Invalidated assignment operator
+    MSCFModel_IDM& operator=(const MSCFModel_IDM& s);
 };
 
 #endif	/* MSCFMODEL_IDM_H */
