@@ -108,7 +108,7 @@ $(OSG_LIBS) \
 endif
 
 
-SUBDIRS = foreign utils microsim netbuild netwrite netgen netimport netload \
+SUBDIRS = foreign utils microsim netbuild netwrite netgenerate netimport netload \
 od2trips polyconvert router dfrouter duarouter jtrrouter activitygen \
 $(INTERNAL_DIRS) $(TRACI_DIRS) $(GUI_DIRS)
 

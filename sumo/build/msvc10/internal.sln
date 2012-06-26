@@ -144,7 +144,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jtrrouter", "jtrrouter\jtrr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netconvert", "netconvert\netconvert.vcxproj", "{4589198B-EBD4-4811-B778-8AE270AEE0CD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netgen", "netgen\netgen.vcxproj", "{F241CA03-4AB1-4BB0-8151-7AF078E2BC06}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netgenerate", "netgen\netgen.vcxproj", "{F241CA03-4AB1-4BB0-8151-7AF078E2BC06}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "od2trips", "od2trips\od2trips.vcxproj", "{39392259-4561-44C0-98F1-64CA4396C025}"
 EndProject

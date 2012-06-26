@@ -28,7 +28,7 @@ man:
 	help2man -N -n "Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO" bin/activitygen > docs/man/activitygen.1
 	help2man -N -n "Importer of O/D-matrices for the road traffic simulation SUMO" bin/od2trips > docs/man/od2trips.1
 	help2man -N -n "Road network importer / builder for the road traffic simulation SUMO" bin/netconvert > docs/man/netconvert.1
-	help2man -N -n "Road network generator for the microscopic road traffic simulation SUMO" bin/netgen > docs/man/netgen.1
+	help2man -N -n "Road network generator for the microscopic road traffic simulation SUMO" bin/netgenerate > docs/man/netgenerate.1
 	help2man -N -n "Importer of polygons and POIs for the road traffic simulation SUMO" bin/polyconvert > docs/man/polyconvert.1
 	help2man -N -n "TraCITestClient for the road traffic simulation SUMO" bin/TraCITestClient > docs/man/TraCITestClient.1
 
@@ -86,7 +86,7 @@ examples:
 	tests/extractTest.py -f tests/examples.txt
 
 sumo$(EXEEXT) netconvert$(EXEEXT) \
-        netgen$(EXEEXT) duarouter$(EXEEXT) \
+        netgenerate$(EXEEXT) duarouter$(EXEEXT) \
         dfrouter$(EXEEXT) jtrrouter$(EXEEXT) \
         od2trips$(EXEEXT) polyconvert$(EXEEXT) \
         sumo-gui$(EXEEXT):

@@ -6,15 +6,15 @@ if CHECK_MEMORY_LEAKS
 MEM_LIBS  = ../foreign/nvwa/libnvwa.a
 endif
 
-bin_PROGRAMS = netgen
+bin_PROGRAMS = netgenerate
 
-netgen_SOURCES = netgen_main.cpp NGEdge.cpp NGEdge.h NGFrame.cpp NGFrame.h \
+netgenerate_SOURCES = netgen_main.cpp NGEdge.cpp NGEdge.h NGFrame.cpp NGFrame.h \
 NGNet.h NGNet.cpp NGNode.cpp NGNode.h \
 NGRandomNetBuilder.h NGRandomNetBuilder.cpp
 
-netgen_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
+netgenerate_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
 
-netgen_LDADD   = ../netbuild/libnetbuild.a \
+netgenerate_LDADD   = ../netbuild/libnetbuild.a \
 ../netwrite/libnetwrite.a \
 ../utils/geom/libgeom.a \
 ../utils/options/liboptions.a \

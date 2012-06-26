@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="netgen"
+	Name="netgenerate"
 	ProjectGUID="{F241CA03-4AB1-4BB0-8151-7AF078E2BC06}"
 	Keyword="MFCProj"
 	>
@@ -53,7 +53,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Release/netgen.exe"
+				OutputFile=".\Release/netgenerate.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -116,7 +116,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Release/netgen64.exe"
+				OutputFile=".\Release/netgenerate64.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -179,7 +179,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Debug/netgenD.exe"
+				OutputFile=".\Debug/netgenerateD.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -242,7 +242,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Debug/netgen64D.exe"
+				OutputFile=".\Debug/netgenerate64D.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -307,7 +307,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/netgenF.exe"
+				OutputFile=".\Fastbuild/netgenerateF.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -373,7 +373,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/netgen64F.exe"
+				OutputFile=".\Fastbuild/netgenerate64F.exe"
 				TargetMachine="17"
 			/>
 			<Tool
