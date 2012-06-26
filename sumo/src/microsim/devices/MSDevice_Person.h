@@ -119,7 +119,7 @@ public:
      * @return The number of stored persons
      */
     unsigned int size() const {
-        return myPersons.size();
+        return static_cast<unsigned int>(myPersons.size());
     }
 
     const std::vector<MSPerson*> &getPersons() const {
