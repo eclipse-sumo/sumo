@@ -68,9 +68,9 @@ const std::string NBTrafficLightLogic::ALLOWED_STATES(NBTrafficLightLogic::allow
 // member method definitions
 // ===========================================================================
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string& id,
-        const std::string& subid, unsigned int noLinks) :
+        const std::string& subid, unsigned int noLinks, SUMOTime offset) :
     Named(id), myNumLinks(noLinks), mySubID(subid),
-    myOffset(0) {}
+    myOffset(offset) {}
 
 NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
     Named(logic->getID()),
@@ -90,7 +90,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int in
         // initialize
         myNumLinks = (unsigned int)state.size();
     } else if (state.size() != myNumLinks) {
-        throw ProcessError("When adding phase: state length of " + toString(state.size()) +
+        throw ProcessError("When adding phase to tlLogic '" + getID() + "': state length of " + toString(state.size()) +
                            " does not match declared number of links " + toString(myNumLinks));
     }
     // check state contents

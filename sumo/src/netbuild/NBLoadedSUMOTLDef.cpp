@@ -51,7 +51,7 @@
 NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& programID, SUMOTime offset) :
     NBTrafficLightDefinition(id, programID, offset),
     myTLLogic(0) {
-    myTLLogic = new NBTrafficLightLogic(id, programID, offset);
+    myTLLogic = new NBTrafficLightLogic(id, programID, 0, offset);
 }
 
 
