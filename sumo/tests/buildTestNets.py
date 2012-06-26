@@ -22,7 +22,7 @@ for root, dirs, files in os.walk(mRoot):
         dirs.remove(".svn")
     for file in files:
         if file.endswith(".netccfg") or file.endswith(".netgcfg"):
-            exe = binPrefix + "gen"
+            exe = binPrefix + "generate"
             if file.endswith(".netccfg"):
                 exe = binPrefix + "convert"
             print "----------------------------------"
