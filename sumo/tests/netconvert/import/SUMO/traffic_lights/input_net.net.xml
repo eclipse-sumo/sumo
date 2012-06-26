@@ -100,7 +100,7 @@
         <lane id="edge_up_0" index="0" speed="10.00" length="25.25" shape="-1.65,30.00 -1.65,4.75"/>
     </edge>
 
-    <tlLogic id="node_centertl" type="static" programID="0" offset="0">
+    <tlLogic id="node_centertl" type="static" programID="0" offset="10">
         <phase duration="31" state="rrrGGgGgg"/>
         <phase duration="3" state="rrryygygg"/>
         <phase duration="6" state="rrrrrGrGG"/>
