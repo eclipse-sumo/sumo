@@ -41,10 +41,7 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <tripinfo value="tripinfo_%s.xml"/>' % step
     if options.weightfiles:
         print >> fd, '        <weight-files value="%s"/>' % options.weightfiles
-    if options.withexittime:
-        print >> fd, '        <vehroute-output.exit-times value="%s"/>' % options.withexittime
-    if options.routesorted:
-        print >> fd, '        <vehroute-output.sorted value="%s"/>' % options.routesorted
+
     add = 'dump_%s.add.xml' % step
     if options.additional:
         add += "," + options.additional
@@ -66,12 +63,14 @@ def writeSUMOConf(step, options, files):
         <device.rerouting.with-taz value="%s"/>
         <device.rerouting.explicit value="%s"/>
         <vehroute-output.last-route value="%s"/>
+        <vehroute-output.exit-times value="%s"/>
+        <vehroute-output.sorted value="%s"/>
     </process>
     <reports>
         <verbose value="True"/>
         <no-warnings value="%s"/>
     </reports>
-</configuration>""" % (step, options.updateInterval, options.withtaz, options.reroutingexplicit, options.lastRoutes, not options.withWarnings)
+</configuration>""" % (step, options.updateInterval, options.withtaz, options.reroutingexplicit, options.lastRoutes, options.withexittime, options.routesorted, not options.withWarnings)
     fd.close()
     fd = open("dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
