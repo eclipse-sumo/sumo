@@ -122,7 +122,7 @@ MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {}
 
 
 const MSEdge *
-MSPerson::MSPersonStage_Walking::getEdge(SUMOTime now) const {
+MSPerson::MSPersonStage_Walking::getEdge(SUMOTime /* now */) const {
     return *myRouteStep;
 }
 
@@ -143,7 +143,7 @@ MSPerson::MSPersonStage_Walking::getPosition(SUMOTime now) const {
 
 
 bool
-MSPerson::MSPersonStage_Walking::checkNoDuration(MSNet *net, MSPerson *person, SUMOTime duration, SUMOTime now) {
+MSPerson::MSPersonStage_Walking::checkNoDuration(MSNet* /* net */, MSPerson* /* person */, SUMOTime duration, SUMOTime /* now */) {
     if(duration==0) {                                                
         
         return true;
@@ -255,7 +255,7 @@ MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 
 
 const MSEdge *
-MSPerson::MSPersonStage_Driving::getEdge(SUMOTime now) const {
+MSPerson::MSPersonStage_Driving::getEdge(SUMOTime /* now */) const {
     if(myVehicle!=0) {
         return myVehicle->getEdge();
     }
@@ -264,7 +264,7 @@ MSPerson::MSPersonStage_Driving::getEdge(SUMOTime now) const {
 
 
 SUMOReal 
-MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime now) const {
+MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime /* now */) const {
     if(myVehicle!=0) {
         return myVehicle->getPositionOnLane();
     }
@@ -273,7 +273,7 @@ MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime now) const {
 
 
 Position 
-MSPerson::MSPersonStage_Driving::getPosition(SUMOTime now) const {
+MSPerson::MSPersonStage_Driving::getPosition(SUMOTime /* now */) const {
     if(myVehicle!=0) {
         return myVehicle->getEdge()->getLanes()[0]->getShape().positionAtLengthPosition(myVehicle->getPositionOnLane());
     }
@@ -282,7 +282,7 @@ MSPerson::MSPersonStage_Driving::getPosition(SUMOTime now) const {
 
         
 void
-MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSPerson* person, SUMOTime now, 
+MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSPerson* person, SUMOTime /* now */, 
                                          const MSEdge& previousEdge, const SUMOReal at) {
     myWaitingEdge = &previousEdge;
     myWaitingPos = at;
@@ -348,18 +348,18 @@ MSPerson::MSPersonStage_Waiting::~MSPersonStage_Waiting() {}
 
 
 const MSEdge *
-MSPerson::MSPersonStage_Waiting::getEdge(SUMOTime now) const {
+MSPerson::MSPersonStage_Waiting::getEdge(SUMOTime /* now */) const {
     return &myDestination;
 }
 
 
 SUMOReal 
-MSPerson::MSPersonStage_Waiting::getEdgePos(SUMOTime now) const {
+MSPerson::MSPersonStage_Waiting::getEdgePos(SUMOTime /* now */) const {
     return myStartPos;
 }
 
 Position 
-MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime now) const {
+MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime /* now */) const {
     return myDestination.getLanes()[0]->getShape().positionAtLengthPosition(myDestination.getLanes()[0]->getLength()/2.);
 }
 

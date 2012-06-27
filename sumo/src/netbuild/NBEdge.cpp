@@ -1556,10 +1556,10 @@ NBEdge::mayBeTLSControlled(int fromLane, NBEdge* toEdge, int toLane) const {
 
 bool
 NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tlID) {
-    int fromLane = c.getFromLane();
+    const int fromLane = c.getFromLane();
     NBEdge* toEdge = c.getTo();
-    int toLane = c.getToLane();
-    int tlIndex = c.getTLIndex();
+    const int toLane = c.getToLane();
+    const int tlIndex = c.getTLIndex();
     // check whether the connection was not set as not to be controled previously
     TLSDisabledConnection tpl;
     tpl.fromLane = fromLane;
@@ -1606,7 +1606,7 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
             (*i).tlLinkNo = tlIndex;
             no++;
         } else {
-            if ((*i).tlID != tlID && (*i).tlLinkNo == tlIndex) {
+            if ((*i).tlID != tlID && static_cast<int>((*i).tlLinkNo) == tlIndex) {
                 WRITE_WARNING("The lane " + toString<int>((*i).fromLane) + " on edge " + getID() + " already had a traffic light signal.");
                 hadError = true;
             }

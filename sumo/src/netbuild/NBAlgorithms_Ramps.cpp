@@ -138,9 +138,8 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
     NBEdge *potHighway, *potRamp, *cont;
     getOnRampEdges(cur, &potHighway, &potRamp, &cont);
     // compute the number of lanes to append
-    int firstLaneNumber = potHighway->getNumLanes();
+    const unsigned int firstLaneNumber = potHighway->getNumLanes();
     int toAdd = (potRamp->getNumLanes() + firstLaneNumber) - cont->getNumLanes();
-    int firstToAdd = toAdd;
     NBEdge *first = cont;
     NBEdge *last = cont;
     NBEdge *curr = cont;
@@ -220,9 +219,8 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     NBEdge *potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
     // compute the number of lanes to append
-    int firstLaneNumber = potHighway->getNumLanes();
+    const unsigned int firstLaneNumber = potHighway->getNumLanes();
     int toAdd = (potRamp->getNumLanes() + firstLaneNumber) - prev->getNumLanes();
-    int firstToAdd = toAdd;
     NBEdge *first = prev;
     NBEdge *last = prev;
     NBEdge *curr = prev;

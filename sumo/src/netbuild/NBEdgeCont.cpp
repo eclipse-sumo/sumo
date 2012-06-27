@@ -742,12 +742,12 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
         }
         NBEdge* e = (*i);
         // loop over connected edges (using always the leftmost one)
-        bool noLoop = false;
+        bool doLoop = true;
         do {
             visited.insert(e);
             EdgeVector edges = e->getToNode()->getEdges();
             if (edges.size() < 2) {
-                noLoop = true;
+                doLoop = false;
                 break;
             }
             EdgeVector::const_iterator me = find(edges.begin(), edges.end(), e);
@@ -757,18 +757,15 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
             if (left == begin) {
                 break;
             }
-            if (find(candidates.begin(), candidates.end(), left) == candidates.end()) {
-                noLoop = true;
-                break;
+            if (find(candidates.begin(), candidates.end(), left) == candidates.end() ||
+		find(visited.begin(), visited.end(), left) != visited.end()) {
+                doLoop = false;
+            } else {
+                e = left;
             }
-            if (find(visited.begin(), visited.end(), left) != visited.end()) {
-                noLoop = true;
-                break;
-            }
-            e = left;
-        } while (true);
+        } while (doLoop);
         // mark collected edges in the case a loop (roundabout) was found
-        if (!noLoop) {
+        if (doLoop) {
             for (std::set<NBEdge*>::const_iterator j = loopEdges.begin(); j != loopEdges.end(); ++j) {
 
                 // disable turnarounds on incoming edges
