@@ -19,7 +19,7 @@ dfrouter dfrouterD dfrouterInt dfrouterIntD \
 duarouter duarouterD duarouterInt duarouterIntD \
 jtrrouter jtrrouterD jtrrouterInt jtrrouterIntD \
 netconvert netconvertD netconvertInt netconvertIntD \
-netgen netgenD netgenInt netgenIntD \
+netgenerate netgenerateD netgenerateInt netgenerateIntD \
 od2trips od2tripsD od2tripsInt od2tripsIntD \
 polyconvert polyconvertD polyconvertInt polyconvertIntD \
 activitygen activitygenD activitygenInt activitygenIntD \
@@ -27,7 +27,7 @@ TraCITestClient TraCITestClientD TraCITestClientInt TraCITestClientIntD \
 sumo-unittest sumo-unittestD \
 netedit neteditD marouter marouterD
 
-all: sumo dfrouter duarouter jtrrouter netconvert netgen od2trips polyconvert activitygen $(GUI_APP) $(NETEDIT_APP) $(MAROUTER_APP) $(TRACI_TESTCLIENT_APP)
+all: sumo dfrouter duarouter jtrrouter netconvert netgenerate od2trips polyconvert activitygen $(GUI_APP) $(NETEDIT_APP) $(MAROUTER_APP) $(TRACI_TESTCLIENT_APP)
 sumo: ../src/sumo
 	cp ../src/sumo ./`echo sumo | sed '$(transform)'`
 	if [ ! -e sumo -a -e meso ]; then ln -s meso sumo; fi
@@ -48,10 +48,10 @@ netconvert: ../src/netconvert
 	cp ../src/netconvert ./`echo netconvert | sed '$(transform)'`
 	if [ ! -e netconvert -a -e netconvertInt ]; then ln -s netconvertInt netconvert; fi
 	if [ ! -e netconvertD -a -e netconvertIntD ]; then ln -s netconvertIntD netconvertD; fi
-netgen: ../src/netgen/netgen
-	cp ../src/netgen/netgen ./`echo netgen | sed '$(transform)'`
-	if [ ! -e netgen -a -e netgenInt ]; then ln -s netgenInt netgen; fi
-	if [ ! -e netgenD -a -e netgenIntD ]; then ln -s netgenIntD netgenD; fi
+netgenerate: ../src/netgen/netgenerate
+	cp ../src/netgen/netgenerate ./`echo netgenerate | sed '$(transform)'`
+	if [ ! -e netgenerate -a -e netgenerateInt ]; then ln -s netgenerateInt netgenerate; fi
+	if [ ! -e netgenerateD -a -e netgenerateIntD ]; then ln -s netgenerateIntD netgenerateD; fi
 od2trips: ../src/od2trips/od2trips
 	cp ../src/od2trips/od2trips ./`echo od2trips | sed '$(transform)'`
 	if [ ! -e od2trips -a -e od2tripsInt ]; then ln -s od2tripsInt od2trips; fi
