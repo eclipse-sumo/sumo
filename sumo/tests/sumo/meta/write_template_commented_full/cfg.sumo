@@ -78,6 +78,9 @@
         <!-- Sorts the output by departure time -->
         <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL"/>
 
+        <!-- Save person-based events into FILE -->
+        <person-event-output value="" synonymes="events" type="FILE"/>
+
     </output>
 
     <time>
@@ -131,6 +134,9 @@
 
         <!-- Select among routing algorithms ['dijkstra', 'astar'] -->
         <routing-algorithm value="dijkstra" type="STR"/>
+
+        <!-- Restrict the maximum size of route distributions -->
+        <routeDist.maxsize value="" type="INT"/>
 
     </processing>
 
