@@ -51,6 +51,7 @@
 // ===========================================================================
 MSRoute::RouteDict MSRoute::myDict;
 MSRoute::RouteDistDict MSRoute::myDistDict;
+unsigned int MSRoute::MaxRouteDistSize = std::numeric_limits<unsigned int>::max();
 
 
 // ===========================================================================

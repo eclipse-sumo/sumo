@@ -45,6 +45,7 @@
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <microsim/MSJunction.h>
+#include <microsim/MSRoute.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
@@ -225,6 +226,10 @@ MSFrame::fillOptions() {
     oc.addDescription("routing-algorithm", "Processing", 
             "Select among routing algorithms ['dijkstra', 'astar']");
 
+    oc.doRegister("routeDist.maxsize", new Option_Integer());
+    oc.addDescription("routeDist.maxsize", "Processing", 
+            "Restrict the maximum size of route distributions");
+
     // devices
     MSDevice_Routing::insertOptions();
     MSDevice_HBEFA::insertOptions();
@@ -344,7 +349,11 @@ MSFrame::checkOptions() {
     if (oc.isSet("gui-settings-file") && 
             oc.getString("gui-settings-file") != "" && 
             !oc.isUsableFileList("gui-settings-file")) {
-        return false;
+        ok = false;
+    }
+    if (oc.isSet("routeDist.maxsize") && oc.getInt("routeDist.maxsize") <= 0) {
+        WRITE_ERROR("routeDist.maxsize must be positive");
+        ok = false;
     }
     return ok;
 }
@@ -373,6 +382,9 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
 #ifdef HAVE_SUBSECOND_TIMESTEPS
     DELTA_T = string2time(oc.getString("step-length"));
 #endif
+    if (oc.isSet("routeDist.maxsize")) {
+        MSRoute::setMaxRouteDistSize(oc.getInt("routeDist.maxsize"));
+    }
 }
 
 

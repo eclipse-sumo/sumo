@@ -188,6 +188,18 @@ public:
 
     static void insertIDs(std::vector<std::string> &into);
 
+    /// @brief release the route (to be used as function pointer with RandomDistributor)
+    static void releaseRoute(const MSRoute* route) {
+        route->release();
+    }
+
+    static void setMaxRouteDistSize(unsigned int size) {
+        MaxRouteDistSize = size;
+    }
+
+    static unsigned int getMaxRouteDistSize() {
+        return MaxRouteDistSize;
+    }
 
 private:
     /// The list of edges to pass
@@ -214,6 +226,9 @@ private:
 
     /// The dictionary container
     static RouteDistDict myDistDict;
+
+    /// @brief the maximum size for each routeDistribution
+    static unsigned int MaxRouteDistSize;
 
 };
 

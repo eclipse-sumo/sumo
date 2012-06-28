@@ -57,7 +57,7 @@ MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, SUMOTime b
     const std::string distID = id + "_" + toString(begin);
     myCurrentRouteDistribution = MSRoute::distDictionary(distID);
     if (myCurrentRouteDistribution == 0) {
-        myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+        myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>(MSRoute::getMaxRouteDistSize(), &MSRoute::releaseRoute);
         MSRoute::dictionary(distID, myCurrentRouteDistribution);
     }
 #ifdef HAVE_INTERNAL
@@ -110,7 +110,7 @@ MSRouteProbe::writeXMLOutput(OutputDevice& dev,
             dev.closeTag(true);
         }
         dev.closeTag();
-        myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+        myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>(MSRoute::getMaxRouteDistSize(), &MSRoute::releaseRoute);
         MSRoute::dictionary(getID() + "_" + toString(stopTime), myCurrentRouteDistribution);
     }
 }

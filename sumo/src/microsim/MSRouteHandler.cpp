@@ -392,7 +392,7 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
             return;
         }
     }
-    myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+    myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>(MSRoute::getMaxRouteDistSize(), &MSRoute::releaseRoute);
     if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
         bool ok = true;
         StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_ROUTES, myCurrentRouteDistributionID.c_str(), ok));

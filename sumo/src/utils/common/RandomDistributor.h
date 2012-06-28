@@ -32,6 +32,7 @@
 #endif
 
 #include <cassert>
+#include <limits>
 #include <utils/common/RandHelper.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -53,8 +54,20 @@
 template<class T>
 class RandomDistributor {
 public:
-    /// @brief Constructor for an empty distribution
-    RandomDistributor() : myProb(0) { }
+    typedef void(*Operation)(const T);
+    static void doNothing(const T) {} 
+
+    /** @brief Constructor for an empty distribution
+     * @param[in] maximumSize The maximum size to maintain 
+     *   older entrys will be removed when adding more than the maximumSize
+     */
+    RandomDistributor(unsigned int maximumSize=std::numeric_limits<unsigned int>::max(), 
+            Operation operation=&doNothing) : 
+        myProb(0),
+        myMaximumSize(maximumSize),
+        myInsertionIndex(0),
+        myOperation(operation)
+    {}
 
     /// @brief Destructor
     ~RandomDistributor() { }
@@ -80,8 +93,15 @@ public:
                 }
             }
         }
-        myVals.push_back(val);
-        myProbs.push_back(prob);
+        if (myVals.size() < myMaximumSize) {
+            myVals.push_back(val);
+            myProbs.push_back(prob);
+        } else {
+            myOperation(myVals[myInsertionIndex]);
+            myVals[myInsertionIndex] = val;
+            myProbs[myInsertionIndex] = prob;
+            myInsertionIndex = (myInsertionIndex + 1) % myMaximumSize;
+        }
     }
 
     /** @brief Draw a sample of the distribution.
@@ -118,6 +138,9 @@ public:
     /// @brief Clears the distribution
     void clear() {
         myProb = 0;
+        for (size_t i = 0; i < myVals.size(); i++) {
+            myOperation(myVals[i]);
+        }
         myVals.clear();
         myProbs.clear();
     }
@@ -147,9 +170,15 @@ public:
 private:
     /// @brief the total probability
     SUMOReal myProb;
-    /// @brief the members
+    /// @brief the maximumSize of the distribution that shall be maintained
+    unsigned int myMaximumSize;
+    /// @brief the index at which the next element shall be inserted if maximumSize is exceeded
+    unsigned int myInsertionIndex;
+    /// @brief the operation to perform with replaced elements
+    Operation myOperation;
+    /// @brief the members (acts as a ring buffer if myMaximumSize is reached)
     std::vector<T> myVals;
-    /// @brief the corresponding probabilities
+    /// @brief the corresponding probabilities (acts as a ring buffer if myMaximumSize is reached)
     std::vector<SUMOReal> myProbs;
 
 };
