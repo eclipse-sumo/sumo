@@ -150,7 +150,7 @@ NIImporter_ITSUMO::Handler::~Handler() {}
 
 
 void
-NIImporter_ITSUMO::Handler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+NIImporter_ITSUMO::Handler::myStartElement(int element, const SUMOSAXAttributes& /* attrs */) {
     switch (element) {
         case ITSUMO_TAG_NODE:
             myParameter.clear();
@@ -293,7 +293,6 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
         case ITSUMO_TAG_LANE: {
             try {
                 std::string id = myParameter["laneID"];
-                int pos = TplConvert::_2int(myParameter["pos"].c_str());
                 int i = TplConvert::_2int(myParameter["i"].c_str());
                 SUMOReal v = TplConvert::_2SUMOReal(myParameter["v"].c_str());
                 myCurrentLanes.push_back(Lane(id, (unsigned int) i, v));

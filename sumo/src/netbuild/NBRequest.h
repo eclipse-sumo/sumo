@@ -234,8 +234,10 @@ private:
 private:
     static size_t myGoodBuilds, myNotBuild;
 
+private:
+    /// @brief Invalidated assignment operator
+    NBRequest& operator=(const NBRequest& s);
 };
-
 
 #endif
 

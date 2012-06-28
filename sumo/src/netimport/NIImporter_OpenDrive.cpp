@@ -396,8 +396,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             std::cout << "Missing edge." << std::endl;
             continue; // yes, occurs
         }
-        // !!!why edge2junction; e already has the junction...
-        NBNode* n = nb.getNodeCont().retrieve(edge2junction[e.id]);
         std::vector<OpenDriveEdge>::iterator predEdge = std::find_if(outerEdges.begin(), outerEdges.end(), edge_by_id_finder(pred));
         if (predEdge == outerEdges.end()) {
             throw ProcessError("Could not find connection edge.");

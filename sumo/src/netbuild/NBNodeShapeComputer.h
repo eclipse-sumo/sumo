@@ -115,8 +115,11 @@ private:
     /// The node to compute the geometry for
     const NBNode& myNode;
 
-};
+private:
+    /// @brief Invalidated assignment operator
+    NBNodeShapeComputer& operator=(const NBNodeShapeComputer& s);
 
+};
 
 #endif
 

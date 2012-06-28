@@ -247,7 +247,6 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
      * Only those nodes in the middle of an edge which are used by more than
      * one edge are instantiated. Other nodes are considered as geometry nodes. */
     NBNodeCont& nc = nb.getNodeCont();
-    NBEdgeCont& ec = nb.getEdgeCont();
     NBTrafficLightLogicCont& tlsc = nb.getTLLogicCont();
     for (std::map<std::string, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         Edge* e = (*i).second;
