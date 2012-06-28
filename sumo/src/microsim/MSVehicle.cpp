@@ -449,7 +449,7 @@ SUMOReal
 MSVehicle::getAngle() const {
     Position p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
     Position p2 = myFurtherLanes.size() > 0
-                  ? myFurtherLanes.front()->getShape().positionAtLengthPosition(myFurtherLanes.front()->getPartialOccupatorEnd())
+                  ? myFurtherLanes.back()->getShape().positionAtLengthPosition(myFurtherLanes.back()->getPartialOccupatorEnd())
                   : myLane->getShape().positionAtLengthPosition(myState.pos() - myType->getLength());
     if (p1 != p2) {
         return atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / PI;
