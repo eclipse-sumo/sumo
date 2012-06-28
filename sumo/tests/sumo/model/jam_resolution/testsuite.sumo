@@ -1,0 +1,5 @@
+# check that a jam moves upstream under high flow conditions
+high_flow
+
+# check jam development and flow at bottleneck (reduction in number of lanes)
+bottleneck

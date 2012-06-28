@@ -1,2 +1,5 @@
 # show that vehicles may follow each other around a circular track
 drive_in_circles
+
+# create and jam at a roadblock and see how it resolves after removing the block
+jam_resolution
