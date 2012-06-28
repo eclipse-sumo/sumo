@@ -333,6 +333,8 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) {
             }
         }
     }
+    WRITE_MESSAGE("    " + toString(myDict.size()) + " routes");
+    WRITE_MESSAGE("    " + toString(myDistDict.size()) + " route distributions");
 }
 #endif
 
