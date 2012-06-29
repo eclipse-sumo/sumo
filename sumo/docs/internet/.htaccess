@@ -5,6 +5,12 @@
 ###########################################################
 
 RewriteEngine On
+RewriteBase /blog/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /blog/index.php [L]
+
 
 RewriteCond	%{REQUEST_URI}	^/wiki/
 RewriteRule	^wiki/index.php/(.+)	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=$1
