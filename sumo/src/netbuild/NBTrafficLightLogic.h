@@ -124,7 +124,7 @@ public:
      * @param[in] tlIndex The index at which to modify the state
      * @param[in] linkState The new link state for the given index
      */
-    void setPhaseState(unsigned int phaseIndex, int tlIndex, LinkState linkState);
+    void setPhaseState(unsigned int phaseIndex, unsigned int tlIndex, LinkState linkState);
 
     /** @brief Modifies the duration for an existing phase (used by NETEDIT)
      * @param[in] phaseIndex The index of the phase to modify

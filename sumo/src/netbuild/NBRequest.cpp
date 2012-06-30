@@ -312,16 +312,14 @@ size_t
 NBRequest::distanceCounterClockwise(NBEdge* from, NBEdge* to) {
     EdgeVector::const_iterator p = find(myAll.begin(), myAll.end(), from);
     size_t ret = 0;
-    while (true) {
+    do {
         ret++;
         if (p == myAll.begin()) {
             p = myAll.end();
         }
         p--;
-        if ((*p) == to) {
-            return ret;
-        }
-    }
+    } while (*p != to);
+    return ret;
 }
 
 

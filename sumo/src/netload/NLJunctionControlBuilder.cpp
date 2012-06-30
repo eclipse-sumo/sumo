@@ -306,12 +306,12 @@ NLJunctionControlBuilder::addLogicItem(int request,
         // initialize
         myRequestSize = (int)response.size();
     }
-    if (response.size() != myRequestSize) {
+    if (static_cast<int>(response.size()) != myRequestSize) {
         myCurrentHasError = true;
         throw InvalidArgument("Invalid response size " + toString(response.size()) +
                               " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");
     }
-    if (foes.size() != myRequestSize) {
+    if (static_cast<int>(foes.size()) != myRequestSize) {
         myCurrentHasError = true;
         throw InvalidArgument("Invalid foes size " + toString(foes.size()) +
                               " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");

@@ -166,12 +166,10 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         }
         break;
-        case VAR_MIN_EXPECTED_VEHICLES: {
-            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
+        case VAR_MIN_EXPECTED_VEHICLES:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(MSNet::getInstance()->getVehicleControl().getActiveVehicleCount() + MSNet::getInstance()->getInsertionControl().getPendingFlowCount());
-        }
-        break;
+            break;
         case POSITION_CONVERSION:
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Position conversion requires a compound object.", outputStorage);

@@ -431,6 +431,10 @@ protected:
     private:
         const std::string& myEdgeID;
 
+    private:
+        /// @brief Invalidated assignment operator
+        edge_by_id_finder& operator=(const edge_by_id_finder& s);
+
     };
 
 

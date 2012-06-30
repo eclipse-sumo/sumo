@@ -98,6 +98,9 @@ protected:
     /// @brief The edge container to fill
     NBEdgeCont& myEdgeCont;
 
+private:
+    /// @brief Invalidated assignment operator
+    NIImporter_RobocupRescue& operator=(const NIImporter_RobocupRescue& s);
 };
 
 
