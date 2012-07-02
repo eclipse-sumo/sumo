@@ -74,25 +74,25 @@ public:
      *
      * @return the number of inhabitants
      */
-    int getPopulation() const;
+    SUMOReal getPopulation() const;
 
     /** @brief Modifies the number of persons living in this street.
      *
      * @param[in] pop the new number of inhabitants
      */
-    void setPopulation(const int& pop);
+    void setPopulation(const SUMOReal pop);
 
     /** @brief Provides the number of work places in this street.
      *
      * @return the number of work places
      */
-    int getWorkplaceNumber() const;
+    SUMOReal getWorkplaceNumber() const;
 
     /** @brief Modifies the number of work places in this street.
      *
      * @param[in] work the new number of work places
      */
-    void setWorkplaceNumber(const int& work);
+    void setWorkplaceNumber(const SUMOReal work);
 
     /** @brief Prints a summary of the properties of this street to standard
      * output.
@@ -103,8 +103,8 @@ private:
     friend class AGPosition;
 
     const ROEdge* edge;
-    int pop;
-    int work;
+    SUMOReal pop;
+    SUMOReal work;
 };
 
 #endif

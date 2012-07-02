@@ -68,17 +68,7 @@ AGDataAndStatistics::getRandomPopDistributed(int n, int m) {
     if (m > limitEndAge) {
         m = limitEndAge;
     }
-    SUMOReal alea = RandHelper::rand();
-    SUMOReal beginProp = getPropYoungerThan(n);
-    SUMOReal total = getPropYoungerThan(m) - beginProp;
-    if (total <= 0) {
-        return -1;
-    }
-    /**
-     * alea = alea * total + beginProp =====> easier test
-     * than: alea < (getPropYoungerThan(a+1)-beginProp)/total
-     */
-    alea = alea * total + beginProp;
+    const SUMOReal alea = RandHelper::rand(getPropYoungerThan(n), getPropYoungerThan(m));
     for (int a = n; a < m; ++a) {
         if (alea < getPropYoungerThan(a + 1)) {
             return a;
@@ -102,10 +92,7 @@ AGDataAndStatistics::getPoissonsNumberOfChildren(SUMOReal mean) {
 
 SUMOReal
 AGDataAndStatistics::poisson(SUMOReal mean, int occ) {
-    SUMOReal proba = exp(-mean);
-    proba *= pow(mean, occ);
-    proba /= (SUMOReal)factorial(occ);
-    return proba;
+    return exp(-mean) * pow(mean, occ) / (SUMOReal)factorial(occ);
 }
 
 int

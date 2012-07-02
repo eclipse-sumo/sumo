@@ -42,56 +42,49 @@
 // ===========================================================================
 AGStreet::AGStreet(const ROEdge* edge, SUMOReal popDensity, SUMOReal workDensity) :
     edge(edge) {
-    pop = static_cast<int>(popDensity * edge->getLength());
-    work = static_cast<int>(workDensity * edge->getLength());
+    pop = popDensity * edge->getLength();
+    work = workDensity * edge->getLength();
 }
 
-/****************************************************************************/
 
 void
 AGStreet::print() const {
     std::cout << "- AGStreet: Name=" << edge->getID() << " Length=" << edge->getLength() << " pop=" << pop << " work=" << work << std::endl;
 }
 
-/****************************************************************************/
 
 SUMOReal
 AGStreet::getLength() const {
     return edge->getLength();
 }
 
-/****************************************************************************/
 
 const std::string&
 AGStreet::getName() const {
     return edge->getID();
 }
 
-/****************************************************************************/
 
-int
+SUMOReal
 AGStreet::getPopulation() const {
     return pop;
 }
 
-/****************************************************************************/
 
 void
-AGStreet::setPopulation(const int& population) {
+AGStreet::setPopulation(const SUMOReal population) {
     pop = population;
 }
 
-/****************************************************************************/
 
-int
+SUMOReal
 AGStreet::getWorkplaceNumber() const {
     return work;
 }
 
-/****************************************************************************/
 
 void
-AGStreet::setWorkplaceNumber(const int& workPositions) {
+AGStreet::setWorkplaceNumber(const SUMOReal workPositions) {
     work = workPositions;
 }
 

@@ -59,29 +59,27 @@ AGCity::completeStreets() {
         streetsCompleted = true;
     }
 
-    NrStreets = 0;
-    int pop = 0, work = 0;
+    SUMOReal pop = 0, work = 0;
     std::vector<AGStreet>::iterator it;
 
     for (it = streets.begin(); it != streets.end(); ++it) {
-        pop += (int)(it->getPopulation());
-        work += (int)(it->getWorkplaceNumber());
-        ++NrStreets;
+        pop += it->getPopulation();
+        work += it->getWorkplaceNumber();
     }
-    statData.factorInhabitants = (float)statData.inhabitants / (float)pop;
+    statData.factorInhabitants = (SUMOReal)statData.inhabitants / pop;
     //can be improved with other input data
     SUMOReal neededWorkPositionsInCity = (1.0 - statData.unemployement)
-                                         * ((float)statData.getPeopleYoungerThan(statData.limitAgeRetirement)
-                                            - (float)statData.getPeopleYoungerThan(statData.limitAgeChildren))
-                                         + (float)statData.incomingTraffic;
+                                         * ((SUMOReal)statData.getPeopleYoungerThan(statData.limitAgeRetirement)
+                                            - (SUMOReal)statData.getPeopleYoungerThan(statData.limitAgeChildren))
+                                         + (SUMOReal)statData.incomingTraffic;
     // we generate 5% more work positions that really needed: to avoid any expensive research of random work positions
-    neededWorkPositionsInCity *= 1.05f;
+    neededWorkPositionsInCity *= SUMOReal(1.05);
     statData.workPositions = (int)neededWorkPositionsInCity;
-    statData.factorWorkPositions = neededWorkPositionsInCity / (float) work;
+    statData.factorWorkPositions = neededWorkPositionsInCity / (SUMOReal) work;
 
     for (it = streets.begin(); it != streets.end(); ++it) {
-        it->setPopulation((int)(it->getPopulation() * statData.factorInhabitants));
-        it->setWorkplaceNumber((int)(it->getWorkplaceNumber() * statData.factorWorkPositions));
+        it->setPopulation(it->getPopulation() * statData.factorInhabitants);
+        it->setWorkplaceNumber(it->getWorkplaceNumber() * statData.factorWorkPositions);
         //it->print();
     }
 
@@ -140,7 +138,7 @@ AGCity::generateOutgoingWP() {
     /**
      * N_out = N_in * (ProportionOut / (1 - ProportionOut)) = N_out = N_in * (Noutworkers / (Nworkers - Noutworkers))
      */
-    int nbrOutWorkPositions = static_cast<int>(workPositions.size() * (static_cast<float>(statData.outgoingTraffic)) / (nbrWorkers - static_cast<float>(statData.outgoingTraffic)));
+    int nbrOutWorkPositions = static_cast<int>(workPositions.size() * (static_cast<SUMOReal>(statData.outgoingTraffic)) / (nbrWorkers - static_cast<SUMOReal>(statData.outgoingTraffic)));
 
     if (cityGates.empty()) {
         return;
@@ -169,18 +167,39 @@ AGCity::completeBusLines() {
 void
 AGCity::generatePopulation() {
     std::vector<AGStreet>::iterator it;
-    int people;
+    SUMOReal people = 0;
     nbrCars = 0;
     int idHouseholds = 0;
-
+    std::vector<int> numAdults(statData.households);
+    std::vector<int> numChilds(statData.households);
+    int totalChildrenLeft = statData.inhabitants - statData.getPeopleOlderThan(statData.limitAgeChildren);
+    const SUMOReal retiredProb = statData.getPeopleOlderThan(statData.limitAgeRetirement) / statData.getPeopleOlderThan(statData.limitAgeChildren);
+    for (int i = 0; i < statData.households; i++) {
+        numAdults[i] = 1;
+        numChilds[i] = 0;
+        if (RandHelper::rand() < retiredProb) {
+            numAdults[i] = -numAdults[i];
+        } else if (totalChildrenLeft > 0) {
+            numChilds[i] = statData.getPoissonsNumberOfChildren(statData.meanNbrChildren);
+            totalChildrenLeft -= numChilds[i];
+        }
+    }
+    //compensate with adults for too many / missing children
+    const int numSecondPers = statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.households + totalChildrenLeft;
+    for (int i = 0; i < numSecondPers; i++) {
+        numAdults[i] *= 2;
+    }
     for (it = streets.begin(); it != streets.end(); ++it) {
-        people = it->getPopulation();
-        while (people > 0) {
+        people += it->getPopulation();
+        while (people > 0 && idHouseholds < numAdults.size()) {
+            int i = RandHelper::rand(numAdults.size() - idHouseholds);
             ++idHouseholds;
             households.push_back(AGHousehold(&*it, this, idHouseholds));
-            households.back().generatePeople(); //&statData
+            households.back().generatePeople(abs(numAdults[i]), numChilds[i], numAdults[i] < 0); //&statData
             //households.back().generateCars(statData.carRate);
             people -= households.back().getPeopleNbr();
+            numAdults[i] = numAdults[numAdults.size() - idHouseholds];
+            numChilds[i] = numChilds[numAdults.size() - idHouseholds];
         }
     }
 
@@ -356,7 +375,7 @@ AGCity::carAllocation() {
     //std::cout << "number of people far from public transport: " << statData.hhFarFromPT << std::endl;
     //std::cout << "original rate: " << setprecision(4) << statData.carRate << std::endl;
     //std::cout << "new rate: " << setprecision(4) << newRate << std::endl;
-    //std::cout << "real rate: " << setprecision(4) << (float)nbrCars / (float)statData.getPeopleOlderThan(statData.limitAgeChildren) << std::endl;
+    //std::cout << "real rate: " << setprecision(4) << (SUMOReal)nbrCars / (SUMOReal)statData.getPeopleOlderThan(statData.limitAgeChildren) << std::endl;
     //END TEST RESULTS
 }
 

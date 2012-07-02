@@ -112,7 +112,6 @@ private:
      */
     bool streetsCompleted;
 
-    int NrStreets;
     int nbrCars;
 };
 

@@ -43,31 +43,28 @@
 // method definitions
 // ===========================================================================
 void
-AGHousehold::generatePeople() {
+AGHousehold::generatePeople(int numAdults, int numChilds, bool firstRetired) {
     AGDataAndStatistics* ds = &(myCity->statData);
     //the first adult
     AGAdult pers(ds->getRandomPopDistributed(ds->limitAgeChildren, ds->limitEndAge));
+    if (firstRetired) {
+        pers = AGAdult(ds->getRandomPopDistributed(ds->limitAgeRetirement, ds->limitEndAge));
+    }
     adults.push_back(pers);
-
-    //the second adult
-    if (decisionProba(ds->secondPersProb)) {
-        if (pers.getAge() < ds->limitAgeRetirement) {
-            AGAdult pers2(ds->getRandomPopDistributed(ds->limitAgeChildren, ds->limitAgeRetirement));
+    //further adults
+    while (adults.size() < numAdults) {
+        if (firstRetired) {
+            AGAdult pers2(ds->getRandomPopDistributed(ds->limitAgeRetirement, ds->limitEndAge));
             adults.push_back(pers2);
         } else {
-            AGAdult pers2(ds->getRandomPopDistributed(ds->limitAgeRetirement, ds->limitEndAge));
+            AGAdult pers2(ds->getRandomPopDistributed(ds->limitAgeChildren, ds->limitAgeRetirement));
             adults.push_back(pers2);
         }
     }
-
     //Children
-    if (pers.getAge() < ds->limitAgeRetirement) {
-        int numChild = ds->getPoissonsNumberOfChildren(ds->meanNbrChildren);
-        while (numChild > 0) {
-            AGChild chl(ds->getRandomPopDistributed(0, ds->limitAgeChildren));
-            children.push_back(chl);
-            --numChild;
-        }
+    while (children.size() < numChilds) {
+        AGChild chl(ds->getRandomPopDistributed(0, ds->limitAgeChildren));
+        children.push_back(chl);
     }
 }
 

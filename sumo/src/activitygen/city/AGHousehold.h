@@ -73,7 +73,7 @@ public:
      *   Children are created in relation to the mean number of children and
      *   they are distributed with the POISSON's lay of probability.
      */
-    void generatePeople();
+    void generatePeople(int numAdults, int numChilds, bool firstRetired);
     int getPeopleNbr();
     int getAdultNbr();
     /**
