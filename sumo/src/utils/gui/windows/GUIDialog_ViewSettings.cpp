@@ -810,7 +810,9 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
         return 1;
     }
     // get the name
-    while (true) {
+    bool haveValidName = false;
+    std::string name = "";
+    while (name.length() == 0) {
         FXDialogBox dialog(this, "Enter a name", DECOR_TITLE | DECOR_BORDER);
         FXVerticalFrame* content = new FXVerticalFrame(&dialog, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10);
         new FXLabel(content, "Please enter an alphanumeric name: ", NULL, LAYOUT_FILL_X | JUSTIFY_LEFT);
@@ -821,34 +823,27 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
         new FXButton(buttons, "&Cancel", NULL, &dialog, FXDialogBox::ID_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_RIGHT, 0, 0, 0, 0, 20, 20);
         dialog.create();
         text->setFocus();
-        if (dialog.execute()) {
-            std::string name = text->getText().text();
-            bool isAlphaNum = true;
-            for (size_t i = 0; i < name.length(); ++i) {
-                if (name[i] == '_' || (name[i] >= 'a' && name[i] <= 'z') || (name[i] >= 'A' && name[i] <= 'Z') || (name[i] >= '0' && name[i] <= '9')) {
-                    continue;
-                }
-                isAlphaNum = false;
-            }
-            isAlphaNum = isAlphaNum & (name.length() > 0);
-            if (isAlphaNum) {
-                GUIVisualizationSettings tmpSettings = *mySettings;
-                gSchemeStorage.remove(mySettings->name);
-                tmpSettings.name = name;
-                gSchemeStorage.add(tmpSettings);
-                mySchemeName->setItemText(index, tmpSettings.name.c_str());
-                myParent->getColoringSchemesCombo().setItemText(index, tmpSettings.name.c_str());
-                myParent->setColorScheme(tmpSettings.name);
-                mySettings = &gSchemeStorage.get(name);
-                myBackup = *mySettings;
-                gSchemeStorage.writeSettings(getApp());
-                return 1;
-            }
-        } else {
+        if (!dialog.execute()) {
             return 1;
         }
+        name = text->getText().text();
+        for (size_t i = 0; i < name.length(); ++i) {
+            if (name[i] != '_' && (name[i] < 'a' || name[i] > 'z') && (name[i] < 'A' || name[i] > 'Z') && (name[i] < '0' || name[i] > '9')) {
+                name = "";
+                break;
+            }
+        }
     }
-    // save
+    GUIVisualizationSettings tmpSettings = *mySettings;
+    gSchemeStorage.remove(mySettings->name);
+    tmpSettings.name = name;
+    gSchemeStorage.add(tmpSettings);
+    mySchemeName->setItemText(index, tmpSettings.name.c_str());
+    myParent->getColoringSchemesCombo().setItemText(index, tmpSettings.name.c_str());
+    myParent->setColorScheme(tmpSettings.name);
+    mySettings = &gSchemeStorage.get(name);
+    myBackup = *mySettings;
+    gSchemeStorage.writeSettings(getApp());
     return 1;
 }
 

@@ -1094,11 +1094,11 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
     }
     const MSLane* nextLane = targetLane;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / speed);
-    while (true) {
+    do {
         // get the next link used
         MSLinkCont::const_iterator link = targetLane->succLinkSec(veh, view, *nextLane, bestLaneConts);
         if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, veh.getVehicleType().getLength()) || (*link)->getState() == LINKSTATE_TL_RED) {
-            return std::pair<MSVehicle * const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
+            break;
         }
 #ifdef HAVE_INTERNAL_LANES
         bool nextInternal = false;
@@ -1112,7 +1112,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         nextLane = (*link)->getLane();
 #endif
         if (nextLane == 0) {
-            return std::pair<MSVehicle * const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
+            break;
         }
         arrivalTime += TIME2STEPS(nextLane->getLength() / speed);
         MSVehicle* leader = nextLane->getLastVehicle();
@@ -1128,9 +1128,6 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
             dist = veh.getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(&veh));
         }
         seen += nextLane->getLength();
-        if (seen > dist) {
-            return std::pair<MSVehicle * const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
-        }
 #ifdef HAVE_INTERNAL_LANES
         if (!nextInternal) {
             view++;
@@ -1138,7 +1135,8 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
 #else
         view++;
 #endif
-    }
+    } while (seen <= dist);
+    return std::pair<MSVehicle * const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
 }
 
 

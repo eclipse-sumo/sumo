@@ -390,17 +390,14 @@ GUISUMOAbstractView::displayLegend() {
     size_t length = 1;
     const std::string text("10000000000");
     size_t noDigits = 1;
-    size_t pixelSize = 0;
-    while (true) {
-        pixelSize = (size_t) m2p((SUMOReal) length);
-        if (pixelSize > 20) {
-            break;
-        }
+    size_t pixelSize = (size_t) m2p((SUMOReal) length);
+    while (pixelSize <= 20) {
         length *= 10;
         noDigits++;
         if (noDigits > text.length()) {
             return;
         }
+        pixelSize = (size_t) m2p((SUMOReal) length);
     }
     SUMOReal lineWidth = 1.0;
     glLineWidth((SUMOReal) lineWidth);
