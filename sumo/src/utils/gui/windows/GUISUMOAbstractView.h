@@ -37,7 +37,15 @@
 #include <vector>
 #include <map>
 #include <fx.h>
+// fx3d includes windows.h so we need to guard against macro pollution
+#ifdef WIN32
+#define NOMINMAX
+#endif
 #include <fx3d.h>
+#ifdef WIN32
+#undef NOMINMAX
+#endif
+
 #include <utils/foxtools/MFXMutex.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
