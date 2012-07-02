@@ -26,13 +26,13 @@
     $('#slideshow1').cycle({ delay: 1000, timeout: 10000});
     $('#slideshow2').cycle({ delay: 2000, timeout: 9000});
     $("#feed").PaRSS(
-      "http://sourceforge.net/apps/wordpress/sumo/category/sumo/feed/",  // rss feed url (required)
+      "http://sumo.sourceforge.net/blog/category/sumo/feed/",  // rss feed url (required)
       3, // number of items (optional)
       "M, jS y h:i", // date format (optional)
       false // descriptions? (optional)
     );
     $("#releases").PaRSS(
-      "http://sourceforge.net/apps/wordpress/sumo/category/release/feed/",  // rss feed url (required)
+      "http://sumo.sourceforge.net/blog/category/release/feed/",  // rss feed url (required)
       3, // number of items (optional)
       "M, jS y h:i", // date format (optional)
       false // descriptions? (optional)
