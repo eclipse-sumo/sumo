@@ -1,8 +1,8 @@
-SUMO netgen Version dev-SVN-r12007
+SUMO netgenerate Version dev-SVN-rUNKNOWN
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network generator for the microscopic road traffic simulation SUMO.
 
-Usage: netgen [OPTION]*
+Usage: netgenerate [OPTION]*
  Either "--grid", "--spider" or "--rand" must be supplied.
   In dependance to these switches other options are used.
  
@@ -150,13 +150,13 @@ Random Number Options:
 
 
 Examples:
-  netgen -c <CONFIGURATION>
+  netgenerate -c <CONFIGURATION>
     create net from given configuration
-  netgen --grid [grid-network options] -o <OUTPUTFILE>
+  netgenerate --grid [grid-network options] -o <OUTPUTFILE>
     create grid net
-  netgen --spider [spider-network options] -o <OUTPUTFILE>
+  netgenerate --spider [spider-network options] -o <OUTPUTFILE>
     create spider net
-  netgen --rand [random-network options] -o <OUTPUTFILE>
+  netgenerate --rand [random-network options] -o <OUTPUTFILE>
     create random net
 
 Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
