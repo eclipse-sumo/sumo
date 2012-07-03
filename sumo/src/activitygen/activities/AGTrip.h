@@ -45,43 +45,40 @@
 // ===========================================================================
 class AGTrip {
 public:
-    /*Trip() :
-    	atTime(-1)
-    {};*/
     AGTrip(AGPosition from, AGPosition to, int at) : //vehicle not specified
-        from(from),
-        to(to),
-        atTime(at),
-        type("default"),
-        day(0) {};
+        myFrom(from),
+        myTo(to),
+        myDepTime(at),
+        myType("default"),
+        myDay(0) {};
     AGTrip(AGPosition from, AGPosition to, AGCar c, int at) :
-        from(from),
-        to(to),
-        atTime(at),
-        vehicle(c.getName()),
-        type("default"),
-        day(0) {};
+        myFrom(from),
+        myTo(to),
+        myDepTime(at),
+        myVehicle(c.getName()),
+        myType("default"),
+        myDay(0) {};
     AGTrip(AGPosition from, AGPosition to, AGBus b, int at) :
-        from(from),
-        to(to),
-        atTime(at),
-        vehicle(b.getName()),
-        type("bus"),
-        day(0) {};
+        myFrom(from),
+        myTo(to),
+        myDepTime(at),
+        myVehicle(b.getName()),
+        myType("bus"),
+        myDay(0) {};
     AGTrip(AGPosition from, AGPosition to, std::string v, int at) :
-        from(from),
-        to(to),
-        atTime(at),
-        vehicle(v),
-        type("default"),
-        day(0) {};
+        myFrom(from),
+        myTo(to),
+        myDepTime(at),
+        myVehicle(v),
+        myType("default"),
+        myDay(0) {};
     AGTrip(AGPosition from, AGPosition to, std::string v, int at, int day) :
-        from(from),
-        to(to),
-        atTime(at),
-        vehicle(v),
-        type("default"),
-        day(day) {};
+        myFrom(from),
+        myTo(to),
+        myDepTime(at),
+        myVehicle(v),
+        myType("default"),
+        myDay(day) {};
     void print();
     bool operator<(AGTrip& trip);
 
@@ -131,21 +128,21 @@ public:
     bool isDaily();
 
 private:
-    int atTime;
-    AGPosition from;
-    AGPosition to;
-    std::string vehicle;
-    std::list<AGPosition> passBy;
-    /**
-     * if everyday : 0
-     * else        : number of the day ( != 0 )
-     */
-    int day;
+    AGPosition myFrom;
+    AGPosition myTo;
+    int myDepTime;
+    std::string myVehicle;
     /**
      * indicates if it is a bus or a car (or any type)
      * "bus", "default" or "random" (which is a kind of default)
      */
-    std::string type;
+    std::string myType;
+    /**
+     * if everyday : 0
+     * else        : number of the day ( != 0 )
+     */
+    int myDay;
+    std::list<AGPosition> myPassBy;
 };
 
 #endif

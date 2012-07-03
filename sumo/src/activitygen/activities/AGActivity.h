@@ -62,9 +62,8 @@ public:
     /**
      * main function called for trip generation
      * this function is overwritten in every child-class (every activity)
-     * @TO BE OVERWRITEN
      */
-    bool generateTrips();
+    virtual bool generateTrips() = 0;
 
     /**
      * determine the possible transportation means, what would be chosen:

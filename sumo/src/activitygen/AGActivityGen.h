@@ -115,6 +115,10 @@ protected:
      * @param[in] trip on which a random (normally distributed) variation will be tried
      */
     void varDepTime(AGTrip& trip);
+
+private:
+    /// @brief invalidated assignment operator
+    AGActivityGen& operator=(const AGActivityGen&);
 };
 
 #endif

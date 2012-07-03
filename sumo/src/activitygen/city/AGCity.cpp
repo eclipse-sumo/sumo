@@ -192,7 +192,7 @@ AGCity::generatePopulation() {
     for (it = streets.begin(); it != streets.end(); ++it) {
         people += it->getPopulation();
         while (people > 0 && idHouseholds < numAdults.size()) {
-            int i = RandHelper::rand(numAdults.size() - idHouseholds);
+            size_t i = RandHelper::rand(numAdults.size() - idHouseholds);
             ++idHouseholds;
             households.push_back(AGHousehold(&*it, this, idHouseholds));
             households.back().generatePeople(abs(numAdults[i]), numChilds[i], numAdults[i] < 0); //&statData

@@ -54,76 +54,76 @@ void
 AGTrip::print() {
     std::cout << "Trip: " << std::endl;
     std::cout << "\t-From= ";
-    from.print();
+    myFrom.print();
     std::cout << "\t-To= ";
-    to.print();
-    std::cout << "\t-At= " << atTime << " -Day= " << day << std::endl;
-    std::cout << "\t-Vehicle= " << vehicle << std::endl;
-    std::cout << "\t-type= " << type << std::endl;
+    myTo.print();
+    std::cout << "\t-At= " << myDepTime << " -Day= " << myDay << std::endl;
+    std::cout << "\t-Vehicle= " << myVehicle << std::endl;
+    std::cout << "\t-type= " << myType << std::endl;
 }
 
 void
 AGTrip::addLayOver(AGPosition by) {
-    passBy.push_back(by);
+    myPassBy.push_back(by);
 }
 
 void
 AGTrip::addLayOver(AGTrip& trip) {
     std::list<AGPosition>::iterator it;
-    for (it = trip.passBy.begin(); it != trip.passBy.end(); ++it) {
-        passBy.push_back(*it);
+    for (it = trip.myPassBy.begin(); it != trip.myPassBy.end(); ++it) {
+        myPassBy.push_back(*it);
     }
-    passBy.push_back(trip.to);
+    myPassBy.push_back(trip.myTo);
 }
 
 void
 AGTrip::addLayOverWithoutDestination(AGTrip& trip) {
     std::list<AGPosition>::iterator it;
-    for (it = trip.passBy.begin(); it != trip.passBy.end(); ++it) {
-        passBy.push_back(*it);
+    for (it = trip.myPassBy.begin(); it != trip.myPassBy.end(); ++it) {
+        myPassBy.push_back(*it);
     }
 }
 
 std::list<AGPosition>*
 AGTrip::getPassed() {
-    return &passBy;
+    return &myPassBy;
 }
 
 std::string
 AGTrip::getType() {
-    return type;
+    return myType;
 }
 
 void
 AGTrip::setType(std::string type) {
-    this->type = type;
+    myType = type;
 }
 
 AGPosition
 AGTrip::getDep() {
-    return from;
+    return myFrom;
 }
 
 AGPosition
 AGTrip::getArr() {
-    return to;
+    return myTo;
 }
 
 int
 AGTrip::getTime() {
-    return atTime;
+    return myDepTime;
 }
 
 int
 AGTrip::getTimeTrip(SUMOReal secPerKm) {
     SUMOReal dist = 0;
     std::list<AGPosition> positions;
-    positions.push_back(from);
+    positions.push_back(myFrom);
     std::list<AGPosition>::iterator it;
-    for (it = passBy.begin(); it != passBy.end(); ++it) {
+    for (it = myPassBy.begin(); it != myPassBy.end(); ++it) {
         positions.push_back(*it);
     }
-    positions.push_back(to);
+    positions.push_back(myTo);
 
     bool firstPass = true;
     AGPosition* temp;
@@ -140,66 +140,57 @@ AGTrip::getTimeTrip(SUMOReal secPerKm) {
 
 int
 AGTrip::getArrTime(SUMOReal secPerKm) {
-    int arrTime = atTime + getTimeTrip(secPerKm);
-    return arrTime;
+    return myDepTime + getTimeTrip(secPerKm);
 }
 
 int
 AGTrip::getRideBackArrTime(SUMOReal secPerKm) {
-    int arrAtTime = getArrTime(secPerKm);
-    int time = (int)(secPerKm * to.distanceTo(from) / 1000.0);
-    int arrTime = arrAtTime + time;
-    return arrTime;
+    return getArrTime(secPerKm) + (int)(secPerKm * myTo.distanceTo(myFrom) / 1000.0);
 }
 
 void
 AGTrip::setDepTime(int time) {
-    atTime = time;
+    myDepTime = time;
 }
 
 int
 AGTrip::estimateDepTime(int arrTime, SUMOReal secPerKm) {
-    int depTime = arrTime - getTimeTrip(secPerKm);
-    return depTime;
+    return arrTime - getTimeTrip(secPerKm);
 }
 
 std::string
 AGTrip::getVehicleName() {
-    return vehicle;
+    return myVehicle;
 }
 
 void
 AGTrip::setVehicleName(std::string name) {
-    vehicle = name;
+    myVehicle = name;
 }
 
 void
 AGTrip::setArr(AGPosition arrival) {
-    to = *new AGPosition(arrival.getStreet(), arrival.getPosition());
+    myTo = *new AGPosition(arrival.getStreet(), arrival.getPosition());
 }
 
 void
 AGTrip::setDep(AGPosition departure) {
-    from = *new AGPosition(departure.getStreet(), departure.getPosition());
+    myFrom = *new AGPosition(departure.getStreet(), departure.getPosition());
 }
 
 bool
 AGTrip::isDaily() {
-    if (day == 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return (myDay == 0);
 }
 
 int
 AGTrip::getDay() {
-    return day;
+    return myDay;
 }
 
 void
 AGTrip::setDay(int d) {
-    day = d;
+    myDay = d;
 }
 
 /****************************************************************************/
