@@ -52,7 +52,9 @@ MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal lea
     // each vehicle is tracked linearly across its segment. For each vehicle,
     // the time and position of the previous call are maintained and only
     // the increments are sent to notifyMoveInternal
-    assert(entryTime <= currentTime);
+    if (entryTime > currentTime) {
+        return; // calibrator may insert vehicles a tiny bit into the future; ignore those
+    }
     std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> >::iterator j = myLastVehicleUpdateValues.find(&veh);
     if (j != myLastVehicleUpdateValues.end()) {
         // the vehicle already has reported its values before; use these
