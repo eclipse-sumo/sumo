@@ -314,7 +314,7 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) {
         unsigned int no;
         bis >> no;
         if (dictionary(id) == 0) {
-            RandomDistributor<const MSRoute*> *dist = new RandomDistributor<const MSRoute*>();
+            RandomDistributor<const MSRoute*> *dist = new RandomDistributor<const MSRoute*>(getMaxRouteDistSize(), &releaseRoute);
             for (; no > 0; no--) {
                 std::string routeID;
                 bis >> routeID;
