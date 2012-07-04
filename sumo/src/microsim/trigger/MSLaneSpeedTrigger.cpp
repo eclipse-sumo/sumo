@@ -64,12 +64,12 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string& id,
                                        const std::string& file) : 
     MSTrigger(id), 
     SUMOSAXHandler(file),
-    myDestLanes(destLanes), 
-    myAmOverriding(false), 
-    myDidInit(false),
+    myDestLanes(destLanes),
     myCurrentSpeed(destLanes[0]->getSpeedLimit()),
     myDefaultSpeed(destLanes[0]->getSpeedLimit()),
-    mySpeedOverrideValue(destLanes[0]->getSpeedLimit())
+    myAmOverriding(false),
+    mySpeedOverrideValue(destLanes[0]->getSpeedLimit()),
+    myDidInit(false)
 {
     if (file != "") {
         if (!XMLSubSys::runParser(*this, file)) {

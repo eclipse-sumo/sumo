@@ -50,10 +50,12 @@
 // ---------------------------------------------------------------------------
 // MSMeanData_HBEFA::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
+MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
+        const SUMOReal length, const bool doAdd,
         const std::set<std::string>* const vTypes,
         const MSMeanData_HBEFA* parent)
-    : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes), myParent(parent), CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0) {}
+    : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
+      CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0), myParent(parent) {}
 
 
 MSMeanData_HBEFA::MSLaneMeanDataValues::~MSLaneMeanDataValues() {

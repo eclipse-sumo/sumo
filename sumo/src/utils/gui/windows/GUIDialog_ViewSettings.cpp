@@ -810,7 +810,6 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
         return 1;
     }
     // get the name
-    bool haveValidName = false;
     std::string name = "";
     while (name.length() == 0) {
         FXDialogBox dialog(this, "Enter a name", DECOR_TITLE | DECOR_BORDER);

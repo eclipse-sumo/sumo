@@ -274,8 +274,7 @@ MSBaseVehicle::calculateArrivalPos() {
         case ARRIVAL_POS_RANDOM:
             myArrivalPos = RandHelper::rand(static_cast<SUMOReal>(0), lastLaneLength);
             break;
-        case ARRIVAL_POS_MAX:
-        case ARRIVAL_POS_DEFAULT:
+        default:
             myArrivalPos = lastLaneLength;
             break;
     }

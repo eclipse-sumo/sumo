@@ -162,7 +162,7 @@ MSFullExport::writeLane(OutputDevice& of, const MSLane& lane) {
 }
 
 void
-MSFullExport::writeTLS(OutputDevice& of, SUMOTime timestep) {
+MSFullExport::writeTLS(OutputDevice& of, SUMOTime /* timestep */) {
     of.openTag("tls") << ">\n";
     MSTLLogicControl& vc = MSNet::getInstance()->getTLSControl();
     std::vector<std::string> ids = vc.getAllTLIds();

@@ -757,15 +757,12 @@ MSMessageEmitter*
 MSNet::getMsgEmitter(const std::string& whatemit) {
     msgEmitVec.clear();
     msgEmitVec = myMsgEmitter.buildAndGetStaticVector();
-    MSMessageEmitter* msgEmitter = 0;
-    for (int i = 0; i < msgEmitVec.size(); ++i) {
-        if (msgEmitVec.at(i)->getEventsEnabled(whatemit)) {
-            msgEmitter = msgEmitVec.at(i);
-            break;
+    for (std::vector<MSMessageEmitter*>::iterator it = msgEmitVec.begin(); it != msgEmitVec.end(); ++it) {
+        if ((*it)->getEventsEnabled(whatemit)) {
+            return *it;
         }
     }
-    // returns 0 if the requested MessageEmitter is not in the map
-    return msgEmitter;
+    return 0;
 }
 
 

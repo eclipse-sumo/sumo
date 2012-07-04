@@ -53,7 +53,7 @@
 // method definitions
 // ===========================================================================
 void
-MSVTKExport::write(OutputDevice& of, SUMOTime timestep) {
+MSVTKExport::write(OutputDevice& of, SUMOTime /* timestep */) {
    
 		of.openTag("?xml") <<  " version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 		of.openTag("VTKFile")  << " type=\"PolyData\" version=\"0.1\" order=\"LittleEndian\" >\n";

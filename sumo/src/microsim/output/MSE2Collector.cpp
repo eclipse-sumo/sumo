@@ -153,7 +153,7 @@ MSE2Collector::reset() {
 
 
 void
-MSE2Collector::detectorUpdate(const SUMOTime step) {
+MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     JamInfo* currentJam = 0;
     std::map<SUMOVehicle*, SUMOTime> haltingVehicles;
     std::map<SUMOVehicle*, SUMOTime> intervalHaltingVehicles;

@@ -66,8 +66,8 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       internalJunctionName(false, 50, RGBColor(0, .8, .5)),
       showLane2Lane(false), addMode(0), minAddSize(1), addExaggeration(1),
       addName(false, 50, RGBColor(1., 0, .5)),
-      poiName(false, 50, RGBColor(1., 0, .5)),
       minPOISize(0), poiExaggeration(1),
+      poiName(false, 50, RGBColor(1., 0, .5)),
       showSizeLegend(true),
       gaming(false),
       selectionScale(1) {

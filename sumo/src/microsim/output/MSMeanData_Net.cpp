@@ -61,9 +61,10 @@ MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const bool doAdd,
         const std::set<std::string>* const vTypes,
         const MSMeanData_Net* parent)
-    : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes), myParent(parent),
-      nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0), nVehVaporized(0),
-      nVehLaneChangeFrom(0), nVehLaneChangeTo(0), waitSeconds(0), vehLengthSum(0) {}
+    : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
+      nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
+      nVehVaporized(0), nVehLaneChangeFrom(0), nVehLaneChangeTo(0),
+      waitSeconds(0), vehLengthSum(0), myParent(parent) {}
 
 
 MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() {
