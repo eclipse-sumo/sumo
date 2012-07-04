@@ -142,7 +142,7 @@ AGDataAndStatistics::getPropYoungerThan(int age) {
 
 int
 AGDataAndStatistics::getPeopleYoungerThan(int age) {
-    return (int)((SUMOReal)inhabitants * getPropYoungerThan(age));
+    return (int)((SUMOReal)inhabitants * getPropYoungerThan(age) + .5);
 }
 
 int
