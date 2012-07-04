@@ -760,7 +760,7 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
 SUMOTime
 MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
     const std::string& wautid = cmd.getWAUTID();
-    unsigned int index = cmd.getIndex();
+    unsigned int &index = cmd.getIndex();
     WAUTSwitch s = myWAUTs[wautid]->switches[index];
     for (std::vector<WAUTJunction>::iterator i = myWAUTs[wautid]->junctions.begin(); i != myWAUTs[wautid]->junctions.end(); ++i) {
         // get the current program and the one to instantiate
