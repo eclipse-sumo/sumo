@@ -105,7 +105,10 @@ std::string
 SUMOSAXAttributesImpl_Xerces::getString(int id) const throw(EmptyData) {
     const XMLCh* utf16 = getAttributeValueSecure(id);
 #if _XERCES_VERSION < 30100
-    return std::string(XMLString::transcode(utf16));
+    char* t = XMLString::transcode(utf16);
+    std::string result(t);
+    XMLString::release(&t);
+    return result;
 #else
     if (XMLString::stringLen(utf16) == 0) {
         // TranscodeToStr and debug_new interact badly in this case;
@@ -123,7 +126,10 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
         const std::string& str) const throw(EmptyData) {
     const XMLCh* utf16 = getAttributeValueSecure(id);
 #if _XERCES_VERSION < 30100
-    return TplConvert::_2strSec(XMLString::transcode(utf16), str);
+    char* t = XMLString::transcode(utf16);
+    std::string result(TplConvert::_2strSec(t, str));
+    XMLString::release(&t);
+    return result;
 #else
     if (XMLString::stringLen(utf16) == 0) {
         // TranscodeToStr and debug_new interact badly in this case;
