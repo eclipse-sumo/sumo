@@ -49,8 +49,8 @@ public:
     AGCar(int idHH, int idCar) :
         idName(createName(idHH, idCar)) {};
     bool associateTo(AGAdult* pers);
-    bool isAssociated();
-    std::string getName();
+    bool isAssociated() const;
+    std::string getName() const;
 
 private:
     std::string createName(int idHH, int idCar);

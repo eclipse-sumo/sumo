@@ -56,15 +56,15 @@ public:
      * @param housepos: Position of the households habitation
      * @return if a school was found corresponding to the child's age.
      */
-    bool alocateASchool(std::list<AGSchool> *schools, AGPosition housePos);
+    bool allocateASchool(std::list<AGSchool> *schools, AGPosition housePos);
     /**
      * @return if the child is now without any school
      */
     bool leaveSchool();
-    bool haveASchool();
-    AGPosition getSchoolLocation();
-    int getSchoolOpeining();
-    int getSchoolClosing();
+    bool haveASchool() const;
+    AGPosition getSchoolLocation() const;
+    int getSchoolOpening() const;
+    int getSchoolClosing() const;
 
 private:
     AGSchool* school;

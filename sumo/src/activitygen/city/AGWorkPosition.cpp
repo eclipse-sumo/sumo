@@ -45,23 +45,22 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) :
-    location(inStreet),
-    openingTime(generateOpeningTime(*ds)),
-    closingTime(generateClosingTime(*ds)),
-    ds(ds),
-    adult(0) {
+AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet) :
+    myStatData(ds),
+    myLocation(inStreet),
+    myAdult(0),
+    myOpeningTime(generateOpeningTime(*ds)),
+    myClosingTime(generateClosingTime(*ds)) {
     ds->workPositions++;
 }
 
-/****************************************************************************/
 
-AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds) :
-    location(inStreet, pos),
-    openingTime(generateOpeningTime(*ds)),
-    closingTime(generateClosingTime(*ds)),
-    ds(ds),
-    adult(0) {
+AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet, SUMOReal pos) :
+    myStatData(ds),
+    myLocation(inStreet, pos),
+    myAdult(0),
+    myOpeningTime(generateOpeningTime(*ds)),
+    myClosingTime(generateClosingTime(*ds)) {
     ds->workPositions++;
 }
 
@@ -69,16 +68,14 @@ AGWorkPosition::~AGWorkPosition() {
 //    let();
 }
 
-/****************************************************************************/
 
 void
 AGWorkPosition::print() const {
-    std::cout << "- AGWorkPosition: open=" << openingTime << " closingTime=" << closingTime << " taken=" << isTaken() << std::endl;
+    std::cout << "- AGWorkPosition: open=" << myOpeningTime << " closingTime=" << myClosingTime << " taken=" << isTaken() << std::endl;
     std::cout << "\t";
-    location.print();
+    myLocation.print();
 }
 
-/****************************************************************************/
 
 int
 AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) {
@@ -96,7 +93,6 @@ AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) {
     return 900;
 }
 
-/****************************************************************************/
 
 int
 AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) {
@@ -113,55 +109,49 @@ AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) {
     return 1700;
 }
 
-/****************************************************************************/
 
 bool
 AGWorkPosition::isTaken() const {
-    return (adult != 0);
+    return (myAdult != 0);
 }
 
-/****************************************************************************/
 
 void
 AGWorkPosition::let() {
-    if (adult != 0) {
-        ds->workPositions++;
-        adult->lostWorkPosition();
-        adult = 0;
+    if (myAdult != 0) {
+        myStatData->workPositions++;
+        myAdult->lostWorkPosition();
+        myAdult = 0;
     }
 }
 
-/****************************************************************************/
 
 void
 AGWorkPosition::take(AGAdult* worker) throw(std::runtime_error) {
-    if (adult == 0) {
-        ds->workPositions--;
-        adult = worker;
+    if (myAdult == 0) {
+        myStatData->workPositions--;
+        myAdult = worker;
     } else {
         throw(std::runtime_error("Work position already occupied. Cannot give it to another adult."));
     }
 }
 
-/****************************************************************************/
 
 AGPosition
 AGWorkPosition::getPosition() const {
-    return location;
+    return myLocation;
 }
 
-/****************************************************************************/
 
 int
 AGWorkPosition::getClosing() const {
-    return closingTime;
+    return myClosingTime;
 }
 
-/****************************************************************************/
 
 int
 AGWorkPosition::getOpening() const {
-    return openingTime;
+    return myOpeningTime;
 }
 
 /****************************************************************************/

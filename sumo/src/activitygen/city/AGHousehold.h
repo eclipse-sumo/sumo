@@ -58,24 +58,22 @@ class AGCity;
 class AGHousehold {
 public:
     AGHousehold(AGPosition pos, AGCity* city, int idHouseholds) :
-        location(pos),
         myCity(city),
-        idHH(idHouseholds) {};
+        myLocation(pos),
+        myId(idHouseholds) {};
     AGHousehold(AGStreet* str, AGCity* city, int idHouseholds) :
-        location(*str),
         myCity(city),
-        idHH(idHouseholds) {};
+        myLocation(*str),
+        myId(idHouseholds) {};
     /**
-     * - function generating one first Adult.
-     * - a second person is created depending on the mean number of adults per Households
-     *   (and depending on the age of the first person)
-     * - and children are created for households of one or two people in age to work.
-     *   Children are created in relation to the mean number of children and
-     *   they are distributed with the POISSON's lay of probability.
+     * function generating the given number of adults (1 or 2) and possibly children
      */
     void generatePeople(int numAdults, int numChilds, bool firstRetired);
     int getPeopleNbr();
     int getAdultNbr();
+    const std::list<AGAdult>& getAdults() const;
+    const std::list<AGChild>& getChildren() const;
+    const std::list<AGCar>& getCars() const;
     /**
      * function returning true if the household is close to the given stations stations
      */
@@ -120,19 +118,17 @@ public:
      * returns the position of the household and other private entities
      */
     AGPosition getPosition();
-    std::list<AGAdult> adults;
-    std::list<AGChild> children;
-    std::list<AGCar> cars;
 
 private:
-
-    bool decisionProba(SUMOReal p);
-
     AGCity* myCity;
-    AGPosition location;
-    int numberOfPeople;
-    int numberOfCars;
-    int idHH;
+    AGPosition myLocation;
+    int myNumberOfCars;
+    int myId;
+
+private:
+    std::list<AGAdult> myAdults;
+    std::list<AGChild> myChildren;
+    std::list<AGCar> myCars;
 };
 
 #endif

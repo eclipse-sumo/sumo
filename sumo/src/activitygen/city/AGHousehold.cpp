@@ -50,29 +50,29 @@ AGHousehold::generatePeople(int numAdults, int numChilds, bool firstRetired) {
     if (firstRetired) {
         pers = AGAdult(ds->getRandomPopDistributed(ds->limitAgeRetirement, ds->limitEndAge));
     }
-    adults.push_back(pers);
+    myAdults.push_back(pers);
     //further adults
-    while (adults.size() < numAdults) {
+    while (static_cast<int>(myAdults.size()) < numAdults) {
         if (firstRetired) {
             AGAdult pers2(ds->getRandomPopDistributed(ds->limitAgeRetirement, ds->limitEndAge));
-            adults.push_back(pers2);
+            myAdults.push_back(pers2);
         } else {
             AGAdult pers2(ds->getRandomPopDistributed(ds->limitAgeChildren, ds->limitAgeRetirement));
-            adults.push_back(pers2);
+            myAdults.push_back(pers2);
         }
     }
     //Children
-    while (children.size() < numChilds) {
+    while (static_cast<int>(myChildren.size()) < numChilds) {
         AGChild chl(ds->getRandomPopDistributed(0, ds->limitAgeChildren));
-        children.push_back(chl);
+        myChildren.push_back(chl);
     }
 }
 
 void
 AGHousehold::generateCars(SUMOReal rate) {
-    int peopleInNeed = static_cast<int>(adults.size()) - static_cast<int>(cars.size());
+    int peopleInNeed = static_cast<int>(myAdults.size()) - static_cast<int>(myCars.size());
     while (peopleInNeed > 0) {
-        if (decisionProba(rate)) {
+        if (RandHelper::rand() < rate) {
             addACar();
         }
         --peopleInNeed;
@@ -81,28 +81,43 @@ AGHousehold::generateCars(SUMOReal rate) {
 
 void
 AGHousehold::addACar() {
-    int numCar = static_cast<int>(cars.size() + 1);
-    cars.push_back(AGCar(idHH, numCar));
+    int numCar = static_cast<int>(myCars.size() + 1);
+    myCars.push_back(AGCar(myId, numCar));
 }
 
 int
 AGHousehold::getCarNbr() {
-    return static_cast<int>(cars.size());
+    return static_cast<int>(myCars.size());
 }
 
 int
 AGHousehold::getPeopleNbr() {
-    return static_cast<int>(adults.size() + children.size());
+    return static_cast<int>(myAdults.size() + myChildren.size());
 }
 
 int
 AGHousehold::getAdultNbr() {
-    return static_cast<int>(adults.size());
+    return static_cast<int>(myAdults.size());
+}
+
+const std::list<AGAdult>&
+AGHousehold::getAdults() const {
+    return myAdults;
+}
+
+const std::list<AGChild>&
+AGHousehold::getChildren() const {
+    return myChildren;
+}
+
+const std::list<AGCar>&
+AGHousehold::getCars() const {
+    return myCars;
 }
 
 bool
 AGHousehold::isCloseFromPubTransport(std::list<AGPosition> *pubTransport) {
-    SUMOReal distToPT = location.minDistanceTo(*pubTransport);
+    SUMOReal distToPT = myLocation.minDistanceTo(*pubTransport);
     if (distToPT > myCity->statData.maxFootDistance) {
         return false;
     }
@@ -111,7 +126,7 @@ AGHousehold::isCloseFromPubTransport(std::list<AGPosition> *pubTransport) {
 
 bool
 AGHousehold::isCloseFromPubTransport(std::map<int, AGPosition> *pubTransport) {
-    SUMOReal distToPT = location.minDistanceTo(*pubTransport);
+    SUMOReal distToPT = myLocation.minDistanceTo(*pubTransport);
     if (distToPT > myCity->statData.maxFootDistance) {
         return false;
     }
@@ -123,16 +138,16 @@ AGHousehold::regenerate() {
     //only allocation of work or school to people will change
     std::list<AGChild>::iterator itC;
     std::list<AGAdult>::iterator itA;
-    for (itC = children.begin(); itC != children.end(); ++itC) {
+    for (itC = myChildren.begin(); itC != myChildren.end(); ++itC) {
         if (itC->haveASchool()) {
             if (itC->leaveSchool()) {
-                itC->alocateASchool(&(myCity->schools), getPosition());
+                itC->allocateASchool(&(myCity->schools), getPosition());
             }
         } else {
-            itC->alocateASchool(&(myCity->schools), getPosition());
+            itC->allocateASchool(&(myCity->schools), getPosition());
         }
     }
-    for (itA = adults.begin(); itA != adults.end(); ++itA) {
+    for (itA = myAdults.begin(); itA != myAdults.end(); ++itA) {
         if (itA->isWorking()) {
             itA->resignFromWorkPosition();
         }
@@ -151,8 +166,8 @@ AGHousehold::allocateChildrenSchool() {
     std::list<AGChild>::iterator it;
     bool oneRemainsAtHome = false;
 
-    for (it = children.begin(); it != children.end(); ++it) {
-        if (!it->alocateASchool(&(myCity->schools), location)) {
+    for (it = myChildren.begin(); it != myChildren.end(); ++it) {
+        if (!it->allocateASchool(&(myCity->schools), myLocation)) {
             oneRemainsAtHome = true;
         }
     }
@@ -162,7 +177,7 @@ AGHousehold::allocateChildrenSchool() {
 bool
 AGHousehold::allocateAdultsWork() {
     std::list<AGAdult>::iterator it;
-    for (it = adults.begin(); it != adults.end(); ++it) {
+    for (it = myAdults.begin(); it != myAdults.end(); ++it) {
         if (myCity->statData.workPositions <= 0) {
             std::cout << "Not enough free work positions in AGHousehold::allocateAdultsWork. Should not happen." << std::endl;
             return false;
@@ -174,14 +189,9 @@ AGHousehold::allocateAdultsWork() {
     return true;
 }
 
-bool
-AGHousehold::decisionProba(SUMOReal p) {
-    return (RandHelper::rand() < p);
-}
-
 AGPosition
 AGHousehold::getPosition() {
-    return location;
+    return myLocation;
 }
 
 AGCity*
@@ -191,7 +201,7 @@ AGHousehold::getTheCity() {
 
 bool
 AGHousehold::retiredHouseholders() {
-    return (adults.front().getAge() >= myCity->statData.limitAgeRetirement);
+    return (myAdults.front().getAge() >= myCity->statData.limitAgeRetirement);
 }
 
 /****************************************************************************/

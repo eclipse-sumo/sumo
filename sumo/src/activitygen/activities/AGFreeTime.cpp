@@ -60,7 +60,7 @@ const int AGFreeTime::TE_NIGHT = (new AGTime(1, 5, 0))->getTime();
 // ===========================================================================
 int
 AGFreeTime::decideTypeOfTrip() {
-    if (hh->adults.front().decide(freqOut)) {
+    if (myHousehold->getAdults().front().decide(freqOut)) {
         int num_poss = 0; //(possibleType % 2) + (possibleType / 4) + ((possibleType / 2) % 2);
         if (possibleType & DAY) {
             ++num_poss;
@@ -104,16 +104,16 @@ AGFreeTime::decideTypeOfTrip() {
 int
 AGFreeTime::possibleTypeOfTrip() {
     int val = 0;
-    if (hh->adults.front().getAge() >= ds->limitAgeRetirement && tReady == 0) {
+    if (myHousehold->getAdults().front().getAge() >= myStatData->limitAgeRetirement && tReady == 0) {
         val += DAY + EVENING;
     } else {
-        if (hh->getPeopleNbr() > hh->getAdultNbr()) {
+        if (myHousehold->getPeopleNbr() > myHousehold->getAdultNbr()) {
             val += NIGHT;
         }
 
-        std::list<AGAdult>::iterator itA;
+        std::list<AGAdult>::const_iterator itA;
         bool noBodyWorks = true;
-        for (itA = hh->adults.begin(); itA != hh->adults.end(); ++itA) {
+        for (itA = myHousehold->getAdults().begin(); itA != myHousehold->getAdults().end(); ++itA) {
             if (itA->isWorking()) {
                 noBodyWorks = false;
             }
@@ -132,42 +132,42 @@ AGFreeTime::possibleTypeOfTrip() {
 bool
 AGFreeTime::typeFromHomeDay(int day) {
     int backHome = whenBackHomeThisDay(day);
-    if (hh->cars.empty()) {
+    if (myHousehold->getCars().empty()) {
         return true;
     }
-    AGPosition destination(hh->getTheCity()->getRandomStreet());
+    AGPosition destination(myHousehold->getTheCity()->getRandomStreet());
     int depTime = randomTimeBetween(MAX2(backHome, TB_DAY), (TB_DAY + TE_DAY) / 2);
-    int arrTime = this->arrHour(hh->getPosition(), destination, depTime);
+    int arrTime = this->arrHour(myHousehold->getPosition(), destination, depTime);
     int retTime = randomTimeBetween(arrTime, TE_DAY);
     if (depTime < 0 || retTime < 0) {
         return true;    // not enough time during the day
     }
-    AGTrip depTrip(hh->getPosition(), destination, hh->cars.front().getName(), depTime, day);
-    AGTrip retTrip(destination, hh->getPosition(), hh->cars.front().getName(), retTime, day);
+    AGTrip depTrip(myHousehold->getPosition(), destination, myHousehold->getCars().front().getName(), depTime, day);
+    AGTrip retTrip(destination, myHousehold->getPosition(), myHousehold->getCars().front().getName(), retTime, day);
 
-    this->partialActivityTrips.push_back(depTrip);
-    this->partialActivityTrips.push_back(retTrip);
+    myPartialActivityTrips.push_back(depTrip);
+    myPartialActivityTrips.push_back(retTrip);
     return true;
 }
 
 bool
 AGFreeTime::typeFromHomeEvening(int day) {
     int backHome = whenBackHomeThisDay(day);
-    if (hh->cars.empty()) {
+    if (myHousehold->getCars().empty()) {
         return true;
     }
-    AGPosition destination(hh->getTheCity()->getRandomStreet());
+    AGPosition destination(myHousehold->getTheCity()->getRandomStreet());
     int depTime = randomTimeBetween(MAX2(backHome, TB_EVENING), TE_EVENING);
-    int arrTime = this->arrHour(hh->getPosition(), destination, depTime);
+    int arrTime = this->arrHour(myHousehold->getPosition(), destination, depTime);
     int retTime = randomTimeBetween(arrTime, TE_EVENING);
     if (depTime < 0 || retTime < 0) {
         return true;    // not enough time during the day
     }
-    AGTrip depTrip(hh->getPosition(), destination, hh->cars.front().getName(), depTime, day);
-    AGTrip retTrip(destination, hh->getPosition(), hh->cars.front().getName(), retTime, day);
+    AGTrip depTrip(myHousehold->getPosition(), destination, myHousehold->getCars().front().getName(), depTime, day);
+    AGTrip retTrip(destination, myHousehold->getPosition(), myHousehold->getCars().front().getName(), retTime, day);
 
-    this->partialActivityTrips.push_back(depTrip);
-    this->partialActivityTrips.push_back(retTrip);
+    myPartialActivityTrips.push_back(depTrip);
+    myPartialActivityTrips.push_back(retTrip);
     return true;
 }
 
@@ -176,15 +176,15 @@ AGFreeTime::typeFromHomeNight(int day) {
     int backHome = whenBackHomeThisDay(day);
     int ActivitiesNextDay = whenBeginActivityNextDay(day); // is equal to 2 days if there is nothing the next day
     int nextDay = 0;
-    if (hh->cars.empty()) {
+    if (myHousehold->getCars().empty()) {
         return true;
     }
-    AGPosition destination(hh->getTheCity()->getRandomStreet());
+    AGPosition destination(myHousehold->getTheCity()->getRandomStreet());
 
     int depTime = randomTimeBetween(MAX2(backHome, TB_NIGHT), TE_NIGHT);
-    int arrTime = this->arrHour(hh->getPosition(), destination, depTime);
+    int arrTime = this->arrHour(myHousehold->getPosition(), destination, depTime);
     //we have to go back home before the beginning of next day activities.
-    int lastRetTime = this->depHour(destination, hh->getPosition(), MIN2(TE_NIGHT, ActivitiesNextDay));
+    int lastRetTime = this->depHour(destination, myHousehold->getPosition(), MIN2(TE_NIGHT, ActivitiesNextDay));
     int retTime = randomTimeBetween(arrTime, lastRetTime);
     if (depTime < 0 || retTime < 0) {
         return true;    // not enough time during the day
@@ -193,15 +193,15 @@ AGFreeTime::typeFromHomeNight(int day) {
     AGTime departureTime(depTime);
     nextDay = departureTime.getDay();
     departureTime.setDay(0);
-    AGTrip depTrip(hh->getPosition(), destination, hh->cars.front().getName(), departureTime.getTime(), day + nextDay);
+    AGTrip depTrip(myHousehold->getPosition(), destination, myHousehold->getCars().front().getName(), departureTime.getTime(), day + nextDay);
 
     AGTime returnTime(depTime);
     nextDay = returnTime.getDay();
     returnTime.setDay(0);
-    AGTrip retTrip(destination, hh->getPosition(), hh->cars.front().getName(), returnTime.getTime(), day + nextDay);
+    AGTrip retTrip(destination, myHousehold->getPosition(), myHousehold->getCars().front().getName(), returnTime.getTime(), day + nextDay);
 
-    this->partialActivityTrips.push_back(depTrip);
-    this->partialActivityTrips.push_back(retTrip);
+    myPartialActivityTrips.push_back(depTrip);
+    myPartialActivityTrips.push_back(retTrip);
     return true;
 }
 
@@ -236,12 +236,9 @@ AGFreeTime::generateTrips() {
 int
 AGFreeTime::whenBackHome() {
     int timeBack = 0;
-    if (!this->previousTrips->empty()) {
-        std::list<AGTrip>::iterator itT;
-        for (itT = previousTrips->begin(); itT != previousTrips->end(); ++itT) {
-            if (timeBack < itT->getArrTime(this->timePerKm) && itT->isDaily()) {
-                timeBack = itT->getArrTime(this->timePerKm);
-            }
+    for (std::list<AGTrip>::iterator itT = myPreviousTrips->begin(); itT != myPreviousTrips->end(); ++itT) {
+        if (timeBack < itT->getArrTime(this->timePerKm) && itT->isDaily()) {
+            timeBack = itT->getArrTime(this->timePerKm);
         }
     }
     return timeBack;
@@ -250,12 +247,9 @@ AGFreeTime::whenBackHome() {
 int
 AGFreeTime::whenBackHomeThisDay(int day) {
     int timeBack = 0;
-    if (!this->previousTrips->empty()) {
-        std::list<AGTrip>::iterator itT;
-        for (itT = previousTrips->begin(); itT != previousTrips->end(); ++itT) {
-            if (timeBack < itT->getArrTime(this->timePerKm) && (itT->getDay() == day || itT->isDaily())) {
-                timeBack = itT->getArrTime(this->timePerKm);
-            }
+    for (std::list<AGTrip>::iterator itT = myPreviousTrips->begin(); itT != myPreviousTrips->end(); ++itT) {
+        if (timeBack < itT->getArrTime(this->timePerKm) && (itT->getDay() == day || itT->isDaily())) {
+            timeBack = itT->getArrTime(this->timePerKm);
         }
     }
     return timeBack;
@@ -264,12 +258,9 @@ AGFreeTime::whenBackHomeThisDay(int day) {
 int
 AGFreeTime::whenBeginActivityNextDay(int day) {
     AGTime timeBack(1, 0, 0);
-    if (!this->previousTrips->empty()) {
-        std::list<AGTrip>::iterator itT;
-        for (itT = previousTrips->begin(); itT != previousTrips->end(); ++itT) {
-            if (timeBack.getTime() > itT->getTime() && (itT->getDay() == (day + 1) || itT->isDaily())) {
-                timeBack.setTime(itT->getTime());
-            }
+    for (std::list<AGTrip>::iterator itT = myPreviousTrips->begin(); itT != myPreviousTrips->end(); ++itT) {
+        if (timeBack.getTime() > itT->getTime() && (itT->getDay() == (day + 1) || itT->isDaily())) {
+            timeBack.setTime(itT->getTime());
         }
     }
     timeBack.addDays(1); // this the beginning of activities of the next day

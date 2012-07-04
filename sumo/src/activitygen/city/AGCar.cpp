@@ -59,12 +59,12 @@ AGCar::associateTo(AGAdult* pers) {
 }
 
 bool
-AGCar::isAssociated() {
+AGCar::isAssociated() const {
     return (currentUser != NULL);
 }
 
 std::string
-AGCar::getName() {
+AGCar::getName() const {
     return idName;
 }
 

@@ -138,7 +138,7 @@ AGActivities::generateTrips(AGHousehold& hh) {
             ++iteration;
             continue;
         }
-        addTrips(ws.partialActivityTrips, &temporaTrips);
+        addTrips(ws.getPartialActivityTrips(), &temporaTrips);
 
         // free time activities
         AGFreeTime ft(&hh, &(myCity->statData), &temporaTrips, nbrDays);
@@ -148,7 +148,7 @@ AGActivities::generateTrips(AGHousehold& hh) {
             ++iteration;
             continue;
         }
-        addTrips(ft.partialActivityTrips, &temporaTrips);
+        addTrips(ft.getPartialActivityTrips(), &temporaTrips);
         //cout << "after this hh: " << temporaTrips.size() << " we have: " << trips.size() << endl;
         //trips of all activities generated:
         addTrips(temporaTrips, &trips);

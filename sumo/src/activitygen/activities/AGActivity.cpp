@@ -59,27 +59,27 @@ AGActivity::possibleTranspMean(AGPosition destination) {
 
     int transp = 0;
 
-    if (destination.distanceTo(hh->getPosition()) <= ds->maxFootDistance) {
+    if (destination.distanceTo(myHousehold->getPosition()) <= myStatData->maxFootDistance) {
         transp = FOOT;
-        if (hh->getCarNbr() != 0) {
+        if (myHousehold->getCarNbr() != 0) {
             transp += CAR;
         }
-        if (destination.minDistanceTo(ds->busStations) <= ds->maxFootDistance
-                && hh->getPosition().minDistanceTo(ds->busStations) <= ds->maxFootDistance) {
+        if (destination.minDistanceTo(myStatData->busStations) <= myStatData->maxFootDistance
+                && myHousehold->getPosition().minDistanceTo(myStatData->busStations) <= myStatData->maxFootDistance) {
             transp += BUS;
         }
-    } else if (hh->getCarNbr() == 0) {
-        SUMOReal d1 = destination.distanceTo(hh->getPosition());
-        SUMOReal d2 = destination.minDistanceTo(ds->busStations) + hh->getPosition().minDistanceTo(ds->busStations);
+    } else if (myHousehold->getCarNbr() == 0) {
+        SUMOReal d1 = destination.distanceTo(myHousehold->getPosition());
+        SUMOReal d2 = destination.minDistanceTo(myStatData->busStations) + myHousehold->getPosition().minDistanceTo(myStatData->busStations);
 
         if (d1 > d2) {
             transp = BUS;
         } else {
             transp = FOOT;
         }
-    } else if (hh->getCarNbr() != 0) { //all other cases
-        if (destination.minDistanceTo(ds->busStations) > ds->maxFootDistance
-                || hh->getPosition().minDistanceTo(ds->busStations) > ds->maxFootDistance) {
+    } else if (myHousehold->getCarNbr() != 0) { //all other cases
+        if (destination.minDistanceTo(myStatData->busStations) > myStatData->maxFootDistance
+                || myHousehold->getPosition().minDistanceTo(myStatData->busStations) > myStatData->maxFootDistance) {
             transp = CAR;
         } else {
             transp = CAR + BUS;
@@ -95,11 +95,11 @@ AGActivity::availableTranspMeans(AGPosition from, AGPosition to) {
 
     int available = 0;
 
-    if (from.distanceTo(to) <= ds->maxFootDistance) {
+    if (from.distanceTo(to) <= myStatData->maxFootDistance) {
         available += FOOT;
     }
-    if (from.minDistanceTo(ds->busStations) <= ds->maxFootDistance
-            && to.minDistanceTo(ds->busStations) <= ds->maxFootDistance) {
+    if (from.minDistanceTo(myStatData->busStations) <= myStatData->maxFootDistance
+            && to.minDistanceTo(myStatData->busStations) <= myStatData->maxFootDistance) {
         available += BUS;
     }
     return available;
@@ -135,10 +135,9 @@ AGActivity::randomTimeBetween(int begin, int end) {
     return (begin + tAlea);
 }
 
+std::list<AGTrip>&
+AGActivity::getPartialActivityTrips() {
+    return myPartialActivityTrips;
+}
+
 /****************************************************************************/
-
-
-
-
-
-

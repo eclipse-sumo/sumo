@@ -109,7 +109,7 @@ AGCity::generateWorkPositions() {
         for (it = streets.begin(); it != streets.end(); ++it) {
             //std::cout << "number of work positions in street: " << it->getWorkplaceNumber() << std::endl;
             for (int i = 0; i < it->getWorkplaceNumber(); ++i) {
-                workPositions.push_back(AGWorkPosition(*it, &statData));
+                workPositions.push_back(AGWorkPosition(&statData, *it));
                 ++workPositionCounter;
             }
         }
@@ -146,7 +146,7 @@ AGCity::generateOutgoingWP() {
 
     for (int i = 0; i < nbrOutWorkPositions; ++i) {
         int posi = statData.getRandomCityGateByOutgoing();
-        workPositions.push_back(AGWorkPosition(cityGates[posi].getStreet(), cityGates[posi].getPosition(), &statData));
+        workPositions.push_back(AGWorkPosition(&statData, cityGates[posi].getStreet(), cityGates[posi].getPosition()));
     }
     //cout << "outgoing traffic: " << statData.outgoingTraffic << std::endl;
     //cout << "total number of workers in the city: " << nbrWorkers << std::endl;
@@ -216,16 +216,16 @@ AGCity::generatePopulation() {
     for (itt = households.begin(); itt != households.end(); ++itt) {
         if (itt->getAdultNbr() == 1) {
             nbrSingle++;
-            if (itt->adults.front().isWorking()) {
+            if (itt->getAdults().front().isWorking()) {
                 workingP++;
             }
         }
         if (itt->getAdultNbr() == 2) {
             nbrCouple += 2;
-            if (itt->adults.front().isWorking()) {
+            if (itt->getAdults().front().isWorking()) {
                 workingP++;
             }
-            if (itt->adults.back().isWorking()) {
+            if (itt->getAdults().back().isWorking()) {
                 workingP++;
             }
         }
@@ -321,15 +321,15 @@ AGCity::workAllocation() {
     std::list<AGHousehold>::iterator itt;
     for (itt = households.begin(); itt != households.end(); ++itt) {
         if (itt->getAdultNbr() == 1) {
-            if (itt->adults.front().isWorking()) {
+            if (itt->getAdults().front().isWorking()) {
                 workingP++;
             }
         }
         if (itt->getAdultNbr() == 2) {
-            if (itt->adults.front().isWorking()) {
+            if (itt->getAdults().front().isWorking()) {
                 workingP++;
             }
-            if (itt->adults.back().isWorking()) {
+            if (itt->getAdults().back().isWorking()) {
                 workingP++;
             }
         }

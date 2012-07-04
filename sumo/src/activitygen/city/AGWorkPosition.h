@@ -54,9 +54,8 @@ class AGDataAndStatistics;
 // TODO: Change name of openingTime to something like startHour or openingHour
 class AGWorkPosition {
 public:
-    // TODO: Change order: ds, inStreet [, pos]
-    AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds);
-    AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds);
+    AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet);
+    AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet, SUMOReal pos);
     ~AGWorkPosition();
 
     void take(AGAdult* ad) throw(std::runtime_error);
@@ -70,14 +69,15 @@ public:
     void print() const;
 
 private:
-    AGDataAndStatistics* ds;
-    AGAdult* adult;
-    AGPosition location;
-    int openingTime;
-    int closingTime;
-
     static int generateOpeningTime(const AGDataAndStatistics& ds);
     static int generateClosingTime(const AGDataAndStatistics& ds);
+
+private:
+    AGDataAndStatistics* myStatData;
+    AGPosition myLocation;
+    AGAdult* myAdult;
+    int myOpeningTime;
+    int myClosingTime;
 };
 
 #endif
