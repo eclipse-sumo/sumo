@@ -28,5 +28,5 @@
 -->
 
 <calibratorstats>
-   <interval begin="0.00" end="300.00" id="calibtest" nVehContrib="10" removed="147" inserted="0" flow="120.00" aspiredFlow="120.00" speed="27.80" aspiredSpeed="-1.00"/>
+   <interval begin="0.00" end="300.00" id="calibtest" nVehContrib="10" removed="147" inserted="0" cleared="0" flow="120.00" aspiredFlow="120.00" speed="27.80" aspiredSpeed="-1.00"/>
 </calibratorstats>
