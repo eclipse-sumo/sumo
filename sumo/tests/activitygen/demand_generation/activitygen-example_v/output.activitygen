@@ -29,18 +29,18 @@ Allocating car places... done.
 no problem during bus line trip generation...
 after public transportation: 248
 no problem during households' trips generation...
-after household activities: 910
+after household activities: 906
 no problem during in/out traffic generation...
-after incoming/outgoing traffic: 1310
+after incoming/outgoing traffic: 1306
 Before Random traffic generation (days are still entire):
-- Total number of trips: 2398
-- Total daily trips: 1088
-- Total one-day trips: 222
-added uniform random trips: 599
+- Total number of trips: 2388
+- Total daily trips: 1082
+- Total one-day trips: 224
+added uniform random trips: 597
 no problem during random traffic generation...
-after random traffic: 1909
-total trips generated: 1909
-total trips finally taken: 1489
+after random traffic: 1903
+total trips generated: 1903
+total trips finally taken: 1484
 ...sorted by departure time.
 
 first real trip: 1, 0:2:42
@@ -53,20 +53,20 @@ histogram[ hour 4 ] = 14
 histogram[ hour 5 ] = 12
 histogram[ hour 6 ] = 36
 histogram[ hour 7 ] = 42
-histogram[ hour 8 ] = 345
-histogram[ hour 9 ] = 170
-histogram[ hour 10 ] = 19
-histogram[ hour 11 ] = 58
-histogram[ hour 12 ] = 61
+histogram[ hour 8 ] = 326
+histogram[ hour 9 ] = 184
+histogram[ hour 10 ] = 22
+histogram[ hour 11 ] = 55
+histogram[ hour 12 ] = 63
 histogram[ hour 13 ] = 17
-histogram[ hour 14 ] = 21
+histogram[ hour 14 ] = 19
 histogram[ hour 15 ] = 19
 histogram[ hour 16 ] = 48
-histogram[ hour 17 ] = 241
-histogram[ hour 18 ] = 176
-histogram[ hour 19 ] = 24
-histogram[ hour 20 ] = 36
-histogram[ hour 21 ] = 28
-histogram[ hour 22 ] = 33
-histogram[ hour 23 ] = 42
+histogram[ hour 17 ] = 253
+histogram[ hour 18 ] = 163
+histogram[ hour 19 ] = 25
+histogram[ hour 20 ] = 33
+histogram[ hour 21 ] = 26
+histogram[ hour 22 ] = 36
+histogram[ hour 23 ] = 44
 Success.
