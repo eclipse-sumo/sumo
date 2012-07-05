@@ -183,7 +183,7 @@ MSBaseVehicle::replaceRouteEdges(const MSEdgeVector& edges, bool onInit) {
 
 
 SUMOReal
-MSBaseVehicle::getPreDawdleAcceleration() const {
+MSBaseVehicle::getAcceleration() const {
     return 0;
 }
 

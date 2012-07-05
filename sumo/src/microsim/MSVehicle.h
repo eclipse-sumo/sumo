@@ -308,11 +308,11 @@ public:
     }
 
 
-    /** @brief Returns the vehicle's acceleration before dawdling
-     * @return The acceleration before dawdling
+    /** @brief Returns the vehicle's acceleration
+     * @return The acceleration
      */
-    SUMOReal getPreDawdleAcceleration() const {
-        return myPreDawdleAcceleration;
+    SUMOReal getAcceleration() const {
+        return myAcceleration;
     }
     //@}
 
@@ -377,11 +377,6 @@ public:
 
 
     class Influencer;
-
-    void setPreDawdleAcceleration(SUMOReal accel) {
-        myPreDawdleAcceleration = accel;
-    }
-
 
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
@@ -954,7 +949,7 @@ protected:
     MSDevice_Person* myPersonDevice;
 
     /// @brief The current acceleration before dawdling
-    SUMOReal myPreDawdleAcceleration;
+    SUMOReal myAcceleration;
 
     /// @brief The information into which lanes the vehicle laps into
     std::vector<MSLane*> myFurtherLanes;

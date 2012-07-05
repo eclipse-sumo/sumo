@@ -117,10 +117,10 @@ public:
      */
     virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz = false) = 0;
 
-    /** @brief Returns the vehicle's acceleration before dawdling
-     * @return The acceleration before dawdling
+    /** @brief Returns the vehicle's acceleration
+     * @return The acceleration
      */
-    virtual SUMOReal getPreDawdleAcceleration() const = 0;
+    virtual SUMOReal getAcceleration() const = 0;
 
     /** @brief Returns the edge the vehicle is currently at
      *

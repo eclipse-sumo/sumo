@@ -146,13 +146,12 @@ public:
     bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit = false);
 
 
-    /** @brief Returns the vehicle's acceleration before dawdling
+    /** @brief Returns the vehicle's acceleration
      *
      * This default implementation returns always 0.
-     *
-     * @return The acceleration before dawdling
+     * @return The acceleration
      */
-    virtual SUMOReal getPreDawdleAcceleration() const;
+    virtual SUMOReal getAcceleration() const;
 
     /** @brief Called when the vehicle is inserted into the network
      *

@@ -278,7 +278,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     myLane(0),
     myLastBestLanesEdge(0),
     myPersonDevice(0),
-    myPreDawdleAcceleration(0),
+    myAcceleration(0),
     mySignals(0),
     myAmOnNet(false),
     myAmRegisteredAsWaitingForPerson(false),
@@ -819,6 +819,7 @@ MSVehicle::moveChecked() {
     }
 #endif
     // update position and speed
+    myAcceleration = vNext - myState.mySpeed;
     myState.myPos += SPEED2DIST(vNext);
     myState.mySpeed = vNext;
     std::vector<MSLane*> passedLanes;
@@ -1665,43 +1666,43 @@ MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge) {
 
 SUMOReal
 MSVehicle::getHBEFA_CO2Emissions() const {
-    return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+    return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myAcceleration);
 }
 
 
 SUMOReal
 MSVehicle::getHBEFA_COEmissions() const {
-    return HelpersHBEFA::computeCO(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+    return HelpersHBEFA::computeCO(myType->getEmissionClass(), myState.speed(), myAcceleration);
 }
 
 
 SUMOReal
 MSVehicle::getHBEFA_HCEmissions() const {
-    return HelpersHBEFA::computeHC(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+    return HelpersHBEFA::computeHC(myType->getEmissionClass(), myState.speed(), myAcceleration);
 }
 
 
 SUMOReal
 MSVehicle::getHBEFA_NOxEmissions() const {
-    return HelpersHBEFA::computeNOx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+    return HelpersHBEFA::computeNOx(myType->getEmissionClass(), myState.speed(), myAcceleration);
 }
 
 
 SUMOReal
 MSVehicle::getHBEFA_PMxEmissions() const {
-    return HelpersHBEFA::computePMx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+    return HelpersHBEFA::computePMx(myType->getEmissionClass(), myState.speed(), myAcceleration);
 }
 
 
 SUMOReal
 MSVehicle::getHBEFA_FuelConsumption() const {
-    return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+    return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myAcceleration);
 }
 
 
 SUMOReal
 MSVehicle::getHarmonoise_NoiseEmissions() const {
-    return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+    return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), myState.speed(), myAcceleration);
 }
 
 

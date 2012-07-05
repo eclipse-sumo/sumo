@@ -104,7 +104,7 @@ MSDevice_HBEFA::~MSDevice_HBEFA() {
 bool
 MSDevice_HBEFA::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*newPos*/, SUMOReal newSpeed) {
     const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
-    const SUMOReal a = veh.getPreDawdleAcceleration();
+    const SUMOReal a = veh.getAcceleration();
     myCO2 += TS * HelpersHBEFA::computeCO2(c, newSpeed, a);
     myCO += TS * HelpersHBEFA::computeCO(c, newSpeed, a);
     myHC += TS * HelpersHBEFA::computeHC(c, newSpeed, a);

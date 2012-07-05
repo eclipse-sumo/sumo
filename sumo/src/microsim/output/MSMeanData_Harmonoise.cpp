@@ -88,7 +88,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::update() {
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
     const SUMOReal sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(),
-                        (double) speed, veh.getPreDawdleAcceleration());
+                        (double) speed, veh.getAcceleration());
     currentTimeN += (SUMOReal) pow(10., (sn / 10.));
     sampleSeconds += timeOnLane;
     travelledDistance += speed * timeOnLane;
