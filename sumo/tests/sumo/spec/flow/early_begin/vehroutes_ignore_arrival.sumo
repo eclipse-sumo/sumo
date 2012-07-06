@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<!-- generated on Fri Jul  6 14:08:01 2012 by SUMO sumo Version dev-SVN-r12479
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes_ignore_arrival.xml"/>
+    </output>
+
+    <time>
+        <begin value="5"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="f1.9" depart="9.00" arrival="52.00">
+        <route edges="beg end"/>
+    </vehicle>
+
+    <vehicle id="f1.6" depart="6.00" arrival="52.00">
+        <route edges="beg end"/>
+    </vehicle>
+
+    <vehicle id="f1.8" depart="8.00" arrival="54.00">
+        <route edges="beg end"/>
+    </vehicle>
+
+    <vehicle id="f1.7" depart="7.00" arrival="56.00">
+        <route edges="beg end"/>
+    </vehicle>
+
+    <vehicle id="f1.5" depart="5.00" arrival="58.00">
+        <route edges="beg end"/>
+    </vehicle>
+
+</routes>

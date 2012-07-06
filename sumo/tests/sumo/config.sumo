@@ -28,6 +28,7 @@ rawdump:rawdump.xml
 tripinfos:tripinfos.xml
 vtypeprobe:vtypeprobe.xml
 vehroutes:vehroutes.xml
+vehroutes_ignore_arrival:vehroutes_ignore_arrival.xml
 tls_state:tls_state.xml
 tls_switch:tls_switch.xml
 tls_state_switch:tls_state_switch.xml
@@ -68,6 +69,8 @@ rawdump:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
+vehroutes_ignore_arrival:<!--{[->]}-->
+vehroutes_ignore_arrival:arrival="[^"]*"{REPLACE arrival="<ignored>"}
 tls_state:<!--{[->]}-->
 tls_switch:<!--{[->]}-->
 tls_state_switch:<!--{[->]}-->
@@ -102,3 +105,6 @@ gcc4:perf
 gcc4_64:perf
 msvc10Win32:perf
 msvc10x64:perf
+
+[unordered_text]
+vehroutes_ignore_arrival:arrival
