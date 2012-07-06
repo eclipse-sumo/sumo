@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/24/10 18:37:18 by SUMO sumo Version dev-SVN-r8511
-<configuration>
+<!-- generated on Fri Jul  6 12:46:50 2012 by SUMO sumo Version dev-SVN-r12479
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -11,10 +13,6 @@
     <output>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
-
-    <time>
-        <end value="1000"/>
-    </time>
 
     <report>
         <no-duration-log value="true"/>
@@ -27,6 +25,6 @@
 <tripinfos>
     <personinfo id="p1" depart="0.00">
         <stop arrival="0.00"/>
-        <walk arrival="496.00"/>
+        <walk arrival="494.00"/>
     </personinfo>
 </tripinfos>

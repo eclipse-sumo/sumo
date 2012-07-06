@@ -3,7 +3,7 @@
     <route id="r1" edges="-4312 9910 -9917 -9916 -9908"/>
     <route id="r2" edges="-4312 9910 -9917 -9916 -9915 -9912"/>
     <route id="r3" edges="-9458 -9916 -9915 -9912"/>
-    <flow id="v1" type="t1" route="r1" departLane="free" departSpeed="max" begin="0" end="10000" number="1110"/>
-    <flow id="v2" type="t1" route="r2" departLane="free" departSpeed="max" begin="0" end="10000" number="1220"/>
-    <flow id="v3" type="t1" route="r3" departLane="free" departSpeed="max" begin="0" end="10000" number="1330"/>
+    <flow id="v1" type="t1" route="r1" departLane="free" departSpeed="max" begin="0" end="3600" number="300"/>
+    <flow id="v2" type="t1" route="r2" departLane="free" departSpeed="max" begin="0" end="3600" number="300"/>
+    <flow id="v3" type="t1" route="r3" departLane="free" departSpeed="max" begin="0" end="3600" number="1000"/>
 </routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/27/12 15:01:08 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on Fri Jul  6 12:46:36 2012 by SUMO sumo Version dev-SVN-r12479
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -78,5 +78,5 @@
     <step time="47.00" loaded="11" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
     <step time="48.00" loaded="11" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
     <step time="49.00" loaded="11" emitted="3" running="3" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <step time="50.00" loaded="11" emitted="3" running="3" waiting="1" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <step time="50.00" loaded="11" emitted="3" running="3" waiting="2" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
 </summary>
