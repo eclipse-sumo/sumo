@@ -156,10 +156,6 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output.sorted", "vehroutes.sorted");
     oc.addDescription("vehroute-output.sorted", "Output", "Sorts the output by departure time");
 
-    oc.doRegister("person-event-output", new Option_FileName());
-    oc.addSynonyme("person-event-output", "events");
-    oc.addDescription("person-event-output", "Output", "Save person-based events into FILE");
-
     
 
 #ifdef HAVE_INTERNAL
@@ -308,7 +304,6 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
     OutputDevice::createDeviceByOption("summary-output", "summary");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
-    OutputDevice::createDeviceByOption("person-event-output", "events");
    
     //extended
 	OutputDevice::createDeviceByOption("fcd-output", "fcd-export");
