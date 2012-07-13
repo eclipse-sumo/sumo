@@ -622,17 +622,18 @@ NBNode::computeLanes2Lanes() {
     }
     // special case b):
     //  two in, one out, the outgoing has the same number of lanes as the sum of the incoming
-    //  and a high speed, too
     //  --> highway on-ramp
     bool check = false;
     if (myIncomingEdges.size() == 2 && myOutgoingEdges.size() == 1) {
         check = myIncomingEdges[0]->getNumLanes() + myIncomingEdges[1]->getNumLanes() == myOutgoingEdges[0]->getNumLanes();
         check &= (myIncomingEdges[0]->getStep() <= NBEdge::LANES2EDGES);
         check &= (myIncomingEdges[1]->getStep() <= NBEdge::LANES2EDGES);
+        check &= myIncomingEdges[0] != myOutgoingEdges[0];
+        check &= myIncomingEdges[1] != myOutgoingEdges[0];
+        check &= myIncomingEdges[0]->isConnectedTo(myOutgoingEdges[0]);
+        check &= myIncomingEdges[1]->isConnectedTo(myOutgoingEdges[0]);
     }
-    if (check
-            && myIncomingEdges[0] != myOutgoingEdges[0]
-            && myIncomingEdges[0]->isConnectedTo(myOutgoingEdges[0])) {
+    if (check) {
         NBEdge* inc1 = myIncomingEdges[0];
         NBEdge* inc2 = myIncomingEdges[1];
         // for internal: check which one is the rightmost
@@ -646,6 +647,34 @@ NBNode::computeLanes2Lanes() {
         //
         inc1->addLane2LaneConnections(0, myOutgoingEdges[0], 0, inc1->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
         inc2->addLane2LaneConnections(0, myOutgoingEdges[0], inc1->getNumLanes(), inc2->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
+        return;
+    }
+    // special case c):
+    //  one in, two out, the incoming has the same number of lanes as the sum of the outgoing
+    //  --> highway off-ramp
+    check = false;
+    if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 2) {
+        check = myIncomingEdges[0]->getNumLanes() == myOutgoingEdges[1]->getNumLanes() + myOutgoingEdges[0]->getNumLanes();
+        check &= (myIncomingEdges[0]->getStep() <= NBEdge::LANES2EDGES);
+        check &= myIncomingEdges[0] != myOutgoingEdges[0];
+        check &= myIncomingEdges[0] != myOutgoingEdges[1];
+        check &= myIncomingEdges[0]->isConnectedTo(myOutgoingEdges[0]);
+        check &= myIncomingEdges[0]->isConnectedTo(myOutgoingEdges[1]);
+    }
+    if (check) {
+        NBEdge* out1 = myOutgoingEdges[0];
+        NBEdge* out2 = myOutgoingEdges[1];
+        // for internal: check which one is the rightmost
+        SUMOReal a1 = out1->getAngleAtNode(this);
+        SUMOReal a2 = out2->getAngleAtNode(this);
+        SUMOReal ccw = GeomHelper::getCCWAngleDiff(a1, a2);
+        SUMOReal cw = GeomHelper::getCWAngleDiff(a1, a2);
+        if (ccw < cw) {
+            std::swap(out1, out2);
+        }
+        //
+        myIncomingEdges[0]->addLane2LaneConnections(0, out1, 0, out1->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
+        myIncomingEdges[0]->addLane2LaneConnections(out1->getNumLanes(), out2, 0, out2->getNumLanes(), NBEdge::L2L_VALIDATED, false, true);
         return;
     }
 
