@@ -65,7 +65,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("opendrive-output"));
     device << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
     device << "<OpenDRIVE>\n";
-    device << "    <header revMajor=\"1\" revMinor=\"3\" name=\"\" version=\"1.00\" date=\"!!!\" north=\"0.0000000000000000e+00\" south=\"0.0000000000000000e+00\" east=\"0.0000000000000000e+00\" west=\"0.0000000000000000e+00\" maxRoad=\"517\" maxJunc=\"2\" maxPrg=\"0\"/>\n";
+    device << "    <header revMajor=\"1\" revMinor=\"3\" name=\"\" version=\"1.00\" date=\"!!!\" north=\"0.0e+00\" south=\"0.0e+00\" east=\"0.0e+00\" west=\"0.0e+00\" maxRoad=\"517\" maxJunc=\"2\" maxPrg=\"0\"/>\n";
     // write normal edges (road)
     const NBEdgeCont& ec = nb.getEdgeCont();
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
@@ -76,14 +76,18 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "            <successor elementType=\"junction\" elementId=\"" << getID(e->getToNode()->getID(), nodeMap, nodeID) << "\"/>\n";
         device << "        </link>\n";
         device << "        <type s=\"0\" type=\"town\"/>\n";
-        writePlanView(e->getGeometry(), device);
+        const std::vector<NBEdge::Lane> &lanes = e->getLanes();
+        unsigned int li = lanes.size()-1;
+        PositionVector ls = e->getLaneShape(li);
+        SUMOReal width = lanes[li].width<0||!e->hasLaneSpecificWidth() ? SUMO_const_laneWidth : lanes[li].width;
+        ls.move2side(-width/2.);
+        writePlanView(ls, device);
         device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";
         device << "        <lateralProfile></lateralProfile>\n";
         device << "        <lanes>\n";
         device << "            <laneSection s=\"0\">\n";
-        writeEmptyCenterLane(device);
+        writeEmptyCenterLane(device, "solid", 0.13);
         device << "                <right>\n";
-        const std::vector<NBEdge::Lane> &lanes = e->getLanes();
         for (int j = e->getNumLanes(); --j >= 0;) {
             device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"driving\" level=\"0\">\n";
             device << "                        <link>\n";
@@ -123,6 +127,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 if (c.haveVia) {
                     shape.appendWithCrossingPoint(c.viaShape);
                 }
+                const SUMOReal width = SUMO_const_laneWidth;
+                shape.move2side(-width/2.);
                 device << "    <road name=\"" << c.id << "\" length=\"" << shape.length() << "\" id=\"" << getID(c.id, edgeMap, edgeID) << "\" junction=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
                 device << "        <link>\n";
                 device << "            <predecessor elementType=\"road\" elementId=\"" << getID((*j)->getID(), edgeMap, edgeID) << "\"/>\n";
@@ -134,15 +140,15 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device << "        <lateralProfile></lateralProfile>\n";
                 device << "        <lanes>\n";
                 device << "            <laneSection s=\"0\">\n";
-                writeEmptyCenterLane(device);
+                writeEmptyCenterLane(device, "none", 0);
                 device << "                <right>\n";
                 device << "                    <lane id=\"-1\" type=\"driving\" level=\"0\">\n";
                 device << "                        <link>\n";
                 //device << "                            <predecessor id=\"1\"/>\n";// !!!
                 //device << "                            <successor id=\"-1\"/>\n";// !!!
                 device << "                        </link>\n";
-                device << "                        <width sOffset=\"0\" a=\"" << SUMO_const_laneWidth << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
-                device << "                        <roadMark sOffset=\"0\" type=\"broken\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
+                device << "                        <width sOffset=\"0\" a=\"" << width << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
+                device << "                        <roadMark sOffset=\"0\" type=\"none\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
                 device << "                    </lane>\n";
                 device << "                 </right>\n";
                 device << "            </laneSection>\n";
@@ -195,11 +201,11 @@ NWWriter_OpenDrive::writePlanView(const PositionVector& shape, OutputDevice& dev
 
 
 void
-NWWriter_OpenDrive::writeEmptyCenterLane(OutputDevice& device) {
+NWWriter_OpenDrive::writeEmptyCenterLane(OutputDevice& device, const std::string &mark, SUMOReal markWidth) {
     device << "                <center>\n";
     device << "                    <lane id=\"0\" type=\"none\" level= \"0\">\n";
     device << "                        <link></link>\n";
-    device << "                        <roadMark sOffset=\"0\" type=\"solid\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
+    device << "                        <roadMark sOffset=\"0\" type=\"" << mark << "\" weight=\"standard\" color=\"standard\" width=\"" << markWidth << "\"/>\n";
     device << "                        <width sOffset=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/>\n";
     device << "                    </lane>\n";
     device << "                </center>\n";
