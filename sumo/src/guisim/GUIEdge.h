@@ -39,6 +39,12 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include "GUILaneWrapper.h"
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+#ifdef HAVE_INTERNAL
+class MESegment;
+#endif
 
 // ===========================================================================
 // class definitions
@@ -155,6 +161,9 @@ public:
 
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;
+
+    /// @brief returns the segment closest to the given position
+    MESegment* getSegmentAtPosition(const Position& pos);
 
 #endif
 

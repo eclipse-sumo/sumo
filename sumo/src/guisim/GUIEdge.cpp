@@ -36,6 +36,7 @@
 #include <string>
 #include <algorithm>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/geom/GeomHelper.h>
 #include "GUIEdge.h"
 #include "GUINet.h"
@@ -175,11 +176,11 @@ GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GUIParameterTableWindow*
 GUIEdge::getParameterWindow(GUIMainWindow& app,
-                            GUISUMOAbstractView&) {
+                            GUISUMOAbstractView& parent) {
     GUIParameterTableWindow* ret = 0;
 #ifdef HAVE_INTERNAL
-    ret = new GUIParameterTableWindow(app, *this, 7);
-    // add items
+    ret = new GUIParameterTableWindow(app, *this, 14);
+    // add edge items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
     ret->mkItem("occupancy [%]", true,
@@ -191,6 +192,16 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("#vehicles", true,
                 new CastingFunctionBinding<GUIEdge, SUMOReal, unsigned int>(this, &GUIEdge::getVehicleNo));
     ret->mkItem("vehicle ids", false, getVehicleIDs());
+    // add segment items
+    MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
+    ret->mkItem("segment index", false, segment->getIndex());
+    ret->mkItem("segment length [m]", false, segment->getLength());
+    ret->mkItem("segment allowed speed [m/s]", false, segment->getMaxSpeed());
+    ret->mkItem("segment occupancy [%]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getRelativeOccupancy));
+    ret->mkItem("segment mean vehicle speed [m/s]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getMeanSpeed));
+    ret->mkItem("segment flow [veh/h/lane]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getFlow));
+    ret->mkItem("segment #vehicles", true, new CastingFunctionBinding<MESegment, SUMOReal, size_t>(segment, &MESegment::getCarNumber));
+
     // close building
     ret->closeBuilding();
 #endif
@@ -417,6 +428,14 @@ GUIEdge::getColorValue(size_t activeScheme) const {
             return getRelativeSpeed();
     }
     return 0;
+}
+
+
+MESegment* 
+GUIEdge::getSegmentAtPosition(const Position& pos) {
+    const PositionVector& shape = getLanes()[0]->getShape();
+    const SUMOReal lanePos = shape.nearest_position_on_line_to_point2D(pos);
+    return MSGlobals::gMesoNet->getSegmentForEdge(*this, lanePos);
 }
 
 #endif
