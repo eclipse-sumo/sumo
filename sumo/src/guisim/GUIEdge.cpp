@@ -359,13 +359,6 @@ GUIEdge::getFlow() const {
 
 
 SUMOReal
-GUIEdge::getFlowAlternative() const {
-    // @note: only the first segment is considered because that is sufficient in equilibrium
-    return MSGlobals::gMesoNet->getSegmentForEdge(*this)->getFlow() / myLanes->size();
-}
-
-
-SUMOReal
 GUIEdge::getOccupancy() const {
     SUMOReal occ = 0;
     for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
