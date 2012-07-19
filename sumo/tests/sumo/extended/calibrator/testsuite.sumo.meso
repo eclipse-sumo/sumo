@@ -35,3 +35,6 @@ swallow_downstream_jam
 # vehicles should be inserted into a properly sized gap to prevent speed drops. 
 # This tests whether the front gap is accounted for
 insertion_front_gap
+
+# vehicles should be removed from all queues in proportion to the queue size
+remove_from_all_queues
