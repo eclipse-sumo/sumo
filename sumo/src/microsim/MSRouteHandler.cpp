@@ -46,6 +46,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
@@ -393,16 +394,31 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
         }
     }
     myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>(MSRoute::getMaxRouteDistSize(), &MSRoute::releaseRoute);
+    std::vector<SUMOReal> probs;
+    if (attrs.hasAttribute(SUMO_ATTR_PROBS)) {
+        bool ok = true;
+        StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_PROBS, myCurrentRouteDistributionID.c_str(), ok));
+        while (st.hasNext()) {
+            probs.push_back(TplConvert::_2SUMORealSec(st.next().c_str(), 1.0));
+        }
+    }
     if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
         bool ok = true;
         StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_ROUTES, myCurrentRouteDistributionID.c_str(), ok));
+        size_t probIndex = 0;
         while (st.hasNext()) {
             std::string routeID = st.next();
             const MSRoute* route = MSRoute::dictionary(routeID);
             if (route == 0) {
                 throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID + "'.");
             }
-            myCurrentRouteDistribution->add(1., route, false);
+            const SUMOReal prob = (probs.size() > probIndex ? probs[probIndex] : 1.0);
+            myCurrentRouteDistribution->add(prob, route, false);
+            probIndex++;
+        }
+        if (probs.size() > 0 && probIndex != probs.size()) {
+            WRITE_WARNING("Got " + toString(probs.size()) + " probabilities for " + toString(probIndex) + 
+                    " routes in routeDistribution '" + myCurrentRouteDistributionID + "'");
         }
     }
 }

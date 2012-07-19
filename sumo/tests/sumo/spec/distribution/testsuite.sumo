@@ -10,6 +10,12 @@ route_nested
 # checks using route distribution with external ref
 route_ref
 
+# checks using route distribution with external refs defined in attribute 'routes'
+route_ref_compact
+
+# checks using route distribution with external refs defined in attribute 'routes' and probabilities defined in attribute 'probabilities'
+route_ref_compact_with_probabilities
+
 # checks using nested route distribution with external ref
 route_nested_ref
 
