@@ -169,7 +169,7 @@ AGCity::generatePopulation() {
     std::vector<AGStreet>::iterator it;
     SUMOReal people = 0;
     nbrCars = 0;
-    int idHouseholds = 0;
+    unsigned int idHouseholds = 0;
     std::vector<int> numAdults(statData.households);
     std::vector<int> numChilds(statData.households);
     int totalChildrenLeft = statData.inhabitants - statData.getPeopleOlderThan(statData.limitAgeChildren);
@@ -191,7 +191,7 @@ AGCity::generatePopulation() {
     }
     for (it = streets.begin(); it != streets.end(); ++it) {
         people += it->getPopulation();
-        while (people > 0 && idHouseholds < numAdults.size()) {
+        while (people > 0 && idHouseholds < (unsigned int)numAdults.size()) {
             size_t i = RandHelper::rand(numAdults.size() - idHouseholds);
             ++idHouseholds;
             households.push_back(AGHousehold(&*it, this, idHouseholds));

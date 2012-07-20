@@ -77,7 +77,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "        </link>\n";
         device << "        <type s=\"0\" type=\"town\"/>\n";
         const std::vector<NBEdge::Lane> &lanes = e->getLanes();
-        unsigned int li = lanes.size()-1;
+        unsigned int li = (unsigned int)lanes.size()-1;
         PositionVector ls = e->getLaneShape(li);
         SUMOReal width = lanes[li].width<0||!e->hasLaneSpecificWidth() ? SUMO_const_laneWidth : lanes[li].width;
         ls.move2side(-width/2.);
