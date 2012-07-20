@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<!-- generated on Fri Jul 20 13:24:50 2012 by SUMO sumo Version dev-SVN-r12485
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <end value="5401"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<netstats>
+    <interval begin="0.00" end="3600.00" id="expect_speed_10">
+        <edge id="beg" sampledSeconds="35694.10" traveltime="17.89" density="20.02" occupancy="10.01" waitingTime="0.00" speed="27.68" departed="2000" arrived="0" entered="0" left="1990" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2left" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2right" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="34377.85" traveltime="17.81" density="19.28" occupancy="9.64" waitingTime="0.00" speed="27.81" departed="0" arrived="0" entered="1935" left="1925" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="left" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="left2end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="194406.80" traveltime="99.05" density="54.52" occupancy="27.26" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1990" left="1935" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="rend" sampledSeconds="34536.78" traveltime="17.99" density="19.19" occupancy="9.59" waitingTime="0.00" speed="27.80" departed="0" arrived="1915" entered="1925" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="right" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="right2end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+</netstats>
