@@ -672,7 +672,7 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
             } else {
                 SUMOReal value(0);
                 ews.retrieveExistingTravelTime(&e, 0, 0, value);
-                return (getLane().getLength() / getLane().getSpeedLimit()) / (getLane().getSpeedLimit() / value);
+                return 100 * getLane().getLength() / value / getLane().getSpeedLimit();
             }
         }
     }
