@@ -639,12 +639,9 @@ NBNode::computeLanes2Lanes() {
         // for internal: check which one is the rightmost
         SUMOReal a1 = inc1->getAngleAtNode(this);
         SUMOReal a2 = inc2->getAngleAtNode(this);
-        SUMOReal ccw = GeomHelper::getCCWAngleDiff(a1, a2);
-        SUMOReal cw = GeomHelper::getCWAngleDiff(a1, a2);
-        if (ccw < cw) {
+        if (a2 < a1) {
             std::swap(inc1, inc2);
         }
-        //
         inc1->addLane2LaneConnections(0, myOutgoingEdges[0], 0, inc1->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
         inc2->addLane2LaneConnections(0, myOutgoingEdges[0], inc1->getNumLanes(), inc2->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
         return;
@@ -667,12 +664,9 @@ NBNode::computeLanes2Lanes() {
         // for internal: check which one is the rightmost
         SUMOReal a1 = out1->getAngleAtNode(this);
         SUMOReal a2 = out2->getAngleAtNode(this);
-        SUMOReal ccw = GeomHelper::getCCWAngleDiff(a1, a2);
-        SUMOReal cw = GeomHelper::getCWAngleDiff(a1, a2);
-        if (ccw < cw) {
+        if (a2 > a1) {
             std::swap(out1, out2);
         }
-        //
         myIncomingEdges[0]->addLane2LaneConnections(0, out1, 0, out1->getNumLanes(), NBEdge::L2L_VALIDATED, true, true);
         myIncomingEdges[0]->addLane2LaneConnections(out1->getNumLanes(), out2, 0, out2->getNumLanes(), NBEdge::L2L_VALIDATED, false, true);
         return;
