@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 24 Jul 2012 02:13:05 PM CEST by Netedit Version dev-SVN-r12491
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <plain-output-prefix value="/home/erdm_ja/delphi-extern/sumo/tests/netconvert/bugs/ticket731/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+    <edge id="enter_left" from="gneJ8" to="gneJ7" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="enter_right" from="gneJ6" to="gneJ7" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="merged" from="gneJ7" to="gneJ9" priority="1" numLanes="2" speed="13.89"/>
+</edges>
