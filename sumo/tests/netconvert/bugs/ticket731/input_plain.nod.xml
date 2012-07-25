@@ -20,8 +20,8 @@
 <nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
     <location netOffset="0.00,0.00" convBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
-    <node id="gneJ6" x="0.00" y="0.00" type="unregulated"/>
-    <node id="gneJ7" x="100.00" y="0.00" type="priority"/>
-    <node id="gneJ8" x="0.00" y="20.00" type="unregulated"/>
-    <node id="gneJ9" x="200.00" y="0.00" type="unregulated"/>
+    <node id="merge" x="0.00" y="0.00" type="unregulated"/>
+    <node id="end"   x="0.00" y="100.00" type="priority"/>
+    <node id="enter_right" x="20.00" y="-100.00" type="unregulated"/>
+    <node id="enter_left" x="-20.00" y="-100.00" type="unregulated"/>
 </nodes>
