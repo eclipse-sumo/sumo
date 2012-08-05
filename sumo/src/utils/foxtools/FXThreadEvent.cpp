@@ -103,8 +103,8 @@ FXThreadEvent::~FXThreadEvent() {
 // signal the target using the SEL_THREAD seltype
 // this method is meant to be called from the worker thread
 void FXThreadEvent::signal() {
-    FXuint seltype = SEL_THREAD;
 #ifndef WIN32
+    FXuint seltype = SEL_THREAD;
     ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
 #else
     ::SetEvent(event);

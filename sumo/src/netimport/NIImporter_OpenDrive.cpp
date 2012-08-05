@@ -353,7 +353,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::vector<OpenDriveEdge>::iterator i = innerEdges.begin(); i != innerEdges.end(); ++i) {
         OpenDriveEdge& e = *i;
         std::string pred, succ;
-        ContactPoint predC, succC;
+        ContactPoint predC = OPENDRIVE_CP_UNKNOWN, succC = OPENDRIVE_CP_UNKNOWN;
         for (std::vector<OpenDriveLink>::iterator j = e.links.begin(); j != e.links.end(); ++j) {
             OpenDriveLink& l = *j;
             if (l.elementType != OPENDRIVE_ET_ROAD) {

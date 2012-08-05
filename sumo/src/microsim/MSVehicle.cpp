@@ -1008,9 +1008,8 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
         SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         for (int i = (int)(myLFLinkLanes.size() - 1); i > 0; --i) {
             DriveProcessItem& item = myLFLinkLanes[i - 1];
-            bool opened = item.myLink != 0 && (item.myLink->havePriority() || item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,/*t, .1,*/ getVehicleType().getLengthWithGap()));
-            bool check1 = item.myLink == 0 || item.myLink->isCont() || !hadVehicles[i];
-            bool allowsContinuation = check1 || opened;
+            const bool opened = item.myLink != 0 && (item.myLink->havePriority() || item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed, getVehicleType().getLengthWithGap()));
+            bool allowsContinuation = item.myLink == 0 || item.myLink->isCont() || !hadVehicles[i] || opened;
             if (!opened && item.myLink != 0) {
                 if (i > 1) {
                     DriveProcessItem& item2 = myLFLinkLanes[i - 2];
@@ -1112,10 +1111,11 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 #else
     bool hadNonInternal = true;
 #endif
+    bool setRequest = false;
 
     unsigned int view = 1;
     // loop over following lanes
-    while (true) {
+    do {
         // process stops
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &nextLane->getEdge()) {
             const Stop& stop = *myStops.begin();
@@ -1195,7 +1195,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 #endif
 
         // behaviour in front of not priorised intersections (waiting for priorised foe vehicles)
-        bool setRequest = false;
+        setRequest = false;
         // process stops
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &nextLane->getEdge()) {
             const Stop& stop = *myStops.begin();
@@ -1230,10 +1230,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, t + TIME2STEPS(seen / vLinkPass), vLinkPass, seen));
         seen += nextLane->getLength();
         seenNonInternal += nextLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL ? 0 : nextLane->getLength();
-        if (!setRequest || ((vLinkPass <= 0 || seen > dist) && hadNonInternal && seenNonInternal > 50)) {
-            return;
-        }
-    }
+    } while (setRequest && !((vLinkPass <= 0 || seen > dist) && hadNonInternal && seenNonInternal > 50));
 }
 
 
