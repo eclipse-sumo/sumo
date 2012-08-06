@@ -800,6 +800,7 @@ long FXRealSpinDial::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
         default:
             return textField->handle(sender, sel, ptr);
     }
+    return 0;
 }
 
 
@@ -822,6 +823,7 @@ long FXRealSpinDial::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
         default:
             return textField->handle(sender, sel, ptr);
     }
+    return 0;
 }
 
 // Mouse motion

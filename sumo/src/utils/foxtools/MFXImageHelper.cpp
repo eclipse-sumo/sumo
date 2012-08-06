@@ -107,7 +107,7 @@ MFXImageHelper::loadImage(FXApp* a, const std::string& file) {
 
 FXbool
 MFXImageHelper::scalePower2(FXImage* image) {
-    FXint newHeight = 0;
+    FXint newHeight;
     for (FXint exp = 30; exp >= 0; exp--) {
         newHeight = 2 << exp;
         if (image->getHeight() & newHeight) {
@@ -117,7 +117,7 @@ MFXImageHelper::scalePower2(FXImage* image) {
     if (2 * newHeight - image->getHeight() < image->getHeight() - newHeight) {
         newHeight *= 2;
     }
-    FXint newWidth = 0;
+    FXint newWidth;
     for (FXint exp = 30; exp >= 0; exp--) {
         newWidth = 2 << exp;
         if (image->getWidth() & newWidth) {

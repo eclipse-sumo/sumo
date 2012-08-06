@@ -70,8 +70,8 @@ FXSingleEventThread::~FXSingleEventThread() {
 
 void
 FXSingleEventThread::signal() {
-#ifndef WIN32
     FXuint seltype = SEL_THREAD;
+#ifndef WIN32
     ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
 #else
     ::SetEvent(event);
@@ -92,8 +92,8 @@ FXSingleEventThread::signal(FXuint seltype) {
 
 long
 FXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*) {
-#ifndef WIN32
     FXuint seltype = SEL_THREAD;
+#ifndef WIN32
     ::read(event[PIPE_READ], &seltype, sizeof(seltype));
 #else
     //FIXME need win32 support

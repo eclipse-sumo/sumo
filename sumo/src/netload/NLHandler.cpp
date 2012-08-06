@@ -1207,14 +1207,14 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         assert(fromLane);
         assert(toLane);
 
-        int tlLinkIdx = -1;
+        int tlLinkIdx;
         if (tlID != "") {
             tlLinkIdx = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
                         ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
                         : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
             // make sure that the index is in range
             MSTrafficLightLogic* logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
-            if (tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size()) {
+            if (tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size()) {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) +
                             "' in connection controlled by '" + tlID + "'");
                 return;
@@ -1256,7 +1256,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         // if a traffic light is responsible for it, inform the traffic light
         // check whether this link is controlled by a traffic light
         if (tlID != "") {
-            myJunctionControlBuilder.getTLLogic(tlID).addLink(link, fromLane, tlLinkIdx);
+            MSTLLogicControl::TLSLogicVariants& logics = myJunctionControlBuilder.getTLLogic(tlID);
+            logics.addLink(link, fromLane, tlLinkIdx);
         }
         // add the link
         fromLane->addLink(link);
