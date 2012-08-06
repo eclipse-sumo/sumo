@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="!!!" north="0.0000000000000000e+00" south="0.0000000000000000e+00" east="0.0000000000000000e+00" west="0.0000000000000000e+00" maxRoad="517" maxJunc="2" maxPrg="0"/>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="!!!" north="0.0e+00" south="0.0e+00" east="0.0e+00" west="0.0e+00" maxRoad="517" maxJunc="2" maxPrg="0"/>
     <road name="" length="50.00" id="0" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="0"/>
@@ -8,7 +8,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="0.00" y="0.00" hdg="0.00" length="50.00"><line/></geometry>
+            <geometry s="0.00" x="0.00" y="-0.05" hdg="0.00" length="50.00"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile></lateralProfile>
@@ -43,7 +43,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="50.00" y="0.00" hdg="3.14" length="50.00"><line/></geometry>
+            <geometry s="0.00" x="50.00" y="0.05" hdg="3.14" length="50.00"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile></lateralProfile>
@@ -72,17 +72,17 @@
         <signals></signals>
     </road>
 
-    <road name=":1.begin_0" length="4.82" id="2" junction="0">
+    <road name=":1.begin_0" length="2.73" id="2" junction="0">
         <link>
             <predecessor elementType="road" elementId="1"/>
             <successor elementType="road" elementId="0"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="0.00" y="1.65" hdg="-2.55" length="1.49"><line/></geometry>
-            <geometry s="1.49" x="-1.24" y="0.83" hdg="-2.03" length="0.92"><line/></geometry>
-            <geometry s="2.41" x="-1.65" y="0.00" hdg="-1.11" length="0.92"><line/></geometry>
-            <geometry s="3.33" x="-1.24" y="-0.82" hdg="-0.59" length="1.49"><line/></geometry>
+            <geometry s="0.00" x="0.89" y="0.32" hdg="-2.55" length="1.06"><line/></geometry>
+            <geometry s="1.06" x="0.00" y="-0.27" hdg="1.11" length="0.30"><line/></geometry>
+            <geometry s="1.36" x="0.14" y="0.00" hdg="2.03" length="0.30"><line/></geometry>
+            <geometry s="1.67" x="0.00" y="0.27" hdg="-0.59" length="1.06"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile></lateralProfile>
@@ -91,7 +91,7 @@
                 <center>
                     <lane id="0" type="none" level= "0">
                         <link></link>
-                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
                         <width sOffset="0" a="0" b="0" c="0" d="0"/>
                     </lane>
                 </center>
@@ -100,7 +100,7 @@
                         <link>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                     </lane>
                  </right>
             </laneSection>
@@ -108,17 +108,17 @@
         <objects></objects>
         <signals></signals>
     </road>
-    <road name=":1.end_0" length="4.82" id="3" junction="1">
+    <road name=":1.end_0" length="2.73" id="3" junction="1">
         <link>
             <predecessor elementType="road" elementId="0"/>
             <successor elementType="road" elementId="1"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="50.00" y="-1.65" hdg="0.59" length="1.49"><line/></geometry>
-            <geometry s="1.49" x="51.24" y="-0.83" hdg="1.11" length="0.92"><line/></geometry>
-            <geometry s="2.41" x="51.65" y="-0.00" hdg="2.03" length="0.92"><line/></geometry>
-            <geometry s="3.33" x="51.24" y="0.82" hdg="2.55" length="1.49"><line/></geometry>
+            <geometry s="0.00" x="49.11" y="-0.32" hdg="0.59" length="1.06"><line/></geometry>
+            <geometry s="1.06" x="50.00" y="0.27" hdg="-2.03" length="0.30"><line/></geometry>
+            <geometry s="1.36" x="49.86" y="0.00" hdg="-1.11" length="0.30"><line/></geometry>
+            <geometry s="1.67" x="50.00" y="-0.27" hdg="2.55" length="1.06"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile></lateralProfile>
@@ -127,7 +127,7 @@
                 <center>
                     <lane id="0" type="none" level= "0">
                         <link></link>
-                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
                         <width sOffset="0" a="0" b="0" c="0" d="0"/>
                     </lane>
                 </center>
@@ -136,7 +136,7 @@
                         <link>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                     </lane>
                  </right>
             </laneSection>
