@@ -152,8 +152,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device << "                <right>\n";
                 device << "                    <lane id=\"-1\" type=\"driving\" level=\"0\">\n";
                 device << "                        <link>\n";
-                //device << "                            <predecessor id=\"1\"/>\n";// !!!
-                //device << "                            <successor id=\"-1\"/>\n";// !!!
+                device << "                            <predecessor id=\"-" << (*j)->getNumLanes() - c.fromLane << "\"/>\n";
+                device << "                            <successor id=\"-" << c.toEdge->getNumLanes() - c.toLane << "\"/>\n";
                 device << "                        </link>\n";
                 device << "                        <width sOffset=\"0\" a=\"" << width << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
                 device << "                        <roadMark sOffset=\"0\" type=\"none\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
