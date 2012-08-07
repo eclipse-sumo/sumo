@@ -27,6 +27,8 @@
 #else
 #include <config.h>
 #endif
+
+#include <ctime>
 #include "NWWriter_OpenDrive.h"
 #include <utils/common/MsgHandler.h>
 #include <netbuild/NBEdge.h>
@@ -37,6 +39,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StdDefs.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -65,9 +68,15 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("opendrive-output"));
     device << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
     device << "<OpenDRIVE>\n";
-    device << "    <header revMajor=\"1\" revMinor=\"3\" name=\"\" version=\"1.00\" date=\"!!!\" north=\"0.0e+00\" south=\"0.0e+00\" east=\"0.0e+00\" west=\"0.0e+00\" maxRoad=\"517\" maxJunc=\"2\" maxPrg=\"0\"/>\n";
-    // write normal edges (road)
+    time_t now = time(0);
+    std::string dstr(ctime(&now));
+    const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
+    const Boundary& b = GeoConvHelper::getFinal().getConvBoundary();
+    device << "    <header revMajor=\"1\" revMinor=\"3\" name=\"\" version=\"1.00\" date=\"" << dstr.substr(0, dstr.length()-1)
+        << "\" north=\"" << b.ymax() << "\" south=\"" << b.ymin() << "\" east=\"" << b.xmax() << "\" west=\"" << b.xmin()
+        << "\" maxRoad=\"" << ec.size() << "\" maxJunc=\"" << nc.size() << "\" maxPrg=\"0\"/>\n";
+    // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
         device << "    <road name=\"" << e->getStreetName() << "\" length=\"" << e->getLength() << "\" id=\"" << getID(e->getID(), edgeMap, edgeID) << "\" junction=\"-1\">\n";
@@ -112,7 +121,6 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     device << "\n";
     // write junction-internal edges (road)
-    const NBNodeCont& nc = nb.getNodeCont();
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         const std::vector<NBEdge*> &incoming = (*i).second->getIncomingEdges();
