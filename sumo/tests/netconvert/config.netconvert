@@ -39,6 +39,7 @@ plain_connections:<!--{[->]}-->
 plain_tllogic:<!--{[->]}-->
 joined_nodes:<!--{[->]}-->
 net:<!--{[->]}-->
+foreign:date="{[->]}"
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
