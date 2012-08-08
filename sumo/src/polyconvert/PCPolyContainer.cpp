@@ -152,23 +152,15 @@ PCPolyContainer::save(const std::string& file) {
     out.writeXMLHeader("shapes", SUMOSAXAttributes::ENCODING);
     // write polygons
     for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); ++i) {
-        out.openTag("poly") << " id=\"" << StringUtils::escapeXML((*i).second->getID())
-                            << "\" type=\"" << (*i).second->getType()
-                            << "\" color=\"" << (*i).second->getColor()
-                            << "\" fill=\"" << (*i).second->fill()
-                            << "\" layer=\"" << myPolyLayerMap[(*i).second]
-                            << "\" shape=\"" << (*i).second->getShape() << "\"";
-        out.closeTag(true);
+        out.openTag(SUMO_TAG_POLY).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i).second->getID())).writeAttr(SUMO_ATTR_TYPE, (*i).second->getType());
+        out.writeAttr(SUMO_ATTR_COLOR, (*i).second->getColor()).writeAttr(SUMO_ATTR_FILL, (*i).second->fill());
+        out.writeAttr(SUMO_ATTR_LAYER, myPolyLayerMap[(*i).second]).writeAttr(SUMO_ATTR_SHAPE, (*i).second->getShape()).closeTag(true);
     }
     // write pois
     for (POICont::iterator i = myPOICont.begin(); i != myPOICont.end(); ++i) {
-        out.openTag("poi") << " id=\"" << StringUtils::escapeXML((*i).second->getID())
-                           << "\" type=\"" << StringUtils::escapeXML((*i).second->getType())
-                           << "\" color=\"" << *static_cast<RGBColor*>((*i).second)
-                           << "\" layer=\"" << myPOILayerMap[(*i).second]
-                           << "\" x=\"" << (*i).second->x()
-                           << "\" y=\"" << (*i).second->y() << "\"";
-        out.closeTag(true);
+        out.openTag(SUMO_TAG_POI).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i).second->getID())).writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML((*i).second->getType()));
+        out.writeAttr(SUMO_ATTR_COLOR, *static_cast<RGBColor*>((*i).second)).writeAttr(SUMO_ATTR_LAYER, myPOILayerMap[(*i).second]);
+        out.writeAttr(SUMO_ATTR_X, (*i).second->x()).writeAttr(SUMO_ATTR_Y, (*i).second->y()).closeTag(true);
     }
     out.close();
 }
