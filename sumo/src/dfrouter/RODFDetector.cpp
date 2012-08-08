@@ -46,6 +46,7 @@
 #include "RODFDetectorFlow.h"
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/TplConvert.h>
 #include <utils/geom/GeomHelper.h>
 #include "RODFNet.h"
 #include <utils/iodevices/OutputDevice.h>
@@ -263,7 +264,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
     // routes
     if (myRoutes != 0 && myRoutes->get().size() != 0) {
         const std::vector<RODFRouteDesc> &routes = myRoutes->get();
-        out.openTag("routeDistribution") <<  " id=\"" << myID << "\">\n";
+        out.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, myID).closeOpener();
         bool isEmptyDist = true;
         for (std::vector<RODFRouteDesc>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
             if ((*i).overallProb > 0) {
@@ -272,15 +273,13 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
         }
         for (std::vector<RODFRouteDesc>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
             if ((*i).overallProb > 0 || includeUnusedRoutes) {
-                out.openTag("route") << " refId=\"" << (*i).routename << "\" probability=\"" << (*i).overallProb << "\"";
-                out.closeTag(true);
+                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, (*i).overallProb).closeTag(true);
             }
             if (isEmptyDist) {
-                out.openTag("route") << " refId=\"" << (*i).routename << "\" probability=\"1\"";
-                out.closeTag(true);
+                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, SUMOReal(1)).closeTag(true);
             }
         }
-        out.closeTag();
+        out.closeTag(); // routeDistribution
     } else {
         WRITE_ERROR("Detector '" + getID() + "' has no routes!?");
         return false;
@@ -323,26 +322,23 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 SUMOTime ctime = (SUMOTime)(time + ((SUMOReal) stepOffset * (SUMOReal) car / (SUMOReal) carNo));
 
                 // write
-                out.openTag("vehicle") << " id=\"";
+                out.openTag(SUMO_TAG_VEHICLE);
                 if (getType() == SOURCE_DETECTOR) {
-                    out << "emitter_" << myID;
+                    out.writeAttr(SUMO_ATTR_ID, "emitter_" + myID + "_" + toString(ctime));
                 } else {
-                    out << "calibrator_" << myID;
+                    out.writeAttr(SUMO_ATTR_ID, "calibrator_" + myID + "_" + toString(ctime));
                 }
-                out << "_" << ctime  << "\"" // !!! running
-                    << " depart=\"" << time2string(ctime) << "\""
-                    << " departSpeed=\"";
+                out.writeAttr(SUMO_ATTR_DEPART, time2string(ctime));
                 if (v > defaultSpeed) {
-                    out << "max";
+                    out.writeAttr(SUMO_ATTR_DEPARTSPEED, "max");
                 } else {
-                    out << v;
+                    out.writeAttr(SUMO_ATTR_DEPARTSPEED, v);
                 }
-                out << "\" departPos=\"" << myPosition << "\""
-                    << " departLane=\"" << myLaneID.substr(myLaneID.rfind("_") + 1) << "\" route=\"";
+                out.writeAttr(SUMO_ATTR_DEPARTPOS, myPosition).writeAttr(SUMO_ATTR_DEPARTLANE, TplConvert::_2int(myLaneID.substr(myLaneID.rfind("_") + 1).c_str()));
                 if (destIndex >= 0) {
-                    out << myRoutes->get()[destIndex].routename << "\"";
+                    out.writeAttr(SUMO_ATTR_ROUTE, myRoutes->get()[destIndex].routename);
                 } else {
-                    out << myID << "\"";
+                    out.writeAttr(SUMO_ATTR_ROUTE, myID);
                 }
                 out.closeTag(true);
                 srcFD.isLKW += srcFD.fLKW;
@@ -384,7 +380,7 @@ RODFDetector::writeSingleSpeedTrigger(const std::string& file,
         } else {
             speed = (SUMOReal)(speed / 3.6);
         }
-        out << "   <step time=\"" << t << "\" speed=\"" << speed << "\"/>\n";
+        out.openTag(SUMO_TAG_STEP).writeAttr(SUMO_ATTR_TIME, time2string(t)).writeAttr(SUMO_ATTR_SPEED, speed).closeTag(true);
     }
     out.close();
 }
@@ -457,26 +453,24 @@ RODFDetectorCon::save(const std::string& file) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("detectors");
     for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        out << "   <" << toString(SUMO_TAG_DETECTOR_DEFINITION) << " id=\"" << StringUtils::escapeXML((*i)->getID())
-            << "\" lane=\"" << (*i)->getLaneID()
-            << "\" pos=\"" << (*i)->getPos();
+        out.openTag(SUMO_TAG_DETECTOR_DEFINITION).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i)->getID())).writeAttr(SUMO_ATTR_LANE, (*i)->getLaneID()).writeAttr(SUMO_ATTR_POSITION, (*i)->getPos());
         switch ((*i)->getType()) {
             case BETWEEN_DETECTOR:
-                out << "\" type=\"between\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "between");
                 break;
             case SOURCE_DETECTOR:
-                out << "\" type=\"source\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "source");
                 break;
             case SINK_DETECTOR:
-                out << "\" type=\"sink\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "sink");
                 break;
             case DISCARDED_DETECTOR:
-                out << "\" type=\"discarded\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "discarded");
                 break;
             default:
                 throw 1;
         }
-        out << "/>\n";
+        out.closeTag(true);
     }
     out.close();
 }
@@ -487,25 +481,24 @@ RODFDetectorCon::saveAsPOIs(const std::string& file) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("pois");
     for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        out << "   <poi id=\"" << StringUtils::escapeXML((*i)->getID());
+        out.openTag(SUMO_TAG_POI).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i)->getID()));
         switch ((*i)->getType()) {
             case BETWEEN_DETECTOR:
-                out << "\" type=\"between_detector_position\" color=\"0,0,1\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "between_detector_position").writeAttr(SUMO_ATTR_COLOR, RGBColor(0, 0, 1));
                 break;
             case SOURCE_DETECTOR:
-                out << "\" type=\"source_detector_position\" color=\"0,1,0\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "source_detector_position").writeAttr(SUMO_ATTR_COLOR, RGBColor(0, 1, 0));
                 break;
             case SINK_DETECTOR:
-                out << "\" type=\"sink_detector_position\" color=\"1,0,0\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "sink_detector_position").writeAttr(SUMO_ATTR_COLOR, RGBColor(1, 0, 0));
                 break;
             case DISCARDED_DETECTOR:
-                out << "\" type=\"discarded_detector_position\" color=\".2,.2,.2\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "discarded_detector_position").writeAttr(SUMO_ATTR_COLOR, RGBColor(.2, .2, .2));
                 break;
             default:
                 throw 1;
         }
-        out << " lane=\"" << (*i)->getLaneID() << "\" pos=\""
-            << (*i)->getPos() << "\"/>\n";
+        out.writeAttr(SUMO_ATTR_LANE, (*i)->getLaneID()).writeAttr(SUMO_ATTR_POSITION, (*i)->getPos()).closeTag(true);
     }
     out.close();
 }
@@ -591,11 +584,8 @@ RODFDetectorCon::writeEmitters(const std::string& file,
         clearDists(dists);
         // write the declaration into the file
         if (writeCalibrators && det->getType() == BETWEEN_DETECTOR) {
-            out << "   <calibrator id=\"calibrator_" << escapedID
-                << "\" pos=\"" << det->getPos() << "\" "
-                << "lane=\"" << det->getLaneID() << "\" "
-                << "friendlyPos=\"x\" " // !!!
-                << "file=\"" << defFileName << "\"/>\n";
+            out.openTag(SUMO_TAG_CALIBRATOR).writeAttr(SUMO_ATTR_ID, "calibrator_" + escapedID).writeAttr(SUMO_ATTR_POSITION, det->getPos());
+            out.writeAttr(SUMO_ATTR_LANE, det->getLaneID()).writeAttr(SUMO_ATTR_FRIENDLY_POS, true).writeAttr(SUMO_ATTR_FILE, defFileName).closeTag(true);
         }
     }
     out.close();
@@ -614,24 +604,24 @@ RODFDetectorCon::writeEmitterPOIs(const std::string& file,
         col = (SUMOReal)(col / 2. + .5);
         SUMOReal r, g, b;
         r = g = b = 0;
-        out << "   <poi id=\"" << StringUtils::escapeXML((*i)->getID()) << ":" << flow;
+        out.openTag(SUMO_TAG_POI).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i)->getID()) + ":" + toString(flow));
         switch ((*i)->getType()) {
             case BETWEEN_DETECTOR:
-                out << "\" type=\"between_detector_position\" color=\"0,0," << col << "\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "between_detector_position").writeAttr(SUMO_ATTR_COLOR, RGBColor(0, 0, col));
                 break;
             case SOURCE_DETECTOR:
-                out << "\" type=\"source_detector_position\" color=\"0," << col << ",0\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "source_detector_position").writeAttr(SUMO_ATTR_COLOR, RGBColor(0, col, 0));
                 break;
             case SINK_DETECTOR:
-                out << "\" type=\"sink_detector_position\" color=\"" << col << ",0,0\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "sink_detector_position").writeAttr(SUMO_ATTR_COLOR, RGBColor(col, 0, 0));
                 break;
             case DISCARDED_DETECTOR:
-                out << "\" type=\"discarded_detector_position\" color=\".2,.2,.2\"";
+                out.writeAttr(SUMO_ATTR_TYPE, "discarded_detector_position").writeAttr(SUMO_ATTR_COLOR, RGBColor(.2, .2, .2));
                 break;
             default:
                 throw 1;
         }
-        out << " lane=\"" << (*i)->getLaneID() << "\" pos=\"" << (*i)->getPos() << "\"/>\n";
+        out.writeAttr(SUMO_ATTR_LANE, (*i)->getLaneID()).writeAttr(SUMO_ATTR_POSITION, (*i)->getPos()).closeTag(true);
     }
     out.close();
 }
@@ -694,9 +684,7 @@ RODFDetectorCon::writeSpeedTrigger(const RODFNet* const net,
         // write the declaration into the file
         if (det->getType() == SINK_DETECTOR && flows.knows(det->getID())) {
             std::string filename = FileHelpers::getFilePath(file) + "vss_" + det->getID() + ".def.xml";
-            out << "   <variableSpeedSign id=\"vss_" << StringUtils::escapeXML(det->getID()) << '\"'
-                << " lanes=\"" << det->getLaneID() << '\"'
-                << " file=\"" << filename << "\"/>\n";
+            out.openTag(SUMO_TAG_VSS).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(det->getID())).writeAttr(SUMO_ATTR_LANES, det->getLaneID()).writeAttr(SUMO_ATTR_FILE, filename).closeTag(true);
             SUMOReal defaultSpeed = net != 0 ? net->getEdge(det->getEdgeID())->getSpeed() : (SUMOReal) 200.;
             det->writeSingleSpeedTrigger(filename, flows, startTime, endTime, stepOffset, defaultSpeed);
         }
@@ -713,10 +701,8 @@ RODFDetectorCon::writeEndRerouterDetectors(const std::string& file) {
         RODFDetector* det = *i;
         // write the declaration into the file
         if (det->getType() == SINK_DETECTOR) {
-            out << "   <rerouter id=\"endrerouter_" << StringUtils::escapeXML(det->getID())
-                << "\" edges=\"" <<
-                det->getLaneID() << "\" attr=\"reroute\" pos=\"0\" file=\"endrerouter_"
-                << det->getID() << ".def.xml\"/>\n";
+            out.openTag(SUMO_TAG_REROUTER).writeAttr(SUMO_ATTR_ID, "endrerouter_" + StringUtils::escapeXML(det->getID())).writeAttr(SUMO_ATTR_EDGES, det->getLaneID());
+            out.writeAttr(SUMO_ATTR_POSITION, SUMOReal(0)).writeAttr(SUMO_ATTR_FILE, "endrerouter_" + det->getID() + ".def.xml").closeTag(true);
         }
     }
     out.close();
@@ -737,18 +723,17 @@ RODFDetectorCon::writeValidationDetectors(const std::string& file,
             if (det->getType() == SOURCE_DETECTOR) {
                 pos += 1;
             }
-            out << "   <detector id=\"validation_" << StringUtils::escapeXML(det->getID()) << "\" "
-                << "lane=\"" << det->getLaneID() << "\" "
-                << "pos=\"" << pos << "\" "
-                << "freq=\"60\" ";
+            out.openTag(SUMO_TAG_E1DETECTOR).writeAttr(SUMO_ATTR_ID, "validation_" + StringUtils::escapeXML(det->getID())).writeAttr(SUMO_ATTR_LANE, det->getLaneID());
+            out.writeAttr(SUMO_ATTR_POSITION, pos).writeAttr(SUMO_ATTR_FREQUENCY, 60);
             if (friendly) {
-                out << "friendlyPos=\"x\" ";
+                out.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
             }
             if (!singleFile) {
-                out << "file=\"validation_det_" << StringUtils::escapeXML(det->getID()) << ".xml\"/>\n";
+                out.writeAttr(SUMO_ATTR_FILE, "validation_det_" + StringUtils::escapeXML(det->getID()) + ".xml");
             } else {
-                out << "file=\"validation_dets.xml\"/>\n";//!!!
+                out.writeAttr(SUMO_ATTR_FILE, "validation_dets.xml");
             }
+            out.closeTag(true);
         }
     }
     out.close();

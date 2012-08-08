@@ -89,14 +89,16 @@ RODFRouteCont::save(std::vector<std::string> &saved,
         }
         saved.push_back((*j).routename);
         assert(desc.edges2Pass.size() >= 1);
-        out << "   <route id=\"" << prependix << desc.routename << "\" edges=\"";
+        out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_ID, prependix + desc.routename);
+        out << " edges=\"";
         for (std::vector<ROEdge*>::const_iterator k = desc.edges2Pass.begin(); k != desc.edges2Pass.end(); k++) {
             if (k != desc.edges2Pass.begin()) {
                 out << ' ';
             }
             out << (*k)->getID();
         }
-        out << "\"/>\n";
+        out << '"';
+        out.closeTag(true);
         haveSavedOneAtLeast = true;
     }
     return haveSavedOneAtLeast;
