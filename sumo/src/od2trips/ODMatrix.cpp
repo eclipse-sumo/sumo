@@ -174,31 +174,28 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
         }
         for (std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin(); i != vehicles.rend() && (*i).depart == t; ++i) {
             myNoWritten++;
-            dev.openTag("trip") << " id=\"" << (*i).id << "\" depart=\"" << time2string(t) << "\" "
-                                << "from=\"" << (*i).from << "\" "
-                                << "to=\"" << (*i).to << "\"";
+            dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t)).writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
             if (!noVtype && (*i).cell->vehicleType.length() != 0) {
-                dev << " type=\"" << (*i).cell->vehicleType << "\"";
+                dev.writeAttr(SUMO_ATTR_TYPE, (*i).cell->vehicleType);
             }
-            dev << " fromTaz=\"" << (*i).cell->origin << "\"";
-            dev << " toTaz=\"" << (*i).cell->destination << "\"";
+            dev.writeAttr(SUMO_ATTR_FROM_TAZ, (*i).cell->origin).writeAttr(SUMO_ATTR_TO_TAZ, (*i).cell->destination);
             if (oc.isSet("departlane") && oc.getString("departlane") != "default") {
-                dev << " departLane=\"" << oc.getString("departlane") << "\"";
+                dev.writeAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
             }
             if (oc.isSet("departpos")) {
-                dev << " departPos=\"" << oc.getString("departpos") << "\"";
+                dev.writeAttr(SUMO_ATTR_DEPARTPOS, oc.getString("departpos"));
             }
             if (oc.isSet("departspeed") && oc.getString("departspeed") != "default") {
-                dev << " departSpeed=\"" << oc.getString("departspeed") << "\"";
+                dev.writeAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
             }
             if (oc.isSet("arrivallane")) {
-                dev << " arrivalLane=\"" << oc.getString("arrivallane") << "\"";
+                dev.writeAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
             }
             if (oc.isSet("arrivalpos")) {
-                dev << " arrivalPos=\"" << oc.getString("arrivalpos") << "\"";
+                dev.writeAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
             }
             if (oc.isSet("arrivalspeed")) {
-                dev << " arrivalSpeed=\"" << oc.getString("arrivalspeed") << "\"";
+                dev.writeAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
             }
             dev.closeTag(true);
         }
