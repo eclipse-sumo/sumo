@@ -1,28 +1,30 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Sep 10 00:02:08 2007 by SUMO dfrouter Version dev-SVN-r4433
-<configuration>
+<!-- generated on 08/08/12 10:36:10 by SUMO dfrouter Version dev-SVN-rUNKNOWN
+<?xml version="1.0" encoding="UTF-8"?>
 
-   <input>
-      <net-file>input_tri.net.xml</net-file>
-      <detector-files>input_tri.det.xml</detector-files>
-   </input>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
-   <output>
-      <detectors-output>detectors_def.det.xml</detectors-output>
-   </output>
+    <input>
+        <net-file value="input_tri.net.xml"/>
+        <detector-files value="input_tri.det.xml"/>
+    </input>
+
+    <output>
+        <detector-output value="detectors_def.det.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <detectors>
-   <detectorDefinition id="MQ_beg" lane="beg_0" pos="5.00" type="source"/>
-   <detectorDefinition id="MQ_middle" lane="middle_0" pos="500.00" type="between"/>
-   <detectorDefinition id="MQ_1toR" lane="1toR_0" pos="100.00" type="between"/>
-   <detectorDefinition id="MQ_R" lane="R_0" pos="500.00" type="between"/>
-   <detectorDefinition id="MQ_Rto2" lane="Rto2_0" pos="100.00" type="between"/>
-   <detectorDefinition id="MQ_1toL" lane="1toL_0" pos="100.00" type="between"/>
-   <detectorDefinition id="MQ_L" lane="L_0" pos="500.00" type="between"/>
-   <detectorDefinition id="MQ_Lto2" lane="Lto2_0" pos="100.00" type="between"/>
-   <detectorDefinition id="MQ_end" lane="end_0" pos="50.00" type="sink"/>
+    <detectorDefinition id="MQ_beg" lane="beg_0" pos="5.00" type="source"/>
+    <detectorDefinition id="MQ_middle" lane="middle_0" pos="500.00" type="between"/>
+    <detectorDefinition id="MQ_1toR" lane="1toR_0" pos="100.00" type="between"/>
+    <detectorDefinition id="MQ_R" lane="R_0" pos="500.00" type="between"/>
+    <detectorDefinition id="MQ_Rto2" lane="Rto2_0" pos="100.00" type="between"/>
+    <detectorDefinition id="MQ_1toL" lane="1toL_0" pos="100.00" type="between"/>
+    <detectorDefinition id="MQ_L" lane="L_0" pos="500.00" type="between"/>
+    <detectorDefinition id="MQ_Lto2" lane="Lto2_0" pos="100.00" type="between"/>
+    <detectorDefinition id="MQ_end" lane="end_0" pos="50.00" type="sink"/>
 </detectors>

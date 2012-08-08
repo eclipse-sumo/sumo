@@ -1,36 +1,38 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/10/07 15:00:37 by SUMO dfrouter Version 0.9.7
-<configuration>
+<!-- generated on 08/08/12 10:36:17 by SUMO dfrouter Version dev-SVN-rUNKNOWN
+<?xml version="1.0" encoding="UTF-8"?>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <detector-files>input_detectors.det.xml</detector-files>
-      <detector-flow-files>input_flows.txt</detector-flow-files>
-   </input>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
-   <output>
-      <routes-output>routes.rou.xml</routes-output>
-      <detectors-output>detectors_def.det.xml</detectors-output>
-      <emitters-output>emitters.add.xml</emitters-output>
-   </output>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <detector-files value="input_detectors.det.xml"/>
+        <measure-files value="input_flows.txt"/>
+    </input>
 
-   <time>
-      <end>60</end>
-   </time>
+    <output>
+        <routes-output value="routes.rou.xml"/>
+        <detector-output value="detectors_def.det.xml"/>
+        <emitters-output value="emitters.add.xml"/>
+    </output>
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <time>
+        <end value="60"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <detectors>
-   <detectorDefinition id="LI" lane="11_21_0" pos="100.00" type="source"/>
-   <detectorDefinition id="LO" lane="20_10_0" pos="100.00" type="sink"/>
-   <detectorDefinition id="RI" lane="60_50_0" pos="100.00" type="source"/>
-   <detectorDefinition id="RO" lane="51_61_0" pos="100.00" type="sink"/>
-   <detectorDefinition id="BI" lane="a5_a4_0" pos="50.00" type="source"/>
-   <detectorDefinition id="BO" lane="a4_a5_0" pos="50.00" type="sink"/>
+    <detectorDefinition id="LI" lane="11_21_0" pos="100.00" type="source"/>
+    <detectorDefinition id="LO" lane="20_10_0" pos="100.00" type="sink"/>
+    <detectorDefinition id="RI" lane="60_50_0" pos="100.00" type="source"/>
+    <detectorDefinition id="RO" lane="51_61_0" pos="100.00" type="sink"/>
+    <detectorDefinition id="BI" lane="a5_a4_0" pos="50.00" type="source"/>
+    <detectorDefinition id="BO" lane="a4_a5_0" pos="50.00" type="sink"/>
 </detectors>

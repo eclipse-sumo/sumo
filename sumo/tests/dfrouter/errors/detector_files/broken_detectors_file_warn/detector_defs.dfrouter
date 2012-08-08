@@ -1,26 +1,28 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/23/09 09:42:21 by SUMO dfrouter Version dev-SVN-r6926
-<configuration>
+<!-- generated on 08/08/12 10:36:21 by SUMO dfrouter Version dev-SVN-rUNKNOWN
+<?xml version="1.0" encoding="UTF-8"?>
 
-   <input>
-      <net-file>input_messstrecke.net.xml</net-file>
-      <detector-files>input_messstrecke.det.xml</detector-files>
-   </input>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
-   <output>
-      <detectors-output>detectors_def.det.xml</detectors-output>
-   </output>
+    <input>
+        <net-file value="input_messstrecke.net.xml"/>
+        <detector-files value="input_messstrecke.det.xml"/>
+    </input>
 
-   <processing>
-      <ignore-invalid-detectors>true</ignore-invalid-detectors>
-   </processing>
+    <output>
+        <detector-output value="detectors_def.det.xml"/>
+    </output>
+
+    <processing>
+        <ignore-invalid-detectors value="true"/>
+    </processing>
 
 </configuration>
 -->
 
 <detectors>
-   <detectorDefinition id="MQ11Fs2" lane="ErnstRuska2O_1" pos="5.00" type="sink"/>
-   <detectorDefinition id="MQ12Fs1" lane="ErnstRuska2W_0" pos="-5.00" type="sink"/>
-   <detectorDefinition id="MQ12Fs2" lane="ErnstRuska2W_1" pos="-5.00" type="sink"/>
+    <detectorDefinition id="MQ11Fs2" lane="ErnstRuska2O_1" pos="5.00" type="sink"/>
+    <detectorDefinition id="MQ12Fs1" lane="ErnstRuska2W_0" pos="-5.00" type="sink"/>
+    <detectorDefinition id="MQ12Fs2" lane="ErnstRuska2W_1" pos="-5.00" type="sink"/>
 </detectors>

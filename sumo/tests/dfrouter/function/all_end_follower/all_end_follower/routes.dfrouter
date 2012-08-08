@@ -1,32 +1,34 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/11/08 14:42:35 by SUMO dfrouter Version dev-SVN-r6410
-<configuration>
+<!-- generated on 08/08/12 10:36:17 by SUMO dfrouter Version dev-SVN-rUNKNOWN
+<?xml version="1.0" encoding="UTF-8"?>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <detector-files>input_detectors.det.xml</detector-files>
-   </input>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
-   <output>
-      <routes-output>routes.rou.xml</routes-output>
-   </output>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <detector-files value="input_detectors.det.xml"/>
+    </input>
 
-   <processing>
-      <all-end-follower>true</all-end-follower>
-   </processing>
+    <output>
+        <routes-output value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <all-end-follower value="true"/>
+    </processing>
 
 </configuration>
 -->
 
 <routes>
 
-   <route id="beg_to_end" edges="beg middle end"/>
-   <route id="beg_to_LtoL2c" edges="beg 1toL L LtoL2c"/>
-   <route id="beg_to_LtoL2b" edges="beg 1toL L LtoL2b"/>
-   <route id="beg_to_LtoL2a" edges="beg 1toL L LtoL2a"/>
-   <route id="beg_to_RtoR2a" edges="beg 1toR R RtoR2a"/>
-   <route id="beg_to_RtoR2b" edges="beg 1toR R RtoR2b"/>
-   <route id="beg_to_RtoR2c" edges="beg 1toR R RtoR2c"/>
+    <route id="beg_to_end" edges="beg middle end"/>
+    <route id="beg_to_LtoL2c" edges="beg 1toL L LtoL2c"/>
+    <route id="beg_to_LtoL2b" edges="beg 1toL L LtoL2b"/>
+    <route id="beg_to_LtoL2a" edges="beg 1toL L LtoL2a"/>
+    <route id="beg_to_RtoR2a" edges="beg 1toR R RtoR2a"/>
+    <route id="beg_to_RtoR2b" edges="beg 1toR R RtoR2b"/>
+    <route id="beg_to_RtoR2c" edges="beg 1toR R RtoR2c"/>
 
 </routes>
