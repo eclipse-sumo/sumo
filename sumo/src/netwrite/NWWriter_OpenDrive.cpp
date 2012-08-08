@@ -92,7 +92,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         ls.move2side(-width/2.);
         writePlanView(ls, device);
         device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";
-        device << "        <lateralProfile></lateralProfile>\n";
+        device << "        <lateralProfile/>\n";
         device << "        <lanes>\n";
         device << "            <laneSection s=\"0\">\n";
         writeEmptyCenterLane(device, "solid", 0.13);
@@ -115,8 +115,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "                 </right>\n";
         device << "            </laneSection>\n";
         device << "        </lanes>\n";
-        device << "        <objects></objects>\n";
-        device << "        <signals></signals>\n";
+        device << "        <objects/>\n";
+        device << "        <signals/>\n";
         device << "    </road>\n";
     }
     device << "\n";
@@ -145,7 +145,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device << "        <type s=\"0\" type=\"town\"/>\n";
                 writePlanView(shape, device);
                 device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";
-                device << "        <lateralProfile></lateralProfile>\n";
+                device << "        <lateralProfile/>\n";
                 device << "        <lanes>\n";
                 device << "            <laneSection s=\"0\">\n";
                 writeEmptyCenterLane(device, "none", 0);
@@ -161,8 +161,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device << "                 </right>\n";
                 device << "            </laneSection>\n";
                 device << "        </lanes>\n";
-                device << "        <objects></objects>\n";
-                device << "        <signals></signals>\n";
+                device << "        <objects/>\n";
+                device << "        <signals/>\n";
                 device << "    </road>\n";
             }
         }
@@ -212,7 +212,7 @@ void
 NWWriter_OpenDrive::writeEmptyCenterLane(OutputDevice& device, const std::string &mark, SUMOReal markWidth) {
     device << "                <center>\n";
     device << "                    <lane id=\"0\" type=\"none\" level= \"0\">\n";
-    device << "                        <link></link>\n";
+    device << "                        <link/>\n";
     device << "                        <roadMark sOffset=\"0\" type=\"" << mark << "\" weight=\"standard\" color=\"standard\" width=\"" << markWidth << "\"/>\n";
     device << "                        <width sOffset=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/>\n";
     device << "                    </lane>\n";
