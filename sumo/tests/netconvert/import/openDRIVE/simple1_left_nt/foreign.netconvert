@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Tue Aug 07 09:26:43 2012" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="1" maxJunc="2" maxPrg="0"/>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Aug 08 14:54:13 2012" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="1" maxJunc="2" maxPrg="0"/>
     <road name="" length="50.00" id="0" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="0"/>
@@ -11,12 +11,12 @@
             <geometry s="0.00" x="50.00" y="0.05" hdg="3.14" length="50.00"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
-        <lateralProfile></lateralProfile>
+        <lateralProfile/>
         <lanes>
             <laneSection s="0">
                 <center>
                     <lane id="0" type="none" level= "0">
-                        <link></link>
+                        <link/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <width sOffset="0" a="0" b="0" c="0" d="0"/>
                     </lane>
@@ -33,8 +33,8 @@
                  </right>
             </laneSection>
         </lanes>
-        <objects></objects>
-        <signals></signals>
+        <objects/>
+        <signals/>
     </road>
 
     <junction name="1.begin" id="1">
