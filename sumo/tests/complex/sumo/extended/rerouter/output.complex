@@ -1,0 +1,264 @@
+>>> Building the network
+Loading configuration... done.
+Success.
+Checking closing rerouting
+ Checking at edge 'beg'
+  Checking for simulation begin=0, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 100, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=50, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+ Checking at edge 'preBeg'
+  Checking for simulation begin=0, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 100, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=50, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+Checking destProb rerouting
+ Checking at edge 'beg'
+  Checking for simulation begin=0, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 100, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=50, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+ Checking at edge 'preBeg'
+  Checking for simulation begin=0, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 100, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=50, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+Checking routeProb rerouting
+ Checking at edge 'beg'
+  Checking for simulation begin=0, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 100, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=50, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+ Checking at edge 'preBeg'
+  Checking for simulation begin=0, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 100, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 0, ends at 86400
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=0, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=50, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+  Checking for simulation begin=100, rerouter starts at 50, ends at 100
+    Checking with multi-referenced routes: True
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
+    Checking with multi-referenced routes: False
+     Checking with embedded rerouter definition: True
+     Checking with embedded rerouter definition: False
