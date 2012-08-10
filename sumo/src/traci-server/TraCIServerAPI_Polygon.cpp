@@ -262,7 +262,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
         break;
         case REMOVE: {
             if (valueDataType != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
+                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
                 return false;
             }
             layer = inputStorage.readInt();
@@ -272,7 +272,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     removed |= shapeCont.removePolygon(i, id);
                 }
                 if (!removed) {
-                    server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
+                    server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
                     return false;
                 }
             }
