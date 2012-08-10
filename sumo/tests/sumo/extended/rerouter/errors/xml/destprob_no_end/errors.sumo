@@ -1,5 +1,0 @@
-Error: The input ended before all started tags were ended. Last tag started was 'rerouter'
- In file 'input_definition.def.xml'
- At line/column 8/1.
-
-Quitting (on error).
