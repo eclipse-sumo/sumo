@@ -272,7 +272,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     removed |= shapeCont.removePolygon(i, id);
                 }
                 if (!removed) {
-                    server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
+                    server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not remove polygon '" + id + "'", outputStorage);
                     return false;
                 }
             }
