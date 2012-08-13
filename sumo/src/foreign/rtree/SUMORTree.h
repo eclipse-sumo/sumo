@@ -33,6 +33,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/geom/Boundary.h>
+#include <utils/foxtools/MFXMutex.h>
 
 #include "RTree.h"
 
@@ -51,7 +52,7 @@ inline float RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class SUMORTree : public RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings>, public Boundary
+class SUMORTree : private RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings>, public Boundary
 {
 public:
     SUMORTree() 
@@ -59,6 +60,21 @@ public:
     }
 
     ~SUMORTree() {
+    }
+
+    int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) {
+        Locker lock = lockInScope();
+        return RTree::Search(a_min, a_max, c);
+    }
+
+    void Insert(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
+        Locker lock = lockInScope();
+        RTree::Insert(a_min, a_max, a_dataId);
+    }
+
+    void Remove(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
+        Locker lock = lockInScope();
+        RTree::Remove(a_min, a_max, a_dataId);
     }
 
     /** @brief Adds an additional object (detector/shape/trigger) for visualisation
@@ -80,6 +96,25 @@ public:
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Remove(cmin, cmax, o);
     }
+
+protected:
+    class Locker {
+            friend class SUMORTree;
+            public:
+                    ~Locker() {
+                            myLock.unlock();
+                    }
+            private:
+                    Locker(MFXMutex& lock) : myLock(lock) {
+                            myLock.lock();
+                    }
+            private:
+                    MFXMutex& myLock;
+    };
+    Locker lockInScope() {
+            return Locker(myLock);
+    }
+    MFXMutex myLock;
 
 };
 
