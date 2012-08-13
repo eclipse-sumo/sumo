@@ -38,6 +38,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeoConvHelper.h>
 
@@ -136,7 +137,13 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     shape.appendWithCrossingPoint(c.viaShape);
                 }
                 const SUMOReal width = SUMO_const_laneWidth;
-                shape.move2side(-width/2.);
+                // @todo: this if-clause is a hack which assures that the code also works with connections of zero length, what may be possible
+                // probably, it would make sense to mark such connections and connect the incoming/outgoing streets directly in such cases.
+                if (shape.length()!=0) { 
+                    shape.move2side(-width/2.);
+                } else {
+                    WRITE_WARNING("Same position problem at internal edge '" + c.id + "'.");
+                }
                 device << "    <road name=\"" << c.id << "\" length=\"" << shape.length() << "\" id=\"" << getID(c.id, edgeMap, edgeID) << "\" junction=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
                 device << "        <link>\n";
                 device << "            <predecessor elementType=\"road\" elementId=\"" << getID((*j)->getID(), edgeMap, edgeID) << "\"/>\n";
