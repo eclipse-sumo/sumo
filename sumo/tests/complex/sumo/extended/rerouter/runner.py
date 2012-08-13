@@ -87,12 +87,12 @@ def getTimeOnEdge(route, exitTimes, edge, depart):
 
 def verify(vehroutes, edge):
     for v in vehroutes:
-        if "routeDistribution" not in v._fields or len(v.routeDistribution)==0:
+        if "routeDistribution" not in v.child_dict or len(v['routeDistribution'])==0:
             wasRerouted = False
-            entryTime, leaveTime = getTimeOnEdge(v.route[0].edges.split(), v.route[0].exitTimes.split(), edge, float(v.depart))
+            entryTime, leaveTime = getTimeOnEdge(v['route'][0].edges.split(), v['route'][0].exitTimes.split(), edge, float(v.depart))
         else:
             wasRerouted = True
-            fr = v.routeDistribution[0].route[-1]
+            fr = v['routeDistribution'][0]['route'][-1]
             entryTime, leaveTime = getTimeOnEdge(fr.edges.split(), fr.exitTimes.split(), edge, float(v.depart))
         if entryTime>=t[1] and entryTime<=t[2] and not wasRerouted:
             print "Vehicle '%s' was not rerouted; times (%s, %s, %s)" % (v.id, t[0], t[1], t[2])
@@ -122,16 +122,16 @@ for r in rerouter:
                     sys.stdout.flush()
                     retcode = subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "-b", str(t[0])], stdout=nd, stderr=sys.stderr)
                     sys.stdout.flush()
-                    vehroutes = sumolib.output.parse("vehroutes.xml", "vehicle")
-            
+                    v = {}
+                    
+                    vehroutes = list(sumolib.output.parse("vehroutes.xml", ["vehicle"], {'route':['exitTimes', 'edges']}))
+
                     wvn = 10-int((t[0]+10)/20)
-                    if len(vehroutes)!=wvn:
-                        print "Mismatching number of vehicles (%s instead of %s)" % (len(vehroutes), wvn)
+#                    if len(vehroutes)!=wvn:
+ #                       print "Mismatching number of vehicles (%s instead of %s)" % (len(vehroutes), wvn)
                     
                     verify(vehroutes, edge[0])
                     try: os.remove("vehroutes.xml")
                     except: pass
     nd.close()
-
-# embedded oder nicht...
 
