@@ -178,7 +178,7 @@ public:
 
     /** @brief Informs this control about a vehicle's departure
      *
-     * If the mean waiting time shall be computed (f.e. for emissions-output),
+     * If the mean waiting time shall be computed (f.e. for summary-output),
      *  the absolut waiting time is increased by the waiting time of the given
      *  vehicle.
      * @param[in] v The inserted vehicle

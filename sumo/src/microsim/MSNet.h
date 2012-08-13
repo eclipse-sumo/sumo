@@ -208,7 +208,7 @@ public:
     SUMOTime getCurrentTimeStep() const;
 
 
-    /** @brief Write netstate, emission and detector output
+    /** @brief Write netstate, summary and detector output
      * @todo Which exceptions may occur?
      */
     void writeOutput();

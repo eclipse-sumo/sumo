@@ -284,7 +284,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
         WRITE_ERROR("Detector '" + getID() + "' has no routes!?");
         return false;
     }
-    // emissions
+    // insertions
     if (insertionsOnly || flows.knows(myID)) {
         // get the flows for this detector
 
@@ -312,7 +312,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
 //!!!	    			type = pkwTypes[vehSpeedDist.get()];
                     v = srcFD.vPKW;
                 }
-                // compute emission speed
+                // compute insertion speed
                 if (v < 0 || v > 250) {
                     v = defaultSpeed;
                 } else {
