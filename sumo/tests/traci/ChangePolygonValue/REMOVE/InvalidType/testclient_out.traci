@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sat Oct  9 00:18:22 2010
+TraCITestClient output file. Date: Mon Aug 13 14:15:39 2012
 
 
 -> Command sent: <SimulationStep2>:
@@ -12,7 +12,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:18:22 2010
 
 -> Command sent: <SetValue>:
   domID=200 varID=129 objID=p1
-#Error: received status response to command: 199 but expected: 200
+.. Answered with error to command (200), [description: The layer must be given using an int.]
 
 -> Command sent: <GetVariable>:
   domID=168 varID=0 objID=xxx
