@@ -53,11 +53,7 @@
 // ===========================================================================
 ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet& net)
     : SUMOSAXHandler("turn-ratio-file"), myNet(net),
-      myIntervalBegin(0), myIntervalEnd(SUMOTime_MAX), myEdge(0),
-      myHaveWarnedAboutDeprecatedSources(false),
-      myHaveWarnedAboutDeprecatedSinks(false),
-      myHaveWarnedAboutDeprecatedFromEdge(false),
-      myHaveWarnedAboutDeprecatedToEdge(false) {}
+      myIntervalBegin(0), myIntervalEnd(SUMOTime_MAX), myEdge(0) {}
 
 
 ROJTRTurnDefLoader::~ROJTRTurnDefLoader() {}
@@ -72,19 +68,9 @@ ROJTRTurnDefLoader::myStartElement(int element,
             myIntervalBegin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok);
             myIntervalEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok);
             break;
-        case SUMO_TAG_FROMEDGE__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedFromEdge) {
-                myHaveWarnedAboutDeprecatedFromEdge = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_FROMEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_FROMEDGE) + "'.");
-            }
         case SUMO_TAG_FROMEDGE:
             beginFromEdge(attrs);
             break;
-        case SUMO_TAG_TOEDGE__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedToEdge) {
-                myHaveWarnedAboutDeprecatedToEdge = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_TOEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TOEDGE) + "'.");
-            }
         case SUMO_TAG_TOEDGE:
             addToEdge(attrs);
             break;
@@ -116,40 +102,6 @@ ROJTRTurnDefLoader::myStartElement(int element,
                 }
             }
             break;
-        default:
-            break;
-    }
-}
-
-
-void
-ROJTRTurnDefLoader::myCharacters(int element,
-                                 const std::string& chars) {
-    switch (element) {
-        case SUMO_TAG_SINK: {
-            ROEdge* edge = myNet.getEdge(chars);
-            if (edge == 0) {
-                throw ProcessError("The edge '" + chars + "' declared as a sink is not known.");
-            }
-            if (!myHaveWarnedAboutDeprecatedSinks) {
-                myHaveWarnedAboutDeprecatedSinks = true;
-                WRITE_WARNING("Using characters for sinks is deprecated; use attribute 'edges' instead.");
-            }
-            edge->setType(ROEdge::ET_SINK);
-        }
-        break;
-        case SUMO_TAG_SOURCE: {
-            ROEdge* edge = myNet.getEdge(chars);
-            if (edge == 0) {
-                throw ProcessError("The edge '" + chars + "' declared as a source is not known.");
-            }
-            if (!myHaveWarnedAboutDeprecatedSources) {
-                myHaveWarnedAboutDeprecatedSources = true;
-                WRITE_WARNING("Using characters for sources is deprecated; use attribute 'edges' instead.");
-            }
-            edge->setType(ROEdge::ET_SOURCE);
-        }
-        break;
         default:
             break;
     }

@@ -83,19 +83,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs);
-
-
-    /** @brief Called when characters occure
-     *
-     * @param[in] element ID of the last opened element
-     * @param[in] chars The read characters (complete)
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myCharacters
-     */
-    void myCharacters(int element,
-                      const std::string& chars);
+    void myStartElement(int element, const SUMOSAXAttributes& attrs);
     //@}
 
 
@@ -138,10 +126,6 @@ private:
 
     /// @brief The current incoming edge the turning probabilities are set into
     ROJTREdge* myEdge;
-
-    /// @brief Whether the loader has warned about deprecated usage of characters
-    bool myHaveWarnedAboutDeprecatedSources, myHaveWarnedAboutDeprecatedSinks;
-    bool myHaveWarnedAboutDeprecatedFromEdge, myHaveWarnedAboutDeprecatedToEdge;
 
 
 };
