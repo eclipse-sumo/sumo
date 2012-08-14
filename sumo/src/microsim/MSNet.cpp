@@ -535,7 +535,7 @@ MSNet::writeOutput() {
 
     // emission output
     if (OptionsCont::getOptions().isSet("summary-output")) {
-        OutputDevice& od = OutputDevice::getDeviceByOption("summary");
+        OutputDevice& od = OutputDevice::getDeviceByOption("summary-output");
         od << "    <step time=\"" << time2string(myStep) << "\" "
            << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
            << "emitted=\"" << myVehicleControl->getDepartedVehicleNo() << "\" "
