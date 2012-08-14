@@ -1016,12 +1016,17 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
             if (via != 0) {
                 Position p = via->getShape()[0];
                 if((*i).mySetRequest) {
-                    glColor3f(0, 1, 0);
+                    glColor3f(0, .8, 0);
                 } else {
-                    glColor3f(1, 0, 0);
+                    glColor3f(.8, 0, 0);
                 }
                 glTranslated(p.x(), p.y(), -.1);
                 GLHelper::drawFilledCircle(1);
+
+                const SUMOTime leaveTime = (*i).myArrivalTime + TIME2STEPS(((*i).myLink->getLength() + getVehicleType().getLength()) / (*i).myArrivalSpeed);
+                std::string times = toString(STEPS2TIME((*i).myArrivalTime)) + "/" + toString(STEPS2TIME(leaveTime));
+                GLHelper::drawText(times.c_str(), Position(), .1, 1.6 * s.addExaggeration, RGBColor(0, 1, 0), 0);
+
                 glTranslated(-p.x(), -p.y(), .1);
             }
         }

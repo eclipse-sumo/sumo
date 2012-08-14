@@ -276,7 +276,7 @@ public:
 
 
 
-    /** @brief Moves vehicles which may run out of the lane
+    /** @brief Moves vehicles 
      *
      * @param[in] lane The lane the vehicle is on
      * @param[in] pred The leader (may be 0)
@@ -284,10 +284,10 @@ public:
      * @param[in] lengthsInFront Sum of vehicle lengths in front of the vehicle
      * @return Whether a collision occured (gap2pred(leader)<=0)
      */
-    bool moveRegardingCritical(SUMOTime t, const MSLane* const lane, const MSVehicle* const pred,
-                               const MSVehicle* const neigh, SUMOReal lengthsInFront);
-
-
+    bool move(SUMOTime t, MSLane* lane,
+                                 MSVehicle* pred,
+                                 MSVehicle* neigh,
+                                 SUMOReal lengthsInFront);
 
     /// @name state setter/getter
     //@{
@@ -438,7 +438,6 @@ public:
     void leaveLane(const MSMoveReminder::Notification reason);
 
 
-    void vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe);
 
 
 
@@ -974,10 +973,22 @@ protected:
         SUMOTime myArrivalTime;
         SUMOReal myArrivalSpeed;
         SUMOReal myDistance;
+        SUMOReal accelV;
         DriveProcessItem(MSLink* link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
                          SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal distance) :
             myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
-            myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), myDistance(distance) { };
+            myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), myDistance(distance),
+            accelV(-1) { };
+        void adaptLeaveSpeed(SUMOReal v) {
+            if(accelV<0) {
+                accelV = v;
+            } else {
+                accelV = MIN2(accelV, v);
+            }
+        }
+        SUMOReal getLeaveSpeed() const {
+            return accelV<0 ? myVLinkPass : accelV;
+        }
     };
 
     typedef std::vector< DriveProcessItem > DriveItemVector;

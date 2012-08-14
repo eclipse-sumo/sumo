@@ -70,6 +70,25 @@ class SUMOVehicle;
  */
 class MSLink {
 public:
+    /** @struct ApproachingVehicleInformation
+     * @brief A structure holding the information about vehicles approaching a link
+     */
+    struct ApproachingVehicleInformation {
+        /// @brief Constructor
+        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime, SUMOVehicle* _vehicle, const bool _willPass)
+            : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle), willPass(_willPass) {}
+
+        /// @brief The time the vehicle's front arrives at the link
+        SUMOTime arrivalTime;
+        /// @brief The estimated time at which the vehicle leaves the link
+        SUMOTime leavingTime;
+        /// @brief The vehicle
+        SUMOVehicle* vehicle;
+        /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
+        bool willPass;
+    };
+
+
 #ifndef HAVE_INTERNAL_LANES
     /** @brief Constructor for simulation not using internal lanes
      *
@@ -78,8 +97,7 @@ public:
      * @param[in] state The state of this link
      * @param[in] length The length of this link
      */
-    MSLink(MSLane* succLane,
-           LinkDirection dir, LinkState state, SUMOReal length);
+    MSLink(MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length);
 #else
     /** @brief Constructor for simulation which uses internal lanes
      *
@@ -89,10 +107,9 @@ public:
      * @param[in] state The state of this link
      * @param[in] length The length of this link
      */
-    MSLink(MSLane* succLane, MSLane* via,
-           LinkDirection dir, LinkState state,
-           SUMOReal length);
+    MSLink(MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length);
 #endif
+
 
     /// @brief Destructor
     ~MSLink();
@@ -103,10 +120,6 @@ public:
      * Because traffic lights and junction logics are loaded after links,
      *  we have to assign the information about the right-of-way
      *  requests and responses after the initialisation.
-     *
-     * @param[in] requestIdx This link's index within this request
-     * @param[in] respondIdx This link's index within this respond
-     * @param[in] foes This link's foes
      * @todo Unsecure!
      */
     void setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
@@ -116,17 +129,19 @@ public:
     /** @brief Sets the information about an approaching vehicle
      *
      * The information is stored in myApproachingVehicles.
-     *
-     * @param[in] approaching The approaching vehicle
      */
     void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest);
+
+
 
     void addBlockedLink(MSLink* link);
 
 
 
     void removeApproaching(SUMOVehicle* veh);
-
+    const std::vector<ApproachingVehicleInformation> &getApproaching() const {
+        return myApproachingVehicles;
+    }
 
 
     /** @brief Returns the information whether the link may be passed
@@ -135,7 +150,7 @@ public:
      *
      * @return Whether this link may be passed.
      */
-    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLength) const;
+    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
 
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const;
     bool isBlockingAnyone() const {
@@ -230,15 +245,6 @@ public:
 #endif
 
 private:
-    struct ApproachingVehicleInformation {
-        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime, SUMOVehicle* _vehicle, const bool _willPass)
-            : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle), willPass(_willPass) {}
-        SUMOTime arrivalTime;
-        SUMOTime leavingTime;
-        SUMOVehicle* vehicle;
-        bool willPass;
-    };
-
     typedef std::vector<ApproachingVehicleInformation> LinkApproachingVehicles;
 
     class vehicle_in_request_finder {

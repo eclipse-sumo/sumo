@@ -125,7 +125,7 @@ MSLink::removeApproaching(SUMOVehicle* veh) {
 
 
 bool
-MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLength) const {
+MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const {
     if (myState == LINKSTATE_TL_RED) {
         return false;
     }
@@ -137,7 +137,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLeng
 #else
     const SUMOReal length = getLength();
 #endif
-    const SUMOTime leaveTime = arrivalTime + TIME2STEPS((length + vehicleLength) / arrivalSpeed);
+    const SUMOTime leaveTime = arrivalTime + TIME2STEPS((length + vehicleLength) / (arrivalSpeed+leaveSpeed)/2.);
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
 #ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
