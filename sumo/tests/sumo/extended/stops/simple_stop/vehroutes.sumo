@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/14/12 10:49:51 by SUMO sumo Version dev-SVN-r11888
+<!-- generated on 08/13/12 13:31:49 by SUMO sumo Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -27,7 +27,7 @@
         <route edges="1to2 out"/>
     </vehicle>
 
-    <vehicle id="veh1" type="Car" depart="10.00" arrival="60.00">
+    <vehicle id="veh1" type="Car" depart="10.00" arrival="61.00">
         <route edges="1to2 out"/>
     </vehicle>
 
