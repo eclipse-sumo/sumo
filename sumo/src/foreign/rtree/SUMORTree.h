@@ -64,17 +64,17 @@ public:
 
     int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) {
         Locker lock = lockInScope();
-        return RTree::Search(a_min, a_max, c);
+        return Search(a_min, a_max, c);
     }
 
     void Insert(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
         Locker lock = lockInScope();
-        RTree::Insert(a_min, a_max, a_dataId);
+        Insert(a_min, a_max, a_dataId);
     }
 
     void Remove(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
         Locker lock = lockInScope();
-        RTree::Remove(a_min, a_max, a_dataId);
+        Remove(a_min, a_max, a_dataId);
     }
 
     /** @brief Adds an additional object (detector/shape/trigger) for visualisation
