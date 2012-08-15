@@ -4,7 +4,7 @@
 /// @date    27.10.2008
 /// @version $Id$
 ///
-// An rtree for networks
+// A RT-tree for efficient storing of SUMO's GL-objects
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -52,30 +52,68 @@ inline float RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/** @class SUMORTree
+ * @brief A RT-tree for efficient storing of SUMO's GL-objects
+ * 
+ * This class specialises the used RT-tree implementation from "rttree.h" and
+ *  extends it by a mutex for avoiding parallel change and traversal of the tree.
+ */
 class SUMORTree : private RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings>, public Boundary
 {
 public:
+    /// @brief Constructor
     SUMORTree() 
         : RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>(&GUIGlObject::drawGL){
     }
 
+
+    /// @brief Destructor
     ~SUMORTree() {
     }
 
-    int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) {
-        Locker lock = lockInScope();
-        return Search(a_min, a_max, c);
-    }
 
+    /** @brief Insert entry
+     * @param a_min Min of bounding rect
+     * @param a_max Max of bounding rect
+     * @param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
+     * @see RTree::Insert
+     */
     void Insert(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
-        Locker lock = lockInScope();
-        Insert(a_min, a_max, a_dataId);
+        myLock.lock();
+        RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Insert(a_min, a_max, a_dataId);
+        myLock.unlock();
     }
 
+
+    /** @brief Remove entry
+     * @param a_min Min of bounding rect
+     * @param a_max Max of bounding rect
+     * @param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
+     * @see RTree::Remove
+     */
     void Remove(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
-        Locker lock = lockInScope();
-        Remove(a_min, a_max, a_dataId);
+        myLock.lock();
+        RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Remove(a_min, a_max, a_dataId);
+        myLock.unlock();
     }
+
+
+    /** @brief Find all within search rectangle
+     * @param a_min Min of search bounding rect
+     * @param a_max Max of search bounding rect
+     * @param a_searchResult Search result array.  Caller should set grow size. Function will reset, not append to array.
+     * @param a_resultCallback Callback function to return result.  Callback should return 'true' to continue searching
+     * @param a_context User context to pass as parameter to a_resultCallback
+     * @return Returns the number of entries found
+     * @see RTree::Search
+     */
+    int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) {
+        myLock.lock();
+        int ret = RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Search(a_min, a_max, c);
+        myLock.unlock();
+        return ret;
+    }
+
 
     /** @brief Adds an additional object (detector/shape/trigger) for visualisation
      * @param[in] o The object to add
@@ -87,6 +125,7 @@ public:
         Insert(cmin, cmax, o);
     }
 
+
     /** @brief Removes an additional object (detector/shape/trigger) from being visualised
      * @param[in] o The object to remove
      */
@@ -97,23 +136,9 @@ public:
         Remove(cmin, cmax, o);
     }
 
+
 protected:
-    class Locker {
-            friend class SUMORTree;
-            public:
-                    ~Locker() {
-                            myLock.unlock();
-                    }
-            private:
-                    Locker(MFXMutex& lock) : myLock(lock) {
-                            myLock.lock();
-                    }
-            private:
-                    MFXMutex& myLock;
-    };
-    Locker lockInScope() {
-            return Locker(myLock);
-    }
+    /// @brief A mutex avoiding parallel change and traversal of the tree
     MFXMutex myLock;
 
 };
