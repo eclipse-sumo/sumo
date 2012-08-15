@@ -78,6 +78,9 @@
         <!-- Sorts the output by departure time -->
         <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL"/>
 
+        <!-- Write vehroute output for vehicles which have not arrived at simulation end -->
+        <vehroute-output.write-unfinished value="false" type="BOOL"/>
+
     </output>
 
     <time>
