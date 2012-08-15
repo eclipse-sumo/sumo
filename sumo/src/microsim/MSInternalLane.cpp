@@ -77,12 +77,6 @@ MSInternalLane::setParentJunctionInformation(MSLogicJunction::InnerState* const 
 }
 
 
-void
-MSInternalLane::setPassPosition(SUMOReal passPos) {
-    myPassPosition = passPos;
-}
-
-
 bool
 MSInternalLane::moveCritical(SUMOTime t) {
     assert(myVehicles.size() > 0);

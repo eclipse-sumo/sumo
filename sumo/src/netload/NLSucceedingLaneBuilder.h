@@ -80,7 +80,6 @@ public:
      *
      * @param[in] laneId ID of the lane to add a connection to (from the last opened lane)
      * @param[in] viaID The junction-internal lane to use to reach the destination lane
-     * @param[in] pass Theoretically: the maximum filling rate at the internal link; unused currently
      * @param[in] dir The abstract direction of the link
      * @param[in] state The abstract state of the link
      * @param[in] tlid (optional) ID of the tls that controls the link
@@ -93,7 +92,7 @@ public:
      */
     void addSuccLane(const std::string& laneId,
 #ifdef HAVE_INTERNAL_LANES
-                     const std::string& viaID, SUMOReal pass,
+                     const std::string& viaID,
 #endif
                      LinkDirection dir, LinkState state,
                      const std::string& tlid = "", unsigned int linkNo = 0) throw(InvalidArgument);

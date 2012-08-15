@@ -77,7 +77,6 @@ void
 NLSucceedingLaneBuilder::addSuccLane(const std::string& laneId,
 #ifdef HAVE_INTERNAL_LANES
                                      const std::string& viaID,
-                                     SUMOReal pass,
 #endif
                                      LinkDirection dir,
                                      LinkState state,
@@ -114,9 +113,6 @@ NLSucceedingLaneBuilder::addSuccLane(const std::string& laneId,
         if (via == 0) {
             throw InvalidArgument("An unknown lane ('" + viaID + "') should be set as a via-lane for lane '" + myCurrentLane + "'.");
         }
-    }
-    if (pass >= 0) {
-        static_cast<MSInternalLane*>(lane)->setPassPosition(pass);
     }
 #endif
     MSLane* orig = MSLane::dictionary(myCurrentLane);

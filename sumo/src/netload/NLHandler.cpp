@@ -1121,7 +1121,6 @@ NLHandler::addSuccLane(const SUMOSAXAttributes& attrs) {
     }
     try {
         bool ok = true;
-        SUMOReal pass = attrs.getOptSUMORealReporting(SUMO_ATTR_PASS, 0, ok, -1);
         std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
         std::string dir = attrs.getStringReporting(SUMO_ATTR_DIR, 0, ok);
         std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok);
@@ -1141,13 +1140,13 @@ NLHandler::addSuccLane(const SUMOSAXAttributes& attrs) {
             }
             mySucceedingLaneBuilder.addSuccLane(lane,
 #ifdef HAVE_INTERNAL_LANES
-                                                via, pass,
+                                                via,
 #endif
                                                 parseLinkDir(dir), parseLinkState(state), tlID, linkNumber);
         } else {
             mySucceedingLaneBuilder.addSuccLane(lane,
 #ifdef HAVE_INTERNAL_LANES
-                                                via, pass,
+                                                via,
 #endif
                                                 parseLinkDir(dir), parseLinkState(state));
         }
@@ -1185,7 +1184,6 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
 #ifdef HAVE_INTERNAL_LANES
         std::string viaID = attrs.getOptStringReporting(SUMO_ATTR_VIA, 0, ok, "");
-        SUMOReal pass = attrs.getOptSUMORealReporting(SUMO_ATTR_PASS, 0, ok, -1);
 #endif
 
         MSEdge* from = MSEdge::dictionary(fromID);
@@ -1237,9 +1235,6 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
                 return;
             }
             length = via->getLength();
-        }
-        if (pass >= 0) {
-            static_cast<MSInternalLane*>(toLane)->setPassPosition(pass);
         }
         link = new MSLink(toLane, via, dir, state, length);
         if (via != 0) {
