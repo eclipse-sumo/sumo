@@ -336,7 +336,7 @@ MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
 
 // ------------ interaction with the route
 bool
-MSVehicle::ends() const {
+MSVehicle::hasArrived() const {
     return myCurrEdge == myRoute->end() - 1 && myState.myPos > myArrivalPos - POSITION_EPS;
 }
 
@@ -956,7 +956,7 @@ MSVehicle::moveChecked() {
         (*i)->resetPartialOccupation(this);
     }
     myFurtherLanes.clear();
-    if (!ends()) {
+    if (!hasArrived()) {
         if (myState.myPos - getVehicleType().getLength() < 0 && passedLanes.size() > 0) {
             SUMOReal leftLength = getVehicleType().getLength() - myState.myPos;
             std::vector<MSLane*>::reverse_iterator i = passedLanes.rbegin() + 1;
@@ -1198,7 +1198,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         }
 #endif
     }
-    return ends();
+    return hasArrived();
 }
 
 

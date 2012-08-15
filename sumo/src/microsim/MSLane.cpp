@@ -731,7 +731,7 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
         bool moved = veh->moveChecked();
         MSLane* target = veh->getLane();
         SUMOReal length = veh->getVehicleType().getLengthWithGap();
-        if (veh->ends()) {
+        if (veh->hasArrived()) {
             // vehicle has reached its arrival position
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);

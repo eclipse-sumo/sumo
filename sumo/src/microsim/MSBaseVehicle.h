@@ -171,6 +171,11 @@ public:
      */
     bool hasDeparted() const;
 
+    /** @brief Returns whether this vehicle has already arived
+     * (by default this is true if the vehicle has reached its final edge)
+     */
+    virtual bool hasArrived() const;
+
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */

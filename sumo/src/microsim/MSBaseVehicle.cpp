@@ -201,6 +201,11 @@ MSBaseVehicle::hasDeparted() const {
 }
 
 
+bool
+MSBaseVehicle::hasArrived() const {
+    return succEdge(1) == 0;
+}
+
 void
 MSBaseVehicle::addPerson(MSPerson* /*person*/) {
 }

@@ -155,6 +155,10 @@ public:
      */
     virtual bool hasDeparted() const = 0;
 
+    /** @brief Returns whether this vehicle has arrived
+     */
+    virtual bool hasArrived() const = 0;
+
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */

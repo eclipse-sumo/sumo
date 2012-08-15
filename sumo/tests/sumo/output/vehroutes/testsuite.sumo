@@ -31,5 +31,8 @@ circle_reroute
 # output sorted by departure time
 sorted
 
+# write vehroutes for vehicles which have not arrived at simulation end
+write_unfinished
+
 # Testing error cases
 errors

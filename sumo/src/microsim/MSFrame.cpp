@@ -156,6 +156,9 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output.sorted", "vehroutes.sorted");
     oc.addDescription("vehroute-output.sorted", "Output", "Sorts the output by departure time");
 
+    oc.doRegister("vehroute-output.write-unfinished", new Option_Bool(false));
+    oc.addDescription("vehroute-output.write-unfinished", "Output", "Write vehroute output for vehicles which have not arrived at simulation end");
+
     
 
 #ifdef HAVE_INTERNAL

@@ -73,6 +73,8 @@ public:
      */
     static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into, unsigned int maxRoutes = INT_MAX);
 
+    /// @brief generate vehroute output for vehicles which are still in the network
+    static void generateOutputForUnfinished();
 
 public:
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice

@@ -167,12 +167,11 @@ public:
 
     /// @name interaction with the route
     //@{
-
-    /** @brief Returns the information whether the vehicle should end now
-     * @return Whether the route ends
+    
+    /** @brief Returns whether this vehicle has already arived
+     * (reached the arrivalPosition on its final edge)
      */
-    bool ends() const;
-
+    bool hasArrived() const;
 
     /** @brief Replaces the current route by the given one
      *
@@ -848,7 +847,6 @@ public:
         SUMOReal getOriginalSpeed() const {
             return myOriginalSpeed;
         }
-
 
     private:
         /// @brief The velocity time line to apply
