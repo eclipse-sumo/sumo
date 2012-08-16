@@ -46,8 +46,9 @@ def validate(f):
         print >> sys.stderr, "Error on parsing '%s'!" % relative_to_sumo_home(f)
         traceback.print_exc()
 
-def main(srcRoot, err):
-    toCheck = [ "*.edg.xml", "*.nod.xml", "*.con.xml", "*.typ.xml",
+def main(srcRoot, toCheck, err):
+    if not toCheck:
+        toCheck = [ "*.edg.xml", "*.nod.xml", "*.con.xml", "*.typ.xml",
                 "*.net.xml", "*.rou.xml", "*.add.xml", "*.????cfg",
                 "net.netgen", "net.netconvert",
                 "net.scenario", "tls.scenario",
@@ -58,6 +59,7 @@ def main(srcRoot, err):
     elif 'XERCES' in os.environ:
         sax2count = os.path.join(os.environ['XERCES'], "bin", sax2count)
 
+    fileNo = 0
     if os.path.exists(srcRoot):
         if os.path.isdir(srcRoot):
             for root, dirs, files in os.walk(srcRoot):
@@ -67,6 +69,7 @@ def main(srcRoot, err):
                             validate(name)
                         elif os.name != "posix":
                             subprocess.call(sax2count + " -v=always -f " + name, stdout=open(os.devnull), stderr=err)
+                        fileNo += 1
                     if '.svn' in dirs:
                         dirs.remove('.svn')
         else:
@@ -74,9 +77,12 @@ def main(srcRoot, err):
                 validate(srcRoot)
             elif os.name != "posix":
                 subprocess.call(sax2count + " -v=always -f " + srcRoot, stdout=open(os.devnull), stderr=err)
+            fileNo += 1
     else:
         print >> err, "cannot open", srcRoot
         return 1
+    print "%s files checked" % fileNo
+ 
     if haveLxml:
         for scheme in schemes.itervalues():
             if scheme.error_log:
@@ -91,4 +97,7 @@ if __name__ == "__main__":
     srcRoot = "."
     if len(sys.argv) > 1:
         srcRoot = sys.argv[1]
-    sys.exit(main(srcRoot, sys.stderr))
+    toCheck = None
+    if len(sys.argv) > 2:
+        toCheck = sys.argv[2].split(",")
+    sys.exit(main(srcRoot, toCheck, sys.stderr))
