@@ -1,0 +1,19 @@
+# Testing configuration files
+cfgs
+
+# Testing netconvert input files
+netconvert
+
+# Testing network files
+nets
+
+# Testing route files
+routes
+
+# Testing SUMO additional files
+additional
+
+# Testing tls definitions
+tls
+
+
