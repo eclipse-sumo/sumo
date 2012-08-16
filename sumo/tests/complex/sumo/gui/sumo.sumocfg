@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
-        <gui-settings-file value="settings.xml"/>
     </input>
 
     <output>
@@ -16,5 +15,9 @@
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <gui_only>
+        <gui-settings-file value="settings.xml"/>
+    </gui_only>
 
 </configuration>

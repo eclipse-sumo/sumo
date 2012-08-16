@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <net-file value="circular.net.xml"/>
-    <route-files value="input_routes.rou.xml"/>
-    <begin value="0"/>
-    <end value="20000" />
-    <remote-port value="8813" />
-    <no-step-log value="true" />
-    <no-duration-log value="true" />
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="circular.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="20000" />
+    </time>
+
+    <report>
+        <no-step-log value="true" />
+        <no-duration-log value="true" />
+    </report>
+
+    <traci_server>
+        <remote-port value="8813"/>
+    </traci_server>
+
 </configuration>

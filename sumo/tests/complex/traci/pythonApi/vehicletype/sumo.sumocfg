@@ -1,4 +1,4 @@
-<configuration>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -11,7 +11,6 @@
     </time>
 
     <processing>
-        <remote-port value="8813"/>
         <time-to-teleport value="-1"/>
     </processing>
 
@@ -19,5 +18,9 @@
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <traci_server>
+        <remote-port value="8813"/>
+    </traci_server>
 
 </configuration>

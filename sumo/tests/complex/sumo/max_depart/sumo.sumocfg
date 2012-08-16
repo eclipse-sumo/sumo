@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <net-file value="net.net.xml"/>
-    <route-files value="input_routes.rou.xml"/>
-    <additional-files value="input_additional.add.xml"/>
-    <begin value="0"/>
-    <end value="10000"/>
-    <time-to-teleport value="-1" />
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="10000"/>
+    </time>
+
+    <processing>
+        <time-to-teleport value="-1" />
+    </processing>
+
 </configuration>

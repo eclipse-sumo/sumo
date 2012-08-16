@@ -1,5 +1,9 @@
-<c>
-	<net-file>../net.net.xml</net-file>
-	<r>input_routes.rou.xml</r>
-</c>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="../net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+</configuration>
 
