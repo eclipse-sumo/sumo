@@ -70,7 +70,6 @@ ROJTRFrame::fillOptions() {
 
     oc.doRegister("turn-ratio-files", 't', new Option_FileName());
     oc.addSynonyme("turn-ratio-files", "turns");
-    oc.addSynonyme("turn-ratio-files", "turn-definitions", true);
     oc.addDescription("turn-ratio-files", "Input", "Read turning ratios from FILE(s)");
 
     oc.doRegister("exit-times", new Option_Bool(false));
@@ -90,7 +89,6 @@ ROJTRFrame::fillOptions() {
     oc.addDescription("accept-all-destinations", "Processing", "Whether all edges are allowed as sink edges");
 
     oc.doRegister("ignore-vclasses", 'i', new Option_Bool(false));
-    oc.addSynonyme("ignore-vclasses", "ignore-classes", true);
     oc.addDescription("ignore-vclasses", "Processing", "Ignore road restrictions based on vehicle class");
 
     oc.doRegister("allow-loops", new Option_Bool(false));
