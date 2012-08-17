@@ -23,21 +23,24 @@
         <xsd:attribute name="edges" type="xsd:string" use="required"/>
     </xsd:complexType>
 
-   <xsd:complexType name="intervalType">
+    <xsd:complexType name="intervalType">
         <xsd:sequence>
-            <xsd:element name="fromEdge" type="detEntryExitType" minOccurs="1" maxOccurs="unbounded">
-	      <xsd:sequence>
-	          <xsd:element name="toEdge" type="detEntryExitType" minOccurs="1" maxOccurs="unbounded">
-		   <xsd:attribute name="id" type="xsd:string" use="required"/>
-		   <xsd:attribute name="probability" type="nonNegativeFloatType" use="required"/>
-		</xsd:element>
-	      </xsd:sequence>
-	      <xsd:attribute name="id" type="xsd:string" use="required"/>
-            </xsd:element>
+            <xsd:element name="fromEdge" type="fromEdgeType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"/>
         <xsd:attribute name="end" type="positiveFloatType" use="required"/>
     </xsd:complexType>
 
+    <xsd:complexType name="fromEdgeType">
+        <xsd:sequence>
+            <xsd:element name="toEdge" type="toEdgeType" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="toEdgeType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="probability" type="nonNegativeFloatType" use="required"/>
+    </xsd:complexType>
 
 </xsd:schema>
