@@ -753,7 +753,7 @@ MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUM
         }
         SUMOReal va = firstLane ? v : lane->getVehicleMaxSpeed(this);
         if(lastLink>0) myLFLinkLanes[lastLink].adaptLeaveSpeed(va); //if(!myLFLinkLanes.empty()) { myLFLinkLanes.back().accelV = va; }
-        lastLink = myLFLinkLanes.size();
+        lastLink = (int)myLFLinkLanes.size();
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, t + TIME2STEPS(seen / vLinkPass), vLinkPass, stopDist));
 
         // get the following lane
