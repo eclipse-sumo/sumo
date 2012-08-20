@@ -52,17 +52,17 @@ class DistrictsReader(handler.ContentHandler):
         self._district = None
         
     def startElement(self, name, attrs):
-        if name == 'district':
+        if name == 'taz':
             self._newDistrict = District(attrs['id'])
             self._district = attrs['id']
             self._districtList.append(self._newDistrict)
-        elif name == 'dsource' and self._district != None:
+        elif name == 'tazSource' and self._district != None:
             self._newDistrict.sourcelink = attrs['id']
-        elif name == 'dsink' and self._district != None:
+        elif name == 'tazSink' and self._district != None:
             self._newDistrict.sinklink = attrs['id']
 
     def endElement(self, name):
-        if name == 'district':
+        if name == 'taz':
             self._district = None
        
 def combineDemand(matrix, districtList, startVertices, endVertices):

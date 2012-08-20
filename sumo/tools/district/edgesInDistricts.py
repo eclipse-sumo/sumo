@@ -67,7 +67,7 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
         self._noLanes = {}
 
     def startElement(self, name, attrs):
-        if name == 'district':    
+        if name == 'taz':    
             self._haveDistrict = True
             self._currentID = attrs['id']
             self._districtLanes[self._currentID] = []
@@ -124,7 +124,7 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
 
     def writeResults(self, output, maxspeed, weighted):
         fd = open(output, "w")
-        fd.write("<districts>\n")
+        fd.write("<tazs>\n")
         for district in self._districtLanes:
             lanes = 0
             for lane in self._districtLanes[district]:
@@ -134,7 +134,7 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
                 print "District '" + district + "' has no edges!"
             else:
                 edges = {}
-                fd.write("   <district id=\"" + district + "\">\n")
+                fd.write("   <taz id=\"" + district + "\">\n")
                 for lane in self._districtLanes[district]:
                     edgeid = lane 
                     edgeid = edgeid[:edgeid.rfind("_")]
@@ -142,11 +142,11 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
                         weight = 1.
                         if weighted:
                             weight = float(self._laneSpeeds[lane]) * float(self._laneLengths[lane])
-                        fd.write("      <dsource id=\"" + edgeid + "\" weight=\"" + str(weight) + "\"/>\n")
-                        fd.write("      <dsink id=\"" + edgeid + "\" weight=\"" + str(weight) + "\"/>\n")
+                        fd.write("      <tazSource id=\"" + edgeid + "\" weight=\"" + str(weight) + "\"/>\n")
+                        fd.write("      <tazSink id=\"" + edgeid + "\" weight=\"" + str(weight) + "\"/>\n")
                         edges[edgeid] = 1
-                fd.write("   </district>\n")
-        fd.write("</districts>\n")
+                fd.write("   </taz>\n")
+        fd.write("</tazs>\n")
         fd.close()
                 
         

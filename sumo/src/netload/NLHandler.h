@@ -329,7 +329,7 @@ protected:
     bool myHaveWarnedAboutDeprecatedVTypeProbe, myHaveWarnedAboutDeprecatedRouteProbe,
          myHaveWarnedAboutDeprecatedEdgeMean, myHaveWarnedAboutDeprecatedLaneMean;
     bool myHaveWarnedAboutDeprecatedVTypes, myHaveWarnedAboutDeprecatedLanes;
-    bool myHaveWarnedAboutDeprecatedDistrict, myHaveWarnedAboutDeprecatedDSource, myHaveWarnedAboutDeprecatedDSink;
+    
 
 
 private:

@@ -36,8 +36,8 @@ class Vertex(sumolib.net.Node):
     """
     This class is to store node attributes and the respective incoming/outgoing links.
     """
-    def __init__(self, id, coord=None, incLanes=None):
-        sumolib.net.Node.__init__(self, id, coord, incLanes)
+    def __init__(self, id, type=None, coord=None, incLanes=None):
+        sumolib.net.Node.__init__(self, id, type, coord, incLanes)
         self.preds = []
         self.wasUpdated = False
     

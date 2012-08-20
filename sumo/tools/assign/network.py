@@ -34,12 +34,12 @@ class Net(sumolib.net.Net):
         self._detectedLinkCounts = 0.
         self._detectedEdges = []
         
-    def addNode(self, id, coord=None, incLanes=None):
+    def addNode(self, id, type=None, coord=None, incLanes=None):
         if id not in self._id2node:
             node = Vertex(id, coord, incLanes)
             self._nodes.append(node)
             self._id2node[id] = node
-        self.setAdditionalNodeInfo(self._id2node[id], coord, incLanes)
+        self.setAdditionalNodeInfo(self._id2node[id], type, coord, incLanes)
         return self._id2node[id]
     
     def addEdge(self, id, fromID, toID, prio, function, name):
@@ -314,18 +314,18 @@ class DistrictsReader(handler.ContentHandler):
         self.I = 100
 
     def startElement(self, name, attrs):
-        if name in ['district', 'taz']:
+        if name=='taz':
             self._node = self._net.addNode(attrs['id'])
             self._net._startVertices.append(self._node)
             self._net._endVertices.append(self._node)
-        elif name in ['dsink', 'tazSink']:
+        elif name=='tazSink':
             sinklink = self._net.getEdge(attrs['id'])
             self.I += 1
             newEdge = self._net.addEdge(self._node._id + str(self.I), sinklink._to._id, self._node._id, -1, "connector", "")
             newEdge._length = 0.
             newEdge.ratio = attrs['weight']
             newEdge.connection = 1
-        elif name in ['dsource', 'tazSource']:
+        elif name=='tazSource':
             sourcelink = self._net.getEdge(attrs['id'])
             self.I += 1
             newEdge = self._net.addEdge(self._node._id + str(self.I), self._node._id, sourcelink._from._id, -1, "connector", "")

@@ -52,8 +52,7 @@
 // ===========================================================================
 ODDistrictHandler::ODDistrictHandler(ODDistrictCont& cont,
                                      const std::string& file)
-    : SUMOSAXHandler(file), myContainer(cont), myCurrentDistrict(0),
-      myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false)  {}
+    : SUMOSAXHandler(file), myContainer(cont), myCurrentDistrict(0) {}
 
 
 ODDistrictHandler::~ODDistrictHandler() {}
@@ -63,27 +62,12 @@ void
 ODDistrictHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) {
     switch (element) {
-        case SUMO_TAG_DISTRICT__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDistrict) {
-                myHaveWarnedAboutDeprecatedDistrict = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
-            }
         case SUMO_TAG_TAZ:
             openDistrict(attrs);
             break;
-        case SUMO_TAG_DSOURCE__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDSource) {
-                myHaveWarnedAboutDeprecatedDSource = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
-            }
         case SUMO_TAG_TAZSOURCE:
             addSource(attrs);
             break;
-        case SUMO_TAG_DSINK__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDSink) {
-                myHaveWarnedAboutDeprecatedDSink = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
-            }
         case SUMO_TAG_TAZSINK:
             addSink(attrs);
             break;
@@ -95,7 +79,7 @@ ODDistrictHandler::myStartElement(int element,
 
 void
 ODDistrictHandler::myEndElement(int element) {
-    if (element == SUMO_TAG_DISTRICT__DEPRECATED || element == SUMO_TAG_TAZ) {
+    if (element == SUMO_TAG_TAZ) {
         closeDistrict();
     }
 }
@@ -149,8 +133,7 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     SUMOReal weight = attrs.getSUMORealReporting(SUMO_ATTR_WEIGHT, id.c_str(), ok);
     if (ok) {
         if (weight < 0) {
-            WRITE_ERROR("'probability' must be positive (in definition of " +
-                        attrs.getObjectType() + " '" + id + "').");
+            WRITE_ERROR("'probability' must be positive (in definition of " + attrs.getObjectType() + " '" + id + "').");
         } else {
             return std::pair<std::string, SUMOReal>(id, weight);
         }

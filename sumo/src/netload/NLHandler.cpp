@@ -95,8 +95,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
       myHaveWarnedAboutDeprecatedEdgeMean(false),
       myHaveWarnedAboutDeprecatedLaneMean(false),
       myHaveWarnedAboutDeprecatedVTypes(false),
-      myHaveWarnedAboutDeprecatedLanes(false),
-      myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false) {}
+      myHaveWarnedAboutDeprecatedLanes(false) {}
 
 
 NLHandler::~NLHandler() {}
@@ -276,27 +275,12 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_LOCATION:
                 setLocation(attrs);
                 break;
-            case SUMO_TAG_DISTRICT__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedDistrict) {
-                    myHaveWarnedAboutDeprecatedDistrict = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
-                }
             case SUMO_TAG_TAZ:
                 addDistrict(attrs);
                 break;
-            case SUMO_TAG_DSOURCE__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedDSource) {
-                    myHaveWarnedAboutDeprecatedDSource = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
-                }
             case SUMO_TAG_TAZSOURCE:
                 addDistrictEdge(attrs, true);
                 break;
-            case SUMO_TAG_DSINK__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedDSink) {
-                    myHaveWarnedAboutDeprecatedDSink = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
-                }
             case SUMO_TAG_TAZSINK:
                 addDistrictEdge(attrs, false);
                 break;

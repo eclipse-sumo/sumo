@@ -16,5 +16,3 @@ default_arrivalpos
 # Default arrivalspeed
 default_arrivalspeed
 
-# Tests for using deprecated taz-tags
-_deprecated_

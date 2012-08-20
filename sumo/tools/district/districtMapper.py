@@ -60,7 +60,7 @@ class DistrictMapper(handler.ContentHandler):
         self._shape = ""
 
     def startElement(self, name, attrs):
-        if name == 'district':    
+        if name == 'taz':    
             self._haveDistrict = True
             self._currentID = attrs['id']
         elif name == 'shape' and self._haveDistrict:
@@ -71,7 +71,7 @@ class DistrictMapper(handler.ContentHandler):
             self._shape += content
 
     def endElement(self, name):
-        if name == 'district':    
+        if name == 'taz':    
             self._haveDistrict = False
         elif name == 'shape' and self._haveDistrict:
             self._parsingDistrictShape = False
@@ -91,7 +91,7 @@ class DistrictMapper(handler.ContentHandler):
 
     def writeResults(self, output, color):
         fd = open(output, "w")
-        fd.write("<districts>\n")
+        fd.write("<tazs>\n")
         for district in self._districtShapes:
             shape = self._districtShapes[district]
             shapeStr = ""
@@ -99,11 +99,11 @@ class DistrictMapper(handler.ContentHandler):
                 if i!=0:
                     shapeStr = shapeStr + " "
                 shapeStr = shapeStr + str(shape[i][0]) + "," + str(shape[i][1])
-            fd.write("   <district id=\"" + district + "\">\n")
+            fd.write("   <taz id=\"" + district + "\">\n")
             fd.write("      <shape>" + shapeStr + "</shape>\n")
-            fd.write("   </district>\n")
+            fd.write("   </taz>\n")
             fd.write("   <poly id=\"" + district + "\" color=\"" + color + "\">" + shapeStr + "</poly>\n")
-        fd.write("</districts>\n")
+        fd.write("</tazs>\n")
         fd.close()
 
 

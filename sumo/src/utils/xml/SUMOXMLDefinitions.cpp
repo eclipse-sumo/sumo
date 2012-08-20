@@ -94,11 +94,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "row-logic",        SUMO_TAG_ROWLOGIC__DEPRECATED }, // deprecated
     { "request",          SUMO_TAG_REQUEST },
     { "source",           SUMO_TAG_SOURCE },
-    { "district",         SUMO_TAG_DISTRICT__DEPRECATED },
     { "taz",              SUMO_TAG_TAZ },
-    { "dsource",          SUMO_TAG_DSOURCE__DEPRECATED },
     { "tazSource",        SUMO_TAG_TAZSOURCE },
-    { "dsink",            SUMO_TAG_DSINK__DEPRECATED },
     { "tazSink",          SUMO_TAG_TAZSINK },
     { "tl-logic",         SUMO_TAG_TLLOGIC__DEPRECATED },
     { "tlLogic",          SUMO_TAG_TLLOGIC },

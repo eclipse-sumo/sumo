@@ -422,15 +422,15 @@ for d in nmap1to2:
 					runningInLaneNumber = runningInLaneNumber + 1
 
 fd = open("districts.xml", "w")
-fd.write("<districts>\n")
+fd.write("<tazs>\n")
 for d in newDistricts:
-	fd.write('    <district id="' + d + '">\n')
+	fd.write('    <taz id="' + d + '">\n')
 	if d in districtSources:
-		fd.write('        <dsource id="' + districtSources[d]+ '" weight="1"/>\n')
+		fd.write('        <tazSource id="' + districtSources[d]+ '" weight="1"/>\n')
 	if d in districtSinks:
-		fd.write('        <dsink id="' + districtSinks[d] + '" weight="1"/>\n')
-	fd.write('    </district>\n')
-fd.write("</districts>\n")
+		fd.write('        <tazSink id="' + districtSinks[d] + '" weight="1"/>\n')
+	fd.write('    </taz>\n')
+fd.write("</tazs>\n")
 fd.close()
 
 

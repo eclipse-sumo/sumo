@@ -29,7 +29,7 @@ def relative_to_sumo_home(path):
         return path
 
 
-def validate(f):
+def validate(root, f):
     try:
         doc = etree.parse(f)
         schemaLoc = doc.getroot().get('{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation')
@@ -41,9 +41,9 @@ def validate(f):
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
             for entry in schemes[schemaLoc].error_log:
-                print >> sys.stderr, relative_to_sumo_home(str(entry))
+                print >> sys.stderr, str(entry)[len(root):]
     except:
-        print >> sys.stderr, "Error on parsing '%s'!" % relative_to_sumo_home(f)
+        print >> sys.stderr, "Error on parsing '%s'!" % f[len(root):]
         traceback.print_exc()
 
 def main(srcRoot, toCheck, err):
@@ -67,7 +67,7 @@ def main(srcRoot, toCheck, err):
                 for pattern in toCheck:
                     for name in glob.glob(os.path.join(root, pattern)):
                         if haveLxml:
-                            validate(name)
+                            validate(srcRoot, name)
                         elif os.name != "posix":
                             subprocess.call(sax2count + " -v=always -f " + name, stdout=open(os.devnull), stderr=err)
                         fileNo += 1
@@ -75,7 +75,7 @@ def main(srcRoot, toCheck, err):
                         dirs.remove('.svn')
         else:
             if haveLxml:
-                validate(srcRoot)
+                validate("", srcRoot)
             elif os.name != "posix":
                 subprocess.call(sax2count + " -v=always -f " + srcRoot, stdout=open(os.devnull), stderr=err)
             fileNo += 1

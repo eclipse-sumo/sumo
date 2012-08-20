@@ -58,8 +58,7 @@ RONetHandler::RONetHandler(RONet& net,
                            ROAbstractEdgeBuilder& eb)
     : SUMOSAXHandler("sumo-network"),
       myNet(net), myCurrentName(),
-      myCurrentEdge(0), myEdgeBuilder(eb),
-      myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false) {}
+      myCurrentEdge(0), myEdgeBuilder(eb) {}
 
 
 RONetHandler::~RONetHandler() {}
@@ -92,27 +91,12 @@ RONetHandler::myStartElement(int element,
         case SUMO_TAG_CONNECTION:
             parseConnection(attrs);
             break;
-        case SUMO_TAG_DISTRICT__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDistrict) {
-                myHaveWarnedAboutDeprecatedDistrict = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
-            }
         case SUMO_TAG_TAZ:
             parseDistrict(attrs);
             break;
-        case SUMO_TAG_DSOURCE__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDSource) {
-                myHaveWarnedAboutDeprecatedDSource = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
-            }
         case SUMO_TAG_TAZSOURCE:
             parseDistrictEdge(attrs, true);
             break;
-        case SUMO_TAG_DSINK__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDSink) {
-                myHaveWarnedAboutDeprecatedDSink = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
-            }
         case SUMO_TAG_TAZSINK:
             parseDistrictEdge(attrs, false);
             break;

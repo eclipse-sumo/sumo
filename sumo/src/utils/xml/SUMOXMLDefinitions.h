@@ -129,13 +129,10 @@ enum SumoXMLTag {
     /** a source */
     SUMO_TAG_SOURCE,
     /** a traffic assignment zone */
-    SUMO_TAG_DISTRICT__DEPRECATED,
     SUMO_TAG_TAZ,
     /** a source within a district (connection road) */
-    SUMO_TAG_DSOURCE__DEPRECATED,
     SUMO_TAG_TAZSOURCE,
     /** a sink within a district (connection road) */
-    SUMO_TAG_DSINK__DEPRECATED,
     SUMO_TAG_TAZSINK,
     /** a traffic light logic */
     SUMO_TAG_TLLOGIC__DEPRECATED,

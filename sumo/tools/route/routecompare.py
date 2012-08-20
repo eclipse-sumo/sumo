@@ -67,15 +67,15 @@ class DistrictReader(handler.ContentHandler):
         self._districtID = ''
         
     def startElement(self, name, attrs):
-        if name == 'district':
+        if name == 'taz':
             self._districtID = attrs['id']
-        elif name == 'dsource':
+        elif name == 'tazSource':
             if attrs['id'] in self._edges:
                 self._sources[self._edges[attrs['id']]] = self._districtID
             else:
                 if options.verbose:
                     print "Warning! No routes touching source edge %s of %s." % (attrs['id'], self._districtID) 
-        elif name == 'dsink':
+        elif name == 'tazSink':
             if attrs['id'] in self._edges:
                 self._sinks[self._edges[attrs['id']]] = self._districtID
             else:

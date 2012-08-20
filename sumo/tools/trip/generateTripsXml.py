@@ -215,14 +215,14 @@ class DistrictsReader(handler.ContentHandler):
         self.I = 100
 
     def startElement(self, name, attrs):
-        if name == 'district':
+        if name == 'taz':
             self._districtSource = self._net.newVertex()
             self._districtSource.label = attrs['id']
             self._net._startVertices.append(self._districtSource)
             self._districtSink = self._net.newVertex()
             self._districtSink.label = attrs['id']
             self._net._endVertices.append(self._districtSink)
-        elif name == 'dsink':
+        elif name == 'tazSink':
             sinklink = self._net.getEdge(attrs['id'])
             self.I += 1
             conlink = self._districtSink.label + str(self.I)
@@ -231,7 +231,7 @@ class DistrictsReader(handler.ContentHandler):
             newEdge.weight = attrs['weight']
             self._districtSink.sinkConnNodes.append(sinklink.target)
             newEdge.connection = 1
-        elif name == 'dsource':
+        elif name == 'tazSource':
             sourcelink = self._net.getEdge(attrs['id'])
             self.I += 1
             conlink = self._districtSource.label + str(self.I)
@@ -242,7 +242,7 @@ class DistrictsReader(handler.ContentHandler):
             newEdge.connection = 2
             
     def endElement(self, name):
-        if name == 'district':
+        if name == 'taz':
             self._district = ''
     
 def addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap):

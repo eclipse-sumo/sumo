@@ -24,14 +24,14 @@ class NetDistrictConnectionCountingHandler(handler.ContentHandler):
         self._districtSourceNo = {}
 
     def startElement(self, name, attrs):
-        if name == 'district':    
+        if name == 'taz':    
             self._currentID = attrs['id']
-        elif name == 'dsink':
+        elif name == 'tazSink':
             if self._currentID in self._districtSinkNo:
                 self._districtSinkNo[self._currentID] = self._districtSinkNo[self._currentID] + 1
             else:
                 self._districtSinkNo[self._currentID] = 1
-        elif name == 'dsource':
+        elif name == 'tazSource':
             if self._currentID in self._districtSinkNo:
                 self._districtSourceNo[self._currentID] = self._districtSourceNo[self._currentID] + 1
             else:

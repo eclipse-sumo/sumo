@@ -169,8 +169,6 @@ private:
     /// The currently parsed district
     ODDistrict* myCurrentDistrict;
 
-    bool myHaveWarnedAboutDeprecatedDistrict, myHaveWarnedAboutDeprecatedDSource, myHaveWarnedAboutDeprecatedDSink;
-
 
 private:
     /// @brief invalidated copy constructor

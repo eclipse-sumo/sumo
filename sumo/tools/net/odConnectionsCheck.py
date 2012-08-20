@@ -177,14 +177,14 @@ class DistrictsReader(handler.ContentHandler):
         self.I = 100
 
     def startElement(self, name, attrs):
-        if name == 'district':
+        if name == 'taz':
             self._StartDTIn = self._net.newVertex()
             self._StartDTIn.label = attrs['id']
             self._StartDTOut = self._net.newVertex()
             self._StartDTOut.label = self._StartDTIn.label
             self._net._startVertices.append(self._StartDTIn)
             self._net._endVertices.append(self._StartDTOut)
-        elif name == 'dsink':
+        elif name == 'tazSink':
             sinklink = self._net.getEdge(attrs['id'])
             self.I += 1
             conlink = self._StartDTOut.label + str(self.I)
@@ -192,7 +192,7 @@ class DistrictsReader(handler.ContentHandler):
             self._net.addEdge(newEdge)
             newEdge.weight = attrs['weight']
             newEdge.connection = 1              
-        elif name == 'dsource':
+        elif name == 'tazSource':
             sourcelink = self._net.getEdge(attrs['id'])
             self.I += 1
             conlink = self._StartDTIn.label + str(self.I)
