@@ -15,7 +15,7 @@
         <taz-files value="" synonymes="d districts" type="FILE" help="Read (additional) districts from FILE"/>
         <alternative-files value="" synonymes="a alternatives alternatives-files" type="FILE" help="Read alternatives from FILE"/>
         <flow-files value="" synonymes="f flow-definition flows" type="FILE" help="Read flow-definitions from FILE(s)"/>
-        <turn-ratio-files value="" synonymes="t turn-definitions turns" type="FILE" help="Read turning ratios from FILE(s)"/>
+        <turn-ratio-files value="" synonymes="t turns" type="FILE" help="Read turning ratios from FILE(s)"/>
     </input>
 
     <output>
@@ -37,7 +37,7 @@
         <turn-defaults value="30,50,20" synonymes="T" type="STR" help="Use STR as default turn definition"/>
         <sink-edges value="" synonymes="s sinks" type="STR" help="Use STR as list of sink edges"/>
         <accept-all-destinations value="false" synonymes="A" type="BOOL" help="Whether all edges are allowed as sink edges"/>
-        <ignore-vclasses value="false" synonymes="i ignore-classes" type="BOOL" help="Ignore road restrictions based on vehicle class"/>
+        <ignore-vclasses value="false" synonymes="i" type="BOOL" help="Ignore road restrictions based on vehicle class"/>
         <allow-loops value="false" type="BOOL" help="Allow to re-use a road"/>
     </processing>
 
