@@ -15,6 +15,25 @@ import sys
 import os
 import re
 from xml.dom import pulldom
+from xml.sax import saxutils
+from xml.sax import make_parser
+from xml.sax import handler
+from optparse import OptionParser
+
+def parse_args():
+    USAGE = "Usage: " + sys.argv[0] + " <routefile>"
+    optParser = OptionParser()
+    optParser.add_option("-o", "--outfile", help="name of output file")
+    optParser.add_option("-b", "--big", action="store_true", default=False, 
+            help="Use alternative sortign strategy for large files (slower but more memory efficient)")
+    options, args = optParser.parse_args()
+    if len(args) != 1:
+        sys.exit(USAGE)
+    options.routefile = args[0]
+    if options.outfile is None:
+        options.outfile = options.routefile + ".sorted"
+    return options 
+
 
 def sort_departs(routefilename, outfile):
     routes_doc = pulldom.parse(sys.argv[1])
@@ -29,25 +48,93 @@ def sort_departs(routefilename, outfile):
             elif (parsenode.localName == 'flow'):
                 begin = int(float(vehicle.getAttribute('begin')))
                 vehicles.append((begin, vehicle.toprettyxml(indent="", newl="")))
-    print('read %s vehicles.' % len(vehicles))
+    print('read %s elements.' % len(vehicles))
     vehicles.sort()
     for depart, vehiclexml in vehicles:
         outfile.write(" "*4)
         outfile.write(vehiclexml)
         outfile.write("\n")
-    print('wrote %s vehicles.' % len(vehicles))
+    print('wrote %s elements.' % len(vehicles))
 
-if len(sys.argv) != 2:
-    print("Supply exactly one argument: the routefile to be sorted")
-    sys.exit(1)
 
-routefilename = sys.argv[1]
-outfile = open(routefilename + ".sorted", 'w')
-for line in open(routefilename):
-    outfile.write(line)
-    if '<routes' in line:
-        break
-sort_departs(routefilename, outfile)
-outfile.write('</routes>')
-outfile.close()
+class RouteHandler(saxutils.DefaultHandler):
+    def __init__(self, elements_with_depart):
+        self.DEPART_ATTR = {'vehicle' : 'depart', 'flow' : 'begin'}
+        self.elements_with_depart = elements_with_depart
+        self._depart = None
 
+    def setDocumentLocator(self,locator):
+        self.locator = locator
+
+    def startElement(self,name,attrs):
+        if name in self.DEPART_ATTR.keys():
+            self._depart = attrs[self.DEPART_ATTR[name]]
+            self._start_line = self.locator.getLineNumber()
+
+    def endElement(self,name):
+        if name in self.DEPART_ATTR.keys():
+            end_line = self.locator.getLineNumber()
+            self.elements_with_depart.append((self._depart, self._start_line, end_line))
+
+
+def create_line_index(file):
+    print "Building line offset index for %s" % file
+    result = []
+    offset = 0
+    with open(file, 'rb') as f:
+        for line in f:
+            result.append(offset)
+            offset += len(line)
+    return result
+
+
+def get_element_lines(routefilename):
+    # [(depart, line_index_where_element_starts, line_index_where_element_ends), ...]
+    print "Parsing %s for line indices and departs" % routefilename
+    result = []
+    parser = make_parser()
+    parser.setContentHandler(RouteHandler(result))
+    parser.parse(open(routefilename))
+    print "  found %s items" % len(result)
+    return result
+
+
+def copy_elements(routefilename, outfilename, element_lines, line_offsets):
+    print "Copying elements from %s to %s sorted by departure" % (
+            routefilename, outfilename)
+    outfile = open(outfilename, 'w')
+    # copy header
+    for line in open(routefilename):
+        outfile.write(line)
+        if '<routes' in line:
+            break
+    with open(routefilename, 'rb') as f:
+        for depart, start, end in element_lines:
+            # convert from 1-based to 0-based indices
+            f.seek(line_offsets[start - 1])
+            for i in range(end - start + 1):
+                outfile.write(f.readline())
+    outfile.write('</routes>')
+    outfile.close()
+
+
+def main():
+    options = parse_args()
+    if options.big:
+        line_offsets = create_line_index(options.routefile)
+        element_lines = get_element_lines(options.routefile)
+        element_lines.sort()
+        copy_elements(options.routefile, options.outfile, element_lines, line_offsets)
+    else:
+        outfile = open(options.outfile, 'w')
+        for line in open(options.routefile):
+            outfile.write(line)
+            if '<routes' in line:
+                break
+        sort_departs(options.routefile, outfile)
+        outfile.write('</routes>')
+        outfile.close()
+
+
+if __name__ == "__main__":
+    main()
