@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/16/12 13:39:11 by SUMO duarouter Version dev-SVN-r11548
+<!-- generated on Tue Aug 21 16:54:22 2012 by SUMO duarouter Version dev-SVN-r12572
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
@@ -36,7 +36,7 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="100" type="KRAUSS_DEFAULT" depart="0.00">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="101" type="KRAUSS_DEFAULT" depart="0.00">
         <route edges="beg beg2left left left2end end"/>
@@ -195,7 +195,7 @@
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="34" type="KRAUSS_DEFAULT" depart="0.00">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="35" type="KRAUSS_DEFAULT" depart="0.00">
         <route edges="beg beg2left left left2end end"/>
@@ -321,7 +321,7 @@
         <route edges="beg beg2left left left2end end"/>
     </vehicle>
     <vehicle id="72" type="KRAUSS_DEFAULT" depart="0.00">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="73" type="KRAUSS_DEFAULT" depart="0.00">
         <route edges="beg middle end"/>
