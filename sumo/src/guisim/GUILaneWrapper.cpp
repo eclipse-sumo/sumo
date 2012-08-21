@@ -42,6 +42,7 @@
 #include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include "GUILaneWrapper.h"
+#include "GUIEdge.h"
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <guisim/GUINet.h>
@@ -631,7 +632,8 @@ SUMOReal
 GUILaneWrapper::getColorValue(size_t activeScheme) const {
     switch (activeScheme) {
         case 1:
-            return gSelected.isSelected(getType(), getGlID());
+            return (gSelected.isSelected(getType(), getGlID()) ||
+                    gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(&(getLane().getEdge()))->getGlID()));
         case 2: {
             if (getLane().allowsVehicleClass(SVC_PASSENGER)) {
                 return 0;
