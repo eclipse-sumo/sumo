@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<trips>
+    <vType id="fast" maxSpeed="50"/>
+    <vType id="slow" maxSpeed="2"/>
+    <trip id="fast0" depart="0.00" from="beg" to="end" type="fast"/>
+    <trip id="slow0" depart="0.00" from="beg" to="end" type="slow"/>
+</trips>
