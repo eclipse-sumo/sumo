@@ -316,9 +316,9 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
             frontMax = leaderRearPos - frontGapNeeded;
         }
         // compute the space needed to not let the follower collide
-        const SUMOReal followPos = follower->getPositionOnLane();
+        const SUMOReal followPos = follower->getPositionOnLane() + follower->getVehicleType().getMinGap();
         const SUMOReal backGapNeeded = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), veh.getSpeed(), veh.getCarFollowModel().getMaxDecel());
-        const SUMOReal backMin = followPos + backGapNeeded + veh.getVehicleType().getLengthWithGap();
+        const SUMOReal backMin = followPos + backGapNeeded + veh.getVehicleType().getLength();
 
         // check whether there is enough room (given some extra space for rounding errors)
         if (frontMax > 0 && backMin + POSITION_EPS < frontMax) {
