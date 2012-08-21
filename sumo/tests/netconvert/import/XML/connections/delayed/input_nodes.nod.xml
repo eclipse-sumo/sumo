@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 21.08.2012 14:06:23 by Netedit Version dev-SVN-r12571
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\cvs\SiP_trunk\trunk\tests\scenario\use\DRIVE\Helmond_GLOSA_1veh\data\t1.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\cvs\SiP_trunk\trunk\tests\scenario\use\DRIVE\Helmond_GLOSA_1veh\data\t1.net.xml"/>
+        <plain-output-prefix value="D:\cvs\SiP_trunk\trunk\tests\scenario\use\DRIVE\Helmond_GLOSA_1veh\data\plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+    <location netOffset="-676418.99,-5702859.68" convBoundary="0.00,0.00,9614.45,3940.82" origBoundary="5.538970,51.449400,5.678834,51.482295" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="42708272" x="4996.11" y="2238.59" type="unregulated"/>
+    <node id="42709137" x="4960.90" y="2270.73" type="unregulated"/>
+    <node id="42715611" x="4646.03" y="2560.09" type="unregulated"/>
+    <node id="42715719" x="4632.23" y="2560.48" type="unregulated"/>
+    <node id="42716127" x="4624.91" y="2584.46" type="unregulated"/>
+    <node id="42717004" x="4813.96" y="2627.43" type="traffic_light"/>
+    <node id="42717128" x="4836.92" y="2634.79" type="traffic_light"/>
+    <node id="42717332" x="4805.55" y="2649.86" type="traffic_light"/>
+    <node id="42717527" x="4826.80" y="2656.82" type="traffic_light"/>
+    <node id="42719485" x="5418.26" y="2761.33" type="unregulated"/>
+    <node id="42720124" x="5398.80" y="2780.67" type="unregulated"/>
+    <node id="42722822" x="4764.89" y="2853.78" type="priority"/>
+    
+    <join nodes="42717332 42717527 42717128 42717004"/>
+    
+</nodes>

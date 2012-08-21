@@ -35,4 +35,13 @@ cross3l_prohibitions_turns
 cross3l_uncontrolled
 
 
+# Tests setting connections after network changes
+delayed
+
+# As "delayed", but setting different connections to assure they are not guessed
+delayed2
+
+# "delayed" with reports about unset connections before joining nodes
+delayed_report
+
 
