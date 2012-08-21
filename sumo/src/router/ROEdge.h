@@ -314,10 +314,18 @@ public:
      *
      * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
      * @param[in] time The time for which the effort shall be returned [s]
-     * @return The effort needed by the given vehicle to pass the edge at the given time
-     * @todo Recheck whether the vehicle's maximum speed is considered
+     * @return The traveltime needed by the given vehicle to pass the edge at the given time
      */
     SUMOReal getTravelTime(const ROVehicle* const veh, SUMOReal time) const;
+
+
+    /** @brief Returns the travel time for this edge
+     *
+     * @param[in] maxSpeed The maximum speed to assume if no travel times are stored
+     * @param[in] time The time in seconds(!) for which the traveltime shall be returned
+     * @return The traveltime needed to pass the edge at the given time
+     */
+    SUMOReal getTravelTime(const SUMOReal maxSpeed, SUMOReal time) const;
 
 
     /** @brief Returns the travel time for this edge without using any stored timeLine
@@ -428,6 +436,16 @@ protected:
     RONode* myFromNode, *myToNode;
 
     static std::vector<ROEdge*> myEdges;
+
+
+private:
+    /** @brief Returns the minimum travel time for this edge
+     * If there is a timeline-value for the given time it is returned, otherwise
+     * the maximum speed of the edge is assumed
+     * @param[in] veh The vehicle for which the traveltime on this edge shall be retrieved
+     * @return The minimum traveltime needed to pass the edge at the given time
+     */
+    SUMOReal getTravelTime(SUMOReal time) const;
 
 private:
     /// @brief Invalidated copy constructor

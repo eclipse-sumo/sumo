@@ -144,6 +144,18 @@ ROEdge::getDistanceTo(const ROEdge* other) const {
 
 SUMOReal
 ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
+    return getTravelTime(veh->getType()->maxSpeed, time);
+}
+
+
+SUMOReal 
+ROEdge::getTravelTime(const SUMOReal maxSpeed, SUMOReal time) const {
+    return MAX2(myLength / maxSpeed, getTravelTime(time));
+}
+
+
+SUMOReal 
+ROEdge::getTravelTime(SUMOReal time) const {
     if (myUsingTTTimeLine) {
         if (!myHaveTTWarned && !myTravelTimes.describesTime(time)) {
             WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
@@ -158,8 +170,7 @@ ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
         }
         return myTravelTimes.getValue(time);
     }
-    // ok, no absolute value was found, use the normal value (without) as default
-    return getMinimumTravelTime(veh);
+    return myLength / mySpeed;
 }
 
 
