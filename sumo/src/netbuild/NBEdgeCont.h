@@ -134,8 +134,7 @@ public:
      * @return The searched edge
      * @todo Recheck usage
      */
-    NBEdge* retrievePossiblySplitted(const std::string& id,
-                                     const std::string& hint, bool incoming) const;
+    NBEdge* retrievePossiblySplit(const std::string& id, const std::string& hint, bool incoming) const;
 
 
     /** @brief Tries to retrieve an edge, even if it is splitted
@@ -148,7 +147,7 @@ public:
      * @return The searched edge
      * @todo Recheck usage
      */
-    NBEdge* retrievePossiblySplitted(const std::string& id, SUMOReal pos) const;
+    NBEdge* retrievePossiblySplit(const std::string& id, SUMOReal pos) const;
 
 
     /** @brief Removes the given edge from the container (deleting it)
@@ -167,6 +166,7 @@ public:
      * @param[in] edge The edge to remove
      * @param[in] remember Whether to keep this edge for future reference
      * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
+     * @todo Recheck whether this is used at all and why
      */
     void extract(NBDistrictCont& dc, NBEdge* edge, bool remember = false);
 
@@ -447,6 +447,26 @@ public:
     void rename(NBEdge* edge, const std::string& newID);
 
 
+
+    /// @name Connections handling
+    /// @{
+
+    /** @brief Adds a connection which could not be set during loading
+     * @param[in] from The id of the edge the connection starts at
+     * @param[in] fromLane The number of the lane the connection starts at
+     * @param[in] to The id of the edge the connection ends at
+     * @param[in] toLane The number of the lane the connection ends at
+     * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
+     */
+    void addPostProcessConnection(const std::string &from, int fromLane, const std::string &to, int toLane, bool mayDefinitelyPass); 
+
+
+    /** @brief Try to set any stored connections
+     */
+    void recheckPostProcessConnections(); 
+    /// @}
+
+
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id
      *
@@ -462,6 +482,37 @@ private:
 
 
 private:
+    /** @struct PostProcessConnection
+     * @brief A structure representing a connection between two lanes
+     */
+    struct PostProcessConnection { 
+    public: 
+        /** @brief Constructor
+         * @param[in] from The id of the edge the connection starts at
+         * @param[in] fromLane The number of the lane the connection starts at
+         * @param[in] to The id of the edge the connection ends at
+         * @param[in] toLane The number of the lane the connection ends at
+         * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
+         */
+        PostProcessConnection(const std::string &from_, int fromLane_, const std::string &to_, int toLane_, bool mayDefinitelyPass_) 
+            : from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_) 
+        { } 
+        /// @brief The id of the edge the connection starts at
+        std::string from; 
+        /// @brief The number of the lane the connection starts at
+        int fromLane; 
+        /// @brief The id of the edge the connection ends at
+        std::string to; 
+        /// @brief The number of the lane the connection ends at
+        int toLane; 
+        /// @brief Whether the connection may be passed without braking
+        bool mayDefinitelyPass; 
+    }; 
+
+    /// @brief The list of connections to recheck
+    std::vector<PostProcessConnection> myConnections; 
+
+
     /// @brief The type of the dictionary where an edge may be found by its id
     typedef std::map<std::string, NBEdge*> EdgeCont;
 
@@ -510,7 +561,6 @@ private:
 
     /// @brief Boundary within which an edge must be located in order to be kept
     PositionVector myPrunningBoundary;
-
     /// @}
 
 

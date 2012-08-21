@@ -260,26 +260,26 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont& ec) {
         // this edge was not built, try to get one that approaches it
         vissimFrom = vissimFrom->getBestIncoming();
         if (vissimFrom != 0) {
-            fromEdge = ec.retrievePossiblySplitted(toString(vissimFrom->getID()), toString(getFromEdgeID()), true);
+            fromEdge = ec.retrievePossiblySplit(toString(vissimFrom->getID()), toString(getFromEdgeID()), true);
         }
     } else {
         // this edge was built, try to get the proper part
-        fromEdge = ec.retrievePossiblySplitted(toString(getFromEdgeID()), toString(getToEdgeID()), true);
+        fromEdge = ec.retrievePossiblySplit(toString(getFromEdgeID()), toString(getToEdgeID()), true);
     }
     NIVissimEdge* vissimTo = NIVissimEdge::dictionary(getToEdgeID());
     if (vissimTo->wasWithinAJunction()) {
         vissimTo = vissimTo->getBestOutgoing();
         if (vissimTo != 0) {
-            toEdge = ec.retrievePossiblySplitted(toString(vissimTo->getID()), toString(getToEdgeID()), true);
+            toEdge = ec.retrievePossiblySplit(toString(vissimTo->getID()), toString(getToEdgeID()), true);
         }
     } else {
-        toEdge = ec.retrievePossiblySplitted(toString(getToEdgeID()), toString(getFromEdgeID()), false);
+        toEdge = ec.retrievePossiblySplit(toString(getToEdgeID()), toString(getFromEdgeID()), false);
     }
 
     // try to get the edges the current connection connects
     /*
-    NBEdge *fromEdge = ec.retrievePossiblySplitted(toString(getFromEdgeID()), toString(getToEdgeID()), true);
-    NBEdge *toEdge = ec.retrievePossiblySplitted(toString(getToEdgeID()), toString(getFromEdgeID()), false);
+    NBEdge *fromEdge = ec.retrievePossiblySplit(toString(getFromEdgeID()), toString(getToEdgeID()), true);
+    NBEdge *toEdge = ec.retrievePossiblySplit(toString(getToEdgeID()), toString(getFromEdgeID()), false);
     */
     if (fromEdge == 0 || toEdge == 0) {
         WRITE_WARNING("Could not build connection between '" + toString(getFromEdgeID()) + "' and '" + toString(getToEdgeID()) + "'.");

@@ -176,14 +176,8 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         } else {
             node = node1 == 0 ? node2 : node1;
         }
-        ec.splitAt(dc,
-                   ec.retrievePossiblySplitted(
-                       toString<int>(e1->getID()), myEdge.getPosition()),
-                   node);
-        ec.splitAt(dc,
-                   ec.retrievePossiblySplitted(
-                       toString<int>(e2->getID()), myDisturbance.getPosition()),
-                   node);
+        ec.splitAt(dc, ec.retrievePossiblySplit(toString<int>(e1->getID()), myEdge.getPosition()), node);
+        ec.splitAt(dc, ec.retrievePossiblySplit(toString<int>(e2->getID()), myDisturbance.getPosition()), node);
         // !!! in some cases, one of the edges is not being build because it's too short
         // !!! what to do in these cases?
         NBEdge* mayDriveFrom = ec.retrieve(toString<int>(e1->getID()) + "[0]");
@@ -206,7 +200,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         // The connection will be prohibitesd by all connections
         //  outgoing from the "real" edge
 
-        NBEdge* e = ec.retrievePossiblySplitted(toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
+        NBEdge* e = ec.retrievePossiblySplit(toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
         if (e == 0) {
             WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID()) + "'. Have not found disturbance.");
             refusedProhibits++;
@@ -221,8 +215,8 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         // get the begin of the prohibited connection
         std::string id_pcoe = toString<int>(pc->getFromEdgeID());
         std::string id_pcie = toString<int>(pc->getToEdgeID());
-        NBEdge* pcoe = ec.retrievePossiblySplitted(id_pcoe, id_pcie, true);
-        NBEdge* pcie = ec.retrievePossiblySplitted(id_pcie, id_pcoe, false);
+        NBEdge* pcoe = ec.retrievePossiblySplit(id_pcoe, id_pcie, true);
+        NBEdge* pcie = ec.retrievePossiblySplit(id_pcie, id_pcoe, false);
         // check whether it's ending node is the node the prohibited
         //  edge end at
         if (pcoe != 0 && pcie != 0 && pcoe->getToNode() == e->getToNode()) {
@@ -260,8 +254,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         // We have to split the other one and add the prohibition
         //  description
 
-        NBEdge* e = ec.retrievePossiblySplitted(
-                        toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
+        NBEdge* e = ec.retrievePossiblySplit(toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
         if (e == 0) {
             WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' - it was not built.");
             return false;
@@ -277,8 +270,8 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         // get the begin of the prohibiting connection
         std::string id_bcoe = toString<int>(bc->getFromEdgeID());
         std::string id_bcie = toString<int>(bc->getToEdgeID());
-        NBEdge* bcoe = ec.retrievePossiblySplitted(id_bcoe, id_bcie, true);
-        NBEdge* bcie = ec.retrievePossiblySplitted(id_bcie, id_bcoe, false);
+        NBEdge* bcoe = ec.retrievePossiblySplit(id_bcoe, id_bcie, true);
+        NBEdge* bcie = ec.retrievePossiblySplit(id_bcie, id_bcoe, false);
         // check whether it's ending node is the node the prohibited
         //  edge end at
         if (bcoe != 0 && bcie != 0 && bcoe->getToNode() == e->getToNode()) {

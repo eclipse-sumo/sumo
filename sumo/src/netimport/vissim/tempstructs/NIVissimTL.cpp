@@ -144,7 +144,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
     NBConnectionVector assignedConnections;
     if (c == 0) {
         // What to do if on an edge? -> close all outgoing connections
-        NBEdge* edge = ec.retrievePossiblySplitted(toString<int>(myEdgeID), myPosition);
+        NBEdge* edge = ec.retrievePossiblySplit(toString<int>(myEdgeID), myPosition);
         if (edge == 0) {
             WRITE_WARNING("Could not set tls signal at edge '" + toString(myEdgeID) + "' - the edge was not built.");
             return false;
@@ -171,14 +171,8 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
         }
     } else {
         // get the edges
-        NBEdge* tmpFrom = ec.retrievePossiblySplitted(
-                              toString<int>(c->getFromEdgeID()),
-                              toString<int>(c->getToEdgeID()),
-                              true);
-        NBEdge* tmpTo = ec.retrievePossiblySplitted(
-                            toString<int>(c->getToEdgeID()),
-                            toString<int>(c->getFromEdgeID()),
-                            false);
+        NBEdge* tmpFrom = ec.retrievePossiblySplit(toString<int>(c->getFromEdgeID()), toString<int>(c->getToEdgeID()), true);
+        NBEdge* tmpTo = ec.retrievePossiblySplit(toString<int>(c->getToEdgeID()), toString<int>(c->getFromEdgeID()), false);
         // check whether the edges are known
         if (tmpFrom != 0 && tmpTo != 0) {
             // add connections this signal is responsible for

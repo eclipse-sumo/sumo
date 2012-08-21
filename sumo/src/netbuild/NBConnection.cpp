@@ -193,7 +193,7 @@ NBConnection::checkFrom(const NBEdgeCont& ec) {
         return myFrom;
     }
     // try to get the edge
-    return ec.retrievePossiblySplitted(myFromID, myToID, true);
+    return ec.retrievePossiblySplit(myFromID, myToID, true);
 }
 
 
@@ -205,7 +205,7 @@ NBConnection::checkTo(const NBEdgeCont& ec) {
         return myTo;
     }
     // try to get the edge
-    return ec.retrievePossiblySplitted(myToID, myFromID, false);
+    return ec.retrievePossiblySplit(myToID, myFromID, false);
 }
 
 
