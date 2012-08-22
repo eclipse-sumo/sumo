@@ -140,7 +140,6 @@ enum SumoXMLTag {
     /** a single phase description */
     SUMO_TAG_PHASE,
     /** a single trip definition (used by router) */
-    SUMO_TAG_TRIP__DEPRECATED,
     SUMO_TAG_TRIP,
     /** a flow definition (used by router) */
     SUMO_TAG_FLOW,

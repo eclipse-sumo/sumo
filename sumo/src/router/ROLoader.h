@@ -67,7 +67,7 @@ public:
     /** @brief Constructor
      *
      * @param[in] oc The options to use
-     * @param[in] emptyDestinationsAllowed Whether tripdefs may be given without destinations
+     * @param[in] emptyDestinationsAllowed Whether trips may be given without destinations
      * @todo Recheck usage of emptyDestinationsAllowed
      */
     ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed);

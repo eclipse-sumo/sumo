@@ -118,7 +118,6 @@ protected:
 
     SUMOVehicleParameter* myParameter;
 
-    bool myHaveWarnedAboutDeprecatedTripDef;
 
 private:
     /// @brief Invalidated copy constructor

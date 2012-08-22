@@ -57,7 +57,7 @@ RORDLoader_TripDefs::RORDLoader_TripDefs(RONet& net,
     : ROTypedXMLRoutesLoader(net, begin, end, fileName),
       myEmptyDestinationsAllowed(emptyDestinationsAllowed),
       myWithTaz(withTaz), myCurrentVehicleType(0),
-      myParameter(0), myHaveWarnedAboutDeprecatedTripDef(false) {}
+      myParameter(0) {}
 
 
 RORDLoader_TripDefs::~RORDLoader_TripDefs() {}
@@ -66,12 +66,8 @@ RORDLoader_TripDefs::~RORDLoader_TripDefs() {}
 void
 RORDLoader_TripDefs::myStartElement(int element,
                                     const SUMOSAXAttributes& attrs) {
-    if (element == SUMO_TAG_TRIP__DEPRECATED && !myHaveWarnedAboutDeprecatedTripDef) {
-        myHaveWarnedAboutDeprecatedTripDef = true;
-        WRITE_WARNING("'" + toString(SUMO_TAG_TRIP__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TRIP) + "'.");
-    }
     // check whether a trip definition shall be parsed
-    if (element == SUMO_TAG_TRIP || element == SUMO_TAG_TRIP__DEPRECATED) {
+    if (element == SUMO_TAG_TRIP) {
         bool ok = true;
         // get the vehicle id, the edges, the speed and position and
         //  the departure time and other information
@@ -142,9 +138,7 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes& attrs,
 
 void
 RORDLoader_TripDefs::myEndElement(int element) {
-    if ((element == SUMO_TAG_TRIP || element == SUMO_TAG_TRIP__DEPRECATED) &&
-            !MsgHandler::getErrorInstance()->wasInformed()) {
-
+    if (element == SUMO_TAG_TRIP && !MsgHandler::getErrorInstance()->wasInformed()) {
         if (myCurrentDepart < myBegin || myCurrentDepart >= myEnd) {
             delete myParameter;
             return;

@@ -194,7 +194,6 @@ MSRouteHandler::myStartElement(int element,
                 closeRoute();
             }
             break;
-        case SUMO_TAG_TRIP__DEPRECATED:
         case SUMO_TAG_TRIP: {
             bool ok = true;
             if (attrs.hasAttribute(SUMO_ATTR_FROM) || !myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {

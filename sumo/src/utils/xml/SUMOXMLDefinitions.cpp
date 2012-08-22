@@ -100,7 +100,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "tl-logic",         SUMO_TAG_TLLOGIC__DEPRECATED },
     { "tlLogic",          SUMO_TAG_TLLOGIC },
     { "phase",            SUMO_TAG_PHASE },
-    { "tripdef",          SUMO_TAG_TRIP__DEPRECATED },
     { "trip",             SUMO_TAG_TRIP },
     { "flow",             SUMO_TAG_FLOW },
     { "step",             SUMO_TAG_STEP },
