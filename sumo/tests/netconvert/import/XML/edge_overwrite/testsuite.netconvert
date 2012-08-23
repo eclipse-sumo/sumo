@@ -28,6 +28,9 @@ shape_3tonone
 # keeping a previously given shape
 shape_keep
 
+# preserve shape if the geometry endpoints do not match the node positions
+shape_keep_nonstandard
+
 # parse an empty shape
 shape_empty
 
@@ -38,5 +41,4 @@ split
 remove
 
 # overwriting name
-# 
 name

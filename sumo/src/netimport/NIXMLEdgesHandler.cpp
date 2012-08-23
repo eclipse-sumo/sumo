@@ -133,6 +133,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myLanesSpread = LANESPREAD_RIGHT;
     myLength = NBEdge::UNSPECIFIED_LOADED_LENGTH;
     myCurrentStreetName = "";
+    myReinitKeepEdgeShape = false;
     // check whether a type's values shall be used
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         myCurrentType = attrs.getStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
@@ -168,6 +169,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myPermissions = myCurrentEdge->getPermissions();
         if (!myCurrentEdge->hasDefaultGeometry()) {
             myShape = myCurrentEdge->getGeometry();
+            myReinitKeepEdgeShape = true;
         }
         myCurrentWidth = myCurrentEdge->getWidth();
         myCurrentOffset = myCurrentEdge->getOffset();
@@ -239,7 +241,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
                               myCurrentLaneNo, myCurrentPriority, myShape,
                               myCurrentWidth, myCurrentOffset, 
                               myCurrentStreetName, myLanesSpread,
-                              OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
+                              myReinitKeepEdgeShape);
     } else {
         // the edge must be allocated in dependence to whether a shape is given
         if (myShape.size() == 0) {
@@ -476,12 +478,14 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string shpdef = attrs.getOptStringReporting(SUMO_ATTR_SHAPE, 0, ok, "");
     if (shpdef == "") {
+        myReinitKeepEdgeShape = false;
         return PositionVector();
     }
     PositionVector shape = GeomConvHelper::parseShapeReporting(shpdef, attrs.getObjectType(), 0, ok, true);
     if (!NILoader::transformCoordinates(shape)) {
         WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
     }
+    myReinitKeepEdgeShape = OptionsCont::getOptions().getBool("plain.keep-edge-shape");
     return shape;
 }
 
