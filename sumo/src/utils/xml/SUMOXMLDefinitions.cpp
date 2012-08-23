@@ -363,7 +363,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "refTime",	    SUMO_ATTR_REF_TIME },
     { "startProg",	    SUMO_ATTR_START_PROG },
     { "off",            SUMO_ATTR_OFF },
-    { "friendly_pos",   SUMO_ATTR_FRIENDLY_POS__DEPRECATED },
     { "friendlyPos",    SUMO_ATTR_FRIENDLY_POS },
     { "splitByType",    SUMO_ATTR_SPLIT_VTYPE },
     { "uncontrolled",   SUMO_ATTR_UNCONTROLLED },
