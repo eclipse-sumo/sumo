@@ -383,7 +383,7 @@ class Net:
             srcFile = "src_" + edge.label + ".def.xml"
             print >> emitOut, '    <emitter id="src_' + edge.label + '"',
             print >> emitOut, 'pos="0"',
-            print >> emitOut, 'friendly_pos="x" objectid="' + edge.label + '_0"',
+            print >> emitOut, 'friendlyPos="x" objectid="' + edge.label + '_0"',
             print >> emitOut, 'file="' + srcFile + '"/>'
             srcOut = open(srcFile, 'w')
             print >> srcOut, "<triggeredsource>"

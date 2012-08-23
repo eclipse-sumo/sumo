@@ -30,9 +30,9 @@ def writeDetectors(usedDet):
         fd.write("   <e1-detector id= \"" + det.getAttribute('id') + "\" lane=\"" + det.getAttribute('lane') + "\" pos=\"" + det.getAttribute('pos'))
         fd.write("\" freq=\"" + det.getAttribute('freq') + "\" file=\"" + det.getAttribute('file'))
         # the position of some detectors are over the end of an edge.
-        # the tag friendly_pos corrects the position
-        if det.hasAttribute('friendly_pos'):
-            fd.write("\" friendly_pos=\"" + det.getAttribute('friendly_pos'))
+        # the tag friendlyPos corrects the position
+        if det.hasAttribute('friendlyPos'):
+            fd.write("\" friendlyPos=\"" + det.getAttribute('friendlyPos'))
         
         fd.write("\"")
         fd.write("/>\n")
