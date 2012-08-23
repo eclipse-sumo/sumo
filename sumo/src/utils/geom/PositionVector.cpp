@@ -830,7 +830,7 @@ PositionVector::indexOfClosest(const Position& p) const {
 }
 
 
-void
+int
 PositionVector::insertAtClosest(const Position& p) {
     Position outIntersection = Position();
     SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
@@ -844,6 +844,7 @@ PositionVector::insertAtClosest(const Position& p) {
         }
     }
     insertAt(insertionIndex, p);
+    return insertionIndex;
 }
 
 

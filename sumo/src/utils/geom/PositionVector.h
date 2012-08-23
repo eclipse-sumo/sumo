@@ -241,8 +241,8 @@ public:
 
     void insertAt(int index, const Position& p);
 
-    // brief inserts p between the two closest positions
-    void insertAtClosest(const Position& p);
+    // @brief inserts p between the two closest positions and returns the insertion index
+    int insertAtClosest(const Position& p);
 
     /// comparing operation
     bool operator==(const PositionVector& v2) const;
