@@ -401,6 +401,10 @@ enum {
     MID_GNE_OPEN_ATTRIBUTE_EDITOR,
     /** split an edge */
     MID_GNE_SPLIT_EDGE,
+    /** set non-default geometry endpoint */
+    MID_GNE_SET_EDGE_ENDPOINT,
+    /** restore geometry endpoint to node position */
+    MID_GNE_RESET_EDGE_ENDPOINT,
     /** set object as template*/
     MID_GNE_SET_TEMPLATE,
     /** copy template*/
