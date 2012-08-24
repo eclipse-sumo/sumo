@@ -27,7 +27,7 @@ class RouteReader(handler.ContentHandler):
             for key in attrs.keys():
                 print >> self._out,  '%s="%s"' % (key, attrs[key]),
             if name == 'vehicle':
-                print >> self._out,  'fromtaz="%s" totaz="%s"' % self._idToTaz[attrs['id']],
+                print >> self._out,  'fromTaz="%s" toTaz="%s"' % self._idToTaz[attrs['id']],
             print >> self._out,  '>'
 
     def endElement(self, name):

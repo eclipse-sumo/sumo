@@ -191,10 +191,7 @@ private:
     static CFAttrMap allowedCFModelAttrs;
 
 
-    static bool gHaveWarnedAboutDeprecatedNumber, gHaveWarnedAboutDeprecatedTazs,
-           gHaveWarnedAboutDeprecatedDepartLane, gHaveWarnedAboutDeprecatedDepartPos, gHaveWarnedAboutDeprecatedDepartSpeed,
-           gHaveWarnedAboutDeprecatedArrivalLane, gHaveWarnedAboutDeprecatedArrivalPos, gHaveWarnedAboutDeprecatedArrivalSpeed,
-           gHaveWarnedAboutDeprecatedMaxSpeed, gHaveWarnedAboutDeprecatedVClass;
+    static bool gHaveWarnedAboutDeprecatedNumber;
 };
 
 

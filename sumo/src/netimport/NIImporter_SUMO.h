@@ -302,7 +302,6 @@ private:
     bool mySuspectKeepShape;
 
     bool myHaveWarnedAboutDeprecatedSpreadType;
-    bool myHaveWarnedAboutDeprecatedMaxSpeed;
 
     /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs
      * @param[in] edge The EdgeAttrs* which should contain the lane

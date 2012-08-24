@@ -82,8 +82,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCurrentTL(0),
       myLocation(0),
       mySuspectKeepShape(false),
-      myHaveWarnedAboutDeprecatedSpreadType(false),
-      myHaveWarnedAboutDeprecatedMaxSpeed(false) {}
+      myHaveWarnedAboutDeprecatedSpreadType(false) {}
 
 
 NIImporter_SUMO::~NIImporter_SUMO() {
@@ -401,15 +400,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge->func == toString(EDGEFUNC_INTERNAL)) {
         return; // skip internal lanes
     }
-    if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED__DEPRECATED)) {
-        myCurrentLane->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
-        if (!myHaveWarnedAboutDeprecatedMaxSpeed) {
-            myHaveWarnedAboutDeprecatedMaxSpeed = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_MAXSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_SPEED) + "' instead.");
-        }
-    } else {
-        myCurrentLane->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok);
-    }
+    myCurrentLane->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok);
     myCurrentLane->allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     myCurrentLane->disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     myCurrentLane->width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);

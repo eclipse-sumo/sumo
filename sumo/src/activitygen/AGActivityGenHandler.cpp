@@ -330,13 +330,10 @@ AGActivityGenHandler::parseStation(const SUMOSAXAttributes& attrs) {
 
     try {
         bool ok = true;
-        int refID = attrs.hasAttribute(SUMO_ATTR_REFID)
-                    ? attrs.getIntReporting(SUMO_ATTR_REFID, myCurrentObject.c_str(), ok)
-                    : attrs.getIntReporting(SUMO_ATTR_REFID__DEPRECATED, myCurrentObject.c_str(), ok);
+        int refID = attrs.getIntReporting(SUMO_ATTR_REFID, myCurrentObject.c_str(), ok);
         if (!ok) {
             throw ProcessError();
         }
-
         if (!isRevStation) {
             currentBusLine->locateStation(myCity.statData.busStations.find(refID)->second);
         } else {

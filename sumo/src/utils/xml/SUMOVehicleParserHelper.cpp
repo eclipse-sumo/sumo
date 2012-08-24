@@ -50,15 +50,6 @@
 SUMOVehicleParserHelper::CFAttrMap SUMOVehicleParserHelper::allowedCFModelAttrs;
 
 bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedNumber = false;
-bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedTazs = false;
-bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedDepartLane = false;
-bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedDepartPos = false;
-bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedDepartSpeed = false;
-bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedArrivalLane = false;
-bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedArrivalPos = false;
-bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedArrivalSpeed = false;
-bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedMaxSpeed = false;
-bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedVClass = false;
 
 
 // ===========================================================================
@@ -246,24 +237,10 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
         ret->line = attrs.getStringReporting(SUMO_ATTR_LINE, 0, ok);
     }
     // parse zone information
-    if ((attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ__DEPRECATED))
-            &&
-            (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ__DEPRECATED))) {
+    if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) && attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
         ret->setParameter |= VEHPARS_TAZ_SET;
-        ret->fromTaz = attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)
-                       ? attrs.getStringReporting(SUMO_ATTR_FROM_TAZ, 0, ok)
-                       : attrs.getStringReporting(SUMO_ATTR_FROM_TAZ__DEPRECATED, 0, ok);
-        ret->toTaz = attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
-                     ? attrs.getStringReporting(SUMO_ATTR_TO_TAZ, 0, ok)
-                     : attrs.getStringReporting(SUMO_ATTR_TO_TAZ__DEPRECATED, 0, ok);
-        if (!gHaveWarnedAboutDeprecatedTazs && (attrs.hasAttribute(SUMO_ATTR_TO_TAZ__DEPRECATED) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ__DEPRECATED))) {
-            gHaveWarnedAboutDeprecatedTazs = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_FROM_TAZ__DEPRECATED)
-                          + "'/'" + toString(SUMO_ATTR_TO_TAZ__DEPRECATED)
-                          + "' is deprecated, please use '" + toString(SUMO_ATTR_FROM_TAZ)
-                          + "'/'" + toString(SUMO_ATTR_TO_TAZ)
-                          + "' instead.");
-        }
+        ret->fromTaz = attrs.getStringReporting(SUMO_ATTR_FROM_TAZ, 0, ok);
+        ret->toTaz = attrs.getStringReporting(SUMO_ATTR_TO_TAZ, 0, ok);
     }
     // parse reroute information
     if (attrs.getOptBoolReporting(SUMO_ATTR_REROUTE, 0, ok, false)) {
@@ -272,88 +249,52 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
 
     std::string error;
     // parse depart lane information
-    if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE) || attrs.hasAttribute(SUMO_ATTR_DEPARTLANE__DEPRECATED)) {
+    if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
         ret->setParameter |= VEHPARS_DEPARTLANE_SET;
-        const std::string helper = attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)
-                                   ? attrs.getStringReporting(SUMO_ATTR_DEPARTLANE, 0, ok)
-                                   : attrs.getStringReporting(SUMO_ATTR_DEPARTLANE__DEPRECATED, 0, ok);
+        const std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTLANE, 0, ok);
         if(!SUMOVehicleParameter::parseDepartLane(helper, element, ret->id, ret->departLane, ret->departLaneProcedure, error)) {
             throw ProcessError(error);
         }
-        if (!gHaveWarnedAboutDeprecatedDepartLane && attrs.hasAttribute(SUMO_ATTR_DEPARTLANE__DEPRECATED)) {
-            gHaveWarnedAboutDeprecatedDepartLane = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_DEPARTLANE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_DEPARTLANE) + "' instead.");
-        }
     }
     // parse depart position information
-    if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS) || attrs.hasAttribute(SUMO_ATTR_DEPARTPOS__DEPRECATED)) {
+    if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         ret->setParameter |= VEHPARS_DEPARTPOS_SET;
-        const std::string helper = attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)
-                                   ? attrs.getStringReporting(SUMO_ATTR_DEPARTPOS, 0, ok)
-                                   : attrs.getStringReporting(SUMO_ATTR_DEPARTPOS__DEPRECATED, 0, ok);
+        const std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTPOS, 0, ok);
         if(!SUMOVehicleParameter::parseDepartPos(helper, element, ret->id, ret->departPos, ret->departPosProcedure, error)) {
             throw ProcessError(error);
         }
-        if (!gHaveWarnedAboutDeprecatedDepartPos && attrs.hasAttribute(SUMO_ATTR_DEPARTPOS__DEPRECATED)) {
-            gHaveWarnedAboutDeprecatedDepartPos = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_DEPARTPOS__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_DEPARTPOS) + "' instead.");
-        }
     }
     // parse depart speed information
-    if (attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED) || attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED__DEPRECATED)) {
+    if (attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)) {
         ret->setParameter |= VEHPARS_DEPARTSPEED_SET;
-        std::string helper = attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)
-                             ? attrs.getStringReporting(SUMO_ATTR_DEPARTSPEED, 0, ok)
-                             : attrs.getStringReporting(SUMO_ATTR_DEPARTSPEED__DEPRECATED, 0, ok);
+        std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTSPEED, 0, ok);
         if(!SUMOVehicleParameter::parseDepartSpeed(helper, element, ret->id, ret->departSpeed, ret->departSpeedProcedure, error)) {
             throw ProcessError(error);
-        }
-        if (!gHaveWarnedAboutDeprecatedDepartSpeed && attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED__DEPRECATED)) {
-            gHaveWarnedAboutDeprecatedDepartSpeed = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_DEPARTSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_DEPARTSPEED) + "' instead.");
         }
     }
 
     // parse arrival lane information
-    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE) || attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE__DEPRECATED)) {
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
         ret->setParameter |= VEHPARS_ARRIVALLANE_SET;
-        std::string helper = attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)
-                             ? attrs.getStringReporting(SUMO_ATTR_ARRIVALLANE, 0, ok)
-                             : attrs.getStringReporting(SUMO_ATTR_ARRIVALLANE__DEPRECATED, 0, ok);
+        std::string helper = attrs.getStringReporting(SUMO_ATTR_ARRIVALLANE, 0, ok);
         if(!SUMOVehicleParameter::parseArrivalLane(helper, element, ret->id, ret->arrivalLane, ret->arrivalLaneProcedure, error)) {
             throw ProcessError(error);
         }
-        if (!gHaveWarnedAboutDeprecatedArrivalLane && attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE__DEPRECATED)) {
-            gHaveWarnedAboutDeprecatedArrivalLane = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_ARRIVALLANE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_ARRIVALLANE) + "' instead.");
-        }
     }
     // parse arrival position information
-    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS) || attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS__DEPRECATED)) {
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         ret->setParameter |= VEHPARS_ARRIVALPOS_SET;
-        std::string helper = attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)
-                             ? attrs.getStringReporting(SUMO_ATTR_ARRIVALPOS, 0, ok)
-                             : attrs.getStringReporting(SUMO_ATTR_ARRIVALPOS__DEPRECATED, 0, ok);
+        std::string helper = attrs.getStringReporting(SUMO_ATTR_ARRIVALPOS, 0, ok);
         if(!SUMOVehicleParameter::parseArrivalPos(helper, element, ret->id, ret->arrivalPos, ret->arrivalPosProcedure, error)) {
             throw ProcessError(error);
         }
-        if (!gHaveWarnedAboutDeprecatedArrivalPos && attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS__DEPRECATED)) {
-            gHaveWarnedAboutDeprecatedArrivalPos = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_ARRIVALPOS__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_ARRIVALPOS) + "' instead.");
-        }
     }
     // parse arrival speed information
-    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED) || attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED__DEPRECATED)) {
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)) {
         ret->setParameter |= VEHPARS_ARRIVALSPEED_SET;
-        std::string helper = attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)
-                             ? attrs.getStringReporting(SUMO_ATTR_ARRIVALSPEED, 0, ok)
-                             : attrs.getStringReporting(SUMO_ATTR_ARRIVALSPEED__DEPRECATED, 0, ok);
+        std::string helper = attrs.getStringReporting(SUMO_ATTR_ARRIVALSPEED, 0, ok);
         if(!SUMOVehicleParameter::parseArrivalSpeed(helper, element, ret->id, ret->arrivalSpeed, ret->arrivalSpeedProcedure, error)) {
             throw ProcessError(error);
-        }
-        if (!gHaveWarnedAboutDeprecatedArrivalSpeed && attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED__DEPRECATED)) {
-            gHaveWarnedAboutDeprecatedArrivalSpeed = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_ARRIVALSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_ARRIVALSPEED) + "' instead.");
         }
     }
 
@@ -407,13 +348,6 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED)) {
         vtype->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_MAXSPEED_SET;
-    } else if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED__DEPRECATED)) {
-        vtype->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_MAXSPEED_SET;
-        if (!gHaveWarnedAboutDeprecatedMaxSpeed) {
-            gHaveWarnedAboutDeprecatedMaxSpeed = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_MAXSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_MAXSPEED) + "' instead.");
-        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_SPEEDFACTOR)) {
         vtype->speedFactor = attrs.getSUMORealReporting(SUMO_ATTR_SPEEDFACTOR, vtype->id.c_str(), ok);
@@ -427,11 +361,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) {
         vtype->emissionClass = parseEmissionClass(attrs, vtype->id);
         vtype->setParameter |= VTYPEPARS_EMISSIONCLASS_SET;
     }
-    if (attrs.hasAttribute(SUMO_ATTR_VCLASS) || attrs.hasAttribute(SUMO_ATTR_VCLASS__DEPRECATED)) {
-        if (!gHaveWarnedAboutDeprecatedVClass && attrs.hasAttribute(SUMO_ATTR_VCLASS__DEPRECATED)) {
-            gHaveWarnedAboutDeprecatedVClass = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_VCLASS__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_VCLASS) + "' instead.");
-        }
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
         vtype->vehicleClass = parseVehicleClass(attrs, vtype->id);
         vtype->setParameter |= VTYPEPARS_VEHICLECLASS_SET;
     }
@@ -594,9 +524,7 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes& attrs,
     SUMOVehicleClass vclass = SVC_UNKNOWN;
     try {
         bool ok = true;
-        std::string vclassS = attrs.hasAttribute(SUMO_ATTR_VCLASS)
-                              ? attrs.getOptStringReporting(SUMO_ATTR_VCLASS, id.c_str(), ok, "")
-                              : attrs.getOptStringReporting(SUMO_ATTR_VCLASS__DEPRECATED, id.c_str(), ok, "");
+        std::string vclassS = attrs.getOptStringReporting(SUMO_ATTR_VCLASS, id.c_str(), ok, "");
         if (vclassS == "") {
             return vclass;
         }

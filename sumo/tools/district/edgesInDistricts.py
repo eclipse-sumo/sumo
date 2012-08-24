@@ -77,7 +77,7 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
             self._currentID = attrs['id']
             self._parsingLaneShape = True
             self._laneDisttricts[self._currentID] = []
-            self._laneSpeeds[self._currentID] = float(attrs['maxspeed'])
+            self._laneSpeeds[self._currentID] = float(attrs['speed'])
             self._laneLengths[self._currentID] = float(attrs['length'])
             edgeid = self._currentID
             edgeid = edgeid[:edgeid.rfind("_")]

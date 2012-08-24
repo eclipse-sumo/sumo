@@ -448,7 +448,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
         elif name == 'lane' and self._edge != '':
             self._lane2edge[attrs['id']] = self._edge
             edgeObj = self._net.getEdge(self._edge)
-            edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['maxspeed']))
+            edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['speed']))
             edgeObj.length = float(attrs['length'])
 
     def endElement(self, name):

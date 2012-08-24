@@ -195,7 +195,7 @@ class NetworkReader(handler.ContentHandler):
                 self._net.addEdge(newEdge)
                 self._edgeObj.finalizer = l[:l.rfind('_')]
         elif name == 'lane' and self._edge != '':
-            self._maxSpeed = max(self._maxSpeed, float(attrs['maxspeed']))
+            self._maxSpeed = max(self._maxSpeed, float(attrs['speed']))
             self._laneNumber = self._laneNumber + 1
             self._length = float(attrs['length'])
       

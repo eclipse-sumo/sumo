@@ -92,7 +92,7 @@ class NetReader(handler.ContentHandler):
             else:
                 self._id = ""
         if name == 'lane' and self._id!="":
-            self._edge2speed[self._id] = float(attrs['maxspeed'])
+            self._edge2speed[self._id] = float(attrs['speed'])
             self._edge2lanes[self._id] = self._edge2lanes[self._id] + 1
             self._parseLane = True
             self._currentShapes.append(attrs["shape"])
