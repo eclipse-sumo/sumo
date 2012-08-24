@@ -49,7 +49,7 @@ open(INDAT, "< $ARGV[0]");
 $name = " ".$ARGV[1]." ";
 while(<INDAT>) {
 	$tmp = $_;
-	if($tmp=~"<tripdef ") {
+	if($tmp=~"<trip ") {
 		$depart = getAttr($tmp, "depart");
 		if($depart>=$min && $depart<=$max) {
 			print $tmp;

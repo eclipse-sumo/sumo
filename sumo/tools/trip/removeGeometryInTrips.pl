@@ -54,7 +54,7 @@ while(<INDAT>) {
 open(INDAT, "< $ARGV[0]");
 while(<INDAT>) {
 	$tmp = $_;
-	if($tmp =~ "\<tripdef ") {
+	if($tmp =~ "\<trip ") {
 		$tmp =~ s/from=\"(.*?)\"/from=\"$edgemap{$1}\"/g;
 		$tmp =~ s/to=\"(.*?)\"/to=\"$edgemap{$1}\"/g;
 		if($tmp =~ "from=\"\"" && $tmp =~"to=\"\"") {
