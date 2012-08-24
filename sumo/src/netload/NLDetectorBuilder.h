@@ -303,12 +303,12 @@ public:
                          OutputDevice& device) throw(InvalidArgument);
 
 
-    /** @brief Builds a routeprobe and adds it to the net
+    /** @brief Builds a routeProbe and adds it to the net
      *
      * Checks the given values, first. If one of the values is invalid
      *  (sampling frequency<=0), an InvalidArgument is thrown.
      *
-     * Otherwise the routeprobe is built (directly).
+     * Otherwise the routeProbe is built (directly).
      *
      * @param[in] id The id the detector shall have
      * @param[in] edge The name of the edge the detector shall observe

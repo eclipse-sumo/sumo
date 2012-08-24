@@ -66,28 +66,21 @@ enum SumoXMLTag {
     SUMO_TAG_MSG_EMITTER,
 #endif
     /** an e1 detector */
-    SUMO_TAG_E1DETECTOR__DEPRECATED,
     SUMO_TAG_E1DETECTOR,
     SUMO_TAG_INDUCTION_LOOP,
     /** an e2 detector */
-    SUMO_TAG_E2DETECTOR__DEPRECATED,
     SUMO_TAG_E2DETECTOR,
     SUMO_TAG_LANE_AREA_DETECTOR,
     /** an e3 detector */
-    SUMO_TAG_E3DETECTOR__DEPRECATED,
     SUMO_TAG_E3DETECTOR,
     SUMO_TAG_ENTRY_EXIT_DETECTOR,
     /** an edge based mean data detector */
-    SUMO_TAG_MEANDATA_EDGE__DEPRECATED,
     SUMO_TAG_MEANDATA_EDGE,
     /** a lane based mean data detector */
-    SUMO_TAG_MEANDATA_LANE__DEPRECATED,
     SUMO_TAG_MEANDATA_LANE,
     /** an e3 entry point*/
-    SUMO_TAG_DET_ENTRY__DEPRECATED,
     SUMO_TAG_DET_ENTRY,
     /** an e3 exit point */
-    SUMO_TAG_DET_EXIT__DEPRECATED,
     SUMO_TAG_DET_EXIT,
     /// @brief An edge-following detector
     SUMO_TAG_EDGEFOLLOWDETECTOR,
@@ -102,10 +95,8 @@ enum SumoXMLTag {
     /// @brief A bus stop
     SUMO_TAG_BUS_STOP,
     /** a vtypeprobe detector */
-    SUMO_TAG_VTYPEPROBE__DEPRECATED,
     SUMO_TAG_VTYPEPROBE,
     /** a routeprobe detector */
-    SUMO_TAG_ROUTEPROBE__DEPRECATED,
     SUMO_TAG_ROUTEPROBE,
     /** root element of a route file */
     SUMO_TAG_ROUTES,

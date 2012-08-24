@@ -78,11 +78,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
       myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
       mySucceedingLaneBuilder(junctionBuilder),
       myAmInTLLogicMode(false), myCurrentIsBroken(false),
-      myHaveWarnedAboutDeprecatedE1(false),
-      myHaveWarnedAboutDeprecatedE2(false),
-      myHaveWarnedAboutDeprecatedE3(false),
-      myHaveWarnedAboutDeprecatedDetEntry(false),
-      myHaveWarnedAboutDeprecatedDetExit(false),
       myHaveWarnedAboutDeprecatedRowLogic(false),
       myHaveWarnedAboutDeprecatedTLLogic(false),
       myHaveWarnedAboutDeprecatedTimedEvent(false),
@@ -90,10 +85,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
       myHaveWarnedAboutDeprecatedTimeThreshold(false),
       myHaveWarnedAboutDeprecatedSpeedThreshold(false),
       myHaveWarnedAboutDeprecatedJamDistThreshold(false),
-      myHaveWarnedAboutDeprecatedVTypeProbe(false),
-      myHaveWarnedAboutDeprecatedRouteProbe(false),
-      myHaveWarnedAboutDeprecatedEdgeMean(false),
-      myHaveWarnedAboutDeprecatedLaneMean(false),
       myHaveWarnedAboutDeprecatedVTypes(false),
       myHaveWarnedAboutDeprecatedLanes(false) {}
 
@@ -169,46 +160,21 @@ NLHandler::myStartElement(int element,
                 addMsgEmitter(attrs);
                 break;
 #endif
-            case SUMO_TAG_E1DETECTOR__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedE1) {
-                    myHaveWarnedAboutDeprecatedE1 = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_E1DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E1DETECTOR) + "'.");
-                }
             case SUMO_TAG_E1DETECTOR:
             case SUMO_TAG_INDUCTION_LOOP:
                 addE1Detector(attrs);
                 break;
-            case SUMO_TAG_E2DETECTOR__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedE2) {
-                    myHaveWarnedAboutDeprecatedE2 = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_E2DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E2DETECTOR) + "'.");
-                }
             case SUMO_TAG_E2DETECTOR:
             case SUMO_TAG_LANE_AREA_DETECTOR:
                 addE2Detector(attrs);
                 break;
-            case SUMO_TAG_E3DETECTOR__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedE3) {
-                    myHaveWarnedAboutDeprecatedE3 = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_E3DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
-                }
             case SUMO_TAG_E3DETECTOR:
             case SUMO_TAG_ENTRY_EXIT_DETECTOR:
                 beginE3Detector(attrs);
                 break;
-            case SUMO_TAG_DET_ENTRY__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedDetEntry) {
-                    myHaveWarnedAboutDeprecatedDetEntry = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_DET_ENTRY__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_ENTRY) + "'.");
-                }
             case SUMO_TAG_DET_ENTRY:
                 addE3Entry(attrs);
                 break;
-            case SUMO_TAG_DET_EXIT__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedDetExit) {
-                    myHaveWarnedAboutDeprecatedDetExit = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_DET_EXIT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_EXIT) + "'.");
-                }
             case SUMO_TAG_DET_EXIT:
                 addE3Exit(attrs);
                 break;
@@ -229,35 +195,15 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_BUS_STOP:
                 myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
                 break;
-            case SUMO_TAG_VTYPEPROBE__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedVTypeProbe) {
-                    myHaveWarnedAboutDeprecatedVTypeProbe = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_VTYPEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPEPROBE) + "'.");
-                }
             case SUMO_TAG_VTYPEPROBE:
                 addVTypeProbeDetector(attrs);
                 break;
-            case SUMO_TAG_ROUTEPROBE__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedRouteProbe) {
-                    myHaveWarnedAboutDeprecatedRouteProbe = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_ROUTEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_ROUTEPROBE) + "'.");
-                }
             case SUMO_TAG_ROUTEPROBE:
                 addRouteProbeDetector(attrs);
                 break;
-            case SUMO_TAG_MEANDATA_EDGE__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedEdgeMean) {
-                    myHaveWarnedAboutDeprecatedEdgeMean = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_EDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_EDGE) + "'.");
-                }
             case SUMO_TAG_MEANDATA_EDGE:
                 addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_EDGE);
                 break;
-            case SUMO_TAG_MEANDATA_LANE__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedLaneMean) {
-                    myHaveWarnedAboutDeprecatedLaneMean = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_LANE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_LANE) + "'.");
-                }
             case SUMO_TAG_MEANDATA_LANE:
                 addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_LANE);
                 break;
@@ -335,7 +281,6 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_WAUT:
             closeWAUT();
             break;
-        case SUMO_TAG_E3DETECTOR__DEPRECATED:
         case SUMO_TAG_E3DETECTOR:
         case SUMO_TAG_ENTRY_EXIT_DETECTOR:
             endE3Detector();

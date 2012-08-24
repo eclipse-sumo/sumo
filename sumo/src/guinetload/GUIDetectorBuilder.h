@@ -112,7 +112,7 @@ public:
 #endif
 
 
-    /** @brief Creates an instance of an e2-detector using the given values
+    /** @brief Creates an instance of an e2-detector (areal detector) using the given values
      *
      * Simply calls the GUI_E2_ZS_Collector constructor
      *

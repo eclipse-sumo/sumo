@@ -161,7 +161,7 @@ protected:
      */
     virtual void addVTypeProbeDetector(const SUMOSAXAttributes& attrs);
 
-    /** @brief Builds a routeprobe-detector using the given specification
+    /** @brief Builds a routeProbe-detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
     virtual void addRouteProbeDetector(const SUMOSAXAttributes& attrs);
@@ -318,16 +318,12 @@ protected:
 
     bool myCurrentIsBroken;
 
-    bool myHaveWarnedAboutDeprecatedE1, myHaveWarnedAboutDeprecatedE2,
-         myHaveWarnedAboutDeprecatedE3, myHaveWarnedAboutDeprecatedDetEntry,
-         myHaveWarnedAboutDeprecatedDetExit, myHaveWarnedAboutDeprecatedTimedEvent;
+    bool myHaveWarnedAboutDeprecatedTimedEvent;
     bool myHaveWarnedAboutDeprecatedRowLogic, myHaveWarnedAboutDeprecatedTLLogic;
     bool myHaveWarnedAboutDeprecatedTLSTiming;
     bool myHaveWarnedAboutDeprecatedTimeThreshold,
          myHaveWarnedAboutDeprecatedSpeedThreshold,
          myHaveWarnedAboutDeprecatedJamDistThreshold;
-    bool myHaveWarnedAboutDeprecatedVTypeProbe, myHaveWarnedAboutDeprecatedRouteProbe,
-         myHaveWarnedAboutDeprecatedEdgeMean, myHaveWarnedAboutDeprecatedLaneMean;
     bool myHaveWarnedAboutDeprecatedVTypes, myHaveWarnedAboutDeprecatedLanes;
     
 
