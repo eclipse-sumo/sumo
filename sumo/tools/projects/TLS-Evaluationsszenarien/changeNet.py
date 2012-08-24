@@ -5,7 +5,7 @@ def changePhaseDurations(file, greenWE, yellowWE, greenNS, yellowNS):
     tree = dom.parse(file)
     
     net = tree.getElementsByTagName('net')[0]
-    tlLogic = net.getElementsByTagName('tl-logic')[0]
+    tlLogic = net.getElementsByTagName('tlLogic')[0]
     phases = tlLogic.getElementsByTagName('phase')
     
     phases[0].setAttribute('duration',str(greenNS))
@@ -31,7 +31,7 @@ def setPhaseMinMax(file, minWE, maxWE, minNS, maxNS):
     tree = dom.parse(file)
     
     net = tree.getElementsByTagName('net')[0]
-    tlLogic = net.getElementsByTagName('tl-logic')[0]
+    tlLogic = net.getElementsByTagName('tlLogic')[0]
     phases = tlLogic.getElementsByTagName('phase')
     
     phases[0].setAttribute('duration',str(minNS))
@@ -47,7 +47,7 @@ def setPhaseMinMax(file, minWE, maxWE, minNS, maxNS):
 def setDetFreq(file, N):
     tree = dom.parse(file)
     
-    dets = (tree.getElementsByTagName('additional')[0]).getElementsByTagName('e1-detector')
+    dets = (tree.getElementsByTagName('additional')[0]).getElementsByTagName('e1Detector')
     
     for det in dets:
         det.setAttribute('freq',str(N))

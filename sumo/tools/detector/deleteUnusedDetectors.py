@@ -27,7 +27,7 @@ def writeDetectors(usedDet):
     fd = open("detectors.xml", "w")
     fd.write("<pois>\n")
     for det in usedDet:
-        fd.write("   <e1-detector id= \"" + det.getAttribute('id') + "\" lane=\"" + det.getAttribute('lane') + "\" pos=\"" + det.getAttribute('pos'))
+        fd.write("   <e1Detector id= \"" + det.getAttribute('id') + "\" lane=\"" + det.getAttribute('lane') + "\" pos=\"" + det.getAttribute('pos'))
         fd.write("\" freq=\"" + det.getAttribute('freq') + "\" file=\"" + det.getAttribute('file'))
         # the position of some detectors are over the end of an edge.
         # the tag friendlyPos corrects the position
