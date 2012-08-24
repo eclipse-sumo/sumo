@@ -1,7 +1,0 @@
-<tazs>
-    <district id="1" edges="beg beg2left">
-    </district>
-    <district id="2" edges="end rend">
-    </district>
-</tazs>
-

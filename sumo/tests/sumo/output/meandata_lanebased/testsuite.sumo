@@ -55,5 +55,3 @@ vtypes
 # two vehicles sampling at 15s with internal lanes
 internal
 
-# Tests for deprecated markup
-_deprecated_

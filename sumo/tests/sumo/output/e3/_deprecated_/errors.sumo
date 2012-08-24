@@ -1,3 +1,0 @@
-Warning: 'e3-detector' is deprecated; please use 'e3Detector'.
-Warning: 'det_entry' is deprecated; please use 'detEntry'.
-Warning: 'det_exit' is deprecated; please use 'detExit'.

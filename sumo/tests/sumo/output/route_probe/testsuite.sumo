@@ -16,8 +16,7 @@ devnull_output
 # Output at odd times
 odd_interval
 
-# Tests for deprecated markup
-_deprecated_
+
 
 # test the the option routeDist.maxsize is respected.
 # 3 different routes pass accross the edge but only the latest 2 are returned
