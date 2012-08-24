@@ -87,6 +87,11 @@ public:
     bool isSet() const;
 
 
+    /** @brief marks this option as unset
+     */
+    void unSet();
+
+
     /** @brief Returns the stored SUMOReal value
      *
      * Option_Float returns the stored real number in this method's reimplementation.

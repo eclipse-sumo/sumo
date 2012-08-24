@@ -149,6 +149,20 @@ OptionsCont::isSet(const std::string& name, bool failOnNonExistant) const {
 }
 
 
+void
+OptionsCont::unSet(const std::string& name, bool failOnNonExistant) const {
+    KnownContType::const_iterator i = myValues.find(name);
+    if (i == myValues.end()) {
+        if (failOnNonExistant) {
+            throw ProcessError("Internal request for unknown option '" + name + "'!");
+        } else {
+            return;
+        }
+    }
+    (*i).second->unSet();
+}
+
+
 bool
 OptionsCont::isDefault(const std::string& name) const {
     KnownContType::const_iterator i = myValues.find(name);

@@ -120,6 +120,13 @@ Option::markSet() {
 }
 
 
+void
+Option::unSet() {
+    myAmSet = false;
+    myAmWritable = true;
+}
+
+
 bool
 Option::isBool() const {
     return false;
