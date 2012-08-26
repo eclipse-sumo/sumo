@@ -3,7 +3,7 @@
 @file    miscutils.py
 @author  Jakob.Erdmann@dlr.de
 @date    2012-05-08
-@version $Id: utils.py 4975 2012-02-20 15:07:28Z behr_mi $
+@version $Id$
 
 Common utility functions
 

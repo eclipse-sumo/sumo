@@ -4,7 +4,7 @@
 @file    duaIterate_analysis.py
 @author  Jakob Erdmann
 @date    2012-08-22
-@version $Id: duaIterate_analysis.py 12111 2012-03-15 15:10:12Z namdre $
+@version $Id$
 
 Extract statistics from the outputs of a duaIterate run for plotting.
 plotting example:
