@@ -119,7 +119,7 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
     //  edges the links are starting at, respectively
     for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
         const NBConnection& c = *it;
-        assert(c.getTLIndex() < myTLLogic->getNumLinks());
+        assert(c.getTLIndex() < (int)myTLLogic->getNumLinks());
         NBEdge* edge = c.getFrom();
         edge->setControllingTLInformation(c, getID());
     }

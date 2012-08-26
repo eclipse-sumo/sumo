@@ -549,7 +549,6 @@ NIXMLEdgesHandler::myEndElement(int element) {
         if (mySplits.size() != 0) {
             std::vector<Split>::iterator i;
             NBEdge* e = myCurrentEdge;
-            SUMOReal length = e->getLength();
             sort(mySplits.begin(), mySplits.end(), split_sorter());
             unsigned int noLanesMax = e->getNumLanes();
             // compute the node positions and sort the lanes

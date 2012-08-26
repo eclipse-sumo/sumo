@@ -203,10 +203,10 @@ MFXAddEditTypedTable::getControlForItem(FXint r, FXint c) {
     register FXTableItem* item = cells[r * ncols + c];
     if (item == NULL) {
         return 0;
-        cells[r * ncols + c] = item = createItem("", NULL, NULL);
-        if (isItemSelected(r, c)) {
-            item->setSelected(FALSE);
-        }
+//         cells[r * ncols + c] = item = createItem("", NULL, NULL);
+//         if (isItemSelected(r, c)) {
+//             item->setSelected(FALSE);
+//         }
     }
     delete editor;
     editor = NULL;

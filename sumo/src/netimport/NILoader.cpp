@@ -210,6 +210,8 @@ NILoader::transformCoordinates(Position& from, bool includeInBoundary, GeoConvHe
             from = Position(from.x(), from.y(), z);
         }
     }
+#else
+    UNUSED_PARAMETER(from_srs);
 #endif
     return ok;
 }

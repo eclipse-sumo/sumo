@@ -36,6 +36,7 @@
 #include <string>
 #include <algorithm>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/geom/GeomHelper.h>
 #include "GUIEdge.h"
@@ -204,8 +205,10 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
 
     // close building
     ret->closeBuilding();
+#else
+    UNUSED_PARAMETER(app);
+    UNUSED_PARAMETER(parent);
 #endif
-    UNUSED_PARAMETER(&app);
     return ret;
 }
 
