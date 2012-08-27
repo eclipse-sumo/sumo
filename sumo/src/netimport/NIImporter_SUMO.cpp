@@ -266,7 +266,6 @@ NIImporter_SUMO::myStartElement(int element,
         case SUMO_TAG_CONNECTION:
             addConnection(attrs);
             break;
-        case SUMO_TAG_TLLOGIC__DEPRECATED:
         case SUMO_TAG_TLLOGIC:
             if(!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
                 myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
@@ -315,7 +314,6 @@ NIImporter_SUMO::myEndElement(int element) {
             }
             myCurrentLane = 0;
             break;
-        case SUMO_TAG_TLLOGIC__DEPRECATED:
         case SUMO_TAG_TLLOGIC:
             if(!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
                 if (!myCurrentTL) {

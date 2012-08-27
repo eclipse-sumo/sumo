@@ -92,7 +92,7 @@ RORDLoader_TripDefs::myStartElement(int element,
         }
     }
     // check whether a vehicle type shall be parsed
-    if (element == SUMO_TAG_VTYPE || element == SUMO_TAG_VTYPE__DEPRECATED) {
+    if (element == SUMO_TAG_VTYPE) {
         myCurrentVehicleType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
     } else if (myCurrentVehicleType != 0) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVehicleType, element, attrs);
@@ -166,7 +166,7 @@ RORDLoader_TripDefs::myEndElement(int element) {
         delete myParameter;
         myParameter = 0;
     }
-    if (element == SUMO_TAG_VTYPE || element == SUMO_TAG_VTYPE__DEPRECATED) {
+    if (element == SUMO_TAG_VTYPE) {
         SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVehicleType);
         myNet.addVehicleType(myCurrentVehicleType);
         myCurrentVehicleType = 0;

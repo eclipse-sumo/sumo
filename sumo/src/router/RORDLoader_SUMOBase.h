@@ -154,7 +154,6 @@ protected:
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;
 
-    bool myHaveWarnedAboutDeprecatedVType;
     bool myHaveWarnedAboutDeprecatedRoute;
 
 private:

@@ -103,7 +103,6 @@ enum SumoXMLTag {
     /** description of a vehicle */
     SUMO_TAG_VEHICLE,
     /** description of a vehicle type */
-    SUMO_TAG_VTYPE__DEPRECATED,
     SUMO_TAG_VTYPE,
     /** begin/end of the description of a route */
     SUMO_TAG_ROUTE,
@@ -111,8 +110,6 @@ enum SumoXMLTag {
     SUMO_TAG_SUCC,
     /** description of a single succeeding lane (deprecated) */
     SUMO_TAG_SUCCLANE,
-    /** begin of a right-of-way logic (deprecated) */
-    SUMO_TAG_ROWLOGIC__DEPRECATED,
     /** description of a single junction logic part (deprecated) */
     SUMO_TAG_LOGICITEM,
     /** description of a logic request within the junction */
@@ -126,7 +123,6 @@ enum SumoXMLTag {
     /** a sink within a district (connection road) */
     SUMO_TAG_TAZSINK,
     /** a traffic light logic */
-    SUMO_TAG_TLLOGIC__DEPRECATED,
     SUMO_TAG_TLLOGIC,
     /** a single phase description */
     SUMO_TAG_PHASE,

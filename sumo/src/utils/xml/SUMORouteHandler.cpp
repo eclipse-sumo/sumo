@@ -163,7 +163,6 @@ SUMORouteHandler::myEndElement(int element) {
         case SUMO_TAG_ROUTE_DISTRIBUTION:
             closeRouteDistribution();
             break;
-        case SUMO_TAG_VTYPE__DEPRECATED:
         case SUMO_TAG_VTYPE:
             SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
         break;

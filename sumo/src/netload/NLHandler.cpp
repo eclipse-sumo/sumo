@@ -78,8 +78,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
       myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
       mySucceedingLaneBuilder(junctionBuilder),
       myAmInTLLogicMode(false), myCurrentIsBroken(false),
-      myHaveWarnedAboutDeprecatedRowLogic(false),
-      myHaveWarnedAboutDeprecatedTLLogic(false),
       myHaveWarnedAboutDeprecatedLanes(false) {}
 
 
@@ -119,18 +117,6 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_CONNECTION:
                 addConnection(attrs);
                 break;
-            case SUMO_TAG_ROWLOGIC__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedRowLogic) {
-                    myHaveWarnedAboutDeprecatedRowLogic = true;
-                    WRITE_WARNING("Your network uses deprecated tags; please rebuild.");
-                }
-                initJunctionLogic(attrs);
-                break;
-            case SUMO_TAG_TLLOGIC__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedTLLogic) {
-                    myHaveWarnedAboutDeprecatedTLLogic = true;
-                    WRITE_WARNING("Deprecated tl-logic name; please rebuild.");
-                }
             case SUMO_TAG_TLLOGIC:
                 initTrafficLightLogic(attrs);
                 break;
@@ -251,14 +237,6 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_SUCC:
             closeSuccLane();
             break;
-        case SUMO_TAG_ROWLOGIC__DEPRECATED:
-            try {
-                myJunctionControlBuilder.closeJunctionLogic();
-            } catch (InvalidArgument& e) {
-                WRITE_ERROR(e.what());
-            }
-            break;
-        case SUMO_TAG_TLLOGIC__DEPRECATED:
         case SUMO_TAG_TLLOGIC:
             try {
                 myJunctionControlBuilder.closeTrafficLightLogic();

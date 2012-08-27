@@ -127,7 +127,7 @@ RORouteHandler::myStartElement(int element,
             break;
     }
     // parse embedded vtype information
-    if (myCurrentVType != 0 && element != SUMO_TAG_VTYPE && element != SUMO_TAG_VTYPE__DEPRECATED) {
+    if (myCurrentVType != 0 && element != SUMO_TAG_VTYPE) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         return;
     }
