@@ -320,10 +320,6 @@ protected:
 
     bool myHaveWarnedAboutDeprecatedTimedEvent;
     bool myHaveWarnedAboutDeprecatedRowLogic, myHaveWarnedAboutDeprecatedTLLogic;
-    bool myHaveWarnedAboutDeprecatedTLSTiming;
-    bool myHaveWarnedAboutDeprecatedTimeThreshold,
-         myHaveWarnedAboutDeprecatedSpeedThreshold,
-         myHaveWarnedAboutDeprecatedJamDistThreshold;
     bool myHaveWarnedAboutDeprecatedVTypes, myHaveWarnedAboutDeprecatedLanes;
     
 

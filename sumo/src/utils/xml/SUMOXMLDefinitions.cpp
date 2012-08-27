@@ -319,18 +319,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "xy",				SUMO_ATTR_XY },
     { "step",			SUMO_ATTR_STEP },
 #endif
-    { "min_dur",        SUMO_ATTR_MINDURATION__DEPRECATED },
     { "minDur",         SUMO_ATTR_MINDURATION },
-    { "max_dur",        SUMO_ATTR_MAXDURATION__DEPRECATED },
     { "maxDur",         SUMO_ATTR_MAXDURATION },
     { "foes",           SUMO_ATTR_FOES },
 
     { "cont",           SUMO_ATTR_CONT },
-    { "time_treshold",  SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED },
     { "timeThreshold",  SUMO_ATTR_HALTING_TIME_THRESHOLD },
-    { "speed_treshold", SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED },
     { "speedThreshold", SUMO_ATTR_HALTING_SPEED_THRESHOLD },
-    { "jam_treshold",   SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED },
     { "jamThreshold",   SUMO_ATTR_JAM_DIST_THRESHOLD },
 
     { "wautID",		    SUMO_ATTR_WAUT_ID },

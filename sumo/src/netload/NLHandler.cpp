@@ -81,10 +81,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
       myHaveWarnedAboutDeprecatedRowLogic(false),
       myHaveWarnedAboutDeprecatedTLLogic(false),
       myHaveWarnedAboutDeprecatedTimedEvent(false),
-      myHaveWarnedAboutDeprecatedTLSTiming(false),
-      myHaveWarnedAboutDeprecatedTimeThreshold(false),
-      myHaveWarnedAboutDeprecatedSpeedThreshold(false),
-      myHaveWarnedAboutDeprecatedJamDistThreshold(false),
       myHaveWarnedAboutDeprecatedVTypes(false),
       myHaveWarnedAboutDeprecatedLanes(false) {}
 
@@ -722,26 +718,8 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    SUMOTime minDuration = -1;
-    if (attrs.hasAttribute(SUMO_ATTR_MINDURATION__DEPRECATED)) {
-        minDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_MINDURATION__DEPRECATED, myJunctionControlBuilder.getActiveKey().c_str(), ok);
-        if (!myHaveWarnedAboutDeprecatedTLSTiming) {
-            myHaveWarnedAboutDeprecatedTLSTiming = true;
-            WRITE_WARNING("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
-        }
-    } else {
-        minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
-    }
-    SUMOTime maxDuration = -1;
-    if (attrs.hasAttribute(SUMO_ATTR_MAXDURATION__DEPRECATED)) {
-        maxDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_MAXDURATION__DEPRECATED, myJunctionControlBuilder.getActiveKey().c_str(), ok);
-        if (!myHaveWarnedAboutDeprecatedTLSTiming) {
-            myHaveWarnedAboutDeprecatedTLSTiming = true;
-            WRITE_WARNING("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
-        }
-    } else {
-        maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
-    }
+    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
     myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration);
 }
 
@@ -926,22 +904,9 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // inform the user about deprecated values
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    if (attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
-        myHaveWarnedAboutDeprecatedTimeThreshold = true;
-        WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
-        myHaveWarnedAboutDeprecatedSpeedThreshold = true;
-        WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
-    }
-
     const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
-    const SUMOTime haltingTimeThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)
-                                          ? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
-                                          : attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
-    const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
-                                           ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f / 3.6f)
-                                           : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
+    const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
+    const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
         return;

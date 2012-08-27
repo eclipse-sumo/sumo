@@ -64,9 +64,9 @@
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
         <xsd:attribute name="cont" type="boolType" use="optional"/>
-        <xsd:attribute name="time_treshold" type="xsd:int" use="optional"/>
-        <xsd:attribute name="speed_treshold" type="xsd:float" use="optional"/>
-        <xsd:attribute name="jam_treshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="timeThreshold" type="xsd:int" use="optional"/>
+        <xsd:attribute name="speedThreshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="jamThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
     </xsd:complexType>
 
@@ -82,8 +82,8 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
-        <xsd:attribute name="time_treshold" type="xsd:float" use="optional"/>
-        <xsd:attribute name="speed_treshold" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="timeThreshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="speedThreshold" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="detEntryExitType">

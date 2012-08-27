@@ -411,10 +411,8 @@ enum SumoXMLAttr {
 #endif
     // Attributes for actuated traffic lights:
     /// minimum duration of a phase
-    SUMO_ATTR_MINDURATION__DEPRECATED,
     SUMO_ATTR_MINDURATION,
     /// maximum duration of a phase
-    SUMO_ATTR_MAXDURATION__DEPRECATED,
     SUMO_ATTR_MAXDURATION,
     // Attributes for junction-internal lanes
     /// Information within the junction logic which internal lanes block external
@@ -422,11 +420,8 @@ enum SumoXMLAttr {
     // Attributes for detectors
     /// Information whether the detector shall be continued on the folowing lanes
     SUMO_ATTR_CONT,
-    SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED,
     SUMO_ATTR_HALTING_TIME_THRESHOLD,
-    SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED,
     SUMO_ATTR_HALTING_SPEED_THRESHOLD,
-    SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED,
     SUMO_ATTR_JAM_DIST_THRESHOLD,
 
     SUMO_ATTR_WAUT_ID,
