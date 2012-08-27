@@ -30,6 +30,7 @@ def relative_to_sumo_home(path):
 
 
 def validate(root, f):
+    root = os.path.abspath(root)
     try:
         doc = etree.parse(f)
         schemaLoc = doc.getroot().get('{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation')
@@ -41,9 +42,9 @@ def validate(root, f):
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
             for entry in schemes[schemaLoc].error_log:
-                print >> sys.stderr, str(entry)[len(root):]
+                print >> sys.stderr, os.path.abspath(str(entry))[len(root):]
     except:
-        print >> sys.stderr, "Error on parsing '%s'!" % f[len(root):]
+        print >> sys.stderr, "Error on parsing '%s'!" % os.path.abspath(f)[len(root):]
         traceback.print_exc()
 
 def main(srcRoot, toCheck, err):
