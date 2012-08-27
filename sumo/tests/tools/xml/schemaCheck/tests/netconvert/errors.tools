@@ -1,0 +1,70 @@
+\tests\netconvert\import\XML\errors\broken_edge\edge%23id__missing1\input_edges.edg.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'edge': The attribute 'id' is required but missing.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23id__missing1\input_edges.edg.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_IDC: Element 'edge': Not all fields of key identity-constraint 'edgeKey' evaluate to a node.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23id__missing4\input_edges.edg.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'edge': The attribute 'id' is required but missing.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23id__missing4\input_edges.edg.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_IDC: Element 'edge': Not all fields of key identity-constraint 'edgeKey' evaluate to a node.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23length__empty1\input_edges.edg.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'length': '' is not a valid value of the atomic type 'positiveFloatType'.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23length__empty4\input_edges.edg.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'length': '' is not a valid value of the atomic type 'positiveFloatType'.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23length__false1\input_edges.edg.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'length': 'a' is not a valid value of the atomic type 'positiveFloatType'.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23length__false4\input_edges.edg.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'length': 'a' is not a valid value of the atomic type 'positiveFloatType'.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23nolanes__empty1\input_edges.edg.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'numLanes': '' is not a valid value of the atomic type 'xs:positiveInteger'.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23nolanes__empty4\input_edges.edg.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'numLanes': '' is not a valid value of the atomic type 'xs:positiveInteger'.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23nolanes__false1\input_edges.edg.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'numLanes': 'a' is not a valid value of the atomic type 'xs:positiveInteger'.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23nolanes__false4\input_edges.edg.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'numLanes': 'a' is not a valid value of the atomic type 'xs:positiveInteger'.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23priority__false1\input_edges.edg.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'priority': 'a' is not a valid value of the atomic type 'xs:int'.
+\tests\netconvert\import\XML\errors\broken_edge\edge%23priority__false4\input_edges.edg.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'priority': 'a' is not a valid value of the atomic type 'xs:int'.
+Error on parsing '\netconvert\import\XML\errors\broken_edge\edge#shape__false1a\input_edges.edg.xml'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 45, in validate
+    print >> sys.stderr, os.path.abspath(str(entry))[len(root):]
+  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+    path = _getfullpathname(path)
+TypeError: must be (buffer overflow), not str
+Error on parsing '\netconvert\import\XML\errors\broken_edge\edge#shape__false1b\input_edges.edg.xml'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 45, in validate
+    print >> sys.stderr, os.path.abspath(str(entry))[len(root):]
+  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+    path = _getfullpathname(path)
+TypeError: must be (buffer overflow), not str
+Error on parsing '\netconvert\import\XML\errors\broken_edge\edge#shape__false1c\input_edges.edg.xml'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 45, in validate
+    print >> sys.stderr, os.path.abspath(str(entry))[len(root):]
+  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+    path = _getfullpathname(path)
+TypeError: must be (buffer overflow), not str
+Error on parsing '\netconvert\import\XML\errors\broken_edge\edge#shape__false1d\input_edges.edg.xml'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 45, in validate
+    print >> sys.stderr, os.path.abspath(str(entry))[len(root):]
+  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+    path = _getfullpathname(path)
+TypeError: must be (buffer overflow), not str
+Error on parsing '\netconvert\import\XML\errors\broken_edge\edge#shape__false4a\input_edges.edg.xml'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 45, in validate
+    print >> sys.stderr, os.path.abspath(str(entry))[len(root):]
+  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+    path = _getfullpathname(path)
+TypeError: must be (buffer overflow), not str
+Error on parsing '\netconvert\import\XML\errors\broken_edge\edge#shape__false4b\input_edges.edg.xml'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 45, in validate
+    print >> sys.stderr, os.path.abspath(str(entry))[len(root):]
+  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+    path = _getfullpathname(path)
+TypeError: must be (buffer overflow), not str
+Error on parsing '\netconvert\import\XML\errors\broken_edge\edge#shape__false4c\input_edges.edg.xml'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 45, in validate
+    print >> sys.stderr, os.path.abspath(str(entry))[len(root):]
+  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+    path = _getfullpathname(path)
+TypeError: must be (buffer overflow), not str
+Error on parsing '\netconvert\import\XML\errors\broken_edge\edge#shape__false4d\input_edges.edg.xml'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 45, in validate
+    print >> sys.stderr, os.path.abspath(str(entry))[len(root):]
+  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+    path = _getfullpathname(path)
+TypeError: must be (buffer overflow), not str
