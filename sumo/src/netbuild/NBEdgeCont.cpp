@@ -65,11 +65,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBEdgeCont::NBEdgeCont(NBTypeCont& tc) : 
-    myEdgesSplit(0), 
-    myTypeCont(tc),
+NBEdgeCont::NBEdgeCont(NBTypeCont& tc) :
+    myEdgesSplit(0),
     myVehicleClasses2Keep(0),
-    myVehicleClasses2Remove(0)
+    myVehicleClasses2Remove(0),
+    myTypeCont(tc)
 {}
 
 

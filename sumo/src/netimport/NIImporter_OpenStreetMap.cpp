@@ -455,13 +455,13 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(
         std::map<SUMOLong, NIOSMNode*> &toFill,
-        std::set<NIOSMNode*, CompareNodes> &uniqueNodes) : 
-    SUMOSAXHandler("osm - file"), 
-    myToFill(toFill), 
-    myUniqueNodes(uniqueNodes),
-    myLastNodeID(-1), 
-    myIsInValidNodeTag(false), 
-    myHierarchyLevel(0) {
+        std::set<NIOSMNode*, CompareNodes> &uniqueNodes) :
+    SUMOSAXHandler("osm - file"),
+    myToFill(toFill),
+    myLastNodeID(-1),
+    myIsInValidNodeTag(false),
+    myHierarchyLevel(0),
+    myUniqueNodes(uniqueNodes) {
 }
 
 

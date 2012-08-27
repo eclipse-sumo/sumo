@@ -513,9 +513,9 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 if (
                         (n->getIncomingEdges().size() <= 1 && n->getOutgoingEdges().size() <= 1 ) &&
                         ((n->getIncomingEdges().size() == 0 ||
-                          (n->getIncomingEdges().size() == 1) && cluster.count(n->getIncomingEdges()[0]->getFromNode()) == 0) || 
+                          (n->getIncomingEdges().size() == 1 && cluster.count(n->getIncomingEdges()[0]->getFromNode()) == 0)) || 
                          (n->getOutgoingEdges().size() == 0 ||
-                          (n->getOutgoingEdges().size() == 1) && cluster.count(n->getOutgoingEdges()[0]->getToNode()) == 0))
+                          (n->getOutgoingEdges().size() == 1 && cluster.count(n->getOutgoingEdges()[0]->getToNode()) == 0)))
                    ) {
                     cluster.erase(check);
                     pruneFringe = true; // other nodes could belong to the fringe now

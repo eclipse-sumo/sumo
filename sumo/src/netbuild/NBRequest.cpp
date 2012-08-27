@@ -324,7 +324,7 @@ NBRequest::distanceCounterClockwise(NBEdge* from, NBEdge* to) {
 
 
 void
-NBRequest::writeLogic(std::string key, OutputDevice& into) const {
+NBRequest::writeLogic(std::string /* key */, OutputDevice& into) const {
     int pos = 0;
     EdgeVector::const_iterator i;
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {

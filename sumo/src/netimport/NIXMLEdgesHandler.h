@@ -202,9 +202,6 @@ private:
     /// @brief Whether this edge definition is an update of a previously inserted edge
     bool myIsUpdate;
 
-    /// @brief The currently processed edge
-    NBEdge* myCurrentEdge;
-
 
     /// @name Used instance containers (access to nodes, edges, types, etc.)
     /// @{
@@ -222,6 +219,9 @@ private:
     NBDistrictCont& myDistrictCont;
     /// @}
 
+
+    /// @brief The currently processed edge
+    NBEdge* myCurrentEdge;
 
     /** @struct Split
      * @brief A structure which describes changes of lane number along the road

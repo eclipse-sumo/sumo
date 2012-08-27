@@ -282,8 +282,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     mySignals(0),
     myAmOnNet(false),
     myAmRegisteredAsWaitingForPerson(false),
-    myEdgeWeights(0),
-    myHaveToWaitOnNextLink(false)
+    myHaveToWaitOnNextLink(false),
+    myEdgeWeights(0)
 #ifndef NO_TRACI
     , myInfluencer(0)
 #endif
@@ -509,7 +509,8 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffs
             stop.edge = find(prevStopEdge, myRoute->end(), &stop.lane->getEdge());
         }
     }
-    if (stop.edge == myRoute->end() || prevStopEdge > stop.edge || prevStopEdge == stop.edge && prevStopPos > stop.endPos) {
+    if (stop.edge == myRoute->end() || prevStopEdge > stop.edge ||
+        (prevStopEdge == stop.edge && prevStopPos > stop.endPos)) {
         return false;
     }
     if (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed)) {
@@ -646,7 +647,6 @@ MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUM
     const MSCFModel& cfModel = getCarFollowModel();
     // vBeg is the initial maximum velocity of this vehicle in this step
     SUMOReal v = MIN2(cfModel.maxNextSpeed(myState.mySpeed), lane->getVehicleMaxSpeed(this));
-    SUMOReal accelV = v;
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
         SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
@@ -1140,6 +1140,8 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
             }
         }
     }
+#else
+    UNUSED_PARAMETER(lengthsInFront);
 #endif
     for (DriveItemVector::iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         if ((*i).myLink != 0) {
