@@ -49,7 +49,6 @@
 // ===========================================================================
 SUMOVehicleParserHelper::CFAttrMap SUMOVehicleParserHelper::allowedCFModelAttrs;
 
-bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedNumber = false;
 
 
 // ===========================================================================
@@ -65,7 +64,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) {
                            "' has to be given in the definition of flow '" + id + "'.");
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-        if (attrs.hasAttribute(SUMO_ATTR_END) && (attrs.hasAttribute(SUMO_ATTR_NO__DEPRECATED) || attrs.hasAttribute(SUMO_ATTR_NUMBER))) {
+        if (attrs.hasAttribute(SUMO_ATTR_END) && attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
             throw ProcessError("If '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                "' or '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                "' are given at most one of '" + attrs.getName(SUMO_ATTR_END) +
@@ -73,7 +72,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) {
                                "' are allowed in flow '" + id + "'.");
         }
     } else {
-        if (!attrs.hasAttribute(SUMO_ATTR_NO__DEPRECATED) && !attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
+        if (!attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
             throw ProcessError("At least one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                                "', and '" + attrs.getName(SUMO_ATTR_NUMBER) +
@@ -124,14 +123,8 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) {
         delete ret;
         throw ProcessError("Flow '" + id + "' ends before or at its begin time.");
     }
-    if (attrs.hasAttribute(SUMO_ATTR_NO__DEPRECATED) || attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
-        ret->repetitionNumber = attrs.hasAttribute(SUMO_ATTR_NUMBER)
-                                ? attrs.getIntReporting(SUMO_ATTR_NUMBER, id.c_str(), ok)
-                                : attrs.getIntReporting(SUMO_ATTR_NO__DEPRECATED, id.c_str(), ok);
-        if (!gHaveWarnedAboutDeprecatedNumber && attrs.hasAttribute(SUMO_ATTR_NO__DEPRECATED)) {
-            gHaveWarnedAboutDeprecatedNumber = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_NO__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMBER) + "' instead.");
-        }
+    if (attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
+        ret->repetitionNumber = attrs.getIntReporting(SUMO_ATTR_NUMBER, id.c_str(), ok);
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
         if (ok && ret->repetitionNumber < 0) {
             delete ret;

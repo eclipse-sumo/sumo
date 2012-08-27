@@ -142,8 +142,7 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(RONet& net,
         bool randomize,
         const std::string& fileName)
     : RORDLoader_TripDefs(net, begin, end, emptyDestinationsAllowed, false, fileName),
-      myRandom(randomize),
-      myHaveWarnedAboutDeprecatedNumber(false) {
+      myRandom(randomize) {
     // read the complete file on initialisation
     myParser->parseReset(myToken);
     myParser->parse(getFileName().c_str());
@@ -230,17 +229,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     myIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, myUpperIntervalBegin);
     myIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, myUpperIntervalEnd);
-    if (attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
-        myVehicle2InsertNumber = attrs.getIntReporting(SUMO_ATTR_NUMBER, id.c_str(), ok);
-    } else if (attrs.hasAttribute(SUMO_ATTR_NO__DEPRECATED)) {
-        if (!myHaveWarnedAboutDeprecatedNumber) {
-            myHaveWarnedAboutDeprecatedNumber = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_NO__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMBER) + "' instead.");
-        }
-        myVehicle2InsertNumber = attrs.getIntReporting(SUMO_ATTR_NO__DEPRECATED, id.c_str(), ok);
-    } else {
-        throw ProcessError("Flow '" + id + "' has no vehicle number.");
-    }
+    myVehicle2InsertNumber = attrs.getIntReporting(SUMO_ATTR_NUMBER, id.c_str(), ok); // throw ProcessError("Flow '" + id + "' has no vehicle number.");
     if (!ok) {
         throw ProcessError();
     }

@@ -36,11 +36,11 @@ def writeEdges(net, file):
     fd = open(file, "w")
     fd.write("<edges>\n")
     for edge in net._edges:
-        fd.write("   <edge id=\"" + edge._id + "\" fromnode=\"" + edge._from._id + "\" tonode=\"" + edge._to._id)
+        fd.write("   <edge id=\"" + edge._id + "\" fromNode=\"" + edge._from._id + "\" toNode=\"" + edge._to._id)
         fd.write("\" speed=\"" + str(edge._speed))
         fd.write("\" priority=\"" + str(edge._priority))
-        fd.write("\" spread_type=\"center")
-        fd.write("\" nolanes=\"" + str(len(edge._lanes)) + "\"")
+        fd.write("\" spreadType=\"center")
+        fd.write("\" numLanes=\"" + str(len(edge._lanes)) + "\"")
         shape = edge.getShape()
         fd.write(" shape=\"")
         for i,c in enumerate(shape):

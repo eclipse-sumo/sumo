@@ -76,9 +76,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
       myOptions(options),
       myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
       myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
-      myHaveWarnedAboutDeprecatedSpreadType(false),
       myHaveWarnedAboutDeprecatedFromTo(false),
-      myHaveWarnedAboutDeprecatedNoLanes(false),
       myHaveWarnedAboutDeprecatedLaneId(false) {}
 
 
@@ -188,13 +186,6 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
     }
     // try to get the number of lanes
-    if (attrs.hasAttribute(SUMO_ATTR_NOLANES__DEPRECATED)) {
-        myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NOLANES__DEPRECATED, myCurrentID.c_str(), ok);
-        if (!myHaveWarnedAboutDeprecatedNoLanes) {
-            myHaveWarnedAboutDeprecatedNoLanes = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
-        }
-    }
     if (attrs.hasAttribute(SUMO_ATTR_NUMLANES)) {
         myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NUMLANES, myCurrentID.c_str(), ok);
     }
@@ -495,15 +486,7 @@ NIXMLEdgesHandler::tryGetLaneSpread(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     LaneSpreadFunction result = myLanesSpread;
     std::string lsfS = toString(result);
-    if (attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
-        lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, myCurrentID.c_str(), ok);
-        if (!myHaveWarnedAboutDeprecatedSpreadType) {
-            WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADTYPE) + "'.");
-            myHaveWarnedAboutDeprecatedSpreadType = true;
-        }
-    } else {
-        lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, myCurrentID.c_str(), ok, lsfS);
-    }
+    lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, myCurrentID.c_str(), ok, lsfS);
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         result = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {

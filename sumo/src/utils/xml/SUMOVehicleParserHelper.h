@@ -191,7 +191,6 @@ private:
     static CFAttrMap allowedCFModelAttrs;
 
 
-    static bool gHaveWarnedAboutDeprecatedNumber;
 };
 
 

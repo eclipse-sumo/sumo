@@ -37,7 +37,7 @@ for line in fd:
             map[attributes[i]] = values[i]
         fdo.write('   <type id="' + map["nr"])
         fdo.write('" priority="' + str(100-int(map["rang"])))
-        fdo.write('" nolanes="' + map["anzfahrstreifen"])
+        fdo.write('" numLanes="' + map["anzfahrstreifen"])
         fdo.write('" speed="' + str(float(map["v0iv"])/3.6))
         fdo.write('"/>\n')
 

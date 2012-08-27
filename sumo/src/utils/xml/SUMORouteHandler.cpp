@@ -157,7 +157,6 @@ SUMORouteHandler::myEndElement(int element) {
         case SUMO_TAG_FLOW:
             closeFlow();
             break;
-        case SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED:
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             closeVehicleTypeDistribution();
             break;

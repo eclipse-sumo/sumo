@@ -54,8 +54,7 @@
 RODFDetectorHandler::RODFDetectorHandler(RODFNet* optNet, bool ignoreErrors, RODFDetectorCon& con,
         const std::string& file)
     : SUMOSAXHandler(file),
-      myNet(optNet), myIgnoreErrors(ignoreErrors), myContainer(con),
-      myHaveWarnedAboutDeprecatedDetectorDefinition(false) {}
+      myNet(optNet), myIgnoreErrors(ignoreErrors), myContainer(con) {}
 
 
 RODFDetectorHandler::~RODFDetectorHandler() {}
@@ -64,11 +63,7 @@ RODFDetectorHandler::~RODFDetectorHandler() {}
 void
 RODFDetectorHandler::myStartElement(int element,
                                     const SUMOSAXAttributes& attrs) {
-    if (element == SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED && !myHaveWarnedAboutDeprecatedDetectorDefinition) {
-        myHaveWarnedAboutDeprecatedDetectorDefinition = true;
-        WRITE_WARNING("Using '" + toString(SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) + "' is deprecated. Please use '" + toString(SUMO_TAG_DETECTOR_DEFINITION) + "' instead.");
-    }
-    if (element == SUMO_TAG_DETECTOR_DEFINITION || element == SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) {
+    if (element == SUMO_TAG_DETECTOR_DEFINITION) {
         try {
             bool ok = true;
             // get the id, report an error if not given or empty...

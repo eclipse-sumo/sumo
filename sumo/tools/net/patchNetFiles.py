@@ -90,7 +90,7 @@ for line in fdi:
     if line.find("<edge ")>=0:
         id = getAttr(line, "id")
         if id in lanes:
-            indexB = line.find("nolanes")
+            indexB = line.find("numLanes")
             indexB = line.find('"', indexB)+1
             indexE = line.find('"', indexB)
             line = line[:indexB] + str(lanes[id]) + line[indexE:]

@@ -318,9 +318,8 @@ protected:
 
     bool myCurrentIsBroken;
 
-    bool myHaveWarnedAboutDeprecatedTimedEvent;
     bool myHaveWarnedAboutDeprecatedRowLogic, myHaveWarnedAboutDeprecatedTLLogic;
-    bool myHaveWarnedAboutDeprecatedVTypes, myHaveWarnedAboutDeprecatedLanes;
+    bool myHaveWarnedAboutDeprecatedLanes;
     
 
 

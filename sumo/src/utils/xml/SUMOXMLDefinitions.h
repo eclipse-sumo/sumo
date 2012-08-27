@@ -139,13 +139,10 @@ enum SumoXMLTag {
     /** an aggreagated-output interval */
     SUMO_TAG_INTERVAL,
     /// The definition of a periodic event
-    SUMO_TAG_TIMEDEVENT__DEPRECATED,
     SUMO_TAG_TIMEDEVENT,
     /// Incoming edge specification (jtrrouter)
-    SUMO_TAG_FROMEDGE__DEPRECATED,
     SUMO_TAG_FROMEDGE,
     /// Outgoing edge specification (jtrrouter)
-    SUMO_TAG_TOEDGE__DEPRECATED,
     SUMO_TAG_TOEDGE,
     /// Sink(s) specification
     SUMO_TAG_SINK,
@@ -159,17 +156,14 @@ enum SumoXMLTag {
     SUMO_TAG_DEST_PROB_REROUTE,
     SUMO_TAG_CLOSING_REROUTE,
     SUMO_TAG_ROUTE_PROB_REROUTE,
-    SUMO_TAG_POLYTYPE__DEPRECATED,
     SUMO_TAG_POLYTYPE,
     SUMO_TAG_CONNECTION,
     SUMO_TAG_PROHIBITION,
     SUMO_TAG_SPLIT,
     SUMO_TAG_NODE,
     SUMO_TAG_TYPE,
-    SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED,
     SUMO_TAG_DETECTOR_DEFINITION,
     SUMO_TAG_ROUTE_DISTRIBUTION,
-    SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED,
     SUMO_TAG_VTYPE_DISTRIBUTION,
     SUMO_TAG_VAPORIZER,
     SUMO_TAG_ROUNDABOUT,
@@ -268,7 +262,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_NAME,
     SUMO_ATTR_TYPE,
     SUMO_ATTR_PRIORITY,
-    SUMO_ATTR_NOLANES__DEPRECATED,
     SUMO_ATTR_NUMLANES,
     SUMO_ATTR_SPEED,
     SUMO_ATTR_ONEWAY,
@@ -333,7 +326,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_PROB,
     SUMO_ATTR_PROBS,
     SUMO_ATTR_ROUTES,
-    SUMO_ATTR_VTYPES__DEPRECATED,
     SUMO_ATTR_VTYPES,
     /* trip definition attributes */
     SUMO_ATTR_LANE,
@@ -353,7 +345,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_STYLE,
     SUMO_ATTR_FILE,
     SUMO_ATTR_JUNCTION,
-    SUMO_ATTR_NO__DEPRECATED,
     SUMO_ATTR_NUMBER,
     SUMO_ATTR_DURATION,
     SUMO_ATTR_UNTIL,
@@ -366,12 +357,10 @@ enum SumoXMLAttr {
     /** link: the traffic light id responsible for this link */
     SUMO_ATTR_TLID,
     /** link: the index of the link within the traffic light */
-    SUMO_ATTR_TLLINKNO__DEPRECATED,
     SUMO_ATTR_TLLINKINDEX,
     /** edge: the shape in xml-definition */
     SUMO_ATTR_SHAPE,
     /// The information about how to spread the lanes from the given position
-    SUMO_ATTR_SPREADFUNC__DEPRECATED,
     SUMO_ATTR_SPREADTYPE,
     /// A color information
     SUMO_ATTR_COLOR,
@@ -436,7 +425,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_SPLIT_VTYPE,
     SUMO_ATTR_UNCONTROLLED,
     SUMO_ATTR_PASS,
-    SUMO_ATTR_BUS_STOP__DEPRECATED,
     SUMO_ATTR_BUS_STOP,
     SUMO_ATTR_LINE,
     SUMO_ATTR_LINES,
@@ -446,7 +434,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_ALLOW,
     SUMO_ATTR_DISALLOW,
     SUMO_ATTR_PREFER,
-    SUMO_ATTR_CONTROLLED_INNER__DEPRECATED,
     SUMO_ATTR_CONTROLLED_INNER,
     SUMO_ATTR_VEHSPERHOUR,
     SUMO_ATTR_OUTPUT,

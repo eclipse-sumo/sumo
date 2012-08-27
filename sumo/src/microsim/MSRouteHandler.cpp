@@ -232,7 +232,7 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
     myCurrentVTypeDistributionID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (ok) {
         myCurrentVTypeDistribution = new RandomDistributor<MSVehicleType*>();
-        if (attrs.hasAttribute(SUMO_ATTR_VTYPES) || attrs.hasAttribute(SUMO_ATTR_VTYPES__DEPRECATED)) {
+        if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
             const std::string vTypes = attrs.getStringReporting(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok);
             StringTokenizer st(vTypes);
             while (st.hasNext()) {

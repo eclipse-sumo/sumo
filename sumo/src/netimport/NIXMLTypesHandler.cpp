@@ -56,7 +56,7 @@
 // ===========================================================================
 NIXMLTypesHandler::NIXMLTypesHandler(NBTypeCont& tc)
     : SUMOSAXHandler("xml-types - file"),
-      myTypeCont(tc), myHaveWarnedAboutDeprecatedNoLanes(false) {}
+      myTypeCont(tc) {}
 
 
 NIXMLTypesHandler::~NIXMLTypesHandler() {}
@@ -73,13 +73,6 @@ NIXMLTypesHandler::myStartElement(int element,
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, myTypeCont.getPriority(""));
     int noLanes = myTypeCont.getNumLanes("");
-    if (attrs.hasAttribute(SUMO_ATTR_NOLANES__DEPRECATED)) {
-        noLanes = attrs.getIntReporting(SUMO_ATTR_NOLANES__DEPRECATED, id.c_str(), ok);
-        if (!myHaveWarnedAboutDeprecatedNoLanes) {
-            myHaveWarnedAboutDeprecatedNoLanes = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
-        }
-    }
     noLanes = attrs.getOptIntReporting(SUMO_ATTR_NUMLANES, id.c_str(), ok, noLanes);
     SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok, (SUMOReal) myTypeCont.getSpeed(""));
     std::string allowS = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");

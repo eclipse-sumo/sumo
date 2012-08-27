@@ -96,10 +96,10 @@ print " " + str(missing) + " connections missing (" + str(missingN) + " vehs)"
 # write as read by jtrrouter
 print "Writing jtrrouter turning percentages..."
 fd = open(sys.argv[3], "w")
-fd.write('<turn-defs>\n')
+fd.write('<turns>\n')
 fd.write('    <interval begin="0" end="86400">\n')
 for i in emap:
-    fd.write('        <fromedge id="' + i + '">\n')
+    fd.write('        <fromEdge id="' + i + '">\n')
     sum = 0
     for o in emap[i]:
         sum = sum + emap[i][o]
@@ -108,8 +108,8 @@ for i in emap:
            no = emap[i][o]/sum
         else:
            no = 0
-        fd.write('            <toedge id="' + o + '" probability="' + str(no) + '"/>\n')
-    fd.write('        </fromedge>\n')
+        fd.write('            <toEdge id="' + o + '" probability="' + str(no) + '"/>\n')
+    fd.write('        </fromEdge>\n')
 fd.write('    </interval>\n')
-fd.write('</turn-defs>\n')
+fd.write('</turns>\n')
 

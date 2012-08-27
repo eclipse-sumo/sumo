@@ -200,8 +200,6 @@ private:
     bool myRandom;
 
 
-    bool myHaveWarnedAboutDeprecatedNumber;
-
 private:
     /// @brief Invalidated copy constructor
     RORDGenerator_ODAmounts(const RORDGenerator_ODAmounts& src);

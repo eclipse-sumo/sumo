@@ -80,8 +80,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
       myAmInTLLogicMode(false), myCurrentIsBroken(false),
       myHaveWarnedAboutDeprecatedRowLogic(false),
       myHaveWarnedAboutDeprecatedTLLogic(false),
-      myHaveWarnedAboutDeprecatedTimedEvent(false),
-      myHaveWarnedAboutDeprecatedVTypes(false),
       myHaveWarnedAboutDeprecatedLanes(false) {}
 
 
@@ -203,11 +201,6 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_MEANDATA_LANE:
                 addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_LANE);
                 break;
-            case SUMO_TAG_TIMEDEVENT__DEPRECATED:
-                if (!myHaveWarnedAboutDeprecatedTimedEvent) {
-                    myHaveWarnedAboutDeprecatedTimedEvent = true;
-                    WRITE_WARNING("'" + toString(SUMO_TAG_TIMEDEVENT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TIMEDEVENT) + "'.");
-                }
             case SUMO_TAG_TIMEDEVENT:
                 myActionBuilder.addAction(attrs, getFileName());
                 break;
@@ -962,13 +955,6 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "performance");
     std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
-    if (attrs.hasAttribute(SUMO_ATTR_VTYPES__DEPRECATED)) {
-        vtypes = attrs.getStringReporting(SUMO_ATTR_VTYPES__DEPRECATED, id.c_str(), ok);
-        if (!myHaveWarnedAboutDeprecatedVTypes) {
-            WRITE_WARNING("'" + toString(SUMO_ATTR_VTYPES__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_VTYPES) + "'.");
-            myHaveWarnedAboutDeprecatedVTypes = true;
-        }
-    }
     const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, -1);
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
     const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
@@ -1024,9 +1010,7 @@ NLHandler::addSuccLane(const SUMOSAXAttributes& attrs) {
             return;
         }
         if (tlID != "") {
-            int linkNumber = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
-                             ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
-                             : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
+            int linkNumber = attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok);
             if (!ok) {
                 return;
             }
@@ -1099,9 +1083,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
 
         int tlLinkIdx = -1;
         if (tlID != "") {
-            tlLinkIdx = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
-                        ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
-                        : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
+            tlLinkIdx = attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok);
             // make sure that the index is in range
             MSTrafficLightLogic* logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
             if (tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size()) {

@@ -81,8 +81,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCurrentLane(0),
       myCurrentTL(0),
       myLocation(0),
-      mySuspectKeepShape(false),
-      myHaveWarnedAboutDeprecatedSpreadType(false) {}
+      mySuspectKeepShape(false) {}
 
 
 NIImporter_SUMO::~NIImporter_SUMO() {
@@ -368,15 +367,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
     std::string lsfS = toString(LANESPREAD_RIGHT);
-    if (attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
-        lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, id.c_str(), ok);
-        if (!myHaveWarnedAboutDeprecatedSpreadType) {
-            WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_SPREADTYPE) + "'.");
-            myHaveWarnedAboutDeprecatedSpreadType = true;
-        }
-    } else {
-        lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, id.c_str(), ok, lsfS);
-    }
+    lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, id.c_str(), ok, lsfS);
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         myCurrentEdge->lsf = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {
@@ -489,9 +480,7 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes& attrs) {
     conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
     conn.mayDefinitelyPass = false; // (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
     if (conn.tlID != "") {
-        conn.tlLinkNo = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
-                        ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
-                        : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
+        conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok);
     }
     myCurrentLane->connections.push_back(conn);
 }

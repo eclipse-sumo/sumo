@@ -80,8 +80,6 @@ private:
     /// the container to put the detectors into
     RODFDetectorCon& myContainer;
 
-    bool myHaveWarnedAboutDeprecatedDetectorDefinition;
-
 
 private:
     /// invalidated copy constructor
