@@ -82,12 +82,6 @@ RONetHandler::myStartElement(int element,
         case SUMO_TAG_JUNCTION:
             parseJunction(attrs);
             break;
-        case SUMO_TAG_SUCC:
-            parseConnectingEdge(attrs);
-            break;
-        case SUMO_TAG_SUCCLANE:
-            parseConnectedEdge(attrs);
-            break;
         case SUMO_TAG_CONNECTION:
             parseConnection(attrs);
             break;
@@ -213,42 +207,6 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
         n->setPosition(Position(x, y));
     } else {
         throw ProcessError();
-    }
-}
-
-
-void
-RONetHandler::parseConnectingEdge(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0, ok);
-    if (id[0] == ':') {
-        myCurrentEdge = 0;
-        return;
-    }
-    myCurrentEdge = myNet.getEdge(id);
-    if (myCurrentEdge == 0) {
-        throw ProcessError("An unknown edge occured (id='" + id + "').");
-    }
-}
-
-
-void
-RONetHandler::parseConnectedEdge(const SUMOSAXAttributes& attrs) {
-    if (myCurrentEdge == 0) {
-        // earlier error or internal link
-        return;
-    }
-    bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_LANE, myCurrentName.c_str(), ok);
-    if (id == "SUMO_NO_DESTINATION") {
-        return;
-    }
-    ROEdge* succ = myNet.getEdge(id.substr(0, id.rfind('_')));
-    if (succ != 0) {
-        // connect edge
-        myCurrentEdge->addFollower(succ);
-    } else {
-        WRITE_ERROR("At edge '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
     }
 }
 

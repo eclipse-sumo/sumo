@@ -6,5 +6,4 @@ NLEdgeControlBuilder.h NLEdgeControlBuilder.cpp \
 NLJunctionControlBuilder.h NLJunctionControlBuilder.cpp \
 NLBuilder.h NLBuilder.cpp \
 NLHandler.h NLHandler.cpp \
-NLSucceedingLaneBuilder.h NLSucceedingLaneBuilder.cpp \
 NLTriggerBuilder.h NLTriggerBuilder.cpp

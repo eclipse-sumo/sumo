@@ -45,7 +45,6 @@
 #include <microsim/MSBitSetLogic.h>
 #include "NLBuilder.h"
 #include "NLDiscreteEventBuilder.h"
-#include "NLSucceedingLaneBuilder.h"
 
 
 // ===========================================================================
@@ -220,12 +219,6 @@ private:
     void addMsgEmitter(const SUMOSAXAttributes& attrs);
 #endif
 
-    /// opens the container of succeeding lanes for processing (deprecated, see addConnection))
-    void openSucc(const SUMOSAXAttributes& attrs);
-
-    /// adds a succeeding lane (deprecated, see addConnection)
-    void addSuccLane(const SUMOSAXAttributes& attrs);
-
     /// adds a connection
     void addConnection(const SUMOSAXAttributes& attrs);
 
@@ -263,9 +256,6 @@ private:
 
     void closeWAUT();
 
-    /// closes the processing of a lane
-    void closeSuccLane();
-
     /// @brief Parses the given character into an enumeration typed link direction
     LinkDirection parseLinkDir(const std::string& dir);
 
@@ -295,9 +285,6 @@ protected:
 
     /// @brief The junction builder to use
     NLJunctionControlBuilder& myJunctionControlBuilder;
-
-    /// @brief The lane-to-lane connections builder to use
-    NLSucceedingLaneBuilder mySucceedingLaneBuilder;
 
 
 

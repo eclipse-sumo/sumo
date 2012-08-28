@@ -76,7 +76,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
       myCurrentIsInternalToSkip(false),
       myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
       myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
-      mySucceedingLaneBuilder(junctionBuilder),
       myAmInTLLogicMode(false), myCurrentIsBroken(false),
       myHaveWarnedAboutDeprecatedLanes(false) {}
 
@@ -107,12 +106,6 @@ NLHandler::myStartElement(int element,
                 break;
             case SUMO_TAG_PHASE:
                 addPhase(attrs);
-                break;
-            case SUMO_TAG_SUCC:
-                openSucc(attrs);
-                break;
-            case SUMO_TAG_SUCCLANE:
-                addSuccLane(attrs);
                 break;
             case SUMO_TAG_CONNECTION:
                 addConnection(attrs);
@@ -233,9 +226,6 @@ NLHandler::myEndElement(int element) {
                     WRITE_ERROR(e.what());
                 }
             }
-            break;
-        case SUMO_TAG_SUCC:
-            closeSuccLane();
             break;
         case SUMO_TAG_TLLOGIC:
             try {
@@ -955,62 +945,6 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
 }
 
 
-
-void
-NLHandler::openSucc(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
-    if (!MSGlobals::gUsingInternalLanes && id[0] == ':') {
-        myCurrentIsInternalToSkip = true;
-        return;
-    }
-    myCurrentIsInternalToSkip = false;
-    mySucceedingLaneBuilder.openSuccLane(id);
-}
-
-
-void
-NLHandler::addSuccLane(const SUMOSAXAttributes& attrs) {
-    // do not process internal lanes if not wished
-    if (myCurrentIsInternalToSkip) {
-        return;
-    }
-    try {
-        bool ok = true;
-        std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
-        std::string dir = attrs.getStringReporting(SUMO_ATTR_DIR, 0, ok);
-        std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok);
-        std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
-#ifdef HAVE_INTERNAL_LANES
-        std::string via = attrs.getOptStringReporting(SUMO_ATTR_VIA, 0, ok, "");
-#endif
-        if (!ok) {
-            return;
-        }
-        if (tlID != "") {
-            int linkNumber = attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok);
-            if (!ok) {
-                return;
-            }
-            mySucceedingLaneBuilder.addSuccLane(lane,
-#ifdef HAVE_INTERNAL_LANES
-                                                via,
-#endif
-                                                parseLinkDir(dir), parseLinkState(state), tlID, linkNumber);
-        } else {
-            mySucceedingLaneBuilder.addSuccLane(lane,
-#ifdef HAVE_INTERNAL_LANES
-                                                via,
-#endif
-                                                parseLinkDir(dir), parseLinkState(state));
-        }
-    } catch (InvalidArgument& e) {
-        WRITE_ERROR(e.what());
-    }
-}
-
-
-
 void
 NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
@@ -1253,22 +1187,6 @@ NLHandler::addDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
 
 
 // ----------------------------------
-
-
-void
-NLHandler::closeSuccLane() {
-    // do not process internal lanes if not wished
-    if (myCurrentIsInternalToSkip) {
-        return;
-    }
-    try {
-        mySucceedingLaneBuilder.closeSuccLane();
-    } catch (InvalidArgument& e) {
-        WRITE_ERROR(e.what());
-    }
-}
-
-
 void
 NLHandler::endE3Detector() {
     try {

@@ -570,10 +570,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netload\NLSucceedingLaneBuilder.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netload\NLTriggerBuilder.cpp"
 				>
 			</File>
@@ -604,10 +600,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netload\NLJunctionControlBuilder.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netload\NLSucceedingLaneBuilder.h"
 				>
 			</File>
 			<File

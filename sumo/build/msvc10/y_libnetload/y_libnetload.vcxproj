@@ -223,7 +223,6 @@
     <ClCompile Include="..\..\..\src\netload\NLEdgeControlBuilder.cpp" />
     <ClCompile Include="..\..\..\src\netload\NLHandler.cpp" />
     <ClCompile Include="..\..\..\src\netload\NLJunctionControlBuilder.cpp" />
-    <ClCompile Include="..\..\..\src\netload\NLSucceedingLaneBuilder.cpp" />
     <ClCompile Include="..\..\..\src\netload\NLTriggerBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -233,7 +232,6 @@
     <ClInclude Include="..\..\..\src\netload\NLEdgeControlBuilder.h" />
     <ClInclude Include="..\..\..\src\netload\NLHandler.h" />
     <ClInclude Include="..\..\..\src\netload\NLJunctionControlBuilder.h" />
-    <ClInclude Include="..\..\..\src\netload\NLSucceedingLaneBuilder.h" />
     <ClInclude Include="..\..\..\src\netload\NLTriggerBuilder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -29,9 +29,6 @@
     <ClCompile Include="..\..\..\src\netload\NLJunctionControlBuilder.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netload\NLSucceedingLaneBuilder.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netload\NLTriggerBuilder.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -53,9 +50,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netload\NLJunctionControlBuilder.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netload\NLSucceedingLaneBuilder.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netload\NLTriggerBuilder.h">

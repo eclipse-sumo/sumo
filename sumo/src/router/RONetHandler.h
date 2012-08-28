@@ -126,32 +126,6 @@ protected:
     void parseJunction(const SUMOSAXAttributes& attrs);
 
 
-    /** @begin (deprecated) Begins parsing edges that are approached by an edge
-     *
-     * Called on the occurence of a "succ" element, this method
-     *  retrieves the id of the edge described herein and - using it - the
-     *  edge itself. Stores the so retrieved edge in "myCurrentEdge".
-     * If the given edge is not known, a ProcessError is thrown.
-     *
-     * @param[in] attrs The attributes (of the "succ"-element) to parse
-     * @exception ProcessError If the edge given in cedge@edge is not known
-     */
-    void parseConnectingEdge(const SUMOSAXAttributes& attrs);
-
-
-    /** @begin (deprecated) Parses an approached edge and lets the approaching know about the connection
-     *
-     * Called on the occurence of a "succlane" element, this method
-     *  retrieves the id of the approachable edge. If this edge is known
-     *  and valid, the approaching edge is informed about it (by calling
-     *  "ROEdge::addFollower").
-     *
-     * @param[in] attrs The attributes (of the "succlane"-element) to parse
-     * @todo No exception?
-     */
-    void parseConnectedEdge(const SUMOSAXAttributes& attrs);
-
-
     /** @begin Parses a connection
      * Called on the occurence of a "connection" element
      * @param[in] attrs The attributes (of the "connection"-element) to parse

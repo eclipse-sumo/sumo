@@ -159,19 +159,6 @@ private:
     void addJunction(const SUMOSAXAttributes& attrs);
 
 
-    /** @brief (deprecated) Parses a succedge-definition and saves it
-     *    by assigning "myCurrentEdge" and "myCurrentLane" to the read values
-     * @param[in] attrs The attributes to get the succedge-definition from
-     */
-    void addSuccEdge(const SUMOSAXAttributes& attrs);
-
-
-    /** @brief (deprecated) Parses a succlane-definition and saves it
-     *    into the lane's definition stored in "myCurrentLane"
-     * @param[in] attrs The attributes to get the succlane-definition from
-     */
-    void addSuccLane(const SUMOSAXAttributes& attrs);
-
     /** @brief Parses a connection and saves it
      *    into the lane's definition stored in "myCurrentLane"
      * @param[in] attrs The attributes to get the connection from

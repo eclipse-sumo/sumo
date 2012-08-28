@@ -257,12 +257,6 @@ NIImporter_SUMO::myStartElement(int element,
         case SUMO_TAG_JUNCTION:
             addJunction(attrs);
             break;
-        case SUMO_TAG_SUCC:
-            addSuccEdge(attrs);
-            break;
-        case SUMO_TAG_SUCCLANE:
-            addSuccLane(attrs);
-            break;
         case SUMO_TAG_CONNECTION:
             addConnection(attrs);
             break;
@@ -443,44 +437,6 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
         delete node;
         return;
     }
-}
-
-
-void
-NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    std::string edge_id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0, ok);
-    myCurrentEdge = 0;
-    if (myEdges.count(edge_id) == 0) {
-        WRITE_ERROR("Unknown edge '" + edge_id + "' given in succedge.");
-        return;
-    }
-    myCurrentEdge = myEdges[edge_id];
-    std::string lane_id = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
-    myCurrentLane = getLaneAttrsFromID(myCurrentEdge, lane_id);
-}
-
-
-void
-NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes& attrs) {
-    if (myCurrentLane == 0) {
-        WRITE_ERROR("Found succlane outside succ element");
-        return;
-    }
-    bool ok = true;
-    Connection conn;
-    std::string laneID = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
-    if (laneID == "SUMO_NO_DESTINATION") { // legacy check
-        // deprecated
-        return;
-    }
-    interpretLaneID(laneID, conn.toEdgeID, conn.toLaneIdx);
-    conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
-    conn.mayDefinitelyPass = false; // (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
-    if (conn.tlID != "") {
-        conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok);
-    }
-    myCurrentLane->connections.push_back(conn);
 }
 
 
