@@ -193,9 +193,6 @@ private:
     /// adds a polygon
     void addPoly(const SUMOSAXAttributes& attrs);
 
-    /// (deprecated) adds a logic item to the current logic
-    void addLogicItem(const SUMOSAXAttributes& attrs);
-
     ///  adds a request item to the current junction logic
     void addRequest(const SUMOSAXAttributes& attrs);
 

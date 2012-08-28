@@ -113,9 +113,6 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_TLLOGIC:
                 initTrafficLightLogic(attrs);
                 break;
-            case SUMO_TAG_LOGICITEM: // deprecated
-                addLogicItem(attrs);
-                break;
             case SUMO_TAG_REQUEST:
                 addRequest(attrs);
                 break;
@@ -576,30 +573,6 @@ NLHandler::addPoly(const SUMOSAXAttributes& attrs) {
 
 
 void
-NLHandler::addLogicItem(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    int request = attrs.getIntReporting(SUMO_ATTR_REQUEST, 0, ok);
-    bool cont = false;
-#ifdef HAVE_INTERNAL_LANES
-    cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, 0, ok, false);
-#endif
-    std::string response = attrs.getStringReporting(SUMO_ATTR_RESPONSE, 0, ok);
-    std::string foes = attrs.getStringReporting(SUMO_ATTR_FOES, 0, ok);
-    if (!ok) {
-        return;
-    }
-    // store received information
-    if (request >= 0 && response.length() > 0) {
-        try {
-            myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
-        } catch (InvalidArgument& e) {
-            WRITE_ERROR(e.what());
-        }
-    }
-}
-
-
-void
 NLHandler::addRequest(const SUMOSAXAttributes& attrs) {
     if (myCurrentIsBroken) {
         return;
@@ -716,7 +689,6 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    // inform the user about deprecated values
     const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
     const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
@@ -746,7 +718,6 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    // inform the user about deprecated values
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
     const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
@@ -863,7 +834,6 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
 void
 NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    // inform the user about deprecated values
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));

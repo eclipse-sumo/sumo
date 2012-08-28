@@ -56,8 +56,7 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet& net,
     : ROTypedXMLRoutesLoader(net, begin, end, file),
       myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true),
       myCurrentAlternatives(0), myCurrentRoute(0), myTryRepair(tryRepair),
-      myWithTaz(withTaz), myColor(0), myCurrentVType(0),
-      myHaveWarnedAboutDeprecatedRoute(false) {
+      myWithTaz(withTaz), myColor(0), myCurrentVType(0) {
 }
 
 
@@ -150,13 +149,9 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes& attrs) {
                                    attrs.getString(SUMO_ATTR_COLOR),
                                    attrs.getObjectType(), myCurrentRouteName.c_str(), true, myCurrentIsOk));
     }
-    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        myCharacters(SUMO_TAG_ROUTE, attrs.getStringReporting(SUMO_ATTR_EDGES, myCurrentRouteName.c_str(), myCurrentIsOk));
-    } else {
-        if (!myHaveWarnedAboutDeprecatedRoute) {
-            WRITE_WARNING("Defining routes as a nested string is deprecated, use the edges attribute instead.");
-            myHaveWarnedAboutDeprecatedRoute = true;
-        }
+    std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, myCurrentRouteName.c_str(), myCurrentIsOk);
+    if(myCurrentIsOk) {
+        parseRoute(edges);
     }
 }
 
@@ -191,14 +186,9 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes& attrs) {
     myCurrentAlternatives = new RORouteDef(id, index, false);
 }
 
+
 void
-RORDLoader_SUMOBase::myCharacters(int element,
-                                  const std::string& chars) {
-    // process routes only, all other elements do
-    //  not have embedded characters
-    if (element != SUMO_TAG_ROUTE) {
-        return;
-    }
+RORDLoader_SUMOBase::parseRoute(const std::string& chars) {
     if (!myAltIsValid) {
         return;
     }

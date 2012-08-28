@@ -78,7 +78,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "vehicle",          SUMO_TAG_VEHICLE },
     { "vType",            SUMO_TAG_VTYPE },
     { "route",            SUMO_TAG_ROUTE },
-    { "logicitem",        SUMO_TAG_LOGICITEM }, // deprecated
     { "request",          SUMO_TAG_REQUEST },
     { "source",           SUMO_TAG_SOURCE },
     { "taz",              SUMO_TAG_TAZ },

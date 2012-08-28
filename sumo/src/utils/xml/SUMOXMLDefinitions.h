@@ -106,8 +106,6 @@ enum SumoXMLTag {
     SUMO_TAG_VTYPE,
     /** begin/end of the description of a route */
     SUMO_TAG_ROUTE,
-    /** description of a single junction logic part (deprecated) */
-    SUMO_TAG_LOGICITEM,
     /** description of a logic request within the junction */
     SUMO_TAG_REQUEST,
     /** a source */
