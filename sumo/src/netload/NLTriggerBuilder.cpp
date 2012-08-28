@@ -159,15 +159,10 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attr
         throw ProcessError();
     }
     // get the lane
-    MSLane* lane = getLane(attrs, "bus_stop", id);
+    MSLane* lane = getLane(attrs, "busStop", id);
     // get the positions
     SUMOReal frompos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
     SUMOReal topos = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
-    if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_TO)) {
-        WRITE_WARNING("Deprecated attribute 'from' or 'to' in description of bus stop '" + id + "'.");
-        frompos = attrs.getOptSUMORealReporting(SUMO_ATTR_FROM, id.c_str(), ok, 0);
-        topos = attrs.getOptSUMORealReporting(SUMO_ATTR_TO, id.c_str(), ok, lane->getLength());
-    }
     const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), 10., friendlyPos)) {
         throw InvalidArgument("Invalid position for bus stop '" + id + "'.");

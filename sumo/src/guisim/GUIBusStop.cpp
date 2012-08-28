@@ -68,7 +68,7 @@
 GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string> &lines, MSLane& lane,
                        SUMOReal frompos, SUMOReal topos)
     : MSBusStop(id, lines, lane, frompos, topos),
-      GUIGlObject_AbstractAdd("bus_stop", GLO_TRIGGER, id) {
+      GUIGlObject_AbstractAdd("busStop", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape.move2side((SUMOReal) 1.65);
     myFGShape = myFGShape.getSubpart(frompos, topos);
