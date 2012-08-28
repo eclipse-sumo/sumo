@@ -60,11 +60,8 @@ using namespace testclient;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
 TraCITestClient::TraCITestClient(std::string outputFileName)
-    : socket(NULL),
-      outputFileName(outputFileName),
-      answerLog("") {
+    : socket(NULL), outputFileName(outputFileName), answerLog("") {
     answerLog.setf(std::ios::fixed , std::ios::floatfield); // use decimal format
     answerLog.setf(std::ios::showpoint); // print decimal point
     answerLog << std::setprecision(2);
@@ -77,37 +74,10 @@ TraCITestClient::~TraCITestClient() {
 }
 
 
-void
-TraCITestClient::writeResult() {
-    time_t seconds;
-    tm* locTime;
-
-    std::ofstream outFile(outputFileName.c_str());
-    if (!outFile) {
-        std::cerr << "Unable to write result file" << std::endl;
-    }
-    time(&seconds);
-    locTime = localtime(&seconds);
-    outFile << "TraCITestClient output file. Date: " << asctime(locTime) << std::endl;
-    outFile << answerLog.str();
-    outFile.close();
-}
-
-
-void
-TraCITestClient::errorMsg(std::stringstream& msg) {
-    std::cerr << msg.str() << std::endl;
-    answerLog << "----" << std::endl << msg.str() << std::endl;
-}
-
-
 bool
 TraCITestClient::connect(int port, std::string host) {
     std::stringstream msg;
     socket = new tcpip::Socket(host, port);
-
-    //socket->set_blocking(true);
-
     try {
         socket->connect();
     } catch (tcpip::SocketException& e) {
@@ -115,7 +85,6 @@ TraCITestClient::connect(int port, std::string host) {
         errorMsg(msg);
         return false;
     }
-
     return true;
 }
 
@@ -145,7 +114,6 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
 
     // read definition file and trigger commands according to it
     defFile.open(fileName.c_str());
-
     if (!defFile) {
         msg << "Can not open definition file " << fileName << std::endl;
         errorMsg(msg);
@@ -201,8 +169,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             defFile >> domID >> varID >> objID;
             commandSetValue(domID, varID, objID, defFile);
         } else {
-            msg << "Error in definition file: " << lineCommand
-                << " is not a valid command";
+            msg << "Error in definition file: " << lineCommand << " is not a valid command";
             errorMsg(msg);
             commandClose();
             close();
@@ -216,53 +183,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
 }
 
 
-bool
-TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId) {
-    int cmdLength;
-    int cmdId;
-    int resultType;
-    int cmdStart;
-    std::string msg;
-
-    try {
-        cmdStart = inMsg.position();
-        cmdLength = inMsg.readUnsignedByte();
-        cmdId = inMsg.readUnsignedByte();
-        if (cmdId != command && !ignoreCommandId) {
-            answerLog << "#Error: received status response to command: " << cmdId
-                      << " but expected: " << command << std::endl;
-            return false;
-        }
-        resultType = inMsg.readUnsignedByte();
-        msg = inMsg.readString();
-    } catch (std::invalid_argument&) {
-        answerLog << "#Error: an exception was thrown while reading result state message" << std::endl;
-        return false;
-    }
-    switch (resultType) {
-        case RTYPE_ERR:
-            answerLog << ".. Answered with error to command (" << cmdId << "), [description: " << msg << "]" << std::endl;
-            return false;
-        case RTYPE_NOTIMPLEMENTED:
-            answerLog << ".. Sent command is not implemented (" << cmdId << "), [description: " << msg << "]" << std::endl;
-            return false;
-        case RTYPE_OK:
-            answerLog << ".. Command acknowledged (" << cmdId << "), [description: " << msg << "]" << std::endl;
-            break;
-        default:
-            answerLog << ".. Answered with unknown result code(" << resultType << ") to command(" << cmdId
-                      << "), [description: " << msg << "]" << std::endl;
-            return false;
-    }
-    if ((cmdStart + cmdLength) != inMsg.position()) {
-        answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
-        return false;
-    }
-
-    return true;
-}
-
-
+// ---------- Commands handling
 void
 TraCITestClient::commandSimulationStep2(SUMOTime time) {
     tcpip::Storage outMsg;
@@ -888,3 +809,77 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
     }
     return true;
 }
+
+
+void
+TraCITestClient::writeResult() {
+    time_t seconds;
+    tm* locTime;
+
+    std::ofstream outFile(outputFileName.c_str());
+    if (!outFile) {
+        std::cerr << "Unable to write result file" << std::endl;
+    }
+    time(&seconds);
+    locTime = localtime(&seconds);
+    outFile << "TraCITestClient output file. Date: " << asctime(locTime) << std::endl;
+    outFile << answerLog.str();
+    outFile.close();
+}
+
+
+void
+TraCITestClient::errorMsg(std::stringstream& msg) {
+    std::cerr << msg.str() << std::endl;
+    answerLog << "----" << std::endl << msg.str() << std::endl;
+}
+
+
+
+bool
+TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId) {
+    int cmdLength;
+    int cmdId;
+    int resultType;
+    int cmdStart;
+    std::string msg;
+
+    try {
+        cmdStart = inMsg.position();
+        cmdLength = inMsg.readUnsignedByte();
+        cmdId = inMsg.readUnsignedByte();
+        if (cmdId != command && !ignoreCommandId) {
+            answerLog << "#Error: received status response to command: " << cmdId
+                      << " but expected: " << command << std::endl;
+            return false;
+        }
+        resultType = inMsg.readUnsignedByte();
+        msg = inMsg.readString();
+    } catch (std::invalid_argument&) {
+        answerLog << "#Error: an exception was thrown while reading result state message" << std::endl;
+        return false;
+    }
+    switch (resultType) {
+        case RTYPE_ERR:
+            answerLog << ".. Answered with error to command (" << cmdId << "), [description: " << msg << "]" << std::endl;
+            return false;
+        case RTYPE_NOTIMPLEMENTED:
+            answerLog << ".. Sent command is not implemented (" << cmdId << "), [description: " << msg << "]" << std::endl;
+            return false;
+        case RTYPE_OK:
+            answerLog << ".. Command acknowledged (" << cmdId << "), [description: " << msg << "]" << std::endl;
+            break;
+        default:
+            answerLog << ".. Answered with unknown result code(" << resultType << ") to command(" << cmdId
+                      << "), [description: " << msg << "]" << std::endl;
+            return false;
+    }
+    if ((cmdStart + cmdLength) != (int) inMsg.position()) {
+        answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+

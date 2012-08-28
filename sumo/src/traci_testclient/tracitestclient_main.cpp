@@ -3,6 +3,7 @@
 /// @author  Friedemann Wesner
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
+/// @author  Daniel Krajzewicz
 /// @date    2008/04/07
 /// @version $Id$
 ///
@@ -50,7 +51,6 @@ int main(int argc, char* argv[]) {
     std::string outFileName = "testclient_out.txt";
     int port = -1;
     std::string host = "localhost";
-    TraCITestClient* client;
 
     if ((argc == 1) || (argc % 2 == 0)) {
         std::cout << "Usage: TraCITestClient -def <definition_file>  -p <remote port>"
@@ -87,9 +87,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    client = new TraCITestClient(outFileName);
-    bool success = client->run(defFile, port, host);
-    delete client;
-
+    TraCITestClient client(outFileName);
+    bool success = client.run(defFile, port, host);
     return !success;
 }

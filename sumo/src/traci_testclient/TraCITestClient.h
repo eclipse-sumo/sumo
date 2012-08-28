@@ -76,17 +76,46 @@ typedef std::vector<TLPhase> TLPhaseList;
  * @class TraCITestClient
  */
 class TraCITestClient {
-
 public:
+    /** @brief Constructor
+     * @param[in] outputFileName The name of the file the outputs will be written into
+     */
     TraCITestClient(std::string outputFileName = "testclient_result.out");
 
+
+    /// @brief Destructor
     ~TraCITestClient();
 
+
+    /** @brief Runs a test
+     * @param[in] fileName The name of the file containing the test script
+     * @param[in] port The server port to connect to
+     * @param[in] host The server name to connect to
+     */
     bool run(std::string fileName, int port, std::string host = "localhost");
 
+
+protected:
+    /// @name Connection handling
+    /// @{
+
+    /** @brief Connects to the given host
+     * @param[in] port The server port to connect to
+     * @param[in] host The server name to connect to
+     */
     bool connect(int port, std::string host = "localhost");
 
+
+    /** @brief Closes the connection
+     * @return Whether the socket was opened
+     */
     bool close();
+    /// @}
+
+
+
+    /// @name Commands handling
+    /// @{
 
     // simulation commands
     void commandSimulationStep2(SUMOTime time);
@@ -97,6 +126,7 @@ public:
     void commandSetValue(int domID, int varID, const std::string& objID, std::ifstream& defFile);
 
     void commandClose();
+    /// @}
 
 private:
     void writeResult();
