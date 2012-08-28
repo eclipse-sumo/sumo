@@ -79,7 +79,11 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::st
         e->addTravelTime(val, beg, end);
     } else {
         if (id[0] != ':') {
-            WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
+            if (OptionsCont::getOptions().getBool("ignore-errors")) {
+                WRITE_WARNING("Trying to set a weight for the unknown edge '" + id + "'.");
+            } else {
+                WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
+            }
         }
     }
 }
@@ -96,7 +100,11 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
         e->addEffort(val, beg, end);
     } else {
         if (id[0] != ':') {
-            WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
+            if (OptionsCont::getOptions().getBool("ignore-errors")) {
+                WRITE_WARNING("Trying to set a weight for the unknown edge '" + id + "'.");
+            } else {
+                WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
+            }
         }
     }
 }
