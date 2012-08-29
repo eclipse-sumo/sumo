@@ -283,14 +283,6 @@ NIImporter_SUMO::myStartElement(int element,
 
 
 void
-NIImporter_SUMO::myCharacters(int element,
-                              const std::string& chars) {
-    UNUSED_PARAMETER(element);
-    UNUSED_PARAMETER(chars);
-}
-
-
-void
 NIImporter_SUMO::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_EDGE:

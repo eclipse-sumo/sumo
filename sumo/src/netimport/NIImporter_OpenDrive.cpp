@@ -981,15 +981,6 @@ NIImporter_OpenDrive::myStartElement(int element,
 
 
 void
-NIImporter_OpenDrive::myCharacters(int element,
-                                   const std::string& chars) {
-    UNUSED_PARAMETER(element);
-    UNUSED_PARAMETER(chars);
-}
-
-
-
-void
 NIImporter_OpenDrive::myEndElement(int element) {
     myElementStack.pop_back();
     switch (element) {

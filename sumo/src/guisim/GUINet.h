@@ -153,9 +153,6 @@ public:
     /// returns the information whether the vehicle still exists
     bool vehicleExists(const std::string& name) const;
 
-    /// returns the boundary of an edge
-    Boundary getEdgeBoundary(const std::string& name) const;
-
     /// Some further steps needed for gui processing
     void guiSimulationStep();
 

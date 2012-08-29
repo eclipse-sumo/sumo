@@ -179,13 +179,6 @@ GUINet::vehicleExists(const std::string& name) const {
 }
 
 
-Boundary
-GUINet::getEdgeBoundary(const std::string& name) const {
-    GUIEdge* edge = static_cast<GUIEdge*>(MSEdge::dictionary(name));
-    return edge->getBoundary();
-}
-
-
 unsigned int
 GUINet::getLinkTLID(MSLink* link) const {
     if (myLinks2Logic.count(link) == 0) {

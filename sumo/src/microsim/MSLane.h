@@ -114,16 +114,6 @@ public:
     /// @name Additional initialisation
     /// @{
 
-    /** @brief Delayed initialization (deprecated)
-     *
-     *  Not all lane-members are known at the time the lane is born, above all the pointers
-     *   to other lanes, so we have to initialize later.
-     *
-     * @param[in] succs The list of (outgoing) links
-     * @todo Why are succs not const?
-     */
-    void initialize(MSLinkCont* succs);
-
     /** @brief Delayed initialization
      *
      *  Not all lane-members are known at the time the lane is born, above all the pointers

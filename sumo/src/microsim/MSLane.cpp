@@ -99,13 +99,6 @@ MSLane::~MSLane() {
 
 
 void
-MSLane::initialize(MSLinkCont* links) {
-    myLinks = *links;
-    delete links;
-}
-
-
-void
 MSLane::addLink(MSLink* link) {
     myLinks.push_back(link);
 }

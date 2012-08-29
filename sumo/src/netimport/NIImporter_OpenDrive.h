@@ -332,17 +332,6 @@ protected:
                         const SUMOSAXAttributes& attrs);
 
 
-    /** @brief Called when characters occure
-     *
-     * @param[in] element ID of the last opened element
-     * @param[in] chars The read characters (complete)
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myCharacters
-     */
-    void myCharacters(int element,
-                      const std::string& chars);
-
-
     /** @brief Called when a closing tag occurs
      *
      * @param[in] element ID of the currently opened element

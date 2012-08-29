@@ -135,14 +135,6 @@ PCNetProjectionLoader::myStartElement(int element,
 }
 
 
-void
-PCNetProjectionLoader::myCharacters(int element,
-                                    const std::string& chars) {
-    UNUSED_PARAMETER(element);
-    UNUSED_PARAMETER(chars);
-}
-
-
 bool
 PCNetProjectionLoader::hasReadAll() const {
     return myFoundOffset && myFoundOrigNetBoundary && myFoundConvNetBoundary && myFoundProj;
