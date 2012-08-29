@@ -323,19 +323,11 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     vtype->id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-        if (!attrs.hasAttribute(SUMO_ATTR_MINGAP)) {
-            WRITE_WARNING("The length does not include the gap to the preceeding vehicle anymore! Please recheck your values.");
-        }
         vtype->length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_LENGTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MINGAP)) {
         vtype->minGap = attrs.getSUMORealReporting(SUMO_ATTR_MINGAP, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_MINGAP_SET;
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_GUIOFFSET)) {
-        WRITE_WARNING("The guiOffset attribute is deprecated! Please use minGap instead.");
-        vtype->minGap = attrs.getSUMORealReporting(SUMO_ATTR_GUIOFFSET, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_MINGAP_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED)) {
