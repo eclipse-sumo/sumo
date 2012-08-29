@@ -76,7 +76,6 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
       myOptions(options),
       myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
       myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
-      myHaveWarnedAboutDeprecatedFromTo(false),
       myHaveWarnedAboutDeprecatedLaneId(false) {}
 
 
@@ -359,104 +358,35 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
     std::string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
     std::string oldBegID = begNodeID;
     std::string oldEndID = endNodeID;
-    if (attrs.hasAttribute(SUMO_ATTR_FROMNODE)) {
-        begNodeID = attrs.getStringReporting(SUMO_ATTR_FROMNODE, 0, ok);
-        if (!myHaveWarnedAboutDeprecatedFromTo) {
-            WRITE_WARNING("'" + toString(SUMO_ATTR_FROMNODE) + "' is deprecated; please use '" + toString(SUMO_ATTR_FROM) + "'.");
-            myHaveWarnedAboutDeprecatedFromTo = true;
-        }
+    if(attrs.hasAttribute(SUMO_ATTR_FROM)) {
+        begNodeID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
+    } else if(!myIsUpdate) {
+        WRITE_ERROR("The from-node is not given for edge '" + myCurrentID + "'.");
+        ok = false;
     }
-    if (attrs.hasAttribute(SUMO_ATTR_TONODE)) {
-        endNodeID = attrs.getStringReporting(SUMO_ATTR_TONODE, 0, ok);
-        if (!myHaveWarnedAboutDeprecatedFromTo) {
-            WRITE_WARNING("'" + toString(SUMO_ATTR_TONODE) + "' is deprecated; please use '" + toString(SUMO_ATTR_TO) + "'.");
-            myHaveWarnedAboutDeprecatedFromTo = true;
-        }
+    if(attrs.hasAttribute(SUMO_ATTR_TO)) {
+        endNodeID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
+    } else if(!myIsUpdate) {
+        WRITE_ERROR("The to-node is not given for edge '" + myCurrentID + "'.");
+        ok = false;
     }
-    begNodeID = attrs.hasAttribute(SUMO_ATTR_FROM) ? attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok) : begNodeID;
-    endNodeID = attrs.hasAttribute(SUMO_ATTR_TO) ? attrs.getStringReporting(SUMO_ATTR_TO, 0, ok) : endNodeID;
     if (!ok) {
         return false;
     }
-    // or their positions !!! deprecated
-    SUMOReal begNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XFROM, "XFrom");
-    SUMOReal begNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
-    SUMOReal endNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
-    SUMOReal endNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
-    if (begNodeXPos != SUMOXML_INVALID_POSITION && begNodeYPos != SUMOXML_INVALID_POSITION) {
-        Position pos(begNodeXPos, begNodeYPos);
-        NILoader::transformCoordinates(pos);
-        begNodeXPos = pos.x();
-        begNodeYPos = pos.y();
-        if (!myHaveWarnedAboutDeprecatedFromTo) {
-            WRITE_WARNING("'" + toString(SUMO_ATTR_XFROM) + "' and '" + toString(SUMO_ATTR_YFROM) + "' are deprecated; please define nodes separately.");
-            myHaveWarnedAboutDeprecatedFromTo = true;
-        }
-    }
-    if (endNodeXPos != SUMOXML_INVALID_POSITION && endNodeYPos != SUMOXML_INVALID_POSITION) {
-        Position pos(endNodeXPos, endNodeYPos);
-        NILoader::transformCoordinates(pos);
-        endNodeXPos = pos.x();
-        endNodeYPos = pos.y();
-        if (!myHaveWarnedAboutDeprecatedFromTo) {
-            WRITE_WARNING("'" + toString(SUMO_ATTR_XTO) + "' and '" + toString(SUMO_ATTR_YTO) + "' are deprecated; please define nodes separately.");
-            myHaveWarnedAboutDeprecatedFromTo = true;
-        }
-    }
-    // check the obtained values for nodes
-    myFromNode = insertNodeChecking(Position(begNodeXPos, begNodeYPos), begNodeID, "from");
-    myToNode = insertNodeChecking(Position(endNodeXPos, endNodeYPos), endNodeID, "to");
+    myFromNode = myNodeCont.retrieve(begNodeID);
+    myToNode = myNodeCont.retrieve(endNodeID);
+    if(myFromNode==0) {
+        WRITE_ERROR("Edge's '" + myCurrentID + "' from-node '" + begNodeID + "' is not known.");
+    } 
+    if(myToNode==0) {
+        WRITE_ERROR("Edge's '" + myCurrentID + "' to-node '" + endNodeID + "' is not known.");
+    } 
     if (myFromNode != 0 && myToNode != 0) {
         if (myIsUpdate && (myFromNode->getID() != oldBegID || myToNode->getID() != oldEndID)) {
             myShape = PositionVector();
         }
     }
     return myFromNode != 0 && myToNode != 0;
-}
-
-
-SUMOReal
-NIXMLEdgesHandler::tryGetPosition(const SUMOSAXAttributes& attrs, SumoXMLAttr attrID,
-                                  const std::string& attrName) {
-    UNUSED_PARAMETER(attrName);
-    bool ok = true;
-    return attrs.getOptSUMORealReporting(attrID, myCurrentID.c_str(), ok, SUMOXML_INVALID_POSITION);
-}
-
-
-NBNode*
-NIXMLEdgesHandler::insertNodeChecking(const Position& pos,
-                                      const std::string& name, const std::string& dir) {
-    NBNode* ret = 0;
-    if (name == "" && (pos.x() == SUMOXML_INVALID_POSITION || pos.y() == SUMOXML_INVALID_POSITION)) {
-        WRITE_ERROR("Neither the name nor the position of the " + dir + "-node is given for edge '" + myCurrentID + "'.");
-        return ret;
-    }
-    if (name != "") {
-        if (pos.x() != SUMOXML_INVALID_POSITION && pos.y() != SUMOXML_INVALID_POSITION) {
-            // the node is named and it has a position given
-            if (!myNodeCont.insert(name, pos)) {
-                WRITE_ERROR("Position of " + dir + "-node '" + name + "' mismatches previous positions.");
-                return 0;
-            }
-        }
-        // the node is given by its name
-        ret = myNodeCont.retrieve(name);
-        if (ret == 0) {
-            WRITE_ERROR("Edge's '" + myCurrentID + "' " + dir + "-node '" + name + "' is not known.");
-        }
-    } else {
-        ret = myNodeCont.retrieve(pos);
-        if (ret == 0) {
-            ret = new NBNode(myNodeCont.getFreeID(), pos);
-            if (!myNodeCont.insert(ret)) {
-                WRITE_ERROR("Could not insert " + dir + "-node at position " + toString(pos) + ".");
-                delete ret;
-                return 0;
-            }
-        }
-    }
-    return ret;
 }
 
 

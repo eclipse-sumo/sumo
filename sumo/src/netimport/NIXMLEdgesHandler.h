@@ -136,16 +136,6 @@ private:
     bool setNodes(const SUMOSAXAttributes& attrs);
 
 
-    /** @brief tries to parse one of the node's positions
-        Which position has to be parsed is defined by the given call variables */
-    SUMOReal tryGetPosition(const SUMOSAXAttributes& attrs, SumoXMLAttr attrID,
-                            const std::string& attrName);
-
-
-    NBNode* insertNodeChecking(const Position& pos,
-                               const std::string& name, const std::string& dir);
-
-
 private:
     /// @brief A reference to the program's options
     OptionsCont& myOptions;
@@ -280,8 +270,7 @@ private:
     /// @brief Information whether at least one edge's attributes were overwritten
     bool myHaveReportedAboutOverwriting;
 
-    bool myHaveWarnedAboutDeprecatedFromTo,
-         myHaveWarnedAboutDeprecatedLaneId;
+    bool myHaveWarnedAboutDeprecatedLaneId;
 
 
 private:

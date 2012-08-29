@@ -257,15 +257,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_ONEWAY,
     SUMO_ATTR_WIDTH,
     SUMO_ATTR_REMOVE,
-    /* edge attributes */
     SUMO_ATTR_LENGTH,
-    SUMO_ATTR_FROMNODE,
-    SUMO_ATTR_TONODE,
-    SUMO_ATTR_XFROM,
-    SUMO_ATTR_YFROM,
-    SUMO_ATTR_XTO,
-    SUMO_ATTR_YTO,
-    /* node attributes */
     SUMO_ATTR_X,
     SUMO_ATTR_Y,
     SUMO_ATTR_Z,

@@ -437,7 +437,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         }
         stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDPOS, 0, ok, MSLane::dictionary(stop.lane)->getLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
-            WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
+            WRITE_WARNING("eprecated attribute 'pos' in description of stop" + errorSuffix);
             stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, 0, ok, stop.endPos);
         }
         stop.startPos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, 0, ok, stop.endPos - 2 * POSITION_EPS);

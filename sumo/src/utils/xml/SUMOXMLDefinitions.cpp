@@ -193,12 +193,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "remove",         SUMO_ATTR_REMOVE },
 
     { "length",         SUMO_ATTR_LENGTH },
-    { "fromnode",       SUMO_ATTR_FROMNODE },
-    { "tonode",         SUMO_ATTR_TONODE },
-    { "xfrom",          SUMO_ATTR_XFROM },
-    { "yfrom",          SUMO_ATTR_YFROM },
-    { "xto",            SUMO_ATTR_XTO },
-    { "yto",            SUMO_ATTR_YTO },
 
     { "x",              SUMO_ATTR_X },
     { "y",              SUMO_ATTR_Y },
