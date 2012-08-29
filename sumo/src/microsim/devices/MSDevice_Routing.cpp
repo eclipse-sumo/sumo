@@ -101,6 +101,9 @@ MSDevice_Routing::insertOptions() {
     oc.addSynonyme("device.rerouting.with-taz", "device.routing.with-taz", true);
     oc.addDescription("device.rerouting.with-taz", "Routing", "Use zones (districts) as routing end points");
 
+    oc.doRegister("device.rerouting.init-with-loaded-weights", new Option_Bool(false));
+    oc.addDescription("device.rerouting.init-with-loaded-weights", "Routing", "Use given weight files for initializing edge weights");
+
     myEdgeWeightSettingCommand = 0;
     myEdgeEfforts.clear();
 }
@@ -132,8 +135,14 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &in
         // initialise edge efforts if not done before
         if (myEdgeEfforts.size() == 0) {
             const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
+            const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
+            const SUMOReal currentSecond = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
             for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-                myEdgeEfforts[*i] = (*i)->getCurrentTravelTime();
+                if (useLoaded) {
+                    myEdgeEfforts[*i] = MSNet::getTravelTime(*i, 0, currentSecond);
+                } else {
+                    myEdgeEfforts[*i] = (*i)->getCurrentTravelTime();
+                }
             }
         }
         // make the weights be updated
