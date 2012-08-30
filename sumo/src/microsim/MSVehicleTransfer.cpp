@@ -69,6 +69,7 @@ MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) {
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
     }
     myVehicles.push_back(VehicleInformation(veh, t + TIME2STEPS(e->getCurrentTravelTime()), veh->isParking()));
+    veh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
 }
 
 
