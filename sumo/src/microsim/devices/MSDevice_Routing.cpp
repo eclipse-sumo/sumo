@@ -56,6 +56,7 @@ SUMOTime MSDevice_Routing::myAdaptationInterval;
 bool MSDevice_Routing::myWithTaz;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routing::myCachedRoutes;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSDevice_Routing::myRouter = 0;
+std::set<std::string> MSDevice_Routing::myExplicitIDs;
 
 
 // ===========================================================================
@@ -124,7 +125,12 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &in
     } else {
         haveByNumber = RandHelper::rand() <= oc.getFloat("device.rerouting.probability");
     }
-    bool haveByName = oc.isSet("device.rerouting.explicit") && OptionsCont::getOptions().isInStringVector("device.rerouting.explicit", v.getID());
+    // initialize myExplicitIDs if not done before
+    if (oc.isSet("device.rerouting.explicit") && myExplicitIDs.size() == 0) {
+        const std::vector<std::string> idList = OptionsCont::getOptions().getStringVector("device.rerouting.explicit");
+        myExplicitIDs.insert(idList.begin(), idList.end());
+    }
+    const bool haveByName = myExplicitIDs.count(v.getID()) > 0;
     myWithTaz = oc.getBool("device.rerouting.with-taz");
     if (needRerouting || haveByNumber || haveByName) {
         // build the device

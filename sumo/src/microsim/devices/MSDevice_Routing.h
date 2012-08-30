@@ -238,6 +238,9 @@ private:
     /// @brief The router to use
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
 
+    /// @brief the vehicles which explicitly carry a device
+    static std::set<std::string> myExplicitIDs;
+
 
 private:
     /// @brief Invalidated copy constructor.
