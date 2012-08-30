@@ -93,7 +93,7 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
                 c, elementTypes, c.localName, element_attrs, attr_conversions))
     attrnames = elementTypes[element_name]._fields
     return elementTypes[element_name](
-            [attr_conversions.get(a, _IDENTITY)(node.getAttribute(a)) for a in attrnames],
+            [(attr_conversions.get(a, _IDENTITY)(node.getAttribute(a)) if node.hasAttribute(a) else None) for a in attrnames],
             child_dict)
 
 
