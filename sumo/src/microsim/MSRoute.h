@@ -89,8 +89,13 @@ public:
     /** @brief deletes the route if there are no further references to it*/
     void release() const;
 
-    /// output the edge ids up to but not including the id of the given edge
-    void writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo = 0) const;
+    /** @brief Output the edge ids up to but not including the id of the given edge
+     * @param[in] os The stream to write the routes into (binary)
+     * @param[in] from The first edge to be written
+     * @param[in] upTo The first edge that shall not be written
+     * @return The number of edges written
+     */
+    int writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo = 0) const;
 
     bool contains(const MSEdge* const edge) const {
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();

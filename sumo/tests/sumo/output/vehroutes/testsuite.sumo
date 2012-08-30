@@ -34,5 +34,8 @@ sorted
 # write vehroutes for vehicles which have not arrived at simulation end
 write_unfinished
 
+# only write edges with exit times
+write_unfinished_exit_times
+
 # Testing error cases
 errors

@@ -171,6 +171,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     } else {
         os << " edges=\"";
         const MSEdge* lastEdge = 0;
+        int numWritten = 0;
         if (myHolder.getNumberReroutes() > 0) {
             assert(myReplacedRoutes.size() <= myHolder.getNumberReroutes());
             unsigned int i = static_cast<unsigned int>(myReplacedRoutes.size());
@@ -178,11 +179,20 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
                 i--;
             }
             for (; i < myReplacedRoutes.size(); ++i) {
-                myReplacedRoutes[i].route->writeEdgeIDs(os, lastEdge, myReplacedRoutes[i].edge);
+                numWritten += myReplacedRoutes[i].route->writeEdgeIDs(os, lastEdge, myReplacedRoutes[i].edge);
                 lastEdge = myReplacedRoutes[i].edge;
             }
         }
-        myCurrentRoute->writeEdgeIDs(os, lastEdge);
+        const MSEdge* upTo = 0;
+        if (mySaveExits) {
+            int remainingWithExitTime = (int)myExits.size() - numWritten;
+            assert(remainingWithExitTime >= 0);
+            assert(remainingWithExitTime <= (int)myCurrentRoute->size());
+            if (remainingWithExitTime < myCurrentRoute->size()) {
+                upTo = *(myCurrentRoute->begin() + remainingWithExitTime);
+            }
+        }
+        myCurrentRoute->writeEdgeIDs(os, lastEdge, upTo);
         if (mySaveExits) {
             os << "\" exitTimes=\"";
             for (std::vector<SUMOTime>::const_iterator it = myExits.begin(); it != myExits.end(); ++it) {
