@@ -34,3 +34,6 @@ overtaking
 
 # Tests whether stopped vehicles can be overtaken in a high speed network
 overtaking_highspeed
+
+# it should be possible to teleport across a stopped vehicle
+teleport_across_stopped
