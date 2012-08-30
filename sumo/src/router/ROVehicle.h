@@ -130,15 +130,13 @@ public:
      * Saves the vehicle route if it was not saved before.
      * Saves the vehicle itself.
      *
-     * @param[in] router the router for cost recomputation
      * @param[in] os The routes - output device to store the vehicle's description into
      * @param[in] altos The route alternatives - output device to store the vehicle's description into
      * @param[in] typeos The types - output device to store the vehicle types into
      * @param[in] withExitTimes whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
-    void saveAllAsXML(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-                      OutputDevice& os, OutputDevice* const altos,
+    void saveAllAsXML(OutputDevice& os, OutputDevice* const altos,
 					  OutputDevice* const typeos, bool withExitTimes) const;
 
 

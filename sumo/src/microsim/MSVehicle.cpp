@@ -1083,12 +1083,12 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
             int bla = 0;
         }
 #endif
-        SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         for (int i = (int)(myLFLinkLanes.size() - 1); i > 0; --i) {
             DriveProcessItem& item = myLFLinkLanes[i - 1];
-            bool opened = item.myLink != 0 && (item.myLink->havePriority() || item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed, item.getLeaveSpeed()/*.myArrivalSpeed*/,/*t, .1,*/ getVehicleType().getLengthWithGap()));
-            bool check1 = item.myLink == 0 || item.myLink->isCont() || !hadVehicles[i];
-            bool allowsContinuation = check1 || opened;
+            const bool opened = item.myLink != 0 && (item.myLink->havePriority() ||
+                                                     item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
+                                                                         item.getLeaveSpeed(), getVehicleType().getLengthWithGap()));
+            bool allowsContinuation = item.myLink == 0 || item.myLink->isCont() || !hadVehicles[i] || opened;
             if (!opened && item.myLink != 0) {
                 if (i > 1) {
                     DriveProcessItem& item2 = myLFLinkLanes[i - 2];
@@ -1226,7 +1226,6 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     }
     myFurtherLanes.clear();
 */
-    SUMOReal leftLength = myState.myPos - getVehicleType().getLength();
     if (myState.myPos - getVehicleType().getLength()) {
         // we have to rebuild "further lanes"
         const MSRoute& route = getRoute();
@@ -1234,7 +1233,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         MSLane* lane = myLane;
         SUMOReal leftLength = getVehicleType().getLength() - myState.myPos;
         while (i != route.begin() && leftLength > 0) {
-            const MSEdge* const prev = *(--i);
+            /* const MSEdge* const prev = */ *(--i);
             lane = lane->getLogicalPredecessorLane();
             if (lane == 0) {
                 break;

@@ -162,6 +162,10 @@ protected:
         /// Information whether randomized departures are used
         bool myRandom;
 
+    private:
+        /** @brief invalidated assignment operator */
+        FlowDef& operator=(const FlowDef& s);
+
     };
 
 private:

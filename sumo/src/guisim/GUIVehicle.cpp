@@ -1016,9 +1016,9 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
             if (via != 0) {
                 Position p = via->getShape()[0];
                 if((*i).mySetRequest) {
-                    glColor3f(0, .8, 0);
+                    glColor3d(0, .8, 0);
                 } else {
-                    glColor3f(.8, 0, 0);
+                    glColor3d(.8, 0, 0);
                 }
                 glTranslated(p.x(), p.y(), -.1);
                 GLHelper::drawFilledCircle(1);

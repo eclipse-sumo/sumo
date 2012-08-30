@@ -204,8 +204,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // process route definitions
     try {
         if (routingAlgorithm == "bulkstar") {
+#ifdef HAVE_INTERNAL // catchall for internal stuff
             // need to load all routes for spatial aggregation
             loader.processAllRoutesWithBulkRouter(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
+#endif
         } else if (!oc.getBool("unsorted-input")) {
             // the routes are sorted - process stepwise
             loader.processRoutesStepWise(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);

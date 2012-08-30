@@ -278,20 +278,18 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
 }
 
 
+#ifdef HAVE_INTERNAL // catchall for internal stuff
 void
 ROLoader::processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
                            RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router) {
-#ifndef HAVE_INTERNAL // catchall for internal stuff
-    assert(false);
-#else
     bool ok = true;
     for (RouteLoaderCont::iterator i = myHandler.begin(); ok && i != myHandler.end(); i++) {
         ok &= (*i)->readRoutesAtLeastUntil(SUMOTime_MAX);
     }
     RouteAggregator::processAllRoutes(net, router);
     net.saveAndRemoveRoutesUntil(myOptions, router, end);
-#endif
 }
+#endif
 
 
 bool

@@ -127,6 +127,10 @@ private:
     /// @brief gawron a - value
     const SUMOReal myA;
 
+private:
+    /** @brief invalidated assignment operator */
+    ROGawronCalculator& operator=(const ROGawronCalculator& s);
+
 };
 
 
@@ -167,6 +171,10 @@ private:
 
     /// @brief The route commonality factors for c-logit
     std::map<const RORoute*, SUMOReal> myCommonalities;
+
+private:
+    /** @brief invalidated assignment operator */
+    ROLogitCalculator& operator=(const ROLogitCalculator& s);
 
 };
 

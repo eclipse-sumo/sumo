@@ -60,8 +60,8 @@ ROVehicle::~ROVehicle() {}
 
 
 void
-ROVehicle::saveAllAsXML(SUMOAbstractRouter<ROEdge, ROVehicle> &router, OutputDevice& os,
-                        OutputDevice* const altos, OutputDevice* const typeos, bool withExitTimes) const {
+ROVehicle::saveAllAsXML(OutputDevice& os, OutputDevice* const altos,
+                        OutputDevice* const typeos, bool withExitTimes) const {
     // check whether the vehicle's type was saved before
     if (myType != 0 && !myType->saved) {
         // ... save if not

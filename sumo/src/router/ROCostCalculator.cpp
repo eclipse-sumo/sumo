@@ -103,7 +103,7 @@ ROGawronCalculator::setCosts(RORoute* route, const SUMOReal costs, const bool is
 
 
 void
-ROGawronCalculator::calculateProbabilities(const ROVehicle* const veh, std::vector<RORoute*> alternatives) {
+ROGawronCalculator::calculateProbabilities(const ROVehicle* const /* veh */, std::vector<RORoute*> alternatives) {
     for (std::vector<RORoute*>::iterator i = alternatives.begin(); i != alternatives.end() - 1; i++) {
         RORoute* pR = *i;
         for (std::vector<RORoute*>::iterator j = i + 1; j != alternatives.end(); j++) {
@@ -160,7 +160,7 @@ ROLogitCalculator::~ROLogitCalculator() {}
 
 
 void
-ROLogitCalculator::setCosts(RORoute* route, const SUMOReal costs, const bool isActive) const {
+ROLogitCalculator::setCosts(RORoute* route, const SUMOReal costs, const bool /* isActive */) const {
     route->setCosts(costs);
 }
 

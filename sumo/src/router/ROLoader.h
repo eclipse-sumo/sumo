@@ -97,9 +97,11 @@ public:
     void processAllRoutes(SUMOTime start, SUMOTime end,
                                   RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router);
 
+#ifdef HAVE_INTERNAL // catchall for internal stuff
     /** @brief Loads all routes and processes them with BulkStarRouter */
     void processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
                                   RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router);
+#endif
 
     bool makeSingleStep(SUMOTime end, RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router);
 
