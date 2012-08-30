@@ -15,7 +15,7 @@ import sys
 import os
 import re
 from xml.dom import pulldom
-from xml.sax import saxutils
+from xml.sax import handler
 from xml.sax import make_parser
 from xml.sax import handler
 from optparse import OptionParser
@@ -57,7 +57,7 @@ def sort_departs(routefilename, outfile):
     print('wrote %s elements.' % len(vehicles))
 
 
-class RouteHandler(saxutils.DefaultHandler):
+class RouteHandler(handler.ContentHandler):
     def __init__(self, elements_with_depart):
         self.DEPART_ATTR = {'vehicle' : 'depart', 'flow' : 'begin'}
         self.elements_with_depart = elements_with_depart
