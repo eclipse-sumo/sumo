@@ -1,15 +1,20 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
     <input>
         <net-file value="dynNet_missingLink.net.xml"/>
         <route-files value="dynNet.rou.xml"/>
-	<mesosim value="true"/>
-	<load-state value="myStateFile" />
-
+        <load-state value="myStateFile"/>
     </input>
 
     <time>
         <begin value="0"/>
         <end value="10000"/>
     </time>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
 </configuration>

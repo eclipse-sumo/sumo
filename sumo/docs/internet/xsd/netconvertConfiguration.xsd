@@ -123,6 +123,7 @@
         <xsd:all>
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-errors.connections" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="show-errors.connections-first-try" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanes-from-capacity.norm" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="speed-in-kmh" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="plain.keep-edge-shape" type="boolOptionType" minOccurs="0"/>

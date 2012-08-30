@@ -5,9 +5,13 @@
 OLDDIR=$PWD
 cd `dirname $0`
 export TEXTTEST_HOME="$PWD"
+if test x"$SUMO_HOME" = x; then
+  cd ..
+  export SUMO_HOME="$PWD"
+fi
 if test x"$SUMO_BINDIR" = x; then
   cd ..
-  SUMO_BINDIR="$PWD/bin"
+  SUMO_BINDIR="$SUMO_HOME/bin"
 fi
 cd $OLDDIR
 export ACTIVITYGEN_BINARY="$SUMO_BINDIR/activitygen"
