@@ -1,2 +1,5 @@
 # Testing multiple reroutes
 multiple_reroute
+
+# combine closing rerouter with dest_prob rerouter and use the magic destination 'keepDestination'
+closing_and_dest_prob_and_keepDestination

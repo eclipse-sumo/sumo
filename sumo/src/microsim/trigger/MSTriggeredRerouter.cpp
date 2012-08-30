@@ -114,7 +114,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No destination edge id given.");
         }
         MSEdge* to = MSEdge::dictionary(dest);
-        if (to == 0) {
+        if (to == 0 && dest != "keepDestination") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Destination edge '" + dest + "' is not known.");
         }
         // get the probability to reroute
