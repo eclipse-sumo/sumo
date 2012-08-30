@@ -595,7 +595,7 @@ protected:
     long mySimBeginMillis;
 
     /// @brief The overall number of vehicle movements
-    long myVehiclesMoved;
+    SUMOLong myVehiclesMoved;
     //}
 
 

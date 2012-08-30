@@ -313,7 +313,7 @@ MSNet::closeSimulation(SUMOTime start) {
             msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (SUMOReal)duration) << "\n";
             msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
             msg.setf(std::ios::showpoint);    // print decimal point
-            msg << " UPS: " << ((SUMOReal) myVehiclesMoved * 1000. / (SUMOReal) duration) << "\n";
+            msg << " UPS: " << ((SUMOReal)myVehiclesMoved / ((SUMOReal)duration/1000)) << "\n";
         }
         const std::string scaleNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
                 " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
