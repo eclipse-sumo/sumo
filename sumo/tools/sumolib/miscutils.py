@@ -96,7 +96,10 @@ class Statistics:
         return sum(map(abs, self.values)) / float(len(self.values))
 
     def mean(self):
-        return sorted(self.values)[len(self.values) / 2]
+        if len(self.values) > 0:
+            return sorted(self.values)[len(self.values) / 2]
+        else:
+            return None
 
     def mean_abs(self):
         return sorted(map(abs,self.values))[len(self.values) / 2]
