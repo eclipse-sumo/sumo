@@ -80,6 +80,7 @@
         <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights."/>
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights."/>
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz" type="BOOL" help="Use zones (districts) as routing end points"/>
+        <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use given weight files for initializing edge weights"/>
     </routing>
 
     <emissions>

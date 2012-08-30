@@ -198,6 +198,9 @@
         <!-- Use zones (districts) as routing end points -->
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz" type="BOOL"/>
 
+        <!-- Use given weight files for initializing edge weights -->
+        <device.rerouting.init-with-loaded-weights value="false" type="BOOL"/>
+
     </routing>
 
     <emissions>
