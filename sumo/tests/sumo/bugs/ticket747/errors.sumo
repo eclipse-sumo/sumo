@@ -1,0 +1,6 @@
+Warning: Teleporting vehicle 'flow_detour.0'; waited too long, lane='2/2to2/1_0', time=643.00.
+Warning: Teleporting vehicle 'flow_detour.1'; waited too long, lane='2/2to2/1_0', time=947.00.
+Warning: Vehicle 'flow_detour.0' ends teleporting on edge '3/1to3/0', simulation time 1035.00.
+Warning: Teleporting vehicle 'flow_detour.2'; waited too long, lane='2/2to2/1_0', time=1251.00.
+Warning: Vehicle 'flow_detour.1' ends teleporting on edge '3/1to3/0', simulation time 1339.00.
+Warning: Vehicle 'flow_detour.2' ends teleporting on edge '3/1to3/0', simulation time 1643.00.

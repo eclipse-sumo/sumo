@@ -1,0 +1,5 @@
+<rerouter>
+	<interval begin="0" end="86400">
+		<closingReroute id="3/1to4/1"/>
+	</interval>
+</rerouter>
