@@ -1,5 +1,6 @@
 # Testing multiple reroutes
 multiple_reroute
 
-# combine closing rerouter with dest_prob rerouter and use the magic destination 'keepDestination'
+# combine closing rerouter with dest_prob rerouter and use the magic destination 'keepDestination'.
+# Vehicles which's route do not take them across the closed edges should not be affected.
 closing_and_dest_prob_and_keepDestination

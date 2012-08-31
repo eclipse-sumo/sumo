@@ -2,7 +2,9 @@
 	<vType id="DEFAULT_VEHTYPE" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="70"/>
 
     <route id="r0" edges="beg middle end rend"/>
+    <route id="r1" edges="beg beg2left left"/>
 
-    <flow id="flow" begin="0" end="200" vehsPerHour="360" route="r0"/>
+    <flow id="flow_reroute" begin="0" end="200" vehsPerHour="360" route="r0"/>
+    <flow id="flow_do_not_reroute" begin="5" end="105" vehsPerHour="360" route="r1"/>
 
 </routes>

@@ -196,7 +196,11 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
     const MSRoute& route = veh.getRoute();
     while (i != myIntervals.end()) {
         if ((*i).begin <= time && (*i).end >= time) {
-            if ((*i).edgeProbs.getOverallProb() != 0 || (*i).routeProbs.getOverallProb() != 0 || route.containsAnyOf((*i).closed)) {
+            if (
+                    // affected by closingReroute, possibly combined with destProbReroute (route prob makes no sense)
+                    route.containsAnyOf((*i).closed) || 
+                    // no closingReroute but destProbReroute or routeProbReroute
+                    ((*i).closed.size() == 0 && (*i).edgeProbs.getOverallProb() + (*i).routeProbs.getOverallProb() > 0)) {
                 return true;
             }
         }
