@@ -294,20 +294,25 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
         veh.replaceRoute(newRoute);
         return false;
     }
+    const MSEdge* newEdge = lastEdge;
     // ok, try using a new destination
-    const MSEdge* newEdge = rerouteDef.edgeProbs.getOverallProb() > 0 ? rerouteDef.edgeProbs.get() : route.getLastEdge();
-    if (newEdge == &mySpecialDest_terminateRoute) {
-        newEdge = veh.getEdge();
-    } else if (newEdge == &mySpecialDest_keepDestination || newEdge == lastEdge) {
-        if (std::find(rerouteDef.closed.begin(), rerouteDef.closed.end(), lastEdge) != rerouteDef.closed.end()) {
-            WRITE_WARNING("Cannot keep destination for vehicle '" + veh.getID() + "' due to closed edges. Terminating route.");
+    const bool destUnreachable = std::find(rerouteDef.closed.begin(), rerouteDef.closed.end(), lastEdge) != rerouteDef.closed.end();
+    // if we have a closingReroute, only assign new destinations to vehicles which cannot reach their original destination
+    if (rerouteDef.closed.size() == 0 || destUnreachable) {
+        newEdge = rerouteDef.edgeProbs.getOverallProb() > 0 ? rerouteDef.edgeProbs.get() : route.getLastEdge();
+        if (newEdge == &mySpecialDest_terminateRoute) {
             newEdge = veh.getEdge();
-        } else {
-            newEdge = lastEdge;
+        } else if (newEdge == &mySpecialDest_keepDestination || newEdge == lastEdge) {
+            if (destUnreachable) {
+                WRITE_WARNING("Cannot keep destination for vehicle '" + veh.getID() + "' due to closed edges. Terminating route.");
+                newEdge = veh.getEdge();
+            } else {
+                newEdge = lastEdge;
+            }
+        } else if (newEdge == 0) {
+            assert(false); // this should never happen
+            newEdge = veh.getEdge();
         }
-    } else if (newEdge == 0) {
-        assert(false); // this should never happen
-        newEdge = veh.getEdge();
     }
     // we have a new destination, let's replace the vehicle route
     std::vector<const MSEdge*> edges;

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Aug 31 08:33:33 2012 by SUMO sumo Version dev-SVN-r12623
+<!-- generated on Fri Aug 31 09:07:35 2012 by SUMO sumo Version dev-SVN-r12623
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -28,253 +28,183 @@
 -->
 
 <routes>
-    <vehicle id="flow_reroute.0" depart="0.00" arrival="23.00">
+    <vehicle id="flow_detour.0" depart="0.00" arrival="206.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg"/>
+            <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_reroute.6" depart="60.00" arrival="83.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute.7" depart="70.00" arrival="93.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="70.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute.10" depart="100.00" arrival="123.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute_keepDest_forbidden.0" depart="105.00" arrival="128.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="105.00" probability="0" edges="beg middle"/>
-            <route edges="beg"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_do_not_reroute.0" depart="5.00" arrival="136.00">
-        <route edges="beg beg2left left"/>
-    </vehicle>
-
-    <vehicle id="flow_reroute.1" depart="10.00" arrival="142.00">
+    <vehicle id="flow_detour.1" depart="10.00" arrival="216.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="10.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2right right"/>
+            <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_do_not_reroute.1" depart="15.00" arrival="146.00">
-        <route edges="beg beg2left left"/>
-    </vehicle>
-
-    <vehicle id="flow_reroute_keepDest_forbidden.2" depart="125.00" arrival="148.00">
+    <vehicle id="flow_dest_forbidden.0" depart="200.00" arrival="223.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="125.00" probability="0" edges="beg middle"/>
+            <route replacedOnEdge="" replacedAtTime="200.00" probability="0" edges="beg middle"/>
             <route edges="beg"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_reroute.2" depart="20.00" arrival="152.00">
+    <vehicle id="flow_detour.2" depart="20.00" arrival="226.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="20.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2right right"/>
+            <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_do_not_reroute.2" depart="25.00" arrival="156.00">
+    <vehicle id="flow_unaffected.0" depart="100.00" arrival="231.00">
         <route edges="beg beg2left left"/>
     </vehicle>
 
-    <vehicle id="flow_reroute_keepDest_forbidden.3" depart="135.00" arrival="158.00">
+    <vehicle id="flow_dest_forbidden.1" depart="210.00" arrival="233.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="135.00" probability="0" edges="beg middle"/>
+            <route replacedOnEdge="" replacedAtTime="210.00" probability="0" edges="beg middle"/>
             <route edges="beg"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_reroute.3" depart="30.00" arrival="162.00">
+    <vehicle id="flow_detour.3" depart="30.00" arrival="236.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="30.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2right right"/>
+            <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_do_not_reroute.3" depart="35.00" arrival="166.00">
+    <vehicle id="flow_unaffected.1" depart="110.00" arrival="241.00">
         <route edges="beg beg2left left"/>
     </vehicle>
 
-    <vehicle id="flow_reroute_keepDest_forbidden.4" depart="145.00" arrival="168.00">
+    <vehicle id="flow_dest_forbidden.2" depart="220.00" arrival="243.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="145.00" probability="0" edges="beg middle"/>
+            <route replacedOnEdge="" replacedAtTime="220.00" probability="0" edges="beg middle"/>
             <route edges="beg"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_reroute.4" depart="40.00" arrival="172.00">
+    <vehicle id="flow_detour.4" depart="40.00" arrival="246.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="40.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2right right"/>
+            <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_do_not_reroute.4" depart="45.00" arrival="176.00">
+    <vehicle id="flow_unaffected.2" depart="120.00" arrival="251.00">
         <route edges="beg beg2left left"/>
     </vehicle>
 
-    <vehicle id="flow_reroute_keepDest_forbidden.5" depart="155.00" arrival="178.00">
+    <vehicle id="flow_dest_forbidden.3" depart="230.00" arrival="253.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="155.00" probability="0" edges="beg middle"/>
+            <route replacedOnEdge="" replacedAtTime="230.00" probability="0" edges="beg middle"/>
             <route edges="beg"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_reroute.16" depart="160.00" arrival="183.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="160.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_do_not_reroute.5" depart="55.00" arrival="186.00">
-        <route edges="beg beg2left left"/>
-    </vehicle>
-
-    <vehicle id="flow_reroute_keepDest_forbidden.6" depart="165.00" arrival="188.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="165.00" probability="0" edges="beg middle"/>
-            <route edges="beg"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_do_not_reroute.6" depart="65.00" arrival="196.00">
-        <route edges="beg beg2left left"/>
-    </vehicle>
-
-    <vehicle id="flow_reroute.18" depart="180.00" arrival="203.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_do_not_reroute.7" depart="75.00" arrival="206.00">
-        <route edges="beg beg2left left"/>
-    </vehicle>
-
-    <vehicle id="flow_reroute_keepDest_forbidden.8" depart="185.00" arrival="208.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="185.00" probability="0" edges="beg middle"/>
-            <route edges="beg"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_do_not_reroute.8" depart="85.00" arrival="216.00">
-        <route edges="beg beg2left left"/>
-    </vehicle>
-
-    <vehicle id="flow_do_not_reroute.9" depart="95.00" arrival="226.00">
-        <route edges="beg beg2left left"/>
-    </vehicle>
-
-    <vehicle id="flow_reroute_keepDest_forbidden.1" depart="115.00" arrival="247.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="115.00" probability="0" edges="beg middle"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute.5" depart="50.00" arrival="256.00">
+    <vehicle id="flow_detour.5" depart="50.00" arrival="256.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="50.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_reroute.8" depart="80.00" arrival="286.00">
+    <vehicle id="flow_unaffected.3" depart="130.00" arrival="261.00">
+        <route edges="beg beg2left left"/>
+    </vehicle>
+
+    <vehicle id="flow_detour.6" depart="60.00" arrival="266.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow_unaffected.4" depart="140.00" arrival="271.00">
+        <route edges="beg beg2left left"/>
+    </vehicle>
+
+    <vehicle id="flow_dest_forbidden.5" depart="250.00" arrival="273.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="250.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow_detour.7" depart="70.00" arrival="276.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="70.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow_unaffected.5" depart="150.00" arrival="281.00">
+        <route edges="beg beg2left left"/>
+    </vehicle>
+
+    <vehicle id="flow_dest_forbidden.6" depart="260.00" arrival="283.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="260.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow_detour.8" depart="80.00" arrival="286.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_reroute.9" depart="90.00" arrival="296.00">
+    <vehicle id="flow_unaffected.6" depart="160.00" arrival="291.00">
+        <route edges="beg beg2left left"/>
+    </vehicle>
+
+    <vehicle id="flow_dest_forbidden.7" depart="270.00" arrival="293.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="270.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow_detour.9" depart="90.00" arrival="296.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="90.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_reroute.17" depart="170.00" arrival="302.00">
+    <vehicle id="flow_unaffected.7" depart="170.00" arrival="301.00">
+        <route edges="beg beg2left left"/>
+    </vehicle>
+
+    <vehicle id="flow_unaffected.8" depart="180.00" arrival="311.00">
+        <route edges="beg beg2left left"/>
+    </vehicle>
+
+    <vehicle id="flow_dest_forbidden.9" depart="290.00" arrival="313.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="170.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="" replacedAtTime="290.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow_unaffected.9" depart="190.00" arrival="321.00">
+        <route edges="beg beg2left left"/>
+    </vehicle>
+
+    <vehicle id="flow_dest_forbidden.4" depart="240.00" arrival="372.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="240.00" probability="0" edges="beg middle"/>
             <route edges="beg beg2right right"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_reroute_keepDest_forbidden.7" depart="175.00" arrival="307.00">
+    <vehicle id="flow_dest_forbidden.8" depart="280.00" arrival="412.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="175.00" probability="0" edges="beg middle"/>
+            <route replacedOnEdge="" replacedAtTime="280.00" probability="0" edges="beg middle"/>
             <route edges="beg beg2right right"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute.11" depart="110.00" arrival="316.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2left left left2end end rend"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute.12" depart="120.00" arrival="326.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2left left left2end end rend"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute_keepDest_forbidden.9" depart="195.00" arrival="327.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="195.00" probability="0" edges="beg middle"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute.13" depart="130.00" arrival="336.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2left left left2end end rend"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute.14" depart="140.00" arrival="346.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2left left left2end end rend"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute.15" depart="150.00" arrival="356.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2left left left2end end rend"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_reroute.19" depart="190.00" arrival="396.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="190.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 

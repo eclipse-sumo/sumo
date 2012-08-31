@@ -5,8 +5,8 @@
     <route id="r1" edges="beg beg2left left"/>
     <route id="r2" edges="beg middle"/>
 
-    <flow id="flow_reroute" begin="0" end="200" vehsPerHour="360" route="r0"/>
-    <flow id="flow_do_not_reroute" begin="5" end="105" vehsPerHour="360" route="r1"/>
-    <flow id="flow_reroute_keepDest_forbidden" begin="105" end="205" vehsPerHour="360" route="r2"/>
+    <flow id="flow_detour" begin="0" end="100" vehsPerHour="360" route="r0"/>
+    <flow id="flow_unaffected" begin="100" end="200" vehsPerHour="360" route="r1"/>
+    <flow id="flow_dest_forbidden" begin="200" end="300" vehsPerHour="360" route="r2"/>
 
 </routes>
