@@ -192,6 +192,10 @@ protected:
     //@}
 
 
+    /// @brief special destination values
+    static MSEdge mySpecialDest_keepDestination;
+    static MSEdge mySpecialDest_terminateRoute;
+
 private:
     /// @brief Invalidated copy constructor.
     MSTriggeredRerouter(const MSTriggeredRerouter&);

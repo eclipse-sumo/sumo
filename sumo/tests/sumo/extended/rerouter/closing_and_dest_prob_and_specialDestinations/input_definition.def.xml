@@ -3,5 +3,6 @@
 		<closingReroute id="middle"/>
         <destProbReroute id="right" probability="0.5"/>
         <destProbReroute id="keepDestination" probability="0.5"/>
+        <destProbReroute id="terminateRoute" probability="0.5"/>
 	</interval>
 </rerouter>

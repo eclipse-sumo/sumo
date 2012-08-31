@@ -62,6 +62,12 @@
 
 
 // ===========================================================================
+// static member defintion
+// ===========================================================================
+MSEdge MSTriggeredRerouter::mySpecialDest_keepDestination("MSTriggeredRerouter_keepDestination", -1);
+MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_terminateRoute", -1);
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
@@ -114,8 +120,14 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No destination edge id given.");
         }
         MSEdge* to = MSEdge::dictionary(dest);
-        if (to == 0 && dest != "keepDestination") {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Destination edge '" + dest + "' is not known.");
+        if (to == 0) {
+            if (dest == "keepDestination") {
+                to = &mySpecialDest_keepDestination;
+            } else if (dest == "terminateRoute") {
+                to = &mySpecialDest_terminateRoute;
+            } else {
+                throw ProcessError("MSTriggeredRerouter " + getID() + ": Destination edge '" + dest + "' is not known.");
+            }
         }
         // get the probability to reroute
         bool ok = true;
@@ -284,10 +296,19 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     }
     // ok, try using a new destination
     const MSEdge* newEdge = rerouteDef.edgeProbs.getOverallProb() > 0 ? rerouteDef.edgeProbs.get() : route.getLastEdge();
-    if (newEdge == 0) {
-        newEdge = lastEdge;
+    if (newEdge == &mySpecialDest_terminateRoute) {
+        newEdge = veh.getEdge();
+    } else if (newEdge == &mySpecialDest_keepDestination || newEdge == lastEdge) {
+        if (std::find(rerouteDef.closed.begin(), rerouteDef.closed.end(), lastEdge) != rerouteDef.closed.end()) {
+            WRITE_WARNING("Cannot keep destination for vehicle '" + veh.getID() + "' due to closed edges. Terminating route.");
+            newEdge = veh.getEdge();
+        } else {
+            newEdge = lastEdge;
+        }
+    } else if (newEdge == 0) {
+        assert(false); // this should never happen
+        newEdge = veh.getEdge();
     }
-
     // we have a new destination, let's replace the vehicle route
     std::vector<const MSEdge*> edges;
     MSNet::getInstance()->getRouterTT(rerouteDef.closed).compute(
