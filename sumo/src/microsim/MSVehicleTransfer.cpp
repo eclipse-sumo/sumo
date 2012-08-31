@@ -68,7 +68,7 @@ MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) {
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
     }
-    myVehicles.push_back(VehicleInformation(veh, t + TIME2STEPS(e->getCurrentTravelTime()), veh->isParking()));
+    myVehicles.push_back(VehicleInformation(veh, t + TIME2STEPS(veh->getEdge()->getCurrentTravelTime()), veh->isParking()));
     veh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
 }
 
@@ -114,14 +114,11 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             } else {
                 // could not insert. maybe we should proceed in virtual space
                 if (desc.myProceedTime < time) {
-                    // get the lanes of the next edge (the one the vehicle wiil be
-                    //  virtually on after all these computations)
-                    desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
-                    // get the one beyond the one the vehicle moved to
-                    // !!! only move reminders are called but the edge is not advanced
-                    const MSEdge* nextEdge = desc.myVeh->succEdge(1);
                     // let the vehicle move to the next edge
-                    if (nextEdge == 0) {
+                    const bool hasArrived = desc.myVeh->enterLaneAtMove(desc.myVeh->succEdge(1)->getLanes()[0], true); 
+                    // active move reminders
+                    desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
+                    if (hasArrived) {
                         WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' ends teleporting on end edge '" + e->getID() + "'.");
                         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                         i = myVehicles.erase(i);
