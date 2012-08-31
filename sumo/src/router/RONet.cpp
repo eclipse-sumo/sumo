@@ -60,10 +60,10 @@
 // method definitions
 // ===========================================================================
 RONet::RONet()
-    : myVehicleTypes(),
+    : myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
       myRoutesOutput(0), myRouteAlternativesOutput(0), myTypesOutput(0),
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
-      myDefaultVTypeMayBeDeleted(true), myHaveRestrictions(false) {
+      myHaveRestrictions(false) {
     SUMOVTypeParameter* type = new SUMOVTypeParameter();
     type->id = DEFAULT_VTYPE_ID;
     type->onlyReferenced = true;

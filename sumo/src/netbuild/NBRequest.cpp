@@ -534,10 +534,6 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to) const {
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
-    int idx = 0;
-    if (to != 0) {
-        idx = getIndex(from, to);
-    }
     // !!! move to forbidden
     std::string result;
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin();

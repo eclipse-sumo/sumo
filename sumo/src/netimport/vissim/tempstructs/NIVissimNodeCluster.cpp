@@ -206,7 +206,6 @@ NIVissimNodeCluster::dict_recheckEdgeChanges() {
 int
 NIVissimNodeCluster::getFromNode(int edgeid) {
     int ret = -1;
-    bool mult = false;
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimNodeCluster* c = (*i).second;
         for (std::vector<int>::iterator j = c->myConnectors.begin(); j != c->myConnectors.end(); j++) {
@@ -214,7 +213,6 @@ NIVissimNodeCluster::getFromNode(int edgeid) {
             if (conn != 0 && conn->getToEdgeID() == edgeid) {
 //                return (*i).first;
                 if (ret != -1 && (*i).first != ret) {
-                    mult = true;
 //                     "NIVissimNodeCluster:DoubleNode:" << ret << endl;
                     throw 1; // an edge should not outgo from two different nodes
 // but actually, a joined cluster may posess a connections more than once
