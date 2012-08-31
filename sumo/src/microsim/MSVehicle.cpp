@@ -1169,7 +1169,7 @@ MSVehicle::activateReminders(const MSMoveReminder::Notification reason) {
 
 bool
 MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
-    myAmOnNet = true;
+    myAmOnNet = !onTeleporting;
     // vaporizing edge?
     /*
     if (enteredLane->getEdge().isVaporizing()) {
@@ -1178,12 +1178,10 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         return true;
     }
     */
-    if (!onTeleporting) {
-        // move mover reminder one lane further
-        adaptLaneEntering2MoveReminder(*enteredLane);
-        // set the entered lane as the current lane
-        myLane = enteredLane;
-    }
+    // move mover reminder one lane further
+    adaptLaneEntering2MoveReminder(*enteredLane);
+    // set the entered lane as the current lane
+    myLane = enteredLane;
 
     // internal edges are not a part of the route...
     if (enteredLane->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -1199,6 +1197,8 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
             myLaneChangeModel->requestLaneChange(myInfluencer->checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), **myCurrEdge, getLaneIndex()));
         }
 #endif
+    } else {
+        activateReminders(MSMoveReminder::NOTIFICATION_TELEPORT);
     }
     return hasArrived();
 }

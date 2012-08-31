@@ -394,7 +394,8 @@ MSEdge::getInternalFollowingEdge(MSEdge* followerAfterInternal) const {
 
 
 SUMOReal
-MSEdge::getCurrentTravelTime() const {
+MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
+    assert(minSpeed > 0);
     SUMOReal v = 0;
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
@@ -415,11 +416,8 @@ MSEdge::getCurrentTravelTime() const {
 #ifdef HAVE_INTERNAL
     }
 #endif
-    if (v != 0) {
-        return getLength() / v;
-    } else {
-        return 1000000.;
-    }
+    v = MAX2(minSpeed, v);
+    return getLength() / v;
 }
 
 

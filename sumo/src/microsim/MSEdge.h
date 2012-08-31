@@ -295,13 +295,13 @@ public:
 
     /** @brief Computes and returns the current travel time for this edge
      *
-     * The mean travel time of all lanes is summed and divided by the number
-     *  of lanes. If the result is zero, 1000000. (a very large number) is
-     *  returned, otherwise the edge's length divided by this speed.
+     * The mean speed of all lanes is used to compute the travel time.
+     * To avoid inifinte travel times, the given minimum speed is used.
      *
+     * @param[in] minSpeed The minimumSpeed to assume if traffic on this edge is stopped
      * @return The current effort (travel time) to pass the edge
      */
-    SUMOReal getCurrentTravelTime() const;
+    SUMOReal getCurrentTravelTime(const SUMOReal minSpeed=0.00001) const;
 
 
     /// @brief returns the minimum travel time for the given vehicle
