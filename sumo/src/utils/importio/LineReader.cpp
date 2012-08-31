@@ -131,7 +131,6 @@ LineReader::readLine(LineHandler& lh) {
 std::string
 LineReader::readLine() {
     std::string toReport;
-    bool moreAvailable = true;
     while (toReport.length() == 0 && myStrm.good()) {
         size_t idx = myStrBuffer.find('\n');
         if (idx == 0) {
@@ -156,7 +155,6 @@ LineReader::readLine() {
             } else {
                 toReport = myStrBuffer;
                 myRread += 1024;
-                moreAvailable = false;
                 if (toReport == "") {
                     return toReport;
                 }

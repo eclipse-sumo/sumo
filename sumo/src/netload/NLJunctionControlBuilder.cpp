@@ -91,6 +91,8 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
                                        const std::vector<MSLane*> &internalLanes) throw(InvalidArgument) {
 #ifdef HAVE_INTERNAL_LANES
     myActiveInternalLanes = internalLanes;
+#else
+    UNUSED_PARAMETER(internalLanes);
 #endif
     myActiveIncomingLanes = incomingLanes;
     myActiveID = id;

@@ -110,9 +110,6 @@ void APIENTRY endCallback(void) {
 }
 
 void APIENTRY vertexCallback(GLvoid* vertex) {
-    const GLdouble* pointer;
-
-    pointer = (GLdouble*) vertex;
     glVertex3dv((GLdouble*) vertex);
 }
 

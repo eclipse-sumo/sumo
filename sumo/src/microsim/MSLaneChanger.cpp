@@ -223,16 +223,13 @@ MSLaneChanger::change() {
     if (myAllowsSwap && ((state1 & (LCA_URGENT)) != 0 || (state2 & (LCA_URGENT)) != 0)) {
         // get the direction ...
         ChangerIt target;
-        int dir;
         if ((state1 & (LCA_URGENT)) != 0) {
             // ... wants to go right
             target = myCandi - 1;
-            dir = -1;
         }
         if ((state2 & (LCA_URGENT)) != 0) {
             // ... wants to go left
             target = myCandi + 1;
-            dir = 1;
         }
         MSVehicle* prohibitor = target->lead;
         if (target->hoppedVeh != 0) {

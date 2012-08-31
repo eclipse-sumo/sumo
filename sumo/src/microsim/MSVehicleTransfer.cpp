@@ -56,8 +56,6 @@ const SUMOReal MSVehicleTransfer::TeleportMinSpeed = 1;
 // ===========================================================================
 void
 MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) {
-    // get the current edge of the vehicle
-    const MSEdge* e = veh->getEdge();
     if (veh->isParking()) {
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_PARKING);
     } else {

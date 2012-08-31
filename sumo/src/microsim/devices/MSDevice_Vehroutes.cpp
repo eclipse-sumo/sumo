@@ -188,7 +188,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
             int remainingWithExitTime = (int)myExits.size() - numWritten;
             assert(remainingWithExitTime >= 0);
             assert(remainingWithExitTime <= (int)myCurrentRoute->size());
-            if (remainingWithExitTime < myCurrentRoute->size()) {
+            if (remainingWithExitTime < (int)myCurrentRoute->size()) {
                 upTo = *(myCurrentRoute->begin() + remainingWithExitTime);
             }
         }

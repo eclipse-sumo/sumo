@@ -518,7 +518,7 @@ void FXRealSpinDial::disable() {
 
 // Recompute layout
 void FXRealSpinDial::layout() {
-    FXint dialWidth, dialHeight, buttonWidth, buttonHeight, textHeight;
+    FXint dialHeight, buttonWidth, buttonHeight, textHeight;
 
     textHeight = height - 2 * border;
     dialHeight = textHeight;
@@ -550,7 +550,7 @@ void FXRealSpinDial::layout() {
         }
     } else {
         // dial/buttons are default width, text stretches to fill the rest
-        dialWidth = buttonWidth = 0;
+        buttonWidth = 0;
         if (!(options & SPINDIAL_NODIAL)) {
             FXint w = DIALWIDTH;
             dial->position(right - w, border, w, dialHeight);

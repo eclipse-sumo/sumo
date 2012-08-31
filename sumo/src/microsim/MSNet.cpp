@@ -160,10 +160,10 @@ MSNet::getInstance(void) {
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
         MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
         ShapeContainer* shapeCont):
+    myVehiclesMoved(0),
     myRouterTTInitialized(false),
     myRouterTTDijkstra(0),
     myRouterTTAStar(0),
-    myVehiclesMoved(0),
     myRouterEffort(0)
 {
     if (myInstance != 0) {
