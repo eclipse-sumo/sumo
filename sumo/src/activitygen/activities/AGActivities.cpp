@@ -271,7 +271,7 @@ AGActivities::generateRandomTraffic() {
     }
 
     //random proportional distribution:
-    float proportionalPercentage = 0.05f;
+    //float proportionalPercentage = 0.05f;
     //TODO generate a proportionally distributed random traffic
 
     return true;

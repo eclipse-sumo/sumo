@@ -452,11 +452,11 @@ NIImporter_VISUM::parse_Connectors() {
     } else {
         proz = 1;
     }
-    // get the duration to wait
-    SUMOReal retard = -1;
-    if (myLineParser.know("t0-IV")) {
-        retard = getNamedFloat("t0-IV", -1);
-    }
+    // get the duration to wait (unused)
+//     SUMOReal retard = -1;
+//     if (myLineParser.know("t0-IV")) {
+//         retard = getNamedFloat("t0-IV", -1);
+//     }
     // get the type;
     //  use a standard type with a large speed when a type is not given
     std::string type = myLineParser.know("Typ")
@@ -721,7 +721,6 @@ NIImporter_VISUM::parse_Lanes() {
         // nope, we have to split the edge...
         //  maybe it is not the proper edge to split - VISUM seems not to sort the splits...
         bool mustRecheck = true;
-        NBNode* nextNode = node;
         SUMOReal seenLength = 0;
         while (mustRecheck) {
             if (edge->getID().substr(edge->getID().length() - node->getID().length() - 1) == "_" + node->getID()) {
@@ -735,13 +734,9 @@ NIImporter_VISUM::parse_Lanes() {
                     if (dirS == "1") {
                         // incoming -> move back
                         edge = edge->getFromNode()->getIncomingEdges()[0];
-                        nextNode = edge->getToNode();
-                        nextNode = edge->getFromNode();
                     } else {
                         // outgoing -> move forward
                         edge = edge->getToNode()->getOutgoingEdges()[0];
-                        nextNode = edge->getFromNode();
-                        nextNode = edge->getToNode();
                     }
                 } else {
                     mustRecheck = false;
@@ -879,14 +874,15 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
         return;
     }
     std::string dir = myLineParser.get("RICHTUNG");
-    std::string indexS = NBHelpers::normalIDRepresentation(myLineParser.get("INDEX"));
-    int index = -1;
-    try {
-        index = TplConvert::_2int(indexS.c_str()) - 1;
-    } catch (NumberFormatException&) {
-        WRITE_ERROR("An index for a TEILFLAECHENELEMENT is not numeric (id='" + toString(id) + "').");
-        return;
-    }
+// get index (unused)
+//     std::string indexS = NBHelpers::normalIDRepresentation(myLineParser.get("INDEX"));
+//     int index = -1;
+//     try {
+//         index = TplConvert::_2int(indexS.c_str()) - 1;
+//     } catch (NumberFormatException&) {
+//         WRITE_ERROR("An index for a TEILFLAECHENELEMENT is not numeric (id='" + toString(id) + "').");
+//         return;
+//     }
     PositionVector shape;
     shape.push_back(myPoints[myEdges[edgeid].first]);
     shape.push_back(myPoints[myEdges[edgeid].second]);

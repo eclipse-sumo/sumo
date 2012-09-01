@@ -86,13 +86,13 @@ public:
 protected:
     // @brief xml files: statistics on the city and generated routes
     std::string inputFile, outputFile;
+    // @brief network of the city
+    RONet* net;
     //Activities activities;
     // @brief city object containing all households and vehicles
     AGCity city;
     // @brief time of beginning and ending of the simulation and the duration of the simulation in days (min 1 day (beginning and end in the same day)
     int durationInDays, beginTime, endTime;
-    // @brief network of the city
-    RONet* net;
 
     /**
      * @brief validation: compatibility of the given trip

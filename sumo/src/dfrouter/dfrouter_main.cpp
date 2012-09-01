@@ -205,7 +205,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
                                     oc.getBool("calibrator-output"),
                                     oc.getBool("include-unused-routes"),
                                     oc.getFloat("scale"),
-                                    oc.getInt("max-search-depth"),
+//                                    oc.getInt("max-search-depth"),
                                     oc.getBool("emissions-only"));
             PROGRESS_DONE_MESSAGE();
         }

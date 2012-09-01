@@ -314,6 +314,8 @@ GUILaneWrapper::ROWdrawAction_drawArrows() const {
                 GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
                 GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
                 break;
+	    default:
+                break;
         }
     }
     glPopMatrix();

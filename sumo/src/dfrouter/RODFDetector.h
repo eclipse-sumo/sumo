@@ -189,11 +189,9 @@ public:
     /// @}
 
     void buildDestinationDistribution(const RODFDetectorCon& detectors,
-                                      const RODFDetectorFlows& flows,
                                       SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                       const RODFNet& net,
-                                      std::map<size_t, RandomDistributor<size_t>* > &into,
-                                      int maxFollower) const;
+                                      std::map<size_t, RandomDistributor<size_t>* > &into) const;
 
     void computeSplitProbabilities(const RODFNet* net, const RODFDetectorCon& detectors,
                                    const RODFDetectorFlows& flows,
@@ -255,7 +253,7 @@ public:
                        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                        const RODFNet& net,
                        bool writeCalibrators, bool includeUnusedRoutes,
-                       SUMOReal scale, int maxFollower,
+                       SUMOReal scale,
                        bool insertionsOnly);
 
     void writeEmitterPOIs(const std::string& file,

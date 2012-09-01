@@ -99,20 +99,20 @@ private:
     /// @brief The network to use
     RONet& myNet;
 
-    /// @brief The maximum number of edges a route may have
-    int myMaxEdges;
-
     /// @brief Whether unbuildable routes shall be reported as warniings, not errors
-    bool myUnbuildIsWarningOnly;
+    const bool myUnbuildIsWarningOnly;
 
     /// @brief Whether all edges may be used as route end
-    bool myAcceptAllDestination;
+    const bool myAcceptAllDestination;
+
+    /// @brief The maximum number of edges a route may have
+    const int myMaxEdges;
 
     /// @brief Whether vehicle class information shall be ignored
-    bool myIgnoreClasses;
+    const bool myIgnoreClasses;
 
     /// @brief Whether a vehicle may reuse a road
-    bool myAllowLoops;
+    const bool myAllowLoops;
 
 };
 

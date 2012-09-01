@@ -238,7 +238,7 @@ TraCIServerAPI_GUI::getMainWindow() {
 }
 
 
-GUISUMOAbstractView* const
+GUISUMOAbstractView*
 TraCIServerAPI_GUI::getNamedView(const std::string& id) {
     GUIMainWindow* mw = static_cast<GUIMainWindow*>(getMainWindow());
     if (mw == 0) {

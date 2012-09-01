@@ -284,7 +284,7 @@ TraCIServer::close() {
 // python functions (traciemb module)
 // ===========================================================================
 static PyObject*
-traciemb_execute(PyObject* self, PyObject* args) {
+traciemb_execute(PyObject* /* self */, PyObject* args) {
     const char* msg;
     int size;
     if (!PyArg_ParseTuple(args, "s#", &msg, &size)) {

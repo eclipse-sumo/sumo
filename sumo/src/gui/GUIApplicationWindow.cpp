@@ -145,7 +145,9 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
     : GUIMainWindow(a),
       myLoadThread(0), myRunThread(0),
       myAmLoading(false),
-      mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false), myRecentNets(a, "nets") {
+      mySimDelay(50),
+      myRecentNets(a, "nets"), myConfigPattern(configPattern),
+      hadDependentBuild(false) {
     GUIIconSubSys::init(a);
 }
 

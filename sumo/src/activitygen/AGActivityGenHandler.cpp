@@ -61,8 +61,8 @@ using namespace std;
 // method definitions
 // ===========================================================================
 AGActivityGenHandler::AGActivityGenHandler(AGCity& city, RONet* net)
-    : SUMOSAXHandler("sumo-stat"), net(net),
-      myCity(city) {}
+    : SUMOSAXHandler("sumo-stat"),
+      myCity(city), net(net) {}
 
 
 AGActivityGenHandler::~AGActivityGenHandler() {}
@@ -376,7 +376,8 @@ AGActivityGenHandler::parsePopulation() {
 void
 AGActivityGenHandler::parseBracket(const SUMOSAXAttributes& attrs) {
     try {
-        int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE); //included in the bracket
+//TODO beginAge needs to be evaluated
+//        int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE); //included in the bracket
         int endAge = attrs.getInt(AGEN_ATTR_ENDAGE); //NOT included in the bracket
         if (myCurrentObject == "population") {
             myCity.statData.population[endAge] = attrs.getInt(AGEN_ATTR_PEOPLENBR);

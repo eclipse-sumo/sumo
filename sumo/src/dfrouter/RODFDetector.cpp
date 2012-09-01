@@ -146,14 +146,9 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
 
 void
 RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
-        const RODFDetectorFlows& flows,
-        SUMOTime startTime,
-        SUMOTime endTime,
-        SUMOTime stepOffset,
+        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
         const RODFNet& net,
-        std::map<size_t, RandomDistributor<size_t>* > &into,
-        int maxFollower) const {
-    UNUSED_PARAMETER(maxFollower);
+        std::map<size_t, RandomDistributor<size_t>* > &into) const {
     if (myRoutes == 0) {
         if (myType != DISCARDED_DETECTOR && myType != BETWEEN_DETECTOR) {
             WRITE_ERROR("Missing routes for detector '" + myID + "'.");
@@ -161,7 +156,6 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
         return;
     }
     std::vector<RODFRouteDesc> &descs = myRoutes->get();
-//    const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
     // iterate through time (in output interval steps)
     for (SUMOTime time = startTime; time < endTime; time += stepOffset) {
         into[time] = new RandomDistributor<size_t>();
@@ -287,10 +281,9 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
     // insertions
     if (insertionsOnly || flows.knows(myID)) {
         // get the flows for this detector
-
         const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
         // go through the simulation seconds
-        int index = 0;
+        unsigned int index = 0;
         for (SUMOTime time = startTime; time < endTime; time += stepOffset, index++) {
             // get own (departure flow)
             assert(index < mflows.size());
@@ -370,7 +363,7 @@ RODFDetector::writeSingleSpeedTrigger(const std::string& file,
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("vss");
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
-    int index = 0;
+    unsigned int index = 0;
     for (SUMOTime t = startTime; t < endTime; t += stepOffset, index++) {
         assert(index < mflows.size());
         const FlowDef& srcFD = mflows[index];
@@ -546,7 +539,6 @@ RODFDetectorCon::writeEmitters(const std::string& file,
                                bool writeCalibrators,
                                bool includeUnusedRoutes,
                                SUMOReal scale,
-                               int maxFollower,
                                bool insertionsOnly) {
     // compute turn probabilities at detector
     for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
@@ -573,7 +565,7 @@ RODFDetectorCon::writeEmitters(const std::string& file,
         //  ... compute routes' distribution over time
         std::map<size_t, RandomDistributor<size_t>* > dists;
         if (!insertionsOnly && flows.knows(det->getID())) {
-            det->buildDestinationDistribution(*this, flows, startTime, endTime, stepOffset, net, dists, maxFollower);
+            det->buildDestinationDistribution(*this, startTime, endTime, stepOffset, net, dists);
         }
         //  ... write the definition
         if (!det->writeEmitterDefinition(defFileName, dists, flows, startTime, endTime, stepOffset, includeUnusedRoutes, scale, insertionsOnly, defaultSpeed)) {
@@ -602,8 +594,6 @@ RODFDetectorCon::writeEmitterPOIs(const std::string& file,
         SUMOReal flow = flows.getFlowSumSecure(det->getID());
         SUMOReal col = flow / flows.getMaxDetectorFlow();
         col = (SUMOReal)(col / 2. + .5);
-        SUMOReal r, g, b;
-        r = g = b = 0;
         out.openTag(SUMO_TAG_POI).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i)->getID()) + ":" + toString(flow));
         switch ((*i)->getType()) {
             case BETWEEN_DETECTOR:

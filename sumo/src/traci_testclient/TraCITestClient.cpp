@@ -270,7 +270,6 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string& obj
     }
     // validate result state
     try {
-        int respStart = inMsg.position();
         int length = inMsg.readUnsignedByte();
         if (length == 0) {
             length = inMsg.readInt();
@@ -344,7 +343,6 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string&
     }
     // validate result state
     try {
-        int respStart = inMsg.position();
         int length = inMsg.readUnsignedByte();
         if (length == 0) {
             length = inMsg.readInt();
@@ -662,7 +660,6 @@ TraCITestClient::validateSimulationStep2(tcpip::Storage& inMsg) {
 bool
 TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
     try {
-        int respStart = inMsg.position();
         int length = inMsg.readUnsignedByte();
         if (length == 0) {
             length = inMsg.readInt();

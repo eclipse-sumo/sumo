@@ -54,9 +54,9 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet& net,
         SUMOTime begin, SUMOTime end, const bool tryRepair,
         const bool withTaz, const std::string& file)
     : ROTypedXMLRoutesLoader(net, begin, end, file),
-      myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true),
-      myCurrentAlternatives(0), myCurrentRoute(0), myTryRepair(tryRepair),
-      myWithTaz(withTaz), myColor(0), myCurrentVType(0) {
+      myVehicleParameter(0), myColor(0), myCurrentIsOk(true),
+      myAltIsValid(true), myCurrentAlternatives(0), myTryRepair(tryRepair),
+      myWithTaz(withTaz), myCurrentRoute(0), myCurrentVType(0) {
 }
 
 

@@ -79,7 +79,7 @@
  * weights which may be supplied in a separate file
  */
 void
-initNet(RONet& net, ROLoader& loader, OptionsCont& oc,
+initNet(RONet& net, ROLoader& loader,
         const std::vector<SUMOReal> &turnDefs) {
     // load the net
     ROJTREdgeBuilder builder;
@@ -193,7 +193,7 @@ main(int argc, char** argv) {
         // load data
         ROLoader loader(oc, true);
         net = new RONet();
-        initNet(*net, loader, oc, defs);
+        initNet(*net, loader, defs);
         try {
             // parse and set the turn defaults first
             loadJTRDefinitions(*net, oc);
@@ -238,4 +238,3 @@ main(int argc, char** argv) {
 
 
 /****************************************************************************/
-
