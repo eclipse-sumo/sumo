@@ -22,6 +22,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(XERCES_64)\include;$(PROJ_GDAL_64)\include;$(FOX16_64)\include;$(OSG_64)\include;..\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HAVE_PROJ;HAVE_GDAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX64</TargetMachine>
