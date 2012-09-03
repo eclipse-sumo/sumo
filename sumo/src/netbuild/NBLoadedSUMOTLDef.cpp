@@ -160,11 +160,21 @@ NBLoadedSUMOTLDef::amInvalid() const {
 
 void
 NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) {
-    NBConnectionVector::iterator it = find(myControlledLinks.begin(), myControlledLinks.end(), conn);
+    NBConnectionVector::iterator it = myControlledLinks.begin();
+    // find the connection but ignore its TLIndex since it might have been
+    // invalidated by an earlier removal
+    for (;it != myControlledLinks.end(); ++it) {
+        if (it->getFrom() == conn.getFrom() && 
+                it->getTo() == conn.getTo() &&
+                it->getFromLane() == conn.getFromLane() &&
+                it->getToLane() == conn.getToLane()) {
+            break;
+        }
+    }
     if (it == myControlledLinks.end()) {
         throw ProcessError("Attempt to remove nonexistant connection");
     }
-    const int removed = conn.getTLIndex();
+    const int removed = it->getTLIndex();
     // remove the connection
     myControlledLinks.erase(it);
     if (reconstruct) {
