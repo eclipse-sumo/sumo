@@ -34,7 +34,7 @@
 
 #include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
-#include <utils/shapes/PointOfInterest.h>
+#include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Polygon.h"
