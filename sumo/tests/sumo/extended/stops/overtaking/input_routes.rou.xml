@@ -1,7 +1,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <route id="1" edges="1fi 1si 1o 1fi 1si"/>
-    <vehicle depart="1" id="veh0" route="1">
-        <stop lane="1si_2" endPos="-50" duration="50"/>
+    <vehicle depart="1" id="stopped" route="1">
+        <stop lane="1si_2" endPos="-50" duration="500"/>
     </vehicle>
-    <vehicle depart="10" id="veh1" route="1"/>
+    <vehicle depart="10" id="overtaking_right" route="1"/>
 </routes>
