@@ -68,24 +68,21 @@ GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 
 bool
 GUIVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
-    myLock.lock();
-    const bool result = MSVehicleControl::addVehicle(id, v);
-    myLock.unlock();
-    return result;
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSVehicleControl::addVehicle(id, v);
 }
 
 
 void
 GUIVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     MSVehicleControl::deleteVehicle(veh, discard);
-    myLock.unlock();
 }
 
 
 void
 GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID> &into) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
         SUMOVehicle* veh = (*i).second;
@@ -93,7 +90,6 @@ GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID> &into) {
             into.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
         }
     }
-    myLock.unlock();
 }
 
 

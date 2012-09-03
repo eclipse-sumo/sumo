@@ -72,14 +72,8 @@ void
 GUIInternalLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
                                     const MSLane::VehCont::iterator& at,
                                     MSMoveReminder::Notification notification) {
-    myLock.lock();
-    try {
-        MSInternalLane::incorporateVehicle(veh, pos, speed, at, notification);
-        myLock.unlock();
-    } catch (ProcessError&) {
-        myLock.unlock();
-        throw;
-    }
+    AbstractMutex::ScopedLocker locker(myLock);
+    MSInternalLane::incorporateVehicle(veh, pos, speed, at, notification);
 }
 
 
@@ -99,70 +93,36 @@ GUIInternalLane::releaseVehicles() const {
 
 bool
 GUIInternalLane::moveCritical(SUMOTime t) {
-    myLock.lock();
-    try {
-        bool ret = MSInternalLane::moveCritical(t);
-        myLock.unlock();
-        return ret;
-    } catch (ProcessError&) {
-        myLock.unlock();
-        throw;
-    }
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSInternalLane::moveCritical(t);
 }
 
 
 bool
 GUIInternalLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
-    myLock.lock();
-    try {
-        bool ret = MSInternalLane::setCritical(t, into);
-        myLock.unlock();
-        return ret;
-    } catch (ProcessError&) {
-        myLock.unlock();
-        throw;
-    }
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSInternalLane::setCritical(t, into);
 }
 
 
 MSVehicle*
 GUIInternalLane::removeVehicle(MSVehicle* remVehicle) {
-    myLock.lock();
-    try {
-        MSVehicle* ret = MSLane::removeVehicle(remVehicle);
-        myLock.unlock();
-        return ret;
-    } catch (ProcessError&) {
-        myLock.unlock();
-        throw;
-    }
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSLane::removeVehicle(remVehicle);
 }
 
 
 void
 GUIInternalLane::swapAfterLaneChange(SUMOTime t) {
-    myLock.lock();
-    try {
-        MSLane::swapAfterLaneChange(t);
-        myLock.unlock();
-    } catch (ProcessError&) {
-        myLock.unlock();
-        throw;
-    }
+    AbstractMutex::ScopedLocker locker(myLock);
+    MSLane::swapAfterLaneChange(t);
 }
 
 
 bool
 GUIInternalLane::integrateNewVehicle(SUMOTime t) {
-    myLock.lock();
-    try {
-        bool ret = MSLane::integrateNewVehicle(t);
-        myLock.unlock();
-        return ret;
-    } catch (ProcessError&) {
-        myLock.unlock();
-        throw;
-    }
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSLane::integrateNewVehicle(t);
 }
 
 
@@ -174,14 +134,8 @@ GUIInternalLane::buildLaneWrapper(unsigned int index) {
 
 void
 GUIInternalLane::detectCollisions(SUMOTime timestep) {
-    myLock.lock();
-    try {
-        MSLane::detectCollisions(timestep);
-        myLock.unlock();
-    } catch (ProcessError&) {
-        myLock.unlock();
-        throw;
-    }
+    AbstractMutex::ScopedLocker locker(myLock);
+    MSLane::detectCollisions(timestep);
 }
 
 

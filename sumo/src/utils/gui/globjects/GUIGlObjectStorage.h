@@ -174,7 +174,7 @@ private:
     GUIGlID myAktID;
 
     /// @brief A lock to avoid parallel access on the storages
-    MFXMutex myLock;
+    mutable MFXMutex myLock;
 
     /// @brief The network object
     GUIGlObject* myNetObject;

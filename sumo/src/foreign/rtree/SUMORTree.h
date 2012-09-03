@@ -79,9 +79,8 @@ public:
      * @see RTree::Insert
      */
     void Insert(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
-        myLock.lock();
+        AbstractMutex::ScopedLocker locker(myLock);
         RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Insert(a_min, a_max, a_dataId);
-        myLock.unlock();
     }
 
 
@@ -92,9 +91,8 @@ public:
      * @see RTree::Remove
      */
     void Remove(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
-        myLock.lock();
+        AbstractMutex::ScopedLocker locker(myLock);
         RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Remove(a_min, a_max, a_dataId);
-        myLock.unlock();
     }
 
 
@@ -108,10 +106,8 @@ public:
      * @see RTree::Search
      */
     int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) {
-        myLock.lock();
-        int ret = RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Search(a_min, a_max, c);
-        myLock.unlock();
-        return ret;
+        AbstractMutex::ScopedLocker locker(myLock);
+        return RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Search(a_min, a_max, c);
     }
 
 

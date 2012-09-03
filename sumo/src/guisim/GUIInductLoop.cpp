@@ -71,40 +71,34 @@ GUIInductLoop::buildDetectorGUIRepresentation() {
 
 void
 GUIInductLoop::reset() {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     MSInductLoop::reset();
-    myLock.unlock();
 }
 
 
 void
 GUIInductLoop::enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     MSInductLoop::enterDetectorByMove(veh, entryTimestep);
-    myLock.unlock();
 }
 
 void
 GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     MSInductLoop::leaveDetectorByMove(veh, leaveTimestep);
-    myLock.unlock();
 }
 
 void
 GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     MSInductLoop::leaveDetectorByLaneChange(veh);
-    myLock.unlock();
 }
 
 
 std::vector<MSInductLoop::VehicleData>
 GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const {
-    myLock.lock();
-    std::vector<VehicleData> ret = MSInductLoop::collectVehiclesOnDet(t);
-    myLock.unlock();
-    return ret;
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSInductLoop::collectVehiclesOnDet(t);
 }
 
 

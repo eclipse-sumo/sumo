@@ -106,9 +106,8 @@ GUIParameterTableWindow::~GUIParameterTableWindow() {
 
 void
 GUIParameterTableWindow::removeObject(GUIGlObject* /*i*/) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     myObject = 0;
-    myLock.unlock();
 }
 
 
@@ -223,15 +222,13 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 
 void
 GUIParameterTableWindow::updateTable() {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     if (myObject == 0) {
-        myLock.unlock();
         return;
     }
     for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); i++) {
         (*i)->update();
     }
-    myLock.unlock();
 }
 
 

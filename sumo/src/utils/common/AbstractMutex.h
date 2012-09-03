@@ -40,6 +40,7 @@
  * @brief An abstract class for encapsulating mutex implementations
  *
  * This class defines access to a mutex. The implementation may differ.
+ *
  * Within gui-applications, FXMutexes may be used while this is improper
  *  for command-line applications. Normally, they do not need mutexes unless
  *  a synchronized communication with an external application is established.
@@ -61,6 +62,38 @@ public:
 
     /// @brief Unlocks the mutex
     virtual void unlock() = 0;
+
+
+
+    /** @class ScopedLocker
+     * @brief A mutex encapsulator which locks/unlocks the given mutex on construction/destruction, respectively
+     */
+    class ScopedLocker {
+    public:
+        /** @brief Constructor
+         * @param[in] lock The mutex to lock
+         *
+         * Locks the mutex.
+         */
+        ScopedLocker(AbstractMutex& lock): myLock(lock) {
+            myLock.lock();
+        }
+
+
+        /** @brief Destructor
+         * Unlocks the mutex.
+         */
+        ~ScopedLocker() {
+            myLock.unlock();
+        }
+
+    private:
+        /// @brief The mutex to lock
+        AbstractMutex &myLock;
+
+    };
+
+
 
 };
 

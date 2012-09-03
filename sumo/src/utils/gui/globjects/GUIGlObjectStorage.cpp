@@ -60,54 +60,47 @@ GUIGlObjectStorage::~GUIGlObjectStorage() {}
 
 GUIGlID
 GUIGlObjectStorage::registerObject(GUIGlObject* object, const std::string& fullName) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     GUIGlID id = myAktID++;
     myMap[id] = object;
     myFullNameMap[fullName] = object;
-    myLock.unlock();
     return id;
 }
 
 
 GUIGlObject*
 GUIGlObjectStorage::getObjectBlocking(GUIGlID id) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     ObjectMap::iterator i = myMap.find(id);
     if (i == myMap.end()) {
         i = myBlocked.find(id);
         if (i != myBlocked.end()) {
             GUIGlObject* o = (*i).second;
-            myLock.unlock();
             return o;
         }
-        myLock.unlock();
         return 0;
     }
     GUIGlObject* o = (*i).second;
     myMap.erase(id);
     myBlocked[id] = o;
-    myLock.unlock();
     return o;
 }
 
 
 GUIGlObject*
 GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     if (myFullNameMap.count(fullName)) {
         GUIGlID id = myFullNameMap[fullName]->getGlID();
-        myLock.unlock();
         return getObjectBlocking(id);
-    } else {
-        myLock.unlock();
-        return 0;
     }
+    return 0;
 }
 
 
 bool
 GUIGlObjectStorage::remove(GUIGlID id) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     ObjectMap::iterator i = myMap.find(id);
     if (i == myMap.end()) {
         i = myBlocked.find(id);
@@ -116,48 +109,45 @@ GUIGlObjectStorage::remove(GUIGlID id) {
         myFullNameMap.erase(o->getFullName());
         myBlocked.erase(id);
         my2Delete[id] = o;
-        myLock.unlock();
         return false;
-    } else {
-        myFullNameMap.erase(i->second->getFullName());
-        myMap.erase(id);
-        myLock.unlock();
-        return true;
     }
+    myFullNameMap.erase(i->second->getFullName());
+    myMap.erase(id);
+    return true;
 }
 
 
 void
 GUIGlObjectStorage::clear() {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     myMap.clear();
     myAktID = 0;
-    myLock.unlock();
 }
 
 
 void
 GUIGlObjectStorage::unblockObject(GUIGlID id) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     ObjectMap::iterator i = myBlocked.find(id);
     if (i == myBlocked.end()) {
-        myLock.unlock();
         return;
     }
     GUIGlObject* o = (*i).second;
     myBlocked.erase(id);
     myMap[id] = o;
-    myLock.unlock();
 }
 
 
 std::set<GUIGlID>
 GUIGlObjectStorage::getAllIDs() const {
+    AbstractMutex::ScopedLocker locker(myLock);
     std::set<GUIGlID> result;
     for (ObjectMap::const_iterator it = myMap.begin(); it != myMap.end(); it++) {
         result.insert(it->first);
     }
     return result;
 }
+
+
 /****************************************************************************/
 

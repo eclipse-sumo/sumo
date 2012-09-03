@@ -131,7 +131,7 @@ public:
 
 private:
     /// @brief The mutex for adding/removing operations
-    MFXMutex myLock;
+    mutable MFXMutex myLock;
 
     /// @brief The RTree structure to add and remove visualization elements
     SUMORTree& myVis;

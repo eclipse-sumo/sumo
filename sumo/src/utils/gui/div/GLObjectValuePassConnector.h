@@ -72,9 +72,8 @@ public:
      */
     GLObjectValuePassConnector(GUIGlObject& o, ValueSource<T> *source, ValueRetriever<T> *retriever)
         : myObject(o), mySource(source), myRetriever(retriever) { /*, myIsInvalid(false) */
-        myLock.lock();
+        AbstractMutex::ScopedLocker locker(myLock);
         myContainer.push_back(this);
-        myLock.unlock();
     }
 
 
@@ -96,21 +95,19 @@ public:
     /** @brief Updates all instances (passes values)
      */
     static void updateAll() {
-        myLock.lock();
+        AbstractMutex::ScopedLocker locker(myLock);
         std::for_each(myContainer.begin(), myContainer.end(), std::mem_fun(&GLObjectValuePassConnector<T>::passValue));
-        myLock.unlock();
     }
 
 
     /** @brief Deletes all instances
      */
     static void clear() {
-        myLock.lock();
+        AbstractMutex::ScopedLocker locker(myLock);
         while (!myContainer.empty()) {
             delete(*myContainer.begin());
         }
         myContainer.clear();
-        myLock.unlock();
     }
 
 
@@ -120,7 +117,7 @@ public:
      * @param[in] o The object which shall no longer be asked for values
      */
     static void removeObject(GUIGlObject& o) {
-        myLock.lock();
+        AbstractMutex::ScopedLocker locker(myLock);
         for (typename std::vector< GLObjectValuePassConnector<T>* >::iterator i = myContainer.begin(); i != myContainer.end();) {
             if ((*i)->myObject.getGlID() == o.getGlID()) {
                 i = myContainer.erase(i);
@@ -128,7 +125,6 @@ public:
                 ++i;
             }
         }
-        myLock.unlock();
     }
     /// @}
 

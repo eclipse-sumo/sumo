@@ -52,23 +52,15 @@ SUMOTime
 GUIEventControl::addEvent(Command* operation,
                           SUMOTime execTimeStep,
                           AdaptType type) {
-    myLock.lock();
-    SUMOTime ret = MSEventControl::addEvent(operation, execTimeStep, type);
-    myLock.unlock();
-    return ret;
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSEventControl::addEvent(operation, execTimeStep, type);
 }
 
 
 void
 GUIEventControl::execute(SUMOTime execTime) {
-    myLock.lock();
-    try {
-        MSEventControl::execute(execTime);
-    } catch (ProcessError&) {
-        myLock.unlock();
-        throw;
-    }
-    myLock.unlock();
+    AbstractMutex::ScopedLocker locker(myLock);
+    MSEventControl::execute(execTime);
 }
 
 

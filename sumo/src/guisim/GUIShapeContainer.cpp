@@ -54,14 +54,13 @@ bool
 GUIShapeContainer::addPoI(const std::string& name, int layer, const std::string& type, const RGBColor& c,
                           const Position& pos) {
     GUIPointOfInterest* p = new GUIPointOfInterest(layer, name, type, pos, c);
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     const bool ret = add(layer, p);
     if (ret) {
         myVis.addAdditionalGLObject(p);
     } else {
         delete p;
     }
-    myLock.unlock();
     return ret;
 }
 
@@ -70,14 +69,13 @@ bool
 GUIShapeContainer::addPolygon(const std::string& name, int layer, const std::string& type, const RGBColor& c,
                               bool filled, const PositionVector& shape) {
     GUIPolygon* p = new GUIPolygon(layer, name, type, c, shape, filled);
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     const bool ret = add(layer, p);
     if (ret) {
         myVis.addAdditionalGLObject(p);
     } else {
         delete p;
     }
-    myLock.unlock();
     return ret;
 }
 
@@ -85,7 +83,7 @@ GUIShapeContainer::addPolygon(const std::string& name, int layer, const std::str
 
 bool
 GUIShapeContainer::removePoI(int layer, const std::string& id) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     if (myPOILayers.find(layer) == myPOILayers.end()) {
         myLock.unlock();
         return false;
@@ -93,39 +91,32 @@ GUIShapeContainer::removePoI(int layer, const std::string& id) {
     NamedObjectCont<PointOfInterest*> &c = myPOILayers.find(layer)->second;
     PointOfInterest* p = c.get(id);
     if (p == 0) {
-        myLock.unlock();
         return false;
     }
     myVis.removeAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
-    bool ret = c.remove(id);
-    myLock.unlock();
-    return ret;
+    return c.remove(id);
 }
 
 
 bool
 GUIShapeContainer::removePolygon(int layer, const std::string& id) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     if (myPolygonLayers.find(layer) == myPolygonLayers.end()) {
-        myLock.unlock();
         return false;
     }
     GUIPolygon* p = static_cast<GUIPolygon*>(myPolygonLayers.find(layer)->second.get(id));
     if (p == 0) {
-        myLock.unlock();
         return false;
     }
     myVis.removeAdditionalGLObject(p);
-    bool ret = myPolygonLayers.find(layer)->second.remove(id);
-    myLock.unlock();
-    return ret;
+    return myPolygonLayers.find(layer)->second.remove(id);
 }
 
 
 
 void
 GUIShapeContainer::movePoI(int layer, const std::string& id, const Position& pos) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     if (myPOILayers.find(layer) != myPOILayers.end()) {
         PointOfInterest* p = myPOILayers.find(layer)->second.get(id);
         if (p != 0) {
@@ -134,13 +125,12 @@ GUIShapeContainer::movePoI(int layer, const std::string& id, const Position& pos
             myVis.addAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
         }
     }
-    myLock.unlock();
 }
 
 
 void
 GUIShapeContainer::reshapePolygon(int layer, const std::string& id, const PositionVector& shape) {
-    myLock.lock();
+    AbstractMutex::ScopedLocker locker(myLock);
     if (myPolygonLayers.find(layer) != myPolygonLayers.end()) {
         GUIPolygon* p = static_cast<GUIPolygon*>(myPolygonLayers.find(layer)->second.get(id));
         if (p != 0) {
@@ -149,12 +139,12 @@ GUIShapeContainer::reshapePolygon(int layer, const std::string& id, const Positi
             myVis.addAdditionalGLObject(p);
         }
     }
-    myLock.unlock();
 }
 
 
 std::vector<GUIGlID>
 GUIShapeContainer::getShapeIDs() const {
+    AbstractMutex::ScopedLocker locker(myLock);
     std::vector<GUIGlID> ret;
     for (int j = myMinLayer; j <= myMaxLayer; ++j) {
         const PolyMap& pol = getPolygonCont(j).getMyMap();
