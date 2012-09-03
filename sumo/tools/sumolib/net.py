@@ -163,8 +163,9 @@ class Edge:
 
 class Node:
     """ Nodes from a sumo network """
-    def __init__(self, id, coord, incLanes):
+    def __init__(self, id, type, coord, incLanes):
         self._id = id
+        self._type = type
         self._coord = coord
         self._incoming = []
         self._outgoing = []
@@ -296,15 +297,15 @@ class Net:
         self._ranges = [ [10000, -10000], [10000, -10000] ]
         self._roundabouts = []
 
-    def addNode(self, id, coord=None, incLanes=None):
+    def addNode(self, id, type=None, coord=None, incLanes=None):
         if id not in self._id2node:
-            node = Node(id, coord, incLanes)
+            node = Node(id, type, coord, incLanes)
             self._nodes.append(node)
             self._id2node[id] = node
-        self.setAdditionalNodeInfo(self._id2node[id], coord, incLanes)
+        self.setAdditionalNodeInfo(self._id2node[id], type, coord, incLanes)
         return self._id2node[id]
     
-    def setAdditionalNodeInfo(self, node, coord, incLanes):
+    def setAdditionalNodeInfo(self, node, type, coord, incLanes):
         if coord!=None and node._coord==None:
             node._coord = coord
             self._ranges[0][0] = min(self._ranges[0][0], coord[0])
@@ -313,6 +314,8 @@ class Net:
             self._ranges[1][1] = max(self._ranges[1][1], coord[1])
         if incLanes!=None and node._incLanes==None:
             node._incLanes = incLanes
+        if type!=None and node._type==None:
+            node._type = type
 
     def addEdge(self, id, fromID, toID, prio, function, name):
         if id not in self._id2edge:
@@ -458,7 +461,7 @@ class NetReader(handler.ContentHandler):
                 self._currentShape = ""
         if name == 'junction':
             if attrs['id'][0]!=':':
-                self._currentNode = self._net.addNode(attrs['id'], [ float(attrs['x']), float(attrs['y']) ], attrs['incLanes'].split(" ") )
+                self._currentNode = self._net.addNode(attrs['id'], attrs['type'], [ float(attrs['x']), float(attrs['y']) ], attrs['incLanes'].split(" ") )
         if name == 'succ' and self._withConnections: # deprecated
             if attrs['edge'][0]!=':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
@@ -499,13 +502,13 @@ class NetReader(handler.ContentHandler):
                 tl = ""
                 tllink = -1
             self._net.addConnection(fromEdge, toEdge, fromLane, toLane, attrs['dir'], tl, tllink)
-        if self._withFoes and (name=='ROWLogic' or name=='row-logic'): # 'row-logic' is deprecated!!!
+        if self._withFoes and name=='ROWLogic': # 'row-logic' is deprecated!!!
             self._currentNode = attrs['id']
         if name == 'logicitem' and self._withFoes: # deprecated
             self._net.setFoes(self._currentNode, int(attrs['request']), attrs["foes"], attrs["response"])
         if name == 'request' and self._withFoes:
             self._currentNode.setFoes(int(attrs['index']), attrs["foes"], attrs["response"])
-        if self._withPhases and (name=='tlLogic' or name=='tl-logic'): # tl-logic is deprecated!!!
+        if self._withPhases and name=='tlLogic': # tl-logic is deprecated!!!
             self._currentProgram = self._net.addTLSProgram(attrs['id'], attrs['programID'], int(attrs['offset']), attrs['type'])
         if self._withPhases and name=='phase':
             self._currentProgram.addPhase(attrs['state'], int(attrs['duration']))

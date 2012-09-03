@@ -21,7 +21,7 @@ def setTLType(file, type):
     tree = dom.parse(file)
     
     net = tree.getElementsByTagName('net')[0]
-    tlLogic = net.getElementsByTagName('tl-logic')[0]
+    tlLogic = net.getElementsByTagName('tlLogic')[0]
     tlLogic.setAttribute('type',type)
     
     writer = open(file, 'w')
@@ -35,11 +35,11 @@ def setPhaseMinMax(file, minWE, maxWE, minNS, maxNS):
     phases = tlLogic.getElementsByTagName('phase')
     
     phases[0].setAttribute('duration',str(minNS))
-    phases[0].setAttribute('min',str(minNS))
-    phases[0].setAttribute('max',str(maxNS))
+    phases[0].setAttribute('minDur',str(minNS))
+    phases[0].setAttribute('maxDur',str(maxNS))
     phases[2].setAttribute('duration',str(minWE))
-    phases[2].setAttribute('min',str(minWE))
-    phases[2].setAttribute('max',str(maxWE))
+    phases[2].setAttribute('minDur',str(minWE))
+    phases[2].setAttribute('maxDur',str(maxWE))
     
     writer = open(file, 'w')
     tree.writexml(writer)

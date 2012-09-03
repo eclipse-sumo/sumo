@@ -150,9 +150,11 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.obj</ObjectFileName>
       <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\traci\TraCIAPI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\traci_testclient\TraCITestClient.h" />
+    <ClInclude Include="..\..\..\src\utils\traci\TraCIAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\zz_foreign_tcpip\zz_foreign_tcpip.vcxproj">

@@ -1,5 +1,5 @@
 <add>
-    <tl-logic id="0" type="static" programID="o" offset="0.00">
+    <tlLogic id="0" type="static" programID="o" offset="0.00">
       <phase duration="3.00" state="rryrrrrryrrr"/>
       <phase duration="3.00" state="rrrrrrrrrrrr"/>
       <phase duration="25" state="rrrGGrrrrGGr"/>

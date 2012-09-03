@@ -21,9 +21,15 @@
     <ClCompile Include="..\..\..\src\traci_testclient\tracitestclient_main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\traci\TraCIAPI.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\traci_testclient\TraCITestClient.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\traci\TraCIAPI.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

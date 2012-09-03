@@ -347,6 +347,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\traci\TraCIAPI.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\traci_testclient\tracitestclient_main.cpp"
 				>
 				<FileConfiguration
@@ -394,6 +398,10 @@
 			>
 			<File
 				RelativePath="..\..\..\src\traci_testclient\TraCITestClient.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\traci\TraCIAPI.h"
 				>
 			</File>
 		</Filter>

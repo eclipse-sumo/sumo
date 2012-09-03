@@ -32,6 +32,8 @@
 
 #include <foreign/tcpip/socket.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/traci/TraCIAPI.h>
+
 
 namespace testclient {
 // ===========================================================================
@@ -75,7 +77,7 @@ typedef std::vector<TLPhase> TLPhaseList;
 /**
  * @class TraCITestClient
  */
-class TraCITestClient {
+class TraCITestClient : public TraCIAPI {
 public:
     /** @brief Constructor
      * @param[in] outputFileName The name of the file the outputs will be written into
@@ -96,37 +98,34 @@ public:
 
 
 protected:
-    /// @name Connection handling
-    /// @{
-
-    /** @brief Connects to the given host
-     * @param[in] port The server port to connect to
-     * @param[in] host The server name to connect to
-     */
-    bool connect(int port, std::string host = "localhost");
-
-
-    /** @brief Closes the connection
-     * @return Whether the socket was opened
-     */
-    bool close();
-    /// @}
-
-
-
     /// @name Commands handling
     /// @{
 
-    // simulation commands
-    void commandSimulationStep2(SUMOTime time);
+    /** @brief Sends and validates a simulation step command
+     */
+    void commandSimulationStep(SUMOTime time);
 
-    void commandGetVariable(int domID, int varID, const std::string& objID);
-    void commandGetVariablePlus(int domID, int varID, const std::string& objID, std::ifstream& defFile);
+
+    /** @brief Sends and validates a GetVariable command
+     */
+    void commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* addData=0);
+
+
+    /** @brief Sends and validates a SubscribeVariable command
+     */
     void commandSubscribeVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile);
+
+
+    /** @brief Sends and validates a SetVariable command
+     */
     void commandSetValue(int domID, int varID, const std::string& objID, std::ifstream& defFile);
 
+
+    /** @brief Sends and validates a Close command
+     */
     void commandClose();
     /// @}
+
 
 private:
     void writeResult();
@@ -155,11 +154,10 @@ private:
 
 
 private:
-    tcpip::Socket* socket;
-
     std::string outputFileName;
 
     std::stringstream answerLog;
+
 };
 
 }

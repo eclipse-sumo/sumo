@@ -88,6 +88,5 @@ int main(int argc, char* argv[]) {
     }
 
     TraCITestClient client(outFileName);
-    bool success = client.run(defFile, port, host);
-    return !success;
+    return !client.run(defFile, port, host);
 }

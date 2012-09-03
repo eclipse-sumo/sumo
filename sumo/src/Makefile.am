@@ -24,7 +24,7 @@ MEM_LIBS  = ./foreign/nvwa/libnvwa.a
 endif
 
 if TRACI
-TRACI_LIBS = ./traci-server/libtraciserver.a
+TRACI_LIBS = ./traci-server/libtraciserver.a ./utils/traci/libtraci.a
 TRACI_DIRS = traci-server traci_testclient
 endif
 
