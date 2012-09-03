@@ -564,7 +564,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         if (approaching.first != 0) {
             const MSVehicle* const follower = approaching.first;
             SUMOReal backGapNeeded = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), aVehicle->getSpeed(), cfModel.getMaxDecel());
-            SUMOReal gap = approaching.second -approaching.first->getVehicleType().getMinGap() - pos - aVehicle->getVehicleType().getLength();
+            SUMOReal gap = approaching.second - approaching.first->getVehicleType().getMinGap() + pos - aVehicle->getVehicleType().getLength();
             if (gap < backGapNeeded) {
                 // too close to the consecutive follower
                 return false;
