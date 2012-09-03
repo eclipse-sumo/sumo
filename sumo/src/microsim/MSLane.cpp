@@ -568,7 +568,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (gap < backGapNeeded) {
                 // too close to the consecutive follower
                 const SUMOReal neededStartPos = pos + backGapNeeded - gap;
-                if (myVehicles.size() == 0 and notification == MSMoveReminder::NOTIFICATION_TELEPORT and neededStartPos <= myLength) {
+                if (myVehicles.size() == 0 && notification == MSMoveReminder::NOTIFICATION_TELEPORT && neededStartPos <= myLength) {
                     // shift starting positiong as needed entering from teleport
                     pos = neededStartPos;
                 } else {
