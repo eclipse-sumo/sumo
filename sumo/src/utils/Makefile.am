@@ -3,7 +3,7 @@ GUI_DIRS = foxtools gui
 endif
 
 if TRACI
-TRACI_LIBS = traci
+TRACI_DIRS = traci
 endif
 
 SUBDIRS = common distribution  \
