@@ -176,6 +176,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\microsim\trigger\MSBusStop.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\trigger\MSTrigger.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredReader.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredRerouter.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredXMLReader.cpp" />
