@@ -70,7 +70,6 @@ MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) {
     myVehicles.push_back(VehicleInformation(veh, 
                 t + TIME2STEPS(veh->getEdge()->getCurrentTravelTime(TeleportMinSpeed)), 
                 veh->isParking()));
-    veh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
 }
 
 

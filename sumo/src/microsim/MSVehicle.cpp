@@ -1199,6 +1199,8 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
 #endif
     } else {
         activateReminders(MSMoveReminder::NOTIFICATION_TELEPORT);
+        // normal move() isn't called so reset position here
+        myState.myPos = 0;
     }
     return hasArrived();
 }

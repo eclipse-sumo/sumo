@@ -567,7 +567,13 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             SUMOReal gap = approaching.second - approaching.first->getVehicleType().getMinGap() + pos - aVehicle->getVehicleType().getLength();
             if (gap < backGapNeeded) {
                 // too close to the consecutive follower
-                return false;
+                const SUMOReal neededStartPos = pos + backGapNeeded - gap;
+                if (myVehicles.size() == 0 and notification == MSMoveReminder::NOTIFICATION_TELEPORT and neededStartPos <= myLength) {
+                    // shift starting positiong as needed entering from teleport
+                    pos = neededStartPos;
+                } else {
+                    return false;
+                }
             }
         }
         // check for in-lapping vehicle
