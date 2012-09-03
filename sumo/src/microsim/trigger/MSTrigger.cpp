@@ -1,9 +1,8 @@
 /****************************************************************************/
-/// @file    MSTrigger.h
-/// @author  Daniel Krajzewicz
+/// @file    MSTrigger.cpp
 /// @author  Jakob Erdmann
-/// @date    Sept 2002
-/// @version $Id$
+/// @date    Sept 2012
+/// @version $Id:$
 ///
 // An abstract device that changes the state of the micro simulation
 /****************************************************************************/
@@ -18,60 +17,30 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSTrigger_h
-#define MSTrigger_h
-
-
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
-#include <config.h>
-#endif
-
-#include <set>
-#include <utils/common/Named.h>
-
+#include "MSTrigger.h"
 
 // ===========================================================================
-// class definitions
+// static member definitions
 // ===========================================================================
-/**
- * @class MSTrigger
- * @brief An abstract device that changes the state of the micro simulation
- *
- * We name most of the additional microsim-structures "trigger" in order to
- *  allow some common operation on them.
- */
-class MSTrigger : public Named {
-public:
-    /** @brief Constructor
-     *
-     * @param[in] id The id of the trigger
-     */
-    MSTrigger(const std::string& id);
+std::set<MSTrigger*> MSTrigger::myInstances;
 
-    /// @brief Destructor
-    virtual ~MSTrigger();
-
-    /// @brief properly deletes all trigger instances
-    static void cleanup();
-
-private:
-    /// @brief Invalidated copy constructor.
-    MSTrigger(const MSTrigger&);
-
-    /// @brief Invalidated assignment operator.
-    MSTrigger& operator=(const MSTrigger&);
-
-    static std::set<MSTrigger*> myInstances;
-
-};
+MSTrigger::MSTrigger(const std::string& id) : 
+    Named(id) 
+{
+    myInstances.insert(this);
+}
 
 
-#endif
+MSTrigger::~MSTrigger() {
+    myInstances.erase(this);
+}
 
-/****************************************************************************/
-
+void MSTrigger::cleanup() {
+    for (std::set<MSTrigger*>::iterator it = myInstances.begin(); it != myInstances.end(); ++it) {
+        delete *it;
+    }
+    myInstances.clear();
+}

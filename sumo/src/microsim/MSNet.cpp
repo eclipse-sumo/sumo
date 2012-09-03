@@ -481,6 +481,7 @@ MSNet::clearAll() {
     MSRoute::clear();
     delete MSVehicleTransfer::getInstance();
     MSDevice_Routing::cleanup();
+    MSTrigger::cleanup();
 }
 
 
