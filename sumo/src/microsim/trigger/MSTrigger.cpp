@@ -22,11 +22,16 @@
 // ===========================================================================
 #include "MSTrigger.h"
 
+
 // ===========================================================================
 // static member definitions
 // ===========================================================================
 std::set<MSTrigger*> MSTrigger::myInstances;
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSTrigger::MSTrigger(const std::string& id) : 
     Named(id) 
 {
@@ -38,9 +43,9 @@ MSTrigger::~MSTrigger() {
     myInstances.erase(this);
 }
 
+
 void MSTrigger::cleanup() {
-    for (std::set<MSTrigger*>::iterator it = myInstances.begin(); it != myInstances.end(); ++it) {
-        delete *it;
+    while(!myInstances.empty()) {
+        delete *myInstances.begin();
     }
-    myInstances.clear();
 }

@@ -59,6 +59,7 @@
 #include "MSVehicleTransfer.h"
 #include "MSRoute.h"
 #include "MSRouteLoaderControl.h"
+#include "trigger/MSTrigger.h"
 #include "traffic_lights/MSTLLogicControl.h"
 #include "MSVehicleControl.h"
 #include <utils/common/MsgHandler.h>

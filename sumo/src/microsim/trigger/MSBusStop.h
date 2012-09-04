@@ -34,7 +34,7 @@
 #include <algorithm>
 #include <map>
 #include <string>
-#include "MSTrigger.h"
+#include <utils/common/Named.h>
 
 
 // ===========================================================================
@@ -60,7 +60,7 @@ class MSPerson;
  * Please note that using the last free space disallows vehicles to enter a
  *  free space in between other vehicles.
  */
-class MSBusStop : public MSTrigger {
+class MSBusStop : public Named {
 public:
     /** @brief Constructor
      *
