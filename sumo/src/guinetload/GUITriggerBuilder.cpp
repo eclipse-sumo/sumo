@@ -66,8 +66,8 @@ MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
                                  std::vector<MSEdge*> &edges,
                                  SUMOReal prob, const std::string& file, bool off) {
-    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off);
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(rr);
+    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off,
+            dynamic_cast<GUINet&>(net).getVisualisationSpeedUp());
     return rr;
 }
 

@@ -228,36 +228,39 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
  * GUITriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUITriggeredRerouter(
-    const std::string& id,
-    const std::vector<MSEdge*> &edges,
-    SUMOReal prob, const std::string& aXMLFilename, bool off)
-    : MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
-      GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) {
-    size_t k;
-    size_t no = 0;
-    for (k = 0; k < edges.size(); k++) {
-        GUIEdge* gedge = static_cast<GUIEdge*>(edges[k]);
-        no += gedge->getLanes().size();
+        const std::string& id,
+        const std::vector<MSEdge*> &edges,
+        SUMOReal prob, const std::string& aXMLFilename, bool off,
+        SUMORTree& rtree) : 
+    MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
+    GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) 
+{
+    // add visualisation objects for edges which trigger the rerouter
+    for (std::vector<MSEdge*>::const_iterator it = edges.begin(); it != edges.end(); ++it) {
+        myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, false));
     }
-    myFGPositions.reserve(no);
-    myFGRotations.reserve(no);
-    for (k = 0; k < edges.size(); k++) {
-        GUIEdge* gedge = static_cast<GUIEdge*>(edges[k]);
-        const std::vector<MSLane*> &lanes = gedge->getLanes();
-        size_t noLanes = lanes.size();
-        for (size_t i = 0; i < noLanes; ++i) {
-            const PositionVector& v = gedge->getLaneGeometry((size_t) i).getShape();
-            SUMOReal pos = v.length() - (SUMOReal) 6.;
-            myFGPositions.push_back(v.positionAtLengthPosition(pos));
-            myBoundary.add(v.positionAtLengthPosition(pos));
-            Line l(v.getBegin(), v.getEnd());
-            myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(pos));
+    // add visualisation objects for closed edges
+    for (std::vector<RerouteInterval>::const_iterator it_interval = myIntervals.begin(); 
+            it_interval != myIntervals.end(); ++it_interval) {
+        const std::vector<MSEdge*>& closed = it_interval->closed;
+        for (std::vector<MSEdge*>::const_iterator it = closed.begin(); it != closed.end(); ++it) {
+            myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, true));
         }
+    }
+    // register with rtree and rerouter boundary
+    for (std::vector<GUITriggeredRerouterEdge*>::iterator it = myEdgeVisualizations.begin(); it != myEdgeVisualizations.end(); ++it) {
+        rtree.addAdditionalGLObject(*it);
+        myBoundary.add((*it)->getCenteringBoundary());
     }
 }
 
 
-GUITriggeredRerouter::~GUITriggeredRerouter() {}
+GUITriggeredRerouter::~GUITriggeredRerouter() {
+    for (std::vector<GUITriggeredRerouterEdge*>::iterator it = myEdgeVisualizations.begin(); it != myEdgeVisualizations.end(); ++it) {
+        delete *it;
+    }
+    myEdgeVisualizations.clear();
+}
 
 
 GUIGLObjectPopupMenu*
@@ -283,97 +286,7 @@ GUITriggeredRerouter::getParameterWindow(GUIMainWindow&,
 
 void
 GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    for (size_t i = 0; i < myFGPositions.size(); ++i) {
-        const Position& pos = myFGPositions[i];
-        SUMOReal rot = myFGRotations[i];
-        glPushMatrix();
-        glScaled(s.addExaggeration, s.addExaggeration, 1);
-        glTranslated(pos.x(), pos.y(), 0);
-        glRotated(rot, 0, 0, 1);
-        glTranslated(0, 0, getType());
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-        glBegin(GL_TRIANGLES);
-        glColor3d(1, .8f, 0);
-        // base
-        glVertex2d(0 - 1.4, 0);
-        glVertex2d(0 - 1.4, 6);
-        glVertex2d(0 + 1.4, 6);
-        glVertex2d(0 + 1.4, 0);
-        glVertex2d(0 - 1.4, 0);
-        glVertex2d(0 + 1.4, 6);
-        glEnd();
-
-        glTranslated(0, 0, .1);
-        glColor3d(0, 0, 0);
-        pfSetPosition(0, 0);
-        pfSetScale(3.f);
-        SUMOReal w = pfdkGetStringWidth("U");
-        glRotated(180, 0, 1, 0);
-        glTranslated(-w / 2., 2, 0);
-        pfDrawString("U");
-
-        glTranslated(w / 2., -2, 0);
-        SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
-        prob *= 100.;
-        prob = (SUMOReal)((int) prob);
-        std::string str = toString(prob) + "%";
-        pfSetPosition(0, 0);
-        pfSetScale(.7f);
-        w = pfdkGetStringWidth(str.c_str());
-        glTranslated(-w / 2., 4, 0);
-        pfDrawString(str.c_str());
-        glPopMatrix();
-    }
-    if (hasCurrentReroute(MSNet::getInstance()->getCurrentTimeStep()) && getProbability() > 0) {
-        const RerouteInterval& ri =
-            getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
-        for (std::vector<MSEdge*>::const_iterator i = ri.closed.begin(); i != ri.closed.end(); ++i) {
-            GUIEdge* gedge = static_cast<GUIEdge*>(*i);
-            const std::vector<MSLane*> &lanes = gedge->getLanes();
-            size_t noLanes = lanes.size();
-            SUMOReal prob = getProbability() * 360;
-            for (size_t j = 0; j < noLanes; ++j) {
-                const PositionVector& v = gedge->getLaneGeometry((size_t) j).getShape();
-                SUMOReal d = 3.;
-                Position pos = v.positionAtLengthPosition(d);
-                SUMOReal rot = -v.rotationDegreeAtLengthPosition(d);
-
-                glPushMatrix();
-                glTranslated(pos.x(), pos.y(), 0);
-                glRotated(rot, 0, 0, 1);
-                glTranslated(0, -1.5, 0);
-
-                int noPoints = 9;
-                if (s.scale > 25) {
-                    noPoints = (int)(9.0 + s.scale / 10.0);
-                    if (noPoints > 36) {
-                        noPoints = 36;
-                    }
-                }
-                glTranslated(0, 0, getType());
-                glColor3d(0.7, 0, 0);
-                GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
-                glTranslated(0, 0, .1);
-                glColor3d(1, 0, 0);
-                GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints, 0, prob);
-                glTranslated(0, 0, .1);
-                glColor3d(1, 1, 1);
-                glRotated(-90, 0, 0, 1);
-                glBegin(GL_TRIANGLES);
-                glVertex2d(0 - .3, -1.);
-                glVertex2d(0 - .3, 1.);
-                glVertex2d(0 + .3, 1.);
-                glVertex2d(0 + .3, -1.);
-                glVertex2d(0 - .3, -1.);
-                glVertex2d(0 + .3, 1.);
-                glEnd();
-                glPopMatrix();
-            }
-        }
-    }
-    glPopName();
+    UNUSED_PARAMETER(s);
 }
 
 
@@ -396,6 +309,150 @@ GUITriggeredRerouter::openManipulator(GUIMainWindow& app,
     return gui;
 }
 
+
+/* -------------------------------------------------------------------------
+ * GUITriggeredRerouterEdge - methods
+ * ----------------------------------------------------------------------- */
+GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, bool closed) :
+    GUIGlObject("rerouter_edge", GLO_TRIGGER, parent->getID() + ":" + edge->getID()),
+    myParent(parent),
+    myEdge(edge),
+    myAmClosedEdge(closed)
+{
+    const std::vector<MSLane*> &lanes = edge->getLanes();
+    const size_t noLanes = lanes.size();
+    myFGPositions.reserve(noLanes);
+    myFGRotations.reserve(noLanes);
+    for (size_t i = 0; i < noLanes; ++i) {
+        const PositionVector& v = edge->getLaneGeometry(i).getShape();
+        SUMOReal pos = closed ? 3 : v.length() - (SUMOReal) 6.;
+        myFGPositions.push_back(v.positionAtLengthPosition(pos));
+        myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(pos));
+        myBoundary.add(v.positionAtLengthPosition(pos));
+    }
+}
+
+
+GUITriggeredRerouter::GUITriggeredRerouterEdge::~GUITriggeredRerouterEdge() {}
+
+
+GUIGLObjectPopupMenu*
+GUITriggeredRerouter::GUITriggeredRerouterEdge::getPopUpMenu(GUIMainWindow& app,
+                                   GUISUMOAbstractView& parent) {
+    return myParent->getPopUpMenu(app, parent);
+}
+
+
+GUIParameterTableWindow*
+GUITriggeredRerouter::GUITriggeredRerouterEdge::getParameterWindow(GUIMainWindow&,
+        GUISUMOAbstractView&) {
+    return 0;
+}
+
+
+void
+GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSettings& s) const {
+    if (s.scale * s.addExaggeration >= 3) {
+        glPushName(getGlID());
+        const SUMOReal prob = myParent->getProbability();
+        if (myAmClosedEdge) {
+            // draw closing symbol onto all lanes
+            if (myParent->hasCurrentReroute(MSNet::getInstance()->getCurrentTimeStep()) && prob > 0) {
+                const RerouteInterval& ri =
+                    myParent->getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
+                // draw only if the edge is closed at this time
+                if (std::find(ri.closed.begin(), ri.closed.end(), myEdge) != ri.closed.end()) {
+                    const size_t noLanes = myFGPositions.size();
+                    for (size_t j = 0; j < noLanes; ++j) {
+                        Position pos = myFGPositions[j];
+                        SUMOReal rot = myFGRotations[j];
+                        glPushMatrix();
+                        glTranslated(pos.x(), pos.y(), 0);
+                        glRotated(rot, 0, 0, 1);
+                        glTranslated(0, -1.5, 0);
+                        int noPoints = 9;
+                        if (s.scale > 25) {
+                            noPoints = (int)(9.0 + s.scale / 10.0);
+                            if (noPoints > 36) {
+                                noPoints = 36;
+                            }
+                        }
+                        glTranslated(0, 0, getType());
+                        //glScaled(s.addExaggeration, s.addExaggeration, 1);
+                        glColor3d(0.7, 0, 0);
+                        GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
+                        glTranslated(0, 0, .1);
+                        glColor3d(1, 0, 0);
+                        GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints, 0, prob * 360);
+                        glTranslated(0, 0, .1);
+                        glColor3d(1, 1, 1);
+                        glRotated(-90, 0, 0, 1);
+                        glBegin(GL_TRIANGLES);
+                        glVertex2d(0 - .3, -1.);
+                        glVertex2d(0 - .3, 1.);
+                        glVertex2d(0 + .3, 1.);
+                        glVertex2d(0 + .3, -1.);
+                        glVertex2d(0 - .3, -1.);
+                        glVertex2d(0 + .3, 1.);
+                        glEnd();
+                        glPopMatrix();
+                    }
+                }
+            }
+
+        } else {
+            // draw rerouter symbol onto all lanes
+            for (size_t i = 0; i < myFGPositions.size(); ++i) {
+                const Position& pos = myFGPositions[i];
+                SUMOReal rot = myFGRotations[i];
+                glPushMatrix();
+                glTranslated(pos.x(), pos.y(), 0);
+                glRotated(rot, 0, 0, 1);
+                glTranslated(0, 0, getType());
+                glScaled(s.addExaggeration, s.addExaggeration, 1);
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+                glBegin(GL_TRIANGLES);
+                glColor3d(1, .8f, 0);
+                // base
+                glVertex2d(0 - 1.4, 0);
+                glVertex2d(0 - 1.4, 6);
+                glVertex2d(0 + 1.4, 6);
+                glVertex2d(0 + 1.4, 0);
+                glVertex2d(0 - 1.4, 0);
+                glVertex2d(0 + 1.4, 6);
+                glEnd();
+
+                glTranslated(0, 0, .1);
+                glColor3d(0, 0, 0);
+                pfSetPosition(0, 0);
+                pfSetScale(3.f);
+                SUMOReal w = pfdkGetStringWidth("U");
+                glRotated(180, 0, 1, 0);
+                glTranslated(-w / 2., 2, 0);
+                pfDrawString("U");
+
+                glTranslated(w / 2., -2, 0);
+                std::string str = toString((int)(prob * 100)) + "%";
+                pfSetPosition(0, 0);
+                pfSetScale(.7f);
+                w = pfdkGetStringWidth(str.c_str());
+                glTranslated(-w / 2., 4, 0);
+                pfDrawString(str.c_str());
+                glPopMatrix();
+            }
+        }
+        glPopName();
+    }
+}
+
+
+Boundary
+GUITriggeredRerouter::GUITriggeredRerouterEdge::getCenteringBoundary() const {
+    Boundary b(myBoundary);
+    b.grow(20);
+    return b;
+}
 
 
 /****************************************************************************/
