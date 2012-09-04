@@ -110,8 +110,29 @@
 	traffic},
   journal = {Physical Review E},
   year = {2001},
+  volume = {64},
+  pages = {056132},
   number = {64, 056132},
+  month = {Oct},
   note = { LIDO-Berichtsjahr=2003,},
+  abstract = {We study the impact of global traffic light control strategies in
+	a recently proposed cellular automaton model for vehicular traffic
+	in city networks. The model combines basic ideas of the Biham-Middleton-Levine
+	model for city traffic and the Nagel-Schreckenberg model for highway
+	traffic. The city network has a simple square lattice geometry. All
+	streets and intersections are treated equally, i.e., there are no
+	dominant streets. Starting from a simple synchronized strategy, we
+	show that the capacity of the network strongly depends on the cycle
+	times of the traffic lights. Moreover, we point out that the optimal
+	time periods are determined by the geometric characteristics of the
+	network, i.e., the distance between the intersections. In the case
+	of synchronized traffic lights, the derivation of the optimal cycle
+	times in the network can be reduced to a simpler problem, the flow
+	optimization of a single street with one traffic light operating
+	as a bottleneck. In order to obtain an enhanced throughput in the
+	model, improved global strategies are tested, e.g., green wave and
+	random switching strategies, which lead to surprising results.},
+  doi = {10.1103/PhysRevE.64.056132},
   keywords = {DLR/TS/VM},
   owner = {dkrajzew},
   timestamp = {2011.09.30},
@@ -142,11 +163,11 @@
   booktitle = {SIMUL 2011, The Third International Conference on Advances in System
 	Simulation},
   year = {2011},
-  pages = {63-68},
-  address = {Barcelona, Spain},
   editor = {SINTEF \& University of Oslo Aida Omerovic and RTI International
 	- Research Triangle Park Diglio A. Simoni and RTI International -
 	Research Triangle Park Georgiy Bobashev},
+  pages = {63-68},
+  address = {Barcelona, Spain},
   month = {October},
   publisher = {ThinkMind},
   abstract = {SUMO is an open source traffic simulation package including net import
@@ -399,7 +420,7 @@
 	packet error rate can be significant; hence models that consider
 	error characteristics are desirable. Our work considers communication
 	models that approximate the radio propagation characteristics in
-	a realistic way without compromising simulation speed. },
+	a realistic way without compromising simulation speed.},
   keywords = {V2X communication, Traffic simulation, Radio Propagation, Packet Error
 	Rate},
   owner = {Daniel},
@@ -628,7 +649,7 @@
 	better results than the driver-independent validation. Thus, the
 	behaviour of individual drivers can be reproduced a bit more accurately
 	than trying to transfer optimal parameter results from one driver
-	to another. },
+	to another.},
   journal = {Networks for Mobility 2004, Proceedings - Abstracts and CD-ROM},
   keywords = {simulation,model,microscopic models,calibration,validation,GPS,DGPS,car
 	following, DLR/TS/VM},
@@ -679,7 +700,8 @@
 	sets, the models are directly comparable to each other. This sets
 	the basis for a transparent benchmarking of those models. Furthermore,
 	the advantages and disadvantages of each model can be analyzed better
-	to develop a more realistic behavior of the simulated vehicles.<br/>
+	to develop a more realistic behavior of the simulated vehicles.
+	
 	
 	In this work various microscopic traffic flow models have been tested
 	from a very microscopic point of view concerning the car-following
@@ -694,7 +716,8 @@
 	and emulating many accelerations/decelerations as they are typical
 	at intersections. To minimize driver-dependent correlations between
 	the data sets, the drivers were exchanged between the cars regularly
-	after each experiment.<br/>
+	after each experiment.
+	
 	
 	In this paper we present analyses concerning four of the experiments,
 	namely the patterns mostly with intervals of constant speeds and
@@ -712,7 +735,8 @@
 	between the recorded gaps and the simulated gaps. To get a percentage
 	error it is additionally related to the mean average gap in each
 	data set. Altogether 36 vehicle pairs (4 experiments * 9 vehicle
-	pairs) were used as data sets for the analyses.<br/>
+	pairs) were used as data sets for the analyses.
+	
 	
 	Each model has been calibrated with each of the 36 different constellations
 	separately gaining optimal parameter sets for each ?model - data
@@ -724,7 +748,8 @@
 	minimum can not be guaranteed by those type of optimization algorithms.
 	Subsequently, the validation was performed by determining the error
 	of a given model on all the data sets which have not been used to
-	calibrate the model. <br/>
+	calibrate the model.
+	
 	
 	By now, ten microscopic models of a very different kind using 3 to
 	14 parameters have been tested. The most basic parameters used by
@@ -749,7 +774,8 @@
 	Gipps), - Aerde (model used in the simulation package INTEGRATION),
 	- FRITZSCHE (model used in the british software PARAMICS; it is similar
 	to what is used in the german software VISSIM by PTV), - MitSim (model
-	by Yang, Koutsopulus, used in the software MitSim).<br/>
+	by Yang, Koutsopulus, used in the software MitSim).
+	
 	
 	The error rates of the models in comparison to the data sets during
 	the calibration for each model reach from 9 to 24 %. But no model
@@ -767,7 +793,7 @@
 	interpret the results is that ? from this microscopic point of view
 	? errors of about 12-30 % can probably not be suppressed no matter
 	what a model is used. This would be due to the different behavior
-	of each driver. },
+	of each driver.},
   journal = {Traffic and Granular Flow '03},
   keywords = {calibration, validation, models, traffic flow models, microscopic,
 	DLR/TS/VM, model calibration},
@@ -1093,6 +1119,26 @@
   url = {http://elib.dlr.de/62037/}
 }
 
+@INPROCEEDINGS{Greenwood:2009:GDT:1558109.1558322,
+  author = {Dominic Greenwood and Branislav Burdiliak and Ivan Trencansky and
+	Hartmut Armbruster and Christian Dannegger},
+  title = {GreenWave distributed traffic intersection control},
+  booktitle = {Proceedings of The 8th International Conference on Autonomous Agents
+	and Multiagent Systems - Volume 2},
+  year = {2009},
+  series = {AAMAS '09},
+  pages = {1413--1414},
+  address = {Richland, SC},
+  publisher = {International Foundation for Autonomous Agents and Multiagent Systems},
+  acmid = {1558322},
+  isbn = {978-0-9817381-7-8},
+  keywords = {distributed multiagent traffic intersection phase control, emergent
+	green wave, video camera sensor},
+  location = {Budapest, Hungary},
+  numpages = {2},
+  url = {http://dl.acm.org/citation.cfm?id=1558109.1558322}
+}
+
 @INPROCEEDINGS{Harri2011,
   author = {J\'er\^ome H\"arri and Pasquale Cataldi and Daniel Krajzewicz and
 	Robbin J. Blokpoel and Yoann Lopez and Jeremie Leguay},
@@ -1183,6 +1229,16 @@
   owner = {behr_mi},
   timestamp = {2011.12.05},
   url = {http://www2.informatik.hu-berlin.de/swt/dipl/MatthiasHeppner.2010.pdf}
+}
+
+@ARTICLE{joerer2012towards,
+  author = {Joerer, Stefan and Sommer, Christoph and Dressler, Falko},
+  title = {{Towards Reproducibility and Comparability of IVC Simulation Studies
+	- A Literature Survey}},
+  journal = {IEEE Communications Magazine},
+  year = {2012},
+  note = {to appear},
+  publisher = {IEEE}
 }
 
 @UNPUBLISHED{Kuhne2006,
@@ -1301,7 +1357,9 @@
 	of Traffic in Urban Areas}},
   journal = {Wireless Communications and Mobile Computing},
   year = {2011},
-  pages = {1--11},
+  volume = {11},
+  pages = {1657--1667},
+  number = {12},
   __markedentry = {[dkrajzew:]},
   abstract = {This paper studies the impacts of vehicular communications on efficiency
 	of traffic in urban areas. We consider a Green Light Optimized Speed
@@ -1319,6 +1377,7 @@
 	drivers compliance to the advised speed and traffic density. Our
 	results indicate that GLOSA systems could improve fuel consumption,
 	reduce traffic congestion in junctions and the total trip time.},
+  doi = {10.1002/wcm.1233},
   file = {:http\://info.ee.surrey.ac.uk/Personal/K.Katsaros/papers/KK_GLOSA_SI_WCMC_11.pdf:URL},
   keywords = {fuel consumption,traffic congestion,traffic light advisory,vehicular
 	communications, alternative route},
@@ -1350,17 +1409,17 @@
 }
 
 @INBOOK{Krajzewicz2010b,
-  author = {Daniel Krajzewicz},
+  pages = {269--294},
   title = {Traffic Simulation with SUMO - Simulation of Urban Mobility},
-  month = {October},
+  publisher = {Springer},
   year = {2010},
   editor = {Jaume Barcel\'o},
+  author = {Daniel Krajzewicz},
+  series = {International Series in Operations Research and Management Science},
+  month = {October},
   journal = {Fundamentals of Traffic Simulation},
   keywords = {traffic simulation, sumo},
   owner = {Daniel},
-  pages = {269--294},
-  publisher = {Springer},
-  series = {International Series in Operations Research and Management Science},
   timestamp = {2011.12.02},
   url = {http://elib.dlr.de/66135/}
 }
@@ -1546,6 +1605,7 @@
 	den Fahrzeugen innerhalb des Systems unkoordinierte Routenwahl tats?chlich
 	in der Lage ist, die Auswirkungen von Staus zu reduzieren.
 	
+	
 	F?r die Untersuchung wurde die freie Verkehrsflusssimulation SUMO
 	([1, 2]) um eine C2C-Komponente erweitert. Als Datengrundlage wurde
 	ein Stra?ennetz der Stadt Magdeburg benutzt, f?r das eine validierte
@@ -1573,6 +1633,7 @@
 	of information about the state of the road network, for example by
 	transferring travel times into the navigation devices enabling them
 	to compute routes using this knowledge.
+	
 	
 	This work reports about a set of simulation results where the benefit
 	of using information exchanged between vehicles was evaluated for
@@ -1606,6 +1667,7 @@
 	k?nnen Fahrzeuge Informationen ?ber von einem Normalfall abweichende
 	Reisezeiten an andere Fahrzeuge weiter geben, die ihrem Fahrer dann
 	eine neue, am Stau vorbei f?hrende, Route vorschlagen.
+	
 	
 	Im Rahmen der hier vorgestellten Untersuchung wurde ein solches Szenario
 	per Simulation evaluiert, um die Effizienz einer solchen Routenwahl
@@ -1699,7 +1761,7 @@
 	also, the results are often not replicable or at least hard to compare.
 	When a common platform is supplied, such problems should not occur.
 	Within this publication, we would like to introduce our package to
-	the public in the hope to gain some further interest. },
+	the public in the hope to gain some further interest.},
   journal = {Proceedings of the 2003 European Simulation and Modelling Conference},
   keywords = {traffic simulation, road traffic, open source, car-driver model, traffic
 	research},
@@ -1808,7 +1870,7 @@
 	most of these are used for routing purposes and do not contain the
 	fine-grained information mentioned above that is needed by microscopic
 	simulations. This document describes an algorithm for the computation
-	of the needed information from simple road networks. },
+	of the needed information from simple road networks.},
   journal = {Proceedings of the 3rd Industrial Simulation Conference 2005},
   keywords = {Microscopic traffic simulation, digital road maps, open source, traffic
 	research},
@@ -1936,6 +1998,7 @@
   title = {Ans\"atze zur kognitiven Simulation eines Autofahrers},
   journal = {MMI-Interaktiv},
   year = {2004},
+  pages = {84--97},
   number = {7},
   abstract = {Das Institut f?r Verkehrsforschung am Deutschen Zentrum f?r Luft-
 	und Raumfahrt (IVF/DLR) setzt in vielen Projekten Simulationen des
@@ -2051,6 +2114,7 @@
 	potential of wireless vehicular cooperative systems to improve road
 	traffic management, adequate testbeds and field operational tests
 	need to be conducted.
+	
 	
 	Despite the potential of Field Operational Tests to get the first
 	insights into the benefits and problems faced in the development
@@ -2360,6 +2424,7 @@
 	a truck cruising just in front of the vehicle, for example, is not
 	possible.
 	
+	
 	New approaches are now dealing with co-operative technologies that
 	enable the exchange of important information between vehicles and
 	infrastructures for updated traffic data acquisition, recognition
@@ -2397,6 +2462,26 @@
   timestamp = {2011.09.30}
 }
 
+@INPROCEEDINGS{Sommer:2008:NBC:1374688.1374697,
+  author = {Christoph Sommer and Zheng Yao and Reinhard German and Falko Dressler},
+  title = {On the need for bidirectional coupling of road traffic microsimulation
+	and network simulation},
+  booktitle = {Proceedings of the 1st ACM SIGMOBILE workshop on Mobility models},
+  year = {2008},
+  series = {MobilityModels '08},
+  pages = {41--48},
+  address = {New York, NY, USA},
+  publisher = {ACM},
+  acmid = {1374697},
+  doi = {10.1145/1374688.1374697},
+  isbn = {978-1-60558-111-8},
+  keywords = {network simulation, road traffic microsimulation, vehicular ad hoc
+	networks},
+  location = {Hong Kong, Hong Kong, China},
+  numpages = {8},
+  url = {http://doi.acm.org/10.1145/1374688.1374697}
+}
+
 @INPROCEEDINGS{Tielert2010,
   author = {Tielert, T. and Killat, M. and Hartenstein, H. and Luz, R. and Hausberger,
 	S. and Benz, T.},
@@ -2407,7 +2492,7 @@
   pages = {1 -8},
   month = {29 2010-dec. 1},
   __markedentry = {[dkrajzew:6]},
-  abstract = { #x201C;Smart #x201D; vehicles of the future are envisioned to aid
+  abstract = {#x201C;Smart #x201D; vehicles of the future are envisioned to aid
 	their drivers in reducing fuel consumption and emissions by wirelessly
 	receiving phase-shifting information of the traffic lights in their
 	vicinity and computing an optimized speed in order to avoid braking
@@ -2563,6 +2648,7 @@
 	times, which are the costs that an additional road user causes to
 	the other road users already in the network during the analysis period.
 	
+	
 	Generally, travel times can be determined, i.e. approximated, by given
 	link travel time functions, which are functions of link flows. The
 	functional forms and respective parameters of the most travel time
@@ -2632,16 +2718,17 @@
 }
 
 @INPROCEEDINGS{Wegener2008a,
-  author = {Wegener, Axel and Piorkowski, Michal and Raya, Maxim and HellbrÃ¼ck,
-	Horst and Fischer, Stefan and Hubaux, Jean-Pierre},
+  author = {Axel Wegener and Micha\l Pi\'{o}rkowski and Maxim Raya and Horst
+	Hellbr\"{u}ck and Stefan Fischer and Jean-Pierre Hubaux},
   title = {Tra{CI}: {A}n {I}nterface for {C}oupling {R}oad {T}raffic and {N}etwork
 	{S}imulators},
   booktitle = {11{t}h {C}ommunications and {N}etworking {S}imulation {S}ymposium
 	({CNS})},
   year = {2008},
-  series = { },
-  address = { },
-  publisher = { },
+  series = {CNS '08},
+  pages = {155--163},
+  address = {New York, NY, USA},
+  publisher = {ACM},
   abstract = {Vehicular Ad-Hoc Networks (VANETs) enable communication among vehicles
 	as well as between vehicles and roadside infrastructures. Currently
 	available software tools for VANET research still lack the ability
@@ -2662,20 +2749,15 @@
 	and network simulators namely SUMO and ns2, respectively. This coupling
 	enables for the first time systematic evaluations of VANET applications
 	in realistic settings.},
+  acmid = {1400740},
   affiliation = {EPFL},
   details = {http://infoscience.epfl.ch/record/115106},
   doi = {10.1145/1400713.1400740},
-  keywords = {Vehicular Ad-Hoc Networks (VANETs); Network Simulation ; Node Mobility,
-	V2X, TU Lübeck, sumo},
+  isbn = {1-56555-318-7},
+  keywords = {network simulation, node mobility, vehicular ad-hoc networks (VANETs)},
   location = {Ottawa, Canada},
-  oai-id = {oai:infoscience.epfl.ch:115106},
-  oai-set = {conf},
-  owner = {dkrajzew},
-  review = {REVIEWED},
-  status = {PUBLISHED},
-  timestamp = {2011.09.19},
-  unit = {LCA},
-  url = {http://www.scs.org/confernc/springsim/springsim08/cfp/cns08.htm}
+  numpages = {9},
+  url = {http://doi.acm.org/10.1145/1400713.1400740}
 }
 
 @INPROCEEDINGS{Widodo2000,
@@ -2874,15 +2956,16 @@ zaro2008\;Rondinone2009\;;
 2 ExplicitGroup:Germany\;2\;;
 3 ExplicitGroup:TU BS\;2\;Duering2011\;;
 3 ExplicitGroup:VW\;0\;Wegener2008\;;
-3 ExplicitGroup:TU L\\\\\\\\\\\\\\\\"ubeck\;2\;;
+3 ExplicitGroup:TU L\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"ubeck\;2\;;
 4 ExplicitGroup:Institute of Telematics\;0\;Wegener2008\;Wegener2008a\
 ;Wegener2009\;;
-3 ExplicitGroup:University of Applied Sciences L\\\\\\\\\\\\\\\\"ubeck
-\;2\;;
+3 ExplicitGroup:University of Applied Sciences L\\\\\\\\\\\\\\\\\\\\\\
+\\\\\\\\\\"ubeck\;2\;;
 4 ExplicitGroup:Department of Electrical Engineering\;0\;Wegener2008\;
 ;
-3 ExplicitGroup:Universit\\\\\\\\\\\\\\\\"at zu K\\\\\\\\\\\\\\\\"oln\
-;0\;Gawron1999\;Krauss1997\;Krauss1998\;;
+3 ExplicitGroup:Universit\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"at zu K\\\\\
+\\\\\\\\\\\\\\\\\\\\\\\\\\\"oln\;0\;Gawron1999\;Krauss1997\;Krauss1998
+\;;
 3 ExplicitGroup:Fraunhofer\;2\;;
 4 ExplicitGroup:FOKUS\;0\;Katsaros2011a\;Kerekes2009\;;
 2 ExplicitGroup:Spain\;2\;;
