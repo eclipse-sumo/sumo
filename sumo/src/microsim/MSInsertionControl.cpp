@@ -197,6 +197,7 @@ MSInsertionControl::checkPrevious(SUMOTime time) {
 unsigned int
 MSInsertionControl::checkFlows(SUMOTime time,
                                MSVehicleContainer::VehicleVector& refusedEmits) {
+    MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     unsigned int noEmitted = 0;
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end();) {
         SUMOVehicleParameter* pars = i->pars;
@@ -211,14 +212,19 @@ MSInsertionControl::checkFlows(SUMOTime time,
             newPars->depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
             pars->repetitionsDone++;
             // try to build the vehicle
-            if (MSNet::getInstance()->getVehicleControl().getVehicle(newPars->id) == 0) {
+            if (vehControl.getVehicle(newPars->id) == 0) {
                 const MSRoute* route = MSRoute::dictionary(pars->routeid);
-                const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
-                i->vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(newPars, route, vtype);
-                MSNet::getInstance()->getVehicleControl().addVehicle(newPars->id, i->vehicle);
-                noEmitted += tryInsert(time, i->vehicle, refusedEmits);
-                if (!i->isVolatile && i->vehicle != 0) {
-                    break;
+                const MSVehicleType* vtype = vehControl.getVType(pars->vtypeid);
+                i->vehicle = vehControl.buildVehicle(newPars, route, vtype);
+                if (vehControl.isInQuota()) {
+                    vehControl.addVehicle(newPars->id, i->vehicle);
+                    noEmitted += tryInsert(time, i->vehicle, refusedEmits);
+                    if (!i->isVolatile && i->vehicle != 0) {
+                        break;
+                    }
+                } else {
+                    vehControl.deleteVehicle(i->vehicle, true);
+                    i->vehicle = 0;
                 }
             } else {
                 // strange: another vehicle with the same id already exists
