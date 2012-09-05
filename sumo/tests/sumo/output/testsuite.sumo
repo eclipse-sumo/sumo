@@ -10,17 +10,14 @@ e2
 # Tests for e3Detectors (areal)
 e3
 
-
 # Tests for e2Detectors (lane-areal) couppled to a tls
 e2_tls
 
 # Tests for e2Detectors (lane-areal) couppled to a tls link
 e2_tls_link
 
-
 # Output coupled to tls
 tls
-
 
 # Tests for summary-output (earlier: emission-output)
 summary
@@ -60,3 +57,6 @@ meannoise_lanebased
 
 # Tests which serve as examples
 examples
+
+# test the duration log output
+duration_log

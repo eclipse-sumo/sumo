@@ -156,11 +156,11 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
     if (myMaxDepartDelay >= 0 && time - veh->getParameter().depart > myMaxDepartDelay) {
         // remove vehicles waiting too long for departure
         checkFlowWait(veh);
-        myVehicleControl.deleteVehicle(veh);
+        myVehicleControl.deleteVehicle(veh, true);
     } else if (edge.isVaporizing()) {
         // remove vehicles if the edge shall be empty
         checkFlowWait(veh);
-        myVehicleControl.deleteVehicle(veh);
+        myVehicleControl.deleteVehicle(veh, true);
     } else {
         // let the vehicle wait one step, we'll retry then
         refusedEmits.push_back(veh);

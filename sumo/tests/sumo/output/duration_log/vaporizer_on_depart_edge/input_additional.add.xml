@@ -1,0 +1,5 @@
+<add>
+
+	<vaporizer id="beg" begin="0" end="86400"/>
+
+</add>
