@@ -64,9 +64,18 @@ MSVehicleControl::MSVehicleControl() :
     myTotalDepartureDelay(0),
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
-    myWaitingForPerson(0) {
+    myWaitingForPerson(0),
+    myScale(-1)
+{
     SUMOVTypeParameter defType;
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
+    OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.isSet("incremental-dua-step")) {
+        myScale = oc.getInt("incremental-dua-step") / static_cast<SUMOReal>(oc.getInt("incremental-dua-base"));
+    }
+    if (oc.isSet("scale")) {
+        myScale = oc.getFloat("scale");
+    }
 }
 
 
@@ -315,7 +324,11 @@ MSVehicleControl::abortWaiting() {
 
 
 bool 
-MSVehicleControl::isInQuota(const SUMOReal frac) const {
+MSVehicleControl::isInQuota(SUMOReal frac) const {
+    frac = frac < 0 ? myScale : frac;
+    if (frac < 0) {
+        return true;
+    }
     const unsigned int resolution = 1000;
     const unsigned int intFrac = (unsigned int)floor(frac * resolution + 0.5);
     // the vehicle in question has already been loaded, hence  the '-1'

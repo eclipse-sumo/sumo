@@ -225,9 +225,11 @@ public:
 
     /** @brief Returns the information whether the currently vehicle number shall be emitted 
      * considering that only frac of all vehicles shall be emitted overall
+     * if a negative fraction is given the demand scaling factor is used
+     * (--scale or --incremental-dua-step / --incremental-dua-base)
      * @return True iff the vehicle number is acceptable
      */
-    bool isInQuota(const SUMOReal frac) const;
+    bool isInQuota(SUMOReal frac=-1) const;
 
 
     /** @brief Returns the number of build vehicles that have not been removed
@@ -431,6 +433,8 @@ protected:
     /// the number of vehicles contained in myWaiting which can only continue by being triggered
     unsigned int myWaitingForPerson;
 
+    /// @brief The scaling factor (especially for inc-dua)
+    SUMOReal myScale;
 
 private:
     /// @brief invalidated copy constructor

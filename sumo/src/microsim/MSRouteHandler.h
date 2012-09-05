@@ -147,9 +147,6 @@ protected:
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
 
-    /// @brief The scaling factor (especially for inc-dua)
-    SUMOReal myScale;
-
 private:
     /// @brief Invalidated copy constructor
     MSRouteHandler(const MSRouteHandler& s);

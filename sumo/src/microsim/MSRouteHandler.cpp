@@ -70,15 +70,8 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
     myActivePlan(0),
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(0),
-    myCurrentRouteDistribution(0),
-    myScale(-1.) {
-    OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.isSet("incremental-dua-step")) {
-        myScale = oc.getInt("incremental-dua-step") / static_cast<SUMOReal>(oc.getInt("incremental-dua-base"));
-    }
-    if (oc.isSet("scale")) {
-        myScale = oc.getFloat("scale");
-    }
+    myCurrentRouteDistribution(0)
+{
     myActiveRoute.reserve(100);
 }
 
@@ -483,7 +476,7 @@ MSRouteHandler::closeVehicle() {
     if (vehControl.getVehicle(myVehicleParameter->id) == 0) {
         vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype);
         // maybe we do not want this vehicle to be inserted due to scaling
-        if (myScale < 0 || vehControl.isInQuota(myScale)) {
+        if (vehControl.isInQuota()) {
             // add the vehicle to the vehicle control
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
             if (myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
