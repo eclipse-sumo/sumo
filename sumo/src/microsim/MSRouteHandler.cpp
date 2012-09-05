@@ -535,7 +535,6 @@ MSRouteHandler::closePerson() {
 
 void
 MSRouteHandler::closeFlow() {
-    // @todo: consider myScale?
     // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
     SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
