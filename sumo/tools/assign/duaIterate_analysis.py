@@ -7,12 +7,6 @@
 @version $Id$
 
 Extract statistics from the outputs of a duaIterate run for plotting.
-plotting example:
-    plot \
-            'duaIterate.gnuplot' using 0:1 title 'emitted',\
-            'duaIterate.gnuplot' using 0:4 title 'teleports',\
-            'duaIterate.gnuplot' using 0:3 title 'waiting',\
-            'duaIterate.gnuplot' using 0:($6 * 60) title 'sim s'
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
@@ -28,8 +22,8 @@ def parse_args():
     optParser = OptionParser()
     optParser.add_option("--stdout", 
             help="also parse the given FILE containing stdout of duaIterate")
-    optParser.add_option("-o", "--output", default="duaIterate.gnuplot",
-            help="output file for plotting with gnuplot")
+    optParser.add_option("-o", "--output", default="plot",
+            help="output prefix for plotting with gnuplot")
     options, args = optParser.parse_args()
     if len(args) != 1:
         sys.exit(USAGE)
@@ -38,12 +32,14 @@ def parse_args():
 
 def parse_dualog(dualog):
     print "Parsing %s" % dualog
-    step_values = [['#Emitted', 'Running', 'Waiting', 'Teleports']] # list of lists
+    step_values = [['#Emitted', 'Running', 'Waiting', 'Teleports', 'Loaded']] # list of lists
     reEmitted = re.compile("Emitted: (\d*)")
+    reLoaded = re.compile("Loaded: (\d*)")
     reRunning = re.compile("Running: (\d*)")
     reWaiting = re.compile("Waiting: (\d*)")
     teleports = 0
     emitted = None
+    loaded = None
     running = None
     waiting = None
     for line in open(dualog):
@@ -51,11 +47,15 @@ def parse_dualog(dualog):
             teleports += 1
         elif "Emitted:" in line:
             emitted = reEmitted.search(line).group(1)
+            if "Loaded:" in line: # optional output
+                loaded = reLoaded.search(line).group(1)
+            else:
+                loaded = emitted
         elif "Running:" in line:
             running = reRunning.search(line).group(1)
         elif "Waiting:" in line:
             waiting = reWaiting.search(line).group(1)
-            step_values.append([emitted, running, waiting, teleports])
+            step_values.append([emitted, running, waiting, teleports, loaded])
             teleports = 0
     print "  parsed %s steps" % (len(step_values) - 1)
     return step_values
@@ -86,17 +86,33 @@ def parse_stdout(step_values, stdout):
     print "  parsed %s steps" % (step - 1)
 
 
-def write(outfile, step_values):
+def write_data(outfile, step_values):
     with open(outfile, 'w') as f:
         for values in step_values:
             f.write(' '.join(map(str,values)) + '\n')
 
+def write_plotfile(outfile, datafile, xlabel):
+    with open(outfile, 'w') as f:
+        f.write("""
+set xlabel '%s'
+plot \\
+'%s' using 0:1 title 'emitted' with lines, \\
+'%s' using 0:4 title 'teleports' with lines, \\
+'%s' using 0:3 title 'waiting' with lines, \\
+'%s' using 0:5 title 'loaded' with lines, \\
+'%s' using 0:2 title 'running' with lines 
+""" % ((xlabel,) + (datafile,) * 5))
+
+
 def main():
     options = parse_args()
+    plotfile = options.output
+    datafile = plotfile + '.data'
     step_values = parse_dualog(options.dualog)
     if options.stdout is not None:
         parse_stdout(step_values, options.stdout)
-    write(options.output, step_values)
+    write_data(datafile, step_values)
+    write_plotfile(plotfile, datafile, 'Iterations in ' + os.path.dirname(os.path.abspath(options.dualog)))
 
 ##################
 if __name__ == "__main__":
