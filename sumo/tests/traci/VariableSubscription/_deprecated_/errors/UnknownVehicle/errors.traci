@@ -1,2 +1,3 @@
+Warning: Using direct subscription messages is deprecated; subscribe via the object API.
 Error: Answered with error to command 164: Vehicle 'x' is not known
 Error: Answered with error to command 212: Could not add subscription (Vehicle 'x' is not known).
