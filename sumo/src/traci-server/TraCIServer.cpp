@@ -410,7 +410,8 @@ TraCIServer::dispatchCommand() {
             case CMD_SUBSCRIBE_EDGE_VARIABLE:
             case CMD_SUBSCRIBE_SIM_VARIABLE:
             case CMD_SUBSCRIBE_GUI_VARIABLE:
-                success = addSubscription(commandId);
+                WRITE_WARNING("Using direct subscription messages is deprecated; subscribe via the object API.");
+                success = addObjectVariableSubscription(commandId);
                 break;
             default:
                 writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
@@ -613,7 +614,7 @@ TraCIServer::writeStatusCmd(int commandId, int status, const std::string& descri
 /*****************************************************************************/
 
 bool
-TraCIServer::addSubscription(int commandId) {
+TraCIServer::addObjectVariableSubscription(int commandId) {
     SUMOTime beginTime = myInputStorage.readInt();
     SUMOTime endTime = myInputStorage.readInt();
     std::string id = myInputStorage.readString();

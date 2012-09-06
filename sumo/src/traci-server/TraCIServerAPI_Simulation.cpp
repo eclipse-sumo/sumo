@@ -61,9 +61,11 @@ using namespace traci;
 bool
 TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                       tcpip::Storage& outputStorage) {
-    std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
+    if(variable==OBJECT_VARIABLES_SUBSCRIPTION) {
+        server.addObjectVariableSubscription(CMD_GET_SIM_VARIABLE);
+    }
     std::string id = inputStorage.readString();
     // check variable
     if (variable != VAR_TIME_STEP
@@ -214,7 +216,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
         default:
             break;
     }
-    server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_OK, warning, outputStorage);
+    server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }

@@ -123,6 +123,7 @@ public:
 
     void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
 
+    bool addObjectVariableSubscription(int commandId);
 
 private:
 
@@ -143,7 +144,6 @@ private:
 
     bool commandAddVehicle();
 
-    bool addSubscription(int commandId);
 
     /// singleton instance of the server
     static TraCIServer* myInstance;

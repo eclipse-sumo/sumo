@@ -304,6 +304,12 @@
 // count of instances (get: all)
 #define ID_COUNT 0x01
 
+// subscribe object variables (get: all)
+#define OBJECT_VARIABLES_SUBSCRIPTION 0x02
+
+// subscribe context variables (get: all)
+#define SURROUNDING_VARIABLES_SUBSCRIPTION 0x03
+
 // last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 #define LAST_STEP_VEHICLE_NUMBER 0x10
 
