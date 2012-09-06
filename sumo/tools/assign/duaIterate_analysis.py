@@ -24,6 +24,8 @@ def parse_args():
             help="also parse the given FILE containing stdout of duaIterate")
     optParser.add_option("-o", "--output", default="plot",
             help="output prefix for plotting with gnuplot")
+    optParser.add_option("-l", "--label-size", default=40, dest="label_size",
+            help="limit length of the plot label to this size")
     options, args = optParser.parse_args()
     if len(args) != 1:
         sys.exit(USAGE)
@@ -112,7 +114,8 @@ def main():
     if options.stdout is not None:
         parse_stdout(step_values, options.stdout)
     write_data(datafile, step_values)
-    write_plotfile(plotfile, datafile, 'Iterations in ' + os.path.dirname(os.path.abspath(options.dualog)))
+    duaPath = os.path.dirname(os.path.abspath(options.dualog))[-options.label_size:]
+    write_plotfile(plotfile, datafile, 'Iterations in ' + duaPath)
 
 ##################
 if __name__ == "__main__":
