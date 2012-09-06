@@ -27,6 +27,7 @@ class Vertex:
     This class is to store node attributes and the respective incoming/outgoing links.
     """
     def __init__(self, num):
+        self._id = "%s" % num
         self.inEdges = []
         self.outEdges = []
         self.label = "%s" % num
@@ -34,8 +35,12 @@ class Vertex:
         self.sinkEdges = []
         self.sourceConnNodes = []
         self.sinkConnNodes = []
+    
     def __repr__(self):
         return self.label
+    
+    def getOutgoing(self):
+        return self.sourceEdges
         
 class Trip:
     """
@@ -51,6 +56,7 @@ class Trip:
         
     def __repr__(self):
         return self.label
+
 # This class is uesed to store link information and estimate 
 # as well as flow and capacity for the flow computation and some parameters
 # read from the net.
@@ -185,13 +191,13 @@ class NetworkReader(handler.ContentHandler):
             self._length = 0
         elif name == 'succ':
             self._edge = attrs['edge']
-            if self._edge[0]!=':':
+            if self._edge[0] != ':':
                 self._edgeObj = self._net.getEdge(self._edge)
-        elif name == 'succlane' and self._edge!="":       
+        elif name == 'succlane' and self._edge != "":       
             l = attrs['lane']
             if l != "SUMO_NO_DESTINATION":
                 toEdge = self._net.getEdge(l[:l.rfind('_')])
-                newEdge = Edge(self._edge+"_"+l[:l.rfind('_')], self._edgeObj.target, toEdge.source)
+                newEdge = Edge(self._edge + "_" + l[:l.rfind('_')], self._edgeObj.target, toEdge.source)
                 self._net.addEdge(newEdge)
                 self._edgeObj.finalizer = l[:l.rfind('_')]
         elif name == 'lane' and self._edge != '':
@@ -217,9 +223,12 @@ class DistrictsReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'taz':
             self._districtSource = self._net.newVertex()
+            self._districtSource._id = attrs['id']
             self._districtSource.label = attrs['id']
+            print 'taz-2', attrs['id']
             self._net._startVertices.append(self._districtSource)
             self._districtSink = self._net.newVertex()
+            self._districtSink._id = attrs['id']
             self._districtSink.label = attrs['id']
             self._net._endVertices.append(self._districtSink)
         elif name == 'tazSink':
@@ -248,10 +257,10 @@ class DistrictsReader(handler.ContentHandler):
 def addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap):
     counts += 1.
     vehID += 1
-    endtime = int((float(begin + period)-0.5)*3600)    # The last half hour will not release any vehicles
-    depart = random.randint(begin*3600, endtime)
+    endtime = int((float(begin + period) - 0.5) * 3600)    # The last half hour will not release any vehicles
+    depart = random.randint(begin * 3600, endtime)
     if len(odConnTable[startVertex.label][endVertex.label]) > 0:
-        connIndex = random.randint(0, len(odConnTable[startVertex.label][endVertex.label])-1)
+        connIndex = random.randint(0, len(odConnTable[startVertex.label][endVertex.label]) - 1)
         connPair = odConnTable[startVertex.label][endVertex.label][connIndex]
         veh = Trip(vehID, depart, connPair[0], connPair[1], startVertex.label, endVertex.label)
         vehIDtoODMap[str(vehID)] = [startVertex.label, endVertex.label]
@@ -261,7 +270,7 @@ def addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tr
        
 def main(options):
     parser = make_parser()
-    isBZ2= False
+    isBZ2 = False
     dataDir = options.datadir
     districts = os.path.join(dataDir, options.districtfile)
     matrix = os.path.join(dataDir, options.mtxfile)
@@ -288,7 +297,7 @@ def main(options):
 
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(districts)
-    
+
     matrixPshort, startVertices, endVertices, currentMatrixSum, begin, period = getMatrix(net, options.debug, matrix, matrixSum)[:6]
 
     if options.debug:
@@ -309,7 +318,7 @@ def main(options):
                 for end, endVertex in enumerate(endVertices):
                     if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
                         if endVertex.label not in odConnTable[startVertex.label]:
-                            odConnTable[startVertex.label][endVertex.label]= []
+                            odConnTable[startVertex.label][endVertex.label] = []
                         net.checkRoute(startVertex, endVertex, start, end, P, odConnTable, source, options)
     else:
         if options.debug:
@@ -363,7 +372,7 @@ def main(options):
         departpos = options.departpos
     for trip in tripList:
         fouttrips.write('   <trip id="%s" depart="%s" from="%s" to="%s" fromtaz="%s" totaz="%s" departlane="free" departpos="%s" departspeed="max"/>\n' \
-                            %(trip.label, trip.depart, trip.sourceEdge, trip.sinkEdge, trip.sourceDistrict, trip.sinkDistrict, departpos))
+                            % (trip.label, trip.depart, trip.sourceEdge, trip.sinkEdge, trip.sourceDistrict, trip.sinkDistrict, departpos))
     fouttrips.write("</tripdefs>")
     fouttrips.close()
     
@@ -372,7 +381,7 @@ def main(options):
 if __name__ == "__main__":    
     optParser = OptionParser()
     optParser.add_option("-r", "--data-dir", dest="datadir",
-                         default= os.getcwd(), help="give the data directory path")
+                         default=os.getcwd(), help="give the data directory path")
     optParser.add_option("-n", "--net-file", dest="netfile",
                          help="define the net file (mandatory)")
     optParser.add_option("-m", "--matrix-file", dest="mtxfile",
@@ -382,7 +391,7 @@ if __name__ == "__main__":
     optParser.add_option("-l", "--limitlength", action="store_true", dest="limitlength",
                         default=False, help="the route length of possible connections of a given OD pair shall be less than 1.6 * min.length")   
     optParser.add_option("-t", "--trip-file", dest="tripfile",
-                         default= "trips.trips.xml", help="define the output trip filename")
+                         default="trips.trips.xml", help="define the output trip filename")
     optParser.add_option("-x", "--odestimation", action="store_true", dest="odestimation",
                          default=False, help="generate trips for OD estimation")
     optParser.add_option("-b", "--debug", action="store_true",
@@ -392,9 +401,9 @@ if __name__ == "__main__":
     optParser.add_option("-f", "--scale-factor", dest="demandscale", type="float", default=1., help="scale demand by ")
     optParser.add_option("-D", "--depart-pos", dest="departpos", type="choice",
                      choices=('random', 'free', 'random_free'),
-                     default = 'free', help="choose departure position: random, free, random_free")
+                     default='free', help="choose departure position: random, free, random_free")
     optParser.add_option("-C", "--get-connections", action="store_true", dest="getconns",
-                     default= True, help="generate the OD connection directory, if set as False, a odConnTables.py should be available in the defined data directory")
+                     default=True, help="generate the OD connection directory, if set as False, a odConnTables.py should be available in the defined data directory")
     (options, args) = optParser.parse_args()
     
     if not options.netfile or not options.mtxfile or not options.districtfile:
