@@ -130,6 +130,8 @@ def initOptions():
                          default=False, help="calculate the old route probabilities with the free-flow travel times when using the external gawron calculation")   
     optParser.add_option("--weight-memory", action="store_true", default=False, dest="weightmemory",
                          help="smoothe edge weights across iterations")    
+    optParser.add_option("--clean-alt", action="store_true", dest="clean_alt",
+                         default=False, help="Whether old rou.alt.xml files shall be removed")
     return optParser
 
 def call(command, log):
@@ -434,6 +436,8 @@ def main(args=None):
                 cfgname = writeRouteConf(step, options, demand_file, output, options.routefile, initial_type)
                 log.flush()
                 call([duaBinary, "-c", cfgname], log)
+                if options.clean_alt and step != 0:
+                    os.remove(demand_file)
                 etime = datetime.now()
                 print ">>> End time: %s" % etime
                 print ">>> Duration: %s" % (etime-btime)
