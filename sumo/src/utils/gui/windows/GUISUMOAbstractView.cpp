@@ -480,7 +480,7 @@ GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist) {
         } else {
             myChanger->centerTo(o->getCenteringBoundary().getCenter(), zoomDist, applyZoom);
         }
-		update();
+        update();
     }
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
 }
