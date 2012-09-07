@@ -172,7 +172,9 @@ NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) 
         }
     }
     if (it == myControlledLinks.end()) {
-        throw ProcessError("Attempt to remove nonexistant connection");
+        // a traffic light doesn't always controll all connections at a junction 
+        // especially when using the option --tls.join
+        return; 
     }
     const int removed = it->getTLIndex();
     // remove the connection
