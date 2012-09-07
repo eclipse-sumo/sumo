@@ -887,6 +887,9 @@ NBNode::getOppositeIncoming(NBEdge* e) const {
     if (find(edges.begin(), edges.end(), e) != edges.end()) {
         edges.erase(find(edges.begin(), edges.end(), e));
     }
+	if(edges.size()==0) {
+		return 0;
+	}
     if (e->getToNode() == this) {
         sort(edges.begin(), edges.end(), NBContHelper::edge_opposite_direction_sorter(e, this));
     } else {
