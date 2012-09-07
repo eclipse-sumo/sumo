@@ -116,6 +116,22 @@ inline std::string toString<TrafficLightType>(const TrafficLightType& type, std:
     return SUMOXMLDefinitions::TrafficLightTypes.getString(type);
 }
 
+
+template <class T>
+inline std::string joinToString(const std::vector<T>& v, const std::string between, std::streamsize accuracy = OUTPUT_ACCURACY) {
+    std::ostringstream oss;
+    bool connect = false;
+    for (typename std::vector<T>::const_iterator it = v.begin(); it != v.end(); ++it) {
+        if (connect) {
+            oss << between;
+        } else {
+            connect = true;
+        }
+        oss << toString(*it);
+    }
+    return oss.str();
+}
+
 #endif
 
 /****************************************************************************/
