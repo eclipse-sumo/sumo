@@ -201,9 +201,11 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont &nc) {
                     continue;
                 }
                 // @todo check against a legal document
-                SUMOReal s1 = (*i)->getSpeed() * (SUMOReal) 3.6;
-                SUMOReal s2 = (*j)->getSpeed() * (SUMOReal) 3.6;
-                if(fabs(s1-s2)>(SUMOReal) 9.5 || MAX2(s1,s2) >=(SUMOReal) 49.) {
+                const SUMOReal s1 = (*i)->getSpeed() * (SUMOReal) 3.6;
+                const SUMOReal s2 = (*j)->getSpeed() * (SUMOReal) 3.6;
+                const int p1 = (*i)->getPriority();
+                const int p2 = (*j)->getPriority();
+                if(fabs(s1-s2)>(SUMOReal) 9.5 || MAX2(s1,s2) >=(SUMOReal) 49. || p1 != p2) {
                     type = NODETYPE_PRIORITY_JUNCTION;
                     break;
                 }

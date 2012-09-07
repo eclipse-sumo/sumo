@@ -4,3 +4,5 @@ right_before_left_guess
 # Tests for the case, the heuristic returns the node to be a priority node
 priority_guess
 
+# differing edge priorities should always trigger a priority junction
+edge_priorities
