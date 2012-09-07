@@ -203,7 +203,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont &nc) {
                 // @todo check against a legal document
                 SUMOReal s1 = (*i)->getSpeed() * (SUMOReal) 3.6;
                 SUMOReal s2 = (*j)->getSpeed() * (SUMOReal) 3.6;
-                if(fabs(s1-s2)>(SUMOReal) 9.5 || s1>=(SUMOReal) 49. || s2>=(SUMOReal) 49.) {
+                if(fabs(s1-s2)>(SUMOReal) 9.5 || MAX2(s1,s2) >=(SUMOReal) 49.) {
                     type = NODETYPE_PRIORITY_JUNCTION;
                     break;
                 }
