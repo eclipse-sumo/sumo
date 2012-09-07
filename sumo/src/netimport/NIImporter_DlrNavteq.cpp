@@ -212,7 +212,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     SUMOReal length;
     SUMOReal speed = (SUMOReal) 30.0 / (SUMOReal) 3.6;
     int nolanes = 1;
-    int priority = -1;
+    int priority;
     // parse
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // id
@@ -236,7 +236,11 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     // brunnel_type
     std::string brunnel_type = st.next();
     // street_type
-    std::string street_type = st.next();
+    try {
+        priority = -TplConvert::_2int(st.next().c_str());
+    } catch (NumberFormatException&) {
+        throw ProcessError("Non-numerical value for an edge's street_type occured (edge '" + id + "'.");
+    }
     speed = NINavTeqHelper::getSpeed(id, st.next());
     // number of lanes
     nolanes = NINavTeqHelper::getLaneNumber(id, st.next(), speed);

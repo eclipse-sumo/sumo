@@ -6,3 +6,6 @@ tls
 
 # whether discarding traffic lights works
 tls-discard
+
+# set priority based on street_type
+priority

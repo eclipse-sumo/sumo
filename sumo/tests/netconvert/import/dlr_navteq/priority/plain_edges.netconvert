@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Sep  7 07:35:20 2012 by SUMO netconvert Version dev-SVN-r12683
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <dlr-navteq-prefix value="elmar"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <projection>
+        <proj.scale value="5"/>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+    <edge id="-1" from="0" to="1" priority="0" numLanes="3" speed="55.56"/>
+    <edge id="-2" from="0" to="2" priority="-1" numLanes="3" speed="55.56"/>
+    <edge id="-3" from="0" to="3" priority="-2" numLanes="3" speed="55.56"/>
+    <edge id="-4" from="0" to="4" priority="-3" numLanes="3" speed="55.56"/>
+    <edge id="1" from="1" to="0" priority="-4" numLanes="3" speed="55.56"/>
+    <edge id="2" from="2" to="0" priority="0" numLanes="3" speed="55.56"/>
+    <edge id="3" from="3" to="0" priority="0" numLanes="2" speed="33.33"/>
+    <edge id="4" from="4" to="0" priority="0" numLanes="2" speed="33.33"/>
+</edges>
