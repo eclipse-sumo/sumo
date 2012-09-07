@@ -38,6 +38,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -517,14 +518,7 @@ Option_IntVector::set(const std::string& v) {
 
 std::string
 Option_IntVector::getValueString() const {
-    std::ostringstream s;
-    for (IntVector::const_iterator i = myValue.begin(); i != myValue.end(); i++) {
-        if (i != myValue.begin()) {
-            s << ',';
-        }
-        s << (*i);
-    }
-    return s.str();
+    return joinToString(myValue, ',');
 }
 
 
