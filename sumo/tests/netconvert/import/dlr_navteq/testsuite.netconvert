@@ -9,3 +9,6 @@ tls-discard
 
 # set priority based on street_type
 priority
+
+# import street names from _names.txt
+street_names

@@ -1,0 +1,7 @@
+# Net version: Extraction version: V2.3 ; Creator: Elmar Brockfeld, DLR-IVF ; Extraction date: 2006-11-23, 15:47:49 o'clock
+# NODE_ID	IS_BETWEEN_NODE	amount_of_geocoordinates	x1	y1	[x2	y2	...	xn	yn]
+0	0	1	1273368	5223889
+1	0	1	1306826	5223889
+2	0	1	1248456	5223889
+3	0	1	1273368	5235677
+4	0	1	1273368	5211834
