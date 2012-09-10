@@ -58,9 +58,6 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
                                    tcpip::Storage& outputStorage) {
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    if(variable==OBJECT_VARIABLES_SUBSCRIPTION) {
-        server.addObjectVariableSubscription(CMD_GET_POLYGON_VARIABLE);
-    }
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != VAR_TYPE && variable != VAR_COLOR && variable != VAR_SHAPE && variable != VAR_FILL

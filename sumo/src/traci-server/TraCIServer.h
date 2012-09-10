@@ -63,6 +63,7 @@
 #include <set>
 
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -124,6 +125,7 @@ public:
     void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
 
     bool addObjectVariableSubscription(int commandId);
+    bool addObjectContextSubscription(int commandId);
 
 private:
 
@@ -169,13 +171,16 @@ private:
     class Subscription {
     public:
         Subscription(int commandIdArg, const std::string& idArg, const std::vector<int> &variablesArg,
-                     SUMOTime beginTimeArg, SUMOTime endTimeArg)
-            : commandId(commandIdArg), id(idArg), variables(variablesArg), beginTime(beginTimeArg), endTime(endTimeArg) {}
+                     SUMOTime beginTimeArg, SUMOTime endTimeArg, bool contextVarsArg, int contextDomainArg)
+            : commandId(commandIdArg), id(idArg), variables(variablesArg), beginTime(beginTimeArg), endTime(endTimeArg),
+              contextVars(contextVarsArg), contextDomain(contextDomainArg) {}
         int commandId;
         std::string id;
         std::vector<int> variables;
         SUMOTime beginTime;
         SUMOTime endTime;
+        bool contextVars;
+        int contextDomain;
 
     };
 

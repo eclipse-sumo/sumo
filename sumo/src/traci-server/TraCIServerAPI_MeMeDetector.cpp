@@ -55,9 +55,6 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer& server, tcpip::Storage& inp
                                         tcpip::Storage& outputStorage) {
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    if(variable==OBJECT_VARIABLES_SUBSCRIPTION) {
-        server.addObjectVariableSubscription(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE);
-    }
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != LAST_STEP_VEHICLE_NUMBER && variable != LAST_STEP_MEAN_SPEED

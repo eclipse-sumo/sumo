@@ -57,9 +57,6 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                                 tcpip::Storage& outputStorage) {
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if(variable==OBJECT_VARIABLES_SUBSCRIPTION) {
-        server.addObjectVariableSubscription(CMD_GET_LANE_VARIABLE);
-    }
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != LANE_LINK_NUMBER && variable != LANE_EDGE_ID && variable != VAR_LENGTH

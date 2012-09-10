@@ -63,9 +63,6 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                                 tcpip::Storage& outputStorage) {
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    if(variable==OBJECT_VARIABLES_SUBSCRIPTION) {
-        server.addObjectVariableSubscription(CMD_GET_EDGE_VARIABLE);
-    }
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT && variable != VAR_CURRENT_TRAVELTIME

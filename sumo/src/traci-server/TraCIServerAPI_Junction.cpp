@@ -57,9 +57,6 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
                                     tcpip::Storage& outputStorage) {
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if(variable==OBJECT_VARIABLES_SUBSCRIPTION) {
-        server.addObjectVariableSubscription(CMD_GET_JUNCTION_VARIABLE);
-    }
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != VAR_POSITION && variable != ID_COUNT) {

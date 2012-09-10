@@ -293,6 +293,18 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
     } else if (dataTypeS == "<drivingDist>") {
         into.writeUnsignedByte(REQUEST_DRIVINGDIST);
         return 1;
+    } else if (dataTypeS == "<objSubscription>") {
+        int beginTime, endTime, numVars;
+        defFile >> beginTime >> endTime >> numVars;
+        into.writeInt(beginTime);
+        into.writeInt(endTime);
+        into.writeInt(numVars);
+        for (int i = 0; i < numVars; ++i) {
+            int var;
+            defFile >> var;
+            into.writeUnsignedByte(var);
+        }
+        return 4 + 4 + 4 + numVars;
     }
     defFile >> valueS;
     if (dataTypeS == "<int>") {
@@ -333,8 +345,8 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         into.writeStringList(slValue);
         return length;
     } else if (dataTypeS == "<compound>") {
-        into.writeUnsignedByte(TYPE_COMPOUND);
         int number = atoi(valueS.c_str());
+        into.writeUnsignedByte(TYPE_COMPOUND);
         into.writeInt(number);
         int length = 1 + 4;
         for (int i = 0; i < number; ++i) {
@@ -385,7 +397,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
             length += 8 + 8;
         }
         return length;
-    }
+    } 
     msg << "## Unknown data type: " << dataTypeS;
     return 0;
 }

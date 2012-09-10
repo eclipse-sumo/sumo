@@ -410,8 +410,22 @@ TraCIServer::dispatchCommand() {
             case CMD_SUBSCRIBE_EDGE_VARIABLE:
             case CMD_SUBSCRIBE_SIM_VARIABLE:
             case CMD_SUBSCRIBE_GUI_VARIABLE:
-                WRITE_WARNING("Using direct subscription messages is deprecated; subscribe via the object API.");
                 success = addObjectVariableSubscription(commandId);
+                break;
+            case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
+            case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
+            case CMD_SUBSCRIBE_TL_CONTEXT:
+            case CMD_SUBSCRIBE_LANE_CONTEXT:
+            case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+            case CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
+            case CMD_SUBSCRIBE_ROUTE_CONTEXT:
+            case CMD_SUBSCRIBE_POI_CONTEXT:
+            case CMD_SUBSCRIBE_POLYGON_CONTEXT:
+            case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
+            case CMD_SUBSCRIBE_EDGE_CONTEXT:
+            case CMD_SUBSCRIBE_SIM_CONTEXT:
+            case CMD_SUBSCRIBE_GUI_CONTEXT:
+                success = addObjectContextSubscription(commandId);
                 break;
             default:
                 writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
@@ -643,7 +657,7 @@ TraCIServer::addObjectVariableSubscription(int commandId) {
         }
     } else {
         // process subscription
-        Subscription s(commandId, id, variables, beginTime, endTime);
+        Subscription s(commandId, id, variables, beginTime, endTime, false, 0);
         tcpip::Storage writeInto;
         std::string errors;
         if (s.endTime < MSNet::getInstance()->getCurrentTimeStep()) {
@@ -725,6 +739,59 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
     writeInto.writeStorage(outputStorage);
     return ok;
 }
+
+
+bool
+TraCIServer::addObjectContextSubscription(int commandId) {
+    SUMOTime beginTime = myInputStorage.readInt();
+    SUMOTime endTime = myInputStorage.readInt();
+    std::string id = myInputStorage.readString();
+    SUMOReal range = myInputStorage.readDouble();
+    int domain =myInputStorage.readUnsignedByte();
+    int no = myInputStorage.readUnsignedByte();
+    std::vector<int> variables;
+    for (int i = 0; i < no; ++i) {
+        variables.push_back(myInputStorage.readUnsignedByte());
+    }
+    // check subscribe/unsubscribe
+    bool ok = true;
+    if (variables.size() == 0) {
+        // try unsubscribe
+        bool found = false;
+        for (std::vector<Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
+            if ((*j).id == id && (*j).commandId == commandId) {
+                j = mySubscriptions.erase(j);
+                found = true;
+                continue;
+            }
+            ++j;
+        }
+        if (found) {
+            writeStatusCmd(commandId, RTYPE_OK, "");
+        } else {
+            writeStatusCmd(commandId, RTYPE_OK, "The subscription to remove was not found.");
+        }
+    } else {
+        // process subscription
+        Subscription s(commandId, id, variables, beginTime, endTime, true, domain);
+        tcpip::Storage writeInto;
+        std::string errors;
+        if (s.endTime < MSNet::getInstance()->getCurrentTimeStep()) {
+            processSingleSubscription(s, writeInto, errors);
+            writeStatusCmd(s.commandId, RTYPE_ERR, "Subscription has ended.");
+        } else {
+            if (processSingleSubscription(s, writeInto, errors)) {
+                mySubscriptions.push_back(s);
+                writeStatusCmd(s.commandId, RTYPE_OK, "");
+            } else {
+                writeStatusCmd(s.commandId, RTYPE_ERR, "Could not add subscription (" + errors + ").");
+            }
+        }
+        myOutputStorage.writeStorage(writeInto);
+    }
+    return ok;
+}
+
 
 void
 TraCIServer::writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg) {

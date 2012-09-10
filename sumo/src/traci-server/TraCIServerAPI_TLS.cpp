@@ -56,9 +56,6 @@ TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                                tcpip::Storage& outputStorage) {
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    if(variable==OBJECT_VARIABLES_SUBSCRIPTION) {
-        server.addObjectVariableSubscription(CMD_GET_TL_VARIABLE);
-    }
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != TL_RED_YELLOW_GREEN_STATE && variable != TL_COMPLETE_DEFINITION_RYG

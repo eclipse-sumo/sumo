@@ -57,9 +57,6 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
                                  tcpip::Storage& outputStorage) {
     // variable & id
     int variable = inputStorage.readUnsignedByte();
-    if(variable==OBJECT_VARIABLES_SUBSCRIPTION) {
-        server.addObjectVariableSubscription(CMD_GET_ROUTE_VARIABLE);
-    }
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != VAR_EDGES && variable != ID_COUNT) {
