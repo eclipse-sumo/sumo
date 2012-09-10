@@ -1,3 +1,2 @@
-Warning: Using direct subscription messages is deprecated; subscribe via the object API.
 Error: Answered with error to command 164: Get Vehicle Variable: unsupported variable specified
 Error: Answered with error to command 212: Could not add subscription (Get Vehicle Variable: unsupported variable specified).
