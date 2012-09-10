@@ -3,7 +3,7 @@
 """
 @file    duaIterate_analysis.py
 @author  Jakob Erdmann
-@date    2012-08-22
+@date    2012-09-06
 @version $Id$
 
 Extract statistics from the outputs of a duaIterate run for plotting.
@@ -16,6 +16,8 @@ import os,sys
 import re
 from optparse import OptionParser
 from collections import defaultdict
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from sumolib.miscutils import Statistics
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <dua-log.txt> [options]"
@@ -34,6 +36,7 @@ def parse_args():
 
 def parse_dualog(dualog):
     print "Parsing %s" % dualog
+    teleStats = Statistics('Teleports')
     step_values = [['#Emitted', 'Running', 'Waiting', 'Teleports', 'Loaded']] # list of lists
     reEmitted = re.compile("Emitted: (\d*)")
     reLoaded = re.compile("Loaded: (\d*)")
@@ -57,9 +60,12 @@ def parse_dualog(dualog):
             running = reRunning.search(line).group(1)
         elif "Waiting:" in line:
             waiting = reWaiting.search(line).group(1)
+            iteration = len(step_values)
+            teleStats.add(teleports, iteration)
             step_values.append([emitted, running, waiting, teleports, loaded])
             teleports = 0
     print "  parsed %s steps" % (len(step_values) - 1)
+    print teleStats
     return step_values
 
 def parse_stdout(step_values, stdout):
