@@ -17,7 +17,7 @@ import re
 from optparse import OptionParser
 from collections import defaultdict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from sumolib.miscutils import Statistics
+from sumolib.miscutils import Statistics, uMax
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <dua-log.txt> [options]"
@@ -28,13 +28,15 @@ def parse_args():
             help="output prefix for plotting with gnuplot")
     optParser.add_option("-l", "--label-size", default=40, dest="label_size",
             help="limit length of the plot label to this size")
+    optParser.add_option("--limit", type=int,  default=uMax,
+            help="only parse the first INT number of iterations")
     options, args = optParser.parse_args()
     if len(args) != 1:
         sys.exit(USAGE)
     options.dualog = args[0]
     return options
 
-def parse_dualog(dualog):
+def parse_dualog(dualog, limit):
     print "Parsing %s" % dualog
     teleStats = Statistics('Teleports')
     step_values = [['#Emitted', 'Running', 'Waiting', 'Teleports', 'Loaded']] # list of lists
@@ -59,8 +61,10 @@ def parse_dualog(dualog):
         elif "Running:" in line:
             running = reRunning.search(line).group(1)
         elif "Waiting:" in line:
-            waiting = reWaiting.search(line).group(1)
             iteration = len(step_values)
+            if iteration > limit:
+                break
+            waiting = reWaiting.search(line).group(1)
             teleStats.add(teleports, iteration)
             step_values.append([emitted, running, waiting, teleports, loaded])
             teleports = 0
@@ -90,6 +94,8 @@ def parse_stdout(step_values, stdout):
             error = reError.search(line).group(1)
             step_values[step] += [routingMinutes, simMinutes, error]
             step += 1
+            if step >= len(step_values):
+                break
             routingMinutes = None
     print "  parsed %s steps" % (step - 1)
 
@@ -116,7 +122,7 @@ def main():
     options = parse_args()
     plotfile = options.output
     datafile = plotfile + '.data'
-    step_values = parse_dualog(options.dualog)
+    step_values = parse_dualog(options.dualog, options.limit)
     if options.stdout is not None:
         parse_stdout(step_values, options.stdout)
     write_data(datafile, step_values)
