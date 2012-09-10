@@ -379,7 +379,7 @@ public:
      */
     LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing) const;
 
-    std::string stateCode(const NBEdge* incoming, NBEdge* outgoing, int fromLane, bool mayDefinitelyPass) const;
+    LinkState getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromLane, bool mayDefinitelyPass) const;
 
     void computeNodeShape(bool leftHand);
 

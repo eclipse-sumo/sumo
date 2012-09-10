@@ -384,13 +384,11 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
             assert(dir != LINKDIR_NODIR);
             into.writeAttr(SUMO_ATTR_DIR, toString(dir));
             // write the state information
-            std::string stateCode;
-            if (c.tlID != "") {
-                stateCode = toString(LINKSTATE_TL_OFF_BLINKING);
-            } else {
-                stateCode = from.getToNode()->stateCode(&from, c.toEdge, c.toLane, c.mayDefinitelyPass);
+            LinkState linkState = LINKSTATE_TL_OFF_BLINKING;
+            if (c.tlID == "") {
+                linkState = from.getToNode()->getLinkState(&from, c.toEdge, c.toLane, c.mayDefinitelyPass);
             }
-            into.writeAttr(SUMO_ATTR_STATE, stateCode);
+            into.writeAttr(SUMO_ATTR_STATE, linkState);
         }
     }
     into.closeTag(true);

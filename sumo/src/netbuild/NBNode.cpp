@@ -1219,19 +1219,19 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing)
 }
 
 
-std::string
-NBNode::stateCode(const NBEdge* incoming, NBEdge* outgoing, int fromlane, bool mayDefinitelyPass) const {
+LinkState
+NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, bool mayDefinitelyPass) const {
     if (outgoing == 0) { // always off
-        return toString(LINKSTATE_TL_OFF_NOSIGNAL);
+        return LINKSTATE_TL_OFF_NOSIGNAL;
     }
     if (myType == NODETYPE_RIGHT_BEFORE_LEFT) {
-        return toString(LINKSTATE_EQUAL); // all the same
+        return LINKSTATE_EQUAL; // all the same
     }
     if ((!incoming->isInnerEdge() && mustBrake(incoming, outgoing, fromlane)) && !mayDefinitelyPass) {
-        return toString(LINKSTATE_MINOR); // minor road
+        return LINKSTATE_MINOR; // minor road
     }
     // traffic lights are not regarded here
-    return toString(LINKSTATE_MAJOR);
+    return LINKSTATE_MAJOR;
 }
 
 
