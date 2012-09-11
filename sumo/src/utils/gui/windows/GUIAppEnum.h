@@ -387,12 +387,14 @@ enum {
     MID_GNE_NEW_NETWORK,
     MID_GNE_OPEN_FOREIGN,
     MID_GNE_VIS_HEIGHT,
+    MID_GNE_LOAD_POIS,
     // MID_GNE_WIZARD,
     /** save network*/
     MID_GNE_SAVE_NETWORK,
     MID_GNE_SAVE_AS_NETWORK,
     MID_GNE_SAVE_PLAIN_XML,
     MID_GNE_SAVE_JOINED,
+    MID_GNE_SAVE_POIS,
     /** insert contents of another network */
     MID_GNE_INSERT_NETWORK,
     /** attribute edited */
