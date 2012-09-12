@@ -1220,7 +1220,11 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing)
 
 
 LinkState
-NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, bool mayDefinitelyPass) const {
+NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, 
+        bool mayDefinitelyPass, const std::string& tlID) const {
+    if (tlID != "") {
+        return LINKSTATE_TL_OFF_BLINKING;
+    }
     if (outgoing == 0) { // always off
         return LINKSTATE_TL_OFF_NOSIGNAL;
     }
