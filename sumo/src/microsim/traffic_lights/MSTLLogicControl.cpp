@@ -466,7 +466,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
             SUMOReal fac = def.fac;
             SUMOReal actualfac = fac / facSum;
             facSum = facSum - fac;
-            StretchTimeOfPhase = TIME2STEPS(STEPS2TIME(remainingStretchTime) * actualfac + 0.5);
+            StretchTimeOfPhase = TIME2STEPS(int(STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
             remainingStretchTime = allStretchTime - StretchTimeOfPhase;
         }
     }
@@ -486,7 +486,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
                 SUMOReal fac = def.fac;
                 if ((beginOfPhase <= end) && (endOfPhase >= end)) {
                     SUMOReal actualfac = fac / facSum;
-                    StretchTimeOfPhase = TIME2STEPS(STEPS2TIME(remainingStretchTime) * actualfac + 0.5);
+                    StretchTimeOfPhase = TIME2STEPS(int(STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
                     facSum -= fac;
                     durOfPhase += StretchTimeOfPhase;
                     remainingStretchTime -= StretchTimeOfPhase;
