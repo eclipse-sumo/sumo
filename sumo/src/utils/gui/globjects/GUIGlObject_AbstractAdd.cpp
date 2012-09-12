@@ -82,6 +82,13 @@ GUIGlObject_AbstractAdd::get(const std::string& name) {
 }
 
 
+void 
+GUIGlObject_AbstractAdd::remove(GUIGlObject_AbstractAdd* o) {
+    myObjects.erase(o->getFullName());
+    myObjectList.erase(std::remove(myObjectList.begin(), myObjectList.end(), o), myObjectList.end());
+}
+
+
 const std::vector<GUIGlObject_AbstractAdd*> &
 GUIGlObject_AbstractAdd::getObjectList() {
     return myObjectList;
