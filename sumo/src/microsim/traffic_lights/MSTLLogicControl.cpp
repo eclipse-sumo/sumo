@@ -470,6 +470,10 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
             remainingStretchTime = allStretchTime - StretchTimeOfPhase;
         }
     }
+    if(facSum==0) {
+        WRITE_WARNING("The computed factor sum in WAUT '" + myWAUT.id + "' at time '" + toString(STEPS2TIME(step)) + "' equals zero;\n assuming an error in WAUT definition.");
+        return;
+    }
     durOfPhase = durOfPhase - diffToStart + StretchTimeOfPhase;
     myTo->changeStepAndDuration(myControl, step, currStep, durOfPhase);
 
