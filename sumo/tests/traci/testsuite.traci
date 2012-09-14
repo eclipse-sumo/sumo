@@ -4,6 +4,9 @@ VariableRetrieval
 # Tests for variable subscription
 VariableSubscription
 
+# Tests for context subscription
+ContextSubscription
+
 
 # Tests for changing TL values
 ChangeTLValue
