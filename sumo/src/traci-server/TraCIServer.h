@@ -57,6 +57,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "TraCIException.h"
+#include "TraCIRTree.h"
 
 #include <map>
 #include <string>
@@ -127,6 +128,7 @@ public:
     bool addObjectVariableSubscription(int commandId);
     bool addObjectContextSubscription(int commandId);
 
+
 private:
 
     // Constructor
@@ -139,6 +141,7 @@ private:
     int dispatchCommand();
 
     void postProcessSimulationStep2();
+    void postProcessSimulationStep3();
 
     bool commandGetVersion();
 
@@ -171,9 +174,9 @@ private:
     class Subscription {
     public:
         Subscription(int commandIdArg, const std::string& idArg, const std::vector<int> &variablesArg,
-                     SUMOTime beginTimeArg, SUMOTime endTimeArg, bool contextVarsArg, int contextDomainArg)
+                     SUMOTime beginTimeArg, SUMOTime endTimeArg, bool contextVarsArg, int contextDomainArg, SUMOReal rangeArg)
             : commandId(commandIdArg), id(idArg), variables(variablesArg), beginTime(beginTimeArg), endTime(endTimeArg),
-              contextVars(contextVarsArg), contextDomain(contextDomainArg) {}
+              contextVars(contextVarsArg), contextDomain(contextDomainArg), range(rangeArg) {}
         int commandId;
         std::string id;
         std::vector<int> variables;
@@ -181,15 +184,25 @@ private:
         SUMOTime endTime;
         bool contextVars;
         int contextDomain;
+        SUMOReal range;
 
     };
 
     std::vector<Subscription> mySubscriptions;
 
+    void initialiseSubscription(const Subscription& s);
+    void removeSubscription(int commandId, const std::string &identity, int domain);
     bool processSingleSubscription(const TraCIServer::Subscription& s, tcpip::Storage& writeInto,
                                    std::string& errors);
 
+
+    Position getObjectPosition(int domain, const std::string &id);
+    void collectObjectsInRange(int domain, const Position &p, SUMOReal range, std::set<std::string> &into);
+
+
     std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
+
+    TraCIRTree *myObjects;
 
 private:
     /// @brief Invalidated assignment operator

@@ -5,7 +5,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Base class for objects which do have an id.
+// Base class for objects which have an id.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -32,6 +32,7 @@
 #endif
 
 #include <string>
+#include <set>
 
 
 // ===========================================================================
@@ -39,12 +40,11 @@
 // ===========================================================================
 /**
  * @class Named
- * @brief Base class for objects which do have an id.
+ * @brief Base class for objects which have an id.
  */
 class Named {
 public:
     /** @brief Constructor
-     *
      * @param[in] id The id of the object
      */
     Named(const std::string& id) : myID(id) { }
@@ -55,7 +55,6 @@ public:
 
 
     /** @brief Returns the id
-     *
      * @return The stored id
      */
     const std::string& getID() const {
@@ -63,19 +62,50 @@ public:
     }
 
 
-    /// @brief resets the id
+    /** @brief resets the id
+     * @param[in] newID The new id of this object
+     */
     void setID(const std::string& newID) {
         myID = newID;
     }
 
 
-    /** Function-object for stable sorting in containers. */
+    /// @brief Function-object for stable sorting in containers
     struct ComparatorIdLess {
         bool operator()(Named* const a, Named* const b) {
             return (a->getID() < b->getID());
         }
     };
 
+
+
+    /** @class StoringVisitor
+     * @brief Allows to store the object; used as context while traveling the rtree in TraCI
+     */
+    class StoringVisitor {
+    public:
+        /// @brief Contructor
+        StoringVisitor(std::set<std::string> &ids) : myIDs(ids) {}
+
+        /// @brief Destructor
+        ~StoringVisitor() {}
+
+        /// @brief Adds the given object to the container
+        void add(const Named * const o) const { myIDs.insert(o->getID()); }
+
+        /// @brief The container
+        mutable std::set<std::string> &myIDs;
+
+    };
+
+
+
+    /** @brief Adds this object to the given container
+     * @param[in, filled] cont The container to add this item to
+     */
+    void addTo(const StoringVisitor &cont) const {
+        cont.add(this);
+    }
 
 
 protected:

@@ -153,7 +153,7 @@ TraCIAPI::send_commandSetValue(int domID, int varID, const std::string& objID, t
 
 
 void 
-TraCIAPI::send_commandSubscribeVariable(int domID, const std::string& objID, int beginTime, int endTime, 
+TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objID, int beginTime, int endTime, 
                                         const std::vector<int> &vars) const {
     if (mySocket == 0) {
         throw tcpip::SocketException("Socket is not initialised");
@@ -179,6 +179,36 @@ TraCIAPI::send_commandSubscribeVariable(int domID, const std::string& objID, int
     mySocket->sendExact(outMsg);
 }
 
+
+void 
+TraCIAPI::send_commandSubscribeObjectContext(int domID, const std::string& objID, int beginTime, int endTime, 
+                                        int domain, SUMOReal range, const std::vector<int> &vars) const {
+    if (mySocket == 0) {
+        throw tcpip::SocketException("Socket is not initialised");
+    }
+    tcpip::Storage outMsg;
+    // command length (domID, objID, beginTime, endTime, length, vars)
+    int varNo = (int) vars.size();
+    outMsg.writeUnsignedByte(0);
+    outMsg.writeInt(5 + 1 + 4 + 4 + 4 + (int) objID.length() + 1 + 8 + 1 + varNo);
+    // command id
+    outMsg.writeUnsignedByte(domID);
+    // time
+    outMsg.writeInt(beginTime);
+    outMsg.writeInt(endTime);
+    // object id
+    outMsg.writeString(objID);
+    // domain and range
+    outMsg.writeUnsignedByte(domain);
+    outMsg.writeDouble(range);
+    // command id
+    outMsg.writeUnsignedByte(vars.size());
+    for (int i = 0; i < varNo; ++i) {
+        outMsg.writeUnsignedByte(vars[i]);
+    }
+    // send message
+    mySocket->sendExact(outMsg);
+}
 
 
 

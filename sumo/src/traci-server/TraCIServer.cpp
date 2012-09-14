@@ -107,7 +107,6 @@ bool TraCIServer::myDoCloseConnection = false;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
 void
 TraCIServer::openSocket(const std::map<int, CmdExecutor> &execs) {
     if (myInstance == 0) {
@@ -120,10 +119,11 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor> &execs) {
     }
 }
 
-/*****************************************************************************/
 
 TraCIServer::TraCIServer(int port)
-    : mySocket(0), myTargetTime(0), myDoingSimStep(false), myHaveWarnedDeprecation(false), myAmEmbedded(port == 0) {
+    : mySocket(0), myTargetTime(0), myDoingSimStep(false), myHaveWarnedDeprecation(false), myAmEmbedded(port == 0),
+    myObjects(0) {
+
     myVehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
@@ -174,7 +174,6 @@ TraCIServer::TraCIServer(int port)
     }
 }
 
-/*****************************************************************************/
 
 TraCIServer::~TraCIServer() {
     MSNet::getInstance()->removeVehicleStateListener(this);
@@ -182,9 +181,9 @@ TraCIServer::~TraCIServer() {
         mySocket->close();
         delete mySocket;
     }
+    delete myObjects;
 }
 
-/*****************************************************************************/
 
 void
 TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to) {
@@ -194,7 +193,7 @@ TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::Vehicl
     myVehicleStateChanges[to].push_back(vehicle->getID());
 }
 
-/*****************************************************************************/
+
 void
 TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     try {
@@ -260,7 +259,6 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     }
 }
 
-/*****************************************************************************/
 
 bool
 TraCIServer::wasClosed() {
@@ -277,7 +275,6 @@ TraCIServer::close() {
     }
 }
 
-/*****************************************************************************/
 
 #ifdef HAVE_PYTHON
 // ===========================================================================
@@ -353,7 +350,6 @@ TraCIServer::runEmbedded(std::string pyFile) {
 }
 #endif
 
-/*****************************************************************************/
 
 int
 TraCIServer::dispatchCommand() {
@@ -384,6 +380,20 @@ TraCIServer::dispatchCommand() {
                 if (myAmEmbedded) {
                     MSNet::getInstance()->simulationStep();
                     postProcessSimulationStep2();
+                }
+                return commandId;
+            }
+            case CMD_SIMSTEP3: {
+                SUMOTime nextT = myInputStorage.readInt();
+                success = true;
+                if (nextT != 0) {
+                    myTargetTime = nextT;
+                } else {
+                    myTargetTime += DELTA_T;
+                }
+                if (myAmEmbedded) {
+                    MSNet::getInstance()->simulationStep();
+                    postProcessSimulationStep3();
                 }
                 return commandId;
             }
@@ -447,7 +457,6 @@ TraCIServer::dispatchCommand() {
     return commandId;
 }
 
-/*****************************************************************************/
 
 void
 TraCIServer::postProcessSimulationStep2() {
@@ -480,7 +489,38 @@ TraCIServer::postProcessSimulationStep2() {
     }
 }
 
-/*****************************************************************************/
+
+void
+TraCIServer::postProcessSimulationStep3() {
+    SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
+    writeStatusCmd(CMD_SIMSTEP3, RTYPE_OK, "");
+    int noActive = 0;
+    for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
+        const Subscription& s = *i;
+        bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE) && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
+        if ((s.endTime < t) || isArrivedVehicle) {
+            i = mySubscriptions.erase(i);
+            continue;
+        }
+        ++i;
+        if (s.beginTime > t) {
+            continue;
+        }
+        ++noActive;
+    }
+    myOutputStorage.writeInt(noActive);
+    for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end(); ++i) {
+        const Subscription& s = *i;
+        if (s.beginTime > t) {
+            continue;
+        }
+        tcpip::Storage into;
+        std::string errors;
+        processSingleSubscription(s, into, errors);
+        myOutputStorage.writeStorage(into);
+    }
+}
+
 
 bool
 TraCIServer::commandGetVersion() {
@@ -505,7 +545,6 @@ TraCIServer::commandGetVersion() {
     return true;
 }
 
-/*****************************************************************************/
 
 bool
 TraCIServer::commandCloseConnection() {
@@ -515,7 +554,6 @@ TraCIServer::commandCloseConnection() {
     return true;
 }
 
-/*****************************************************************************/
 
 bool
 TraCIServer::commandAddVehicle() {
@@ -604,8 +642,6 @@ TraCIServer::commandAddVehicle() {
 }
 
 
-/*****************************************************************************/
-
 void
 TraCIServer::writeStatusCmd(int commandId, int status, const std::string& description) {
     writeStatusCmd(commandId, status, description, myOutputStorage);
@@ -625,7 +661,228 @@ TraCIServer::writeStatusCmd(int commandId, int status, const std::string& descri
     outputStorage.writeString(description); // description
 }
 
-/*****************************************************************************/
+
+void 
+TraCIServer::initialiseSubscription(const TraCIServer::Subscription& s) {
+    tcpip::Storage writeInto;
+    std::string errors;
+    if (processSingleSubscription(s, writeInto, errors)) {
+        if (s.endTime < MSNet::getInstance()->getCurrentTimeStep()) {
+            writeStatusCmd(s.commandId, RTYPE_ERR, "Subscription has ended.");
+        } else {
+            mySubscriptions.push_back(s);
+            writeStatusCmd(s.commandId, RTYPE_OK, "");
+        }
+    } else {
+        writeStatusCmd(s.commandId, RTYPE_ERR, "Could not add subscription (" + errors + ").");
+    }
+    myOutputStorage.writeStorage(writeInto);
+}
+
+
+void 
+TraCIServer::removeSubscription(int commandId, const std::string &id, int domain) {
+    bool found = false;
+    for (std::vector<Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
+        if ((*j).id == id && (*j).commandId == commandId && (domain<0 || (*j).contextDomain == domain)) {
+            j = mySubscriptions.erase(j);
+            found = true;
+            continue;
+        }
+        ++j;
+    }
+    // try unsubscribe
+    if (found) {
+        writeStatusCmd(commandId, RTYPE_OK, "");
+    } else {
+        writeStatusCmd(commandId, RTYPE_OK, "The subscription to remove was not found.");
+    }
+}
+
+
+Position 
+TraCIServer::getObjectPosition(int domain, const std::string &id) {
+    switch(domain) {
+    case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
+    case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
+    case CMD_SUBSCRIBE_TL_CONTEXT:
+    case CMD_SUBSCRIBE_LANE_CONTEXT:
+    case CMD_SUBSCRIBE_VEHICLE_CONTEXT: {
+        MSVehicle* v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
+        return v->getPosition();
+                                   }
+                                   break;
+    case CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
+    case CMD_SUBSCRIBE_ROUTE_CONTEXT:
+    case CMD_SUBSCRIBE_POI_CONTEXT:
+    case CMD_SUBSCRIBE_POLYGON_CONTEXT:
+    case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
+    case CMD_SUBSCRIBE_EDGE_CONTEXT:
+    case CMD_SUBSCRIBE_SIM_CONTEXT:
+    case CMD_SUBSCRIBE_GUI_CONTEXT:
+    default:
+        break;
+    }
+    throw 1;
+}
+
+void 
+TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range, std::set<std::string> &into) {
+    if(myObjects==0) {
+        myObjects = new TraCIRTree();
+        const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
+        for(std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+            const std::vector<MSLane*> &lanes = (*i)->getLanes();
+            for(std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
+                myObjects->addAdditionalGLObject(*j, (*j)->getShape().getBoxBoundary());
+            }
+        }
+    }
+    Boundary b;
+    b.add(Position(p.x()+range, p.y()+range));
+    b.add(Position(p.x()-range, p.y()-range));
+    const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+    const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+    switch(domain) {
+    case CMD_GET_INDUCTIONLOOP_VARIABLE:
+        break;
+    case CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
+        break;
+    case CMD_GET_TL_VARIABLE:
+        break;
+    case CMD_GET_LANE_VARIABLE: {
+        Named::StoringVisitor sv(into);
+        myObjects->Search(cmin, cmax, sv);
+                                   }
+                                   break;
+    case CMD_GET_VEHICLE_VARIABLE: {
+        std::set<std::string> tmp;
+        Named::StoringVisitor sv(tmp);
+        myObjects->Search(cmin, cmax, sv);
+        for(std::set<std::string>::const_iterator i=tmp.begin(); i!=tmp.end(); ++i) {
+            MSLane *l = MSLane::dictionary(*i);
+            if(l!=0) {
+                const std::deque<MSVehicle*> &vehs = l->getVehiclesSecure();
+                for(std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
+                    if(p.distanceSquaredTo((*j)->getPosition())<=range) {
+                        into.insert((*j)->getID());
+                    }
+                }
+                l->releaseVehicles();
+            }
+        }
+                                   }
+                                   break;
+    case CMD_GET_VEHICLETYPE_VARIABLE:
+        break;
+    case CMD_GET_ROUTE_VARIABLE:
+        break;
+    case CMD_GET_POI_VARIABLE:
+        break;
+    case CMD_GET_POLYGON_VARIABLE:
+        break;
+    case CMD_GET_JUNCTION_VARIABLE:
+        break;
+    case CMD_GET_EDGE_VARIABLE:
+        break;
+    case CMD_GET_SIM_VARIABLE:
+        break;
+    case CMD_GET_GUI_VARIABLE:
+        break;
+    default:
+        break;
+    }
+}
+
+
+bool
+TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& writeInto,
+                                       std::string& errors) {
+    bool ok = true;
+    tcpip::Storage outputStorage;
+    int getCommandId = s.contextVars ? s.contextDomain : s.commandId - 0x30;
+    std::set<std::string> objIDs;
+    if(s.contextVars) {
+        getCommandId = s.contextDomain;
+        Position p = getObjectPosition(s.commandId, s.id);
+        collectObjectsInRange(s.contextDomain, p, s.range, objIDs);
+    } else {
+        getCommandId = s.commandId - 0x30;
+        objIDs.insert(s.id);
+    }
+
+    for (std::set<std::string>::iterator j=objIDs.begin(); j!=objIDs.end(); ++j) {
+        if(s.contextVars) {
+            outputStorage.writeString(*j);
+        }
+        for (std::vector<int>::const_iterator i = s.variables.begin(); i != s.variables.end(); ++i) {
+            tcpip::Storage message;
+            message.writeUnsignedByte(*i);
+            message.writeString(*j);
+            tcpip::Storage tmpOutput;
+            if (myExecutors.find(getCommandId) != myExecutors.end()) {
+                ok &= myExecutors[getCommandId](*this, message, tmpOutput);
+            } else {
+                writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
+                ok = false;
+            }
+            // copy response part
+            if (ok) {
+                int length = tmpOutput.readUnsignedByte();
+                while (--length > 0) {
+                    tmpOutput.readUnsignedByte();
+                }
+                int lengthLength = 1;
+                length = tmpOutput.readUnsignedByte();
+                if (length == 0) {
+                    lengthLength = 5;
+                    length = tmpOutput.readInt();
+                }
+                //read responseType
+                tmpOutput.readUnsignedByte();
+                int variable = tmpOutput.readUnsignedByte();
+                std::string id = tmpOutput.readString();
+                outputStorage.writeUnsignedByte(variable);
+                outputStorage.writeUnsignedByte(RTYPE_OK);
+                length -= (lengthLength + 1 + 4 + (int)id.length());
+                while (--length > 0) {
+                    outputStorage.writeUnsignedByte(tmpOutput.readUnsignedByte());
+                }
+            } else {
+                //read length
+                tmpOutput.readUnsignedByte();
+                //read cmd
+                tmpOutput.readUnsignedByte();
+                //read status
+                tmpOutput.readUnsignedByte();
+                std::string msg = tmpOutput.readString();
+                outputStorage.writeUnsignedByte(*i);
+                outputStorage.writeUnsignedByte(RTYPE_ERR);
+                outputStorage.writeUnsignedByte(TYPE_STRING);
+                outputStorage.writeString(msg);
+                errors = errors + msg;
+            }
+        }
+    }
+    unsigned int length = (1 + 4) + 1 + (4 + (int)(s.id.length())) + 1 + (int)outputStorage.size();
+    if(s.contextVars) {
+        length += 4;
+    }
+    writeInto.writeUnsignedByte(0); // command length -> extended
+    writeInto.writeInt(length);
+    writeInto.writeUnsignedByte(s.commandId + 0x10);
+    writeInto.writeString(s.id);
+    if(s.contextVars) {
+        writeInto.writeUnsignedByte(s.contextDomain);
+    }
+    writeInto.writeUnsignedByte((int)(s.variables.size()));
+    if(s.contextVars) {
+        writeInto.writeInt(objIDs.size());
+    }
+    writeInto.writeStorage(outputStorage);
+    return ok;
+}
+
 
 bool
 TraCIServer::addObjectVariableSubscription(int commandId) {
@@ -638,106 +895,14 @@ TraCIServer::addObjectVariableSubscription(int commandId) {
         variables.push_back(myInputStorage.readUnsignedByte());
     }
     // check subscribe/unsubscribe
-    bool ok = true;
     if (variables.size() == 0) {
-        // try unsubscribe
-        bool found = false;
-        for (std::vector<Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
-            if ((*j).id == id && (*j).commandId == commandId) {
-                j = mySubscriptions.erase(j);
-                found = true;
-                continue;
-            }
-            ++j;
-        }
-        if (found) {
-            writeStatusCmd(commandId, RTYPE_OK, "");
-        } else {
-            writeStatusCmd(commandId, RTYPE_OK, "The subscription to remove was not found.");
-        }
-    } else {
-        // process subscription
-        Subscription s(commandId, id, variables, beginTime, endTime, false, 0);
-        tcpip::Storage writeInto;
-        std::string errors;
-        if (s.endTime < MSNet::getInstance()->getCurrentTimeStep()) {
-            processSingleSubscription(s, writeInto, errors);
-            writeStatusCmd(s.commandId, RTYPE_ERR, "Subscription has ended.");
-        } else {
-            if (processSingleSubscription(s, writeInto, errors)) {
-                mySubscriptions.push_back(s);
-                writeStatusCmd(s.commandId, RTYPE_OK, "");
-            } else {
-                writeStatusCmd(s.commandId, RTYPE_ERR, "Could not add subscription (" + errors + ").");
-            }
-        }
-        myOutputStorage.writeStorage(writeInto);
+        removeSubscription(commandId, id, -1);
+        return true;
     }
-    return ok;
-}
-
-
-bool
-TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& writeInto,
-                                       std::string& errors) {
-    bool ok = true;
-    tcpip::Storage outputStorage;
-    for (std::vector<int>::const_iterator i = s.variables.begin(); i != s.variables.end(); ++i) {
-        tcpip::Storage message;
-        message.writeUnsignedByte(*i);
-        message.writeString(s.id);
-        tcpip::Storage tmpOutput;
-        int getId = s.commandId - 0x30;
-        if (myExecutors.find(getId) != myExecutors.end()) {
-            ok &= myExecutors[getId](*this, message, tmpOutput);
-        } else {
-            writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
-            ok = false;
-        }
-        // copy response part
-        if (ok) {
-            int length = tmpOutput.readUnsignedByte();
-            while (--length > 0) {
-                tmpOutput.readUnsignedByte();
-            }
-            int lengthLength = 1;
-            length = tmpOutput.readUnsignedByte();
-            if (length == 0) {
-                lengthLength = 5;
-                length = tmpOutput.readInt();
-            }
-            //read responseType
-            tmpOutput.readUnsignedByte();
-            int variable = tmpOutput.readUnsignedByte();
-            std::string id = tmpOutput.readString();
-            outputStorage.writeUnsignedByte(variable);
-            outputStorage.writeUnsignedByte(RTYPE_OK);
-            length -= (lengthLength + 1 + 4 + (int)id.length());
-            while (--length > 0) {
-                outputStorage.writeUnsignedByte(tmpOutput.readUnsignedByte());
-            }
-        } else {
-            //read length
-            tmpOutput.readUnsignedByte();
-            //read cmd
-            tmpOutput.readUnsignedByte();
-            //read status
-            tmpOutput.readUnsignedByte();
-            std::string msg = tmpOutput.readString();
-            outputStorage.writeUnsignedByte(*i);
-            outputStorage.writeUnsignedByte(RTYPE_ERR);
-            outputStorage.writeUnsignedByte(TYPE_STRING);
-            outputStorage.writeString(msg);
-            errors = errors + msg;
-        }
-    }
-    writeInto.writeUnsignedByte(0); // command length -> extended
-    writeInto.writeInt((1 + 4) + 1 + (4 + (int)(s.id.length())) + 1 + (int)outputStorage.size());
-    writeInto.writeUnsignedByte(s.commandId + 0x10);
-    writeInto.writeString(s.id);
-    writeInto.writeUnsignedByte((int)(s.variables.size()));
-    writeInto.writeStorage(outputStorage);
-    return ok;
+    // process subscription
+    Subscription s(commandId, id, variables, beginTime, endTime, false, 0, 0);
+    initialiseSubscription(s);
+    return true;
 }
 
 
@@ -746,50 +911,21 @@ TraCIServer::addObjectContextSubscription(int commandId) {
     SUMOTime beginTime = myInputStorage.readInt();
     SUMOTime endTime = myInputStorage.readInt();
     std::string id = myInputStorage.readString();
+    int domain = myInputStorage.readUnsignedByte();
     SUMOReal range = myInputStorage.readDouble();
-    int domain =myInputStorage.readUnsignedByte();
     int no = myInputStorage.readUnsignedByte();
     std::vector<int> variables;
     for (int i = 0; i < no; ++i) {
         variables.push_back(myInputStorage.readUnsignedByte());
     }
     // check subscribe/unsubscribe
-    bool ok = true;
     if (variables.size() == 0) {
-        // try unsubscribe
-        bool found = false;
-        for (std::vector<Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
-            if ((*j).id == id && (*j).commandId == commandId) {
-                j = mySubscriptions.erase(j);
-                found = true;
-                continue;
-            }
-            ++j;
-        }
-        if (found) {
-            writeStatusCmd(commandId, RTYPE_OK, "");
-        } else {
-            writeStatusCmd(commandId, RTYPE_OK, "The subscription to remove was not found.");
-        }
-    } else {
-        // process subscription
-        Subscription s(commandId, id, variables, beginTime, endTime, true, domain);
-        tcpip::Storage writeInto;
-        std::string errors;
-        if (s.endTime < MSNet::getInstance()->getCurrentTimeStep()) {
-            processSingleSubscription(s, writeInto, errors);
-            writeStatusCmd(s.commandId, RTYPE_ERR, "Subscription has ended.");
-        } else {
-            if (processSingleSubscription(s, writeInto, errors)) {
-                mySubscriptions.push_back(s);
-                writeStatusCmd(s.commandId, RTYPE_OK, "");
-            } else {
-                writeStatusCmd(s.commandId, RTYPE_ERR, "Could not add subscription (" + errors + ").");
-            }
-        }
-        myOutputStorage.writeStorage(writeInto);
+        removeSubscription(commandId, id, -1);
+        return true;
     }
-    return ok;
+    Subscription s(commandId, id, variables, beginTime, endTime, true, domain, range);
+    initialiseSubscription(s);
+    return true;
 }
 
 

@@ -39,8 +39,11 @@
 // command: get version
 #define CMD_GETVERSION 0x00
 
-// command: simulation step (new version)
+// command: simulation step (old version)
 #define CMD_SIMSTEP2 0x02
+
+// command: simulation step (new version)
+#define CMD_SIMSTEP3 0x03
 
 // command: stop node
 #define CMD_STOP 0x12
@@ -57,32 +60,41 @@
 // command: add vehicle
 #define CMD_ADDVEHICLE 0x74
 
-// command: move node
-#define CMD_MOVENODE 0x80
-
 // command: close sumo
 #define CMD_CLOSE 0x7F
 
 
 
+// command: subscribe induction loop (e1) context
+#define CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT 0x80
+// response: subscribe induction loop (e1) context
+#define RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT 0x90
 // command: get induction loop (e1) variable
 #define CMD_GET_INDUCTIONLOOP_VARIABLE 0xa0
 // response: get induction loop (e1) variable
 #define RESPONSE_GET_INDUCTIONLOOP_VARIABLE 0xb0
 // command: subscribe induction loop (e1) variable
 #define CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE 0xd0
-// command: subscribe induction loop (e1) context
-#define CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT 0xe0
+// response: subscribe induction loop (e1) variable
+#define RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE 0xe0
 
+// command: subscribe areal detector (e3) context
+#define CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT 0x81
+// response: subscribe areal detector (e3) context
+#define RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT 0x91
 // command: get multi-entry/multi-exit detector (e3) variable
 #define CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xa1
 // response: get areal detector (e3) variable
 #define RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xb1
 // command: subscribe multi-entry/multi-exit detector (e3) variable
 #define CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xd1
-// command: subscribe areal detector (e3) context
-#define CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT 0xe1
+// response: subscribe areal detector (e3) variable
+#define RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xe1
 
+// command: subscribe traffic lights context
+#define CMD_SUBSCRIBE_TL_CONTEXT 0x82
+// response: subscribe traffic lights context
+#define RESPONSE_SUBSCRIBE_TL_CONTEXT 0x92
 // command: get traffic lights variable
 #define CMD_GET_TL_VARIABLE 0xa2
 // response: get traffic lights variable
@@ -91,9 +103,13 @@
 #define CMD_SET_TL_VARIABLE 0xc2
 // command: subscribe traffic lights variable
 #define CMD_SUBSCRIBE_TL_VARIABLE 0xd2
-// command: subscribe traffic lights context
-#define CMD_SUBSCRIBE_TL_CONTEXT 0xe2
+// response: subscribe traffic lights variable
+#define RESPONSE_SUBSCRIBE_TL_VARIABLE 0xe2
 
+// command: subscribe lane context
+#define CMD_SUBSCRIBE_LANE_CONTEXT 0x83
+// response: subscribe lane context
+#define RESPONSE_SUBSCRIBE_LANE_CONTEXT 0x93
 // command: get lane variable
 #define CMD_GET_LANE_VARIABLE 0xa3
 // response: get lane variable
@@ -102,9 +118,13 @@
 #define CMD_SET_LANE_VARIABLE 0xc3
 // command: subscribe lane variable
 #define CMD_SUBSCRIBE_LANE_VARIABLE 0xd3
-// command: subscribe lane context
-#define CMD_SUBSCRIBE_LANE_CONTEXT 0xe3
+// response: subscribe lane variable
+#define RESPONSE_SUBSCRIBE_LANE_VARIABLE 0xe3
 
+// command: subscribe vehicle context
+#define CMD_SUBSCRIBE_VEHICLE_CONTEXT 0x84
+// response: subscribe vehicle context
+#define RESPONSE_SUBSCRIBE_VEHICLE_CONTEXT 0x94
 // command: get vehicle variable
 #define CMD_GET_VEHICLE_VARIABLE 0xa4
 // response: get vehicle variable
@@ -113,9 +133,13 @@
 #define CMD_SET_VEHICLE_VARIABLE 0xc4
 // command: subscribe vehicle variable
 #define CMD_SUBSCRIBE_VEHICLE_VARIABLE 0xd4
-// command: subscribe vehicle context
-#define CMD_SUBSCRIBE_VEHICLE_CONTEXT 0xe4
+// response: subscribe vehicle variable
+#define RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE 0xe4
 
+// command: subscribe vehicle type context
+#define CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT 0x85
+// response: subscribe vehicle type context
+#define RESPONSE_SUBSCRIBE_VEHICLETYPE_CONTEXT 0x95
 // command: get vehicle type variable
 #define CMD_GET_VEHICLETYPE_VARIABLE 0xa5
 // response: get vehicle type variable
@@ -124,9 +148,13 @@
 #define CMD_SET_VEHICLETYPE_VARIABLE 0xc5
 // command: subscribe vehicle type variable
 #define CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE 0xd5
-// command: subscribe vehicle type context
-#define CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT 0xe5
+// response: subscribe vehicle type variable
+#define RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE 0xe5
 
+// command: subscribe route context
+#define CMD_SUBSCRIBE_ROUTE_CONTEXT 0x86
+// response: subscribe route context
+#define RESPONSE_SUBSCRIBE_ROUTE_CONTEXT 0x96
 // command: get route variable
 #define CMD_GET_ROUTE_VARIABLE 0xa6
 // response: get route variable
@@ -135,9 +163,13 @@
 #define CMD_SET_ROUTE_VARIABLE 0xc6
 // command: subscribe route variable
 #define CMD_SUBSCRIBE_ROUTE_VARIABLE 0xd6
-// command: subscribe route context
-#define CMD_SUBSCRIBE_ROUTE_CONTEXT 0xe6
+// response: subscribe route variable
+#define RESPONSE_SUBSCRIBE_ROUTE_VARIABLE 0xe6
 
+// command: subscribe poi context
+#define CMD_SUBSCRIBE_POI_CONTEXT 0x87
+// response: subscribe poi context
+#define RESPONSE_SUBSCRIBE_POI_CONTEXT 0x97
 // command: get poi variable
 #define CMD_GET_POI_VARIABLE 0xa7
 // response: get poi variable
@@ -146,9 +178,13 @@
 #define CMD_SET_POI_VARIABLE 0xc7
 // command: subscribe poi variable
 #define CMD_SUBSCRIBE_POI_VARIABLE 0xd7
-// command: subscribe poi context
-#define CMD_SUBSCRIBE_POI_CONTEXT 0xe7
+// response: subscribe poi variable
+#define RESPONSE_SUBSCRIBE_POI_VARIABLE 0xe7
 
+// command: subscribe polygon context
+#define CMD_SUBSCRIBE_POLYGON_CONTEXT 0x88
+// response: subscribe polygon context
+#define RESPONSE_SUBSCRIBE_POLYGON_CONTEXT 0x98
 // command: get polygon variable
 #define CMD_GET_POLYGON_VARIABLE 0xa8
 // response: get polygon variable
@@ -157,9 +193,13 @@
 #define CMD_SET_POLYGON_VARIABLE 0xc8
 // command: subscribe polygon variable
 #define CMD_SUBSCRIBE_POLYGON_VARIABLE 0xd8
-// command: subscribe polygon context
-#define CMD_SUBSCRIBE_POLYGON_CONTEXT 0xe8
+// response: subscribe polygon variable
+#define RESPONSE_SUBSCRIBE_POLYGON_VARIABLE 0xe8
 
+// command: subscribe junction context
+#define CMD_SUBSCRIBE_JUNCTION_CONTEXT 0x89
+// response: subscribe junction context
+#define RESPONSE_SUBSCRIBE_JUNCTION_CONTEXT 0x99
 // command: get junction variable
 #define CMD_GET_JUNCTION_VARIABLE 0xa9
 // response: get junction variable
@@ -168,9 +208,13 @@
 #define CMD_SET_JUNCTION_VARIABLE 0xc9
 // command: subscribe junction variable
 #define CMD_SUBSCRIBE_JUNCTION_VARIABLE 0xd9
-// command: subscribe junction context
-#define CMD_SUBSCRIBE_JUNCTION_CONTEXT 0xe9
+// response: subscribe junction variable
+#define RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE 0xe9
 
+// command: subscribe edge context
+#define CMD_SUBSCRIBE_EDGE_CONTEXT 0x8a
+// response: subscribe edge context
+#define RESPONSE_SUBSCRIBE_EDGE_CONTEXT 0x9a
 // command: get edge variable
 #define CMD_GET_EDGE_VARIABLE 0xaa
 // response: get edge variable
@@ -179,9 +223,13 @@
 #define CMD_SET_EDGE_VARIABLE 0xca
 // command: subscribe edge variable
 #define CMD_SUBSCRIBE_EDGE_VARIABLE 0xda
-// command: subscribe edge context
-#define CMD_SUBSCRIBE_EDGE_CONTEXT 0xea
+// response: subscribe edge variable
+#define RESPONSE_SUBSCRIBE_EDGE_VARIABLE 0xea
 
+// command: subscribe simulation context
+#define CMD_SUBSCRIBE_SIM_CONTEXT 0x8b
+// response: subscribe simulation context
+#define RESPONSE_SUBSCRIBE_SIM_CONTEXT 0x9b
 // command: get simulation variable
 #define CMD_GET_SIM_VARIABLE 0xab
 // response: get simulation variable
@@ -190,9 +238,13 @@
 #define CMD_SET_SIM_VARIABLE 0xcb
 // command: subscribe simulation variable
 #define CMD_SUBSCRIBE_SIM_VARIABLE 0xdb
-// command: subscribe simulation context
-#define CMD_SUBSCRIBE_SIM_CONTEXT 0xeb
+// response: subscribe simulation variable
+#define RESPONSE_SUBSCRIBE_SIM_VARIABLE 0xeb
 
+// command: subscribe GUI context
+#define CMD_SUBSCRIBE_GUI_CONTEXT 0x8c
+// response: subscribe GUI context
+#define RESPONSE_SUBSCRIBE_GUI_CONTEXT 0x9c
 // command: get GUI variable
 #define CMD_GET_GUI_VARIABLE 0xac
 // response: get GUI variable
@@ -201,8 +253,8 @@
 #define CMD_SET_GUI_VARIABLE 0xcc
 // command: subscribe GUI variable
 #define CMD_SUBSCRIBE_GUI_VARIABLE 0xdc
-// command: subscribe GUI context
-#define CMD_SUBSCRIBE_GUI_CONTEXT 0xec
+// response: subscribe GUI variable
+#define RESPONSE_SUBSCRIBE_GUI_VARIABLE 0xec
 
 
 // ****************************************

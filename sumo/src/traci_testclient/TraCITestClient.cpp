@@ -149,7 +149,15 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             std::string beginTime, endTime;
             std::string objID;
             defFile >> domID >> objID >> beginTime >> endTime >> varNo;
-            commandSubscribeVariable(domID, objID, string2time(beginTime), string2time(endTime), varNo, defFile);
+            commandSubscribeObjectVariable(domID, objID, string2time(beginTime), string2time(endTime), varNo, defFile);
+        }  else if (lineCommand.compare("subscribecontext") == 0) {
+            // trigger command SubscribeXXXVariable
+            int domID, varNo, domain;
+            SUMOReal range;
+            std::string beginTime, endTime;
+            std::string objID;
+            defFile >> domID >> objID >> beginTime >> endTime >> domain >> range >> varNo;
+            commandSubscribeContextVariable(domID, objID, string2time(beginTime), string2time(endTime), domain, range, varNo, defFile);
         }  else if (lineCommand.compare("setvalue") == 0) {
             // trigger command SetXXXValue
             int domID, varID;
@@ -260,7 +268,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID,
 
 
 void
-TraCITestClient::commandSubscribeVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile) {
+TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile) {
     std::vector<int> vars;
     for (int i = 0; i < varNo; ++i) {
         int var;
@@ -268,9 +276,35 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string& objID, i
         // variable id
         vars.push_back(var);
     }
-    send_commandSubscribeVariable(domID, objID, beginTime, endTime, vars);
+    send_commandSubscribeObjectVariable(domID, objID, beginTime, endTime, vars);
     answerLog << std::endl << "-> Command sent: <SubscribeVariable>:" << std::endl
               << "  domID=" << domID << " objID=" << objID << " with " << varNo << " variables" << std::endl;
+    tcpip::Storage inMsg;
+    try {
+        std::string acknowledgement;
+        check_resultState(inMsg, domID, false, &acknowledgement);
+        answerLog << acknowledgement << std::endl;
+        validateSubscription(inMsg);
+    } catch(tcpip::SocketException& e) {
+        answerLog << e.what() << std::endl;
+    }
+}
+
+
+void
+TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& objID, int beginTime, int endTime, 
+                                                 int domain, SUMOReal range, int varNo, std::ifstream& defFile) {
+    std::vector<int> vars;
+    for (int i = 0; i < varNo; ++i) {
+        int var;
+        defFile >> var;
+        // variable id
+        vars.push_back(var);
+    }
+    send_commandSubscribeObjectContext(domID, objID, beginTime, endTime, domain, range, vars);
+    answerLog << std::endl << "-> Command sent: <SubscribeContext>:" << std::endl
+              << "  domID=" << domID << " objID=" << objID << " domain=" << domain << " range=" << range 
+              << " with " << varNo << " variables" << std::endl;
     tcpip::Storage inMsg;
     try {
         std::string acknowledgement;
@@ -433,21 +467,41 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
             length = inMsg.readInt();
         }
         int cmdId = inMsg.readUnsignedByte();
-        if (cmdId < 0xe0 || cmdId > 0xef) {
-            answerLog << "#Error: received response with command id: " << cmdId << " but expected a subscription response (0xe0-0xef)" << std::endl;
+        if(cmdId>=RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && cmdId<=RESPONSE_SUBSCRIBE_GUI_VARIABLE) {
+            answerLog << "  CommandID=" << cmdId;
+            answerLog << "  ObjectID=" << inMsg.readString();
+            unsigned int varNo = inMsg.readUnsignedByte();
+            answerLog << "  #variables=" << varNo << std::endl;
+            for (unsigned int i = 0; i < varNo; ++i) {
+                answerLog << "      VariableID=" << inMsg.readUnsignedByte();
+                bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
+                answerLog << "      ok=" << ok;
+                int valueDataType = inMsg.readUnsignedByte();
+                answerLog << " valueDataType=" << valueDataType;
+                readAndReportTypeDependent(inMsg, valueDataType);
+            }
+        } else if(cmdId>=RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT && cmdId<=RESPONSE_SUBSCRIBE_GUI_CONTEXT) {
+            answerLog << "  CommandID=" << cmdId;
+            answerLog << "  ObjectID=" << inMsg.readString();
+            answerLog << "  Domain=" << inMsg.readUnsignedByte();
+            unsigned int varNo = inMsg.readUnsignedByte();
+            answerLog << "  #variables=" << varNo << std::endl;
+            unsigned int objNo = inMsg.readInt();
+            answerLog << "  #objects=" << objNo << std::endl;
+            for(unsigned int j=0; j<objNo; ++j) {
+                answerLog << "   ObjectID=" << inMsg.readString() << std::endl;
+                for (unsigned int i = 0; i < varNo; ++i) {
+                    answerLog << "      VariableID=" << inMsg.readUnsignedByte();
+                    bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
+                    answerLog << "      ok=" << ok;
+                    int valueDataType = inMsg.readUnsignedByte();
+                    answerLog << " valueDataType=" << valueDataType;
+                    readAndReportTypeDependent(inMsg, valueDataType);
+                }
+            }
+        } else {
+            answerLog << "#Error: received response with command id: " << cmdId << " but expected a subscription response (0xe0-0xef / 0x90-0x9f)" << std::endl;
             return false;
-        }
-        answerLog << "  CommandID=" << cmdId;
-        answerLog << "  ObjectID=" << inMsg.readString();
-        unsigned int varNo = inMsg.readUnsignedByte();
-        answerLog << "  #variables=" << varNo << std::endl;
-        for (unsigned int i = 0; i < varNo; ++i) {
-            answerLog << "      VariableID=" << inMsg.readUnsignedByte();
-            bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
-            answerLog << "      ok=" << ok;
-            int valueDataType = inMsg.readUnsignedByte();
-            answerLog << " valueDataType=" << valueDataType;
-            readAndReportTypeDependent(inMsg, valueDataType);
         }
     } catch (std::invalid_argument& e) {
         answerLog << "#Error while reading message:" << e.what() << std::endl;

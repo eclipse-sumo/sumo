@@ -113,7 +113,11 @@ protected:
 
     /** @brief Sends and validates a SubscribeVariable command
      */
-    void commandSubscribeVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile);
+    void commandSubscribeObjectVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile);
+
+    /** @brief Sends and validates a SubscribeVariable command
+     */
+    void commandSubscribeContextVariable(int domID, const std::string& objID, int beginTime, int endTime, int domain, SUMOReal range, int varNo, std::ifstream& defFile);
 
 
     /** @brief Sends and validates a SetVariable command
