@@ -78,7 +78,7 @@ def parseBusRoute(br, stops):
             stops.insert(0, int(vals[i]))
         except:
             i = len(vals) + 1
-     return (id, name, startKante, ziel, zeiten, stops)
+    return (id, name, startKante, ziel, zeiten, stops)
 
 def sorter(idx):
     def t(i, j):
@@ -178,6 +178,4 @@ for bs in stopsL:
     fdo.write('    <busStop id="' + str(id) + '" lane="' + strecke + "_" + str(spur) + '" from="' + str(von) + '" to="' + str(bis) + '" lines="--"/>\n')
 fdo.write("</add>\n")    
 fdo.close()
-
-
 
