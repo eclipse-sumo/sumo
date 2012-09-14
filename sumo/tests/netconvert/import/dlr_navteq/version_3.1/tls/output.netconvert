@@ -2,8 +2,8 @@ Loading nodes... done.
 Loading edges... done.
 Loading traffic lights... done.
  Import done:
-   5 nodes loaded.
-   8 edges loaded.
+   11 nodes loaded.
+   16 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done.
 Removing empty nodes... done.
@@ -25,16 +25,16 @@ Computing edge shapes... done.
 Computing traffic light control information... done.
 Computing node logics... done.
 Computing traffic light logics... done.
- 1 traffic light(s) computed.
+ 2 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 0
-  Priority junctions          : 5
+  Unregulated junctions       : 4
+  Priority junctions          : 7
   Right-before-left junctions : 0
  Network boundaries:
-  Original boundary  : 1248456.00,5211834.00,1306826.00,5235677.00
-  Applied offset     : -328248.16,-5776623.10
-  Converted boundary : 0.00,0.00,39850.14,26514.76
+  Original boundary  : 1352234.00,5242780.00,1352859.00,5242934.00
+  Applied offset     : -399532.04,-5809645.53
+  Converted boundary : 0.00,0.00,426.42,171.64
 -----------------------------------------------------
 Success.

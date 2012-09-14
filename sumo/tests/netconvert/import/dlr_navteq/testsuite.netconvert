@@ -12,3 +12,6 @@ priority
 
 # import street names from _names.txt
 street_names
+
+# tests for input data generated with gdfExtractor version 3.1
+version_3.1

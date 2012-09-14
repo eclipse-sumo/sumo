@@ -215,7 +215,7 @@ protected:
          * @param[in] file The name of the parsed file
          */
         TrafficlightsHandler(NBNodeCont& nc, NBTrafficLightLogicCont& tlc,
-                             const std::string& file);
+                NBEdgeCont& ne, const std::string& file);
 
 
         /// @brief Destructor
@@ -240,6 +240,9 @@ protected:
 
         /// @brief The traffic lights container to add built tls to
         NBTrafficLightLogicCont& myTLLogicCont;
+
+        /// @brief The edge container to get the referenced edges from
+        NBEdgeCont& myEdgeCont;
 
 
     private:

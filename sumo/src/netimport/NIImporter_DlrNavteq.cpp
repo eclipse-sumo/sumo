@@ -83,16 +83,6 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     lr.readAll(handler1);
     PROGRESS_DONE_MESSAGE();
 
-    // load traffic lights if given and not explicitly unwished
-    if(!oc.getBool("tls.discard-loaded")) {
-        file = oc.getString("dlr-navteq-prefix") + "_traffic_signals.txt";
-        if (lr.setFile(file)) {
-            PROGRESS_BEGIN_MESSAGE("Loading traffic lights");
-            TrafficlightsHandler handler3(nb.getNodeCont(), nb.getTLLogicCont(), file);
-            lr.readAll(handler3);
-            PROGRESS_DONE_MESSAGE();
-        }
-    }
     // load street names if given and wished
     std::map<std::string, std::string> streetNames; // nameID : name
     if(oc.getBool("output.street-names")) {
@@ -118,6 +108,17 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     lr.readAll(handler2);
     nb.getEdgeCont().recheckLaneSpread();
     PROGRESS_DONE_MESSAGE();
+
+    // load traffic lights if given and not explicitly unwished
+    if(!oc.getBool("tls.discard-loaded")) {
+        file = oc.getString("dlr-navteq-prefix") + "_traffic_signals.txt";
+        if (lr.setFile(file)) {
+            PROGRESS_BEGIN_MESSAGE("Loading traffic lights");
+            TrafficlightsHandler handler3(nb.getNodeCont(), nb.getTLLogicCont(), nb.getEdgeCont(), file);
+            lr.readAll(handler3);
+            PROGRESS_DONE_MESSAGE();
+        }
+    }
 }
 
 
@@ -342,8 +343,12 @@ NIImporter_DlrNavteq::EdgesHandler::getStreetNameFromIDs(
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::TrafficlightsHandler::TrafficlightsHandler(NBNodeCont& nc,
         NBTrafficLightLogicCont& tlc,
-        const std::string& file)
-    : myNodeCont(nc), myTLLogicCont(tlc) {
+        NBEdgeCont& ne,
+        const std::string& file) : 
+    myNodeCont(nc), 
+    myTLLogicCont(tlc),
+    myEdgeCont(ne)
+{
     UNUSED_PARAMETER(file);
 }
 
@@ -359,18 +364,20 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
         return true;
     }
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
-    std::string nodeID = st.getVector().back();
-    NBNode* node = myNodeCont.retrieve(nodeID);
-    if (node == 0) {
-        WRITE_WARNING("The traffic light node '" + nodeID + "' could not be found");
+    const std::string edgeID = st.get(5);
+    NBEdge* edge = myEdgeCont.retrieve(edgeID);
+    if (edge == 0) {
+        WRITE_WARNING("The traffic light edge '" + edgeID + "' could not be found");
     } else {
+        NBNode* node = edge->getToNode();
         if (node->getType() != NODETYPE_TRAFFIC_LIGHT) {
             node->reinit(node->getPosition(), NODETYPE_TRAFFIC_LIGHT);
-            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(nodeID, node, 0);
+            // @note actually we could use the navteq node ID here
+            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(node->getID(), node, 0);
             if (!myTLLogicCont.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
-                throw ProcessError("Could not allocate tls for '" + nodeID + "'.");
+                throw ProcessError("Could not allocate tls for '" + node->getID() + "'.");
             }
         }
     }
