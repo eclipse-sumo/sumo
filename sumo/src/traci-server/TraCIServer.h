@@ -11,7 +11,7 @@
 /// @date    2007/10/24
 /// @version $Id$
 ///
-/// TraCI server used to control sumo by a remote TraCI client (e.g., ns2)
+/// TraCI server used to control sumo by a remote TraCI client
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -68,32 +68,44 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
-* @class TraCIServer
-*/
 namespace traci {
-// TraCIServer
-// Allows communication of sumo with external program. The external
-// program will control sumo.
+
+/** @class TraCIServer
+ * @brief TraCI server used to control sumo by a remote TraCI client
+ */
 class TraCIServer : public MSNet::VehicleStateListener {
 public:
     /// @brief Definition of a method to be called for serving an associated commandID
     typedef bool(*CmdExecutor)(traci::TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
 
 
+    /// @name Initialisation and Shutdown
+    /// @{
+
     /** @brief Initialises the server
      * @param[in] execs The (additional) command executors to use
      */
     static void openSocket(const std::map<int, CmdExecutor> &execs);
 
-    /// @brief process all commands until a simulation step is wanted
-    static void processCommandsUntilSimStep(SUMOTime step);
-
-    /// @brief check whether close was requested
-    static bool wasClosed();
 
     /// @brief request termination of connection
     static void close();
+
+
+    /** @brief check whether close was requested
+     * @return Whether the connection was closed
+     */
+    static bool wasClosed();
+    /// @}
+
+
+
+
+    /// @brief process all commands until a simulation step is wanted
+    static void processCommandsUntilSimStep(SUMOTime step);
+
+
+
 
 #ifdef HAVE_PYTHON
     /// @brief process the command
@@ -112,84 +124,140 @@ public:
         return myVehicleStateChanges;
     }
 
-    /** @brief Returns the list of (unified) command executors
-     *
-     * Not all command executor methods apply to the wanted footprint; other
-     *  comments may be served internally (aka there are more commandIds recognized
-     *  than within this container
-     * @return Mapped command executors
-     */
-    std::map<int, CmdExecutor> &getExecutors() {
-        return myExecutors;
-    }
-
     void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
 
-    bool addObjectVariableSubscription(int commandId);
-    bool addObjectContextSubscription(int commandId);
 
 
 private:
-
-    // Constructor
+    /** @brief Constructor
+     * @param[in] port The port to listen to (to open)
+     */
     TraCIServer(int port = 0);
 
-    // Destructor
-    // final cleanup
+
+    /// @brief Destructor
     virtual ~TraCIServer();
+    
+
+
+    /// @name Server-internal command handling
+    /// @{
+
+    /** @brief Returns the TraCI-version
+     * @return Always true
+     */
+    bool commandGetVersion();
+
+
+    /** @brief Indicates the connection as being closed
+     * @return Always true
+     */
+    bool commandCloseConnection();
+
+
+    /** @brief Handles subscriptions to send after a simstep2 command
+     */
+    void postProcessSimulationStep2();
+
+
+    /** @brief Adds a vehicle
+     * @deprecated Vehicles shall be inserted using the vehicle-API
+    */
+    bool commandAddVehicle();
+    /// @}
+
+
+
+
 
     int dispatchCommand();
 
-    void postProcessSimulationStep2();
-    void postProcessSimulationStep3();
 
-    bool commandGetVersion();
-
-    bool commandCloseConnection();
-
-    bool commandAddVehicle();
-
-
-    /// singleton instance of the server
+private:
+    /// @brief Singleton instance of the server
     static TraCIServer* myInstance;
+
+    /// @brief Whether the connection was set to be to close
     static bool myDoCloseConnection;
 
-    /// socket on which server is listening on
+    /// @brief The socket on which server is listening on
     tcpip::Socket* mySocket;
 
-    // simulation begin and end time
+    /// @brief The time step to reach until processing the next commands
     SUMOTime myTargetTime;
 
-
+    /// @brief The storage to read from
     tcpip::Storage myInputStorage;
+
+    /// @brief The storage to writeto
     tcpip::Storage myOutputStorage;
+
+    /// @brief Whether a step is currently done
+    /// @todo: What is this for?
     bool myDoingSimStep;
+
+    /// @brief Whether the usage of deprecated methods was already reported
     bool myHaveWarnedDeprecation;
+
+    /// @brief Whether the server runs in embedded mode
     const bool myAmEmbedded;
 
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
     std::map<int, CmdExecutor> myExecutors;
 
 
+    /** @class Subscription
+     * @brief Representation of a subscription
+     */
     class Subscription {
     public:
+        /** @brief Constructor
+         * @param[in] commandIdArg The command id of the subscription
+         * @param[in] idArg The id of the object that is subscribed
+         * @param[in] variablesArg The subscribed variables
+         * @param[in] beginTimeArg The begin time of the subscription
+         * @param[in] endTimeArg The end time of the subscription
+         * @param[in] contextVarsArg Whether the subscription is a context subscription (variable subscription otherwise)
+         * @param[in] contextDomainArg The domain ID of the context
+         * @param[in] rangeArg The range of the context
+         */
         Subscription(int commandIdArg, const std::string& idArg, const std::vector<int> &variablesArg,
                      SUMOTime beginTimeArg, SUMOTime endTimeArg, bool contextVarsArg, int contextDomainArg, SUMOReal rangeArg)
             : commandId(commandIdArg), id(idArg), variables(variablesArg), beginTime(beginTimeArg), endTime(endTimeArg),
               contextVars(contextVarsArg), contextDomain(contextDomainArg), range(rangeArg) {}
+
+        /// @brief commandIdArg The command id of the subscription
         int commandId;
+        /// @brief The id of the object that is subscribed
         std::string id;
+        /// @brief The subscribed variables
         std::vector<int> variables;
+        /// @brief The begin time of the subscription
         SUMOTime beginTime;
+        /// @brief The end time of the subscription
         SUMOTime endTime;
+        /// @brief Whether the subscription is a context subscription (variable subscription otherwise)
         bool contextVars;
+        /// @brief The domain ID of the context
         int contextDomain;
+        /// @brief The range of the context
         SUMOReal range;
 
     };
 
+    /// @brief The list of known, still valid subscriptions
     std::vector<Subscription> mySubscriptions;
 
+    /// @brief Changes in the states of simulated vehicles
+    std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
+
+    /// @brief A storage of objects
+    TraCIRTree *myObjects;
+
+
+private:
+    bool addObjectVariableSubscription(int commandId);
+    bool addObjectContextSubscription(int commandId);
     void initialiseSubscription(const Subscription& s);
     void removeSubscription(int commandId, const std::string &identity, int domain);
     bool processSingleSubscription(const TraCIServer::Subscription& s, tcpip::Storage& writeInto,
@@ -199,10 +267,6 @@ private:
     Position getObjectPosition(int domain, const std::string &id);
     void collectObjectsInRange(int domain, const Position &p, SUMOReal range, std::set<std::string> &into);
 
-
-    std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
-
-    TraCIRTree *myObjects;
 
 private:
     /// @brief Invalidated assignment operator

@@ -31,7 +31,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 4
+#define TRACI_VERSION 5
 
 // ****************************************
 // COMMANDS
@@ -41,9 +41,6 @@
 
 // command: simulation step (old version)
 #define CMD_SIMSTEP2 0x02
-
-// command: simulation step (new version)
-#define CMD_SIMSTEP3 0x03
 
 // command: stop node
 #define CMD_STOP 0x12

@@ -107,19 +107,6 @@ bool TraCIServer::myDoCloseConnection = false;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-void
-TraCIServer::openSocket(const std::map<int, CmdExecutor> &execs) {
-    if (myInstance == 0) {
-        if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
-            myInstance = new traci::TraCIServer(OptionsCont::getOptions().getInt("remote-port"));
-            for (std::map<int, CmdExecutor>::const_iterator i = execs.begin(); i != execs.end(); ++i) {
-                myInstance->myExecutors[i->first] = i->second;
-            }
-        }
-    }
-}
-
-
 TraCIServer::TraCIServer(int port)
     : mySocket(0), myTargetTime(0), myDoingSimStep(false), myHaveWarnedDeprecation(false), myAmEmbedded(port == 0),
     myObjects(0) {
@@ -183,6 +170,39 @@ TraCIServer::~TraCIServer() {
     }
     delete myObjects;
 }
+
+
+// ---------- Initialisation and Shutdown
+void
+TraCIServer::openSocket(const std::map<int, CmdExecutor> &execs) {
+    if (myInstance == 0) {
+        if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
+            myInstance = new traci::TraCIServer(OptionsCont::getOptions().getInt("remote-port"));
+            for (std::map<int, CmdExecutor>::const_iterator i = execs.begin(); i != execs.end(); ++i) {
+                myInstance->myExecutors[i->first] = i->second;
+            }
+        }
+    }
+}
+
+
+void
+TraCIServer::close() {
+    if (myInstance != 0) {
+        delete myInstance;
+        myInstance = 0;
+        myDoCloseConnection = true;
+    }
+}
+
+
+bool
+TraCIServer::wasClosed() {
+    return myDoCloseConnection;
+}
+
+
+// ---------- Initialisation and Shutdown
 
 
 void
@@ -260,20 +280,6 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
 }
 
 
-bool
-TraCIServer::wasClosed() {
-    return myDoCloseConnection;
-}
-
-
-void
-TraCIServer::close() {
-    if (myInstance != 0) {
-        delete myInstance;
-        myInstance = 0;
-        myDoCloseConnection = true;
-    }
-}
 
 
 #ifdef HAVE_PYTHON
@@ -383,20 +389,6 @@ TraCIServer::dispatchCommand() {
                 }
                 return commandId;
             }
-            case CMD_SIMSTEP3: {
-                SUMOTime nextT = myInputStorage.readInt();
-                success = true;
-                if (nextT != 0) {
-                    myTargetTime = nextT;
-                } else {
-                    myTargetTime += DELTA_T;
-                }
-                if (myAmEmbedded) {
-                    MSNet::getInstance()->simulationStep();
-                    postProcessSimulationStep3();
-                }
-                return commandId;
-            }
             case CMD_CLOSE:
                 success = commandCloseConnection();
                 break;
@@ -458,6 +450,35 @@ TraCIServer::dispatchCommand() {
 }
 
 
+// ---------- Server-internal command handling
+bool
+TraCIServer::commandGetVersion() {
+    std::string sumoVersion = VERSION_STRING;
+    // Prepare response
+    tcpip::Storage answerTmp;
+    answerTmp.writeInt(TRACI_VERSION);
+    answerTmp.writeString(std::string("SUMO ") + sumoVersion);
+    // When we get here, the response is stored in answerTmp -> put into myOutputStorage
+    writeStatusCmd(CMD_GETVERSION, RTYPE_OK, "");
+    // command length
+    myOutputStorage.writeUnsignedByte(1 + 1 + static_cast<int>(answerTmp.size()));
+    // command type
+    myOutputStorage.writeUnsignedByte(CMD_GETVERSION);
+    // and the parameter dependant part
+    myOutputStorage.writeStorage(answerTmp);
+    return true;
+}
+
+
+bool
+TraCIServer::commandCloseConnection() {
+    myDoCloseConnection = true;
+    // write answer
+    writeStatusCmd(CMD_CLOSE, RTYPE_OK, "Goodbye");
+    return true;
+}
+
+
 void
 TraCIServer::postProcessSimulationStep2() {
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
@@ -487,71 +508,6 @@ TraCIServer::postProcessSimulationStep2() {
         processSingleSubscription(s, into, errors);
         myOutputStorage.writeStorage(into);
     }
-}
-
-
-void
-TraCIServer::postProcessSimulationStep3() {
-    SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
-    writeStatusCmd(CMD_SIMSTEP3, RTYPE_OK, "");
-    int noActive = 0;
-    for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
-        const Subscription& s = *i;
-        bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE) && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
-        if ((s.endTime < t) || isArrivedVehicle) {
-            i = mySubscriptions.erase(i);
-            continue;
-        }
-        ++i;
-        if (s.beginTime > t) {
-            continue;
-        }
-        ++noActive;
-    }
-    myOutputStorage.writeInt(noActive);
-    for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end(); ++i) {
-        const Subscription& s = *i;
-        if (s.beginTime > t) {
-            continue;
-        }
-        tcpip::Storage into;
-        std::string errors;
-        processSingleSubscription(s, into, errors);
-        myOutputStorage.writeStorage(into);
-    }
-}
-
-
-bool
-TraCIServer::commandGetVersion() {
-
-    std::string sumoVersion = VERSION_STRING;
-
-    // Prepare response
-    tcpip::Storage answerTmp;
-
-    answerTmp.writeInt(TRACI_VERSION);
-    answerTmp.writeString(std::string("SUMO ") + sumoVersion);
-
-    // When we get here, the response is stored in answerTmp -> put into myOutputStorage
-    writeStatusCmd(CMD_GETVERSION, RTYPE_OK, "");
-
-    // command length
-    myOutputStorage.writeUnsignedByte(1 + 1 + static_cast<int>(answerTmp.size()));
-    // command type
-    myOutputStorage.writeUnsignedByte(CMD_GETVERSION);
-    // and the parameter dependant part
-    myOutputStorage.writeStorage(answerTmp);
-    return true;
-}
-
-
-bool
-TraCIServer::commandCloseConnection() {
-    myDoCloseConnection = true;
-    // write answer
-    writeStatusCmd(CMD_CLOSE, RTYPE_OK, "Goodbye");
-    return true;
 }
 
 
