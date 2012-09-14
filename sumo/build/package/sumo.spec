@@ -13,7 +13,11 @@ License:        GPL v2.1 or later
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  gcc-c++ libproj-devel libgdal-devel fox16-devel unzip
-BuildRequires: libxerces-c-devel
+%if 0%{?suse_version} > 1110 || 0%{?centos_version} || 0%{?rhel_version}
+BuildRequires:  libxerces-c-devel
+%else
+BuildRequires:  libXerces-c-devel
+%endif
 %if 0%{?mandriva_version}
 BuildRequires:  XFree86-devel postgresql-devel libmesaglu1-devel
 %else
@@ -22,7 +26,7 @@ BuildRequires:  xorg-x11-devel xorg-x11-Mesa-devel
 %if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version}
 BuildRequires:  libGLU-devel libXext-devel libXft-devel
 %if 0%{?fedora_version} >= 15
-BuildRequires:  hdf5 javamail
+BuildRequires:  netcdf hdf5 javamail
 %endif
 %endif
 Autoreqprov: on
