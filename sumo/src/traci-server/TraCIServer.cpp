@@ -734,7 +734,8 @@ TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range
         for(std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             const std::vector<MSLane*> &lanes = (*i)->getLanes();
             for(std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
-                myObjects->addAdditionalGLObject(*j, (*j)->getShape().getBoxBoundary());
+                Boundary b = (*j)->getShape().getBoxBoundary();
+                myObjects->addAdditionalGLObject(*j, b);
             }
         }
     }

@@ -96,6 +96,12 @@ public:
         /// @brief The container
         mutable std::set<std::string> &myIDs;
 
+    private:
+        /// @brief invalidated copy constructor
+        StoringVisitor(const StoringVisitor& src);
+
+        /// @brief invalidated assignment operator
+        StoringVisitor& operator=(const StoringVisitor& src);
     };
 
 
