@@ -8,7 +8,7 @@
 /// @date    2008/04/07
 /// @version $Id$
 ///
-/// A dummy client to simulate communication to a TraCI server
+/// A test execution class
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -317,6 +317,109 @@ TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& o
 }
 
 
+// ---------- Report helper
+void
+TraCITestClient::writeResult() {
+    time_t seconds;
+    tm* locTime;
+    std::ofstream outFile(outputFileName.c_str());
+    if (!outFile) {
+        std::cerr << "Unable to write result file" << std::endl;
+    }
+    time(&seconds);
+    locTime = localtime(&seconds);
+    outFile << "TraCITestClient output file. Date: " << asctime(locTime) << std::endl;
+    outFile << answerLog.str();
+    outFile.close();
+}
+
+
+void
+TraCITestClient::errorMsg(std::stringstream& msg) {
+    std::cerr << msg.str() << std::endl;
+    answerLog << "----" << std::endl << msg.str() << std::endl;
+}
+
+
+
+
+
+
+bool
+TraCITestClient::validateSimulationStep2(tcpip::Storage& inMsg) {
+    try {
+        int noSubscriptions = inMsg.readInt();
+        for (int s = 0; s < noSubscriptions; ++s) {
+            if (!validateSubscription(inMsg)) {
+                return false;
+            }
+        }
+    } catch (std::invalid_argument& e) {
+        answerLog << "#Error while reading message:" << e.what() << std::endl;
+        return false;
+    }
+    return true;
+}
+
+
+bool
+TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
+    try {
+        int length = inMsg.readUnsignedByte();
+        if (length == 0) {
+            length = inMsg.readInt();
+        }
+        int cmdId = inMsg.readUnsignedByte();
+        if(cmdId>=RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && cmdId<=RESPONSE_SUBSCRIBE_GUI_VARIABLE) {
+            answerLog << "  CommandID=" << cmdId;
+            answerLog << "  ObjectID=" << inMsg.readString();
+            unsigned int varNo = inMsg.readUnsignedByte();
+            answerLog << "  #variables=" << varNo << std::endl;
+            for (unsigned int i = 0; i < varNo; ++i) {
+                answerLog << "      VariableID=" << inMsg.readUnsignedByte();
+                bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
+                answerLog << "      ok=" << ok;
+                int valueDataType = inMsg.readUnsignedByte();
+                answerLog << " valueDataType=" << valueDataType;
+                readAndReportTypeDependent(inMsg, valueDataType);
+            }
+        } else if(cmdId>=RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT && cmdId<=RESPONSE_SUBSCRIBE_GUI_CONTEXT) {
+            answerLog << "  CommandID=" << cmdId;
+            answerLog << "  ObjectID=" << inMsg.readString();
+            answerLog << "  Domain=" << inMsg.readUnsignedByte();
+            unsigned int varNo = inMsg.readUnsignedByte();
+            answerLog << "  #variables=" << varNo << std::endl;
+            unsigned int objNo = inMsg.readInt();
+            answerLog << "  #objects=" << objNo << std::endl;
+            for(unsigned int j=0; j<objNo; ++j) {
+                answerLog << "   ObjectID=" << inMsg.readString() << std::endl;
+                for (unsigned int i = 0; i < varNo; ++i) {
+                    answerLog << "      VariableID=" << inMsg.readUnsignedByte();
+                    bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
+                    answerLog << "      ok=" << ok;
+                    int valueDataType = inMsg.readUnsignedByte();
+                    answerLog << " valueDataType=" << valueDataType;
+                    readAndReportTypeDependent(inMsg, valueDataType);
+                }
+            }
+        } else {
+            answerLog << "#Error: received response with command id: " << cmdId << " but expected a subscription response (0xe0-0xef / 0x90-0x9f)" << std::endl;
+            return false;
+        }
+    } catch (std::invalid_argument& e) {
+        answerLog << "#Error while reading message:" << e.what() << std::endl;
+        return false;
+    }
+    return true;
+}
+
+
+
+
+
+
+
+// ---------- Conversion helper
 int
 TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defFile, std::stringstream& msg) {
     std::string dataTypeS, valueS;
@@ -437,81 +540,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
 }
 
 
-
-
-
-
-
-bool
-TraCITestClient::validateSimulationStep2(tcpip::Storage& inMsg) {
-    try {
-        int noSubscriptions = inMsg.readInt();
-        for (int s = 0; s < noSubscriptions; ++s) {
-            if (!validateSubscription(inMsg)) {
-                return false;
-            }
-        }
-    } catch (std::invalid_argument& e) {
-        answerLog << "#Error while reading message:" << e.what() << std::endl;
-        return false;
-    }
-    return true;
-}
-
-
-bool
-TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
-    try {
-        int length = inMsg.readUnsignedByte();
-        if (length == 0) {
-            length = inMsg.readInt();
-        }
-        int cmdId = inMsg.readUnsignedByte();
-        if(cmdId>=RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && cmdId<=RESPONSE_SUBSCRIBE_GUI_VARIABLE) {
-            answerLog << "  CommandID=" << cmdId;
-            answerLog << "  ObjectID=" << inMsg.readString();
-            unsigned int varNo = inMsg.readUnsignedByte();
-            answerLog << "  #variables=" << varNo << std::endl;
-            for (unsigned int i = 0; i < varNo; ++i) {
-                answerLog << "      VariableID=" << inMsg.readUnsignedByte();
-                bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
-                answerLog << "      ok=" << ok;
-                int valueDataType = inMsg.readUnsignedByte();
-                answerLog << " valueDataType=" << valueDataType;
-                readAndReportTypeDependent(inMsg, valueDataType);
-            }
-        } else if(cmdId>=RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT && cmdId<=RESPONSE_SUBSCRIBE_GUI_CONTEXT) {
-            answerLog << "  CommandID=" << cmdId;
-            answerLog << "  ObjectID=" << inMsg.readString();
-            answerLog << "  Domain=" << inMsg.readUnsignedByte();
-            unsigned int varNo = inMsg.readUnsignedByte();
-            answerLog << "  #variables=" << varNo << std::endl;
-            unsigned int objNo = inMsg.readInt();
-            answerLog << "  #objects=" << objNo << std::endl;
-            for(unsigned int j=0; j<objNo; ++j) {
-                answerLog << "   ObjectID=" << inMsg.readString() << std::endl;
-                for (unsigned int i = 0; i < varNo; ++i) {
-                    answerLog << "      VariableID=" << inMsg.readUnsignedByte();
-                    bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
-                    answerLog << "      ok=" << ok;
-                    int valueDataType = inMsg.readUnsignedByte();
-                    answerLog << " valueDataType=" << valueDataType;
-                    readAndReportTypeDependent(inMsg, valueDataType);
-                }
-            }
-        } else {
-            answerLog << "#Error: received response with command id: " << cmdId << " but expected a subscription response (0xe0-0xef / 0x90-0x9f)" << std::endl;
-            return false;
-        }
-    } catch (std::invalid_argument& e) {
-        answerLog << "#Error while reading message:" << e.what() << std::endl;
-        return false;
-    }
-    return true;
-}
-
-
-bool
+void
 TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueDataType) {
     if (valueDataType == TYPE_UBYTE) {
         int ubyte = inMsg.readUnsignedByte();
@@ -535,14 +564,13 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         double doublev = inMsg.readDouble();
         answerLog << " Double value: " << doublev << std::endl;
     } else if (valueDataType == TYPE_BOUNDINGBOX) {
-        testclient::BoundingBox box;
-        box.lowerLeft.x = inMsg.readDouble();
-        box.lowerLeft.y = inMsg.readDouble();
-        box.upperRight.x = inMsg.readDouble();
-        box.upperRight.y = inMsg.readDouble();
-        answerLog << " BoundaryBoxValue: lowerLeft x=" << box.lowerLeft.x
-                  << " y=" << box.lowerLeft.y << " upperRight x=" << box.upperRight.x
-                  << " y=" << box.upperRight.y << std::endl;
+        SUMOReal lowerLeftX = inMsg.readDouble();
+        SUMOReal lowerLeftY = inMsg.readDouble();
+        SUMOReal upperRightX = inMsg.readDouble();
+        SUMOReal upperRightY = inMsg.readDouble();
+        answerLog << " BoundaryBoxValue: lowerLeft x=" << lowerLeftX
+                  << " y=" << lowerLeftY << " upperRight x=" << upperRightX
+                  << " y=" << upperRightY << std::endl;
     } else if (valueDataType == TYPE_POLYGON) {
         int length = inMsg.readUnsignedByte();
         answerLog << " PolygonValue: ";
@@ -587,7 +615,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
                     break;
                 default:
                     answerLog << "#Error: unknown phase value" << (int)phase << std::endl;
-                    return false;
+                    return;
             }
         }
     } else if (valueDataType == TYPE_STRING) {
@@ -624,77 +652,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         answerLog << " color value: (" << r << "," << g << "," << b << "," << a << ")" << std::endl;
     } else {
         answerLog << "#Error: unknown valueDataType!" << std::endl;
-        return false;
     }
-    return true;
-}
-
-
-void
-TraCITestClient::writeResult() {
-    time_t seconds;
-    tm* locTime;
-    std::ofstream outFile(outputFileName.c_str());
-    if (!outFile) {
-        std::cerr << "Unable to write result file" << std::endl;
-    }
-    time(&seconds);
-    locTime = localtime(&seconds);
-    outFile << "TraCITestClient output file. Date: " << asctime(locTime) << std::endl;
-    outFile << answerLog.str();
-    outFile.close();
-}
-
-
-void
-TraCITestClient::errorMsg(std::stringstream& msg) {
-    std::cerr << msg.str() << std::endl;
-    answerLog << "----" << std::endl << msg.str() << std::endl;
-}
-
-
-
-bool
-TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId) {
-    int cmdLength;
-    int cmdId;
-    int resultType;
-    int cmdStart;
-    std::string msg;
-
-    try {
-        cmdStart = inMsg.position();
-        cmdLength = inMsg.readUnsignedByte();
-        cmdId = inMsg.readUnsignedByte();
-        if (cmdId != command && !ignoreCommandId) {
-            answerLog << "#Error: received status response to command: " << cmdId << " but expected: " << command << std::endl;
-            return false;
-        }
-        resultType = inMsg.readUnsignedByte();
-        msg = inMsg.readString();
-    } catch (std::invalid_argument&) {
-        answerLog << "#Error: an exception was thrown while reading result state message" << std::endl;
-        return false;
-    }
-    switch (resultType) {
-        case RTYPE_ERR:
-            answerLog << ".. Answered with error to command (" << cmdId << "), [description: " << msg << "]" << std::endl;
-            return false;
-        case RTYPE_NOTIMPLEMENTED:
-            answerLog << ".. Sent command is not implemented (" << cmdId << "), [description: " << msg << "]" << std::endl;
-            return false;
-        case RTYPE_OK:
-            answerLog << ".. Command acknowledged (" << cmdId << "), [description: " << msg << "]" << std::endl;
-            break;
-        default:
-            answerLog << ".. Answered with unknown result code(" << resultType << ") to command(" << cmdId << "), [description: " << msg << "]" << std::endl;
-            return false;
-    }
-    if ((cmdStart + cmdLength) != (int) inMsg.position()) {
-        answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
-        return false;
-    }
-    return true;
 }
 
 

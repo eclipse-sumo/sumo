@@ -7,7 +7,7 @@
 /// @date    2008/04/07
 /// @version $Id$
 ///
-/// A dummy client to simulate communication to a TraCI server
+/// A test execution class
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -36,46 +36,15 @@
 
 
 namespace testclient {
-// ===========================================================================
-// Definitions
-// ===========================================================================
-struct Position {
-    SUMOReal x;
-    SUMOReal y;
-};
-
-struct Position3D {
-    SUMOReal x;
-    SUMOReal y;
-    SUMOReal z;
-};
-
-struct PositionRoadMap {
-    std::string roadId;
-    SUMOReal pos;
-    int laneId;
-};
-
-struct BoundingBox {
-    Position lowerLeft;
-    Position upperRight;
-};
-
-typedef std::vector<Position> Polygon;
-
-struct TLPhase {
-    std::string precRoadId;
-    std::string succRoadId;
-    int phase;
-};
-
-typedef std::vector<TLPhase> TLPhaseList;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class TraCITestClient
+ * @brief A test execution class
+ *
+ * Reads a program file and executes the actions stored within it
  */
 class TraCITestClient : public TraCIAPI {
 public:
@@ -102,49 +71,98 @@ protected:
     /// @{
 
     /** @brief Sends and validates a simulation step command
+     * @param[in] time The time step to send
      */
     void commandSimulationStep(SUMOTime time);
-
-
-    /** @brief Sends and validates a GetVariable command
-     */
-    void commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* addData=0);
-
-
-    /** @brief Sends and validates a SubscribeVariable command
-     */
-    void commandSubscribeObjectVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile);
-
-    /** @brief Sends and validates a SubscribeVariable command
-     */
-    void commandSubscribeContextVariable(int domID, const std::string& objID, int beginTime, int endTime, int domain, SUMOReal range, int varNo, std::ifstream& defFile);
-
-
-    /** @brief Sends and validates a SetVariable command
-     */
-    void commandSetValue(int domID, int varID, const std::string& objID, std::ifstream& defFile);
 
 
     /** @brief Sends and validates a Close command
      */
     void commandClose();
+
+
+    /** @brief Sends and validates a GetVariable command
+     * @param[in] domID The ID of the domain the addressed object belongs to
+     * @param[in] varID The ID of the variable one asks for
+     * @param[in] objID The ID of the object a variable shall be retrieved from
+     * @param[in] addData Storage to read additional data from, if needed
+     */
+    void commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* addData=0);
+
+
+    /** @brief Sends and validates a SetVariable command
+     * @param[in] domID The ID of the domain the addressed object belongs to
+     * @param[in] varID The ID of the variable to set
+     * @param[in] objID The ID of the object which shall be changed
+     * @param[in] defFile Storage to read additional data from
+     */
+    void commandSetValue(int domID, int varID, const std::string& objID, std::ifstream& defFile);
+
+
+    /** @brief Sends and validates a SubscribeVariable command
+     * @param[in] domID The ID of the domain the addressed object belongs to
+     * @param[in] objID The ID of the object a variable shall be subscribed from
+     * @param[in] beginTime The time the subscription shall begin at
+     * @param[in] endTime The time the subscription shall end at
+     * @param[in] varNo The number of subscribed variables
+     * @param[in] defFile The stream to read variable values from
+     */
+    void commandSubscribeObjectVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile);
+
+
+    /** @brief Sends and validates a SubscribeContext command
+     * @param[in] domID The ID of the domain the addressed object belongs to
+     * @param[in] objID The ID of the object a variable shall be subscribed from
+     * @param[in] beginTime The time the subscription shall begin at
+     * @param[in] endTime The time the subscription shall end at
+     * @param[in] domain The domain of the objects which shall be reported
+     * @param[in] range The range within which objects shall be for being reported
+     * @param[in] varNo The number of subscribed variables
+     * @param[in] defFile The stream to read variable values from
+     */
+    void commandSubscribeContextVariable(int domID, const std::string& objID, int beginTime, int endTime, int domain, SUMOReal range, int varNo, std::ifstream& defFile);
     /// @}
 
 
+
 private:
+    /// @name Report helper
+    /// @{
+
+    /** @brief Writes the results file
+     */
     void writeResult();
 
+
+    /** @brief Writes an error message
+     * @param[in] msg The message to write
+     */
     void errorMsg(std::stringstream& msg);
+    /// @}
 
-    // validation of received command responses
-    bool reportResultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId = false);
 
+
+    /// @name Results validation methods
+    /// @{
+
+    /** @brief Validates whether the given message is a valid answer to CMD_SIMSTEP2
+     * @param[in] inMsg The storage contain the message to validate
+     * @return Whether the message is valid
+     */
     bool validateSimulationStep2(tcpip::Storage& inMsg);
+
+
+    /** @brief Validates whether the given message is a valid subscription return message
+     * @param[in] inMsg The storage contain the message to validate
+     * @return Whether the message is valid
+     */
     bool validateSubscription(tcpip::Storage& inMsg);
+    /// @}
+    
 
 
-    bool readAndReportTypeDependent(tcpip::Storage& inMsg, int valueDataType);
-
+    /// @name Conversion helper
+    /// @{
 
     /** @brief Parses the next value type / value pair from the stream and inserts it into the storage
      *
@@ -156,10 +174,19 @@ private:
     int setValueTypeDependant(tcpip::Storage& into, std::ifstream& defFile, std::stringstream& msg);
 
 
+    /** @brief Reads a value of the given type from the given storage and reports it
+     * @param[in] inMsg The storage to read the value from
+     * @param[in] valueDataType The type of the expected value
+     */
+    void readAndReportTypeDependent(tcpip::Storage& inMsg, int valueDataType);
+    /// @}
+
 
 private:
+    /// @brief The name of the file to write the results log into
     std::string outputFileName;
 
+    /// @brief Stream containing the log
     std::stringstream answerLog;
 
 };
