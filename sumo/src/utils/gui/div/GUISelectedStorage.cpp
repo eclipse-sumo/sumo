@@ -190,10 +190,12 @@ GUISelectedStorage::clear() {
 
 
 std::set<GUIGlID>
-GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GUIGlObjectType type) {
+GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GUIGlObjectType type, int maxErrors) {
     std::set<GUIGlID> result;
     std::ostringstream msg;
     std::ifstream strm(filename.c_str());
+    int numIgnored = 0;
+    int numMissing = 0;
     if (!strm.good()) {
         msgOut = "Could not open '" + filename + "'.\n";
         return result;
@@ -208,16 +210,25 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
         GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(line);
         if (object) {
             if (type != GLO_MAX && (object->getType() != type)) {
-                msg << "Ignoring item '" << line << "' because of invalid type " << toString(object->getType()) << "\n";
+                numIgnored++;
+                if (numIgnored + numMissing <= maxErrors) {
+                    msg << "Ignoring item '" << line << "' because of invalid type " << toString(object->getType()) << "\n";
+                }
             } else {
                 result.insert(object->getGlID());
             }
         } else {
-            msg << "Item '" + line + "' not found\n";
+            numMissing++;
+            if (numIgnored + numMissing <= maxErrors) {
+                msg << "Item '" + line + "' not found\n";
+            }
             continue;
         }
     }
     strm.close();
+    if (numIgnored + numMissing > maxErrors) {
+        msg << "...\n" << numIgnored << " objects ignored, " << numMissing << " objects not found\n";
+    }
     msgOut = msg.str();
     return result;
 }
