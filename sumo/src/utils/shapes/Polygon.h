@@ -32,6 +32,7 @@
 #endif
 
 #include <string>
+#include <utils/common/Named.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/VectorHelper.h>
@@ -46,7 +47,7 @@
  * @class Polygon
  * @brief A 2D- or 3D-polygon
  */
-class Polygon {
+class Polygon : public Named {
 public:
     /** @brief Constructor
      * @param[in] name The name of the polygon
@@ -66,14 +67,6 @@ public:
 
     /// @name Getter
     /// @{
-
-    /** @brief Returns the name of the polygon
-     * @return The polygon's id
-     */
-    const std::string& getID() const {
-        return myName;
-    }
-
 
     /** @brief Returns the (abstract) type of the polygon
      * @return The polygon's (abstract) type
@@ -146,9 +139,6 @@ public:
 
 
 protected:
-    /// @brief The name of the polygon
-    std::string myName;
-
     /// @brief The type of the polygon
     std::string myType;
 

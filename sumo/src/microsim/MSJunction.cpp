@@ -48,7 +48,7 @@ class MSLink;
 // ===========================================================================
 MSJunction::MSJunction(const std::string& id, const Position& position,
                        const PositionVector& shape)
-    : myID(id), myPosition(position), myShape(shape) {}
+    : Named(id), myPosition(position), myShape(shape) {}
 
 
 MSJunction::~MSJunction() {}
@@ -63,11 +63,6 @@ MSJunction::getPosition() const {
 void
 MSJunction::postloadInit() {}
 
-
-const std::string&
-MSJunction::getID() const {
-    return myID;
-}
 
 
 /****************************************************************************/

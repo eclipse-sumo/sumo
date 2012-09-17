@@ -43,7 +43,7 @@
 Polygon::Polygon(const std::string& name, const std::string& type,
                  const RGBColor& color, const PositionVector& shape,
                  bool fill)
-    : myName(name),  myType(type), myColor(color), myShape(shape), myFill(fill) {}
+    : Named(name),  myType(type), myColor(color), myShape(shape), myFill(fill) {}
 
 
 Polygon::~Polygon() {}

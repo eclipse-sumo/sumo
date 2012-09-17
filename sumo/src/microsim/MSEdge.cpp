@@ -69,7 +69,7 @@ std::vector<MSEdge*> MSEdge::myEdges;
 // ===========================================================================
 MSEdge::MSEdge(const std::string& id, unsigned int numericalID,
                const std::string& streetName) :
-    myID(id), myNumericalID(numericalID), myLanes(0),
+    Named(id), myNumericalID(numericalID), myLanes(0),
     myLaneChanger(0), myVaporizationRequests(0), myLastFailedInsertionTime(-1),
     myStreetName(streetName) {}
 

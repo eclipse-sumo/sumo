@@ -38,6 +38,7 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <utils/common/Named.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicle.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -68,7 +69,7 @@ class MSPerson;
  * A single connection between two junctions.
  * Holds lanes which are reponsible for vehicle movements.
  */
-class MSEdge {
+class MSEdge : public Named {
 public:
     /**
      * @enum EdgeBasicFunction
@@ -185,14 +186,6 @@ public:
 
     /// @name Access to other edge attributes
     /// @{
-
-    /** @brief Returns the id of the edge
-     * @return This edge's id
-     */
-    const std::string& getID() const {
-        return myID;
-    }
-
 
     /** @brief Returns the edge type (EdgeBasicFunction)
      * @return This edge's EdgeBasicFunction
@@ -523,9 +516,6 @@ protected:
     const std::vector<MSLane*>* getAllowedLanesWithDefault(const AllowedLanesCont& c, const MSEdge* dest) const;
 
 protected:
-    /// @brief Unique ID.
-    std::string myID;
-
     /// @brief This edge's numerical id
     unsigned int myNumericalID;
 
