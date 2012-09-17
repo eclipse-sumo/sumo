@@ -90,6 +90,14 @@ public:
     private:
         /// @brief The mutex to lock
         AbstractMutex &myLock;
+    
+    private:
+        /// @brief Invalidated copy constructor.
+        ScopedLocker(const ScopedLocker&);
+
+        /// Invalidated assignment operator.
+        ScopedLocker& operator=(const ScopedLocker&);
+
 
     };
 
