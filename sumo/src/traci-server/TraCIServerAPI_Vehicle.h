@@ -68,6 +68,14 @@ public:
                            tcpip::Storage& outputStorage);
 
 
+    /** @brief Returns the named vehicle's position 
+     * @param[in] id The id of the searched vehicle
+     * @param[out] p The position, if the vehicle is on the network
+     * @return Whether the vehicle is known (and on road)
+     */
+    static bool getPosition(const std::string &id, Position &p);
+
+
 private:
     static bool commandDistanceRequest(traci::TraCIServer& server, tcpip::Storage& inputStorage,
                                        tcpip::Storage& outputStorage, const MSVehicle* v);

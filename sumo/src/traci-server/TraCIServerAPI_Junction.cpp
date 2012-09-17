@@ -33,6 +33,7 @@
 #ifndef NO_TRACI
 
 #include "TraCIConstants.h"
+#include <microsim/MSNet.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSNet.h>
@@ -100,6 +101,29 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
+}
+
+
+bool
+TraCIServerAPI_Junction::getPosition(const std::string &id, Position &p) {
+    MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
+    if(j==0) {
+        return false;
+    }
+    p = j->getPosition();
+    return true;
+}
+
+
+TraCIRTree *
+TraCIServerAPI_Junction::getTree() {
+    TraCIRTree *t = new TraCIRTree();
+    const std::map<std::string, MSJunction*> &junctions = MSNet::getInstance()->getJunctionControl().getMyMap();
+    for(std::map<std::string, MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
+        Boundary b = (*i).second->getShape().getBoxBoundary();
+        t->addObject((*i).second, b);
+    }
+    return t;
 }
 
 #endif

@@ -112,11 +112,23 @@ public:
 
     /** @brief Adds an additional object (detector/shape/trigger) for visualisation
      * @param[in] o The object to add
+     * @param[in] b The object's boundary
      */
-    void addAdditionalGLObject(Named *o, Boundary &b) {
+    void addObject(Named *o, Boundary &b) {
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Insert(cmin, cmax, o);
+    }
+
+
+    /** @brief Adds an additional object (detector/shape/trigger) for visualisation
+     * @param[in] o The object to add
+     * @param[in] p The object's position
+     */
+    void addObject(Named *o, Position &p) {
+        Boundary b;
+        b.add(p);
+        addObject(o, b);
     }
 
 

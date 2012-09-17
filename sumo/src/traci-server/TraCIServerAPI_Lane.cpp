@@ -34,7 +34,9 @@
 #ifndef NO_TRACI
 
 #include <microsim/MSEdge.h>
+#include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Lane.h"
 
@@ -347,6 +349,32 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     }
     server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
+}
+
+
+bool
+TraCIServerAPI_Lane::getPosition(const std::string &id, Position &p) {
+    MSLane* l = MSLane::dictionary(id);
+    if(l==0) {
+        return false;
+    }
+    p = l->getShape().positionAtLengthPosition(l->getShape().length()/2.);
+    return true;
+}
+
+
+TraCIRTree *
+TraCIServerAPI_Lane::getTree() {
+    TraCIRTree *t = new TraCIRTree();
+    const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
+    for(std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        const std::vector<MSLane*> &lanes = (*i)->getLanes();
+        for(std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
+            Boundary b = (*j)->getShape().getBoxBoundary();
+            t->addObject(*j, b);
+        }
+    }
+    return t;
 }
 
 #endif

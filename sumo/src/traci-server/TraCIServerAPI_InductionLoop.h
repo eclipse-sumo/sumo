@@ -57,6 +57,20 @@ public:
                            tcpip::Storage& outputStorage);
 
 
+    /** @brief Returns the named inductive loop's position 
+     * @param[in] id The id of the searched inductive loop
+     * @param[out] p The position, if the inductive loop is known
+     * @return Whether the inductive loop is known (and on road)
+     */
+    static bool getPosition(const std::string &id, Position &p);
+
+
+    /** @brief Returns a tree filled with inductive loop instances
+     * @return The rtree of inductive loop
+     */
+    static TraCIRTree *getTree();
+
+
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_InductionLoop(const TraCIServerAPI_InductionLoop& s);

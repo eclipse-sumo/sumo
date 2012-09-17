@@ -67,6 +67,22 @@ public:
                            tcpip::Storage& outputStorage);
 
 
+    /** @brief Returns the named lane's position 
+     *
+     * The center of the lane is returned
+     * @param[in] id The id of the searched lane
+     * @param[out] p The position, if the lane is known
+     * @return Whether the lane is known (and on road)
+     */
+    static bool getPosition(const std::string &id, Position &p);
+
+
+    /** @brief Returns a tree filled with inductive loop instances
+     * @return The rtree of inductive loop
+     */
+    static TraCIRTree *getTree();
+
+
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Lane(const TraCIServerAPI_Lane& s);

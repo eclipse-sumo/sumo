@@ -108,8 +108,7 @@ bool TraCIServer::myDoCloseConnection = false;
 // method definitions
 // ===========================================================================
 TraCIServer::TraCIServer(int port)
-    : mySocket(0), myTargetTime(0), myDoingSimStep(false), myHaveWarnedDeprecation(false), myAmEmbedded(port == 0),
-    myObjects(0) {
+    : mySocket(0), myTargetTime(0), myDoingSimStep(false), myHaveWarnedDeprecation(false), myAmEmbedded(port == 0) {
 
     myVehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
@@ -168,7 +167,9 @@ TraCIServer::~TraCIServer() {
         mySocket->close();
         delete mySocket;
     }
-    delete myObjects;
+    for(std::map<int, TraCIRTree*>::const_iterator i=myObjects.begin(); i!=myObjects.end(); ++i) {
+        delete (*i).second;
+    }
 }
 
 
@@ -657,42 +658,84 @@ TraCIServer::removeSubscription(int commandId, const std::string &id, int domain
 
 
 Position 
-TraCIServer::getObjectPosition(int domain, const std::string &id) {
+TraCIServer::getObjectPosition(int domain, const std::string &id, bool &found) {
+    Position p;
     switch(domain) {
     case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
+        found = TraCIServerAPI_InductionLoop::getPosition(id, p);
+        break;
     case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
     case CMD_SUBSCRIBE_TL_CONTEXT:
     case CMD_SUBSCRIBE_LANE_CONTEXT:
-    case CMD_SUBSCRIBE_VEHICLE_CONTEXT: {
-        MSVehicle* v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
-        return v->getPosition();
-                                   }
-                                   break;
+        found = TraCIServerAPI_Lane::getPosition(id, p);
+        break;
+    case CMD_SUBSCRIBE_VEHICLE_CONTEXT: 
+        found = TraCIServerAPI_Vehicle::getPosition(id, p);
+        break;
     case CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
     case CMD_SUBSCRIBE_ROUTE_CONTEXT:
     case CMD_SUBSCRIBE_POI_CONTEXT:
+        found = TraCIServerAPI_POI::getPosition(id, p);
+        break;
     case CMD_SUBSCRIBE_POLYGON_CONTEXT:
+        found = TraCIServerAPI_Polygon::getPosition(id, p);
+        break;
     case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
+        found = TraCIServerAPI_Junction::getPosition(id, p);
+        break;
     case CMD_SUBSCRIBE_EDGE_CONTEXT:
+        found = TraCIServerAPI_Edge::getPosition(id, p);
+        break;
     case CMD_SUBSCRIBE_SIM_CONTEXT:
     case CMD_SUBSCRIBE_GUI_CONTEXT:
     default:
         break;
     }
-    throw 1;
+    return p;
 }
 
 void 
 TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range, std::set<std::string> &into) {
-    if(myObjects==0) {
-        myObjects = new TraCIRTree();
-        const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
-        for(std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-            const std::vector<MSLane*> &lanes = (*i)->getLanes();
-            for(std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
-                Boundary b = (*j)->getShape().getBoxBoundary();
-                myObjects->addAdditionalGLObject(*j, b);
-            }
+    // build the look-up tree if not yet existing
+    if(myObjects.find(domain)==myObjects.end()) {
+        switch(domain) {
+            case CMD_GET_INDUCTIONLOOP_VARIABLE:
+                myObjects[CMD_GET_INDUCTIONLOOP_VARIABLE] = TraCIServerAPI_InductionLoop::getTree();
+                break;
+            case CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
+                break;
+            case CMD_GET_TL_VARIABLE:
+                break;
+            case CMD_GET_LANE_VARIABLE:
+                myObjects[CMD_GET_LANE_VARIABLE] = TraCIServerAPI_Lane::getTree();
+                break;
+            case CMD_GET_VEHICLE_VARIABLE:
+                if(myObjects.find(CMD_GET_LANE_VARIABLE)==myObjects.end()) {
+                    myObjects[CMD_GET_LANE_VARIABLE] = TraCIServerAPI_Lane::getTree();
+                }
+                break;
+            case CMD_GET_VEHICLETYPE_VARIABLE:
+                break;
+            case CMD_GET_ROUTE_VARIABLE:
+                break;
+            case CMD_GET_POI_VARIABLE:
+                myObjects[CMD_GET_POI_VARIABLE] = TraCIServerAPI_POI::getTree();
+                break;
+            case CMD_GET_POLYGON_VARIABLE:
+                myObjects[CMD_GET_POLYGON_VARIABLE] = TraCIServerAPI_Polygon::getTree();
+                break;
+            case CMD_GET_JUNCTION_VARIABLE:
+                myObjects[CMD_GET_JUNCTION_VARIABLE] = TraCIServerAPI_Junction::getTree();
+                break;
+            case CMD_GET_EDGE_VARIABLE:
+                myObjects[CMD_GET_EDGE_VARIABLE] = TraCIServerAPI_Edge::getTree();
+                break;
+            case CMD_GET_SIM_VARIABLE:
+                break;
+            case CMD_GET_GUI_VARIABLE:
+                break;
+            default:
+                break;
         }
     }
     Boundary b;
@@ -701,7 +744,10 @@ TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range
     const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
     const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
     switch(domain) {
-    case CMD_GET_INDUCTIONLOOP_VARIABLE:
+    case CMD_GET_INDUCTIONLOOP_VARIABLE: {
+        Named::StoringVisitor sv(into);
+        myObjects[CMD_GET_INDUCTIONLOOP_VARIABLE]->Search(cmin, cmax, sv);
+                                         }
         break;
     case CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
         break;
@@ -709,13 +755,13 @@ TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range
         break;
     case CMD_GET_LANE_VARIABLE: {
         Named::StoringVisitor sv(into);
-        myObjects->Search(cmin, cmax, sv);
+        myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
                                    }
-                                   break;
+        break;
     case CMD_GET_VEHICLE_VARIABLE: {
         std::set<std::string> tmp;
         Named::StoringVisitor sv(tmp);
-        myObjects->Search(cmin, cmax, sv);
+        myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
         for(std::set<std::string>::const_iterator i=tmp.begin(); i!=tmp.end(); ++i) {
             MSLane *l = MSLane::dictionary(*i);
             if(l!=0) {
@@ -729,18 +775,30 @@ TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range
             }
         }
                                    }
-                                   break;
+        break;
     case CMD_GET_VEHICLETYPE_VARIABLE:
         break;
     case CMD_GET_ROUTE_VARIABLE:
         break;
-    case CMD_GET_POI_VARIABLE:
+    case CMD_GET_POI_VARIABLE: {
+        Named::StoringVisitor sv(into);
+        myObjects[CMD_GET_POI_VARIABLE]->Search(cmin, cmax, sv);
+                               }
         break;
-    case CMD_GET_POLYGON_VARIABLE:
+    case CMD_GET_POLYGON_VARIABLE: {
+        Named::StoringVisitor sv(into);
+        myObjects[CMD_GET_POLYGON_VARIABLE]->Search(cmin, cmax, sv);
+                                   }
         break;
-    case CMD_GET_JUNCTION_VARIABLE:
+    case CMD_GET_JUNCTION_VARIABLE: {
+        Named::StoringVisitor sv(into);
+        myObjects[CMD_GET_JUNCTION_VARIABLE]->Search(cmin, cmax, sv);
+                                    }
         break;
-    case CMD_GET_EDGE_VARIABLE:
+    case CMD_GET_EDGE_VARIABLE: {
+        Named::StoringVisitor sv(into);
+        myObjects[CMD_GET_EDGE_VARIABLE]->Search(cmin, cmax, sv);
+                                }
         break;
     case CMD_GET_SIM_VARIABLE:
         break;
@@ -761,7 +819,11 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
     std::set<std::string> objIDs;
     if(s.contextVars) {
         getCommandId = s.contextDomain;
-        Position p = getObjectPosition(s.commandId, s.id);
+        bool ok = true;
+        Position p = getObjectPosition(s.commandId, s.id, ok);
+        if(!ok) {
+            return false;
+        }
         collectObjectsInRange(s.contextDomain, p, s.range, objIDs);
     } else {
         getCommandId = s.commandId - 0x30;

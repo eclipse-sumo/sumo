@@ -67,6 +67,31 @@ public:
                            tcpip::Storage& outputStorage);
 
 
+    /** @brief Returns the named polygons's position 
+     *
+     * The center of the polygon is returned
+     * @param[in] id The id of the searched polygon
+     * @param[out] p The position, if the polygon is known
+     * @return Whether the polygon is known (and on road)
+     */
+    static bool getPosition(const std::string &id, Position &p);
+
+
+    /** @brief Returns a tree filled with inductive loop instances
+     * @return The rtree of inductive loop
+     */
+    static TraCIRTree *getTree();
+    
+
+private:
+    /** @brief Returns the named polygon
+     * @param[in] id The id of the searched polygon
+     * @param[out] layer The layer the polygon is located in
+     * @return The named polygon, or 0 if it is not known
+     */
+    static Polygon *getPolygon(const std::string &id, int &layer);
+
+
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Polygon(const TraCIServerAPI_Polygon& s);

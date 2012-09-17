@@ -67,6 +67,29 @@ public:
                            tcpip::Storage& outputStorage);
 
 
+    /** @brief Returns the named PoI's position 
+     * @param[in] id The id of the searched PoI
+     * @param[out] p The position, if the PoI is known
+     * @return Whether the PoI is known (and on road)
+     */
+    static bool getPosition(const std::string &id, Position &p);
+
+
+    /** @brief Returns a tree filled with inductive loop instances
+     * @return The rtree of inductive loop
+     */
+    static TraCIRTree *getTree();
+
+
+private:
+    /** @brief Returns the named PoI
+     * @param[in] id The id of the searched PoI
+     * @param[out] layer The layer the PoI is located in
+     * @return The named PoI, or 0 if it is not known
+     */
+    static PointOfInterest *getPoI(const std::string &id, int &layer);
+
+
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_POI(const TraCIServerAPI_POI& s);

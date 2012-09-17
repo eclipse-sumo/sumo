@@ -33,6 +33,7 @@
 #ifndef NO_TRACI
 
 #include "TraCIConstants.h"
+#include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
 #include "TraCIServerAPI_InductionLoop.h"
@@ -164,6 +165,30 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
     server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
+}
+
+
+bool
+TraCIServerAPI_InductionLoop::getPosition(const std::string &id, Position &p) {
+    MSInductLoop* il = static_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
+    if(il==0) {
+        return false;
+    }
+    p = il->getLane()->getShape().positionAtLengthPosition(il->getPosition());
+    return true;
+}
+
+
+TraCIRTree *
+TraCIServerAPI_InductionLoop::getTree() {
+    TraCIRTree *t = new TraCIRTree();
+    const std::map<std::string, MSDetectorFileOutput*> &dets = MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).getMyMap();
+    for(std::map<std::string, MSDetectorFileOutput*>::const_iterator i=dets.begin(); i!=dets.end(); ++i) {
+        MSInductLoop* il = static_cast<MSInductLoop*>((*i).second);
+        Position p = il->getLane()->getShape().positionAtLengthPosition(il->getPosition());
+        t->addObject(il, p);
+    }
+    return t;
 }
 
 #endif

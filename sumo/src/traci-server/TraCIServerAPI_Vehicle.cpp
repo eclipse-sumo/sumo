@@ -1074,7 +1074,19 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer& server, tcpip
     return true;
 }
 
+
 // ------ helper functions ------
+bool 
+TraCIServerAPI_Vehicle::getPosition(const std::string &id, Position &p) {
+    SUMOVehicle* v = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+    if(v==0) {
+        return false;
+    }
+    p = static_cast<MSVehicle*>(v)->getPosition();
+    return true;
+}
+
+
 MSVehicleType&
 TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle* const veh) {
     const MSVehicleType& oType = veh->getVehicleType();

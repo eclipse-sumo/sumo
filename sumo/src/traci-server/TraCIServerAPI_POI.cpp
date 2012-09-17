@@ -84,11 +84,8 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             tempMsg.writeInt((int) ids.size());
         }
     } else {
-        PointOfInterest* p = 0;
-        ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer() && p == 0; ++i) {
-            p = shapeCont.getPOICont(i).get(id);
-        }
+        int layer;
+        PointOfInterest* p = getPoI(id, layer);
         if (p == 0) {
             server.writeStatusCmd(CMD_GET_POI_VARIABLE, RTYPE_ERR, "POI '" + id + "' is not known", outputStorage);
             return false;
@@ -137,10 +134,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     int layer = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     if (variable != ADD && variable != REMOVE) {
-        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer() && p == 0; ++i) {
-            p = shapeCont.getPOICont(i).get(id);
-            layer = i;
-        }
+        p = getPoI(id, layer);
         if (p == 0) {
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "POI '" + id + "' is not known", outputStorage);
             return false;
@@ -249,6 +243,46 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
 }
+
+
+bool
+TraCIServerAPI_POI::getPosition(const std::string &id, Position &p) {
+    int layer;
+    PointOfInterest *poi = getPoI(id, layer);
+    if(poi==0) {
+        return false;
+    }
+    p = *poi;
+    return true;
+}
+
+
+PointOfInterest *
+TraCIServerAPI_POI::getPoI(const std::string &id, int &layer) {
+    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+    for (layer = shapeCont.getMinLayer(); layer <= shapeCont.getMaxLayer(); ++layer) {
+        PointOfInterest *p = shapeCont.getPOICont(layer).get(id);
+        if(p!=0) {
+            return p;
+        }
+    }
+    return 0;
+}
+
+
+TraCIRTree *
+TraCIServerAPI_POI::getTree() {
+    TraCIRTree *t = new TraCIRTree();
+    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+    for (int layer = shapeCont.getMinLayer(); layer <= shapeCont.getMaxLayer(); ++layer) {
+        const std::map<std::string, PointOfInterest*> &polys = shapeCont.getPOICont(layer).getMyMap();
+        for(std::map<std::string, PointOfInterest*>::const_iterator i=polys.begin(); i!=polys.end(); ++i) {
+            t->addObject((*i).second, *(*i).second);
+        }
+    }
+    return t;
+}
+
 
 #endif
 

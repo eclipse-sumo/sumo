@@ -252,7 +252,7 @@ private:
     std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
 
     /// @brief A storage of objects
-    TraCIRTree *myObjects;
+    std::map<int, TraCIRTree*> myObjects;
 
 
 private:
@@ -264,7 +264,7 @@ private:
                                    std::string& errors);
 
 
-    Position getObjectPosition(int domain, const std::string &id);
+    Position getObjectPosition(int domain, const std::string &id, bool &found);
     void collectObjectsInRange(int domain, const Position &p, SUMOReal range, std::set<std::string> &into);
 
 
