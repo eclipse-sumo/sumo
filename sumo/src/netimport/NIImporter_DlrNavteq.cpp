@@ -229,6 +229,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     SUMOReal speed = (SUMOReal) 30.0 / (SUMOReal) 3.6;
     int nolanes = 1;
     int priority;
+    int form_of_way;
     // parse
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // id
@@ -248,14 +249,24 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     // vehicle_type
     std::string veh_type = st.next();
     // form_of_way
-    std::string form_of_way = st.next();
+    try {
+        form_of_way = TplConvert::_2int(st.next().c_str());
+    } catch (NumberFormatException&) {
+        throw ProcessError("Non-numerical value for an edge's form_of_way occured (edge '" + id + "'.");
+    }
     // brunnel_type
     std::string brunnel_type = st.next();
-    // street_type
+    // street_type used for priority
     try {
         priority = -TplConvert::_2int(st.next().c_str());
     } catch (NumberFormatException&) {
         throw ProcessError("Non-numerical value for an edge's street_type occured (edge '" + id + "'.");
+    }
+    // modify priority using form_of_way
+    if (form_of_way == 11) {
+        priority -= 1; // frontage road, very often with lowered curb
+    } else if (form_of_way > 11) {
+        priority -= 2; // parking/service access assume lowered curb
     }
     speed = NINavTeqHelper::getSpeed(id, st.next());
     // number of lanes
@@ -311,6 +322,11 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     }
     // add vehicle type information to the edge
     NINavTeqHelper::addVehicleClasses(*e, veh_type);
+    // permission modifications based on form_of_way
+    if (form_of_way == 14) { // pedestrian area (fussgaengerzone)
+        // unfortunately, the veh_type string is misleading in this case
+        e->disallowVehicleClass(-1, SVC_PASSENGER);
+    }
     // insert the edge to the network
     if (!myEdgeCont.insert(e)) {
         delete e;

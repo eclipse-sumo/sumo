@@ -1853,7 +1853,7 @@ void
 NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass) {
     if (lane < 0) { // all lanes are meant...
         for (unsigned int i = 0; i < myLanes.size(); i++) {
-            allowVehicleClass((int) i, vclass);
+            disallowVehicleClass((int) i, vclass);
         }
     } else {
         assert(lane < (int) myLanes.size());
