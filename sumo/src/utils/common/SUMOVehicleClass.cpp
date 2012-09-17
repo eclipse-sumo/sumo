@@ -173,12 +173,12 @@ getPermissionEncoding(SVCPermissions permissions) {
     }
     // figure out whether its shorter to write allow or disallow
     size_t num_allowed = 0;
-    for(int mask = 1; mask < SUMOVehicleClass_MAX; mask = mask << 1) {
+    for(int mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
         if ((mask & permissions) == mask) {
             ++num_allowed;
         }
     }
-    if (num_allowed <= (SumoVehicleClassStrings.size() - num_allowed)) {
+    if (num_allowed <= (SumoVehicleClassStrings.size() - num_allowed) && num_allowed > 0) {
         return std::pair<std::string, bool>(getAllowedVehicleClassNames(permissions), true);
     } else {
         return std::pair<std::string, bool>(getAllowedVehicleClassNames(~permissions), false);
