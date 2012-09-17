@@ -56,11 +56,13 @@ class MFXAddEditTypedTable;
 class GUIDialog_Breakpoints : public FXMainWindow {
     // FOX-declarations
     FXDECLARE(GUIDialog_Breakpoints)
+
 public:
     /** @brief Constructor
      * @param[in] parent The parent window
      */
     GUIDialog_Breakpoints(GUIMainWindow* parent);
+
 
     /// @brief Destructor
     ~GUIDialog_Breakpoints();

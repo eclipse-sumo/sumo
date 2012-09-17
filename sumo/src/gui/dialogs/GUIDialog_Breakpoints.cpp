@@ -168,11 +168,16 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
         while (strm.good()) {
             std::string val;
             strm >> val;
+            if(val.length()==0) {
+                continue;
+            }
             try {
                 SUMOTime value = string2time(val);
                 GUIGlobals::gBreakpoints.push_back(value);
             } catch (NumberFormatException&) {
                 WRITE_ERROR(" A breakpoint-value must be an int, is:" + val);
+            }  catch (ProcessError&) {
+                WRITE_ERROR(" Could not decode breakpoint '" + val + "'");
             } catch (EmptyData&) {}
         }
         rebuildList();

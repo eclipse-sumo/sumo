@@ -546,8 +546,7 @@ GUIApplicationWindow::onCmdEditChosen(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdEditBreakpoints(FXObject*, FXSelector, void*) {
-    GUIDialog_Breakpoints* chooser =
-        new GUIDialog_Breakpoints(this);
+    GUIDialog_Breakpoints* chooser = new GUIDialog_Breakpoints(this);
     chooser->create();
     chooser->show();
     return 1;
