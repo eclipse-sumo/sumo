@@ -68,15 +68,18 @@ MSRoute::MSRoute(const std::string& id,
 
 MSRoute::~MSRoute() {}
 
+
 MSRouteIterator
 MSRoute::begin() const {
     return myEdges.begin();
 }
 
+
 MSRouteIterator
 MSRoute::end() const {
     return myEdges.end();
 }
+
 
 unsigned
 MSRoute::size() const {
