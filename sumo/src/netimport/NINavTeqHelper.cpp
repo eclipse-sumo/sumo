@@ -130,10 +130,9 @@ NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS) {
     if (classS[3] == '1') {
         e.allowVehicleClass(-1, SVC_PUBLIC_EMERGENCY);
     }
-    // Taxi -- becomes SVC_PASSENGER|SVC_TAXI
+    // Taxi -- becomes SVC_TAXI
     if (classS[4] == '1') {
         e.allowVehicleClass(-1, SVC_TAXI);
-        e.allowVehicleClass(-1, SVC_PASSENGER);
     }
     // Public Bus -- becomes SVC_BUS|SVC_PUBLIC_TRANSPORT
     if (classS[5] == '1') {

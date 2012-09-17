@@ -12,5 +12,4 @@ peds_cycles_only_on_1
 
 # link 1 only allows cycles
 cycles_only_on_1
-
-
+taxi_only
