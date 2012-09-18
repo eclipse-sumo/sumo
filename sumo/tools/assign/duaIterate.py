@@ -380,11 +380,11 @@ def main(args=None):
     try:
         subprocess.call(duaBinary, stdout=subprocess.PIPE)
     except OSError:
-        sys.exit("Error: Could not locate duarouter.\nMake sure its on the search path or set environment variable DUAROUTER_BINARY\n")
+        sys.exit("Error: Could not locate duarouter (%s).\nMake sure its on the search path or set environment variable DUAROUTER_BINARY\n" % duaBinary)
     try:
         subprocess.call(sumoBinary, stdout=subprocess.PIPE)
     except OSError:
-        sys.exit("Error: Could not locate sumo.\nMake sure its on the search path or set environment variable SUMO_BINARY\n")
+        sys.exit("Error: Could not locate sumo (%s).\nMake sure its on the search path or set environment variable SUMO_BINARY\n" % sumoBinary)
 
     sumo_args = assign_remaining_args(sumoBinary, 'sumo', remaining_args)
     
