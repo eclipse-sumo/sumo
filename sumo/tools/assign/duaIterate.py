@@ -89,6 +89,8 @@ def initOptions():
                          help="filter tripinfo attributes")
     optParser.add_option("--inc-start", dest="incStart",
                          type="float", default=0, help="Start for incrementing scale")
+    optParser.add_option("--inc-max", dest="incMax",
+                         type="float", default=1, help="Maximum for incrementing scale")
     optParser.add_option("--inc-base", dest="incBase",
                          type="int", default=-1, help="Give the incrementation base")
     optParser.add_option("--incrementation", dest="incValue",
@@ -212,7 +214,7 @@ def get_scale(options, step):
     # compute scaling factor for simulation
     # using incValue = 1 (default) and incBase = 10 would produce 
     # iterations with increasing scale 0.1, 0.2, ... 0.9, 1, 1, 1, ...
-    return min(options.incStart + options.incValue * float(step + 1) / options.incBase, 1)
+    return min(options.incStart + options.incValue * float(step + 1) / options.incBase, options.incMax)
 
 def get_dumpfilename(options, step, prefix):
     # the file to which edge costs (traveltimes) are written
