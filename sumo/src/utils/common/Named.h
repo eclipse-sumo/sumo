@@ -94,7 +94,7 @@ public:
         void add(const Named * const o) const { myIDs.insert(o->getID()); }
 
         /// @brief The container
-        mutable std::set<std::string> &myIDs;
+        std::set<std::string> &myIDs;
 
     private:
         /// @brief invalidated copy constructor
