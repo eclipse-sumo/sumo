@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep  7 13:17:22 2012 by SUMO netconvert Version dev-SVN-r12683
+<!-- generated on Tue Sep 18 10:43:26 2012 by SUMO netconvert Version dev-SVN-r12730
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -23,8 +23,8 @@
 -->
 
 <edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
-    <edge id="-1" from="0" to="1" name="PERWENITZER WEG" priority="0" numLanes="3" speed="55.56"/>
-    <edge id="-2" from="0" to="2" name="PERWENITZER WEG" priority="0" numLanes="3" speed="55.56"/>
+    <edge id="-1" from="0" to="1" name="PERWENITZER &amp; WEG" priority="0" numLanes="3" speed="55.56"/>
+    <edge id="-2" from="0" to="2" name="PERWENITZER &amp; WEG" priority="0" numLanes="3" speed="55.56"/>
     <edge id="-3" from="0" to="3" name="BERLINER STRASSE / B24" priority="0" numLanes="3" speed="55.56"/>
     <edge id="-4" from="0" to="4" name="BERLINER STRASSE / B24" priority="0" numLanes="3" speed="55.56"/>
     <edge id="1" from="1" to="0" name="BERLINER STRASSE / B24" priority="0" numLanes="3" speed="55.56"/>
