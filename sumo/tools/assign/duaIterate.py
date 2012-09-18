@@ -20,7 +20,6 @@ import os, sys, subprocess, types, shutil
 import StringIO
 from datetime import datetime
 from optparse import OptionParser
-from routeChoices import getRouteChoices, calFirstRouteProbs
 from costMemory import CostMemory
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -400,7 +399,9 @@ def main(args=None):
     else:
         input_demands = options.routes.split(",")
         initial_type = "route"
-    if options.externalgawron:#debug
+    if options.externalgawron:
+        # avoid dependency on numpy for normal duaIterate
+        from routeChoices import getRouteChoices, calFirstRouteProbs
         print 'use externalgawron'
         edgesMap = {}
     if options.weightmemory:
