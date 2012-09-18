@@ -226,7 +226,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     //
     if (oc.getBool("tls.join")) {
         PROGRESS_BEGIN_MESSAGE("Joining traffic light nodes");
-        myNodeCont.joinTLS(myTLLCont);
+        myNodeCont.joinTLS(myTLLCont, oc.getFloat("tls.join-dist"));
         PROGRESS_DONE_MESSAGE();
     }
 

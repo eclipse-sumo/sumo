@@ -248,9 +248,10 @@ public:
 
     /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
      * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
+     * @param[in] maxdist The maximum distance between nodes for clustering
      * @todo Recheck exception handling
      */
-    void joinTLS(NBTrafficLightLogicCont& tlc);
+    void joinTLS(NBTrafficLightLogicCont& tlc, SUMOReal maxdist);
 
 
     /** @brief Sets the given node as being controlled by a tls

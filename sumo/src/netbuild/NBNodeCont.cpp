@@ -699,11 +699,10 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
     }
 
     // guess joined tls first, if wished
-    if (oc.getBool("tls-guess.joining")) {
+    if (oc.getBool("tls.join")) {
         // get node clusters
-        SUMOReal MAXDIST = 25;
         std::vector<std::set<NBNode*> > cands;
-        generateNodeClusters(MAXDIST, cands);
+        generateNodeClusters(oc.getFloat("tls.join-dist"), cands);
         // check these candidates (clusters) whether they should be controlled by a tls
         for (std::vector<std::set<NBNode*> >::iterator i = cands.begin(); i != cands.end();) {
             std::set<NBNode*> &c = (*i);
@@ -763,10 +762,9 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
 
 
 void
-NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc) {
-    SUMOReal MAXDIST = 25;
+NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, SUMOReal maxdist) {
     std::vector<std::set<NBNode*> > cands;
-    generateNodeClusters(MAXDIST, cands);
+    generateNodeClusters(maxdist, cands);
     unsigned int index = 0;
     for (std::vector<std::set<NBNode*> >::iterator i = cands.begin(); i != cands.end(); ++i) {
         std::set<NBNode*> &c = (*i);
