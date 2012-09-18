@@ -369,6 +369,9 @@
         <!-- Modifies all edge speeds by multiplying FLOAT -->
         <speed.factor value="1" type="FLOAT"/>
 
+        <!-- Determines the maximal distance for joining traffic lights (defaults to 15) -->
+        <tls.join-dist value="25" type="FLOAT"/>
+
     </processing>
 
     <building_defaults>

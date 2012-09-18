@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-rUNKNOWN
+SUMO netconvert Version dev-SVN-r12737
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -182,6 +182,8 @@ Processing Options:
   --speed.offset FLOAT                Modifies all edge speeds by adding FLOAT
   --speed.factor FLOAT                Modifies all edge speeds by multiplying
                                         FLOAT
+  --tls.join-dist FLOAT               Determines the maximal distance for
+                                        joining traffic lights (defaults to 15)
 
 Building Defaults Options:
   -L, --default.lanenumber INT        The default number of lanes in an edge
