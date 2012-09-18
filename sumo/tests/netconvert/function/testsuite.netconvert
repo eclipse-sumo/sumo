@@ -28,6 +28,7 @@ join_double_conn
 
 # tests for joining of close junctions
 junctions.join
+tls.join
 
 # tests for disabling left-turns
 no_left

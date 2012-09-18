@@ -208,29 +208,6 @@ NBNetBuilder::compute(OptionsCont& oc,
         }
     }
 
-    // GUESS TLS POSITIONS
-    PROGRESS_BEGIN_MESSAGE("Assigning nodes to traffic lights");
-    if (oc.isSet("tls.set")) {
-        std::vector<std::string> tlControlledNodes = oc.getStringVector("tls.set");
-        for (std::vector<std::string>::const_iterator i = tlControlledNodes.begin(); i != tlControlledNodes.end(); ++i) {
-            NBNode* node = myNodeCont.retrieve(*i);
-            if (node == 0) {
-                WRITE_WARNING("Building a tl-logic for node '" + *i + "' is not possible." + "\n The node '" + *i + "' is not known.");
-            } else {
-                myNodeCont.setAsTLControlled(node, myTLLCont);
-            }
-        }
-    }
-    myNodeCont.guessTLs(oc, myTLLCont);
-    PROGRESS_DONE_MESSAGE();
-    //
-    if (oc.getBool("tls.join")) {
-        PROGRESS_BEGIN_MESSAGE("Joining traffic light nodes");
-        myNodeCont.joinTLS(myTLLCont, oc.getFloat("tls.join-dist"));
-        PROGRESS_DONE_MESSAGE();
-    }
-
-
     // CONNECTIONS COMPUTATION
     //
     PROGRESS_BEGIN_MESSAGE("Computing turning directions");
@@ -290,6 +267,29 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_BEGIN_MESSAGE("Computing edge shapes");
     myEdgeCont.computeEdgeShapes();
     PROGRESS_DONE_MESSAGE();
+
+
+    // GUESS TLS POSITIONS
+    PROGRESS_BEGIN_MESSAGE("Assigning nodes to traffic lights");
+    if (oc.isSet("tls.set")) {
+        std::vector<std::string> tlControlledNodes = oc.getStringVector("tls.set");
+        for (std::vector<std::string>::const_iterator i = tlControlledNodes.begin(); i != tlControlledNodes.end(); ++i) {
+            NBNode* node = myNodeCont.retrieve(*i);
+            if (node == 0) {
+                WRITE_WARNING("Building a tl-logic for node '" + *i + "' is not possible." + "\n The node '" + *i + "' is not known.");
+            } else {
+                myNodeCont.setAsTLControlled(node, myTLLCont);
+            }
+        }
+    }
+    myNodeCont.guessTLs(oc, myTLLCont);
+    PROGRESS_DONE_MESSAGE();
+    //
+    if (oc.getBool("tls.join")) {
+        PROGRESS_BEGIN_MESSAGE("Joining traffic light nodes");
+        myNodeCont.joinTLS(myTLLCont, oc.getFloat("tls.join-dist"));
+        PROGRESS_DONE_MESSAGE();
+    }
 
 
     // COMPUTING RIGHT-OF-WAY AND TRAFFIC LIGHT PROGRAMS

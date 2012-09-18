@@ -1,0 +1,21 @@
+Warning: The traffic light 'joinedG_0' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light 'joinedG_0'
+Leaked object at 0xf81520 (size 16, 0x30fceb0499)
+Leaked object at 0xf81df0 (size 60, 0x30f7e9c3a9)
+Leaked object at 0xf81eb0 (size 62, 0x30f7e9c3a9)
+Leaked object at 0xf81f70 (size 55, 0x30f7e9c3a9)
+Leaked object at 0xf82020 (size 59, 0x30f7e9c3a9)
+Leaked object at 0xf820e0 (size 78, 0x30f7e9c3a9)
+Leaked object at 0xf821b0 (size 61, 0x30f7e9c3a9)
+Leaked object at 0xf82270 (size 26, 0x30f7e9c3a9)
+Leaked object at 0xf82310 (size 782, 0x30f7e9c3a9)
+*** 9 leaks found
+delete: freed 0xf82310 (size 782, 417 bytes still allocated)
+delete: freed 0xf82270 (size 26, 391 bytes still allocated)
+delete: freed 0xf821b0 (size 61, 330 bytes still allocated)
+delete: freed 0xf820e0 (size 78, 252 bytes still allocated)
+delete: freed 0xf82020 (size 59, 193 bytes still allocated)
+delete: freed 0xf81f70 (size 55, 138 bytes still allocated)
+delete: freed 0xf81eb0 (size 62, 76 bytes still allocated)
+delete: freed 0xf81df0 (size 60, 16 bytes still allocated)
+delete: freed 0xf81520 (size 16, 0 bytes still allocated)

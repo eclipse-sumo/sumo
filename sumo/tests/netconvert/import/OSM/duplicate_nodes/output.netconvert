@@ -16,8 +16,6 @@ Removing empty nodes and geometry nodes... done.
 Joining similar edges... done.
 Guessing and setting on-/off-ramps... done.
 Moving network to origin... done.
-Assigning nodes to traffic lights... done.
-Joining traffic light nodes... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node types... done.
@@ -29,6 +27,8 @@ Processing turnarounds... done.
 Rechecking of lane endings... done.
 Computing node shapes... done.
 Computing edge shapes... done.
+Assigning nodes to traffic lights... done.
+Joining traffic light nodes... done.
 Computing traffic light control information... done.
 Computing node logics... done.
 Computing traffic light logics... done.

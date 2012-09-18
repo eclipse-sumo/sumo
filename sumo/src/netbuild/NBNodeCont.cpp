@@ -415,7 +415,7 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
                 if (visited.find(s) != visited.end()) {
                     continue;
                 }
-                if (n->getPosition().distanceTo(s->getPosition()) < maxDist) {
+                if (e->getLoadedLength() < maxDist) {
                     toProc.push_back(s);
                 }
             }

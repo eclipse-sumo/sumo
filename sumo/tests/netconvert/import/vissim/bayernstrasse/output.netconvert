@@ -7,7 +7,6 @@ Removing empty nodes... done.
    0 nodes removed.
 Joining similar edges... done.
 Moving network to origin... done.
-Assigning nodes to traffic lights... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node types... done.
@@ -23,6 +22,7 @@ Lane '30007[1][1][0]' has calculated shape length near zero. Revert it back to o
 Lane '82[1]' has calculated shape length near zero. Revert it back to old shape.
 Lane '85[1][1][0]' has calculated shape length near zero. Revert it back to old shape.
 done.
+Assigning nodes to traffic lights... done.
 Computing traffic light control information... done.
 Computing node logics... done.
 Computing traffic light logics... 
