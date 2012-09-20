@@ -38,7 +38,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
-#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/importio/LineReader.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -427,7 +426,7 @@ NIImporter_DlrNavteq::NamesHandler::report(const std::string& result) {
     } 
     assert(st.size() >= 2);
     const std::string id = st.next();
-    myStreetNames[id] = StringUtils::escapeXML(joinToString(st.getVector(), " "));
+    myStreetNames[id] = joinToString(st.getVector(), " ");
     return true;
 }
 /****************************************************************************/

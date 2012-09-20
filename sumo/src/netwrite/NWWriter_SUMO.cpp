@@ -35,6 +35,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
@@ -207,7 +208,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     into.writeAttr(SUMO_ATTR_FROM, e.getFromNode()->getID());
     into.writeAttr(SUMO_ATTR_TO, e.getToNode()->getID());
     if (!noNames && e.getStreetName() != "") {
-        into.writeAttr(SUMO_ATTR_NAME, e.getStreetName());
+        into.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(e.getStreetName()));
     }
     into.writeAttr(SUMO_ATTR_PRIORITY, e.getPriority());
     if (e.getTypeName() != "") {

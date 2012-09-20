@@ -40,6 +40,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -80,7 +81,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
-        device << "    <road name=\"" << e->getStreetName() << "\" length=\"" << e->getLength() << "\" id=\"" << getID(e->getID(), edgeMap, edgeID) << "\" junction=\"-1\">\n";
+        device << "    <road name=\"" << StringUtils::escapeXML(e->getStreetName()) << "\" length=\"" << e->getLength() << "\" id=\"" << getID(e->getID(), edgeMap, edgeID) << "\" junction=\"-1\">\n";
         device << "        <link>\n";
         device << "            <predecessor elementType=\"junction\" elementId=\"" << getID(e->getFromNode()->getID(), nodeMap, nodeID) << "\"/>\n";
         device << "            <successor elementType=\"junction\" elementId=\"" << getID(e->getToNode()->getID(), nodeMap, nodeID) << "\"/>\n";

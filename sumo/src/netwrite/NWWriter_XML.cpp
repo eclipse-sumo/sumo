@@ -37,6 +37,7 @@
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -144,7 +145,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         edevice.writeAttr(SUMO_ATTR_FROM, e->getFromNode()->getID());
         edevice.writeAttr(SUMO_ATTR_TO, e->getToNode()->getID());
         if (!noNames && e->getStreetName() != "") {
-            edevice.writeAttr(SUMO_ATTR_NAME, e->getStreetName());
+            edevice.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(e->getStreetName()));
         }
         edevice.writeAttr(SUMO_ATTR_PRIORITY, e->getPriority());
         // write the type if given
