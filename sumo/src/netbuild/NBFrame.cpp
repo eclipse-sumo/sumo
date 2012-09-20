@@ -132,9 +132,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.join", "Processing",
                       "Joins junctions that are close to each other (recommended for OSM import)");
 
-    oc.doRegister("junctions.join-dist", new Option_Float(15));
+    oc.doRegister("junctions.join-dist", new Option_Float(10));
     oc.addDescription("junctions.join-dist", "Processing",
-                      "Determines the maximal distance for joining junctions (defaults to 15)");
+                      "Determines the maximal distance for joining junctions (defaults to 10)");
 
     if (!forNetgen) {
         oc.doRegister("junctions.join-exclude", new Option_String());
