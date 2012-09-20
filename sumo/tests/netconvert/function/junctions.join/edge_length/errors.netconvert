@@ -1,0 +1,23 @@
+Warning: The traffic light '56231397' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '56231397'
+Warning: The traffic light 'joinedS_0' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light 'joinedS_0'
+Leaked object at 0xcfa520 (size 16, 0x30fceb0499)
+Leaked object at 0xcfadf0 (size 60, 0x30f7e9c3a9)
+Leaked object at 0xcfaeb0 (size 62, 0x30f7e9c3a9)
+Leaked object at 0xcfaf70 (size 55, 0x30f7e9c3a9)
+Leaked object at 0xcfb020 (size 59, 0x30f7e9c3a9)
+Leaked object at 0xcfb0e0 (size 78, 0x30f7e9c3a9)
+Leaked object at 0xcfb1b0 (size 61, 0x30f7e9c3a9)
+Leaked object at 0xcfb270 (size 26, 0x30f7e9c3a9)
+Leaked object at 0xcfb310 (size 782, 0x30f7e9c3a9)
+*** 9 leaks found
+delete: freed 0xcfb310 (size 782, 417 bytes still allocated)
+delete: freed 0xcfb270 (size 26, 391 bytes still allocated)
+delete: freed 0xcfb1b0 (size 61, 330 bytes still allocated)
+delete: freed 0xcfb0e0 (size 78, 252 bytes still allocated)
+delete: freed 0xcfb020 (size 59, 193 bytes still allocated)
+delete: freed 0xcfaf70 (size 55, 138 bytes still allocated)
+delete: freed 0xcfaeb0 (size 62, 76 bytes still allocated)
+delete: freed 0xcfadf0 (size 60, 16 bytes still allocated)
+delete: freed 0xcfa520 (size 16, 0 bytes still allocated)

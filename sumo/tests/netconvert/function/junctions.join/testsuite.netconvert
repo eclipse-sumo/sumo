@@ -15,3 +15,7 @@ join_loaded
 
 # make sure that a sequence of short edges does not lead to a giant cluster
 long_tail
+
+# test that edge lengths are used instead of junction positions for clustering
+# (important for big junction shapes)
+edge_length
