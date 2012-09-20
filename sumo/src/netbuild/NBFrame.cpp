@@ -175,9 +175,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("tls.join", "try-join-tls", true);
     oc.addDescription("tls.join", "TLS Building", "Tries to cluster tls-controlled nodes"); // !!! describe
 
-    oc.doRegister("tls.join-dist", new Option_Float(25));
+    oc.doRegister("tls.join-dist", new Option_Float(20));
     oc.addDescription("tls.join-dist", "Processing",
-                      "Determines the maximal distance for joining traffic lights (defaults to 15)");
+                      "Determines the maximal distance for joining traffic lights (defaults to 20)");
 
     // computational
     oc.doRegister("tls.green.time", new Option_Integer(31));
