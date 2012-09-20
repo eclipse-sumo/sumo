@@ -237,6 +237,9 @@
         <!-- Determines the maximal distance for joining junctions (defaults to 15) -->
         <junctions.join-dist value="15" type="FLOAT"/>
 
+        <!-- Determines the maximal distance for joining traffic lights (defaults to 15) -->
+        <tls.join-dist value="25" type="FLOAT"/>
+
     </processing>
 
     <building_defaults>

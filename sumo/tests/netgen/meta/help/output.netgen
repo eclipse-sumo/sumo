@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-rUNKNOWN
+SUMO netgenerate Version dev-SVN-r12739
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -123,6 +123,8 @@ Processing Options:
                                         other (recommended for OSM import)
   --junctions.join-dist FLOAT         Determines the maximal distance for
                                         joining junctions (defaults to 15)
+  --tls.join-dist FLOAT               Determines the maximal distance for
+                                        joining traffic lights (defaults to 15)
 
 Building Defaults Options:
   -L, --default.lanenumber INT        The default number of lanes in an edge
