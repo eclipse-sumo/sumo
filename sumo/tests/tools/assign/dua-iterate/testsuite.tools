@@ -9,3 +9,6 @@ start_with_routes
 
 # dua-iterate should recognize called application's failure
 recognize_error
+
+# test using the option --weight-memory
+weight_memory

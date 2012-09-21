@@ -92,7 +92,7 @@ def initOptions():
     optParser.add_option("--inc-max", dest="incMax",
                          type="float", default=1, help="Maximum for incrementing scale")
     optParser.add_option("--inc-base", dest="incBase",
-                         type="int", default=-1, help="Give the incrementation base")
+                         type="int", default=-1, help="Give the incrementation base. Negative values disable incremental scaling")
     optParser.add_option("--incrementation", dest="incValue",
                          type="int", default=1, help="Give the incrementation")
     optParser.add_option("--time-inc", dest="timeInc",
@@ -214,7 +214,10 @@ def get_scale(options, step):
     # compute scaling factor for simulation
     # using incValue = 1 (default) and incBase = 10 would produce 
     # iterations with increasing scale 0.1, 0.2, ... 0.9, 1, 1, 1, ...
-    return min(options.incStart + options.incValue * float(step + 1) / options.incBase, options.incMax)
+    if options.incBase > 0:
+        return min(options.incStart + options.incValue * float(step + 1) / options.incBase, options.incMax)
+    else:
+        return options.incMax
 
 def get_dumpfilename(options, step, prefix):
     # the file to which edge costs (traveltimes) are written

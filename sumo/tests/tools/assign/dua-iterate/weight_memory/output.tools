@@ -1,0 +1,96 @@
+> Executing step 0
+>> Running router
+>>> Begin time: 2012-09-21 10:03:36.411752
+>>> End time: 2012-09-21 10:03:36.428819
+>>> Duration: 0:00:00.017067
+<<
+>> Running simulation
+>>> Begin time: 2012-09-21 10:03:36.428879
+>>> End time: 2012-09-21 10:03:36.489199
+>>> Duration: 0:00:00.060320
+<<
+>> Smoothing edge weights
+>>> Updated 4 edges
+>>> Decayed 0 unseen edges
+>>> Error avg:0 mean:0
+>>> Absolute Error avg:0 mean:0
+< Step 0 ended (duration: 0:00:00.079783)
+------------------
+
+> Executing step 1
+>> Running router
+>>> Begin time: 2012-09-21 10:03:36.491524
+>>> End time: 2012-09-21 10:03:36.509433
+>>> Duration: 0:00:00.017909
+<<
+>> Running simulation
+>>> Begin time: 2012-09-21 10:03:36.509498
+>>> End time: 2012-09-21 10:03:36.569830
+>>> Duration: 0:00:00.060332
+<<
+>> Smoothing edge weights
+>>> Updated 7 edges
+>>> Decayed 4 unseen edges
+>>> Error avg:0 mean:0
+>>> Absolute Error avg:0 mean:0
+< Step 1 ended (duration: 0:00:00.079212)
+------------------
+
+> Executing step 2
+>> Running router
+>>> Begin time: 2012-09-21 10:03:36.570755
+>>> End time: 2012-09-21 10:03:36.588806
+>>> Duration: 0:00:00.018051
+<<
+>> Running simulation
+>>> Begin time: 2012-09-21 10:03:36.588868
+>>> End time: 2012-09-21 10:03:36.649452
+>>> Duration: 0:00:00.060584
+<<
+>> Smoothing edge weights
+>>> Updated 7 edges
+>>> Decayed 4 unseen edges
+>>> Error avg:0.0 mean:0.0
+>>> Absolute Error avg:0.0 mean:0.0
+< Step 2 ended (duration: 0:00:00.079590)
+------------------
+
+> Executing step 3
+>> Running router
+>>> Begin time: 2012-09-21 10:03:36.650359
+>>> End time: 2012-09-21 10:03:36.668298
+>>> Duration: 0:00:00.017939
+<<
+>> Running simulation
+>>> Begin time: 2012-09-21 10:03:36.668386
+>>> End time: 2012-09-21 10:03:36.728916
+>>> Duration: 0:00:00.060530
+<<
+>> Smoothing edge weights
+>>> Updated 7 edges
+>>> Decayed 4 unseen edges
+>>> Error avg:0.0 mean:0.0
+>>> Absolute Error avg:0.0 mean:0.0
+< Step 3 ended (duration: 0:00:00.079466)
+------------------
+
+> Executing step 4
+>> Running router
+>>> Begin time: 2012-09-21 10:03:36.729840
+>>> End time: 2012-09-21 10:03:36.747758
+>>> Duration: 0:00:00.017918
+<<
+>> Running simulation
+>>> Begin time: 2012-09-21 10:03:36.747821
+>>> End time: 2012-09-21 10:03:36.808410
+>>> Duration: 0:00:00.060589
+<<
+>> Smoothing edge weights
+>>> Updated 7 edges
+>>> Decayed 4 unseen edges
+>>> Error avg:0.0 mean:0.0
+>>> Absolute Error avg:0.0 mean:0.0
+< Step 4 ended (duration: 0:00:00.079460)
+------------------
+
+dua-iterate ended (duration: 0:00:00.397701)

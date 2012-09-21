@@ -77,6 +77,9 @@ class CostMemory(handler.ContentHandler):
 
     def load_costs(self, dumpfile, iteration, weight):
         # load costs from dumpfile and update memory according to weight and iteration
+        if weight <= 0:
+            sys.stderr.write("Skipped loading of costs because the weight was %s but should have been > 0\n" % weight)
+            return
         assert(weight > 0)
         if self.iteration == None and iteration != 0:
             # need to reassamble self.memory_weight
