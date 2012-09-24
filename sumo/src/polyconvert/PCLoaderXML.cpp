@@ -108,7 +108,7 @@ PCLoaderXML::myStartElement(int element,
         std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
         SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
         SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
-        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, myOptions.getString("type"));
         if (!ok) {
             return;
         }
@@ -129,8 +129,16 @@ PCLoaderXML::myStartElement(int element,
             layer = def.layer;
         } else {
             id = myOptions.getString("prefix") + id;
-            type = myOptions.getString("type");
             color = RGBColor::parseColor(myOptions.getString("color"));
+        }
+        layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
+        if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+            color = RGBColor::parseColorReporting(
+                    attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok),
+                    attrs.getObjectType(), id.c_str(), true, ok);
+        }
+        if (!ok) {
+            return;
         }
         if (!discard) {
             bool ignorePrunning = false;
@@ -149,7 +157,7 @@ PCLoaderXML::myStartElement(int element,
         int layer = myOptions.getInt("layer");
         bool ok = true;
         std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, myCurrentID.c_str(), ok, "");
-        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok, "");
+        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok, myOptions.getString("type"));
         if (!ok) {
             return;
         }
@@ -163,8 +171,17 @@ PCLoaderXML::myStartElement(int element,
             layer = def.layer;
         } else {
             id = myOptions.getString("prefix") + id;
-            type = myOptions.getString("type");
             color = RGBColor::parseColor(myOptions.getString("color"));
+        }
+        layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
+        if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+            color = RGBColor::parseColorReporting(
+                    attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok),
+                    attrs.getObjectType(), id.c_str(), true, ok);
+        }
+        bool fill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, id.c_str(), ok, false);
+        if (!ok) {
+            return;
         }
         if (!discard) {
             bool ignorePrunning = false;
@@ -188,7 +205,7 @@ PCLoaderXML::myStartElement(int element,
                 }
                 shape.push_back(pos);
             }
-            Polygon* poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, false);
+            Polygon* poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, fill);
             if (!myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning)) {
                 WRITE_ERROR("Polygon '" + myCurrentID + "' could not been added.");
                 delete poly;
