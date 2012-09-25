@@ -346,7 +346,7 @@ public:
     /** @brief Returns the vehicle class permissions for this lane
      * @return This lane's allowed vehicle classes
      */
-    inline SVCPermissions getPermissions() {
+    inline SVCPermissions getPermissions() const {
         return myPermissions;
     }
 

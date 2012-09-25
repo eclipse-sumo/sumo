@@ -53,6 +53,7 @@
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/gui/div/GLHelper.h>
 #include <gui/GUIViewTraffic.h>
 #include <utils/gui/images/GUITexturesHelper.h>
@@ -399,13 +400,22 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
             glPopName();
         }
         glPopMatrix();
-    } else {
-        if (!isInternal) {
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myHalfLaneWidth * s.laneWidthExaggeration);
-            mustDrawMarkings = true;
-        } else {
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myQuarterLaneWidth * s.laneWidthExaggeration);
+    } else if (isRailway(getLane().getPermissions())) {
+        // draw as railway
+        const SUMOReal halfRailWidth = 0.725;
+        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth * s.laneWidthExaggeration);
+        glColor3d(1,1,1);
+        glTranslated(0, 0, .1);
+        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, (halfRailWidth - 0.2) * s.laneWidthExaggeration);
+        drawCrossties(s);
+        if (!MSGlobals::gUseMesoSim) {
+            glPopName();
         }
+        glPopMatrix();
+    } else {
+        const SUMOReal laneWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
+        mustDrawMarkings = !isInternal;
+        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * s.laneWidthExaggeration);
         if (!MSGlobals::gUseMesoSim) {
             glPopName();
         }
@@ -489,6 +499,32 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings& s) const {
     glPopName();
 }
 
+
+void
+GUILaneWrapper::drawCrossties(const GUIVisualizationSettings& s) const {
+    glPushMatrix();
+    glPushName(0);
+    // draw on top of of the white area between the rails
+    glTranslated(0, 0, 0.1);
+    glColor3d(0,0,0);
+    int e = (int) getShape().size() - 1;
+    for (int i = 0; i < e; i++) {
+        glPushMatrix();
+        glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
+        glRotated(myShapeRotations[i], 0, 0, 1);
+        for (SUMOReal t = 0; t < myShapeLengths[i]; t += 1) {
+            glBegin(GL_QUADS);
+            glVertex2d(-1, -t);
+            glVertex2d(-1, -t - 0.3);
+            glVertex2d(1.0, -t - 0.3);
+            glVertex2d(1.0, -t);
+            glEnd();
+        }
+        glPopMatrix();
+    }
+    glPopMatrix();
+    glPopName();
+}
 
 GUIGLObjectPopupMenu*
 GUILaneWrapper::getPopUpMenu(GUIMainWindow& app,

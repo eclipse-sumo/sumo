@@ -412,6 +412,13 @@ extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id);
 extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string& name);
 
 
+/** @brief Returns whether an edge with the given permission is a railway edge
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is a railway edge
+ */
+extern bool isRailway(SVCPermissions permissions);
+
+
 // ---------------------------------------------------------------------------
 // default vehicle type parameter
 // ---------------------------------------------------------------------------

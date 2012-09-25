@@ -271,6 +271,11 @@ getVehicleShapeName(SUMOVehicleShape id) {
 }
 
 
+bool isRailway(SVCPermissions permissions) {
+    const int anyRail = SVC_RAIL_FAST + SVC_RAIL_SLOW + SVC_CITYRAIL + SVC_LIGHTRAIL;
+    return (permissions & anyRail) > 0 && (permissions & SVC_PASSENGER) == 0;
+}
+
 // ------------ Conversion of SUMOEmissionClass
 SUMOEmissionClass
 getVehicleEmissionTypeID(const std::string& name) {

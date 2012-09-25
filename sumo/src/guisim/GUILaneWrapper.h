@@ -139,6 +139,8 @@ public:
     /// @brief draw lane borders and white markings
     void drawMarkings(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw crossties for railroads
+    void drawCrossties(const GUIVisualizationSettings& s) const;
 
     /// Returns the number of links
     unsigned int getLinkNumber() const;
