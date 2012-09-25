@@ -136,17 +136,7 @@ getVehicleClassCompoundName(int id) {
 
 std::string 
 getAllowedVehicleClassNames(SVCPermissions permissions) {
-    std::ostringstream oss;
-    const std::vector<std::string> classNames = getAllowedVehicleClassNamesList(permissions);
-    bool hadOne = false;
-    for (std::vector<std::string>::const_iterator it = classNames.begin(); it != classNames.end(); it++) {
-        if (hadOne) {
-            oss << ' ';
-        }
-        oss << *it;
-        hadOne = true;
-    }
-    return oss.str();
+    return joinToString(getAllowedVehicleClassNamesList(permissions), ' ');
 }
 
 
