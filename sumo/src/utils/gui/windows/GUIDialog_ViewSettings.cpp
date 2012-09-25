@@ -237,7 +237,6 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         myLaneWidthUpscaleDialer->setRange(1, 100);
         myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
-        new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
 
         // edge name
         myEdgeNamePanel = new NamePanel(m22, this, "Show edge name", mySettings->edgeName);
@@ -1281,7 +1280,8 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     FXMatrix* parent,
     GUIDialog_ViewSettings* target,
     const std::string& title,
-    const GUIVisualizationTextSettings& settings) {
+    const GUIVisualizationTextSettings& settings) 
+{
     myCheck = new FXCheckButton(parent, title.c_str(), target, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
     myCheck->setCheck(settings.show);
     new FXLabel(parent, "");
@@ -1294,7 +1294,7 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     mySizeDial->setValue(settings.size);
     FXMatrix* m2 = new FXMatrix(parent, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                                 0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
-    FXLabel(m2, "Color", 0, LAYOUT_CENTER_Y);
+    new FXLabel(m2, "Color", 0, LAYOUT_CENTER_Y);
     myColorWell = new FXColorWell(m2, convert(settings.color),
                                   target, MID_SIMPLE_VIEW_COLORCHANGE,
                                   LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | LAYOUT_SIDE_TOP | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
