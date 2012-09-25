@@ -504,9 +504,11 @@ void
 GUILaneWrapper::drawCrossties(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glPushName(0);
+    if (!MSGlobals::gUseMesoSim) {
+        setColor(s);
+    }
     // draw on top of of the white area between the rails
     glTranslated(0, 0, 0.1);
-    glColor3d(0,0,0);
     int e = (int) getShape().size() - 1;
     for (int i = 0; i < e; i++) {
         glPushMatrix();
