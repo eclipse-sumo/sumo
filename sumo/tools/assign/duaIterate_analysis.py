@@ -56,30 +56,33 @@ def parse_dualog(dualog, limit):
     waiting = None
     counts = defaultdict(lambda:0)
     for line in open(dualog):
-        if "Warning: Teleporting vehicle" in line:
-            teleports += 1
-            edge = reFrom.search(line).group(1)
-            if ':' in edge: # mesosim output
-                edge = edge.split(':')[0]
-            counts[edge] += 1
-        elif "Emitted:" in line:
-            emitted = reEmitted.search(line).group(1)
-            if "Loaded:" in line: # optional output
-                loaded = reLoaded.search(line).group(1)
-            else:
-                loaded = emitted
-        elif "Running:" in line:
-            running = reRunning.search(line).group(1)
-        elif "Waiting:" in line:
-            iteration = len(step_values)
-            if iteration > limit:
-                break
-            waiting = reWaiting.search(line).group(1)
-            teleStats.add(teleports, iteration)
-            step_values.append([emitted, running, waiting, teleports, loaded])
-            teleports = 0
-            step_counts.append(counts)
-            counts = defaultdict(lambda:0)
+        try:
+            if "Warning: Teleporting vehicle" in line:
+                teleports += 1
+                edge = reFrom.search(line).group(1)
+                if ':' in edge: # mesosim output
+                    edge = edge.split(':')[0]
+                counts[edge] += 1
+            elif "Emitted:" in line:
+                emitted = reEmitted.search(line).group(1)
+                if "Loaded:" in line: # optional output
+                    loaded = reLoaded.search(line).group(1)
+                else:
+                    loaded = emitted
+            elif "Running:" in line:
+                running = reRunning.search(line).group(1)
+            elif "Waiting:" in line:
+                iteration = len(step_values)
+                if iteration > limit:
+                    break
+                waiting = reWaiting.search(line).group(1)
+                teleStats.add(teleports, iteration)
+                step_values.append([emitted, running, waiting, teleports, loaded])
+                teleports = 0
+                step_counts.append(counts)
+                counts = defaultdict(lambda:0)
+        except:
+            sys.exit("error when parsing line '%s'" % line)
 
     print "  parsed %s steps" % len(step_values)
     print teleStats
@@ -133,15 +136,18 @@ plot \\
 
 def create_teleplot(plotfile, step_counts, xlabel):
     datafile = plotfile + '.data'
-    # an edge is interesting if it has the most teleports in one iteration
-    interesting = set()
+    # an edge is interesting if a large proportion of teleports happen on it
+    interestingness = defaultdict(lambda:0)
     all_edges = set()
     for counts in step_counts:
-        interesting.add(max([(c,e) for e,c in counts.iteritems()])[1])
-        all_edges.update(counts.keys())
-    interesting = list(interesting)
-    print "generating teleport plot for %s edges (%s different edges had teleports)" % (
-            len(interesting), len(all_edges))
+        teleports = float(sum(counts.itervalues()))
+        if teleports == 0:
+            continue
+        for edge, count in counts.iteritems():
+            interestingness[edge] += count/teleports
+    interesting = sorted([(c,e) for e,c in interestingness.iteritems()])[-7:]
+    print "most interesting edges:", interesting
+    interesting = [e for c,e in interesting]
     with open(datafile, 'w') as f:
         print >>f, '#' + ' '.join(interesting)
         for counts in step_counts:
