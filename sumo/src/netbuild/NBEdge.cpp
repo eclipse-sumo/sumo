@@ -256,6 +256,25 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
 
 
 void
+NBEdge::reinitNodes(NBNode* from, NBNode* to) {
+    // connections may still be valid
+    if (from == 0 || to == 0) {
+        throw ProcessError("At least one of edge's '" + myID + "' nodes is not known.");
+    }
+    if (myFrom != from) {
+        myFrom->removeEdge(this, false);
+        myFrom = from;
+        myFrom->addOutgoingEdge(this);
+    }
+    if (myTo != to) {
+        myTo->removeEdge(this, false);
+        myTo = to;
+        myTo->addIncomingEdge(this);
+    }
+}
+
+
+void
 NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) {
     if (noLanes == 0) {
         throw ProcessError("Edge '" + myID + "' needs at least one lane.");

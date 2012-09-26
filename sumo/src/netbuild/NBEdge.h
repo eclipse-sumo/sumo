@@ -291,6 +291,11 @@ public:
                 LaneSpreadFunction spread = LANESPREAD_RIGHT,
                 bool tryIgnoreNodePositions = false);
 
+    /** @brief Resets nodes but keeps all other values the same (used when joining)
+     * @param[in] from The node the edge starts at
+     * @param[in] to The node the edge ends at
+     */
+    void reinitNodes(NBNode* from, NBNode* to); 
 
 
     /// @name Applying offset

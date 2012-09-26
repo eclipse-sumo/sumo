@@ -584,14 +584,12 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         for(std::set<NBEdge*>::iterator j=allEdges.begin(); j!=allEdges.end(); ++j) {
             NBEdge *e = (*j);
             std::vector<NBEdge::Connection> conns = e->getConnections();
-            PositionVector g = e->getGeometry();
             const bool outgoing = cluster.count(e->getFromNode()) > 0;
             NBNode *from = outgoing ? newNode : e->getFromNode();
             NBNode *to   = outgoing ? e->getToNode() : newNode;
-            e->reinit(from, to, e->getTypeID(), e->getSpeed(),
-                e->getNumLanes(), e->getPriority(), e->getGeometry(),
-                e->getWidth(), e->getOffset(), e->getStreetName(), e->getLaneSpreadFunction());
-            e->setGeometry(g);
+            e->reinitNodes(from, to);
+            // re-add connections which previously existed and may still valid.
+            // connections to removed edges will be ignored
             for(std::vector<NBEdge::Connection>::iterator k=conns.begin(); k!=conns.end(); ++k) {
                 e->addLane2LaneConnection((*k).fromLane, (*k).toEdge, (*k).toLane, NBEdge::L2L_USER, false, (*k).mayDefinitelyPass);
             }
