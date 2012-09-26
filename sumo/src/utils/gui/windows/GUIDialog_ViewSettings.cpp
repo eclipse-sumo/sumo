@@ -235,7 +235,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myLaneWidthUpscaleDialer =
             new FXRealSpinDial(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myLaneWidthUpscaleDialer->setRange(1, 100);
+        myLaneWidthUpscaleDialer->setRange(0, 10000);
         myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
 
         // edge name
@@ -318,7 +318,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myVehicleUpscaleDialer =
             new FXRealSpinDial(m342, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myVehicleUpscaleDialer->setRange(1, 100);
+        myVehicleUpscaleDialer->setRange(0, 10000);
         myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
     } {
         new FXTabItem(tabbook, "Nodes", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
@@ -368,7 +368,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myDetectorUpscaleDialer =
             new FXRealSpinDial(m522, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myDetectorUpscaleDialer->setRange(1, 100);
+        myDetectorUpscaleDialer->setRange(0, 10000);
         myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
 
 
@@ -408,7 +408,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myPOIUpscaleDialer =
             new FXRealSpinDial(m622, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-        myPOIUpscaleDialer->setRange(1, 1000);
+        myPOIUpscaleDialer->setRange(0, 10000);
         myPOIUpscaleDialer->setValue(mySettings->addExaggeration);
 
 
