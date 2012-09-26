@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r12737
+SUMO netconvert Version dev-SVN-r12756
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -176,14 +176,14 @@ Processing Options:
   --junctions.join                    Joins junctions that are close to each
                                         other (recommended for OSM import)
   --junctions.join-dist FLOAT         Determines the maximal distance for
-                                        joining junctions (defaults to 15)
+                                        joining junctions (defaults to 10)
   --junctions.join-exclude STR        Interprets STR as list of junctions to
                                         exclude from joining
   --speed.offset FLOAT                Modifies all edge speeds by adding FLOAT
   --speed.factor FLOAT                Modifies all edge speeds by multiplying
                                         FLOAT
   --tls.join-dist FLOAT               Determines the maximal distance for
-                                        joining traffic lights (defaults to 15)
+                                        joining traffic lights (defaults to 20)
 
 Building Defaults Options:
   -L, --default.lanenumber INT        The default number of lanes in an edge

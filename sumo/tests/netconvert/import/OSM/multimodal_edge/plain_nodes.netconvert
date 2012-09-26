@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 29 10:22:52 2011 by SUMO netconvert Version dev-SVN-r11558
+<!-- generated on 09/26/12 16:24:40 by SUMO netconvert Version dev-SVN-r12756
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -25,6 +25,6 @@
 <nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
     <location netOffset="-405213.33,-5803545.51" convBoundary="0.00,0.00,647.27,350.76" origBoundary="13.607621,52.373967,13.617027,52.377232" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <node id="1" x="0.00" y="0.00" type="priority"/>
-    <node id="2" x="647.27" y="350.76" type="priority"/>
+    <node id="1" x="0.00" y="0.00" type="unregulated"/>
+    <node id="2" x="647.27" y="350.76" type="unregulated"/>
 </nodes>

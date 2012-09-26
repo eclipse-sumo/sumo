@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 11 12:09:24 2011 by SUMO netconvert Version dev-SVN-r11490
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 09/26/12 16:24:40 by SUMO netconvert Version dev-SVN-r12756
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -23,8 +23,4 @@
 -->
 
 <connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd">
-    <connection from="-10860201" to="10860201" fromLane="1" toLane="1"/>
-
-    <connection from="10860201" to="-10860201" fromLane="1" toLane="1"/>
-
 </connections>
