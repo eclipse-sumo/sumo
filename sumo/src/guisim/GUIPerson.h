@@ -116,6 +116,10 @@ public:
     //@}
 
 
+    /* @brief proceeds to the next step of the route, 
+     * @return Whether the persons plan continues  */
+    bool proceed(MSNet* net, SUMOTime time);
+
 
     /**
      * @class GUIPersonPopupMenu
@@ -172,6 +176,9 @@ private:
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(size_t activeScheme) const;
+
+    /// @brief whether the person is visualized as stopped
+    bool myAmVisualizedAsStopped;
 };
 
 

@@ -102,7 +102,8 @@ MSRouteHandler::myStartElement(int element,
                     throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + myActivePlan->back()->getDestination().getID() + ").");
                 }
                 if (myActivePlan->empty()) {
-                    myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(*from, -1, myVehicleParameter->depart, "start"));
+                    myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
+                                *from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
                 }
             } else if (myActivePlan->empty()) {
                 throw ProcessError("The start edge within for person '" + pid + "' is not known.");
@@ -170,7 +171,8 @@ MSRouteHandler::myStartElement(int element,
                 }
             }
             if (myActivePlan->empty()) {
-                myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(*myActiveRoute.front(), -1, myVehicleParameter->depart, "start"));
+                myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
+                            *myActiveRoute.front(), -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
             }
             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos));
             myActiveRoute.clear();
@@ -663,7 +665,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         myActiveRouteStops.push_back(stop);
     } else if (myActivePlan) {
         std::string actType = attrs.getOptStringReporting(SUMO_ATTR_ACTTYPE, 0, ok, "waiting");
-        myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, actType));
+        myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
+                    MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, stop.startPos, actType));
     } else {
         myVehicleParameter->stops.push_back(stop);
     }

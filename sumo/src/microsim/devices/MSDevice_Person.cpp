@@ -30,12 +30,13 @@
 #include <config.h>
 #endif
 
-#include "MSDevice_Person.h"
+#include <utils/iodevices/OutputDevice.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSPerson.h>
-#include <utils/iodevices/OutputDevice.h>
+#include <microsim/MSPersonControl.h>
+#include "MSDevice_Person.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -80,8 +81,11 @@ MSDevice_Person::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*ne
     } else {
         if (veh.isStopped()) {
             for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end();) {
-                if (&(*i)->getDestination() == veh.getEdge()) {
-                    (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
+                MSPerson* person = *i;
+                if (&(person->getDestination()) == veh.getEdge()) {
+                    if (!person->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
+                        MSNet::getInstance()->getPersonControl().erase(person);
+                    }
                     i = myPersons.erase(i);
                 } else {
                     ++i;
@@ -110,12 +114,15 @@ MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
                              MSMoveReminder::Notification reason) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
-            if (&(*i)->getDestination() != veh.getEdge()) {
-                WRITE_WARNING("Teleporting person '" + (*i)->getID() +
+            MSPerson* person = *i;
+            if (&(person->getDestination()) != veh.getEdge()) {
+                WRITE_WARNING("Teleporting person '" + person->getID() +
                               "' from vehicle destination '" + veh.getEdge()->getID() +
-                              "' to intended destination '" + (*i)->getDestination().getID() + "'");
+                              "' to intended destination '" + person->getDestination().getID() + "'");
             }
-            (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
+            if (!person->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
+                MSNet::getInstance()->getPersonControl().erase(person);
+            };
         }
     }
     return true;

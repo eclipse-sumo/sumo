@@ -103,9 +103,11 @@ GUIPerson::GUIPersonPopupMenu::~GUIPersonPopupMenu() {}
 /* -------------------------------------------------------------------------
  * GUIPerson - methods
  * ----------------------------------------------------------------------- */
-GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan)
-      : MSPerson(pars, plan), GUIGlObject(GLO_PERSON, pars->id)  {
-}
+GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) : 
+    MSPerson(pars, plan), 
+    GUIGlObject(GLO_PERSON, pars->id),
+    myAmVisualizedAsStopped(false)
+{ }
 
 
 GUIPerson::~GUIPerson() {
@@ -329,6 +331,19 @@ GUIPerson::getColorValue(size_t /* activeScheme */) const {
 }
 
 
+bool 
+GUIPerson::proceed(MSNet* net, SUMOTime time) {
+    if (myAmVisualizedAsStopped) {
+        GUINet::getGUIInstance()->getVisualisationSpeedUp().removeAdditionalGLObject(this);
+        myAmVisualizedAsStopped = false;
+    }
+    const bool planContinues = MSPerson::proceed(net, time); // may lead to earasure of this person
+    if (planContinues && getCurrentStageType() == WAITING) {
+        GUINet::getGUIInstance()->getVisualisationSpeedUp().addAdditionalGLObject(this);
+        myAmVisualizedAsStopped = true;
+    }
+    return planContinues;
+}
 
 
 /****************************************************************************/

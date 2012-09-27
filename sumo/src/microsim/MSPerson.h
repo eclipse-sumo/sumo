@@ -362,7 +362,8 @@ public:
     class MSPersonStage_Waiting : public MSPersonStage {
     public:
         /// constructor
-        MSPersonStage_Waiting(const MSEdge& destination, SUMOTime duration, SUMOTime until, const std::string &actType);
+        MSPersonStage_Waiting(const MSEdge& destination, 
+                SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string &actType);
 
         /// destructor
         ~MSPersonStage_Waiting();
@@ -376,7 +377,7 @@ public:
         Position getPosition(SUMOTime now) const;
 
         std::string getStageTypeName() const {
-            return "waiting";
+            return "waiting (" + myActType + ")";
         }
     
         /// proceeds to the next step
@@ -450,8 +451,9 @@ public:
     /// returns the person id
     const std::string& getID() const;
 
-    /// proceeds to the next step of the route
-    void proceed(MSNet* net, SUMOTime time);
+    /* @brief proceeds to the next step of the route, 
+     * @return Whether the persons plan continues  */
+    virtual bool proceed(MSNet* net, SUMOTime time);
 
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const;

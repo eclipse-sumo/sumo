@@ -123,7 +123,9 @@ MSPersonControl::checkWaitingPersons(MSNet* net, const SUMOTime time) {
         const PersonVector& persons = myWaiting4Departure[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
         for (size_t i = 0; i < persons.size(); ++i) {
-            persons[i]->proceed(net, time);
+            if (!persons[i]->proceed(net, time)) {
+                erase(persons[i]);
+            }
         }
         myWaiting4Departure.erase(time);
     }
@@ -131,7 +133,9 @@ MSPersonControl::checkWaitingPersons(MSNet* net, const SUMOTime time) {
         const PersonVector& persons = myWaitingUntil[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
         for (size_t i = 0; i < persons.size(); ++i) {
-            persons[i]->proceed(net, time);
+            if (!persons[i]->proceed(net, time)) {
+                erase(persons[i]);
+            }
         }
         myWaitingUntil.erase(time);
     }
