@@ -131,6 +131,12 @@ MSPerson::MSPersonStage_Walking::getEdge(SUMOTime /* now */) const {
 }
 
 
+const MSEdge *
+MSPerson::MSPersonStage_Walking::getFromEdge() const {
+    return myRoute.front();
+}
+
+
 SUMOReal 
 MSPerson::MSPersonStage_Walking::getEdgePos(SUMOTime now) const {
     SUMOReal off = STEPS2TIME(now - myLastEntryTime);
@@ -267,6 +273,12 @@ MSPerson::MSPersonStage_Driving::getEdge(SUMOTime /* now */) const {
 }
 
 
+const MSEdge *
+MSPerson::MSPersonStage_Driving::getFromEdge() const {
+    return myWaitingEdge;
+}
+
+
 SUMOReal 
 MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime /* now */) const {
     if(myVehicle!=0) {
@@ -354,6 +366,12 @@ MSPerson::MSPersonStage_Waiting::~MSPersonStage_Waiting() {}
 
 const MSEdge *
 MSPerson::MSPersonStage_Waiting::getEdge(SUMOTime /* now */) const {
+    return &myDestination;
+}
+
+
+const MSEdge *
+MSPerson::MSPersonStage_Waiting::getFromEdge() const {
     return &myDestination;
 }
 

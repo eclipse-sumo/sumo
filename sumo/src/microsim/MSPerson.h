@@ -88,6 +88,7 @@ public:
 
         /// Returns the current edge
         virtual const MSEdge *getEdge(SUMOTime now) const = 0;
+        virtual const MSEdge *getFromEdge() const = 0;
         virtual SUMOReal getEdgePos(SUMOTime now) const = 0;
 
         /// 
@@ -171,6 +172,7 @@ public:
 
         /// Returns the current edge
         const MSEdge *getEdge(SUMOTime now) const;
+        const MSEdge *getFromEdge() const;
         SUMOReal getEdgePos(SUMOTime now) const;
 
         /// 
@@ -284,6 +286,7 @@ public:
 
         /// Returns the current edge
         const MSEdge *getEdge(SUMOTime now) const;
+        const MSEdge *getFromEdge() const;
         SUMOReal getEdgePos(SUMOTime now) const;
 
         /// 
@@ -349,6 +352,7 @@ public:
 
         /// Returns the current edge
         const MSEdge *getEdge(SUMOTime now) const;
+        const MSEdge *getFromEdge() const;
         SUMOReal getEdgePos(SUMOTime now) const;
 
         /// 
@@ -442,6 +446,12 @@ public:
     /// Returns the current edge
     const MSEdge *getEdge(SUMOTime now) const {
         return (*myStep)->getEdge(now);
+    }
+
+
+    /// Returns the departure edge
+    const MSEdge *getFromEdge() const {
+        return (*myStep)->getFromEdge();
     }
 
     SUMOReal getEdgePos(SUMOTime now) const {

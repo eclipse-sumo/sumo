@@ -131,10 +131,12 @@ GUIParameterTableWindow*
 GUIPerson::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 1);
+        new GUIParameterTableWindow(app, *this, 3);
     // add items
     //ret->mkItem("type [NAME]", false, myType->getID());
     ret->mkItem("stage", false, getCurrentStageTypeName());
+    ret->mkItem("from", false, getFromEdge()->getID());
+    ret->mkItem("to", false, getDestination().getID());
     // close building
     ret->closeBuilding();
     return ret;
