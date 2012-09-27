@@ -270,7 +270,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
         if (o->getGlID() == 0) {
             continue;
         }
-        std::cout << "point selection hit " << o->getMicrosimID() << "\n";
+        //std::cout << "point selection hit " << o->getMicrosimID() << "\n";
         GUIGlObjectType type = o->getType();
         if (type != 0) {
             int clayer = (int) type;
