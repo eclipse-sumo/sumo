@@ -390,7 +390,13 @@ NBRampsComputer::getOffRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRam
 
 
 bool
-NBRampsComputer::fulfillsRampConstraints(NBEdge *potHighway, NBEdge *potRamp, NBEdge *other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed) {
+NBRampsComputer::fulfillsRampConstraints(
+        NBEdge *potHighway, NBEdge *potRamp, NBEdge *other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed) 
+{
+    // do not build ramps on rail edges
+    if (isRailway(potHighway->getPermissions()) || isRailway(potRamp->getPermissions())) {
+        return false;
+    }
     // do not build ramps on connectors
     if (potHighway->isMacroscopicConnector() || potRamp->isMacroscopicConnector() || other->isMacroscopicConnector()) {
         return false;

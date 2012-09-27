@@ -7,7 +7,6 @@ on_ramp
 # network with an on-ramp, explicite set
 on_ramp_explicite
 
-
 # network with an off-ramp, no guessing
 off_noramp
 
@@ -16,7 +15,6 @@ off_ramp
 
 # network with an off-ramp, explicite set
 off_ramp_explicite
-
 
 # network with an both ramps, no guessing
 both_noramp
@@ -33,11 +31,6 @@ both_ramp_explicite
 # network with an both ramps, explicite set, near nodes (joined into one ramp)
 both_near_explicite
 
-
-
-# real_world1: bs 
+# real_world1: bs
 real_world1
-
-
-
-
+no_ramps_for_railways
