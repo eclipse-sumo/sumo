@@ -118,6 +118,8 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::vector<const M
         for(std::vector<const MSEdge*>::const_iterator i=route.begin(); i!=route.end(); ++i) {
             length += (*i)->getLength();
         }
+        length -= myDepartPos;
+        length -= route.back()->getLength() - myArrivalPos;
         mySpeed = length / STEPS2TIME(walkingTime);
     }
 }
@@ -198,7 +200,8 @@ MSPerson::MSPersonStage_Walking::computeWalkingTime(const MSEdge * const e, SUMO
     }
     myCurrentBeginPos = fromPos;
     myCurrentLength = toPos-fromPos;
-    myCurrentDuration = myCurrentLength / mySpeed;
+    assert(myCurrentLength >=0);
+    myCurrentDuration = MAX2(myCurrentLength,(SUMOReal)1.0) / mySpeed;
 }
 
 
@@ -247,8 +250,8 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson *person, SUMOTime curre
     } else {
         ++myRouteStep;
         myRouteStep==myRoute.end()-1
-            ? computeWalkingTime(*myRouteStep, -1, myArrivalPos, myDestinationBusStop)
-            : computeWalkingTime(*myRouteStep, -1, -1, 0);
+            ? computeWalkingTime(*myRouteStep, 0, myArrivalPos, myDestinationBusStop)
+            : computeWalkingTime(*myRouteStep, 0, -1, 0);
         ((MSEdge*) *myRouteStep)->addPerson(person);
         myLastEntryTime = currentTime;
         return TIME2STEPS(myCurrentDuration);
