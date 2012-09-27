@@ -59,14 +59,16 @@ enum GUIGlObjectType {
     GLO_DETECTOR = 16,
     /// @brief a lane speed trigger,
     GLO_TRIGGER = 64,
+    /// @brief compound additional
+    GLO_ADDITIONAL = GLO_DETECTOR | GLO_TRIGGER,
     /// @brief a shape
     GLO_SHAPE = 128,
     /// @brief a vehicles
     GLO_VEHICLE = 256,
-    /// @brief compound additional
-    GLO_ADDITIONAL = GLO_DETECTOR | GLO_TRIGGER,
+    /// @brief a person
+    GLO_PERSON = 512,
     /// @brief empty max
-    GLO_MAX = 512
+    GLO_MAX = 1024,
 
 };
 

@@ -47,6 +47,10 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+/* -------------------------------------------------------------------------
+ * static member definitions
+ * ----------------------------------------------------------------------- */
+const SUMOReal MSPerson::SIDEWALK_OFFSET(3);
 
 // ===========================================================================
 // method definitions
@@ -91,7 +95,7 @@ Position
 MSPerson::MSPersonStage::getEdgePosition(const MSEdge *e, SUMOReal at) const {
     // @todo: well, definitely not the nicest way... Should be precomputed
     PositionVector shp = e->getLanes()[0]->getShape();
-    shp.move2side(3);
+    shp.move2side(SIDEWALK_OFFSET);
     return shp.positionAtLengthPosition(at);
 }
 
@@ -275,6 +279,7 @@ MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime /* now */) const {
 Position 
 MSPerson::MSPersonStage_Driving::getPosition(SUMOTime /* now */) const {
     if(myVehicle!=0) {
+        /// @bug this fails while vehicle is driving across a junction
         return myVehicle->getEdge()->getLanes()[0]->getShape().positionAtLengthPosition(myVehicle->getPositionOnLane());
     }
     return getEdgePosition(myWaitingEdge, myWaitingPos);
@@ -474,6 +479,19 @@ MSPerson::tripInfoOutput(OutputDevice& os) const {
 bool
 MSPerson::isWaitingFor(const std::string& line) const {
     return (*myStep)->isWaitingFor(line);
+}
+
+
+std::string
+MSPerson::getCurrentStageTypeName() const {
+    switch (getCurrentStageType()) {
+        case WALKING:
+            return "walking";
+        case DRIVING:
+            return "driving";
+        case WAITING:
+            return "waiting";
+    }
 }
 
 

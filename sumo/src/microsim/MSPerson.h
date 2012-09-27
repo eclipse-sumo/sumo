@@ -458,12 +458,12 @@ public:
         return (*myStep)->getStageType();
     }
 
+
+    std::string getCurrentStageTypeName() const;
+
     MSPersonStage *getCurrentStage() const {
         return *myStep;
     }
-
-    
-
 
     /** @brief Called on writing tripinfo output
      *
@@ -474,6 +474,9 @@ public:
 
     /// Whether the person waits for a vehicle of the line specified.
     bool isWaitingFor(const std::string& line) const;
+
+    /// @brief the offset for computing person positions when walking
+    static const SUMOReal SIDEWALK_OFFSET;
 
 private:
     /// @brief Invalidated copy constructor.

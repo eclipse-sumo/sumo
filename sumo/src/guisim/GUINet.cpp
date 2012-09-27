@@ -275,7 +275,8 @@ GUINet::initGUIStructures() {
         for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             b.add((*j)->getShape().getBoxBoundary());
         }
-        b.grow(2.);
+        // make sure persons are always drawn and selectable since they depend on their edge being drawn
+        b.grow(MSPerson::SIDEWALK_OFFSET + 1);
         cmin[0] = b.xmin();
         cmin[1] = b.ymin();
         cmax[0] = b.xmax();

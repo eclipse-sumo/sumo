@@ -967,13 +967,13 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
     drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLength() / 2),
              s.scale, s.vehicleName);
+    glPopName();
     if(myPersonDevice!=0) {
         const std::vector<MSPerson*> &ps = myPersonDevice->getPersons();
         for(std::vector<MSPerson*>::const_iterator i=ps.begin(); i!=ps.end(); ++i) {
             static_cast<GUIPerson*>(*i)->drawGL(s);
         }
     }
-    glPopName();
 }
 
 

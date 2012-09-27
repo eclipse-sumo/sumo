@@ -104,7 +104,7 @@ GUIPerson::GUIPersonPopupMenu::~GUIPersonPopupMenu() {}
  * GUIPerson - methods
  * ----------------------------------------------------------------------- */
 GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan)
-      : MSPerson(pars, plan), GUIGlObject(GLO_VEHICLE, pars->id)  {
+      : MSPerson(pars, plan), GUIGlObject(GLO_PERSON, pars->id)  {
 }
 
 
@@ -121,8 +121,8 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app,
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //
-    //buildShowParamsPopupEntry(ret);
-    //buildPositionCopyEntry(ret, false);
+    buildShowParamsPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
     return ret;
 }
 
@@ -131,42 +131,10 @@ GUIParameterTableWindow*
 GUIPerson::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 15);
+        new GUIParameterTableWindow(app, *this, 1);
     // add items
     //ret->mkItem("type [NAME]", false, myType->getID());
-    /*
-    if (getParameter().repetitionNumber > 0) {
-        ret->mkItem("left same route [#]", false, (unsigned int) getParameter().repetitionNumber);
-    }
-    if (getParameter().repetitionOffset > 0) {
-        ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
-    }
-    ret->mkItem("waiting time [s]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
-    ret->mkItem("last lane change [s]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getLastLaneChangeOffset));
-    ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
-    ret->mkItem("position [m]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getPositionOnLane));
-    ret->mkItem("speed [m/s]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getSpeed));
-    ret->mkItem("angle", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &MSVehicle::getAngle));
-    ret->mkItem("CO2 (HBEFA) [mg/s]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getHBEFA_CO2Emissions));
-    ret->mkItem("CO (HBEFA) [mg/s]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getHBEFA_COEmissions));
-    ret->mkItem("HC (HBEFA) [mg/s]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getHBEFA_HCEmissions));
-    ret->mkItem("NOx (HBEFA) [mg/s]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getHBEFA_NOxEmissions));
-    ret->mkItem("PMx (HBEFA) [mg/s]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getHBEFA_PMxEmissions));
-    ret->mkItem("fuel (HBEFA) [ml/s]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getHBEFA_FuelConsumption));
-    ret->mkItem("noise (Harmonoise) [dB]", true,
-                new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getHarmonoise_NoiseEmissions));
-                */
+    ret->mkItem("stage", false, getCurrentStageTypeName());
     // close building
     ret->closeBuilding();
     return ret;
@@ -182,15 +150,12 @@ GUIPerson::getCenteringBoundary() const {
 }
 
 
-
-
 void
 GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = getPosition(MSNet::getInstance()->getCurrentTimeStep());
-    glTranslated(p1.x(), p1.y(), 256/*getType()*/);
-    //glRotated(getAngle(), 0, 0, 1);
+    glTranslated(p1.x(), p1.y(), getType());
     // set lane color
     setColor(s);
     // scale
