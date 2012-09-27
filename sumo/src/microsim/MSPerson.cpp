@@ -33,6 +33,9 @@
 
 #include <string>
 #include <vector>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/common/ToString.h>
 #include "MSNet.h"
 #include "MSEdge.h"
 #include "MSLane.h"
@@ -40,8 +43,6 @@
 #include "MSPersonControl.h"
 #include "MSInsertionControl.h"
 #include "MSVehicle.h"
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -326,6 +327,13 @@ MSPerson::MSPersonStage_Driving::isWaiting4Vehicle() const {
     return myVehicle == 0;
 }
 
+
+std::string 
+MSPerson::MSPersonStage_Driving::getStageTypeName() const {
+    return isWaiting4Vehicle() ? "waiting for " + joinToString(myLines, ",") : "driving";
+}
+
+
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os) const {
     (os.openTag("ride") <<
@@ -495,19 +503,6 @@ void
 MSPerson::tripInfoOutput(OutputDevice& os) const {
     for (MSPersonPlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
         (*i)->tripInfoOutput(os);
-    }
-}
-
-
-std::string
-MSPerson::getCurrentStageTypeName() const {
-    switch (getCurrentStageType()) {
-        case WALKING:
-            return "walking";
-        case DRIVING:
-            return isWaiting4Vehicle() ? "waiting for ride" : "driving";
-        case WAITING:
-            return "waiting";
     }
 }
 

@@ -132,6 +132,22 @@ inline std::string joinToString(const std::vector<T>& v, const T_BETWEEN& betwee
     return oss.str();
 }
 
+
+template <typename T, typename T_BETWEEN>
+inline std::string joinToString(const std::set<T>& s, const T_BETWEEN& between, std::streamsize accuracy = OUTPUT_ACCURACY) {
+    std::ostringstream oss;
+    bool connect = false;
+    for (typename std::set<T>::const_iterator it = s.begin(); it != s.end(); ++it) {
+        if (connect) {
+            oss << toString(between);
+        } else {
+            connect = true;
+        }
+        oss << toString(*it);
+    }
+    return oss.str();
+}
+
 #endif
 
 /****************************************************************************/

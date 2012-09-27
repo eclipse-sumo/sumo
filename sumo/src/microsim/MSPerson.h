@@ -99,6 +99,9 @@ public:
             return myType;
         }
 
+        /// @brief return string representation of the current stage
+        virtual std::string getStageTypeName() const = 0;
+
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const SUMOReal at) = 0;
 
@@ -182,6 +185,10 @@ public:
 
         /// 
         Position getPosition(SUMOTime now) const;
+
+        std::string getStageTypeName() const {
+            return "walking";
+        }
     
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
@@ -297,6 +304,8 @@ public:
         /// 
         Position getPosition(SUMOTime now) const;
 
+        std::string getStageTypeName() const;
+
         /// Whether the person waits for a vehicle of the line specified.
         bool isWaitingFor(const std::string& line) const;
 
@@ -365,6 +374,10 @@ public:
 
         /// 
         Position getPosition(SUMOTime now) const;
+
+        std::string getStageTypeName() const {
+            return "waiting";
+        }
     
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const SUMOReal at);
@@ -476,7 +489,9 @@ public:
     }
 
 
-    std::string getCurrentStageTypeName() const;
+    std::string getCurrentStageTypeName() const {
+        return (*myStep)->getStageTypeName();
+    }
 
     MSPersonStage *getCurrentStage() const {
         return *myStep;
