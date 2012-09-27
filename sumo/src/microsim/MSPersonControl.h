@@ -82,7 +82,7 @@ public:
     void checkWaitingPersons(MSNet* net, const SUMOTime time);
 
     /// adds a person to the list of persons waiting for a vehicle on the specified edge
-    void addWaiting(const MSEdge* edge, MSPerson* person);
+    virtual void addWaiting(const MSEdge* edge, MSPerson* person);
 
     /** @brief board any applicable persons
      * Boards any people who wait on that edge for the given vehicle and removes them from myWaiting
@@ -110,6 +110,9 @@ public:
 
     void setWalking(MSPerson *p);
     void unsetWalking(MSPerson *p);
+
+    /// @brief returns whether the the given person is waiting for a vehicle on the given edge
+    bool isWaiting4Vehicle(const MSEdge* const edge, MSPerson *p) const;
 
 private:
     /// all persons by id

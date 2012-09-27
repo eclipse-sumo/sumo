@@ -111,6 +111,11 @@ public:
         /// Whether the person waits for a vehicle of the line specified.
         virtual bool isWaitingFor(const std::string& line) const;
 
+        /// @brief Whether the person waits for a vehicle
+        virtual bool isWaiting4Vehicle() const {
+            return false;
+        }
+
         Position getEdgePosition(const MSEdge *e, SUMOReal at) const;
 
         /** @brief Called on writing tripinfo output
@@ -295,6 +300,9 @@ public:
         /// Whether the person waits for a vehicle of the line specified.
         bool isWaitingFor(const std::string& line) const;
 
+        /// Whether the person waits for a vehicle
+        bool isWaiting4Vehicle() const;
+
         void setVehicle(SUMOVehicle *v) {
             myVehicle = v;
         }
@@ -443,13 +451,12 @@ public:
         return (*myStep)->getDestination();
     }
 
-    /// Returns the current edge
+    /// @brief Returns the current edge
     const MSEdge *getEdge(SUMOTime now) const {
         return (*myStep)->getEdge(now);
     }
 
-
-    /// Returns the departure edge
+    /// @brief Returns the departure edge
     const MSEdge *getFromEdge() const {
         return (*myStep)->getFromEdge();
     }
@@ -483,7 +490,14 @@ public:
     void tripInfoOutput(OutputDevice& os) const;
 
     /// Whether the person waits for a vehicle of the line specified.
-    bool isWaitingFor(const std::string& line) const;
+    bool isWaitingFor(const std::string& line) const {
+        return (*myStep)->isWaitingFor(line);
+    }
+
+    /// Whether the person waits for a vehicle of the line specified.
+    bool isWaiting4Vehicle() const {
+        return (*myStep)->isWaiting4Vehicle();
+    }
 
     /// @brief the offset for computing person positions when walking
     static const SUMOReal SIDEWALK_OFFSET;

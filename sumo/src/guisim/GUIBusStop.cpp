@@ -167,11 +167,12 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     glPopMatrix();
+    glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         for(std::vector<MSPerson*>::const_iterator i=myWaitingPersons.begin(); i!=myWaitingPersons.end(); ++i) {
+            glTranslated(0, 1, 0); // make multiple persons viewable
             static_cast<GUIPerson*>(*i)->drawGL(s);
         }
-    glPopName();
 }
 
 

@@ -56,6 +56,9 @@ public:
      */
     MSPerson *buildPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) const;
 
+    /* @brief adds a person to the list of persons waiting for a vehicle on the specified edge
+     * @note also adds the GUIPerson to the SUMORTree */
+    virtual void addWaiting(const MSEdge* edge, MSPerson* person);
 
 };
 

@@ -1242,5 +1242,11 @@ GUIVehicle::draw(const MSRoute& r) const {
 }
 
 
+void 
+GUIVehicle::addPerson(MSPerson* person) {
+    GUINet::getGUIInstance()->getVisualisationSpeedUp().removeAdditionalGLObject((GUIPerson*)person);
+    MSVehicle::addPerson(person);
+}
+
 /****************************************************************************/
 

@@ -30,6 +30,7 @@
 
 #include <vector>
 #include <algorithm>
+#include "GUINet.h"
 #include "GUIPersonControl.h"
 #include "GUIPerson.h"
 
@@ -51,6 +52,15 @@ GUIPersonControl::~GUIPersonControl() {
 MSPerson *
 GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) const {
     return new GUIPerson(pars, plan);
+}
+
+
+void
+GUIPersonControl::addWaiting(const MSEdge* const edge, MSPerson* person) {
+    if (!isWaiting4Vehicle(edge, person)) {
+        GUINet::getGUIInstance()->getVisualisationSpeedUp().addAdditionalGLObject((GUIPerson*)person);
+    }
+    MSPersonControl::addWaiting(edge, person);
 }
 
 /****************************************************************************/

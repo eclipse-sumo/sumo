@@ -321,6 +321,11 @@ MSPerson::MSPersonStage_Driving::isWaitingFor(const std::string& line) const {
 }
 
 
+bool 
+MSPerson::MSPersonStage_Driving::isWaiting4Vehicle() const {
+    return myVehicle == 0;
+}
+
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os) const {
     (os.openTag("ride") <<
@@ -494,19 +499,13 @@ MSPerson::tripInfoOutput(OutputDevice& os) const {
 }
 
 
-bool
-MSPerson::isWaitingFor(const std::string& line) const {
-    return (*myStep)->isWaitingFor(line);
-}
-
-
 std::string
 MSPerson::getCurrentStageTypeName() const {
     switch (getCurrentStageType()) {
         case WALKING:
             return "walking";
         case DRIVING:
-            return "driving";
+            return isWaiting4Vehicle() ? "waiting for ride" : "driving";
         case WAITING:
             return "waiting";
     }
