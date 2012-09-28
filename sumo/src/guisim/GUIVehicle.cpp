@@ -1241,14 +1241,5 @@ GUIVehicle::draw(const MSRoute& r) const {
     }
 }
 
-
-void 
-GUIVehicle::addPerson(MSPerson* person) {
-    myLock.lock();
-    GUINet::getGUIInstance()->getVisualisationSpeedUp().removeAdditionalGLObject((GUIPerson*)person);
-    MSVehicle::addPerson(person);
-    myLock.unlock();
-}
-
 /****************************************************************************/
 

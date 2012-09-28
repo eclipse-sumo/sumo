@@ -167,7 +167,8 @@ MSPerson::MSPersonStage_Walking::checkNoDuration(MSNet* /* net */, MSPerson* /* 
 
 void
 MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSPerson* person, SUMOTime now,
-                                         const MSEdge& /*previousEdge*/, const SUMOReal at) {
+                                         const MSEdge* previousEdge, const SUMOReal at) {
+    MSEdge::dictionary(previousEdge->getNumericalID())->removePerson(person);
     myRouteStep = myRoute.begin();
     myLastEntryTime = now;
     if(myWalkingTime==0) {
@@ -288,9 +289,10 @@ MSPerson::MSPersonStage_Driving::getFromEdge() const {
 
 
 SUMOReal 
-MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime /* now */) const {
+MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime now) const {
     if(myVehicle!=0) {
-        return myVehicle->getPositionOnLane();
+        // vehicle may already have passed the lane (check whether this is correct)
+        return MIN2(myVehicle->getPositionOnLane(), getEdge(now)->getLength());
     }
     return myWaitingPos;
 }
@@ -308,17 +310,19 @@ MSPerson::MSPersonStage_Driving::getPosition(SUMOTime /* now */) const {
         
 void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSPerson* person, SUMOTime /* now */, 
-                                         const MSEdge& previousEdge, const SUMOReal at) {
-    myWaitingEdge = &previousEdge;
+                                         const MSEdge* previousEdge, const SUMOReal at) {
+    myWaitingEdge = previousEdge;
     myWaitingPos = at;
-    myVehicle = net->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
+    myVehicle = net->getVehicleControl().getWaitingVehicle(previousEdge, myLines);
     if (myVehicle != 0 && myVehicle->getParameter().departProcedure == DEPART_TRIGGERED) {
+        MSEdge::dictionary(previousEdge->getNumericalID())->removePerson(person);
         myVehicle->addPerson(person);
         net->getInsertionControl().add(myVehicle);
-        net->getVehicleControl().removeWaiting(&previousEdge, myVehicle);
+        net->getVehicleControl().removeWaiting(previousEdge, myVehicle);
         net->getVehicleControl().unregisterOneWaitingForPerson();
     } else {
-        net->getPersonControl().addWaiting(&previousEdge, person);
+        net->getPersonControl().addWaiting(previousEdge, person);
+        MSEdge::dictionary(previousEdge->getNumericalID())->addPerson(person);
     }
 }
 
@@ -416,8 +420,9 @@ MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime now) const {
 
 
 void
-MSPerson::MSPersonStage_Waiting::proceed(MSNet* net, MSPerson* person, SUMOTime now, const 
-                                         MSEdge& /*previousEdge*/, const SUMOReal /* at */) {
+MSPerson::MSPersonStage_Waiting::proceed(MSNet* net, MSPerson* person, SUMOTime now,
+                                         const MSEdge* previousEdge, const SUMOReal /* at */) {
+    MSEdge::dictionary(previousEdge->getNumericalID())->addPerson(person);
     const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     net->getPersonControl().setWaitEnd(until, person);
 }
@@ -478,7 +483,7 @@ MSPerson::getID() const {
 
 bool
 MSPerson::proceed(MSNet* net, SUMOTime time) {
-    const MSEdge& arrivedAt = *(*myStep)->getEdge(time);
+    const MSEdge* arrivedAt = (*myStep)->getEdge(time);
     SUMOReal atPos = (*myStep)->getEdgePos(time);
     //MSPersonPlan::iterator prior = myStep;
     (*myStep)->setArrived(time);
@@ -498,7 +503,7 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
         */
         return true;
     } else {
-        //net->getPersonControl().erase(this); // very impolite
+        MSEdge::dictionary(arrivedAt->getNumericalID())->removePerson(this);
         return false;
     }
 }

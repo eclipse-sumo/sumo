@@ -55,12 +55,4 @@ GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, MSPerson::MSPers
 }
 
 
-void
-GUIPersonControl::addWaiting(const MSEdge* const edge, MSPerson* person) {
-    if (!isWaiting4Vehicle(edge, person)) {
-        GUINet::getGUIInstance()->getVisualisationSpeedUp().addAdditionalGLObject((GUIPerson*)person);
-    }
-    MSPersonControl::addWaiting(edge, person);
-}
-
 /****************************************************************************/

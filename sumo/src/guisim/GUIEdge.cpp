@@ -39,6 +39,7 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/foxtools/MFXMutex.h>
 #include "GUIEdge.h"
 #include "GUINet.h"
 #include "GUILane.h"
@@ -77,6 +78,10 @@ GUIEdge::GUIEdge(const std::string& id, unsigned int numericalID, const std::str
 GUIEdge::~GUIEdge() {
     for (LaneWrapperVector::iterator i = myLaneGeoms.begin(); i != myLaneGeoms.end(); ++i) {
         delete(*i);
+    }
+    // just to quit cleanly on a failure
+    if (myLock.locked()) {
+        myLock.unlock();
     }
 }
 
@@ -320,9 +325,11 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                                s.streetName.size / s.scale, s.streetName.color, angle);
         }
     }
+    myLock.lock();
     for(std::set<MSPerson*>::const_iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
         static_cast<GUIPerson*>(*i)->drawGL(s);
     }
+    myLock.unlock();
 }
 
 #ifdef HAVE_INTERNAL

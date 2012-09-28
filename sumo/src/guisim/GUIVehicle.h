@@ -180,10 +180,6 @@ public:
     const std::vector<LaneQ> &getBestLanes() const;
 
 
-    // @brief adds person and removes it from additional visualisation
-    void addPerson(MSPerson* person);
-
-
     /**
      * @class GUIVehiclePopupMenu
      *

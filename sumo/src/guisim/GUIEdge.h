@@ -37,6 +37,7 @@
 #include <string>
 #include <microsim/MSEdge.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/foxtools/MFXMutex.h>
 #include "GUILaneWrapper.h"
 
 // ===========================================================================
@@ -141,6 +142,19 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
+    
+    
+    void addPerson(MSPerson *p) {
+        myLock.lock();
+        MSEdge::addPerson(p);
+        myLock.unlock();
+    }
+
+    void removePerson(MSPerson *p) {
+        myLock.lock();
+        MSEdge::removePerson(p);
+        myLock.unlock();
+    }
 
 
 #ifdef HAVE_INTERNAL
@@ -201,6 +215,9 @@ private:
     /// @brief invalidated assignment operator
     GUIEdge& operator=(const GUIEdge& s);
 
+private:
+    /// The mutex used to avoid concurrent updates of myPersons
+    mutable MFXMutex myLock;
 
 };
 

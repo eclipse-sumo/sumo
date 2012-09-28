@@ -423,11 +423,11 @@ public:
      */
     SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
 
-    void addPerson(MSPerson *p) {
+    virtual void addPerson(MSPerson *p) {
         myPersons.insert(p);
     }
 
-    void removePerson(MSPerson *p) {
+    virtual void removePerson(MSPerson *p) {
         std::set<MSPerson*>::iterator i=myPersons.find(p);
         if(i!=myPersons.end()) {
             myPersons.erase(i);

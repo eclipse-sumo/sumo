@@ -667,7 +667,7 @@ public:
     /** @brief Adds a passenger
      * @param[in] person The person to add
      */
-    virtual void addPerson(MSPerson* person);
+    void addPerson(MSPerson* person);
 
 
     /** @brief Returns the number of persons

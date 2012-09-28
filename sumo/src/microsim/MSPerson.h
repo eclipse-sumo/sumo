@@ -103,7 +103,7 @@ public:
         virtual std::string getStageTypeName() const = 0;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const SUMOReal at) = 0;
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge* previousEdge, const SUMOReal at) = 0;
 
         /// logs end of the step
         void setDeparted(SUMOTime now);
@@ -176,7 +176,7 @@ public:
         ~MSPersonStage_Walking();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const SUMOReal at);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge* previousEdge, const SUMOReal at);
 
         /// Returns the current edge
         const MSEdge *getEdge(SUMOTime now) const;
@@ -294,7 +294,7 @@ public:
         ~MSPersonStage_Driving();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const SUMOReal at);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge* previousEdge, const SUMOReal at);
 
         /// Returns the current edge
         const MSEdge *getEdge(SUMOTime now) const;
@@ -381,7 +381,7 @@ public:
         }
     
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const SUMOReal at);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge* previousEdge, const SUMOReal at);
 
         /** @brief Called on writing tripinfo output
          *
@@ -453,7 +453,7 @@ public:
 
     /* @brief proceeds to the next step of the route, 
      * @return Whether the persons plan continues  */
-    virtual bool proceed(MSNet* net, SUMOTime time);
+    bool proceed(MSNet* net, SUMOTime time);
 
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const;

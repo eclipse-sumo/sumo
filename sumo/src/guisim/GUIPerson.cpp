@@ -331,22 +331,5 @@ GUIPerson::getColorValue(size_t /* activeScheme */) const {
 }
 
 
-bool 
-GUIPerson::proceed(MSNet* net, SUMOTime time) {
-    if (myAmVisualizedAsStopped) {
-        myLock.lock();
-        GUINet::getGUIInstance()->getVisualisationSpeedUp().removeAdditionalGLObject(this);
-        myAmVisualizedAsStopped = false;
-        myLock.unlock();
-    }
-    const bool planContinues = MSPerson::proceed(net, time); // may lead to earasure of this person
-    if (planContinues && getCurrentStageType() == WAITING) {
-        GUINet::getGUIInstance()->getVisualisationSpeedUp().addAdditionalGLObject(this);
-        myAmVisualizedAsStopped = true;
-    }
-    return planContinues;
-}
-
-
 /****************************************************************************/
 

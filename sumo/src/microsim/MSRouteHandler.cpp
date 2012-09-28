@@ -92,6 +92,18 @@ MSRouteHandler::myStartElement(int element,
             const std::string pid = myVehicleParameter->id;
             bool ok = true;
             MSEdge* from = 0;
+            SUMOReal departPos = 0;
+            const std::string desc = attrs.getStringReporting(SUMO_ATTR_LINES, pid.c_str(), ok);
+            StringTokenizer st(desc);
+            std::string bsID = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, 0, ok, "");
+            MSBusStop *bs = 0;
+            if(bsID!="") {
+                bs = MSNet::getInstance()->getBusStop(bsID);
+                if(bs==0) {
+                    throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
+                }
+                departPos = bs->getBeginLanePosition();
+            }
             if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                 const std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, pid.c_str(), ok);
                 from = MSEdge::dictionary(fromID);
@@ -112,16 +124,6 @@ MSRouteHandler::myStartElement(int element,
             MSEdge* to = MSEdge::dictionary(toID);
             if (to == 0) {
                 throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
-            }
-            const std::string desc = attrs.getStringReporting(SUMO_ATTR_LINES, pid.c_str(), ok);
-            StringTokenizer st(desc);
-            std::string bsID = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, 0, ok, "");
-            MSBusStop *bs = 0;
-            if(bsID!="") {
-                bs = MSNet::getInstance()->getBusStop(bsID);
-                if(bs==0) {
-                    throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
-                }
             }
             myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, bs, st.getVector()));
             break;
@@ -172,7 +174,7 @@ MSRouteHandler::myStartElement(int element,
             }
             if (myActivePlan->empty()) {
                 myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
-                            *myActiveRoute.front(), -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
+                            *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start"));
             }
             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos));
             myActiveRoute.clear();
