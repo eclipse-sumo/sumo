@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <person id="p1" depart="0">
-        <walk edges="beg end" duration="2"/>
+        <walk edges="beg end" duration="20"/>
     </person>
 </routes>

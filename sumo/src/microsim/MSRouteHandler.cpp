@@ -154,7 +154,7 @@ MSRouteHandler::myStartElement(int element,
             if (!myActivePlan->empty() && &myActivePlan->back()->getDestination() != myActiveRoute.front()) {
                 throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + myActiveRoute.front()->getID() + "!=" + myActivePlan->back()->getDestination().getID() + ").");
             }
-            SUMOReal departPos = attrs.getOptSUMORealReporting(SUMO_ATTR_DEPARTPOS, myVehicleParameter->id.c_str(), ok, -1);
+            SUMOReal departPos = attrs.getOptSUMORealReporting(SUMO_ATTR_DEPARTPOS, myVehicleParameter->id.c_str(), ok, 0);
             SUMOReal arrivalPos = attrs.getOptSUMORealReporting(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok, -1);
             const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
             SUMOReal speed = DEFAULT_PERSON_SPEED;

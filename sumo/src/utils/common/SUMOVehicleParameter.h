@@ -339,6 +339,14 @@ public:
     /// @}
 
 
+    /** @brief Interprets negative edge positions and fits them onto a given edge
+     * @param[in] pos The position to be interpreted
+     * @param[in] maximumValue The maximum allowed value (edge length)
+     * @param[in] attr The attribute from which the value originated
+     * @param[in] id The id of the object to which this attribute belongs
+     * @return Whether the interpreted position
+     */
+    static SUMOReal interpretEdgePos(SUMOReal pos, SUMOReal maximumValue, SumoXMLAttr attr, const std::string& id);
 
     /// @brief The vehicle's id
     std::string id;
@@ -451,6 +459,7 @@ public:
 
     /// @brief Information for the router which parameter were set
     int setParameter;
+
 
 };
 
