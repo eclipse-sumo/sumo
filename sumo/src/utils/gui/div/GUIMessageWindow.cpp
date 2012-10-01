@@ -30,6 +30,7 @@
 #endif
 
 #include <cassert>
+#include <utils/common/MsgHandler.h>
 #include "GUIMessageWindow.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -40,9 +41,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIMessageWindow::GUIMessageWindow(FXComposite* parent)
-    : FXText(parent, 0, 0, 0, 0, 0, 0, 50),
-      myStyles(0) {
+GUIMessageWindow::GUIMessageWindow(FXComposite* parent) : 
+    FXText(parent, 0, 0, 0, 0, 0, 0, 50),
+    myStyles(0),
+    myErrorRetriever(0),
+    myMessageRetriever(0),
+    myWarningRetriever(0)
+{
     setStyled(true);
     setEditable(false);
     myStyles = new FXHiliteStyle[4];
@@ -89,6 +94,9 @@ GUIMessageWindow::GUIMessageWindow(FXComposite* parent)
 
 GUIMessageWindow::~GUIMessageWindow() {
     delete[] myStyles;
+    delete myMessageRetriever;
+    delete myErrorRetriever;
+    delete myWarningRetriever;
 }
 
 
@@ -151,6 +159,27 @@ GUIMessageWindow::clear() {
     }
 }
 
+
+void 
+GUIMessageWindow::registerMsgHandlers() {
+    if (myMessageRetriever == 0) {
+        // initialize only if registration is requested
+        myMessageRetriever = new MsgOutputDevice(this, EVENT_MESSAGE_OCCURED);
+        myErrorRetriever = new MsgOutputDevice(this, EVENT_ERROR_OCCURED);
+        myWarningRetriever = new MsgOutputDevice(this, EVENT_WARNING_OCCURED);
+    }
+    MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
+    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
+    MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+}
+
+
+void
+GUIMessageWindow::unregisterMsgHandlers() {
+    MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
+    MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
+    MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
+}
 
 
 /****************************************************************************/
