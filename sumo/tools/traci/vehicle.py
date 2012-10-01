@@ -540,3 +540,8 @@ def add(vehID, routeID, depart=DEPART_NOW, pos=0, speed=0, lane=0, typeID="DEFAU
     traci._message.string += struct.pack("!BdBd", tc.TYPE_DOUBLE, pos, tc.TYPE_DOUBLE, speed)
     traci._message.string += struct.pack("!BB", tc.TYPE_BYTE, lane)
     traci._sendExact()
+
+def remove(vehID, reason=tc.REMOVE_VAPORIZED):
+    '''Remove vehicle with the given ID for the give reason. 
+       Reasons are defined in module constants and start with REMOVE_'''
+    traci._sendByteCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, reason)

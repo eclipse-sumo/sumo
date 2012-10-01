@@ -590,4 +590,18 @@ VAR_SCREENSHOT = 0xa5
 VAR_TRACK_VEHICLE = 0xa6
 
 
+# ****************************************
+# VEHICLE REMOVAL REASONS
+# ****************************************
+# vehicle started teleport
+REMOVE_TELEPORT         = 0x00
+# vehicle removed while parking
+REMOVE_PARKING          = 0x01
+# vehicle arrived
+REMOVE_ARRIVED          = 0x02
+# vehicle was vaporized
+REMOVE_VAPORIZED        = 0x03
+# vehicle finished route during teleport
+REMOVE_TELEPORT_ARRIVED = 0x04
+
 

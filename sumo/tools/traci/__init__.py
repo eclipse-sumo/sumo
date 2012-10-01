@@ -179,6 +179,11 @@ def _sendDoubleCmd(cmdID, varID, objID, value):
     _message.string += struct.pack("!Bd", constants.TYPE_DOUBLE, value)
     _sendExact()
 
+def _sendByteCmd(cmdID, varID, objID, value):
+    _beginMessage(cmdID, varID, objID, 1+1)
+    _message.string += struct.pack("!BB", constants.TYPE_BYTE, value)
+    _sendExact()
+
 def _sendStringCmd(cmdID, varID, objID, value):
     _beginMessage(cmdID, varID, objID, 1+4+len(value))
     _message.string += struct.pack("!Bi", constants.TYPE_STRING,
