@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Oct  1 11:27:59 2012 by SUMO sumo Version dev-SVN-r12771
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="194.00" arrivalLane="1/4to1/3_0" arrivalPos="95.40" arrivalSpeed="13.88" duration="144.00" routeLength="455.30" waitSteps="93" rerouteNo="0" devices="tripinfo_train0 person_train0" vType="DEFAULT_VEHTYPE" vaporized="">
+    </tripinfo>
+    <personinfo id="person0" depart="0.00">
+        <stop arrival="0.00"/>
+        <walk arrival="46.00"/>
+        <ride depart="121.00" arrival="142.00"/>
+        <walk arrival="186.00"/>
+        <stop arrival="206.00"/>
+        <ride depart="206.00" arrival="258.00"/>
+    </personinfo>
+    <tripinfo id="car0" depart="206.00" departLane="1/4to2/4_0" departPos="5.10" departSpeed="0.00" departDelay="206.00" arrival="258.00" arrivalLane="3/4to4/4_0" arrivalPos="102.32" arrivalSpeed="12.68" duration="52.00" routeLength="278.22" waitSteps="20" rerouteNo="0" devices="tripinfo_car0 person_car0" vType="DEFAULT_VEHTYPE" vaporized="">
+    </tripinfo>
+</tripinfos>

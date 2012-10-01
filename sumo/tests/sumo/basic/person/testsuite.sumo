@@ -30,3 +30,6 @@ ride_wrong_destination
 
 # When all vehicles have left the simulation, any remainig persons waiting for a ride should abort their plan.
 abort_impossible_ride
+
+# test whether a chain of walks rides and stops works
+trip_chain
