@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/23/12 11:23:37 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on Mon Oct  1 13:32:11 2012 by SUMO sumo Version dev-SVN-r12771
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -64,7 +64,7 @@
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="m.2" depart="7.00" arrival="135.00">
+    <vehicle id="m.2" depart="8.00" arrival="135.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
@@ -76,39 +76,39 @@
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="m.3" depart="8.00" arrival="138.00">
+    <vehicle id="m.3" depart="9.00" arrival="138.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="l.9" depart="9.00" arrival="138.00">
+    <vehicle id="l.9" depart="10.00" arrival="138.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="m.4" depart="9.00" arrival="139.00">
+    <vehicle id="m.4" depart="10.00" arrival="139.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="l.10" depart="10.00" arrival="140.00">
+    <vehicle id="l.10" depart="11.00" arrival="140.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="m.5" depart="10.00" arrival="141.00">
+    <vehicle id="m.5" depart="12.00" arrival="141.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="m.6" depart="11.00" arrival="143.00">
+    <vehicle id="m.6" depart="13.00" arrival="143.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="m.7" depart="12.00" arrival="145.00">
+    <vehicle id="m.7" depart="13.00" arrival="145.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="m.8" depart="13.00" arrival="147.00">
+    <vehicle id="m.8" depart="14.00" arrival="147.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="m.9" depart="14.00" arrival="148.00">
+    <vehicle id="m.9" depart="15.00" arrival="148.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 

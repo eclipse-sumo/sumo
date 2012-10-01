@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Oct  1 13:16:15 2012 by SUMO sumo Version dev-SVN-r12771
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+        <weight-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="100"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <routing>
+        <device.rerouting.probability value="1"/>
+        <device.rerouting.init-with-loaded-weights value="true"/>
+    </routing>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="0" depart="101.00" arrival="298.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="101.00" probability="0" edges="beg rend"/>
+            <route edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>
