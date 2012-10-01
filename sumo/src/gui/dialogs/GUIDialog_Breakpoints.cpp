@@ -154,7 +154,7 @@ GUIDialog_Breakpoints::rebuildList() {
 
 long
 GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
-    FXFileDialog opendialog(this, "Save Breakpoints");
+    FXFileDialog opendialog(this, "Load Breakpoints");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
