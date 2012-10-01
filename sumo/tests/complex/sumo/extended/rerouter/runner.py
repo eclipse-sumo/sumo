@@ -127,8 +127,8 @@ for r in rerouter:
                     vehroutes = list(sumolib.output.parse("vehroutes.xml", ["vehicle"], {'route':['exitTimes', 'edges']}))
 
                     wvn = 10-int((t[0]+10)/20)
-#                    if len(vehroutes)!=wvn:
- #                       print "Mismatching number of vehicles (%s instead of %s)" % (len(vehroutes), wvn)
+                    if len(vehroutes)!=wvn:
+                        print "Mismatching number of vehicles (%s instead of %s)" % (len(vehroutes), wvn)
                     
                     verify(vehroutes, edge[0])
                     try: os.remove("vehroutes.xml")
