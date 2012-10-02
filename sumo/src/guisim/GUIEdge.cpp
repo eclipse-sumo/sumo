@@ -53,6 +53,7 @@
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include "GUIEdge.h"
+#include "GUIVehicleControl.h"
 #include "GUINet.h"
 #include "GUILane.h"
 #include "GUIPerson.h"
@@ -247,6 +248,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         const GUIVisualizationTextSettings& nameSettings = s.vehicleName;
+        GUIVehicleControl* guiVehicleControl = GUINet::getGUIInstance()->getGUIVehicleControl();
+        if (guiVehicleControl != 0) {
+            guiVehicleControl->secureVehicles();
+        }
         size_t laneIndex = 0;
         for (LaneWrapperVector::const_iterator l = myLaneGeoms.begin(); l != myLaneGeoms.end(); ++l, ++laneIndex) {
             const PositionVector& shape = (*l)->getShape();
@@ -307,6 +312,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 position += length;
             }
             glPopMatrix();
+        }
+        if (guiVehicleControl != 0) {
+            guiVehicleControl->releaseVehicles();
         }
         glPopName();
     }

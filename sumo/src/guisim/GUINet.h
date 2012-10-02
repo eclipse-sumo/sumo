@@ -61,6 +61,7 @@ class RGBColor;
 class GUIEdge;
 class OutputDevice;
 class GUIVehicle;
+class GUIVehicleControl;
 class MSVehicleControl;
 
 
@@ -252,6 +253,13 @@ public:
     const SUMORTree& getVisualisationSpeedUp() const {
         return myGrid;
     }
+
+    /** @brief Returns the vehicle control
+     * @return The vehicle control
+     * @see MSVehicleControl
+     * @see myVehicleControl
+     */
+    GUIVehicleControl* getGUIVehicleControl();
 
     /** @brief Returns the pointer to the unique instance of GUINet (singleton).
      * @return Pointer to the unique GUINet-instance

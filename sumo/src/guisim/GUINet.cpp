@@ -462,5 +462,11 @@ GUINet::getGUIInstance() {
     throw ProcessError("A gui-network was not yet constructed.");
 }
 
+
+GUIVehicleControl*
+GUINet::getGUIVehicleControl() {
+    return dynamic_cast<GUIVehicleControl*>(myVehicleControl);
+}
+
 /****************************************************************************/
 

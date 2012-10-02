@@ -111,6 +111,13 @@ public:
     void insertVehicleIDs(std::vector<GUIGlID> &into);
 
 
+    /// @brief lock access to vehicle removal/additions for thread synchronization
+    void secureVehicles();
+
+    /// @brief unlock access to vehicle removal/additions for thread synchronization
+    void releaseVehicles();
+
+
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;

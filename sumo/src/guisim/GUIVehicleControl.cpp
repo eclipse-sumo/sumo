@@ -93,6 +93,18 @@ GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID> &into) {
 }
 
 
+void 
+GUIVehicleControl::secureVehicles() {
+    myLock.lock();
+}
+
+
+void 
+GUIVehicleControl::releaseVehicles() {
+    myLock.unlock();
+}
+
+
 
 /****************************************************************************/
 
