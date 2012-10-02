@@ -46,6 +46,7 @@
 #ifdef HAVE_INTERNAL
 class MESegment;
 #endif
+class MSBaseVehicle;
 
 // ===========================================================================
 // class definitions
@@ -176,6 +177,9 @@ public:
 
     /// @brief returns the segment closest to the given position
     MESegment* getSegmentAtPosition(const Position& pos);
+
+    /// @brief sets the vehicle color according to the currente settings
+    void setVehicleColor(const GUIVisualizationSettings& s, MSBaseVehicle* veh) const;
 
 #endif
 

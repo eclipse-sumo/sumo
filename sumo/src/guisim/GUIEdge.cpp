@@ -35,26 +35,27 @@
 #include <cmath>
 #include <string>
 #include <algorithm>
+#include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/foxtools/MFXMutex.h>
-#include "GUIEdge.h"
-#include "GUINet.h"
-#include "GUILane.h"
-#include "GUIPerson.h"
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <microsim/MSBaseVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSLaneChanger.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <foreign/polyfonts/polyfonts.h>
-#include <utils/gui/globjects/GLIncludes.h>
+#include "GUIEdge.h"
+#include "GUINet.h"
+#include "GUILane.h"
+#include "GUIPerson.h"
 
 #ifdef HAVE_INTERNAL
 #include <mesosim/MESegment.h>
@@ -245,8 +246,8 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
-        size_t idx = 0;
-        for (LaneWrapperVector::const_iterator l = myLaneGeoms.begin(); l != myLaneGeoms.end(); ++l, ++idx) {
+        size_t laneIndex = 0;
+        for (LaneWrapperVector::const_iterator l = myLaneGeoms.begin(); l != myLaneGeoms.end(); ++l, ++laneIndex) {
             const PositionVector& shape = (*l)->getShape();
             const std::vector<SUMOReal>& shapeRotations = (*l)->getShapeRotations();
             const std::vector<SUMOReal>& shapeLengths = (*l)->getShapeLengths();
@@ -260,12 +261,14 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             int shapePos = 0;
             SUMOReal positionOffset = 0;
             SUMOReal position = 0;
-            for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
-                const std::vector<size_t> numCars = segment->getQueSizes();
+            for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); 
+                    segment != 0; segment = segment->getNextSegment()) {
+                const MESegment::Queues queues(segment->getQueues());
                 const SUMOReal length = segment->getLength();
-                if (idx < numCars.size()) {
+                if (laneIndex < queues.size()) {
                     const SUMOReal avgCarSize = segment->getOccupancy() / segment->getCarNumber();
-                    for (size_t i = 0; i < numCars[idx]; i++) {
+                    for (size_t i = 0; i < queues[laneIndex].size(); i++) {
+                        setVehicleColor(s, queues[laneIndex][i]);
                         SUMOReal vehiclePosition = position + length - i * avgCarSize;
                         SUMOReal xOff = 0.f;
                         while (vehiclePosition < position) {
@@ -439,6 +442,25 @@ GUIEdge::getSegmentAtPosition(const Position& pos) {
     const PositionVector& shape = getLanes()[0]->getShape();
     const SUMOReal lanePos = shape.nearest_position_on_line_to_point2D(pos);
     return MSGlobals::gMesoNet->getSegmentForEdge(*this, lanePos);
+}
+
+
+void
+GUIEdge::setVehicleColor(const GUIVisualizationSettings& s, MSBaseVehicle* veh) const {
+    const GUIColorer& c = s.vehicleColorer;
+    switch (c.getActive()) {
+        case 1: 
+            GLHelper::setColor(veh->getParameter().color);
+            break;
+        case 2: 
+            GLHelper::setColor(veh->getVehicleType().getColor());
+            break;
+        case 3: 
+            GLHelper::setColor(veh->getRoute().getColor());
+            break;
+        default:
+            GLHelper::setColor(c.getScheme().getColor(0));
+    }
 }
 
 #endif
