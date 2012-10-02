@@ -246,6 +246,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
+        const GUIVisualizationTextSettings& nameSettings = s.vehicleName;
         size_t laneIndex = 0;
         for (LaneWrapperVector::const_iterator l = myLaneGeoms.begin(); l != myLaneGeoms.end(); ++l, ++laneIndex) {
             const PositionVector& shape = (*l)->getShape();
@@ -267,8 +268,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 const SUMOReal length = segment->getLength();
                 if (laneIndex < queues.size()) {
                     const SUMOReal avgCarSize = segment->getOccupancy() / segment->getCarNumber();
-                    for (size_t i = 0; i < queues[laneIndex].size(); i++) {
-                        setVehicleColor(s, queues[laneIndex][i]);
+                    const size_t queueSize = queues[laneIndex].size(); 
+                    for (size_t i = 0; i < queueSize; i++) {
+                        MSBaseVehicle* veh = queues[laneIndex][queueSize - i - 1];
+                        setVehicleColor(s, veh);
                         SUMOReal vehiclePosition = position + length - i * avgCarSize;
                         SUMOReal xOff = 0.f;
                         while (vehiclePosition < position) {
@@ -294,6 +297,11 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                         glEnd();
                         glPopMatrix();
                         glPopMatrix();
+                        if (nameSettings.show) {
+                            GLHelper::drawText(veh->getID(), 
+                                    Position(xOff, -(vehiclePosition - positionOffset)), 
+                                    GLO_MAX, nameSettings.size / s.scale, nameSettings.color, 0);
+                        }
                     }
                 }
                 position += length;
