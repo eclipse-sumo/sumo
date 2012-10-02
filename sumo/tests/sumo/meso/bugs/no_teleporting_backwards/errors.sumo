@@ -10,80 +10,408 @@ Warning: Teleporting vehicle 'flow0.4'; waited too long, from 'start0:0' to 'sta
 Warning: Teleporting vehicle 'flow1.4'; waited too long, from 'start1:0' to 'start2:1', time=24.66.
 Warning: Teleporting vehicle 'flow3.5'; waited too long, from 'start3:0' to 'start2:1', time=31.46.
 Warning: Teleporting vehicle 'flow0.5'; waited too long, from 'start0:0' to 'start2:1', time=33.66.
-Warning: Teleporting vehicle 'flow1.5'; waited too long, from 'start1:0' to 'start2:1', time=43.66.
-Warning: Teleporting vehicle 'flow3.6'; waited too long, from 'start3:0' to 'start2:1', time=52.46.
+Warning: Teleporting vehicle 'flow1.5'; waited too long, from 'start1:0' to 'start2:2', time=43.66.
+Warning: Teleporting vehicle 'flow1.6'; waited too long, from 'start1:0' to 'start2:2', time=46.66.
+Warning: Teleporting vehicle 'flow1.7'; waited too long, from 'start1:0' to 'start2:2', time=49.66.
+Warning: Teleporting vehicle 'flow3.6'; waited too long, from 'start3:0' to 'start2:2', time=52.46.
+Warning: Teleporting vehicle 'flow1.8'; waited too long, from 'start1:0' to 'start2:2', time=52.66.
+Warning: Teleporting vehicle 'flow3.7'; waited too long, from 'start3:0' to 'start2:2', time=55.46.
+Warning: Teleporting vehicle 'flow1.9'; waited too long, from 'start1:0' to 'start2:2', time=55.66.
 Warning: Teleporting vehicle 'flow0.6'; waited too long, from 'start0:0' to 'start2:2', time=56.66.
-Warning: Teleporting vehicle 'flow0.7'; waited too long, from 'start0:0' to 'start2:2', time=59.66.
-Warning: Teleporting vehicle 'flow0.8'; waited too long, from 'start0:0' to 'start2:2', time=62.66.
-Warning: Teleporting vehicle 'flow0.9'; waited too long, from 'start0:0' to 'start2:2', time=65.67.
-Warning: Teleporting vehicle 'flow1.6'; waited too long, from 'start1:0' to 'start2:2', time=68.66.
-Warning: Teleporting vehicle 'flow0.10'; waited too long, from 'start0:0' to 'start2:2', time=68.67.
-Warning: Teleporting vehicle 'flow1.7'; waited too long, from 'start1:0' to 'start2:2', time=71.66.
-Warning: Teleporting vehicle 'flow3.7'; waited too long, from 'start3:0' to 'start2:2', time=79.46.
-Warning: Teleporting vehicle 'flow0.11'; waited too long, from 'start0:0' to 'start2:2', time=79.67.
-Warning: Teleporting vehicle 'flow1.8'; waited too long, from 'start1:0' to 'start2:2', time=84.66.
-Warning: Teleporting vehicle 'flow3.8'; waited too long, from 'start3:0' to 'start2:2', time=94.47.
-Warning: Teleporting vehicle 'flow0.12'; waited too long, from 'start0:0' to 'start2:2', time=96.67.
-Warning: Teleporting vehicle 'flow2.0'; waited too long, from 'start2:0' to 'start2:2', time=99.81.
-Warning: Teleporting vehicle 'flow3.9'; waited too long, from 'start3:0' to 'start2:1', time=115.47.
-Warning: Teleporting vehicle 'flow0.13'; waited too long, from 'start0:0' to 'start2:3', time=119.67.
-Warning: Teleporting vehicle 'flow0.14'; waited too long, from 'start0:0' to 'start2:3', time=122.67.
-Warning: Teleporting vehicle 'flow2.1'; waited too long, from 'start2:0' to 'start2:3', time=124.81.
-Warning: Teleporting vehicle 'flow2.2'; waited too long, from 'start2:0' to 'start2:3', time=127.81.
-Warning: Teleporting vehicle 'flow2.3'; waited too long, from 'start2:0' to 'start2:3', time=130.82.
-Warning: Teleporting vehicle 'flow2.4'; waited too long, from 'start2:0' to 'start2:3', time=133.82.
-Warning: Teleporting vehicle 'flow0.2'; waited too long, from 'start2:1' to 'start2:3', time=135.07.
-Warning: Teleporting vehicle 'flow1.2'; waited too long, from 'start2:1' to 'start2:3', time=148.07.
-Warning: Teleporting vehicle 'flow3.11'; waited too long, from 'start3:0' to 'start2:1', time=166.47.
-Warning: Teleporting vehicle 'flow1.12'; waited too long, from 'start1:0' to 'start2:2', time=181.66.
-Warning: Teleporting vehicle 'flow0.3'; waited too long, from 'start2:1' to 'start2:3', time=189.07.
-Warning: Teleporting vehicle 'flow3.12'; waited too long, from 'start3:0' to 'start2:1', time=191.47.
-Warning: Teleporting vehicle 'flow0.0'; waited too long, from 'start2:0' to 'start2:2', time=196.82.
-Warning: Teleporting vehicle 'flow1.13'; waited too long, from 'start1:0' to 'start2:3', time=208.67.
-Warning: Teleporting vehicle 'flow1.3'; waited too long, from 'start2:1' to 'start2:3', time=210.07.
-Warning: Teleporting vehicle 'flow0.9'; waited too long, from 'start2:2', time 212.47.
-Warning: Vehicle 'flow0.9' teleports to end of route ('dest'), simulation time 607.73.
-Warning: Teleporting vehicle 'flow1.6'; waited too long, from 'start2:2', time 213.48.
-Warning: Vehicle 'flow1.6' teleports to end of route ('dest'), simulation time 608.73.
-Warning: Teleporting vehicle 'flow0.10'; waited too long, from 'start2:2', time 214.48.
-Warning: Vehicle 'flow0.10' teleports to end of route ('dest'), simulation time 609.73.
-Warning: Teleporting vehicle 'flow1.7'; waited too long, from 'start2:2', time 215.48.
-Warning: Vehicle 'flow1.7' teleports to end of route ('dest'), simulation time 610.73.
-Warning: Teleporting vehicle 'flow3.7'; waited too long, from 'start2:2', time 216.48.
-Warning: Vehicle 'flow3.7' teleports to end of route ('dest'), simulation time 611.73.
-Warning: Teleporting vehicle 'flow0.11'; waited too long, from 'start2:2', time 217.48.
-Warning: Vehicle 'flow0.11' teleports to end of route ('dest'), simulation time 612.73.
-Warning: Teleporting vehicle 'flow3.13'; waited too long, from 'start3:0' to 'start2:1', time=218.47.
-Warning: Teleporting vehicle 'flow1.0'; waited too long, from 'start2:0' to 'start2:2', time=223.82.
-Warning: Teleporting vehicle 'flow1.14'; waited too long, from 'start1:0' to 'start2:2', time=233.67.
-Warning: Teleporting vehicle 'flow1.15'; waited too long, from 'start1:0' to 'start2:2', time=250.67.
-Warning: Teleporting vehicle 'flow0.20'; waited too long, from 'start0:0' to 'start2:2', time=253.82.
-Warning: Teleporting vehicle 'flow3.15'; waited too long, from 'start3:0' to 'start2:2', time=271.47.
-Warning: Teleporting vehicle 'flow0.21'; waited too long, from 'start0:0' to 'start2:2', time=274.82.
-Warning: Teleporting vehicle 'flow1.17'; waited too long, from 'start1:0' to 'start2:2', time=295.67.
-Warning: Teleporting vehicle 'flow0.22'; waited too long, from 'start0:0' to 'start2:2', time=297.82.
-Warning: Teleporting vehicle 'flow1.4'; waited too long, from 'start2:1' to 'start2:3', time=301.07.
-Warning: Teleporting vehicle 'flow1.18'; waited too long, from 'start1:0' to 'start2:1', time=320.67.
-Warning: Teleporting vehicle 'flow0.23'; waited too long, from 'start0:0' to 'start2:2', time=324.82.
-Warning: Teleporting vehicle 'flow1.1'; waited too long, from 'start2:0' to 'start2:2', time=340.82.
-Warning: Teleporting vehicle 'flow0.5'; waited too long, from 'start2:1' to 'start2:3', time=342.08.
-Warning: Teleporting vehicle 'flow1.19'; waited too long, from 'start1:0' to 'start2:1', time=347.67.
-Warning: Teleporting vehicle 'flow0.24'; waited too long, from 'start0:0' to 'start2:2', time=351.82.
-Warning: Teleporting vehicle 'flow1.5'; waited too long, from 'start2:1' to 'start2:3', time=359.08.
-Warning: Teleporting vehicle 'flow1.20'; waited too long, from 'start1:0' to 'start2:2', time=374.67.
-Warning: Teleporting vehicle 'flow3.6'; waited too long, from 'start2:1' to 'start2:3', time=378.08.
-Warning: Teleporting vehicle 'flow0.25'; waited too long, from 'start0:0' to 'start2:1', time=378.82.
-Warning: Teleporting vehicle 'flow0.15'; waited too long, from 'start2:0' to 'start2:2', time=393.82.
-Warning: Teleporting vehicle 'flow3.9'; waited too long, from 'start2:1' to 'start2:3', time=397.08.
-Warning: Teleporting vehicle 'flow1.21'; waited too long, from 'start1:0' to 'start2:1', time=401.67.
-Warning: Teleporting vehicle 'flow0.26'; waited too long, from 'start0:0' to 'start2:2', time=405.82.
-Warning: Teleporting vehicle 'flow2.5'; waited too long, from 'start2:1' to 'start2:3', time=418.08.
-Warning: Teleporting vehicle 'flow1.22'; waited too long, from 'start1:0' to 'start2:2', time=428.67.
-Warning: Teleporting vehicle 'flow0.27'; waited too long, from 'start0:0' to 'start2:3', time=432.82.
-Warning: Teleporting vehicle 'flow3.11'; waited too long, from 'start2:1' to 'start2:3', time=437.08.
-Warning: Teleporting vehicle 'flow0.28'; waited too long, from 'start0:0' to 'start2:2', time=453.82.
-Warning: Teleporting vehicle 'flow1.23'; waited too long, from 'start1:0' to 'start2:3', time=455.68.
-Warning: Teleporting vehicle 'flow2.6'; waited too long, from 'start2:1' to 'start2:3', time=460.08.
-Warning: Teleporting vehicle 'flow1.24'; waited too long, from 'start1:0' to 'start2:2', time=478.68.
-Warning: Teleporting vehicle 'flow0.29'; waited too long, from 'start0:0' to 'start2:3', time=480.82.
-Warning: Teleporting vehicle 'flow3.12'; waited too long, from 'start2:1' to 'start2:3', time=481.08.
+Warning: Teleporting vehicle 'flow3.8'; waited too long, from 'start3:0' to 'start2:2', time=66.47.
+Warning: Teleporting vehicle 'flow1.10'; waited too long, from 'start1:0' to 'start2:2', time=68.67.
+Warning: Teleporting vehicle 'flow0.7'; waited too long, from 'start0:0' to 'start2:2', time=71.66.
+Warning: Teleporting vehicle 'flow3.9'; waited too long, from 'start3:0' to 'start2:2', time=83.47.
+Warning: Teleporting vehicle 'flow1.11'; waited too long, from 'start1:0' to 'start2:3', time=87.67.
+Warning: Teleporting vehicle 'flow1.12'; waited too long, from 'start1:0' to 'start2:3', time=90.67.
+Warning: Teleporting vehicle 'flow0.8'; waited too long, from 'start0:0' to 'start2:3', time=92.66.
+Warning: Teleporting vehicle 'flow1.13'; waited too long, from 'start1:0' to 'start2:3', time=93.67.
+Warning: Teleporting vehicle 'flow0.9'; waited too long, from 'start0:0' to 'start2:3', time=95.67.
+Warning: Teleporting vehicle 'flow1.14'; waited too long, from 'start1:0' to 'start2:3', time=96.67.
+Warning: Teleporting vehicle 'flow0.10'; waited too long, from 'start0:0' to 'start2:3', time=98.67.
+Warning: Teleporting vehicle 'flow1.15'; waited too long, from 'start1:0' to 'start2:3', time=107.67.
+Warning: Teleporting vehicle 'flow0.11'; waited too long, from 'start0:0' to 'start2:3', time=111.67.
+Warning: Teleporting vehicle 'flow1.16'; waited too long, from 'start1:0' to 'start2:3', time=122.67.
+Warning: Teleporting vehicle 'flow3.11'; waited too long, from 'start3:0' to 'start2:3', time=132.47.
+Warning: Teleporting vehicle 'flow1.17'; waited too long, from 'start1:0' to 'start2:3', time=141.67.
+Warning: Teleporting vehicle 'flow0.13'; waited too long, from 'start0:0', time 154.67.
+Warning: Teleporting vehicle 'flow0.14'; waited too long, from 'start0:0', time 155.67.
+Warning: Teleporting vehicle 'flow0.15'; waited too long, from 'start0:0', time 156.67.
+Warning: Teleporting vehicle 'flow0.16'; waited too long, from 'start0:0', time 157.67.
+Warning: Teleporting vehicle 'flow0.17'; waited too long, from 'start0:0', time 158.67.
+Warning: Teleporting vehicle 'flow0.18'; waited too long, from 'start0:0', time 159.67.
+Warning: Teleporting vehicle 'flow0.19'; waited too long, from 'start0:0', time 160.67.
+Warning: Vehicle 'flow0.13' ends teleporting on segment 'dest:0', simulation time 161.53.
+Warning: Teleporting vehicle 'flow0.20'; waited too long, from 'start0:0', time 161.68.
+Warning: Vehicle 'flow0.14' ends teleporting on segment 'dest:0', simulation time 162.53.
+Warning: Teleporting vehicle 'flow0.21'; waited too long, from 'start0:0', time 162.68.
+Warning: Vehicle 'flow0.15' ends teleporting on segment 'dest:0', simulation time 163.53.
+Warning: Teleporting vehicle 'flow0.22'; waited too long, from 'start0:0', time 163.68.
+Warning: Vehicle 'flow0.16' ends teleporting on segment 'dest:0', simulation time 164.53.
+Warning: Teleporting vehicle 'flow1.18'; waited too long, from 'start1:0', time 164.67.
+Warning: Teleporting vehicle 'flow0.23'; waited too long, from 'start0:0', time 164.68.
+Warning: Vehicle 'flow0.17' ends teleporting on segment 'dest:0', simulation time 165.53.
+Warning: Teleporting vehicle 'flow1.19'; waited too long, from 'start1:0', time 165.68.
+Warning: Teleporting vehicle 'flow0.24'; waited too long, from 'start0:0', time 165.68.
+Warning: Vehicle 'flow0.18' ends teleporting on segment 'dest:0', simulation time 166.53.
+Warning: Teleporting vehicle 'flow1.20'; waited too long, from 'start1:0', time 166.68.
+Warning: Teleporting vehicle 'flow0.25'; waited too long, from 'start0:0', time 166.68.
+Warning: Vehicle 'flow0.19' ends teleporting on segment 'dest:0', simulation time 167.53.
+Warning: Teleporting vehicle 'flow1.21'; waited too long, from 'start1:0', time 167.68.
+Warning: Teleporting vehicle 'flow0.26'; waited too long, from 'start0:0', time 167.68.
+Warning: Vehicle 'flow0.20' ends teleporting on segment 'dest:0', simulation time 168.53.
+Warning: Teleporting vehicle 'flow1.22'; waited too long, from 'start1:0', time 168.68.
+Warning: Teleporting vehicle 'flow0.27'; waited too long, from 'start0:0', time 168.68.
+Warning: Vehicle 'flow0.21' ends teleporting on segment 'dest:0', simulation time 169.53.
+Warning: Teleporting vehicle 'flow1.23'; waited too long, from 'start1:0', time 169.68.
+Warning: Teleporting vehicle 'flow0.28'; waited too long, from 'start0:0', time 169.68.
+Warning: Vehicle 'flow0.22' ends teleporting on segment 'dest:0', simulation time 170.53.
+Warning: Teleporting vehicle 'flow1.24'; waited too long, from 'start1:0', time 170.68.
+Warning: Teleporting vehicle 'flow0.29'; waited too long, from 'start0:0', time 170.68.
+Warning: Vehicle 'flow1.18' ends teleporting on segment 'dest:0', simulation time 171.53.
+Warning: Vehicle 'flow0.23' ends teleporting on segment 'dest:0', simulation time 171.53.
+Warning: Teleporting vehicle 'flow0.30'; waited too long, from 'start0:0', time 171.69.
+Warning: Vehicle 'flow1.19' ends teleporting on segment 'dest:0', simulation time 172.53.
+Warning: Vehicle 'flow0.24' ends teleporting on segment 'dest:0', simulation time 172.54.
+Warning: Teleporting vehicle 'flow0.31'; waited too long, from 'start0:0', time 172.69.
+Warning: Vehicle 'flow1.20' teleports to end of route ('dest'), simulation time 568.78.
+Warning: Vehicle 'flow0.25' teleports to end of route ('dest'), simulation time 568.79.
+Warning: Teleporting vehicle 'flow0.32'; waited too long, from 'start0:0', time 173.69.
+Warning: Vehicle 'flow1.21' teleports to end of route ('dest'), simulation time 569.78.
+Warning: Vehicle 'flow0.26' teleports to end of route ('dest'), simulation time 569.79.
+Warning: Teleporting vehicle 'flow0.33'; waited too long, from 'start0:0', time 174.69.
+Warning: Vehicle 'flow1.22' teleports to end of route ('dest'), simulation time 570.78.
+Warning: Vehicle 'flow0.27' teleports to end of route ('dest'), simulation time 570.79.
+Warning: Teleporting vehicle 'flow0.34'; waited too long, from 'start0:0', time 175.69.
+Warning: Vehicle 'flow1.23' teleports to end of route ('dest'), simulation time 571.79.
+Warning: Vehicle 'flow0.28' teleports to end of route ('dest'), simulation time 571.79.
+Warning: Teleporting vehicle 'flow0.35'; waited too long, from 'start0:0', time 176.69.
+Warning: Vehicle 'flow1.24' teleports to end of route ('dest'), simulation time 572.79.
+Warning: Vehicle 'flow0.29' teleports to end of route ('dest'), simulation time 572.79.
+Warning: Teleporting vehicle 'flow0.36'; waited too long, from 'start0:0', time 177.69.
+Warning: Vehicle 'flow0.30' teleports to end of route ('dest'), simulation time 573.79.
+Warning: Teleporting vehicle 'flow0.37'; waited too long, from 'start0:0', time 178.69.
+Warning: Teleporting vehicle 'flow3.13'; waited too long, from 'start3:0', time 179.47.
+Warning: Vehicle 'flow0.31' teleports to end of route ('dest'), simulation time 574.79.
+Warning: Teleporting vehicle 'flow0.38'; waited too long, from 'start0:0', time 179.69.
+Warning: Teleporting vehicle 'flow3.14'; waited too long, from 'start3:0', time 180.47.
+Warning: Vehicle 'flow0.32' teleports to end of route ('dest'), simulation time 575.79.
+Warning: Teleporting vehicle 'flow0.39'; waited too long, from 'start0:0', time 180.69.
+Warning: Teleporting vehicle 'flow3.15'; waited too long, from 'start3:0', time 181.47.
+Warning: Vehicle 'flow0.33' teleports to end of route ('dest'), simulation time 576.79.
+Warning: Teleporting vehicle 'flow0.40'; waited too long, from 'start0:0', time 181.69.
+Warning: Teleporting vehicle 'flow3.16'; waited too long, from 'start3:0', time 182.47.
+Warning: Vehicle 'flow0.34' teleports to end of route ('dest'), simulation time 577.80.
+Warning: Teleporting vehicle 'flow0.41'; waited too long, from 'start0:0', time 182.70.
+Warning: Teleporting vehicle 'flow3.17'; waited too long, from 'start3:0', time 183.47.
+Warning: Vehicle 'flow0.35' teleports to end of route ('dest'), simulation time 578.80.
+Warning: Teleporting vehicle 'flow0.42'; waited too long, from 'start0:0', time 183.70.
+Warning: Teleporting vehicle 'flow3.18'; waited too long, from 'start3:0', time 184.47.
+Warning: Vehicle 'flow0.36' teleports to end of route ('dest'), simulation time 579.80.
+Warning: Teleporting vehicle 'flow0.43'; waited too long, from 'start0:0', time 184.70.
+Warning: Teleporting vehicle 'flow3.19'; waited too long, from 'start3:0', time 185.47.
+Warning: Vehicle 'flow0.37' teleports to end of route ('dest'), simulation time 580.80.
+Warning: Teleporting vehicle 'flow0.44'; waited too long, from 'start0:0', time 185.70.
+Warning: Vehicle 'flow3.13' teleports to end of route ('dest'), simulation time 581.58.
+Warning: Teleporting vehicle 'flow3.20'; waited too long, from 'start3:0', time 186.47.
+Warning: Vehicle 'flow0.38' teleports to end of route ('dest'), simulation time 581.80.
+Warning: Teleporting vehicle 'flow0.45'; waited too long, from 'start0:0', time 186.70.
+Warning: Vehicle 'flow3.14' teleports to end of route ('dest'), simulation time 582.58.
+Warning: Teleporting vehicle 'flow3.21'; waited too long, from 'start3:0', time 187.48.
+Warning: Teleporting vehicle 'flow1.11'; waited too long, from 'start2:3', time 187.48.
+Warning: Vehicle 'flow1.11' teleports to end of route ('dest'), simulation time 582.73.
+Warning: Vehicle 'flow0.39' teleports to end of route ('dest'), simulation time 582.80.
+Warning: Teleporting vehicle 'flow0.46'; waited too long, from 'start0:0', time 187.70.
+Warning: Vehicle 'flow3.15' teleports to end of route ('dest'), simulation time 583.58.
+Warning: Teleporting vehicle 'flow3.22'; waited too long, from 'start3:0', time 188.48.
+Warning: Vehicle 'flow0.40' teleports to end of route ('dest'), simulation time 583.80.
+Warning: Teleporting vehicle 'flow0.47'; waited too long, from 'start0:0', time 188.70.
+Warning: Vehicle 'flow3.16' teleports to end of route ('dest'), simulation time 584.58.
+Warning: Teleporting vehicle 'flow3.23'; waited too long, from 'start3:0', time 189.48.
+Warning: Vehicle 'flow0.41' teleports to end of route ('dest'), simulation time 584.80.
+Warning: Teleporting vehicle 'flow0.48'; waited too long, from 'start0:0', time 189.70.
+Warning: Vehicle 'flow3.17' teleports to end of route ('dest'), simulation time 585.58.
+Warning: Teleporting vehicle 'flow3.24'; waited too long, from 'start3:0', time 190.48.
+Warning: Teleporting vehicle 'flow1.12'; waited too long, from 'start2:3', time 190.48.
+Warning: Vehicle 'flow1.12' teleports to end of route ('dest'), simulation time 585.73.
+Warning: Vehicle 'flow0.42' teleports to end of route ('dest'), simulation time 585.80.
+Warning: Teleporting vehicle 'flow0.49'; waited too long, from 'start0:0', time 190.70.
+Warning: Vehicle 'flow3.18' teleports to end of route ('dest'), simulation time 586.58.
+Warning: Teleporting vehicle 'flow3.25'; waited too long, from 'start3:0', time 191.48.
+Warning: Vehicle 'flow0.43' teleports to end of route ('dest'), simulation time 586.80.
+Warning: Teleporting vehicle 'flow0.50'; waited too long, from 'start0:0', time 191.71.
+Warning: Vehicle 'flow3.19' teleports to end of route ('dest'), simulation time 587.58.
+Warning: Teleporting vehicle 'flow0.8'; waited too long, from 'start2:3', time 192.48.
+Warning: Vehicle 'flow0.8' teleports to end of route ('dest'), simulation time 587.73.
+Warning: Teleporting vehicle 'flow3.26'; waited too long, from 'start3:0', time 192.48.
+Warning: Vehicle 'flow0.44' teleports to end of route ('dest'), simulation time 587.81.
+Warning: Teleporting vehicle 'flow0.51'; waited too long, from 'start0:0', time 192.71.
+Warning: Vehicle 'flow3.20' teleports to end of route ('dest'), simulation time 588.58.
+Warning: Teleporting vehicle 'flow3.27'; waited too long, from 'start3:0', time 193.48.
+Warning: Vehicle 'flow0.45' teleports to end of route ('dest'), simulation time 588.81.
+Warning: Teleporting vehicle 'flow0.52'; waited too long, from 'start0:0', time 193.71.
+Warning: Teleporting vehicle 'flow1.13'; waited too long, from 'start2:3', time 193.88.
+Warning: Vehicle 'flow1.13' teleports to end of route ('dest'), simulation time 589.13.
+Warning: Vehicle 'flow3.21' teleports to end of route ('dest'), simulation time 589.58.
+Warning: Teleporting vehicle 'flow3.28'; waited too long, from 'start3:0' to 'start2:3', time=194.48.
+Warning: Vehicle 'flow0.46' teleports to end of route ('dest'), simulation time 589.81.
+Warning: Teleporting vehicle 'flow0.53'; waited too long, from 'start0:0', time 194.71.
+Warning: Vehicle 'flow3.22' ends teleporting on segment 'dest:0', simulation time 195.33.
+Warning: Vehicle 'flow0.47' teleports to end of route ('dest'), simulation time 590.81.
+Warning: Vehicle 'flow3.23' ends teleporting on segment 'dest:0', simulation time 196.34.
+Warning: Vehicle 'flow0.48' teleports to end of route ('dest'), simulation time 591.81.
+Warning: Vehicle 'flow3.24' teleports to end of route ('dest'), simulation time 592.59.
+Warning: Vehicle 'flow0.49' teleports to end of route ('dest'), simulation time 592.81.
+Warning: Teleporting vehicle 'flow1.26'; waited too long, from 'start1:0' to 'start2:3', time=197.81.
+Warning: Vehicle 'flow3.25' ends teleporting on segment 'dest:0', simulation time 198.34.
+Warning: Vehicle 'flow0.50' teleports to end of route ('dest'), simulation time 593.81.
+Warning: Vehicle 'flow3.26' ends teleporting on segment 'dest:0', simulation time 199.34.
+Warning: Vehicle 'flow0.51' teleports to end of route ('dest'), simulation time 594.81.
+Warning: Vehicle 'flow3.27' teleports to end of route ('dest'), simulation time 595.59.
+Warning: Vehicle 'flow0.52' ends teleporting on segment 'dest:0', simulation time 200.56.
+Warning: Vehicle 'flow0.53' teleports to end of route ('dest'), simulation time 596.82.
+Warning: Teleporting vehicle 'flow3.29'; waited too long, from 'start3:0' to 'start2:1', time=217.48.
+Warning: Teleporting vehicle 'flow0.55'; waited too long, from 'start0:0', time 221.81.
+Warning: Teleporting vehicle 'flow0.56'; waited too long, from 'start0:0', time 222.81.
+Warning: Teleporting vehicle 'flow0.57'; waited too long, from 'start0:0', time 223.82.
+Warning: Teleporting vehicle 'flow0.58'; waited too long, from 'start0:0', time 224.82.
+Warning: Teleporting vehicle 'flow0.59'; waited too long, from 'start0:0', time 225.82.
+Warning: Teleporting vehicle 'flow0.60'; waited too long, from 'start0:0', time 226.82.
+Warning: Teleporting vehicle 'flow0.61'; waited too long, from 'start0:0', time 227.82.
+Warning: Vehicle 'flow0.55' ends teleporting on segment 'dest:0', simulation time 228.67.
+Warning: Teleporting vehicle 'flow0.62'; waited too long, from 'start0:0', time 228.82.
+Warning: Vehicle 'flow0.56' ends teleporting on segment 'dest:0', simulation time 229.67.
+Warning: Teleporting vehicle 'flow0.63'; waited too long, from 'start0:0', time 229.82.
+Warning: Vehicle 'flow0.57' ends teleporting on segment 'dest:0', simulation time 230.67.
+Warning: Teleporting vehicle 'flow0.64'; waited too long, from 'start0:0', time 230.82.
+Warning: Vehicle 'flow0.58' ends teleporting on segment 'dest:0', simulation time 231.67.
+Warning: Teleporting vehicle 'flow0.65'; waited too long, from 'start0:0' to 'start2:3', time=231.82.
+Warning: Vehicle 'flow0.59' ends teleporting on segment 'dest:0', simulation time 232.68.
+Warning: Vehicle 'flow0.60' ends teleporting on segment 'dest:0', simulation time 233.68.
+Warning: Vehicle 'flow0.61' ends teleporting on segment 'dest:0', simulation time 234.68.
+Warning: Vehicle 'flow0.62' ends teleporting on segment 'dest:0', simulation time 235.68.
+Warning: Vehicle 'flow0.63' ends teleporting on segment 'dest:0', simulation time 236.68.
+Warning: Vehicle 'flow0.64' ends teleporting on segment 'dest:0', simulation time 237.68.
+Warning: Teleporting vehicle 'flow3.30'; waited too long, from 'start3:0', time 242.49.
+Warning: Teleporting vehicle 'flow3.31'; waited too long, from 'start3:0', time 243.49.
+Warning: Teleporting vehicle 'flow3.32'; waited too long, from 'start3:0', time 244.49.
+Warning: Teleporting vehicle 'flow1.28'; waited too long, from 'start1:0', time 246.81.
+Warning: Teleporting vehicle 'flow1.29'; waited too long, from 'start1:0', time 247.82.
+Warning: Teleporting vehicle 'flow1.30'; waited too long, from 'start1:0', time 248.82.
+Warning: Vehicle 'flow3.30' ends teleporting on segment 'dest:0', simulation time 249.34.
+Warning: Teleporting vehicle 'flow1.31'; waited too long, from 'start1:0', time 249.82.
+Warning: Vehicle 'flow3.31' ends teleporting on segment 'dest:0', simulation time 250.34.
+Warning: Teleporting vehicle 'flow1.32'; waited too long, from 'start1:0', time 250.82.
+Warning: Vehicle 'flow3.32' ends teleporting on segment 'dest:0', simulation time 251.34.
+Warning: Teleporting vehicle 'flow1.33'; waited too long, from 'start1:0', time 251.82.
+Warning: Teleporting vehicle 'flow1.34'; waited too long, from 'start1:0', time 252.82.
+Warning: Vehicle 'flow1.28' ends teleporting on segment 'dest:0', simulation time 253.67.
+Warning: Teleporting vehicle 'flow1.35'; waited too long, from 'start1:0', time 253.82.
+Warning: Vehicle 'flow1.29' teleports to end of route ('dest'), simulation time 649.92.
+Warning: Teleporting vehicle 'flow1.36'; waited too long, from 'start1:0', time 254.82.
+Warning: Teleporting vehicle 'flow0.66'; waited too long, from 'start0:0', time 254.82.
+Warning: Vehicle 'flow1.30' teleports to end of route ('dest'), simulation time 650.92.
+Warning: Teleporting vehicle 'flow1.37'; waited too long, from 'start1:0', time 255.82.
+Warning: Teleporting vehicle 'flow0.67'; waited too long, from 'start0:0', time 255.83.
+Warning: Vehicle 'flow1.31' teleports to end of route ('dest'), simulation time 651.92.
+Warning: Teleporting vehicle 'flow1.38'; waited too long, from 'start1:0', time 256.82.
+Warning: Teleporting vehicle 'flow0.68'; waited too long, from 'start0:0', time 256.83.
+Warning: Vehicle 'flow1.32' teleports to end of route ('dest'), simulation time 652.93.
+Warning: Teleporting vehicle 'flow1.39'; waited too long, from 'start1:0', time 257.83.
+Warning: Teleporting vehicle 'flow0.69'; waited too long, from 'start0:0', time 257.83.
+Warning: Vehicle 'flow1.33' teleports to end of route ('dest'), simulation time 653.93.
+Warning: Teleporting vehicle 'flow1.40'; waited too long, from 'start1:0', time 258.83.
+Warning: Teleporting vehicle 'flow0.70'; waited too long, from 'start0:0', time 258.83.
+Warning: Vehicle 'flow1.34' teleports to end of route ('dest'), simulation time 654.93.
+Warning: Teleporting vehicle 'flow1.41'; waited too long, from 'start1:0', time 259.83.
+Warning: Teleporting vehicle 'flow0.71'; waited too long, from 'start0:0', time 259.83.
+Warning: Vehicle 'flow1.35' teleports to end of route ('dest'), simulation time 655.93.
+Warning: Teleporting vehicle 'flow1.42'; waited too long, from 'start1:0', time 260.83.
+Warning: Teleporting vehicle 'flow0.72'; waited too long, from 'start0:0', time 260.83.
+Warning: Vehicle 'flow1.36' teleports to end of route ('dest'), simulation time 656.93.
+Warning: Vehicle 'flow0.66' teleports to end of route ('dest'), simulation time 656.93.
+Warning: Teleporting vehicle 'flow1.43'; waited too long, from 'start1:0', time 261.83.
+Warning: Teleporting vehicle 'flow0.73'; waited too long, from 'start0:0', time 261.83.
+Warning: Vehicle 'flow1.37' ends teleporting on segment 'dest:0', simulation time 262.68.
+Warning: Vehicle 'flow0.67' teleports to end of route ('dest'), simulation time 657.93.
+Warning: Teleporting vehicle 'flow1.44'; waited too long, from 'start1:0', time 262.83.
+Warning: Teleporting vehicle 'flow0.74'; waited too long, from 'start0:0', time 262.83.
+Warning: Vehicle 'flow1.38' ends teleporting on segment 'dest:0', simulation time 263.68.
+Warning: Vehicle 'flow0.68' teleports to end of route ('dest'), simulation time 658.93.
+Warning: Teleporting vehicle 'flow1.45'; waited too long, from 'start1:0' to 'start2:3', time=263.83.
+Warning: Teleporting vehicle 'flow0.75'; waited too long, from 'start0:0', time 263.83.
+Warning: Vehicle 'flow1.39' teleports to end of route ('dest'), simulation time 659.93.
+Warning: Vehicle 'flow0.69' teleports to end of route ('dest'), simulation time 659.93.
+Warning: Teleporting vehicle 'flow0.76'; waited too long, from 'start0:0', time 264.83.
+Warning: Vehicle 'flow1.40' ends teleporting on segment 'dest:0', simulation time 265.68.
+Warning: Vehicle 'flow0.70' teleports to end of route ('dest'), simulation time 660.94.
+Warning: Teleporting vehicle 'flow0.77'; waited too long, from 'start0:0', time 265.84.
+Warning: Vehicle 'flow1.41' ends teleporting on segment 'dest:0', simulation time 266.69.
+Warning: Vehicle 'flow0.71' teleports to end of route ('dest'), simulation time 661.94.
+Warning: Teleporting vehicle 'flow0.78'; waited too long, from 'start0:0', time 266.84.
+Warning: Vehicle 'flow1.42' ends teleporting on segment 'dest:0', simulation time 267.69.
+Warning: Vehicle 'flow0.72' teleports to end of route ('dest'), simulation time 662.94.
+Warning: Teleporting vehicle 'flow0.79'; waited too long, from 'start0:0', time 267.84.
+Warning: Vehicle 'flow1.43' teleports to end of route ('dest'), simulation time 663.94.
+Warning: Vehicle 'flow0.73' teleports to end of route ('dest'), simulation time 663.94.
+Warning: Teleporting vehicle 'flow0.80'; waited too long, from 'start0:0', time 268.84.
+Warning: Vehicle 'flow1.44' ends teleporting on segment 'dest:0', simulation time 269.69.
+Warning: Vehicle 'flow0.74' teleports to end of route ('dest'), simulation time 664.94.
+Warning: Teleporting vehicle 'flow0.81'; waited too long, from 'start0:0', time 269.84.
+Warning: Vehicle 'flow0.75' ends teleporting on segment 'dest:0', simulation time 270.69.
+Warning: Teleporting vehicle 'flow0.82'; waited too long, from 'start0:0', time 270.84.
+Warning: Vehicle 'flow0.76' teleports to end of route ('dest'), simulation time 666.94.
+Warning: Teleporting vehicle 'flow0.83'; waited too long, from 'start0:0', time 271.84.
+Warning: Vehicle 'flow0.77' ends teleporting on segment 'dest:0', simulation time 272.69.
+Warning: Teleporting vehicle 'flow0.84'; waited too long, from 'start0:0', time 272.84.
+Warning: Vehicle 'flow0.78' ends teleporting on segment 'dest:0', simulation time 273.69.
+Warning: Teleporting vehicle 'flow0.85'; waited too long, from 'start0:0', time 273.84.
+Warning: Vehicle 'flow0.79' ends teleporting on segment 'dest:0', simulation time 274.69.
+Warning: Teleporting vehicle 'flow0.86'; waited too long, from 'start0:0', time 274.85.
+Warning: Vehicle 'flow0.80' teleports to end of route ('dest'), simulation time 670.95.
+Warning: Teleporting vehicle 'flow0.87'; waited too long, from 'start0:0', time 275.85.
+Warning: Vehicle 'flow0.81' teleports to end of route ('dest'), simulation time 671.95.
+Warning: Teleporting vehicle 'flow0.88'; waited too long, from 'start0:0', time 276.85.
+Warning: Vehicle 'flow0.82' teleports to end of route ('dest'), simulation time 672.95.
+Warning: Teleporting vehicle 'flow0.89'; waited too long, from 'start0:0', time 277.85.
+Warning: Vehicle 'flow0.83' teleports to end of route ('dest'), simulation time 673.95.
+Warning: Teleporting vehicle 'flow0.90'; waited too long, from 'start0:0', time 278.85.
+Warning: Vehicle 'flow0.84' teleports to end of route ('dest'), simulation time 674.95.
+Warning: Teleporting vehicle 'flow0.91'; waited too long, from 'start0:0', time 279.85.
+Warning: Vehicle 'flow0.85' teleports to end of route ('dest'), simulation time 675.95.
+Warning: Teleporting vehicle 'flow0.92'; waited too long, from 'start0:0', time 280.85.
+Warning: Vehicle 'flow0.86' teleports to end of route ('dest'), simulation time 676.95.
+Warning: Teleporting vehicle 'flow0.93'; waited too long, from 'start0:0', time 281.85.
+Warning: Vehicle 'flow0.87' ends teleporting on segment 'dest:0', simulation time 282.70.
+Warning: Teleporting vehicle 'flow0.94'; waited too long, from 'start0:0', time 282.85.
+Warning: Vehicle 'flow0.88' teleports to end of route ('dest'), simulation time 678.95.
+Warning: Teleporting vehicle 'flow0.95'; waited too long, from 'start0:0', time 283.85.
+Warning: Vehicle 'flow0.89' ends teleporting on segment 'dest:0', simulation time 284.70.
+Warning: Teleporting vehicle 'flow0.96'; waited too long, from 'start0:0', time 284.86.
+Warning: Vehicle 'flow0.90' ends teleporting on segment 'dest:0', simulation time 285.71.
+Warning: Teleporting vehicle 'flow0.97'; waited too long, from 'start0:0', time 285.86.
+Warning: Vehicle 'flow0.91' teleports to end of route ('dest'), simulation time 681.96.
+Warning: Teleporting vehicle 'flow1.46'; waited too long, from 'start1:0', time 286.83.
+Warning: Teleporting vehicle 'flow0.98'; waited too long, from 'start0:0', time 286.86.
+Warning: Vehicle 'flow0.92' ends teleporting on segment 'dest:0', simulation time 287.71.
+Warning: Teleporting vehicle 'flow1.47'; waited too long, from 'start1:0', time 287.83.
+Warning: Teleporting vehicle 'flow0.99'; waited too long, from 'start0:0', time 287.86.
+Warning: Vehicle 'flow0.93' teleports to end of route ('dest'), simulation time 683.96.
+Warning: Teleporting vehicle 'flow1.48'; waited too long, from 'start1:0', time 288.83.
+Warning: Teleporting vehicle 'flow0.100'; waited too long, from 'start0:0', time 288.86.
+Warning: Vehicle 'flow0.94' teleports to end of route ('dest'), simulation time 684.96.
+Warning: Teleporting vehicle 'flow1.49'; waited too long, from 'start1:0', time 289.84.
+Warning: Teleporting vehicle 'flow0.101'; waited too long, from 'start0:0', time 289.86.
+Warning: Teleporting vehicle 'flow1.16'; waited too long, from 'start2:3', time 290.41.
+Warning: Vehicle 'flow1.16' teleports to end of route ('dest'), simulation time 685.66.
+Warning: Vehicle 'flow0.95' teleports to end of route ('dest'), simulation time 685.96.
+Warning: Teleporting vehicle 'flow1.50'; waited too long, from 'start1:0', time 290.84.
+Warning: Teleporting vehicle 'flow0.102'; waited too long, from 'start0:0', time 290.86.
+Warning: Teleporting vehicle 'flow3.11'; waited too long, from 'start2:3', time 291.41.
+Warning: Vehicle 'flow3.11' teleports to end of route ('dest'), simulation time 686.66.
+Warning: Vehicle 'flow0.96' teleports to end of route ('dest'), simulation time 686.96.
+Warning: Teleporting vehicle 'flow1.51'; waited too long, from 'start1:0', time 291.84.
+Warning: Teleporting vehicle 'flow0.103'; waited too long, from 'start0:0', time 291.86.
+Warning: Teleporting vehicle 'flow1.17'; waited too long, from 'start2:3', time 292.41.
+Warning: Vehicle 'flow1.17' teleports to end of route ('dest'), simulation time 687.66.
+Warning: Vehicle 'flow0.97' teleports to end of route ('dest'), simulation time 687.96.
+Warning: Teleporting vehicle 'flow1.52'; waited too long, from 'start1:0' to 'start2:3', time=292.84.
+Warning: Teleporting vehicle 'flow0.104'; waited too long, from 'start0:0', time 292.86.
+Warning: Teleporting vehicle 'flow1.5'; waited too long, from 'start2:3', time 293.41.
+Warning: Vehicle 'flow1.5' teleports to end of route ('dest'), simulation time 688.66.
+Warning: Vehicle 'flow1.46' teleports to end of route ('dest'), simulation time 688.94.
+Warning: Vehicle 'flow0.98' teleports to end of route ('dest'), simulation time 688.96.
+Warning: Teleporting vehicle 'flow0.105'; waited too long, from 'start0:0' to 'start2:3', time=293.86.
+Warning: Teleporting vehicle 'flow1.6'; waited too long, from 'start2:3', time 294.41.
+Warning: Vehicle 'flow1.6' teleports to end of route ('dest'), simulation time 689.66.
+Warning: Vehicle 'flow1.47' teleports to end of route ('dest'), simulation time 689.94.
+Warning: Vehicle 'flow0.99' teleports to end of route ('dest'), simulation time 689.97.
+Warning: Teleporting vehicle 'flow1.7'; waited too long, from 'start2:3', time 295.41.
+Warning: Vehicle 'flow1.7' teleports to end of route ('dest'), simulation time 690.66.
+Warning: Vehicle 'flow1.48' teleports to end of route ('dest'), simulation time 690.94.
+Warning: Vehicle 'flow0.100' teleports to end of route ('dest'), simulation time 690.97.
+Warning: Vehicle 'flow1.49' ends teleporting on segment 'dest:0', simulation time 296.69.
+Warning: Vehicle 'flow0.101' teleports to end of route ('dest'), simulation time 691.97.
+Warning: Vehicle 'flow1.50' ends teleporting on segment 'dest:0', simulation time 297.69.
+Warning: Vehicle 'flow0.102' teleports to end of route ('dest'), simulation time 692.97.
+Warning: Vehicle 'flow1.51' teleports to end of route ('dest'), simulation time 693.95.
+Warning: Vehicle 'flow0.103' teleports to end of route ('dest'), simulation time 693.97.
+Warning: Vehicle 'flow0.104' ends teleporting on segment 'dest:0', simulation time 299.72.
+Warning: Teleporting vehicle 'flow1.53'; waited too long, from 'start1:0' to 'start2:3', time=315.84.
+Warning: Teleporting vehicle 'flow0.106'; waited too long, from 'start0:0' to 'start2:3', time=316.87.
+Warning: Teleporting vehicle 'flow1.54'; waited too long, from 'start1:0' to 'start2:2', time=336.84.
+Warning: Teleporting vehicle 'flow0.107'; waited too long, from 'start0:0' to 'start2:3', time=339.87.
+Warning: Teleporting vehicle 'flow0.108'; waited too long, from 'start0:0' to 'start2:3', time=358.87.
+Warning: Teleporting vehicle 'flow1.55'; waited too long, from 'start1:0', time 361.84.
+Warning: Teleporting vehicle 'flow1.56'; waited too long, from 'start1:0' to 'start2:3', time=362.84.
+Warning: Vehicle 'flow1.55' ends teleporting on segment 'dest:0', simulation time 368.70.
+Warning: Teleporting vehicle 'flow0.109'; waited too long, from 'start0:0', time 381.87.
+Warning: Teleporting vehicle 'flow0.110'; waited too long, from 'start0:0', time 382.87.
+Warning: Teleporting vehicle 'flow0.111'; waited too long, from 'start0:0', time 383.87.
+Warning: Teleporting vehicle 'flow0.112'; waited too long, from 'start0:0', time 384.87.
+Warning: Teleporting vehicle 'flow1.57'; waited too long, from 'start1:0', time 385.84.
+Warning: Teleporting vehicle 'flow0.113'; waited too long, from 'start0:0', time 385.87.
+Warning: Teleporting vehicle 'flow1.58'; waited too long, from 'start1:0', time 386.85.
+Warning: Teleporting vehicle 'flow0.114'; waited too long, from 'start0:0', time 386.87.
+Warning: Teleporting vehicle 'flow1.59'; waited too long, from 'start1:0' to 'start2:3', time=387.85.
+Warning: Teleporting vehicle 'flow0.115'; waited too long, from 'start0:0', time 387.87.
+Warning: Vehicle 'flow0.109' ends teleporting on segment 'dest:0', simulation time 388.73.
+Warning: Teleporting vehicle 'flow0.116'; waited too long, from 'start0:0', time 388.88.
+Warning: Vehicle 'flow0.110' ends teleporting on segment 'dest:0', simulation time 389.73.
+Warning: Teleporting vehicle 'flow0.117'; waited too long, from 'start0:0', time 389.88.
+Warning: Vehicle 'flow0.111' ends teleporting on segment 'dest:0', simulation time 390.73.
+Warning: Teleporting vehicle 'flow0.118'; waited too long, from 'start0:0', time 390.88.
+Warning: Vehicle 'flow0.112' ends teleporting on segment 'dest:0', simulation time 391.73.
+Warning: Teleporting vehicle 'flow0.119'; waited too long, from 'start0:0' to 'start2:3', time=391.88.
+Warning: Vehicle 'flow1.57' ends teleporting on segment 'dest:0', simulation time 392.70.
+Warning: Vehicle 'flow0.113' ends teleporting on segment 'dest:0', simulation time 392.73.
+Warning: Vehicle 'flow1.58' ends teleporting on segment 'dest:0', simulation time 393.70.
+Warning: Vehicle 'flow0.114' ends teleporting on segment 'dest:0', simulation time 393.73.
+Warning: Vehicle 'flow0.115' ends teleporting on segment 'dest:0', simulation time 394.73.
+Warning: Vehicle 'flow0.116' ends teleporting on segment 'dest:0', simulation time 395.73.
+Warning: Vehicle 'flow0.117' ends teleporting on segment 'dest:0', simulation time 396.73.
+Warning: Vehicle 'flow0.118' ends teleporting on segment 'dest:0', simulation time 397.73.
+Warning: Teleporting vehicle 'flow1.60'; waited too long, from 'start1:0', time 410.85.
+Warning: Teleporting vehicle 'flow1.61'; waited too long, from 'start1:0', time 411.85.
+Warning: Teleporting vehicle 'flow1.62'; waited too long, from 'start1:0', time 412.85.
+Warning: Teleporting vehicle 'flow1.63'; waited too long, from 'start1:0' to 'start2:3', time=413.85.
+Warning: Teleporting vehicle 'flow0.120'; waited too long, from 'start0:0', time 414.88.
+Warning: Teleporting vehicle 'flow0.121'; waited too long, from 'start0:0', time 415.88.
+Warning: Teleporting vehicle 'flow0.122'; waited too long, from 'start0:0' to 'start2:2', time=416.88.
+Warning: Vehicle 'flow1.60' ends teleporting on segment 'dest:0', simulation time 417.70.
+Warning: Vehicle 'flow1.61' ends teleporting on segment 'dest:0', simulation time 418.70.
+Warning: Vehicle 'flow1.62' teleports to end of route ('dest'), simulation time 814.96.
+Warning: Vehicle 'flow0.120' teleports to end of route ('dest'), simulation time 816.99.
+Warning: Vehicle 'flow0.121' ends teleporting on segment 'dest:0', simulation time 422.74.
+Warning: Teleporting vehicle 'flow1.64'; waited too long, from 'start1:0', time 436.85.
+Warning: Teleporting vehicle 'flow1.65'; waited too long, from 'start1:0', time 437.85.
+Warning: Teleporting vehicle 'flow1.66'; waited too long, from 'start1:0', time 438.85.
+Warning: Teleporting vehicle 'flow1.67'; waited too long, from 'start1:0' to 'start2:3', time=439.85.
+Warning: Teleporting vehicle 'flow0.123'; waited too long, from 'start0:0', time 441.88.
+Warning: Teleporting vehicle 'flow0.124'; waited too long, from 'start0:0', time 442.88.
+Warning: Vehicle 'flow1.64' ends teleporting on segment 'dest:0', simulation time 443.71.
+Warning: Teleporting vehicle 'flow0.125'; waited too long, from 'start0:0' to 'start2:3', time=443.88.
+Warning: Vehicle 'flow1.65' ends teleporting on segment 'dest:0', simulation time 444.71.
+Warning: Vehicle 'flow1.66' ends teleporting on segment 'dest:0', simulation time 445.71.
+Warning: Vehicle 'flow0.123' ends teleporting on segment 'dest:0', simulation time 448.74.
+Warning: Vehicle 'flow0.124' ends teleporting on segment 'dest:0', simulation time 449.74.
+Warning: Teleporting vehicle 'flow1.68'; waited too long, from 'start1:0' to 'start2:3', time=462.86.
+Warning: Teleporting vehicle 'flow0.126'; waited too long, from 'start0:0', time 466.88.
+Warning: Teleporting vehicle 'flow0.127'; waited too long, from 'start0:0', time 467.89.
+Warning: Teleporting vehicle 'flow0.128'; waited too long, from 'start0:0', time 468.89.
+Warning: Teleporting vehicle 'flow0.129'; waited too long, from 'start0:0', time 469.89.
+Warning: Teleporting vehicle 'flow0.130'; waited too long, from 'start0:0', time 470.89.
+Warning: Teleporting vehicle 'flow0.131'; waited too long, from 'start0:0', time 471.89.
+Warning: Teleporting vehicle 'flow0.132'; waited too long, from 'start0:0', time 472.89.
+Warning: Vehicle 'flow0.126' ends teleporting on segment 'dest:0', simulation time 473.74.
+Warning: Teleporting vehicle 'flow0.133'; waited too long, from 'start0:0' to 'start2:3', time=473.89.
+Warning: Vehicle 'flow0.127' ends teleporting on segment 'dest:0', simulation time 474.74.
+Warning: Vehicle 'flow0.128' ends teleporting on segment 'dest:0', simulation time 475.74.
+Warning: Vehicle 'flow0.129' ends teleporting on segment 'dest:0', simulation time 476.75.
+Warning: Vehicle 'flow0.130' ends teleporting on segment 'dest:0', simulation time 477.75.
+Warning: Vehicle 'flow0.131' ends teleporting on segment 'dest:0', simulation time 478.75.
+Warning: Vehicle 'flow0.132' ends teleporting on segment 'dest:0', simulation time 479.75.
+Warning: Teleporting vehicle 'flow1.69'; waited too long, from 'start1:0' to 'start2:3', time=485.86.
+Warning: Teleporting vehicle 'flow0.134'; waited too long, from 'start0:0', time 496.89.
+Warning: Teleporting vehicle 'flow0.135'; waited too long, from 'start0:0', time 497.89.
+Warning: Teleporting vehicle 'flow0.136'; waited too long, from 'start0:0', time 498.89.

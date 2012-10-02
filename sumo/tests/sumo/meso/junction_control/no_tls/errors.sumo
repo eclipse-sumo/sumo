@@ -22,155 +22,107 @@ Warning: Teleporting vehicle 'always_right.99'; waited too long, from '4si:1', t
 Warning: Teleporting vehicle 'always_right.74'; waited too long, from '2si:1' to '3o:1', time=5054.61.
 Warning: Vehicle 'always_right.99' ends teleporting on segment '2si:0', simulation time 5113.31.
 Warning: Teleporting vehicle 'always_right.101'; waited too long, from '1si:1' to '4o:1', time=5282.84.
-Warning: Teleporting vehicle 'always_right.100'; waited too long, from '4si:1' to '2o:4', time=5364.86.
+Warning: Teleporting vehicle 'always_right.100'; waited too long, from '4si:1', time 5364.86.
+Warning: Vehicle 'always_right.100' ends teleporting on segment '2fi:0', simulation time 5381.93.
 Warning: Teleporting vehicle 'horizontal.170'; waited too long, from '2si:1', time 5387.61.
 Warning: Vehicle 'horizontal.170' ends teleporting on segment '2fi:0', simulation time 5488.11.
-Warning: Teleporting vehicle 'always_right.104'; waited too long, from '1si:1' to '4o:1', time=5824.84.
-Warning: Teleporting vehicle 'always_right.105'; waited too long, from '1si:1' to '4o:1', time=6127.84.
-Warning: Teleporting vehicle 'horizontal.186'; waited too long, from '2si:1', time 6200.85.
-Warning: Vehicle 'horizontal.186' ends teleporting on segment '2o:0', simulation time 6284.27.
-Warning: Teleporting vehicle 'always_right.106'; waited too long, from '1si:1' to '4o:1', time=6432.84.
-Warning: Teleporting vehicle 'always_right.116'; waited too long, from '1si:1' to '4o:1', time=7233.84.
-Warning: Teleporting vehicle 'always_right.117'; waited too long, from '1si:1' to '4o:1', time=7538.84.
-Warning: Teleporting vehicle 'always_right.118'; waited too long, from '1si:1' to '4o:1', time=7845.84.
-Warning: Teleporting vehicle 'always_right.119'; waited too long, from '1si:1' to '4o:1', time=8150.84.
-Warning: Teleporting vehicle 'horizontal.213'; waited too long, from '2si:1', time 8268.69.
-Warning: Vehicle 'horizontal.213' ends teleporting on segment '2o:0', simulation time 8352.11.
-Warning: Teleporting vehicle 'always_right.120'; waited too long, from '1si:1' to '4o:1', time=8457.84.
-Warning: Teleporting vehicle 'horizontal.214'; waited too long, from '2si:1', time 8572.69.
-Warning: Vehicle 'horizontal.214' ends teleporting on segment '2o:0', simulation time 8656.11.
-Warning: Teleporting vehicle 'always_right.121'; waited too long, from '1si:1' to '4o:1', time=8764.84.
-Warning: Teleporting vehicle 'horizontal.215'; waited too long, from '2si:1', time 8878.69.
-Warning: Vehicle 'horizontal.215' ends teleporting on segment '1si:1', simulation time 8939.75.
-Warning: Teleporting vehicle 'always_right.123'; waited too long, from '1si:1' to '4o:1', time=9187.84.
-Warning: Teleporting vehicle 'always_right.96'; waited too long, from '3si:1', time 9269.66.
-Warning: Vehicle 'always_right.96' teleports to end of route ('1fi'), simulation time 9330.71.
-Warning: Teleporting vehicle 'horizontal.217'; waited too long, from '2si:1', time 9293.33.
-Warning: Vehicle 'horizontal.217' ends teleporting on segment '2o:0', simulation time 9376.75.
-Warning: Teleporting vehicle 'always_right.124'; waited too long, from '1si:1' to '4o:1', time=9496.84.
-Warning: Teleporting vehicle 'horizontal.218'; waited too long, from '2si:1', time 9599.33.
-Warning: Vehicle 'horizontal.218' ends teleporting on segment '1si:1', simulation time 9660.39.
-Warning: Teleporting vehicle 'always_right.129'; waited too long, from '1si:1' to '4o:1', time=9968.84.
-Warning: Teleporting vehicle 'always_right.84'; waited too long, from '2si:1' to '3o:1', time=9997.33.
-Warning: Teleporting vehicle 'always_right.83'; waited too long, from '3si:1', time 10005.75.
-Warning: Teleporting vehicle 'always_right.97'; waited too long, from '3si:1', time 10005.75.
-Warning: Vehicle 'always_right.83' teleports to end of route ('1fi'), simulation time 10066.81.
-Warning: Vehicle 'always_right.97' teleports to end of route ('1fi'), simulation time 10066.81.
-Warning: Teleporting vehicle 'horizontal.89'; waited too long, from '1si:1' to '2o:1', time=10271.84.
-Warning: Teleporting vehicle 'always_right.98'; waited too long, from '3si:1', time 10305.75.
-Warning: Vehicle 'always_right.98' teleports to end of route ('1fi'), simulation time 10366.81.
-Warning: Teleporting vehicle 'always_right.85'; waited too long, from '2si:1' to '3o:1', time=10354.93.
-Warning: Teleporting vehicle 'horizontal.90'; waited too long, from '1si:1' to '2o:1', time=10574.84.
-Warning: Teleporting vehicle 'always_right.99'; waited too long, from '3si:1', time 10605.75.
-Warning: Vehicle 'always_right.99' teleports to end of route ('1fi'), simulation time 10666.81.
-Warning: Teleporting vehicle 'horizontal.219'; waited too long, from '2si:1', time 10670.93.
-Warning: Vehicle 'horizontal.219' ends teleporting on segment '2o:0', simulation time 10754.35.
-Warning: Teleporting vehicle 'always_right.130'; waited too long, from '1si:1' to '4o:1', time=10877.84.
-Warning: Teleporting vehicle 'always_right.84'; waited too long, from '3si:1', time 10905.75.
-Warning: Vehicle 'always_right.84' teleports to end of route ('1fi'), simulation time 10966.81.
-Warning: Teleporting vehicle 'horizontal.220'; waited too long, from '2si:1', time 10972.93.
-Warning: Vehicle 'horizontal.220' ends teleporting on segment '2o:0', simulation time 11056.36.
-Warning: Teleporting vehicle 'horizontal.91'; waited too long, from '1si:1' to '2o:1', time=11180.84.
-Warning: Teleporting vehicle 'always_right.85'; waited too long, from '3si:1', time 11205.75.
-Warning: Vehicle 'always_right.85' teleports to end of route ('1fi'), simulation time 11266.81.
-Warning: Teleporting vehicle 'horizontal.221'; waited too long, from '2si:1', time 11278.93.
-Warning: Vehicle 'horizontal.221' ends teleporting on segment '2o:0', simulation time 11362.36.
-Warning: Teleporting vehicle 'always_right.131'; waited too long, from '1si:1' to '4o:1', time=11508.84.
-Warning: Teleporting vehicle 'horizontal.222'; waited too long, from '2si:1', time 11580.94.
-Warning: Vehicle 'horizontal.222' ends teleporting on segment '1si:0', simulation time 11641.99.
-Warning: Teleporting vehicle 'always_right.86'; waited too long, from '2si:1' to '3o:1', time=11881.94.
-Warning: Teleporting vehicle 'always_right.87'; waited too long, from '2si:1' to '3o:1', time=12184.94.
-Warning: Teleporting vehicle 'always_right.86'; waited too long, from '3si:1' to '1o:2', time=12256.56.
-Warning: Teleporting vehicle 'always_right.314'; waited too long, from '1si:1' to '4o:1', time=13142.39.
-Warning: Teleporting vehicle 'always_right.103'; waited too long, from '2si:1' to '3o:1', time=13358.74.
-Warning: Teleporting vehicle 'always_right.315'; waited too long, from '1si:1' to '4o:1', time=13445.39.
-Warning: Teleporting vehicle 'always_right.102'; waited too long, from '2si:1' to '3o:1', time=13661.74.
-Warning: Teleporting vehicle 'always_right.316'; waited too long, from '1si:1' to '4o:1', time=13748.39.
-Warning: Teleporting vehicle 'always_right.104'; waited too long, from '2si:1' to '3o:1', time=13964.74.
-Warning: Teleporting vehicle 'always_right.317'; waited too long, from '1si:1' to '4o:1', time=14051.39.
-Warning: Teleporting vehicle 'always_right.105'; waited too long, from '2si:1' to '3o:1', time=14267.74.
-Warning: Teleporting vehicle 'always_right.318'; waited too long, from '1si:1' to '4o:1', time=14354.39.
-Warning: Teleporting vehicle 'horizontal.223'; waited too long, from '2si:1' to '1o:1', time=14570.74.
-Warning: Teleporting vehicle 'horizontal.195'; waited too long, from '1si:1' to '2o:1', time=14657.05.
-Warning: Teleporting vehicle 'horizontal.224'; waited too long, from '2si:1' to '1o:1', time=14873.74.
-Warning: Teleporting vehicle 'always_right.319'; waited too long, from '1si:1' to '4o:1', time=14992.05.
-Warning: Teleporting vehicle 'horizontal.225'; waited too long, from '2si:1' to '1o:1', time=15176.74.
-Warning: Teleporting vehicle 'always_right.320'; waited too long, from '1si:1' to '4o:1', time=15295.05.
-Warning: Teleporting vehicle 'horizontal.226'; waited too long, from '2si:1' to '1o:1', time=15479.74.
-Warning: Teleporting vehicle 'always_right.321'; waited too long, from '1si:1' to '4o:1', time=15598.05.
-Warning: Teleporting vehicle 'horizontal.227'; waited too long, from '2si:1' to '1o:1', time=15782.74.
-Warning: Teleporting vehicle 'always_right.322'; waited too long, from '1si:1' to '4o:1', time=15901.05.
-Warning: Teleporting vehicle 'horizontal.228'; waited too long, from '2si:1' to '1o:1', time=16085.74.
-Warning: Teleporting vehicle 'always_right.323'; waited too long, from '1si:1' to '4o:1', time=16204.05.
-Warning: Teleporting vehicle 'always_right.322'; waited too long, from '4si:1', time 16387.15.
-Warning: Teleporting vehicle 'always_right.106'; waited too long, from '2si:1' to '3o:1', time=16388.74.
-Warning: Vehicle 'always_right.322' ends teleporting on segment '2si:1', simulation time 16448.20.
-Warning: Teleporting vehicle 'horizontal.223'; waited too long, from '1fi:1', time 16765.37.
-Warning: Teleporting vehicle 'always_right.324'; waited too long, from '1si:1' to '4o:1', time=16772.37.
-Warning: Vehicle 'horizontal.223' ends teleporting on segment '2o:0', simulation time 16787.74.
-Warning: Teleporting vehicle 'always_right.325'; waited too long, from '1si:1' to '4o:1', time=17075.37.
-Warning: Teleporting vehicle 'always_right.326'; waited too long, from '1si:1' to '4o:1', time=17378.37.
-Warning: Teleporting vehicle 'always_right.327'; waited too long, from '1si:1' to '4o:1', time=17681.37.
-Warning: Teleporting vehicle 'always_right.328'; waited too long, from '1si:1' to '4o:1', time=17984.37.
-Warning: Teleporting vehicle 'always_right.329'; waited too long, from '1si:1' to '4o:1', time=18287.37.
-Warning: Teleporting vehicle 'always_right.330'; waited too long, from '1si:1' to '4o:1', time=18590.37.
-Warning: Teleporting vehicle 'always_right.331'; waited too long, from '1si:1' to '4o:1', time=18893.37.
-Warning: Teleporting vehicle 'always_right.332'; waited too long, from '1si:1' to '4o:1', time=19196.37.
-Warning: Teleporting vehicle 'always_right.333'; waited too long, from '1si:1' to '4o:1', time=19501.37.
-Warning: Teleporting vehicle 'always_right.334'; waited too long, from '1si:1' to '4o:1', time=19806.37.
-Warning: Teleporting vehicle 'always_right.349'; waited too long, from '1si:1' to '4o:1', time=20145.37.
-Warning: Teleporting vehicle 'always_right.348'; waited too long, from '2o:1', time 20573.99.
-Warning: Teleporting vehicle 'always_right.268'; waited too long, from '2fi:1', time 20602.58.
-Warning: Teleporting vehicle 'always_right.322'; waited too long, from '2si:1' to '3o:1', time=20606.25.
-Warning: Vehicle 'always_right.348' ends teleporting on segment '2si:1', simulation time 20617.97.
-Warning: Vehicle 'always_right.268' ends teleporting on segment '3o:0', simulation time 20624.95.
-Warning: Teleporting vehicle 'always_right.128'; waited too long, from '2si:1' to '3o:1', time=20953.25.
-Warning: Teleporting vehicle 'always_right.129'; waited too long, from '2si:1' to '3o:1', time=21280.25.
-Warning: Teleporting vehicle 'always_right.130'; waited too long, from '2si:1' to '3o:1', time=21587.25.
-Warning: Teleporting vehicle 'always_right.131'; waited too long, from '2si:1' to '3o:1', time=21890.25.
-Warning: Teleporting vehicle 'always_right.132'; waited too long, from '2si:1' to '3o:1', time=22193.25.
-Warning: Teleporting vehicle 'always_right.133'; waited too long, from '2si:1' to '3o:1', time=22496.25.
-Warning: Teleporting vehicle 'always_right.134'; waited too long, from '2si:1' to '3o:1', time=22799.25.
-Warning: Teleporting vehicle 'always_right.136'; waited too long, from '2si:1' to '3o:1', time=23102.25.
-Warning: Teleporting vehicle 'always_right.137'; waited too long, from '2si:1' to '3o:1', time=23405.25.
-Warning: Teleporting vehicle 'always_right.138'; waited too long, from '2si:1' to '3o:1', time=23708.25.
-Warning: Teleporting vehicle 'always_right.135'; waited too long, from '2si:1' to '3o:1', time=24011.25.
-Warning: Teleporting vehicle 'always_right.139'; waited too long, from '2si:1' to '3o:1', time=24314.25.
-Warning: Teleporting vehicle 'always_right.140'; waited too long, from '2si:1' to '3o:1', time=24617.25.
-Warning: Teleporting vehicle 'always_right.141'; waited too long, from '2si:1' to '3o:1', time=24920.25.
-Warning: Teleporting vehicle 'always_right.143'; waited too long, from '2si:1' to '3o:1', time=25223.25.
-Warning: Teleporting vehicle 'always_right.142'; waited too long, from '2si:1' to '3o:1', time=25526.25.
-Warning: Teleporting vehicle 'always_right.144'; waited too long, from '2si:1' to '3o:1', time=25829.25.
-Warning: Teleporting vehicle 'always_right.145'; waited too long, from '2si:1' to '3o:1', time=26132.25.
-Warning: Teleporting vehicle 'always_right.146'; waited too long, from '2si:1' to '3o:1', time=26435.25.
-Warning: Teleporting vehicle 'always_right.147'; waited too long, from '2si:1' to '3o:1', time=26738.25.
-Warning: Teleporting vehicle 'horizontal.275'; waited too long, from '1si:1', time 27039.66.
-Warning: Teleporting vehicle 'always_right.148'; waited too long, from '2si:1' to '3o:1', time=27041.25.
-Warning: Vehicle 'horizontal.275' teleports to end of route ('2fi'), simulation time 27100.71.
-Warning: Teleporting vehicle 'horizontal.279'; waited too long, from '1si:1', time 27342.66.
-Warning: Teleporting vehicle 'always_right.149'; waited too long, from '2si:1' to '3o:1', time=27344.25.
-Warning: Vehicle 'horizontal.279' teleports to end of route ('2fi'), simulation time 27403.71.
-Warning: Teleporting vehicle 'horizontal.278'; waited too long, from '1si:1', time 27645.66.
-Warning: Teleporting vehicle 'always_right.150'; waited too long, from '2si:1' to '3o:1', time=27647.25.
-Warning: Vehicle 'horizontal.278' teleports to end of route ('2fi'), simulation time 27706.71.
-Warning: Teleporting vehicle 'horizontal.282'; waited too long, from '1si:1', time 27948.66.
-Warning: Teleporting vehicle 'always_right.151'; waited too long, from '2si:1' to '3o:1', time=27950.25.
-Warning: Vehicle 'horizontal.282' teleports to end of route ('2fi'), simulation time 28009.71.
-Warning: Teleporting vehicle 'horizontal.285'; waited too long, from '1si:1', time 28251.66.
-Warning: Teleporting vehicle 'always_right.152'; waited too long, from '2si:1' to '3o:1', time=28253.25.
-Warning: Vehicle 'horizontal.285' teleports to end of route ('2fi'), simulation time 28312.71.
-Warning: Teleporting vehicle 'horizontal.286'; waited too long, from '1si:1', time 28554.66.
-Warning: Teleporting vehicle 'always_right.153'; waited too long, from '2si:1' to '3o:1', time=28556.25.
-Warning: Vehicle 'horizontal.286' teleports to end of route ('2fi'), simulation time 28615.71.
-Warning: Teleporting vehicle 'horizontal.289'; waited too long, from '1si:1', time 28857.66.
-Warning: Teleporting vehicle 'always_right.154'; waited too long, from '2si:1' to '3o:1', time=28859.25.
-Warning: Vehicle 'horizontal.289' teleports to end of route ('2fi'), simulation time 28918.71.
-Warning: Teleporting vehicle 'horizontal.288'; waited too long, from '1si:1', time 29160.66.
-Warning: Teleporting vehicle 'always_right.155'; waited too long, from '2si:1' to '3o:1', time=29162.25.
-Warning: Vehicle 'horizontal.288' teleports to end of route ('2fi'), simulation time 29221.71.
-Warning: Teleporting vehicle 'horizontal.293'; waited too long, from '1si:1', time 29463.66.
-Warning: Teleporting vehicle 'always_right.156'; waited too long, from '2si:1' to '3o:1', time=29465.25.
-Warning: Vehicle 'horizontal.293' teleports to end of route ('2fi'), simulation time 29524.71.
-Warning: Teleporting vehicle 'horizontal.294'; waited too long, from '1si:1', time 29766.66.
-Warning: Teleporting vehicle 'always_right.157'; waited too long, from '2si:1' to '3o:1', time=29768.25.
-Warning: Vehicle 'horizontal.294' teleports to end of route ('2fi'), simulation time 29827.71.
+Warning: Teleporting vehicle 'always_right.104'; waited too long, from '1si:1' to '4o:1', time=5806.84.
+Warning: Teleporting vehicle 'always_right.105'; waited too long, from '1si:1' to '4o:1', time=6109.84.
+Warning: Teleporting vehicle 'horizontal.186'; waited too long, from '2si:1', time 6182.85.
+Warning: Vehicle 'horizontal.186' ends teleporting on segment '2o:0', simulation time 6266.27.
+Warning: Teleporting vehicle 'always_right.106'; waited too long, from '1si:1' to '4o:1', time=6414.84.
+Warning: Teleporting vehicle 'always_right.116'; waited too long, from '1si:1' to '4o:1', time=7213.84.
+Warning: Teleporting vehicle 'always_right.117'; waited too long, from '1si:1' to '4o:1', time=7518.84.
+Warning: Teleporting vehicle 'always_right.118'; waited too long, from '1si:1' to '4o:1', time=7825.84.
+Warning: Teleporting vehicle 'always_right.119'; waited too long, from '1si:1' to '4o:1', time=8130.84.
+Warning: Teleporting vehicle 'horizontal.213'; waited too long, from '2si:1', time 8250.69.
+Warning: Vehicle 'horizontal.213' ends teleporting on segment '2o:0', simulation time 8334.11.
+Warning: Teleporting vehicle 'always_right.120'; waited too long, from '1si:1' to '4o:1', time=8437.84.
+Warning: Teleporting vehicle 'horizontal.214'; waited too long, from '2si:1', time 8554.69.
+Warning: Vehicle 'horizontal.214' ends teleporting on segment '2o:0', simulation time 8638.11.
+Warning: Teleporting vehicle 'always_right.121'; waited too long, from '1si:1' to '4o:1', time=8744.84.
+Warning: Teleporting vehicle 'horizontal.215'; waited too long, from '2si:1', time 8860.69.
+Warning: Vehicle 'horizontal.215' ends teleporting on segment '2o:0', simulation time 8944.11.
+Warning: Teleporting vehicle 'always_right.123'; waited too long, from '1si:1' to '4o:1', time=9169.84.
+Warning: Teleporting vehicle 'always_right.96'; waited too long, from '3si:1', time 9251.66.
+Warning: Vehicle 'always_right.96' teleports to end of route ('1fi'), simulation time 9312.71.
+Warning: Teleporting vehicle 'horizontal.217'; waited too long, from '2si:1', time 9273.33.
+Warning: Vehicle 'horizontal.217' ends teleporting on segment '2o:0', simulation time 9356.75.
+Warning: Teleporting vehicle 'always_right.97'; waited too long, from '3si:1', time 9742.71.
+Warning: Teleporting vehicle 'always_right.84'; waited too long, from '2si:1' to '3o:1', time=9743.71.
+Warning: Teleporting vehicle 'horizontal.87'; waited too long, from '1si:1' to '2o:1', time=9743.84.
+Warning: Vehicle 'always_right.97' teleports to end of route ('1fi'), simulation time 9803.76.
+Warning: Teleporting vehicle 'always_right.83'; waited too long, from '3si:1', time 10042.71.
+Warning: Teleporting vehicle 'horizontal.88'; waited too long, from '1si:1' to '2o:1', time=10046.84.
+Warning: Vehicle 'always_right.83' teleports to end of route ('1fi'), simulation time 10103.77.
+Warning: Teleporting vehicle 'always_right.85'; waited too long, from '2si:1' to '3o:1', time=10111.31.
+Warning: Teleporting vehicle 'always_right.98'; waited too long, from '3si:1', time 10342.71.
+Warning: Teleporting vehicle 'always_right.129'; waited too long, from '1si:1' to '4o:1', time=10349.84.
+Warning: Vehicle 'always_right.98' teleports to end of route ('1fi'), simulation time 10403.77.
+Warning: Teleporting vehicle 'always_right.100'; waited too long, from '2si:1' to '3o:1', time=10428.31.
+Warning: Teleporting vehicle 'always_right.99'; waited too long, from '3si:1', time 10642.71.
+Warning: Teleporting vehicle 'horizontal.89'; waited too long, from '1si:1' to '2o:1', time=10652.84.
+Warning: Vehicle 'always_right.99' teleports to end of route ('1fi'), simulation time 10703.77.
+Warning: Teleporting vehicle 'horizontal.219'; waited too long, from '2si:1', time 10732.31.
+Warning: Vehicle 'horizontal.219' ends teleporting on segment '2o:0', simulation time 10815.73.
+Warning: Teleporting vehicle 'always_right.84'; waited too long, from '3si:1', time 10942.71.
+Warning: Teleporting vehicle 'horizontal.90'; waited too long, from '1si:1' to '2o:1', time=10955.84.
+Warning: Vehicle 'always_right.84' teleports to end of route ('1fi'), simulation time 11003.77.
+Warning: Teleporting vehicle 'horizontal.220'; waited too long, from '2si:1', time 11038.31.
+Warning: Vehicle 'horizontal.220' ends teleporting on segment '2o:0', simulation time 11121.73.
+Warning: Teleporting vehicle 'always_right.85'; waited too long, from '3si:1', time 11242.72.
+Warning: Teleporting vehicle 'always_left.284'; waited too long, from '4si:0', time 11256.32.
+Warning: Teleporting vehicle 'always_right.130'; waited too long, from '1si:1' to '4o:1', time=11258.84.
+Warning: Vehicle 'always_right.85' teleports to end of route ('1fi'), simulation time 11303.77.
+Warning: Vehicle 'always_left.284' ends teleporting on segment '3o:0', simulation time 11339.74.
+Warning: Teleporting vehicle 'horizontal.221'; waited too long, from '2si:1', time 11340.31.
+Warning: Vehicle 'horizontal.221' ends teleporting on segment '2o:0', simulation time 11423.74.
+Warning: Teleporting vehicle 'always_right.100'; waited too long, from '3si:1', time 11542.72.
+Warning: Vehicle 'always_right.100' teleports to end of route ('1fi'), simulation time 11603.77.
+Warning: Teleporting vehicle 'always_right.86'; waited too long, from '2si:1' to '3o:1', time=11641.31.
+Warning: Teleporting vehicle 'always_right.87'; waited too long, from '2si:1' to '3o:1', time=11944.31.
+Warning: Teleporting vehicle 'always_right.257'; waited too long, from '1si:1' to '4o:1', time=12690.64.
+Warning: Teleporting vehicle 'horizontal.237'; waited too long, from '1o:4', time 12992.05.
+Warning: Teleporting vehicle 'always_right.258'; waited too long, from '1si:1' to '4o:1', time=12993.64.
+Warning: Vehicle 'horizontal.237' ends teleporting on segment '2o:0', simulation time 13058.40.
+Warning: Teleporting vehicle 'horizontal.275'; waited too long, from '2si:1', time 13143.11.
+Warning: Vehicle 'horizontal.275' ends teleporting on segment '2o:0', simulation time 13226.54.
+Warning: Teleporting vehicle 'always_right.259'; waited too long, from '1si:1' to '4o:1', time=13296.64.
+Warning: Teleporting vehicle 'horizontal.276'; waited too long, from '2si:1', time 13443.11.
+Warning: Vehicle 'horizontal.276' ends teleporting on segment '2o:0', simulation time 13526.54.
+Warning: Teleporting vehicle 'always_right.260'; waited too long, from '1si:1' to '4o:1', time=13599.64.
+Warning: Teleporting vehicle 'horizontal.277'; waited too long, from '2si:1', time 13743.12.
+Warning: Vehicle 'horizontal.277' ends teleporting on segment '2o:0', simulation time 13826.54.
+Warning: Teleporting vehicle 'always_right.261'; waited too long, from '1si:1' to '4o:1', time=13902.64.
+Warning: Teleporting vehicle 'horizontal.278'; waited too long, from '2si:1', time 14043.12.
+Warning: Vehicle 'horizontal.278' ends teleporting on segment '2o:0', simulation time 14126.54.
+Warning: Teleporting vehicle 'always_right.262'; waited too long, from '1si:1' to '4o:1', time=14205.64.
+Warning: Teleporting vehicle 'horizontal.279'; waited too long, from '2si:1', time 14345.12.
+Warning: Teleporting vehicle 'always_right.126'; waited too long, from '3si:1', time 14426.53.
+Warning: Vehicle 'horizontal.279' ends teleporting on segment '2o:0', simulation time 14428.54.
+Warning: Vehicle 'always_right.126' teleports to end of route ('1fi'), simulation time 14487.59.
+Warning: Teleporting vehicle 'always_right.263'; waited too long, from '1si:1' to '4o:1', time=14508.64.
+Warning: Teleporting vehicle 'horizontal.280'; waited too long, from '2si:1', time 14645.12.
+Warning: Vehicle 'horizontal.280' ends teleporting on segment '2o:0', simulation time 14728.54.
+Warning: Teleporting vehicle 'always_right.264'; waited too long, from '1si:1' to '4o:1', time=14811.64.
+Warning: Teleporting vehicle 'horizontal.281'; waited too long, from '2si:1', time 14945.12.
+Warning: Vehicle 'horizontal.281' ends teleporting on segment '2o:0', simulation time 15028.54.
+Warning: Teleporting vehicle 'always_right.265'; waited too long, from '1si:1' to '4o:1', time=15114.64.
+Warning: Teleporting vehicle 'horizontal.282'; waited too long, from '2si:1', time 15245.12.
+Warning: Vehicle 'horizontal.282' ends teleporting on segment '1si:0', simulation time 15306.18.
+Warning: Teleporting vehicle 'always_right.266'; waited too long, from '1si:1' to '4o:1', time=15455.64.
+Warning: Teleporting vehicle 'horizontal.283'; waited too long, from '2si:1', time 15545.12.
+Warning: Vehicle 'horizontal.283' ends teleporting on segment '1si:0', simulation time 15606.18.
+Warning: Teleporting vehicle 'always_right.267'; waited too long, from '1si:1' to '4o:1', time=15758.64.
+Warning: Teleporting vehicle 'horizontal.284'; waited too long, from '2si:1' to '1o:4', time=15845.12.
+Warning: Teleporting vehicle 'always_right.268'; waited too long, from '1si:1' to '4o:1', time=16061.64.
+Warning: Teleporting vehicle 'always_right.269'; waited too long, from '1si:1' to '4o:1', time=16402.64.
+Warning: Teleporting vehicle 'always_right.270'; waited too long, from '1si:1' to '4o:1', time=16705.64.
+Warning: Teleporting vehicle 'always_right.344'; waited too long, from '1si:1' to '4o:1', time=18089.04.
+Warning: Teleporting vehicle 'horizontal.319'; waited too long, from '2si:1' to '1o:1', time=18114.97.
+Warning: Teleporting vehicle 'always_right.345'; waited too long, from '1si:1' to '4o:1', time=18392.04.
+Warning: Teleporting vehicle 'horizontal.320'; waited too long, from '2si:1' to '1o:1', time=18417.97.
+Warning: Teleporting vehicle 'always_right.346'; waited too long, from '1si:1' to '4o:1', time=18695.04.
+Warning: Teleporting vehicle 'always_right.347'; waited too long, from '1si:1' to '4o:1', time=18998.04.
+Warning: Teleporting vehicle 'always_right.348'; waited too long, from '1si:1' to '4o:1', time=19301.04.
+Warning: Teleporting vehicle 'always_right.349'; waited too long, from '1si:1' to '4o:1', time=19606.04.
