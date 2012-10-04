@@ -14,9 +14,15 @@
     <ClCompile Include="..\..\..\src\mesogui\GUIMEInductLoop.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\mesogui\GUIMEVehicleControl.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\mesogui\GUIMEInductLoop.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\mesogui\GUIMEVehicleControl.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
