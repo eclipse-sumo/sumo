@@ -177,6 +177,8 @@ GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (MSGlobals::gUseMesoSim) {
         buildShowParamsPopupEntry(ret);
     }
+    const SUMOReal pos = getLanes()[0]->getShape().nearest_position_on_line_to_point2D(parent.getPositionInformation());
+    new FXMenuCommand(ret, ("pos: " + toString(pos)).c_str(), 0, 0, 0);
     buildPositionCopyEntry(ret, false);
     return ret;
 }
