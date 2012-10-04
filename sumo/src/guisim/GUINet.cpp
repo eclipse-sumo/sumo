@@ -64,6 +64,10 @@
 #include "GUINet.h"
 #include "GUIShapeContainer.h"
 
+#ifdef HAVE_INTERNAL
+#include <mesogui/GUIMEVehicleControl.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -467,6 +471,13 @@ GUIVehicleControl*
 GUINet::getGUIVehicleControl() {
     return dynamic_cast<GUIVehicleControl*>(myVehicleControl);
 }
+
+#ifdef HAVE_INTERNAL
+GUIMEVehicleControl*
+GUINet::getGUIMEVehicleControl() {
+    return dynamic_cast<GUIMEVehicleControl*>(myVehicleControl);
+}
+#endif
 
 /****************************************************************************/
 

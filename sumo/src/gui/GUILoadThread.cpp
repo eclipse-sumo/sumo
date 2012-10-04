@@ -61,7 +61,7 @@
 #include <ctime>
 
 #ifdef HAVE_INTERNAL
-#include <mesosim/MEVehicleControl.h>
+#include <mesogui/GUIMEVehicleControl.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -134,7 +134,7 @@ GUILoadThread::run() {
 #ifdef HAVE_INTERNAL
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
     if (MSGlobals::gUseMesoSim) {
-        vehControl = new MEVehicleControl();
+        vehControl = new GUIMEVehicleControl();
     } else 
 #endif
         vehControl = new GUIVehicleControl();

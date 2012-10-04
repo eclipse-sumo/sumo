@@ -63,6 +63,9 @@ class OutputDevice;
 class GUIVehicle;
 class GUIVehicleControl;
 class MSVehicleControl;
+#ifdef HAVE_INTERNAL
+class GUIMEVehicleControl;
+#endif
 
 
 // ===========================================================================
@@ -260,6 +263,15 @@ public:
      * @see myVehicleControl
      */
     GUIVehicleControl* getGUIVehicleControl();
+
+#ifdef HAVE_INTERNAL
+    /** @brief Returns the vehicle control
+     * @return The vehicle control
+     * @see MSVehicleControl
+     * @see myVehicleControl
+     */
+    GUIMEVehicleControl* getGUIMEVehicleControl();
+#endif
 
     /** @brief Returns the pointer to the unique instance of GUINet (singleton).
      * @return Pointer to the unique GUINet-instance
