@@ -54,6 +54,7 @@
 #include "GUIPerson.h"
 #include "GUINet.h"
 #include "GUIEdge.h"
+#include "GUILaneWrapper.h"
 #include <utils/gui/globjects/GLIncludes.h>
 #include <microsim/devices/MSDevice_Person.h>
 
@@ -348,10 +349,10 @@ GUIVehicle::getCenteringBoundary() const {
 }
 
 
-inline void
-drawAction_drawVehicleAsBoxPlus(const GUIVehicle& veh) {
+void
+GUIVehicle::drawAction_drawVehicleAsBoxPlus() const {
     glPushMatrix();
-    glScaled(veh.getVehicleType().getWidth(), veh.getVehicleType().getLength(), 1.);
+    glScaled(getVehicleType().getWidth(), getVehicleType().getLength(), 1.);
     glBegin(GL_TRIANGLE_STRIP);
     glVertex2d(0., 0.);
     glVertex2d(-.5, .15);
@@ -363,15 +364,15 @@ drawAction_drawVehicleAsBoxPlus(const GUIVehicle& veh) {
 }
 
 
-inline void
-drawAction_drawVehicleAsTrianglePlus(const GUIVehicle& veh) {
-    const SUMOReal length = veh.getVehicleType().getLength();
+void
+GUIVehicle::drawAction_drawVehicleAsTrianglePlus() const {
+    const SUMOReal length = getVehicleType().getLength();
     if (length >= 8.) {
-        drawAction_drawVehicleAsBoxPlus(veh);
+        drawAction_drawVehicleAsBoxPlus();
         return;
     }
     glPushMatrix();
-    glScaled(veh.getVehicleType().getWidth(), length, 1.);
+    glScaled(getVehicleType().getWidth(), length, 1.);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
     glVertex2d(-.5, 1.);
@@ -382,7 +383,7 @@ drawAction_drawVehicleAsTrianglePlus(const GUIVehicle& veh) {
 
 
 void
-drawPoly(double* poses, SUMOReal offset) {
+GUIVehicle::drawPoly(double* poses, SUMOReal offset) {
     glPushMatrix();
     glTranslated(0, 0, offset * .1);
     glPolygonOffset(0, offset * -1);
@@ -397,17 +398,18 @@ drawPoly(double* poses, SUMOReal offset) {
 }
 
 
-inline void
-drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
+void
+GUIVehicle::drawAction_drawVehicleAsPoly() const {
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(.2);
     RGBColor darker = current.changedBrightness(-.2);
 
-    SUMOReal length = veh.getVehicleType().getLength();
+    const SUMOReal length = getVehicleType().getLength();
+    const SUMOReal width = getVehicleType().getWidth();
     glPushMatrix();
     glRotated(90, 0, 0, 1);
-    glScaled(length, veh.getVehicleType().getWidth(), 1.);
-    SUMOVehicleShape shape = veh.getVehicleType().getGuiShape();
+    glScaled(length, width, 1.);
+    SUMOVehicleShape shape = getVehicleType().getGuiShape();
 
     // draw main body
     switch (shape) {
@@ -539,24 +541,53 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
         case SVS_RAIL_CITY:
         case SVS_RAIL_SLOW:
         case SVS_RAIL_FAST:
-        case SVS_RAIL_CARGO:
-            glScaled(1. / (length), 1, 1.);
-            glTranslated(0, 0, .04);
-            glBegin(GL_TRIANGLE_FAN);
-            glVertex2d(length/ 2., 0);
-            glVertex2d(0, 0);
-            glVertex2d(0, -.45);
-            glVertex2d(.05, -.5);
-            glVertex2d(length - .05, -.5);
-            glVertex2d(length, -.45);
-            glVertex2d(length, .45);
-            glVertex2d(length - .05, .5);
-            glVertex2d(.05, .5);
-            glVertex2d(0, .45);
-            glVertex2d(0, 0);
-            glEnd();
-            glTranslated(0, 0, -.04);
-            break;
+        case SVS_RAIL_CARGO: {
+            glPopMatrix(); // undo scaling and 90 degree rotation
+            glPopMatrix(); // undo initial translation and rotation
+            glPushMatrix();
+            glPushMatrix();
+            //glRotated(-90, 0, 0, 1);
+            const SUMOReal halfWidth = width / 2.0;
+            const int numCarriages = floor(length / 20.0 + 0.5);
+            const SUMOReal carriageLengthWithGap = length / numCarriages;
+            const SUMOReal carriageLength = carriageLengthWithGap - 0.8;
+            // lane on which the carriage front is situated
+            MSLane* lane = myLane;
+            int routeIndex = myCurrEdge - myRoute->begin();
+            // lane on which the carriage back is situated
+            MSLane* backLane = myLane;
+            int backRouteIndex = routeIndex;
+            // offsets of front and back
+            SUMOReal carriageOffset = myState.pos();
+            SUMOReal carriageBackOffset = myState.pos() - carriageLength;
+            for (int i = 0; i < numCarriages; ++i) {
+                while (carriageOffset < 0) {
+                    lane = getPreviousLane(lane, routeIndex);
+                    carriageOffset += lane->getLength();
+                }
+                while (carriageBackOffset < 0) {
+                    backLane = getPreviousLane(backLane, backRouteIndex);
+                    carriageBackOffset += backLane->getLength();
+                }
+                const Position front = lane->getShape().positionAtLengthPosition2D(carriageOffset);
+                const Position back = backLane->getShape().positionAtLengthPosition2D(carriageBackOffset);
+                const SUMOReal angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
+                glPushMatrix();
+                glTranslated(front.x(), front.y(), getType());
+                glRotated(angle, 0, 0, 1);
+                //glScaled(1 / getVehicleType().getWidth(), 1 / carriageLength, 1);
+                glBegin(GL_TRIANGLE_FAN);
+                glVertex2d(-halfWidth, 0);
+                glVertex2d(-halfWidth, carriageLength);
+                glVertex2d(halfWidth, carriageLength);
+                glVertex2d(halfWidth, 0);
+                glEnd();
+                glPopMatrix();
+                carriageOffset -= carriageLengthWithGap;
+                carriageBackOffset -= carriageLengthWithGap;
+            }
+        }
+        break;
         case SVS_E_VEHICLE:
             drawPoly(vehiclePoly_EVehicleBody, 4);
             glColor3d(0, 0, 0);
@@ -877,14 +908,14 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     // draw the vehicle
     switch (s.vehicleQuality) {
         case 0:
-            drawAction_drawVehicleAsTrianglePlus(*this);
+            drawAction_drawVehicleAsTrianglePlus();
             break;
         case 1:
-            drawAction_drawVehicleAsBoxPlus(*this);
+            drawAction_drawVehicleAsBoxPlus();
             break;
         case 2:
         default:
-            drawAction_drawVehicleAsPoly(*this);
+            drawAction_drawVehicleAsPoly();
             break;
     }
     if (s.drawMinGap) {
@@ -1238,6 +1269,31 @@ GUIVehicle::draw(const MSRoute& r) const {
         const GUIEdge* ge = static_cast<const GUIEdge*>(e);
         const GUILaneWrapper& lane = ge->getLaneGeometry((size_t) 0);
         GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 1.0);
+    }
+}
+
+
+GUILaneWrapper& 
+GUIVehicle::getLaneWrapper() const {
+    GUIEdge* edge = dynamic_cast<GUIEdge*>(&(myLane->getEdge()));
+    assert(edge != 0);
+    return edge->getLaneGeometry(myLane);
+}
+
+
+MSLane* 
+GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
+    const bool isInternal = current->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
+    if (isInternal) {
+        // route pointer still points to the previous lane
+        return myRoute->getEdges()[routeIndex]->getLanes()[0];
+    } else if (routeIndex == 0) {
+        // there is no previous lane because the route has just begun
+        return current;
+    } else {
+        const MSEdge* previous = myRoute->getEdges()[--routeIndex];
+        return MSLinkContHelper::getInternalFollowingEdge(
+                previous->getLanes()[0], &current->getEdge())->getLanes()[0];
     }
 }
 

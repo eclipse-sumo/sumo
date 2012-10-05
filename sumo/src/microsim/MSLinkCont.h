@@ -61,7 +61,7 @@ public:
     /** @brief Returns the internal lane that must be passed in order to get to the desired edge
         Returns 0 if no such edge exists */
     static const MSEdge* getInternalFollowingEdge(MSLane* fromLane,
-            MSEdge* followerAfterInternal);
+            const MSEdge* followerAfterInternal);
 #endif
 
     /** @brief Returns the link connecting both lanes

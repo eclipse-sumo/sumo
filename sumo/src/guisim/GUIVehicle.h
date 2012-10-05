@@ -49,6 +49,7 @@
 // ===========================================================================
 class GUISUMOAbstractView;
 class GUIGLObjectPopupMenu;
+class GUILaneWrapper;
 class MSDevice_Vehroutes;
 
 
@@ -291,6 +292,24 @@ private:
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(size_t activeScheme) const;
+
+    /// @brief retrieves the laneWrapper for this vehicles lane
+    GUILaneWrapper& getLaneWrapper() const;
+
+    /// @name drawing helper methods
+    /// @{
+    static void drawPoly(double* poses, SUMOReal offset);
+
+    void drawAction_drawVehicleAsBoxPlus() const;
+    void drawAction_drawVehicleAsTrianglePlus() const;
+    void drawAction_drawVehicleAsPoly() const;
+    /// @}
+
+    /* @brief return the previous lane in this vehicles route including internal lanes
+     * @param[in] current The lane of which the predecessor should be returned
+     * @param[in,out] routeIndex The index of the current or previous non-internal edge in the route
+     */
+    MSLane* getPreviousLane(MSLane* current, int& routeIndex) const;
 };
 
 

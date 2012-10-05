@@ -42,7 +42,7 @@
 #ifdef HAVE_INTERNAL_LANES
 const MSEdge*
 MSLinkContHelper::getInternalFollowingEdge(MSLane* fromLane,
-        MSEdge* followerAfterInternal) {
+        const MSEdge* followerAfterInternal) {
     //@todo to be optimized
     const MSLinkCont& lc = fromLane->getLinkCont();
     for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); j++) {
