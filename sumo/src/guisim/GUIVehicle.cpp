@@ -1269,14 +1269,15 @@ GUIVehicle::drawAction_drawRailCarriages(SUMOReal defaultLength) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-.2);
     const SUMOReal length = getVehicleType().getLength();
-    const SUMOReal width = getVehicleType().getWidth();
+    const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0;
     glPopMatrix(); // undo scaling and 90 degree rotation
     glPopMatrix(); // undo initial translation and rotation
     glPushMatrix();
     glPushMatrix();
     GLHelper::setColor(darker);
-    const SUMOReal carriageGap = 0.8;
-    const SUMOReal halfWidth = width / 2.0;
+    const SUMOReal carriageGap = 1;
+    const SUMOReal xCornerCut = 0.3;
+    const SUMOReal yCornerCut = 0.4;
     // round to closest integer
     const int numCarriages = floor(length / (defaultLength + carriageGap) + 0.5);
     const SUMOReal carriageLengthWithGap = length / numCarriages;
@@ -1306,12 +1307,16 @@ GUIVehicle::drawAction_drawRailCarriages(SUMOReal defaultLength) const {
         glPushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
-        //glScaled(1 / getVehicleType().getWidth(), 1 / carriageLength, 1);
+        //glScaled(halfWidth, carriageLength, 1);
         glBegin(GL_TRIANGLE_FAN);
-        glVertex2d(-halfWidth, 0);
-        glVertex2d(-halfWidth, carriageLength);
-        glVertex2d(halfWidth, carriageLength);
-        glVertex2d(halfWidth, 0);
+        glVertex2d(-halfWidth + xCornerCut, 0);
+        glVertex2d(-halfWidth, yCornerCut);
+        glVertex2d(-halfWidth, carriageLength - yCornerCut);
+        glVertex2d(-halfWidth + xCornerCut, carriageLength);
+        glVertex2d(halfWidth - xCornerCut, carriageLength);
+        glVertex2d(halfWidth, carriageLength - yCornerCut);
+        glVertex2d(halfWidth, yCornerCut);
+        glVertex2d(halfWidth - xCornerCut, 0);
         glEnd();
         glPopMatrix();
         carriageOffset -= carriageLengthWithGap;
