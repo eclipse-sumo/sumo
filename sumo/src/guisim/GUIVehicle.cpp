@@ -537,57 +537,23 @@ GUIVehicle::drawAction_drawVehicleAsPoly() const {
         break;
         case SVS_BUS_OVERLAND:
         case SVS_RAIL:
+            drawAction_drawRailCarriages(25.0);
+            break;
         case SVS_RAIL_LIGHT:
+            drawAction_drawRailCarriages(38.0);
+            break;
         case SVS_RAIL_CITY:
+            drawAction_drawRailCarriages(25.0);
+            break;
         case SVS_RAIL_SLOW:
+            drawAction_drawRailCarriages(15.0);
+            break;
         case SVS_RAIL_FAST:
-        case SVS_RAIL_CARGO: {
-            glPopMatrix(); // undo scaling and 90 degree rotation
-            glPopMatrix(); // undo initial translation and rotation
-            glPushMatrix();
-            glPushMatrix();
-            //glRotated(-90, 0, 0, 1);
-            const SUMOReal halfWidth = width / 2.0;
-            const int numCarriages = floor(length / 20.0 + 0.5);
-            const SUMOReal carriageLengthWithGap = length / numCarriages;
-            const SUMOReal carriageLength = carriageLengthWithGap - 0.8;
-            // lane on which the carriage front is situated
-            MSLane* lane = myLane;
-            int routeIndex = myCurrEdge - myRoute->begin();
-            // lane on which the carriage back is situated
-            MSLane* backLane = myLane;
-            int backRouteIndex = routeIndex;
-            // offsets of front and back
-            SUMOReal carriageOffset = myState.pos();
-            SUMOReal carriageBackOffset = myState.pos() - carriageLength;
-            for (int i = 0; i < numCarriages; ++i) {
-                while (carriageOffset < 0) {
-                    lane = getPreviousLane(lane, routeIndex);
-                    carriageOffset += lane->getLength();
-                }
-                while (carriageBackOffset < 0) {
-                    backLane = getPreviousLane(backLane, backRouteIndex);
-                    carriageBackOffset += backLane->getLength();
-                }
-                const Position front = lane->getShape().positionAtLengthPosition2D(carriageOffset);
-                const Position back = backLane->getShape().positionAtLengthPosition2D(carriageBackOffset);
-                const SUMOReal angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
-                glPushMatrix();
-                glTranslated(front.x(), front.y(), getType());
-                glRotated(angle, 0, 0, 1);
-                //glScaled(1 / getVehicleType().getWidth(), 1 / carriageLength, 1);
-                glBegin(GL_TRIANGLE_FAN);
-                glVertex2d(-halfWidth, 0);
-                glVertex2d(-halfWidth, carriageLength);
-                glVertex2d(halfWidth, carriageLength);
-                glVertex2d(halfWidth, 0);
-                glEnd();
-                glPopMatrix();
-                carriageOffset -= carriageLengthWithGap;
-                carriageBackOffset -= carriageLengthWithGap;
-            }
-        }
-        break;
+            drawAction_drawRailCarriages(40.0);
+            break;
+        case SVS_RAIL_CARGO: 
+            drawAction_drawRailCarriages(20.0);
+            break;
         case SVS_E_VEHICLE:
             drawPoly(vehiclePoly_EVehicleBody, 4);
             glColor3d(0, 0, 0);
@@ -1294,6 +1260,63 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
         const MSEdge* previous = myRoute->getEdges()[--routeIndex];
         return MSLinkContHelper::getInternalFollowingEdge(
                 previous->getLanes()[0], &current->getEdge())->getLanes()[0];
+    }
+}
+
+
+void 
+GUIVehicle::drawAction_drawRailCarriages(SUMOReal defaultLength) const {
+    RGBColor current = GLHelper::getColor();
+    RGBColor darker = current.changedBrightness(-.2);
+    const SUMOReal length = getVehicleType().getLength();
+    const SUMOReal width = getVehicleType().getWidth();
+    glPopMatrix(); // undo scaling and 90 degree rotation
+    glPopMatrix(); // undo initial translation and rotation
+    glPushMatrix();
+    glPushMatrix();
+    GLHelper::setColor(darker);
+    const SUMOReal carriageGap = 0.8;
+    const SUMOReal halfWidth = width / 2.0;
+    // round to closest integer
+    const int numCarriages = floor(length / (defaultLength + carriageGap) + 0.5);
+    const SUMOReal carriageLengthWithGap = length / numCarriages;
+    const SUMOReal carriageLength = carriageLengthWithGap - carriageGap;
+    // lane on which the carriage front is situated
+    MSLane* lane = myLane;
+    int routeIndex = myCurrEdge - myRoute->begin();
+    // lane on which the carriage back is situated
+    MSLane* backLane = myLane;
+    int backRouteIndex = routeIndex;
+    // offsets of front and back
+    SUMOReal carriageOffset = myState.pos();
+    SUMOReal carriageBackOffset = myState.pos() - carriageLength;
+    // draw individual carriages
+    for (int i = 0; i < numCarriages; ++i) {
+        while (carriageOffset < 0) {
+            lane = getPreviousLane(lane, routeIndex);
+            carriageOffset += lane->getLength();
+        }
+        while (carriageBackOffset < 0) {
+            backLane = getPreviousLane(backLane, backRouteIndex);
+            carriageBackOffset += backLane->getLength();
+        }
+        const Position front = lane->getShape().positionAtLengthPosition2D(carriageOffset);
+        const Position back = backLane->getShape().positionAtLengthPosition2D(carriageBackOffset);
+        const SUMOReal angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
+        glPushMatrix();
+        glTranslated(front.x(), front.y(), getType());
+        glRotated(angle, 0, 0, 1);
+        //glScaled(1 / getVehicleType().getWidth(), 1 / carriageLength, 1);
+        glBegin(GL_TRIANGLE_FAN);
+        glVertex2d(-halfWidth, 0);
+        glVertex2d(-halfWidth, carriageLength);
+        glVertex2d(halfWidth, carriageLength);
+        glVertex2d(halfWidth, 0);
+        glEnd();
+        glPopMatrix();
+        carriageOffset -= carriageLengthWithGap;
+        carriageBackOffset -= carriageLengthWithGap;
+        GLHelper::setColor(current);
     }
 }
 

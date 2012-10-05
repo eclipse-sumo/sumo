@@ -303,6 +303,10 @@ private:
     void drawAction_drawVehicleAsBoxPlus() const;
     void drawAction_drawVehicleAsTrianglePlus() const;
     void drawAction_drawVehicleAsPoly() const;
+
+    /* @brief draw train with individual carriages. The number of carriages is
+     * determined from defaultLength of carriages and vehicle length and */
+    void drawAction_drawRailCarriages(SUMOReal defaultLength) const;
     /// @}
 
     /* @brief return the previous lane in this vehicles route including internal lanes
