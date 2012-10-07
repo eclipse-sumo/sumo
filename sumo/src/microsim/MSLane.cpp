@@ -342,16 +342,16 @@ MSLane::insertVehicle(MSVehicle& veh) {
             break;
         case DEPART_SPEED_RANDOM:
             speed = RandHelper::rand(MIN2(veh.getMaxSpeed(), getVehicleMaxSpeed(&veh)));
-            patchSpeed = true; // !!!(?)
+            patchSpeed = true; // @todo check
             break;
         case DEPART_SPEED_MAX:
             speed = MIN2(veh.getMaxSpeed(), getVehicleMaxSpeed(&veh));
-            patchSpeed = true; // !!!(?)
+            patchSpeed = true; // @todo check
             break;
         case DEPART_SPEED_DEFAULT:
         default:
             // speed = 0 was set before
-            patchSpeed = false; // !!!(?)
+            patchSpeed = false; // @todo check
             break;
     }
 
