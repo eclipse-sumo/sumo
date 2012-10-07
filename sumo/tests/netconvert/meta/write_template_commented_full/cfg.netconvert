@@ -90,6 +90,9 @@
         <!-- Street names will be included in the output (if available). -->
         <output.street-names value="false" type="BOOL"/>
 
+        <!-- Writes original names, if given, as parameter. -->
+        <output.original-names value="false" type="BOOL"/>
+
     </output>
 
     <projection>

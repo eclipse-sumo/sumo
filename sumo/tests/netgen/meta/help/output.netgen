@@ -72,6 +72,8 @@ Output Options:
                                         using openDRIVE format.
   --output.street-names               Street names will be included in the
                                         output (if available).
+  --output.original-names             Writes original names, if given, as
+                                        parameter.
 
 TLS Building Options:
   --tls.set STR                       Interprets STR as list of junctions to be

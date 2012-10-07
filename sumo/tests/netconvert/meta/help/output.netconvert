@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r12756
+SUMO netconvert Version dev-SVN-r12793
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -46,6 +46,8 @@ Output Options:
                                         using openDRIVE format.
   --output.street-names               Street names will be included in the
                                         output (if available).
+  --output.original-names             Writes original names, if given, as
+                                        parameter.
 
 Projection Options:
   --simple-projection                 Uses a simple method for projection
