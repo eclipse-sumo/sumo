@@ -1042,6 +1042,7 @@ break;
 			SUMOReal minDist = 1<<(11);
 			MSLane *minDistLane = 0;
 			MSLane *nameMatchingLane = 0;
+			SUMOReal minDistNameMatchingLane = 1<<(11);
 			for(; minDistLane==0 && r<10 && nameMatchingLane==0; ++r) {
 				std::set<std::string> into;
 			    server.collectObjectsInRange(CMD_GET_EDGE_VARIABLE, pos, 1<<r, into);
@@ -1051,17 +1052,16 @@ break;
 					for(std::vector<MSLane*>::const_iterator k=lanes.begin(); k!=lanes.end(); ++k) {
 						MSLane *lane = *k;
 						bool nameMatches = false;
+						SUMOReal dist = lane->getShape().distance(pos);
 						if(lane->knowsParameter("origId")) {
 							if(lane->getParameter("origId", "")==origID) {
 								nameMatches = true;
-								nameMatchingLane = lane;
-							}
-						} else {
-							if((*j).find(edgeID)==0) {
-								nameMatches = true;
+								if(dist<minDistNameMatchingLane) {
+									minDistNameMatchingLane = dist;
+									nameMatchingLane = lane;
+								}
 							}
 						}
-						SUMOReal dist = lane->getShape().distance(pos);
 						if(dist<minDist) {
 							minDist = dist;
 							minDistLane = lane;
@@ -1073,8 +1073,8 @@ break;
 			if(lane!=static_cast<MSVehicle*>(v)->getLane()) {
 	            MSEdge& destinationEdge = lane->getEdge();
 				MSEdge* routePos = &destinationEdge;
-				if(destinationEdge.getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-					routePos = &lane->getLogicalPredecessorLane()->getEdge();
+				while(routePos->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+					routePos = &routePos->getLanes()[0]->getLogicalPredecessorLane()->getEdge();
 				}
 				r = 0;
 				const MSRoute &route = static_cast<MSVehicle*>(v)->getRoute();
@@ -1082,8 +1082,8 @@ break;
 				unsigned int l = route.getEdges().size();
 				unsigned int rindex = 0;
 				bool found = false;
-				while(!found && ((int) (c-r)>0 || c+r<l)) {
-					if((int) (c-r)>0 && route[c-r]==routePos) {
+				while(!found && ((int) (c-r)>=0 || c+r<l)) {
+					if((int) (c-r)>=0 && route[c-r]==routePos) {
 						rindex = c-r;
 						found = true;
 					}
