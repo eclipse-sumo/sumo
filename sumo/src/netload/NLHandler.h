@@ -68,7 +68,7 @@ class MSTrafficLightLogic;
  * This is an extension of the MSRouteHandler as routes and vehicles may also
  *  be loaded from network descriptions.
  */
-class NLHandler : public MSRouteHandler, public Parameterised  {
+class NLHandler : public MSRouteHandler {
 public:
     /// @brief Definition of a lane vector
     typedef std::vector<MSLane*> LaneVector;
@@ -305,7 +305,7 @@ protected:
 
     bool myHaveWarnedAboutDeprecatedLanes;
     
-
+	Parameterised *myLastParameterised;
 
 private:
     /** invalid copy constructor */

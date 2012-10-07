@@ -87,8 +87,7 @@ MSLane*
 NLEdgeControlBuilder::addLane(const std::string& id,
                               SUMOReal maxSpeed, SUMOReal length,
                               const PositionVector& shape, SUMOReal width,
-                              SVCPermissions permissions,
-							  const Parameterised &params) {
+                              SVCPermissions permissions) {
     MSLane* lane = 0;
     switch (myFunction) {
         case MSEdge::EDGEFUNCTION_INTERNAL:
@@ -103,7 +102,6 @@ NLEdgeControlBuilder::addLane(const std::string& id,
         default:
             throw InvalidArgument("Unrecognised edge type.");
     }
-	lane->addParameter(params);
 	myLaneStorage->push_back(lane);
     return lane;
 }

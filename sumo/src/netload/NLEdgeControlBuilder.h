@@ -102,7 +102,6 @@ public:
      * @param[in] shape The shape of the lane
      * @param[in] width The width of the lane
      * @param[in] permissions Encoding of vehicle classes that may drive on this lane
-     * @param[in] params Additional parameter
      * @see SUMOVehicleClass
      * @see MSLane
      * @see MSInternalLane
@@ -110,8 +109,7 @@ public:
      */
     virtual MSLane* addLane(const std::string& id, SUMOReal maxSpeed,
                             SUMOReal length, const PositionVector& shape,
-                            SUMOReal width, SVCPermissions permissions,
-							const Parameterised &params);
+                            SUMOReal width, SVCPermissions permissions);
 
 
     /** @brief Closes the building of an edge;

@@ -77,7 +77,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
       myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
       myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
       myAmInTLLogicMode(false), myCurrentIsBroken(false),
-      myHaveWarnedAboutDeprecatedLanes(false) {}
+      myHaveWarnedAboutDeprecatedLanes(false), myLastParameterised(0) {}
 
 
 NLHandler::~NLHandler() {}
@@ -244,7 +244,7 @@ NLHandler::myEndElement(int element) {
     }
     MSRouteHandler::myEndElement(element);
 	if(element!=SUMO_TAG_PARAM) {
-		clearParameter();
+		myLastParameterised = 0;
 	}
 }
 
@@ -356,13 +356,14 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
         try {
-            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, permissions, *this);
+            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, permissions);
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;
                 WRITE_ERROR("Another lane with the id '" + id + "' exists.");
                 myCurrentIsBroken = true;
             }
+			myLastParameterised = lane;
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
         }
@@ -438,7 +439,9 @@ NLHandler::addParam(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string key = attrs.getStringReporting(SUMO_ATTR_KEY, 0, ok);
     std::string val = attrs.getStringReporting(SUMO_ATTR_VALUE, 0, ok);
-	addParameter(key, val);
+	if(myLastParameterised!=0) {
+		myLastParameterised->addParameter(key, val);
+	}
 	// set
     if (ok && myAmInTLLogicMode) {
         assert(key != "");
