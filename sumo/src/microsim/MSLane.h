@@ -40,6 +40,7 @@
 #include <deque>
 #include <cassert>
 #include <utils/common/Named.h>
+#include <utils/common/Parameterised.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/SUMOVehicle.h>
 #include <utils/geom/PositionVector.h>
@@ -69,7 +70,7 @@ class OutputDevice;
  * Class which represents a single lane. Somekind of the main class of the
  *  simulation. Allows moving vehicles.
  */
-class MSLane : public Named {
+class MSLane : public Named, public Parameterised {
 public:
     /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
     friend class MSLaneChanger;

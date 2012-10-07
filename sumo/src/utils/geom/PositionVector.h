@@ -50,8 +50,7 @@ class Boundary;
  * @class PositionVector
  * @brief A list of positions
  */
-class PositionVector
-        : public AbstractPoly {
+class PositionVector : public AbstractPoly {
 public:
     /// Definition of the list of points
     typedef std::vector<Position> ContType;
@@ -197,8 +196,7 @@ public:
     std::pair<PositionVector, PositionVector> splitAt(SUMOReal where) const;
 
     /// Output operator
-    friend std::ostream& operator<<(std::ostream& os,
-                                    const PositionVector& geom);
+    friend std::ostream& operator<<(std::ostream& os, const PositionVector& geom);
 
     bool crosses(const Position& p1, const Position& p2) const;
 

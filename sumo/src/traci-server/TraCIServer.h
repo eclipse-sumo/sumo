@@ -126,6 +126,7 @@ public:
 
     void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
 
+    void collectObjectsInRange(int domain, const Position &p, SUMOReal range, std::set<std::string> &into);
 
 
 private:
@@ -265,7 +266,6 @@ private:
 
 
     Position getObjectPosition(int domain, const std::string &id, bool &found);
-    void collectObjectsInRange(int domain, const Position &p, SUMOReal range, std::set<std::string> &into);
 
 
 private:

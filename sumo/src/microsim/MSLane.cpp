@@ -961,7 +961,7 @@ MSLane::buildLaneWrapper(unsigned int) {
 MSVehicle*
 MSLane::removeVehicle(MSVehicle* remVehicle) {
     for (MSLane::VehCont::iterator it = myVehicles.begin(); it < myVehicles.end(); it++) {
-        if (remVehicle->getID() == (*it)->getID()) {
+        if (remVehicle == *it) {
             remVehicle->leaveLane(MSMoveReminder::NOTIFICATION_ARRIVED);
             myVehicles.erase(it);
             myVehicleLengthSum -= remVehicle->getVehicleType().getLengthWithGap();

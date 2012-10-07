@@ -191,6 +191,8 @@ public:
      */
     bool willPass(const MSEdge* const edge) const;
 
+	unsigned int getRoutePosition() const;
+	void resetRoutePosition(unsigned int index);
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container
      *

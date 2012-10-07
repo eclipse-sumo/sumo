@@ -38,6 +38,7 @@
 #include <set>
 #include "NBCont.h"
 #include <utils/common/Named.h>
+#include <utils/common/Parameterised.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Bresenham.h>
@@ -66,7 +67,7 @@ class GNELane;
  * @class NBEdge
  * @brief The representation of a single edge during network building
  */
-class NBEdge : public Named {
+class NBEdge : public Named, public Parameterised {
     /** used for the computation of connections to following edges */
     friend class NBEdgeSuccessorBuilder;
     friend class NBEdgeCont;
@@ -134,6 +135,8 @@ public:
         SUMOReal offset;
         /// @brief This lane's width
         SUMOReal width;
+		/// @brief An original ID, if given (@todo: is only seldom used, should be stored somewhere else, probably)
+		std::string origID;
     };
 
 
@@ -166,6 +169,8 @@ public:
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
 
+
+		std::string origID;
 
         std::string id;
         PositionVector shape;

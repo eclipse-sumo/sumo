@@ -475,6 +475,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\Parameterised.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\RandHelper.cpp"
 				>
 			</File>
@@ -569,6 +573,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\NamedObjectCont.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\Parameterised.h"
 				>
 			</File>
 			<File

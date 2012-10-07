@@ -373,6 +373,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_TAU
             && variable != VAR_SPEED && variable != VAR_SPEEDSETMODE && variable != VAR_COLOR
             && variable != ADD && variable != REMOVE
+			&& variable != VAR_MOVE_TO_VTD
        ) {
         server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change Vehicle State: unsupported variable specified", outputStorage);
         return false;
@@ -988,6 +989,142 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             static_cast<MSVehicle*>(v)->onRemovalFromNet(n);
             static_cast<MSVehicle*>(v)->getLane()->removeVehicle(static_cast<MSVehicle*>(v));
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(static_cast<MSVehicle*>(v));
+        }
+        break;
+        case VAR_MOVE_TO_VTD: {
+			if(v->getID()=="22") {
+				int bla = 0;
+			}
+			if (valueDataType != TYPE_COMPOUND) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting position requires a compound object.", outputStorage);
+                return false;
+            }
+            if (inputStorage.readInt() != 4) {
+				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting position should obtain: edgeID, lane, x, y.", outputStorage);
+                return false;
+            }
+            // edge ID
+            if (inputStorage.readUnsignedByte() != TYPE_STRING) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first parameter for setting a position must be the lane ID given as a string.", outputStorage);
+                return false;
+            }
+            std::string edgeID = inputStorage.readString();
+            // lane index
+            if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be the position given as a double.", outputStorage);
+                return false;
+            }
+            int lane = inputStorage.readInt();
+            // x
+            if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be the position given as a double.", outputStorage);
+                return false;
+            }
+            SUMOReal x = inputStorage.readDouble();
+            // y
+            if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be the position given as a double.", outputStorage);
+                return false;
+            }
+            SUMOReal y = inputStorage.readDouble();
+			if(!static_cast<MSVehicle*>(v)->isOnRoad()) {
+break;
+			}
+            // process
+			if(lane<0) {
+				edgeID = '-' + edgeID;
+				lane = -lane;
+			}
+			//
+			Position pos(x, y);
+			unsigned int r = 0;
+			SUMOReal minDist = 1<<(11);
+			MSLane *minDistLane = 0;
+			for(; minDistLane==0 && r<10; ++r) {
+				std::set<std::string> into;
+			    server.collectObjectsInRange(CMD_GET_EDGE_VARIABLE, pos, 1<<r, into);
+				for(std::set<std::string>::const_iterator j=into.begin(); j!=into.end(); ++j) {
+					if((*j).find(edgeID)==0) {
+						MSLane *tl = MSLane::dictionary(*j + "_" + toString(lane));
+						if(tl==0) {
+							continue;
+						}
+						SUMOReal dist = tl->getShape().distance(pos);
+						if(dist<minDist) {
+							minDist = dist;
+							minDistLane = tl;
+						}
+					}
+				}
+			}
+			/*
+            MSEdge* e = MSLane::dictionary(edgeID);
+            if (e == 0) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unknown edge '" + edgeID + "'.", outputStorage);
+                return false;
+            }
+			*/
+			if(minDistLane!=static_cast<MSVehicle*>(v)->getLane()) {
+	            MSEdge& destinationEdge = minDistLane->getEdge();
+				r = 0;
+				const MSRoute &route = static_cast<MSVehicle*>(v)->getRoute();
+				unsigned int c = static_cast<MSVehicle*>(v)->getRoutePosition();
+				unsigned int l = route.getEdges().size();
+				unsigned int rindex = 0;
+				bool found = false;
+				while(!found && ((int) (c-r)>0 || c+r<l)) {
+					if((int) (c-r)>0 && route[c-r]==&destinationEdge) {
+						rindex = c-r;
+						found = true;
+					}
+					if(c+r<l && route[c+r]==&destinationEdge) {
+						rindex = c+r;
+						found = true;
+					}
+					++r;
+				}
+				if(static_cast<MSVehicle*>(v)->isOnRoad()) {
+					static_cast<MSVehicle*>(v)->getLane()->removeVehicle(static_cast<MSVehicle*>(v));
+					static_cast<MSVehicle*>(v)->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
+				}
+				if(!found) {
+					MSEdgeVector edges;
+					if(destinationEdge.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+						edges.push_back(&destinationEdge);
+					} else {
+						edges.push_back(route[c]);
+					}
+					const MSLinkCont &lc = minDistLane->getLinkCont();
+					if(lc.size()!=0&&lc[0]->getLane()!=0) {
+						edges.push_back(&lc[0]->getLane()->getEdge());
+					}
+					static_cast<MSVehicle*>(v)->replaceRouteEdges(edges, true);
+					static_cast<MSVehicle*>(v)->resetRoutePosition(0);
+				} else {
+					static_cast<MSVehicle*>(v)->resetRoutePosition(rindex);
+				}
+				SUMOReal position = minDistLane->getShape().nearest_position_on_line_to_point2D(pos);
+				minDistLane->forceVehicleInsertion(static_cast<MSVehicle*>(v), position);
+			} else {
+				static_cast<MSVehicle*>(v)->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
+				static_cast<MSVehicle*>(v)->getLane()->removeVehicle(static_cast<MSVehicle*>(v));
+				SUMOReal position = minDistLane->getShape().nearest_position_on_line_to_point2D(pos);
+				minDistLane->forceVehicleInsertion(static_cast<MSVehicle*>(v), position);
+			}
+			/*
+			if (!static_cast<MSVehicle*>(v)->willPass(&destinationEdge)) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + laneID + "' may be set onto an edge to pass only.", outputStorage);
+                return false;
+            }
+            while (v->getEdge() != &destinationEdge) {
+                const MSEdge* nextEdge = v->succEdge(1);
+                // let the vehicle move to the next edge
+                if (static_cast<MSVehicle*>(v)->enterLaneAtMove(nextEdge->getLanes()[0], true)) {
+                    MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
+                    continue;
+                }
+            }
+			*/
         }
         break;
         default:

@@ -542,6 +542,8 @@
 // how speed is set (set: vehicle)
 #define VAR_SPEEDSETMODE 0xb3
 
+// move vehicle, VTD version (set: vehicle)
+#define VAR_MOVE_TO_VTD 0xb4
 
 
 

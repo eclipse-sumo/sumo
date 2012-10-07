@@ -14,7 +14,8 @@ HelpersHarmonoise.cpp HelpersHarmonoise.h \
 HelpersHBEFA.cpp HelpersHBEFA.h \
 InstancePool.h \
 IDSupplier.h IDSupplier.cpp \
-Named.h StringTokenizer.cpp StringTokenizer.h \
+Named.h Parameterised.cpp Parameterised.h \
+StringTokenizer.cpp StringTokenizer.h \
 StringUtils.cpp StringUtils.h UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp \
 RGBColor.cpp RGBColor.h RandHelper.h RandHelper.cpp \

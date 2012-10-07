@@ -172,9 +172,9 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n) {
             if ((*k).toEdge == 0) {
                 continue;
             }
-            writeInternalEdge(into, (*k).id, (*k).vmax, (*k).shape);
+            writeInternalEdge(into, (*k).id, (*k).vmax, (*k).shape, (*k).origID);
             if ((*k).haveVia) {
-                writeInternalEdge(into, (*k).viaID, (*k).viaVmax, (*k).viaShape);
+                writeInternalEdge(into, (*k).viaID, (*k).viaVmax, (*k).viaShape, (*k).origID);
             }
             ret = true;
         }
@@ -184,7 +184,8 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n) {
 
 
 void
-NWWriter_SUMO::writeInternalEdge(OutputDevice& into, const std::string& id, SUMOReal vmax, const PositionVector& shape) {
+NWWriter_SUMO::writeInternalEdge(OutputDevice& into, const std::string& id, SUMOReal vmax, const PositionVector& shape,
+								 const std::string &origID) {
     SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // microsim needs positive length
     into.openTag(SUMO_TAG_EDGE);
     into.writeAttr(SUMO_ATTR_ID, id);
@@ -196,7 +197,16 @@ NWWriter_SUMO::writeInternalEdge(OutputDevice& into, const std::string& id, SUMO
     into.writeAttr(SUMO_ATTR_SPEED, vmax);
     into.writeAttr(SUMO_ATTR_LENGTH, length);
     into.writeAttr(SUMO_ATTR_SHAPE, shape);
-    into.closeTag(true);
+	if(origID!="") {
+	    into.closeOpener();
+		into.openTag(SUMO_TAG_PARAM);
+		into.writeAttr(SUMO_ATTR_KEY, "origId");
+		into.writeAttr(SUMO_ATTR_VALUE, origID);
+		into.closeTag(true);
+		into.closeTag();
+	} else {
+		into.closeTag(true);
+	}
     into.closeTag();
 }
 
@@ -273,7 +283,16 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
         shape = shape.getSubpart(0, shape.length() - lane.offset);
     }
     into.writeAttr(SUMO_ATTR_SHAPE, shape);
-    into.closeTag(true);
+	if(lane.origID!="") {
+	    into.closeOpener();
+		into.openTag(SUMO_TAG_PARAM);
+		into.writeAttr(SUMO_ATTR_KEY, "origId");
+		into.writeAttr(SUMO_ATTR_VALUE, lane.origID);
+		into.closeTag(true);
+		into.closeTag();
+	} else {
+	    into.closeTag(true);
+	}
 }
 
 

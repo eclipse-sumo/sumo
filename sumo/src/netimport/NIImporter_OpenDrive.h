@@ -301,6 +301,7 @@ protected:
         NBEdge* to;
         std::string via;
         std::vector<std::pair<int, int> > lanes;
+		std::string id;
     };
 
 protected:

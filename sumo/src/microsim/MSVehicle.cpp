@@ -385,6 +385,21 @@ MSVehicle::willPass(const MSEdge* const edge) const {
 }
 
 
+unsigned int 
+MSVehicle::getRoutePosition() const {
+	return (unsigned int) std::distance(myRoute->begin(), myCurrEdge);
+}
+
+
+void 
+MSVehicle::resetRoutePosition(unsigned int index) {
+	myCurrEdge = myRoute->begin() + index;
+	// !!! hack
+	myArrivalPos = (*(myRoute->end()-1))->getLanes()[0]->getLength();
+}
+
+
+
 const MSEdgeWeightsStorage&
 MSVehicle::getWeightsStorage() const {
     return _getWeightsStorage();

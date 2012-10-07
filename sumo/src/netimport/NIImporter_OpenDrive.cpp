@@ -294,6 +294,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + std::string("-") + e.id + "'.");
             }
+			//nbe->addParameter("origName", e.id);
+			for(unsigned int j=0; j<noLanesRight; ++j) {
+				nbe->getLaneStruct(j).origID = e.id + " -" + toString(j+1);
+			}
             fromLaneMap[nbe] = e.laneSections.back().buildLaneMapping(OPENDRIVE_TAG_RIGHT);
             toLaneMap[nbe] = e.laneSections[0].buildLaneMapping(OPENDRIVE_TAG_RIGHT);
         }
@@ -303,6 +307,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + e.id + "'.");
             }
+			//nbe->addParameter("origName", e.id);
+			for(unsigned int j=0; j<noLanesLeft; ++j) {
+				nbe->getLaneStruct(j).origID = e.id + " " + toString(j+1);
+			}
             fromLaneMap[nbe] = e.laneSections[0].buildLaneMapping(OPENDRIVE_TAG_LEFT);
             toLaneMap[nbe] = e.laneSections.back().buildLaneMapping(OPENDRIVE_TAG_LEFT);
         }
@@ -426,8 +434,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                            *predEdge, c.from->getID()[0] != '-', c.from->getID()[0] == '-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT,
                            e, isReversed, !isReversed ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT,
                            *succEdge, c.to->getID()[0] != '-', c.to->getID()[0] == '-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT);
-        connections.push_back(c);
+		c.id = e.id;
+		connections.push_back(c);
     }
+	
     for (std::vector<Connection>::const_iterator i = connections.begin(); i != connections.end(); ++i) {
         if ((*i).from == 0 || (*i).to == 0) {
             std::cout << "Nope." << std::endl;
@@ -446,7 +456,16 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 std::cout << "False " << std::endl;
             }
 
-            (*i).from->addLane2LaneConnection(fromLane, (*i).to, toLane, NBEdge::L2L_VALIDATED, true);
+            (*i).from->addLane2LaneConnection(fromLane, (*i).to, toLane, NBEdge::L2L_VALIDATED, true, false);
+			if((*i).id!="") {
+				std::vector<NBEdge::Connection> &cons = (*i).from->getConnections();
+				 for(std::vector<NBEdge::Connection>::iterator k=cons.begin(); k!=cons.end(); ++k) {
+					 if((*k).fromLane==fromLane && (*k).toEdge==(*i).to && (*k).toLane==toLane) {
+						 (*k).origID = (*i).id;
+						 break;
+					 }
+				 }
+			}
         }
     }
 }

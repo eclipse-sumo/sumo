@@ -33,6 +33,7 @@
 #include <functional>
 #include <sstream>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -246,6 +247,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         permLanes = myCapacity2Lanes.get(capacity);
     }
     NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (unsigned int) permLanes, -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
+	edge->addParameter("capacity", toString(capacity));
     if (myKeepEdgeLengths) {
         edge->setLoadedLength(length);
     }

@@ -39,6 +39,7 @@
 #include <string>
 #include <iostream>
 #include <utils/common/Named.h>
+#include <utils/common/Parameterised.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicle.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -69,7 +70,7 @@ class MSPerson;
  * A single connection between two junctions.
  * Holds lanes which are reponsible for vehicle movements.
  */
-class MSEdge : public Named {
+class MSEdge : public Named, public Parameterised {
 public:
     /**
      * @enum EdgeBasicFunction
