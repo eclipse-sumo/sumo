@@ -417,7 +417,7 @@ MSPerson::MSPersonStage_Waiting::getEdgePos(SUMOTime /* now */) const {
 }
 
 Position 
-MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime now) const {
+MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime /* now */) const {
     return getEdgePosition(&myDestination, myStartPos);
 }
 
