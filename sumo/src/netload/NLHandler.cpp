@@ -243,6 +243,9 @@ NLHandler::myEndElement(int element) {
             break;
     }
     MSRouteHandler::myEndElement(element);
+	if(element!=SUMO_TAG_PARAM) {
+		clearParameter();
+	}
 }
 
 
@@ -353,7 +356,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
         try {
-            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, permissions);
+            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, permissions, *this);
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;
@@ -435,7 +438,8 @@ NLHandler::addParam(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string key = attrs.getStringReporting(SUMO_ATTR_KEY, 0, ok);
     std::string val = attrs.getStringReporting(SUMO_ATTR_VALUE, 0, ok);
-    // set
+	addParameter(key, val);
+	// set
     if (ok && myAmInTLLogicMode) {
         assert(key != "");
         assert(val != "");

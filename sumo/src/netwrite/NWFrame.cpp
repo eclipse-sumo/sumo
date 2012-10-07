@@ -92,6 +92,9 @@ NWFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("output.street-names", new Option_Bool(false));
     oc.addDescription("output.street-names", "Output", "Street names will be included in the output (if available).");
+
+    oc.doRegister("output.original-names", new Option_Bool(false));
+    oc.addDescription("output.original-names", "Output", "Writes original names, if given, as parameter.");
 }
 
 

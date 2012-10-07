@@ -37,6 +37,7 @@
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/AttributeList.hpp>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/Parameterised.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSRouteHandler.h>
@@ -67,7 +68,7 @@ class MSTrafficLightLogic;
  * This is an extension of the MSRouteHandler as routes and vehicles may also
  *  be loaded from network descriptions.
  */
-class NLHandler : public MSRouteHandler {
+class NLHandler : public MSRouteHandler, public Parameterised  {
 public:
     /// @brief Definition of a lane vector
     typedef std::vector<MSLane*> LaneVector;

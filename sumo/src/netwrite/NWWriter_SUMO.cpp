@@ -76,10 +76,11 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     writeLocation(device);
 
     // write inner lanes
+	bool origNames = oc.getBool("output.original-names");
     if (!oc.getBool("no-internal-links")) {
         bool hadAny = false;
         for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-            hadAny |= writeInternalEdges(device, *(*i).second);
+            hadAny |= writeInternalEdges(device, *(*i).second, origNames);
         }
         if (hadAny) {
             device.lf();
@@ -89,7 +90,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write edges with lanes and connected edges
     bool noNames = !oc.getBool("output.street-names");
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        writeEdge(device, *(*i).second, noNames);
+        writeEdge(device, *(*i).second, noNames, origNames);
     }
     device.lf();
 
@@ -163,7 +164,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 bool
-NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n) {
+NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool origNames) {
     bool ret = false;
     const EdgeVector& incoming = n.getIncomingEdges();
     for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
@@ -172,9 +173,10 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n) {
             if ((*k).toEdge == 0) {
                 continue;
             }
-            writeInternalEdge(into, (*k).id, (*k).vmax, (*k).shape, (*k).origID);
+			std::string origID = origNames ? (*k).origID : "";
+            writeInternalEdge(into, (*k).id, (*k).vmax, (*k).shape, origID);
             if ((*k).haveVia) {
-                writeInternalEdge(into, (*k).viaID, (*k).viaVmax, (*k).viaShape, (*k).origID);
+                writeInternalEdge(into, (*k).viaID, (*k).viaVmax, (*k).viaShape, origID);
             }
             ret = true;
         }
@@ -212,7 +214,7 @@ NWWriter_SUMO::writeInternalEdge(OutputDevice& into, const std::string& id, SUMO
 
 
 void
-NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
+NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool origNames) {
     // write the edge's begin
     into.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, e.getID());
     into.writeAttr(SUMO_ATTR_FROM, e.getFromNode()->getID());
@@ -245,7 +247,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
         length = (SUMOReal) .1;
     }
     for (unsigned int i = 0; i < (unsigned int) lanes.size(); i++) {
-        writeLane(into, e.getID(), e.getLaneID(i), lanes[i], length, i);
+        writeLane(into, e.getID(), e.getLaneID(i), lanes[i], length, i, origNames);
     }
     // close the edge
     into.closeTag();
@@ -253,7 +255,8 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
 
 
 void
-NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::string& lID, const NBEdge::Lane& lane, SUMOReal length, unsigned int index) {
+NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::string& lID, const NBEdge::Lane& lane, 
+						 SUMOReal length, unsigned int index, bool origNames) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
     // the first lane of an edge will be the depart lane
@@ -283,7 +286,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
         shape = shape.getSubpart(0, shape.length() - lane.offset);
     }
     into.writeAttr(SUMO_ATTR_SHAPE, shape);
-	if(lane.origID!="") {
+	if(origNames && lane.origID!="") {
 	    into.closeOpener();
 		into.openTag(SUMO_TAG_PARAM);
 		into.writeAttr(SUMO_ATTR_KEY, "origId");
