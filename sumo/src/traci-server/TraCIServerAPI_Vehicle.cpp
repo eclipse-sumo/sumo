@@ -1072,6 +1072,10 @@ break;
 			MSLane *lane = nameMatchingLane!=0 ? nameMatchingLane : minDistLane;
 			if(lane!=static_cast<MSVehicle*>(v)->getLane()) {
 	            MSEdge& destinationEdge = lane->getEdge();
+				MSEdge* routePos = &destinationEdge;
+				if(destinationEdge.getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+					routePos = &lane->getLogicalPredecessorLane()->getEdge();
+				}
 				r = 0;
 				const MSRoute &route = static_cast<MSVehicle*>(v)->getRoute();
 				unsigned int c = static_cast<MSVehicle*>(v)->getRoutePosition();
@@ -1079,11 +1083,11 @@ break;
 				unsigned int rindex = 0;
 				bool found = false;
 				while(!found && ((int) (c-r)>0 || c+r<l)) {
-					if((int) (c-r)>0 && route[c-r]==&destinationEdge) {
+					if((int) (c-r)>0 && route[c-r]==routePos) {
 						rindex = c-r;
 						found = true;
 					}
-					if(c+r<l && route[c+r]==&destinationEdge) {
+					if(c+r<l && route[c+r]==routePos) {
 						rindex = c+r;
 						found = true;
 					}
