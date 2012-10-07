@@ -446,7 +446,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         (*i).from->addEdge2EdgeConnection((*i).to);
         std::map<int, int> fromMap = fromLaneMap[(*i).from];
         std::map<int, int> toMap = fromLaneMap[(*i).to];
-        for (std::vector<std::pair<int, int> >::const_iterator j = (*i).lanes.begin(); j != (*i).lanes.end(); ++j) {
+		int index = 0;
+        for (std::vector<std::pair<int, int> >::const_iterator j = (*i).lanes.begin(); j != (*i).lanes.end(); ++j, --index) {
             int fromLane = fromMap[(*j).first];
             int toLane = toMap[(*j).second];
             if (static_cast<unsigned int>(fromLane) >= (*i).from->getNumLanes() || fromLane < 0) {
@@ -461,7 +462,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 				std::vector<NBEdge::Connection> &cons = (*i).from->getConnections();
 				 for(std::vector<NBEdge::Connection>::iterator k=cons.begin(); k!=cons.end(); ++k) {
 					 if((*k).fromLane==fromLane && (*k).toEdge==(*i).to && (*k).toLane==toLane) {
-						 (*k).origID = (*i).id;
+						 (*k).origID = (*i).id + " " + toString(index);
 						 break;
 					 }
 				 }
