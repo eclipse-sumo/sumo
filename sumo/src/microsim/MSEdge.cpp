@@ -123,6 +123,13 @@ MSEdge::closeBuilding() {
                 }
                 myAllowed[&to]->push_back(*i);
             }
+#ifdef HAVE_INTERNAL_LANES
+			toL = (*j)->getViaLane();
+            if (toL != 0) {
+                MSEdge& to = toL->getEdge();
+                to.myPredeccesors.push_back(this);
+			}
+#endif
         }
     }
     std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
