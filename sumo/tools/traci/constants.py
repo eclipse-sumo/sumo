@@ -14,7 +14,7 @@ All rights reserved
 # ****************************************
 # VERSION
 # ****************************************
-TRACI_VERSION = 3
+TRACI_VERSION = 5
 
 # ****************************************
 # COMMANDS
@@ -54,6 +54,10 @@ CMD_CLOSE = 0x7F
 
 
 
+# command: subscribe induction loop (e1) context
+CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT = 0x80
+# response: subscribe induction loop (e1) context
+RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT = 0x90
 # command: get induction loop (e1) variable
 CMD_GET_INDUCTIONLOOP_VARIABLE = 0xa0
 # response: get induction loop (e1) variable
@@ -63,6 +67,10 @@ CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE = 0xd0
 # response: subscribe induction loop (e1) variable
 RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE = 0xe0
 
+# command: subscribe areal detector (e3) context
+CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT = 0x81
+# response: subscribe areal detector (e3) context
+RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT = 0x91
 # command: get multi-entry/multi-exit detector (e3) variable
 CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xa1
 # response: get areal detector (e3) variable
@@ -72,6 +80,10 @@ CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xd1
 # response: subscribe areal detector (e3) variable
 RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xe1
 
+# command: subscribe traffic lights context
+CMD_SUBSCRIBE_TL_CONTEXT = 0x82
+# response: subscribe traffic lights context
+RESPONSE_SUBSCRIBE_TL_CONTEXT = 0x92
 # command: get traffic lights variable
 CMD_GET_TL_VARIABLE = 0xa2
 # response: get traffic lights variable
@@ -83,6 +95,10 @@ CMD_SUBSCRIBE_TL_VARIABLE = 0xd2
 # response: subscribe traffic lights variable
 RESPONSE_SUBSCRIBE_TL_VARIABLE = 0xe2
 
+# command: subscribe lane context
+CMD_SUBSCRIBE_LANE_CONTEXT = 0x83
+# response: subscribe lane context
+RESPONSE_SUBSCRIBE_LANE_CONTEXT = 0x93
 # command: get lane variable
 CMD_GET_LANE_VARIABLE = 0xa3
 # response: get lane variable
@@ -94,6 +110,10 @@ CMD_SUBSCRIBE_LANE_VARIABLE = 0xd3
 # response: subscribe lane variable
 RESPONSE_SUBSCRIBE_LANE_VARIABLE = 0xe3
 
+# command: subscribe vehicle context
+CMD_SUBSCRIBE_VEHICLE_CONTEXT = 0x84
+# response: subscribe vehicle context
+RESPONSE_SUBSCRIBE_VEHICLE_CONTEXT = 0x94
 # command: get vehicle variable
 CMD_GET_VEHICLE_VARIABLE = 0xa4
 # response: get vehicle variable
@@ -105,6 +125,10 @@ CMD_SUBSCRIBE_VEHICLE_VARIABLE = 0xd4
 # response: subscribe vehicle variable
 RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE = 0xe4
 
+# command: subscribe vehicle type context
+CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT = 0x85
+# response: subscribe vehicle type context
+RESPONSE_SUBSCRIBE_VEHICLETYPE_CONTEXT = 0x95
 # command: get vehicle type variable
 CMD_GET_VEHICLETYPE_VARIABLE = 0xa5
 # response: get vehicle type variable
@@ -116,6 +140,10 @@ CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE = 0xd5
 # response: subscribe vehicle type variable
 RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE = 0xe5
 
+# command: subscribe route context
+CMD_SUBSCRIBE_ROUTE_CONTEXT = 0x86
+# response: subscribe route context
+RESPONSE_SUBSCRIBE_ROUTE_CONTEXT = 0x96
 # command: get route variable
 CMD_GET_ROUTE_VARIABLE = 0xa6
 # response: get route variable
@@ -127,6 +155,10 @@ CMD_SUBSCRIBE_ROUTE_VARIABLE = 0xd6
 # response: subscribe route variable
 RESPONSE_SUBSCRIBE_ROUTE_VARIABLE = 0xe6
 
+# command: subscribe poi context
+CMD_SUBSCRIBE_POI_CONTEXT = 0x87
+# response: subscribe poi context
+RESPONSE_SUBSCRIBE_POI_CONTEXT = 0x97
 # command: get poi variable
 CMD_GET_POI_VARIABLE = 0xa7
 # response: get poi variable
@@ -138,6 +170,10 @@ CMD_SUBSCRIBE_POI_VARIABLE = 0xd7
 # response: subscribe poi variable
 RESPONSE_SUBSCRIBE_POI_VARIABLE = 0xe7
 
+# command: subscribe polygon context
+CMD_SUBSCRIBE_POLYGON_CONTEXT = 0x88
+# response: subscribe polygon context
+RESPONSE_SUBSCRIBE_POLYGON_CONTEXT = 0x98
 # command: get polygon variable
 CMD_GET_POLYGON_VARIABLE = 0xa8
 # response: get polygon variable
@@ -149,6 +185,10 @@ CMD_SUBSCRIBE_POLYGON_VARIABLE = 0xd8
 # response: subscribe polygon variable
 RESPONSE_SUBSCRIBE_POLYGON_VARIABLE = 0xe8
 
+# command: subscribe junction context
+CMD_SUBSCRIBE_JUNCTION_CONTEXT = 0x89
+# response: subscribe junction context
+RESPONSE_SUBSCRIBE_JUNCTION_CONTEXT = 0x99
 # command: get junction variable
 CMD_GET_JUNCTION_VARIABLE = 0xa9
 # response: get junction variable
@@ -160,6 +200,10 @@ CMD_SUBSCRIBE_JUNCTION_VARIABLE = 0xd9
 # response: subscribe junction variable
 RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE = 0xe9
 
+# command: subscribe edge context
+CMD_SUBSCRIBE_EDGE_CONTEXT = 0x8a
+# response: subscribe edge context
+RESPONSE_SUBSCRIBE_EDGE_CONTEXT = 0x9a
 # command: get edge variable
 CMD_GET_EDGE_VARIABLE = 0xaa
 # response: get edge variable
@@ -171,6 +215,10 @@ CMD_SUBSCRIBE_EDGE_VARIABLE = 0xda
 # response: subscribe edge variable
 RESPONSE_SUBSCRIBE_EDGE_VARIABLE = 0xea
 
+# command: subscribe simulation context
+CMD_SUBSCRIBE_SIM_CONTEXT = 0x8b
+# response: subscribe simulation context
+RESPONSE_SUBSCRIBE_SIM_CONTEXT = 0x9b
 # command: get simulation variable
 CMD_GET_SIM_VARIABLE = 0xab
 # response: get simulation variable
@@ -182,6 +230,10 @@ CMD_SUBSCRIBE_SIM_VARIABLE = 0xdb
 # response: subscribe simulation variable
 RESPONSE_SUBSCRIBE_SIM_VARIABLE = 0xeb
 
+# command: subscribe GUI context
+CMD_SUBSCRIBE_GUI_CONTEXT = 0x8c
+# response: subscribe GUI context
+RESPONSE_SUBSCRIBE_GUI_CONTEXT = 0x9c
 # command: get GUI variable
 CMD_GET_GUI_VARIABLE = 0xac
 # response: get GUI variable
@@ -192,7 +244,6 @@ CMD_SET_GUI_VARIABLE = 0xcc
 CMD_SUBSCRIBE_GUI_VARIABLE = 0xdc
 # response: subscribe GUI variable
 RESPONSE_SUBSCRIBE_GUI_VARIABLE = 0xec
-
 
 
 # ****************************************
@@ -292,6 +343,12 @@ ID_LIST = 0x00
 
 # count of instances (get: all)
 ID_COUNT = 0x01
+
+# subscribe object variables (get: all)
+OBJECT_VARIABLES_SUBSCRIPTION = 0x02
+
+# subscribe context variables (get: all)
+SURROUNDING_VARIABLES_SUBSCRIPTION = 0x03
 
 # last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 LAST_STEP_VEHICLE_NUMBER = 0x10
@@ -477,6 +534,8 @@ VAR_BEST_LANES = 0xb2
 # how speed is set (set: vehicle)
 VAR_SPEEDSETMODE = 0xb3
 
+# move vehicle, VTD version (set: vehicle)
+VAR_MOVE_TO_VTD = 0xb4
 
 
 
@@ -500,6 +559,10 @@ VAR_FUELCONSUMPTION = 0x65
 
 # current noise emission of a node (get: vehicle, lane, edge)
 VAR_NOISEEMISSION = 0x66
+
+# current person number (get: vehicle)
+VAR_PERSON_NUMBER = 0x67
+VAR_BUS_STOP_WAITING = 0x67
 
 
 

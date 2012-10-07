@@ -545,3 +545,13 @@ def remove(vehID, reason=tc.REMOVE_VAPORIZED):
     '''Remove vehicle with the given ID for the give reason. 
        Reasons are defined in module constants and start with REMOVE_'''
     traci._sendByteCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, reason)
+
+def moveToVTD(vehID, edgeID, lane, x, y):
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MOVE_TO_VTD, vehID, 1+4+1+4+len(edgeID)+1+4+1+8+1+8)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(edgeID)) + edgeID
+    traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, lane)    
+    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, x)
+    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, y)
+    traci._sendExact()
+
