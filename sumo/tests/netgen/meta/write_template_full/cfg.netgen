@@ -96,8 +96,8 @@
         <roundabouts.guess value="false" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
-        <junctions.join-dist value="15" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 15)"/>
-        <tls.join-dist value="25" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 15)"/>
+        <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
+        <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
     </processing>
 
     <building_defaults>
