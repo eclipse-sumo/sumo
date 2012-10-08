@@ -870,9 +870,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "First parameter (type) requires a string.", outputStorage);
                 return false;
             }
-            MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(inputStorage.readString());
+            std::string vTypeID = inputStorage.readString();
+            MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
             if (!vehicleType) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid type for vehicle: '" + id + "'");
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid type '" + vTypeID + "'for vehicle '" + id + "'");
                 return false;
             }
 
@@ -992,9 +993,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case VAR_MOVE_TO_VTD: {
-			if(v->getID()=="22") {
-				int bla = 0;
-			}
 			if (valueDataType != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting position requires a compound object.", outputStorage);
                 return false;
@@ -1005,25 +1003,25 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             // edge ID
             if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first parameter for setting a position must be the lane ID given as a string.", outputStorage);
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first parameter for setting a position must be the edge ID given as a string.", outputStorage);
                 return false;
             }
             std::string edgeID = inputStorage.readString();
             // lane index
             if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be the position given as a double.", outputStorage);
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be lane given as an int.", outputStorage);
                 return false;
             }
             int laneNum = inputStorage.readInt();
             // x
             if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be the position given as a double.", outputStorage);
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The third parameter for setting a position must be the x-position given as a double.", outputStorage);
                 return false;
             }
             SUMOReal x = inputStorage.readDouble();
             // y
             if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be the position given as a double.", outputStorage);
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fourth parameter for setting a position must be the y-position given as a double.", outputStorage);
                 return false;
             }
             SUMOReal y = inputStorage.readDouble();

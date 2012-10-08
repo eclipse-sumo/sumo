@@ -128,9 +128,10 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
             int numEdges = inputStorage.readInt();
             MSEdgeVector edges;
             while (numEdges--) {
-                MSEdge* edge = MSEdge::dictionary(inputStorage.readString());
+                std::string edgeID = inputStorage.readString();
+                MSEdge* edge = MSEdge::dictionary(edgeID);
                 if (edge == 0) {
-                    server.writeStatusCmd(CMD_SET_ROUTE_VARIABLE, RTYPE_ERR, "Unknown edge in route.", outputStorage);
+                    server.writeStatusCmd(CMD_SET_ROUTE_VARIABLE, RTYPE_ERR, "Unknown edge '" + edgeID + "' in route.", outputStorage);
                     return false;
                 }
                 edges.push_back(edge);
