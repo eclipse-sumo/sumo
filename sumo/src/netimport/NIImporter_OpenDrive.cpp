@@ -251,7 +251,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
 
     }
-    //
 
 
     // build start/end nodes which were not defined previously
@@ -275,6 +274,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // -------------------------
     std::map<NBEdge*, std::map<int, int> > fromLaneMap;
     std::map<NBEdge*, std::map<int, int> > toLaneMap;
+    bool useLoadedLengths = oc.getBool("opendrive.use-given-lengths");
     // build edges
     for (std::vector<OpenDriveEdge>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
         OpenDriveEdge& e = *i;
@@ -294,10 +294,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + std::string("-") + e.id + "'.");
             }
-			//nbe->addParameter("origName", e.id);
 			for(unsigned int j=0; j<noLanesRight; ++j) {
 				nbe->getLaneStruct(j).origID = e.id + " -" + toString(j+1);
 			}
+            if(useLoadedLengths) { nbe->setLoadedLength(e.length); }
             fromLaneMap[nbe] = e.laneSections.back().buildLaneMapping(OPENDRIVE_TAG_RIGHT);
             toLaneMap[nbe] = e.laneSections[0].buildLaneMapping(OPENDRIVE_TAG_RIGHT);
         }
@@ -307,7 +307,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + e.id + "'.");
             }
-			//nbe->addParameter("origName", e.id);
+			if(useLoadedLengths) { nbe->setLoadedLength(e.length); }
 			for(unsigned int j=0; j<noLanesLeft; ++j) {
 				nbe->getLaneStruct(j).origID = e.id + " " + toString(j+1);
 			}
