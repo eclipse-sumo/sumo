@@ -267,8 +267,8 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-taujf", "Mesoscopic", "Factor for calculating the jam-free headway time");
     oc.doRegister("meso-taujj", new Option_String("2", "TIME"));
     oc.addDescription("meso-taujj", "Mesoscopic", "Factor for calculating the jam-jam headway time");
-    oc.doRegister("meso-jam-threshold", new Option_Float(0.29f));
-    oc.addDescription("meso-jam-threshold", "Mesoscopic", "Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed");
+    oc.doRegister("meso-jam-threshold", new Option_Float(-1));
+    oc.addDescription("meso-jam-threshold", "Mesoscopic", "Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default)");
     oc.doRegister("meso-multi-queue", new Option_Bool(false));
     oc.addDescription("meso-multi-queue", "Mesoscopic", "Enable multiple queues at edge ends");
     oc.doRegister("meso-junction-control", new Option_Bool(false));
