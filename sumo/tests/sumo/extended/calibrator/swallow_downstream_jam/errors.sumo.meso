@@ -1,2 +1,8 @@
-Warning: Clearing jam at calibrator 'swallow_jam' at time 212.00
-Warning: Clearing jam at calibrator 'swallow_jam' at time 3612.00
+Warning: Clearing jam at calibrator 'swallow_jam' at time 210.00
+Warning: Clearing jam at calibrator 'swallow_jam' at time 3600.00
+Leaked object at 0x9f3930 (size 40, 0x30f7e9c3a9)
+Leaked object at 0xbc9310 (size 208, SUMOVehicleParserHelper.cpp:168)
+Leaked object at 0xbc8ae0 (size 27, 0x30f7e9c3a9)
+Leaked object at 0xbc9460 (size 208, SUMOVehicleParserHelper.cpp:168)
+Leaked object at 0xbc9630 (size 27, 0x30f7e9c3a9)
+*** 5 leaks found

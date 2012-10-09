@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/20/12 09:55:25 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on Tue Oct  9 15:12:35 2012 by SUMO sumo Version dev-SVN-r12809
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -43,7 +43,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal05" depart="100.00" arrival="271.00">
+    <vehicle id="horizontal05" depart="100.00" arrival="270.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -51,7 +51,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal09" depart="100.00" arrival="274.00">
+    <vehicle id="horizontal09" depart="100.00" arrival="273.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
