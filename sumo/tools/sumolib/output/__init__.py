@@ -120,6 +120,7 @@ def parse_fast(xmlfile, element_name, attrnames):
     # parses the given attribute from all elements with element_name
     # note that the element must be on its own line and 
     # the attributes must appear in the given order
+    # example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     Record = namedtuple(element_name, attrnames)
     pattern = '.*'.join(['<%s' % element_name] +
         ['%s="([^"]*)"' % attr for attr in attrnames])
