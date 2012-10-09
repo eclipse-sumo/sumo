@@ -173,6 +173,9 @@ class Node:
         self._prohibits = {}
         self._incLanes = incLanes
 
+    def getID(self):
+        return self._id
+
     def addOutgoing(self, edge):
         self._outgoing.append(edge)
         
