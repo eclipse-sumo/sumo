@@ -136,7 +136,7 @@ public:
 
     /** @brief Saves the stored polygons into the given file
      * @param[in] file The name of the file to write stored objects' definitions into
-     * @exception IOError If the file could not been opened
+     * @exception IOError If the file could not be opened
      */
     void save(const std::string& file);
 

@@ -136,7 +136,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
                 PointOfInterest* poi = new PointOfInterest(id, type, pos, color);
                 if (!toFill.insert(id, poi, layer)) {
-                    WRITE_ERROR("POI '" + id + "' could not been added.");
+                    WRITE_ERROR("POI '" + id + "' could not be added.");
                     delete poi;
                 }
             }
@@ -153,7 +153,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
                 Polygon* poly = new Polygon(id, type, color, shape, false);
                 if (!toFill.insert(id, poly, layer)) {
-                    WRITE_ERROR("Polygon '" + id + "' could not been added.");
+                    WRITE_ERROR("Polygon '" + id + "' could not be added.");
                     delete poly;
                 }
             }
@@ -170,7 +170,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 }
                 Polygon* poly = new Polygon(id, type, color, shape, true);
                 if (!toFill.insert(id, poly, layer)) {
-                    WRITE_ERROR("Polygon '" + id + "' could not been added.");
+                    WRITE_ERROR("Polygon '" + id + "' could not be added.");
                     delete poly;
                 }
             }
@@ -186,7 +186,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     PointOfInterest* poi = new PointOfInterest(tid, type, pos, color);
                     if (!toFill.insert(tid, poi, layer)) {
-                        WRITE_ERROR("POI '" + tid + "' could not been added.");
+                        WRITE_ERROR("POI '" + tid + "' could not be added.");
                         delete poi;
                     }
                 }
@@ -207,7 +207,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     Polygon* poly = new Polygon(tid, type, color, shape, false);
                     if (!toFill.insert(tid, poly, layer)) {
-                        WRITE_ERROR("Polygon '" + tid + "' could not been added.");
+                        WRITE_ERROR("Polygon '" + tid + "' could not be added.");
                         delete poly;
                     }
                 }
@@ -228,7 +228,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     Polygon* poly = new Polygon(tid, type, color, shape, true);
                     if (!toFill.insert(tid, poly, layer)) {
-                        WRITE_ERROR("Polygon '" + tid + "' could not been added.");
+                        WRITE_ERROR("Polygon '" + tid + "' could not be added.");
                         delete poly;
                     }
                 }

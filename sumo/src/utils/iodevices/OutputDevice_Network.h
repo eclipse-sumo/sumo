@@ -60,7 +60,7 @@ public:
      *
      * @param[in] host The host to connect
      * @param[in] port The port to connect
-     * @exception IOError If the connection could not been established
+     * @exception IOError If the connection could not be established
      */
     OutputDevice_Network(const std::string& host,
                          const int port);

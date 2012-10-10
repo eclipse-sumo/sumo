@@ -181,7 +181,7 @@ private:
     /// @brief All loaded vehicles sorted by their departure time
     MSVehicleContainer myAllVeh;
 
-    /// @brief Buffers for vehicles that could not been inserted
+    /// @brief Buffers for vehicles that could not be inserted
     MSVehicleContainer::VehicleVector myRefusedEmits1, myRefusedEmits2;
 
     /** @struct Stop

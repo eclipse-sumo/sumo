@@ -147,7 +147,7 @@ PCLoaderXML::myStartElement(int element,
             }
             PointOfInterest* poi = new PointOfInterest(id, type, pos, color);
             if (!myCont.insert(id, poi, layer, ignorePrunning)) {
-                WRITE_ERROR("POI '" + id + "' could not been added.");
+                WRITE_ERROR("POI '" + id + "' could not be added.");
                 delete poi;
             }
         }
@@ -207,7 +207,7 @@ PCLoaderXML::myStartElement(int element,
             }
             Polygon* poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, fill);
             if (!myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning)) {
-                WRITE_ERROR("Polygon '" + myCurrentID + "' could not been added.");
+                WRITE_ERROR("Polygon '" + myCurrentID + "' could not be added.");
                 delete poly;
             }  
         }

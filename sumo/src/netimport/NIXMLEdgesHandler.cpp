@@ -254,7 +254,7 @@ void
 NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge == 0) {
         if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
-            WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
+            WRITE_ERROR("Additional lane information could not be set - the edge with id '" + myCurrentID + "' is not known.");
         }
         return;
     }
@@ -320,7 +320,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         e.nameid = (int)e.pos;
         if (myCurrentEdge == 0) {
             if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
-                WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
+                WRITE_ERROR("Additional lane information could not be set - the edge with id '" + myCurrentID + "' is not known.");
             }
             return;
         }

@@ -1074,7 +1074,7 @@ NBEdge::computeLaneShapes() {
         try {
             myLanes[i].shape = computeLaneShape(i);
         } catch (InvalidArgument& e) {
-            WRITE_WARNING("In edge '" + getID() + "': lane shape could not been determined (" + e.what() + ")");
+            WRITE_WARNING("In edge '" + getID() + "': lane shape could not be determined (" + e.what() + ")");
             myLanes[i].shape = myGeom;
         }
     }

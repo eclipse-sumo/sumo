@@ -80,7 +80,7 @@ MSTriggeredReader::wrappedExecute(SUMOTime current) {
                 return 0;
             }
         } else {
-            // action could not been accomplished; try next time step
+            // action could not be accomplished; try next time step
             return DELTA_T;
         }
     }

@@ -148,7 +148,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             type = StringUtils::escapeXML(type);
             Polygon* poly = new Polygon(name, type, color, vec, fill);
             if (!toFill.insert(name, poly, layer)) {
-                WRITE_ERROR("Polygon '" + name + "' could not been added.");
+                WRITE_ERROR("Polygon '" + name + "' could not be added.");
                 delete poly;
             }
         }
@@ -201,7 +201,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             type = StringUtils::escapeXML(type);
             PointOfInterest* poi = new PointOfInterest(name, type, pos, color);
             if (!toFill.insert(name, poi, layer, ignorePrunning)) {
-                WRITE_ERROR("POI '" + name + "' could not been added.");
+                WRITE_ERROR("POI '" + name + "' could not be added.");
                 delete poi;
             }
         }
