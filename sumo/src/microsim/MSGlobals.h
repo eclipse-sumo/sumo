@@ -79,6 +79,9 @@ public:
     /** Information whether mesosim shall be used */
     static bool gUseMesoSim;
 
+    /** Information whether limited junction control shall be used */
+    static bool gMesoLimitedJunctionControl;
+
     /// mesoscopic simulation infrastructure
     static MELoop* gMesoNet;
 #else

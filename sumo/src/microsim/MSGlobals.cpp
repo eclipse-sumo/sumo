@@ -52,6 +52,7 @@ bool MSGlobals::gCheckRoutes;
 #ifdef HAVE_INTERNAL
 bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
+bool MSGlobals::gMesoLimitedJunctionControl;
 MELoop* MSGlobals::gMesoNet;
 #else
 const bool MSGlobals::gUseMesoSim = false;

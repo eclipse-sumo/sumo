@@ -273,6 +273,8 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-multi-queue", "Mesoscopic", "Enable multiple queues at edge ends");
     oc.doRegister("meso-junction-control", new Option_Bool(false));
     oc.addDescription("meso-junction-control", "Mesoscopic", "Enable mesoscopic traffic light and priority junction handling");
+    oc.doRegister("meso-junction-control.limited", new Option_Bool(false));
+    oc.addDescription("meso-junction-control.limited", "Mesoscopic", "Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations");
     oc.doRegister("meso-recheck", new Option_String("0", "TIME"));
     oc.addDescription("meso-recheck", "Mesoscopic", "Time interval for rechecking insertion into the next segment after failure");
 #endif
@@ -353,6 +355,11 @@ MSFrame::checkOptions() {
         WRITE_ERROR("routeDist.maxsize must be positive");
         ok = false;
     }
+#ifdef HAVE_INTERNAL
+    if (oc.getBool("meso-junction-control.limited") && !oc.getBool("meso-junction-control")) {
+        oc.set("meso-junction-control", "true");
+    }
+#endif
     return ok;
 }
 
@@ -375,6 +382,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
 #ifdef HAVE_INTERNAL
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
+    MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");
 #endif
 
 #ifdef HAVE_SUBSECOND_TIMESTEPS
