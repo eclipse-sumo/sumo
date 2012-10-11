@@ -70,7 +70,7 @@ public:
     bool add(const std::string& id, MSPerson* person);
 
     /// removes a single person
-    void erase(MSPerson* person);
+    virtual void erase(MSPerson* person);
 
     /// sets the arrival time for a waiting or walking person
     void setDeparture(SUMOTime time, MSPerson* person);
@@ -90,7 +90,7 @@ public:
      * @param[in] the vehicle which is taking on passengers
      * @return Whether any persons have been boarded
      */
-    bool boardAnyWaiting(const MSEdge* edge, MSVehicle* vehicle);
+    bool boardAnyWaiting(MSEdge* edge, MSVehicle* vehicle);
 
     /// checks whether any person waits to finish her plan
     bool hasPersons() const;

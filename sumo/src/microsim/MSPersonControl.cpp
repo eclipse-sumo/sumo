@@ -34,6 +34,7 @@
 #include <vector>
 #include <algorithm>
 #include "MSNet.h"
+#include "MSEdge.h"
 #include "MSPerson.h"
 #include "MSVehicle.h"
 #include "MSPersonControl.h"
@@ -158,13 +159,14 @@ MSPersonControl::isWaiting4Vehicle(const MSEdge* const edge, MSPerson *p) const 
 
 
 bool
-MSPersonControl::boardAnyWaiting(const MSEdge* const edge, MSVehicle* vehicle) {
+MSPersonControl::boardAnyWaiting(MSEdge* edge, MSVehicle* vehicle) {
     bool ret = false;
     if (myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end()) {
         PersonVector& waitPersons = myWaiting4Vehicle[edge];
         for (PersonVector::iterator i = waitPersons.begin(); i != waitPersons.end();) {
             const std::string& line = vehicle->getParameter().line == "" ? vehicle->getParameter().id : vehicle->getParameter().line;
             if ((*i)->isWaitingFor(line)) {
+                edge->removePerson(*i);
                 vehicle->addPerson(*i);
                 static_cast<MSPerson::MSPersonStage_Driving*>((*i)->getCurrentStage())->setVehicle(vehicle);
                 i = waitPersons.erase(i);
