@@ -306,8 +306,9 @@ private:
     void drawAction_drawVehicleAsPoly() const;
 
     /* @brief draw train with individual carriages. The number of carriages is
-     * determined from defaultLength of carriages and vehicle length and */
-    void drawAction_drawRailCarriages(SUMOReal defaultLength) const;
+     * determined from defaultLength of carriages and vehicle length  
+     * passengerSeats are computed beginning at firstPassengerCarriage */
+    void drawAction_drawRailCarriages(SUMOReal defaultLength, int firstPassengerCarriage=0) const;
     /// @}
 
     /* @brief return the previous lane in this vehicles route including internal lanes
@@ -321,6 +322,12 @@ private:
 
     /// @brief positions of seats in the vehicle (updated at every drawing step)
     mutable PositionVector mySeatPositions;
+
+    /// @brief return the number of passengers
+    int getNumPassengers() const;
+
+    /// @brief add seats to mySeatPositions and update requiredSeats
+    void computeSeats(const Position& front, const Position& back, int& requiredSeats) const;
 };
 
 

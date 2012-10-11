@@ -538,7 +538,7 @@ GUIVehicle::drawAction_drawVehicleAsPoly() const {
         break;
         case SVS_BUS_OVERLAND:
         case SVS_RAIL:
-            drawAction_drawRailCarriages(25.0);
+            drawAction_drawRailCarriages(25.0, 1);
             break;
         case SVS_RAIL_LIGHT:
             drawAction_drawRailCarriages(38.0);
@@ -547,10 +547,10 @@ GUIVehicle::drawAction_drawVehicleAsPoly() const {
             drawAction_drawRailCarriages(25.0);
             break;
         case SVS_RAIL_SLOW:
-            drawAction_drawRailCarriages(15.0);
+            drawAction_drawRailCarriages(15.0, 1);
             break;
         case SVS_RAIL_FAST:
-            drawAction_drawRailCarriages(40.0);
+            drawAction_drawRailCarriages(40.0, 1);
             break;
         case SVS_RAIL_CARGO: 
             drawAction_drawRailCarriages(20.0);
@@ -1273,7 +1273,7 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
 
 
 void 
-GUIVehicle::drawAction_drawRailCarriages(SUMOReal defaultLength) const {
+GUIVehicle::drawAction_drawRailCarriages(SUMOReal defaultLength, int firstPassengerCarriage) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-.2);
     const SUMOReal length = getVehicleType().getLength();
@@ -1288,6 +1288,7 @@ GUIVehicle::drawAction_drawRailCarriages(SUMOReal defaultLength) const {
     const SUMOReal yCornerCut = 0.4;
     // round to closest integer
     const int numCarriages = floor(length / (defaultLength + carriageGap) + 0.5);
+    assert(numCarriages > 0);
     const SUMOReal carriageLengthWithGap = length / numCarriages;
     const SUMOReal carriageLength = carriageLengthWithGap - carriageGap;
     // lane on which the carriage front is situated
@@ -1299,6 +1300,11 @@ GUIVehicle::drawAction_drawRailCarriages(SUMOReal defaultLength) const {
     // offsets of front and back
     SUMOReal carriageOffset = myState.pos();
     SUMOReal carriageBackOffset = myState.pos() - carriageLength;
+    // handle seats
+    int requiredSeats = getNumPassengers();
+    if (requiredSeats > 0) {
+        mySeatPositions.clear();
+    }
     // draw individual carriages
     for (int i = 0; i < numCarriages; ++i) {
         while (carriageOffset < 0) {
@@ -1312,6 +1318,9 @@ GUIVehicle::drawAction_drawRailCarriages(SUMOReal defaultLength) const {
         const Position front = lane->getShape().positionAtLengthPosition2D(carriageOffset);
         const Position back = backLane->getShape().positionAtLengthPosition2D(carriageBackOffset);
         const SUMOReal angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
+        if (i >= firstPassengerCarriage) {
+            computeSeats(front, back, requiredSeats);
+        }
         glPushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
@@ -1340,6 +1349,34 @@ GUIVehicle::getSeatPosition(size_t personIndex) const {
     return mySeatPositions[MIN2(personIndex, mySeatPositions.size() - 1)];
 }
 
+
+int 
+GUIVehicle::getNumPassengers() const {
+    if (myPersonDevice!=0) {
+        return myPersonDevice->getPersons().size();
+    } 
+    return 0;
+}
+
+
+void 
+GUIVehicle::computeSeats(const Position& front, const Position& back, int& requiredSeats) const {
+    if (requiredSeats <= 0) {
+        return; // save some work
+    }
+    const Line l(front, back);
+    const SUMOReal length = l.length2D();
+    if (length < 4) {
+        // small vehicle, sit at the center
+        mySeatPositions.push_back(l.getPositionAtDistance2D(length / 2)); 
+        requiredSeats--;
+    } else {
+        for (SUMOReal p = 2; p <= length - 1; p+= 1) {
+            mySeatPositions.push_back(l.getPositionAtDistance2D(p)); 
+            requiredSeats--;
+        }
+    }
+}
 
 /****************************************************************************/
 
