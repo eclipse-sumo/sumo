@@ -93,10 +93,10 @@ MSPerson::MSPersonStage::isWaitingFor(const std::string& /*line*/) const {
 
 
 Position 
-MSPerson::MSPersonStage::getEdgePosition(const MSEdge *e, SUMOReal at) const {
+MSPerson::MSPersonStage::getEdgePosition(const MSEdge *e, SUMOReal at, SUMOReal offset) const {
     // @todo: well, definitely not the nicest way... Should be precomputed
     PositionVector shp = e->getLanes()[0]->getShape();
-    shp.move2side(SIDEWALK_OFFSET);
+    shp.move2side(offset);
     return shp.positionAtLengthPosition(at);
 }
 
@@ -162,7 +162,7 @@ Position
 MSPerson::MSPersonStage_Walking::getPosition(SUMOTime now) const {
     const MSEdge *e = getEdge(now);
     SUMOReal off = STEPS2TIME(now - myLastEntryTime);
-    return getEdgePosition(e, myCurrentBeginPos+myCurrentLength/myCurrentDuration*off);
+    return getEdgePosition(e, myCurrentBeginPos+myCurrentLength/myCurrentDuration*off, SIDEWALK_OFFSET);
 }
 
 
@@ -323,7 +323,7 @@ MSPerson::MSPersonStage_Driving::getPosition(SUMOTime /* now */) const {
         /// @bug this fails while vehicle is driving across a junction
         return myVehicle->getEdge()->getLanes()[0]->getShape().positionAtLengthPosition(myVehicle->getPositionOnLane());
     }
-    return getEdgePosition(myWaitingEdge, myWaitingPos);
+    return getEdgePosition(myWaitingEdge, myWaitingPos, SIDEWALK_OFFSET);
 }
 
 
@@ -448,7 +448,7 @@ MSPerson::MSPersonStage_Waiting::getEdgePos(SUMOTime /* now */) const {
 
 Position 
 MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime /* now */) const {
-    return getEdgePosition(&myDestination, myStartPos);
+    return getEdgePosition(&myDestination, myStartPos, SIDEWALK_OFFSET * 2);
 }
 
 
