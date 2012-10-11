@@ -12,6 +12,7 @@ SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2011-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
+import sys
 import dump, inductionloop
 import re
 import xml.dom
@@ -97,8 +98,13 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
             child_dict)
 
 
-def _prefix_keyword(name):
-    return 'attr_' + name if iskeyword(name) else name
+def _prefix_keyword(name, warn=False):
+    result = name
+    if iskeyword(name):
+        result = 'attr_' + name
+        if warn:
+            print >>sys.stderr, "Warning: Renaming attribute '%s' to '%s' because it conflicts with a python keyword" % (name, result)
+    return result
 
 
 def sum(elements, attrname):
@@ -121,6 +127,7 @@ def parse_fast(xmlfile, element_name, attrnames):
     # note that the element must be on its own line and 
     # the attributes must appear in the given order
     # example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
+    attrnames = [_prefix_keyword(a, True) for a in attrnames]
     Record = namedtuple(element_name, attrnames)
     pattern = '.*'.join(['<%s' % element_name] +
         ['%s="([^"]*)"' % attr for attr in attrnames])
