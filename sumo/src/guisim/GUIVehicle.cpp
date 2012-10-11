@@ -400,7 +400,7 @@ GUIVehicle::drawPoly(double* poses, SUMOReal offset) {
 
 
 void
-GUIVehicle::drawAction_drawVehicleAsPoly() const {
+GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const {
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(.2);
     RGBColor darker = current.changedBrightness(-.2);
@@ -538,22 +538,22 @@ GUIVehicle::drawAction_drawVehicleAsPoly() const {
         break;
         case SVS_BUS_OVERLAND:
         case SVS_RAIL:
-            drawAction_drawRailCarriages(25.0, 1);
+            drawAction_drawRailCarriages(s, 25.0, 1);
             break;
         case SVS_RAIL_LIGHT:
-            drawAction_drawRailCarriages(38.0);
+            drawAction_drawRailCarriages(s, 38.0);
             break;
         case SVS_RAIL_CITY:
-            drawAction_drawRailCarriages(25.0);
+            drawAction_drawRailCarriages(s, 25.0);
             break;
         case SVS_RAIL_SLOW:
-            drawAction_drawRailCarriages(15.0, 1);
+            drawAction_drawRailCarriages(s, 15.0, 1);
             break;
         case SVS_RAIL_FAST:
-            drawAction_drawRailCarriages(40.0, 1);
+            drawAction_drawRailCarriages(s, 40.0, 1);
             break;
         case SVS_RAIL_CARGO: 
-            drawAction_drawRailCarriages(20.0);
+            drawAction_drawRailCarriages(s, 20.0);
             break;
         case SVS_E_VEHICLE:
             drawPoly(vehiclePoly_EVehicleBody, 4);
@@ -885,7 +885,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             break;
         case 2:
         default:
-            drawAction_drawVehicleAsPoly();
+            drawAction_drawVehicleAsPoly(s);
             break;
     }
     if (s.drawMinGap) {
@@ -1273,11 +1273,11 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
 
 
 void 
-GUIVehicle::drawAction_drawRailCarriages(SUMOReal defaultLength, int firstPassengerCarriage) const {
+GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, int firstPassengerCarriage) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-.2);
-    const SUMOReal length = getVehicleType().getLength();
-    const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0;
+    const SUMOReal length = getVehicleType().getLength() * s.vehicleExaggeration;
+    const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.vehicleExaggeration;
     glPopMatrix(); // undo scaling and 90 degree rotation
     glPopMatrix(); // undo initial translation and rotation
     glPushMatrix();
