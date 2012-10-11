@@ -966,7 +966,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     }
     */
     glPopMatrix();
-    drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLength() / 2),
+    drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - MIN2(getVehicleType().getLength() / 2, 5.0)),
              s.scale, s.vehicleName);
     glPopName();
     if(myPersonDevice!=0) {
