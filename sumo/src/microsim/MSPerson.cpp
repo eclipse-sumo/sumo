@@ -120,10 +120,10 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::vector<const M
     myDepartPos(departPos), myArrivalPos(arrivalPos), myDestinationBusStop(toBS),
     mySpeed(speed)
 {
-    myArrivalPos = SUMOVehicleParameter::interpretEdgePos(
-            myArrivalPos, myRoute.front()->getLength(), SUMO_ATTR_ARRIVALPOS, "walking person");
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
-            myDepartPos, myRoute.back()->getLength(), SUMO_ATTR_DEPARTPOS, "walking person");
+            myDepartPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "person walking from " + myRoute.front()->getID());
+    myArrivalPos = SUMOVehicleParameter::interpretEdgePos(
+            myArrivalPos, myRoute.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + myRoute.back()->getID() );
     if(walkingTime>0) {
         SUMOReal length = 0;
         for(std::vector<const MSEdge*>::const_iterator i=route.begin(); i!=route.end(); ++i) {
@@ -422,7 +422,7 @@ MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge& destination
     myStartPos(pos) 
 {
     myStartPos = SUMOVehicleParameter::interpretEdgePos(
-            myStartPos, myDestination.getLength(), SUMO_ATTR_DEPARTPOS, "waiting person");
+            myStartPos, myDestination.getLength(), SUMO_ATTR_DEPARTPOS, "person stopping at " + myDestination.getID());
 }
 
 

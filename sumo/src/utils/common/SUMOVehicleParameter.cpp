@@ -412,7 +412,7 @@ SUMOVehicleParameter::interpretEdgePos(SUMOReal pos, SUMOReal maximumValue, Sumo
         pos = maximumValue + pos;
     }
     if (pos > maximumValue) {
-        WRITE_WARNING("Invalid " + toString(attr) + " " + toString(pos) + " given for " + id + " Inserting at edge end instead.");
+        WRITE_WARNING("Invalid " + toString(attr) + " " + toString(pos) + " given for " + id + ". Inserting at edge end instead.");
         pos = maximumValue;
     }
     return pos;
