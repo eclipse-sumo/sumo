@@ -391,7 +391,11 @@ MSEdge::getInternalFollowingEdge(MSEdge* followerAfterInternal) const {
         for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
             MSLink* link = *j;
             if (&link->getLane()->getEdge() == followerAfterInternal) {
-                return &link->getViaLane()->getEdge();
+                if (link->getViaLane() != 0) {
+                    return &link->getViaLane()->getEdge();
+                } else {
+                    return 0; // network without internal links
+                }
             }
         }
     }

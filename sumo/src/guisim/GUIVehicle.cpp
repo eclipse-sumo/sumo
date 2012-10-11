@@ -1265,9 +1265,16 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
         // there is no previous lane because the route has just begun
         return current;
     } else {
-        const MSEdge* previous = myRoute->getEdges()[--routeIndex];
-        return MSLinkContHelper::getInternalFollowingEdge(
-                previous->getLanes()[0], &current->getEdge())->getLanes()[0];
+        // retrieve the previous internal edge
+        routeIndex -= 1;
+        const MSEdge* previous = myRoute->getEdges()[routeIndex];
+        const MSEdge* previousInternal = previous->getInternalFollowingEdge(&current->getEdge());
+        if (previousInternal != 0) {
+            return previousInternal->getLanes()[0];
+        } else {
+            // network without internal links, use previous edge instead 
+            return previous->getLanes()[0];
+        }
     }
 }
 
