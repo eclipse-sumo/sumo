@@ -38,6 +38,7 @@
 #include <string>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
+#include <utils/geom/PositionVector.h>
 #include <microsim/MSVehicle.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMutex.h>
@@ -314,6 +315,12 @@ private:
      * @param[in,out] routeIndex The index of the current or previous non-internal edge in the route
      */
     MSLane* getPreviousLane(MSLane* current, int& routeIndex) const;
+
+    /// @brief returns the seat position for the person with the given index
+    const Position& getSeatPosition(size_t personIndex) const;
+
+    /// @brief positions of seats in the vehicle (updated at every drawing step)
+    mutable PositionVector mySeatPositions;
 };
 
 

@@ -428,7 +428,7 @@ public:
     /// the structure holding the plan of a person
     typedef std::vector<MSPersonStage*> MSPersonPlan;
 
-private:
+protected:
     /// the plan of the person
     const SUMOVehicleParameter* myParameter;
 
@@ -481,7 +481,7 @@ public:
     }
 
     /// 
-    Position getPosition(SUMOTime now) const {
+    virtual Position getPosition(SUMOTime now) const {
         return (*myStep)->getPosition(now);
     }
 
@@ -514,6 +514,10 @@ public:
     /// Whether the person waits for a vehicle of the line specified.
     bool isWaiting4Vehicle() const {
         return (*myStep)->isWaiting4Vehicle();
+    }
+    
+    const SUMOVehicleParameter& getParameter() const {
+        return *myParameter;
     }
 
     /// @brief the offset for computing person positions when walking

@@ -115,6 +115,15 @@ public:
     virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
     //@}
 
+    /* @brief set the position of a person while riding in a vehicle
+     * @note This must be called by the vehicle before the call to drawGl */
+    void setPositionInVehicle(const Position& pos) {
+        myPositionInVehicle = pos;
+    }
+
+
+    /// @brief overrides the base method and returns myPositionInVehicle while in driving stage
+    Position getPosition(SUMOTime now) const;
 
     /**
      * @class GUIPersonPopupMenu
@@ -162,6 +171,8 @@ private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;
 
+    /// The position of a person while riding a vehicle
+    Position myPositionInVehicle;
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;

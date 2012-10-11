@@ -232,12 +232,13 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdHideLFLinkItems(FXObject*, FXSelector, voi
  * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type,
-                       SUMOReal speedFactor, int vehicleIndex)
-    : MSVehicle(pars, route, type, speedFactor, vehicleIndex),
-      GUIGlObject(GLO_VEHICLE, pars->id) {
+                       SUMOReal speedFactor, int vehicleIndex) : 
+    MSVehicle(pars, route, type, speedFactor, vehicleIndex),
+    GUIGlObject(GLO_VEHICLE, pars->id) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices, 5);
     myMoveReminders.push_back(std::make_pair(myRoutes, 0.));
+    mySeatPositions.push_back(Position(0,0)); // ensure length 1
 }
 
 
@@ -854,6 +855,9 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
+    // one seat in the center of the vehicle by default
+    mySeatPositions[0] = myLane->getShape().positionAtLengthPosition(
+            myState.pos() - getVehicleType().getLength() / 2);
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(getAngle(), 0, 0, 1);
     // set lane color
@@ -967,8 +971,12 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPopName();
     if(myPersonDevice!=0) {
         const std::vector<MSPerson*> &ps = myPersonDevice->getPersons();
+        size_t personIndex = 0;
         for(std::vector<MSPerson*>::const_iterator i=ps.begin(); i!=ps.end(); ++i) {
-            static_cast<GUIPerson*>(*i)->drawGL(s);
+            GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
+            assert(person != 0);
+            person->setPositionInVehicle(getSeatPosition(personIndex++));
+            person->drawGL(s);
         }
     }
 }
@@ -1324,6 +1332,14 @@ GUIVehicle::drawAction_drawRailCarriages(SUMOReal defaultLength) const {
         GLHelper::setColor(current);
     }
 }
+
+
+const Position& 
+GUIVehicle::getSeatPosition(size_t personIndex) const {
+    /// if there are not enough seats in the vehicle people have to squeeze onto the last seat
+    return mySeatPositions[MIN2(personIndex, mySeatPositions.size() - 1)];
+}
+
 
 /****************************************************************************/
 

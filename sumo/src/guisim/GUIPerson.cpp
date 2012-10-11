@@ -160,7 +160,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     Position p1 = getPosition(MSNet::getInstance()->getCurrentTimeStep());
     glTranslated(p1.x(), p1.y(), getType());
-    // set lane color
+    // set person color
     setColor(s);
     // scale
     SUMOReal upscale = s.vehicleExaggeration;
@@ -244,58 +244,21 @@ GUIPerson::setColor(const GUIVisualizationSettings& s) const {
 
 
 bool
-GUIPerson::setFunctionalColor(size_t /* activeScheme */) const {
-    /*
+GUIPerson::setFunctionalColor(size_t activeScheme) const {
     switch (activeScheme) {
-        case 1: {
+        case 1: 
             GLHelper::setColor(getParameter().color);
             return true;
-        }
-        case 2: {
-            GLHelper::setColor(getVehicleType().getColor());
-            return true;
-        }
-        case 3: {
-            GLHelper::setColor(getRoute().getColor());
-            return true;
-        }
-        case 4: {
-            Position p = getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
-            const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
-            Position center = b.getCenter();
-            SUMOReal hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / PI;
-            SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            return true;
-        }
-        case 5: {
-            Position p = getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
-            const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
-            Position center = b.getCenter();
-            SUMOReal hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / PI;
-            SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            return true;
-        }
-        case 6: {
-            Position pb = getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
-            Position pe = getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
-            const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
-            SUMOReal hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / PI;
-            Position minp(b.xmin(), b.ymin());
-            Position maxp(b.xmax(), b.ymax());
-            SUMOReal sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            return true;
-        }
+        // XXX color by stage
+        default:
+            return false;
     }
-    */
-    return false;
 }
 
 
 SUMOReal
 GUIPerson::getColorValue(size_t /* activeScheme */) const {
+    // XXX color by time spend waiting for a ride
     /*
     switch (activeScheme) {
         case 7:
@@ -330,6 +293,14 @@ GUIPerson::getColorValue(size_t /* activeScheme */) const {
     return 0;
 }
 
+
+Position 
+GUIPerson::getPosition(SUMOTime now) const {
+    if ((*myStep)->getStageType() == DRIVING && !isWaiting4Vehicle()) {
+        return myPositionInVehicle;
+    }
+    return MSPerson::getPosition(now);
+}
 
 /****************************************************************************/
 
