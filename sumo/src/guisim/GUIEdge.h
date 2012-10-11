@@ -146,15 +146,13 @@ public:
     
     
     void addPerson(MSPerson *p) {
-        myLock.lock();
+        AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::addPerson(p);
-        myLock.unlock();
     }
 
     void removePerson(MSPerson *p) {
-        myLock.lock();
+        AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::removePerson(p);
-        myLock.unlock();
     }
 
 

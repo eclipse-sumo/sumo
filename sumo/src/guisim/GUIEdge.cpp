@@ -349,7 +349,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     myLock.lock();
     for(std::set<MSPerson*>::const_iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
-        static_cast<GUIPerson*>(*i)->drawGL(s);
+        GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
+        assert(person != 0);
+        person->drawGL(s);
     }
     myLock.unlock();
 }
