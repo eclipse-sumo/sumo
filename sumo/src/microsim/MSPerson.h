@@ -93,6 +93,7 @@ public:
 
         /// 
         virtual Position getPosition(SUMOTime now) const = 0;
+        virtual SUMOReal getAngle(SUMOTime now) const = 0;
     
         /// 
         StageType getStageType() const {
@@ -120,6 +121,8 @@ public:
         }
 
         Position getEdgePosition(const MSEdge *e, SUMOReal at) const;
+
+        SUMOReal getEdgeAngle(const MSEdge *e, SUMOReal at) const;
 
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
@@ -185,6 +188,8 @@ public:
 
         /// 
         Position getPosition(SUMOTime now) const;
+
+        SUMOReal getAngle(SUMOTime now) const;
 
         std::string getStageTypeName() const {
             return "walking";
@@ -304,6 +309,8 @@ public:
         /// 
         Position getPosition(SUMOTime now) const;
 
+        SUMOReal getAngle(SUMOTime now) const;
+
         std::string getStageTypeName() const;
 
         /// Whether the person waits for a vehicle of the line specified.
@@ -375,6 +382,8 @@ public:
 
         /// 
         Position getPosition(SUMOTime now) const;
+
+        SUMOReal getAngle(SUMOTime now) const;
 
         std::string getStageTypeName() const {
             return "waiting (" + myActType + ")";
@@ -483,6 +492,11 @@ public:
     /// 
     virtual Position getPosition(SUMOTime now) const {
         return (*myStep)->getPosition(now);
+    }
+
+
+    SUMOReal getAngle(SUMOTime now) const {
+        return (*myStep)->getAngle(now);
     }
 
     /// 

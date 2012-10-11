@@ -38,12 +38,17 @@ if options.file:
             targets[join(dirname, key)] = join(dirname, value)
 for val in args:
     targets[val] = ""
+
+
 for source, target in targets.iteritems():
     outputFiles = glob.glob(join(source, "output.[0-9a-z]*"))
-    if len(outputFiles) != 1:
-        print >> sys.stderr, "Not a unique output file in %s." % source
+    # XXX we should collect the options.app.variant files in all parent
+    # directories instead. This would allow us to save config files for all variants
+    appName = set([f.split('.')[1] for f in outputFiles])
+    if len(appName) != 1:
+        print >> sys.stderr, "Skipping %s because the application was not unique (found %s)." % (source, appName)
         continue
-    app = os.path.basename(outputFiles[0]).split('.')[1]
+    app = iter(appName).next()
     optionsFiles = []
     potentials = {}
     source = os.path.realpath(source)

@@ -101,6 +101,13 @@ MSPerson::MSPersonStage::getEdgePosition(const MSEdge *e, SUMOReal at) const {
 }
 
 
+SUMOReal 
+MSPerson::MSPersonStage::getEdgeAngle(const MSEdge *e, SUMOReal at) const {
+    // @todo: well, definitely not the nicest way... Should be precomputed
+    PositionVector shp = e->getLanes()[0]->getShape();
+    return shp.rotationDegreeAtLengthPosition(at);
+}
+
 
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Walking - methods
@@ -156,6 +163,14 @@ MSPerson::MSPersonStage_Walking::getPosition(SUMOTime now) const {
     const MSEdge *e = getEdge(now);
     SUMOReal off = STEPS2TIME(now - myLastEntryTime);
     return getEdgePosition(e, myCurrentBeginPos+myCurrentLength/myCurrentDuration*off);
+}
+
+
+SUMOReal 
+MSPerson::MSPersonStage_Walking::getAngle(SUMOTime now) const {
+    const MSEdge *e = getEdge(now);
+    SUMOReal off = STEPS2TIME(now - myLastEntryTime);
+    return getEdgeAngle(e, myCurrentBeginPos+myCurrentLength/myCurrentDuration*off) + 90;
 }
 
 
@@ -311,6 +326,21 @@ MSPerson::MSPersonStage_Driving::getPosition(SUMOTime /* now */) const {
     return getEdgePosition(myWaitingEdge, myWaitingPos);
 }
 
+
+SUMOReal 
+MSPerson::MSPersonStage_Driving::getAngle(SUMOTime now) const {
+    if(myVehicle!=0) {
+        MSVehicle* veh = dynamic_cast<MSVehicle*>(myVehicle);
+        if (veh != 0) {
+            return veh->getAngle() + 90;
+        } else {
+            return 0;
+        }
+    }
+    return getEdgeAngle(myWaitingEdge, myWaitingPos);
+}
+
+
         
 void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSPerson* person, SUMOTime /* now */, 
@@ -419,6 +449,12 @@ MSPerson::MSPersonStage_Waiting::getEdgePos(SUMOTime /* now */) const {
 Position 
 MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime /* now */) const {
     return getEdgePosition(&myDestination, myStartPos);
+}
+
+
+SUMOReal 
+MSPerson::MSPersonStage_Waiting::getAngle(SUMOTime now) const {
+    return getEdgeAngle(&myDestination, myStartPos);
 }
 
 

@@ -158,18 +158,39 @@ void
 GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    Position p1 = getPosition(MSNet::getInstance()->getCurrentTimeStep());
+    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    Position p1 = getPosition(now);
     glTranslated(p1.x(), p1.y(), getType());
     // set person color
     setColor(s);
     // scale
     SUMOReal upscale = s.vehicleExaggeration;
     glScaled(upscale, upscale, 1);
-    glBegin(GL_TRIANGLES);
-    glVertex2d(0., 0.);
-    glVertex2d(-.5, 1.);
-    glVertex2d( .5, 1.);
-    glEnd();
+
+    switch (s.vehicleQuality) {
+        case 2: {
+            // draw pedestrian shape
+            glRotated(getAngle(now), 0, 0, 1);
+            RGBColor lighter = GLHelper::getColor().changedBrightness(.2);
+            glTranslated(0, 0, .045);
+            GLHelper::drawFilledCircle(0.3);
+            glTranslated(0, 0, -.045);
+            glScaled(.7, 2, 1);
+            glTranslated(0, 0, .04);
+            GLHelper::setColor(lighter);
+            GLHelper::drawFilledCircle(0.3);
+            glTranslated(0, 0, -.04);
+        }
+        break;
+        default:
+            // draw triangle pointing down
+            glBegin(GL_TRIANGLES);
+            glVertex2d(0., 0.);
+            glVertex2d(-.5, 1.);
+            glVertex2d( .5, 1.);
+            glEnd();
+    }
+
     glPopMatrix();
     drawName(p1, s.scale, s.vehicleName);
     glPopName();
