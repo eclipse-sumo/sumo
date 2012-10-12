@@ -263,15 +263,13 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 const std::vector<SUMOReal>& shapeRotations = (*l)->getShapeRotations();
                 const std::vector<SUMOReal>& shapeLengths = (*l)->getShapeLengths();
                 const Position& laneBeg = shape[0];
-
-                glColor3d(1, 1, 0);
                 glPushMatrix();
                 glTranslated(laneBeg.x(), laneBeg.y(), 0);
                 glRotated(shapeRotations[0], 0, 0, 1);
                 // go through the vehicles
-                int shapePos = 0;
-                SUMOReal positionOffset = 0;
-                SUMOReal position = 0;
+                int shapeIndex = 0;
+                SUMOReal shapeOffset = 0; // ofset at start of current shape
+                SUMOReal segmentOffset = 0; // offset at start of current segment
                 for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); 
                         segment != 0; segment = segment->getNextSegment()) {
                     const SUMOReal length = segment->getLength();
@@ -283,22 +281,25 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                         for (size_t i = 0; i < queueSize; i++) {
                             MSBaseVehicle* veh = queue[queueSize - i - 1];
                             setVehicleColor(s, veh);
-                            SUMOReal vehiclePosition = position + length - i * avgCarSize;
+                            SUMOReal vehiclePosition = segmentOffset + length - i * avgCarSize;
                             SUMOReal xOff = 0.f;
-                            while (vehiclePosition < position) {
+                            while (vehiclePosition < segmentOffset) {
+                                // if there is only a single queue for a
+                                // multi-lane edge shift vehicles and start
+                                // drawing again from the end of the segment
                                 vehiclePosition += length;
                                 xOff += 0.5f;
                             }
-                            while (shapePos < (int)shapeRotations.size() - 1 && vehiclePosition > positionOffset + shapeLengths[shapePos]) {
+                            while (shapeIndex < (int)shapeRotations.size() - 1 && vehiclePosition > shapeOffset + shapeLengths[shapeIndex]) {
                                 glPopMatrix();
-                                positionOffset += shapeLengths[shapePos];
-                                shapePos++;
+                                shapeOffset += shapeLengths[shapeIndex];
+                                shapeIndex++;
                                 glPushMatrix();
-                                glTranslated(shape[shapePos].x(), shape[shapePos].y(), 0);
-                                glRotated(shapeRotations[shapePos], 0, 0, 1);
+                                glTranslated(shape[shapeIndex].x(), shape[shapeIndex].y(), 0);
+                                glRotated(shapeRotations[shapeIndex], 0, 0, 1);
                             }
                             glPushMatrix();
-                            glTranslated(xOff, -(vehiclePosition - positionOffset), GLO_VEHICLE);
+                            glTranslated(xOff, -(vehiclePosition - shapeOffset), GLO_VEHICLE);
                             glPushMatrix();
                             glScaled(1, avgCarSize, 1);
                             glBegin(GL_TRIANGLES);
@@ -310,12 +311,12 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                             glPopMatrix();
                             if (nameSettings.show) {
                                 GLHelper::drawText(veh->getID(), 
-                                        Position(xOff, -(vehiclePosition - positionOffset)), 
+                                        Position(xOff, -(vehiclePosition - shapeOffset)), 
                                         GLO_MAX, nameSettings.size / s.scale, nameSettings.color, 0);
                             }
                         }
                     }
-                    position += length;
+                    segmentOffset += length;
                 }
                 glPopMatrix();
             }
