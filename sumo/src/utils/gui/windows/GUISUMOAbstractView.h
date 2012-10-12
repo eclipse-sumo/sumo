@@ -238,15 +238,6 @@ public:
 
 
 public:
-    /**
-     * JunctionColoringScheme
-     * This enumeration holds the possible vehicle colouring schemes
-     */
-    enum JunctionColoringScheme {
-        /// colouring by vehicle speed
-        VCS_BY_TYPE = 0
-    };
-
 
     /** @struct Decal
      * @brief A decal (an image) that can be shown
