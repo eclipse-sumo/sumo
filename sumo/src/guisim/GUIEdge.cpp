@@ -257,6 +257,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             // draw the meso vehicles
             vehicleControl->secureVehicles();
             size_t laneIndex = 0;
+            MESegment::Queue queue;
             for (LaneWrapperVector::const_iterator l = myLaneGeoms.begin(); l != myLaneGeoms.end(); ++l, ++laneIndex) {
                 const PositionVector& shape = (*l)->getShape();
                 const std::vector<SUMOReal>& shapeRotations = (*l)->getShapeRotations();
@@ -273,13 +274,14 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 SUMOReal position = 0;
                 for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); 
                         segment != 0; segment = segment->getNextSegment()) {
-                    const MESegment::Queues queues(segment->getQueues());
                     const SUMOReal length = segment->getLength();
-                    if (laneIndex < queues.size()) {
+                    if (laneIndex < segment->numQueues()) {
+                        // make a copy so we don't have to worry about synchronization
+                        queue = segment->getQueue(laneIndex);
                         const SUMOReal avgCarSize = segment->getOccupancy() / segment->getCarNumber();
-                        const size_t queueSize = queues[laneIndex].size(); 
+                        const size_t queueSize = queue.size();
                         for (size_t i = 0; i < queueSize; i++) {
-                            MSBaseVehicle* veh = queues[laneIndex][queueSize - i - 1];
+                            MSBaseVehicle* veh = queue[queueSize - i - 1];
                             setVehicleColor(s, veh);
                             SUMOReal vehiclePosition = position + length - i * avgCarSize;
                             SUMOReal xOff = 0.f;
