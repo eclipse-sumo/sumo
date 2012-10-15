@@ -256,7 +256,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myVehicleShapeDetail->appendItem("'triangles'");
         myVehicleShapeDetail->appendItem("'boxes'");
         myVehicleShapeDetail->appendItem("'simple shapes'");
-        myVehicleShapeDetail->setNumVisible(3);
+        myVehicleShapeDetail->appendItem("'raster images'");
+        myVehicleShapeDetail->setNumVisible(4);
         myVehicleShapeDetail->setCurrentItem(settings->vehicleQuality);
 
         new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);

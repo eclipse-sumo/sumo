@@ -366,6 +366,10 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) {
         vtype->osgFile = attrs.getStringReporting(SUMO_ATTR_OSGFILE, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_OSGFILE_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_IMGFILE)) {
+        vtype->imgFile = attrs.getStringReporting(SUMO_ATTR_IMGFILE, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_IMGFILE_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
         vtype->color = RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), attrs.getObjectType(), vtype->id.c_str(), true, ok);
         vtype->setParameter |= VTYPEPARS_COLOR_SET;

@@ -62,7 +62,7 @@ MSVehicleType::MSVehicleType(const std::string& id, const SUMOReal length,
                              const SUMOVehicleClass vclass,
                              const SUMOEmissionClass emissionClass,
                              const SUMOReal guiWidth, const SUMOReal height,
-                             const SUMOVehicleShape shape, const std::string osgFile,
+                             const SUMOVehicleShape shape, const std::string& osgFile, const std::string& imgFile,
                              const std::string& lcModel,
                              const RGBColor& c)
     : myID(id), myLength(length),
@@ -71,7 +71,7 @@ MSVehicleType::MSVehicleType(const std::string& id, const SUMOReal length,
       mySpeedDev(speedDev), myLaneChangeModel(lcModel),
       myEmissionClass(emissionClass), myColor(c),
       myVehicleClass(vclass), myWidth(guiWidth),
-      myHeight(height), myShape(shape), myOSGFile(osgFile),
+      myHeight(height), myShape(shape), myOSGFile(osgFile), myImgFile(imgFile),
       myOriginalType(0) {
     assert(myLength > 0);
     assert(getMaxSpeed() > 0);
@@ -221,7 +221,7 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
     MSVehicleType* vtype = new MSVehicleType(
         from.id, from.length, from.minGap, from.maxSpeed,
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
-        from.width, from.height, from.shape, from.osgFile, from.lcModel, from.color);
+        from.width, from.height, from.shape, from.osgFile, from.imgFile, from.lcModel, from.color);
     MSCFModel* model = 0;
     switch (from.cfModel) {
         case SUMO_TAG_CF_IDM:
@@ -315,7 +315,7 @@ MSVehicleType::build(const std::string& id, const MSVehicleType* from) {
     MSVehicleType* vtype = new MSVehicleType(
         id, from->myLength, from->myMinGap, from->myMaxSpeed,
         from->myDefaultProbability, from->mySpeedFactor, from->mySpeedDev, from->myVehicleClass, from->myEmissionClass,
-        from->myWidth, from->myHeight, from->myShape, from->myOSGFile, from->myLaneChangeModel, from->myColor);
+        from->myWidth, from->myHeight, from->myShape, from->myOSGFile, from->myImgFile, from->myLaneChangeModel, from->myColor);
     vtype->myCarFollowModel = from->myCarFollowModel->duplicate(vtype);
     vtype->myOriginalType = from->myOriginalType != 0 ? from->myOriginalType : from;
     return vtype;

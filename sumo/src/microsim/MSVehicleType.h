@@ -88,6 +88,7 @@ public:
      * @param[in] height The height of the vehicles when being drawn
      * @param[in] shape How vehicles of this class shall be drawn
      * @param[in] osgFile Model file of this class
+     * @param[in] imgFile Raster image file of this class
      * @param[in] lcModel Name of the lane-change model to use
      * @param[in] c Color of this vehicle type
      */
@@ -97,7 +98,7 @@ public:
                   const SUMOReal speedDev, const SUMOVehicleClass vclass,
                   const SUMOEmissionClass emissionClass,
                   const SUMOReal width, const SUMOReal height,
-                  const SUMOVehicleShape shape, const std::string osgFile,
+                  const SUMOVehicleShape shape, const std::string& osgFile, const std::string& imgFile,
                   const std::string& lcModel,
                   const RGBColor& c);
 
@@ -254,6 +255,14 @@ public:
      */
     std::string getOSGFile() const {
         return myOSGFile;
+    }
+
+
+    /** @brief Get this vehicle type's raster model file name
+     * @return The raster file name of this vehicle type
+     */
+    std::string getImgFile() const {
+        return myImgFile;
     }
 
     /// @}
@@ -446,6 +455,9 @@ private:
 
     /// @brief This class' model file
     std::string myOSGFile;
+
+    /// @brief This class' raster image file
+    std::string myImgFile;
     /// @}
 
 

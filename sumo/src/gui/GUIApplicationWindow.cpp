@@ -1066,6 +1066,7 @@ GUIApplicationWindow::closeAllWindows() {
     myGeoCoordinate->setText("N/A");
     myCartesianCoordinate->setText("N/A");
     //
+    GUIMainWindow::getInstance()->clearDecals();
     update();
 }
 

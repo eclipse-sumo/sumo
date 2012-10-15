@@ -280,10 +280,13 @@ public:
 
 
 private:
+
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;
 
     MSDevice_Vehroutes* myRoutes;
+
+private:
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
@@ -304,6 +307,7 @@ private:
     void drawAction_drawVehicleAsBoxPlus() const;
     void drawAction_drawVehicleAsTrianglePlus() const;
     void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const;
+    void drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s) const;
 
     /* @brief draw train with individual carriages. The number of carriages is
      * determined from defaultLength of carriages and vehicle length  

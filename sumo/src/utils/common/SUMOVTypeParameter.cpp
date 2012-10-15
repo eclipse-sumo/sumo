@@ -106,6 +106,9 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_OSGFILE_SET)) {
         dev.writeAttr(SUMO_ATTR_OSGFILE, osgFile);
     }
+    if (wasSet(VTYPEPARS_IMGFILE_SET)) {
+        dev.writeAttr(SUMO_ATTR_IMGFILE, imgFile);
+    }
 
     if (cfParameter.size() != 0) {
         dev << ">\n";

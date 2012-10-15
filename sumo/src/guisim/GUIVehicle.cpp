@@ -34,20 +34,23 @@
 #include <vector>
 #include <string>
 #include <foreign/polyfonts/polyfonts.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/SUMOVehicleParameter.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GLObjectValuePassConnector.h>
+#include <microsim/devices/MSDevice_Person.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include "GUIVehicle.h"
@@ -55,8 +58,6 @@
 #include "GUINet.h"
 #include "GUIEdge.h"
 #include "GUILaneWrapper.h"
-#include <utils/gui/globjects/GLIncludes.h>
-#include <microsim/devices/MSDevice_Person.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -797,6 +798,25 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
 }
 
 
+void
+GUIVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s) const {
+    const std::string& file = getVehicleType().getImgFile();
+    if (file != "") {
+        GUIMainWindow::DynamicDecal d(GUIMainWindow::getInstance()->getDynamicDecal(file));
+        if (d.image != 0) {
+            const SUMOReal length = getVehicleType().getLength() * s.vehicleExaggeration;
+            const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.vehicleExaggeration;
+            glTranslated(0, 0, 100);
+            GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, 0, halfWidth, length);
+            glTranslated(0, 0, -100);
+        }
+    } else {
+        // fallback if no image is defined
+        drawAction_drawVehicleAsPoly(s);
+    }
+}
+
+
 #define BLINKER_POS_FRONT .5
 #define BLINKER_POS_BACK .5
 
@@ -884,8 +904,11 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             drawAction_drawVehicleAsBoxPlus();
             break;
         case 2:
-        default:
             drawAction_drawVehicleAsPoly(s);
+            break;
+        case 3:
+        default:
+            drawAction_drawVehicleAsImage(s);
             break;
     }
     if (s.drawMinGap) {
