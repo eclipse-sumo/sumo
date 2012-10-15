@@ -81,7 +81,6 @@ GUIMainWindow::~GUIMainWindow() {
     delete myBottomDock;
     delete myLeftDock;
     delete myRightDock;
-    clearDecals();
 }
 
 
@@ -176,29 +175,6 @@ GUIMainWindow::getGeoLabel() {
 }
 
 
-const GUIMainWindow::DynamicDecal& 
-GUIMainWindow::getDynamicDecal(const std::string& filename) {
-    if (myDynamicDecals.count(filename) == 0) {
-        try {
-            FXImage* i = MFXImageHelper::loadImage(getApp(), filename);
-            if (MFXImageHelper::scalePower2(i)) {
-                WRITE_WARNING("Scaling '" + filename + "'.");
-            }
-            DynamicDecal d;
-            d.glID = GUITexturesHelper::add(i);
-            d.image = i;
-            // XXX where should these numbers come from?
-            d.halfWidth = 32;
-            d.halfHeight = 64;
-            myDynamicDecals[filename] = d;
-        } catch (InvalidArgument& e) {
-            WRITE_ERROR("Could not load '" + filename + "'.\n" + e.what());
-        }
-    }
-    return myDynamicDecals[filename];
-}
-
-
 GUIMainWindow*
 GUIMainWindow::getInstance() {
     if (myInstance != 0) {
@@ -207,14 +183,6 @@ GUIMainWindow::getInstance() {
     throw ProcessError("A GUIMainWindow instance was not yet constructed.");
 }
 
-
-void
-GUIMainWindow::clearDecals() {
-    for (std::map<std::string,DynamicDecal>::iterator it = myDynamicDecals.begin(); it != myDynamicDecals.end(); ++it) {
-        delete it->second.image;
-    }
-    myDynamicDecals.clear();
-}
 
 /****************************************************************************/
 

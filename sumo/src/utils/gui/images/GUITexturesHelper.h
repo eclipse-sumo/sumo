@@ -32,6 +32,7 @@
 #endif
 
 #include <fx.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 
 // ===========================================================================
@@ -58,7 +59,19 @@ public:
                                 SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
 
     /// Adds a texture to use
-    static unsigned int add(FXImage* i);
+    static GUIGlID add(FXImage* i);
+
+    /// @brief return texture id for the given filename (initialize on first use)
+    // @note return -1 on failure
+    static int getTextureID(const std::string& filename);
+
+    /// @brief clears loaded textures
+    static void clearTextures();
+
+private:
+    /// @brief mapping from image paths to decals (initialization on first use)
+    static std::map<std::string, int> myTextures;
+
 
 };
 

@@ -802,13 +802,11 @@ void
 GUIVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s) const {
     const std::string& file = getVehicleType().getImgFile();
     if (file != "") {
-        GUIMainWindow::DynamicDecal d(GUIMainWindow::getInstance()->getDynamicDecal(file));
-        if (d.image != 0) {
+        int textureID = GUITexturesHelper::getTextureID(file);
+        if (textureID > 0) {
             const SUMOReal length = getVehicleType().getLength() * s.vehicleExaggeration;
             const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.vehicleExaggeration;
-            glTranslated(0, 0, 100);
-            GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, 0, halfWidth, length);
-            glTranslated(0, 0, -100);
+            GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, 0, halfWidth, length);
         }
     } else {
         // fallback if no image is defined

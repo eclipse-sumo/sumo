@@ -83,27 +83,6 @@ public:
         return myListInternal;
     }
 
-    /// @brief images that may be drawn multiple times at different locations
-    struct DynamicDecal {
-        /// @brief Constructor
-        DynamicDecal() :
-            halfWidth(1000), halfHeight(1000), glID(-1), image(0) { }
-
-        /// @brief The half width of the image (net coordinates, in m)
-        SUMOReal halfWidth;
-        /// @brief The half height of the image (net coordinates, in m)
-        SUMOReal halfHeight;
-        /// @brief The gl-id of the texture that holds this image
-        int glID;
-        /// @brief The image pointer for later cleanup
-        FXImage* image;
-    };
-
-    /// @brief return the decal information for the given filename (initialize on first use)
-    const DynamicDecal& getDynamicDecal(const std::string& filename);
-
-    void clearDecals();
-
     static GUIMainWindow* getInstance();
 
 protected:
@@ -136,9 +115,6 @@ protected:
 
     /// information whether the locator should list internal structures
     bool myListInternal;
-
-    /// @brief mapping from image paths to decals (initialization on first use)
-    std::map<std::string, DynamicDecal> myDynamicDecals;
 
     /// the singleton window instance
     static GUIMainWindow* myInstance;

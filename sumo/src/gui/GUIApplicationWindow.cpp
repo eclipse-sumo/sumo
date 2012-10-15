@@ -54,24 +54,25 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXThreadEvent.h>
 
+#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/div/GUIMessageWindow.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
-#include "GUIGlobals.h"
 #include <utils/gui/tracker/GUIParameterTracker.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include "dialogs/GUIDialog_AboutSUMO.h"
-#include "dialogs/GUIDialog_AppSettings.h"
-#include "dialogs/GUIDialog_Breakpoints.h"
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
+#include "GUIGlobals.h"
+#include "dialogs/GUIDialog_AboutSUMO.h"
+#include "dialogs/GUIDialog_AppSettings.h"
+#include "dialogs/GUIDialog_Breakpoints.h"
 
 #ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
@@ -1066,7 +1067,7 @@ GUIApplicationWindow::closeAllWindows() {
     myGeoCoordinate->setText("N/A");
     myCartesianCoordinate->setText("N/A");
     //
-    GUIMainWindow::getInstance()->clearDecals();
+    GUITexturesHelper::clearTextures();
     update();
 }
 
