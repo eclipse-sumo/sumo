@@ -50,8 +50,8 @@ GUIPersonControl::~GUIPersonControl() {
 
 
 MSPerson *
-GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) const {
-    return new GUIPerson(pars, plan);
+GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) const {
+    return new GUIPerson(pars, vtype, plan);
 }
 
 

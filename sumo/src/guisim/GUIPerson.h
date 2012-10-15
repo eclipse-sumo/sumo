@@ -62,7 +62,7 @@ class GUIPerson : public MSPerson, public GUIGlObject {
 public:
     /** @brief Constructor
      */
-    GUIPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan);
+    GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan);
 
 
     /// @brief destructor
@@ -185,6 +185,13 @@ private:
 
     /// @brief whether the person is visualized as stopped
     bool myAmVisualizedAsStopped;
+
+    /// @name drawing helper methods
+    /// @{
+    void drawAction_drawAsTriangle(const GUIVisualizationSettings& s) const;
+    void drawAction_drawAsPoly(const GUIVisualizationSettings& s) const;
+    void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
+    /// @}
 };
 
 

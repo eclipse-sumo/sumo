@@ -42,6 +42,7 @@
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOVehicleParameter.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -103,8 +104,8 @@ GUIPerson::GUIPersonPopupMenu::~GUIPersonPopupMenu() {}
 /* -------------------------------------------------------------------------
  * GUIPerson - methods
  * ----------------------------------------------------------------------- */
-GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) : 
-    MSPerson(pars, plan), 
+GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) : 
+    MSPerson(pars, vtype, plan), 
     GUIGlObject(GLO_PERSON, pars->id),
     myAmVisualizedAsStopped(false)
 { }
@@ -161,36 +162,25 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     Position p1 = getPosition(now);
     glTranslated(p1.x(), p1.y(), getType());
+    // XXX use person specific gui settings
     // set person color
     setColor(s);
     // scale
     SUMOReal upscale = s.vehicleExaggeration;
     glScaled(upscale, upscale, 1);
-
     switch (s.vehicleQuality) {
-        case 2: {
-            // draw pedestrian shape
-            glRotated(getAngle(now), 0, 0, 1);
-            RGBColor lighter = GLHelper::getColor().changedBrightness(.2);
-            glTranslated(0, 0, .045);
-            GLHelper::drawFilledCircle(0.3);
-            glTranslated(0, 0, -.045);
-            glScaled(.7, 2, 1);
-            glTranslated(0, 0, .04);
-            GLHelper::setColor(lighter);
-            GLHelper::drawFilledCircle(0.3);
-            glTranslated(0, 0, -.04);
-        }
-        break;
+        case 0:
+        case 1:
+            drawAction_drawAsTriangle(s);
+            break;
+        case 2:
+            drawAction_drawAsPoly(s);
+            break;
+        case 3:
         default:
-            // draw triangle pointing down
-            glBegin(GL_TRIANGLES);
-            glVertex2d(0., 0.);
-            glVertex2d(-.5, 1.);
-            glVertex2d( .5, 1.);
-            glEnd();
+            drawAction_drawAsImage(s);
+            break;
     }
-
     glPopMatrix();
     drawName(p1, s.scale, s.vehicleName);
     glPopName();
@@ -323,5 +313,49 @@ GUIPerson::getPosition(SUMOTime now) const {
     return MSPerson::getPosition(now);
 }
 
+
+void 
+GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& s) const {
+    // draw triangle pointing down
+    glBegin(GL_TRIANGLES);
+    glVertex2d(0., 0.);
+    glVertex2d(-.5, 1.);
+    glVertex2d( .5, 1.);
+    glEnd();
+}
+
+
+void 
+GUIPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& s) const {
+    // draw pedestrian shape
+    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    glRotated(getAngle(now), 0, 0, 1);
+    RGBColor lighter = GLHelper::getColor().changedBrightness(.2);
+    glTranslated(0, 0, .045);
+    GLHelper::drawFilledCircle(0.3);
+    glTranslated(0, 0, -.045);
+    glScaled(.7, 2, 1);
+    glTranslated(0, 0, .04);
+    GLHelper::setColor(lighter);
+    GLHelper::drawFilledCircle(0.3);
+    glTranslated(0, 0, -.04);
+}
+
+
+void 
+GUIPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
+    const std::string& file = getVehicleType().getImgFile();
+    if (file != "") {
+        int textureID = GUITexturesHelper::getTextureID(file);
+        if (textureID > 0) {
+            const SUMOReal halfLength = getVehicleType().getLength() / 2.0 * s.vehicleExaggeration;
+            const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.vehicleExaggeration;
+            GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
+        }
+    } else {
+        // fallback if no image is defined
+        drawAction_drawAsPoly(s);
+    }
+}
 /****************************************************************************/
 

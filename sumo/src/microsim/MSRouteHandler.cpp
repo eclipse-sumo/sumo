@@ -524,7 +524,11 @@ MSRouteHandler::closePerson() {
     if (myActivePlan->size() == 0) {
         throw ProcessError("Person '" + myVehicleParameter->id + "' has no plan.");
     }
-    MSPerson* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, myActivePlan);
+    MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid);
+    if (type == 0) {
+        throw ProcessError("The type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
+    }
+    MSPerson* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan);
     // @todo: consider myScale?
     if ((myAddVehiclesDirectly || checkLastDepart()) && MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
         MSNet::getInstance()->getPersonControl().setDeparture(myVehicleParameter->depart, person);

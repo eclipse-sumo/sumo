@@ -50,6 +50,7 @@ class OutputDevice;
 class SUMOVehicleParameter;
 class MSBusStop;
 class SUMOVehicle;
+class MSVehicleType;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
 
@@ -442,6 +443,9 @@ protected:
     /// the plan of the person
     const SUMOVehicleParameter* myParameter;
 
+    /// @brief This Persons's type. (mainly used for drawing related information
+    const MSVehicleType* myVType;
+
     /// the plan of the person
     MSPersonPlan* myPlan;
 
@@ -453,7 +457,7 @@ protected:
 
 public:
     /// constructor
-    MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan* plan);
+    MSPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPersonPlan* plan);
 
     /// destructor
     virtual ~MSPerson();
@@ -534,6 +538,12 @@ public:
     const SUMOVehicleParameter& getParameter() const {
         return *myParameter;
     }
+
+
+    inline const MSVehicleType& getVehicleType() const {
+        return *myVType;
+    }
+
 
     /// @brief the offset for computing person positions when walking
     static const SUMOReal SIDEWALK_OFFSET;

@@ -224,8 +224,8 @@ MSPersonControl::abortWaiting() {
 
 
 MSPerson *
-MSPersonControl::buildPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) const {
-    return new MSPerson(pars, plan);
+MSPersonControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) const {
+    return new MSPerson(pars, vtype, plan);
 }
 
 /****************************************************************************/

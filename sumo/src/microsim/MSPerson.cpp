@@ -499,8 +499,8 @@ MSPerson::MSPersonStage_Waiting::endEventOutput(const MSPerson &p, SUMOTime t, O
 /* -------------------------------------------------------------------------
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan* plan)
-    : myParameter(pars), myPlan(plan) {
+MSPerson::MSPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPersonPlan* plan)
+    : myParameter(pars), myVType(vtype), myPlan(plan) {
     myStep = myPlan->begin();
 }
 
