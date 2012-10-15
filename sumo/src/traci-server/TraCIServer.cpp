@@ -898,7 +898,9 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
     if(s.contextVars) {
         writeInto.writeInt(objIDs.size());
     }
-    writeInto.writeStorage(outputStorage);
+    if(!s.contextVars || objIDs.size()!=0) {
+        writeInto.writeStorage(outputStorage);
+    }
     return ok;
 }
 

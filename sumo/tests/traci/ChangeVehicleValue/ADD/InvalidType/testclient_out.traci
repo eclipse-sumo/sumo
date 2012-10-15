@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Oct 25 12:33:22 2011
+TraCITestClient output file. Date: Mon Oct 15 15:59:08 2012
 
 
 -> Command sent: <SimulationStep2>:
@@ -39,7 +39,7 @@ TraCITestClient output file. Date: Tue Oct 25 12:33:22 2011
 
 -> Command sent: <SetValue>:
   domID=196 varID=128 objID=veh1
-.. Answered with error to command (196), [description: Invalid type for vehicle: 'veh1']
+.. Answered with error to command (196), [description: Invalid type 'xxx' for vehicle 'veh1']
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]

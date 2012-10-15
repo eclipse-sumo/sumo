@@ -873,7 +873,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             std::string vTypeID = inputStorage.readString();
             MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
             if (!vehicleType) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid type '" + vTypeID + "'for vehicle '" + id + "'");
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid type '" + vTypeID + "' for vehicle '" + id + "'");
                 return false;
             }
 
@@ -994,41 +994,46 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         break;
         case VAR_MOVE_TO_VTD: {
 			if (valueDataType != TYPE_COMPOUND) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting position requires a compound object.", outputStorage);
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting VTD vehicle requires a compound object.", outputStorage);
                 return false;
             }
-            if (inputStorage.readInt() != 4) {
-				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting position should obtain: edgeID, lane, x, y.", outputStorage);
+            if (inputStorage.readInt() != 5) {
+				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting VTD vehicle should obtain: edgeID, lane, x, y.", outputStorage);
                 return false;
             }
             // edge ID
             if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first parameter for setting a position must be the edge ID given as a string.", outputStorage);
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first parameter for setting a VTD vehicle must be the edge ID given as a string.", outputStorage);
                 return false;
             }
             std::string edgeID = inputStorage.readString();
             // lane index
             if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be lane given as an int.", outputStorage);
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a VTD vehicle must be lane given as an int.", outputStorage);
                 return false;
             }
             int laneNum = inputStorage.readInt();
             // x
             if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The third parameter for setting a position must be the x-position given as a double.", outputStorage);
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The third parameter for setting a VTD vehicle must be the x-position given as a double.", outputStorage);
                 return false;
             }
             SUMOReal x = inputStorage.readDouble();
             // y
             if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fourth parameter for setting a position must be the y-position given as a double.", outputStorage);
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fourth parameter for setting a VTD vehicle must be the y-position given as a double.", outputStorage);
                 return false;
             }
             SUMOReal y = inputStorage.readDouble();
-			if(!static_cast<MSVehicle*>(v)->isOnRoad()) {
-break;
-			}
+            if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fifth parameter for setting a VTD vehicle must be the speed given as a double.", outputStorage);
+                return false;
+            }
+            SUMOReal speed = inputStorage.readDouble();
             // process
+			if(!static_cast<MSVehicle*>(v)->isOnRoad()) {
+                break;
+			}
 			std::string origID = edgeID + " " + toString(laneNum);
 			if(laneNum<0) {
 				edgeID = '-' + edgeID;
@@ -1112,20 +1117,24 @@ break;
 				} else {
 					static_cast<MSVehicle*>(v)->resetRoutePosition(rindex);
 				}
-				SUMOReal position = lane->getShape().nearest_position_on_line_to_point2D(pos);
-				if(position<0) {
-					position = 0;
-				}
-				lane->forceVehicleInsertion(static_cast<MSVehicle*>(v), position);
 			} else {
 				static_cast<MSVehicle*>(v)->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
 				static_cast<MSVehicle*>(v)->getLane()->removeVehicle(static_cast<MSVehicle*>(v));
-				SUMOReal position = lane->getShape().nearest_position_on_line_to_point2D(pos);
-				if(position<0) {
-					position = 0;
-				}
-				lane->forceVehicleInsertion(static_cast<MSVehicle*>(v), position);
 			}
+            /*
+            std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
+            if (speed >= 0) {
+                speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), speed));
+                speedTimeLine.push_back(std::make_pair(SUMOTime_MAX, speed));
+            }
+            static_cast<MSVehicle*>(v)->getInfluencer().setSpeedTimeLine(speedTimeLine);
+            */
+            SUMOReal position = lane->getShape().nearest_position_on_line_to_point2D(pos);
+			if(position<0) {
+			    position = 0;
+            }
+			lane->forceVehicleInsertion(static_cast<MSVehicle*>(v), position);
+            //static_cast<MSVehicle*>(v)->getInfluencer().setPosition(position);
 			static_cast<MSVehicle*>(v)->getBestLanes(true, lane);
         }
         break;
