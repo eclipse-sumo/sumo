@@ -117,7 +117,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     if (myImgFile != "") {
         int textureID = GUITexturesHelper::getTextureID(myImgFile);
         if (textureID > 0) {
-            GUITexturesHelper::drawTexturedBox(textureID, 0, 0, myImgWidth, myImgHeight);
+            GUITexturesHelper::drawTexturedBox(textureID, 0, 0, myImgWidth * s.poiExaggeration, myImgHeight * s.poiExaggeration);
         }
     } else {
         // fallback if no image is defined
