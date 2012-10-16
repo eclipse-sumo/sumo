@@ -62,7 +62,7 @@ ShapeContainer::~ShapeContainer() {}
 
 bool
 ShapeContainer::addPoI(const std::string& name, int layer, const std::string& type, const RGBColor& c,
-                       const Position& pos) {
+                       const Position& pos, const std::string /*imgFile*/, int /*imgWidth*/, int /*imgHeight*/) {
     PointOfInterest* p = new PointOfInterest(name, type, pos, c);
     if (!add(layer, p)) {
         delete p;

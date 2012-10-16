@@ -52,8 +52,8 @@ GUIShapeContainer::~GUIShapeContainer() {}
 
 bool
 GUIShapeContainer::addPoI(const std::string& name, int layer, const std::string& type, const RGBColor& c,
-                          const Position& pos) {
-    GUIPointOfInterest* p = new GUIPointOfInterest(layer, name, type, pos, c);
+                          const Position& pos, const std::string imgFile, int imgWidth, int imgHeight) {
+    GUIPointOfInterest* p = new GUIPointOfInterest(layer, name, type, pos, c, imgFile, imgWidth, imgHeight);
     AbstractMutex::ScopedLocker locker(myLock);
     const bool ret = add(layer, p);
     if (ret) {

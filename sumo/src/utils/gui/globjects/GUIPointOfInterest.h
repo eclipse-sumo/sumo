@@ -58,10 +58,14 @@ public:
      * @param[in] type The type of the PoI
      * @param[in] p The position of the PoI
      * @param[in] c The color of the PoI
+     * @param[in] imgFile The image file for rendering this POI
+     * @param[in] imgWidth The width of the image when rendering this POI
+     * @param[in] imgHeight The height of the image when rendering this POI
      */
     GUIPointOfInterest(int layer,
                        const std::string& id, const std::string& type,
-                       const Position& p, const RGBColor& c);
+                       const Position& p, const RGBColor& c,
+                       const std::string imgFile, int imgWidth, int imgHeight);
 
     /// @brief Destructor
     virtual ~GUIPointOfInterest();
@@ -118,6 +122,16 @@ protected:
      * This value is used for determining which object to choose as being on top under the cursor
      */
     int myLayer;
+
+    ///@brief The image file for rendering this POI
+    std::string myImgFile;
+
+    ///@brief The width of the image when rendering this POI
+    int myImgWidth;
+
+    ///@brief The height of the image when rendering this POI
+    int myImgHeight;
+
 
 };
 

@@ -68,11 +68,15 @@ public:
      * @param[in] type The type of the PoI to add
      * @param[in] c The color of the PoI to add
      * @param[in] pos The position of the PoI to add
+     * @param[in] imgFile The image file for rendering this POI
+     * @param[in] imgWidth The width of the image when rendering this POI
+     * @param[in] imgHeight The height of the image when rendering this POI
      * @return Whether the PoI could be added (no other with same id exists in the layer)
      * @see ShapeContainer::addPoI
      */
     virtual bool addPoI(const std::string& name, int layer, const std::string& type,
-                        const RGBColor& c, const Position& pos);
+                        const RGBColor& c, const Position& pos, 
+                        const std::string imgFile="", int imgWidth=1, int imgHeight=1);
 
 
     /** @brief Builds a polygon using the given values and adds it to the according layer

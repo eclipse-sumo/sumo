@@ -36,6 +36,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GLHelper.h>
@@ -54,10 +55,17 @@ GUIPointOfInterest::GUIPointOfInterest(int layer,
                                        const std::string& id,
                                        const std::string& type,
                                        const Position& p,
-                                       const RGBColor& c) :
+                                       const RGBColor& c, 
+                                       const std::string imgFile, 
+                                       int imgWidth, 
+                                       int imgHeight) :
     PointOfInterest(id, type, p, c),
     GUIGlObject_AbstractAdd("poi", GLO_SHAPE, id),
-    myLayer(layer) {}
+    myLayer(layer),
+    myImgFile(imgFile),
+    myImgWidth(imgWidth),
+    myImgHeight(imgHeight)
+{}
 
 
 GUIPointOfInterest::~GUIPointOfInterest() {}
@@ -105,7 +113,16 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glColor3d(red(), green(), blue());
     glTranslated(x(), y(), getLayer());
-    GLHelper::drawFilledCircle((SUMOReal) 1.3 * s.poiExaggeration, 16);
+
+    if (myImgFile != "") {
+        int textureID = GUITexturesHelper::getTextureID(myImgFile);
+        if (textureID > 0) {
+            GUITexturesHelper::drawTexturedBox(textureID, 0, 0, myImgWidth, myImgHeight);
+        }
+    } else {
+        // fallback if no image is defined
+        GLHelper::drawFilledCircle((SUMOReal) 1.3 * s.poiExaggeration, 16);
+    }
     glPopMatrix();
     drawName(Position(x() + 1.32 * s.poiExaggeration, y() + 1.32 * s.poiExaggeration),
              s.scale, s.poiName);

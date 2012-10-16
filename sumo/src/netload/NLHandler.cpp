@@ -536,6 +536,9 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
     std::string laneID = attrs.getOptStringReporting(SUMO_ATTR_LANE, id.c_str(), ok, "");
     std::string colorStr = attrs.getOptStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok, "1,0,0");
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
+    std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, "");
+    int imgWidth = attrs.getOptIntReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, 10);
+    int imgHeight = attrs.getOptIntReporting(SUMO_ATTR_HEIGHT, id.c_str(), ok, 10);
     if (!ok) {
         return;
     }
@@ -551,7 +554,7 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
         }
         pos = lane->getShape().positionAtLengthPosition(lanePos);
     }
-    if (!myNet.getShapeContainer().addPoI(id, layer, type, color, pos)) {
+    if (!myNet.getShapeContainer().addPoI(id, layer, type, color, pos, imgFile, imgWidth, imgHeight)) {
         WRITE_ERROR("PoI '" + id + "' already exists.");
     }
 }
