@@ -987,7 +987,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     }
     */
     glPopMatrix();
-    drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - MIN2(getVehicleType().getLength() / 2, 5.0)),
+    drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - MIN2(getVehicleType().getLength() / 2, SUMOReal(5))),
              s.scale, s.vehicleName);
     glPopName();
     if(myPersonDevice!=0) {
@@ -1289,7 +1289,11 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
         // retrieve the previous internal edge
         routeIndex -= 1;
         const MSEdge* previous = myRoute->getEdges()[routeIndex];
+#ifdef HAVE_INTERNAL_LANES
         const MSEdge* previousInternal = previous->getInternalFollowingEdge(&current->getEdge());
+#else
+        const MSEdge* previousInternal = 0;
+#endif
         if (previousInternal != 0) {
             return previousInternal->getLanes()[0];
         } else {
