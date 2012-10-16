@@ -57,8 +57,8 @@ GUIPointOfInterest::GUIPointOfInterest(int layer,
                                        const Position& p,
                                        const RGBColor& c, 
                                        const std::string imgFile, 
-                                       int imgWidth, 
-                                       int imgHeight) :
+                                       SUMOReal imgWidth, 
+                                       SUMOReal imgHeight) :
     PointOfInterest(id, type, p, c),
     GUIGlObject_AbstractAdd("poi", GLO_SHAPE, id),
     myLayer(layer),

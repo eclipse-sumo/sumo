@@ -65,7 +65,7 @@ public:
     GUIPointOfInterest(int layer,
                        const std::string& id, const std::string& type,
                        const Position& p, const RGBColor& c,
-                       const std::string imgFile, int imgWidth, int imgHeight);
+                       const std::string imgFile, SUMOReal imgWidth, SUMOReal imgHeight);
 
     /// @brief Destructor
     virtual ~GUIPointOfInterest();
@@ -127,10 +127,10 @@ protected:
     std::string myImgFile;
 
     ///@brief The width of the image when rendering this POI
-    int myImgWidth;
+    SUMOReal myImgWidth;
 
     ///@brief The height of the image when rendering this POI
-    int myImgHeight;
+    SUMOReal myImgHeight;
 
 
 };

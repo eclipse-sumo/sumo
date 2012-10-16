@@ -76,7 +76,7 @@ public:
      */
     virtual bool addPoI(const std::string& name, int layer, const std::string& type,
                         const RGBColor& c, const Position& pos, 
-                        const std::string imgFile="", int imgWidth=1, int imgHeight=1);
+                        const std::string imgFile="", SUMOReal imgWidth=1.0, SUMOReal imgHeight=1.0);
 
 
     /** @brief Builds a polygon using the given values and adds it to the according layer
