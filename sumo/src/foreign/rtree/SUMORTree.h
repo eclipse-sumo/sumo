@@ -68,7 +68,7 @@ public:
 
 
     /// @brief Destructor
-    ~SUMORTree() {
+    virtual ~SUMORTree() {
     }
 
 
@@ -78,7 +78,7 @@ public:
      * @param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
      * @see RTree::Insert
      */
-    void Insert(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
+    virtual void Insert(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
         AbstractMutex::ScopedLocker locker(myLock);
         RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Insert(a_min, a_max, a_dataId);
     }
@@ -90,7 +90,7 @@ public:
      * @param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
      * @see RTree::Remove
      */
-    void Remove(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
+    virtual void Remove(const float a_min[2], const float a_max[2], GUIGlObject* a_dataId) {
         AbstractMutex::ScopedLocker locker(myLock);
         RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Remove(a_min, a_max, a_dataId);
     }
@@ -105,7 +105,7 @@ public:
      * @return Returns the number of entries found
      * @see RTree::Search
      */
-    int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) {
+    virtual int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) {
         AbstractMutex::ScopedLocker locker(myLock);
         return RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Search(a_min, a_max, c);
     }

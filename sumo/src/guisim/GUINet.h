@@ -38,6 +38,7 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <foreign/rtree/SUMORTree.h>
+#include <foreign/rtree/LayeredRTree.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -291,7 +292,7 @@ private:
 
 protected:
     /// @brief The visualization speed-up
-    SUMORTree myGrid;
+    LayeredRTree myGrid;
 
     /// @brief The networks boundary
     Boundary myBoundary;
