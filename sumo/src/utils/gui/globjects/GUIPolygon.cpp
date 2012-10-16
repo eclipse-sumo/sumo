@@ -128,7 +128,6 @@ void APIENTRY combineCallback(GLdouble coords[3],
     *dataOut = vertex;
 }
 
-double glvert[6];
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     UNUSED_PARAMETER(s);
@@ -161,12 +160,6 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
             points[3 * i]  = myShape[(int) i].x();
             points[3 * i + 1]  = myShape[(int) i].y();
             points[3 * i + 2]  = 0;
-            glvert[0] = myShape[(int) i].x();
-            glvert[1] = myShape[(int) i].y();
-            glvert[2] = 0;
-            glvert[3] = 1;
-            glvert[4] = 1;
-            glvert[5] = 1;
             gluTessVertex(tobj, points + 3 * i, points + 3 * i);
         }
         gluTessEndContour(tobj);
