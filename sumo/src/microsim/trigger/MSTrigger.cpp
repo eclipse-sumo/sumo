@@ -2,7 +2,7 @@
 /// @file    MSTrigger.cpp
 /// @author  Jakob Erdmann
 /// @date    Sept 2012
-/// @version $Id:$
+/// @version $Id$
 ///
 // An abstract device that changes the state of the micro simulation
 /****************************************************************************/

@@ -3,7 +3,7 @@
 @file    randomTrips.py
 @author  Jakob Erdmann
 @date    2012-10-11
-@version $Id: extract_route_edges.py 12711 2012-09-14 06:44:55Z namdre $
+@version $Id$
 
 Extract all used edges from routes and person plans and output a file suitable
 for pruning edges with netconvert

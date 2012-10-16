@@ -2,7 +2,7 @@
 /// @file    Parameterised.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: Parameterised.cpp 12418 2012-06-24 20:59:29Z behrisch $
+/// @version $Id$
 ///
 // A RGB-color definition
 /****************************************************************************/

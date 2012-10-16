@@ -4,7 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id: Parameterised.h 12128 2012-03-19 11:54:26Z dkrajzew $
+/// @version $Id$
 ///
 // An upper class for objects with additional parameters
 /****************************************************************************/
