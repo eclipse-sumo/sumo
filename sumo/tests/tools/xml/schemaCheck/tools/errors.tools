@@ -1,0 +1,67 @@
+contributed/Castellon/castellon.typ.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'type', attribute 'nolanes': The attribute 'nolanes' is not allowed.
+contributed/Castellon/castellon.typ.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'type', attribute 'nolanes': The attribute 'nolanes' is not allowed.
+game/cross/cross.con.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connection', attribute 'lane': The attribute 'lane' is not allowed
+game/cross/cross.con.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connection', attribute 'lane': The attribute 'lane' is not allowed
+game/cross/cross.con.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connection', attribute 'lane': The attribute 'lane' is not allowed
+game/cross/cross.con.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connection', attribute 'lane': The attribute 'lane' is not allowed
+game/cross/cross.con.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connection', attribute 'lane': The attribute 'lane' is not allowed
+game/cross/cross.con.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connection', attribute 'lane': The attribute 'lane' is not allowed
+game/cross/cross.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'vType', attribute 'guiWidth': The attribute 'guiWidth' is not allowed
+game/cross/cross.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'vType', attribute 'guiWidth': The attribute 'guiWidth' is not allowed
+Error on parsing '/game/cross/cross.tls_opt.add.xml'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 36, in validate
+    doc = etree.parse(f)
+  File "lxml.etree.pyx", line 2942, in lxml.etree.parse (src/lxml/lxml.etree.c:54187)
+  File "parser.pxi", line 1528, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:79485)
+  File "parser.pxi", line 1557, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:79768)
+  File "parser.pxi", line 1457, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:78843)
+  File "parser.pxi", line 997, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:75698)
+  File "parser.pxi", line 564, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:71739)
+  File "parser.pxi", line 645, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:72614)
+  File "parser.pxi", line 585, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:71955)
+XMLSyntaxError: Opening and ending tag mismatch: tlLogic line 2 and tl-logic, line 15, column 17
+game/kuehne/kuehne.rou.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/kuehne/kuehne.rou.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/kuehne/kuehne.rou.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/kuehne/kuehne.rou.xml:12:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/kuehne/kuehne.rou.xml:15:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/kuehne/kuehne.rou.xml:16:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/kuehne/kuehne.rou.xml:17:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/kuehne/kuehne.rou.xml:18:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+Error on parsing '/game/kuehne/kuehne.netgcfg'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 43, in validate
+    schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
+  File "lxml.etree.pyx", line 2942, in lxml.etree.parse (src/lxml/lxml.etree.c:54187)
+  File "parser.pxi", line 1528, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:79485)
+  File "parser.pxi", line 1557, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:79768)
+  File "parser.pxi", line 1457, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:78843)
+  File "parser.pxi", line 997, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:75698)
+  File "parser.pxi", line 564, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:71739)
+  File "parser.pxi", line 645, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:72614)
+  File "parser.pxi", line 583, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:71927)
+IOError: Error reading file 'http://sumo.sf.net/xsd/netgenConfiguration.xsd': failed to load HTTP resource
+game/square/square.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/square/square.rou.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/square/square.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/square/square.rou.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/square/square.rou.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/square/square.rou.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/square/square.rou.xml:12:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+game/square/square.rou.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed
+Error on parsing '/game/square/square.netgcfg'!
+Traceback (most recent call last):
+  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 43, in validate
+    schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
+  File "lxml.etree.pyx", line 2942, in lxml.etree.parse (src/lxml/lxml.etree.c:54187)
+  File "parser.pxi", line 1528, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:79485)
+  File "parser.pxi", line 1557, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:79768)
+  File "parser.pxi", line 1457, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:78843)
+  File "parser.pxi", line 997, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:75698)
+  File "parser.pxi", line 564, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:71739)
+  File "parser.pxi", line 645, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:72614)
+  File "parser.pxi", line 583, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:71927)
+IOError: Error reading file 'http://sumo.sf.net/xsd/netgenConfiguration.xsd': failed to load HTTP resource
+file:///D:/projects/sumo/t1/tools/contributed/Castellon/castellon.typ.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'type', attribute 'nolanes': The attribute 'nolanes' is not allowed.
+file:///D:/projects/sumo/t1/tools/contributed/Castellon/castellon.typ.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'type', attribute 'nolanes': The attribute 'nolanes' is not allowed.
