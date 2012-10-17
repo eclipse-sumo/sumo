@@ -926,7 +926,7 @@ GUISUMOAbstractView::getColoringSchemesCombo() {
 
 void
 GUISUMOAbstractView::drawDecals() {
-    glTranslated(0, 0, .99);
+    glPushName(0);
     myDecalsLock.lock();
     for (std::vector<GUISUMOAbstractView::Decal>::iterator l = myDecals.begin(); l != myDecals.end();) {
         GUISUMOAbstractView::Decal& d = *l;
@@ -946,7 +946,7 @@ GUISUMOAbstractView::drawDecals() {
             }
         }
         glPushMatrix();
-        glTranslated(d.centerX, d.centerY, 0);
+        glTranslated(d.centerX, d.centerY, 4.1);
         glRotated(d.rot, 0, 0, 1);
         glColor3d(1, 1, 1);
         SUMOReal halfWidth((d.width / 2.));
@@ -956,7 +956,7 @@ GUISUMOAbstractView::drawDecals() {
         ++l;
     }
     myDecalsLock.unlock();
-    glTranslated(0, 0, -.99);
+    glPopName();
 }
 
 
