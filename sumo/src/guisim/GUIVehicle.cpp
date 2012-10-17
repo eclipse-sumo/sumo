@@ -798,20 +798,21 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
 }
 
 
-void
-GUIVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s) const {
+bool
+GUIVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUMOReal length) const {
     const std::string& file = getVehicleType().getImgFile();
     if (file != "") {
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const SUMOReal length = getVehicleType().getLength() * s.vehicleExaggeration;
+            if (length < 0) {
+                length = getVehicleType().getLength() * s.vehicleExaggeration;
+            }
             const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.vehicleExaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, 0, halfWidth, length);
+            return true;
         }
-    } else {
-        // fallback if no image is defined
-        drawAction_drawVehicleAsPoly(s);
     }
+    return false;
 }
 
 
@@ -906,7 +907,33 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             break;
         case 3:
         default:
-            drawAction_drawVehicleAsImage(s);
+            // draw as image but take special care for drawing trains
+            // XXX handle default carriage lenghts someplace else
+            switch (getVehicleType().getGuiShape()) {
+                case SVS_RAIL:
+                    drawAction_drawRailCarriages(s, 25.0, 1, true);
+                    break;
+                case SVS_RAIL_LIGHT:
+                    drawAction_drawRailCarriages(s, 38.0, true);
+                    break;
+                case SVS_RAIL_CITY:
+                    drawAction_drawRailCarriages(s, 25.0, true);
+                    break;
+                case SVS_RAIL_SLOW:
+                    drawAction_drawRailCarriages(s, 15.0, 1, true);
+                    break;
+                case SVS_RAIL_FAST:
+                    drawAction_drawRailCarriages(s, 40.0, 1, true);
+                    break;
+                case SVS_RAIL_CARGO: 
+                    drawAction_drawRailCarriages(s, 20.0, true);
+                    break;
+                default:
+                    // draw normal vehicle
+                    if (!drawAction_drawVehicleAsImage(s)) {
+                        drawAction_drawVehicleAsPoly(s);
+                    };
+            };
             break;
     }
     if (s.drawMinGap) {
@@ -1305,7 +1332,7 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
 
 
 void 
-GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, int firstPassengerCarriage) const {
+GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, int firstPassengerCarriage, bool asImage) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-.2);
     const SUMOReal length = getVehicleType().getLength() * s.vehicleExaggeration;
@@ -1356,17 +1383,18 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
         glPushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
-        //glScaled(halfWidth, carriageLength, 1);
-        glBegin(GL_TRIANGLE_FAN);
-        glVertex2d(-halfWidth + xCornerCut, 0);
-        glVertex2d(-halfWidth, yCornerCut);
-        glVertex2d(-halfWidth, carriageLength - yCornerCut);
-        glVertex2d(-halfWidth + xCornerCut, carriageLength);
-        glVertex2d(halfWidth - xCornerCut, carriageLength);
-        glVertex2d(halfWidth, carriageLength - yCornerCut);
-        glVertex2d(halfWidth, yCornerCut);
-        glVertex2d(halfWidth - xCornerCut, 0);
-        glEnd();
+        if (!asImage || !drawAction_drawVehicleAsImage(s, carriageLength)) {
+            glBegin(GL_TRIANGLE_FAN);
+            glVertex2d(-halfWidth + xCornerCut, 0);
+            glVertex2d(-halfWidth, yCornerCut);
+            glVertex2d(-halfWidth, carriageLength - yCornerCut);
+            glVertex2d(-halfWidth + xCornerCut, carriageLength);
+            glVertex2d(halfWidth - xCornerCut, carriageLength);
+            glVertex2d(halfWidth, carriageLength - yCornerCut);
+            glVertex2d(halfWidth, yCornerCut);
+            glVertex2d(halfWidth - xCornerCut, 0);
+            glEnd();
+        }
         glPopMatrix();
         carriageOffset -= carriageLengthWithGap;
         carriageBackOffset -= carriageLengthWithGap;

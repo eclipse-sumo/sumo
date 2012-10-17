@@ -307,12 +307,17 @@ private:
     void drawAction_drawVehicleAsBoxPlus() const;
     void drawAction_drawVehicleAsTrianglePlus() const;
     void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const;
-    void drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s) const;
+
+    /* @brief try to draw vehicle as raster image and return true if sucessful
+     * @param[in] length The custom length of the vehicle 
+     *   (defaults to the * length specified in the vehicle type if -1 is passed)
+    */
+    bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUMOReal length=-1) const;
 
     /* @brief draw train with individual carriages. The number of carriages is
      * determined from defaultLength of carriages and vehicle length  
      * passengerSeats are computed beginning at firstPassengerCarriage */
-    void drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, int firstPassengerCarriage=0) const;
+    void drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, int firstPassengerCarriage=0, bool asImage=false) const;
     /// @}
 
     /* @brief return the previous lane in this vehicles route including internal lanes
