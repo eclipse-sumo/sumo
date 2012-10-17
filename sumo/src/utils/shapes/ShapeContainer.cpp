@@ -61,7 +61,7 @@ ShapeContainer::~ShapeContainer() {}
 
 
 bool
-ShapeContainer::addPoI(const std::string& name, int layer, const std::string& type, const RGBColor& c,
+ShapeContainer::addPoI(const std::string& name, SUMOReal layer, const std::string& type, const RGBColor& c,
                        const Position& pos, const std::string /*imgFile*/, SUMOReal /*imgWidth*/, SUMOReal /*imgHeight*/) {
     PointOfInterest* p = new PointOfInterest(name, type, pos, c);
     if (!add(layer, p)) {
@@ -73,7 +73,7 @@ ShapeContainer::addPoI(const std::string& name, int layer, const std::string& ty
 
 
 bool
-ShapeContainer::addPolygon(const std::string& name, int layer, const std::string& type, const RGBColor& c,
+ShapeContainer::addPolygon(const std::string& name, SUMOReal layer, const std::string& type, const RGBColor& c,
                            bool filled, const PositionVector& shape) {
     Polygon* p = new Polygon(name, type, c, shape, filled);
     if (!add(layer, p)) {

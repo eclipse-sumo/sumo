@@ -36,6 +36,7 @@
 #include <utility>
 #include <cmath>
 #include <cassert>
+#include <limits>
 #include <fxkeys.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <foreign/gl2ps/gl2ps.h>
@@ -260,7 +261,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
     // Interpret results
     unsigned int idMax = 0;
-    int prevLayer = -1000;
+    SUMOReal maxLayer = std::numeric_limits<SUMOReal>::min(); 
     for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         GUIGlID id = *it;
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
@@ -273,32 +274,21 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
         //std::cout << "point selection hit " << o->getMicrosimID() << "\n";
         GUIGlObjectType type = o->getType();
         if (type != 0) {
-            int clayer = (int) type;
+            SUMOReal layer = (SUMOReal)type;
             // determine an "abstract" layer for shapes
             //  this "layer" resembles the layer of the shape
             //  taking into account the stac of other objects
             if (type == GLO_SHAPE) {
                 if (dynamic_cast<GUIPolygon*>(o) != 0) {
-                    if (dynamic_cast<GUIPolygon*>(o)->getLayer() > 0) {
-                        clayer = GLO_MAX + dynamic_cast<GUIPolygon*>(o)->getLayer();
-                    }
-                    if (dynamic_cast<GUIPolygon*>(o)->getLayer() < 0) {
-                        clayer = dynamic_cast<GUIPolygon*>(o)->getLayer();
-                    }
-                }
-                if (dynamic_cast<GUIPointOfInterest*>(o) != 0) {
-                    if (dynamic_cast<GUIPointOfInterest*>(o)->getLayer() > 0) {
-                        clayer = GLO_MAX + dynamic_cast<GUIPointOfInterest*>(o)->getLayer();
-                    }
-                    if (dynamic_cast<GUIPointOfInterest*>(o)->getLayer() < 0) {
-                        clayer = dynamic_cast<GUIPointOfInterest*>(o)->getLayer();
-                    }
+                    layer = dynamic_cast<GUIPolygon*>(o)->getLayer();
+                } else if (dynamic_cast<GUIPointOfInterest*>(o) != 0) {
+                    layer = dynamic_cast<GUIPointOfInterest*>(o)->getLayer();
                 }
             }
             // check whether the current object is above a previous one
-            if (prevLayer == -1000 || prevLayer < clayer) {
+            if (layer > maxLayer) {
                 idMax = id;
-                prevLayer = clayer;
+                maxLayer = layer;
             }
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(id);

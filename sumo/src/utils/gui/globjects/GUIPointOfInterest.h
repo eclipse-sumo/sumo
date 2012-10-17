@@ -62,7 +62,7 @@ public:
      * @param[in] imgWidth The width of the image when rendering this POI
      * @param[in] imgHeight The height of the image when rendering this POI
      */
-    GUIPointOfInterest(int layer,
+    GUIPointOfInterest(SUMOReal layer,
                        const std::string& id, const std::string& type,
                        const Position& p, const RGBColor& c,
                        const std::string imgFile, SUMOReal imgWidth, SUMOReal imgHeight);
@@ -114,14 +114,14 @@ public:
 
 
     /// Returns the layer the object is located in
-    int getLayer() const;
+    SUMOReal getLayer() const;
 
 protected:
     /** @brief The layer this object is located in
      *
      * This value is used for determining which object to choose as being on top under the cursor
      */
-    int myLayer;
+    SUMOReal myLayer;
 
     ///@brief The image file for rendering this POI
     std::string myImgFile;

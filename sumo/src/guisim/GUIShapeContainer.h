@@ -74,7 +74,7 @@ public:
      * @return Whether the PoI could be added (no other with same id exists in the layer)
      * @see ShapeContainer::addPoI
      */
-    virtual bool addPoI(const std::string& name, int layer, const std::string& type,
+    virtual bool addPoI(const std::string& name, SUMOReal layer, const std::string& type,
                         const RGBColor& c, const Position& pos, 
                         const std::string imgFile="", SUMOReal imgWidth=1.0, SUMOReal imgHeight=1.0);
 
@@ -88,7 +88,7 @@ public:
      * @return Whether the polygon could be added (no other with same id exists in the layer)
      * @see ShapeContainer::addPolygon
      */
-    virtual bool addPolygon(const std::string& name, int layer,
+    virtual bool addPolygon(const std::string& name, SUMOReal layer,
                             const std::string& type, const RGBColor& c, bool filled, const PositionVector& shape);
 
 

@@ -51,7 +51,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPointOfInterest::GUIPointOfInterest(int layer,
+GUIPointOfInterest::GUIPointOfInterest(SUMOReal layer,
                                        const std::string& id,
                                        const std::string& type,
                                        const Position& p,
@@ -133,7 +133,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-int
+SUMOReal
 GUIPointOfInterest::getLayer() const {
     return myLayer;
 }

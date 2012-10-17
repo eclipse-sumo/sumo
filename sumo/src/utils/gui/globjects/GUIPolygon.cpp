@@ -48,7 +48,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPolygon::GUIPolygon(int layer,
+GUIPolygon::GUIPolygon(SUMOReal layer,
                        const std::string name, const std::string type,
                        const RGBColor& color,
                        const PositionVector& Pos,
@@ -177,7 +177,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
 
 
 
-int
+SUMOReal
 GUIPolygon::getLayer() const {
     return myLayer;
 }

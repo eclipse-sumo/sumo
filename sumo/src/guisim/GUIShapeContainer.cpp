@@ -51,7 +51,7 @@ GUIShapeContainer::~GUIShapeContainer() {}
 
 
 bool
-GUIShapeContainer::addPoI(const std::string& name, int layer, const std::string& type, const RGBColor& c,
+GUIShapeContainer::addPoI(const std::string& name, SUMOReal layer, const std::string& type, const RGBColor& c,
                           const Position& pos, const std::string imgFile, SUMOReal imgWidth, SUMOReal imgHeight) {
     GUIPointOfInterest* p = new GUIPointOfInterest(layer, name, type, pos, c, imgFile, imgWidth, imgHeight);
     AbstractMutex::ScopedLocker locker(myLock);
@@ -66,7 +66,7 @@ GUIShapeContainer::addPoI(const std::string& name, int layer, const std::string&
 
 
 bool
-GUIShapeContainer::addPolygon(const std::string& name, int layer, const std::string& type, const RGBColor& c,
+GUIShapeContainer::addPolygon(const std::string& name, SUMOReal layer, const std::string& type, const RGBColor& c,
                               bool filled, const PositionVector& shape) {
     GUIPolygon* p = new GUIPolygon(layer, name, type, c, shape, filled);
     AbstractMutex::ScopedLocker locker(myLock);
