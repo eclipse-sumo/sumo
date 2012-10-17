@@ -946,7 +946,7 @@ GUISUMOAbstractView::drawDecals() {
             }
         }
         glPushMatrix();
-        glTranslated(d.centerX, d.centerY, 4.1);
+        glTranslated(d.centerX, d.centerY, d.layer);
         glRotated(d.rot, 0, 0, 1);
         glColor3d(1, 1, 1);
         SUMOReal halfWidth((d.width / 2.));

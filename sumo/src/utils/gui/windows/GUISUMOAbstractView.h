@@ -246,7 +246,7 @@ public:
         /// @brief Constructor
         Decal()
             : filename(), centerX(0), centerY(0),
-              width(1000), height(1000), rot(0),
+              width(1000), height(1000), rot(0), layer(0),
               initialised(false), glID(-1), image(0) { }
 
         /// @brief The path to the file the image is located at
@@ -261,6 +261,8 @@ public:
         SUMOReal height;
         /// @brief The rotation of the image (in degrees)
         SUMOReal rot;
+        /// @brief The layer of the image
+        SUMOReal layer;
         /// @brief Whether this image was initialised (inserted as a texture)
         bool initialised;
         /// @brief The gl-id of the texture that holds this image

@@ -994,17 +994,18 @@ void
 GUIDialog_ViewSettings::rebuildList() {
     myDecalsTable->clearItems();
     // set table attributes
-    myDecalsTable->setTableSize(10, 6);
+    myDecalsTable->setTableSize(10, 7);
     myDecalsTable->setColumnText(0, "picture file");
     myDecalsTable->setColumnText(1, "center x");
     myDecalsTable->setColumnText(2, "center y");
     myDecalsTable->setColumnText(3, "width");
     myDecalsTable->setColumnText(4, "height");
     myDecalsTable->setColumnText(5, "rotation");
+    myDecalsTable->setColumnText(6, "layer");
     FXHeader* header = myDecalsTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent());
     int k;
-    for (k = 0; k < 6; k++) {
+    for (k = 0; k < 7; k++) {
         header->setItemJustify(k, JUSTIFY_CENTER_X | JUSTIFY_TOP);
         header->setItemSize(k, 60);
     }
@@ -1020,10 +1021,11 @@ GUIDialog_ViewSettings::rebuildList() {
         myDecalsTable->setItemText(row, 3, toString<SUMOReal>(d.width).c_str());
         myDecalsTable->setItemText(row, 4, toString<SUMOReal>(d.height).c_str());
         myDecalsTable->setItemText(row, 5, toString<SUMOReal>(d.rot).c_str());
+        myDecalsTable->setItemText(row, 6, toString<SUMOReal>(d.layer).c_str());
         row++;
     }
     // insert dummy last field
-    for (k = 0; k < 6; k++) {
+    for (k = 0; k < 7; k++) {
         myDecalsTable->setItemText(row, k, " ");
     }
 }
@@ -1036,16 +1038,14 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE,
             LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH/*|LAYOUT_FIX_HEIGHT*/, 0, 0, 470, 0);
     myDecalsTable->setVisibleRows(5);
-    myDecalsTable->setVisibleColumns(6);
-    myDecalsTable->setTableSize(5, 6);
+    myDecalsTable->setVisibleColumns(7);
+    myDecalsTable->setTableSize(5, 7);
     myDecalsTable->setBackColor(FXRGB(255, 255, 255));
     myDecalsTable->getRowHeader()->setWidth(0);
-    for (int i = 1; i < 5; ++i) {
+    for (int i = 1; i <= 5; ++i) {
         myDecalsTable->setCellType(i, CT_REAL);
         myDecalsTable->setNumberCellParams(i, -10000000, 10000000, 1, 10, 100, "%.2f");
     }
-    myDecalsTable->setCellType(5, CT_REAL);
-    myDecalsTable->setNumberCellParams(5, -10000000, 10000000, .1, 1, 10, "%.2f");
     rebuildList();
     if (doCreate) {
         myDecalsTable->create();
@@ -1188,6 +1188,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
         d.height = SUMOReal(myParent->getGridHeight());
         d.initialised = false;
         d.rot = 0;
+        d.layer = 0;
         myDecalsLock->lock();
         myDecals->push_back(d);
         myDecalsLock->unlock();
@@ -1240,6 +1241,14 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
         case 5:
             try {
                 d.rot = TplConvert::_2SUMOReal(value.c_str());
+            } catch (NumberFormatException&) {
+                std::string msg = "The value must be a float, is:" + value;
+                FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
+            }
+            break;
+        case 6:
+            try {
+                d.layer = TplConvert::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
