@@ -63,8 +63,8 @@ GUIPointOfInterest::GUIPointOfInterest(int layer,
     GUIGlObject_AbstractAdd("poi", GLO_SHAPE, id),
     myLayer(layer),
     myImgFile(imgFile),
-    myImgWidth(imgWidth),
-    myImgHeight(imgHeight)
+    myHalfImgWidth(imgWidth / 2),
+    myHalfImgHeight(imgHeight / 2)
 {}
 
 
@@ -99,7 +99,8 @@ Boundary
 GUIPointOfInterest::getCenteringBoundary() const {
     Boundary b;
     b.add(x(), y());
-    b.grow(10);
+    b.growWidth(myHalfImgWidth);
+    b.growHeight(myHalfImgHeight);
     return b;
 }
 
@@ -117,7 +118,9 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     if (myImgFile != "") {
         int textureID = GUITexturesHelper::getTextureID(myImgFile);
         if (textureID > 0) {
-            GUITexturesHelper::drawTexturedBox(textureID, 0, 0, myImgWidth * s.poiExaggeration, myImgHeight * s.poiExaggeration);
+            GUITexturesHelper::drawTexturedBox(textureID, 
+                    -myHalfImgWidth * s.poiExaggeration, -myHalfImgHeight * s.poiExaggeration, 
+                     myHalfImgWidth * s.poiExaggeration,  myHalfImgHeight * s.poiExaggeration);
         }
     } else {
         // fallback if no image is defined

@@ -126,11 +126,11 @@ protected:
     ///@brief The image file for rendering this POI
     std::string myImgFile;
 
-    ///@brief The width of the image when rendering this POI
-    SUMOReal myImgWidth;
+    ///@brief The half width of the image when rendering this POI
+    SUMOReal myHalfImgWidth;
 
-    ///@brief The height of the image when rendering this POI
-    SUMOReal myImgHeight;
+    ///@brief The half height of the image when rendering this POI
+    SUMOReal myHalfImgHeight;
 
 
 };
