@@ -383,7 +383,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                         noLanes = MAX2(noLanes, tc.getNumLanes(*it));
                         maxSpeed = MAX2(maxSpeed, tc.getSpeed(*it));
                         prio = MAX2(prio, tc.getPriority(*it));
-                        defaultIsOneWay |= tc.getIsOneWay(*it);
+                        defaultIsOneWay &= tc.getIsOneWay(*it);
                     }
                     WRITE_MESSAGE("Adding new compound type \"" + type + "\" for edge " + id + ".");
                     // @todo use the propper bitsets instead of SVC_UNKNOWN (see #675)
