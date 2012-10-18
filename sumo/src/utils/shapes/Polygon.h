@@ -96,7 +96,7 @@ public:
     /** @brief Sets the shape of the polygon
      * @param[in] shape  The new shape of the polygon
      */
-    inline void setShape(const PositionVector& shape) {
+    inline virtual void setShape(const PositionVector& shape) {
         myShape = shape;
     }
     /// @}

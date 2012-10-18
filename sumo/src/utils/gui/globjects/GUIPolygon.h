@@ -33,8 +33,10 @@
 #endif
 
 #include <string>
+#include <utils/foxtools/MFXMutex.h>
 #include <utils/shapes/Polygon.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 
 // ===========================================================================
@@ -104,6 +106,21 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
+
+
+    /// @brief set a new shape and update the tesselation
+    virtual void setShape(const PositionVector& shape);
+
+
+private:
+    /// The mutex used to avoid concurrent updates of the shape
+    mutable MFXMutex myLock;
+
+    /// @brief id of the display list for the cached tesselation
+    mutable GLuint myDisplayList;
+
+    /// @brief erform the tesselation and store it in a display list
+    void storeTesselation() const;
 
 };
 

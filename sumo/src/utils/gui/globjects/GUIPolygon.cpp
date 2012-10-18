@@ -38,7 +38,6 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -52,7 +51,8 @@ GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
             const RGBColor& color, const PositionVector& shape, bool fill,
             SUMOReal layer, SUMOReal angle, const std::string& imgFile):
     Polygon(id, type, color, shape, fill, layer, angle, imgFile),
-    GUIGlObject_AbstractAdd("poly", GLO_POLYGON, id) 
+    GUIGlObject_AbstractAdd("poly", GLO_POLYGON, id),
+    myDisplayList(0)
 {}
 
 
@@ -130,6 +130,10 @@ void APIENTRY combineCallback(GLdouble coords[3],
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     UNUSED_PARAMETER(s);
+    AbstractMutex::ScopedLocker locker(myLock);
+    if (myDisplayList == 0) {
+        storeTesselation();
+    }
     if (getFill()) {
         if (myShape.size() < 3) {
             return;
@@ -144,6 +148,30 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getLayer());
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     GLHelper::setColor(getColor());
+    glCallList(myDisplayList);
+    glPopName();
+    glPopMatrix();
+}
+
+
+void 
+GUIPolygon::setShape(const PositionVector& shape) {
+    AbstractMutex::ScopedLocker locker(myLock);
+    Polygon::setShape(shape);
+    storeTesselation();
+}
+
+
+void 
+GUIPolygon::storeTesselation() const {
+    if (myDisplayList > 0) {
+        glDeleteLists(myDisplayList, 1);
+    }
+    myDisplayList = glGenLists(1);
+    if (myDisplayList == 0) {
+        throw ProcessError("GUIPolygon::storeTesselation() could not create display list");
+    }
+    glNewList(myDisplayList, GL_COMPILE);
     if (getFill()) {
         double* points = new double[myShape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
@@ -170,9 +198,9 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawLine(myShape);
         GLHelper::drawBoxLines(myShape, 1.);
     }
-    glPopName();
-    glPopMatrix();
+    glEndList();
 }
+
 
 /****************************************************************************/
 
