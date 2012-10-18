@@ -34,6 +34,8 @@
 #include <foreign/rtree/SUMORTree.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/shapes/PointOfInterest.h>
+#include <utils/shapes/Polygon.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -148,8 +150,8 @@ std::vector<GUIGlID>
 GUIShapeContainer::getPolygonIDs() const {
     AbstractMutex::ScopedLocker locker(myLock);
     std::vector<GUIGlID> ret;
-    const std::map<std::string, Polygon*>& polygons = getPolygons().getMyMap();
-    for(std::map<std::string, Polygon*>::const_iterator it=polygons.begin(); it!=polygons.end(); ++it) {
+    const std::map<std::string, SUMO::Polygon*>& polygons = getPolygons().getMyMap();
+    for(std::map<std::string, SUMO::Polygon*>::const_iterator it=polygons.begin(); it!=polygons.end(); ++it) {
         ret.push_back(static_cast<GUIPolygon*>(it->second)->getGlID());
     }
     return ret;

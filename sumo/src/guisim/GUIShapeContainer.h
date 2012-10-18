@@ -35,12 +35,12 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/foxtools/MFXMutex.h>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMORTree;
 class Position;
+class MFXMutex;
 
 
 // ===========================================================================

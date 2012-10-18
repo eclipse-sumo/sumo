@@ -34,6 +34,8 @@
 #include <utils/geom/PositionVector.h>
 #include "Shape.h"
 
+// we need to put this into a namespace to avoid clashing with wingdi.h::Polygon function
+namespace SUMO {
 
 // ===========================================================================
 // class definitions
@@ -111,6 +113,7 @@ protected:
 
 };
 
+}
 
 #endif
 

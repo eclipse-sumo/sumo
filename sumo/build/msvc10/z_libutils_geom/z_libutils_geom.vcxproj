@@ -173,6 +173,7 @@
     <ClCompile Include="..\..\..\src\utils\geom\Line.cpp" />
     <ClCompile Include="..\..\..\src\utils\shapes\Polygon.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\PositionVector.cpp" />
+    <ClCompile Include="..\..\..\src\utils\shapes\Shape.cpp" />
     <ClCompile Include="..\..\..\src\utils\shapes\ShapeContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +190,7 @@
     <ClInclude Include="..\..\..\src\utils\shapes\Polygon.h" />
     <ClInclude Include="..\..\..\src\utils\geom\Position.h" />
     <ClInclude Include="..\..\..\src\utils\geom\PositionVector.h" />
+    <ClInclude Include="..\..\..\src\utils\shapes\Shape.h" />
     <ClInclude Include="..\..\..\src\utils\shapes\ShapeContainer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

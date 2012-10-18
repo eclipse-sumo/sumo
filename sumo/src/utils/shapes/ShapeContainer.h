@@ -33,13 +33,13 @@
 
 #include <string>
 #include <utils/common/NamedObjectCont.h>
-
+#include "PointOfInterest.h"
+#include "Polygon.h"
+using namespace SUMO;
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class Polygon;
-class PointOfInterest;
 class Position;
 class PositionVector;
 class RGBColor;
@@ -62,7 +62,7 @@ public:
     virtual ~ShapeContainer();
 
     typedef NamedObjectCont<Polygon*> Polygons;
-    typedef NamedObjectCont<PointOfInterest*> POIs;
+    typedef NamedObjectCont< PointOfInterest*> POIs;
 
     /** @brief Builds a polygon using the given values and adds it to the container
      * @param[in] id The name of the polygon

@@ -300,6 +300,7 @@ TraCIServerAPI_Polygon::getTree() {
         Boundary b = (*i).second->getShape().getBoxBoundary();
         t->addObject((*i).second, b);
     }
+	return t;
 }
 
 

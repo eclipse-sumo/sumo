@@ -37,7 +37,7 @@
 #include <utils/shapes/Polygon.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GLIncludes.h>
-
+using namespace SUMO;
 
 // ===========================================================================
 // class definitions
