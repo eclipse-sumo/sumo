@@ -127,10 +127,10 @@ def parse_fast(xmlfile, element_name, attrnames):
     # note that the element must be on its own line and 
     # the attributes must appear in the given order
     # example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
-    attrnames = [_prefix_keyword(a, True) for a in attrnames]
-    Record = namedtuple(element_name, attrnames)
     pattern = '.*'.join(['<%s' % element_name] +
         ['%s="([^"]*)"' % attr for attr in attrnames])
+    attrnames = [_prefix_keyword(a, True) for a in attrnames]
+    Record = namedtuple(element_name, attrnames)
     reprog = re.compile(pattern)
     for line in open(xmlfile):
         m = reprog.search(line)
