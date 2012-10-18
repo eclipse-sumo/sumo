@@ -38,6 +38,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/geom/Boundary.h>
 #include <utils/common/UtilExceptions.h>
+using namespace SUMO;
 
 
 // ===========================================================================
