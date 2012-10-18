@@ -57,19 +57,21 @@ MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
 bool
 MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         SUMOReal newPos, SUMOReal newSpeed) {
-    if (newPos < myPosition/* && static_cast<MSVehicle&>(veh).getLane() == myLane*/) {
-        return true;
-    }
-    if (newPos >= myPosition && oldPos <= myPosition/* && static_cast<MSVehicle&>(veh).getLane() == myLane*/) {
-        SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-        if (newSpeed != 0) {
-            if (myPosition > oldPos) {
-                entryTime += (myPosition - oldPos) / newSpeed;
+    if(myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() && newPos >= myPosition) {
+        if (oldPos > myPosition) {
+            // was behind the detector
+            return false;
+        } else {
+            SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+            if (newSpeed != 0) {
+                if (myPosition > oldPos) {
+                    entryTime += (myPosition - oldPos) / newSpeed;
+                }
             }
+            myCollector.enter(veh, entryTime);
         }
-        myCollector.enter(veh, entryTime);
     }
-    return myCollector.myEnteredContainer.find(&veh) != myCollector.myEnteredContainer.end();
+    return true;
 }
 
 
@@ -79,7 +81,7 @@ MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, SUMOReal, MSMove
         myCollector.myEnteredContainer.erase(&veh);
         return false;
     }
-    return myCollector.myEnteredContainer.find(&veh) != myCollector.myEnteredContainer.end();
+    return true;
 }
 
 
