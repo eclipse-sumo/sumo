@@ -278,12 +278,8 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
             // determine an "abstract" layer for shapes
             //  this "layer" resembles the layer of the shape
             //  taking into account the stac of other objects
-            if (type == GLO_SHAPE) {
-                if (dynamic_cast<GUIPolygon*>(o) != 0) {
-                    layer = dynamic_cast<GUIPolygon*>(o)->getLayer();
-                } else if (dynamic_cast<GUIPointOfInterest*>(o) != 0) {
-                    layer = dynamic_cast<GUIPointOfInterest*>(o)->getLayer();
-                }
+            if (type == GLO_POI || type == GLO_POLYGON) {
+                layer = dynamic_cast<Shape*>(o)->getLayer();
             }
             // check whether the current object is above a previous one
             if (layer > maxLayer) {

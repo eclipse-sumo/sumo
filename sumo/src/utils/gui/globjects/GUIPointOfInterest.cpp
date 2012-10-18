@@ -30,7 +30,6 @@
 #include <config.h>
 #endif
 
-#include "GUIPointOfInterest.h"
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -42,6 +41,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include "GUIPointOfInterest.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -51,20 +51,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPointOfInterest::GUIPointOfInterest(SUMOReal layer,
-                                       const std::string& id,
-                                       const std::string& type,
-                                       const Position& p,
-                                       const RGBColor& c, 
-                                       const std::string imgFile, 
-                                       SUMOReal imgWidth, 
-                                       SUMOReal imgHeight) :
-    PointOfInterest(id, type, p, c),
-    GUIGlObject_AbstractAdd("poi", GLO_SHAPE, id),
-    myLayer(layer),
-    myImgFile(imgFile),
-    myHalfImgWidth(imgWidth / 2),
-    myHalfImgHeight(imgHeight / 2)
+GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type,
+            const RGBColor& color, const Position& pos,
+            SUMOReal layer, SUMOReal angle, const std::string& imgFile, 
+            SUMOReal width, SUMOReal height) :
+    PointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
+    GUIGlObject_AbstractAdd("poi", GLO_POI, id)
 {}
 
 
@@ -112,8 +104,9 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPushName(getGlID());
     glPushMatrix();
-    glColor3d(red(), green(), blue());
+    GLHelper::setColor(getColor());
     glTranslated(x(), y(), getLayer());
+    glRotated(getAngle(), 0, 0, 1);
 
     if (myImgFile != "") {
         int textureID = GUITexturesHelper::getTextureID(myImgFile);
@@ -131,14 +124,5 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
              s.scale, s.poiName);
     glPopName();
 }
-
-
-SUMOReal
-GUIPointOfInterest::getLayer() const {
-    return myLayer;
-}
-
-
-
 /****************************************************************************/
 

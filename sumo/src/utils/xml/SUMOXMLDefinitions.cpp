@@ -332,6 +332,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "guiShape",       SUMO_ATTR_GUISHAPE },
     { "osgFile",        SUMO_ATTR_OSGFILE },
     { "imgFile",        SUMO_ATTR_IMGFILE },
+    { "angle",          SUMO_ATTR_ANGLE },
     { "emissionClass",  SUMO_ATTR_EMISSIONCLASS },
     { "startPos",       SUMO_ATTR_STARTPOS },
     { "endPos",         SUMO_ATTR_ENDPOS },

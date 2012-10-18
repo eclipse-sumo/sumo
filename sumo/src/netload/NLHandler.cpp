@@ -56,6 +56,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/shapes/ShapeContainer.h>
+#include <utils/shapes/Shape.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -531,14 +532,15 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
     SUMOReal x = attrs.getOptSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok, INVALID_POSITION);
     SUMOReal y = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok, INVALID_POSITION);
     SUMOReal lanePos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_POSITION);
-    SUMOReal layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, (SUMOReal)GLO_SHAPE);
+    SUMOReal layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, (SUMOReal)GLO_POI);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     std::string laneID = attrs.getOptStringReporting(SUMO_ATTR_LANE, id.c_str(), ok, "");
     std::string colorStr = attrs.getOptStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok, "1,0,0");
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
-    std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, "");
-    SUMOReal imgWidth = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, 10.0);
-    SUMOReal imgHeight = attrs.getOptSUMORealReporting(SUMO_ATTR_HEIGHT, id.c_str(), ok, 10.0);
+    SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
+    std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
+    SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
+    SUMOReal height = attrs.getOptSUMORealReporting(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
     if (!ok) {
         return;
     }
@@ -554,7 +556,7 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
         }
         pos = lane->getShape().positionAtLengthPosition(lanePos);
     }
-    if (!myNet.getShapeContainer().addPoI(id, layer, type, color, pos, imgFile, imgWidth, imgHeight)) {
+    if (!myNet.getShapeContainer().addPOI(id, type, color, layer, angle, imgFile, pos, width, height)) {
         WRITE_ERROR("PoI '" + id + "' already exists.");
     }
 }
@@ -568,14 +570,17 @@ NLHandler::addPoly(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    SUMOReal layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, (SUMOReal)GLO_SHAPE);
+    SUMOReal layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, (SUMOReal)GLO_POLYGON);
     bool fill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, id.c_str(), ok, false);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok);
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
-    PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
+    PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(
+                SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
+    SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
+    std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
     if (shape.size() != 0) {
-        if (!myNet.getShapeContainer().addPolygon(id, layer, type, color, fill, shape)) {
+        if (!myNet.getShapeContainer().addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
             WRITE_ERROR("Polygon '" + id + "' already exists.");
         }
     }

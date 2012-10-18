@@ -50,115 +50,110 @@ GUIShapeContainer::GUIShapeContainer(SUMORTree& vis)
 GUIShapeContainer::~GUIShapeContainer() {}
 
 
-bool
-GUIShapeContainer::addPoI(const std::string& name, SUMOReal layer, const std::string& type, const RGBColor& c,
-                          const Position& pos, const std::string imgFile, SUMOReal imgWidth, SUMOReal imgHeight) {
-    GUIPointOfInterest* p = new GUIPointOfInterest(layer, name, type, pos, c, imgFile, imgWidth, imgHeight);
+bool 
+GUIShapeContainer::addPOI(const std::string& id, const std::string& type,
+        const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile, 
+        const Position& pos, SUMOReal width, SUMOReal height) {
+    GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height);
     AbstractMutex::ScopedLocker locker(myLock);
-    const bool ret = add(layer, p);
-    if (ret) {
-        myVis.addAdditionalGLObject(p);
-    } else {
+    if (!myPOIs.add(id, p)) {
         delete p;
-    }
-    return ret;
-}
-
-
-bool
-GUIShapeContainer::addPolygon(const std::string& name, SUMOReal layer, const std::string& type, const RGBColor& c,
-                              bool filled, const PositionVector& shape) {
-    GUIPolygon* p = new GUIPolygon(layer, name, type, c, shape, filled);
-    AbstractMutex::ScopedLocker locker(myLock);
-    const bool ret = add(layer, p);
-    if (ret) {
-        myVis.addAdditionalGLObject(p);
+        return false;
     } else {
+        myVis.addAdditionalGLObject(p);
+        return true;
+    }
+}
+
+
+bool 
+GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
+            const RGBColor& color, SUMOReal layer, 
+            SUMOReal angle, const std::string& imgFile, 
+            const PositionVector& shape, bool fill) {
+    GUIPolygon* p = new GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile);
+    AbstractMutex::ScopedLocker locker(myLock);
+    if (!myPolygons.add(id, p)) {
         delete p;
-    }
-    return ret;
-}
-
-
-
-bool
-GUIShapeContainer::removePoI(int layer, const std::string& id) {
-    AbstractMutex::ScopedLocker locker(myLock);
-    if (myPOILayers.find(layer) == myPOILayers.end()) {
-        myLock.unlock();
         return false;
+    } else {
+        myVis.addAdditionalGLObject(p);
+        return true;
     }
-    NamedObjectCont<PointOfInterest*> &c = myPOILayers.find(layer)->second;
-    PointOfInterest* p = c.get(id);
-    if (p == 0) {
-        return false;
-    }
-    myVis.removeAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
-    return c.remove(id);
 }
 
 
 bool
-GUIShapeContainer::removePolygon(int layer, const std::string& id) {
+GUIShapeContainer::removePolygon(const std::string& id) {
     AbstractMutex::ScopedLocker locker(myLock);
-    if (myPolygonLayers.find(layer) == myPolygonLayers.end()) {
-        return false;
-    }
-    GUIPolygon* p = static_cast<GUIPolygon*>(myPolygonLayers.find(layer)->second.get(id));
+    GUIPolygon* p = dynamic_cast<GUIPolygon*>(myPolygons.get(id));
     if (p == 0) {
         return false;
     }
     myVis.removeAdditionalGLObject(p);
-    return myPolygonLayers.find(layer)->second.remove(id);
+    return myPolygons.remove(id);
 }
 
 
+bool
+GUIShapeContainer::removePOI(const std::string& id) {
+    AbstractMutex::ScopedLocker locker(myLock);
+    GUIPointOfInterest* p = dynamic_cast<GUIPointOfInterest*>(myPOIs.get(id));
+    if (p == 0) {
+        return false;
+    }
+    myVis.removeAdditionalGLObject(p);
+    return myPOIs.remove(id);
+}
+
 
 void
-GUIShapeContainer::movePoI(int layer, const std::string& id, const Position& pos) {
+GUIShapeContainer::movePOI(const std::string& id, const Position& pos) {
     AbstractMutex::ScopedLocker locker(myLock);
-    if (myPOILayers.find(layer) != myPOILayers.end()) {
-        PointOfInterest* p = myPOILayers.find(layer)->second.get(id);
-        if (p != 0) {
-            myVis.removeAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
-            static_cast<Position*>(p)->set(pos);
-            myVis.addAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
-        }
+    GUIPointOfInterest* p = dynamic_cast<GUIPointOfInterest*>(myPOIs.get(id));
+    if (p != 0) {
+        myVis.removeAdditionalGLObject(p);
+        static_cast<Position*>(p)->set(pos);
+        myVis.addAdditionalGLObject(p);
     }
 }
 
 
 void
-GUIShapeContainer::reshapePolygon(int layer, const std::string& id, const PositionVector& shape) {
+GUIShapeContainer::reshapePolygon(const std::string& id, const PositionVector& shape) {
     AbstractMutex::ScopedLocker locker(myLock);
-    if (myPolygonLayers.find(layer) != myPolygonLayers.end()) {
-        GUIPolygon* p = static_cast<GUIPolygon*>(myPolygonLayers.find(layer)->second.get(id));
-        if (p != 0) {
-            myVis.removeAdditionalGLObject(p);
-            p->setShape(shape);
-            myVis.addAdditionalGLObject(p);
-        }
+    GUIPolygon* p = dynamic_cast<GUIPolygon*>(myPolygons.get(id));
+    if (p != 0) {
+        myVis.removeAdditionalGLObject(p);
+        p->setShape(shape);
+        myVis.addAdditionalGLObject(p);
     }
 }
+
 
 
 std::vector<GUIGlID>
-GUIShapeContainer::getShapeIDs() const {
+GUIShapeContainer::getPOIIds() const {
     AbstractMutex::ScopedLocker locker(myLock);
     std::vector<GUIGlID> ret;
-    for (int j = myMinLayer; j <= myMaxLayer; ++j) {
-        const PolyMap& pol = getPolygonCont(j).getMyMap();
-        for (PolyMap::const_iterator i = pol.begin(); i != pol.end(); ++i) {
-            ret.push_back(static_cast<GUIPolygon*>((*i).second)->getGlID());
-        }
-        const std::map<std::string, PointOfInterest*> &poi = getPOICont(j).getMyMap();
-        for (std::map<std::string, PointOfInterest*>::const_iterator i = poi.begin(); i != poi.end(); ++i) {
-            ret.push_back(static_cast<GUIPointOfInterest*>((*i).second)->getGlID());
-        }
+    const std::map<std::string, PointOfInterest*>& pois = getPOIs().getMyMap();
+    for(std::map<std::string, PointOfInterest*>::const_iterator it=pois.begin(); it!=pois.end(); ++it) {
+        ret.push_back(static_cast<GUIPointOfInterest*>(it->second)->getGlID());
     }
     return ret;
 }
 
+
+std::vector<GUIGlID>
+GUIShapeContainer::getPolygonIDs() const {
+    AbstractMutex::ScopedLocker locker(myLock);
+    std::vector<GUIGlID> ret;
+    const std::map<std::string, Polygon*>& polygons = getPolygons().getMyMap();
+    for(std::map<std::string, Polygon*>::const_iterator it=polygons.begin(); it!=polygons.end(); ++it) {
+        ret.push_back(static_cast<GUIPolygon*>(it->second)->getGlID());
+    }
+    return ret;
+}
 
 /****************************************************************************/
 

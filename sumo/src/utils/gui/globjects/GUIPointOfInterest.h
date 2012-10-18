@@ -52,20 +52,20 @@
 class GUIPointOfInterest : public PointOfInterest, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
-     * @param[in] idStorage The gl-id storage for giving this object an gl-id
-     * @param[in] layer The layer the PoI will be located in
-     * @param[in] id The name of the PoI
-     * @param[in] type The type of the PoI
-     * @param[in] p The position of the PoI
-     * @param[in] c The color of the PoI
-     * @param[in] imgFile The image file for rendering this POI
-     * @param[in] imgWidth The width of the image when rendering this POI
-     * @param[in] imgHeight The height of the image when rendering this POI
+     * @param[in] id The name of the POI
+     * @param[in] type The (abstract) type of the POI
+     * @param[in] color The color of the POI
+     * @param[in] layer The layer of the POI
+     * @param[in] angle The rotation of the POI
+     * @param[in] imgFile The raster image of the shape
+     * @param[in] pos The position of the POI
+     * @param[in] width The width of the POI image
+     * @param[in] height The height of the POI image
      */
-    GUIPointOfInterest(SUMOReal layer,
-                       const std::string& id, const std::string& type,
-                       const Position& p, const RGBColor& c,
-                       const std::string imgFile, SUMOReal imgWidth, SUMOReal imgHeight);
+    GUIPointOfInterest(const std::string& id, const std::string& type,
+            const RGBColor& color, const Position& pos, 
+            SUMOReal layer, SUMOReal angle, const std::string& imgFile, 
+            SUMOReal width, SUMOReal height); 
 
     /// @brief Destructor
     virtual ~GUIPointOfInterest();
@@ -111,27 +111,6 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
-
-
-    /// Returns the layer the object is located in
-    SUMOReal getLayer() const;
-
-protected:
-    /** @brief The layer this object is located in
-     *
-     * This value is used for determining which object to choose as being on top under the cursor
-     */
-    SUMOReal myLayer;
-
-    ///@brief The image file for rendering this POI
-    std::string myImgFile;
-
-    ///@brief The half width of the image when rendering this POI
-    SUMOReal myHalfImgWidth;
-
-    ///@brief The half height of the image when rendering this POI
-    SUMOReal myHalfImgHeight;
-
 
 };
 

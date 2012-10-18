@@ -79,7 +79,8 @@ FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATESHAPE,    GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,      GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,     GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSTEP,        GUISUMOViewParent::onSimStep),
 
 };
@@ -193,11 +194,17 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             icon = ICON_LOCATEADD;
             title = "Additional Objects Chooser";
             break;
-        case MID_LOCATESHAPE:
-            type = GLO_SHAPE;
-            ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getShapeIDs();
+        case MID_LOCATEPOI:
+            type = GLO_POI;
+            ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIIds();
             icon = ICON_LOCATESHAPE;
-            title = "Shape Chooser";
+            title = "POI Chooser";
+            break;
+        case MID_LOCATEPOLY:
+            type = GLO_POLYGON;
+            ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPolygonIDs();
+            icon = ICON_LOCATESHAPE;
+            title = "Polygon Chooser";
             break;
         default:
             throw ProcessError("Unknown Message ID in onCmdLocate");

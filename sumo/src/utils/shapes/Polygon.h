@@ -31,13 +31,8 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <utils/common/Named.h>
-#include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/common/VectorHelper.h>
-#include <utils/geom/Position.h>
-#include <map>
+#include "Shape.h"
 
 
 // ===========================================================================
@@ -47,55 +42,41 @@
  * @class Polygon
  * @brief A 2D- or 3D-polygon
  */
-class Polygon : public Named {
+class Polygon : public Shape {
 public:
     /** @brief Constructor
-     * @param[in] name The name of the polygon
+     * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon
      * @param[in] color The color of the polygon
-     * @param[in] shape The shape of the poslygon
+     * @param[in] layer The layer of the polygon
+     * @param[in] angle The rotation of the polygon
+     * @param[in] imgFile The raster image of the polygon
+     * @param[in] shape The shape of the polygon
      * @param[in] fill Whether the polygon shall be filled
      */
-    Polygon(const std::string& name, const std::string& type,
-            const RGBColor& color, const PositionVector& shape, bool fill);
-
+    Polygon(const std::string& id, const std::string& type,
+            const RGBColor& color, const PositionVector& shape, bool fill,
+            SUMOReal layer=DEFAULT_LAYER, 
+            SUMOReal angle=DEFAULT_ANGLE, 
+            const std::string& imgFile=DEFAULT_IMG_FILE);
 
     /// @brief Destructor
     virtual ~Polygon();
 
 
-
     /// @name Getter
     /// @{
-
-    /** @brief Returns the (abstract) type of the polygon
-     * @return The polygon's (abstract) type
+    /** @brief Returns whether the shape of the polygon
+     * @return The shape of the polygon
      */
-    const std::string& getType() const {
-        return myType;
-    }
-
-
-    /** @brief Returns the color of the polygon
-     * @return The polygon's color
-     */
-    const RGBColor& getColor() const {
-        return myColor;
-    }
-
-
-    /** @brief Returns the shape of the polygon
-     * @return The polygon's shape
-     */
-    const PositionVector& getShape() const {
+    inline const PositionVector& getShape() const {
         return myShape;
     }
-
 
     /** @brief Returns whether the polygon is filled
      * @return Whether the polygon is filled
      */
-    bool fill() const {
+    inline bool getFill() const {
         return myFill;
     }
     /// @}
@@ -104,47 +85,24 @@ public:
 
     /// @name Setter
     /// @{
-
-    /** @brief Sets a new type
-     * @param[in] type The new type to use
-     */
-    void setType(const std::string& type) {
-        myType = type;
-    }
-
-
-    /** @brief Sets a new color
-     * @param[in] col The new color to use
-     */
-    void setColor(const RGBColor& col) {
-        myColor = col;
-    }
-
-
-    /** @brief Sets a new shape
-     * @param[in] shape The new shape to use
-     */
-    void setShape(const PositionVector& shape) {
-        myShape = shape;
-    }
-
-
     /** @brief Sets whether the polygon shall be filled
      * @param[in] fill Whether the polygon shall be filled
      */
-    void setFill(bool fill) {
+    inline void setFill(bool fill) {
         myFill = fill;
+    }
+
+
+    /** @brief Sets the shape of the polygon
+     * @param[in] shape  The new shape of the polygon
+     */
+    inline void setShape(const PositionVector& shape) {
+        myShape = shape;
     }
     /// @}
 
 
 protected:
-    /// @brief The type of the polygon
-    std::string myType;
-
-    /// @brief The color of the polygon
-    RGBColor myColor;
-
     /// @brief The positions of the polygon
     PositionVector myShape;
 

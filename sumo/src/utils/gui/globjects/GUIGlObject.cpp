@@ -63,7 +63,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"detector",      GLO_DETECTOR},
     {"trigger",       GLO_TRIGGER},
     {"additional",    GLO_ADDITIONAL},
-    {"shape",         GLO_SHAPE},
+    {"polygon",       GLO_POLYGON},
+    {"poi",           GLO_POI},
     {"vehicle",       GLO_VEHICLE},
     {"person",        GLO_PERSON},
     {"undefined",     GLO_MAX}

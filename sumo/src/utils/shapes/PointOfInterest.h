@@ -32,10 +32,8 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <utils/common/RGBColor.h>
 #include <utils/geom/Position.h>
-#include <utils/common/Named.h>
+#include "Shape.h"
 
 
 // ===========================================================================
@@ -45,43 +43,69 @@
  * @class PointOfInterest
  * @brief A point-of-interest
  */
-class PointOfInterest : public RGBColor, public Position, public Named {
+class PointOfInterest : public Shape, public Position {
 public:
-    /** @brief Constrcutor
-     * @param[in] id The id of the POI
-     * @param[in] type The (abstract) type of the poi
-     * @param[in] p The position of the poi
-     * @param[in] c The color of the poi
+    /** @brief Constructor
+     * @param[in] id The name of the POI
+     * @param[in] type The (abstract) type of the POI
+     * @param[in] color The color of the POI
+     * @param[in] layer The layer of the POI
+     * @param[in] angle The rotation of the POI
+     * @param[in] imgFile The raster image of the shape
+     * @param[in] pos The position of the POI
+     * @param[in] width The width of the POI image
+     * @param[in] height The height of the POI image
      */
     PointOfInterest(const std::string& id, const std::string& type,
-                    const Position& p, const RGBColor& c)
-        : RGBColor(c), Position(p), Named(id), myType(type) { }
-
+            const RGBColor& color, const Position& pos,
+            SUMOReal layer=DEFAULT_LAYER, 
+            SUMOReal angle=DEFAULT_ANGLE, 
+            const std::string& imgFile=DEFAULT_IMG_FILE,
+            SUMOReal width=DEFAULT_IMG_WIDTH, 
+            SUMOReal height=DEFAULT_IMG_HEIGHT) :
+        Shape(id, type, color, layer, angle, imgFile),
+        Position(pos),
+        myHalfImgWidth(width / 2.0),
+        myHalfImgHeight(height / 2.0)
+    {}
 
     /// @brief Destructor
     virtual ~PointOfInterest() { }
 
-
-
-    /** @brief Returns the (abstract) type of the poi
-     * @return The polygon's (abstract) type
-     */
-    const std::string& getType() const {
-        return myType;
+    /// @name Getter
+    /// @{
+    /// @brief Returns whether the image width of the POI
+    inline SUMOReal getWidth() const {
+        return myHalfImgWidth * 2.0;
     }
 
-
-    /** @brief Sets a new type
-     * @param[in] type The new type to use
-     */
-    void setType(const std::string& type) {
-        myType = type;
+    /// @brief Returns whether the image hidth of the POI
+    inline SUMOReal getHeight() const {
+        return myHalfImgHeight * 2.0;
     }
+    /// @}
+
+
+    /// @name Setter
+    /// @{
+    /// @brief set the image width of the POI
+    inline void setWidth(SUMOReal width) {
+        myHalfImgWidth = width / 2.0;
+    }
+
+    /// @brief set the image height of the POI
+    inline void setHeight(SUMOReal height) {
+        myHalfImgHeight = height / 2.0;
+    }
+    /// @}
 
 
 protected:
-    /// @brief the type of the poi
-    std::string myType;
+    ///@brief The half width of the image when rendering this POI
+    SUMOReal myHalfImgWidth;
+
+    ///@brief The half height of the image when rendering this POI
+    SUMOReal myHalfImgHeight;
 
 };
 

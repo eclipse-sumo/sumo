@@ -118,7 +118,7 @@ PCLoaderXML::myStartElement(int element,
         }
         // patch the values
         bool discard = myOptions.getBool("discard");
-        int layer = myOptions.getInt("layer");
+        SUMOReal layer = (SUMOReal)myOptions.getInt("layer");
         RGBColor color;
         if (myTypeMap.has(type)) {
             const PCTypeMap::TypeDef& def = myTypeMap.get(type);
@@ -126,17 +126,21 @@ PCLoaderXML::myStartElement(int element,
             type = def.id;
             color = RGBColor::parseColor(def.color);
             discard = def.discard;
-            layer = def.layer;
+            layer = (SUMOReal)def.layer;
         } else {
             id = myOptions.getString("prefix") + id;
             color = RGBColor::parseColor(myOptions.getString("color"));
         }
-        layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
+        layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
         if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
             color = RGBColor::parseColorReporting(
                     attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok),
                     attrs.getObjectType(), id.c_str(), true, ok);
         }
+        SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
+        std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
+        SUMOReal imgWidth = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
+        SUMOReal imgHeight = attrs.getOptSUMORealReporting(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
         if (!ok) {
             return;
         }
@@ -145,7 +149,7 @@ PCLoaderXML::myStartElement(int element,
             if (OptionsCont::getOptions().isInStringVector("prune.keep-list", id)) {
                 ignorePrunning = true;
             }
-            PointOfInterest* poi = new PointOfInterest(id, type, pos, color);
+            PointOfInterest* poi = new PointOfInterest(id, type, color, pos, layer, angle, imgFile, imgWidth, imgHeight);
             if (!myCont.insert(id, poi, layer, ignorePrunning)) {
                 WRITE_ERROR("POI '" + id + "' could not be added.");
                 delete poi;
@@ -154,7 +158,7 @@ PCLoaderXML::myStartElement(int element,
     }
     if (element == SUMO_TAG_POLY) {
         bool discard = myOptions.getBool("discard");
-        int layer = myOptions.getInt("layer");
+        SUMOReal layer = (SUMOReal)myOptions.getInt("layer");
         bool ok = true;
         std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, myCurrentID.c_str(), ok, "");
         std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok, myOptions.getString("type"));
@@ -168,17 +172,19 @@ PCLoaderXML::myStartElement(int element,
             type = def.id;
             color = RGBColor::parseColor(def.color);
             discard = def.discard;
-            layer = def.layer;
+            layer = (SUMOReal)def.layer;
         } else {
             id = myOptions.getString("prefix") + id;
             color = RGBColor::parseColor(myOptions.getString("color"));
         }
-        layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
+        layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
         if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
             color = RGBColor::parseColorReporting(
                     attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok),
                     attrs.getObjectType(), id.c_str(), true, ok);
         }
+        SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
+        std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
         bool fill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, id.c_str(), ok, false);
         if (!ok) {
             return;
@@ -205,7 +211,7 @@ PCLoaderXML::myStartElement(int element,
                 }
                 shape.push_back(pos);
             }
-            Polygon* poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, fill);
+            Polygon* poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, fill, layer, angle, imgFile);
             if (!myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning)) {
                 WRITE_ERROR("Polygon '" + myCurrentID + "' could not be added.");
                 delete poly;

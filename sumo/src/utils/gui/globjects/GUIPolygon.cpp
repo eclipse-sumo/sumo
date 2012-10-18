@@ -48,13 +48,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIPolygon::GUIPolygon(SUMOReal layer,
-                       const std::string name, const std::string type,
-                       const RGBColor& color,
-                       const PositionVector& Pos,
-                       bool fill)
-    : Polygon(name, type, color, Pos, fill),
-      GUIGlObject_AbstractAdd("poly", GLO_SHAPE, name), myLayer(layer) {}
+GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
+            const RGBColor& color, const PositionVector& shape, bool fill,
+            SUMOReal layer, SUMOReal angle, const std::string& imgFile):
+    Polygon(id, type, color, shape, fill, layer, angle, imgFile),
+    GUIGlObject_AbstractAdd("poly", GLO_POLYGON, id) 
+{}
 
 
 GUIPolygon::~GUIPolygon() {}
@@ -131,7 +130,7 @@ void APIENTRY combineCallback(GLdouble coords[3],
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     UNUSED_PARAMETER(s);
-    if (fill()) {
+    if (getFill()) {
         if (myShape.size() < 3) {
             return;
         }
@@ -145,7 +144,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getLayer());
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     GLHelper::setColor(getColor());
-    if (fill()) {
+    if (getFill()) {
         double* points = new double[myShape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
         gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
@@ -174,15 +173,6 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     glPopName();
     glPopMatrix();
 }
-
-
-
-SUMOReal
-GUIPolygon::getLayer() const {
-    return myLayer;
-}
-
-
 
 /****************************************************************************/
 

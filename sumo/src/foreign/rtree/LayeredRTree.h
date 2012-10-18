@@ -118,7 +118,7 @@ private:
         switch (o->getType()) {
             case GLO_EDGE:
             case GLO_LANE:
-            case GLO_SHAPE:
+            case GLO_POI:
             case GLO_VEHICLE:
             case GLO_PERSON:
                 return 1;

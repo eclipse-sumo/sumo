@@ -50,7 +50,7 @@ class RGBColor;
 // ===========================================================================
 /**
  * @class ShapeContainer
- * @brief Storage for geometrical objects, sorted by the layers they are in
+ * @brief Storage for geometrical objects
  */
 class ShapeContainer {
 public:
@@ -61,132 +61,92 @@ public:
     /// @brief Destructor
     virtual ~ShapeContainer();
 
+    typedef NamedObjectCont<Polygon*> Polygons;
+    typedef NamedObjectCont<PointOfInterest*> POIs;
 
-    /** @brief Builds a PoI using the given values and adds it to the according layer
-     * @param[in] name The name of the PoI to add
-     * @param[in] layer The layer to add the PoI to
-     * @param[in] type The type of the PoI to add
-     * @param[in] c The color of the PoI to add
-     * @param[in] pos The position of the PoI to add
-     * @param[in] imgFile The image file for rendering this POI
-     * @param[in] imgWidth The width of the image when rendering this POI
-     * @param[in] imgHeight The height of the image when rendering this POI
-     * @return Whether the PoI could be added (no other with same id exists in the layer)
-     * @see ShapeContainer::addPoI
+    /** @brief Builds a polygon using the given values and adds it to the container
+     * @param[in] id The name of the polygon
+     * @param[in] type The (abstract) type of the polygon
+     * @param[in] color The color of the polygon
+     * @param[in] layer The layer of the polygon
+     * @param[in] angle The rotation of the polygon
+     * @param[in] imgFile The raster image of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] fill Whether the polygon shall be filled
+     * @return whether the polygon could be added
      */
-    virtual bool addPoI(const std::string& name, SUMOReal layer, const std::string& type,
-                        const RGBColor& c, const Position& pos, 
-                        const std::string imgFile="", SUMOReal imgWidth=1.0, SUMOReal imgHeight=1.0);
+    virtual bool addPolygon(const std::string& id, const std::string& type,
+            const RGBColor& color, SUMOReal layer, 
+            SUMOReal angle, const std::string& imgFile, 
+            const PositionVector& shape, bool fill);
 
 
-    /** @brief Builds a polygon using the given values and adds it to the according layer
-     * @param[in] name The name of the polygon to add
-     * @param[in] layer The layer to add the polygon to
-     * @param[in] type The type of the polygon to add
-     * @param[in] c The color of the polygon to add
-     * @param[in] shape The shape of the polygon to add
-     * @return Whether the polygon could be added (no other with same id exists in the layer)
-     * @see ShapeContainer::addPolygon
+    /** @brief Builds a POI using the given values and adds it to the container
+     * @param[in] id The name of the POI
+     * @param[in] type The (abstract) type of the POI
+     * @param[in] color The color of the POI
+     * @param[in] layer The layer of the POI
+     * @param[in] angle The rotation of the POI
+     * @param[in] imgFile The raster image of the POI
+     * @param[in] pos The position of the POI
+     * @param[in] width The width of the POI image
+     * @param[in] height The height of the POI image
+     * @return whether the poi could be added
      */
-    virtual bool addPolygon(const std::string& name, SUMOReal layer,
-                            const std::string& type, const RGBColor& c, bool filled, const PositionVector& shape);
+    virtual bool addPOI(const std::string& id, const std::string& type,
+            const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile, 
+            const Position& pos, SUMOReal width, SUMOReal height);
 
 
 
     /** @brief Removes a polygon from the container
-     * @param[in] layer The layer the polygon is located in
      * @param[in] id The id of the polygon
      * @return Whether the polygon could be removed
      */
-    virtual bool removePolygon(int layer, const std::string& id);
+    virtual bool removePolygon(const std::string& id);
 
 
     /** @brief Removes a PoI from the container
-     * @param[in] layer The layer the PoI is located in
      * @param[in] id The id of the PoI
      * @return Whether the poi could be removed
      */
-    virtual bool removePoI(int layer, const std::string& id);
+    virtual bool removePOI(const std::string& id);
 
 
 
     /** @brief Assigns a new position to the named PoI
-     * @param[in] layer The layer the PoI is located in
      * @param[in] id The id of the PoI to move
      * @param[in] pos The PoI's new position
      */
-    virtual void movePoI(int layer, const std::string& id, const Position& pos);
+    virtual void movePOI(const std::string& id, const Position& pos);
 
 
     /** @brief Assigns a shape to the named polygon
-     * @param[in] layer The layer the polygon is located in
      * @param[in] id The id of the polygon to reshape
      * @param[in] shape The polygon's new shape
      */
-    virtual void reshapePolygon(int layer, const std::string& id, const PositionVector& shape);
+    virtual void reshapePolygon(const std::string& id, const PositionVector& shape);
 
 
 
-    /** @brief Returns the polygons located at the given layer
-     * @param[in] layer The layer of polygons to return
-     * @return The polygons at this layer
-     * @see NamedObjectCont
-     */
-    const NamedObjectCont<Polygon*> &getPolygonCont(int layer) const;
-
-
-    /** @brief Returns the polygons located at the given layer
-     * @param[in] layer The layer of polygons to return
-     * @return The polygons at this layer
-     * @see NamedObjectCont
-     */
-    const NamedObjectCont<PointOfInterest*> &getPOICont(int layer) const;
-
-
-
-    /** @brief Returns the lowest layer
-     * @return The lowest layer
-     */
-    int getMinLayer() const {
-        return myMinLayer;
+    /// @brief Returns all polygons
+    inline const Polygons &getPolygons() const {
+        return myPolygons;
     }
 
 
-    /** @brief Returns the highest layer
-     * @return The highest layer
-     */
-    int getMaxLayer() const {
-        return myMaxLayer;
+    /// @brief Returns all pois
+    inline const POIs &getPOIs() const {
+        return myPOIs;
     }
 
 
 protected:
-    /** @brief Adds a polygon to the container
-     * @param[in] layer The layer the polygon is located in
-     * @param[in] p The polygon to add
-     * @return Whether the polygon could be added (no other with same name existed before)
-     */
-    bool add(int layer, Polygon* p);
+    /// @brief stored Polygons
+    Polygons myPolygons;
 
-
-    /** @brief Adds a PoI to the container
-     * @param[in] layer The layer the poi is located in
-     * @param[in] p The PoI to add
-     * @return Whether the PoI could be added (no other with same name existed before)
-     */
-    bool add(int layer, PointOfInterest* p);
-
-
-protected:
-    typedef std::map<std::string, Polygon*> PolyMap;
-    /// @brief Polygon layers
-    mutable std::map<int, NamedObjectCont<Polygon*> > myPolygonLayers;
-
-    /// @brief POI layers
-    mutable std::map<int, NamedObjectCont<PointOfInterest*> > myPOILayers;
-
-    /// @brief The minimum and the maximum layers
-    mutable int myMinLayer, myMaxLayer;
+    /// @brief stored POIs
+    POIs myPOIs;
 
 };
 

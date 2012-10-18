@@ -31,6 +31,7 @@
 #endif
 
 #include <string>
+#include <algorithm>
 #include <map>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
@@ -152,24 +153,44 @@ PCPolyContainer::save(const std::string& file) {
     out.writeXMLHeader("shapes", SUMOSAXAttributes::ENCODING);
     // write polygons
     for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); ++i) {
+        Polygon* p = i->second;
         out.openTag(SUMO_TAG_POLY);
-        out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i).second->getID()));
-        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML((*i).second->getType()));
-        out.writeAttr(SUMO_ATTR_COLOR, (*i).second->getColor());
-        out.writeAttr(SUMO_ATTR_FILL, (*i).second->fill());
-        out.writeAttr(SUMO_ATTR_LAYER, myPolyLayerMap[(*i).second]);
-        out.writeAttr(SUMO_ATTR_SHAPE, (*i).second->getShape());
+        out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(p->getID()));
+        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(p->getType()));
+        out.writeAttr(SUMO_ATTR_COLOR, p->getColor());
+        out.writeAttr(SUMO_ATTR_FILL,  p->getFill());
+        out.writeAttr(SUMO_ATTR_LAYER, p->getLayer());
+        out.writeAttr(SUMO_ATTR_SHAPE, p->getShape());
+        if (p->getAngle() != Shape::DEFAULT_ANGLE) {
+            out.writeAttr(SUMO_ATTR_ANGLE, p->getAngle());
+        }
+        if (p->getImgFile() != Shape::DEFAULT_IMG_FILE) {
+            out.writeAttr(SUMO_ATTR_IMGFILE, p->getImgFile());
+        }
         out.closeTag(true);
     }
     // write pois
     for (POICont::iterator i = myPOICont.begin(); i != myPOICont.end(); ++i) {
+        PointOfInterest* p = i->second;
         out.openTag(SUMO_TAG_POI);
-        out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i).second->getID()));
-        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML((*i).second->getType()));
-        out.writeAttr(SUMO_ATTR_COLOR, *static_cast<RGBColor*>((*i).second));
-        out.writeAttr(SUMO_ATTR_LAYER, myPOILayerMap[(*i).second]);
-        out.writeAttr(SUMO_ATTR_X, (*i).second->x());
-        out.writeAttr(SUMO_ATTR_Y, (*i).second->y());
+        out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(p->getID()));
+        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(p->getType()));
+        out.writeAttr(SUMO_ATTR_COLOR, p->getColor());
+        out.writeAttr(SUMO_ATTR_LAYER, p->getLayer());
+        out.writeAttr(SUMO_ATTR_X, p->x());
+        out.writeAttr(SUMO_ATTR_Y, p->y());
+        if (p->getAngle() != Shape::DEFAULT_ANGLE) {
+            out.writeAttr(SUMO_ATTR_ANGLE, p->getAngle());
+        }
+        if (p->getImgFile() != Shape::DEFAULT_IMG_FILE) {
+            out.writeAttr(SUMO_ATTR_IMGFILE, p->getImgFile());
+        }
+        if (p->getWidth() != Shape::DEFAULT_IMG_WIDTH) {
+            out.writeAttr(SUMO_ATTR_WIDTH, p->getWidth());
+        }
+        if (p->getHeight() != Shape::DEFAULT_IMG_HEIGHT) {
+            out.writeAttr(SUMO_ATTR_HEIGHT, p->getHeight());
+        }
         out.closeTag(true);
     }
     out.close();

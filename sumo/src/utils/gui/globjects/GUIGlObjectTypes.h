@@ -61,14 +61,16 @@ enum GUIGlObjectType {
     GLO_TRIGGER = 64,
     /// @brief compound additional
     GLO_ADDITIONAL = GLO_DETECTOR | GLO_TRIGGER,
-    /// @brief a shape
-    GLO_SHAPE = 128,
+    /// @brief a polygon
+    GLO_POLYGON = 128,
+    /// @brief a poi
+    GLO_POI = 256,
     /// @brief a vehicles
-    GLO_VEHICLE = 256,
+    GLO_VEHICLE = 512,
     /// @brief a person
-    GLO_PERSON = 512,
+    GLO_PERSON = 1024,
     /// @brief empty max
-    GLO_MAX = 1024,
+    GLO_MAX = 2048,
 
 };
 

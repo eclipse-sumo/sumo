@@ -128,10 +128,15 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
                  "\tLocate Additional\tLocate an additional structure within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEADD), &v, MID_LOCATEADD,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-    // for shapes
+    // for pois
     new FXButton(v.getLocatorPopup(),
-                 "\tLocate Shape\tLocate a shape within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATESHAPE), &v, MID_LOCATESHAPE,
+                 "\tLocate POI\tLocate a POI within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATESHAPE), &v, MID_LOCATEPOI,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    // for polygons
+    new FXButton(v.getLocatorPopup(),
+                 "\tLocate Polygon\tLocate a Polygon within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATESHAPE), &v, MID_LOCATEPOLY,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 }
 

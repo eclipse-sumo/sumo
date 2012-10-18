@@ -1,11 +1,10 @@
 /****************************************************************************/
-/// @file    Polygon.cpp
-/// @author  Daniel Krajzewicz
-/// @author  Michael Behrisch
-/// @date    Jun 2004
-/// @version $Id$
+/// @file    Shape.cpp
+/// @author  Jakob Erdmann
+/// @date    Oct 2012
+/// @version $Id: Shape.h 12722 2012-09-17 09:41:32Z dkrajzew $
 ///
-// A 2D-polygon
+// A 2D- or 3D-Shape
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -29,27 +28,37 @@
 #include <config.h>
 #endif
 
-#include "Polygon.h"
+#include "Shape.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+const SUMOReal Shape::DEFAULT_LAYER = 128;
+const SUMOReal Shape::DEFAULT_ANGLE = 0;
+const std::string Shape::DEFAULT_IMG_FILE = "";
+const SUMOReal Shape::DEFAULT_IMG_WIDTH = 1;
+const SUMOReal Shape::DEFAULT_IMG_HEIGHT = 1;
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
-Polygon::Polygon(const std::string& id, const std::string& type,
-            const RGBColor& color, const PositionVector& shape, bool fill,
-            SUMOReal layer, SUMOReal angle, const std::string& imgFile) :
-    Shape(id, type, color, layer, angle, imgFile),
-    myShape(shape),
-    myFill(fill) 
+Shape::Shape(const std::string& id, const std::string& type,
+            const RGBColor& color, SUMOReal layer, 
+            SUMOReal angle, const std::string& imgFile) :
+    Named(id),
+    myType(type),
+    myColor(color),
+    myLayer(layer),
+    myAngle(angle),
+    myImgFile(imgFile)
 {}
 
 
-Polygon::~Polygon() {}
-
+Shape::~Shape() {}
 
 
 /****************************************************************************/

@@ -163,8 +163,10 @@ enum {
     MID_LOCATETLS,
     /// Locate addtional structure - button
     MID_LOCATEADD,
-    /// Locate shape - button
-    MID_LOCATESHAPE,
+    /// Locate poi - button
+    MID_LOCATEPOI,
+    /// Locate polygons - button
+    MID_LOCATEPOLY,
     /// Open viewport editor - button
     MID_EDITVIEWPORT,
     /// Open view editor - button

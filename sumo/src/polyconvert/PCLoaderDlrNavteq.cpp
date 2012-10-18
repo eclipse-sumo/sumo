@@ -174,7 +174,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
             if (OptionsCont::getOptions().isInStringVector("prune.keep-list", name)) {
                 ignorePrunning = true;
             }
-            PointOfInterest* poi = new PointOfInterest(name, type, pos, color);
+            PointOfInterest* poi = new PointOfInterest(name, type, color, pos, (SUMOReal)layer);
             if (!toFill.insert(name, poi, layer, ignorePrunning)) {
                 WRITE_ERROR("POI '" + name + "' could not be added.");
                 delete poi;
@@ -264,7 +264,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             color = c;
         }
         if (!discard) {
-            Polygon* poly = new Polygon(name, type, color, vec, fill);
+            Polygon* poly = new Polygon(name, type, color, vec, fill, (SUMOReal)layer);
             if (!toFill.insert(name, poly, layer)) {
                 WRITE_ERROR("Polygon '" + name + "' could not be added.");
                 delete poly;

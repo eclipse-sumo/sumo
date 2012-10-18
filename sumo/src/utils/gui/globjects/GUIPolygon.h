@@ -47,17 +47,18 @@
 class GUIPolygon : public Polygon, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
-     * @param[in] layer The layer the polygon will be located in
-     * @param[in] name The name (id) of the polygon
-     * @param[in] type The type of the polygon
+     * @param[in] id The name of the polygon
+     * @param[in] type The (abstract) type of the polygon
      * @param[in] color The color of the polygon
+     * @param[in] layer The layer of the polygon
+     * @param[in] angle The rotation of the polygon
+     * @param[in] imgFile The raster image of the polygon
      * @param[in] shape The shape of the polygon
      * @param[in] fill Whether the polygon shall be filled
      */
-    GUIPolygon(SUMOReal layer,
-               const std::string name, const std::string type,
-               const RGBColor& color, const PositionVector& shape,
-               bool fill);
+    GUIPolygon(const std::string& id, const std::string& type,
+            const RGBColor& color, const PositionVector& shape, bool fill,
+            SUMOReal layer=0, SUMOReal angle=0, const std::string& imgFile="");
 
     /// @brief Destructor
     ~GUIPolygon();
@@ -103,17 +104,6 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
-
-
-
-    /// Returns the layer the object is located in
-    SUMOReal getLayer() const;
-
-protected:
-    /** @brief The layer this object is located in
-     * This value is used for determining which object to choose as being on top under the cursor
-     */
-    SUMOReal myLayer;
 
 };
 
