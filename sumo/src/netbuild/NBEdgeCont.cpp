@@ -692,6 +692,22 @@ NBEdgeCont::recheckPostProcessConnections() {
             } 
         } 
     } 
+    // during loading we also kept some ambiguous connections in hope they might be valid after processing
+    // we need to make sure that all invalid connections are removed now
+    for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); ++it) {
+        NBEdge* edge = it->second;
+        NBNode* to = edge->getToNode();
+        // make a copy because we may delete connections
+        std::vector<NBEdge::Connection> connections = edge->getConnections();
+        for (std::vector<NBEdge::Connection>::iterator it_con = connections.begin(); it_con != connections.end(); ++it_con) {
+            NBEdge::Connection& c = *it_con;
+            if (c.toEdge->getFromNode() != to) {
+                WRITE_WARNING("Found and removed invalid connection from " + edge->getID() + 
+                        " to " + c.toEdge->getID() + " via " + to->getID());
+                edge->removeFromConnections(c.toEdge);
+            }
+        }
+    }
 } 
     
 

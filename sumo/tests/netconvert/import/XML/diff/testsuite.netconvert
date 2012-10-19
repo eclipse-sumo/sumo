@@ -12,3 +12,6 @@ join_junctions
 
 # let an edge start at a different node
 change_from_node_of_edge
+
+# do not crash if not all of the diff is supplied
+change_from_node_of_edge_incomplete

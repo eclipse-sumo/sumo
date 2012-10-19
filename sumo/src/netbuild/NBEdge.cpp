@@ -230,10 +230,10 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
                LaneSpreadFunction spread,
                bool tryIgnoreNodePositions) {
     if (myFrom != from) {
-        myFrom->removeEdge(this);
+        myFrom->removeEdge(this, false);
     }
     if (myTo != to) {
-        myTo->removeEdge(this);
+        myTo->removeEdge(this, false);
     }
     myType = StringUtils::convertUmlaute(type);
     myFrom = from;
