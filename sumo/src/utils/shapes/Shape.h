@@ -83,14 +83,14 @@ public:
     /** @brief Returns the layer of the Shape
      * @return The Shape's layer
      */
-    inline const SUMOReal getLayer() const {
+    inline SUMOReal getLayer() const {
         return myLayer;
     }
 
     /** @brief Returns the angle of the Shape
      * @return The Shape's rotation angle
      */
-    inline const SUMOReal getAngle() const {
+    inline SUMOReal getAngle() const {
         return myAngle;
     }
 

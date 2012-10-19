@@ -123,11 +123,11 @@ inline std::string joinToString(const std::vector<T>& v, const T_BETWEEN& betwee
     bool connect = false;
     for (typename std::vector<T>::const_iterator it = v.begin(); it != v.end(); ++it) {
         if (connect) {
-            oss << toString(between);
+            oss << toString(between, accuracy);
         } else {
             connect = true;
         }
-        oss << toString(*it);
+        oss << toString(*it, accuracy);
     }
     return oss.str();
 }
@@ -139,11 +139,11 @@ inline std::string joinToString(const std::set<T>& s, const T_BETWEEN& between, 
     bool connect = false;
     for (typename std::set<T>::const_iterator it = s.begin(); it != s.end(); ++it) {
         if (connect) {
-            oss << toString(between);
+            oss << toString(between, accuracy);
         } else {
             connect = true;
         }
-        oss << toString(*it);
+        oss << toString(*it, accuracy);
     }
     return oss.str();
 }
