@@ -344,6 +344,10 @@ GUIPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& s) const {
 
 void 
 GUIPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
+    if (getVehicleType().getGuiShape() == SVS_PEDESTRIAN) {
+        const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+        glRotated(getAngle(now), 0, 0, 1);
+    }
     const std::string& file = getVehicleType().getImgFile();
     if (file != "") {
         int textureID = GUITexturesHelper::getTextureID(file);
