@@ -75,6 +75,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_BEST_LANES:      _readBestLanes,
                       tc.DISTANCE_REQUEST:    traci.Storage.readDouble}
 subscriptionResults = {}
+contextSubscriptionResults = {}
 
 def _getUniversal(varID, vehID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_VEHICLE_VARIABLE, varID, vehID)
@@ -379,8 +380,13 @@ def subscribe(vehID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=
     _resetSubscriptionResults()
     traci._subscribe(tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, begin, end, vehID, varIDs)
 
+def subscribeContext(vehID, domain, dist, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31-1):
+    _resetSubscriptionResults()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_VEHICLE_CONTEXT, begin, end, vehID, domain, dist, varIDs)
+
 def _resetSubscriptionResults():
     subscriptionResults.clear()
+    contextSubscriptionResults.clear()
 
 def _addSubscriptionResult(vehID, varID, data):
     if vehID not in subscriptionResults:
@@ -400,6 +406,19 @@ def getSubscriptionResults(vehID=None):
     if vehID == None:
         return subscriptionResults
     return subscriptionResults.get(vehID, None)
+
+def _addContextSubscriptionResult(vehID, varID, objID, data):
+    if vehID not in contextSubscriptionResults:
+        contextSubscriptionResults[vehID] = {}
+    if objID not in contextSubscriptionResults[vehID]:
+        contextSubscriptionResults[vehID][objID] = {}
+    contextSubscriptionResults[vehID][objID][varID] = _RETURN_VALUE_FUNC[varID](data)
+    
+def getContextSubscriptionResults(vehID=None):
+    if vehID == None:
+        return contextSubscriptionResults
+    return contextSubscriptionResults.get(vehID, None)
+
 
 
 def setMaxSpeed(vehID, speed):

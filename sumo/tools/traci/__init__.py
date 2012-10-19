@@ -106,7 +106,9 @@ _modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE: junction,
             constants.RESPONSE_SUBSCRIBE_EDGE_VARIABLE: edge,
             constants.RESPONSE_SUBSCRIBE_SIM_VARIABLE: simulation,
-            constants.RESPONSE_SUBSCRIBE_GUI_VARIABLE: gui}
+            constants.RESPONSE_SUBSCRIBE_GUI_VARIABLE: gui,
+            
+            constants.RESPONSE_SUBSCRIBE_VEHICLE_CONTEXT: vehicle}
 _connections = {}
 _message = Message()
 
@@ -204,16 +206,31 @@ def _checkResult(cmdID, varID, objID):
 def _readSubscription(result):
     result.readLength()
     response = result.read("!B")[0]
+    isVariableSubscription = response>=constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and response<=constants.RESPONSE_SUBSCRIBE_GUI_VARIABLE
     objectID = result.readString()
+    if not isVariableSubscription:
+        domain = result.read("!B")[0]
     numVars = result.read("!B")[0]
-    while numVars > 0:
-        varID = result.read("!B")[0]
-        status, varType = result.read("!BB")
-        if status:
-            print "Error!", result.readString()
-        elif response in _modules:
-            _modules[response]._addSubscriptionResult(objectID, varID, result)
-        numVars -= 1
+    if isVariableSubscription:
+        while numVars > 0:
+            varID = result.read("!B")[0]
+            status, varType = result.read("!BB")
+            if status:
+                print "Error!", result.readString()
+            elif response in _modules:
+                _modules[response]._addSubscriptionResult(objectID, varID, result)
+            numVars -= 1
+    else:
+        objectNo = result.read("!i")[0]
+        for o in range(0, objectNo):
+            oid = result.readString()
+            for v in range(0, numVars):
+                varID = result.read("!B")[0]
+                status, varType = result.read("!BB")
+                if status:
+                    print "Error!", result.readString()
+                elif response in _modules:
+                    _modules[response]._addContextSubscriptionResult(objectID, varID, oid, result)
     return response, objectID
 
 def _subscribe(cmdID, begin, end, objID, varIDs):
@@ -223,16 +240,30 @@ def _subscribe(cmdID, begin, end, objID, varIDs):
         _message.string += struct.pack("!B", length)
     else:
         _message.string += struct.pack("!Bi", 0, length+4)
-    _message.string += struct.pack("!Biii", cmdID,
-                                   begin, end, len(objID)) + objID
+    _message.string += struct.pack("!Biii", cmdID, begin, end, len(objID)) + objID
     _message.string += struct.pack("!B", len(varIDs))
     for v in varIDs:
         _message.string += struct.pack("!B", v)
     result = _sendExact()
     response, objectID = _readSubscription(result)
     if response - cmdID != 16 or objectID != objID:
-        print "Error! Received answer %s,%s for subscription command %s,%s."\
-              % (response, objectID, cmdID, objID)
+        print "Error! Received answer %s,%s for subscription command %s,%s." % (response, objectID, cmdID, objID)
+
+def _subscribeContext(cmdID, begin, end, objID, domain, dist, varIDs):
+    _message.queue.append(cmdID)
+    length = 1+1+4+4+4+len(objID)+1+8+1+len(varIDs)
+    if length<=255:
+        _message.string += struct.pack("!B", length)
+    else:
+        _message.string += struct.pack("!Bi", 0, length+4)
+    _message.string += struct.pack("!Biii", cmdID, begin, end, len(objID)) + objID
+    _message.string += struct.pack("!BdB", domain, dist, len(varIDs))
+    for v in varIDs:
+        _message.string += struct.pack("!B", v)
+    result = _sendExact()
+    response, objectID = _readSubscription(result)
+    if response - cmdID != 16 or objectID != objID:
+        print "Error! Received answer %s,%s for subscription command %s,%s." % (response, objectID, cmdID, objID)
 
 def init(port=8813, numRetries=10, host="localhost", label="default"):
     if _embedded:
@@ -258,9 +289,12 @@ def simulationStep(step=0):
     for module in _modules.itervalues():
         module._resetSubscriptionResults()
     numSubs = result.readInt()
+    responses = []
     while numSubs > 0:
-        _readSubscription(result)
+        response, objectID = _readSubscription(result)
+        responses.append((objectID, response))
         numSubs -= 1
+    return responses
 
 def getVersion():
     command = constants.CMD_GETVERSION
