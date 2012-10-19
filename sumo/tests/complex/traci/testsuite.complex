@@ -12,3 +12,6 @@ busySocket
 
 # Tests whether outputs are closed
 closingOutput
+
+# Tests for context subscriptions
+contextSubscriptions
