@@ -1,0 +1,391 @@
+TraCITestClient output file. Date: Fri Oct 19 11:19:30 2012
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SubscribeContext>:
+  domID=131 objID=3/1to2/1_0 domain=164 range=100.00 with 2 variables
+.. Command acknowledged (131), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (995.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (985.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (975.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (965.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (955.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (945.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (935.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (925.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (915.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (905.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
+  #objects=0
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]
