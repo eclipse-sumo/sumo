@@ -160,7 +160,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
             //read SUMOReal a
             inputStorage.readUnsignedByte();
-            dynamic_cast<RGBColor*>(p)->set(r, g, b);
+            p->setColor(RGBColor(r, g, b));
         }
         break;
         case VAR_POSITION: {
