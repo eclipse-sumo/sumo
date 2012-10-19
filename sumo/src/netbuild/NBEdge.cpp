@@ -229,12 +229,11 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
                const std::string& streetName,
                LaneSpreadFunction spread,
                bool tryIgnoreNodePositions) {
-    // connections may still be valid
     if (myFrom != from) {
-        myFrom->removeEdge(this, false);
+        myFrom->removeEdge(this);
     }
     if (myTo != to) {
-        myTo->removeEdge(this, false);
+        myTo->removeEdge(this);
     }
     myType = StringUtils::convertUmlaute(type);
     myFrom = from;

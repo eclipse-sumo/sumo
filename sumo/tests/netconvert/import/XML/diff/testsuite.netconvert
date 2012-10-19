@@ -9,3 +9,6 @@ delete_node
 
 # test the diff after applying --junctions.join to a network
 join_junctions
+
+# let an edge start at a different node
+change_from_node_of_edge
