@@ -97,7 +97,7 @@ public:
     /** @brief Returns the imgFile of the Shape
      * @return The Shape's rotation imgFile
      */
-    inline const std::string getImgFile() const {
+    inline const std::string& getImgFile() const {
         return myImgFile;
     }
     /// @}

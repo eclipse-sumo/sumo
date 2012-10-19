@@ -32,6 +32,7 @@
 
 #include <string>
 #include "GUIPolygon.h"
+#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -127,6 +128,11 @@ void APIENTRY combineCallback(GLdouble coords[3],
     *dataOut = vertex;
 }
 
+
+SUMOReal POLY_TEX_DIM = 256;
+GLfloat xPlane[] = {1.0/POLY_TEX_DIM,0.0,0.0,0.0};
+GLfloat yPlane[] = {0.0,1.0/POLY_TEX_DIM,0.0,0.0};
+
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     UNUSED_PARAMETER(s);
@@ -146,9 +152,50 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getLayer());
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    // XXX shape should be rotated around its center when initializing the polygon. do we even need this?
+    //glRotated(getAngle(), 0, 0, 1);  
     GLHelper::setColor(getColor());
+
+    int textureID = -1;
+    if (getFill()) {
+        const std::string& file = getImgFile();
+        if (file != "") {
+            textureID = GUITexturesHelper::getTextureID(file);
+        }
+    }
+    // init generation of texture coordinates
+    if (textureID >= 0) {
+        glEnable(GL_TEXTURE_2D);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_DEPTH_TEST); // without DEPTH_TEST vehicles may be drawn below roads
+        glDisable(GL_LIGHTING);
+        glDisable(GL_COLOR_MATERIAL);
+        glDisable(GL_ALPHA_TEST);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        // http://www.gamedev.net/topic/133564-glutesselation-and-texture-mapping/
+        glEnable(GL_TEXTURE_GEN_S);
+        glEnable(GL_TEXTURE_GEN_T);
+        glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+        glTexGenfv(GL_S, GL_OBJECT_PLANE, xPlane);
+        glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+        glTexGenfv(GL_T, GL_OBJECT_PLANE, yPlane);
+    }
+    // recall tesselation
     glCallList(myDisplayList);
+    // de-init generation of texture coordinates
+    if (textureID >= 0) {
+        glEnable(GL_DEPTH_TEST);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glDisable(GL_TEXTURE_2D);
+        glDisable(GL_TEXTURE_GEN_S);
+        glDisable(GL_TEXTURE_GEN_T);
+    }
     glPopName();
     glPopMatrix();
 }
@@ -173,6 +220,7 @@ GUIPolygon::storeTesselation() const {
     }
     glNewList(myDisplayList, GL_COMPILE);
     if (getFill()) {
+        // draw the tesselated shape
         double* points = new double[myShape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
         gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
@@ -194,10 +242,12 @@ GUIPolygon::storeTesselation() const {
         gluTessEndPolygon(tobj);
         gluDeleteTess(tobj);
         delete[] points;
+
     } else {
         GLHelper::drawLine(myShape);
         GLHelper::drawBoxLines(myShape, 1.);
     }
+    //std::cout << "OpenGL says: '" << gluErrorString(glGetError()) << "'\n";
     glEndList();
 }
 
