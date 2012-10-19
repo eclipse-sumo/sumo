@@ -448,13 +448,13 @@ MSPerson::MSPersonStage_Waiting::getEdgePos(SUMOTime /* now */) const {
 
 Position 
 MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime /* now */) const {
-    return getEdgePosition(&myDestination, myStartPos, SIDEWALK_OFFSET * 2);
+    return getEdgePosition(&myDestination, myStartPos, SIDEWALK_OFFSET);
 }
 
 
 SUMOReal 
 MSPerson::MSPersonStage_Waiting::getAngle(SUMOTime now) const {
-    return getEdgeAngle(&myDestination, myStartPos);
+    return getEdgeAngle(&myDestination, myStartPos) + 45;
 }
 
 
