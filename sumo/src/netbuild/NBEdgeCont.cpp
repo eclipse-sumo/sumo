@@ -701,7 +701,7 @@ NBEdgeCont::recheckPostProcessConnections() {
         std::vector<NBEdge::Connection> connections = edge->getConnections();
         for (std::vector<NBEdge::Connection>::iterator it_con = connections.begin(); it_con != connections.end(); ++it_con) {
             NBEdge::Connection& c = *it_con;
-            if (c.toEdge->getFromNode() != to) {
+            if (c.toEdge != 0 && c.toEdge->getFromNode() != to) {
                 WRITE_WARNING("Found and removed invalid connection from " + edge->getID() + 
                         " to " + c.toEdge->getID() + " via " + to->getID());
                 edge->removeFromConnections(c.toEdge);
