@@ -87,7 +87,7 @@ RORDLoader_SUMOBase::myStartElement(int element,
             myCurrentIsOk = myVehicleParameter != 0;
             break;
         case SUMO_TAG_VTYPE:
-            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
+            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
             break;
         case SUMO_TAG_ROUTE_DISTRIBUTION:
             myAltIsValid = true;

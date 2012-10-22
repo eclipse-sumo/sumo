@@ -93,7 +93,7 @@ RORDLoader_TripDefs::myStartElement(int element,
     }
     // check whether a vehicle type shall be parsed
     if (element == SUMO_TAG_VTYPE) {
-        myCurrentVehicleType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
+        myCurrentVehicleType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
     } else if (myCurrentVehicleType != 0) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVehicleType, element, attrs);
     }

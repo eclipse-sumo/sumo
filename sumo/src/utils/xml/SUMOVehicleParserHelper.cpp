@@ -36,6 +36,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOVehicleParameter.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/options/OptionsCont.h>
 #include "SUMOVehicleParserHelper.h"
 
@@ -318,7 +319,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
 
 
 SUMOVTypeParameter*
-SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) {
+SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file) {
     SUMOVTypeParameter* vtype = new SUMOVTypeParameter();
     bool ok = true;
     vtype->id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -368,6 +369,9 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) {
     }
     if (attrs.hasAttribute(SUMO_ATTR_IMGFILE)) {
         vtype->imgFile = attrs.getStringReporting(SUMO_ATTR_IMGFILE, vtype->id.c_str(), ok);
+        if (vtype->imgFile != "" && !FileHelpers::isAbsolute(vtype->imgFile)) {
+            vtype->imgFile = FileHelpers::getConfigurationRelative(file, vtype->imgFile);
+        }
         vtype->setParameter |= VTYPEPARS_IMGFILE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {

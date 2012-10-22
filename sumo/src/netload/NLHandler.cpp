@@ -539,6 +539,9 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
     SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
     std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
+    if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
+        imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
+    }
     SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
     SUMOReal height = attrs.getOptSUMORealReporting(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
     if (!ok) {
@@ -579,6 +582,9 @@ NLHandler::addPoly(const SUMOSAXAttributes& attrs) {
                 SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
     SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
     std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
+    if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
+        imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
+    }
     if (shape.size() != 0) {
         if (!myNet.getShapeContainer().addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
             WRITE_ERROR("Polygon '" + id + "' already exists.");

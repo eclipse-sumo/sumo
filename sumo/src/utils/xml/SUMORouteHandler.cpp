@@ -107,7 +107,7 @@ SUMORouteHandler::myStartElement(int element,
             myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs);
             break;
         case SUMO_TAG_VTYPE:
-            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
+            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             openVehicleTypeDistribution(attrs);

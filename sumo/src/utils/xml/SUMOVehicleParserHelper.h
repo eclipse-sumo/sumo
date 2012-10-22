@@ -86,11 +86,12 @@ public:
     /** @brief Starts to parse a vehicle type
      *
      * @param[in] attr The SAX-attributes to get vehicle parameter from
+     * @param[in] file The name of the file being parsed (for resolving paths)
      * @exception ProcessError If an attribute's value is invalid
      * @see SUMOVTypeParameter
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs);
+    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file);
 
 
     /** @brief Parses an element embedded in vtype definition

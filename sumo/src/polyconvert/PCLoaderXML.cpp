@@ -139,6 +139,9 @@ PCLoaderXML::myStartElement(int element,
         }
         SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
         std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
+        if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
+            imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
+        }
         SUMOReal imgWidth = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
         SUMOReal imgHeight = attrs.getOptSUMORealReporting(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
         if (!ok) {
@@ -185,6 +188,9 @@ PCLoaderXML::myStartElement(int element,
         }
         SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
         std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
+        if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
+            imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
+        }
         bool fill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, id.c_str(), ok, false);
         if (!ok) {
             return;
