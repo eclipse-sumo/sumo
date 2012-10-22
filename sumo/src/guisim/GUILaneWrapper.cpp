@@ -381,6 +381,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     const bool isInternal = getLane().getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
     bool mustDrawMarkings = false;
+    const bool drawDetails =  s.scale * s.laneWidthExaggeration > 5;
     if (isInternal) {
         // draw internal lanes on top of junctions
         glTranslated(0, 0, GLO_JUNCTION + 0.1);
@@ -421,7 +422,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopMatrix();
         // draw ROWs (not for inner lanes)
-        if (!isInternal) {
+        if (!isInternal && drawDetails) {
             glPushMatrix();
             glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
             GUINet* net = (GUINet*) MSNet::getInstance();
@@ -445,7 +446,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         }
     }
-    if (mustDrawMarkings) { // needs matrix reset
+    if (mustDrawMarkings && drawDetails) { // needs matrix reset
         drawMarkings(s);
     }
     // draw vehicles
