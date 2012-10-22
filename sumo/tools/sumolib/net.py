@@ -526,7 +526,7 @@ class NetReader(handler.ContentHandler):
     def endElement(self, name):
         if name == 'lane' and self._currentLane:
             cshape = []
-            es = self._currentShape.split(" ")
+            es = self._currentShape.rstrip().split(" ")
             for e in es:
                 p = e.split(",")
                 cshape.append((float(p[0]), float(p[1])))
