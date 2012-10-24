@@ -1082,7 +1082,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 				r = 0;
 				const MSRoute &route = static_cast<MSVehicle*>(v)->getRoute();
 				unsigned int c = static_cast<MSVehicle*>(v)->getRoutePosition();
-				unsigned int l = route.getEdges().size();
+				unsigned int l = (int)route.getEdges().size();
 				unsigned int rindex = 0;
 				bool found = false;
 				while(!found && ((int) (c-r)>=0 || c+r<l)) {

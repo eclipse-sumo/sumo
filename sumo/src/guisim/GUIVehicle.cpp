@@ -1413,7 +1413,7 @@ GUIVehicle::getSeatPosition(size_t personIndex) const {
 int 
 GUIVehicle::getNumPassengers() const {
     if (myPersonDevice!=0) {
-        return myPersonDevice->getPersons().size();
+        return (int)myPersonDevice->getPersons().size();
     } 
     return 0;
 }

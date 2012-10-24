@@ -43,12 +43,14 @@
 // ---------------------------------------------------------------------------
 // TraCIAPI-methods
 // ---------------------------------------------------------------------------
+#pragma warning ( disable : 4705 )
 TraCIAPI::TraCIAPI() 
     : edge(*this), gui(*this), inductionloop(*this), 
     junction(*this), lane(*this), multientryexit(*this), poi(*this),
     polygon(*this), route(*this), simulation(*this), trafficlights(*this),
     vehicletype(*this),
     mySocket(0) {}
+#pragma warning ( default : 4705 )
 
 
 TraCIAPI::~TraCIAPI() {
@@ -113,7 +115,7 @@ TraCIAPI::send_commandGetVariable(int domID, int varID, const std::string& objID
     // command length
     unsigned int length = 1 + 1 + 1 + 4 + (int) objID.length();
     if(add!=0) {
-        length += add->size();
+        length += (int)add->size();
     }
     outMsg.writeUnsignedByte(length);
     // command id
@@ -138,7 +140,7 @@ TraCIAPI::send_commandSetValue(int domID, int varID, const std::string& objID, t
     }
     tcpip::Storage outMsg;
     // command length (domID, varID, objID, dataType, data)
-    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + (int) objID.length() + content.size());
+    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + (int) objID.length() + (int)content.size());
     // command id
     outMsg.writeUnsignedByte(domID);
     // variable id
@@ -171,7 +173,7 @@ TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objI
     // object id
     outMsg.writeString(objID);
     // command id
-    outMsg.writeUnsignedByte(vars.size());
+    outMsg.writeUnsignedByte((int)vars.size());
     for (int i = 0; i < varNo; ++i) {
         outMsg.writeUnsignedByte(vars[i]);
     }
@@ -202,7 +204,7 @@ TraCIAPI::send_commandSubscribeObjectContext(int domID, const std::string& objID
     outMsg.writeUnsignedByte(domain);
     outMsg.writeDouble(range);
     // command id
-    outMsg.writeUnsignedByte(vars.size());
+    outMsg.writeUnsignedByte((int)vars.size());
     for (int i = 0; i < varNo; ++i) {
         outMsg.writeUnsignedByte(vars[i]);
     }
@@ -818,7 +820,7 @@ void
 TraCIAPI::LaneScope::setAllowed(const std::string &laneID, const std::vector<std::string> &allowedClasses) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRINGLIST);
-    content.writeInt(allowedClasses.size());
+    content.writeInt((int)allowedClasses.size());
     for(unsigned int i=0; i<allowedClasses.size(); ++i) {
         content.writeString(allowedClasses[i]);
     }
@@ -829,7 +831,7 @@ void
 TraCIAPI::LaneScope::setDisallowed(const std::string &laneID, const std::vector<std::string> &disallowedClasses) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRINGLIST);
-    content.writeInt(disallowedClasses.size());
+    content.writeInt((int)disallowedClasses.size());
     for(unsigned int i=0; i<disallowedClasses.size(); ++i) {
         content.writeString(disallowedClasses[i]);
     }
@@ -1002,7 +1004,7 @@ void
 TraCIAPI::PolygonScope::setShape(const std::string &polygonID, const TraCIAPI::TraCIPositionVector &shape) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_POLYGON);
-    content.writeInt(shape.size());
+    content.writeInt((int)shape.size());
     for(unsigned int i=0; i<shape.size(); ++i) {
         content.writeDouble(shape[i].x);
         content.writeDouble(shape[i].y);
@@ -1039,7 +1041,7 @@ TraCIAPI::PolygonScope::add(const std::string &polygonID, const TraCIAPI::TraCIP
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(layer);
     content.writeUnsignedByte(TYPE_POLYGON);
-    content.writeInt(shape.size());
+    content.writeInt((int)shape.size());
     for(unsigned int i=0; i<shape.size(); ++i) {
         content.writeDouble(shape[i].x);
         content.writeDouble(shape[i].y);
@@ -1282,7 +1284,7 @@ void
 TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::string &tlsID, const TraCIAPI::TraCILogic &logic) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
-    content.writeInt(5 + 4*logic.phases.size());
+    content.writeInt(5 + 4*(int)logic.phases.size());
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(logic.subID);
     content.writeUnsignedByte(TYPE_INTEGER);
@@ -1292,7 +1294,7 @@ TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::stri
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(logic.currentPhaseIndex);
     content.writeUnsignedByte(TYPE_INTEGER);
-    content.writeInt(logic.phases.size());
+    content.writeInt((int)logic.phases.size());
     for(int i=0; i<(int) logic.phases.size(); ++i) {
         content.writeUnsignedByte(TYPE_INTEGER);
         content.writeInt(logic.phases[i].duration);

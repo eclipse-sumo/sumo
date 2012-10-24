@@ -896,7 +896,7 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
     }
     writeInto.writeUnsignedByte((int)(s.variables.size()));
     if(s.contextVars) {
-        writeInto.writeInt(objIDs.size());
+        writeInto.writeInt((int)objIDs.size());
     }
     if(!s.contextVars || objIDs.size()!=0) {
         writeInto.writeStorage(outputStorage);
