@@ -239,6 +239,17 @@ public:
     int getActiveVehicleCount() const {
         return myLoadedVehNo - (myWaitingForPerson + myEndedVehNo);
     }
+
+    /// @brief return the number of collisions
+    unsigned int getCollisionCount() const {
+        return myCollisions;
+    }
+
+
+    /// @brief return the number of teleports (including collisions)
+    unsigned int getTeleportCount() const {
+        return myTeleports;
+    }
     /// @}
 
 
@@ -337,6 +348,17 @@ public:
         myWaitingForPerson--;
     }
 
+    /// @brief registers one collision-related teleport
+    void registerCollision() {
+        myTeleports++;
+        myCollisions++;
+    }
+
+    /// @brief register one non-collision-related teleport
+    void registerTeleport() {
+        myTeleports++;
+    }
+
     /// @name State I/O (mesosim only)
     /// @{
 
@@ -387,6 +409,12 @@ protected:
 
     /// @brief The number of vehicles which were discarded while loading
     unsigned int myDiscarded;
+
+    /// @brief The number of collisions
+    unsigned int myCollisions;
+
+    /// @brief The number of teleports (including collisions)
+    unsigned int myTeleports;
     /// @}
 
 

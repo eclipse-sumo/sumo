@@ -2,3 +2,4 @@ vehicles_exceeding_max_depart_delay
 using_scale
 using_scale_with_flows
 vaporizer_on_depart_edge
+teleports_and_collisions

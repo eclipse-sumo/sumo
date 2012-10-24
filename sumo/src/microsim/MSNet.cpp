@@ -317,12 +317,21 @@ MSNet::closeSimulation(SUMOTime start) {
             msg.setf(std::ios::showpoint);    // print decimal point
             msg << " UPS: " << ((SUMOReal)myVehiclesMoved / ((SUMOReal)duration/1000)) << "\n";
         }
+        // prepare optional statistics
         const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
                 " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
+        const std::string collisionNotice = (
+                myVehicleControl->getCollisionCount() > 0 ?
+                " (Collisions: " + toString(myVehicleControl->getCollisionCount()) + ")" : "");
+        const std::string teleportNotice = (
+                myVehicleControl->getTeleportCount() > 0 ?
+                "Teleports: " + toString(myVehicleControl->getTeleportCount()) + collisionNotice + "\n" : "");
+        // print statistics
         msg << "Vehicles: " << "\n"
             << " Emitted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
             << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
-            << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
+            << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n"
+            << teleportNotice;
         WRITE_MESSAGE(msg.str());
     }
     myDetectorControl->close(myStep);

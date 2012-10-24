@@ -61,6 +61,8 @@ MSVehicleControl::MSVehicleControl() :
     myRunningVehNo(0),
     myEndedVehNo(0),
     myDiscarded(0),
+    myCollisions(0),
+    myTeleports(0),
     myTotalDepartureDelay(0),
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
