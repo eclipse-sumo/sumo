@@ -14,33 +14,30 @@ All rights reserved
 """
 import os,subprocess,sys,time
 
-numParams = 1
-serverParams = []
-clientParams = []
+args = sys.argv[1:]
+try:
+    num_server_args = args.index('endsumo')
+except:
+    sys.exit("argument 'endsumo' not found")
 
-for arg in sys.argv[1:]:
-    if arg == "endsumo":
-        numParams += 1
-        break
-    if arg == "TraCITestClient.exe": 
-        break
-    else:
-        numParams += 1
-        serverParams += [arg]
-clientParams = sys.argv[numParams:]
+server_args = args[:num_server_args]
+client_args = args[num_server_args + 1:]
+binaryDir, server = os.path.split(server_args[0])
 
-sumoDir, serverParams[0] = os.path.split(sys.argv[1])
-if os.name == 'posix':
-    clientParams[0] = 'TraCITestClient'
-elif "64" in serverParams[0]:
-    clientParams[0] = 'TraCITestClient64.exe'    
+client = "TraCITestClient"
+if "64" in server:
+    client += "64"
+if server[-1] == "D":
+    client += "D"
+if os.name != 'posix':
+    client += ".exe"
+
+client_args[0] = os.path.join(binaryDir, client)
 
 #start sumo as server    
-serverprocess = subprocess.Popen(os.path.join(sumoDir, " ".join(serverParams)), 
-                                 shell=True, stdout=sys.stdout, stderr=sys.stderr)
+serverprocess = subprocess.Popen(server_args, stdout=sys.stdout, stderr=sys.stderr)
 for retry in range(10):
-    clientProcess = subprocess.Popen(os.path.join(sumoDir, " ".join(clientParams)),
-                                     shell=True, stdout=sys.stdout, stderr=sys.stderr)
+    clientProcess = subprocess.Popen(client_args, stdout=sys.stdout, stderr=sys.stderr)
     if serverprocess.poll() != None and clientProcess.poll() == None:
         time.sleep(10)
         if serverprocess.poll() != None and clientProcess.poll() == None:
