@@ -59,14 +59,16 @@ unsigned int MSRoute::MaxRouteDistSize = std::numeric_limits<unsigned int>::max(
 // ===========================================================================
 MSRoute::MSRoute(const std::string& id,
                  const MSEdgeVector& edges,
-                 unsigned int references, const RGBColor& c,
+                 unsigned int references, const RGBColor* const c,
                  const std::vector<SUMOVehicleParameter::Stop> &stops)
     : Named(id), myEdges(edges),
       myReferenceCounter(references),
       myColor(c), myStops(stops) {}
 
 
-MSRoute::~MSRoute() {}
+MSRoute::~MSRoute() {
+    delete myColor;
+}
 
 
 MSRouteIterator
@@ -279,7 +281,7 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) {
                     field++;
                 }
                 MSRoute* r = new MSRoute(id, edges, references,
-                                         RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
+                                         0, std::vector<SUMOVehicleParameter::Stop>());
                 dictionary(id, r);
             } else {
                 unsigned int data;
@@ -301,7 +303,7 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) {
                     edges.push_back(MSEdge::dictionary(edgeID));
                 }
                 MSRoute* r = new MSRoute(id, edges, references,
-                                         RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
+                                         0, std::vector<SUMOVehicleParameter::Stop>());
                 dictionary(id, r);
             } else {
                 numEdges--;
@@ -401,7 +403,10 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
 
 const RGBColor&
 MSRoute::getColor() const {
-    return myColor;
+    if (myColor == 0) {
+        return RGBColor::DEFAULT_COLOR;
+    }
+    return *myColor;
 }
 
 

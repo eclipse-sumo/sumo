@@ -128,6 +128,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
 
 
     /// add vehicle coloring schemes
+    vehicleColorer.addScheme(GUIColorScheme("given vehicle/type/route color", RGBColor(1, 1, 0), "", true));
     vehicleColorer.addScheme(GUIColorScheme("uniform", RGBColor(1, 1, 0), "", true));
     vehicleColorer.addScheme(GUIColorScheme("given/assigned vehicle color", RGBColor(1, 1, 0), "", true));
     vehicleColorer.addScheme(GUIColorScheme("given/assigned type color", RGBColor(1, 1, 0), "", true));

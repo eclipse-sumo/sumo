@@ -55,6 +55,7 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file) :
     SUMOSAXHandler(file),
     myVehicleParameter(0),
     myLastDepart(0),
+    myActiveRouteColor(0),
     myCurrentVType(0) {
 }
 

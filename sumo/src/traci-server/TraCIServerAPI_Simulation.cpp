@@ -432,7 +432,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer& server, tc
             MSEdgeVector newRoute;
             MSNet::getInstance()->getRouterTT().compute(
                     &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), 0, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
-            MSRoute route("", newRoute, false, RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
+            MSRoute route("", newRoute, false, 0, std::vector<SUMOVehicleParameter::Stop>());
             distance = route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
         }
     } else {

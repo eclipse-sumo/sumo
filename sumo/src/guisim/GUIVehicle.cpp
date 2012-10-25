@@ -1110,19 +1110,43 @@ GUIVehicle::setColor(const GUIVisualizationSettings& s) const {
 bool
 GUIVehicle::setFunctionalColor(size_t activeScheme) const {
     switch (activeScheme) {
-        case 1: {
-            GLHelper::setColor(getParameter().color);
-            return true;
+        case 0: {
+            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                GLHelper::setColor(getParameter().color);
+                return true;
+            }
+            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                GLHelper::setColor(getVehicleType().getColor());
+                return true;
+            }
+            if (&getRoute().getColor() != &RGBColor::DEFAULT_COLOR) {
+                GLHelper::setColor(getRoute().getColor());
+                return true;
+            }
+            return false;
         }
         case 2: {
-            GLHelper::setColor(getVehicleType().getColor());
-            return true;
+            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                GLHelper::setColor(getParameter().color);
+                return true;
+            }
+            return false;
         }
         case 3: {
-            GLHelper::setColor(getRoute().getColor());
-            return true;
+            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                GLHelper::setColor(getVehicleType().getColor());
+                return true;
+            }
+            return false;
         }
         case 4: {
+            if (&getRoute().getColor() != &RGBColor::DEFAULT_COLOR) {
+                GLHelper::setColor(getRoute().getColor());
+                return true;
+            }
+            return false;
+        }
+        case 5: {
             Position p = getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
             Position center = b.getCenter();
@@ -1131,7 +1155,7 @@ GUIVehicle::setFunctionalColor(size_t activeScheme) const {
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
-        case 5: {
+        case 6: {
             Position p = getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
             Position center = b.getCenter();
@@ -1140,7 +1164,7 @@ GUIVehicle::setFunctionalColor(size_t activeScheme) const {
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
-        case 6: {
+        case 7: {
             Position pb = getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
             Position pe = getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
@@ -1159,29 +1183,29 @@ GUIVehicle::setFunctionalColor(size_t activeScheme) const {
 SUMOReal
 GUIVehicle::getColorValue(size_t activeScheme) const {
     switch (activeScheme) {
-        case 7:
-            return getSpeed();
         case 8:
-            return getWaitingSeconds();
+            return getSpeed();
         case 9:
-            return getLastLaneChangeOffset();
+            return getWaitingSeconds();
         case 10:
-            return getMaxSpeed();
+            return getLastLaneChangeOffset();
         case 11:
-            return getHBEFA_CO2Emissions();
+            return getMaxSpeed();
         case 12:
-            return getHBEFA_COEmissions();
+            return getHBEFA_CO2Emissions();
         case 13:
-            return getHBEFA_PMxEmissions();
+            return getHBEFA_COEmissions();
         case 14:
-            return getHBEFA_NOxEmissions();
+            return getHBEFA_PMxEmissions();
         case 15:
-            return getHBEFA_HCEmissions();
+            return getHBEFA_NOxEmissions();
         case 16:
-            return getHBEFA_FuelConsumption();
+            return getHBEFA_HCEmissions();
         case 17:
-            return getHarmonoise_NoiseEmissions();
+            return getHBEFA_FuelConsumption();
         case 18:
+            return getHarmonoise_NoiseEmissions();
+        case 19:
             if (getNumberReroutes() == 0) {
                 return -1;
             }

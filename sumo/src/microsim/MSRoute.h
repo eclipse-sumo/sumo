@@ -65,7 +65,7 @@ class MSRoute : public Named {
 public:
     /// Constructor
     MSRoute(const std::string& id, const MSEdgeVector& edges,
-            unsigned int references, const RGBColor& c,
+            unsigned int references, const RGBColor* const c,
             const std::vector<SUMOVehicleParameter::Stop> &stops);
 
     /// Destructor
@@ -214,7 +214,7 @@ private:
     mutable unsigned int myReferenceCounter;
 
     /// The color
-    RGBColor myColor;
+    const RGBColor* const myColor;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myStops;

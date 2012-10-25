@@ -294,7 +294,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
     }
     myActiveRouteProbability = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
-    myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), attrs.getObjectType(),  myActiveRouteID.c_str(), true, ok) : RGBColor::getDefaultColor();
+    myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), attrs.getObjectType(),  myActiveRouteID.c_str(), true, ok)) : 0;
 }
 
 
@@ -332,6 +332,8 @@ MSRouteHandler::myEndElement(int element) {
 void
 MSRouteHandler::closeRoute() {
     if (myActiveRoute.size() == 0) {
+        delete myActiveRouteColor;
+        myActiveRouteColor = 0;
         if (myActiveRouteRefID != "" && myCurrentRouteDistribution != 0) {
             myCurrentRouteDistribution->add(myActiveRouteProbability, MSRoute::dictionary(myActiveRouteRefID));
             myActiveRouteID = "";
@@ -371,6 +373,7 @@ MSRouteHandler::closeRoute() {
         }
     }
     myActiveRouteID = "";
+    myActiveRouteColor = 0;
     myActiveRouteStops.clear();
 }
 

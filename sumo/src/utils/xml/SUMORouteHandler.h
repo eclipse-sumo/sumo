@@ -144,7 +144,7 @@ protected:
     SUMOReal myActiveRouteProbability;
 
     /// @brief The currently parsed route's color
-    RGBColor myActiveRouteColor;
+    const RGBColor* myActiveRouteColor;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myActiveRouteStops;
