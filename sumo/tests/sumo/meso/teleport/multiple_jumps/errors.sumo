@@ -22,7 +22,7 @@ Warning: Teleporting vehicle 'horizontal.7'; waited too long, from '2si:1', time
 Warning: Teleporting vehicle 'long_jam.6'; waited too long, from '1si:1' to '2o:1', time=2200.02.
 Warning: Vehicle 'horizontal.7' ends teleporting on segment '2o:0', simulation time 2259.62.
 Warning: Teleporting vehicle 'horizontal.8'; waited too long, from '2si:1', time 2476.20.
-Warning: Teleporting vehicle 'long_jam.7'; waited too long, from '1si:1' to '2o:1', time=2502.03.
+Warning: Teleporting vehicle 'long_jam.7'; waited too long, from '1si:1' to '2o:1', time=2502.02.
 Warning: Vehicle 'horizontal.8' ends teleporting on segment '2o:0', simulation time 2559.63.
 Warning: Teleporting vehicle 'horizontal.9'; waited too long, from '2si:1', time 2776.20.
 Warning: Teleporting vehicle 'long_jam.8'; waited too long, from '1si:1' to '2o:1', time=2804.03.

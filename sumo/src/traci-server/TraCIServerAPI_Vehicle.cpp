@@ -997,7 +997,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting VTD vehicle requires a compound object.", outputStorage);
                 return false;
             }
-            if (inputStorage.readInt() != 5) {
+            if (inputStorage.readInt() != 4) {
 				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting VTD vehicle should obtain: edgeID, lane, x, y.", outputStorage);
                 return false;
             }
@@ -1025,11 +1025,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return false;
             }
             SUMOReal y = inputStorage.readDouble();
-            if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fifth parameter for setting a VTD vehicle must be the speed given as a double.", outputStorage);
-                return false;
-            }
-            SUMOReal speed = inputStorage.readDouble();
+            //if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
+            //    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fifth parameter for setting a VTD vehicle must be the speed given as a double.", outputStorage);
+            //    return false;
+            //}
+            //SUMOReal speed = inputStorage.readDouble();
             // process
 			if(!static_cast<MSVehicle*>(v)->isOnRoad()) {
                 break;
