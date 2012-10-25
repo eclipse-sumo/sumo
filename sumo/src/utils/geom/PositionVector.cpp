@@ -793,21 +793,18 @@ PositionVector::eraseAt(int i) {
 
 SUMOReal
 PositionVector::nearest_position_on_line_to_point2D(const Position& p, bool perpendicular) const {
-    SUMOReal shortestDist = -1;
+    SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
     SUMOReal nearestPos = -1;
     SUMOReal seen = 0;
     for (ContType::const_iterator i = myCont.begin(); i != myCont.end() - 1; i++) {
         const SUMOReal pos =
             GeomHelper::nearest_position_on_line_to_point2D(*i, *(i + 1), p, perpendicular);
-        const SUMOReal dist =
-            pos < 0 ? -1 : p.distanceTo2D(positionAtLengthPosition2D(pos + seen));
-        //
-        if (dist >= 0 && (shortestDist < 0 || shortestDist > dist)) {
+        const SUMOReal dist = pos < 0 ? minDist : p.distanceTo2D(Line(*i, *(i+1)).getPositionAtDistance(pos));
+        if (dist < minDist) {
             nearestPos = pos + seen;
-            shortestDist = dist;
+            minDist = dist;
         }
         seen += (*i).distanceTo2D(*(i + 1));
-        //
     }
     return nearestPos;
 }
