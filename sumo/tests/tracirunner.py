@@ -15,13 +15,15 @@ All rights reserved
 import os,subprocess,sys,time
 
 args = sys.argv[1:]
+if 'endsumo' in args:
+    args.remove('endsumo') # legacy
 try:
-    num_server_args = args.index('endsumo')
+    num_server_args = args.index('TraCITestClient.exe')
 except:
-    sys.exit("argument 'endsumo' not found")
+    sys.exit("argument 'TraCITestClient.exe' missing")
 
 server_args = args[:num_server_args]
-client_args = args[num_server_args + 1:]
+client_args = args[num_server_args:]
 binaryDir, server = os.path.split(server_args[0])
 
 client = "TraCITestClient"
