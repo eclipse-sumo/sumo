@@ -873,10 +873,12 @@ void
 GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    Position p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
+    Position p1 = myLane->getShape().positionAtLengthPosition(
+            myLane->interpolateLanePosToGeometryPos(myState.pos()));
     // one seat in the center of the vehicle by default
     mySeatPositions[0] = myLane->getShape().positionAtLengthPosition(
-            myState.pos() - getVehicleType().getLength() / 2);
+            myLane->interpolateLanePosToGeometryPos(
+                myState.pos() - getVehicleType().getLength() / 2));
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(getAngle(), 0, 0, 1);
     // set lane color
@@ -1014,7 +1016,9 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     }
     */
     glPopMatrix();
-    drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - MIN2(getVehicleType().getLength() / 2, SUMOReal(5))),
+    drawName(myLane->getShape().positionAtLengthPosition(
+                myLane->interpolateLanePosToGeometryPos(
+                    myState.pos() - MIN2(getVehicleType().getLength() / 2, SUMOReal(5)))),
              s.scale, s.vehicleName);
     glPopName();
     if(myPersonDevice!=0) {

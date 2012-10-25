@@ -87,8 +87,8 @@ MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge
     myVehicles(), myLength(length), myWidth(width), myEdge(edge), myMaxSpeed(maxSpeed),
     myPermissions(permissions),
     myLogicalPredecessorLane(0),
-    myVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0) {
-}
+    myVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0),
+    myLengthGeometryFactor(myShape.length() / myLength) {}
 
 
 MSLane::~MSLane() {
@@ -118,6 +118,7 @@ MSLane::addMoveReminder(MSMoveReminder* rem) {
 // ------ Vehicle emission ------
 void
 MSLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, const MSLane::VehCont::iterator& at, MSMoveReminder::Notification notification) {
+    assert(pos <= myLength);
     bool wasInactive = myVehicles.size() == 0;
     veh->enterLaneAtInsertion(this, pos, speed, notification);
     if (at == myVehicles.end()) {

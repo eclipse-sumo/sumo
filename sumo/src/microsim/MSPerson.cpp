@@ -95,9 +95,10 @@ MSPerson::MSPersonStage::isWaitingFor(const std::string& /*line*/) const {
 Position 
 MSPerson::MSPersonStage::getEdgePosition(const MSEdge *e, SUMOReal at, SUMOReal offset) const {
     // @todo: well, definitely not the nicest way... Should be precomputed
-    PositionVector shp = e->getLanes()[0]->getShape();
+    const MSLane* lane = e->getLanes()[0];
+    PositionVector shp = lane->getShape();
     shp.move2side(offset);
-    return shp.positionAtLengthPosition(at);
+    return shp.positionAtLengthPosition(lane->interpolateLanePosToGeometryPos(at));
 }
 
 

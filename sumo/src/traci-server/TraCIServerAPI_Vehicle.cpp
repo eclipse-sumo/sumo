@@ -1143,10 +1143,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             v->getInfluencer().setSpeedTimeLine(speedTimeLine);
             */
-            SUMOReal position = lane->getShape().nearest_position_on_line_to_point2D(pos);
-			if(position<0) {
-			    position = 0;
-            }
+            
+            const SUMOReal position = lane->interpolateGeometryPosToLanePos(
+                    lane->getShape().nearest_position_on_line_to_point2D(pos, false));
 			lane->forceVehicleInsertion(v, position);
             //v->getInfluencer().setPosition(position);
 			v->getBestLanes(true, lane);

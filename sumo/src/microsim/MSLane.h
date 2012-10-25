@@ -318,6 +318,17 @@ public:
         return myShape;
     }
 
+    /* @brief fit the given lane position to a visibly suitable geometry position 
+     * (lane length might differ from geomety length */
+    inline SUMOReal interpolateLanePosToGeometryPos(SUMOReal lanePos) const {
+        return lanePos * myLengthGeometryFactor;
+    }
+
+    /* @brief fit the given geomtry position to a valid lane position 
+     * (lane length might differ from geomety length */
+    inline SUMOReal interpolateGeometryPosToLanePos(SUMOReal geometryPos) const {
+        return geometryPos / myLengthGeometryFactor;
+    }
 
     /** @brief Returns the lane's maximum speed, given a vehicle's speed limit adaptation
      * @param[in] The vehicle to return the adapted speed limit for
@@ -682,7 +693,8 @@ protected:
 
     std::map<MSEdge*, std::vector<MSLane*> > myApproachingLanes;
 
-
+    // precomputed myShape.length / myLength
+    const SUMOReal myLengthGeometryFactor;
 
     /// definition of the tatic dictionary type
     typedef std::map< std::string, MSLane* > DictType;

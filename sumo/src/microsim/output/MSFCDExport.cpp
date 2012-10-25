@@ -66,7 +66,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
 		    std::string fclass = veh->getVehicleType().getID();
 			fclass = fclass.substr(0, fclass.find_first_of("@"));
 		   
-            Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
+            Position pos = veh->getLane()->getShape().positionAtLengthPosition(
+                    veh->getLane()->interpolateLanePosToGeometryPos(veh->getPositionOnLane()));
 			of.openTag("vehicle") << " id=\"" << veh->getID() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\" angle=\"" << veh->getAngle() << "\" type=\"" << fclass << "\" speed=\"" << veh->getSpeed()*3.6 << "\"";
             of.closeTag(true);	
 		}
