@@ -1,42 +1,42 @@
 Success.
 Loading configuration... done.
 Loading configuration... done.
-waiting time (max, mean, dev): 203 66.8083333333 44.621518694
-('footmain0to1', 'footmainout') 100 82.5416666667 12.0536272779
-('footmain1to2', 'footmainout') 89 88.0769230769 1.38461538462
-('footmain2to3', 'footmainout') 75 72.7142857143 3.61403161162
-('footmain3to4', 'footmainout') 62 57.3333333333 3.29983164554
-('footmain4to5', 'footmainout') 53 49.75 1.08972473589
-('footmain5to6', 'footmainout') 40 40.0 0.0
-('footmain6to7', 'footmainout') 27 27.0 0.0
-('footmain7to8', 'footmainout') 14 13.7692307692 0.421325044235
-('footmainout', 'footmain0to1') 120 115.407407407 1.25489439601
-('footmainout', 'footmain1to2') 134 128.078947368 2.72784452161
-('footmainout', 'footmain2to3') 147 140.708333333 3.99457096848
-('footmainout', 'footmain3to4') 160 151.03125 6.37124583088
-('footmainout', 'footmain4to5') 173 164.92 5.82353844325
-('footmainout', 'footmain5to6') 186 177.142857143 6.91641053538
-('footmainout', 'footmain6to7') 199 188.071428571 8.09730365805
-('footmainout', 'footmain7to8') 212 199.517241379 7.37479720191
-CO2: 9682617.59021
+waiting time (max, mean, dev): True True True
+('footmain0to1', 'footmainout') True True True
+('footmain1to2', 'footmainout') True True True
+('footmain2to3', 'footmainout') True True True
+('footmain3to4', 'footmainout') True True True
+('footmain4to5', 'footmainout') True True True
+('footmain5to6', 'footmainout') True True True
+('footmain6to7', 'footmainout') True True True
+('footmain7to8', 'footmainout') True True True
+('footmainout', 'footmain0to1') True True True
+('footmainout', 'footmain1to2') True True True
+('footmainout', 'footmain2to3') True True True
+('footmainout', 'footmain3to4') True True True
+('footmainout', 'footmain4to5') True True True
+('footmainout', 'footmain5to6') True True True
+('footmainout', 'footmain6to7') True True True
+('footmainout', 'footmain7to8') True True True
+CO2: True
 (14, 127, 0) OK Goodbye
-waiting time (max, mean, dev): 203 66.8083333333 44.621518694
-('footmain0to1', 'footmainout') 100 82.5416666667 12.0536272779
-('footmain1to2', 'footmainout') 89 88.0769230769 1.38461538462
-('footmain2to3', 'footmainout') 75 72.7142857143 3.61403161162
-('footmain3to4', 'footmainout') 62 57.3333333333 3.29983164554
-('footmain4to5', 'footmainout') 53 49.75 1.08972473589
-('footmain5to6', 'footmainout') 40 40.0 0.0
-('footmain6to7', 'footmainout') 27 27.0 0.0
-('footmain7to8', 'footmainout') 14 13.7692307692 0.421325044235
-('footmainout', 'footmain0to1') 120 115.407407407 1.25489439601
-('footmainout', 'footmain1to2') 134 128.078947368 2.72784452161
-('footmainout', 'footmain2to3') 147 140.708333333 3.99457096848
-('footmainout', 'footmain3to4') 160 151.03125 6.37124583088
-('footmainout', 'footmain4to5') 173 164.92 5.82353844325
-('footmainout', 'footmain5to6') 186 177.142857143 6.91641053538
-('footmainout', 'footmain6to7') 199 188.071428571 8.09730365805
-('footmainout', 'footmain7to8') 212 199.517241379 7.37479720191
-CO2: 0.0
+waiting time (max, mean, dev): True True True
+('footmain0to1', 'footmainout') True True True
+('footmain1to2', 'footmainout') True True True
+('footmain2to3', 'footmainout') True True True
+('footmain3to4', 'footmainout') True True True
+('footmain4to5', 'footmainout') True True True
+('footmain5to6', 'footmainout') True True True
+('footmain6to7', 'footmainout') True True True
+('footmain7to8', 'footmainout') True True True
+('footmainout', 'footmain0to1') True True True
+('footmainout', 'footmain1to2') True True True
+('footmainout', 'footmain2to3') True True True
+('footmainout', 'footmain3to4') True True True
+('footmainout', 'footmain4to5') True True True
+('footmainout', 'footmain5to6') True True True
+('footmainout', 'footmain6to7') True True True
+('footmainout', 'footmain7to8') True True True
+CO2: True
 (14, 127, 0) OK Goodbye
 Missing 'all-the-results.txt'

@@ -37,7 +37,7 @@ def personUnloaded(personID, step):
     persons[personID].arrive = step
     personsRunning -= 1
 
-def evaluate():
+def evaluate(forTest=False):
     try:
         import numpy, math
     except ImportError:
@@ -52,10 +52,18 @@ def evaluate():
             routeTimes[route] = [] 
         routeTimes[route].append(person.arrive - person.depart) 
     waitArray = numpy.array(waitTimes)
-    print "waiting time (max, mean, dev):", waitArray.max(), waitArray.mean(), math.sqrt(waitArray.var())
+    if forTest:
+        print "waiting time (max, mean, dev):", waitArray.max() < 1000, waitArray.mean() < 1000, math.sqrt(waitArray.var()) < 100
+    else:
+        print "waiting time (max, mean, dev):", waitArray.max(), waitArray.mean(), math.sqrt(waitArray.var())
+   
     for route, times in sorted(routeTimes.iteritems()):
         timeArray = numpy.array(times)
-        print route, timeArray.max(), timeArray.mean(), math.sqrt(timeArray.var())
+        if forTest:
+            print route, timeArray.max() < 1000, timeArray.mean() < 1000, math.sqrt(timeArray.var()) < 100
+        else:       
+            print route, timeArray.max(), timeArray.mean(), math.sqrt(timeArray.var())
+    
     co2 = 0.
     for line in open("aggregated.xml"):
         if "cyber" in line:
@@ -63,7 +71,11 @@ def evaluate():
             if pos >= 9:
                 endpos = line.find('"', pos)
                 co2 += float(line[pos:endpos])
-    print "CO2:", co2
+    
+    if forTest:
+        print "CO2:", co2 < 10000000
+    else:  
+        print "CO2:", co2
 
 if __name__ == "__main__":
     from pylab import *

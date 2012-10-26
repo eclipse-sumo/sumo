@@ -60,7 +60,7 @@ vehicleStatus = {}
 persons = {}
 waiting = {}
 
-def init(manager):
+def init(manager, forTest=False):
     optParser = OptionParser()
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                          default=False, help="tell me what you are doing")
@@ -89,7 +89,7 @@ def init(manager):
     try:
         while setting.step < 100 or statistics.personsRunning > 0:
             doStep()
-        statistics.evaluate()
+        statistics.evaluate(forTest)
     finally:
         traci.close()
 
