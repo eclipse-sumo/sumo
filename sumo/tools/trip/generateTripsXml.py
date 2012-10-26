@@ -225,7 +225,6 @@ class DistrictsReader(handler.ContentHandler):
             self._districtSource = self._net.newVertex()
             self._districtSource._id = attrs['id']
             self._districtSource.label = attrs['id']
-            print 'taz-2', attrs['id']
             self._net._startVertices.append(self._districtSource)
             self._districtSink = self._net.newVertex()
             self._districtSink._id = attrs['id']
