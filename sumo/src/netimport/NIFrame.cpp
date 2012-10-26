@@ -45,6 +45,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
+#include "NIImporter_DlrNavteq.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -267,7 +268,7 @@ NIFrame::checkOptions() {
         }
     }
     if (oc.isSet("dlr-navteq-prefix") && oc.isDefault("proj.scale")) {
-        oc.set("proj.scale", std::string("5"));
+        oc.set("proj.scale", toString(NIImporter_DlrNavteq::GEO_SCALE));
     }
 #endif
     if (oc.isSet("sumo-net-file")) {
