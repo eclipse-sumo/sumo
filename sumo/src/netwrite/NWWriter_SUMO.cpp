@@ -60,7 +60,7 @@
 // ---------------------------------------------------------------------------
 void
 NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
-    // check whether a matsim-file shall be generated
+    // check whether a sumo net-file shall be generated
     if (!oc.isSet("output-file")) {
         return;
     }

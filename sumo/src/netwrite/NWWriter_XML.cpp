@@ -59,7 +59,7 @@
 // ---------------------------------------------------------------------------
 void
 NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
-    // check whether a matsim-file shall be generated
+    // check whether plain-output files shall be generated
     if (oc.isSet("plain-output-prefix")) {
         writeNodes(oc, nb.getNodeCont());
         writeEdgesAndConnections(oc, nb.getNodeCont(), nb.getEdgeCont());

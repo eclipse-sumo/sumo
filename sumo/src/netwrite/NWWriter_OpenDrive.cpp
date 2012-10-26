@@ -57,7 +57,7 @@
 // ---------------------------------------------------------------------------
 void
 NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
-    // check whether a matsim-file shall be generated
+    // check whether an opendrive-file shall be generated
     if (!oc.isSet("opendrive-output")) {
         return;
     }
