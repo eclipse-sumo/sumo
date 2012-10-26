@@ -313,16 +313,11 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         PositionVector geoms = myGeoms[interID];
         if (connection) {
             geoms = geoms.reverse();
-            geoms.push_front(from->getPosition());
-            geoms.push_back(to->getPosition());
-            e = new NBEdge(id, from, to, "", speed, nolanes, priority, 
-                    NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, LANESPREAD_CENTER);
-        } else {
-            geoms.push_front(from->getPosition());
-            geoms.push_back(to->getPosition());
-            e = new NBEdge(id, from, to, "", speed, nolanes, priority, 
-                    NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, LANESPREAD_CENTER);
         }
+        geoms.push_front(from->getPosition());
+        geoms.push_back(to->getPosition());
+        e = new NBEdge(id, from, to, "", speed, nolanes, priority, 
+                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, LANESPREAD_CENTER);
     }
     // add vehicle type information to the edge
     NINavTeqHelper::addVehicleClasses(*e, veh_type);
