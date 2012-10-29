@@ -424,11 +424,11 @@ public:
      */
     SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
 
-    virtual void addPerson(MSPerson *p) {
+    virtual void addPerson(MSPerson *p) const {
         myPersons.insert(p);
     }
 
-    virtual void removePerson(MSPerson *p) {
+    virtual void removePerson(MSPerson *p) const {
         std::set<MSPerson*>::iterator i=myPersons.find(p);
         if(i!=myPersons.end()) {
             myPersons.erase(i);
@@ -541,8 +541,8 @@ protected:
     /// @brief The preceeding edges
     std::vector<MSEdge*> myPredeccesors;
 
-    /// @brief Persons on the edge
-    std::set<MSPerson*> myPersons;
+    /// @brief Persons on the edge (only for drawing)
+    mutable std::set<MSPerson*> myPersons;
 
     /// @name Storages for allowed lanes (depending on vehicle classes)
     /// @{

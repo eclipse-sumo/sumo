@@ -213,9 +213,11 @@ MSPersonControl::unsetWalking(MSPerson *p) {
 void
 MSPersonControl::abortWaiting() {
     for (std::map<const MSEdge*, PersonVector>::const_iterator i=myWaiting4Vehicle.begin(); i!=myWaiting4Vehicle.end(); ++i) {
+        const MSEdge* edge = (*i).first;
         const PersonVector &pv = (*i).second;
         for (PersonVector::const_iterator j=pv.begin(); j!=pv.end(); ++j) {
             MSPerson *p = (*j);
+            edge->removePerson(p);
             WRITE_WARNING("Person " + p->getID() + " aborted waiting for a ride that will never come.");
             erase(p);
         }
