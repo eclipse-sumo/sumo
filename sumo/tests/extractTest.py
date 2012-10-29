@@ -44,7 +44,7 @@ for source, target in targets.iteritems():
     outputFiles = glob.glob(join(source, "output.[0-9a-z]*"))
     # XXX we should collect the options.app.variant files in all parent
     # directories instead. This would allow us to save config files for all variants
-    appName = set([f.split('.')[1] for f in outputFiles])
+    appName = set([f.split('.')[-1] for f in outputFiles])
     if len(appName) != 1:
         print >> sys.stderr, "Skipping %s because the application was not unique (found %s)." % (source, appName)
         continue
