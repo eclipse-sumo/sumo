@@ -18,7 +18,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:   traci.Storage.readStringList,
                       tc.VAR_TYPE:  traci.Storage.readString,
                       tc.VAR_SHAPE: traci.Storage.readShape,
                       tc.VAR_COLOR: lambda(result): result.read("!BBBB")}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, polygonID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_POLYGON_VARIABLE, varID, polygonID)
@@ -59,16 +59,8 @@ def subscribe(polygonID, varIDs=(tc.VAR_SHAPE,), begin=0, end=2**31-1):
     Subscribe to one or more polygon values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_POLYGON_VARIABLE, begin, end, polygonID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(polygonID, varID, data):
-    if polygonID not in subscriptionResults:
-        subscriptionResults[polygonID] = {}
-    subscriptionResults[polygonID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(polygonID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -80,9 +72,14 @@ def getSubscriptionResults(polygonID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if polygonID == None:
-        return subscriptionResults
-    return subscriptionResults.get(polygonID, None)
+    return subscriptionResults.get(polygonID)
+
+def subscribeContext(polygonID, domain, dist, varIDs=(tc.VAR_SHAPE,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_POLYGON_CONTEXT, begin, end, polygonID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(polygonID=None):
+    return subscriptionResults.getContext(polygonID)
 
 
 def setType(polygonID, polygonType):

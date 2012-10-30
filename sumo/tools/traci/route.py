@@ -17,7 +17,7 @@ import traci.constants as tc
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:   traci.Storage.readStringList,
                       tc.VAR_EDGES: traci.Storage.readStringList}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, routeID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_ROUTE_VARIABLE, varID, routeID)
@@ -44,16 +44,8 @@ def subscribe(routeID, varIDs=(tc.ID_LIST,), begin=0, end=2**31-1):
     Subscribe to one or more route values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_ROUTE_VARIABLE, begin, end, routeID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(routeID, varID, data):
-    if routeID not in subscriptionResults:
-        subscriptionResults[routeID] = {}
-    subscriptionResults[routeID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(routeID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -65,9 +57,14 @@ def getSubscriptionResults(routeID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if routeID == None:
-        return subscriptionResults
-    return subscriptionResults.get(routeID, None)
+    return subscriptionResults.get(routeID)
+
+def subscribeContext(routeID, domain, dist, varIDs=(tc.ID_LIST,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_ROUTE_CONTEXT, begin, end, routeID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(routeID=None):
+    return subscriptionResults.getContext(routeID)
 
 
 def add(routeID, edges):

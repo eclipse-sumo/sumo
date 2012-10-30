@@ -19,7 +19,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:                          traci.Storage.readStr
                       tc.LAST_STEP_MEAN_SPEED:             traci.Storage.readDouble,
                       tc.LAST_STEP_VEHICLE_ID_LIST:        traci.Storage.readStringList,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, detID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, varID, detID)
@@ -67,16 +67,8 @@ def subscribe(detID, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-1
     Subscribe to one or more detector values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, begin, end, detID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(detID, varID, data):
-    if detID not in subscriptionResults:
-        subscriptionResults[detID] = {}
-    subscriptionResults[detID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(detID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -88,6 +80,11 @@ def getSubscriptionResults(detID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if detID == None:
-        return subscriptionResults
-    return subscriptionResults.get(detID, None)
+    return subscriptionResults.get(detID)
+
+def subscribeContext(detID, domain, dist, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT, begin, end, detID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(detID=None):
+    return subscriptionResults.getContext(detID)

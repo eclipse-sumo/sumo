@@ -19,7 +19,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:      traci.Storage.readStringList,
                       tc.VAR_TYPE:     traci.Storage.readString,
                       tc.VAR_POSITION: lambda(result): result.read("!dd"),
                       tc.VAR_COLOR:    lambda(result): result.read("!BBBB")}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, poiID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_POI_VARIABLE, varID, poiID)
@@ -60,16 +60,8 @@ def subscribe(poiID, varIDs=(tc.VAR_POSITION,), begin=0, end=2**31-1):
     Subscribe to one or more poi values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_POI_VARIABLE, begin, end, poiID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(poiID, varID, data):
-    if poiID not in subscriptionResults:
-        subscriptionResults[poiID] = {}
-    subscriptionResults[poiID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(poiID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -81,9 +73,14 @@ def getSubscriptionResults(poiID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if poiID == None:
-        return subscriptionResults
-    return subscriptionResults.get(poiID, None)
+    return subscriptionResults.get(poiID)
+
+def subscribeContext(poiID, domain, dist, varIDs=(tc.VAR_POSITION,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_POI_CONTEXT, begin, end, poiID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(poiID=None):
+    return subscriptionResults.getContext(poiID)
 
 
 def setType(poiID, poiType):

@@ -32,7 +32,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList
                       tc.LAST_STEP_VEHICLE_NUMBER:  traci.Storage.readInt,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt,
                       tc.LAST_STEP_VEHICLE_ID_LIST: traci.Storage.readStringList}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, edgeID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_EDGE_VARIABLE, varID, edgeID)
@@ -184,16 +184,8 @@ def subscribe(edgeID, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-
     Subscribe to one or more edge values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_EDGE_VARIABLE, begin, end, edgeID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(edgeID, varID, data):
-    if edgeID not in subscriptionResults:
-        subscriptionResults[edgeID] = {}
-    subscriptionResults[edgeID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(edgeID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -205,9 +197,14 @@ def getSubscriptionResults(edgeID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if edgeID == None:
-        return subscriptionResults
-    return subscriptionResults.get(edgeID, None)
+    return subscriptionResults.get(edgeID)
+
+def subscribeContext(edgeID, domain, dist, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_EDGE_CONTEXT, begin, end, edgeID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(edgeID=None):
+    return subscriptionResults.getContext(edgeID)
 
 
 def adaptTraveltime(edgeID, time):

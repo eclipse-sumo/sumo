@@ -64,7 +64,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList
                       tc.LAST_STEP_VEHICLE_NUMBER:  traci.Storage.readInt,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt,
                       tc.LAST_STEP_VEHICLE_ID_LIST: traci.Storage.readStringList}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, laneID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_LANE_VARIABLE, varID, laneID)
@@ -246,16 +246,8 @@ def subscribe(laneID, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-
     Subscribe to one or more lane values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_LANE_VARIABLE, begin, end, laneID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(laneID, varID, data):
-    if laneID not in subscriptionResults:
-        subscriptionResults[laneID] = {}
-    subscriptionResults[laneID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(laneID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -267,9 +259,14 @@ def getSubscriptionResults(laneID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if laneID == None:
-        return subscriptionResults
-    return subscriptionResults.get(laneID, None)
+    return subscriptionResults.get(laneID)
+
+def subscribeContext(laneID, domain, dist, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_LANE_CONTEXT, begin, end, laneID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(laneID=None):
+    return subscriptionResults.getContext(laneID)
 
 
 def setAllowed(laneID, allowedClasses):

@@ -96,7 +96,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:                     traci.Storage.readStringLi
                       tc.TL_CURRENT_PROGRAM:          traci.Storage.readString,
                       tc.TL_CURRENT_PHASE:            traci.Storage.readInt,
                       tc.TL_NEXT_SWITCH:              traci.Storage.readInt}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, tlsID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_TL_VARIABLE, varID, tlsID)
@@ -165,16 +165,8 @@ def subscribe(tlsID, varIDs=(tc.TL_CURRENT_PHASE,), begin=0, end=2**31-1):
     Subscribe to one or more traffic light values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_TL_VARIABLE, begin, end, tlsID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(tlsID, varID, data):
-    if tlsID not in subscriptionResults:
-        subscriptionResults[tlsID] = {}
-    subscriptionResults[tlsID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(tlsID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -186,9 +178,14 @@ def getSubscriptionResults(tlsID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if tlsID == None:
-        return subscriptionResults
-    return subscriptionResults.get(tlsID, None)
+    return subscriptionResults.get(tlsID)
+
+def subscribeContext(tlsID, domain, dist, varIDs=(tc.TL_CURRENT_PHASE,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_TL_CONTEXT, begin, end, tlsID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(tlsID=None):
+    return subscriptionResults.getContext(tlsID)
 
 
 def setRedYellowGreenState(tlsID, state):

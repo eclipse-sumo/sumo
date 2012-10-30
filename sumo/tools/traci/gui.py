@@ -21,7 +21,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:           traci.Storage.readStringList,
                       tc.VAR_VIEW_OFFSET:   lambda(result): result.read("!dd"),
                       tc.VAR_VIEW_SCHEMA:   traci.Storage.readString,
                       tc.VAR_VIEW_BOUNDARY: lambda(result): (result.read("!dd"), result.read("!dd"))}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, viewID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_GUI_VARIABLE, varID, viewID)
@@ -69,16 +69,8 @@ def subscribe(viewID, varIDs=(tc.VAR_VIEW_OFFSET,), begin=0, end=2**31-1):
     Subscribe to one or more gui values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_GUI_VARIABLE, begin, end, viewID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(viewID, varID, data):
-    if viewID not in subscriptionResults:
-        subscriptionResults[viewID] = {}
-    subscriptionResults[viewID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(viewID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -90,9 +82,14 @@ def getSubscriptionResults(viewID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if viewID == None:
-        return subscriptionResults
-    return subscriptionResults.get(viewID, None)
+    return subscriptionResults.get(viewID)
+
+def subscribeContext(viewID, domain, dist, varIDs=(tc.VAR_VIEW_OFFSET,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_GUI_CONTEXT, begin, end, viewID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(viewID=None):
+    return subscriptionResults.getContext(viewID)
 
 
 def setZoom(viewID, zoom):

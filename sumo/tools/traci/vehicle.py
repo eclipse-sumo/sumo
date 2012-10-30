@@ -74,8 +74,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_TAU:             traci.Storage.readDouble,
                       tc.VAR_BEST_LANES:      _readBestLanes,
                       tc.DISTANCE_REQUEST:    traci.Storage.readDouble}
-subscriptionResults = {}
-contextSubscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, vehID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_VEHICLE_VARIABLE, varID, vehID)
@@ -377,21 +376,8 @@ def subscribe(vehID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=
     Subscribe to one or more vehicle values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, begin, end, vehID, varIDs)
-
-def subscribeContext(vehID, domain, dist, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31-1):
-    _resetSubscriptionResults()
-    traci._subscribeContext(tc.CMD_SUBSCRIBE_VEHICLE_CONTEXT, begin, end, vehID, domain, dist, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-    contextSubscriptionResults.clear()
-
-def _addSubscriptionResult(vehID, varID, data):
-    if vehID not in subscriptionResults:
-        subscriptionResults[vehID] = {}
-    subscriptionResults[vehID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(vehID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -403,22 +389,14 @@ def getSubscriptionResults(vehID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if vehID == None:
-        return subscriptionResults
-    return subscriptionResults.get(vehID, None)
+    return subscriptionResults.get(vehID)
 
-def _addContextSubscriptionResult(vehID, varID, objID, data):
-    if vehID not in contextSubscriptionResults:
-        contextSubscriptionResults[vehID] = {}
-    if objID not in contextSubscriptionResults[vehID]:
-        contextSubscriptionResults[vehID][objID] = {}
-    contextSubscriptionResults[vehID][objID][varID] = _RETURN_VALUE_FUNC[varID](data)
-    
+def subscribeContext(vehID, domain, dist, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_VEHICLE_CONTEXT, begin, end, vehID, domain, dist, varIDs)
+
 def getContextSubscriptionResults(vehID=None):
-    if vehID == None:
-        return contextSubscriptionResults
-    return contextSubscriptionResults.get(vehID, None)
-
+    return subscriptionResults.getContext(vehID)
 
 
 def setMaxSpeed(vehID, speed):

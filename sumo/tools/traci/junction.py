@@ -16,7 +16,7 @@ import traci.constants as tc
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:      traci.Storage.readStringList,
                      tc.VAR_POSITION: lambda(result): result.read("!dd")}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, junctionID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_JUNCTION_VARIABLE, varID, junctionID)
@@ -43,16 +43,8 @@ def subscribe(junctionID, varIDs=(tc.VAR_POSITION,), begin=0, end=2**31-1):
     Subscribe to one or more junction values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_JUNCTION_VARIABLE, begin, end, junctionID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(junctionID, varID, data):
-    if junctionID not in subscriptionResults:
-        subscriptionResults[junctionID] = {}
-    subscriptionResults[junctionID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(junctionID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -64,6 +56,11 @@ def getSubscriptionResults(junctionID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if junctionID == None:
-        return subscriptionResults
-    return subscriptionResults.get(junctionID, None)
+    return subscriptionResults.get(junctionID)
+
+def subscribeContext(junctionID, domain, dist, varIDs=(tc.VAR_POSITION,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_JUNCTION_CONTEXT, begin, end, junctionID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(junctionID=None):
+    return subscriptionResults.getContext(junctionID)

@@ -30,7 +30,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_MINGAP:          traci.Storage.readDouble,
                       tc.VAR_WIDTH:           traci.Storage.readDouble,
                       tc.VAR_COLOR:           lambda(result): result.read("!BBBB")}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, typeID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_VEHICLETYPE_VARIABLE, varID, typeID)
@@ -148,16 +148,8 @@ def subscribe(typeID, varIDs=(tc.VAR_MAXSPEED,), begin=0, end=2**31-1):
     Subscribe to one or more vehicle type values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE, begin, end, typeID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(typeID, varID, data):
-    if typeID not in subscriptionResults:
-        subscriptionResults[typeID] = {}
-    subscriptionResults[typeID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(typeID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -169,9 +161,14 @@ def getSubscriptionResults(typeID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if typeID == None:
-        return subscriptionResults
-    return subscriptionResults.get(typeID, None)
+    return subscriptionResults.get(typeID)
+
+def subscribeContext(typeID, domain, dist, varIDs=(tc.VAR_MAXSPEED,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT, begin, end, typeID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(typeID=None):
+    return subscriptionResults.getContext(typeID)
 
 
 def setLength(typeID, length):

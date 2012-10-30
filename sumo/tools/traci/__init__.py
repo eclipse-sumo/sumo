@@ -87,6 +87,38 @@ class Storage:
     def ready(self):
         return self._pos < len(self._content) 
 
+class SubscriptionResults:
+    def __init__(self, valueFunc):
+        self._results = {}
+        self._contextResults = {}
+        self._valueFunc = valueFunc
+
+    def reset(self):
+        self._results.clear()
+        self._contextResults.clear()
+
+    def add(self, refID, varID, data):
+        if refID not in self._results:
+            self._results[refID] = {}
+        self._results[refID][varID] = self._valueFunc[varID](data)
+
+    def get(self, refID=None):
+        if refID == None:
+            return self._results
+        return self._results.get(refID, None)
+
+    def addContext(self, refID, varID, objID, data):
+        if refID not in self._contextResults:
+            self._contextResults[refID] = {}
+        if objID not in self._contextResults[refID]:
+            self._contextResults[refID][objID] = {}
+        self._contextResults[refID][objID][varID] = self._valueFunc[varID](data)
+        
+    def getContext(self, refID=None):
+        if refID == None:
+            return self._contextResults
+        return self._contextResults.get(refID, None)
+
 
 import constants
 import inductionloop, multientryexit, trafficlights
@@ -218,7 +250,7 @@ def _readSubscription(result):
             if status:
                 print "Error!", result.readString()
             elif response in _modules:
-                _modules[response]._addSubscriptionResult(objectID, varID, result)
+                _modules[response].subscriptionResults.add(objectID, varID, result)
             numVars -= 1
     else:
         objectNo = result.read("!i")[0]
@@ -230,7 +262,7 @@ def _readSubscription(result):
                 if status:
                     print "Error!", result.readString()
                 elif response in _modules:
-                    _modules[response]._addContextSubscriptionResult(objectID, varID, oid, result)
+                    _modules[response].subscriptionResults.addContext(objectID, varID, oid, result)
     return response, objectID
 
 def _subscribe(cmdID, begin, end, objID, varIDs):
@@ -287,7 +319,7 @@ def simulationStep(step=0):
     _message.string += struct.pack("!BBi", 1+1+4, constants.CMD_SIMSTEP2, step)
     result = _sendExact()
     for module in _modules.itervalues():
-        module._resetSubscriptionResults()
+        module.subscriptionResults.reset()
     numSubs = result.readInt()
     responses = []
     while numSubs > 0:

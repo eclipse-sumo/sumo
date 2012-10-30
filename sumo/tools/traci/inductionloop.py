@@ -43,7 +43,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:                        traci.Storage.readStrin
                      tc.LAST_STEP_LENGTH:               traci.Storage.readDouble,
                      tc.LAST_STEP_TIME_SINCE_DETECTION: traci.Storage.readDouble,
                      tc.LAST_STEP_VEHICLE_DATA:         readVehicleData}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, loopID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, varID, loopID)
@@ -126,16 +126,8 @@ def subscribe(loopID, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-
     Subscribe to one or more induction loop values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, begin, end, loopID, varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(loopID, varID, data):
-    if loopID not in subscriptionResults:
-        subscriptionResults[loopID] = {}
-    subscriptionResults[loopID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(loopID=None):
     """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -147,6 +139,11 @@ def getSubscriptionResults(loopID=None):
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    if loopID == None:
-        return subscriptionResults
-    return subscriptionResults.get(loopID, None)
+    return subscriptionResults.get(loopID)
+
+def subscribeContext(loopID, domain, dist, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-1):
+    subscriptionResults.reset()
+    traci._subscribeContext(tc.CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT, begin, end, loopID, domain, dist, varIDs)
+
+def getContextSubscriptionResults(loopID=None):
+    return subscriptionResults.getContext(loopID)

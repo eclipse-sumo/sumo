@@ -28,7 +28,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP:                         traci.Storage.re
                       tc.VAR_TELEPORT_ENDING_VEHICLES_IDS:      traci.Storage.readStringList,
                       tc.VAR_DELTA_T:                           traci.Storage.readInt,
                       tc.VAR_NET_BOUNDING_BOX:                  lambda(result): (result.read("!dd"), result.read("!dd"))}
-subscriptionResults = {}
+subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_SIM_VARIABLE, varID, "")
@@ -188,14 +188,8 @@ def subscribe(varIDs=(tc.VAR_DEPARTED_VEHICLES_IDS,), begin=0, end=2**31-1):
     Subscribe to one or more simulation values for the given interval.
     A call to this method clears all previous subscription results.
     """
-    _resetSubscriptionResults()
+    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_SIM_VARIABLE, begin, end, "x", varIDs)
-
-def _resetSubscriptionResults():
-    subscriptionResults.clear()
-
-def _addSubscriptionResult(objectID, varID, data):
-    subscriptionResults[varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults():
     """getSubscriptionResults() -> dict(integer: <value_type>)
@@ -204,4 +198,4 @@ def getSubscriptionResults():
     It is not possible to retrieve older subscription results than the ones
     from the last time step.
     """
-    return subscriptionResults
+    return subscriptionResults.get("x")
