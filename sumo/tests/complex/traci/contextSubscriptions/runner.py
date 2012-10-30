@@ -26,8 +26,8 @@ def runSingle(traciEndTime, viewRange):
     while not step>traciEndTime:
         responses = traci.simulationStep(DELTA_T)
         near1 = set()
-        if "ego" in traci.vehicle.contextSubscriptionResults:
-            for v in traci.vehicle.contextSubscriptionResults["ego"]:
+        if "ego" in traci.vehicle.getContextSubscriptionResults():
+            for v in traci.vehicle.getContextSubscriptionResults()["ego"]:
                 near1.add(v)
         vehs = traci.vehicle.getIDList()
         pos = {}
