@@ -767,7 +767,7 @@ TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range
             if(l!=0) {
                 const std::deque<MSVehicle*> &vehs = l->getVehiclesSecure();
                 for(std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
-                    if(p.distanceSquaredTo((*j)->getPosition())<=range) {
+                    if(p.distanceTo((*j)->getPosition())<=range) {
                         into.insert((*j)->getID());
                     }
                 }
