@@ -103,7 +103,8 @@ protected:
         OPENDRIVE_TAG_CENTER,
         OPENDRIVE_TAG_RIGHT,
         OPENDRIVE_TAG_LANE,
-        OPENDRIVE_TAG_SIGNAL
+        OPENDRIVE_TAG_SIGNAL,
+        OPENDRIVE_ATTR_DYNAMIC
     };
 
 
@@ -239,7 +240,7 @@ protected:
             : id(idArg), type(typeArg), orientation(orientationArg), dynamic(dynamicArg), s(sArg) { }
 
         int id;
-        const std::string type;
+        std::string type;
         int orientation;
         bool dynamic;
         SUMOReal s;
@@ -255,13 +256,8 @@ protected:
             : id(idArg), junction(junctionArg), length(lengthArg),
               from(0), to(0) { }
 
-        unsigned int getMaxLaneNumber(OpenDriveXMLTag dir) const {
-            unsigned int maxLaneNum = 0;
-            for (std::vector<OpenDriveLaneSection>::const_iterator i = laneSections.begin(); i != laneSections.end(); ++i) {
-                maxLaneNum = MAX2(maxLaneNum, (*i).getLaneNumber(dir));
-            }
-            return maxLaneNum;
-        }
+        unsigned int getMaxLaneNumber(OpenDriveXMLTag dir) const;
+        int getPriority(OpenDriveXMLTag dir) const;
 
         /// @brief The id of the edge
         std::string id;

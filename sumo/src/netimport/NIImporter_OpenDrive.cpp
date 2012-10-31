@@ -37,6 +37,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
@@ -111,6 +112,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "type",           NIImporter_OpenDrive::OPENDRIVE_ATTR_TYPE },
     { "level",          NIImporter_OpenDrive::OPENDRIVE_ATTR_LEVEL },
     { "orientation",    NIImporter_OpenDrive::OPENDRIVE_ATTR_ORIENTATION },
+    { "dynamic",        NIImporter_OpenDrive::OPENDRIVE_ATTR_DYNAMIC },
 
     { "",               NIImporter_OpenDrive::OPENDRIVE_ATTR_NOTHING }
 };
@@ -289,7 +291,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::vector<OpenDriveEdge>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
         OpenDriveEdge& e = *i;
         SUMOReal speed = nb.getTypeCont().getSpeed("");
-        int priority = nb.getTypeCont().getPriority("");
         LaneSpreadFunction lsf = LANESPREAD_CENTER;
         unsigned int noLanesRight = e.getMaxLaneNumber(OPENDRIVE_TAG_RIGHT);
         unsigned int noLanesLeft = e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT);
@@ -299,6 +300,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             WRITE_WARNING("Edge '" + e.id + "' has no lanes.");
         }
         if (noLanesRight > 0) {
+            int priority = e.getPriority(OPENDRIVE_TAG_RIGHT);
             NBEdge* nbe = new NBEdge("-" + e.id, e.from, e.to, "", speed, noLanesRight, priority, 
                     NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, e.geom, "", lsf, true);
             if (!nb.getEdgeCont().insert(nbe)) {
@@ -312,6 +314,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             toLaneMap[nbe] = e.laneSections[0].buildLaneMapping(OPENDRIVE_TAG_RIGHT);
         }
         if (noLanesLeft > 0) {
+            int priority = e.getPriority(OPENDRIVE_TAG_LEFT);
             NBEdge* nbe = new NBEdge(e.id, e.to, e.from, "", speed, noLanesLeft, priority, 
                     NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, e.geom.reverse(), "", lsf, true);
             if (!nb.getEdgeCont().insert(nbe)) {
@@ -923,6 +926,44 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneMapping(OpenDriveXMLTag dir
 
 
 // ---------------------------------------------------------------------------
+// edge
+// ---------------------------------------------------------------------------
+unsigned int 
+NIImporter_OpenDrive::OpenDriveEdge::getMaxLaneNumber(OpenDriveXMLTag dir) const {
+    unsigned int maxLaneNum = 0;
+    for (std::vector<OpenDriveLaneSection>::const_iterator i = laneSections.begin(); i != laneSections.end(); ++i) {
+        maxLaneNum = MAX2(maxLaneNum, (*i).getLaneNumber(dir));
+    }
+    return maxLaneNum;
+}
+
+
+int 
+NIImporter_OpenDrive::OpenDriveEdge::getPriority(OpenDriveXMLTag dir) const {
+    int prio = 1;
+    SUMOReal lastPos = -1;
+    for(std::vector<OpenDriveSignal>::const_iterator i=signals.begin(); i!=signals.end(); ++i) {
+        int tmp = 1;
+        if((*i).type=="301"||(*i).type=="306") {
+            tmp = 2;
+        }
+        if((*i).type=="205") {
+            tmp = 0;
+        }
+        if(tmp!=1&&dir==OPENDRIVE_TAG_RIGHT&&(*i).orientation<0) {
+            prio = tmp;
+        }
+        if(tmp!=1&&dir==OPENDRIVE_TAG_LEFT&&(*i).orientation>0) {
+            prio = tmp;
+        }
+        
+    }
+    return prio;
+}
+
+
+
+// ---------------------------------------------------------------------------
 // loader methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenDrive::NIImporter_OpenDrive(
@@ -1054,6 +1095,7 @@ NIImporter_OpenDrive::myStartElement(int element,
             std::string type = attrs.getStringReporting(OPENDRIVE_ATTR_TYPE, myCurrentEdge.id.c_str(), ok);
             int orientation = attrs.getStringReporting(OPENDRIVE_ATTR_ORIENTATION, myCurrentEdge.id.c_str(), ok)=="-" ? -1 : 1;
             SUMOReal s = attrs.getSUMORealReporting(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
+            bool dynamic = attrs.getStringReporting(OPENDRIVE_ATTR_DYNAMIC, myCurrentEdge.id.c_str(), ok)=="no" ? false : true;
             myCurrentEdge.signals.push_back(OpenDriveSignal(id, type, orientation, dynamic, s));
         }
         break;
