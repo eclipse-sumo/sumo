@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/04/12 14:55:01 by SUMO netconvert Version dev-SVN-r11639
+<!-- generated on 10/31/12 15:18:36 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -29,12 +29,12 @@
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="0.00,0.00,50.00,0.00" projParameter="!"/>
 
-    <edge id="1" from="1.end" to="1.begin" priority="-1">
+    <edge id="1" from="1.end" to="1.begin" priority="1">
         <lane id="1_0" index="0" speed="13.90" length="50.00" shape="50.00,4.95 0.00,4.95"/>
         <lane id="1_1" index="1" speed="13.90" length="50.00" shape="50.00,1.65 0.00,1.65"/>
     </edge>
 
-    <junction id="1.begin" type="unregulated" x="0.00" y="0.00" incLanes="1_0 1_1" intLanes="" shape="-0.00,6.55 -0.00,0.05">
+    <junction id="1.begin" type="unregulated" x="0.00" y="0.00" incLanes="1_0 1_1" intLanes="" shape="0.00,6.55 0.00,0.05">
     </junction>
     <junction id="1.end" type="unregulated" x="50.00" y="0.00" incLanes="" intLanes="" shape="50.00,0.05 50.00,6.55">
     </junction>
