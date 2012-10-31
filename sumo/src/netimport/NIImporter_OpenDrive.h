@@ -102,7 +102,8 @@ protected:
         OPENDRIVE_TAG_LEFT,
         OPENDRIVE_TAG_CENTER,
         OPENDRIVE_TAG_RIGHT,
-        OPENDRIVE_TAG_LANE
+        OPENDRIVE_TAG_LANE,
+        OPENDRIVE_TAG_SIGNAL
     };
 
 
@@ -133,7 +134,8 @@ protected:
         OPENDRIVE_ATTR_C,
         OPENDRIVE_ATTR_D,
         OPENDRIVE_ATTR_TYPE,
-        OPENDRIVE_ATTR_LEVEL
+        OPENDRIVE_ATTR_LEVEL,
+        OPENDRIVE_ATTR_ORIENTATION
     };
 
     enum LinkType {
@@ -217,46 +219,30 @@ protected:
      * @brief Representation of a lane section
      */
     struct OpenDriveLaneSection {
-        OpenDriveLaneSection(SUMOReal sArg)
-            : s(sArg) {
-            lanesByDir[OPENDRIVE_TAG_LEFT] = std::vector<OpenDriveLane>();
-            lanesByDir[OPENDRIVE_TAG_RIGHT] = std::vector<OpenDriveLane>();
-            lanesByDir[OPENDRIVE_TAG_CENTER] = std::vector<OpenDriveLane>();
-        }
+        OpenDriveLaneSection(SUMOReal sArg);
 
-        unsigned int getLaneNumber(OpenDriveXMLTag dir) const {
-            unsigned int laneNum = 0;
-            const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
-            for (std::vector<OpenDriveLane>::const_iterator i = dirLanes.begin(); i != dirLanes.end(); ++i) {
-                if ((*i).type == "driving") {
-                    ++laneNum;
-                }
-            }
-            return laneNum;
-        }
+        unsigned int getLaneNumber(OpenDriveXMLTag dir) const;
 
-        std::map<int, int> buildLaneMapping(OpenDriveXMLTag dir) {
-            std::map<int, int> ret;
-            unsigned int sumoLane = 0;
-            const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
-            if (dir == OPENDRIVE_TAG_RIGHT) {
-                for (std::vector<OpenDriveLane>::const_reverse_iterator i = dirLanes.rbegin(); i != dirLanes.rend(); ++i) {
-                    if ((*i).type == "driving") {
-                        ret[(*i).id] = sumoLane++;
-                    }
-                }
-            } else {
-                for (std::vector<OpenDriveLane>::const_iterator i = dirLanes.begin(); i != dirLanes.end(); ++i) {
-                    if ((*i).type == "driving") {
-                        ret[(*i).id] = sumoLane++;
-                    }
-                }
-            }
-            return ret;
-        }
+        std::map<int, int> buildLaneMapping(OpenDriveXMLTag dir);
 
         SUMOReal s;
         std::map<OpenDriveXMLTag, std::vector<OpenDriveLane> > lanesByDir;
+    };
+
+
+    /**
+     * @struct OpenDriveSignal
+     * @brief Representation of a signal
+     */
+    struct OpenDriveSignal {
+        OpenDriveSignal(int idArg, const std::string typeArg, int orientationArg, bool dynamicArg, SUMOReal sArg) 
+            : id(idArg), type(typeArg), orientation(orientationArg), dynamic(dynamicArg), s(sArg) { }
+
+        int id;
+        const std::string type;
+        int orientation;
+        bool dynamic;
+        SUMOReal s;
     };
 
 
@@ -291,6 +277,7 @@ protected:
         std::map<int, int> endLaneMap;
         PositionVector geom;
         std::vector<OpenDriveLaneSection> laneSections;
+        std::vector<OpenDriveSignal> signals;
     };
 
 
@@ -356,6 +343,7 @@ private:
     std::vector<OpenDriveEdge> &myOuterEdges;
     std::vector<int> myElementStack;
     OpenDriveXMLTag myCurrentLaneDirection;
+    static std::set<std::string> myLaneTypes2Import;
 
 
 protected:
