@@ -16,7 +16,7 @@ PORT = 8813
 DELTA_T = 1000
 
 
-def runSingle(traciEndTime, viewRange):
+def runSingle(traciEndTime, viewRange, module, objID):
     seen1 = 0
     seen2 = 0
     step = 0
@@ -26,8 +26,8 @@ def runSingle(traciEndTime, viewRange):
     while not step>traciEndTime:
         responses = traci.simulationStep(DELTA_T)
         near1 = set()
-        if "ego" in traci.vehicle.getContextSubscriptionResults():
-            for v in traci.vehicle.getContextSubscriptionResults()["ego"]:
+        if objID in module.getContextSubscriptionResults():
+            for v in module.getContextSubscriptionResults()[objID]:
                 near1.add(v)
         vehs = traci.vehicle.getIDList()
         pos = {}
@@ -42,7 +42,7 @@ def runSingle(traciEndTime, viewRange):
                 near2.add(v)
         
         if not subscribed:
-            traci.vehicle.subscribeContext("ego", traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [traci.constants.VAR_POSITION] )
+            module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [traci.constants.VAR_POSITION] )
             subscribed = True
         else:
             seen1 += len(near1)
@@ -60,17 +60,17 @@ def runSingle(traciEndTime, viewRange):
     traci.close()
     sys.stdout.flush()
     print "seen %s vehicles via suscription, %s in surrounding" % (seen1, seen2)
-    
-print "=========== long route ==========="
-fdo = open("input_routes.rou.xml", "w")
-print >> fdo, '<routes>"'
-print >> fdo, '   <route id="1" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si 2o 2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si 2o"/>'
-print >> fdo, '   <vehicle id="ego" route="1" depart="0"/>'
-print >> fdo, '   <route id="2" edges="3fi 3si 4o 4fi 4si 3o 3fi"/>'
-print >> fdo, '   <flow id="flow" route="2" begin="0" end="3030" period="10"/>'
-print >> fdo, '</routes>'
-fdo.close()
-print "----------- SUMO end time is not given -----------"
-sys.stdout.flush()
-runSingle(1000, float(sys.argv[2]))
 
+sys.stdout.flush()
+if sys.argv[3] == "vehicle":
+    runSingle(1000, float(sys.argv[2]), traci.vehicle, "ego")
+elif sys.argv[3] == "edge":
+    runSingle(1000, float(sys.argv[2]), traci.edge, "1fi")
+elif sys.argv[3] == "lane":
+    runSingle(1000, float(sys.argv[2]), traci.lane, "2si_0")
+elif sys.argv[3] == "junction":
+    runSingle(1000, float(sys.argv[2]), traci.junction, "0")
+elif sys.argv[3] == "poi":
+    runSingle(1000, float(sys.argv[2]), traci.poi, "ego")
+elif sys.argv[3] == "polygon":
+    runSingle(1000, float(sys.argv[2]), traci.polygon, "ego")
