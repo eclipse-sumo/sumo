@@ -20,6 +20,7 @@ except ImportError:
     _embedded = False
 
 _RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
+_DEBUG = False
 
 def isEmbedded():
     return _embedded
@@ -83,15 +84,24 @@ class Storage:
         length = self.read("!B")[0]
         return [self.read("!dd") for i in range(length)]
 
-
     def ready(self):
         return self._pos < len(self._content) 
+
+    def printDebug(self):
+        if _DEBUG:
+            for char in self._content[self._pos:]:
+                print "%03i %02x %s" % (ord(char), ord(char), char)
 
 class SubscriptionResults:
     def __init__(self, valueFunc):
         self._results = {}
         self._contextResults = {}
         self._valueFunc = valueFunc
+
+    def _parse(self, varID, data):
+        if not varID in self._valueFunc:
+            raise FatalTraCIError("Unknown variable %02x." % varID)
+        return self._valueFunc[varID](data)
 
     def reset(self):
         self._results.clear()
@@ -100,19 +110,19 @@ class SubscriptionResults:
     def add(self, refID, varID, data):
         if refID not in self._results:
             self._results[refID] = {}
-        self._results[refID][varID] = self._valueFunc[varID](data)
+        self._results[refID][varID] = self._parse(varID, data)
 
     def get(self, refID=None):
         if refID == None:
             return self._results
         return self._results.get(refID, None)
 
-    def addContext(self, refID, varID, objID, data):
+    def addContext(self, refID, domain, objID, varID, data):
         if refID not in self._contextResults:
             self._contextResults[refID] = {}
         if objID not in self._contextResults[refID]:
             self._contextResults[refID][objID] = {}
-        self._contextResults[refID][objID][varID] = self._valueFunc[varID](data)
+        self._contextResults[refID][objID][varID] = domain._parse(varID, data)
         
     def getContext(self, refID=None):
         if refID == None:
@@ -140,7 +150,35 @@ _modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.RESPONSE_SUBSCRIBE_SIM_VARIABLE: simulation,
             constants.RESPONSE_SUBSCRIBE_GUI_VARIABLE: gui,
             
-            constants.RESPONSE_SUBSCRIBE_VEHICLE_CONTEXT: vehicle}
+            constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT: inductionloop,
+            constants.RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:\
+            multientryexit,
+            constants.RESPONSE_SUBSCRIBE_TL_CONTEXT: trafficlights,
+            constants.RESPONSE_SUBSCRIBE_LANE_CONTEXT: lane,
+            constants.RESPONSE_SUBSCRIBE_VEHICLE_CONTEXT: vehicle,
+            constants.RESPONSE_SUBSCRIBE_VEHICLETYPE_CONTEXT: vehicletype,
+            constants.RESPONSE_SUBSCRIBE_ROUTE_CONTEXT: route,
+            constants.RESPONSE_SUBSCRIBE_POI_CONTEXT: poi,
+            constants.RESPONSE_SUBSCRIBE_POLYGON_CONTEXT: polygon,
+            constants.RESPONSE_SUBSCRIBE_JUNCTION_CONTEXT: junction,
+            constants.RESPONSE_SUBSCRIBE_EDGE_CONTEXT: edge,
+            constants.RESPONSE_SUBSCRIBE_SIM_CONTEXT: simulation,
+            constants.RESPONSE_SUBSCRIBE_GUI_CONTEXT: gui,
+            
+            constants.CMD_GET_INDUCTIONLOOP_VARIABLE: inductionloop,
+            constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:\
+            multientryexit,
+            constants.CMD_GET_TL_VARIABLE: trafficlights,
+            constants.CMD_GET_LANE_VARIABLE: lane,
+            constants.CMD_GET_VEHICLE_VARIABLE: vehicle,
+            constants.CMD_GET_VEHICLETYPE_VARIABLE: vehicletype,
+            constants.CMD_GET_ROUTE_VARIABLE: route,
+            constants.CMD_GET_POI_VARIABLE: poi,
+            constants.CMD_GET_POLYGON_VARIABLE: polygon,
+            constants.CMD_GET_JUNCTION_VARIABLE: junction,
+            constants.CMD_GET_EDGE_VARIABLE: edge,
+            constants.CMD_GET_SIM_VARIABLE: simulation,
+            constants.CMD_GET_GUI_VARIABLE: gui}
 _connections = {}
 _message = Message()
 
@@ -180,8 +218,8 @@ def _sendExact():
         if prefix[2] or err:
             print prefix, _RESULTS[prefix[2]], err
         elif prefix[1] != command:
-            print "Error! Received answer %s for command %s." % (prefix[1],
-                                                                 command)
+            raise FatalTraCIError("Received answer %s for command %s." % (prefix[1],
+                                                                 command))
         elif prefix[1] == constants.CMD_STOP:
             length = result.read("!B")[0] - 1
             result.read("!%sx" % length)
@@ -230,12 +268,13 @@ def _checkResult(cmdID, varID, objID):
     response, retVarID = result.read("!BB")
     objectID = result.readString()
     if response - cmdID != 16 or retVarID != varID or objectID != objID:
-        print "Error! Received answer %s,%s,%s for command %s,%s,%s."\
-              % (response, retVarID, objectID, cmdID, varID, objID)
+        raise FatalTraCIError("Received answer %s,%s,%s for command %s,%s,%s."\
+              % (response, retVarID, objectID, cmdID, varID, objID))
     result.read("!B")     # Return type of the variable
     return result
 
 def _readSubscription(result):
+#    result.printDebug() # to enable this you also need to set _DEBUG to True
     result.readLength()
     response = result.read("!B")[0]
     isVariableSubscription = response>=constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and response<=constants.RESPONSE_SUBSCRIBE_GUI_VARIABLE
@@ -251,6 +290,8 @@ def _readSubscription(result):
                 print "Error!", result.readString()
             elif response in _modules:
                 _modules[response].subscriptionResults.add(objectID, varID, result)
+            else:
+                raise FatalTraCIError("Cannot handle subscription response %02x for %s." % (response, objectID))
             numVars -= 1
     else:
         objectNo = result.read("!i")[0]
@@ -262,7 +303,9 @@ def _readSubscription(result):
                 if status:
                     print "Error!", result.readString()
                 elif response in _modules:
-                    _modules[response].subscriptionResults.addContext(objectID, varID, oid, result)
+                    _modules[response].subscriptionResults.addContext(objectID, _modules[domain].subscriptionResults, oid, varID, result)
+                else:
+                    raise FatalTraCIError("Cannot handle subscription response %02x for %s." % (response, objectID))
     return response, objectID
 
 def _subscribe(cmdID, begin, end, objID, varIDs):
@@ -279,7 +322,7 @@ def _subscribe(cmdID, begin, end, objID, varIDs):
     result = _sendExact()
     response, objectID = _readSubscription(result)
     if response - cmdID != 16 or objectID != objID:
-        print "Error! Received answer %s,%s for subscription command %s,%s." % (response, objectID, cmdID, objID)
+        raise FatalTraCIError("Received answer %02x,%s for subscription command %02x,%s." % (response, objectID, cmdID, objID))
 
 def _subscribeContext(cmdID, begin, end, objID, domain, dist, varIDs):
     _message.queue.append(cmdID)
@@ -295,7 +338,7 @@ def _subscribeContext(cmdID, begin, end, objID, domain, dist, varIDs):
     result = _sendExact()
     response, objectID = _readSubscription(result)
     if response - cmdID != 16 or objectID != objID:
-        print "Error! Received answer %s,%s for subscription command %s,%s." % (response, objectID, cmdID, objID)
+        raise FatalTraCIError("Received answer %02x,%s for context subscription command %02x,%s." % (response, objectID, cmdID, objID))
 
 def init(port=8813, numRetries=10, host="localhost", label="default"):
     if _embedded:
@@ -336,7 +379,7 @@ def getVersion():
     result.readLength()
     response = result.read("!B")[0]
     if response != command:
-        print "Error! Received answer %s for command %s." % (response, command)
+        raise FatalTraCIError("Received answer %s for command %s." % (response, command))
     return result.readInt(), result.readString()
 
 def close():
