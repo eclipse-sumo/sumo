@@ -21,7 +21,10 @@ def runSingle(traciEndTime, viewRange, module, objID):
     seen2 = 0
     step = 0
     sumoProcess = subprocess.Popen("%s -c sumo.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
+#    time.sleep(20)
     traci.init(PORT)
+    traci.poi.add("poi", 400, 500, (1,0,0,0))
+    traci.polygon.add("poly", ((400, 400), (450, 400), (450, 400)), (1,0,0,0))
     subscribed = False
     while not step>traciEndTime:
         responses = traci.simulationStep(DELTA_T)
@@ -33,13 +36,25 @@ def runSingle(traciEndTime, viewRange, module, objID):
         pos = {}
         for v in vehs:
             pos[v] = traci.vehicle.getPosition(v)
-        egoPos = pos["ego"]
+        shape = None
+        egoPos = None
+        if hasattr(module, "getPosition"):
+            egoPos = module.getPosition(objID)
+        elif hasattr(module, "getShape"):
+            shape = module.getShape(objID)
         near2 = set()
         for v in pos:
-            dx = egoPos[0] - pos[v][0]
-            dy = egoPos[1] - pos[v][1]
-            if math.sqrt(dx*dx + dy*dy)<viewRange:
-                near2.add(v)
+            if egoPos:
+                dx = egoPos[0] - pos[v][0]
+                dy = egoPos[1] - pos[v][1]
+                if math.sqrt(dx*dx + dy*dy) < viewRange:
+                    near2.add(v)
+            if shape:
+                for x, y in shape:
+                    dx = x - pos[v][0]
+                    dy = y - pos[v][1]
+                    if math.sqrt(dx*dx + dy*dy) < viewRange:
+                        near2.add(v)
         
         if not subscribed:
             module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [traci.constants.VAR_POSITION] )
@@ -71,6 +86,6 @@ elif sys.argv[3] == "lane":
 elif sys.argv[3] == "junction":
     runSingle(1000, float(sys.argv[2]), traci.junction, "0")
 elif sys.argv[3] == "poi":
-    runSingle(1000, float(sys.argv[2]), traci.poi, "ego")
+    runSingle(1000, float(sys.argv[2]), traci.poi, "poi")
 elif sys.argv[3] == "polygon":
-    runSingle(1000, float(sys.argv[2]), traci.polygon, "ego")
+    runSingle(1000, float(sys.argv[2]), traci.polygon, "poly")
