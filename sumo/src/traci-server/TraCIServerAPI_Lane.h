@@ -67,14 +67,13 @@ public:
                            tcpip::Storage& outputStorage);
 
 
-    /** @brief Returns the named lane's position 
+    /** @brief Returns the named lane's shape 
      *
-     * The center of the lane is returned
      * @param[in] id The id of the searched lane
-     * @param[out] p The position, if the lane is known
-     * @return Whether the lane is known (and on road)
+     * @param[out] shape The shape, if the lane is known
+     * @return Whether the lane is known
      */
-    static bool getPosition(const std::string &id, Position &p);
+    static bool getShape(const std::string &id, PositionVector &shape);
 
 
     /** @brief Returns a tree filled with inductive loop instances

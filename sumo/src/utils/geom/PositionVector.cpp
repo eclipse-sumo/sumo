@@ -847,7 +847,10 @@ PositionVector::insertAtClosest(const Position& p) {
 
 SUMOReal
 PositionVector::distance(const Position& p) const {
-    Position outIntersection = Position();
+    if (size() == 1) {
+        return myCont.front().distanceTo(p);
+    }
+    Position outIntersection;
     SUMOReal minDist = std::numeric_limits<double>::max();
     for (ContType::const_iterator i = myCont.begin(); i != myCont.end() - 1; i++) {
         minDist = MIN2(minDist, GeomHelper::closestDistancePointLine(

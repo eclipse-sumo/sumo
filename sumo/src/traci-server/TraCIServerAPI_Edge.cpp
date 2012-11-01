@@ -452,18 +452,16 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
 
 
 bool
-TraCIServerAPI_Edge::getPosition(const std::string &id, Position &p) {
+TraCIServerAPI_Edge::getShape(const std::string &id, PositionVector &shape) {
     MSEdge* e = MSEdge::dictionary(id);
-    if(e==0) {
+    if (e==0) {
         return false;
     }
     const std::vector<MSLane*> &lanes = e->getLanes();
-    Position p2;
-    for(std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-        p2.add((*i)->getShape().positionAtLengthPosition((*i)->getShape().length()/2.));
+    shape.push_back(lanes.front()->getShape());
+    if (lanes.size() > 1) {
+        shape.push_back(lanes.back()->getShape().reverse());
     }
-    p2.mul(1./SUMOReal(lanes.size()));
-    p = p2;
     return true;
 }
 

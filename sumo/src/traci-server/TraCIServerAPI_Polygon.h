@@ -67,14 +67,13 @@ public:
                            tcpip::Storage& outputStorage);
 
 
-    /** @brief Returns the named polygons's position 
+    /** @brief Returns the named polygons's shape
      *
-     * The center of the polygon is returned
      * @param[in] id The id of the searched polygon
-     * @param[out] p The position, if the polygon is known
-     * @return Whether the polygon is known (and on road)
+     * @param[out] shape The shape, if the polygon is known
+     * @return Whether the polygon is known
      */
-    static bool getPosition(const std::string &id, Position &p);
+    static bool getShape(const std::string &id, PositionVector &shape);
 
 
     /** @brief Returns a tree filled with inductive loop instances

@@ -353,12 +353,12 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
 
 
 bool
-TraCIServerAPI_Lane::getPosition(const std::string &id, Position &p) {
-    MSLane* l = MSLane::dictionary(id);
-    if(l==0) {
+TraCIServerAPI_Lane::getShape(const std::string &id, PositionVector &shape) {
+    const MSLane* const l = MSLane::dictionary(id);
+    if (l==0) {
         return false;
     }
-    p = l->getShape().positionAtLengthPosition(l->getShape().length()/2.);
+    shape.push_back(l->getShape());
     return true;
 }
 

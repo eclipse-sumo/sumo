@@ -657,45 +657,69 @@ TraCIServer::removeSubscription(int commandId, const std::string &id, int domain
 }
 
 
-Position 
-TraCIServer::getObjectPosition(int domain, const std::string &id, bool &found) {
+bool 
+TraCIServer::findObjectShape(int domain, const std::string &id, PositionVector &shape) {
     Position p;
     switch(domain) {
     case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
-        found = TraCIServerAPI_InductionLoop::getPosition(id, p);
-        break;
+        if (TraCIServerAPI_InductionLoop::getPosition(id, p)) {
+            shape.push_back(p);
+            break;
+        }
+        return false;
     case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
+        return false;
     case CMD_SUBSCRIBE_TL_CONTEXT:
+        return false;
     case CMD_SUBSCRIBE_LANE_CONTEXT:
-        found = TraCIServerAPI_Lane::getPosition(id, p);
-        break;
+        if (TraCIServerAPI_Lane::getShape(id, shape)) {
+            break;
+        }
+        return false;
     case CMD_SUBSCRIBE_VEHICLE_CONTEXT: 
-        found = TraCIServerAPI_Vehicle::getPosition(id, p);
-        break;
+        if (TraCIServerAPI_Vehicle::getPosition(id, p)) {
+            shape.push_back(p);
+            break;
+        }
+        return false;
     case CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
+        return false;
     case CMD_SUBSCRIBE_ROUTE_CONTEXT:
+        return false;
     case CMD_SUBSCRIBE_POI_CONTEXT:
-        found = TraCIServerAPI_POI::getPosition(id, p);
-        break;
+        if (TraCIServerAPI_POI::getPosition(id, p)) {
+            shape.push_back(p);
+            break;
+        }
+        return false;
     case CMD_SUBSCRIBE_POLYGON_CONTEXT:
-        found = TraCIServerAPI_Polygon::getPosition(id, p);
-        break;
+        if (TraCIServerAPI_Polygon::getShape(id, shape)) {
+            break;
+        }
+        return false;
     case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
-        found = TraCIServerAPI_Junction::getPosition(id, p);
-        break;
+        if (TraCIServerAPI_Junction::getPosition(id, p)) {
+            shape.push_back(p);
+            break;
+        }
+        return false;
     case CMD_SUBSCRIBE_EDGE_CONTEXT:
-        found = TraCIServerAPI_Edge::getPosition(id, p);
-        break;
+        if (TraCIServerAPI_Edge::getShape(id, shape)) {
+            break;
+        }
+        return false;
     case CMD_SUBSCRIBE_SIM_CONTEXT:
+        return false;
     case CMD_SUBSCRIBE_GUI_CONTEXT:
+        return false;
     default:
-        break;
+        return false;
     }
-    return p;
+    return true;
 }
 
 void 
-TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range, std::set<std::string> &into) {
+TraCIServer::collectObjectsInRange(int domain, const PositionVector &shape, SUMOReal range, std::set<std::string> &into) {
     // build the look-up tree if not yet existing
     if(myObjects.find(domain)==myObjects.end()) {
         switch(domain) {
@@ -738,9 +762,7 @@ TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range
                 break;
         }
     }
-    Boundary b;
-    b.add(Position(p.x()+range, p.y()+range));
-    b.add(Position(p.x()-range, p.y()-range));
+    const Boundary b = shape.getBoxBoundary().grow(range);
     const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
     const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
     switch(domain) {
@@ -756,6 +778,16 @@ TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range
     case CMD_GET_LANE_VARIABLE: {
         Named::StoringVisitor sv(into);
         myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
+        if (shape.size() == 1) {
+            for (std::set<std::string>::iterator i=into.begin(); i!=into.end();) {
+                const MSLane* const l = MSLane::dictionary(*i);
+                if (l->getShape().distance(shape[0]) > range) {
+                    into.erase(i++);
+                } else {
+                    ++i;
+                }
+            }
+        }
                                    }
         break;
     case CMD_GET_VEHICLE_VARIABLE: {
@@ -764,10 +796,10 @@ TraCIServer::collectObjectsInRange(int domain, const Position &p, SUMOReal range
         myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
         for(std::set<std::string>::const_iterator i=tmp.begin(); i!=tmp.end(); ++i) {
             MSLane *l = MSLane::dictionary(*i);
-            if(l!=0) {
+            if (l!=0) {
                 const std::deque<MSVehicle*> &vehs = l->getVehiclesSecure();
-                for(std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
-                    if(p.distanceTo((*j)->getPosition())<=range) {
+                for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
+                    if (shape.distance((*j)->getPosition()) <= range) {
                         into.insert((*j)->getID());
                     }
                 }
@@ -819,12 +851,11 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
     std::set<std::string> objIDs;
     if(s.contextVars) {
         getCommandId = s.contextDomain;
-        bool ok = true;
-        Position p = getObjectPosition(s.commandId, s.id, ok);
-        if(!ok) {
+        PositionVector shape;
+        if (!findObjectShape(s.commandId, s.id, shape)) {
             return false;
         }
-        collectObjectsInRange(s.contextDomain, p, s.range, objIDs);
+        collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
     } else {
         getCommandId = s.commandId - 0x30;
         objIDs.insert(s.id);

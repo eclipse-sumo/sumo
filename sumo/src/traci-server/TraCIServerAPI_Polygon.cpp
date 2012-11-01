@@ -273,13 +273,13 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
 
 bool
-TraCIServerAPI_Polygon::getPosition(const std::string &id, Position &p) {
+TraCIServerAPI_Polygon::getShape(const std::string &id, PositionVector &shape) {
     int layer;
     Polygon *poly = getPolygon(id, layer);
-    if(poly==0) {
+    if (poly==0) {
         return false;
     }
-    p = poly->getShape().getCentroid();
+    shape.push_back(poly->getShape());
     return true;
 }
 

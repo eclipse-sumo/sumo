@@ -1062,7 +1062,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 			SUMOReal minDistNameMatchingLane = 1<<(11);
 			for(; minDistLane==0 && r<10 && nameMatchingLane==0; ++r) {
 				std::set<std::string> into;
-			    server.collectObjectsInRange(CMD_GET_EDGE_VARIABLE, pos, 1<<r, into);
+                PositionVector shape;
+                shape.push_back(pos);
+			    server.collectObjectsInRange(CMD_GET_EDGE_VARIABLE, shape, 1<<r, into);
 				for(std::set<std::string>::const_iterator j=into.begin(); j!=into.end(); ++j) {
 					MSEdge *e = MSEdge::dictionary(*j);
 					const std::vector<MSLane*> &lanes = e->getLanes();
