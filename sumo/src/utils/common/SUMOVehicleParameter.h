@@ -458,7 +458,7 @@ public:
     unsigned int personNumber;
 
     /// @brief Information for the router which parameter were set
-    int setParameter;
+    mutable int setParameter;
 
 
 };
