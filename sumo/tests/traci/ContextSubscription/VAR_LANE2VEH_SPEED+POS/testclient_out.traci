@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Oct 19 11:19:30 2012
+TraCITestClient output file. Date: Thu Nov 01 13:02:42 2012
 
 
 -> Command sent: <SimulationStep2>:
@@ -235,97 +235,154 @@ TraCITestClient output file. Date: Fri Oct 19 11:19:30 2012
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (895.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (885.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (875.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (865.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (855.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (845.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (835.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (825.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (815.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (805.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (786.25,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (776.25,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (766.25,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (756.25,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (746.25,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (736.25,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (726.25,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (716.25,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=147  ObjectID=3/1to2/1_0  Domain=164  #variables=2
-  #objects=0
+  #objects=1
+   ObjectID=0
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=66      ok=1 valueDataType=1 position value: (706.25,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]

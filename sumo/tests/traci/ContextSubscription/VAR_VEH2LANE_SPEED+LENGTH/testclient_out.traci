@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Oct 19 11:18:31 2012
+TraCITestClient output file. Date: Thu Nov 01 14:03:16 2012
 
 
 -> Command sent: <SimulationStep2>:
@@ -156,10 +156,7 @@ TraCITestClient output file. Date: Fri Oct 19 11:18:31 2012
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=148  ObjectID=0  Domain=163  #variables=2
-  #objects=8
-   ObjectID=2/1to3/1_0
-      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
-      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+  #objects=7
    ObjectID=3/0to3/1_0
       VariableID=65      ok=1 valueDataType=11 Double value: 10.00
       VariableID=68      ok=1 valueDataType=11 Double value: 390.50
@@ -707,23 +704,6 @@ TraCITestClient output file. Date: Fri Oct 19 11:18:31 2012
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=148  ObjectID=0  Domain=163  #variables=2
-  #objects=4
-   ObjectID=2/1to3/1_0
-      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
-      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
-   ObjectID=3/1to2/1_0
-      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
-      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
-   ObjectID=3/1to3/0_0
-      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
-      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
-   ObjectID=3/2to3/1_0
-      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
-      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-  CommandID=148  ObjectID=0  Domain=163  #variables=2
   #objects=2
    ObjectID=2/1to3/1_0
       VariableID=65      ok=1 valueDataType=11 Double value: 10.00
@@ -933,14 +913,19 @@ TraCITestClient output file. Date: Fri Oct 19 11:18:31 2012
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
   CommandID=148  ObjectID=0  Domain=163  #variables=2
-  #objects=8
-   ObjectID=1/1to2/1_0
+  #objects=2
+   ObjectID=2/1to3/1_0
       VariableID=65      ok=1 valueDataType=11 Double value: 10.00
       VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=6
    ObjectID=2/0to2/1_0
-      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
-      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
-   ObjectID=2/1to1/1_0
       VariableID=65      ok=1 valueDataType=11 Double value: 10.00
       VariableID=68      ok=1 valueDataType=11 Double value: 390.50
    ObjectID=2/1to2/0_0
