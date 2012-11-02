@@ -48,6 +48,10 @@ foreign:date="{[->]}"
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
+elmar_links:# Generated
+elmar_nodes:# Generated
+elmar_names:# Generated
+elmar_traffic_signals:# Generated
 
 [floating_point_tolerance]
 net:0.0101
