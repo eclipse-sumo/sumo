@@ -87,6 +87,9 @@
         <!-- The generated net will be written to FILE using openDRIVE format. -->
         <opendrive-output value="" type="FILE"/>
 
+        <!-- The generated net will be written to dlr-navteq files with the given PREFIX. -->
+        <dlr-navteq-output value="" type="FILE"/>
+
         <!-- Street names will be included in the output (if available). -->
         <output.street-names value="false" type="BOOL"/>
 

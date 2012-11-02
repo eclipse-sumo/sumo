@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r12793
+SUMO netconvert Version dev-SVN-r12919
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -44,6 +44,8 @@ Output Options:
                                         using MATsim format.
   --opendrive-output FILE             The generated net will be written to FILE
                                         using openDRIVE format.
+  --dlr-navteq-output FILE            The generated net will be written to
+                                        dlr-navteq files with the given PREFIX.
   --output.street-names               Street names will be included in the
                                         output (if available).
   --output.original-names             Writes original names, if given, as
