@@ -42,6 +42,7 @@
 #include "NWWriter_MATSim.h"
 #include "NWWriter_XML.h"
 #include "NWWriter_OpenDrive.h"
+#include "NWWriter_DlrNavteq.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -90,6 +91,9 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.doRegister("opendrive-output", new Option_FileName());
     oc.addDescription("opendrive-output", "Output", "The generated net will be written to FILE using openDRIVE format.");
 
+    oc.doRegister("dlr-navteq-output", new Option_FileName());
+    oc.addDescription("dlr-navteq-output", "Output", "The generated net will be written to dlr-navteq files with the given PREFIX.");
+
     oc.doRegister("output.street-names", new Option_Bool(false));
     oc.addDescription("output.street-names", "Output", "Street names will be included in the output (if available).");
 
@@ -103,7 +107,11 @@ NWFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     // check whether the output is valid and can be build
-    if (!oc.isSet("output-file")&&!oc.isSet("plain-output-prefix")&&!oc.isSet("matsim-output")&&!oc.isSet("opendrive-output")) {
+    if (!oc.isSet("output-file")
+            &&!oc.isSet("plain-output-prefix")
+            &&!oc.isSet("matsim-output")
+            &&!oc.isSet("opendrive-output")
+            &&!oc.isSet("dlr-navteq-output")) {
         oc.set("output-file", "net.net.xml");
     }
     // some outputs need internal lanes
@@ -120,6 +128,7 @@ NWFrame::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NWWriter_SUMO::writeNetwork(oc, nb);
     NWWriter_MATSim::writeNetwork(oc, nb);
     NWWriter_OpenDrive::writeNetwork(oc, nb);
+    NWWriter_DlrNavteq::writeNetwork(oc, nb);
     NWWriter_XML::writeNetwork(oc, nb);
     // save the mapping information when wished
     if (oc.isSet("map-output")) {

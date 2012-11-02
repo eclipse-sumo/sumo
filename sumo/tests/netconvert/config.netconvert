@@ -31,6 +31,10 @@ foreign:foreign.net
 cfg:config.cfg
 log:log.txt
 joined_nodes:joined.nod.xml
+elmar_links:elmar_output_links_unsplitted.txt
+elmar_nodes:elmar_output_nodes_unsplitted.txt
+elmar_traffic_signals:elmar_output_traffic_signals.txt
+elmar_names:elmar_output_names.txt
 
 [run_dependent_text]
 output:\r{REPLACE \n}

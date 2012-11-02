@@ -194,7 +194,7 @@ public:
      * @param[in] addComments Whether comments (option descriptions) shall be written
      */
     void writeConfiguration(std::ostream& os, bool filled,
-                            bool complete, bool addComments);
+                            bool complete, bool addComments) const;
 
 
     /** @brief Writes the xml schema for the configuration
@@ -616,6 +616,11 @@ public:
     /// @brief return the type name for the given option
     std::string getTypeName(const std::string name) {
         return getSecure(name)->getTypeName();
+    }
+
+
+    inline const std::string& getFullName() const {
+        return myFullName;
     }
 
 private:

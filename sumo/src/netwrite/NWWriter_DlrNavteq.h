@@ -84,6 +84,21 @@ private:
 
     /// @brief write header comments (input paramters, date, etc...)
     static void writeHeader(OutputDevice& device, const OptionsCont& oc);
+    
+    /// @brief build the ascii-bit-vector for column vehicle_type
+    static std::string getAllowedTypes(SVCPermissions permissions);
+
+    /// @brief get the navteq road class
+    static int getRoadClass(NBEdge* edge);
+
+    /// @brief get the navteq speed class 
+    static int getSpeedCategory(SUMOReal speed);
+
+    /// @brief get the lane number encoding
+    static int getNavteqLaneCode(unsigned int numLanes);
+
+    /// @brief magic value for undefined stuff
+    static const std::string UNDEFINED;
 
 };
 
