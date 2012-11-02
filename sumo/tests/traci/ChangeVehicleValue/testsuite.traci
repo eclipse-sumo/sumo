@@ -56,3 +56,5 @@ VehicleTypeRelated
 SlowDownAndSetSpeed
 
 
+# check whether a vehicle may be forced to run at red light
+runs_at_red_forced
