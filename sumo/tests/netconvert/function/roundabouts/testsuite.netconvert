@@ -6,3 +6,6 @@ y3
 # Same as y1, but with no roundabouts
 disabled_y1
 
+# test guessing of roundabouts where the candidate test fails because 
+# incoming and outoing lanes are attached to different junctions (#772)
+divided_attachment

@@ -764,22 +764,25 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
             candidates.insert(e);
         }
     }
+
     // step 2:
     std::set<NBEdge*> visited;
     for (std::set<NBEdge*>::const_iterator i = candidates.begin(); i != candidates.end(); ++i) {
-        std::set<NBEdge*> loopEdges;
-        // start with a random edge, keep it as "begin"
-        NBEdge* begin = (*i);
-        if (find(visited.begin(), visited.end(), begin) != visited.end()) {
+        EdgeVector loopEdges;
+        // start with a random edge (this doesn't have to be a roundabout edge)
+        // loop over connected edges (using always the leftmost one)
+        // and keep the list in loopEdges
+        // continue until we loop back onto a loopEdges and extract the loop
+        NBEdge* e = (*i);
+        if (visited.count(e) > 0) {
             // already seen
             continue;
         }
-        NBEdge* e = (*i);
-        // loop over connected edges (using always the leftmost one)
+        loopEdges.push_back(e);
         bool doLoop = true;
         do {
             visited.insert(e);
-            EdgeVector edges = e->getToNode()->getEdges();
+            const EdgeVector& edges = e->getToNode()->getEdges();
             if (edges.size() < 2) {
                 doLoop = false;
                 break;
@@ -787,45 +790,52 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
             EdgeVector::const_iterator me = find(edges.begin(), edges.end(), e);
             NBContHelper::nextCW(edges, me);
             NBEdge* left = *me;
-            loopEdges.insert(left);
-            if (left == begin) {
+            EdgeVector::const_iterator loopClosed = find(loopEdges.begin(), loopEdges.end(), left);
+            const size_t loopSize = loopEdges.end() - loopClosed;
+            if (loopSize > 0) {
+                // loop found
+                if (loopSize < 3) {
+                    doLoop = false; // need at least 3 edges for a roundabout
+                } else if (loopSize < loopEdges.size()) {
+                    // remove initial edges not belonging to the loop
+                    EdgeVector(loopEdges.begin()+(loopEdges.size() - loopSize), loopEdges.end()).swap(loopEdges);
+                }
                 break;
             }
-            if (find(candidates.begin(), candidates.end(), left) == candidates.end() ||
-		find(visited.begin(), visited.end(), left) != visited.end()) {
+            if (visited.count(left) > 0) {
                 doLoop = false;
             } else {
+                // keep going
+                loopEdges.push_back(left);
                 e = left;
             }
         } while (doLoop);
         // mark collected edges in the case a loop (roundabout) was found
         if (doLoop) {
-            for (std::set<NBEdge*>::const_iterator j = loopEdges.begin(); j != loopEdges.end(); ++j) {
-
+            std::set<NBEdge*> loopEdgesSet(loopEdges.begin(), loopEdges.end());
+            for (std::set<NBEdge*>::const_iterator j = loopEdgesSet.begin(); j != loopEdgesSet.end(); ++j) {
                 // disable turnarounds on incoming edges
                 const EdgeVector& incoming = (*j)->getToNode()->getIncomingEdges();
                 const EdgeVector& outgoing = (*j)->getToNode()->getOutgoingEdges();
                 for (EdgeVector::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
-                    if (loopEdges.find(*k) != loopEdges.end()) {
+                    if (loopEdgesSet.find(*k) != loopEdgesSet.end()) {
                         continue;
                     }
                     if ((*k)->getStep() >= NBEdge::LANES2LANES_USER) {
                         continue;
                     }
                     for (EdgeVector::const_iterator l = outgoing.begin(); l != outgoing.end(); ++l) {
-                        if (loopEdges.find(*l) != loopEdges.end()) {
+                        if (loopEdgesSet.find(*l) != loopEdgesSet.end()) {
                             (*k)->addEdge2EdgeConnection(*l);
                         } else {
                             (*k)->removeFromConnections(*l, -1);
                         }
                     }
                 }
-
-
                 // let the connections to succeeding roundabout edge have a higher priority
                 (*j)->setJunctionPriority((*j)->getToNode(), 1000);
             }
-            marked.push_back(loopEdges);
+            marked.push_back(loopEdgesSet);
         }
     }
 }

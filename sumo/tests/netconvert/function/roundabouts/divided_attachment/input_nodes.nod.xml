@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 02 Nov 2012 09:22:45 AM CET by Netedit Version dev-SVN-r12914
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/erdm_ja/debug/roundabout_brett_wiesner/freshPond.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/erdm_ja/debug/roundabout_brett_wiesner/freshPond.net.xml"/>
+        <plain-output-prefix value="/home/erdm_ja/debug/roundabout_brett_wiesner/input_edges"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+    <location netOffset="-322481.53,-4693631.98" convBoundary="0.00,682.19,2233.65,1978.45" origBoundary="-71.156689,42.374818,-71.129316,42.392703" projParameter="+proj=utm +zone=19 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1068730291" x="1288.26" y="1316.70" type="priority"/>
+    <node id="1116467478" x="1254.04" y="1332.71" type="priority"/>
+    <node id="1418826592" x="1109.90" y="1502.48" type="unregulated"/>
+    <node id="61317605" x="1263.52" y="1292.14" type="priority"/>
+    <node id="61317607" x="1262.19" y="1296.06" type="priority"/>
+    <node id="61318628" x="1282.78" y="1346.71" type="priority"/>
+    <node id="61321724" x="1268.42" y="1237.86" type="dead_end"/>
+    <node id="61322089" x="1291.95" y="1287.31" type="priority"/>
+    <node id="61322707" x="1328.44" y="1292.76" type="dead_end"/>
+    <node id="61323097" x="1291.48" y="1314.50" type="priority"/>
+    <node id="61323525" x="1279.52" y="1318.88" type="priority"/>
+    <node id="634899414" x="1062.90" y="1482.27" type="unregulated"/>
+</nodes>
