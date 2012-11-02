@@ -54,13 +54,14 @@
                 <File Id='duarouterEXE' Name='duarouter.exe' Source='M:\Daten\Sumo\Nightly\duarouter.exe' />
                 <File Id='jtrrouterEXE' Name='jtrrouter.exe' Source='M:\Daten\Sumo\Nightly\jtrrouter.exe' />
                 <File Id='netconvertEXE' Name='netconvert.exe' Source='M:\Daten\Sumo\Nightly\netconvert.exe' />
-                <File Id='netgenEXE' Name='netgen.exe' Source='M:\Daten\Sumo\Nightly\netgen.exe' />
+                <File Id='netgenEXE' Name='netgenerate.exe' Source='M:\Daten\Sumo\Nightly\netgenerate.exe' />
                 <File Id='od2tripsEXE' Name='od2trips.exe' Source='M:\Daten\Sumo\Nightly\od2trips.exe' />
                 <File Id='polyconvertEXE' Name='polyconvert.exe' Source='M:\Daten\Sumo\Nightly\polyconvert.exe' />
               </Component>
 
               <Component Id='HelperLibraries' Guid='FD4424A1-2B13-11E1-A04E-028037EC0200'>
                 <File Id='foxDLL' Name='FOXDLL-1.6.dll' Source='M:\Daten\Sumo\Nightly\FOXDLL-1.6.dll' KeyPath='yes' />
+                <File Id='pngDLL' Name='libpng15.dll' Source='M:\Daten\Sumo\Nightly\libpng15.dll' />
                 <File Id='gdalDLL' Name='gdal18.dll' Source='M:\Daten\Sumo\Nightly\gdal18.dll' />
                 <File Id='projDLL' Name='proj.dll' Source='M:\Daten\Sumo\Nightly\proj.dll' />
                 <File Id='xercesDLL' Name='xerces-c_3_1.dll' Source='M:\Daten\Sumo\Nightly\xerces-c_3_1.dll' />

@@ -132,7 +132,10 @@ for platform in ["Win32", "x64"]:
         files_to_zip = (
                 glob.glob(os.path.join(env["XERCES"+envSuffix], "bin", "xerces-c_?_?.dll")) +
                 glob.glob(os.path.join(env["PROJ_GDAL"+envSuffix], "bin", "*.dll")) +
-                glob.glob(os.path.join(env["FOX16"+envSuffix], "lib", "FOXDLL-?.?.dll")) +
+                glob.glob(os.path.join(env["FOX16"+envSuffix], "lib",
+                                       "FOXDLL-1.6.dll")) +
+                glob.glob(os.path.join(env["FOX16"+envSuffix], "lib",
+                                       "libpng*.dll")) +
                 glob.glob(os.path.join(nightlyDir, "msvc?100.dll")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
