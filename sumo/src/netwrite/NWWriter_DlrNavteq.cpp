@@ -180,15 +180,15 @@ NWWriter_DlrNavteq::getAllowedTypes(SVCPermissions permissions) {
     }
     std::ostringstream oss;
     oss << "0";
-    oss << (int)(bool)(permissions & SVC_PASSENGER);
-    oss << (int)(bool)(permissions & SVC_HOV);
-    oss << (int)(bool)(permissions & SVC_PUBLIC_EMERGENCY);
-    oss << (int)(bool)(permissions & SVC_TAXI);
-    oss << (int)(bool)(permissions & (SVC_PUBLIC_TRANSPORT | SVC_BUS));
-    oss << (int)(bool)(permissions & SVC_DELIVERY);
-    oss << (int)(bool)(permissions & SVC_TRANSPORT);
-    oss << (int)(bool)(permissions & SVC_BICYCLE);
-    oss << (int)(bool)(permissions & SVC_PEDESTRIAN);
+    oss << (permissions & SVC_PASSENGER)                    > 0 ? 1 : 0;
+    oss << (permissions & SVC_HOV)                          > 0 ? 1 : 0;
+    oss << (permissions & SVC_PUBLIC_EMERGENCY)             > 0 ? 1 : 0;
+    oss << (permissions & SVC_TAXI)                         > 0 ? 1 : 0;
+    oss << (permissions & (SVC_PUBLIC_TRANSPORT | SVC_BUS)) > 0 ? 1 : 0;
+    oss << (permissions & SVC_DELIVERY)                     > 0 ? 1 : 0;
+    oss << (permissions & SVC_TRANSPORT)                    > 0 ? 1 : 0;
+    oss << (permissions & SVC_BICYCLE)                      > 0 ? 1 : 0;
+    oss << (permissions & SVC_PEDESTRIAN)                   > 0 ? 1 : 0;
     return oss.str();
 }
 
