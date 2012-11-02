@@ -73,7 +73,7 @@ void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc
     time(&rawtime);
     char buffer [80];
     strftime(buffer, 80, "on %c", localtime(&rawtime));
-    device << "# Generated with " << oc.getFullName() << "\n";
+    device << "# Generated " << buffer << " by " << oc.getFullName() << "\n";
     std::stringstream tmp;
     oc.writeConfiguration(tmp, true, false, false);
     tmp.seekg(std::ios_base::beg);
