@@ -53,6 +53,7 @@
         <map-output value="" synonymes="M" type="FILE" help="Writes joined edges information to FILE"/>
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format."/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using openDRIVE format."/>
+        <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX."/>
         <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)."/>
         <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter."/>
     </output>
