@@ -31,8 +31,8 @@
 #include <config.h>
 #endif
 
-#include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <string>
+#include <utils/xml/SUMOSAXReader.h>
 #include <microsim/MSNet.h>
 #include "MSRouteHandler.h"
 
@@ -63,10 +63,7 @@ public:
     bool moreAvailable() const;
 private:
     /// the used SAX2XMLReader
-    SAX2XMLReader* myParser;
-
-    /// the token for saving the current position
-    XMLPScanToken  myToken;
+    SUMOSAXReader* myParser;
 
     /// information whether more vehicles should be available
     bool myMoreAvailable;

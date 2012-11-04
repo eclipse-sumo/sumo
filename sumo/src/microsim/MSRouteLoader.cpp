@@ -60,7 +60,7 @@ MSRouteLoader::~MSRouteLoader() {
 void
 MSRouteLoader::init() {
     myMoreAvailable = true;
-    if (!myParser->parseFirst(myHandler->getFileName().c_str(), myToken)) {
+    if (!myParser->parseFirst(myHandler->getFileName())) {
         throw ProcessError("Can not read XML-file '" + myHandler->getFileName() + "'.");
     }
 }
@@ -77,7 +77,7 @@ MSRouteLoader::loadUntil(SUMOTime time) {
 
     // read vehicles until specified time or the period to read vehicles
     //  until is reached
-    while (myParser->parseNext(myToken)) {
+    while (myParser->parseNext()) {
         // return when the last read vehicle is beyond the period
         if (time <= myHandler->getLastDepart()) {
             return;

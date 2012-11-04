@@ -322,6 +322,13 @@ private:
     /// @brief The name of the currently parsed file
     std::string myFileName;
 
+private:
+    /// @brief invalidated copy constructor
+    GenericSAXHandler(const GenericSAXHandler& s);
+
+    /// @brief invalidated assignment operator
+    const GenericSAXHandler& operator=(const GenericSAXHandler& s);
+
 };
 
 #endif

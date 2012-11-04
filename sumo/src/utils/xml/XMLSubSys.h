@@ -32,8 +32,6 @@
 #endif
 
 #include <vector>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -41,6 +39,7 @@
 // ===========================================================================
 class GenericSAXHandler;
 class SUMOSAXHandler;
+class SUMOSAXReader;
 
 
 // ===========================================================================
@@ -108,7 +107,7 @@ public:
      * @return The built Xerces-SAX-reader, 0 if something failed
      * @see getSAXReader()
      */
-    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* getSAXReader(SUMOSAXHandler& handler);
+    static SUMOSAXReader* getSAXReader(SUMOSAXHandler& handler);
 
 
     /**
@@ -142,36 +141,9 @@ public:
                           const std::string& file);
 
 
-protected:
-    /**
-     * @brief Builds a reader
-     *
-     * Tries to build a SAX2XMLReader using XMLReaderFactory::createXMLReader. If this
-     *  fails, 0 is returned. Otherwise the validation is set matching the value of
-     *  "myEnableValidation". If validation is not wanted, a WFXMLScanner is used
-     *  (see http://www.ibm.com/developerworks/library/x-xercesperf.html).
-     *
-     * @return The built Xerces-SAX-reader, 0 if something failed
-     */
-    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* getSAXReader();
-
-
-    /**
-     * @brief Sets the named feature of the given reader to the given value
-     *
-     * The given feature name is translated into an XMLCh* and set.
-     *
-     * @param[in] reader The reader to set the feature of
-     * @param[in] feature Name of the feature to set
-     * @param[in] value Value of the feature to set
-     */
-    static void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader& reader,
-                           const std::string& feature, bool value);
-
-
 private:
     /// @brief The XML Readers used for repeated parsing
-    static std::vector<XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader*> myReaders;
+    static std::vector<SUMOSAXReader*> myReaders;
 
     /// @brief Information whether the reader is parsing
     static unsigned int myNextFreeReader;

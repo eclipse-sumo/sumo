@@ -38,6 +38,12 @@
     <ClCompile Include="..\..\..\src\utils\xml\SUMORouteHandler.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Binary.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXReader.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\xml\GenericSAXHandler.h">
@@ -65,6 +71,12 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\xml\SUMORouteHandler.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Binary.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXReader.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

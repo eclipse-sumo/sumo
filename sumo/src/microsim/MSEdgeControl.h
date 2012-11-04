@@ -51,7 +51,6 @@
 class MSEdge;
 class MSLane;
 class OutputDevice;
-class BinaryInputDevice;
 
 
 // ===========================================================================

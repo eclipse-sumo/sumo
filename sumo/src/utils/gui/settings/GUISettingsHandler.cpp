@@ -40,7 +40,7 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/foxtools/MFXImageHelper.h>
-#include <xercesc/framework/MemBufInputSource.hpp>
+#include <utils/xml/SUMOSAXReader.h>
 #include "GUISettingsHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -57,9 +57,8 @@ GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile)
         XMLSubSys::runParser(*this, content);
     } else {
         setFileName("registrySettings");
-        SAX2XMLReader* reader = XMLSubSys::getSAXReader(*this);
-        MemBufInputSource memBufIS((const XMLByte*)content.c_str(), content.size(), "registrySettings");
-        reader->parse(memBufIS);
+        SUMOSAXReader* reader = XMLSubSys::getSAXReader(*this);
+        reader->parseString(content);
         delete reader;
     }
 }

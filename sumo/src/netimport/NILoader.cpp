@@ -44,6 +44,7 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXReader.h>
 #include <netimport/NIXMLEdgesHandler.h>
 #include <netimport/NIXMLNodesHandler.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
@@ -164,7 +165,6 @@ void
 NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string> &files,
                       const std::string& type) {
     // build parser
-    SAX2XMLReader* parser = XMLSubSys::getSAXReader(*handler);
     std::string exceptMsg = "";
     // start the parsing
     try {
@@ -174,9 +174,8 @@ NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string> &f
                 exceptMsg = "Process Error";
                 continue;
             }
-            handler->setFileName(*file);
             PROGRESS_BEGIN_MESSAGE("Parsing " + type + " from '" + *file + "'");
-            parser->parse(file->c_str());
+            XMLSubSys::runParser(*handler, *file);
             PROGRESS_DONE_MESSAGE();
         }
     } catch (const XMLException& toCatch) {
@@ -187,7 +186,6 @@ NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string> &f
     } catch (...) {
         exceptMsg = "The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     }
-    delete parser;
     delete handler;
     if (exceptMsg != "") {
         throw ProcessError(exceptMsg);

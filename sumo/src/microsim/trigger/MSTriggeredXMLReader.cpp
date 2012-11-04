@@ -66,7 +66,7 @@ MSTriggeredXMLReader::~MSTriggeredXMLReader() {}
 
 bool
 MSTriggeredXMLReader::readNextTriggered() {
-    while (myHaveMore && myParser->parseNext(myToken)) {
+    while (myHaveMore && myParser->parseNext()) {
         if (nextRead()) {
             return true;
         }
@@ -80,16 +80,13 @@ void
 MSTriggeredXMLReader::myInit() {
     try {
         myParser = XMLSubSys::getSAXReader(*this);
-        if (!myParser->parseFirst(getFileName().c_str(), myToken)) {
+        if (!myParser->parseFirst(getFileName())) {
             throw ProcessError("Can not read XML-file '" + getFileName() + "'.");
-
         }
     } catch (SAXException& e) {
         throw ProcessError(TplConvert::_2str(e.getMessage()));
-
     } catch (XMLException& e) {
         throw ProcessError(TplConvert::_2str(e.getMessage()));
-
     }
 
     if (readNextTriggered()) {
@@ -105,4 +102,3 @@ MSTriggeredXMLReader::myInit() {
 
 
 /****************************************************************************/
-

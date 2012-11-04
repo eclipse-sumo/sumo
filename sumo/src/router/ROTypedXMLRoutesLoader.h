@@ -32,9 +32,8 @@
 #endif
 
 #include <string>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <xercesc/framework/XMLPScanToken.hpp>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXReader.h>
 
 
 // ===========================================================================
@@ -122,10 +121,7 @@ protected:
     SUMOTime myEnd;
 
     /// @brief The parser used
-    SAX2XMLReader* myParser;
-
-    /// @brief Information about the current position within the file
-    XMLPScanToken myToken;
+    SUMOSAXReader* myParser;
 
     /// @brief The currently read vehicle's depart
     SUMOTime myCurrentDepart;

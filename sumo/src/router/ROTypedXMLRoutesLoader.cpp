@@ -51,11 +51,11 @@ ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet& net,
         SUMOTime begin, SUMOTime end,
         const std::string& file)
     : SUMOSAXHandler(file), myNet(net), myBegin(begin), myEnd(end), 
-      myParser(0), myToken(), myCurrentDepart(-1), myNextRouteRead(false),
+      myParser(0), myCurrentDepart(-1), myNextRouteRead(false),
       myEnded(false) {
     try {
         myParser = XMLSubSys::getSAXReader(*this);
-        myParser->parseFirst(getFileName().c_str(), myToken);
+        myParser->parseFirst(getFileName());
     } catch (...) {
         throw ProcessError();
     }
@@ -72,7 +72,7 @@ ROTypedXMLRoutesLoader::readRoutesAtLeastUntil(SUMOTime time) {
     while (getLastReadTimeStep() < time && !ended()) {
         myNextRouteRead = false;
         while (!myNextRouteRead && !ended()) {
-            myParser->parseNext(myToken);
+            myParser->parseNext();
         }
     }
     return true;
@@ -85,7 +85,4 @@ ROTypedXMLRoutesLoader::endDocument() {
 }
 
 
-
-
 /****************************************************************************/
-

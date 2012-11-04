@@ -46,6 +46,7 @@
 #include "ROVehicle.h"
 #include "RORouteDef.h"
 #include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/xml/XMLSubSys.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -144,8 +145,7 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(RONet& net,
     : RORDLoader_TripDefs(net, begin, end, emptyDestinationsAllowed, false, fileName),
       myRandom(randomize) {
     // read the complete file on initialisation
-    myParser->parseReset(myToken);
-    myParser->parse(getFileName().c_str());
+    XMLSubSys::runParser(*this, getFileName());
     myCurrentDepart = begin;
 }
 

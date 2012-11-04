@@ -149,8 +149,10 @@
     <ClCompile Include="..\..\..\src\utils\xml\SAXWeightsHandler.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMORouteHandler.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributes.cpp" />
+    <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Binary.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Xerces.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXHandler.cpp" />
+    <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXReader.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOVehicleParserHelper.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOXMLDefinitions.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\XMLSubSys.cpp" />
@@ -160,8 +162,10 @@
     <ClInclude Include="..\..\..\src\utils\xml\SAXWeightsHandler.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMORouteHandler.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributes.h" />
+    <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Binary.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Xerces.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXHandler.h" />
+    <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXReader.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOVehicleParserHelper.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOXMLDefinitions.h" />
     <ClInclude Include="..\..\..\src\utils\xml\XMLSubSys.h" />

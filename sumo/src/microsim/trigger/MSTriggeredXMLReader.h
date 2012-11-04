@@ -33,8 +33,8 @@
 #endif
 
 #include <string>
-#include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXReader.h>
 #include "MSTriggeredReader.h"
 
 
@@ -71,10 +71,7 @@ protected:
 
 protected:
     /// The used SAX-parser
-    SAX2XMLReader* myParser;
-
-    /// Position within the XML-file
-    XMLPScanToken  myToken;
+    SUMOSAXReader* myParser;
 
     bool myHaveMore;
 

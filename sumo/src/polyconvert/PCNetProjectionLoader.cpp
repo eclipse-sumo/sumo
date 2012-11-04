@@ -43,6 +43,7 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/xml/SUMOSAXReader.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
@@ -76,15 +77,14 @@ PCNetProjectionLoader::loadIfSet(OptionsCont& oc,
     // build handler and parser
     PCNetProjectionLoader handler(netOffset, origNetBoundary, convNetBoundary, projParameter);
     handler.setFileName(file);
-    XMLPScanToken token;
-    XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* parser = XMLSubSys::getSAXReader(handler);
+    SUMOSAXReader* parser = XMLSubSys::getSAXReader(handler);
     PROGRESS_BEGIN_MESSAGE("Parsing network projection from '" + file + "'");
-    if (!parser->parseFirst(file.c_str(), token)) {
+    if (!parser->parseFirst(file)) {
         delete parser;
         throw ProcessError("Can not read XML-file '" + handler.getFileName() + "'.");
     }
     // parse
-    while (parser->parseNext(token) && !handler.hasReadAll());
+    while (parser->parseNext() && !handler.hasReadAll());
     // clean up
     PROGRESS_DONE_MESSAGE();
     if (!handler.hasReadAll()) {

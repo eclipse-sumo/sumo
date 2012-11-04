@@ -45,9 +45,6 @@
  *
  * This class is a GenericSAXHandler which knows all tags SUMO uses, so all
  *  SUMO-XML - loading classes should be derived from it.
- *
- * Besides the functionality of GenericSAXHandler it
- *  implements methods for dealing with SAX-parser errors.
  */
 class SUMOSAXHandler : public GenericSAXHandler {
 public:
@@ -62,9 +59,6 @@ public:
     /// Destructor
     virtual ~SUMOSAXHandler();
 
-
-
-private:
 
 private:
     /// @brief invalidated copy constructor
