@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r12931
+SUMO netconvert Version dev-SVN-r12937
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -129,8 +129,8 @@ Processing Options:
   --lanes-from-capacity.norm FLOAT    The factor for flow to no. lanes
                                         conversion.
   --speed-in-kmh                      vmax is parsed as given in km/h (some)
-  --plain.keep-edge-shape             No node positions are added to the edge
-                                        shape
+  --plain.extend-edge-shape           If edge shapes do not end at the node
+                                        positions, extend them
   --matsim.keep-length                The edge lengths given in the MATSIM-file
                                         will be kept.
   --matsim.lanes-from-capacity        The lane number will be computed from the
