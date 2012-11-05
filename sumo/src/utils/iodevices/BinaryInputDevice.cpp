@@ -30,6 +30,7 @@
 #endif
 
 #include <string>
+#include "BinaryFormatter.h"
 #include "BinaryInputDevice.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -45,8 +46,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-BinaryInputDevice::BinaryInputDevice(const std::string& name)
-    : myStream(name.c_str(), std::fstream::in | std::fstream::binary) {}
+BinaryInputDevice::BinaryInputDevice(const std::string& name,
+                                     const bool isTyped, const bool doValidate)
+    : myStream(name.c_str(), std::fstream::in | std::fstream::binary),
+      myAmTyped(isTyped), myEnableValidation(doValidate) {}
 
 
 BinaryInputDevice::~BinaryInputDevice() {}
@@ -58,8 +61,35 @@ BinaryInputDevice::good() const {
 }
 
 
+int
+BinaryInputDevice::peek() {
+    return myStream.peek();
+}
+
+
+void
+BinaryInputDevice::checkType(BinaryFormatter::DataType t) {
+    if (myAmTyped) {
+        char c;
+        myStream.read(&c, sizeof(char));
+        if (myEnableValidation && c != t) {
+            throw ProcessError("Unexpected type.");
+        }
+    }
+}
+
+
+BinaryInputDevice&
+operator>>(BinaryInputDevice& os, char& c) {
+    os.checkType(BinaryFormatter::BF_BYTE);
+    os.myStream.read(&c, sizeof(char));
+    return os;
+}
+
+
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, int& i) {
+    os.checkType(BinaryFormatter::BF_INTEGER);
     os.myStream.read((char*) &i, sizeof(int));
     return os;
 }
@@ -67,6 +97,7 @@ operator>>(BinaryInputDevice& os, int& i) {
 
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, unsigned int& i) {
+    os.checkType(BinaryFormatter::BF_INTEGER);
     os.myStream.read((char*) &i, sizeof(unsigned int));
     return os;
 }
@@ -74,6 +105,7 @@ operator>>(BinaryInputDevice& os, unsigned int& i) {
 
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, SUMOReal& f) {
+    os.checkType(BinaryFormatter::BF_FLOAT);
     os.myStream.read((char*) &f, sizeof(SUMOReal));
     return os;
 }
@@ -81,7 +113,8 @@ operator>>(BinaryInputDevice& os, SUMOReal& f) {
 
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, bool& b) {
-    b = 0;
+    os.checkType(BinaryFormatter::BF_BYTE);
+    b = false;
     os.myStream.read((char*) &b, sizeof(char));
     return os;
 }
@@ -89,13 +122,58 @@ operator>>(BinaryInputDevice& os, bool& b) {
 
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, std::string& s) {
+    os.checkType(BinaryFormatter::BF_STRING);
     unsigned int size;
-    os >> size;
+    os.myStream.read((char*) &size, sizeof(unsigned int));
     if (size < BUF_MAX) {
         os.myStream.read((char*) &os.myBuffer, sizeof(char)*size);
         os.myBuffer[size] = 0;
         s = std::string(os.myBuffer);
-        return os;
+    }
+    return os;
+}
+
+
+BinaryInputDevice&
+operator>>(BinaryInputDevice& os, std::vector<std::string>& v) {
+    os.checkType(BinaryFormatter::BF_LIST);
+    unsigned int size;
+    os.myStream.read((char*) &size, sizeof(unsigned int));
+    while (size > 0) {
+        std::string s;
+        os >> s;
+        v.push_back(s);
+        size--;
+    }
+    return os;
+}
+
+
+BinaryInputDevice&
+operator>>(BinaryInputDevice& os, std::vector<unsigned int>& v) {
+    os.checkType(BinaryFormatter::BF_LIST);
+    unsigned int size;
+    os.myStream.read((char*) &size, sizeof(unsigned int));
+    while (size > 0) {
+        unsigned int i;
+        os >> i;
+        v.push_back(i);
+        size--;
+    }
+    return os;
+}
+
+
+BinaryInputDevice&
+operator>>(BinaryInputDevice& os, std::vector< std::vector<unsigned int> >& v) {
+    os.checkType(BinaryFormatter::BF_LIST);
+    unsigned int size;
+    os.myStream.read((char*) &size, sizeof(unsigned int));
+    while (size > 0) {
+        std::vector<unsigned int> nested;
+        os >> nested;
+        v.push_back(nested);
+        size--;
     }
     return os;
 }
@@ -103,6 +181,7 @@ operator>>(BinaryInputDevice& os, std::string& s) {
 
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, long& l) {
+    os.checkType(BinaryFormatter::BF_INTEGER);
     os.myStream.read((char*) &l, sizeof(long));
     return os;
 }
@@ -110,4 +189,3 @@ operator>>(BinaryInputDevice& os, long& l) {
 
 
 /****************************************************************************/
-

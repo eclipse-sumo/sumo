@@ -216,6 +216,9 @@ public:
     //@}
 
 
+    // Reader needs access to myStartElement, myEndElement
+    friend class SUMOSAXReader;
+
 
 protected:
     /**

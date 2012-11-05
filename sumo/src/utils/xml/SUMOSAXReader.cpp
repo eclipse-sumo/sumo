@@ -32,7 +32,9 @@
 #include <iostream>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/framework/MemBufInputSource.hpp>
+#include <utils/iodevices/BinaryFormatter.h>
 #include <utils/iodevices/BinaryInputDevice.h>
+#include "SUMOSAXAttributesImpl_Binary.h"
 #include "GenericSAXHandler.h"
 #include "SUMOSAXReader.h"
 
@@ -94,8 +96,33 @@ SUMOSAXReader::parseString(std::string content) {
 bool 
 SUMOSAXReader::parseFirst(std::string systemID) {
     if (systemID.substr(systemID.length()-4) == ".sbx") {
-        myBinaryInput = new BinaryInputDevice(systemID);
-        return false;
+        myBinaryInput = new BinaryInputDevice(systemID, true, myEnableValidation);
+        char sbxVer;
+        *myBinaryInput >> sbxVer;
+        if (sbxVer != 1) {
+            throw ProcessError("Unknown sbx version");
+        }
+        std::string sumoVer;
+        *myBinaryInput >> sumoVer;
+        std::vector<std::string> elems;
+        *myBinaryInput >> elems;
+        // !!! check elems here
+        elems.clear();
+        *myBinaryInput >> elems;
+        // !!! check attrs here
+        elems.clear();
+        *myBinaryInput >> elems;
+        // !!! check node types here
+        elems.clear();
+        *myBinaryInput >> elems;
+        // !!! check edge types here
+        elems.clear();
+        *myBinaryInput >> elems;
+        // !!! check edges here
+        std::vector< std::vector<unsigned int> > followers;
+        *myBinaryInput >> followers;
+        // !!! check followers here
+        return parseNext();
     } else {
         if (myXMLReader == 0) {
             myXMLReader = getSAXReader();
@@ -110,9 +137,33 @@ SUMOSAXReader::parseFirst(std::string systemID) {
 bool
 SUMOSAXReader::parseNext() {
     if (myBinaryInput != 0) {
-        delete myBinaryInput;
-        myBinaryInput = 0;
-        return false;
+        int next = myBinaryInput->peek();
+        switch (next) {
+        case EOF:
+            delete myBinaryInput;
+            myBinaryInput = 0;
+            return false;
+        case BinaryFormatter::BF_XML_TAG_START: {
+            int t;
+            *myBinaryInput >> t;
+//            SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, myHandler->myPredefinedTagsMML[t]);
+            while (myBinaryInput->peek() == BinaryFormatter::BF_XML_ATTRIBUTE) {
+                int attr;
+                *myBinaryInput >> t;
+            }
+//            myHandler->myStartElement(t, attrs);
+            break;
+                                                }
+        case BinaryFormatter::BF_XML_TAG_END: {
+            int t;
+            *myBinaryInput >> t;
+            myHandler->myEndElement(t);
+            break;
+                                              }
+        default:
+            return false;
+        }
+        return true;
     } else {
         if (myXMLReader == 0) {
             throw ProcessError("The XML-parser was not initialized.");

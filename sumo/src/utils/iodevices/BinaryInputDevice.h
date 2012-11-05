@@ -32,7 +32,9 @@
 #endif
 
 #include <string>
+#include <vector>
 #include <fstream>
+#include "BinaryFormatter.h"
 
 
 // ===========================================================================
@@ -59,7 +61,7 @@ public:
      *
      * @param[in] name The name of the file to open for reading
      */
-    BinaryInputDevice(const std::string& name);
+    BinaryInputDevice(const std::string& name, const bool isTyped=false, const bool doValidate=false);
 
 
     /// @brief Destructor
@@ -71,6 +73,22 @@ public:
      * @return Whether the file is good
      */
     bool good() const;
+
+
+    /** @brief Returns the next character to be read by an actual parse.
+     *
+     * @return the next character which will be returned
+     */
+    int peek();
+
+
+    /** @brief Reads a char from the file (input operator)
+     *
+     * @param[in, out] os The BinaryInputDevice to read the char from
+     * @param[in] c The char to store the read value into
+     * @return The used BinaryInputDevice for further processing
+     */
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, char& c);
 
 
     /** @brief Reads an int from the file (input operator)
@@ -117,11 +135,56 @@ public:
      *  will cause an error.
      *
      * @param[in, out] os The BinaryInputDevice to read the string from
-     * @param[in] i The string to store the read value into
+     * @param[in] s The string to store the read value into
      * @return The used BinaryInputDevice for further processing
      * @todo Use either a buffer with a flexible size or report an error if the buffer is too small!
      */
     friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::string& s);
+
+
+    /** @brief Reads a string vector from the file (input operator)
+     *
+     * Reads the length of the vector as an unsigned int, first.
+     *  Reads then the specified number of strings using the string input operator.
+     * Please note that the buffer has a fixed size - longer strings
+     *  will cause an error.
+     *
+     * @param[in, out] os The BinaryInputDevice to read the string from
+     * @param[in] v The string vector to store the read value into
+     * @return The used BinaryInputDevice for further processing
+     * @todo Use either a buffer with a flexible size or report an error if the buffer is too small!
+     */
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::vector<std::string>& v);
+
+
+    /** @brief Reads a string vector from the file (input operator)
+     *
+     * Reads the length of the vector as an unsigned int, first.
+     *  Reads then the specified number of strings using the string input operator.
+     * Please note that the buffer has a fixed size - longer strings
+     *  will cause an error.
+     *
+     * @param[in, out] os The BinaryInputDevice to read the string from
+     * @param[in] v The string vector to store the read value into
+     * @return The used BinaryInputDevice for further processing
+     * @todo Use either a buffer with a flexible size or report an error if the buffer is too small!
+     */
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::vector<unsigned int>& v);
+
+
+    /** @brief Reads a string vector from the file (input operator)
+     *
+     * Reads the length of the vector as an unsigned int, first.
+     *  Reads then the specified number of strings using the string input operator.
+     * Please note that the buffer has a fixed size - longer strings
+     *  will cause an error.
+     *
+     * @param[in, out] os The BinaryInputDevice to read the string from
+     * @param[in] v The string vector to store the read value into
+     * @return The used BinaryInputDevice for further processing
+     * @todo Use either a buffer with a flexible size or report an error if the buffer is too small!
+     */
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::vector< std::vector<unsigned int> >& v);
 
 
     /** @brief Reads a long from the file (input operator)
@@ -132,10 +195,17 @@ public:
      */
     friend BinaryInputDevice& operator>>(BinaryInputDevice& os, long& l);
 
+private:
+    void checkType(BinaryFormatter::DataType t);
 
 private:
     /// @brief The encapsulated stream
     std::ifstream myStream;
+
+    const bool myAmTyped;
+
+    /// @brief Information whether types shall be checked
+    const bool myEnableValidation;
 
     /// @brief The buffer used for string parsing
     char myBuffer[1000];
