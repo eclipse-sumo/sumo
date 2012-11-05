@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r12925
+SUMO netgenerate Version dev-SVN-r12931
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -76,6 +76,7 @@ Output Options:
                                         output (if available).
   --output.original-names             Writes original names, if given, as
                                         parameter.
+  --street-sign-output FILE           Writes street signs as POIs to FILE.
 
 TLS Building Options:
   --tls.set STR                       Interprets STR as list of junctions to be

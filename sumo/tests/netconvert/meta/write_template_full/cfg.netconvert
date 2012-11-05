@@ -38,6 +38,7 @@
         <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX."/>
         <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)."/>
         <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter."/>
+        <street-sign-output value="" type="FILE" help="Writes street signs as POIs to FILE."/>
     </output>
 
     <projection>

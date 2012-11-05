@@ -96,6 +96,9 @@
         <!-- Writes original names, if given, as parameter. -->
         <output.original-names value="false" type="BOOL"/>
 
+        <!-- Writes street signs as POIs to FILE. -->
+        <street-sign-output value="" type="FILE"/>
+
     </output>
 
     <projection>
