@@ -1,5 +1,4 @@
 Error: Attribute 'departPos' in definition of a flow is empty.
-Error: The loader for flow-files from file 'input_flows.flows.xml' could not be initialised;
- Reason: Invalid departPos definition for vehicle 0;
- must be one of ("random", "random_free", "free", "base", "pwagSimple", "pwagGeneric", "maxSpeedGap", or a float).
+Error: Invalid departPos definition for vehicle 0;
+ must be one of ("random", "random_free", "free", "base", "pwagSimple", "pwagGeneric", "maxSpeedGap", or a float)
 Quitting (on error).
