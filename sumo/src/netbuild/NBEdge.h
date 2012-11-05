@@ -47,6 +47,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "NBHelpers.h"
+#include "NBSign.h"
 
 
 // ===========================================================================
@@ -963,6 +964,14 @@ public:
 
     void buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsigned int& lno, unsigned int& splitNo);
 
+    inline const std::vector<NBSign>& getSigns() const {
+        return mySigns;
+    }
+
+    inline void addSign(NBSign sign) {
+        mySigns.push_back(sign);
+    }
+
 
 private:
     /**
@@ -1105,7 +1114,6 @@ private:
      */
     PositionVector startShapeAt(const PositionVector& laneShape, const NBNode* startNode, unsigned int laneIndex) const;
 
-
 private:
     /** @brief The building step
      * @see EdgeBuildingStep
@@ -1185,6 +1193,10 @@ private:
 
     /// @brief The street name (or whatever arbitrary string you wish to attach)
     std::string myStreetName;
+
+
+    /// @brief the street signs along this edge
+    std::vector<NBSign> mySigns;
 
 
 public:

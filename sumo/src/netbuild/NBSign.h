@@ -1,0 +1,100 @@
+/****************************************************************************/
+/// @file    NBSign.h
+/// @author  Jakob Erdmann
+/// @date    Nov 2012
+/// @version $Id: NBSign.h 12051 2012-03-12 06:54:12Z namdre $
+///
+// A class representing a street sign
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation, either version 3 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+#ifndef NBSign_h
+#define NBSign_h
+
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
+#include <string>
+#include <utils/common/StringBijection.h>
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class NBEdge;
+class OutputDevice;
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class NBSign
+ * @brief A class representing a single street sign
+ */
+class NBSign {
+public:
+
+    enum SignType {
+        SIGN_TYPE_SPEED,
+        SIGN_TYPE_YIELD,
+        SIGN_TYPE_ON_RAMP,
+        SIGN_TYPE_PRIORITY,
+        SIGN_TYPE_RIGHT_BEFORE_LEFT,
+        SIGN_TYPE_ROUNDABOUT,
+        SIGN_TYPE_RAIL_CROSSING,
+        SIGN_TYPE_SLOPE,
+        SIGN_TYPE_CITY,
+        SIGN_TYPE_INFO,
+    };
+
+    /** @brief Constructor with id, and position
+     *
+     * @param[in] type The type of the sign
+     * @param[in] offset The offset of the sign from the start of its edge
+     * @param[in] label The (optional) label (for SPEED, SLOPE etc)
+     */
+    NBSign(SignType type, SUMOReal offset, const std::string label="");
+
+
+    /// @brief Destructor
+    ~NBSign();
+
+    /// @brief write into device as POI positioned relative to the given edge
+    void writeAsPOI(OutputDevice& into, const NBEdge* edge) const;
+
+
+private:
+    /// @brief the type of the sign
+    SignType myType;
+
+    /// @brief The offset of the sign from the start of its edge
+    SUMOReal myOffset;
+
+    /// @brief The (optional) label (for SPEED, SLOPE etc)
+    std::string myLabel;
+
+    static StringBijection<SignType> SignTypeStrings;
+    static StringBijection<SignType> SignTypeColors;
+};
+
+
+#endif
+
+/****************************************************************************/
+

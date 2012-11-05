@@ -74,6 +74,12 @@ public:
      */
     static void writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc);
 
+    /** @brief Writes street signs as POIs to file
+     * @param[in] oc The options to use
+     * @param[in] ec The edge-container from which to read data
+     */
+    static void writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec);
+
 private:
     /** @brief Writes the nodes file
      * @param[in] oc The options to use

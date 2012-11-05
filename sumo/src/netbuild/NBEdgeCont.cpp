@@ -841,4 +841,30 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
 }
 
 
+void 
+NBEdgeCont::generateStreetSigns() {
+    for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
+        NBEdge* e = i->second;
+        // is this a "real" junction?
+        // XXX nyi
+        //continue
+        const SUMOReal offset = e->getLength() - 3;
+        switch (e->getToNode()->getType()) {
+            case NODETYPE_PRIORITY_JUNCTION:
+                // yield or major?
+                if (e->getJunctionPriority(e->getToNode()) > 0) {
+                    e->addSign(NBSign(NBSign::SIGN_TYPE_PRIORITY, offset));
+                } else {
+                    e->addSign(NBSign(NBSign::SIGN_TYPE_YIELD, offset));
+                }
+                break;
+            case NODETYPE_RIGHT_BEFORE_LEFT:
+                e->addSign(NBSign(NBSign::SIGN_TYPE_RIGHT_BEFORE_LEFT, offset));
+                break;
+            default:
+                break;
+        }
+    }
+}
+
 /****************************************************************************/

@@ -466,6 +466,8 @@ public:
     void recheckPostProcessConnections(); 
     /// @}
 
+    /// @brief assigns street signs to edges based on toNode types
+    void generateStreetSigns();
 
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id

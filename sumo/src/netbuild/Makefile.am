@@ -16,6 +16,7 @@ NBTrafficLightDefinition.cpp NBTrafficLightDefinition.h \
 NBTrafficLightLogic.cpp NBTrafficLightLogic.h \
 NBTrafficLightLogicCont.cpp NBTrafficLightLogicCont.h \
 NBTypeCont.cpp NBTypeCont.h \
+NBSign.cpp NBSign.h \
 NBOwnTLDef.cpp NBOwnTLDef.h \
 NBLoadedTLDef.cpp NBLoadedTLDef.h \
 NBLoadedSUMOTLDef.cpp NBLoadedSUMOTLDef.h \

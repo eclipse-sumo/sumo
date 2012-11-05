@@ -1,0 +1,1 @@
+--sumo-net-file input_net.net.xml --street-sign-output pois.add.xml -o ignore.net.xml --verbose

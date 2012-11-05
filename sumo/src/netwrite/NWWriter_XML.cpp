@@ -68,6 +68,9 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.isSet("junctions.join-output")) {
         writeJoinedJunctions(oc, nb.getNodeCont());
     }
+    if (oc.isSet("street-sign-output")) {
+        writeStreetSigns(oc, nb.getEdgeCont());
+    }
 }
 
 
@@ -270,6 +273,21 @@ NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
         std::string ids = oss.str();
         device.writeAttr(SUMO_ATTR_NODES, ids.substr(0, ids.size() - 1));
         device.closeTag(true);
+    }
+    device.close();
+}
+
+
+void 
+NWWriter_XML::writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("street-sign-output"));
+    device.writeXMLHeader("pois", SUMOSAXAttributes::ENCODING, NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/poi_file.xsd\"");
+    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
+        NBEdge* e = (*i).second;
+        const std::vector<NBSign>& signs =  e->getSigns();
+        for (std::vector<NBSign>::const_iterator it = signs.begin(); it != signs.end(); ++it) {
+            it->writeAsPOI(device, e);
+        }
     }
     device.close();
 }

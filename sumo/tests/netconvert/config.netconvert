@@ -35,6 +35,7 @@ elmar_links:elmar_output_links_unsplitted.txt
 elmar_nodes:elmar_output_nodes_unsplitted.txt
 elmar_traffic_signals:elmar_output_traffic_signals.txt
 elmar_names:elmar_output_names.txt
+pois:pois.add.xml
 
 [run_dependent_text]
 output:\r{REPLACE \n}
@@ -45,6 +46,7 @@ plain_tllogic:<!--{[->]}-->
 joined_nodes:<!--{[->]}-->
 net:<!--{[->]}-->
 foreign:date="{[->]}"
+pois:<!--{[->]}-->
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed

@@ -317,7 +317,12 @@ NBNetBuilder::compute(OptionsCont& oc,
         progCount = "(" + toString(numbers.second) + " programs) ";
     }
     WRITE_MESSAGE(" " + toString(numbers.first) + " traffic light(s) " + progCount + "computed.");
-
+    //
+    if (oc.isSet("street-sign-output")) {
+        PROGRESS_BEGIN_MESSAGE("Generating street signs");
+        myEdgeCont.generateStreetSigns();
+        PROGRESS_DONE_MESSAGE();
+    }
 
     // FINISHING INNER EDGES
     if (!oc.getBool("no-internal-links")) {
