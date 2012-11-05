@@ -128,7 +128,7 @@ private:
     bool myCurrentIgnorePrunning;
 
     /// @brief The layer of the currently parsed polygon
-    int myCurrentLayer;
+    SUMOReal myCurrentLayer;
     /// @}
 
 

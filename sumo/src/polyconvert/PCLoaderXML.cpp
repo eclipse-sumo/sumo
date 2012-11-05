@@ -153,7 +153,7 @@ PCLoaderXML::myStartElement(int element,
                 ignorePrunning = true;
             }
             PointOfInterest* poi = new PointOfInterest(id, type, color, pos, layer, angle, imgFile, imgWidth, imgHeight);
-            if (!myCont.insert(id, poi, layer, ignorePrunning)) {
+            if (!myCont.insert(id, poi, (int)layer, ignorePrunning)) {
                 WRITE_ERROR("POI '" + id + "' could not be added.");
                 delete poi;
             }
@@ -218,7 +218,7 @@ PCLoaderXML::myStartElement(int element,
                 shape.push_back(pos);
             }
             Polygon* poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, fill, layer, angle, imgFile);
-            if (!myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning)) {
+            if (!myCont.insert(myCurrentID, poly, (int)myCurrentLayer, myCurrentIgnorePrunning)) {
                 WRITE_ERROR("Polygon '" + myCurrentID + "' could not be added.");
                 delete poly;
             }  
