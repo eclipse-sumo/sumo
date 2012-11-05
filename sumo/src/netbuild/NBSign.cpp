@@ -1,12 +1,10 @@
 /****************************************************************************/
 /// @file    NBSign.cpp
-/// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
-/// @author  Michael Behrisch
-/// @date    Sept 2002
+/// @date    Nov 2012
 /// @version $Id: NBSign.cpp 11671 2012-01-07 20:14:30Z behrisch $
 ///
-// A class representing a single district
+// A class representing a street sign
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
