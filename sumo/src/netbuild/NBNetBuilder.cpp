@@ -233,15 +233,15 @@ NBNetBuilder::compute(OptionsCont& oc,
     NBEdgePriorityComputer::computeEdgePriorities(myNodeCont);
     PROGRESS_DONE_MESSAGE();
     //
+    PROGRESS_BEGIN_MESSAGE("Computing approached edges");
+    myEdgeCont.computeEdge2Edges(oc.getBool("no-left-connections"));
+    PROGRESS_DONE_MESSAGE();
+    //
     if (oc.getBool("roundabouts.guess")) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting roundabouts");
         myEdgeCont.guessRoundabouts(myRoundabouts);
         PROGRESS_DONE_MESSAGE();
     }
-    //
-    PROGRESS_BEGIN_MESSAGE("Computing approached edges");
-    myEdgeCont.computeEdge2Edges(oc.getBool("no-left-connections"));
-    PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Computing approaching lanes");
     myEdgeCont.computeLanes2Edges();

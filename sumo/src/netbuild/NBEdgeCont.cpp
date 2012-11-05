@@ -815,25 +815,21 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
             std::set<NBEdge*> loopEdgesSet(loopEdges.begin(), loopEdges.end());
             for (std::set<NBEdge*>::const_iterator j = loopEdgesSet.begin(); j != loopEdgesSet.end(); ++j) {
                 // disable turnarounds on incoming edges
-                const EdgeVector& incoming = (*j)->getToNode()->getIncomingEdges();
-                const EdgeVector& outgoing = (*j)->getToNode()->getOutgoingEdges();
+                NBNode* node = (*j)->getToNode();
+                const EdgeVector& incoming = node->getIncomingEdges();
+                const EdgeVector& outgoing = node->getOutgoingEdges();
                 for (EdgeVector::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
-                    if (loopEdgesSet.find(*k) != loopEdgesSet.end()) {
+                    NBEdge* inEdge = *k;
+                    if (loopEdgesSet.count(inEdge) > 0) {
                         continue;
                     }
-                    if ((*k)->getStep() >= NBEdge::LANES2LANES_USER) {
+                    if ((inEdge)->getStep() >= NBEdge::LANES2LANES_USER) {
                         continue;
                     }
-                    for (EdgeVector::const_iterator l = outgoing.begin(); l != outgoing.end(); ++l) {
-                        if (loopEdgesSet.find(*l) != loopEdgesSet.end()) {
-                            (*k)->addEdge2EdgeConnection(*l);
-                        } else {
-                            (*k)->removeFromConnections(*l, -1);
-                        }
-                    }
+                    inEdge->removeFromConnections(inEdge->getTurnDestination(), -1);
                 }
                 // let the connections to succeeding roundabout edge have a higher priority
-                (*j)->setJunctionPriority((*j)->getToNode(), 1000);
+                (*j)->setJunctionPriority(node, 1000);
             }
             marked.push_back(loopEdgesSet);
         }
