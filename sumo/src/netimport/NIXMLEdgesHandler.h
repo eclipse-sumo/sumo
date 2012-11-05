@@ -183,6 +183,9 @@ private:
     /// @brief Information about lane permissions
     SVCPermissions myPermissions;
 
+    /// @brief Whether the edge shape shall be kept generally
+    bool myKeepEdgeShape;
+
     /// @brief Whether the edge shape shall be kept at reinitilization
     bool myReinitKeepEdgeShape;
 

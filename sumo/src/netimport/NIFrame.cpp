@@ -156,9 +156,9 @@ NIFrame::fillOptions() {
     
     
     // register xml options
-    oc.doRegister("plain.keep-edge-shape", new Option_Bool(false));
-    oc.addSynonyme("plain.keep-edge-shape", "xml.keep-shape", true);
-    oc.addDescription("plain.keep-edge-shape", "Processing", "No node positions are added to the edge shape");
+    oc.doRegister("plain.extend-edge-shape", new Option_Bool(false));
+    oc.addSynonyme("plain.extend-edge-shape", "xml.keep-shape", true);
+    oc.addDescription("plain.extend-edge-shape", "Processing", "If edge shapes do not end at the node positions, extend them");
 
 
     // register matsim options

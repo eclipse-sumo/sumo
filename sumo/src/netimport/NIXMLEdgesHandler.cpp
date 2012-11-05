@@ -76,7 +76,9 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
       myOptions(options),
       myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
       myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
-      myHaveWarnedAboutDeprecatedLaneId(false) {}
+      myHaveWarnedAboutDeprecatedLaneId(false),
+      myKeepEdgeShape(!options.getBool("plain.extend-edge-shape"))
+{}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() {}
@@ -242,7 +244,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
             myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                                        myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset,
                                        myShape, myCurrentStreetName, myLanesSpread,
-                                       OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
+                                       myKeepEdgeShape);
         }
     }
     myCurrentEdge->setLoadedLength(myLength);
@@ -406,7 +408,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
     if (!NILoader::transformCoordinates(shape)) {
         WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
     }
-    myReinitKeepEdgeShape = OptionsCont::getOptions().getBool("plain.keep-edge-shape");
+    myReinitKeepEdgeShape = myKeepEdgeShape;
     return shape;
 }
 

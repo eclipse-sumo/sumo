@@ -411,8 +411,8 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     }
     Position pos = readPosition(attrs, id, ok);
     NILoader::transformCoordinates(pos, true, myLocation);
-    // the network may have been built with the option "plain.keep-edge-shape" this
-    // makes accurate reconstruction of legacy networks impossible. We ought to warn about this
+    // the network may have non-default edge geometry.
+    // accurate reconstruction of legacy networks is not possible. We ought to warn about this
     std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
     if (shapeS != "") {
         PositionVector shape = GeomConvHelper::parseShapeReporting(
