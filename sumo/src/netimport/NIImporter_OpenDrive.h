@@ -104,7 +104,6 @@ protected:
         OPENDRIVE_TAG_RIGHT,
         OPENDRIVE_TAG_LANE,
         OPENDRIVE_TAG_SIGNAL,
-        OPENDRIVE_ATTR_DYNAMIC
     };
 
 
@@ -136,7 +135,8 @@ protected:
         OPENDRIVE_ATTR_D,
         OPENDRIVE_ATTR_TYPE,
         OPENDRIVE_ATTR_LEVEL,
-        OPENDRIVE_ATTR_ORIENTATION
+        OPENDRIVE_ATTR_ORIENTATION,
+        OPENDRIVE_ATTR_DYNAMIC,
     };
 
     enum LinkType {
