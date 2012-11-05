@@ -155,6 +155,7 @@
     <ClCompile Include="..\..\..\src\netbuild\NBNodeShapeComputer.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBOwnTLDef.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBRequest.cpp" />
+    <ClCompile Include="..\..\..\src\netbuild\NBSign.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBTrafficLightDefinition.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBTrafficLightLogic.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBTrafficLightLogicCont.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="..\..\..\src\netbuild\NBNodeShapeComputer.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBOwnTLDef.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBRequest.h" />
+    <ClInclude Include="..\..\..\src\netbuild\NBSign.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBTrafficLightDefinition.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBTrafficLightLogic.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBTrafficLightLogicCont.h" />
