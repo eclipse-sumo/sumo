@@ -19,5 +19,8 @@ withparams
 # Tests the import of shared routes
 multiref
 
+# Tests the import of shared routes on a different net
+multiref2
+
 # Tests for false user input
 errors

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11/05/12 10:19:49 by SUMO netconvert Version dev-SVN-r12927
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="circular.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="500.00,0.00" convBoundary="0.00,0.00,6000.00,5000.00" origBoundary="-500.00,0.00,5500.00,5000.00" projParameter="!"/>
+
+    <edge id=":bottom-left_0" function="internal">
+        <lane id=":bottom-left_0_0" index="0" speed="36.10" length="5.00" shape="498.35,4.75 498.16,3.39 497.58,2.43 496.61,1.84 495.25,1.65"/>
+    </edge>
+    <edge id=":bottom-left_1" function="internal">
+        <lane id=":bottom-left_1_0" index="0" speed="36.10" length="7.85" shape="498.35,4.75 498.54,1.95 499.13,-0.05 500.09,-1.25 501.45,-1.65"/>
+    </edge>
+    <edge id=":bottom-right_0" function="internal">
+        <lane id=":bottom-right_0_0" index="0" speed="36.10" length="6.20" shape="5498.55,-1.65 5504.75,-1.65"/>
+    </edge>
+    <edge id=":bottom-right_1" function="internal">
+        <lane id=":bottom-right_1_0" index="0" speed="36.10" length="5.00" shape="5498.55,-1.65 5499.91,-1.46 5500.88,-0.87 5501.46,0.09 5501.65,1.45"/>
+    </edge>
+    <edge id=":top-left_0" function="internal">
+        <lane id=":top-left_0_0" index="0" speed="36.10" length="6.20" shape="501.45,5001.65 495.25,5001.65"/>
+    </edge>
+    <edge id=":top-left_1" function="internal">
+        <lane id=":top-left_1_0" index="0" speed="36.10" length="5.00" shape="501.45,5001.65 500.09,5001.46 499.13,5000.88 498.54,4999.91 498.35,4998.55"/>
+    </edge>
+    <edge id=":top-right_0" function="internal">
+        <lane id=":top-right_0_0" index="0" speed="36.10" length="5.00" shape="5501.65,4995.25 5501.84,4996.61 5502.42,4997.57 5503.39,4998.16 5504.75,4998.35"/>
+    </edge>
+    <edge id=":top-right_1" function="internal">
+        <lane id=":top-right_1_0" index="0" speed="36.10" length="7.85" shape="5501.65,4995.25 5501.46,4998.05 5500.87,5000.05 5499.91,5001.25 5498.55,5001.65"/>
+    </edge>
+
+    <edge id="bottom" from="bottom-left" to="bottom-right" priority="-1">
+        <lane id="bottom_0" index="0" speed="36.10" length="4997.10" shape="501.45,-1.65 5498.55,-1.65"/>
+    </edge>
+    <edge id="leave-bottom" from="bottom-right" to="leave-bottom-right" priority="-1">
+        <lane id="leave-bottom_0" index="0" speed="36.10" length="495.25" shape="5504.75,-1.65 6000.00,-1.65"/>
+    </edge>
+    <edge id="leave-left" from="bottom-left" to="leave-bottom-left" priority="-1">
+        <lane id="leave-left_0" index="0" speed="36.10" length="495.25" shape="495.25,1.65 0.00,1.65"/>
+    </edge>
+    <edge id="leave-right" from="top-right" to="leave-top-right" priority="-1">
+        <lane id="leave-right_0" index="0" speed="36.10" length="495.25" shape="5504.75,4998.35 6000.00,4998.35"/>
+    </edge>
+    <edge id="leave-top" from="top-left" to="leave-top-left" priority="-1">
+        <lane id="leave-top_0" index="0" speed="36.10" length="495.25" shape="495.25,5001.65 0.00,5001.65"/>
+    </edge>
+    <edge id="left" from="top-left" to="bottom-left" priority="-1">
+        <lane id="left_0" index="0" speed="36.10" length="4993.80" shape="498.35,4998.55 498.35,4.75"/>
+    </edge>
+    <edge id="right" from="bottom-right" to="top-right" priority="-1">
+        <lane id="right_0" index="0" speed="36.10" length="4993.80" shape="5501.65,1.45 5501.65,4995.25"/>
+    </edge>
+    <edge id="top" from="top-right" to="top-left" priority="-1">
+        <lane id="top_0" index="0" speed="36.10" length="4997.10" shape="5498.55,5001.65 501.45,5001.65"/>
+    </edge>
+
+    <junction id="bottom-left" type="priority" x="500.00" y="0.00" incLanes="left_0" intLanes=":bottom-left_0_0 :bottom-left_1_0" shape="496.75,4.75 499.95,4.75 501.45,-0.05 501.45,-3.25 495.25,0.05 495.25,3.25">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="bottom-right" type="priority" x="5500.00" y="0.00" incLanes="bottom_0" intLanes=":bottom-right_0_0 :bottom-right_1_0" shape="5500.05,1.45 5503.25,1.45 5504.75,-0.05 5504.75,-3.25 5498.55,-3.25 5498.55,-0.05">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="leave-bottom-left" type="unregulated" x="0.00" y="0.00" incLanes="leave-left_0" intLanes="" shape="0.00,3.25 0.00,0.05">
+    </junction>
+    <junction id="leave-bottom-right" type="unregulated" x="6000.00" y="0.00" incLanes="leave-bottom_0" intLanes="" shape="6000.00,-3.25 6000.00,-0.05">
+    </junction>
+    <junction id="leave-top-left" type="unregulated" x="0.00" y="5000.00" incLanes="leave-top_0" intLanes="" shape="0.00,5003.25 0.00,5000.05">
+    </junction>
+    <junction id="leave-top-right" type="unregulated" x="6000.00" y="5000.00" incLanes="leave-right_0" intLanes="" shape="6000.00,4996.75 6000.00,4999.95">
+    </junction>
+    <junction id="top-left" type="priority" x="500.00" y="5000.00" incLanes="top_0" intLanes=":top-left_0_0 :top-left_1_0" shape="501.45,5003.25 501.45,5000.05 499.95,4998.55 496.75,4998.55 495.25,5000.05 495.25,5003.25">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="top-right" type="priority" x="5500.00" y="5000.00" incLanes="right_0" intLanes=":top-right_0_0 :top-right_1_0" shape="5504.75,4999.95 5504.75,4996.75 5503.25,4995.25 5500.05,4995.25 5498.55,5000.05 5498.55,5003.25">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+
+    <connection from="bottom" to="leave-bottom" fromLane="0" toLane="0" via=":bottom-right_0_0" dir="s" state="M"/>
+    <connection from="bottom" to="right" fromLane="0" toLane="0" via=":bottom-right_1_0" dir="l" state="M"/>
+    <connection from="left" to="leave-left" fromLane="0" toLane="0" via=":bottom-left_0_0" dir="r" state="M"/>
+    <connection from="left" to="bottom" fromLane="0" toLane="0" via=":bottom-left_1_0" dir="l" state="M"/>
+    <connection from="right" to="leave-right" fromLane="0" toLane="0" via=":top-right_0_0" dir="r" state="M"/>
+    <connection from="right" to="top" fromLane="0" toLane="0" via=":top-right_1_0" dir="l" state="M"/>
+    <connection from="top" to="leave-top" fromLane="0" toLane="0" via=":top-left_0_0" dir="s" state="M"/>
+    <connection from="top" to="left" fromLane="0" toLane="0" via=":top-left_1_0" dir="l" state="M"/>
+
+    <connection from=":bottom-left_0" to="leave-left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":bottom-left_1" to="bottom" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":bottom-right_0" to="leave-bottom" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":bottom-right_1" to="right" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":top-left_0" to="leave-top" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":top-left_1" to="left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":top-right_0" to="leave-right" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":top-right_1" to="top" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
