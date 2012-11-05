@@ -21,3 +21,6 @@ socketout
 
 # testing 'extended' sumo features
 extended
+
+# testing sumo binary xml
+binary
