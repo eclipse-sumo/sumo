@@ -22,5 +22,8 @@ route_nested_ref
 # checks using basic speed distribution
 speed_basic
 
+# tests the effect of using speedDev > 0
+speedDev
+
 # testing for error messages
 errors

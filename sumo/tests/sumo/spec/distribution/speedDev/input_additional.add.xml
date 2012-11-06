@@ -1,0 +1,5 @@
+<add>
+
+	<edgeData id="dump_15" freq="100" file="aggregated_15.xml" excludeEmpty="true"/>
+
+</add>

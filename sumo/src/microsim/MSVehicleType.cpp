@@ -70,8 +70,9 @@ MSVehicleType::~MSVehicleType() {
 
 SUMOReal 
 MSVehicleType::computeChosenSpeedDeviation(MTRand &rng) const {
-    const SUMOReal devA = MIN2(SUMOReal(2.), MAX2(SUMOReal(-2.), RandHelper::randNorm(0, 1., rng)));
-    return (devA*myParameter.speedDev + 1.) * myParameter.speedFactor;
+    // for speedDev = 0.1, most drivers will drive between 80% and 120% of the legal speed limit
+    return MAX2(SUMOReal(0.1), // avoid extreme dawdling
+            RandHelper::randNorm(myParameter.speedFactor, myParameter.speedDev, rng));
 }
 
 
