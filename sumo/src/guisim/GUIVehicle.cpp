@@ -302,7 +302,7 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 15);
+        new GUIParameterTableWindow(app, *this, 20);
     // add items
     ret->mkItem("type [NAME]", false, myType->getID());
     if (getParameter().repetitionNumber > 0) {
@@ -311,6 +311,10 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     if (getParameter().repetitionOffset > 0) {
         ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
     }
+    if (getChosenSpeedFactor() != 1) {
+        ret->mkItem("speed factor", false, getChosenSpeedFactor());
+    }
+    ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
     ret->mkItem("waiting time [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
     ret->mkItem("last lane change [s]", true,
