@@ -122,7 +122,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
             }
             device << e->getID() << "\t1\t" << geom.size() - 2;  
             for (size_t ii = 1; ii < geom.size() - 1; ++ii) {
-                Position pos = geom[ii];
+                Position pos = geom[(int)ii];
                 gch.cartesian2geo(pos);
                 pos.mul(geoScale);
                 device << "\t" << pos.x() << "\t" << pos.y();
