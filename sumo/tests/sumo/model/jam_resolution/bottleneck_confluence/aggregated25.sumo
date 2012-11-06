@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Thu Oct  4 16:00:05 2012 by SUMO sumo Version dev-SVN-r12771
+<!-- generated on 11/06/12 12:17:31 by SUMO sumo Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -10,10 +10,6 @@
         <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
-
-    <output>
-        <vehroute-output value="vehroutes.xml"/>
-    </output>
 
     <time>
         <end value="1440"/>
@@ -31,6 +27,6 @@
     <interval begin="0.00" end="1440.00" id="expect_300_vehs">
         <edge id="in1" sampledSeconds="85179.73" traveltime="1560.13" density="120.03" occupancy="30.01" waitingTime="58068.00" speed="0.32" departed="86" arrived="0" entered="0" left="23" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="in2" sampledSeconds="18872.86" traveltime="40.33" density="26.67" occupancy="6.67" waitingTime="0.00" speed="12.19" departed="476" arrived="0" entered="0" left="462" laneChangedFrom="2" laneChangedTo="2"/>
-        <edge id="out" sampledSeconds="18287.81" traveltime="37.89" density="25.48" occupancy="12.74" waitingTime="0.00" speed="13.16" departed="0" arrived="169" entered="485" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="out" sampledSeconds="18287.81" traveltime="37.89" density="25.48" occupancy="12.74" waitingTime="0.00" speed="13.16" departed="0" arrived="472" entered="485" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </netstats>
