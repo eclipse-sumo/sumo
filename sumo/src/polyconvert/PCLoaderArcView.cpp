@@ -81,6 +81,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     RGBColor color = RGBColor::parseColor(oc.getString("color"));
     int layer = oc.getInt("layer");
     std::string idField = oc.getString("shapefile.id-column");
+    bool useRunningID = oc.getBool("shapefile.use-running-id");
     // start parsing
     std::string shpName = file + ".shp";
     OGRRegisterAll();
@@ -112,9 +113,11 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
 
     OGRFeature* poFeature;
     poLayer->ResetReading();
+    unsigned int runningID = 0;
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
-        std::string id = poFeature->GetFieldAsString(idField.c_str());
+        std::string id = useRunningID ? toString(runningID) : poFeature->GetFieldAsString(idField.c_str());
+        ++runningID;
         id = StringUtils::prune(id);
         if (id == "") {
             throw ProcessError("Missing id under '" + idField + "'");

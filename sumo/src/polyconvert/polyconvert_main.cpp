@@ -132,6 +132,9 @@ fillOptions() {
     oc.addSynonyme("shapefile.id-column", "shape-files.id-name", true);
     oc.addDescription("shapefile.id-column", "Input", "Defines in which column the id can be found");
 
+    oc.doRegister("shapefile.use-running-id", new Option_Bool());
+    oc.addDescription("shapefile.use-running-id", "Input", "A running number will be used as id.");
+
     // typemap reading
     oc.doRegister("type-file", new Option_FileName());
     oc.addSynonyme("type-file", "typemap", true);
