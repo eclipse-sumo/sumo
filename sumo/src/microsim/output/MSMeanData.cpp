@@ -82,6 +82,8 @@ MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notifi
 
 bool
 MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) {
+    // if the vehicle has arrived, the reminder must be kept so it can be
+    // notified of the arrival subsequently
     SUMOReal timeOnLane = TS;
     bool ret = true;
     if (oldPos < 0 && newSpeed != 0) {
@@ -92,14 +94,14 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
         if (fabs(timeOnLane) < 0.001) { // reduce rounding errors
             timeOnLane = 0.;
         }
-        ret = false;
+        ret = veh.hasArrived();
     }
     if (timeOnLane < 0) {
         WRITE_ERROR("Negative vehicle step fraction for '" + veh.getID() + "' on lane '" + getLane()->getID() + "'.");
-        return false;
+        return veh.hasArrived();
     }
     if (timeOnLane == 0) {
-        return false;
+        return veh.hasArrived();
     }
     notifyMoveInternal(veh, timeOnLane, newSpeed);
     return ret;

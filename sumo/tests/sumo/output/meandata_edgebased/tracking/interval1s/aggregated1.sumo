@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Dec  2 20:45:02 2011 by SUMO sumo Version dev-SVN-r11571
+<!-- generated on Tue Nov  6 10:38:17 2012 by SUMO sumo Version dev-SVN-r12937
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -245,5 +245,40 @@
     <interval begin="106.00" end="107.00" id="dump_1">
     </interval>
     <interval begin="107.00" end="108.00" id="dump_1">
+    </interval>
+    <interval begin="108.00" end="109.00" id="dump_1">
+        <edge id="1/1to0/1" sampledSeconds="39.35" traveltime="39.35" waitingTime="0.00" speed="10.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+    <interval begin="109.00" end="110.00" id="dump_1">
+    </interval>
+    <interval begin="110.00" end="111.00" id="dump_1">
+    </interval>
+    <interval begin="111.00" end="112.00" id="dump_1">
+    </interval>
+    <interval begin="112.00" end="113.00" id="dump_1">
+    </interval>
+    <interval begin="113.00" end="114.00" id="dump_1">
+    </interval>
+    <interval begin="114.00" end="115.00" id="dump_1">
+    </interval>
+    <interval begin="115.00" end="116.00" id="dump_1">
+    </interval>
+    <interval begin="116.00" end="117.00" id="dump_1">
+    </interval>
+    <interval begin="117.00" end="118.00" id="dump_1">
+    </interval>
+    <interval begin="118.00" end="119.00" id="dump_1">
+    </interval>
+    <interval begin="119.00" end="120.00" id="dump_1">
+    </interval>
+    <interval begin="120.00" end="121.00" id="dump_1">
+    </interval>
+    <interval begin="121.00" end="122.00" id="dump_1">
+    </interval>
+    <interval begin="122.00" end="123.00" id="dump_1">
+    </interval>
+    <interval begin="123.00" end="124.00" id="dump_1">
+    </interval>
+    <interval begin="124.00" end="125.00" id="dump_1">
     </interval>
 </netstats>
