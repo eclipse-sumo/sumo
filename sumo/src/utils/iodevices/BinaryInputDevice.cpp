@@ -67,6 +67,16 @@ BinaryInputDevice::peek() {
 }
 
 
+std::string
+BinaryInputDevice::read(int numBytes) {
+    if (numBytes > BUF_MAX) {
+        throw ProcessError("Buffer to small.");
+    }
+    myStream.read((char*) &myBuffer, sizeof(char)*numBytes);
+    return std::string(myBuffer, numBytes);
+}
+
+
 void
 BinaryInputDevice::checkType(BinaryFormatter::DataType t) {
     if (myAmTyped) {

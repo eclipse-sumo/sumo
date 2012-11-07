@@ -32,21 +32,15 @@
 #include <config.h>
 #endif
 
-#include <string>
 #include <map>
-#include <iostream>
-#include <xercesc/sax2/Attributes.hpp>
-#include <utils/common/SUMOTime.h>
-#include <utils/common/TplConvert.h>
+#include <set>
 #include "SUMOSAXAttributes.h"
 
 
 // ===========================================================================
-// xerces 2.2 compatibility
+// class declarations
 // ===========================================================================
-#if defined(XERCES_HAS_CPP_NAMESPACE)
-using namespace XERCES_CPP_NAMESPACE;
-#endif
+class BinaryInputDevice;
 
 
 // ===========================================================================
@@ -66,10 +60,9 @@ public:
      * @param[in] predefinedTags Map of attribute ids to their xerces-representation
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      */
-    SUMOSAXAttributesImpl_Binary(const Attributes& attrs,
-                                 const std::map<int, XMLCh*> &predefinedTags,
-                                 const std::map<int, std::string> &predefinedTagsMML,
-                                 const std::string& objectType);
+    SUMOSAXAttributesImpl_Binary(const std::map<int, std::string> &predefinedTagsMML,
+                                 const std::string& objectType,
+                                 BinaryInputDevice* in);
 
 
     /// @brief Destructor
@@ -301,26 +294,26 @@ public:
 
 
 private:
-    /** @brief Returns Xerces-value of the named attribute
-     *
-     * It is assumed that this attribute is within the stored attributes.
-     * @param[in] id The id of the attribute to retrieve the vale of
-     * @return The xerces-value of the attribute
-     */
-    const XMLCh* getAttributeValueSecure(int id) const;
+    /// @brief Map of attribute ids to names
+    const std::map<int, std::string>& myAttrIds;
 
+    /// @brief Map of attribute names to ids
+    std::map<const std::string, int> myAttrNames;
 
-private:
-    /// @brief The encapsulated attributes
-    const Attributes& myAttrs;
+    /// @brief the attributes which are set
+    std::set<int> myAttrs;
 
-    /// @brief Definition of a map of attribute ids to their xerces-representation
-    typedef std::map<int, XMLCh*> AttrMap;
-    /// @brief Map of attribute ids to their xerces-representation
-    const AttrMap& myPredefinedTags;
+    /// @brief Map of attribute ids to bool
+    std::map<int, bool> myBoolValues;
 
-    /// @brief Map of attribute ids to their (readable) string-representation
-    const std::map<int, std::string> &myPredefinedTagsMML;
+    /// @brief Map of attribute ids to integers
+    std::map<int, int> myIntValues;
+
+    /// @brief Map of attribute ids to floats
+    std::map<int, SUMOReal> myFloatValues;
+
+    /// @brief Map of attribute ids to string
+    std::map<int, std::string> myStringValues;
 
 
 private:

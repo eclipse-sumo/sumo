@@ -77,7 +77,7 @@ XMLSubSys::close() {
 
 SUMOSAXReader*
 XMLSubSys::getSAXReader(SUMOSAXHandler& handler) {
-    return new SUMOSAXReader(handler);
+    return new SUMOSAXReader(handler, myEnableValidation);
 }
 
 
@@ -92,7 +92,7 @@ XMLSubSys::runParser(GenericSAXHandler& handler,
                      const std::string& file) {
     try {
         if (myNextFreeReader == myReaders.size()) {
-            myReaders.push_back(new SUMOSAXReader(handler));
+            myReaders.push_back(new SUMOSAXReader(handler, myEnableValidation));
         } else {
             myReaders[myNextFreeReader]->setHandler(handler);
         }

@@ -31,12 +31,10 @@
 #endif
 
 #include <cassert>
-#include <xercesc/sax2/Attributes.hpp>
-#include <xercesc/sax2/DefaultHandler.hpp>
-#include <xercesc/util/XercesVersion.hpp>
-#include <xercesc/util/TransService.hpp>
+#include <sstream>
+#include <utils/iodevices/BinaryFormatter.h>
+#include <utils/iodevices/BinaryInputDevice.h>
 #include "SUMOSAXAttributesImpl_Binary.h"
-#include <utils/common/TplConvert.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -46,14 +44,66 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(const Attributes& attrs,
-        const std::map<int, XMLCh*> &predefinedTags,
+SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
         const std::map<int, std::string> &predefinedTagsMML,
-        const std::string& objectType) :
-    SUMOSAXAttributes(objectType),
-    myAttrs(attrs),
-    myPredefinedTags(predefinedTags),
-    myPredefinedTagsMML(predefinedTagsMML) { }
+        const std::string& objectType,
+        BinaryInputDevice* in) : SUMOSAXAttributes(objectType), myAttrIds(predefinedTagsMML) {
+    for (std::map<int, std::string>::const_iterator i = predefinedTagsMML.begin(); i != predefinedTagsMML.end(); ++i) {
+        myAttrNames[i->second] = i->first;
+    }
+    int sizes[] = {1+1, 1+sizeof(int), 1+sizeof(SUMOReal), 0, 0, 1+sizeof(int), 1+sizeof(int)+1,
+                   1+2*sizeof(SUMOReal), 1+3*sizeof(SUMOReal), 1+4*sizeof(SUMOReal), 1+3, 1+1, 1+1};
+    while (in->peek() == BinaryFormatter::BF_XML_ATTRIBUTE) {
+        int attr;
+        *in >> attr;
+        int type = in->peek();
+        switch(type) {
+            case BinaryFormatter::BF_BYTE:
+                *in >> myBoolValues[attr];
+                break;
+            case BinaryFormatter::BF_INTEGER:
+                *in >> myIntValues[attr];
+                break;
+            case BinaryFormatter::BF_FLOAT:
+                *in >> myFloatValues[attr];
+                break;
+            case BinaryFormatter::BF_STRING:
+                *in >> myStringValues[attr];
+                break;
+            case BinaryFormatter::BF_LIST: {
+                std::ostringstream into; // !!! binary?
+                int size;
+                *in >> size;
+                into << BinaryFormatter::BF_LIST << size;
+                while (size > 0) {
+                    int type = in->peek();
+                    into << in->read(sizes[type]);
+                    size--;
+                }
+                myStringValues[attr] = into.str();
+                          }
+            case BinaryFormatter::BF_EDGE:
+            case BinaryFormatter::BF_LANE:
+            case BinaryFormatter::BF_POSITION_2D:
+            case BinaryFormatter::BF_POSITION_3D:
+            case BinaryFormatter::BF_BOUNDARY:
+            case BinaryFormatter::BF_COLOR:
+            case BinaryFormatter::BF_NODE_TYPE:
+            case BinaryFormatter::BF_EDGE_FUNCTION:
+                myStringValues[attr] = in->read(sizes[type]);
+                break;
+            case BinaryFormatter::BF_ROUTE: {
+                std::ostringstream into;
+                int size;
+                *in >> size;
+                into << BinaryFormatter::BF_ROUTE << size;
+                myStringValues[attr] = into.str();
+                          }
+            default:
+                throw ProcessError("Invalid binary file");
+        }
+    }
+}
 
 
 SUMOSAXAttributesImpl_Binary::~SUMOSAXAttributesImpl_Binary() {
@@ -62,149 +112,141 @@ SUMOSAXAttributesImpl_Binary::~SUMOSAXAttributesImpl_Binary() {
 
 bool
 SUMOSAXAttributesImpl_Binary::hasAttribute(int id) const {
-    AttrMap::const_iterator i = myPredefinedTags.find(id);
-    if (i == myPredefinedTags.end()) {
-        return false;
-    }
-    return myAttrs.getIndex((*i).second) >= 0;
+    return myAttrs.find(id) != myAttrs.end();
 }
 
 
 bool
 SUMOSAXAttributesImpl_Binary::getBool(int id) const throw(EmptyData, BoolFormatException) {
-    return TplConvert::_2bool(getAttributeValueSecure(id));
+    const std::map<int, bool>::const_iterator i = myBoolValues.find(id);
+    if (i == myBoolValues.end()) {
+        throw EmptyData();
+    }
+    return i->second;
 }
 
 
 bool
 SUMOSAXAttributesImpl_Binary::getBoolSecure(int id, bool val) const throw(EmptyData) {
-    return TplConvert::_2boolSec(getAttributeValueSecure(id), val);
+    const std::map<int, bool>::const_iterator i = myBoolValues.find(id);
+    if (i == myBoolValues.end()) {
+        return val;
+    }
+    return i->second;
 }
 
 
 int
 SUMOSAXAttributesImpl_Binary::getInt(int id) const throw(EmptyData, NumberFormatException) {
-    return TplConvert::_2int(getAttributeValueSecure(id));
+    const std::map<int, int>::const_iterator i = myIntValues.find(id);
+    if (i == myIntValues.end()) {
+        throw EmptyData();
+    }
+    return i->second;
 }
 
 
 int
 SUMOSAXAttributesImpl_Binary::getIntSecure(int id,
         int def) const throw(EmptyData, NumberFormatException) {
-    return TplConvert::_2intSec(getAttributeValueSecure(id), def);
+    const std::map<int, int>::const_iterator i = myIntValues.find(id);
+    if (i == myIntValues.end()) {
+        return def;
+    }
+    return i->second;
 }
 
 
 SUMOLong
 SUMOSAXAttributesImpl_Binary::getLong(int id) const throw(EmptyData, NumberFormatException) {
-    return TplConvert::_2long(getAttributeValueSecure(id));
+    throw NumberFormatException();
 }
 
 
 std::string
 SUMOSAXAttributesImpl_Binary::getString(int id) const throw(EmptyData) {
-    const XMLCh* utf16 = getAttributeValueSecure(id);
-#if _XERCES_VERSION < 30100
-    char* t = XMLString::transcode(utf16);
-    std::string result(t);
-    XMLString::release(&t);
-    return result;
-#else
-    if (XMLString::stringLen(utf16) == 0) {
-        // TranscodeToStr and debug_new interact badly in this case;
-        return "";
-    } else {
-        TranscodeToStr utf8(utf16, "UTF-8");
-        return TplConvert::_2str(utf8.str(), (unsigned)utf8.length());
+    const std::map<int, std::string>::const_iterator i = myStringValues.find(id);
+    if (i == myStringValues.end()) {
+        throw EmptyData();
     }
-#endif
+    return i->second;
 }
 
 
 std::string
 SUMOSAXAttributesImpl_Binary::getStringSecure(int id,
         const std::string& str) const throw(EmptyData) {
-    const XMLCh* utf16 = getAttributeValueSecure(id);
-#if _XERCES_VERSION < 30100
-    char* t = XMLString::transcode(utf16);
-    std::string result(TplConvert::_2strSec(t, str));
-    XMLString::release(&t);
-    return result;
-#else
-    if (XMLString::stringLen(utf16) == 0) {
-        // TranscodeToStr and debug_new interact badly in this case;
-        return "";
-    } else {
-        TranscodeToStr utf8(utf16, "UTF-8");
-        return TplConvert::_2strSec(utf8.str(), (unsigned)utf8.length(), str);
+    const std::map<int, std::string>::const_iterator i = myStringValues.find(id);
+    if (i == myStringValues.end()) {
+        return str;
     }
-#endif
+    return i->second;
 }
 
 
 SUMOReal
 SUMOSAXAttributesImpl_Binary::getFloat(int id) const throw(EmptyData, NumberFormatException) {
-    return TplConvert::_2SUMOReal(getAttributeValueSecure(id));
+    const std::map<int, SUMOReal>::const_iterator i = myFloatValues.find(id);
+    if (i == myFloatValues.end()) {
+        throw EmptyData();
+    }
+    return i->second;
 }
 
 
 SUMOReal
 SUMOSAXAttributesImpl_Binary::getFloatSecure(int id,
         SUMOReal def) const throw(EmptyData, NumberFormatException) {
-    return TplConvert::_2SUMORealSec(getAttributeValueSecure(id), def);
-}
-
-
-const XMLCh*
-SUMOSAXAttributesImpl_Binary::getAttributeValueSecure(int id) const {
-    AttrMap::const_iterator i = myPredefinedTags.find(id);
-    assert(i != myPredefinedTags.end());
-    return myAttrs.getValue((*i).second);
+    const std::map<int, SUMOReal>::const_iterator i = myFloatValues.find(id);
+    if (i == myFloatValues.end()) {
+        return def;
+    }
+    return i->second;
 }
 
 
 SUMOReal
 SUMOSAXAttributesImpl_Binary::getFloat(const std::string& id) const throw(EmptyData, NumberFormatException) {
-    XMLCh* t = XMLString::transcode(id.c_str());
-    SUMOReal result = TplConvert::_2SUMOReal(myAttrs.getValue(t));
-    XMLString::release(&t);
-    return result;
+    const std::map<const std::string, int>::const_iterator i = myAttrNames.find(id);
+    if (i == myAttrNames.end()) {
+        throw EmptyData();
+    }
+    return getFloat(i->second);
 }
 
 
 bool
 SUMOSAXAttributesImpl_Binary::hasAttribute(const std::string& id) const {
-    XMLCh* t = XMLString::transcode(id.c_str());
-    bool result = myAttrs.getIndex(t) >= 0;
-    XMLString::release(&t);
-    return result;
+    const std::map<const std::string, int>::const_iterator i = myAttrNames.find(id);
+    return i != myAttrNames.end() && hasAttribute(i->second);
 }
 
 
 std::string
 SUMOSAXAttributesImpl_Binary::getStringSecure(const std::string& id,
         const std::string& str) const {
-    XMLCh* t = XMLString::transcode(id.c_str());
-    std::string result = TplConvert::_2strSec(myAttrs.getValue(t), str);
-    XMLString::release(&t);
-    return result;
+    const std::map<const std::string, int>::const_iterator i = myAttrNames.find(id);
+    if (i == myAttrNames.end()) {
+        return str;
+    }
+    return getStringSecure(i->second, str);
 }
 
 
 std::string
 SUMOSAXAttributesImpl_Binary::getName(int attr) const {
-    if (myPredefinedTagsMML.find(attr) == myPredefinedTagsMML.end()) {
+    if (myAttrIds.find(attr) == myAttrIds.end()) {
         return "?";
     }
-    return myPredefinedTagsMML.find(attr)->second;
+    return myAttrIds.find(attr)->second;
 }
 
 
 void
 SUMOSAXAttributesImpl_Binary::serialize(std::ostream& os) const {
-    for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        os << " " << TplConvert::_2str(myAttrs.getLocalName(i));
-        os << "=\"" << TplConvert::_2str(myAttrs.getValue(i)) << "\"";
+    for (std::set<int>::const_iterator i = myAttrs.begin(); i != myAttrs.end(); ++i) {
+        os << " " << getName(*i);
+        os << "=\"" << getStringSecure(*i, "?") << "\"";
     }
 }
 

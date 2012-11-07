@@ -82,6 +82,13 @@ public:
     int peek();
 
 
+    /** @brief Returns the next character to be read by an actual parse.
+     *
+     * @return the next character which will be returned
+     */
+    std::string read(int numBytes);
+
+
     /** @brief Reads a char from the file (input operator)
      *
      * @param[in, out] os The BinaryInputDevice to read the char from

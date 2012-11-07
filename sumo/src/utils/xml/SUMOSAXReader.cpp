@@ -146,12 +146,8 @@ SUMOSAXReader::parseNext() {
         case BinaryFormatter::BF_XML_TAG_START: {
             int t;
             *myBinaryInput >> t;
-//            SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, myHandler->myPredefinedTagsMML[t]);
-            while (myBinaryInput->peek() == BinaryFormatter::BF_XML_ATTRIBUTE) {
-                int attr;
-                *myBinaryInput >> t;
-            }
-//            myHandler->myStartElement(t, attrs);
+            SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, myHandler->myPredefinedTagsMML[t], myBinaryInput);
+            myHandler->myStartElement(t, attrs);
             break;
                                                 }
         case BinaryFormatter::BF_XML_TAG_END: {
@@ -161,7 +157,7 @@ SUMOSAXReader::parseNext() {
             break;
                                               }
         default:
-            return false;
+            throw ProcessError("Invalid binary file");
         }
         return true;
     } else {
