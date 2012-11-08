@@ -304,7 +304,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     if (depLane == 0) {
         throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
     }
-    if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > depLane->getVehicleMaxSpeed(this)) {
+    if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > depLane->getSpeedLimit()) {
         throw ProcessError("Departure speed for vehicle '" + pars->id +
                            "' is too high for the departure lane '" + depLane->getID() + "'.");
     }
