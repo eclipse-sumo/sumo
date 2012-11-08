@@ -75,7 +75,7 @@ MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     //  in this case, we neglect dawdling, nonetheless, using
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
-    const SUMOReal vMin = MAX2((SUMOReal) 0, oldV - ACCEL2SPEED(myDecel));
+    const SUMOReal vMin = getSpeedAfterMaxDecel(oldV);
     const SUMOReal vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV), vSafe);
 #ifdef _DEBUG
     if (vMin > vMax) {
