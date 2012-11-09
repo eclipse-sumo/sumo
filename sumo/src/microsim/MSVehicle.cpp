@@ -1573,9 +1573,12 @@ MSVehicle::getBestLanesContinuation() const {
 
 const std::vector<MSLane*> &
 MSVehicle::getBestLanesContinuation(const MSLane* const l) const {
-    for (std::vector<std::vector<LaneQ> >::const_iterator i = myBestLanes.begin(); i != myBestLanes.end(); ++i) {
-        if ((*i).size() != 0 && (*i)[0].lane == l) {
-            return (*i)[0].bestContinuations;
+    if(myBestLanes.size()==0) {
+        return myEmptyLaneVector;
+    }
+    for (std::vector<LaneQ>::const_iterator i = myBestLanes[0].begin(); i != myBestLanes[0].end(); ++i) {
+        if ((*i).lane == l) {
+            return (*i).bestContinuations;
         }
     }
     return myEmptyLaneVector;
