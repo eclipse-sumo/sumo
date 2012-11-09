@@ -549,6 +549,9 @@ class NetReader(handler.ContentHandler):
 def readNet(filename, **others):
     netreader = NetReader(**others)
     try:
+        if not os.path.isfile(filename):
+            print >> sys.stderr, "Network file '%s' not found" % filename
+            raise
         parse(filename, netreader)
     except KeyError:
         print >> sys.stderr, "Please mind that the network format has changed in 0.13.0, you may need to update your network!"
