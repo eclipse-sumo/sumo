@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/04/12 21:53:47 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on Fri Nov  9 17:03:54 2012 by SUMO sumo Version dev-SVN-r12945
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -59,7 +59,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="1" depart="20.00" arrival="228.00">
+    <vehicle id="1" depart="20.00" arrival="227.00">
         <route edges="beg beg2right right right2end end rend"/>
     </vehicle>
 
@@ -70,19 +70,19 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="3" depart="60.00" arrival="268.00">
+    <vehicle id="3" depart="60.00" arrival="267.00">
         <route edges="beg beg2right right right2end end rend"/>
     </vehicle>
 
-    <vehicle id="5" depart="100.00" arrival="308.00">
+    <vehicle id="5" depart="100.00" arrival="307.00">
         <route edges="beg beg2right right right2end end rend"/>
     </vehicle>
 
-    <vehicle id="7" depart="140.00" arrival="348.00">
+    <vehicle id="7" depart="140.00" arrival="347.00">
         <route edges="beg beg2right right right2end end rend"/>
     </vehicle>
 
-    <vehicle id="9" depart="180.00" arrival="388.00">
+    <vehicle id="9" depart="180.00" arrival="387.00">
         <route edges="beg beg2right right right2end end rend"/>
     </vehicle>
 

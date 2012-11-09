@@ -1,4 +1,5 @@
+warning: debug_new used with placement new (SUMOSAXReader.cpp:131)
 Warning: Cannot keep destination for vehicle 'flow_dest_forbidden.0' due to closed edges. Terminating route.
 Warning: Cannot keep destination for vehicle 'flow_dest_forbidden.2' due to closed edges. Terminating route.
-Warning: Cannot keep destination for vehicle 'flow_dest_forbidden.3' due to closed edges. Terminating route.
 Warning: Cannot keep destination for vehicle 'flow_dest_forbidden.5' due to closed edges. Terminating route.
+Warning: Cannot keep destination for vehicle 'flow_dest_forbidden.7' due to closed edges. Terminating route.

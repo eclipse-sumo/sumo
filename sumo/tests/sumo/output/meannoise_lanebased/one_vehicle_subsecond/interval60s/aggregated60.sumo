@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Nov  9 12:26:47 2012 by SUMO sumo Version dev-SVN-r12945
+<!-- generated on Fri Nov  9 17:03:12 2012 by SUMO sumo Version dev-SVN-r12945
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -46,7 +46,7 @@
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
         <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="27.40" noise="61.31" traveltime="39.34"/>
+            <lane id="1/1to0/1_0" sampledSeconds="27.30" noise="61.37" traveltime="39.05"/>
         </edge>
     </interval>
 </netstats>

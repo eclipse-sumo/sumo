@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Nov  9 12:26:34 2012 by SUMO sumo Version dev-SVN-r12945
+<!-- generated on Fri Nov  9 17:02:55 2012 by SUMO sumo Version dev-SVN-r12945
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -1065,9 +1065,9 @@
     </interval>
     <interval begin="147.00" end="148.00" id="dump_1">
         <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="0.69" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0"
-            CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0"
-            traveltime="53.80" CO_perVeh="0" CO2_perVeh="0" HC_perVeh="0" PMx_perVeh="0" NOx_perVeh="0" fuel_perVeh="0"/>
+            <lane id="1/1to0/1_0" sampledSeconds="0.50" CO_abs="0" CO2_abs="840.035335" HC_abs="0.147098" PMx_abs="0.048973" NOx_abs="1.332844" fuel_abs="0.334909"
+            CO_normed="0" CO2_normed="7744.243804" HC_normed="1.356094" PMx_normed="0.451477" NOx_normed="12.287422" fuel_normed="3.087513"
+            traveltime="39.05" CO_perVeh="0" CO2_perVeh="65606.759655" HC_perVeh="11.488393" PMx_perVeh="3.824771" NOx_perVeh="104.095116" fuel_perVeh="26.156421"/>
         </edge>
     </interval>
     <interval begin="148.00" end="149.00" id="dump_1">

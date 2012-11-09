@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Nov  9 12:26:41 2012 by SUMO sumo Version dev-SVN-r12945
+<!-- generated on Fri Nov  9 17:03:06 2012 by SUMO sumo Version dev-SVN-r12945
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -4416,37 +4416,35 @@
         <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="146.30" end="146.40" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="60.65" traveltime="40.31"/>
+        <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="146.40" end="146.50" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="60.41" traveltime="41.65"/>
+        <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="146.50" end="146.60" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="60.18" traveltime="43.06"/>
+        <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="146.60" end="146.70" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="59.95" traveltime="44.56"/>
+        <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="146.70" end="146.80" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="59.72" traveltime="46.14"/>
+        <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="146.80" end="146.90" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="59.50" traveltime="47.82"/>
+        <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="146.90" end="147.00" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="59.29" traveltime="49.60"/>
+        <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="147.00" end="147.10" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="59.08" traveltime="51.50"/>
+        <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="147.10" end="147.20" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="58.87" traveltime="53.52"/>
+        <edge id="1/1to0/1" sampledSeconds="0.20" noise="64.79" traveltime="39.05"/>
     </interval>
     <interval begin="147.20" end="147.30" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="58.67" traveltime="55.66"/>
     </interval>
     <interval begin="147.30" end="147.40" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.10" noise="58.48" traveltime="57.96"/>
     </interval>
     <interval begin="147.40" end="147.50" id="dump_1">
     </interval>
