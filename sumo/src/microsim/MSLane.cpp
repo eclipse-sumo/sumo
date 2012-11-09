@@ -408,12 +408,15 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 aVehicle->getID() + "'. Inserting at lane end instead.");
         pos = myLength;
     }
+    if (aVehicle->getID() == "high.525" && pos > 0) {
+        std::cout << "DEBUG\n";
+    }
     aVehicle->getBestLanes(true, this);
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*> &bestLaneConts = aVehicle->getBestLanesContinuation(this);
     std::vector<MSLane*>::const_iterator ri = bestLaneConts.begin();
     SUMOReal seen = getLength() - pos;
-    SUMOReal dist = cfModel.brakeGap(speed);
+    SUMOReal dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
     const MSRoute& r = aVehicle->getRoute();
     MSRouteIterator ce = r.begin();
     MSLane* currentLane = this;
@@ -460,7 +463,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 if (nspeed < speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
-                        dist = cfModel.brakeGap(speed);
+                        dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                     } else {
                         // we may not drive with the given velocity - we crash into the leader
                         return false;
@@ -473,7 +476,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 // patch speed if needed
                 if (patchSpeed) {
                     speed = MIN2(cfModel.freeSpeed(aVehicle, speed, seen, nspeed), speed);
-                    dist = cfModel.brakeGap(speed);
+                    dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
                     // we may not drive with the given velocity - we would be too fast on the next lane
                     return false;
@@ -491,7 +494,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 if (nspeed < speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
-                        dist = cfModel.brakeGap(speed);
+                        dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                     } else {
                         // we may not drive with the given velocity - we crash into the leader
                         return false;
@@ -503,7 +506,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 if (nspeed < speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
-                        dist = cfModel.brakeGap(speed);
+                        dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                     } else {
                         // we may not drive with the given velocity - we crash into the leader
                         return false;
@@ -521,7 +524,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         if (nspeed < speed) {
             if (patchSpeed) {
                 speed = MIN2(nspeed, speed);
-                dist = cfModel.brakeGap(speed);
+                dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
             } else {
                 // we may not drive with the given velocity - we crash into the leader
                 WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
