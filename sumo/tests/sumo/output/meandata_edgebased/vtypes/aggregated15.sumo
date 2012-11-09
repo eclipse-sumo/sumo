@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue Nov  6 10:38:19 2012 by SUMO sumo Version dev-SVN-r12937
+<!-- generated on Fri Nov  9 12:26:10 2012 by SUMO sumo Version dev-SVN-r12945
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -117,10 +117,10 @@
         <edge id="2/1to1/1" sampledSeconds="5.39" traveltime="43.39" density="0.92" occupancy="0.28" waitingTime="0.00" speed="9.00" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="135.00" end="150.00" id="dump_all_15">
-        <edge id="1/1to0/1" sampledSeconds="27.50" traveltime="41.30" density="4.69" occupancy="1.41" waitingTime="0.00" speed="9.45" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1/1to0/1" sampledSeconds="27.69" traveltime="41.59" density="4.73" occupancy="1.42" waitingTime="0.00" speed="9.39" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="135.00" end="150.00" id="dump_t1_15">
-        <edge id="1/1to0/1" sampledSeconds="12.50" traveltime="39.05" density="2.13" occupancy="0.64" waitingTime="0.00" speed="10.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1/1to0/1" sampledSeconds="12.69" traveltime="39.64" density="2.17" occupancy="0.65" waitingTime="0.00" speed="9.85" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="135.00" end="150.00" id="dump_t2_15">
         <edge id="1/1to0/1" sampledSeconds="15.00" traveltime="43.39" density="2.56" occupancy="0.77" waitingTime="0.00" speed="9.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>

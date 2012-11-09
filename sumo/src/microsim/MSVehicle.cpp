@@ -732,15 +732,10 @@ MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUM
         bool onAppropriateLane = !lane->isLinkEnd(link); // !!! wird "appropriate" noch benutzt?
         bool routeEnds = myCurrEdge + view + 1== myRoute->end();
         if(routeEnds) {
-            SUMOReal va;
-            if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-                va = cfModel.freeSpeed(this, getSpeed(), seen + myArrivalPos - lane->getLength(), myParameter->arrivalSpeed);
-                v = MIN2(v, va);
-            } else {
-                // current
-                va = lane->getVehicleMaxSpeed(this);
-                v = MIN2(v, va);
-            }
+            const SUMOReal arrivalSpeed = (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN ? 
+                    myParameter->arrivalSpeed : lane->getVehicleMaxSpeed(this));
+            const SUMOReal va = cfModel.freeSpeed(this, getSpeed(), seen + myArrivalPos - lane->getLength(), arrivalSpeed);
+            v = MIN2(v, va);
             if(lastLink>0) myLFLinkLanes[lastLink].adaptLeaveSpeed(va);
             myLFLinkLanes.push_back(DriveProcessItem(0, v, v, false, 0, 0, seen));
             break;

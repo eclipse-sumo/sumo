@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/12 13:32:02 by SUMO sumo Version dev-SVN-rUNKNOWN
+<!-- generated on Fri Nov  9 12:27:47 2012 by SUMO sumo Version dev-SVN-r12945
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -23,7 +23,7 @@
 -->
 
 <tripinfos>
-    <tripinfo id="bus_1" depart="0.00" departLane="2/0to2/1_0" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="513.00" arrivalLane="2/0to2/1_0" arrivalPos="193.86" arrivalSpeed="13.24" duration="513.00" routeLength="3247.76" waitSteps="196" rerouteNo="0" devices="tripinfo_bus_1" vType="bus" vaporized=""/>
-    <tripinfo id="bus_2" depart="2.00" departLane="2/0to2/1_0" departPos="0.00" departSpeed="0.00" departDelay="2.00" arrival="593.00" arrivalLane="2/0to2/1_0" arrivalPos="197.36" arrivalSpeed="12.73" duration="591.00" routeLength="3263.36" waitSteps="248" rerouteNo="0" devices="tripinfo_bus_2" vType="bus" vaporized=""/>
-    <tripinfo id="bus_3" depart="8.00" departLane="2/0to2/1_0" departPos="12.10" departSpeed="0.00" departDelay="4.00" arrival="673.00" arrivalLane="2/0to2/1_0" arrivalPos="198.28" arrivalSpeed="13.49" duration="665.00" routeLength="3252.18" waitSteps="293" rerouteNo="0" devices="tripinfo_bus_3" vType="bus" vaporized=""/>
+    <tripinfo id="bus_1" depart="0.00" departLane="2/0to2/1_0" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="513.00" arrivalLane="2/0to2/1_0" arrivalPos="192.98" arrivalSpeed="12.36" duration="513.00" routeLength="3246.88" waitSteps="196" rerouteNo="0" devices="tripinfo_bus_1" vType="bus" vaporized=""/>
+    <tripinfo id="bus_2" depart="2.00" departLane="2/0to2/1_0" departPos="0.00" departSpeed="0.00" departDelay="2.00" arrival="593.00" arrivalLane="2/0to2/1_0" arrivalPos="195.42" arrivalSpeed="10.79" duration="591.00" routeLength="3261.42" waitSteps="248" rerouteNo="0" devices="tripinfo_bus_2" vType="bus" vaporized=""/>
+    <tripinfo id="bus_3" depart="8.00" departLane="2/0to2/1_0" departPos="12.10" departSpeed="0.00" departDelay="4.00" arrival="673.00" arrivalLane="2/0to2/1_0" arrivalPos="196.29" arrivalSpeed="11.50" duration="665.00" routeLength="3250.19" waitSteps="293" rerouteNo="0" devices="tripinfo_bus_3" vType="bus" vaporized=""/>
 </tripinfos>

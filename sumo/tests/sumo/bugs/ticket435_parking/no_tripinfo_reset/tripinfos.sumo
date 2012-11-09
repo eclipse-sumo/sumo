@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/13/12 13:32:02 by SUMO sumo Version dev-SVN-rUNKNOWN
+<!-- generated on Fri Nov  9 12:27:47 2012 by SUMO sumo Version dev-SVN-r12945
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -31,6 +31,6 @@
         <stop arrival="25.00"/>
         <ride depart="26.00" arrival="217.00"/>
     </personinfo>
-    <tripinfo id="p" depart="0.00" departLane="beg_0" departPos="3.00" departSpeed="7.00" departDelay="0.00" arrival="217.00" arrivalLane="end_0" arrivalPos="512.05" arrivalSpeed="26.93" duration="217.00" routeLength="2988.40" waitSteps="0" rerouteNo="0" devices="tripinfo_p person_p" vType="DEFAULT_VEHTYPE" vaporized="">
+    <tripinfo id="p" depart="0.00" departLane="beg_0" departPos="3.00" departSpeed="7.00" departDelay="0.00" arrival="217.00" arrivalLane="end_0" arrivalPos="509.49" arrivalSpeed="24.37" duration="217.00" routeLength="2985.84" waitSteps="0" rerouteNo="0" devices="tripinfo_p person_p" vType="DEFAULT_VEHTYPE" vaporized="">
     </tripinfo>
 </tripinfos>
