@@ -1,0 +1,11 @@
+<routes>
+    <vType id="orig">
+        <carFollowing-KraussOrig1/>
+    </vType>
+    <vType id="krauss">
+        <carFollowing-Krauss/>
+    </vType>
+
+    <route id="r0" edges="beg end"/>
+    <vehicle id="0" type="krauss" route="r0" depart="0" departSpeed="max"/>
+</routes>
