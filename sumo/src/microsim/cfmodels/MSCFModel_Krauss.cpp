@@ -83,6 +83,10 @@ MSCFModel_Krauss::dawdle(SUMOReal speed) const {
 /** Returns the SK-vsafe. */
 SUMOReal
 MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
+    if (predSpeed < predMaxDecel) {
+        // avoid discretization error at low speeds
+        predSpeed = 0;
+    }
     if (predSpeed == 0) {
         if (gap < 0.01) {
             return 0;
@@ -90,12 +94,17 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel
         return (SUMOReal)(-myTauDecel + sqrt(myTauDecel * myTauDecel + 2. * myDecel * gap));
     }
     if (predMaxDecel == 0) {
-        return (SUMOReal)(-myTauDecel + sqrt(myTauDecel * myTauDecel + predSpeed * predSpeed + 2. * myDecel * gap));
+        // adapt speed to succeeding lane, no reaction time is involved
+        // g = (x-v)/b * (x+v)/2
+        return (SUMOReal)sqrt(2*gap*myDecel + predSpeed * predSpeed);
+
     }
-    const SUMOReal speedReduction = ACCEL2SPEED(predMaxDecel);
-    const int predSteps = int(predSpeed / speedReduction);
-    const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps + 1) / 2));
-    return (SUMOReal)(-myTauDecel + sqrt(myTauDecel * myTauDecel + leaderContrib));
+    // follow
+    // g + (v^2 - a*v)/(2*a) = x*t + (x^2 - b*x)/(2*b) + 0.5
+    return (SUMOReal)(0.5 * sqrt(4.0*myDecel*(2.0*gap + predSpeed*predSpeed/predMaxDecel - predSpeed - 1.0) + 
+                (myDecel*(2.0*myHeadwayTime - 1.0))
+                * (myDecel*(2.0*myHeadwayTime - 1.0))) 
+            + myDecel*(0.5 - myHeadwayTime));
 }
 
 
