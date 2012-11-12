@@ -153,7 +153,7 @@ MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson* person) {
 
 
 bool 
-MSPersonControl::isWaiting4Vehicle(const MSEdge* const edge, MSPerson *p) const {
+MSPersonControl::isWaiting4Vehicle(const MSEdge* const edge, MSPerson* /* p */) const {
     return myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end();
 }
 

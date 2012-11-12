@@ -235,6 +235,10 @@ private:
     /// @brief the maximum size for each routeDistribution
     static unsigned int MaxRouteDistSize;
 
+private:
+    /** invalid assignment operator */
+    MSRoute& operator=(const MSRoute& s);
+
 };
 
 

@@ -817,7 +817,6 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
                 // disable turnarounds on incoming edges
                 NBNode* node = (*j)->getToNode();
                 const EdgeVector& incoming = node->getIncomingEdges();
-                const EdgeVector& outgoing = node->getOutgoingEdges();
                 for (EdgeVector::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
                     NBEdge* inEdge = *k;
                     if (loopEdgesSet.count(inEdge) > 0) {

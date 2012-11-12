@@ -329,7 +329,7 @@ MSPerson::MSPersonStage_Driving::getPosition(SUMOTime /* now */) const {
 
 
 SUMOReal 
-MSPerson::MSPersonStage_Driving::getAngle(SUMOTime now) const {
+MSPerson::MSPersonStage_Driving::getAngle(SUMOTime /* now */) const {
     if(myVehicle!=0) {
         MSVehicle* veh = dynamic_cast<MSVehicle*>(myVehicle);
         if (veh != 0) {
@@ -454,7 +454,7 @@ MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime /* now */) const {
 
 
 SUMOReal 
-MSPerson::MSPersonStage_Waiting::getAngle(SUMOTime now) const {
+MSPerson::MSPersonStage_Waiting::getAngle(SUMOTime /* now */) const {
     return getEdgeAngle(&myDestination, myStartPos) + 45;
 }
 
