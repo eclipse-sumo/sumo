@@ -35,8 +35,11 @@
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <xercesc/util/XercesVersion.hpp>
 #include <xercesc/util/TransService.hpp>
-#include "SUMOSAXAttributesImpl_Xerces.h"
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
+#include <utils/geom/Boundary.h>
+#include <utils/geom/PositionVector.h>
+#include "SUMOSAXAttributesImpl_Xerces.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -188,6 +191,100 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
     std::string result = TplConvert::_2strSec(myAttrs.getValue(t), str);
     XMLString::release(&t);
     return result;
+}
+
+
+SumoXMLEdgeFunc
+SUMOSAXAttributesImpl_Xerces::getEdgeFunc(bool& ok) const {
+    if (hasAttribute(SUMO_ATTR_FUNCTION)) {
+        std::string funcString = getString(SUMO_ATTR_FUNCTION);
+        if (SUMOXMLDefinitions::EdgeFunctions.hasString(funcString)) {
+            return SUMOXMLDefinitions::EdgeFunctions.get(funcString);
+        }
+        ok = false;
+    }
+    return EDGEFUNC_NORMAL;
+}
+
+
+SumoXMLNodeType
+SUMOSAXAttributesImpl_Xerces::getNodeType(bool& ok) const {
+    if (hasAttribute(SUMO_ATTR_TYPE)) {
+        std::string typeString = getString(SUMO_ATTR_TYPE);
+        if (SUMOXMLDefinitions::NodeTypes.hasString(typeString)) {
+            return SUMOXMLDefinitions::NodeTypes.get(typeString);
+        }
+        ok = false;
+    }
+    return NODETYPE_UNKNOWN;
+}
+
+
+PositionVector
+SUMOSAXAttributesImpl_Xerces::getShapeReporting(int attr, const char* objectid, bool& ok,
+                                                bool allowEmpty) const {
+    std::string shpdef = getOptStringReporting(attr, objectid, ok, "");
+    if (shpdef == "") {
+        if (!allowEmpty) {
+            emitEmptyError(getName(attr), objectid);
+            ok = false;
+        }
+        return PositionVector();
+    }
+    StringTokenizer st(shpdef, " ");
+    PositionVector shape;
+    while (st.hasNext()) {
+        StringTokenizer pos(st.next(), ",");
+        if (pos.size() != 2 && pos.size() != 3) {
+            emitFormatError(getName(attr), "x,y or x,y,z", objectid);
+            ok = false;
+            return PositionVector();
+        }
+        try {
+            SUMOReal x = TplConvert::_2SUMOReal(pos.next().c_str());
+            SUMOReal y = TplConvert::_2SUMOReal(pos.next().c_str());
+            if (pos.size() == 2) {
+                shape.push_back(Position(x, y));
+            } else {
+                SUMOReal z = TplConvert::_2SUMOReal(pos.next().c_str());
+                shape.push_back(Position(x, y, z));
+            }
+        } catch (NumberFormatException&) {
+            emitFormatError(getName(attr), "all numeric position entries", objectid);
+            ok = false;
+            return PositionVector();
+        } catch (EmptyData&) {
+            emitFormatError(getName(attr), "all valid entries", objectid);
+            ok = false;
+            return PositionVector();
+        }
+    }
+    return shape;
+}
+
+
+Boundary
+SUMOSAXAttributesImpl_Xerces::getBoundaryReporting(int attr, const char* objectid, bool& ok) const {
+    std::string def = getStringReporting(attr, objectid, ok);
+    StringTokenizer st(def, ",");
+    if (st.size() != 4) {
+        emitFormatError(getName(attr), "a valid number of entries", objectid);
+        ok = false;
+        return Boundary();
+    }
+    try {
+        const SUMOReal xmin = TplConvert::_2SUMOReal(st.next().c_str());
+        const SUMOReal ymin = TplConvert::_2SUMOReal(st.next().c_str());
+        const SUMOReal xmax = TplConvert::_2SUMOReal(st.next().c_str());
+        const SUMOReal ymax = TplConvert::_2SUMOReal(st.next().c_str());
+        return Boundary(xmin, ymin, xmax, ymax);
+    } catch (NumberFormatException&) {
+        emitFormatError(getName(attr), "all numeric entries", objectid);
+    } catch (EmptyData&) {
+        emitFormatError(getName(attr), "all valid entries", objectid);
+    }
+    ok = false;
+    return Boundary();
 }
 
 

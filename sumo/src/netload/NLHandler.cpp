@@ -269,16 +269,9 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     }
     myCurrentIsInternalToSkip = false;
     // parse the function
-    SumoXMLEdgeFunc func = EDGEFUNC_NORMAL;
-    std::string funcString = attrs.getOptStringReporting(SUMO_ATTR_FUNCTION, id.c_str(), ok, toString(func));
+    const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
     if (!ok) {
-        myCurrentIsBroken = true;
-        return;
-    }
-    if (SUMOXMLDefinitions::EdgeFunctions.hasString(funcString)) {
-        func = SUMOXMLDefinitions::EdgeFunctions.get(funcString);
-    } else {
-        WRITE_ERROR("Edge '" + id + "' has an invalid type ('" + funcString + "').");
+        WRITE_ERROR("Edge '" + id + "' has an invalid type.");
         myCurrentIsBroken = true;
         return;
     }
@@ -347,7 +340,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, SUMO_const_laneWidth);
-    PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), "lane", id.c_str(), ok, false);
+    PositionVector shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
     if (shape.size() < 2) {
         WRITE_ERROR("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
         myCurrentIsBroken = true;
@@ -386,11 +379,16 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
     PositionVector shape;
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // inner junctions have no shape
-        shape = GeomConvHelper::parseShapeReporting(attrs.getStringSecure(SUMO_ATTR_SHAPE, ""), attrs.getObjectType(), id.c_str(), ok, true);
+        shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, true);
     }
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
-    std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok);
+    bool typeOK = true;
+    SumoXMLNodeType type = attrs.getNodeType(typeOK);
+    if (!typeOK) {
+        WRITE_ERROR("An unknown or invalid junction type occured in junction '" + id + "'.");
+        ok = false;
+    }
     std::string key = attrs.getOptStringReporting(SUMO_ATTR_KEY, id.c_str(), ok, "");
     // incoming lanes
     std::vector<MSLane*> incomingLanes;
@@ -578,8 +576,7 @@ NLHandler::addPoly(const SUMOSAXAttributes& attrs) {
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok);
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
-    PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(
-                SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
+    PositionVector shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
     SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
     std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
@@ -1096,15 +1093,9 @@ NLHandler::getLanesFromIndices(MSEdge* from, MSEdge* to, const std::string& lane
 void
 NLHandler::setLocation(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    PositionVector s = GeomConvHelper::parseShapeReporting(
-                           attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
-                           attrs.getObjectType(), 0, ok, false);
-    Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(
-                                attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
-                                attrs.getObjectType(), 0, ok);
-    Boundary origBoundary = GeomConvHelper::parseBoundaryReporting(
-                                attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
-                                attrs.getObjectType(), 0, ok);
+    PositionVector s = attrs.getShapeReporting(SUMO_ATTR_NET_OFFSET, 0, ok, false);
+    Boundary convBoundary = attrs.getBoundaryReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok);
+    Boundary origBoundary = attrs.getBoundaryReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok);
     std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
     if (ok) {
         Position networkOffset = s[0];

@@ -84,7 +84,7 @@ NLJunctionControlBuilder::~NLJunctionControlBuilder() {
 void
 NLJunctionControlBuilder::openJunction(const std::string& id,
                                        const std::string& key,
-                                       const std::string& type,
+                                       const SumoXMLNodeType type,
                                        SUMOReal x, SUMOReal y,
                                        const PositionVector& shape,
                                        const std::vector<MSLane*> &incomingLanes,
@@ -97,11 +97,7 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
     myActiveIncomingLanes = incomingLanes;
     myActiveID = id;
     myActiveKey = key;
-    if (!SUMOXMLDefinitions::NodeTypes.hasString(type)) {
-        throw InvalidArgument("An unknown or invalid junction type '" + type + "' occured in junction '" + id + "'.");
-    }
-
-    myType = SUMOXMLDefinitions::NodeTypes.get(type);
+    myType = type;
     myPosition.set(x, y);
     myShape = shape;
 }

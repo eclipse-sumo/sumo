@@ -38,6 +38,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class BinaryInputDevice;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -87,6 +93,13 @@ public:
      * @return the next character which will be returned
      */
     std::string read(int numBytes);
+
+
+    /** @brief Returns the next character to be read by an actual parse.
+     *
+     * @return the next character which will be returned
+     */
+    void putback(char c);
 
 
     /** @brief Reads a char from the file (input operator)
@@ -194,16 +207,16 @@ public:
     friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::vector< std::vector<unsigned int> >& v);
 
 
-    /** @brief Reads a long from the file (input operator)
+    /** @brief Reads a Position from the file (input operator)
      *
-     * @param[in, out] os The BinaryInputDevice to read the long from
-     * @param[in] i The int to store the read value into
+     * @param[in, out] os The BinaryInputDevice to read the Position from
+     * @param[in] p The Position to store the read value into
      * @return The used BinaryInputDevice for further processing
      */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, long& l);
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, Position& p);
 
 private:
-    void checkType(BinaryFormatter::DataType t);
+    int checkType(BinaryFormatter::DataType t);
 
 private:
     /// @brief The encapsulated stream

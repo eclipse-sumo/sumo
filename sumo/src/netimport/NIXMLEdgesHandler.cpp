@@ -399,12 +399,11 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
     }
     // try to build shape
     bool ok = true;
-    std::string shpdef = attrs.getOptStringReporting(SUMO_ATTR_SHAPE, 0, ok, "");
-    if (shpdef == "") {
+    if (!attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         myReinitKeepEdgeShape = false;
         return PositionVector();
     }
-    PositionVector shape = GeomConvHelper::parseShapeReporting(shpdef, attrs.getObjectType(), 0, ok, true);
+    PositionVector shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, 0, ok, true);
     if (!NILoader::transformCoordinates(shape)) {
         WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
     }

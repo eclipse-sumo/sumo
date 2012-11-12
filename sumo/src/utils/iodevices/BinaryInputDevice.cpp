@@ -30,6 +30,7 @@
 #endif
 
 #include <string>
+#include <utils/geom/Position.h>
 #include "BinaryFormatter.h"
 #include "BinaryInputDevice.h"
 
@@ -78,6 +79,12 @@ BinaryInputDevice::read(int numBytes) {
 
 
 void
+BinaryInputDevice::putback(char c) {
+    myStream.putback(c);
+}
+
+
+int
 BinaryInputDevice::checkType(BinaryFormatter::DataType t) {
     if (myAmTyped) {
         char c;
@@ -85,7 +92,9 @@ BinaryInputDevice::checkType(BinaryFormatter::DataType t) {
         if (myEnableValidation && c != t) {
             throw ProcessError("Unexpected type.");
         }
+        return c;
     }
+    return -1;
 }
 
 
@@ -190,9 +199,15 @@ operator>>(BinaryInputDevice& os, std::vector< std::vector<unsigned int> >& v) {
 
 
 BinaryInputDevice&
-operator>>(BinaryInputDevice& os, long& l) {
-    os.checkType(BinaryFormatter::BF_INTEGER);
-    os.myStream.read((char*) &l, sizeof(long));
+operator>>(BinaryInputDevice& os, Position& p) {
+    int t = os.checkType(BinaryFormatter::BF_POSITION_2D);
+    SUMOReal x, y, z=0;
+    os.myStream.read((char*) &x, sizeof(SUMOReal));
+    os.myStream.read((char*) &y, sizeof(SUMOReal));
+    if (t == BinaryFormatter::BF_POSITION_3D) {
+        os.myStream.read((char*) &z, sizeof(SUMOReal));
+    }
+    p.set(x, y, z);
     return os;
 }
 

@@ -32,6 +32,8 @@
 
 #include <cassert>
 #include <sstream>
+#include <utils/geom/Boundary.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/iodevices/BinaryFormatter.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "SUMOSAXAttributesImpl_Binary.h"
@@ -57,9 +59,9 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
         int attr;
         *in >> attr;
         int type = in->peek();
-        switch(type) {
+        switch (type) {
             case BinaryFormatter::BF_BYTE:
-                *in >> myBoolValues[attr];
+                *in >> myCharValues[attr];
                 break;
             case BinaryFormatter::BF_INTEGER:
                 *in >> myIntValues[attr];
@@ -71,26 +73,51 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                 *in >> myStringValues[attr];
                 break;
             case BinaryFormatter::BF_LIST: {
-                std::ostringstream into; // !!! binary?
                 int size;
                 *in >> size;
-                into << BinaryFormatter::BF_LIST << size;
                 while (size > 0) {
-                    int type = in->peek();
-                    into << in->read(sizes[type]);
+                    const int type = in->peek();
+                    if (type != BinaryFormatter::BF_POSITION_2D && type != BinaryFormatter::BF_POSITION_3D) {
+                        throw ProcessError("Invalid binary file, only supporting position vectors.");
+                    }
                     size--;
+                    Position p;
+                    *in >> p;
+                    myPositionVectors[attr].push_back(p);
                 }
-                myStringValues[attr] = into.str();
                           }
             case BinaryFormatter::BF_EDGE:
+                *in >> myIntValues[attr];
+                break;
             case BinaryFormatter::BF_LANE:
+                *in >> myIntValues[attr];
+                in->putback(BinaryFormatter::BF_BYTE);
+                *in >> myCharValues[attr];
+                break;
             case BinaryFormatter::BF_POSITION_2D:
-            case BinaryFormatter::BF_POSITION_3D:
-            case BinaryFormatter::BF_BOUNDARY:
+            case BinaryFormatter::BF_POSITION_3D: {
+                Position p;
+                *in >> p;
+                myPositionVectors[attr].push_back(p);
+                break;
+                                                  }
+            case BinaryFormatter::BF_BOUNDARY: {
+                Position p;
+                *in >> p;
+                myPositionVectors[attr].push_back(p);
+                in->putback(BinaryFormatter::BF_POSITION_2D);
+                *in >> p;
+                myPositionVectors[attr].push_back(p);
+                break;
+                                                  }
             case BinaryFormatter::BF_COLOR:
+                *in >> myIntValues[attr];
+                break;
             case BinaryFormatter::BF_NODE_TYPE:
+                *in >> myCharValues[attr];
+                break;
             case BinaryFormatter::BF_EDGE_FUNCTION:
-                myStringValues[attr] = in->read(sizes[type]);
+                *in >> myCharValues[attr];
                 break;
             case BinaryFormatter::BF_ROUTE: {
                 std::ostringstream into;
@@ -102,6 +129,7 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
             default:
                 throw ProcessError("Invalid binary file");
         }
+        myAttrs.insert(attr);
     }
 }
 
@@ -118,21 +146,21 @@ SUMOSAXAttributesImpl_Binary::hasAttribute(int id) const {
 
 bool
 SUMOSAXAttributesImpl_Binary::getBool(int id) const throw(EmptyData, BoolFormatException) {
-    const std::map<int, bool>::const_iterator i = myBoolValues.find(id);
-    if (i == myBoolValues.end()) {
+    const std::map<int, char>::const_iterator i = myCharValues.find(id);
+    if (i == myCharValues.end()) {
         throw EmptyData();
     }
-    return i->second;
+    return (bool)i->second;
 }
 
 
 bool
 SUMOSAXAttributesImpl_Binary::getBoolSecure(int id, bool val) const throw(EmptyData) {
-    const std::map<int, bool>::const_iterator i = myBoolValues.find(id);
-    if (i == myBoolValues.end()) {
+    const std::map<int, char>::const_iterator i = myCharValues.find(id);
+    if (i == myCharValues.end()) {
         return val;
     }
-    return i->second;
+    return (bool)i->second;
 }
 
 
@@ -230,6 +258,64 @@ SUMOSAXAttributesImpl_Binary::getStringSecure(const std::string& id,
         return str;
     }
     return getStringSecure(i->second, str);
+}
+
+
+SumoXMLEdgeFunc
+SUMOSAXAttributesImpl_Binary::getEdgeFunc(bool& ok) const {
+    if (myIntValues.find(SUMO_ATTR_FUNCTION) != myIntValues.end()) {
+        int func = getInt(SUMO_ATTR_FUNCTION);
+        if (func >= 0 && func < (int)SUMOXMLDefinitions::EdgeFunctions.size()) {
+            return (SumoXMLEdgeFunc)func;
+        }
+        ok = false;
+    }
+    return EDGEFUNC_NORMAL;
+}
+
+
+SumoXMLNodeType
+SUMOSAXAttributesImpl_Binary::getNodeType(bool& ok) const {
+    if (myIntValues.find(SUMO_ATTR_TYPE) != myIntValues.end()) {
+        int type = getInt(SUMO_ATTR_TYPE);
+        if (type >= 0 && type < (int)SUMOXMLDefinitions::NodeTypes.size()) {
+            return (SumoXMLNodeType)type;
+        }
+        ok = false;
+    }
+    return NODETYPE_UNKNOWN;
+}
+
+
+PositionVector
+SUMOSAXAttributesImpl_Binary::getShapeReporting(int attr, const char* objectid, bool& ok,
+                                                bool allowEmpty) const {
+    const std::map<int, PositionVector>::const_iterator i = myPositionVectors.find(attr);
+    if (i == myPositionVectors.end() || i->second.size() == 0) {
+        if (!allowEmpty) {
+            emitEmptyError(getName(attr), objectid);
+            ok = false;
+        }
+        return PositionVector();
+    }
+    return i->second;
+}
+
+
+Boundary
+SUMOSAXAttributesImpl_Binary::getBoundaryReporting(int attr, const char* objectid, bool& ok) const {
+    const std::map<int, PositionVector>::const_iterator i = myPositionVectors.find(attr);
+    if (i == myPositionVectors.end() || i->second.size() == 0) {
+        emitEmptyError(getName(attr), objectid);
+        ok = false;
+        return Boundary();
+    }
+    if (i->second.size() != 2) {
+        emitFormatError(getName(attr), "a valid number of entries", objectid);
+        ok = false;
+        return Boundary();
+    }
+    return Boundary(i->second[0].x(), i->second[0].y(), i->second[1].x(), i->second[1].y());
 }
 
 

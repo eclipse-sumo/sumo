@@ -104,7 +104,7 @@ public:
      * @todo Check why "key" is given
      */
     void openJunction(const std::string& id, const std::string& key,
-                      const std::string& type, SUMOReal x, SUMOReal y,
+                      const SumoXMLNodeType type, SUMOReal x, SUMOReal y,
                       const PositionVector& shape,
                       const std::vector<MSLane*> &incomingLanes,
                       const std::vector<MSLane*> &internalLanes) throw(InvalidArgument);

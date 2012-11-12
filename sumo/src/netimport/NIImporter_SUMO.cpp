@@ -118,7 +118,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont& oc) {
     for (std::map<std::string, EdgeAttrs*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         EdgeAttrs* ed = (*i).second;
         // skip internal edges
-        if (ed->func == toString(EDGEFUNC_INTERNAL)) {
+        if (ed->func == EDGEFUNC_INTERNAL) {
             continue;
         }
         // get and check the nodes
@@ -331,8 +331,8 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->builtEdge = 0;
     myCurrentEdge->id = id;
     // get the function
-    myCurrentEdge->func = attrs.getOptStringReporting(SUMO_ATTR_FUNCTION, id.c_str(), ok, "normal");
-    if (myCurrentEdge->func == toString(EDGEFUNC_INTERNAL)) {
+    myCurrentEdge->func = attrs.getEdgeFunc(ok);
+    if (myCurrentEdge->func == EDGEFUNC_INTERNAL) {
         return; // skip internal edges
     }
     // get the type
@@ -342,9 +342,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->toNode = attrs.getOptStringReporting(SUMO_ATTR_TO, id.c_str(), ok, "");
     myCurrentEdge->priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1);
     myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
-    myCurrentEdge->shape = GeomConvHelper::parseShapeReporting(
-                               attrs.getOptStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, ""),
-                               attrs.getObjectType(), id.c_str(), ok, true);
+    myCurrentEdge->shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, true);
     NILoader::transformCoordinates(myCurrentEdge->shape, true, myLocation);
     myCurrentEdge->length = attrs.getOptSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
     myCurrentEdge->maxSpeed = 0;
@@ -372,7 +370,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     myCurrentLane = new LaneAttrs;
-    if (myCurrentEdge->func == toString(EDGEFUNC_INTERNAL)) {
+    if (myCurrentEdge->func == EDGEFUNC_INTERNAL) {
         return; // skip internal lanes
     }
     myCurrentLane->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok);
@@ -380,9 +378,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentLane->disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     myCurrentLane->width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);
     myCurrentLane->offset = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
-    myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
-                               attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok),
-                               attrs.getObjectType(), id.c_str(), ok, false);
+    myCurrentLane->shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
     // lane coordinates are derived (via lane spread) do not include them in convex boundary
     NILoader::transformCoordinates(myCurrentLane->shape, false, myLocation);
 }
@@ -399,24 +395,20 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     if (id[0] == ':') { // internal node
         return;
     }
-    SumoXMLNodeType type = NODETYPE_UNKNOWN;
-    std::string typeS = attrs.getStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok);
-    if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
-        type = SUMOXMLDefinitions::NodeTypes.get(typeS);
+    SumoXMLNodeType type = attrs.getNodeType(ok);
+    if (ok) {
         if (type == NODETYPE_DEAD_END_DEPRECATED) { // patch legacy type
             type = NODETYPE_DEAD_END;
         }
     } else {
-        WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
+        WRITE_WARNING("Unknown node type for junction '" + id + "'.");
     }
     Position pos = readPosition(attrs, id, ok);
     NILoader::transformCoordinates(pos, true, myLocation);
     // the network may have non-default edge geometry.
     // accurate reconstruction of legacy networks is not possible. We ought to warn about this
-    std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
-    if (shapeS != "") {
-        PositionVector shape = GeomConvHelper::parseShapeReporting(
-                                   shapeS, attrs.getObjectType(), id.c_str(), ok, false);
+    if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+        PositionVector shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
         shape.push_back_noDoublePos(shape[0]); // need closed shape
         if (!shape.around(pos) && shape.distance(pos) > 1) { // MAGIC_THRESHOLD
             // WRITE_WARNING("Junction '" + id + "': distance between pos and shape is " + toString(shape.distance(pos)));
@@ -601,15 +593,9 @@ NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
     // @todo refactor parsing of location since its duplicated in NLHandler and PCNetProjectionLoader
     bool ok = true;
     GeoConvHelper* result = 0;
-    PositionVector s = GeomConvHelper::parseShapeReporting(
-                           attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
-                           attrs.getObjectType(), 0, ok, false);
-    Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(
-                                attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
-                                attrs.getObjectType(), 0, ok);
-    Boundary origBoundary = GeomConvHelper::parseBoundaryReporting(
-                                attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
-                                attrs.getObjectType(), 0, ok);
+    PositionVector s = attrs.getShapeReporting(SUMO_ATTR_NET_OFFSET, 0, ok, false);
+    Boundary convBoundary = attrs.getBoundaryReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok);
+    Boundary origBoundary = attrs.getBoundaryReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok);
     std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
     if (ok) {
         Position networkOffset = s[0];

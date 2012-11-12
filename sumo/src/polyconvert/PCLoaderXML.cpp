@@ -205,7 +205,7 @@ PCLoaderXML::myStartElement(int element,
             myCurrentColor = color;
             myCurrentIgnorePrunning = ignorePrunning;
             myCurrentLayer = layer;
-            PositionVector pshape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok), "poly", myCurrentID.c_str(), ok, false);
+            PositionVector pshape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok, false);
             if (!ok) {
                 return;
             }

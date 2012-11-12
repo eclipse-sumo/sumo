@@ -37,6 +37,14 @@
 
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
+#include "SUMOXMLDefinitions.h"
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class PositionVector;
+class Boundary;
 
 
 // ===========================================================================
@@ -488,6 +496,55 @@ public:
                                         const std::string& def) const = 0;
     //}
 
+
+    /**
+     * @brief Returns the value of the named attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list.
+     * @return The attribute's value as a string, if it could be read and parsed
+     */
+    virtual SumoXMLEdgeFunc getEdgeFunc(bool& ok) const = 0;
+
+
+    /**
+     * @brief Returns the value of the named attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list.
+     * @return The attribute's value as a string, if it could be read and parsed
+     */
+    virtual SumoXMLNodeType getNodeType(bool& ok) const = 0;
+
+
+    /** @brief Tries to read given attribute assuming it is a PositionVector
+     *
+     * If an error occurs (the attribute is not there, it's empty), "ok" is
+     *  set to false and an error message is written to MsgHandler::getErrorInstance.
+     *
+     * Otherwise, "ok" is not changed.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value if given and not empty; "" if an error occured
+     */
+    virtual PositionVector getShapeReporting(int attr, const char* objectid, bool& ok,
+                                             bool allowEmpty) const = 0;
+
+    /** @brief Tries to read given attribute assuming it is a PositionVector
+     *
+     * If an error occurs (the attribute is not there, it's empty), "ok" is
+     *  set to false and an error message is written to MsgHandler::getErrorInstance.
+     *
+     * Otherwise, "ok" is not changed.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value if given and not empty; "" if an error occured
+     */
+    virtual Boundary getBoundaryReporting(int attr, const char* objectid, bool& ok) const = 0;
 
     /** @brief Converts the given attribute id into a man readable string
      *
