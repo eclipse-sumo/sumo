@@ -129,6 +129,12 @@ BinaryFormatter::writeAttr(std::ostream& into, const std::string& attr, const st
 }
 
 
+void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const bool& val) {
+    BinaryFormatter::writeAttrHeader(into, attr, BF_BYTE);
+    FileHelpers::writeByte(into, val);
+}
+
+
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SUMOReal& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_FLOAT);
     FileHelpers::writeFloat(into, val);

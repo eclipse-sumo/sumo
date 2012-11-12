@@ -943,18 +943,9 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
 
     try {
         bool ok = true;
-        std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
-        std::string laneIndices;
-        if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
-            if (!myHaveWarnedAboutDeprecatedLanes) {
-                myHaveWarnedAboutDeprecatedLanes = true;
-                WRITE_WARNING("'" + toString(SUMO_ATTR_LANE) + "' is deprecated, please use '" + toString(SUMO_ATTR_FROM_LANE) +
-                              "' and '" + toString(SUMO_ATTR_TO_LANE) + "' instead.");
-            }
-            laneIndices = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
-        } else {
-            laneIndices = attrs.getStringReporting(SUMO_ATTR_FROM_LANE, 0, ok) + ":" + attrs.getStringReporting(SUMO_ATTR_TO_LANE, 0, ok);
-        }
+        const std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
+        const int fromLaneIdx = attrs.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
+        const int toLaneIdx = attrs.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
         LinkDirection dir = parseLinkDir(attrs.getStringReporting(SUMO_ATTR_DIR, 0, ok));
         LinkState state = parseLinkState(attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok));
         std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
@@ -972,12 +963,13 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Unknown to-edge '" + toID + "' in connection");
             return;
         }
-        std::pair<MSLane*, MSLane*> lanes = getLanesFromIndices(from, to, laneIndices, ok);
-        if (!ok) {
+        if (fromLaneIdx < 0 || static_cast<unsigned int>(fromLaneIdx) >= from->getLanes().size() ||
+            toLaneIdx < 0 || static_cast<unsigned int>(toLaneIdx) >= to->getLanes().size()) {
+            WRITE_ERROR("Invalid lane index in connection from '" + from->getID() + "' to '" + to->getID() + "'.");
             return;
         }
-        MSLane* fromLane = lanes.first;
-        MSLane* toLane = lanes.second;
+        MSLane* fromLane = from->getLanes()[fromLaneIdx];
+        MSLane* toLane = to->getLanes()[toLaneIdx];
         assert(fromLane);
         assert(toLane);
 
@@ -1058,34 +1050,6 @@ NLHandler::parseLinkState(const std::string& state) {
             throw InvalidArgument("Unrecognised link state '" + state + "'.");
         }
     }
-}
-
-
-std::pair<MSLane*, MSLane*>
-NLHandler::getLanesFromIndices(MSEdge* from, MSEdge* to, const std::string& laneIndices, bool& ok) {
-    std::string error = "Invalid attribute in connection from '" + from->getID() + "' to '" + to->getID() + "' ";
-    StringTokenizer st(laneIndices, ':');
-    if (st.size() == 2) {
-        int fromLaneIdx;
-        int toLaneIdx;
-        try {
-            fromLaneIdx = TplConvert::_2intSec(st.next().c_str(), -1);
-            toLaneIdx = TplConvert::_2intSec(st.next().c_str(), -1);
-            if (fromLaneIdx >= 0 && static_cast<unsigned int>(fromLaneIdx) < from->getLanes().size() &&
-                    toLaneIdx >= 0 && static_cast<unsigned int>(toLaneIdx) < to->getLanes().size()) {
-                return std::pair<MSLane*, MSLane*>(from->getLanes()[fromLaneIdx], to->getLanes()[toLaneIdx]);
-            } else {
-                error += "(invalid index)";
-            }
-        } catch (NumberFormatException&) {
-            error += "(number format)";
-        }
-    } else {
-        error += "(malformed)";
-    }
-    WRITE_ERROR(error);
-    ok = false;
-    return std::pair<MSLane*, MSLane*>(static_cast<MSLane*>(0), static_cast<MSLane*>(0));
 }
 
 

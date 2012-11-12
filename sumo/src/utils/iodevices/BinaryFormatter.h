@@ -198,6 +198,15 @@ public:
     static void writeAttr(S& into, const SumoXMLAttr attr, const T& val);
 
 
+    /** @brief writes a named boolean attribute
+     *
+     * @param[in] into The output stream to use
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     */
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const bool& val);
+
+
     /** @brief writes a named float attribute
      *
      * @param[in] into The output stream to use

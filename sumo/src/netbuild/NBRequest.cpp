@@ -475,11 +475,7 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
         od.writeAttr(SUMO_ATTR_RESPONSE, getResponseString(from, (*j).toEdge, fromLane, (*j).mayDefinitelyPass));
         od.writeAttr(SUMO_ATTR_FOES, getFoesString(from, (*j).toEdge));
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {
-            if ((*j).haveVia) {
-                od.writeAttr(SUMO_ATTR_CONT, 1);
-            } else {
-                od.writeAttr(SUMO_ATTR_CONT, 0);
-            }
+            od.writeAttr(SUMO_ATTR_CONT, j->haveVia);
         }
         od.closeTag(true);
     }

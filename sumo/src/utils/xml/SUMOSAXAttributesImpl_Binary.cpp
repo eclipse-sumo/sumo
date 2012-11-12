@@ -50,11 +50,10 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
         const std::map<int, std::string> &predefinedTagsMML,
         const std::string& objectType,
         BinaryInputDevice* in) : SUMOSAXAttributes(objectType), myAttrIds(predefinedTagsMML) {
+            //!!! need to speed up the following loop by precalc
     for (std::map<int, std::string>::const_iterator i = predefinedTagsMML.begin(); i != predefinedTagsMML.end(); ++i) {
         myAttrNames[i->second] = i->first;
     }
-    int sizes[] = {1+1, 1+sizeof(int), 1+sizeof(SUMOReal), 0, 0, 1+sizeof(int), 1+sizeof(int)+1,
-                   1+2*sizeof(SUMOReal), 1+3*sizeof(SUMOReal), 1+4*sizeof(SUMOReal), 1+3, 1+1, 1+1};
     while (in->peek() == BinaryFormatter::BF_XML_ATTRIBUTE) {
         int attr;
         *in >> attr;
@@ -85,6 +84,7 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                     *in >> p;
                     myPositionVectors[attr].push_back(p);
                 }
+                break;
                           }
             case BinaryFormatter::BF_EDGE:
                 *in >> myIntValues[attr];
@@ -263,9 +263,10 @@ SUMOSAXAttributesImpl_Binary::getStringSecure(const std::string& id,
 
 SumoXMLEdgeFunc
 SUMOSAXAttributesImpl_Binary::getEdgeFunc(bool& ok) const {
-    if (myIntValues.find(SUMO_ATTR_FUNCTION) != myIntValues.end()) {
-        int func = getInt(SUMO_ATTR_FUNCTION);
-        if (func >= 0 && func < (int)SUMOXMLDefinitions::EdgeFunctions.size()) {
+    const std::map<int, char>::const_iterator i = myCharValues.find(SUMO_ATTR_FUNCTION);
+    if (i != myCharValues.end()) {
+        char func = i->second;
+        if (func < (char)SUMOXMLDefinitions::EdgeFunctions.size()) {
             return (SumoXMLEdgeFunc)func;
         }
         ok = false;
@@ -276,9 +277,10 @@ SUMOSAXAttributesImpl_Binary::getEdgeFunc(bool& ok) const {
 
 SumoXMLNodeType
 SUMOSAXAttributesImpl_Binary::getNodeType(bool& ok) const {
-    if (myIntValues.find(SUMO_ATTR_TYPE) != myIntValues.end()) {
-        int type = getInt(SUMO_ATTR_TYPE);
-        if (type >= 0 && type < (int)SUMOXMLDefinitions::NodeTypes.size()) {
+    const std::map<int, char>::const_iterator i = myCharValues.find(SUMO_ATTR_TYPE);
+    if (i != myCharValues.end()) {
+        char type = i->second;
+        if (type < (char)SUMOXMLDefinitions::NodeTypes.size()) {
             return (SumoXMLNodeType)type;
         }
         ok = false;

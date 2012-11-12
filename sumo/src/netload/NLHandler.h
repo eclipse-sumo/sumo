@@ -260,9 +260,6 @@ private:
     /// @brief Parses the given character into an enumeration typed link state
     LinkState parseLinkState(const std::string& state);
 
-    /// @brief retrieves <fromLane, toLane> based on the edges and an index specifier (i.e. '0:1')
-    std::pair<MSLane*, MSLane*> getLanesFromIndices(MSEdge* from, MSEdge* to, const std::string& laneIndices, bool& ok);
-
 
 protected:
     /// @brief A builder for object actions

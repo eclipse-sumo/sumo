@@ -32,6 +32,7 @@
 #include <iostream>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/framework/MemBufInputSource.hpp>
+#include <utils/common/ToString.h>
 #include <utils/iodevices/BinaryFormatter.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "SUMOSAXAttributesImpl_Binary.h"
@@ -146,7 +147,7 @@ SUMOSAXReader::parseNext() {
         case BinaryFormatter::BF_XML_TAG_START: {
             int t;
             *myBinaryInput >> t;
-            SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, myHandler->myPredefinedTagsMML[t], myBinaryInput);
+            SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, toString((SumoXMLTag)t), myBinaryInput);
             myHandler->myStartElement(t, attrs);
             break;
                                                 }
