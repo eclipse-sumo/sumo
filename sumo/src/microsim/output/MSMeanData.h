@@ -407,7 +407,7 @@ protected:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     bool writePrefix(OutputDevice& dev, const MeanDataValues& values,
-                     const std::string tag, const std::string id) const;
+                     const SumoXMLTag tag, const std::string id) const;
 
 protected:
     /// @brief the minimum sample seconds

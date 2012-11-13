@@ -111,7 +111,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
 
     if (cfParameter.size() != 0) {
-        dev << ">\n";
+        dev.closeOpener();
         dev.openTag(cfModel);
         std::vector<SumoXMLAttr> attrs;
         for (CFParams::const_iterator i = cfParameter.begin(); i != cfParameter.end(); ++i) {

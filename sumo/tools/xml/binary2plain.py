@@ -171,3 +171,5 @@ while True:
             break
     elif typ == XML_ATTRIBUTE:
         out.write(' %s="%s"' % (attributes[readInt(content)], typedValueStr(content)))
+    else:
+        print >> sys.stderr, "Unknown type %s" % typ
