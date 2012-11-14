@@ -23,6 +23,7 @@
         <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate.empty-edges" type="BOOL" help="Write also empty edges completely when dumping"/>
         <emission-output value="" type="FILE" help="Save the emission values of each vehicle"/>
         <fcd-output value="" type="FILE" help="Save the Floating Car Data"/>
+        <fcd-output.geo value="false" type="BOOL" help="Save the Floating Car Data using geo-coordinates (lon/lat)"/>
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>
         <vtk-output value="" type="FILE" help="Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files)"/>

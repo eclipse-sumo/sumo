@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r12613
+SUMO sumo Version dev-SVN-r12975
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 A microscopic road traffic simulation.
 
@@ -27,6 +27,8 @@ Output Options:
                                         dumping
   --emission-output FILE              Save the emission values of each vehicle
   --fcd-output FILE                   Save the Floating Car Data
+  --fcd-output.geo                    Save the Floating Car Data using
+                                        geo-coordinates (lon/lat)
   --full-output FILE                  Save a lot of information for each
                                         timestep (very redundant)
   --queue-output FILE                 Save the vehicle queues at the junctions
