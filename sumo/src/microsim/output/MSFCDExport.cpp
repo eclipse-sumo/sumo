@@ -26,11 +26,13 @@
 #include <config.h>
 #endif
 
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
-#include <utils/iodevices/OutputDevice.h>
 #include "MSFCDExport.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
@@ -50,29 +52,27 @@
 // ===========================================================================
 void
 MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
-   
-	
-	    of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
-		
-		MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
-		MSVehicleControl::constVehIt it = vc.loadedVehBegin();
-		MSVehicleControl::constVehIt end = vc.loadedVehEnd();
-		
-	    for (; it != end; ++it) {
-        const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
+    const bool useGeo = OptionsCont::getOptions().getBool("fcd-output.geo");
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    MSVehicleControl::constVehIt it = vc.loadedVehBegin();
+    MSVehicleControl::constVehIt end = vc.loadedVehEnd();
 
-		if (veh->isOnRoad()) {
-           
-		    std::string fclass = veh->getVehicleType().getID();
-			fclass = fclass.substr(0, fclass.find_first_of("@"));
-		   
+    of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
+    for (; it != end; ++it) {
+        const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
+        if (veh->isOnRoad()) {
+            std::string fclass = veh->getVehicleType().getID();
+            fclass = fclass.substr(0, fclass.find_first_of("@"));
             Position pos = veh->getLane()->getShape().positionAtLengthPosition(
                     veh->getLane()->interpolateLanePosToGeometryPos(veh->getPositionOnLane()));
-			of.openTag("vehicle") << " id=\"" << veh->getID() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\" angle=\"" << veh->getAngle() << "\" type=\"" << fclass << "\" speed=\"" << veh->getSpeed()*3.6 << "\"";
+            if (useGeo) {
+                GeoConvHelper::getFinal().cartesian2geo(pos);
+            }
+            of.openTag("vehicle") << " id=\"" << veh->getID() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\" angle=\"" << veh->getAngle() << "\" type=\"" << fclass << "\" speed=\"" << veh->getSpeed()*3.6 << "\"";
             of.closeTag(true);	
-		}
+        }
 
-	}
+    }
     of.closeTag();
 }
 

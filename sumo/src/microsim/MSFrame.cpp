@@ -43,6 +43,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSRoute.h>
@@ -122,6 +123,8 @@ MSFrame::fillOptions() {
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle");
 	oc.doRegister("fcd-output", new Option_FileName());
     oc.addDescription("fcd-output", "Output", "Save the Floating Car Data");
+	oc.doRegister("fcd-output.geo", new Option_Bool(false));
+    oc.addDescription("fcd-output.geo", "Output", "Save the Floating Car Data using geo-coordinates (lon/lat)");
 	oc.doRegister("full-output", new Option_FileName());
     oc.addDescription("full-output", "Output", "Save a lot of information for each timestep (very redundant)");
 	oc.doRegister("queue-output", new Option_FileName());

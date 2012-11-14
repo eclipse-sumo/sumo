@@ -34,6 +34,7 @@ tls_switch:tls_switch.xml
 tls_state_switch:tls_state_switch.xml
 physstates:physstates.xml
 cfg:config.cfg
+fcd:fcd.xml
 tol_sql:tol_sql.txt
 tol_plain:tol_plain.txt
 tol_la_sql:tol_la_sql.txt
@@ -69,6 +70,7 @@ rawdump:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
+fcd:<!--{[->]}-->
 vehroutes_ignore_arrival:<!--{[->]}-->
 vehroutes_ignore_arrival:arrival="[^"]*"{REPLACE arrival="<ignored>"}
 tls_state:<!--{[->]}-->

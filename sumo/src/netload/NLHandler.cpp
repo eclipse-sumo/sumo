@@ -1064,6 +1064,9 @@ NLHandler::setLocation(const SUMOSAXAttributes& attrs) {
     if (ok) {
         Position networkOffset = s[0];
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
+        if (OptionsCont::getOptions().getBool("fcd-output.geo") && !GeoConvHelper::getFinal().usingGeoProjection()) {
+            WRITE_WARNING("no valid geo projection loaded from network. fcd-output.geo will not work");
+        }
     }
 }
 

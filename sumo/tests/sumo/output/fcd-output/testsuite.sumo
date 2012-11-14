@@ -1,0 +1,5 @@
+# output fcd data in cartesian coordinates
+cartesian
+
+# output fcd data in geo-coordinates
+geo
