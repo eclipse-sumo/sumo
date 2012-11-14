@@ -66,6 +66,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             Position pos = veh->getLane()->getShape().positionAtLengthPosition(
                     veh->getLane()->interpolateLanePosToGeometryPos(veh->getPositionOnLane()));
             if (useGeo) {
+                of.setPrecision(GEO_OUTPUT_ACCURACY);
                 GeoConvHelper::getFinal().cartesian2geo(pos);
             }
             of.openTag("vehicle") << " id=\"" << veh->getID() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\" angle=\"" << veh->getAngle() << "\" type=\"" << fclass << "\" speed=\"" << veh->getSpeed()*3.6 << "\"";
