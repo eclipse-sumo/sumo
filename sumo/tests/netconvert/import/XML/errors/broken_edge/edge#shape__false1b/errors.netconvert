@@ -1,2 +1,2 @@
-Error: Shape of a(n) edge is broken: not numeric position entry.
+Error: Attribute 'shape' in definition of a edge is not all numeric position entries.
 Quitting (on error).

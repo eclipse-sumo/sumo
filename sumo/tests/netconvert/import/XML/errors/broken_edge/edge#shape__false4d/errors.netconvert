@@ -1,2 +1,2 @@
-Error: Shape of a(n) edge is broken: the position is neither x,y nor x,y,z.
+Error: Attribute 'shape' in definition of a edge is not x,y or x,y,z.
 Quitting (on error).
