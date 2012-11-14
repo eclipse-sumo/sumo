@@ -91,8 +91,8 @@ private:
     /// @brief get the navteq road class
     static int getRoadClass(NBEdge* edge);
 
-    /// @brief get the navteq speed class 
-    static int getSpeedCategory(SUMOReal speed);
+    /// @brief get the navteq speed class based on the speed in km/h
+    static int getSpeedCategory(int kph);
 
     /// @brief get the lane number encoding
     static int getNavteqLaneCode(unsigned int numLanes);
@@ -100,6 +100,10 @@ private:
     /// @brief magic value for undefined stuff
     static const std::string UNDEFINED;
 
+    /// @brief get edge speed rounded to kmh
+    static inline int speedInKph(SUMOReal metersPerSecond) {
+        return (int)std::floor(metersPerSecond * 3.6 + 0.5);
+    }
 };
 
 

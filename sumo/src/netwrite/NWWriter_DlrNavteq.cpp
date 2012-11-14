@@ -143,6 +143,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     // write edges
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         NBEdge* e = (*i).second;
+        const int kph = speedInKph(e->getSpeed());
         const std::string& betweenNodeID = (e->getGeometry().size() > 2) ? e->getID() : UNDEFINED;
         device << e->getID() << "\t"
             << e->getFromNode()->getID() << "\t"
@@ -153,9 +154,9 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
             << "3\t" // Speed Category 1-8 XXX refine this
             << UNDEFINED << "\t" // no special brunnel type (we don't know yet)
             << getRoadClass(e) << "\t"
-            << getSpeedCategory(e->getSpeed()) << "\t"
+            << getSpeedCategory(kph) << "\t"
             << getNavteqLaneCode(e->getNumLanes()) << "\t"
-            << e->getSpeed() << "\t"
+            << kph << "\t"
             << UNDEFINED << "\t" // NAME_ID1_REGIONAL XXX
             << UNDEFINED << "\t" // NAME_ID2_LOCAL XXX
             << UNDEFINED << "\t" // housenumbers_right 
@@ -201,7 +202,7 @@ NWWriter_DlrNavteq::getRoadClass(NBEdge* edge) {
     //
     // we do a simple speed / lane-count mapping anyway 
     // XXX the resulting functional road class layers probably won't be connected as required
-    const int kph = (int)std::floor(edge->getSpeed() * 3.6 + 0.5);
+    const int kph = speedInKph(edge->getSpeed());
     if ((kph) > 100) return 0;
     if ((kph) > 70) return 1;
     if ((kph) > 50) return (edge->getNumLanes() > 1 ? 2 : 3);
@@ -211,8 +212,7 @@ NWWriter_DlrNavteq::getRoadClass(NBEdge* edge) {
 
 
 int 
-NWWriter_DlrNavteq::getSpeedCategory(SUMOReal speed) {
-    const int kph = (int)std::floor(speed * 3.6 + 0.5);
+NWWriter_DlrNavteq::getSpeedCategory(int kph) {
     if ((kph) > 130) return 1;
     if ((kph) > 100) return 2;
     if ((kph) > 90) return 3;
