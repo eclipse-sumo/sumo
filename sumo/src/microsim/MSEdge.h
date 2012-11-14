@@ -109,9 +109,10 @@ public:
      *
      * @param[in] id The id of the edge
      * @param[in] numericalID The numerical id (index) of the edge
+     * @param[in] function A basic type of the edge
      * @param[in] streetName The street name for that edge
      */
-    MSEdge(const std::string& id, unsigned int numericalID, const std::string& streetName = "");
+    MSEdge(const std::string& id, int numericalID, const EdgeBasicFunction function, const std::string& streetName = "");
 
 
     /// @brief Destructor.
@@ -122,9 +123,8 @@ public:
      *
      * @param[in] allowed Information which edges may be reached from which lanes
      * @param[in] lanes List of this edge's lanes
-     * @param[in] function A basic type of the edge
      */
-    void initialize(std::vector<MSLane*>* lanes, EdgeBasicFunction function);
+    void initialize(std::vector<MSLane*>* lanes);
 
 
     /// @todo Has to be called after all edges were built and all connections were set...; Still, is not very nice
@@ -200,7 +200,7 @@ public:
     /** @brief Returns the numerical id of the edge
      * @return This edge's numerical id
      */
-    unsigned int getNumericalID() const {
+    int getNumericalID() const {
         return myNumericalID;
     }
 
@@ -518,7 +518,7 @@ protected:
 
 protected:
     /// @brief This edge's numerical id
-    unsigned int myNumericalID;
+    int myNumericalID;
 
     /// @brief Container for the edge's lane; should be sorted: (right-hand-traffic) the more left the lane, the higher the container-index
     std::vector<MSLane*>* myLanes;
@@ -527,7 +527,7 @@ protected:
     MSLaneChanger* myLaneChanger;
 
     /// @brief the purpose of the edge
-    EdgeBasicFunction myFunction;
+    const EdgeBasicFunction myFunction;
 
     /// @brief Vaporizer counter
     int myVaporizationRequests;

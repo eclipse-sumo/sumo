@@ -68,9 +68,8 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* > &edges)
                 myLanes[pos].amActive = false;
                 myLanes[pos].haveNeighbors = true;
             }
+            myLastLaneChange[(*i)->getNumericalID()] = -1;
         }
-        size_t pos = (*i)->getNumericalID();
-        myLastLaneChange[pos] = -1;
     }
 }
 

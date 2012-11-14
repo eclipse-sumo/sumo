@@ -31,6 +31,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -201,6 +202,16 @@ public:
      */
     template <typename E>
     static std::ostream& writeEdgeVector(std::ostream& os, const std::vector<E>& edges);
+
+
+    /** @brief Reads an edge vector binary
+     *
+     * @param[in] is The stream to read from
+     * @param[out] edges The edge vector to write into
+     * @return Reference to the stream
+     */
+    template <typename E>
+    static void readEdgeVector(std::istream& in, std::vector<const E*>& edges, const std::string& rid);
     //@}
 
 
@@ -263,6 +274,48 @@ std::ostream& FileHelpers::writeEdgeVector(std::ostream& os, const std::vector<E
 }
 
 
+template <typename E>
+void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges, const std::string& rid) {
+    int size;
+    in.read((char*) &size, sizeof(int));
+    edges.reserve(size);
+    int bitsOrEntry;
+    in.read((char*) &bitsOrEntry, sizeof(int));
+    if (bitsOrEntry < 0) {
+        const unsigned int bits = -bitsOrEntry;
+        const unsigned int numFields = 8 * sizeof(unsigned int) / bits;
+        const unsigned int mask = (1 << bits) - 1;
+        unsigned int edgeID;
+        in.read((char*) &edgeID, sizeof(int));
+        const E* prev = E::dictionary(edgeID);
+        assert(prev != 0);
+        edges.push_back(prev);
+        size--;
+        unsigned int data;
+        unsigned int field = numFields;
+        for (; size > 0; size--) {
+            if (field == numFields) {
+                in.read((char*) &data, sizeof(int));
+                field = 0;
+            }
+            unsigned int followIndex = (data >> ((numFields - field - 1) * bits)) & mask;
+            prev = prev->getFollower(followIndex);
+            edges.push_back(prev);
+            field++;
+        }
+    } else {
+        while (size > 0) {
+            in.read((char*) &bitsOrEntry, sizeof(int));
+            const E* edge = E::dictionary(bitsOrEntry);
+            if (edge == 0) {
+                throw ProcessError("An edge within the route " + rid + " is not known."
+                                    + "\n The route can not be build.");
+            }
+            edges.push_back(edge);
+            size--;
+        }
+    }
+}
 #endif
 
 /****************************************************************************/

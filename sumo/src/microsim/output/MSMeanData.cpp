@@ -455,7 +455,7 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
             stopTime = myPendingIntervals.front().second;
             myPendingIntervals.pop_front();
         }
-        dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, startTime).writeAttr(SUMO_ATTR_END, stopTime);
+        dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, STEPS2TIME(startTime)).writeAttr(SUMO_ATTR_END, STEPS2TIME(stopTime));
         dev.writeAttr(SUMO_ATTR_ID, myID).closeOpener();
         std::vector<MSEdge*>::iterator edge = myEdges.begin();
         for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i, ++edge) {

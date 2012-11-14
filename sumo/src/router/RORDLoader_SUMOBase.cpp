@@ -30,17 +30,19 @@
 #include <config.h>
 #endif
 
-#include "RORDLoader_SUMOBase.h"
-#include <utils/common/SUMOVTypeParameter.h>
-#include "RORouteDef.h"
-#include "RONet.h"
-#include <utils/common/UtilExceptions.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/ToString.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/iodevices/BinaryFormatter.h>
+#include <utils/xml/SUMOVehicleParserHelper.h>
+#include "RORouteDef.h"
+#include "RONet.h"
 #include "ROVehicle.h"
 #include "RORoute.h"
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include "RORDLoader_SUMOBase.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -210,17 +212,25 @@ RORDLoader_SUMOBase::parseRoute(const std::string& chars) {
             myCurrentIsOk = false;
         }
     }
-    StringTokenizer st(chars);
-    while (myCurrentIsOk && st.hasNext()) { // !!! too slow !!!
-        const std::string id = st.next();
-        ROEdge* edge = myNet.getEdge(id);
-        if (edge != 0) {
-            list->push_back(edge);
-        } else {
-            if (!myTryRepair) {
-                std::string rid = myCurrentAlternatives != 0 ? myCurrentAlternatives->getID() : myCurrentRouteName;
-                WRITE_ERROR("The route '" + rid + "' contains the unknown edge '" + id + "'.");
-                myCurrentIsOk = false;
+    if (chars[0] == BinaryFormatter::BF_ROUTE) {
+        std::istringstream in(chars, std::ios::binary);
+        char c;
+        in >> c;
+        std::string rid = myCurrentAlternatives != 0 ? myCurrentAlternatives->getID() : myCurrentRouteName;
+        FileHelpers::readEdgeVector(in, *list, rid);
+    } else {
+        StringTokenizer st(chars);
+        while (myCurrentIsOk && st.hasNext()) { // !!! too slow !!!
+            const std::string id = st.next();
+            ROEdge* edge = myNet.getEdge(id);
+            if (edge != 0) {
+                list->push_back(edge);
+            } else {
+                if (!myTryRepair) {
+                    std::string rid = myCurrentAlternatives != 0 ? myCurrentAlternatives->getID() : myCurrentRouteName;
+                    WRITE_ERROR("The route '" + rid + "' contains the unknown edge '" + id + "'.");
+                    myCurrentIsOk = false;
+                }
             }
         }
     }

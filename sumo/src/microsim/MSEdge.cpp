@@ -67,11 +67,12 @@ std::vector<MSEdge*> MSEdge::myEdges;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEdge::MSEdge(const std::string& id, unsigned int numericalID,
+MSEdge::MSEdge(const std::string& id, int numericalID,
+               const EdgeBasicFunction function,
                const std::string& streetName) :
     Named(id), myNumericalID(numericalID), myLanes(0),
-    myLaneChanger(0), myVaporizationRequests(0), myLastFailedInsertionTime(-1),
-    myStreetName(streetName) {}
+    myLaneChanger(0), myFunction(function), myVaporizationRequests(0),
+    myLastFailedInsertionTime(-1), myStreetName(streetName) {}
 
 
 MSEdge::~MSEdge() {
@@ -90,11 +91,10 @@ MSEdge::~MSEdge() {
 
 
 void
-MSEdge::initialize(std::vector<MSLane*>* lanes, EdgeBasicFunction function) {
-    assert(function == EDGEFUNCTION_DISTRICT || lanes != 0);
+MSEdge::initialize(std::vector<MSLane*>* lanes) {
+    assert(myFunction == EDGEFUNCTION_DISTRICT || lanes != 0);
     myLanes = lanes;
-    myFunction = function;
-    if (myLanes && myLanes->size() > 1 && function != EDGEFUNCTION_INTERNAL) {
+    if (myLanes && myLanes->size() > 1 && myFunction != EDGEFUNCTION_INTERNAL) {
         myLaneChanger = new MSLaneChanger(myLanes, OptionsCont::getOptions().getBool("lanechange.allow-swap"));
     }
 }
@@ -438,10 +438,12 @@ MSEdge::dictionary(const std::string& id, MSEdge* ptr) {
     if (it == myDict.end()) {
         // id not in myDict.
         myDict[id] = ptr;
-        while (myEdges.size() < ptr->getNumericalID() + 1) {
-            myEdges.push_back(0);
+        if (ptr->getNumericalID() != -1) {
+            while ((int)myEdges.size() < ptr->getNumericalID() + 1) {
+                myEdges.push_back(0);
+            }
+            myEdges[ptr->getNumericalID()] = ptr;
         }
-        myEdges[ptr->getNumericalID()] = ptr;
         return true;
     }
     return false;
@@ -492,8 +494,15 @@ MSEdge::insertIDs(std::vector<std::string> &into) {
 void
 MSEdge::parseEdgesList(const std::string& desc, std::vector<const MSEdge*> &into,
                        const std::string& rid) {
-    StringTokenizer st(desc);
-    parseEdgesList(st.getVector(), into, rid);
+    if (desc[0] == BinaryFormatter::BF_ROUTE) {
+        std::istringstream in(desc, std::ios::binary);
+        char c;
+        in >> c;
+        FileHelpers::readEdgeVector(in, into, rid);
+    } else {
+        StringTokenizer st(desc);
+        parseEdgesList(st.getVector(), into, rid);
+    }
 }
 
 

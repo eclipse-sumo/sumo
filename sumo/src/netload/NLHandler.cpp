@@ -1082,18 +1082,18 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink");
+        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", MSEdge::EDGEFUNCTION_DISTRICT);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-sink", sink)) {
             delete sink;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-sink' exists.");
         }
-        sink->initialize(new std::vector<MSLane*>(), MSEdge::EDGEFUNCTION_DISTRICT);
-        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source");
+        sink->initialize(new std::vector<MSLane*>());
+        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", MSEdge::EDGEFUNCTION_DISTRICT);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-source", source)) {
             delete source;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-source' exists.");
         }
-        source->initialize(new std::vector<MSLane*>(), MSEdge::EDGEFUNCTION_DISTRICT);
+        source->initialize(new std::vector<MSLane*>());
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
             std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
             for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {

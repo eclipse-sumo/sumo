@@ -87,7 +87,7 @@ public:
      * @param[in] streetName The street name of the edge
      * @exception InvalidArgument If an edge with the same name was already built
      */
-    void beginEdgeParsing(const std::string& id, MSEdge::EdgeBasicFunction function,
+    void beginEdgeParsing(const std::string& id, const MSEdge::EdgeBasicFunction function,
                           const std::string& streetName);
 
 
@@ -129,7 +129,7 @@ public:
      * @param[in] id The id of the edge to build
      * @param[in] streetName The street name of the edge to build
      */
-    virtual MSEdge* buildEdge(const std::string& id, const std::string& streetName = "");
+    virtual MSEdge* buildEdge(const std::string& id, const MSEdge::EdgeBasicFunction function, const std::string& streetName = "");
 
 
 protected:
@@ -147,9 +147,6 @@ protected:
 
     /// @brief pointer to a temporary lane storage
     std::vector<MSLane*> *myLaneStorage;
-
-    /// the function of the current edge
-    MSEdge::EdgeBasicFunction myFunction;
 
 private:
     /// @brief invalidated copy constructor

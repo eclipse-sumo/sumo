@@ -251,67 +251,12 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) {
         bis >> id;
         unsigned int references;
         bis >> references;
-        unsigned int numEdges;
-        bis >> numEdges;
-        int first;
-        bis >> first;
-        if (first < 0) {
-            const unsigned int bits = -first;
-            const unsigned int numFields = 8 * sizeof(unsigned int) / bits;
-            if (dictionary(id) == 0) {
-                const unsigned int mask = (1 << bits) - 1;
-                MSEdgeVector edges;
-                edges.reserve(numEdges);
-                unsigned int edgeID;
-                bis >> edgeID;
-                const MSEdge* prev = MSEdge::dictionary(edgeID);
-                assert(prev != 0);
-                edges.push_back(prev);
-                numEdges--;
-                unsigned int data;
-                unsigned int field = numFields;
-                for (; numEdges > 0; numEdges--) {
-                    if (field == numFields) {
-                        bis >> data;
-                        field = 0;
-                    }
-                    unsigned int followIndex = (data >> ((numFields - field - 1) * bits)) & mask;
-                    prev = prev->getFollower(followIndex);
-                    edges.push_back(prev);
-                    field++;
-                }
-                MSRoute* r = new MSRoute(id, edges, references,
-                                         0, std::vector<SUMOVehicleParameter::Stop>());
-                dictionary(id, r);
-            } else {
-                unsigned int data;
-                bis >> data; // first edge id
-                for (int numFollows = numEdges - 1; numFollows > 0; numFollows -= numFields) {
-                    bis >> data;
-                }
-            }
-        } else {
-            if (dictionary(id) == 0) {
-                MSEdgeVector edges;
-                edges.reserve(numEdges);
-                edges.push_back(MSEdge::dictionary(first));
-                numEdges--;
-                for (; numEdges > 0; numEdges--) {
-                    unsigned int edgeID;
-                    bis >> edgeID;
-                    assert(MSEdge::dictionary(edgeID) != 0);
-                    edges.push_back(MSEdge::dictionary(edgeID));
-                }
-                MSRoute* r = new MSRoute(id, edges, references,
-                                         0, std::vector<SUMOVehicleParameter::Stop>());
-                dictionary(id, r);
-            } else {
-                numEdges--;
-                for (; numEdges > 0; numEdges--) {
-                    unsigned int edgeID;
-                    bis >> edgeID;
-                }
-            }
+        MSEdgeVector edges;
+        FileHelpers::readEdgeVector(bis, edges, id)
+        if (dictionary(id) == 0) {
+            MSRoute* r = new MSRoute(id, edges, references,
+                                        0, std::vector<SUMOVehicleParameter::Stop>());
+            dictionary(id, r);
         }
     }
     unsigned int numRouteDists;

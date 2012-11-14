@@ -73,7 +73,7 @@ GUIEdgeControlBuilder::addLane(const std::string& id,
                                SUMOReal width,
                                SVCPermissions permissions) {
     MSLane* lane = 0;
-    switch (myFunction) {
+    switch (myActiveEdge->getPurpose()) {
         case MSEdge::EDGEFUNCTION_INTERNAL:
             lane = new GUIInternalLane(id, maxSpeed, length, myActiveEdge,
                                        myCurrentNumericalLaneID++, shape, width, permissions);
@@ -84,7 +84,7 @@ GUIEdgeControlBuilder::addLane(const std::string& id,
                                myCurrentNumericalLaneID++, shape, width, permissions);
             break;
         default:
-            throw InvalidArgument("A lane with an unknown type occured (" + toString(myFunction) + ")");
+            throw InvalidArgument("A lane with an unknown type occured (" + toString(myActiveEdge->getPurpose()) + ")");
     }
     myLaneStorage->push_back(lane);
     return lane;
@@ -93,8 +93,11 @@ GUIEdgeControlBuilder::addLane(const std::string& id,
 
 
 MSEdge*
-GUIEdgeControlBuilder::buildEdge(const std::string& id, const std::string& streetName) {
-    return new GUIEdge(id, myCurrentNumericalEdgeID++, streetName);
+GUIEdgeControlBuilder::buildEdge(const std::string& id, const MSEdge::EdgeBasicFunction function, const std::string& streetName) {
+    if (function == MSEdge::EDGEFUNCTION_INTERNAL) {
+        return new GUIEdge(id, -1, function, streetName);
+    }
+    return new GUIEdge(id, myCurrentNumericalEdgeID++, function, streetName);
 }
 
 /****************************************************************************/

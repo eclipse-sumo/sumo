@@ -32,6 +32,7 @@
 
 #include <cassert>
 #include <sstream>
+#include <utils/common/TplConvert.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/iodevices/BinaryFormatter.h>
@@ -120,11 +121,29 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                 *in >> myCharValues[attr];
                 break;
             case BinaryFormatter::BF_ROUTE: {
-                std::ostringstream into;
+                std::ostringstream into(std::ios::binary);
                 int size;
                 *in >> size;
-                into << BinaryFormatter::BF_ROUTE << size;
+                FileHelpers::writeByte(into, BinaryFormatter::BF_ROUTE);
+                FileHelpers::writeInt(into, size);
+                if (size > 0) {
+                    int intsToRead = size - 1;
+                    int bitsOrEntry;
+                    in->putback(BinaryFormatter::BF_INTEGER);
+                    *in >> bitsOrEntry;
+                    FileHelpers::writeInt(into, bitsOrEntry);
+                    if (bitsOrEntry < 0) {
+                        intsToRead = (-bitsOrEntry*(size-1)-1)/sizeof(int)/8+2;
+                    }
+                    while (intsToRead > 0) {
+                        in->putback(BinaryFormatter::BF_INTEGER);
+                        *in >> bitsOrEntry;
+                        FileHelpers::writeInt(into, bitsOrEntry);
+                        intsToRead--;
+                    }
+                }
                 myStringValues[attr] = into.str();
+                break;
                           }
             default:
                 throw ProcessError("Invalid binary file");
@@ -216,7 +235,7 @@ SUMOReal
 SUMOSAXAttributesImpl_Binary::getFloat(int id) const throw(EmptyData, NumberFormatException) {
     const std::map<int, SUMOReal>::const_iterator i = myFloatValues.find(id);
     if (i == myFloatValues.end()) {
-        throw EmptyData();
+        return TplConvert::_2SUMOReal(getString(id).c_str());
     }
     return i->second;
 }
