@@ -75,7 +75,7 @@ def get_options():
     optParser.add_option("-r", "--route-file", dest="routefile",
                          help="generates route file with duarouter")
     optParser.add_option("-t", "--trip-id-prefix", dest="tripprefix",
-                         default="t", help="prefix for the trip ids")
+                         default="", help="prefix for the trip ids")
     optParser.add_option("-a", "--trip-parameters", dest="trippar",
                          default="", help="additional trip parameters")
     optParser.add_option("-b", "--begin", type="float", default=0, help="begin time")
