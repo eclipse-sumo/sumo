@@ -133,6 +133,8 @@ def initOptions():
                          help="smoothe edge weights across iterations")    
     optParser.add_option("--clean-alt", action="store_true", dest="clean_alt",
                          default=False, help="Whether old rou.alt.xml files shall be removed")
+    optParser.add_option("--binary", action="store_true",
+                         default=False, help="Use binary format for intermediate and resulting route files")
     return optParser
 
 def call(command, log):
@@ -411,6 +413,9 @@ def main(args=None):
         edgesMap = {}
     if options.weightmemory:
         costmemory = CostMemory('traveltime')
+    routesSuffix = ".xml"
+    if options.binary:
+        routesSuffix = ".sbx"
         
     for step in range(options.firstStep, options.lastStep):
         btimeA = datetime.now()
@@ -430,11 +435,11 @@ def main(args=None):
                     basename = basename[:-10]
                 else:
                     basename = basename[:basename.find(".")]
-                output =  basename + "_%03i.rou.xml" % step
+                output =  basename + "_%03i.rou%s" % (step, routesSuffix)
 
                 if step > 0 and not (options.skipFirstRouting and step == 1):
                     # output of previous step
-                    demand_file = basename + "_%03i.rou.alt.xml" % (step-1)
+                    demand_file = basename + "_%03i.rou.alt%s" % (step-1, routesSuffix)
         
                 print ">> Running router"
                 btime = datetime.now()

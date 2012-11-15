@@ -12,3 +12,6 @@ recognize_error
 
 # test using the option --weight-memory
 weight_memory
+
+# test using binary intermediate files
+binary
