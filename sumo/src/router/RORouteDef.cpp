@@ -77,8 +77,8 @@ RORouteDef::addLoadedAlternative(RORoute* alt) {
 
 void
 RORouteDef::addAlternativeDef(const RORouteDef* alt) {
-    copy(alt->myAlternatives.begin(), alt->myAlternatives.end(),
-         back_inserter(myAlternatives));
+    std::copy(alt->myAlternatives.begin(), alt->myAlternatives.end(),
+              back_inserter(myAlternatives));
 }
 
 
@@ -278,6 +278,18 @@ RORouteDef::copyOrigDest(const std::string& id) const {
     edges.push_back(route->getFirst());
     edges.push_back(route->getLast());
     result->addLoadedAlternative(new RORoute(id, 0, 1, edges, col));
+    return result;
+}
+
+
+RORouteDef*
+RORouteDef::copy(const std::string& id) const {
+    RORouteDef* result = new RORouteDef(id, 0, myTryRepair);
+    for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
+        RORoute* route = *i;
+        RGBColor* col = route->getColor() != 0 ? new RGBColor(*route->getColor()) : 0;
+        result->addLoadedAlternative(new RORoute(id, 0, 1, route->getEdgeVector(), col));
+    }
     return result;
 }
 

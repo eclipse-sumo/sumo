@@ -319,6 +319,8 @@ RORDLoader_SUMOBase::closeVehicle() {
     RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);
     if (route == 0) {
         route = myNet.getRouteDef("!" + myVehicleParameter->id);
+    } else {
+        route = route->copy("!" + myVehicleParameter->id);
     }
     if (route == 0) {
         WRITE_ERROR("The route of the vehicle '" + myVehicleParameter->id + "' is not known.");

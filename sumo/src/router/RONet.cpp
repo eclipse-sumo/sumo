@@ -302,16 +302,15 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
             // write the route
             veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options.getBool("exit-times"));
             myWrittenRouteNo++;
-            // remove the route if it is not longer used
-            /*
-            if (!myRoutes.erase(route->getID())) {
-                WRITE_WARNING("Could not remove " + route->getID());
-            }
-            */
         } else {
             myDiscardedRouteNo++;
         }
-        // and the vehicle
+        // delete routes and the vehicle
+        if (veh->getRouteDefinition()->getID()[0] == '!') {
+            if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
+                delete veh->getRouteDefinition();
+            }
+        }
         myVehicles.erase(veh->getID());
     }
     return lastTime;
