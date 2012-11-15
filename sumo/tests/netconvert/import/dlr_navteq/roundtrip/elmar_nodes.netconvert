@@ -1,4 +1,5 @@
-# Generated with SUMO netconvert Version dev-SVN-r12918
+# Generated on Thu Nov 15 15:59:02 2012 by SUMO netconvert Version dev-SVN-r12983
+# Format matches GdfExtractor version: V6.0
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
 # <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">

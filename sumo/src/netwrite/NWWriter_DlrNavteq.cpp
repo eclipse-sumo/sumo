@@ -74,6 +74,7 @@ void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc
     char buffer [80];
     strftime(buffer, 80, "on %c", localtime(&rawtime));
     device << "# Generated " << buffer << " by " << oc.getFullName() << "\n";
+    device << "# Format matches GdfExtractor version: V6.0\n";
     std::stringstream tmp;
     oc.writeConfiguration(tmp, true, false, false);
     tmp.seekg(std::ios_base::beg);
@@ -139,7 +140,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_links_unsplitted.txt");
     writeHeader(device, oc);
     // write format specifier
-    device << "# LINK_ID\tNODE_ID_FROM\tNODE_ID_TO\tBETWEEN_NODE_ID\tlength\tvehicle_type\tform_of_way\tbrunnel_type\tfunctional_road_class\tspeed_category\tnumber_of_lanes\tspeed_limit\tNAME_ID1_REGIONAL\tNAME_ID2_LOCAL\thousenumbers_right\thousenumbers_left\tZIP_CODE\tAREA_ID\tSUBAREA_ID\tthrough_traffic\tspecial_restrictions\textended_number_of_lanes\tisRamp\tconnection\n";
+    device << "# LINK_ID\tNODE_ID_FROM\tNODE_ID_TO\tBETWEEN_NODE_ID\tLENGTH\tVEHICLE_TYPE\TFORM_OF_WAY\tBRUNNEL_TYPE\tFUNCTIONAL_ROAD_CLASS\tSPEED_CATEGORY\tNUMBER_OF_LANES\tSPEED_LIMIT\tSPEED_RESTRICTION\tNAME_ID1_REGIONAL\tNAME_ID2_LOCAL\tHOUSENUMBERS_RIGHT\tHOUSENUMBERS_LEFT\tZIP_CODE\tAREA_ID\tSUBAREA_ID\tTHROUGH_TRAFFIC\tSPECIAL_RESTRICTIONS\tEXTENDED_NUMBER_OF_LANES\tISRAMP\TCONNECTION\n";
     // write edges
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         NBEdge* e = (*i).second;
@@ -156,6 +157,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
             << getRoadClass(e) << "\t"
             << getSpeedCategory(kph) << "\t"
             << getNavteqLaneCode(e->getNumLanes()) << "\t"
+            << getSpeedCategoryUpperBound(kph) << "\t"
             << kph << "\t"
             << UNDEFINED << "\t" // NAME_ID1_REGIONAL XXX
             << UNDEFINED << "\t" // NAME_ID2_LOCAL XXX
@@ -221,6 +223,19 @@ NWWriter_DlrNavteq::getSpeedCategory(int kph) {
     if ((kph) > 30) return 6;
     if ((kph) > 10) return 7;
     return 8;
+}
+
+
+int 
+NWWriter_DlrNavteq::getSpeedCategoryUpperBound(int kph) {
+    if ((kph) > 130) return 131;
+    if ((kph) > 100) return 130;
+    if ((kph) > 90) return 100;
+    if ((kph) > 70) return 90;
+    if ((kph) > 50) return 70;
+    if ((kph) > 30) return 50;
+    if ((kph) > 10) return 30;
+    return 10;
 }
 
 

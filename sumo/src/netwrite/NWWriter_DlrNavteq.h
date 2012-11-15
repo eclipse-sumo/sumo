@@ -94,6 +94,9 @@ private:
     /// @brief get the navteq speed class based on the speed in km/h
     static int getSpeedCategory(int kph);
 
+    /// @brief get the SPEED_LIMIT as defined by elmar (upper bound of speed category)
+    static int getSpeedCategoryUpperBound(int kph);
+
     /// @brief get the lane number encoding
     static int getNavteqLaneCode(unsigned int numLanes);
 
