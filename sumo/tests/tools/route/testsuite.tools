@@ -24,3 +24,6 @@ findUTurns
 
 # sort routes and flows
 sort
+
+# test generating polygons from a route file
+route2poly
