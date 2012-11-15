@@ -72,7 +72,7 @@ ROTypedXMLRoutesLoader::readRoutesAtLeastUntil(SUMOTime time) {
     while (getLastReadTimeStep() < time && !ended()) {
         myNextRouteRead = false;
         while (!myNextRouteRead && !ended()) {
-            myParser->parseNext();
+            myEnded = !myParser->parseNext();
         }
     }
     return true;

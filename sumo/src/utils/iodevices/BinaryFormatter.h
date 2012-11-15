@@ -225,6 +225,15 @@ public:
     static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const int& val);
 
 
+    /** @brief writes a named unsigned integer attribute
+     *
+     * @param[in] into The output stream to use
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     */
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const unsigned int& val);
+
+
     /** @brief writes a node type attribute
      *
      * @param[in] into The output stream to use
