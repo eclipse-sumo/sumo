@@ -88,6 +88,11 @@ public:
     int peek();
 
 
+    /// @brief Returns the associated istream
+    std::istream& getIStream() {
+        return myStream;
+    }
+
     /** @brief Returns the next character to be read by an actual parse.
      *
      * @return the next character which will be returned

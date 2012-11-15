@@ -252,7 +252,7 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) {
         unsigned int references;
         bis >> references;
         MSEdgeVector edges;
-        FileHelpers::readEdgeVector(bis, edges, id)
+        FileHelpers::readEdgeVector(bis.getIStream(), edges, id);
         if (dictionary(id) == 0) {
             MSRoute* r = new MSRoute(id, edges, references,
                                         0, std::vector<SUMOVehicleParameter::Stop>());
