@@ -75,7 +75,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             of.writeAttr(SUMO_ATTR_Y, pos.y());
             of.writeAttr(SUMO_ATTR_ANGLE, veh->getAngle());
             of.writeAttr(SUMO_ATTR_TYPE, fclass);
-            of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed() * 3.6);
+            of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
             of.closeTag(true);	
         }
     }
