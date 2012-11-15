@@ -33,7 +33,7 @@ def parse_args():
     options, args = optParser.parse_args()
     try:
         options.net, options.routefile = args
-        options.colorgen = Colorgen(options)
+        options.colorgen = Colorgen((options.hue, options.saturation, options.brightness))
     except:
         sys.exit(USAGE)
     if options.outfile is None:
@@ -42,8 +42,8 @@ def parse_args():
 
 
 class Colorgen:
-    def __init__(self, options):
-        self.hsv = (options.hue, options.saturation, options.brightness)
+    def __init__(self, hsv):
+        self.hsv = hsv 
 
     def get_value(self, opt):
         if opt == 'random':
