@@ -32,6 +32,7 @@
 
 #include <cassert>
 #include <sstream>
+#include <utils/common/RGBColor.h>
 #include <utils/common/TplConvert.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/PositionVector.h>
@@ -169,7 +170,7 @@ SUMOSAXAttributesImpl_Binary::getBool(int id) const throw(EmptyData, BoolFormatE
     if (i == myCharValues.end()) {
         throw EmptyData();
     }
-    return (bool)i->second;
+    return i->second != 0;
 }
 
 
@@ -179,7 +180,7 @@ SUMOSAXAttributesImpl_Binary::getBoolSecure(int id, bool val) const throw(EmptyD
     if (i == myCharValues.end()) {
         return val;
     }
-    return (bool)i->second;
+    return i->second != 0;
 }
 
 
@@ -284,7 +285,7 @@ SumoXMLEdgeFunc
 SUMOSAXAttributesImpl_Binary::getEdgeFunc(bool& ok) const {
     const std::map<int, char>::const_iterator i = myCharValues.find(SUMO_ATTR_FUNCTION);
     if (i != myCharValues.end()) {
-        char func = i->second;
+        const char func = i->second;
         if (func < (char)SUMOXMLDefinitions::EdgeFunctions.size()) {
             return (SumoXMLEdgeFunc)func;
         }
@@ -298,13 +299,24 @@ SumoXMLNodeType
 SUMOSAXAttributesImpl_Binary::getNodeType(bool& ok) const {
     const std::map<int, char>::const_iterator i = myCharValues.find(SUMO_ATTR_TYPE);
     if (i != myCharValues.end()) {
-        char type = i->second;
+        const char type = i->second;
         if (type < (char)SUMOXMLDefinitions::NodeTypes.size()) {
             return (SumoXMLNodeType)type;
         }
         ok = false;
     }
     return NODETYPE_UNKNOWN;
+}
+
+
+RGBColor
+SUMOSAXAttributesImpl_Binary::getColorReporting(const char* objectid, bool& ok) const {
+    const std::map<int, int>::const_iterator i = myIntValues.find(SUMO_ATTR_COLOR);
+    if (i != myIntValues.end()) {
+        const int val = i->second;
+        return RGBColor((val & 0xff) / 255., ((val >> 8) & 0xff) / 255., ((val >> 16) & 0xff) / 255.);
+    }
+    return RGBColor();
 }
 
 

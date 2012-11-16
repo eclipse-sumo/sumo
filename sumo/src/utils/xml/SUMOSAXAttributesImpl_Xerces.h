@@ -287,7 +287,7 @@ public:
      * @brief Returns the value of the named attribute
      *
      * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a string, if it could be read and parsed
+     * @return The attribute's value as a SumoXMLEdgeFunc, if it could be read and parsed
      */
     SumoXMLEdgeFunc getEdgeFunc(bool& ok) const;
 
@@ -296,9 +296,18 @@ public:
      * @brief Returns the value of the named attribute
      *
      * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a string, if it could be read and parsed
+     * @return The attribute's value as a SumoXMLNodeType, if it could be read and parsed
      */
     SumoXMLNodeType getNodeType(bool& ok) const;
+
+
+    /**
+     * @brief Returns the value of the named attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list.
+     * @return The attribute's value as a RGBColor, if it could be read and parsed
+     */
+    RGBColor getColorReporting(const char* objectid, bool& ok) const;
 
 
     /** @brief Tries to read given attribute assuming it is a PositionVector

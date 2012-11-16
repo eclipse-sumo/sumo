@@ -152,12 +152,6 @@ RGBColor::parseColorReporting(
 
 
 RGBColor
-RGBColor::getDefaultColor() {
-    return parseColor(RGBColor::DEFAULT_COLOR_STRING);
-}
-
-
-RGBColor
 RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMOReal weight) {
     if (weight < 0) {
         weight = 0;

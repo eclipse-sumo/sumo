@@ -35,6 +35,7 @@
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <xercesc/util/XercesVersion.hpp>
 #include <xercesc/util/TransService.hpp>
+#include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
 #include <utils/geom/Boundary.h>
@@ -217,6 +218,19 @@ SUMOSAXAttributesImpl_Xerces::getNodeType(bool& ok) const {
         ok = false;
     }
     return NODETYPE_UNKNOWN;
+}
+
+
+RGBColor
+SUMOSAXAttributesImpl_Xerces::getColorReporting(const char* objectid, bool& ok) const {
+    try {
+        return RGBColor::parseColor(getString(SUMO_ATTR_COLOR));
+    } catch (NumberFormatException&) {
+    } catch (EmptyData&) {
+    }
+    ok = false;
+    emitFormatError("color", "a valid color", objectid);
+    return RGBColor();
 }
 
 

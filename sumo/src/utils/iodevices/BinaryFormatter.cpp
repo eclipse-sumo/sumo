@@ -32,6 +32,7 @@
 #include <version.h>
 #endif
 
+#include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -203,6 +204,15 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
     FileHelpers::writeFloat(into, val.ymin());
     FileHelpers::writeFloat(into, val.xmax());
     FileHelpers::writeFloat(into, val.ymax());
+}
+
+
+void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const RGBColor& val) {
+    BinaryFormatter::writeAttrHeader(into, attr, BF_COLOR);
+    FileHelpers::writeByte(into, char(val.red()*255+.5));
+    FileHelpers::writeByte(into, char(val.green()*255+.5));
+    FileHelpers::writeByte(into, char(val.blue()*255+.5));
+    FileHelpers::writeByte(into, 0);
 }
 
 

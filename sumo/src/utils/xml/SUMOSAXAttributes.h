@@ -45,6 +45,7 @@
 // ===========================================================================
 class PositionVector;
 class Boundary;
+class RGBColor;
 
 
 // ===========================================================================
@@ -513,6 +514,15 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      */
     virtual SumoXMLNodeType getNodeType(bool& ok) const = 0;
+
+
+    /**
+     * @brief Returns the value of the named attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list.
+     * @return The attribute's value as a RGBColor, if it could be read and parsed
+     */
+    virtual RGBColor getColorReporting(const char* objectid, bool& ok) const = 0;
 
 
     /** @brief Tries to read given attribute assuming it is a PositionVector

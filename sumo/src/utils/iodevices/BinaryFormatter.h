@@ -46,6 +46,7 @@
 class Position;
 class PositionVector;
 class Boundary;
+class RGBColor;
 class ROEdge;
 
 
@@ -277,6 +278,15 @@ public:
      * @param[in] val The attribute value
      */
     static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const Boundary& val);
+
+
+    /** @brief writes a color attribute
+     *
+     * @param[in] into The output stream to use
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     */
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const RGBColor& val);
 
 
     /** @brief writes an edge vector attribute

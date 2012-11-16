@@ -147,9 +147,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes& attrs) {
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        myColor = new RGBColor(RGBColor::parseColorReporting(
-                                   attrs.getString(SUMO_ATTR_COLOR),
-                                   attrs.getObjectType(), myCurrentRouteName.c_str(), true, myCurrentIsOk));
+        myColor = new RGBColor(attrs.getColorReporting(myCurrentRouteName.c_str(), myCurrentIsOk));
     }
     std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, myCurrentRouteName.c_str(), myCurrentIsOk);
     if(myCurrentIsOk) {

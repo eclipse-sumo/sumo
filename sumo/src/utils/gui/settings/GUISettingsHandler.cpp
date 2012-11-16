@@ -148,8 +148,7 @@ GUISettingsHandler::myStartElement(int element,
         case SUMO_TAG_ENTRY:
             if (myCurrentScheme) {
                 bool ok = true;
-                std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, 0, ok);
-                RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), 0, true, ok);
+                RGBColor color = attrs.getColorReporting(0, ok);
                 if (myCurrentScheme->isFixed()) {
                     myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
                 } else {

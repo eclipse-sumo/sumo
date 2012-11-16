@@ -149,12 +149,6 @@ public:
                                         const char* objectid, bool report, bool& ok);
 
 
-    /** @brief Returns the default color by parsing DEFAULT_COLOR_STRING
-     * @return The default color
-     */
-    static RGBColor getDefaultColor();
-
-
     /** @brief Interpolates between two colors
      *
      * The interpolated color is calculated as a weighted average of

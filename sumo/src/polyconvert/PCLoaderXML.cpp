@@ -133,9 +133,7 @@ PCLoaderXML::myStartElement(int element,
         }
         layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
         if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-            color = RGBColor::parseColorReporting(
-                    attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok),
-                    attrs.getObjectType(), id.c_str(), true, ok);
+            color = attrs.getColorReporting(id.c_str(), ok);
         }
         SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
         std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
@@ -182,9 +180,7 @@ PCLoaderXML::myStartElement(int element,
         }
         layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
         if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-            color = RGBColor::parseColorReporting(
-                    attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok),
-                    attrs.getObjectType(), id.c_str(), true, ok);
+            color = attrs.getColorReporting(id.c_str(), ok);
         }
         SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
         std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
