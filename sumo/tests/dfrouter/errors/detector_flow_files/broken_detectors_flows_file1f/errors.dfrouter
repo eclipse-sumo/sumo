@@ -1,4 +1,1 @@
-Error: The detector-flow-file 'input_flows.txt' is corrupt;
- The following values must be supplied : 'Detector', 'Time', 'qPKW', 'vPKW'
- The according column names must be given in the first line of the file.
-Quitting (on error).
+Warning: At least one line does not contain the correct number of columns.
