@@ -43,6 +43,11 @@
 
 
 // ===========================================================================
+// static members
+// ===========================================================================
+const std::string NBRampsComputer::ADDED_ON_RAMP_EDGE("-AddedOnRampEdge");
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -175,13 +180,13 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
                 throw ProcessError("Ups - could not build on-ramp for edge '" + curr->getID() + "' (node could not be build)!");
             }
             std::string name = curr->getID();
-            bool ok = ec.splitAt(dc, curr, rn, curr->getID() + "-AddedOnRampEdge", curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes());
+            bool ok = ec.splitAt(dc, curr, rn, curr->getID() + ADDED_ON_RAMP_EDGE, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes());
             if (!ok) {
                 WRITE_ERROR("Ups - could not build on-ramp for edge '" + curr->getID() + "'!");
                 return;
             }
             //ec.retrieve(name)->invalidateConnections();
-            curr = ec.retrieve(name + "-AddedOnRampEdge");
+            curr = ec.retrieve(name + ADDED_ON_RAMP_EDGE);
             curr->invalidateConnections(true);
             incremented.insert(curr);
             last = curr;

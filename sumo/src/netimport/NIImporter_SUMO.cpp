@@ -47,6 +47,7 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
+#include <netbuild/NBAlgorithms_Ramps.h>
 #include <netbuild/NBNetBuilder.h>
 #include "NILoader.h"
 #include "NIImporter_SUMO.h"
@@ -438,7 +439,13 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     unsigned int fromLaneIdx = attrs.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
     conn.toLaneIdx = attrs.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
     conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
-    conn.mayDefinitelyPass = false; // (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
+    conn.mayDefinitelyPass = attrs.getOptBoolReporting(SUMO_ATTR_PASS, 0, ok, false);
+    const size_t suffixSize = NBRampsComputer::ADDED_ON_RAMP_EDGE.size();
+    if (!conn.mayDefinitelyPass && conn.toEdgeID.size() > suffixSize &&
+            conn.toEdgeID.substr(conn.toEdgeID.size() - suffixSize) == NBRampsComputer::ADDED_ON_RAMP_EDGE) {
+        WRITE_MESSAGE("Infering connection attribute pass=\"1\" from to-edge id '" + conn.toEdgeID + "'");
+        conn.mayDefinitelyPass = true;
+    }
     if (conn.tlID != "") {
         conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok);
     }

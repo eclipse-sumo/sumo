@@ -60,6 +60,8 @@ public:
      */
     static void computeRamps(NBNetBuilder &nb, OptionsCont& oc);
 
+    /// @brief suffix for newly generated on-ramp edges
+    static const std::string ADDED_ON_RAMP_EDGE;
 
 private:
     /** @brief Determines whether the given node may be an on-ramp begin

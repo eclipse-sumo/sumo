@@ -42,3 +42,9 @@ reset_lane2lane
 
 # Removing a lane-to-lane connection with the reset element twice should raise a warning.
 reset_lane2lane_multi
+
+# load and set connection attribute pass
+may_pass
+
+# infer connection attribute pass from lane id
+may_pass_legacy
