@@ -419,6 +419,8 @@ enum {
     MID_GNE_SELECT_DEAD_STARTS,
     /** select lanes that are connected from concurrent lanes */
     MID_GNE_SELECT_CONFLICTS,
+    /** select lanes with connections that have the pass attribute set to 'true' */
+    MID_GNE_SELECT_PASS,
     /** changes the visual scaling of selected items */
     MID_GNE_SELECT_SCALE,
 
