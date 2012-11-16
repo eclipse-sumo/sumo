@@ -454,6 +454,8 @@ class NetReader(handler.ContentHandler):
                     name = attrs['name']
                 self._currentEdge = self._net.addEdge(attrs['id'],
                     attrs['from'], attrs['to'], prio, function, name)
+                if attrs.has_key('shape'):
+                    self.processShape(self._currentEdge, attrs['shape'])
             else:
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge!=None:
@@ -524,23 +526,28 @@ class NetReader(handler.ContentHandler):
 
 
     def endElement(self, name):
-        if name == 'lane' and self._currentLane:
-            cshape = []
-            es = self._currentShape.rstrip().split(" ")
-            for e in es:
-                p = e.split(",")
-                cshape.append((float(p[0]), float(p[1])))
-            self._currentLane.setShape(cshape)
+        if name == 'lane':
+            if  self._currentLane:
+                self.processShape(self._currentLane, self._currentShape)
+                self._currentShape = ""
             self._currentLane = None
-            self._currentShape = ""
-        if name == 'edge' and self._currentEdge:
-            self._currentEdge.rebuildShape();
         if name == 'edge':
+            if self._currentEdge and self._currentEdge._shape is None:
+                self._currentEdge.rebuildShape();
             self._currentEdge = None
         if name=='ROWLogic' or name=='row-logic': # 'row-logic' is deprecated!!!
             self._haveROWLogic = False
         if self._withPhases and (name=='tlLogic' or name=='tl-logic'): # tl-logic is deprecated!!!
             self._currentProgram = None
+
+    def processShape(self, object, shapeString):
+        cshape = []
+        es = shapeString.rstrip().split(" ")
+        for e in es:
+            p = e.split(",")
+            cshape.append((float(p[0]), float(p[1])))
+        object.setShape(cshape)
+
 
     def getNet(self):
         return self._net
