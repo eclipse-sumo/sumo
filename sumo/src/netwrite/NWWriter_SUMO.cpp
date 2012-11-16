@@ -391,7 +391,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
     into.writeAttr(SUMO_ATTR_TO, c.toEdge->getID());
     into.writeAttr(SUMO_ATTR_FROM_LANE, c.fromLane);
     into.writeAttr(SUMO_ATTR_TO_LANE, c.toLane);
-
+    if (c.mayDefinitelyPass) {
+        into.writeAttr(SUMO_ATTR_PASS, c.mayDefinitelyPass);
+    }
     if (style != PLAIN) {
         if (includeInternal) {
             into.writeAttr(SUMO_ATTR_VIA, c.id + "_0");

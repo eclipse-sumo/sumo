@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/02/12 11:24:55 by SUMO netconvert Version dev-SVN-r12205
+<!-- generated on Fri Nov 16 08:21:54 2012 by SUMO netconvert Version dev-SVN-r12992
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -85,10 +85,10 @@
     <junction id="5" type="unregulated" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85">
     </junction>
 
-    <connection from="on" to="s2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="s1" to="s2" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="s1" to="s2" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from="s1" to="s2" fromLane="2" toLane="3" dir="s" state="M"/>
+    <connection from="on" to="s2" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
+    <connection from="s1" to="s2" fromLane="0" toLane="1" pass="1" dir="s" state="M"/>
+    <connection from="s1" to="s2" fromLane="1" toLane="2" pass="1" dir="s" state="M"/>
+    <connection from="s1" to="s2" fromLane="2" toLane="3" pass="1" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="2" toLane="2" dir="s" state="M"/>
