@@ -91,7 +91,10 @@ RODFDetFlowLoader::read(const std::string& file) throw(IOError, ProcessError) {
             FlowDef fd;
             fd.isLKW = 0;
             fd.qPKW = TplConvert::_2SUMOReal(myLineHandler.get("qpkw").c_str());
-            fd.vPKW = TplConvert::_2SUMOReal(myLineHandler.get("vpkw").c_str());
+            fd.vPKW = 0;
+            if (myLineHandler.know("vPKW")) {
+                fd.vPKW = TplConvert::_2SUMOReal(myLineHandler.get("vpkw").c_str());
+            }
             fd.qLKW = 0;
             if (myLineHandler.know("qLKW")) {
                 fd.qLKW = TplConvert::_2SUMOReal(myLineHandler.get("qlkw").c_str());
@@ -114,7 +117,7 @@ RODFDetFlowLoader::read(const std::string& file) throw(IOError, ProcessError) {
             continue;
         } catch (UnknownElement&) {} catch (OutOfBoundsException&) {} catch (NumberFormatException&) {}
         throw ProcessError("The detector-flow-file '" + lr.getFileName() + "' is corrupt;\n"
-                           + " The following values must be supplied : 'Detector', 'Time', 'qPKW', 'vPKW'\n"
+                           + " The following values must be supplied : 'Detector', 'Time', 'qPKW'\n"
                            + " The according column names must be given in the first line of the file.");
     }
 }

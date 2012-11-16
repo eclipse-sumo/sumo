@@ -306,7 +306,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                     v = srcFD.vPKW;
                 }
                 // compute insertion speed
-                if (v < 0 || v > 250) {
+                if (v <= 0 || v > 250) {
                     v = defaultSpeed;
                 } else {
                     v = (SUMOReal)(v / 3.6);
