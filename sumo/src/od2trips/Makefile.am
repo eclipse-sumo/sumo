@@ -5,8 +5,8 @@ MEM_LIBS  = ../foreign/nvwa/libnvwa.a
 endif
 
 COMMON_LIBS = ../utils/options/liboptions.a \
-../utils/common/libcommon.a \
 ../utils/xml/libxml.a \
+../utils/common/libcommon.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
 ../foreign/tcpip/libtcpip.a \

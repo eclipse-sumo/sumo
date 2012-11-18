@@ -12,8 +12,8 @@ duarouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 duarouter_LDADD   = ../router/librouter.a \
 ../utils/options/liboptions.a \
-../utils/common/libcommon.a \
 ../utils/xml/libxml.a \
+../utils/common/libcommon.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
 ../utils/geom/libgeom.a \
