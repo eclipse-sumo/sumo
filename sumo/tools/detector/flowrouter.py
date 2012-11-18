@@ -365,7 +365,7 @@ class Net:
                     routeString = routeString.strip()
                     unfinalizedEdges.add(lastReal.label)
                     unfinalizedRoutes.add(routeID)
-                print >> routeOut, '    <route id="%s" multi_ref="x">%s</route>' % (routeID, routeString)
+                print >> routeOut, '    <route id="%s" edges="%s"/>' % (routeID, routeString)
         if len(unfinalizedRoutes) > 0:
             warn("Warning! No finalizers for %s." % unfinalizedEdges)
             warn("The routes %s will be one edge too short." % unfinalizedRoutes)
@@ -433,18 +433,14 @@ class NetDetectorFlowReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
+            self._edge = attrs['id']
             self._net.addIsolatedRealEdge(attrs['id'])
-        elif name == 'succ':
-            self._edge = attrs['edge']
-            if self._edge[0]==':':
-                self._edge = ''
-        elif name == 'succlane' and self._edge != '':
-            fromEdge = self._net.getEdge(self._edge)
-            l = attrs['lane']
-            toEdge = self._net.getEdge(l[:l.rfind('_')])
-            newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
+        elif name == 'connection':
+            fromEdge = self._net.getEdge(attrs['from'])
+            toEdge = self._net.getEdge(attrs['to'])
+            newEdge = Edge(attrs['from']+"_"+attrs['to'], fromEdge.target, toEdge.source)
             self._net.addEdge(newEdge)
-            fromEdge.finalizer = attrs['id']
+            fromEdge.finalizer = attrs['to']
         elif name == 'lane' and self._edge != '':
             self._lane2edge[attrs['id']] = self._edge
             edgeObj = self._net.getEdge(self._edge)
