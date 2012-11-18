@@ -56,7 +56,6 @@ class Edge:
         self.kind = kind
         self.maxSpeed = 0.0
         self.length = 0.0
-        self.finalizer = None
         self.detGroup = []
         self.routes = []
 
@@ -343,8 +342,6 @@ class Net:
 
     def writeRoutes(self, routeFileName):
         routeOut = open(routeFileName, 'w')
-        unfinalizedEdges = set()
-        unfinalizedRoutes = set()
         print >> routeOut, "<routes>"
         for edge in self._source.outEdges:
             for id, route in enumerate(edge.routes):
@@ -359,16 +356,7 @@ class Net:
                         lastReal = redge
                 assert firstReal != '' and lastReal != None
                 routeID = "%s.%s" % (firstReal, id)
-                if lastReal.finalizer:
-                    routeString += lastReal.finalizer
-                else:
-                    routeString = routeString.strip()
-                    unfinalizedEdges.add(lastReal.label)
-                    unfinalizedRoutes.add(routeID)
-                print >> routeOut, '    <route id="%s" edges="%s"/>' % (routeID, routeString)
-        if len(unfinalizedRoutes) > 0:
-            warn("Warning! No finalizers for %s." % unfinalizedEdges)
-            warn("The routes %s will be one edge too short." % unfinalizedRoutes)
+                print >> routeOut, '    <route id="%s" edges="%s"/>' % (routeID, routeString.strip())
         print >> routeOut, "</routes>"
         routeOut.close()
 
@@ -434,14 +422,21 @@ class NetDetectorFlowReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
             self._edge = attrs['id']
-            self._net.addIsolatedRealEdge(attrs['id'])
+            if not options.lanebased:
+                self._net.addIsolatedRealEdge(attrs['id'])
         elif name == 'connection':
-            fromEdge = self._net.getEdge(attrs['from'])
-            toEdge = self._net.getEdge(attrs['to'])
-            newEdge = Edge(attrs['from']+"_"+attrs['to'], fromEdge.target, toEdge.source)
+            fromEdgeID = attrs['from']
+            toEdgeID = attrs['to']
+            if options.lanebased:
+                fromEdgeID += "_" + attrs["fromLane"]
+                toEdgeID += "_" + attrs["toLane"]
+            newEdge = Edge(fromEdgeID+"_"+toEdgeID, self._net.getEdge(fromEdgeID).target,
+                           self._net.getEdge(toEdgeID).source)
             self._net.addEdge(newEdge)
-            fromEdge.finalizer = attrs['to']
         elif name == 'lane' and self._edge != '':
+            if options.lanebased:
+                self._net.addIsolatedRealEdge(attrs['id'])
+                self._edge = attrs['id']
             self._lane2edge[attrs['id']] = self._edge
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['speed']))
@@ -457,7 +452,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
             for group in detGroups:
                 if group.isValid:
                     self._net.getEdge(edge).detGroup.append(group)
-    
+
     def readFlows(self, flowFile):
         self._detReader.readFlows(flowFile)
 
@@ -499,6 +494,8 @@ optParser.add_option("-D", "--keep-det", action="store_true", dest="keepdet",
                      default=False, help='keep edges with detectors when deleting "slow" edges')
 optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
                      default=False, help="respect detectors without data (or with permanent zero) with zero flow")
+optParser.add_option("-l", "--lane-based", action="store_true", dest="lanebased",
+                     default=False, help="do not aggregate detector data and connections to edges")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
