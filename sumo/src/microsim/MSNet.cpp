@@ -736,13 +736,13 @@ MSNet::getRouterTT(const std::vector<MSEdge*>& prohibited) const {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
             myRouterTTDijkstra = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                    MSEdge::dictSize(), true, &MSNet::getTravelTime);
+                    MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
         } else {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
             }
             myRouterTTAStar = new AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                    MSEdge::dictSize(), true, &MSNet::getTravelTime);
+                    MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
         }
     }
     if (myRouterTTDijkstra != 0) {
@@ -760,7 +760,7 @@ SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterEffort(const std::vector<MSEdge*>& prohibited) const {
     if (myRouterEffort == 0) {
         myRouterEffort = new DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                MSEdge::dictSize(), true, &MSNet::getEffort, &MSNet::getTravelTime);
+                MSEdge::numericalDictSize(), true, &MSNet::getEffort, &MSNet::getTravelTime);
     }
     myRouterEffort->prohibit(prohibited);
     return *myRouterEffort;

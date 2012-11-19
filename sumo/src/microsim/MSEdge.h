@@ -450,6 +450,9 @@ public:
     /// @brief Returns the number of edges
     static size_t dictSize();
 
+    /// @brief Returns the number of edges with a numerical id
+    static size_t numericalDictSize();
+
     /** @brief Clears the dictionary */
     static void clear();
 

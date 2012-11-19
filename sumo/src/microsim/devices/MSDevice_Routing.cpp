@@ -276,10 +276,10 @@ MSDevice_Routing::getRouter() {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
             myRouter = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                    MSEdge::dictSize(), true, &MSDevice_Routing::getEffort);
+                    MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
         } else if (routingAlgorithm == "astar") {
             myRouter = new AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                    MSEdge::dictSize(), true, &MSDevice_Routing::getEffort);
+                    MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }

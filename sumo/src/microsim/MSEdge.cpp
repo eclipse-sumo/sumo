@@ -474,6 +474,12 @@ MSEdge::dictSize() {
 }
 
 
+size_t
+MSEdge::numericalDictSize() {
+    return myEdges.size();
+}
+
+
 void
 MSEdge::clear() {
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {

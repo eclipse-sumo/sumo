@@ -166,7 +166,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 WRITE_WARNING("CHWrapper is only needed for a restricted network");
             }
             router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                    oc.getBool("ignore-errors"), &ROEdge::getTravelTime, begin, weightPeriod);
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, begin, weightPeriod);
 
 #endif // have HAVE_INTERNAL
         } else {
