@@ -18,10 +18,7 @@ DELTA_T = 1000
 def patchFile(ifile, ofile, replacements):
     fdi = open(ifile)
     fdo = open(ofile, "w")
-    for line in fdi:
-        for r in replacements:
-            line = line.replace(r[0], r[1])
-        fdo.write(line)
+    fdo.write(fdi.read() % replacements)
     fdi.close()
     fdo.close()
 
@@ -35,7 +32,8 @@ def runSingle(traciEndTime):
     print "Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T)
     traci.close()
     sys.stdout.flush()
-    
+
+
 print "=========== long route ==========="
 fdo = open("input_routes.rou.xml", "w")
 print >> fdo, '<routes>"'
@@ -45,11 +43,11 @@ print >> fdo, '</routes>'
 fdo.close()
 print "----------- SUMO end time is smaller than TraCI's -----------"
 sys.stdout.flush()
-patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", "<end value='50'/>"] ])
+patchFile("sumo.sumocfg", "used.sumocfg", { "end": "<end value='50'/>" } )
 runSingle(99)
 print "----------- SUMO end time is not given -----------"
 sys.stdout.flush()
-patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", ""] ])
+patchFile("sumo.sumocfg", "used.sumocfg", { "end": "" } )
 runSingle(99)
 
 

@@ -7,7 +7,7 @@
 
     <time>
         <begin value="0"/>
-        %end%
+        %(end)s
     </time>
 
     <report>
