@@ -30,3 +30,6 @@ xml
 
 # Tests for the turn-defs tools
 turndefs
+
+# Tests for detector tools
+detector
