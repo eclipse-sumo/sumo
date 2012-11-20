@@ -1,5 +1,4 @@
-Warning: Teleporting vehicle 'always_right.0'; collision, lane='2o_0', time=31.00.
-Warning: Teleporting vehicle 'horizontal.1'; waited too long, lane='1si_1', time=337.00.
-Warning: Vehicle 'horizontal.1' ends teleporting on edge '2o', simulation time 337.00.
-Warning: Teleporting vehicle 'always_right.17'; waited too long, lane='3si_0', time=404.00.
-Warning: Vehicle 'always_right.17' ends teleporting on edge '2o', simulation time 404.00.
+Warning: Teleporting vehicle 'horizontal.0'; waited too long, lane='1si_1', time=332.00.
+Warning: Vehicle 'horizontal.0' ends teleporting on edge '2o', simulation time 332.00.
+Warning: Teleporting vehicle 'always_right.18'; waited too long, lane='3si_0', time=406.00.
+Warning: Vehicle 'always_right.18' ends teleporting on edge '2o', simulation time 406.00.

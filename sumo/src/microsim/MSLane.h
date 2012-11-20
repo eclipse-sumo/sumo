@@ -519,6 +519,11 @@ public:
             SUMOReal leaderSpeed, SUMOReal backOffset, SUMOReal predMaxDecel) const;
 
 
+    /// @brief return by how much further the leader must be inserted to avoid rear end collisions
+    SUMOReal getMissingRearGap(SUMOReal dist, SUMOReal backOffset, 
+            SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const;
+
+
     /** @brief Returns the leader and the distance to him
      *
      * Goes along the vehicle's estimated used lanes (bestLaneConts). For each link,

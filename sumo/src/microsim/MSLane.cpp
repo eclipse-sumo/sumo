@@ -555,26 +555,22 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             return false;
         }
     } else {
-        // check approaching vehicle (consecutive follower)
-        SUMOReal lspeed = getVehicleMaxSpeed(aVehicle);
-        // in order to look back, we'd need the minimum braking ability of vehicles in the net...
-        //  we'll assume it to be 4m/s^2
-        //   !!!revisit
-        SUMOReal dist = lspeed * lspeed / (2.*4.) + SPEED2DIST(lspeed);
-        std::pair<const MSVehicle* const, SUMOReal> approaching = getFollowerOnConsecutive(dist, 0, speed, pos - aVehicle->getVehicleType().getLengthWithGap(), 4.5);
-        if (approaching.first != 0) {
-            const MSVehicle* const follower = approaching.first;
-            SUMOReal backGapNeeded = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), aVehicle->getSpeed(), cfModel.getMaxDecel());
-            SUMOReal gap = approaching.second - approaching.first->getVehicleType().getMinGap() + pos - aVehicle->getVehicleType().getLength();
-            if (gap < backGapNeeded) {
-                // too close to the consecutive follower
-                const SUMOReal neededStartPos = pos + backGapNeeded - gap;
-                if (myVehicles.size() == 0 && notification == MSMoveReminder::NOTIFICATION_TELEPORT && neededStartPos <= myLength) {
-                    // shift starting positiong as needed entering from teleport
-                    pos = neededStartPos;
-                } else {
-                    return false;
-                }
+        // check approaching vehicles to prevent rear-end collisions
+        // to compute an uper bound on the look-back distance we need 
+        // the chosenSpeedFactor, minGap and maxDeceleration of approaching vehicles
+        // since we do not know these we use the values from the vehicle to be inserted
+        // and add a safety factor 
+        const SUMOReal dist = 2 * (aVehicle->getCarFollowModel().brakeGap(myMaxSpeed) + aVehicle->getVehicleType().getMinGap());
+        const SUMOReal backOffset = pos - aVehicle->getVehicleType().getLength();
+        const SUMOReal missingRearGap = getMissingRearGap(dist, backOffset, speed, aVehicle->getCarFollowModel().getMaxDecel());
+        if (missingRearGap > 0) {
+            // too close to a followers
+            const SUMOReal neededStartPos = pos + missingRearGap;
+            if (myVehicles.size() == 0 && notification == MSMoveReminder::NOTIFICATION_TELEPORT && neededStartPos <= myLength) {
+                // shift starting positiong as needed entering from teleport
+                pos = neededStartPos;
+            } else {
+                return false;
             }
         }
         // check for in-lapping vehicle
@@ -1032,6 +1028,48 @@ public:
         return p1.second < p2.second;
     }
 };
+
+
+SUMOReal MSLane::getMissingRearGap(
+        SUMOReal dist, SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const 
+{
+    // this follows the same logic as getFollowerOnConsecutive. we do a tree
+    // search until dist and check for the vehicle with the largest missing rear gap
+    SUMOReal result = 0;
+    std::set<MSLane*> visited;
+    std::vector<MSLane::IncomingLaneInfo> newFound;
+    std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
+    while (toExamine.size() != 0) {
+        for (std::vector<MSLane::IncomingLaneInfo>::iterator i = toExamine.begin(); i != toExamine.end(); ++i) {
+            MSLane* next = (*i).lane;
+            if (next->getFirstVehicle() != 0) {
+                MSVehicle* v = (MSVehicle*) next->getFirstVehicle();
+                const SUMOReal agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
+                const SUMOReal missingRearGap = v->getCarFollowModel().getSecureGap(
+                        v->getCarFollowModel().maxNextSpeed(v->getSpeed()), leaderSpeed, leaderMaxDecel) - agap;
+                result = MAX2(result, missingRearGap);
+            } else {
+                if ((*i).length < dist) {
+                    const std::vector<MSLane::IncomingLaneInfo> &followers = next->getIncomingLanes();
+                    for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
+                        if (visited.find((*j).lane) == visited.end()) {
+                            visited.insert((*j).lane);
+                            MSLane::IncomingLaneInfo ili;
+                            ili.lane = (*j).lane;
+                            ili.length = (*j).length + (*i).length;
+                            ili.viaLink = (*j).viaLink;
+                            newFound.push_back(ili);
+                        }
+                    }
+                }
+            }
+        }
+        toExamine.clear();
+        swap(newFound, toExamine);
+    }
+    return result;
+}
+
 
 std::pair<MSVehicle* const, SUMOReal>
 MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed,

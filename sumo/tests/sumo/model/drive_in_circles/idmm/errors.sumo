@@ -1,0 +1,2 @@
+warning: debug_new used with placement new (SUMOSAXReader.cpp:132)
+sumoD: MSCFModel.cpp:64: virtual double MSCFModel::moveHelper(MSVehicle*, double) const: Assertion `vMin <= vMax' failed.
