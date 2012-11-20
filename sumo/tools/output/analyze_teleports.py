@@ -64,7 +64,7 @@ def main(logfile):
     max_step = max(max(waitingStepCounts.keys()),
             max(collisionStepCounts.keys()))
     plotfile = logfile + '.plot'
-    with open(logfile, 'w') as f:
+    with open(plotfile, 'w') as f:
         f.write("# plot '%s' using 1:2 with lines title 'waiting', '%s' using 1:3 with lines title 'collisions'\n" % (
             plotfile, plotfile))
         for step in range(min_step, max_step + 1):
