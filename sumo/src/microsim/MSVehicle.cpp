@@ -753,7 +753,7 @@ MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUM
 
         bool yellow = (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR || (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
         bool red = (*link)->getState() == LINKSTATE_TL_RED;
-        bool setRequest = (!red && v > 0);
+        bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
         SUMOReal vLinkPass = v;
         SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, stopDist));
         if ((yellow || red) && seen > cfModel.brakeGap(myState.mySpeed) - myState.mySpeed*cfModel.getHeadwayTime()) {
