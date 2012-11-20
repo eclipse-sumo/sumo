@@ -55,7 +55,6 @@ def print_counts(countDict, label):
 
 
 def main(logfile):
-    options = parse_args()
     waitingCounts, collisionCounts, waitingStepCounts, collisionStepCounts = parse_log(logfile)
     print_counts(waitingCounts, 'waiting')
     print_counts(collisionCounts, 'collisions')
@@ -64,10 +63,12 @@ def main(logfile):
             min(collisionStepCounts.keys()))
     max_step = max(max(waitingStepCounts.keys()),
             max(collisionStepCounts.keys()))
-    with open(logfile + '.plot', 'w') as f:
-        f.write("# plot 'teleplot.data' using 1:2 with lines title 'waiting', 'teleplot.data' using 1:3 with lines title 'collisions'\n")
+    plotfile = logfile + '.plot'
+    with open(logfile, 'w') as f:
+        f.write("# plot '%s' using 1:2 with lines title 'waiting', '%s' using 1:3 with lines title 'collisions'\n" % (
+            plotfile, plotfile))
         for step in range(min_step, max_step + 1):
             print >>f, ' '.join(map(str,[step, waitingStepCounts[step], collisionStepCounts[step]]))
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main(*sys.argv[1:])
