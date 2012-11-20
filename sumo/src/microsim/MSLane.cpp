@@ -408,9 +408,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 aVehicle->getID() + "'. Inserting at lane end instead.");
         pos = myLength;
     }
-    if (aVehicle->getID() == "high.525" && pos > 0) {
-        std::cout << "DEBUG\n";
-    }
     aVehicle->getBestLanes(true, this);
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*> &bestLaneConts = aVehicle->getBestLanesContinuation(this);
