@@ -31,7 +31,7 @@ sumo/extended/calibrator/remove_from_all_queues/input_routes.rou.xml:5:0:ERROR:S
 sumo/extended/calibrator/remove_from_all_queues/input_routes.rou.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'flow', attribute 'depart': The attribute 'depart' is not allowed.
 Error on parsing '/sumo/meso/state/load_a_state/input_routes.rou.xml'!
 Traceback (most recent call last):
-  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 36, in validate
+  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 36, in validate
     doc = etree.parse(f)
   File "lxml.etree.pyx", line 2942, in lxml.etree.parse (src/lxml/lxml.etree.c:54187)
   File "parser.pxi", line 1528, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:79485)
@@ -44,7 +44,7 @@ Traceback (most recent call last):
 XMLSyntaxError: Start tag expected, '<' not found, line 1, column 1
 Error on parsing '/sumo/meso/state/save_a_state/input_routes.rou.xml'!
 Traceback (most recent call last):
-  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 36, in validate
+  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 36, in validate
     doc = etree.parse(f)
   File "lxml.etree.pyx", line 2942, in lxml.etree.parse (src/lxml/lxml.etree.c:54187)
   File "parser.pxi", line 1528, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:79485)
@@ -61,16 +61,19 @@ sumo/model/stop_at_position/idmm/input_routes.rou.xml:7:0:ERROR:SCHEMASV:SCHEMAV
 sumo/model/stop_at_position/kerner/input_routes.rou.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'stop', attribute 'edge': The attribute 'edge' is not allowed.
 sumo/model/stop_at_position/krauss/input_routes.rou.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'stop', attribute 'edge': The attribute 'edge' is not allowed.
 sumo/model/stop_at_position/wiedemann/input_routes.rou.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'stop', attribute 'edge': The attribute 'edge' is not allowed.
+sumo/output/duration_log/teleports_and_collisions/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'flow', attribute 'departspeed': The attribute 'departspeed' is not allowed.
+sumo/output/duration_log/teleports_and_collisions/input_routes.rou.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'flow', attribute 'departspeed': The attribute 'departspeed' is not allowed.
 sumo/spec/distribution/route_basic/input_routes.rou.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed.
 sumo/spec/distribution/route_basic/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed.
 sumo/spec/distribution/route_ref_compact/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'routeDistribution', attribute 'routes': The attribute 'routes' is not allowed.
 sumo/spec/distribution/route_ref_compact/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'routeDistribution': Missing child element(s). Expected is ( route ).
-sumo/spec/distribution/route_ref_compact_with_probabilities/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'flow', attribute 'depart': The attribute 'depart' is not allowed.
 sumo/spec/distribution/route_ref_compact_with_probabilities/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'routeDistribution', attribute 'routes': The attribute 'routes' is not allowed.
 sumo/spec/distribution/route_ref_compact_with_probabilities/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'routeDistribution', attribute 'probabilities': The attribute 'probabilities' is not allowed.
 sumo/spec/distribution/route_ref_compact_with_probabilities/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'routeDistribution': Missing child element(s). Expected is ( route ).
+sumo/spec/distribution/route_ref_compact_with_probabilities/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'flow', attribute 'depart': The attribute 'depart' is not allowed.
 sumo/spec/distribution/speed_basic/input_routes.rou.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vType', attribute 'speedDev': [facet 'minExclusive'] The value '0' must be greater than '0'.
 sumo/spec/distribution/speed_basic/input_routes.rou.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'speedDev': '0' is not a valid value of the atomic type 'positiveFloatType'.
+tools/route/route2poly/routes.rou.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed.
 tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.
 tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'route': Character content other than whitespace is not allowed because the content type is 'element-only'.
 tools/route/routecheck/missing_edges_attribute_fix/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.

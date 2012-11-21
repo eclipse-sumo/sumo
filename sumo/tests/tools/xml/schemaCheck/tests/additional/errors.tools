@@ -1,7 +1,7 @@
 sumo/basic/tls/errors/no_phases/input_additional.add.xml:5:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'tlLogic': Missing child element(s). Expected is ( phase ).
-sumo/basic/tls/off/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'tlLogic': The attribute 'offset' is required but missing.
 sumo/basic/tls/off/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'tlLogic': Missing child element(s). Expected is ( phase ).
-sumo/extended/busses/plain/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'busStop': This element is not expected
+sumo/basic/tls/off/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'tlLogic': The attribute 'offset' is required but missing.
+sumo/extended/busses/plain/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'busStop': This element is not expected.
 sumo/extended/busses/three_busses/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'busStop': This element is not expected.
 sumo/extended/device_hbefa/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'rerouter', attribute 'objectid': The attribute 'objectid' is not allowed.
 sumo/extended/hbefa/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'rerouter', attribute 'objectid': The attribute 'objectid' is not allowed.

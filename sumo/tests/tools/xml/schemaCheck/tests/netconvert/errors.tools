@@ -1,3 +1,30 @@
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:39:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:39:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:40:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:40:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:42:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:42:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:46:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:46:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:50:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.nod.xml:50:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+dfrouter/real_world/bell_pfe/bell_pfe_koeln.con.xml:25:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connections', attribute 'version': The attribute 'version' is not allowed.
 netconvert/function/junctions.join/basic/input_nodes.nod.xml:26:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'node', attribute 'tl': The attribute 'tl' is not allowed.
 netconvert/function/junctions.join/basic/input_nodes.nod.xml:20:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'node', attribute 'tl': The attribute 'tl' is not allowed.
 netconvert/function/junctions.join/edge_length/input_nodes.nod.xml:20:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'node', attribute 'tl': The attribute 'tl' is not allowed.
@@ -8,10 +35,15 @@ netconvert/function/junctions.join/joinExclude_input_file/input_nodes.nod.xml:41
 netconvert/function/junctions.join/join_loaded/input_nodes.nod.xml:39:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'join': This element is not expected.
 netconvert/function/junctions.join/preserve_permissions/input_nodes.nod.xml:20:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'node', attribute 'tl': The attribute 'tl' is not allowed.
 netconvert/function/junctions.join/preserve_permissions/input_nodes.nod.xml:26:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'node', attribute 'tl': The attribute 'tl' is not allowed.
+netconvert/function/roundabouts/divided_attachment/input_nodes.nod.xml:34:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+netconvert/function/roundabouts/divided_attachment/input_nodes.nod.xml:34:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+netconvert/function/roundabouts/divided_attachment/input_nodes.nod.xml:36:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+netconvert/function/roundabouts/divided_attachment/input_nodes.nod.xml:36:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
 netconvert/import/SUMO/connections/reset/input_connections.con.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'reset': This element is not expected. Expected is one of ( connection, prohibition, delete ).
 netconvert/import/XML/connections/delayed/input_nodes.nod.xml:41:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'join': This element is not expected.
 netconvert/import/XML/connections/delayed2/input_nodes.nod.xml:41:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'join': This element is not expected.
 netconvert/import/XML/connections/delayed_report/input_nodes.nod.xml:41:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'join': This element is not expected.
+netconvert/import/XML/diff/change_from_node_of_edge/input_plain.con.xml:1:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connections', attribute 'version': The attribute 'version' is not allowed.
 netconvert/import/XML/diff/create_and_modify/input_plain.con.xml:1:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connections', attribute 'version': The attribute 'version' is not allowed.
 netconvert/import/XML/diff/delete_edge/input_plain.nod.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'node', attribute 'tl': The attribute 'tl' is not allowed.
 netconvert/import/XML/diff/delete_edge/input_plain.con.xml:1:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connections', attribute 'version': The attribute 'version' is not allowed.
@@ -39,58 +71,58 @@ netconvert/import/XML/errors/broken_edge/edge%23priority__false1/input_edges.edg
 netconvert/import/XML/errors/broken_edge/edge%23priority__false4/input_edges.edg.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edge', attribute 'priority': 'a' is not a valid value of the atomic type 'xs:int'.
 Error on parsing '/netconvert/import/XML/errors/broken_edge/edge#shape__false1a/input_edges.edg.xml'!
 Traceback (most recent call last):
-  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 48, in validate
+  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 48, in validate
     e = os.path.abspath(str(entry)).replace('\\', '/')
-  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+  File "D:\Python27\lib\ntpath.py", line 471, in abspath
     path = _getfullpathname(path)
 TypeError: must be (buffer overflow), not str
 Error on parsing '/netconvert/import/XML/errors/broken_edge/edge#shape__false1b/input_edges.edg.xml'!
 Traceback (most recent call last):
-  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 48, in validate
+  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 48, in validate
     e = os.path.abspath(str(entry)).replace('\\', '/')
-  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+  File "D:\Python27\lib\ntpath.py", line 471, in abspath
     path = _getfullpathname(path)
 TypeError: must be (buffer overflow), not str
 Error on parsing '/netconvert/import/XML/errors/broken_edge/edge#shape__false1c/input_edges.edg.xml'!
 Traceback (most recent call last):
-  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 48, in validate
+  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 48, in validate
     e = os.path.abspath(str(entry)).replace('\\', '/')
-  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+  File "D:\Python27\lib\ntpath.py", line 471, in abspath
     path = _getfullpathname(path)
 TypeError: must be (buffer overflow), not str
 Error on parsing '/netconvert/import/XML/errors/broken_edge/edge#shape__false1d/input_edges.edg.xml'!
 Traceback (most recent call last):
-  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 48, in validate
+  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 48, in validate
     e = os.path.abspath(str(entry)).replace('\\', '/')
-  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+  File "D:\Python27\lib\ntpath.py", line 471, in abspath
     path = _getfullpathname(path)
 TypeError: must be (buffer overflow), not str
 Error on parsing '/netconvert/import/XML/errors/broken_edge/edge#shape__false4a/input_edges.edg.xml'!
 Traceback (most recent call last):
-  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 48, in validate
+  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 48, in validate
     e = os.path.abspath(str(entry)).replace('\\', '/')
-  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+  File "D:\Python27\lib\ntpath.py", line 471, in abspath
     path = _getfullpathname(path)
 TypeError: must be (buffer overflow), not str
 Error on parsing '/netconvert/import/XML/errors/broken_edge/edge#shape__false4b/input_edges.edg.xml'!
 Traceback (most recent call last):
-  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 48, in validate
+  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 48, in validate
     e = os.path.abspath(str(entry)).replace('\\', '/')
-  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+  File "D:\Python27\lib\ntpath.py", line 471, in abspath
     path = _getfullpathname(path)
 TypeError: must be (buffer overflow), not str
 Error on parsing '/netconvert/import/XML/errors/broken_edge/edge#shape__false4c/input_edges.edg.xml'!
 Traceback (most recent call last):
-  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 48, in validate
+  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 48, in validate
     e = os.path.abspath(str(entry)).replace('\\', '/')
-  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+  File "D:\Python27\lib\ntpath.py", line 471, in abspath
     path = _getfullpathname(path)
 TypeError: must be (buffer overflow), not str
 Error on parsing '/netconvert/import/XML/errors/broken_edge/edge#shape__false4d/input_edges.edg.xml'!
 Traceback (most recent call last):
-  File "D:/projects/sumo/t1/tests\..\tools/xml/schemaCheck.py", line 48, in validate
+  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 48, in validate
     e = os.path.abspath(str(entry)).replace('\\', '/')
-  File "C:\Python27\lib\ntpath.py", line 471, in abspath
+  File "D:\Python27\lib\ntpath.py", line 471, in abspath
     path = _getfullpathname(path)
 TypeError: must be (buffer overflow), not str
 netconvert/import/XML/lane_expansion/deprecated/three_minus_left_1/input_edges.edg.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'split', attribute 'lanes': '0;1' is not a valid value of the local atomic type.
@@ -101,7 +133,34 @@ tools/assign/Assignment/testnetz1.edg.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX
 tools/assign/Assignment/testnetz1.edg.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'edge', attribute 'function': The attribute 'function' is not allowed.
 tools/assign/calibration/test.typ.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'type', attribute 'length': The attribute 'length' is not allowed.
 tools/assign/calibration/test.typ.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'type', attribute 'length': The attribute 'length' is not allowed.
-tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.edg.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'edge', attribute 'function': The attribute 'function' is not allowed.
 tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.edg.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'edge', attribute 'function': The attribute 'function' is not allowed.
+tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.edg.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'edge', attribute 'function': The attribute 'function' is not allowed.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:42:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:42:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:46:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:46:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:50:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:50:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:39:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:39:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:40:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:40:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'node', attribute 'type': 'dead_end' is not a valid value of the local atomic type.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.nod.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'node', attribute 'type': [facet 'enumeration'] The value 'dead_end' is not an element of the set {'traffic_light', 'right_before_left', 'priority', 'unregulated'}.
+tools/detector/flowrouter/bell_pfe/bell_pfe_koeln.con.xml:26:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connections', attribute 'version': The attribute 'version' is not allowed.
 tools/turndefs/generateTurnDefs/uniform_distribution/connections.con.xml:24:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connections', attribute 'version': The attribute 'version' is not allowed.
-file:///D:/projects/sumo/t1/tests/tools/turndefs/generateTurnDefs/uniform_distribution/connections.con.xml:24:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connections', attribute 'version': The attribute 'version' is not allowed.
+file:///D:/meld_er/workplace/SE/extern/sumo//tests/tools/turndefs/generateTurnDefs/uniform_distribution/connections.con.xml:24:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'connections', attribute 'version': The attribute 'version' is not allowed.
