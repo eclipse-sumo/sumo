@@ -636,7 +636,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
 }
 
 
-bool 
+void
 MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront) {
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
@@ -795,7 +795,6 @@ MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUM
         seen += lane->getLength();
     }
     checkRewindLinkLanes(lengthsInFront);
-    return false;
 }
 
 

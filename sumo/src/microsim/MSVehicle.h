@@ -283,12 +283,8 @@ public:
      * @param[in] pred The leader (may be 0)
      * @param[in] neigh The neighbor vehicle (may be 0)
      * @param[in] lengthsInFront Sum of vehicle lengths in front of the vehicle
-     * @return Whether a collision occured (gap2pred(leader)<=0)
      */
-    bool move(SUMOTime t, MSLane* lane,
-                                 MSVehicle* pred,
-                                 MSVehicle* neigh,
-                                 SUMOReal lengthsInFront);
+    void move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront);
 
     /// @name state setter/getter
     //@{

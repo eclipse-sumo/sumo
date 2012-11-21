@@ -648,28 +648,15 @@ MSLane::moveCritical(SUMOTime t) {
     VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
     VehCont::iterator veh;
     // Move all next vehicles beside the first
-    for (veh = myVehicles.begin(); veh != lastBeforeEnd;) {
+    for (veh = myVehicles.begin(); veh != lastBeforeEnd; ++veh) {
         myLeftVehLength -= (*veh)->getVehicleType().getLengthWithGap();
         VehCont::const_iterator pred(veh + 1);
-        if ((*veh)->move(t, this, *pred, 0, myLeftVehLength)) {
-            collisions.push_back(*veh);
-        }
-        ++veh;
+        (*veh)->move(t, this, *pred, 0, myLeftVehLength);
     }
     myLeftVehLength -= (*veh)->getVehicleType().getLengthWithGap();
-    if ((*veh)->move(t, this, 0, 0, myLeftVehLength)) {
-        collisions.push_back(*veh);
-    }
+    (*veh)->move(t, this, 0, 0, myLeftVehLength);
     assert((*veh)->getPositionOnLane() <= myLength);
     assert((*veh)->getLane() == this);
-    // deal with collisions
-    for (std::vector<MSVehicle*>::iterator i = collisions.begin(); i != collisions.end(); ++i) {
-        WRITE_WARNING("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-        MSNet::getInstance()->getVehicleControl().registerCollision();
-        myVehicleLengthSum -= (*i)->getVehicleType().getLengthWithGap();
-        myVehicles.erase(find(myVehicles.begin(), myVehicles.end(), *i));
-        MSVehicleTransfer::getInstance()->addVeh(t, *i);
-    }
     return myVehicles.size() == 0;
 }
 
