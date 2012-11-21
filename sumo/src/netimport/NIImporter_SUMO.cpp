@@ -410,10 +410,12 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     // accurate reconstruction of legacy networks is not possible. We ought to warn about this
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         PositionVector shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, true);
-        shape.push_back_noDoublePos(shape[0]); // need closed shape
-        if (!shape.around(pos) && shape.distance(pos) > 1) { // MAGIC_THRESHOLD
-            // WRITE_WARNING("Junction '" + id + "': distance between pos and shape is " + toString(shape.distance(pos)));
-            mySuspectKeepShape = true;
+        if (shape.size() > 0) {
+            shape.push_back_noDoublePos(shape[0]); // need closed shape
+            if (!shape.around(pos) && shape.distance(pos) > 1) { // MAGIC_THRESHOLD
+                // WRITE_WARNING("Junction '" + id + "': distance between pos and shape is " + toString(shape.distance(pos)));
+                mySuspectKeepShape = true;
+            }
         }
     }
     NBNode* node = new NBNode(id, pos, type);
