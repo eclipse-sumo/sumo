@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vehicle id="right" departPos="0" depart="0">
+        <route edges="beg1 target"/>
+    </vehicle>
+    <vehicle id="uturn" departPos="0" depart="0">
+        <route edges="beg2 target"/>
+    </vehicle>
+</routes>
