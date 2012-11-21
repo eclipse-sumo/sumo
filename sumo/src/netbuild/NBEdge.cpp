@@ -995,6 +995,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
             con.vmax = vmax;
             con.shape = split.first;
             con.foeInternalLanes = foeInternalLanes;
+            con.foeIncomingLanes = ""; // reset first because this may be called multiple times
 
             for (std::set<std::string>::iterator q = tmpFoeIncomingLanes.begin(); q != tmpFoeIncomingLanes.end(); ++q) {
                 if (con.foeIncomingLanes.length() != 0) {
