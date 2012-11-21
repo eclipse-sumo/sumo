@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 09:34:38 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Wed Nov 21 12:39:39 2012 by SUMO netconvert Version dev-SVN-r13008
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -18,7 +18,6 @@
     </output>
 
     <processing>
-        <plain.keep-edge-shape value="true"/>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
     </processing>
@@ -31,7 +30,7 @@
     <location netOffset="0.00,0.00" convBoundary="-40.00,-10.00,40.00,40.00" origBoundary="-40.00,-10.00,40.00,40.00" projParameter="!"/>
 
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="5.00" shape="-40.00,35.25 -39.81,36.61 -39.23,37.58 -38.26,38.16 -36.90,38.35"/>
+        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="5.00" shape="-40.00,35.25 -39.81,36.61 -39.22,37.57 -38.26,38.16 -36.90,38.35"/>
     </edge>
     <edge id=":node_C_0" function="internal">
         <lane id=":node_C_0_0" index="0" speed="12.50" length="6.95" shape="-1.65,13.70 -1.95,12.45 -2.85,11.28 -4.36,10.20 -6.46,9.19"/>
@@ -183,11 +182,11 @@
     </junction>
 
     <junction id=":node_C_12_0" type="internal" x="2.26" y="10.97" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_5_0 :node_C_6_0 :node_C_7_0 :node_C_8_0 :node_C_9_0"/>
-    <junction id=":node_C_13_0" type="internal" x="1.56" y="11.84" incLanes=":node_C_3_0 edge_D2C_0" intLanes=":node_C_4_0 :node_C_9_0"/>
+    <junction id=":node_C_13_0" type="internal" x="1.56" y="11.84" incLanes=":node_C_3_0 edge_D2C_0 edge_R2C_0" intLanes=":node_C_4_0 :node_C_9_0"/>
     <junction id=":node_C_14_0" type="internal" x="2.35" y="11.36" incLanes=":node_C_6_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_2_0 :node_C_9_0 :node_C_10_0 :node_C_11_0"/>
-    <junction id=":node_C_15_0" type="internal" x="4.95" y="10.47" incLanes=":node_C_7_0" intLanes=":node_C_2_0 :node_C_8_0"/>
+    <junction id=":node_C_15_0" type="internal" x="4.95" y="10.47" incLanes=":node_C_7_0 edge_D2C_0 edge_U2C_0" intLanes=":node_C_2_0 :node_C_8_0"/>
     <junction id=":node_C_16_0" type="internal" x="-1.65" y="6.98" incLanes=":node_C_10_0 edge_U2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_5_0 :node_C_6_0"/>
-    <junction id=":node_C_17_0" type="internal" x="0.00" y="5.35" incLanes=":node_C_11_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_6_0"/>
+    <junction id=":node_C_17_0" type="internal" x="0.00" y="5.35" incLanes=":node_C_11_0 edge_R2C_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_6_0"/>
 
     <connection from="edge_C2D" to="edge_D2C" fromLane="0" toLane="0" via=":node_D_0_0" dir="t" state="M"/>
     <connection from="edge_C2L" to="gneE0" fromLane="0" toLane="0" via=":node_L_0_0" dir="r" state="M"/>

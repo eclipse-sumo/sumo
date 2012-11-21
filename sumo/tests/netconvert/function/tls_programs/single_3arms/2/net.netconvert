@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 09:35:48 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Wed Nov 21 12:40:12 2012 by SUMO netconvert Version dev-SVN-r13008
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -131,10 +131,10 @@
     </junction>
 
     <junction id=":n5_9_0" type="internal" x="129.18" y="201.49" incLanes=":n5_1_0 e11_0" intLanes=":n5_4_0 :n5_5_0 :n5_6_0 :n5_7_0"/>
-    <junction id=":n5_10_0" type="internal" x="133.70" y="202.26" incLanes=":n5_2_0 e11_0" intLanes=":n5_3_0 :n5_7_0"/>
+    <junction id=":n5_10_0" type="internal" x="133.70" y="202.26" incLanes=":n5_2_0 e11_0 e16_0" intLanes=":n5_3_0 :n5_7_0"/>
     <junction id=":n5_11_0" type="internal" x="131.27" y="201.04" incLanes=":n5_4_0 e21_0" intLanes=":n5_0_0 :n5_1_0 :n5_7_0 :n5_8_0"/>
-    <junction id=":n5_12_0" type="internal" x="129.86" y="199.73" incLanes=":n5_5_0" intLanes=":n5_1_0 :n5_6_0"/>
-    <junction id=":n5_13_0" type="internal" x="127.42" y="203.61" incLanes=":n5_8_0 e21_0" intLanes=":n5_0_0 :n5_4_0"/>
+    <junction id=":n5_12_0" type="internal" x="129.86" y="199.73" incLanes=":n5_5_0 e11_0 e21_0" intLanes=":n5_1_0 :n5_6_0"/>
+    <junction id=":n5_13_0" type="internal" x="127.42" y="203.61" incLanes=":n5_8_0 e16_0 e21_0" intLanes=":n5_0_0 :n5_4_0"/>
 
     <connection from="e10" to="e11" fromLane="0" toLane="0" via=":n3_0_0" dir="t" state="M"/>
     <connection from="e11" to="e13" fromLane="0" toLane="0" via=":n5_6_0" tl="n5" linkIndex="6" dir="r" state="o"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 26 16:06:37 2012 by SUMO netconvert Version dev-SVN-r12411
+<!-- generated on Wed Nov 21 12:39:58 2012 by SUMO netconvert Version dev-SVN-r13008
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -136,10 +136,10 @@
     </junction>
 
     <junction id=":node_centertl_9_0" type="internal" x="-1.07" y="1.65" incLanes=":node_centertl_1_0 edge_right_0" intLanes=":node_centertl_4_0 :node_centertl_5_0 :node_centertl_6_0 :node_centertl_7_0"/>
-    <junction id=":node_centertl_10_0" type="internal" x="-0.00" y="3.10" incLanes=":node_centertl_2_0 edge_right_0" intLanes=":node_centertl_3_0 :node_centertl_7_0"/>
-    <junction id=":node_centertl_11_0" type="internal" x="3.10" y="0.00" incLanes=":node_centertl_5_0 edge_left_0" intLanes=":node_centertl_1_0 :node_centertl_6_0"/>
+    <junction id=":node_centertl_10_0" type="internal" x="-0.00" y="3.10" incLanes=":node_centertl_2_0 edge_left_0 edge_right_0" intLanes=":node_centertl_3_0 :node_centertl_7_0"/>
+    <junction id=":node_centertl_11_0" type="internal" x="3.10" y="0.00" incLanes=":node_centertl_5_0 edge_left_0 edge_up_0" intLanes=":node_centertl_1_0 :node_centertl_6_0"/>
     <junction id=":node_centertl_12_0" type="internal" x="1.07" y="1.65" incLanes=":node_centertl_7_0 edge_right_0" intLanes=":node_centertl_1_0 :node_centertl_2_0 :node_centertl_3_0 :node_centertl_4_0"/>
-    <junction id=":node_centertl_13_0" type="internal" x="-3.10" y="-0.00" incLanes=":node_centertl_8_0 edge_right_0" intLanes=":node_centertl_0_0 :node_centertl_4_0"/>
+    <junction id=":node_centertl_13_0" type="internal" x="-3.10" y="-0.00" incLanes=":node_centertl_8_0 edge_right_0 edge_up_0" intLanes=":node_centertl_0_0 :node_centertl_4_0"/>
 
     <connection from="-edge_left" to="edge_left" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M"/>
     <connection from="-edge_right" to="edge_right" fromLane="0" toLane="0" via=":node_right_0_0" dir="t" state="M"/>

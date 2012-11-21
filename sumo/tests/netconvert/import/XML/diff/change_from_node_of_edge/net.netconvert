@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 19 14:34:12 2012 by SUMO netconvert Version dev-SVN-r12865
+<!-- generated on Wed Nov 21 12:39:40 2012 by SUMO netconvert Version dev-SVN-r13008
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -8,6 +8,8 @@
     <input>
         <sumo-net-file value="input_net.net.xml"/>
         <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+        <tllogic-files value="input_plain.tll.xml"/>
     </input>
 
     <output>
@@ -15,7 +17,6 @@
     </output>
 
     <processing>
-        <plain.keep-edge-shape value="true"/>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
     </processing>
@@ -132,9 +133,9 @@
     </junction>
 
     <junction id=":node_C_9_0" type="internal" x="-0.61" y="0.39" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_3_0 :node_C_4_0 :node_C_5_0 :node_C_6_0"/>
-    <junction id=":node_C_10_0" type="internal" x="2.22" y="-0.61" incLanes=":node_C_5_0" intLanes=":node_C_2_0 :node_C_6_0"/>
+    <junction id=":node_C_10_0" type="internal" x="2.22" y="-0.61" incLanes=":node_C_5_0 edge_D2C_0 edge_U2C_0" intLanes=":node_C_2_0 :node_C_6_0"/>
     <junction id=":node_C_11_0" type="internal" x="-1.65" y="-1.81" incLanes=":node_C_7_0 edge_U2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_3_0 :node_C_4_0"/>
-    <junction id=":node_C_12_0" type="internal" x="0.00" y="-4.39" incLanes=":node_C_8_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_4_0"/>
+    <junction id=":node_C_12_0" type="internal" x="0.00" y="-4.39" incLanes=":node_C_8_0 edge_R2C_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_4_0"/>
 
     <connection from="edge_C2D" to="edge_D2C" fromLane="0" toLane="0" via=":node_D_0_0" dir="t" state="M"/>
     <connection from="edge_C2R" to="edge_R2C" fromLane="0" toLane="0" via=":node_R_0_0" dir="t" state="M"/>

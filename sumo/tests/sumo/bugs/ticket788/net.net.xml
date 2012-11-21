@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed 21 Nov 2012 08:03:34 AM CET by Netedit Version dev-SVN-r13008
+<!-- generated on Wed Nov 21 13:18:45 2012 by SUMO netconvert Version dev-SVN-r13008
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/erdm_ja/debug/ticket788/input_net.net.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/erdm_ja/debug/ticket788/input_net.net.xml"/>
+        <output-file value="net2.net.xml"/>
     </output>
 
     <processing>
@@ -146,10 +146,10 @@
     <junction id="gneJ4" type="dead_end" x="92.92" y="-124.57" incLanes="gneE5_0" intLanes=":gneJ4_0_0" shape="92.97,-124.57 96.16,-124.36 89.68,-124.78 92.87,-124.57"/>
     <junction id="gneJ5" type="dead_end" x="77.77" y="135.72" incLanes="gneE6_0" intLanes=":gneJ5_0_0" shape="77.72,135.72 74.52,135.55 81.02,135.89 77.82,135.72"/>
 
-    <junction id=":gneJ2_16_0" type="internal" x="84.05" y="-4.36" incLanes=":gneJ2_2_0 gneE0_0 gneE0_0 gneE0_0" intLanes=":gneJ2_5_0 :gneJ2_6_0 :gneJ2_7_0 :gneJ2_8_0 :gneJ2_9_0 :gneJ2_13_0 :gneJ2_14_0"/>
-    <junction id=":gneJ2_17_0" type="internal" x="88.17" y="-2.56" incLanes=":gneJ2_3_0 gneE0_0" intLanes=":gneJ2_4_0 :gneJ2_9_0 :gneJ2_14_0"/>
-    <junction id=":gneJ2_18_0" type="internal" x="85.90" y="-1.00" incLanes=":gneJ2_10_0 beg2_0 beg2_0 beg2_0" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_5_0 :gneJ2_6_0 :gneJ2_13_0 :gneJ2_14_0 :gneJ2_15_0"/>
-    <junction id=":gneJ2_19_0" type="internal" x="81.82" y="-2.78" incLanes=":gneJ2_11_0 beg2_0" intLanes=":gneJ2_1_0 :gneJ2_6_0 :gneJ2_12_0"/>
+    <junction id=":gneJ2_16_0" type="internal" x="84.05" y="-4.36" incLanes=":gneJ2_2_0 gneE0_0" intLanes=":gneJ2_5_0 :gneJ2_6_0 :gneJ2_7_0 :gneJ2_8_0 :gneJ2_9_0 :gneJ2_13_0 :gneJ2_14_0"/>
+    <junction id=":gneJ2_17_0" type="internal" x="88.17" y="-2.56" incLanes=":gneJ2_3_0 beg1_0 gneE0_0 gneE7_0" intLanes=":gneJ2_4_0 :gneJ2_9_0 :gneJ2_14_0"/>
+    <junction id=":gneJ2_18_0" type="internal" x="85.90" y="-1.00" incLanes=":gneJ2_10_0 beg2_0" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_5_0 :gneJ2_6_0 :gneJ2_13_0 :gneJ2_14_0 :gneJ2_15_0"/>
+    <junction id=":gneJ2_19_0" type="internal" x="81.82" y="-2.78" incLanes=":gneJ2_11_0 beg1_0 beg2_0 gneE7_0" intLanes=":gneJ2_1_0 :gneJ2_6_0 :gneJ2_12_0"/>
 
     <connection from="beg1" to="target" fromLane="0" toLane="0" via=":gneJ2_4_0" dir="r" state="m"/>
     <connection from="beg1" to="gneE6" fromLane="0" toLane="0" via=":gneJ2_5_0" dir="s" state="m"/>

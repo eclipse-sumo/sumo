@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 09:35:57 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Wed Nov 21 12:40:15 2012 by SUMO netconvert Version dev-SVN-r13008
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -84,7 +84,7 @@
         <lane id=":1_0_0" index="0" speed="11.11" length="4.82" shape="0.00,498.35 1.24,499.18 1.65,500.00 1.24,500.82 0.00,501.65"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" speed="11.11" length="4.82" shape="1000.00,501.65 998.76,500.83 998.35,500.00 998.76,499.18 1000.00,498.35"/>
+        <lane id=":2_0_0" index="0" speed="11.11" length="4.82" shape="1000.00,501.65 998.76,500.82 998.35,500.00 998.76,499.18 1000.00,498.35"/>
     </edge>
     <edge id=":3_0" function="internal">
         <lane id=":3_0_0" index="0" speed="11.11" length="4.82" shape="501.65,0.00 500.82,1.24 500.00,1.65 499.18,1.24 498.35,0.00"/>
@@ -196,13 +196,13 @@
         <request index="14" response="0000011000110110" foes="0000111000110110" cont="0"/>
         <request index="15" response="0000000100100100" foes="0000000100100100" cont="0"/>
     </junction>
-    <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="0.00,499.95 0.00,496.75 -0.00,506.55 -0.00,500.05">
+    <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="-0.00,499.95 -0.00,496.75 0.00,506.55 0.00,500.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="2" type="priority" x="1000.00" y="500.00" incLanes="2o_0" intLanes=":2_0_0" shape="1000.00,500.05 1000.00,503.25 1000.00,493.45 1000.00,499.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="500.05,0.00 503.25,0.00 493.45,-0.00 499.95,-0.00">
+    <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="500.05,-0.00 503.25,-0.00 493.45,0.00 499.95,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="4" type="priority" x="500.00" y="1000.00" incLanes="4o_0" intLanes=":4_0_0" shape="499.95,1000.00 496.75,1000.00 506.55,1000.00 500.05,1000.00">
@@ -229,8 +229,8 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <junction id=":0_16_0" type="internal" x="500.00" y="501.65" incLanes=":0_3_0 3si_1" intLanes=":0_6_0 :0_9_0 :0_12_0"/>
-    <junction id=":0_17_0" type="internal" x="500.00" y="498.35" incLanes=":0_11_0 4si_1" intLanes=":0_1_0 :0_4_0 :0_14_0"/>
+    <junction id=":0_16_0" type="internal" x="500.00" y="501.65" incLanes=":0_3_0 1si_0 2si_2 3si_1" intLanes=":0_6_0 :0_9_0 :0_12_0"/>
+    <junction id=":0_17_0" type="internal" x="500.00" y="498.35" incLanes=":0_11_0 1si_2 2si_0 4si_1" intLanes=":0_1_0 :0_4_0 :0_14_0"/>
 
     <connection from="1fi" to="1si" fromLane="0" toLane="0" via=":m1_0_0" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="0" toLane="1" via=":m1_1_0" dir="s" state="M"/>
