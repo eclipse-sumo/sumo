@@ -7,6 +7,7 @@ copy_test_path:input_net.net.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_flows.flows.xml
+copy_test_path:input_detectors.det.xml
 copy_test_path:tracefile.xml
 copy_test_path:input_weights.dump.xml
 copy_test_path:e2_output.xml
@@ -15,6 +16,7 @@ copy_test_path:lsa_def.csv
 copy_test_path:lsa_def2.csv
 copy_test_path:vehroutes.xml
 copy_test_path:tripinfos.xml
+copy_test_path:input_flows.txt
 copy_test_path:map.txt
 copy_test_path:routes.rou.alt.xml
 copy_test_path:input_measurements.xml

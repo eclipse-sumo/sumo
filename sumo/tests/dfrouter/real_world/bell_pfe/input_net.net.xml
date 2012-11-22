@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Nov 18 17:21:21 2012 by SUMO netconvert Version dev-SVN-r13004
+<!-- generated on 11/22/12 14:51:10 by SUMO netconvert Version dev-SVN-r13002
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="bell_pfe_koeln.nod.xml"/>
-        <edge-files value="bell_pfe_koeln.edg.xml"/>
-        <connection-files value="bell_pfe_koeln.con.xml"/>
+        <node-files value="../../../networkInputs/bell_pfe/bell_pfe_koeln.nod.xml"/>
+        <edge-files value="../../../networkInputs/bell_pfe/bell_pfe_koeln.edg.xml"/>
+        <connection-files value="../../../networkInputs/bell_pfe/bell_pfe_koeln.con.xml"/>
     </input>
 
     <output>

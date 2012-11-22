@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/16/12 23:44:16 by SUMO netconvert Version dev-SVN-r13002
+<!-- generated on 11/22/12 14:52:30 by SUMO netconvert Version dev-SVN-r13002
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="bell_pfe_koeln.nod.xml"/>
-        <edge-files value="bell_pfe_koeln.edg.xml"/>
-        <connection-files value="bell_pfe_koeln.con.xml"/>
+        <node-files value="../../../../networkInputs/bell_pfe/bell_pfe_koeln.nod.xml"/>
+        <edge-files value="../../../../networkInputs/bell_pfe/bell_pfe_koeln.edg.xml"/>
+        <connection-files value="../../../../networkInputs/bell_pfe/bell_pfe_koeln.con.xml"/>
     </input>
 
     <output>
@@ -17,6 +17,7 @@
 
     <processing>
         <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
     </processing>
 
 </configuration>
@@ -312,7 +313,6 @@
     <connection from="16" to="11_47" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="17" to="53_52" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="17" to="53_52" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="18" to="51_50" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from="19_48" to="18" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="19_48" to="16" fromLane="1" toLane="0" dir="s" state="m"/>
     <connection from="20" to="25_56" fromLane="0" toLane="0" dir="s" state="m"/>
@@ -324,17 +324,13 @@
     <connection from="23_54" to="19_48" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="23_54" to="25_56" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="23_54" to="25_56" fromLane="1" toLane="1" dir="l" state="M"/>
-    <connection from="24" to="23_54" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from="25_56" to="30" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="25_56" to="27" fromLane="1" toLane="0" dir="l" state="M"/>
     <connection from="26_55" to="24" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="26_55" to="19_48" fromLane="1" toLane="0" dir="s" state="m"/>
-    <connection from="27" to="28_57" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from="28_57" to="26_55" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="28_57" to="26_55" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from="28_57" to="30" fromLane="1" toLane="0" dir="l" state="m"/>
-    <connection from="3" to="45_2" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from="30" to="gneE30" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="31_59" to="46_13" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="31_59" to="37" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="31_59" to="39" fromLane="1" toLane="0" dir="l" state="m"/>
@@ -354,17 +350,9 @@
     <connection from="36_62" to="39" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="36_62" to="32_63" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="36_62" to="46_13" fromLane="1" toLane="1" dir="l" state="m"/>
-    <connection from="37" to="36_62" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from="38" to="7" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="39" to="33_60_61" fromLane="0" toLane="2" dir="t" state="M"/>
     <connection from="4" to="3" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="4" to="42" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="4" to="6" fromLane="0" toLane="0" dir="l" state="m"/>
-    <connection from="40" to="34_66" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from="41" to="35_65" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from="42" to="1" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="43" to="4" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="44" to="10" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="45_2" to="42" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="45_2" to="6" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="45_2" to="43" fromLane="1" toLane="0" dir="l" state="m"/>
