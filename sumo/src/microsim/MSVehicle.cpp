@@ -707,7 +707,8 @@ MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUM
                 vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCarFollowModel().getMaxDecel());
             } else {
                 // the leading, in-lapping vehicle is occupying the complete next lane
-                vsafeLeader = cfModel.stopSpeed(this, stopDist);
+                // stop before entering this lane
+                vsafeLeader = cfModel.stopSpeed(this, seen - lane->getLength() - POSITION_EPS);
             }
             if(lastLink>0) myLFLinkLanes[lastLink].adaptLeaveSpeed(vsafeLeader);
             v = MIN2(v, vsafeLeader);

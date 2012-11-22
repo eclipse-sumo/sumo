@@ -3,7 +3,7 @@
     <vType id="slow" maxSpeed="1"/>
     <vehicle id="blocker" type="very_slow" departPos="0" depart="0">
         <route edges="target"/>
-        <stop lane="target_0" endPos="15" duration="1000"/>
+        <stop lane="target_0" endPos="15" duration="200"/>
     </vehicle>
     <vehicle id="victim" departPos="100" depart="6">
         <route edges="beg2 target"/>
