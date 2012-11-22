@@ -357,7 +357,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    virtual int getInt(int id) const throw(EmptyData, NumberFormatException) = 0;
+    virtual int getInt(int id) const = 0;
 
 
     /**
@@ -375,7 +375,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    virtual SUMOLong getLong(int id) const throw(EmptyData, NumberFormatException) = 0;
+    virtual SUMOLong getLong(int id) const = 0;
 
 
     /**
@@ -395,7 +395,7 @@ public:
      * @exception EmptyData If the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    virtual int getIntSecure(int id, int def) const throw(EmptyData, NumberFormatException) = 0;
+    virtual int getIntSecure(int id, int def) const = 0;
 
 
     /**
@@ -444,7 +444,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
-    virtual SUMOReal getFloat(int id) const throw(EmptyData, NumberFormatException) = 0;
+    virtual SUMOReal getFloat(int id) const = 0;
 
     /**
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
@@ -463,7 +463,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
-    virtual SUMOReal getFloatSecure(int id, SUMOReal def) const throw(EmptyData, NumberFormatException) = 0;
+    virtual SUMOReal getFloatSecure(int id, SUMOReal def) const = 0;
 
 
     /**
@@ -481,7 +481,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
-    virtual SUMOReal getFloat(const std::string& id) const throw(EmptyData, NumberFormatException) = 0;
+    virtual SUMOReal getFloat(const std::string& id) const = 0;
 
 
     /**

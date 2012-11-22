@@ -87,20 +87,20 @@ SUMOSAXAttributesImpl_Xerces::getBoolSecure(int id, bool val) const throw(EmptyD
 
 
 int
-SUMOSAXAttributesImpl_Xerces::getInt(int id) const throw(EmptyData, NumberFormatException) {
+SUMOSAXAttributesImpl_Xerces::getInt(int id) const {
     return TplConvert::_2int(getAttributeValueSecure(id));
 }
 
 
 int
 SUMOSAXAttributesImpl_Xerces::getIntSecure(int id,
-        int def) const throw(EmptyData, NumberFormatException) {
+        int def) const {
     return TplConvert::_2intSec(getAttributeValueSecure(id), def);
 }
 
 
 SUMOLong
-SUMOSAXAttributesImpl_Xerces::getLong(int id) const throw(EmptyData, NumberFormatException) {
+SUMOSAXAttributesImpl_Xerces::getLong(int id) const {
     return TplConvert::_2long(getAttributeValueSecure(id));
 }
 
@@ -147,14 +147,14 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Xerces::getFloat(int id) const throw(EmptyData, NumberFormatException) {
+SUMOSAXAttributesImpl_Xerces::getFloat(int id) const {
     return TplConvert::_2SUMOReal(getAttributeValueSecure(id));
 }
 
 
 SUMOReal
 SUMOSAXAttributesImpl_Xerces::getFloatSecure(int id,
-        SUMOReal def) const throw(EmptyData, NumberFormatException) {
+        SUMOReal def) const {
     return TplConvert::_2SUMORealSec(getAttributeValueSecure(id), def);
 }
 
@@ -168,7 +168,7 @@ SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const throw(EmptyData, NumberFormatException) {
+SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const {
     XMLCh* t = XMLString::transcode(id.c_str());
     SUMOReal result = TplConvert::_2SUMOReal(myAttrs.getValue(t));
     XMLString::release(&t);

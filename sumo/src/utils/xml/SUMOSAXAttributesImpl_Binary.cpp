@@ -52,10 +52,6 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
         const std::map<int, std::string> &predefinedTagsMML,
         const std::string& objectType,
         BinaryInputDevice* in) : SUMOSAXAttributes(objectType), myAttrIds(predefinedTagsMML) {
-            //!!! need to speed up the following loop by precalc
-    for (std::map<int, std::string>::const_iterator i = predefinedTagsMML.begin(); i != predefinedTagsMML.end(); ++i) {
-        myAttrNames[i->second] = i->first;
-    }
     while (in->peek() == BinaryFormatter::BF_XML_ATTRIBUTE) {
         int attr;
         *in >> attr;
@@ -185,7 +181,7 @@ SUMOSAXAttributesImpl_Binary::getBoolSecure(int id, bool val) const throw(EmptyD
 
 
 int
-SUMOSAXAttributesImpl_Binary::getInt(int id) const throw(EmptyData, NumberFormatException) {
+SUMOSAXAttributesImpl_Binary::getInt(int id) const {
     const std::map<int, int>::const_iterator i = myIntValues.find(id);
     if (i == myIntValues.end()) {
         throw EmptyData();
@@ -196,7 +192,7 @@ SUMOSAXAttributesImpl_Binary::getInt(int id) const throw(EmptyData, NumberFormat
 
 int
 SUMOSAXAttributesImpl_Binary::getIntSecure(int id,
-        int def) const throw(EmptyData, NumberFormatException) {
+        int def) const {
     const std::map<int, int>::const_iterator i = myIntValues.find(id);
     if (i == myIntValues.end()) {
         return def;
@@ -206,7 +202,7 @@ SUMOSAXAttributesImpl_Binary::getIntSecure(int id,
 
 
 SUMOLong
-SUMOSAXAttributesImpl_Binary::getLong(int id) const throw(EmptyData, NumberFormatException) {
+SUMOSAXAttributesImpl_Binary::getLong(int id) const {
     throw NumberFormatException();
 }
 
@@ -233,7 +229,7 @@ SUMOSAXAttributesImpl_Binary::getStringSecure(int id,
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Binary::getFloat(int id) const throw(EmptyData, NumberFormatException) {
+SUMOSAXAttributesImpl_Binary::getFloat(int id) const {
     const std::map<int, SUMOReal>::const_iterator i = myFloatValues.find(id);
     if (i == myFloatValues.end()) {
         return TplConvert::_2SUMOReal(getString(id).c_str());
@@ -244,7 +240,7 @@ SUMOSAXAttributesImpl_Binary::getFloat(int id) const throw(EmptyData, NumberForm
 
 SUMOReal
 SUMOSAXAttributesImpl_Binary::getFloatSecure(int id,
-        SUMOReal def) const throw(EmptyData, NumberFormatException) {
+        SUMOReal def) const {
     const std::map<int, SUMOReal>::const_iterator i = myFloatValues.find(id);
     if (i == myFloatValues.end()) {
         return def;
@@ -254,30 +250,21 @@ SUMOSAXAttributesImpl_Binary::getFloatSecure(int id,
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Binary::getFloat(const std::string& id) const throw(EmptyData, NumberFormatException) {
-    const std::map<const std::string, int>::const_iterator i = myAttrNames.find(id);
-    if (i == myAttrNames.end()) {
-        throw EmptyData();
-    }
-    return getFloat(i->second);
+SUMOSAXAttributesImpl_Binary::getFloat(const std::string& id) const {
+    throw ProcessError("not implemented for binary data");
 }
 
 
 bool
 SUMOSAXAttributesImpl_Binary::hasAttribute(const std::string& id) const {
-    const std::map<const std::string, int>::const_iterator i = myAttrNames.find(id);
-    return i != myAttrNames.end() && hasAttribute(i->second);
+    throw ProcessError("not implemented for binary data");
 }
 
 
 std::string
 SUMOSAXAttributesImpl_Binary::getStringSecure(const std::string& id,
         const std::string& str) const {
-    const std::map<const std::string, int>::const_iterator i = myAttrNames.find(id);
-    if (i == myAttrNames.end()) {
-        return str;
-    }
-    return getStringSecure(i->second, str);
+    throw ProcessError("not implemented for binary data");
 }
 
 
