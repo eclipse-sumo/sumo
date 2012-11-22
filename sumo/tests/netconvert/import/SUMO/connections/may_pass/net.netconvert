@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 16 08:21:53 2012 by SUMO netconvert Version dev-SVN-r12992
+<!-- generated on Thu Nov 22 14:41:42 2012 by SUMO netconvert Version dev-SVN-r13008
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="input_nodes.nod.xml"/>
-        <edge-files value="input_edges.edg.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
         <output-file value="net.net.xml"/>
     </output>
 
-    <ramp_guessing>
-        <ramps.guess value="true"/>
-    </ramp_guessing>
-
     <processing>
         <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
     </processing>
 
 </configuration>
@@ -72,10 +69,10 @@
         <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1497.71,13.95 1499.41,11.24 1501.50,9.85 1501.50,0.05 1494.94,0.05 1494.94,13.15">
-        <request index="0" response="0000" foes="1110"/>
-        <request index="1" response="0000" foes="0001"/>
-        <request index="2" response="0000" foes="0001"/>
-        <request index="3" response="0000" foes="0001"/>
+        <request index="0" response="0000" foes="0000"/>
+        <request index="1" response="0000" foes="0000"/>
+        <request index="2" response="0000" foes="0000"/>
+        <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="4a" type="unregulated" x="1800.00" y="200.00" incLanes="" intLanes="" shape="1799.97,200.04 1798.27,202.75">
     </junction>

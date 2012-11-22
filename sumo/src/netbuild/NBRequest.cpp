@@ -163,6 +163,8 @@ NBRequest::buildBitfieldLogic(bool leftHanded) {
     }
     // reset signalised/non-signalised dependencies
     resetSignalised();
+    // reset foes it the number of lanes matches (or exceeds) the number of incoming connections
+    resetCooperating();
 }
 
 
@@ -630,6 +632,36 @@ NBRequest::reportWarnings() {
 }
 
 
+void
+NBRequest::resetCooperating() {
+    // map from edge to number of incoming connections
+    std::map<NBEdge*, size_t> incomingCount; // initialized to 0
+    // map from edge to indices of approached lanes
+    std::map<NBEdge*, std::set<int> > approachedLanes; 
+    // map from edge to list of incoming edges
+    std::map<NBEdge*, EdgeVector> incomingEdges;
+    for (EdgeVector::const_iterator it_e = myIncoming.begin(); it_e != myIncoming.end(); it_e++) {
+        const std::vector<NBEdge::Connection> connections = (*it_e)->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); ++it_c) {
+            incomingCount[it_c->toEdge]++;
+            approachedLanes[it_c->toEdge].insert(it_c->toLane);
+            incomingEdges[it_c->toEdge].push_back(*it_e);
+        }
+    }
+    for (std::map<NBEdge*, size_t>::iterator it = incomingCount.begin(); it != incomingCount.end(); ++it) {
+        NBEdge* to = it->first;
+        // we cannot test against to->getNumLanes() since not all lanes may be used
+        if (approachedLanes[to].size() >= it->second) {
+            EdgeVector& incoming = incomingEdges[to];
+            // make these connections mutually unconflicting
+            for (EdgeVector::iterator it_e1 = incoming.begin(); it_e1 != incoming.end(); ++it_e1) {
+                for (EdgeVector::iterator it_e2 = incoming.begin(); it_e2 != incoming.end(); ++it_e2) {
+                    myForbids[getIndex(*it_e1, to)][getIndex(*it_e2, to)] = false;
+                }
+            }
+        }
+    }
+}
 
 /****************************************************************************/
 

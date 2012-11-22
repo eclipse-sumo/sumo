@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/06/11 16:21:55 by SUMO netconvert Version dev-SVN-r10870
+<!-- generated on Thu Nov 22 14:41:36 2012 by SUMO netconvert Version dev-SVN-r13008
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -11,6 +12,7 @@
     <output>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
+        <output.street-names value="true"/>
     </output>
 
     <report>
@@ -100,7 +102,7 @@
         <lane id="4_0" index="0" speed="13.89" length="182.57" shape="247.75,749.04 224.59,693.12 207.44,623.57 189.75,576.37"/>
     </edge>
     <edge id="5" from="5" to="5-end" name="-76" priority="-1" spreadType="center" shape="152.36,424.43 113.40,270.74 97.94,215.33 87.41,179.62 68.37,130.99 54.00,98.62 0.00,0.00">
-        <lane id="5_0" index="0" speed="13.89" length="452.90" shape="149.04,424.77 110.20,271.55 94.76,216.22 84.24,180.55 65.30,132.19 50.98,99.96 -2.89,1.59"/>
+        <lane id="5_0" index="0" speed="13.89" length="452.90" shape="149.04,424.77 110.20,271.55 94.76,216.22 84.24,180.55 65.30,132.19 50.98,99.96 -2.89,1.58"/>
         <lane id="5_1" index="1" speed="13.89" length="452.90" shape="152.24,423.96 113.40,270.74 97.94,215.33 87.41,179.62 68.37,130.99 54.00,98.62 -0.00,0.00"/>
         <lane id="5_2" index="2" speed="13.89" length="452.90" shape="155.44,423.15 116.60,269.93 101.12,214.44 90.58,178.69 71.44,129.79 57.02,97.28 2.89,-1.59"/>
     </edge>
@@ -145,10 +147,10 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
     <junction id="4" type="priority" x="193.15" y="572.23" incLanes="4_0 3_0 3_1 3_2" intLanes=":4_0_0 :4_1_0 :4_2_0 :4_3_0" shape="188.25,576.93 191.25,575.81 199.41,567.62 186.84,571.31">
-        <request index="0" response="1110" foes="1110" cont="0"/>
-        <request index="1" response="0000" foes="0001" cont="0"/>
-        <request index="2" response="0000" foes="0001" cont="0"/>
-        <request index="3" response="0000" foes="0001" cont="0"/>
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
     <junction id="5" type="priority" x="151.24" y="426.75" incLanes="6_0 6_1 6_2 6_3" intLanes=":5_0_0 :5_1_0 :5_2_0" shape="145.10,429.08 157.67,425.39 156.99,422.76 147.49,425.17">
         <request index="0" response="000" foes="000" cont="0"/>
@@ -175,7 +177,7 @@
     <connection from="3" to="6" fromLane="0" toLane="1" via=":4_1_0" dir="s" state="M"/>
     <connection from="3" to="6" fromLane="1" toLane="2" via=":4_2_0" dir="s" state="M"/>
     <connection from="3" to="6" fromLane="2" toLane="3" via=":4_3_0" dir="s" state="M"/>
-    <connection from="4" to="6" fromLane="0" toLane="0" via=":4_0_0" dir="s" state="m"/>
+    <connection from="4" to="6" fromLane="0" toLane="0" via=":4_0_0" dir="s" state="M"/>
     <connection from="6" to="5" fromLane="1" toLane="0" via=":5_0_0" dir="s" state="M"/>
     <connection from="6" to="5" fromLane="2" toLane="1" via=":5_1_0" dir="s" state="M"/>
     <connection from="6" to="5" fromLane="3" toLane="2" via=":5_2_0" dir="s" state="M"/>

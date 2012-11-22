@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed 12 Oct 2011 08:37:37 AM CEST by Netedit Version dev-SVN-r11376
+<!-- generated on Thu Nov 22 14:41:26 2012 by SUMO netconvert Version dev-SVN-r13008
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/erdm_ja/debug/netdiff/delete_node/input_net.net.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+        <tllogic-files value="input_plain.tll.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/erdm_ja/debug/netdiff/delete_node/net.netconvert"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -78,11 +82,11 @@
     </tlLogic>
 
     <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_6_0 :node_C_3_0 :node_C_4_0 :node_C_5_0" shape="4.42,3.45 4.75,-4.47 3.25,-6.04 -3.25,-6.04 -4.70,-2.11 -3.02,4.17">
-        <request index="0" response="010000" foes="010000" cont="0"/>
+        <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="010000" foes="110000" cont="0"/>
         <request index="2" response="001000" foes="001000" cont="1"/>
         <request index="3" response="000000" foes="000100" cont="0"/>
-        <request index="4" response="000000" foes="000011" cont="0"/>
+        <request index="4" response="000000" foes="000010" cont="0"/>
         <request index="5" response="000010" foes="000010" cont="0"/>
     </junction>
     <junction id="node_D" type="priority" x="0.00" y="-10.00" incLanes="edge_C2D_0" intLanes=":node_D_0_0" shape="0.05,-10.00 3.25,-10.00 -3.25,-10.00 -0.05,-10.00">

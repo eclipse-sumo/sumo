@@ -201,6 +201,10 @@ private:
 
     void resetSignalised();
 
+
+    /// @brief reset foes it the number of lanes matches (or exceeds) the number of incoming connections for an edge
+    void resetCooperating();
+
 private:
     /// the node the request is assigned to
     NBNode* myJunction;
