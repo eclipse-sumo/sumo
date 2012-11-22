@@ -14,8 +14,6 @@ class LaneMap:
 class DetectorRouteEmitterReader(handler.ContentHandler):
 
     def __init__(self, detFile):
-        self._routeID = ''
-        self._routeString = ''
         self._routes = {}
         self._detReader = detector.DetectorReader(detFile, LaneMap())
         self._edgeFlow = {}
@@ -29,30 +27,11 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'route':
-            self._routeID = attrs['id']
-        if name == 'trigger' or name == 'emitter':
-            self._parser.parse(attrs['file'])
-        if name == 'routedistelem':
-            if not options.dfrstyle:
-                flow = int(attrs['probability'])
-                for edge in self._routes[attrs['id']]:
-                    self.addEdgeFlow(edge, flow)
-        if name == 'emit':
-            if options.dfrstyle:
-                for det in self._route2dets[attrs['route']]:
-                    self.addEdgeFlow(edge, 1)
-
-    def characters(self, content):
-        if self._routeID != '':
-            self._routeString += content
-
-    def endElement(self, name):
-        if name == 'route':
-            self._routes[self._routeID] = self._routeString.split()
-            if not options.respectsink:
-                self._routes[self._routeID].pop()
-            self._routeID = ''
-            self._routeString = ''
+            if 'id' in attrs:
+                self._routes[attrs['id']] = attrs['edges'].split()
+        if name == 'vehicle':
+            for edge in self._routes[attrs['route']]:
+                self.addEdgeFlow(edge, 1)
 
     def readDetFlows(self, flowFile):
         self._detReader.readFlows(flowFile)
@@ -119,8 +98,6 @@ optParser.add_option("-f", "--detector-flow-file", dest="flowfile",
                      help="read detector flows to compare to from FILE", metavar="FILE")
 optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
                      default=False, help="respect detectors without data (or with permanent zero) with zero flow")
-optParser.add_option("-s", "--respect-sinks", action="store_true", dest="respectsink",
-                     default=False, help="respect last edge of the route (although a SUMO car probably will not use it)")
 optParser.add_option("-D", "--dfrouter-style", action="store_true", dest="dfrstyle",
                      default=False, help="emitter files in dfrouter style (explicit routes)")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
