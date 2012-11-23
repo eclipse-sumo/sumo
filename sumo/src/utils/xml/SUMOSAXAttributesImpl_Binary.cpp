@@ -53,7 +53,7 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
         const std::string& objectType,
         BinaryInputDevice* in) : SUMOSAXAttributes(objectType), myAttrIds(predefinedTagsMML) {
     while (in->peek() == BinaryFormatter::BF_XML_ATTRIBUTE) {
-        int attr;
+        unsigned char attr;
         *in >> attr;
         int type = in->peek();
         switch (type) {
@@ -64,6 +64,7 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                 *in >> myIntValues[attr];
                 break;
             case BinaryFormatter::BF_FLOAT:
+            case BinaryFormatter::BF_SCALED2INT:
                 *in >> myFloatValues[attr];
                 break;
             case BinaryFormatter::BF_STRING:
@@ -74,7 +75,9 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                 *in >> size;
                 while (size > 0) {
                     const int type = in->peek();
-                    if (type != BinaryFormatter::BF_POSITION_2D && type != BinaryFormatter::BF_POSITION_3D) {
+                    if (type != BinaryFormatter::BF_POSITION_2D && type != BinaryFormatter::BF_POSITION_3D && 
+                        type != BinaryFormatter::BF_SCALED2INT_POSITION_2D &&
+                        type != BinaryFormatter::BF_SCALED2INT_POSITION_3D) {
                         throw ProcessError("Invalid binary file, only supporting position vectors.");
                     }
                     size--;
@@ -93,7 +96,9 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                 *in >> myCharValues[attr];
                 break;
             case BinaryFormatter::BF_POSITION_2D:
-            case BinaryFormatter::BF_POSITION_3D: {
+            case BinaryFormatter::BF_POSITION_3D:
+            case BinaryFormatter::BF_SCALED2INT_POSITION_2D:
+            case BinaryFormatter::BF_SCALED2INT_POSITION_3D: {
                 Position p;
                 *in >> p;
                 myPositionVectors[attr].push_back(p);

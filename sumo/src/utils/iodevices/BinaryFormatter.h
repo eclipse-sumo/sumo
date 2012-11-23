@@ -96,7 +96,13 @@ public:
         /// @brief
         BF_EDGE_FUNCTION,
         /// @brief
-        BF_ROUTE
+        BF_ROUTE,
+        /// @brief
+        BF_SCALED2INT,
+        /// @brief
+        BF_SCALED2INT_POSITION_2D,
+        /// @brief
+        BF_SCALED2INT_POSITION_3D
     };
 
     /// @brief Constructor
@@ -308,7 +314,7 @@ private:
      */
     static inline void writeAttrHeader(std::ostream& into, const SumoXMLAttr attr, const DataType type) {
         FileHelpers::writeByte(into, static_cast<unsigned char>(BF_XML_ATTRIBUTE));
-        FileHelpers::writeInt(into, attr);
+        FileHelpers::writeByte(into, attr);
         FileHelpers::writeByte(into, static_cast<unsigned char>(type));
     }
 
@@ -318,7 +324,15 @@ private:
      * @param[in] into The output stream to use
      * @param[in] list the list to write
      */
-    void writeStringList(std::ostream& into, const std::vector<std::string>& list);
+    static void writeStringList(std::ostream& into, const std::vector<std::string>& list);
+
+
+    /** @brief writes a position
+     *
+     * @param[in] into The output stream to use
+     * @param[in] val the position to write
+     */
+    static void writePosition(std::ostream& into, const Position& val);
 
 
 private:

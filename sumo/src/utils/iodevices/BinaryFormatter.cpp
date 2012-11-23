@@ -101,7 +101,7 @@ void
 BinaryFormatter::openTag(std::ostream& into, const SumoXMLTag& xmlElement) {
     myXMLStack.push_back(xmlElement);
     FileHelpers::writeByte(into, BF_XML_TAG_START);
-    FileHelpers::writeInt(into, xmlElement);
+    FileHelpers::writeByte(into, xmlElement);
 }
 
 
@@ -114,7 +114,7 @@ bool
 BinaryFormatter::closeTag(std::ostream& into, bool /* abbreviated */) {
     if (!myXMLStack.empty()) {
         FileHelpers::writeByte(into, BF_XML_TAG_END);
-        FileHelpers::writeInt(into, myXMLStack.back());
+        FileHelpers::writeByte(into, myXMLStack.back());
         myXMLStack.pop_back();
         return true;
     }
@@ -137,8 +137,13 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
 
 
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SUMOReal& val) {
-    BinaryFormatter::writeAttrHeader(into, attr, BF_FLOAT);
-    FileHelpers::writeFloat(into, val);
+    if (into.precision() == 2 && val < 2e7 && val >-2e7) { // 2e7 is roughly INT_MAX/100
+        BinaryFormatter::writeAttrHeader(into, attr, BF_SCALED2INT);
+        FileHelpers::writeInt(into, int(val * 100. + .5));
+    } else {
+        BinaryFormatter::writeAttrHeader(into, attr, BF_FLOAT);
+        FileHelpers::writeFloat(into, val);
+    }
 }
 
 
@@ -166,17 +171,39 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
 }
 
 
-void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const Position& val) {
+void BinaryFormatter::writePosition(std::ostream& into, const Position& val) {
     if (val.z() != 0.) {
-        BinaryFormatter::writeAttrHeader(into, attr, BF_POSITION_3D);
-        FileHelpers::writeFloat(into, val.x());
-        FileHelpers::writeFloat(into, val.y());
-        FileHelpers::writeFloat(into, val.z());
+        if (into.precision() == 2 && val.x() < 2e7 && val.x() >-2e7 &&
+            val.y() < 2e7 && val.y() >-2e7 && val.z() < 2e7 && val.z() >-2e7) { // 2e7 is roughly INT_MAX/100
+            FileHelpers::writeByte(into, BF_SCALED2INT_POSITION_3D);
+            FileHelpers::writeInt(into, int(val.x() * 100. + .5));
+            FileHelpers::writeInt(into, int(val.y() * 100. + .5));
+            FileHelpers::writeInt(into, int(val.z() * 100. + .5));
+        } else {
+            FileHelpers::writeByte(into, BF_POSITION_3D);
+            FileHelpers::writeFloat(into, val.x());
+            FileHelpers::writeFloat(into, val.y());
+            FileHelpers::writeFloat(into, val.z());
+        }
     } else {
-        BinaryFormatter::writeAttrHeader(into, attr, BF_POSITION_2D);
-        FileHelpers::writeFloat(into, val.x());
-        FileHelpers::writeFloat(into, val.y());
+        if (into.precision() == 2 && val.x() < 2e7 && val.x() >-2e7 &&
+            val.y() < 2e7 && val.y() >-2e7) { // 2e7 is roughly INT_MAX/100
+            FileHelpers::writeByte(into, BF_SCALED2INT_POSITION_2D);
+            FileHelpers::writeInt(into, int(val.x() * 100. + .5));
+            FileHelpers::writeInt(into, int(val.y() * 100. + .5));
+        } else {
+            FileHelpers::writeByte(into, BF_POSITION_2D);
+            FileHelpers::writeFloat(into, val.x());
+            FileHelpers::writeFloat(into, val.y());
+        }
     }
+}
+
+
+void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const Position& val) {
+    FileHelpers::writeByte(into, static_cast<unsigned char>(BF_XML_ATTRIBUTE));
+    FileHelpers::writeByte(into, attr);
+    writePosition(into, val);
 }
 
 
@@ -184,16 +211,7 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
     BinaryFormatter::writeAttrHeader(into, attr, BF_LIST);
     FileHelpers::writeInt(into, (int)val.size());
     for (PositionVector::ContType::const_iterator pos = val.begin(); pos != val.end(); ++pos) {
-        if (pos->z() != 0.) {
-            FileHelpers::writeByte(into, BF_POSITION_3D);
-            FileHelpers::writeFloat(into, pos->x());
-            FileHelpers::writeFloat(into, pos->y());
-            FileHelpers::writeFloat(into, pos->z());
-        } else {
-            FileHelpers::writeByte(into, BF_POSITION_2D);
-            FileHelpers::writeFloat(into, pos->x());
-            FileHelpers::writeFloat(into, pos->y());
-        }
+        writePosition(into, *pos);
     }
 }
 

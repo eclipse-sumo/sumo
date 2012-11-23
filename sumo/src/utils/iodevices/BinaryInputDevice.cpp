@@ -107,6 +107,14 @@ operator>>(BinaryInputDevice& os, char& c) {
 
 
 BinaryInputDevice&
+operator>>(BinaryInputDevice& os, unsigned char& c) {
+    os.checkType(BinaryFormatter::BF_BYTE);
+    os.myStream.read((char*) &c, sizeof(unsigned char));
+    return os;
+}
+
+
+BinaryInputDevice&
 operator>>(BinaryInputDevice& os, int& i) {
     os.checkType(BinaryFormatter::BF_INTEGER);
     os.myStream.read((char*) &i, sizeof(int));
@@ -124,8 +132,14 @@ operator>>(BinaryInputDevice& os, unsigned int& i) {
 
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, SUMOReal& f) {
-    os.checkType(BinaryFormatter::BF_FLOAT);
-    os.myStream.read((char*) &f, sizeof(SUMOReal));
+    int t = os.checkType(BinaryFormatter::BF_FLOAT);
+    if (t == BinaryFormatter::BF_SCALED2INT) {
+        int v;
+        os.myStream.read((char*) &v, sizeof(int));
+        f = v / 100.;
+    } else {
+        os.myStream.read((char*) &f, sizeof(SUMOReal));
+    }
     return os;
 }
 
@@ -202,10 +216,22 @@ BinaryInputDevice&
 operator>>(BinaryInputDevice& os, Position& p) {
     int t = os.checkType(BinaryFormatter::BF_POSITION_2D);
     SUMOReal x, y, z=0;
-    os.myStream.read((char*) &x, sizeof(SUMOReal));
-    os.myStream.read((char*) &y, sizeof(SUMOReal));
-    if (t == BinaryFormatter::BF_POSITION_3D) {
-        os.myStream.read((char*) &z, sizeof(SUMOReal));
+    if (t == BinaryFormatter::BF_SCALED2INT_POSITION_2D || t == BinaryFormatter::BF_SCALED2INT_POSITION_2D) {
+        int v;
+        os.myStream.read((char*) &v, sizeof(int));
+        x = v / 100.;
+        os.myStream.read((char*) &v, sizeof(int));
+        y = v / 100.;
+        if (t == BinaryFormatter::BF_SCALED2INT_POSITION_3D) {
+            os.myStream.read((char*) &v, sizeof(int));
+            z = v / 100.;
+        }
+    } else {
+        os.myStream.read((char*) &x, sizeof(SUMOReal));
+        os.myStream.read((char*) &y, sizeof(SUMOReal));
+        if (t == BinaryFormatter::BF_POSITION_3D) {
+            os.myStream.read((char*) &z, sizeof(SUMOReal));
+        }
     }
     p.set(x, y, z);
     return os;

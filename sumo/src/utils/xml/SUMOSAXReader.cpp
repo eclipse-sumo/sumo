@@ -145,14 +145,14 @@ SUMOSAXReader::parseNext() {
             myBinaryInput = 0;
             return false;
         case BinaryFormatter::BF_XML_TAG_START: {
-            int t;
+            char t;
             *myBinaryInput >> t;
             SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, toString((SumoXMLTag)t), myBinaryInput);
             myHandler->myStartElement(t, attrs);
             break;
                                                 }
         case BinaryFormatter::BF_XML_TAG_END: {
-            int t;
+            char t;
             *myBinaryInput >> t;
             myHandler->myEndElement(t);
             break;

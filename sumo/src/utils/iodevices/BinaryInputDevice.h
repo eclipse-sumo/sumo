@@ -116,6 +116,15 @@ public:
     friend BinaryInputDevice& operator>>(BinaryInputDevice& os, char& c);
 
 
+    /** @brief Reads an unsigned char from the file (input operator)
+     *
+     * @param[in, out] os The BinaryInputDevice to read the char from
+     * @param[in] c The char to store the read value into
+     * @return The used BinaryInputDevice for further processing
+     */
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, unsigned char& c);
+
+
     /** @brief Reads an int from the file (input operator)
      *
      * @param[in, out] os The BinaryInputDevice to read the int from
