@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Nov  9 17:04:25 2012 by SUMO sumo Version dev-SVN-r12945
+<!-- generated on Fri Nov 23 11:18:33 2012 by SUMO sumo Version dev-SVN-r13008
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -39,8 +39,8 @@
         <edge id="bottleneck" sampledSeconds="817.35" traveltime="4.45" density="23.05" occupancy="11.52" waitingTime="0.00" speed="22.16" departed="0" arrived="0" entered="175" left="175" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end" sampledSeconds="617.11" traveltime="3.36" density="17.14" occupancy="8.57" waitingTime="0.00" speed="29.75" departed="0" arrived="176" entered="175" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="jam" sampledSeconds="2078.83" traveltime="11.37" density="58.62" occupancy="14.66" waitingTime="76.00" speed="8.66" departed="0" arrived="0" entered="174" left="174" laneChangedFrom="93" laneChangedTo="93"/>
-        <edge id="middle" sampledSeconds="5122.62" traveltime="28.10" density="142.30" occupancy="35.57" waitingTime="264.00" speed="3.56" departed="0" arrived="0" entered="171" left="174" laneChangedFrom="18" laneChangedTo="18"/>
-        <edge id="start" sampledSeconds="5840.63" traveltime="32.93" density="162.24" occupancy="40.56" waitingTime="57.00" speed="3.04" departed="169" arrived="0" entered="0" left="171" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="5122.55" traveltime="28.10" density="142.29" occupancy="35.57" waitingTime="264.00" speed="3.56" departed="0" arrived="0" entered="171" left="174" laneChangedFrom="18" laneChangedTo="18"/>
+        <edge id="start" sampledSeconds="5840.64" traveltime="32.93" density="162.24" occupancy="40.56" waitingTime="57.00" speed="3.04" departed="169" arrived="0" entered="0" left="171" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="720.00" end="1080.00" id="expect_300_vehs">
         <edge id="bottleneck" sampledSeconds="785.35" traveltime="4.42" density="22.15" occupancy="11.07" waitingTime="0.00" speed="22.29" departed="0" arrived="0" entered="169" left="169" laneChangedFrom="0" laneChangedTo="0"/>

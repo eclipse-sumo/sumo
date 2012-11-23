@@ -935,8 +935,6 @@ MSVehicle::moveChecked() {
                 // check whether the vehicle was allowed to enter lane
                 //  otherwise it is decelareted and we do not need to test for it's
                 //  approach on the following lanes when a lane changing is performed
-                myState.myPos -= approachedLane->getLength();
-                assert(myState.myPos > 0);
                 // proceed to the next lane
                 if (link != 0) {
 #ifdef HAVE_INTERNAL_LANES
@@ -951,6 +949,8 @@ MSVehicle::moveChecked() {
                     approachedLane = 0;
                 }
                 if (approachedLane != myLane && approachedLane != 0) {
+                    myState.myPos -= myLane->getLength();
+                    assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
                     myLane = approachedLane;
                     if (approachedLane->getEdge().isVaporizing()) {
