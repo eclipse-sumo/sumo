@@ -30,6 +30,9 @@ COLOR = 13
 NODE_TYPE = 14
 EDGE_FUNCTION = 15
 ROUTE = 16
+SCALED2INT = 17
+SCALED2INT_POSITION_2D = 18
+SCALED2INT_POSITION_3D = 19
 
 def read(content, format):
     return struct.unpack(format, content.read(struct.calcsize(format)))
@@ -131,6 +134,12 @@ def typedValueStr(content):
         return edgeTypes[readByte(content)]
     elif valType == ROUTE:
         return " ".join(readRoute(content))
+    elif valType == SCALED2INT:
+        return '%.2f' % (readInt(content)/100.)
+    elif valType == SCALED2INT_POSITION_2D:
+        return '%.2f,%.2f' % (readInt(content)/100.,readInt(content)/100.)
+    elif valType == SCALED2INT_POSITION_3D:
+        return '%.2f,%.2f,%.2f' % (readInt(content)/100.,readInt(content)/100.,readInt(content)/100.)
 
 out = sys.stdout
 content = open(sys.argv[1], 'rb')
@@ -156,7 +165,7 @@ while True:
         if startOpen:
             out.write(">\n")
         out.write("    " * len(stack))
-        stack.append(readInt(content))
+        stack.append(readByte(content))
         out.write("<" + elements[stack[-1]])
         startOpen = True
     elif typ == XML_TAG_END:
@@ -167,10 +176,10 @@ while True:
         else:
             out.write("    " * (len(stack)-1))
             out.write("</%s>\n" % elements[stack.pop()])
-        readInt(content)
+        readByte(content)
         if len(stack) == 0:
             break
     elif typ == XML_ATTRIBUTE:
-        out.write(' %s="%s"' % (attributes[readInt(content)], typedValueStr(content)))
+        out.write(' %s="%s"' % (attributes[readByte(content)], typedValueStr(content)))
     else:
         print >> sys.stderr, "Unknown type %s" % typ
