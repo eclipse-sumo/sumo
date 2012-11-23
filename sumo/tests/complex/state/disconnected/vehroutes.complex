@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/23/12 14:38:29 by SUMO sumo Version dev-SVN-r13037
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <load-state value="state.bin"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+    </processing>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="0" depart="0.00" arrival="108.00">
+        <route edges="4/1to3/1 2/1to1/1 1/1to0/1"/>
+    </vehicle>
+
+    <vehicle id="1" depart="5.00" arrival="113.00">
+        <route edges="4/1to3/1 2/1to1/1 1/1to0/1"/>
+    </vehicle>
+
+</routes>

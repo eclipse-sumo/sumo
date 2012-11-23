@@ -6,3 +6,6 @@ prefix
 
 # trying to start the loaded state at a different time
 diff_begin
+
+# save and reload with broken route
+disconnected
