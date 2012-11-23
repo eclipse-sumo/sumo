@@ -1,0 +1,9 @@
+warning: debug_new used with placement new (SUMOSAXReader.cpp:132)
+Warning: Teleporting vehicle 'flow1.0'; waited too long, lane='in1_0', time=346.00.
+Warning: Vehicle 'flow1.0' ends teleporting on edge 'out', simulation time 346.00.
+Warning: Teleporting vehicle 'flow1.1'; waited too long, lane='in1_0', time=653.00.
+Warning: Vehicle 'flow1.1' ends teleporting on edge 'out', simulation time 654.00.
+Warning: Teleporting vehicle 'flow1.2'; waited too long, lane='in1_0', time=959.00.
+Warning: Vehicle 'flow1.2' ends teleporting on edge 'out', simulation time 961.00.
+Warning: Teleporting vehicle 'flow1.3'; waited too long, lane='in1_0', time=1266.00.
+Warning: Vehicle 'flow1.3' ends teleporting on edge 'out', simulation time 1273.00.
