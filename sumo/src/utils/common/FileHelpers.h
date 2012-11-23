@@ -299,20 +299,24 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
                 field = 0;
             }
             unsigned int followIndex = (data >> ((numFields - field - 1) * bits)) & mask;
+            if (followIndex >= prev->getNoFollowing()) {
+                throw ProcessError("Invalid follower index in route '" + rid + "'!");
+            }
             prev = prev->getFollower(followIndex);
             edges.push_back(prev);
             field++;
         }
     } else {
         while (size > 0) {
-            in.read((char*) &bitsOrEntry, sizeof(int));
             const E* edge = E::dictionary(bitsOrEntry);
             if (edge == 0) {
-                throw ProcessError("An edge within the route " + rid + " is not known."
-                                    + "\n The route can not be build.");
+                throw ProcessError("An edge within the route '" + rid + "' is not known!");
             }
             edges.push_back(edge);
             size--;
+            if (size > 0) {
+                in.read((char*) &bitsOrEntry, sizeof(int));
+            }
         }
     }
 }

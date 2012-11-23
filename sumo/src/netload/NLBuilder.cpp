@@ -216,13 +216,16 @@ NLBuilder::buildNet() {
         for (std::vector<int>::const_iterator i = times.begin(); i != times.end(); ++i) {
             stateDumpTimes.push_back(TIME2STEPS(*i));
         }
-        if (!myOptions.isDefault("save-state.prefix")) {
+        if (myOptions.isSet("save-state.files")) {
+            stateDumpFiles = StringTokenizer(myOptions.getString("save-state.files")).getVector();
+            if (stateDumpFiles.size() != stateDumpTimes.size()) {
+                WRITE_ERROR("Wrong number of state file names!");
+            }
+        } else {
             const std::string prefix = myOptions.getString("save-state.prefix");
             for (std::vector<SUMOTime>::iterator i = stateDumpTimes.begin(); i != stateDumpTimes.end(); ++i) {
                 stateDumpFiles.push_back(prefix + "_" + time2string(*i) + ".bin");
             }
-        } else {
-            stateDumpFiles = StringTokenizer(myOptions.getString("save-state.files")).getVector();
         }
 #endif
         myNet.closeBuilding(edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles);

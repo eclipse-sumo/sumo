@@ -167,7 +167,7 @@ MSFrame::fillOptions() {
 #ifdef HAVE_INTERNAL
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
-    oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe
+    oc.doRegister("save-state.prefix", new Option_FileName("state"));//!!! check, describe
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
     oc.doRegister("save-state.files", new Option_FileName());//!!! check, describe
     oc.addDescription("save-state.files", "Output", "Files for network states");
