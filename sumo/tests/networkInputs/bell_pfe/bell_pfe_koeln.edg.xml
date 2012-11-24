@@ -68,5 +68,5 @@
     <edge id="7" from="gneJ51" to="104" priority="1" numLanes="1" speed="13.89"/>
     <edge id="8" from="104" to="106" priority="1" numLanes="1" speed="13.89"/>
     <edge id="9" from="106" to="104" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="gneE30" from="gneJ28" to="111" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="29" from="gneJ28" to="111" priority="1" numLanes="1" speed="13.89"/>
 </edges>

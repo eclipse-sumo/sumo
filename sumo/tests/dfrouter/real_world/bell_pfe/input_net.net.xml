@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/22/12 14:51:10 by SUMO netconvert Version dev-SVN-r13002
+<!-- generated on Sat Nov 24 07:46:55 2012 by SUMO netconvert Version dev-SVN-r13004
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -93,6 +93,9 @@
         <lane id="28_57_0" index="0" speed="13.89" length="60.32" shape="49.78,581.66 110.07,583.77"/>
         <lane id="28_57_1" index="1" speed="13.89" length="60.32" shape="49.67,584.96 109.95,587.06"/>
     </edge>
+    <edge id="29" from="gneJ28" to="111" priority="1">
+        <lane id="29_0" index="0" speed="13.89" length="50.94" shape="117.66,644.53 116.59,593.61"/>
+    </edge>
     <edge id="3" from="103" to="gneJ52" priority="1">
         <lane id="3_0" index="0" speed="13.89" length="39.78" shape="108.88,39.67 110.61,-0.07"/>
     </edge>
@@ -182,9 +185,6 @@
     <edge id="9" from="106" to="104" priority="1">
         <lane id="9_0" index="0" speed="13.89" length="69.39" shape="115.28,190.50 109.44,121.36"/>
     </edge>
-    <edge id="gneE30" from="gneJ28" to="111" priority="1">
-        <lane id="gneE30_0" index="0" speed="13.89" length="50.94" shape="117.66,644.53 116.59,593.61"/>
-    </edge>
 
     <junction id="10" type="priority" x="68.16" y="313.92" incLanes="17_0" intLanes="" shape="69.44,314.71 73.03,309.29 68.42,310.35 66.87,313.15">
         <request index="0" response="00" foes="00"/>
@@ -246,7 +246,7 @@
         <request index="5" response="0000000" foes="0000010"/>
         <request index="6" response="0011100" foes="0011110"/>
     </junction>
-    <junction id="111" type="priority" x="118.14" y="589.00" incLanes="gneE30_0 25_56_0 25_56_1 28_57_0 28_57_1" intLanes="" shape="114.99,593.64 121.49,593.50 124.73,580.78 111.63,580.72 110.12,582.17 109.78,591.96">
+    <junction id="111" type="priority" x="118.14" y="589.00" incLanes="29_0 25_56_0 25_56_1 28_57_0 28_57_1" intLanes="" shape="114.99,593.64 121.49,593.50 124.73,580.78 111.63,580.72 110.12,582.17 109.78,591.96">
         <request index="0" response="0001000" foes="0001000"/>
         <request index="1" response="1111000" foes="1111000"/>
         <request index="2" response="0000000" foes="1000000"/>
@@ -331,6 +331,8 @@
     <connection from="28_57" to="26_55" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="28_57" to="26_55" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from="28_57" to="30" fromLane="1" toLane="0" dir="l" state="m"/>
+    <connection from="29" to="27" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="29" to="26_55" fromLane="0" toLane="1" dir="s" state="m"/>
     <connection from="31_59" to="46_13" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="31_59" to="37" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="31_59" to="39" fromLane="1" toLane="0" dir="l" state="m"/>
@@ -372,7 +374,5 @@
     <connection from="8" to="14_58" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="8" to="12" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="9" to="5" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE30" to="27" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="gneE30" to="26_55" fromLane="0" toLane="1" dir="s" state="m"/>
 
 </net>

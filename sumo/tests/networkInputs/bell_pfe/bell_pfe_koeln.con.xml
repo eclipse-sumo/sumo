@@ -129,7 +129,7 @@
 
     <connection from="9" to="5" fromLane="0" toLane="0"/>
 
-    <connection from="gneE30" to="27" fromLane="0" toLane="0"/>
-    <connection from="gneE30" to="26_55" fromLane="0" toLane="1"/>
+    <connection from="29" to="27" fromLane="0" toLane="0"/>
+    <connection from="29" to="26_55" fromLane="0" toLane="1"/>
 
 </connections>
