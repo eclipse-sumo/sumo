@@ -23,6 +23,14 @@ else
     ac_disabled="$ac_disabled Debug"
 fi
 
+AC_ARG_ENABLE([profiling], [AS_HELP_STRING([--enable-profiling],[enable compilation of gprof profiling code [default=no].])])
+if test x$enable_profiling = xyes; then
+    CXXFLAGS="-pg $CXXFLAGS"
+    ac_enabled="$ac_enabled Profiling"
+else
+    ac_disabled="$ac_disabled Profiling"
+fi
+
 
 dnl Checks for programs.
 AC_PROG_CC
