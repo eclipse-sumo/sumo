@@ -146,7 +146,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
             }
         }
 #endif
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime)) {
+        if ((*i)->blockedAtTime(arrivalTime, leaveTime, leaveSpeed)) {
             return false;
         }
     }
@@ -160,12 +160,23 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
 
 
 bool
-MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const {
+MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed) const {
     for (LinkApproachingVehicles::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
         if (!(*i).willPass) {
             continue;
         }
-        if (!(((*i).leavingTime + myLookaheadTime < arrivalTime) || ((*i).arrivalTime - myLookaheadTime > leaveTime))) {
+        if ((*i).leavingTime < arrivalTime) {
+            // ego wants to be follower
+            if ((*i).leavingTime + safeHeadwayTime(i->vehicle->getSpeed(), speed) >= arrivalTime) {
+                return true;
+            }
+        } else if ((*i).arrivalTime > leaveTime) {
+            // ego wants to be leader
+            if ((*i).arrivalTime - safeHeadwayTime(speed, i->vehicle->getSpeed()) <= leaveTime) {
+                return true;
+            }
+        } else {
+            // even without considering safeHeadwayTime there is already a conflict
             return true;
         }
     }
@@ -173,10 +184,36 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const {
 }
 
 
+SUMOTime 
+MSLink::safeHeadwayTime(SUMOReal leaderSpeed, SUMOReal followerSpeed) {
+    // v: leader speed
+    // u: follower speed
+    // a: leader decel
+    // b: follower decel
+    // g: follower min gap
+    // h: save headway time (result)
+    const SUMOReal v = leaderSpeed;
+    const SUMOReal u = followerSpeed;
+    // XXX use cfmodel values of possible
+    const SUMOReal a = DEFAULT_VEH_DECEL; 
+    const SUMOReal b = DEFAULT_VEH_DECEL; 
+    const SUMOReal g = DEFAULT_VEH_MINGAP;
+    // breaking distance ~ (v^2 - a*v)/(2*a) 
+    if (v < a) {
+        // leader may break in one timestep (need different formula)
+        // u*h > g + (u^2 - b*u)/(2*b) + 0.5
+        return TIME2STEPS((g + 0.5)/u + (u/b - 1.0)*0.5);
+    } else {
+        // u*h + (v^2 - a*v)/(2*a) > g + (u^2 - b*u)/(2*b) + 0.5
+        return TIME2STEPS((g + (1.0 + v - v*v/a)*0.5)/u + (u/b - 1.0)*0.5);
+    }
+}
+
+
 bool
-MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const {
+MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed) const {
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime)) {
+        if ((*i)->blockedAtTime(arrivalTime, leaveTime, speed)) {
             return true;
         }
     }

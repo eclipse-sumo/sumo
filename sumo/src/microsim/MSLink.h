@@ -152,7 +152,15 @@ public:
      */
     bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
 
-    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const;
+    /** @brief Returns the information whether this link is blocked 
+     * Valid after the vehicles have set their requests
+     * @param[in] arrivalTime The arrivalTime of the vehicle who checks for an approaching foe
+     * @param[in] leaveTime The leaveTime of the vehicle who checks for an approaching foe
+     * @param[in] speed The speed with which the checking vehicle plans to leave the link
+     * @return Whether this link is blocked
+     */
+    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed) const;
+
     bool isBlockingAnyone() const {
         return myApproachingVehicles.size() != 0;
     }
@@ -164,10 +172,12 @@ public:
     /** @brief Returns the information whether a vehicle is approaching on one of the link's foe streams
      *
      * Valid after the vehicles have set their requests
-     *
+     * @param[in] arrivalTime The arrivalTime of the vehicle who checks for an approaching foe
+     * @param[in] leaveTime The leaveTime of the vehicle who checks for an approaching foe
+     * @param[in] speed The speed with which the checking vehicle plans to leave the link
      * @return Whether a foe of this link is approaching
      */
-    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const;
+    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed) const;
 
 
     /** @brief Returns the current state of the link
@@ -259,6 +269,8 @@ private:
         const SUMOVehicle* const myVehicle;
 
     };
+
+    static SUMOTime safeHeadwayTime(SUMOReal leaderSpeed, SUMOReal followerSpeed);
 
 
 private:

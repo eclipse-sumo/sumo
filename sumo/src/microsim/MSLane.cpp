@@ -486,7 +486,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #else
             const SUMOTime leaveTime = arrivalTime + TIME2STEPS((*link)->getLength() * speed);
 #endif
-            if ((*link)->hasApproachingFoe(arrivalTime, leaveTime)) {
+            if ((*link)->hasApproachingFoe(arrivalTime, leaveTime, speed)) {
                 SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, 0, 0);
                 if (nspeed < speed) {
                     if (patchSpeed) {
