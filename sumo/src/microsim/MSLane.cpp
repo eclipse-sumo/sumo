@@ -673,7 +673,9 @@ MSLane::detectCollisions(SUMOTime timestep) {
         SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getVehicleType().getLength() - (*veh)->getPositionOnLane() - (*veh)->getVehicleType().getMinGap();
         if (gap < 0) {
             MSVehicle* vehV = *veh;
-            WRITE_WARNING("Teleporting vehicle '" + vehV->getID() + "'; collision, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            WRITE_WARNING("Teleporting vehicle '" + vehV->getID() + "'; collision with '" 
+                    + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
+                    + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSNet::getInstance()->getVehicleControl().registerCollision();
             myVehicleLengthSum -= vehV->getVehicleType().getLengthWithGap();
             MSVehicleTransfer::getInstance()->addVeh(timestep, vehV);
