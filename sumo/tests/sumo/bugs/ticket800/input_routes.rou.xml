@@ -1,0 +1,17 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <flow id="block_lane_change" departPos="800" begin="0" departSpeed="max" departLane="0" period="1" end="10">
+        <route edges="beg end0"/>
+    </flow>
+    <vehicle id="swap_to_right" departPos="980" depart="6" departSpeed="max" departLane="2" color="1,0,0">
+        <route edges="beg end0"/>
+    </vehicle>
+    <vehicle id="swap_to_left" departPos="975" depart="6" departSpeed="20" departLane="1" color="0,0,1">
+        <route edges="beg e2 end1"/>
+    </vehicle>
+    <vehicle id="surprised_follower" departPos="925" depart="6" departSpeed="20" departLane="1" color="0,1,0">
+        <route edges="beg e2"/>
+    </vehicle>
+    <vehicle id="block_lane_change2" departPos="980" depart="7" departSpeed="max" departLane="2" color="1,0,1">
+        <route edges="beg end0"/>
+    </vehicle>
+</routes>
