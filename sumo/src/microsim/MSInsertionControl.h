@@ -130,6 +130,10 @@ public:
     int getPendingFlowCount() const;
 
 
+    /// @brief stops trying to emit the given vehicle
+    void descheduleDeparture(SUMOVehicle* veh);
+
+
 private:
     /** @brief Tries to emit the vehicle
      *
@@ -183,6 +187,9 @@ private:
 
     /// @brief Buffers for vehicles that could not be inserted
     MSVehicleContainer::VehicleVector myRefusedEmits1, myRefusedEmits2;
+
+    /// @brief Set of vehicles which shall not be inserted anymore
+    std::set<SUMOVehicle*> myAbortedEmits;
 
     /** @struct Stop
      * @brief Definition of vehicle stop (position and duration)

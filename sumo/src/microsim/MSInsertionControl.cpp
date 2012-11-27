@@ -161,6 +161,11 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
         // remove vehicles if the edge shall be empty
         checkFlowWait(veh);
         myVehicleControl.deleteVehicle(veh, true);
+    } else if (myAbortedEmits.count(veh) > 0) {
+        // remove vehicles which shall not be inserted for some reason
+        myAbortedEmits.erase(veh);
+        checkFlowWait(veh);
+        myVehicleControl.deleteVehicle(veh, true);
     } else {
         // let the vehicle wait one step, we'll retry then
         refusedEmits.push_back(veh);
@@ -258,6 +263,11 @@ MSInsertionControl::getPendingFlowCount() const {
     return (int)myFlows.size();
 }
 
+
+void 
+MSInsertionControl::descheduleDeparture(SUMOVehicle* veh) {
+    myAbortedEmits.insert(veh);
+}
 
 /****************************************************************************/
 

@@ -48,6 +48,7 @@
 #include "MSVehicleTransfer.h"
 #include "MSGlobals.h"
 #include "MSVehicleControl.h"
+#include "MSInsertionControl.h"
 #include <cmath>
 #include <bitset>
 #include <iostream>
@@ -505,7 +506,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                         speed = MIN2(nspeed, speed);
                         dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                     } else {
-                        // we may not drive with the given velocity - we crash into the leader
+                        // we may not drive with the given velocity - we crash into an obstacle
+                        WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
+                        MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
                         return false;
                     }
                 }
@@ -523,9 +526,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 speed = MIN2(nspeed, speed);
                 dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
             } else {
-                // we may not drive with the given velocity - we crash into the leader
+                // we may not drive with the given velocity - we crash into an obstacle
                 WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
-                // !!! we probably should do something else...
+                MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
                 return false;
             }
         }
