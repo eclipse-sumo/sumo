@@ -480,7 +480,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     return false;
                 }
             }
-            // check traffic on next junctions
+            // check traffic on next junction
+            // we cannot use (*link)->opened because a vehicle without priority
+            // may already be comitted to blocking the link and unable to stop
             const SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / speed);
 #ifdef HAVE_INTERNAL_LANES
             const SUMOTime leaveTime = (*link)->getViaLane() == 0 ? arrivalTime + TIME2STEPS((*link)->getLength() * speed) : arrivalTime + TIME2STEPS((*link)->getViaLane()->getLength() * speed);
@@ -494,25 +496,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                         speed = MIN2(nspeed, speed);
                         dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                     } else {
-                        // we may not drive with the given velocity - we crash into the leader
+                        // we may not drive with the given velocity - we crash at the junction
                         return false;
                     }
                 }
-            } else {
-                // we can only drive to the end of the current lane...
-                SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, 0, 0);
-                if (nspeed < speed) {
-                    if (patchSpeed) {
-                        speed = MIN2(nspeed, speed);
-                        dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-                    } else {
-                        // we may not drive with the given velocity - we crash into an obstacle
-                        WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
-                        MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
-                        return false;
-                    }
-                }
-            }
+            } 
             seen += nextLane->getLength();
             ++ce;
             ++ri;
