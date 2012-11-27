@@ -1424,7 +1424,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
         if (nextStopEdge == *ce) {
             progress = false;
             for (std::vector<LaneQ>::iterator q = currentLanes.begin(); q != currentLanes.end(); ++q) {
-                if (nextStopLane != (*q).lane) {
+                if (nextStopLane != 0 && nextStopLane != (*q).lane) {
                     (*q).allowsContinuation = false;
                     (*q).length = nextStopPos;
                 }
