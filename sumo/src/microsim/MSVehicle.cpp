@@ -917,13 +917,12 @@ MSVehicle::moveChecked() {
     if (passedLanes.size() == 0 || passedLanes.back() != myLane) {
         passedLanes.push_back(myLane);
     }
-    bool moved = true;
+    bool moved = false;
     // move on lane(s)
     if (myState.myPos <= myLane->getLength()) {
         // we are staying at our lane
         //  there is no need to go over succeeding lanes
         workOnMoveReminders(pos, pos + SPEED2DIST(vNext), vNext);
-        moved = false;
     } else {
         // we are moving at least to the next lane (maybe pass even more than one)
         if (myCurrEdge != myRoute->end() - 1) {
@@ -953,6 +952,7 @@ MSVehicle::moveChecked() {
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
                     myLane = approachedLane;
+                    moved = true;
                     if (approachedLane->getEdge().isVaporizing()) {
                         break;
                     }
@@ -966,7 +966,14 @@ MSVehicle::moveChecked() {
         (*i)->resetPartialOccupation(this);
     }
     myFurtherLanes.clear();
-    if (!hasArrived()) {
+    if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
+        if (myState.myPos > myLane->getLength()) {
+            WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop one lane '" + myLane->getID() + " at position " +
+                    toString(myState.myPos) + " (decel=" + toString(myAcceleration - myState.mySpeed) + "), time=" 
+                    + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            myState.myPos = myLane->getLength();
+            myState.mySpeed = 0;
+        }
         if (myState.myPos - getVehicleType().getLength() < 0 && passedLanes.size() > 0) {
             SUMOReal leftLength = getVehicleType().getLength() - myState.myPos;
             std::vector<MSLane*>::reverse_iterator i = passedLanes.rbegin() + 1;
