@@ -132,12 +132,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
     if (myAmCont) {
         return true;
     }
-#ifdef HAVE_INTERNAL_LANES
-    const SUMOReal length = myJunctionInlane == 0 ? getLength() : myJunctionInlane->getLength();
-#else
-    const SUMOReal length = getLength();
-#endif
-    const SUMOTime leaveTime = arrivalTime + TIME2STEPS((length + vehicleLength) / (0.5 * (arrivalSpeed+leaveSpeed)));
+    const SUMOTime leaveTime = arrivalTime + TIME2STEPS((getLength() + vehicleLength) / (0.5 * (arrivalSpeed+leaveSpeed)));
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
 #ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {

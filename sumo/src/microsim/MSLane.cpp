@@ -484,11 +484,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // we cannot use (*link)->opened because a vehicle without priority
             // may already be comitted to blocking the link and unable to stop
             const SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / speed);
-#ifdef HAVE_INTERNAL_LANES
-            const SUMOTime leaveTime = (*link)->getViaLane() == 0 ? arrivalTime + TIME2STEPS((*link)->getLength() * speed) : arrivalTime + TIME2STEPS((*link)->getViaLane()->getLength() * speed);
-#else
             const SUMOTime leaveTime = arrivalTime + TIME2STEPS((*link)->getLength() * speed);
-#endif
             if ((*link)->hasApproachingFoe(arrivalTime, leaveTime, speed)) {
                 SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, 0, 0);
                 if (nspeed < speed) {
