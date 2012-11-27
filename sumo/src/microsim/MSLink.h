@@ -254,6 +254,9 @@ public:
     MSLane* getViaLane() const;
 #endif
 
+    /// @brief return the via lane if it exists and the lane otherwise
+    MSLane* getViaLaneOrLane() const;
+
 private:
     typedef std::vector<ApproachingVehicleInformation> LinkApproachingVehicles;
 

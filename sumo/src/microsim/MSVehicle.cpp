@@ -768,15 +768,14 @@ MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUM
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, t + TIME2STEPS(seen / vLinkPass), vLinkPass, stopDist));
 
         // get the following lane
+        lane = (*link)->getViaLaneOrLane();
 #ifdef HAVE_INTERNAL_LANES
-        lane = (*link)->getViaLane();
-        if (lane == 0) {
-            lane = (*link)->getLane();
+        if ((*link)->getViaLane() == 0) {
             hadNonInternal = true;
             ++view;
         }
 #else
-        lane = (*link)->getLane();
+        ++view;
 #endif
         // estimate leave speed for passing time computation
         SUMOReal v1 = 2*(*link)->getLength()*getVehicleType().getCarFollowModel().getMaxAccel()+vLinkPass;
@@ -936,14 +935,7 @@ MSVehicle::moveChecked() {
                 //  approach on the following lanes when a lane changing is performed
                 // proceed to the next lane
                 if (link != 0) {
-#ifdef HAVE_INTERNAL_LANES
-                    approachedLane = link->getViaLane();
-                    if (approachedLane == 0) {
-                        approachedLane = link->getLane();
-                    }
-#else
-                    approachedLane = link->getLane();
-#endif
+                    approachedLane = link->getViaLaneOrLane();
                 } else {
                     approachedLane = 0;
                 }

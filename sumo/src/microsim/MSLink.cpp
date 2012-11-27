@@ -247,6 +247,20 @@ MSLink::getViaLane() const {
 #endif
 
 
+MSLane*
+MSLink::getViaLaneOrLane() const {
+#ifdef HAVE_INTERNAL_LANES
+    if (myJunctionInlane != 0) {
+        return myJunctionInlane;
+    } else {
+        return myLane;
+    }
+#else
+    return myLane;
+#endif
+}
+
+
 unsigned int
 MSLink::getRespondIndex() const {
     return myRespondIdx;

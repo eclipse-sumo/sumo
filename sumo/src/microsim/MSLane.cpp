@@ -425,17 +425,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         MSLinkCont::const_iterator link = currentLane->succLinkSec(*aVehicle, 1, *currentLane, bestLaneConts);
         // ...and the next used lane (including internal)
         if (!currentLane->isLinkEnd(link) && (*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength()) && (*link)->getState() != LINKSTATE_TL_RED) { // red may have priority?
-#ifdef HAVE_INTERNAL_LANES
-            bool nextInternal = false;
-            nextLane = (*link)->getViaLane();
-            if (nextLane == 0) {
-                nextLane = (*link)->getLane();
-            } else {
-                nextInternal = true;
-            }
-#else
-            nextLane = (*link)->getLane();
-#endif
+            nextLane = (*link)->getViaLaneOrLane();
         } else {
             break;
         }
@@ -1119,16 +1109,9 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
             break;
         }
 #ifdef HAVE_INTERNAL_LANES
-        bool nextInternal = false;
-        nextLane = (*link)->getViaLane();
-        if (nextLane == 0) {
-            nextLane = (*link)->getLane();
-        } else {
-            nextInternal = true;
-        }
-#else
-        nextLane = (*link)->getLane();
+        bool nextInternal = (*link)->getViaLane() != 0;
 #endif
+        nextLane = (*link)->getViaLaneOrLane();
         if (nextLane == 0) {
             break;
         }

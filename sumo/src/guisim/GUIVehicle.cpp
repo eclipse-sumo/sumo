@@ -1066,14 +1066,7 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
                 continue;
             }
             MSLink* link = (*i).myLink;
-#ifdef HAVE_INTERNAL_LANES
-            MSLane *via = link->getViaLane();
-            if (via == 0) {
-                via = link->getLane();
-            }
-#else
-            MSLane *via = link->getLane();
-#endif
+            MSLane *via = link->getViaLaneOrLane();
             if (via != 0) {
                 Position p = via->getShape()[0];
                 if((*i).mySetRequest) {
