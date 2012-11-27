@@ -1238,7 +1238,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     }
     myFurtherLanes.clear();
 */
-    if (myState.myPos - getVehicleType().getLength()) {
+    if (myState.myPos - getVehicleType().getLength() < 0) {
         // we have to rebuild "further lanes"
         const MSRoute& route = getRoute();
         MSRouteIterator i = myCurrEdge;
