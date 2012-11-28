@@ -1,5 +1,5 @@
 """
-@file    net.py
+@file    __init__.py
 @author  Daniel Krajzewicz
 @author  Laura Bieker
 @author  Karol Stosiek
@@ -7,8 +7,8 @@
 @date    2008-03-27
 @version $Id$
 
-This file contains a content handler for parsing sumo network xml files
-and classes that represent the network.
+This file contains a content handler for parsing sumo network xml files.
+It uses other classes from this module to represent the road network.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
@@ -20,216 +20,7 @@ import math
 from xml.sax import saxutils, parse, handler
 from copy import copy
 from itertools import *
-
-class Lane:
-    """ Lanes from a sumo network """
-
-    def __init__(self, edge, speed, length):
-        self._edge = edge
-        self._speed = speed
-        self._length = length
-        self._shape = []
-        self._outgoing = []
-        edge.addLane(self)
-
-    def getSpeed(self):
-        return self._speed
-
-    def getLength(self):
-        return self._length 
-
-    def setShape(self, shape):
-        self._shape = shape
-
-    def getShape(self):
-        return self._shape 
-
-    def getID(self):
-        return self._edge._id + "_" + str(self._edge._lanes.index(self))
-
-    def getEdge(self):
-        return self._edge
-
-    def addOutgoing(self, conn):
-        self._outgoing.append(conn)
-
-
-class Edge:
-    """ Edges from a sumo network """
-
-    def __init__(self, id, fromN, toN, prio, function, name):
-        self._id = id
-        self._from = fromN
-        self._to = toN
-        self._priority = prio
-        fromN.addOutgoing(self)
-        toN.addIncoming(self)
-        self._lanes = []
-        self._speed = None
-        self._length = None
-        self._incoming = {}
-        self._outgoing = {}
-        self._shape = None
-        self._function = function
-        self._tls = None
-        self._name = name
-
-    def getName(self):
-        return self._name
-
-    def getTLS(self):
-        return self._tls
-
-    def addLane(self, lane):
-        self._lanes.append(lane)
-        self._speed = lane.getSpeed()
-        self._length = lane.getLength()
-
-    def addOutgoing(self, conn):
-        if conn._to not in self._outgoing:
-            self._outgoing[conn._to] = []
-        self._outgoing[conn._to].append(conn)
-
-    def _addIncoming(self, conn):
-        if conn._from not in self._incoming:
-            self._incoming[conn._from] = []
-        self._incoming[conn._from].append(conn)
-
-    def setShape(self, shape):
-        self._shape = shape
-
-    def getID(self):
-        return self._id
-
-    def getIncoming(self):
-        return self._incoming
-
-    def getOutgoing(self):
-        return self._outgoing
-
-    def getShape(self):
-        if not self._shape:
-            shape = []
-            shape.append(self._from._coord)
-            shape.append(self._to._coord)
-            return shape
-        return self._shape
-
-    def getSpeed(self):
-        return self._speed
-
-    def getLaneNumber(self):
-        return len(self._lanes)
-
-    def getLane(self, idx):
-        return self._lanes[idx]
-
-    def rebuildShape(self):
-        noShapes = len(self._lanes)
-        if noShapes%2 == 1:
-            self.setShape(self._lanes[int(noShapes/2)]._shape)
-        else:
-            shape = []
-            minLen = -1
-            for l in self._lanes:
-                if minLen==-1 or minLen>len(l.getShape()):
-                    minLen = len(l._shape)
-            for i in range(0, minLen):
-                x = 0.
-                y = 0.
-                for j in range(0, len(self._lanes)):
-                    x = x + self._lanes[j]._shape[i][0]
-                    y = y + self._lanes[j]._shape[i][1]
-                x = x / float(len(self._lanes))
-                y = y / float(len(self._lanes))
-                shape.append( [ x, y ] )
-            self.setShape(shape)
-
-    def getLength(self):
-         return self._lanes[0].getLength()
-
-    def setTLS(self, tls):
-         self._tls = tls
-
-    def getFromNode(self):
-        return self._from
-
-    def getToNode(self):
-        return self._to
-         
-    def is_fringe(self):
-        return len(self.getIncoming()) == 0 or len(self.getOutgoing()) == 0
-
-
-class Node:
-    """ Nodes from a sumo network """
-    def __init__(self, id, type, coord, incLanes):
-        self._id = id
-        self._type = type
-        self._coord = coord
-        self._incoming = []
-        self._outgoing = []
-        self._foes = {}
-        self._prohibits = {}
-        self._incLanes = incLanes
-
-    def getID(self):
-        return self._id
-
-    def addOutgoing(self, edge):
-        self._outgoing.append(edge)
-        
-    def getOutgoing(self):
-        return self._outgoing
-
-    def addIncoming(self, edge):
-        self._incoming.append(edge)
-
-    def getIncoming(self):
-        return self._incoming
-
-    def setFoes(self, index, foes, prohibits):
-        self._foes[index] = foes
-        self._prohibits[index] = prohibits
-
-    def areFoes(self, link1, link2):
-        return self._foes[link1][len(self._foes[link1]) - link2 - 1] == '1'
-
-    def getLinkIndex(self, link):
-        ret = 0
-        for lid in self._incLanes:
-            (e, l) = lid.split("_")
-            lane = None
-            for et in self._incoming:
-                for l in et._lanes:
-                    if l==link[0]:
-                        lane = l
-            
-            if l[0]==link[0] and l[1]==link[1]:
-                return ret
-            ret += 1
-        return -1
-
-    def forbids(self, possProhibitor, possProhibited):
-        possProhibitorIndex = self.getLinkIndex(possProhibitor)
-        possProhibitedIndex = self.getLinkIndex(possProhibited)
-        if possProhibitorIndex < 0 or possProhibitedIndex < 0:
-            return False
-        ps = self._prohibits[possProhibitedIndex]
-        return ps[-(possProhibitorIndex-1)]=='1'
-
-    def getCoord(self):
-        return self._coord
-
-class Connection:
-    """edge connection for a sumo network"""
-    def __init__(self, fromEdge, toEdge, fromLane, toLane, direction, tls, tllink):
-        self._from = fromEdge
-        self._to = toEdge
-        self._fromLane = fromLane
-        self._toLane = toLane
-        self._tls = tls
-        self._tlLink = tllink
+import lane, edge, node, connection, roundabout
 
 
 class TLS:
@@ -280,14 +71,6 @@ class TLSProgram:
         self._phases.append( (state, duration) )
 
 
-class Roundabout:
-    def __init__(self, nodes):
-        self._nodes = nodes
-
-    def getNodes(self):
-        return self._nodes
-
-
 class Net:
     """The whole sumo network."""
     def __init__(self):
@@ -302,9 +85,9 @@ class Net:
 
     def addNode(self, id, type=None, coord=None, incLanes=None):
         if id not in self._id2node:
-            node = Node(id, type, coord, incLanes)
-            self._nodes.append(node)
-            self._id2node[id] = node
+            n = node.Node(id, type, coord, incLanes)
+            self._nodes.append(n)
+            self._id2node[id] = n
         self.setAdditionalNodeInfo(self._id2node[id], type, coord, incLanes)
         return self._id2node[id]
     
@@ -324,21 +107,21 @@ class Net:
         if id not in self._id2edge:
             fromN = self.addNode(fromID)
             toN = self.addNode(toID)
-            edge = Edge(id, fromN, toN, prio, function, name)
-            self._edges.append(edge)
-            self._id2edge[id] = edge
+            e = edge.Edge(id, fromN, toN, prio, function, name)
+            self._edges.append(e)
+            self._id2edge[id] = e
         return self._id2edge[id]
 
     def addLane(self, edge, speed, length):
-        return Lane(edge, speed, length)
+        return lane.Lane(edge, speed, length)
 
     def addRoundabout(self, nodes):
-        roundabout = Roundabout(nodes)
-        self._roundabouts.append(roundabout)
-        return roundabout
+        r = roundabout.Roundabout(nodes)
+        self._roundabouts.append(r)
+        return r
 
     def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink):
-        conn = Connection(fromEdge, toEdge, fromlane, tolane, direction, tls, tllink)
+        conn = connection.Connection(fromEdge, toEdge, fromlane, tolane, direction, tls, tllink)
         fromEdge.addOutgoing(conn)
         fromlane.addOutgoing(conn)
         toEdge._addIncoming(conn)
