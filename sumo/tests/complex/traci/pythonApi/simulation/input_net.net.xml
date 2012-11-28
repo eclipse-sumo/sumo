@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 28 22:14:50 2012 by SUMO netconvert Version dev-SVN-r13051
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="-277843.65,-5330206.51" convBoundary="0.00,0.00,3330.25,3904.56" origBoundary="12.014694,48.087529,12.061386,48.121459" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":0_0" function="internal">
+        <lane id=":0_0_0" index="0" speed="13.90" length="4.82" shape="1.26,3905.63 -0.18,3906.04 -1.07,3905.82 -1.43,3904.97 -1.26,3903.49"/>
+    </edge>
+    <edge id=":1_0" function="internal">
+        <lane id=":1_0_0" index="0" speed="13.90" length="4.82" shape="3328.99,-1.07 3330.42,-1.48 3331.32,-1.26 3331.68,-0.41 3331.50,1.07"/>
+    </edge>
+
+    <edge id="2o" from="1" to="0" priority="-1">
+        <lane id="2o_0" index="0" speed="13.90" length="5131.88" shape="3331.50,1.07 1.26,3905.63"/>
+    </edge>
+    <edge id="o" from="0" to="1" priority="-1">
+        <lane id="o_0" index="0" speed="13.90" length="5131.88" shape="-1.26,3903.49 3328.99,-1.07"/>
+    </edge>
+
+    <junction id="0" type="priority" x="0.00" y="3904.56" incLanes="2o_0" intLanes=":0_0_0" shape="-0.04,3904.53 -2.47,3902.45 2.47,3906.67 0.04,3904.60">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="1" type="priority" x="3330.25" y="0.00" incLanes="o_0" intLanes=":1_0_0" shape="3330.28,0.03 3332.72,2.11 3327.77,-2.11 3330.21,-0.03">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="2o" to="o" fromLane="0" toLane="0" via=":0_0_0" dir="t" state="M"/>
+    <connection from="o" to="2o" fromLane="0" toLane="0" via=":1_0_0" dir="t" state="M"/>
+
+    <connection from=":0_0" to="o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1_0" to="2o" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
