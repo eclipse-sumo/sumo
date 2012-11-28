@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/12/12 09:02:27 by SUMO netconvert Version dev-SVN-r11548
+<!-- generated on 11/28/12 16:35:16 by SUMO netconvert Version dev-SVN-r13068
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -768,7 +768,7 @@
     <junction id="605001195" type="priority" x="1565.64" y="2823.25" incLanes="98_0" intLanes="" shape="1567.13,2824.42 1569.65,2826.40 1564.38,2822.27 1566.90,2824.24">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="605001196" type="traffic_light" x="2080.64" y="1609.48" incLanes="1000704_0 1000705[1]_0 1000701_0 1000702[1]_0 1000710_0 1000711[1]_0 1000708[1]_0 1000707_0" intLanes="" shape="2084.96,1614.97 2089.48,1610.03 2086.21,1605.01 2080.83,1601.02 2076.83,1603.90 2072.70,1609.18 2072.95,1611.28 2080.94,1617.63">
+    <junction id="605001196" type="traffic_light" x="2081.09" y="1609.68" incLanes="1000704_0 1000705[1]_0 1000701_0 1000702[1]_0 1000710_0 1000711[1]_0 1000708[1]_0 1000707_0" intLanes="" shape="2084.96,1614.97 2089.48,1610.03 2086.21,1605.01 2080.83,1601.02 2076.83,1603.90 2072.70,1609.18 2072.95,1611.28 2080.94,1617.63">
         <request index="0" response="110110001000" foes="110110101110"/>
         <request index="1" response="000001000001" foes="000001100001"/>
         <request index="2" response="111001001001" foes="111001101001"/>
