@@ -294,15 +294,12 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
             size_t carNo = (size_t)((srcFD.qPKW + srcFD.qLKW) * scale);
             for (size_t car = 0; car < carNo; ++car) {
                 // get the vehicle parameter
-                std::string type = "test";
                 SUMOReal v = -1;
                 int destIndex = destDist != 0 && destDist->getOverallProb() > 0 ? (int) destDist->get() : -1;
                 if (srcFD.isLKW >= 1) {
                     srcFD.isLKW = srcFD.isLKW - (SUMOReal) 1.;
-//!!!		        	type = lkwTypes[vehSpeedDist.get()];
                     v = srcFD.vLKW;
                 } else {
-//!!!	    			type = pkwTypes[vehSpeedDist.get()];
                     v = srcFD.vPKW;
                 }
                 // compute insertion speed

@@ -79,7 +79,7 @@ private:
      * @param[in] nc The node-container from which to read data
      * @param[in] ec The edge-container from which to read data
      */
-    static void writeLinksUnsplitted(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec);
+    static void writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec);
 
 
     /// @brief write header comments (input paramters, date, etc...)
@@ -98,7 +98,7 @@ private:
     static int getSpeedCategoryUpperBound(int kph);
 
     /// @brief get the lane number encoding
-    static int getNavteqLaneCode(unsigned int numLanes);
+    static unsigned int getNavteqLaneCode(const unsigned int numLanes);
 
     /// @brief magic value for undefined stuff
     static const std::string UNDEFINED;

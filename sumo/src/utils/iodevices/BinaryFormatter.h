@@ -314,7 +314,7 @@ private:
      */
     static inline void writeAttrHeader(std::ostream& into, const SumoXMLAttr attr, const DataType type) {
         FileHelpers::writeByte(into, static_cast<unsigned char>(BF_XML_ATTRIBUTE));
-        FileHelpers::writeByte(into, attr);
+        FileHelpers::writeByte(into, static_cast<unsigned char>(attr));
         FileHelpers::writeByte(into, static_cast<unsigned char>(type));
     }
 

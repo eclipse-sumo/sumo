@@ -207,7 +207,7 @@ SUMOSAXAttributesImpl_Binary::getIntSecure(int id,
 
 
 SUMOLong
-SUMOSAXAttributesImpl_Binary::getLong(int id) const {
+SUMOSAXAttributesImpl_Binary::getLong(int /* id */) const {
     throw NumberFormatException();
 }
 
@@ -244,8 +244,7 @@ SUMOSAXAttributesImpl_Binary::getFloat(int id) const {
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Binary::getFloatSecure(int id,
-        SUMOReal def) const {
+SUMOSAXAttributesImpl_Binary::getFloatSecure(int id, SUMOReal def) const {
     const std::map<int, SUMOReal>::const_iterator i = myFloatValues.find(id);
     if (i == myFloatValues.end()) {
         return def;
@@ -255,20 +254,20 @@ SUMOSAXAttributesImpl_Binary::getFloatSecure(int id,
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Binary::getFloat(const std::string& id) const {
+SUMOSAXAttributesImpl_Binary::getFloat(const std::string& /* id */) const {
     throw ProcessError("not implemented for binary data");
 }
 
 
 bool
-SUMOSAXAttributesImpl_Binary::hasAttribute(const std::string& id) const {
+SUMOSAXAttributesImpl_Binary::hasAttribute(const std::string& /* id */) const {
     throw ProcessError("not implemented for binary data");
 }
 
 
 std::string
-SUMOSAXAttributesImpl_Binary::getStringSecure(const std::string& id,
-        const std::string& str) const {
+SUMOSAXAttributesImpl_Binary::getStringSecure(const std::string& /* id */,
+        const std::string& /* str */) const {
     throw ProcessError("not implemented for binary data");
 }
 
@@ -302,7 +301,7 @@ SUMOSAXAttributesImpl_Binary::getNodeType(bool& ok) const {
 
 
 RGBColor
-SUMOSAXAttributesImpl_Binary::getColorReporting(const char* objectid, bool& ok) const {
+SUMOSAXAttributesImpl_Binary::getColorReporting(const char* /* objectid */, bool& /* ok */) const {
     const std::map<int, int>::const_iterator i = myIntValues.find(SUMO_ATTR_COLOR);
     if (i != myIntValues.end()) {
         const int val = i->second;

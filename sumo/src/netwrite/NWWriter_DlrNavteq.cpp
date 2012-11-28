@@ -64,7 +64,7 @@ NWWriter_DlrNavteq::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         return;
     }
     writeNodesUnsplitted(oc, nb.getNodeCont(), nb.getEdgeCont());
-    writeLinksUnsplitted(oc, nb.getNodeCont(), nb.getEdgeCont());
+    writeLinksUnsplitted(oc, nb.getEdgeCont());
 }
 
 
@@ -136,7 +136,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
 
 
 void
-NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec) {
+NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_links_unsplitted.txt");
     writeHeader(device, oc);
     // write format specifier
@@ -239,9 +239,9 @@ NWWriter_DlrNavteq::getSpeedCategoryUpperBound(int kph) {
 }
 
 
-int 
-NWWriter_DlrNavteq::getNavteqLaneCode(unsigned int numLanes) {
-    const int code = numLanes == (1 ? 1 :
+unsigned int 
+NWWriter_DlrNavteq::getNavteqLaneCode(const unsigned int numLanes) {
+    const unsigned int code = (numLanes == 1 ? 1 :
         (numLanes < 4 ?  2 : 3));
     return numLanes * 10 + code;
 }

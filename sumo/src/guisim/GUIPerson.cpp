@@ -315,7 +315,7 @@ GUIPerson::getPosition(SUMOTime now) const {
 
 
 void 
-GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& s) const {
+GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) const {
     // draw triangle pointing down
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
@@ -326,7 +326,7 @@ GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& s) const {
 
 
 void 
-GUIPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& s) const {
+GUIPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
     // draw pedestrian shape
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     glRotated(getAngle(now), 0, 0, 1);

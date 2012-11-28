@@ -64,7 +64,7 @@ public:
      * @param[in] numericalID The numerical id (index) of the edge
      * @see MSEdge
      */
-    GUIEdge(const std::string& id, unsigned int numericalID,
+    GUIEdge(const std::string& id, int numericalID,
             const EdgeBasicFunction function, const std::string& streetName);
 
 

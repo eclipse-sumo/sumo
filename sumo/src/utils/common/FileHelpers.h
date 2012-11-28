@@ -291,7 +291,7 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
         assert(prev != 0);
         edges.push_back(prev);
         size--;
-        unsigned int data;
+        unsigned int data = 0;
         unsigned int field = numFields;
         for (; size > 0; size--) {
             if (field == numFields) {

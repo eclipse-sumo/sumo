@@ -72,7 +72,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-GUIEdge::GUIEdge(const std::string& id, unsigned int numericalID,
+GUIEdge::GUIEdge(const std::string& id, int numericalID,
                  const EdgeBasicFunction function, const std::string& streetName)
     : MSEdge(id, numericalID, function, streetName),
       GUIGlObject(GLO_EDGE, id) {}
