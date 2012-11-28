@@ -36,7 +36,10 @@
         <map-output value="" synonymes="M" type="FILE" help="Writes joined edges information to FILE"/>
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format."/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using openDRIVE format."/>
+        <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX."/>
         <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)."/>
+        <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter."/>
+        <street-sign-output value="" type="FILE" help="Writes street signs as POIs to FILE."/>
     </output>
 
     <projection>
@@ -71,6 +74,7 @@
         <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT" help="Treat edges with speed < FLOAT as no highways"/>
         <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT" help="Use FLOAT as ramp-length"/>
         <ramps.set value="" synonymes="ramp-guess.explicite" type="STR" help="Tries to handle the given edges as ramps"/>
+        <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL" help="Avoids edge splitting"/>
     </ramp_guessing>
 
     <edge_removal>
@@ -96,9 +100,10 @@
     <processing>
         <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
         <ignore-errors.connections value="false" type="BOOL" help="Continue on invalid connections"/>
+        <show-errors.connections-first-try value="false" type="BOOL" help="Show errors in connections at parsing"/>
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion."/>
         <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
-        <plain.keep-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="No node positions are added to the edge shape"/>
+        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
         <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSIM-file will be kept."/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity."/>
         <shapefile.street-id value="" synonymes="arcview.street-id" type="STR" help="Read edge ids from column STR"/>
@@ -136,10 +141,11 @@
         <roundabouts.guess value="false" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
-        <junctions.join-dist value="15" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 15)"/>
+        <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
         <junctions.join-exclude value="" type="STR" help="Interprets STR as list of junctions to exclude from joining"/>
         <speed.offset value="0" type="FLOAT" help="Modifies all edge speeds by adding FLOAT"/>
         <speed.factor value="1" type="FLOAT" help="Modifies all edge speeds by multiplying FLOAT"/>
+        <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
     </processing>
 
     <building_defaults>

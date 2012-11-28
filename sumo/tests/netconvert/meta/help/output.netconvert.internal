@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r11548
+SUMO netconvert Version dev-SVN-r13036
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -45,8 +45,13 @@ Output Options:
                                         using MATsim format.
   --opendrive-output FILE             The generated net will be written to FILE
                                         using openDRIVE format.
+  --dlr-navteq-output FILE            The generated net will be written to
+                                        dlr-navteq files with the given PREFIX.
   --output.street-names               Street names will be included in the
                                         output (if available).
+  --output.original-names             Writes original names, if given, as
+                                        parameter.
+  --street-sign-output FILE           Writes street signs as POIs to FILE.
 
 Projection Options:
   --simple-projection                 Uses a simple method for projection
@@ -92,6 +97,7 @@ Ramp Guessing Options:
                                         highways
   --ramps.ramp-length FLOAT           Use FLOAT as ramp-length
   --ramps.set STR                     Tries to handle the given edges as ramps
+  --ramps.no-split                    Avoids edge splitting
 
 Edge Removal Options:
   --keep-edges.min-speed FLOAT        Only keep edges with speed > FLOAT
@@ -120,11 +126,12 @@ Unregulated Nodes Options:
 Processing Options:
   --ignore-errors                     Continue on broken input
   --ignore-errors.connections         Continue on invalid connections
+  --show-errors.connections-first-try  Show errors in connections at parsing
   --lanes-from-capacity.norm FLOAT    The factor for flow to no. lanes
                                         conversion.
   --speed-in-kmh                      vmax is parsed as given in km/h (some)
-  --plain.keep-edge-shape             No node positions are added to the edge
-                                        shape
+  --plain.extend-edge-shape           If edge shapes do not end at the node
+                                        positions, extend them
   --matsim.keep-length                The edge lengths given in the MATSIM-file
                                         will be kept.
   --matsim.lanes-from-capacity        The lane number will be computed from the
@@ -175,12 +182,14 @@ Processing Options:
   --junctions.join                    Joins junctions that are close to each
                                         other (recommended for OSM import)
   --junctions.join-dist FLOAT         Determines the maximal distance for
-                                        joining junctions (defaults to 15)
+                                        joining junctions (defaults to 10)
   --junctions.join-exclude STR        Interprets STR as list of junctions to
                                         exclude from joining
   --speed.offset FLOAT                Modifies all edge speeds by adding FLOAT
   --speed.factor FLOAT                Modifies all edge speeds by multiplying
                                         FLOAT
+  --tls.join-dist FLOAT               Determines the maximal distance for
+                                        joining traffic lights (defaults to 20)
 
 Building Defaults Options:
   -L, --default.lanenumber INT        The default number of lanes in an edge

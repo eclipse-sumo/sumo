@@ -90,8 +90,17 @@
         <!-- The generated net will be written to FILE using openDRIVE format. -->
         <opendrive-output value="" type="FILE"/>
 
+        <!-- The generated net will be written to dlr-navteq files with the given PREFIX. -->
+        <dlr-navteq-output value="" type="FILE"/>
+
         <!-- Street names will be included in the output (if available). -->
         <output.street-names value="false" type="BOOL"/>
+
+        <!-- Writes original names, if given, as parameter. -->
+        <output.original-names value="false" type="BOOL"/>
+
+        <!-- Writes street signs as POIs to FILE. -->
+        <street-sign-output value="" type="FILE"/>
 
     </output>
 
@@ -177,6 +186,9 @@
         <!-- Tries to handle the given edges as ramps -->
         <ramps.set value="" synonymes="ramp-guess.explicite" type="STR"/>
 
+        <!-- Avoids edge splitting -->
+        <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL"/>
+
     </ramp_guessing>
 
     <edge_removal>
@@ -234,14 +246,17 @@
         <!-- Continue on invalid connections -->
         <ignore-errors.connections value="false" type="BOOL"/>
 
+        <!-- Show errors in connections at parsing -->
+        <show-errors.connections-first-try value="false" type="BOOL"/>
+
         <!-- The factor for flow to no. lanes conversion. -->
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT"/>
 
         <!-- vmax is parsed as given in km/h (some) -->
         <speed-in-kmh value="false" type="BOOL"/>
 
-        <!-- No node positions are added to the edge shape -->
-        <plain.keep-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL"/>
+        <!-- If edge shapes do not end at the node positions, extend them -->
+        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL"/>
 
         <!-- The edge lengths given in the MATSIM-file will be kept. -->
         <matsim.keep-length value="false" type="BOOL"/>
@@ -354,8 +369,8 @@
         <!-- Joins junctions that are close to each other (recommended for OSM import) -->
         <junctions.join value="false" type="BOOL"/>
 
-        <!-- Determines the maximal distance for joining junctions (defaults to 15) -->
-        <junctions.join-dist value="15" type="FLOAT"/>
+        <!-- Determines the maximal distance for joining junctions (defaults to 10) -->
+        <junctions.join-dist value="10" type="FLOAT"/>
 
         <!-- Interprets STR as list of junctions to exclude from joining -->
         <junctions.join-exclude value="" type="STR"/>
@@ -365,6 +380,9 @@
 
         <!-- Modifies all edge speeds by multiplying FLOAT -->
         <speed.factor value="1" type="FLOAT"/>
+
+        <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
+        <tls.join-dist value="20" type="FLOAT"/>
 
     </processing>
 
