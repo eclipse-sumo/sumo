@@ -141,6 +141,7 @@ public:
         SUMOLong ret = 0;
         for (; data[i] != 0; i++) {
             ret *= 10;
+            // !!! need to catch overflows
             char akt = (char) data[i];
             if (akt < '0' || akt > '9') {
                 throw NumberFormatException();
@@ -163,7 +164,6 @@ public:
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
         }
-        SUMOReal ret = 0;
         unsigned i = 0;
         SUMOReal sgn = 1;
         if (data[0] == '+') {
@@ -173,46 +173,35 @@ public:
             i++;
             sgn = -1;
         }
-        for (; data[i] != 0 && data[i] != '.' && data[i] != ',' && data[i] != 'e' && data[i] != 'E'; i++) {
-            ret *= 10;
-            char akt = (char) data[i];
-            if (akt < '0' || akt > '9') {
-                throw NumberFormatException();
-            }
-            ret += akt - 48;
-        }
-        // check what has happened - end of string, e or decimal point
-        if (data[i] == 0) {
-            return ret * sgn;
-        }
-        if (data[i] == 'e' || data[i] == 'E') {
-            // no decimal point, just an exponent
-            try {
-                return ret * sgn * (SUMOReal) pow(10.0, _2int(data + i + 1));
-            } catch (EmptyData&) {
-                // the exponent was empty
-                throw NumberFormatException();
-            }
-        }
-        SUMOReal div = 10;
-        // skip the dot
-        i++;
-        // parse values behind decimal point
+        // we try to parse it as a SUMOLong storing the decimal point pos
+        int pointPos = -1;
+        int digits = std::numeric_limits<SUMOLong>::digits10;
+        SUMOLong ret = 0;
         for (; data[i] != 0 && data[i] != 'e' && data[i] != 'E'; i++) {
             char akt = (char) data[i];
             if (akt < '0' || akt > '9') {
+                if (pointPos < 0 && (akt == '.' || akt == ',')) {
+                    pointPos = i;
+                    continue;
+                }
                 throw NumberFormatException();
             }
-            ret += ((SUMOReal)(akt - 48)) / div;
-            div *= 10;
+            digits--;
+            if (digits >= 0) { // we skip the digits which don't fit into SUMOLong
+                ret = ret * 10 + akt - 48;
+            }
         }
+        int exponent = digits >= 0 ? 0 : -digits;
+        if (pointPos != -1) {
+            exponent += pointPos - i + 1;
+        }
+        // check what has happened - end of string or exponent
         if (data[i] == 0) {
-            // no exponent
-            return ret * sgn;
+            return ret * sgn * (SUMOReal) pow(10.0, exponent);
         }
-        // exponent and decimal dot
+        // now the exponent
         try {
-            return ret * sgn * (SUMOReal) pow(10.0, _2int(data + i + 1));
+            return ret * sgn * (SUMOReal) pow(10.0, _2int(data + i + 1) + exponent);
         } catch (EmptyData&) {
             // the exponent was empty
             throw NumberFormatException();
