@@ -331,7 +331,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server,
         case POSITION_LAT_LON:
         case POSITION_LAT_LON_ALT:
             outputStorage.writeUnsignedByte(destPosType);
-            if (srcPosType == POSITION_LAT_LON || srcPosType == POSITION_LAT_LON_ALT) {
+            if (destPosType == POSITION_LAT_LON || destPosType == POSITION_LAT_LON_ALT) {
                 outputStorage.writeDouble(geoPos.x());
                 outputStorage.writeDouble(geoPos.y());
             } else {
