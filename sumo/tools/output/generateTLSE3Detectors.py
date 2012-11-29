@@ -87,7 +87,7 @@ if __name__ == "__main__":
     detectors_xml = xml.dom.minidom.Element("additional")
     generated_detectors = 0
     for tls in network._tlss:
-        for edge in sorted(tls.getEdges(), key=sumolib.net.Edge.getID):
+        for edge in sorted(tls.getEdges(), key=sumolib.net.edge.Edge.getID):
             detector_xml = xml.dom.minidom.Element("e3Detector")
             detector_xml.setAttribute("id", "e3_" + str(tls._id) + "_" + str(edge._id))
             detector_xml.setAttribute("freq", str(options.frequency))
