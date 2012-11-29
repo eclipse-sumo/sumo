@@ -149,6 +149,18 @@ def convertRoad(x, y, isGeo=False):
     result = traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "")
     return result.readString(), result.readDouble(), result.read("!B")[0]
 
+def convertGeo(x, y, fromGeo=False):
+    fromType = tc.POSITION_2D
+    toType = tc.POSITION_LAT_LON
+    if fromGeo:
+        fromType = tc.POSITION_LAT_LON
+        toType = tc.POSITION_2D
+    traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+8+8 + 1+1)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
+    traci._message.string += struct.pack("!Bdd", fromType, x, y)
+    traci._message.string += struct.pack("!BB", tc.TYPE_UBYTE, toType)
+    return traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "").read("!dd")
+
 def getDistance2D(x1, y1, x2, y2, isGeo=False, isDriving=False):
     """getDistance2D(double, double, double, double, boolean, boolean) -> double
     
