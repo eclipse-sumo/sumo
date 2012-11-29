@@ -25,12 +25,15 @@ teleportStart []
 #teleportEnd 0
 teleportEnd []
 deltaT 1000
-boundary ((0.0, 0.0), (1000.0, 1000.0))
-convert2D (488.65000000000003, 501.65000000000003)
-convertGeo (488.65000000000003, 501.65000000000003)
-convertRoad ('1o', 5.684341886080801e-14, 0)
+boundary ((0.0, 0.0), (3330.25, 3904.56))
+convertRoad2D (-1.26, 3903.49)
+convertRoadGeo (12.014677620717505, 48.12144890632121)
+convert2DGeo (12.023018905467296, 48.09105459770769)
+convertGeo2D (-1619.5653987230617, -9550.720807246864)
+convert2DRoad ('o', 2906.1907260226612, 0)
+convertGeoRoad ('o', 2906.1907260226612, 0)
 distance2D 10.0
-drivingDistance2D 1988.08443148
-distanceRoad 22.9386137332
-drivingDistanceRoad 1007.78844132
+drivingDistance2D 6.48934198154
+distanceRoad 5131.87792859
+drivingDistanceRoad 5136.7
 (14, 127, 0) OK Goodbye
