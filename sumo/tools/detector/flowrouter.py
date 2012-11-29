@@ -350,7 +350,10 @@ class Net:
                 routeString = ''
                 for redge in route.edges:
                     if redge.kind == "real":
-                        routeString += redge.label + " "
+                        if options.lanebased:
+                            routeString += redge.label[:redge.label.rfind("_")] + " "
+                        else:
+                            routeString += redge.label + " "
                         if firstReal == '':
                             firstReal = redge.label
                         lastReal = redge
@@ -367,20 +370,14 @@ class Net:
             if len(srcEdge.routes) == 0:
                 continue
             assert len(srcEdge.target.outEdges) == 1
-            for edge in srcEdge.target.outEdges: pass
-            srcFile = "src_" + edge.label + ".def.xml"
-            print >> emitOut, '    <emitter id="src_' + edge.label + '"',
-            print >> emitOut, 'pos="0"',
-            print >> emitOut, 'friendlyPos="x" objectid="' + edge.label + '_0"',
-            print >> emitOut, 'file="' + srcFile + '"/>'
-            srcOut = open(srcFile, 'w')
-            print >> srcOut, "<triggeredsource>"
+            edge = iter(srcEdge.target.outEdges).next()
+            print >> emitOut, '    <routeDistribution id="dist_' + edge.label + '">'
             for id, route in enumerate(srcEdge.routes):
-                print >> srcOut, '    <routedistelem id="%s.%s"' % (edge.label, id),
-                print >> srcOut, 'probability="%s"/>' % route.frequency
-            print >> srcOut, '    <flow no="%s" end="3600"/>' % srcEdge.flow
-            print >> srcOut, "</triggeredsource>"
-            srcOut.close()
+                print >> emitOut, '        <route refid="%s.%s"' % (edge.label, id),
+                print >> emitOut, 'probability="%s"/>' % route.frequency
+            print >> emitOut, '    </routeDistribution>'
+            print >> emitOut, '    <vehicle id="src_' + edge.label + '"',
+            print >> emitOut, 'route="dist_%s" number="%s" begin="0"/>' % (edge.label, srcEdge.flow)
         print >> emitOut, "</additional>"
         emitOut.close()
 
