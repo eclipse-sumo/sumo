@@ -1,0 +1,1 @@
+-n input_net.net.xml -d input_detectors.det.xml -f input_flows.txt -z -l -o out.rou.xml -e out.flows.xml
