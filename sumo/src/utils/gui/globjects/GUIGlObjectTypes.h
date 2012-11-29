@@ -70,7 +70,7 @@ enum GUIGlObjectType {
     /// @brief a person
     GLO_PERSON = 1024,
     /// @brief empty max
-    GLO_MAX = 2048,
+    GLO_MAX = 2048
 
 };
 
