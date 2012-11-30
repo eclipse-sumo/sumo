@@ -60,7 +60,7 @@ public:
         SIGN_TYPE_RAIL_CROSSING,
         SIGN_TYPE_SLOPE,
         SIGN_TYPE_CITY,
-        SIGN_TYPE_INFO,
+        SIGN_TYPE_INFO
     };
 
     /** @brief Constructor with id, and position
