@@ -417,12 +417,13 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     SUMOReal dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
     const MSRoute& r = aVehicle->getRoute();
     MSRouteIterator ce = r.begin();
+    unsigned int nRouteSuccs = 1;
     MSLane* currentLane = this;
     MSLane* nextLane = this;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / speed);
     while (seen < dist && ri != bestLaneConts.end()) {
         // get the next link used...
-        MSLinkCont::const_iterator link = currentLane->succLinkSec(*aVehicle, 1, *currentLane, bestLaneConts);
+        MSLinkCont::const_iterator link = currentLane->succLinkSec(*aVehicle, nRouteSuccs, *currentLane, bestLaneConts);
         if (currentLane->isLinkEnd(link)) {
             if (&currentLane->getEdge() == r.getLastEdge()) {
                 // reached the end of the route
@@ -537,6 +538,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             ++ce;
             ++ri;
             currentLane = nextLane;
+            if ((*link)->getViaLane() == 0) {
+                nRouteSuccs++;
+            }
         }
     }
 
