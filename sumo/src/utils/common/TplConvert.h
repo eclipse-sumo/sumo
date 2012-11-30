@@ -34,7 +34,7 @@
 
 #include <string>
 #include <cmath>
-#include <climits>
+#include <limits>
 #include <limits>
 #include <algorithm>
 #include <utils/common/UtilExceptions.h>
@@ -114,7 +114,7 @@ public:
     template<class E>
     static int _2int(const E* const data) {
         SUMOLong result = _2long(data);
-        if (result > INT_MAX || result < INT_MIN) {
+        if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min()) {
             throw NumberFormatException();
         }
         return (int)result;
