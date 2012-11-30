@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue Nov 27 14:42:08 2012 by SUMO sumo Version dev-SVN-r13051
+<!-- generated on Fri Nov 30 14:12:09 2012 by SUMO sumo Version dev-SVN-r13080
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -25,7 +25,7 @@
     <timestep time="0.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="glitch" pos="0.00" speed="27.58"/>
+                <vehicle id="glitch" pos="0.00" speed="30.00"/>
             </lane>
         </edge>
     </timestep>

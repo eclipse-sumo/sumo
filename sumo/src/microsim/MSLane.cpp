@@ -423,12 +423,56 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     while (seen < dist && ri != bestLaneConts.end()) {
         // get the next link used...
         MSLinkCont::const_iterator link = currentLane->succLinkSec(*aVehicle, 1, *currentLane, bestLaneConts);
-        // ...and the next used lane (including internal)
-        if (!currentLane->isLinkEnd(link) && (*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength()) && (*link)->getState() != LINKSTATE_TL_RED) { // red may have priority?
-            nextLane = (*link)->getViaLaneOrLane();
-        } else {
+        if (currentLane->isLinkEnd(link)) {
+            if (&currentLane->getEdge() == r.getLastEdge()) {
+                // reached the end of the route
+                if (aVehicle->getParameter().arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) { 
+                    SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, aVehicle->getParameter().arrivalSpeed, 0);
+                    if (nspeed < speed) {
+                        if (patchSpeed) {
+                            speed = MIN2(nspeed, speed);
+                            dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+                        } else {
+                            // we may not drive with the given velocity - we cannot match the specified arrival speed
+                            WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
+                            MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
+                            return false;
+                        }
+                    }
+                }
+            } else {
+                // lane does not continue
+                SUMOReal nspeed = cfModel.stopSpeed(aVehicle, seen);
+                if (nspeed < speed) {
+                    if (patchSpeed) {
+                        speed = MIN2(nspeed, speed);
+                        dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+                    } else {
+                        // we may not drive with the given velocity - we cannot stop at the junction
+                        WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
+                        MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
+                        return false;
+                    }
+                }
+            }
             break;
         }
+        if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength())) { 
+            // have to stop at junction
+            SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, 0, 0);
+            if (nspeed < speed) {
+                if (patchSpeed) {
+                    speed = MIN2(nspeed, speed);
+                    dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+                } else {
+                    // we may not drive with the given velocity - we cannot stop at the junction in time (try again later)
+                    return false;
+                }
+            }
+            break;
+        }
+        // get the next used lane (including internal)
+        nextLane = (*link)->getViaLaneOrLane();
         // check how next lane effects the journey
         if (nextLane != 0) {
             arrivalTime += TIME2STEPS(nextLane->getLength() / speed);
@@ -491,20 +535,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             ++ce;
             ++ri;
             currentLane = nextLane;
-        }
-    }
-    if (seen < dist) {
-        SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, 0, 0);
-        if (nspeed < speed) {
-            if (patchSpeed) {
-                speed = MIN2(nspeed, speed);
-                dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-            } else {
-                // we may not drive with the given velocity - we crash into an obstacle
-                WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
-                MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
-                return false;
-            }
         }
     }
 
