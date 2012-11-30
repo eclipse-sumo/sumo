@@ -1,0 +1,2 @@
+warning: debug_new used with placement new (SUMOSAXReader.cpp:132)
+Error: Vehicle '0' will not be able to depart using given velocity!

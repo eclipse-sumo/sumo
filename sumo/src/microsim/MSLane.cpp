@@ -511,6 +511,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
                     // we may not drive with the given velocity - we would be too fast on the next lane
+                    WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
+                    MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
                     return false;
                 }
             }
