@@ -535,11 +535,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             } 
             seen += nextLane->getLength();
-            ++ce;
-            ++ri;
             currentLane = nextLane;
             if ((*link)->getViaLane() == 0) {
                 nRouteSuccs++;
+                ++ce;
+                ++ri;
             }
         }
     }
@@ -891,12 +891,12 @@ MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
     // at first, we'll assume we have the continuations of our route in "conts" (built in "getBestLanes")
     //  "conts" stores the best continuations of our current lane
     MSLinkCont::const_iterator link;
-    if (nRouteSuccs > 0 && conts.size() >= nRouteSuccs && nRouteSuccs > 0) {
+    if (nRouteSuccs < conts.size()) {
         // we go through the links in our list and return the matching one
         for (link = succLinkSource.myLinks.begin(); link != succLinkSource.myLinks.end(); ++link) {
             if ((*link)->getLane() != 0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
                 // we should use the link if it connects us to the best lane
-                if ((*link)->getLane() == conts[nRouteSuccs - 1]) {
+                if ((*link)->getLane() == conts[nRouteSuccs]) {
                     return link;
                 }
             }
