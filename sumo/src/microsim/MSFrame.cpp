@@ -386,6 +386,9 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");
+    if (MSGlobals::gUseMesoSim) {
+        MSGlobals::gUsingInternalLanes = false;
+    }
 #endif
 
 #ifdef HAVE_SUBSECOND_TIMESTEPS
