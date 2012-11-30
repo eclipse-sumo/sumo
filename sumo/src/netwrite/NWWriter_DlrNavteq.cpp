@@ -150,7 +150,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
             << e->getFromNode()->getID() << "\t"
             << e->getToNode()->getID() << "\t"
             << betweenNodeID << "\t"
-            << e->getLength() << "\t"
+            << getGraphLength(e) << "\t"
             << getAllowedTypes(e->getPermissions()) << "\t"
             << "3\t" // Speed Category 1-8 XXX refine this
             << UNDEFINED << "\t" // no special brunnel type (we don't know yet)
@@ -244,6 +244,15 @@ NWWriter_DlrNavteq::getNavteqLaneCode(const unsigned int numLanes) {
     const unsigned int code = (numLanes == 1 ? 1 :
         (numLanes < 4 ?  2 : 3));
     return numLanes * 10 + code;
+}
+
+
+SUMOReal
+NWWriter_DlrNavteq::getGraphLength(NBEdge* edge) {
+    PositionVector geom = edge->getGeometry();
+    geom.push_back_noDoublePos(edge->getToNode()->getPosition());
+    geom.push_front_noDoublePos(edge->getFromNode()->getPosition());
+    return geom.length();
 }
 /****************************************************************************/
 

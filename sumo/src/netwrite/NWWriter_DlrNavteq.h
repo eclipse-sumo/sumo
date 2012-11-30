@@ -100,6 +100,9 @@ private:
     /// @brief get the lane number encoding
     static unsigned int getNavteqLaneCode(const unsigned int numLanes);
 
+    /// @brief get the length of the edge when measured up to the junction center
+    static SUMOReal getGraphLength(NBEdge* edge);
+
     /// @brief magic value for undefined stuff
     static const std::string UNDEFINED;
 
