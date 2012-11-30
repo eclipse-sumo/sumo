@@ -35,6 +35,7 @@
 #include <string>
 #include <cmath>
 #include <climits>
+#include <limits>
 #include <algorithm>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
