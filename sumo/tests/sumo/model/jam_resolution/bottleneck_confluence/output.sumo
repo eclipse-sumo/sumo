@@ -5,11 +5,11 @@ Simulation started with time: 0.00
 Simulation ended at time: 1440.00
 Reason: The final simulation step has been reached.
 Performance: 
- Duration: 1622 ms
- Real time factor: 887.793
- UPS: 75874.229346
+ Duration: 1606 ms
+ Real time factor: 896.638
+ UPS: 76569.115816
 Vehicles: 
- Emitted: 544 (Loaded: 546)
+ Emitted: 543 (Loaded: 545)
  Running: 91
  Waiting: 2
 Teleports: 4
