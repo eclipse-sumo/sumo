@@ -536,7 +536,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             } 
             seen += nextLane->getLength();
             currentLane = nextLane;
+#ifdef HAVE_INTERNAL_LANES
             if ((*link)->getViaLane() == 0) {
+#else
+            if (true) {
+#endif
                 nRouteSuccs++;
                 ++ce;
                 ++ri;
