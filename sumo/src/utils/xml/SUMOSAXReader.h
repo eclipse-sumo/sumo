@@ -89,20 +89,7 @@ private:
      *
      * @return The built Xerces-SAX-reader, 0 if something failed
      */
-    XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* getSAXReader();
-
-
-    /**
-     * @brief Sets the named feature of the given reader to the given value
-     *
-     * The given feature name is translated into an XMLCh* and set.
-     *
-     * @param[in] reader The reader to set the feature of
-     * @param[in] feature Name of the feature to set
-     * @param[in] value Value of the feature to set
-     */
-    void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader& reader,
-                    const std::string& feature, bool value);
+    XERCES_CPP_NAMESPACE::SAX2XMLReader* getSAXReader();
 
 
 private:
@@ -111,9 +98,9 @@ private:
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
     const bool myEnableValidation;
 
-    XERCES_CPP_NAMESPACE_QUALIFIER XMLPScanToken* myToken;
+    XERCES_CPP_NAMESPACE::XMLPScanToken myToken;
 
-    XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* myXMLReader;
+    XERCES_CPP_NAMESPACE::SAX2XMLReader* myXMLReader;
 
     BinaryInputDevice* myBinaryInput;
 

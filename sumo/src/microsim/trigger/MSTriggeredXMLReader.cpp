@@ -83,9 +83,9 @@ MSTriggeredXMLReader::myInit() {
         if (!myParser->parseFirst(getFileName())) {
             throw ProcessError("Can not read XML-file '" + getFileName() + "'.");
         }
-    } catch (SAXException& e) {
+    } catch (XERCES_CPP_NAMESPACE::SAXException& e) {
         throw ProcessError(TplConvert::_2str(e.getMessage()));
-    } catch (XMLException& e) {
+    } catch (XERCES_CPP_NAMESPACE::XMLException& e) {
         throw ProcessError(TplConvert::_2str(e.getMessage()));
     }
 

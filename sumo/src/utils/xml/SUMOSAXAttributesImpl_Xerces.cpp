@@ -50,7 +50,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const Attributes& attrs,
+SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const XERCES_CPP_NAMESPACE::Attributes& attrs,
         const std::map<int, XMLCh*>& predefinedTags,
         const std::map<int, std::string>& predefinedTagsMML,
         const std::string& objectType) :
@@ -109,16 +109,16 @@ std::string
 SUMOSAXAttributesImpl_Xerces::getString(int id) const throw(EmptyData) {
     const XMLCh* utf16 = getAttributeValueSecure(id);
 #if _XERCES_VERSION < 30100
-    char* t = XMLString::transcode(utf16);
+    char* t = XERCES_CPP_NAMESPACE::XMLString::transcode(utf16);
     std::string result(t);
-    XMLString::release(&t);
+    XERCES_CPP_NAMESPACE::XMLString::release(&t);
     return result;
 #else
-    if (XMLString::stringLen(utf16) == 0) {
+    if (XERCES_CPP_NAMESPACE::XMLString::stringLen(utf16) == 0) {
         // TranscodeToStr and debug_new interact badly in this case;
         return "";
     } else {
-        TranscodeToStr utf8(utf16, "UTF-8");
+        XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
         return TplConvert::_2str(utf8.str(), (unsigned)utf8.length());
     }
 #endif
@@ -130,16 +130,16 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
         const std::string& str) const throw(EmptyData) {
     const XMLCh* utf16 = getAttributeValueSecure(id);
 #if _XERCES_VERSION < 30100
-    char* t = XMLString::transcode(utf16);
+    char* t = XERCES_CPP_NAMESPACE::XMLString::transcode(utf16);
     std::string result(TplConvert::_2strSec(t, str));
-    XMLString::release(&t);
+    XERCES_CPP_NAMESPACE::XMLString::release(&t);
     return result;
 #else
-    if (XMLString::stringLen(utf16) == 0) {
+    if (XERCES_CPP_NAMESPACE::XMLString::stringLen(utf16) == 0) {
         // TranscodeToStr and debug_new interact badly in this case;
         return "";
     } else {
-        TranscodeToStr utf8(utf16, "UTF-8");
+        XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
         return TplConvert::_2strSec(utf8.str(), (unsigned)utf8.length(), str);
     }
 #endif
@@ -169,18 +169,18 @@ SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
 
 SUMOReal
 SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const {
-    XMLCh* t = XMLString::transcode(id.c_str());
+    XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
     SUMOReal result = TplConvert::_2SUMOReal(myAttrs.getValue(t));
-    XMLString::release(&t);
+    XERCES_CPP_NAMESPACE::XMLString::release(&t);
     return result;
 }
 
 
 bool
 SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string& id) const {
-    XMLCh* t = XMLString::transcode(id.c_str());
+    XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
     bool result = myAttrs.getIndex(t) >= 0;
-    XMLString::release(&t);
+    XERCES_CPP_NAMESPACE::XMLString::release(&t);
     return result;
 }
 
@@ -188,9 +188,9 @@ SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string& id) const {
 std::string
 SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
         const std::string& str) const {
-    XMLCh* t = XMLString::transcode(id.c_str());
+    XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
     std::string result = TplConvert::_2strSec(myAttrs.getValue(t), str);
-    XMLString::release(&t);
+    XERCES_CPP_NAMESPACE::XMLString::release(&t);
     return result;
 }
 

@@ -259,10 +259,10 @@ main(int argc, char** argv) {
         // build routes
         try {
             computeRoutes(*net, loader, oc);
-        } catch (SAXParseException& e) {
+        } catch (XERCES_CPP_NAMESPACE::SAXParseException& e) {
             WRITE_ERROR(toString(e.getLineNumber()));
             ret = 1;
-        } catch (SAXException& e) {
+        } catch (XERCES_CPP_NAMESPACE::SAXException& e) {
             WRITE_ERROR(TplConvert::_2str(e.getMessage()));
             ret = 1;
         }

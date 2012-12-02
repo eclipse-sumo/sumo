@@ -42,14 +42,6 @@
 
 
 // ===========================================================================
-// xerces 2.2 compatibility
-// ===========================================================================
-#if defined(XERCES_HAS_CPP_NAMESPACE)
-using namespace XERCES_CPP_NAMESPACE;
-#endif
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -66,7 +58,7 @@ public:
      * @param[in] predefinedTags Map of attribute ids to their xerces-representation
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      */
-    SUMOSAXAttributesImpl_Xerces(const Attributes& attrs,
+    SUMOSAXAttributesImpl_Xerces(const XERCES_CPP_NAMESPACE::Attributes& attrs,
                                  const std::map<int, XMLCh*>& predefinedTags,
                                  const std::map<int, std::string>& predefinedTagsMML,
                                  const std::string& objectType);
@@ -372,7 +364,7 @@ private:
 
 private:
     /// @brief The encapsulated attributes
-    const Attributes& myAttrs;
+    const XERCES_CPP_NAMESPACE::Attributes& myAttrs;
 
     /// @brief Definition of a map of attribute ids to their xerces-representation
     typedef std::map<int, XMLCh*> AttrMap;

@@ -39,14 +39,6 @@
 
 
 // ===========================================================================
-// xerces 2.2 compatibility
-// ===========================================================================
-#if defined(XERCES_HAS_CPP_NAMESPACE)
-using namespace XERCES_CPP_NAMESPACE;
-#endif
-
-
-// ===========================================================================
 // class declarations
 // ===========================================================================
 class OptionsCont;
@@ -59,7 +51,7 @@ class OptionsCont;
  * @class OptionsLoader
  * @brief A SAX-Handler for loading options
  */
-class OptionsLoader : public HandlerBase {
+class OptionsLoader : public XERCES_CPP_NAMESPACE::HandlerBase {
 public:
     /** @brief Constructor
      */
@@ -80,7 +72,7 @@ public:
      * Sets the name of the last item
      */
     virtual void startElement(const XMLCh* const name,
-                              AttributeList& attributes);
+                              XERCES_CPP_NAMESPACE::AttributeList& attributes);
 
 
     /** @brief Called on the occurence of character data
@@ -110,21 +102,21 @@ public:
      *
      * The warning is reported to the the warning-instance of MsgHandler
      */
-    void warning(const SAXParseException& exception);
+    void warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
 
     /** @brief Called on an XML-error
      *
      * The warning is reported to the the error-instance of MsgHandler
      */
-    void error(const SAXParseException& exception);
+    void error(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
 
     /** @brief Called on an XML-fatal error
      *
      * The warning is reported to the the error-instance of MsgHandler
      */
-    void fatalError(const SAXParseException& exception);
+    void fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
     /// @}
 
 

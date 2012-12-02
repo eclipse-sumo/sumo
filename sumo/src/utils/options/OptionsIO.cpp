@@ -97,8 +97,8 @@ OptionsIO::loadConfiguration() {
     }
     PROGRESS_BEGIN_MESSAGE("Loading configuration");
     // build parser
-    SAXParser parser;
-    parser.setValidationScheme(SAXParser::Val_Auto);
+    XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Auto);
     parser.setDoNamespaces(false);
     parser.setDoSchema(false);
     // start the parsing
@@ -110,7 +110,7 @@ OptionsIO::loadConfiguration() {
         if (handler.errorOccured()) {
             throw ProcessError("Could not load configuration '" + path + "'.");
         }
-    } catch (const XMLException& e) {
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         throw ProcessError("Could not load configuration '" + path + "':\n " + TplConvert::_2str(e.getMessage()));
     }
     oc.relocateFiles(path);

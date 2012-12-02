@@ -49,11 +49,10 @@
 // ===========================================================================
 SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const bool enableValidation)
     : myHandler(&handler), myEnableValidation(enableValidation),
-      myToken(0), myXMLReader(0), myBinaryInput(0)  {}
+      myXMLReader(0), myBinaryInput(0)  {}
 
 
 SUMOSAXReader::~SUMOSAXReader() {
-    delete myToken;
     delete myXMLReader;
     delete myBinaryInput;
 }
@@ -89,7 +88,7 @@ SUMOSAXReader::parseString(std::string content) {
     if (myXMLReader == 0) {
         myXMLReader = getSAXReader();
     }
-    MemBufInputSource memBufIS((const XMLByte*)content.c_str(), content.size(), "registrySettings");
+    XERCES_CPP_NAMESPACE::MemBufInputSource memBufIS((const XMLByte*)content.c_str(), content.size(), "registrySettings");
     myXMLReader->parse(memBufIS);
 }
 
@@ -128,9 +127,8 @@ SUMOSAXReader::parseFirst(std::string systemID) {
         if (myXMLReader == 0) {
             myXMLReader = getSAXReader();
         }
-        delete myToken;
-        myToken = new XERCES_CPP_NAMESPACE_QUALIFIER XMLPScanToken();
-        return myXMLReader->parseFirst(systemID.c_str(), *myToken);
+        myToken = XERCES_CPP_NAMESPACE::XMLPScanToken();
+        return myXMLReader->parseFirst(systemID.c_str(), myToken);
     }
 }
 
@@ -165,37 +163,27 @@ SUMOSAXReader::parseNext() {
         if (myXMLReader == 0) {
             throw ProcessError("The XML-parser was not initialized.");
         }
-        return myXMLReader->parseNext(*myToken);
+        return myXMLReader->parseNext(myToken);
     }
 }
 
 
-XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader*
+XERCES_CPP_NAMESPACE::SAX2XMLReader*
 SUMOSAXReader::getSAXReader() {
-    SAX2XMLReader* reader = XMLReaderFactory::createXMLReader();
+    XERCES_CPP_NAMESPACE::SAX2XMLReader* reader = XERCES_CPP_NAMESPACE::XMLReaderFactory::createXMLReader();
     if (reader == 0) {
         throw ProcessError("The XML-parser could not be build.");
     }
     if (!myEnableValidation) {
-        reader->setProperty(XMLUni::fgXercesScannerName, (void*)XMLUni::fgWFXMLScanner);
+        reader->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesScannerName, (void*)XERCES_CPP_NAMESPACE::XMLUni::fgWFXMLScanner);
     }
-    setFeature(*reader, "http://xml.org/sax/features/namespaces", false);
-    setFeature(*reader, "http://apache.org/xml/features/validation/schema", myEnableValidation);
-    setFeature(*reader, "http://apache.org/xml/features/validation/schema-full-checking", myEnableValidation);
-    setFeature(*reader, "http://xml.org/sax/features/validation", myEnableValidation);
-    setFeature(*reader, "http://apache.org/xml/features/validation/dynamic", myEnableValidation);
+// see here https://svn.apache.org/repos/asf/xerces/c/trunk/samples/src/SAX2Count/SAX2Count.cpp for the way to set features
+    reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchema, myEnableValidation);
+    reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgSAX2CoreValidation, myEnableValidation);
+    reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesDynamic, myEnableValidation);
     reader->setContentHandler(myHandler);
     reader->setErrorHandler(myHandler);
     return reader;
-}
-
-
-void
-SUMOSAXReader::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader& reader,
-                          const std::string& feature, bool value) {
-    XMLCh* xmlFeature = XMLString::transcode(feature.c_str());
-    reader.setFeature(xmlFeature, value);
-    XMLString::release(&xmlFeature);
 }
 
 

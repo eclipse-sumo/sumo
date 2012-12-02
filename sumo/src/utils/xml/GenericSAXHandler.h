@@ -45,14 +45,6 @@
 
 
 // ===========================================================================
-// xerces 2.2 compatibility
-// ===========================================================================
-#if defined(XERCES_HAS_CPP_NAMESPACE)
-using namespace XERCES_CPP_NAMESPACE;
-#endif
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -80,7 +72,7 @@ using namespace XERCES_CPP_NAMESPACE;
  *  which knows all tags/attributes used by SUMO. It is still kept separate for
  *  an easier maintainability and later extensions.
  */
-class GenericSAXHandler : public DefaultHandler {
+class GenericSAXHandler : public XERCES_CPP_NAMESPACE::DefaultHandler {
 
 public:
     /**
@@ -124,7 +116,7 @@ public:
      * @todo do not generate and report the string-representation
      */
     void startElement(const XMLCh* const uri, const XMLCh* const localname,
-                      const XMLCh* const qname, const Attributes& attrs);
+                      const XMLCh* const qname, const XERCES_CPP_NAMESPACE::Attributes& attrs);
 
 
     /**
@@ -190,7 +182,7 @@ public:
      *
      * @param[in] exception The occured exception to process
      */
-    void warning(const SAXParseException& exception);
+    void warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
 
     /**
@@ -201,7 +193,7 @@ public:
      * @param[in] exception The occured exception to process
      * @exception ProcessError On any call
      */
-    void error(const SAXParseException& exception);
+    void error(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
 
     /**
@@ -212,7 +204,7 @@ public:
      * @exception ProcessError On any call
      * @param[in] exception The occured exception to process
      */
-    void fatalError(const SAXParseException& exception);
+    void fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
     //@}
 
 
@@ -230,7 +222,7 @@ protected:
      * @param[in] exception The name of the currently processed file
      * @return A string describing the given exception
      */
-    std::string buildErrorMessage(const SAXParseException& exception);
+    std::string buildErrorMessage(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
 
     /**

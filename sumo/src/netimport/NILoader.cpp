@@ -178,7 +178,7 @@ NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string>& f
             XMLSubSys::runParser(*handler, *file);
             PROGRESS_DONE_MESSAGE();
         }
-    } catch (const XMLException& toCatch) {
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& toCatch) {
         exceptMsg = TplConvert::_2str(toCatch.getMessage())
                     + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     } catch (const ProcessError& toCatch) {

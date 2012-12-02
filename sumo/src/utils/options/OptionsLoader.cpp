@@ -58,7 +58,7 @@ OptionsLoader::~OptionsLoader() {}
 
 
 void OptionsLoader::startElement(const XMLCh* const name,
-                                 AttributeList& attributes) {
+                                 XERCES_CPP_NAMESPACE::AttributeList& attributes) {
     myItem = TplConvert::_2str(name);
     for (int i = 0; i < (int) attributes.getLength(); i++) {
         std::string key = TplConvert::_2str(attributes.getName(i));
@@ -120,7 +120,7 @@ OptionsLoader::endElement(const XMLCh* const /*name*/) {
 
 
 void
-OptionsLoader::warning(const SAXParseException& exception) {
+OptionsLoader::warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
     WRITE_WARNING(TplConvert::_2str(exception.getMessage()));
     WRITE_WARNING(" (At line/column " \
                   + toString(exception.getLineNumber() + 1) + '/' \
@@ -130,7 +130,7 @@ OptionsLoader::warning(const SAXParseException& exception) {
 
 
 void
-OptionsLoader::error(const SAXParseException& exception) {
+OptionsLoader::error(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
     WRITE_ERROR(
         TplConvert::_2str(exception.getMessage()));
     WRITE_ERROR(
@@ -142,7 +142,7 @@ OptionsLoader::error(const SAXParseException& exception) {
 
 
 void
-OptionsLoader::fatalError(const SAXParseException& exception) {
+OptionsLoader::fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
     WRITE_ERROR(
         TplConvert::_2str(exception.getMessage()));
     WRITE_ERROR(

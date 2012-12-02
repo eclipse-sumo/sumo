@@ -57,9 +57,9 @@ void
 XMLSubSys::init(bool enableValidation) {
     myEnableValidation = enableValidation;
     try {
-        XERCES_CPP_NAMESPACE_QUALIFIER XMLPlatformUtils::Initialize();
+        XERCES_CPP_NAMESPACE::XMLPlatformUtils::Initialize();
         myNextFreeReader = 0;
-    } catch (const XERCES_CPP_NAMESPACE_QUALIFIER XMLException& e) {
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         throw ProcessError("Error during XML-initialization:\n " + TplConvert::_2str(e.getMessage()));
     }
 }
@@ -71,7 +71,7 @@ XMLSubSys::close() {
         delete *i;
     }
     myReaders.clear();
-    XERCES_CPP_NAMESPACE_QUALIFIER XMLPlatformUtils::Terminate();
+    XERCES_CPP_NAMESPACE::XMLPlatformUtils::Terminate();
 }
 
 
