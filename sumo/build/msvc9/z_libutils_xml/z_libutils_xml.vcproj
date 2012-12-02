@@ -361,11 +361,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Binary.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Xerces.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\xml\SUMOSAXReader.cpp"
 				>
 			</File>
 			<File
@@ -402,11 +410,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Binary.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Xerces.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\xml\SUMOSAXReader.h"
 				>
 			</File>
 			<File
