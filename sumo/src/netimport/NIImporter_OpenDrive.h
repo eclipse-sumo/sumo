@@ -103,7 +103,7 @@ protected:
         OPENDRIVE_TAG_CENTER,
         OPENDRIVE_TAG_RIGHT,
         OPENDRIVE_TAG_LANE,
-        OPENDRIVE_TAG_SIGNAL,
+        OPENDRIVE_TAG_SIGNAL
     };
 
 
