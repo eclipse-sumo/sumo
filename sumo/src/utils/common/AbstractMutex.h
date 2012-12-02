@@ -89,8 +89,8 @@ public:
 
     private:
         /// @brief The mutex to lock
-        AbstractMutex &myLock;
-    
+        AbstractMutex& myLock;
+
     private:
         /// @brief Invalidated copy constructor.
         ScopedLocker(const ScopedLocker&);

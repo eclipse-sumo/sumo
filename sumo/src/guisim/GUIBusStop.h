@@ -79,7 +79,7 @@ public:
      * @param[in] endPos End position of the bus stop on the lane
      */
     GUIBusStop(const std::string& id,
-               const std::vector<std::string> &lines, MSLane& lane,
+               const std::vector<std::string>& lines, MSLane& lane,
                SUMOReal frompos, SUMOReal topos);
 
 

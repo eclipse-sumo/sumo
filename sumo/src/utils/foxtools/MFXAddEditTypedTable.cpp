@@ -607,7 +607,7 @@ MFXAddEditTypedTable::getNumberCellParams(size_t pos) const {
 
 void
 MFXAddEditTypedTable::setEnums(size_t pos,
-                               const std::vector<std::string> &params) {
+                               const std::vector<std::string>& params) {
     while (myEnums.size() <= pos) {
         myEnums.push_back(std::vector<std::string>());
     }
@@ -625,7 +625,7 @@ MFXAddEditTypedTable::addEnum(size_t pos,
 }
 
 
-const std::vector<std::string> &
+const std::vector<std::string>&
 MFXAddEditTypedTable::getEnums(size_t pos) const {
     return myEnums[pos];
 }

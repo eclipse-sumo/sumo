@@ -47,7 +47,7 @@ class MSLane;
  * @class MSEmissionExport
  * @brief Realises dumping Emission Data
  *
- *  The class offers a static method, which writes all available emission factors 
+ *  The class offers a static method, which writes all available emission factors
  *  of each vehicles of the network into the given OutputDevice.
  *
  * @todo consider error-handling on write (using IOError)

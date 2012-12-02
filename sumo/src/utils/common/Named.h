@@ -85,16 +85,18 @@ public:
     class StoringVisitor {
     public:
         /// @brief Contructor
-        StoringVisitor(std::set<std::string> &ids) : myIDs(ids) {}
+        StoringVisitor(std::set<std::string>& ids) : myIDs(ids) {}
 
         /// @brief Destructor
         ~StoringVisitor() {}
 
         /// @brief Adds the given object to the container
-        void add(const Named * const o) const { myIDs.insert(o->getID()); }
+        void add(const Named* const o) const {
+            myIDs.insert(o->getID());
+        }
 
         /// @brief The container
-        std::set<std::string> &myIDs;
+        std::set<std::string>& myIDs;
 
     private:
         /// @brief invalidated copy constructor
@@ -109,7 +111,7 @@ public:
     /** @brief Adds this object to the given container
      * @param[in, filled] cont The container to add this item to
      */
-    void addTo(const StoringVisitor &cont) const {
+    void addTo(const StoringVisitor& cont) const {
         cont.add(this);
     }
 

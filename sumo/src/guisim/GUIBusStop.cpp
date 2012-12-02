@@ -65,7 +65,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string> &lines, MSLane& lane,
+GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
                        SUMOReal frompos, SUMOReal topos)
     : MSBusStop(id, lines, lane, frompos, topos),
       GUIGlObject_AbstractAdd("busStop", GLO_TRIGGER, id) {
@@ -136,7 +136,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(green);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw details unless zoomed out to far
-    if (s.scale* s.addExaggeration >= 10) {
+    if (s.scale * s.addExaggeration >= 10) {
         // draw the lines
         for (i = 0; i != myLines.size(); ++i) {
             glPushMatrix();
@@ -162,17 +162,17 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(yellow);
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
-        if (s.scale* s.addExaggeration >= 4.5) {
+        if (s.scale * s.addExaggeration >= 4.5) {
             GLHelper::drawText("H", Position(), .1, 1.6 * s.addExaggeration, green, myFGSignRot);
         }
     }
     glPopMatrix();
     glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-        for(std::vector<MSPerson*>::const_iterator i=myWaitingPersons.begin(); i!=myWaitingPersons.end(); ++i) {
-            glTranslated(0, 1, 0); // make multiple persons viewable
-            static_cast<GUIPerson*>(*i)->drawGL(s);
-        }
+    for (std::vector<MSPerson*>::const_iterator i = myWaitingPersons.begin(); i != myWaitingPersons.end(); ++i) {
+        glTranslated(0, 1, 0); // make multiple persons viewable
+        static_cast<GUIPerson*>(*i)->drawGL(s);
+    }
 }
 
 

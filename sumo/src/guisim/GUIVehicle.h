@@ -179,7 +179,7 @@ public:
      * @return The best lanes structure holding matching the current vehicle position and state ahead
      * @see MSVehicle::getBestLanes
      */
-    const std::vector<LaneQ> &getBestLanes() const;
+    const std::vector<LaneQ>& getBestLanes() const;
 
 
     /**
@@ -198,7 +198,7 @@ public:
          * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
          */
         GUIVehiclePopupMenu(GUIMainWindow& app,
-                            GUISUMOAbstractView& parent, GUIGlObject& o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations);
+                            GUISUMOAbstractView& parent, GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations);
 
         /// @brief Destructor
         ~GUIVehiclePopupMenu();
@@ -226,7 +226,7 @@ public:
 
     protected:
         /// @brief Information which additional visualisations are enabled (per view)
-        std::map<GUISUMOAbstractView*, int> &myVehiclesAdditionalVisualizations;
+        std::map<GUISUMOAbstractView*, int>& myVehiclesAdditionalVisualizations;
         /// @brief Needed for parameterless instantiation
         std::map<GUISUMOAbstractView*, int> dummy;
 
@@ -309,15 +309,15 @@ private:
     void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const;
 
     /* @brief try to draw vehicle as raster image and return true if sucessful
-     * @param[in] length The custom length of the vehicle 
+     * @param[in] length The custom length of the vehicle
      *   (defaults to the * length specified in the vehicle type if -1 is passed)
     */
-    bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUMOReal length=-1) const;
+    bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUMOReal length = -1) const;
 
     /* @brief draw train with individual carriages. The number of carriages is
-     * determined from defaultLength of carriages and vehicle length  
+     * determined from defaultLength of carriages and vehicle length
      * passengerSeats are computed beginning at firstPassengerCarriage */
-    void drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, int firstPassengerCarriage=0, bool asImage=false) const;
+    void drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, int firstPassengerCarriage = 0, bool asImage = false) const;
     /// @}
 
     /* @brief return the previous lane in this vehicles route including internal lanes

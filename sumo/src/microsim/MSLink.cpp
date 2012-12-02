@@ -74,8 +74,8 @@ MSLink::~MSLink() {}
 
 void
 MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
-                              const std::vector<MSLink*> &foeLinks,
-                              const std::vector<MSLane*> &foeLanes) {
+                              const std::vector<MSLink*>& foeLinks,
+                              const std::vector<MSLane*>& foeLanes) {
     myRequestIdx = requestIdx;
     myRespondIdx = respondIdx;
     myIsCrossing = isCrossing;
@@ -132,7 +132,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
     if (myAmCont) {
         return true;
     }
-    const SUMOTime leaveTime = arrivalTime + TIME2STEPS((getLength() + vehicleLength) / (0.5 * (arrivalSpeed+leaveSpeed)));
+    const SUMOTime leaveTime = arrivalTime + TIME2STEPS((getLength() + vehicleLength) / (0.5 * (arrivalSpeed + leaveSpeed)));
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
 #ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
@@ -179,7 +179,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed) 
 }
 
 
-SUMOTime 
+SUMOTime
 MSLink::safeHeadwayTime(SUMOReal leaderSpeed, SUMOReal followerSpeed) {
     // v: leader speed
     // u: follower speed
@@ -190,17 +190,17 @@ MSLink::safeHeadwayTime(SUMOReal leaderSpeed, SUMOReal followerSpeed) {
     const SUMOReal v = leaderSpeed;
     const SUMOReal u = followerSpeed;
     // XXX use cfmodel values of possible
-    const SUMOReal a = DEFAULT_VEH_DECEL; 
-    const SUMOReal b = DEFAULT_VEH_DECEL; 
+    const SUMOReal a = DEFAULT_VEH_DECEL;
+    const SUMOReal b = DEFAULT_VEH_DECEL;
     const SUMOReal g = DEFAULT_VEH_MINGAP;
-    // breaking distance ~ (v^2 - a*v)/(2*a) 
+    // breaking distance ~ (v^2 - a*v)/(2*a)
     if (v < a) {
         // leader may break in one timestep (need different formula)
         // u*h > g + (u^2 - b*u)/(2*b) + 0.5
-        return TIME2STEPS((g + 0.5)/u + (u/b - 1.0)*0.5);
+        return TIME2STEPS((g + 0.5) / u + (u / b - 1.0) * 0.5);
     } else {
         // u*h + (v^2 - a*v)/(2*a) > g + (u^2 - b*u)/(2*b) + 0.5
-        return TIME2STEPS((g + (1.0 + v - v*v/a)*0.5)/u + (u/b - 1.0)*0.5);
+        return TIME2STEPS((g + (1.0 + v - v * v / a) * 0.5) / u + (u / b - 1.0) * 0.5);
     }
 }
 

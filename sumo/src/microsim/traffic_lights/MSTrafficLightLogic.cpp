@@ -178,7 +178,7 @@ MSTrafficLightLogic::setTrafficLightSignals(SUMOTime t) const {
 
 
 void
-MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, LinkState> &vals) const {
+MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, LinkState>& vals) const {
     for (LinkVectorVector::const_iterator i1 = myLinks.begin(); i1 != myLinks.end(); ++i1) {
         const LinkVector& l = (*i1);
         for (LinkVector::const_iterator i2 = l.begin(); i2 != l.end(); ++i2) {
@@ -230,7 +230,7 @@ MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) {
 
 // ----------- Algorithm parameter handling
 void
-MSTrafficLightLogic::setParameter(const std::map<std::string, std::string> &params) {
+MSTrafficLightLogic::setParameter(const std::map<std::string, std::string>& params) {
     myParameter = params;
 }
 

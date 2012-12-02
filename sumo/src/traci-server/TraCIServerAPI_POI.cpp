@@ -210,10 +210,10 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             SUMOReal x = inputStorage.readDouble();
             SUMOReal y = inputStorage.readDouble();
             //
-            if (!shapeCont.addPOI(id, type, RGBColor(r, g, b), (SUMOReal)layer, 
-                        Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, 
-                        Position(x, y), 
-                        Shape::DEFAULT_IMG_WIDTH, Shape::DEFAULT_IMG_HEIGHT)) {
+            if (!shapeCont.addPOI(id, type, RGBColor(r, g, b), (SUMOReal)layer,
+                                  Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE,
+                                  Position(x, y),
+                                  Shape::DEFAULT_IMG_WIDTH, Shape::DEFAULT_IMG_HEIGHT)) {
                 delete p;
                 server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not add PoI.", outputStorage);
                 return false;
@@ -240,10 +240,10 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 
 
 bool
-TraCIServerAPI_POI::getPosition(const std::string &id, Position &p) {
+TraCIServerAPI_POI::getPosition(const std::string& id, Position& p) {
     int layer;
-    PointOfInterest *poi = getPoI(id, layer);
-    if(poi==0) {
+    PointOfInterest* poi = getPoI(id, layer);
+    if (poi == 0) {
         return false;
     }
     p = *poi;
@@ -251,19 +251,19 @@ TraCIServerAPI_POI::getPosition(const std::string &id, Position &p) {
 }
 
 
-PointOfInterest *
-TraCIServerAPI_POI::getPoI(const std::string &id, int &layer) {
+PointOfInterest*
+TraCIServerAPI_POI::getPoI(const std::string& id, int& layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     return shapeCont.getPOIs().get(id);
 }
 
 
-TraCIRTree *
+TraCIRTree*
 TraCIServerAPI_POI::getTree() {
-    TraCIRTree *t = new TraCIRTree();
+    TraCIRTree* t = new TraCIRTree();
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     const std::map<std::string, PointOfInterest*>& pois = shapeCont.getPOIs().getMyMap();
-    for(std::map<std::string, PointOfInterest*>::const_iterator i=pois.begin(); i!=pois.end(); ++i) {
+    for (std::map<std::string, PointOfInterest*>::const_iterator i = pois.begin(); i != pois.end(); ++i) {
         t->addObject((*i).second, *(*i).second);
     }
     return t;

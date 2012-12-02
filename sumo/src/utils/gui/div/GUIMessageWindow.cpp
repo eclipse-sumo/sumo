@@ -41,13 +41,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIMessageWindow::GUIMessageWindow(FXComposite* parent) : 
+GUIMessageWindow::GUIMessageWindow(FXComposite* parent) :
     FXText(parent, 0, 0, 0, 0, 0, 0, 50),
     myStyles(0),
     myErrorRetriever(0),
     myMessageRetriever(0),
-    myWarningRetriever(0)
-{
+    myWarningRetriever(0) {
     setStyled(true);
     setEditable(false);
     myStyles = new FXHiliteStyle[4];
@@ -160,7 +159,7 @@ GUIMessageWindow::clear() {
 }
 
 
-void 
+void
 GUIMessageWindow::registerMsgHandlers() {
     if (myMessageRetriever == 0) {
         // initialize only if registration is requested

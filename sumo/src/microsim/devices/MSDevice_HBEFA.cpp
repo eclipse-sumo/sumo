@@ -66,7 +66,7 @@ MSDevice_HBEFA::insertOptions() {
 
 
 void
-MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) {
+MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (oc.getFloat("device.hbefa.probability") == 0 && !oc.isSet("device.hbefa.explicit")) {
         // no route computation is modelled

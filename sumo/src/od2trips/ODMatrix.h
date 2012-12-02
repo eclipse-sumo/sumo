@@ -215,7 +215,7 @@ protected:
      * @return The number of left vehicles to insert
      */
     SUMOReal computeDeparts(ODCell* cell,
-                            size_t& vehName, std::vector<ODVehicle> &into, bool uniform,
+                            size_t& vehName, std::vector<ODVehicle>& into, bool uniform,
                             const std::string& prefix);
 
 

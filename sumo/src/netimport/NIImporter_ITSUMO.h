@@ -147,7 +147,7 @@ private:
 
         struct LaneSet {
         public:
-            LaneSet(const std::string& id, const std::vector<Lane> &lanes, SUMOReal v, int pos, NBNode* from, NBNode* to)
+            LaneSet(const std::string& id, const std::vector<Lane>& lanes, SUMOReal v, int pos, NBNode* from, NBNode* to)
                 : myID(id), myLanes(lanes), myV(v), myPosition(pos), myFrom(from), myTo(to) {}
             std::string myID;
             std::vector<Lane> myLanes;
@@ -162,7 +162,7 @@ private:
 
         struct Section {
         public:
-            Section(const std::string& id, const std::vector<LaneSet*> &laneSets)
+            Section(const std::string& id, const std::vector<LaneSet*>& laneSets)
                 : myID(id), myLaneSets(laneSets) {}
             std::string myID;
             std::vector<LaneSet*> myLaneSets;

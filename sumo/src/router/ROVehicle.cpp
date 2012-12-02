@@ -65,14 +65,14 @@ ROVehicle::saveAllAsXML(OutputDevice& os, OutputDevice* const altos,
     // check whether the vehicle's type was saved before
     if (myType != 0 && !myType->saved) {
         // ... save if not
-		if (typeos != 0) {
-	        myType->write(*typeos);
-		} else {
-			myType->write(os);
-			if (altos != 0) {
-				myType->write(*altos);
-			}
-		}
+        if (typeos != 0) {
+            myType->write(*typeos);
+        } else {
+            myType->write(os);
+            if (altos != 0) {
+                myType->write(*altos);
+            }
+        }
         myType->saved = true;
     }
 
@@ -96,7 +96,7 @@ ROVehicle::saveAllAsXML(OutputDevice& os, OutputDevice* const altos,
 }
 
 
-SUMOReal 
+SUMOReal
 ROVehicle::getMaxSpeed() const {
     return myType->maxSpeed;
 }

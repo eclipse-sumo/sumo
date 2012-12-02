@@ -54,7 +54,7 @@ MSEdgeWeightsStorage::retrieveExistingTravelTime(const MSEdge* const e, const SU
     if (i == myTravelTimes.end()) {
         return false;
     }
-    const ValueTimeLine<SUMOReal> &tl = (*i).second;
+    const ValueTimeLine<SUMOReal>& tl = (*i).second;
     if (!tl.describesTime(t)) {
         return false;
     }
@@ -70,7 +70,7 @@ MSEdgeWeightsStorage::retrieveExistingEffort(const MSEdge* const e, const SUMOVe
     if (i == myEfforts.end()) {
         return false;
     }
-    const ValueTimeLine<SUMOReal> &tl = (*i).second;
+    const ValueTimeLine<SUMOReal>& tl = (*i).second;
     if (!tl.describesTime(t)) {
         return false;
     }

@@ -124,10 +124,10 @@ private:
      * to their coordinates
      */
     class CompareNodes {
-        public:
-            bool operator()(const NIOSMNode* n1, const NIOSMNode* n2) const {
-                return (n1->lat > n2->lat) || (n1->lat == n2->lat && n1->lon > n2->lon);
-            }
+    public:
+        bool operator()(const NIOSMNode* n1, const NIOSMNode* n2) const {
+            return (n1->lat > n2->lat) || (n1->lat == n2->lat && n1->lon > n2->lon);
+        }
     };
 
 
@@ -177,11 +177,11 @@ private:
      * @exception ProcessError If the edge could not be added to the container
      */
     int insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
-                    const std::vector<SUMOLong> &passed, NBNetBuilder& nb);
+                   const std::vector<SUMOLong>& passed, NBNetBuilder& nb);
 
 
-    protected:
-        static const SUMOReal MAXSPEED_UNGIVEN;
+protected:
+    static const SUMOReal MAXSPEED_UNGIVEN;
 
     /**
      * @class NodesHandler
@@ -195,8 +195,8 @@ private:
          * @param[in, out] uniqueNodes The nodes container for ensuring uniqueness
          * @param[in] options The options to use
          */
-        NodesHandler(std::map<SUMOLong, NIOSMNode*> &toFill, 
-                std::set<NIOSMNode*, CompareNodes> &uniqueNodes);
+        NodesHandler(std::map<SUMOLong, NIOSMNode*>& toFill,
+                     std::set<NIOSMNode*, CompareNodes>& uniqueNodes);
 
 
         /// @brief Destructor
@@ -230,7 +230,7 @@ private:
     private:
 
         /// @brief The nodes container to fill
-        std::map<SUMOLong, NIOSMNode*> &myToFill;
+        std::map<SUMOLong, NIOSMNode*>& myToFill;
 
         /// @brief ID of the currently parsed node, for reporting mainly
         SUMOLong myLastNodeID;
@@ -242,7 +242,7 @@ private:
         int myHierarchyLevel;
 
         /// @brief the set of unique nodes (used for duplicate detection/substitution)
-        std::set<NIOSMNode*, CompareNodes> &myUniqueNodes;
+        std::set<NIOSMNode*, CompareNodes>& myUniqueNodes;
 
 
     private:
@@ -267,8 +267,8 @@ private:
          * @param[in] osmNodes The previously parsed (osm-)nodes
          * @param[in, out] toFill The edges container to fill with read edges
          */
-        EdgesHandler(const std::map<SUMOLong, NIOSMNode*> &osmNodes,
-                     std::map<std::string, Edge*> &toFill);
+        EdgesHandler(const std::map<SUMOLong, NIOSMNode*>& osmNodes,
+                     std::map<std::string, Edge*>& toFill);
 
 
         /// @brief Destructor
@@ -301,10 +301,10 @@ private:
 
     private:
         /// @brief The previously parsed nodes
-        const std::map<SUMOLong, NIOSMNode*> &myOSMNodes;
+        const std::map<SUMOLong, NIOSMNode*>& myOSMNodes;
 
         /// @brief A map of built edges
-        std::map<std::string, Edge*> &myEdgeMap;
+        std::map<std::string, Edge*>& myEdgeMap;
 
         /// @brief The currently built edge
         Edge* myCurrentEdge;

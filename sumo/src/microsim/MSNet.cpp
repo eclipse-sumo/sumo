@@ -159,14 +159,13 @@ MSNet::getInstance(void) {
 
 
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-        MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
-        ShapeContainer* shapeCont):
+             MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
+             ShapeContainer* shapeCont):
     myVehiclesMoved(0),
     myRouterTTInitialized(false),
     myRouterTTDijkstra(0),
     myRouterTTAStar(0),
-    myRouterEffort(0)
-{
+    myRouterEffort(0) {
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -315,17 +314,17 @@ MSNet::closeSimulation(SUMOTime start) {
             msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (SUMOReal)duration) << "\n";
             msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
             msg.setf(std::ios::showpoint);    // print decimal point
-            msg << " UPS: " << ((SUMOReal)myVehiclesMoved / ((SUMOReal)duration/1000)) << "\n";
+            msg << " UPS: " << ((SUMOReal)myVehiclesMoved / ((SUMOReal)duration / 1000)) << "\n";
         }
         // prepare optional statistics
         const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
-                " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
+                                           " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
         const std::string collisionNotice = (
-                myVehicleControl->getCollisionCount() > 0 ?
-                " (Collisions: " + toString(myVehicleControl->getCollisionCount()) + ")" : "");
+                                                myVehicleControl->getCollisionCount() > 0 ?
+                                                " (Collisions: " + toString(myVehicleControl->getCollisionCount()) + ")" : "");
         const std::string teleportNotice = (
-                myVehicleControl->getTeleportCount() > 0 ?
-                "Teleports: " + toString(myVehicleControl->getTeleportCount()) + collisionNotice + "\n" : "");
+                                               myVehicleControl->getTeleportCount() > 0 ?
+                                               "Teleports: " + toString(myVehicleControl->getTeleportCount()) + collisionNotice + "\n" : "");
         // print statistics
         msg << "Vehicles: " << "\n"
             << " Emitted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
@@ -510,44 +509,44 @@ MSNet::writeOutput() {
     if (OptionsCont::getOptions().isSet("netstate-dump")) {
         MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep);
     }
-    
-    	// check fcd dumps
+
+    // check fcd dumps
     if (OptionsCont::getOptions().isSet("fcd-output")) {
         MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep);
     }
 
-	   // check emission dumps
+    // check emission dumps
     if (OptionsCont::getOptions().isSet("emission-output")) {
         MSEmissionExport::write(OutputDevice::getDeviceByOption("emission-output"), myStep);
     }
 
-	   // check full dumps
+    // check full dumps
     if (OptionsCont::getOptions().isSet("full-output")) {
         MSFullExport::write(OutputDevice::getDeviceByOption("full-output"), myStep);
     }
 
-	   // check queue dumps
+    // check queue dumps
     if (OptionsCont::getOptions().isSet("queue-output")) {
         MSQueueExport::write(OutputDevice::getDeviceByOption("queue-output"), myStep);
     }
 
-	     // check vtk dumps
+    // check vtk dumps
     if (OptionsCont::getOptions().isSet("vtk-output")) {
 
-		if(MSNet::getInstance()->getVehicleControl().getRunningVehicleNo()>0){
-			std::string timestep = time2string(myStep);
-			timestep = timestep.substr(0, timestep.length()-3);
-			std::string output = OptionsCont::getOptions().getString("vtk-output");
-			std::string filename = output + "_" + timestep + ".vtp";
+        if (MSNet::getInstance()->getVehicleControl().getRunningVehicleNo() > 0) {
+            std::string timestep = time2string(myStep);
+            timestep = timestep.substr(0, timestep.length() - 3);
+            std::string output = OptionsCont::getOptions().getString("vtk-output");
+            std::string filename = output + "_" + timestep + ".vtp";
 
-			OutputDevice_File dev = OutputDevice_File(filename, false);
+            OutputDevice_File dev = OutputDevice_File(filename, false);
 
-			//build a huge mass of xml files
-			MSVTKExport::write(dev, myStep);
-		
-		}
+            //build a huge mass of xml files
+            MSVTKExport::write(dev, myStep);
 
-	}
+        }
+
+    }
 
     // emission output
     if (OptionsCont::getOptions().isSet("summary-output")) {
@@ -718,7 +717,7 @@ MSNet::getBusStop(const std::string& id) const {
 
 std::string
 MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
-    const std::map<std::string, MSBusStop*> &vals = myBusStopDict.getMyMap();
+    const std::map<std::string, MSBusStop*>& vals = myBusStopDict.getMyMap();
     for (std::map<std::string, MSBusStop*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
         MSBusStop* stop = it->second;
         if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
@@ -729,20 +728,20 @@ MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
 }
 
 
-SUMOAbstractRouter<MSEdge, SUMOVehicle>& 
+SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterTT(const std::vector<MSEdge*>& prohibited) const {
     if (!myRouterTTInitialized) {
         myRouterTTInitialized = true;
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
             myRouterTTDijkstra = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                    MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
+                MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
         } else {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
             }
             myRouterTTAStar = new AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                    MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
+                MSEdge::numericalDictSize(), true, &MSNet::getTravelTime);
         }
     }
     if (myRouterTTDijkstra != 0) {
@@ -756,11 +755,11 @@ MSNet::getRouterTT(const std::vector<MSEdge*>& prohibited) const {
 }
 
 
-SUMOAbstractRouter<MSEdge, SUMOVehicle>& 
+SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterEffort(const std::vector<MSEdge*>& prohibited) const {
     if (myRouterEffort == 0) {
         myRouterEffort = new DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                MSEdge::numericalDictSize(), true, &MSNet::getEffort, &MSNet::getTravelTime);
+            MSEdge::numericalDictSize(), true, &MSNet::getEffort, &MSNet::getTravelTime);
     }
     myRouterEffort->prohibit(prohibited);
     return *myRouterEffort;

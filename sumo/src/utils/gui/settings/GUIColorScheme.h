@@ -134,11 +134,11 @@ public:
         return myName;
     }
 
-    const std::vector<RGBColor> &getColors() const {
+    const std::vector<RGBColor>& getColors() const {
         return myColors;
     }
 
-    const std::vector<SUMOReal> &getThresholds() const {
+    const std::vector<SUMOReal>& getThresholds() const {
         return myThresholds;
     }
 
@@ -146,7 +146,7 @@ public:
         return myIsInterpolated;
     }
 
-    const std::vector<std::string> &getNames() const {
+    const std::vector<std::string>& getNames() const {
         return myNames;
     }
 

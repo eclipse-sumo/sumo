@@ -150,7 +150,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes& attrs) {
         myColor = new RGBColor(attrs.getColorReporting(myCurrentRouteName.c_str(), myCurrentIsOk));
     }
     std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, myCurrentRouteName.c_str(), myCurrentIsOk);
-    if(myCurrentIsOk) {
+    if (myCurrentIsOk) {
         parseRoute(edges);
     }
 }
@@ -200,7 +200,7 @@ RORDLoader_SUMOBase::parseRoute(const std::string& chars) {
         return;
     }
     // build the list of edges
-    std::vector<const ROEdge*> *list = new std::vector<const ROEdge*>();
+    std::vector<const ROEdge*>* list = new std::vector<const ROEdge*>();
     if (myWithTaz && myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
         ROEdge* edge = myNet.getEdge(myVehicleParameter->fromTaz + "-source");
         if (edge != 0) {

@@ -72,11 +72,11 @@ public:
         and whether another lane may be more preferable */
     virtual int wantsChangeToRight(
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
-        const std::pair<MSVehicle*, SUMOReal> &leader,
-        const std::pair<MSVehicle*, SUMOReal> &neighLead,
-        const std::pair<MSVehicle*, SUMOReal> &neighFollow,
+        const std::pair<MSVehicle*, SUMOReal>& leader,
+        const std::pair<MSVehicle*, SUMOReal>& neighLead,
+        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
         const MSLane& neighLane,
-        const std::vector<MSVehicle::LaneQ> &preb,
+        const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked);
 
     /** @brief Called to examine whether the vehicle wants to change to left
@@ -84,11 +84,11 @@ public:
         and whether another lane may be more preferable */
     virtual int wantsChangeToLeft(
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
-        const std::pair<MSVehicle*, SUMOReal> &leader,
-        const std::pair<MSVehicle*, SUMOReal> &neighLead,
-        const std::pair<MSVehicle*, SUMOReal> &neighFollow,
+        const std::pair<MSVehicle*, SUMOReal>& leader,
+        const std::pair<MSVehicle*, SUMOReal>& neighLead,
+        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
         const MSLane& neighLane,
-        const std::vector<MSVehicle::LaneQ> &preb,
+        const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked);
 
     virtual void* inform(void* info, MSVehicle* sender);
@@ -117,8 +117,8 @@ public:
 protected:
     void informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                        int& blocked, int dir,
-                       const std::pair<MSVehicle*, SUMOReal> &neighLead,
-                       const std::pair<MSVehicle*, SUMOReal> &neighFollow);
+                       const std::pair<MSVehicle*, SUMOReal>& neighLead,
+                       const std::pair<MSVehicle*, SUMOReal>& neighFollow);
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;

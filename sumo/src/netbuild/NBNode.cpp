@@ -101,7 +101,7 @@ NBNode::ApproachingDivider::execute(const unsigned int src, const unsigned int d
     std::vector<int> approachingLanes =
         incomingEdge->getConnectionLanes(myCurrentOutgoing);
     assert(approachingLanes.size() != 0);
-    std::deque<int> *approachedLanes = spread(approachingLanes, dest);
+    std::deque<int>* approachedLanes = spread(approachingLanes, dest);
     assert(approachedLanes->size() <= myCurrentOutgoing->getNumLanes());
     // set lanes
     for (unsigned int i = 0; i < approachedLanes->size(); i++) {
@@ -115,10 +115,10 @@ NBNode::ApproachingDivider::execute(const unsigned int src, const unsigned int d
 }
 
 
-std::deque<int> *
-NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
+std::deque<int>*
+NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
                                    int dest) const {
-    std::deque<int> *ret = new std::deque<int>();
+    std::deque<int>* ret = new std::deque<int>();
     unsigned int noLanes = (unsigned int) approachingLanes.size();
     // when only one lane is approached, we check, whether the SUMOReal-value
     //  is assigned more to the left or right lane
@@ -887,9 +887,9 @@ NBNode::getOppositeIncoming(NBEdge* e) const {
     if (find(edges.begin(), edges.end(), e) != edges.end()) {
         edges.erase(find(edges.begin(), edges.end(), e));
     }
-	if(edges.size()==0) {
-		return 0;
-	}
+    if (edges.size() == 0) {
+        return 0;
+    }
     if (e->getToNode() == this) {
         sort(edges.begin(), edges.end(), NBContHelper::edge_opposite_direction_sorter(e, this));
     } else {
@@ -1045,7 +1045,7 @@ NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int toLane) 
         if ((*i) == from) {
             continue;
         }
-        const std::vector<NBEdge::Connection> &connections = (*i)->getConnections();
+        const std::vector<NBEdge::Connection>& connections = (*i)->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator j = connections.begin(); j != connections.end(); ++j) {
             if ((*j).toEdge == to && ((*j).toLane < 0 || (*j).toLane == toLane)) {
                 return true;
@@ -1220,8 +1220,8 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing)
 
 
 LinkState
-NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, 
-        bool mayDefinitelyPass, const std::string& tlID) const {
+NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane,
+                     bool mayDefinitelyPass, const std::string& tlID) const {
     if (tlID != "") {
         return LINKSTATE_TL_OFF_BLINKING;
     }
@@ -1391,7 +1391,7 @@ void
 NBNode::buildInnerEdges() {
     unsigned int noInternalNoSplits = 0;
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
+        const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
             if ((*k).toEdge == 0) {
                 continue;

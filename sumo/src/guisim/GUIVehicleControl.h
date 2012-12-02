@@ -101,14 +101,14 @@ public:
      * @param[in] v The vehicle to delete
      * @param[discard] Whether the vehicle is discard during loading (scale < 1)
      */
-    void deleteVehicle(SUMOVehicle* v, bool discard=false);
+    void deleteVehicle(SUMOVehicle* v, bool discard = false);
 
 
     /** @brief Returns the list of all known vehicles by gl-id
      * @param[fill] into The list to fill with vehicle ids
      * @todo Well, what about concurrent modifications?
      */
-    void insertVehicleIDs(std::vector<GUIGlID> &into);
+    void insertVehicleIDs(std::vector<GUIGlID>& into);
 
 
     /// @brief lock access to vehicle removal/additions for thread synchronization

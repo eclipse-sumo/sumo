@@ -180,8 +180,8 @@ NBEdgeCont::insert(NBEdge* edge, bool ignorePrunning) {
 }
 
 
-bool 
-NBEdgeCont::ignoreFilterMatch(NBEdge *edge) {
+bool
+NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
     // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
     if (edge->getSpeed() < myEdgesMinSpeed) {
         return true;
@@ -346,7 +346,7 @@ NBEdgeCont::extract(NBDistrictCont& dc, NBEdge* edge, bool remember) {
 }
 
 
-void 
+void
 NBEdgeCont::rename(NBEdge* edge, const std::string& newID) {
     if (myEdges.count(newID) != 0) {
         throw ProcessError("Attempt to rename edge using existing id '" + newID + "'");
@@ -553,7 +553,7 @@ NBEdgeCont::appendTurnarounds(bool noTLSControlled) {
 
 
 void
-NBEdgeCont::appendTurnarounds(const std::set<std::string> &ids, bool noTLSControlled) {
+NBEdgeCont::appendTurnarounds(const std::set<std::string>& ids, bool noTLSControlled) {
     for (std::set<std::string>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         myEdges[*it]->appendTurnaround(noTLSControlled);
     }
@@ -675,23 +675,23 @@ NBEdgeCont::recheckLaneSpread() {
 
 
 // ----- other
-void 
-NBEdgeCont::addPostProcessConnection(const std::string &from, int fromLane, const std::string &to, int toLane, bool mayDefinitelyPass) { 
-    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass)); 
-} 
+void
+NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass) {
+    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass));
+}
 
 
-void  
-NBEdgeCont::recheckPostProcessConnections() { 
-    for(std::vector<PostProcessConnection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) { 
-        NBEdge *from = retrieve((*i).from); 
-        NBEdge *to = retrieve((*i).to); 
-        if(from!=0&&to!=0) { 
-            if(!from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, false, (*i).mayDefinitelyPass)) { 
-                WRITE_WARNING("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build."); 
-            } 
-        } 
-    } 
+void
+NBEdgeCont::recheckPostProcessConnections() {
+    for (std::vector<PostProcessConnection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        NBEdge* from = retrieve((*i).from);
+        NBEdge* to = retrieve((*i).to);
+        if (from != 0 && to != 0) {
+            if (!from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, false, (*i).mayDefinitelyPass)) {
+                WRITE_WARNING("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.");
+            }
+        }
+    }
     // during loading we also kept some ambiguous connections in hope they might be valid after processing
     // we need to make sure that all invalid connections are removed now
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); ++it) {
@@ -702,14 +702,14 @@ NBEdgeCont::recheckPostProcessConnections() {
         for (std::vector<NBEdge::Connection>::iterator it_con = connections.begin(); it_con != connections.end(); ++it_con) {
             NBEdge::Connection& c = *it_con;
             if (c.toEdge != 0 && c.toEdge->getFromNode() != to) {
-                WRITE_WARNING("Found and removed invalid connection from " + edge->getID() + 
-                        " to " + c.toEdge->getID() + " via " + to->getID());
+                WRITE_WARNING("Found and removed invalid connection from " + edge->getID() +
+                              " to " + c.toEdge->getID() + " via " + to->getID());
                 edge->removeFromConnections(c.toEdge);
             }
         }
     }
-} 
-    
+}
+
 
 EdgeVector
 NBEdgeCont::getGeneratedFrom(const std::string& id) const {
@@ -754,7 +754,7 @@ NBEdgeCont::getGeneratedFrom(const std::string& id) const {
 
 
 void
-NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
+NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> >& marked) {
     // step 1: keep only those edges which have no turnarounds
     std::set<NBEdge*> candidates;
     for (EdgeCont::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
@@ -798,7 +798,7 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
                     doLoop = false; // need at least 3 edges for a roundabout
                 } else if (loopSize < loopEdges.size()) {
                     // remove initial edges not belonging to the loop
-                    EdgeVector(loopEdges.begin()+(loopEdges.size() - loopSize), loopEdges.end()).swap(loopEdges);
+                    EdgeVector(loopEdges.begin() + (loopEdges.size() - loopSize), loopEdges.end()).swap(loopEdges);
                 }
                 break;
             }
@@ -836,7 +836,7 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
 }
 
 
-void 
+void
 NBEdgeCont::generateStreetSigns() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         NBEdge* e = i->second;

@@ -87,8 +87,8 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
                                        const SumoXMLNodeType type,
                                        SUMOReal x, SUMOReal y,
                                        const PositionVector& shape,
-                                       const std::vector<MSLane*> &incomingLanes,
-                                       const std::vector<MSLane*> &internalLanes) throw(InvalidArgument) {
+                                       const std::vector<MSLane*>& incomingLanes,
+                                       const std::vector<MSLane*>& internalLanes) throw(InvalidArgument) {
 #ifdef HAVE_INTERNAL_LANES
     myActiveInternalLanes = internalLanes;
 #else

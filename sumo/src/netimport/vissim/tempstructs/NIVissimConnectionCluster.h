@@ -165,7 +165,7 @@ private:
     std::vector<int> getDisturbanceParticipators();
 
     std::vector<int> extendByToTreatAsSame(const std::vector<int>& iv1,
-                                    const std::vector<int>& iv2) const;
+                                           const std::vector<int>& iv2) const;
 
     bool isWeakDistrictConnRealisation(NIVissimConnectionCluster* c2);
 

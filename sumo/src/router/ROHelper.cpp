@@ -57,7 +57,7 @@ recomputeCosts(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
 */
 
 void
-recheckForLoops(std::vector<const ROEdge*> &edges) {
+recheckForLoops(std::vector<const ROEdge*>& edges) {
     // remove loops at the route's begin
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
     RONode* start = edges[0]->getFromNode();
@@ -109,7 +109,7 @@ recheckForLoops(std::vector<const ROEdge*> &edges) {
 
 }
 
-std::ostream& operator<<(std::ostream& os, const std::vector<const ROEdge*> &ev) {
+std::ostream& operator<<(std::ostream& os, const std::vector<const ROEdge*>& ev) {
     bool hadFirst = false;
     for (std::vector<const ROEdge*>::const_iterator j = ev.begin(); j != ev.end(); j++) {
         if ((*j)->getType() != ROEdge::ET_DISTRICT) {

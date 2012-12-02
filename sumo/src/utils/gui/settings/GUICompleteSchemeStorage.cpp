@@ -107,7 +107,7 @@ GUICompleteSchemeStorage::setDefault(const std::string& name) {
 }
 
 
-const std::vector<std::string> &
+const std::vector<std::string>&
 GUICompleteSchemeStorage::getNames() const {
     return mySortedSchemeNames;
 }
@@ -192,7 +192,7 @@ GUICompleteSchemeStorage::init(FXApp* app) {
 
 void
 GUICompleteSchemeStorage::writeSettings(FXApp* app) {
-    const std::vector<std::string> &names = getNames();
+    const std::vector<std::string>& names = getNames();
     app->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size() - myNumInitialSettings);
     size_t gidx = 0;
     for (std::vector<std::string>::const_iterator i = names.begin() + myNumInitialSettings; i != names.end(); ++i, ++gidx) {

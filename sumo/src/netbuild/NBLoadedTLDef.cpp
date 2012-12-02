@@ -86,7 +86,7 @@ NBLoadedTLDef::SignalGroup::sortPhases() {
 
 void
 NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow, bool forced) {
-    if(myTYellow<0) {
+    if (myTYellow < 0) {
         // was not set before (was not loaded)
         myTYellow = tyellow;
     } else if (forced && myTYellow < tyellow) {
@@ -266,18 +266,18 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge* removed, int removedLane,
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::NBLoadedTLDef(const std::string& id,
-                             const std::vector<NBNode*> &junctions, SUMOTime offset)
-    : NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset) 
+                             const std::vector<NBNode*>& junctions, SUMOTime offset)
+    : NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset)
 {}
 
 
 NBLoadedTLDef::NBLoadedTLDef(const std::string& id, NBNode* junction, SUMOTime offset)
-    : NBTrafficLightDefinition(id, junction, DefaultProgramID, offset) 
+    : NBTrafficLightDefinition(id, junction, DefaultProgramID, offset)
 {}
 
 
 NBLoadedTLDef::NBLoadedTLDef(const std::string& id, SUMOTime offset)
-    : NBTrafficLightDefinition(id, DefaultProgramID, offset) 
+    : NBTrafficLightDefinition(id, DefaultProgramID, offset)
 {}
 
 

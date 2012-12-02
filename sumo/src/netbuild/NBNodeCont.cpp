@@ -243,7 +243,7 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLig
     UNUSED_PARAMETER(tc);
     // Warn of isolated edges, i.e. a single edge with no connection to another edge
     int edgeCounter = 0;
-    const std::vector<std::string> &edgeNames = ec.getAllNames();
+    const std::vector<std::string>& edgeNames = ec.getAllNames();
     for (std::vector<std::string>::const_iterator it = edgeNames.begin(); it != edgeNames.end(); ++it) {
         // Test whether this node starts at a dead end, i.e. it has only one adjacent node
         // to which an edge exists and from which an edge may come.
@@ -429,7 +429,7 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
 
 
 void
-NBNodeCont::addJoinExclusion(const std::vector<std::string> &ids, bool check) {
+NBNodeCont::addJoinExclusion(const std::vector<std::string>& ids, bool check) {
     for (std::vector<std::string>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         // error handling has to take place here since joinExclusions could be
         // loaded from multiple files / command line
@@ -503,7 +503,7 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
         }
         // iteratively remove the fringe
         bool pruneFringe = true;
-        while(pruneFringe) {
+        while (pruneFringe) {
             pruneFringe = false;
             for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end();) {
                 std::set<NBNode*>::iterator check = j;
@@ -511,12 +511,12 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 ++j;
                 // remove nodes with degree <= 2 at fringe of the cluster (at least one edge leads to a non-cluster node)
                 if (
-                        (n->getIncomingEdges().size() <= 1 && n->getOutgoingEdges().size() <= 1 ) &&
-                        ((n->getIncomingEdges().size() == 0 ||
-                          (n->getIncomingEdges().size() == 1 && cluster.count(n->getIncomingEdges()[0]->getFromNode()) == 0)) || 
-                         (n->getOutgoingEdges().size() == 0 ||
-                          (n->getOutgoingEdges().size() == 1 && cluster.count(n->getOutgoingEdges()[0]->getToNode()) == 0)))
-                   ) {
+                    (n->getIncomingEdges().size() <= 1 && n->getOutgoingEdges().size() <= 1) &&
+                    ((n->getIncomingEdges().size() == 0 ||
+                      (n->getIncomingEdges().size() == 1 && cluster.count(n->getIncomingEdges()[0]->getFromNode()) == 0)) ||
+                     (n->getOutgoingEdges().size() == 0 ||
+                      (n->getOutgoingEdges().size() == 1 && cluster.count(n->getOutgoingEdges()[0]->getToNode()) == 0)))
+                ) {
                     cluster.erase(check);
                     pruneFringe = true; // other nodes could belong to the fringe now
                 }
@@ -557,19 +557,19 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         }
         // collect edges
         std::set<NBEdge*> allEdges;
-        for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); ++j) {
-            const std::vector<NBEdge*> &edges = (*j)->getEdges();
+        for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
+            const std::vector<NBEdge*>& edges = (*j)->getEdges();
             allEdges.insert(edges.begin(), edges.end());
         }
 
         // remap and remove edges which are completely within the new intersection
-        for(std::set<NBEdge*>::iterator j=allEdges.begin(); j!=allEdges.end();) {
-            NBEdge *e = (*j);
-            NBNode *from = e->getFromNode();
-            NBNode *to = e->getToNode();
-            if(cluster.count(from) > 0 && cluster.count(to) > 0) {
-                for(std::set<NBEdge*>::iterator l=allEdges.begin(); l!=allEdges.end(); ++l) {
-                    if(e != *l) {
+        for (std::set<NBEdge*>::iterator j = allEdges.begin(); j != allEdges.end();) {
+            NBEdge* e = (*j);
+            NBNode* from = e->getFromNode();
+            NBNode* to = e->getToNode();
+            if (cluster.count(from) > 0 && cluster.count(to) > 0) {
+                for (std::set<NBEdge*>::iterator l = allEdges.begin(); l != allEdges.end(); ++l) {
+                    if (e != *l) {
                         (*l)->replaceInConnections(e, e->getConnections());
                     }
                 }
@@ -581,16 +581,16 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         }
 
         // remap edges which are incoming / outgoing
-        for(std::set<NBEdge*>::iterator j=allEdges.begin(); j!=allEdges.end(); ++j) {
-            NBEdge *e = (*j);
+        for (std::set<NBEdge*>::iterator j = allEdges.begin(); j != allEdges.end(); ++j) {
+            NBEdge* e = (*j);
             std::vector<NBEdge::Connection> conns = e->getConnections();
             const bool outgoing = cluster.count(e->getFromNode()) > 0;
-            NBNode *from = outgoing ? newNode : e->getFromNode();
-            NBNode *to   = outgoing ? e->getToNode() : newNode;
+            NBNode* from = outgoing ? newNode : e->getFromNode();
+            NBNode* to   = outgoing ? e->getToNode() : newNode;
             e->reinitNodes(from, to);
             // re-add connections which previously existed and may still valid.
             // connections to removed edges will be ignored
-            for(std::vector<NBEdge::Connection>::iterator k=conns.begin(); k!=conns.end(); ++k) {
+            for (std::vector<NBEdge::Connection>::iterator k = conns.begin(); k != conns.end(); ++k) {
                 e->addLane2LaneConnection((*k).fromLane, (*k).toEdge, (*k).toLane, NBEdge::L2L_USER, false, (*k).mayDefinitelyPass);
             }
         }
@@ -599,7 +599,7 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
 }
 
 
-void 
+void
 NBNodeCont::registerJoinedCluster(const std::set<NBNode*>& cluster) {
     std::set<std::string> ids;
     for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); j++) {
@@ -633,7 +633,7 @@ NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position&
 
 // ----------- (Helper) methods for guessing/computing traffic lights
 bool
-NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const {
+NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*>& c) const {
     unsigned int noIncoming = 0;
     unsigned int noOutgoing = 0;
     bool tooFast = false;
@@ -703,7 +703,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         generateNodeClusters(oc.getFloat("tls.join-dist"), cands);
         // check these candidates (clusters) whether they should be controlled by a tls
         for (std::vector<std::set<NBNode*> >::iterator i = cands.begin(); i != cands.end();) {
-            std::set<NBNode*> &c = (*i);
+            std::set<NBNode*>& c = (*i);
             // regard only junctions which are not yet controlled and are not
             //  forbidden to be controlled
             for (std::set<NBNode*>::iterator j = c.begin(); j != c.end();) {
@@ -765,7 +765,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, SUMOReal maxdist) {
     generateNodeClusters(maxdist, cands);
     unsigned int index = 0;
     for (std::vector<std::set<NBNode*> >::iterator i = cands.begin(); i != cands.end(); ++i) {
-        std::set<NBNode*> &c = (*i);
+        std::set<NBNode*>& c = (*i);
         for (std::set<NBNode*>::iterator j = c.begin(); j != c.end();) {
             if (!(*j)->isTLControlled()) {
                 c.erase(j++);
@@ -912,7 +912,7 @@ NBNodeCont::getAllNames() const {
 }
 
 
-void 
+void
 NBNodeCont::rename(NBNode* node, const std::string& newID) {
     if (myNodes.count(newID) != 0) {
         throw ProcessError("Attempt to rename node using existing id '" + newID + "'");

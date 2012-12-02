@@ -115,7 +115,7 @@ protected:
         /** @brief Contructor
          * @param[in] toFill The nodes container to fill
          */
-        NodesHandler(std::map<SUMOLong, PCOSMNode*> &toFill);
+        NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill);
 
 
         /// @brief Destructor
@@ -148,7 +148,7 @@ protected:
 
     private:
         /// @brief The nodes container to fill
-        std::map<SUMOLong, PCOSMNode*> &myToFill;
+        std::map<SUMOLong, PCOSMNode*>& myToFill;
 
         /// @brief Current path in order to know to what occuring values belong
         std::vector<int> myParentElements;
@@ -179,8 +179,8 @@ protected:
          * @param[in] osmNodes The previously parsed (osm-)nodes
          * @param[in] toFill The edges container to fill with read edges
          */
-        EdgesHandler(const std::map<SUMOLong, PCOSMNode*> &osmNodes,
-                     std::map<std::string, PCOSMEdge*> &toFill);
+        EdgesHandler(const std::map<SUMOLong, PCOSMNode*>& osmNodes,
+                     std::map<std::string, PCOSMEdge*>& toFill);
 
 
         /// @brief Destructor
@@ -213,10 +213,10 @@ protected:
 
     private:
         /// @brief The previously parsed nodes
-        const std::map<SUMOLong, PCOSMNode*> &myOSMNodes;
+        const std::map<SUMOLong, PCOSMNode*>& myOSMNodes;
 
         /// @brief A map of built edges
-        std::map<std::string, PCOSMEdge*> &myEdgeMap;
+        std::map<std::string, PCOSMEdge*>& myEdgeMap;
 
         /// @brief The currently built edge
         PCOSMEdge* myCurrentEdge;

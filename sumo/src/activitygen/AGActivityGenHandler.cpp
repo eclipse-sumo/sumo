@@ -69,8 +69,7 @@ AGActivityGenHandler::~AGActivityGenHandler() {}
 
 
 void
-AGActivityGenHandler::myStartElement(int element, const SUMOSAXAttributes& attrs)
-{
+AGActivityGenHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     try {
         switch (element) {
             case AGEN_TAG_GENERAL:

@@ -39,11 +39,10 @@
 // method definitions
 // ===========================================================================
 MSCFModel_Daniel1::MSCFModel_Daniel1(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
-        SUMOReal dawdle, SUMOReal headwayTime,
-        SUMOReal tmp1, SUMOReal tmp2, SUMOReal tmp3, SUMOReal tmp4, SUMOReal tmp5)
+                                     SUMOReal dawdle, SUMOReal headwayTime,
+                                     SUMOReal tmp1, SUMOReal tmp2, SUMOReal tmp3, SUMOReal tmp4, SUMOReal tmp5)
     : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel* headwayTime),
-    myTmp1(tmp1), myTmp2(tmp2), myTmp3(tmp3), myTmp4(tmp4), myTmp5(tmp5)
-{
+      myTmp1(tmp1), myTmp2(tmp2), myTmp3(tmp3), myTmp4(tmp4), myTmp5(tmp5) {
 }
 
 
@@ -106,5 +105,5 @@ SUMOReal MSCFModel_Daniel1::_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
 MSCFModel*
 MSCFModel_Daniel1::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_Daniel1(vtype, myAccel, myDecel, myDawdle, myHeadwayTime,
-        myTmp1, myTmp2, myTmp3, myTmp4, myTmp5);
+                                 myTmp1, myTmp2, myTmp3, myTmp4, myTmp5);
 }

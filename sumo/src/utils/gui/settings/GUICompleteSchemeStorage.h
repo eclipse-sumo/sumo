@@ -96,7 +96,7 @@ public:
     /** @brief Returns a list of stored settings names
      * @return The names of known schemes
      */
-    const std::vector<std::string> &getNames() const;
+    const std::vector<std::string>& getNames() const;
 
 
     /** @brief Returns the number of initial settings

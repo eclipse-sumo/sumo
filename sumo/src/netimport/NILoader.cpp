@@ -162,7 +162,7 @@ NILoader::loadXML(OptionsCont& oc) {
 
 
 void
-NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string> &files,
+NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string>& files,
                       const std::string& type) {
     // build parser
     std::string exceptMsg = "";

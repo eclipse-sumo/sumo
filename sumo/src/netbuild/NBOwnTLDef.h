@@ -59,7 +59,7 @@ public:
      * @param[in] offset The offset of the plan
      */
     NBOwnTLDef(const std::string& id,
-               const std::vector<NBNode*> &junctions, SUMOTime offset);
+               const std::vector<NBNode*>& junctions, SUMOTime offset);
 
 
     /** @brief Constructor

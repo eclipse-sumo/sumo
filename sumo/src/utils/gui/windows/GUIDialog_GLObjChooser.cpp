@@ -71,7 +71,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     FXIcon* icon,
     const FXString& title,
     GUIGlObjectType type,
-    const std::vector<GUIGlID> &ids,
+    const std::vector<GUIGlID>& ids,
     GUIGlObjectStorage& glStorage):
     FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20, 20, 300, 300),
     myObjectType(type),

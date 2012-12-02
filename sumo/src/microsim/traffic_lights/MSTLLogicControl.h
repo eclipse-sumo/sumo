@@ -419,7 +419,7 @@ protected:
         /** @brief Returns a reference to the index
          * @return A reference to the index
          */
-        unsigned int &getIndex() {
+        unsigned int& getIndex() {
             return myIndex;
         }
 

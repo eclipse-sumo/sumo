@@ -104,7 +104,7 @@ public:
                                   const std::string& excl = "");
 
         std::string readEndSecure(std::istream& from,
-                                  const std::vector<std::string> &excl);
+                                  const std::vector<std::string>& excl);
 
         /// overrides the optional label definition; returns the next tag as done by readEndSecure
         std::string overrideOptionalLabel(std::istream& from,
@@ -116,7 +116,7 @@ public:
         /** @brief parses a listof vehicle types assigned to the current data field
             One should remeber, that -1 means "all" vehicle types */
         std::vector<int> parseAssignedVehicleTypes(std::istream& from,
-                                            const std::string& next);
+                const std::string& next);
 
         NIVissimExtendedEdgePoint readExtEdgePointDef(std::istream& from);
 

@@ -236,7 +236,7 @@ protected:
      * @brief Representation of a signal
      */
     struct OpenDriveSignal {
-        OpenDriveSignal(int idArg, const std::string typeArg, int orientationArg, bool dynamicArg, SUMOReal sArg) 
+        OpenDriveSignal(int idArg, const std::string typeArg, int orientationArg, bool dynamicArg, SUMOReal sArg)
             : id(idArg), type(typeArg), orientation(orientationArg), dynamic(dynamicArg), s(sArg) { }
 
         int id;
@@ -284,14 +284,14 @@ protected:
         NBEdge* to;
         std::string via;
         std::vector<std::pair<int, int> > lanes;
-		std::string id;
+        std::string id;
     };
 
 protected:
     /** @brief Constructor
      * @param[in] nc The node control to fill
      */
-    NIImporter_OpenDrive(std::vector<OpenDriveEdge> &innerEdges, std::vector<OpenDriveEdge> &outerEdges);
+    NIImporter_OpenDrive(std::vector<OpenDriveEdge>& innerEdges, std::vector<OpenDriveEdge>& outerEdges);
 
 
     /// @brief Destructor
@@ -331,12 +331,12 @@ private:
     void addLink(LinkType lt, const std::string& elementType, const std::string& elementID,
                  const std::string& contactPoint);
 
-    void addGeometryShape(GeometryType type, const std::vector<SUMOReal> &vals);
+    void addGeometryShape(GeometryType type, const std::vector<SUMOReal>& vals);
 
     OpenDriveEdge myCurrentEdge;
 
-    std::vector<OpenDriveEdge> &myInnerEdges;
-    std::vector<OpenDriveEdge> &myOuterEdges;
+    std::vector<OpenDriveEdge>& myInnerEdges;
+    std::vector<OpenDriveEdge>& myOuterEdges;
     std::vector<int> myElementStack;
     OpenDriveXMLTag myCurrentLaneDirection;
     static std::set<std::string> myLaneTypes2Import;
@@ -372,16 +372,16 @@ protected:
     static NBEdge* getIncomingDirectionalEdge(const NBEdgeCont& ec, const NBNodeCont& nc,
             const std::string& edgeID, const std::string& nodeID);
 
-    static void computeShapes(std::vector<OpenDriveEdge> &edges);
+    static void computeShapes(std::vector<OpenDriveEdge>& edges);
     static void setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
                               const std::string& nodeID, NIImporter_OpenDrive::LinkType lt);
 
     static void addE2EConnectionsSecure(const NBEdgeCont& ec, const NBNode* const node,
                                         const OpenDriveEdge& from, const OpenDriveEdge& to,
-                                        std::vector<NIImporter_OpenDrive::Connection> &connections);
+                                        std::vector<NIImporter_OpenDrive::Connection>& connections);
     static void addViaConnectionSecure(const NBEdgeCont& ec, const NBNode* const node, const OpenDriveEdge& e,
                                        LinkType lt, const std::string& via,
-                                       std::vector<NIImporter_OpenDrive::Connection> &connections);
+                                       std::vector<NIImporter_OpenDrive::Connection>& connections);
 
     static void setLaneConnections(NIImporter_OpenDrive::Connection& c,
                                    const OpenDriveEdge& from, bool fromAtBegin, OpenDriveXMLTag fromLaneDir,

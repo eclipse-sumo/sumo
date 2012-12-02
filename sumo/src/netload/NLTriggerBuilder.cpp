@@ -247,7 +247,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
 
 MSLaneSpeedTrigger*
 NLTriggerBuilder::buildLaneSpeedTrigger(MSNet& /*net*/, const std::string& id,
-                                        const std::vector<MSLane*> &destLanes,
+                                        const std::vector<MSLane*>& destLanes,
                                         const std::string& file) {
     return new MSLaneSpeedTrigger(id, destLanes, file);
 }
@@ -267,7 +267,7 @@ NLTriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
 
 MSTriggeredRerouter*
 NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
-                                std::vector<MSEdge*> &edges,
+                                std::vector<MSEdge*>& edges,
                                 SUMOReal prob, const std::string& file, bool off) {
     return new MSTriggeredRerouter(id, edges, prob, file, off);
 }
@@ -275,7 +275,7 @@ NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
 
 void
 NLTriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
-                               const std::vector<std::string> &lines,
+                               const std::vector<std::string>& lines,
                                MSLane* lane, SUMOReal frompos, SUMOReal topos) throw(InvalidArgument) {
     MSBusStop* stop = new MSBusStop(id, lines, *lane, frompos, topos);
     if (!net.addBusStop(stop)) {

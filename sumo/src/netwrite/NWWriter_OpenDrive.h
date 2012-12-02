@@ -61,8 +61,8 @@ public:
 
 protected:
     static void writePlanView(const PositionVector& shape, OutputDevice& device);
-    static void writeEmptyCenterLane(OutputDevice& device, const std::string &mark, SUMOReal markWidth);
-    static int getID(const std::string& origID, StringBijection<int> &map, int& lastID);
+    static void writeEmptyCenterLane(OutputDevice& device, const std::string& mark, SUMOReal markWidth);
+    static int getID(const std::string& origID, StringBijection<int>& map, int& lastID);
 
 };
 

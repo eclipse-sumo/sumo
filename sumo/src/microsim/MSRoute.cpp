@@ -60,7 +60,7 @@ unsigned int MSRoute::MaxRouteDistSize = std::numeric_limits<unsigned int>::max(
 MSRoute::MSRoute(const std::string& id,
                  const MSEdgeVector& edges,
                  unsigned int references, const RGBColor* const c,
-                 const std::vector<SUMOVehicleParameter::Stop> &stops)
+                 const std::vector<SUMOVehicleParameter::Stop>& stops)
     : Named(id), myEdges(edges),
       myReferenceCounter(references),
       myColor(c), myStops(stops) {}
@@ -146,7 +146,7 @@ MSRoute::dictionary(const std::string& id) {
 }
 
 
-RandomDistributor<const MSRoute*> *
+RandomDistributor<const MSRoute*>*
 MSRoute::distDictionary(const std::string& id) {
     RouteDistDict::iterator it2 = myDistDict.find(id);
     if (it2 == myDistDict.end()) {
@@ -170,7 +170,7 @@ MSRoute::clear() {
 
 
 void
-MSRoute::insertIDs(std::vector<std::string> &into) {
+MSRoute::insertIDs(std::vector<std::string>& into) {
     into.reserve(myDict.size() + myDistDict.size() + into.size());
     for (RouteDict::const_iterator i = myDict.begin(); i != myDict.end(); ++i) {
         into.push_back((*i).first);
@@ -203,7 +203,7 @@ MSRoute::writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* 
 
 
 bool
-MSRoute::containsAnyOf(const std::vector<MSEdge*> &edgelist) const {
+MSRoute::containsAnyOf(const std::vector<MSEdge*>& edgelist) const {
     std::vector<MSEdge*>::const_iterator i = edgelist.begin();
     for (; i != edgelist.end(); ++i) {
         if (contains(*i)) {
@@ -255,7 +255,7 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) {
         FileHelpers::readEdgeVector(bis.getIStream(), edges, id);
         if (dictionary(id) == 0) {
             MSRoute* r = new MSRoute(id, edges, references,
-                                        0, std::vector<SUMOVehicleParameter::Stop>());
+                                     0, std::vector<SUMOVehicleParameter::Stop>());
             dictionary(id, r);
         }
     }
@@ -267,7 +267,7 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) {
         unsigned int no;
         bis >> no;
         if (dictionary(id) == 0) {
-            RandomDistributor<const MSRoute*> *dist = new RandomDistributor<const MSRoute*>(getMaxRouteDistSize(), &releaseRoute);
+            RandomDistributor<const MSRoute*>* dist = new RandomDistributor<const MSRoute*>(getMaxRouteDistSize(), &releaseRoute);
             for (; no > 0; no--) {
                 std::string routeID;
                 bis >> routeID;
@@ -355,7 +355,7 @@ MSRoute::getColor() const {
 }
 
 
-const std::vector<SUMOVehicleParameter::Stop> &
+const std::vector<SUMOVehicleParameter::Stop>&
 MSRoute::getStops() const {
     return myStops;
 }

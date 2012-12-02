@@ -72,7 +72,7 @@ public:
      * @param[in] endPos End position of the bus stop on the lane
      */
     MSBusStop(const std::string& id,
-              const std::vector<std::string> &lines, MSLane& lane,
+              const std::vector<std::string>& lines, MSLane& lane,
               SUMOReal begPos, SUMOReal endPos);
 
 
@@ -131,22 +131,22 @@ public:
      *
      * @return The last free position of this bus stop
      */
-    SUMOReal getLastFreePos(SUMOVehicle &forVehicle) const;
+    SUMOReal getLastFreePos(SUMOVehicle& forVehicle) const;
 
 
     /** @brief Returns the number of persons waiting on this stop
     */
     unsigned int getPersonNumber() const {
-       return static_cast<unsigned int>(myWaitingPersons.size());
+        return static_cast<unsigned int>(myWaitingPersons.size());
     }
 
-    void addPerson(MSPerson *p) {
+    void addPerson(MSPerson* p) {
         myWaitingPersons.push_back(p);
     }
 
-    void removePerson(MSPerson *p) {
-        std::vector<MSPerson*>::iterator i=std::find(myWaitingPersons.begin(), myWaitingPersons.end(), p);
-        if(i!=myWaitingPersons.end()) {
+    void removePerson(MSPerson* p) {
+        std::vector<MSPerson*>::iterator i = std::find(myWaitingPersons.begin(), myWaitingPersons.end(), p);
+        if (i != myWaitingPersons.end()) {
             myWaitingPersons.erase(i);
         }
     }

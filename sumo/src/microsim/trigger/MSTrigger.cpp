@@ -32,9 +32,8 @@ std::set<MSTrigger*> MSTrigger::myInstances;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSTrigger::MSTrigger(const std::string& id) : 
-    Named(id) 
-{
+MSTrigger::MSTrigger(const std::string& id) :
+    Named(id) {
     myInstances.insert(this);
 }
 
@@ -45,7 +44,7 @@ MSTrigger::~MSTrigger() {
 
 
 void MSTrigger::cleanup() {
-    while(!myInstances.empty()) {
+    while (!myInstances.empty()) {
         delete *myInstances.begin();
     }
 }

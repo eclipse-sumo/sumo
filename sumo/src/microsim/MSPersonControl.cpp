@@ -152,7 +152,7 @@ MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson* person) {
 }
 
 
-bool 
+bool
 MSPersonControl::isWaiting4Vehicle(const MSEdge* const edge, MSPerson* /* p */) const {
     return myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end();
 }
@@ -175,7 +175,7 @@ MSPersonControl::boardAnyWaiting(MSEdge* edge, MSVehicle* vehicle) {
                 ++i;
             }
         }
-        if(waitPersons.size()==0) {
+        if (waitPersons.size() == 0) {
             myWaiting4Vehicle.erase(myWaiting4Vehicle.find(edge));
         }
     }
@@ -195,16 +195,16 @@ MSPersonControl::hasNonWaiting() const {
 }
 
 
-void 
-MSPersonControl::setWalking(MSPerson *p) {
+void
+MSPersonControl::setWalking(MSPerson* p) {
     myWalking[p->getID()] = p;
 }
 
 
-void 
-MSPersonControl::unsetWalking(MSPerson *p) {
-    std::map<std::string, MSPerson*>::iterator i=myWalking.find(p->getID());
-    if(i!=myWalking.end()) {
+void
+MSPersonControl::unsetWalking(MSPerson* p) {
+    std::map<std::string, MSPerson*>::iterator i = myWalking.find(p->getID());
+    if (i != myWalking.end()) {
         myWalking.erase(i);
     }
 }
@@ -212,11 +212,11 @@ MSPersonControl::unsetWalking(MSPerson *p) {
 
 void
 MSPersonControl::abortWaiting() {
-    for (std::map<const MSEdge*, PersonVector>::const_iterator i=myWaiting4Vehicle.begin(); i!=myWaiting4Vehicle.end(); ++i) {
+    for (std::map<const MSEdge*, PersonVector>::const_iterator i = myWaiting4Vehicle.begin(); i != myWaiting4Vehicle.end(); ++i) {
         const MSEdge* edge = (*i).first;
-        const PersonVector &pv = (*i).second;
-        for (PersonVector::const_iterator j=pv.begin(); j!=pv.end(); ++j) {
-            MSPerson *p = (*j);
+        const PersonVector& pv = (*i).second;
+        for (PersonVector::const_iterator j = pv.begin(); j != pv.end(); ++j) {
+            MSPerson* p = (*j);
             edge->removePerson(p);
             WRITE_WARNING("Person " + p->getID() + " aborted waiting for a ride that will never come.");
             erase(p);
@@ -225,7 +225,7 @@ MSPersonControl::abortWaiting() {
 }
 
 
-MSPerson *
+MSPerson*
 MSPersonControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) const {
     return new MSPerson(pars, vtype, plan);
 }

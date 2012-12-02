@@ -57,7 +57,7 @@ MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
 bool
 MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         SUMOReal newPos, SUMOReal newSpeed) {
-    if(myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() && newPos >= myPosition) {
+    if (myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() && newPos >= myPosition) {
         if (oldPos > myPosition) {
             // was behind the detector
             return false;

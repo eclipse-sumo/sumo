@@ -49,7 +49,7 @@ public:
     NIVissimDistrictConnection(int id, const std::string& name,
                                const std::vector<int>& districts, const std::vector<SUMOReal>& percentages,
                                int edgeid, SUMOReal position,
-                               const std::vector<std::pair<int, int> > &assignedVehicles);
+                               const std::vector<std::pair<int, int> >& assignedVehicles);
 
     // Destructor
     ~NIVissimDistrictConnection();
@@ -75,7 +75,7 @@ public:
     static bool dictionary(int id, const std::string& name,
                            const std::vector<int>& districts, const std::vector<SUMOReal>& percentages,
                            int edgeid, SUMOReal position,
-                           const std::vector<std::pair<int, int> > &assignedVehicles);
+                           const std::vector<std::pair<int, int> >& assignedVehicles);
 
     /// Inserts the build connection to the dictionary
     static bool dictionary(int id, NIVissimDistrictConnection* o);

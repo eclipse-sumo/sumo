@@ -246,7 +246,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
         ret->setParameter |= VEHPARS_DEPARTLANE_SET;
         const std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTLANE, 0, ok);
-        if(!SUMOVehicleParameter::parseDepartLane(helper, element, ret->id, ret->departLane, ret->departLaneProcedure, error)) {
+        if (!SUMOVehicleParameter::parseDepartLane(helper, element, ret->id, ret->departLane, ret->departLaneProcedure, error)) {
             throw ProcessError(error);
         }
     }
@@ -254,7 +254,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         ret->setParameter |= VEHPARS_DEPARTPOS_SET;
         const std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTPOS, 0, ok);
-        if(!SUMOVehicleParameter::parseDepartPos(helper, element, ret->id, ret->departPos, ret->departPosProcedure, error)) {
+        if (!SUMOVehicleParameter::parseDepartPos(helper, element, ret->id, ret->departPos, ret->departPosProcedure, error)) {
             throw ProcessError(error);
         }
     }
@@ -262,7 +262,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)) {
         ret->setParameter |= VEHPARS_DEPARTSPEED_SET;
         std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTSPEED, 0, ok);
-        if(!SUMOVehicleParameter::parseDepartSpeed(helper, element, ret->id, ret->departSpeed, ret->departSpeedProcedure, error)) {
+        if (!SUMOVehicleParameter::parseDepartSpeed(helper, element, ret->id, ret->departSpeed, ret->departSpeedProcedure, error)) {
             throw ProcessError(error);
         }
     }
@@ -271,7 +271,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
         ret->setParameter |= VEHPARS_ARRIVALLANE_SET;
         std::string helper = attrs.getStringReporting(SUMO_ATTR_ARRIVALLANE, 0, ok);
-        if(!SUMOVehicleParameter::parseArrivalLane(helper, element, ret->id, ret->arrivalLane, ret->arrivalLaneProcedure, error)) {
+        if (!SUMOVehicleParameter::parseArrivalLane(helper, element, ret->id, ret->arrivalLane, ret->arrivalLaneProcedure, error)) {
             throw ProcessError(error);
         }
     }
@@ -279,7 +279,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         ret->setParameter |= VEHPARS_ARRIVALPOS_SET;
         std::string helper = attrs.getStringReporting(SUMO_ATTR_ARRIVALPOS, 0, ok);
-        if(!SUMOVehicleParameter::parseArrivalPos(helper, element, ret->id, ret->arrivalPos, ret->arrivalPosProcedure, error)) {
+        if (!SUMOVehicleParameter::parseArrivalPos(helper, element, ret->id, ret->arrivalPos, ret->arrivalPosProcedure, error)) {
             throw ProcessError(error);
         }
     }
@@ -287,7 +287,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)) {
         ret->setParameter |= VEHPARS_ARRIVALSPEED_SET;
         std::string helper = attrs.getStringReporting(SUMO_ATTR_ARRIVALSPEED, 0, ok);
-        if(!SUMOVehicleParameter::parseArrivalSpeed(helper, element, ret->id, ret->arrivalSpeed, ret->arrivalSpeedProcedure, error)) {
+        if (!SUMOVehicleParameter::parseArrivalSpeed(helper, element, ret->id, ret->arrivalSpeed, ret->arrivalSpeedProcedure, error)) {
             throw ProcessError(error);
         }
     }

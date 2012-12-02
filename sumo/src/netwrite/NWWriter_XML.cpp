@@ -112,7 +112,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 
         device.writeAttr(SUMO_ATTR_TYPE, toString(n->getType()));
         if (n->isTLControlled()) {
-            const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
+            const std::set<NBTrafficLightDefinition*>& tlss = n->getControllingTLS();
             // set may contain multiple programs for the same id.
             // make sure ids are unique and sorted
             std::set<std::string> tlsIDs;
@@ -278,7 +278,7 @@ NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
 }
 
 
-void 
+void
 NWWriter_XML::writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("street-sign-output"));
     device.writeXMLHeader("pois", SUMOSAXAttributes::ENCODING, NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/poi_file.xsd\"");

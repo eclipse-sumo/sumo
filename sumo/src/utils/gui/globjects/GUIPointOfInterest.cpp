@@ -52,9 +52,9 @@
 // method definitions
 // ===========================================================================
 GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type,
-            const RGBColor& color, const Position& pos,
-            SUMOReal layer, SUMOReal angle, const std::string& imgFile, 
-            SUMOReal width, SUMOReal height) :
+                                       const RGBColor& color, const Position& pos,
+                                       SUMOReal layer, SUMOReal angle, const std::string& imgFile,
+                                       SUMOReal width, SUMOReal height) :
     PointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
     GUIGlObject_AbstractAdd("poi", GLO_POI, id)
 {}
@@ -111,9 +111,9 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     if (myImgFile != "") {
         int textureID = GUITexturesHelper::getTextureID(myImgFile);
         if (textureID > 0) {
-            GUITexturesHelper::drawTexturedBox(textureID, 
-                    -myHalfImgWidth * s.poiExaggeration, -myHalfImgHeight * s.poiExaggeration, 
-                     myHalfImgWidth * s.poiExaggeration,  myHalfImgHeight * s.poiExaggeration);
+            GUITexturesHelper::drawTexturedBox(textureID,
+                                               -myHalfImgWidth * s.poiExaggeration, -myHalfImgHeight * s.poiExaggeration,
+                                               myHalfImgWidth * s.poiExaggeration,  myHalfImgHeight * s.poiExaggeration);
         }
     } else {
         // fallback if no image is defined

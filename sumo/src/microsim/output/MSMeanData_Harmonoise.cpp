@@ -116,7 +116,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMO
         dev << "\" traveltime=\"" << defaultTravelTime;
     }
     dev << "\"";
-	dev.closeTag(true);
+    dev.closeTag(true);
 }
 
 
@@ -149,7 +149,7 @@ void
 MSMeanData_Harmonoise::detectorUpdate(const SUMOTime step) {
     MSMeanData::detectorUpdate(step);
     for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i) {
-        const std::vector<MeanDataValues*> &lm = *i;
+        const std::vector<MeanDataValues*>& lm = *i;
         for (std::vector<MeanDataValues*>::const_iterator j = lm.begin(); j != lm.end(); ++j) {
             (*j)->update();
         }

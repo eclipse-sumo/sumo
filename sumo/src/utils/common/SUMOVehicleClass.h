@@ -375,7 +375,7 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std
 /** @brief Encodes the given vector of allowed classs into a bitset
  * @param[in] classesS The names vector to parse
  */
-extern SVCPermissions parseVehicleClasses(const std::vector<std::string> &allowedS);
+extern SVCPermissions parseVehicleClasses(const std::vector<std::string>& allowedS);
 
 
 // ---------------------------------------------------------------------------

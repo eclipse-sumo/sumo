@@ -53,17 +53,17 @@
 // ===========================================================================
 void
 MSFullExport::write(OutputDevice& of, SUMOTime timestep) {
-   
-	of.openTag("data") << " timestep=\"" << time2string(timestep) << "\">\n";
-	
-	//Vehicles
-	writeVehicles(of);
 
-	//Edges
-	writeEdge(of);
+    of.openTag("data") << " timestep=\"" << time2string(timestep) << "\">\n";
 
-	//TrafficLights
-	writeTLS(of, timestep);
+    //Vehicles
+    writeVehicles(of);
+
+    //Edges
+    writeEdge(of);
+
+    //TrafficLights
+    writeTLS(of, timestep);
 
 
     of.closeTag();
@@ -72,90 +72,90 @@ MSFullExport::write(OutputDevice& of, SUMOTime timestep) {
 void
 MSFullExport::writeVehicles(OutputDevice& of) {
 
-	of.openTag("vehicles") << ">\n";
+    of.openTag("vehicles") << ">\n";
 
-	const std::string indent("    ");
-	MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    const std::string indent("    ");
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
 
-	
-	    for (; it != end; ++it) {
-        const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
-    
-		if (veh->isOnRoad()) {
-           
-		    std::string fclass = veh->getVehicleType().getID();
-			fclass = fclass.substr(0, fclass.find_first_of("@"));
-		   
-            Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
-        	
-			of.openTag("vehicle") << " id=\"" << veh->getID() << "\" eclass=\"" <<  veh->getVehicleType().getEmissionClass() << "\" co2=\"" << veh->getHBEFA_CO2Emissions()  
-								  << "\" co=\"" <<  veh->getHBEFA_COEmissions() << "\" hc=\"" <<  veh->getHBEFA_HCEmissions()
-								  << "\" nox=\"" <<  veh->getHBEFA_NOxEmissions() << "\" pmx=\"" <<  veh->getHBEFA_PMxEmissions()
- 							      << "\" noise=\"" <<  veh->getHarmonoise_NoiseEmissions() << "\" route=\"" << veh->getRoute().getID()
-								  << "\" type=\"" <<  fclass << "\" waiting=\"" <<  veh->getWaitingSeconds()
-								  << "\" lane=\"" <<  veh->getLane()->getID() 
-								  << "\" pos_lane=\"" << veh->getPositionOnLane() << "\" speed=\"" << veh->getSpeed()*3.6 
-								  << "\" angle=\"" << veh->getAngle() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
 
-			of.closeTag(true);
-			
-		}
-		
-	}
-	
+    for (; it != end; ++it) {
+        const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
+
+        if (veh->isOnRoad()) {
+
+            std::string fclass = veh->getVehicleType().getID();
+            fclass = fclass.substr(0, fclass.find_first_of("@"));
+
+            Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
+
+            of.openTag("vehicle") << " id=\"" << veh->getID() << "\" eclass=\"" <<  veh->getVehicleType().getEmissionClass() << "\" co2=\"" << veh->getHBEFA_CO2Emissions()
+                                  << "\" co=\"" <<  veh->getHBEFA_COEmissions() << "\" hc=\"" <<  veh->getHBEFA_HCEmissions()
+                                  << "\" nox=\"" <<  veh->getHBEFA_NOxEmissions() << "\" pmx=\"" <<  veh->getHBEFA_PMxEmissions()
+                                  << "\" noise=\"" <<  veh->getHarmonoise_NoiseEmissions() << "\" route=\"" << veh->getRoute().getID()
+                                  << "\" type=\"" <<  fclass << "\" waiting=\"" <<  veh->getWaitingSeconds()
+                                  << "\" lane=\"" <<  veh->getLane()->getID()
+                                  << "\" pos_lane=\"" << veh->getPositionOnLane() << "\" speed=\"" << veh->getSpeed() * 3.6
+                                  << "\" angle=\"" << veh->getAngle() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
+
+            of.closeTag(true);
+
+        }
+
+    }
+
     of.closeTag();
 
-		
+
 
 }
 
 void
 MSFullExport::writeEdge(OutputDevice& of) {
 
-	of.openTag("edges")  << ">\n";
+    of.openTag("edges")  << ">\n";
 
-	MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
+    MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
 
-	 const std::vector<MSEdge*> &edges = ec.getEdges();
-	 for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-			
-		  MSEdge& edge = **e;
+    const std::vector<MSEdge*>& edges = ec.getEdges();
+    for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
 
-			of.openTag("edge") << " id=\"" << edge.getID() << "\" traveltime=\"" << edge.getCurrentTravelTime() << "\">\n";
+        MSEdge& edge = **e;
 
-			const std::vector<MSLane*> &lanes = edge.getLanes();
-            for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-                
-				writeLane(of, **lane);
+        of.openTag("edge") << " id=\"" << edge.getID() << "\" traveltime=\"" << edge.getCurrentTravelTime() << "\">\n";
 
-            }
+        const std::vector<MSLane*>& lanes = edge.getLanes();
+        for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
+
+            writeLane(of, **lane);
+
+        }
 
         of.closeTag();
-	
-	 }
 
-	of.closeTag();	
+    }
+
+    of.closeTag();
 
 }
 
 void
 MSFullExport::writeLane(OutputDevice& of, const MSLane& lane) {
-   
-	of.openTag("lane") 
-		<< " id=\"" << lane.getID() 
-		<< "\" co=\"" << lane.getHBEFA_COEmissions()
-		<< "\" co2=\"" << lane.getHBEFA_CO2Emissions() 
-		<< "\" nox=\"" << lane.getHBEFA_NOxEmissions() 
-		<< "\" pmx=\"" << lane.getHBEFA_PMxEmissions() 
-		<< "\" hc=\"" << lane.getHBEFA_HCEmissions() 
-		<< "\" noise=\"" << lane.getHarmonoise_NoiseEmissions() 
-		<< "\" fuel=\"" << lane.getHBEFA_FuelConsumption() 
-		<< "\" maxspeed=\"" << lane.getSpeedLimit()*3.6 
-		<< "\" meanspeed=\"" << lane.getMeanSpeed()*3.6 
-		<< "\" occupancy=\"" << lane.getOccupancy()	
-		<< "\" vehicle_count=\"" << lane.getVehicleNumber() << "\"";
+
+    of.openTag("lane")
+            << " id=\"" << lane.getID()
+            << "\" co=\"" << lane.getHBEFA_COEmissions()
+            << "\" co2=\"" << lane.getHBEFA_CO2Emissions()
+            << "\" nox=\"" << lane.getHBEFA_NOxEmissions()
+            << "\" pmx=\"" << lane.getHBEFA_PMxEmissions()
+            << "\" hc=\"" << lane.getHBEFA_HCEmissions()
+            << "\" noise=\"" << lane.getHarmonoise_NoiseEmissions()
+            << "\" fuel=\"" << lane.getHBEFA_FuelConsumption()
+            << "\" maxspeed=\"" << lane.getSpeedLimit() * 3.6
+            << "\" meanspeed=\"" << lane.getMeanSpeed() * 3.6
+            << "\" occupancy=\"" << lane.getOccupancy()
+            << "\" vehicle_count=\"" << lane.getVehicleNumber() << "\"";
 
     of.closeTag(true);
 
@@ -166,7 +166,7 @@ MSFullExport::writeTLS(OutputDevice& of, SUMOTime /* timestep */) {
     of.openTag("tls") << ">\n";
     MSTLLogicControl& vc = MSNet::getInstance()->getTLSControl();
     std::vector<std::string> ids = vc.getAllTLIds();
-    for(std::vector<std::string>::const_iterator id_it = ids.begin(); id_it != ids.end(); ++id_it) {
+    for (std::vector<std::string>::const_iterator id_it = ids.begin(); id_it != ids.end(); ++id_it) {
         MSTLLogicControl::TLSLogicVariants& vars = MSNet::getInstance()->getTLSControl().get(*id_it);
         const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLanes();
 
@@ -179,12 +179,12 @@ MSFullExport::writeTLS(OutputDevice& of, SUMOTime /* timestep */) {
         }
 
         std::string lane_output = "";
-        for(unsigned int i1 = 0; i1 < laneIDs.size(); ++i1){
+        for (unsigned int i1 = 0; i1 < laneIDs.size(); ++i1) {
             lane_output += laneIDs[i1] + " ";
         }
 
         std::string state = vars.getActive()->getCurrentPhaseDef().getState();
-        of.openTag("trafficlight") << " id=\"" << *id_it << "\" state=\"" << state <<"\"";
+        of.openTag("trafficlight") << " id=\"" << *id_it << "\" state=\"" << state << "\"";
         of.closeTag(true);
 
     }

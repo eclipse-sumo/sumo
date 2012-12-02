@@ -215,7 +215,7 @@ public:
     }
 
 
-    /// @brief returns the euclidean distance in the x-y-plane 
+    /// @brief returns the euclidean distance in the x-y-plane
     inline SUMOReal distanceTo2D(const Position& p2) const {
         return sqrt(distanceSquaredTo2D(p2));
     }

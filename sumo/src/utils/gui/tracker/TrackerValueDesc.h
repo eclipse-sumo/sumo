@@ -75,12 +75,12 @@ public:
     /** @brief returns the vector of collected values
         The values will be locked - no further addition will be perfomed until
         the method "unlockValues" will be called */
-    const std::vector<SUMOReal> &getValues();
+    const std::vector<SUMOReal>& getValues();
 
     /** @brief returns the vector of aggregated values
         The values will be locked - no further addition will be perfomed until
         the method "unlockValues" will be called */
-    const std::vector<SUMOReal> &getAggregatedValues();
+    const std::vector<SUMOReal>& getAggregatedValues();
 
     /// Returns the name of the value
     const std::string& getName() const;

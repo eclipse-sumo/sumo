@@ -136,13 +136,13 @@ protected:
     bool myAddVehiclesDirectly;
 
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
-    RandomDistributor<MSVehicleType*> *myCurrentVTypeDistribution;
+    RandomDistributor<MSVehicleType*>* myCurrentVTypeDistribution;
 
     /// @brief The id of the currently parsed vehicle type distribution
     std::string myCurrentVTypeDistributionID;
 
     /// @brief The currently parsed distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*> *myCurrentRouteDistribution;
+    RandomDistributor<const MSRoute*>* myCurrentRouteDistribution;
 
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;

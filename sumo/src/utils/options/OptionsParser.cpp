@@ -49,11 +49,11 @@
 bool
 OptionsParser::parse(int argc, char** argv) {
     bool ok = true;
-	if (argc == 2 && argv[1][0] != '-') {
-		// special case only one parameter is handled like config
+    if (argc == 2 && argv[1][0] != '-') {
+        // special case only one parameter is handled like config
         check("-c", argv[1], ok);
-		return ok;
-	}
+        return ok;
+    }
     for (int i = 1; i < argc;) {
         try {
             int add;
@@ -103,7 +103,7 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
     }
     // go through the abbreviated switches
     for (int i = 1; arg1[i] != 0; i++) {
-        // set boolean switches 
+        // set boolean switches
         if (oc.isBool(convert(arg1[i]))) {
             if (arg2 == 0 || arg2[0] == '-' || arg1[i + 1] != 0) {
                 ok &= oc.set(convert(arg1[i]), "true");
@@ -116,14 +116,14 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
             // check whether the parameter comes directly after the switch
             //  and process if so
             if (arg2 == 0 || arg1[i + 1] != 0) {
-                ok &= processNonBooleanSingleSwitch(oc, arg1 + i); 
+                ok &= processNonBooleanSingleSwitch(oc, arg1 + i);
                 return 1;
-                // process parameter following after a space 
+                // process parameter following after a space
             } else {
                 ok &= oc.set(convert(arg1[i]), convert(arg2));
                 // option name and attribute were in two arguments
                 return 2;
-            } 
+            }
         }
     }
     // all switches within the current argument were boolean switches

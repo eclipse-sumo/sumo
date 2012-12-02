@@ -118,14 +118,14 @@ TrackerValueDesc::getColor() const {
 }
 
 
-const std::vector<SUMOReal> &
+const std::vector<SUMOReal>&
 TrackerValueDesc::getValues() {
     myLock.lock();
     return myValues;
 }
 
 
-const std::vector<SUMOReal> &
+const std::vector<SUMOReal>&
 TrackerValueDesc::getAggregatedValues() {
     myLock.lock();
     return myAggregatedValues;

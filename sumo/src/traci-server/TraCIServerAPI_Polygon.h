@@ -73,14 +73,14 @@ public:
      * @param[out] shape The shape, if the polygon is known
      * @return Whether the polygon is known
      */
-    static bool getShape(const std::string &id, PositionVector &shape);
+    static bool getShape(const std::string& id, PositionVector& shape);
 
 
     /** @brief Returns a tree filled with inductive loop instances
      * @return The rtree of inductive loop
      */
-    static TraCIRTree *getTree();
-    
+    static TraCIRTree* getTree();
+
 
 private:
     /** @brief Returns the named polygon
@@ -88,7 +88,7 @@ private:
      * @param[out] layer The layer the polygon is located in
      * @return The named polygon, or 0 if it is not known
      */
-    static Polygon *getPolygon(const std::string &id, int &layer);
+    static Polygon* getPolygon(const std::string& id, int& layer);
 
 
 private:

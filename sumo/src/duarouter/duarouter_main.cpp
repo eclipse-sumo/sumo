@@ -110,7 +110,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // prepare the output
     net.openOutput(oc.getString("output-file"), true, oc.getString("vtype-output"));
     // build the router
-    SUMOAbstractRouter<ROEdge, ROVehicle> *router;
+    SUMOAbstractRouter<ROEdge, ROVehicle>* router;
     const std::string measure = oc.getString("weight-attribute");
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
     if (measure == "traveltime") {
@@ -145,9 +145,9 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             // it is mainly needed for its maximum speed. @todo XXX make this configurable
             ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID));
             const SUMOTime begin = string2time(oc.getString("begin"));
-            const SUMOTime weightPeriod = (oc.isSet("weight-files") ? 
-                    string2time(oc.getString("weight-period")) : 
-                    std::numeric_limits<int>::max());
+            const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
+                                           string2time(oc.getString("weight-period")) :
+                                           std::numeric_limits<int>::max());
             if (net.hasRestrictions()) {
                 router = new CHRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &defaultVehicle, begin, weightPeriod, true);
@@ -158,15 +158,15 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
 
         } else if (routingAlgorithm == "CHWrapper") {
             const SUMOTime begin = string2time(oc.getString("begin"));
-            const SUMOTime weightPeriod = (oc.isSet("weight-files") ? 
-                    string2time(oc.getString("weight-period")) : 
-                    std::numeric_limits<int>::max());
+            const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
+                                           string2time(oc.getString("weight-period")) :
+                                           std::numeric_limits<int>::max());
 
             if (!net.hasRestrictions()) {
                 WRITE_WARNING("CHWrapper is only needed for a restricted network");
             }
             router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, begin, weightPeriod);
+                net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, begin, weightPeriod);
 
 #endif // have HAVE_INTERNAL
         } else {
@@ -211,7 +211,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         } else if (!oc.getBool("unsorted-input")) {
             // the routes are sorted - process stepwise
             loader.processRoutesStepWise(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
-        } else { 
+        } else {
             // the routes are not sorted: load all and process
             loader.processAllRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
         }

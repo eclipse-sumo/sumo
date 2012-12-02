@@ -101,14 +101,14 @@ NLEdgeControlBuilder::addLane(const std::string& id,
         default:
             throw InvalidArgument("Unrecognised edge type.");
     }
-	myLaneStorage->push_back(lane);
+    myLaneStorage->push_back(lane);
     return lane;
 }
 
 
 MSEdge*
 NLEdgeControlBuilder::closeEdge() {
-    std::vector<MSLane*> *lanes = new std::vector<MSLane*>();
+    std::vector<MSLane*>* lanes = new std::vector<MSLane*>();
     lanes->reserve(myLaneStorage->size());
     copy(myLaneStorage->begin(), myLaneStorage->end(), back_inserter(*lanes));
     myLaneStorage->clear();

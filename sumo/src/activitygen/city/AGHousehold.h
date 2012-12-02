@@ -77,8 +77,8 @@ public:
     /**
      * function returning true if the household is close to the given stations stations
      */
-    bool isCloseFromPubTransport(std::list<AGPosition> *pubTransport);
-    bool isCloseFromPubTransport(std::map<int, AGPosition> *pubTransport);
+    bool isCloseFromPubTransport(std::list<AGPosition>* pubTransport);
+    bool isCloseFromPubTransport(std::map<int, AGPosition>* pubTransport);
     /**
      * function regenerating the household:
      * --> work positions and schools are resigned

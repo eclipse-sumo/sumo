@@ -44,11 +44,11 @@
 // method definitions
 // ===========================================================================
 ROJTRRouter::ROJTRRouter(RONet& net, bool unbuildIsWarningOnly, bool acceptAllDestinations,
-                         int maxEdges, bool ignoreClasses, bool allowLoops) : 
+                         int maxEdges, bool ignoreClasses, bool allowLoops) :
     SUMOAbstractRouter<ROEdge, ROVehicle>("JTRRouter"),
     myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly),
     myAcceptAllDestination(acceptAllDestinations), myMaxEdges(maxEdges),
-    myIgnoreClasses(ignoreClasses), myAllowLoops(allowLoops) 
+    myIgnoreClasses(ignoreClasses), myAllowLoops(allowLoops)
 { }
 
 
@@ -58,7 +58,7 @@ ROJTRRouter::~ROJTRRouter() {}
 void
 ROJTRRouter::compute(const ROEdge* from, const ROEdge* /*to*/,
                      const ROVehicle* const vehicle,
-                     SUMOTime time, std::vector<const ROEdge*> &into) {
+                     SUMOTime time, std::vector<const ROEdge*>& into) {
     const ROJTREdge* current = static_cast<const ROJTREdge*>(from);
     // route until a sinks has been found
     while (current != 0
@@ -94,7 +94,7 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* /*to*/,
 
 
 SUMOReal
-ROJTRRouter::recomputeCosts(const std::vector<const ROEdge*> &edges, const ROVehicle* const v, SUMOTime time) const {
+ROJTRRouter::recomputeCosts(const std::vector<const ROEdge*>& edges, const ROVehicle* const v, SUMOTime time) const {
     SUMOReal costs = 0;
     for (std::vector<const ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); i++) {
         /*

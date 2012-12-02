@@ -56,9 +56,9 @@ GeomHelper::intersects(const SUMOReal x1, const SUMOReal y1,
                        const SUMOReal x4, const SUMOReal y4,
                        SUMOReal* x, SUMOReal* y, SUMOReal* mu) {
     const SUMOReal eps = std::numeric_limits<SUMOReal>::epsilon();
-    const double denominator = (y4-y3) * (x2-x1) - (x4-x3) * (y2-y1);
-    const double numera = (x4-x3) * (y1-y3) - (y4-y3) * (x1-x3);
-    const double numerb = (x2-x1) * (y1-y3) - (y2-y1) * (x1-x3);
+    const double denominator = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+    const double numera = (x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3);
+    const double numerb = (x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3);
     /* Are the lines coincident? */
     if (fabs(numera) < eps && fabs(numerb) < eps && fabs(denominator) < eps) {
         SUMOReal a1;
@@ -79,16 +79,16 @@ GeomHelper::intersects(const SUMOReal x1, const SUMOReal y1,
         }
         if (a1 <= a3 && a3 <= a2) {
             if (a4 < a2) {
-                a = (a3+a4) / 2;
+                a = (a3 + a4) / 2;
             } else {
-                a = (a2+a3) / 2;
+                a = (a2 + a3) / 2;
             }
         }
         if (a3 <= a1 && a1 <= a4) {
             if (a2 < a4) {
-                a = (a1+a2) / 2;
+                a = (a1 + a2) / 2;
             } else {
-                a = (a1+a4) / 2;
+                a = (a1 + a4) / 2;
             }
         }
         if (a != -1e12) {
@@ -205,8 +205,8 @@ GeomHelper::nearest_position_on_line_to_point2D(const Position& LineStart,
         // scalar product equals length of orthogonal projection times length of vector being projected onto
         // dividing the scalar product by the square of the distance gives the relative position
         const SUMOReal u = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
-                      ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y()))
-                     ) / (lineLength2D * lineLength2D);
+                            ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y()))
+                           ) / (lineLength2D * lineLength2D);
         if (u < 0.0f || u > 1.0f) {  // closest point does not fall within the line segment
             if (perpendicular) {
                 return -1;
@@ -232,14 +232,14 @@ GeomHelper::distancePointLine(const Position& point,
         // scalar product equals length of orthogonal projection times length of vector being projected onto
         // dividing the scalar product by the square of the distance gives the relative position
         SUMOReal u = (((point.x() - lineStart.x()) * (lineEnd.x() - lineStart.x())) +
-                ((point.y() - lineStart.y()) * (lineEnd.y() - lineStart.y()))
-                ) / lineLengthSquared;
+                      ((point.y() - lineStart.y()) * (lineEnd.y() - lineStart.y()))
+                     ) / lineLengthSquared;
         if (u < 0.0f || u > 1.0f) {
             return -1;    // closest point does not fall within the line segment
         }
         Position intersection(
-                lineStart.x() + u * (lineEnd.x() - lineStart.x()),
-                lineStart.y() + u * (lineEnd.y() - lineStart.y()));
+            lineStart.x() + u * (lineEnd.x() - lineStart.x()),
+            lineStart.y() + u * (lineEnd.y() - lineStart.y()));
         return point.distanceTo(intersection);
     }
 }

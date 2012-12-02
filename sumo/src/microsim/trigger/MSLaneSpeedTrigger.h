@@ -68,7 +68,7 @@ public:
      * @param[in] file Name of the file to read the speeds to set from
      */
     MSLaneSpeedTrigger(const std::string& id,
-                       const std::vector<MSLane*> &destLanes,
+                       const std::vector<MSLane*>& destLanes,
                        const std::string& file);
 
 

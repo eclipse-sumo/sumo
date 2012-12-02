@@ -101,7 +101,7 @@ public:
     static std::pair<SUMOReal, SUMOReal> getLaneOffsets(SUMOReal x1, SUMOReal y1,
             SUMOReal x2, SUMOReal y2, SUMOReal prev, SUMOReal wanted);
 
-    static void fill(std::vector<GUIEdge*> &netsWrappers);
+    static void fill(std::vector<GUIEdge*>& netsWrappers);
 
 
 
@@ -144,14 +144,14 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
-    
-    
-    void addPerson(MSPerson *p) {
+
+
+    void addPerson(MSPerson* p) {
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::addPerson(p);
     }
 
-    void removePerson(MSPerson *p) {
+    void removePerson(MSPerson* p) {
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::removePerson(p);
     }

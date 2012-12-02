@@ -54,7 +54,7 @@ GUITriggerBuilder::~GUITriggerBuilder() {}
 
 MSLaneSpeedTrigger*
 GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
-        const std::string& id, const std::vector<MSLane*> &destLanes,
+        const std::string& id, const std::vector<MSLane*>& destLanes,
         const std::string& file) {
     GUILaneSpeedTrigger* lst = new GUILaneSpeedTrigger(id, destLanes, file);
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(lst);
@@ -64,7 +64,7 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
 
 MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
-                                 std::vector<MSEdge*> &edges,
+                                 std::vector<MSEdge*>& edges,
                                  SUMOReal prob, const std::string& file, bool off) {
     GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off,
             dynamic_cast<GUINet&>(net).getVisualisationSpeedUp());
@@ -74,7 +74,7 @@ GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
 
 void
 GUITriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
-                                const std::vector<std::string> &lines,
+                                const std::vector<std::string>& lines,
                                 MSLane* lane,
                                 SUMOReal frompos, SUMOReal topos) throw(InvalidArgument) {
     GUIBusStop* stop = new GUIBusStop(id, lines, *lane, frompos, topos);

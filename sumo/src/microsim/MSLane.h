@@ -79,7 +79,7 @@ public:
 
     friend class MSXMLRawOut;
 
-	friend class MSQueueExport;
+    friend class MSQueueExport;
 
 
     /** Function-object in order to find the vehicle, that has just
@@ -142,7 +142,7 @@ public:
     /** @brief Return the list of this lane's move reminders
      * @return Previously added move reminder
      */
-    inline const std::vector< MSMoveReminder* > &getMoveReminders() const {
+    inline const std::vector< MSMoveReminder* >& getMoveReminders() const {
         return myMoveReminders;
     }
     ///@}
@@ -287,7 +287,7 @@ public:
      *  afterwards using "releaseVehicles".
      * @return The vehicles on this lane
      */
-    virtual const std::deque< MSVehicle* > &getVehiclesSecure() const {
+    virtual const std::deque< MSVehicle* >& getVehiclesSecure() const {
         return myVehicles;
     }
 
@@ -318,13 +318,13 @@ public:
         return myShape;
     }
 
-    /* @brief fit the given lane position to a visibly suitable geometry position 
+    /* @brief fit the given lane position to a visibly suitable geometry position
      * (lane length might differ from geomety length */
     inline SUMOReal interpolateLanePosToGeometryPos(SUMOReal lanePos) const {
         return lanePos * myLengthGeometryFactor;
     }
 
-    /* @brief fit the given geomtry position to a valid lane position 
+    /* @brief fit the given geomtry position to a valid lane position
      * (lane length might differ from geomety length */
     inline SUMOReal interpolateGeometryPosToLanePos(SUMOReal geometryPos) const {
         return geometryPos / myLengthGeometryFactor;
@@ -380,7 +380,7 @@ public:
 
     /** Moves the critical vehicles
         This step is done after the responds have been set */
-    virtual bool setCritical(SUMOTime t, std::vector<MSLane*> &into);
+    virtual bool setCritical(SUMOTime t, std::vector<MSLane*>& into);
 
     /// Insert buffered vehicle into the real lane.
     virtual bool integrateNewVehicle(SUMOTime t);
@@ -439,7 +439,7 @@ public:
         return myDict.size();
     }
 
-    static void insertIDs(std::vector<std::string> &into);
+    static void insertIDs(std::vector<std::string>& into);
 
     /// Container for vehicles.
     typedef std::deque< MSVehicle* > VehCont;
@@ -451,7 +451,7 @@ public:
     virtual MSLinkCont::const_iterator succLinkSec(const SUMOVehicle& veh,
             unsigned int nRouteSuccs,
             const MSLane& succLinkSource,
-            const std::vector<MSLane*> &conts) const;
+            const std::vector<MSLane*>& conts) const;
 
 
     /** Returns the information whether the given link shows at the end
@@ -504,7 +504,7 @@ public:
         MSLink* viaLink;
     };
 
-    const std::vector<IncomingLaneInfo> &getIncomingLanes() const {
+    const std::vector<IncomingLaneInfo>& getIncomingLanes() const {
         return myIncomingLanes;
     }
 
@@ -520,8 +520,8 @@ public:
 
 
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions
-    SUMOReal getMissingRearGap(SUMOReal dist, SUMOReal backOffset, 
-            SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const;
+    SUMOReal getMissingRearGap(SUMOReal dist, SUMOReal backOffset,
+                               SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const;
 
 
     /** @brief Returns the leader and the distance to him
@@ -547,7 +547,7 @@ public:
      * @return
      */
     std::pair<MSVehicle* const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
-            SUMOReal speed, const MSVehicle& veh, const std::vector<MSLane*> &bestLaneConts) const;
+            SUMOReal speed, const MSVehicle& veh, const std::vector<MSLane*>& bestLaneConts) const;
 
 
     MSLane* getLogicalPredecessorLane() const;

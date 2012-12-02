@@ -57,7 +57,7 @@ public:
         return myDummyFoes;
     }
 
-    virtual const std::bitset<64> &getInternalFoesFor(unsigned int linkIndex) const {
+    virtual const std::bitset<64>& getInternalFoesFor(unsigned int linkIndex) const {
         UNUSED_PARAMETER(linkIndex);
         return myDummyFoes;
     }

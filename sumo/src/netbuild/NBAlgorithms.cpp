@@ -50,23 +50,23 @@
 // ---------------------------------------------------------------------------
 // NBTurningDirectionsComputer
 // ---------------------------------------------------------------------------
-void 
-NBTurningDirectionsComputer::computeTurnDirections(NBNodeCont &nc) {
-    for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
+void
+NBTurningDirectionsComputer::computeTurnDirections(NBNodeCont& nc) {
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         computeTurnDirectionsForNode(i->second);
     }
 }
 
-void 
-NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode *node) {
-    const std::vector<NBEdge*> &incoming = node->getIncomingEdges();
-    const std::vector<NBEdge*> &outgoing = node->getOutgoingEdges();
+void
+NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node) {
+    const std::vector<NBEdge*>& incoming = node->getIncomingEdges();
+    const std::vector<NBEdge*>& outgoing = node->getOutgoingEdges();
     std::vector<Combination> combinations;
-    for(std::vector<NBEdge*>::const_iterator j=outgoing.begin(); j!=outgoing.end(); ++j) {
-        NBEdge *outedge = *j;
-        for(std::vector<NBEdge*>::const_iterator k=incoming.begin(); k!=incoming.end(); ++k) {
+    for (std::vector<NBEdge*>::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
+        NBEdge* outedge = *j;
+        for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
             NBEdge* e = *k;
-            if (e->getConnections().size()!=0 && !e->isConnectedTo(outedge)) {
+            if (e->getConnections().size() != 0 && !e->isConnectedTo(outedge)) {
                 // has connections, but not to outedge; outedge will not be the turn direction
                 //
                 // @todo: this seems to be needed due to legacy issues; actually, we could regard
@@ -78,10 +78,10 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode *node) {
 
             // @todo: check whether NBHelpers::relAngle is properly defined and whether it should really be used, here
             SUMOReal angle = fabs(NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)));
-            if(angle<160) {
+            if (angle < 160) {
                 continue;
             }
-            if(e->getFromNode()==outedge->getToNode()) {
+            if (e->getFromNode() == outedge->getToNode()) {
                 // they connect the same nodes; should be the turnaround direction
                 // we'll assign a maximum number
                 //
@@ -105,11 +105,11 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode *node) {
     std::sort(combinations.begin(), combinations.end(), combination_by_angle_sorter());
     std::set<NBEdge*> seen;
     bool haveWarned = false;
-    for(std::vector<Combination>::const_iterator j=combinations.begin(); j!=combinations.end(); ++j) {
-        if(seen.find((*j).from)!=seen.end() || seen.find((*j).to)!=seen.end() ) {
+    for (std::vector<Combination>::const_iterator j = combinations.begin(); j != combinations.end(); ++j) {
+        if (seen.find((*j).from) != seen.end() || seen.find((*j).to) != seen.end()) {
             // do not regard already set edges
-            if((*j).angle>360&&!haveWarned) {
-                WRITE_WARNING("Ambiguity in turnarounds computation at node '" + node->getID() +"'.");
+            if ((*j).angle > 360 && !haveWarned) {
+                WRITE_WARNING("Ambiguity in turnarounds computation at node '" + node->getID() + "'.");
                 haveWarned = true;
             }
             continue;
@@ -126,16 +126,16 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode *node) {
 // ---------------------------------------------------------------------------
 // NBNodesEdgesSorter
 // ---------------------------------------------------------------------------
-void 
-NBNodesEdgesSorter::sortNodesEdges(NBNodeCont &nc, bool leftHand) {
-    for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
-        NBNode *n = (*i).second;
+void
+NBNodesEdgesSorter::sortNodesEdges(NBNodeCont& nc, bool leftHand) {
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+        NBNode* n = (*i).second;
         if (n->myAllEdges.size() == 0) {
             continue;
         }
-        std::vector<NBEdge*> &allEdges = (*i).second->myAllEdges;
-        std::vector<NBEdge*> &incoming = (*i).second->myIncomingEdges;
-        std::vector<NBEdge*> &outgoing = (*i).second->myOutgoingEdges;
+        std::vector<NBEdge*>& allEdges = (*i).second->myAllEdges;
+        std::vector<NBEdge*>& incoming = (*i).second->myIncomingEdges;
+        std::vector<NBEdge*>& outgoing = (*i).second->myOutgoingEdges;
         // sort the edges
         std::sort(allEdges.begin(), allEdges.end(), edge_by_junction_angle_sorter(n));
         std::sort(incoming.begin(), incoming.end(), edge_by_junction_angle_sorter(n));
@@ -152,7 +152,7 @@ NBNodesEdgesSorter::sortNodesEdges(NBNodeCont &nc, bool leftHand) {
 
 
 void
-NBNodesEdgesSorter::swapWhenReversed(const NBNode * const n, bool leftHand,
+NBNodesEdgesSorter::swapWhenReversed(const NBNode* const n, bool leftHand,
                                      const std::vector<NBEdge*>::iterator& i1,
                                      const std::vector<NBEdge*>::iterator& i2) {
     NBEdge* e1 = *i1;
@@ -174,10 +174,10 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode * const n, bool leftHand,
 // ---------------------------------------------------------------------------
 // NBNodeTypeComputer
 // ---------------------------------------------------------------------------
-void 
-NBNodeTypeComputer::computeNodeTypes(NBNodeCont &nc) {
-    for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
-        NBNode *n = (*i).second;
+void
+NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+        NBNode* n = (*i).second;
         // the type may already be set from the data
         if (n->myType != NODETYPE_UNKNOWN) {
             continue;
@@ -205,7 +205,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont &nc) {
                 const SUMOReal s2 = (*j)->getSpeed() * (SUMOReal) 3.6;
                 const int p1 = (*i)->getPriority();
                 const int p2 = (*j)->getPriority();
-                if(fabs(s1-s2)>(SUMOReal) 9.5 || MAX2(s1,s2) >=(SUMOReal) 49. || p1 != p2) {
+                if (fabs(s1 - s2) > (SUMOReal) 9.5 || MAX2(s1, s2) >= (SUMOReal) 49. || p1 != p2) {
                     type = NODETYPE_PRIORITY_JUNCTION;
                     break;
                 }
@@ -221,9 +221,9 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont &nc) {
 // NBEdgePriorityComputer
 // ---------------------------------------------------------------------------
 void
-NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont &nc) {
-    for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
-        NBNode *n = (*i).second;
+NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+        NBNode* n = (*i).second;
         // preset all junction's edge priorities to zero
         for (EdgeVector::iterator j = n->myAllEdges.begin(); j != n->myAllEdges.end(); ++j) {
             (*j)->setJunctionPriority(n, 0);
@@ -241,7 +241,7 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont &nc) {
 
 
 void
-NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode &n) {
+NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     if (n.myIncomingEdges.size() == 0 || n.myOutgoingEdges.size() == 0) {
         return;
     }
@@ -285,12 +285,12 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode &n) {
     if (bestIncoming.size() == 1) {
         // let's mark this road as the best
         NBEdge* best1 = extractAndMarkFirst(n, bestIncoming);
-        if(counterIncomingEdges.find(best1)!=counterIncomingEdges.end()) {
+        if (counterIncomingEdges.find(best1) != counterIncomingEdges.end()) {
             // ok, look, what we want is the opposit of the straight continuation edge
             // but, what if such an edge does not exist? By now, we'll determine it
             // geometrically
-            NBEdge *s = counterIncomingEdges.find(best1)->second;
-            if(GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n))>180-45) {
+            NBEdge* s = counterIncomingEdges.find(best1)->second;
+            if (GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45) {
                 s->setJunctionPriority(&n, 1);
             }
         }
@@ -298,9 +298,9 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode &n) {
             // mark the best outgoing as the continuation
             sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
             best1 = extractAndMarkFirst(n, bestOutgoing);
-            if(counterOutgoingEdges.find(best1)!=counterOutgoingEdges.end()) {
-                NBEdge *s = counterOutgoingEdges.find(best1)->second;
-                if(GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n))>180-45) {
+            if (counterOutgoingEdges.find(best1) != counterOutgoingEdges.end()) {
+                NBEdge* s = counterOutgoingEdges.find(best1)->second;
+                if (GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45) {
                     s->setJunctionPriority(&n, 1);
                 }
             }
@@ -352,7 +352,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode &n) {
 
 
 NBEdge*
-NBEdgePriorityComputer::extractAndMarkFirst(NBNode &n, std::vector<NBEdge*>& s) {
+NBEdgePriorityComputer::extractAndMarkFirst(NBNode& n, std::vector<NBEdge*>& s) {
     if (s.size() == 0) {
         return 0;
     }
@@ -364,7 +364,7 @@ NBEdgePriorityComputer::extractAndMarkFirst(NBNode &n, std::vector<NBEdge*>& s) 
 
 
 bool
-NBEdgePriorityComputer::samePriority(const NBEdge*const e1, const NBEdge*const e2) {
+NBEdgePriorityComputer::samePriority(const NBEdge* const e1, const NBEdge* const e2) {
     if (e1 == e2) {
         return true;
     }

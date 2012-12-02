@@ -115,7 +115,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz = false) = 0;
+    virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, bool withTaz = false) = 0;
 
     /** @brief Returns the vehicle's acceleration
      * @return The acceleration
@@ -167,7 +167,7 @@ public:
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
      */
-    virtual const std::vector<MSDevice*> &getDevices() const = 0;
+    virtual const std::vector<MSDevice*>& getDevices() const = 0;
 
     /** @brief Adds a person to this vehicle
      *
@@ -183,7 +183,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset=0) = 0;
+    virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset = 0) = 0;
 
     /** @brief Returns whether the vehicle is at a stop
      * @return Whether the has stopped

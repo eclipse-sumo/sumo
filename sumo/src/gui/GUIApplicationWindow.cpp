@@ -510,9 +510,9 @@ GUIApplicationWindow::buildToolBars() {
                      GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
                      ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
 #ifdef HAVE_OSG
-        new FXButton(myToolBar5,"\t\tOpen a new 3D view.",
+        new FXButton(myToolBar5, "\t\tOpen a new 3D view.",
                      GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_OSGVIEW,
-                     ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+                     ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
 #endif
     }
 }
@@ -791,8 +791,7 @@ GUIApplicationWindow::onCmdNewView(FXObject*, FXSelector, void*) {
 
 #ifdef HAVE_OSG
 long
-GUIApplicationWindow::onCmdNewOSG(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdNewOSG(FXObject*, FXSelector, void*) {
     openNewView(GUISUMOViewParent::VIEW_3D_OSG);
     return 1;
 }
@@ -904,7 +903,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
 
         if (ec->mySettingsFiles.size() > 0) {
             // open a view for each file and apply settings
-            for (std::vector<std::string>::const_iterator it = ec->mySettingsFiles.begin(); 
+            for (std::vector<std::string>::const_iterator it = ec->mySettingsFiles.begin();
                     it != ec->mySettingsFiles.end(); ++it) {
                 GUISUMOAbstractView* view = openNewView();
                 if (view == 0) {

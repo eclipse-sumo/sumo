@@ -62,7 +62,7 @@ SysUtils::getCurrentMillis() {
 
 
 #ifdef _MSC_VER
-long 
+long
 SysUtils::getWindowsTicks() {
     return (long) GetTickCount();
 }

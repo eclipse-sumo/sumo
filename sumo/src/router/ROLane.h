@@ -57,7 +57,7 @@ public:
      * @param[in] maxSpeed The maximum speed allowed on the lane
      * @param[in] permissions Vehicle classes that may pass this lane
      */
-    ROLane(const std::string& id, SUMOReal length, SUMOReal maxSpeed, SVCPermissions permissions) : 
+    ROLane(const std::string& id, SUMOReal length, SUMOReal maxSpeed, SVCPermissions permissions) :
         Named(id), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions)
     {}
 

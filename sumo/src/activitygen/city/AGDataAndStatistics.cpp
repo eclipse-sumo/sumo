@@ -151,7 +151,7 @@ AGDataAndStatistics::getPeopleOlderThan(int age) {
 }
 
 void
-AGDataAndStatistics::normalizeMapProb(std::map<int, SUMOReal> *myMap) {
+AGDataAndStatistics::normalizeMapProb(std::map<int, SUMOReal>* myMap) {
     SUMOReal sum = 0;
     std::map<int, SUMOReal>::iterator it;
     for (it = myMap->begin(); it != myMap->end(); ++it) {

@@ -71,7 +71,7 @@ public:
      * @param[in] argv arguments given at the command line
      */
     static void getOptions(bool loadConfig,
-                           int argc=0, char** argv=0);
+                           int argc = 0, char** argv = 0);
 
 
     /** @brief Loads and parses the configuration

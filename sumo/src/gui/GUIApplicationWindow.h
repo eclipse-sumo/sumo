@@ -179,7 +179,7 @@ public:
 
 #ifdef HAVE_OSG
     /// @brief Called if a new 3D view shall be opened
-    long onCmdNewOSG(FXObject*,FXSelector,void*);
+    long onCmdNewOSG(FXObject*, FXSelector, void*);
 #endif
 
     /// @brief Determines whether opening is enabled
@@ -234,7 +234,7 @@ private:
 
 
     /** opens a new simulation display */
-    GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt=GUISUMOViewParent::VIEW_2D_OPENGL);
+    GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL);
 
 protected:
     /// FOX needs this for static members

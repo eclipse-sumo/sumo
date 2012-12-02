@@ -76,7 +76,7 @@ MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal lea
         assert(speed >= 0);
         notifyMoveInternal(veh, timeOnLane, speed);
     } else {
-        // it would be natrual to 
+        // it would be natrual to
         // assert(entryTime == leaveTime);
         // assert(entryPos == leavePos);
         // However, in the presence of calibrators, vehicles may jump a bit

@@ -168,7 +168,7 @@ public:
      * @param[in] vehTypeDistribution The vehicle type distribution to add
      * @return Whether the vehicle type could be added
      */
-    bool addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypeParameter*> *vehTypeDistribution);
+    bool addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypeParameter*>* vehTypeDistribution);
 
 
     /** @brief Retrieves the named vehicle type
@@ -242,7 +242,7 @@ public:
      * @return The last seen departure time>=time
      */
     SUMOTime saveAndRemoveRoutesUntil(OptionsCont& options,
-                                      SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime time);
+                                      SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime time);
 
 
     /// Returns the information whether further vehicles are stored
@@ -312,7 +312,7 @@ public:
     /// Returns the number of edges thenetwork contains
     unsigned int getEdgeNo() const;
 
-    const std::map<std::string, ROEdge*> &getEdgeMap() const;
+    const std::map<std::string, ROEdge*>& getEdgeMap() const;
 
     bool hasRestrictions() const;
 
@@ -320,7 +320,7 @@ public:
 
 protected:
     bool computeRoute(OptionsCont& options,
-                      SUMOAbstractRouter<ROEdge, ROVehicle> &router, const ROVehicle* const veh);
+                      SUMOAbstractRouter<ROEdge, ROVehicle>& router, const ROVehicle* const veh);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations() const;

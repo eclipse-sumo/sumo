@@ -80,12 +80,12 @@
  */
 void
 initNet(RONet& net, ROLoader& loader,
-        const std::vector<SUMOReal> &turnDefs) {
+        const std::vector<SUMOReal>& turnDefs) {
     // load the net
     ROJTREdgeBuilder builder;
     loader.loadNet(net, builder);
     // set the turn defaults
-    const std::map<std::string, ROEdge*> &edges = net.getEdgeMap();
+    const std::map<std::string, ROEdge*>& edges = net.getEdgeMap();
     for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         static_cast<ROJTREdge*>((*i).second)->setTurnDefaults(turnDefs);
     }

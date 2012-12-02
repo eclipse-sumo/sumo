@@ -80,7 +80,7 @@ public:
      * @param[in] src The value source of the object
      * @param[in] newTracked The description of the tracked value
      */
-    void addTracked(GUIGlObject& o, ValueSource<SUMOReal> *src,
+    void addTracked(GUIGlObject& o, ValueSource<SUMOReal>* src,
                     TrackerValueDesc* newTracked);
 
 

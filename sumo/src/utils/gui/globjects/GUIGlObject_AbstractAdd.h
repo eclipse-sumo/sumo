@@ -59,12 +59,12 @@ public:
 
     /// Returns a named object
     static GUIGlObject_AbstractAdd* get(const std::string& name);
-    
+
     /// Removes an object
     static void remove(GUIGlObject_AbstractAdd* o);
 
     /// Returns the list of all additional objects
-    static const std::vector<GUIGlObject_AbstractAdd*> &getObjectList();
+    static const std::vector<GUIGlObject_AbstractAdd*>& getObjectList();
 
     /// Returns the list of gl-ids of all additional objects
     static std::vector<GUIGlID> getIDList();

@@ -47,22 +47,22 @@ class MSLane;
  * @class MSFullExport
  * @brief Dumping a hugh List of Parameters available in the Simulation
  *
- *  The class offers a static method, which writes a hugh List of Parameters 
+ *  The class offers a static method, which writes a hugh List of Parameters
  *  available in the Simulation into the given OutputDevice.
  *
  * @todo consider error-handling on write (using IOError)
  */
 class MSFullExport {
 public:
-     /**@brief Dumping a hugh List of Parameters available in the Simulation
-	 *
-	 *  The class offers a static method, which writes a hugh List of Parameters 
-	 *  available in the Simulation into the given OutputDevice.
-     *
-     * @param[in] of The output device to use
-     * @param[in] timestep The current time step
-     * @exception IOError If an error on writing occurs (!!! not yet implemented)
-     */
+    /**@brief Dumping a hugh List of Parameters available in the Simulation
+    *
+    *  The class offers a static method, which writes a hugh List of Parameters
+    *  available in the Simulation into the given OutputDevice.
+    *
+    * @param[in] of The output device to use
+    * @param[in] timestep The current time step
+    * @exception IOError If an error on writing occurs (!!! not yet implemented)
+    */
     static void write(OutputDevice& of, SUMOTime timestep);
 
 
@@ -74,16 +74,16 @@ private:
     MSFullExport& operator=(const MSFullExport&);
 
     /// @brief Writes the XML Nodes for the vehicles (e.g. speed, position, emissions)
-	static void writeVehicles(OutputDevice& of);
+    static void writeVehicles(OutputDevice& of);
 
     /// @brief Writes the XML Nodes for the edges (e.g. traveltime)
     static void writeEdge(OutputDevice& of);
 
     /// @brief Writes the XML Nodes for the lanes (e.g. emissions, occupancy)
-	static void writeLane(OutputDevice& of, const MSLane& lane);
+    static void writeLane(OutputDevice& of, const MSLane& lane);
 
     /// @brief Writes the XML Nodes for the traffic lights (e.g. actual state)
-	static void writeTLS(OutputDevice& of, SUMOTime timestep);
+    static void writeTLS(OutputDevice& of, SUMOTime timestep);
 
 };
 

@@ -56,7 +56,7 @@ public:
      * @param[in] removeByNames Names of objects that shall not be added
      */
     PCPolyContainer(bool prune, const Boundary& prunningBoundary,
-                    const std::vector<std::string> &removeByNames);
+                    const std::vector<std::string>& removeByNames);
 
 
     /// @brief Destructor

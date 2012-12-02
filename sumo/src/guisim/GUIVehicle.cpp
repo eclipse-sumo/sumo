@@ -133,7 +133,7 @@ double vehiclePoly_EVehicleBackGlass[] =  { 0.65, 0,  0.9, 0,  0.9, 0.4,  0.57, 
  * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehiclePopupMenu::GUIVehiclePopupMenu(
     GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations)
+    GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations)
     : GUIGLObjectPopupMenu(app, parent, o), myVehiclesAdditionalVisualizations(additionalVisualizations) {
 }
 
@@ -233,13 +233,13 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdHideLFLinkItems(FXObject*, FXSelector, voi
  * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type,
-                       SUMOReal speedFactor, int vehicleIndex) : 
+                       SUMOReal speedFactor, int vehicleIndex) :
     MSVehicle(pars, route, type, speedFactor, vehicleIndex),
     GUIGlObject(GLO_VEHICLE, pars->id) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices, 5);
     myMoveReminders.push_back(std::make_pair(myRoutes, 0.));
-    mySeatPositions.push_back(Position(0,0)); // ensure length 1
+    mySeatPositions.push_back(Position(0, 0)); // ensure length 1
 }
 
 
@@ -362,9 +362,9 @@ GUIVehicle::drawAction_drawVehicleAsBoxPlus() const {
     glBegin(GL_TRIANGLE_STRIP);
     glVertex2d(0., 0.);
     glVertex2d(-.5, .15);
-    glVertex2d( .5, .15);
+    glVertex2d(.5, .15);
     glVertex2d(-.5, 1.);
-    glVertex2d( .5, 1.);
+    glVertex2d(.5, 1.);
     glEnd();
     glPopMatrix();
 }
@@ -382,7 +382,7 @@ GUIVehicle::drawAction_drawVehicleAsTrianglePlus() const {
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
     glVertex2d(-.5, 1.);
-    glVertex2d( .5, 1.);
+    glVertex2d(.5, 1.);
     glEnd();
     glPopMatrix();
 }
@@ -557,7 +557,7 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
         case SVS_RAIL_FAST:
             drawAction_drawRailCarriages(s, 40.0, 1);
             break;
-        case SVS_RAIL_CARGO: 
+        case SVS_RAIL_CARGO:
             drawAction_drawRailCarriages(s, 20.0);
             break;
         case SVS_E_VEHICLE:
@@ -878,11 +878,11 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = myLane->getShape().positionAtLengthPosition(
-            myLane->interpolateLanePosToGeometryPos(myState.pos()));
+                      myLane->interpolateLanePosToGeometryPos(myState.pos()));
     // one seat in the center of the vehicle by default
     mySeatPositions[0] = myLane->getShape().positionAtLengthPosition(
-            myLane->interpolateLanePosToGeometryPos(
-                myState.pos() - getVehicleType().getLength() / 2));
+                             myLane->interpolateLanePosToGeometryPos(
+                                 myState.pos() - getVehicleType().getLength() / 2));
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(getAngle(), 0, 0, 1);
     // set lane color
@@ -931,7 +931,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 case SVS_RAIL_FAST:
                     drawAction_drawRailCarriages(s, 40.0, 1, true);
                     break;
-                case SVS_RAIL_CARGO: 
+                case SVS_RAIL_CARGO:
                     drawAction_drawRailCarriages(s, 20.0, true);
                     break;
                 default:
@@ -964,7 +964,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             case SVS_RAIL_SLOW:
             case SVS_RAIL_FAST:
             case SVS_RAIL_CARGO:
-            // only SVS_RAIL_CITY has blinkers and brake lights
+                // only SVS_RAIL_CITY has blinkers and brake lights
                 break;
             default:
                 drawAction_drawVehicleBlinker(*this);
@@ -1021,14 +1021,14 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     */
     glPopMatrix();
     drawName(myLane->getShape().positionAtLengthPosition(
-                myLane->interpolateLanePosToGeometryPos(
-                    myState.pos() - MIN2(getVehicleType().getLength() / 2, SUMOReal(5)))),
+                 myLane->interpolateLanePosToGeometryPos(
+                     myState.pos() - MIN2(getVehicleType().getLength() / 2, SUMOReal(5)))),
              s.scale, s.vehicleName);
     glPopName();
-    if(myPersonDevice!=0) {
-        const std::vector<MSPerson*> &ps = myPersonDevice->getPersons();
+    if (myPersonDevice != 0) {
+        const std::vector<MSPerson*>& ps = myPersonDevice->getPersons();
         size_t personIndex = 0;
-        for(std::vector<MSPerson*>::const_iterator i=ps.begin(); i!=ps.end(); ++i) {
+        for (std::vector<MSPerson*>::const_iterator i = ps.begin(); i != ps.end(); ++i) {
             GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
             assert(person != 0);
             person->setPositionInVehicle(getSeatPosition(personIndex++));
@@ -1062,14 +1062,14 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_LFLINKITEMS)) {
         for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
-            if((*i).myLink==0) {
+            if ((*i).myLink == 0) {
                 continue;
             }
             MSLink* link = (*i).myLink;
-            MSLane *via = link->getViaLaneOrLane();
+            MSLane* via = link->getViaLaneOrLane();
             if (via != 0) {
                 Position p = via->getShape()[0];
-                if((*i).mySetRequest) {
+                if ((*i).mySetRequest) {
                     glColor3d(0, .8, 0);
                 } else {
                     glColor3d(.8, 0, 0);
@@ -1090,10 +1090,10 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
 }
 
 
-const std::vector<MSVehicle::LaneQ> &
+const std::vector<MSVehicle::LaneQ>&
 GUIVehicle::getBestLanes() const {
     myLock.lock();
-    const std::vector<MSVehicle::LaneQ> &ret = MSVehicle::getBestLanes();
+    const std::vector<MSVehicle::LaneQ>& ret = MSVehicle::getBestLanes();
     myLock.unlock();
     return ret;
 }
@@ -1278,7 +1278,7 @@ GUIVehicle::drawBestLanes() const {
     myLock.unlock();
     SUMOReal width = 0.5;
     for (std::vector<std::vector<MSVehicle::LaneQ> >::iterator j = bestLanes.begin(); j != bestLanes.end(); ++j) {
-        std::vector<MSVehicle::LaneQ> &lanes = *j;
+        std::vector<MSVehicle::LaneQ>& lanes = *j;
         SUMOReal gmax = -1;
         SUMOReal rmax = -1;
         for (std::vector<MSVehicle::LaneQ>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
@@ -1320,7 +1320,7 @@ GUIVehicle::draw(const MSRoute& r) const {
 }
 
 
-GUILaneWrapper& 
+GUILaneWrapper&
 GUIVehicle::getLaneWrapper() const {
     GUIEdge* edge = dynamic_cast<GUIEdge*>(&(myLane->getEdge()));
     assert(edge != 0);
@@ -1328,7 +1328,7 @@ GUIVehicle::getLaneWrapper() const {
 }
 
 
-MSLane* 
+MSLane*
 GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
     const bool isInternal = current->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
     if (isInternal) {
@@ -1349,14 +1349,14 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
         if (previousInternal != 0) {
             return previousInternal->getLanes()[0];
         } else {
-            // network without internal links, use previous edge instead 
+            // network without internal links, use previous edge instead
             return previous->getLanes()[0];
         }
     }
 }
 
 
-void 
+void
 GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, int firstPassengerCarriage, bool asImage) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-.2);
@@ -1428,23 +1428,23 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
 }
 
 
-const Position& 
+const Position&
 GUIVehicle::getSeatPosition(size_t personIndex) const {
     /// if there are not enough seats in the vehicle people have to squeeze onto the last seat
     return mySeatPositions[(int)MIN2(personIndex, mySeatPositions.size() - 1)];
 }
 
 
-int 
+int
 GUIVehicle::getNumPassengers() const {
-    if (myPersonDevice!=0) {
+    if (myPersonDevice != 0) {
         return (int)myPersonDevice->getPersons().size();
-    } 
+    }
     return 0;
 }
 
 
-void 
+void
 GUIVehicle::computeSeats(const Position& front, const Position& back, int& requiredSeats) const {
     if (requiredSeats <= 0) {
         return; // save some work
@@ -1453,11 +1453,11 @@ GUIVehicle::computeSeats(const Position& front, const Position& back, int& requi
     const SUMOReal length = l.length2D();
     if (length < 4) {
         // small vehicle, sit at the center
-        mySeatPositions.push_back(l.getPositionAtDistance2D(length / 2)); 
+        mySeatPositions.push_back(l.getPositionAtDistance2D(length / 2));
         requiredSeats--;
     } else {
-        for (SUMOReal p = 2; p <= length - 1; p+= 1) {
-            mySeatPositions.push_back(l.getPositionAtDistance2D(p)); 
+        for (SUMOReal p = 2; p <= length - 1; p += 1) {
+            mySeatPositions.push_back(l.getPositionAtDistance2D(p));
             requiredSeats--;
         }
     }

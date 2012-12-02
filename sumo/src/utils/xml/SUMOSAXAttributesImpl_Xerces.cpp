@@ -51,8 +51,8 @@
 // class definitions
 // ===========================================================================
 SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const Attributes& attrs,
-        const std::map<int, XMLCh*> &predefinedTags,
-        const std::map<int, std::string> &predefinedTagsMML,
+        const std::map<int, XMLCh*>& predefinedTags,
+        const std::map<int, std::string>& predefinedTagsMML,
         const std::string& objectType) :
     SUMOSAXAttributes(objectType),
     myAttrs(attrs),
@@ -236,7 +236,7 @@ SUMOSAXAttributesImpl_Xerces::getColorReporting(const char* objectid, bool& ok) 
 
 PositionVector
 SUMOSAXAttributesImpl_Xerces::getShapeReporting(int attr, const char* objectid, bool& ok,
-                                                bool allowEmpty) const {
+        bool allowEmpty) const {
     std::string shpdef = getOptStringReporting(attr, objectid, ok, "");
     if (shpdef == "") {
         if (!allowEmpty) {

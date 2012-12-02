@@ -124,7 +124,7 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (int i = noLinks; --i >= 0; ) {
+    for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
         GLHelper::drawText(toString(getLane().getLinkCont()[i]->getRespondIndex()),
                            Position(x2, 0), 0, .6, RGBColor(.5, .5, 1), 180);
@@ -151,7 +151,7 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet& net) const {
     SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (int i = noLinks; --i >= 0; ) {
+    for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
         int linkNo = net.getLinkTLIndex(getLane().getLinkCont()[i]);
         if (linkNo < 0) {
@@ -315,7 +315,7 @@ GUILaneWrapper::ROWdrawAction_drawArrows() const {
                 GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
                 GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
                 break;
-	    default:
+            default:
                 break;
         }
     }
@@ -405,7 +405,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
         // draw as railway
         const SUMOReal halfRailWidth = 0.725;
         GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth * s.laneWidthExaggeration);
-        glColor3d(1,1,1);
+        glColor3d(1, 1, 1);
         glTranslated(0, 0, .1);
         GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, (halfRailWidth - 0.2) * s.laneWidthExaggeration);
         drawCrossties(s);
@@ -454,7 +454,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
         // retrieve vehicles from lane; disallow simulation
         const MSLane::VehCont& vehicles = myLane.getVehiclesSecure();
         for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
-            static_cast<const GUIVehicle * const>(*v)->drawGL(s);
+            static_cast<const GUIVehicle* const>(*v)->drawGL(s);
         }
         // allow lane simulation
         myLane.releaseVehicles();
@@ -541,7 +541,7 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow& app,
     //
     buildShowParamsPopupEntry(ret, false);
     const SUMOReal pos = myLane.interpolateGeometryPosToLanePos(
-            myShape.nearest_position_on_line_to_point2D(parent.getPositionInformation()));
+                             myShape.nearest_position_on_line_to_point2D(parent.getPositionInformation()));
     new FXMenuCommand(ret, ("pos: " + toString(pos)).c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
@@ -659,7 +659,7 @@ GUILaneWrapper::setColor(const GUIVisualizationSettings& s) const {
 }
 
 
-SUMOReal 
+SUMOReal
 GUILaneWrapper::getStoredEdgeTravelTime() const {
     MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
     MSEdge& e = getLane().getEdge();

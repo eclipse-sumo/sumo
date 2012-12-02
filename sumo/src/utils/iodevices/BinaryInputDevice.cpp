@@ -215,7 +215,7 @@ operator>>(BinaryInputDevice& os, std::vector< std::vector<unsigned int> >& v) {
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, Position& p) {
     int t = os.checkType(BinaryFormatter::BF_POSITION_2D);
-    SUMOReal x, y, z=0;
+    SUMOReal x, y, z = 0;
     if (t == BinaryFormatter::BF_SCALED2INT_POSITION_2D || t == BinaryFormatter::BF_SCALED2INT_POSITION_2D) {
         int v;
         os.myStream.read((char*) &v, sizeof(int));

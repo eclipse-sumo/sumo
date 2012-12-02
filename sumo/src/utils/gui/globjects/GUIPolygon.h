@@ -59,8 +59,8 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      */
     GUIPolygon(const std::string& id, const std::string& type,
-            const RGBColor& color, const PositionVector& shape, bool fill,
-            SUMOReal layer=0, SUMOReal angle=0, const std::string& imgFile="");
+               const RGBColor& color, const PositionVector& shape, bool fill,
+               SUMOReal layer = 0, SUMOReal angle = 0, const std::string& imgFile = "");
 
     /// @brief Destructor
     ~GUIPolygon();

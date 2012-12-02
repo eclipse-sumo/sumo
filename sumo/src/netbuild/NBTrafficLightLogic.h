@@ -95,7 +95,7 @@ public:
      * @param[in] subid The id of the program
      * @param[in] noLinks Number of links that are controlled by this tls. 0 means the value is not known beforehand
      */
-    NBTrafficLightLogic(const std::string& id, const std::string& subid, unsigned int noLinks, SUMOTime offset=0);
+    NBTrafficLightLogic(const std::string& id, const std::string& subid, unsigned int noLinks, SUMOTime offset = 0);
 
 
     /** @brief Copy Constructor
@@ -173,7 +173,7 @@ public:
     /** @brief Returns the phases
      * @return The phase list
      */
-    const std::vector<PhaseDefinition> &getPhases() const {
+    const std::vector<PhaseDefinition>& getPhases() const {
         return myPhases;
     }
 

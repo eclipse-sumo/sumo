@@ -81,7 +81,7 @@ GUIVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
 
 
 void
-GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID> &into) {
+GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID>& into) {
     AbstractMutex::ScopedLocker locker(myLock);
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
@@ -93,13 +93,13 @@ GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID> &into) {
 }
 
 
-void 
+void
 GUIVehicleControl::secureVehicles() {
     myLock.lock();
 }
 
 
-void 
+void
 GUIVehicleControl::releaseVehicles() {
     myLock.unlock();
 }

@@ -66,9 +66,9 @@ MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) {
             return;
         }
     }
-    myVehicles.push_back(VehicleInformation(veh, 
-                t + TIME2STEPS(veh->getEdge()->getCurrentTravelTime(TeleportMinSpeed)), 
-                veh->isParking()));
+    myVehicles.push_back(VehicleInformation(veh,
+                                            t + TIME2STEPS(veh->getEdge()->getCurrentTravelTime(TeleportMinSpeed)),
+                                            veh->isParking()));
 }
 
 
@@ -117,7 +117,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                     desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
                     // let the vehicle move to the next edge
                     const bool hasArrived = (desc.myVeh->succEdge(1) == 0 ||
-                            desc.myVeh->enterLaneAtMove(desc.myVeh->succEdge(1)->getLanes()[0], true)); 
+                                             desc.myVeh->enterLaneAtMove(desc.myVeh->succEdge(1)->getLanes()[0], true));
                     if (hasArrived) {
                         WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' ends teleporting on end edge '" + e->getID() + "'.");
                         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);

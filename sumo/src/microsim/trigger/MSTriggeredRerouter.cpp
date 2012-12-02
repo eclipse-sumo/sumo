@@ -71,7 +71,7 @@ MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_te
 // method definitions
 // ===========================================================================
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
-        const std::vector<MSEdge*> &edges,
+        const std::vector<MSEdge*>& edges,
         SUMOReal prob, const std::string& file, bool off)
     : MSTrigger(id), MSMoveReminder(), SUMOSAXHandler(file),
       myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
@@ -88,7 +88,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
             continue;
         }
 #endif
-        const std::vector<MSLane*> &destLanes = (*j)->getLanes();
+        const std::vector<MSLane*>& destLanes = (*j)->getLanes();
         for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
             (*i)->addMoveReminder(this);
         }
@@ -209,10 +209,10 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
     while (i != myIntervals.end()) {
         if ((*i).begin <= time && (*i).end >= time) {
             if (
-                    // affected by closingReroute, possibly combined with destProbReroute (route prob makes no sense)
-                    route.containsAnyOf((*i).closed) || 
-                    // no closingReroute but destProbReroute or routeProbReroute
-                    ((*i).closed.size() == 0 && (*i).edgeProbs.getOverallProb() + (*i).routeProbs.getOverallProb() > 0)) {
+                // affected by closingReroute, possibly combined with destProbReroute (route prob makes no sense)
+                route.containsAnyOf((*i).closed) ||
+                // no closingReroute but destProbReroute or routeProbReroute
+                ((*i).closed.size() == 0 && (*i).edgeProbs.getOverallProb() + (*i).routeProbs.getOverallProb() > 0)) {
                 return true;
             }
         }
@@ -317,7 +317,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     // we have a new destination, let's replace the vehicle route
     std::vector<const MSEdge*> edges;
     MSNet::getInstance()->getRouterTT(rerouteDef.closed).compute(
-            veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+        veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
     veh.replaceRouteEdges(edges);
     return false;
 }

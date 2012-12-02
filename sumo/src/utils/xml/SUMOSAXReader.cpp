@@ -71,7 +71,7 @@ SUMOSAXReader::setHandler(GenericSAXHandler& handler) {
 
 void
 SUMOSAXReader::parse(std::string systemID) {
-    if (systemID.substr(systemID.length()-4) == ".sbx") {
+    if (systemID.substr(systemID.length() - 4) == ".sbx") {
         if (parseFirst(systemID)) {
             while (parseNext());
         }
@@ -94,9 +94,9 @@ SUMOSAXReader::parseString(std::string content) {
 }
 
 
-bool 
+bool
 SUMOSAXReader::parseFirst(std::string systemID) {
-    if (systemID.substr(systemID.length()-4) == ".sbx") {
+    if (systemID.substr(systemID.length() - 4) == ".sbx") {
         myBinaryInput = new BinaryInputDevice(systemID, true, myEnableValidation);
         char sbxVer;
         *myBinaryInput >> sbxVer;
@@ -140,25 +140,25 @@ SUMOSAXReader::parseNext() {
     if (myBinaryInput != 0) {
         int next = myBinaryInput->peek();
         switch (next) {
-        case EOF:
-            delete myBinaryInput;
-            myBinaryInput = 0;
-            return false;
-        case BinaryFormatter::BF_XML_TAG_START: {
-            char t;
-            *myBinaryInput >> t;
-            SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, toString((SumoXMLTag)t), myBinaryInput);
-            myHandler->myStartElement(t, attrs);
-            break;
-                                                }
-        case BinaryFormatter::BF_XML_TAG_END: {
-            char t;
-            *myBinaryInput >> t;
-            myHandler->myEndElement(t);
-            break;
-                                              }
-        default:
-            throw ProcessError("Invalid binary file");
+            case EOF:
+                delete myBinaryInput;
+                myBinaryInput = 0;
+                return false;
+            case BinaryFormatter::BF_XML_TAG_START: {
+                char t;
+                *myBinaryInput >> t;
+                SUMOSAXAttributesImpl_Binary attrs(myHandler->myPredefinedTagsMML, toString((SumoXMLTag)t), myBinaryInput);
+                myHandler->myStartElement(t, attrs);
+                break;
+            }
+            case BinaryFormatter::BF_XML_TAG_END: {
+                char t;
+                *myBinaryInput >> t;
+                myHandler->myEndElement(t);
+                break;
+            }
+            default:
+                throw ProcessError("Invalid binary file");
         }
         return true;
     } else {

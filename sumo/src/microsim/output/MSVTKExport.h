@@ -50,7 +50,7 @@ class MSLane;
  *  The class offers a static method, which writes VTK Files for each timestep
  *  of the simulation, where at least one vehicle is present.
  *
- * @todo 
+ * @todo
  */
 class MSVTKExport {
 public:
@@ -70,23 +70,23 @@ private:
     /// @brief Invalidated assignment operator.
     MSVTKExport& operator=(const MSVTKExport&);
 
-	/// @brief Deletes the whitespaces at the end of a String
-	static std::string trim(std::string istring); 
+    /// @brief Deletes the whitespaces at the end of a String
+    static std::string trim(std::string istring);
 
-	/// @brief Checks if there is a whitespace
-	static bool ctype_space(const char c);
+    /// @brief Checks if there is a whitespace
+    static bool ctype_space(const char c);
 
-	/// @brief Get a comma separated String from a Vector
-	static std::string List2String(std::vector<double> input);
+    /// @brief Get a comma separated String from a Vector
+    static std::string List2String(std::vector<double> input);
 
-	/// @brief Get a Vector with the speed values of each vehicle in the actual timestep
-	static std::vector<double> getSpeed();
+    /// @brief Get a Vector with the speed values of each vehicle in the actual timestep
+    static std::vector<double> getSpeed();
 
-	/// @brief Get a Vector of the Positions (x,y,z) of each vehicle in the actual timestep
-	static std::vector<double> getPositions();
+    /// @brief Get a Vector of the Positions (x,y,z) of each vehicle in the actual timestep
+    static std::vector<double> getPositions();
 
-	/// @brief Get a String with the indexes of all vehicles (needed in the VTk File)
-	static std::string getOffset(int nr);
+    /// @brief Get a String with the indexes of all vehicles (needed in the VTk File)
+    static std::string getOffset(int nr);
 
 };
 
@@ -146,7 +146,7 @@ class MSLane;
  *  The class offers a static method, which writes VTK Files for each timestep
  *  of the simulation, where at least one vehicle is present.
  *
- * @todo 
+ * @todo
  */
 class MSVTKExport {
 public:
@@ -166,23 +166,23 @@ private:
     /// @brief Invalidated assignment operator.
     MSVTKExport& operator=(const MSVTKExport&);
 
-	/// @brief Deletes the whitespaces at the end of a String
-	static std::string trim(std::string istring); 
+    /// @brief Deletes the whitespaces at the end of a String
+    static std::string trim(std::string istring);
 
-	/// @brief Checks if there is a whitespace
-	static bool ctype_space(const char c);
+    /// @brief Checks if there is a whitespace
+    static bool ctype_space(const char c);
 
-	/// @brief Get a comma separated String from a Vector
-	static std::string List2String(std::vector<double> input);
+    /// @brief Get a comma separated String from a Vector
+    static std::string List2String(std::vector<double> input);
 
-	/// @brief Get a Vector with the speed values of each vehicle in the actual timestep
-	static std::vector<double> getSpeed();
+    /// @brief Get a Vector with the speed values of each vehicle in the actual timestep
+    static std::vector<double> getSpeed();
 
-	/// @brief Get a Vector of the Positions (x,y,z) of each vehicle in the actual timestep
-	static std::vector<double> getPositions();
+    /// @brief Get a Vector of the Positions (x,y,z) of each vehicle in the actual timestep
+    static std::vector<double> getPositions();
 
-	/// @brief Get a String with the indexes of all vehicles (needed in the VTk File)
-	static std::string getOffset(int nr);
+    /// @brief Get a String with the indexes of all vehicles (needed in the VTk File)
+    static std::string getOffset(int nr);
 
 };
 

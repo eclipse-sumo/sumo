@@ -43,7 +43,7 @@
 // method definitions
 // ===========================================================================
 MSBusStop::MSBusStop(const std::string& id,
-                     const std::vector<std::string> &lines,
+                     const std::vector<std::string>& lines,
                      MSLane& lane,
                      SUMOReal begPos, SUMOReal endPos)
     : Named(id), myLines(lines), myLane(lane),
@@ -81,8 +81,8 @@ MSBusStop::enter(SUMOVehicle* what, SUMOReal beg, SUMOReal end) {
 
 
 SUMOReal
-MSBusStop::getLastFreePos(SUMOVehicle &forVehicle) const {
-    if(myLastFreePos!=myEndPos) {
+MSBusStop::getLastFreePos(SUMOVehicle& forVehicle) const {
+    if (myLastFreePos != myEndPos) {
         return myLastFreePos - forVehicle.getVehicleType().getMinGap();
     }
     return myLastFreePos;

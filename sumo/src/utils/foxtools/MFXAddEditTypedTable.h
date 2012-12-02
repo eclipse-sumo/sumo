@@ -77,9 +77,9 @@ public:
                              double steps1, double steps2, double steps3,
                              const std::string& format);
     NumberCellParams getNumberCellParams(size_t pos) const;
-    void setEnums(size_t pos, const std::vector<std::string> &params);
+    void setEnums(size_t pos, const std::vector<std::string>& params);
     void addEnum(size_t pos, const std::string& e);
-    const std::vector<std::string> &getEnums(size_t pos) const;
+    const std::vector<std::string>& getEnums(size_t pos) const;
     /*
         class FXTableItem_Int : public FXTableItem {
         public:

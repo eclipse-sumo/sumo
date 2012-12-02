@@ -197,37 +197,37 @@ OutputDevice::setPrecision(unsigned int precision) {
 bool
 OutputDevice::writeXMLHeader(const std::string& rootElement, const std::string xmlParams,
                              const std::string& attrs, const std::string& comment) {
-	return myFormatter->writeXMLHeader(getOStream(), rootElement, xmlParams, attrs, comment);
+    return myFormatter->writeXMLHeader(getOStream(), rootElement, xmlParams, attrs, comment);
 }
 
 
 OutputDevice&
 OutputDevice::openTag(const std::string& xmlElement) {
-	myFormatter->openTag(getOStream(), xmlElement);
+    myFormatter->openTag(getOStream(), xmlElement);
     return *this;
 }
 
 
 OutputDevice&
 OutputDevice::openTag(const SumoXMLTag& xmlElement) {
-	myFormatter->openTag(getOStream(), xmlElement);
+    myFormatter->openTag(getOStream(), xmlElement);
     return *this;
 }
 
 
 void
 OutputDevice::closeOpener() {
-	myFormatter->closeOpener(getOStream());
+    myFormatter->closeOpener(getOStream());
 }
 
 
 bool
 OutputDevice::closeTag(bool abbreviated) {
-	if (myFormatter->closeTag(getOStream(), abbreviated)) {
-		postWriteHook();
-		return true;
-	}
-	return false;
+    if (myFormatter->closeTag(getOStream(), abbreviated)) {
+        postWriteHook();
+        return true;
+    }
+    return false;
 }
 
 
@@ -246,9 +246,9 @@ OutputDevice::inform(const std::string& msg, const char progress) {
 }
 
 
-OutputDevice& 
+OutputDevice&
 OutputDevice::writeAttr(std::string attr, std::string val) {
-	myFormatter->writeAttr(getOStream(), attr, val);
+    myFormatter->writeAttr(getOStream(), attr, val);
     return *this;
 }
 

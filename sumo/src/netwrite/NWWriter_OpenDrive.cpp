@@ -75,9 +75,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const Boundary& b = GeoConvHelper::getFinal().getConvBoundary();
-    device << "    <header revMajor=\"1\" revMinor=\"3\" name=\"\" version=\"1.00\" date=\"" << dstr.substr(0, dstr.length()-1)
-        << "\" north=\"" << b.ymax() << "\" south=\"" << b.ymin() << "\" east=\"" << b.xmax() << "\" west=\"" << b.xmin()
-        << "\" maxRoad=\"" << ec.size() << "\" maxJunc=\"" << nc.size() << "\" maxPrg=\"0\"/>\n";
+    device << "    <header revMajor=\"1\" revMinor=\"3\" name=\"\" version=\"1.00\" date=\"" << dstr.substr(0, dstr.length() - 1)
+           << "\" north=\"" << b.ymax() << "\" south=\"" << b.ymin() << "\" east=\"" << b.xmax() << "\" west=\"" << b.xmin()
+           << "\" maxRoad=\"" << ec.size() << "\" maxJunc=\"" << nc.size() << "\" maxPrg=\"0\"/>\n";
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
@@ -87,11 +87,11 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device << "            <successor elementType=\"junction\" elementId=\"" << getID(e->getToNode()->getID(), nodeMap, nodeID) << "\"/>\n";
         device << "        </link>\n";
         device << "        <type s=\"0\" type=\"town\"/>\n";
-        const std::vector<NBEdge::Lane> &lanes = e->getLanes();
-        unsigned int li = (unsigned int)lanes.size()-1;
+        const std::vector<NBEdge::Lane>& lanes = e->getLanes();
+        unsigned int li = (unsigned int)lanes.size() - 1;
         PositionVector ls = e->getLaneShape(li);
-        SUMOReal width = lanes[li].width<0||!e->hasLaneSpecificWidth() ? SUMO_const_laneWidth : lanes[li].width;
-        ls.move2side(-width/2.);
+        SUMOReal width = lanes[li].width < 0 || !e->hasLaneSpecificWidth() ? SUMO_const_laneWidth : lanes[li].width;
+        ls.move2side(-width / 2.);
         writePlanView(ls, device);
         device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";
         device << "        <lateralProfile/>\n";
@@ -105,10 +105,10 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             device << "                            <predecessor id=\"-1\"/>\n"; // internal roads have this
             device << "                            <successor id=\"-1\"/>\n"; // internal roads have this
             device << "                        </link>\n";
-            SUMOReal width = lanes[j].width<0||!e->hasLaneSpecificWidth() ? SUMO_const_laneWidth : lanes[j].width;
+            SUMOReal width = lanes[j].width < 0 || !e->hasLaneSpecificWidth() ? SUMO_const_laneWidth : lanes[j].width;
             device << "                        <width sOffset=\"0\" a=\"" << width << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
             std::string markType = "broken";
-            if(j==0) {
+            if (j == 0) {
                 markType = "solid";
             }
             device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
@@ -125,9 +125,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write junction-internal edges (road)
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
-        const std::vector<NBEdge*> &incoming = (*i).second->getIncomingEdges();
+        const std::vector<NBEdge*>& incoming = (*i).second->getIncomingEdges();
         for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            const std::vector<NBEdge::Connection> &elv = (*j)->getConnections();
+            const std::vector<NBEdge::Connection>& elv = (*j)->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
                 if ((*k).toEdge == 0) {
                     continue;
@@ -140,8 +140,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 const SUMOReal width = SUMO_const_laneWidth;
                 // @todo: this if-clause is a hack which assures that the code also works with connections of zero length, what may be possible
                 // probably, it would make sense to mark such connections and connect the incoming/outgoing streets directly in such cases.
-                if (shape.length()!=0) { 
-                    shape.move2side(-width/2.);
+                if (shape.length() != 0) {
+                    shape.move2side(-width / 2.);
                 } else {
                     WRITE_WARNING("Same position problem at internal edge '" + c.id + "'.");
                 }
@@ -181,9 +181,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         NBNode* n = (*i).second;
         device << "    <junction name=\"" << n->getID() << "\" id=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
         unsigned int index = 0;
-        const std::vector<NBEdge*> &incoming = n->getIncomingEdges();
+        const std::vector<NBEdge*>& incoming = n->getIncomingEdges();
         for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            const std::vector<NBEdge::Connection> &elv = (*j)->getConnections();
+            const std::vector<NBEdge::Connection>& elv = (*j)->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
                 if ((*k).toEdge == 0) {
                     continue;
@@ -217,7 +217,7 @@ NWWriter_OpenDrive::writePlanView(const PositionVector& shape, OutputDevice& dev
 
 
 void
-NWWriter_OpenDrive::writeEmptyCenterLane(OutputDevice& device, const std::string &mark, SUMOReal markWidth) {
+NWWriter_OpenDrive::writeEmptyCenterLane(OutputDevice& device, const std::string& mark, SUMOReal markWidth) {
     device << "                <center>\n";
     device << "                    <lane id=\"0\" type=\"none\" level= \"0\">\n";
     device << "                        <link/>\n";
@@ -229,7 +229,7 @@ NWWriter_OpenDrive::writeEmptyCenterLane(OutputDevice& device, const std::string
 
 
 int
-NWWriter_OpenDrive::getID(const std::string& origID, StringBijection<int> &map, int& lastID) {
+NWWriter_OpenDrive::getID(const std::string& origID, StringBijection<int>& map, int& lastID) {
     if (map.hasString(origID)) {
         return map.get(origID);
     }

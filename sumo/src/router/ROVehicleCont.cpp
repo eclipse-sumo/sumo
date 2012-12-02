@@ -97,7 +97,7 @@ void
 ROVehicleCont::rebuildSorted() {
     mySorted = std::priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROVehicleByDepartureComperator>();
     std::map<std::string, ROVehicle*>::const_iterator i;
-    const std::map<std::string, ROVehicle*> &mmap = getMyMap();
+    const std::map<std::string, ROVehicle*>& mmap = getMyMap();
     for (i = mmap.begin(); i != mmap.end(); ++i) {
         mySorted.push((*i).second);
     }

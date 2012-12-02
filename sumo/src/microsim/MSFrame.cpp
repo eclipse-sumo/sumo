@@ -121,18 +121,18 @@ MSFrame::fillOptions() {
 
     oc.doRegister("emission-output", new Option_FileName());
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle");
-	oc.doRegister("fcd-output", new Option_FileName());
+    oc.doRegister("fcd-output", new Option_FileName());
     oc.addDescription("fcd-output", "Output", "Save the Floating Car Data");
-	oc.doRegister("fcd-output.geo", new Option_Bool(false));
+    oc.doRegister("fcd-output.geo", new Option_Bool(false));
     oc.addDescription("fcd-output.geo", "Output", "Save the Floating Car Data using geo-coordinates (lon/lat)");
-	oc.doRegister("full-output", new Option_FileName());
+    oc.doRegister("full-output", new Option_FileName());
     oc.addDescription("full-output", "Output", "Save a lot of information for each timestep (very redundant)");
-	oc.doRegister("queue-output", new Option_FileName());
+    oc.doRegister("queue-output", new Option_FileName());
     oc.addDescription("queue-output", "Output", "Save the vehicle queues at the junctions (experimental)");
-	oc.doRegister("vtk-output", new Option_FileName());
+    oc.doRegister("vtk-output", new Option_FileName());
     oc.addDescription("vtk-output", "Output", "Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files)");
 
-	
+
     oc.doRegister("summary-output", new Option_FileName());
     oc.addSynonyme("summary-output", "summary");
     oc.addSynonyme("summary-output", "emissions-output", true);
@@ -162,7 +162,7 @@ MSFrame::fillOptions() {
     oc.doRegister("vehroute-output.write-unfinished", new Option_Bool(false));
     oc.addDescription("vehroute-output.write-unfinished", "Output", "Write vehroute output for vehicles which have not arrived at simulation end");
 
-    
+
 
 #ifdef HAVE_INTERNAL
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
@@ -225,12 +225,12 @@ MSFrame::fillOptions() {
     oc.addDescription("lanechange.allow-swap", "Processing", "Whether blocking vehicles trying to change lanes may be swapped.");
 
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-    oc.addDescription("routing-algorithm", "Processing", 
-            "Select among routing algorithms ['dijkstra', 'astar']");
+    oc.addDescription("routing-algorithm", "Processing",
+                      "Select among routing algorithms ['dijkstra', 'astar']");
 
     oc.doRegister("routeDist.maxsize", new Option_Integer());
-    oc.addDescription("routeDist.maxsize", "Processing", 
-            "Restrict the maximum size of route distributions");
+    oc.addDescription("routeDist.maxsize", "Processing",
+                      "Restrict the maximum size of route distributions");
 
     // devices
     MSDevice_Routing::insertOptions();
@@ -312,13 +312,13 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
     OutputDevice::createDeviceByOption("summary-output", "summary");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
-   
+
     //extended
-	OutputDevice::createDeviceByOption("fcd-output", "fcd-export");
+    OutputDevice::createDeviceByOption("fcd-output", "fcd-export");
     OutputDevice::createDeviceByOption("emission-output", "emission-export");
     OutputDevice::createDeviceByOption("full-output", "full-export");
-	OutputDevice::createDeviceByOption("queue-output", "queue-export");
-	OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
+    OutputDevice::createDeviceByOption("queue-output", "queue-export");
+    OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
 
     MSDevice_Vehroutes::init();
 }
@@ -349,8 +349,8 @@ MSFrame::checkOptions() {
         WRITE_ERROR("A vehroute-output file is needed for exit times.");
         ok = false;
     }
-    if (oc.isSet("gui-settings-file") && 
-            oc.getString("gui-settings-file") != "" && 
+    if (oc.isSet("gui-settings-file") &&
+            oc.getString("gui-settings-file") != "" &&
             !oc.isUsableFileList("gui-settings-file")) {
         ok = false;
     }

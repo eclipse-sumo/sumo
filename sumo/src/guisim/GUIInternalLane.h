@@ -118,7 +118,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool setCritical(SUMOTime t, std::vector<MSLane*> &into);
+    bool setCritical(SUMOTime t, std::vector<MSLane*>& into);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */

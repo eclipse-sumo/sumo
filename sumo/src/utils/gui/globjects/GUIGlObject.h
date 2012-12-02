@@ -188,7 +188,7 @@ public:
     void setNode(osg::Node* node) {
         myOSGNode = node;
     }
-    
+
     osg::Node* getNode() const {
         return myOSGNode;
     }

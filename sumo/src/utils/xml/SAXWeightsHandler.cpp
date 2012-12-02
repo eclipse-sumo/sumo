@@ -63,7 +63,7 @@ SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition() {
 // ---------------------------------------------------------------------------
 // SAXWeightsHandler methods
 // ---------------------------------------------------------------------------
-SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
+SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*>& defs,
                                      const std::string& file)
     : SUMOSAXHandler(file), myDefinitions(defs),
       myCurrentTimeBeg(-1), myCurrentTimeEnd(-1) {}

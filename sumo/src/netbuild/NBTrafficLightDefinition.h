@@ -99,7 +99,7 @@ public:
      * @param[in] offset The offset of the plan
      */
     NBTrafficLightDefinition(const std::string& id,
-                             const std::vector<NBNode*> &junctions,
+                             const std::vector<NBNode*>& junctions,
                              const std::string& programID,
                              SUMOTime offset);
 
@@ -159,7 +159,7 @@ public:
     /** @brief Returns the list of controlled nodes
      * @return Controlled nodes
      */
-    const std::vector<NBNode*> &getNodes() const {
+    const std::vector<NBNode*>& getNodes() const {
         return myControlledNodes;
     }
     /// @}
@@ -242,7 +242,7 @@ public:
     /** @brief Adds the given ids into the list of edges not controlled by the tls
      * @param[in] edges The list of edge ids to add the inner edges to
      */
-    void addControlledInnerEdges(const std::vector<std::string> &edges);
+    void addControlledInnerEdges(const std::vector<std::string>& edges);
 
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions

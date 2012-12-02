@@ -470,7 +470,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
             remainingStretchTime = allStretchTime - StretchTimeOfPhase;
         }
     }
-    if(facSum==0) {
+    if (facSum == 0) {
         WRITE_WARNING("The computed factor sum in WAUT '" + myWAUT.id + "' at time '" + toString(STEPS2TIME(step)) + "' equals zero;\n assuming an error in WAUT definition.");
         return;
     }
@@ -764,7 +764,7 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
 SUMOTime
 MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
     const std::string& wautid = cmd.getWAUTID();
-    unsigned int &index = cmd.getIndex();
+    unsigned int& index = cmd.getIndex();
     WAUTSwitch s = myWAUTs[wautid]->switches[index];
     for (std::vector<WAUTJunction>::iterator i = myWAUTs[wautid]->junctions.begin(); i != myWAUTs[wautid]->junctions.end(); ++i) {
         // get the current program and the one to instantiate

@@ -82,7 +82,7 @@ public:
      */
     GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                            GUIVisualizationSettings* settings,
-                           std::vector<GUISUMOAbstractView::Decal> *decals,
+                           std::vector<GUISUMOAbstractView::Decal>* decals,
                            MFXMutex* decalsLock);
 
 
@@ -213,7 +213,7 @@ private:
     GUIVisualizationSettings myBackup;
 
     /// @brief The parent's decals
-    std::vector<GUISUMOAbstractView::Decal> *myDecals;
+    std::vector<GUISUMOAbstractView::Decal>* myDecals;
 
     /// @brief Lock used when changing the decals
     MFXMutex* myDecalsLock;

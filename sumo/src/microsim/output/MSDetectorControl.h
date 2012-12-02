@@ -159,7 +159,7 @@ public:
      * @param[in] type The type of detectors to be retrieved
      * @return The container of detectors
      */
-    const NamedObjectCont<MSDetectorFileOutput*> &getTypedDetectors(SumoXMLTag type) const;
+    const NamedObjectCont<MSDetectorFileOutput*>& getTypedDetectors(SumoXMLTag type) const;
 
 
 

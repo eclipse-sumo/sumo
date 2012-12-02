@@ -116,7 +116,7 @@ public:
      * @todo What about vehicle-type aware connections?
      * @note: if HAVE_INTERNAL is defined, the backward connections is added as well
      */
-    virtual void addFollower(ROEdge* s, std::string dir="");
+    virtual void addFollower(ROEdge* s, std::string dir = "");
 
 
     /** @brief Sets the type of te edge
@@ -359,9 +359,9 @@ public:
     };
 
     static void setTimeLineOptions(
-            bool useBoundariesOnOverrideTT,
-            bool useBoundariesOnOverrideE,
-            bool interpolate) {
+        bool useBoundariesOnOverrideTT,
+        bool useBoundariesOnOverrideE,
+        bool interpolate) {
         myUseBoundariesOnOverrideTT = useBoundariesOnOverrideTT;
         myUseBoundariesOnOverrideE = useBoundariesOnOverrideE;
         myInterpolate = interpolate;

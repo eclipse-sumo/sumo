@@ -228,19 +228,18 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
  * GUITriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUITriggeredRerouter(
-        const std::string& id,
-        const std::vector<MSEdge*> &edges,
-        SUMOReal prob, const std::string& aXMLFilename, bool off,
-        SUMORTree& rtree) : 
+    const std::string& id,
+    const std::vector<MSEdge*>& edges,
+    SUMOReal prob, const std::string& aXMLFilename, bool off,
+    SUMORTree& rtree) :
     MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
-    GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) 
-{
+    GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) {
     // add visualisation objects for edges which trigger the rerouter
     for (std::vector<MSEdge*>::const_iterator it = edges.begin(); it != edges.end(); ++it) {
         myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, false));
     }
     // add visualisation objects for closed edges
-    for (std::vector<RerouteInterval>::const_iterator it_interval = myIntervals.begin(); 
+    for (std::vector<RerouteInterval>::const_iterator it_interval = myIntervals.begin();
             it_interval != myIntervals.end(); ++it_interval) {
         const std::vector<MSEdge*>& closed = it_interval->closed;
         for (std::vector<MSEdge*>::const_iterator it = closed.begin(); it != closed.end(); ++it) {
@@ -317,9 +316,8 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
     GUIGlObject("rerouter_edge", GLO_TRIGGER, parent->getID() + ":" + edge->getID()),
     myParent(parent),
     myEdge(edge),
-    myAmClosedEdge(closed)
-{
-    const std::vector<MSLane*> &lanes = edge->getLanes();
+    myAmClosedEdge(closed) {
+    const std::vector<MSLane*>& lanes = edge->getLanes();
     const size_t noLanes = lanes.size();
     myFGPositions.reserve(noLanes);
     myFGRotations.reserve(noLanes);
@@ -338,7 +336,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::~GUITriggeredRerouterEdge() {}
 
 GUIGLObjectPopupMenu*
 GUITriggeredRerouter::GUITriggeredRerouterEdge::getPopUpMenu(GUIMainWindow& app,
-                                   GUISUMOAbstractView& parent) {
+        GUISUMOAbstractView& parent) {
     return myParent->getPopUpMenu(app, parent);
 }
 

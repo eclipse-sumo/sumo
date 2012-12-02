@@ -199,7 +199,7 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
 }
 
 
-void 
+void
 MSSimpleTrafficLightLogic::setPhases(const Phases& phases, unsigned int step) {
     assert(step < phases.size());
     deletePhases();
@@ -208,7 +208,7 @@ MSSimpleTrafficLightLogic::setPhases(const Phases& phases, unsigned int step) {
 }
 
 
-void 
+void
 MSSimpleTrafficLightLogic::deletePhases() {
     for (size_t i = 0; i < myPhases.size(); i++) {
         delete myPhases[i];

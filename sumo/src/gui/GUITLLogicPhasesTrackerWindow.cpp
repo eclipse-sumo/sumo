@@ -153,7 +153,7 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow, FXMainWindow, GUITLLogicPhasesTracker
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUIMainWindow& app,
     MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& wrapper,
-    ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src)
+    ValueSource<std::pair<SUMOTime, MSPhaseDefinition> >* src)
     : FXMainWindow(app.getApp(), "TLS-Tracker", NULL, NULL, DECOR_ALL,
                    20, 20, 300, 200),
     myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {

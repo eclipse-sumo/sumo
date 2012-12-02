@@ -167,15 +167,15 @@ TraCIServer::~TraCIServer() {
         mySocket->close();
         delete mySocket;
     }
-    for(std::map<int, TraCIRTree*>::const_iterator i=myObjects.begin(); i!=myObjects.end(); ++i) {
-        delete (*i).second;
+    for (std::map<int, TraCIRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
+        delete(*i).second;
     }
 }
 
 
 // ---------- Initialisation and Shutdown
 void
-TraCIServer::openSocket(const std::map<int, CmdExecutor> &execs) {
+TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
     if (myInstance == 0) {
         if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
             myInstance = new traci::TraCIServer(OptionsCont::getOptions().getInt("remote-port"));
@@ -619,7 +619,7 @@ TraCIServer::writeStatusCmd(int commandId, int status, const std::string& descri
 }
 
 
-void 
+void
 TraCIServer::initialiseSubscription(const TraCIServer::Subscription& s) {
     tcpip::Storage writeInto;
     std::string errors;
@@ -637,11 +637,11 @@ TraCIServer::initialiseSubscription(const TraCIServer::Subscription& s) {
 }
 
 
-void 
-TraCIServer::removeSubscription(int commandId, const std::string &id, int domain) {
+void
+TraCIServer::removeSubscription(int commandId, const std::string& id, int domain) {
     bool found = false;
     for (std::vector<Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
-        if ((*j).id == id && (*j).commandId == commandId && (domain<0 || (*j).contextDomain == domain)) {
+        if ((*j).id == id && (*j).commandId == commandId && (domain < 0 || (*j).contextDomain == domain)) {
             j = mySubscriptions.erase(j);
             found = true;
             continue;
@@ -657,72 +657,72 @@ TraCIServer::removeSubscription(int commandId, const std::string &id, int domain
 }
 
 
-bool 
-TraCIServer::findObjectShape(int domain, const std::string &id, PositionVector &shape) {
+bool
+TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& shape) {
     Position p;
-    switch(domain) {
-    case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
-        if (TraCIServerAPI_InductionLoop::getPosition(id, p)) {
-            shape.push_back(p);
-            break;
-        }
-        return false;
-    case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
-        return false;
-    case CMD_SUBSCRIBE_TL_CONTEXT:
-        return false;
-    case CMD_SUBSCRIBE_LANE_CONTEXT:
-        if (TraCIServerAPI_Lane::getShape(id, shape)) {
-            break;
-        }
-        return false;
-    case CMD_SUBSCRIBE_VEHICLE_CONTEXT: 
-        if (TraCIServerAPI_Vehicle::getPosition(id, p)) {
-            shape.push_back(p);
-            break;
-        }
-        return false;
-    case CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
-        return false;
-    case CMD_SUBSCRIBE_ROUTE_CONTEXT:
-        return false;
-    case CMD_SUBSCRIBE_POI_CONTEXT:
-        if (TraCIServerAPI_POI::getPosition(id, p)) {
-            shape.push_back(p);
-            break;
-        }
-        return false;
-    case CMD_SUBSCRIBE_POLYGON_CONTEXT:
-        if (TraCIServerAPI_Polygon::getShape(id, shape)) {
-            break;
-        }
-        return false;
-    case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
-        if (TraCIServerAPI_Junction::getPosition(id, p)) {
-            shape.push_back(p);
-            break;
-        }
-        return false;
-    case CMD_SUBSCRIBE_EDGE_CONTEXT:
-        if (TraCIServerAPI_Edge::getShape(id, shape)) {
-            break;
-        }
-        return false;
-    case CMD_SUBSCRIBE_SIM_CONTEXT:
-        return false;
-    case CMD_SUBSCRIBE_GUI_CONTEXT:
-        return false;
-    default:
-        return false;
+    switch (domain) {
+        case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
+            if (TraCIServerAPI_InductionLoop::getPosition(id, p)) {
+                shape.push_back(p);
+                break;
+            }
+            return false;
+        case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
+            return false;
+        case CMD_SUBSCRIBE_TL_CONTEXT:
+            return false;
+        case CMD_SUBSCRIBE_LANE_CONTEXT:
+            if (TraCIServerAPI_Lane::getShape(id, shape)) {
+                break;
+            }
+            return false;
+        case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+            if (TraCIServerAPI_Vehicle::getPosition(id, p)) {
+                shape.push_back(p);
+                break;
+            }
+            return false;
+        case CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
+            return false;
+        case CMD_SUBSCRIBE_ROUTE_CONTEXT:
+            return false;
+        case CMD_SUBSCRIBE_POI_CONTEXT:
+            if (TraCIServerAPI_POI::getPosition(id, p)) {
+                shape.push_back(p);
+                break;
+            }
+            return false;
+        case CMD_SUBSCRIBE_POLYGON_CONTEXT:
+            if (TraCIServerAPI_Polygon::getShape(id, shape)) {
+                break;
+            }
+            return false;
+        case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
+            if (TraCIServerAPI_Junction::getPosition(id, p)) {
+                shape.push_back(p);
+                break;
+            }
+            return false;
+        case CMD_SUBSCRIBE_EDGE_CONTEXT:
+            if (TraCIServerAPI_Edge::getShape(id, shape)) {
+                break;
+            }
+            return false;
+        case CMD_SUBSCRIBE_SIM_CONTEXT:
+            return false;
+        case CMD_SUBSCRIBE_GUI_CONTEXT:
+            return false;
+        default:
+            return false;
     }
     return true;
 }
 
-void 
-TraCIServer::collectObjectsInRange(int domain, const PositionVector &shape, SUMOReal range, std::set<std::string> &into) {
+void
+TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, SUMOReal range, std::set<std::string>& into) {
     // build the look-up tree if not yet existing
-    if(myObjects.find(domain)==myObjects.end()) {
-        switch(domain) {
+    if (myObjects.find(domain) == myObjects.end()) {
+        switch (domain) {
             case CMD_GET_INDUCTIONLOOP_VARIABLE:
                 myObjects[CMD_GET_INDUCTIONLOOP_VARIABLE] = TraCIServerAPI_InductionLoop::getTree();
                 break;
@@ -734,7 +734,7 @@ TraCIServer::collectObjectsInRange(int domain, const PositionVector &shape, SUMO
                 myObjects[CMD_GET_LANE_VARIABLE] = TraCIServerAPI_Lane::getTree();
                 break;
             case CMD_GET_VEHICLE_VARIABLE:
-                if(myObjects.find(CMD_GET_LANE_VARIABLE)==myObjects.end()) {
+                if (myObjects.find(CMD_GET_LANE_VARIABLE) == myObjects.end()) {
                     myObjects[CMD_GET_LANE_VARIABLE] = TraCIServerAPI_Lane::getTree();
                 }
                 break;
@@ -765,79 +765,79 @@ TraCIServer::collectObjectsInRange(int domain, const PositionVector &shape, SUMO
     const Boundary b = shape.getBoxBoundary().grow(range);
     const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
     const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-    switch(domain) {
-    case CMD_GET_INDUCTIONLOOP_VARIABLE: {
-        Named::StoringVisitor sv(into);
-        myObjects[CMD_GET_INDUCTIONLOOP_VARIABLE]->Search(cmin, cmax, sv);
-                                         }
-        break;
-    case CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
-        break;
-    case CMD_GET_TL_VARIABLE:
-        break;
-    case CMD_GET_LANE_VARIABLE: {
-        Named::StoringVisitor sv(into);
-        myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
-        if (shape.size() == 1) {
-            for (std::set<std::string>::iterator i=into.begin(); i!=into.end();) {
-                const MSLane* const l = MSLane::dictionary(*i);
-                if (l->getShape().distance(shape[0]) > range) {
-                    into.erase(i++);
-                } else {
-                    ++i;
-                }
-            }
+    switch (domain) {
+        case CMD_GET_INDUCTIONLOOP_VARIABLE: {
+            Named::StoringVisitor sv(into);
+            myObjects[CMD_GET_INDUCTIONLOOP_VARIABLE]->Search(cmin, cmax, sv);
         }
-                                   }
         break;
-    case CMD_GET_VEHICLE_VARIABLE: {
-        std::set<std::string> tmp;
-        Named::StoringVisitor sv(tmp);
-        myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
-        for(std::set<std::string>::const_iterator i=tmp.begin(); i!=tmp.end(); ++i) {
-            MSLane *l = MSLane::dictionary(*i);
-            if (l!=0) {
-                const std::deque<MSVehicle*> &vehs = l->getVehiclesSecure();
-                for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
-                    if (shape.distance((*j)->getPosition()) <= range) {
-                        into.insert((*j)->getID());
+        case CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
+            break;
+        case CMD_GET_TL_VARIABLE:
+            break;
+        case CMD_GET_LANE_VARIABLE: {
+            Named::StoringVisitor sv(into);
+            myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
+            if (shape.size() == 1) {
+                for (std::set<std::string>::iterator i = into.begin(); i != into.end();) {
+                    const MSLane* const l = MSLane::dictionary(*i);
+                    if (l->getShape().distance(shape[0]) > range) {
+                        into.erase(i++);
+                    } else {
+                        ++i;
                     }
                 }
-                l->releaseVehicles();
             }
         }
-                                   }
         break;
-    case CMD_GET_VEHICLETYPE_VARIABLE:
+        case CMD_GET_VEHICLE_VARIABLE: {
+            std::set<std::string> tmp;
+            Named::StoringVisitor sv(tmp);
+            myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
+            for (std::set<std::string>::const_iterator i = tmp.begin(); i != tmp.end(); ++i) {
+                MSLane* l = MSLane::dictionary(*i);
+                if (l != 0) {
+                    const std::deque<MSVehicle*>& vehs = l->getVehiclesSecure();
+                    for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
+                        if (shape.distance((*j)->getPosition()) <= range) {
+                            into.insert((*j)->getID());
+                        }
+                    }
+                    l->releaseVehicles();
+                }
+            }
+        }
         break;
-    case CMD_GET_ROUTE_VARIABLE:
+        case CMD_GET_VEHICLETYPE_VARIABLE:
+            break;
+        case CMD_GET_ROUTE_VARIABLE:
+            break;
+        case CMD_GET_POI_VARIABLE: {
+            Named::StoringVisitor sv(into);
+            myObjects[CMD_GET_POI_VARIABLE]->Search(cmin, cmax, sv);
+        }
         break;
-    case CMD_GET_POI_VARIABLE: {
-        Named::StoringVisitor sv(into);
-        myObjects[CMD_GET_POI_VARIABLE]->Search(cmin, cmax, sv);
-                               }
+        case CMD_GET_POLYGON_VARIABLE: {
+            Named::StoringVisitor sv(into);
+            myObjects[CMD_GET_POLYGON_VARIABLE]->Search(cmin, cmax, sv);
+        }
         break;
-    case CMD_GET_POLYGON_VARIABLE: {
-        Named::StoringVisitor sv(into);
-        myObjects[CMD_GET_POLYGON_VARIABLE]->Search(cmin, cmax, sv);
-                                   }
+        case CMD_GET_JUNCTION_VARIABLE: {
+            Named::StoringVisitor sv(into);
+            myObjects[CMD_GET_JUNCTION_VARIABLE]->Search(cmin, cmax, sv);
+        }
         break;
-    case CMD_GET_JUNCTION_VARIABLE: {
-        Named::StoringVisitor sv(into);
-        myObjects[CMD_GET_JUNCTION_VARIABLE]->Search(cmin, cmax, sv);
-                                    }
+        case CMD_GET_EDGE_VARIABLE: {
+            Named::StoringVisitor sv(into);
+            myObjects[CMD_GET_EDGE_VARIABLE]->Search(cmin, cmax, sv);
+        }
         break;
-    case CMD_GET_EDGE_VARIABLE: {
-        Named::StoringVisitor sv(into);
-        myObjects[CMD_GET_EDGE_VARIABLE]->Search(cmin, cmax, sv);
-                                }
-        break;
-    case CMD_GET_SIM_VARIABLE:
-        break;
-    case CMD_GET_GUI_VARIABLE:
-        break;
-    default:
-        break;
+        case CMD_GET_SIM_VARIABLE:
+            break;
+        case CMD_GET_GUI_VARIABLE:
+            break;
+        default:
+            break;
     }
 }
 
@@ -849,7 +849,7 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
     tcpip::Storage outputStorage;
     int getCommandId = s.contextVars ? s.contextDomain : s.commandId - 0x30;
     std::set<std::string> objIDs;
-    if(s.contextVars) {
+    if (s.contextVars) {
         getCommandId = s.contextDomain;
         PositionVector shape;
         if (!findObjectShape(s.commandId, s.id, shape)) {
@@ -861,8 +861,8 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
         objIDs.insert(s.id);
     }
 
-    for (std::set<std::string>::iterator j=objIDs.begin(); j!=objIDs.end(); ++j) {
-        if(s.contextVars) {
+    for (std::set<std::string>::iterator j = objIDs.begin(); j != objIDs.end(); ++j) {
+        if (s.contextVars) {
             outputStorage.writeString(*j);
         }
         for (std::vector<int>::const_iterator i = s.variables.begin(); i != s.variables.end(); ++i) {
@@ -915,21 +915,21 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
         }
     }
     unsigned int length = (1 + 4) + 1 + (4 + (int)(s.id.length())) + 1 + (int)outputStorage.size();
-    if(s.contextVars) {
+    if (s.contextVars) {
         length += 4;
     }
     writeInto.writeUnsignedByte(0); // command length -> extended
     writeInto.writeInt(length);
     writeInto.writeUnsignedByte(s.commandId + 0x10);
     writeInto.writeString(s.id);
-    if(s.contextVars) {
+    if (s.contextVars) {
         writeInto.writeUnsignedByte(s.contextDomain);
     }
     writeInto.writeUnsignedByte((int)(s.variables.size()));
-    if(s.contextVars) {
+    if (s.contextVars) {
         writeInto.writeInt((int)objIDs.size());
     }
-    if(!s.contextVars || objIDs.size()!=0) {
+    if (!s.contextVars || objIDs.size() != 0) {
         writeInto.writeStorage(outputStorage);
     }
     return ok;

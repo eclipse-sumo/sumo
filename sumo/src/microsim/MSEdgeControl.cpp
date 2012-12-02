@@ -45,13 +45,13 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* > &edges)
+MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
     : myEdges(edges),
       myLanes(MSLane::dictSize()),
       myLastLaneChange(MSEdge::dictSize()) {
     // build the usage definitions for lanes
     for (std::vector< MSEdge* >::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        const std::vector<MSLane*> &lanes = (*i)->getLanes();
+        const std::vector<MSLane*>& lanes = (*i)->getLanes();
         if (lanes.size() == 1) {
             size_t pos = (*lanes.begin())->getNumericalID();
             myLanes[pos].lane = *(lanes.begin());
@@ -146,7 +146,7 @@ MSEdgeControl::changeLanes(SUMOTime t) {
             if (myLastLaneChange[edge.getNumericalID()] != t) {
                 myLastLaneChange[edge.getNumericalID()] = t;
                 edge.changeLanes(t);
-                const std::vector<MSLane*> &lanes = edge.getLanes();
+                const std::vector<MSLane*>& lanes = edge.getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
                     LaneUsage& lu = myLanes[(*i)->getNumericalID()];
                     if ((*i)->getVehicleNumber() > 0 && !lu.amActive) {

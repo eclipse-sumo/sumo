@@ -54,7 +54,7 @@
 GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
                  MSEdge* const edge, unsigned int numericalID,
                  const PositionVector& shape, SUMOReal width,
-                 SVCPermissions permissions) : 
+                 SVCPermissions permissions) :
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions) {}
 
 
@@ -98,7 +98,7 @@ GUILane::moveCritical(SUMOTime t) {
 
 
 bool
-GUILane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
+GUILane::setCritical(SUMOTime t, std::vector<MSLane*>& into) {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSLane::setCritical(t, into);
 }

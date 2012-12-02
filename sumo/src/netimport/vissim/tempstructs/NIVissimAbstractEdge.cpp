@@ -50,8 +50,7 @@ NIVissimAbstractEdge::DictType NIVissimAbstractEdge::myDict;
 
 NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
         const PositionVector& geom)
-    : myID(id), myNode(-1) 
-{
+    : myID(id), myNode(-1) {
     // convert/publicate geometry
     for (PositionVector::ContType::const_iterator i = geom.begin(); i != geom.end(); ++i) {
         Position p = *i;

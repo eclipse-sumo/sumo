@@ -79,7 +79,7 @@ RODFRouteCont::removeRouteDesc(RODFRouteDesc& desc) {
 
 
 bool
-RODFRouteCont::save(std::vector<std::string> &saved,
+RODFRouteCont::save(std::vector<std::string>& saved,
                     const std::string& prependix, OutputDevice& out) {
     bool haveSavedOneAtLeast = false;
     for (std::vector<RODFRouteDesc>::const_iterator j = myRoutes.begin(); j != myRoutes.end(); ++j) {
@@ -112,7 +112,7 @@ RODFRouteCont::sortByDistance() {
 
 
 void
-RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals) {
+RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> >& illegals) {
     for (std::vector<RODFRouteDesc>::iterator i = myRoutes.begin(); i != myRoutes.end();) {
         RODFRouteDesc& desc = *i;
         bool remove = false;

@@ -114,7 +114,7 @@ ROJTREdge::chooseNext(const ROVehicle* const veh, SUMOTime time) const {
 
 
 void
-ROJTREdge::setTurnDefaults(const std::vector<SUMOReal> &defs) {
+ROJTREdge::setTurnDefaults(const std::vector<SUMOReal>& defs) {
     // I hope, we'll find a less ridiculous solution for this
     std::vector<SUMOReal> tmp(defs.size()*myFollowingEdges.size(), 0);
     // store in less common multiple

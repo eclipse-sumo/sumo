@@ -66,7 +66,7 @@ public:
     /** @brief Constructor
      * @param[in] v The vector to copy
      */
-    PositionVector(const std::vector<Position> &v);
+    PositionVector(const std::vector<Position>& v);
 
 
     /// @brief Destructor
@@ -114,11 +114,11 @@ public:
     /** Returns any intersection Points with the given line (ignoring z-coordinates) */
     PositionVector intersectionPoints2D(const Line& line) const;
 
-    /** @brief For all intersections between this vector and other, 
+    /** @brief For all intersections between this vector and other,
      * return the 2D-length of the subvector from this vectors start to the intersection */
     std::vector<SUMOReal> intersectsAtLengths2D(const PositionVector& other) const; // !!!
 
-    /** @brief For all intersections between this vector and line, 
+    /** @brief For all intersections between this vector and line,
      * return the 2D-length of the subvector from this vectors start to the intersection */
     std::vector<SUMOReal> intersectsAtLengths2D(const Line& line) const; // !!!
 

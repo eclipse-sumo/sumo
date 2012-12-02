@@ -47,12 +47,12 @@
 // method definitions
 // ===========================================================================
 void
-AGActivities::addTrip(AGTrip t, std::list<AGTrip> *tripSet) {
+AGActivities::addTrip(AGTrip t, std::list<AGTrip>* tripSet) {
     tripSet->push_back(t);
 }
 
 void
-AGActivities::addTrips(std::list<AGTrip> t, std::list<AGTrip> *tripSet) {
+AGActivities::addTrips(std::list<AGTrip> t, std::list<AGTrip>* tripSet) {
     std::list<AGTrip>::iterator it;
     for (it = t.begin(); it != t.end(); ++it) {
         tripSet->push_back(*it);

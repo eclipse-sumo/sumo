@@ -135,8 +135,8 @@ protected:
      * @param[in] origNames Whether original names shall be written as parameter
      */
     static void writeLane(OutputDevice& into, const std::string& lID, const std::string& eID,
-                          const NBEdge::Lane& lane, SUMOReal length, unsigned int index, 
-						  bool origNames);
+                          const NBEdge::Lane& lane, SUMOReal length, unsigned int index,
+                          bool origNames);
 
 
     /** @brief Writes a junction (<junction ...)
@@ -164,7 +164,7 @@ protected:
      * @param[in] into The device to write the edge into
      * @param[in] r The roundabout to write
      */
-    static void writeRoundabout(OutputDevice& into, const std::set<NBEdge*> &r);
+    static void writeRoundabout(OutputDevice& into, const std::set<NBEdge*>& r);
 
 
     /** @brief Writes a district
@@ -182,7 +182,7 @@ private:
      * @param[in] shape The shape of the edge
      */
     static void writeInternalEdge(OutputDevice& into, const std::string& id, SUMOReal vmax, const PositionVector& shape,
-		const std::string &origID);
+                                  const std::string& origID);
 
     /** @brief Writes a single internal connection
      * @param[in] from The id of the from-edge

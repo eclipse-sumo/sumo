@@ -85,7 +85,7 @@ GUISelectedStorage::SingleTypeSelections::save(const std::string& filename) {
 }
 
 
-const std::set<GUIGlID> &
+const std::set<GUIGlID>&
 GUISelectedStorage::SingleTypeSelections::getSelected() const {
     return mySelected;
 }
@@ -165,13 +165,13 @@ GUISelectedStorage::toggleSelection(GUIGlID id) {
 }
 
 
-const std::set<GUIGlID> &
+const std::set<GUIGlID>&
 GUISelectedStorage::getSelected() const {
     return myAllSelected;
 }
 
 
-const std::set<GUIGlID> &
+const std::set<GUIGlID>&
 GUISelectedStorage::getSelected(GUIGlObjectType type) {
     return mySelections[type].getSelected();
 }

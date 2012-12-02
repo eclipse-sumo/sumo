@@ -55,7 +55,7 @@ public:
     static void insertRandOptions();
 
     /// @brief Reads the given random number options and initialises the random number generator in accordance
-    static void initRandGlobal(MTRand *which=0);
+    static void initRandGlobal(MTRand* which = 0);
 
     /// @brief Returns a random real number in [0, 1)
     static inline SUMOReal rand() {
@@ -88,14 +88,14 @@ public:
     }
 
     /// @brief Access to a random number from a normal distribution
-    static inline SUMOReal randNorm(SUMOReal mean, SUMOReal variance, MTRand& rng=myRandomNumberGenerator) {
+    static inline SUMOReal randNorm(SUMOReal mean, SUMOReal variance, MTRand& rng = myRandomNumberGenerator) {
         return (SUMOReal) rng.randNorm(mean, variance);
     }
 
     /// @brief Returns a random element from the given vector
     template<class T>
     static inline T
-    getRandomFrom(const std::vector<T> &v) {
+    getRandomFrom(const std::vector<T>& v) {
         assert(v.size() > 0);
         return v[rand(v.size())];
     }

@@ -49,12 +49,12 @@ RODFEdge::~RODFEdge() {}
 
 
 void
-RODFEdge::setFlows(const std::vector<FlowDef> &flows) {
+RODFEdge::setFlows(const std::vector<FlowDef>& flows) {
     myFlows = flows;
 }
 
 
-const std::vector<FlowDef> &
+const std::vector<FlowDef>&
 RODFEdge::getFlows() const {
     return myFlows;
 }

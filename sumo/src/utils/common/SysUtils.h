@@ -47,7 +47,7 @@ public:
 
 #ifdef _MSC_VER
     /** @brief Returns the CPU ticks (windows only)
-     * 
+     *
      * Used for random number initialisation, linux version
      *  uses a different method
      */

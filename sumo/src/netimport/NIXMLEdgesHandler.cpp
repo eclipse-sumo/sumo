@@ -231,7 +231,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge != 0) {
         myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                               myCurrentLaneNo, myCurrentPriority, myShape,
-                              myCurrentWidth, myCurrentOffset, 
+                              myCurrentWidth, myCurrentOffset,
                               myCurrentStreetName, myLanesSpread,
                               myReinitKeepEdgeShape);
     } else {
@@ -360,15 +360,15 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
     std::string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
     std::string oldBegID = begNodeID;
     std::string oldEndID = endNodeID;
-    if(attrs.hasAttribute(SUMO_ATTR_FROM)) {
+    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
         begNodeID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
-    } else if(!myIsUpdate) {
+    } else if (!myIsUpdate) {
         WRITE_ERROR("The from-node is not given for edge '" + myCurrentID + "'.");
         ok = false;
     }
-    if(attrs.hasAttribute(SUMO_ATTR_TO)) {
+    if (attrs.hasAttribute(SUMO_ATTR_TO)) {
         endNodeID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
-    } else if(!myIsUpdate) {
+    } else if (!myIsUpdate) {
         WRITE_ERROR("The to-node is not given for edge '" + myCurrentID + "'.");
         ok = false;
     }
@@ -377,12 +377,12 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
     }
     myFromNode = myNodeCont.retrieve(begNodeID);
     myToNode = myNodeCont.retrieve(endNodeID);
-    if(myFromNode==0) {
+    if (myFromNode == 0) {
         WRITE_ERROR("Edge's '" + myCurrentID + "' from-node '" + begNodeID + "' is not known.");
-    } 
-    if(myToNode==0) {
+    }
+    if (myToNode == 0) {
         WRITE_ERROR("Edge's '" + myCurrentID + "' to-node '" + endNodeID + "' is not known.");
-    } 
+    }
     if (myFromNode != 0 && myToNode != 0) {
         if (myIsUpdate && (myFromNode->getID() != oldBegID || myToNode->getID() != oldEndID)) {
             myShape = PositionVector();
@@ -545,17 +545,17 @@ NIXMLEdgesHandler::myEndElement(int element) {
                 unsigned int maxLeft = (*i).lanes.back();
                 SUMOReal offset = 0;
                 if (maxLeft < noLanesMax) {
-                    if(e->getLaneSpreadFunction()==LANESPREAD_RIGHT) {
+                    if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
                         offset = SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
                     } else {
                         offset = SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
                     }
                 }
                 unsigned int maxRight = (*i).lanes.front();
-                if (maxRight > 0 && e->getLaneSpreadFunction()==LANESPREAD_CENTER) {
+                if (maxRight > 0 && e->getLaneSpreadFunction() == LANESPREAD_CENTER) {
                     offset -= SUMO_const_halfLaneAndOffset * maxRight;
                 }
-                if(offset!=0) {
+                if (offset != 0) {
                     PositionVector g = e->getGeometry();
                     g.move2side(offset);
                     e->setGeometry(g);

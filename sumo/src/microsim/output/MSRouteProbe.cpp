@@ -95,8 +95,8 @@ MSRouteProbe::writeXMLOutput(OutputDevice& dev,
                              SUMOTime startTime, SUMOTime stopTime) {
     if (myCurrentRouteDistribution->getOverallProb() > 0) {
         dev.openTag("routeDistribution") << " id=\"" << getID() + "_" + time2string(startTime) << "\">\n";
-        const std::vector<const MSRoute*> &routes = myCurrentRouteDistribution->getVals();
-        const std::vector<SUMOReal> &probs = myCurrentRouteDistribution->getProbs();
+        const std::vector<const MSRoute*>& routes = myCurrentRouteDistribution->getVals();
+        const std::vector<SUMOReal>& probs = myCurrentRouteDistribution->getProbs();
         for (unsigned int j = 0; j < routes.size(); ++j) {
             const MSRoute* r = routes[j];
             dev.openTag("route") << " id=\"" << r->getID() + "_" + time2string(startTime) << "\" edges=\"";

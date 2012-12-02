@@ -67,8 +67,7 @@ MSVehicleControl::MSVehicleControl() :
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
     myWaitingForPerson(0),
-    myScale(-1)
-{
+    myScale(-1) {
     SUMOVTypeParameter defType;
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     OptionsCont& oc = OptionsCont::getOptions();
@@ -239,7 +238,7 @@ MSVehicleControl::addVType(MSVehicleType* vehType) {
 
 
 bool
-MSVehicleControl::addVTypeDistribution(const std::string& id, RandomDistributor<MSVehicleType*> *vehTypeDistribution) {
+MSVehicleControl::addVTypeDistribution(const std::string& id, RandomDistributor<MSVehicleType*>* vehTypeDistribution) {
     if (checkVType(id)) {
         myVTypeDistDict[id] = vehTypeDistribution;
         return true;
@@ -272,7 +271,7 @@ MSVehicleControl::getVType(const std::string& id) {
 
 
 void
-MSVehicleControl::insertVTypeIDs(std::vector<std::string> &into) const {
+MSVehicleControl::insertVTypeIDs(std::vector<std::string>& into) const {
     into.reserve(into.size() + myVTypeDict.size() + myVTypeDistDict.size());
     for (VTypeDictType::const_iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
         into.push_back((*i).first);
@@ -304,7 +303,7 @@ MSVehicleControl::removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) 
 
 
 SUMOVehicle*
-MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std::string> &lines) {
+MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines) {
     if (myWaiting.find(edge) != myWaiting.end()) {
         for (std::vector<SUMOVehicle*>::const_iterator it = myWaiting[edge].begin(); it != myWaiting[edge].end(); ++it) {
             const std::string& line = (*it)->getParameter().line == "" ? (*it)->getParameter().id : (*it)->getParameter().line;
@@ -325,7 +324,7 @@ MSVehicleControl::abortWaiting() {
 }
 
 
-bool 
+bool
 MSVehicleControl::isInQuota(SUMOReal frac) const {
     frac = frac < 0 ? myScale : frac;
     if (frac < 0) {

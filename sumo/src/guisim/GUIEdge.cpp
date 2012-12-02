@@ -156,7 +156,7 @@ GUIEdge::getBoundary() const {
 
 
 void
-GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers) {
+GUIEdge::fill(std::vector<GUIEdge*>& netsWrappers) {
     size_t size = MSEdge::dictSize();
     netsWrappers.reserve(size);
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
@@ -271,7 +271,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 int shapeIndex = 0;
                 SUMOReal shapeOffset = 0; // ofset at start of current shape
                 SUMOReal segmentOffset = 0; // offset at start of current segment
-                for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); 
+                for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                         segment != 0; segment = segment->getNextSegment()) {
                     const SUMOReal length = segment->getLength();
                     if (laneIndex < segment->numQueues()) {
@@ -311,9 +311,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                             glPopMatrix();
                             glPopMatrix();
                             if (nameSettings.show) {
-                                GLHelper::drawText(veh->getID(), 
-                                        Position(xOff, -(vehiclePosition - shapeOffset)), 
-                                        GLO_MAX, nameSettings.size / s.scale, nameSettings.color, 0);
+                                GLHelper::drawText(veh->getID(),
+                                                   Position(xOff, -(vehiclePosition - shapeOffset)),
+                                                   GLO_MAX, nameSettings.size / s.scale, nameSettings.color, 0);
                             }
                         }
                     }
@@ -352,7 +352,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     myLock.lock();
-    for(std::set<MSPerson*>::const_iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
+    for (std::set<MSPerson*>::const_iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
         GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
         assert(person != 0);
         person->drawGL(s);
@@ -462,7 +462,7 @@ GUIEdge::getColorValue(size_t activeScheme) const {
 }
 
 
-MESegment* 
+MESegment*
 GUIEdge::getSegmentAtPosition(const Position& pos) {
     const PositionVector& shape = getLanes()[0]->getShape();
     const SUMOReal lanePos = shape.nearest_position_on_line_to_point2D(pos);
@@ -474,13 +474,13 @@ void
 GUIEdge::setVehicleColor(const GUIVisualizationSettings& s, MSBaseVehicle* veh) const {
     const GUIColorer& c = s.vehicleColorer;
     switch (c.getActive()) {
-        case 1: 
+        case 1:
             GLHelper::setColor(veh->getParameter().color);
             break;
-        case 2: 
+        case 2:
             GLHelper::setColor(veh->getVehicleType().getColor());
             break;
-        case 3: 
+        case 3:
             GLHelper::setColor(veh->getRoute().getColor());
             break;
         default:

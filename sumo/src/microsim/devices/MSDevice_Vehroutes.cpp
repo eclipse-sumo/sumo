@@ -76,7 +76,7 @@ MSDevice_Vehroutes::init() {
 
 
 MSDevice_Vehroutes*
-MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into, unsigned int maxRoutes) {
+MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into, unsigned int maxRoutes) {
     if (maxRoutes < INT_MAX) {
         return new MSDevice_Vehroutes(v, "vehroute_" + v.getID(), maxRoutes);
     }
@@ -216,8 +216,8 @@ MSDevice_Vehroutes::generateOutput() const {
         od.writeAttr(SUMO_ATTR_TYPE, myHolder.getVehicleType().getID());
     }
     od.writeAttr(SUMO_ATTR_DEPART, time2string(myHolder.getDeparture()));
-    od.writeAttr("arrival", (myHolder.hasArrived() ? 
-            time2string(MSNet::getInstance()->getCurrentTimeStep()) : ""));
+    od.writeAttr("arrival", (myHolder.hasArrived() ?
+                             time2string(MSNet::getInstance()->getCurrentTimeStep()) : ""));
     if (myWithTaz) {
         od.writeAttr(SUMO_ATTR_FROM_TAZ, myHolder.getParameter().fromTaz).writeAttr(SUMO_ATTR_TO_TAZ, myHolder.getParameter().toTaz);
     }
@@ -276,9 +276,9 @@ MSDevice_Vehroutes::addRoute() {
 }
 
 
-void 
+void
 MSDevice_Vehroutes::generateOutputForUnfinished() {
-    for (std::map<const SUMOVehicle*, MSDevice_Vehroutes*>::iterator it = myStateListener.myDevices.begin(); 
+    for (std::map<const SUMOVehicle*, MSDevice_Vehroutes*>::iterator it = myStateListener.myDevices.begin();
             it != myStateListener.myDevices.end(); ++it) {
         if (it->first->hasDeparted()) {
             it->second->generateOutput();

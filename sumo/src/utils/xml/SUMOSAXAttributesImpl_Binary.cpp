@@ -49,9 +49,9 @@
 // class definitions
 // ===========================================================================
 SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
-        const std::map<int, std::string> &predefinedTagsMML,
-        const std::string& objectType,
-        BinaryInputDevice* in) : SUMOSAXAttributes(objectType), myAttrIds(predefinedTagsMML) {
+    const std::map<int, std::string>& predefinedTagsMML,
+    const std::string& objectType,
+    BinaryInputDevice* in) : SUMOSAXAttributes(objectType), myAttrIds(predefinedTagsMML) {
     while (in->peek() == BinaryFormatter::BF_XML_ATTRIBUTE) {
         unsigned char attr;
         *in >> attr;
@@ -75,9 +75,9 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                 *in >> size;
                 while (size > 0) {
                     const int type = in->peek();
-                    if (type != BinaryFormatter::BF_POSITION_2D && type != BinaryFormatter::BF_POSITION_3D && 
-                        type != BinaryFormatter::BF_SCALED2INT_POSITION_2D &&
-                        type != BinaryFormatter::BF_SCALED2INT_POSITION_3D) {
+                    if (type != BinaryFormatter::BF_POSITION_2D && type != BinaryFormatter::BF_POSITION_3D &&
+                            type != BinaryFormatter::BF_SCALED2INT_POSITION_2D &&
+                            type != BinaryFormatter::BF_SCALED2INT_POSITION_3D) {
                         throw ProcessError("Invalid binary file, only supporting position vectors.");
                     }
                     size--;
@@ -86,7 +86,7 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                     myPositionVectors[attr].push_back(p);
                 }
                 break;
-                          }
+            }
             case BinaryFormatter::BF_EDGE:
                 *in >> myIntValues[attr];
                 break;
@@ -103,7 +103,7 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                 *in >> p;
                 myPositionVectors[attr].push_back(p);
                 break;
-                                                  }
+            }
             case BinaryFormatter::BF_BOUNDARY: {
                 Position p;
                 *in >> p;
@@ -112,7 +112,7 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                 *in >> p;
                 myPositionVectors[attr].push_back(p);
                 break;
-                                                  }
+            }
             case BinaryFormatter::BF_COLOR:
                 *in >> myIntValues[attr];
                 break;
@@ -135,7 +135,7 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                     *in >> bitsOrEntry;
                     FileHelpers::writeInt(into, bitsOrEntry);
                     if (bitsOrEntry < 0) {
-                        intsToRead = (-bitsOrEntry*(size-1)-1)/sizeof(int)/8+2;
+                        intsToRead = (-bitsOrEntry * (size - 1) - 1) / sizeof(int) / 8 + 2;
                     }
                     while (intsToRead > 0) {
                         in->putback(BinaryFormatter::BF_INTEGER);
@@ -146,7 +146,7 @@ SUMOSAXAttributesImpl_Binary::SUMOSAXAttributesImpl_Binary(
                 }
                 myStringValues[attr] = into.str();
                 break;
-                          }
+            }
             default:
                 throw ProcessError("Invalid binary file");
         }
@@ -313,7 +313,7 @@ SUMOSAXAttributesImpl_Binary::getColorReporting(const char* /* objectid */, bool
 
 PositionVector
 SUMOSAXAttributesImpl_Binary::getShapeReporting(int attr, const char* objectid, bool& ok,
-                                                bool allowEmpty) const {
+        bool allowEmpty) const {
     const std::map<int, PositionVector>::const_iterator i = myPositionVectors.find(attr);
     if (i == myPositionVectors.end() || i->second.size() == 0) {
         if (!allowEmpty) {

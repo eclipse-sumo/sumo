@@ -66,7 +66,7 @@ NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int pr
 
 bool
 NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
-        SVCPermissions permissions, SUMOReal width, bool oneWayIsDefault) {
+                   SVCPermissions permissions, SUMOReal width, bool oneWayIsDefault) {
     TypesCont::iterator i = myTypes.find(id);
     if (i != myTypes.end()) {
         return false;
@@ -124,7 +124,7 @@ NBTypeCont::getShallBeDiscarded(const std::string& type) const {
 }
 
 
-SVCPermissions 
+SVCPermissions
 NBTypeCont::getPermissions(const std::string& type) const {
     return getType(type).permissions;
 }

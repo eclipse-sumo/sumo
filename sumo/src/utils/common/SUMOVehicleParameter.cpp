@@ -249,9 +249,9 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
 }
 
 
-bool 
-SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string &element, const std::string &id, 
-                                      int &lane, DepartLaneDefinition &dld, std::string &error) {
+bool
+SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string& element, const std::string& id,
+                                      int& lane, DepartLaneDefinition& dld, std::string& error) {
     bool ok = true;
     if (val == "random") {
         dld = DEPART_LANE_RANDOM;
@@ -272,7 +272,7 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string 
             ok = false;
         }
     }
-    if(!ok) {
+    if (!ok) {
         error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", or an int>0)";
     }
     return ok;
@@ -280,8 +280,8 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string 
 
 
 bool
-SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string &element, const std::string &id, 
-                                     SUMOReal &pos, DepartPosDefinition &dpd, std::string &error) {
+SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& element, const std::string& id,
+                                     SUMOReal& pos, DepartPosDefinition& dpd, std::string& error) {
     bool ok = true;
     if (val == "random") {
         dpd = DEPART_POS_RANDOM;
@@ -305,7 +305,7 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string &
             ok = false;
         }
     }
-    if(!ok) {
+    if (!ok) {
         error = "Invalid departPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"pwagSimple\", \"pwagGeneric\", \"maxSpeedGap\", or a float)";
     }
     return ok;
@@ -313,8 +313,8 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string &
 
 
 bool
-SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string &element, const std::string &id, 
-                                       SUMOReal &speed, DepartSpeedDefinition &dsd, std::string &error) {
+SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string& element, const std::string& id,
+                                       SUMOReal& speed, DepartSpeedDefinition& dsd, std::string& error) {
     bool ok = true;
     if (val == "random") {
         dsd = DEPART_SPEED_RANDOM;
@@ -331,7 +331,7 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
             ok = false;
         }
     }
-    if(!ok) {
+    if (!ok) {
         error = "Invalid departSpeed definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float>0)";
     }
     return ok;
@@ -339,8 +339,8 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
 
 
 bool
-SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string &element, const std::string &id, 
-                                       int &lane, ArrivalLaneDefinition &ald, std::string &error) {
+SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string& element, const std::string& id,
+                                       int& lane, ArrivalLaneDefinition& ald, std::string& error) {
     bool ok = true;
     if (val == "current") {
         ald = ARRIVAL_LANE_CURRENT;
@@ -355,7 +355,7 @@ SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string
             ok = false;
         }
     }
-    if(!ok) {
+    if (!ok) {
         error = "Invalid arrivalLane definition for " + element + " '" + id + "';\n must be one of (\"current\", or int>0)";
     }
     return ok;
@@ -363,8 +363,8 @@ SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string
 
 
 bool
-SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string &element, const std::string &id, 
-                                      SUMOReal &pos, ArrivalPosDefinition &apd, std::string &error) {
+SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string& element, const std::string& id,
+                                      SUMOReal& pos, ArrivalPosDefinition& apd, std::string& error) {
     bool ok = true;
     if (val == "random") {
         apd = ARRIVAL_POS_RANDOM;
@@ -378,7 +378,7 @@ SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string 
             ok = false;
         }
     }
-    if(!ok) {
+    if (!ok) {
         error = "Invalid arrivalPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float)";
     }
     return ok;
@@ -386,8 +386,8 @@ SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string 
 
 
 bool
-SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::string &element, const std::string &id, 
-                                        SUMOReal &speed, ArrivalSpeedDefinition &asd, std::string &error) {
+SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::string& element, const std::string& id,
+                                        SUMOReal& speed, ArrivalSpeedDefinition& asd, std::string& error) {
     bool ok = true;
     if (val == "current") {
         asd = ARRIVAL_SPEED_CURRENT;
@@ -399,14 +399,14 @@ SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::strin
             ok = false;
         }
     }
-    if(!ok) {
+    if (!ok) {
         error = "Invalid arrivalSpeed definition for " + element + " '" + id + "';\n must be one of (\"current\", or a float>0)";
     }
     return ok;
 }
 
 
-SUMOReal 
+SUMOReal
 SUMOVehicleParameter::interpretEdgePos(SUMOReal pos, SUMOReal maximumValue, SumoXMLAttr attr, const std::string& id) {
     if (pos < 0) {
         pos = maximumValue + pos;

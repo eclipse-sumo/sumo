@@ -52,7 +52,7 @@
 // ===========================================================================
 PCPolyContainer::PCPolyContainer(bool prune,
                                  const Boundary& prunningBoundary,
-                                 const std::vector<std::string> &removeByNames)
+                                 const std::vector<std::string>& removeByNames)
     : myPrunningBoundary(prunningBoundary), myDoPrunne(prune),
       myRemoveByNames(removeByNames) {}
 

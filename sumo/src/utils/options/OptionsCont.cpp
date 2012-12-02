@@ -645,7 +645,7 @@ OptionsCont::printHelp(std::ostream& os) {
     size_t tooLarge = 40;
     size_t maxSize = 0;
     for (i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        const std::vector<std::string> &entries = mySubTopicEntries[*i];
+        const std::vector<std::string>& entries = mySubTopicEntries[*i];
         for (j = entries.begin(); j != entries.end(); ++j) {
             Option* o = getSecure(*j);
             // name, two leading spaces and "--"
@@ -669,7 +669,7 @@ OptionsCont::printHelp(std::ostream& os) {
 
     for (i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
         os << *i << " Options:" << std::endl;
-        const std::vector<std::string> &entries = mySubTopicEntries[*i];
+        const std::vector<std::string>& entries = mySubTopicEntries[*i];
         for (j = entries.begin(); j != entries.end(); ++j) {
             // start length computation
             size_t csize = (*j).length() + 2;
@@ -707,7 +707,7 @@ OptionsCont::printHelp(std::ostream& os) {
     // print usage examples, calc size first
     if (myCallExamples.size() != 0) {
         os << "Examples:" << std::endl;
-        for (std::vector<std::pair<std::string,std::string> >::const_iterator e = myCallExamples.begin(); e != myCallExamples.end(); ++e) {
+        for (std::vector<std::pair<std::string, std::string> >::const_iterator e = myCallExamples.begin(); e != myCallExamples.end(); ++e) {
             os << "  " << myAppName << ' ' << e->first << std::endl;
             os << "    " << e->second << std::endl;
         }
@@ -730,7 +730,7 @@ OptionsCont::writeConfiguration(std::ostream& os, bool filled,
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
-        const std::vector<std::string> &entries = mySubTopicEntries.find(*i)->second;
+        const std::vector<std::string>& entries = mySubTopicEntries.find(*i)->second;
         bool hadOne = false;
         for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
             Option* o = getSecure(*j);
@@ -809,7 +809,7 @@ OptionsCont::writeSchema(std::ostream& os, bool /* addComments */) {
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
         os << "    <xsd:complexType name=\"" << subtopic << "Type\">\n";
         os << "        <xsd:all>\n";
-        const std::vector<std::string> &entries = mySubTopicEntries[*i];
+        const std::vector<std::string>& entries = mySubTopicEntries[*i];
         for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
             Option* o = getSecure(*j);
             std::string type = o->getTypeName();

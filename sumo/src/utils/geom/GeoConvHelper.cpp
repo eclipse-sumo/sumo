@@ -240,11 +240,11 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
 #ifdef HAVE_PROJ
     if (myProjection == 0) {
         const double x = from.x() * myGeoScale;
-        switch(myProjectionMethod) {
+        switch (myProjectionMethod) {
             case UTM: {
                 int zone = (int)(x + 180) / 6 + 1;
                 myProjString = "+proj=utm +zone=" + toString(zone) +
-                    " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
+                               " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
                 myProjection = pj_init_plus(myProjString.c_str());
                 //!!! check pj_errno
             }
@@ -256,14 +256,14 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
                     return false;
                 }
                 myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3 * zone) +
-                    " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
-                    " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
+                               " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
+                               " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
                 myProjection = pj_init_plus(myProjString.c_str());
                 //!!! check pj_errno
-            } 
+            }
             break;
             default:
-            break;
+                break;
         }
     }
 #endif
@@ -275,7 +275,7 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
             if (myProjectionMethod == SIMPLE || from.x() > 100000 || from.y() > 100000) {
                 myBaseX = from.x();
                 myBaseY = from.y();
-                from.set(0,0);
+                from.set(0, 0);
             }
             myBaseFound = true;
         }
@@ -369,24 +369,24 @@ GeoConvHelper::getProjString() const {
 }
 
 
-void 
+void
 GeoConvHelper::computeFinal() {
     if (myNumLoaded == 0) {
         myFinal = myProcessing;
     } else  {
         myFinal = GeoConvHelper(
-                // prefer options over loaded location
-                myProcessing.usingGeoProjection() ? myProcessing.getProjString() : myLoaded.getProjString(),
-                // let offset and boundary lead back to the original coords of the loaded data
-                myProcessing.getOffset() + myLoaded.getOffset(),
-                myLoaded.getOrigBoundary(),
-                // the new boundary (updated during loading)
-                myProcessing.getConvBoundary());
+                      // prefer options over loaded location
+                      myProcessing.usingGeoProjection() ? myProcessing.getProjString() : myLoaded.getProjString(),
+                      // let offset and boundary lead back to the original coords of the loaded data
+                      myProcessing.getOffset() + myLoaded.getOffset(),
+                      myLoaded.getOrigBoundary(),
+                      // the new boundary (updated during loading)
+                      myProcessing.getConvBoundary());
     }
 }
 
 
-void 
+void
 GeoConvHelper::setLoaded(const GeoConvHelper& loaded) {
     myNumLoaded++;
     if (myNumLoaded > 1) {
@@ -397,7 +397,7 @@ GeoConvHelper::setLoaded(const GeoConvHelper& loaded) {
 }
 
 
-void 
+void
 GeoConvHelper::resetLoaded() {
     myNumLoaded = 0;
 }

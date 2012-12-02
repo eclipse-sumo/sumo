@@ -49,7 +49,7 @@ public:
      * @param[in] tau The driver's reaction time
      */
     MSCFModel_Daniel1(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal headwayTime,
-        SUMOReal tmp1, SUMOReal tmp2, SUMOReal tmp3, SUMOReal tmp4, SUMOReal tmp5);
+                      SUMOReal tmp1, SUMOReal tmp2, SUMOReal tmp3, SUMOReal tmp4, SUMOReal tmp5);
 
 
     /// @brief Destructor
@@ -163,7 +163,7 @@ protected:
 
     /// @brief The precomputed value for myDecel*myTau
     SUMOReal myTauDecel;
-    
+
     /// @brief temporary (testing) parameter
     SUMOReal myTmp1, myTmp2, myTmp3, myTmp4, myTmp5;
 

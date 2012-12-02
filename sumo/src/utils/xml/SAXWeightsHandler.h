@@ -148,7 +148,7 @@ public:
      * Gets a list of retriever definitions. Please note that the retrievers are
      *  not deleted!
      */
-    SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
+    SAXWeightsHandler(const std::vector<ToRetrieveDefinition*>& defs,
                       const std::string& file);
 
 

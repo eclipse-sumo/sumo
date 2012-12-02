@@ -53,7 +53,7 @@ public:
      * @param[in] knownIDs List of IDs that should never be returned by this
      * IDSupplier
      **/
-    IDSupplier(const std::string& prefix, const std::vector<std::string> &knownIDs);
+    IDSupplier(const std::string& prefix, const std::vector<std::string>& knownIDs);
 
     /// Destructor
     ~IDSupplier();

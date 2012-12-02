@@ -104,7 +104,7 @@ public:
     bool addToTreatAsSame(NIVissimEdge* e);
 
     NIVissimConnection* getConnectionTo(NIVissimEdge* e);
-    const std::vector<NIVissimEdge*> &getToTreatAsSame() const;
+    const std::vector<NIVissimEdge*>& getToTreatAsSame() const;
 
 
     /** @brief Returns whether this edge was found to be within a junction

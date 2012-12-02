@@ -598,7 +598,7 @@ public:
 
 
     /// @brief return the list of subtopics
-    const std::vector<std::string> & getSubTopics() const {
+    const std::vector<std::string>& getSubTopics() const {
         return mySubTopics;
     }
 

@@ -168,7 +168,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
         while (strm.good()) {
             std::string val;
             strm >> val;
-            if(val.length()==0) {
+            if (val.length() == 0) {
                 continue;
             }
             try {

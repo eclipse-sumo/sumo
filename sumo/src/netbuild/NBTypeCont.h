@@ -192,14 +192,14 @@ public:
 private:
     struct TypeDefinition {
         /// @brief Constructor
-        TypeDefinition() : 
+        TypeDefinition() :
             noLanes(1), speed((SUMOReal) 13.9), priority(-1),
             permissions(SVCFreeForAll),
             oneWay(true), discard(false), width(NBEdge::UNSPECIFIED_WIDTH) { }
 
         /// @brief Constructor
-        TypeDefinition(int _noLanes, SUMOReal _speed, int _priority, 
-                SUMOReal _width, SVCPermissions _permissions, bool _oneWay) : 
+        TypeDefinition(int _noLanes, SUMOReal _speed, int _priority,
+                       SUMOReal _width, SVCPermissions _permissions, bool _oneWay) :
             noLanes(_noLanes), speed(_speed), priority(_priority),
             permissions(_permissions),
             oneWay(_oneWay), discard(false), width(_width) { }

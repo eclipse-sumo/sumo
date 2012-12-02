@@ -85,7 +85,7 @@ public:
 
     class TraCIPhase {
     public:
-        TraCIPhase(SUMOTime _duration, const std::string &_phase, SUMOTime _duration1, SUMOTime _duration2) 
+        TraCIPhase(SUMOTime _duration, const std::string& _phase, SUMOTime _duration1, SUMOTime _duration2)
             : duration(_duration), phase(_phase), duration1(_duration1), duration2(_duration2) {}
         ~TraCIPhase() {}
 
@@ -96,7 +96,7 @@ public:
 
     class TraCILogic {
     public:
-        TraCILogic(const std::string &_subID, int _type, const std::map<std::string, SUMOReal> &_subParameter, unsigned int _currentPhaseIndex, const std::vector<TraCIPhase> &_phases) 
+        TraCILogic(const std::string& _subID, int _type, const std::map<std::string, SUMOReal>& _subParameter, unsigned int _currentPhaseIndex, const std::vector<TraCIPhase>& _phases)
             : subID(_subID), type(_type), subParameter(_subParameter), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
         ~TraCILogic() {}
 
@@ -109,7 +109,7 @@ public:
 
     class TraCILink {
     public:
-        TraCILink(const std::string &_from, const std::string &_via, const std::string &_to) 
+        TraCILink(const std::string& _from, const std::string& _via, const std::string& _to)
             : from(_from), via(_via), to(_to) {}
         ~TraCILink() {}
 
@@ -139,7 +139,7 @@ public:
      * @param[in] port The port to connect to
      * @exception tcpip::SocketException if the connection fails
      */
-    void connect(const std::string &host, int port);
+    void connect(const std::string& host, int port);
 
 
     /// @brief Closes the connection
@@ -151,18 +151,18 @@ public:
     /// @name Atomar getter
     /// @{
 
-    SUMOTime getSUMOTime(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    int getUnsignedByte(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    int getByte(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    int getInt(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    SUMOReal getFloat(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    SUMOReal getDouble(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    TraCIBoundary getBoundingBox(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    TraCIPositionVector getPolygon(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    TraCIPosition getPosition(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    std::string getString(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    std::vector<std::string> getStringVector(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
-    TraCIColor getColor(int cmd, int var, const std::string &id, tcpip::Storage* add=0);
+    SUMOTime getSUMOTime(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    int getUnsignedByte(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    int getByte(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    int getInt(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    SUMOReal getFloat(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    SUMOReal getDouble(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    TraCIBoundary getBoundingBox(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    TraCIPositionVector getPolygon(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    TraCIPosition getPosition(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    std::string getString(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    std::vector<std::string> getStringVector(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    TraCIColor getColor(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     /// @}
 
 
@@ -177,7 +177,7 @@ public:
         /** @brief Constructor
          * @param[in] parent The parent TraCI client which offers the connection
          */
-        TraCIScopeWrapper(TraCIAPI &parent) : myParent(parent) {}
+        TraCIScopeWrapper(TraCIAPI& parent) : myParent(parent) {}
 
         /// @brief Destructor
         virtual ~TraCIScopeWrapper() {}
@@ -185,7 +185,7 @@ public:
 
     protected:
         /// @brief The parent TraCI client which offers the connection
-        TraCIAPI &myParent;
+        TraCIAPI& myParent;
 
 
     private:
@@ -206,31 +206,31 @@ public:
      */
     class EdgeScope : public TraCIScopeWrapper {
     public:
-        EdgeScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        EdgeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~EdgeScope() {}
 
         std::vector<std::string> getIDList() const;
         unsigned int getIDCount() const;
-        SUMOReal getAdaptedTraveltime(const std::string &edgeID, SUMOTime time) const;
-        SUMOReal getEffort(const std::string &edgeID, SUMOTime time) const;
-        SUMOReal getCO2Emission(const std::string &edgeID) const;
-        SUMOReal getCOEmission(const std::string &edgeID) const;
-        SUMOReal getHCEmission(const std::string &edgeID) const;
-        SUMOReal getPMxEmission(const std::string &edgeID) const;
-        SUMOReal getNOxEmission(const std::string &edgeID) const;
-        SUMOReal getFuelConsumption(const std::string &edgeID) const;
-        SUMOReal getNoiseEmission(const std::string &edgeID) const;
-        SUMOReal getLastStepMeanSpeed(const std::string &edgeID) const;
-        SUMOReal getLastStepOccupancy(const std::string &edgeID) const;
-        SUMOReal getLastStepLength(const std::string &edgeID) const;
-        SUMOReal getTraveltime(const std::string &edgeID) const;
-        unsigned int getLastStepVehicleNumber(const std::string &edgeID) const;
-        SUMOReal getLastStepHaltingNumber(const std::string &edgeID) const;
-        std::vector<std::string> getLastStepVehicleIDs(const std::string &edgeID) const;
+        SUMOReal getAdaptedTraveltime(const std::string& edgeID, SUMOTime time) const;
+        SUMOReal getEffort(const std::string& edgeID, SUMOTime time) const;
+        SUMOReal getCO2Emission(const std::string& edgeID) const;
+        SUMOReal getCOEmission(const std::string& edgeID) const;
+        SUMOReal getHCEmission(const std::string& edgeID) const;
+        SUMOReal getPMxEmission(const std::string& edgeID) const;
+        SUMOReal getNOxEmission(const std::string& edgeID) const;
+        SUMOReal getFuelConsumption(const std::string& edgeID) const;
+        SUMOReal getNoiseEmission(const std::string& edgeID) const;
+        SUMOReal getLastStepMeanSpeed(const std::string& edgeID) const;
+        SUMOReal getLastStepOccupancy(const std::string& edgeID) const;
+        SUMOReal getLastStepLength(const std::string& edgeID) const;
+        SUMOReal getTraveltime(const std::string& edgeID) const;
+        unsigned int getLastStepVehicleNumber(const std::string& edgeID) const;
+        SUMOReal getLastStepHaltingNumber(const std::string& edgeID) const;
+        std::vector<std::string> getLastStepVehicleIDs(const std::string& edgeID) const;
 
-        void adaptTraveltime(const std::string &edgeID, SUMOReal time) const;
-        void setEffort(const std::string &edgeID, SUMOReal effort) const;
-        void setMaxSpeed(const std::string &edgeID, SUMOReal speed) const;
+        void adaptTraveltime(const std::string& edgeID, SUMOReal time) const;
+        void setEffort(const std::string& edgeID, SUMOReal effort) const;
+        void setMaxSpeed(const std::string& edgeID, SUMOReal speed) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -250,20 +250,20 @@ public:
      */
     class GUIScope : public TraCIScopeWrapper {
     public:
-        GUIScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        GUIScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~GUIScope() {}
 
         std::vector<std::string> getIDList() const;
-        SUMOReal getZoom(const std::string &viewID=DEFAULT_VIEW) const;
-        TraCIPosition getOffset(const std::string &viewID=DEFAULT_VIEW) const;
-        std::string getSchema(const std::string &viewID=DEFAULT_VIEW) const;
-        TraCIBoundary getBoundary(const std::string &viewID=DEFAULT_VIEW) const;
-        void setZoom(const std::string &viewID, SUMOReal zoom) const;
-        void setOffset(const std::string &viewID, SUMOReal x, SUMOReal y) const;
-        void setSchema(const std::string &viewID, const std::string &schemeName) const;
-        void setBoundary(const std::string &viewID, SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax) const;
-        void screenshot(const std::string &viewID, const std::string &filename) const;
-        void trackVehicle(const std::string &viewID, const std::string &vehID) const;
+        SUMOReal getZoom(const std::string& viewID = DEFAULT_VIEW) const;
+        TraCIPosition getOffset(const std::string& viewID = DEFAULT_VIEW) const;
+        std::string getSchema(const std::string& viewID = DEFAULT_VIEW) const;
+        TraCIBoundary getBoundary(const std::string& viewID = DEFAULT_VIEW) const;
+        void setZoom(const std::string& viewID, SUMOReal zoom) const;
+        void setOffset(const std::string& viewID, SUMOReal x, SUMOReal y) const;
+        void setSchema(const std::string& viewID, const std::string& schemeName) const;
+        void setBoundary(const std::string& viewID, SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax) const;
+        void screenshot(const std::string& viewID, const std::string& filename) const;
+        void trackVehicle(const std::string& viewID, const std::string& vehID) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -283,19 +283,19 @@ public:
      */
     class InductionLoopScope : public TraCIScopeWrapper {
     public:
-        InductionLoopScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        InductionLoopScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~InductionLoopScope() {}
 
         std::vector<std::string> getIDList() const;
-        SUMOReal  getPosition(const std::string &loopID) const;
-        std::string getLaneID(const std::string &loopID) const;
-        unsigned int getLastStepVehicleNumber(const std::string &loopID) const;
-        SUMOReal getLastStepMeanSpeed(const std::string &loopID) const;
-        std::vector<std::string> getLastStepVehicleIDs(const std::string &loopID) const;
-        SUMOReal getLastStepOccupancy(const std::string &loopID) const;
-        SUMOReal getLastStepMeanLength(const std::string &loopID) const;
-        SUMOReal getTimeSinceDetection(const std::string &loopID) const;
-        unsigned int getVehicleData(const std::string &loopID) const;
+        SUMOReal  getPosition(const std::string& loopID) const;
+        std::string getLaneID(const std::string& loopID) const;
+        unsigned int getLastStepVehicleNumber(const std::string& loopID) const;
+        SUMOReal getLastStepMeanSpeed(const std::string& loopID) const;
+        std::vector<std::string> getLastStepVehicleIDs(const std::string& loopID) const;
+        SUMOReal getLastStepOccupancy(const std::string& loopID) const;
+        SUMOReal getLastStepMeanLength(const std::string& loopID) const;
+        SUMOReal getTimeSinceDetection(const std::string& loopID) const;
+        unsigned int getVehicleData(const std::string& loopID) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -315,11 +315,11 @@ public:
      */
     class JunctionScope : public TraCIScopeWrapper {
     public:
-        JunctionScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        JunctionScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~JunctionScope() {}
 
         std::vector<std::string> getIDList() const;
-        TraCIPosition getPosition(const std::string &junctionID) const;
+        TraCIPosition getPosition(const std::string& junctionID) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -339,37 +339,37 @@ public:
      */
     class LaneScope : public TraCIScopeWrapper {
     public:
-        LaneScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        LaneScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~LaneScope() {}
 
         std::vector<std::string> getIDList() const;
-        SUMOReal getLength(const std::string &laneID) const;
-        SUMOReal getMaxSpeed(const std::string &laneID) const;
-        SUMOReal getWidth(const std::string &laneID) const;
-        std::vector<std::string> getAllowed(const std::string &laneID) const;
-        std::vector<std::string> getDisallowed(const std::string &laneID) const;
-        unsigned int getLinkNumber(const std::string &laneID) const;
-        TraCIPositionVector getShape(const std::string &laneID) const;
-        std::string getEdgeID(const std::string &laneID) const;
-        SUMOReal getCO2Emission(const std::string &laneID) const;
-        SUMOReal getCOEmission(const std::string &laneID) const;
-        SUMOReal getHCEmission(const std::string &laneID) const;
-        SUMOReal getPMxEmission(const std::string &laneID) const;
-        SUMOReal getNOxEmission(const std::string &laneID) const;
-        SUMOReal getFuelConsumption(const std::string &laneID) const;
-        SUMOReal getNoiseEmission(const std::string &laneID) const;
-        SUMOReal getLastStepMeanSpeed(const std::string &laneID) const;
-        SUMOReal getLastStepOccupancy(const std::string &laneID) const;
-        SUMOReal getLastStepLength(const std::string &laneID) const;
-        SUMOReal getTraveltime(const std::string &laneID) const;
-        unsigned int getLastStepVehicleNumber(const std::string &laneID) const;
-        unsigned int getLastStepHaltingNumber(const std::string &laneID) const;
-        std::vector<std::string> getLastStepVehicleIDs(const std::string &laneID) const;
+        SUMOReal getLength(const std::string& laneID) const;
+        SUMOReal getMaxSpeed(const std::string& laneID) const;
+        SUMOReal getWidth(const std::string& laneID) const;
+        std::vector<std::string> getAllowed(const std::string& laneID) const;
+        std::vector<std::string> getDisallowed(const std::string& laneID) const;
+        unsigned int getLinkNumber(const std::string& laneID) const;
+        TraCIPositionVector getShape(const std::string& laneID) const;
+        std::string getEdgeID(const std::string& laneID) const;
+        SUMOReal getCO2Emission(const std::string& laneID) const;
+        SUMOReal getCOEmission(const std::string& laneID) const;
+        SUMOReal getHCEmission(const std::string& laneID) const;
+        SUMOReal getPMxEmission(const std::string& laneID) const;
+        SUMOReal getNOxEmission(const std::string& laneID) const;
+        SUMOReal getFuelConsumption(const std::string& laneID) const;
+        SUMOReal getNoiseEmission(const std::string& laneID) const;
+        SUMOReal getLastStepMeanSpeed(const std::string& laneID) const;
+        SUMOReal getLastStepOccupancy(const std::string& laneID) const;
+        SUMOReal getLastStepLength(const std::string& laneID) const;
+        SUMOReal getTraveltime(const std::string& laneID) const;
+        unsigned int getLastStepVehicleNumber(const std::string& laneID) const;
+        unsigned int getLastStepHaltingNumber(const std::string& laneID) const;
+        std::vector<std::string> getLastStepVehicleIDs(const std::string& laneID) const;
 
-        void setAllowed(const std::string &laneID, const std::vector<std::string> &allowedClasses) const;
-        void setDisallowed(const std::string &laneID, const std::vector<std::string> &disallowedClasses) const;
-        void setMaxSpeed(const std::string &laneID, SUMOReal speed) const;
-        void setLength(const std::string &laneID, SUMOReal length) const;
+        void setAllowed(const std::string& laneID, const std::vector<std::string>& allowedClasses) const;
+        void setDisallowed(const std::string& laneID, const std::vector<std::string>& disallowedClasses) const;
+        void setMaxSpeed(const std::string& laneID, SUMOReal speed) const;
+        void setLength(const std::string& laneID, SUMOReal length) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -389,14 +389,14 @@ public:
      */
     class MeMeScope : public TraCIScopeWrapper {
     public:
-        MeMeScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        MeMeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~MeMeScope() {}
 
         std::vector<std::string> getIDList() const;
-        unsigned int getLastStepVehicleNumber(const std::string &detID) const;
-        SUMOReal getLastStepMeanSpeed(const std::string &detID) const;
-        std::vector<std::string> getLastStepVehicleIDs(const std::string &detID) const;
-        unsigned int getLastStepHaltingNumber(const std::string &detID) const;
+        unsigned int getLastStepVehicleNumber(const std::string& detID) const;
+        SUMOReal getLastStepMeanSpeed(const std::string& detID) const;
+        std::vector<std::string> getLastStepVehicleIDs(const std::string& detID) const;
+        unsigned int getLastStepHaltingNumber(const std::string& detID) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -416,19 +416,19 @@ public:
      */
     class POIScope : public TraCIScopeWrapper {
     public:
-        POIScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        POIScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~POIScope() {}
 
         std::vector<std::string> getIDList() const;
-        std::string getType(const std::string &poiID) const;
-        TraCIPosition getPosition(const std::string &poiID) const;
-        TraCIColor getColor(const std::string &poiID) const;
-    
-        void setType(const std::string &poiID, const std::string &setType) const;
-        void setPosition(const std::string &poiID, SUMOReal x, SUMOReal y) const;
-        void setColor(const std::string &poiID, const TraCIColor &c) const;
-        void add(const std::string &poiID, SUMOReal x, SUMOReal y, const TraCIColor &c, const std::string &type, int layer) const;
-        void remove(const std::string &poiID, int layer=0) const;
+        std::string getType(const std::string& poiID) const;
+        TraCIPosition getPosition(const std::string& poiID) const;
+        TraCIColor getColor(const std::string& poiID) const;
+
+        void setType(const std::string& poiID, const std::string& setType) const;
+        void setPosition(const std::string& poiID, SUMOReal x, SUMOReal y) const;
+        void setColor(const std::string& poiID, const TraCIColor& c) const;
+        void add(const std::string& poiID, SUMOReal x, SUMOReal y, const TraCIColor& c, const std::string& type, int layer) const;
+        void remove(const std::string& poiID, int layer = 0) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -448,18 +448,18 @@ public:
      */
     class PolygonScope : public TraCIScopeWrapper {
     public:
-        PolygonScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        PolygonScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~PolygonScope() {}
 
         std::vector<std::string> getIDList() const;
-        std::string getType(const std::string &polygonID) const;
-        TraCIPositionVector getShape(const std::string &polygonID) const;
-        TraCIColor getColor(const std::string &polygonID) const;
-        void setType(const std::string &polygonID, const std::string &setType) const;
-        void setShape(const std::string &polygonID, const TraCIPositionVector &shape) const;
-        void setColor(const std::string &polygonID, const TraCIColor &c) const;
-        void add(const std::string &polygonID, const TraCIPositionVector &shape, const TraCIColor &c, bool fill, const std::string &type, int layer) const;
-        void remove(const std::string &polygonID, int layer=0) const;
+        std::string getType(const std::string& polygonID) const;
+        TraCIPositionVector getShape(const std::string& polygonID) const;
+        TraCIColor getColor(const std::string& polygonID) const;
+        void setType(const std::string& polygonID, const std::string& setType) const;
+        void setShape(const std::string& polygonID, const TraCIPositionVector& shape) const;
+        void setColor(const std::string& polygonID, const TraCIColor& c) const;
+        void add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& c, bool fill, const std::string& type, int layer) const;
+        void remove(const std::string& polygonID, int layer = 0) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -479,13 +479,13 @@ public:
      */
     class RouteScope : public TraCIScopeWrapper {
     public:
-        RouteScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        RouteScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~RouteScope() {}
 
         std::vector<std::string> getIDList() const;
-        std::vector<std::string> getEdges(const std::string &routeID) const;
+        std::vector<std::string> getEdges(const std::string& routeID) const;
 
-        void add(const std::string &routeID, const std::vector<std::string> &edges) const;
+        void add(const std::string& routeID, const std::vector<std::string>& edges) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -505,7 +505,7 @@ public:
      */
     class SimulationScope : public TraCIScopeWrapper {
     public:
-        SimulationScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        SimulationScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~SimulationScope() {}
 
         SUMOTime getCurrentTime() const;
@@ -541,23 +541,23 @@ public:
      */
     class TrafficLightScope : public TraCIScopeWrapper {
     public:
-        TrafficLightScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        TrafficLightScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~TrafficLightScope() {}
 
         std::vector<std::string> getIDList() const;
-        std::string getRedYellowGreenState(const std::string &tlsID) const;
-        std::vector<TraCIAPI::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string &tlsID) const;
-        std::vector<std::string> getControlledLanes(const std::string &tlsID) const;
-        std::vector<TraCIAPI::TraCILink> getControlledLinks(const std::string &tlsID) const;
-        std::string getProgram(const std::string &tlsID) const;
-        unsigned int getPhase(const std::string &tlsID) const;
-        unsigned int getNextSwitch(const std::string &tlsID) const;
+        std::string getRedYellowGreenState(const std::string& tlsID) const;
+        std::vector<TraCIAPI::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) const;
+        std::vector<std::string> getControlledLanes(const std::string& tlsID) const;
+        std::vector<TraCIAPI::TraCILink> getControlledLinks(const std::string& tlsID) const;
+        std::string getProgram(const std::string& tlsID) const;
+        unsigned int getPhase(const std::string& tlsID) const;
+        unsigned int getNextSwitch(const std::string& tlsID) const;
 
-        void setRedYellowGreenState(const std::string &tlsID, const std::string &state) const;
-        void setPhase(const std::string &tlsID, unsigned int index) const;
-        void setProgram(const std::string &tlsID, const std::string &programID) const;
-        void setPhaseDuration(const std::string &tlsID, unsigned int phaseDuration) const;
-        void setCompleteRedYellowGreenDefinition(const std::string &tlsID, const TraCIAPI::TraCILogic &logic) const;
+        void setRedYellowGreenState(const std::string& tlsID, const std::string& state) const;
+        void setPhase(const std::string& tlsID, unsigned int index) const;
+        void setProgram(const std::string& tlsID, const std::string& programID) const;
+        void setPhaseDuration(const std::string& tlsID, unsigned int phaseDuration) const;
+        void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCIAPI::TraCILogic& logic) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -577,39 +577,39 @@ public:
      */
     class VehicleTypeScope : public TraCIScopeWrapper {
     public:
-        VehicleTypeScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        VehicleTypeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~VehicleTypeScope() {}
 
         std::vector<std::string> getIDList() const;
-        SUMOReal getLength(const std::string &typeID) const;
-        SUMOReal getMaxSpeed(const std::string &typeID) const;
-        SUMOReal getSpeedFactor(const std::string &typeID) const;
-        SUMOReal getSpeedDeviation(const std::string &typeID) const;
-        SUMOReal getAccel(const std::string &typeID) const;
-        SUMOReal getDecel(const std::string &typeID) const;
-        SUMOReal getImperfection(const std::string &typeID) const;
-        SUMOReal getTau(const std::string &typeID) const;
-        std::string getVehicleClass(const std::string &typeID) const;
-        std::string getEmissionClass(const std::string &typeID) const;
-        std::string getShapeClass(const std::string &typeID) const;
-        SUMOReal getMinGap(const std::string &typeID) const;
-        SUMOReal getWidth(const std::string &typeID) const;
-        TraCIColor getColor(const std::string &typeID) const;
+        SUMOReal getLength(const std::string& typeID) const;
+        SUMOReal getMaxSpeed(const std::string& typeID) const;
+        SUMOReal getSpeedFactor(const std::string& typeID) const;
+        SUMOReal getSpeedDeviation(const std::string& typeID) const;
+        SUMOReal getAccel(const std::string& typeID) const;
+        SUMOReal getDecel(const std::string& typeID) const;
+        SUMOReal getImperfection(const std::string& typeID) const;
+        SUMOReal getTau(const std::string& typeID) const;
+        std::string getVehicleClass(const std::string& typeID) const;
+        std::string getEmissionClass(const std::string& typeID) const;
+        std::string getShapeClass(const std::string& typeID) const;
+        SUMOReal getMinGap(const std::string& typeID) const;
+        SUMOReal getWidth(const std::string& typeID) const;
+        TraCIColor getColor(const std::string& typeID) const;
 
-        void setLength(const std::string &typeID, SUMOReal length) const;
-        void setMaxSpeed(const std::string &typeID, SUMOReal speed) const;
-        void setVehicleClass(const std::string &typeID, const std::string &clazz) const;
-        void setSpeedFactor(const std::string &typeID, SUMOReal factor) const;
-        void setSpeedDeviation(const std::string &typeID, SUMOReal deviation) const;
-        void setEmissionClass(const std::string &typeID, const std::string &clazz) const;
-        void setWidth(const std::string &typeID, SUMOReal width) const;
-        void setMinGap(const std::string &typeID, SUMOReal minGap) const;
-        void setShapeClass(const std::string &typeID, const std::string &clazz) const;
-        void setAccel(const std::string &typeID, SUMOReal accel) const;
-        void setDecel(const std::string &typeID, SUMOReal decel) const;
-        void setImperfection(const std::string &typeID, SUMOReal imperfection) const;
-        void setTau(const std::string &typeID, SUMOReal tau) const;
-        void setColor(const std::string &typeID, const TraCIColor &c) const;
+        void setLength(const std::string& typeID, SUMOReal length) const;
+        void setMaxSpeed(const std::string& typeID, SUMOReal speed) const;
+        void setVehicleClass(const std::string& typeID, const std::string& clazz) const;
+        void setSpeedFactor(const std::string& typeID, SUMOReal factor) const;
+        void setSpeedDeviation(const std::string& typeID, SUMOReal deviation) const;
+        void setEmissionClass(const std::string& typeID, const std::string& clazz) const;
+        void setWidth(const std::string& typeID, SUMOReal width) const;
+        void setMinGap(const std::string& typeID, SUMOReal minGap) const;
+        void setShapeClass(const std::string& typeID, const std::string& clazz) const;
+        void setAccel(const std::string& typeID, SUMOReal accel) const;
+        void setDecel(const std::string& typeID, SUMOReal decel) const;
+        void setImperfection(const std::string& typeID, SUMOReal imperfection) const;
+        void setTau(const std::string& typeID, SUMOReal tau) const;
+        void setColor(const std::string& typeID, const TraCIColor& c) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -667,7 +667,7 @@ protected:
      * @param[in] objID The object to retrieve the variable from
      * @param[in] add Optional additional parameter
      */
-    void send_commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* add=0) const;
+    void send_commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* add = 0) const;
 
 
     /** @brief Sends a SetVariable request
@@ -686,7 +686,7 @@ protected:
      * @param[in] endTime The end time step of subscriptions
      * @param[in] vars The variables to subscribe
      */
-    void send_commandSubscribeObjectVariable(int domID, const std::string& objID, int beginTime, int endTime, const std::vector<int> &vars) const;
+    void send_commandSubscribeObjectVariable(int domID, const std::string& objID, int beginTime, int endTime, const std::vector<int>& vars) const;
 
 
     /** @brief Sends a SubscribeContext request
@@ -698,8 +698,8 @@ protected:
      * @param[in] range The range around the obj to investigate
      * @param[in] vars The variables to subscribe
      */
-    void send_commandSubscribeObjectContext(int domID, const std::string& objID, int beginTime, int endTime, 
-        int domain, SUMOReal range, const std::vector<int> &vars) const;
+    void send_commandSubscribeObjectContext(int domID, const std::string& objID, int beginTime, int endTime,
+                                            int domain, SUMOReal range, const std::vector<int>& vars) const;
     /// @}
 
 
@@ -713,17 +713,17 @@ protected:
      * @param[in] ignoreCommandId Whether the returning command id shall be validated
      * @param[in] acknowledgement Pointer to an existing string into which the acknowledgement message shall be inserted
      */
-    void check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId=false, std::string *acknowledgement=0) const;
+    void check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId = false, std::string* acknowledgement = 0) const;
 
-    void check_commandGetResult(tcpip::Storage& inMsg, int command, int expectedType=-1, bool ignoreCommandId=false) const;
+    void check_commandGetResult(tcpip::Storage& inMsg, int command, int expectedType = -1, bool ignoreCommandId = false) const;
 
-    void processGET(tcpip::Storage& inMsg, int command, int expectedType, bool ignoreCommandId=false) const;
+    void processGET(tcpip::Storage& inMsg, int command, int expectedType, bool ignoreCommandId = false) const;
     /// @}
 
 
 protected:
     /// @brief The socket
-    tcpip::Socket *mySocket;
+    tcpip::Socket* mySocket;
 
 
 };

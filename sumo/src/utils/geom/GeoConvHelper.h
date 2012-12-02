@@ -123,7 +123,7 @@ public:
     /// Converts the given cartesian (shifted) position to its geo (lat/long) representation
     void cartesian2geo(Position& cartesian) const;
 
-    /** Converts the given coordinate into a cartesian 
+    /** Converts the given coordinate into a cartesian
      * and optionally update myConvBoundary
      * @note: initializes UTM / DHDN projection on first use (select zone)
      */

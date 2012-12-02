@@ -55,7 +55,7 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
     MSTLLogicControl& tlcontrol,
     const std::string& id, const std::string& programID,
     const Phases& phases, unsigned int step, SUMOTime delay,
-    const std::map<std::string, std::string> &parameter)
+    const std::map<std::string, std::string>& parameter)
     : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
       tSinceLastDecision(0), stepOfLastDecision(0) {
 
@@ -186,7 +186,7 @@ MSAgentbasedTrafficLightLogic::collectData() {
     for (unsigned int i = 0; i < (unsigned int) state.size(); i++)  {
         // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of all lanes that have green
         if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
-            const std::vector<MSLane*> &lanes = getLanesAt(i);
+            const std::vector<MSLane*>& lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }

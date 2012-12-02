@@ -85,7 +85,7 @@ public:
     /** @brief Computes the vehicle's safe speed without a leader
      *
      * Returns the velocity of the vehicle in dependence to the length of the free street and the target
-	 *  velocity at the end of the free range.
+     *  velocity at the end of the free range.
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
      * @param[in] seen The look ahead distance

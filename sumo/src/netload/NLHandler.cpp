@@ -244,9 +244,9 @@ NLHandler::myEndElement(int element) {
             break;
     }
     MSRouteHandler::myEndElement(element);
-	if(element!=SUMO_TAG_PARAM) {
-		myLastParameterised = 0;
-	}
+    if (element != SUMO_TAG_PARAM) {
+        myLastParameterised = 0;
+    }
 }
 
 
@@ -357,7 +357,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
                 WRITE_ERROR("Another lane with the id '" + id + "' exists.");
                 myCurrentIsBroken = true;
             }
-			myLastParameterised = lane;
+            myLastParameterised = lane;
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
         }
@@ -415,7 +415,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
 
 void
 NLHandler::parseLanes(const std::string& junctionID,
-                      const std::string& def, std::vector<MSLane*> &into, bool& ok) {
+                      const std::string& def, std::vector<MSLane*>& into, bool& ok) {
     StringTokenizer st(def);
     while (ok && st.hasNext()) {
         std::string laneID = st.next();
@@ -438,10 +438,10 @@ NLHandler::addParam(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string key = attrs.getStringReporting(SUMO_ATTR_KEY, 0, ok);
     std::string val = attrs.getStringReporting(SUMO_ATTR_VALUE, 0, ok);
-	if(myLastParameterised!=0) {
-		myLastParameterised->addParameter(key, val);
-	}
-	// set
+    if (myLastParameterised != 0) {
+        myLastParameterised->addParameter(key, val);
+    }
+    // set
     if (ok && myAmInTLLogicMode) {
         assert(key != "");
         assert(val != "");
@@ -533,7 +533,7 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
     SUMOReal layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, (SUMOReal)GLO_POI);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     std::string laneID = attrs.getOptStringReporting(SUMO_ATTR_LANE, id.c_str(), ok, "");
-    RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.getColorReporting(id.c_str(), ok) : RGBColor(1,0,0);
+    RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.getColorReporting(id.c_str(), ok) : RGBColor(1, 0, 0);
     SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
     std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
@@ -963,7 +963,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             return;
         }
         if (fromLaneIdx < 0 || static_cast<unsigned int>(fromLaneIdx) >= from->getLanes().size() ||
-            toLaneIdx < 0 || static_cast<unsigned int>(toLaneIdx) >= to->getLanes().size()) {
+                toLaneIdx < 0 || static_cast<unsigned int>(toLaneIdx) >= to->getLanes().size()) {
             WRITE_ERROR("Invalid lane index in connection from '" + from->getID() + "' to '" + to->getID() + "'.");
             return;
         }

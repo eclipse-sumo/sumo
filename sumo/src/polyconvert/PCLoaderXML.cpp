@@ -217,7 +217,7 @@ PCLoaderXML::myStartElement(int element,
             if (!myCont.insert(myCurrentID, poly, (int)myCurrentLayer, myCurrentIgnorePrunning)) {
                 WRITE_ERROR("Polygon '" + myCurrentID + "' could not be added.");
                 delete poly;
-            }  
+            }
         }
     }
 }

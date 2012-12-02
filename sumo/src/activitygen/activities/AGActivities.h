@@ -50,8 +50,8 @@ public:
     AGActivities(AGCity* city, int days) :
         myCity(city),
         nbrDays(days) {};
-    void addTrip(AGTrip t, std::list<AGTrip> *tripSet);
-    void addTrips(std::list<AGTrip> t, std::list<AGTrip> *tripSet);
+    void addTrip(AGTrip t, std::list<AGTrip>* tripSet);
+    void addTrips(std::list<AGTrip> t, std::list<AGTrip>* tripSet);
     void generateActivityTrips();
 
     /**

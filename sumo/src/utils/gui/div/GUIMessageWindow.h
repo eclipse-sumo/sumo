@@ -90,14 +90,14 @@ public:
 private:
     class MsgOutputDevice : public OutputDevice {
     public:
-        MsgOutputDevice(GUIMessageWindow *msgWindow, GUIEventType type) :
-                myMsgWindow(msgWindow),
-                myType(type) { }
+        MsgOutputDevice(GUIMessageWindow* msgWindow, GUIEventType type) :
+            myMsgWindow(msgWindow),
+            myType(type) { }
 
         ~MsgOutputDevice() { }
 
     protected:
-        std::ostream &getOStream() {
+        std::ostream& getOStream() {
             return myStream;
         }
         void postWriteHook() {
@@ -106,7 +106,7 @@ private:
         }
 
     private:
-        GUIMessageWindow *myMsgWindow;
+        GUIMessageWindow* myMsgWindow;
         std::ostringstream myStream;
         GUIEventType myType;
     };
@@ -117,7 +117,7 @@ private:
     FXHiliteStyle* myStyles;
 
     /** @brief The instances of message retriever encapsulations */
-    OutputDevice *myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
+    OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 
 
 

@@ -163,8 +163,8 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveRemind
 
 bool
 MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const {
-    return sampleSeconds == 0 && nVehDeparted == 0 && nVehArrived == 0 && nVehEntered == 0 
-        && nVehLeft == 0 && nVehVaporized == 0 && nVehLaneChangeFrom == 0 && nVehLaneChangeTo == 0;
+    return sampleSeconds == 0 && nVehDeparted == 0 && nVehArrived == 0 && nVehEntered == 0
+           && nVehLeft == 0 && nVehVaporized == 0 && nVehLaneChangeFrom == 0 && nVehLaneChangeTo == 0;
 }
 
 
@@ -185,7 +185,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
         if (nVehVaporized > 0) {
             dev << " vaporized=\"" << nVehVaporized << "\"";
         }
-		dev.closeTag(true);
+        dev.closeTag(true);
         return;
     }
     if (sampleSeconds > myParent->myMinSamples) {
@@ -214,10 +214,10 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
         "\" left=\"" << nVehLeft <<
         "\" laneChangedFrom=\"" << nVehLaneChangeFrom <<
         "\" laneChangedTo=\"" << nVehLaneChangeTo << "\"";
-        if (nVehVaporized > 0) {
-            dev << " vaporized=\"" << nVehVaporized << "\"";
-        }
-	dev.closeTag(true);
+    if (nVehVaporized > 0) {
+        dev << " vaporized=\"" << nVehVaporized << "\"";
+    }
+    dev.closeTag(true);
 }
 
 // ---------------------------------------------------------------------------
@@ -233,9 +233,9 @@ MSMeanData_Net::MSMeanData_Net(const std::string& id,
                                const SUMOReal minSamples,
                                const SUMOReal haltSpeed,
                                const std::set<std::string> vTypes)
-      : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-                   withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
-      myHaltSpeed(haltSpeed) {
+    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
+                 withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
+    myHaltSpeed(haltSpeed) {
 }
 
 

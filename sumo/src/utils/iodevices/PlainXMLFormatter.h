@@ -45,7 +45,7 @@
 class PlainXMLFormatter : public OutputFormatter {
 public:
     /// @brief Constructor
-    PlainXMLFormatter(const unsigned int defaultIndentation=0);
+    PlainXMLFormatter(const unsigned int defaultIndentation = 0);
 
 
     /// @brief Destructor
@@ -110,7 +110,7 @@ public:
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag(std::ostream& into, bool abbreviated=false);
+    bool closeTag(std::ostream& into, bool abbreviated = false);
 
 
     /** @brief writes an arbitrary attribute
@@ -122,7 +122,7 @@ public:
     void writeAttr(std::ostream& into, const std::string& attr, const std::string& val);
 
 
-	/** @brief writes a named attribute
+    /** @brief writes a named attribute
      *
      * @param[in] into The output stream to use
      * @param[in] attr The attribute (name)
@@ -130,8 +130,8 @@ public:
      */
     template <class T>
     static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
-		into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
-	}
+        into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
+    }
 
 
 private:

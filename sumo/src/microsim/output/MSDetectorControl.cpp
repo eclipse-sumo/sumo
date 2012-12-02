@@ -80,7 +80,7 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& d
     if (myDetectors.find(type) == myDetectors.end()) {
         myDetectors[type] = NamedObjectCont<MSDetectorFileOutput*>();
     }
-    NamedObjectCont<MSDetectorFileOutput*> &m = myDetectors.find(type)->second;
+    NamedObjectCont<MSDetectorFileOutput*>& m = myDetectors.find(type)->second;
     // insert object into dictionary
     if (! m.add(d->getID(), d)) {
         throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
@@ -95,7 +95,7 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d) {
     if (myDetectors.find(type) == myDetectors.end()) {
         myDetectors[type] = NamedObjectCont<MSDetectorFileOutput*>();
     }
-    NamedObjectCont<MSDetectorFileOutput*> &m = myDetectors.find(type)->second;
+    NamedObjectCont<MSDetectorFileOutput*>& m = myDetectors.find(type)->second;
     // insert object into dictionary
     if (! m.add(d->getID(), d)) {
         throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
@@ -115,7 +115,7 @@ MSDetectorControl::add(MSMeanData* mn, OutputDevice& device,
 }
 
 
-const NamedObjectCont<MSDetectorFileOutput*> &
+const NamedObjectCont<MSDetectorFileOutput*>&
 MSDetectorControl::getTypedDetectors(SumoXMLTag type) const {
     if (myDetectors.find(type) == myDetectors.end()) {
         return myEmptyContainer;//myDetectors[type] = NamedObjectCont<MSDetectorFileOutput*>();
@@ -127,7 +127,7 @@ MSDetectorControl::getTypedDetectors(SumoXMLTag type) const {
 void
 MSDetectorControl::updateDetectors(const SUMOTime step) {
     for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        const std::map<std::string, MSDetectorFileOutput*> &dets = getTypedDetectors((*i).first).getMyMap();
+        const std::map<std::string, MSDetectorFileOutput*>& dets = getTypedDetectors((*i).first).getMyMap();
         for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j = dets.begin(); j != dets.end(); ++j) {
             (*j).second->detectorUpdate(step);
         }

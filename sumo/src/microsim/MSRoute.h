@@ -66,7 +66,7 @@ public:
     /// Constructor
     MSRoute(const std::string& id, const MSEdgeVector& edges,
             unsigned int references, const RGBColor* const c,
-            const std::vector<SUMOVehicleParameter::Stop> &stops);
+            const std::vector<SUMOVehicleParameter::Stop>& stops);
 
     /// Destructor
     virtual ~MSRoute();
@@ -101,7 +101,7 @@ public:
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();
     }
 
-    bool containsAnyOf(const std::vector<MSEdge*> &edgelist) const;
+    bool containsAnyOf(const std::vector<MSEdge*>& edgelist) const;
 
     const MSEdge* operator[](unsigned index) const;
 
@@ -144,7 +144,7 @@ public:
     const RGBColor& getColor() const;
 
     /// Returns the stops
-    const std::vector<SUMOVehicleParameter::Stop> &getStops() const;
+    const std::vector<SUMOVehicleParameter::Stop>& getStops() const;
 
 public:
     /** @brief Adds a route to the dictionary.
@@ -167,7 +167,7 @@ public:
      * @param[in] route pointer to the distribution object
      * @return          whether adding was successful
      */
-    static bool dictionary(const std::string& id, RandomDistributor<const MSRoute*> *routeDist);
+    static bool dictionary(const std::string& id, RandomDistributor<const MSRoute*>* routeDist);
 
     /** @brief Returns the named route or a sample from the named distribution.
      *
@@ -186,12 +186,12 @@ public:
      * @param[in] id    the id of the route distribution
      * @return          the route distribution
      */
-    static RandomDistributor<const MSRoute*> *distDictionary(const std::string& id);
+    static RandomDistributor<const MSRoute*>* distDictionary(const std::string& id);
 
     /// Clears the dictionary (delete all known routes, too)
     static void clear();
 
-    static void insertIDs(std::vector<std::string> &into);
+    static void insertIDs(std::vector<std::string>& into);
 
     /// @brief release the route (to be used as function pointer with RandomDistributor)
     static void releaseRoute(const MSRoute* route) {

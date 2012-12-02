@@ -58,7 +58,7 @@ public:
      * @param[in, changed] nb The network builder which contains the current network representation
      * @param[in] oc The options container
      */
-    static void computeRamps(NBNetBuilder &nb, OptionsCont& oc);
+    static void computeRamps(NBNetBuilder& nb, OptionsCont& oc);
 
     /// @brief suffix for newly generated on-ramp edges
     static const std::string ADDED_ON_RAMP_EDGE;
@@ -106,8 +106,8 @@ private:
     static void buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::set<NBEdge*>& incremented);
 
 
-    static void getOnRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp, NBEdge **other);
-    static void getOffRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp, NBEdge **other);
+    static void getOnRampEdges(NBNode* n, NBEdge** potHighway, NBEdge** potRamp, NBEdge** other);
+    static void getOffRampEdges(NBNode* n, NBEdge** potHighway, NBEdge** potRamp, NBEdge** other);
     static bool determinedBySpeed(NBEdge** potHighway, NBEdge** potRamp);
     static bool determinedByLaneNumber(NBEdge** potHighway, NBEdge** potRamp);
 
@@ -123,14 +123,14 @@ private:
      * @param[in] maxRampSpeed The maximum speed limit a ramp must have for being a ramp
      * @return Whether a ramp can be built here
      */
-    static bool fulfillsRampConstraints(NBEdge *potHighway, NBEdge *potRamp, NBEdge *other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed);
+    static bool fulfillsRampConstraints(NBEdge* potHighway, NBEdge* potRamp, NBEdge* other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed);
 
 
     /** @brief Moves the ramp to the right, as new lanes were added
      * @param[in] ramp The ramp to move
      * @param[in] addedLanes The number of added lanes
      */
-    static void moveRampRight(NBEdge *ramp, int addedLanes);
+    static void moveRampRight(NBEdge* ramp, int addedLanes);
 
 };
 

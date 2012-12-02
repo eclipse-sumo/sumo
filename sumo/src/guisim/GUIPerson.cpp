@@ -92,7 +92,7 @@ FXIMPLEMENT(GUIPerson::GUIPersonPopupMenu, GUIGLObjectPopupMenu, GUIPersonPopupM
  * ----------------------------------------------------------------------- */
 GUIPerson::GUIPersonPopupMenu::GUIPersonPopupMenu(
     GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations)
+    GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations)
     : GUIGLObjectPopupMenu(app, parent, o), myVehiclesAdditionalVisualizations(additionalVisualizations) {
 }
 
@@ -104,8 +104,8 @@ GUIPerson::GUIPersonPopupMenu::~GUIPersonPopupMenu() {}
 /* -------------------------------------------------------------------------
  * GUIPerson - methods
  * ----------------------------------------------------------------------- */
-GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) : 
-    MSPerson(pars, vtype, plan), 
+GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) :
+    MSPerson(pars, vtype, plan),
     GUIGlObject(GLO_PERSON, pars->id),
     myAmVisualizedAsStopped(false)
 { }
@@ -117,7 +117,7 @@ GUIPerson::~GUIPerson() {
 
 GUIGLObjectPopupMenu*
 GUIPerson::getPopUpMenu(GUIMainWindow& app,
-                         GUISUMOAbstractView& parent) {
+                        GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIPersonPopupMenu(app, parent, *this, myAdditionalVisualizations);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -132,7 +132,7 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIPerson::getParameterWindow(GUIMainWindow& app,
-                               GUISUMOAbstractView&) {
+                              GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 3);
     // add items
@@ -216,14 +216,14 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const /* parent */, const GUIVi
                 continue;
             }
             MSLink* link = (*i).myLink;
-#ifdef HAVE_INTERNAL_LANES
+    #ifdef HAVE_INTERNAL_LANES
             MSLane *via = link->getViaLane();
             if (via == 0) {
                 via = link->getLane();
             }
-#else
+    #else
             MSLane *via = link->getLane();
-#endif
+    #endif
             if (via != 0) {
                 Position p = via->getShape()[0];
                 if((*i).mySetRequest) {
@@ -257,10 +257,10 @@ GUIPerson::setColor(const GUIVisualizationSettings& s) const {
 bool
 GUIPerson::setFunctionalColor(size_t activeScheme) const {
     switch (activeScheme) {
-        case 1: 
+        case 1:
             GLHelper::setColor(getParameter().color);
             return true;
-        // XXX color by stage
+            // XXX color by stage
         default:
             return false;
     }
@@ -305,7 +305,7 @@ GUIPerson::getColorValue(size_t /* activeScheme */) const {
 }
 
 
-Position 
+Position
 GUIPerson::getPosition(SUMOTime now) const {
     if ((*myStep)->getStageType() == DRIVING && !isWaiting4Vehicle()) {
         return myPositionInVehicle;
@@ -314,18 +314,18 @@ GUIPerson::getPosition(SUMOTime now) const {
 }
 
 
-void 
+void
 GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) const {
     // draw triangle pointing down
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
     glVertex2d(-.5, 1.);
-    glVertex2d( .5, 1.);
+    glVertex2d(.5, 1.);
     glEnd();
 }
 
 
-void 
+void
 GUIPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
     // draw pedestrian shape
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
@@ -342,7 +342,7 @@ GUIPerson::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const 
 }
 
 
-void 
+void
 GUIPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
     if (getVehicleType().getGuiShape() == SVS_PEDESTRIAN) {
         const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();

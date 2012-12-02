@@ -183,7 +183,7 @@ private:
     int factorial(int n);
 
     //function normalizing the map's probabilities: Sum(floats) = 1
-    void normalizeMapProb(std::map<int, SUMOReal> *myMap);
+    void normalizeMapProb(std::map<int, SUMOReal>* myMap);
 };
 
 #endif

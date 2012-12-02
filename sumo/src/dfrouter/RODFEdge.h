@@ -66,9 +66,9 @@ public:
     /// @brief Destructor
     ~RODFEdge();
 
-    void setFlows(const std::vector<FlowDef> &flows);
+    void setFlows(const std::vector<FlowDef>& flows);
 
-    const std::vector<FlowDef> &getFlows() const;
+    const std::vector<FlowDef>& getFlows() const;
 
 
 private:

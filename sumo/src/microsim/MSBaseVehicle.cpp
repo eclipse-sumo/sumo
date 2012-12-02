@@ -136,7 +136,7 @@ MSBaseVehicle::getEdge() const {
 
 
 void
-MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz) {
+MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, bool withTaz) {
     // check whether to reroute
     std::vector<const MSEdge*> edges;
     if (withTaz && MSEdge::dictionary(myParameter->fromTaz + "-source") && MSEdge::dictionary(myParameter->toTaz + "-sink")) {
@@ -268,9 +268,9 @@ MSBaseVehicle::calculateArrivalPos() {
     const SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
     switch (myParameter->arrivalPosProcedure) {
         case ARRIVAL_POS_GIVEN:
-			if (fabs(myParameter->arrivalPos) > lastLaneLength) {
-				WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive at the given position!");
-			}
+            if (fabs(myParameter->arrivalPos) > lastLaneLength) {
+                WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive at the given position!");
+            }
             // Maybe we should warn the user about invalid inputs!
             myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
             if (myArrivalPos < 0) {

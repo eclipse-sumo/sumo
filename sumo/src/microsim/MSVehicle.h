@@ -167,7 +167,7 @@ public:
 
     /// @name interaction with the route
     //@{
-    
+
     /** @brief Returns whether this vehicle has already arived
      * (reached the arrivalPosition on its final edge)
      */
@@ -191,8 +191,8 @@ public:
      */
     bool willPass(const MSEdge* const edge) const;
 
-	unsigned int getRoutePosition() const;
-	void resetRoutePosition(unsigned int index);
+    unsigned int getRoutePosition() const;
+    void resetRoutePosition(unsigned int index);
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container
      *
@@ -277,7 +277,7 @@ public:
 
 
 
-    /** @brief Moves vehicles 
+    /** @brief Moves vehicles
      *
      * @param[in] lane The lane the vehicle is on
      * @param[in] pred The leader (may be 0)
@@ -482,20 +482,20 @@ public:
      * @param[in] startLane The lane the process shall start at ("myLane" will be used if ==0)
      * @return The best lanes structure holding matching the current vehicle position and state ahead
      */
-    virtual const std::vector<LaneQ> &getBestLanes(bool forceRebuild = false, MSLane* startLane = 0) const;
+    virtual const std::vector<LaneQ>& getBestLanes(bool forceRebuild = false, MSLane* startLane = 0) const;
 
 
     /** @brief Returns the subpart of best lanes that describes the vehicle's current lane and their successors
      * @return The best lane information for the vehicle's current lane
      * @todo Describe better
      */
-    const std::vector<MSLane*> &getBestLanesContinuation() const;
+    const std::vector<MSLane*>& getBestLanesContinuation() const;
 
     /** @brief Returns the subpart of best lanes that describes the given lane and their successors
      * @return The best lane information for the given lane
      * @todo Describe better
      */
-    const std::vector<MSLane*> &getBestLanesContinuation(const MSLane* const l) const;
+    const std::vector<MSLane*>& getBestLanesContinuation(const MSLane* const l) const;
     /// @}
 
 
@@ -795,13 +795,13 @@ public:
         /** @brief Sets a new velocity timeline
          * @param[in] speedTimeLine The time line of speeds to use
          */
-        void setSpeedTimeLine(const std::vector<std::pair<SUMOTime, SUMOReal> > &speedTimeLine);
+        void setSpeedTimeLine(const std::vector<std::pair<SUMOTime, SUMOReal> >& speedTimeLine);
 
 
         /** @brief Sets a new lane timeline
          * @param[in] laneTimeLine The time line of lanes to use
          */
-        void setLaneTimeLine(const std::vector<std::pair<SUMOTime, unsigned int> > &laneTimeLine);
+        void setLaneTimeLine(const std::vector<std::pair<SUMOTime, unsigned int> >& laneTimeLine);
 
 
         /** @brief Applies stored velocity information on the speed to use
@@ -976,14 +976,14 @@ protected:
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), myDistance(distance),
             accelV(-1) { };
         void adaptLeaveSpeed(SUMOReal v) {
-            if(accelV<0) {
+            if (accelV < 0) {
                 accelV = v;
             } else {
                 accelV = MIN2(accelV, v);
             }
         }
         SUMOReal getLeaveSpeed() const {
-            return accelV<0 ? myVLinkPass : accelV;
+            return accelV < 0 ? myVLinkPass : accelV;
         }
     };
 

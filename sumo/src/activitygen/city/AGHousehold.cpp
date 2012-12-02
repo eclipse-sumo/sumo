@@ -116,7 +116,7 @@ AGHousehold::getCars() const {
 }
 
 bool
-AGHousehold::isCloseFromPubTransport(std::list<AGPosition> *pubTransport) {
+AGHousehold::isCloseFromPubTransport(std::list<AGPosition>* pubTransport) {
     SUMOReal distToPT = myLocation.minDistanceTo(*pubTransport);
     if (distToPT > myCity->statData.maxFootDistance) {
         return false;
@@ -125,7 +125,7 @@ AGHousehold::isCloseFromPubTransport(std::list<AGPosition> *pubTransport) {
 }
 
 bool
-AGHousehold::isCloseFromPubTransport(std::map<int, AGPosition> *pubTransport) {
+AGHousehold::isCloseFromPubTransport(std::map<int, AGPosition>* pubTransport) {
     SUMOReal distToPT = myLocation.minDistanceTo(*pubTransport);
     if (distToPT > myCity->statData.maxFootDistance) {
         return false;

@@ -161,7 +161,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender,
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                ValueSource<unsigned> *src) {
+                                ValueSource<unsigned>* src) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<unsigned>(myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }
@@ -169,7 +169,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                ValueSource<SUMOReal> *src) {
+                                ValueSource<SUMOReal>* src) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOReal>(myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }
@@ -178,7 +178,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 #ifndef HAVE_SUBSECOND_TIMESTEPS
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                ValueSource<SUMOTime> *src) {
+                                ValueSource<SUMOTime>* src) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOTime>(myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }

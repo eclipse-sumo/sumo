@@ -57,18 +57,18 @@ public:
                            tcpip::Storage& outputStorage);
 
 
-    /** @brief Returns the named junction's position 
+    /** @brief Returns the named junction's position
      * @param[in] id The id of the searched junction
      * @param[out] p The position, if the junction is known
      * @return Whether the junction is known (and on road)
      */
-    static bool getPosition(const std::string &id, Position &p);
+    static bool getPosition(const std::string& id, Position& p);
 
 
     /** @brief Returns a tree filled with inductive loop instances
      * @return The rtree of inductive loop
      */
-    static TraCIRTree *getTree();
+    static TraCIRTree* getTree();
 
 
 private:

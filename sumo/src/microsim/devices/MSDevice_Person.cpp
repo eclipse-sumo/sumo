@@ -50,7 +50,7 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 MSDevice_Person*
-MSDevice_Person::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) {
+MSDevice_Person::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     MSDevice_Person* device = new MSDevice_Person(v, "person_" + v.getID());
     into.push_back(device);
     return device;

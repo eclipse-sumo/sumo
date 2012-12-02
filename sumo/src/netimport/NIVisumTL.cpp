@@ -46,10 +46,10 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVisumTL::NIVisumTL(const std::string& name, SUMOTime cycleTime, SUMOTime offset, 
+NIVisumTL::NIVisumTL(const std::string& name, SUMOTime cycleTime, SUMOTime offset,
                      SUMOTime intermediateTime, bool phaseDefined)
     : myName(name), myCycleTime(cycleTime), myOffset(offset),
-    myIntermediateTime(intermediateTime), myPhaseDefined(phaseDefined) 
+      myIntermediateTime(intermediateTime), myPhaseDefined(phaseDefined)
 {}
 
 
@@ -63,20 +63,20 @@ NIVisumTL::~NIVisumTL() {
 }
 
 
-void 
-NIVisumTL::addSignalGroup(const std::string &name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime) {
+void
+NIVisumTL::addSignalGroup(const std::string& name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime) {
     mySignalGroups[name] = new NIVisumTL::SignalGroup(name, startTime, endTime, yellowTime);
 }
 
 
-void 
-NIVisumTL::addPhase(const std::string &name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime) {
+void
+NIVisumTL::addPhase(const std::string& name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime) {
     myPhases[name] = new NIVisumTL::Phase(startTime, endTime, yellowTime);
 }
 
 
-NIVisumTL::SignalGroup& 
-NIVisumTL::getSignalGroup(const std::string &name) {
+NIVisumTL::SignalGroup&
+NIVisumTL::getSignalGroup(const std::string& name) {
     return *mySignalGroups.find(name)->second;
 }
 

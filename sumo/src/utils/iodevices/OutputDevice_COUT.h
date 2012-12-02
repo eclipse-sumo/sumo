@@ -45,7 +45,7 @@ class OutputDevice_COUT : public OutputDevice {
 public:
     /** @brief Returns the single cout instance
      *
-     * Creates and returns the cout device. 
+     * Creates and returns the cout device.
      */
     static OutputDevice* getDevice();
 

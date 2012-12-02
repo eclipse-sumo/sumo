@@ -637,7 +637,7 @@ NBRequest::resetCooperating() {
     // map from edge to number of incoming connections
     std::map<NBEdge*, size_t> incomingCount; // initialized to 0
     // map from edge to indices of approached lanes
-    std::map<NBEdge*, std::set<int> > approachedLanes; 
+    std::map<NBEdge*, std::set<int> > approachedLanes;
     // map from edge to list of incoming edges
     std::map<NBEdge*, EdgeVector> incomingEdges;
     for (EdgeVector::const_iterator it_e = myIncoming.begin(); it_e != myIncoming.end(); it_e++) {

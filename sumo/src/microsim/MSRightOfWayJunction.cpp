@@ -100,7 +100,7 @@ MSRightOfWayJunction::postloadInit() {
                 throw ProcessError("Found invalid logic position of a link (network error)");
             }
             const MSLogicJunction::LinkFoes& foeLinks = myLogic->getFoesFor(requestPos);
-            const std::bitset<64> &internalFoes = myLogic->getInternalFoesFor(requestPos);
+            const std::bitset<64>& internalFoes = myLogic->getInternalFoesFor(requestPos);
             bool cont = myLogic->getIsCont(requestPos);
             myLinkFoeLinks[*j] = std::vector<MSLink*>();
             for (unsigned int c = 0; c < maxNo; ++c) {
@@ -138,9 +138,9 @@ MSRightOfWayJunction::postloadInit() {
                     }
                     if (internalFoes.test(c)) {
                         myLinkFoeInternalLanes[*j].push_back(myInternalLanes[li]);
-                        if(foeLinks.test(c)) {
-                            const std::vector<MSLane::IncomingLaneInfo> &l = myInternalLanes[li]->getIncomingLanes();
-                            if(l.size()==1&&l[0].lane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+                        if (foeLinks.test(c)) {
+                            const std::vector<MSLane::IncomingLaneInfo>& l = myInternalLanes[li]->getIncomingLanes();
+                            if (l.size() == 1 && l[0].lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
                                 myLinkFoeInternalLanes[*j].push_back(l[0].lane);
                             }
                         }

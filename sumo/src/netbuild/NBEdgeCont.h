@@ -364,7 +364,7 @@ public:
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
      * @see NBEdge::appendTurnaround
      */
-    void appendTurnarounds(const std::set<std::string> &ids, bool noTLSControlled);
+    void appendTurnarounds(const std::set<std::string>& ids, bool noTLSControlled);
 
 
     /** @brief Computes the shapes of all edges stored in the container
@@ -417,7 +417,7 @@ public:
     /** @brief Determines which edges belong to roundabouts and increases their priority
      * @param[out] marked Edges which belong to a roundabout are stored here
      */
-    void guessRoundabouts(std::vector<std::set<NBEdge*> > &marked);
+    void guessRoundabouts(std::vector<std::set<NBEdge*> >& marked);
 
 
     /** @brief Returns whether the built edges are left-handed
@@ -458,12 +458,12 @@ public:
      * @param[in] toLane The number of the lane the connection ends at
      * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
      */
-    void addPostProcessConnection(const std::string &from, int fromLane, const std::string &to, int toLane, bool mayDefinitelyPass); 
+    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass);
 
 
     /** @brief Try to set any stored connections
      */
-    void recheckPostProcessConnections(); 
+    void recheckPostProcessConnections();
     /// @}
 
     /// @brief assigns street signs to edges based on toNode types
@@ -480,15 +480,15 @@ private:
 
 
     /// @brief Returns true if this edge matches one of the removal criteria
-    bool ignoreFilterMatch(NBEdge *edge);
+    bool ignoreFilterMatch(NBEdge* edge);
 
 
 private:
     /** @struct PostProcessConnection
      * @brief A structure representing a connection between two lanes
      */
-    struct PostProcessConnection { 
-    public: 
+    struct PostProcessConnection {
+    public:
         /** @brief Constructor
          * @param[in] from The id of the edge the connection starts at
          * @param[in] fromLane The number of the lane the connection starts at
@@ -496,23 +496,23 @@ private:
          * @param[in] toLane The number of the lane the connection ends at
          * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
          */
-        PostProcessConnection(const std::string &from_, int fromLane_, const std::string &to_, int toLane_, bool mayDefinitelyPass_) 
-            : from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_) 
-        { } 
+        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_)
+            : from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_)
+        { }
         /// @brief The id of the edge the connection starts at
-        std::string from; 
+        std::string from;
         /// @brief The number of the lane the connection starts at
-        int fromLane; 
+        int fromLane;
         /// @brief The id of the edge the connection ends at
-        std::string to; 
+        std::string to;
         /// @brief The number of the lane the connection ends at
-        int toLane; 
+        int toLane;
         /// @brief Whether the connection may be passed without braking
-        bool mayDefinitelyPass; 
-    }; 
+        bool mayDefinitelyPass;
+    };
 
     /// @brief The list of connections to recheck
-    std::vector<PostProcessConnection> myConnections; 
+    std::vector<PostProcessConnection> myConnections;
 
 
     /// @brief The type of the dictionary where an edge may be found by its id

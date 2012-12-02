@@ -50,7 +50,7 @@
 ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet& net,
         SUMOTime begin, SUMOTime end,
         const std::string& file)
-    : SUMOSAXHandler(file), myNet(net), myBegin(begin), myEnd(end), 
+    : SUMOSAXHandler(file), myNet(net), myBegin(begin), myEnd(end),
       myParser(0), myCurrentDepart(-1), myNextRouteRead(false),
       myEnded(false) {
     try {

@@ -72,7 +72,7 @@ NIVissimDistrictConnection::NIVissimDistrictConnection(int id,
         const std::string& name,
         const std::vector<int>& districts, const std::vector<SUMOReal>& percentages,
         int edgeid, SUMOReal position,
-        const std::vector<std::pair<int, int> > &assignedVehicles)
+        const std::vector<std::pair<int, int> >& assignedVehicles)
     : myID(id), myName(name), myDistricts(districts),
       myEdgeID(edgeid), myPosition(position),
       myAssignedVehicles(assignedVehicles) {
@@ -94,7 +94,7 @@ bool
 NIVissimDistrictConnection::dictionary(int id, const std::string& name,
                                        const std::vector<int>& districts, const std::vector<SUMOReal>& percentages,
                                        int edgeid, SUMOReal position,
-                                       const std::vector<std::pair<int, int> > &assignedVehicles) {
+                                       const std::vector<std::pair<int, int> >& assignedVehicles) {
     NIVissimDistrictConnection* o =
         new NIVissimDistrictConnection(id, name, districts, percentages,
                                        edgeid, position, assignedVehicles);

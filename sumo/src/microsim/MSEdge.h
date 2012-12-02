@@ -156,7 +156,7 @@ public:
      *
      * @return This edge's lanes
      */
-    const std::vector<MSLane*> &getLanes() const {
+    const std::vector<MSLane*>& getLanes() const {
         return *myLanes;
     }
 
@@ -228,7 +228,7 @@ public:
     /** @brief Returns the list of edges from which this edge may be reached
      * @return Edges from which this edge may be reached
      */
-    const std::vector<MSEdge*> &getIncomingEdges() const {
+    const std::vector<MSEdge*>& getIncomingEdges() const {
         return myPredeccesors;
     }
 
@@ -295,12 +295,12 @@ public:
      * @param[in] minSpeed The minimumSpeed to assume if traffic on this edge is stopped
      * @return The current effort (travel time) to pass the edge
      */
-    SUMOReal getCurrentTravelTime(const SUMOReal minSpeed=0.00001) const;
+    SUMOReal getCurrentTravelTime(const SUMOReal minSpeed = 0.00001) const;
 
 
     /// @brief returns the minimum travel time for the given vehicle
     inline SUMOReal getMinimumTravelTime(const SUMOVehicle* const veh) const {
-        if(veh!=0) {
+        if (veh != 0) {
             return getLength() / MIN2(veh->getMaxSpeed(), getVehicleMaxSpeed(veh));
         } else {
             return getLength() / getSpeedLimit();
@@ -385,7 +385,7 @@ public:
 
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
     inline bool prohibits(const SUMOVehicle* const vehicle) const {
-        if(vehicle==0) {
+        if (vehicle == 0) {
             return false;
         }
         const SUMOVehicleClass svc = vehicle->getVehicleType().getVehicleClass();
@@ -424,13 +424,13 @@ public:
      */
     SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
 
-    virtual void addPerson(MSPerson *p) const {
+    virtual void addPerson(MSPerson* p) const {
         myPersons.insert(p);
     }
 
-    virtual void removePerson(MSPerson *p) const {
-        std::set<MSPerson*>::iterator i=myPersons.find(p);
-        if(i!=myPersons.end()) {
+    virtual void removePerson(MSPerson* p) const {
+        std::set<MSPerson*>::iterator i = myPersons.find(p);
+        if (i != myPersons.end()) {
             myPersons.erase(i);
         }
     }
@@ -457,7 +457,7 @@ public:
     static void clear();
 
     /** @brief Inserts IDs of all known edges into the given vector */
-    static void insertIDs(std::vector<std::string> &into);
+    static void insertIDs(std::vector<std::string>& into);
 
 
 public:
@@ -472,7 +472,7 @@ public:
      * @param[in] rid The id of the route these description belongs to; used for error message generation
      * @exception ProcessError If one of the strings contained is not a known edge id
      */
-    static void parseEdgesList(const std::string& desc, std::vector<const MSEdge*> &into,
+    static void parseEdgesList(const std::string& desc, std::vector<const MSEdge*>& into,
                                const std::string& rid);
 
 
@@ -482,7 +482,7 @@ public:
      * @param[in] rid The id of the route these description belongs to; used for error message generation
      * @exception ProcessError If one of the strings contained is not a known edge id
      */
-    static void parseEdgesList(const std::vector<std::string> &desc, std::vector<const MSEdge*> &into,
+    static void parseEdgesList(const std::vector<std::string>& desc, std::vector<const MSEdge*>& into,
                                const std::string& rid);
     /// @}
 

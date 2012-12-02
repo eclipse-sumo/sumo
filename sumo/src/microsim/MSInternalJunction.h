@@ -76,12 +76,12 @@ public:
 
     void postloadInit();
 
-    const std::vector<MSLink*> &getFoeLinks(const MSLink* const srcLink) const {
+    const std::vector<MSLink*>& getFoeLinks(const MSLink* const srcLink) const {
         UNUSED_PARAMETER(srcLink);
         return myInternalLinkFoes;
     }
 
-    const std::vector<MSLane*> &getFoeInternalLanes(const MSLink* const srcLink) const {
+    const std::vector<MSLane*>& getFoeInternalLanes(const MSLink* const srcLink) const {
         UNUSED_PARAMETER(srcLink);
         return myInternalLaneFoes;
     }

@@ -70,7 +70,7 @@ public:
      * @param[in] source The method for obtaining the value
      * @param[in] retriever The object to pass the value to
      */
-    GLObjectValuePassConnector(GUIGlObject& o, ValueSource<T> *source, ValueRetriever<T> *retriever)
+    GLObjectValuePassConnector(GUIGlObject& o, ValueSource<T>* source, ValueRetriever<T>* retriever)
         : myObject(o), mySource(source), myRetriever(retriever) { /*, myIsInvalid(false) */
         AbstractMutex::ScopedLocker locker(myLock);
         myContainer.push_back(this);
@@ -147,10 +147,10 @@ protected:
     GUIGlObject& myObject;
 
     /// @brief The source for values
-    ValueSource<T> *mySource;
+    ValueSource<T>* mySource;
 
     /// @brief The destination for values
-    ValueRetriever<T> *myRetriever;
+    ValueRetriever<T>* myRetriever;
 
     /// @brief The mutex used to avoid concurrent updates of the connectors container
     static MFXMutex myLock;

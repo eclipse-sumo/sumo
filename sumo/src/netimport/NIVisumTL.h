@@ -55,7 +55,7 @@ public:
     class TimePeriod {
     public:
         /// @brief Constructor
-        TimePeriod(SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime) 
+        TimePeriod(SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime)
             : myStartTime(startTime), myEndTime(endTime), myYellowTime(yellowTime) {}
 
         /// @brief Destructor
@@ -110,17 +110,17 @@ public:
         /// @brief constructor
         SignalGroup(const std::string& name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime)
             : NIVisumTL::TimePeriod(startTime, endTime, yellowTime), myName(name) {}
-        
+
         /// @brief destructor
         ~SignalGroup() {}
 
         /// @brief Returns the connections vector
-        NBConnectionVector &connections() {
+        NBConnectionVector& connections() {
             return myConnections;
         }
 
         /// @brief Returns the phases map
-        std::map<std::string, Phase*> &phases() {
+        std::map<std::string, Phase*>& phases() {
             return myPhases;
         }
 
@@ -150,15 +150,15 @@ public:
     ~NIVisumTL();
 
     /// @brief Adds a node to control
-    void addNode(NBNode *n) {
+    void addNode(NBNode* n) {
         myNodes.push_back(n);
     }
 
     /// @brief Adds a signal group
-    void addSignalGroup(const std::string &name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime);
+    void addSignalGroup(const std::string& name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime);
 
     /// @brief Adds a phase
-    void addPhase(const std::string &name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime);
+    void addPhase(const std::string& name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime);
 
     /// @brief Returns the map of named phases
     std::map<std::string, Phase*>& getPhases() {
@@ -166,7 +166,7 @@ public:
     }
 
     /// @brief Returns the named signal group
-    SignalGroup& getSignalGroup(const std::string &name);
+    SignalGroup& getSignalGroup(const std::string& name);
 
     /// @brief build the traffic light and add it to the given container
     void build(NBTrafficLightLogicCont& tlc);

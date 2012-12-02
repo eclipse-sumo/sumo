@@ -89,7 +89,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
     if (oldPos < 0 && newSpeed != 0) {
         timeOnLane = newPos / newSpeed;
     }
-    if (newPos-veh.getVehicleType().getLength() > myLaneLength && newSpeed != 0) {
+    if (newPos - veh.getVehicleType().getLength() > myLaneLength && newSpeed != 0) {
         timeOnLane -= (newPos - veh.getVehicleType().getLength() - myLaneLength) / newSpeed;
         if (fabs(timeOnLane) < 0.001) { // reduce rounding errors
             timeOnLane = 0.;
@@ -268,12 +268,12 @@ MSMeanData::MSMeanData(const std::string& id,
 
 void
 MSMeanData::init() {
-    const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
+    const std::vector<MSEdge*>& edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         if (myDumpInternal || (*e)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
             myEdges.push_back(*e);
             myMeasures.push_back(std::vector<MeanDataValues*>());
-            const std::vector<MSLane*> &lanes = (*e)->getLanes();
+            const std::vector<MSLane*>& lanes = (*e)->getLanes();
 #ifdef HAVE_INTERNAL
             if (MSGlobals::gUseMesoSim) {
                 MeanDataValues* data;
@@ -350,7 +350,7 @@ MSMeanData::resetOnly(SUMOTime stopTime) {
 
 void
 MSMeanData::writeEdge(OutputDevice& dev,
-                      const std::vector<MeanDataValues*> &edgeValues,
+                      const std::vector<MeanDataValues*>& edgeValues,
                       MSEdge* edge, SUMOTime startTime, SUMOTime stopTime) {
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {

@@ -133,7 +133,7 @@ GUINet::getPersonControl() {
 void
 GUINet::initTLMap() {
     // get the list of loaded tl-logics
-    const std::vector<MSTrafficLightLogic*> &logics = getTLSControl().getAllLogics();
+    const std::vector<MSTrafficLightLogic*>& logics = getTLSControl().getAllLogics();
     // allocate storage for the wrappers
     myTLLogicWrappers.reserve(logics.size());
     // go through the logics
@@ -249,7 +249,7 @@ void
 GUINet::initGUIStructures() {
     // initialise detector storage for gui
     for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i = myDetectorControl->myDetectors.begin(); i != myDetectorControl->myDetectors.end(); ++i) {
-        const std::map<std::string, MSDetectorFileOutput*> &dets = myDetectorControl->getTypedDetectors((*i).first).getMyMap();
+        const std::map<std::string, MSDetectorFileOutput*>& dets = myDetectorControl->getTypedDetectors((*i).first).getMyMap();
         for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j = dets.begin(); j != dets.end(); ++j) {
             GUIDetectorWrapper* wrapper = (*j).second->buildDetectorGUIRepresentation();
             if (wrapper != 0) {
@@ -265,7 +265,7 @@ GUINet::initGUIStructures() {
     // initialise junction storage for gui
     size_t size = myJunctions->size();
     myJunctionWrapper.reserve(size);
-    const std::map<std::string, MSJunction*> &junctions = myJunctions->getMyMap();
+    const std::map<std::string, MSJunction*>& junctions = myJunctions->getMyMap();
     for (std::map<std::string, MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
         myJunctionWrapper.push_back(new GUIJunctionWrapper(*(*i).second));
     }
@@ -275,7 +275,7 @@ GUINet::initGUIStructures() {
     for (std::vector<GUIEdge*>::iterator i = myEdgeWrapper.begin(); i != myEdgeWrapper.end(); ++i) {
         GUIEdge* edge = *i;
         Boundary b;
-        const std::vector<MSLane*> &lanes = edge->getLanes();
+        const std::vector<MSLane*>& lanes = edge->getLanes();
         for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             b.add((*j)->getShape().getBoxBoundary());
         }

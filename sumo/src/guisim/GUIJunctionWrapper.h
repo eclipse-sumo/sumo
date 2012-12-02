@@ -129,7 +129,7 @@ public:
     /** @brief Returns the represented junction
      * @return The junction itself
      */
-    const MSJunction &getJunction() const {
+    const MSJunction& getJunction() const {
         return myJunction;
     }
 

@@ -119,7 +119,7 @@ public:
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    virtual bool closeTag(std::ostream& into, bool abbreviated=false) = 0;
+    virtual bool closeTag(std::ostream& into, bool abbreviated = false) = 0;
 
 
     /** @brief writes an arbitrary attribute

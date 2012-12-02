@@ -66,7 +66,7 @@ public:
     GUIParam_PopupMenuInterface(GUIMainWindow& app,
                                 GUIParameterTableWindow& parentWindow,
                                 GUIGlObject& o, const std::string& varName,
-                                ValueSource<SUMOReal> *src);
+                                ValueSource<SUMOReal>* src);
 
 
     /// @brief Destructor
@@ -99,7 +99,7 @@ protected:
     std::string myVarName;
 
     /// @brief The source of the value
-    ValueSource<SUMOReal> *mySource;
+    ValueSource<SUMOReal>* mySource;
 
 protected:
     /// @brief FOX needs this

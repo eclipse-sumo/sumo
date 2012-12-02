@@ -60,17 +60,16 @@
 // method definitions
 // ===========================================================================
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string& id,
-                                       const std::vector<MSLane*> &destLanes,
-                                       const std::string& file) : 
-    MSTrigger(id), 
+                                       const std::vector<MSLane*>& destLanes,
+                                       const std::string& file) :
+    MSTrigger(id),
     SUMOSAXHandler(file),
     myDestLanes(destLanes),
     myCurrentSpeed(destLanes[0]->getSpeedLimit()),
     myDefaultSpeed(destLanes[0]->getSpeedLimit()),
     myAmOverriding(false),
     mySpeedOverrideValue(destLanes[0]->getSpeedLimit()),
-    myDidInit(false)
-{
+    myDidInit(false) {
     if (file != "") {
         if (!XMLSubSys::runParser(*this, file)) {
             throw ProcessError();
@@ -227,7 +226,7 @@ MSLaneSpeedTrigger::getCurrentSpeed() const {
         if (myCurrentEntry != myLoadedSpeeds.end() && (*myCurrentEntry).first <= now) {
             return (*myCurrentEntry).second;
         } else {
-            // we have run past the end of the loaded steps or the current step is not yet active: 
+            // we have run past the end of the loaded steps or the current step is not yet active:
             // -> use the value of the previous step
             return (*(myCurrentEntry - 1)).second;
         }

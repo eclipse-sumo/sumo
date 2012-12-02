@@ -47,7 +47,7 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
     : MSCFModel(vtype, accel, decel, headwayTime), myDelta(delta),
       myAdaptationFactor(1.), myAdaptationTime(0.), myExpFactor(0),
       myIterations(MAX2(1, int(TS / internalStepping + .5))),
-      myTwoSqrtAccelDecel(SUMOReal(2 * sqrt(accel * decel))) {
+      myTwoSqrtAccelDecel(SUMOReal(2 * sqrt(accel* decel))) {
 }
 
 
@@ -60,7 +60,7 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
       myAdaptationFactor(adaptationFactor), myAdaptationTime(adaptationTime),
       myExpFactor(exp(-TS / adaptationTime)),
       myIterations(MAX2(1, int(TS / internalStepping + .5))),
-      myTwoSqrtAccelDecel(SUMOReal(2 * sqrt(accel * decel))) {
+      myTwoSqrtAccelDecel(SUMOReal(2 * sqrt(accel* decel))) {
 }
 
 

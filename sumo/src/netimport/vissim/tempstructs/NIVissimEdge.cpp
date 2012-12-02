@@ -504,8 +504,8 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     }
 
     NBEdge* buildEdge = new NBEdge(toString<int>(myID), fromNode, toNode, myType,
-                                   avgSpeed / (SUMOReal) 3.6, myNoLanes, -1, 
-                                   NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, 
+                                   avgSpeed / (SUMOReal) 3.6, myNoLanes, -1,
+                                   NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                    myGeom, myName, LANESPREAD_CENTER, true);
     for (i = 0; i < (int) myNoLanes; i++) {
         if ((int) myLaneSpeeds.size() <= i || myLaneSpeeds[i] == -1) {
@@ -976,7 +976,7 @@ NIVissimEdge::getConnectionTo(NIVissimEdge* e) {
 }
 
 
-const std::vector<NIVissimEdge*> &
+const std::vector<NIVissimEdge*>&
 NIVissimEdge::getToTreatAsSame() const {
     return myToTreatAsSame;
 }
@@ -1009,7 +1009,7 @@ NIVissimEdge::getBestIncoming() const {
     }
     return 0;
     */
-    if(myIncomingConnections.size()!=0) {
+    if (myIncomingConnections.size() != 0) {
         return NIVissimEdge::dictionary(NIVissimConnection::dictionary(myIncomingConnections.front())->getFromEdgeID());
     }
     return 0;
@@ -1026,7 +1026,7 @@ NIVissimEdge::getBestOutgoing() const {
     }
     return 0;
     */
-    if(myOutgoingConnections.size()!=0) {
+    if (myOutgoingConnections.size() != 0) {
         return NIVissimEdge::dictionary(NIVissimConnection::dictionary(myOutgoingConnections.front())->getToEdgeID());
     }
     return 0;

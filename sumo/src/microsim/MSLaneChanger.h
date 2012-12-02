@@ -140,16 +140,16 @@ protected:
     ChangerIt findCandidate();
 
     int change2right(
-        const std::pair<MSVehicle* const, SUMOReal> &leader,
-        const std::pair<MSVehicle* const, SUMOReal> &rLead,
-        const std::pair<MSVehicle* const, SUMOReal> &rFollow,
-        const std::vector<MSVehicle::LaneQ> &preb) const;
+        const std::pair<MSVehicle* const, SUMOReal>& leader,
+        const std::pair<MSVehicle* const, SUMOReal>& rLead,
+        const std::pair<MSVehicle* const, SUMOReal>& rFollow,
+        const std::vector<MSVehicle::LaneQ>& preb) const;
 
     int change2left(
-        const std::pair<MSVehicle* const, SUMOReal> &leader,
-        const std::pair<MSVehicle* const, SUMOReal> &rLead,
-        const std::pair<MSVehicle* const, SUMOReal> &rFollow,
-        const std::vector<MSVehicle::LaneQ> &preb) const;
+        const std::pair<MSVehicle* const, SUMOReal>& leader,
+        const std::pair<MSVehicle* const, SUMOReal>& rLead,
+        const std::pair<MSVehicle* const, SUMOReal>& rFollow,
+        const std::vector<MSVehicle::LaneQ>& preb) const;
 
 
 

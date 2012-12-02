@@ -124,11 +124,11 @@ MSEdge::closeBuilding() {
                 myAllowed[&to]->push_back(*i);
             }
 #ifdef HAVE_INTERNAL_LANES
-			toL = (*j)->getViaLane();
+            toL = (*j)->getViaLane();
             if (toL != 0) {
                 MSEdge& to = toL->getEdge();
                 to.myPredeccesors.push_back(this);
-			}
+            }
 #endif
         }
     }
@@ -139,7 +139,7 @@ MSEdge::closeBuilding() {
 
 void
 MSEdge::rebuildAllowedLanes() {
-    // clear myClassedAllowed. 
+    // clear myClassedAllowed.
     // it will be rebuilt on demand
     for (ClassedAllowedLanesCont::iterator i2 = myClassedAllowed.begin(); i2 != myClassedAllowed.end(); i2++) {
         for (AllowedLanesCont::iterator i1 = (*i2).second.begin(); i1 != (*i2).second.end(); i1++) {
@@ -190,7 +190,7 @@ MSEdge::allowedLanes(SUMOVehicleClass vclass) const {
 }
 
 
-const std::vector<MSLane*>* 
+const std::vector<MSLane*>*
 MSEdge::getAllowedLanesWithDefault(const AllowedLanesCont& c, const MSEdge* dest) const {
     AllowedLanesCont::const_iterator it = c.find(dest);
     if (it == c.end()) {
@@ -291,14 +291,14 @@ MSEdge::getDepartLane(const MSVehicle& veh) const {
                 return getFreeLane(allowedLanes(**(veh.getRoute().begin() + 1)), veh.getVehicleType().getVehicleClass());
             }
         case DEPART_LANE_BEST_FREE: {
-            const std::vector<MSVehicle::LaneQ> &bl = veh.getBestLanes(false, (*myLanes)[0]);
+            const std::vector<MSVehicle::LaneQ>& bl = veh.getBestLanes(false, (*myLanes)[0]);
             SUMOReal bestLength = -1;
             for (std::vector<MSVehicle::LaneQ>::const_iterator i = bl.begin(); i != bl.end(); ++i) {
                 if ((*i).length > bestLength) {
                     bestLength = (*i).length;
                 }
             }
-            std::vector<MSLane*> *bestLanes = new std::vector<MSLane*>();
+            std::vector<MSLane*>* bestLanes = new std::vector<MSLane*>();
             for (std::vector<MSVehicle::LaneQ>::const_iterator i = bl.begin(); i != bl.end(); ++i) {
                 if ((*i).length == bestLength) {
                     bestLanes->push_back((*i).lane);
@@ -337,8 +337,8 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time) const {
                     pos = pars.departPos + getLength();
                 }
                 if (pos < 0 || pos > getLength()) {
-                    WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" + 
-                            v.getID() + "'. Inserting at lane end instead.");
+                    WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" +
+                                  v.getID() + "'. Inserting at lane end instead.");
                     pos = getLength();
                 }
                 break;
@@ -490,7 +490,7 @@ MSEdge::clear() {
 
 
 void
-MSEdge::insertIDs(std::vector<std::string> &into) {
+MSEdge::insertIDs(std::vector<std::string>& into) {
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
         into.push_back((*i).first);
     }
@@ -498,7 +498,7 @@ MSEdge::insertIDs(std::vector<std::string> &into) {
 
 
 void
-MSEdge::parseEdgesList(const std::string& desc, std::vector<const MSEdge*> &into,
+MSEdge::parseEdgesList(const std::string& desc, std::vector<const MSEdge*>& into,
                        const std::string& rid) {
     if (desc[0] == BinaryFormatter::BF_ROUTE) {
         std::istringstream in(desc, std::ios::binary);
@@ -513,7 +513,7 @@ MSEdge::parseEdgesList(const std::string& desc, std::vector<const MSEdge*> &into
 
 
 void
-MSEdge::parseEdgesList(const std::vector<std::string> &desc, std::vector<const MSEdge*> &into,
+MSEdge::parseEdgesList(const std::vector<std::string>& desc, std::vector<const MSEdge*>& into,
                        const std::string& rid) {
     for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
         const MSEdge* edge = MSEdge::dictionary(*i);
@@ -527,7 +527,7 @@ MSEdge::parseEdgesList(const std::vector<std::string> &desc, std::vector<const M
 }
 
 
-SUMOReal 
+SUMOReal
 MSEdge::getDistanceTo(const MSEdge* other) const {
     if (getLanes().size() > 0 && other->getLanes().size() > 0) {
         return getLanes()[0]->getShape()[-1].distanceTo2D(other->getLanes()[0]->getShape()[0]);
@@ -537,20 +537,20 @@ MSEdge::getDistanceTo(const MSEdge* other) const {
 }
 
 
-SUMOReal 
+SUMOReal
 MSEdge::getLength() const {
     return getLanes()[0]->getLength();
 }
 
 
-SUMOReal 
+SUMOReal
 MSEdge::getSpeedLimit() const {
     // @note lanes might have different maximum speeds in theory
     return getLanes()[0]->getSpeedLimit();
 }
 
 
-SUMOReal 
+SUMOReal
 MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
     // @note lanes might have different maximum speeds in theory
     return getLanes()[0]->getVehicleMaxSpeed(veh);

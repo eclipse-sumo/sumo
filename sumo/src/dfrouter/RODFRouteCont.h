@@ -103,14 +103,14 @@ public:
      * @return Whether at least one route was saved
      * @exception IOError not yet implemented
      */
-    bool save(std::vector<std::string> &saved,
+    bool save(std::vector<std::string>& saved,
               const std::string& prependix, OutputDevice& out);
 
 
     /** @brief Returns the container of stored routes
      * @return The stored routes
      */
-    std::vector<RODFRouteDesc> &get() {
+    std::vector<RODFRouteDesc>& get() {
         return myRoutes;
     }
 
@@ -130,7 +130,7 @@ public:
      * @param[in] illegals List of edge combinations that shall not be passed
      * @todo Not used, yet
      */
-    void removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals);
+    void removeIllegal(const std::vector<std::vector<ROEdge*> >& illegals);
 
 
     /** @brief All routes are replaced by their versions extended by follower edges

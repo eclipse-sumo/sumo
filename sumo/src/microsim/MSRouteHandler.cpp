@@ -70,8 +70,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
     myActivePlan(0),
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(0),
-    myCurrentRouteDistribution(0)
-{
+    myCurrentRouteDistribution(0) {
     myActiveRoute.reserve(100);
 }
 
@@ -96,10 +95,10 @@ MSRouteHandler::myStartElement(int element,
             const std::string desc = attrs.getStringReporting(SUMO_ATTR_LINES, pid.c_str(), ok);
             StringTokenizer st(desc);
             std::string bsID = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, 0, ok, "");
-            MSBusStop *bs = 0;
-            if(bsID!="") {
+            MSBusStop* bs = 0;
+            if (bsID != "") {
                 bs = MSNet::getInstance()->getBusStop(bsID);
-                if(bs==0) {
+                if (bs == 0) {
                     throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
                 }
                 departPos = bs->getBeginLanePosition();
@@ -115,7 +114,7 @@ MSRouteHandler::myStartElement(int element,
                 }
                 if (myActivePlan->empty()) {
                     myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
-                                *from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
+                                                *from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
                 }
             } else if (myActivePlan->empty()) {
                 throw ProcessError("The start edge within for person '" + pid + "' is not known.");
@@ -131,10 +130,10 @@ MSRouteHandler::myStartElement(int element,
         case SUMO_TAG_WALK: {
             myActiveRoute.clear();
             bool ok = true;
-            if(attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+            if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
                 MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
             } else {
-                if(attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
+                if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
                     const std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok);
                     MSEdge* from = MSEdge::dictionary(fromID);
                     if (from == 0) {
@@ -158,23 +157,23 @@ MSRouteHandler::myStartElement(int element,
             SUMOReal arrivalPos = attrs.getOptSUMORealReporting(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok, -1);
             const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
             SUMOReal speed = DEFAULT_PERSON_SPEED;
-            if(attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+            if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
                 speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, 0, ok, speed);
-                if(speed<0) {
+                if (speed < 0) {
                     throw ProcessError("Negative walking speed for  '" + myVehicleParameter->id + "'.");
                 }
             }
             std::string bsID = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, 0, ok, "");
-            MSBusStop *bs = 0;
-            if(bsID!="") {
+            MSBusStop* bs = 0;
+            if (bsID != "") {
                 bs = MSNet::getInstance()->getBusStop(bsID);
-                if(bs==0) {
+                if (bs == 0) {
                     throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
                 }
             }
             if (myActivePlan->empty()) {
                 myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
-                            *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start"));
+                                            *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start"));
             }
             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos));
             myActiveRoute.clear();
@@ -416,8 +415,8 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
             probIndex++;
         }
         if (probs.size() > 0 && probIndex != probs.size()) {
-            WRITE_WARNING("Got " + toString(probs.size()) + " probabilities for " + toString(probIndex) + 
-                    " routes in routeDistribution '" + myCurrentRouteDistributionID + "'");
+            WRITE_WARNING("Got " + toString(probs.size()) + " probabilities for " + toString(probIndex) +
+                          " routes in routeDistribution '" + myCurrentRouteDistributionID + "'");
         }
     }
 }
@@ -628,7 +627,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         }
         if (myActivePlan && myActivePlan->empty()) {
             myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
-                        MSLane::dictionary(stop.lane)->getEdge(), -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
+                                        MSLane::dictionary(stop.lane)->getEdge(), -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start"));
         }
         stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDPOS, 0, ok, MSLane::dictionary(stop.lane)->getLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
@@ -679,7 +678,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } else if (myActivePlan) {
         std::string actType = attrs.getOptStringReporting(SUMO_ATTR_ACTTYPE, 0, ok, "waiting");
         myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(
-                    MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, stop.startPos, actType));
+                                    MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, stop.startPos, actType));
     } else {
         myVehicleParameter->stops.push_back(stop);
     }

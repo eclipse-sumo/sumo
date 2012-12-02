@@ -54,204 +54,200 @@
 // ===========================================================================
 void
 MSVTKExport::write(OutputDevice& of, SUMOTime /* timestep */) {
-   
-		of.openTag("?xml") <<  " version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-		of.openTag("VTKFile")  << " type=\"PolyData\" version=\"0.1\" order=\"LittleEndian\" >\n";
-		of.openTag("PolyData") << ">\n";
 
-		std::vector<double> speed = getSpeed();
-		std::vector<double> points = getPositions();
-		
+    of.openTag("?xml") <<  " version=\"1.0\" encoding=\"UTF-8\" ?>\n";
+    of.openTag("VTKFile")  << " type=\"PolyData\" version=\"0.1\" order=\"LittleEndian\" >\n";
+    of.openTag("PolyData") << ">\n";
 
-		of.openTag("Piece")  << " NumberOfPoints=\""<< speed.size() << 
-								"\" NumberOfVerts=\"1\" NumberOfLines=\"0\" NumberOfStrips=\"0\" NumberOfPolys=\"0\">\n";
-		
-		of.openTag("PointData")  << ">\n";
-		of.openTag("DataArray") << " type=\"Float64\" Name=\"speed\" format=\"ascii\" >" << List2String(getSpeed());
-		of.closeTag();
-		
-		//close PointData
-		of.closeTag();
+    std::vector<double> speed = getSpeed();
+    std::vector<double> points = getPositions();
 
-		of.openTag("CellData");
-		
-		//close CellData
-		of.closeTag(true);
 
-		of.openTag("Points")  << ">\n";
-		of.openTag("DataArray") << " type=\"Float64\" Name=\"Points\" NumberOfComponents=\"3\" format=\"ascii\" >" << List2String(getPositions());
-		of.closeTag();
+    of.openTag("Piece")  << " NumberOfPoints=\"" << speed.size() <<
+                         "\" NumberOfVerts=\"1\" NumberOfLines=\"0\" NumberOfStrips=\"0\" NumberOfPolys=\"0\">\n";
 
-		//close Points
-		of.closeTag();
+    of.openTag("PointData")  << ">\n";
+    of.openTag("DataArray") << " type=\"Float64\" Name=\"speed\" format=\"ascii\" >" << List2String(getSpeed());
+    of.closeTag();
 
-		of.openTag("Verts")  << ">\n";
-		of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\" >" << getOffset((int) speed.size());
-		of.closeTag();
+    //close PointData
+    of.closeTag();
 
-		of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\" >" << speed.size();
-		of.closeTag();
+    of.openTag("CellData");
 
-		//Close Verts
-		of.closeTag();
+    //close CellData
+    of.closeTag(true);
 
-		of.openTag("Lines")  << ">\n";
-		of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\"";
-		of.closeTag(true);
+    of.openTag("Points")  << ">\n";
+    of.openTag("DataArray") << " type=\"Float64\" Name=\"Points\" NumberOfComponents=\"3\" format=\"ascii\" >" << List2String(getPositions());
+    of.closeTag();
 
-		of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\"";
-		of.closeTag(true);
+    //close Points
+    of.closeTag();
 
-		//Close Lines
-		of.closeTag();
+    of.openTag("Verts")  << ">\n";
+    of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\" >" << getOffset((int) speed.size());
+    of.closeTag();
 
-		of.openTag("Strips")  << ">\n";
-		of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\"";
-		of.closeTag(true);
+    of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\" >" << speed.size();
+    of.closeTag();
 
-		of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\"";
-		of.closeTag(true);
+    //Close Verts
+    of.closeTag();
 
-		//Close Strips
-		of.closeTag();
+    of.openTag("Lines")  << ">\n";
+    of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\"";
+    of.closeTag(true);
 
-		of.openTag("Polys")  << ">\n";
-		of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\"";
-		of.closeTag(true);
+    of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\"";
+    of.closeTag(true);
 
-		of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\"";
-		of.closeTag(true);
+    //Close Lines
+    of.closeTag();
 
-		//close Polys
-		of.closeTag();
+    of.openTag("Strips")  << ">\n";
+    of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\"";
+    of.closeTag(true);
 
-		//close Piece
-		of.closeTag();
+    of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\"";
+    of.closeTag(true);
 
-		//close PolyData
-		of.closeTag();
+    //Close Strips
+    of.closeTag();
 
-		//close VTKFile
-		of.closeTag();
+    of.openTag("Polys")  << ">\n";
+    of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\"";
+    of.closeTag(true);
+
+    of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\"";
+    of.closeTag(true);
+
+    //close Polys
+    of.closeTag();
+
+    //close Piece
+    of.closeTag();
+
+    //close PolyData
+    of.closeTag();
+
+    //close VTKFile
+    of.closeTag();
 
 }
 
 std::vector<double>
 MSVTKExport::getSpeed() {
 
-	std::vector<double> output;
-	
-	MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    std::vector<double> output;
+
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
 
-	
-	    for (; it != end; ++it) {
+
+    for (; it != end; ++it) {
         const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
-    
-			if (veh->isOnRoad()) {
-            
-				Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
-				output.push_back(veh->getSpeed()*3.6);
-			}
 
-		}
+        if (veh->isOnRoad()) {
 
-		return output;
+            Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
+            output.push_back(veh->getSpeed() * 3.6);
+        }
+
+    }
+
+    return output;
 }
 
 std::vector<double>
 MSVTKExport::getPositions() {
 
-	std::vector<double> output;
-	
-	MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    std::vector<double> output;
+
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
 
-	
-	    for (; it != end; ++it) {
+
+    for (; it != end; ++it) {
         const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
-    
-			if (veh->isOnRoad()) {
-            
-				output.push_back(veh->getPosition().x());
-				output.push_back(veh->getPosition().y());
-				output.push_back(veh->getPosition().z());
 
-			}
+        if (veh->isOnRoad()) {
 
-		}
+            output.push_back(veh->getPosition().x());
+            output.push_back(veh->getPosition().y());
+            output.push_back(veh->getPosition().z());
 
-		return output;
+        }
+
+    }
+
+    return output;
 }
 
 std::string
 MSVTKExport::List2String(std::vector<double> input) {
-		
-		std::string output = "";
-		for(unsigned i=0; i<input.size(); i++){
 
-			 std::stringstream ss; 
+    std::string output = "";
+    for (unsigned i = 0; i < input.size(); i++) {
 
-			 //for a high precision
-			 ss.precision(::std::numeric_limits<double>::digits10);
-			 ss.unsetf(::std::ios::dec);
-			 ss.setf(::std::ios::scientific);
- 
-			 ss << input[i] << " ";
-	   		 output += ss.str();
-		}
+        std::stringstream ss;
 
-		return trim(output);
+        //for a high precision
+        ss.precision(::std::numeric_limits<double>::digits10);
+        ss.unsetf(::std::ios::dec);
+        ss.setf(::std::ios::scientific);
+
+        ss << input[i] << " ";
+        output += ss.str();
+    }
+
+    return trim(output);
 }
 
 std::string
 MSVTKExport::getOffset(int nr) {
-		
-		std::string output = "";
-		for(int i=0; i<nr; i++){
 
-			 std::stringstream ss; 
-			 ss << i << " ";
-	   		 output += ss.str();
-		}
+    std::string output = "";
+    for (int i = 0; i < nr; i++) {
 
-		return trim(output);
+        std::stringstream ss;
+        ss << i << " ";
+        output += ss.str();
+    }
+
+    return trim(output);
 }
 
-bool 
-MSVTKExport::ctype_space(const char c) 
- { 
-     if(c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == 11) 
-     { 
-         return true; 
-     } 
-     return false; 
- } 
+bool
+MSVTKExport::ctype_space(const char c) {
+    if (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == 11) {
+        return true;
+    }
+    return false;
+}
 
-std::string 
-MSVTKExport::trim(std::string istring) 
- { 
-     bool trimmed = false; 
-     
-     if(ctype_space(istring[istring.length()-1])) 
-     { 
-         istring.erase(istring.length()-1); 
-         trimmed = true; 
-     } 
-     
-     if(ctype_space(istring[0])) 
-     { 
-         istring.erase(0,1); 
-         trimmed = true; 
-     } 
-     
-     if(!trimmed) 
-         return istring; 
-     else 
-		return trim(istring); 
-      
- }
+std::string
+MSVTKExport::trim(std::string istring) {
+    bool trimmed = false;
+
+    if (ctype_space(istring[istring.length() - 1])) {
+        istring.erase(istring.length() - 1);
+        trimmed = true;
+    }
+
+    if (ctype_space(istring[0])) {
+        istring.erase(0, 1);
+        trimmed = true;
+    }
+
+    if (!trimmed) {
+        return istring;
+    } else {
+        return trim(istring);
+    }
+
+}
 
 /****************************************************************************/

@@ -133,14 +133,14 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     //  for highways
     NBTypeCont& tc = nb.getTypeCont();
     SUMOReal const WIDTH = NBEdge::UNSPECIFIED_WIDTH;
-    tc.insert("highway.motorway",      3, (SUMOReal)(160./ 3.6), 13, WIDTH, SVC_UNKNOWN, true);
+    tc.insert("highway.motorway",      3, (SUMOReal)(160. / 3.6), 13, WIDTH, SVC_UNKNOWN, true);
     tc.insert("highway.motorway_link", 1, (SUMOReal)(80. / 3.6), 12, WIDTH, SVC_UNKNOWN, true);
-    tc.insert("highway.trunk",         2, (SUMOReal)(100./ 3.6), 11, WIDTH); // !!! 130km/h?
+    tc.insert("highway.trunk",         2, (SUMOReal)(100. / 3.6), 11, WIDTH); // !!! 130km/h?
     tc.insert("highway.trunk_link",    1, (SUMOReal)(80. / 3.6), 10, WIDTH);
-    tc.insert("highway.primary",       2, (SUMOReal)(100./ 3.6),  9, WIDTH);
+    tc.insert("highway.primary",       2, (SUMOReal)(100. / 3.6),  9, WIDTH);
     tc.insert("highway.primary_link",  1, (SUMOReal)(80. / 3.6),  8, WIDTH);
-    tc.insert("highway.secondary",     2, (SUMOReal)(100./ 3.6),  7, WIDTH);
-    tc.insert("highway.secondary_link",1, (SUMOReal)(80. / 3.6),  6, WIDTH);
+    tc.insert("highway.secondary",     2, (SUMOReal)(100. / 3.6),  7, WIDTH);
+    tc.insert("highway.secondary_link", 1, (SUMOReal)(80. / 3.6),  6, WIDTH);
     tc.insert("highway.tertiary",      1, (SUMOReal)(80. / 3.6),  6, WIDTH);
     tc.insert("highway.tertiary_link", 1, (SUMOReal)(80. / 3.6),  5, WIDTH);
     tc.insert("highway.unclassified",  1, (SUMOReal)(80. / 3.6),  5, WIDTH);
@@ -150,7 +150,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     tc.insert("highway.track",         1, (SUMOReal)(20. / 3.6),  1, WIDTH);
     tc.insert("highway.services",      1, (SUMOReal)(30. / 3.6),  1, WIDTH);
     tc.insert("highway.unsurfaced",    1, (SUMOReal)(30. / 3.6),  1, WIDTH); // unofficial value, used outside germany
-    tc.insert("highway.footway",       1, (SUMOReal)(30. / 3.6),  1, WIDTH, SVC_PEDESTRIAN); 
+    tc.insert("highway.footway",       1, (SUMOReal)(30. / 3.6),  1, WIDTH, SVC_PEDESTRIAN);
     tc.insert("highway.pedestrian",    1, (SUMOReal)(30. / 3.6),  1, WIDTH, SVC_PEDESTRIAN);
 
     tc.insert("highway.path",          1, (SUMOReal)(10. / 3.6),  1, WIDTH, SVC_PEDESTRIAN);
@@ -161,13 +161,13 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     tc.insert("highway.steps",         1, (SUMOReal)(5.  / 3.6),  1, WIDTH, SVC_PEDESTRIAN); // :-) do not run too fast
     tc.insert("highway.stairs",        1, (SUMOReal)(5.  / 3.6),  1, WIDTH, SVC_PEDESTRIAN); // additional
     tc.insert("highway.bus_guideway",  1, (SUMOReal)(30. / 3.6),  1, WIDTH, SVC_BUS);
-    tc.insert("highway.raceway",       2, (SUMOReal)(300./ 3.6), 14, WIDTH, SVC_VIP);
+    tc.insert("highway.raceway",       2, (SUMOReal)(300. / 3.6), 14, WIDTH, SVC_VIP);
     tc.insert("highway.ford",          1, (SUMOReal)(10. / 3.6),  1, WIDTH, SVC_PUBLIC_ARMY);
 
     //  for railways
     tc.insert("railway.rail",          1, (SUMOReal)(300. / 3.6),  15, WIDTH, SVC_RAIL_FAST, true);
     tc.insert("railway.tram",          1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_CITYRAIL,  true);
-    tc.insert("railway.light_rail",    1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_LIGHTRAIL, true); 
+    tc.insert("railway.light_rail",    1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_LIGHTRAIL, true);
     tc.insert("railway.subway",        1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_CITYRAIL,  true);
     tc.insert("railway.preserved",     1, (SUMOReal)(100. / 3.6),  15, WIDTH, SVC_LIGHTRAIL, true);
     tc.insert("railway.monorail",      1, (SUMOReal)(300. / 3.6),  15, WIDTH, SVC_LIGHTRAIL, true); // rail stuff has to be discussed
@@ -313,7 +313,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(SUMOLong id, NBNodeCont& nc, NBTraf
 
 int
 NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
-                                     const std::vector<SUMOLong> &passed, NBNetBuilder& nb) {
+                                     const std::vector<SUMOLong>& passed, NBNetBuilder& nb) {
     NBNodeCont& nc = nb.getNodeCont();
     NBEdgeCont& ec = nb.getEdgeCont();
     NBTypeCont& tc = nb.getTypeCont();
@@ -454,8 +454,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(
-        std::map<SUMOLong, NIOSMNode*> &toFill,
-        std::set<NIOSMNode*, CompareNodes> &uniqueNodes) :
+    std::map<SUMOLong, NIOSMNode*>& toFill,
+    std::set<NIOSMNode*, CompareNodes>& uniqueNodes) :
     SUMOSAXHandler("osm - file"),
     myToFill(toFill),
     myLastNodeID(-1),
@@ -522,7 +522,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myUniqueNodes.insert(toAdd);
             } else {
                 delete toAdd;
-                toAdd = *similarNode; 
+                toAdd = *similarNode;
                 WRITE_MESSAGE("Found duplicate nodes. Substituting " + toString(id) + " with " + toString(toAdd->id));
             }
             myToFill[id] = toAdd;
@@ -560,8 +560,8 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) {
 // definitions of NIImporter_OpenStreetMap::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
-    const std::map<SUMOLong, NIOSMNode*> &osmNodes,
-    std::map<std::string, Edge*> &toFill)
+    const std::map<SUMOLong, NIOSMNode*>& osmNodes,
+    std::map<std::string, Edge*>& toFill)
     : SUMOSAXHandler("osm - file"),
       myOSMNodes(osmNodes), myEdgeMap(toFill) {
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
@@ -615,7 +615,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 ref = node->second->id; // node may have been substituted
                 if (myCurrentEdge->myCurrentNodes.size() == 0 ||
                         myCurrentEdge->myCurrentNodes.back() != ref) { // avoid consecutive duplicates
-                    myCurrentEdge->myCurrentNodes.push_back(ref); 
+                    myCurrentEdge->myCurrentNodes.push_back(ref);
                 }
             }
         }

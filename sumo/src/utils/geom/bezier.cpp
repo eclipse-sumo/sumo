@@ -63,7 +63,7 @@ SUMOReal factrl(int n) {
     static SUMOReal a[33] = {
         1.0, 1.0, 2.0, 6.0, 24.0, 120.0, 720.0
     }
-; /* fill in the first few values */
+    ; /* fill in the first few values */
     int j1;
 
     if (n < 0) {

@@ -68,7 +68,7 @@ public:
      * @todo Are costs/prob really mandatory?
      */
     RORoute(const std::string& id, SUMOReal costs, SUMOReal prob,
-            const std::vector<const ROEdge*> &route, const RGBColor* const color);
+            const std::vector<const ROEdge*>& route, const RGBColor* const color);
 
 
     /** @brief Copy constructor
@@ -155,7 +155,7 @@ public:
      *
      * @return The edges this route consists of
      */
-    const std::vector<const ROEdge*> &getEdgeVector() const {
+    const std::vector<const ROEdge*>& getEdgeVector() const {
         return myRoute;
     }
 

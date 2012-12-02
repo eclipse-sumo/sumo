@@ -68,13 +68,13 @@ MSVehicleType::~MSVehicleType() {
 }
 
 
-SUMOReal 
-MSVehicleType::computeChosenSpeedDeviation(MTRand &rng) const {
+SUMOReal
+MSVehicleType::computeChosenSpeedDeviation(MTRand& rng) const {
     // for speedDev = 0.1, most 95% of the vehicles will drive between 80% and 120% of speedLimit * speedFactor
     const SUMOReal devA = MIN2(SUMOReal(2.), RandHelper::randNorm(0, 1., rng));
     // avoid voluntary speeds below 20% of the requested speedFactor
-    return MAX2(0.2 * myParameter.speedFactor, 
-            (devA*myParameter.speedDev + 1.) * myParameter.speedFactor);
+    return MAX2(0.2 * myParameter.speedFactor,
+                (devA * myParameter.speedDev + 1.) * myParameter.speedFactor);
 }
 
 
@@ -243,27 +243,27 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
         case SUMO_TAG_CF_SMART_SK:
             model = new MSCFModel_SmartSK(vtype,
-                                              from.get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
-                                              from.get(SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                              from.get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                                              from.get(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                              from.get(SUMO_ATTR_TMP1, DEFAULT_VEH_TMP1),
-                                              from.get(SUMO_ATTR_TMP2, DEFAULT_VEH_TMP2),
-                                              from.get(SUMO_ATTR_TMP3, DEFAULT_VEH_TMP3),
-                                              from.get(SUMO_ATTR_TMP4, DEFAULT_VEH_TMP4),
-                                              from.get(SUMO_ATTR_TMP5, DEFAULT_VEH_TMP5));
+                                          from.get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                          from.get(SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                          from.get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                          from.get(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                          from.get(SUMO_ATTR_TMP1, DEFAULT_VEH_TMP1),
+                                          from.get(SUMO_ATTR_TMP2, DEFAULT_VEH_TMP2),
+                                          from.get(SUMO_ATTR_TMP3, DEFAULT_VEH_TMP3),
+                                          from.get(SUMO_ATTR_TMP4, DEFAULT_VEH_TMP4),
+                                          from.get(SUMO_ATTR_TMP5, DEFAULT_VEH_TMP5));
             break;
         case SUMO_TAG_CF_DANIEL1:
             model = new MSCFModel_Daniel1(vtype,
-                                              from.get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
-                                              from.get(SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                              from.get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                                              from.get(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                              from.get(SUMO_ATTR_TMP1, DEFAULT_VEH_TMP1),
-                                              from.get(SUMO_ATTR_TMP2, DEFAULT_VEH_TMP2),
-                                              from.get(SUMO_ATTR_TMP3, DEFAULT_VEH_TMP3),
-                                              from.get(SUMO_ATTR_TMP4, DEFAULT_VEH_TMP4),
-                                              from.get(SUMO_ATTR_TMP5, DEFAULT_VEH_TMP5));
+                                          from.get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                          from.get(SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                          from.get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                          from.get(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                          from.get(SUMO_ATTR_TMP1, DEFAULT_VEH_TMP1),
+                                          from.get(SUMO_ATTR_TMP2, DEFAULT_VEH_TMP2),
+                                          from.get(SUMO_ATTR_TMP3, DEFAULT_VEH_TMP3),
+                                          from.get(SUMO_ATTR_TMP4, DEFAULT_VEH_TMP4),
+                                          from.get(SUMO_ATTR_TMP5, DEFAULT_VEH_TMP5));
             break;
         case SUMO_TAG_CF_PWAGNER2009:
             model = new MSCFModel_PWag2009(vtype,

@@ -45,7 +45,7 @@ class OutputDevice_CERR : public OutputDevice {
 public:
     /** @brief Returns the single cerr instance
      *
-     * Creates and returns the cerr device. 
+     * Creates and returns the cerr device.
      */
     static OutputDevice* getDevice();
 

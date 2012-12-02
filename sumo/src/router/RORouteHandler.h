@@ -129,7 +129,7 @@ protected:
     void addStop(const SUMOSAXAttributes& attrs);
 
     /// Parse edges from strings
-    void parseEdges(const std::string& desc, std::vector<const ROEdge*> &into,
+    void parseEdges(const std::string& desc, std::vector<const ROEdge*>& into,
                     const std::string& rid);
 
 protected:
@@ -149,7 +149,7 @@ protected:
     const bool myTryRepair;
 
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
-    RandomDistributor<SUMOVTypeParameter*> *myCurrentVTypeDistribution;
+    RandomDistributor<SUMOVTypeParameter*>* myCurrentVTypeDistribution;
 
     /// @brief The id of the currently parsed vehicle type distribution
     std::string myCurrentVTypeDistributionID;

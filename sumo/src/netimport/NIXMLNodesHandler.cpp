@@ -62,12 +62,12 @@
 // ===========================================================================
 NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont& nc,
                                      NBTrafficLightLogicCont& tlc,
-                                     OptionsCont& options) : 
+                                     OptionsCont& options) :
     SUMOSAXHandler("xml-nodes - file"),
     myOptions(options),
-    myNodeCont(nc), 
+    myNodeCont(nc),
     myTLLogicCont(tlc),
-    myLocation(0) 
+    myLocation(0)
 {}
 
 

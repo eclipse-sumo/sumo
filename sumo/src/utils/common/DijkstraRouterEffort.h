@@ -72,8 +72,7 @@ public:
     /// Constructor
     DijkstraRouterEffortBase(size_t noE, bool unbuildIsWarning) :
         SUMOAbstractRouter<E, V>("DijkstraRouterEffort"),
-        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) 
-    {
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
         for (size_t i = 0; i < noE; i++) {
             myEdgeInfos.push_back(EdgeInfo(i));
         }
@@ -149,7 +148,7 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     virtual void compute(const E* from, const E* to, const V* const vehicle,
-                         SUMOTime msTime, std::vector<const E*> &into) {
+                         SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && to != 0);
         startQuery();
         init();
@@ -209,7 +208,7 @@ public:
     }
 
 
-    SUMOReal recomputeCosts(const std::vector<const E*> &edges, const V* const v, SUMOTime msTime) const {
+    SUMOReal recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
         SUMOReal costs = 0;
         SUMOReal t = STEPS2TIME(msTime);
         for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -224,7 +223,7 @@ public:
 
 public:
     /// Builds the path from marked edges
-    void buildPathFrom(EdgeInfo* rbegin, std::vector<const E*> &edges) {
+    void buildPathFrom(EdgeInfo* rbegin, std::vector<const E*>& edges) {
         std::deque<const E*> tmp;
         while (rbegin != 0) {
             tmp.push_front((E*) rbegin->edge);  // !!!
@@ -256,9 +255,9 @@ public:
     /// Type of the function that is used to retrieve the edge effort.
     typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
 
-    DijkstraRouterEffort_ByProxi(size_t noE, bool unbuildIsWarningOnly, Operation effortOperation, Operation ttOperation): 
+    DijkstraRouterEffort_ByProxi(size_t noE, bool unbuildIsWarningOnly, Operation effortOperation, Operation ttOperation):
         DijkstraRouterEffortBase<E, V, PF>(noE, unbuildIsWarningOnly),
-        myEffortOperation(effortOperation), 
+        myEffortOperation(effortOperation),
         myTTOperation(ttOperation) {}
 
     inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) const {

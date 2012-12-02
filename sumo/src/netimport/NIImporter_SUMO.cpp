@@ -167,7 +167,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont& oc) {
         for (unsigned int fromLaneIndex = 0; fromLaneIndex < (unsigned int) ed->lanes.size(); ++fromLaneIndex) {
             LaneAttrs* lane = ed->lanes[fromLaneIndex];
             // connections
-            const std::vector<Connection> &connections = lane->connections;
+            const std::vector<Connection>& connections = lane->connections;
             for (std::vector<Connection>::const_iterator c_it = connections.begin(); c_it != connections.end(); c_it++) {
                 const Connection& c = *c_it;
                 if (myEdges.count(c.toEdgeID) == 0) {
@@ -262,12 +262,12 @@ NIImporter_SUMO::myStartElement(int element,
             addConnection(attrs);
             break;
         case SUMO_TAG_TLLOGIC:
-            if(!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
+            if (!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
                 myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
             }
             break;
         case SUMO_TAG_PHASE:
-            if(!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
+            if (!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
                 addPhase(attrs, myCurrentTL);
             }
             break;
@@ -302,7 +302,7 @@ NIImporter_SUMO::myEndElement(int element) {
             myCurrentLane = 0;
             break;
         case SUMO_TAG_TLLOGIC:
-            if(!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
+            if (!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
                 if (!myCurrentTL) {
                     WRITE_ERROR("Unmatched closing tag for tl-logic.");
                 } else {

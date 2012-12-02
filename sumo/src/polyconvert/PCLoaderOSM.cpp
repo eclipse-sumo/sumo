@@ -223,7 +223,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 // ---------------------------------------------------------------------------
 // definitions of PCLoaderOSM::NodesHandler-methods
 // ---------------------------------------------------------------------------
-PCLoaderOSM::NodesHandler::NodesHandler(std::map<SUMOLong, PCOSMNode*> &toFill)
+PCLoaderOSM::NodesHandler::NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill)
     : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1) {}
 
 
@@ -292,8 +292,8 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) {
 // definitions of PCLoaderOSM::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 PCLoaderOSM::EdgesHandler::EdgesHandler(
-    const std::map<SUMOLong, PCOSMNode*> &osmNodes,
-    std::map<std::string, PCOSMEdge*> &toFill)
+    const std::map<SUMOLong, PCOSMNode*>& osmNodes,
+    std::map<std::string, PCOSMEdge*>& toFill)
     : SUMOSAXHandler("osm - file"),
       myOSMNodes(osmNodes), myEdgeMap(toFill) {
 }

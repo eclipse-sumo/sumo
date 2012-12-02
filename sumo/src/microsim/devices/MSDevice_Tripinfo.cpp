@@ -48,7 +48,7 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) {
+MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         MSDevice_Tripinfo* device = new MSDevice_Tripinfo(v, "tripinfo_" + v.getID());
         into.push_back(device);
@@ -130,7 +130,7 @@ MSDevice_Tripinfo::generateOutput() const {
        << "routeLength=\"" << routeLength << "\" "
        << "waitSteps=\"" << myWaitingSteps << "\" "
        << "rerouteNo=\"" << myHolder.getNumberReroutes();
-    const std::vector<MSDevice*> &devices = myHolder.getDevices();
+    const std::vector<MSDevice*>& devices = myHolder.getDevices();
     std::ostringstream str;
     for (std::vector<MSDevice*>::const_iterator i = devices.begin(); i != devices.end(); ++i) {
         if (i != devices.begin()) {

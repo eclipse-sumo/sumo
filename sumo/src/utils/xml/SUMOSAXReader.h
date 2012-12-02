@@ -58,7 +58,7 @@ public:
      *
      * @param[in] file The name of the processed file
      */
-    SUMOSAXReader(GenericSAXHandler& handler, const bool enableValidation=false);
+    SUMOSAXReader(GenericSAXHandler& handler, const bool enableValidation = false);
 
     /// Destructor
     ~SUMOSAXReader();

@@ -128,7 +128,7 @@ GUIParameterTracker::buildToolBar() {
 
 
 void
-GUIParameterTracker::addTracked(GUIGlObject& o, ValueSource<SUMOReal> *src,
+GUIParameterTracker::addTracked(GUIGlObject& o, ValueSource<SUMOReal>* src,
                                 TrackerValueDesc* newTracked) {
     myTracked.push_back(newTracked);
     // build connection (is automatically set into an execution map)
@@ -320,7 +320,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         glVertex2d(2.0, ypos);
         glEnd();
     }
-    const std::vector<SUMOReal> &values = desc.getAggregatedValues();
+    const std::vector<SUMOReal>& values = desc.getAggregatedValues();
     SUMOReal latest = 0;
     if (values.size() < 2) {
         glPopMatrix();

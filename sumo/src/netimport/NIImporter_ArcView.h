@@ -129,7 +129,7 @@ private:
 
     /** @brief Sets the value from the named field into "into"
      *
-     * If the field's name was set on the command line, the value is tried to be retrieved, returning true on success. 
+     * If the field's name was set on the command line, the value is tried to be retrieved, returning true on success.
      * If it cannot be retrieved, false is retuned, and the field's name is inserted into "into".
      *
      * If no field name was given, the standard value (defaultName) is used. In this case, an empty string is returned
@@ -140,7 +140,7 @@ private:
      * @param[in] prune Whether the value shall be prunned
      * @param[out] into The read value/missing field is stored here
      */
-    bool getStringEntry(OGRFeature*poFeature, const std::string &optionName, const char *defaultName, bool prune, std::string &into);
+    bool getStringEntry(OGRFeature* poFeature, const std::string& optionName, const char* defaultName, bool prune, std::string& into);
 #endif
 
 private:

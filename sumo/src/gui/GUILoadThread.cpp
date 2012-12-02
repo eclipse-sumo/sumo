@@ -110,7 +110,7 @@ GUILoadThread::run() {
     // try to load the given configuration
     if (!initOptions()) {
         // the options are not valid but maybe we want to quit
-	    GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
+        GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
@@ -135,15 +135,15 @@ GUILoadThread::run() {
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
     if (MSGlobals::gUseMesoSim) {
         vehControl = new GUIMEVehicleControl();
-    } else 
+    } else
 #endif
         vehControl = new GUIVehicleControl();
-    
+
     net = new GUINet(
-            vehControl,
-            new GUIEventControl(),
-            new GUIEventControl(), 
-            new GUIEventControl());
+        vehControl,
+        new GUIEventControl(),
+        new GUIEventControl(),
+        new GUIEventControl());
     GUIEdgeControlBuilder* eb = new GUIEdgeControlBuilder();
     GUIDetectorBuilder db(*net);
     NLJunctionControlBuilder jb(*net, db);

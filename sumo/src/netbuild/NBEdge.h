@@ -121,8 +121,8 @@ public:
      * @brief An (internal) definition of a single lane of an edge
      */
     struct Lane {
-        Lane(NBEdge* e) : 
-            speed(e->getSpeed()), permissions(SVCFreeForAll), preferred(0), 
+        Lane(NBEdge* e) :
+            speed(e->getSpeed()), permissions(SVCFreeForAll), preferred(0),
             offset(e->getOffset()), width(e->getWidth()) {}
         /// @brief The lane's shape
         PositionVector shape;
@@ -136,8 +136,8 @@ public:
         SUMOReal offset;
         /// @brief This lane's width
         SUMOReal width;
-		/// @brief An original ID, if given (@todo: is only seldom used, should be stored somewhere else, probably)
-		std::string origID;
+        /// @brief An original ID, if given (@todo: is only seldom used, should be stored somewhere else, probably)
+        std::string origID;
     };
 
 
@@ -171,7 +171,7 @@ public:
         bool mayDefinitelyPass;
 
 
-		std::string origID;
+        std::string origID;
 
         std::string id;
         PositionVector shape;
@@ -301,7 +301,7 @@ public:
      * @param[in] from The node the edge starts at
      * @param[in] to The node the edge ends at
      */
-    void reinitNodes(NBNode* from, NBNode* to); 
+    void reinitNodes(NBNode* from, NBNode* to);
 
 
     /// @name Applying offset
@@ -452,7 +452,7 @@ public:
     /** @brief Returns the lane definitions
      * @return The stored lane definitions
      */
-    const std::vector<NBEdge::Lane> &getLanes() const {
+    const std::vector<NBEdge::Lane>& getLanes() const {
         return myLanes;
     }
     //@}
@@ -517,9 +517,9 @@ public:
      * calculated and the lane shorted accordingly. The edge length is then set
      * to the average of all lane lenghts (which may differ). This average length is used as the lane
      * length when writing the network.
-     * @note All lanes of an edge in a sumo net must have the same nominal length 
+     * @note All lanes of an edge in a sumo net must have the same nominal length
      *  but may differ in actual geomtric length.
-     * @note Depends on previous call to NBNodeCont::computeNodeShapes 
+     * @note Depends on previous call to NBNodeCont::computeNodeShapes
      */
     void computeEdgeShape();
 
@@ -676,7 +676,7 @@ public:
     /** @brief Returns the connections
      * @return This edge's connections to following edges
      */
-    const std::vector<Connection> &getConnections() const {
+    const std::vector<Connection>& getConnections() const {
         return myConnections;
     }
 
@@ -684,18 +684,18 @@ public:
     /** @brief Returns the connections
      * @return This edge's connections to following edges
      */
-    std::vector<Connection> &getConnections() {
+    std::vector<Connection>& getConnections() {
         return myConnections;
     }
 
 
-    /** @brief Returns the list of outgoing edges without the turnaround sorted in clockwise direction 
+    /** @brief Returns the list of outgoing edges without the turnaround sorted in clockwise direction
      * @return Connected edges, sorted clockwise
      */
     const EdgeVector* getConnectedSorted();
 
 
-    /** @brief Returns the list of outgoing edges unsorted 
+    /** @brief Returns the list of outgoing edges unsorted
      * @return Connected edges
      */
     EdgeVector getConnectedEdges() const;
@@ -735,7 +735,7 @@ public:
     void invalidateConnections(bool reallowSetting = false);
 
     void replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff);
-    void replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection> &origConns);
+    void replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection>& origConns);
     void copyConnectionsFrom(NBEdge* src);
     /// @}
 
@@ -785,7 +785,7 @@ public:
     /// @}
 
 
- 
+
 
     /** @brief Sets the junction priority of the edge
      * @param[in] node The node for which the edge's priority is given
@@ -902,13 +902,13 @@ public:
 
 
     /** @brief Returns the angle of the edge's geometry at the given node
-     * 
-     * The angle is signed, regards direction, and starts at 12 o'clock 
+     *
+     * The angle is signed, regards direction, and starts at 12 o'clock
      *  (north->south), proceeds positive clockwise.
      * @param[in] node The node for which the edge's angle shall be returned
      * @return This edge's angle at the given node
      */
-    SUMOReal getAngleAtNode(const NBNode * const node) const;
+    SUMOReal getAngleAtNode(const NBNode* const node) const;
 
 
     void incLaneNo(unsigned int by);
@@ -998,7 +998,7 @@ private:
         /// executes a bresenham - step
         void execute(const unsigned int lane, const unsigned int virtEdge);
 
-        const std::map<NBEdge*, std::vector<unsigned int> > &getBuiltConnections() const {
+        const std::map<NBEdge*, std::vector<unsigned int> >& getBuiltConnections() const {
             return myConnections;
         }
 
@@ -1088,11 +1088,11 @@ private:
 
     /** recomputes the priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
-    std::vector<unsigned int> *preparePriorities(
+    std::vector<unsigned int>* preparePriorities(
         const EdgeVector* outgoing);
 
     /** computes the sum of the given list's entries (sic!) */
-    unsigned int computePrioritySum(std::vector<unsigned int> *priorities);
+    unsigned int computePrioritySum(std::vector<unsigned int>* priorities);
 
 
     /// @name Setting and getting connections

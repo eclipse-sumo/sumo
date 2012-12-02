@@ -67,7 +67,7 @@ RODFNet::~RODFNet() {
 
 void
 RODFNet::buildApproachList() {
-    const std::map<std::string, ROEdge*> &edges = getEdgeMap();
+    const std::map<std::string, ROEdge*>& edges = getEdgeMap();
     for (std::map<std::string, ROEdge*>::const_iterator rit = edges.begin(); rit != edges.end(); ++rit) {
         ROEdge* ce = (*rit).second;
         unsigned int i = 0;
@@ -101,7 +101,7 @@ void
 RODFNet::buildDetectorEdgeDependencies(RODFDetectorCon& detcont) const {
     myDetectorsOnEdges.clear();
     myDetectorEdges.clear();
-    const std::vector<RODFDetector*> &dets = detcont.getDetectors();
+    const std::vector<RODFDetector*>& dets = detcont.getDetectors();
     for (std::vector<RODFDetector*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
         ROEdge* e = getDetectorEdge(**i);
         myDetectorsOnEdges[e].push_back((*i)->getID());
@@ -114,7 +114,7 @@ void
 RODFNet::computeTypes(RODFDetectorCon& detcont,
                       bool sourcesStrict) const {
     PROGRESS_BEGIN_MESSAGE("Computing detector types");
-    const std::vector< RODFDetector*> &dets = detcont.getDetectors();
+    const std::vector< RODFDetector*>& dets = detcont.getDetectors();
     // build needed information. first
     buildDetectorEdgeDependencies(detcont);
     // compute detector types then
@@ -154,7 +154,7 @@ bool
 RODFNet::hasInBetweenDetectorsOnly(ROEdge* edge,
                                    const RODFDetectorCon& detectors) const {
     assert(myDetectorsOnEdges.find(edge) != myDetectorsOnEdges.end());
-    const std::vector<std::string> &detIDs = myDetectorsOnEdges.find(edge)->second;
+    const std::vector<std::string>& detIDs = myDetectorsOnEdges.find(edge)->second;
     std::vector<std::string>::const_iterator i;
     for (i = detIDs.begin(); i != detIDs.end(); ++i) {
         const RODFDetector& det = detectors.getDetector(*i);
@@ -170,7 +170,7 @@ bool
 RODFNet::hasSourceDetector(ROEdge* edge,
                            const RODFDetectorCon& detectors) const {
     assert(myDetectorsOnEdges.find(edge) != myDetectorsOnEdges.end());
-    const std::vector<std::string> &detIDs = myDetectorsOnEdges.find(edge)->second;
+    const std::vector<std::string>& detIDs = myDetectorsOnEdges.find(edge)->second;
     std::vector<std::string>::const_iterator i;
     for (i = detIDs.begin(); i != detIDs.end(); ++i) {
         const RODFDetector& det = detectors.getDetector(*i);
@@ -187,11 +187,11 @@ void
 RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
                           bool keepUnfoundEnds,
                           bool keepShortestOnly,
-                          std::vector<ROEdge*> &/*visited*/,
+                          std::vector<ROEdge*>& /*visited*/,
                           const RODFDetector& det, RODFRouteCont& into,
                           const RODFDetectorCon& detectors,
                           int maxFollowingLength,
-                          std::vector<ROEdge*> &seen) const {
+                          std::vector<ROEdge*>& seen) const {
     std::vector<RODFRouteDesc> unfoundEnds;
     std::priority_queue<RODFRouteDesc, std::vector<RODFRouteDesc>, DFRouteDescByTimeComperator> toSolve;
     std::map<ROEdge*, std::vector<ROEdge*> > dets2Follow;
@@ -292,7 +292,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
             }
         }
         // ... else: loop over the next edges
-        const std::vector<ROEdge*> &appr  = myApproachedEdges.find(last)->second;
+        const std::vector<ROEdge*>& appr  = myApproachedEdges.find(last)->second;
         bool hadOne = false;
         for (size_t i = 0; i < appr.size(); i++) {
             if (find(current.edges2Pass.begin(), current.edges2Pass.end(), appr[i]) != current.edges2Pass.end()) {
@@ -349,7 +349,7 @@ RODFNet::buildRoutes(RODFDetectorCon& detcont, bool allEndFollower,
     buildDetectorEdgeDependencies(detcont);
     // then build the routes
     std::map<ROEdge*, RODFRouteCont* > doneEdges;
-    const std::vector< RODFDetector*> &dets = detcont.getDetectors();
+    const std::vector< RODFDetector*>& dets = detcont.getDetectors();
     for (std::vector< RODFDetector*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
         if ((*i)->getType() != SOURCE_DETECTOR) {
             // do not build routes for other than sources
@@ -388,7 +388,7 @@ RODFNet::buildRoutes(RODFDetectorCon& detcont, bool allEndFollower,
         // add routes to in-between detectors if wished
         if (includeInBetween) {
             // go through the routes
-            const std::vector<RODFRouteDesc> &r = routes->get();
+            const std::vector<RODFRouteDesc>& r = routes->get();
             for (std::vector<RODFRouteDesc>::const_iterator j = r.begin(); j != r.end(); ++j) {
                 const RODFRouteDesc& mrd = *j;
                 SUMOReal duration = mrd.duration_2;
@@ -403,7 +403,7 @@ RODFNet::buildRoutes(RODFDetectorCon& detcont, bool allEndFollower,
                         continue;
                     }
                     // get the detectors
-                    const std::vector<std::string> &dets = myDetectorsOnEdges.find(*k)->second;
+                    const std::vector<std::string>& dets = myDetectorsOnEdges.find(*k)->second;
                     // go through the detectors
                     for (std::vector<std::string>::const_iterator l = dets.begin(); l != dets.end(); ++l) {
                         const RODFDetector& m = detcont.getDetector(*l);
@@ -438,7 +438,7 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
                          SUMOTime stepOffset) {
     {
         if (flows.knows(detector->getID())) {
-            const std::vector<FlowDef> &detFlows = flows.getFlowDefs(detector->getID());
+            const std::vector<FlowDef>& detFlows = flows.getFlowDefs(detector->getID());
             for (std::vector<FlowDef>::const_iterator j = detFlows.begin(); j != detFlows.end(); ++j) {
                 if ((*j).qPKW > 0 || (*j).qLKW > 0) {
                     return;
@@ -533,7 +533,7 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
         {
             // !! time difference is missing
             for (std::vector<ROEdge*>::iterator i = previous.begin(); i != previous.end(); ++i) {
-                const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(*i)->getFlows();
+                const std::vector<FlowDef>& flows = static_cast<const RODFEdge*>(*i)->getFlows();
                 if (flows.size() != 0) {
                     const FlowDef& srcFD = flows[index];
                     inFlow.qLKW += srcFD.qLKW;
@@ -554,7 +554,7 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
         {
             // !! time difference is missing
             for (std::vector<ROEdge*>::iterator i = latter.begin(); i != latter.end(); ++i) {
-                const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(*i)->getFlows();
+                const std::vector<FlowDef>& flows = static_cast<const RODFEdge*>(*i)->getFlows();
                 if (flows.size() != 0) {
                     const FlowDef& srcFD = flows[index];
                     outFlow.qLKW += srcFD.qLKW;
@@ -584,7 +584,7 @@ RODFNet::revalidateFlows(const RODFDetectorCon& detectors,
                          RODFDetectorFlows& flows,
                          SUMOTime startTime, SUMOTime endTime,
                          SUMOTime stepOffset) {
-    const std::vector<RODFDetector*> &dets = detectors.getDetectors();
+    const std::vector<RODFDetector*>& dets = detectors.getDetectors();
     for (std::vector<RODFDetector*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
         // check whether there is at least one entry with a flow larger than zero
         revalidateFlows(*i, flows, startTime, endTime, stepOffset);
@@ -596,7 +596,7 @@ RODFNet::revalidateFlows(const RODFDetectorCon& detectors,
 void
 RODFNet::removeEmptyDetectors(RODFDetectorCon& detectors,
                               RODFDetectorFlows& flows) {
-    const std::vector<RODFDetector*> &dets = detectors.getDetectors();
+    const std::vector<RODFDetector*>& dets = detectors.getDetectors();
     for (std::vector<RODFDetector*>::const_iterator i = dets.begin(); i != dets.end();) {
         bool remove = true;
         // check whether there is at least one entry with a flow larger than zero
@@ -619,7 +619,7 @@ RODFNet::removeEmptyDetectors(RODFDetectorCon& detectors,
 void
 RODFNet::reportEmptyDetectors(RODFDetectorCon& detectors,
                               RODFDetectorFlows& flows) {
-    const std::vector<RODFDetector*> &dets = detectors.getDetectors();
+    const std::vector<RODFDetector*>& dets = detectors.getDetectors();
     for (std::vector<RODFDetector*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
         bool remove = true;
         // check whether there is at least one entry with a flow larger than zero
@@ -673,7 +673,7 @@ RODFNet::hasDetector(ROEdge* edge) const {
 }
 
 
-const std::vector<std::string> &
+const std::vector<std::string>&
 RODFNet::getDetectorList(ROEdge* edge) const {
     return myDetectorsOnEdges.find(edge)->second;
 }
@@ -711,7 +711,7 @@ RODFNet::isDestination(const RODFDetector& det, const RODFDetectorCon& detectors
 
 bool
 RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
-                  std::vector<ROEdge*> &seen,
+                  std::vector<ROEdge*>& seen,
                   const RODFDetectorCon& detectors,
                   bool strict) const {
     if (seen.size() == 1000) { // !!!
@@ -721,7 +721,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
     if (edge == getDetectorEdge(det)) {
         // maybe there is another detector at the same edge
         //  get the list of this/these detector(s)
-        const std::vector<std::string> &detsOnEdge = myDetectorsOnEdges.find(edge)->second;
+        const std::vector<std::string>& detsOnEdge = myDetectorsOnEdges.find(edge)->second;
         for (std::vector<std::string>::const_iterator i = detsOnEdge.begin(); i != detsOnEdge.end(); ++i) {
             if ((*i) == det.getID()) {
                 continue;
@@ -753,7 +753,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
                 }
                 // the next is a hack for the A100 scenario...
                 //  We have to look into further edges herein edges
-                const std::vector<ROEdge*> &appr = myApproachingEdges.find(edge)->second;
+                const std::vector<ROEdge*>& appr = myApproachingEdges.find(edge)->second;
                 size_t noOk = 0;
                 size_t noFalse = 0;
                 size_t noSkipped = 0;
@@ -787,7 +787,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
     }
 
     // let's check the edges in front
-    const std::vector<ROEdge*> &appr = myApproachingEdges.find(edge)->second;
+    const std::vector<ROEdge*>& appr = myApproachingEdges.find(edge)->second;
     size_t noOk = 0;
     size_t noFalse = 0;
     size_t noSkipped = 0;
@@ -813,7 +813,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
 
 
 bool
-RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge*> &seen,
+RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge*>& seen,
                        const RODFDetectorCon& detectors) const {
     if (seen.size() == 1000) { // !!!
         WRITE_WARNING("Quitting checking for being a destination for detector '" + det.getID() + "' due to seen edge limit.");
@@ -822,7 +822,7 @@ RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge
     if (edge == getDetectorEdge(det)) {
         // maybe there is another detector at the same edge
         //  get the list of this/these detector(s)
-        const std::vector<std::string> &detsOnEdge = myDetectorsOnEdges.find(edge)->second;
+        const std::vector<std::string>& detsOnEdge = myDetectorsOnEdges.find(edge)->second;
         for (std::vector<std::string>::const_iterator i = detsOnEdge.begin(); i != detsOnEdge.end(); ++i) {
             if ((*i) == det.getID()) {
                 continue;
@@ -872,7 +872,7 @@ RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge
             myDetectorEdges.find(det.getID())->second != edge) {
         return false;
     }
-    const std::vector<ROEdge*> &appr  = myApproachedEdges.find(edge)->second;
+    const std::vector<ROEdge*>& appr  = myApproachedEdges.find(edge)->second;
     bool isall = true;
     size_t no = 0;
     seen.push_back(edge);
@@ -889,7 +889,7 @@ RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge
 }
 
 bool
-RODFNet::isFalseSource(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge*> &seen,
+RODFNet::isFalseSource(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge*>& seen,
                        const RODFDetectorCon& detectors) const {
     if (seen.size() == 1000) { // !!!
         WRITE_WARNING("Quitting checking for being a false source for detector '" + det.getID() + "' due to seen edge limit.");
@@ -899,7 +899,7 @@ RODFNet::isFalseSource(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge
     if (edge != getDetectorEdge(det)) {
         // ok, we are at one of the edges coming behind
         if (hasDetector(edge)) {
-            const std::vector<std::string> &dets = myDetectorsOnEdges.find(edge)->second;
+            const std::vector<std::string>& dets = myDetectorsOnEdges.find(edge)->second;
             for (std::vector<std::string>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
                 if (detectors.getDetector(*i).getType() == SINK_DETECTOR) {
                     return false;
@@ -922,7 +922,7 @@ RODFNet::isFalseSource(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge
         return false;
     }
 
-    const std::vector<ROEdge*> &appr  = myApproachedEdges.find(edge)->second;
+    const std::vector<ROEdge*>& appr  = myApproachedEdges.find(edge)->second;
     bool isall = false;
     for (size_t i = 0; i < appr.size() && !isall; i++) {
         //printf("checking %s->\n", appr[i].c_str());
@@ -945,7 +945,7 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
     std::map<ROEdge*, std::vector<std::string>, idComp>::iterator i;
     for (i = myDetectorsOnEdges.begin(); i != myDetectorsOnEdges.end(); ++i) {
         ROEdge* into = (*i).first;
-        const std::vector<std::string> &dets = (*i).second;
+        const std::vector<std::string>& dets = (*i).second;
         std::map<SUMOReal, std::vector<std::string> > cliques;
         std::vector<std::string>* maxClique = 0;
         for (std::vector<std::string>::const_iterator j = dets.begin(); j != dets.end(); ++j) {
@@ -984,7 +984,7 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
         }
         for (std::vector<std::string>::iterator l = maxClique->begin(); l != maxClique->end(); ++l) {
             bool didWarn = false;
-            const std::vector<FlowDef> &dflows = flows.getFlowDefs(*l);
+            const std::vector<FlowDef>& dflows = flows.getFlowDefs(*l);
             int index = 0;
             for (SUMOTime t = startTime; t < endTime; t += stepOffset, index++) {
                 const FlowDef& srcFD = dflows[index];
@@ -1026,18 +1026,18 @@ RODFNet::buildDetectorDependencies(RODFDetectorCon& detectors) {
         // mark current detectors
         std::vector<RODFDetector*> last;
         {
-            const std::vector<std::string> &detNames = myDetectorsOnEdges.find((*i).second)->second;
+            const std::vector<std::string>& detNames = myDetectorsOnEdges.find((*i).second)->second;
             for (std::vector<std::string>::const_iterator j = detNames.begin(); j != detNames.end(); ++j) {
                 last.push_back((RODFDetector*) &detectors.getDetector(*j));
             }
         }
         // iterate over the current detector's routes
-        const std::vector<RODFRouteDesc> &routes = det.getRouteVector();
+        const std::vector<RODFRouteDesc>& routes = det.getRouteVector();
         for (std::vector<RODFRouteDesc>::const_iterator j = routes.begin(); j != routes.end(); ++j) {
-            const std::vector<ROEdge*> &edges2Pass = (*j).edges2Pass;
+            const std::vector<ROEdge*>& edges2Pass = (*j).edges2Pass;
             for (std::vector<ROEdge*>::const_iterator k = edges2Pass.begin() + 1; k != edges2Pass.end(); ++k) {
                 if (myDetectorsOnEdges.find(*k) != myDetectorsOnEdges.end()) {
-                    const std::vector<std::string> &detNames = myDetectorsOnEdges.find(*k)->second;
+                    const std::vector<std::string>& detNames = myDetectorsOnEdges.find(*k)->second;
                     // ok, consecutive detector found
                     for (std::vector<RODFDetector*>::iterator l = last.begin(); l != last.end(); ++l) {
                         // mark as follower of current
@@ -1062,7 +1062,7 @@ RODFNet::mesoJoin(RODFDetectorCon& detectors, RODFDetectorFlows& flows) {
     buildDetectorEdgeDependencies(detectors);
     std::map<ROEdge*, std::vector<std::string>, idComp>::iterator i;
     for (i = myDetectorsOnEdges.begin(); i != myDetectorsOnEdges.end(); ++i) {
-        const std::vector<std::string> &dets = (*i).second;
+        const std::vector<std::string>& dets = (*i).second;
         std::map<SUMOReal, std::vector<std::string> > cliques;
         // compute detector cliques
         for (std::vector<std::string>::const_iterator j = dets.begin(); j != dets.end(); ++j) {

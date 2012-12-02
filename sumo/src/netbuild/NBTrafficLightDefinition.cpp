@@ -56,7 +56,7 @@ const std::string NBTrafficLightDefinition::DefaultProgramID = "0";
 // method definitions
 // ===========================================================================
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
-        const std::vector<NBNode*> &junctions, const std::string& programID, SUMOTime offset)
+        const std::vector<NBNode*>& junctions, const std::string& programID, SUMOTime offset)
     : Named(id), myControlledNodes(junctions), mySubID(programID), myOffset(offset) {
     std::vector<NBNode*>::iterator i = myControlledNodes.begin();
     while (i != myControlledNodes.end()) {
@@ -339,7 +339,7 @@ NBTrafficLightDefinition::removeNode(NBNode* node) {
 
 
 void
-NBTrafficLightDefinition::addControlledInnerEdges(const std::vector<std::string> &edges) {
+NBTrafficLightDefinition::addControlledInnerEdges(const std::vector<std::string>& edges) {
     myControlledInnerEdges.insert(edges.begin(), edges.end());
 }
 

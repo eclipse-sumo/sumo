@@ -42,7 +42,7 @@
 // method definitions
 // ===========================================================================
 AGWorkPosition*
-AGAdult::randomFreeWorkPosition(std::vector<AGWorkPosition> *wps) {
+AGAdult::randomFreeWorkPosition(std::vector<AGWorkPosition>* wps) {
     size_t wpsIndex = 0;
 
     // TODO: Could end up in an endless loop

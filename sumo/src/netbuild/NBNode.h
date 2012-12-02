@@ -114,7 +114,7 @@ public:
 
         /** the method that spreads the wished number of lanes from the
             the lane given by the bresenham-call to both left and right */
-        std::deque<int> *spread(const std::vector<int> &approachingLanes, int dest) const;
+        std::deque<int>* spread(const std::vector<int>& approachingLanes, int dest) const;
 
     };
 
@@ -235,7 +235,7 @@ public:
     /** @brief Returns the traffic lights that were assigned to this node
      * @return The set of tls that control this node
      */
-    const std::set<NBTrafficLightDefinition*> &getControllingTLS() const {
+    const std::set<NBTrafficLightDefinition*>& getControllingTLS() const {
         return myTrafficLights;
     }
     /// @}
@@ -379,8 +379,8 @@ public:
      */
     LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing) const;
 
-    LinkState getLinkState(const NBEdge* incoming, NBEdge* outgoing, 
-            int fromLane, bool mayDefinitelyPass, const std::string& tlID) const;
+    LinkState getLinkState(const NBEdge* incoming, NBEdge* outgoing,
+                           int fromLane, bool mayDefinitelyPass, const std::string& tlID) const;
 
     void computeNodeShape(bool leftHand);
 

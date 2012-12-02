@@ -61,7 +61,7 @@ AGChild::setSchool(AGSchool* school) {
 }
 
 bool
-AGChild::allocateASchool(std::list<AGSchool> *schools, AGPosition housePos) {
+AGChild::allocateASchool(std::list<AGSchool>* schools, AGPosition housePos) {
     SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
     AGSchool* sch = NULL;
     if (schools->size() == 0) {

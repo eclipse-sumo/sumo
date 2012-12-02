@@ -502,11 +502,11 @@ public:
 
     /* @brief get the router, initialize on first use
      * @param[in] prohibited The vector of forbidden edges (optional)
-     */ 
+     */
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(
-            const std::vector<MSEdge*>& prohibited=std::vector<MSEdge*>()) const;
+        const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
-            const std::vector<MSEdge*>& prohibited=std::vector<MSEdge*>()) const;
+        const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
 
 
 #ifdef _MESSAGES
@@ -630,7 +630,7 @@ protected:
 #endif
 
     /* @brief The router instance for routing by trigger and by traci
-     * @note MSDevice_Routing has its own instance since it uses a different weight function 
+     * @note MSDevice_Routing has its own instance since it uses a different weight function
      * @note we provide one member for every switchable router type
      * because the class structure makes it inconvenient to use a superclass*/
     mutable bool myRouterTTInitialized;

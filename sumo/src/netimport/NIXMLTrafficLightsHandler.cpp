@@ -178,7 +178,7 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
         return;
     }
     // retrieve connection
-    const std::vector<NBEdge::Connection> &connections = from->getConnections();
+    const std::vector<NBEdge::Connection>& connections = from->getConnections();
     std::vector<NBEdge::Connection>::const_iterator con_it;
     con_it = find_if(connections.begin(), connections.end(),
                      NBEdge::connections_finder(fromLane, to, toLane));

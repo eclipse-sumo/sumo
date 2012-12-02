@@ -81,7 +81,7 @@ protected:
      * @exception ProcessError If the XML definition file is errornous
      */
     virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet& net,
-            const std::string& id, const std::vector<MSLane*> &destLanes,
+            const std::string& id, const std::vector<MSLane*>& destLanes,
             const std::string& file);
 
 
@@ -96,8 +96,8 @@ protected:
      * @param[in] file The file to read the reroute definitions from
      */
     virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
-                               const std::string& id, std::vector<MSEdge*> &edges,
-                               SUMOReal prob, const std::string& file, bool off);
+            const std::string& id, std::vector<MSEdge*>& edges,
+            SUMOReal prob, const std::string& file, bool off);
 
 
     /** @brief Builds a bus stop
@@ -113,7 +113,7 @@ protected:
      * @exception InvalidArgument If the bus stop can not be added to the net (is duplicate)
      */
     virtual void buildBusStop(MSNet& net, const std::string& id,
-                              const std::vector<std::string> &lines, MSLane* lane,
+                              const std::vector<std::string>& lines, MSLane* lane,
                               SUMOReal frompos, SUMOReal topos) throw(InvalidArgument);
     /// @}
 

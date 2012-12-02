@@ -80,15 +80,15 @@ public:
     void addFlow(const std::string& detector_id, SUMOTime timestamp,
                  const FlowDef& fd);
     void removeFlow(const std::string& detector_id);
-    void setFlows(const std::string& detector_id, std::vector<FlowDef> &);
+    void setFlows(const std::string& detector_id, std::vector<FlowDef>&);
 
-    const std::vector<FlowDef> &getFlowDefs(const std::string& id) const;
+    const std::vector<FlowDef>& getFlowDefs(const std::string& id) const;
     bool knows(const std::string& det_id) const;
     SUMOReal getFlowSumSecure(const std::string& id) const;
     SUMOReal getMaxDetectorFlow() const;
     void printAbsolute() const;
 
-    void mesoJoin(const std::string& nid, const std::vector<std::string> &oldids);
+    void mesoJoin(const std::string& nid, const std::vector<std::string>& oldids);
 
 protected:
     std::map<std::string, std::vector<FlowDef> > myFastAccessFlows;

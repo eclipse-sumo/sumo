@@ -91,7 +91,7 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
         oc.addSynonyme("weight-attribute", "measure", true);
         oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
     }
-        
+
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
@@ -129,17 +129,17 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
 
     if (forDuarouter) {
         oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-        oc.addDescription("routing-algorithm", "Processing", 
+        oc.addDescription("routing-algorithm", "Processing",
 #ifndef HAVE_INTERNAL // catchall for internal stuff
-                "Select among routing algorithms ['dijkstra', 'astar']"
+                          "Select among routing algorithms ['dijkstra', 'astar']"
 #else
-                "Select among routing algorithms ['dijkstra', 'astar', 'bulkstar', 'CH', 'CHWrapper']"
+                          "Select among routing algorithms ['dijkstra', 'astar', 'bulkstar', 'CH', 'CHWrapper']"
 #endif
-                );
+                         );
 
 #ifdef HAVE_INTERNAL // catchall for internal stuff
-    oc.doRegister("weight-period", new Option_String("3600", "TIME"));
-    oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hirarchy"); 
+        oc.doRegister("weight-period", new Option_String("3600", "TIME"));
+        oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hirarchy");
 #endif
     }
 

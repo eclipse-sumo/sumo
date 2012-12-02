@@ -60,7 +60,7 @@ public:
      * @param[in] predefinedTags Map of attribute ids to their xerces-representation
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      */
-    SUMOSAXAttributesImpl_Binary(const std::map<int, std::string> &predefinedTagsMML,
+    SUMOSAXAttributesImpl_Binary(const std::map<int, std::string>& predefinedTagsMML,
                                  const std::string& objectType,
                                  BinaryInputDevice* in);
 

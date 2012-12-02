@@ -60,7 +60,7 @@
 PositionVector::PositionVector() {}
 
 
-PositionVector::PositionVector(const std::vector<Position> &v) {
+PositionVector::PositionVector(const std::vector<Position>& v) {
     std::copy(v.begin(), v.end(), std::back_inserter(myCont));
 }
 
@@ -564,13 +564,13 @@ PositionVector::set(size_t pos, const Position& p) {
 }
 
 
-PositionVector 
+PositionVector
 PositionVector::intersectionPoints2D(const Line& line) const {
     PositionVector ret;
     for (ContType::const_iterator i = myCont.begin(); i != myCont.end() - 1; i++) {
         if (GeomHelper::intersects(*i, *(i + 1), line.p1(), line.p2())) {
             ret.push_back_noDoublePos(GeomHelper::intersection_position2D(
-                        *i, *(i + 1), line.p1(), line.p2()));
+                                          *i, *(i + 1), line.p1(), line.p2()));
         }
     }
     return ret;
@@ -799,7 +799,7 @@ PositionVector::nearest_position_on_line_to_point2D(const Position& p, bool perp
     for (ContType::const_iterator i = myCont.begin(); i != myCont.end() - 1; i++) {
         const SUMOReal pos =
             GeomHelper::nearest_position_on_line_to_point2D(*i, *(i + 1), p, perpendicular);
-        const SUMOReal dist = pos < 0 ? minDist : p.distanceTo2D(Line(*i, *(i+1)).getPositionAtDistance(pos));
+        const SUMOReal dist = pos < 0 ? minDist : p.distanceTo2D(Line(*i, *(i + 1)).getPositionAtDistance(pos));
         if (dist < minDist) {
             nearestPos = pos + seen;
             minDist = dist;
@@ -864,7 +864,7 @@ std::vector<SUMOReal>
 PositionVector::intersectsAtLengths2D(const PositionVector& other) const {
     std::vector<SUMOReal> ret;
     for (ContType::const_iterator i = other.myCont.begin(); i != other.myCont.end() - 1; i++) {
-        std::vector<SUMOReal> atSegment = intersectsAtLengths2D(Line(*i, *(i+1)));
+        std::vector<SUMOReal> atSegment = intersectsAtLengths2D(Line(*i, *(i + 1)));
         copy(atSegment.begin(), atSegment.end(), back_inserter(ret));
     }
     return ret;

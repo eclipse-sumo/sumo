@@ -141,7 +141,7 @@ public:
          * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
          */
         GUIPersonPopupMenu(GUIMainWindow& app,
-                            GUISUMOAbstractView& parent, GUIGlObject& o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations);
+                           GUISUMOAbstractView& parent, GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations);
 
         /// @brief Destructor
         ~GUIPersonPopupMenu();
@@ -149,7 +149,7 @@ public:
 
     protected:
         /// @brief Information which additional visualisations are enabled (per view)
-        std::map<GUISUMOAbstractView*, int> &myVehiclesAdditionalVisualizations;
+        std::map<GUISUMOAbstractView*, int>& myVehiclesAdditionalVisualizations;
         /// @brief Needed for parameterless instantiation
         std::map<GUISUMOAbstractView*, int> dummy;
 

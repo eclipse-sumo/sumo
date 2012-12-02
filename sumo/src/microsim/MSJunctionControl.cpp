@@ -52,7 +52,7 @@ MSJunctionControl::~MSJunctionControl() {
 
 void
 MSJunctionControl::postloadInitContainer() {
-    const std::vector<MSJunction*> &junctions = buildAndGetStaticVector();
+    const std::vector<MSJunction*>& junctions = buildAndGetStaticVector();
     for (std::vector<MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
         (*i)->postloadInit();
     }

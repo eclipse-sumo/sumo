@@ -155,7 +155,7 @@ public:
     /** @brief Computes and returns the speed deviation
      * @return A new, random speed deviation
      */
-    SUMOReal computeChosenSpeedDeviation(MTRand &rng) const;
+    SUMOReal computeChosenSpeedDeviation(MTRand& rng) const;
 
 
     /** @brief Get the default probability of this vehicle type

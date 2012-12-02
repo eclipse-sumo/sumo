@@ -55,7 +55,7 @@ public:
 
     static void cleanup();
 
-    virtual void setCosts(RORoute* route, const SUMOReal costs, const bool isActive=false) const = 0;
+    virtual void setCosts(RORoute* route, const SUMOReal costs, const bool isActive = false) const = 0;
 
     /** @brief calculate the probabilities in the logit model */
     virtual void calculateProbabilities(const ROVehicle* const veh, std::vector<RORoute*> alternatives) = 0;
@@ -106,7 +106,7 @@ public:
     /// Destructor
     virtual ~ROGawronCalculator();
 
-    void setCosts(RORoute* route, const SUMOReal costs, const bool isActive=false) const;
+    void setCosts(RORoute* route, const SUMOReal costs, const bool isActive = false) const;
 
     /** @brief calculate the probabilities */
     void calculateProbabilities(const ROVehicle* const veh, std::vector<RORoute*> alternatives);
@@ -147,7 +147,7 @@ public:
     /// Destructor
     virtual ~ROLogitCalculator();
 
-    void setCosts(RORoute* route, const SUMOReal costs, const bool isActive=false) const;
+    void setCosts(RORoute* route, const SUMOReal costs, const bool isActive = false) const;
 
     /** @brief calculate the probabilities in the logit model */
     void calculateProbabilities(const ROVehicle* const veh, std::vector<RORoute*> alternatives);

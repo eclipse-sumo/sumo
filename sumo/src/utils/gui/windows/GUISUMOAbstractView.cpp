@@ -261,7 +261,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
     // Interpret results
     unsigned int idMax = 0;
-    SUMOReal maxLayer = std::numeric_limits<SUMOReal>::min(); 
+    SUMOReal maxLayer = std::numeric_limits<SUMOReal>::min();
     for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         GUIGlID id = *it;
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);

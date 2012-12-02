@@ -220,9 +220,9 @@ main(int argc, char** argv) {
         if (!checkOptions()) {
             throw ProcessError();
         }
-        GeoConvHelper::init("!", 
-                Position(oc.getFloat("offset.x"), oc.getFloat("offset.y")),
-                Boundary(), Boundary());
+        GeoConvHelper::init("!",
+                            Position(oc.getFloat("offset.x"), oc.getFloat("offset.y")),
+                            Boundary(), Boundary());
         RandHelper::initRandGlobal();
         NBNetBuilder nb;
         nb.applyOptions(oc);

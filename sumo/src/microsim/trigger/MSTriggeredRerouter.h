@@ -76,7 +76,7 @@ public:
      * @param[in] file The file to read the reroute definitions from
      */
     MSTriggeredRerouter(const std::string& id,
-                        const std::vector<MSEdge*> &edges,
+                        const std::vector<MSEdge*>& edges,
                         SUMOReal prob, const std::string& file, bool off);
 
 

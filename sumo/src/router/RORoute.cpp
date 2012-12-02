@@ -48,7 +48,7 @@
 // method definitions
 // ===========================================================================
 RORoute::RORoute(const std::string& id, SUMOReal costs, SUMOReal prop,
-                 const std::vector<const ROEdge*> &route,
+                 const std::vector<const ROEdge*>& route,
                  const RGBColor* const color)
     : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
       myProbability(prop), myRoute(route), myColor(color) {}

@@ -146,7 +146,7 @@ protected:
     MSEdge* myActiveEdge;
 
     /// @brief pointer to a temporary lane storage
-    std::vector<MSLane*> *myLaneStorage;
+    std::vector<MSLane*>* myLaneStorage;
 
 private:
     /// @brief invalidated copy constructor

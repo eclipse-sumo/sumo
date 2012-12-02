@@ -76,7 +76,7 @@ MSInsertionControl::add(SUMOVehicleParameter* pars) {
                       pars->departPosProcedure == DEPART_POS_RANDOM ||
                       MSNet::getInstance()->getVehicleControl().hasVTypeDistribution(pars->vtypeid);
     if (!flow.isVolatile) {
-        RandomDistributor<const MSRoute*> *dist = MSRoute::distDictionary(pars->routeid);
+        RandomDistributor<const MSRoute*>* dist = MSRoute::distDictionary(pars->routeid);
         if (dist != 0) {
             const std::vector<const MSRoute*>& routes = dist->getVals();
             const MSEdge* e = 0;
@@ -264,7 +264,7 @@ MSInsertionControl::getPendingFlowCount() const {
 }
 
 
-void 
+void
 MSInsertionControl::descheduleDeparture(SUMOVehicle* veh) {
     myAbortedEmits.insert(veh);
 }

@@ -281,7 +281,7 @@ public:
      */
     Position getPositionInformation() const;
 
-    void addDecals(const std::vector<Decal> &decals) {
+    void addDecals(const std::vector<Decal>& decals) {
         myDecals.insert(myDecals.end(), decals.begin(), decals.end());
     }
 

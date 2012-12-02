@@ -56,7 +56,7 @@
 MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& programID,
         const Phases& phases,
-        unsigned int step, SUMOTime delay, const std::map<std::string, std::string> &parameter)
+        unsigned int step, SUMOTime delay, const std::map<std::string, std::string>& parameter)
     : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
       myContinue(false) {
     myMaxGap = SUMOReal(3.1);
@@ -157,7 +157,7 @@ MSActuatedTrafficLightLogic::duration() const {
     const std::string& state = getCurrentPhaseDef().getState();
     for (unsigned int i = 0; i < (unsigned int) state.size(); i++) {
         if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
-            const std::vector<MSLane*> &lanes = getLanesAt(i);
+            const std::vector<MSLane*>& lanes = getLanesAt(i);
             if (lanes.empty()) {
                 break;
             }
@@ -199,7 +199,7 @@ MSActuatedTrafficLightLogic::gapControl() {
     const std::string& state = getCurrentPhaseDef().getState();
     for (unsigned int i = 0; i < (unsigned int) state.size(); i++)  {
         if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
-            const std::vector<MSLane*> &lanes = getLanesAt(i);
+            const std::vector<MSLane*>& lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }

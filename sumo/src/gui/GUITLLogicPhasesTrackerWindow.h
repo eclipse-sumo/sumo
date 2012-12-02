@@ -76,7 +76,7 @@ public:
      */
     GUITLLogicPhasesTrackerWindow(GUIMainWindow& app,
                                   MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& wrapper,
-                                  ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src);
+                                  ValueSource<std::pair<SUMOTime, MSPhaseDefinition> >* src);
 
 
     /** @brief Constructor to show the complete phase diagram
@@ -228,7 +228,7 @@ private:
     SUMOTime myLastTime;
 
     /// @brief The connector for retrieval of further phases
-    GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> > *myConnector;
+    GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >* myConnector;
 
     /// @brief Information whether the tracking mode is on
     bool myAmInTrackingMode;

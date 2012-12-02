@@ -453,7 +453,7 @@ MSE2Collector::getCurrentStartedHalts() const {
 }
 
 
-int 
+int
 MSE2Collector::by_vehicle_position_sorter::operator()(const SUMOVehicle* v1, const SUMOVehicle* v2) {
     const MSVehicle* const occ = myLane->getPartialOccupator();
     if (v1 == occ) {

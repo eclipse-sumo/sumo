@@ -122,7 +122,7 @@ public:
      * @return The read value if given and correct; -1 if an error occured
      */
     SUMOLong getLongReporting(int attr, const char* objectid, bool& ok,
-        bool report = true) const;
+                              bool report = true) const;
 
 
 
@@ -539,7 +539,7 @@ public:
      * @return The read value if given and not empty; "" if an error occured
      */
     virtual PositionVector getShapeReporting(int attr, const char* objectid, bool& ok,
-                                             bool allowEmpty) const = 0;
+            bool allowEmpty) const = 0;
 
     /** @brief Tries to read given attribute assuming it is a PositionVector
      *
@@ -579,7 +579,7 @@ public:
      * @param[in] def The string to split
      * @param[out] into The vector to fill
      */
-    static void parseStringVector(const std::string& def, std::vector<std::string> &into);
+    static void parseStringVector(const std::string& def, std::vector<std::string>& into);
 
 
     /// @brief return the objecttype to which these attributes belong

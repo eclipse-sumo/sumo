@@ -108,7 +108,7 @@ public:
      * @param[in] dynamic Information whether the entry is dynamic
      * @param[in] src The value source to use
      */
-    void mkItem(const char* name, bool dynamic, ValueSource<unsigned> *src);
+    void mkItem(const char* name, bool dynamic, ValueSource<unsigned>* src);
 
 
     /** @brief Adds a row which obtains its value from an SUMOReal-ValueSource
@@ -117,7 +117,7 @@ public:
      * @param[in] dynamic Information whether the entry is dynamic
      * @param[in] src The value source to use
      */
-    void mkItem(const char* name, bool dynamic, ValueSource<SUMOReal> *src);
+    void mkItem(const char* name, bool dynamic, ValueSource<SUMOReal>* src);
 
 
 #ifndef HAVE_SUBSECOND_TIMESTEPS
@@ -127,7 +127,7 @@ public:
      * @param[in] dynamic Information whether the entry is dynamic
      * @param[in] src The value source to use
      */
-    void mkItem(const char* name, bool dynamic, ValueSource<SUMOTime> *src);
+    void mkItem(const char* name, bool dynamic, ValueSource<SUMOTime>* src);
 #endif
 
     /** @brief Adds a row which shows a string-value

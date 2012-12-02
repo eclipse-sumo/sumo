@@ -55,14 +55,14 @@ template<class T>
 class RandomDistributor {
 public:
     typedef void(*Operation)(const T);
-    static void doNothing(const T) {} 
+    static void doNothing(const T) {}
 
     /** @brief Constructor for an empty distribution
-     * @param[in] maximumSize The maximum size to maintain 
+     * @param[in] maximumSize The maximum size to maintain
      *   older entrys will be removed when adding more than the maximumSize
      */
-    RandomDistributor(unsigned int maximumSize=std::numeric_limits<unsigned int>::max(), 
-            Operation operation=&doNothing) : 
+    RandomDistributor(unsigned int maximumSize = std::numeric_limits<unsigned int>::max(),
+                      Operation operation = &doNothing) :
         myProb(0),
         myMaximumSize(maximumSize),
         myInsertionIndex(0),
@@ -111,11 +111,11 @@ public:
      * @param[in] which The random number generator to use; the static one will be used if 0 is passed
      * @return the drawn member
      */
-    T get(MTRand *which=0) const {
+    T get(MTRand* which = 0) const {
         if (myProb == 0) {
             throw OutOfBoundsException();
         }
-        SUMOReal prob = which==0 ? RandHelper::rand(myProb) : which->rand(myProb);
+        SUMOReal prob = which == 0 ? RandHelper::rand(myProb) : which->rand(myProb);
         for (size_t i = 0; i < myVals.size(); i++) {
             if (prob < myProbs[i]) {
                 return myVals[i];
@@ -152,7 +152,7 @@ public:
      * @return the members of the distribution
      * @see RandomDistributor::getProbs
      */
-    const std::vector<T> &getVals() const {
+    const std::vector<T>& getVals() const {
         return myVals;
     }
 
@@ -163,7 +163,7 @@ public:
      * @return the probabilities assigned to the distribution
      * @see RandomDistributor::getVals
      */
-    const std::vector<SUMOReal> &getProbs() const {
+    const std::vector<SUMOReal>& getProbs() const {
         return myProbs;
     }
 

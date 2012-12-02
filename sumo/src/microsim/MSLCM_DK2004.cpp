@@ -80,11 +80,11 @@ MSLCM_DK2004::~MSLCM_DK2004() {
 int
 MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                  int blocked,
-                                 const std::pair<MSVehicle*, SUMOReal> &leader,
-                                 const std::pair<MSVehicle*, SUMOReal> &neighLead,
-                                 const std::pair<MSVehicle*, SUMOReal> &neighFollow,
+                                 const std::pair<MSVehicle*, SUMOReal>& leader,
+                                 const std::pair<MSVehicle*, SUMOReal>& neighLead,
+                                 const std::pair<MSVehicle*, SUMOReal>& neighFollow,
                                  const MSLane& neighLane,
-                                 const std::vector<MSVehicle::LaneQ> &preb,
+                                 const std::vector<MSVehicle::LaneQ>& preb,
                                  MSVehicle** lastBlocked) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
@@ -297,11 +297,11 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
 int
 MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                 int blocked,
-                                const std::pair<MSVehicle*, SUMOReal> &leader,
-                                const std::pair<MSVehicle*, SUMOReal> &neighLead,
-                                const std::pair<MSVehicle*, SUMOReal> &neighFollow,
+                                const std::pair<MSVehicle*, SUMOReal>& leader,
+                                const std::pair<MSVehicle*, SUMOReal>& neighLead,
+                                const std::pair<MSVehicle*, SUMOReal>& neighFollow,
                                 const MSLane& neighLane,
-                                const std::vector<MSVehicle::LaneQ> &preb,
+                                const std::vector<MSVehicle::LaneQ>& preb,
                                 MSVehicle** lastBlocked) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
@@ -622,8 +622,8 @@ void
 MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                             int& blocked,
                             int dir,
-                            const std::pair<MSVehicle*, SUMOReal> &neighLead,
-                            const std::pair<MSVehicle*, SUMOReal> &neighFollow) {
+                            const std::pair<MSVehicle*, SUMOReal>& neighLead,
+                            const std::pair<MSVehicle*, SUMOReal>& neighFollow) {
     if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0) {
         assert(neighFollow.first != 0);
         MSVehicle* nv = neighFollow.first;

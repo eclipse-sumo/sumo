@@ -91,7 +91,7 @@ void
 GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
     // build coloring tools
     {
-        const std::vector<std::string> &names = gSchemeStorage.getNames();
+        const std::vector<std::string>& names = gSchemeStorage.getNames();
         for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
             v.getColoringSchemesCombo().appendItem((*i).c_str());
             if ((*i) == myVisualizationSettings->name) {
@@ -112,11 +112,11 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     if (!MSGlobals::gUseMesoSim) { // there are no gui-vehicles in mesosim
-    // for vehicles
+        // for vehicles
         new FXButton(v.getLocatorPopup(),
-                "\tLocate Vehicle\tLocate a vehicle within the network.",
-                GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
-                ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                     "\tLocate Vehicle\tLocate a vehicle within the network.",
+                     GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
+                     ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     }
     // for tls
     new FXButton(v.getLocatorPopup(),
@@ -245,7 +245,7 @@ GUIViewTraffic::showViewschemeEditor() {
 void
 GUIViewTraffic::onGamingClick(Position pos) {
     MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
-    const std::vector<MSTrafficLightLogic*> &logics = tlsControl.getAllLogics();
+    const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
     MSTrafficLightLogic* minTll = 0;
     SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
     for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {

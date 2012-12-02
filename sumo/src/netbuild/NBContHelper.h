@@ -70,7 +70,7 @@ public:
     static SUMOReal getMinSpeed(const EdgeVector& edges);
 
     /** writes the vector of bools to the given stream */
-    static std::ostream& out(std::ostream& os, const std::vector<bool> &v);
+    static std::ostream& out(std::ostream& os, const std::vector<bool>& v);
 
 
     /**

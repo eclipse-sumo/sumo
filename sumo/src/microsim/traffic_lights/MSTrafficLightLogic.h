@@ -135,7 +135,7 @@ public:
     /** @brief Resets the states of controlled links
      * @param[in] vals The state of controlled links to use
      */
-    void resetLinkStates(const std::map<MSLink*, LinkState> &vals) const;
+    void resetLinkStates(const std::map<MSLink*, LinkState>& vals) const;
     /// @}
 
 
@@ -334,7 +334,7 @@ public:
     /** @brief Inserts read parameter
      * @param[in] params The parameter to use
      */
-    void setParameter(const std::map<std::string, std::string> &params);
+    void setParameter(const std::map<std::string, std::string>& params);
 
 
     /** @brief Returns a named parameter

@@ -91,7 +91,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
     /// @brief deletes the router instance
     static void cleanup();

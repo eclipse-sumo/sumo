@@ -111,7 +111,7 @@ MSDevice_Routing::insertOptions() {
 
 
 void
-MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) {
+MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
     if (!needRerouting && oc.getFloat("device.rerouting.probability") == 0 && !oc.isSet("device.rerouting.explicit")) {
@@ -140,7 +140,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &in
         into.push_back(device);
         // initialise edge efforts if not done before
         if (myEdgeEfforts.size() == 0) {
-            const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
+            const std::vector<MSEdge*>& edges = MSNet::getInstance()->getEdgeControl().getEdges();
             const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
             const SUMOReal currentSecond = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
             for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -262,7 +262,7 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime /*currentTime*/) {
     }
     myCachedRoutes.clear();
     SUMOReal newWeight = (SUMOReal)(1. - myAdaptationWeight);
-    const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
+    const std::vector<MSEdge*>& edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         myEdgeEfforts[*i] = myEdgeEfforts[*i] * myAdaptationWeight + (*i)->getCurrentTravelTime() * newWeight;
     }
@@ -270,16 +270,16 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime /*currentTime*/) {
 }
 
 
-SUMOAbstractRouter<MSEdge, SUMOVehicle>& 
+SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSDevice_Routing::getRouter() {
     if (myRouter == 0) {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
             myRouter = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                    MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
+                MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
         } else if (routingAlgorithm == "astar") {
             myRouter = new AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                    MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
+                MSEdge::numericalDictSize(), true, &MSDevice_Routing::getEffort);
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }

@@ -77,7 +77,7 @@ public:
     /** returns the junction's position */
     const Position& getPosition() const;
 
-    
+
     /** @brief Returns this junction's shape
      * @return The shape of this junction
      */
@@ -85,11 +85,11 @@ public:
         return myShape;
     }
 
-    virtual const std::vector<MSLink*> &getFoeLinks(const MSLink* const /*srcLink*/) const {
+    virtual const std::vector<MSLink*>& getFoeLinks(const MSLink* const /*srcLink*/) const {
         return myEmptyLinks;
     }
 
-    virtual const std::vector<MSLane*> &getFoeInternalLanes(const MSLink* const /*srcLink*/) const {
+    virtual const std::vector<MSLane*>& getFoeInternalLanes(const MSLink* const /*srcLink*/) const {
         return myEmptyLanes;
     }
 

@@ -198,11 +198,11 @@ public:
         and whether another lane may be more preferable */
     virtual int wantsChangeToRight(
         MSLCMessager& msgPass, int blocked,
-        const std::pair<MSVehicle*, SUMOReal> &leader,
-        const std::pair<MSVehicle*, SUMOReal> &neighLead,
-        const std::pair<MSVehicle*, SUMOReal> &neighFollow,
+        const std::pair<MSVehicle*, SUMOReal>& leader,
+        const std::pair<MSVehicle*, SUMOReal>& neighLead,
+        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
         const MSLane& neighLane,
-        const std::vector<MSVehicle::LaneQ> &preb,
+        const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked) = 0;
 
     /** @brief Called to examine whether the vehicle wants to change to left
@@ -210,11 +210,11 @@ public:
         and whether another lane may be more preferable */
     virtual int wantsChangeToLeft(
         MSLCMessager& msgPass, int blocked,
-        const std::pair<MSVehicle*, SUMOReal> &leader,
-        const std::pair<MSVehicle*, SUMOReal> &neighLead,
-        const std::pair<MSVehicle*, SUMOReal> &neighFollow,
+        const std::pair<MSVehicle*, SUMOReal>& leader,
+        const std::pair<MSVehicle*, SUMOReal>& neighLead,
+        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
         const MSLane& neighLane,
-        const std::vector<MSVehicle::LaneQ> &preb,
+        const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked) = 0;
 
     virtual void* inform(void* info, MSVehicle* sender) = 0;
@@ -306,9 +306,9 @@ protected:
     /// @brief The vehicle's car following model
     const MSCFModel& myCarFollowModel;
 
-    private:
-        /// @brief Invalidated assignment operator
-        MSAbstractLaneChangeModel& operator=(const MSAbstractLaneChangeModel& s);
+private:
+    /// @brief Invalidated assignment operator
+    MSAbstractLaneChangeModel& operator=(const MSAbstractLaneChangeModel& s);
 };
 
 

@@ -106,8 +106,8 @@ public:
     void openJunction(const std::string& id, const std::string& key,
                       const SumoXMLNodeType type, SUMOReal x, SUMOReal y,
                       const PositionVector& shape,
-                      const std::vector<MSLane*> &incomingLanes,
-                      const std::vector<MSLane*> &internalLanes) throw(InvalidArgument);
+                      const std::vector<MSLane*>& incomingLanes,
+                      const std::vector<MSLane*>& internalLanes) throw(InvalidArgument);
 
 
     /** @brief Closes (ends) the processing of the current junction

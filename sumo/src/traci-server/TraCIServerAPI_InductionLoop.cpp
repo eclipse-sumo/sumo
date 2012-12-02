@@ -169,9 +169,9 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
 
 
 bool
-TraCIServerAPI_InductionLoop::getPosition(const std::string &id, Position &p) {
+TraCIServerAPI_InductionLoop::getPosition(const std::string& id, Position& p) {
     MSInductLoop* il = static_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
-    if(il==0) {
+    if (il == 0) {
         return false;
     }
     p = il->getLane()->getShape().positionAtLengthPosition(il->getPosition());
@@ -179,11 +179,11 @@ TraCIServerAPI_InductionLoop::getPosition(const std::string &id, Position &p) {
 }
 
 
-TraCIRTree *
+TraCIRTree*
 TraCIServerAPI_InductionLoop::getTree() {
-    TraCIRTree *t = new TraCIRTree();
-    const std::map<std::string, MSDetectorFileOutput*> &dets = MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).getMyMap();
-    for(std::map<std::string, MSDetectorFileOutput*>::const_iterator i=dets.begin(); i!=dets.end(); ++i) {
+    TraCIRTree* t = new TraCIRTree();
+    const std::map<std::string, MSDetectorFileOutput*>& dets = MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).getMyMap();
+    for (std::map<std::string, MSDetectorFileOutput*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
         MSInductLoop* il = static_cast<MSInductLoop*>((*i).second);
         Position p = il->getLane()->getShape().positionAtLengthPosition(il->getPosition());
         t->addObject(il, p);

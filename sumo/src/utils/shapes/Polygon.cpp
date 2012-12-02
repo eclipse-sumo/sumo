@@ -41,11 +41,11 @@ using namespace SUMO;
 // member definitions
 // ===========================================================================
 Polygon::Polygon(const std::string& id, const std::string& type,
-            const RGBColor& color, const PositionVector& shape, bool fill,
-            SUMOReal layer, SUMOReal angle, const std::string& imgFile) :
+                 const RGBColor& color, const PositionVector& shape, bool fill,
+                 SUMOReal layer, SUMOReal angle, const std::string& imgFile) :
     Shape(id, type, color, layer, angle, imgFile),
     myShape(shape),
-    myFill(fill) 
+    myFill(fill)
 {}
 
 

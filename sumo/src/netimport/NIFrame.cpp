@@ -153,8 +153,8 @@ NIFrame::fillOptions() {
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
     oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
 
-    
-    
+
+
     // register xml options
     oc.doRegister("plain.extend-edge-shape", new Option_Bool(false));
     oc.addSynonyme("plain.extend-edge-shape", "xml.keep-shape", true);
@@ -263,7 +263,7 @@ NIFrame::checkOptions() {
 #ifdef HAVE_PROJ
     unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
     if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix") || oc.isSet("shapefile-prefix")) && numProjections == 0) {
-        if(oc.isDefault("proj")) {
+        if (oc.isDefault("proj")) {
             oc.set("proj.utm", "true");
         }
     }

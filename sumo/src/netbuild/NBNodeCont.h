@@ -161,7 +161,7 @@ public:
      * @param[in] check Whether to check if these nodes are known
      * @note checking is off by default because all nodes may not have been loaded yet
      */
-    void addJoinExclusion(const std::vector<std::string> &ids, bool check = false);
+    void addJoinExclusion(const std::vector<std::string>& ids, bool check = false);
 
 
     /** @brief add ids of nodes which shall be joined into a single node
@@ -340,7 +340,7 @@ private:
      */
     void generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const;
 
- 
+
     // @brief joins the given node clusters
     void joinNodeClusters(NodeClusters clusters,
                           NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
@@ -356,7 +356,7 @@ private:
      * @param[in] c The node cluster
      * @return Whether this node cluster shall be controlled by a tls
      */
-    bool shouldBeTLSControlled(const std::set<NBNode*> &c) const;
+    bool shouldBeTLSControlled(const std::set<NBNode*>& c) const;
     /// @}
 
 

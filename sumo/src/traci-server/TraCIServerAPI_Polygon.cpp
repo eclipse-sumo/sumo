@@ -244,8 +244,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 shape.push_back(Position(x, y));
             }
             //
-            if (!shapeCont.addPolygon(id, type, RGBColor(r, g, b), (SUMOReal)layer, 
-                        Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, shape, fill)) {
+            if (!shapeCont.addPolygon(id, type, RGBColor(r, g, b), (SUMOReal)layer,
+                                      Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, shape, fill)) {
                 delete p;
                 server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not add polygon.", outputStorage);
                 return false;
@@ -273,10 +273,10 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
 
 bool
-TraCIServerAPI_Polygon::getShape(const std::string &id, PositionVector &shape) {
+TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
     int layer;
-    Polygon *poly = getPolygon(id, layer);
-    if (poly==0) {
+    Polygon* poly = getPolygon(id, layer);
+    if (poly == 0) {
         return false;
     }
     shape.push_back(poly->getShape());
@@ -284,23 +284,23 @@ TraCIServerAPI_Polygon::getShape(const std::string &id, PositionVector &shape) {
 }
 
 
-Polygon *
-TraCIServerAPI_Polygon::getPolygon(const std::string &id, int &layer) {
+Polygon*
+TraCIServerAPI_Polygon::getPolygon(const std::string& id, int& layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     return shapeCont.getPolygons().get(id);
 }
 
 
-TraCIRTree *
+TraCIRTree*
 TraCIServerAPI_Polygon::getTree() {
-    TraCIRTree *t = new TraCIRTree();
+    TraCIRTree* t = new TraCIRTree();
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     const std::map<std::string, Polygon*>& polygons = shapeCont.getPolygons().getMyMap();
-    for(std::map<std::string, Polygon*>::const_iterator i=polygons.begin(); i!=polygons.end(); ++i) {
+    for (std::map<std::string, Polygon*>::const_iterator i = polygons.begin(); i != polygons.end(); ++i) {
         Boundary b = (*i).second->getShape().getBoxBoundary();
         t->addObject((*i).second, b);
     }
-	return t;
+    return t;
 }
 
 

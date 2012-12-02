@@ -175,7 +175,7 @@ public:
      *
      * @return Reference to a saved vector of objects within the map
      */
-    const std::vector<T> &buildAndGetStaticVector() const {
+    const std::vector<T>& buildAndGetStaticVector() const {
         if (myHaveChanged) {
             myVector.clear();
             typename IDMap::const_iterator i;
@@ -208,7 +208,7 @@ public:
     /* @brief Fills the given vector with the stored objects' ids
      * @param[in] into The container to fill
      */
-    void insertIDs(std::vector<std::string> &into) const {
+    void insertIDs(std::vector<std::string>& into) const {
         typename IDMap::const_iterator i;
         for (i = myMap.begin(); i != myMap.end(); ++i) {
             into.push_back((*i).first);
@@ -220,7 +220,7 @@ public:
      *
      * @return A reference to the internal map
      */
-    const IDMap &getMyMap() const {
+    const IDMap& getMyMap() const {
         return myMap;
     }
 

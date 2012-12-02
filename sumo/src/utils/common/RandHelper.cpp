@@ -65,17 +65,19 @@ RandHelper::insertRandOptions() {
 }
 
 void
-RandHelper::initRandGlobal(MTRand *which) {
+RandHelper::initRandGlobal(MTRand* which) {
     OptionsCont& oc = OptionsCont::getOptions();
-    if(which==0) {
+    if (which == 0) {
         which = &myRandomNumberGenerator;
     }
     if (oc.getBool("random")) {
 #ifdef _MSC_VER
-        long s = myRandomNumberGenerator.hash( time(NULL), clock() ) + SysUtils::getWindowsTicks();
-        unsigned int s2 = (unsigned int) (s&0xffff)^(s>>16);
-        if(s2<0) { s2 *= -1; }
-        which->seed( s2 );
+        long s = myRandomNumberGenerator.hash(time(NULL), clock()) + SysUtils::getWindowsTicks();
+        unsigned int s2 = (unsigned int)(s & 0xffff) ^ (s >> 16);
+        if (s2 < 0) {
+            s2 *= -1;
+        }
+        which->seed(s2);
 #else
         which->seed();
 #endif

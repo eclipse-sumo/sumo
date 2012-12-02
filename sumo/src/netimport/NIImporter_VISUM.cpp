@@ -204,7 +204,7 @@ NIImporter_VISUM::load() {
         PROGRESS_DONE_MESSAGE();
     }
     // build traffic lights
-    if(!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
+    if (!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
         for (NIVisumTL_Map::iterator j = myTLS.begin(); j != myTLS.end(); j++) {
             j->second->build(myNetBuilder.getTLLogicCont());
         }
@@ -327,7 +327,7 @@ NIImporter_VISUM::parse_Edges() {
     if (!OptionsCont::getOptions().getBool("visum.use-type-speed")) {
         try {
             std::string speedS = myLineParser.know("v0-IV") ? myLineParser.get("v0-IV") : myLineParser.get("V0IV");
-            if(speedS.find("km/h")!=std::string::npos) {
+            if (speedS.find("km/h") != std::string::npos) {
                 speedS = speedS.substr(0, speedS.find("km/h"));
             }
             speed = TplConvert::_2SUMORealSec(speedS.c_str(), -1);
@@ -894,7 +894,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
         return;
     }
 
-    const std::vector<SUMOLong> &areas = mySubPartsAreas.find(id)->second;
+    const std::vector<SUMOLong>& areas = mySubPartsAreas.find(id)->second;
     for (std::vector<SUMOLong>::const_iterator i = areas.begin(); i != areas.end(); ++i) {
         NBDistrict* d = myShapeDistrictMap[*i];
         if (d == 0) {

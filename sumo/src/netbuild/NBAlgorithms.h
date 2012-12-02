@@ -54,7 +54,7 @@ public:
     /** @brief Computes turnaround destinations for all edges (if exist)
      * @param[in] nc The container of nodes to loop along
      */
-    static void computeTurnDirections(NBNodeCont &nc);
+    static void computeTurnDirections(NBNodeCont& nc);
 
     /** @brief Computes turnaround destinations for all incoming edges of the given nodes (if any)
      * @param[in] node The node for which to compute turnaround destinations
@@ -70,8 +70,8 @@ private:
      *  opposite direction.
      */
     struct Combination {
-        NBEdge *from;
-        NBEdge *to;
+        NBEdge* from;
+        NBEdge* to;
         SUMOReal angle;
     };
 
@@ -83,10 +83,10 @@ private:
     public:
         explicit combination_by_angle_sorter() { }
         int operator()(const Combination& c1, const Combination& c2) const {
-            if (c1.angle!=c2.angle) {
+            if (c1.angle != c2.angle) {
                 return c1.angle > c2.angle;
             }
-            if (c1.from!=c2.from) {
+            if (c1.from != c2.from) {
                 return c1.from->getID() < c2.from->getID();
             }
             return c1.to->getID() < c2.to->getID();
@@ -108,7 +108,7 @@ public:
      * @param[in] nc The container of nodes to loop along
      * @param[in] leftHand Whether the network is left-handed
      */
-    static void sortNodesEdges(NBNodeCont &nc, bool leftHand);
+    static void sortNodesEdges(NBNodeCont& nc, bool leftHand);
 
 private:
     /** @brief Assures correct order for same-angle opposite-direction edges
@@ -117,9 +117,9 @@ private:
      * @param[in] i1 Pointer to first edge
      * @param[in] i2 Pointer to second edge
      */
-    static void swapWhenReversed(const NBNode * const n, bool leftHand,
-                          const std::vector<NBEdge*>::iterator& i1,
-                          const std::vector<NBEdge*>::iterator& i2);
+    static void swapWhenReversed(const NBNode* const n, bool leftHand,
+                                 const std::vector<NBEdge*>::iterator& i1,
+                                 const std::vector<NBEdge*>::iterator& i2);
 
 
     /** @class edge_by_junction_angle_sorter
@@ -173,7 +173,7 @@ public:
     /** @brief Computes node types
      * @param[in] nc The container of nodes to loop along
      */
-    static void computeNodeTypes(NBNodeCont &nc);
+    static void computeNodeTypes(NBNodeCont& nc);
 
 };
 
@@ -190,27 +190,27 @@ public:
     /** @brief Computes edge priorities within a node
      * @param[in] nc The container of nodes to loop along
      */
-    static void computeEdgePriorities(NBNodeCont &nc);
+    static void computeEdgePriorities(NBNodeCont& nc);
 
 private:
     /** @brief Sets the priorites in case of a priority junction
      * @param[in] n The node to set edges' priorities
      */
-    static void setPriorityJunctionPriorities(NBNode &n);
+    static void setPriorityJunctionPriorities(NBNode& n);
 
     /** @brief Sets the priorites in case of a priority junction
      * @param[in] n The node to set edges' priorities
      * @param[in] s The vector of edges to get and mark the first from
      * @return The vector's first edge
      */
-    static NBEdge* extractAndMarkFirst(NBNode &n, std::vector<NBEdge*>& s);
+    static NBEdge* extractAndMarkFirst(NBNode& n, std::vector<NBEdge*>& s);
 
     /** @brief Returns whether both edges have the same priority
      * @param[in] e1 The first edge
      * @param[in] e2 The second edge
      * Whether both edges have the same priority
      */
-    static bool samePriority(const NBEdge*const e1, const NBEdge*const e2);
+    static bool samePriority(const NBEdge* const e1, const NBEdge* const e2);
 
 };
 

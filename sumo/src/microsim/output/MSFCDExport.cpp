@@ -64,7 +64,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             std::string fclass = veh->getVehicleType().getID();
             fclass = fclass.substr(0, fclass.find_first_of("@"));
             Position pos = veh->getLane()->getShape().positionAtLengthPosition(
-                    veh->getLane()->interpolateLanePosToGeometryPos(veh->getPositionOnLane()));
+                               veh->getLane()->interpolateLanePosToGeometryPos(veh->getPositionOnLane()));
             if (useGeo) {
                 of.setPrecision(GEO_OUTPUT_ACCURACY);
                 GeoConvHelper::getFinal().cartesian2geo(pos);
@@ -76,7 +76,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             of.writeAttr(SUMO_ATTR_ANGLE, veh->getAngle());
             of.writeAttr(SUMO_ATTR_TYPE, fclass);
             of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
-            of.closeTag(true);	
+            of.closeTag(true);
         }
     }
     of.closeTag();

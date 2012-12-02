@@ -140,7 +140,7 @@ public:
      * @param[discard] Whether the vehicle is discard during loading (scale < 1)
      * @todo Isn't this quite insecure?
      */
-    virtual void deleteVehicle(SUMOVehicle* v, bool discard=false);
+    virtual void deleteVehicle(SUMOVehicle* v, bool discard = false);
 
 
     /** @brief Removes a vehicle after it has ended
@@ -223,13 +223,13 @@ public:
     }
 
 
-    /** @brief Returns the information whether the currently vehicle number shall be emitted 
+    /** @brief Returns the information whether the currently vehicle number shall be emitted
      * considering that only frac of all vehicles shall be emitted overall
      * if a negative fraction is given the demand scaling factor is used
      * (--scale or --incremental-dua-step / --incremental-dua-base)
      * @return True iff the vehicle number is acceptable
      */
-    bool isInQuota(SUMOReal frac=-1) const;
+    bool isInQuota(SUMOReal frac = -1) const;
 
 
     /** @brief Returns the number of build vehicles that have not been removed
@@ -304,7 +304,7 @@ public:
      * @param[in] vehTypeDistribution The vehicle type distribution to add
      * @return Whether the vehicle type could be added
      */
-    bool addVTypeDistribution(const std::string& id, RandomDistributor<MSVehicleType*> *vehTypeDistribution);
+    bool addVTypeDistribution(const std::string& id, RandomDistributor<MSVehicleType*>* vehTypeDistribution);
 
 
     /** @brief Asks for a vehicle type distribution
@@ -327,14 +327,14 @@ public:
     /** @brief Inserts ids of all known vehicle types and vehicle type distributions to the given vector
      * @param[in] into The vector to fill with ids
      */
-    void insertVTypeIDs(std::vector<std::string> &into) const;
+    void insertVTypeIDs(std::vector<std::string>& into) const;
     /// @}
 
     void addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
 
     void removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
 
-    SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string> &lines);
+    SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines);
 
     /** @brief increases the count of vehicles waiting for a person to allow recogniztion of person related deadlocks
      */
@@ -372,7 +372,7 @@ public:
      */
     virtual void loadState(BinaryInputDevice& bis, const SUMOTime offset);
     /// @}
-    
+
 
     /** @brief removes any vehicles that are still waiting
      */

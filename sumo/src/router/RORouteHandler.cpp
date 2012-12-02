@@ -354,40 +354,40 @@ RORouteHandler::closePerson() {
 
 void
 RORouteHandler::closeFlow() {
-/*    // @todo: consider myScale?
-    // let's check whether vehicles had to depart before the simulation starts
-    myVehicleParameter->repetitionsDone = 0;
-    SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
-    while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
-        myVehicleParameter->repetitionsDone++;
-        if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
-            return;
-        }
-    }
-    if (MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid) == 0) {
-        throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
-    }
-    if (MSRoute::dictionary("!" + myVehicleParameter->id) == 0) {
-        // if not, try via the (hopefully) given route-id
-        if (MSRoute::dictionary(myVehicleParameter->routeid) == 0) {
-            if (myVehicleParameter->routeid != "") {
-                throw ProcessError("The route '" + myVehicleParameter->routeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
-            } else {
-                throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has no route.");
+    /*    // @todo: consider myScale?
+        // let's check whether vehicles had to depart before the simulation starts
+        myVehicleParameter->repetitionsDone = 0;
+        SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
+        while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
+            myVehicleParameter->repetitionsDone++;
+            if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
+                return;
             }
         }
-    } else {
-        myVehicleParameter->routeid = "!" + myVehicleParameter->id;
-    }
-    myActiveRouteID = "";
+        if (MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid) == 0) {
+            throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
+        }
+        if (MSRoute::dictionary("!" + myVehicleParameter->id) == 0) {
+            // if not, try via the (hopefully) given route-id
+            if (MSRoute::dictionary(myVehicleParameter->routeid) == 0) {
+                if (myVehicleParameter->routeid != "") {
+                    throw ProcessError("The route '" + myVehicleParameter->routeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
+                } else {
+                    throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has no route.");
+                }
+            }
+        } else {
+            myVehicleParameter->routeid = "!" + myVehicleParameter->id;
+        }
+        myActiveRouteID = "";
 
-    // check whether the vehicle shall be added directly to the network or
-    //  shall stay in the internal buffer
-    if (myAddVehiclesDirectly || checkLastDepart()) {
-        MSNet::getInstance()->getInsertionControl().add(myVehicleParameter);
-        registerLastDepart();
-    }
-    myVehicleParameter = 0;*/
+        // check whether the vehicle shall be added directly to the network or
+        //  shall stay in the internal buffer
+        if (myAddVehiclesDirectly || checkLastDepart()) {
+            MSNet::getInstance()->getInsertionControl().add(myVehicleParameter);
+            registerLastDepart();
+        }
+        myVehicleParameter = 0;*/
 }
 
 
@@ -490,7 +490,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 
 
 void
-RORouteHandler::parseEdges(const std::string& desc, std::vector<const ROEdge*> &into,
+RORouteHandler::parseEdges(const std::string& desc, std::vector<const ROEdge*>& into,
                            const std::string& rid) {
     StringTokenizer st(desc);
     while (st.hasNext()) {

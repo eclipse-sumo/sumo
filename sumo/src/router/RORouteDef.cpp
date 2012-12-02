@@ -55,8 +55,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORouteDef::RORouteDef(const std::string& id, const unsigned int lastUsed, 
-                       const bool tryRepair) : 
+RORouteDef::RORouteDef(const std::string& id, const unsigned int lastUsed,
+                       const bool tryRepair) :
     ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
     myPrecomputed(0), myLastUsed(lastUsed), myTryRepair(tryRepair)
 {}
@@ -83,7 +83,7 @@ RORouteDef::addAlternativeDef(const RORouteDef* alt) {
 
 
 RORoute*
-RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                               SUMOTime begin, const ROVehicle& veh) const {
     if (myPrecomputed == 0) {
         preComputeCurrentRoute(router, begin, veh);
@@ -93,8 +93,8 @@ RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
 
 
 void
-RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-                              SUMOTime begin, const ROVehicle& veh) const {
+RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+                                   SUMOTime begin, const ROVehicle& veh) const {
     myNewRoute = false;
     if (myTryRepair) {
         repairCurrentRoute(router, begin, veh);
@@ -126,9 +126,9 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router
 
 
 void
-RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-        SUMOTime begin, const ROVehicle& veh) const {
-    const std::vector<const ROEdge*> &oldEdges = myAlternatives[0]->getEdgeVector();
+RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+                               SUMOTime begin, const ROVehicle& veh) const {
+    const std::vector<const ROEdge*>& oldEdges = myAlternatives[0]->getEdgeVector();
     if (oldEdges.size() == 0) {
         MsgHandler* m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
         m->inform("Could not repair empty route of vehicle '" + veh.getID() + "'.");
@@ -160,7 +160,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
 
 
 void
-RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                            const ROVehicle* const veh, RORoute* current, SUMOTime begin) {
     if (myTryRepair) {
         if (myNewRoute) {

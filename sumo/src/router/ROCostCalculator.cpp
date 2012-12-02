@@ -86,7 +86,7 @@ ROCostCalculator::cleanup() {
 
 
 ROGawronCalculator::ROGawronCalculator(const SUMOReal beta, const SUMOReal a)
-: myBeta(beta), myA(a) {}
+    : myBeta(beta), myA(a) {}
 
 
 ROGawronCalculator::~ROGawronCalculator() {}
@@ -95,8 +95,8 @@ ROGawronCalculator::~ROGawronCalculator() {}
 void
 ROGawronCalculator::setCosts(RORoute* route, const SUMOReal costs, const bool isActive) const {
     if (isActive) {
-	    route->setCosts(costs);
-	} else {
+        route->setCosts(costs);
+    } else {
         route->setCosts(myBeta * costs + ((SUMOReal) 1.0 - myBeta) * route->getCosts());
     }
 }
@@ -153,7 +153,7 @@ ROGawronCalculator::gawronG(const SUMOReal a, const SUMOReal x) const {
 
 ROLogitCalculator::ROLogitCalculator(const SUMOReal beta, const SUMOReal gamma,
                                      const SUMOReal theta)
-                                     : myBeta(beta), myGamma(gamma), myTheta(theta) {}
+    : myBeta(beta), myGamma(gamma), myTheta(theta) {}
 
 
 ROLogitCalculator::~ROLogitCalculator() {}
@@ -174,7 +174,7 @@ ROLogitCalculator::calculateProbabilities(const ROVehicle* const veh, std::vecto
         for (std::vector<RORoute*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
             const RORoute* pR = *i;
             SUMOReal lengthR = 0;
-            const std::vector<const ROEdge*> &edgesR = pR->getEdgeVector();
+            const std::vector<const ROEdge*>& edgesR = pR->getEdgeVector();
             for (std::vector<const ROEdge*>::const_iterator edge = edgesR.begin(); edge != edgesR.end(); ++edge) {
                 //@todo we should use costs here
                 lengthR += (*edge)->getTravelTime(veh, STEPS2TIME(veh->getDepartureTime()));
@@ -184,7 +184,7 @@ ROLogitCalculator::calculateProbabilities(const ROVehicle* const veh, std::vecto
                 const RORoute* pS = *j;
                 SUMOReal overlapLength = 0.;
                 SUMOReal lengthS = 0;
-                const std::vector<const ROEdge*> &edgesS = pS->getEdgeVector();
+                const std::vector<const ROEdge*>& edgesS = pS->getEdgeVector();
                 for (std::vector<const ROEdge*>::const_iterator edge = edgesS.begin(); edge != edgesS.end(); ++edge) {
                     lengthS += (*edge)->getTravelTime(veh, STEPS2TIME(veh->getDepartureTime()));
                     if (std::find(edgesR.begin(), edgesR.end(), *edge) != edgesR.end()) {
@@ -212,7 +212,7 @@ SUMOReal
 ROLogitCalculator::getBetaForCLogit(const std::vector<RORoute*> alternatives) const {
     SUMOReal min = std::numeric_limits<SUMOReal>::max();
     for (std::vector<RORoute*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-        const SUMOReal cost = (*i)->getCosts()/3600.;
+        const SUMOReal cost = (*i)->getCosts() / 3600.;
         if (cost < min) {
             min = cost;
         }
@@ -228,7 +228,7 @@ ROLogitCalculator::getThetaForCLogit(const std::vector<RORoute*> alternatives) c
     SUMOReal diff = 0.;
     SUMOReal min = std::numeric_limits<SUMOReal>::max();
     for (std::vector<RORoute*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-        const SUMOReal cost = (*i)->getCosts()/3600.;
+        const SUMOReal cost = (*i)->getCosts() / 3600.;
         sum += cost;
         if (cost < min) {
             min = cost;
@@ -236,12 +236,12 @@ ROLogitCalculator::getThetaForCLogit(const std::vector<RORoute*> alternatives) c
     }
     const SUMOReal meanCost = sum / SUMOReal(alternatives.size());
     for (std::vector<RORoute*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-        diff += pow((*i)->getCosts()/3600. - meanCost, 2);
+        diff += pow((*i)->getCosts() / 3600. - meanCost, 2);
     }
     const SUMOReal cvCost = sqrt(diff / SUMOReal(alternatives.size())) / meanCost;
     // @todo re-evaluate function
 //    if (cvCost > 0.04) { // Magic numbers from Lohse book
-        return PI / (sqrt(6.) * cvCost * (min + 1.1))/3600.;
+    return PI / (sqrt(6.) * cvCost * (min + 1.1)) / 3600.;
 //    }
 //    return 1./3600.;
 }

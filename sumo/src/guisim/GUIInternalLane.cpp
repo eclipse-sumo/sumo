@@ -99,7 +99,7 @@ GUIInternalLane::moveCritical(SUMOTime t) {
 
 
 bool
-GUIInternalLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
+GUIInternalLane::setCritical(SUMOTime t, std::vector<MSLane*>& into) {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSInternalLane::setCritical(t, into);
 }

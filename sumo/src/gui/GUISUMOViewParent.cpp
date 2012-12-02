@@ -104,15 +104,15 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
 
 GUISUMOAbstractView*
 GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewType type) {
-    switch(type) {
-    default:
-    case VIEW_2D_OPENGL:
-        myView = new GUIViewTraffic(myContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
-        break;
+    switch (type) {
+        default:
+        case VIEW_2D_OPENGL:
+            myView = new GUIViewTraffic(myContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
+            break;
 #ifdef HAVE_OSG
-    case VIEW_3D_OSG:
-        myView = new GUIOSGView(myContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
-        break;
+        case VIEW_3D_OSG:
+            myView = new GUIOSGView(myContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
+            break;
 #endif
     }
     myView->buildViewToolBars(*this);
@@ -235,7 +235,7 @@ GUISUMOViewParent::isSelected(GUIGlObject* o) const {
         return true;
     } else if (type == GLO_EDGE) {
         GUIEdge* edge = dynamic_cast<GUIEdge*>(o);
-        if(edge==0) {
+        if (edge == 0) {
             // hmph, just some security stuff
             return false;
         }

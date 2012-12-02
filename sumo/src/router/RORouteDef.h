@@ -67,7 +67,7 @@ public:
      * @param[in] id The id of the route
      * @param[in] color The color of the route
      */
-    RORouteDef(const std::string& id, const unsigned int lastUsed, 
+    RORouteDef(const std::string& id, const unsigned int lastUsed,
                const bool tryRepair);
 
 
@@ -84,23 +84,23 @@ public:
 
     /** @brief Triggers building of the complete route (via
      * preComputeCurrentRoute) or returns precomputed route */
-    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
-                                       const ROVehicle& veh) const;
+    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
+                               const ROVehicle& veh) const;
 
     /** @brief Builds the complete route
      * (or chooses her from the list of alternatives, when existing) */
-    void preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
-                                       const ROVehicle& veh) const;
+    void preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
+                                const ROVehicle& veh) const;
 
     /** @brief Builds the complete route
      * (or chooses her from the list of alternatives, when existing) */
-    void repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
-                                       const ROVehicle& veh) const;
+    void repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
+                            const ROVehicle& veh) const;
 
     /** @brief Adds an alternative to the list of routes
     *
      * (This may be the new route) */
-    void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+    void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         const ROVehicle* const, RORoute* current, SUMOTime begin);
 
     const ROEdge* getDestination() const;

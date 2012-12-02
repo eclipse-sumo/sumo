@@ -85,7 +85,7 @@ public:
     /** @brief Initialises the server
      * @param[in] execs The (additional) command executors to use
      */
-    static void openSocket(const std::map<int, CmdExecutor> &execs);
+    static void openSocket(const std::map<int, CmdExecutor>& execs);
 
 
     /// @brief request termination of connection
@@ -120,13 +120,13 @@ public:
     void writeStatusCmd(int commandId, int status, const std::string& description);
     void writeStatusCmd(int commandId, int status, const std::string& description, tcpip::Storage& outputStorage);
 
-    const std::map<MSNet::VehicleState, std::vector<std::string> > &getVehicleStateChanges() const {
+    const std::map<MSNet::VehicleState, std::vector<std::string> >& getVehicleStateChanges() const {
         return myVehicleStateChanges;
     }
 
     void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
 
-    void collectObjectsInRange(int domain, const PositionVector &shape, SUMOReal range, std::set<std::string> &into);
+    void collectObjectsInRange(int domain, const PositionVector& shape, SUMOReal range, std::set<std::string>& into);
 
 
 private:
@@ -138,7 +138,7 @@ private:
 
     /// @brief Destructor
     virtual ~TraCIServer();
-    
+
 
 
     /// @name Server-internal command handling
@@ -222,7 +222,7 @@ private:
          * @param[in] contextDomainArg The domain ID of the context
          * @param[in] rangeArg The range of the context
          */
-        Subscription(int commandIdArg, const std::string& idArg, const std::vector<int> &variablesArg,
+        Subscription(int commandIdArg, const std::string& idArg, const std::vector<int>& variablesArg,
                      SUMOTime beginTimeArg, SUMOTime endTimeArg, bool contextVarsArg, int contextDomainArg, SUMOReal rangeArg)
             : commandId(commandIdArg), id(idArg), variables(variablesArg), beginTime(beginTimeArg), endTime(endTimeArg),
               contextVars(contextVarsArg), contextDomain(contextDomainArg), range(rangeArg) {}
@@ -260,12 +260,12 @@ private:
     bool addObjectVariableSubscription(int commandId);
     bool addObjectContextSubscription(int commandId);
     void initialiseSubscription(const Subscription& s);
-    void removeSubscription(int commandId, const std::string &identity, int domain);
+    void removeSubscription(int commandId, const std::string& identity, int domain);
     bool processSingleSubscription(const TraCIServer::Subscription& s, tcpip::Storage& writeInto,
                                    std::string& errors);
 
 
-    bool findObjectShape(int domain, const std::string &id, PositionVector &shape);
+    bool findObjectShape(int domain, const std::string& id, PositionVector& shape);
 
 
 private:

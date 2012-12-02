@@ -139,7 +139,7 @@ public:
      * @exception ProcessError (recheck)
      */
     void compute(OptionsCont& oc,
-                 const std::set<std::string> &explicitTurnarounds = std::set<std::string>(),
+                 const std::set<std::string>& explicitTurnarounds = std::set<std::string>(),
                  bool removeUnwishedNodes = true);
 
 
@@ -190,7 +190,7 @@ public:
     /** @brief Returns the determined roundabouts
      * @return The list of roundabout edges
      */
-    const std::vector<std::set<NBEdge*> > &getRoundabouts() const {
+    const std::vector<std::set<NBEdge*> >& getRoundabouts() const {
         return myRoundabouts;
     }
 

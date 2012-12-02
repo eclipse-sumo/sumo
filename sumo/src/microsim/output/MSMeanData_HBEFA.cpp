@@ -145,7 +145,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
             "\" fuel_perVeh=\"" << OutputDevice::realString(HelpersHBEFA::computeDefaultFuel(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6);
     }
     dev << "\"";
-	dev.closeTag(true);
+    dev.closeTag(true);
 }
 
 

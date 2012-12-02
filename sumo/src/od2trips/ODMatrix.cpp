@@ -98,7 +98,7 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
 
 SUMOReal
 ODMatrix::computeDeparts(ODCell* cell,
-                         size_t& vehName, std::vector<ODVehicle> &into,
+                         size_t& vehName, std::vector<ODVehicle>& into,
                          bool uniform, const std::string& prefix) {
     int vehicles2insert = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle insertion

@@ -403,14 +403,14 @@ NBEdge::computeEdgeShape() {
 }
 
 
-PositionVector 
+PositionVector
 NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, unsigned int laneIndex) const {
-    const std::string error = "Could not find a way to attach lane '" + getLaneID(laneIndex) + 
-        "' at node shape of '" + startNode->getID() + "'.";
+    const std::string error = "Could not find a way to attach lane '" + getLaneID(laneIndex) +
+                              "' at node shape of '" + startNode->getID() + "'.";
     const PositionVector& nodeShape = startNode->getShape();
     Line lb = laneShape.getBegLine();
-    // this doesn't look reasonable @todo use lb.extrapolateFirstBy(100.0); 
-    lb.extrapolateBy(100.0); 
+    // this doesn't look reasonable @todo use lb.extrapolateFirstBy(100.0);
+    lb.extrapolateBy(100.0);
     if (nodeShape.intersects(laneShape)) {
         // shape intersects directly
         std::vector<SUMOReal> pbv = laneShape.intersectsAtLengths2D(nodeShape);
@@ -789,8 +789,8 @@ NBEdge::replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff) {
     }
 }
 
-void 
-NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection> &origConns) {
+void
+NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection>& origConns) {
     std::map<int, int> laneMap;
     int minLane = -1;
     int maxLane = -1;
@@ -801,44 +801,44 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
             continue;
         }
         wasConnected = true;
-        if((*i).fromLane!=-1) {
+        if ((*i).fromLane != -1) {
             int fromLane = (*i).fromLane;
             laneMap[(*i).toLane] = fromLane;
-            if(minLane==-1||minLane>fromLane) {
-                minLane= fromLane;
+            if (minLane == -1 || minLane > fromLane) {
+                minLane = fromLane;
             }
-            if(maxLane==-1||maxLane<fromLane) {
-                maxLane= fromLane;
+            if (maxLane == -1 || maxLane < fromLane) {
+                maxLane = fromLane;
             }
         }
     }
-    if(!wasConnected) {
+    if (!wasConnected) {
         return;
     }
     // remove the remapped edge from connections
     removeFromConnections(which);
-    // add new connections 
+    // add new connections
     std::vector<NBEdge::Connection> conns = origConns;
-    for(std::vector<NBEdge::Connection>::iterator i=conns.begin(); i!=conns.end(); ++i) {
-        if((*i).toEdge==which) {
+    for (std::vector<NBEdge::Connection>::iterator i = conns.begin(); i != conns.end(); ++i) {
+        if ((*i).toEdge == which) {
             continue;
         }
-            int fromLane = (*i).fromLane;
-            int toUse = -1;
-            if(laneMap.find(fromLane)==laneMap.end()) {
-                if(fromLane>=0 && fromLane<=minLane) {
-                    toUse = minLane;
-                }
-                if(fromLane>=0 && fromLane>=maxLane) {
-                    toUse = maxLane;
-                }
-            } else {
-                toUse = laneMap[fromLane];
+        int fromLane = (*i).fromLane;
+        int toUse = -1;
+        if (laneMap.find(fromLane) == laneMap.end()) {
+            if (fromLane >= 0 && fromLane <= minLane) {
+                toUse = minLane;
             }
-            if(toUse==-1) {
-                toUse = 0;
+            if (fromLane >= 0 && fromLane >= maxLane) {
+                toUse = maxLane;
             }
-                setConnection(toUse, (*i).toEdge, (*i).toLane, L2L_COMPUTED, false, (*i).mayDefinitelyPass);
+        } else {
+            toUse = laneMap[fromLane];
+        }
+        if (toUse == -1) {
+            toUse = 0;
+        }
+        setConnection(toUse, (*i).toEdge, (*i).toLane, L2L_COMPUTED, false, (*i).mayDefinitelyPass);
     }
 }
 
@@ -926,9 +926,9 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
             case LINKDIR_PARTLEFT:
             case LINKDIR_TURN: {
                 unsigned int index = 0;
-                const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
+                const std::vector<NBEdge*>& incoming = n.getIncomingEdges();
                 for (EdgeVector::const_iterator i2 = incoming.begin(); i2 != incoming.end(); ++i2) {
-                    const std::vector<Connection> &elv = (*i2)->getConnections();
+                    const std::vector<Connection>& elv = (*i2)->getConnections();
                     for (std::vector<NBEdge::Connection>::const_iterator k2 = elv.begin(); k2 != elv.end(); k2++) {
                         if ((*k2).toEdge == 0) {
                             continue;
@@ -959,7 +959,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         // compute foe incoming lanes
                         NBEdge* e = getToNode()->getOppositeIncoming(this);
                         if ((e == *i2 && needsCont && !n.forbids(this, con.toEdge, *i2, (*k2).toEdge, true))
-                                    || (dir == LINKDIR_TURN && this != *i2 && con.toEdge == (*k2).toEdge)) {
+                                || (dir == LINKDIR_TURN && this != *i2 && con.toEdge == (*k2).toEdge)) {
                             tmpFoeIncomingLanes.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
                         }
                         index++;
@@ -1042,7 +1042,7 @@ NBEdge::setJunctionPriority(const NBNode* const node, int prio) {
 
 
 SUMOReal
-NBEdge::getAngleAtNode(const NBNode * const atNode) const {
+NBEdge::getAngleAtNode(const NBNode* const atNode) const {
     if (atNode == myFrom) {
         return myGeom.getBegLine().atan2DegreeAngle();
     } else {
@@ -1320,7 +1320,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     }
     // precompute priorities; needed as some kind of assumptions for
     //  priorities of directions (see preparePriorities)
-    std::vector<unsigned int> *priorities = preparePriorities(outgoing);
+    std::vector<unsigned int>* priorities = preparePriorities(outgoing);
 
     // compute the sum of priorities (needed for normalisation)
     unsigned int prioSum = computePrioritySum(priorities);
@@ -1373,7 +1373,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     //  (conversion from virtual to real edges is done)
     ToEdgeConnectionsAdder adder(transition);
     Bresenham::compute(&adder, static_cast<unsigned int>(myLanes.size()), noVirtual);
-    const std::map<NBEdge*, std::vector<unsigned int> > &l2eConns = adder.getBuiltConnections();
+    const std::map<NBEdge*, std::vector<unsigned int> >& l2eConns = adder.getBuiltConnections();
     myConnections.clear();
     for (std::map<NBEdge*, std::vector<unsigned int> >::const_iterator i = l2eConns.begin(); i != l2eConns.end(); ++i) {
         const std::vector<unsigned int> lanes = (*i).second;
@@ -1389,10 +1389,10 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
 }
 
 
-std::vector<unsigned int> *
+std::vector<unsigned int>*
 NBEdge::preparePriorities(const EdgeVector* outgoing) {
     // copy the priorities first
-    std::vector<unsigned int> *priorities = new std::vector<unsigned int>();
+    std::vector<unsigned int>* priorities = new std::vector<unsigned int>();
     if (outgoing->size() == 0) {
         return priorities;
     }
@@ -1432,7 +1432,7 @@ NBEdge::preparePriorities(const EdgeVector* outgoing) {
 
 
 unsigned int
-NBEdge::computePrioritySum(std::vector<unsigned int> *priorities) {
+NBEdge::computePrioritySum(std::vector<unsigned int>* priorities) {
     unsigned int sum = 0;
     for (std::vector<unsigned int>::iterator i = priorities->begin(); i != priorities->end(); i++) {
         sum += int(*i);
@@ -1943,7 +1943,7 @@ NBEdge::setSpeed(int lane, SUMOReal speed) {
 }
 
 
-void 
+void
 NBEdge::setPermissions(SVCPermissions permissions, int lane) {
     if (lane < 0) {
         for (unsigned int i = 0; i < myLanes.size(); i++) {
@@ -1957,7 +1957,7 @@ NBEdge::setPermissions(SVCPermissions permissions, int lane) {
 }
 
 
-void 
+void
 NBEdge::setPreferredVehicleClass(SVCPermissions permissions, int lane) {
     if (lane < 0) {
         for (unsigned int i = 0; i < myLanes.size(); i++) {
@@ -1971,7 +1971,7 @@ NBEdge::setPreferredVehicleClass(SVCPermissions permissions, int lane) {
 }
 
 
-SVCPermissions 
+SVCPermissions
 NBEdge::getPermissions(int lane) const {
     if (lane < 0) {
         SVCPermissions result = 0;

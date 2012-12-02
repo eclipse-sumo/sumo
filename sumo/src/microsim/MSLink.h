@@ -123,7 +123,7 @@ public:
      * @todo Unsecure!
      */
     void setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
-                               const std::vector<MSLink*> &foeLinks, const std::vector<MSLane*> &foeLanes);
+                               const std::vector<MSLink*>& foeLinks, const std::vector<MSLane*>& foeLanes);
 
 
     /** @brief Sets the information about an approaching vehicle
@@ -139,7 +139,7 @@ public:
 
 
     void removeApproaching(SUMOVehicle* veh);
-    const std::vector<ApproachingVehicleInformation> &getApproaching() const {
+    const std::vector<ApproachingVehicleInformation>& getApproaching() const {
         return myApproachingVehicles;
     }
 
@@ -152,7 +152,7 @@ public:
      */
     bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
 
-    /** @brief Returns the information whether this link is blocked 
+    /** @brief Returns the information whether this link is blocked
      * Valid after the vehicles have set their requests
      * @param[in] arrivalTime The arrivalTime of the vehicle who checks for an approaching foe
      * @param[in] leaveTime The leaveTime of the vehicle who checks for an approaching foe

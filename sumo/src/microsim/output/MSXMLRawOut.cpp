@@ -58,7 +58,7 @@ void
 MSXMLRawOut::write(OutputDevice& of, const MSEdgeControl& ec,
                    SUMOTime timestep) {
     of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
-    const std::vector<MSEdge*> &edges = ec.getEdges();
+    const std::vector<MSEdge*>& edges = ec.getEdges();
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         writeEdge(of, **e);
     }
@@ -83,7 +83,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge) {
             }
         } else {
 #endif
-            const std::vector<MSLane*> &lanes = edge.getLanes();
+            const std::vector<MSLane*>& lanes = edge.getLanes();
             for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
                 if (((**lane).getVehicleNumber() != 0)) {
                     dump = true;
@@ -106,7 +106,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge) {
             }
         } else {
 #endif
-            const std::vector<MSLane*> &lanes = edge.getLanes();
+            const std::vector<MSLane*>& lanes = edge.getLanes();
             for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
                 writeLane(of, **lane);
             }

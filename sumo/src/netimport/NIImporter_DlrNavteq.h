@@ -92,7 +92,7 @@ protected:
          * @param[in, geoms] geoms Storage for read edge geometries
          */
         NodesHandler(NBNodeCont& nc, const std::string& file,
-                     std::map<std::string, PositionVector> &geoms);
+                     std::map<std::string, PositionVector>& geoms);
 
 
         /// @brief Destructor
@@ -118,7 +118,7 @@ protected:
         NBNodeCont& myNodeCont;
 
         /// @brief A container for parsed geometries
-        std::map<std::string, PositionVector> &myGeoms;
+        std::map<std::string, PositionVector>& myGeoms;
 
 
     private:
@@ -149,9 +149,9 @@ protected:
          * @param[in] streetNames The previously read street names
          */
         EdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
-                     const std::string& file, 
-                     std::map<std::string, PositionVector> &geoms,
-                     std::map<std::string, std::string> &streetNames);
+                     const std::string& file,
+                     std::map<std::string, PositionVector>& geoms,
+                     std::map<std::string, std::string>& streetNames);
 
 
         /// @brief Destructor
@@ -178,10 +178,10 @@ protected:
         NBEdgeCont& myEdgeCont;
 
         /// @brief Previously read edge geometries (manipulated during use)
-        std::map<std::string, PositionVector> &myGeoms;
+        std::map<std::string, PositionVector>& myGeoms;
 
         /// @brief Previously read streat names (non-const because operate[] is more convenient)
-        std::map<std::string, std::string> &myStreetNames;
+        std::map<std::string, std::string>& myStreetNames;
 
         /// @brief Whether node positions shall not be added to the edge's geometry
         bool myTryIgnoreNodePositions;
@@ -217,7 +217,7 @@ protected:
          * @param[in] file The name of the parsed file
          */
         TrafficlightsHandler(NBNodeCont& nc, NBTrafficLightLogicCont& tlc,
-                NBEdgeCont& ne, const std::string& file);
+                             NBEdgeCont& ne, const std::string& file);
 
 
         /// @brief Destructor
@@ -271,7 +271,7 @@ protected:
          * @param[in] file The name of the parsed file
          * @param[filled] streetNames output container for read names
          */
-        NamesHandler(const std::string& file, std::map<std::string, std::string> &streetNames);
+        NamesHandler(const std::string& file, std::map<std::string, std::string>& streetNames);
 
 
         /// @brief Destructor
@@ -292,7 +292,7 @@ protected:
 
     protected:
         /// @brief The container for storing read names
-        std::map<std::string, std::string> &myStreetNames;
+        std::map<std::string, std::string>& myStreetNames;
 
 
     private:

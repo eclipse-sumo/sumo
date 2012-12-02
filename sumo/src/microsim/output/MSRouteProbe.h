@@ -132,7 +132,7 @@ public:
 
 private:
     /// @brief The current distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*> *myCurrentRouteDistribution;
+    RandomDistributor<const MSRoute*>* myCurrentRouteDistribution;
 
 
 private:

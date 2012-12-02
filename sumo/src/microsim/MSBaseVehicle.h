@@ -130,7 +130,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz = false);
+    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, bool withTaz = false);
 
 
     /** @brief Replaces the current route by the given edges
@@ -186,7 +186,7 @@ public:
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
      */
-    inline const std::vector<MSDevice*> &getDevices() const {
+    inline const std::vector<MSDevice*>& getDevices() const {
         return myDevices;
     }
 

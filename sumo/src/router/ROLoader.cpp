@@ -113,8 +113,8 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
 // ---------------------------------------------------------------------------
 // ROLoader - methods
 // ---------------------------------------------------------------------------
-ROLoader::ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed) : 
-    myOptions(oc), 
+ROLoader::ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed) :
+    myOptions(oc),
     myEmptyDestinationsAllowed(emptyDestinationsAllowed),
     myLogSteps(!oc.getBool("no-step-log"))
 {}
@@ -194,7 +194,7 @@ ROLoader::openRoutes(RONet& net) {
 
 void
 ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
-                                RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router) {
+                                RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
     SUMOTime absNo = end - start;
     // skip routes that begin before the simulation's begin
     // loop till the end
@@ -223,7 +223,7 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
 
 
 bool
-ROLoader::makeSingleStep(SUMOTime end, RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router) {
+ROLoader::makeSingleStep(SUMOTime end, RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
     RouteLoaderCont::iterator i;
     // go through all handlers
     if (myHandler.size() != 0) {
@@ -260,7 +260,7 @@ ROLoader::getMinTimeStep() const {
 
 void
 ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
-                           RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router) {
+                           RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
     long absNo = end - start;
     bool ok = true;
     for (RouteLoaderCont::iterator i = myHandler.begin(); ok && i != myHandler.end(); i++) {
@@ -281,7 +281,7 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
 #ifdef HAVE_INTERNAL // catchall for internal stuff
 void
 ROLoader::processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
-                           RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router) {
+        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
     bool ok = true;
     for (RouteLoaderCont::iterator i = myHandler.begin(); ok && i != myHandler.end(); i++) {
         ok &= (*i)->readRoutesAtLeastUntil(SUMOTime_MAX);
@@ -386,7 +386,7 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
         }
     }
     // build edge-internal time lines
-    const std::map<std::string, ROEdge*> &edges = net.getEdgeMap();
+    const std::map<std::string, ROEdge*>& edges = net.getEdgeMap();
     for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         (*i).second->buildTimeLines(measure);
     }

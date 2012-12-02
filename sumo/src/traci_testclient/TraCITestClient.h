@@ -87,7 +87,7 @@ protected:
      * @param[in] objID The ID of the object a variable shall be retrieved from
      * @param[in] addData Storage to read additional data from, if needed
      */
-    void commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* addData=0);
+    void commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* addData = 0);
 
 
     /** @brief Sends and validates a SetVariable command
@@ -158,7 +158,7 @@ private:
      */
     bool validateSubscription(tcpip::Storage& inMsg);
     /// @}
-    
+
 
 
     /// @name Conversion helper

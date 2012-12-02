@@ -39,12 +39,11 @@
 
 // specialized implementation for speedup and avoiding warnings
 template<>
-inline float RTree<Named*, Named, float, 2, Named::StoringVisitor, float, 8, 4>::RectSphericalVolume(Rect* a_rect)
-{
-  ASSERT(a_rect);
-  const float extent0 = a_rect->m_max[0] - a_rect->m_min[0];
-  const float extent1 = a_rect->m_max[1] - a_rect->m_min[1];
-  return .78539816f * (extent0 * extent0 + extent1 * extent1);
+inline float RTree<Named*, Named, float, 2, Named::StoringVisitor, float, 8, 4>::RectSphericalVolume(Rect* a_rect) {
+    ASSERT(a_rect);
+    const float extent0 = a_rect->m_max[0] - a_rect->m_min[0];
+    const float extent1 = a_rect->m_max[1] - a_rect->m_min[1];
+    return .78539816f * (extent0 * extent0 + extent1 * extent1);
 }
 
 
@@ -53,16 +52,15 @@ inline float RTree<Named*, Named, float, 2, Named::StoringVisitor, float, 8, 4>:
 // ===========================================================================
 /** @class TraCIRTree
  * @brief A RT-tree for efficient storing of SUMO's GL-objects
- * 
+ *
  * This class specialises the used RT-tree implementation from "rttree.h" and
  *  extends it by a mutex for avoiding parallel change and traversal of the tree.
  */
-class TraCIRTree : private RTree<Named*, Named, float, 2, Named::StoringVisitor >, public Boundary
-{
+class TraCIRTree : private RTree<Named*, Named, float, 2, Named::StoringVisitor >, public Boundary {
 public:
     /// @brief Constructor
-    TraCIRTree() 
-        : RTree<Named*, Named, float, 2, Named::StoringVisitor, float>(&Named::addTo){
+    TraCIRTree()
+        : RTree<Named*, Named, float, 2, Named::StoringVisitor, float>(&Named::addTo) {
     }
 
 
@@ -104,7 +102,7 @@ public:
      * @return Returns the number of entries found
      * @see RTree::Search
      */
-    int Search(const float a_min[2], const float a_max[2], const Named::StoringVisitor &c) {
+    int Search(const float a_min[2], const float a_max[2], const Named::StoringVisitor& c) {
         //AbstractMutex::ScopedLocker locker(myLock);
         return RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Search(a_min, a_max, c);
     }
@@ -114,7 +112,7 @@ public:
      * @param[in] o The object to add
      * @param[in] b The object's boundary
      */
-    void addObject(Named *o, Boundary &b) {
+    void addObject(Named* o, Boundary& b) {
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Insert(cmin, cmax, o);
@@ -125,7 +123,7 @@ public:
      * @param[in] o The object to add
      * @param[in] p The object's position
      */
-    void addObject(Named *o, Position &p) {
+    void addObject(Named* o, Position& p) {
         Boundary b;
         b.add(p);
         addObject(o, b);
@@ -135,7 +133,7 @@ public:
     /** @brief Removes an additional object (detector/shape/trigger) from being visualised
      * @param[in] o The object to remove
      */
-    void removeAdditionalGLObject(Named *o, Boundary &b) {
+    void removeAdditionalGLObject(Named* o, Boundary& b) {
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Remove(cmin, cmax, o);

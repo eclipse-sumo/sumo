@@ -137,7 +137,7 @@ public:
      * @exception IOError If something fails (not yet implemented)
      */
     void saveAllAsXML(OutputDevice& os, OutputDevice* const altos,
-					  OutputDevice* const typeos, bool withExitTimes) const;
+                      OutputDevice* const typeos, bool withExitTimes) const;
 
 
     /** @brief Returns a copy of the vehicle using a new id, departure time and route

@@ -57,12 +57,12 @@ public:
      * @param[in] height The height of the POI image
      */
     PointOfInterest(const std::string& id, const std::string& type,
-            const RGBColor& color, const Position& pos,
-            SUMOReal layer=DEFAULT_LAYER, 
-            SUMOReal angle=DEFAULT_ANGLE, 
-            const std::string& imgFile=DEFAULT_IMG_FILE,
-            SUMOReal width=DEFAULT_IMG_WIDTH, 
-            SUMOReal height=DEFAULT_IMG_HEIGHT) :
+                    const RGBColor& color, const Position& pos,
+                    SUMOReal layer = DEFAULT_LAYER,
+                    SUMOReal angle = DEFAULT_ANGLE,
+                    const std::string& imgFile = DEFAULT_IMG_FILE,
+                    SUMOReal width = DEFAULT_IMG_WIDTH,
+                    SUMOReal height = DEFAULT_IMG_HEIGHT) :
         Shape(id, type, color, layer, angle, imgFile),
         Position(pos),
         myHalfImgWidth(width / 2.0),

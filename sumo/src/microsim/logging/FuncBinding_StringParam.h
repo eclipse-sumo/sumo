@@ -60,12 +60,12 @@ public:
         return (mySource->*myOperation)(myParam);
     }
 
-    ValueSource<R> *copy() const {
+    ValueSource<R>* copy() const {
         return new FuncBinding_StringParam<T, R>(
                    mySource, myOperation, myParam);
     }
 
-    ValueSource<SUMOReal> *makeSUMORealReturningCopy() const {
+    ValueSource<SUMOReal>* makeSUMORealReturningCopy() const {
         throw 1;
     }
 

@@ -72,9 +72,9 @@ public:
      * @return whether the polygon could be added
      */
     virtual bool addPolygon(const std::string& id, const std::string& type,
-            const RGBColor& color, SUMOReal layer, 
-            SUMOReal angle, const std::string& imgFile, 
-            const PositionVector& shape, bool fill);
+                            const RGBColor& color, SUMOReal layer,
+                            SUMOReal angle, const std::string& imgFile,
+                            const PositionVector& shape, bool fill);
 
 
     /** @brief Builds a POI using the given values and adds it to the container
@@ -90,8 +90,8 @@ public:
      * @return whether the poi could be added
      */
     virtual bool addPOI(const std::string& id, const std::string& type,
-            const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile, 
-            const Position& pos, SUMOReal width, SUMOReal height);
+                        const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile,
+                        const Position& pos, SUMOReal width, SUMOReal height);
 
 
 

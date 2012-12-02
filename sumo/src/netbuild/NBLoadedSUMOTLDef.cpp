@@ -163,8 +163,8 @@ NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) 
     NBConnectionVector::iterator it = myControlledLinks.begin();
     // find the connection but ignore its TLIndex since it might have been
     // invalidated by an earlier removal
-    for (;it != myControlledLinks.end(); ++it) {
-        if (it->getFrom() == conn.getFrom() && 
+    for (; it != myControlledLinks.end(); ++it) {
+        if (it->getFrom() == conn.getFrom() &&
                 it->getTo() == conn.getTo() &&
                 it->getFromLane() == conn.getFromLane() &&
                 it->getToLane() == conn.getToLane()) {
@@ -172,9 +172,9 @@ NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) 
         }
     }
     if (it == myControlledLinks.end()) {
-        // a traffic light doesn't always controll all connections at a junction 
+        // a traffic light doesn't always controll all connections at a junction
         // especially when using the option --tls.join
-        return; 
+        return;
     }
     const int removed = it->getTLIndex();
     // remove the connection

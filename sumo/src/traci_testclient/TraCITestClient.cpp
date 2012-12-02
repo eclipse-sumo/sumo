@@ -190,7 +190,7 @@ TraCITestClient::commandSimulationStep(SUMOTime time) {
         check_resultState(inMsg, CMD_SIMSTEP2, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
         validateSimulationStep2(inMsg);
-    } catch(tcpip::SocketException& e) {
+    } catch (tcpip::SocketException& e) {
         answerLog << e.what() << std::endl;
     }
 }
@@ -205,7 +205,7 @@ TraCITestClient::commandClose() {
         std::string acknowledgement;
         check_resultState(inMsg, CMD_CLOSE, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
-    } catch(tcpip::SocketException& e) {
+    } catch (tcpip::SocketException& e) {
         answerLog << e.what() << std::endl;
     }
 }
@@ -222,7 +222,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string& obj
         std::string acknowledgement;
         check_resultState(inMsg, domID, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
-    } catch(tcpip::SocketException& e) {
+    } catch (tcpip::SocketException& e) {
         answerLog << e.what() << std::endl;
         return;
     }
@@ -231,7 +231,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string& obj
     try {
         int variableID = inMsg.readUnsignedByte();
         std::string objectID = inMsg.readString();
-        answerLog <<  "  CommandID=" << (domID+0x10) << "  VariableID=" << variableID << "  ObjectID=" << objectID;
+        answerLog <<  "  CommandID=" << (domID + 0x10) << "  VariableID=" << variableID << "  ObjectID=" << objectID;
         int valueDataType = inMsg.readUnsignedByte();
         answerLog << " valueDataType=" << valueDataType;
         readAndReportTypeDependent(inMsg, valueDataType);
@@ -261,7 +261,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID,
         std::string acknowledgement;
         check_resultState(inMsg, domID, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
-    } catch(tcpip::SocketException& e) {
+    } catch (tcpip::SocketException& e) {
         answerLog << e.what() << std::endl;
     }
 }
@@ -285,15 +285,15 @@ TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& ob
         check_resultState(inMsg, domID, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
         validateSubscription(inMsg);
-    } catch(tcpip::SocketException& e) {
+    } catch (tcpip::SocketException& e) {
         answerLog << e.what() << std::endl;
     }
 }
 
 
 void
-TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& objID, int beginTime, int endTime, 
-                                                 int domain, SUMOReal range, int varNo, std::ifstream& defFile) {
+TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& objID, int beginTime, int endTime,
+        int domain, SUMOReal range, int varNo, std::ifstream& defFile) {
     std::vector<int> vars;
     for (int i = 0; i < varNo; ++i) {
         int var;
@@ -303,7 +303,7 @@ TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& o
     }
     send_commandSubscribeObjectContext(domID, objID, beginTime, endTime, domain, range, vars);
     answerLog << std::endl << "-> Command sent: <SubscribeContext>:" << std::endl
-              << "  domID=" << domID << " objID=" << objID << " domain=" << domain << " range=" << range 
+              << "  domID=" << domID << " objID=" << objID << " domain=" << domain << " range=" << range
               << " with " << varNo << " variables" << std::endl;
     tcpip::Storage inMsg;
     try {
@@ -311,7 +311,7 @@ TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& o
         check_resultState(inMsg, domID, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
         validateSubscription(inMsg);
-    } catch(tcpip::SocketException& e) {
+    } catch (tcpip::SocketException& e) {
         answerLog << e.what() << std::endl;
     }
 }
@@ -370,7 +370,7 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
             length = inMsg.readInt();
         }
         int cmdId = inMsg.readUnsignedByte();
-        if(cmdId>=RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && cmdId<=RESPONSE_SUBSCRIBE_GUI_VARIABLE) {
+        if (cmdId >= RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && cmdId <= RESPONSE_SUBSCRIBE_GUI_VARIABLE) {
             answerLog << "  CommandID=" << cmdId;
             answerLog << "  ObjectID=" << inMsg.readString();
             unsigned int varNo = inMsg.readUnsignedByte();
@@ -383,7 +383,7 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
                 answerLog << " valueDataType=" << valueDataType;
                 readAndReportTypeDependent(inMsg, valueDataType);
             }
-        } else if(cmdId>=RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT && cmdId<=RESPONSE_SUBSCRIBE_GUI_CONTEXT) {
+        } else if (cmdId >= RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT && cmdId <= RESPONSE_SUBSCRIBE_GUI_CONTEXT) {
             answerLog << "  CommandID=" << cmdId;
             answerLog << "  ObjectID=" << inMsg.readString();
             answerLog << "  Domain=" << inMsg.readUnsignedByte();
@@ -391,7 +391,7 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
             answerLog << "  #variables=" << varNo << std::endl;
             unsigned int objNo = inMsg.readInt();
             answerLog << "  #objects=" << objNo << std::endl;
-            for(unsigned int j=0; j<objNo; ++j) {
+            for (unsigned int j = 0; j < objNo; ++j) {
                 answerLog << "   ObjectID=" << inMsg.readString() << std::endl;
                 for (unsigned int i = 0; i < varNo; ++i) {
                     answerLog << "      VariableID=" << inMsg.readUnsignedByte();
@@ -534,7 +534,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
             length += 8 + 8;
         }
         return length;
-    } 
+    }
     msg << "## Unknown data type: " << dataTypeS;
     return 0;
 }

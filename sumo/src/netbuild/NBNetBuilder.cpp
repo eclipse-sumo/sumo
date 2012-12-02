@@ -101,7 +101,7 @@ NBNetBuilder::applyOptions(OptionsCont& oc) {
 
 void
 NBNetBuilder::compute(OptionsCont& oc,
-                      const std::set<std::string> &explicitTurnarounds,
+                      const std::set<std::string>& explicitTurnarounds,
                       bool removeUnwishedNodes) {
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
 
@@ -158,7 +158,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
     }
     // @note: removing geometry can create similar edges so "Joining" must come afterwards
-    // @note: likewise splitting can destroy similarities so "Joining" must come before 
+    // @note: likewise splitting can destroy similarities so "Joining" must come before
     PROGRESS_BEGIN_MESSAGE("Joining similar edges");
     myJoinedEdges.init(myEdgeCont);
     myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
@@ -178,7 +178,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
 
     // check whether any not previously setable connections may be set now
-    myEdgeCont.recheckPostProcessConnections(); 
+    myEdgeCont.recheckPostProcessConnections();
 
     // MOVE TO ORIGIN
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {

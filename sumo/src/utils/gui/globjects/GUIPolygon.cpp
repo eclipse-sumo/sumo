@@ -49,8 +49,8 @@
 // method definitions
 // ===========================================================================
 GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
-            const RGBColor& color, const PositionVector& shape, bool fill,
-            SUMOReal layer, SUMOReal angle, const std::string& imgFile):
+                       const RGBColor& color, const PositionVector& shape, bool fill,
+                       SUMOReal layer, SUMOReal angle, const std::string& imgFile):
     Polygon(id, type, color, shape, fill, layer, angle, imgFile),
     GUIGlObject_AbstractAdd("poly", GLO_POLYGON, id),
     myDisplayList(0)
@@ -130,8 +130,8 @@ void APIENTRY combineCallback(GLdouble coords[3],
 
 
 SUMOReal POLY_TEX_DIM = 256;
-GLfloat xPlane[] = {1.0/POLY_TEX_DIM,0.0,0.0,0.0};
-GLfloat yPlane[] = {0.0,1.0/POLY_TEX_DIM,0.0,0.0};
+GLfloat xPlane[] = {1.0 / POLY_TEX_DIM, 0.0, 0.0, 0.0};
+GLfloat yPlane[] = {0.0, 1.0 / POLY_TEX_DIM, 0.0, 0.0};
 
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
@@ -153,7 +153,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, getLayer());
     // XXX shape should be rotated around its center when initializing the polygon. do we even need this?
-    //glRotated(getAngle(), 0, 0, 1);  
+    //glRotated(getAngle(), 0, 0, 1);
     GLHelper::setColor(getColor());
 
     int textureID = -1;
@@ -201,7 +201,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GUIPolygon::setShape(const PositionVector& shape) {
     AbstractMutex::ScopedLocker locker(myLock);
     Polygon::setShape(shape);
@@ -209,7 +209,7 @@ GUIPolygon::setShape(const PositionVector& shape) {
 }
 
 
-void 
+void
 GUIPolygon::storeTesselation() const {
     if (myDisplayList > 0) {
         glDeleteLists(myDisplayList, 1);

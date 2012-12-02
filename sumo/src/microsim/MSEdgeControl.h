@@ -83,7 +83,7 @@ public:
      * @param[in] edges The loaded edges
      * @todo Assure both containers are not 0
      */
-    MSEdgeControl(const std::vector< MSEdge* > &edges);
+    MSEdgeControl(const std::vector< MSEdge* >& edges);
 
 
     /// @brief Destructor.
@@ -166,7 +166,7 @@ public:
      * @return the container storing one-lane edges
      * @todo Check: Is this secure?
      */
-    const std::vector<MSEdge*> &getEdges() const {
+    const std::vector<MSEdge*>& getEdges() const {
         return myEdges;
     }
 

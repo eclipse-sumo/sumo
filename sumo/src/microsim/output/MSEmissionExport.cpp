@@ -49,36 +49,36 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-void 
+void
 MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
-   
-	of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
-	
-	MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+
+    of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
+
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
 
-	    for (; it != end; ++it) {
+    for (; it != end; ++it) {
         const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
-           
-		if (veh->isOnRoad()) {
-           
-		    std::string fclass = veh->getVehicleType().getID();
-			fclass = fclass.substr(0, fclass.find_first_of("@"));
-		   
+
+        if (veh->isOnRoad()) {
+
+            std::string fclass = veh->getVehicleType().getID();
+            fclass = fclass.substr(0, fclass.find_first_of("@"));
+
             Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
-        	of.openTag("vehicle") << " id=\"" << veh->getID() << "\" eclass=\"" <<  veh->getVehicleType().getEmissionClass() << "\" co2=\"" << veh->getHBEFA_CO2Emissions()  
-								  << "\" co=\"" <<  veh->getHBEFA_COEmissions() << "\" hc=\"" <<  veh->getHBEFA_HCEmissions()
-								  << "\" nox=\"" <<  veh->getHBEFA_NOxEmissions() << "\" pmx=\"" <<  veh->getHBEFA_PMxEmissions()
- 							      << "\" noise=\"" <<  veh->getHarmonoise_NoiseEmissions() << "\" route=\"" << veh->getRoute().getID()
-								  << "\" type=\"" <<  fclass << "\" waiting=\"" <<  veh->getWaitingSeconds()
-								  << "\" lane=\"" <<  veh->getLane()->getID() << "\" pos=\"" 
-                                  << veh->getPositionOnLane() << "\" speed=\"" << veh->getSpeed()*3.6 
-								  << "\" angle=\"" << veh->getAngle() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
+            of.openTag("vehicle") << " id=\"" << veh->getID() << "\" eclass=\"" <<  veh->getVehicleType().getEmissionClass() << "\" co2=\"" << veh->getHBEFA_CO2Emissions()
+                                  << "\" co=\"" <<  veh->getHBEFA_COEmissions() << "\" hc=\"" <<  veh->getHBEFA_HCEmissions()
+                                  << "\" nox=\"" <<  veh->getHBEFA_NOxEmissions() << "\" pmx=\"" <<  veh->getHBEFA_PMxEmissions()
+                                  << "\" noise=\"" <<  veh->getHarmonoise_NoiseEmissions() << "\" route=\"" << veh->getRoute().getID()
+                                  << "\" type=\"" <<  fclass << "\" waiting=\"" <<  veh->getWaitingSeconds()
+                                  << "\" lane=\"" <<  veh->getLane()->getID() << "\" pos=\""
+                                  << veh->getPositionOnLane() << "\" speed=\"" << veh->getSpeed() * 3.6
+                                  << "\" angle=\"" << veh->getAngle() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
             of.closeTag(true);
-			
-		}
-	}
-	
+
+        }
+    }
+
     of.closeTag();
 }

@@ -172,7 +172,7 @@ NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream& from,
 
 std::string
 NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream& from,
-        const std::vector<std::string> &excl) {
+        const std::vector<std::string>& excl) {
     std::vector<std::string> myExcl;
     std::vector<std::string>::const_iterator i;
     for (i = excl.begin(); i != excl.end(); i++) {

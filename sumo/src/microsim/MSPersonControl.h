@@ -107,13 +107,13 @@ public:
      * @param[in] vtype The type (reusing vehicle type container here)
      * @param[in] plan This person's plan
      */
-    virtual MSPerson *buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) const;
+    virtual MSPerson* buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSPerson::MSPersonPlan* plan) const;
 
-    void setWalking(MSPerson *p);
-    void unsetWalking(MSPerson *p);
+    void setWalking(MSPerson* p);
+    void unsetWalking(MSPerson* p);
 
     /// @brief returns whether the the given person is waiting for a vehicle on the given edge
-    bool isWaiting4Vehicle(const MSEdge* const edge, MSPerson *p) const;
+    bool isWaiting4Vehicle(const MSEdge* const edge, MSPerson* p) const;
 
 private:
     /// all persons by id

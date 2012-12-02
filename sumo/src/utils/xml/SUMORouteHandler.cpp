@@ -82,7 +82,7 @@ SUMORouteHandler::checkLastDepart() {
 }
 
 
-void 
+void
 SUMORouteHandler::registerLastDepart() {
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         myLastDepart = myVehicleParameter->depart;
@@ -93,7 +93,7 @@ SUMORouteHandler::registerLastDepart() {
 
 void
 SUMORouteHandler::myStartElement(int element,
-                               const SUMOSAXAttributes& attrs) {
+                                 const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_VEHICLE:
             delete myVehicleParameter;
@@ -166,7 +166,7 @@ SUMORouteHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_VTYPE:
             SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
-        break;
+            break;
         default:
             break;
     }
@@ -175,7 +175,7 @@ SUMORouteHandler::myEndElement(int element) {
 
 bool
 SUMORouteHandler::checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMOReal laneLength,
-                             const SUMOReal minLength, const bool friendlyPos) {
+                               const SUMOReal minLength, const bool friendlyPos) {
     if (minLength > laneLength) {
         return false;
     }

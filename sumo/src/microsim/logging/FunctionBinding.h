@@ -61,11 +61,11 @@ public:
         return (mySource->*myOperation)();
     }
 
-    ValueSource<R> *copy() const {
+    ValueSource<R>* copy() const {
         return new FunctionBinding<T, R>(mySource, myOperation);
     }
 
-    ValueSource<SUMOReal> *makeSUMORealReturningCopy() const {
+    ValueSource<SUMOReal>* makeSUMORealReturningCopy() const {
         return new CastingFunctionBinding<T, SUMOReal, R>(mySource, myOperation);
     }
 

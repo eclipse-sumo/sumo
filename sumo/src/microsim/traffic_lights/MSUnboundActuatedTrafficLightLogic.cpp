@@ -60,8 +60,8 @@ MSUnboundActuatedTrafficLightLogic::MSUnboundActuatedTrafficLightLogic(
 
 void
 MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder& nb,
-        const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        const std::vector<MSLane*>& lanes,
+        std::map<std::string, std::vector<std::string> >& laneContinuations,
         SUMOReal det_offset) {
     // change values for setting the loops and lanestate-detectors, here
     SUMOTime inductLoopInterval = 1; //
@@ -125,10 +125,10 @@ MSUnboundActuatedTrafficLightLogic::duration() const {
     }
     // define the duration depending from the number of waiting vehicles of the actual phase
     int newduration = currentPhaseDef()->minDuration;
-    const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
+    const std::bitset<64>& isgreen = currentPhaseDef()->getDriveMask();
     for (size_t i = 0; i < isgreen.size(); i++)  {
         if (isgreen.test(i))  {
-            const std::vector<MSLane*> &lanes = getLanesAt(i);
+            const std::vector<MSLane*>& lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }
@@ -199,10 +199,10 @@ MSUnboundActuatedTrafficLightLogic::gapControl() {
     }
 
     // now the gapcontrol starts
-    const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
+    const std::bitset<64>& isgreen = currentPhaseDef()->getDriveMask();
     for (size_t i = 0; i < isgreen.size(); i++)  {
         if (isgreen.test(i))  {
-            const std::vector<MSLane*> &lanes = getLanesAt(i);
+            const std::vector<MSLane*>& lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }

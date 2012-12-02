@@ -96,7 +96,7 @@ public:
      * @see drawBoxLine
      */
     static void drawBoxLines(const PositionVector& geom,
-                             const std::vector<SUMOReal> &rots, const std::vector<SUMOReal> &lengths,
+                             const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
                              SUMOReal width);
 
 
@@ -113,7 +113,7 @@ public:
      */
     static void drawBoxLines(const PositionVector& geom1,
                              const PositionVector& geom2,
-                             const std::vector<SUMOReal> &rots, const std::vector<SUMOReal> &lengths,
+                             const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
                              SUMOReal width);
 
 

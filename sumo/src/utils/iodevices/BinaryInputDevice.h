@@ -67,7 +67,7 @@ public:
      *
      * @param[in] name The name of the file to open for reading
      */
-    BinaryInputDevice(const std::string& name, const bool isTyped=false, const bool doValidate=false);
+    BinaryInputDevice(const std::string& name, const bool isTyped = false, const bool doValidate = false);
 
 
     /// @brief Destructor

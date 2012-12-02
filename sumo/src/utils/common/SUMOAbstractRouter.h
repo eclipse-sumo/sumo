@@ -61,7 +61,7 @@ public:
     { }
 
     /// Destructor
-    virtual ~SUMOAbstractRouter() { 
+    virtual ~SUMOAbstractRouter() {
         if (myNumQueries > 0) {
             WRITE_MESSAGE(myType + " answered " + toString(myNumQueries) + " queries and explored " + toString(double(myQueryVisits) / myNumQueries) +  " edges on average.");
             WRITE_MESSAGE(myType + " spent " + toString(myQueryTimeSum) + " ms answering queries (" + toString(double(myQueryTimeSum) / myNumQueries) +  " ms on average).");
@@ -71,9 +71,9 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     virtual void compute(const E* from, const E* to, const V* const vehicle,
-                         SUMOTime msTime, std::vector<const E*> &into) = 0;
+                         SUMOTime msTime, std::vector<const E*>& into) = 0;
 
-    virtual SUMOReal recomputeCosts(const std::vector<const E*> &edges,
+    virtual SUMOReal recomputeCosts(const std::vector<const E*>& edges,
                                     const V* const v, SUMOTime msTime) const = 0;
 
     // interface extension for BulkStarRouter
@@ -116,7 +116,7 @@ public:
         return edge->prohibits(vehicle);
     }
 
-    void prohibit(const std::vector<E*> &toProhibit) {
+    void prohibit(const std::vector<E*>& toProhibit) {
         myProhibited = toProhibit;
     }
 

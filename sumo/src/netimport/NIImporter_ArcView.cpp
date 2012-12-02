@@ -158,7 +158,7 @@ NIImporter_ArcView::load() {
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
         std::string id, name, from_node, to_node;
-        if(!getStringEntry(poFeature, "shapefile.street-id", "LINK_ID", true, id)) {
+        if (!getStringEntry(poFeature, "shapefile.street-id", "LINK_ID", true, id)) {
             WRITE_ERROR("Needed field '" + id + "' (from node id) is missing.");
         }
         if (id == "") {
@@ -169,10 +169,10 @@ NIImporter_ArcView::load() {
         getStringEntry(poFeature, "shapefile.street-id", "ST_NAME", true, name);
         name = StringUtils::replace(name, "&", "&amp;");
 
-        if(!getStringEntry(poFeature, "shapefile.from-id", "REF_IN_ID", true, from_node)) {
+        if (!getStringEntry(poFeature, "shapefile.from-id", "REF_IN_ID", true, from_node)) {
             WRITE_ERROR("Needed field '" + from_node + "' (from node id) is missing.");
         }
-        if(!getStringEntry(poFeature, "shapefile.to-id", "NREF_IN_ID", true, to_node)) {
+        if (!getStringEntry(poFeature, "shapefile.to-id", "NREF_IN_ID", true, to_node)) {
             WRITE_ERROR("Needed field '" + to_node + "' (to node id) is missing.");
         }
 
@@ -182,9 +182,9 @@ NIImporter_ArcView::load() {
         }
 
         std::string type;
-        if (myOptions.isSet("shapefile.type-id") && poFeature->GetFieldIndex(myOptions.getString("shapefile.type-id").c_str())>=0) {
+        if (myOptions.isSet("shapefile.type-id") && poFeature->GetFieldIndex(myOptions.getString("shapefile.type-id").c_str()) >= 0) {
             type = poFeature->GetFieldAsString(myOptions.getString("shapefile.type-id").c_str());
-        } else if(poFeature->GetFieldIndex("ST_TYP_AFT")>=0) {
+        } else if (poFeature->GetFieldIndex("ST_TYP_AFT") >= 0) {
             type = poFeature->GetFieldAsString("ST_TYP_AFT");
         }
         SUMOReal width = myTypeCont.getWidth(type);
@@ -381,13 +381,13 @@ NIImporter_ArcView::checkSpread(NBEdge* e) {
 }
 
 bool
-NIImporter_ArcView::getStringEntry(OGRFeature*poFeature, const std::string &optionName, const char *defaultName, bool prune, std::string &into) {
+NIImporter_ArcView::getStringEntry(OGRFeature* poFeature, const std::string& optionName, const char* defaultName, bool prune, std::string& into) {
     std::string v(defaultName);
-    if(myOptions.isSet(optionName)) {
+    if (myOptions.isSet(optionName)) {
         v = myOptions.getString(optionName);
     }
-    if(poFeature->GetFieldIndex(v.c_str())<0) {
-        if(myOptions.isSet(optionName)) {
+    if (poFeature->GetFieldIndex(v.c_str()) < 0) {
+        if (myOptions.isSet(optionName)) {
             into = v;
             return false;
         }
@@ -395,7 +395,7 @@ NIImporter_ArcView::getStringEntry(OGRFeature*poFeature, const std::string &opti
         return true;
     }
     into = poFeature->GetFieldAsString((char*)v.c_str());
-    if(prune) {
+    if (prune) {
         into = StringUtils::prune(into);
     }
     return true;

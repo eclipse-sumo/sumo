@@ -86,7 +86,7 @@ public:
      *
      * @return A SUMOReal-typed copy of the value-source
      */
-    virtual ValueSource<SUMOReal> *getSUMORealSourceCopy() const = 0;
+    virtual ValueSource<SUMOReal>* getSUMORealSourceCopy() const = 0;
 
 
     /** @brief Returns the name of the value
@@ -131,7 +131,7 @@ public:
      */
     GUIParameterTableItem(FXTable* table, unsigned pos,
                           const std::string& name, bool dynamic,
-                          ValueSource<T> *src)
+                          ValueSource<T>* src)
         : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(src),
           myValue(src->getValue()), myTable(table) {
         init(dynamic, toString<T>(src->getValue()));
@@ -246,7 +246,7 @@ public:
      *
      * @return A copy of the value source
      */
-    ValueSource<T> *getSourceCopy() const {
+    ValueSource<T>* getSourceCopy() const {
         if (mySource == 0) {
             return 0;
         }
@@ -258,7 +258,7 @@ public:
      *
      * @return A SUMOReal-typed copy of the value source
      */
-    ValueSource<SUMOReal> *getSUMORealSourceCopy() const {
+    ValueSource<SUMOReal>* getSUMORealSourceCopy() const {
         if (mySource == 0) {
             return 0;
         }
@@ -277,7 +277,7 @@ private:
     FXint myTablePosition;
 
     /** @brief The source to gain new values from; this source is==0 if the values are not dynamic */
-    ValueSource<T> *mySource;
+    ValueSource<T>* mySource;
 
     /// @brief A backup of the value to avoid the redrawing when nothing has changed
     T myValue;

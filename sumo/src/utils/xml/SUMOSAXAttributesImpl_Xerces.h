@@ -67,8 +67,8 @@ public:
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      */
     SUMOSAXAttributesImpl_Xerces(const Attributes& attrs,
-                                 const std::map<int, XMLCh*> &predefinedTags,
-                                 const std::map<int, std::string> &predefinedTagsMML,
+                                 const std::map<int, XMLCh*>& predefinedTags,
+                                 const std::map<int, std::string>& predefinedTagsMML,
                                  const std::string& objectType);
 
 
@@ -380,7 +380,7 @@ private:
     const AttrMap& myPredefinedTags;
 
     /// @brief Map of attribute ids to their (readable) string-representation
-    const std::map<int, std::string> &myPredefinedTagsMML;
+    const std::map<int, std::string>& myPredefinedTagsMML;
 
 
 private:

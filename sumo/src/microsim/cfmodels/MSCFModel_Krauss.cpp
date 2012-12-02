@@ -96,15 +96,15 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel
     if (predMaxDecel == 0) {
         // adapt speed to succeeding lane, no reaction time is involved
         // g = (x-v)/b * (x+v)/2
-        return (SUMOReal)sqrt(2*gap*myDecel + predSpeed * predSpeed);
+        return (SUMOReal)sqrt(2 * gap * myDecel + predSpeed * predSpeed);
 
     }
     // follow
     // g + (v^2 - a*v)/(2*a) = x*t + (x^2 - b*x)/(2*b) + 0.5
-    return (SUMOReal)(0.5 * sqrt(4.0*myDecel*(2.0*gap + predSpeed*predSpeed/predMaxDecel - predSpeed - 1.0) + 
-                (myDecel*(2.0*myHeadwayTime - 1.0))
-                * (myDecel*(2.0*myHeadwayTime - 1.0))) 
-            + myDecel*(0.5 - myHeadwayTime));
+    return (SUMOReal)(0.5 * sqrt(4.0 * myDecel * (2.0 * gap + predSpeed * predSpeed / predMaxDecel - predSpeed - 1.0) +
+                                 (myDecel * (2.0 * myHeadwayTime - 1.0))
+                                 * (myDecel * (2.0 * myHeadwayTime - 1.0)))
+                      + myDecel * (0.5 - myHeadwayTime));
 }
 
 

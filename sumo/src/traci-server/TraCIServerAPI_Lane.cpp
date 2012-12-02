@@ -221,7 +221,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 break;
             case LAST_STEP_VEHICLE_ID_LIST: {
                 std::vector<std::string> vehIDs;
-                const std::deque<MSVehicle*> &vehs = lane->getVehiclesSecure();
+                const std::deque<MSVehicle*>& vehs = lane->getVehiclesSecure();
                 for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                     vehIDs.push_back((*j)->getID());
                 }
@@ -236,7 +236,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 break;
             case LAST_STEP_VEHICLE_HALTING_NUMBER: {
                 int halting = 0;
-                const std::deque<MSVehicle*> &vehs = lane->getVehiclesSecure();
+                const std::deque<MSVehicle*>& vehs = lane->getVehiclesSecure();
                 for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                     if ((*j)->getSpeed() < 0.1) {
                         ++halting;
@@ -249,7 +249,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             break;
             case LAST_STEP_LENGTH: {
                 SUMOReal lengthSum = 0;
-                const std::deque<MSVehicle*> &vehs = lane->getVehiclesSecure();
+                const std::deque<MSVehicle*>& vehs = lane->getVehiclesSecure();
                 for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                     lengthSum += (*j)->getVehicleType().getLength();
                 }
@@ -353,9 +353,9 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
 
 
 bool
-TraCIServerAPI_Lane::getShape(const std::string &id, PositionVector &shape) {
+TraCIServerAPI_Lane::getShape(const std::string& id, PositionVector& shape) {
     const MSLane* const l = MSLane::dictionary(id);
-    if (l==0) {
+    if (l == 0) {
         return false;
     }
     shape.push_back(l->getShape());
@@ -363,13 +363,13 @@ TraCIServerAPI_Lane::getShape(const std::string &id, PositionVector &shape) {
 }
 
 
-TraCIRTree *
+TraCIRTree*
 TraCIServerAPI_Lane::getTree() {
-    TraCIRTree *t = new TraCIRTree();
-    const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
-    for(std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-        const std::vector<MSLane*> &lanes = (*i)->getLanes();
-        for(std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
+    TraCIRTree* t = new TraCIRTree();
+    const std::vector<MSEdge*>& edges = MSNet::getInstance()->getEdgeControl().getEdges();
+    for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+        const std::vector<MSLane*>& lanes = (*i)->getLanes();
+        for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             Boundary b = (*j)->getShape().getBoxBoundary();
             t->addObject(*j, b);
         }

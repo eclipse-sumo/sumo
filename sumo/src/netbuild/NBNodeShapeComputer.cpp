@@ -604,9 +604,9 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
 
 
 void
-NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector > &same,
-        std::map<NBEdge*, PositionVector> &geomsCCW,
-        std::map<NBEdge*, PositionVector> &geomsCW) {
+NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same,
+        std::map<NBEdge*, PositionVector>& geomsCCW,
+        std::map<NBEdge*, PositionVector>& geomsCW) {
     EdgeVector::const_iterator i, j;
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end() - 1; i++) {
         // store current edge's boundary as current ccw/cw boundary
@@ -660,11 +660,11 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector > &same
 
 EdgeVector
 NBNodeShapeComputer::computeUniqueDirectionList(
-    const std::map<NBEdge*, EdgeVector > &same,
-    std::map<NBEdge*, PositionVector> &geomsCCW,
-    std::map<NBEdge*, PositionVector> &geomsCW,
-    std::map<NBEdge*, NBEdge*> &ccwBoundary,
-    std::map<NBEdge*, NBEdge*> &cwBoundary) {
+    const std::map<NBEdge*, EdgeVector >& same,
+    std::map<NBEdge*, PositionVector>& geomsCCW,
+    std::map<NBEdge*, PositionVector>& geomsCW,
+    std::map<NBEdge*, NBEdge*>& ccwBoundary,
+    std::map<NBEdge*, NBEdge*>& cwBoundary) {
     EdgeVector newAll = myNode.myAllEdges;
     EdgeVector::const_iterator j;
     EdgeVector::iterator i2;

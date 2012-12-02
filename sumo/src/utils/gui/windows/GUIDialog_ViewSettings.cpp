@@ -91,13 +91,12 @@ unsigned int GUIDialog_ViewSettings::myCustomSchemes = 0;
 // method definitions
 // ===========================================================================
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
-        GUIVisualizationSettings* settings, 
-        std::vector<GUISUMOAbstractView::Decal> *decals,
-        MFXMutex* decalsLock) : 
+        GUIVisualizationSettings* settings,
+        std::vector<GUISUMOAbstractView::Decal>* decals,
+        MFXMutex* decalsLock) :
     FXDialogBox(parent, "View Settings", DECOR_TITLE | DECOR_BORDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
     myParent(parent), mySettings(settings),
-    myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0)
-{
+    myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0) {
     myBackup = (*mySettings);
 
     FXVerticalFrame* contentFrame =
@@ -108,7 +107,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXHorizontalFrame* frame0 =
             new FXHorizontalFrame(contentFrame, FRAME_THICK, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
         mySchemeName = new FXComboBox(frame0, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, COMBOBOX_INSERT_LAST | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
-        const std::vector<std::string> &names = gSchemeStorage.getNames();
+        const std::vector<std::string>& names = gSchemeStorage.getNames();
         for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
             size_t index = mySchemeName->appendItem((*i).c_str());
             if ((*i) == mySettings->name) {
@@ -738,9 +737,9 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
         mySchemeName->setCurrentItem(index);
         myParent->getColoringSchemesCombo().appendItem(tmpSettings.name.c_str());
-    } 
+    }
     myParent->getColoringSchemesCombo().setCurrentItem(
-            myParent->getColoringSchemesCombo().findItem(tmpSettings.name.c_str()));
+        myParent->getColoringSchemesCombo().findItem(tmpSettings.name.c_str()));
     gSchemeStorage.add(tmpSettings); // overwrites existing
     mySettings = &gSchemeStorage.get(tmpSettings.name);
     myParent->setColorScheme(tmpSettings.name);
@@ -1062,7 +1061,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myLaneButtons.clear();
         GUIColorScheme& scheme = mySettings->getLaneEdgeScheme();
         const bool fixed = scheme.isFixed();
-        const std::vector<RGBColor> &colors = scheme.getColors();
+        const std::vector<RGBColor>& colors = scheme.getColors();
         std::vector<RGBColor>::const_iterator colIt = colors.begin();
         std::vector<SUMOReal>::const_iterator threshIt = scheme.getThresholds().begin();
         std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
@@ -1118,7 +1117,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myVehicleThresholds.clear();
         myVehicleButtons.clear();
         const bool fixed = mySettings->vehicleColorer.getScheme().isFixed();
-        const std::vector<RGBColor> &colors = mySettings->vehicleColorer.getScheme().getColors();
+        const std::vector<RGBColor>& colors = mySettings->vehicleColorer.getScheme().getColors();
         std::vector<RGBColor>::const_iterator colIt = colors.begin();
         std::vector<SUMOReal>::const_iterator threshIt = mySettings->vehicleColorer.getScheme().getThresholds().begin();
         std::vector<std::string>::const_iterator nameIt = mySettings->vehicleColorer.getScheme().getNames().begin();
@@ -1291,8 +1290,7 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     FXMatrix* parent,
     GUIDialog_ViewSettings* target,
     const std::string& title,
-    const GUIVisualizationTextSettings& settings) 
-{
+    const GUIVisualizationTextSettings& settings) {
     myCheck = new FXCheckButton(parent, title.c_str(), target, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
     myCheck->setCheck(settings.show);
     new FXLabel(parent, "");

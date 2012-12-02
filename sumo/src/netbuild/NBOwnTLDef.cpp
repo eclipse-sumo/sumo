@@ -52,7 +52,7 @@
 // member method definitions
 // ===========================================================================
 NBOwnTLDef::NBOwnTLDef(const std::string& id,
-                       const std::vector<NBNode*> &junctions, SUMOTime offset)
+                       const std::vector<NBNode*>& junctions, SUMOTime offset)
     : NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset) {}
 
 

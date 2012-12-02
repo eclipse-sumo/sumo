@@ -50,58 +50,58 @@ public:
     Parameterised();
 
 
-	/** @brief Constructor
-	 * @param[in] mapArg Pre-given parameter
-	 */
-    Parameterised(const std::map<std::string, std::string> &mapArg);
+    /** @brief Constructor
+     * @param[in] mapArg Pre-given parameter
+     */
+    Parameterised(const std::map<std::string, std::string>& mapArg);
 
 
-	/// @brief Destructor
+    /// @brief Destructor
     ~Parameterised();
 
 
 
     /** @brief Adds a parameter
      * @param[in] key The parameter's name
-	 * @param[in] value The parameter's value
+     * @param[in] value The parameter's value
      */
-	void addParameter(const std::string &key, const std::string &value);
+    void addParameter(const std::string& key, const std::string& value);
 
 
     /** @brief Adds all given parameter
      * @param[in] mapArg The keys/values to insert
      */
-	void addParameter(const std::map<std::string, std::string> &mapArg);
+    void addParameter(const std::map<std::string, std::string>& mapArg);
 
 
     /** @brief Adds all given parameter
      * @param[in] p The keys/values to insert
      */
-	void addParameter(const Parameterised &p);
+    void addParameter(const Parameterised& p);
 
 
     /** @brief Returns whether the parameter is known
      * @param[in] key The key to ask for
-	 * @return Whether the key is known
+     * @return Whether the key is known
      */
-	bool knowsParameter(const std::string &key) const;
+    bool knowsParameter(const std::string& key) const;
 
 
     /** @brief Returns the value for a given key
      * @param[in] key The key to ask for
-	 * @param[in] defaultValue The default value to return if no value is stored under the key
-	 * @return The value stored under the key
+     * @param[in] defaultValue The default value to return if no value is stored under the key
+     * @return The value stored under the key
      */
-	const std::string &getParameter(const std::string &key, const std::string &defaultValue) const;
+    const std::string& getParameter(const std::string& key, const std::string& defaultValue) const;
 
 
-	/** @brief Clears the parameter map
-	 */
-	void clearParameter();
+    /** @brief Clears the parameter map
+     */
+    void clearParameter();
 
 private:
-	/// @brief The key->value map
-	std::map<std::string, std::string> myMap;
+    /// @brief The key->value map
+    std::map<std::string, std::string> myMap;
 
 };
 

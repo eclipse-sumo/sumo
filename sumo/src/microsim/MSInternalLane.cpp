@@ -62,7 +62,7 @@ MSInternalLane::MSInternalLane(const std::string& id, SUMOReal maxSpeed,
                                const PositionVector& shape, SUMOReal width,
                                SVCPermissions permissions):
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions),
-    myFoesIndex(-1) 
+    myFoesIndex(-1)
 {}
 
 

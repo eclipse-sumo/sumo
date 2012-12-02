@@ -134,7 +134,7 @@ getVehicleClassCompoundName(int id) {
 }
 
 
-std::string 
+std::string
 getAllowedVehicleClassNames(SVCPermissions permissions) {
     return joinToString(getAllowedVehicleClassNamesList(permissions), ' ');
 }
@@ -155,7 +155,7 @@ getAllowedVehicleClassNamesList(SVCPermissions permissions) {
 }
 
 
-std::pair<std::string, bool> 
+std::pair<std::string, bool>
 getPermissionEncoding(SVCPermissions permissions) {
     // shortcut the common cases
     if (permissions == SVCFreeForAll) {
@@ -163,7 +163,7 @@ getPermissionEncoding(SVCPermissions permissions) {
     }
     // figure out whether its shorter to write allow or disallow
     size_t num_allowed = 0;
-    for(int mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
+    for (int mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
         if ((mask & permissions) == mask) {
             ++num_allowed;
         }
@@ -198,7 +198,7 @@ getVehicleClassCompoundID(const std::string& name) {
 }
 
 
-SVCPermissions 
+SVCPermissions
 parseVehicleClasses(const std::string& allowedS) {
     SVCPermissions result = 0;
     StringTokenizer sta(allowedS, " ");
@@ -209,7 +209,7 @@ parseVehicleClasses(const std::string& allowedS) {
 }
 
 
-bool 
+bool
 canParseVehicleClasses(const std::string& classes) {
     StringTokenizer sta(classes, " ");
     while (sta.hasNext()) {
@@ -235,8 +235,8 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std
 }
 
 
-SVCPermissions 
-parseVehicleClasses(const std::vector<std::string> &allowedS) {
+SVCPermissions
+parseVehicleClasses(const std::vector<std::string>& allowedS) {
     SVCPermissions result = 0;
     for (std::vector<std::string>::const_iterator i = allowedS.begin(); i != allowedS.end(); ++i) {
         result |= getVehicleClassID(*i);
@@ -345,7 +345,7 @@ const SUMOReal DEFAULT_VEH_TMP3(1.);
 const SUMOReal DEFAULT_VEH_TMP4(1.);
 const SUMOReal DEFAULT_VEH_TMP5(1.);
 
-const SUMOReal DEFAULT_PERSON_SPEED(5./3.6);
+const SUMOReal DEFAULT_PERSON_SPEED(5. / 3.6);
 
 /****************************************************************************/
 

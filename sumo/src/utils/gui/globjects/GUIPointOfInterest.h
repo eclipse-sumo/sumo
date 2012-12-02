@@ -63,9 +63,9 @@ public:
      * @param[in] height The height of the POI image
      */
     GUIPointOfInterest(const std::string& id, const std::string& type,
-            const RGBColor& color, const Position& pos, 
-            SUMOReal layer, SUMOReal angle, const std::string& imgFile, 
-            SUMOReal width, SUMOReal height); 
+                       const RGBColor& color, const Position& pos,
+                       SUMOReal layer, SUMOReal angle, const std::string& imgFile,
+                       SUMOReal width, SUMOReal height);
 
     /// @brief Destructor
     virtual ~GUIPointOfInterest();

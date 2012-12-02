@@ -125,10 +125,10 @@ RONet::openOutput(const std::string& filename, bool useAlternatives, const std::
     if (useAlternatives) {
         myRouteAlternativesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
     }
-	if (typefilename != "") {
-		myTypesOutput = &OutputDevice::getDevice(typefilename);
-	    myTypesOutput->writeXMLHeader("routes", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
-	}
+    if (typefilename != "") {
+        myTypesOutput = &OutputDevice::getDevice(typefilename);
+        myTypesOutput->writeXMLHeader("routes", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
+    }
 }
 
 
@@ -168,7 +168,7 @@ RONet::getVehicleTypeSecure(const std::string& id) {
         // ok, no vehicle type was given within the user input
         //  return the default type
         myDefaultVTypeMayBeDeleted = false;
-		return myVehicleTypes.get(DEFAULT_VTYPE_ID);
+        return myVehicleTypes.get(DEFAULT_VTYPE_ID);
     }
     // Assume, the user will define the type somewhere else
     //  return a type which contains the id only
@@ -212,7 +212,7 @@ RONet::addVehicleType(SUMOVTypeParameter* type) {
 
 
 bool
-RONet::addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypeParameter*> *vehTypeDistribution) {
+RONet::addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypeParameter*>* vehTypeDistribution) {
     if (checkVType(id)) {
         myVTypeDistDict[id] = vehTypeDistribution;
         return true;
@@ -234,7 +234,7 @@ RONet::addVehicle(const std::string& id, ROVehicle* veh) {
 
 
 bool
-RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     const ROVehicle* const veh) {
     MsgHandler* mh = MsgHandler::getErrorInstance();
     std::string noRouteMsg = "The vehicle '" + veh->getID() + "' has no valid route.";
@@ -275,7 +275,7 @@ RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle> 
 
 
 SUMOTime
-RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                 SUMOTime time) {
     SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
@@ -377,7 +377,7 @@ RONet::checkSourceAndDestinations() const {
     if (myDestinationEdges.size() != 0 || mySourceEdges.size() != 0) {
         return;
     }
-    const std::map<std::string, ROEdge*> &edges = myEdges.getMyMap();
+    const std::map<std::string, ROEdge*>& edges = myEdges.getMyMap();
     for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         ROEdge* e = (*i).second;
         ROEdge::EdgeType type = e->getType();
@@ -398,7 +398,7 @@ RONet::getEdgeNo() const {
 }
 
 
-const std::map<std::string, ROEdge*> &
+const std::map<std::string, ROEdge*>&
 RONet::getEdgeMap() const {
     return myEdges.getMyMap();
 }

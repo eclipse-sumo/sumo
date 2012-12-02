@@ -89,7 +89,7 @@ public:
     void mesoJoin(RODFDetectorCon& detectors, RODFDetectorFlows& flows);
 
     bool hasDetector(ROEdge* edge) const;
-    const std::vector<std::string> &getDetectorList(ROEdge* edge) const;
+    const std::vector<std::string>& getDetectorList(ROEdge* edge) const;
 
 
 protected:
@@ -105,20 +105,20 @@ protected:
 
     ROEdge* getDetectorEdge(const RODFDetector& det) const;
     bool isSource(const RODFDetector& det, ROEdge* edge,
-                  std::vector<ROEdge*> &seen, const RODFDetectorCon& detectors,
+                  std::vector<ROEdge*>& seen, const RODFDetectorCon& detectors,
                   bool strict) const;
     bool isFalseSource(const RODFDetector& det, ROEdge* edge,
-                       std::vector<ROEdge*> &seen, const RODFDetectorCon& detectors) const;
-    bool isDestination(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge*> &seen,
+                       std::vector<ROEdge*>& seen, const RODFDetectorCon& detectors) const;
+    bool isDestination(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge*>& seen,
                        const RODFDetectorCon& detectors) const;
 
     void computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int no,
                           bool keepUnfoundEnds,
                           bool keepShortestOnly,
-                          std::vector<ROEdge*> &visited, const RODFDetector& det,
+                          std::vector<ROEdge*>& visited, const RODFDetector& det,
                           RODFRouteCont& into, const RODFDetectorCon& detectors,
                           int maxFollowingLength,
-                          std::vector<ROEdge*> &seen) const;
+                          std::vector<ROEdge*>& seen) const;
 
     void buildDetectorEdgeDependencies(RODFDetectorCon& dets) const;
 
@@ -153,7 +153,7 @@ protected:
 private:
     /// @brief comparator for maps using edges as key, used only in myDetectorsOnEdges to make tests comparable
     struct idComp {
-        bool operator() (ROEdge* const lhs, ROEdge* const rhs) const {
+        bool operator()(ROEdge* const lhs, ROEdge* const rhs) const {
             return lhs->getID() < rhs->getID();
         }
     };

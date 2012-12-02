@@ -63,7 +63,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static MSDevice_Person* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into);
+    static MSDevice_Person* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
 
 public:
@@ -122,7 +122,7 @@ public:
         return static_cast<unsigned int>(myPersons.size());
     }
 
-    const std::vector<MSPerson*> &getPersons() const {
+    const std::vector<MSPerson*>& getPersons() const {
         return myPersons;
     }
 
