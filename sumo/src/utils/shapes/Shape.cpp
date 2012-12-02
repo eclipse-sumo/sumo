@@ -2,7 +2,7 @@
 /// @file    Shape.cpp
 /// @author  Jakob Erdmann
 /// @date    Oct 2012
-/// @version $Id: Shape.h 12722 2012-09-17 09:41:32Z dkrajzew $
+/// @version $Id$
 ///
 // A 2D- or 3D-Shape
 /****************************************************************************/
@@ -47,8 +47,8 @@ const SUMOReal Shape::DEFAULT_IMG_HEIGHT = 1;
 // member definitions
 // ===========================================================================
 Shape::Shape(const std::string& id, const std::string& type,
-            const RGBColor& color, SUMOReal layer, 
-            SUMOReal angle, const std::string& imgFile) :
+             const RGBColor& color, SUMOReal layer,
+             SUMOReal angle, const std::string& imgFile) :
     Named(id),
     myType(type),
     myColor(color),

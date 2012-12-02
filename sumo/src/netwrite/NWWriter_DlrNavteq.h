@@ -2,7 +2,7 @@
 /// @file    NWWriter_DlrNavteq.h
 /// @author  Jakob Erdmann
 /// @date    26.10.2012
-/// @version $Id: NWWriter_DlrNavteq.h 12012 2012-03-05 09:41:53Z namdre $
+/// @version $Id$
 ///
 // Exporter writing networks using DlrNavteq (Elmar) format
 /****************************************************************************/
@@ -84,7 +84,7 @@ private:
 
     /// @brief write header comments (input paramters, date, etc...)
     static void writeHeader(OutputDevice& device, const OptionsCont& oc);
-    
+
     /// @brief build the ascii-bit-vector for column vehicle_type
     static std::string getAllowedTypes(SVCPermissions permissions);
 

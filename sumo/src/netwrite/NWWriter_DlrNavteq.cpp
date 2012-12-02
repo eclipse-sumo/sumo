@@ -2,7 +2,7 @@
 /// @file    NWWriter_DlrNavteq.h
 /// @author  Jakob Erdmann
 /// @date    26.10.2012
-/// @version $Id: NWWriter_DlrNavteq.h 12012 2012-03-05 09:41:53Z namdre $
+/// @version $Id$
 ///
 // Exporter writing networks using DlrNavteq (Elmar) format
 /****************************************************************************/
@@ -89,7 +89,7 @@ void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc
 void
 NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec) {
     // For "real" nodes we simply use the node id.
-    // For internal nodes (geometry vectors describing edge geometry in the parlance of this format) 
+    // For internal nodes (geometry vectors describing edge geometry in the parlance of this format)
     // we use the id of the edge and do not bother with
     // compression (each direction gets its own internal node).
     // XXX add option for generating numerical ids in case the input network has string ids and the target process needs integers
@@ -118,10 +118,10 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
         const PositionVector& geom = e->getGeometry();
         if (geom.size() > 2) {
             if (e->getID() == UNDEFINED) {
-                WRITE_WARNING("Edge id '" + UNDEFINED + 
-                        "' clashes with the magic value for NO_BETWEEN_NODE. Internal geometry for this edge will be lost.");
+                WRITE_WARNING("Edge id '" + UNDEFINED +
+                              "' clashes with the magic value for NO_BETWEEN_NODE. Internal geometry for this edge will be lost.");
             }
-            device << e->getID() << "\t1\t" << geom.size() - 2;  
+            device << e->getID() << "\t1\t" << geom.size() - 2;
             for (size_t ii = 1; ii < geom.size() - 1; ++ii) {
                 Position pos = geom[(int)ii];
                 gch.cartesian2geo(pos);
@@ -147,36 +147,36 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
         const int kph = speedInKph(e->getSpeed());
         const std::string& betweenNodeID = (e->getGeometry().size() > 2) ? e->getID() : UNDEFINED;
         device << e->getID() << "\t"
-            << e->getFromNode()->getID() << "\t"
-            << e->getToNode()->getID() << "\t"
-            << betweenNodeID << "\t"
-            << getGraphLength(e) << "\t"
-            << getAllowedTypes(e->getPermissions()) << "\t"
-            << "3\t" // Speed Category 1-8 XXX refine this
-            << UNDEFINED << "\t" // no special brunnel type (we don't know yet)
-            << getRoadClass(e) << "\t"
-            << getSpeedCategory(kph) << "\t"
-            << getNavteqLaneCode(e->getNumLanes()) << "\t"
-            << getSpeedCategoryUpperBound(kph) << "\t"
-            << kph << "\t"
-            << UNDEFINED << "\t" // NAME_ID1_REGIONAL XXX
-            << UNDEFINED << "\t" // NAME_ID2_LOCAL XXX
-            << UNDEFINED << "\t" // housenumbers_right 
-            << UNDEFINED << "\t" // housenumbers_left 
-            << UNDEFINED << "\t" // ZIP_CODE 
-            << UNDEFINED << "\t" // AREA_ID 
-            << UNDEFINED << "\t" // SUBAREA_ID 
-            << "1\t" // through_traffic (allowed)
-            << UNDEFINED << "\t" // special_restrictions 
-            << UNDEFINED << "\t" // extended_number_of_lanes 
-            << UNDEFINED << "\t" // isRamp 
-            << "0\t" // connection (between nodes always in order)
-            << "\n"; 
+               << e->getFromNode()->getID() << "\t"
+               << e->getToNode()->getID() << "\t"
+               << betweenNodeID << "\t"
+               << getGraphLength(e) << "\t"
+               << getAllowedTypes(e->getPermissions()) << "\t"
+               << "3\t" // Speed Category 1-8 XXX refine this
+               << UNDEFINED << "\t" // no special brunnel type (we don't know yet)
+               << getRoadClass(e) << "\t"
+               << getSpeedCategory(kph) << "\t"
+               << getNavteqLaneCode(e->getNumLanes()) << "\t"
+               << getSpeedCategoryUpperBound(kph) << "\t"
+               << kph << "\t"
+               << UNDEFINED << "\t" // NAME_ID1_REGIONAL XXX
+               << UNDEFINED << "\t" // NAME_ID2_LOCAL XXX
+               << UNDEFINED << "\t" // housenumbers_right
+               << UNDEFINED << "\t" // housenumbers_left
+               << UNDEFINED << "\t" // ZIP_CODE
+               << UNDEFINED << "\t" // AREA_ID
+               << UNDEFINED << "\t" // SUBAREA_ID
+               << "1\t" // through_traffic (allowed)
+               << UNDEFINED << "\t" // special_restrictions
+               << UNDEFINED << "\t" // extended_number_of_lanes
+               << UNDEFINED << "\t" // isRamp
+               << "0\t" // connection (between nodes always in order)
+               << "\n";
     }
 }
 
 
-std::string 
+std::string
 NWWriter_DlrNavteq::getAllowedTypes(SVCPermissions permissions) {
     if (permissions == SVCFreeForAll) {
         return "1000000000";
@@ -196,53 +196,89 @@ NWWriter_DlrNavteq::getAllowedTypes(SVCPermissions permissions) {
 }
 
 
-int 
+int
 NWWriter_DlrNavteq::getRoadClass(NBEdge* edge) {
-    // quoting the navteq manual: 
+    // quoting the navteq manual:
     // As a general rule, Functional Road Class assignments have no direct
-    // correlation with other road attributes like speed, controlled access, route type, etc. 
+    // correlation with other road attributes like speed, controlled access, route type, etc.
     //
-    // we do a simple speed / lane-count mapping anyway 
+    // we do a simple speed / lane-count mapping anyway
     // XXX the resulting functional road class layers probably won't be connected as required
     const int kph = speedInKph(edge->getSpeed());
-    if ((kph) > 100) return 0;
-    if ((kph) > 70) return 1;
-    if ((kph) > 50) return (edge->getNumLanes() > 1 ? 2 : 3);
-    if ((kph) > 30) return 3;
+    if ((kph) > 100) {
+        return 0;
+    }
+    if ((kph) > 70) {
+        return 1;
+    }
+    if ((kph) > 50) {
+        return (edge->getNumLanes() > 1 ? 2 : 3);
+    }
+    if ((kph) > 30) {
+        return 3;
+    }
     return 4;
 }
 
 
-int 
+int
 NWWriter_DlrNavteq::getSpeedCategory(int kph) {
-    if ((kph) > 130) return 1;
-    if ((kph) > 100) return 2;
-    if ((kph) > 90) return 3;
-    if ((kph) > 70) return 4;
-    if ((kph) > 50) return 5;
-    if ((kph) > 30) return 6;
-    if ((kph) > 10) return 7;
+    if ((kph) > 130) {
+        return 1;
+    }
+    if ((kph) > 100) {
+        return 2;
+    }
+    if ((kph) > 90) {
+        return 3;
+    }
+    if ((kph) > 70) {
+        return 4;
+    }
+    if ((kph) > 50) {
+        return 5;
+    }
+    if ((kph) > 30) {
+        return 6;
+    }
+    if ((kph) > 10) {
+        return 7;
+    }
     return 8;
 }
 
 
-int 
+int
 NWWriter_DlrNavteq::getSpeedCategoryUpperBound(int kph) {
-    if ((kph) > 130) return 131;
-    if ((kph) > 100) return 130;
-    if ((kph) > 90) return 100;
-    if ((kph) > 70) return 90;
-    if ((kph) > 50) return 70;
-    if ((kph) > 30) return 50;
-    if ((kph) > 10) return 30;
+    if ((kph) > 130) {
+        return 131;
+    }
+    if ((kph) > 100) {
+        return 130;
+    }
+    if ((kph) > 90) {
+        return 100;
+    }
+    if ((kph) > 70) {
+        return 90;
+    }
+    if ((kph) > 50) {
+        return 70;
+    }
+    if ((kph) > 30) {
+        return 50;
+    }
+    if ((kph) > 10) {
+        return 30;
+    }
     return 10;
 }
 
 
-unsigned int 
+unsigned int
 NWWriter_DlrNavteq::getNavteqLaneCode(const unsigned int numLanes) {
     const unsigned int code = (numLanes == 1 ? 1 :
-        (numLanes < 4 ?  2 : 3));
+                               (numLanes < 4 ?  2 : 3));
     return numLanes * 10 + code;
 }
 

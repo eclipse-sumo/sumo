@@ -2,7 +2,7 @@
 /// @file    NBSign.cpp
 /// @author  Jakob Erdmann
 /// @date    Nov 2012
-/// @version $Id: NBSign.cpp 11671 2012-01-07 20:14:30Z behrisch $
+/// @version $Id$
 ///
 // A class representing a street sign
 /****************************************************************************/
@@ -89,7 +89,7 @@ NBSign::NBSign(SignType type, SUMOReal offset, const std::string label) :
 NBSign::~NBSign() {}
 
 
-void 
+void
 NBSign::writeAsPOI(OutputDevice& into, const NBEdge* edge) const {
     PositionVector shp = edge->getLanes()[0].shape;
     shp.move2side(3);

@@ -4,7 +4,7 @@
 @file    analyze_teleports.py
 @author  Jakob Erdmann
 @date    2012-11-20
-@version $Id: analyze_teleports.py 12757 2012-09-26 14:01:46Z namdre $
+@version $Id$
 
 Extract statistics from the warning outputs of a simulation run for plotting.
 

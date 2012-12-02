@@ -2,7 +2,7 @@
 /// @file    NBSign.h
 /// @author  Jakob Erdmann
 /// @date    Nov 2012
-/// @version $Id: NBSign.h 12051 2012-03-12 06:54:12Z namdre $
+/// @version $Id$
 ///
 // A class representing a street sign
 /****************************************************************************/
@@ -69,7 +69,7 @@ public:
      * @param[in] offset The offset of the sign from the start of its edge
      * @param[in] label The (optional) label (for SPEED, SLOPE etc)
      */
-    NBSign(SignType type, SUMOReal offset, const std::string label="");
+    NBSign(SignType type, SUMOReal offset, const std::string label = "");
 
 
     /// @brief Destructor

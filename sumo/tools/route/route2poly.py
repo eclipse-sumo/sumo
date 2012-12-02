@@ -3,7 +3,7 @@
 @file    route2poly.py
 @author  Jakob Erdmann
 @date    2012-11-15
-@version $Id: route2poly.py 12618 2012-08-30 08:02:33Z namdre $
+@version $Id$
 
 From a sumo network and a route file, this script generates a polygon (polyline) for every route
 which can be loaded with sumo-gui for visualization
