@@ -743,7 +743,7 @@ OptionsCont::writeConfiguration(std::ostream& os, bool filled,
             }
             // add the comment if wished
             if (addComments) {
-                os << "        <!-- " << o->getDescription() << " -->" << std::endl;
+                os << "        <!-- " << StringUtils::escapeXML(o->getDescription()) << " -->" << std::endl;
             }
             // write the option and the value (if given)
             os << "        <" << *j << " value=\"";
@@ -763,7 +763,7 @@ OptionsCont::writeConfiguration(std::ostream& os, bool filled,
                 }
                 os << "\" type=\"" << o->getTypeName();
                 if (!addComments) {
-                    os << "\" help=\"" << o->getDescription();
+                    os << "\" help=\"" << StringUtils::escapeXML(o->getDescription());
                 }
             }
             os << "\"/>" << std::endl;
