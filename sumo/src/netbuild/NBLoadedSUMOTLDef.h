@@ -116,6 +116,11 @@ public:
         return myTLLogic;
     }
 
+    /** @brief Sets the offset of this tls
+     * @param[in] offset The offset of this cycle
+     */
+    void setOffset(SUMOTime offset);
+
 
 protected:
     /** @brief Collects the links participating in this traffic light

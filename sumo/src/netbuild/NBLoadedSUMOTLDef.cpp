@@ -58,9 +58,10 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& p
 NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLightLogic* logic) :
     NBTrafficLightDefinition(def->getID(), def->getProgramID(), def->getOffset()),
     myTLLogic(new NBTrafficLightLogic(logic)),
-    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) {
+    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) 
+{
+    assert(def->getOffset() == logic->getOffset());
     myControlledLinks = def->getControlledLinks();
-    myTLLogic->setOffset(def->getOffset());
 }
 
 
@@ -204,6 +205,13 @@ NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) 
         delete myTLLogic;
         myTLLogic = newLogic;
     }
+}
+
+
+void 
+NBLoadedSUMOTLDef::setOffset(SUMOTime offset) {
+    myOffset = offset;
+    myTLLogic->setOffset(offset);
 }
 
 /****************************************************************************/
