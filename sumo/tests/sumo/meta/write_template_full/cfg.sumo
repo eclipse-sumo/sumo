@@ -55,7 +55,7 @@
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed."/>
         <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped."/>
-        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms ['dijkstra', 'astar']"/>
+        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;]"/>
         <routeDist.maxsize value="" type="INT" help="Restrict the maximum size of route distributions"/>
     </processing>
 

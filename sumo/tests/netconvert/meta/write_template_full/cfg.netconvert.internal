@@ -17,9 +17,9 @@
         <connection-files value="" synonymes="connections x xml-connection-files xml-connections" type="FILE" help="Read XML-connection defs from FILE"/>
         <tllogic-files value="" synonymes="i" type="FILE" help="Read XML-traffic light defs from FILE"/>
         <type-files value="" synonymes="t types xml-type-files xml-types" type="FILE" help="Read XML-type defs from FILE"/>
-        <shapefile-prefix value="" synonymes="arcview shapefile tiger" type="FILE" help="Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'"/>
-        <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2" type="FILE" help="Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE'"/>
-        <osm-files value="" synonymes="osm" type="FILE" help="Read OSM-network from path 'FILE(s)'"/>
+        <shapefile-prefix value="" synonymes="arcview shapefile tiger" type="FILE" help="Read shapefiles (ArcView, Tiger, ...) from files starting with &apos;FILE&apos;"/>
+        <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2" type="FILE" help="Read converted Navteq GDF data (unsplitted Elmar-network) from path &apos;FILE&apos;"/>
+        <osm-files value="" synonymes="osm" type="FILE" help="Read OSM-network from path &apos;FILE(s)&apos;"/>
         <opendrive-files value="" synonymes="opendrive" type="FILE" help="Read openDrive-network from FILE"/>
         <visum-file value="" synonymes="visum" type="FILE" help="Read VISUM-net from FILE"/>
         <vissim-file value="" synonymes="vissim" type="FILE" help="Read VISSIM-net from FILE"/>
@@ -70,20 +70,20 @@
 
     <ramp_guessing>
         <ramps.guess value="false" synonymes="guess-ramps" type="BOOL" help="Enable ramp-guessing"/>
-        <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed" type="FLOAT" help="Treat edges with speed > FLOAT as no ramps"/>
-        <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT" help="Treat edges with speed < FLOAT as no highways"/>
+        <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed" type="FLOAT" help="Treat edges with speed &gt; FLOAT as no ramps"/>
+        <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT" help="Treat edges with speed &lt; FLOAT as no highways"/>
         <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT" help="Use FLOAT as ramp-length"/>
         <ramps.set value="" synonymes="ramp-guess.explicite" type="STR" help="Tries to handle the given edges as ramps"/>
         <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL" help="Avoids edge splitting"/>
     </ramp_guessing>
 
     <edge_removal>
-        <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed > FLOAT"/>
+        <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second &gt; FLOAT"/>
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR" help="Remove edges in STR"/>
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR" help="Only keep edges in STR"/>
         <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE"/>
         <keep-edges.postload value="false" type="BOOL" help="Remove edges after joining"/>
-        <keep-edges.in-boundary value="" type="STR" help="Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>)"/>
+        <keep-edges.in-boundary value="" type="STR" help="Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;)"/>
         <keep-edges.by-vclass value="" type="STR" help="Only keep edges which allow one of the vclasss in STR"/>
         <remove-edges.by-vclass value="" type="STR" help="Remove edges which allow only vclasses from STR"/>
         <keep-edges.by-type value="" type="STR" help="Only keep edges where type is in STR"/>
@@ -123,7 +123,7 @@
         <visum.connector-speeds value="100" type="FLOAT" help="Sets connector speed"/>
         <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno" type="INT" help="Sets connector lane number"/>
         <visum.no-connectors value="false" type="BOOL" help="Excludes connectors"/>
-        <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges' capacities"/>
+        <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges&apos; capacities"/>
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges."/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
@@ -159,6 +159,7 @@
         <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
         <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
+        <xml-validation value="false" synonymes="X" type="BOOL" help="Enable schema validation of XML inputs"/>
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>

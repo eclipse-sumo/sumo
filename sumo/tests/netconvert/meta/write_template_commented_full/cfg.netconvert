@@ -39,13 +39,13 @@
         <!-- Read XML-type defs from FILE -->
         <type-files value="" synonymes="t types xml-type-files xml-types" type="FILE"/>
 
-        <!-- Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE' -->
+        <!-- Read shapefiles (ArcView, Tiger, ...) from files starting with &apos;FILE&apos; -->
         <shapefile-prefix value="" synonymes="arcview shapefile tiger" type="FILE"/>
 
-        <!-- Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE' -->
+        <!-- Read converted Navteq GDF data (unsplitted Elmar-network) from path &apos;FILE&apos; -->
         <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2" type="FILE"/>
 
-        <!-- Read OSM-network from path 'FILE(s)' -->
+        <!-- Read OSM-network from path &apos;FILE(s)&apos; -->
         <osm-files value="" synonymes="osm" type="FILE"/>
 
         <!-- Read openDrive-network from FILE -->
@@ -171,10 +171,10 @@
         <!-- Enable ramp-guessing -->
         <ramps.guess value="false" synonymes="guess-ramps" type="BOOL"/>
 
-        <!-- Treat edges with speed > FLOAT as no ramps -->
+        <!-- Treat edges with speed &gt; FLOAT as no ramps -->
         <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed" type="FLOAT"/>
 
-        <!-- Treat edges with speed < FLOAT as no highways -->
+        <!-- Treat edges with speed &lt; FLOAT as no highways -->
         <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT"/>
 
         <!-- Use FLOAT as ramp-length -->
@@ -189,7 +189,7 @@
     </ramp_guessing>
 
     <edge_removal>
-        <!-- Only keep edges with speed in meters/second > FLOAT -->
+        <!-- Only keep edges with speed in meters/second &gt; FLOAT -->
         <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT"/>
 
         <!-- Remove edges in STR -->
@@ -204,7 +204,7 @@
         <!-- Remove edges after joining -->
         <keep-edges.postload value="false" type="BOOL"/>
 
-        <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) -->
+        <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;) -->
         <keep-edges.in-boundary value="" type="STR"/>
 
         <!-- Only keep edges which allow one of the vclasss in STR -->
@@ -312,7 +312,7 @@
         <!-- Excludes connectors -->
         <visum.no-connectors value="false" type="BOOL"/>
 
-        <!-- Computes the number of lanes from the edges' capacities -->
+        <!-- Computes the number of lanes from the edges&apos; capacities -->
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL"/>
 
         <!-- Prints all warnings, some of which are due to VISUM misbehaviour -->

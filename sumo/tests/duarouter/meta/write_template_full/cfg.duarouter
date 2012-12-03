@@ -37,16 +37,16 @@
         <repair value="false" type="BOOL" help="Tries to correct a false route"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
-        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms ['dijkstra', 'astar']"/>
-        <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation's end"/>
-        <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron's beta"/>
-        <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron's a"/>
+        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;]"/>
+        <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
+        <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron&apos;s beta"/>
+        <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>
         <keep-all-routes value="false" type="BOOL" help="Save routes with near zero probability"/>
         <skip-new-routes value="false" type="BOOL" help="Only reuse routes from input, do not calculate new ones"/>
         <logit value="false" type="BOOL" help="Use c-logit model"/>
-        <logit.beta value="-1" synonymes="lBeta" type="FLOAT" help="Use FLOAT as logit's beta"/>
-        <logit.gamma value="1" synonymes="lGamma" type="FLOAT" help="Use FLOAT as logit's gamma"/>
-        <logit.theta value="-1" synonymes="lTheta" type="FLOAT" help="Use FLOAT as logit's theta (negative values mean auto-estimation)"/>
+        <logit.beta value="-1" synonymes="lBeta" type="FLOAT" help="Use FLOAT as logit&apos;s beta"/>
+        <logit.gamma value="1" synonymes="lGamma" type="FLOAT" help="Use FLOAT as logit&apos;s gamma"/>
+        <logit.theta value="-1" synonymes="lTheta" type="FLOAT" help="Use FLOAT as logit&apos;s theta (negative values mean auto-estimation)"/>
     </processing>
 
     <defaults>
