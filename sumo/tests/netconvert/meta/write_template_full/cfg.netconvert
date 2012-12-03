@@ -77,7 +77,7 @@
     </ramp_guessing>
 
     <edge_removal>
-        <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed > FLOAT"/>
+        <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second > FLOAT"/>
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR" help="Remove edges in STR"/>
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR" help="Only keep edges in STR"/>
         <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE"/>

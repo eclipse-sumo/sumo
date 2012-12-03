@@ -189,7 +189,7 @@
     </ramp_guessing>
 
     <edge_removal>
-        <!-- Only keep edges with speed > FLOAT -->
+        <!-- Only keep edges with speed in meters/second > FLOAT -->
         <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT"/>
 
         <!-- Remove edges in STR -->

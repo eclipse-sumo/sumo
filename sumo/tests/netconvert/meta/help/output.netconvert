@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r12937
+SUMO netconvert Version dev-SVN-r13109
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -99,7 +99,8 @@ Ramp Guessing Options:
   --ramps.no-split                    Avoids edge splitting
 
 Edge Removal Options:
-  --keep-edges.min-speed FLOAT        Only keep edges with speed > FLOAT
+  --keep-edges.min-speed FLOAT        Only keep edges with speed in
+                                        meters/second > FLOAT
   --remove-edges.explicit STR         Remove edges in STR
   --keep-edges.explicit STR           Only keep edges in STR
   --keep-edges.input-file FILE        Only keep edges in FILE
