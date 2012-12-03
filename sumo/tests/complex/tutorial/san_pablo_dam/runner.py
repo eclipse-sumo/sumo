@@ -55,7 +55,7 @@ def gof(p):
     print
     fType = open('data/input_types.add.xml', 'w')
     fType.write(('<routes>\n    <vType accel="%(aMax)s" decel="%(bMax)s" id="pass"' +
-                ' length="%(lCar)s" minGap="0" maxSpeed="%(vMax)s"' + 
+                ' length="%(lCar)s" minGap="2.5" maxSpeed="%(vMax)s"' + 
                 ' sigma="%(sigA)s" tau="%(tTau)s" />\n</routes>') % para)
     fType.close()
     result = validate.validate(checkBinary('sumo'))
@@ -65,21 +65,20 @@ def gof(p):
     return result
 
 # defining all the constraints
-def conVmax(params):
-# vMax < 25
-	return 25.0 - params[0]
-def conTtau(params):
-# tTau > 1.1
-	return params[5] - 1.1
-def conSigA(params):
-# sigA > 0.1
-	return params[4] - 0.1
-def conSigA2(params):
-# sigA < 1.0
-	return 1.0 - params[4]
-def conAmax(params):
-# aMax > 0.1
-	return params[1] - 0.1
+def conVmax(params): # vMax < 25
+    return 25.0 - params[0]
+
+def conTtau(params): # tTau > 1.1
+    return params[5] - 1.1
+
+def conSigA(params): # sigA > 0.1
+    return params[4] - 0.1
+
+def conSigA2(params): # sigA < 1.0
+    return 1.0 - params[4]
+
+def conAmax(params): # aMax > 0.1
+    return params[1] - 0.1
 
 
 netconvertBinary = checkBinary('netconvert')
@@ -97,7 +96,7 @@ genDemand('data/obstimes_1_1.txt', 'data/spd-road.rou.xml')
 validate.parseObsTimes()
 # perform calibration
 fpLog = open('results.csv', 'w')
-params = [22.0, 2.0, 2.0, 7.5, 0.5, 1.5]
+params = [22.0, 2.0, 2.0, 5.0, 0.5, 1.5]
 # call to (unconstrained) Nelder Mead; does not work correctly, because 
 # method very often stumples over unrealistic input parameters (like tTau<1),
 # which causes SUMO to behave strangely.
