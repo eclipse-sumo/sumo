@@ -58,11 +58,11 @@ print >> fdo, '</routes>'
 fdo.close()
 print "----------- SUMO end time is smaller than TraCI's -----------"
 sys.stdout.flush()
-patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", "<end value='50'/>"] ])
+patchFile("sumo.sumocfg", "used.sumocfg", { "end": "<end value='50'/>" } )
 runSingle(99)
 print "----------- SUMO end time is not given -----------"
 sys.stdout.flush()
-patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", ""] ])
+patchFile("sumo.sumocfg", "used.sumocfg", { "end": "" } )
 runSingle(99)
 
 
@@ -75,9 +75,9 @@ print >> fdo, '</routes>'
 fdo.close()
 print "----------- SUMO end time is smaller than TraCI's -----------"
 sys.stdout.flush()
-patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", "<end value='50'/>"] ])
+patchFile("sumo.sumocfg", "used.sumocfg", { "end": "<end value='50'/>" } )
 runSingle(99)
 print "----------- SUMO end time is not given -----------"
 sys.stdout.flush()
-patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", ""] ])
+patchFile("sumo.sumocfg", "used.sumocfg", { "end": "" } )
 runSingle(99)
