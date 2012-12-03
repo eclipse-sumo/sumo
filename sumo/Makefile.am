@@ -7,8 +7,10 @@ doc: pydoc doxygen wikidump
 pydoc:
 	rm -rf docs/pydoc
 	mkdir docs/pydoc
-	cd docs/pydoc \
-	&& PYTHONPATH="../../tools" python -c "import pydoc, traci, sumolib; [pydoc.writedoc(m) for m in [traci, sumolib, sumolib.net] + traci._modules.values()]"
+	cd docs/pydoc && \
+	for i in `find ../../tools/traci ../../tools/sumolib -name "*.py" -not -executable | sed 's,../../tools/,,;s,/,.,g;s,.py,,;s,.__init__,,'`; do \
+	    PYTHONPATH="../../tools" python -c "import $$i, pydoc; pydoc.writedoc($$i)"; \
+	done
 
 doxygen:
 	rm -rf docs/doxygen
@@ -35,8 +37,7 @@ man:
 dist-hook: abs_distdir=`pwd`/$(distdir)
 dist-hook:
 	cd $(srcdir) ; \
-	if test -d tests; \
-	then \
+	if test -d tests; then \
 	    for f in `find build tools tests/complex/tutorial -name .svn -prune -o -type d -print`; do mkdir -p $(abs_distdir)/$$f; done ; \
 	    mkdir -p $(abs_distdir)/docs ; \
 	    find tests/complex/tutorial -regex ".*\.\(xml\|txt\|sumocfg\|netccfg\|py\)" -print0 | xargs -0 cp -v --parents --target-directory $(abs_distdir) ; \
@@ -46,7 +47,8 @@ dist-hook:
 	    find build -regex ".*\.\(vcproj\|vsprops\|vcxproj\|vcxproj\.filters\|props\|sln\|spec\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    ( svn export --force tools $(distdir)/tools && cd $(distdir) && find tools -type f > ../tools_filelist; true ) ; \
 	    xargs cp --parents --target-directory $(abs_distdir) < tools_filelist ; \
-	cp tools_filelist $(abs_distdir) ; fi; 
+	    cp tools_filelist $(abs_distdir) ; \
+	fi;
 
 dist-doc: doc
 	cd $(srcdir)
