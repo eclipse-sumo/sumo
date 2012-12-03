@@ -38,7 +38,6 @@
             <xsd:element name="robocup-dir" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="matsim-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="itsumo-files" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="heightmap.shapefiles" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -50,7 +49,10 @@
             <xsd:element name="map-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="matsim-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-navteq-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="output.street-names" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output.original-names" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="street-sign-output" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -126,7 +128,7 @@
             <xsd:element name="show-errors.connections-first-try" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanes-from-capacity.norm" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="speed-in-kmh" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="plain.keep-edge-shape" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="plain.extend-edge-shape" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="matsim.keep-length" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="matsim.lanes-from-capacity" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.street-id" type="strOptionType" minOccurs="0"/>
@@ -168,6 +170,7 @@
             <xsd:element name="junctions.join-exclude" type="strOptionType" minOccurs="0"/>
             <xsd:element name="speed.offset" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="speed.factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -185,6 +188,7 @@
             <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>

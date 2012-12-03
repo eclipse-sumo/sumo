@@ -71,7 +71,10 @@
             <xsd:element name="map-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="matsim-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-navteq-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="output.street-names" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output.original-names" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="street-sign-output" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -123,6 +126,7 @@
             <xsd:element name="lefthand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-dist" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -141,6 +145,7 @@
             <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>

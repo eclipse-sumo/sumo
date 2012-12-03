@@ -15,7 +15,6 @@
             <xsd:element name="routing" type="routingType" minOccurs="0"/>
             <xsd:element name="emissions" type="emissionsType" minOccurs="0"/>
             <xsd:element name="traci_server" type="traci_serverType" minOccurs="0"/>
-            <xsd:element name="mesoscopic" type="mesoscopicType" minOccurs="0"/>
             <xsd:element name="random_number" type="random_numberType" minOccurs="0"/>
             <xsd:element name="gui_only" type="gui_onlyType" minOccurs="0"/>
         </xsd:all>
@@ -28,8 +27,6 @@
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="load-state" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="load-state.offset" type="timeOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -39,6 +36,7 @@
             <xsd:element name="netstate-dump.empty-edges" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="emission-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output.geo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="full-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="queue-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vtk-output" type="fileOptionType" minOccurs="0"/>
@@ -49,9 +47,6 @@
             <xsd:element name="vehroute-output.last-route" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.sorted" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="save-state.times" type="intArrayOptionType" minOccurs="0"/>
-            <xsd:element name="save-state.prefix" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="save-state.files" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -88,6 +83,7 @@
             <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
@@ -122,21 +118,6 @@
     <xsd:complexType name="traci_serverType">
         <xsd:all>
             <xsd:element name="remote-port" type="intOptionType" minOccurs="0"/>
-        </xsd:all>
-    </xsd:complexType>
-
-    <xsd:complexType name="mesoscopicType">
-        <xsd:all>
-            <xsd:element name="mesosim" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="meso-edgelength" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="meso-tauff" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="meso-taufj" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="meso-taujf" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="meso-taujj" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="meso-jam-threshold" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="meso-multi-queue" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="meso-junction-control" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="meso-recheck" type="timeOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

@@ -5,17 +5,17 @@
 
     <xsd:element name="nodes" type="nodesType">
         <xsd:key name="nodeKey">
-            <xsd:selector xpath="node"></xsd:selector>
-            <xsd:field xpath="@id"></xsd:field>
+            <xsd:selector xpath="node"/>
+            <xsd:field xpath="@id"/>
         </xsd:key>
     </xsd:element>
 
     <xsd:complexType name="nodesType">
         <xsd:sequence>
-            <xsd:element name="location" type="locationType" minOccurs="0" maxOccurs="1"></xsd:element>
+            <xsd:element name="location" type="locationType" minOccurs="0" maxOccurs="1"/>
             <xsd:choice minOccurs="0" maxOccurs="unbounded">
-                <xsd:element name="node" type="nodeType"></xsd:element>
-                <xsd:element name="delete" type="deleteType"></xsd:element>
+                <xsd:element name="node" type="nodeType"/>
+                <xsd:element name="delete" type="deleteType"/>
             </xsd:choice>
         </xsd:sequence>
         <xsd:attribute name="version" use="optional">
@@ -35,10 +35,11 @@
         <xsd:attribute name="type" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="traffic_light"></xsd:enumeration>
-                    <xsd:enumeration value="right_before_left"></xsd:enumeration>
-                    <xsd:enumeration value="priority"></xsd:enumeration>
-                    <xsd:enumeration value="unregulated"></xsd:enumeration>
+                    <xsd:enumeration value="traffic_light"/>
+                    <xsd:enumeration value="right_before_left"/>
+                    <xsd:enumeration value="priority"/>
+                    <xsd:enumeration value="dead_end"/>
+                    <xsd:enumeration value="unregulated"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>

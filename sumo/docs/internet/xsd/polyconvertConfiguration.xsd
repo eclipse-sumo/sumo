@@ -30,6 +30,7 @@
             <xsd:element name="shapefile-prefixes" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.guess-projection" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.id-column" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.use-running-id" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="type-file" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -84,6 +85,7 @@
             <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>

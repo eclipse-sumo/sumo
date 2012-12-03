@@ -5,29 +5,29 @@
 
     <xsd:element name="net" type="netType">
         <xsd:key name="edgeKey">
-            <xsd:selector xpath="edge"></xsd:selector>
-            <xsd:field xpath="@id"></xsd:field>
+            <xsd:selector xpath="edge"/>
+            <xsd:field xpath="@id"/>
         </xsd:key>
         <xsd:keyref name="edgeKeyRefFrom" refer="edgeKey">
-            <xsd:selector xpath="connection"></xsd:selector>
-            <xsd:field xpath="@from"></xsd:field>
+            <xsd:selector xpath="connection"/>
+            <xsd:field xpath="@from"/>
         </xsd:keyref>
         <xsd:keyref name="edgeKeyRefTo" refer="edgeKey">
-            <xsd:selector xpath="connection"></xsd:selector>
-            <xsd:field xpath="@to"></xsd:field>
+            <xsd:selector xpath="connection"/>
+            <xsd:field xpath="@to"/>
         </xsd:keyref>
     </xsd:element>
 
     <xsd:complexType name="netType">
         <xsd:sequence>
-            <xsd:element name="location" type="locationType" minOccurs="1" maxOccurs="1"></xsd:element>
-            <xsd:element name="edge" type="edgeType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="tlLogic" type="tlLogicType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="junction" type="junctionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="connection" type="connectionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="prohibition" type="prohibitionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="roundabout" type="roundaboutType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="taz" type="tazType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="location" type="locationType" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="edge" type="edgeType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="tlLogic" type="tlLogicType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="junction" type="junctionType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="connection" type="connectionType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="prohibition" type="prohibitionType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="roundabout" type="roundaboutType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="taz" type="tazType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="version">
             <xsd:simpleType>
@@ -40,15 +40,15 @@
 
     <xsd:complexType name="edgeType">
         <xsd:sequence>
-            <xsd:element name="lane" type="laneType" minOccurs="1" maxOccurs="63"></xsd:element>
+            <xsd:element name="lane" type="laneType" minOccurs="1" maxOccurs="63"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="function" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="normal"></xsd:enumeration>
-                    <xsd:enumeration value="internal"></xsd:enumeration>
-                    <xsd:enumeration value="connector"></xsd:enumeration>
+                    <xsd:enumeration value="normal"/>
+                    <xsd:enumeration value="internal"/>
+                    <xsd:enumeration value="connector"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -62,8 +62,8 @@
         <xsd:attribute name="spreadType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="center"></xsd:enumeration>
-                    <xsd:enumeration value="right"></xsd:enumeration>
+                    <xsd:enumeration value="center"/>
+                    <xsd:enumeration value="right"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -84,15 +84,15 @@
 
     <xsd:complexType name="tlLogicType">
         <xsd:sequence>
-            <xsd:element name="phase" type="phaseType" minOccurs="1" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="phase" type="phaseType" minOccurs="1" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="actuated"></xsd:enumeration>
-                    <xsd:enumeration value="agentbased"></xsd:enumeration>
-                    <xsd:enumeration value="static"></xsd:enumeration>
+                    <xsd:enumeration value="actuated"/>
+                    <xsd:enumeration value="agentbased"/>
+                    <xsd:enumeration value="static"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -115,20 +115,21 @@
 
     <xsd:complexType name="junctionType">
         <xsd:sequence>
-            <xsd:element name="request" type="requestType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="request" type="requestType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="x" type="xsd:float" use="required"/>
         <xsd:attribute name="y" type="xsd:float" use="required"/>
+        <xsd:attribute name="z" type="xsd:float" use="optional"/>
         <xsd:attribute name="type" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="traffic_light"></xsd:enumeration>
-                    <xsd:enumeration value="right_before_left"></xsd:enumeration>
-                    <xsd:enumeration value="priority"></xsd:enumeration>
-                    <xsd:enumeration value="dead_end"></xsd:enumeration>
-                    <xsd:enumeration value="unregulated"></xsd:enumeration>
-                    <xsd:enumeration value="internal"></xsd:enumeration>
+                    <xsd:enumeration value="traffic_light"/>
+                    <xsd:enumeration value="right_before_left"/>
+                    <xsd:enumeration value="priority"/>
+                    <xsd:enumeration value="dead_end"/>
+                    <xsd:enumeration value="unregulated"/>
+                    <xsd:enumeration value="internal"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -171,23 +172,23 @@
         <xsd:attribute name="dir" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="s"></xsd:enumeration>
-                    <xsd:enumeration value="t"></xsd:enumeration>
-                    <xsd:enumeration value="l"></xsd:enumeration>
-                    <xsd:enumeration value="r"></xsd:enumeration>
-                    <xsd:enumeration value="L"></xsd:enumeration>
-                    <xsd:enumeration value="R"></xsd:enumeration>
+                    <xsd:enumeration value="s"/>
+                    <xsd:enumeration value="t"/>
+                    <xsd:enumeration value="l"/>
+                    <xsd:enumeration value="r"/>
+                    <xsd:enumeration value="L"/>
+                    <xsd:enumeration value="R"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="state" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="M"></xsd:enumeration>
-                    <xsd:enumeration value="m"></xsd:enumeration>
-                    <xsd:enumeration value="o"></xsd:enumeration>
-                    <xsd:enumeration value="="></xsd:enumeration>
-                    <xsd:enumeration value="-"></xsd:enumeration>
+                    <xsd:enumeration value="M"/>
+                    <xsd:enumeration value="m"/>
+                    <xsd:enumeration value="o"/>
+                    <xsd:enumeration value="="/>
+                    <xsd:enumeration value="-"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
