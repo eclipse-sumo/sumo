@@ -29,32 +29,6 @@ sumo/errors/routes/repeat_noperiod/input_routes.rou.xml:3:0:ERROR:SCHEMASV:SCHEM
 sumo/errors/routes/repeat_norepno/input_routes.rou.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'vehicle', attribute 'period': The attribute 'period' is not allowed.
 sumo/extended/calibrator/remove_from_all_queues/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'flow', attribute 'depart': The attribute 'depart' is not allowed.
 sumo/extended/calibrator/remove_from_all_queues/input_routes.rou.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'flow', attribute 'depart': The attribute 'depart' is not allowed.
-Error on parsing '/sumo/meso/state/load_a_state/input_routes.rou.xml'!
-Traceback (most recent call last):
-  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 36, in validate
-    doc = etree.parse(f)
-  File "lxml.etree.pyx", line 2942, in lxml.etree.parse (src/lxml/lxml.etree.c:54187)
-  File "parser.pxi", line 1528, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:79485)
-  File "parser.pxi", line 1557, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:79768)
-  File "parser.pxi", line 1457, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:78843)
-  File "parser.pxi", line 997, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:75698)
-  File "parser.pxi", line 564, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:71739)
-  File "parser.pxi", line 645, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:72614)
-  File "parser.pxi", line 585, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:71955)
-XMLSyntaxError: Start tag expected, '<' not found, line 1, column 1
-Error on parsing '/sumo/meso/state/save_a_state/input_routes.rou.xml'!
-Traceback (most recent call last):
-  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 36, in validate
-    doc = etree.parse(f)
-  File "lxml.etree.pyx", line 2942, in lxml.etree.parse (src/lxml/lxml.etree.c:54187)
-  File "parser.pxi", line 1528, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:79485)
-  File "parser.pxi", line 1557, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:79768)
-  File "parser.pxi", line 1457, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:78843)
-  File "parser.pxi", line 997, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:75698)
-  File "parser.pxi", line 564, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:71739)
-  File "parser.pxi", line 645, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:72614)
-  File "parser.pxi", line 585, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:71955)
-XMLSyntaxError: Start tag expected, '<' not found, line 1, column 1
 sumo/model/stop_at_position/default/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'stop', attribute 'edge': The attribute 'edge' is not allowed.
 sumo/model/stop_at_position/idm/input_routes.rou.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'stop', attribute 'edge': The attribute 'edge' is not allowed.
 sumo/model/stop_at_position/idmm/input_routes.rou.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'stop', attribute 'edge': The attribute 'edge' is not allowed.

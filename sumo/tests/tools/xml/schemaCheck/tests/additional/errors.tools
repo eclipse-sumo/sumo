@@ -17,6 +17,7 @@ sumo/extended/wauts/errors/cross3ltl_error_missing_startprog/input_additional.ad
 sumo/extended/wauts/errors/cross3ltl_error_missing_switchtime/input_additional.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'wautSwitch': The attribute 'time' is required but missing.
 sumo/extended/wauts/errors/cross3ltl_error_missing_to_prog/input_additional.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'wautSwitch': The attribute 'to' is required but missing.
 sumo/extended/wauts/errors/cross3ltl_error_missing_wautid/input_additional.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'WAUT': The attribute 'id' is required but missing.
+sumo/meta/xml_validation/input_additional.add.xml:1:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'additional', attribute 'blub': The attribute 'blub' is not allowed.
 sumo/output/e1/errors/file_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'file' is required but missing.
 sumo/output/e1/errors/freq_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e1Detector', attribute 'freq': '' is not a valid value of the atomic type 'positiveFloatType'.
 sumo/output/e1/errors/freq_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e1Detector', attribute 'freq': 'sss' is not a valid value of the atomic type 'positiveFloatType'.
