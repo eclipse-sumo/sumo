@@ -210,7 +210,7 @@ NBFrame::fillOptions(bool forNetgen) {
     // edge pruning
     oc.doRegister("keep-edges.min-speed", new Option_Float());
     oc.addSynonyme("keep-edges.min-speed", "edges-min-speed", true);
-    oc.addDescription("keep-edges.min-speed", "Edge Removal", "Only keep edges with speed > FLOAT");
+    oc.addDescription("keep-edges.min-speed", "Edge Removal", "Only keep edges with speed in meters/second > FLOAT");
 
     oc.doRegister("remove-edges.explicit", new Option_String());
     oc.addSynonyme("remove-edges.explicit", "remove-edges");
