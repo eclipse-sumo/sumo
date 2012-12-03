@@ -33,13 +33,14 @@
 // ****************************************
 #define TRACI_VERSION 5
 
+
 // ****************************************
 // COMMANDS
 // ****************************************
 // command: get version
 #define CMD_GETVERSION 0x00
 
-// command: simulation step (old version)
+// command: simulation step
 #define CMD_SIMSTEP2 0x02
 
 // command: stop node
@@ -59,7 +60,6 @@
 
 // command: close sumo
 #define CMD_CLOSE 0x7F
-
 
 
 // command: subscribe induction loop (e1) context
@@ -269,7 +269,6 @@
 #define POSITION_ROADMAP 0x04
 
 
-
 // ****************************************
 // DATA TYPES
 // ****************************************
@@ -299,7 +298,6 @@
 #define TYPE_COLOR 0x11
 
 
-
 // ****************************************
 // RESULT TYPES
 // ****************************************
@@ -314,7 +312,6 @@
 #define INVALID_DOUBLE_VALUE -1001.
 // return value for invalid queries (especially vehicle is not on the road)
 #define INVALID_INT_VALUE -1
-
 
 
 // ****************************************
@@ -332,7 +329,6 @@
 #define TLPHASE_NOSIGNAL 0x05
 
 
-
 // ****************************************
 // DIFFERENT DISTANCE REQUESTS
 // ****************************************
@@ -341,6 +337,20 @@
 // driving distance
 #define REQUEST_DRIVINGDIST 0x01
 
+
+// ****************************************
+// VEHICLE REMOVAL REASONS
+// ****************************************
+// vehicle started teleport
+#define REMOVE_TELEPORT 0x00
+// vehicle removed while parking
+#define REMOVE_PARKING 0x01
+// vehicle arrived
+#define REMOVE_ARRIVED 0x02
+// vehicle was vaporized
+#define REMOVE_VAPORIZED 0x03
+// vehicle finished route during teleport
+#define REMOVE_TELEPORT_ARRIVED 0x04
 
 
 // ****************************************
@@ -641,7 +651,6 @@
 #define VAR_ROUTE_VALID 0x92
 
 
-
 // zoom
 #define VAR_VIEW_ZOOM 0xa0
 
@@ -659,7 +668,6 @@
 
 // track vehicle
 #define VAR_TRACK_VEHICLE 0xa6
-
 
 
 #endif

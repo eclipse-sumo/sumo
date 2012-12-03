@@ -985,22 +985,24 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             int why = (int) inputStorage.readByte();
             MSMoveReminder::Notification n = MSMoveReminder::NOTIFICATION_ARRIVED;
             switch (why) {
-                case 0:
+                case REMOVE_TELEPORT:
                     n = MSMoveReminder::NOTIFICATION_TELEPORT;
                     break;
-                case 1:
+                case REMOVE_PARKING:
                     n = MSMoveReminder::NOTIFICATION_PARKING;
                     break;
-                case 2:
+                case REMOVE_ARRIVED:
                     n = MSMoveReminder::NOTIFICATION_ARRIVED;
                     break;
-                case 3:
+                case REMOVE_VAPORIZED:
                     n = MSMoveReminder::NOTIFICATION_VAPORIZED;
                     break;
-                case 4:
-                default:
+                case REMOVE_TELEPORT_ARRIVED:
                     n = MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
                     break;
+                default:
+                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unknown removal status.", outputStorage);
+                    return false;
             }
             v->onRemovalFromNet(n);
             v->getLane()->removeVehicle(v);
