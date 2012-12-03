@@ -55,9 +55,6 @@
 void
 AGActivityGen::importInfoCity() {
     AGActivityGenHandler handler(city, net);
-    handler.setFileName(inputFile);
-    XMLSubSys::init(false);
-    MsgHandler::initOutputOptions();
     PROGRESS_BEGIN_MESSAGE("Reading input");
     if (!XMLSubSys::runParser(handler, inputFile)) {
         PROGRESS_FAILED_MESSAGE();

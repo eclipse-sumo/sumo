@@ -240,13 +240,14 @@ main(int argc, char** argv) {
     int ret = 0;
     RONet* net = 0;
     try {
-        XMLSubSys::init(false);
+        XMLSubSys::init();
         RODUAFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
+        XMLSubSys::setValidation(oc.getBool("xml-validation"));
         MsgHandler::initOutputOptions();
         if (!RODUAFrame::checkOptions()) {
             throw ProcessError();

@@ -54,14 +54,19 @@ bool XMLSubSys::myEnableValidation;
 // method definitions
 // ===========================================================================
 void
-XMLSubSys::init(bool enableValidation) {
-    myEnableValidation = enableValidation;
+XMLSubSys::init() {
     try {
         XERCES_CPP_NAMESPACE::XMLPlatformUtils::Initialize();
         myNextFreeReader = 0;
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         throw ProcessError("Error during XML-initialization:\n " + TplConvert::_2str(e.getMessage()));
     }
+}
+
+
+void
+XMLSubSys::setValidation(bool enableValidation) {
+    myEnableValidation = enableValidation;
 }
 
 

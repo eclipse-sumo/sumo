@@ -80,13 +80,14 @@ main(int argc, char** argv) {
     {
 #endif
         // initialise subsystems
-        XMLSubSys::init(false);
+        XMLSubSys::init();
         MSFrame::fillOptions();
         OptionsIO::getOptions(false, argc, argv);
         if (oc.processMetaOptions(false)) {
             SystemFrame::close();
             return 0;
         }
+        XMLSubSys::setValidation(oc.getBool("xml-validation"));
         // Make application
         FXApp application("SUMO GUISimulation", "DLR");
         // Open display

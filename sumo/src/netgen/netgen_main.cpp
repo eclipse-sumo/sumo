@@ -209,13 +209,14 @@ main(int argc, char** argv) {
     int ret = 0;
     try {
         // initialise the application system (messaging, xml, options)
-        XMLSubSys::init(false);
+        XMLSubSys::init();
         fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
+        XMLSubSys::setValidation(oc.getBool("xml-validation"));
         MsgHandler::initOutputOptions();
         if (!checkOptions()) {
             throw ProcessError();

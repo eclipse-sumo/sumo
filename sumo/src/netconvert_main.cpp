@@ -107,13 +107,14 @@ main(int argc, char** argv) {
     oc.setApplicationName("netconvert", "SUMO netconvert Version " + (std::string)VERSION_STRING);
     int ret = 0;
     try {
-        XMLSubSys::init(false);
+        XMLSubSys::init();
         fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
+        XMLSubSys::setValidation(oc.getBool("xml-validation"));
         MsgHandler::initOutputOptions();
         if (!checkOptions()) {
             throw ProcessError();

@@ -98,15 +98,16 @@ int main(int argc, char* argv[]) {
     RONet* net = 0;
     try {
         // Initialise subsystems and process options
-        XMLSubSys::init(false);
+        XMLSubSys::init();
         AGFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
-        MsgHandler::initOutputOptions();
-        RandHelper::initRandGlobal();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
+        XMLSubSys::setValidation(oc.getBool("xml-validation"));
+        MsgHandler::initOutputOptions();
+        RandHelper::initRandGlobal();
 
         // Load network
         net = new RONet();

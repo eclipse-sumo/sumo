@@ -72,20 +72,24 @@ class SUMOSAXReader;
 class XMLSubSys {
 public:
     /**
-     * @brief Initialises the xml-subsystem, returns whether the initialisation succeeded.
+     * @brief Initialises the xml-subsystem.
      *
      * Calls XMLPlatformUtils::Initialize(). If this fails, the exception is
-     *  caught and its content is reported using a ProcessError. Otherwise, a
-     *  static SAX2XMLReader is built using "getSAXReader()" (stored in "myReader").
+     *  caught and its content is reported using a ProcessError.
      *
-     * The information whether validationis wanted is stored in "myEnableValidation" for
-     *  later usage.
+     * @exception ProcessError If the initialisation fails
+     */
+    static void init();
+
+
+    /**
+     * @brief Enables or disables validation.
+     *
+     * The setting is only valid for parsers created after the call. Existing parsers are not adapted.
      *
      * @param[in] enableValidation Whether validation of XML-documents against schemata shall be enabled
-     * @exception ProcessError If the initialisation fails
-     * @see getSAXReader()
      */
-    static void init(bool enableValidation);
+    static void setValidation(bool enableValidation);
 
 
     /**
