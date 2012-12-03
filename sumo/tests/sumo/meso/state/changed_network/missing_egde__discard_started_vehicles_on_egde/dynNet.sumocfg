@@ -9,7 +9,7 @@
 
     <output>
         <save-state.times value="35"/>
-        <save-state.files value="myStateFile"/>
+        <save-state.files value="input_state.bin"/>
     </output>
 
     <time>
