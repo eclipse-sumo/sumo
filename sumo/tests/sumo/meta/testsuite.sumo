@@ -19,6 +19,9 @@ write_config
 # Tests configuration with boolean values
 bool_value
 
+# Tests xml validation
+xml_validation
+
 # Tests deprecated options
 deprecated_option
 

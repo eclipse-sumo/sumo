@@ -108,6 +108,9 @@
         <!-- Prints the current version -->
         <version value="false" synonymes="V" type="BOOL"/>
 
+        <!-- Enable schema validation of XML inputs -->
+        <xml-validation value="false" synonymes="X" type="BOOL"/>
+
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
 

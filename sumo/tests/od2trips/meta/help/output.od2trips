@@ -1,4 +1,4 @@
-SUMO od2trips Version dev-SVN-r11548
+SUMO od2trips Version dev-SVN-r13111
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Importer of O/D-matrices for the road traffic simulation SUMO.
 
@@ -52,6 +52,7 @@ Report Options:
   -p, --print-options              Prints option values before processing
   -?, --help                       Prints this screen
   -V, --version                    Prints the current version
+  -X, --xml-validation             Enable schema validation of XML inputs
   -W, --no-warnings                Disables output of warnings
   -l, --log FILE                   Writes all messages to FILE (implies
                                      verbose)
