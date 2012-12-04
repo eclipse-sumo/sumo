@@ -180,7 +180,7 @@
     </tls_building>
 
     <edge_removal>
-        <!-- Only keep edges with speed in meters/second > FLOAT -->
+        <!-- Only keep edges with speed in meters/second &gt; FLOAT -->
         <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT"/>
 
         <!-- Remove edges in STR -->
@@ -192,7 +192,7 @@
         <!-- Only keep edges in FILE -->
         <keep-edges.input-file value="" type="FILE"/>
 
-        <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) -->
+        <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;) -->
         <keep-edges.in-boundary value="" type="STR"/>
 
     </edge_removal>

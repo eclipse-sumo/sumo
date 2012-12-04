@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 21 12:39:39 2012 by SUMO netconvert Version dev-SVN-r13008
+<!-- generated on 12/04/12 12:50:29 by SUMO netconvert Version dev-SVN-r13131
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -183,7 +183,7 @@
 
     <junction id=":node_C_12_0" type="internal" x="2.26" y="10.97" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_5_0 :node_C_6_0 :node_C_7_0 :node_C_8_0 :node_C_9_0"/>
     <junction id=":node_C_13_0" type="internal" x="1.56" y="11.84" incLanes=":node_C_3_0 edge_D2C_0 edge_R2C_0" intLanes=":node_C_4_0 :node_C_9_0"/>
-    <junction id=":node_C_14_0" type="internal" x="2.35" y="11.36" incLanes=":node_C_6_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_2_0 :node_C_9_0 :node_C_10_0 :node_C_11_0"/>
+    <junction id=":node_C_14_0" type="internal" x="2.35" y="11.36" incLanes=":node_C_6_0 edge_D2C_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_2_0 :node_C_9_0 :node_C_10_0 :node_C_11_0"/>
     <junction id=":node_C_15_0" type="internal" x="4.95" y="10.47" incLanes=":node_C_7_0 edge_D2C_0 edge_U2C_0" intLanes=":node_C_2_0 :node_C_8_0"/>
     <junction id=":node_C_16_0" type="internal" x="-1.65" y="6.98" incLanes=":node_C_10_0 edge_U2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_5_0 :node_C_6_0"/>
     <junction id=":node_C_17_0" type="internal" x="0.00" y="5.35" incLanes=":node_C_11_0 edge_R2C_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_6_0"/>
