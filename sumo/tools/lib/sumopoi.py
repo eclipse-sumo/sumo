@@ -16,4 +16,4 @@ All rights reserved
 import os, sys
 print >> sys.stderr, "Using this library is deprecated, please use sumolib.poi instead!"
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from sumolib.poi import *
+from sumolib.shapes.poi import *
