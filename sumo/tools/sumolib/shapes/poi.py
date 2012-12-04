@@ -5,7 +5,7 @@
 @date    2010-02-18
 @version $Id$
 
-Library for reading and storing POIs.
+Library for reading and storing PoIs.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2010-2012 DLR (http://www.dlr.de/) and contributors
@@ -16,13 +16,21 @@ from xml.sax import handler, parse
 
 
 class PoI:
-    def __init__(self, id, type, layer, color, pos, lane):
-        self._id = id
-        self._type = type
-        self._layer = layer
-        self._color = color
-        self._pos = pos
-        self._lane = lane
+    def __init__(self, id, type, layer, color, x, y, lane=None, pos=None):
+        self.id = id
+        self.type = type
+        self.color = color
+        self.layer = layer
+        self.x = x
+        self.y = y
+        self.lane = lane
+        self.pos = pos
+
+    def toXML(self):
+        if self.lane:
+            return '<poi id="%s" type="%s" color="%s" layer="%s" lane="%s" pos="%s"/>' % (self.id, self.type, self.color.toXML(), self.layer, self.lane, self.pos)
+        else:
+            return '<poi id="%s" type="%s" color="%s" layer="%s" x="%s" y="%s"/>' % (self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
 
 
 class PoIReader(handler.ContentHandler):
@@ -33,14 +41,14 @@ class PoIReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'poi':
             if not attrs.has_key('lane'):
-                poi = PoI(attrs['id'], attrs['type'], int(attrs['layer']), attrs['color'], (float(attrs['x']), float(attrs['y'])), None)
+                poi = PoI(attrs['id'], attrs['type'], int(attrs['layer']), attrs['color'], float(attrs['x']), float(attrs['y']))
             else:
-                poi = PoI(attrs['id'], attrs['type'], int(attrs['layer']), attrs['color'], float(attrs['pos']), attrs['lane'])
+                poi = PoI(attrs['id'], attrs['type'], int(attrs['layer']), attrs['color'], None, None, float(attrs['pos']), attrs['lane'])
             self._id2poi[poi._id] = poi
             self._pois.append(poi)
 
 
-def readPois(filename):
+def read(filename):
     pois = PoIReader()
     parse(filename, pois)
     return pois._pois
