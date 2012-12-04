@@ -13,7 +13,7 @@ All rights reserved
 """
 
 from xml.sax import handler, parse
-
+from .. import color
 
 class PoI:
     def __init__(self, id, type, layer, color, x, y, lane=None, pos=None):
@@ -40,10 +40,11 @@ class PoIReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'poi':
+            c = color.RGBAColor.decodeXML(attrs['color'])
             if not attrs.has_key('lane'):
                 poi = PoI(attrs['id'], attrs['type'], int(attrs['layer']), attrs['color'], float(attrs['x']), float(attrs['y']))
             else:
-                poi = PoI(attrs['id'], attrs['type'], int(attrs['layer']), attrs['color'], None, None, float(attrs['pos']), attrs['lane'])
+                poi = PoI(attrs['id'], attrs['type'], int(attrs['layer']), attrs['color'], None, None, attrs['lane'], float(attrs['pos']))
             self._id2poi[poi._id] = poi
             self._pois.append(poi)
 
