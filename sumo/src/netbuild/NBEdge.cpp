@@ -957,9 +957,9 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                             foeInternalLanes += (":" + n.getID() + "_" + toString(index) + "_0");
                         }
                         // compute foe incoming lanes
+                        const bool signalised = hasSignalisedConnectionTo(con.toEdge);
                         NBEdge* e = getToNode()->getOppositeIncoming(this);
-                        if ((e == *i2 && needsCont && !n.forbids(this, con.toEdge, *i2, (*k2).toEdge, true))
-                                || (dir == LINKDIR_TURN && this != *i2 && con.toEdge == (*k2).toEdge)) {
+                        if (n.forbids(*i2, (*k2).toEdge, this, con.toEdge, signalised) && (needsCont || dir == LINKDIR_TURN)) {
                             tmpFoeIncomingLanes.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
                         }
                         index++;
