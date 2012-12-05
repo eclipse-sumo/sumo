@@ -30,7 +30,7 @@
 #endif
 
 #include <string>
-#include <cstring>
+#include <io.h>
 #include <fstream>
 #include <sys/stat.h>
 #include "FileHelpers.h"
@@ -59,9 +59,7 @@ FileHelpers::exists(std::string path) {
     if (path.length() == 0) {
         return false;
     }
-    struct stat st;
-    bool ret = (stat(path.c_str(), &st) == 0);
-    return ret;
+    return _access(path.c_str(), 0) != -1;
 }
 
 
