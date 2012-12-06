@@ -30,7 +30,9 @@
 #endif
 
 #include <string>
+#ifdef _MSC_VER
 #include <io.h>
+#endif
 #include <fstream>
 #include <sys/stat.h>
 #include "FileHelpers.h"
@@ -59,7 +61,7 @@ FileHelpers::exists(std::string path) {
     if (path.length() == 0) {
         return false;
     }
-    return _access(path.c_str(), 0) != -1;
+    return access(path.c_str(), 0) != -1;
 }
 
 
