@@ -87,19 +87,19 @@
         <!-- Use origin and destination zones (districts) for in- and output -->
         <with-taz value="false" type="BOOL"/>
 
-        <!-- Select among routing algorithms ['dijkstra', 'astar', 'bulkstar', 'CH', 'CHWrapper'] -->
+        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;bulkstar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="" type="STR"/>
 
         <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hirarchy -->
         <weight-period value="3600" type="TIME"/>
 
-        <!-- Expand weights behind the simulation's end -->
+        <!-- Expand weights behind the simulation&apos;s end -->
         <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
 
-        <!-- Use FLOAT as Gawron's beta -->
+        <!-- Use FLOAT as Gawron&apos;s beta -->
         <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT"/>
 
-        <!-- Use FLOAT as Gawron's a -->
+        <!-- Use FLOAT as Gawron&apos;s a -->
         <gawron.a value="0.05" synonymes="gA" type="FLOAT"/>
 
         <!-- Save routes with near zero probability -->
@@ -111,13 +111,13 @@
         <!-- Use c-logit model -->
         <logit value="false" type="BOOL"/>
 
-        <!-- Use FLOAT as logit's beta -->
+        <!-- Use FLOAT as logit&apos;s beta -->
         <logit.beta value="-1" synonymes="lBeta" type="FLOAT"/>
 
-        <!-- Use FLOAT as logit's gamma -->
+        <!-- Use FLOAT as logit&apos;s gamma -->
         <logit.gamma value="1" synonymes="lGamma" type="FLOAT"/>
 
-        <!-- Use FLOAT as logit's theta (negative values mean auto-estimation) -->
+        <!-- Use FLOAT as logit&apos;s theta (negative values mean auto-estimation) -->
         <logit.theta value="-1" synonymes="lTheta" type="FLOAT"/>
 
     </processing>
@@ -167,6 +167,9 @@
 
         <!-- Prints the current version -->
         <version value="false" synonymes="V" type="BOOL"/>
+
+        <!-- Enable schema validation of XML inputs -->
+        <xml-validation value="false" synonymes="X" type="BOOL"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>

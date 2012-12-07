@@ -37,17 +37,17 @@
         <repair value="false" type="BOOL" help="Tries to correct a false route"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
-        <routing-algorithm value="" type="STR" help="Select among routing algorithms ['dijkstra', 'astar', 'bulkstar', 'CH', 'CHWrapper']"/>
+        <routing-algorithm value="" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;bulkstar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <weight-period value="3600" type="TIME" help="Aggregation period for the given weight files; triggers rebuilding of Contraction Hirarchy"/>
-        <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation's end"/>
-        <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron's beta"/>
-        <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron's a"/>
+        <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
+        <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron&apos;s beta"/>
+        <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>
         <keep-all-routes value="false" type="BOOL" help="Save routes with near zero probability"/>
         <skip-new-routes value="false" type="BOOL" help="Only reuse routes from input, do not calculate new ones"/>
         <logit value="false" type="BOOL" help="Use c-logit model"/>
-        <logit.beta value="-1" synonymes="lBeta" type="FLOAT" help="Use FLOAT as logit's beta"/>
-        <logit.gamma value="1" synonymes="lGamma" type="FLOAT" help="Use FLOAT as logit's gamma"/>
-        <logit.theta value="-1" synonymes="lTheta" type="FLOAT" help="Use FLOAT as logit's theta (negative values mean auto-estimation)"/>
+        <logit.beta value="-1" synonymes="lBeta" type="FLOAT" help="Use FLOAT as logit&apos;s beta"/>
+        <logit.gamma value="1" synonymes="lGamma" type="FLOAT" help="Use FLOAT as logit&apos;s gamma"/>
+        <logit.theta value="-1" synonymes="lTheta" type="FLOAT" help="Use FLOAT as logit&apos;s theta (negative values mean auto-estimation)"/>
     </processing>
 
     <defaults>
@@ -70,6 +70,7 @@
         <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
         <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
+        <xml-validation value="false" synonymes="X" type="BOOL" help="Enable schema validation of XML inputs"/>
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
