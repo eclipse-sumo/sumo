@@ -31,10 +31,13 @@
 
 #include <string>
 #ifdef _MSC_VER
+// this is how fox does it in xincs.h
 #include <io.h>
+#define access _access
+#else
+#include <unistd.h>
 #endif
 #include <fstream>
-#include <sys/stat.h>
 #include "FileHelpers.h"
 #include "StringTokenizer.h"
 #include "MsgHandler.h"
