@@ -18,6 +18,7 @@ from optparse import OptionParser
 _SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am"]
 _TESTDATA_EXT = [".xml", ".prog", ".csv",
                  ".complex", ".dfrouter", ".duarouter", ".jtrrouter",
+                 ".astar", ".chrouter", ".tcl", ".txt",
                  ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo",
                  ".meso", ".tools", ".traci", ".activitygen", ".scenario",
                  ".sumocfg", ".netccfg", ".netgcfg"]
