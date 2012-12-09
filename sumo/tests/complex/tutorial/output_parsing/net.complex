@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 12/09/12 22:34:19 by SUMO netconvert Version dev-SVN-r13142
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="data/circular.nod.xml"/>
+        <edge-files value="data/circular.edg.xml"/>
+        <type-files value="data/circular.type.xml"/>
+    </input>
+
+    <output>
+        <output-file value="data/circular.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1250.00,1250.00" origBoundary="0.00,0.00,1250.00,1250.00" projParameter="!"/>
+
+    <edge id="bottom" from="bottom-left" to="bottom-right" priority="-1" type="edgeType">
+        <lane id="bottom_0" index="0" speed="36.10" length="1250.10" shape="-0.05,-4.95 1250.05,-4.95"/>
+        <lane id="bottom_1" index="1" speed="36.10" length="1250.10" shape="-0.05,-1.65 1250.05,-1.65"/>
+    </edge>
+    <edge id="left" from="top-left" to="bottom-left" priority="-1" type="edgeType">
+        <lane id="left_0" index="0" speed="36.10" length="1250.10" shape="-4.95,1250.05 -4.95,-0.05"/>
+        <lane id="left_1" index="1" speed="36.10" length="1250.10" shape="-1.65,1250.05 -1.65,-0.05"/>
+    </edge>
+    <edge id="right" from="bottom-right" to="top-right" priority="-1" type="edgeType">
+        <lane id="right_0" index="0" speed="36.10" length="1250.10" shape="1254.95,-0.05 1254.95,1250.05"/>
+        <lane id="right_1" index="1" speed="36.10" length="1250.10" shape="1251.65,-0.05 1251.65,1250.05"/>
+    </edge>
+    <edge id="top" from="top-right" to="top-left" priority="-1" type="edgeType">
+        <lane id="top_0" index="0" speed="36.10" length="1250.10" shape="1250.05,1254.95 -0.05,1254.95"/>
+        <lane id="top_1" index="1" speed="36.10" length="1250.10" shape="1250.05,1251.65 -0.05,1251.65"/>
+    </edge>
+
+    <junction id="bottom-left" type="priority" x="0.00" y="0.00" incLanes="left_0 left_1" intLanes="" shape="-6.55,-0.05 -0.05,-0.05 -0.05,-6.55">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="bottom-right" type="priority" x="1250.00" y="0.00" incLanes="bottom_0 bottom_1" intLanes="" shape="1250.05,-0.05 1256.55,-0.05 1250.05,-6.55 1250.05,-0.05">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="top-left" type="priority" x="0.00" y="1250.00" incLanes="top_0 top_1" intLanes="" shape="-0.05,1256.55 -0.05,1250.05 -6.55,1250.05">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="top-right" type="priority" x="1250.00" y="1250.00" incLanes="right_0 right_1" intLanes="" shape="1256.55,1250.05 1250.05,1250.05 1250.05,1256.55">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+
+    <connection from="bottom" to="right" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="bottom" to="right" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="left" to="bottom" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="left" to="bottom" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="right" to="top" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="right" to="top" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="top" to="left" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="top" to="left" fromLane="1" toLane="1" dir="l" state="M"/>
+
+</net>
