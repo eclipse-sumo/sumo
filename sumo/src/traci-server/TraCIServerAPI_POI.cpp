@@ -82,8 +82,7 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             tempMsg.writeInt((int) ids.size());
         }
     } else {
-        int layer;
-        PointOfInterest* p = getPoI(id, layer);
+        PointOfInterest* p = getPoI(id);
         if (p == 0) {
             server.writeStatusCmd(CMD_GET_POI_VARIABLE, RTYPE_ERR, "POI '" + id + "' is not known", outputStorage);
             return false;
@@ -129,10 +128,9 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     // id
     std::string id = inputStorage.readString();
     PointOfInterest* p = 0;
-    int layer = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     if (variable != ADD && variable != REMOVE) {
-        p = getPoI(id, layer);
+        p = getPoI(id);
         if (p == 0) {
             server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "POI '" + id + "' is not known", outputStorage);
             return false;
@@ -201,7 +199,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The third PoI parameter must be the layer encoded as int.", outputStorage);
                 return false;
             }
-            layer = inputStorage.readInt();
+            int layer = inputStorage.readInt();
             // pos
             if (inputStorage.readUnsignedByte() != POSITION_2D) {
                 server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The fourth PoI parameter must be the position.", outputStorage);
@@ -225,7 +223,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
                 return false;
             }
-            layer = inputStorage.readInt();
+            inputStorage.readInt(); // !!! layer not used yet (shouldn't the id be enough?)
             if (!shapeCont.removePOI(id)) {
                 server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
             }
@@ -241,8 +239,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 
 bool
 TraCIServerAPI_POI::getPosition(const std::string& id, Position& p) {
-    int layer;
-    PointOfInterest* poi = getPoI(id, layer);
+    PointOfInterest* poi = getPoI(id);
     if (poi == 0) {
         return false;
     }
@@ -252,9 +249,8 @@ TraCIServerAPI_POI::getPosition(const std::string& id, Position& p) {
 
 
 PointOfInterest*
-TraCIServerAPI_POI::getPoI(const std::string& id, int& layer) {
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    return shapeCont.getPOIs().get(id);
+TraCIServerAPI_POI::getPoI(const std::string& id) {
+    return MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
 }
 
 

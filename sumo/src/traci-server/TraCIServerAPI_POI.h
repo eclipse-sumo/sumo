@@ -84,10 +84,9 @@ public:
 private:
     /** @brief Returns the named PoI
      * @param[in] id The id of the searched PoI
-     * @param[out] layer The layer the PoI is located in
      * @return The named PoI, or 0 if it is not known
      */
-    static PointOfInterest* getPoI(const std::string& id, int& layer);
+    static PointOfInterest* getPoI(const std::string& id);
 
 
 private:

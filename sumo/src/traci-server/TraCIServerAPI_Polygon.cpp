@@ -84,8 +84,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
             tempMsg.writeInt((int) ids.size());
         }
     } else {
-        int layer;
-        Polygon* p = getPolygon(id, layer);
+        Polygon* p = getPolygon(id);
         if (p == 0) {
             server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
             return false;
@@ -138,10 +137,9 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     // id
     std::string id = inputStorage.readString();
     Polygon* p = 0;
-    int layer = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     if (variable != ADD && variable != REMOVE) {
-        p = getPolygon(id, layer);
+        p = getPolygon(id);
         if (p == 0) {
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
             return false;
@@ -230,7 +228,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
                 return false;
             }
-            layer = inputStorage.readInt();
+            int layer = inputStorage.readInt();
             // shape
             if (inputStorage.readUnsignedByte() != TYPE_POLYGON) {
                 server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fifth polygon parameter must be the shape.", outputStorage);
@@ -257,7 +255,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
                 return false;
             }
-            layer = inputStorage.readInt();
+            inputStorage.readInt(); // !!! layer not used yet (shouldn't the id be enough?)
             if (!shapeCont.removePolygon(id)) {
                 server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not remove polygon '" + id + "'", outputStorage);
                 return false;
@@ -274,8 +272,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
 bool
 TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
-    int layer;
-    Polygon* poly = getPolygon(id, layer);
+    Polygon* poly = getPolygon(id);
     if (poly == 0) {
         return false;
     }
@@ -285,9 +282,8 @@ TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
 
 
 Polygon*
-TraCIServerAPI_Polygon::getPolygon(const std::string& id, int& layer) {
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    return shapeCont.getPolygons().get(id);
+TraCIServerAPI_Polygon::getPolygon(const std::string& id) {
+    return MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
 }
 
 

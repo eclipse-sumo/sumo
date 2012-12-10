@@ -958,7 +958,6 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         }
                         // compute foe incoming lanes
                         const bool signalised = hasSignalisedConnectionTo(con.toEdge);
-                        NBEdge* e = getToNode()->getOppositeIncoming(this);
                         if (n.forbids(*i2, (*k2).toEdge, this, con.toEdge, signalised) && (needsCont || dir == LINKDIR_TURN)) {
                             tmpFoeIncomingLanes.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
                         }

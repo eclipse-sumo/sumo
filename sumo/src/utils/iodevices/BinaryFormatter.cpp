@@ -101,7 +101,7 @@ void
 BinaryFormatter::openTag(std::ostream& into, const SumoXMLTag& xmlElement) {
     myXMLStack.push_back(xmlElement);
     FileHelpers::writeByte(into, BF_XML_TAG_START);
-    FileHelpers::writeByte(into, xmlElement);
+    FileHelpers::writeByte(into, static_cast<unsigned char>(xmlElement));
 }
 
 
@@ -114,7 +114,7 @@ bool
 BinaryFormatter::closeTag(std::ostream& into, bool /* abbreviated */) {
     if (!myXMLStack.empty()) {
         FileHelpers::writeByte(into, BF_XML_TAG_END);
-        FileHelpers::writeByte(into, myXMLStack.back());
+        FileHelpers::writeByte(into, static_cast<unsigned char>(myXMLStack.back()));
         myXMLStack.pop_back();
         return true;
     }
@@ -161,13 +161,13 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
 
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SumoXMLNodeType& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_NODE_TYPE);
-    FileHelpers::writeByte(into, (unsigned char) val);
+    FileHelpers::writeByte(into, static_cast<unsigned char>(val));
 }
 
 
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SumoXMLEdgeFunc& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_EDGE_FUNCTION);
-    FileHelpers::writeByte(into, (unsigned char) val);
+    FileHelpers::writeByte(into, static_cast<unsigned char>(val));
 }
 
 
@@ -201,15 +201,15 @@ void BinaryFormatter::writePosition(std::ostream& into, const Position& val) {
 
 
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const Position& val) {
-    FileHelpers::writeByte(into, static_cast<unsigned char>(BF_XML_ATTRIBUTE));
-    FileHelpers::writeByte(into, attr);
+    FileHelpers::writeByte(into, BF_XML_ATTRIBUTE);
+    FileHelpers::writeByte(into, static_cast<unsigned char>(attr));
     writePosition(into, val);
 }
 
 
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const PositionVector& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_LIST);
-    FileHelpers::writeInt(into, (int)val.size());
+    FileHelpers::writeInt(into, static_cast<int>(val.size()));
     for (PositionVector::ContType::const_iterator pos = val.begin(); pos != val.end(); ++pos) {
         writePosition(into, *pos);
     }

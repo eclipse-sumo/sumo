@@ -941,7 +941,6 @@ NIImporter_OpenDrive::OpenDriveEdge::getMaxLaneNumber(OpenDriveXMLTag dir) const
 int
 NIImporter_OpenDrive::OpenDriveEdge::getPriority(OpenDriveXMLTag dir) const {
     int prio = 1;
-    SUMOReal lastPos = -1;
     for (std::vector<OpenDriveSignal>::const_iterator i = signals.begin(); i != signals.end(); ++i) {
         int tmp = 1;
         if ((*i).type == "301" || (*i).type == "306") {

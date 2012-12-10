@@ -137,7 +137,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             defFile >> domID >> varID >> objID;
             std::stringstream msg;
             tcpip::Storage tmp;
-            const int dataLength = setValueTypeDependant(tmp, defFile, msg);
+            setValueTypeDependant(tmp, defFile, msg);
             std::string msgS = msg.str();
             if (msgS != "") {
                 errorMsg(msg);
@@ -248,7 +248,7 @@ void
 TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID, std::ifstream& defFile) {
     std::stringstream msg;
     tcpip::Storage inMsg, tmp;
-    int dataLength = setValueTypeDependant(tmp, defFile, msg);
+    setValueTypeDependant(tmp, defFile, msg);
     std::string msgS = msg.str();
     if (msgS != "") {
         errorMsg(msg);
