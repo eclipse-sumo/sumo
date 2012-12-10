@@ -3,7 +3,7 @@
 @file    runner.py
 @author  Michael Behrisch
 @date    2012-12-09
-@version $Id: runner.py 11671 2012-01-07 20:14:30Z behrisch $
+@version $Id$
 
 This script is a test runner for the output_parsing tutorial.
 
