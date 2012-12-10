@@ -43,14 +43,18 @@
 // ---------------------------------------------------------------------------
 // TraCIAPI-methods
 // ---------------------------------------------------------------------------
-#pragma warning ( disable : 4355)
+#ifdef _MSC_VER
+#pragma warning(disable: 4355)
+#endif
 TraCIAPI::TraCIAPI()
     : edge(*this), gui(*this), inductionloop(*this),
       junction(*this), lane(*this), multientryexit(*this), poi(*this),
       polygon(*this), route(*this), simulation(*this), trafficlights(*this),
       vehicletype(*this),
       mySocket(0) {}
-#pragma warning ( default : 4355 )
+#ifdef _MSC_VER
+#pragma warning(default: 4355)
+#endif
 
 
 TraCIAPI::~TraCIAPI() {
