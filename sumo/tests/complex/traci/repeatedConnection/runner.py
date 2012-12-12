@@ -18,9 +18,7 @@ DELTA_T = 1000
 def runSingle(sumoEndTime, traciEndTime):
     fdi = open("sumo.sumocfg")
     fdo = open("used.sumocfg", "w")
-    for line in fdi:
-        line = line.replace("%end%", str(sumoEndTime))
-        fdo.write(line)
+    fdo.write(fdi.read() % { "end": sumoEndTime })
     fdi.close()
     fdo.close()
     doClose = True

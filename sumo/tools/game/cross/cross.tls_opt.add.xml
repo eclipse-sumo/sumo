@@ -12,5 +12,5 @@
       <phase duration="3.00" state="yyrrrryyrrrr"/>
       <phase duration="3.00" state="rrrrrrrrrrrr"/>
       <phase duration="5" state="rrGrrrrrGrrr"/>
-   </tl-logic>
+   </tlLogic>
 </add>

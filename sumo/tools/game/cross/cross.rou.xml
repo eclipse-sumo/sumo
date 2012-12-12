@@ -1,8 +1,8 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vTypeDistribution id="DEFAULT_VEHTYPE">
         <vType id="passenger" length="5.0" minGap="2.5" guiShape="passenger" probability="20" /> 
-        <vType id="bus" length="12.5" minGap="2.5" guiShape="bus" guiWidth="2.4" probability="2"/> 
-        <vType id="transport/trailer" length="16.25" minGap="2.5" guiShape="transport/trailer" guiWidth="2.6" probability="1"/> 
+        <vType id="bus" length="12.5" minGap="2.5" guiShape="bus" width="2.4" probability="2"/> 
+        <vType id="transport/trailer" length="16.25" minGap="2.5" guiShape="transport/trailer" width="2.6" probability="1"/> 
     </vTypeDistribution>
 
     <route id="1_right" edges="1fi 1si 3o 3fo"/>

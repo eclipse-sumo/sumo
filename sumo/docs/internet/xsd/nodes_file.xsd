@@ -16,6 +16,8 @@
             <xsd:choice minOccurs="0" maxOccurs="unbounded">
                 <xsd:element name="node" type="nodeType"/>
                 <xsd:element name="delete" type="deleteType"/>
+                <xsd:element name="join" type="joinType"/>
+                <xsd:element name="joinExclude" type="joinExcludeType"/>
             </xsd:choice>
         </xsd:sequence>
         <xsd:attribute name="version" use="optional">
@@ -43,10 +45,19 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="tl" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="deleteType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="joinType">
+        <xsd:attribute name="nodes" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="joinExcludeType">
+        <xsd:attribute name="nodes" type="xsd:string" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

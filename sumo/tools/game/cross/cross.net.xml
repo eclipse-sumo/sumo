@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul 22 23:05:36 2011 by SUMO netconvert Version dev-SVN-r11063
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 12/12/12 15:04:50 by SUMO netconvert Version dev-SVN-r13151
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="cross/cross.nod.xml"/>
-        <edge-files value="cross/cross.edg.xml"/>
-        <connection-files value="cross/cross.con.xml"/>
+        <node-files value="cross.nod.xml"/>
+        <edge-files value="cross.edg.xml"/>
+        <connection-files value="cross.con.xml"/>
     </input>
 
     <output>
-        <output-file value="cross/cross.net.xml"/>
+        <output-file value="cross.net.xml"/>
     </output>
 
     <processing>
@@ -234,10 +234,10 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <junction id=":0_12_0" type="internal" x="203.48" y="200.87" incLanes=":0_2_0 1si_0 1si_1" intLanes=":0_6_0 :0_7_0"/>
-    <junction id=":0_13_0" type="internal" x="200.38" y="196.41" incLanes=":0_5_0 4si_0" intLanes=":0_9_0 :0_10_0"/>
-    <junction id=":0_14_0" type="internal" x="196.52" y="199.13" incLanes=":0_8_0 2si_0 2si_1" intLanes=":0_0_0 :0_1_0"/>
-    <junction id=":0_15_0" type="internal" x="199.62" y="203.59" incLanes=":0_11_0 3si_0" intLanes=":0_3_0 :0_4_0"/>
+    <junction id=":0_12_0" type="internal" x="203.48" y="200.87" incLanes=":0_2_0 1si_0 1si_1" intLanes=":0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_10_0 :0_11_0"/>
+    <junction id=":0_13_0" type="internal" x="200.38" y="196.41" incLanes=":0_5_0 1si_1 2si_1 4si_0" intLanes=":0_1_0 :0_2_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0"/>
+    <junction id=":0_14_0" type="internal" x="196.52" y="199.13" incLanes=":0_8_0 2si_0 2si_1" intLanes=":0_0_0 :0_1_0 :0_4_0 :0_5_0 :0_10_0 :0_11_0"/>
+    <junction id=":0_15_0" type="internal" x="199.62" y="203.59" incLanes=":0_11_0 1si_1 2si_1 3si_0" intLanes=":0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_7_0 :0_8_0"/>
 
     <connection from="1fi" to="1si" fromLane="0" toLane="0" via=":m1_1_0" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="0" toLane="1" via=":m1_2_0" dir="s" state="M"/>
