@@ -75,7 +75,7 @@ def main(srcRoot, toCheck, err):
                         if haveLxml:
                             validate(srcRoot, name)
                         elif os.name != "posix":
-                            subprocess.call(sax2count + " -v=always -f " + name, stdout=open(os.devnull), stderr=err)
+                            subprocess.call(sax2count + " " + name, stdout=open(os.devnull), stderr=err)
                         fileNo += 1
                     if '.svn' in dirs:
                         dirs.remove('.svn')
@@ -83,7 +83,7 @@ def main(srcRoot, toCheck, err):
             if haveLxml:
                 validate("", srcRoot)
             elif os.name != "posix":
-                subprocess.call(sax2count + " -v=always -f " + srcRoot, stdout=open(os.devnull), stderr=err)
+                subprocess.call(sax2count + " " + srcRoot, stdout=open(os.devnull), stderr=err)
             fileNo += 1
     else:
         print >> err, "cannot open", srcRoot
