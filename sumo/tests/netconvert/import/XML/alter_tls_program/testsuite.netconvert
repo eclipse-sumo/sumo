@@ -1,0 +1,5 @@
+# Test for using sumo networks as input
+basic
+
+# Test for using plain XML as input
+plain_input
