@@ -1,1 +1,1 @@
--n input_nodes.nod.xml -e input_edges.edg.xml --tllogic-files=input_plain.tll.xml --output=net.net.xml
+--sumo-net-file input_net.net.xml --tllogic-files=input_plain.tll.xml --output=net.net.xml
