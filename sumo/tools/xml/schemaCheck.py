@@ -104,6 +104,9 @@ if __name__ == "__main__":
     srcRoot = "."
     if len(sys.argv) > 1:
         srcRoot = sys.argv[1]
+        if "$SUMO_HOME" in srcRoot:
+            srcRoot = srcRoot.replace("$SUMO_HOME",
+                    os.path.join(os.path.dirname(__file__), '..', '..'))
     toCheck = None
     if len(sys.argv) > 2:
         toCheck = sys.argv[2].split(",")

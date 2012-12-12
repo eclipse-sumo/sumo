@@ -168,7 +168,7 @@ for platform in ["Win32", "x64"]:
     env["TEXTTEST_TMP"] = os.path.join(options.rootDir, env["FILEPREFIX"]+"texttesttmp")
     env["TEXTTEST_HOME"] = os.path.join(options.rootDir, options.testsDir)
     if "SUMO_HOME" not in env:
-        env["SUMO_HOME"] = options.rootDir
+        env["SUMO_HOME"] = os.path.join(os.path.dirname(__file__), '..', '..')
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     shutil.rmtree(env["SUMO_REPORT"], True)
     os.mkdir(env["SUMO_REPORT"])
