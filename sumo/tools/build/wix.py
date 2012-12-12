@@ -11,7 +11,7 @@ SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import optparse, subprocess, zipfile, os, sys, tempfile, glob
+import optparse, subprocess, zipfile, os, sys, tempfile, glob, shutil
 
 INPUT_DEFAULT = r"M:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.zip"
 OUTPUT_DEFAULT = r"M:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.msi"
@@ -33,7 +33,6 @@ def buildFragment(wixBin, sourceDir, targetLabel, tmpDir):
 
 def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT, wxs=WXS_DEFAULT,
              license=LICENSE, platformSuffix=""):
-    #tmpDir = r"C:\Users\behr_mi\AppData\Local\Temp\tmpnq_cis"
     tmpDir = tempfile.mkdtemp()
     zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
@@ -52,6 +51,7 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT
     subprocess.call([os.path.join(wixBin, "candle.exe"), "-o", tmpDir+"\\", wxsOut.name] + fragments)
     wixObj = [f.replace(".wxs", ".wixobj") for f in [wxsOut.name] + fragments] 
     subprocess.call([os.path.join(wixBin, "light.exe"),  "-ext", "WixUIExtension", "-o", outFile] + wixObj)
+    shutil.rmtree(tmpDir, True) #comment this out when debugging
 
 if __name__ == "__main__":
     optParser = optparse.OptionParser()
