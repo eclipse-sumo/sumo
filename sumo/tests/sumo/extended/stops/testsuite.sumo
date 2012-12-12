@@ -37,3 +37,6 @@ overtaking_highspeed
 
 # it should be possible to teleport across a stopped vehicle
 teleport_across_stopped
+
+# waiting for the stop to be free
+occupied
