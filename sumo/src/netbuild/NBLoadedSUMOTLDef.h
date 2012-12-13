@@ -121,12 +121,11 @@ public:
      */
     void setOffset(SUMOTime offset);
 
-
 protected:
     /** @brief Collects the links participating in this traffic light
-     *    does nothing because the links are already loaded
+     *    (only if not previously loaded)
      */
-    void collectLinks() {}
+    void collectLinks(); 
 
 
     /** @brief Computes the traffic light logic finally in dependence to the type

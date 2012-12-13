@@ -214,5 +214,15 @@ NBLoadedSUMOTLDef::setOffset(SUMOTime offset) {
     myTLLogic->setOffset(offset);
 }
 
+
+void 
+NBLoadedSUMOTLDef::collectLinks() {
+    if (myControlledLinks.size() == 0) {
+        // maybe we only loaded a different program for a default traffic light.
+        // Try to build links now.
+        myOriginalNodes.insert(myControlledNodes.begin(), myControlledNodes.end());
+        collectAllLinks();
+    }
+}
 /****************************************************************************/
 

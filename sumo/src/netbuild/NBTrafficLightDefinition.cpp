@@ -350,5 +350,28 @@ NBTrafficLightDefinition::getIncomingEdges() const {
 }
 
 
+void
+NBTrafficLightDefinition::collectAllLinks() {
+    myControlledLinks.clear();
+    // build the list of links which are controled by the traffic light
+    for (EdgeVector::iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
+        NBEdge* incoming = *i;
+        unsigned int noLanes = incoming->getNumLanes();
+        for (unsigned int j = 0; j < noLanes; j++) {
+            std::vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
+            for (std::vector<NBEdge::Connection>::iterator k = connected.begin(); k != connected.end(); k++) {
+                const NBEdge::Connection& el = *k;
+                if (incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
+                    if (el.toEdge != 0 && el.toLane >= (int) el.toEdge->getNumLanes()) {
+                        throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.toEdge->getID() + "_" + toString(el.toLane) + "' yields in a not existing lane.");
+                    }
+                    int tlIndex = (int)myControlledLinks.size();
+                    myControlledLinks.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex));
+                }
+            }
+        }
+    }
+}
+
 /****************************************************************************/
 

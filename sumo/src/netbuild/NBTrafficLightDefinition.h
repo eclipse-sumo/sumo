@@ -346,6 +346,9 @@ protected:
     // @return whether this traffic light is invalid and should be computed
     virtual bool amInvalid() const;
 
+    /// @brief helper method for use in NBOwnTLDef and NBLoadedSUMOTLDef
+    void collectAllLinks();
+
 
 protected:
     /// @brief The container with participating nodes

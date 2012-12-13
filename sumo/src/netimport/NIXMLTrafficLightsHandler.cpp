@@ -80,11 +80,13 @@ NIXMLTrafficLightsHandler::myStartElement(
             myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
             break;
         case SUMO_TAG_PHASE:
-            if (myResetPhases) {
-                myCurrentTL->getLogic()->resetPhases();
-                myResetPhases = false;
+            if (myCurrentTL != 0) {
+                if (myResetPhases) {
+                    myCurrentTL->getLogic()->resetPhases();
+                    myResetPhases = false;
+                }
+                NIImporter_SUMO::addPhase(attrs, myCurrentTL);
             }
-            NIImporter_SUMO::addPhase(attrs, myCurrentTL);
             break;
         case SUMO_TAG_CONNECTION:
             addTlConnection(attrs);
@@ -137,18 +139,33 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     NBLoadedSUMOTLDef* loadedDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(id, programID));
     if (loadedDef == 0) {
         // case 2
-        NBOwnTLDef* newDef = dynamic_cast<NBOwnTLDef*>(myTLLCont.getDefinition(
+        NBTrafficLightDefinition* newDef = dynamic_cast<NBOwnTLDef*>(myTLLCont.getDefinition(
                                  id, NBTrafficLightDefinition::DefaultProgramID));
+        if (newDef == 0) {
+            // the default program may have already been replaced with a loaded program
+            newDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(
+                                 id, NBTrafficLightDefinition::DefaultProgramID));
+            if (newDef == 0) {
+                WRITE_ERROR("Cannot load traffic light program for uknown id '" + id + "', programID '" + programID + "'.");
+                return 0;
+            }
+        }
         assert(newDef != 0);
         loadedDef = new NBLoadedSUMOTLDef(id, programID, offset);
+        // copy nodes
         std::vector<NBNode*> nodes = newDef->getControlledNodes();
         for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
-            (*it)->removeTrafficLight(newDef);
-            (*it)->addTrafficLight(loadedDef);
+            loadedDef->addNode(*it);
         }
-        myTLLCont.removeProgram(id, NBTrafficLightDefinition::DefaultProgramID);
+        if (programID == NBTrafficLightDefinition::DefaultProgramID) {
+            // replace default Program
+            std::vector<NBNode*> nodes = newDef->getControlledNodes();
+            for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
+                (*it)->removeTrafficLight(newDef);
+            }
+            myTLLCont.removeProgram(id, NBTrafficLightDefinition::DefaultProgramID);
+        }
         myTLLCont.insert(loadedDef);
-
         std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, 0, ok, toString(TLTYPE_STATIC));
         if (type != toString(TLTYPE_STATIC)) {
             WRITE_WARNING("Traffic light '" + id + "' has unsupported type '" + type + "' and will be converted to '" + toString(TLTYPE_STATIC) + "'");
