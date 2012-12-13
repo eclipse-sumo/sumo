@@ -240,7 +240,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
         }
     } else {
         // we need to add a new defition
-        tlID = tlID == "" ? myID : tlID;
+        tlID = (tlID == "" ? myID : tlID);
         NBTrafficLightDefinition* tlDef = new NBOwnTLDef(tlID, currentNode, 0);
         if (!myTLLogicCont.insert(tlDef)) {
             // actually, nothing should fail here
