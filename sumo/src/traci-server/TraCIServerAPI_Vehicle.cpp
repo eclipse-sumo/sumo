@@ -224,17 +224,15 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     return false;
                 }
                 // time
-                if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                    server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of travel time requires the referenced time as first parameter.", outputStorage);
+                SUMOTime time = 0;
+                if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires the referenced time as first parameter.", time)) {
                     return false;
                 }
-                SUMOTime time = inputStorage.readInt();
                 // edge
-                if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                    server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of travel time requires the referenced edge as second parameter.", outputStorage);
+                std::string edgeID;
+                if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires the referenced edge as second parameter.", edgeID)) {
                     return false;
                 }
-                std::string edgeID = inputStorage.readString();
                 MSEdge* edge = MSEdge::dictionary(edgeID);
                 if (edge == 0) {
                     server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
@@ -261,17 +259,15 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     return false;
                 }
                 // time
-                if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                    server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of effort requires the referenced time as first parameter.", outputStorage);
+                SUMOTime time = 0;
+                if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced time as first parameter.", time)) {
                     return false;
                 }
-                SUMOTime time = inputStorage.readInt();
                 // edge
-                if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                    server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of effort requires the referenced edge as second parameter.", outputStorage);
+                std::string edgeID;
+                if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced edge as second parameter.", edgeID)) {
                     return false;
                 }
-                std::string edgeID = inputStorage.readString();
                 MSEdge* edge = MSEdge::dictionary(edgeID);
                 if (edge == 0) {
                     server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
@@ -400,10 +396,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                               RTYPE_ERR, "Vehicle '" + id + "' is not a micro-simulation vehicle", outputStorage);
         return false;
     }
-    int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
         case CMD_STOP: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Stop needs a compound object description.", outputStorage);
                 return false;
             }
@@ -412,31 +407,23 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return false;
             }
             // read road map position
-            valueDataType = inputStorage.readUnsignedByte();
-            if (valueDataType != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first stop parameter must be the edge id given as a string.", outputStorage);
+            std::string roadId;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The first stop parameter must be the edge id given as a string.", roadId)) {
                 return false;
             }
-            std::string roadId = inputStorage.readString();
-            valueDataType = inputStorage.readUnsignedByte();
-            if (valueDataType != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second stop parameter must be the position along the edge given as a double.", outputStorage);
+            SUMOReal pos = 0;
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The second stop parameter must be the position along the edge given as a double.", pos)) {
                 return false;
             }
-            SUMOReal pos = inputStorage.readDouble();
-            valueDataType = inputStorage.readUnsignedByte();
-            if (valueDataType != TYPE_BYTE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The third stop parameter must be the lane index given as a byte.", outputStorage);
+            int laneIndex = 0;
+            if(!server.readTypeCheckingByte(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The third stop parameter must be the lane index given as a byte.", laneIndex)) {
                 return false;
             }
-            int laneIndex = inputStorage.readByte();
             // waitTime
-            valueDataType = inputStorage.readUnsignedByte();
-            if (valueDataType != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fourth stop parameter must be the waiting time given as an integer.", outputStorage);
+            SUMOTime waitTime = 0;
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_GET_VEHICLE_VARIABLE, "The fourth stop parameter must be the waiting time given as an integer.", waitTime)) {
                 return false;
             }
-            SUMOTime waitTime = inputStorage.readInt();
             // check
             if (pos < 0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Position on lane must not be negative", outputStorage);
@@ -461,7 +448,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case CMD_CHANGELANE: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Lane change needs a compound object description.", outputStorage);
                 return false;
             }
@@ -470,19 +457,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return false;
             }
             // Lane ID
-            valueDataType = inputStorage.readUnsignedByte();
-            if (valueDataType != TYPE_BYTE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first lane change parameter must be the lane index given as a byte.", outputStorage);
+            int laneIndex = 0;
+            if(!server.readTypeCheckingByte(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The first lane change parameter must be the lane index given as a byte.", laneIndex)) {
                 return false;
             }
-            int laneIndex = inputStorage.readByte();
             // stickyTime
-            valueDataType = inputStorage.readUnsignedByte();
-            if (valueDataType != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second lane change parameter must be the duration given as an integer.", outputStorage);
+            SUMOTime stickyTime = 0;
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The second lane change parameter must be the duration given as an integer.", stickyTime)) {
                 return false;
             }
-            SUMOTime stickyTime = inputStorage.readInt();
             if ((laneIndex < 0) || (laneIndex >= (int)(v->getEdge()->getLanes().size()))) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "No lane existing with given id on the current road", outputStorage);
                 return false;
@@ -498,7 +481,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case CMD_SLOWDOWN: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Slow down needs a compound object description.", outputStorage);
                 return false;
             }
@@ -506,20 +489,18 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Slow down needs a compound object description of two items.", outputStorage);
                 return false;
             }
-            if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first slow down parameter must be the speed given as a double.", outputStorage);
+            SUMOReal newSpeed = 0;
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The first slow down parameter must be the speed given as a double.", newSpeed)) {
                 return false;
             }
-            SUMOReal newSpeed = MAX2(inputStorage.readDouble(), 0.0);
             if (newSpeed < 0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Speed must not be negative", outputStorage);
                 return false;
             }
-            if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second slow down parameter must be the duration given as an integer.", outputStorage);
+            SUMOTime duration = 0;
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The second slow down parameter must be the duration given as an integer.", duration)) {
                 return false;
             }
-            SUMOTime duration = inputStorage.readInt();
             if (duration < 0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid time interval", outputStorage);
                 return false;
@@ -531,11 +512,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case CMD_CHANGETARGET: {
-            if (valueDataType != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change target requires a string containing the id of the new destination edge as parameter.", outputStorage);
+            std::string edgeID;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Change target requires a string containing the id of the new destination edge as parameter.", edgeID)) {
                 return false;
             }
-            std::string edgeID = inputStorage.readString();
             const MSEdge* destEdge = MSEdge::dictionary(edgeID);
             if (destEdge == 0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Can not retrieve road with ID " + edgeID, outputStorage);
@@ -554,11 +534,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case VAR_ROUTE_ID: {
-            if (valueDataType != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The route id must be given as a string.", outputStorage);
+            std::string rid;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The route id must be given as a string.", rid)) {
                 return false;
             }
-            std::string rid = inputStorage.readString();
             const MSRoute* r = MSRoute::dictionary(rid);
             if (r == 0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The route '" + rid + "' is not known.", outputStorage);
@@ -571,11 +550,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case VAR_ROUTE: {
-            if (valueDataType != TYPE_STRINGLIST) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "A route must be defined as a list of edge ids.", outputStorage);
+            std::vector<std::string> edgeIDs;
+            if(!server.readTypeCheckingStringList(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "A route must be defined as a list of edge ids.", edgeIDs)) {
                 return false;
             }
-            std::vector<std::string> edgeIDs = inputStorage.readStringList();
             std::vector<const MSEdge*> edges;
             MSEdge::parseEdgesList(edgeIDs, edges, "<unknown>");
             if (!v->replaceRouteEdges(edges)) {
@@ -585,61 +563,54 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case VAR_EDGE_TRAVELTIME: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires a compound object.", outputStorage);
                 return false;
             }
             int parameterCount = inputStorage.readInt();
             if (parameterCount == 4) {
                 // begin time
-                if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 4 parameters requires the begin time as first parameter.", outputStorage);
+                SUMOTime begTime = 0, endTime = 0;
+                if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the begin time as first parameter.", begTime)) {
                     return false;
                 }
-                SUMOTime begTime = inputStorage.readInt();
                 // begin time
-                if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 4 parameters requires the end time as second parameter.", outputStorage);
+                if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the end time as second parameter.", endTime)) {
                     return false;
                 }
-                SUMOTime endTime = inputStorage.readInt();
                 // edge
-                if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 4 parameters requires the referenced edge as third parameter.", outputStorage);
+                std::string edgeID;
+                if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the referenced edge as third parameter.", edgeID)) {
                     return false;
                 }
-                std::string edgeID = inputStorage.readString();
                 MSEdge* edge = MSEdge::dictionary(edgeID);
                 if (edge == 0) {
                     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                     return false;
                 }
                 // value
-                if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 4 parameters requires the travel time as fourth parameter.", outputStorage);
+                SUMOReal value = 0;
+                if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the travel time as double as fourth parameter.", value)) {
                     return false;
                 }
-                SUMOReal value = inputStorage.readDouble();
                 // retrieve
                 v->getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
             } else if (parameterCount == 2) {
                 // edge
-                if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 2 parameters requires the referenced edge as first parameter.", outputStorage);
+                std::string edgeID;
+                if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 2 parameters requires the referenced edge as first parameter.", edgeID)) {
                     return false;
                 }
-                std::string edgeID = inputStorage.readString();
                 MSEdge* edge = MSEdge::dictionary(edgeID);
                 if (edge == 0) {
                     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                     return false;
                 }
                 // value
-                if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 2 parameters requires the travel time as second parameter.", outputStorage);
+                SUMOReal value = 0;
+                if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 2 parameters requires the travel time as second parameter.", value)) {
                     return false;
                 }
-                SUMOReal value = inputStorage.readDouble();
                 // retrieve
                 while (v->getWeightsStorage().knowsTravelTime(edge)) {
                     v->getWeightsStorage().removeTravelTime(edge);
@@ -647,11 +618,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 v->getWeightsStorage().addTravelTime(edge, 0, SUMOTime_MAX, value);
             } else if (parameterCount == 1) {
                 // edge
-                if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time using 1 parameter requires the referenced edge as first parameter.", outputStorage);
+                std::string edgeID;
+                if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 1 parameter requires the referenced edge as first parameter.", edgeID)) {
                     return false;
                 }
-                std::string edgeID = inputStorage.readString();
                 MSEdge* edge = MSEdge::dictionary(edgeID);
                 if (edge == 0) {
                     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
@@ -668,61 +638,54 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case VAR_EDGE_EFFORT: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires a compound object.", outputStorage);
                 return false;
             }
             int parameterCount = inputStorage.readInt();
             if (parameterCount == 4) {
                 // begin time
-                if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 4 parameters requires the begin time as first parameter.", outputStorage);
+                SUMOTime begTime = 0, endTime = 0;
+                if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the begin time as first parameter.", begTime)) {
                     return false;
                 }
-                SUMOTime begTime = inputStorage.readInt();
                 // begin time
-                if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 4 parameters requires the end time as second parameter.", outputStorage);
+                if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the end time as second parameter.", endTime)) {
                     return false;
                 }
-                SUMOTime endTime = inputStorage.readInt();
                 // edge
-                if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 4 parameters requires the referenced edge as third parameter.", outputStorage);
+                std::string edgeID;
+                if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the referenced edge as third parameter.", edgeID)) {
                     return false;
                 }
-                std::string edgeID = inputStorage.readString();
                 MSEdge* edge = MSEdge::dictionary(edgeID);
                 if (edge == 0) {
                     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                     return false;
                 }
                 // value
-                if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 4 parameters requires the travel time as fourth parameter.", outputStorage);
+                SUMOReal value = 0;
+                if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the travel time as fourth parameter.", value)) {
                     return false;
                 }
-                SUMOReal value = inputStorage.readDouble();
                 // retrieve
                 v->getWeightsStorage().addEffort(edge, begTime, endTime, value);
             } else if (parameterCount == 2) {
                 // edge
-                if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 2 parameters requires the referenced edge as first parameter.", outputStorage);
+                std::string edgeID;
+                if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting effort using 2 parameters requires the referenced edge as first parameter.", edgeID)) {
                     return false;
                 }
-                std::string edgeID = inputStorage.readString();
                 MSEdge* edge = MSEdge::dictionary(edgeID);
                 if (edge == 0) {
                     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                     return false;
                 }
                 // value
-                if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 2 parameters requires the travel time as second parameter.", outputStorage);
+                SUMOReal value = 0;
+                if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting effort using 2 parameters requires the travel time as second parameter.", value)) {
                     return false;
                 }
-                SUMOReal value = inputStorage.readDouble();
                 // retrieve
                 while (v->getWeightsStorage().knowsEffort(edge)) {
                     v->getWeightsStorage().removeEffort(edge);
@@ -730,11 +693,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 v->getWeightsStorage().addEffort(edge, 0, SUMOTime_MAX, value);
             } else if (parameterCount == 1) {
                 // edge
-                if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort using 1 parameter requires the referenced edge as first parameter.", outputStorage);
+                std::string edgeID;
+                if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting effort using 1 parameter requires the referenced edge as first parameter.", edgeID)) {
                     return false;
                 }
-                std::string edgeID = inputStorage.readString();
                 MSEdge* edge = MSEdge::dictionary(edgeID);
                 if (edge == 0) {
                     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
@@ -751,7 +713,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case CMD_REROUTE_TRAVELTIME: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting requires a compound object.", outputStorage);
                 return false;
             }
@@ -763,7 +725,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case CMD_REROUTE_EFFORT: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting requires a compound object.", outputStorage);
                 return false;
             }
@@ -774,16 +736,17 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             v->reroute(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getRouterEffort());
         }
         break;
-        case VAR_SIGNALS:
-            if (valueDataType != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting signals requires an integer.", outputStorage);
+        case VAR_SIGNALS: {
+            int signals = 0;
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting signals requires an integer.", signals)) {
                 return false;
             }
             v->switchOffSignal(0x0fffffff);
-            v->switchOnSignal(inputStorage.readInt());
+            v->switchOnSignal(signals);
+                          }
             break;
         case VAR_MOVE_TO: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting position requires a compound object.", outputStorage);
                 return false;
             }
@@ -792,17 +755,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return false;
             }
             // lane ID
-            if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first parameter for setting a position must be the lane ID given as a string.", outputStorage);
+            std::string laneID;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The first parameter for setting a position must be the lane ID given as a string.", laneID)) {
                 return false;
             }
-            std::string laneID = inputStorage.readString();
             // position on lane
-            if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a position must be the position given as a double.", outputStorage);
+            SUMOReal position = 0;
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The second parameter for setting a position must be the position given as a double.", position)) {
                 return false;
             }
-            SUMOReal position = inputStorage.readDouble();
             // process
             MSLane* l = MSLane::dictionary(laneID);
             if (l == 0) {
@@ -828,11 +789,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case VAR_SPEED: {
-            if (valueDataType != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting speed requires a double.", outputStorage);
+            SUMOReal speed = 0;
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting speed requires a double.", speed)) {
                 return false;
             }
-            SUMOReal speed = inputStorage.readDouble();
             std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
             if (speed >= 0) {
                 speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), speed));
@@ -842,26 +802,21 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case VAR_SPEEDSETMODE: {
-            if (valueDataType != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting speed requires a double.", outputStorage);
+            int speedMode = 0;
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Setting speed mode requires an integer.", speedMode)) {
                 return false;
             }
-            int speedMode = inputStorage.readInt();
             v->getInfluencer().setConsiderSafeVelocity((speedMode & 1) != 0);
             v->getInfluencer().setConsiderMaxAcceleration((speedMode & 2) != 0);
             v->getInfluencer().setConsiderMaxDeceleration((speedMode & 4) != 0);
         }
         break;
         case VAR_COLOR: {
-            if (valueDataType != TYPE_COLOR) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The color must be given using the according type.", outputStorage);
+            RGBColor col;
+            if(!server.readTypeCheckingColor(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The color must be given using the according type.", col)) {
                 return false;
             }
-            SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            inputStorage.readUnsignedByte(); // skip alpha level
-            v->getParameter().color.set(r, g, b);
+            v->getParameter().color.set(col.red(), col.green(), col.blue());
             v->getParameter().setParameter |= VEHPARS_COLOR_SET;
         }
         break;
@@ -870,7 +825,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The vehicle " + id + " to add already exists.", outputStorage);
                 return false;
             }
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Adding a vehicle requires a compound object.", outputStorage);
                 return false;
             }
@@ -881,33 +836,29 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             SUMOVehicleParameter vehicleParams;
             vehicleParams.id = id;
 
-            if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "First parameter (type) requires a string.", outputStorage);
+            std::string vTypeID;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "First parameter (type) requires a string.", vTypeID)) {
                 return false;
             }
-            std::string vTypeID = inputStorage.readString();
             MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
             if (!vehicleType) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid type '" + vTypeID + "' for vehicle '" + id + "'");
                 return false;
             }
 
-            if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Second parameter (route) requires a string.", outputStorage);
+            std::string routeID;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Second parameter (route) requires a string.", routeID)) {
                 return false;
             }
-            const std::string routeID = inputStorage.readString();
             const MSRoute* route = MSRoute::dictionary(routeID);
             if (!route) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid route '" + routeID + "' for vehicle: '" + id + "'");
                 return false;
             }
 
-            if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Third parameter (depart) requires an integer.", outputStorage);
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Third parameter (depart) requires an integer.", vehicleParams.depart)) {
                 return false;
             }
-            vehicleParams.depart = inputStorage.readInt();
             if (vehicleParams.depart < 0) {
                 const int proc = static_cast<int>(-vehicleParams.depart);
                 if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
@@ -917,11 +868,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 vehicleParams.departProcedure = (DepartDefinition)proc;
             }
 
-            if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fourth parameter (position) requires a double.", outputStorage);
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Fourth parameter (position) requires a double.", vehicleParams.departPos)) {
                 return false;
             }
-            vehicleParams.departPos = inputStorage.readDouble();
             if (vehicleParams.departPos < 0) {
                 const int proc = static_cast<int>(-vehicleParams.departPos);
                 if (proc >= static_cast<int>(DEPART_POS_DEF_MAX)) {
@@ -933,11 +882,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 vehicleParams.departPosProcedure = DEPART_POS_GIVEN;
             }
 
-            if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fifth parameter (speed) requires a double.", outputStorage);
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Fifth parameter (speed) requires a double.", vehicleParams.departSpeed)) {
                 return false;
             }
-            vehicleParams.departSpeed = inputStorage.readDouble();
             if (vehicleParams.departSpeed < 0) {
                 const int proc = static_cast<int>(-vehicleParams.departSpeed);
                 if (proc >= static_cast<int>(DEPART_SPEED_DEF_MAX)) {
@@ -978,11 +925,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case REMOVE: {
-            if (valueDataType != TYPE_BYTE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Removing a vehicle requires an int.", outputStorage);
+            int why = 0;
+            if(!server.readTypeCheckingByte(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "Removing a vehicle requires a byte.", why)) {
                 return false;
             }
-            int why = (int) inputStorage.readByte();
             MSMoveReminder::Notification n = MSMoveReminder::NOTIFICATION_ARRIVED;
             switch (why) {
                 case REMOVE_TELEPORT:
@@ -1010,7 +956,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case VAR_MOVE_TO_VTD: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting VTD vehicle requires a compound object.", outputStorage);
                 return false;
             }
@@ -1019,29 +965,24 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return false;
             }
             // edge ID
-            if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first parameter for setting a VTD vehicle must be the edge ID given as a string.", outputStorage);
+            std::string edgeID;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The first parameter for setting a VTD vehicle must be the edge ID given as a string.", edgeID)) {
                 return false;
             }
-            std::string edgeID = inputStorage.readString();
             // lane index
-            if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The second parameter for setting a VTD vehicle must be lane given as an int.", outputStorage);
+            int laneNum = 0;
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The second parameter for setting a VTD vehicle must be lane given as an int.", laneNum)) {
                 return false;
             }
-            int laneNum = inputStorage.readInt();
             // x
-            if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The third parameter for setting a VTD vehicle must be the x-position given as a double.", outputStorage);
+            SUMOReal x = 0, y = 0;
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The third parameter for setting a VTD vehicle must be the x-position given as a double.", x)) {
                 return false;
             }
-            SUMOReal x = inputStorage.readDouble();
             // y
-            if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fourth parameter for setting a VTD vehicle must be the y-position given as a double.", outputStorage);
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_VEHICLE_VARIABLE, "The fourth parameter for setting a VTD vehicle must be the y-position given as a double.", y)) {
                 return false;
             }
-            SUMOReal y = inputStorage.readDouble();
             //if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
             //    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The fifth parameter for setting a VTD vehicle must be the speed given as a double.", outputStorage);
             //    return false;
@@ -1158,8 +1099,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         break;
         default:
             try {
-                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, valueDataType,
-                        getSingularType(v), server, inputStorage, outputStorage)) {
+                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, getSingularType(v), server, inputStorage, outputStorage)) {
                     return false;
                 }
             } catch (ProcessError& e) {

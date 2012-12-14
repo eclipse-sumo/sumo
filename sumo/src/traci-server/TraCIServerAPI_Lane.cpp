@@ -304,43 +304,38 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         return false;
     }
     // process
-    int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
         case VAR_MAXSPEED: {
-            // speed
-            if (valueDataType != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The speed must be given as a double.", outputStorage);
+            SUMOReal value = 0;
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_LANE_VARIABLE, "The speed must be given as a double.", value)) {
                 return false;
             }
-            SUMOReal val = inputStorage.readDouble();
-            l->setMaxSpeed(val);
+            l->setMaxSpeed(value);
         }
         break;
         case VAR_LENGTH: {
-            // speed
-            if (valueDataType != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The length must be given as a double.", outputStorage);
+            SUMOReal value = 0;
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_LANE_VARIABLE, "The length must be given as a double.", value)) {
                 return false;
             }
-            SUMOReal val = inputStorage.readDouble();
-            l->setLength(val);
+            l->setLength(value);
         }
         break;
         case LANE_ALLOWED: {
-            if (valueDataType != TYPE_STRINGLIST) {
-                server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Allowed classes must be given as a list of strings.", outputStorage);
+            std::vector<std::string> classes;
+            if(!server.readTypeCheckingStringList(inputStorage, outputStorage, CMD_SET_LANE_VARIABLE, "Allowed classes must be given as a list of strings.", classes)) {
                 return false;
             }
-            l->setPermissions(parseVehicleClasses(inputStorage.readStringList()));
+            l->setPermissions(parseVehicleClasses(classes));
             l->getEdge().rebuildAllowedLanes();
         }
         break;
         case LANE_DISALLOWED: {
-            if (valueDataType != TYPE_STRINGLIST) {
-                server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Not allowed classes must be given as a list of strings.", outputStorage);
+            std::vector<std::string> classes;
+            if(!server.readTypeCheckingStringList(inputStorage, outputStorage, CMD_SET_LANE_VARIABLE, "Not allowed classes must be given as a list of strings.", classes)) {
                 return false;
             }
-            l->setPermissions(~parseVehicleClasses(inputStorage.readStringList())); // negation yields allowed
+            l->setPermissions(~parseVehicleClasses(classes)); // negation yields allowed
             l->getEdge().rebuildAllowedLanes();
         }
         break;
@@ -371,6 +366,7 @@ TraCIServerAPI_Lane::getTree() {
         const std::vector<MSLane*>& lanes = (*i)->getLanes();
         for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             Boundary b = (*j)->getShape().getBoxBoundary();
+            b.grow(3.);
             t->addObject(*j, b);
         }
     }

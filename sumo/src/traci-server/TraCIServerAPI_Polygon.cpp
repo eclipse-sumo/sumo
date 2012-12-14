@@ -146,56 +146,41 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
     }
     // process
-    int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
         case VAR_TYPE: {
-            if (valueDataType != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The type must be given as a string.", outputStorage);
+            std::string type;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", type)) {
                 return false;
             }
-            std::string type = inputStorage.readString();
             p->setType(type);
         }
         break;
         case VAR_COLOR: {
-            if (valueDataType != TYPE_COLOR) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The color must be given using an accoring type.", outputStorage);
+            RGBColor col;
+            if(!server.readTypeCheckingColor(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The color must be given using an according type.", col)) {
                 return false;
             }
-            SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            //read SUMOReal a
-            inputStorage.readUnsignedByte();
-            p->setColor(RGBColor(r, g, b));
+            p->setColor(col);
         }
         break;
         case VAR_SHAPE: {
-            if (valueDataType != TYPE_POLYGON) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The shape must be given using an accoring type.", outputStorage);
-                return false;
-            }
-            unsigned int noEntries = inputStorage.readUnsignedByte();
             PositionVector shape;
-            for (unsigned int i = 0; i < noEntries; ++i) {
-                SUMOReal x = inputStorage.readDouble();
-                SUMOReal y = inputStorage.readDouble();
-                shape.push_back(Position(x, y));
+            if(!server.readTypeCheckingPolygon(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The shape must be given using an accoring type.", shape)) {
+                return false;
             }
             shapeCont.reshapePolygon(id, shape);
         }
         break;
         case VAR_FILL: {
-            if (valueDataType != TYPE_UBYTE) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "'fill' must be defined using an unsigned byte.", outputStorage);
+            int value = 0;
+            if(!server.readTypeCheckingUnsignedByte(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an unsigned byte.", value)) {
                 return false;
             }
-            bool fill = inputStorage.readUnsignedByte() != 0;
-            p->setFill(fill);
+            p->setFill(value != 0);
         }
         break;
         case ADD: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new polygon.", outputStorage);
                 return false;
             }
@@ -208,15 +193,10 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             std::string type = inputStorage.readString();
             // color
-            if (inputStorage.readUnsignedByte() != TYPE_COLOR) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The second polygon parameter must be the color.", outputStorage);
+            RGBColor col;
+            if(!server.readTypeCheckingColor(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The second polygon parameter must be the color.", col)) {
                 return false;
             }
-            SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            //read SUMOReal a
-            inputStorage.readUnsignedByte();
             // fill
             if (inputStorage.readUnsignedByte() != TYPE_UBYTE) {
                 server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
@@ -224,11 +204,10 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             bool fill = inputStorage.readUnsignedByte() != 0;
             // layer
-            if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
+            int layer = 0;
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The fourth polygon parameter must be the layer encoded as int.", layer)) {
                 return false;
             }
-            int layer = inputStorage.readInt();
             // shape
             if (inputStorage.readUnsignedByte() != TYPE_POLYGON) {
                 server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fifth polygon parameter must be the shape.", outputStorage);
@@ -242,7 +221,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 shape.push_back(Position(x, y));
             }
             //
-            if (!shapeCont.addPolygon(id, type, RGBColor(r, g, b), (SUMOReal)layer,
+            if (!shapeCont.addPolygon(id, type, col, (SUMOReal)layer,
                                       Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, shape, fill)) {
                 delete p;
                 server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not add polygon.", outputStorage);
@@ -251,11 +230,10 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case REMOVE: {
-            if (valueDataType != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
+            int layer = 0; // !!! layer not used yet (shouldn't the id be enough?)
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The layer must be given using an int.", layer)) {
                 return false;
             }
-            inputStorage.readInt(); // !!! layer not used yet (shouldn't the id be enough?)
             if (!shapeCont.removePolygon(id)) {
                 server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not remove polygon '" + id + "'", outputStorage);
                 return false;

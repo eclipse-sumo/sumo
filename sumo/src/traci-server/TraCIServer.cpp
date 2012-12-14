@@ -619,6 +619,13 @@ TraCIServer::writeStatusCmd(int commandId, int status, const std::string& descri
 }
 
 
+bool
+TraCIServer::writeErrorStatusCmd(int commandId, const std::string& description, tcpip::Storage& outputStorage) {
+    writeStatusCmd(commandId, RTYPE_ERR, description, outputStorage);
+    return false;
+}
+
+
 void
 TraCIServer::initialiseSubscription(const TraCIServer::Subscription& s) {
     tcpip::Storage writeInto;
@@ -990,6 +997,135 @@ TraCIServer::writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Stora
         outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
     }
     outputStorage.writeStorage(tempMsg);
+}
+
+
+bool
+TraCIServer::readTypeCheckingInt(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, int &into) {
+     if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
+        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
+        return false;
+     }
+     into = inputStorage.readInt();
+     return true;
+}
+
+
+bool
+TraCIServer::readTypeCheckingDouble(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, SUMOReal &into) {
+     if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
+        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
+        return false;
+     }
+     into = inputStorage.readDouble();
+     return true;
+}
+
+
+bool
+TraCIServer::readTypeCheckingString(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, std::string &into) {
+     if (inputStorage.readUnsignedByte() != TYPE_STRING) {
+        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
+        return false;
+     }
+     into = inputStorage.readString();
+     return true;
+}
+
+
+bool
+TraCIServer::readTypeCheckingStringList(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, std::vector<std::string> &into) {
+     if (inputStorage.readUnsignedByte() != TYPE_STRINGLIST) {
+        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
+        return false;
+     }
+     into = inputStorage.readStringList();
+     return true;
+}
+
+
+bool
+TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, RGBColor &into) {
+     if (inputStorage.readUnsignedByte() != TYPE_COLOR) {
+        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
+        return false;
+     }
+    SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+    SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+    SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+    inputStorage.readUnsignedByte(); // skipping alpha by now
+    into.set(r, g, b);
+    return true;
+}
+
+
+bool
+TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, Position &into) {
+     if (inputStorage.readUnsignedByte() != POSITION_2D) {
+        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
+        return false;
+     }
+    SUMOReal x = inputStorage.readDouble();
+    SUMOReal y = inputStorage.readDouble();
+    into.set(x, y, 0);
+    return true;
+}
+
+
+bool
+TraCIServer::readTypeCheckingBoundary(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, Boundary &into) {
+     if (inputStorage.readUnsignedByte() != TYPE_BOUNDINGBOX) {
+        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
+        return false;
+     }
+    const SUMOReal xmin = inputStorage.readDouble();
+    const SUMOReal ymin = inputStorage.readDouble();
+    const SUMOReal xmax = inputStorage.readDouble();
+    const SUMOReal ymax = inputStorage.readDouble();
+    into.set(xmin, ymin, xmax, ymax);
+    return true;
+}
+
+
+
+
+bool
+TraCIServer::readTypeCheckingByte(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, int &into) {
+     if (inputStorage.readUnsignedByte() != TYPE_BYTE) {
+        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
+        return false;
+     }
+    into = inputStorage.readByte();
+    return true;
+}
+
+
+bool
+TraCIServer::readTypeCheckingUnsignedByte(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, int &into) {
+     if (inputStorage.readUnsignedByte() != TYPE_UBYTE) {
+        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
+        return false;
+     }
+    into = inputStorage.readUnsignedByte();
+    return true;
+}
+
+
+bool
+TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, PositionVector &into) {
+     if (inputStorage.readUnsignedByte() != TYPE_POLYGON) {
+        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
+        return false;
+     }
+     into.clear();
+    unsigned int noEntries = inputStorage.readUnsignedByte();
+    PositionVector shape;
+    for (unsigned int i = 0; i < noEntries; ++i) {
+        SUMOReal x = inputStorage.readDouble();
+        SUMOReal y = inputStorage.readDouble();
+        into.push_back(Position(x, y));
+    }
+    return true;
 }
 
 }

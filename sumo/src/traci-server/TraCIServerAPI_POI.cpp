@@ -137,42 +137,33 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
     }
     // process
-    int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
         case VAR_TYPE: {
-            if (valueDataType != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The type must be given as a string.", outputStorage);
+            std::string type;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_POI_VARIABLE, "The type must be given as a string.", type)) {
                 return false;
             }
-            std::string type = inputStorage.readString();
             p->setType(type);
         }
         break;
         case VAR_COLOR: {
-            if (valueDataType != TYPE_COLOR) {
-                server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The color must be given using an accoring type.", outputStorage);
+            RGBColor col;
+            if(!server.readTypeCheckingColor(inputStorage, outputStorage, CMD_SET_POI_VARIABLE, "The color must be given using an according type.", col)) {
                 return false;
             }
-            SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            //read SUMOReal a
-            inputStorage.readUnsignedByte();
-            p->setColor(RGBColor(r, g, b));
+            p->setColor(col);
         }
         break;
         case VAR_POSITION: {
-            if (valueDataType != POSITION_2D) {
-                server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The position must be given using an accoring type.", outputStorage);
+            Position pos;
+            if(!server.readTypeCheckingPosition2D(inputStorage, outputStorage, CMD_SET_POI_VARIABLE, "The position must be given using an accoring type.", pos)) {
                 return false;
             }
-            SUMOReal x = inputStorage.readDouble();
-            SUMOReal y = inputStorage.readDouble();
-            shapeCont.movePOI(id, Position(x, y));
+            shapeCont.movePOI(id, pos);
         }
         break;
         case ADD: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new PoI.", outputStorage);
                 return false;
             }
@@ -185,32 +176,23 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             std::string type = inputStorage.readString();
             // color
-            if (inputStorage.readUnsignedByte() != TYPE_COLOR) {
-                server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The second PoI parameter must be the color.", outputStorage);
+            RGBColor col;
+            if(!server.readTypeCheckingColor(inputStorage, outputStorage, CMD_SET_POI_VARIABLE, "The second PoI parameter must be the color.", col)) {
                 return false;
             }
-            SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-            //read SUMOReal a
-            inputStorage.readUnsignedByte();
             // layer
-            if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The third PoI parameter must be the layer encoded as int.", outputStorage);
+            int layer = 0;
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_POI_VARIABLE, "The third PoI parameter must be the layer encoded as int.", layer)) {
                 return false;
             }
-            int layer = inputStorage.readInt();
             // pos
-            if (inputStorage.readUnsignedByte() != POSITION_2D) {
-                server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The fourth PoI parameter must be the position.", outputStorage);
+            Position pos;
+            if(!server.readTypeCheckingPosition2D(inputStorage, outputStorage, CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", pos)) {
                 return false;
             }
-            SUMOReal x = inputStorage.readDouble();
-            SUMOReal y = inputStorage.readDouble();
             //
-            if (!shapeCont.addPOI(id, type, RGBColor(r, g, b), (SUMOReal)layer,
-                                  Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE,
-                                  Position(x, y),
+            if (!shapeCont.addPOI(id, type, col, (SUMOReal)layer,
+                                  Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, pos,
                                   Shape::DEFAULT_IMG_WIDTH, Shape::DEFAULT_IMG_HEIGHT)) {
                 delete p;
                 server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not add PoI.", outputStorage);
@@ -219,11 +201,10 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case REMOVE: {
-            if (valueDataType != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
+            int layer = 0; // !!! layer not used yet (shouldn't the id be enough?)
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_POI_VARIABLE, "The layer must be given using an int.", layer)) {
                 return false;
             }
-            inputStorage.readInt(); // !!! layer not used yet (shouldn't the id be enough?)
             if (!shapeCont.removePOI(id)) {
                 server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
             }

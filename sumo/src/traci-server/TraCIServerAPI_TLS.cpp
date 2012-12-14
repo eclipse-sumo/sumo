@@ -247,14 +247,12 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
     SUMOTime cTime = MSNet::getInstance()->getCurrentTimeStep();
     MSTLLogicControl::TLSLogicVariants& vars = tlsControl.get(id);
-    int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
         case TL_PHASE_INDEX: {
-            if (valueDataType != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index must be given as an integer.", outputStorage);
+            int index = 0;
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "The phase index must be given as an integer.", index)) {
                 return false;
             }
-            int index = inputStorage.readInt();
             if (index < 0 || vars.getActive()->getPhaseNumber() <= (unsigned int)index) {
                 server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index is not in the allowed range.", outputStorage);
                 return false;
@@ -264,11 +262,10 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case TL_PROGRAM: {
-            if (valueDataType != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The program must be given as a string.", outputStorage);
+            std::string subID;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "The program must be given as a string.", subID)) {
                 return false;
             }
-            std::string subID = inputStorage.readString();
             try {
                 vars.switchTo(tlsControl, subID);
             } catch (ProcessError& e) {
@@ -278,22 +275,20 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case TL_PHASE_DURATION: {
-            if (valueDataType != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase duration must be given as an integer.", outputStorage);
+            int duration = 0;
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "The phase duration must be given as an integer.", duration)) {
                 return false;
             }
-            int duration = inputStorage.readInt();
             int index = vars.getActive()->getCurrentPhaseIndex();
             vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
         }
         break;
         case TL_RED_YELLOW_GREEN_STATE: {
-            if (valueDataType != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as a string.", outputStorage);
+            std::string state;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "The phase must be given as a string.", state)) {
                 return false;
             }
             // build only once...
-            std::string state = inputStorage.readString();
             if (vars.getLogic("online") == 0) {
                 MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state);
                 std::vector<MSPhaseDefinition*> phases;
@@ -310,10 +305,11 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case TL_COMPLETE_PROGRAM_RYG: {
-            if (valueDataType != TYPE_COMPOUND) {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new program.", outputStorage);
                 return false;
             }
+            int type = 0, index = 0, phaseNo = 0;
             //read itemNo
             inputStorage.readInt();
             if (inputStorage.readUnsignedByte() != TYPE_STRING) {
@@ -321,28 +317,25 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 return false;
             }
             std::string subid = inputStorage.readString();
-            if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 2. parameter (type) must be an int.", outputStorage);
+            // type
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "set program: 2. parameter (type) must be an int.", type)) {
                 return false;
             }
-            //read type
-            inputStorage.readInt();
+            // subfields
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 3. parameter (subparams) must be a compound object.", outputStorage);
                 return false;
             }
             //read sublength
             inputStorage.readInt();
-            if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 4. parameter (index) must be an int.", outputStorage);
+            // index
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "set program: 4. parameter (index) must be an int.", index)) {
                 return false;
             }
-            int index = inputStorage.readInt();
-            if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 5. parameter (phase number) must be an int.", outputStorage);
+            // phase number
+            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "set program: 5. parameter (phase number) must be an int.", phaseNo)) {
                 return false;
             }
-            int phaseNo = inputStorage.readInt();
             // make sure index and phaseNo are consistent
             if (index >= phaseNo) {
                 server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 4/5. parameter (index) must be less than parameter (phase number).", outputStorage);
@@ -351,26 +344,20 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 
             std::vector<MSPhaseDefinition*> phases;
             for (int j = 0; j < phaseNo; ++j) {
-                if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                    server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.1. parameter (duration) must be an int.", outputStorage);
+                int duration = 0, minDuration = 0, maxDuration = 0;
+                if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "set program: 6.1. parameter (duration) must be an int.", duration)) {
                     return false;
                 }
-                int duration = inputStorage.readInt();
-                if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                    server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.2. parameter (min duration) must be an int.", outputStorage);
+                if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "set program: 6.2. parameter (min duration) must be an int.", minDuration)) {
                     return false;
                 }
-                int minDuration = inputStorage.readInt();
-                if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-                    server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.3. parameter (max duration) must be an int.", outputStorage);
+                if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "set program: 6.3. parameter (max duration) must be an int.", maxDuration)) {
                     return false;
                 }
-                int maxDuration = inputStorage.readInt();
-                if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                    server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.4. parameter (phase) must be a string.", outputStorage);
+                std::string state;
+                if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_TL_VARIABLE, "set program: 6.4. parameter (phase) must be a string.", state)) {
                     return false;
                 }
-                std::string state = inputStorage.readString();
                 MSPhaseDefinition* phase = new MSPhaseDefinition(duration, minDuration, maxDuration, state);
                 phases.push_back(phase);
             }

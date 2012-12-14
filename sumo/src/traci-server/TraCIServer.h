@@ -119,6 +119,7 @@ public:
 
     void writeStatusCmd(int commandId, int status, const std::string& description);
     void writeStatusCmd(int commandId, int status, const std::string& description, tcpip::Storage& outputStorage);
+    bool writeErrorStatusCmd(int commandId, const std::string& description, tcpip::Storage& outputStorage);
 
     const std::map<MSNet::VehicleState, std::vector<std::string> >& getVehicleStateChanges() const {
         return myVehicleStateChanges;
@@ -128,6 +129,129 @@ public:
 
     void collectObjectsInRange(int domain, const PositionVector& shape, SUMOReal range, std::set<std::string>& into);
 
+
+    /// @name Helpers for reading and checking values
+    /// @{
+
+    /** @brief Reads the value type and an int, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out, changed] outputStorage The storage to write errors into
+     * @param[in] cmdID The id of the processed command, for error generation
+     * @param[in] msg An explanatory error message
+     * @param[out] into Holder of the read value
+     * @return Whether an integer value was given (by data type)
+     */
+    bool readTypeCheckingInt(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, int &into);
+
+
+    /** @brief Reads the value type and a double, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out, changed] outputStorage The storage to write errors into
+     * @param[in] cmdID The id of the processed command, for error generation
+     * @param[in] msg An explanatory error message
+     * @param[out] into Holder of the read value
+     * @return Whether a double value was given (by data type)
+     */
+    bool readTypeCheckingDouble(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, SUMOReal &into);
+
+
+    /** @brief Reads the value type and a string, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out, changed] outputStorage The storage to write errors into
+     * @param[in] cmdID The id of the processed command, for error generation
+     * @param[in] msg An explanatory error message
+     * @param[out] into Holder of the read value
+     * @return Whether a string value was given (by data type)
+     */
+    bool readTypeCheckingString(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, std::string &into);
+
+
+    /** @brief Reads the value type and a string list, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out, changed] outputStorage The storage to write errors into
+     * @param[in] cmdID The id of the processed command, for error generation
+     * @param[in] msg An explanatory error message
+     * @param[out] into Holder of the read value
+     * @return Whether a double value was given (by data type)
+     */
+    bool readTypeCheckingStringList(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, std::vector<std::string> &into);
+
+
+    /** @brief Reads the value type and a color, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out, changed] outputStorage The storage to write errors into
+     * @param[in] cmdID The id of the processed command, for error generation
+     * @param[in] msg An explanatory error message
+     * @param[out] into Holder of the read value
+     * @return Whether a color was given (by data type)
+     */
+    bool readTypeCheckingColor(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, RGBColor &into);
+
+
+    /** @brief Reads the value type and a 2D position, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out, changed] outputStorage The storage to write errors into
+     * @param[in] cmdID The id of the processed command, for error generation
+     * @param[in] msg An explanatory error message
+     * @param[out] into Holder of the read value
+     * @return Whether a 2D position was given (by data type)
+     */
+    bool readTypeCheckingPosition2D(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, Position &into);
+
+
+    /** @brief Reads the value type and a 2D bounding box, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out, changed] outputStorage The storage to write errors into
+     * @param[in] cmdID The id of the processed command, for error generation
+     * @param[in] msg An explanatory error message
+     * @param[out] into Holder of the read value
+     * @return Whether a 2D bounding box was given (by data type)
+     */
+    bool readTypeCheckingBoundary(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, Boundary &into);
+
+
+    /** @brief Reads the value type and a byte, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out, changed] outputStorage The storage to write errors into
+     * @param[in] cmdID The id of the processed command, for error generation
+     * @param[in] msg An explanatory error message
+     * @param[out] into Holder of the read value
+     * @return Whether a byte was given (by data type)
+     */
+    bool readTypeCheckingByte(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, int &into);
+
+
+    /** @brief Reads the value type and an unsigned byte, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out, changed] outputStorage The storage to write errors into
+     * @param[in] cmdID The id of the processed command, for error generation
+     * @param[in] msg An explanatory error message
+     * @param[out] into Holder of the read value
+     * @return Whether an unsigned byte was given (by data type)
+     */
+    bool readTypeCheckingUnsignedByte(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, int &into);
+
+
+    /** @brief Reads the value type and a polygon, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out, changed] outputStorage The storage to write errors into
+     * @param[in] cmdID The id of the processed command, for error generation
+     * @param[in] msg An explanatory error message
+     * @param[out] into Holder of the read value
+     * @return Whether an unsigned byte was given (by data type)
+     */
+    bool readTypeCheckingPolygon(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, PositionVector &into);
+    /// @}
 
 private:
     /** @brief Constructor
@@ -172,6 +296,10 @@ private:
 
 
     int dispatchCommand();
+
+
+
+
 
 
 private:

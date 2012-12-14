@@ -141,53 +141,47 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         return false;
     }
     // process
-    int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
-        case VAR_VIEW_ZOOM:
-            if (valueDataType != TYPE_DOUBLE) {
-                server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The zoom must be given as a double.", outputStorage);
+        case VAR_VIEW_ZOOM: {
+            SUMOReal zoom = 1;
+            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "The zoom must be given as a double.", zoom)) {
                 return false;
             }
-            v->setViewport(inputStorage.readDouble(), v->getChanger().getXPos(), v->getChanger().getYPos());
+            v->setViewport(zoom, v->getChanger().getXPos(), v->getChanger().getYPos());
+                            }
             break;
         case VAR_VIEW_OFFSET: {
-            if (valueDataType != POSITION_2D) {
-                server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The view port must be given as a position.", outputStorage);
+            Position off(0,0);
+            if(!server.readTypeCheckingPosition2D(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "The view port must be given as a position.", off)) {
                 return false;
             }
-            v->setViewport(v->getChanger().getZoom(), inputStorage.readDouble(), v->getChanger().getYPos());
-            v->setViewport(v->getChanger().getZoom(), v->getChanger().getXPos(), inputStorage.readDouble());
+            v->setViewport(v->getChanger().getZoom(), off.x(), off.y());
         }
         break;
-        case VAR_VIEW_SCHEMA:
-            if (valueDataType != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The scheme must be specified by a string.", outputStorage);
+        case VAR_VIEW_SCHEMA: {
+            std::string schema;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "The scheme must be specified by a string.", schema)) {
                 return false;
             }
-            if (!v->setColorScheme(inputStorage.readString())) {
+            if (!v->setColorScheme(schema)) {
                 server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The scheme is not known.", outputStorage);
                 return false;
             }
+                              }
             break;
         case VAR_VIEW_BOUNDARY: {
-            if (valueDataType != TYPE_BOUNDINGBOX) {
-                server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The boundary must be specified by a bounding box.", outputStorage);
+            Boundary b;
+            if(!server.readTypeCheckingBoundary(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "The boundary must be specified by a bounding box.", b)) {
                 return false;
             }
-            const SUMOReal xmin = inputStorage.readDouble();
-            const SUMOReal ymin = inputStorage.readDouble();
-            const SUMOReal xmax = inputStorage.readDouble();
-            const SUMOReal ymax = inputStorage.readDouble();
-            Boundary b(xmin, ymin, xmax, ymax);
             v->centerTo(b);
             break;
         }
         case VAR_SCREENSHOT: {
-            if (valueDataType != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Making a snapshot requires a file name.", outputStorage);
+            std::string filename;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "Making a snapshot requires a file name.", filename)) {
                 return false;
             }
-            std::string filename = inputStorage.readString();
             std::string error = v->makeSnapshot(filename);
             if (error != "") {
                 server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, error, outputStorage);
@@ -196,11 +190,10 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case VAR_TRACK_VEHICLE: {
-            if (valueDataType != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Tracking requires a string vehicle ID.", outputStorage);
+            std::string id;
+            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "Tracking requires a string vehicle ID.", id)) {
                 return false;
             }
-            std::string id = inputStorage.readString();
             if (id == "") {
                 v->stopTrack();
             } else {
