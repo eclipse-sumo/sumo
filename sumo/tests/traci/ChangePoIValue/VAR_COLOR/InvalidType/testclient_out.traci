@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sat Oct  9 00:17:39 2010
+TraCITestClient output file. Date: Fri Dec 14 09:36:58 2012
 
 
 -> Command sent: <SimulationStep2>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Sat Oct  9 00:17:39 2010
 
 -> Command sent: <SetValue>:
   domID=199 varID=69 objID=p1
-.. Answered with error to command (199), [description: The color must be given using an accoring type.]
+.. Answered with error to command (199), [description: The color must be given using an according type.]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
