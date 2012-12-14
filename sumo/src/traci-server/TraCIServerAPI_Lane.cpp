@@ -69,8 +69,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != LAST_STEP_VEHICLE_ID_LIST && variable != LAST_STEP_OCCUPANCY && variable != LAST_STEP_VEHICLE_HALTING_NUMBER
             && variable != LAST_STEP_LENGTH && variable != VAR_CURRENT_TRAVELTIME
             && variable != LANE_ALLOWED && variable != LANE_DISALLOWED && variable != VAR_WIDTH && variable != ID_COUNT) {
-        server.writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Get Lane Variable: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -91,8 +90,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
     } else {
         MSLane* lane = MSLane::dictionary(id);
         if (lane == 0) {
-            server.writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);
-            return false;
+            return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "Lane '" + id + "' is not known", outputStorage);
         }
         switch (variable) {
             case LANE_LINK_NUMBER:
@@ -293,38 +291,36 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != VAR_MAXSPEED && variable != VAR_LENGTH && variable != LANE_ALLOWED && variable != LANE_DISALLOWED) {
-        server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Change Lane State: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Change Lane State: unsupported variable specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
     MSLane* l = MSLane::dictionary(id);
     if (l == 0) {
-        server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Lane '" + id + "' is not known", outputStorage);
     }
     // process
     switch (variable) {
         case VAR_MAXSPEED: {
             SUMOReal value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_LANE_VARIABLE, "The speed must be given as a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The speed must be given as a double.", outputStorage);
             }
             l->setMaxSpeed(value);
         }
         break;
         case VAR_LENGTH: {
             SUMOReal value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_LANE_VARIABLE, "The length must be given as a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The length must be given as a double.", outputStorage);
             }
             l->setLength(value);
         }
         break;
         case LANE_ALLOWED: {
             std::vector<std::string> classes;
-            if(!server.readTypeCheckingStringList(inputStorage, outputStorage, CMD_SET_LANE_VARIABLE, "Allowed classes must be given as a list of strings.", classes)) {
-                return false;
+            if(!server.readTypeCheckingStringList(inputStorage, classes)) {
+                return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Allowed classes must be given as a list of strings.", outputStorage);
             }
             l->setPermissions(parseVehicleClasses(classes));
             l->getEdge().rebuildAllowedLanes();
@@ -332,8 +328,8 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         break;
         case LANE_DISALLOWED: {
             std::vector<std::string> classes;
-            if(!server.readTypeCheckingStringList(inputStorage, outputStorage, CMD_SET_LANE_VARIABLE, "Not allowed classes must be given as a list of strings.", classes)) {
-                return false;
+            if(!server.readTypeCheckingStringList(inputStorage, classes)) {
+                return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Not allowed classes must be given as a list of strings.", outputStorage);
             }
             l->setPermissions(~parseVehicleClasses(classes)); // negation yields allowed
             l->getEdge().rebuildAllowedLanes();

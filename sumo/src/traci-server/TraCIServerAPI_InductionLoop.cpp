@@ -64,8 +64,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
             && variable != LAST_STEP_LENGTH && variable != LAST_STEP_TIME_SINCE_DETECTION
             && variable != LAST_STEP_VEHICLE_DATA && variable != ID_COUNT
             && variable != VAR_POSITION && variable != VAR_LANE_ID) {
-        server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Get Induction Loop Variable: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, "Get Induction Loop Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -87,8 +86,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
     } else {
         MSInductLoop* il = static_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
         if (il == 0) {
-            server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Induction loop '" + id + "' is not known", outputStorage);
-            return false;
+            return server.writeErrorStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, "Induction loop '" + id + "' is not known", outputStorage);
         }
         switch (variable) {
             case ID_LIST:

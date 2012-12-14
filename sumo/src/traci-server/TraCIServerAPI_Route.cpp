@@ -60,8 +60,7 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != VAR_EDGES && variable != ID_COUNT) {
-        server.writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_ERR, "Get Route Variable: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Get Route Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -83,8 +82,7 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
     } else {
         const MSRoute* r = MSRoute::dictionary(id);
         if (r == 0) {
-            server.writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_ERR, "Route '" + id + "' is not known", outputStorage);
-            return false;
+            return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Route '" + id + "' is not known", outputStorage);
         }
         switch (variable) {
             case VAR_EDGES:
@@ -111,8 +109,7 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != ADD) {
-        server.writeStatusCmd(CMD_SET_ROUTE_VARIABLE, RTYPE_ERR, "Change Route State: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "Change Route State: unsupported variable specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
@@ -120,23 +117,21 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
     switch (variable) {
         case ADD: {
             std::vector<std::string> edgeIDs;
-            if(!server.readTypeCheckingStringList(inputStorage, outputStorage, CMD_SET_ROUTE_VARIABLE, "A string list is needed for adding a new route.", edgeIDs)) {
-                return false;
+            if(!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
+                return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "A string list is needed for adding a new route.", outputStorage);
             }
             //read itemNo
             MSEdgeVector edges;
             for(std::vector<std::string>::const_iterator i=edgeIDs.begin(); i!=edgeIDs.end(); ++i) {
                 MSEdge* edge = MSEdge::dictionary(*i);
                 if (edge == 0) {
-                    server.writeStatusCmd(CMD_SET_ROUTE_VARIABLE, RTYPE_ERR, "Unknown edge '" + *i + "' in route.", outputStorage);
-                    return false;
+                    return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "Unknown edge '" + *i + "' in route.", outputStorage);
                 }
                 edges.push_back(edge);
             }
             const std::vector<SUMOVehicleParameter::Stop> stops;
             if (!MSRoute::dictionary(id, new MSRoute(id, edges, 1, 0, stops))) {
-                server.writeStatusCmd(CMD_SET_ROUTE_VARIABLE, RTYPE_ERR, "Could not add route.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "Could not add route.", outputStorage);
             }
         }
         break;

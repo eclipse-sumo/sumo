@@ -526,15 +526,13 @@ TraCIServer::commandAddVehicle() {
     // find vehicleType
     MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vehicleTypeId);
     if (!vehicleType) {
-        writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Invalid vehicleTypeId: '" + vehicleTypeId + "'");
-        return false;
+        return writeErrorStatusCmd(CMD_ADDVEHICLE, "Invalid vehicleTypeId: '" + vehicleTypeId + "'", myOutputStorage);
     }
 
     // find route
     const MSRoute* route = MSRoute::dictionary(routeId);
     if (!route) {
-        writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Invalid routeId: '" + routeId + "'");
-        return false;
+        return writeErrorStatusCmd(CMD_ADDVEHICLE, "Invalid routeId: '" + routeId + "'", myOutputStorage);
     }
 
     // find lane
@@ -542,20 +540,17 @@ TraCIServer::commandAddVehicle() {
     if (laneId != "") {
         lane = MSLane::dictionary(laneId);
         if (!lane) {
-            writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Invalid laneId: '" + laneId + "'");
-            return false;
+            return writeErrorStatusCmd(CMD_ADDVEHICLE, "Invalid laneId: '" + laneId + "'", myOutputStorage);
         }
     } else {
         lane = route->getEdges()[0]->getLanes()[0];
         if (!lane) {
-            writeStatusCmd(CMD_STOP, RTYPE_ERR, "Could not find first lane of first edge in routeId '" + routeId + "'");
-            return false;
+            return writeErrorStatusCmd(CMD_STOP, "Could not find first lane of first edge in routeId '" + routeId + "'", myOutputStorage);
         }
     }
 
     if (&lane->getEdge() != *route->begin()) {
-        writeStatusCmd(CMD_STOP, RTYPE_ERR, "The route must start at the edge the lane starts at.");
-        return false;
+        return writeErrorStatusCmd(CMD_STOP, "The route must start at the edge the lane starts at.", myOutputStorage);
     }
 
     // build vehicle
@@ -564,8 +559,7 @@ TraCIServer::commandAddVehicle() {
     vehicleParams->depart = MSNet::getInstance()->getCurrentTimeStep() + 1;
     MSVehicle* vehicle = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType));
     if (vehicle == NULL) {
-        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Could not build vehicle");
-        return false;
+        return writeErrorStatusCmd(CMD_STOP, "Could not build vehicle", myOutputStorage);
     }
 
     // calculate speed
@@ -578,15 +572,13 @@ TraCIServer::commandAddVehicle() {
 
     // insert vehicle into the dictionary
     if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
-        writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Could not add vehicle to VehicleControl");
-        return false;
+        return writeErrorStatusCmd(CMD_ADDVEHICLE, "Could not add vehicle to VehicleControl", myOutputStorage);
     }
 
     // try to emit
     if (!lane->isInsertionSuccess(vehicle, clippedInsertionSpeed, insertionPosition, true)) {
         MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle);
-        writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Could not insert vehicle");
-        return false;
+        return writeErrorStatusCmd(CMD_ADDVEHICLE, "Could not insert vehicle", myOutputStorage);
     }
 
     // exec callback
@@ -1001,9 +993,8 @@ TraCIServer::writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Stora
 
 
 bool
-TraCIServer::readTypeCheckingInt(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, int &into) {
+TraCIServer::readTypeCheckingInt(tcpip::Storage& inputStorage, int &into) {
      if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
-        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
         return false;
      }
      into = inputStorage.readInt();
@@ -1012,9 +1003,8 @@ TraCIServer::readTypeCheckingInt(tcpip::Storage& inputStorage, tcpip::Storage& o
 
 
 bool
-TraCIServer::readTypeCheckingDouble(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, SUMOReal &into) {
+TraCIServer::readTypeCheckingDouble(tcpip::Storage& inputStorage, SUMOReal &into) {
      if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
-        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
         return false;
      }
      into = inputStorage.readDouble();
@@ -1023,9 +1013,8 @@ TraCIServer::readTypeCheckingDouble(tcpip::Storage& inputStorage, tcpip::Storage
 
 
 bool
-TraCIServer::readTypeCheckingString(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, std::string &into) {
+TraCIServer::readTypeCheckingString(tcpip::Storage& inputStorage, std::string &into) {
      if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
         return false;
      }
      into = inputStorage.readString();
@@ -1034,9 +1023,8 @@ TraCIServer::readTypeCheckingString(tcpip::Storage& inputStorage, tcpip::Storage
 
 
 bool
-TraCIServer::readTypeCheckingStringList(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, std::vector<std::string> &into) {
+TraCIServer::readTypeCheckingStringList(tcpip::Storage& inputStorage, std::vector<std::string> &into) {
      if (inputStorage.readUnsignedByte() != TYPE_STRINGLIST) {
-        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
         return false;
      }
      into = inputStorage.readStringList();
@@ -1045,9 +1033,8 @@ TraCIServer::readTypeCheckingStringList(tcpip::Storage& inputStorage, tcpip::Sto
 
 
 bool
-TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, RGBColor &into) {
+TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, RGBColor &into) {
      if (inputStorage.readUnsignedByte() != TYPE_COLOR) {
-        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
         return false;
      }
     SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
@@ -1060,9 +1047,8 @@ TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, tcpip::Storage&
 
 
 bool
-TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, Position &into) {
+TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, Position &into) {
      if (inputStorage.readUnsignedByte() != POSITION_2D) {
-        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
         return false;
      }
     SUMOReal x = inputStorage.readDouble();
@@ -1073,9 +1059,8 @@ TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, tcpip::Sto
 
 
 bool
-TraCIServer::readTypeCheckingBoundary(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, Boundary &into) {
+TraCIServer::readTypeCheckingBoundary(tcpip::Storage& inputStorage, Boundary &into) {
      if (inputStorage.readUnsignedByte() != TYPE_BOUNDINGBOX) {
-        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
         return false;
      }
     const SUMOReal xmin = inputStorage.readDouble();
@@ -1087,12 +1072,9 @@ TraCIServer::readTypeCheckingBoundary(tcpip::Storage& inputStorage, tcpip::Stora
 }
 
 
-
-
 bool
-TraCIServer::readTypeCheckingByte(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, int &into) {
+TraCIServer::readTypeCheckingByte(tcpip::Storage& inputStorage, int &into) {
      if (inputStorage.readUnsignedByte() != TYPE_BYTE) {
-        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
         return false;
      }
     into = inputStorage.readByte();
@@ -1101,9 +1083,8 @@ TraCIServer::readTypeCheckingByte(tcpip::Storage& inputStorage, tcpip::Storage& 
 
 
 bool
-TraCIServer::readTypeCheckingUnsignedByte(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, int &into) {
+TraCIServer::readTypeCheckingUnsignedByte(tcpip::Storage& inputStorage, int &into) {
      if (inputStorage.readUnsignedByte() != TYPE_UBYTE) {
-        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
         return false;
      }
     into = inputStorage.readUnsignedByte();
@@ -1112,9 +1093,8 @@ TraCIServer::readTypeCheckingUnsignedByte(tcpip::Storage& inputStorage, tcpip::S
 
 
 bool
-TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, int cmdID, char *msg, PositionVector &into) {
+TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVector &into) {
      if (inputStorage.readUnsignedByte() != TYPE_POLYGON) {
-        writeStatusCmd(cmdID, RTYPE_ERR, msg, outputStorage);
         return false;
      }
      into.clear();

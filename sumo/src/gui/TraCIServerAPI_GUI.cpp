@@ -66,8 +66,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     // check variable
     if (variable != ID_LIST && variable != VAR_VIEW_ZOOM && variable != VAR_VIEW_OFFSET
             && variable != VAR_VIEW_SCHEMA && variable != VAR_VIEW_BOUNDARY) {
-        server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_ERR, "Get GUI Variable: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_GET_GUI_VARIABLE, "Get GUI Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -83,8 +82,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     } else {
         GUISUMOAbstractView* v = getNamedView(id);
         if (v == 0) {
-            server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_ERR, "View '" + id + "' is not known", outputStorage);
-            return false;
+            return server.writeErrorStatusCmd(CMD_GET_GUI_VARIABLE, "View '" + id + "' is not known", outputStorage);
         }
         switch (variable) {
             case VAR_VIEW_ZOOM:
@@ -130,77 +128,72 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     if (variable != VAR_VIEW_ZOOM && variable != VAR_VIEW_OFFSET && variable != VAR_VIEW_SCHEMA && variable != VAR_VIEW_BOUNDARY
             && variable != VAR_SCREENSHOT && variable != VAR_TRACK_VEHICLE
        ) {
-        server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Change GUI State: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Change GUI State: unsupported variable specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
     GUISUMOAbstractView* v = getNamedView(id);
     if (v == 0) {
-        server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "View '" + id + "' is not known", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "View '" + id + "' is not known", outputStorage);
     }
     // process
     switch (variable) {
         case VAR_VIEW_ZOOM: {
             SUMOReal zoom = 1;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "The zoom must be given as a double.", zoom)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, zoom)) {
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The zoom must be given as a double.", outputStorage);
             }
             v->setViewport(zoom, v->getChanger().getXPos(), v->getChanger().getYPos());
                             }
             break;
         case VAR_VIEW_OFFSET: {
             Position off(0,0);
-            if(!server.readTypeCheckingPosition2D(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "The view port must be given as a position.", off)) {
-                return false;
+            if(!server.readTypeCheckingPosition2D(inputStorage, off)) {
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The view port must be given as a position.", outputStorage);
             }
             v->setViewport(v->getChanger().getZoom(), off.x(), off.y());
         }
         break;
         case VAR_VIEW_SCHEMA: {
             std::string schema;
-            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "The scheme must be specified by a string.", schema)) {
-                return false;
+            if(!server.readTypeCheckingString(inputStorage, schema)) {
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The scheme must be specified by a string.", outputStorage);
             }
             if (!v->setColorScheme(schema)) {
-                server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "The scheme is not known.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The scheme is not known.", outputStorage);
             }
                               }
             break;
         case VAR_VIEW_BOUNDARY: {
             Boundary b;
-            if(!server.readTypeCheckingBoundary(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "The boundary must be specified by a bounding box.", b)) {
-                return false;
+            if(!server.readTypeCheckingBoundary(inputStorage, b)) {
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The boundary must be specified by a bounding box.", outputStorage);
             }
             v->centerTo(b);
             break;
         }
         case VAR_SCREENSHOT: {
             std::string filename;
-            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "Making a snapshot requires a file name.", filename)) {
-                return false;
+            if(!server.readTypeCheckingString(inputStorage, filename)) {
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Making a snapshot requires a file name.", outputStorage);
             }
             std::string error = v->makeSnapshot(filename);
             if (error != "") {
-                server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, error, outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, error, outputStorage);
             }
         }
         break;
         case VAR_TRACK_VEHICLE: {
             std::string id;
-            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_GUI_VARIABLE, "Tracking requires a string vehicle ID.", id)) {
-                return false;
+            if(!server.readTypeCheckingString(inputStorage, id)) {
+                return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Tracking requires a string vehicle ID.", outputStorage);
             }
             if (id == "") {
                 v->stopTrack();
             } else {
                 SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(id);
                 if (veh == 0) {
-                    server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Could not find vehicle '" + id + "'.", outputStorage);
-                    return false;
+                    return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Could not find vehicle '" + id + "'.", outputStorage);
                 }
                 if (!static_cast<GUIVehicle*>(veh)->hasActiveAddVisualisation(v, GUIVehicle::VO_TRACKED)) {
                     v->startTrack(static_cast<GUIVehicle*>(veh)->getGlID());

@@ -62,8 +62,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
     // check variable
     if (variable != ID_LIST && variable != VAR_TYPE && variable != VAR_COLOR && variable != VAR_SHAPE && variable != VAR_FILL
             && variable != ID_COUNT) {
-        server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Get Polygon Variable: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, "Get Polygon Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -86,8 +85,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
     } else {
         Polygon* p = getPolygon(id);
         if (p == 0) {
-            server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
-            return false;
+            return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, "Polygon '" + id + "' is not known", outputStorage);
         }
         switch (variable) {
             case VAR_TYPE:
@@ -131,8 +129,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     int variable = inputStorage.readUnsignedByte();
     if (variable != VAR_TYPE && variable != VAR_COLOR && variable != VAR_SHAPE && variable != VAR_FILL
             && variable != ADD && variable != REMOVE) {
-        server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Change Polygon State: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "Change Polygon State: unsupported variable specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
@@ -141,102 +138,85 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     if (variable != ADD && variable != REMOVE) {
         p = getPolygon(id);
         if (p == 0) {
-            server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
-            return false;
+            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "Polygon '" + id + "' is not known", outputStorage);
         }
     }
     // process
     switch (variable) {
         case VAR_TYPE: {
             std::string type;
-            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", type)) {
-                return false;
+            if(!server.readTypeCheckingString(inputStorage, type)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
             }
             p->setType(type);
         }
         break;
         case VAR_COLOR: {
             RGBColor col;
-            if(!server.readTypeCheckingColor(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The color must be given using an according type.", col)) {
-                return false;
+            if(!server.readTypeCheckingColor(inputStorage, col)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The color must be given using an according type.", outputStorage);
             }
             p->setColor(col);
         }
         break;
         case VAR_SHAPE: {
             PositionVector shape;
-            if(!server.readTypeCheckingPolygon(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The shape must be given using an accoring type.", shape)) {
-                return false;
+            if(!server.readTypeCheckingPolygon(inputStorage, shape)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The shape must be given using an accoring type.", outputStorage);
             }
             shapeCont.reshapePolygon(id, shape);
         }
         break;
         case VAR_FILL: {
             int value = 0;
-            if(!server.readTypeCheckingUnsignedByte(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an unsigned byte.", value)) {
-                return false;
+            if(!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an unsigned byte.", outputStorage);
             }
             p->setFill(value != 0);
         }
         break;
         case ADD: {
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new polygon.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "A compound object is needed for setting a new polygon.", outputStorage);
             }
             //readt itemNo
             inputStorage.readInt();
-            // type
-            if (inputStorage.readUnsignedByte() != TYPE_STRING) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The first polygon parameter must be the type encoded as a string.", outputStorage);
-                return false;
+            std::string type;
+            if(!server.readTypeCheckingString(inputStorage, type)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
             }
-            std::string type = inputStorage.readString();
-            // color
             RGBColor col;
-            if(!server.readTypeCheckingColor(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The second polygon parameter must be the color.", col)) {
-                return false;
+            if(!server.readTypeCheckingColor(inputStorage, col)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The second polygon parameter must be the color.", outputStorage);
             }
-            // fill
-            if (inputStorage.readUnsignedByte() != TYPE_UBYTE) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
-                return false;
+            int value = 0;
+            if(!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
             }
-            bool fill = inputStorage.readUnsignedByte() != 0;
-            // layer
+            bool fill = value != 0;
             int layer = 0;
-            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The fourth polygon parameter must be the layer encoded as int.", layer)) {
-                return false;
+            if(!server.readTypeCheckingInt(inputStorage, layer)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
             }
-            // shape
-            if (inputStorage.readUnsignedByte() != TYPE_POLYGON) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fifth polygon parameter must be the shape.", outputStorage);
-                return false;
-            }
-            unsigned int noEntries = inputStorage.readUnsignedByte();
             PositionVector shape;
-            for (unsigned int i = 0; i < noEntries; ++i) {
-                SUMOReal x = inputStorage.readDouble();
-                SUMOReal y = inputStorage.readDouble();
-                shape.push_back(Position(x, y));
+            if(!server.readTypeCheckingPolygon(inputStorage, shape)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fifth polygon parameter must be the shape.", outputStorage);
             }
             //
             if (!shapeCont.addPolygon(id, type, col, (SUMOReal)layer,
                                       Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, shape, fill)) {
                 delete p;
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not add polygon.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "Could not add polygon.", outputStorage);
             }
         }
         break;
         case REMOVE: {
             int layer = 0; // !!! layer not used yet (shouldn't the id be enough?)
-            if(!server.readTypeCheckingInt(inputStorage, outputStorage, CMD_SET_POLYGON_VARIABLE, "The layer must be given using an int.", layer)) {
-                return false;
+            if(!server.readTypeCheckingInt(inputStorage, layer)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The layer must be given using an int.", outputStorage);
             }
             if (!shapeCont.removePolygon(id)) {
-                server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not remove polygon '" + id + "'", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "Could not remove polygon '" + id + "'", outputStorage);
             }
         }
         break;

@@ -64,8 +64,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_TAU && variable != VAR_VEHICLECLASS && variable != VAR_EMISSIONCLASS && variable != VAR_SHAPECLASS
             && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_IMPERFECTION
             && variable != VAR_MINGAP && variable != VAR_WIDTH && variable != VAR_COLOR && variable != ID_COUNT) {
-        server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Get Vehicle Type Variable: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Get Vehicle Type Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -87,8 +86,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
     } else {
         MSVehicleType* v = MSNet::getInstance()->getVehicleControl().getVType(id);
         if (v == 0) {
-            server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Vehicle type '" + id + "' is not known", outputStorage);
-            return false;
+            return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known", outputStorage);
         }
         getVariable(variable, *v, tempMsg);
     }
@@ -177,15 +175,13 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
             && variable != VAR_TAU && variable != VAR_COLOR
        ) {
-        server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Change Vehicle Type State: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Change Vehicle Type State: unsupported variable specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
     MSVehicleType* v = MSNet::getInstance()->getVehicleControl().getVType(id);
     if (v == 0) {
-        server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Vehicle type '" + id + "' is not known", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known", outputStorage);
     }
     // process
     try {
@@ -194,7 +190,7 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             return true;
         }
     } catch (ProcessError& e) {
-        server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_ERR, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
     }
     return false;
 }
@@ -207,120 +203,118 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
     switch (variable) {
         case VAR_LENGTH: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, cmd, "Setting length requires a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting length requires a double.", outputStorage);
             }
             if (value == 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                server.writeStatusCmd(cmd, RTYPE_ERR, "Invalid length.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(cmd, "Invalid length.", outputStorage);
             }
             v.setLength(value);
         }
         break;
         case VAR_MAXSPEED: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, cmd, "Setting maximum speed requires a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting maximum speed requires a double.", outputStorage);
             }
             if (value == 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                server.writeStatusCmd(cmd, RTYPE_ERR, "Invalid maximum speed.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(cmd, "Invalid maximum speed.", outputStorage);
             }
             v.setMaxSpeed(value);
         }
         break;
         case VAR_VEHICLECLASS: {
             std::string vclass;
-            if(!server.readTypeCheckingString(inputStorage, outputStorage, cmd, "Setting vehicle class requires a string.", vclass)) {
-                return false;
+            if(!server.readTypeCheckingString(inputStorage, vclass)) {
+                return server.writeErrorStatusCmd(cmd, "Setting vehicle class requires a string.", outputStorage);
             }
             v.setVClass(getVehicleClassID(vclass));
         }
         break;
         case VAR_SPEED_FACTOR: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, cmd, "Setting speed factor requires a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting speed factor requires a double.", outputStorage);
             }
             v.setSpeedFactor(value);
         }
         break;
         case VAR_SPEED_DEVIATION: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, cmd, "Setting speed deviation requires a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting speed deviation requires a double.", outputStorage);
             }
             v.setSpeedDeviation(value);
         }
         break;
         case VAR_EMISSIONCLASS: {
             std::string eclass;
-            if(!server.readTypeCheckingString(inputStorage, outputStorage, cmd, "Setting emission class requires a string.", eclass)) {
-                return false;
+            if(!server.readTypeCheckingString(inputStorage, eclass)) {
+                return server.writeErrorStatusCmd(cmd, "Setting emission class requires a string.", outputStorage);
             }
             v.setEmissionClass(getVehicleEmissionTypeID(eclass));
         }
         break;
         case VAR_WIDTH: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, cmd, "Setting width requires a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage,  value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting width requires a double.", outputStorage);
             }
             v.setWidth(value);
         }
         break;
         case VAR_MINGAP: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, cmd, "Setting minimum gap requires a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting minimum gap requires a double.", outputStorage);
             }
             v.setMinGap(value);
         }
         break;
         case VAR_SHAPECLASS: {
             std::string sclass;
-            if(!server.readTypeCheckingString(inputStorage, outputStorage, cmd, "Setting vehicle shape requires a string.", sclass)) {
-                return false;
+            if(!server.readTypeCheckingString(inputStorage, sclass)) {
+                return server.writeErrorStatusCmd(cmd, "Setting vehicle shape requires a string.", outputStorage);
             }
             v.setShape(getVehicleShapeID(sclass));
         }
         break;
         case VAR_ACCEL: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, cmd, "Setting acceleration requires a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting acceleration requires a double.", outputStorage);
             }
             v.getCarFollowModel().setMaxAccel(value);
         }
         break;
         case VAR_DECEL: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, cmd, "Setting deceleration requires a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
             }
             v.getCarFollowModel().setMaxDecel(value);
         }
         break;
         case VAR_IMPERFECTION: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, cmd, "Setting driver imperfection requires a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting driver imperfection requires a double.", outputStorage);
             }
             v.getCarFollowModel().setImperfection(value);
         }
         break;
         case VAR_TAU: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, outputStorage, cmd, "Setting headway time requires a double.", value)) {
-                return false;
+            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting headway time requires a double.", outputStorage);
             }
             v.getCarFollowModel().setHeadwayTime(value);
         }
         break;
         case VAR_COLOR: {
             RGBColor col;
-            if(!server.readTypeCheckingColor(inputStorage, outputStorage, cmd, "The color must be given using the according type.", col)) {
-                return false;
+            if(!server.readTypeCheckingColor(inputStorage, col)) {
+                return server.writeErrorStatusCmd(cmd, "The color must be given using the according type.", outputStorage);
             }
             v.setColor(col);
         }

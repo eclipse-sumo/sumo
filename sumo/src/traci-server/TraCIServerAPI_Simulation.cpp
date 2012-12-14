@@ -76,8 +76,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             && variable != POSITION_CONVERSION && variable != DISTANCE_REQUEST
             && variable != VAR_BUS_STOP_WAITING
        ) {
-        server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Get Simulation Variable: unsupported variable specified", outputStorage);
-        return false;
+        return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -171,12 +170,10 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         case POSITION_CONVERSION:
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Position conversion requires a compound object.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Position conversion requires a compound object.", outputStorage);
             }
             if (inputStorage.readInt() != 2) {
-                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Position conversion requires a source position and a position type as parameter.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Position conversion requires a source position and a position type as parameter.", outputStorage);
             }
             if (!commandPositionConversion(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
                 return false;
@@ -184,12 +181,10 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         case DISTANCE_REQUEST:
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Retrieval of distance requires a compound object.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of distance requires a compound object.", outputStorage);
             }
             if (inputStorage.readInt() != 3) {
-                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Retrieval of distance requires two positions and a distance type as parameter.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of distance requires two positions and a distance type as parameter.", outputStorage);
             }
             if (!commandDistanceRequest(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
                 return false;
@@ -197,13 +192,12 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         case VAR_BUS_STOP_WAITING: {
             std::string id;
-            if(!server.readTypeCheckingString(inputStorage, outputStorage, CMD_GET_SIM_VARIABLE, "Retrieval of persons at busstop requires a string.", id)) {
-                return false;
+            if(!server.readTypeCheckingString(inputStorage, id)) {
+                return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of persons at busstop requires a string.", outputStorage);
             }
             MSBusStop* s = MSNet::getInstance()->getBusStop(id);
             if (s == 0) {
-                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Unknown bus stop '" + id + "'.", outputStorage);
-                return false;
+                return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Unknown bus stop '" + id + "'.", outputStorage);
             }
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(s->getPersonNumber());
@@ -306,12 +300,11 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server,
             return false;
     }
 
-    int type = inputStorage.readUnsignedByte();
-    if (type != TYPE_UBYTE) {
+    int destPosType = 0;
+    if(!server.readTypeCheckingUnsignedByte(inputStorage, destPosType)) {
         server.writeStatusCmd(commandId, RTYPE_ERR, "Destination position type must be of type ubyte.");
         return false;
     }
-    int destPosType = inputStorage.readUnsignedByte();
 
     switch (destPosType) {
         case POSITION_ROADMAP: {
