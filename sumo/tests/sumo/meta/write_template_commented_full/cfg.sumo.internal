@@ -51,6 +51,24 @@
         <!-- Write also empty edges completely when dumping -->
         <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate.empty-edges" type="BOOL"/>
 
+        <!-- Save the emission values of each vehicle -->
+        <emission-output value="" type="FILE"/>
+
+        <!-- Save the Floating Car Data -->
+        <fcd-output value="" type="FILE"/>
+
+        <!-- Save the Floating Car Data using geo-coordinates (lon/lat) -->
+        <fcd-output.geo value="false" type="BOOL"/>
+
+        <!-- Save a lot of information for each timestep (very redundant) -->
+        <full-output value="" type="FILE"/>
+
+        <!-- Save the vehicle queues at the junctions (experimental) -->
+        <queue-output value="" type="FILE"/>
+
+        <!-- Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files) -->
+        <vtk-output value="" type="FILE"/>
+
         <!-- Save aggregated vehicle departure info into FILE -->
         <summary-output value="" synonymes="emissions emissions-output summary" type="FILE"/>
 
@@ -69,11 +87,14 @@
         <!-- Sorts the output by departure time -->
         <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL"/>
 
+        <!-- Write vehroute output for vehicles which have not arrived at simulation end -->
+        <vehroute-output.write-unfinished value="false" type="BOOL"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
         <!-- Prefix for network states -->
-        <save-state.prefix value="" type="FILE"/>
+        <save-state.prefix value="state" type="FILE"/>
 
         <!-- Files for network states -->
         <save-state.files value="" type="FILE"/>
@@ -129,6 +150,12 @@
         <!-- Whether blocking vehicles trying to change lanes may be swapped. -->
         <lanechange.allow-swap value="false" type="BOOL"/>
 
+        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;] -->
+        <routing-algorithm value="dijkstra" type="STR"/>
+
+        <!-- Restrict the maximum size of route distributions -->
+        <routeDist.maxsize value="" type="INT"/>
+
     </processing>
 
     <report>
@@ -143,6 +170,9 @@
 
         <!-- Prints the current version -->
         <version value="false" synonymes="V" type="BOOL"/>
+
+        <!-- Enable schema validation of XML inputs -->
+        <xml-validation value="false" synonymes="X" type="BOOL"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
@@ -189,6 +219,9 @@
         <!-- Use zones (districts) as routing end points -->
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz" type="BOOL"/>
 
+        <!-- Use given weight files for initializing edge weights -->
+        <device.rerouting.init-with-loaded-weights value="false" type="BOOL"/>
+
     </routing>
 
     <emissions>
@@ -228,14 +261,17 @@
         <!-- Factor for calculating the jam-jam headway time -->
         <meso-taujj value="2" type="TIME"/>
 
-        <!-- Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed -->
-        <meso-jam-threshold value="0.29" type="FLOAT"/>
+        <!-- Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default) -->
+        <meso-jam-threshold value="-1" type="FLOAT"/>
 
         <!-- Enable multiple queues at edge ends -->
         <meso-multi-queue value="false" type="BOOL"/>
 
         <!-- Enable mesoscopic traffic light and priority junction handling -->
         <meso-junction-control value="false" type="BOOL"/>
+
+        <!-- Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations -->
+        <meso-junction-control.limited value="false" type="BOOL"/>
 
         <!-- Time interval for rechecking insertion into the next segment after failure -->
         <meso-recheck value="0" type="TIME"/>
