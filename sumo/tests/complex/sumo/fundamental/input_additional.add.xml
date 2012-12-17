@@ -1,8 +1,8 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/additional_file.xsd">
     <route id="completeA" edges="a b a b a b a"/>
     <route id="completeB" edges="b a b a b a b"/>
-    <rerouter id="rerouterA" edges="a" pos="0" file="input_definitionA.def.xml"/>
-    <rerouter id="rerouterB" edges="b" pos="0" file="input_definitionB.def.xml"/>
+    <rerouter id="rerouterA" edges="a" file="input_definitionA.def.xml"/>
+    <rerouter id="rerouterB" edges="b" file="input_definitionB.def.xml"/>
     <e1Detector id="det" lane="a_0" pos="20" file="detector.xml" freq="1000000"/>
     <laneData id="dump_15" freq="1000000" file="aggregated.xml"/>
 </additional>

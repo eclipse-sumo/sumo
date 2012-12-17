@@ -177,9 +177,17 @@
     </xsd:complexType>
 
     <xsd:complexType name="variableSpeedSignType">
+        <xsd:sequence minOccurs="0">
+            <xsd:element name="step" minOccurs="1" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
+                    <xsd:attribute name="speed" type="nonNegativeFloatType" use="required"/>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="lanes" type="xsd:string" use="required"/>
-        <xsd:attribute name="file" type="xsd:string" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="instantInductionLoopType">
@@ -194,6 +202,7 @@
     <xsd:complexType name="routeProbeType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="edge" type="xsd:string" use="optional"/>
+        <xsd:attribute name="begin" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
     </xsd:complexType>

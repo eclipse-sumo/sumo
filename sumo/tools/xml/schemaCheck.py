@@ -22,16 +22,8 @@ try:
 except ImportError:
     haveLxml = False
 
-def relative_to_sumo_home(path):
-    if "/sumo/" in path:
-        return path[path.index("/sumo/")+6:]
-    else:
-        return path
-
-
 def validate(root, f):
     root = os.path.abspath(root)
-    rs = root.replace('\\', '/')
     try:
         doc = etree.parse(f)
         schemaLoc = doc.getroot().get('{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation')
@@ -42,14 +34,10 @@ def validate(root, f):
             if schemaLoc not in schemes:
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
-            errors = list(schemes[schemaLoc].error_log)
-            errors.sort()
-            for entry in errors:
-                e = os.path.abspath(str(entry)).replace('\\', '/')
-                e = e[e.find("file:")+7+len(rs):]
-                print >> sys.stderr, e
+            for entry in schemes[schemaLoc].error_log:
+                print >> sys.stderr, os.path.abspath(str(entry))[len(root)+1:].replace('\\', '/')
     except:
-        print >> sys.stderr, "Error on parsing '%s'!" % os.path.abspath(f)[len(root):].replace('\\', '/')
+        print >> sys.stderr, "Error on parsing '%s'!" % os.path.abspath(f)[len(root)+1:].replace('\\', '/')
         traceback.print_exc()
 
 def main(srcRoot, toCheck, err):

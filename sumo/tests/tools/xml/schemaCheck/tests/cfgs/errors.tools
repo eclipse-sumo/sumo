@@ -1,9 +1,6 @@
-complex/traci/clientCloses/sumo.sumocfg:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'time': Character content other than whitespace is not allowed because the content type is 'element-only'.
-complex/traci/repeatedConnection/sumo.sumocfg:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'end', attribute 'value': '%end%' is not a valid value of the atomic type 'xs:float'.
-sumo/meta/deprecated_option/sumo.sumocfg:11:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'abs-rand': This element is not expected.
-Error on parsing '/sumo/meta/umlaut/sumo.sumocfg'!
+Error on parsing 'sumo/meta/umlaut/sumo.sumocfg'!
 Traceback (most recent call last):
-  File "D:/meld_er/workplace/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 36, in validate
+  File "/home/behr_mi/sumo/tests/../tools/xml/schemaCheck.py", line 28, in validate
     doc = etree.parse(f)
   File "lxml.etree.pyx", line 2942, in lxml.etree.parse (src/lxml/lxml.etree.c:54187)
   File "parser.pxi", line 1528, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:79485)
@@ -15,3 +12,4 @@ Traceback (most recent call last):
   File "parser.pxi", line 585, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:71955)
 XMLSyntaxError: Input is not proper UTF-8, indicate encoding !
 Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 26
+sumo/meta/deprecated_option/sumo.sumocfg:11:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'abs-rand': This element is not expected.
