@@ -62,7 +62,9 @@
 #include <microsim/MSFrame.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <utils/iodevices/BinaryInputDevice.h>
-
+#ifdef HAVE_INTERNAL
+#include <mesosim/StateHandler.h>
+#endif
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -129,17 +131,23 @@ NLBuilder::build() {
     // load the previous state if wished
     if (myOptions.isSet("load-state")) {
         long before = SysUtils::getCurrentMillis();
-        BinaryInputDevice strm(myOptions.getString("load-state"));
-        if (!strm.good()) {
-            WRITE_ERROR("Could not read state from '" + myOptions.getString("load-state") + "'!");
+        const std::string& f = myOptions.getString("load-state");
+        if (f.substr(f.length() - 4) == ".sbx" || f.substr(f.length() - 4) == ".xml") {
+            StateHandler h(f, string2time(OptionsCont::getOptions().getString("load-state.offset")));
+            XMLSubSys::runParser(h, f);
         } else {
-            PROGRESS_BEGIN_MESSAGE("Loading state from '" + myOptions.getString("load-state") + "'");
-            SUMOTime step = myNet.loadState(strm);
-            if (myOptions.isDefault("begin")) {
-                myOptions.set("begin", time2string(step));
-            }
-            if (step != string2time(myOptions.getString("begin"))) {
-                WRITE_WARNING("State was written at a different time " + time2string(step) + " than the begin time " + myOptions.getString("begin") + "!");
+            BinaryInputDevice strm(myOptions.getString("load-state"));
+            if (!strm.good()) {
+                WRITE_ERROR("Could not read state from '" + myOptions.getString("load-state") + "'!");
+            } else {
+                PROGRESS_BEGIN_MESSAGE("Loading state from '" + myOptions.getString("load-state") + "'");
+                SUMOTime step = myNet.loadState(strm);
+                if (myOptions.isDefault("begin")) {
+                    myOptions.set("begin", time2string(step));
+                }
+                if (step != string2time(myOptions.getString("begin"))) {
+                    WRITE_WARNING("State was written at a different time " + time2string(step) + " than the begin time " + myOptions.getString("begin") + "!");
+                }
             }
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {

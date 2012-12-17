@@ -116,6 +116,13 @@ public:
     static void dict_saveState(std::ostream& os);
 
 
+    /** @brief Saves all known routes into the given stream
+     *
+     * @param[in] os The stream to write the routes into (binary)
+     */
+    static void dict_saveState(OutputDevice& out);
+
+
     /** @brief Loads routes from the state.
      *
      * @param[in] bis The input to read the routes from (binary)

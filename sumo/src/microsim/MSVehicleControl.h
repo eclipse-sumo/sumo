@@ -362,12 +362,17 @@ public:
     /// @name State I/O (mesosim only)
     /// @{
 
-    /** @brief Loads the state of this control from the given stream
+    /** @brief Saves the current state into the given stream
      * @todo Does not work for microsim
      */
     virtual void saveState(std::ostream& os);
 
     /** @brief Saves the current state into the given stream
+     * @todo Does not work for microsim
+     */
+    virtual void saveState(OutputDevice& out);
+
+    /** @brief Loads the state of this control from the given stream
      * @todo Does not work for microsim
      */
     virtual void loadState(BinaryInputDevice& bis, const SUMOTime offset);

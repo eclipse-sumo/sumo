@@ -106,7 +106,12 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
     if (myColor != 0) {
         dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
     }
-    dev.writeAttr(SUMO_ATTR_EDGES, myRoute);
+    if (myRoute.front()->getType() == ROEdge::ET_DISTRICT) {
+        std::vector<const ROEdge*> temp(myRoute.begin() + 1, myRoute.end() - 1);
+        dev.writeAttr(SUMO_ATTR_EDGES, temp);
+    } else {
+        dev.writeAttr(SUMO_ATTR_EDGES, myRoute);
+    }
     if (withExitTimes) {
         std::string exitTimes;
         SUMOReal time = STEPS2TIME(veh->getDepartureTime());
@@ -124,7 +129,4 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
 }
 
 
-
-
 /****************************************************************************/
-

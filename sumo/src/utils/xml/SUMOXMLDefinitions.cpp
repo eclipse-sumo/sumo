@@ -97,7 +97,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "WAUT",	          SUMO_TAG_WAUT },
     { "wautSwitch",       SUMO_TAG_WAUT_SWITCH },
     { "wautJunction",     SUMO_TAG_WAUT_JUNCTION },
-    { "reset",        	  SUMO_TAG_RESET },
+    { "segment",      	  SUMO_TAG_SEGMENT },
     { "delete",        	  SUMO_TAG_DELETE },
     { "stop",        	  SUMO_TAG_STOP },
     { "destProbReroute",  SUMO_TAG_DEST_PROB_REROUTE },
@@ -126,9 +126,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "opengl",           SUMO_TAG_VIEWSETTINGS_OPENGL },
     { "background",       SUMO_TAG_VIEWSETTINGS_BACKGROUND },
     { "edges",            SUMO_TAG_VIEWSETTINGS_EDGES },
-    { "nlcC",             SUMO_TAG_VIEWSETTINGS_EDGE_COLOR_ITEM },
     { "vehicles",         SUMO_TAG_VIEWSETTINGS_VEHICLES },
-    { "nvcC",             SUMO_TAG_VIEWSETTINGS_VEHICLE_COLOR_ITEM },
     { "junctions",        SUMO_TAG_VIEWSETTINGS_JUNCTIONS },
     { "additionals",      SUMO_TAG_VIEWSETTINGS_ADDITIONALS },
     { "pois",             SUMO_TAG_VIEWSETTINGS_POIS },
@@ -375,6 +373,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "generateWalks",  SUMO_ATTR_GENERATE_WALKS },
     { "actType",        SUMO_ATTR_ACTTYPE },
+    { "version",        SUMO_ATTR_VERSION },
 
     // ActivityGen statistics file
     { "inhabitants",    AGEN_ATTR_INHABITANTS },

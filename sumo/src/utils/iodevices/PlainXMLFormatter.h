@@ -71,6 +71,17 @@ public:
                         const std::string& comment = "");
 
 
+    /** @brief Writes an XML header with optional configuration
+     *
+     * If something has been written (myXMLStack is not empty), nothing
+     *  is written and false returned.
+     *
+     * @param[in] into The output stream to use
+     * @param[in] rootElement The root element to use
+     */
+    bool writeHeader(std::ostream& into, const SumoXMLTag& rootElement);
+
+
     /** @brief Opens an XML tag
      *
      * An indentation, depending on the current xml-element-stack size, is written followed

@@ -191,10 +191,7 @@ public:
         if (myAmBinary) {
             return static_cast<BinaryFormatter*>(myFormatter)->writeHeader<E>(getOStream(), rootElement);
         }
-        if (rootElement == SUMO_TAG_ROUTES) {
-            return myFormatter->writeXMLHeader(getOStream(), "routes", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
-        }
-        return myFormatter->writeXMLHeader(getOStream(), toString(rootElement));
+        return static_cast<PlainXMLFormatter*>(myFormatter)->writeHeader(getOStream(), rootElement);
     }
 
 

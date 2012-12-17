@@ -40,22 +40,6 @@
 
 
 namespace ROHelper {
-/*
-SUMOReal
-recomputeCosts(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-               const std::vector<const ROEdge*> &edges,
-               const ROVehicle * const v, SUMOTime time) {
-    SUMOReal costs = 0;
-    for (std::vector<const ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
-        costs += router.getEffort(v, time + costs, *i);
-        if ((*i)->prohibits(v)) {
-            return -1;
-        }
-    }
-    return costs;
-}
-*/
-
 void
 recheckForLoops(std::vector<const ROEdge*>& edges) {
     // remove loops at the route's begin
@@ -107,20 +91,6 @@ recheckForLoops(std::vector<const ROEdge*>& edges) {
 }
 
 
-}
-
-std::ostream& operator<<(std::ostream& os, const std::vector<const ROEdge*>& ev) {
-    bool hadFirst = false;
-    for (std::vector<const ROEdge*>::const_iterator j = ev.begin(); j != ev.end(); j++) {
-        if ((*j)->getType() != ROEdge::ET_DISTRICT) {
-            if (hadFirst) {
-                os << ' ';
-            }
-            os << (*j)->getID();
-            hadFirst = true;
-        }
-    }
-    return os;
 }
 
 

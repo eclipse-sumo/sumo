@@ -295,6 +295,15 @@ public:
     static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const RGBColor& val);
 
 
+    /** @brief writes an int vector attribute
+     *
+     * @param[in] into The output stream to use
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     */
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::vector<int>& val);
+
+
     /** @brief writes an edge vector attribute
      *
      * @param[in] into The output stream to use

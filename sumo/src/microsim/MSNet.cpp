@@ -96,6 +96,7 @@
 
 #ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
+#include <mesosim/StateHandler.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #endif
 
@@ -359,6 +360,7 @@ MSNet::simulationStep() {
         const int dist = distance(myStateDumpTimes.begin(), timeIt);
         std::ofstream strm(myStateDumpFiles[dist].c_str(), std::fstream::out | std::fstream::binary);
         saveState(strm);
+        StateHandler::saveState(myStateDumpFiles[dist] + ".xml", myStep);
     }
 #endif
     myBeginOfTimestepEvents->execute(myStep);

@@ -80,20 +80,6 @@ public:
  * @brief Some helping methods for router
  */
 namespace ROHelper {
-/** @brief Computes the costs (travel time) for the given list of edges
- *
- * @param[in] edges The edges to pass
- * @param[in] v The vehicle that passes the edges
- * @param[in] time The time at which the vehicle begins to pass the edges
- * @return The time needed by the vehicle to pass the edges (completely)
- * @todo Check whether vehicle's max speed is considered
- */
-/*
-SUMOReal recomputeCosts(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                    const std::vector<const ROEdge*> &edges,
-                    const ROVehicle * const v, SUMOTime time);
-*/
-
 /** @brief Checks whether the given edge list contains loops and removes them
  *
  * @param[in] edges The list of edges to remove loops from
@@ -101,12 +87,6 @@ SUMOReal recomputeCosts(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
 void recheckForLoops(std::vector<const ROEdge*>& edges);
 
 }
-
-
-/// @brief Output operator for edge lists (edges will be written as their ids, divided by spaces)
-std::ostream& operator<<(std::ostream& os, const std::vector<const ROEdge*>& ev);
-
-
 
 #endif
 

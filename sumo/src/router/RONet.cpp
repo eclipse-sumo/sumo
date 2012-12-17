@@ -122,8 +122,10 @@ RONet::openOutput(const std::string& filename, bool useAlternatives, const std::
         }
     }
     myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
+    myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.sf.net/xsd/routes_file.xsd").closeOpener();
     if (useAlternatives) {
         myRouteAlternativesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
+        myRouteAlternativesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.sf.net/xsd/routes_file.xsd").closeOpener();
     }
     if (typefilename != "") {
         myTypesOutput = &OutputDevice::getDevice(typefilename);

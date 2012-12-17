@@ -46,6 +46,17 @@ PlainXMLFormatter::PlainXMLFormatter(const unsigned int defaultIndentation)
 
 
 bool
+PlainXMLFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElement) {
+    if (myXMLStack.empty()) {
+        OptionsCont::getOptions().writeXMLHeader(into);
+        openTag(into, rootElement);
+        return true;
+    }
+    return false;
+}
+
+
+bool
 PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement, const std::string xmlParams,
                                   const std::string& attrs, const std::string& comment) {
     if (myXMLStack.empty()) {

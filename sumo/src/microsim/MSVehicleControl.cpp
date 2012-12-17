@@ -160,6 +160,11 @@ MSVehicleControl::saveState(std::ostream& /*os*/) {
 
 
 void
+MSVehicleControl::saveState(OutputDevice& /*out*/) {
+}
+
+
+void
 MSVehicleControl::loadState(BinaryInputDevice& /*bis*/, const SUMOTime /*offset*/) {
 }
 

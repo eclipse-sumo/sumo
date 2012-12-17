@@ -234,4 +234,14 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
 }
 
 
+void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::vector<int>& val) {
+    FileHelpers::writeByte(into, BF_LIST);
+    FileHelpers::writeInt(into, (int)val.size());
+    for (std::vector<int>::const_iterator it = val.begin(); it != val.end(); ++it) {
+        FileHelpers::writeByte(into, BF_INTEGER);
+        FileHelpers::writeInt(into, *it);
+    }
+}
+
+
 /****************************************************************************/
