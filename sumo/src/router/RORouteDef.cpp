@@ -257,7 +257,7 @@ OutputDevice&
 RORouteDef::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                                bool asAlternatives, bool withExitTimes) const {
     if (asAlternatives) {
-        dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, myLastUsed).closeOpener();
+        dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, myLastUsed);
         for (size_t i = 0; i != myAlternatives.size(); i++) {
             myAlternatives[i]->writeXMLDefinition(dev, veh, true, withExitTimes);
         }

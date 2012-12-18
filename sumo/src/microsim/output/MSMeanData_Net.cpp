@@ -185,7 +185,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
         if (nVehVaporized > 0) {
             dev << " vaporized=\"" << nVehVaporized << "\"";
         }
-        dev.closeTag(true);
+        dev.closeTag();
         return;
     }
     if (sampleSeconds > myParent->myMinSamples) {
@@ -217,7 +217,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
     if (nVehVaporized > 0) {
         dev << " vaporized=\"" << nVehVaporized << "\"";
     }
-    dev.closeTag(true);
+    dev.closeTag();
 }
 
 // ---------------------------------------------------------------------------

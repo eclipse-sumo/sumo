@@ -82,13 +82,13 @@ RORouteHandler::myStartElement(int element,
         case SUMO_TAG_RIDE: {
             myActivePlan->openTag(SUMO_TAG_RIDE);
             (*myActivePlan) << attrs;
-            myActivePlan->closeTag(true);
+            myActivePlan->closeTag();
             break;
         }
         case SUMO_TAG_WALK: {
             myActivePlan->openTag(SUMO_TAG_WALK);
             (*myActivePlan) << attrs;
-            myActivePlan->closeTag(true);
+            myActivePlan->closeTag();
             break;
         }
         case SUMO_TAG_FLOW:

@@ -98,7 +98,7 @@ RODFRouteCont::save(std::vector<std::string>& saved,
             out << (*k)->getID();
         }
         out << '"';
-        out.closeTag(true);
+        out.closeTag();
         haveSavedOneAtLeast = true;
     }
     return haveSavedOneAtLeast;

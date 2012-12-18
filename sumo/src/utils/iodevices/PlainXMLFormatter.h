@@ -105,23 +105,13 @@ public:
     void openTag(std::ostream& into, const SumoXMLTag& xmlElement);
 
 
-    /** @brief Ends the most recently opened element start.
-     *
-     * Writes more or less nothing but ">" and a line feed.
-     *
-     * @param[in] into The output stream to use
-     */
-    void closeOpener(std::ostream& into);
-
-
     /** @brief Closes the most recently opened tag
      *
      * @param[in] into The output stream to use
-     * @param[in] name whether abbreviated closing is performed
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag(std::ostream& into, bool abbreviated = false);
+    bool closeTag(std::ostream& into);
 
 
     /** @brief writes an arbitrary attribute
@@ -152,7 +142,8 @@ private:
     /// @brief The initial indentation level
     unsigned int myDefaultIndentation;
 
-
+    /// @brief whether a closing ">" might be missing
+    bool myHavePendingOpener;
 };
 
 

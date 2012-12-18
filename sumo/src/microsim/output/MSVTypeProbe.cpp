@@ -64,8 +64,7 @@ MSVTypeProbe::~MSVTypeProbe() {
 
 SUMOTime
 MSVTypeProbe::execute(SUMOTime currentTime) {
-    const std::string indent("    ");
-    myOutputDevice << indent << "<timestep time=\"" << time2string(currentTime) << "\" id=\"" << getID() << "\" vType=\"" << myVType << "\">" << "\n";
+    myOutputDevice.openTag("timestep") << " time=\"" << time2string(currentTime) << "\" id=\"" << getID() << "\" vType=\"" << myVType << "\"";
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
@@ -76,8 +75,7 @@ MSVTypeProbe::execute(SUMOTime currentTime) {
                 continue;
             }
             Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
-            myOutputDevice << indent << indent
-                           << "<vehicle id=\"" << veh->getID()
+            myOutputDevice.openTag("vehicle") << " id=\"" << veh->getID()
                            << "\" lane=\"" << veh->getLane()->getID()
                            << "\" pos=\"" << veh->getPositionOnLane()
                            << "\" x=\"" << pos.x()
@@ -88,11 +86,12 @@ MSVTypeProbe::execute(SUMOTime currentTime) {
                 myOutputDevice << "\" lat=\"" << pos.y() << "\" lon=\"" << pos.x();
                 myOutputDevice.setPrecision();
             }
-            myOutputDevice << "\" speed=\"" << veh->getSpeed() << "\"/>" << "\n";
+            myOutputDevice << "\" speed=\"" << veh->getSpeed() << "\"";
+            myOutputDevice.closeTag();
         }
 
     }
-    myOutputDevice << indent << "</timestep>" << "\n";
+    myOutputDevice.closeTag();
     return myFrequency;
 }
 

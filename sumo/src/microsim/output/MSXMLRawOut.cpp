@@ -57,7 +57,7 @@
 void
 MSXMLRawOut::write(OutputDevice& of, const MSEdgeControl& ec,
                    SUMOTime timestep) {
-    of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
+    of.openTag("timestep") << " time=\"" << time2string(timestep) << "\"";
     const std::vector<MSEdge*>& edges = ec.getEdges();
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         writeEdge(of, **e);
@@ -96,7 +96,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge) {
     }
     //en
     if (dump) {
-        of.openTag("edge") << " id=\"" << edge.getID() << "\">\n";
+        of.openTag("edge") << " id=\"" << edge.getID() << "\"";
 #ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
@@ -122,7 +122,6 @@ void
 MSXMLRawOut::writeLane(OutputDevice& of, const MSLane& lane) {
     of.openTag("lane") << " id=\"" << lane.myID << "\"";
     if (lane.getVehicleNumber() != 0) {
-        of << ">\n";
         for (std::vector<MSVehicle*>::const_iterator veh = lane.myVehBuffer.begin();
                 veh != lane.myVehBuffer.end(); ++veh) {
             writeVehicle(of, **veh);
@@ -132,7 +131,7 @@ MSXMLRawOut::writeLane(OutputDevice& of, const MSLane& lane) {
             writeVehicle(of, **veh);
         }
     }
-    of.closeTag(lane.getVehicleNumber() == 0);
+    of.closeTag();
 }
 
 
@@ -141,11 +140,9 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
     if (veh.isOnRoad()) {
         of.openTag("vehicle") << " id=\"" << veh.getID() << "\" pos=\""
                               << veh.getPositionOnLane() << "\" speed=\"" << veh.getSpeed() << "\"";
-        of.closeTag(true);
+        of.closeTag();
     }
 }
 
 
-
 /****************************************************************************/
-

@@ -99,7 +99,7 @@ MSFullExport::writeVehicles(OutputDevice& of) {
                                   << "\" pos_lane=\"" << veh->getPositionOnLane() << "\" speed=\"" << veh->getSpeed() * 3.6
                                   << "\" angle=\"" << veh->getAngle() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
 
-            of.closeTag(true);
+            of.closeTag();
 
         }
 
@@ -157,7 +157,7 @@ MSFullExport::writeLane(OutputDevice& of, const MSLane& lane) {
             << "\" occupancy=\"" << lane.getOccupancy()
             << "\" vehicle_count=\"" << lane.getVehicleNumber() << "\"";
 
-    of.closeTag(true);
+    of.closeTag();
 
 }
 
@@ -185,7 +185,7 @@ MSFullExport::writeTLS(OutputDevice& of, SUMOTime /* timestep */) {
 
         std::string state = vars.getActive()->getCurrentPhaseDef().getState();
         of.openTag("trafficlight") << " id=\"" << *id_it << "\" state=\"" << state << "\"";
-        of.closeTag(true);
+        of.closeTag();
 
     }
 

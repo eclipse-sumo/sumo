@@ -105,7 +105,7 @@ NBSign::writeAsPOI(OutputDevice& into, const NBEdge* edge) const {
     //into.writeAttr(SUMO_ATTR_IMGFILE, p->getImgFile());
     //into.writeAttr(SUMO_ATTR_WIDTH, p->getWidth());
     //into.writeAttr(SUMO_ATTR_HEIGHT, p->getHeight());
-    into.closeTag(true);
+    into.closeTag();
 }
 
 

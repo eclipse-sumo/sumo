@@ -125,7 +125,7 @@ MSDevice_HBEFA::generateOutput() const {
      "\" PMx_abs=\"" << OutputDevice::realString(myPMx, 6) <<
      "\" NOx_abs=\"" << OutputDevice::realString(myNOx, 6) <<
      "\" fuel_abs=\"" << OutputDevice::realString(myFuel, 6) <<
-     "\"").closeTag(true);
+     "\"").closeTag();
 }
 
 

@@ -117,7 +117,7 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) {
         (*i)->generateOutput();
     }
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
-        OutputDevice::getDeviceByOption("tripinfo-output").closeTag(veh->getDevices().size() == 1);
+        OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
     }
     myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
     myRunningVehNo--;

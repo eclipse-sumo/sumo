@@ -123,7 +123,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
             sort(sortedIDs.begin(), sortedIDs.end());
             device.writeAttr(SUMO_ATTR_TLID, sortedIDs);
         }
-        device.closeTag(true);
+        device.closeTag();
     }
     device.close();
 }
@@ -191,9 +191,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             edevice.writeAttr(SUMO_ATTR_OFFSET, e->getOffset());
         }
         if (!e->needsLaneSpecificOutput()) {
-            edevice.closeTag(true);
+            edevice.closeTag();
         } else {
-            edevice << ">\n";
             for (unsigned int i = 0; i < e->getLanes().size(); ++i) {
                 const NBEdge::Lane& lane = e->getLanes()[i];
                 edevice.openTag(SUMO_TAG_LANE);
@@ -211,7 +210,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 if (e->hasLaneSpecificSpeed()) {
                     edevice.writeAttr(SUMO_ATTR_SPEED, lane.speed);
                 }
-                edevice.closeTag(true);
+                edevice.closeTag();
             }
             edevice.closeTag();
         }
@@ -272,7 +271,7 @@ NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
         // remove final space
         std::string ids = oss.str();
         device.writeAttr(SUMO_ATTR_NODES, ids.substr(0, ids.size() - 1));
-        device.closeTag(true);
+        device.closeTag();
     }
     device.close();
 }

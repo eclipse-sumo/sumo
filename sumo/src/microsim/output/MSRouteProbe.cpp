@@ -94,7 +94,7 @@ void
 MSRouteProbe::writeXMLOutput(OutputDevice& dev,
                              SUMOTime startTime, SUMOTime stopTime) {
     if (myCurrentRouteDistribution->getOverallProb() > 0) {
-        dev.openTag("routeDistribution") << " id=\"" << getID() + "_" + time2string(startTime) << "\">\n";
+        dev.openTag("routeDistribution") << " id=\"" << getID() + "_" + time2string(startTime) << "\"";
         const std::vector<const MSRoute*>& routes = myCurrentRouteDistribution->getVals();
         const std::vector<SUMOReal>& probs = myCurrentRouteDistribution->getProbs();
         for (unsigned int j = 0; j < routes.size(); ++j) {
@@ -107,7 +107,7 @@ MSRouteProbe::writeXMLOutput(OutputDevice& dev,
                 dev << (*i)->getID();
             }
             dev << "\" probability=\"" << probs[j] << "\"";
-            dev.closeTag(true);
+            dev.closeTag();
         }
         dev.closeTag();
         myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>(MSRoute::getMaxRouteDistSize(), &MSRoute::releaseRoute);

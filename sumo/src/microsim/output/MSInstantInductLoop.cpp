@@ -116,7 +116,6 @@ MSInstantInductLoop::write(const char* state, SUMOReal t, SUMOVehicle& veh, SUMO
     if (add != 0) {
         myOutputDevice.writeAttr(add, toString(addValue));
     }
-    myOutputDevice << ">";
     myOutputDevice.closeTag();
 }
 

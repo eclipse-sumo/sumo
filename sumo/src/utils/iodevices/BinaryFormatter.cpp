@@ -105,13 +105,8 @@ BinaryFormatter::openTag(std::ostream& into, const SumoXMLTag& xmlElement) {
 }
 
 
-void
-BinaryFormatter::closeOpener(std::ostream& /* into */) {
-}
-
-
 bool
-BinaryFormatter::closeTag(std::ostream& into, bool /* abbreviated */) {
+BinaryFormatter::closeTag(std::ostream& into) {
     if (!myXMLStack.empty()) {
         FileHelpers::writeByte(into, BF_XML_TAG_END);
         FileHelpers::writeByte(into, static_cast<unsigned char>(myXMLStack.back()));

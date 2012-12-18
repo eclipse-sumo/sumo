@@ -197,7 +197,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             if (oc.isSet("arrivalspeed")) {
                 dev.writeAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
             }
-            dev.closeTag(true);
+            dev.closeTag();
         }
         while (vehicles.size() != 0 && vehicles.back().depart == t) {
             vehicles.pop_back();

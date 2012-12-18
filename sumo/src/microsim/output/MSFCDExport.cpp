@@ -57,7 +57,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
 
-    of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
+    of.openTag("timestep").writeAttr(SUMO_ATTR_TIME, time2string(timestep));
     for (; it != end; ++it) {
         const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
         if (veh->isOnRoad()) {
@@ -76,7 +76,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             of.writeAttr(SUMO_ATTR_ANGLE, veh->getAngle());
             of.writeAttr(SUMO_ATTR_TYPE, fclass);
             of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
-            of.closeTag(true);
+            of.closeTag();
         }
     }
     of.closeTag();

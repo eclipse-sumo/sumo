@@ -167,7 +167,7 @@ PCPolyContainer::save(const std::string& file) {
         if (p->getImgFile() != Shape::DEFAULT_IMG_FILE) {
             out.writeAttr(SUMO_ATTR_IMGFILE, p->getImgFile());
         }
-        out.closeTag(true);
+        out.closeTag();
     }
     // write pois
     for (POICont::iterator i = myPOICont.begin(); i != myPOICont.end(); ++i) {
@@ -191,7 +191,7 @@ PCPolyContainer::save(const std::string& file) {
         if (p->getHeight() != Shape::DEFAULT_IMG_HEIGHT) {
             out.writeAttr(SUMO_ATTR_HEIGHT, p->getHeight());
         }
-        out.closeTag(true);
+        out.closeTag();
     }
     out.close();
 }

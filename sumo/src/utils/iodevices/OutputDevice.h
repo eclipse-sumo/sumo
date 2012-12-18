@@ -217,23 +217,17 @@ public:
     OutputDevice& openTag(const SumoXMLTag& xmlElement);
 
 
-    /** @brief Ends the most recently opened element start.
-     *
-     * Writes more or less nothing but ">" and a line feed.
-     */
-    void closeOpener();
-
     /** @brief Closes the most recently opened tag
      *
      * The topmost xml-element from the stack is written into the stream
-     *  as a closing element ("</" + element + ">") and is then removed from
-     *  the stack. If abbreviated closing is requested, only "/>" is the output.
+     *  as a closing element. Depending on the formatter used
+     *  this may be something like "</" + element + ">" or "/>" or
+     *  nothing at all.
      *
-     * @param[in] name whether abbreviated closing is performed
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag(bool abbreviated = false);
+    bool closeTag();
 
     /** @brief writes an arbitrary attribute
      *

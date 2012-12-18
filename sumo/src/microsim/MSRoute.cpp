@@ -247,13 +247,13 @@ MSRoute::dict_saveState(OutputDevice& out) {
     for (RouteDict::iterator it = myDict.begin(); it != myDict.end(); ++it) {
         out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_ID, (*it).second->getID());
         out.writeAttr(SUMO_ATTR_STATE, (*it).second->myReferenceCounter);
-        out.writeAttr(SUMO_ATTR_EDGES, (*it).second->myEdges).closeTag(true);
+        out.writeAttr(SUMO_ATTR_EDGES, (*it).second->myEdges).closeTag();
     }
     for (RouteDistDict::iterator it = myDistDict.begin(); it != myDistDict.end(); ++it) {
         out.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, (*it).first);
         out.writeAttr(SUMO_ATTR_ROUTES, (*it).second->getVals());
         out.writeAttr(SUMO_ATTR_PROBS, (*it).second->getProbs());
-        out.closeTag(true);
+        out.closeTag();
     }
 }
 

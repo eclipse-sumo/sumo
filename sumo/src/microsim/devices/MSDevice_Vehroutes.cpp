@@ -147,7 +147,7 @@ MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveRe
 void
 MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     // check if a previous route shall be written
-    os.openTag("route");
+    os.openTag(SUMO_TAG_ROUTE);
     if (index >= 0) {
         assert((int) myReplacedRoutes.size() > index);
         // write edge on which the vehicle was when the route was valid
@@ -203,7 +203,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
             }
         }
     }
-    (os << "\"").closeTag(true);
+    (os << "\"").closeTag();
 }
 
 
@@ -221,9 +221,8 @@ MSDevice_Vehroutes::generateOutput() const {
     if (myWithTaz) {
         od.writeAttr(SUMO_ATTR_FROM_TAZ, myHolder.getParameter().fromTaz).writeAttr(SUMO_ATTR_TO_TAZ, myHolder.getParameter().toTaz);
     }
-    od.closeOpener();
     if (myReplacedRoutes.size() > 0) {
-        od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).closeOpener();
+        od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
         for (unsigned int i = 0; i < myReplacedRoutes.size(); ++i) {
             writeXMLRoute(od, i);
         }

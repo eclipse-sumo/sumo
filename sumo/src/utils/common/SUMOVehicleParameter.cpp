@@ -245,7 +245,6 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
     if (wasSet(VEHPARS_PERSON_NUMBER_SET)) {
         dev.writeAttr(SUMO_ATTR_PERSON_NUMBER, personNumber);
     }
-    dev.closeOpener();
 }
 
 

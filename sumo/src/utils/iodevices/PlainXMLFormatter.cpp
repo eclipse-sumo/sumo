@@ -41,7 +41,7 @@
 // member method definitions
 // ===========================================================================
 PlainXMLFormatter::PlainXMLFormatter(const unsigned int defaultIndentation)
-    : myDefaultIndentation(defaultIndentation) {
+    : myDefaultIndentation(defaultIndentation), myHavePendingOpener(false) {
 }
 
 
@@ -69,6 +69,7 @@ PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootEle
             into << " " << attrs;
         }
         into << ">\n";
+        myHavePendingOpener = false;
         return true;
     }
     return false;
@@ -77,6 +78,10 @@ PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootEle
 
 void
 PlainXMLFormatter::openTag(std::ostream& into, const std::string& xmlElement) {
+    if (myHavePendingOpener) {
+        into << ">\n";
+    }
+    myHavePendingOpener = true;
     into << std::string(4 * (myXMLStack.size() + myDefaultIndentation), ' ') << "<" << xmlElement;
     myXMLStack.push_back(xmlElement);
 }
@@ -88,17 +93,12 @@ PlainXMLFormatter::openTag(std::ostream& into, const SumoXMLTag& xmlElement) {
 }
 
 
-void
-PlainXMLFormatter::closeOpener(std::ostream& into) {
-    into << ">\n";
-}
-
-
 bool
-PlainXMLFormatter::closeTag(std::ostream& into, bool abbreviated) {
+PlainXMLFormatter::closeTag(std::ostream& into) {
     if (!myXMLStack.empty()) {
-        if (abbreviated) {
+        if (myHavePendingOpener) {
             into << "/>\n";
+            myHavePendingOpener = false;
         } else {
             const std::string indent(4 * (myXMLStack.size() + myDefaultIndentation - 1), ' ');
             into << indent << "</" << myXMLStack.back() << ">\n";

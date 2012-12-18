@@ -124,7 +124,7 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
         }
         dev.writeAttr("exitTimes", exitTimes);
     }
-    dev.closeTag(true);
+    dev.closeTag();
     return dev;
 }
 

@@ -75,7 +75,7 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
                                   << "\" lane=\"" <<  veh->getLane()->getID() << "\" pos=\""
                                   << veh->getPositionOnLane() << "\" speed=\"" << veh->getSpeed() * 3.6
                                   << "\" angle=\"" << veh->getAngle() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
-            of.closeTag(true);
+            of.closeTag();
 
         }
     }

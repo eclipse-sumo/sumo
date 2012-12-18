@@ -116,7 +116,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMO
         dev << "\" traveltime=\"" << defaultTravelTime;
     }
     dev << "\"";
-    dev.closeTag(true);
+    dev.closeTag();
 }
 
 

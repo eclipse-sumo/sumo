@@ -103,23 +103,13 @@ public:
     virtual void openTag(std::ostream& into, const SumoXMLTag& xmlElement) = 0;
 
 
-    /** @brief Ends the most recently opened element start.
-     *
-     * Writes more or less nothing but ">" and a line feed.
-     *
-     * @param[in] into The output stream to use
-     */
-    virtual void closeOpener(std::ostream& into) = 0;
-
-
     /** @brief Closes the most recently opened tag
      *
      * @param[in] into The output stream to use
-     * @param[in] name whether abbreviated closing is performed
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    virtual bool closeTag(std::ostream& into, bool abbreviated = false) = 0;
+    virtual bool closeTag(std::ostream& into) = 0;
 
 
     /** @brief writes an arbitrary attribute

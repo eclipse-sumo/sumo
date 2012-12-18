@@ -215,15 +215,9 @@ OutputDevice::openTag(const SumoXMLTag& xmlElement) {
 }
 
 
-void
-OutputDevice::closeOpener() {
-    myFormatter->closeOpener(getOStream());
-}
-
-
 bool
-OutputDevice::closeTag(bool abbreviated) {
-    if (myFormatter->closeTag(getOStream(), abbreviated)) {
+OutputDevice::closeTag() {
+    if (myFormatter->closeTag(getOStream())) {
         postWriteHook();
         return true;
     }
