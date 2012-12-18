@@ -349,7 +349,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (parameterCount == 3) {
                 // bound by time
                 SUMOTime begTime = 0, endTime = 0;
-                SUMOReal value = 0;
+                double value = 0;
                 if(!server.readTypeCheckingInt(inputStorage, begTime)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The first variable must be the begin time given as int.", outputStorage);
                 }
@@ -362,7 +362,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 MSNet::getInstance()->getWeightsStorage().addTravelTime(e, begTime, endTime, value);
             } else if (parameterCount == 1) {
                 // unbound
-                SUMOReal value = 0;
+                double value = 0;
                 if(!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The variable must be the value given as double", outputStorage);
                 }
@@ -381,7 +381,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (parameterCount == 3) {
                 // bound by time
                 SUMOTime begTime = 0, endTime = 0;
-                SUMOReal value = 0;
+                double value = 0;
                 if(!server.readTypeCheckingInt(inputStorage, begTime)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The first variable must be the begin time given as int.", outputStorage);
                 }
@@ -394,7 +394,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 MSNet::getInstance()->getWeightsStorage().addEffort(e, begTime, endTime, value);
             } else if (parameterCount == 1) {
                 // unbound
-                SUMOReal value = 0;
+                double value = 0;
                 if(!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The variable must be the value given as double", outputStorage);
                 }
@@ -406,7 +406,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         break;
         case VAR_MAXSPEED: {
             // read and set max. speed
-            SUMOReal value = 0;
+            double value = 0;
             if(!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The speed must be given as a double.", outputStorage);
             }

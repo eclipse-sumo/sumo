@@ -1003,7 +1003,7 @@ TraCIServer::readTypeCheckingInt(tcpip::Storage& inputStorage, int &into) {
 
 
 bool
-TraCIServer::readTypeCheckingDouble(tcpip::Storage& inputStorage, SUMOReal &into) {
+TraCIServer::readTypeCheckingDouble(tcpip::Storage& inputStorage, double &into) {
      if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
         return false;
      }

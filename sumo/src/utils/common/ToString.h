@@ -121,7 +121,7 @@ template <typename V>
 inline std::string toString(const std::vector<V*>& v, std::streamsize accuracy = OUTPUT_ACCURACY) {
     UNUSED_PARAMETER(accuracy);
     std::ostringstream oss;
-    for (std::vector<V*>::const_iterator it = v.begin(); it != v.end(); ++it) {
+    for (typename std::vector<V*>::const_iterator it = v.begin(); it != v.end(); ++it) {
         if (it != v.begin()) {
             oss << " ";
         }

@@ -174,7 +174,7 @@ public:
      * @param[out] into Holder of the read value
      * @return Whether a double value was given (by data type)
      */
-    bool readTypeCheckingDouble(tcpip::Storage& inputStorage, SUMOReal &into);
+    bool readTypeCheckingDouble(tcpip::Storage& inputStorage, double &into);
 
 
     /** @brief Reads the value type and a string, verifying the type

@@ -395,7 +395,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if(!server.readTypeCheckingString(inputStorage, roadId)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first stop parameter must be the edge id given as a string.", outputStorage);
             }
-            SUMOReal pos = 0;
+            double pos = 0;
             if(!server.readTypeCheckingDouble(inputStorage, pos)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second stop parameter must be the position along the edge given as a double.", outputStorage);
             }
@@ -464,7 +464,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (inputStorage.readInt() != 2) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Slow down needs a compound object description of two items.", outputStorage);
             }
-            SUMOReal newSpeed = 0;
+            double newSpeed = 0;
             if(!server.readTypeCheckingDouble(inputStorage, newSpeed)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first slow down parameter must be the speed given as a double.", outputStorage);
             }
@@ -555,7 +555,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 }
                 // value
-                SUMOReal value = 0;
+                double value = 0;
                 if(!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the travel time as double as fourth parameter.", outputStorage);
                 }
@@ -572,7 +572,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 }
                 // value
-                SUMOReal value = 0;
+                double value = 0;
                 if(!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 2 parameters requires the travel time as second parameter.", outputStorage);
                 }
@@ -625,7 +625,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 }
                 // value
-                SUMOReal value = 0;
+                double value = 0;
                 if(!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the travel time as fourth parameter.", outputStorage);
                 }
@@ -642,7 +642,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 }
                 // value
-                SUMOReal value = 0;
+                double value = 0;
                 if(!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 2 parameters requires the travel time as second parameter.", outputStorage);
                 }
@@ -712,7 +712,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first parameter for setting a position must be the lane ID given as a string.", outputStorage);
             }
             // position on lane
-            SUMOReal position = 0;
+            double position = 0;
             if(!server.readTypeCheckingDouble(inputStorage, position)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second parameter for setting a position must be the position given as a double.", outputStorage);
             }
@@ -739,7 +739,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case VAR_SPEED: {
-            SUMOReal speed = 0;
+            double speed = 0;
             if(!server.readTypeCheckingDouble(inputStorage, speed)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting speed requires a double.", outputStorage);
             }
@@ -812,9 +812,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 vehicleParams.departProcedure = (DepartDefinition)proc;
             }
 
-            if(!server.readTypeCheckingDouble(inputStorage, vehicleParams.departPos)) {
+            double pos;
+	    if(!server.readTypeCheckingDouble(inputStorage, pos)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Fourth parameter (position) requires a double.", outputStorage);
             }
+            vehicleParams.departPos = pos;
             if (vehicleParams.departPos < 0) {
                 const int proc = static_cast<int>(-vehicleParams.departPos);
                 if (proc >= static_cast<int>(DEPART_POS_DEF_MAX)) {
@@ -825,9 +827,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 vehicleParams.departPosProcedure = DEPART_POS_GIVEN;
             }
 
-            if(!server.readTypeCheckingDouble(inputStorage, vehicleParams.departSpeed)) {
+            double speed;
+            if(!server.readTypeCheckingDouble(inputStorage, speed)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Fifth parameter (speed) requires a double.", outputStorage);
             }
+            vehicleParams.departSpeed = speed;
             if (vehicleParams.departSpeed < 0) {
                 const int proc = static_cast<int>(-vehicleParams.departSpeed);
                 if (proc >= static_cast<int>(DEPART_SPEED_DEF_MAX)) {
@@ -911,7 +915,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second parameter for setting a VTD vehicle must be lane given as an int.", outputStorage);
             }
             // x
-            SUMOReal x = 0, y = 0;
+            double x = 0, y = 0;
             if(!server.readTypeCheckingDouble(inputStorage, x)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third parameter for setting a VTD vehicle must be the x-position given as a double.", outputStorage);
             }

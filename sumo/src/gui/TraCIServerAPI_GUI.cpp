@@ -139,7 +139,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     // process
     switch (variable) {
         case VAR_VIEW_ZOOM: {
-            SUMOReal zoom = 1;
+            double zoom = 1;
             if(!server.readTypeCheckingDouble(inputStorage, zoom)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The zoom must be given as a double.", outputStorage);
             }
