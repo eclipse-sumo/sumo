@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Wed Jun 20 13:16:54 2012 by SUMO sumo Version dev-SVN-r12396
+<!-- generated on 12/18/12 11:21:49 by SUMO sumo Version dev-SVN-r13170
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -28,8 +28,7 @@
 -->
 
 <sumo-netstate>
-    <timestep time="0.00">
-    </timestep>
+    <timestep time="0.00"/>
     <timestep time="1.00">
         <edge id="beg">
             <vehicle id="veh0" pos="0.00" speed="0.05"/>
@@ -1708,6 +1707,5 @@
             <vehicle id="veh0" pos="400.00" speed="27.80"/>
         </edge>
     </timestep>
-    <timestep time="196.00">
-    </timestep>
+    <timestep time="196.00"/>
 </sumo-netstate>

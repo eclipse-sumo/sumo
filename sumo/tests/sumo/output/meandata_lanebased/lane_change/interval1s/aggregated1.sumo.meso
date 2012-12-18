@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/15/12 11:58:58 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on 12/18/12 11:21:33 by SUMO sumo Version dev-SVN-r13170
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -481,10 +481,7 @@
     <interval begin="146.00" end="147.00" id="dump_1">
         <edge id="4o" sampledSeconds="0.16" traveltime="97.73" density="0.33" occupancy="0.10" waitingTime="0.00" speed="5.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
-    <interval begin="147.00" end="148.00" id="dump_1">
-    </interval>
-    <interval begin="148.00" end="149.00" id="dump_1">
-    </interval>
-    <interval begin="149.00" end="150.00" id="dump_1">
-    </interval>
+    <interval begin="147.00" end="148.00" id="dump_1"/>
+    <interval begin="148.00" end="149.00" id="dump_1"/>
+    <interval begin="149.00" end="150.00" id="dump_1"/>
 </netstats>

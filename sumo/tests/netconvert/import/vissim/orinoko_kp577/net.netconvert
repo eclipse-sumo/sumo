@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/28/12 16:35:16 by SUMO netconvert Version dev-SVN-r13068
+<!-- generated on 12/18/12 09:22:53 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -503,8 +503,7 @@
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="605001149" type="unregulated" x="1261.40" y="2674.21" incLanes="" intLanes="" shape="1259.16,2676.57 1263.63,2671.85">
-    </junction>
+    <junction id="605001149" type="unregulated" x="1261.40" y="2674.21" incLanes="" intLanes="" shape="1259.16,2676.57 1263.63,2671.85"/>
     <junction id="605001150" type="priority" x="1503.60" y="2904.20" incLanes="77_0 77_1 97_0 15_0 15_1" intLanes="" shape="1500.79,2915.19 1509.85,2905.19 1510.02,2902.55 1504.74,2898.42 1502.73,2898.57 1493.44,2908.36">
         <request index="0" response="0000000000000" foes="1010001000000"/>
         <request index="1" response="0101000100000" foes="0101000100000"/>
@@ -702,8 +701,7 @@
     <junction id="605001180" type="priority" x="1267.89" y="2655.27" incLanes="63_0" intLanes="" shape="1268.94,2656.48 1266.70,2654.19 1268.94,2656.48">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="605001181" type="unregulated" x="1262.44" y="2655.70" incLanes="" intLanes="" shape="1263.56,2656.84 1261.32,2654.55">
-    </junction>
+    <junction id="605001181" type="unregulated" x="1262.44" y="2655.70" incLanes="" intLanes="" shape="1263.56,2656.84 1261.32,2654.55"/>
     <junction id="605001182" type="priority" x="1241.22" y="2657.36" incLanes="1001204_0 1001204_1" intLanes="" shape="1238.27,2658.72 1244.08,2655.82 1238.27,2658.72">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>

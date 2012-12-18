@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/12/12 14:59:43 by SUMO netconvert Version dev-SVN-r12059
+<!-- generated on 12/18/12 10:29:36 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -36,13 +36,11 @@
         <lane id="7to8_0" index="0" speed="40.00" length="325.83" shape="5713.17,-1.65 6039.00,-1.65"/>
     </edge>
 
-    <junction id="obs1" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25">
-    </junction>
+    <junction id="obs1" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
     <junction id="obs7" type="priority" x="5713.17" y="0.00" incLanes="1to7_0" intLanes=":obs7_0_0" shape="5713.17,-0.05 5713.17,-3.25 5713.17,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="obs8" type="unregulated" x="6039.00" y="0.00" incLanes="7to8_0" intLanes="" shape="6039.00,-3.25 6039.00,-0.05">
-    </junction>
+    <junction id="obs8" type="unregulated" x="6039.00" y="0.00" incLanes="7to8_0" intLanes="" shape="6039.00,-3.25 6039.00,-0.05"/>
 
     <connection from="1to7" to="7to8" fromLane="0" toLane="0" via=":obs7_0_0" dir="s" state="M"/>
 

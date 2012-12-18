@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/17/10 09:13:00 by SUMO sumo Version dev-SVN-r9429
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 12/18/12 11:21:02 by SUMO sumo Version dev-SVN-r13170
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -207,6 +207,5 @@
             <vehicle id="1" pos="400.00" speed="27.80"/>
         </edge>
     </timestep>
-    <timestep time="36.00">
-    </timestep>
+    <timestep time="36.00"/>
 </sumo-netstate>

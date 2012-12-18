@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/17/11 11:32:41 by SUMO duarouter Version dev-SVN-r11517
+<!-- generated on 12/18/12 09:21:54 by SUMO duarouter Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
@@ -16,8 +16,11 @@
         <output-file value="routes.rou.xml"/>
     </output>
 
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-</routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"/>

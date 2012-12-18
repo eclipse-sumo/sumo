@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Nov 30 16:52:47 2012 by SUMO sumo Version dev-SVN-r13080
+<!-- generated on 12/18/12 09:26:36 by SUMO sumo Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -23,8 +23,7 @@
 -->
 
 <sumo-netstate>
-    <timestep time="0.00">
-    </timestep>
+    <timestep time="0.00"/>
     <timestep time="1.00">
         <edge id="1fi">
             <lane id="1fi_0">
@@ -2210,6 +2209,5 @@
             </lane>
         </edge>
     </timestep>
-    <timestep time="274.00">
-    </timestep>
+    <timestep time="274.00"/>
 </sumo-netstate>

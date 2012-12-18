@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/23/12 13:30:50 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on 12/18/12 11:21:30 by SUMO sumo Version dev-SVN-r13170
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -29,6 +29,5 @@
 -->
 
 <netstats>
-    <interval begin="0.00" end="150.00" id="dump_300">
-    </interval>
+    <interval begin="0.00" end="150.00" id="dump_300"/>
 </netstats>

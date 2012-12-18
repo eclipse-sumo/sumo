@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Nov  9 17:02:48 2012 by SUMO sumo Version dev-SVN-r12945
+<!-- generated on 12/18/12 09:25:51 by SUMO sumo Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -24,8 +24,7 @@
 -->
 
 <netstats>
-    <interval begin="0.00" end="1.00" id="dump_1">
-    </interval>
+    <interval begin="0.00" end="1.00" id="dump_1"/>
     <interval begin="1.00" end="2.00" id="dump_1">
         <edge id="4/1to3/1" sampledSeconds="1.00" CO_abs="0" CO2_abs="1680.070670" HC_abs="0.294197" PMx_abs="0.097945" NOx_abs="2.665688" fuel_abs="0.669819"
             CO_normed="0" CO2_normed="15488.487609" HC_normed="2.712187" PMx_normed="0.902955" NOx_normed="24.574845" fuel_normed="6.175025"
@@ -770,8 +769,6 @@
             CO_normed="0" CO2_normed="7744.243804" HC_normed="1.356094" PMx_normed="0.451477" NOx_normed="12.287422" fuel_normed="3.087513"
             traveltime="39.05" CO_perVeh="0" CO2_perVeh="65606.759655" HC_perVeh="11.488393" PMx_perVeh="3.824771" NOx_perVeh="104.095116" fuel_perVeh="26.156421"/>
     </interval>
-    <interval begin="148.00" end="149.00" id="dump_1">
-    </interval>
-    <interval begin="149.00" end="150.00" id="dump_1">
-    </interval>
+    <interval begin="148.00" end="149.00" id="dump_1"/>
+    <interval begin="149.00" end="150.00" id="dump_1"/>
 </netstats>

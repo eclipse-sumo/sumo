@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/25/10 08:16:57 by SUMO sumo Version dev-SVN-r8511
-<configuration>
+<!-- generated on 12/18/12 11:21:05 by SUMO sumo Version dev-SVN-r13170
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,6 +32,5 @@
 -->
 
 <sumo-netstate>
-    <timestep time="0.00">
-    </timestep>
+    <timestep time="0.00"/>
 </sumo-netstate>

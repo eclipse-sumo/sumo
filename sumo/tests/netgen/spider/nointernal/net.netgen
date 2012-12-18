@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/01/11 09:29:35 by SUMO netgen Version dev-SVN-r10489
+<!-- generated on 12/18/12 09:23:56 by SUMO netgenerate Version dev-SVN-r13169
+<?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenerateConfiguration.xsd">
 
     <spider_network>
         <spider value="true"/>
@@ -12,7 +13,7 @@
     </spider_network>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -1227,8 +1228,7 @@
         <lane id="9/9to9/8_0" index="0" speed="13.90" length="90.17" shape="1277.84,101.30 1249.98,187.05"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="1000.00" y="951.06" incLanes="3/1to1_0 2/1to1_0 1/1to1_0 10/1to1_0 9/1to1_0 8/1to1_0 7/1to1_0 6/1to1_0 5/1to1_0 4/1to1_0" intLanes="" shape="1000.46,963.00 1006.65,960.99 1007.40,960.45 1011.22,955.19 1011.50,954.31 1011.50,947.81 1011.22,946.92 1007.40,941.67 1006.65,941.12 1000.46,939.11 999.54,939.11 993.35,941.12 992.60,941.67 988.78,946.92 988.50,947.81 988.50,954.31 988.78,955.19 992.60,960.45 993.35,960.99 999.54,963.00">
-    </junction>
+    <junction id="1" type="unregulated" x="1000.00" y="951.06" incLanes="3/1to1_0 2/1to1_0 1/1to1_0 10/1to1_0 9/1to1_0 8/1to1_0 7/1to1_0 6/1to1_0 5/1to1_0 4/1to1_0" intLanes="" shape="1000.46,963.00 1006.65,960.99 1007.40,960.45 1011.22,955.19 1011.50,954.31 1011.50,947.81 1011.22,946.92 1007.40,941.67 1006.65,941.12 1000.46,939.11 999.54,939.11 993.35,941.12 992.60,941.67 988.78,946.92 988.50,947.81 988.50,954.31 988.78,955.19 992.60,960.45 993.35,960.99 999.54,963.00"/>
     <junction id="1/1" type="priority" x="1100.00" y="951.06" incLanes="1/2to1/1_0 10/1to1/1_0 1to1/1_0 2/1to1/1_0" intLanes="" shape="1103.86,954.31 1103.86,947.81 1101.25,944.37 1095.06,946.38 1094.03,947.81 1094.03,954.31 1095.06,955.73 1101.25,957.74">
         <request index="0" response="0000000000000000" foes="1000010000100000"/>
         <request index="1" response="0000000000000000" foes="0111110001100000"/>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul  5 11:10:04 2011 by SUMO netconvert Version dev-SVN-r10842
+<!-- generated on 12/18/12 09:23:43 by SUMO netconvert Version dev-SVN-r13169
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -31,13 +32,9 @@
         <lane id="out_0" index="0" speed="13.90" length="10.90" shape="1000.10,-1.65 1011.00,-1.65"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
-    </junction>
-    <junction id="2" type="unregulated" x="1000.00" y="0.00" incLanes="1to2_0" intLanes="" shape="1000.00,-3.25 1000.00,-0.05">
-    </junction>
-    <junction id="o" type="unregulated" x="1000.10" y="0.00" incLanes="" intLanes="" shape="1000.10,-0.05 1000.10,-3.25">
-    </junction>
-    <junction id="t" type="unregulated" x="1011.00" y="0.00" incLanes="out_0" intLanes="" shape="1011.00,-3.25 1011.00,-0.05">
-    </junction>
+    <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
+    <junction id="2" type="unregulated" x="1000.00" y="0.00" incLanes="1to2_0" intLanes="" shape="1000.00,-3.25 1000.00,-0.05"/>
+    <junction id="o" type="unregulated" x="1000.10" y="0.00" incLanes="" intLanes="" shape="1000.10,-0.05 1000.10,-3.25"/>
+    <junction id="t" type="unregulated" x="1011.00" y="0.00" incLanes="out_0" intLanes="" shape="1011.00,-3.25 1011.00,-0.05"/>
 
 </net>

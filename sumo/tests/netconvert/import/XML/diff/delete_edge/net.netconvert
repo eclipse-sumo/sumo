@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 22 14:41:25 2012 by SUMO netconvert Version dev-SVN-r13008
+<!-- generated on 12/18/12 09:22:41 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -106,13 +106,11 @@
     <junction id="node_D" type="priority" x="0.00" y="-10.00" incLanes="edge_C2D_0" intLanes=":node_D_0_0" shape="0.05,-10.00 3.25,-10.00 -3.25,-10.00 -0.05,-10.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="node_L" type="unregulated" x="-40.00" y="0.00" incLanes="edge_C2L_0 edge_C2L_1" intLanes="" shape="-40.51,3.21 -39.49,-3.21">
-    </junction>
+    <junction id="node_L" type="unregulated" x="-40.00" y="0.00" incLanes="edge_C2L_0 edge_C2L_1" intLanes="" shape="-40.51,3.21 -39.49,-3.21"/>
     <junction id="node_R" type="priority" x="40.00" y="0.00" incLanes="edge_C2R_0" intLanes=":node_R_0_0" shape="40.00,0.25 40.00,3.45 40.13,-2.98 39.99,0.21">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="node_U" type="unregulated" x="0.00" y="40.00" incLanes="edge_C2U_0" intLanes="" shape="3.25,40.00 0.05,40.00">
-    </junction>
+    <junction id="node_U" type="unregulated" x="0.00" y="40.00" incLanes="edge_C2U_0" intLanes="" shape="3.25,40.00 0.05,40.00"/>
 
     <junction id=":node_C_8_0" type="internal" x="1.65" y="1.11" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_5_0 :node_C_6_0 :node_C_7_0"/>
     <junction id=":node_C_9_0" type="internal" x="2.56" y="-0.60" incLanes=":node_C_3_0 edge_D2C_0" intLanes=":node_C_4_0"/>

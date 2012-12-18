@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Dec  2 20:44:44 2011 by SUMO sumo Version dev-SVN-r11571
+<!-- generated on 12/18/12 09:25:34 by SUMO sumo Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -24,8 +24,7 @@
 -->
 
 <vehicle-type-probes>
-    <timestep time="0.00" id="test1" vType="t2">
-    </timestep>
+    <timestep time="0.00" id="test1" vType="t2"/>
     <timestep time="10.00" id="test1" vType="t2">
         <vehicle id="1" lane="4/1to3/1_0" pos="150.00" x="1445.25" y="401.65" speed="10.00"/>
     </timestep>

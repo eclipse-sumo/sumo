@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 21 13:22:12 2012 by SUMO netgenerate Version dev-SVN-r13008
+<!-- generated on 12/18/12 09:24:01 by SUMO netgenerate Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenerateConfiguration.xsd">
@@ -269,8 +269,7 @@
         <lane id="4/1to3/1_0" index="0" speed="13.90" length="122.73" shape="94.56,7.78 7.78,94.56"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="100.00" y="100.00" incLanes="2/1to1_0 1/1to1_0 4/1to1_0 3/1to1_0" intLanes=":1_0_0 :1_1_0 :1_2_0 :1_3_0 :1_4_0 :1_5_0 :1_6_0 :1_7_0 :1_8_0 :1_9_0 :1_10_0 :1_11_0 :1_12_0 :1_13_0 :1_14_0 :1_15_0" shape="96.75,104.75 103.25,104.75 104.75,103.25 104.75,96.75 103.25,95.25 96.75,95.25 95.25,96.75 95.25,103.25">
-    </junction>
+    <junction id="1" type="unregulated" x="100.00" y="100.00" incLanes="2/1to1_0 1/1to1_0 4/1to1_0 3/1to1_0" intLanes=":1_0_0 :1_1_0 :1_2_0 :1_3_0 :1_4_0 :1_5_0 :1_6_0 :1_7_0 :1_8_0 :1_9_0 :1_10_0 :1_11_0 :1_12_0 :1_13_0 :1_14_0 :1_15_0" shape="96.75,104.75 103.25,104.75 104.75,103.25 104.75,96.75 103.25,95.25 96.75,95.25 95.25,96.75 95.25,103.25"/>
     <junction id="1/1" type="priority" x="200.00" y="100.00" incLanes="4/1to1/1_0 1to1/1_0 2/1to1/1_0" intLanes=":1/1_0_0 :1/1_9_0 :1/1_10_0 :1/1_3_0 :1/1_4_0 :1/1_5_0 :1/1_6_0 :1/1_7_0 :1/1_11_0" shape="195.69,91.09 191.09,95.69 190.65,96.75 190.65,103.25 191.09,104.31 195.69,108.91">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="1"/>

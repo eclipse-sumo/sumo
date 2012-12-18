@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 21 13:22:03 2012 by SUMO netgenerate Version dev-SVN-r13008
+<!-- generated on 12/18/12 09:23:55 by SUMO netgenerate Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenerateConfiguration.xsd">
@@ -102,7 +102,7 @@
         <lane id=":2/1_4_0" index="0" speed="13.90" length="9.29" shape="2.18,16.85 0.50,19.20 -0.69,19.61 -1.41,18.09 -1.65,14.64"/>
     </edge>
     <edge id=":2/1_5" function="internal">
-        <lane id=":2/1_5_0" index="0" speed="13.90" length="4.82" shape="2.18,16.85 0.85,17.51 -0.07,17.45 -0.58,16.68 -0.68,15.20"/>
+        <lane id=":2/1_5_0" index="0" speed="13.90" length="4.82" shape="2.18,16.85 0.85,17.51 -0.08,17.45 -0.58,16.68 -0.68,15.20"/>
     </edge>
     <edge id=":2/1_6" function="internal">
         <lane id=":2/1_6_0" index="0" speed="13.90" length="5.65" shape="1.65,16.54 1.50,14.44 1.07,13.52 0.34,13.77 -0.68,15.20"/>
@@ -187,8 +187,7 @@
         <lane id="3/1to2/1_0" index="0" speed="13.90" length="15.76" shape="1.65,0.78 1.65,16.54"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="5.00" y="8.66" incLanes="1/1to1_0 3/1to1_0 2/1to1_0" intLanes=":1_0_0 :1_1_0 :1_2_0 :1_3_0 :1_4_0 :1_5_0 :1_6_0 :1_7_0 :1_8_0" shape="8.38,11.91 8.38,5.41 6.13,4.11 0.50,7.36 0.50,9.96 6.13,13.21">
-    </junction>
+    <junction id="1" type="unregulated" x="5.00" y="8.66" incLanes="1/1to1_0 3/1to1_0 2/1to1_0" intLanes=":1_0_0 :1_1_0 :1_2_0 :1_3_0 :1_4_0 :1_5_0 :1_6_0 :1_7_0 :1_8_0" shape="8.38,11.91 8.38,5.41 6.13,4.11 0.50,7.36 0.50,9.96 6.13,13.21"/>
     <junction id="1/1" type="priority" x="15.00" y="8.66" incLanes="3/1to1/1_0 1to1/1_0 2/1to1/1_0" intLanes=":1/1_0_0 :1/1_1_0 :1/1_9_0 :1/1_3_0 :1/1_4_0 :1/1_5_0 :1/1_6_0 :1/1_7_0 :1/1_10_0" shape="20.20,7.91 16.95,13.54 13.50,5.41 13.50,11.91 16.95,3.78 20.20,9.41">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="0"/>

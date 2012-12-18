@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Nov  9 17:03:36 2012 by SUMO sumo Version dev-SVN-r12945
+<!-- generated on 12/18/12 09:26:23 by SUMO sumo Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -110,50 +110,27 @@
     <interval begin="400.00" end="425.00" id="dump_25">
         <edge id="rend" sampledSeconds="12.51" traveltime="18.42" density="1.00" occupancy="0.30" waitingTime="0.00" speed="27.14" departed="0" arrived="3" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
-    <interval begin="425.00" end="450.00" id="dump_25">
-    </interval>
-    <interval begin="450.00" end="475.00" id="dump_25">
-    </interval>
-    <interval begin="475.00" end="500.00" id="dump_25">
-    </interval>
-    <interval begin="500.00" end="525.00" id="dump_25">
-    </interval>
-    <interval begin="525.00" end="550.00" id="dump_25">
-    </interval>
-    <interval begin="550.00" end="575.00" id="dump_25">
-    </interval>
-    <interval begin="575.00" end="600.00" id="dump_25">
-    </interval>
-    <interval begin="600.00" end="625.00" id="dump_25">
-    </interval>
-    <interval begin="625.00" end="650.00" id="dump_25">
-    </interval>
-    <interval begin="650.00" end="675.00" id="dump_25">
-    </interval>
-    <interval begin="675.00" end="700.00" id="dump_25">
-    </interval>
-    <interval begin="700.00" end="725.00" id="dump_25">
-    </interval>
-    <interval begin="725.00" end="750.00" id="dump_25">
-    </interval>
-    <interval begin="750.00" end="775.00" id="dump_25">
-    </interval>
-    <interval begin="775.00" end="800.00" id="dump_25">
-    </interval>
-    <interval begin="800.00" end="825.00" id="dump_25">
-    </interval>
-    <interval begin="825.00" end="850.00" id="dump_25">
-    </interval>
-    <interval begin="850.00" end="875.00" id="dump_25">
-    </interval>
-    <interval begin="875.00" end="900.00" id="dump_25">
-    </interval>
-    <interval begin="900.00" end="925.00" id="dump_25">
-    </interval>
-    <interval begin="925.00" end="950.00" id="dump_25">
-    </interval>
-    <interval begin="950.00" end="975.00" id="dump_25">
-    </interval>
-    <interval begin="975.00" end="1000.00" id="dump_25">
-    </interval>
+    <interval begin="425.00" end="450.00" id="dump_25"/>
+    <interval begin="450.00" end="475.00" id="dump_25"/>
+    <interval begin="475.00" end="500.00" id="dump_25"/>
+    <interval begin="500.00" end="525.00" id="dump_25"/>
+    <interval begin="525.00" end="550.00" id="dump_25"/>
+    <interval begin="550.00" end="575.00" id="dump_25"/>
+    <interval begin="575.00" end="600.00" id="dump_25"/>
+    <interval begin="600.00" end="625.00" id="dump_25"/>
+    <interval begin="625.00" end="650.00" id="dump_25"/>
+    <interval begin="650.00" end="675.00" id="dump_25"/>
+    <interval begin="675.00" end="700.00" id="dump_25"/>
+    <interval begin="700.00" end="725.00" id="dump_25"/>
+    <interval begin="725.00" end="750.00" id="dump_25"/>
+    <interval begin="750.00" end="775.00" id="dump_25"/>
+    <interval begin="775.00" end="800.00" id="dump_25"/>
+    <interval begin="800.00" end="825.00" id="dump_25"/>
+    <interval begin="825.00" end="850.00" id="dump_25"/>
+    <interval begin="850.00" end="875.00" id="dump_25"/>
+    <interval begin="875.00" end="900.00" id="dump_25"/>
+    <interval begin="900.00" end="925.00" id="dump_25"/>
+    <interval begin="925.00" end="950.00" id="dump_25"/>
+    <interval begin="950.00" end="975.00" id="dump_25"/>
+    <interval begin="975.00" end="1000.00" id="dump_25"/>
 </netstats>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/15/12 11:58:47 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on 12/18/12 11:21:27 by SUMO sumo Version dev-SVN-r13170
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -44,14 +44,9 @@
     <interval begin="60.00" end="75.00" id="dump_15">
         <edge id="4o" sampledSeconds="13.58" traveltime="48.87" density="1.85" occupancy="0.56" waitingTime="0.00" speed="10.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
-    <interval begin="75.00" end="90.00" id="dump_15">
-    </interval>
-    <interval begin="90.00" end="105.00" id="dump_15">
-    </interval>
-    <interval begin="105.00" end="120.00" id="dump_15">
-    </interval>
-    <interval begin="120.00" end="135.00" id="dump_15">
-    </interval>
-    <interval begin="135.00" end="150.00" id="dump_15">
-    </interval>
+    <interval begin="75.00" end="90.00" id="dump_15"/>
+    <interval begin="90.00" end="105.00" id="dump_15"/>
+    <interval begin="105.00" end="120.00" id="dump_15"/>
+    <interval begin="120.00" end="135.00" id="dump_15"/>
+    <interval begin="135.00" end="150.00" id="dump_15"/>
 </netstats>

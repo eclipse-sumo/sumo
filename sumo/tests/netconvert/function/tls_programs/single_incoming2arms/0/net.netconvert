@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul  5 11:10:00 2011 by SUMO netconvert Version dev-SVN-r10842
+<!-- generated on 12/18/12 09:23:22 by SUMO netconvert Version dev-SVN-r13169
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -56,12 +57,9 @@
         <request index="0" response="10" foes="10" cont="0"/>
         <request index="1" response="00" foes="01" cont="0"/>
     </junction>
-    <junction id="15030238" type="unregulated" x="257.00" y="98.00" incLanes="" intLanes="" shape="256.99,98.05 256.26,101.16">
-    </junction>
-    <junction id="15030435" type="unregulated" x="135.00" y="0.00" incLanes="" intLanes="" shape="135.05,0.01 138.18,0.67">
-    </junction>
-    <junction id="15031475" type="unregulated" x="0.00" y="608.00" incLanes="153122148_0" intLanes="" shape="3.17,608.71 0.05,608.01">
-    </junction>
+    <junction id="15030238" type="unregulated" x="257.00" y="98.00" incLanes="" intLanes="" shape="256.99,98.05 256.26,101.16"/>
+    <junction id="15030435" type="unregulated" x="135.00" y="0.00" incLanes="" intLanes="" shape="135.05,0.01 138.18,0.67"/>
+    <junction id="15031475" type="unregulated" x="0.00" y="608.00" incLanes="153122148_0" intLanes="" shape="3.17,608.71 0.05,608.01"/>
 
     <connection from="15030608" to="153122148" fromLane="0" toLane="0" via=":15030043_0_0" tl="15030043" linkIndex="0" dir="r" state="o"/>
     <connection from="15030858" to="153122148" fromLane="0" toLane="0" via=":15030043_1_0" tl="15030043" linkIndex="1" dir="s" state="o"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Nov  9 17:03:13 2012 by SUMO sumo Version dev-SVN-r12945
+<!-- generated on 12/18/12 09:26:11 by SUMO sumo Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -25,26 +25,16 @@
 -->
 
 <netstats>
-    <interval begin="0.00" end="0.10" id="dump_1">
-    </interval>
-    <interval begin="0.10" end="0.20" id="dump_1">
-    </interval>
-    <interval begin="0.20" end="0.30" id="dump_1">
-    </interval>
-    <interval begin="0.30" end="0.40" id="dump_1">
-    </interval>
-    <interval begin="0.40" end="0.50" id="dump_1">
-    </interval>
-    <interval begin="0.50" end="0.60" id="dump_1">
-    </interval>
-    <interval begin="0.60" end="0.70" id="dump_1">
-    </interval>
-    <interval begin="0.70" end="0.80" id="dump_1">
-    </interval>
-    <interval begin="0.80" end="0.90" id="dump_1">
-    </interval>
-    <interval begin="0.90" end="1.00" id="dump_1">
-    </interval>
+    <interval begin="0.00" end="0.10" id="dump_1"/>
+    <interval begin="0.10" end="0.20" id="dump_1"/>
+    <interval begin="0.20" end="0.30" id="dump_1"/>
+    <interval begin="0.30" end="0.40" id="dump_1"/>
+    <interval begin="0.40" end="0.50" id="dump_1"/>
+    <interval begin="0.50" end="0.60" id="dump_1"/>
+    <interval begin="0.60" end="0.70" id="dump_1"/>
+    <interval begin="0.70" end="0.80" id="dump_1"/>
+    <interval begin="0.80" end="0.90" id="dump_1"/>
+    <interval begin="0.90" end="1.00" id="dump_1"/>
     <interval begin="1.00" end="1.10" id="dump_1">
         <edge id="4/1to3/1">
             <lane id="4/1to3/1_0" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
@@ -7388,60 +7378,32 @@
             <lane id="1/1to0/1_0" sampledSeconds="0.20" noise="64.79" traveltime="39.05"/>
         </edge>
     </interval>
-    <interval begin="147.20" end="147.30" id="dump_1">
-    </interval>
-    <interval begin="147.30" end="147.40" id="dump_1">
-    </interval>
-    <interval begin="147.40" end="147.50" id="dump_1">
-    </interval>
-    <interval begin="147.50" end="147.60" id="dump_1">
-    </interval>
-    <interval begin="147.60" end="147.70" id="dump_1">
-    </interval>
-    <interval begin="147.70" end="147.80" id="dump_1">
-    </interval>
-    <interval begin="147.80" end="147.90" id="dump_1">
-    </interval>
-    <interval begin="147.90" end="148.00" id="dump_1">
-    </interval>
-    <interval begin="148.00" end="148.10" id="dump_1">
-    </interval>
-    <interval begin="148.10" end="148.20" id="dump_1">
-    </interval>
-    <interval begin="148.20" end="148.30" id="dump_1">
-    </interval>
-    <interval begin="148.30" end="148.40" id="dump_1">
-    </interval>
-    <interval begin="148.40" end="148.50" id="dump_1">
-    </interval>
-    <interval begin="148.50" end="148.60" id="dump_1">
-    </interval>
-    <interval begin="148.60" end="148.70" id="dump_1">
-    </interval>
-    <interval begin="148.70" end="148.80" id="dump_1">
-    </interval>
-    <interval begin="148.80" end="148.90" id="dump_1">
-    </interval>
-    <interval begin="148.90" end="149.00" id="dump_1">
-    </interval>
-    <interval begin="149.00" end="149.10" id="dump_1">
-    </interval>
-    <interval begin="149.10" end="149.20" id="dump_1">
-    </interval>
-    <interval begin="149.20" end="149.30" id="dump_1">
-    </interval>
-    <interval begin="149.30" end="149.40" id="dump_1">
-    </interval>
-    <interval begin="149.40" end="149.50" id="dump_1">
-    </interval>
-    <interval begin="149.50" end="149.60" id="dump_1">
-    </interval>
-    <interval begin="149.60" end="149.70" id="dump_1">
-    </interval>
-    <interval begin="149.70" end="149.80" id="dump_1">
-    </interval>
-    <interval begin="149.80" end="149.90" id="dump_1">
-    </interval>
-    <interval begin="149.90" end="150.00" id="dump_1">
-    </interval>
+    <interval begin="147.20" end="147.30" id="dump_1"/>
+    <interval begin="147.30" end="147.40" id="dump_1"/>
+    <interval begin="147.40" end="147.50" id="dump_1"/>
+    <interval begin="147.50" end="147.60" id="dump_1"/>
+    <interval begin="147.60" end="147.70" id="dump_1"/>
+    <interval begin="147.70" end="147.80" id="dump_1"/>
+    <interval begin="147.80" end="147.90" id="dump_1"/>
+    <interval begin="147.90" end="148.00" id="dump_1"/>
+    <interval begin="148.00" end="148.10" id="dump_1"/>
+    <interval begin="148.10" end="148.20" id="dump_1"/>
+    <interval begin="148.20" end="148.30" id="dump_1"/>
+    <interval begin="148.30" end="148.40" id="dump_1"/>
+    <interval begin="148.40" end="148.50" id="dump_1"/>
+    <interval begin="148.50" end="148.60" id="dump_1"/>
+    <interval begin="148.60" end="148.70" id="dump_1"/>
+    <interval begin="148.70" end="148.80" id="dump_1"/>
+    <interval begin="148.80" end="148.90" id="dump_1"/>
+    <interval begin="148.90" end="149.00" id="dump_1"/>
+    <interval begin="149.00" end="149.10" id="dump_1"/>
+    <interval begin="149.10" end="149.20" id="dump_1"/>
+    <interval begin="149.20" end="149.30" id="dump_1"/>
+    <interval begin="149.30" end="149.40" id="dump_1"/>
+    <interval begin="149.40" end="149.50" id="dump_1"/>
+    <interval begin="149.50" end="149.60" id="dump_1"/>
+    <interval begin="149.60" end="149.70" id="dump_1"/>
+    <interval begin="149.70" end="149.80" id="dump_1"/>
+    <interval begin="149.80" end="149.90" id="dump_1"/>
+    <interval begin="149.90" end="150.00" id="dump_1"/>
 </netstats>

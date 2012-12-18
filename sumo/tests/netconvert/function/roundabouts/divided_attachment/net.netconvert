@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 22 14:41:55 2012 by SUMO netconvert Version dev-SVN-r13008
+<!-- generated on 12/18/12 09:23:27 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -95,8 +95,7 @@
         <request index="1" response="000" foes="001"/>
         <request index="2" response="000" foes="001"/>
     </junction>
-    <junction id="1418826592" type="unregulated" x="47.00" y="264.62" incLanes="8616039#1_0 8616039#1_1" intLanes="" shape="50.24,264.89 43.76,264.35">
-    </junction>
+    <junction id="1418826592" type="unregulated" x="47.00" y="264.62" incLanes="8616039#1_0 8616039#1_1" intLanes="" shape="50.24,264.89 43.76,264.35"/>
     <junction id="61317605" type="priority" x="200.62" y="54.28" incLanes="8615117_0 8615117_1" intLanes="" shape="214.01,48.23 208.25,43.23 207.27,42.37 201.01,40.64 200.19,45.42 206.35,47.51">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
@@ -133,8 +132,7 @@
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="634899414" type="unregulated" x="0.00" y="244.41" incLanes="" intLanes="" shape="2.10,246.89 -2.10,241.93">
-    </junction>
+    <junction id="634899414" type="unregulated" x="0.00" y="244.41" incLanes="" intLanes="" shape="2.10,246.89 -2.10,241.93"/>
 
     <connection from="128366152#0" to="8615117" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="128366152#0" to="8615117" fromLane="1" toLane="1" dir="s" state="m"/>

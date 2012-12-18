@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/05/11 10:30:03 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on 12/18/12 09:34:25 by SUMO sumo Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -711,54 +711,29 @@
             <lane id="e_shape1_2"/>
         </edge>
     </timestep>
-    <timestep time="76.00">
-    </timestep>
-    <timestep time="77.00">
-    </timestep>
-    <timestep time="78.00">
-    </timestep>
-    <timestep time="79.00">
-    </timestep>
-    <timestep time="80.00">
-    </timestep>
-    <timestep time="81.00">
-    </timestep>
-    <timestep time="82.00">
-    </timestep>
-    <timestep time="83.00">
-    </timestep>
-    <timestep time="84.00">
-    </timestep>
-    <timestep time="85.00">
-    </timestep>
-    <timestep time="86.00">
-    </timestep>
-    <timestep time="87.00">
-    </timestep>
-    <timestep time="88.00">
-    </timestep>
-    <timestep time="89.00">
-    </timestep>
-    <timestep time="90.00">
-    </timestep>
-    <timestep time="91.00">
-    </timestep>
-    <timestep time="92.00">
-    </timestep>
-    <timestep time="93.00">
-    </timestep>
-    <timestep time="94.00">
-    </timestep>
-    <timestep time="95.00">
-    </timestep>
-    <timestep time="96.00">
-    </timestep>
-    <timestep time="97.00">
-    </timestep>
-    <timestep time="98.00">
-    </timestep>
-    <timestep time="99.00">
-    </timestep>
-    <timestep time="100.00">
-    </timestep>
+    <timestep time="76.00"/>
+    <timestep time="77.00"/>
+    <timestep time="78.00"/>
+    <timestep time="79.00"/>
+    <timestep time="80.00"/>
+    <timestep time="81.00"/>
+    <timestep time="82.00"/>
+    <timestep time="83.00"/>
+    <timestep time="84.00"/>
+    <timestep time="85.00"/>
+    <timestep time="86.00"/>
+    <timestep time="87.00"/>
+    <timestep time="88.00"/>
+    <timestep time="89.00"/>
+    <timestep time="90.00"/>
+    <timestep time="91.00"/>
+    <timestep time="92.00"/>
+    <timestep time="93.00"/>
+    <timestep time="94.00"/>
+    <timestep time="95.00"/>
+    <timestep time="96.00"/>
+    <timestep time="97.00"/>
+    <timestep time="98.00"/>
+    <timestep time="99.00"/>
+    <timestep time="100.00"/>
 </sumo-netstate>

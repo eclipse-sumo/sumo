@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/04/11 11:57:40 by SUMO netconvert Version dev-SVN-r11467
+<!-- generated on 12/18/12 09:23:38 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -89,17 +89,16 @@
         <request index="10" response="000011000110" foes="000011110110"/>
         <request index="11" response="000010001001" foes="000010001001"/>
     </junction>
-    <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes="" shape="0.00,499.95 0.00,493.45 -0.00,503.25 -0.00,500.05">
+    <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes="" shape="-0.00,499.95 -0.00,493.45 0.00,503.25 0.00,500.05">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="2" type="priority" x="1000.00" y="500.00" incLanes="2o_0" intLanes="" shape="1000.00,500.05 1000.00,506.55 1000.00,496.75 1000.00,499.95">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes="" shape="500.05,0.00 506.55,0.00 496.75,-0.00 499.95,-0.00">
+    <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0" intLanes="" shape="500.05,-0.00 506.55,-0.00 496.75,0.00 499.95,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="4" type="unregulated" x="500.00" y="1000.00" incLanes="" intLanes="" shape="499.95,1000.00 493.45,1000.00">
-    </junction>
+    <junction id="4" type="unregulated" x="500.00" y="1000.00" incLanes="" intLanes="" shape="499.95,1000.00 493.45,1000.00"/>
     <junction id="m1" type="priority" x="250.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes="" shape="251.50,499.95 251.50,490.15 248.50,493.45 248.50,499.95">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>

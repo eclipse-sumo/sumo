@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/05/11 10:08:41 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on 12/18/12 09:34:22 by SUMO sumo Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -954,198 +954,101 @@
             <lane id="e_vo0_1"/>
         </edge>
     </timestep>
-    <timestep time="104.00">
-    </timestep>
-    <timestep time="105.00">
-    </timestep>
-    <timestep time="106.00">
-    </timestep>
-    <timestep time="107.00">
-    </timestep>
-    <timestep time="108.00">
-    </timestep>
-    <timestep time="109.00">
-    </timestep>
-    <timestep time="110.00">
-    </timestep>
-    <timestep time="111.00">
-    </timestep>
-    <timestep time="112.00">
-    </timestep>
-    <timestep time="113.00">
-    </timestep>
-    <timestep time="114.00">
-    </timestep>
-    <timestep time="115.00">
-    </timestep>
-    <timestep time="116.00">
-    </timestep>
-    <timestep time="117.00">
-    </timestep>
-    <timestep time="118.00">
-    </timestep>
-    <timestep time="119.00">
-    </timestep>
-    <timestep time="120.00">
-    </timestep>
-    <timestep time="121.00">
-    </timestep>
-    <timestep time="122.00">
-    </timestep>
-    <timestep time="123.00">
-    </timestep>
-    <timestep time="124.00">
-    </timestep>
-    <timestep time="125.00">
-    </timestep>
-    <timestep time="126.00">
-    </timestep>
-    <timestep time="127.00">
-    </timestep>
-    <timestep time="128.00">
-    </timestep>
-    <timestep time="129.00">
-    </timestep>
-    <timestep time="130.00">
-    </timestep>
-    <timestep time="131.00">
-    </timestep>
-    <timestep time="132.00">
-    </timestep>
-    <timestep time="133.00">
-    </timestep>
-    <timestep time="134.00">
-    </timestep>
-    <timestep time="135.00">
-    </timestep>
-    <timestep time="136.00">
-    </timestep>
-    <timestep time="137.00">
-    </timestep>
-    <timestep time="138.00">
-    </timestep>
-    <timestep time="139.00">
-    </timestep>
-    <timestep time="140.00">
-    </timestep>
-    <timestep time="141.00">
-    </timestep>
-    <timestep time="142.00">
-    </timestep>
-    <timestep time="143.00">
-    </timestep>
-    <timestep time="144.00">
-    </timestep>
-    <timestep time="145.00">
-    </timestep>
-    <timestep time="146.00">
-    </timestep>
-    <timestep time="147.00">
-    </timestep>
-    <timestep time="148.00">
-    </timestep>
-    <timestep time="149.00">
-    </timestep>
-    <timestep time="150.00">
-    </timestep>
-    <timestep time="151.00">
-    </timestep>
-    <timestep time="152.00">
-    </timestep>
-    <timestep time="153.00">
-    </timestep>
-    <timestep time="154.00">
-    </timestep>
-    <timestep time="155.00">
-    </timestep>
-    <timestep time="156.00">
-    </timestep>
-    <timestep time="157.00">
-    </timestep>
-    <timestep time="158.00">
-    </timestep>
-    <timestep time="159.00">
-    </timestep>
-    <timestep time="160.00">
-    </timestep>
-    <timestep time="161.00">
-    </timestep>
-    <timestep time="162.00">
-    </timestep>
-    <timestep time="163.00">
-    </timestep>
-    <timestep time="164.00">
-    </timestep>
-    <timestep time="165.00">
-    </timestep>
-    <timestep time="166.00">
-    </timestep>
-    <timestep time="167.00">
-    </timestep>
-    <timestep time="168.00">
-    </timestep>
-    <timestep time="169.00">
-    </timestep>
-    <timestep time="170.00">
-    </timestep>
-    <timestep time="171.00">
-    </timestep>
-    <timestep time="172.00">
-    </timestep>
-    <timestep time="173.00">
-    </timestep>
-    <timestep time="174.00">
-    </timestep>
-    <timestep time="175.00">
-    </timestep>
-    <timestep time="176.00">
-    </timestep>
-    <timestep time="177.00">
-    </timestep>
-    <timestep time="178.00">
-    </timestep>
-    <timestep time="179.00">
-    </timestep>
-    <timestep time="180.00">
-    </timestep>
-    <timestep time="181.00">
-    </timestep>
-    <timestep time="182.00">
-    </timestep>
-    <timestep time="183.00">
-    </timestep>
-    <timestep time="184.00">
-    </timestep>
-    <timestep time="185.00">
-    </timestep>
-    <timestep time="186.00">
-    </timestep>
-    <timestep time="187.00">
-    </timestep>
-    <timestep time="188.00">
-    </timestep>
-    <timestep time="189.00">
-    </timestep>
-    <timestep time="190.00">
-    </timestep>
-    <timestep time="191.00">
-    </timestep>
-    <timestep time="192.00">
-    </timestep>
-    <timestep time="193.00">
-    </timestep>
-    <timestep time="194.00">
-    </timestep>
-    <timestep time="195.00">
-    </timestep>
-    <timestep time="196.00">
-    </timestep>
-    <timestep time="197.00">
-    </timestep>
-    <timestep time="198.00">
-    </timestep>
-    <timestep time="199.00">
-    </timestep>
-    <timestep time="200.00">
-    </timestep>
+    <timestep time="104.00"/>
+    <timestep time="105.00"/>
+    <timestep time="106.00"/>
+    <timestep time="107.00"/>
+    <timestep time="108.00"/>
+    <timestep time="109.00"/>
+    <timestep time="110.00"/>
+    <timestep time="111.00"/>
+    <timestep time="112.00"/>
+    <timestep time="113.00"/>
+    <timestep time="114.00"/>
+    <timestep time="115.00"/>
+    <timestep time="116.00"/>
+    <timestep time="117.00"/>
+    <timestep time="118.00"/>
+    <timestep time="119.00"/>
+    <timestep time="120.00"/>
+    <timestep time="121.00"/>
+    <timestep time="122.00"/>
+    <timestep time="123.00"/>
+    <timestep time="124.00"/>
+    <timestep time="125.00"/>
+    <timestep time="126.00"/>
+    <timestep time="127.00"/>
+    <timestep time="128.00"/>
+    <timestep time="129.00"/>
+    <timestep time="130.00"/>
+    <timestep time="131.00"/>
+    <timestep time="132.00"/>
+    <timestep time="133.00"/>
+    <timestep time="134.00"/>
+    <timestep time="135.00"/>
+    <timestep time="136.00"/>
+    <timestep time="137.00"/>
+    <timestep time="138.00"/>
+    <timestep time="139.00"/>
+    <timestep time="140.00"/>
+    <timestep time="141.00"/>
+    <timestep time="142.00"/>
+    <timestep time="143.00"/>
+    <timestep time="144.00"/>
+    <timestep time="145.00"/>
+    <timestep time="146.00"/>
+    <timestep time="147.00"/>
+    <timestep time="148.00"/>
+    <timestep time="149.00"/>
+    <timestep time="150.00"/>
+    <timestep time="151.00"/>
+    <timestep time="152.00"/>
+    <timestep time="153.00"/>
+    <timestep time="154.00"/>
+    <timestep time="155.00"/>
+    <timestep time="156.00"/>
+    <timestep time="157.00"/>
+    <timestep time="158.00"/>
+    <timestep time="159.00"/>
+    <timestep time="160.00"/>
+    <timestep time="161.00"/>
+    <timestep time="162.00"/>
+    <timestep time="163.00"/>
+    <timestep time="164.00"/>
+    <timestep time="165.00"/>
+    <timestep time="166.00"/>
+    <timestep time="167.00"/>
+    <timestep time="168.00"/>
+    <timestep time="169.00"/>
+    <timestep time="170.00"/>
+    <timestep time="171.00"/>
+    <timestep time="172.00"/>
+    <timestep time="173.00"/>
+    <timestep time="174.00"/>
+    <timestep time="175.00"/>
+    <timestep time="176.00"/>
+    <timestep time="177.00"/>
+    <timestep time="178.00"/>
+    <timestep time="179.00"/>
+    <timestep time="180.00"/>
+    <timestep time="181.00"/>
+    <timestep time="182.00"/>
+    <timestep time="183.00"/>
+    <timestep time="184.00"/>
+    <timestep time="185.00"/>
+    <timestep time="186.00"/>
+    <timestep time="187.00"/>
+    <timestep time="188.00"/>
+    <timestep time="189.00"/>
+    <timestep time="190.00"/>
+    <timestep time="191.00"/>
+    <timestep time="192.00"/>
+    <timestep time="193.00"/>
+    <timestep time="194.00"/>
+    <timestep time="195.00"/>
+    <timestep time="196.00"/>
+    <timestep time="197.00"/>
+    <timestep time="198.00"/>
+    <timestep time="199.00"/>
+    <timestep time="200.00"/>
 </sumo-netstate>

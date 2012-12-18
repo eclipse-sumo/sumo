@@ -1,19 +1,28 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/11/08 15:14:43 by SUMO duarouter Version 0.9.7
-<configuration>
+<!-- generated on 12/17/12 16:58:45 by SUMO duarouter Version dev-SVN-r13166
+<?xml version="1.0" encoding="UTF-8"?>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <sumo-input>input_routes.rou.xml</sumo-input>
-   </input>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <routing-algorithm value="CH"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-</routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Thu Nov 15 09:39:50 2012 by SUMO sumo Version dev-SVN-r12973
+<!-- generated on 12/18/12 11:09:39 by SUMO sumo Version dev-SVN-r13170
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -1074,6 +1074,5 @@
     <timestep time="264.00">
         <vehicle id="1" x="11.070571" y="48.836594" angle="-90.000000" type="t2" speed="9.000000"/>
     </timestep>
-    <timestep time="265.00">
-    </timestep>
+    <timestep time="265.00"/>
 </fcd-export>

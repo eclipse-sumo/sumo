@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 22 14:41:36 2012 by SUMO netconvert Version dev-SVN-r13008
+<!-- generated on 12/18/12 09:22:54 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -134,8 +134,7 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="10-begin" type="unregulated" x="442.24" y="1182.40" incLanes="" intLanes="" shape="443.75,1181.86 440.74,1182.94">
-    </junction>
+    <junction id="10-begin" type="unregulated" x="442.24" y="1182.40" incLanes="" intLanes="" shape="443.75,1181.86 440.74,1182.94"/>
     <junction id="2" type="priority" x="98.18" y="281.57" incLanes="2_0 2_1" intLanes=":2_0_0 :2_1_0 :2_2_0" shape="95.07,282.52 101.33,280.78 100.43,277.83 91.11,280.85">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
@@ -157,15 +156,12 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="5-end" type="unregulated" x="0.00" y="0.00" incLanes="5_0 5_1 5_2" intLanes="" shape="-4.30,2.35 4.30,-2.35">
-    </junction>
+    <junction id="5-end" type="unregulated" x="0.00" y="0.00" incLanes="5_0 5_1 5_2" intLanes="" shape="-4.30,2.35 4.30,-2.35"/>
     <junction id="6" type="priority" x="408.42" y="1088.56" incLanes="10_0" intLanes=":6_0_0" shape="407.11,1089.66 410.12,1088.57 415.27,1083.31 406.23,1087.08">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="8-end" type="unregulated" x="17.50" y="59.06" incLanes="8_0 8_1 8_2" intLanes="" shape="13.03,61.06 21.97,57.06">
-    </junction>
-    <junction id="9-begin" type="unregulated" x="418.94" y="1165.16" incLanes="" intLanes="" shape="420.45,1164.62 417.43,1165.69">
-    </junction>
+    <junction id="8-end" type="unregulated" x="17.50" y="59.06" incLanes="8_0 8_1 8_2" intLanes="" shape="13.03,61.06 21.97,57.06"/>
+    <junction id="9-begin" type="unregulated" x="418.94" y="1165.16" incLanes="" intLanes="" shape="420.45,1164.62 417.43,1165.69"/>
 
     <connection from="1" to="2" fromLane="0" toLane="0" via=":1_0_0" dir="s" state="M"/>
     <connection from="1" to="2" fromLane="1" toLane="1" via=":1_1_0" dir="s" state="M"/>

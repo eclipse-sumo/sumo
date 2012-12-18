@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/04/12 12:50:41 by SUMO netconvert Version dev-SVN-r13131
+<!-- generated on 12/18/12 09:23:08 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -8201,12 +8201,9 @@
         <phase duration="9" state="rryyrrrrrrryyrrrrr"/>
     </tlLogic>
 
-    <junction id="13802086" type="unregulated" x="6731.76" y="4281.42" incLanes="" intLanes="" shape="6730.64,4280.28 6732.88,4282.56">
-    </junction>
-    <junction id="13802087" type="unregulated" x="7836.22" y="6933.67" incLanes="" intLanes="" shape="7834.83,6932.88 7837.61,6934.46">
-    </junction>
-    <junction id="13802117" type="unregulated" x="6596.47" y="4622.09" incLanes="2953974#2_0" intLanes="" shape="6595.72,4623.50 6597.22,4620.68">
-    </junction>
+    <junction id="13802086" type="unregulated" x="6731.76" y="4281.42" incLanes="" intLanes="" shape="6730.64,4280.28 6732.88,4282.56"/>
+    <junction id="13802087" type="unregulated" x="7836.22" y="6933.67" incLanes="" intLanes="" shape="7834.83,6932.88 7837.61,6934.46"/>
+    <junction id="13802117" type="unregulated" x="6596.47" y="4622.09" incLanes="2953974#2_0" intLanes="" shape="6595.72,4623.50 6597.22,4620.68"/>
     <junction id="254421993" type="priority" x="10738.17" y="16311.69" incLanes="10675428#7_0 10675428#7_1" intLanes="" shape="10738.12,16311.70 10731.73,16312.87 10744.61,16310.51 10738.22,16311.68">
         <request index="0" response="0" foes="0"/>
     </junction>
@@ -16961,8 +16958,7 @@
         <request index="7" response="000011000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="322860111" type="unregulated" x="0.00" y="4467.38" incLanes="2954173_0" intLanes="" shape="0.95,4468.66 -0.95,4466.10">
-    </junction>
+    <junction id="322860111" type="unregulated" x="0.00" y="4467.38" incLanes="2954173_0" intLanes="" shape="0.95,4468.66 -0.95,4466.10"/>
     <junction id="330119845" type="priority" x="8055.87" y="6811.75" incLanes="39271416#5_0 26203519_0" intLanes="" shape="8055.50,6816.89 8058.61,6816.12 8059.73,6814.43 8058.71,6808.01 8056.93,6806.78 8053.75,6807.13">
         <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="1100"/>
