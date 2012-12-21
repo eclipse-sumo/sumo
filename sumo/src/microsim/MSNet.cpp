@@ -358,9 +358,7 @@ MSNet::simulationStep() {
     std::vector<SUMOTime>::iterator timeIt = find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep);
     if (timeIt != myStateDumpTimes.end()) {
         const int dist = distance(myStateDumpTimes.begin(), timeIt);
-        std::ofstream strm(myStateDumpFiles[dist].c_str(), std::fstream::out | std::fstream::binary);
-        saveState(strm);
-        StateHandler::saveState(myStateDumpFiles[dist] + ".xml", myStep);
+        StateHandler::saveState(myStateDumpFiles[dist], myStep);
     }
 #endif
     myBeginOfTimestepEvents->execute(myStep);
@@ -578,55 +576,6 @@ bool
 MSNet::logSimulationDuration() const {
     return myLogExecutionTime;
 }
-
-
-#ifdef HAVE_INTERNAL
-void
-MSNet::saveState(std::ostream& os) {
-    FileHelpers::writeString(os, VERSION_STRING);
-    FileHelpers::writeUInt(os, sizeof(size_t));
-    FileHelpers::writeUInt(os, sizeof(SUMOReal));
-    FileHelpers::writeUInt(os, MSEdge::dictSize());
-    FileHelpers::writeTime(os, myStep);
-    MSRoute::dict_saveState(os);
-    myVehicleControl->saveState(os);
-    if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet->saveState(os);
-    }
-}
-
-
-SUMOTime
-MSNet::loadState(BinaryInputDevice& bis) {
-    std::string version;
-    unsigned int sizeT, fpSize, numEdges;
-    SUMOTime step;
-    bis >> version;
-    bis >> sizeT;
-    bis >> fpSize;
-    bis >> numEdges;
-    bis >> step;
-    if (version != VERSION_STRING) {
-        WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING + ")!");
-    }
-    if (sizeT != sizeof(size_t)) {
-        WRITE_WARNING("State was written on a different platform (32bit vs. 64bit)!");
-    }
-    if (fpSize != sizeof(SUMOReal)) {
-        WRITE_WARNING("State was written with a different precision for SUMOReal!");
-    }
-    if (numEdges != MSEdge::dictSize()) {
-        WRITE_WARNING("State was written for a different net!");
-    }
-    const SUMOTime offset = string2time(OptionsCont::getOptions().getString("load-state.offset"));
-    MSRoute::dict_loadState(bis);
-    myVehicleControl->loadState(bis, offset);
-    if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet->loadState(bis, *myVehicleControl, offset);
-    }
-    return step;
-}
-#endif
 
 
 MSPersonControl&

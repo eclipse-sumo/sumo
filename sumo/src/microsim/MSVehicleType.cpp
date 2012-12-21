@@ -78,28 +78,6 @@ MSVehicleType::computeChosenSpeedDeviation(MTRand& rng) const {
 }
 
 
-void
-MSVehicleType::saveState(std::ostream& os) {
-    FileHelpers::writeString(os, myParameter.id);
-    FileHelpers::writeFloat(os, myParameter.length);
-    FileHelpers::writeFloat(os, myParameter.minGap);
-    FileHelpers::writeFloat(os, getMaxSpeed());
-    FileHelpers::writeInt(os, (int) myParameter.vehicleClass);
-    FileHelpers::writeInt(os, (int) myParameter.emissionClass);
-    FileHelpers::writeInt(os, (int) myParameter.shape);
-    FileHelpers::writeFloat(os, myParameter.width);
-    FileHelpers::writeFloat(os, myParameter.defaultProbability);
-    FileHelpers::writeFloat(os, myParameter.speedFactor);
-    FileHelpers::writeFloat(os, myParameter.speedDev);
-    FileHelpers::writeFloat(os, myParameter.color.red());
-    FileHelpers::writeFloat(os, myParameter.color.green());
-    FileHelpers::writeFloat(os, myParameter.color.blue());
-    FileHelpers::writeInt(os, myCarFollowModel->getModelID());
-    FileHelpers::writeString(os, myParameter.lcModel);
-    //myCarFollowModel->saveState(os);
-}
-
-
 // ------------ Setter methods
 void
 MSVehicleType::setLength(const SUMOReal& length) {

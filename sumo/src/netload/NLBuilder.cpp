@@ -132,23 +132,14 @@ NLBuilder::build() {
     if (myOptions.isSet("load-state")) {
         long before = SysUtils::getCurrentMillis();
         const std::string& f = myOptions.getString("load-state");
-        if (f.substr(f.length() - 4) == ".sbx" || f.substr(f.length() - 4) == ".xml") {
-            StateHandler h(f, string2time(OptionsCont::getOptions().getString("load-state.offset")));
-            XMLSubSys::runParser(h, f);
-        } else {
-            BinaryInputDevice strm(myOptions.getString("load-state"));
-            if (!strm.good()) {
-                WRITE_ERROR("Could not read state from '" + myOptions.getString("load-state") + "'!");
-            } else {
-                PROGRESS_BEGIN_MESSAGE("Loading state from '" + myOptions.getString("load-state") + "'");
-                SUMOTime step = myNet.loadState(strm);
-                if (myOptions.isDefault("begin")) {
-                    myOptions.set("begin", time2string(step));
-                }
-                if (step != string2time(myOptions.getString("begin"))) {
-                    WRITE_WARNING("State was written at a different time " + time2string(step) + " than the begin time " + myOptions.getString("begin") + "!");
-                }
-            }
+        PROGRESS_BEGIN_MESSAGE("Loading state from '" + f + "'");
+        StateHandler h(f, string2time(OptionsCont::getOptions().getString("load-state.offset")));
+        XMLSubSys::runParser(h, f);
+        if (myOptions.isDefault("begin")) {
+            myOptions.set("begin", time2string(h.getTime()));
+        }
+        if (h.getTime() != string2time(myOptions.getString("begin"))) {
+            WRITE_WARNING("State was written at a different time " + time2string(h.getTime()) + " than the begin time " + myOptions.getString("begin") + "!");
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;
@@ -232,7 +223,7 @@ NLBuilder::buildNet() {
         } else {
             const std::string prefix = myOptions.getString("save-state.prefix");
             for (std::vector<SUMOTime>::iterator i = stateDumpTimes.begin(); i != stateDumpTimes.end(); ++i) {
-                stateDumpFiles.push_back(prefix + "_" + time2string(*i) + ".bin");
+                stateDumpFiles.push_back(prefix + "_" + time2string(*i) + ".sbx");
             }
         }
 #endif

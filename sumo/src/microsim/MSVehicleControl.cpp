@@ -155,17 +155,16 @@ MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
 
 
 void
-MSVehicleControl::saveState(std::ostream& /*os*/) {
+MSVehicleControl::setState(int runningVehNo, int endedVehNo, SUMOReal totalDepartureDelay, SUMOReal totalTravelTime) {
+    myRunningVehNo = runningVehNo;
+    myEndedVehNo = endedVehNo;
+    myTotalDepartureDelay = totalDepartureDelay;
+    myTotalTravelTime = totalTravelTime;
 }
 
 
 void
 MSVehicleControl::saveState(OutputDevice& /*out*/) {
-}
-
-
-void
-MSVehicleControl::loadState(BinaryInputDevice& /*bis*/, const SUMOTime /*offset*/) {
 }
 
 

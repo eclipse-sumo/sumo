@@ -109,7 +109,4 @@ MSCFModel::brakeGap(SUMOReal speed) const {
 }
 
 
-void MSCFModel::saveState(std::ostream& /*os*/) {}
-
-
 /****************************************************************************/

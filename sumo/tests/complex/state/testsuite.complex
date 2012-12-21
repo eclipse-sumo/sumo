@@ -9,3 +9,6 @@ diff_begin
 
 # save and reload with broken route
 disconnected
+
+# two vehicles saved and reloaded with xml output
+xml

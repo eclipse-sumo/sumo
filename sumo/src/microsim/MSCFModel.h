@@ -131,12 +131,6 @@ public:
     virtual SUMOReal interactionGap(const MSVehicle* const veh, SUMOReal vL) const;
 
 
-    /** @brief Saves the model's definition into the state
-     * @param[in] os The output to write the definition into
-     */
-    virtual void saveState(std::ostream& os);
-
-
     /** @brief Returns the model's ID; the XML-Tag number is used
      * @return The model's ID
      */

@@ -222,27 +222,6 @@ MSRoute::operator[](unsigned index) const {
 
 #ifdef HAVE_INTERNAL
 void
-MSRoute::dict_saveState(std::ostream& os) {
-    FileHelpers::writeUInt(os, (unsigned int) myDict.size());
-    for (RouteDict::iterator it = myDict.begin(); it != myDict.end(); ++it) {
-        FileHelpers::writeString(os, (*it).second->getID());
-        FileHelpers::writeUInt(os, (*it).second->myReferenceCounter);
-        FileHelpers::writeEdgeVector(os, (*it).second->myEdges);
-    }
-    FileHelpers::writeUInt(os, (unsigned int) myDistDict.size());
-    for (RouteDistDict::iterator it = myDistDict.begin(); it != myDistDict.end(); ++it) {
-        FileHelpers::writeString(os, (*it).first);
-        const unsigned int size = (unsigned int)(*it).second->getVals().size();
-        FileHelpers::writeUInt(os, size);
-        for (unsigned int i = 0; i < size; ++i) {
-            FileHelpers::writeString(os, (*it).second->getVals()[i]->getID());
-            FileHelpers::writeFloat(os, (*it).second->getProbs()[i]);
-        }
-    }
-}
-
-
-void
 MSRoute::dict_saveState(OutputDevice& out) {
     for (RouteDict::iterator it = myDict.begin(); it != myDict.end(); ++it) {
         out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_ID, (*it).second->getID());
@@ -255,56 +234,6 @@ MSRoute::dict_saveState(OutputDevice& out) {
         out.writeAttr(SUMO_ATTR_PROBS, (*it).second->getProbs());
         out.closeTag();
     }
-}
-
-
-void
-MSRoute::dict_loadState(BinaryInputDevice& bis) {
-    unsigned int numRoutes;
-    bis >> numRoutes;
-    for (; numRoutes > 0; numRoutes--) {
-        std::string id;
-        bis >> id;
-        unsigned int references;
-        bis >> references;
-        MSEdgeVector edges;
-        FileHelpers::readEdgeVector(bis.getIStream(), edges, id);
-        if (dictionary(id) == 0) {
-            MSRoute* r = new MSRoute(id, edges, references,
-                                     0, std::vector<SUMOVehicleParameter::Stop>());
-            dictionary(id, r);
-        }
-    }
-    unsigned int numRouteDists;
-    bis >> numRouteDists;
-    for (; numRouteDists > 0; numRouteDists--) {
-        std::string id;
-        bis >> id;
-        unsigned int no;
-        bis >> no;
-        if (dictionary(id) == 0) {
-            RandomDistributor<const MSRoute*>* dist = new RandomDistributor<const MSRoute*>(getMaxRouteDistSize(), &releaseRoute);
-            for (; no > 0; no--) {
-                std::string routeID;
-                bis >> routeID;
-                const MSRoute* r = dictionary(routeID);
-                assert(r != 0);
-                SUMOReal prob;
-                bis >> prob;
-                dist->add(prob, r, false);
-            }
-            dictionary(id, dist);
-        } else {
-            for (; no > 0; no--) {
-                std::string routeID;
-                bis >> routeID;
-                SUMOReal prob;
-                bis >> prob;
-            }
-        }
-    }
-    WRITE_MESSAGE("    " + toString(myDict.size()) + " routes");
-    WRITE_MESSAGE("    " + toString(myDistDict.size()) + " route distributions");
 }
 #endif
 

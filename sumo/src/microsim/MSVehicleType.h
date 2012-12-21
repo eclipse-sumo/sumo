@@ -253,14 +253,6 @@ public:
     /// @}
 
 
-
-
-
-    /// Saves the states of a vehicle
-    void saveState(std::ostream& os);
-
-
-
     /// @name Setter methods
     /// @{
 

@@ -238,26 +238,6 @@ public:
     //}
 
 
-
-#ifdef HAVE_INTERNAL
-    /// @name State I/O (mesosim only)
-    /// @{
-
-    /** @brief Saves the current state
-     *
-     * @param[in] os The stream to write the state into (binary)
-     */
-    void saveState(std::ostream& os);
-
-
-    /** @brief Loads the network state
-     *
-     * @param[in] bis The input to read the state from (binary)
-     */
-    SUMOTime loadState(BinaryInputDevice& bis);
-    /// @}
-#endif
-
     /// @name Retrieval of references to substructures
     /// @{
 
