@@ -61,24 +61,21 @@ public:
      *
      * @param[in] oc The options container to get further options from
      * @param[out] netOffset The network offset to fill from values read from the network
-     * @param[out] origNetBoundary The original network boundary to fill from values read from the network
      * @param[out] convNetBoundary The converted network boundary to fill from values read from the network
      * @param[out] projParameter The projection parameter to fill from values read from the network
      * @exception ProcessError if something fails
      */
-    static void loadIfSet(OptionsCont& oc, Position& netOffset, Boundary& origNetBoundary,
+    static void loadIfSet(OptionsCont& oc, Position& netOffset,
                           Boundary& convNetBoundary, std::string& projParameter);
 
 
 protected:
     /** @brief Constructor
      * @param[out] netOffset The network offset to fill from values read from the network
-     * @param[out] origNetBoundary The original network boundary to fill from values read from the network
      * @param[out] convNetBoundary The converted network boundary to fill from values read from the network
      * @param[out] projParameter The projection parameter to fill from values read from the network
      */
-    PCNetProjectionLoader(Position& netOffset,
-                          Boundary& origNetBoundary, Boundary& convNetBoundary, std::string& projParameter);
+    PCNetProjectionLoader(Position& netOffset, Boundary& convNetBoundary, std::string& projParameter);
 
 
     /// @brief Destructor
@@ -111,9 +108,6 @@ private:
     /// @brief The network offset to fill from values read from the network
     Position& myNetOffset;
 
-    /// @brief The original network boundary to fill from values read from the network
-    Boundary& myOrigNetBoundary;
-
     /// @brief The converted network boundary to fill from values read from the network
     Boundary& myConvNetBoundary;
 
@@ -121,7 +115,7 @@ private:
     std::string& myProjParameter;
 
     /// @brief Information whether the parameter was read
-    bool myFoundOffset, myFoundOrigNetBoundary, myFoundConvNetBoundary, myFoundProj;
+    bool myFoundLocation;
 
 
 };

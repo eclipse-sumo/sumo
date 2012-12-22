@@ -214,10 +214,10 @@ main(int argc, char** argv) {
         XMLSubSys::setValidation(oc.getBool("xml-validation"));
         MsgHandler::initOutputOptions();
         // build the projection
-        Boundary origNetBoundary, pruningBoundary;
+        Boundary pruningBoundary;
         Position netOffset;
         std::string proj;
-        PCNetProjectionLoader::loadIfSet(oc, netOffset, origNetBoundary, pruningBoundary, proj);
+        PCNetProjectionLoader::loadIfSet(oc, netOffset, pruningBoundary, proj);
         if (proj != "") {
             if (oc.isDefault("proj")) {
                 oc.set("proj", proj);

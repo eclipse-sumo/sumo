@@ -63,7 +63,7 @@
 // ---------------------------------------------------------------------------
 void
 PCNetProjectionLoader::loadIfSet(OptionsCont& oc,
-                                 Position& netOffset, Boundary& origNetBoundary,
+                                 Position& netOffset,
                                  Boundary& convNetBoundary,
                                  std::string& projParameter) {
     if (!oc.isSet("net")) {
@@ -75,7 +75,7 @@ PCNetProjectionLoader::loadIfSet(OptionsCont& oc,
         throw ProcessError("Could not open net-file '" + file + "'.");
     }
     // build handler and parser
-    PCNetProjectionLoader handler(netOffset, origNetBoundary, convNetBoundary, projParameter);
+    PCNetProjectionLoader handler(netOffset, convNetBoundary, projParameter);
     handler.setFileName(file);
     SUMOSAXReader* parser = XMLSubSys::getSAXReader(handler);
     PROGRESS_BEGIN_MESSAGE("Parsing network projection from '" + file + "'");
@@ -99,13 +99,12 @@ PCNetProjectionLoader::loadIfSet(OptionsCont& oc,
 // handler methods
 // ---------------------------------------------------------------------------
 PCNetProjectionLoader::PCNetProjectionLoader(Position& netOffset,
-        Boundary& origNetBoundary, Boundary& convNetBoundary,
+        Boundary& convNetBoundary,
         std::string& projParameter)
     : SUMOSAXHandler("sumo-network"), myNetOffset(netOffset),
-      myOrigNetBoundary(origNetBoundary), myConvNetBoundary(convNetBoundary),
+      myConvNetBoundary(convNetBoundary),
       myProjParameter(projParameter),
-      myFoundOffset(false), myFoundOrigNetBoundary(false),
-      myFoundConvNetBoundary(false), myFoundProj(false) {}
+      myFoundLocation(false) {}
 
 
 PCNetProjectionLoader::~PCNetProjectionLoader() {}
@@ -117,21 +116,19 @@ PCNetProjectionLoader::myStartElement(int element,
     if (element != SUMO_TAG_LOCATION) {
         return;
     }
-    bool ok = true;
-    PositionVector tmp = attrs.getShapeReporting(SUMO_ATTR_NET_OFFSET, 0, ok, false);
-    if (ok) {
+    myFoundLocation = true;
+    PositionVector tmp = attrs.getShapeReporting(SUMO_ATTR_NET_OFFSET, 0, myFoundLocation, false);
+    if (myFoundLocation) {
         myNetOffset = tmp[0];
     }
-    myOrigNetBoundary = attrs.getBoundaryReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok);
-    myConvNetBoundary = attrs.getBoundaryReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok);
-    myProjParameter = attrs.getOptStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok, "");
-    myFoundOffset = myFoundOrigNetBoundary = myFoundConvNetBoundary = myFoundProj = ok;
+    myConvNetBoundary = attrs.getBoundaryReporting(SUMO_ATTR_CONV_BOUNDARY, 0, myFoundLocation);
+    myProjParameter = attrs.getOptStringReporting(SUMO_ATTR_ORIG_PROJ, 0, myFoundLocation, "");
 }
 
 
 bool
 PCNetProjectionLoader::hasReadAll() const {
-    return myFoundOffset && myFoundOrigNetBoundary && myFoundConvNetBoundary && myFoundProj;
+    return myFoundLocation;
 }
 
 
