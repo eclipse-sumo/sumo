@@ -48,6 +48,6 @@ for idx, d in enumerate(args):
     shape = ""
     for i in range(c):
         shape += "%s,%s " % (math.cos(i * angle) * r + x, math.sin(i * angle) * r + y)
-    print '    <polygon id="%s%s" type="%s" color="%s"' % (options.prefix, idx, options.type, options.color),
+    print '    <poly id="%s%s" type="%s" color="%s"' % (options.prefix, idx, options.type, options.color),
     print 'fill="%i" layer="%s" shape="%s"/>' % (options.fill, options.layer, shape[:-1])
 print "</additional>"
