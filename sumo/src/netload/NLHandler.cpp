@@ -529,6 +529,8 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     SUMOReal x = attrs.getOptSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok, INVALID_POSITION);
     SUMOReal y = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok, INVALID_POSITION);
+    SUMOReal lon = attrs.getOptSUMORealReporting(SUMO_ATTR_LON, id.c_str(), ok, INVALID_POSITION);
+    SUMOReal lat = attrs.getOptSUMORealReporting(SUMO_ATTR_LAT, id.c_str(), ok, INVALID_POSITION);
     SUMOReal lanePos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_POSITION);
     SUMOReal layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, (SUMOReal)GLO_POI);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
@@ -546,15 +548,29 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
     }
     Position pos(x, y);
     if (x == INVALID_POSITION || y == INVALID_POSITION) {
-        MSLane* lane = MSLane::dictionary(laneID);
-        if (lane == 0) {
-            WRITE_ERROR("Lane '" + laneID + "' to place a poi '" + id + "'on is not known.");
-            return;
+        // try computing x,y from lane,pos
+        if (laneID != "") {
+            MSLane* lane = MSLane::dictionary(laneID);
+            if (lane == 0) {
+                WRITE_ERROR("Lane '" + laneID + "' to place a poi '" + id + "'on is not known.");
+                return;
+            }
+            if (lanePos < 0) {
+                lanePos = lane->getLength() + lanePos;
+            }
+            pos = lane->getShape().positionAtLengthPosition(lanePos);
+        } else {
+            // try computing x,y from lon,lat
+            if (lat == INVALID_POSITION || lon == INVALID_POSITION) {
+                WRITE_ERROR("Either (x,y), (lon,lat) or (lane,pos) must be specified for poi '" + id + "'.");
+                return;
+            } else if (!GeoConvHelper::getFinal().usingGeoProjection()) {
+                WRITE_ERROR("(lon, lat) is specified for poi '" + id + "' but no geo-conversion is specified for the network.");
+                return;
+            }
+            pos.set(lon, lat);
+            GeoConvHelper::getFinal().x2cartesian_const(pos);
         }
-        if (lanePos < 0) {
-            lanePos = lane->getLength() + lanePos;
-        }
-        pos = lane->getShape().positionAtLengthPosition(lanePos);
     }
     if (!myNet.getShapeContainer().addPOI(id, type, color, layer, angle, imgFile, pos, width, height)) {
         WRITE_ERROR("PoI '" + id + "' already exists.");

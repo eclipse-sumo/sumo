@@ -27,3 +27,7 @@ hbefa
 
 # Tests for bus stops
 busses
+
+# test loading of shapes 
+# (relevant for cmd-line sumo since they can be access via TraCI)
+shapes
