@@ -125,10 +125,12 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         id = prefix + id;
         // read in the geometry
         OGRGeometry* poGeometry = poFeature->GetGeometryRef();
-        if (poGeometry != 0) {
-            // try transform to wgs84
-            poGeometry->transform(poCT);
+        if (poGeometry == 0) {
+            OGRFeature::DestroyFeature(poFeature);
+            continue;
         }
+        // try transform to wgs84
+        poGeometry->transform(poCT);
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         switch (gtype) {
             case wkbPoint: {
