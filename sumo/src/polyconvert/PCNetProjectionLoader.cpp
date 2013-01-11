@@ -62,20 +62,12 @@
 // static interface
 // ---------------------------------------------------------------------------
 void
-PCNetProjectionLoader::loadIfSet(OptionsCont& oc,
-                                 Position& netOffset,
-                                 Boundary& convNetBoundary,
-                                 std::string& projParameter) {
-    if (!oc.isSet("net")) {
-        return;
-    }
-    // check file
-    std::string file = oc.getString("net");
+PCNetProjectionLoader::load(const std::string& file, int shift) {
     if (!FileHelpers::exists(file)) {
         throw ProcessError("Could not open net-file '" + file + "'.");
     }
     // build handler and parser
-    PCNetProjectionLoader handler(netOffset, convNetBoundary, projParameter);
+    PCNetProjectionLoader handler(shift);
     handler.setFileName(file);
     SUMOSAXReader* parser = XMLSubSys::getSAXReader(handler);
     PROGRESS_BEGIN_MESSAGE("Parsing network projection from '" + file + "'");
@@ -98,13 +90,11 @@ PCNetProjectionLoader::loadIfSet(OptionsCont& oc,
 // ---------------------------------------------------------------------------
 // handler methods
 // ---------------------------------------------------------------------------
-PCNetProjectionLoader::PCNetProjectionLoader(Position& netOffset,
-        Boundary& convNetBoundary,
-        std::string& projParameter)
-    : SUMOSAXHandler("sumo-network"), myNetOffset(netOffset),
-      myConvNetBoundary(convNetBoundary),
-      myProjParameter(projParameter),
-      myFoundLocation(false) {}
+PCNetProjectionLoader::PCNetProjectionLoader(int shift) :
+    SUMOSAXHandler("sumo-network"),
+    myFoundLocation(false),
+    myShift(shift)
+{}
 
 
 PCNetProjectionLoader::~PCNetProjectionLoader() {}
@@ -116,13 +106,16 @@ PCNetProjectionLoader::myStartElement(int element,
     if (element != SUMO_TAG_LOCATION) {
         return;
     }
+    // @todo refactor parsing of location since its duplicated in NLHandler and PCNetProjectionLoader
     myFoundLocation = true;
-    PositionVector tmp = attrs.getShapeReporting(SUMO_ATTR_NET_OFFSET, 0, myFoundLocation, false);
+    PositionVector s = attrs.getShapeReporting(SUMO_ATTR_NET_OFFSET, 0, myFoundLocation, false);
+    Boundary convBoundary = attrs.getBoundaryReporting(SUMO_ATTR_CONV_BOUNDARY, 0, myFoundLocation);
+    Boundary origBoundary = attrs.getBoundaryReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, myFoundLocation);
+    std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, myFoundLocation);
     if (myFoundLocation) {
-        myNetOffset = tmp[0];
+        Position networkOffset = s[0];
+        GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary, myShift);
     }
-    myConvNetBoundary = attrs.getBoundaryReporting(SUMO_ATTR_CONV_BOUNDARY, 0, myFoundLocation);
-    myProjParameter = attrs.getOptStringReporting(SUMO_ATTR_ORIG_PROJ, 0, myFoundLocation, "");
 }
 
 

@@ -168,8 +168,9 @@ void
 GeoConvHelper::init(const std::string& proj,
                     const Position& offset,
                     const Boundary& orig,
-                    const Boundary& conv) {
-    myProcessing = GeoConvHelper(proj, offset, orig, conv);
+                    const Boundary& conv,
+                    int shift) {
+    myProcessing = GeoConvHelper(proj, offset, orig, conv, shift);
     myFinal = myProcessing;
 }
 

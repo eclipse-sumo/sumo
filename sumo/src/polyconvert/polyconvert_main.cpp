@@ -214,34 +214,28 @@ main(int argc, char** argv) {
         XMLSubSys::setValidation(oc.getBool("xml-validation"));
         MsgHandler::initOutputOptions();
         // build the projection
-        Boundary pruningBoundary;
-        Position netOffset;
-        std::string proj;
-        PCNetProjectionLoader::loadIfSet(oc, netOffset, pruningBoundary, proj);
-        if (proj != "") {
-            if (oc.isDefault("proj")) {
-                oc.set("proj", proj);
-            }
-            if (oc.isDefault("offset.x")) {
-                oc.set("offset.x", toString(netOffset.x()));
-            }
-            if (oc.isDefault("offset.y")) {
-                oc.set("offset.y", toString(netOffset.y()));
-            }
-        }
-#ifdef HAVE_PROJ
-        unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
-        if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && numProjections == 0) {
-            oc.set("proj.utm", "true");
-        }
+        int shift = 0;
         if ((oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && oc.isDefault("proj.scale")) {
-            oc.set("proj.scale", std::string("5"));
+            shift = 5;
         }
+        if (!oc.isSet("net")) {
+            // from the given options
+#ifdef HAVE_PROJ
+            unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
+            if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && numProjections == 0) {
+                oc.set("proj.utm", "true");
+            }
+            oc.set("proj.scale", toString(shift));
 #endif
-        if (!GeoConvHelper::init(oc)) {
-            throw ProcessError("Could not build projection!");
+            if (!GeoConvHelper::init(oc)) {
+                throw ProcessError("Could not build projection!");
+            }
+        } else {
+            // from the supplied network
+            // @todo warn about given options being ignored
+            PCNetProjectionLoader::load(oc.getString("net"), shift);
         }
-
+        Boundary pruningBoundary = GeoConvHelper::getFinal().getConvBoundary();
         // check whether the input shall be pruned
         bool prune = false;
         if (oc.getBool("prune.in-net")) {

@@ -55,27 +55,16 @@ class PCNetProjectionLoader : public SUMOSAXHandler {
 public:
     /** @brief Loads network projection if wished
      *
-     * If the option "net" is set within the given options container,
-     *  an instance of PCNetProjectionLoader is built and used as a handler for the
-     *  file given in this option.
-     *
-     * @param[in] oc The options container to get further options from
-     * @param[out] netOffset The network offset to fill from values read from the network
-     * @param[out] convNetBoundary The converted network boundary to fill from values read from the network
-     * @param[out] projParameter The projection parameter to fill from values read from the network
-     * @exception ProcessError if something fails
+     * @param[in] file The network file from which to parse the location element
+     * @param[in] shift The shift of the decimal point when interpreting loaded coordinates
      */
-    static void loadIfSet(OptionsCont& oc, Position& netOffset,
-                          Boundary& convNetBoundary, std::string& projParameter);
+    static void load(const std::string& file, int shift);
 
 
 protected:
     /** @brief Constructor
-     * @param[out] netOffset The network offset to fill from values read from the network
-     * @param[out] convNetBoundary The converted network boundary to fill from values read from the network
-     * @param[out] projParameter The projection parameter to fill from values read from the network
      */
-    PCNetProjectionLoader(Position& netOffset, Boundary& convNetBoundary, std::string& projParameter);
+    PCNetProjectionLoader(int shift);
 
 
     /// @brief Destructor
@@ -105,17 +94,11 @@ protected:
 
 
 private:
-    /// @brief The network offset to fill from values read from the network
-    Position& myNetOffset;
-
-    /// @brief The converted network boundary to fill from values read from the network
-    Boundary& myConvNetBoundary;
-
-    /// @brief The projection parameter to fill from values read from the network
-    std::string& myProjParameter;
-
     /// @brief Information whether the parameter was read
     bool myFoundLocation;
+
+    /// @brief shift of input coordinates (not given in the location element)
+    int myShift;
 
 
 };

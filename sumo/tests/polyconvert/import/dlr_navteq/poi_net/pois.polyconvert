@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul 22 22:47:44 2011 by SUMO polyconvert Version dev-SVN-r11063
+<!-- generated on Fri Jan 11 15:31:32 2013 by SUMO polyconvert Version dev-SVN-r13174
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/polyconvertConfiguration.xsd">
@@ -14,16 +14,6 @@
         <output-file value="pois.poi.xml"/>
     </output>
 
-    <projection>
-        <proj.scale value="5"/>
-        <proj value="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
-    </projection>
-
-    <processing>
-        <offset.x value="-328248"/>
-        <offset.y value="-5.77662e+06"/>
-    </processing>
-
     <report>
         <verbose value="true"/>
     </report>
@@ -32,6 +22,6 @@
 -->
 
 <shapes>
-    <poi id="1" type="unknown" color="0.20,0.50,1.00" layer="-1" x="35510.00" y="4610.13"/>
-    <poi id="2" type="unknown" color="0.20,0.50,1.00" layer="-1" x="31932.41" y="12285.73"/>
+    <poi id="1" type="unknown" color="0.20,0.50,1.00" layer="-1.00" x="35510.00" y="4610.13"/>
+    <poi id="2" type="unknown" color="0.20,0.50,1.00" layer="-1.00" x="31932.41" y="12285.73"/>
 </shapes>

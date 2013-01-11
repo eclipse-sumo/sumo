@@ -87,7 +87,8 @@ public:
     static void init(const std::string& proj,
                      const Position& offset,
                      const Boundary& orig,
-                     const Boundary& conv);
+                     const Boundary& conv,
+                     int shift = 0);
 
     /** @brief the coordinate transformation to use for input conversion and processing
      * @note instance is modified during use: boundary may adapt to new coordinates
