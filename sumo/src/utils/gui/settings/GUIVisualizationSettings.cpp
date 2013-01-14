@@ -66,8 +66,8 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       internalJunctionName(false, 50, RGBColor(0, .8, .5)),
       showLane2Lane(false), addMode(0), minAddSize(1), addExaggeration(1),
       addName(false, 50, RGBColor(1., 0, .5)),
-      minPOISize(0), poiExaggeration(1),
-      poiName(false, 50, RGBColor(1., 0, .5)),
+      minPOISize(0), poiExaggeration(1), poiName(false, 50, RGBColor(1., 0, .5)),
+      minPolySize(0), polyExaggeration(1), polyName(false, 50, RGBColor(1., 0, .5)),
       showSizeLegend(true),
       gaming(false),
       selectionScale(1) {
@@ -277,6 +277,11 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
         << "                  " << poiName.print("poiName")
         << "/>\n";
 
+    dev << "        <polys polyExaggeration=\"" << polyExaggeration
+        << "\" minPolySize=\"" << minPolySize << "\"\n"
+        << "                  " << polyName.print("polyName")
+        << "/>\n";
+
     dev << "        <legend showSizeLegend=\"" << showSizeLegend << "\"/>\n";
     dev << "    </scheme>\n";
     dev << "</viewsettings>\n";
@@ -403,6 +408,16 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (poiName != v2.poiName) {
+        return false;
+    }
+
+    if (minPolySize != v2.minPolySize) {
+        return false;
+    }
+    if (polyExaggeration != v2.polyExaggeration) {
+        return false;
+    }
+    if (polyName != v2.polyName) {
         return false;
     }
 

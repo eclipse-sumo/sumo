@@ -130,6 +130,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "junctions",        SUMO_TAG_VIEWSETTINGS_JUNCTIONS },
     { "additionals",      SUMO_TAG_VIEWSETTINGS_ADDITIONALS },
     { "pois",             SUMO_TAG_VIEWSETTINGS_POIS },
+    { "polys",            SUMO_TAG_VIEWSETTINGS_POLYS },
     { "legend",           SUMO_TAG_VIEWSETTINGS_LEGEND },
     { "include",          SUMO_TAG_INCLUDE },
     { "xi:include",       SUMO_TAG_INCLUDE },

@@ -387,7 +387,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXMatrix* m61 =
             new FXMatrix(frame6, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
-        myPoiNamePanel = new NamePanel(m61, this, "Show poi name", mySettings->poiName);
+        myPOINamePanel = new NamePanel(m61, this, "Show poi names", mySettings->poiName);
         new FXHorizontalSeparator(frame6 , SEPARATOR_GROOVE | LAYOUT_FILL_X);
 
         FXMatrix* m62 =
@@ -413,6 +413,39 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
 
 
     } {
+        new FXTabItem(tabbook, "Polygons", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
+        FXVerticalFrame* frame9 =
+            new FXVerticalFrame(tabbook, FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
+
+        FXMatrix* m91 =
+            new FXMatrix(frame9, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        myPolyNamePanel = new NamePanel(m91, this, "Show polygon names", mySettings->polyName);
+        new FXHorizontalSeparator(frame9 , SEPARATOR_GROOVE | LAYOUT_FILL_X);
+
+        FXMatrix* m92 =
+            new FXMatrix(frame9, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m921 =
+            new FXMatrix(m92, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
+        new FXLabel(m921, "Minimum size to show", 0, LAYOUT_CENTER_Y);
+        myPolyMinSizeDialer =
+            new FXRealSpinDial(m921, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+        FXMatrix* m922 =
+            new FXMatrix(m92, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
+        myPolyMinSizeDialer->setValue(mySettings->minPolySize);
+        new FXLabel(m922, "Exaggerate by", 0, LAYOUT_CENTER_Y);
+        myPolyUpscaleDialer =
+            new FXRealSpinDial(m922, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+        myPolyUpscaleDialer->setRange(0, 10000);
+        myPolyUpscaleDialer->setValue(mySettings->addExaggeration);
+
+
+    }{
         new FXTabItem(tabbook, "Legend", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
         FXVerticalFrame* frame7 =
             new FXVerticalFrame(tabbook, FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
@@ -455,7 +488,8 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myInternalJunctionNamePanel;
     delete myVehicleNamePanel;
     delete myAddNamePanel;
-    delete myPoiNamePanel;
+    delete myPOINamePanel;
+    delete myPolyNamePanel;
 }
 
 
@@ -533,7 +567,11 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
 
     myPOIUpscaleDialer->setValue(mySettings->poiExaggeration);
     myPOIMinSizeDialer->setValue(mySettings->minPOISize);
-    myPoiNamePanel->update(mySettings->poiName);
+    myPOINamePanel->update(mySettings->poiName);
+
+    myPolyUpscaleDialer->setValue(mySettings->polyExaggeration);
+    myPolyMinSizeDialer->setValue(mySettings->minPolySize);
+    myPolyNamePanel->update(mySettings->polyName);
 
     myShowLane2Lane->setCheck(mySettings->showLane2Lane);
     myAntialiase->setCheck(mySettings->antialiase);
@@ -600,7 +638,11 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     tmpSettings.poiExaggeration = (SUMOReal) myPOIUpscaleDialer->getValue();
     tmpSettings.minPOISize = (SUMOReal) myPOIMinSizeDialer->getValue();
-    tmpSettings.poiName = myPoiNamePanel->getSettings();
+    tmpSettings.poiName = myPOINamePanel->getSettings();
+
+    tmpSettings.polyExaggeration = (SUMOReal) myPolyUpscaleDialer->getValue();
+    tmpSettings.minPolySize = (SUMOReal) myPolyMinSizeDialer->getValue();
+    tmpSettings.polyName = myPolyNamePanel->getSettings();
 
     tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);
     tmpSettings.antialiase = (myAntialiase->getCheck() != FALSE);

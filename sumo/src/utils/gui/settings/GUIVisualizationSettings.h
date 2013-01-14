@@ -180,6 +180,7 @@ public:
     //@{
 
     /// @brief The additional structures visualization scheme
+    // @todo decouple addExageration for POIs, Polygons, Triggers etc
     int addMode;
     /// @brief The minimum size of additional structures to let them be drawn
     float minAddSize;
@@ -199,6 +200,13 @@ public:
     float poiExaggeration;
     // Setting bundles for optional drawing poi names
     GUIVisualizationTextSettings poiName;
+
+    /// @brief The minimum size of shapes to let them be drawn
+    float minPolySize;
+    /// @brief The additional shapes (upscale)
+    float polyExaggeration;
+    // Setting bundles for optional drawing poi names
+    GUIVisualizationTextSettings polyName;
     //@}
 
     /// @brief Information whether the size legend shall be drawn

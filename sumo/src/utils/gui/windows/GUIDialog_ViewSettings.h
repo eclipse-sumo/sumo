@@ -252,6 +252,7 @@ private:
 
     FXRealSpinDial* myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
     FXRealSpinDial* myPOIMinSizeDialer, *myPOIUpscaleDialer;
+    FXRealSpinDial* myPolyMinSizeDialer, *myPolyUpscaleDialer;
 
     FXCheckButton* myShowLane2Lane;
     FXCheckButton* myAntialiase;
@@ -260,7 +261,7 @@ private:
 
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myStreetNamePanel,
                *myJunctionNamePanel, *myInternalJunctionNamePanel,
-               *myVehicleNamePanel, *myAddNamePanel, *myPoiNamePanel;
+               *myVehicleNamePanel, *myAddNamePanel, *myPOINamePanel, *myPolyNamePanel;
     /// @}
 
 

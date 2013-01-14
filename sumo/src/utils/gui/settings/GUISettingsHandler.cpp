@@ -185,6 +185,11 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.minPOISize = TplConvert::_2SUMOReal(attrs.getStringSecure("minPOISize", toString(mySettings.minPOISize)).c_str());
             mySettings.poiName = parseTextSettings("poiName", attrs, mySettings.poiName);
             break;
+        case SUMO_TAG_VIEWSETTINGS_POLYS:
+            mySettings.polyExaggeration = TplConvert::_2SUMOReal(attrs.getStringSecure("polyExaggeration", toString(mySettings.polyExaggeration)).c_str());
+            mySettings.minPolySize = TplConvert::_2SUMOReal(attrs.getStringSecure("minPolySize", toString(mySettings.minPolySize)).c_str());
+            mySettings.polyName = parseTextSettings("polyName", attrs, mySettings.polyName);
+            break;
         case SUMO_TAG_VIEWSETTINGS_LEGEND:
             mySettings.showSizeLegend = TplConvert::_2bool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)).c_str());
             break;

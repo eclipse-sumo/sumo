@@ -53,7 +53,9 @@ GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
                        SUMOReal layer, SUMOReal angle, const std::string& imgFile):
     Polygon(id, type, color, shape, fill, layer, angle, imgFile),
     GUIGlObject_AbstractAdd("poly", GLO_POLYGON, id),
-    myDisplayList(0)
+    myDisplayList(0),
+    myLineWidth(-1)
+
 {}
 
 
@@ -135,10 +137,13 @@ GLfloat yPlane[] = {0.0, 1.0 / POLY_TEX_DIM, 0.0, 0.0};
 
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
-    UNUSED_PARAMETER(s);
+    Boundary boundary = myShape.getBoxBoundary();
+    if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.minPolySize) {
+        return;
+    }
     AbstractMutex::ScopedLocker locker(myLock);
-    if (myDisplayList == 0) {
-        storeTesselation();
+    if (myDisplayList == 0 || (!getFill() && myLineWidth != s.polyExaggeration)) {
+        storeTesselation(s.polyExaggeration);
     }
     if (getFill()) {
         if (myShape.size() < 3) {
@@ -196,8 +201,9 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         glDisable(GL_TEXTURE_GEN_S);
         glDisable(GL_TEXTURE_GEN_T);
     }
-    glPopName();
     glPopMatrix();
+    drawName(myShape.getPolygonCenter(), s.scale, s.polyName);
+    glPopName();
 }
 
 
@@ -205,12 +211,12 @@ void
 GUIPolygon::setShape(const PositionVector& shape) {
     AbstractMutex::ScopedLocker locker(myLock);
     Polygon::setShape(shape);
-    storeTesselation();
+    storeTesselation(myLineWidth);
 }
 
 
 void
-GUIPolygon::storeTesselation() const {
+GUIPolygon::storeTesselation(SUMOReal lineWidth) const {
     if (myDisplayList > 0) {
         glDeleteLists(myDisplayList, 1);
     }
@@ -244,8 +250,9 @@ GUIPolygon::storeTesselation() const {
         delete[] points;
 
     } else {
+        myLineWidth = lineWidth;
         GLHelper::drawLine(myShape);
-        GLHelper::drawBoxLines(myShape, 1.);
+        GLHelper::drawBoxLines(myShape, myLineWidth);
     }
     //std::cout << "OpenGL says: '" << gluErrorString(glGetError()) << "'\n";
     glEndList();
