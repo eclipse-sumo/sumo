@@ -91,7 +91,11 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         unsigned int li = (unsigned int)lanes.size() - 1;
         PositionVector ls = e->getLaneShape(li);
         SUMOReal width = lanes[li].width < 0 || !e->hasLaneSpecificWidth() ? SUMO_const_laneWidth : lanes[li].width;
-        ls.move2side(-width / 2.);
+        try {
+            ls.move2side(-width / 2.);
+        } catch (InvalidArgument&) { 
+            // we do not write something, as this should have been reported, already
+        }
         writePlanView(ls, device);
         device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";
         device << "        <lateralProfile/>\n";
