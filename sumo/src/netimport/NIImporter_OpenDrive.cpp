@@ -271,12 +271,12 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         if (e.from == 0) {
             std::string nid = e.id + ".begin";
             Position pos(e.geometries[0].x, e.geometries[0].y);
-            e.from = getOrBuildNode(nid, e.geom[0], nb.getNodeCont());
+            e.from = getOrBuildNode(nid, pos, nb.getNodeCont());
         }
         if (e.to == 0) {
             std::string nid = e.id + ".end";
             Position pos(e.geometries[e.geometries.size() - 1].x, e.geometries[e.geometries.size() - 1].y);
-            e.to = getOrBuildNode(nid, e.geom[(int)e.geom.size() - 1], nb.getNodeCont());
+            e.to = getOrBuildNode(nid, pos, nb.getNodeCont());
         }
     }
 
@@ -312,6 +312,15 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             //if(useLoadedLengths) { nbe->setLoadedLength(e.length); }
             fromLaneMap[nbe] = e.laneSections.back().buildLaneMapping(OPENDRIVE_TAG_RIGHT);
             toLaneMap[nbe] = e.laneSections[0].buildLaneMapping(OPENDRIVE_TAG_RIGHT);
+            if(e.from==e.to) {
+                NBNode *node = new NBNode("-" + e.id + "S", nbe->getGeometry().positionAtLengthPosition(nbe->getGeometry().length()/2.));
+                if(!nb.getNodeCont().insert(node)) {
+                    delete node;
+                    WRITE_WARNING("Could not split loop edge '" + e.id + "'.");
+                    continue;
+                }
+                nb.getEdgeCont().splitAt(nb.getDistrictCont(), nbe, node, "-" + e.id + "FP", "-" + e.id + "SP", nbe->getNumLanes(), nbe->getNumLanes());
+            }
         }
         if (noLanesLeft > 0) {
             int priority = e.getPriority(OPENDRIVE_TAG_LEFT);
@@ -326,6 +335,15 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             }
             fromLaneMap[nbe] = e.laneSections[0].buildLaneMapping(OPENDRIVE_TAG_LEFT);
             toLaneMap[nbe] = e.laneSections.back().buildLaneMapping(OPENDRIVE_TAG_LEFT);
+            if(e.from==e.to) {
+                NBNode *node = new NBNode(e.id + "S", nbe->getGeometry().positionAtLengthPosition(nbe->getGeometry().length()/2.));
+                if(!nb.getNodeCont().insert(node)) {
+                    delete node;
+                    WRITE_WARNING("Could not split loop edge '" + e.id + "'.");
+                    continue;
+                }
+                nb.getEdgeCont().splitAt(nb.getDistrictCont(), nbe, node, e.id + "FP", e.id + "SP", nbe->getNumLanes(), nbe->getNumLanes());
+            }
         }
     }
 
@@ -403,15 +421,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
 
         if (e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT) != 0 && e.getMaxLaneNumber(OPENDRIVE_TAG_RIGHT) != 0) {
-            std::cout << "Both dirs given!" << std::endl;
+            throw ProcessError("Edge '" + e.id + "' is a connections in two directions; cannot be built.");
         }
 
-        bool isReversed = false;
-        if (e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT) != 0) {
-            //            std::swap(pred, succ);
-            //std::swap(predC, succC);
-            isReversed = true;
-        }
 
         if (succ == "" || pred == "") {
             std::cout << "Missing edge." << std::endl;
@@ -426,26 +438,45 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             throw ProcessError("Could not find connection edge.");
         }
         NBEdge* fromEdge, *toEdge;
-        if (!isReversed) {
-            fromEdge = predC == OPENDRIVE_CP_END ? nb.getEdgeCont().retrieve("-" + pred) : nb.getEdgeCont().retrieve(pred);
-            toEdge = succC == OPENDRIVE_CP_START ? nb.getEdgeCont().retrieve("-" + succ) : nb.getEdgeCont().retrieve(succ);
+        fromEdge = toEdge = 0;
+        if(e.junction!="") {
+            NBNode *n = nb.getNodeCont().retrieve(e.junction);
+            if(n==0) {
+                WRITE_WARNING("The node the edge '" + e.id + "' belongs to is not known.");
+                continue;
+            }
+            fromEdge = nb.getEdgeCont().retrieve(pred);
+            if(fromEdge==0||!n->hasIncoming(fromEdge)) {
+                fromEdge = nb.getEdgeCont().retrieve("-" + pred);
+            }
+            if(fromEdge==0||!n->hasIncoming(fromEdge)) {
+                fromEdge = nb.getEdgeCont().retrieve(pred + "SP");
+            }
+            if(fromEdge==0||!n->hasIncoming(fromEdge)) {
+                fromEdge = nb.getEdgeCont().retrieve("-" + pred + "SP");
+            }
+
+            toEdge = nb.getEdgeCont().retrieve(succ);
+            if(toEdge==0||!n->hasOutgoing(toEdge)) {
+                toEdge = nb.getEdgeCont().retrieve("-" + succ);
+            }
+            if(toEdge==0||!n->hasOutgoing(toEdge)) {
+                toEdge = nb.getEdgeCont().retrieve(succ + "SP");
+            }
+            if(toEdge==0||!n->hasOutgoing(toEdge)) {
+                toEdge = nb.getEdgeCont().retrieve("-" + succ + "SP");
+            }
         } else {
-            fromEdge = predC != OPENDRIVE_CP_END ? nb.getEdgeCont().retrieve("-" + pred) : nb.getEdgeCont().retrieve(pred);
-            toEdge = succC != OPENDRIVE_CP_START ? nb.getEdgeCont().retrieve("-" + succ) : nb.getEdgeCont().retrieve(succ);
+            WRITE_WARNING("Internal edge '" + e.id + "' has no node.");
+            continue;
         }
-        /*
-        Connection c(
-            n->hasIncoming(nb.getEdgeCont().retrieve("-" + pred)) ? nb.getEdgeCont().retrieve("-" + pred) : nb.getEdgeCont().retrieve(pred),
-            e.id,
-            n->hasOutgoing(nb.getEdgeCont().retrieve("-" + succ)) ? nb.getEdgeCont().retrieve("-" + succ) : nb.getEdgeCont().retrieve(succ));
-            */
         Connection c(fromEdge, e.id, toEdge);
         if (c.from == 0 || c.to == 0 || c.from == c.to) {
             throw ProcessError("Something's false");
         }
         setLaneConnections(c,
                            *predEdge, c.from->getID()[0] != '-', c.from->getID()[0] == '-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT,
-                           e, isReversed, !isReversed ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT,
+                           e, false, OPENDRIVE_TAG_RIGHT,
                            *succEdge, c.to->getID()[0] != '-', c.to->getID()[0] == '-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT);
         c.id = e.id;
         connections.push_back(c);
