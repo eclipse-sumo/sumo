@@ -421,7 +421,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
 
         if (e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT) != 0 && e.getMaxLaneNumber(OPENDRIVE_TAG_RIGHT) != 0) {
-            throw ProcessError("Edge '" + e.id + "' is a connections in two directions; cannot be built.");
+            //throw ProcessError("Edge '" + e.id + "' is a connections in two directions; cannot be built.");
+            continue;
         }
 
 
@@ -842,9 +843,16 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
 
 std::vector<Position>
 NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
-    UNUSED_PARAMETER(g);
     UNUSED_PARAMETER(e);
     std::vector<Position> ret;
+    SUMOReal off = g.length;
+    SUMOReal x = off;
+    SUMOReal y = g.params[0] + g.params[1]*off + g.params[2]*pow(off, 2.) + g.params[3]*pow(off, 3.);
+    SUMOReal s = sin(g.hdg);
+    SUMOReal c = cos(g.hdg);
+    SUMOReal xnew = x * c - y * s;
+    SUMOReal ynew = x * s + y * c;
+    ret.push_back(Position(g.x+xnew, g.y+ynew));
     return ret;
 }
 
