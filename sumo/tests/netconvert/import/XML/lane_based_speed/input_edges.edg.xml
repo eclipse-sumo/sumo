@@ -3,4 +3,9 @@
         <lane index="1" speed="25"/>
         <lane index="2" speed="60"/>
     </edge>
+
+	<edge id="2" from="1" to="2" numLanes="3">
+        <lane index="0" speed="25"/>
+        <lane index="1" speed="25"/>
+    </edge>
 </edges>

@@ -156,7 +156,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             edevice.writeAttr(SUMO_ATTR_TYPE, e->getTypeID());
         }
         edevice.writeAttr(SUMO_ATTR_NUMLANES, e->getNumLanes());
-        if (!e->hasLaneSpecificSpeed()) { // @todo: check, is speed not a mandatory attribute of an edge?
+        if (!e->hasLaneSpecificSpeed()) { 
             edevice.writeAttr(SUMO_ATTR_SPEED, e->getSpeed());
         }
         // write non-default geometry
