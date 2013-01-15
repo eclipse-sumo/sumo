@@ -12,3 +12,8 @@ generateITetrisIntersectionMetrics
 
 # Tests for generateMeanDataDefinitions.py
 generateMeanDataDefinitions
+
+
+# Tests for output converters
+converter
+
