@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 23 Mar 2012 12:49:26 PM CET by Netedit Version dev-SVN-r12161
+<!-- generated on 01/15/13 13:31:45 by SUMO netconvert Version 0.16.0
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/erdm_ja/delphi-extern/sumo/tests/duarouter/function/routing/chrouter/weights/input_net.net.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/erdm_ja/delphi-extern/sumo/tests/duarouter/function/routing/chrouter/weights/input_net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -57,7 +57,7 @@
         <lane id="long_0" index="0" speed="13.89" length="692.27" shape="102.33,2.00 202.84,332.95 321.17,7.40"/>
     </edge>
     <edge id="short" from="gneJ27" to="gneJ28" priority="1">
-        <lane id="short_0" index="0" disallow="" speed="13.89" length="65.29" shape="176.34,1.68 241.60,3.76"/>
+        <lane id="short_0" index="0" speed="13.89" length="65.29" shape="176.34,1.68 241.60,3.76"/>
     </edge>
     <edge id="src" from="gneJ9" to="gneJ10" priority="1" length="100.00">
         <lane id="src_0" index="0" speed="1.00" length="100.00" shape="3.63,-1.65 96.67,-1.65"/>

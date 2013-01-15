@@ -52,5 +52,5 @@ default_arrivalpos_false
 default_arrivalspeed_false
 
 
-
-
+# Tests for importing trips with an empty vehicle class
+empty_vclass

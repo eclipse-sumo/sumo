@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu 08 Mar 2012 08:44:25 AM CET by Netedit Version dev-SVN-r12036
+<!-- generated on 01/15/13 13:03:12 by SUMO netconvert Version 0.16.0
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/erdm_ja/debug/routing_algorithms/debug_bidi.net.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/erdm_ja/debug/routing_algorithms/debug_bidi.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -63,7 +63,7 @@
         <lane id="f400_0" index="0" speed="1.00" length="400.00" shape="107.96,-3.60 213.59,-28.93"/>
     </edge>
     <edge id="f600" from="gneJ10" to="gneJ13" priority="1" length="600.00">
-        <lane id="f600_0" index="0" disallow="" speed="1.00" length="600.00" shape="107.96,0.21 265.72,37.93"/>
+        <lane id="f600_0" index="0" speed="1.00" length="600.00" shape="107.96,0.21 265.72,37.93"/>
     </edge>
     <edge id="src" from="gneJ9" to="gneJ10" priority="1" length="100.00">
         <lane id="src_0" index="0" speed="1.00" length="100.00" shape="0.00,-1.65 102.79,-1.65"/>
@@ -86,7 +86,7 @@
     <junction id="gneJ18" type="dead_end" x="213.96" y="-27.32" incLanes="f400_0" intLanes=":gneJ18_0_0" shape="213.96,-27.37 214.88,-30.44 213.22,-30.48 213.96,-27.37"/>
     <junction id="gneJ20" type="unregulated" x="163.48" y="2.53" incLanes="" intLanes="" shape="163.48,2.48 163.54,-0.72">
     </junction>
-    <junction id="gneJ9" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
+    <junction id="gneJ9" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25">
     </junction>
 
     <connection from="b100" to="dest" fromLane="0" toLane="0" via=":gneJ16_2_0" dir="s" state="m"/>

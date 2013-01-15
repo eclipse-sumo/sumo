@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu 08 Mar 2012 08:54:15 AM CET by Netedit Version dev-SVN-r12036
+<!-- generated on 01/15/13 13:23:43 by SUMO netconvert Version 0.16.0
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/erdm_ja/debug/routing_algorithms/debug_bidi.net.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/erdm_ja/debug/routing_algorithms/restricted.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -23,7 +23,7 @@
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="0.00,-27.32,459.34,39.84" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="0.00,-79.77,459.34,126.78" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ10_0" function="internal">
         <lane id=":gneJ10_0_0" index="0" speed="13.89" length="8.35" shape="98.81,-5.35 100.05,-3.71 101.63,-2.53 103.55,-1.79 105.80,-1.51"/>
@@ -32,22 +32,22 @@
         <lane id=":gneJ10_1_0" index="0" speed="13.89" length="9.18" shape="98.81,-5.35 103.98,2.23"/>
     </edge>
     <edge id=":gneJ10_2" function="internal">
-        <lane id=":gneJ10_2_0" index="0" speed="7.44" length="9.13" shape="96.67,-1.65 105.80,-1.51"/>
+        <lane id=":gneJ10_2_0" index="0" speed="7.45" length="9.13" shape="96.67,-1.65 105.80,-1.51"/>
     </edge>
     <edge id=":gneJ10_3" function="internal">
-        <lane id=":gneJ10_3_0" index="0" speed="7.44" length="8.55" shape="96.67,-1.65 98.67,-1.41 100.55,-0.68 102.32,0.53 103.98,2.23"/>
+        <lane id=":gneJ10_3_0" index="0" speed="7.45" length="8.55" shape="96.67,-1.65 98.67,-1.41 100.55,-0.68 102.32,0.53 103.98,2.23"/>
     </edge>
     <edge id=":gneJ16_0" function="internal">
         <lane id=":gneJ16_0_0" index="0" speed="13.89" length="9.25" shape="317.76,3.70 320.18,3.52 322.35,2.85 324.26,1.70 325.92,0.07"/>
     </edge>
     <edge id=":gneJ16_1" function="internal">
-        <lane id=":gneJ16_1_0" index="0" speed="7.44" length="9.95" shape="317.76,3.70 327.71,3.84"/>
+        <lane id=":gneJ16_1_0" index="0" speed="7.45" length="9.95" shape="317.76,3.70 327.71,3.84"/>
     </edge>
     <edge id=":gneJ16_2" function="internal">
         <lane id=":gneJ16_2_0" index="0" speed="13.89" length="9.96" shape="319.32,7.52 325.92,0.07"/>
     </edge>
     <edge id=":gneJ16_3" function="internal">
-        <lane id=":gneJ16_3_0" index="0" speed="7.44" length="9.41" shape="319.32,7.52 321.20,5.91 323.22,4.76 325.39,4.07 327.71,3.84"/>
+        <lane id=":gneJ16_3_0" index="0" speed="7.45" length="9.41" shape="319.32,7.52 321.20,5.91 323.22,4.76 325.39,4.07 327.71,3.84"/>
     </edge>
 
     <edge id="dest" from="gneJ16" to="gneJ17" priority="1" length="100.00">
@@ -60,7 +60,7 @@
         <lane id="gneE7_0" index="0" speed="13.89" length="208.70" shape="325.92,0.07 392.22,-81.08 457.12,0.07"/>
     </edge>
     <edge id="long" from="gneJ10" to="gneJ16" priority="1" shape="100.00,0.00 204.79,126.78 323.62,5.49">
-        <lane id="long_0" index="0" disallow="" speed="13.89" length="321.89" shape="103.98,2.23 204.89,124.32 319.32,7.52"/>
+        <lane id="long_0" index="0" speed="13.89" length="321.89" shape="103.98,2.23 204.89,124.32 319.32,7.52"/>
     </edge>
     <edge id="short" from="gneJ10" to="gneJ16" priority="1">
         <lane id="short_0" index="0" disallow="vip" speed="13.89" length="212.03" shape="105.80,-1.51 317.76,3.70"/>

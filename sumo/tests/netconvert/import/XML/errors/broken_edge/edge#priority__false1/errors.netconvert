@@ -1,2 +1,2 @@
-Error: Attribute 'priority' in definition of edge '1' is not an int.
+Error: Attribute 'priority' in definition of edge '1' is not of type int.
 Quitting (on error).
