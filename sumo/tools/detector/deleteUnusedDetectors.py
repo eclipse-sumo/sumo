@@ -25,7 +25,7 @@ def writeDetectors(usedDet):
     """ Writes the detectors which are used in the network in a xml file. """
 
     fd = open("detectors.xml", "w")
-    fd.write("<pois>\n")
+    fd.write('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/additional_file.xsd">\n')
     for det in usedDet:
         fd.write("   <e1Detector id= \"" + det.getAttribute('id') + "\" lane=\"" + det.getAttribute('lane') + "\" pos=\"" + det.getAttribute('pos'))
         fd.write("\" freq=\"" + det.getAttribute('freq') + "\" file=\"" + det.getAttribute('file'))
@@ -36,7 +36,7 @@ def writeDetectors(usedDet):
         
         fd.write("\"")
         fd.write("/>\n")
-    fd.write("</pois>\n")
+    fd.write("</additional>\n")
     
 
 def deleteUnused(detectors, net):
