@@ -33,6 +33,7 @@ net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
 state:<!--{[->]}-->
+state:snapshot version="[^"]*"{REPLACE snapshot}
 output:visible boundary
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
 output:\r{REPLACE \n}
