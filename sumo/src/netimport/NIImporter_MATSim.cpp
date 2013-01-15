@@ -150,9 +150,9 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
     }
     // get the id, report a warning if not given or empty...
     bool ok = true;
-    std::string id = attrs.getStringReporting(MATSIM_ATTR_ID, 0, ok);
-    SUMOReal x = attrs.getSUMORealReporting(MATSIM_ATTR_X, id.c_str(), ok);
-    SUMOReal y = attrs.getSUMORealReporting(MATSIM_ATTR_Y, id.c_str(), ok);
+    std::string id = attrs.get<std::string>(MATSIM_ATTR_ID, 0, ok);
+    SUMOReal x = attrs.get<SUMOReal>(MATSIM_ATTR_X, id.c_str(), ok);
+    SUMOReal y = attrs.get<SUMOReal>(MATSIM_ATTR_Y, id.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -193,7 +193,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     bool ok = true;
     if (element == MATSIM_TAG_NETWORK) {
         if (attrs.hasAttribute(MATSIM_ATTR_CAPDIVIDER)) {
-            int capDivider = attrs.getIntReporting(MATSIM_ATTR_CAPDIVIDER, "network", ok);
+            int capDivider = attrs.get<int>(MATSIM_ATTR_CAPDIVIDER, "network", ok);
             if (ok) {
                 myCapacityNorm = (SUMOReal)(capDivider * 3600);
             }
@@ -201,7 +201,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     }
     if (element == MATSIM_TAG_LINKS) {
         bool ok = true;
-        std::string capperiod = attrs.getStringReporting(MATSIM_ATTR_CAPPERIOD, "links", ok);
+        std::string capperiod = attrs.get<std::string>(MATSIM_ATTR_CAPPERIOD, "links", ok);
         StringTokenizer st(capperiod, ":");
         if (st.size() != 3) {
             WRITE_ERROR("Bogus capacity period format; requires 'hh:mm:ss'.");
@@ -222,16 +222,16 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     if (element != MATSIM_TAG_LINK) {
         return;
     }
-    std::string id = attrs.getStringReporting(MATSIM_ATTR_ID, 0, ok);
-    std::string fromNodeID = attrs.getStringReporting(MATSIM_ATTR_FROM, id.c_str(), ok);
-    std::string toNodeID = attrs.getStringReporting(MATSIM_ATTR_TO, id.c_str(), ok);
-    SUMOReal length = attrs.getSUMORealReporting(MATSIM_ATTR_LENGTH, id.c_str(), ok); // override computed?
-    SUMOReal freeSpeed = attrs.getSUMORealReporting(MATSIM_ATTR_FREESPEED, id.c_str(), ok); //
-    SUMOReal capacity = attrs.getSUMORealReporting(MATSIM_ATTR_CAPACITY, id.c_str(), ok); // override permLanes?
-    SUMOReal permLanes = attrs.getSUMORealReporting(MATSIM_ATTR_PERMLANES, id.c_str(), ok);
-    //bool oneWay = attrs.getOptBoolReporting(MATSIM_ATTR_ONEWAY, id.c_str(), ok, true); // mandatory?
-    std::string modes = attrs.getOptStringReporting(MATSIM_ATTR_MODES, id.c_str(), ok, ""); // which values?
-    std::string origid = attrs.getOptStringReporting(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");
+    std::string id = attrs.get<std::string>(MATSIM_ATTR_ID, 0, ok);
+    std::string fromNodeID = attrs.get<std::string>(MATSIM_ATTR_FROM, id.c_str(), ok);
+    std::string toNodeID = attrs.get<std::string>(MATSIM_ATTR_TO, id.c_str(), ok);
+    SUMOReal length = attrs.get<SUMOReal>(MATSIM_ATTR_LENGTH, id.c_str(), ok); // override computed?
+    SUMOReal freeSpeed = attrs.get<SUMOReal>(MATSIM_ATTR_FREESPEED, id.c_str(), ok); //
+    SUMOReal capacity = attrs.get<SUMOReal>(MATSIM_ATTR_CAPACITY, id.c_str(), ok); // override permLanes?
+    SUMOReal permLanes = attrs.get<SUMOReal>(MATSIM_ATTR_PERMLANES, id.c_str(), ok);
+    //bool oneWay = attrs.getOpt<bool>(MATSIM_ATTR_ONEWAY, id.c_str(), ok, true); // mandatory?
+    std::string modes = attrs.getOpt<std::string>(MATSIM_ATTR_MODES, id.c_str(), ok, ""); // which values?
+    std::string origid = attrs.getOpt<std::string>(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");
     NBNode* fromNode = myNodeCont.retrieve(fromNodeID);
     NBNode* toNode = myNodeCont.retrieve(toNodeID);
     if (fromNode == 0) {

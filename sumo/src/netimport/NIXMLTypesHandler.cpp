@@ -70,16 +70,16 @@ NIXMLTypesHandler::myStartElement(int element,
     }
     bool ok = true;
     // get the id, report a warning if not given or empty...
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, myTypeCont.getPriority(""));
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, myTypeCont.getPriority(""));
     int noLanes = myTypeCont.getNumLanes("");
-    noLanes = attrs.getOptIntReporting(SUMO_ATTR_NUMLANES, id.c_str(), ok, noLanes);
-    SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok, (SUMOReal) myTypeCont.getSpeed(""));
-    std::string allowS = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
-    std::string disallowS = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
-    bool oneway = attrs.getOptBoolReporting(SUMO_ATTR_ONEWAY, id.c_str(), ok, false);
-    bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
-    SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, NBEdge::UNSPECIFIED_WIDTH);
+    noLanes = attrs.getOpt<int>(SUMO_ATTR_NUMLANES, id.c_str(), ok, noLanes);
+    SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, id.c_str(), ok, (SUMOReal) myTypeCont.getSpeed(""));
+    std::string allowS = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
+    std::string disallowS = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
+    bool oneway = attrs.getOpt<bool>(SUMO_ATTR_ONEWAY, id.c_str(), ok, false);
+    bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
+    SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, NBEdge::UNSPECIFIED_WIDTH);
     if (!ok) {
         return;
     }

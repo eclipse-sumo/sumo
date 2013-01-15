@@ -99,22 +99,6 @@ public:
      */
     bool getBool(int id) const throw(EmptyData, BoolFormatException);
 
-    /**
-     * @brief Returns the bool-value of the named (by its enum-value) attribute or the given value if the attribute is not known
-     *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2boolSec.
-     *  If the attribute is empty, TplConvert<XMLCh>::_2boolSec throws an
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2boolSec
-     *  returns the default value.
-     *
-     * @param[in] id The id of the attribute to return the value of
-     * @param[in] def The default value to return if the attribute is not in attributes
-     * @return The attribute's value as a bool, if it could be read and parsed
-     * @exception EmptyData If the attribute value is an empty string
-     */
-    bool getBoolSecure(int id, bool def) const throw(EmptyData);
-
 
     /**
      * @brief Returns the int-value of the named (by its enum-value) attribute
@@ -132,25 +116,6 @@ public:
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
     int getInt(int id) const;
-
-    /**
-     * @brief Returns the int-value of the named (by its enum-value) attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2intSec.
-     *  If the attribute is empty, TplConvert<XMLCh>::_2intSec throws an
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2intSec
-     *  returns the default value.
-     * If the value can not be parsed to an int, TplConvert<XMLCh>::_2intSec throws a
-     *  NumberFormatException-exception which is passed.
-     *
-     * @param[in] id The id of the attribute to return the value of
-     * @param[in] def The default value to return if the attribute is not in attributes
-     * @return The attribute's value as an int, if it could be read and parsed
-     * @exception EmptyData If the attribute value is an empty string
-     * @exception NumberFormatException If the attribute value can not be parsed to an int
-     */
-    int getIntSecure(int id, int def) const;
 
 
     /**
@@ -218,25 +183,6 @@ public:
      */
     SUMOReal getFloat(int id) const;
 
-    /**
-     * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMORealSec.
-     *  If the attribute is empty, TplConvert<XMLCh>::_2SUMORealSec throws an
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2SUMORealSec
-     *  returns the default value.
-     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMORealSec throws a
-     *  NumberFormatException-exception which is passed.
-     *
-     * @param[in] id The id of the attribute to return the value of
-     * @param[in] def The default value to return if the attribute is not in attributes
-     * @return The attribute's value as a float, if it could be read and parsed
-     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
-     */
-    SUMOReal getFloatSecure(int id, SUMOReal def) const;
-
 
     /**
      * @brief Returns the information whether the named attribute is within the current list
@@ -300,39 +246,37 @@ public:
      * Tries to retrieve the attribute from the the attribute list.
      * @return The attribute's value as a RGBColor, if it could be read and parsed
      */
-    RGBColor getColorReporting(const char* objectid, bool& ok) const;
+    RGBColor getColor() const;
 
 
     /** @brief Tries to read given attribute assuming it is a PositionVector
      *
-     * If an error occurs (the attribute is not there, it's empty), "ok" is
-     *  set to false and an error message is written to MsgHandler::getErrorInstance.
-     *
-     * Otherwise, "ok" is not changed.
-     *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and not empty; "" if an error occured
      */
-    PositionVector getShapeReporting(int attr, const char* objectid, bool& ok,
-                                     bool allowEmpty) const;
+    PositionVector getShape(int attr) const;
+
 
     /** @brief Tries to read given attribute assuming it is a Boundary
      *
-     * If an error occurs (the attribute is not there, it's empty), "ok" is
-     *  set to false and an error message is written to MsgHandler::getErrorInstance.
-     *
-     * Otherwise, "ok" is not changed.
-     *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and not empty; "" if an error occured
      */
-    Boundary getBoundaryReporting(int attr, const char* objectid, bool& ok) const;
+    Boundary getBoundary(int attr) const;
+
+    /** @brief Tries to read given attribute assuming it is a string vector
+     *
+     * @param[in] attr The id of the attribute to read
+     * @return The read value if given and not empty; empty vector if an error occured
+     */
+    std::vector<std::string> getStringVector(int attr) const;
+
+    /** @brief Tries to read given attribute assuming it is a vector of floats
+     *
+     * @param[in] attr The id of the attribute to read
+     * @return The read value if given and not empty; empty vector if an error occured
+     */
+    std::vector<SUMOReal> getFloatVector(int attr) const;
 
 
     /** @brief Converts the given attribute id into a man readable string

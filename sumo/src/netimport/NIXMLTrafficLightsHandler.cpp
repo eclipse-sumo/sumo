@@ -127,9 +127,9 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
         return 0;
     }
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
-    SUMOTime offset = attrs.hasAttribute(SUMO_ATTR_OFFSET) ? TIME2STEPS(attrs.getSUMORealReporting(SUMO_ATTR_OFFSET, id.c_str(), ok)) : 0;
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
+    SUMOTime offset = attrs.hasAttribute(SUMO_ATTR_OFFSET) ? TIME2STEPS(attrs.get<SUMOReal>(SUMO_ATTR_OFFSET, id.c_str(), ok)) : 0;
 
     // there are two scenarios to consider
     // 1) the tll.xml is loaded to update traffic lights defined in a net.xml:
@@ -166,7 +166,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
             myTLLCont.removeProgram(id, NBTrafficLightDefinition::DefaultProgramID);
         }
         myTLLCont.insert(loadedDef);
-        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, 0, ok, toString(TLTYPE_STATIC));
+        std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, 0, ok, toString(TLTYPE_STATIC));
         if (type != toString(TLTYPE_STATIC)) {
             WRITE_WARNING("Traffic light '" + id + "' has unsupported type '" + type + "' and will be converted to '" + toString(TLTYPE_STATIC) + "'");
         }
@@ -206,13 +206,13 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
     }
     NBEdge::Connection c = *con_it;
     // read other  attributes
-    std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
+    std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
     if (tlID == "") {
         // we are updating an existing tl-controlled connection
         tlID = c.tlID;
         assert(tlID != "");
     }
-    int tlIndex = attrs.getOptIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok, -1);
+    int tlIndex = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX, 0, ok, -1);
     if (tlIndex == -1) {
         // we are updating an existing tl-controlled connection
         tlIndex = c.tlLinkNo;
@@ -240,7 +240,7 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
 void
 NIXMLTrafficLightsHandler::removeTlConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string tlID = attrs.getStringReporting(SUMO_ATTR_TLID, 0, ok);
+    std::string tlID = attrs.get<std::string>(SUMO_ATTR_TLID, 0, ok);
     // does the traffic light still exist?
     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(tlID);
     if (programs.size() > 0) {
@@ -255,7 +255,7 @@ NIXMLTrafficLightsHandler::removeTlConnection(const SUMOSAXAttributes& attrs) {
         if (!ok) {
             return;
         }
-        int tlIndex = attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok);
+        int tlIndex = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
 
         NBConnection conn(from, fromLane, to, toLane, tlIndex);
         // remove the connection from all definitions
@@ -276,7 +276,7 @@ NIXMLTrafficLightsHandler::removeTlConnection(const SUMOSAXAttributes& attrs) {
 NBEdge*
 NIXMLTrafficLightsHandler::retrieveEdge(
     const SUMOSAXAttributes& attrs, SumoXMLAttr attr, bool& ok) {
-    std::string edgeID = attrs.getStringReporting(attr, 0, ok);
+    std::string edgeID = attrs.get<std::string>(attr, 0, ok);
     NBEdge* edge = myEdgeCont.retrieve(edgeID, true);
     if (edge == 0) {
         WRITE_ERROR("Unknown edge '" + edgeID + "' given in connection.");
@@ -289,7 +289,7 @@ NIXMLTrafficLightsHandler::retrieveEdge(
 int
 NIXMLTrafficLightsHandler::retrieveLaneIndex(
     const SUMOSAXAttributes& attrs, SumoXMLAttr attr, NBEdge* edge, bool& ok) {
-    int laneIndex = attrs.getIntReporting(attr, 0, ok);
+    int laneIndex = attrs.get<int>(attr, 0, ok);
     if (edge->getNumLanes() <= (size_t) laneIndex) {
         WRITE_ERROR("Invalid lane index '" + toString(laneIndex) + "' for edge '" + edge->getID() + "'.");
         ok = false;

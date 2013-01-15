@@ -235,7 +235,7 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     myParentElements.push_back(element);
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
-        SUMOLong id = attrs.getLongReporting(SUMO_ATTR_ID, 0, ok);
+        SUMOLong id = attrs.get<SUMOLong>(SUMO_ATTR_ID, 0, ok);
         if (!ok) {
             return;
         }
@@ -248,8 +248,8 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
             toAdd->id = id;
             toAdd->myIsAdditional = false;
             bool ok = true;
-            toAdd->lon = attrs.getSUMORealReporting(SUMO_ATTR_LON, toString(id).c_str(), ok);
-            toAdd->lat = attrs.getSUMORealReporting(SUMO_ATTR_LAT, toString(id).c_str(), ok);
+            toAdd->lon = attrs.get<SUMOReal>(SUMO_ATTR_LON, toString(id).c_str(), ok);
+            toAdd->lat = attrs.get<SUMOReal>(SUMO_ATTR_LAT, toString(id).c_str(), ok);
             if (!ok) {
                 delete toAdd;
                 return;
@@ -259,8 +259,8 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     }
     if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_NODE) {
         bool ok = true;
-        std::string key = attrs.getStringReporting(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok);
-        std::string value = attrs.getStringReporting(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
+        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok);
+        std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
         if (!ok) {
             return;
         }
@@ -309,7 +309,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     // parse "way" elements
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
-        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+        std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
         if (!ok) {
             return;
         }
@@ -321,7 +321,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     // parse "nd" (node) elements
     if (element == SUMO_TAG_ND) {
         bool ok = true;
-        SUMOLong ref = attrs.getLongReporting(SUMO_ATTR_REF, 0, ok);
+        SUMOLong ref = attrs.get<SUMOLong>(SUMO_ATTR_REF, 0, ok);
         if (ok) {
             if (myOSMNodes.find(ref) == myOSMNodes.end()) {
                 WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
@@ -333,8 +333,8 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     // parse values
     if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_WAY) {
         bool ok = true;
-        std::string key = attrs.getStringReporting(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok);
-        std::string value = attrs.getStringReporting(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
+        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok);
+        std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
         if (!ok) {
             return;
         }

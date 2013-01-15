@@ -36,6 +36,7 @@
 #include <vector>
 
 #include <utils/common/SUMOTime.h>
+#include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include "SUMOXMLDefinitions.h"
 
@@ -84,8 +85,8 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; -1 if an error occured
      */
-    int getIntReporting(int attr, const char* objectid, bool& ok,
-                        bool report = true) const;
+    template <typename T>
+    T get(int attr, const char* objectid, bool& ok, bool report = true) const;
 
 
     /** @brief Tries to read given attribute assuming it is an int
@@ -103,141 +104,8 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
      */
-    int getOptIntReporting(int attr, const char* objectid, bool& ok,
-                           int defaultValue, bool report = true) const;
-
-
-
-    /** @brief Tries to read given attribute assuming it is a long
-     *
-     * If an error occurs (the attribute is not there, it is not numeric), "ok" is
-     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
-     *
-     * If the value could be read, "ok" is not changed, and the value is returned.
-     *
-     * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and correct; -1 if an error occured
-     */
-    SUMOLong getLongReporting(int attr, const char* objectid, bool& ok,
-                              bool report = true) const;
-
-
-
-    /** @brief Tries to read given attribute assuming it is a SUMOReal
-     *
-     * If an error occurs (the attribute is not there, it is not numeric), "ok" is
-     *  set to false and an error message is written to MsgHandler::getErrorInstance.
-     *
-     * Otherwise, "ok" is not changed.
-     *
-     * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and correct; -1 if an error occured
-     */
-    SUMOReal getSUMORealReporting(int attr, const char* objectid, bool& ok,
-                                  bool report = true) const;
-
-
-
-    /** @brief Tries to read given attribute assuming it is a SUMOReal
-     *
-     * If the attribute is not existing in the current element, the default value is returned.
-     * If an error occurs on parsing (the attribute is empty, it is not numeric), "ok" is
-     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
-     *
-     * Otherwise, "ok" is not changed.
-     *
-     * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] defaultValue The value to return if the attribute is not within the element
-     * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
-     */
-    SUMOReal getOptSUMORealReporting(int attr, const char* objectid, bool& ok,
-                                     SUMOReal defaultValue, bool report = true) const;
-
-
-
-    /** @brief Tries to read given attribute assuming it is a boolean
-     *
-     * If an error occurs (the attribute is not there, it is not a boolean), "ok" is
-     *  set to false and an error message is written to MsgHandler::getErrorInstance.
-     *
-     * Otherwise, "ok" is not changed.
-     *
-     * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and correct; false if an error occured
-     */
-    bool getBoolReporting(int attr,  const char* objectid, bool& ok,
-                          bool report = true) const;
-
-
-
-    /** @brief Tries to read given attribute assuming it is a boolean
-     *
-     * If the attribute is not existing in the current element, the default value is returned.
-     * If an error occurs on parsing (the attribute is empty, it is not a boolean), "ok" is
-     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
-     *
-     * Otherwise, "ok" is not changed.
-     *
-     * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] defaultValue The value to return if the attribute is not within the element
-     * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and correct; the default value if the attribute does not exist; false if an error occured
-     */
-    bool getOptBoolReporting(int attr, const char* objectid, bool& ok,
-                             bool defaultValue, bool report = true) const;
-
-
-
-    /** @brief Tries to read given attribute assuming it is a string
-     *
-     * If an error occurs (the attribute is not there, it's empty), "ok" is
-     *  set to false and an error message is written to MsgHandler::getErrorInstance.
-     *
-     * Otherwise, "ok" is not changed.
-     *
-     * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and not empty; "" if an error occured
-     */
-    std::string getStringReporting(int attr, const char* objectid, bool& ok,
-                                   bool report = true) const;
-
-
-
-    /** @brief Tries to read given attribute assuming it is a string
-     *
-     * If the attribute is not existing in the current element, the default value is returned.
-     * If an error occurs on parsing (the attribute is empty), "ok" is
-     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
-     *
-     * Otherwise, "ok" is not changed.
-     *
-     * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] defaultValue The value to return if the attribute is not within the element
-     * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and not empty; the default value if the attribute does not exist; "" if an error occured
-     */
-    std::string getOptStringReporting(int attr, const char* objectid, bool& ok,
-                                      const std::string& defaultValue, bool report = true) const;
-
+    template <typename T>
+    T getOpt(int attr, const char* objectid, bool& ok, T defaultValue, bool report = true) const;
 
 
     /** @brief Tries to read given attribute assuming it is a SUMOTime
@@ -247,7 +115,7 @@ public:
      *
      * Otherwise, "ok" is not changed.
      *
-     * In dependence to the used time representation, either getIntReporting or getSUMORealReporting
+     * In dependence to the used time representation, either get<int> or get<SUMOReal>
      *  is used.
      *
      * @param[in] attr The id of the attribute to read
@@ -269,7 +137,7 @@ public:
      *
      * Otherwise, "ok" is not changed.
      *
-     * In dependence to the used time representation, either getIntReporting or getSUMORealReporting
+     * In dependence to the used time representation, either get<int> or get<SUMOReal>
      *  is used.
      *
      * @param[in] attr The id of the attribute to read
@@ -281,11 +149,6 @@ public:
      */
     SUMOTime getOptSUMOTimeReporting(int attr, const char* objectid, bool& ok,
                                      SUMOTime defaultValue, bool report = true) const;
-
-
-
-
-
 
 
 
@@ -326,23 +189,6 @@ public:
     virtual bool getBool(int id) const throw(EmptyData, BoolFormatException) = 0;
 
     /**
-     * @brief Returns the bool-value of the named (by its enum-value) attribute or the given value if the attribute is not known
-     *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2boolSec.
-     *  If the attribute is empty, TplConvert<XMLCh>::_2boolSec throws an
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2boolSec
-     *  returns the default value.
-     *
-     * @param[in] id The id of the attribute to return the value of
-     * @param[in] val The default value to return if the attribute is not in attributes
-     * @return The attribute's value as a bool, if it could be read and parsed
-     * @exception EmptyData If the attribute value is an empty string
-     */
-    virtual bool getBoolSecure(int id, bool val) const throw(EmptyData) = 0;
-
-
-    /**
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -376,26 +222,6 @@ public:
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
     virtual SUMOLong getLong(int id) const = 0;
-
-
-    /**
-     * @brief Returns the int-value of the named (by its enum-value) attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2intSec.
-     *  If the attribute is empty, TplConvert<XMLCh>::_2intSec throws an
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2intSec
-     *  returns the default value.
-     * If the value can not be parsed to an int, TplConvert<XMLCh>::_2intSec throws a
-     *  NumberFormatException-exception which is passed.
-     *
-     * @param[in] id The id of the attribute to return the value of
-     * @param[in] def The default value to return if the attribute is not in attributes
-     * @return The attribute's value as an int, if it could be read and parsed
-     * @exception EmptyData If the attribute value is an empty string
-     * @exception NumberFormatException If the attribute value can not be parsed to an int
-     */
-    virtual int getIntSecure(int id, int def) const = 0;
 
 
     /**
@@ -446,25 +272,6 @@ public:
      */
     virtual SUMOReal getFloat(int id) const = 0;
 
-    /**
-     * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMORealSec.
-     *  If the attribute is empty, TplConvert<XMLCh>::_2SUMORealSec throws an
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2SUMORealSec
-     *  returns the default value.
-     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMORealSec throws a
-     *  NumberFormatException-exception which is passed.
-     *
-     * @param[in] id The id of the attribute to return the value of
-     * @param[in] def The default value to return if the attribute is not in attributes
-     * @return The attribute's value as a float, if it could be read and parsed
-     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
-     */
-    virtual SUMOReal getFloatSecure(int id, SUMOReal def) const = 0;
-
 
     /**
      * @brief Returns the SUMOReal-value of the named attribute
@@ -495,7 +302,6 @@ public:
      */
     virtual std::string getStringSecure(const std::string& id,
                                         const std::string& def) const = 0;
-    //}
 
 
     /**
@@ -522,39 +328,38 @@ public:
      * Tries to retrieve the attribute from the the attribute list.
      * @return The attribute's value as a RGBColor, if it could be read and parsed
      */
-    virtual RGBColor getColorReporting(const char* objectid, bool& ok) const = 0;
+    virtual RGBColor getColor() const = 0;
 
 
     /** @brief Tries to read given attribute assuming it is a PositionVector
      *
-     * If an error occurs (the attribute is not there, it's empty), "ok" is
-     *  set to false and an error message is written to MsgHandler::getErrorInstance.
-     *
-     * Otherwise, "ok" is not changed.
-     *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and not empty; "" if an error occured
+     * @return The read value if given and not empty; empty position vector if an error occured
      */
-    virtual PositionVector getShapeReporting(int attr, const char* objectid, bool& ok,
-            bool allowEmpty) const = 0;
+    virtual PositionVector getShape(int attr) const = 0;
 
-    /** @brief Tries to read given attribute assuming it is a PositionVector
-     *
-     * If an error occurs (the attribute is not there, it's empty), "ok" is
-     *  set to false and an error message is written to MsgHandler::getErrorInstance.
-     *
-     * Otherwise, "ok" is not changed.
+    /** @brief Tries to read given attribute assuming it is a Boundary
      *
      * @param[in] attr The id of the attribute to read
-     * @param[in] objectid The name of the parsed object; used for error message generation
-     * @param[out] ok Whether the value could be read
-     * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and not empty; "" if an error occured
+     * @return The read value if given and not empty; empty Boundary if an error occured
      */
-    virtual Boundary getBoundaryReporting(int attr, const char* objectid, bool& ok) const = 0;
+    virtual Boundary getBoundary(int attr) const = 0;
+
+    /** @brief Tries to read given attribute assuming it is a string vector
+     *
+     * @param[in] attr The id of the attribute to read
+     * @return The read value if given and not empty; empty vector if an error occured
+     */
+    virtual std::vector<std::string> getStringVector(int attr) const = 0;
+
+    /** @brief Tries to read given attribute assuming it is a vector of floats
+     *
+     * @param[in] attr The id of the attribute to read
+     * @return The read value if given and not empty; empty vector if an error occured
+     */
+    virtual std::vector<SUMOReal> getFloatVector(int attr) const = 0;
+    //}
+
 
     /** @brief Converts the given attribute id into a man readable string
      *
@@ -571,17 +376,6 @@ public:
     virtual void serialize(std::ostream& os) const = 0;
 
 
-    /** @brief Splits the given string
-     *
-     * Spaces, ",", and ";" are assumed to be separator characters.
-     * Though, in the case a "," or a ";" occurs, a warning is generated (once).
-     *
-     * @param[in] def The string to split
-     * @param[out] into The vector to fill
-     */
-    static void parseStringVector(const std::string& def, std::vector<std::string>& into);
-
-
     /// @brief return the objecttype to which these attributes belong
     const std::string& getObjectType() const {
         return myObjectType;
@@ -594,7 +388,19 @@ public:
     static const std::string ENCODING;
 
 
+    /** @brief Splits the given string
+     *
+     * Spaces, ",", and ";" are assumed to be separator characters.
+     * Though, in the case a "," or a ";" occurs, a warning is generated (once).
+     *
+     * @param[in] def The string to split
+     * @param[out] into The vector to fill
+     */
+    static void parseStringVector(const std::string& def, std::vector<std::string>& into);
+
+
 protected:
+    template <typename T> T getInternal(const int attr) const;
     void emitUngivenError(const std::string& attrname, const char* objectid) const;
     void emitEmptyError(const std::string& attrname, const char* objectid) const;
     void emitFormatError(const std::string& attrname, const std::string& type, const char* objectid) const;
@@ -619,6 +425,60 @@ private:
 inline std::ostream& operator<<(std::ostream& os, const SUMOSAXAttributes& src) {
     src.serialize(os);
     return os;
+}
+
+
+template<typename X> struct invalid_return {
+    static const X value;
+    static const std::string type;
+};
+
+
+template <typename T>
+T SUMOSAXAttributes::get(int attr, const char* objectid,
+                         bool& ok, bool report) const {
+    if (!hasAttribute(attr)) {
+        if (report) {
+            emitUngivenError(getName(attr), objectid);
+        }
+        ok = false;
+        return invalid_return<T>::value;
+    }
+    try {
+        return getInternal<T>(attr);
+    } catch (FormatException&) {
+        if (report) {
+            emitFormatError(getName(attr), "of type " + invalid_return<T>::type, objectid);
+        }
+    } catch (EmptyData&) {
+        if (report) {
+            emitEmptyError(getName(attr), objectid);
+        }
+    }
+    ok = false;
+    return invalid_return<T>::value;
+}
+
+
+template <typename T>
+T SUMOSAXAttributes::getOpt(int attr, const char* objectid,
+                            bool& ok, T defaultValue, bool report) const {
+    if (!hasAttribute(attr)) {
+        return defaultValue;
+    }
+    try {
+        return getInternal<T>(attr);
+    } catch (FormatException&) {
+        if (report) {
+            emitFormatError(getName(attr), "of type " + invalid_return<T>::type, objectid);
+        }
+    } catch (EmptyData&) {
+        if (report) {
+            emitEmptyError(getName(attr), objectid);
+        }
+    }
+    ok = false;
+    return invalid_return<T>::value;
 }
 
 

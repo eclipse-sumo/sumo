@@ -114,7 +114,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge = 0;
     mySplits.clear();
     // get the id, report an error if not given or empty...
-    myCurrentID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    myCurrentID = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
@@ -135,7 +135,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myReinitKeepEdgeShape = false;
     // check whether a type's values shall be used
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-        myCurrentType = attrs.getStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
+        myCurrentType = attrs.get<std::string>(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
         if (!ok) {
             return;
         }
@@ -156,7 +156,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
             WRITE_MESSAGE("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
             myHaveReportedAboutOverwriting = true;
         }
-        if (attrs.getOptBoolReporting(SUMO_ATTR_REMOVE, myCurrentID.c_str(), ok, false)) {
+        if (attrs.getOpt<bool>(SUMO_ATTR_REMOVE, myCurrentID.c_str(), ok, false)) {
             myEdgeCont.erase(myDistrictCont, myCurrentEdge);
             myCurrentEdge = 0;
             return;
@@ -181,29 +181,29 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     // speed, priority and the number of lanes have now default values;
     // try to read the real values from the file
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-        myCurrentSpeed = attrs.getSUMORealReporting(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok);
+        myCurrentSpeed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok);
     }
     if (myOptions.getBool("speed-in-kmh")) {
         myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
     }
     // try to get the number of lanes
     if (attrs.hasAttribute(SUMO_ATTR_NUMLANES)) {
-        myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NUMLANES, myCurrentID.c_str(), ok);
+        myCurrentLaneNo = attrs.get<int>(SUMO_ATTR_NUMLANES, myCurrentID.c_str(), ok);
     }
     // try to get the priority
     if (attrs.hasAttribute(SUMO_ATTR_PRIORITY)) {
-        myCurrentPriority = attrs.getIntReporting(SUMO_ATTR_PRIORITY, myCurrentID.c_str(), ok);
+        myCurrentPriority = attrs.get<int>(SUMO_ATTR_PRIORITY, myCurrentID.c_str(), ok);
     }
     // try to get the width
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
-        myCurrentWidth = attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok);
+        myCurrentWidth = attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok);
     }
     // try to get the width
     if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
-        myCurrentOffset = attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
+        myCurrentOffset = attrs.get<SUMOReal>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
     }
     // try to get the street name
-    myCurrentStreetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, myCurrentID.c_str(), ok, myCurrentStreetName);
+    myCurrentStreetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, myCurrentID.c_str(), ok, myCurrentStreetName);
 
     // try to get the allowed/disallowed classes
     if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
@@ -222,7 +222,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     // try to get the spread type
     myLanesSpread = tryGetLaneSpread(attrs);
     // try to get the length
-    myLength = attrs.getOptSUMORealReporting(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok, myLength);
+    myLength = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok, myLength);
     // insert the parsed edge into the edges map
     if (!ok) {
         return;
@@ -263,18 +263,18 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     int lane;
     if (attrs.hasAttribute(SUMO_ATTR_ID)) {
-        lane = attrs.getIntReporting(SUMO_ATTR_ID, myCurrentID.c_str(), ok);
+        lane = attrs.get<int>(SUMO_ATTR_ID, myCurrentID.c_str(), ok);
         if (!myHaveWarnedAboutDeprecatedLaneId) {
             myHaveWarnedAboutDeprecatedLaneId = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_ID) + "' is deprecated, please use '" + toString(SUMO_ATTR_INDEX) + "' instead.");
         }
     } else {
-        lane = attrs.getIntReporting(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok);
+        lane = attrs.get<int>(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok);
     }
     std::string allowed, disallowed, preferred;
-    allowed    = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, 0, ok, "");
-    disallowed = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, 0, ok, "");
-    preferred  = attrs.getOptStringReporting(SUMO_ATTR_PREFER, 0, ok, "");
+    allowed    = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, 0, ok, "");
+    disallowed = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, 0, ok, "");
+    preferred  = attrs.getOpt<std::string>(SUMO_ATTR_PREFER, 0, ok, "");
     if (!ok) {
         return;
     }
@@ -288,15 +288,15 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->setPreferredVehicleClass(parseVehicleClasses(preferred), lane);
     // try to get the width
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
-        myCurrentEdge->setWidth(lane, attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
+        myCurrentEdge->setWidth(lane, attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
     }
     // try to get the end-offset (lane shortened due to pedestrian crossing etc..)
     if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
-        myCurrentEdge->setOffset(lane, attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok));
+        myCurrentEdge->setOffset(lane, attrs.get<SUMOReal>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok));
     }
     // try to get lane specific speed (should not occur for german networks)
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-        myCurrentEdge->setSpeed(lane, attrs.getSUMORealReporting(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok));
+        myCurrentEdge->setSpeed(lane, attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok));
     }
 }
 
@@ -308,7 +308,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
     }
     bool ok = true;
     Split e;
-    e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, 0, ok);
+    e.pos = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok);
     if (ok) {
         if (fabs(e.pos) > myCurrentEdge->getGeometry().length()) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
@@ -330,7 +330,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             e.pos += myCurrentEdge->getGeometry().length();
         }
         std::vector<std::string> lanes;
-        SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_LANES, 0, ok, ""), lanes);
+        SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LANES, 0, ok, ""), lanes);
         for (std::vector<std::string>::iterator i = lanes.begin(); i != lanes.end(); ++i) {
             try {
                 int lane = TplConvert::_2int((*i).c_str());
@@ -361,13 +361,13 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
     std::string oldBegID = begNodeID;
     std::string oldEndID = endNodeID;
     if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
-        begNodeID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
+        begNodeID = attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok);
     } else if (!myIsUpdate) {
         WRITE_ERROR("The from-node is not given for edge '" + myCurrentID + "'.");
         ok = false;
     }
     if (attrs.hasAttribute(SUMO_ATTR_TO)) {
-        endNodeID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
+        endNodeID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
     } else if (!myIsUpdate) {
         WRITE_ERROR("The to-node is not given for edge '" + myCurrentID + "'.");
         ok = false;
@@ -403,7 +403,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
         myReinitKeepEdgeShape = false;
         return PositionVector();
     }
-    PositionVector shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, 0, ok, true);
+    PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, 0, ok, PositionVector());
     if (!NILoader::transformCoordinates(shape)) {
         WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
     }
@@ -417,7 +417,7 @@ NIXMLEdgesHandler::tryGetLaneSpread(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     LaneSpreadFunction result = myLanesSpread;
     std::string lsfS = toString(result);
-    lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, myCurrentID.c_str(), ok, lsfS);
+    lsfS = attrs.getOpt<std::string>(SUMO_ATTR_SPREADTYPE, myCurrentID.c_str(), ok, lsfS);
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         result = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {
@@ -430,7 +430,7 @@ NIXMLEdgesHandler::tryGetLaneSpread(const SUMOSAXAttributes& attrs) {
 void
 NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    myCurrentID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    myCurrentID = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }

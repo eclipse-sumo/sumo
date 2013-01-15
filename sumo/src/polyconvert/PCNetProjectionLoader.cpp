@@ -108,10 +108,10 @@ PCNetProjectionLoader::myStartElement(int element,
     }
     // @todo refactor parsing of location since its duplicated in NLHandler and PCNetProjectionLoader
     myFoundLocation = true;
-    PositionVector s = attrs.getShapeReporting(SUMO_ATTR_NET_OFFSET, 0, myFoundLocation, false);
-    Boundary convBoundary = attrs.getBoundaryReporting(SUMO_ATTR_CONV_BOUNDARY, 0, myFoundLocation);
-    Boundary origBoundary = attrs.getBoundaryReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, myFoundLocation);
-    std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, myFoundLocation);
+    PositionVector s = attrs.get<PositionVector>(SUMO_ATTR_NET_OFFSET, 0, myFoundLocation);
+    Boundary convBoundary = attrs.get<Boundary>(SUMO_ATTR_CONV_BOUNDARY, 0, myFoundLocation);
+    Boundary origBoundary = attrs.get<Boundary>(SUMO_ATTR_ORIG_BOUNDARY, 0, myFoundLocation);
+    std::string proj = attrs.get<std::string>(SUMO_ATTR_ORIG_PROJ, 0, myFoundLocation);
     if (myFoundLocation) {
         Position networkOffset = s[0];
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary, myShift);

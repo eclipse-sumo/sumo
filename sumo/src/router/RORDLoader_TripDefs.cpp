@@ -104,7 +104,7 @@ std::string
 RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes& attrs) {
     // try to get the id, do not report an error if not given or empty...
     bool ok = true;
-    std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, 0, ok, "", false);
+    std::string id = attrs.getOpt<std::string>(SUMO_ATTR_ID, 0, ok, "", false);
     // get a valid vehicle id
     if (id == "") {
         return myIdSupplier.getNext();
@@ -121,7 +121,7 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes& attrs,
                              bool emptyAllowed) {
     UNUSED_PARAMETER(purpose);
     bool ok = true;
-    std::string id = attrs.getStringReporting(which, 0, ok, !emptyAllowed);
+    std::string id = attrs.get<std::string>(which, 0, ok, !emptyAllowed);
     if (which == SUMO_ATTR_FROM_TAZ) {
         id += "-source";
     }

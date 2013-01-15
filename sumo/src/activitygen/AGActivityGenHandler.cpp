@@ -138,16 +138,16 @@ AGActivityGenHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
 void
 AGActivityGenHandler::parseGeneralCityInfo(const SUMOSAXAttributes& attrs) {
     try {
+        bool ok;
         myCity.statData.inhabitants = attrs.getInt(AGEN_ATTR_INHABITANTS);
         myCity.statData.households = attrs.getInt(AGEN_ATTR_HOUSEHOLDS);
-        myCity.statData.limitAgeChildren = attrs.getIntSecure(AGEN_ATTR_CHILDREN, 18);
-        myCity.statData.limitAgeRetirement = attrs.getIntSecure(AGEN_ATTR_RETIREMENT, 63);
-        myCity.statData.carRate = attrs.getFloatSecure(AGEN_ATTR_CARS, 0.58);
-        myCity.statData.unemployement = attrs.getFloatSecure(AGEN_ATTR_UNEMPLOYEMENT, 0.06);
-        myCity.statData.maxFootDistance = attrs.getFloatSecure(AGEN_ATTR_MAX_FOOT_DIST, 300.0);
-        myCity.statData.incomingTraffic = attrs.getIntSecure(AGEN_ATTR_IN_TRAFFIC, 0);
-        myCity.statData.outgoingTraffic = attrs.getIntSecure(AGEN_ATTR_OUT_TRAFFIC, 0);
-
+        myCity.statData.limitAgeChildren = attrs.getOpt<int>(AGEN_ATTR_CHILDREN, 0, ok, 18);
+        myCity.statData.limitAgeRetirement = attrs.getOpt<int>(AGEN_ATTR_RETIREMENT, 0, ok, 63);
+        myCity.statData.carRate = attrs.getOpt<SUMOReal>(AGEN_ATTR_CARS, 0, ok, 0.58);
+        myCity.statData.unemployement = attrs.getOpt<SUMOReal>(AGEN_ATTR_UNEMPLOYEMENT, 0, ok, 0.06);
+        myCity.statData.maxFootDistance = attrs.getOpt<SUMOReal>(AGEN_ATTR_MAX_FOOT_DIST, 0, ok, 300.0);
+        myCity.statData.incomingTraffic = attrs.getOpt<int>(AGEN_ATTR_IN_TRAFFIC, 0, ok, 0);
+        myCity.statData.outgoingTraffic = attrs.getOpt<int>(AGEN_ATTR_OUT_TRAFFIC, 0, ok, 0);
     } catch (const exception& e) {
         WRITE_ERROR("Error while parsing the element " +
                     SUMOXMLDefinitions::Tags.getString(AGEN_TAG_GENERAL) + ": " +
@@ -159,12 +159,12 @@ AGActivityGenHandler::parseGeneralCityInfo(const SUMOSAXAttributes& attrs) {
 void
 AGActivityGenHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     try	{
-        myCity.statData.carPreference = attrs.getFloatSecure(AGEN_ATTR_CARPREF, 0.0);
-        myCity.statData.speedTimePerKm = attrs.getFloatSecure(AGEN_ATTR_CITYSPEED, 360.0);
-        myCity.statData.freeTimeActivityRate = attrs.getFloatSecure(AGEN_ATTR_FREETIMERATE, 0.15);
-        myCity.statData.uniformRandomTrafficRate = attrs.getFloatSecure(AGEN_ATTR_UNI_RAND_TRAFFIC, 0.0);
-        myCity.statData.departureVariation = attrs.getFloatSecure(AGEN_ATTR_DEP_VARIATION, 0.0);
-
+        bool ok;
+        myCity.statData.carPreference = attrs.getOpt<SUMOReal>(AGEN_ATTR_CARPREF, 0, ok, 0.0);
+        myCity.statData.speedTimePerKm = attrs.getOpt<SUMOReal>(AGEN_ATTR_CITYSPEED, 0, ok, 360.0);
+        myCity.statData.freeTimeActivityRate = attrs.getOpt<SUMOReal>(AGEN_ATTR_FREETIMERATE, 0, ok, 0.15);
+        myCity.statData.uniformRandomTrafficRate = attrs.getOpt<SUMOReal>(AGEN_ATTR_UNI_RAND_TRAFFIC, 0, ok, 0.0);
+        myCity.statData.departureVariation = attrs.getOpt<SUMOReal>(AGEN_ATTR_DEP_VARIATION, 0, ok, 0.0);
     } catch (const exception& e) {
         WRITE_ERROR("Error while parsing the element " +
                     SUMOXMLDefinitions::Tags.getString(AGEN_TAG_PARAM) + ": " +
@@ -329,7 +329,7 @@ AGActivityGenHandler::parseStation(const SUMOSAXAttributes& attrs) {
 
     try {
         bool ok = true;
-        int refID = attrs.getIntReporting(SUMO_ATTR_REFID, myCurrentObject.c_str(), ok);
+        int refID = attrs.get<int>(SUMO_ATTR_REFID, myCurrentObject.c_str(), ok);
         if (!ok) {
             throw ProcessError();
         }

@@ -74,8 +74,8 @@ NIXMLConnectionsHandler::myStartElement(int element,
                                         const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_DELETE) {
         bool ok = true;
-        std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
-        std::string to = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
+        std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok);
+        std::string to = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
         if (!ok) {
             return;
         }
@@ -116,8 +116,8 @@ NIXMLConnectionsHandler::myStartElement(int element,
 
     if (element == SUMO_TAG_CONNECTION) {
         bool ok = true;
-        std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, "connection", ok);
-        std::string to = attrs.getOptStringReporting(SUMO_ATTR_TO, "connection", ok, "");
+        std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, "connection", ok);
+        std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, "connection", ok, "");
         if (!ok || myEdgeCont.wasIgnored(from) || myEdgeCont.wasIgnored(to)) {
             return;
         }
@@ -142,8 +142,8 @@ NIXMLConnectionsHandler::myStartElement(int element,
     }
     if (element == SUMO_TAG_PROHIBITION) {
         bool ok = true;
-        std::string prohibitor = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITOR, 0, ok, "");
-        std::string prohibited = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITED, 0, ok, "");
+        std::string prohibitor = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITOR, 0, ok, "");
+        std::string prohibited = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITED, 0, ok, "");
         if (!ok) {
             return;
         }
@@ -201,7 +201,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         return;
     }
     bool ok = true;
-    const bool mayDefinitelyPass = attrs.getOptBoolReporting(SUMO_ATTR_PASS, 0, ok, false);
+    const bool mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, 0, ok, false);
     if (!ok) {
         return;
     }
@@ -249,7 +249,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         myErrorMsgHandler->inform("At least one of the defined lanes was not numeric");
     }
     //
-    bool keepUncontrolled = attrs.getOptBoolReporting(SUMO_ATTR_UNCONTROLLED, 0, ok, false);
+    bool keepUncontrolled = attrs.getOpt<bool>(SUMO_ATTR_UNCONTROLLED, 0, ok, false);
     if (keepUncontrolled) {
         from->disableConnection4TLS(fromLane, to, toLane);
     }
@@ -278,7 +278,7 @@ NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes& 
                       "' instead.");
     }
 
-    std::string laneConn = attributes.getStringReporting(SUMO_ATTR_LANE, 0, ok);
+    std::string laneConn = attributes.get<std::string>(SUMO_ATTR_LANE, 0, ok);
     StringTokenizer st(laneConn, ':');
     if (!ok || st.size() != 2) {
         myErrorMsgHandler->inform("Invalid lane to lane connection from '" +
@@ -298,8 +298,8 @@ NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes& attributes
         int* fromLane,
         int* toLane) {
     bool ok = true;
-    *fromLane = attributes.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
-    *toLane = attributes.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
+    *fromLane = attributes.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
+    *toLane = attributes.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
     return ok;
 }
 

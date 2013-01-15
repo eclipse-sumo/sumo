@@ -80,22 +80,9 @@ SUMOSAXAttributesImpl_Xerces::getBool(int id) const throw(EmptyData, BoolFormatE
 }
 
 
-bool
-SUMOSAXAttributesImpl_Xerces::getBoolSecure(int id, bool val) const throw(EmptyData) {
-    return TplConvert::_2boolSec(getAttributeValueSecure(id), val);
-}
-
-
 int
 SUMOSAXAttributesImpl_Xerces::getInt(int id) const {
     return TplConvert::_2int(getAttributeValueSecure(id));
-}
-
-
-int
-SUMOSAXAttributesImpl_Xerces::getIntSecure(int id,
-        int def) const {
-    return TplConvert::_2intSec(getAttributeValueSecure(id), def);
 }
 
 
@@ -149,13 +136,6 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
 SUMOReal
 SUMOSAXAttributesImpl_Xerces::getFloat(int id) const {
     return TplConvert::_2SUMOReal(getAttributeValueSecure(id));
-}
-
-
-SUMOReal
-SUMOSAXAttributesImpl_Xerces::getFloatSecure(int id,
-        SUMOReal def) const {
-    return TplConvert::_2SUMORealSec(getAttributeValueSecure(id), def);
 }
 
 
@@ -222,55 +202,31 @@ SUMOSAXAttributesImpl_Xerces::getNodeType(bool& ok) const {
 
 
 RGBColor
-SUMOSAXAttributesImpl_Xerces::getColorReporting(const char* objectid, bool& ok) const {
-    try {
-        return RGBColor::parseColor(getString(SUMO_ATTR_COLOR));
-    } catch (NumberFormatException&) {
-    } catch (EmptyData&) {
-    }
-    ok = false;
-    emitFormatError("color", "a valid color", objectid);
-    return RGBColor();
+SUMOSAXAttributesImpl_Xerces::getColor() const {
+    return RGBColor::parseColor(getString(SUMO_ATTR_COLOR));
 }
 
 
 PositionVector
-SUMOSAXAttributesImpl_Xerces::getShapeReporting(int attr, const char* objectid, bool& ok,
-        bool allowEmpty) const {
-    std::string shpdef = getOptStringReporting(attr, objectid, ok, "");
+SUMOSAXAttributesImpl_Xerces::getShape(int attr) const {
+    std::string shpdef = getString(attr);
     if (shpdef == "") {
-        if (!allowEmpty) {
-            emitEmptyError(getName(attr), objectid);
-            ok = false;
-        }
-        return PositionVector();
+        throw EmptyData();
     }
     StringTokenizer st(shpdef, " ");
     PositionVector shape;
     while (st.hasNext()) {
         StringTokenizer pos(st.next(), ",");
         if (pos.size() != 2 && pos.size() != 3) {
-            emitFormatError(getName(attr), "x,y or x,y,z", objectid);
-            ok = false;
-            return PositionVector();
+            throw FormatException("shape format");
         }
-        try {
-            SUMOReal x = TplConvert::_2SUMOReal(pos.next().c_str());
-            SUMOReal y = TplConvert::_2SUMOReal(pos.next().c_str());
-            if (pos.size() == 2) {
-                shape.push_back(Position(x, y));
-            } else {
-                SUMOReal z = TplConvert::_2SUMOReal(pos.next().c_str());
-                shape.push_back(Position(x, y, z));
-            }
-        } catch (NumberFormatException&) {
-            emitFormatError(getName(attr), "all numeric position entries", objectid);
-            ok = false;
-            return PositionVector();
-        } catch (EmptyData&) {
-            emitFormatError(getName(attr), "all valid entries", objectid);
-            ok = false;
-            return PositionVector();
+        SUMOReal x = TplConvert::_2SUMOReal(pos.next().c_str());
+        SUMOReal y = TplConvert::_2SUMOReal(pos.next().c_str());
+        if (pos.size() == 2) {
+            shape.push_back(Position(x, y));
+        } else {
+            SUMOReal z = TplConvert::_2SUMOReal(pos.next().c_str());
+            shape.push_back(Position(x, y, z));
         }
     }
     return shape;
@@ -278,27 +234,37 @@ SUMOSAXAttributesImpl_Xerces::getShapeReporting(int attr, const char* objectid, 
 
 
 Boundary
-SUMOSAXAttributesImpl_Xerces::getBoundaryReporting(int attr, const char* objectid, bool& ok) const {
-    std::string def = getStringReporting(attr, objectid, ok);
+SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
+    std::string def = getString(attr);
     StringTokenizer st(def, ",");
     if (st.size() != 4) {
-        emitFormatError(getName(attr), "a valid number of entries", objectid);
-        ok = false;
-        return Boundary();
+        throw FormatException("boundary format");
     }
-    try {
-        const SUMOReal xmin = TplConvert::_2SUMOReal(st.next().c_str());
-        const SUMOReal ymin = TplConvert::_2SUMOReal(st.next().c_str());
-        const SUMOReal xmax = TplConvert::_2SUMOReal(st.next().c_str());
-        const SUMOReal ymax = TplConvert::_2SUMOReal(st.next().c_str());
-        return Boundary(xmin, ymin, xmax, ymax);
-    } catch (NumberFormatException&) {
-        emitFormatError(getName(attr), "all numeric entries", objectid);
-    } catch (EmptyData&) {
-        emitFormatError(getName(attr), "all valid entries", objectid);
+    const SUMOReal xmin = TplConvert::_2SUMOReal(st.next().c_str());
+    const SUMOReal ymin = TplConvert::_2SUMOReal(st.next().c_str());
+    const SUMOReal xmax = TplConvert::_2SUMOReal(st.next().c_str());
+    const SUMOReal ymax = TplConvert::_2SUMOReal(st.next().c_str());
+    return Boundary(xmin, ymin, xmax, ymax);
+}
+
+
+std::vector<std::string>
+SUMOSAXAttributesImpl_Xerces::getStringVector(int attr) const {
+    std::string def = getString(attr);
+    std::vector<std::string> ret;
+    parseStringVector(def, ret);
+    return ret;
+}
+
+
+std::vector<SUMOReal>
+SUMOSAXAttributesImpl_Xerces::getFloatVector(int attr) const {
+    std::vector<SUMOReal> ret;
+    StringTokenizer st(getString(attr));
+    while (st.hasNext()) {
+        ret.push_back(TplConvert::_2SUMOReal(st.next().c_str()));
     }
-    ok = false;
-    return Boundary();
+    return ret;
 }
 
 

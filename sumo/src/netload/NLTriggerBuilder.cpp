@@ -78,7 +78,7 @@ void
 NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
@@ -116,13 +116,13 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
     // get the id, throw if not given or empty...
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
     // get the file name to read further definitions from
     std::string file = getFileName(attrs, base, true);
-    std::string objectid = attrs.getStringReporting(SUMO_ATTR_LANES, id.c_str(), ok);
+    std::string objectid = attrs.get<std::string>(SUMO_ATTR_LANES, id.c_str(), ok);
     if (!ok) {
         throw InvalidArgument("The lanes to use within MSLaneSpeedTrigger '" + id + "' are not known.");
     }
@@ -154,22 +154,22 @@ void
 NLTriggerBuilder::parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attrs) throw(InvalidArgument) {
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         throw ProcessError();
     }
     // get the lane
     MSLane* lane = getLane(attrs, "busStop", id);
     // get the positions
-    SUMOReal frompos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
-    SUMOReal topos = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
-    const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    SUMOReal frompos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    SUMOReal topos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), 10., friendlyPos)) {
         throw InvalidArgument("Invalid position for bus stop '" + id + "'.");
     }
     // get the lines
     std::vector<std::string> lines;
-    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_LINES, id.c_str(), ok, ""), lines);
+    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, ""), lines);
     // build the bus stop
     buildBusStop(net, id, lines, lane, frompos, topos);
 }
@@ -181,7 +181,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
         const std::string& base) throw(InvalidArgument) {
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         throw ProcessError();
     }
@@ -192,7 +192,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
         const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
         std::string file = getFileName(attrs, base, true);
         bool ok = true;
-        std::string outfile = attrs.getOptStringReporting(SUMO_ATTR_OUTPUT, 0, ok, "");
+        std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, 0, ok, "");
         METriggeredCalibrator* trigger = buildCalibrator(net, id, &lane->getEdge(), pos, file, outfile, freq);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
@@ -207,13 +207,13 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
                                         const std::string& base) throw(InvalidArgument) {
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         throw ProcessError();
     }
     // get the file name to read further definitions from
     std::string file = getFileName(attrs, base, true);
-    std::string objectid = attrs.getStringReporting(SUMO_ATTR_EDGES, id.c_str(), ok);
+    std::string objectid = attrs.get<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok);
     if (!ok) {
         throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
     }
@@ -230,8 +230,8 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     if (edges.size() == 0) {
         throw InvalidArgument("No edges found for MSTriggeredRerouter '" + id + "'.");
     }
-    SUMOReal prob = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, id.c_str(), ok, 1);
-    bool off = attrs.getOptBoolReporting(SUMO_ATTR_OFF, id.c_str(), ok, false);
+    SUMOReal prob = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok, 1);
+    bool off = attrs.getOpt<bool>(SUMO_ATTR_OFF, id.c_str(), ok, false);
     if (!ok) {
         throw InvalidArgument("Could not parse MSTriggeredRerouter '" + id + "'.");
     }
@@ -293,7 +293,7 @@ NLTriggerBuilder::getFileName(const SUMOSAXAttributes& attrs,
                               const bool allowEmpty) throw(InvalidArgument) {
     // get the file name to read further definitions from
     bool ok = true;
-    std::string file = attrs.getOptStringReporting(SUMO_ATTR_FILE, 0, ok, "");
+    std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, 0, ok, "");
     if (file == "") {
         if (allowEmpty) {
             return file;
@@ -313,7 +313,7 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes& attrs,
                           const std::string& tt,
                           const std::string& tid) throw(InvalidArgument) {
     bool ok = true;
-    std::string objectid = attrs.getStringReporting(SUMO_ATTR_LANE, tid.c_str(), ok);
+    std::string objectid = attrs.get<std::string>(SUMO_ATTR_LANE, tid.c_str(), ok);
     MSLane* lane = MSLane::dictionary(objectid);
     if (lane == 0) {
         throw InvalidArgument("The lane " + objectid + " to use within the " + tt + " '" + tid + "' is not known.");
@@ -327,8 +327,8 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
                               MSLane* lane,
                               const std::string& tt, const std::string& tid) throw(InvalidArgument) {
     bool ok = true;
-    SUMOReal pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, 0, ok);
-    const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
+    SUMOReal pos = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
     if (!ok) {
         throw InvalidArgument("Error on parsing a position information.");
     }

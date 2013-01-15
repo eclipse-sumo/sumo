@@ -474,10 +474,10 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
         if (myHierarchyLevel != 2) {
-            WRITE_ERROR("Node element on wrong XML hierarchy level (id='" + toString(attrs.getLongReporting(SUMO_ATTR_ID, 0, ok)) + "', level='" + toString(myHierarchyLevel) + "').");
+            WRITE_ERROR("Node element on wrong XML hierarchy level (id='" + toString(attrs.get<SUMOLong>(SUMO_ATTR_ID, 0, ok)) + "', level='" + toString(myHierarchyLevel) + "').");
             return;
         }
-        SUMOLong id = attrs.getLongReporting(SUMO_ATTR_ID, 0, ok);
+        SUMOLong id = attrs.get<SUMOLong>(SUMO_ATTR_ID, 0, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete") {
             return;
@@ -492,7 +492,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             //  ... so we won't report duplicate nodes
             bool ok = true;
             double tlat, tlon;
-            std::istringstream lon(attrs.getStringReporting(SUMO_ATTR_LON, toString(id).c_str(), ok));
+            std::istringstream lon(attrs.get<std::string>(SUMO_ATTR_LON, toString(id).c_str(), ok));
             if (!ok) {
                 return;
             }
@@ -501,7 +501,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 WRITE_ERROR("Node's '" + toString(id) + "' lon information is not numeric.");
                 return;
             }
-            std::istringstream lat(attrs.getStringReporting(SUMO_ATTR_LAT, toString(id).c_str(), ok));
+            std::istringstream lat(attrs.get<std::string>(SUMO_ATTR_LAT, toString(id).c_str(), ok));
             if (!ok) {
                 return;
             }
@@ -534,8 +534,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             return;
         }
         bool ok = true;
-        std::string key = attrs.getStringReporting(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok);
-        std::string value = attrs.getStringReporting(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
+        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok);
+        std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
         if (!ok) {
             return;
         }
@@ -586,7 +586,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
     // parse "way" elements
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
-        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+        std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
         std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete") {
             myCurrentEdge = 0;
@@ -605,7 +605,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
     // parse "nd" (node) elements
     if (element == SUMO_TAG_ND) {
         bool ok = true;
-        SUMOLong ref = attrs.getLongReporting(SUMO_ATTR_REF, 0, ok);
+        SUMOLong ref = attrs.get<SUMOLong>(SUMO_ATTR_REF, 0, ok);
         if (ok) {
             std::map<SUMOLong, NIOSMNode*>::const_iterator node = myOSMNodes.find(ref);
             if (node == myOSMNodes.end()) {
@@ -626,8 +626,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             return;
         }
         bool ok = true;
-        std::string key = attrs.getStringReporting(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok);
-        std::string value = attrs.getStringReporting(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
+        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok);
+        std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
         if (!ok) {
             return;
         }

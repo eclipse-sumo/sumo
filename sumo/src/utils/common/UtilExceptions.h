@@ -87,16 +87,30 @@ public:
 
 
 /**
+ * FormatException
+ * Thrown when a string that shall be converted into
+ * something else contained the wrong characters
+ */
+class FormatException : public std::runtime_error {
+public:
+    /** constructor */
+    FormatException(const std::string& msg)
+        : std::runtime_error(msg) {}
+
+};
+
+
+/**
  * NumberFormatException
  * Thrown when the string that shall be converted into a
  * numerical representation has any other characters then
  * digits and a dot
  */
-class NumberFormatException : public std::runtime_error {
+class NumberFormatException : public FormatException {
 public:
     /** constructor */
     NumberFormatException()
-        : std::runtime_error("Number Format") {}
+        : FormatException("Number Format") {}
 
 };
 
@@ -106,11 +120,11 @@ public:
  * Thrown when the string that shall be converted into a
  * boolean does not match
  */
-class BoolFormatException : public std::runtime_error {
+class BoolFormatException : public FormatException {
 public:
     /** constructor */
     BoolFormatException()
-        : std::runtime_error("Bool Format") {}
+        : FormatException("Bool Format") {}
 
 };
 

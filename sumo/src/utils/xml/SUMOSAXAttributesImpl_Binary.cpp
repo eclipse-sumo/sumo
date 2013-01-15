@@ -175,32 +175,11 @@ SUMOSAXAttributesImpl_Binary::getBool(int id) const throw(EmptyData, BoolFormatE
 }
 
 
-bool
-SUMOSAXAttributesImpl_Binary::getBoolSecure(int id, bool val) const throw(EmptyData) {
-    const std::map<int, char>::const_iterator i = myCharValues.find(id);
-    if (i == myCharValues.end()) {
-        return val;
-    }
-    return i->second != 0;
-}
-
-
 int
 SUMOSAXAttributesImpl_Binary::getInt(int id) const {
     const std::map<int, int>::const_iterator i = myIntValues.find(id);
     if (i == myIntValues.end()) {
         throw EmptyData();
-    }
-    return i->second;
-}
-
-
-int
-SUMOSAXAttributesImpl_Binary::getIntSecure(int id,
-        int def) const {
-    const std::map<int, int>::const_iterator i = myIntValues.find(id);
-    if (i == myIntValues.end()) {
-        return def;
     }
     return i->second;
 }
@@ -238,16 +217,6 @@ SUMOSAXAttributesImpl_Binary::getFloat(int id) const {
     const std::map<int, SUMOReal>::const_iterator i = myFloatValues.find(id);
     if (i == myFloatValues.end()) {
         return TplConvert::_2SUMOReal(getString(id).c_str());
-    }
-    return i->second;
-}
-
-
-SUMOReal
-SUMOSAXAttributesImpl_Binary::getFloatSecure(int id, SUMOReal def) const {
-    const std::map<int, SUMOReal>::const_iterator i = myFloatValues.find(id);
-    if (i == myFloatValues.end()) {
-        return def;
     }
     return i->second;
 }
@@ -301,45 +270,56 @@ SUMOSAXAttributesImpl_Binary::getNodeType(bool& ok) const {
 
 
 RGBColor
-SUMOSAXAttributesImpl_Binary::getColorReporting(const char* /* objectid */, bool& /* ok */) const {
+SUMOSAXAttributesImpl_Binary::getColor() const {
     const std::map<int, int>::const_iterator i = myIntValues.find(SUMO_ATTR_COLOR);
-    if (i != myIntValues.end()) {
-        const int val = i->second;
-        return RGBColor((val & 0xff) / 255., ((val >> 8) & 0xff) / 255., ((val >> 16) & 0xff) / 255.);
+    if (i == myIntValues.end()) {
+        throw EmptyData();
     }
-    return RGBColor();
+    const int val = i->second;
+    return RGBColor((val & 0xff) / 255., ((val >> 8) & 0xff) / 255., ((val >> 16) & 0xff) / 255.);
 }
 
 
 PositionVector
-SUMOSAXAttributesImpl_Binary::getShapeReporting(int attr, const char* objectid, bool& ok,
-        bool allowEmpty) const {
+SUMOSAXAttributesImpl_Binary::getShape(int attr) const {
     const std::map<int, PositionVector>::const_iterator i = myPositionVectors.find(attr);
     if (i == myPositionVectors.end() || i->second.size() == 0) {
-        if (!allowEmpty) {
-            emitEmptyError(getName(attr), objectid);
-            ok = false;
-        }
-        return PositionVector();
+        throw EmptyData();
     }
     return i->second;
 }
 
 
 Boundary
-SUMOSAXAttributesImpl_Binary::getBoundaryReporting(int attr, const char* objectid, bool& ok) const {
+SUMOSAXAttributesImpl_Binary::getBoundary(int attr) const {
     const std::map<int, PositionVector>::const_iterator i = myPositionVectors.find(attr);
     if (i == myPositionVectors.end() || i->second.size() == 0) {
-        emitEmptyError(getName(attr), objectid);
-        ok = false;
-        return Boundary();
+        throw EmptyData();
     }
     if (i->second.size() != 2) {
-        emitFormatError(getName(attr), "a valid number of entries", objectid);
-        ok = false;
-        return Boundary();
+        throw FormatException("boundary format");
     }
     return Boundary(i->second[0].x(), i->second[0].y(), i->second[1].x(), i->second[1].y());
+}
+
+
+std::vector<std::string>
+SUMOSAXAttributesImpl_Binary::getStringVector(int attr) const {
+    std::string def = getString(attr);
+    std::vector<std::string> ret;
+    parseStringVector(def, ret);
+    return ret;
+}
+
+
+std::vector<SUMOReal>
+SUMOSAXAttributesImpl_Binary::getFloatVector(int attr) const {
+    std::vector<SUMOReal> ret;
+/*    StringTokenizer st(getString(attr));
+    while (st.hasNext()) {
+        ret.push_back(TplConvert::_2SUMOReal(st.next().c_str()));
+    }*/
+    return ret;
 }
 
 

@@ -155,7 +155,7 @@ MSLaneSpeedTrigger::myStartElement(int element,
     // extract the values
     bool ok = true;
     SUMOTime next = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, getID().c_str(), ok);
-    SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, getID().c_str(), ok, -1);
+    SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, getID().c_str(), ok, -1);
     // check the values
     if (next < 0) {
         WRITE_ERROR("Wrong time in vss '" + getID() + "'.");

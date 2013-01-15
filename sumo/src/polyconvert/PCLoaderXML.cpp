@@ -105,10 +105,10 @@ PCLoaderXML::myStartElement(int element,
     if (element == SUMO_TAG_POI) {
         bool ok = true;
         // get the id, report an error if not given or empty...
-        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-        SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
-        SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
-        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, myOptions.getString("type"));
+        std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+        SUMOReal x = attrs.get<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok);
+        SUMOReal y = attrs.get<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok);
+        std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, myOptions.getString("type"));
         if (!ok) {
             return;
         }
@@ -131,17 +131,17 @@ PCLoaderXML::myStartElement(int element,
             id = myOptions.getString("prefix") + id;
             color = RGBColor::parseColor(myOptions.getString("color"));
         }
-        layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
+        layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
         if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-            color = attrs.getColorReporting(id.c_str(), ok);
+            color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok);
         }
-        SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
-        std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
+        SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
+        std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
         if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
             imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
         }
-        SUMOReal imgWidth = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
-        SUMOReal imgHeight = attrs.getOptSUMORealReporting(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
+        SUMOReal imgWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, Shape::DEFAULT_IMG_WIDTH);
+        SUMOReal imgHeight = attrs.getOpt<SUMOReal>(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
         if (!ok) {
             return;
         }
@@ -161,8 +161,8 @@ PCLoaderXML::myStartElement(int element,
         bool discard = myOptions.getBool("discard");
         SUMOReal layer = (SUMOReal)myOptions.getInt("layer");
         bool ok = true;
-        std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, myCurrentID.c_str(), ok, "");
-        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok, myOptions.getString("type"));
+        std::string id = attrs.getOpt<std::string>(SUMO_ATTR_ID, myCurrentID.c_str(), ok, "");
+        std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok, myOptions.getString("type"));
         if (!ok) {
             return;
         }
@@ -178,16 +178,16 @@ PCLoaderXML::myStartElement(int element,
             id = myOptions.getString("prefix") + id;
             color = RGBColor::parseColor(myOptions.getString("color"));
         }
-        layer = attrs.getOptSUMORealReporting(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
+        layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, id.c_str(), ok, layer);
         if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-            color = attrs.getColorReporting(id.c_str(), ok);
+            color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok);
         }
-        SUMOReal angle = attrs.getOptSUMORealReporting(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
-        std::string imgFile = attrs.getOptStringReporting(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
+        SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
+        std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
         if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
             imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
         }
-        bool fill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, id.c_str(), ok, false);
+        bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, false);
         if (!ok) {
             return;
         }
@@ -201,7 +201,7 @@ PCLoaderXML::myStartElement(int element,
             myCurrentColor = color;
             myCurrentIgnorePrunning = ignorePrunning;
             myCurrentLayer = layer;
-            PositionVector pshape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok, false);
+            PositionVector pshape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok);
             if (!ok) {
                 return;
             }

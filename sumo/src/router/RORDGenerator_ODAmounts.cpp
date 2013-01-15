@@ -229,7 +229,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     myIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, myUpperIntervalBegin);
     myIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, myUpperIntervalEnd);
-    myVehicle2InsertNumber = attrs.getIntReporting(SUMO_ATTR_NUMBER, id.c_str(), ok); // throw ProcessError("Flow '" + id + "' has no vehicle number.");
+    myVehicle2InsertNumber = attrs.get<int>(SUMO_ATTR_NUMBER, id.c_str(), ok); // throw ProcessError("Flow '" + id + "' has no vehicle number.");
     if (!ok) {
         throw ProcessError();
     }

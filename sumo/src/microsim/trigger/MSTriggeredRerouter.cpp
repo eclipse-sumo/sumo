@@ -131,7 +131,7 @@ MSTriggeredRerouter::myStartElement(int element,
         }
         // get the probability to reroute
         bool ok = true;
-        SUMOReal prob = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
+        SUMOReal prob = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
         if (!ok) {
             throw ProcessError();
         }
@@ -169,7 +169,7 @@ MSTriggeredRerouter::myStartElement(int element,
 
         // get the probability to reroute
         bool ok = true;
-        SUMOReal prob = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
+        SUMOReal prob = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
         if (!ok) {
             throw ProcessError();
         }

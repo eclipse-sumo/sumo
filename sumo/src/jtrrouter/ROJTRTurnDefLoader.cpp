@@ -76,7 +76,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
             break;
         case SUMO_TAG_SINK:
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-                std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, 0, ok);
+                std::string edges = attrs.get<std::string>(SUMO_ATTR_EDGES, 0, ok);
                 StringTokenizer st(edges, StringTokenizer::WHITECHARS);
                 while (st.hasNext()) {
                     std::string id = st.next();
@@ -90,7 +90,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
             break;
         case SUMO_TAG_SOURCE:
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-                std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, 0, ok);
+                std::string edges = attrs.get<std::string>(SUMO_ATTR_EDGES, 0, ok);
                 StringTokenizer st(edges, StringTokenizer::WHITECHARS);
                 while (st.hasNext()) {
                     std::string id = st.next();
@@ -113,7 +113,7 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes& attrs) {
     myEdge = 0;
     bool ok = true;
     // get the id, report an error if not given or empty...
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
@@ -133,7 +133,7 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes& attrs) {
     }
     bool ok = true;
     // get the id, report an error if not given or empty...
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
@@ -143,7 +143,7 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
         return;
     }
-    SUMOReal probability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, id.c_str(), ok);
+    SUMOReal probability = attrs.get<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok);
     if (ok) {
         if (probability < 0) {
             WRITE_ERROR("'probability' must be positive (in definition of to-edge '" + id + "').");

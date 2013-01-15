@@ -63,16 +63,16 @@ PCTypeDefHandler::myStartElement(int element,
     if (element == SUMO_TAG_POLYTYPE) {
         bool ok = true;
         // get the id, report an error if not given or empty...
-        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+        std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
         if (!ok) {
             return;
         }
-        int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, myOptions.getInt("layer"));
-        bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
-        bool allowFill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, id.c_str(), ok, true);
-        std::string type = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, myOptions.getString("type"));
-        std::string prefix = attrs.getOptStringReporting(SUMO_ATTR_PREFIX, id.c_str(), ok, myOptions.getString("prefix"));
-        std::string color = attrs.getOptStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok, myOptions.getString("color"));
+        int layer = attrs.getOpt<int>(SUMO_ATTR_LAYER, id.c_str(), ok, myOptions.getInt("layer"));
+        bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
+        bool allowFill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, true);
+        std::string type = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, myOptions.getString("type"));
+        std::string prefix = attrs.getOpt<std::string>(SUMO_ATTR_PREFIX, id.c_str(), ok, myOptions.getString("prefix"));
+        std::string color = attrs.getOpt<std::string>(SUMO_ATTR_COLOR, id.c_str(), ok, myOptions.getString("color"));
         // !!! what about error handling?
         if (!myContainer.add(id, type, color, prefix, layer, discard, allowFill)) {
             WRITE_ERROR("Could not add polygon type '" + id + "' (probably the id is already used).");

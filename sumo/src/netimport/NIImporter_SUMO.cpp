@@ -324,7 +324,7 @@ void
 NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
@@ -337,20 +337,20 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
         return; // skip internal edges
     }
     // get the type
-    myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+    myCurrentEdge->type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     // get the origin and the destination node
-    myCurrentEdge->fromNode = attrs.getOptStringReporting(SUMO_ATTR_FROM, id.c_str(), ok, "");
-    myCurrentEdge->toNode = attrs.getOptStringReporting(SUMO_ATTR_TO, id.c_str(), ok, "");
-    myCurrentEdge->priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1);
-    myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
-    myCurrentEdge->shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, true);
+    myCurrentEdge->fromNode = attrs.getOpt<std::string>(SUMO_ATTR_FROM, id.c_str(), ok, "");
+    myCurrentEdge->toNode = attrs.getOpt<std::string>(SUMO_ATTR_TO, id.c_str(), ok, "");
+    myCurrentEdge->priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1);
+    myCurrentEdge->type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+    myCurrentEdge->shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok, PositionVector());
     NILoader::transformCoordinates(myCurrentEdge->shape, true, myLocation);
-    myCurrentEdge->length = attrs.getOptSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
+    myCurrentEdge->length = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
     myCurrentEdge->maxSpeed = 0;
-    myCurrentEdge->streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
+    myCurrentEdge->streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
     std::string lsfS = toString(LANESPREAD_RIGHT);
-    lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, id.c_str(), ok, lsfS);
+    lsfS = attrs.getOpt<std::string>(SUMO_ATTR_SPREADTYPE, id.c_str(), ok, lsfS);
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         myCurrentEdge->lsf = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {
@@ -362,7 +362,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
 void
 NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
@@ -374,12 +374,12 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge->func == EDGEFUNC_INTERNAL) {
         return; // skip internal lanes
     }
-    myCurrentLane->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok);
-    myCurrentLane->allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
-    myCurrentLane->disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
-    myCurrentLane->width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);
-    myCurrentLane->offset = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
-    myCurrentLane->shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
+    myCurrentLane->maxSpeed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, id.c_str(), ok);
+    myCurrentLane->allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
+    myCurrentLane->disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
+    myCurrentLane->width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);
+    myCurrentLane->offset = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
+    myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     // lane coordinates are derived (via lane spread) do not include them in convex boundary
     NILoader::transformCoordinates(myCurrentLane->shape, false, myLocation);
 }
@@ -389,7 +389,7 @@ void
 NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
@@ -409,7 +409,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     // the network may have non-default edge geometry.
     // accurate reconstruction of legacy networks is not possible. We ought to warn about this
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-        PositionVector shape = attrs.getShapeReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, true);
+        PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok, PositionVector());
         if (shape.size() > 0) {
             shape.push_back_noDoublePos(shape[0]); // need closed shape
             if (!shape.around(pos) && shape.distance(pos) > 1) { // MAGIC_THRESHOLD
@@ -430,18 +430,18 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
 void
 NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
+    std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok);
     if (myEdges.count(fromID) == 0) {
         WRITE_ERROR("Unknown edge '" + fromID + "' given in connection.");
         return;
     }
     EdgeAttrs* from = myEdges[fromID];
     Connection conn;
-    conn.toEdgeID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
-    unsigned int fromLaneIdx = attrs.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
-    conn.toLaneIdx = attrs.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
-    conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
-    conn.mayDefinitelyPass = attrs.getOptBoolReporting(SUMO_ATTR_PASS, 0, ok, false);
+    conn.toEdgeID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
+    unsigned int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
+    conn.toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
+    conn.tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
+    conn.mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, 0, ok, false);
     const size_t suffixSize = NBRampsComputer::ADDED_ON_RAMP_EDGE.size();
     if (!conn.mayDefinitelyPass && conn.toEdgeID.size() > suffixSize &&
             conn.toEdgeID.substr(conn.toEdgeID.size() - suffixSize) == NBRampsComputer::ADDED_ON_RAMP_EDGE) {
@@ -449,7 +449,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         conn.mayDefinitelyPass = true;
     }
     if (conn.tlID != "") {
-        conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok);
+        conn.tlLinkNo = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
     }
 
     if (from->lanes.size() <= (size_t) fromLaneIdx) {
@@ -463,8 +463,8 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
 void
 NIImporter_SUMO::addProhibition(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string prohibitor = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITOR, 0, ok, "");
-    std::string prohibited = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITED, 0, ok, "");
+    std::string prohibitor = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITOR, 0, ok, "");
+    std::string prohibited = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITED, 0, ok, "");
     if (!ok) {
         return;
     }
@@ -517,10 +517,10 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedS
         return 0;
     }
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    SUMOTime offset = TIME2STEPS(attrs.getSUMORealReporting(SUMO_ATTR_OFFSET, id.c_str(), ok));
-    std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
-    std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    SUMOTime offset = TIME2STEPS(attrs.get<SUMOReal>(SUMO_ATTR_OFFSET, id.c_str(), ok));
+    std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
+    std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
     if (type != toString(TLTYPE_STATIC)) {
         WRITE_WARNING("Traffic light '" + id + "' has unsupported type '" + type + "' and will be converted to '" +
                       toString(TLTYPE_STATIC) + "'");
@@ -541,8 +541,8 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
     }
     const std::string& id = currentTL->getID();
     bool ok = true;
-    std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, id.c_str(), ok);
-    SUMOTime duration = TIME2STEPS(attrs.getSUMORealReporting(SUMO_ATTR_DURATION, id.c_str(), ok));
+    std::string state = attrs.get<std::string>(SUMO_ATTR_STATE, id.c_str(), ok);
+    SUMOTime duration = TIME2STEPS(attrs.get<SUMOReal>(SUMO_ATTR_DURATION, id.c_str(), ok));
     if (duration < 0) {
         WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + currentTL->getProgramID() + "' must be positive.");
         return;
@@ -602,10 +602,10 @@ NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
     // @todo refactor parsing of location since its duplicated in NLHandler and PCNetProjectionLoader
     bool ok = true;
     GeoConvHelper* result = 0;
-    PositionVector s = attrs.getShapeReporting(SUMO_ATTR_NET_OFFSET, 0, ok, false);
-    Boundary convBoundary = attrs.getBoundaryReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok);
-    Boundary origBoundary = attrs.getBoundaryReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok);
-    std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
+    PositionVector s = attrs.get<PositionVector>(SUMO_ATTR_NET_OFFSET, 0, ok);
+    Boundary convBoundary = attrs.get<Boundary>(SUMO_ATTR_CONV_BOUNDARY, 0, ok);
+    Boundary origBoundary = attrs.get<Boundary>(SUMO_ATTR_ORIG_BOUNDARY, 0, ok);
+    std::string proj = attrs.get<std::string>(SUMO_ATTR_ORIG_PROJ, 0, ok);
     if (ok) {
         Position networkOffset = s[0];
         result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
@@ -617,11 +617,11 @@ NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
 
 Position
 NIImporter_SUMO::readPosition(const SUMOSAXAttributes& attrs, const std::string& id, bool& ok) {
-    SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
-    SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
+    SUMOReal x = attrs.get<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok);
+    SUMOReal y = attrs.get<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok);
     SUMOReal z = 0;
     if (attrs.hasAttribute(SUMO_ATTR_Z)) {
-        z = attrs.getSUMORealReporting(SUMO_ATTR_Z, id.c_str(), ok);
+        z = attrs.get<SUMOReal>(SUMO_ATTR_Z, id.c_str(), ok);
     }
     return Position(x, y, z);
 }

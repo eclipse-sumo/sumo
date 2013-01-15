@@ -129,12 +129,12 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes& attrs) {
             }
             myCurrentRouteName = "!" + myVehicleParameter->id;
         } else {
-            myCurrentRouteName = attrs.getStringReporting(SUMO_ATTR_ID, 0, myCurrentIsOk);
+            myCurrentRouteName = attrs.get<std::string>(SUMO_ATTR_ID, 0, myCurrentIsOk);
         }
     } else {
         // parse route alternative...
-        myCost = attrs.getOptSUMORealReporting(SUMO_ATTR_COST, myCurrentAlternatives->getID().c_str(), myCurrentIsOk, -1);
-        myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
+        myCost = attrs.getOpt<SUMOReal>(SUMO_ATTR_COST, myCurrentAlternatives->getID().c_str(), myCurrentIsOk, -1);
+        myProbability = attrs.get<SUMOReal>(SUMO_ATTR_PROB, myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
         if (myCurrentIsOk && myCost < 0 && myCost != -1) {
             WRITE_ERROR("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
             myCurrentIsOk = false;
@@ -147,9 +147,9 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes& attrs) {
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        myColor = new RGBColor(attrs.getColorReporting(myCurrentRouteName.c_str(), myCurrentIsOk));
+        myColor = new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myCurrentRouteName.c_str(), myCurrentIsOk));
     }
-    std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, myCurrentRouteName.c_str(), myCurrentIsOk);
+    std::string edges = attrs.get<std::string>(SUMO_ATTR_EDGES, myCurrentRouteName.c_str(), myCurrentIsOk);
     if (myCurrentIsOk) {
         parseRoute(edges);
     }
@@ -170,13 +170,13 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes& attrs) {
         }
         id = "!" + id;
     } else {
-        id = attrs.getStringReporting(SUMO_ATTR_ID, 0, myCurrentIsOk);
+        id = attrs.get<std::string>(SUMO_ATTR_ID, 0, myCurrentIsOk);
         if (!myCurrentIsOk) {
             return;
         }
     }
     // try to get the index of the last element
-    int index = attrs.getIntReporting(SUMO_ATTR_LAST, id.c_str(), myCurrentIsOk);
+    int index = attrs.get<int>(SUMO_ATTR_LAST, id.c_str(), myCurrentIsOk);
     if (myCurrentIsOk && index < 0) {
         WRITE_ERROR("Negative index of a route alternative (id='" + id + "').");
         myCurrentIsOk = false;
