@@ -151,6 +151,12 @@ public:
      */
     virtual SUMOTime getDeparture() const = 0;
 
+    /** @brief Returns this vehicle's desired arrivalPos for its current route
+     * (may change on reroute)
+     * @return This vehicle's real arrivalPos
+     */
+    virtual SUMOReal getArrivalPos() const = 0;
+
     /** @brief Returns whether this vehicle has departed
      */
     virtual bool hasDeparted() const = 0;

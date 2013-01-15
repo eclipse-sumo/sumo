@@ -100,7 +100,9 @@ MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
         if (!MSGlobals::gUseMesoSim) {
             myArrivalLane = static_cast<MSVehicle&>(veh).getLane()->getID();
         }
-        myArrivalPos = myHolder.getPositionOnLane();
+        // @note vehicle may have moved past its arrivalPos during the last step 
+        // due to non-zero arrivalspeed but we consider it as arrived at the desired position
+        myArrivalPos = myHolder.getArrivalPos();
         myArrivalSpeed = veh.getSpeed();
     }
     return true;

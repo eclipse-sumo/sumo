@@ -167,6 +167,14 @@ public:
         return myDeparture;
     }
 
+    /** @brief Returns this vehicle's desired arrivalPos for its current route
+     * (may change on reroute)
+     * @return This vehicle's real arrivalPos
+     */
+    virtual SUMOReal getArrivalPos() const {
+        return myArrivalPos;
+    }
+
     /** @brief Returns whether this vehicle has already departed
      */
     bool hasDeparted() const;

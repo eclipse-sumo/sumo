@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/18/12 09:24:51 by SUMO sumo Version dev-SVN-r13169
+<!-- generated on Tue Jan 15 13:15:45 2013 by SUMO sumo Version dev-SVN-r13186
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -24,7 +24,7 @@
 -->
 
 <tripinfos>
-    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="194.00" arrivalLane="1/4to1/3_0" arrivalPos="95.40" arrivalSpeed="13.88" duration="144.00" routeLength="455.30" waitSteps="93" rerouteNo="0" devices="tripinfo_train0 person_train0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="194.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.88" duration="144.00" routeLength="450.40" waitSteps="93" rerouteNo="0" devices="tripinfo_train0 person_train0" vType="DEFAULT_VEHTYPE" vaporized=""/>
     <personinfo id="person0" depart="0.00">
         <stop arrival="0.00"/>
         <walk arrival="46.00"/>
@@ -33,5 +33,5 @@
         <stop arrival="206.00"/>
         <ride depart="206.00" arrival="258.00"/>
     </personinfo>
-    <tripinfo id="car0" depart="206.00" departLane="1/4to2/4_0" departPos="5.10" departSpeed="0.00" departDelay="206.00" arrival="258.00" arrivalLane="3/4to4/4_0" arrivalPos="102.32" arrivalSpeed="12.68" duration="52.00" routeLength="278.22" waitSteps="20" rerouteNo="0" devices="tripinfo_car0 person_car0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="car0" depart="206.00" departLane="1/4to2/4_0" departPos="5.10" departSpeed="0.00" departDelay="206.00" arrival="258.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="12.68" duration="52.00" routeLength="267.90" waitSteps="20" rerouteNo="0" devices="tripinfo_car0 person_car0" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Nov 30 16:43:02 2012 by SUMO sumo Version dev-SVN-r13080
+<!-- generated on Tue Jan 15 13:18:34 2013 by SUMO sumo Version dev-SVN-r13186
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -23,5 +23,5 @@
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0.00" departLane="beg_0" departPos="96.00" departSpeed="55.56" departDelay="0.00" arrival="8.00" arrivalLane="end_0" arrivalPos="233.29" arrivalSpeed="55.24" duration="8.00" routeLength="433.56" waitSteps="0" rerouteNo="0" devices="tripinfo_0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="0" depart="0.00" departLane="beg_0" departPos="96.00" departSpeed="55.56" departDelay="0.00" arrival="8.00" arrivalLane="end_0" arrivalPos="217.42" arrivalSpeed="55.24" duration="8.00" routeLength="417.69" waitSteps="0" rerouteNo="0" devices="tripinfo_0" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
