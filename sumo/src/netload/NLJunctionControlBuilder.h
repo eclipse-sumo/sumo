@@ -259,6 +259,9 @@ public:
      */
     MSTLLogicControl& getTLLogicControlToUse() const;
 
+    /// @brief initialize junctions after all connections have been loaded
+    void postLoadInitialization() const;
+
 
 protected:
     /** @brief Returns the current junction logic
@@ -370,16 +373,8 @@ protected:
     PositionVector myShape;
 
 
-    /// @brief A definition of junction initialisation
-    struct TLInitInfo {
-        /// @brief The logic to initialise
-        MSTrafficLightLogic* logic;
-        /// @brief The loaded logic's parameter
-        std::map<std::string, std::string> params;
-    };
-
     /// @brief The container for information which junctions shall be initialised using which values
-    std::vector<TLInitInfo> myJunctions2PostLoadInit;
+    std::vector<MSTrafficLightLogic*> myLogics2PostLoadInit;
 
 
     /// @brief The tls control to use (0 if net's tls control shall be used)

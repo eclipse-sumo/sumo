@@ -54,8 +54,7 @@ class NLDetectorBuilder;
  * @class MSActuatedTrafficLightLogic
  * @brief An actuated (adaptive) traffic light logic
  */
-class MSActuatedTrafficLightLogic :
-    public MSSimpleTrafficLightLogic {
+class MSActuatedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
     /// @brief Definition of a map from lanes to induct loops lying on them
     typedef std::map<MSLane*, MSInductLoop*> InductLoopMap;

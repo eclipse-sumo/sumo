@@ -251,20 +251,16 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
                 new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
                                               myActiveKey, myActiveProgram,
                                               myActivePhases, step, firstEventOffset);
-            tlLogic->setParameter(myAdditionalParameter);
+            break;
     }
-    TLInitInfo ii;
-    ii.logic = tlLogic;
-    ii.params = myAdditionalParameter;
-    myJunctions2PostLoadInit.push_back(ii);
     myActivePhases.clear();
     if (tlLogic != 0) {
+        myLogics2PostLoadInit.push_back(tlLogic);
         try {
             if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
                 throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveProgram + "' exists.");
             }
             tlLogic->setParameter(myAdditionalParameter);
-            tlLogic->init(myDetectorBuilder);
         } catch (InvalidArgument&) {
             delete tlLogic;
             throw;
@@ -414,5 +410,13 @@ NLJunctionControlBuilder::getActiveSubKey() const {
     return myActiveProgram;
 }
 
+
+void 
+NLJunctionControlBuilder::postLoadInitialization() const {
+    for (std::vector<MSTrafficLightLogic*>::const_iterator it = myLogics2PostLoadInit.begin(); 
+            it != myLogics2PostLoadInit.end(); ++it) {
+        (*it)->init(myDetectorBuilder);
+    }
+}
 
 /****************************************************************************/

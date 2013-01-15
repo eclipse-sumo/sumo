@@ -240,6 +240,9 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_ENTRY_EXIT_DETECTOR:
             endE3Detector();
             break;
+        case SUMO_TAG_NET:
+            myJunctionControlBuilder.postLoadInitialization();
+            break;
         default:
             break;
     }
@@ -685,8 +688,11 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
-    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+    //  XXX move handling of defaults somewhere else
+    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, 
+            MIN2(duration, TIME2STEPS(5)));
+    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, 
+            MAX2(duration, TIME2STEPS(90)));
     myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration);
 }
 
