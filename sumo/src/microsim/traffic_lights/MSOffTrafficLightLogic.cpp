@@ -45,8 +45,9 @@
 // member method definitions
 // ===========================================================================
 MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl& tlcontrol,
-        const std::string& id)
-    : MSTrafficLightLogic(tlcontrol, id, "off", 0) {
+        const std::string& id) : 
+    MSTrafficLightLogic(tlcontrol, id, "off", 0, ParameterMap()) 
+{
     myDefaultCycleTime = TIME2STEPS(120);
 }
 

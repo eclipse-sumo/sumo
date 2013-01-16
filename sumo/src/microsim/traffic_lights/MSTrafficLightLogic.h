@@ -78,6 +78,8 @@ public:
 
     /// @brief Definition of a list that holds lists of links that do have the same attribute
     typedef std::vector<LaneVector> LaneVectorVector;
+
+    typedef std::map<std::string, std::string> ParameterMap;
     /// @}
 
 
@@ -89,7 +91,10 @@ public:
      * @param[in] delay The time to wait before the first switch
      */
     MSTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                        const std::string& id, const std::string& programID, SUMOTime delay);
+                        const std::string& id, 
+                        const std::string& programID, 
+                        SUMOTime delay,
+                        const ParameterMap& parameters);
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -334,7 +339,7 @@ public:
     /** @brief Inserts read parameter
      * @param[in] params The parameter to use
      */
-    void setParameter(const std::map<std::string, std::string>& params);
+    void setParameter(const ParameterMap& params);
 
 
     /** @brief Returns a named parameter
@@ -409,7 +414,7 @@ protected:
 
 protected:
     /// @brief Given parameter
-    std::map<std::string, std::string> myParameter;
+    ParameterMap myParameter;
 
     /// @brief The id of the logic
     std::string myID, myProgramID;

@@ -100,14 +100,21 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
 /* -------------------------------------------------------------------------
  * member method definitions
  * ----------------------------------------------------------------------- */
-MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol,
-        const std::string& id, const std::string& programID,
-        SUMOTime delay)
-    : myID(id), myProgramID(programID), myCurrentDurationIncrement(-1),
-      myDefaultCycleTime(0) {
+MSTrafficLightLogic::MSTrafficLightLogic(
+        MSTLLogicControl& tlcontrol,
+        const std::string& id, 
+        const std::string& programID,
+        SUMOTime delay,
+        const ParameterMap& parameters) : 
+    myParameter(parameters),
+    myID(id), 
+    myProgramID(programID), 
+    myCurrentDurationIncrement(-1),
+    myDefaultCycleTime(0) 
+{
     mySwitchCommand = new SwitchCommand(tlcontrol, this, delay);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-        mySwitchCommand, delay, MSEventControl::NO_CHANGE);
+            mySwitchCommand, delay, MSEventControl::NO_CHANGE);
 }
 
 
@@ -230,7 +237,7 @@ MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) {
 
 // ----------- Algorithm parameter handling
 void
-MSTrafficLightLogic::setParameter(const std::map<std::string, std::string>& params) {
+MSTrafficLightLogic::setParameter(const ParameterMap& params) {
     myParameter = params;
 }
 

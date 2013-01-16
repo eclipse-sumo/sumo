@@ -68,7 +68,8 @@ public:
      */
     MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol,
                               const std::string& id, const std::string& subid,
-                              const Phases& phases, unsigned int step, SUMOTime delay);
+                              const Phases& phases, unsigned int step, SUMOTime delay,
+                              const ParameterMap& parameters=ParameterMap());
 
 
     /// @brief Destructor

@@ -51,9 +51,11 @@
 // ===========================================================================
 MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& subid, const Phases& phases,
-        unsigned int step, SUMOTime delay)
-    : MSTrafficLightLogic(tlcontrol, id, subid, delay), myPhases(phases),
-      myStep(step) {
+        unsigned int step, SUMOTime delay,
+        const ParameterMap& parameters) : 
+    MSTrafficLightLogic(tlcontrol, id, subid, delay, parameters), 
+    myPhases(phases), 
+    myStep(step) {
     for (size_t i = 0; i < myPhases.size(); i++) {
         myDefaultCycleTime += myPhases[i]->duration;
     }

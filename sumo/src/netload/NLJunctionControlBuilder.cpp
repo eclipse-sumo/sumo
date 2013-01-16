@@ -239,12 +239,14 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
         case TLTYPE_ACTUATED:
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram,
-                    myActivePhases, step, firstEventOffset, myAdditionalParameter);
+                    myActivePhases, step, firstEventOffset, 
+                    myAdditionalParameter);
             break;
         case TLTYPE_AGENT:
             tlLogic = new MSAgentbasedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram,
-                    myActivePhases, step, firstEventOffset, myAdditionalParameter);
+                    myActivePhases, step, firstEventOffset, 
+                    myAdditionalParameter);
             break;
         case TLTYPE_STATIC:
             tlLogic =
@@ -260,7 +262,6 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
             if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
                 throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveProgram + "' exists.");
             }
-            tlLogic->setParameter(myAdditionalParameter);
         } catch (InvalidArgument&) {
             delete tlLogic;
             throw;
