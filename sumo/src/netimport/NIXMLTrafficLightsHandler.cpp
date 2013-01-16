@@ -105,7 +105,7 @@ NIXMLTrafficLightsHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_TLLOGIC:
             if (!myCurrentTL) {
-                WRITE_ERROR("Unmatched closing tag for tl-logic.");
+                WRITE_ERROR("Unmatched closing tag for tlLogic.");
             } else {
                 if (!myTLLCont.insert(myCurrentTL)) {
                     WRITE_MESSAGE("Updating program '" + myCurrentTL->getProgramID() +
@@ -123,14 +123,22 @@ NIXMLTrafficLightsHandler::myEndElement(int element) {
 NBLoadedSUMOTLDef*
 NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL) {
     if (currentTL) {
-        WRITE_ERROR("Definition of tl-logic '" + currentTL->getID() + "' was not finished.");
+        WRITE_ERROR("Definition of tlLogic '" + currentTL->getID() + "' was not finished.");
         return 0;
     }
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
     SUMOTime offset = attrs.hasAttribute(SUMO_ATTR_OFFSET) ? TIME2STEPS(attrs.get<SUMOReal>(SUMO_ATTR_OFFSET, id.c_str(), ok)) : 0;
-
+    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, 0, ok, 
+            OptionsCont::getOptions().getString("tls.default-type"));
+    TrafficLightType type;
+    if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
+        type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
+    } else {
+        WRITE_ERROR("Unknown traffic light type '" + typeS + "' for tlLogic '" + id + "'.");
+        ok = false;
+    }
     // there are two scenarios to consider
     // 1) the tll.xml is loaded to update traffic lights defined in a net.xml:
     //   simply retrieve the loaded definitions and update them
@@ -146,12 +154,12 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
             newDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(
                                  id, NBTrafficLightDefinition::DefaultProgramID));
             if (newDef == 0) {
-                WRITE_ERROR("Cannot load traffic light program for uknown id '" + id + "', programID '" + programID + "'.");
+                WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
                 return 0;
             }
         }
         assert(newDef != 0);
-        loadedDef = new NBLoadedSUMOTLDef(id, programID, offset);
+        loadedDef = new NBLoadedSUMOTLDef(id, programID, offset, type);
         // copy nodes
         std::vector<NBNode*> nodes = newDef->getControlledNodes();
         for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
@@ -166,10 +174,6 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
             myTLLCont.removeProgram(id, NBTrafficLightDefinition::DefaultProgramID);
         }
         myTLLCont.insert(loadedDef);
-        std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, 0, ok, toString(TLTYPE_STATIC));
-        if (type != toString(TLTYPE_STATIC)) {
-            WRITE_WARNING("Traffic light '" + id + "' has unsupported type '" + type + "' and will be converted to '" + toString(TLTYPE_STATIC) + "'");
-        }
     }
     if (ok) {
         myResetPhases = true;

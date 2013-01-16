@@ -52,16 +52,19 @@
 // member method definitions
 // ===========================================================================
 NBOwnTLDef::NBOwnTLDef(const std::string& id,
-                       const std::vector<NBNode*>& junctions, SUMOTime offset)
-    : NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset) {}
+                       const std::vector<NBNode*>& junctions, SUMOTime offset,
+                       TrafficLightType type) : 
+    NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type) {}
 
 
-NBOwnTLDef::NBOwnTLDef(const std::string& id, NBNode* junction, SUMOTime offset)
-    : NBTrafficLightDefinition(id, junction, DefaultProgramID, offset) {}
+NBOwnTLDef::NBOwnTLDef(const std::string& id, NBNode* junction, SUMOTime offset,
+        TrafficLightType type) : 
+    NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type) {}
 
 
-NBOwnTLDef::NBOwnTLDef(const std::string& id, SUMOTime offset)
-    : NBTrafficLightDefinition(id, DefaultProgramID, offset) {}
+NBOwnTLDef::NBOwnTLDef(const std::string& id, SUMOTime offset,
+        TrafficLightType type) : 
+    NBTrafficLightDefinition(id, DefaultProgramID, offset, type) {}
 
 
 NBOwnTLDef::~NBOwnTLDef() {}
@@ -213,7 +216,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&,
         }
     }
 
-    NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noLinksAll);
+    NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noLinksAll, myOffset, myType);
     EdgeVector toProc = incoming;
     // build all phases
     while (toProc.size() > 0) {

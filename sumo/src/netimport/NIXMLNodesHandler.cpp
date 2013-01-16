@@ -230,18 +230,32 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
     std::set<NBTrafficLightDefinition*> tlDefs;
     bool ok = true;
     std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
+    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TLTYPE, 0, ok, 
+            OptionsCont::getOptions().getString("tls.default-type"));
+    TrafficLightType type;
+    if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
+        type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
+    } else {
+        WRITE_ERROR("Unknown traffic light type '" + typeS + "' for node '" + myID + "'.");
+        ok = false;
+    }
     if (tlID != "" && myTLLogicCont.getPrograms(tlID).size() > 0) {
         // we already have definitions for this tlID
         const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLogicCont.getPrograms(tlID);
         std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
         for (it = programs.begin(); it != programs.end(); it++) {
-            tlDefs.insert(it->second);
-            it->second->addNode(currentNode);
+            if (it->second->getType() != type) {
+                WRITE_ERROR("Mismatched traffic light type '" + typeS + "' for tl '" + tlID + "'.");
+                ok = false;
+            } else {
+                tlDefs.insert(it->second);
+                it->second->addNode(currentNode);
+            }
         }
     } else {
         // we need to add a new defition
         tlID = (tlID == "" ? myID : tlID);
-        NBTrafficLightDefinition* tlDef = new NBOwnTLDef(tlID, currentNode, 0);
+        NBTrafficLightDefinition* tlDef = new NBOwnTLDef(tlID, currentNode, 0, type);
         if (!myTLLogicCont.insert(tlDef)) {
             // actually, nothing should fail here
             delete tlDef;

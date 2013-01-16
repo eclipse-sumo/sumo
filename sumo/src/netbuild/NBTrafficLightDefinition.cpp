@@ -56,8 +56,13 @@ const std::string NBTrafficLightDefinition::DefaultProgramID = "0";
 // method definitions
 // ===========================================================================
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
-        const std::vector<NBNode*>& junctions, const std::string& programID, SUMOTime offset)
-    : Named(id), myControlledNodes(junctions), mySubID(programID), myOffset(offset) {
+        const std::vector<NBNode*>& junctions, const std::string& programID, 
+        SUMOTime offset, TrafficLightType type) : 
+    Named(id), 
+    myControlledNodes(junctions), 
+    mySubID(programID), myOffset(offset),
+    myType(type) 
+{
     std::vector<NBNode*>::iterator i = myControlledNodes.begin();
     while (i != myControlledNodes.end()) {
         for (std::vector<NBNode*>::iterator j = i + 1; j != myControlledNodes.end();) {
@@ -77,15 +82,23 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
 
 
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
-        NBNode* junction, const std::string& programID, SUMOTime offset)
-    : Named(id), mySubID(programID), myOffset(offset) {
+        NBNode* junction, const std::string& programID, SUMOTime offset, TrafficLightType type) : 
+    Named(id), 
+    mySubID(programID), 
+    myOffset(offset),
+    myType(type)
+{
     addNode(junction);
     junction->addTrafficLight(this);
 }
 
 
-NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id, const std::string& programID, SUMOTime offset)
-    : Named(id), mySubID(programID), myOffset(offset) {}
+NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id, const std::string& programID, 
+        SUMOTime offset, TrafficLightType type) : 
+    Named(id), 
+    mySubID(programID), 
+    myOffset(offset),
+    myType(type) {}
 
 
 NBTrafficLightDefinition::~NBTrafficLightDefinition() {}

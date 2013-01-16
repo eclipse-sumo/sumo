@@ -299,7 +299,9 @@ NIImporter_OpenStreetMap::insertNodeChecking(SUMOLong id, NBNodeCont& nc, NBTraf
         if (n->tlsControlled) {
             // ok, this node is a traffic light node where no other nodes
             //  participate
-            NBOwnTLDef* tlDef = new NBOwnTLDef(toString(id), from, 0);
+            // @note: The OSM-community has not settled on a schema for differentiating between fixed and actuated lights
+            TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
+            NBOwnTLDef* tlDef = new NBOwnTLDef(toString(id), from, 0, type);
             if (!tlsc.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;

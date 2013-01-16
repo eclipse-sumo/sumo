@@ -57,24 +57,30 @@ public:
      * @param[in] id The id of the tls
      * @param[in] junctions Junctions controlled by this tls
      * @param[in] offset The offset of the plan
+     * @param[in] type The algorithm type for the computed traffic light
      */
     NBOwnTLDef(const std::string& id,
-               const std::vector<NBNode*>& junctions, SUMOTime offset);
+               const std::vector<NBNode*>& junctions, 
+               SUMOTime offset,
+               TrafficLightType type);
 
 
     /** @brief Constructor
      * @param[in] id The id of the tls
      * @param[in] junction The junction controlled by this tls
      * @param[in] offset The offset of the plan
+     * @param[in] type The algorithm type for the computed traffic light
      */
-    NBOwnTLDef(const std::string& id, NBNode* junction, SUMOTime offset);
+    NBOwnTLDef(const std::string& id, NBNode* junction, SUMOTime offset,
+            TrafficLightType type);
 
 
     /** @brief Constructor
      * @param[in] id The id of the tls
      * @param[in] offset The offset of the plan
+     * @param[in] type The algorithm type for the computed traffic light
      */
-    NBOwnTLDef(const std::string& id, SUMOTime offset);
+    NBOwnTLDef(const std::string& id, SUMOTime offset, TrafficLightType type);
 
 
     /// @brief Destructor

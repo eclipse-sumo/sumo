@@ -68,16 +68,19 @@ const std::string NBTrafficLightLogic::ALLOWED_STATES(NBTrafficLightLogic::allow
 // member method definitions
 // ===========================================================================
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string& id,
-        const std::string& subid, unsigned int noLinks, SUMOTime offset) :
+        const std::string& subid, unsigned int noLinks, 
+        SUMOTime offset, TrafficLightType type) :
     Named(id), myNumLinks(noLinks), mySubID(subid),
-    myOffset(offset) {}
+    myOffset(offset),
+    myType(type) {}
 
 NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
     Named(logic->getID()),
     myNumLinks(logic->myNumLinks),
     mySubID(logic->getProgramID()),
     myOffset(logic->getOffset()),
-    myPhases(logic->myPhases.begin(), logic->myPhases.end()) {}
+    myPhases(logic->myPhases.begin(), logic->myPhases.end()),
+    myType(logic->getType()) {}
 
 
 NBTrafficLightLogic::~NBTrafficLightLogic() {}

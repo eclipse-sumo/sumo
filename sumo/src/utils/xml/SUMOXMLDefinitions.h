@@ -335,8 +335,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_BEGIN,
     /** weights: time range end */
     SUMO_ATTR_END,
-    /** link: the traffic light id responsible for this link */
+    /** link,node: the traffic light id responsible for this link */
     SUMO_ATTR_TLID,
+    /** node: the type of traffic light */
+    SUMO_ATTR_TLTYPE,
     /** link: the index of the link within the traffic light */
     SUMO_ATTR_TLLINKINDEX,
     /** edge: the shape in xml-definition */

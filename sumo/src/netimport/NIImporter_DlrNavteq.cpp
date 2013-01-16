@@ -385,8 +385,10 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
         NBNode* node = edge->getToNode();
         if (node->getType() != NODETYPE_TRAFFIC_LIGHT) {
             node->reinit(node->getPosition(), NODETYPE_TRAFFIC_LIGHT);
+            // @note. There may be additional information somewhere in the GDF files about traffic light type ...
+            TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
             // @note actually we could use the navteq node ID here
-            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(node->getID(), node, 0);
+            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(node->getID(), node, 0, type);
             if (!myTLLogicCont.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;

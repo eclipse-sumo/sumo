@@ -47,6 +47,7 @@
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -205,6 +206,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("tls.quarter-offset", "tl-logics.quarter-offset", true);
     oc.addDescription("tls.quarter-offset", "TLS Building", "TLSs in STR will be shifted by quarter-phase");
 
+    // tls type
+    oc.doRegister("tls.default-type", new Option_String("static"));
+    oc.addDescription("tls.default-type", "TLS Building", "TLSs with unspecified type will use STR as their algorithm.");
 
 
     // edge pruning
@@ -297,6 +301,7 @@ NBFrame::fillOptions(bool forNetgen) {
 bool
 NBFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
+    bool ok = true;
     //
     if (!oc.isDefault("tls-guess.joining")) {
         WRITE_WARNING("'--tls-guess.joining' was joined with '--tls.join'.\n Please use '--tls.join' in future only.");
@@ -304,7 +309,11 @@ NBFrame::checkOptions() {
             oc.set("tls.join", "true");
         }
     }
-    return true;
+    if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(oc.getString("tls.default-type"))) {
+        WRITE_ERROR("unsupported value '" + oc.getString("tls.default-type") + "' for option '--tls.default-type'");
+        ok = false;
+    }
+    return ok;
 }
 
 

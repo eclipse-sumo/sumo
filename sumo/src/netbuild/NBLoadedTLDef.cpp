@@ -266,18 +266,18 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge* removed, int removedLane,
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::NBLoadedTLDef(const std::string& id,
-                             const std::vector<NBNode*>& junctions, SUMOTime offset)
-    : NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset)
+                             const std::vector<NBNode*>& junctions, SUMOTime offset, TrafficLightType type) : 
+    NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type)
 {}
 
 
-NBLoadedTLDef::NBLoadedTLDef(const std::string& id, NBNode* junction, SUMOTime offset)
-    : NBTrafficLightDefinition(id, junction, DefaultProgramID, offset)
+NBLoadedTLDef::NBLoadedTLDef(const std::string& id, NBNode* junction, SUMOTime offset, TrafficLightType type) : 
+    NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type)
 {}
 
 
-NBLoadedTLDef::NBLoadedTLDef(const std::string& id, SUMOTime offset)
-    : NBTrafficLightDefinition(id, DefaultProgramID, offset)
+NBLoadedTLDef::NBLoadedTLDef(const std::string& id, SUMOTime offset, TrafficLightType type) : 
+    NBTrafficLightDefinition(id, DefaultProgramID, offset, type)
 {}
 
 
@@ -318,7 +318,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) {
         noSignals += (*i).second->getLinkNo();
     }
     // build the phases
-    NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noSignals);
+    NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noSignals, myOffset, myType);
     for (std::vector<SUMOReal>::iterator l = switchTimes.begin(); l != switchTimes.end(); l++) {
         // compute the duration of the current phase
         unsigned int duration;
@@ -337,7 +337,6 @@ NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) {
     if (MsgHandler::getWarningInstance()->wasInformed()) {
         WRITE_WARNING("During computation of traffic light '" + getID() + "'.");
     }
-    logic->setOffset(myOffset);
     logic->closeBuilding();
     return logic;
 }

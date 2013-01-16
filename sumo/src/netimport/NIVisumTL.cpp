@@ -29,6 +29,7 @@
 #endif
 
 #include <string>
+#include <utils/options/OptionsCont.h>
 #include <netbuild/NBLoadedTLDef.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include "NIVisumTL.h"
@@ -85,7 +86,8 @@ void
 NIVisumTL::build(NBTrafficLightLogicCont& tlc) {
     for (std::vector<NBNode*>::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++) {
         NBNode* node = (*ni);
-        NBLoadedTLDef* def = new NBLoadedTLDef(node->getID(), node, myOffset);
+        TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
+        NBLoadedTLDef* def = new NBLoadedTLDef(node->getID(), node, myOffset, type);
         tlc.insert(def);
         def->setCycleDuration((unsigned int) myCycleTime);
         // signalgroups

@@ -55,8 +55,9 @@ public:
      * @param[in] id The id of the tls
      * @param[in] programID The programID for the computed logic
      * @param[in] offset The offset for the computed logic
+     * @param[in] type The algorithm type for the computed logic
      */
-    NBLoadedSUMOTLDef(const std::string& id, const std::string& programID, SUMOTime offset);
+    NBLoadedSUMOTLDef(const std::string& id, const std::string& programID, SUMOTime offset, TrafficLightType type);
 
     /** @brief Constructor that copies from an existing definition and its computed logic (used by NETEDIT)
      * @param[in] def The definition to copy

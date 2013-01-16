@@ -94,8 +94,11 @@ public:
      * @param[in] id The id of the traffic light
      * @param[in] subid The id of the program
      * @param[in] noLinks Number of links that are controlled by this tls. 0 means the value is not known beforehand
+     * @param[in] offset The offset of the program (delay)
+     * @param[in] type The algorithm type for the computed traffic light
      */
-    NBTrafficLightLogic(const std::string& id, const std::string& subid, unsigned int noLinks, SUMOTime offset = 0);
+    NBTrafficLightLogic(const std::string& id, const std::string& subid, unsigned int noLinks, 
+            SUMOTime offset = 0, TrafficLightType type = TLTYPE_STATIC);
 
 
     /** @brief Copy Constructor
@@ -192,6 +195,15 @@ public:
         return myNumLinks;
     }
 
+    /// @brief get the algorithm type (static etc..)
+    TrafficLightType getType() const {
+        return myType;
+    }
+
+    /// @brief set the algorithm type (static etc..)
+    void setType(TrafficLightType type) {
+        myType = type;
+    }
 
 private:
     /// @brief The number of participating links
@@ -208,6 +220,9 @@ private:
 
     /// @brief The junction logic's storage for traffic light phase list
     PhaseDefinitionVector myPhases;
+
+    /// @brief The algorithm type for the traffic light
+    TrafficLightType myType;
 
     /// @brief all allowed characters for phase state (see SUMOXMLDefinitions)
     static const char allowedStatesInitializer[];

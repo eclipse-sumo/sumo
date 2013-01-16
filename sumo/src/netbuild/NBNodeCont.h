@@ -257,10 +257,11 @@ public:
     /** @brief Sets the given node as being controlled by a tls
      * @param[in] node The node that shall be controlled by a tls
      * @param[in] tlc The traffic lights control into which the new traffic light definition shall be stored
+     * @param[in] type The type of the new tls
      * @param[in] id The id of the tls to add
      * @todo Recheck exception handling
      */
-    void setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, std::string id = "");
+    void setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, TrafficLightType type, std::string id = "");
     /// @}
 
 
@@ -311,8 +312,10 @@ public:
      * @param[out] id The name for the new node
      * @param[out] pos The position of the new node
      * @param[out] hasTLS Whether the new node has a traffic light
+     * @param[out] tlType The type of traffic light (if any)
      */
-    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, bool& hasTLS);
+    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, 
+            bool& hasTLS, TrafficLightType& type);
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     void registerJoinedCluster(const std::set<NBNode*>& cluster);
