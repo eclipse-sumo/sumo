@@ -30,6 +30,7 @@
 #endif
 
 #include <string>
+#include <utils/common/StdDefs.h>
 #include <utils/geom/Position.h>
 #include "BinaryFormatter.h"
 #include "BinaryInputDevice.h"
@@ -41,7 +42,7 @@
 // ===========================================================================
 // constants definitions
 // ===========================================================================
-#define BUF_MAX 1000
+#define BUF_MAX 10000
 
 
 // ===========================================================================
@@ -70,9 +71,6 @@ BinaryInputDevice::peek() {
 
 std::string
 BinaryInputDevice::read(int numBytes) {
-    if (numBytes > BUF_MAX) {
-        throw ProcessError("Buffer to small.");
-    }
     myStream.read((char*) &myBuffer, sizeof(char)*numBytes);
     return std::string(myBuffer, numBytes);
 }
@@ -158,10 +156,13 @@ operator>>(BinaryInputDevice& os, std::string& s) {
     os.checkType(BinaryFormatter::BF_STRING);
     unsigned int size;
     os.myStream.read((char*) &size, sizeof(unsigned int));
-    if (size < BUF_MAX) {
-        os.myStream.read((char*) &os.myBuffer, sizeof(char)*size);
-        os.myBuffer[size] = 0;
-        s = std::string(os.myBuffer);
+    unsigned int done = 0;
+    while (done < size) {
+        const unsigned int toRead = MIN2((unsigned int)size - done, (unsigned int)BUF_MAX - 1);
+        os.myStream.read((char*) &os.myBuffer, sizeof(char)*toRead);
+        os.myBuffer[toRead] = 0;
+        s += std::string(os.myBuffer);
+        done += toRead;
     }
     return os;
 }
