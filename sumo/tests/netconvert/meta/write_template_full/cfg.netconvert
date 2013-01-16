@@ -65,6 +65,7 @@
         <tls.yellow.time value="" synonymes="traffic-light-yellow" type="INT" help="Set INT as fixed time for yellow phase durations"/>
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR" help="TLSs in STR will be shifted by half-phase"/>
         <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR" help="TLSs in STR will be shifted by quarter-phase"/>
+        <tls.default-type value="static" type="STR" help="TLSs with unspecified type will use STR as their algorithm."/>
     </tls_building>
 
     <ramp_guessing>
