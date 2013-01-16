@@ -594,6 +594,9 @@ NBNode::computeNodeShape(bool leftHand) {
         myPoly = computer.compute(leftHand);
     } catch (InvalidArgument&) {
         WRITE_WARNING("For node '" + getID() + "': could not compute shape.");
+        // make sure our shape is not empty because our XML schema forbids empty attributes
+        myPoly.clear();
+        myPoly.push_back(myPosition);
     }
 }
 
