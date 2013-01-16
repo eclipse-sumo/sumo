@@ -35,7 +35,9 @@ def validate(root, f):
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
             for entry in schemes[schemaLoc].error_log:
-                print >> sys.stderr, os.path.abspath(str(entry))[len(root)+1:].replace('\\', '/')
+                s = str(entry)
+                s = s[s.find(f.replace('\\', '/'))+len(f):] # remove everything before (and including) the filename
+                print >> sys.stderr, os.path.abspath(f)[len(root)+1:].replace('\\', '/') + s
     except:
         print >> sys.stderr, "Error on parsing '%s'!" % os.path.abspath(f)[len(root)+1:].replace('\\', '/')
         traceback.print_exc()

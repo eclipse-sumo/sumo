@@ -127,7 +127,7 @@ def typedValueStr(content):
                                         readDouble(content),readDouble(content))
     elif valType == COLOR:
         val = read(content, "BBBB")
-        return '%s,%s,%s' % (val[0]/255.,val[1]/255.,val[2]/255.)
+        return '%.2f,%.2f,%.2f' % (val[0]/255.,val[1]/255.,val[2]/255.)
     elif valType == NODE_TYPE:
         return nodeTypes[readByte(content)]
     elif valType == EDGE_FUNCTION:
