@@ -4,6 +4,9 @@ types
 # Tests for using types
 node_types
 
+# test loading of different traffic light types
+tl_types
+
 # tests for using the speed_in_kmh option
 speed_in_kmh
 
