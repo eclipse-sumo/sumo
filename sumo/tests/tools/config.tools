@@ -45,6 +45,7 @@ copy_test_path:dest.edg.xml
 copy_test_path:dest.con.xml
 copy_test_path:dest.tll.xml
 copy_test_path:dest.xml
+copy_test_path:fcd.xml
 
 [collate_file]
 detectors:e1.add.xml
@@ -71,6 +72,10 @@ diff_edg:diff.edg.xml
 diff_con:diff.con.xml
 diff_tll:diff.tll.xml
 diff_xml:diff.xml
+dri:test.dri
+fzp:test.fzp
+flt:test.flt
+str:test.str
 
 [run_dependent_text]
 output:Begin time
