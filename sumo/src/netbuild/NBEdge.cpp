@@ -743,7 +743,7 @@ NBEdge::remapConnections(const EdgeVector& incoming) {
 
 
 void
-NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane) {
+NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool tryLater) {
     // remove from "myConnections"
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         Connection& c = *i;
@@ -751,6 +751,7 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane) {
                 && (fromLane < 0 || c.fromLane == fromLane)
                 && (toLane < 0 || c.toLane == toLane)) {
             i = myConnections.erase(i);
+            tryLater = false;
         } else {
             ++i;
         }
@@ -758,6 +759,9 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane) {
     // check whether it was the turn destination
     if (myTurnDestination == toEdge && fromLane < 0) {
         myTurnDestination = 0;
+    }
+    if (tryLater) {
+        myConnectionsToDelete.push_back(Connection(fromLane, toEdge, toLane));
     }
 }
 
@@ -1305,6 +1309,10 @@ NBEdge::recheckLanes() {
                 }
             }
         }
+    }
+    // check delayed removals
+    for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end(); ++it) {
+        removeFromConnections(it->toEdge, it->fromLane, it->toLane);
     }
     return true;
 }

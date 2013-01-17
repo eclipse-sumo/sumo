@@ -93,7 +93,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             myErrorMsgHandler->inform("The connection-destination edge '" + to + "' to reset is not known.");
             return;
         }
-        if (!fromEdge->isConnectedTo(toEdge)) {
+        if (!fromEdge->isConnectedTo(toEdge) && fromEdge->getStep() >= NBEdge::EDGE2EDGES ) {
             WRITE_WARNING("Target edge '" + toEdge->getID() + "' is not connected with '" + fromEdge->getID() + "'; the connection cannot be reset.");
             return;
         }
@@ -107,11 +107,11 @@ NIXMLConnectionsHandler::myStartElement(int element,
             }
             // we could be trying to reset a connection loaded from a sumo net and which has become obsolete.
             // In this case it's ok to encounter invalid lance indices
-            if (!fromEdge->hasConnectionTo(toEdge, toLane)) {
+            if (!fromEdge->hasConnectionTo(toEdge, toLane) && fromEdge->getStep() >= NBEdge::LANES2EDGES) {
                 WRITE_WARNING("Edge '" + fromEdge->getID() + "' has no connection to lane " + toString(toLane) + " of edge '" + toEdge->getID() + "'; the connection cannot be reset.");
             }
         }
-        fromEdge->removeFromConnections(toEdge, fromLane, toLane);
+        fromEdge->removeFromConnections(toEdge, fromLane, toLane, true);
     }
 
     if (element == SUMO_TAG_CONNECTION) {

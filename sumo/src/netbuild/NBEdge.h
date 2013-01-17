@@ -729,8 +729,9 @@ public:
      * @param[in] toEdge The destination edge
      * @param[in] fromLane The lane from which connections shall be removed; -1 means remove all
      * @param[in] toLane   The lane to which connections shall be removed; -1 means remove all
+     * @param[in] tryLater If the connection does not exist, try again during recheckLanes()
      */
-    void removeFromConnections(NBEdge* toEdge, int fromLane = -1, int toLane = -1);
+    void removeFromConnections(NBEdge* toEdge, int fromLane = -1, int toLane = -1, bool tryLater = false);
 
     void invalidateConnections(bool reallowSetting = false);
 
@@ -1142,6 +1143,10 @@ private:
      * @see Connection
      */
     std::vector<Connection> myConnections;
+
+    /** @brief List of connections marked for delayed removal
+     */
+    std::vector<Connection> myConnectionsToDelete;
 
     /// @brief The turn destination edge
     NBEdge* myTurnDestination;

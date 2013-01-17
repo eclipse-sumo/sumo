@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jan 17 14:25:01 2013 by SUMO netconvert Version dev-SVN-r13202
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+        <connection-files value="input_connections.con.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <speed-in-kmh value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+    <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
+
+    <node id="0" x="500.00" y="500.00" type="priority"/>
+    <node id="1" x="0.00" y="500.00" type="priority"/>
+    <node id="2" x="1000.00" y="500.00" type="priority"/>
+    <node id="3" x="500.00" y="0.00" type="priority"/>
+    <node id="4" x="500.00" y="1000.00" type="priority"/>
+    <node id="m1" x="250.00" y="500.00" type="priority"/>
+    <node id="m2" x="750.00" y="500.00" type="priority"/>
+    <node id="m3" x="500.00" y="250.00" type="priority"/>
+    <node id="m4" x="500.00" y="750.00" type="priority"/>
+</nodes>

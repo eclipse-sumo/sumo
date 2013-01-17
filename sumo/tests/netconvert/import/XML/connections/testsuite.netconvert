@@ -34,7 +34,6 @@ cross3l_prohibitions_turns
 # Test for setting links uncontrolled by a tls
 cross3l_uncontrolled
 
-
 # Tests setting connections after network changes
 delayed
 
@@ -44,4 +43,5 @@ delayed2
 # "delayed" with reports about unset connections before joining nodes
 delayed_report
 
-
+# tests using delete while no other connections are loaded (only forbid right turn)
+delete
