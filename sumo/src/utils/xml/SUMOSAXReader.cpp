@@ -70,7 +70,7 @@ SUMOSAXReader::setHandler(GenericSAXHandler& handler) {
 
 void
 SUMOSAXReader::parse(std::string systemID) {
-    if (systemID.substr(systemID.length() - 4) == ".sbx") {
+    if (systemID.length() >= 4 && systemID.substr(systemID.length() - 4) == ".sbx") {
         if (parseFirst(systemID)) {
             while (parseNext());
         }
