@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jan 17 15:57:30 2013 by SUMO netconvert Version dev-SVN-r13202
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+</configuration>
+-->
+
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd">
+    <connection from="-101" to="201" fromLane="0" toLane="0"/>
+    <connection from="-101" to="-200" fromLane="0" toLane="0"/>
+    <connection from="-101" to="101" fromLane="0" toLane="0"/>
+
+    <connection from="-102" to="202" fromLane="0" toLane="0"/>
+    <connection from="-102" to="202" fromLane="0" toLane="1"/>
+    <connection from="-102" to="-201" fromLane="0" toLane="0"/>
+    <connection from="-102" to="102" fromLane="0" toLane="0"/>
+
+    <connection from="-103" to="203" fromLane="0" toLane="0"/>
+    <connection from="-103" to="-202" fromLane="0" toLane="0"/>
+    <connection from="-103" to="103" fromLane="0" toLane="0"/>
+
+    <connection from="-104" to="204" fromLane="0" toLane="0"/>
+    <connection from="-104" to="-203" fromLane="0" toLane="0"/>
+    <connection from="-104" to="104" fromLane="0" toLane="0"/>
+
+    <connection from="-200" to="200" fromLane="0" toLane="1"/>
+
+    <connection from="-201" to="-200" fromLane="0" toLane="0"/>
+    <connection from="-201" to="101" fromLane="0" toLane="0"/>
+    <connection from="-201" to="201" fromLane="0" toLane="1"/>
+
+    <connection from="-202" to="-201" fromLane="0" toLane="0"/>
+    <connection from="-202" to="102" fromLane="0" toLane="0"/>
+    <connection from="-202" to="202" fromLane="0" toLane="1"/>
+
+    <connection from="-203" to="-202" fromLane="0" toLane="0"/>
+    <connection from="-203" to="203" fromLane="0" toLane="1"/>
+
+    <connection from="-204" to="104" fromLane="0" toLane="0"/>
+
+    <connection from="101" to="-101" fromLane="0" toLane="0"/>
+
+    <connection from="102" to="-102" fromLane="0" toLane="0"/>
+
+    <connection from="103" to="-103" fromLane="0" toLane="0"/>
+
+    <connection from="104" to="-104" fromLane="0" toLane="0"/>
+
+    <connection from="200" to="201" fromLane="0" toLane="0"/>
+    <connection from="200" to="201" fromLane="1" toLane="1"/>
+    <connection from="200" to="-200" fromLane="1" toLane="0"/>
+
+    <connection from="201" to="102" fromLane="0" toLane="0"/>
+
+    <connection from="202" to="103" fromLane="0" toLane="0"/>
+    <connection from="202" to="203" fromLane="0" toLane="0"/>
+    <connection from="202" to="203" fromLane="1" toLane="1"/>
+    <connection from="202" to="-202" fromLane="1" toLane="0"/>
+
+    <connection from="203" to="104" fromLane="0" toLane="0"/>
+    <connection from="203" to="204" fromLane="0" toLane="0"/>
+    <connection from="203" to="204" fromLane="1" toLane="1"/>
+    <connection from="203" to="-203" fromLane="1" toLane="0"/>
+
+    <connection from="204" to="-204" fromLane="1" toLane="0"/>
+
+</connections>

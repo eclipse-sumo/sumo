@@ -120,6 +120,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "way",              SUMO_TAG_WAY },
     { "nd",               SUMO_TAG_ND },
     { "tag",              SUMO_TAG_TAG },
+    { "relation",         SUMO_TAG_RELATION },
+    { "member",           SUMO_TAG_MEMBER },
 
     { "decal",            SUMO_TAG_VIEWSETTINGS_DECAL },
     { "scheme",           SUMO_TAG_VIEWSETTINGS_SCHEME },

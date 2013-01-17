@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jan 17 15:53:22 2013 by SUMO netconvert Version dev-SVN-r13202
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+    <edge id="-101" from="6" to="1" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="-102" from="7" to="2" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="-103" from="8" to="3" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="-104" from="9" to="4" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="-200" from="1" to="0" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="-201" from="2" to="1" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="-202" from="3" to="2" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="-203" from="4" to="3" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="-204" from="5" to="4" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="101" from="1" to="6" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="102" from="2" to="7" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="103" from="3" to="8" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="104" from="4" to="9" priority="7" type="highway.secondary" numLanes="1" speed="27.78"/>
+    <edge id="200" from="0" to="1" priority="7" type="highway.secondary" numLanes="2" speed="27.78"/>
+    <edge id="201" from="1" to="2" priority="7" type="highway.secondary" numLanes="2" speed="27.78"/>
+    <edge id="202" from="2" to="3" priority="7" type="highway.secondary" numLanes="2" speed="27.78"/>
+    <edge id="203" from="3" to="4" priority="7" type="highway.secondary" numLanes="2" speed="27.78"/>
+    <edge id="204" from="4" to="5" priority="7" type="highway.secondary" numLanes="2" speed="27.78"/>
+</edges>

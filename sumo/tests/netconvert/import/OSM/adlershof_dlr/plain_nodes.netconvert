@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 31 08:34:04 2012 by SUMO netconvert Version dev-SVN-r11813
+<!-- generated on Thu Jan 17 14:57:12 2013 by SUMO netconvert Version dev-SVN-r13202
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -66,6 +66,8 @@
     <node id="294829385" x="13.532190" y="52.429720" type="priority"/>
     <node id="294829798" x="13.533153" y="52.429053" type="priority"/>
     <node id="294829881" x="13.532672" y="52.429987" type="priority"/>
+    <node id="294830184" x="13.533106" y="52.429692" type="right_before_left"/>
+    <node id="294830189" x="13.533465" y="52.429910" type="priority"/>
     <node id="294831560" x="13.527610" y="52.427957" type="right_before_left"/>
     <node id="294831563" x="13.527053" y="52.427974" type="priority"/>
     <node id="301292612" x="13.526904" y="52.428909" type="priority"/>

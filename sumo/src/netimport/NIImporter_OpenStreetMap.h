@@ -80,6 +80,9 @@ protected:
     /** @brief An internal representation of an OSM-node
      */
     struct NIOSMNode {
+        NIOSMNode(SUMOLong _id, double _lon, double _lat) :
+            id(_id), lon(_lon), lat(_lat), tlsControlled(false), node(0) {}
+
         /// @brief The node's id
         SUMOLong id;
         /// @brief The longitude the node is located at
@@ -88,18 +91,27 @@ protected:
         double lat;
         /// @brief Whether this is a tls controlled junction
         bool tlsControlled;
+        /// @brief the NBNode that was instantiated
+        NBNode* node;
     };
 
 
     /** @brief An internal definition of a loaded edge
      */
     struct Edge {
+
+        Edge(SUMOLong _id) :
+            id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN), 
+            myCurrentIsRoad(false) {}
+
         /// @brief The edge's id
-        std::string id;
+        SUMOLong id;
         /// @brief The edge's street name
         std::string streetName;
         /// @brief number of lanes, or -1 if unknown
         int myNoLanes;
+        /// @brief number of lanes in forward direction or 0 if unknown, negative if backwards lanes are meant
+        int myNoLanesForward;
         /// @brief maximum speed in km/h, or MAXSPEED_UNGIVEN
         double myMaxSpeed;
         /// @brief The type, stored in "highway" key
@@ -145,7 +157,8 @@ private:
     std::set<NIOSMNode*, CompareNodes> myUniqueNodes;
 
 
-    std::map<std::string, Edge*> myEdges;
+    /** @brief the map from OSM way ids to edge objects */
+    std::map<SUMOLong, Edge*> myEdges;
 
     /** @brief Builds an NBNode
      *
@@ -182,6 +195,7 @@ private:
 
 protected:
     static const SUMOReal MAXSPEED_UNGIVEN;
+    static const SUMOLong INVALID_ID;
 
     /**
      * @class NodesHandler
@@ -268,7 +282,7 @@ protected:
          * @param[in, out] toFill The edges container to fill with read edges
          */
         EdgesHandler(const std::map<SUMOLong, NIOSMNode*>& osmNodes,
-                     std::map<std::string, Edge*>& toFill);
+                     std::map<SUMOLong, Edge*>& toFill);
 
 
         /// @brief Destructor
@@ -304,7 +318,7 @@ protected:
         const std::map<SUMOLong, NIOSMNode*>& myOSMNodes;
 
         /// @brief A map of built edges
-        std::map<std::string, Edge*>& myEdgeMap;
+        std::map<SUMOLong, Edge*>& myEdgeMap;
 
         /// @brief The currently built edge
         Edge* myCurrentEdge;
@@ -315,7 +329,6 @@ protected:
         /// @brief A map of non-numeric speed descriptions to their numeric values
         std::map<std::string, SUMOReal> mySpeedMap;
 
-
     private:
         /** @brief invalidated copy constructor */
         EdgesHandler(const EdgesHandler& s);
@@ -325,6 +338,110 @@ protected:
 
     };
 
+    /**
+     * @class RelationHandler
+     * @brief A class which extracts relevant relation information from a parsed OSM-file
+     *   - turn restrictions
+     */
+    class RelationHandler : public SUMOSAXHandler {
+    public:
+        /** @brief Constructor
+         *
+         * @param[in] osmNodes The previously parsed OSM-nodes
+         * @param[in] osmEdges The previously parse OSM-edges
+         */
+        RelationHandler(const std::map<SUMOLong, NIOSMNode*>& osmNodes,
+                const std::map<SUMOLong, Edge*>& osmEdges);
+
+
+        /// @brief Destructor
+        ~RelationHandler();
+
+
+    protected:
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+
+
+        /** @brief Called when a closing tag occurs
+         *
+         * @param[in] element ID of the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myEndElement
+         */
+        void myEndElement(int element);
+        //@}
+
+
+    private:
+        /// @brief The previously parsed nodes
+        const std::map<SUMOLong, NIOSMNode*>& myOSMNodes;
+
+        /// @brief The previously parsed edges
+        const std::map<SUMOLong, Edge*>& myOSMEdges;
+
+        /// @brief The currently parsed relation
+        SUMOLong myCurrentRelation;
+
+        /// @brief The element stack
+        std::vector<int> myParentElements;
+
+        /// @brief whether the currently parsed relation is a restriction
+        bool myIsRestriction;
+
+        /// @brief the origination way for the current restriction
+        SUMOLong myFromWay;
+
+        /// @brief the destination way for the current restriction
+        SUMOLong myToWay;
+
+        /// @brief the via node/way for the current restriction 
+        SUMOLong myViaNode;
+        SUMOLong myViaWay;
+
+        
+        /** @enum RestrictionType
+         * @brief whether the only allowed or the only forbidden connection is defined
+         */
+        enum RestrictionType {
+            /// @brief The only valid connection is declared
+            RESTRICTION_ONLY,
+            /// @brief The only invalid connection is declared
+            RESTRICTION_NO,
+            /// @brief The relation tag was missing
+            RESTRICTION_UNKNOWN,
+        };
+        RestrictionType myRestrictionType;
+
+        /// @brief reset members to their defaults for parsing a new relation
+        void resetValues();
+
+        /// @brief check whether a referenced way has a corresponding edge
+        bool checkEdgeRef(SUMOLong ref) const;
+
+        /// @brief try to apply the parsed restriction and return whether successful
+        bool applyRestriction() const;
+
+        /// @brief try to find the way segment among candidates
+        NBEdge* findEdgeRef(SUMOLong wayRef, const std::vector<NBEdge*>& candidates) const;
+
+    private:
+        /** @brief invalidated copy constructor */
+        RelationHandler(const RelationHandler& s);
+
+        /** @brief invalidated assignment operator */
+        RelationHandler& operator=(const RelationHandler& s);
+
+    };
 
 };
 

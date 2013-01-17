@@ -3,6 +3,7 @@ Found duplicate nodes. Substituting -7 with -4
 done.
 Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate edges... done.
+Parsing relations from osm-file 'osm.xml'... done.
  Import done:
    14 nodes loaded.
    34 types loaded.
