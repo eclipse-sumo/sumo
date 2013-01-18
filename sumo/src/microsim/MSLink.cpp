@@ -129,7 +129,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
     if (myState == LINKSTATE_TL_RED) {
         return false;
     }
-    if (myAmCont) {
+    if (myAmCont && MSGlobals::gUsingInternalLanes) {
         return true;
     }
     const SUMOTime leaveTime = arrivalTime + TIME2STEPS((getLength() + vehicleLength) / (0.5 * (arrivalSpeed + leaveSpeed)));
