@@ -140,13 +140,13 @@ MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, S
     SUMOReal xIn = maxPos;
     SUMOReal vIn = mspeed;
     SUMOReal leaderDecel;
+    veh.getBestLanes(true, this);
     if (myVehicles.size() != 0) {
         MSVehicle* leader = myVehicles.front();
         xIn = leader->getPositionOnLane() - leader->getVehicleType().getLength() - veh.getVehicleType().getMinGap();
         vIn = leader->getSpeed();
         leaderDecel = leader->getCarFollowModel().getMaxDecel();
     } else {
-        veh.getBestLanes(true, this);
         SUMOReal brakeGap = veh.getCarFollowModel().brakeGap(mspeed);
         std::pair<MSVehicle* const, SUMOReal> leader = getLeaderOnConsecutive(brakeGap, 0, mspeed, veh, veh.getBestLanesContinuation(this));
         if (leader.first != 0) {
@@ -185,12 +185,12 @@ bool
 MSLane::pWagSimpleInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMOReal minPos) {
     SUMOReal xIn = maxPos;
     SUMOReal vIn = mspeed;
+    veh.getBestLanes(true, this);
     if (myVehicles.size() != 0) {
         MSVehicle* leader = myVehicles.front();
         xIn = leader->getPositionOnLane() - leader->getVehicleType().getLength() - veh.getVehicleType().getMinGap();
         vIn = leader->getSpeed();
     } else {
-        veh.getBestLanes(true, this);
         SUMOReal brakeGap = veh.getCarFollowModel().brakeGap(mspeed);
         std::pair<MSVehicle* const, SUMOReal> leader = getLeaderOnConsecutive(brakeGap, 0, mspeed, veh, veh.getBestLanesContinuation(this));
         if (leader.first != 0) {

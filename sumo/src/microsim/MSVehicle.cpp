@@ -675,6 +675,7 @@ MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUM
     SUMOReal maxV = cfModel.maxNextSpeed(myState.mySpeed);
     SUMOReal dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
+    assert(bestLaneConts.size() > 0);
 #ifdef HAVE_INTERNAL_LANES
     bool hadNonInternal = false;
 #else
@@ -1364,7 +1365,9 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
         startLane = myLane;
     }
     // update occupancy and current lane index, only, if the vehicle has not moved to a new lane
-    if (myLastBestLanesEdge == &startLane->getEdge() && !forceRebuild) {
+    // (never for internal lanes)
+    if ((myLastBestLanesEdge == &startLane->getEdge() && !forceRebuild) || 
+            startLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         std::vector<LaneQ>& lanes = *myBestLanes.begin();
         std::vector<LaneQ>::iterator i;
         for (i = lanes.begin(); i != lanes.end(); ++i) {
@@ -1573,7 +1576,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
 
 const std::vector<MSLane*>&
 MSVehicle::getBestLanesContinuation() const {
-    if (myBestLanes.empty() || myBestLanes[0].empty() || myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (myBestLanes.empty() || myBestLanes[0].empty()) {
         return myEmptyLaneVector;
     }
     return (*myCurrentLaneInBestLanes).bestContinuations;
