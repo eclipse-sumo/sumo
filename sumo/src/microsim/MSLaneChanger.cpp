@@ -349,13 +349,13 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         if (predP != 0) {
             return std::pair<MSVehicle*, SUMOReal>(predP, targetLane->getPartialOccupatorEnd() - veh(myCandi)->getPositionOnLane() - veh(myCandi)->getVehicleType().getMinGap());
         }
-        const std::vector<MSLane*>& bestLaneConts = veh(myCandi)->getBestLanesContinuation(myCandi->lane);
         SUMOReal seen = myCandi->lane->getLength() - veh(myCandi)->getPositionOnLane();
         SUMOReal speed = veh(myCandi)->getSpeed();
         SUMOReal dist = veh(myCandi)->getCarFollowModel().brakeGap(speed) + veh(myCandi)->getVehicleType().getMinGap();
         if (seen > dist) {
             return std::pair<MSVehicle* const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
         }
+        const std::vector<MSLane*>& bestLaneConts = veh(myCandi)->getBestLanesContinuation(targetLane);
         return target->lane->getLeaderOnConsecutive(dist, seen, speed, *veh(myCandi), bestLaneConts);
     } else {
         MSVehicle* candi = veh(myCandi);
