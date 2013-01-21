@@ -1,0 +1,6 @@
+Error: Unknown cfmodel  when parsing vtype 'crash'
+Quitting (on error).
+Leaked object at 0x1075300 (size 37, 0x36ff89c3a9)
+Leaked object at 0x1174130 (size 208, SUMOVehicleParserHelper.cpp:317)
+Leaked object at 0x11b96b0 (size 30, 0x36ff89c3a9)
+*** 3 leaks found
