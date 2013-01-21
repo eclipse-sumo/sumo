@@ -637,7 +637,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
 
 
 void
-MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront) {
+MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront) {
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
         if (isOnRoad()) {
@@ -661,7 +661,7 @@ MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUM
     //
     const MSCFModel& cfModel = getCarFollowModel();
     // vBeg is the initial maximum velocity of this vehicle in this step
-    SUMOReal v = MIN2(cfModel.maxNextSpeed(myState.mySpeed), lane->getVehicleMaxSpeed(this));
+    SUMOReal v = MIN2(cfModel.maxNextSpeed(myState.mySpeed), myLane->getVehicleMaxSpeed(this));
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
         SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
@@ -681,13 +681,15 @@ MSVehicle::move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUM
 #else
     bool hadNonInternal = true;
 #endif
-    SUMOReal seen = lane->getLength() - myState.myPos; // the distance already "seen"; in the following always up to the end of the current "lane"
+    SUMOReal seen = myLane->getLength() - myState.myPos; // the distance already "seen"; in the following always up to the end of the current "lane"
     SUMOReal seenNonInternal = 0;
     cfModel.leftVehicleVsafe(this, neigh, v);
     unsigned int view = 0;
     bool firstLane = true;
     int lastLink = -1;
     std::pair<MSVehicle*, SUMOReal> leaderInfo = pred != 0 ? std::pair<MSVehicle*, SUMOReal>(pred, gap2pred(*pred)) : std::pair<MSVehicle*, SUMOReal>((MSVehicle*) 0, 0);
+    // iterator over subsequent lanes and fill myLFLinkLanes until stopping distance or stopped
+    MSLane* lane = myLane; 
     while (true) {
         SUMOReal laneStopOffset = lane->getLength() > getVehicleType().getMinGap() ? getVehicleType().getMinGap() : POSITION_EPS;
         SUMOReal stopDist = MAX2(SUMOReal(0), seen - laneStopOffset);

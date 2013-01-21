@@ -668,10 +668,12 @@ MSLane::moveCritical(SUMOTime t) {
     for (veh = myVehicles.begin(); veh != lastBeforeEnd; ++veh) {
         myLeftVehLength -= (*veh)->getVehicleType().getLengthWithGap();
         VehCont::const_iterator pred(veh + 1);
-        (*veh)->move(t, this, *pred, 0, myLeftVehLength);
+        assert((*veh)->getLane() == this);
+        (*veh)->move(t, *pred, 0, myLeftVehLength);
     }
     myLeftVehLength -= (*veh)->getVehicleType().getLengthWithGap();
-    (*veh)->move(t, this, 0, 0, myLeftVehLength);
+    assert((*veh)->getLane() == this);
+    (*veh)->move(t, 0, 0, myLeftVehLength);
     assert((*veh)->getPositionOnLane() <= myLength);
     assert((*veh)->getLane() == this);
     return myVehicles.size() == 0;

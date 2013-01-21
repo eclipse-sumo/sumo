@@ -279,12 +279,12 @@ public:
 
     /** @brief Moves vehicles
      *
-     * @param[in] lane The lane the vehicle is on
+     * @param[in] t The current timeStep
      * @param[in] pred The leader (may be 0)
      * @param[in] neigh The neighbor vehicle (may be 0)
      * @param[in] lengthsInFront Sum of vehicle lengths in front of the vehicle
      */
-    void move(SUMOTime t, MSLane* lane, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront);
+    void move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront);
 
     /// @name state setter/getter
     //@{
