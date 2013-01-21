@@ -55,6 +55,7 @@
 #include "RORDLoader_SUMOBase.h"
 #include "RORDGenerator_ODAmounts.h"
 #include "ROTypedXMLRoutesLoader.h"
+#include "RORouteHandler.h"
 
 #ifdef HAVE_INTERNAL // catchall for internal stuff
 #include <internal/RouteAggregator.h>
@@ -224,6 +225,9 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
 
 bool
 ROLoader::makeSingleStep(SUMOTime end, RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
+    for (std::vector<RORouteHandler*>::iterator i = myHandlers.begin(); i != myHandlers.end(); ++i) {
+        net.saveAndRemoveRoutesUntil(myOptions, router, end);
+    }
     RouteLoaderCont::iterator i;
     // go through all handlers
     if (myHandler.size() != 0) {
@@ -310,7 +314,8 @@ ROLoader::openTypedRoutes(const std::string& optionName,
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         // build the instance when everything's all right
         try {
-            ROTypedXMLRoutesLoader* instance = buildNamedHandler(optionName, *fileIt, net);
+//            myHandlers.push_back(new RORouteHandler(net, *fileIt, true));
+            ROTypedXMLRoutesLoader* instance = buildNamedHandler(optionName, *fileIt, net); //!!!remove
             myHandler.push_back(instance);
         } catch (ProcessError& e) {
             std::string msg = "The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised;";
@@ -329,7 +334,7 @@ ROLoader::openTypedRoutes(const std::string& optionName,
 
 
 ROTypedXMLRoutesLoader*
-ROLoader::buildNamedHandler(const std::string& optionName,
+ROLoader::buildNamedHandler(const std::string& optionName, //!!!remove
                             const std::string& file,
                             RONet& net) {
     if (optionName == "route-files" || optionName == "alternative-files") {

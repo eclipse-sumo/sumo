@@ -5,6 +5,8 @@ SUMOSAXAttributes.cpp SUMOSAXAttributes.h \
 SUMOSAXAttributesImpl_Binary.cpp SUMOSAXAttributesImpl_Binary.h \
 SUMOSAXAttributesImpl_Xerces.cpp SUMOSAXAttributesImpl_Xerces.h \
 SUMORouteHandler.cpp SUMORouteHandler.h \
+SUMORouteLoader.cpp SUMORouteLoader.h \
+SUMORouteLoaderControl.cpp SUMORouteLoaderControl.h \
 SUMOSAXHandler.cpp SUMOSAXHandler.h \
 SUMOSAXReader.cpp SUMOSAXReader.h \
 SUMOVehicleParserHelper.cpp SUMOVehicleParserHelper.h \

@@ -47,8 +47,8 @@
 #include "NLTriggerBuilder.h"
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
-#include <microsim/MSRouteLoaderControl.h>
-#include <microsim/MSRouteLoader.h>
+#include <utils/xml/SUMORouteLoaderControl.h>
+#include <utils/xml/SUMORouteLoader.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/Option.h>
@@ -200,7 +200,7 @@ void
 NLBuilder::buildNet() {
     MSEdgeControl* edges = 0;
     MSJunctionControl* junctions = 0;
-    MSRouteLoaderControl* routeLoaders = 0;
+    SUMORouteLoaderControl* routeLoaders = 0;
     MSTLLogicControl* tlc = 0;
     try {
         edges = myEdgeBuilder.build();
@@ -263,10 +263,10 @@ NLBuilder::load(const std::string& mmlWhat) {
 }
 
 
-MSRouteLoaderControl*
+SUMORouteLoaderControl*
 NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
     // build the loaders
-    MSRouteLoaderControl::LoaderVector loaders;
+    std::vector<SUMORouteLoader*> loaders;
     // check whether a list is existing
     if (oc.isSet("route-files") && string2time(oc.getString("route-steps")) > 0) {
         std::vector<std::string> files = oc.getStringVector("route-files");
@@ -277,11 +277,11 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
         }
         // open files for reading
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-            loaders.push_back(new MSRouteLoader(myNet, new MSRouteHandler(*fileIt, false)));
+            loaders.push_back(new SUMORouteLoader(new MSRouteHandler(*fileIt, false)));
         }
     }
     // build the route control
-    return new MSRouteLoaderControl(myNet, string2time(oc.getString("route-steps")), loaders);
+    return new SUMORouteLoaderControl(string2time(oc.getString("route-steps")), loaders);
 }
 
 

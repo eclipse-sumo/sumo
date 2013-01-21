@@ -715,14 +715,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSRouteLoader.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSRouteLoaderControl.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSVehicle.cpp"
 				>
 			</File>
@@ -920,14 +912,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSRouteHandler.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSRouteLoader.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSRouteLoaderControl.h"
 				>
 			</File>
 			<File

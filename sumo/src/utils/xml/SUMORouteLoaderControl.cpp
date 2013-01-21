@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSRouteLoaderControl.cpp
+/// @file    SUMORouteLoaderControl.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Wed, 06 Nov 2002
@@ -30,8 +30,8 @@
 #endif
 
 #include <vector>
-#include "MSRouteLoader.h"
-#include "MSRouteLoaderControl.h"
+#include "SUMORouteLoader.h"
+#include "SUMORouteLoaderControl.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -41,24 +41,17 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteLoaderControl::MSRouteLoaderControl(MSNet&, SUMOTime inAdvanceStepNo, LoaderVector loader):
+SUMORouteLoaderControl::SUMORouteLoaderControl(SUMOTime inAdvanceStepNo, std::vector<SUMORouteLoader*> loader):
     myLastLoadTime(-inAdvanceStepNo),
     myInAdvanceStepNo(inAdvanceStepNo),
     myRouteLoaders(loader),
+    myLoadAll(inAdvanceStepNo <= 0),
     myAllLoaded(false) {
-    myLoadAll = myInAdvanceStepNo <= 0;
-    myAllLoaded = false;
-    myLastLoadTime = -1 * (int) myInAdvanceStepNo;
-    // initialize all used loaders
-    for (LoaderVector::iterator i = myRouteLoaders.begin();
-            i != myRouteLoaders.end(); ++i) {
-        (*i)->init();
-    }
 }
 
 
-MSRouteLoaderControl::~MSRouteLoaderControl() {
-    for (LoaderVector::iterator i = myRouteLoaders.begin();
+SUMORouteLoaderControl::~SUMORouteLoaderControl() {
+    for (std::vector<SUMORouteLoader*>::iterator i = myRouteLoaders.begin();
             i != myRouteLoaders.end(); ++i) {
         delete(*i);
     }
@@ -66,7 +59,7 @@ MSRouteLoaderControl::~MSRouteLoaderControl() {
 
 
 void
-MSRouteLoaderControl::loadNext(SUMOTime step) {
+SUMORouteLoaderControl::loadNext(SUMOTime step) {
     // check whether new vehicles shall be loaded
     //  return if not
     if (myAllLoaded) {
@@ -76,7 +69,7 @@ MSRouteLoaderControl::loadNext(SUMOTime step) {
 
     // load all routes for the specified time period
     bool furtherAvailable = false;
-    for (LoaderVector::iterator i = myRouteLoaders.begin(); i != myRouteLoaders.end(); ++i) {
+    for (std::vector<SUMORouteLoader*>::iterator i = myRouteLoaders.begin(); i != myRouteLoaders.end(); ++i) {
         (*i)->loadUntil(loadMaxTime);
         furtherAvailable |= (*i)->moreAvailable();
     }
@@ -84,6 +77,4 @@ MSRouteLoaderControl::loadNext(SUMOTime step) {
 }
 
 
-
 /****************************************************************************/
-

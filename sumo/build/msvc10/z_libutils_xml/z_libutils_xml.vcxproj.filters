@@ -38,6 +38,12 @@
     <ClCompile Include="..\..\..\src\utils\xml\SUMORouteHandler.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\xml\SUMORouteLoader.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\xml\SUMORouteLoaderControl.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Binary.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -71,6 +77,12 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\xml\SUMORouteHandler.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\xml\SUMORouteLoader.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\xml\SUMORouteLoaderControl.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Binary.h">

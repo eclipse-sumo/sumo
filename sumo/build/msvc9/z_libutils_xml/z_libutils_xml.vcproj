@@ -357,6 +357,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\xml\SUMORouteLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\xml\SUMORouteLoaderControl.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXAttributes.cpp"
 				>
 			</File>
@@ -403,6 +411,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\SUMORouteHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\xml\SUMORouteLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\xml\SUMORouteLoaderControl.h"
 				>
 			</File>
 			<File

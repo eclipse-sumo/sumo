@@ -32,9 +32,15 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/SUMOVehicleParameter.h>
+#include <utils/xml/SUMOSAXHandler.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class SUMOVTypeParameter;
 
 
 // ===========================================================================

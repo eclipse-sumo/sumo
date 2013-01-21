@@ -43,6 +43,8 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/xml/SUMOSAXReader.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include "RONet.h"
 #include "RORouteHandler.h"
@@ -64,6 +66,8 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myCurrentVTypeDistribution(0),
     myCurrentAlternatives(0) {
     myActiveRoute.reserve(100);
+    myParser = XMLSubSys::getSAXReader(*this);
+    myParser->parseFirst(getFileName());
 }
 
 
@@ -338,6 +342,7 @@ RORouteHandler::closeVehicle() {
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
         ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type);
         myNet.addVehicle(myVehicleParameter->id, veh);
+        registerLastDepart();
     }
 }
 
@@ -345,6 +350,7 @@ RORouteHandler::closeVehicle() {
 void
 RORouteHandler::closePerson() {
     myPersonBuffer[myVehicleParameter->depart] = myActivePlan->getString();
+    registerLastDepart();
     delete myVehicleParameter;
     myVehicleParameter = 0;
     delete myActivePlan;
@@ -354,7 +360,7 @@ RORouteHandler::closePerson() {
 
 void
 RORouteHandler::closeFlow() {
-    /*    // @todo: consider myScale?
+        // @todo: consider myScale?
         // let's check whether vehicles had to depart before the simulation starts
         myVehicleParameter->repetitionsDone = 0;
         SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
@@ -364,85 +370,55 @@ RORouteHandler::closeFlow() {
                 return;
             }
         }
-        if (MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid) == 0) {
+        SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+        RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);
+        if (type == 0) {
             throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
         }
-        if (MSRoute::dictionary("!" + myVehicleParameter->id) == 0) {
-            // if not, try via the (hopefully) given route-id
-            if (MSRoute::dictionary(myVehicleParameter->routeid) == 0) {
-                if (myVehicleParameter->routeid != "") {
-                    throw ProcessError("The route '" + myVehicleParameter->routeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
-                } else {
-                    throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has no route.");
-                }
-            }
-        } else {
-            myVehicleParameter->routeid = "!" + myVehicleParameter->id;
+        if (route == 0) {
+            throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has no route.");
         }
         myActiveRouteID = "";
-
-        // check whether the vehicle shall be added directly to the network or
-        //  shall stay in the internal buffer
-        if (myAddVehiclesDirectly || checkLastDepart()) {
-            MSNet::getInstance()->getInsertionControl().add(myVehicleParameter);
-            registerLastDepart();
-        }
-        myVehicleParameter = 0;*/
+        myNet.addFlow(myVehicleParameter);
+        registerLastDepart();
+        myVehicleParameter = 0;
 }
 
 
 void
 RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
-    /*bool ok = true;
+    if (myActivePlan) {
+        myActivePlan->openTag(SUMO_TAG_STOP);
+        (*myActivePlan) << attrs;
+        myActivePlan->closeTag();
+        return;
+    }
+    bool ok = true;
     std::string errorSuffix;
     if (myActiveRouteID != "") {
         errorSuffix = " in route '" + myActiveRouteID + "'.";
-    } else if (myActivePlan) {
-        errorSuffix = " in person '" + myVehicleParameter->id + "'.";
     } else {
         errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
     }
     SUMOVehicleParameter::Stop stop;
     // try to parse the assigned bus stop
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
-    if (stop.busstop != "") {
-        // ok, we have obviously a bus stop
-        MSBusStop* bs = MSNet::getInstance()->getBusStop(stop.busstop);
-        if (bs != 0) {
-            const MSLane& l = bs->getLane();
-            stop.lane = l.getID();
-            stop.endPos = bs->getEndLanePosition();
-            stop.startPos = bs->getBeginLanePosition();
-        } else {
-            WRITE_ERROR("The bus stop '" + stop.busstop + "' is not known" + errorSuffix);
-            return;
-        }
-    } else {
+    if (stop.busstop == "") {
         // no, the lane and the position should be given
-        // get the lane
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, 0, ok, "");
-        if (ok && stop.lane != "") {
-            if (MSLane::dictionary(stop.lane) == 0) {
-                WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
-                return;
-            }
-        } else {
+        if (!ok || stop.lane == "") {
             WRITE_ERROR("A stop must be placed on a bus stop or a lane" + errorSuffix);
             return;
         }
-        if (myActivePlan &&
-                !myActivePlan->empty() &&
-                &myActivePlan->back()->getDestination() != &MSLane::dictionary(stop.lane)->getEdge()) {
-            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + MSLane::dictionary(stop.lane)->getEdge().getID() + "!=" + myActivePlan->back()->getDestination().getID() + ").");
+        ROEdge* edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
+        if (edge == 0) {
+            WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
+            return;
         }
-        stop.endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, 0, ok, MSLane::dictionary(stop.lane)->getLength());
-        if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
-            WRITE_WARNING("eprecated attribute 'pos' in description of stop" + errorSuffix);
-            stop.endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, 0, ok, stop.endPos);
-        }
+        stop.endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, 0, ok, edge->getLength());
         stop.startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, 0, ok, stop.endPos - 2 * POSITION_EPS);
         const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
-        if (!ok || !checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS, friendlyPos)) {
+        if (!ok || !checkStopPos(stop.startPos, stop.endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
             WRITE_ERROR("Invalid start or end position for stop" + errorSuffix);
             return;
         }
@@ -481,11 +457,9 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     }
     if (myActiveRouteID != "") {
         myActiveRouteStops.push_back(stop);
-    } else if (myActivePlan) {
-        myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until));
     } else {
         myVehicleParameter->stops.push_back(stop);
-    }*/
+    }
 }
 
 

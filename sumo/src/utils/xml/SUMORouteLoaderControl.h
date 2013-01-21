@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSRouteLoaderControl.h
+/// @file    SUMORouteLoaderControl.h
 /// @author  Daniel Krajzewicz
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
@@ -19,8 +19,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSRouteLoaderControl_h
-#define MSRouteLoaderControl_h
+#ifndef SUMORouteLoaderControl_h
+#define SUMORouteLoaderControl_h
 
 
 // ===========================================================================
@@ -33,39 +33,34 @@
 #endif
 
 #include <vector>
-#include "MSNet.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSRouteLoader;
+class SUMORouteLoader;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class MSRouteLoaderControl
+ * @class SUMORouteLoaderControl
  *
- * MSRouteLoaderControl
+ * SUMORouteLoaderControl
  * This controls is initialised with the list of route loaders and uses them
  * to load routes step wise.
  * The parameter myInAdvanceStepNo holds the number of time steps to read the
  * routes in forward. If it is 0 (default), all routes will be read at once.
  */
-class MSRouteLoaderControl {
-public:
-    /// definition of the loader vector
-    typedef std::vector<MSRouteLoader*> LoaderVector;
-
+class SUMORouteLoaderControl {
 public:
     /// constructor
-    MSRouteLoaderControl(MSNet& net, SUMOTime inAdvanceStepNo,
-                         LoaderVector loader);
+    SUMORouteLoaderControl(SUMOTime inAdvanceStepNo,
+                         std::vector<SUMORouteLoader*> loader);
 
     /// destructor
-    ~MSRouteLoaderControl();
+    ~SUMORouteLoaderControl();
 
     /// loads the next routes
     void loadNext(SUMOTime step);
@@ -78,7 +73,7 @@ private:
     SUMOTime myInAdvanceStepNo;
 
     /// the list of route loaders
-    LoaderVector myRouteLoaders;
+    std::vector<SUMORouteLoader*> myRouteLoaders;
 
     /** information whether all routes shall be loaded and whether
         they were loaded */

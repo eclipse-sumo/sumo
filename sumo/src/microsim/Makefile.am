@@ -20,8 +20,6 @@ MSNet.cpp MSNet.h MSNoLogicJunction.cpp MSNoLogicJunction.h \
 MSPerson.cpp MSPerson.h MSPersonControl.cpp MSPersonControl.h \
 MSRightOfWayJunction.cpp MSRightOfWayJunction.h \
 MSRoute.cpp MSRoute.h MSRouteHandler.cpp MSRouteHandler.h \
-MSRouteLoader.cpp MSRouteLoader.h \
-MSRouteLoaderControl.cpp MSRouteLoaderControl.h \
 MSVehicle.cpp MSVehicle.h \
 MSVehicleContainer.cpp MSVehicleContainer.h \
 MSVehicleControl.cpp MSVehicleControl.h \

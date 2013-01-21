@@ -53,7 +53,7 @@ class MSVehicleControl;
  * @brief Inserts vehicles into the network when their departure time is reached
  *
  * Holds a list of vehicles which may be filled by vehicles
- *  read by MSRouteLoaders. Tries to emit vehicles departing at a time into the
+ *  read by SUMORouteLoaders. Tries to emit vehicles departing at a time into the
  *  network as soon this time is reached and keeps them as long the insertion
  *  fails.
  *

@@ -223,6 +223,21 @@ public:
      * @return Whether the vehicle could be added
      */
     virtual bool addVehicle(const std::string& id, ROVehicle* veh);
+
+
+    /* @brief Adds a flow of vehicles to the network
+     *
+     * If the flow is already known (another one with the same id
+     *  exists), false is returned, but the vehicle parameter are not deleted.
+     *
+     * Otherwise, the number of loaded routes ("myReadRouteNo") is increased.
+     *
+     * @param[in] flow The parameter of the flow to add
+     * @return Whether the flow could be added
+     */
+    bool addFlow(SUMOVehicleParameter* flow) {
+        return myFlows.add(flow->id, flow);
+    }
     // @}
 
 
@@ -358,6 +373,9 @@ protected:
 
     /// @brief Known vehicles
     ROVehicleCont myVehicles;
+
+    /// @brief Known flows
+    NamedObjectCont<SUMOVehicleParameter*> myFlows;
 
     /// @brief List of source edges
     mutable std::vector<ROEdge*> mySourceEdges;

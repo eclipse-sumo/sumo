@@ -58,7 +58,7 @@
 #include "MSLane.h"
 #include "MSVehicleTransfer.h"
 #include "MSRoute.h"
-#include "MSRouteLoaderControl.h"
+#include <utils/xml/SUMORouteLoaderControl.h>
 #include "trigger/MSTrigger.h"
 #include "traffic_lights/MSTLLogicControl.h"
 #include "MSVehicleControl.h"
@@ -203,7 +203,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
 
 void
 MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
-                     MSRouteLoaderControl* routeLoaders,
+                     SUMORouteLoaderControl* routeLoaders,
                      MSTLLogicControl* tlc,
                      std::vector<SUMOTime> stateDumpTimes,
                      std::vector<std::string> stateDumpFiles) {

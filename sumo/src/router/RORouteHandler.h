@@ -139,6 +139,9 @@ protected:
     /// @brief The current route
     std::vector<const ROEdge*> myActiveRoute;
 
+    /// @brief The parser used
+    SUMOSAXReader* myParser;
+
     /// @brief The plan of the current person
     OutputDevice_String* myActivePlan;
 

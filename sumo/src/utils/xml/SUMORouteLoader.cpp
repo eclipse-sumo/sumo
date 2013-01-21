@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSRouteLoader.cpp
+/// @file    SUMORouteLoader.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Wed, 6 Nov 2002
@@ -28,13 +28,10 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/UtilExceptions.h>
+#include <utils/xml/SUMORouteHandler.h>
+#include <utils/xml/SUMOSAXReader.h>
 #include <utils/xml/XMLSubSys.h>
-#include "MSNet.h"
-#include "MSRouteHandler.h"
-#include "MSRouteLoader.h"
+#include "SUMORouteLoader.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -44,21 +41,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteLoader::MSRouteLoader(MSNet&,
-                             MSRouteHandler* handler)
+SUMORouteLoader::SUMORouteLoader(SUMORouteHandler* handler)
     : myParser(0), myMoreAvailable(true), myHandler(handler) {
     myParser = XMLSubSys::getSAXReader(*myHandler);
-}
-
-
-MSRouteLoader::~MSRouteLoader() {
-    delete myParser;
-    delete myHandler;
-}
-
-
-void
-MSRouteLoader::init() {
     myMoreAvailable = true;
     if (!myParser->parseFirst(myHandler->getFileName())) {
         throw ProcessError("Can not read XML-file '" + myHandler->getFileName() + "'.");
@@ -66,8 +51,14 @@ MSRouteLoader::init() {
 }
 
 
+SUMORouteLoader::~SUMORouteLoader() {
+    delete myParser;
+    delete myHandler;
+}
+
+
 void
-MSRouteLoader::loadUntil(SUMOTime time) {
+SUMORouteLoader::loadUntil(SUMOTime time) {
     // read only when further data is available, no error occured
     //  and vehicles may be found in the between the departure time of
     //  the last read vehicle and the time to read until
@@ -91,11 +82,9 @@ MSRouteLoader::loadUntil(SUMOTime time) {
 
 
 bool
-MSRouteLoader::moreAvailable() const {
+SUMORouteLoader::moreAvailable() const {
     return myMoreAvailable;
 }
 
 
-
 /****************************************************************************/
-

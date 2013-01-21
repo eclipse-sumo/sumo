@@ -45,7 +45,8 @@
 // ===========================================================================
 class OptionsCont;
 class RONet;
-class ROTypedXMLRoutesLoader;
+class ROTypedXMLRoutesLoader; //!!!remove
+class RORouteHandler;
 class ROAbstractEdgeBuilder;
 class GUIRouterRunThread;
 class ROVehicle;
@@ -223,10 +224,13 @@ protected:
     OptionsCont& myOptions;
 
     /// @brief Definition of route loader list
-    typedef std::vector<ROTypedXMLRoutesLoader*> RouteLoaderCont;
+    typedef std::vector<ROTypedXMLRoutesLoader*> RouteLoaderCont; //!!!remove
 
     /// @brief List of route loaders
-    RouteLoaderCont myHandler;
+    RouteLoaderCont myHandler; //!!!remove
+
+    /// @brief List of route loaders
+    std::vector<RORouteHandler*> myHandlers;
 
     /// @brief Information whether empty destinations are allowed
     bool myEmptyDestinationsAllowed;

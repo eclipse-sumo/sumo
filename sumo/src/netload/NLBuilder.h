@@ -51,7 +51,7 @@ class NLEdgeControlBuilder;
 class NLJunctionControlBuilder;
 class NLDetectorBuilder;
 class NLTriggerBuilder;
-class MSRouteLoader;
+class SUMORouteLoader;
 
 
 // ===========================================================================
@@ -131,7 +131,7 @@ protected:
      * @return The built route loader control
      * @exception ProcessError If an error occured
      */
-    MSRouteLoaderControl* buildRouteLoaderControl(const OptionsCont& oc);
+    SUMORouteLoaderControl* buildRouteLoaderControl(const OptionsCont& oc);
 
 
 

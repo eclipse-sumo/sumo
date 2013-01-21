@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSRouteLoader.h
+/// @file    SUMORouteLoader.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Wed, 6 Nov 2002
@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSRouteLoader_h
-#define MSRouteLoader_h
+#ifndef SUMORouteLoader_h
+#define SUMORouteLoader_h
 
 
 // ===========================================================================
@@ -31,36 +31,37 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <utils/xml/SUMOSAXReader.h>
-#include <microsim/MSNet.h>
-#include "MSRouteHandler.h"
+#include <utils/common/SUMOTime.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class SUMORouteHandler;
+class SUMOSAXReader;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class MSRouteLoader
+ * @class SUMORouteLoader
  */
-class MSRouteLoader {
+class SUMORouteLoader {
 public:
     /// constructor
-    MSRouteLoader(MSNet& net,
-                  MSRouteHandler* handler);
+    SUMORouteLoader(SUMORouteHandler* handler);
 
     /// destructor
-    ~MSRouteLoader();
+    ~SUMORouteLoader();
 
     /** loads vehicles until a vehicle is read that starts after
         the specified time */
     void loadUntil(SUMOTime time);
 
-    /// resets the reader
-    void init();
-
     /// returns the information whether new data is available
     bool moreAvailable() const;
+
 private:
     /// the used SAX2XMLReader
     SUMOSAXReader* myParser;
@@ -68,7 +69,7 @@ private:
     /// information whether more vehicles should be available
     bool myMoreAvailable;
 
-    MSRouteHandler* myHandler;
+    SUMORouteHandler* myHandler;
 
 };
 
