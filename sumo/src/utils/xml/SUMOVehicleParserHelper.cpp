@@ -404,10 +404,12 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into,
     }
     if (cf_it == allowedAttrs.end()) {
         if (SUMOXMLDefinitions::Tags.has(element)) {
-            WRITE_WARNING("Unknown cfmodel " + toString((SumoXMLTag)element) + " when parsing vtype '" + into.id + "'");
+            WRITE_ERROR("Unknown cfmodel " + toString((SumoXMLTag)element) + " when parsing vtype '" + into.id + "'");
         } else {
-            WRITE_WARNING("Unknown cfmodel when parsing vtype '" + into.id + "'");
+            WRITE_ERROR("Unknown cfmodel when parsing vtype '" + into.id + "'");
         }
+        throw ProcessError();
+        return;
     }
     if (!fromVType) {
         into.cfModel = cf_it->first;
