@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/21/12 23:04:18 by SUMO sumo Version dev-SVN-r13172
+<!-- generated on 01/21/13 16:23:07 by SUMO sumo Version dev-SVN-r13208
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -28,9 +28,9 @@
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r13172" time="50000">
+<snapshot version="dev-SVN-r13208" time="50000">
     <route id="r1" state="5" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
-    <delay state="0.00,0.00,2.00,0.00"/>
+    <delay number="2" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" vClass="0" emissionClass="-1" shape="0" width="2.00" probability="1.00" speedFactor="1.00" speedDev="0.00" color="1.00,1.00,0.00"/>
     <vehicle id="0" depart="0" route="r1" type="DEFAULT_VEHTYPE" state="0 1 2 0 58572 48810 2147483647"/>
     <vehicle id="1" depart="5000" route="r1" type="DEFAULT_VEHTYPE" state="5000 1 1 0 53810 44048 2147483647"/>

@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r13111
+SUMO netconvert Version dev-SVN-r13208
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -88,6 +88,8 @@ TLS Building Options:
   --tls.half-offset STR               TLSs in STR will be shifted by half-phase
   --tls.quarter-offset STR            TLSs in STR will be shifted by
                                         quarter-phase
+  --tls.default-type STR              TLSs with unspecified type will use STR
+                                        as their algorithm.
 
 Ramp Guessing Options:
   --ramps.guess                       Enable ramp-guessing

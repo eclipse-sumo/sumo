@@ -168,6 +168,9 @@
         <!-- TLSs in STR will be shifted by quarter-phase -->
         <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR"/>
 
+        <!-- TLSs with unspecified type will use STR as their algorithm. -->
+        <tls.default-type value="static" type="STR"/>
+
     </tls_building>
 
     <ramp_guessing>
