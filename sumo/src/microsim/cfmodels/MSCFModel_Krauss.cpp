@@ -99,12 +99,21 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel
         return (SUMOReal)sqrt(2 * gap * myDecel + predSpeed * predSpeed);
 
     }
-    // follow
+    // follow the leader
+    // g=gap, t=myHeadwayTime, a=predMaxDecel, b=myDecel, v=predSpeed, x=vSafe
+    // Solution approach: equal distances after leader and follower have stopped (partly discretized).
     // g + (v^2 - a*v)/(2*a) = x*t + (x^2 - b*x)/(2*b) + 0.5
-    return (SUMOReal)(0.5 * sqrt(4.0 * myDecel * (2.0 * gap + predSpeed * predSpeed / predMaxDecel - predSpeed - 1.0) +
-                                 (myDecel * (2.0 * myHeadwayTime - 1.0))
-                                 * (myDecel * (2.0 * myHeadwayTime - 1.0)))
-                      + myDecel * (0.5 - myHeadwayTime));
+    // The term (+ 0.5) gives an upper bound for the follower stopping distance to handle discretization errors.
+    // Unfortunately, the solution approach is not correct when b > a since the
+    // follower path may cross the leader path even with equal stopping distances.
+    // As a workaround we lower the value of b to get a collision free model
+    // This approach should be refined to get a higher (still safe) following speed.
+    const SUMOReal egoDecel = MIN2(myDecel, predMaxDecel);
+    return (SUMOReal)(0.5 * sqrt(
+                4.0 * egoDecel * (2.0 * gap + predSpeed * predSpeed / predMaxDecel - predSpeed - 1.0) 
+                + (egoDecel * (2.0 * myHeadwayTime - 1.0))
+                * (egoDecel * (2.0 * myHeadwayTime - 1.0)))
+            + myDecel * (0.5 - myHeadwayTime));
 }
 
 
