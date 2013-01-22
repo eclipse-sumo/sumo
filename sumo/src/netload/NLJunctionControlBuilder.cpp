@@ -252,7 +252,8 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
             tlLogic =
                 new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
                                               myActiveKey, myActiveProgram,
-                                              myActivePhases, step, firstEventOffset);
+                                              myActivePhases, step, firstEventOffset,
+                                              myAdditionalParameter);
             break;
     }
     myActivePhases.clear();
