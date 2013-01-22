@@ -9,3 +9,4 @@ jam_resolution
 
 # decelerate because the next lane has a lower speed limit
 adap_speed_for_new_lane
+errors
