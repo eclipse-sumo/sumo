@@ -581,7 +581,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         const SUMOReal backOffset = pos - aVehicle->getVehicleType().getLength();
         const SUMOReal missingRearGap = getMissingRearGap(dist, backOffset, speed, aVehicle->getCarFollowModel().getMaxDecel());
         if (missingRearGap > 0) {
-            // too close to a followers
+            // too close to a follower
             const SUMOReal neededStartPos = pos + missingRearGap;
             if (myVehicles.size() == 0 && notification == MSMoveReminder::NOTIFICATION_TELEPORT && neededStartPos <= myLength) {
                 // shift starting positiong as needed entering from teleport
@@ -590,18 +590,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 return false;
             }
         }
-        // check for in-lapping vehicle
-        MSVehicle* leader = getPartialOccupator();
-        if (leader != 0) {
-            SUMOReal frontGapNeeded = cfModel.getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
-            SUMOReal gap = getPartialOccupatorEnd() - pos - aVehicle->getVehicleType().getMinGap();
-            if (gap <= frontGapNeeded) {
-                // too close to the leader on this lane
-                return false;
-            }
-        }
     }
-
     // may got negative while adaptation
     if (speed < 0) {
         return false;
