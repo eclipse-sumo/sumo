@@ -405,8 +405,7 @@ NBEdge::computeEdgeShape() {
 
 PositionVector
 NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, unsigned int laneIndex) const {
-    const std::string error = "Could not find a way to attach lane '" + getLaneID(laneIndex) +
-                              "' at node shape of '" + startNode->getID() + "'.";
+    // const std::string error = "Could not find a way to attach lane '" + getLaneID(laneIndex) + "' at node shape of '" + startNode->getID() + "'.";
     const PositionVector& nodeShape = startNode->getShape();
     Line lb = laneShape.getBegLine();
     // this doesn't look reasonable @todo use lb.extrapolateFirstBy(100.0);
@@ -417,11 +416,9 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, u
         assert(pbv.size() > 0);
         SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
         assert(pb >= 0);
-        if (pb <= laneShape.length()) {
-            return laneShape.getSubpart2D(pb, laneShape.length());
-        } else {
-            return laneShape; // @todo do not ignore this error silently
-        }
+        PositionVector ns = pb <= laneShape.length() ? laneShape.getSubpart2D(pb, laneShape.length()) : laneShape;
+        ns[0].set(ns[0].x(), ns[0].y(), startNode->getPosition().z());
+        return ns;
     } else if (nodeShape.intersects(lb.p1(), lb.p2())) {
         // extension of first segment intersects
         std::vector<SUMOReal> pbv = lb.intersectsAtLengths2D(nodeShape);
@@ -430,7 +427,8 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, u
         assert(pb >= 0);
         PositionVector result = laneShape;
         result.eraseAt(0);
-        result.push_front_noDoublePos(lb.getPositionAtDistance2D(pb));
+        Position np = lb.getPositionAtDistance2D(pb);
+        result.push_front_noDoublePos(Position(np.x(), np.y(), startNode->getPosition().z()));
         return result;
         //if (result.size() >= 2) {
         //    return result;

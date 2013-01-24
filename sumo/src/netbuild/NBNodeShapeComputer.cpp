@@ -587,6 +587,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         } else {
             p = l.positionAtLengthPosition2D(len);
         }
+        p.set(p.x(), p.y(), myNode.getPosition().z());
         ret.push_back_noDoublePos(p);
         //
         l = geomsCW[*i];
@@ -596,6 +597,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         } else {
             p = l.positionAtLengthPosition2D(len);
         }
+        p.set(p.x(), p.y(), myNode.getPosition().z());
         ret.push_back_noDoublePos(p);
     }
     return ret;
@@ -721,10 +723,14 @@ NBNodeShapeComputer::computeNodeShapeByCrosses() {
         edgebound1.extrapolateBy(500);
         edgebound2.extrapolateBy(500);
         if (cross.intersects(edgebound1)) {
-            ret.push_back_noDoublePos(cross.intersectsAt(edgebound1));
+            Position np = cross.intersectsAt(edgebound1);
+            np.set(np.x(), np.y(), myNode.getPosition().z());
+            ret.push_back_noDoublePos(np);
         }
         if (cross.intersects(edgebound2)) {
-            ret.push_back_noDoublePos(cross.intersectsAt(edgebound2));
+            Position np = cross.intersectsAt(edgebound2);
+            np.set(np.x(), np.y(), myNode.getPosition().z());
+            ret.push_back_noDoublePos(np);
         }
     }
     return ret;
