@@ -146,6 +146,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-IDM",         SUMO_TAG_CF_IDM },
     { "carFollowing-IDMM",        SUMO_TAG_CF_IDMM },
     { "carFollowing-Krauss",      SUMO_TAG_CF_KRAUSS },
+    { "carFollowing-KraussPS",    SUMO_TAG_CF_KRAUSS_PLUS_SLOPE },
     { "carFollowing-KraussOrig1", SUMO_TAG_CF_KRAUSS_ORIG1 },
     { "carFollowing-SmartSK",     SUMO_TAG_CF_SMART_SK },
     { "carFollowing-Daniel1",     SUMO_TAG_CF_DANIEL1 },
@@ -377,6 +378,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "generateWalks",  SUMO_ATTR_GENERATE_WALKS },
     { "actType",        SUMO_ATTR_ACTTYPE },
+    { "slope",          SUMO_ATTR_SLOPE },
     { "version",        SUMO_ATTR_VERSION },
 
     // ActivityGen statistics file
