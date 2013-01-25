@@ -3,3 +3,10 @@ cartesian
 
 # output fcd data in geo-coordinates
 geo
+
+# check whether slope works
+cartesian_slope
+cartesian_slope_geom
+cartesian_slope_length
+
+
