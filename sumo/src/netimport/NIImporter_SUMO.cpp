@@ -374,7 +374,11 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge->func == EDGEFUNC_INTERNAL) {
         return; // skip internal lanes
     }
-    myCurrentLane->maxSpeed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, id.c_str(), ok);
+    if(attrs.hasAttribute("maxspeed")) {
+        myCurrentLane->maxSpeed = attrs.getFloat("maxspeed");
+    } else {
+        myCurrentLane->maxSpeed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, id.c_str(), ok);
+    }
     myCurrentLane->allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     myCurrentLane->disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     myCurrentLane->width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);
