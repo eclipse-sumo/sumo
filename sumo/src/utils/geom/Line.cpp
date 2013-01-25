@@ -161,6 +161,12 @@ Line::atan2TiltDegree() const {
 }
 
 
+SUMOReal
+Line::atan2DegreeSlope() const {
+    return (SUMOReal) atan2(myP2.z() - myP1.z(), myP1.distanceTo2D(myP2)) * (SUMOReal) 180.0 / (SUMOReal) PI;
+}
+
+
 Position
 Line::intersectsAt(const Line& l) const {
     return GeomHelper::intersection_position2D(myP1, myP2, l.myP1, l.myP2);

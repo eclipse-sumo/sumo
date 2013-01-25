@@ -147,6 +147,9 @@ public:
     /// Returns the rotation at the given length
     SUMOReal rotationDegreeAtLengthPosition(SUMOReal pos) const;
 
+    /// Returns the slope at the given length
+    SUMOReal slopeDegreeAtLengthPosition(SUMOReal pos) const;
+
     /// Returns the tilt at the given length
     SUMOReal tiltDegreeAtLengthPosition(SUMOReal pos) const;
 
@@ -297,7 +300,7 @@ public:
 
     bool isClosed() const;
 
-    void removeDoublePoints();
+    void removeDoublePoints(SUMOReal maxDiv = POSITION_EPS);
 
     void removeColinearPoints();
 

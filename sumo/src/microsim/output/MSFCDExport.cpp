@@ -61,10 +61,10 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
     for (; it != end; ++it) {
         const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
         if (veh->isOnRoad()) {
-            std::string fclass = veh->getVehicleType().getID();
-            fclass = fclass.substr(0, fclass.find_first_of("@"));
-            Position pos = veh->getLane()->getShape().positionAtLengthPosition(
-                               veh->getLane()->interpolateLanePosToGeometryPos(veh->getPositionOnLane()));
+            MSLane *lane = veh->getLane();
+            SUMOReal lp = veh->getPositionOnLane();
+            SUMOReal gp = lane->interpolateLanePosToGeometryPos(lp);
+            Position pos = lane->getShape().positionAtLengthPosition(gp);
             if (useGeo) {
                 of.setPrecision(GEO_OUTPUT_ACCURACY);
                 GeoConvHelper::getFinal().cartesian2geo(pos);
@@ -74,8 +74,11 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             of.writeAttr(SUMO_ATTR_X, pos.x());
             of.writeAttr(SUMO_ATTR_Y, pos.y());
             of.writeAttr(SUMO_ATTR_ANGLE, veh->getAngle());
-            of.writeAttr(SUMO_ATTR_TYPE, fclass);
+            of.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
             of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
+            of.writeAttr(SUMO_ATTR_POSITION, lp);
+            of.writeAttr(SUMO_ATTR_LANE, veh->getLane()->getID());
+            of.writeAttr(SUMO_ATTR_SLOPE, veh->getLane()->getShape().slopeDegreeAtLengthPosition(gp));
             of.closeTag();
         }
     }

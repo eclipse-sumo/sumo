@@ -260,6 +260,21 @@ PositionVector::rotationDegreeAtLengthPosition(SUMOReal pos) const {
     return l.atan2DegreeAngle();
 }
 
+SUMOReal
+PositionVector::slopeDegreeAtLengthPosition(SUMOReal pos) const {
+    ContType::const_iterator i = myCont.begin();
+    SUMOReal seenLength = 0;
+    do {
+        SUMOReal nextLength = (*i).distanceTo(*(i + 1));
+        if (seenLength + nextLength > pos) {
+            Line l(*i, *(i + 1));
+            return l.atan2DegreeSlope();
+        }
+        seenLength += nextLength;
+    } while (++i != myCont.end() - 1);
+    Line l(*(myCont.end() - 2), *(myCont.end() - 1));
+    return l.atan2DegreeSlope();
+}
 
 SUMOReal
 PositionVector::tiltDegreeAtLengthPosition(SUMOReal pos) const {
@@ -1097,11 +1112,11 @@ PositionVector::isClosed() const {
 
 
 void
-PositionVector::removeDoublePoints() {
+PositionVector::removeDoublePoints(SUMOReal maxDiv) {
     if (myCont.size() > 1) {
         ContType::iterator last = myCont.begin();
         for (ContType::iterator i = myCont.begin() + 1; i != myCont.end();) {
-            if (last->almostSame(*i)) {
+            if (last->almostSame(*i, maxDiv)) {
                 i = myCont.erase(i);
             } else {
                 last = i;
