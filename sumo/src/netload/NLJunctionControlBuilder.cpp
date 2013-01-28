@@ -68,8 +68,13 @@ const int NLJunctionControlBuilder::NO_REQUEST_SIZE = -1;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet& net, NLDetectorBuilder& db)
-    : myNet(net), myDetectorBuilder(db), myOffset(0), myJunctions(0) {
+NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet& net, NLDetectorBuilder& db) : 
+    myNet(net), 
+    myDetectorBuilder(db), 
+    myOffset(0), 
+    myJunctions(0),
+    myNetIsLoaded(false)
+{
     myLogicControl = new MSTLLogicControl();
     myJunctions = new MSJunctionControl();
 }
@@ -258,14 +263,15 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
     }
     myActivePhases.clear();
     if (tlLogic != 0) {
-        myLogics2PostLoadInit.push_back(tlLogic);
-        try {
-            if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
-                throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveProgram + "' exists.");
+        if (getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
+            if (myNetIsLoaded) {
+                tlLogic->init(myDetectorBuilder);
+            } else {
+                myLogics2PostLoadInit.push_back(tlLogic);
             }
-        } catch (InvalidArgument&) {
+        } else {
+            WRITE_ERROR("Another logic with id '" + myActiveKey + "' and subid '" + myActiveProgram + "' exists.");
             delete tlLogic;
-            throw;
         }
     }
 }
@@ -414,11 +420,12 @@ NLJunctionControlBuilder::getActiveSubKey() const {
 
 
 void 
-NLJunctionControlBuilder::postLoadInitialization() const {
+NLJunctionControlBuilder::postLoadInitialization() {
     for (std::vector<MSTrafficLightLogic*>::const_iterator it = myLogics2PostLoadInit.begin(); 
             it != myLogics2PostLoadInit.end(); ++it) {
         (*it)->init(myDetectorBuilder);
     }
+    myNetIsLoaded = true;
 }
 
 /****************************************************************************/

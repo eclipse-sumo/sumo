@@ -260,7 +260,7 @@ public:
     MSTLLogicControl& getTLLogicControlToUse() const;
 
     /// @brief initialize junctions after all connections have been loaded
-    void postLoadInitialization() const;
+    void postLoadInitialization();
 
 
 protected:
@@ -403,6 +403,9 @@ private:
     NLJunctionControlBuilder& operator=(const NLJunctionControlBuilder& s);
 
     static const int NO_REQUEST_SIZE;
+
+    /// @brief whether the network has been loaded
+    bool myNetIsLoaded;
 
 };
 
