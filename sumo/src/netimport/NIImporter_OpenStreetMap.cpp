@@ -898,8 +898,6 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
 
 bool 
 NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
-    NBEdge* from = 0;
-    NBEdge* to = 0;
     // since OSM ways are bidirectional we need the via to figure out which direction was meant
     if (myViaNode != INVALID_ID) {
         NBNode* viaNode = myOSMNodes.find(myViaNode)->second->node;
