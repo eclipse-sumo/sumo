@@ -209,11 +209,7 @@ SUMOSAXAttributesImpl_Xerces::getColor() const {
 
 PositionVector
 SUMOSAXAttributesImpl_Xerces::getShape(int attr) const {
-    std::string shpdef = getString(attr);
-    if (shpdef == "") {
-        throw EmptyData();
-    }
-    StringTokenizer st(shpdef, " ");
+    StringTokenizer st(getString(attr));
     PositionVector shape;
     while (st.hasNext()) {
         StringTokenizer pos(st.next(), ",");
