@@ -688,11 +688,10 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    //  XXX move handling of defaults somewhere else
-    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, 
-            MIN2(duration, TIME2STEPS(5)));
-    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, 
-            MAX2(duration, TIME2STEPS(90)));
+    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(
+            SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
+    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(
+            SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
     myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration);
 }
 
