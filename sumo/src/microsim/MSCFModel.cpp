@@ -60,7 +60,7 @@ MSCFModel::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     const SUMOReal vMin = getSpeedAfterMaxDecel(oldV);
-    const SUMOReal vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV), vSafe);
+    const SUMOReal vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe);
     assert(vMin <= vMax);
     return veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
 }
@@ -71,7 +71,7 @@ MSCFModel::interactionGap(const MSVehicle* const veh, SUMOReal vL) const {
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    const SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane()->getVehicleMaxSpeed(veh));
+    const SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed(), veh), veh->getLane()->getVehicleMaxSpeed(veh));
     const SUMOReal gap = (vNext - vL) *
                          ((veh->getSpeed() + vL) / (2.*myDecel) + myHeadwayTime) +
                          vL * myHeadwayTime;
@@ -94,7 +94,7 @@ MSCFModel::leftVehicleVsafe(const MSVehicle* const ego, const MSVehicle* const n
 
 
 SUMOReal
-MSCFModel::maxNextSpeed(SUMOReal speed) const {
+MSCFModel::maxNextSpeed(SUMOReal speed, const MSVehicle * const /*veh*/) const {
     return MIN2(speed + (SUMOReal) ACCEL2SPEED(getMaxAccel()), myType->getMaxSpeed());
 }
 

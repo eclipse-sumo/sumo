@@ -1042,7 +1042,7 @@ SUMOReal MSLane::getMissingRearGap(
                 MSVehicle* v = (MSVehicle*) next->getFirstVehicle();
                 const SUMOReal agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
                 const SUMOReal missingRearGap = v->getCarFollowModel().getSecureGap(
-                                                    v->getCarFollowModel().maxNextSpeed(v->getSpeed()), leaderSpeed, leaderMaxDecel) - agap;
+                                                    v->getCarFollowModel().maxNextSpeed(v->getSpeed(), v), leaderSpeed, leaderMaxDecel) - agap;
                 result = MAX2(result, missingRearGap);
             } else {
                 if ((*i).length < dist) {
@@ -1087,7 +1087,7 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSp
             if (next->getFirstVehicle() != 0) {
                 MSVehicle* v = (MSVehicle*) next->getFirstVehicle();
                 SUMOReal agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
-                if (agap <= v->getCarFollowModel().getSecureGap(v->getCarFollowModel().maxNextSpeed(v->getSpeed()), leaderSpeed, predMaxDecel)) {
+                if (agap <= v->getCarFollowModel().getSecureGap(v->getCarFollowModel().maxNextSpeed(v->getSpeed(), v), leaderSpeed, predMaxDecel)) {
                     possible.push_back(std::make_pair(v, agap));
                 }
             } else {

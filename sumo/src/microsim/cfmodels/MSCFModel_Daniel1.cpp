@@ -58,7 +58,7 @@ MSCFModel_Daniel1::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     const SUMOReal vMin = getSpeedAfterMaxDecel(oldV);
-    const SUMOReal vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV), vSafe);
+    const SUMOReal vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe);
 #ifdef _DEBUG
     if (vMin > vMax) {
         WRITE_WARNING("Vehicle's '" + veh->getID() + "' maximum speed is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
@@ -69,14 +69,14 @@ MSCFModel_Daniel1::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_Daniel1::followSpeed(const MSVehicle* const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
-    return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed));
+MSCFModel_Daniel1::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+    return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed, veh));
 }
 
 
 SUMOReal
 MSCFModel_Daniel1::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
-    return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed()));
+    return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed(), veh));
 }
 
 

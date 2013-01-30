@@ -212,9 +212,10 @@ public:
      *  speed may depend on the vehicle's current speed (given).
      *
      * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values
      * @return The maximum possible speed for the next step
      */
-    SUMOReal maxNextSpeed(SUMOReal speed) const;
+    virtual SUMOReal maxNextSpeed(SUMOReal speed, const MSVehicle * const veh) const;
 
 
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time

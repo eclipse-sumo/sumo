@@ -1,13 +1,13 @@
 /****************************************************************************/
-/// @file    MSCFModel_Krauss.h
+/// @file    MSCFModel_KraussPS.h
 /// @author  Tobias Mayer
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 28 Jul 2009
-/// @version $Id$
+/// @version $Id: MSCFModel_KraussPS.h 11671 2012-01-07 20:14:30Z behrisch $
 ///
-// Krauss car-following model, with acceleration decrease and faster start
+// Krauss car-following model, changing accel and speed by slope
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -20,8 +20,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSCFModel_Krauss_h
-#define	MSCFModel_Krauss_h
+#ifndef MSCFModel_KraussPS_h
+#define	MSCFModel_KraussPS_h
 
 // ===========================================================================
 // included modules
@@ -32,18 +32,19 @@
 #include <config.h>
 #endif
 
-#include "MSCFModel_KraussOrig1.h"
+#include "MSCFModel_Krauss.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/** @class MSCFModel_Krauss
- * @brief Krauss car-following model, with acceleration decrease and faster start
+/** @class MSCFModel_KraussPS
+ * @brief Krauss car-following model, changing accel and speed by slope
  * @see MSCFModel
+ * @see MSCFModel_Krauss
  */
-class MSCFModel_Krauss : public MSCFModel_KraussOrig1 {
+class MSCFModel_KraussPS : public MSCFModel_Krauss {
 public:
     /** @brief Constructor
      * @param[in] accel The maximum acceleration
@@ -51,43 +52,37 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] headwayTime The driver's reaction time
      */
-    MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal headwayTime);
+    MSCFModel_KraussPS(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal headwayTime);
 
 
     /// @brief Destructor
-    ~MSCFModel_Krauss();
+    ~MSCFModel_KraussPS();
 
 
     /// @name Implementations of the MSCFModel interface
     /// @{
 
-    /** @brief Computes the vehicle's safe speed (no dawdling)
-     * @param[in] veh The vehicle (EGO)
-     * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
-     * @param[in] predSpeed The speed of LEADER
-     * @return EGO's safe speed
-     * @see MSCFModel::ffeV
+    /** @brief Returns the maximum speed given the current speed
+     *
+     * The implementation of this method must take into account the time step
+     *  duration.
+     *
+     * Justification: Due to air brake or other influences, the vehicle's next maximum
+     *  speed may depend on the vehicle's current speed (given).
+     *
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values
+     * @return The maximum possible speed for the next step
      */
-    SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+	SUMOReal maxNextSpeed(SUMOReal speed, const MSVehicle * const veh) const;
 
 
-    /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
-     * @param[in] veh The vehicle (EGO)
-     * @param[in] gap2pred The (netto) distance to the the obstacle
-     * @return EGO's safe speed for approaching a non-moving obstacle
-     * @see MSCFModel::ffeS
-     * @todo generic Interface, models can call for the values they need
-     */
-    SUMOReal stopSpeed(const MSVehicle* const veh, SUMOReal gap2pred) const;
-
-
-    /** @brief Returns the model's name
+	/** @brief Returns the model's name
      * @return The model's name
      * @see MSCFModel::getModelName
      */
     int getModelID() const {
-        return SUMO_TAG_CF_KRAUSS;
+        return SUMO_TAG_CF_KRAUSS_PLUS_SLOPE;
     }
     /// @}
 
@@ -99,22 +94,7 @@ public:
     MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
 
-private:
-    /** @brief Returns the "safe" velocity
-     * @param[in] gap2pred The (netto) distance to the LEADER
-     * @param[in] predSpeed The LEADER's speed
-     * @return the safe velocity
-     */
-    SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
-
-
-    /** @brief Applies driver imperfection (dawdling / sigma)
-     * @param[in] speed The speed with no dawdling
-     * @return The speed after dawdling
-     */
-    SUMOReal dawdle(SUMOReal speed) const;
-
 };
 
-#endif	/* MSCFMODEL_KRAUSS_H */
+#endif	/* MSCFModel_KraussPS_H */
 

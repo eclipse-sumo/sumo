@@ -76,7 +76,7 @@ MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     const SUMOReal vMin = getSpeedAfterMaxDecel(oldV);
-    const SUMOReal vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV), vSafe);
+    const SUMOReal vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe);
 #ifdef _DEBUG
     if (vMin > vMax) {
         WRITE_WARNING("Vehicle's '" + veh->getID() + "' maximum speed is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
@@ -116,7 +116,7 @@ MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOR
         vsafe = 0;
     }
 
-    SUMOReal vNew = MAX2(getSpeedAfterMaxDecel(speed), MIN2(vsafe, maxNextSpeed(speed)));
+    SUMOReal vNew = MAX2(getSpeedAfterMaxDecel(speed), MIN2(vsafe, maxNextSpeed(speed, veh)));
     // there must be a better place to do the following assignment!!!
     vars->gOld = gap;
     vars->ggOld[(int)vNew] = gap;
@@ -137,7 +137,7 @@ MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
         }
     }
 
-    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(veh, gap, 0), maxNextSpeed(veh->getSpeed())));
+    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(veh, gap, 0), maxNextSpeed(veh->getSpeed(), veh)));
 }
 
 

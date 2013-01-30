@@ -49,15 +49,15 @@ MSCFModel_Kerner::~MSCFModel_Kerner() {}
 
 
 SUMOReal
-MSCFModel_Kerner::followSpeed(const MSVehicle* const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
-    return MIN2(_v(speed, maxNextSpeed(speed), gap, predSpeed), maxNextSpeed(speed));
+MSCFModel_Kerner::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+    return MIN2(_v(speed, maxNextSpeed(speed, veh), gap, predSpeed), maxNextSpeed(speed, veh));
 }
 
 
 SUMOReal
 MSCFModel_Kerner::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
     const SUMOReal speed = veh->getSpeed();
-    return MIN2(_v(speed, maxNextSpeed(speed), gap, 0), maxNextSpeed(speed));
+    return MIN2(_v(speed, maxNextSpeed(speed, veh), gap, 0), maxNextSpeed(speed, veh));
 }
 
 

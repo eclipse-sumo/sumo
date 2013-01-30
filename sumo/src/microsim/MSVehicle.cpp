@@ -661,18 +661,18 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
     //
     const MSCFModel& cfModel = getCarFollowModel();
     // vBeg is the initial maximum velocity of this vehicle in this step
-    SUMOReal v = MIN2(cfModel.maxNextSpeed(myState.mySpeed), myLane->getVehicleMaxSpeed(this));
+    SUMOReal v = MIN2(cfModel.maxNextSpeed(myState.mySpeed, this), myLane->getVehicleMaxSpeed(this));
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
         SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
-        SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed);
+        SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
         v = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), v, v, vMin, vMax);
         // !!! recheck - why is it done, here?
     }
 #endif
 
     SUMOReal vehicleLength = getVehicleType().getLength();
-    SUMOReal maxV = cfModel.maxNextSpeed(myState.mySpeed);
+    SUMOReal maxV = cfModel.maxNextSpeed(myState.mySpeed, this);
     SUMOReal dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
     assert(bestLaneConts.size() > 0);
@@ -881,7 +881,7 @@ MSVehicle::moveChecked() {
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
         SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
-        SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed);
+        SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
     }
 #endif

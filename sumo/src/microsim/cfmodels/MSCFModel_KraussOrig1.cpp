@@ -62,7 +62,7 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     const SUMOReal vMin = getSpeedAfterMaxDecel(oldV);
     // do not exceed max decel even if it is unsafe
     SUMOReal vMax = MAX2(vMin,
-                         MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV), vSafe));
+                         MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
 #ifdef _DEBUG
     //if (vMin > vMax) {
     //    WRITE_WARNING("Vehicle's '" + veh->getID() + "' maximum speed is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
@@ -73,14 +73,14 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
-    return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed));
+MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+    return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed, veh));
 }
 
 
 SUMOReal
 MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
-    return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed()));
+    return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed(), veh));
 }
 
 
