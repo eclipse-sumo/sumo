@@ -79,7 +79,6 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     assert(myLanes.size() > 0);
-    SUMOReal det_offset = TplConvert::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     // change values for setting the loops and lanestate-detectors, here
     //SUMOTime inductLoopInterval = 1; //
     LaneVectorVector::const_iterator i2;
