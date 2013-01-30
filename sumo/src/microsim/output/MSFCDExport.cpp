@@ -77,8 +77,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             of.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
             of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
             of.writeAttr(SUMO_ATTR_POSITION, lp);
-            of.writeAttr(SUMO_ATTR_LANE, veh->getLane()->getID());
-            of.writeAttr(SUMO_ATTR_SLOPE, veh->getLane()->getShape().slopeDegreeAtLengthPosition(gp));
+            of.writeAttr(SUMO_ATTR_LANE, lane->getID());
+            of.writeAttr(SUMO_ATTR_SLOPE, lane->getShape().slopeDegreeAtLengthPosition(gp));
             of.closeTag();
         }
     }
