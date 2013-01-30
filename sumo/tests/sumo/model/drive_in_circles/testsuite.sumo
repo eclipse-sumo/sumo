@@ -13,5 +13,8 @@ kerner
 # original krauss model test
 krauss
 
+# krauss "plus slope" model test
+kraussPS
+
 # wiedemann model test
 wiedemann
