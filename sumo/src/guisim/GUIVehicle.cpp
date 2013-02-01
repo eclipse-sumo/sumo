@@ -1077,7 +1077,8 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
                 glTranslated(p.x(), p.y(), -.1);
                 GLHelper::drawFilledCircle(1);
 
-                const SUMOTime leaveTime = (*i).myArrivalTime + TIME2STEPS(((*i).myLink->getLength() + getVehicleType().getLength()) / (*i).myArrivalSpeed);
+                const SUMOTime leaveTime = (*i).myLink->getLeaveTime(
+                        (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLength());
                 std::string times = toString(STEPS2TIME((*i).myArrivalTime)) + "/" + toString(STEPS2TIME(leaveTime));
                 GLHelper::drawText(times.c_str(), Position(), .1, 1.6 * s.addExaggeration, RGBColor(0, 1, 0), 0);
 

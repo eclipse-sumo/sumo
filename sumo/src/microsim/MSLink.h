@@ -157,9 +157,10 @@ public:
      * @param[in] arrivalTime The arrivalTime of the vehicle who checks for an approaching foe
      * @param[in] leaveTime The leaveTime of the vehicle who checks for an approaching foe
      * @param[in] speed The speed with which the checking vehicle plans to leave the link
+     * @param[in] sameTargetLane Whether the link that calls this method has the same target lane as this link
      * @return Whether this link is blocked
      */
-    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed) const;
+    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed, bool sameTargetLane) const;
 
     bool isBlockingAnyone() const {
         return myApproachingVehicles.size() != 0;
@@ -256,6 +257,10 @@ public:
 
     /// @brief return the via lane if it exists and the lane otherwise
     MSLane* getViaLaneOrLane() const;
+
+
+    /// @brief return the expected time at which the given vehicle will clear the link
+    SUMOTime getLeaveTime(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
 
 private:
     typedef std::vector<ApproachingVehicleInformation> LinkApproachingVehicles;
