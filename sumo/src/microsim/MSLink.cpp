@@ -87,10 +87,7 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 void
 MSLink::setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) {
-    LinkApproachingVehicles::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(approaching));
-    if (i != myApproachingVehicles.end()) {
-        myApproachingVehicles.erase(i);
-    }
+    removeApproaching(approaching);
     const SUMOTime leaveTime = arrivalTime + TIME2STEPS((approaching->getVehicleType().getLengthWithGap() + getLength()) / speed);
     ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, approaching, setRequest);
     myApproachingVehicles.push_back(approachInfo);
