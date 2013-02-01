@@ -42,8 +42,8 @@
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
-#include "GUIDialog_Breakpoints.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
@@ -51,6 +51,7 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "GUIDialog_Breakpoints.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -164,22 +165,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        std::ifstream strm(file.c_str());
-        while (strm.good()) {
-            std::string val;
-            strm >> val;
-            if (val.length() == 0) {
-                continue;
-            }
-            try {
-                SUMOTime value = string2time(val);
-                GUIGlobals::gBreakpoints.push_back(value);
-            } catch (NumberFormatException&) {
-                WRITE_ERROR(" A breakpoint-value must be an int, is:" + val);
-            }  catch (ProcessError&) {
-                WRITE_ERROR(" Could not decode breakpoint '" + val + "'");
-            } catch (EmptyData&) {}
-        }
+        GUIGlobals::gBreakpoints = GUISettingsHandler::loadBreakpoints(file);
         rebuildList();
     }
     return 1;

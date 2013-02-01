@@ -917,6 +917,9 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 if (settings.getDelay() > 0) {
                     mySimDelayTarget->setValue(settings.getDelay());
                 }
+                if (settings.getBreakpoints().size() > 0) {
+                    GUIGlobals::gBreakpoints = settings.getBreakpoints();
+                }
             }
         } else {
             openNewView();

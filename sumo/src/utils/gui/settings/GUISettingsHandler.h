@@ -115,6 +115,18 @@ public:
     SUMOReal getDelay() const;
 
 
+    /** @brief Returns the parsed breakpoints
+     * @return the parsed breakpoints
+     */
+    const std::vector<SUMOTime>& getBreakpoints() const {
+        return myBreakpoints;
+    }
+
+
+    /// @brief loads breakpoints from the specified file 
+    static std::vector<SUMOTime> loadBreakpoints(const std::string& file);
+
+
 private:
     /// @brief The settings to fill
     GUIVisualizationSettings mySettings;
@@ -136,6 +148,9 @@ private:
 
     /// @brief The current color scheme
     GUIColorScheme* myCurrentScheme;
+
+    /// @brief The parsed breakpoints
+    std::vector<SUMOTime> myBreakpoints;
 
 private:
 

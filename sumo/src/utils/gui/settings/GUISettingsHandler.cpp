@@ -73,6 +73,11 @@ GUISettingsHandler::myStartElement(int element,
                                    const SUMOSAXAttributes& attrs) {
     bool ok = true;
     switch (element) {
+        case SUMO_TAG_BREAKPOINTS_FILE: {
+            std::string file = attrs.get<std::string>(SUMO_ATTR_VALUE, 0, ok);
+            myBreakpoints = loadBreakpoints(file);
+            }
+            break;
         case SUMO_TAG_DELAY:
             myDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_VALUE, 0, ok, myDelay);
             break;
@@ -282,6 +287,28 @@ GUISettingsHandler::getDelay() const {
     return myDelay;
 }
 
+
+std::vector<SUMOTime> 
+GUISettingsHandler::loadBreakpoints(const std::string& file) {
+    std::vector<SUMOTime> result;
+    std::ifstream strm(file.c_str());
+    while (strm.good()) {
+        std::string val;
+        strm >> val;
+        if (val.length() == 0) {
+            continue;
+        }
+        try {
+            SUMOTime value = string2time(val);
+            result.push_back(value);
+        } catch (NumberFormatException&) {
+            WRITE_ERROR(" A breakpoint-value must be an int, is:" + val);
+        }  catch (ProcessError&) {
+            WRITE_ERROR(" Could not decode breakpoint '" + val + "'");
+        } catch (EmptyData&) {}
+    }
+    return result;
+}
 
 /****************************************************************************/
 
