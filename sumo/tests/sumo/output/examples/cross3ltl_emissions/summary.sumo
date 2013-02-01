@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Feb  1 14:30:26 2013 by SUMO sumo Version dev-SVN-r13266
+<!-- generated on Fri Feb  1 15:04:43 2013 by SUMO sumo Version dev-SVN-r13266
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -1012,20 +1012,20 @@
     <step time="981.00" loaded="317" emitted="314" running="155" waiting="3" ended="159" meanWaitingTime="25.30" meanTravelTime="341.01" />
     <step time="982.00" loaded="317" emitted="314" running="155" waiting="3" ended="159" meanWaitingTime="25.30" meanTravelTime="341.01" />
     <step time="983.00" loaded="317" emitted="314" running="154" waiting="3" ended="160" meanWaitingTime="25.30" meanTravelTime="340.63" />
-    <step time="984.00" loaded="319" emitted="316" running="156" waiting="3" ended="160" meanWaitingTime="25.80" meanTravelTime="340.63" />
+    <step time="984.00" loaded="318" emitted="315" running="155" waiting="3" ended="160" meanWaitingTime="25.83" meanTravelTime="340.63" />
     <step time="985.00" loaded="319" emitted="316" running="155" waiting="3" ended="161" meanWaitingTime="25.80" meanTravelTime="340.20" />
     <step time="986.00" loaded="319" emitted="316" running="155" waiting="3" ended="161" meanWaitingTime="25.80" meanTravelTime="340.20" />
     <step time="987.00" loaded="319" emitted="316" running="154" waiting="3" ended="162" meanWaitingTime="25.80" meanTravelTime="339.74" />
-    <step time="988.00" loaded="320" emitted="317" running="155" waiting="3" ended="162" meanWaitingTime="26.34" meanTravelTime="339.74" />
+    <step time="988.00" loaded="319" emitted="316" running="154" waiting="3" ended="162" meanWaitingTime="25.80" meanTravelTime="339.74" />
     <step time="989.00" loaded="320" emitted="318" running="155" waiting="2" ended="163" meanWaitingTime="26.29" meanTravelTime="339.11" />
     <step time="990.00" loaded="322" emitted="318" running="155" waiting="4" ended="163" meanWaitingTime="26.29" meanTravelTime="339.11" />
     <step time="991.00" loaded="322" emitted="318" running="154" waiting="4" ended="164" meanWaitingTime="26.29" meanTravelTime="338.40" />
-    <step time="992.00" loaded="323" emitted="319" running="155" waiting="4" ended="164" meanWaitingTime="26.81" meanTravelTime="338.40" />
-    <step time="993.00" loaded="323" emitted="320" running="156" waiting="3" ended="164" meanWaitingTime="26.73" meanTravelTime="338.40" />
-    <step time="994.00" loaded="323" emitted="321" running="157" waiting="2" ended="164" meanWaitingTime="26.66" meanTravelTime="338.40" />
-    <step time="995.00" loaded="323" emitted="321" running="157" waiting="2" ended="164" meanWaitingTime="26.66" meanTravelTime="338.40" />
-    <step time="996.00" loaded="324" emitted="322" running="158" waiting="2" ended="164" meanWaitingTime="27.19" meanTravelTime="338.40" />
-    <step time="997.00" loaded="324" emitted="322" running="158" waiting="2" ended="164" meanWaitingTime="27.19" meanTravelTime="338.40" />
-    <step time="998.00" loaded="324" emitted="322" running="158" waiting="2" ended="164" meanWaitingTime="27.19" meanTravelTime="338.40" />
-    <step time="999.00" loaded="324" emitted="322" running="158" waiting="2" ended="164" meanWaitingTime="27.19" meanTravelTime="338.40" />
+    <step time="992.00" loaded="322" emitted="318" running="154" waiting="4" ended="164" meanWaitingTime="26.29" meanTravelTime="338.40" />
+    <step time="993.00" loaded="323" emitted="319" running="155" waiting="4" ended="164" meanWaitingTime="26.82" meanTravelTime="338.40" />
+    <step time="994.00" loaded="323" emitted="321" running="157" waiting="2" ended="164" meanWaitingTime="26.67" meanTravelTime="338.40" />
+    <step time="995.00" loaded="323" emitted="321" running="157" waiting="2" ended="164" meanWaitingTime="26.67" meanTravelTime="338.40" />
+    <step time="996.00" loaded="323" emitted="321" running="157" waiting="2" ended="164" meanWaitingTime="26.67" meanTravelTime="338.40" />
+    <step time="997.00" loaded="324" emitted="322" running="158" waiting="2" ended="164" meanWaitingTime="27.20" meanTravelTime="338.40" />
+    <step time="998.00" loaded="324" emitted="322" running="158" waiting="2" ended="164" meanWaitingTime="27.20" meanTravelTime="338.40" />
+    <step time="999.00" loaded="324" emitted="322" running="158" waiting="2" ended="164" meanWaitingTime="27.20" meanTravelTime="338.40" />
 </summary>

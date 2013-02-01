@@ -791,8 +791,11 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
         ++view;
 #endif
         // estimate leave speed for passing time computation
-        SUMOReal v1 = 2 * (*link)->getLength() * getVehicleType().getCarFollowModel().getMaxAccel() + vLinkPass;
-        SUMOReal leaveSpeed = MIN2(lane->getVehicleMaxSpeed(this), (SUMOReal)sqrt(v1));
+        // l=linkLength, a=accel, t=continuousTime, v=vLeave
+        // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
+        SUMOReal leaveSpeedMax = sqrt(2 * (*link)->getLength() * getVehicleType().getCarFollowModel().getMaxAccel() 
+                + vLinkPass * vLinkPass);
+        SUMOReal leaveSpeed = MIN2(lane->getVehicleMaxSpeed(this), leaveSpeedMax);
         myLFLinkLanes[lastLink].adaptLeaveSpeed(leaveSpeed);
 
         firstLane = false;
