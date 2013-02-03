@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Jan 24 10:42:14 2013
+TraCITestClient output file. Date: Sun Feb 03 22:22:21 2013
 
 
 -> Command sent: <SimulationStep2>:
@@ -16,36 +16,36 @@ TraCITestClient output file. Date: Thu Jan 24 10:42:14 2013
  valueDataType=9 Int value: 0
  valueDataType=9 Int value: 8
  valueDataType=9 Int value: 31000
- valueDataType=9 Int value: 5000
- valueDataType=9 Int value: 90000
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
  valueDataType=12 string value: GGggrrrrGGggrrrr
  valueDataType=9 Int value: 4000
  valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 90000
+ valueDataType=9 Int value: 4000
  valueDataType=12 string value: yyggrrrryyggrrrr
  valueDataType=9 Int value: 6000
- valueDataType=9 Int value: 5000
- valueDataType=9 Int value: 90000
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
  valueDataType=12 string value: rrGGrrrrrrGGrrrr
  valueDataType=9 Int value: 4000
  valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 90000
+ valueDataType=9 Int value: 4000
  valueDataType=12 string value: rryyrrrrrryyrrrr
  valueDataType=9 Int value: 31000
- valueDataType=9 Int value: 5000
- valueDataType=9 Int value: 90000
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
  valueDataType=12 string value: rrrrGGggrrrrGGgg
  valueDataType=9 Int value: 4000
  valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 90000
+ valueDataType=9 Int value: 4000
  valueDataType=12 string value: rrrryyggrrrryygg
  valueDataType=9 Int value: 6000
- valueDataType=9 Int value: 5000
- valueDataType=9 Int value: 90000
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
  valueDataType=12 string value: rrrrrrGGrrrrrrGG
  valueDataType=9 Int value: 4000
  valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 90000
+ valueDataType=9 Int value: 4000
  valueDataType=12 string value: rrrrrryyrrrrrryy
  ]
 
