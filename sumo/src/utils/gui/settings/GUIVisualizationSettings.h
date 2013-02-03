@@ -45,6 +45,7 @@
 // ===========================================================================
 class BaseSchemeInfoSource;
 class OutputDevice;
+class GUISUMOAbstractView;
 
 
 // ===========================================================================
@@ -241,6 +242,9 @@ public:
 
     /** @brief Assignment operator */
     bool operator==(const GUIVisualizationSettings& vs2);
+
+    /** brief The view which is currently calling the draw method with these settings */
+    GUISUMOAbstractView* currentView;
 };
 
 

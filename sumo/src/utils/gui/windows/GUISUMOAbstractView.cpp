@@ -130,6 +130,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p,
     myChanger = new GUIDanielPerspectiveChanger(*this, *myGrid);
     myVisualizationSettings = &gSchemeStorage.getDefault();
     myVisualizationSettings->gaming = myApp->isGaming();
+    myVisualizationSettings->currentView = this;
     gSchemeStorage.setViewport(this);
 }
 

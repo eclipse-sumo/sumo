@@ -176,12 +176,10 @@ public:
 
 
     /** @brief Draws additional, user-triggered visualisations
-     * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
-    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
+    virtual void drawGLAdditional(const GUIVisualizationSettings& s) const {
         UNUSED_PARAMETER(&s);
-        UNUSED_PARAMETER(parent);
     };
 
 #ifdef HAVE_OSG

@@ -124,10 +124,9 @@ public:
 
 
     /** @brief Draws additionally triggered visualisations
-     * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
-    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
+    virtual void drawGLAdditional(const GUIVisualizationSettings& s) const;
     //@}
 
 

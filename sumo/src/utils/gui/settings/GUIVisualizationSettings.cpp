@@ -70,7 +70,9 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       minPolySize(0), polyExaggeration(1), polyName(false, 50, RGBColor(1., 0, .5)),
       showSizeLegend(true),
       gaming(false),
-      selectionScale(1) {
+      selectionScale(1),
+      currentView(0) 
+{
     /// add lane coloring schemes
     GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor(0, 0, 0), "", true);
     laneColorer.addScheme(scheme);

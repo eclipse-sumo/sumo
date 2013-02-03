@@ -153,6 +153,7 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
     }
     myVisualizationSettings = &gSchemeStorage.get(name.c_str());
     myVisualizationSettings->gaming = myApp->isGaming();
+    myVisualizationSettings->currentView = this;
     update();
     return true;
 }
@@ -192,7 +193,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     //
     glTranslated(0, 0, -.01);
     for (std::map<GUIGlObject*, int>::iterator i = myAdditionallyDrawn.begin(); i != myAdditionallyDrawn.end(); ++i) {
-        (i->first)->drawGLAdditional(this, *myVisualizationSettings);
+        (i->first)->drawGLAdditional(*myVisualizationSettings);
     }
     glTranslated(0, 0, .01);
     glPopMatrix();
