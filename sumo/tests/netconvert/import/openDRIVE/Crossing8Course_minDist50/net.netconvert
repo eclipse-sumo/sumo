@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 02/04/13 01:51:24 by SUMO netconvert Version dev-SVN-r13272
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <opendrive-files value="opendrive.xodr"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <geometry.min-dist value="50"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="198.90,86.38" convBoundary="0.00,0.00,397.80,170.59" origBoundary="-198.90,-86.38,198.90,84.21" projParameter="!"/>
+
+    <edge id="-501" from="2" to="508.501" priority="2" shape="205.97,93.45 208.80,96.28">
+        <lane id="-501_0" index="0" speed="13.90" length="9.25" shape="203.43,88.57 209.97,95.11"/>
+    </edge>
+    <edge id="-502" from="2" to="509.502" priority="0" shape="191.83,93.45 189.00,96.28">
+        <lane id="-502_0" index="0" speed="13.90" length="9.28" shape="196.71,90.90 190.15,97.47"/>
+    </edge>
+    <edge id="-508" from="516.508" to="508.501" priority="1" shape="208.80,76.48 258.95,26.33 311.64,0.00 367.88,16.47 397.80,66.86 394.77,118.27 338.66,170.59 280.52,163.31 208.80,96.28">
+        <lane id="-508_0" index="0" speed="13.90" length="540.11" shape="207.63,75.31 257.97,24.97 311.48,-1.77 368.97,15.07 399.48,66.45 396.37,119.03 339.23,172.32 279.78,164.88 207.65,97.46"/>
+    </edge>
+    <edge id="-509" from="514.509" to="509.502" priority="1" shape="189.00,76.48 138.85,26.33 86.16,0.00 29.92,16.47 0.00,66.86 3.04,118.27 59.14,170.59 117.29,163.31 189.00,96.28">
+        <lane id="-509_0" index="0" speed="13.90" length="523.93" shape="187.83,77.65 137.87,27.69 86.01,1.77 31.01,17.87 1.68,67.27 4.64,117.52 59.70,168.85 116.55,161.74 187.87,95.07"/>
+    </edge>
+    <edge id="-514" from="2" to="514.509" priority="2" shape="191.83,79.31 189.00,76.48">
+        <lane id="-514_0" index="0" speed="13.90" length="9.25" shape="194.38,84.19 187.83,77.65"/>
+    </edge>
+    <edge id="-516" from="2" to="516.508" priority="0" shape="205.97,79.31 208.80,76.48">
+        <lane id="-516_0" index="0" speed="13.90" length="9.25" shape="201.09,81.85 207.63,75.31"/>
+    </edge>
+    <edge id="501" from="508.501" to="2" priority="1" shape="208.80,96.28 205.97,93.45">
+        <lane id="501_0" index="0" speed="13.90" length="9.28" shape="207.65,97.46 201.09,90.90"/>
+    </edge>
+    <edge id="502" from="509.502" to="2" priority="1" shape="189.00,96.28 191.83,93.45">
+        <lane id="502_0" index="0" speed="13.90" length="9.25" shape="187.83,95.11 194.38,88.57"/>
+    </edge>
+    <edge id="508" from="508.501" to="516.508" priority="1" shape="208.80,96.28 280.52,163.31 338.66,170.59 394.77,118.27 397.80,66.86 367.88,16.47 311.64,0.00 258.95,26.33 208.80,76.48">
+        <lane id="508_0" index="0" speed="13.90" length="523.93" shape="209.93,95.07 281.25,161.74 338.10,168.85 393.16,117.52 396.13,67.27 366.79,17.87 311.80,1.77 259.93,27.69 209.97,77.65"/>
+    </edge>
+    <edge id="509" from="509.502" to="514.509" priority="1" shape="189.00,96.28 117.29,163.31 59.14,170.59 3.04,118.27 0.00,66.86 29.92,16.47 86.16,0.00 138.85,26.33 189.00,76.48">
+        <lane id="509_0" index="0" speed="13.90" length="540.11" shape="190.15,97.47 118.02,164.88 58.58,172.32 1.43,119.03 -1.68,66.45 28.84,15.07 86.32,-1.77 139.83,24.97 190.17,75.31"/>
+    </edge>
+    <edge id="514" from="514.509" to="2" priority="1" shape="189.00,76.48 191.83,79.31">
+        <lane id="514_0" index="0" speed="13.90" length="9.25" shape="190.17,75.31 196.71,81.85"/>
+    </edge>
+    <edge id="516" from="516.508" to="2" priority="1" shape="208.80,76.48 205.97,79.31">
+        <lane id="516_0" index="0" speed="13.90" length="9.25" shape="209.97,77.65 203.43,84.19"/>
+    </edge>
+
+    <junction id="2" type="priority" x="198.90" y="86.38" incLanes="501_0 516_0 514_0 502_0" intLanes="" shape="199.96,92.04 204.56,87.44 204.56,85.32 199.96,80.72 197.84,80.72 193.24,85.32 193.24,87.44 197.84,92.04">
+        <request index="0" response="000000000000" foes="000100010000"/>
+        <request index="1" response="000000000000" foes="111100110000"/>
+        <request index="2" response="000011000000" foes="110011110000"/>
+        <request index="3" response="000010000000" foes="100010000000"/>
+        <request index="4" response="000110000111" foes="100110000111"/>
+        <request index="5" response="011110000110" foes="011110000110"/>
+        <request index="6" response="000000000000" foes="010000000100"/>
+        <request index="7" response="000000000000" foes="110000111100"/>
+        <request index="8" response="000000000011" foes="110000110011"/>
+        <request index="9" response="000000000010" foes="000000100010"/>
+        <request index="10" response="000111000110" foes="000111100110"/>
+        <request index="11" response="000110011110" foes="000110011110"/>
+    </junction>
+    <junction id="508.501" type="priority" x="208.80" y="96.28" incLanes="-508_0 -501_0" intLanes="" shape="206.56,98.63 211.00,93.89 211.12,94.00 206.52,98.60">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="509.502" type="priority" x="189.00" y="96.28" incLanes="-502_0 -509_0" intLanes="" shape="191.28,98.60 186.68,94.00 186.80,93.89 191.24,98.63">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="514.509" type="priority" x="189.00" y="76.48" incLanes="-514_0 509_0" intLanes="" shape="186.70,78.78 191.30,74.18 186.70,78.78">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="516.508" type="priority" x="208.80" y="76.48" incLanes="508_0 -516_0" intLanes="" shape="211.10,78.78 206.50,74.18 211.10,78.78">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+
+    <connection from="-501" to="508" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-502" to="509" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-508" to="501" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-509" to="502" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-514" to="-509" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-516" to="-508" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="501" to="-502" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="501" to="-514" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="501" to="-516" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="502" to="-514" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="502" to="-516" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="502" to="-501" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="508" to="516" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="509" to="514" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="514" to="-516" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="514" to="-501" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="514" to="-502" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="516" to="-501" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="516" to="-502" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="516" to="-514" fromLane="0" toLane="0" dir="l" state="m"/>
+
+</net>

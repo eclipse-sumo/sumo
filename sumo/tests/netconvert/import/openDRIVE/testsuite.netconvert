@@ -21,6 +21,9 @@ simple2_right_nt
 # a larger test
 adlershof_dlr
 
+# test with min-distance
+Crossing8Course_minDist50
+
 
 error_simple1_nolanes
 
