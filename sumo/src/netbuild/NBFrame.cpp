@@ -104,6 +104,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("geometry.max-segment-length", new Option_Float(0));
         oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
+
+        oc.doRegister("geometry.min-dist", new Option_Float());
+        oc.addDescription("geometry.min-dist", "Processing", "reduces too similar geometry points");
     }
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));

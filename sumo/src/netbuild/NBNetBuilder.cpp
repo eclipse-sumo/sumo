@@ -157,6 +157,11 @@ NBNetBuilder::compute(OptionsCont& oc,
         PROGRESS_DONE_MESSAGE();
         WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
     }
+    if(oc.exists("geometry.min-dist")&&oc.isSet("geometry.min-dist")) {
+        PROGRESS_BEGIN_MESSAGE("Reducing geometries");
+        myEdgeCont.reduceGeometries(oc.getFloat("geometry.min-dist"));
+        PROGRESS_DONE_MESSAGE();
+    }
     // @note: removing geometry can create similar edges so "Joining" must come afterwards
     // @note: likewise splitting can destroy similarities so "Joining" must come before
     PROGRESS_BEGIN_MESSAGE("Joining similar edges");

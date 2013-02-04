@@ -514,6 +514,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             }
         }
     }
+
+	if(oc.exists("geometry.min-dist")&&oc.isSet("geometry.min-dist")) {
+		oc.unSet("geometry.min-dist");
+	}
 }
 
 
@@ -726,6 +730,7 @@ NIImporter_OpenDrive::getIncomingDirectionalEdge(const NBEdgeCont& ec,
 
 void
 NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge>& edges) {
+	OptionsCont &oc = OptionsCont::getOptions();
     for (std::vector<OpenDriveEdge>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge& e = *i;
         for (std::vector<OpenDriveGeometry>::iterator j = e.geometries.begin(); j != e.geometries.end(); ++j) {
@@ -753,6 +758,9 @@ NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge>& edges) {
                 e.geom.push_back_noDoublePos(*k);
             }
         }
+		if(oc.exists("geometry.min-dist")&&oc.isSet("geometry.min-dist")) {
+			e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
+		}
         for (unsigned int j = 0; j < e.geom.size(); ++j) {
             if (!NILoader::transformCoordinates(e.geom[j])) {
                 WRITE_ERROR("Unable to project coordinates for.");
@@ -760,6 +768,7 @@ NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge>& edges) {
         }
     }
 }
+
 
 std::vector<Position>
 NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g) {

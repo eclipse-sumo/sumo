@@ -508,6 +508,12 @@ NBEdge::splitGeometry(NBEdgeCont& ec, NBNodeCont& nc) {
 }
 
 
+void 
+NBEdge::reduceGeometry(const SUMOReal minDist) {
+    myGeom.removeDoublePoints(minDist, true);
+}
+
+
 // ----------- Setting and getting connections
 bool
 NBEdge::addEdge2EdgeConnection(NBEdge* dest) {

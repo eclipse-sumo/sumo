@@ -552,6 +552,12 @@ public:
      * @return Whether the geometry was changed
      */
     bool splitGeometry(NBEdgeCont& ec, NBNodeCont& nc);
+
+
+    /** @brief Removes points with a distance lesser than the given
+     * @param[in] minDist The minimum distance between two position to keep the second
+     */
+    void reduceGeometry(const SUMOReal minDist);
     //@}
 
 

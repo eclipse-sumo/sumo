@@ -299,6 +299,13 @@ public:
      * @see NBEdge::splitGeometry
      */
     void splitGeometry(NBNodeCont& nc);
+
+
+    /** @brief 
+     * @param[in] nc The node container needed to build (geometry) nodes
+     * @see NBEdge::reduceGeometry
+     */
+    void reduceGeometries(const SUMOReal minDist);
     /// @}
 
 

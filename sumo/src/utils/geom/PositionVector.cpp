@@ -1112,11 +1112,11 @@ PositionVector::isClosed() const {
 
 
 void
-PositionVector::removeDoublePoints(SUMOReal maxDiv) {
+PositionVector::removeDoublePoints(SUMOReal minDist, bool assertLength) {
     if (myCont.size() > 1) {
         ContType::iterator last = myCont.begin();
-        for (ContType::iterator i = myCont.begin() + 1; i != myCont.end();) {
-            if (last->almostSame(*i, maxDiv)) {
+		for (ContType::iterator i = myCont.begin() + 1; i != myCont.end() && (!assertLength || myCont.size()>2);) {
+            if (last->almostSame(*i, minDist)) {
                 i = myCont.erase(i);
             } else {
                 last = i;

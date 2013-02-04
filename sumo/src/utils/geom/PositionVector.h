@@ -300,7 +300,11 @@ public:
 
     bool isClosed() const;
 
-    void removeDoublePoints(SUMOReal maxDiv = POSITION_EPS);
+	/** @brief Removes positions if too near
+	 * @param[in] minDist The minimum accepted distance; default: POSITION_EPS
+	 * @param[in] assertLength Whether the result must at least contain two points (be a line); default: false, to ensure original behaviour
+	 */
+    void removeDoublePoints(SUMOReal minDist = POSITION_EPS, bool assertLength=false);
 
     void removeColinearPoints();
 
