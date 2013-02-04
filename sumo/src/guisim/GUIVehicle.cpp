@@ -1227,7 +1227,7 @@ GUIVehicle::hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int whi
 }
 
 
-bool
+void
 GUIVehicle::addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) {
     if (myAdditionalVisualizations.find(parent) == myAdditionalVisualizations.end()) {
         myAdditionalVisualizations[parent] = 0;
@@ -1236,7 +1236,7 @@ GUIVehicle::addActiveAddVisualisation(GUISUMOAbstractView* const parent, int whi
 }
 
 
-bool
+void
 GUIVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) {
     myAdditionalVisualizations[parent] &= ~which;
     if (myAdditionalVisualizations[parent] == 0) {

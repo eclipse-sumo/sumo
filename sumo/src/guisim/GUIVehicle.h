@@ -145,19 +145,17 @@ public:
     /** @brief Adds the named visualisation feature to the given view
      * @param[in] parent The view for which the feature shall be enabled
      * @param[in] which The visualisation feature to enable
-     * @return Always true
      * @see GUISUMOAbstractView::addAdditionalGLVisualisation
      */
-    bool addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
+    void addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
 
 
     /** @brief Adds the named visualisation feature to the given view
      * @param[in] parent The view for which the feature shall be enabled
      * @param[in] which The visualisation feature to enable
-     * @return Whether the vehicle was known to the view
      * @see GUISUMOAbstractView::removeAdditionalGLVisualisation
      */
-    bool removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
+    void removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
     /// @}
 
 
