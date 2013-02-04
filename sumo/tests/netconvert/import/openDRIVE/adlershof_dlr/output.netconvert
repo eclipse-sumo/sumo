@@ -1,14 +1,15 @@
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate edges... done.
+Parsing relations from osm-file 'osm.xml'... done.
  Import done:
    91 nodes loaded.
    34 types loaded.
-   207 edges loaded.
+   210 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done.
 Removing empty nodes... done.
-   6 nodes removed.
+   4 nodes removed.
 Joining similar edges... done.
 Moving network to origin... done.
 Computing turning directions... done.
@@ -35,8 +36,8 @@ Building inner edges... done.
 Summary:
  Node type statistics:
   Unregulated junctions       : 4
-  Priority junctions          : 67
-  Right-before-left junctions : 14
+  Priority junctions          : 68
+  Right-before-left junctions : 15
  Network boundaries:
   Original boundary  : 13.52,52.43,13.55,52.43
   Applied offset     : -399345.66,-5809365.64
