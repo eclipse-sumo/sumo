@@ -160,8 +160,9 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
             return false;
         }
     }
+    // approaching vehicles might have been braking and thus block the link longer than anticpated
     for (std::vector<MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
-        if ((*i)->getVehicleNumber() > 0 || (*i)->getPartialOccupator() != 0) {
+        if (maybeOccupied(*i)) {
             return false;
         }
     }
@@ -175,14 +176,15 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed, 
         if (!(*i).willPass) {
             continue;
         }
+        const SUMOReal foeSpeed = MIN2(getLane()->getVehicleMaxSpeed(i->vehicle), i->vehicle->getSpeed());
         if ((*i).leavingTime < arrivalTime) {
             // ego wants to be follower
-            if (sameTargetLane && ((*i).leavingTime + safeHeadwayTime(i->vehicle->getSpeed(), speed) >= arrivalTime)) {
+            if (sameTargetLane && ((*i).leavingTime + safeHeadwayTime(foeSpeed, speed) >= arrivalTime)) {
                 return true;
             }
         } else if ((*i).arrivalTime > leaveTime) {
             // ego wants to be leader
-            if (sameTargetLane && ((*i).arrivalTime - safeHeadwayTime(speed, i->vehicle->getSpeed()) <= leaveTime)) {
+            if (sameTargetLane && ((*i).arrivalTime - safeHeadwayTime(speed, foeSpeed) <= leaveTime)) {
                 return true;
             }
         } else {
@@ -216,6 +218,27 @@ MSLink::safeHeadwayTime(SUMOReal leaderSpeed, SUMOReal followerSpeed) {
     } else {
         // u*h + (v^2 - a*v)/(2*a) > g + (u^2 - b*u)/(2*b) + 0.5
         return TIME2STEPS((g + (1.0 + v - v * v / a) * 0.5) / u + (u / b - 1.0) * 0.5);
+    }
+}
+
+
+bool 
+MSLink::maybeOccupied(MSLane* lane) {
+    MSVehicle* veh = lane->getLastVehicle();
+    SUMOReal distLeft = 0;
+    if (veh == 0) {
+        veh = lane->getPartialOccupator();
+        distLeft = lane->getLength() - lane->getPartialOccupatorEnd();
+    } else {
+        distLeft = lane->getLength() - veh->getPositionOnLane() + veh->getVehicleType().getLength();
+    }
+    if (veh == 0) {
+        return false;
+    } else {
+        assert(distLeft > 0);
+        // can we be sure that the vehicle leaves this lane in the next step?
+        bool result = distLeft > veh->getSpeed() - veh->getCarFollowModel().getMaxDecel();
+        return result;
     }
 }
 
