@@ -779,7 +779,7 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
         } //if(!myLFLinkLanes.empty()) { myLFLinkLanes.back().accelV = va; }
         lastLink = (int)myLFLinkLanes.size();
         // vehicles should decelerate when approaching a minor link
-        if (false && !(*link)->havePriority() && stopDist > getCarFollowModel().getMaxDecel()) {
+        if (!(*link)->havePriority() && stopDist > getCarFollowModel().getMaxDecel()) {
             // vehicle decelerates just enough to be able to stop if necessary and then accelerates 
             const SUMOReal arrivalSpeed = getCarFollowModel().getMaxDecel() + getCarFollowModel().getMaxAccel();
             const SUMOReal v1 = MAX2(vLinkWait, arrivalSpeed);

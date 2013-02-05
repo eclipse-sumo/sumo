@@ -1,1 +1,1 @@
---time-to-teleport -1 --no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml
+--time-to-teleport -1 -v --no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
