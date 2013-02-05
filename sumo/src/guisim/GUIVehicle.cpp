@@ -1077,15 +1077,16 @@ GUIVehicle::drawGLAdditional(const GUIVisualizationSettings& s) const {
                 } else {
                     glColor3d(.8, 0, 0);
                 }
-                glTranslated(p.x(), p.y(), -.1);
-                GLHelper::drawFilledCircle(1);
-
                 const SUMOTime leaveTime = (*i).myLink->getLeaveTime(
-                        (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLength());
-                std::string times = toString(STEPS2TIME((*i).myArrivalTime)) + "/" + toString(STEPS2TIME(leaveTime));
-                GLHelper::drawText(times.c_str(), Position(), .1, 1.6 * s.addExaggeration, RGBColor(0, 1, 0), 0);
-
-                glTranslated(-p.x(), -p.y(), .1);
+                        (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLengthWithGap());
+                drawLinkItem(p, (*i).myArrivalTime, leaveTime, s.addExaggeration);
+                // the time slot that ego vehicle uses when checking opened may
+                // differ from the one it requests in setApproaching
+                MSLink::ApproachingVehicleInformation avi = (*i).myLink->getApproaching(this);
+                if (avi.arrivalTime != (*i).myArrivalTime || avi.leavingTime != leaveTime) {
+                    glColor3d(1, 0.65, 0);
+                    drawLinkItem(p + Position(0, -1), avi.arrivalTime, avi.leavingTime, s.addExaggeration * 0.7);
+                }
             }
         }
     }
@@ -1093,6 +1094,15 @@ GUIVehicle::drawGLAdditional(const GUIVisualizationSettings& s) const {
     glPopName();
 }
 
+
+void 
+GUIVehicle::drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate) {
+    glTranslated(pos.x(), pos.y(), -.1);
+    GLHelper::drawFilledCircle(1);
+    std::string times = toString(STEPS2TIME(arrivalTime)) + "/" + toString(STEPS2TIME(leaveTime));
+    GLHelper::drawText(times.c_str(), Position(), .1, 1.6 * exagerate, RGBColor(0, 1, 0), 0);
+    glTranslated(-pos.x(), -pos.y(), .1);
+}
 
 const std::vector<MSVehicle::LaneQ>&
 GUIVehicle::getBestLanes() const {

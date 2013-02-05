@@ -334,6 +334,8 @@ private:
 
     /// @brief add seats to mySeatPositions and update requiredSeats
     void computeSeats(const Position& front, const Position& back, int& requiredSeats) const;
+
+    static void drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate);
 };
 
 
