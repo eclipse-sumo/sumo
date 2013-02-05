@@ -992,6 +992,9 @@ protected:
     /// Container for used Links/visited Lanes during lookForward.
     DriveItemVector myLFLinkLanes;
 
+    /// @brief estimate leaving speed when accelerating across a link
+    SUMOReal estimateLeaveSpeed(MSLane* lane, SUMOReal vLinkPass, SUMOReal linkLength);
+
 
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage

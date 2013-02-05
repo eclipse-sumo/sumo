@@ -31,6 +31,7 @@
 #endif
 
 #include <iostream>
+#include "MSNet.h"
 #include "MSLink.h"
 #include "MSLane.h"
 #include "MSGlobals.h"
@@ -86,9 +87,9 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 
 void
-MSLink::setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) {
+MSLink::setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, bool setRequest) {
     removeApproaching(approaching);
-    const SUMOTime leaveTime = arrivalTime + TIME2STEPS((approaching->getVehicleType().getLengthWithGap() + getLength()) / speed);
+    const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLengthWithGap());
     ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, approaching, setRequest);
     myApproachingVehicles.push_back(approachInfo);
 }
@@ -117,6 +118,17 @@ MSLink::removeApproaching(SUMOVehicle* veh) {
     LinkApproachingVehicles::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(veh));
     if (i != myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
+    }
+}
+
+
+MSLink::ApproachingVehicleInformation 
+MSLink::getApproaching(const SUMOVehicle* veh) const {
+    LinkApproachingVehicles::const_iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(veh));
+    if (i != myApproachingVehicles.end()) {
+        return *i;
+    } else {
+        return ApproachingVehicleInformation(-1000, -1000, 0, false);
     }
 }
 

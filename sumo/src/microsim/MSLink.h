@@ -130,19 +130,20 @@ public:
      *
      * The information is stored in myApproachingVehicles.
      */
-    void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest);
+    void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, 
+            SUMOReal arrivalSpeed, SUMOReal leaveSpeed, bool setRequest);
 
-
+    /// @brief removes the vehicle from myApproachingVehicles
+    void removeApproaching(SUMOVehicle* veh);
 
     void addBlockedLink(MSLink* link);
 
-
-
-    void removeApproaching(SUMOVehicle* veh);
     const std::vector<ApproachingVehicleInformation>& getApproaching() const {
         return myApproachingVehicles;
     }
 
+    /// @brief get information about this approaching vehicle
+    ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
 
     /** @brief Returns the information whether the link may be passed
      *
