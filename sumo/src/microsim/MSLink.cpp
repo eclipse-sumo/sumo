@@ -206,10 +206,13 @@ MSLink::safeHeadwayTime(SUMOReal leaderSpeed, SUMOReal followerSpeed) {
     // h: save headway time (result)
     const SUMOReal v = leaderSpeed;
     const SUMOReal u = followerSpeed;
-    // XXX use cfmodel values of possible
+    // XXX use cfmodel values if possible
     const SUMOReal a = DEFAULT_VEH_DECEL;
     const SUMOReal b = DEFAULT_VEH_DECEL;
     const SUMOReal g = DEFAULT_VEH_MINGAP;
+    if (u == 0) {
+        return 0;
+    }
     // breaking distance ~ (v^2 - a*v)/(2*a)
     if (v < a) {
         // leader may break in one timestep (need different formula)
