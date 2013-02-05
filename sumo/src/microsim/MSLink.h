@@ -142,7 +142,9 @@ public:
         return myApproachingVehicles;
     }
 
-    /// @brief get information about this approaching vehicle
+    /* @brief return information about this vehicle if it is registered as
+     * approaching (dummy values otherwise)
+     * @note used for visualisation of link items */
     ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
 
     /** @brief Returns the information whether the link may be passed
