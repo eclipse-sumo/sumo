@@ -281,8 +281,8 @@ private:
 
     };
 
-    /// @brief compute the safe headway time between a leader and a follower entering the same lane
-    static SUMOTime safeHeadwayTime(SUMOReal leaderSpeed, SUMOReal followerSpeed);
+    /// @brief return whether the given headwayTime is unsafe
+    static SUMOTime unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed);
 
     /// @brief returns whether the given lane may still be occupied by a vehicle currently on it
     static bool maybeOccupied(MSLane* lane);

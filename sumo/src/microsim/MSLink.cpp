@@ -179,12 +179,12 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed, 
         const SUMOReal foeSpeed = MIN2(getLane()->getVehicleMaxSpeed(i->vehicle), i->vehicle->getSpeed());
         if ((*i).leavingTime < arrivalTime) {
             // ego wants to be follower
-            if (sameTargetLane && ((*i).leavingTime + safeHeadwayTime(foeSpeed, speed) >= arrivalTime)) {
+            if (sameTargetLane && unsafeHeadwayTime(arrivalTime - (*i).leavingTime, foeSpeed, speed)) {
                 return true;
             }
         } else if ((*i).arrivalTime > leaveTime) {
             // ego wants to be leader
-            if (sameTargetLane && ((*i).arrivalTime - safeHeadwayTime(speed, foeSpeed) <= leaveTime)) {
+            if (sameTargetLane && unsafeHeadwayTime((*i).arrivalTime - leaveTime, speed, foeSpeed)) {
                 return true;
             }
         } else {
@@ -197,31 +197,17 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed, 
 
 
 SUMOTime
-MSLink::safeHeadwayTime(SUMOReal leaderSpeed, SUMOReal followerSpeed) {
-    // v: leader speed
-    // u: follower speed
-    // a: leader decel
-    // b: follower decel
-    // g: follower min gap
-    // h: save headway time (result)
-    const SUMOReal v = leaderSpeed;
-    const SUMOReal u = followerSpeed;
-    // XXX use cfmodel values if possible
-    const SUMOReal a = DEFAULT_VEH_DECEL;
-    const SUMOReal b = DEFAULT_VEH_DECEL;
-    const SUMOReal g = DEFAULT_VEH_MINGAP;
-    if (u == 0) {
-        return 0;
+MSLink::unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed) {
+    // headwayTime is the expected time difference between the leaders rear and the followers front + safeGap
+    if (leaderSpeed < DEFAULT_VEH_DECEL) {
+        // leader may break in one timestep 
+        leaderSpeed = 0;
     }
-    // breaking distance ~ (v^2 - a*v)/(2*a)
-    if (v < a) {
-        // leader may break in one timestep (need different formula)
-        // u*h > g + (u^2 - b*u)/(2*b) + 0.5
-        return TIME2STEPS((g + 0.5) / u + (u / b - 1.0) * 0.5);
-    } else {
-        // u*h + (v^2 - a*v)/(2*a) > g + (u^2 - b*u)/(2*b) + 0.5
-        return TIME2STEPS((g + (1.0 + v - v * v / a) * 0.5) / u + (u / b - 1.0) * 0.5);
-    }
+    // this formula is conservative since the headway time increases as soon as
+    // the follower starts to break
+    // on the other hand, vehicles turning onto a higher-priority road usually
+    // don't want to make other people break 
+    return ((followerSpeed - leaderSpeed) / DEFAULT_VEH_DECEL) > STEPS2TIME(headwayTime);
 }
 
 
@@ -240,7 +226,7 @@ MSLink::maybeOccupied(MSLane* lane) {
     } else {
         assert(distLeft > 0);
         // can we be sure that the vehicle leaves this lane in the next step?
-        bool result = distLeft > veh->getSpeed() - veh->getCarFollowModel().getMaxDecel();
+        bool result = distLeft > (veh->getSpeed() - veh->getCarFollowModel().getMaxDecel());
         return result;
     }
 }
