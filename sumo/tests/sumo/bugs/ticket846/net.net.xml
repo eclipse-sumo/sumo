@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 23 Nov 2012 03:50:06 PM CET by Netedit Version dev-SVN-r13008
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/erdm_ja/debug/ticket795/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/erdm_ja/debug/ticket795/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="-593345.09,-5779253.43" convBoundary="3035.35,20260.63,3421.08,20797.38" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":n_0" function="internal">
+        <lane id=":n_0_0" index="0" speed="59.72" length="5.19" shape="3320.04,20385.59 3318.84,20384.78 3318.24,20383.80 3318.27,20382.66 3318.92,20381.36"/>
+    </edge>
+    <edge id=":n_1" function="internal">
+        <lane id=":n_1_0" index="0" speed="100.00" length="6.24" shape="3315.39,20386.50 3318.92,20381.36"/>
+    </edge>
+
+    <edge id="beg1" from="552628403" to="n" priority="-1" shape="3421.08,20414.41 3336.34,20391.60 3319.46,20383.48">
+        <lane id="beg1_0" index="0" speed="19.44" length="105.35" shape="3420.65,20416.00 3335.76,20393.15 3320.04,20385.59"/>
+    </edge>
+    <edge id="beg2" from="552628419" to="n" priority="-1">
+        <lane id="beg2_0" index="0" speed="100.00" length="497.23" shape="3033.99,20796.45 3315.39,20386.50"/>
+    </edge>
+    <edge id="end" from="n" to="721067576" priority="-1" shape="3319.46,20383.48 3348.93,20340.67 3393.07,20279.23 3409.11,20260.63">
+        <lane id="end_0" index="0" speed="100.00" length="150.92" shape="3318.92,20381.36 3347.57,20339.73 3391.73,20278.27 3407.86,20259.55"/>
+    </edge>
+
+    <junction id="552628403" type="unregulated" x="3421.08" y="20414.41" incLanes="" intLanes="" shape="3421.07,20414.46 3420.24,20417.55">
+    </junction>
+    <junction id="552628419" type="unregulated" x="3035.35" y="20797.38" incLanes="" intLanes="" shape="3035.31,20797.35 3032.67,20795.54">
+    </junction>
+    <junction id="721067576" type="unregulated" x="3409.11" y="20260.63" incLanes="end_0" intLanes="" shape="3406.65,20258.51 3409.07,20260.60">
+    </junction>
+    <junction id="n" type="traffic_light" x="3319.46" y="20383.48" incLanes="beg1_0 beg2_0" intLanes=":n_0_0 :n_1_0" shape="3319.35,20387.03 3320.74,20384.15 3320.24,20382.26 3317.60,20380.45 3314.07,20385.60 3316.70,20387.41">
+        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="1" response="00" foes="01" cont="0"/>
+    </junction>
+
+    <connection from="beg1" to="end" fromLane="0" toLane="0" via=":n_0_0" dir="l" state="m"/>
+    <connection from="beg2" to="end" fromLane="0" toLane="0" via=":n_1_0" dir="s" state="M"/>
+
+    <connection from=":n_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n_1" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

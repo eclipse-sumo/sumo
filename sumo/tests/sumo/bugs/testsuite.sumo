@@ -99,3 +99,4 @@ ticket840
 
 # test against a collision where one vehicles violates its registered approach time and breaks while on the junction
 break_on_junction
+ticket846
