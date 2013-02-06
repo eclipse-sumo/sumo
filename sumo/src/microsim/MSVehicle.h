@@ -993,7 +993,7 @@ protected:
     DriveItemVector myLFLinkLanes;
 
     /// @brief estimate leaving speed when accelerating across a link
-    SUMOReal estimateLeaveSpeed(MSLane* lane, SUMOReal vLinkPass, SUMOReal linkLength);
+    SUMOReal estimateLeaveSpeed(MSLink* link, SUMOReal vLinkPass);
 
 
 private:
