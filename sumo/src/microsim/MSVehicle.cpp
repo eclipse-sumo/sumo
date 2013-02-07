@@ -684,6 +684,7 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
     SUMOReal seen = myLane->getLength() - myState.myPos; // the distance already "seen"; in the following always up to the end of the current "lane"
     SUMOReal seenNonInternal = 0;
     cfModel.leftVehicleVsafe(this, neigh, v);
+    SUMOReal vLinkPass = MIN2(estimateSpeedAfterDistance(seen, v), myLane->getVehicleMaxSpeed(this)); // upper bound
     unsigned int view = 0;
     bool firstLane = true;
     int lastLink = -1;
@@ -698,6 +699,7 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
         if (!firstLane) {
             leaderInfo = lane->getLastVehicleInformation();
             leaderInfo.second = leaderInfo.second + seen - lane->getLength() - getVehicleType().getMinGap();
+            vLinkPass = MIN2(estimateSpeedAfterDistance(lane->getLength(), v), lane->getVehicleMaxSpeed(this)); // upper bound
         } else if (leaderInfo.first == 0) {
             // we still have to account vehicles lapping into the lane we are currently at
             if (myLane->getPartialOccupator() != 0) {
@@ -717,6 +719,7 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
                 myLFLinkLanes[lastLink].adaptLeaveSpeed(vsafeLeader);
             }
             v = MIN2(v, vsafeLeader);
+            vLinkPass = MIN2(vLinkPass, vsafeLeader);
         }
 
         // process stops
@@ -766,11 +769,10 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
         bool yellow = (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR || (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
         bool red = (*link)->getState() == LINKSTATE_TL_RED;
         bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
-        SUMOReal vLinkPass = v;
         SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, stopDist));
         if ((yellow || red) && seen > cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime()) {
             // the vehicle is able to brake in front of a yellow/red traffic light
-            myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / vLinkPass), vLinkPass, stopDist));
+            myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / vLinkWait), vLinkWait, stopDist));
             break;
         }
         SUMOReal va = firstLane ? v : lane->getVehicleMaxSpeed(this);
@@ -788,7 +790,17 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
                     + (seen - (v1*v1 - arrivalSpeed*arrivalSpeed) * 0.5 / getCarFollowModel().getMaxDecel()) / vLinkWait); 
             myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, setRequest, arrivalTime, arrivalSpeed, stopDist));
         } else {
-            myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, t + TIME2STEPS(seen / vLinkPass), vLinkPass, stopDist));
+            if (vLinkPass >= v) {
+                const SUMOReal accelTime = (vLinkPass - v) / getCarFollowModel().getMaxAccel();
+                const SUMOReal accelWay = accelTime * (vLinkPass + v) * 0.5;
+                const SUMOReal arrivalTime = t + TIME2STEPS(accelTime + MAX2(SUMOReal(0), seen - accelWay) / vLinkPass);
+                myLFLinkLanes.push_back(DriveProcessItem(*link, v, vLinkWait, setRequest, arrivalTime, vLinkPass, stopDist));
+            } else {
+                const SUMOReal deccelTime = (v - vLinkPass) / getCarFollowModel().getMaxDecel();
+                const SUMOReal deccelWay = deccelTime * (vLinkPass + v) * 0.5;
+                const SUMOReal arrivalTime = t + TIME2STEPS(deccelTime + MAX2(SUMOReal(0), seen - deccelWay) / vLinkPass);
+                myLFLinkLanes.push_back(DriveProcessItem(*link, v, vLinkWait, setRequest, arrivalTime, vLinkPass, stopDist));
+            }
         }
         // get the following lane
         lane = (*link)->getViaLaneOrLane();
@@ -804,14 +816,14 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
         myLFLinkLanes[lastLink].adaptLeaveSpeed(leaveSpeed);
 
         firstLane = false;
-        if (!setRequest || ((vLinkPass <= 0 || seen > dist) && hadNonInternal && seenNonInternal > vehicleLength * 2)) {
+        if (!setRequest || ((v <= 0 || seen > dist) && hadNonInternal && seenNonInternal > vehicleLength * 2)) {
             break;
         }
         // the link was passed
         // compute the velocity to use when the link is not blocked by other vehicles
         //  the vehicle shall be not faster when reaching the next lane than allowed
         va = MAX2(lane->getVehicleMaxSpeed(this), cfModel.freeSpeed(this, getSpeed(), seen, lane->getVehicleMaxSpeed(this)));
-        v = MIN2(va, vLinkPass);
+        v = MIN2(va, v);
         seenNonInternal += lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL ? 0 : lane->getLength();
         seen += lane->getLength();
     }
@@ -832,7 +844,8 @@ MSVehicle::estimateLeaveSpeed(MSLink* link, SUMOReal vLinkPass) {
 SUMOReal 
 MSVehicle::estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v) {
     // dist=v*t + 0.5*accel*t^2, solve for t and multiply with accel, then add v
-    return sqrt(2 * dist * getVehicleType().getCarFollowModel().getMaxAccel() + v * v);
+    return MIN2(getVehicleType().getMaxSpeed(), 
+            sqrt(2 * dist * getVehicleType().getCarFollowModel().getMaxAccel() + v * v));
 }
 
 bool
