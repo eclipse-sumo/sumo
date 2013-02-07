@@ -340,7 +340,13 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     }
     SUMOReal maxSpeed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, id.c_str(), ok);
     SUMOReal length = attrs.get<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok);
-    std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
+    std::string allow;
+    try {
+        bool dummy;
+        allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), dummy, "", false);
+    } catch (EmptyData e) {
+        // !!! deprecated
+    }
     std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, SUMO_const_laneWidth);
     PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
