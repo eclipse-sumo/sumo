@@ -995,6 +995,11 @@ protected:
     /// @brief estimate leaving speed when accelerating across a link
     SUMOReal estimateLeaveSpeed(MSLink* link, SUMOReal vLinkPass);
 
+    /* @brief estimate speed while accelerating for the given distance
+     * @param[in] dist The distance during which accelerating takes place
+     * @param[in] v The initial speed
+     */
+    SUMOReal estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v);
 
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage

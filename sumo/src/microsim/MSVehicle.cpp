@@ -824,11 +824,16 @@ MSVehicle::estimateLeaveSpeed(MSLink* link, SUMOReal vLinkPass) {
     // estimate leave speed for passing time computation
     // l=linkLength, a=accel, t=continuousTime, v=vLeave
     // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
-    const SUMOReal leaveSpeedMax = sqrt(2 * link->getLength() * getVehicleType().getCarFollowModel().getMaxAccel() 
-            + vLinkPass * vLinkPass);
-    return MIN2(link->getViaLaneOrLane()->getVehicleMaxSpeed(this), leaveSpeedMax);
+    return MIN2(link->getViaLaneOrLane()->getVehicleMaxSpeed(this),
+            estimateSpeedAfterDistance(link->getLength(), vLinkPass));
 }
 
+
+SUMOReal 
+MSVehicle::estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v) {
+    // dist=v*t + 0.5*accel*t^2, solve for t and multiply with accel, then add v
+    return sqrt(2 * dist * getVehicleType().getCarFollowModel().getMaxAccel() + v * v);
+}
 
 bool
 MSVehicle::moveChecked() {
