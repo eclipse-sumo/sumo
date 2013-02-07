@@ -766,10 +766,10 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
             break;
         }
 
-        bool yellow = (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR || (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
-        bool red = (*link)->getState() == LINKSTATE_TL_RED;
-        bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
-        SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, stopDist));
+        const bool yellow = (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR || (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
+        const bool red = (*link)->getState() == LINKSTATE_TL_RED;
+        const bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
+        const SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, stopDist));
         if ((yellow || red) && seen > cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime()) {
             // the vehicle is able to brake in front of a yellow/red traffic light
             myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / vLinkWait), vLinkWait, stopDist));
@@ -786,19 +786,19 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
             const SUMOReal arrivalSpeed = getCarFollowModel().getMaxDecel() + getCarFollowModel().getMaxAccel();
             const SUMOReal v1 = MAX2(vLinkWait, arrivalSpeed);
             // now + time spent decelerating + time spent at full speed
-            const SUMOReal arrivalTime = t + TIME2STEPS((v1 - arrivalSpeed) / getCarFollowModel().getMaxDecel() 
+            const SUMOTime arrivalTime = t + TIME2STEPS((v1 - arrivalSpeed) / getCarFollowModel().getMaxDecel() 
                     + (seen - (v1*v1 - arrivalSpeed*arrivalSpeed) * 0.5 / getCarFollowModel().getMaxDecel()) / vLinkWait); 
             myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, setRequest, arrivalTime, arrivalSpeed, stopDist));
         } else {
             if (vLinkPass >= v) {
                 const SUMOReal accelTime = (vLinkPass - v) / getCarFollowModel().getMaxAccel();
                 const SUMOReal accelWay = accelTime * (vLinkPass + v) * 0.5;
-                const SUMOReal arrivalTime = t + TIME2STEPS(accelTime + MAX2(SUMOReal(0), seen - accelWay) / vLinkPass);
+                const SUMOTime arrivalTime = t + TIME2STEPS(accelTime + MAX2(SUMOReal(0), seen - accelWay) / vLinkPass);
                 myLFLinkLanes.push_back(DriveProcessItem(*link, v, vLinkWait, setRequest, arrivalTime, vLinkPass, stopDist));
             } else {
-                const SUMOReal deccelTime = (v - vLinkPass) / getCarFollowModel().getMaxDecel();
-                const SUMOReal deccelWay = deccelTime * (vLinkPass + v) * 0.5;
-                const SUMOReal arrivalTime = t + TIME2STEPS(deccelTime + MAX2(SUMOReal(0), seen - deccelWay) / vLinkPass);
+                const SUMOReal decelTime = (v - vLinkPass) / getCarFollowModel().getMaxDecel();
+                const SUMOReal decelWay = decelTime * (vLinkPass + v) * 0.5;
+                const SUMOTime arrivalTime = t + TIME2STEPS(decelTime + MAX2(SUMOReal(0), seen - decelWay) / vLinkPass);
                 myLFLinkLanes.push_back(DriveProcessItem(*link, v, vLinkWait, setRequest, arrivalTime, vLinkPass, stopDist));
             }
         }
