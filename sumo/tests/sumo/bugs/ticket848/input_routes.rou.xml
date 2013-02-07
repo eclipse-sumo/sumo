@@ -1,0 +1,18 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vType id="long" length="20" minGap="2"/>
+    <vType id="short" length="5" minGap="2" maxSpeed="13"/>
+    <vType id="low_decel" decel="0.1"/>
+    <route id="r0" edges="gneE7 gneE15"/>
+    <route id="r1" edges="gneE14 gneE15"/>
+
+    <vehicle id="blocker" depart="0" route="r2" type="long" departPos="29" departLane="2" arrivalLane="2">
+        <route edges="gneE15"/>
+        <stop lane="gneE15_2" endPos="30" until="4"/>
+    </vehicle>
+
+    <vehicle id="green" depart="2" route="r0" type="long" departPos="35" departLane="1" arrivalLane="2"/>
+
+
+    <vehicle id="priority" depart="4" route="r1" type="short" departLane="0" arrivalLane="2" departSpeed="max" departPos="0"/>
+
+</routes>
