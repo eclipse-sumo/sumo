@@ -679,7 +679,7 @@ MSLane::detectCollisions(SUMOTime timestep) {
     for (VehCont::iterator veh = myVehicles.begin(); veh != lastVeh;) {
         VehCont::iterator pred = veh + 1;
         SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getVehicleType().getLength() - (*veh)->getPositionOnLane() - (*veh)->getVehicleType().getMinGap();
-        if (gap < 0) {
+        if (gap < -0.001) {
             MSVehicle* vehV = *veh;
             WRITE_WARNING("Teleporting vehicle '" + vehV->getID() + "'; collision with '"
                           + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
