@@ -162,7 +162,8 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
     }
     // approaching vehicles might have been braking and thus block the link longer than anticpated
     for (std::vector<MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
-        if (maybeOccupied(*i)) {
+        assert((*i)->getLinkCont().size() == 1);
+        if (myLane == (*i)->getLinkCont()[0]->getLane() && maybeOccupied(*i)) {
             return false;
         }
     }
