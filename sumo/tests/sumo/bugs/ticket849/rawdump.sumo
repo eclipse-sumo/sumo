@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Feb  8 16:18:28 2013 by SUMO sumo Version dev-SVN-r13304
+<!-- generated on Fri Feb  8 20:05:41 2013 by SUMO sumo Version dev-SVN-r13280
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -11,7 +11,7 @@
     </input>
 
     <output>
-        <netstate-dump value="netstate_svn.xml"/>
+        <netstate-dump value="rawdump.xml"/>
     </output>
 
     <time>
@@ -429,10 +429,10 @@
     </timestep>
     <timestep time="50.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="0" pos="2470.51" speed="49.13"/>
             </lane>
-            <lane id="beg_1"/>
         </edge>
     </timestep>
 </sumo-netstate>
