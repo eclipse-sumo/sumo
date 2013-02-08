@@ -361,6 +361,9 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) {
     // assign new route
     myRoute = newRoute;
     myLastBestLanesEdge = 0;
+    if (!onInit) {
+        getBestLanes(true);
+    }
     // update arrival definition
     calculateArrivalPos();
     // save information that the vehicle was rerouted
@@ -1277,6 +1280,8 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     }
 #endif
     myLane = enteredLane;
+    // need to update myCurrentLaneInBestLanes
+    getBestLanes();
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
     for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane->getMoveReminders().begin(); rem != enteredLane->getMoveReminders().end(); ++rem) {
@@ -1405,6 +1410,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
     if (startLane == 0) {
         startLane = myLane;
     }
+    assert(startLane != 0);
     // update occupancy and current lane index, only, if the vehicle has not moved to a new lane
     // (never for internal lanes)
     if ((myLastBestLanesEdge == &startLane->getEdge() && !forceRebuild) || 
@@ -1620,6 +1626,8 @@ MSVehicle::getBestLanesContinuation() const {
     if (myBestLanes.empty() || myBestLanes[0].empty()) {
         return myEmptyLaneVector;
     }
+    assert((*myCurrentLaneInBestLanes).lane == myLane 
+            || myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL);
     return (*myCurrentLaneInBestLanes).bestContinuations;
 }
 
