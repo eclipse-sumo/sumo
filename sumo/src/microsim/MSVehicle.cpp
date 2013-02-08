@@ -845,7 +845,7 @@ SUMOReal
 MSVehicle::estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v) {
     // dist=v*t + 0.5*accel*t^2, solve for t and multiply with accel, then add v
     return MIN2(getVehicleType().getMaxSpeed(), 
-            sqrt(2 * dist * getVehicleType().getCarFollowModel().getMaxAccel() + v * v));
+            (SUMOReal)sqrt(2 * dist * getVehicleType().getCarFollowModel().getMaxAccel() + v * v));
 }
 
 bool
