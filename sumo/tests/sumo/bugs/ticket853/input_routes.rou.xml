@@ -1,0 +1,5 @@
+<routes>
+    <vehicle id="should_not_crash" depart="0.00">
+        <route edges=":gneJ1_1 end"/>
+    </vehicle>
+</routes>

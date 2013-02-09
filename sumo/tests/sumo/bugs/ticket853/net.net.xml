@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat 09 Feb 2013 09:38:44 PM CET by Netedit Version dev-SVN-r13140
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/kobo/dlr/debug/ticket852/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/ticket852/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-50.72,-48.27,100.91,35.33" origBoundary="0.00,-1.65,2500.00,1000.00" projParameter="!"/>
+
+    <edge id=":gneJ1_0" function="internal">
+        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="5.01" shape="40.32,29.97 40.50,31.33 41.07,32.30 42.04,32.89 43.40,33.08"/>
+    </edge>
+    <edge id=":gneJ1_1" function="internal">
+        <lane id=":gneJ1_1_0" index="0" speed="13.89" length="6.29" shape="37.11,33.09 43.40,33.08"/>
+    </edge>
+
+    <edge id="beg1" from="gneJ0" to="gneJ1" priority="2">
+        <lane id="beg1_0" index="0" speed="13.89" length="87.84" shape="-50.73,33.68 37.11,33.09"/>
+    </edge>
+    <edge id="end" from="gneJ1" to="gneJ2" priority="2">
+        <lane id="end_0" index="0" speed="13.89" length="607.30" shape="43.40,33.08 650.70,33.46"/>
+    </edge>
+    <edge id="zzz" from="gneJ3" to="gneJ1" priority="1">
+        <lane id="zzz_0" index="0" speed="13.89" length="78.22" shape="41.08,-48.25 40.32,29.97"/>
+    </edge>
+
+    <junction id="gneJ0" type="unregulated" x="-50.72" y="35.33" incLanes="" intLanes="" shape="-50.72,35.28 -50.74,32.08">
+    </junction>
+    <junction id="gneJ1" type="priority" x="38.62" y="34.73" incLanes="zzz_0 beg1_0" intLanes=":gneJ1_0_0 :gneJ1_1_0" shape="43.40,34.68 43.40,31.48 41.92,29.98 38.72,29.95 37.10,31.49 37.12,34.69">
+        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="1" response="00" foes="01" cont="0"/>
+    </junction>
+    <junction id="gneJ2" type="unregulated" x="650.70" y="35.11" incLanes="end_0" intLanes="" shape="650.70,31.86 650.70,35.06">
+    </junction>
+    <junction id="gneJ3" type="unregulated" x="39.43" y="-48.27" incLanes="" intLanes="" shape="39.48,-48.27 42.68,-48.24">
+    </junction>
+
+    <connection from="beg1" to="end" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="s" state="M"/>
+    <connection from="zzz" to="end" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="r" state="m"/>
+
+    <connection from=":gneJ1_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_1" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
