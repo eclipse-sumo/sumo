@@ -157,8 +157,10 @@ public:
      * The parameter is simply passed to the lane-instance for reporting.
      *
      * @param[in] timestep The current time step
+     * @param[in] stage The current stage within the simulation step 
+     * @note see MSNet::simulationStep
      */
-    void detectCollisions(SUMOTime timestep);
+    void detectCollisions(SUMOTime timestep, int stage);
 
 
     /** @brief Returns loaded edges

@@ -132,9 +132,9 @@ GUILane::buildLaneWrapper(unsigned int index) {
 
 
 void
-GUILane::detectCollisions(SUMOTime timestep) {
+GUILane::detectCollisions(SUMOTime timestep, int stage) {
     AbstractMutex::ScopedLocker locker(myLock);
-    MSLane::detectCollisions(timestep);
+    MSLane::detectCollisions(timestep, stage);
 }
 
 

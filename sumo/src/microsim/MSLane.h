@@ -389,7 +389,7 @@ public:
 
 
     /// Check if vehicles are too close.
-    virtual void detectCollisions(SUMOTime timestep);
+    virtual void detectCollisions(SUMOTime timestep, int stage);
 
 
     /** Returns the information whether this lane may be used to continue

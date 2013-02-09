@@ -130,7 +130,7 @@ public:
 
 
 
-    void detectCollisions(SUMOTime timestep);
+    void detectCollisions(SUMOTime timestep, int stage);
 
 
     GUILaneWrapper* buildLaneWrapper(unsigned int index);

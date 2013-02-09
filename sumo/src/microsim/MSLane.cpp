@@ -670,7 +670,7 @@ MSLane::moveCritical(SUMOTime t) {
 
 
 void
-MSLane::detectCollisions(SUMOTime timestep) {
+MSLane::detectCollisions(SUMOTime timestep, int stage) {
     if (myVehicles.size() < 2) {
         return;
     }
@@ -683,7 +683,7 @@ MSLane::detectCollisions(SUMOTime timestep) {
             MSVehicle* vehV = *veh;
             WRITE_WARNING("Teleporting vehicle '" + vehV->getID() + "'; collision with '"
                           + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
-                          + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                          + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + toString(stage) + ".");
             MSNet::getInstance()->getVehicleControl().registerCollision();
             myVehicleLengthSum -= vehV->getVehicleType().getLengthWithGap();
             MSVehicleTransfer::getInstance()->addVeh(timestep, vehV);

@@ -363,7 +363,7 @@ MSNet::simulationStep() {
 #endif
     myBeginOfTimestepEvents->execute(myStep);
     if (MSGlobals::gCheck4Accidents) {
-        myEdges->detectCollisions(myStep);
+        myEdges->detectCollisions(myStep, 0);
     }
     // check whether the tls programs need to be switched
     myLogics->check2Switch(myStep);
@@ -388,14 +388,14 @@ MSNet::simulationStep() {
         //  (it is now known whether they may drive
         myEdges->moveFirst(myStep);
         if (MSGlobals::gCheck4Accidents) {
-            myEdges->detectCollisions(myStep);
+            myEdges->detectCollisions(myStep, 1);
         }
 
         // Vehicles change Lanes (maybe)
         myEdges->changeLanes(myStep);
 
         if (MSGlobals::gCheck4Accidents) {
-            myEdges->detectCollisions(myStep);
+            myEdges->detectCollisions(myStep, 2);
         }
 #ifdef HAVE_INTERNAL
     }
@@ -411,7 +411,7 @@ MSNet::simulationStep() {
     myInsertionEvents->execute(myStep);
     myInserter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {
-        myEdges->detectCollisions(myStep);
+        myEdges->detectCollisions(myStep, 3);
     }
     MSVehicleTransfer::getInstance()->checkInsertions(myStep);
 

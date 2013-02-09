@@ -127,7 +127,7 @@ public:
 
     GUILaneWrapper* buildLaneWrapper(unsigned int index);
 
-    void detectCollisions(SUMOTime timestep);
+    void detectCollisions(SUMOTime timestep, int stage);
     MSVehicle* removeVehicle(MSVehicle* remVehicle);
 
 protected:
