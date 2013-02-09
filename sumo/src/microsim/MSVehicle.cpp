@@ -1414,7 +1414,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
     // update occupancy and current lane index, only, if the vehicle has not moved to a new lane
     // (never for internal lanes)
     if ((myLastBestLanesEdge == &startLane->getEdge() && !forceRebuild) || 
-            startLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+            (startLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL && myBestLanes.size() > 0)) {
         std::vector<LaneQ>& lanes = *myBestLanes.begin();
         std::vector<LaneQ>::iterator i;
         for (i = lanes.begin(); i != lanes.end(); ++i) {
