@@ -795,6 +795,11 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> >& marked) {
                 doLoop = false;
                 break;
             }
+            if (e->getTurnDestination() != 0 || e->getToNode()->getConnectionTo(e->getFromNode()) != 0) {
+                // do not follow turn-arounds while in a (tentative) loop
+                doLoop = false;
+                break;
+            }
             EdgeVector::const_iterator me = find(edges.begin(), edges.end(), e);
             NBContHelper::nextCW(edges, me);
             NBEdge* left = *me;
