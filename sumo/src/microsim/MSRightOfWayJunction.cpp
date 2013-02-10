@@ -99,13 +99,24 @@ MSRightOfWayJunction::postloadInit() {
             if (myLogic->getLogicSize() <= requestPos) {
                 throw ProcessError("Found invalid logic position of a link (network error)");
             }
-            const MSLogicJunction::LinkFoes& foeLinks = myLogic->getFoesFor(requestPos);
-            const std::bitset<64>& internalFoes = myLogic->getInternalFoesFor(requestPos);
+            const MSLogicJunction::LinkFoes& foeLinks = myLogic->getFoesFor(requestPos); // SUMO_ATTR_RESPONSE
+            const std::bitset<64>& internalFoes = myLogic->getInternalFoesFor(requestPos); // SUMO_ATTR_FOES
             bool cont = myLogic->getIsCont(requestPos);
             myLinkFoeLinks[*j] = std::vector<MSLink*>();
+            std::vector<MSLink*> exitLinkFoeLinks; // manage conflicts for the link after an internal lane
             for (unsigned int c = 0; c < maxNo; ++c) {
                 if (foeLinks.test(c)) {
-                    myLinkFoeLinks[*j].push_back(sortedLinks[c].second);
+                    MSLink* foe = sortedLinks[c].second;
+                    myLinkFoeLinks[*j].push_back(foe);
+#ifdef HAVE_INTERNAL_LANES
+                    if (MSGlobals::gUsingInternalLanes && foe->getViaLane() != 0) {
+                        assert(foe->getViaLane()->getLinkCont().size() == 1);
+                        // only add exitFoes which have the same target
+                        if ((*j)->getLane() == foe->getLane()) {
+                            exitLinkFoeLinks.push_back(foe->getViaLane()->getLinkCont()[0]);
+                        }
+                    }
+#endif
                 }
             }
             std::vector<MSLink*> foes;
@@ -118,6 +129,7 @@ MSRightOfWayJunction::postloadInit() {
                     if (l == 0) {
                         continue;
                     }
+                    // add foe links after an internal junction
                     const MSLinkCont& lc = l->getLinkCont();
                     for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
                         if ((*q)->getViaLane() != 0) {
@@ -150,6 +162,15 @@ MSRightOfWayJunction::postloadInit() {
             }
 #endif
             (*j)->setRequestInformation(requestPos, requestPos, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
+#ifdef HAVE_INTERNAL_LANES
+            // the exit link for a link before an internal junction is handled in MSInternalJunction 
+            // so we need to skip if cont=true
+            if (MSGlobals::gUsingInternalLanes && (*j)->getViaLane() != 0 && !cont) {
+                assert((*j)->getViaLane()->getLinkCont().size() == 1);
+                MSLink* exitLink = (*j)->getViaLane()->getLinkCont()[0];
+                exitLink->setRequestInformation(requestPos, requestPos, false, false, exitLinkFoeLinks, std::vector<MSLane*>());
+            }
+#endif
             for (std::vector<MSLink*>::const_iterator k = foes.begin(); k != foes.end(); ++k) {
                 (*j)->addBlockedLink(*k);
                 (*k)->addBlockedLink(*j);

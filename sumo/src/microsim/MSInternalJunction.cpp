@@ -61,6 +61,13 @@ MSInternalJunction::~MSInternalJunction() {}
 
 void
 MSInternalJunction::postloadInit() {
+    if (myIncomingLanes.size() == 0) {
+        throw ProcessError("Internal junction " + getID() + " has no incoming lanes");
+    }
+    // the first lane in the list of incoming lanes is special. It defines the
+    // link that needs to do all the checking for this internal junction
+    assert(myIncomingLanes[0]->getLinkCont().size() == 1);
+    MSLink* thisLink = myIncomingLanes[0]->getLinkCont()[0];
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
     for (std::vector<MSLane*>::iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
@@ -74,6 +81,7 @@ MSInternalJunction::postloadInit() {
         }
 
     }
+    std::vector<MSLink*> exitLinkFoeLinks; // manage conflicts for the link after an internal lane
     for (std::vector<MSLane*>::const_iterator i = myIncomingLanes.begin() + 1; i != myIncomingLanes.end(); ++i) {
         MSLane* l = *i;
         const MSLinkCont& lc = l->getLinkCont();
@@ -83,20 +91,20 @@ MSInternalJunction::postloadInit() {
                 continue;
             }
             myInternalLinkFoes.push_back(*j);
-        }
-    }
-    if (myIncomingLanes.size() != 0) {
-        // for the first incoming lane
-        const MSLinkCont& links = myIncomingLanes[0]->getLinkCont();
-        // ... set information for every link
-        for (MSLinkCont::const_iterator j = links.begin(); j != links.end(); j++) {
-            (*j)->setRequestInformation(requestPos, requestPos, true, false, myInternalLinkFoes, myInternalLaneFoes);
-            requestPos++;
-            for (std::vector<MSLink*>::const_iterator k = myInternalLinkFoes.begin(); k != myInternalLinkFoes.end(); ++k) {
-                (*j)->addBlockedLink(*k);
-                (*k)->addBlockedLink(*j);
+            assert(via->getLinkCont().size() == 1);
+            // only add exitFoes which have the same target
+            if (thisLink->getLane() == via->getLinkCont()[0]->getLane()) {
+                exitLinkFoeLinks.push_back(via->getLinkCont()[0]);
             }
         }
+    }
+    thisLink->setRequestInformation(requestPos, requestPos, true, false, myInternalLinkFoes, myInternalLaneFoes);
+    assert(thisLink->getViaLane()->getLinkCont().size() == 1);
+    MSLink* exitLink = thisLink->getViaLane()->getLinkCont()[0];
+    exitLink->setRequestInformation(requestPos, requestPos, false, false, exitLinkFoeLinks, std::vector<MSLane*>());
+    for (std::vector<MSLink*>::const_iterator k = myInternalLinkFoes.begin(); k != myInternalLinkFoes.end(); ++k) {
+        thisLink->addBlockedLink(*k);
+        (*k)->addBlockedLink(thisLink);
     }
 }
 
