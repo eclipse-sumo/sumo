@@ -348,6 +348,9 @@
         <!-- splits geometry to restrict segment length -->
         <geometry.max-segment-length value="0" type="FLOAT"/>
 
+        <!-- reduces too similar geometry points -->
+        <geometry.min-dist value="" type="FLOAT"/>
+
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
 
