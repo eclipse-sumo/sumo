@@ -5,7 +5,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 28 Jul 2009
-/// @version $Id: MSCFModel_KraussPS.h 11671 2012-01-07 20:14:30Z behrisch $
+/// @version $Id$
 ///
 // Krauss car-following model, changing accel and speed by slope
 /****************************************************************************/
