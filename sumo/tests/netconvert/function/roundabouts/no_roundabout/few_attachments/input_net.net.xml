@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 11 Feb 2013 03:57:03 PM CET by Netedit Version dev-SVN-r13140
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/kobo/dlr/szenarien/braunschweig/bs.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/ticket855c/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="-593345.09,-5779253.43" convBoundary="0.00,0.00,26922.79,27398.44" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":54540025_0" function="internal">
+        <lane id=":54540025_0_0" index="0" speed="8.33" length="5.82" shape="12293.68,9452.47 12293.59,9446.65"/>
+    </edge>
+    <edge id=":54540025_1" function="internal">
+        <lane id=":54540025_1_0" index="0" speed="8.33" length="4.79" shape="12298.84,9447.83 12297.74,9448.50 12297.05,9449.37 12296.77,9450.44 12296.89,9451.72"/>
+    </edge>
+    <edge id=":54540025_2" function="internal">
+        <lane id=":54540025_2_0" index="0" speed="8.33" length="6.15" shape="12298.84,9447.83 12296.96,9448.43 12295.46,9448.44 12294.34,9447.85 12293.59,9446.65"/>
+    </edge>
+    <edge id=":54540027_0" function="internal">
+        <lane id=":54540027_0_0" index="0" speed="8.33" length="2.64" shape="12304.79,9417.05 12305.50,9416.91 12306.08,9417.04 12306.53,9417.43 12306.84,9418.08"/>
+    </edge>
+    <edge id=":54540028_0" function="internal">
+        <lane id=":54540028_0_0" index="0" speed="8.33" length="2.38" shape="12313.60,9439.79 12313.70,9440.42 12313.59,9440.95 12313.26,9441.39 12312.71,9441.73"/>
+    </edge>
+    <edge id=":644616169_0" function="internal">
+        <lane id=":644616169_0_0" index="0" speed="8.33" length="4.82" shape="12302.58,9476.11 12302.05,9477.50 12301.34,9478.09 12300.45,9477.87 12299.36,9476.85"/>
+    </edge>
+
+    <edge id="-51968217" from="54540025" to="54540027" priority="-1" spreadType="center" shape="12294.71,9449.64 12285.02,9423.84 12306.35,9416.51">
+        <lane id="-51968217_0" index="0" speed="8.33" length="45.28" shape="12293.59,9446.65 12285.02,9423.84 12304.79,9417.05"/>
+    </edge>
+    <edge id="-554747014" from="644616169" to="54540025" priority="-1">
+        <lane id="-554747014_0" index="0" speed="8.33" length="25.04" shape="12299.36,9476.85 12293.68,9452.47"/>
+    </edge>
+    <edge id="51968215" from="54540028" to="54540025" priority="-1" spreadType="center">
+        <lane id="51968215_0" index="0" speed="8.33" length="15.16" shape="12312.71,9441.73 12298.84,9447.83"/>
+    </edge>
+    <edge id="51968216" from="54540027" to="54540028" priority="-1" spreadType="center">
+        <lane id="51968216_0" index="0" speed="8.33" length="22.73" shape="12306.84,9418.08 12313.60,9439.79"/>
+    </edge>
+    <edge id="554747014" from="54540025" to="644616169" priority="-1">
+        <lane id="554747014_0" index="0" speed="8.33" length="25.04" shape="12296.89,9451.72 12302.58,9476.11"/>
+    </edge>
+
+    <junction id="54540025" type="right_before_left" x="12294.71" y="9449.64" incLanes="-554747014_0 51968215_0" intLanes=":54540025_0_0 :54540025_1_0 :54540025_2_0" shape="12292.12,9452.83 12298.45,9451.36 12299.48,9449.29 12298.19,9446.36 12295.09,9446.09 12292.09,9447.22">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="001" foes="001" cont="0"/>
+    </junction>
+    <junction id="54540027" type="priority" x="12306.35" y="9416.51" incLanes="-51968217_0" intLanes=":54540027_0_0" shape="12305.31,9418.56 12308.37,9417.61 12304.27,9415.53 12305.31,9418.56">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="54540028" type="priority" x="12314.02" y="9441.15" incLanes="51968216_0" intLanes=":54540028_0_0" shape="12315.12,9439.31 12312.07,9440.26 12313.36,9443.19">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="644616169" type="right_before_left" x="12300.97" y="9476.48" incLanes="554747014_0" intLanes=":644616169_0_0" shape="12300.92,9476.49 12297.80,9477.22 12304.14,9475.74 12301.02,9476.47">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="-51968217" to="51968216" fromLane="0" toLane="0" via=":54540027_0_0" dir="l" state="M"/>
+    <connection from="-554747014" to="-51968217" fromLane="0" toLane="0" via=":54540025_0_0" dir="s" state="="/>
+    <connection from="51968215" to="554747014" fromLane="0" toLane="0" via=":54540025_1_0" dir="r" state="="/>
+    <connection from="51968215" to="-51968217" fromLane="0" toLane="0" via=":54540025_2_0" dir="l" state="="/>
+    <connection from="51968216" to="51968215" fromLane="0" toLane="0" via=":54540028_0_0" dir="l" state="M"/>
+    <connection from="554747014" to="-554747014" fromLane="0" toLane="0" via=":644616169_0_0" dir="t" state="="/>
+
+    <connection from=":54540025_0" to="-51968217" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54540025_1" to="554747014" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54540025_2" to="-51968217" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54540027_0" to="51968216" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":54540028_0" to="51968215" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":644616169_0" to="-554747014" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
