@@ -788,15 +788,12 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> >& marked) {
         }
         loopEdges.push_back(e);
         bool doLoop = true;
-        int attachments = 0; // number of attachments to the outside
         do {
             visited.insert(e);
             const EdgeVector& edges = e->getToNode()->getEdges();
             if (edges.size() < 2) {
                 doLoop = false;
                 break;
-            } else if (edges.size() > 2) {
-                attachments++;
             }
             if (e->getTurnDestination() != 0 || e->getToNode()->getConnectionTo(e->getFromNode()) != 0) {
                 // do not follow turn-arounds while in a (tentative) loop
@@ -816,11 +813,21 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> >& marked) {
             const size_t loopSize = loopEdges.end() - loopClosed;
             if (loopSize > 0) {
                 // loop found
-                if (loopSize < 3 || attachments < 3) {
-                    doLoop = false; // need at least 3 edges for a roundabout and 3 attachments
+                if (loopSize < 3) {
+                    doLoop = false; // need at least 3 edges for a roundabout
                 } else if (loopSize < loopEdges.size()) {
                     // remove initial edges not belonging to the loop
                     EdgeVector(loopEdges.begin() + (loopEdges.size() - loopSize), loopEdges.end()).swap(loopEdges);
+                }
+                // count attachments to the outside. need at least 3 or a roundabout doesn't make much sense
+                int attachments = 0;
+                for (EdgeVector::const_iterator j = loopEdges.begin(); j != loopEdges.end(); ++j) {
+                    if ((*j)->getToNode()->getEdges().size() > 2) {
+                        attachments++;
+                    }
+                }
+                if (attachments < 3) {
+                    doLoop = false;
                 }
                 break;
             }
