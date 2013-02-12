@@ -25,6 +25,9 @@ speed_default
 # checks using the given speed (0)
 speed_given0
 
+# checks using the given speed (0.2)
+speed_given_near0
+
 # checks using the given speed (10)
 speed_given10
 

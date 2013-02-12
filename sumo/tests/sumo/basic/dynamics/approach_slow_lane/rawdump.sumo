@@ -3266,7 +3266,7 @@
         <edge id="out">
             <lane id="out_0"/>
             <lane id="out_1">
-                <vehicle id="441" pos="10.05" speed="11.60"/>
+                <vehicle id="441" pos="10.05" speed="8.20"/>
             </lane>
         </edge>
     </timestep>
