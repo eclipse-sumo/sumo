@@ -75,13 +75,21 @@ public:
      */
     struct ApproachingVehicleInformation {
         /// @brief Constructor
-        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime, SUMOVehicle* _vehicle, const bool _willPass)
-            : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle), willPass(_willPass) {}
+        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime, 
+                SUMOReal _arrivalSpeed, SUMOReal _leaveSpeed, 
+                SUMOVehicle* _vehicle, const bool _willPass) : 
+            arrivalTime(_arrivalTime), leavingTime(_leavingTime), 
+            arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed), 
+            vehicle(_vehicle), willPass(_willPass) {}
 
         /// @brief The time the vehicle's front arrives at the link
         SUMOTime arrivalTime;
         /// @brief The estimated time at which the vehicle leaves the link
         SUMOTime leavingTime;
+        /// @brief The estimated speed with which the vehicle arrives at the link (for headway computation)
+        SUMOReal arrivalSpeed;
+        /// @brief The estimated speed with which the vehicle leaves the link (for headway computation)
+        SUMOReal leaveSpeed;
         /// @brief The vehicle
         SUMOVehicle* vehicle;
         /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
@@ -153,17 +161,21 @@ public:
      *
      * @return Whether this link may be passed.
      */
-    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
+    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, 
+            bool committedToDrive=false) const;
 
     /** @brief Returns the information whether this link is blocked
      * Valid after the vehicles have set their requests
      * @param[in] arrivalTime The arrivalTime of the vehicle who checks for an approaching foe
      * @param[in] leaveTime The leaveTime of the vehicle who checks for an approaching foe
-     * @param[in] speed The speed with which the checking vehicle plans to leave the link
+     * @param[in] arrivalSpeed The speed with which the checking vehicle plans to arrive at the link
+     * @param[in] leaveSpeed The speed with which the checking vehicle plans to leave the link
      * @param[in] sameTargetLane Whether the link that calls this method has the same target lane as this link
+     * @param[in] minHeadwayTime The minimum headway to require for foe links with the same target link
      * @return Whether this link is blocked
      */
-    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed, bool sameTargetLane) const;
+    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, 
+            bool sameTargetLane, SUMOTime minHeadwayTime) const;
 
     bool isBlockingAnyone() const {
         return myApproachingVehicles.size() != 0;
@@ -282,7 +294,7 @@ private:
     };
 
     /// @brief return whether the given headwayTime is unsafe
-    static SUMOTime unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed);
+    static SUMOTime unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed, SUMOTime minHeadwayTime);
 
     /// @brief returns whether the given lane may still be occupied by a vehicle currently on it
     static bool maybeOccupied(MSLane* lane);

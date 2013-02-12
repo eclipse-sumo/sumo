@@ -1001,6 +1001,9 @@ protected:
      */
     SUMOReal estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v);
 
+    /// @brief whether we are in the critical zone of a junction (approaching an exit link)
+    bool committedToDrive();
+
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
      * @note member is initialized on first access */

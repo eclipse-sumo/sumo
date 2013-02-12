@@ -844,6 +844,13 @@ MSVehicle::estimateLeaveSpeed(MSLink* link, SUMOReal vLinkPass) {
 }
 
 
+bool 
+MSVehicle::committedToDrive() {
+    // on an internal lane leading to a non-internal lane
+    return (myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL 
+            && myLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL);
+}
+
 SUMOReal 
 MSVehicle::estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v) {
     // dist=v*t + 0.5*accel*t^2, solve for t and multiply with accel, then add v
@@ -882,7 +889,7 @@ MSVehicle::moveChecked() {
                 break;
             }
             //
-            const bool opened = yellow || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLengthWithGap());
+            const bool opened = yellow || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLengthWithGap(), committedToDrive());
             // vehicles should decelerate when approaching a minor link
             // XXX check if this is still necessary
             if (opened && !lastWasGreenCont && !link->havePriority() && (*i).myDistance > getCarFollowModel().getMaxDecel()) {
@@ -1150,7 +1157,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
             DriveProcessItem& item = myLFLinkLanes[i - 1];
             const bool opened = item.myLink != 0 && (item.myLink->havePriority() ||
                                 item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
-                                                    item.getLeaveSpeed(), getVehicleType().getLengthWithGap()));
+                                                    item.getLeaveSpeed(), getVehicleType().getLengthWithGap(), committedToDrive()));
             bool allowsContinuation = item.myLink == 0 || item.myLink->isCont() || !hadVehicles[i] || opened;
             if (!opened && item.myLink != 0) {
                 if (i > 1) {
