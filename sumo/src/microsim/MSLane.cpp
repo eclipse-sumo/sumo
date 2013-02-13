@@ -699,25 +699,6 @@ MSLane::detectCollisions(SUMOTime timestep, int stage) {
 }
 
 
-SUMOReal
-getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos) {
-    MSRouteIterator next = veh.getRoute().begin();
-    const MSCFModel& cfModel = veh.getCarFollowModel();
-    MSLane* currentLane = (*next)->getLanes()[0];
-    SUMOReal seen = currentLane->getLength() - pos;
-    SUMOReal dist = SPEED2DIST(speed) + cfModel.brakeGap(speed);
-    SUMOReal tspeed = speed;
-    while (seen < dist && next != veh.getRoute().end() - 1) {
-        ++next;
-        MSLane* nextLane = (*next)->getLanes()[0];
-        tspeed = MIN2(cfModel.freeSpeed(&veh, tspeed, seen, nextLane->getVehicleMaxSpeed(&veh)), nextLane->getVehicleMaxSpeed(&veh));
-        dist = SPEED2DIST(tspeed) + cfModel.brakeGap(tspeed);
-        seen += nextLane->getLength();
-    }
-    return tspeed;
-}
-
-
 bool
 MSLane::setCritical(SUMOTime t, std::vector<MSLane*>& into) {
     // move critical vehicles
