@@ -111,9 +111,21 @@ MSRightOfWayJunction::postloadInit() {
 #ifdef HAVE_INTERNAL_LANES
                     if (MSGlobals::gUsingInternalLanes && foe->getViaLane() != 0) {
                         assert(foe->getViaLane()->getLinkCont().size() == 1);
-                        // only add exitFoes which have the same target
-                        if ((*j)->getLane() == foe->getLane()) {
-                            exitLinkFoeLinks.push_back(foe->getViaLane()->getLinkCont()[0]);
+                        MSLink* foeExitLink = foe->getViaLane()->getLinkCont()[0];
+                        // add foe links after an internal junction
+                        if (foeExitLink->getViaLane() != 0) {
+                            myLinkFoeLinks[*j].push_back(foeExitLink);
+                            assert(foeExitLink->getViaLane()->getLinkCont().size() == 1);
+                            // add exit link after the second part of an
+                            // internal junction if it has the same target as the current link
+                            if ((*j)->getLane() == foeExitLink->getLane()) {
+                                exitLinkFoeLinks.push_back(foeExitLink->getViaLane()->getLinkCont()[0]);
+                            }
+                        } else {
+                            // only add exitFoes which have the same target
+                            if ((*j)->getLane() == foe->getLane()) {
+                                exitLinkFoeLinks.push_back(foeExitLink);
+                            }
                         }
                     }
 #endif
