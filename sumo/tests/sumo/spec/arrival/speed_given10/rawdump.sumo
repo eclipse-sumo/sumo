@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/17/12 16:59:09 by SUMO sumo Version dev-SVN-r13166
+<!-- generated on Wed Feb 13 20:24:14 2013 by SUMO sumo Version dev-SVN-r13328
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -215,7 +215,7 @@
     <timestep time="21.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="1" pos="453.90" speed="27.80"/>
+                <vehicle id="1" pos="449.60" speed="23.50"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
@@ -224,7 +224,7 @@
     <timestep time="22.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="1" pos="478.51" speed="24.61"/>
+                <vehicle id="1" pos="468.60" speed="19.00"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
@@ -233,11 +233,20 @@
     <timestep time="23.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="1" pos="498.63" speed="20.11"/>
+                <vehicle id="1" pos="485.60" speed="17.00"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
         </edge>
     </timestep>
-    <timestep time="24.00"/>
+    <timestep time="24.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="1" pos="0.00" speed="14.50"/>
+            </lane>
+            <lane id="end_1"/>
+            <lane id="end_2"/>
+        </edge>
+    </timestep>
+    <timestep time="25.00"/>
 </sumo-netstate>

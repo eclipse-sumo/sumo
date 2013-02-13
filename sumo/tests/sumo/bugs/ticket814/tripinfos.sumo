@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue Jan 15 13:12:33 2013 by SUMO sumo Version dev-SVN-r13186
+<!-- generated on Wed Feb 13 20:26:40 2013 by SUMO sumo Version dev-SVN-r13328
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -24,6 +24,6 @@
 
 <tripinfos>
     <tripinfo id="fast" depart="0.00" departLane="beg_0" departPos="100.00" departSpeed="40.00" departDelay="0.00" arrival="21.00" arrivalLane="beg_0" arrivalPos="900.00" arrivalSpeed="39.36" duration="21.00" routeLength="800.00" waitSteps="0" rerouteNo="0" devices="tripinfo_fast" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="medium" depart="2.00" departLane="beg_0" departPos="100.00" departSpeed="40.00" departDelay="2.00" arrival="24.00" arrivalLane="beg_0" arrivalPos="900.00" arrivalSpeed="20.93" duration="22.00" routeLength="800.00" waitSteps="0" rerouteNo="0" devices="tripinfo_medium" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="slow" depart="4.00" departLane="beg_0" departPos="100.00" departSpeed="40.00" departDelay="4.00" arrival="27.00" arrivalLane="beg_0" arrivalPos="900.00" arrivalSpeed="12.41" duration="23.00" routeLength="800.00" waitSteps="0" rerouteNo="0" devices="tripinfo_slow" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="medium" depart="2.00" departLane="beg_0" departPos="100.00" departSpeed="40.00" departDelay="2.00" arrival="25.00" arrivalLane="beg_0" arrivalPos="900.00" arrivalSpeed="19.64" duration="23.00" routeLength="800.00" waitSteps="0" rerouteNo="0" devices="tripinfo_medium" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="slow" depart="4.00" departLane="beg_0" departPos="100.00" departSpeed="40.00" departDelay="4.00" arrival="28.00" arrivalLane="beg_0" arrivalPos="900.00" arrivalSpeed="9.91" duration="24.00" routeLength="800.00" waitSteps="0" rerouteNo="0" devices="tripinfo_slow" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
