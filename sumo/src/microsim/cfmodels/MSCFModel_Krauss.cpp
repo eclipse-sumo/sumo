@@ -95,9 +95,15 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel
     }
     if (predMaxDecel == 0) {
         // adapt speed to succeeding lane, no reaction time is involved
-        // g = (x-v)/b * (x+v)/2
-        return (SUMOReal)sqrt(2 * gap * myDecel + predSpeed * predSpeed);
-
+        // when breaking for y steps the following distance g is covered
+        // (drive with v in the final step)
+        // g = (y^2 + y) * 0.5 * b + y * v + v
+        // y = (((((sqrt((b + 2.0*v)*(b + 2.0*v) + 8.0*b*(g - v)))) - b)*0.5 - v)/b)
+        const SUMOReal yFull = MAX2(0.0, 
+                floor(((((sqrt((myDecel + 2.0*predSpeed)*(myDecel + 2.0*predSpeed) + 8.0*myDecel*(gap - predSpeed)))) 
+                            - myDecel)*0.5 - predSpeed)/myDecel));
+        const SUMOReal exactGap = (yFull * yFull + yFull) * 0.5 * myDecel + yFull * predSpeed + predSpeed;
+        return MAX2(gap - exactGap, yFull * myDecel + predSpeed);
     }
     // follow the leader
     // g=gap, t=myHeadwayTime, a=predMaxDecel, b=myDecel, v=predSpeed, x=vSafe
