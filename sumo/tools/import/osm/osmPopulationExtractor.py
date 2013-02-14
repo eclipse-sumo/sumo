@@ -4,7 +4,7 @@
 @author  Yun-Pang Floetteroed
 @author  Melanie Knocke
 @date    2013-02-08
-@version $Id: osmPopulationExactor.py 12567 2012-08-20 10:01:44Z dkrajzew $
+@version $Id$
 
 This script is to extract the popoulation data from a given Open Street Map (OSM).
 
