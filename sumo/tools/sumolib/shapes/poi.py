@@ -25,30 +25,47 @@ class PoI:
         self.y = y
         self.lane = lane
         self.pos = pos
+        self.attributes = {}
 
     def toXML(self):
         if self.lane:
-            return '<poi id="%s" type="%s" color="%s" layer="%s" lane="%s" pos="%s"/>' % (self.id, self.type, self.color.toXML(), self.layer, self.lane, self.pos)
+            return '<poi id="%s" type="%s" color="%s" layer="%s" lane="%s" pos="%s"' % (self.id, self.type, self.color.toXML(), self.layer, self.lane, self.pos)
         else:
-            return '<poi id="%s" type="%s" color="%s" layer="%s" x="%s" y="%s"/>' % (self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
+            return '<poi id="%s" type="%s" color="%s" layer="%s" x="%s" y="%s"' % (self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
+        if len(self.attributes)==0:
+            ret += '/>'
+        else:
+            ret += '>'
+            for a in self.attributes:
+                ret += '<param key="%s" value="%s"/>' % (a, self.attributes[a])
+            ret += '</poi>'
+        return ret
 
 
 class PoIReader(handler.ContentHandler):
     def __init__(self):
         self._id2poi = {}
         self._pois = []
+        self._lastPOI = None
 
     def startElement(self, name, attrs):
         if name == 'poi':
-            c = color.RGBAColor.decodeXML(attrs['color'])
+            c = color.decodeXML(attrs['color'])
             if not attrs.has_key('lane'):
-                poi = PoI(attrs['id'], attrs['type'], int(attrs['layer']), attrs['color'], float(attrs['x']), float(attrs['y']))
+                poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, float(attrs['x']), float(attrs['y']))
             else:
-                poi = PoI(attrs['id'], attrs['type'], int(attrs['layer']), attrs['color'], None, None, attrs['lane'], float(attrs['pos']))
-            self._id2poi[poi._id] = poi
+                poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, None, None, attrs['lane'], float(attrs['pos']))
+            self._id2poi[poi.id] = poi
             self._pois.append(poi)
+            self._lastPOI = poi
+        if name == 'param' and self._lastPOI!=None:
+            self._lastPOI.attributes[attrs['key']] = attrs['value']
 
+    def endElement(self, name):
+        if name == 'poi':
+            self._lastPOI = None
 
+    
 def read(filename):
     pois = PoIReader()
     parse(filename, pois)
