@@ -41,6 +41,11 @@
 #include <iterator>
 #include <utils/common/RandHelper.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/importio/LineReader.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/SUMOTime.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -213,6 +218,178 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
         }
     }
 }
+
+
+std::string
+ODMatrix::getNextNonCommentLine(LineReader& lr) {
+    std::string line;
+    do {
+        line = lr.readLine();
+        if (line[0] != '*') {
+            return StringUtils::prune(line);
+        }
+    } while (lr.good() && lr.hasMore());
+    throw ProcessError();
+}
+
+
+SUMOTime
+ODMatrix::parseSingleTime(const std::string& time) {
+    if (time.find('.') == std::string::npos) {
+        throw OutOfBoundsException();
+    }
+    std::string hours = time.substr(0, time.find('.'));
+    std::string minutes = time.substr(time.find('.') + 1);
+    return TIME2STEPS(TplConvert::_2int(hours.c_str()) * 3600 + TplConvert::_2int(minutes.c_str()) * 60);
+}
+
+
+std::pair<SUMOTime, SUMOTime>
+ODMatrix::readTime(LineReader& lr) {
+    std::string line = getNextNonCommentLine(lr);
+    try {
+        StringTokenizer st(line, StringTokenizer::WHITECHARS);
+        SUMOTime begin = parseSingleTime(st.next());
+        SUMOTime end = parseSingleTime(st.next());
+        if (begin >= end) {
+            throw ProcessError("Begin time is larger than end time.");
+        }
+        return std::make_pair(begin, end);
+    } catch (OutOfBoundsException&) {
+        throw ProcessError("Broken period definition '" + line + "'.");
+    } catch (NumberFormatException&) {
+        throw ProcessError("Broken period definition '" + line + "'.");
+    }
+}
+
+SUMOReal
+ODMatrix::readFactor(LineReader& lr, SUMOReal scale) {
+    std::string line = getNextNonCommentLine(lr);
+    SUMOReal factor = -1;
+    try {
+        factor = TplConvert::_2SUMOReal(line.c_str()) * scale;
+    } catch (NumberFormatException&) {
+        throw ProcessError("Broken factor: '" + line + "'.");
+    }
+    return factor;
+}
+
+void
+ODMatrix::readV(LineReader& lr, SUMOReal scale,
+      std::string vehType, bool matrixHasVehType) {
+    PROGRESS_BEGIN_MESSAGE("Reading matrix '" + lr.getFileName() + "' stored as VMR");
+    // parse first defs
+    std::string line;
+    if (matrixHasVehType) {
+        line = getNextNonCommentLine(lr);
+        if (vehType == "") {
+            vehType = StringUtils::prune(line);
+        }
+    }
+
+    // parse time
+    std::pair<SUMOTime, SUMOTime> times = readTime(lr);
+    SUMOTime begin = times.first;
+    SUMOTime end = times.second;
+
+    // factor
+    SUMOReal factor = readFactor(lr, scale);
+
+    // districts
+    line = getNextNonCommentLine(lr);
+    int districtNo = TplConvert::_2int(StringUtils::prune(line).c_str());
+    // parse district names (normally ints)
+    std::vector<std::string> names;
+    do {
+        line = getNextNonCommentLine(lr);
+        StringTokenizer st2(line, StringTokenizer::WHITECHARS);
+        while (st2.hasNext()) {
+            names.push_back(st2.next());
+        }
+    } while ((int) names.size() != districtNo);
+
+    // parse the cells
+    for (std::vector<std::string>::iterator si = names.begin(); si != names.end(); ++si) {
+        std::vector<std::string>::iterator di = names.begin();
+        //
+        do {
+            line = getNextNonCommentLine(lr);
+            if (line.length() == 0) {
+                continue;
+            }
+            try {
+                StringTokenizer st2(line, StringTokenizer::WHITECHARS);
+                while (st2.hasNext()) {
+                    assert(di != names.end());
+                    SUMOReal vehNumber = TplConvert::_2SUMOReal(st2.next().c_str()) * factor;
+                    if (vehNumber != 0) {
+                        add(vehNumber, begin, end, *si, *di, vehType);
+                    }
+                    if (di == names.end()) {
+                        throw ProcessError("More entries than districts found.");
+                    }
+                    ++di;
+                }
+            } catch (NumberFormatException&) {
+                throw ProcessError("Not numeric vehicle number in line '" + line + "'.");
+            }
+            if (!lr.hasMore()) {
+                break;
+            }
+        } while (di != names.end());
+    }
+    PROGRESS_DONE_MESSAGE();
+}
+
+
+void
+ODMatrix::readO(LineReader& lr, SUMOReal scale,
+      std::string vehType, bool matrixHasVehType) {
+    PROGRESS_BEGIN_MESSAGE("Reading matrix '" + lr.getFileName() + "' stored as OR");
+    // parse first defs
+    std::string line;
+    if (matrixHasVehType) {
+        line = getNextNonCommentLine(lr);
+        int type = TplConvert::_2int(StringUtils::prune(line).c_str());
+        if (vehType == "") {
+            vehType = toString(type);
+        }
+    }
+
+    // parse time
+    std::pair<SUMOTime, SUMOTime> times = readTime(lr);
+    SUMOTime begin = times.first;
+    SUMOTime end = times.second;
+
+    // factor
+    SUMOReal factor = readFactor(lr, scale);
+
+    // parse the cells
+    while (lr.hasMore()) {
+        line = getNextNonCommentLine(lr);
+        if (line.length() == 0) {
+            continue;
+        }
+        StringTokenizer st2(line, StringTokenizer::WHITECHARS);
+        if (st2.size() == 0) {
+            continue;
+        }
+        try {
+            std::string sourceD = st2.next();
+            std::string destD = st2.next();
+            SUMOReal vehNumber = TplConvert::_2SUMOReal(st2.next().c_str()) * factor;
+            if (vehNumber != 0) {
+                add(vehNumber, begin, end, sourceD, destD, vehType);
+            }
+        } catch (OutOfBoundsException&) {
+            throw ProcessError("Missing at least one information in line '" + line + "'.");
+        } catch (NumberFormatException&) {
+            throw ProcessError("Not numeric vehicle number in line '" + line + "'.");
+        }
+    }
+    PROGRESS_DONE_MESSAGE();
+}
+
 
 
 SUMOReal

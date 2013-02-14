@@ -43,7 +43,8 @@
 #include "ODCell.h"
 #include "ODDistrictCont.h"
 #include <utils/distribution/Distribution_Points.h>
-
+#include <utils/importio/LineReader.h>
+#include <utils/common/SUMOTime.h>
 
 // ===========================================================================
 // class declarations
@@ -169,6 +170,38 @@ public:
      */
     void applyCurve(const Distribution_Points& ps);
 
+
+    /** @used in the functions readV and readO
+     * @todo Describe
+     */
+	std::string getNextNonCommentLine(LineReader& lr);
+
+    /** @used in the functions readV and readO
+     * @todo Describe
+     */
+	SUMOTime parseSingleTime(const std::string& time);
+
+    /** @used in the functions readV and readO
+     * @todo Describe
+     */
+	std::pair<SUMOTime, SUMOTime> readTime(LineReader& lr);
+
+    /** @used in the functions readV and readO
+     * @todo Describe
+     */
+	SUMOReal readFactor(LineReader& lr, SUMOReal scale);
+
+	/** @brief read a VISUM-matrix with the O Format
+	 *  @todo Describe
+	 */
+	void readO(LineReader& lr, SUMOReal scale,
+      std::string vehType, bool matrixHasVehType);
+
+	/** @brief read a VISUM-matrix with the V Format
+	 *  @todo Describe
+	 */
+	void readV(LineReader& lr, SUMOReal scale,
+      std::string vehType, bool matrixHasVehType);
 
 protected:
     /**
