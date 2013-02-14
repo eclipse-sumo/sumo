@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r13111
+SUMO polyconvert Version dev-SVN-rUNKNOWN
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
@@ -63,6 +63,7 @@ Pruning Options:
 Processing Options:
   --offset.x FLOAT                 Adds FLOAT to net x-positions
   --offset.y FLOAT                 Adds FLOAT to net y-positions
+  --all-attributes                 Imports all attributes as key/value pairs
 
 Building Defaults Options:
   --color STR                      Sets STR as default color
