@@ -181,7 +181,7 @@ def main():
         if os.path.exists(outputfile):
             fout = open(outputfile, 'a')
         print n.id, n.name, n.lat, n.lon, n.uid, n.population
-        fout.write(u'%s\t%s\t%s\t%s\t%s\t%s\n' % (n.id, n.name.encode(), n.lat, n.lon, n.uid, n.population))
+        fout.write(('%s\t%s\t%s\t%s\t%s\t%s\n' % (n.id, n.name, n.lat, n.lon, n.uid, n.population)).encode("latin1"))
         fout.close()
 
     fout = open('%s_relationsWithPopulation.txt' %prefix, 'w')
@@ -195,7 +195,7 @@ def main():
     for r in net._uidNodeMap:
         fout.write('%s' % r)
         for n in net._uidNodeMap[r]:
-            fout.write('\t%s\t%s' % (n.id,n.name))
+            fout.write(('\t%s\t%s' % (n.id,n.name)).encode("latin1"))
         fout.write('\n')
     fout.close()
     
