@@ -72,7 +72,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("osm-files");
     // load nodes, first
     std::map<SUMOLong, PCOSMNode*> nodes;
-    NodesHandler nodesHandler(nodes);
+	bool withAttributes = oc.getBool("all-attributes");
+    NodesHandler nodesHandler(nodes, withAttributes);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
@@ -87,7 +88,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     }
     // load edges, then
     std::map<std::string, PCOSMEdge*> edges;
-    EdgesHandler edgesHandler(nodes, edges);
+    EdgesHandler edgesHandler(nodes, edges, withAttributes);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // edges
         PROGRESS_BEGIN_MESSAGE("Parsing edges from osm-file '" + *file + "'");
@@ -147,6 +148,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             name = StringUtils::escapeXML(name);
             type = StringUtils::escapeXML(type);
             Polygon* poly = new Polygon(name, type, color, vec, fill, (SUMOReal)layer);
+			poly->addParameter(e->myAttributes);
             if (!toFill.insert(name, poly, layer)) {
                 WRITE_ERROR("Polygon '" + name + "' could not be added.");
                 delete poly;
@@ -200,6 +202,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             name = StringUtils::escapeXML(name);
             type = StringUtils::escapeXML(type);
             PointOfInterest* poi = new PointOfInterest(name, type, color, pos, (SUMOReal)layer);
+			poi->addParameter(n->myAttributes);
             if (!toFill.insert(name, poi, layer, ignorePrunning)) {
                 WRITE_ERROR("POI '" + name + "' could not be added.");
                 delete poi;
@@ -223,8 +226,9 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 // ---------------------------------------------------------------------------
 // definitions of PCLoaderOSM::NodesHandler-methods
 // ---------------------------------------------------------------------------
-PCLoaderOSM::NodesHandler::NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill)
-    : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1) {}
+PCLoaderOSM::NodesHandler::NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill,
+	bool withAttributes)
+    : SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myToFill(toFill), myLastNodeID(-1) {}
 
 
 PCLoaderOSM::NodesHandler::~NodesHandler() {}
@@ -264,11 +268,20 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         if (!ok) {
             return;
         }
+        if (myWithAttributes && myLastNodeID >= 0) {
+			myToFill[myLastNodeID]->myAttributes[key] = value;
+		}
         if (key == "waterway" || key == "aeroway" || key == "aerialway" || key == "power" || key == "man_made" || key == "building"
                 || key == "leisure" || key == "amenity" || key == "shop" || key == "tourism" || key == "historic" || key == "landuse"
-                || key == "natural" || key == "military" || key == "boundary" || key == "sport" || key == "polygon") {
+                || key == "natural" || key == "military" || key == "boundary" || key == "sport" || key == "polygon" || key == "place") {
             if (myLastNodeID >= 0) {
                 myToFill[myLastNodeID]->myType = key + "." + value;
+                myToFill[myLastNodeID]->myIsAdditional = true;
+            }
+        }
+        if (key == "population" || key == "openGeoDB:population" || key == "openGeoDB:name") {
+            if (myLastNodeID >= 0) {
+                myToFill[myLastNodeID]->myType = key;
                 myToFill[myLastNodeID]->myIsAdditional = true;
             }
         }
@@ -291,10 +304,9 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) {
 // ---------------------------------------------------------------------------
 // definitions of PCLoaderOSM::EdgesHandler-methods
 // ---------------------------------------------------------------------------
-PCLoaderOSM::EdgesHandler::EdgesHandler(
-    const std::map<SUMOLong, PCOSMNode*>& osmNodes,
-    std::map<std::string, PCOSMEdge*>& toFill)
-    : SUMOSAXHandler("osm - file"),
+PCLoaderOSM::EdgesHandler::EdgesHandler(const std::map<SUMOLong, PCOSMNode*>& osmNodes,
+    std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes)
+    : SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes),
       myOSMNodes(osmNodes), myEdgeMap(toFill) {
 }
 
@@ -338,11 +350,20 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         if (!ok) {
             return;
         }
+        if (myWithAttributes && myCurrentEdge >= 0) {
+			myCurrentEdge->myAttributes[key] = value;
+		}
         if (key == "waterway" || key == "aeroway" || key == "aerialway" || key == "power" || key == "man_made"
                 || key == "building" || key == "leisure" || key == "amenity" || key == "shop" || key == "tourism"
                 || key == "historic" || key == "landuse" || key == "natural" || key == "military" || key == "boundary"
-                || key == "sport" || key == "polygon") {
+                || key == "sport" || key == "polygon" || key == "place") {
             myCurrentEdge->myType = key + "." + value;
+            myCurrentEdge->myIsAdditional = true;
+        } else if (key == "name") {
+            myCurrentEdge->name = value;
+        }
+		if (key == "population" || key == "openGeoDB:population" || key == "openGeoDB:name") {
+            myCurrentEdge->myType = key;
             myCurrentEdge->myIsAdditional = true;
         } else if (key == "name") {
             myCurrentEdge->name = value;

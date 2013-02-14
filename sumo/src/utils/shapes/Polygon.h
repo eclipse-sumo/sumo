@@ -32,6 +32,7 @@
 #endif
 
 #include <utils/geom/PositionVector.h>
+#include <utils/common/Parameterised.h>
 #include "Shape.h"
 
 // we need to put this into a namespace to avoid clashing with wingdi.h::Polygon function
@@ -44,7 +45,7 @@ namespace SUMO {
  * @class Polygon
  * @brief A 2D- or 3D-polygon
  */
-class Polygon : public Shape {
+class Polygon : public Shape, public Parameterised {
 public:
     /** @brief Constructor
      * @param[in] id The name of the polygon

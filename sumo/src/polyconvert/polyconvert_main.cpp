@@ -177,6 +177,9 @@ fillOptions() {
     oc.addSynonyme("offset.y", "y-offset-to-apply", true);
     oc.addDescription("offset.y", "Processing", "Adds FLOAT to net y-positions");
 
+    oc.doRegister("all-attributes", new Option_Bool(false));
+    oc.addDescription("all-attributes", "Processing", "Imports all attributes as key/value pairs");
+
 
     // building defaults options
     oc.doRegister("color", new Option_String("0.2,0.5,1."));

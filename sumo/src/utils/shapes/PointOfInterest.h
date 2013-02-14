@@ -33,6 +33,7 @@
 #endif
 
 #include <utils/geom/Position.h>
+#include <utils/common/Parameterised.h>
 #include "Shape.h"
 
 
@@ -43,7 +44,7 @@
  * @class PointOfInterest
  * @brief A point-of-interest
  */
-class PointOfInterest : public Shape, public Position {
+class PointOfInterest : public Shape, public Position, public Parameterised {
 public:
     /** @brief Constructor
      * @param[in] id The name of the POI

@@ -99,6 +99,15 @@ public:
      */
     void clearParameter();
 
+
+	/** @brief Returns the inner key/value map
+	 * @return the inner map
+	 */
+	const std::map<std::string, std::string> &getMap() const {
+		return myMap;
+	}
+
+
 private:
     /// @brief The key->value map
     std::map<std::string, std::string> myMap;

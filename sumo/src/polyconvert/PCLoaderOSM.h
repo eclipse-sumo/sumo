@@ -84,6 +84,8 @@ protected:
         std::string myType;
         /// @brief Information whether this shall be parsed
         bool myIsAdditional;
+		/// @brief Additional attributes
+		std::map<std::string, std::string> myAttributes;
     };
 
 
@@ -102,6 +104,8 @@ protected:
         std::vector<SUMOLong> myCurrentNodes;
         /// @brief Information whether this shall be parsed
         bool myIsAdditional;
+		/// @brief Additional attributes
+		std::map<std::string, std::string> myAttributes;
     };
 
 
@@ -114,8 +118,9 @@ protected:
     public:
         /** @brief Contructor
          * @param[in] toFill The nodes container to fill
+		 * @param[in] withAttributes Whether all attributes shall be stored
          */
-        NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill);
+        NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill, bool withAttributes);
 
 
         /// @brief Destructor
@@ -147,6 +152,9 @@ protected:
 
 
     private:
+		/// @brief Whether all attributes shall be stored
+		bool myWithAttributes;
+
         /// @brief The nodes container to fill
         std::map<SUMOLong, PCOSMNode*>& myToFill;
 
@@ -178,9 +186,10 @@ protected:
          *
          * @param[in] osmNodes The previously parsed (osm-)nodes
          * @param[in] toFill The edges container to fill with read edges
+		 * @param[in] withAttributes Whether all attributes shall be stored
          */
         EdgesHandler(const std::map<SUMOLong, PCOSMNode*>& osmNodes,
-                     std::map<std::string, PCOSMEdge*>& toFill);
+                     std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes);
 
 
         /// @brief Destructor
@@ -212,6 +221,9 @@ protected:
 
 
     private:
+		/// @brief Whether all attributes shall be stored
+		bool myWithAttributes;
+
         /// @brief The previously parsed nodes
         const std::map<SUMOLong, PCOSMNode*>& myOSMNodes;
 
