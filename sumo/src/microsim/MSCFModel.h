@@ -93,7 +93,16 @@ public:
      * @return EGO's safe speed
      */
     virtual SUMOReal freeSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed) const {
-        return followSpeed(veh, speed, seen, maxSpeed, 0);
+        // adapt speed to succeeding lane, no reaction time is involved
+        // when breaking for y steps the following distance g is covered
+        // (drive with v in the final step)
+        // g = (y^2 + y) * 0.5 * b + y * v + v
+        // y = (((((sqrt((b + 2.0*v)*(b + 2.0*v) + 8.0*b*(g - v)))) - b)*0.5 - v)/b)
+        const SUMOReal yFull = MAX2(0.0, 
+                floor(((((sqrt((myDecel + 2.0*maxSpeed)*(myDecel + 2.0*maxSpeed) + 8.0*myDecel*(seen - maxSpeed)))) 
+                            - myDecel)*0.5 - maxSpeed)/myDecel));
+        const SUMOReal exactGap = (yFull * yFull + yFull) * 0.5 * myDecel + yFull * maxSpeed + maxSpeed;
+        return MAX2(seen - exactGap, yFull * myDecel + maxSpeed);
     }
 
 
