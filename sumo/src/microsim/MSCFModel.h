@@ -33,6 +33,7 @@
 #endif
 
 #include <string>
+#include <math.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/FileHelpers.h>
 
