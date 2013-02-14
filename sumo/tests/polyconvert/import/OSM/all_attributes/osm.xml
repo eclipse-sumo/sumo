@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.5" generator="p">
+  <node id="29274172" lat="52.4258318" lon="13.5273019" user="Randbewohner" visible="true" timestamp="2008-11-13T10:10:43+00:00"/>
+  <node id="32266935" lat="52.4264038" lon="13.5267127" user="lexikos" visible="true" timestamp="2008-09-06T18:18:14+01:00">
+    <tag k="created_by" v="JOSM"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="32266938" lat="52.4262794" lon="13.5266993" user="anbr" visible="true" timestamp="2008-08-03T14:34:13+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="35215997" lat="52.4261457" lon="13.5272746" user="Randbewohner" visible="true" timestamp="2008-11-13T10:10:35+00:00"/>
+  <node id="36268369" lat="52.4262994" lon="13.5290996" user="Randbewohner" visible="true" timestamp="2008-05-01T15:58:32+01:00">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+
+  <way id="-974" action="modify" timestamp="2010-07-08T13:25:07Z" visible="true">
+    <nd ref="29274172"/>
+    <nd ref="32266935"/>
+    <nd ref="32266938"/>
+    <nd ref="35215997"/>
+    <nd ref="36268369"/>
+    <tag k="polygon" v="overpass"/>
+    <tag k="name" v="p0045"/>
+    <tag k="class" v="polygon"/>
+  </way>
+
+</osm>

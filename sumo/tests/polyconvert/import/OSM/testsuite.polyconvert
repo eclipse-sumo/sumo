@@ -8,4 +8,5 @@ use_name.plain
 # using type name made from key/value pair
 keep_full_type
 
-
+# checks import of all attributes
+all_attributes
