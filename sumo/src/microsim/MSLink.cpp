@@ -140,7 +140,7 @@ MSLink::getLeaveTime(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leave
 
 
 bool
-MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, bool committedToDrive) const {
+MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const {
     if (myState == LINKSTATE_TL_RED) {
         return false;
     }
@@ -148,10 +148,6 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
         return true;
     }
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, vehicleLength);
-    // headWay time is only an approximation so we require a reasonable safety margin before entering the junction. 
-    // However, if we're already on an internal lane (committed to driving accross the junction), 
-    // make sure we keep going if it looks like we can make it
-    const SUMOTime minHeadwayTime = committedToDrive ? 0 : TIME2STEPS(1);
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
 #ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
@@ -160,7 +156,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
             }
         }
 #endif
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(), minHeadwayTime)) {
+        if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane())) {
             return false;
         }
     }
@@ -170,19 +166,19 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
 
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, 
-        bool sameTargetLane, SUMOTime minHeadwayTime) const {
+        bool sameTargetLane) const {
     for (LinkApproachingVehicles::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
         if (!(*i).willPass) {
             continue;
         }
         if ((*i).leavingTime < arrivalTime) {
             // ego wants to be follower
-            if (sameTargetLane && unsafeHeadwayTime(arrivalTime - (*i).leavingTime, (*i).leaveSpeed, arrivalSpeed, minHeadwayTime)) {
+            if (sameTargetLane && unsafeHeadwayTime(arrivalTime - (*i).leavingTime, (*i).leaveSpeed, arrivalSpeed)) {
                 return true;
             }
         } else if ((*i).arrivalTime > leaveTime) {
             // ego wants to be leader
-            if (sameTargetLane && unsafeHeadwayTime((*i).arrivalTime - leaveTime, leaveSpeed, (*i).arrivalSpeed, minHeadwayTime)) {
+            if (sameTargetLane && unsafeHeadwayTime((*i).arrivalTime - leaveTime, leaveSpeed, (*i).arrivalSpeed)) {
                 return true;
             }
         } else {
@@ -195,8 +191,8 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrival
 
 
 SUMOTime
-MSLink::unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed, SUMOTime minHeadwayTime) {
-    if (headwayTime < minHeadwayTime) {
+MSLink::unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed) {
+    if (headwayTime < myLookaheadTime) {
         return true;
     }
     // headwayTime is the expected time difference between the leaders rear and the followers front + safeGap
@@ -236,7 +232,7 @@ MSLink::maybeOccupied(MSLane* lane) {
 bool
 MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed) const {
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime, speed, speed, myLane == (*i)->getLane(), 0)) {
+        if ((*i)->blockedAtTime(arrivalTime, leaveTime, speed, speed, myLane == (*i)->getLane())) {
             return true;
         }
     }
@@ -271,6 +267,26 @@ MSLink::getLane() const {
 MSLane*
 MSLink::getViaLane() const {
     return myJunctionInlane;
+}
+
+
+std::pair<MSVehicle*, SUMOReal> 
+MSLink::getLeaderInfo(SUMOReal dist) const {
+    if (MSGlobals::gUsingInternalLanes && myJunctionInlane == 0) {
+        // this is an exit link
+        for (std::vector<MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
+            assert((*i)->getLinkCont().size() == 1);
+            MSLink* exitLink = (*i)->getLinkCont()[0];
+            if (myLane == exitLink->getLane()) {
+                MSVehicle* leader = (*i)->getLastVehicle();
+                if (leader != 0) {
+                    return std::make_pair<MSVehicle*, SUMOReal>(leader, 
+                            dist - ((*i)->getLength() - leader->getPositionOnLane()));
+                }
+            }
+        }
+    }
+    return std::make_pair<MSVehicle*, SUMOReal>(0, 0);
 }
 #endif
 

@@ -81,7 +81,6 @@ MSInternalJunction::postloadInit() {
         }
 
     }
-    std::vector<MSLink*> exitLinkFoeLinks; // manage conflicts for the link after an internal lane
     for (std::vector<MSLane*>::const_iterator i = myIncomingLanes.begin() + 1; i != myIncomingLanes.end(); ++i) {
         MSLane* l = *i;
         const MSLinkCont& lc = l->getLinkCont();
@@ -91,17 +90,12 @@ MSInternalJunction::postloadInit() {
                 continue;
             }
             myInternalLinkFoes.push_back(*j);
-            assert(via->getLinkCont().size() == 1);
-            // only add exitFoes which have the same target
-            if (thisLink->getLane() == via->getLinkCont()[0]->getLane()) {
-                exitLinkFoeLinks.push_back(via->getLinkCont()[0]);
-            }
         }
     }
     thisLink->setRequestInformation(requestPos, requestPos, true, false, myInternalLinkFoes, myInternalLaneFoes);
     assert(thisLink->getViaLane()->getLinkCont().size() == 1);
     MSLink* exitLink = thisLink->getViaLane()->getLinkCont()[0];
-    exitLink->setRequestInformation(requestPos, requestPos, false, false, exitLinkFoeLinks, std::vector<MSLane*>());
+    exitLink->setRequestInformation(requestPos, requestPos, false, false, std::vector<MSLink*>(), myInternalLaneFoes);
     for (std::vector<MSLink*>::const_iterator k = myInternalLinkFoes.begin(); k != myInternalLinkFoes.end(); ++k) {
         thisLink->addBlockedLink(*k);
         (*k)->addBlockedLink(thisLink);

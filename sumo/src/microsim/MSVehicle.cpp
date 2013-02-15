@@ -709,21 +709,7 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
                 leaderInfo = std::pair<MSVehicle*, SUMOReal>(myLane->getPartialOccupator(), myLane->getPartialOccupatorEnd() - myState.myPos - getVehicleType().getMinGap());
             }
         }
-        if (leaderInfo.first != 0) {
-            SUMOReal vsafeLeader = 0;
-            if (leaderInfo.second >= 0) {
-                vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCarFollowModel().getMaxDecel());
-            } else {
-                // the leading, in-lapping vehicle is occupying the complete next lane
-                // stop before entering this lane
-                vsafeLeader = cfModel.stopSpeed(this, seen - lane->getLength() - POSITION_EPS);
-            }
-            if (lastLink > 0) {
-                myLFLinkLanes[lastLink].adaptLeaveSpeed(vsafeLeader);
-            }
-            v = MIN2(v, vsafeLeader);
-            vLinkPass = MIN2(vLinkPass, vsafeLeader);
-        }
+        adaptToLeader(leaderInfo, seen, lastLink, lane, v, vLinkPass);
 
         // process stops
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge()) {
@@ -780,6 +766,16 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
             myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / vLinkWait), vLinkWait, stopDist));
             break;
         }
+
+        std::pair<MSVehicle*, SUMOReal> linkLeaderInfo = (*link)->getLeaderInfo(seen - getVehicleType().getMinGap());
+        if (linkLeaderInfo.first != 0) {
+            // the vehicle to enter the junction first has priority
+            if (!linkLeaderInfo.first->hasLinkLeader(this)) {
+                myLinkLeaders.insert(linkLeaderInfo.first);
+                adaptToLeader(linkLeaderInfo, seen, lastLink, lane, v, vLinkPass);
+            }
+        }
+
         SUMOReal va = firstLane ? v : lane->getVehicleMaxSpeed(this);
         if (lastLink > 0) {
             myLFLinkLanes[lastLink].adaptLeaveSpeed(va);
@@ -836,6 +832,28 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
 }
 
 
+void
+MSVehicle::adaptToLeader(std::pair<MSVehicle*, SUMOReal> leaderInfo, SUMOReal seen, int lastLink, MSLane* lane, SUMOReal& v, SUMOReal& vLinkPass) {
+    if (leaderInfo.first != 0) {
+        const MSCFModel& cfModel = getCarFollowModel();
+        SUMOReal vsafeLeader = 0;
+        if (leaderInfo.second >= 0) {
+            vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCarFollowModel().getMaxDecel());
+        } else {
+            // the leading, in-lapping vehicle is occupying the complete next lane
+            // stop before entering this lane
+            vsafeLeader = cfModel.stopSpeed(this, seen - lane->getLength() - POSITION_EPS);
+        }
+        if (lastLink > 0) {
+            myLFLinkLanes[lastLink].adaptLeaveSpeed(vsafeLeader);
+        }
+        v = MIN2(v, vsafeLeader);
+        vLinkPass = MIN2(vLinkPass, vsafeLeader);
+    }
+}
+
+
+
 SUMOReal 
 MSVehicle::estimateLeaveSpeed(MSLink* link, SUMOReal vLinkPass) {
     // estimate leave speed for passing time computation
@@ -845,13 +863,6 @@ MSVehicle::estimateLeaveSpeed(MSLink* link, SUMOReal vLinkPass) {
             estimateSpeedAfterDistance(link->getLength(), vLinkPass));
 }
 
-
-bool 
-MSVehicle::committedToDrive() {
-    // on an internal lane leading to a non-internal lane
-    return (myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL 
-            && myLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL);
-}
 
 SUMOReal 
 MSVehicle::estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v) {
@@ -891,7 +902,7 @@ MSVehicle::moveChecked() {
                 break;
             }
             //
-            const bool opened = yellow || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLengthWithGap(), committedToDrive());
+            const bool opened = yellow || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLengthWithGap());
             // vehicles should decelerate when approaching a minor link
             // XXX check if this is still necessary
             if (opened && !lastWasGreenCont && !link->havePriority() && (*i).myDistance > getCarFollowModel().getMaxDecel()) {
@@ -927,6 +938,11 @@ MSVehicle::moveChecked() {
     }
 
     SUMOReal vNext = getCarFollowModel().moveHelper(this, vSafe);
+    //if (vNext > vSafe) {
+    //    WRITE_WARNING("vehicle '" + getID() + "' cannot brake hard enough to reach safe speed " 
+    //            + toString(vSafe) + ", moving at " + toString(vNext) + " instead. time=" 
+    //            + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+    //}
     vNext = MAX2(vNext, (SUMOReal) 0.);
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
@@ -1007,6 +1023,7 @@ MSVehicle::moveChecked() {
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
                     myLane = approachedLane;
+                    myLinkLeaders.clear();
                     moved = true;
                     if (approachedLane->getEdge().isVaporizing()) {
                         break;
@@ -1159,7 +1176,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
             DriveProcessItem& item = myLFLinkLanes[i - 1];
             const bool opened = item.myLink != 0 && (item.myLink->havePriority() ||
                                 item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
-                                                    item.getLeaveSpeed(), getVehicleType().getLengthWithGap(), committedToDrive()));
+                                                    item.getLeaveSpeed(), getVehicleType().getLengthWithGap()));
             bool allowsContinuation = item.myLink == 0 || item.myLink->isCont() || !hadVehicles[i] || opened;
             if (!opened && item.myLink != 0) {
                 if (i > 1) {

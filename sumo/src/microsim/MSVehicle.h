@@ -772,6 +772,12 @@ public:
     bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
 
 
+    /// @brief return whether this vehicle is currently following the given veh
+    bool hasLinkLeader(MSVehicle* veh) const {
+        return myLinkLeaders.count(veh) > 0;
+    }
+
+
     /** @class Influencer
      * @brief Changes the wished vehicle speed / lanes
      *
@@ -1001,8 +1007,15 @@ protected:
      */
     SUMOReal estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v);
 
-    /// @brief whether we are in the critical zone of a junction (approaching an exit link)
-    bool committedToDrive();
+    /* @brief estimate speed while accelerating for the given distance
+     * @param[in] leaderInfo The leading vehicle and the (virtual) distance to it
+     * @param[in] seen the distance to the end of the current lane
+     * @param[in] lastLink the lastLink index
+     * @param[in] lane The current Lane the vehicle is on
+     * @param[in,out] the safe velocity for driving
+     * @param[in,out] the safe velocity for arriving at the next link
+     */
+    void adaptToLeader(std::pair<MSVehicle*, SUMOReal> leaderInfo, SUMOReal seen, int lastLink, MSLane* lane, SUMOReal& v, SUMOReal& vLinkPass);
 
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
@@ -1016,6 +1029,9 @@ private:
     /// @brief An instance of a velicty/lane influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
 #endif
+
+    /// @brief vehicles being followed across a link (for resolving priority)
+    std::set<MSVehicle*> myLinkLeaders;
 
 private:
     /// @brief invalidated default constructor

@@ -43,6 +43,7 @@
 // ===========================================================================
 class MSLane;
 class SUMOVehicle;
+class MSVehicle;
 
 
 // ===========================================================================
@@ -161,8 +162,7 @@ public:
      *
      * @return Whether this link may be passed.
      */
-    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, 
-            bool committedToDrive=false) const;
+    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
 
     /** @brief Returns the information whether this link is blocked
      * Valid after the vehicles have set their requests
@@ -171,11 +171,10 @@ public:
      * @param[in] arrivalSpeed The speed with which the checking vehicle plans to arrive at the link
      * @param[in] leaveSpeed The speed with which the checking vehicle plans to leave the link
      * @param[in] sameTargetLane Whether the link that calls this method has the same target lane as this link
-     * @param[in] minHeadwayTime The minimum headway to require for foe links with the same target link
      * @return Whether this link is blocked
      */
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, 
-            bool sameTargetLane, SUMOTime minHeadwayTime) const;
+            bool sameTargetLane) const;
 
     bool isBlockingAnyone() const {
         return myApproachingVehicles.size() != 0;
@@ -268,6 +267,15 @@ public:
      * @return The inner lane to use to cross the junction
      */
     MSLane* getViaLane() const;
+
+
+    /** @brief Returns the information about the latest vehicle which is on one of the 
+     * same-target-foeLanes of this (exit)link 
+     * Valid during the move() phase
+     * @param[in] dist The distance of the vehicle who is asking about the leader to this link
+     * @return The leading vehicle and its (virtual) distance to the asking vehicle or <0,0>
+     */
+    std::pair<MSVehicle*, SUMOReal> getLeaderInfo(SUMOReal dist) const;
 #endif
 
     /// @brief return the via lane if it exists and the lane otherwise
@@ -276,6 +284,9 @@ public:
 
     /// @brief return the expected time at which the given vehicle will clear the link
     SUMOTime getLeaveTime(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
+
+    
+
 
 private:
     typedef std::vector<ApproachingVehicleInformation> LinkApproachingVehicles;
@@ -294,7 +305,7 @@ private:
     };
 
     /// @brief return whether the given headwayTime is unsafe
-    static SUMOTime unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed, SUMOTime minHeadwayTime);
+    static SUMOTime unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed);
 
     /// @brief returns whether the given lane may still be occupied by a vehicle currently on it
     static bool maybeOccupied(MSLane* lane);
@@ -329,6 +340,7 @@ private:
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used
     MSLane* const myJunctionInlane;
+
 #endif
 
     std::vector<MSLink*> myFoeLinks;
