@@ -748,7 +748,9 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
         if (routeEnds) {
             const SUMOReal arrivalSpeed = (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN ?
                                            myParameter->arrivalSpeed : lane->getVehicleMaxSpeed(this));
-            const SUMOReal va = cfModel.freeSpeed(this, getSpeed(), seen + myArrivalPos - lane->getLength(), arrivalSpeed);
+            // subtract the arrival speed from the remaining distance so we get one additional driving step with arrival speed
+            const SUMOReal distToArrival = seen + myArrivalPos - lane->getLength() - SPEED2DIST(arrivalSpeed);
+            const SUMOReal va = cfModel.freeSpeed(this, getSpeed(), distToArrival, arrivalSpeed);
             v = MIN2(v, va);
             if (lastLink > 0) {
                 myLFLinkLanes[lastLink].adaptLeaveSpeed(va);
