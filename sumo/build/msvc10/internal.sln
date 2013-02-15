@@ -129,6 +129,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_osgview", "y_osgview\y_os
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "marouter", "marouter\marouter.vcxproj", "{90205628-51D7-4194-9FC0-7D74C35A3471}"
 	ProjectSection(ProjectDependencies) = postProject
+		{F5D8313C-621D-4CCE-A6DA-83EFFBDE7CE6} = {F5D8313C-621D-4CCE-A6DA-83EFFBDE7CE6}
 		{A003A0ED-38C6-4E03-84D1-BA42D25ABC4D} = {A003A0ED-38C6-4E03-84D1-BA42D25ABC4D}
 	EndProjectSection
 EndProject
