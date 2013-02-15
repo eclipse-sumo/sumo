@@ -37,6 +37,7 @@
 #include <utils/common/MsgHandler.h>
 #include "ODDistrict.h"
 
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -86,6 +87,7 @@ unsigned int
 ODDistrict::sourceNumber() const {
     return (unsigned int) mySources.getVals().size();
 }
+
 
 
 /****************************************************************************/

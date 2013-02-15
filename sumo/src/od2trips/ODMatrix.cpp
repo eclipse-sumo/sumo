@@ -437,6 +437,42 @@ ODMatrix::applyCurve(const Distribution_Points& ps) {
     }
 }
 
+void
+ODMatrix::loadMatrix(OptionsCont& oc) {
+    std::vector<std::string> files = oc.getStringVector("od-files");
+    //  check
+    if (files.size() == 0) {
+        throw ProcessError("No files to parse are given.");
+    }
+    //  parse
+    for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
+        LineReader lr(*i);
+        if (!lr.good()) {
+            throw ProcessError("Could not open '" + (*i) + "'.");
+        }
+        std::string type = lr.readLine();
+        // get the type only
+        if (type.find(';') != std::string::npos) {
+            type = type.substr(0, type.find(';'));
+        }
+        // parse type-dependant
+        if (type.length() > 1 && type[1] == 'V') {
+            // process ptv's 'V'-matrices
+            if (type.find('N') != std::string::npos) {
+                throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
+            }
+            readV(lr, oc.getFloat("scale"), oc.getString("vtype"), type.find('M') != std::string::npos);
+        } else if (type.length() > 1 && type[1] == 'O') {
+            // process ptv's 'O'-matrices
+            if (type.find('N') != std::string::npos) {
+                throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
+            }
+            readO(lr, oc.getFloat("scale"), oc.getString("vtype"), type.find('M') != std::string::npos);
+        } else {
+            throw ProcessError("'" + *i + "' uses an unknown matrix type '" + type + "'.");
+        }
+    }
+}
 
 
 /****************************************************************************/

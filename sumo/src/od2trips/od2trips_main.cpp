@@ -242,65 +242,6 @@ checkOptions() {
 }
 
 
-void
-loadDistricts(ODDistrictCont& districts, OptionsCont& oc) {
-    // check whether the user gave a net filename
-    if (!oc.isSet("net-file")) {
-        WRITE_ERROR("You must supply a network ('-n').");
-        return;
-    }
-    // get the file name and set it
-    std::string file = oc.getString("net-file");
-    if (!FileHelpers::exists(file)) {
-        throw ProcessError("Could not find network '" + file + "' to load.");
-    }
-    PROGRESS_BEGIN_MESSAGE("Loading districts from '" + file + "'");
-    // build the xml-parser and handler
-    ODDistrictHandler handler(districts, file);
-    if (!XMLSubSys::runParser(handler, file)) {
-        PROGRESS_FAILED_MESSAGE();
-    } else {
-        PROGRESS_DONE_MESSAGE();
-    }
-}
-
-
-void
-loadMatrix(OptionsCont& oc, ODMatrix& into) {
-    std::vector<std::string> files = oc.getStringVector("od-files");
-    //  check
-    if (files.size() == 0) {
-        throw ProcessError("No files to parse are given.");
-    }
-    //  parse
-    for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
-        LineReader lr(*i);
-        if (!lr.good()) {
-            throw ProcessError("Could not open '" + (*i) + "'.");
-        }
-        std::string type = lr.readLine();
-        // get the type only
-        if (type.find(';') != std::string::npos) {
-            type = type.substr(0, type.find(';'));
-        }
-        // parse type-dependant
-        if (type.length() > 1 && type[1] == 'V') {
-            // process ptv's 'V'-matrices
-            if (type.find('N') != std::string::npos) {
-                throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
-            }
-            into.readV(lr, oc.getFloat("scale"), oc.getString("vtype"), type.find('M') != std::string::npos);
-        } else if (type.length() > 1 && type[1] == 'O') {
-            // process ptv's 'O'-matrices
-            if (type.find('N') != std::string::npos) {
-                throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
-            }
-            into.readO(lr, oc.getFloat("scale"), oc.getString("vtype"), type.find('M') != std::string::npos);
-        } else {
-            throw ProcessError("'" + *i + "' uses an unknown matrix type '" + type + "'.");
-        }
-    }
-}
 
 
 /* -------------------------------------------------------------------------
@@ -329,14 +270,20 @@ main(int argc, char** argv) {
         }
         RandHelper::initRandGlobal();
         // load the districts
+		// check whether the user gave a net filename
+	    if (!oc.isSet("net-file")) {
+		    WRITE_ERROR("You must supply a network ('-n').");
+			throw ProcessError("No districts loaded...");
+		}
+		// get the file name and set it
         ODDistrictCont districts;
-        loadDistricts(districts, oc);
+        districts.loadDistricts(oc.getString("net-file"));
         if (districts.size() == 0) {
             throw ProcessError("No districts loaded...");
         }
         // load the matrix
         ODMatrix matrix(districts);
-        loadMatrix(oc, matrix);
+        matrix.loadMatrix(oc);
         if (matrix.getNoLoaded() == 0) {
             throw ProcessError("No vehicles loaded...");
         }

@@ -171,26 +171,6 @@ public:
     void applyCurve(const Distribution_Points& ps);
 
 
-    /** @used in the functions readV and readO
-     * @todo Describe
-     */
-	std::string getNextNonCommentLine(LineReader& lr);
-
-    /** @used in the functions readV and readO
-     * @todo Describe
-     */
-	SUMOTime parseSingleTime(const std::string& time);
-
-    /** @used in the functions readV and readO
-     * @todo Describe
-     */
-	std::pair<SUMOTime, SUMOTime> readTime(LineReader& lr);
-
-    /** @used in the functions readV and readO
-     * @todo Describe
-     */
-	SUMOReal readFactor(LineReader& lr, SUMOReal scale);
-
 	/** @brief read a VISUM-matrix with the O Format
 	 *  @todo Describe
 	 */
@@ -202,6 +182,11 @@ public:
 	 */
 	void readV(LineReader& lr, SUMOReal scale,
       std::string vehType, bool matrixHasVehType);
+
+	/** @brief read a VISUM-matrix with the V Format
+	 *  @todo Describe
+	 */
+	void loadMatrix(OptionsCont& oc);
 
 protected:
     /**
@@ -269,6 +254,28 @@ protected:
      */
     void applyCurve(const Distribution_Points& ps, ODCell* cell,
                     std::vector<ODCell*>& newCells);
+
+
+private:
+    /** @used in the functions readV and readO
+     * @todo Describe
+     */
+	std::string getNextNonCommentLine(LineReader& lr);
+
+    /** @used in the functions readV and readO
+     * @todo Describe
+     */
+	SUMOTime parseSingleTime(const std::string& time);
+
+    /** @used in the functions readV and readO
+     * @todo Describe
+     */
+	std::pair<SUMOTime, SUMOTime> readTime(LineReader& lr);
+
+    /** @used in the functions readV and readO
+     * @todo Describe
+     */
+	SUMOReal readFactor(LineReader& lr, SUMOReal scale);
 
 
 protected:
