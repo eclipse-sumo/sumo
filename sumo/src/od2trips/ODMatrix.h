@@ -188,6 +188,11 @@ public:
 	 */
 	void loadMatrix(OptionsCont& oc);
 
+	/** @brief split the given timeline 
+	 *  @todo Describe
+	 */
+	Distribution_Points parseTimeLine(const std::vector<std::string>& def, bool timelineDayInHours);
+
 protected:
     /**
      * @struct ODVehicle

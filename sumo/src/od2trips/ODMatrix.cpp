@@ -474,6 +474,33 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
     }
 }
 
+Distribution_Points
+ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInHours) {
+    bool interpolating = !timelineDayInHours;
+    PositionVector points;
+    SUMOReal prob = 0;
+    if (timelineDayInHours) {
+        if (def.size() != 24) {
+            throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
+        }
+        for (int chour = 0; chour < 24; ++chour) {
+            prob = TplConvert::_2SUMOReal(def[chour].c_str());
+            points.push_back(Position((SUMOReal)(chour * 3600), prob));
+        }
+        points.push_back(Position((SUMOReal)(24 * 3600), prob));
+    } else {
+        size_t i = 0;
+        while (i < def.size()) {
+            StringTokenizer st2(def[i++], ":");
+            if (st2.size() != 2) {
+                throw ProcessError("Broken time line definition: missing a value in '" + def[i - 1] + "'.");
+            }
+            int time = TplConvert::_2int(st2.next().c_str());
+            prob = TplConvert::_2SUMOReal(st2.next().c_str());
+            points.push_back(Position((SUMOReal) time, prob));
+        }
+    }
+    return Distribution_Points("N/A", points, interpolating);
+}
 
 /****************************************************************************/
-
