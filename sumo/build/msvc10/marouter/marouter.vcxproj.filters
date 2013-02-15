@@ -35,6 +35,9 @@
     <ClCompile Include="..\..\..\src\od2trips\ODMatrix.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\marouter\Assignments.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\marouter\ROMAEdgeBuilder.h">
@@ -59,6 +62,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\od2trips\ODMatrix.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\marouter\Assignments.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
