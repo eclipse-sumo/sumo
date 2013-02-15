@@ -774,7 +774,7 @@ public:
 
     /// @brief return whether this vehicle is currently following the given veh
     bool hasLinkLeader(MSVehicle* veh) const {
-        return myLinkLeaders.count(veh) > 0;
+        return myLinkLeaders.count(veh->getID()) > 0;
     }
 
 
@@ -1030,8 +1030,10 @@ private:
     Influencer* myInfluencer;
 #endif
 
-    /// @brief vehicles being followed across a link (for resolving priority)
-    std::set<MSVehicle*> myLinkLeaders;
+    /// @brief ids of vehicles being followed across a link (for resolving priority)
+    std::set<std::string> myLinkLeaders;
+    /// @brief map from the links to link leader ids
+    std::map<const MSLink*, std::string> myLeaderForLink;
 
 private:
     /// @brief invalidated default constructor

@@ -272,10 +272,11 @@ public:
     /** @brief Returns the information about the latest vehicle which is on one of the 
      * same-target-foeLanes of this (exit)link 
      * Valid during the move() phase
+     * @param[in] previousLeaders Previous leader candidates which should be returned if they still qualify
      * @param[in] dist The distance of the vehicle who is asking about the leader to this link
      * @return The leading vehicle and its (virtual) distance to the asking vehicle or <0,0>
      */
-    std::pair<MSVehicle*, SUMOReal> getLeaderInfo(SUMOReal dist) const;
+    std::pair<MSVehicle*, SUMOReal> getLeaderInfo(const std::map<const MSLink*, std::string>& previousLeaders, SUMOReal dist) const;
 #endif
 
     /// @brief return the via lane if it exists and the lane otherwise

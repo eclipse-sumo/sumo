@@ -271,9 +271,21 @@ MSLink::getViaLane() const {
 
 
 std::pair<MSVehicle*, SUMOReal> 
-MSLink::getLeaderInfo(SUMOReal dist) const {
+MSLink::getLeaderInfo(const std::map<const MSLink*, std::string>& previousLeaders, SUMOReal dist) const {
     if (MSGlobals::gUsingInternalLanes && myJunctionInlane == 0) {
         // this is an exit link
+        
+        // there might have been a link leader from previous steps who still qualifies
+        // but is not the last vehicle on the foe lane anymore 
+        std::map<const MSLink*, std::string>::const_iterator it = previousLeaders.find(this);
+        if (it != previousLeaders.end()) {
+            MSVehicle* leader = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(it->second));
+            if (leader != 0 && std::find(myFoeLanes.begin(), myFoeLanes.end(), leader->getLane()) != myFoeLanes.end()) {
+                return std::make_pair<MSVehicle*, SUMOReal>(leader, 
+                        dist - (leader->getLane()->getLength() - leader->getPositionOnLane()));
+            }
+        }
+        // now check for last vehicle on foe lane
         for (std::vector<MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
             assert((*i)->getLinkCont().size() == 1);
             MSLink* exitLink = (*i)->getLinkCont()[0];
