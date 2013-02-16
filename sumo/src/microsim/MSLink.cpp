@@ -282,7 +282,7 @@ MSLink::getLeaderInfo(const std::map<const MSLink*, std::string>& previousLeader
             MSVehicle* leader = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(it->second));
             if (leader != 0 && std::find(myFoeLanes.begin(), myFoeLanes.end(), leader->getLane()) != myFoeLanes.end()) {
                 return std::make_pair<MSVehicle*, SUMOReal>(leader, 
-                        dist - (leader->getLane()->getLength() - leader->getPositionOnLane()));
+                        dist - (leader->getLane()->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength());
             }
         }
         // now check for last vehicle on foe lane
@@ -293,7 +293,7 @@ MSLink::getLeaderInfo(const std::map<const MSLink*, std::string>& previousLeader
                 MSVehicle* leader = (*i)->getLastVehicle();
                 if (leader != 0) {
                     return std::make_pair<MSVehicle*, SUMOReal>(leader, 
-                            dist - ((*i)->getLength() - leader->getPositionOnLane()));
+                            dist - ((*i)->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength());
                 }
             }
         }
