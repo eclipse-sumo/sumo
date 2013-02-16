@@ -122,7 +122,7 @@ MSCFModel::freeSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal seen, 
     const SUMOReal y = MAX2(0.0, ((sqrt((b + 2.0*maxSpeed)*(b + 2.0*maxSpeed) + 8.0*b*seen) - b)*0.5 - maxSpeed)/b);
     const SUMOReal yFull = floor(y);
     const SUMOReal exactGap = (yFull * yFull + yFull) * 0.5 * b + yFull * maxSpeed + (y > yFull ? maxSpeed : 0.0);
-    return MAX2(0.0, seen - exactGap) / (yFull + 1) + yFull * myDecel + maxSpeed;
+    return MAX2((SUMOReal)0.0, seen - exactGap) / (yFull + 1) + yFull * myDecel + maxSpeed;
 }
 
 /****************************************************************************/

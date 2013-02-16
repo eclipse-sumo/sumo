@@ -767,6 +767,7 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
             break;
         }
 
+#ifdef HAVE_INTERNAL_LANES
         // we want to pass the link but need to check for foes on internal lanes
         std::pair<MSVehicle*, SUMOReal> linkLeaderInfo = (*link)->getLeaderInfo(myLeaderForLink, seen - getVehicleType().getMinGap());
         if (linkLeaderInfo.first != 0) {
@@ -777,6 +778,7 @@ MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsI
                 adaptToLeader(linkLeaderInfo, seen, lastLink, lane, v, vLinkPass);
             }
         }
+#endif
 
         SUMOReal va = firstLane ? v : lane->getVehicleMaxSpeed(this);
         if (lastLink > 0) {
@@ -1025,11 +1027,13 @@ MSVehicle::moveChecked() {
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
                     myLane = approachedLane;
+#ifdef HAVE_INTERNAL_LANES
                     // erase leader for the past link
                     if (myLeaderForLink.find(link) != myLeaderForLink.end()) {
                         myLinkLeaders.erase(myLeaderForLink[link]);
                         myLeaderForLink.erase(link);
                     }
+#endif
                     moved = true;
                     if (approachedLane->getEdge().isVaporizing()) {
                         break;

@@ -772,10 +772,12 @@ public:
     bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
 
 
+#ifdef HAVE_INTERNAL_LANES
     /// @brief return whether this vehicle is currently following the given veh
     bool hasLinkLeader(MSVehicle* veh) const {
         return myLinkLeaders.count(veh->getID()) > 0;
     }
+#endif
 
 
     /** @class Influencer
@@ -1030,10 +1032,12 @@ private:
     Influencer* myInfluencer;
 #endif
 
+#ifdef HAVE_INTERNAL_LANES
     /// @brief ids of vehicles being followed across a link (for resolving priority)
     std::set<std::string> myLinkLeaders;
     /// @brief map from the links to link leader ids
     std::map<const MSLink*, std::string> myLeaderForLink;
+#endif
 
 private:
     /// @brief invalidated default constructor
