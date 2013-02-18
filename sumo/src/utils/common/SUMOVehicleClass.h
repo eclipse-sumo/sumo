@@ -151,32 +151,32 @@ enum SUMOVehicleClass {
     //@{
 
     /// @brief vehicle is a passenger car (a "normal" car)
-    SVC_PASSENGER = 256,
+    SVC_PASSENGER = 128,
     /// @brief vehicle is a HOV
-    SVC_HOV = 512,
+    SVC_HOV = 256,
     /// @brief vehicle is a taxi
-    SVC_TAXI = 1024,
+    SVC_TAXI = 512,
     /// @brief vehicle is a bus
-    SVC_BUS = 2048,
+    SVC_BUS = 1024,
     /// @brief vehicle is a small delivery vehicle
-    SVC_DELIVERY = 4096,
+    SVC_DELIVERY = 2048,
     /// @brief vehicle is a large transport vehicle
-    SVC_TRANSPORT = 8192,
+    SVC_TRANSPORT = 4096,
     /// @brief vehicle is a light rail
-    SVC_LIGHTRAIL = 16384,
+    SVC_LIGHTRAIL = 8192,
     /// @brief vehicle is a city rail
-    SVC_CITYRAIL = 32768,
+    SVC_CITYRAIL = 16384,
     /// @brief vehicle is a slow moving transport rail
-    SVC_RAIL_SLOW = 65536,
+    SVC_RAIL_SLOW = 32768,
     /// @brief vehicle is a fast moving rail
-    SVC_RAIL_FAST = 131072,
+    SVC_RAIL_FAST = 65536,
 
     /// @brief vehicle is a motorcycle
-    SVC_MOTORCYCLE = 262144,
+    SVC_MOTORCYCLE = 131072,
     /// @brief vehicle is a bicycle
-    SVC_BICYCLE = 524288,
+    SVC_BICYCLE = 262144,
     /// @brief is a pedestrian
-    SVC_PEDESTRIAN = 1048576
+    SVC_PEDESTRIAN = 524288
                      //@}
 };
 

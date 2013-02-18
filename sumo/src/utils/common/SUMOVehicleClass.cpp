@@ -162,6 +162,7 @@ getPermissionEncoding(SVCPermissions permissions) {
         return std::pair<std::string, bool>("", false); // nothing disallowed
     }
     // figure out whether its shorter to write allow or disallow
+    // @note: this code assumes that enum values are assigned contiguous powers of 2 from 1 to SUMOVehicleClass_MAX
     size_t num_allowed = 0;
     for (int mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
         if ((mask & permissions) == mask) {
