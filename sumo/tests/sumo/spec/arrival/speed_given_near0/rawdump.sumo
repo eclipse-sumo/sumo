@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Wed Feb 13 20:24:14 2013 by SUMO sumo Version dev-SVN-r13328
+<!-- generated on 02/18/13 10:03:07 by SUMO sumo Version dev-SVN-r13361
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -206,7 +206,7 @@
     <timestep time="20.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="1" pos="425.50" speed="27.20"/>
+                <vehicle id="1" pos="426.10" speed="27.80"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
@@ -215,7 +215,7 @@
     <timestep time="21.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="1" pos="448.20" speed="22.70"/>
+                <vehicle id="1" pos="451.32" speed="25.22"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
@@ -224,7 +224,7 @@
     <timestep time="22.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="1" pos="466.40" speed="18.20"/>
+                <vehicle id="1" pos="472.03" speed="20.72"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
@@ -233,7 +233,7 @@
     <timestep time="23.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="1" pos="482.30" speed="15.90"/>
+                <vehicle id="1" pos="488.25" speed="16.22"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
@@ -242,7 +242,7 @@
     <timestep time="24.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="1" pos="496.00" speed="13.70"/>
+                <vehicle id="1" pos="499.97" speed="11.72"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
@@ -251,7 +251,7 @@
     <timestep time="25.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="1" pos="5.10" speed="9.20"/>
+                <vehicle id="1" pos="7.08" speed="7.22"/>
             </lane>
             <lane id="end_1"/>
             <lane id="end_2"/>
@@ -260,7 +260,7 @@
     <timestep time="26.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="1" pos="9.80" speed="4.70"/>
+                <vehicle id="1" pos="9.80" speed="2.72"/>
             </lane>
             <lane id="end_1"/>
             <lane id="end_2"/>

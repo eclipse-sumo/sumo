@@ -42,7 +42,6 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <vehicle id="441" depart="0" departLane="free" departPos="free" departSpeed="max" fromTaz="1" toTaz="2">
         <route edges="gneE2 1to22.17 out gneE4" exitTimes="26561.00 26680.17 27153.79 27190.23 27216.79 27217.79"/>
     </vehicle>

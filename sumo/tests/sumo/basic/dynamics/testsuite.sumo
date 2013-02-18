@@ -12,3 +12,6 @@ short_edge_arrival
 
 # one vehicle approaching a lane with a lower max speed
 approach_slow_lane
+
+# one vehicle approaching a lane with a lower max speed
+approach_slow_lane_dawdle

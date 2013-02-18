@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Wed Feb 13 20:26:19 2013 by SUMO sumo Version dev-SVN-r13328
+<!-- generated on 02/18/13 10:26:01 by SUMO sumo Version dev-SVN-r13361
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -31,14 +31,14 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0.00" arrival="140.00">
+    <vehicle id="0" depart="0.00" arrival="138.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="1" depart="20.00" arrival="160.00">
+    <vehicle id="1" depart="20.00" arrival="159.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="20.00" probability="0" edges="beg rend"/>
             <route edges="beg middle end rend"/>
@@ -87,7 +87,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="8" depart="160.00" arrival="299.00">
+    <vehicle id="8" depart="160.00" arrival="298.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="160.00" probability="0" edges="beg rend"/>
             <route edges="beg middle end rend"/>
