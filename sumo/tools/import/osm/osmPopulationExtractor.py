@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 """
 @file    osmPopulationExactor.py
 @author  Yun-Pang Floetteroed
@@ -49,6 +49,7 @@ class Node:
         self.id = id
         self.lat = lat
         self.lon = lon
+        self.attribute = "node"
         self.uid = None
         self.place = None
         self.name = None
@@ -63,6 +64,7 @@ class Relation:
     def __init__(self, id, uid, population):
         self.id = id
         self.uid = uid
+        self.attribute = "relation"
         self.name = None
         self.type = None
         self.population = population
@@ -97,7 +99,7 @@ class PopulationReader(handler.ContentHandler):
                 self._nodeuid = attrs['uid']
         if self._nodeId and name == 'tag':
             if attrs['k'] == 'name':
-                self._name = attrs['v'] #unicode(attrs['v']).encode("utf-8")
+                self._name = attrs['v']
             if attrs['k'] == 'place':
                 self._place = attrs['v']
             if not self._population and attrs['k'] == 'openGeoDB:population':
@@ -111,7 +113,7 @@ class PopulationReader(handler.ContentHandler):
                 self._relationuid = attrs['uid']
         if self._relationId and name == 'tag':
             if attrs['k'] == 'name':
-                self._name = attrs['v'] #unicode(attrs['v']).encode("utf-8")
+                self._name = attrs['v']
             if attrs['k'] == 'type':
                 self._type = attrs['v']
             if not self._population and attrs['k'] == 'openGeoDB:population':
@@ -161,33 +163,38 @@ class PopulationReader(handler.ContentHandler):
             self._population = None
 
 def main():
-    print 'begin the program'
     parser = make_parser()
-    osmFile = sys.argv[1]
+    osmFile = options.osmfile
     print 'osmFile:', osmFile
-    #osmFile = 'bremen.xml'
-    prefix = osmFile.split('.')[0]
+    if options.bsafile:
+        bsaFile = options.bsafile
+        print 'bsaFile:', bsaFile
+    if not options.outputfile:
+        prefix = osmFile.split('.')[0]
     net = Net()
     parser.setContentHandler(PopulationReader(net))
     parser.parse(osmFile)
     
     print 'finish with data parsing'
-    print 'write output files'
-    outputfile = '%s_nodesWithPopulation.txt' %prefix
+    print 'write the population to the output file'
+    outputfile = '%s_populations.txt' %prefix
     fout = open(outputfile, 'w')
-    fout.write('nodeId\tname\tlat\tlon\tuid\tpopulation\n')
-    fout.close()
+    fout.write("attribute\tid\tname\tuid\tpopulation\tlat\tlon\n")
     for n in net._nodes:
-        if os.path.exists(outputfile):
-            fout = open(outputfile, 'a')
-        print n.id, n.name, n.lat, n.lon, n.uid, n.population
-        fout.write(('%s\t%s\t%s\t%s\t%s\t%s\n' % (n.id, n.name, n.lat, n.lon, n.uid, n.population)).encode("latin1"))
-        fout.close()
+        fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (n.attribute, n.id, n.name, n.uid, n.population, n.lat, n.lon)).encode("latin1"))
+    fout.close()
+    
+    if os.path.exists(outputfile):
+        fout = open(outputfile, 'a')
+    else:
+        print "there is no file named %s", outputfile
+        print "A new file will be open."
+        fout = open(outputfile, 'w')
 
-    fout = open('%s_relationsWithPopulation.txt' %prefix, 'w')
-    fout.write('relationId\tname\tuid\tpopulation\n')
     for r in net._relations:
-        fout.write('%s\t%s\t%s\t%s\n' % (r.id, r.name, r.uid, r.population))
+        print r.attribute, r.id, r.name, r.uid, r.population
+        print type(r.attribute), type(r.id), type(r.name), type(r.uid), type(r.population)
+        fout.write(unicode("%s\t%s\t%s\t%s\t%s\tNone\tNone\n" % (r.attribute, r.id, r.name, r.uid, r.population)).encode("latin1"))
     fout.close()
     
     fout = open('%s_nodesWithSameUid.txt' %prefix, 'w')
@@ -204,9 +211,45 @@ def main():
     for r in net._uidRelationMap:
         fout.write('%s' % r)
         for n in net._uidRelationMap[r]:
-            fout.write('\t%s\t%s' % (n.id, n.name))
+            fout.write(('\t%s\t%s' % (n.id, n.name)).encode("latin1"))
         fout.write('\n')
     fout.close()
     print 'finished'
 
+# compare the data with the data from BSA
+#if options.bsafile:
+#    matchedCount = 0
+#    fout = open("machtedArea.txt", 'w')
+#    fout.write("bsaName\tbsaArea\tbsaPop\tbsaLan\tbsaLon\tosmName\tosmAtt\tosmPop\tosmLan\tosmLon\n")
+#    for line in open(osaFile):
+#        if '#' not in line:
+#            line = line.split('\n')[0]
+#            line = line.split(';')
+#            name = line[0]
+#            area = float(line[1])
+#            pop = int(line[2])
+#            lat = line[3]
+#            lon = line[4]
+#            for n in net._nodes:
+#                if name in n.name:
+#                    matchedCount += 1
+#                    fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %(name, area, pop, lat, lon, n.name, n.attribute, n.population, n.lan, n.lon)).encode("latin1"))
+#            for r in net._relations:
+#                if name in r.name:
+#                    matchedCount += 1
+#                    fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\tNone\tNone\n" %(name, area, pop, lat, lon, r.name, r.attribute, r.population)).encode("latin1"))
+#   print 'matched count:', matchedCount
+
+optParser = OptionParser()
+optParser.add_option("-s", "--osm-file", dest="osmfile", 
+                     help="read OSM file from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-b", "--bsa-file", dest="bsafile", 
+                     help="read pupoulation (in csv form) provided by German federal statistic authority (Bundesstatistikamt) from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-o", "--output-file", dest="outputfile", 
+                     help="define the output file name and path")
+(options, args) = optParser.parse_args()
+
+if not options.osmfile:
+    optParser.print_help()
+    sys.exit()
 main()
