@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/04/13 00:03:19 by SUMO netconvert Version dev-SVN-r13272
+<!-- generated on Mon Feb 18 16:06:52 2013 by SUMO netconvert Version dev-SVN-r13360
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -239,15 +239,15 @@
     <edge id="--32" from="-4" to="-14" priority="1" type="highway.track">
         <lane id="--32_0" index="0" speed="5.56" length="12.51" shape="341.70,733.99 341.88,721.48"/>
     </edge>
-    <edge id="--33#0" from="-15" to="-2" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="303.59,700.77 133.00,786.04 0.26,822.04">
+    <edge id="--33#0" from="-15" to="-2" name="IngolstÃ¤dter StraÃŸe" priority="9" type="highway.primary" shape="303.59,700.77 133.00,786.04 0.26,822.04">
         <lane id="--33#0_0" index="0" speed="27.78" length="327.24" shape="304.31,705.95 134.77,790.69 1.56,826.82"/>
         <lane id="--33#0_1" index="1" speed="27.78" length="327.24" shape="302.83,702.99 133.59,787.59 0.70,823.64"/>
     </edge>
-    <edge id="--33#1" from="-26" to="-15" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="493.51,408.13 473.55,508.62 426.27,583.95 339.53,680.45 303.59,700.77">
+    <edge id="--33#1" from="-26" to="-15" name="IngolstÃ¤dter StraÃŸe" priority="9" type="highway.primary" shape="493.51,408.13 473.55,508.62 426.27,583.95 339.53,680.45 303.59,700.77">
         <lane id="--33#1_0" index="0" speed="27.78" length="353.84" shape="498.20,409.92 478.22,510.47 430.46,586.58 342.67,684.36 315.26,699.86"/>
         <lane id="--33#1_1" index="1" speed="27.78" length="353.84" shape="494.96,409.28 475.11,509.24 427.66,584.83 340.58,681.75 313.63,696.99"/>
     </edge>
-    <edge id="--33#2" from="-29" to="-26" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="491.92,18.96 476.29,117.02 493.51,408.13">
+    <edge id="--33#2" from="-29" to="-26" name="IngolstÃ¤dter StraÃŸe" priority="9" type="highway.primary" shape="491.92,18.96 476.29,117.02 493.51,408.13">
         <lane id="--33#2_0" index="0" speed="27.78" length="389.36" shape="496.81,19.74 481.26,117.27 498.40,407.00"/>
         <lane id="--33#2_1" index="1" speed="27.78" length="389.36" shape="493.55,19.22 477.94,117.10 495.10,407.19"/>
     </edge>
@@ -269,15 +269,15 @@
     <edge id="-32" from="-14" to="-4" priority="1" type="highway.track">
         <lane id="-32_0" index="0" speed="5.56" length="12.51" shape="345.18,721.53 345.00,734.04"/>
     </edge>
-    <edge id="-33#0" from="-2" to="-15" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="0.26,822.04 133.00,786.04 303.59,700.77">
+    <edge id="-33#0" from="-2" to="-15" name="IngolstÃ¤dter StraÃŸe" priority="9" type="highway.primary" shape="0.26,822.04 133.00,786.04 303.59,700.77">
         <lane id="-33#0_0" index="0" speed="27.78" length="325.92" shape="-1.03,817.27 131.23,781.39 299.88,697.09"/>
         <lane id="-33#0_1" index="1" speed="27.78" length="325.92" shape="-0.17,820.45 132.41,784.49 301.36,700.04"/>
     </edge>
-    <edge id="-33#1" from="-15" to="-26" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="303.59,700.77 339.53,680.45 426.27,583.95 473.55,508.62 493.51,408.13">
+    <edge id="-33#1" from="-15" to="-26" name="IngolstÃ¤dter StraÃŸe" priority="9" type="highway.primary" shape="303.59,700.77 339.53,680.45 426.27,583.95 473.55,508.62 493.51,408.13">
         <lane id="-33#1_0" index="0" speed="27.78" length="348.13" shape="310.38,691.24 336.39,676.54 422.59,580.64 468.87,506.76 488.49,407.99"/>
         <lane id="-33#1_1" index="1" speed="27.78" length="348.13" shape="312.01,694.12 338.48,679.15 425.04,582.85 471.99,508.00 491.72,408.63"/>
     </edge>
-    <edge id="-33#2" from="-26" to="-29" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="493.51,408.13 476.29,117.02 491.92,18.96">
+    <edge id="-33#2" from="-26" to="-29" name="IngolstÃ¤dter StraÃŸe" priority="9" type="highway.primary" shape="493.51,408.13 476.29,117.02 491.92,18.96">
         <lane id="-33#2_0" index="0" speed="27.78" length="390.80" shape="488.52,407.58 471.31,116.77 487.03,18.18"/>
         <lane id="-33#2_1" index="1" speed="27.78" length="390.80" shape="491.81,407.39 474.63,116.94 490.29,18.70"/>
     </edge>
