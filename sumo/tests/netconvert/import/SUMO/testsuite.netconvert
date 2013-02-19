@@ -20,5 +20,10 @@ attributes
 spreadType
 
 # apply offset to a loaded network
-# 
 offset
+
+# load network without internal lanes and output a network without internal lanes by default
+no_internal_lanes
+
+# load network without internal lanes and set option to output a network with internal lanes
+no_internal_lanes_modify
