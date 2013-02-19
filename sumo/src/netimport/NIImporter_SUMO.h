@@ -69,10 +69,10 @@ public:
      *  using the SAXinterface and handling the incoming data via this class'
      *  methods.
      *
-     * @param[in] oc The options to use
+     * @param[in,out] oc The options to use (option no-internal-links may be modified)
      * @param[in] nb The network builder to fill
      */
-    static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
+    static void loadNetwork(OptionsCont& oc, NBNetBuilder& nb);
 
     /// begins the reading of a traffic lights logic
     static NBLoadedSUMOTLDef* initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL);
@@ -83,6 +83,9 @@ public:
     /// Parses network location description and registers it with GeoConveHelper::setLoaded
     static GeoConvHelper* loadLocation(const SUMOSAXAttributes& attrs);
 
+    bool hasInternalEdges() const {
+        return myHaveSeenInternalEdge;
+    }
 
 protected:
     /** @brief Constructor
@@ -277,6 +280,8 @@ private:
     /// @brief whether we suspect a net that was built with xml.keep-shape
     bool mySuspectKeepShape;
 
+    /// @brief whether the loaded network contains internal lanes
+    bool myHaveSeenInternalEdge;
 
     /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs
      * @param[in] edge The EdgeAttrs* which should contain the lane

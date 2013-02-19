@@ -64,9 +64,12 @@
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NIImporter_SUMO::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
+NIImporter_SUMO::loadNetwork(OptionsCont& oc, NBNetBuilder& nb) {
     NIImporter_SUMO importer(nb);
     importer._loadNetwork(oc);
+    if (!importer.hasInternalEdges() && oc.isDefault("no-internal-links")) {
+        oc.set("no-internal-links", "true");
+    }
 }
 
 
@@ -82,7 +85,8 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCurrentLane(0),
       myCurrentTL(0),
       myLocation(0),
-      mySuspectKeepShape(false) {}
+      mySuspectKeepShape(false),
+      myHaveSeenInternalEdge(false) {}
 
 
 NIImporter_SUMO::~NIImporter_SUMO() {
@@ -372,6 +376,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     }
     myCurrentLane = new LaneAttrs;
     if (myCurrentEdge->func == EDGEFUNC_INTERNAL) {
+        myHaveSeenInternalEdge = true;
         return; // skip internal lanes
     }
     if (attrs.hasAttribute("maxspeed")) {
