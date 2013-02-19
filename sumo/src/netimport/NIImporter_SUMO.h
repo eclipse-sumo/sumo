@@ -128,7 +128,7 @@ protected:
 
 private:
     /// @brief load the network
-    void _loadNetwork(const OptionsCont& oc);
+    void _loadNetwork(OptionsCont& oc);
 
     /// @name Object instance parsing methods
     //@{

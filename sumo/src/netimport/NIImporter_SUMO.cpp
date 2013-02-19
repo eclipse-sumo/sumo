@@ -67,9 +67,6 @@ void
 NIImporter_SUMO::loadNetwork(OptionsCont& oc, NBNetBuilder& nb) {
     NIImporter_SUMO importer(nb);
     importer._loadNetwork(oc);
-    if (!importer.hasInternalEdges() && oc.isDefault("no-internal-links")) {
-        oc.set("no-internal-links", "true");
-    }
 }
 
 
@@ -102,10 +99,13 @@ NIImporter_SUMO::~NIImporter_SUMO() {
 
 
 void
-NIImporter_SUMO::_loadNetwork(const OptionsCont& oc) {
+NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     // check whether the option is set (properly)
     if (!oc.isUsableFileList("sumo-net-file")) {
         return;
+    }
+    if (!hasInternalEdges() && oc.isDefault("no-internal-links")) {
+        oc.set("no-internal-links", "true");
     }
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("sumo-net-file");
