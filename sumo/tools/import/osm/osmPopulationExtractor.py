@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 """
 @file    osmPopulationExactor.py
 @author  Yun-Pang Floetteroed
