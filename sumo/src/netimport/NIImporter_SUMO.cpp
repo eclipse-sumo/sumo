@@ -104,9 +104,6 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (!oc.isUsableFileList("sumo-net-file")) {
         return;
     }
-    if (!hasInternalEdges() && oc.isDefault("no-internal-links")) {
-        oc.set("no-internal-links", "true");
-    }
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
@@ -225,7 +222,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 NBConnection(prohibitedFrom, myEdges[it->prohibitedTo]->builtEdge));
         }
     }
-
+    if (!myHaveSeenInternalEdge && oc.isDefault("no-internal-links")) {
+        oc.set("no-internal-links", "true");
+    }
     // final warning
     if (mySuspectKeepShape) {
         WRITE_WARNING("The input network may have been built using option 'xml.keep-shape'.\n... Accuracy of junction positions cannot be guaranteed.");

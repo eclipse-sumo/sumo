@@ -83,10 +83,6 @@ public:
     /// Parses network location description and registers it with GeoConveHelper::setLoaded
     static GeoConvHelper* loadLocation(const SUMOSAXAttributes& attrs);
 
-    bool hasInternalEdges() const {
-        return myHaveSeenInternalEdge;
-    }
-
 protected:
     /** @brief Constructor
      * @param[in] nc The network builder to fill
