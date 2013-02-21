@@ -248,6 +248,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Daniel1.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussPS.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.cpp" />
@@ -258,7 +259,6 @@
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussPS.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Person.cpp" />
@@ -298,6 +298,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Daniel1.h" />
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussPS.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.h" />
@@ -310,7 +311,6 @@
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussPS.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.h" />
