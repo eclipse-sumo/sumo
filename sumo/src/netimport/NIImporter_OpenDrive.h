@@ -423,6 +423,7 @@ static std::string revertID(const std::string &id);
 	bool myConnectionWasEmpty;
 
     static std::set<std::string> myLaneTypes2Import;
+    static bool myImportAllTypes;
 
 
 protected:

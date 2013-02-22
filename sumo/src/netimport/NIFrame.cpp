@@ -248,6 +248,12 @@ NIFrame::fillOptions() {
     oc.addDescription("osm.skip-duplicates-check", "Processing", "Skips the check for duplicate nodes and edges.");
 
 
+    // register opendrive options
+    oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));
+    oc.addDescription("opendrive.import-all-lanes", "Processing", "Imports all lane types.");
+    
+
+
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));
     oc.addDescription("tls.discard-loaded", "TLS Building", "Does not instatiate traffic lights loaded from other formats than XML");
