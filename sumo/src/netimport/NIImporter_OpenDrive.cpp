@@ -371,7 +371,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 				}
 				for (int k = 0; k < (int) (*j).lanesByDir[OPENDRIVE_TAG_RIGHT].size(); ++k) {
 					if((*j).laneMap.find(-k)!=(*j).laneMap.end()) {
-						currRight->getLaneStruct((*j).laneMap[-k]).origID = e->id + " -" + toString(-k);
+						currRight->getLaneStruct((*j).laneMap[-k]).origID = e->id + " " + toString(-k);
 					}
 				}
 				// connect lane sections
