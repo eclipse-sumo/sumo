@@ -327,6 +327,8 @@ protected:
 		ContactPoint fromCP;
 		ContactPoint toCP;
 		bool all;
+        std::string origID;
+        int origLane;
 	};
 
 

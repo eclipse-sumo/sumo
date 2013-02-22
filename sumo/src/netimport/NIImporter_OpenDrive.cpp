@@ -482,7 +482,18 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 			/// ...but it happens. So probably, also to may get zero
 			/// probably, it is somehwere around the determination whether the successor or the predecessor information shall be used
 			from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER);
-		}
+
+            if ((*i).origID != "") {
+                std::vector<NBEdge::Connection>& cons = from->getConnections();
+                for (std::vector<NBEdge::Connection>::iterator k = cons.begin(); k != cons.end(); ++k) {
+                    if ((*k).fromLane == fromLane && (*k).toEdge == to && (*k).toLane == toLane) {
+                        (*k).origID = (*i).origID + " " + toString((*i).origLane);
+                        break;
+                    }
+                }
+            }
+
+        }
 	}
 	if(oc.exists("geometry.min-dist")&&oc.isSet("geometry.min-dist")) {
 		oc.unSet("geometry.min-dist");
@@ -521,6 +532,8 @@ if(dest==0) {
 				cn.fromLane = c.fromLane;
 				cn.fromCP = c.fromCP;
 				cn.all = c.all;
+                cn.origID = c.toEdge;
+                cn.origLane = c.toLane;
 				into.push_back(cn);
 			}
 		}
