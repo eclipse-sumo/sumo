@@ -35,6 +35,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -612,8 +613,18 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
     EdgeVector::const_iterator i, j;
     for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end() - 1; i++) {
         // store current edge's boundary as current ccw/cw boundary
-        geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-        geomsCW[*i] = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+        try {
+            geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+        } catch (InvalidArgument &e) {
+            WRITE_WARNING(std::string("While computing intersection geometry: ") + std::string(e.what()));
+            geomsCCW[*i] = (*i)->getGeometry();
+        }
+        try {
+            geomsCW[*i] = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+        } catch (InvalidArgument &e) {
+            WRITE_WARNING(std::string("While computing intersection geometry: ") + std::string(e.what()));
+            geomsCW[*i] = (*i)->getGeometry();
+        }
         // extend the boundary by extroplating it by 100m
         PositionVector g1 =
             myNode.hasIncoming(*i)
