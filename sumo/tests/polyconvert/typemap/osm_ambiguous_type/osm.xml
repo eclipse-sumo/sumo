@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API">
+<note>The data included in this document is from www.openstreetmap.org. It has there been collected by a large group of contributors. For individual attribution of each item please refer to http://www.openstreetmap.org/api/0.6/[node|way|relation]/#id/history </note>
+<meta osm_base="2012-02-20T12\:58\:02Z"/>
+
+  <node id="246561357" lat="52.1707203" lon="10.5514055"/>
+  <node id="247376524" lat="52.1709154" lon="10.5525232"/>
+  <node id="255740918" lat="52.1708148" lon="10.5519469"/>
+  
+  <way id="0">
+    <nd ref="247376524"/>
+    <nd ref="255740918"/>
+    <nd ref="246561357"/>
+    <tag k="admin_level" v="10"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="boundary" v="administrative"/>
+    <tag k="boundary_type" v="suburb"/>
+    <tag k="highway" v="footway"/>
+    <tag k="name" v="Räubergasse"/>
+    <tag k="postal_code" v="38302"/>
+  </way>
+  
+  <way id="1">
+    <nd ref="247376524"/>
+    <nd ref="255740918"/>
+    <nd ref="246561357"/>
+    <tag k="landuse" v="bla"/>
+  </way>
+
+</osm>
