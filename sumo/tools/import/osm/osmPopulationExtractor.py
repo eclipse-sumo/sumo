@@ -171,7 +171,9 @@ def main():
     if options.bsafile:
         bsaFile = options.bsafile
         print 'bsaFile:', bsaFile
-    if not options.outputfile:
+    if options.outputfile:
+        prefix = options.outputfile
+    else:
         prefix = osmFile.split('.')[0]
     net = Net()
     parser.setContentHandler(PopulationReader(net))
@@ -184,7 +186,7 @@ def main():
         fout = open(outputfile, 'w')
         fout.write("attribute\tid\tname\tuid\tpopulation\tlat\tlon\n")
         for n in net._nodes:
-            fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (n.attribute, n.id, n.name, n.uid, n.population, n.lat, n.lon)).encode("latin1"))
+            fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (n.attribute, n.id, n.name, n.uid, n.population, n.lat, n.lon)).encode(options.encoding))
         fout.close()
         
         if os.path.exists(outputfile):
@@ -197,7 +199,7 @@ def main():
         for r in net._relations:
             print r.attribute, r.id, r.name, r.uid, r.population
             print type(r.attribute), type(r.id), type(r.name), type(r.uid), type(r.population)
-            fout.write(unicode("%s\t%s\t%s\t%s\t%s\tNone\tNone\n" % (r.attribute, r.id, r.name, r.uid, r.population)).encode("latin1"))
+            fout.write(("%s\t%s\t%s\t%s\t%s\tNone\tNone\n" % (r.attribute, r.id, r.name, r.uid, r.population)).encode(options.encoding))
         fout.close()
         
         fout = open('%s_nodesWithSameUid.txt' %prefix, 'w')
@@ -205,7 +207,7 @@ def main():
         for r in net._uidNodeMap:
             fout.write('%s' % r)
             for n in net._uidNodeMap[r]:
-                fout.write(('\t%s\t%s' % (n.id,n.name)).encode("latin1"))
+                fout.write(('\t%s\t%s' % (n.id,n.name)).encode(options.encoding))
             fout.write('\n')
         fout.close()
         
@@ -214,7 +216,7 @@ def main():
         for r in net._uidRelationMap:
             fout.write('%s' % r)
             for n in net._uidRelationMap[r]:
-                fout.write(('\t%s\t%s' % (n.id, n.name)).encode("latin1"))
+                fout.write(('\t%s\t%s' % (n.id, n.name)).encode(options.encoding))
             fout.write('\n')
         fout.close()
         
@@ -248,7 +250,7 @@ def main():
                             noneList.append(n)
                         elif n.name != None and name == n.name and n.name not in areasList:
                             matchedCount += 1
-                            fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %(name, area, pop, lat, lon, n.name, n.attribute, n.population, n.lat, n.lon)).encode("latin1"))
+                            fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %(name, area, pop, lat, lon, n.name, n.attribute, n.population, n.lat, n.lon)).encode(options.encoding))
                             areasList.append(n.name)
                         
                     for r in net._relations:
@@ -256,11 +258,11 @@ def main():
                             noneList.append(r)
                         elif r.name != None and name == r.name and r.name not in areasList:
                             matchedCount += 1
-                            fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\tNone\tNone\n" %(name, area, pop, lat, lon, r.name, r.attribute, r.population)).encode("latin1"))
+                            fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\tNone\tNone\n" %(name, area, pop, lat, lon, r.name, r.attribute, r.population)).encode(options.encoding))
                             areasList.append(r.name)
         fout.close()
         for n in noneList:
-            foutnone.write(("%s\t%s\t%s\t%s\t%s\n" % (n.id, n.name, n.population, n.lat, n.lon)).encode("latin1"))
+            foutnone.write(("%s\t%s\t%s\t%s\t%s\n" % (n.id, n.name, n.population, n.lat, n.lon)).encode(options.encoding))
         foutnone.close()
         osmTotalCount = len(net._nodes) + len(net._relations)  #Duplicated data could exist.
         duplicated = osmTotalCount - len(areasList)
@@ -274,11 +276,12 @@ optParser = OptionParser()
 optParser.add_option("-s", "--osm-file", dest="osmfile", 
                      help="read OSM file from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-b", "--bsa-file", dest="bsafile", 
-                     help="read pupoulation (in csv form) provided by German federal statistic authority (Bundesstatistikamt) from FILE (mandatory)", metavar="FILE")
+                     help="read population (in csv form) provided by German federal statistic authority (Bundesstatistikamt) from FILE", metavar="FILE")
 optParser.add_option("-o", "--output-file", dest="outputfile", 
-                     help="define the output file name and path")
-optParser.add_option("-g", "--generate-outputs", dest="generateoutputs",
-            default=False, help="generate output files")
+                     help="define the output file name prefix")
+optParser.add_option("-e", "--encoding", help="output file encoding (default: %default)", default="utf8")
+optParser.add_option("-g", "--generate-outputs", dest="generateoutputs", action="store_true", 
+                     default=False, help="generate output files")
 (options, args) = optParser.parse_args()
 
 if not options.osmfile:
