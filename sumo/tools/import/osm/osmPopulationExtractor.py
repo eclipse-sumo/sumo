@@ -197,8 +197,6 @@ def main():
             fout = open(outputfile, 'w')
 
         for r in net._relations:
-            print r.attribute, r.id, r.name, r.uid, r.population
-            print type(r.attribute), type(r.id), type(r.name), type(r.uid), type(r.population)
             fout.write(("%s\t%s\t%s\t%s\t%s\tNone\tNone\n" % (r.attribute, r.id, r.name, r.uid, r.population)).encode(options.encoding))
         fout.close()
         
@@ -278,7 +276,7 @@ optParser.add_option("-s", "--osm-file", dest="osmfile",
 optParser.add_option("-b", "--bsa-file", dest="bsafile", 
                      help="read population (in csv form) provided by German federal statistic authority (Bundesstatistikamt) from FILE", metavar="FILE")
 optParser.add_option("-o", "--output-file", dest="outputfile", 
-                     help="define the output file name prefix")
+                     help="define the prefix name of the output file")
 optParser.add_option("-e", "--encoding", help="output file encoding (default: %default)", default="utf8")
 optParser.add_option("-g", "--generate-outputs", dest="generateoutputs", action="store_true", 
                      default=False, help="generate output files")
