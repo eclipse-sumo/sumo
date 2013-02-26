@@ -6,14 +6,18 @@
 @date    2013-02-08
 @version $Id$
 
-This script is to extract the popoulation data from a given Open Street Map (OSM).
+This script is to 
+- extract the popoulation data from a given Open Street Map (OSM).
+- match the population data from OSM and BSA (with csv format)
+The redundant information is removed and saved in the output file *_redundantOSMData.txt.
+If there are data entries without names, they will be saved in *_nameNone.txt.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
-import os, sys
+import os, sys, math
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 
@@ -75,7 +79,7 @@ class PopulationReader(handler.ContentHandler):
     """The class is for parsing the OSM XML file.
        The data parsed is written into the net.
     """
-    def __init__(self, net):
+    def __init__(self, net, foutredundant):
         self._net = net
         self._nodeId = None
         self._nodeObj = None
@@ -89,6 +93,8 @@ class PopulationReader(handler.ContentHandler):
         self._type = None
         self._name = None
         self._population = None
+        self._nodeNamesList = []
+        self._fout = foutredundant
 
     def startElement(self, name, attrs):
         if name =='node':
@@ -127,43 +133,58 @@ class PopulationReader(handler.ContentHandler):
 
     def endElement(self, name):
         if name == 'node' and self._population:
-            self._nodeObj = self._net.addNode(self._nodeId, self._nodeLat, self._nodeLon, self._population)
-            if self._nodeuid:
-                self._nodeObj.uid = self._nodeuid
-                if self._nodeuid not in self._net._uidNodeMap:
-                    self._net._uidNodeMap[self._nodeuid] = []
-                self._net._uidNodeMap[self._nodeuid].append(self._nodeObj)
-            if self._name:
-                self._nodeObj.name = self._name
-            if self._place:
-                self._nodeObj.place = self._place
-            self._nodeId = None
-            self._nodeObj = None
-            self._nodeLat = None
-            self._nodeLon = None
-            self._nodeuid = None
-            self._place = None
-            self._name = None
-            self._population = None
+            newInput = True
+            for n in self._net._nodes:
+                diffLat = abs(float(self._nodeLat) -float( n.lat))
+                diffLon = abs(float(self._nodeLon) - float(n.lon))
+                if self._name and self._name == n.name and self._population == n.population: #and diffLat < 0.003 and diffLon < 0.003 and int(self._population) == int(n.population):
+                    newInput =  False
+                    self._fout.write('node\t%s\t%s\t%s\t%s\t%s\n' %(self._name, self._nodeId, self._nodeLat, self._nodeLon, self._population))
+                    break
+            if newInput: 
+                self._nodeObj = self._net.addNode(self._nodeId, self._nodeLat, self._nodeLon, self._population)
+                if self._nodeuid:
+                    self._nodeObj.uid = self._nodeuid
+                    if self._nodeuid not in self._net._uidNodeMap:
+                        self._net._uidNodeMap[self._nodeuid] = []
+                    self._net._uidNodeMap[self._nodeuid].append(self._nodeObj)
+                if self._name:
+                    self._nodeObj.name = self._name
+                if self._place:
+                    self._nodeObj.place = self._place
+                self._nodeId = None
+                self._nodeObj = None
+                self._nodeLat = None
+                self._nodeLon = None
+                self._nodeuid = None
+                self._place = None
+                self._name = None
+                self._population = None
 
         if name == 'relation' and self._population:
-            self._relationObj = self._net.addRelation(self._relationId, self._relationuid, self._population)
-            self._relationObj.population = self._population
-            if self._relationuid not in self._net._uidRelationMap:
-                self._net._uidRelationMap[self._relationuid] = []
-            self._net._uidRelationMap[self._relationuid].append(self._relationObj)
+            newInput = True
+            for r in self._net._relations:
+                if self._name and self._name == r.name and self._population == r.population:
+                    newInput =  False
+                    self._fout.write('relation\t%s\t%s\t%s\t%s\n' %(self._name, self._relationId, self._relationuid, self._population))
+                    break
+            if newInput:
+                self._relationObj = self._net.addRelation(self._relationId, self._relationuid, self._population)
+                self._relationObj.population = self._population
+                if self._relationuid not in self._net._uidRelationMap:
+                    self._net._uidRelationMap[self._relationuid] = []
+                self._net._uidRelationMap[self._relationuid].append(self._relationObj)
 
-            if self._name:
-                self._relationObj.name = self._name
-            if self._type:
-                self._relationObj.place = self._type
-            self._relationId = None
-            self._relationObj = None        
-            self._relationuid = None
-            self._type = None
-            self._name = None
-            self._population = None
-
+                if self._name:
+                    self._relationObj.name = self._name
+                if self._type:
+                    self._relationObj.place = self._type
+                self._relationId = None
+                self._relationObj = None        
+                self._relationuid = None
+                self._type = None
+                self._name = None
+                self._population = None
 def main():
     parser = make_parser()
     osmFile = options.osmfile
@@ -175,10 +196,12 @@ def main():
         prefix = options.outputfile
     else:
         prefix = osmFile.split('.')[0]
+    redundantDataFile = '%s_redundantOSMData.txt' %prefix
+    foutredundant = open(redundantDataFile, 'w')
     net = Net()
-    parser.setContentHandler(PopulationReader(net))
+    parser.setContentHandler(PopulationReader(net, foutredundant))
     parser.parse(osmFile)
-    
+    foutredundant.close()
     print 'finish with data parsing'
     if options.generateoutputs:
         print 'write the population to the output file'
@@ -223,12 +246,10 @@ def main():
         bsaTotalCount = 0
         matchedCount = 0
         bsaNamesList = []
-        foutnone = open("%s_nameNone.txt" %prefix, 'w')
-        foutnone.write("nodeId\tnodeName\tPopulation\tLat\tLon\n")
+
         fout = open("%s_matchedAreas.txt" %prefix, 'w')
         fout.write("#bsaName\tbsaArea\tbsaPop\tbsaLat\tbsaLon\tosmName\tosmAtt\tosmPop\tosmLat\tosmLon\n")
         noneList = []
-        areasList =[] # names list of the found areas
         for line in open(options.bsafile):
             if '#' not in line:
                 line = line.split('\n')[0]
@@ -239,36 +260,31 @@ def main():
                 lon = line[3]
                 lat = line[4]
                 bsaTotalCount += 1
-                if name in bsaNamesList:
-                    print 'duplicated name:', name
-                else:
-                    bsaNamesList.append(name)
-                    for n in net._nodes:
-                        if n.name == None and n not in noneList:
-                            noneList.append(n)
-                        elif n.name != None and name == n.name and n.name not in areasList:
-                            matchedCount += 1
-                            fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %(name, area, pop, lat, lon, n.name, n.attribute, n.population, n.lat, n.lon)).encode(options.encoding))
-                            areasList.append(n.name)
-                        
-                    for r in net._relations:
-                        if r.name == None and r not in noneList:
-                            noneList.append(r)
-                        elif r.name != None and name == r.name and r.name not in areasList:
-                            matchedCount += 1
-                            fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\tNone\tNone\n" %(name, area, pop, lat, lon, r.name, r.attribute, r.population)).encode(options.encoding))
-                            areasList.append(r.name)
+
+                for n in net._nodes:
+                    if n.name == None and n not in noneList:
+                        noneList.append(n)
+                    elif n.name != None and name == n.name:# and n.name not in areasList:
+                        matchedCount += 1
+                        fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %(name, area, pop, lat, lon, n.name, n.attribute, n.population, n.lat, n.lon)).encode(options.encoding))
+                    
+                for r in net._relations:
+                    if r.name == None and r not in noneList:
+                        noneList.append(r)
+                    elif r.name != None and name == r.name:# and r.name not in areasList:
+                        matchedCount += 1
+                        fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\tNone\tNone\n" %(name, area, pop, lat, lon, r.name, r.attribute, r.population)).encode(options.encoding))
         fout.close()
-        for n in noneList:
-            foutnone.write(("%s\t%s\t%s\t%s\t%s\n" % (n.id, n.name, n.population, n.lat, n.lon)).encode(options.encoding))
-        foutnone.close()
-        osmTotalCount = len(net._nodes) + len(net._relations)  #Duplicated data could exist.
-        duplicated = osmTotalCount - len(areasList)
-        print prefix, '_matched count:', matchedCount
-        print 'bsaTotalCount:', bsaTotalCount
-        print 'osmTotalCount:', osmTotalCount
-        print 'duplicated areas in osm:', duplicated
-        print 'len(bsaNamesList):', len(bsaNamesList)
+        if len(noneList) > 0:
+            foutnone = open("%s_nameNone.txt" %prefix, 'w')
+            foutnone.write("nodeId\tnodeName\tPopulation\tLat\tLon\n")
+            for n in noneList:
+                foutnone.write(("%s\t%s\t%s\t%s\t%s\n" % (n.id, n.name, n.population, n.lat, n.lon)).encode(options.encoding))
+            foutnone.close()
+        osmTotalCount = len(net._nodes) + len(net._relations)  #Duplicated data does not exist.
+        print 'matched count in OSM and BSA data:', matchedCount
+        print 'Number of entries in the BSA data:', bsaTotalCount
+        print 'Number of entries in the OSM data:', osmTotalCount
 
 optParser = OptionParser()
 optParser.add_option("-s", "--osm-file", dest="osmfile", 
