@@ -119,8 +119,10 @@ protected:
         /** @brief Contructor
          * @param[in] toFill The nodes container to fill
 		 * @param[in] withAttributes Whether all attributes shall be stored
+         * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
          */
-        NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill, bool withAttributes);
+        NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill, bool withAttributes,
+            MsgHandler &errorHandler);
 
 
         /// @brief Destructor
@@ -155,6 +157,9 @@ protected:
 		/// @brief Whether all attributes shall be stored
 		bool myWithAttributes;
 
+		/// @brief The handler to report errors to (will be the WarningsHandler if --ignore-errors was set)
+		MsgHandler &myErrorHandler;
+
         /// @brief The nodes container to fill
         std::map<SUMOLong, PCOSMNode*>& myToFill;
 
@@ -187,9 +192,11 @@ protected:
          * @param[in] osmNodes The previously parsed (osm-)nodes
          * @param[in] toFill The edges container to fill with read edges
 		 * @param[in] withAttributes Whether all attributes shall be stored
+         * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
          */
         EdgesHandler(const std::map<SUMOLong, PCOSMNode*>& osmNodes,
-                     std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes);
+                     std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes,
+                     MsgHandler &errorHandler);
 
 
         /// @brief Destructor
@@ -223,6 +230,9 @@ protected:
     private:
 		/// @brief Whether all attributes shall be stored
 		bool myWithAttributes;
+
+		/// @brief The handler to report errors to (will be the WarningsHandler if --ignore-errors was set)
+		MsgHandler &myErrorHandler;
 
         /// @brief The previously parsed nodes
         const std::map<SUMOLong, PCOSMNode*>& myOSMNodes;

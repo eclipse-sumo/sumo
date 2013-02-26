@@ -73,7 +73,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     // load nodes, first
     std::map<SUMOLong, PCOSMNode*> nodes;
 	bool withAttributes = oc.getBool("all-attributes");
-    NodesHandler nodesHandler(nodes, withAttributes);
+    MsgHandler* m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
+    NodesHandler nodesHandler(nodes, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
@@ -88,7 +89,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     }
     // load edges, then
     std::map<std::string, PCOSMEdge*> edges;
-    EdgesHandler edgesHandler(nodes, edges, withAttributes);
+    EdgesHandler edgesHandler(nodes, edges, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // edges
         PROGRESS_BEGIN_MESSAGE("Parsing edges from osm-file '" + *file + "'");
@@ -100,6 +101,10 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     // instatiate polygons
     for (std::map<std::string, PCOSMEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         PCOSMEdge* e = (*i).second;
+        if(e->myCurrentNodes.size()==0) {
+            WRITE_ERROR("Polygon '" + e->id + "' has no shape.");
+            continue;
+        }
         if (!e->myIsAdditional) {
             continue;
         }
@@ -227,8 +232,9 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 // definitions of PCLoaderOSM::NodesHandler-methods
 // ---------------------------------------------------------------------------
 PCLoaderOSM::NodesHandler::NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill,
-	bool withAttributes)
-    : SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myToFill(toFill), myLastNodeID(-1) {}
+	bool withAttributes, MsgHandler &errorHandler)
+    : SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myErrorHandler(errorHandler),
+    myToFill(toFill), myLastNodeID(-1) {}
 
 
 PCLoaderOSM::NodesHandler::~NodesHandler() {}
@@ -263,8 +269,12 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     }
     if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_NODE) {
         bool ok = true;
-        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok);
-        std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
+        std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, "", false);
+        std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, "", false);
+        if(key=="") {
+            myErrorHandler.inform("Empty key in a a tag while parsing node '" + toString(myLastNodeID) + "' occured.");
+            ok = false;
+        }
         if (!ok) {
             return;
         }
@@ -305,8 +315,8 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) {
 // definitions of PCLoaderOSM::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 PCLoaderOSM::EdgesHandler::EdgesHandler(const std::map<SUMOLong, PCOSMNode*>& osmNodes,
-    std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes)
-    : SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes),
+    std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes, MsgHandler &errorHandler)
+    : SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myErrorHandler(errorHandler),
       myOSMNodes(osmNodes), myEdgeMap(toFill) {
 }
 
@@ -345,8 +355,12 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     // parse values
     if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_WAY) {
         bool ok = true;
-        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok);
-        std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
+        std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, "", false);
+        std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, "", false);
+        if(key=="") {
+            myErrorHandler.inform("Empty key in a a tag while parsing way '" + toString(myCurrentEdge->id) + "' occured.");
+            ok = false;
+        }
         if (!ok) {
             return;
         }
