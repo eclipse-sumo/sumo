@@ -193,6 +193,10 @@ public:
 	 */
 	Distribution_Points parseTimeLine(const std::vector<std::string>& def, bool timelineDayInHours);
 
+	const std::vector<ODCell*>& getCells() {
+		return myContainer;
+	}
+
 protected:
     /**
      * @struct ODVehicle
