@@ -77,12 +77,7 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* /*to*/,
         if (myAcceptAllDestination) {
             return;
         } else {
-            MsgHandler* mh = 0;
-            if (myUnbuildIsWarningOnly) {
-                mh = MsgHandler::getWarningInstance();
-            } else {
-                mh = MsgHandler::getErrorInstance();
-            }
+            MsgHandler* mh = myUnbuildIsWarningOnly ? mh = MsgHandler::getWarningInstance() : mh = MsgHandler::getErrorInstance();
             mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
         }
     }
@@ -96,12 +91,7 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* /*to*/,
 SUMOReal
 ROJTRRouter::recomputeCosts(const std::vector<const ROEdge*>& edges, const ROVehicle* const v, SUMOTime time) const {
     SUMOReal costs = 0;
-    for (std::vector<const ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); i++) {
-        /*
-        if (PF::operator()(*i, v)) {
-            return -1;
-        }
-        */
+    for (std::vector<const ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         costs += (*i)->getTravelTime(v, time);
     }
     return costs;

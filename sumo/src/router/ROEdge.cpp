@@ -63,7 +63,7 @@ std::vector<ROEdge*> ROEdge::myEdges;
 // method definitions
 // ===========================================================================
 ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index)
-    : myID(id), mySpeed(-1),
+    : Named(id), mySpeed(-1),
       myIndex(index), myLength(-1),
       myUsingTTTimeLine(false),
       myUsingETimeLine(false),

@@ -37,6 +37,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <utils/common/Named.h>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/SUMOVTypeParameter.h>
@@ -63,7 +64,7 @@ class ROVehicle;
  *  the weights, it is needed to call "buildTimeLines" in order to initialise
  *  these time lines.
  */
-class ROEdge {
+class ROEdge : public Named {
 public:
     /**
      * @enum EdgeType
@@ -141,14 +142,6 @@ public:
 
     /// @name Getter methods
     //@{
-
-    /** @brief Returns the id of the edge
-     * @return This edge's id
-     */
-    const std::string& getID() const {
-        return myID;
-    }
-
 
     /** @brief Returns the type of the edge
      * @return This edge's type
@@ -380,9 +373,6 @@ protected:
 
 
 protected:
-    /// @brief The id of the edge
-    std::string myID;
-
     /// @brief The maximum speed allowed on this edge
     SUMOReal mySpeed;
 
