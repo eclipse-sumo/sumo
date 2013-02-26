@@ -157,9 +157,9 @@ GUINet::createTLWrapper(MSTrafficLightLogic* tll) {
         new GUITrafficLightLogicWrapper(*myLogics, *tll);
     // build the association link->wrapper
     MSTrafficLightLogic::LinkVectorVector::const_iterator j;
-    for (j = links.begin(); j != links.end(); j++) {
+    for (j = links.begin(); j != links.end(); ++j) {
         MSTrafficLightLogic::LinkVector::const_iterator j2;
-        for (j2 = (*j).begin(); j2 != (*j).end(); j2++) {
+        for (j2 = (*j).begin(); j2 != (*j).end(); ++j2) {
             myLinks2Logic[*j2] = tll->getID();
         }
     }

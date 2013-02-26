@@ -97,7 +97,7 @@ GUIEdge::initGeometry() {
     }
     // build the lane wrapper
     myLaneGeoms.reserve(myLanes->size());
-    for (unsigned int i = 0; i < myLanes->size(); i++) {
+    for (unsigned int i = 0; i < myLanes->size(); ++i) {
         myLaneGeoms.push_back(myLanes->at(i)->buildLaneWrapper(i));
     }
 }
@@ -146,7 +146,7 @@ GUIEdge::getBoundary() const {
     Boundary ret;
     for (LaneWrapperVector::const_iterator i = myLaneGeoms.begin(); i != myLaneGeoms.end(); ++i) {
         const PositionVector& g = (*i)->getShape();
-        for (unsigned int j = 0; j < g.size(); j++) {
+        for (unsigned int j = 0; j < g.size(); ++j) {
             ret.add(g[j]);
         }
     }
@@ -279,7 +279,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                         queue = segment->getQueue(laneIndex);
                         const SUMOReal avgCarSize = segment->getOccupancy() / segment->getCarNumber();
                         const size_t queueSize = queue.size();
-                        for (size_t i = 0; i < queueSize; i++) {
+                        for (size_t i = 0; i < queueSize; ++i) {
                             MSBaseVehicle* veh = queue[queueSize - i - 1];
                             setVehicleColor(s, veh);
                             SUMOReal vehiclePosition = segmentOffset + length - i * avgCarSize;

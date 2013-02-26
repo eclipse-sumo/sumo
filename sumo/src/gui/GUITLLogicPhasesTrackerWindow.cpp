@@ -172,7 +172,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
     FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30);
     app.addChild(this, true);
-    for (size_t i = 0; i < myTLLogic->getLinks().size(); i++) {
+    for (size_t i = 0; i < myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<size_t>(i));
     }
     FXVerticalFrame* glcanvasFrame =
@@ -199,7 +199,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8);
     setTitle("TLS-Tracker");
     app.addChild(this, true);
-    for (size_t i = 0; i < myTLLogic->getLinks().size(); i++) {
+    for (size_t i = 0; i < myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<size_t>(i));
     }
     FXVerticalFrame* glcanvasFrame =
@@ -302,7 +302,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // draw the link names and the lines dividing them
     SUMOReal h = (SUMOReal)(1.0 - h10);
     SUMOReal h2 = 12;
-    for (size_t i = 0; i < myTLLogic->getLinks().size() + 1; i++) {
+    for (size_t i = 0; i < myTLLogic->getLinks().size() + 1; ++i) {
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
@@ -359,7 +359,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         SUMOReal x2 = x + a;
 
         // go through the links
-        for (unsigned int j = 0; j < (unsigned int) myTLLogic->getLinks().size(); j++) {
+        for (unsigned int j = 0; j < (unsigned int) myTLLogic->getLinks().size(); ++j) {
             // determine the current link's color
             LinkState state = (*pi).getSignalState(j);
             // draw the bar (red is drawn as a line)
@@ -399,8 +399,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         }
         // proceed to next phase
         i += duration;
-        pi++;
-        pd++;
+        ++pi;
+        ++pd;
         x = x2;
         // all further phases are drawn in full
         fpo = 0;

@@ -474,7 +474,7 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings& s) const {
     // optionally draw inverse markings
     if (myIndex > 0) {
         int e = (int) getShape().size() - 1;
-        for (int i = 0; i < e; i++) {
+        for (int i = 0; i < e; ++i) {
             glPushMatrix();
             glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
             glRotated(myShapeRotations[i], 0, 0, 1);
@@ -511,7 +511,7 @@ GUILaneWrapper::drawCrossties(const GUIVisualizationSettings& s) const {
     // draw on top of of the white area between the rails
     glTranslated(0, 0, 0.1);
     int e = (int) getShape().size() - 1;
-    for (int i = 0; i < e; i++) {
+    for (int i = 0; i < e; ++i) {
         glPushMatrix();
         glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
         glRotated(myShapeRotations[i], 0, 0, 1);
