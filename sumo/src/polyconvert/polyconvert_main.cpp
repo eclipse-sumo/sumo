@@ -268,7 +268,7 @@ main(int argc, char** argv) {
         PCPolyContainer toFill(prune, pruningBoundary, oc.getStringVector("remove"));
 
         // read in the type defaults
-        PCTypeMap tm;
+        PCTypeMap tm(oc);
         if (oc.isSet("type-file")) {
             PCTypeDefHandler handler(oc, tm);
             if (!XMLSubSys::runParser(handler, oc.getString("type-file"))) {

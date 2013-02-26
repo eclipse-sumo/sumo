@@ -161,7 +161,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
             const PCTypeMap::TypeDef& def = tm.get(type);
             name = def.prefix + name;
             type = def.id;
-            color = RGBColor::parseColor(def.color);
+            color = def.color;
             discard = def.discard;
             layer = def.layer;
         } else {
@@ -254,7 +254,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             const PCTypeMap::TypeDef& def = tm.get(type);
             name = def.prefix + name;
             type = def.id;
-            color = RGBColor::parseColor(def.color);
+            color = def.color;
             fill = fill && def.allowFill;
             discard = def.discard;
             layer = def.layer;

@@ -30,6 +30,7 @@
 
 #include <string>
 #include <map>
+#include "utils/options/OptionsCont.h"
 #include "PCTypeMap.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -40,7 +41,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PCTypeMap::PCTypeMap() {}
+PCTypeMap::PCTypeMap(const OptionsCont& oc) {
+	myDefaultType.id = oc.getString("type");
+	myDefaultType.color = RGBColor::parseColor(oc.getString("color"));
+	myDefaultType.layer = (SUMOReal)oc.getInt("layer");
+	myDefaultType.discard = oc.getBool("discard");
+	myDefaultType.allowFill = true;
+	myDefaultType.prefix = oc.getString("prefix");
+}
 
 
 PCTypeMap::~PCTypeMap() {}
@@ -55,7 +63,7 @@ PCTypeMap::add(const std::string& id, const std::string& newid,
     }
     TypeDef td;
     td.id = newid;
-    td.color = color;
+    td.color = RGBColor::parseColor(color);
     td.layer = layer;
     td.discard = discard;
     td.allowFill = allowFill;

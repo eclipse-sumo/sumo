@@ -80,12 +80,8 @@ protected:
         SUMOReal lon;
         /// @brief The latitude the node is located at
         SUMOReal lat;
-        /// @brief The type (<KEY>"."<VALUE>)
-        std::string myType;
-        /// @brief Information whether this shall be parsed
-        bool myIsAdditional;
-		/// @brief Additional attributes
-		std::map<std::string, std::string> myAttributes;
+        /// @brief Additional attributes
+        std::map<std::string, std::string> myAttributes;
     };
 
 
@@ -96,17 +92,29 @@ protected:
         std::string id;
         /// @brief The edge's name (if any)
         std::string name;
-        /// @brief The type (<KEY>"."<VALUE>)
-        std::string myType;
         /// @brief Information whether this area is closed
         bool myIsClosed;
         /// @brief The list of nodes this edge is made of
         std::vector<SUMOLong> myCurrentNodes;
-        /// @brief Information whether this shall be parsed
-        bool myIsAdditional;
-		/// @brief Additional attributes
-		std::map<std::string, std::string> myAttributes;
+        /// @brief Additional attributes
+        std::map<std::string, std::string> myAttributes;
     };
+
+protected:
+    /// @brief try add the polygon and return the next index on success
+    static int addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const PCTypeMap::TypeDef& def, 
+            const std::string& fullType, int index, bool useName, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes);
+
+    /// @brief try add the POI and return the next index on success
+    static int addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap::TypeDef& def, 
+            const std::string& fullType, int index, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes);
+
+
+protected:
+    static const std::set<std::string> MyKeysToInclude;
+
+private:
+    static std::set<std::string> initMyKeysToInclude();
 
 
 protected:
@@ -118,7 +126,7 @@ protected:
     public:
         /** @brief Contructor
          * @param[in] toFill The nodes container to fill
-		 * @param[in] withAttributes Whether all attributes shall be stored
+         * @param[in] withAttributes Whether all attributes shall be stored
          * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
          */
         NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill, bool withAttributes,
@@ -153,12 +161,12 @@ protected:
         //@}
 
 
-    private:
-		/// @brief Whether all attributes shall be stored
-		bool myWithAttributes;
+        private:
+        /// @brief Whether all attributes shall be stored
+        bool myWithAttributes;
 
-		/// @brief The handler to report errors to (will be the WarningsHandler if --ignore-errors was set)
-		MsgHandler &myErrorHandler;
+        /// @brief The handler to report errors to (will be the WarningsHandler if --ignore-errors was set)
+        MsgHandler &myErrorHandler;
 
         /// @brief The nodes container to fill
         std::map<SUMOLong, PCOSMNode*>& myToFill;
@@ -168,7 +176,6 @@ protected:
 
         /// @brief The id of the last parsed node
         SUMOLong myLastNodeID;
-
 
     private:
         /// @brief Invalidated copy constructor
@@ -191,7 +198,7 @@ protected:
          *
          * @param[in] osmNodes The previously parsed (osm-)nodes
          * @param[in] toFill The edges container to fill with read edges
-		 * @param[in] withAttributes Whether all attributes shall be stored
+         * @param[in] withAttributes Whether all attributes shall be stored
          * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)
          */
         EdgesHandler(const std::map<SUMOLong, PCOSMNode*>& osmNodes,
@@ -228,11 +235,11 @@ protected:
 
 
     private:
-		/// @brief Whether all attributes shall be stored
-		bool myWithAttributes;
+        /// @brief Whether all attributes shall be stored
+        bool myWithAttributes;
 
-		/// @brief The handler to report errors to (will be the WarningsHandler if --ignore-errors was set)
-		MsgHandler &myErrorHandler;
+        /// @brief The handler to report errors to (will be the WarningsHandler if --ignore-errors was set)
+        MsgHandler &myErrorHandler;
 
         /// @brief The previously parsed nodes
         const std::map<SUMOLong, PCOSMNode*>& myOSMNodes;
@@ -246,6 +253,8 @@ protected:
         /// @brief Current path in order to know to what occuring values belong
         std::vector<int> myParentElements;
 
+        /// @brief whether the last edge (way) should be kept because it had a key from the inclusion list
+        bool myKeep;
 
     private:
         /// @brief Invalidated copy constructor
@@ -255,7 +264,6 @@ protected:
         EdgesHandler& operator=(const EdgesHandler& s);
 
     };
-
 
 };
 

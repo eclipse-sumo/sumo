@@ -54,7 +54,10 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
+// ---------------------------------------------------------------------------
+// static members
+// ---------------------------------------------------------------------------
+const std::set<std::string> PCLoaderOSM::MyKeysToInclude(PCLoaderOSM::initMyKeysToInclude());
 
 // ===========================================================================
 // method definitions
@@ -62,6 +65,33 @@
 // ---------------------------------------------------------------------------
 // static interface
 // ---------------------------------------------------------------------------
+std::set<std::string> PCLoaderOSM::initMyKeysToInclude() {
+    std::set<std::string> result;
+    result.insert("waterway");
+    result.insert("aeroway");
+    result.insert("aerialway");
+    result.insert("power");
+    result.insert("man_made");
+    result.insert("building");
+    result.insert("leisure");
+    result.insert("amenity");
+    result.insert("shop");
+    result.insert("tourism");
+    result.insert("historic");
+    result.insert("landuse");
+    result.insert("natural");
+    result.insert("military");
+    result.insert("boundary");
+    result.insert("admin_level");
+    result.insert("sport");
+    result.insert("polygon");
+    result.insert("place");
+    result.insert("population");
+    result.insert("openGeoDB:population");
+    result.insert("openGeoDB:name");
+    return result;
+}
+
 void
 PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
                        PCTypeMap& tm) {
@@ -72,7 +102,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("osm-files");
     // load nodes, first
     std::map<SUMOLong, PCOSMNode*> nodes;
-	bool withAttributes = oc.getBool("all-attributes");
+    bool withAttributes = oc.getBool("all-attributes");
     MsgHandler* m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
     NodesHandler nodesHandler(nodes, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
@@ -96,16 +126,18 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         XMLSubSys::runParser(edgesHandler, *file);
         PROGRESS_DONE_MESSAGE();
     }
+
     // build all
-    RGBColor c = RGBColor::parseColor(oc.getString("color"));
+    const bool useName = oc.getBool("osm.use-name");
     // instatiate polygons
     for (std::map<std::string, PCOSMEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         PCOSMEdge* e = (*i).second;
-        if(e->myCurrentNodes.size()==0) {
-            WRITE_ERROR("Polygon '" + e->id + "' has no shape.");
+        if (e->myAttributes.size() == 0) {
+            // cannot be relevant as a polygon
             continue;
         }
-        if (!e->myIsAdditional) {
+        if(e->myCurrentNodes.size()==0) {
+            WRITE_ERROR("Polygon '" + e->id + "' has no shape.");
             continue;
         }
         // compute shape
@@ -118,104 +150,61 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             }
             vec.push_back_noDoublePos(pos);
         }
-        // set type etc.
-        std::string name = oc.getBool("osm.use-name") && e->name != "" ? e->name : e->id;
-        std::string type;
-        RGBColor color;
-        bool fill = vec.getBegin() == vec.getEnd();
-        bool discard = oc.getBool("discard");
-        int layer = oc.getInt("layer");
-        if (tm.has(e->myType)) {
-            const PCTypeMap::TypeDef& def = tm.get(e->myType);
-            name = def.prefix + name;
-            type = def.id;
-            color = RGBColor::parseColor(def.color);
-            fill = fill && def.allowFill;
-            discard = def.discard;
-            layer = def.layer;
-        } else if (e->myType.find(".") != std::string::npos && tm.has(e->myType.substr(0, e->myType.find(".")))) {
-            const PCTypeMap::TypeDef& def = tm.get(e->myType.substr(0, e->myType.find(".")));
-            name = def.prefix + name;
-            type = def.id;
-            color = RGBColor::parseColor(def.color);
-            fill = fill && def.allowFill;
-            discard = def.discard;
-            layer = def.layer;
-        } else {
-            name = oc.getString("prefix") + name;
-            type = oc.getString("type");
-            color = c;
+        const bool ignorePruning = OptionsCont::getOptions().isInStringVector("prune.keep-list", toString(e->id));            
+        // add as many polygons as keys match defined types
+        int index = 0;
+        std::string unknownPolyType = "";
+        for (std::map<std::string, std::string>::iterator it = e->myAttributes.begin(); it != e->myAttributes.end(); ++it) {
+            const std::string& key = it->first;
+            const std::string& value = it->second;
+            const std::string fullType = key + "." + value;
+            if (tm.has(key + "." + value)) {
+                index = addPolygon(e, vec, tm.get(fullType), fullType, index, useName, toFill, ignorePruning, withAttributes);
+            } else if (tm.has(key)) {
+                index = addPolygon(e, vec, tm.get(key), fullType, index, useName, toFill, ignorePruning, withAttributes);
+            } else if (MyKeysToInclude.count(key) > 0) {
+                unknownPolyType = fullType;
+            }
         }
-        if (!discard) {
-            if (oc.getBool("osm.keep-full-type")) {
-                type = e->myType;
-            }
-            name = StringUtils::escapeXML(name);
-            type = StringUtils::escapeXML(type);
-            Polygon* poly = new Polygon(name, type, color, vec, fill, (SUMOReal)layer);
-			poly->addParameter(e->myAttributes);
-            if (!toFill.insert(name, poly, layer)) {
-                WRITE_ERROR("Polygon '" + name + "' could not be added.");
-                delete poly;
-            }
+        const PCTypeMap::TypeDef& def = tm.getDefault();
+        if (index == 0 && !def.discard && unknownPolyType != "") {
+            addPolygon(e, vec, def, unknownPolyType, index, useName, toFill, ignorePruning, withAttributes);
         }
     }
+
+
     // instantiate pois
     for (std::map<SUMOLong, PCOSMNode*>::iterator i = nodes.begin(); i != nodes.end(); ++i) {
         PCOSMNode* n = (*i).second;
-        if (!n->myIsAdditional) {
+        if (n->myAttributes.size() == 0) {
+            // cannot be relevant as a poi
             continue;
         }
-
-        // patch the values
-        bool discard = oc.getBool("discard");
-        int layer = oc.getInt("layer");
-        std::string name = toString(n->id);
-        std::string type;
-        RGBColor color;
-        if (tm.has(n->myType)) {
-            const PCTypeMap::TypeDef& def = tm.get(n->myType);
-            name = def.prefix + name;
-            type = def.id;
-            color = RGBColor::parseColor(def.color);
-            discard = def.discard;
-            layer = def.layer;
-        } else if (type.find(".") != std::string::npos && tm.has(type.substr(0, type.find(".")))) {
-            const PCTypeMap::TypeDef& def = tm.get(type.substr(0, type.find(".")));
-            name = def.prefix + name;
-            type = def.id;
-            color = RGBColor::parseColor(def.color);
-            discard = def.discard;
-            layer = def.layer;
-        } else {
-            name = oc.getString("prefix") + name;
-            type = oc.getString("type");
-            color = c;
+        Position pos(n->lon, n->lat);
+        if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
+            WRITE_WARNING("Unable to project coordinates for POI '" + toString(n->id) + "'.");
         }
-        if (!discard) {
-            if (oc.getBool("osm.keep-full-type")) {
-                type = n->myType;
+        const bool ignorePruning = OptionsCont::getOptions().isInStringVector("prune.keep-list", toString(n->id));     
+        // add as many POIs as keys match defined types
+        int index = 0;
+        std::string unKnownPOIType = "";
+        for (std::map<std::string, std::string>::iterator it = n->myAttributes.begin(); it != n->myAttributes.end(); ++it) {
+            const std::string& key = it->first;
+            const std::string& value = it->second;
+            const std::string fullType = key + "." + value;
+            if (tm.has(key + "." + value)) {
+                index = addPOI(n, pos, tm.get(fullType), fullType, index, toFill, ignorePruning, withAttributes);
+            } else if (tm.has(key)) {
+                index = addPOI(n, pos, tm.get(key), fullType, index, toFill, ignorePruning, withAttributes);
+            } else if (MyKeysToInclude.count(key) > 0) {
+                unKnownPOIType = fullType;
             }
-            bool ignorePrunning = false;
-            if (OptionsCont::getOptions().isInStringVector("prune.keep-list", name)) {
-                ignorePrunning = true;
-            }
-            Position pos(n->lon, n->lat);
-            if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for POI '" + name + "'.");
-            }
-            name = StringUtils::escapeXML(name);
-            type = StringUtils::escapeXML(type);
-            PointOfInterest* poi = new PointOfInterest(name, type, color, pos, (SUMOReal)layer);
-			poi->addParameter(n->myAttributes);
-            if (!toFill.insert(name, poi, layer, ignorePrunning)) {
-                WRITE_ERROR("POI '" + name + "' could not be added.");
-                delete poi;
-            }
+        }
+        const PCTypeMap::TypeDef& def = tm.getDefault();
+        if (index == 0 && !def.discard && unKnownPOIType != "") {
+            addPOI(n, pos, def, unKnownPOIType, index,  toFill, ignorePruning, withAttributes);
         }
     }
-
-
     // delete nodes
     for (std::map<SUMOLong, PCOSMNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
         delete(*i).second;
@@ -227,13 +216,63 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 }
 
 
+int 
+PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const PCTypeMap::TypeDef& def, const std::string& fullType, int index, bool useName, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes) {
+    if (def.discard) {
+        return index;
+    } else {
+        const bool closedShape = vec.getBegin() == vec.getEnd();
+        const std::string idSuffix = (index == 0 ? "" : "#" + toString(index));
+        const std::string id = def.prefix + (useName && edge->name != "" ? edge->name : edge->id) + idSuffix;
+        Polygon* poly = new Polygon(
+                StringUtils::escapeXML(id), 
+                StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id), 
+                def.color, vec, def.allowFill && closedShape, (SUMOReal)def.layer);
+        if (withAttributes) {
+            poly->addParameter(edge->myAttributes);
+        }
+        if (!toFill.insert(id, poly, def.layer, ignorePruning)) {
+            WRITE_ERROR("Polygon '" + id + "' could not be added.");
+            delete poly; 
+            return index;
+        } else {
+            return index + 1;
+        }
+    }
+}
+
+int 
+PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap::TypeDef& def, const std::string& fullType, 
+        int index, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes) {
+    if (def.discard) {
+        return index;
+    } else {
+        const std::string idSuffix = (index == 0 ? "" : "#" + toString(index));
+        const std::string id = def.prefix + toString(node->id) + idSuffix;
+        PointOfInterest* poi = new PointOfInterest(
+                StringUtils::escapeXML(id), 
+                StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id), 
+                def.color, pos, (SUMOReal)def.layer);
+        if (withAttributes) {
+            poi->addParameter(node->myAttributes);
+        }
+        if (!toFill.insert(id, poi, def.layer, ignorePruning)) {
+            WRITE_ERROR("POI '" + id + "' could not be added.");
+            delete poi; 
+            return index;
+        } else {
+            return index + 1;
+        }
+    }
+}
+
 
 // ---------------------------------------------------------------------------
 // definitions of PCLoaderOSM::NodesHandler-methods
 // ---------------------------------------------------------------------------
 PCLoaderOSM::NodesHandler::NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill,
-	bool withAttributes, MsgHandler &errorHandler)
-    : SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myErrorHandler(errorHandler),
+        bool withAttributes, MsgHandler &errorHandler) : 
+    SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myErrorHandler(errorHandler),
     myToFill(toFill), myLastNodeID(-1) {}
 
 
@@ -255,8 +294,7 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
             // assume we are loading multiple files...
             //  ... so we won't report duplicate nodes
             PCOSMNode* toAdd = new PCOSMNode();
-            toAdd->id = id;
-            toAdd->myIsAdditional = false;
+            toAdd->id = id;            
             bool ok = true;
             toAdd->lon = attrs.get<SUMOReal>(SUMO_ATTR_LON, toString(id).c_str(), ok);
             toAdd->lat = attrs.get<SUMOReal>(SUMO_ATTR_LAT, toString(id).c_str(), ok);
@@ -267,7 +305,8 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
             myToFill[toAdd->id] = toAdd;
         }
     }
-    if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_NODE) {
+    if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_NODE 
+            && myLastNodeID != -1) {
         bool ok = true;
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, "", false);
@@ -278,26 +317,7 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         if (!ok) {
             return;
         }
-        if (myWithAttributes && myLastNodeID >= 0) {
-			myToFill[myLastNodeID]->myAttributes[key] = value;
-		}
-        if (key == "waterway" || key == "aeroway" || key == "aerialway" || key == "power" || key == "man_made" || key == "building"
-                || key == "leisure" || key == "amenity" || key == "shop" || key == "tourism" || key == "historic" || key == "landuse"
-                || key == "natural" || key == "military" || key == "boundary" || key == "sport" || key == "polygon" || key == "place" || key == "admin_level") {
-            if (myLastNodeID >= 0) {
-                myToFill[myLastNodeID]->myType = key + "." + value;
-                myToFill[myLastNodeID]->myIsAdditional = true;
-            }
-        }
-        if (key == "population" || key == "openGeoDB:population" || key == "openGeoDB:name") {
-            if (myLastNodeID >= 0) {
-                myToFill[myLastNodeID]->myType = key;
-                myToFill[myLastNodeID]->myIsAdditional = true;
-            }
-        }
-        if (key == "name" && myLastNodeID != -1) {
-            myToFill[myLastNodeID]->myType = key + "." + value;
-        }
+        myToFill[myLastNodeID]->myAttributes[key] = value;
     }
 }
 
@@ -337,8 +357,8 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         }
         myCurrentEdge = new PCOSMEdge();
         myCurrentEdge->id = id;
-        myCurrentEdge->myIsAdditional = false;
         myCurrentEdge->myIsClosed = false;
+        myKeep = false;
     }
     // parse "nd" (node) elements
     if (element == SUMO_TAG_ND) {
@@ -353,7 +373,8 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         }
     }
     // parse values
-    if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_WAY) {
+    if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_WAY
+            && myCurrentEdge != 0) {
         bool ok = true;
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, "", false);
@@ -364,24 +385,12 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         if (!ok) {
             return;
         }
-        if (myWithAttributes && myCurrentEdge >= 0) {
-			myCurrentEdge->myAttributes[key] = value;
-		}
-        if (key == "waterway" || key == "aeroway" || key == "aerialway" || key == "power" || key == "man_made"
-                || key == "building" || key == "leisure" || key == "amenity" || key == "shop" || key == "tourism"
-                || key == "historic" || key == "landuse" || key == "natural" || key == "military" || key == "boundary"
-                || key == "sport" || key == "polygon" || key == "place" || key == "admin_level") {
-            myCurrentEdge->myType = key + "." + value;
-            myCurrentEdge->myIsAdditional = true;
-        } else if (key == "name") {
+        if (key == "name") {
             myCurrentEdge->name = value;
+        } else if (MyKeysToInclude.count(key) > 0) {
+            myKeep = true;
         }
-		if (key == "population" || key == "openGeoDB:population" || key == "openGeoDB:name") {
-            myCurrentEdge->myType = key;
-            myCurrentEdge->myIsAdditional = true;
-        } else if (key == "name") {
-            myCurrentEdge->name = value;
-        }
+        myCurrentEdge->myAttributes[key] = value;
     }
 }
 
@@ -390,7 +399,7 @@ void
 PCLoaderOSM::EdgesHandler::myEndElement(int element) {
     myParentElements.pop_back();
     if (element == SUMO_TAG_WAY) {
-        if (myCurrentEdge->myIsAdditional) {
+        if (myKeep) {
             myEdgeMap[myCurrentEdge->id] = myCurrentEdge;
         } else {
             delete myCurrentEdge;

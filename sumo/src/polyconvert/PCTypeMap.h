@@ -31,6 +31,7 @@
 #include <config.h>
 #endif
 
+#include "utils/common/RGBColor.h"
 #include <string>
 #include <map>
 
@@ -38,6 +39,8 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class OptionsCont;
+
 /**
  * @class PCTypeMap
  * @brief A storage for type mappings
@@ -47,8 +50,8 @@
  */
 class PCTypeMap {
 public:
-    /// @brief Constructor
-    PCTypeMap();
+    /// @brief Constructor. The default type is constructed based on the given options
+    PCTypeMap(const OptionsCont& oc);
 
 
     /// @brief Destructor
@@ -63,7 +66,7 @@ public:
         /// @brief The new type id to use
         std::string id;
         /// @brief The color to use
-        std::string color;
+        RGBColor color;
         /// @brief The prefix to use
         std::string prefix;
         /// @brief The layer to use
@@ -107,10 +110,16 @@ public:
      */
     bool has(const std::string& id);
 
+	/// @brief get the default type according to the given options
+	const TypeDef& getDefault() {
+		return myDefaultType;
+	}
 
 protected:
     /// @brief A map of type names to type definitions
     std::map<std::string, TypeDef> myTypes;
+
+	TypeDef myDefaultType;
 
 };
 

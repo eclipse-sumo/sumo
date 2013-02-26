@@ -124,7 +124,7 @@ PCLoaderXML::myStartElement(int element,
             const PCTypeMap::TypeDef& def = myTypeMap.get(type);
             id = def.prefix + id;
             type = def.id;
-            color = RGBColor::parseColor(def.color);
+            color = def.color;
             discard = def.discard;
             layer = (SUMOReal)def.layer;
         } else {
@@ -171,7 +171,7 @@ PCLoaderXML::myStartElement(int element,
             const PCTypeMap::TypeDef& def = myTypeMap.get(type);
             id = def.prefix + id;
             type = def.id;
-            color = RGBColor::parseColor(def.color);
+            color = def.color;
             discard = def.discard;
             layer = (SUMOReal)def.layer;
         } else {

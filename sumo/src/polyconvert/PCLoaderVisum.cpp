@@ -242,7 +242,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 const PCTypeMap::TypeDef& def = tm.get(type);
                 id = def.prefix + id;
                 type = def.id;
-                color = RGBColor::parseColor(def.color);
+                color = def.color;
                 discard = def.discard;
                 layer = def.layer;
             } else {
@@ -273,7 +273,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     const PCTypeMap::TypeDef& def = tm.get(polyType);
                     id = def.prefix + id;
                     type = def.id;
-                    color = RGBColor::parseColor(def.color);
+                    color = def.color;
                     discard = def.discard;
                     layer = def.layer;
                 } else {
@@ -321,7 +321,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 const PCTypeMap::TypeDef& def = tm.get(type);
                 id = def.prefix + id;
                 type = def.id;
-                color = RGBColor::parseColor(def.color);
+                color = def.color;
                 discard = def.discard;
                 layer = def.layer;
             } else {
