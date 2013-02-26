@@ -64,6 +64,7 @@ Processing Options:
   --offset.x FLOAT                 Adds FLOAT to net x-positions
   --offset.y FLOAT                 Adds FLOAT to net y-positions
   --all-attributes                 Imports all attributes as key/value pairs
+  --ignore-errors                  Continue on broken input
 
 Building Defaults Options:
   --color STR                      Sets STR as default color

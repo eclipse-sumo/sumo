@@ -10,3 +10,14 @@ keep_full_type
 
 # checks import of all attributes
 all_attributes
+
+# handling corrupt input
+error_missing_key_node
+error_missing_key_node__ignored
+error_missing_key_way
+error_missing_key_way__ignored
+error_missing_node
+error_missing_shape
+error_missing_shape__ignored
+
+
