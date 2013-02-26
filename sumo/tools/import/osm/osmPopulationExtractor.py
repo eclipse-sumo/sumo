@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 """
 @file    osmPopulationExactor.py
 @author  Yun-Pang Floetteroed
@@ -79,7 +79,7 @@ class PopulationReader(handler.ContentHandler):
     """The class is for parsing the OSM XML file.
        The data parsed is written into the net.
     """
-    def __init__(self, net, foutredundant):
+    def __init__(self, net, foutredundant, encoding):
         self._net = net
         self._nodeId = None
         self._nodeObj = None
@@ -95,6 +95,7 @@ class PopulationReader(handler.ContentHandler):
         self._population = None
         self._nodeNamesList = []
         self._fout = foutredundant
+        self._encoding = encoding
 
     def startElement(self, name, attrs):
         if name =='node':
@@ -139,7 +140,7 @@ class PopulationReader(handler.ContentHandler):
                 diffLon = abs(float(self._nodeLon) - float(n.lon))
                 if self._name and self._name == n.name and self._population == n.population: #and diffLat < 0.003 and diffLon < 0.003 and int(self._population) == int(n.population):
                     newInput =  False
-                    self._fout.write('node\t%s\t%s\t%s\t%s\t%s\n' %(self._name, self._nodeId, self._nodeLat, self._nodeLon, self._population))
+                    self._fout.write(('node\t%s\t%s\t%s\t%s\t%s\n' %(self._name, self._nodeId, self._nodeLat, self._nodeLon, self._population)).encode(self._encoding))
                     break
             if newInput: 
                 self._nodeObj = self._net.addNode(self._nodeId, self._nodeLat, self._nodeLon, self._population)
@@ -166,7 +167,7 @@ class PopulationReader(handler.ContentHandler):
             for r in self._net._relations:
                 if self._name and self._name == r.name and self._population == r.population:
                     newInput =  False
-                    self._fout.write('relation\t%s\t%s\t%s\t%s\n' %(self._name, self._relationId, self._relationuid, self._population))
+                    self._fout.write(('relation\t%s\t%s\t%s\t%s\n' %(self._name, self._relationId, self._relationuid, self._population)).encode(options.encoding))
                     break
             if newInput:
                 self._relationObj = self._net.addRelation(self._relationId, self._relationuid, self._population)
@@ -199,7 +200,7 @@ def main():
     redundantDataFile = '%s_redundantOSMData.txt' %prefix
     foutredundant = open(redundantDataFile, 'w')
     net = Net()
-    parser.setContentHandler(PopulationReader(net, foutredundant))
+    parser.setContentHandler(PopulationReader(net, foutredundant,options.encoding))
     parser.parse(osmFile)
     foutredundant.close()
     print 'finish with data parsing'
