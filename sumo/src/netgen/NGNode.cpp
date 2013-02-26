@@ -54,20 +54,16 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NGNode::NGNode()
-    : xID(-1), yID(-1), myID(""), myAmCenter(false) {}
-
-
 NGNode::NGNode(const std::string& id)
-    : xID(-1), yID(-1), myID(id), myAmCenter(false) {}
+    : Named(id), xID(-1), yID(-1), myAmCenter(false) {}
 
 
 NGNode::NGNode(const std::string& id, int xIDa, int yIDa)
-    : xID(xIDa), yID(yIDa), myID(id), myAmCenter(false) {}
+    : Named(id), xID(xIDa), yID(yIDa), myAmCenter(false) {}
 
 
 NGNode::NGNode(const std::string& id, int xIDa, int yIDa, bool amCenter)
-    : xID(xIDa), yID(yIDa), myID(id), myAmCenter(amCenter) {}
+    : Named(id), xID(xIDa), yID(yIDa), myAmCenter(amCenter) {}
 
 
 NGNode::~NGNode() {
@@ -129,7 +125,7 @@ NGNode::removeLink(NGEdge* link) {
 
 bool
 NGNode::connected(NGNode* node) const {
-    for (NGEdgeList::const_iterator i = LinkList.begin(); i != LinkList.end(); i++) {
+    for (NGEdgeList::const_iterator i = LinkList.begin(); i != LinkList.end(); ++i) {
         if (find(node->LinkList.begin(), node->LinkList.end(), *i) != node->LinkList.end()) {
             return true;
         }

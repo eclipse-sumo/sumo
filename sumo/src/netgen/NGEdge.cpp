@@ -58,7 +58,7 @@
 // NGEdge-definitions
 // ---------------------------------------------------------------------------
 NGEdge::NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode)
-    : myID(id), myStartNode(startNode), myEndNode(endNode) {
+    : Named(id), myStartNode(startNode), myEndNode(endNode) {
     myStartNode->addLink(this);
     myEndNode->addLink(this);
 }

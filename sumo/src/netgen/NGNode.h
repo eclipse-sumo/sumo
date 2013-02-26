@@ -33,6 +33,7 @@
 #endif
 
 #include <list>
+#include <utils/common/Named.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/UtilExceptions.h>
@@ -54,12 +55,8 @@ class NBNetBuilder;
  * @class NGNode
  * @brief A netgen-representation of a node
  */
-class NGNode {
+class NGNode : public Named {
 public:
-    /// @brief Constructor
-    NGNode();
-
-
     /** @brief Constructor
      *
      * @param[in] id The id of the node
@@ -88,15 +85,6 @@ public:
 
     /// @brief Destructor
     ~NGNode();
-
-
-    /** @brief Returns this node's id
-     *
-     * @return The id of the node
-     */
-    const std::string& getID() const {
-        return myID;
-    }
 
 
     /** @brief Returns this node's position
@@ -208,9 +196,6 @@ private:
 
     /// @brief List of connected links
     NGEdgeList LinkList;
-
-    /// @brief The id of the node
-    std::string myID;
 
     /// @brief The position of the node
     Position myPosition;

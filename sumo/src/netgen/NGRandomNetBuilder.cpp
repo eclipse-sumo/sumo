@@ -68,7 +68,7 @@ TNeighbourDistribution::num() {
     i = myNeighbours.begin();
     sum = (*i).second;
     while ((i != myNeighbours.end()) && (sum < RandValue)) {
-        i++;
+        ++i;
         sum += (*i).second;
     }
     return (*i).first;
@@ -183,7 +183,7 @@ NGRandomNetBuilder::canConnect(NGNode* baseNode, NGNode* newNode) {
                     connectable = false;
                 }
             }
-            li++;
+            ++li;
         }
     }
     return connectable;

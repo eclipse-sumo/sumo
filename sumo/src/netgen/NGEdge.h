@@ -33,6 +33,7 @@
 #endif
 
 #include <list>
+#include <utils/common/Named.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
@@ -58,7 +59,7 @@ class NBNetBuilder;
  *  on initialisation and removes this information from the nodes when being
  *  deleted. This implicates that nodes have to be deleted after the edges.
  */
-class NGEdge {
+class NGEdge : public Named {
 public:
     /** @brief Constructor
      *
@@ -76,15 +77,6 @@ public:
      * Removes itself from the start and the end node's lists of connections.
      */
     ~NGEdge();
-
-
-    /** @brief Returns this link's id
-     *
-     * @return The id of the link
-     */
-    const std::string& getID() const {
-        return myID;
-    }
 
 
     /** @brief Returns this link's start node
@@ -118,9 +110,6 @@ public:
 
 
 private:
-    /// @brief The id of the edge
-    std::string myID;
-
     /// @brief The node the edge starts at
     NGNode* myStartNode;
 
