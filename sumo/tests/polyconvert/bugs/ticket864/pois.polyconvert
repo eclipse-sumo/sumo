@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Feb 28 12:38:22 2013 by SUMO polyconvert Version dev-SVN-r13413
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <osm-files value="osm.xml"/>
+        <osm.keep-full-type value="true"/>
+        <type-file value="typemap.xml"/>
+    </input>
+
+    <output>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<shapes>
+    <poi id="115543889" type="amenity.bank" color="0.93,0.78,0.78" layer="-1.00" x="100765.49" y="490.94"/>
+    <poi id="115544715" type="amenity.cafe" color="0.93,0.78,0.78" layer="-1.00" x="100741.39" y="467.93"/>
+    <poi id="115546494" type="amenity.restaurant" color="0.93,0.78,0.78" layer="-1.00" x="100712.70" y="443.59"/>
+    <poi id="289593483" type="amenity.wlan" color="0.93,0.78,0.78" layer="-1.00" x="100890.21" y="375.84"/>
+    <poi id="289631159" type="amenity.wlan" color="0.93,0.78,0.78" layer="-1.00" x="100770.88" y="370.52"/>
+    <poi id="294830283" type="amenity.parking" color="0.72,0.72,0.70" layer="-1.00" x="100945.51" y="478.40"/>
+    <poi id="294831640" type="amenity.parking" color="0.72,0.72,0.70" layer="-1.00" x="100522.64" y="266.87"/>
+</shapes>
