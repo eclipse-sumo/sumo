@@ -72,10 +72,11 @@ public:
      * @param[in] name The name of the edge
      * @param[in] from The node the edge begins at
      * @param[in] to The node the edge ends at
+     * @param[in] priority The edge priority (road class)
      * @return A proper instance of the named edge
      * @see ROJTREdge
      */
-    ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to);
+    ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to, const int priority);
     /// @}
 
 

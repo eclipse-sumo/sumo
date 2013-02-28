@@ -49,8 +49,8 @@ RODUAEdgeBuilder::~RODUAEdgeBuilder() {}
 
 
 ROEdge*
-RODUAEdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to) {
-    return new ROEdge(name, from, to, getNextIndex());
+RODUAEdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to, const int priority) {
+    return new ROEdge(name, from, to, getNextIndex(), priority);
 }
 
 

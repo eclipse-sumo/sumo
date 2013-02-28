@@ -333,6 +333,10 @@ public:
 
     void setRestrictionFound();
 
+	OutputDevice& getRouteOutput() {
+		return *myRoutesOutput;
+	}
+
 protected:
     bool computeRoute(OptionsCont& options,
                       SUMOAbstractRouter<ROEdge, ROVehicle>& router, const ROVehicle* const veh);

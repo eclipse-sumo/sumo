@@ -62,12 +62,12 @@ std::vector<ROEdge*> ROEdge::myEdges;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index)
+ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority)
     : Named(id), mySpeed(-1),
       myIndex(index), myLength(-1),
       myUsingTTTimeLine(false),
       myUsingETimeLine(false),
-      myFromNode(from), myToNode(to) {
+      myFromNode(from), myToNode(to), myPriority(priority) {
     while (myEdges.size() <= index) {
         myEdges.push_back(0);
     }

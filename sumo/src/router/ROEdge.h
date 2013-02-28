@@ -89,7 +89,7 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index);
+    ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority);
 
 
     /// Destructor
@@ -360,6 +360,10 @@ public:
         myInterpolate = interpolate;
     }
 
+	/// @brief get edge priority (road class)
+	int getPriority() const {
+        return myPriority;
+    }
 
 protected:
     /** @brief Retrieves the stored effort
@@ -407,6 +411,9 @@ protected:
 
     /// @brief List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;
+	
+	/// @brief The edge priority (road class)
+    const int myPriority;
 
 #ifdef HAVE_INTERNAL // catchall for internal stuff
     /// @brief List of edges that approached this edge

@@ -115,9 +115,10 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         //  !!! recheck this; internal edges may be of importance during the dua
         return;
     }
-    std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
-    std::string to = attrs.get<std::string>(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
-    std::string type = attrs.hasAttribute(SUMO_ATTR_FUNCTION) ? attrs.get<std::string>(SUMO_ATTR_FUNCTION, myCurrentName.c_str(), ok) : "";
+    const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
+    const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
+    const std::string type = attrs.hasAttribute(SUMO_ATTR_FUNCTION) ? attrs.get<std::string>(SUMO_ATTR_FUNCTION, myCurrentName.c_str(), ok) : "";
+	const int priority = attrs.get<int>(SUMO_ATTR_PRIORITY, myCurrentName.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -132,7 +133,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         myNet.addNode(toNode);
     }
     // build the edge
-    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode);
+    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority);
     if (myNet.addEdge(myCurrentEdge)) {
         // get the type of the edge
         myProcess = true;
@@ -240,10 +241,10 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    ROEdge* sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", 0, 0);
+    ROEdge* sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", 0, 0, 0);
     sink->setType(ROEdge::ET_DISTRICT);
     myNet.addEdge(sink);
-    ROEdge* source = myEdgeBuilder.buildEdge(myCurrentName + "-source", 0, 0);
+    ROEdge* source = myEdgeBuilder.buildEdge(myCurrentName + "-source", 0, 0, 0);
     source->setType(ROEdge::ET_DISTRICT);
     myNet.addEdge(source);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
