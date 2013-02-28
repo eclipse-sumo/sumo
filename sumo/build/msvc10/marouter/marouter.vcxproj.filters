@@ -38,6 +38,9 @@
     <ClCompile Include="..\..\..\src\marouter\Assignments.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\marouter\RouteChoices.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\marouter\ROMAEdgeBuilder.h">
@@ -65,6 +68,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\marouter\Assignments.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\marouter\RouteChoices.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
