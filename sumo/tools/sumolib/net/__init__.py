@@ -79,6 +79,7 @@ class TLSProgram:
 class Net:
     """The whole sumo network."""
     def __init__(self):
+        self._location = {}
         self._id2node = {}
         self._id2edge = {}
         self._id2tls = {}
@@ -88,6 +89,12 @@ class Net:
         self._ranges = [ [10000, -10000], [10000, -10000] ]
         self._roundabouts = []
 
+    def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
+        self._location["netOffset"] = netOffset
+        self._location["convBoundary"] = convBoundary
+        self._location["origBoundary"] = origBoundary
+        self._location["projParameter"] = projParameter
+        
     def addNode(self, id, type=None, coord=None, incLanes=None):
         if id not in self._id2node:
             n = node.Node(id, type, coord, incLanes)
@@ -213,6 +220,21 @@ class Net:
                 (self._ranges[0][0] - self._ranges[0][1]) ** 2 +
                 (self._ranges[1][0] - self._ranges[1][1]) ** 2)
 
+    def convertLatLon2XY(self, lat, lon):
+        import pyproj
+        p1 = self._location["projParameter"].split()
+        params= {}
+        for p in p1:
+          ps = p.split("=")    
+          if len(ps)==2:
+            params[ps[0]] = ps[1]
+          else:
+            params[ps[0]] = True
+        p1 = pyproj.Proj(projparams=params)
+        x1, y1 = p1(lon, lat)
+        x1 += float(self._location["netOffset"].split(",")[0])
+        y1 += float(self._location["netOffset"].split(",")[1])
+        return x1, y1
 
     
 class NetReader(handler.ContentHandler):
@@ -229,6 +251,8 @@ class NetReader(handler.ContentHandler):
         self._withFoes = others.get('withFoes', True)
 
     def startElement(self, name, attrs):
+        if name == 'location':
+            self._net.setLocation(attrs["netOffset"], attrs["convBoundary"], attrs["origBoundary"], attrs["projParameter"])
         if name == 'edge':
             if not attrs.has_key('function') or attrs['function'] != 'internal':
                 prio = -1
