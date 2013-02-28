@@ -64,9 +64,6 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
     myGeoScale(pow(10, (double) - shift)),
     myProjectionMethod(NONE),
     myUseInverseProjection(inverse),
-    myBaseFound(baseFound),
-    myBaseX(0),
-    myBaseY(0),
     myOrigBoundary(orig),
     myConvBoundary(conv) {
     if (proj == "!") {
@@ -108,9 +105,6 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
     myConvBoundary = orig.myConvBoundary;
     myGeoScale = orig.myGeoScale;
     myUseInverseProjection = orig.myUseInverseProjection;
-    myBaseFound = orig.myBaseFound;
-    myBaseX = orig.myBaseX;
-    myBaseY = orig.myBaseY;
 #ifdef HAVE_PROJ
     if (myProjection != 0) {
         pj_free(myProjection);
@@ -271,16 +265,6 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
     // perform conversion
     bool ok = x2cartesian_const(from);
     if (ok) {
-        if (!myBaseFound) {
-            // avoid very large coordinates to reduce numerical errors
-            if (myProjectionMethod == SIMPLE || from.x() > 100000 || from.y() > 100000) {
-                myBaseX = from.x();
-                myBaseY = from.y();
-                from.set(0, 0);
-            }
-            myBaseFound = true;
-        }
-
         if (includeInBoundary) {
             myConvBoundary.add(from);
         }
@@ -314,8 +298,6 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
 #endif
         if (myProjectionMethod == SIMPLE) {
             double ys = y;
-            x -= myBaseX;
-            y -= myBaseY;
             x *= 111320. * cos(ys * PI / 180.0);
             y *= 111136.;
             from.set((SUMOReal)x, (SUMOReal)y);
@@ -324,8 +306,6 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
         }
     }
     if (myProjectionMethod != SIMPLE) {
-        x -= myBaseX;
-        y -= myBaseY;
         from.set((SUMOReal)x, (SUMOReal)y);
         from.add(myOffset);
     }
@@ -360,7 +340,7 @@ GeoConvHelper::getOffset() const {
 
 const Position
 GeoConvHelper::getOffsetBase() const {
-    return Position(myOffset.x() - myBaseX, myOffset.y() - myBaseY);
+    return myOffset;
 }
 
 

@@ -186,12 +186,6 @@ private:
     /// Information whether inverse projection shall be used
     bool myUseInverseProjection;
 
-    /// Information whether the first node conversion was done
-    bool myBaseFound;
-
-    /// The initial x/y-coordinates for a very simple geocoordinates conversion
-    double myBaseX, myBaseY;
-
     /// The boundary before conversion (x2cartesian)
     Boundary myOrigBoundary;
 
