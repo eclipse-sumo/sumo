@@ -27,3 +27,7 @@ no_internal_lanes
 
 # load network without internal lanes and set option to output a network with internal lanes
 no_internal_lanes_modify
+
+# when importing networks with roundabouts, the ouput network should have the same roundabouts
+# see ticket775
+roundabouts
