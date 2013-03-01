@@ -91,6 +91,11 @@ RORoute::recheckForLoops() {
     ROHelper::recheckForLoops(myRoute);
 }
 
+void
+RORoute::addProbability(SUMOReal prob) {
+    myProbability += prob;
+}
+
 
 OutputDevice&
 RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,

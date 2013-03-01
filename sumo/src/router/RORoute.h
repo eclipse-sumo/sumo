@@ -176,6 +176,9 @@ public:
     writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                        const bool withCosts, const bool withExitTimes) const;
 
+    /** @brief add additional vehicles/probability 
+     */
+	void addProbability(SUMOReal prob);
 
 private:
     /// @brief The costs of the route
@@ -189,6 +192,7 @@ private:
 
     /// @brief The color of the route
     const RGBColor* myColor;
+
 
 private:
     /// @brief Invalidated assignment operator
