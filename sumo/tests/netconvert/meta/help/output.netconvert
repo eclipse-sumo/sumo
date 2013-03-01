@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r13315
+SUMO netconvert Version dev-SVN-r13433
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -162,6 +162,7 @@ Processing Options:
                                         due to VISUM misbehaviour
   --osm.skip-duplicates-check         Skips the check for duplicate nodes and
                                         edges.
+  --opendrive.import-all-lanes        Imports all lane types.
   --no-internal-links                 Omits internal links
   --dismiss-vclasses                  Removes vehicle class restrictions from
                                         imported edges.

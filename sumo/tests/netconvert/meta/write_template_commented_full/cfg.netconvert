@@ -324,6 +324,9 @@
         <!-- Skips the check for duplicate nodes and edges. -->
         <osm.skip-duplicates-check value="false" type="BOOL"/>
 
+        <!-- Imports all lane types. -->
+        <opendrive.import-all-lanes value="false" type="BOOL"/>
+
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
