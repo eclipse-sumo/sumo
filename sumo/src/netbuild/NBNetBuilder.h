@@ -204,6 +204,12 @@ public:
     /// @}
 
 
+    /// @brief declare that roundabouts have been seen during loading
+    void haveSeenRoundabouts() {
+        myHaveSeenRoundabouts = true;
+    }
+
+
 protected:
     /**
      * @class by_id_sorter
@@ -235,6 +241,9 @@ protected:
 
     /// @brief The used container for districts
     NBDistrictCont myDistrictCont;
+
+    /// @brief whether a sumo network with roundabout information was loaded
+    bool myHaveSeenRoundabouts;
 
     /// @brief Edges marked as belonging to a roundabout (each set is a roundabout)
     std::vector<std::set<NBEdge*> > myRoundabouts;

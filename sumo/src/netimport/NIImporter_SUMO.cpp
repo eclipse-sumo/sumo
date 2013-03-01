@@ -280,6 +280,9 @@ NIImporter_SUMO::myStartElement(int element,
         case SUMO_TAG_PROHIBITION:
             addProhibition(attrs);
             break;
+        case SUMO_TAG_ROUNDABOUT:
+            myNetBuilder.haveSeenRoundabouts();
+            break;
         default:
             break;
     }

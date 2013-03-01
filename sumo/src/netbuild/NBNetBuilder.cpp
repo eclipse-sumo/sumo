@@ -62,8 +62,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBNetBuilder::NBNetBuilder()
-    : myEdgeCont(myTypeCont) {}
+NBNetBuilder::NBNetBuilder() : 
+    myEdgeCont(myTypeCont),
+    myHaveSeenRoundabouts(false)
+{}
 
 
 NBNetBuilder::~NBNetBuilder() {}
@@ -242,7 +244,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     myEdgeCont.computeEdge2Edges(oc.getBool("no-left-connections"));
     PROGRESS_DONE_MESSAGE();
     //
-    if (oc.getBool("roundabouts.guess")) {
+    if (oc.getBool("roundabouts.guess") || (oc.isDefault("roundabouts.guess") && myHaveSeenRoundabouts)) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting roundabouts");
         myEdgeCont.guessRoundabouts(myRoundabouts);
         PROGRESS_DONE_MESSAGE();
