@@ -457,18 +457,16 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
 
 void
 NWWriter_SUMO::writeRoundabout(OutputDevice& into, const std::set<NBEdge*>& r) {
-    std::set<std::string> nodes;
+    std::vector<std::string> edgeIDs;
+    std::vector<std::string> nodeIDs;
     for (std::set<NBEdge*>::const_iterator j = r.begin(); j != r.end(); ++j) {
-        nodes.insert((*j)->getToNode()->getID());
+        edgeIDs.push_back((*j)->getID());
+        nodeIDs.push_back((*j)->getToNode()->getID());
     }
-    std::string nodeString;
-    for (std::set<std::string>::const_iterator j = nodes.begin(); j != nodes.end(); ++j) {
-        if (j != nodes.begin()) {
-            nodeString += " ";
-        }
-        nodeString += *j;
-    }
-    into.openTag(SUMO_TAG_ROUNDABOUT).writeAttr(SUMO_ATTR_NODES, nodeString).closeTag();
+    into.openTag(SUMO_TAG_ROUNDABOUT);
+    into.writeAttr(SUMO_ATTR_NODES, joinToString(nodeIDs, " "));
+    into.writeAttr(SUMO_ATTR_EDGES, joinToString(edgeIDs, " "));
+    into.closeTag();
 }
 
 

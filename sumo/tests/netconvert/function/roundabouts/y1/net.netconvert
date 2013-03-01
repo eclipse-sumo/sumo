@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov  5 10:38:47 2012 by SUMO netconvert Version dev-SVN-r12931
+<!-- generated on Fri Mar  1 10:01:49 2013 by SUMO netconvert Version dev-SVN-r13413
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -92,6 +92,6 @@
     <connection from="9887" to="-9887" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="9889" to="-9889" fromLane="0" toLane="0" dir="t" state="M"/>
 
-    <roundabout nodes="10708 17199 17200"/>
+    <roundabout nodes="17200 10708 17199" edges="-9891 -9892 -9890"/>
 
 </net>
