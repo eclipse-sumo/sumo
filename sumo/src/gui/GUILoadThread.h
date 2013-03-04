@@ -82,8 +82,9 @@ protected:
      * This method is called both on success and failure.
      * All message callbacks to this instance are removed and the parent
      * application is informed about the loading */
-    void submitEndAndCleanup(GUINet* net, SUMOTime simStartTime, SUMOTime simEndTime,
-                             const std::vector<std::string>& guiSettingsFiles = std::vector<std::string>());
+    void submitEndAndCleanup(GUINet* net, const SUMOTime simStartTime, const SUMOTime simEndTime,
+                             const std::vector<std::string>& guiSettingsFiles = std::vector<std::string>(),
+                             const bool osgView = false);
 
 protected:
     /// the parent window to inform about the loading

@@ -59,10 +59,13 @@ public:
     GUIEvent_SimulationLoaded(GUINet* net,
                               SUMOTime startTime, SUMOTime endTime,
                               const std::string& file,
-                              const std::vector<std::string>& settingsFiles)
+                              const std::vector<std::string>& settingsFiles,
+                              const bool osgView)
         : GUIEvent(EVENT_SIMULATION_LOADED),
           myNet(net), myBegin(startTime), myEnd(endTime),
-          myFile(file), mySettingsFiles(settingsFiles) { }
+          myFile(file), mySettingsFiles(settingsFiles),
+          myOsgView(osgView)
+    { }
 
     /// destructor
     ~GUIEvent_SimulationLoaded() { }
@@ -82,6 +85,9 @@ public:
 
     /// the name of the settings file to load
     const std::vector<std::string> mySettingsFiles;
+
+    /// whether to load the OpenSceneGraph view
+    const bool myOsgView;
 
 private:
     /// @brief Invalidated assignment operator

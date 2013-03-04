@@ -96,6 +96,7 @@ GUILoadThread::run() {
     int simStartTime = 0;
     int simEndTime = 0;
     std::vector<std::string> guiSettingsFiles;
+    bool osgView = false;
     OptionsCont& oc = OptionsCont::getOptions();
 
     // within gui-based applications, nothing is reported to the console
@@ -162,6 +163,9 @@ GUILoadThread::run() {
             simStartTime = string2time(oc.getString("begin"));
             simEndTime = string2time(oc.getString("end"));
             guiSettingsFiles = oc.getStringVector("gui-settings-file");
+#ifdef HAVE_INTERNAL
+            osgView = oc.getBool("osg-view");
+#endif
         }
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
@@ -181,7 +185,7 @@ GUILoadThread::run() {
         MSNet::clearAll();
     }
     delete eb;
-    submitEndAndCleanup(net, simStartTime, simEndTime, guiSettingsFiles);
+    submitEndAndCleanup(net, simStartTime, simEndTime, guiSettingsFiles, osgView);
     return 0;
 }
 
@@ -189,15 +193,16 @@ GUILoadThread::run() {
 
 void
 GUILoadThread::submitEndAndCleanup(GUINet* net,
-                                   SUMOTime simStartTime,
-                                   SUMOTime simEndTime,
-                                   const std::vector<std::string>& guiSettingsFiles) {
+                                   const SUMOTime simStartTime,
+                                   const SUMOTime simEndTime,
+                                   const std::vector<std::string>& guiSettingsFiles,
+                                   const bool osgView) {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile, guiSettingsFiles);
+    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile, guiSettingsFiles, osgView);
     myEventQue.add(e);
     myEventThrow.signal();
 }

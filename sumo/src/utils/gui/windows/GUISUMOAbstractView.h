@@ -247,7 +247,7 @@ public:
         Decal()
             : filename(), centerX(0), centerY(0),
               width(1000), height(1000), rot(0), layer(0),
-              initialised(false), glID(-1), image(0) { }
+              initialised(false), skip2D(false), glID(-1), image(0) { }
 
         /// @brief The path to the file the image is located at
         std::string filename;
@@ -265,6 +265,8 @@ public:
         SUMOReal layer;
         /// @brief Whether this image was initialised (inserted as a texture)
         bool initialised;
+        /// @brief Whether this image should be skipped in 2D-views
+        bool skip2D;
         /// @brief The gl-id of the texture that holds this image
         int glID;
         /// @brief The image pointer for later cleanup
