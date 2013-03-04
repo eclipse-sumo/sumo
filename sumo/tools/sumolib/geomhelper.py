@@ -2,7 +2,7 @@
 @file    geomhelper.py
 @author  Daniel Krajzewicz
 @date    2013-02-25
-@version $Id: geomhelper.py 13106 2012-12-02 13:44:57Z behrisch $
+@version $Id$
 
 Some helper functions for geometrical computations.
 
