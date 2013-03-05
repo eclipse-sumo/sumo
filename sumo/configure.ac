@@ -401,9 +401,12 @@ else
     ac_disabled="$ac_disabled Python"
 fi
 
-if test x"$MESOGUI_DIRS" != x; then
-    AC_CHECK_HEADER([osg/Config], [AC_DEFINE([HAVE_OSG], [1], [defined if osg is available])
-    OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB -lOpenThreads" AC_SUBST(OSG_LIBS)])
+if test -d src/osgview; then
+    AC_CHECK_HEADER([osg/Config], 
+                    [AC_DEFINE([HAVE_OSG], [1], [defined if osg is available])
+                     OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB -lOpenThreads" AC_SUBST(OSG_LIBS)
+                     ac_enabled="$ac_enabled OSG"],
+                    [ac_disabled="$ac_disabled OSG"])
 fi
 
 AM_CPPFLAGS="-I$PWD/$srcdir/src $AM_CPPFLAGS"
