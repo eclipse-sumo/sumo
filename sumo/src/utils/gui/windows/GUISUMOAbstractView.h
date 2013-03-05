@@ -245,8 +245,8 @@ public:
     struct Decal {
         /// @brief Constructor
         Decal()
-            : filename(), centerX(0), centerY(0),
-              width(1000), height(1000), rot(0), layer(0),
+            : filename(), centerX(0), centerY(0), centerZ(0),
+              width(1000), height(1000), altitude(1000), rot(0), tilt(0), layer(0),
               initialised(false), skip2D(false), glID(-1), image(0) { }
 
         /// @brief The path to the file the image is located at
@@ -255,12 +255,18 @@ public:
         SUMOReal centerX;
         /// @brief The center of the image in y-direction (net coordinates, in m)
         SUMOReal centerY;
-        /// @brief The width of the image (net coordinates, in m)
+        /// @brief The center of the image in z-direction (net coordinates, in m)
+        SUMOReal centerZ;
+        /// @brief The width of the image (net coordinates in x-direction, in m)
         SUMOReal width;
-        /// @brief The height of the image (net coordinates, in m)
+        /// @brief The height of the image (net coordinates in y-direction, in m)
         SUMOReal height;
-        /// @brief The rotation of the image (in degrees)
+        /// @brief The altitude of the image (net coordinates in z-direction, in m)
+        SUMOReal altitude;
+        /// @brief The rotation of the image in the ground plane (in degrees)
         SUMOReal rot;
+        /// @brief The tilt of the image to the ground plane (in degrees)
+        SUMOReal tilt;
         /// @brief The layer of the image
         SUMOReal layer;
         /// @brief Whether this image was initialised (inserted as a texture)

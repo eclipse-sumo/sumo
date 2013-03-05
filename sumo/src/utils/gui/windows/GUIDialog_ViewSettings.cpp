@@ -818,9 +818,12 @@ GUIDialog_ViewSettings::saveDecals(const std::string& file) const {
             dev << "    <decal filename=\"" << d.filename
                 << "\" centerX=\"" << d.centerX
                 << "\" centerY=\"" << d.centerY
+                << "\" centerZ=\"" << d.centerZ
                 << "\" width=\"" << d.width
                 << "\" height=\"" << d.height
+                << "\" altitude=\"" << d.altitude
                 << "\" rotation=\"" << d.rot
+                << "\" tilt=\"" << d.tilt
                 << "\" layer=\"" << d.layer
                 << "\"/>\n";
         }
