@@ -1,1 +1,1 @@
---spread.uniform -n input_net.net.xml -d input_od_o.fma -o trips.trips.xml
+--spread.uniform -n input_taz.taz.xml -d input_od_o.fma -o trips.trips.xml
