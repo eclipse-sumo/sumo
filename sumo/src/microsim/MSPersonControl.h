@@ -115,6 +115,10 @@ public:
     /// @brief returns whether the the given person is waiting for a vehicle on the given edge
     bool isWaiting4Vehicle(const MSEdge* const edge, MSPerson* p) const;
 
+    const std::map<std::string, MSPerson*>& getPersons() const {
+        return myPersons;
+    }
+
 private:
     /// all persons by id
     std::map<std::string, MSPerson*> myPersons;
