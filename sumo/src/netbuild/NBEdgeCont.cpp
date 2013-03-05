@@ -762,7 +762,7 @@ NBEdgeCont::getGeneratedFrom(const std::string& id) const {
 
 
 void
-NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> >& marked) {
+NBEdgeCont::guessRoundabouts(std::vector<EdgeVector>& marked) {
     // step 1: keep only those edges which have no turnarounds
     std::set<NBEdge*> candidates;
     for (EdgeCont::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
@@ -859,7 +859,7 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> >& marked) {
                 // let the connections to succeeding roundabout edge have a higher priority
                 (*j)->setJunctionPriority(node, 1000);
             }
-            marked.push_back(loopEdgesSet);
+            marked.push_back(loopEdges);
         }
     }
 }

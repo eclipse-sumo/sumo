@@ -190,7 +190,7 @@ public:
     /** @brief Returns the determined roundabouts
      * @return The list of roundabout edges
      */
-    const std::vector<std::set<NBEdge*> >& getRoundabouts() const {
+    const std::vector<EdgeVector>& getRoundabouts() const {
         return myRoundabouts;
     }
 
@@ -245,8 +245,8 @@ protected:
     /// @brief whether a sumo network with roundabout information was loaded
     bool myHaveSeenRoundabouts;
 
-    /// @brief Edges marked as belonging to a roundabout (each set is a roundabout)
-    std::vector<std::set<NBEdge*> > myRoundabouts;
+    /// @brief Edges marked as belonging to a roundabout (each EdgeVector is a roundabout)
+    std::vector<EdgeVector> myRoundabouts;
 
     /// @brief Map of joined edges
     NBJoinedEdgesMap myJoinedEdges;

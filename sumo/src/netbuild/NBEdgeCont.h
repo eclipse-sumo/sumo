@@ -424,7 +424,7 @@ public:
     /** @brief Determines which edges belong to roundabouts and increases their priority
      * @param[out] marked Edges which belong to a roundabout are stored here
      */
-    void guessRoundabouts(std::vector<std::set<NBEdge*> >& marked);
+    void guessRoundabouts(std::vector<EdgeVector>& marked);
 
 
     /** @brief Returns whether the built edges are left-handed

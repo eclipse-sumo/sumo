@@ -164,7 +164,7 @@ protected:
      * @param[in] into The device to write the edge into
      * @param[in] r The roundabout to write
      */
-    static void writeRoundabout(OutputDevice& into, const std::set<NBEdge*>& r);
+    static void writeRoundabout(OutputDevice& into, const EdgeVector& r);
 
 
     /** @brief Writes a district

@@ -144,8 +144,8 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 
     // write roundabout information
-    const std::vector<std::set<NBEdge*> >& roundabouts = nb.getRoundabouts();
-    for (std::vector<std::set<NBEdge*> >::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
+    const std::vector<EdgeVector>& roundabouts = nb.getRoundabouts();
+    for (std::vector<EdgeVector>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
         writeRoundabout(device, *i);
     }
     if (roundabouts.size() != 0) {
@@ -456,10 +456,10 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
 
 
 void
-NWWriter_SUMO::writeRoundabout(OutputDevice& into, const std::set<NBEdge*>& r) {
+NWWriter_SUMO::writeRoundabout(OutputDevice& into, const EdgeVector& r) {
     std::vector<std::string> edgeIDs;
     std::vector<std::string> nodeIDs;
-    for (std::set<NBEdge*>::const_iterator j = r.begin(); j != r.end(); ++j) {
+    for (EdgeVector::const_iterator j = r.begin(); j != r.end(); ++j) {
         edgeIDs.push_back((*j)->getID());
         nodeIDs.push_back((*j)->getToNode()->getID());
     }
