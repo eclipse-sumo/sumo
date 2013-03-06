@@ -77,7 +77,7 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* /*to*/,
         if (myAcceptAllDestination) {
             return;
         } else {
-            MsgHandler* mh = myUnbuildIsWarningOnly ? mh = MsgHandler::getWarningInstance() : mh = MsgHandler::getErrorInstance();
+            MsgHandler* mh = myUnbuildIsWarningOnly ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
             mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
         }
     }
