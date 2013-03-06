@@ -30,6 +30,7 @@
 #include <config.h>
 #endif
 #include <cmath>
+#include <algorithm>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -463,6 +464,9 @@ NWWriter_SUMO::writeRoundabout(OutputDevice& into, const EdgeVector& r) {
         edgeIDs.push_back((*j)->getID());
         nodeIDs.push_back((*j)->getToNode()->getID());
     }
+    // make output deterministic
+    std::sort(edgeIDs.begin(), edgeIDs.end());
+    std::sort(nodeIDs.begin(), nodeIDs.end());
     into.openTag(SUMO_TAG_ROUNDABOUT);
     into.writeAttr(SUMO_ATTR_NODES, joinToString(nodeIDs, " "));
     into.writeAttr(SUMO_ATTR_EDGES, joinToString(edgeIDs, " "));
