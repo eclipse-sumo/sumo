@@ -220,7 +220,8 @@ class Net:
                 (self._ranges[0][0] - self._ranges[0][1]) ** 2 +
                 (self._ranges[1][0] - self._ranges[1][1]) ** 2)
 
-    def convertLatLon2XY(self, lat, lon):
+
+    def getGeoProj(self):
         import pyproj
         p1 = self._location["projParameter"].split()
         params= {}
@@ -230,11 +231,17 @@ class Net:
             params[ps[0]] = ps[1]
           else:
             params[ps[0]] = True
-        p1 = pyproj.Proj(projparams=params)
-        x1, y1 = p1(lon, lat)
-        x1 += float(self._location["netOffset"].split(",")[0])
-        y1 += float(self._location["netOffset"].split(",")[1])
-        return x1, y1
+        return pyproj.Proj(projparams=params)
+
+    def getLocationOffset(self):
+        """ offset to be added after converting from geo-coordinates to UTM"""
+        return map(float,self._location["netOffset"].split(","))
+
+
+    def convertLatLon2XY(self, lat, lon):
+        x,y = self.getGeoProj()(lon,lat)
+        x_off, y_off = self.getLocationOffset()
+        return x + x_off, y + y_off
 
     
 class NetReader(handler.ContentHandler):
