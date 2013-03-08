@@ -903,6 +903,8 @@ public:
 
     std::string getLaneID(unsigned int lane) const;
 
+    std::string getLaneIDInsecure(unsigned int lane) const;
+
     SUMOReal getLaneSpeed(unsigned int lane) const;
 
     bool isNearEnough2BeJoined2(NBEdge* e, SUMOReal threshold) const;

@@ -1,0 +1,22 @@
+Error: Could not set connection from 'bug_in_osm_db_0' to 'exit_with_only_one_lane_2'.
+Error: Could not set connection from 'bug_in_osm_db_1' to 'exit_with_only_one_lane_3'.
+Error: Could not set connection from 'motorway_1' to 'exit_with_only_one_lane_1'.
+Leaked object at 0x123d520 (size 16, 0x337beb0499)
+Leaked object at 0x123ddf0 (size 60, 0x337ca9c3c9)
+Leaked object at 0x123deb0 (size 62, 0x337ca9c3c9)
+Leaked object at 0x123df70 (size 55, 0x337ca9c3c9)
+Leaked object at 0x123e020 (size 59, 0x337ca9c3c9)
+Leaked object at 0x123e0e0 (size 78, 0x337ca9c3c9)
+Leaked object at 0x123e1b0 (size 61, 0x337ca9c3c9)
+Leaked object at 0x123e270 (size 26, 0x337ca9c3c9)
+Leaked object at 0x123e310 (size 782, 0x337ca9c3c9)
+*** 9 leaks found
+delete: freed 0x123e310 (size 782, 417 bytes still allocated)
+delete: freed 0x123e270 (size 26, 391 bytes still allocated)
+delete: freed 0x123e1b0 (size 61, 330 bytes still allocated)
+delete: freed 0x123e0e0 (size 78, 252 bytes still allocated)
+delete: freed 0x123e020 (size 59, 193 bytes still allocated)
+delete: freed 0x123df70 (size 55, 138 bytes still allocated)
+delete: freed 0x123deb0 (size 62, 76 bytes still allocated)
+delete: freed 0x123ddf0 (size 60, 16 bytes still allocated)
+delete: freed 0x123d520 (size 16, 0 bytes still allocated)
