@@ -72,8 +72,8 @@ public:
 
     /// @brief Function-object for stable sorting in containers
     struct ComparatorIdLess {
-        bool operator()(Named* const a, Named* const b) {
-            return (a->getID() < b->getID());
+        bool operator()(Named* const a, Named* const b) const {
+            return a->getID() < b->getID();
         }
     };
 
