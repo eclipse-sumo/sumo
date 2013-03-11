@@ -76,7 +76,7 @@ TEST_F(PositionVectorTest, test_method_scaleSize) {
     expected.push_back(Position(-1,-1));
 
     EXPECT_EQ(expected.getCentroid(), square.getCentroid());
-    for (int i = 0; i < square.size(); i++) {
+    for (size_t i = 0; i < square.size(); i++) {
         EXPECT_DOUBLE_EQ(expected[i].x(), square[i].x());
         EXPECT_DOUBLE_EQ(expected[i].y(), square[i].y());
     }
