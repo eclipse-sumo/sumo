@@ -615,6 +615,16 @@ PositionVector::appendWithCrossingPoint(const PositionVector& v) {
 }
 
 
+void
+PositionVector::append(const PositionVector& v) {
+    if (myCont.back().distanceTo(v.myCont[0]) < 2) { 
+        copy(v.myCont.begin() + 1, v.myCont.end(), back_inserter(myCont));
+    } else {
+        copy(v.myCont.begin(), v.myCont.end(), back_inserter(myCont));
+    }
+}
+
+
 PositionVector
 PositionVector::getSubpart(SUMOReal begin, SUMOReal end) const {
     PositionVector ret;

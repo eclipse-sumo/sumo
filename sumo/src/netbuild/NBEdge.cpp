@@ -1773,9 +1773,9 @@ NBEdge::expandableBy(NBEdge* possContinuation) const {
 void
 NBEdge::append(NBEdge* e) {
     // append geometry
-    myGeom.appendWithCrossingPoint(e->myGeom);
+    myGeom.append(e->myGeom);
     for (unsigned int i = 0; i < myLanes.size(); i++) {
-        myLanes[i].shape.appendWithCrossingPoint(e->myLanes[i].shape);
+        myLanes[i].shape.append(e->myLanes[i].shape);
     }
     // recompute length
     myLength += e->myLength;

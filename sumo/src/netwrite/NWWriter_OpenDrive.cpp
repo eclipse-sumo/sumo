@@ -139,7 +139,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 const NBEdge::Connection& c = *k;
                 PositionVector shape = c.shape;
                 if (c.haveVia) {
-                    shape.appendWithCrossingPoint(c.viaShape);
+                    shape.append(c.viaShape);
                 }
                 const SUMOReal width = SUMO_const_laneWidth;
                 // @todo: this if-clause is a hack which assures that the code also works with connections of zero length, what may be possible

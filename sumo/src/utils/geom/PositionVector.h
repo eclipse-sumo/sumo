@@ -211,6 +211,9 @@ public:
 
     int appendWithCrossingPoint(const PositionVector& v);
 
+    // @brief append the given vector to this one
+    void append(const PositionVector& v);
+
     ContType::const_iterator begin() const {
         return myCont.begin();
     }
