@@ -187,7 +187,12 @@ AGCity::generatePopulation() {
     //compensate with adults for too many / missing children
     const int numSecondPers = statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.households + totalChildrenLeft;
     for (int i = 0; i < numSecondPers; i++) {
-        numAdults[i] *= 2;
+        unsigned int index = i%numAdults.size();
+        if(numAdults[index]>=0) {
+            numAdults[index] += 1;
+        } else {
+            numAdults[index] -= 1;
+        }
     }
     for (it = streets.begin(); it != streets.end(); ++it) {
         people += it->getPopulation();
