@@ -20,6 +20,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_geom", "..\..\..
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_geom_test", "z_libutils_geom_test\z_libutils_geom_test.vcxproj", "{53EF61D5-AF33-4364-8AF3-947E26A71B4A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
+	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
@@ -56,6 +59,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_tcpip", "..\..\.
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_iodevices_test", "z_libutils_iodevices_test\z_libutils_iodevices_test.vcxproj", "{09F3B15E-0AE0-441F-9F31-5CC6DC3FADD6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{508F0BFF-83FE-444C-9509-A359BCA83BC4} = {508F0BFF-83FE-444C-9509-A359BCA83BC4}
+	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"

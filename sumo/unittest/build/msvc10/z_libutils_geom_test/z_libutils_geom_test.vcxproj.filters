@@ -18,13 +18,13 @@
     <ClCompile Include="..\..\..\src\utils\geom\BoundaryTest.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\geom\Line2DTest.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\geom\Position2DVectorTest.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\unittest_main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\geom\LineTest.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\geom\PositionVectorTest.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

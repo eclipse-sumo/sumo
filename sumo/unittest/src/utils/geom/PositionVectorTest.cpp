@@ -5,8 +5,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 
-using namespace std;
-
 /*
 Tests the class PositionVector
 */
@@ -53,9 +51,9 @@ TEST_F(PositionVectorTest, test_method_area) {
     square.push_back(Position(1,0));
     square.push_back(Position(1,1));
     square.push_back(Position(0,1)); // open
-    EXPECT_FLOAT_EQ(square.area(), 1); 
+    EXPECT_DOUBLE_EQ(square.area(), 1); 
     square.push_back(Position(0,0)); // closed
-    EXPECT_FLOAT_EQ(square.area(), 1); 
+    EXPECT_DOUBLE_EQ(square.area(), 1); 
 }
 
 /* Test the method 'scaleSize'.*/
@@ -66,9 +64,9 @@ TEST_F(PositionVectorTest, test_method_scaleSize) {
     square.push_back(Position(1,1));
     square.push_back(Position(0,1));
     square.push_back(Position(0,0));
-    EXPECT_FLOAT_EQ(square.area(), 1);
+    EXPECT_DOUBLE_EQ(square.area(), 1);
     square.scaleSize(3);
-    EXPECT_FLOAT_EQ(square.area(), 9);
+    EXPECT_DOUBLE_EQ(square.area(), 9);
 
     PositionVector expected;
     expected.push_back(Position(-1,-1));
@@ -79,8 +77,8 @@ TEST_F(PositionVectorTest, test_method_scaleSize) {
 
     EXPECT_EQ(expected.getCentroid(), square.getCentroid());
     for (int i = 0; i < square.size(); i++) {
-        EXPECT_FLOAT_EQ(expected[i].x(), square[i].x());
-        EXPECT_FLOAT_EQ(expected[i].y(), square[i].y());
+        EXPECT_DOUBLE_EQ(expected[i].x(), square[i].x());
+        EXPECT_DOUBLE_EQ(expected[i].y(), square[i].y());
     }
 }
 
@@ -94,16 +92,16 @@ TEST_F(PositionVectorTest, test_method_getCentroid) {
     EXPECT_EQ(Position(0.5, 0.5), square.getCentroid());
 
 	Position pos2 = vectorLine->getCentroid();
-	EXPECT_FLOAT_EQ(1, pos2.x());
-	EXPECT_FLOAT_EQ(1, pos2.y());
+	EXPECT_DOUBLE_EQ(1, pos2.x());
+	EXPECT_DOUBLE_EQ(1, pos2.y());
 	
 }
 
 /* Test the method 'getPolygonCenter'.*/
 TEST_F(PositionVectorTest, test_method_getPolygonCenter) {
        Position pos = vectorPolygon->getPolygonCenter();
-       EXPECT_FLOAT_EQ(2, pos.x());
-       EXPECT_FLOAT_EQ(1.6, pos.y());
+       EXPECT_DOUBLE_EQ(2, pos.x());
+       EXPECT_DOUBLE_EQ(1.6, pos.y());
        Position pos2 = vectorLine->getPolygonCenter();
 }
 
@@ -111,10 +109,10 @@ TEST_F(PositionVectorTest, test_method_getPolygonCenter) {
 /* Test the method 'getBoxBoundary'*/
 TEST_F(PositionVectorTest, test_method_getBoxBoundary) {	
 	Boundary bound = vectorPolygon->getBoxBoundary();
-	EXPECT_FLOAT_EQ(bound.xmax(), 4);
-	EXPECT_FLOAT_EQ(bound.xmin(), 0);
-	EXPECT_FLOAT_EQ(bound.ymax(), 4);
-	EXPECT_FLOAT_EQ(bound.ymin(), 0);
+	EXPECT_DOUBLE_EQ(bound.xmax(), 4);
+	EXPECT_DOUBLE_EQ(bound.xmin(), 0);
+	EXPECT_DOUBLE_EQ(bound.ymax(), 4);
+	EXPECT_DOUBLE_EQ(bound.ymin(), 0);
 }
 
 /* Test the method 'splitAt'*/
@@ -127,64 +125,64 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
     std::pair<PositionVector, PositionVector> result;
     // split in first segment
     result = vec.splitAt(1);
-	EXPECT_FLOAT_EQ(2, result.first.size());
-	EXPECT_FLOAT_EQ(0, result.first[0].x());
-	EXPECT_FLOAT_EQ(1, result.first[1].x());
-	EXPECT_FLOAT_EQ(3, result.second.size());
-	EXPECT_FLOAT_EQ(1, result.second[0].x());
-	EXPECT_FLOAT_EQ(2, result.second[1].x());
-	EXPECT_FLOAT_EQ(5, result.second[2].x());
+	EXPECT_DOUBLE_EQ(2, result.first.size());
+	EXPECT_DOUBLE_EQ(0, result.first[0].x());
+	EXPECT_DOUBLE_EQ(1, result.first[1].x());
+	EXPECT_DOUBLE_EQ(3, result.second.size());
+	EXPECT_DOUBLE_EQ(1, result.second[0].x());
+	EXPECT_DOUBLE_EQ(2, result.second[1].x());
+	EXPECT_DOUBLE_EQ(5, result.second[2].x());
     // split in second segment
     result = vec.splitAt(4);
-	EXPECT_FLOAT_EQ(3, result.first.size());
-	EXPECT_FLOAT_EQ(0, result.first[0].x());
-	EXPECT_FLOAT_EQ(2, result.first[1].x());
-	EXPECT_FLOAT_EQ(4, result.first[2].x());
-	EXPECT_FLOAT_EQ(2, result.second.size());
-	EXPECT_FLOAT_EQ(4, result.second[0].x());
-	EXPECT_FLOAT_EQ(5, result.second[1].x());
+	EXPECT_DOUBLE_EQ(3, result.first.size());
+	EXPECT_DOUBLE_EQ(0, result.first[0].x());
+	EXPECT_DOUBLE_EQ(2, result.first[1].x());
+	EXPECT_DOUBLE_EQ(4, result.first[2].x());
+	EXPECT_DOUBLE_EQ(2, result.second.size());
+	EXPECT_DOUBLE_EQ(4, result.second[0].x());
+	EXPECT_DOUBLE_EQ(5, result.second[1].x());
     // split close before inner point
     result = vec.splitAt(2 - smallDiff);
-	EXPECT_FLOAT_EQ(2, result.first.size());
-	EXPECT_FLOAT_EQ(0, result.first[0].x());
-	EXPECT_FLOAT_EQ(2, result.first[1].x());
-	EXPECT_FLOAT_EQ(2, result.second.size());
-	EXPECT_FLOAT_EQ(2, result.second[0].x());
-	EXPECT_FLOAT_EQ(5 ,result.second[1].x());
+	EXPECT_DOUBLE_EQ(2, result.first.size());
+	EXPECT_DOUBLE_EQ(0, result.first[0].x());
+	EXPECT_DOUBLE_EQ(2, result.first[1].x());
+	EXPECT_DOUBLE_EQ(2, result.second.size());
+	EXPECT_DOUBLE_EQ(2, result.second[0].x());
+	EXPECT_DOUBLE_EQ(5 ,result.second[1].x());
     // split close after inner point
     result = vec.splitAt(2 + smallDiff);
-	EXPECT_FLOAT_EQ(2, result.first.size());
-	EXPECT_FLOAT_EQ(0, result.first[0].x());
-	EXPECT_FLOAT_EQ(2, result.first[1].x());
-	EXPECT_FLOAT_EQ(2, result.second.size());
-	EXPECT_FLOAT_EQ(2, result.second[0].x());
-	EXPECT_FLOAT_EQ(5 ,result.second[1].x());
+	EXPECT_DOUBLE_EQ(2, result.first.size());
+	EXPECT_DOUBLE_EQ(0, result.first[0].x());
+	EXPECT_DOUBLE_EQ(2, result.first[1].x());
+	EXPECT_DOUBLE_EQ(2, result.second.size());
+	EXPECT_DOUBLE_EQ(2, result.second[0].x());
+	EXPECT_DOUBLE_EQ(5 ,result.second[1].x());
 
     // catch a bug
     vec.push_back(Position(6,0));
     vec.push_back(Position(8,0));
     // split at inner point
     result = vec.splitAt(5);
-	EXPECT_FLOAT_EQ(3, result.first.size());
-	EXPECT_FLOAT_EQ(0, result.first[0].x());
-	EXPECT_FLOAT_EQ(2, result.first[1].x());
-	EXPECT_FLOAT_EQ(5, result.first[2].x());
-	EXPECT_FLOAT_EQ(3, result.second.size());
-	EXPECT_FLOAT_EQ(5, result.second[0].x());
-	EXPECT_FLOAT_EQ(6 ,result.second[1].x());
-	EXPECT_FLOAT_EQ(8 ,result.second[2].x());
+	EXPECT_DOUBLE_EQ(3, result.first.size());
+	EXPECT_DOUBLE_EQ(0, result.first[0].x());
+	EXPECT_DOUBLE_EQ(2, result.first[1].x());
+	EXPECT_DOUBLE_EQ(5, result.first[2].x());
+	EXPECT_DOUBLE_EQ(3, result.second.size());
+	EXPECT_DOUBLE_EQ(5, result.second[0].x());
+	EXPECT_DOUBLE_EQ(6 ,result.second[1].x());
+	EXPECT_DOUBLE_EQ(8 ,result.second[2].x());
 
     // split short vector
     PositionVector vec2;
     vec2.push_back(Position(0,0));
     vec2.push_back(Position(2,0));
     result = vec2.splitAt(1);
-	EXPECT_FLOAT_EQ(2, result.first.size());
-	EXPECT_FLOAT_EQ(0, result.first[0].x());
-	EXPECT_FLOAT_EQ(1, result.first[1].x());
-	EXPECT_FLOAT_EQ(2, result.second.size());
-	EXPECT_FLOAT_EQ(1, result.second[0].x());
-	EXPECT_FLOAT_EQ(2 ,result.second[1].x());
+	EXPECT_DOUBLE_EQ(2, result.first.size());
+	EXPECT_DOUBLE_EQ(0, result.first[0].x());
+	EXPECT_DOUBLE_EQ(1, result.first[1].x());
+	EXPECT_DOUBLE_EQ(2, result.second.size());
+	EXPECT_DOUBLE_EQ(1, result.second[0].x());
+	EXPECT_DOUBLE_EQ(2 ,result.second[1].x());
 
     // split very short vector
     PositionVector vec3;
@@ -195,12 +193,12 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
     result = vec3.splitAt(smallDiff);
     MsgHandler::getWarningInstance()->addRetriever(&OutputDevice::getDevice("stderr"));
 
-	EXPECT_FLOAT_EQ(2, result.first.size());
-	EXPECT_FLOAT_EQ(0, result.first[0].x());
-	EXPECT_FLOAT_EQ(smallDiff, result.first[1].x());
-	EXPECT_FLOAT_EQ(2, result.second.size());
-	EXPECT_FLOAT_EQ(smallDiff, result.second[0].x());
-	EXPECT_FLOAT_EQ(POSITION_EPS ,result.second[1].x());
+	EXPECT_DOUBLE_EQ(2, result.first.size());
+	EXPECT_DOUBLE_EQ(0, result.first[0].x());
+	EXPECT_DOUBLE_EQ(smallDiff, result.first[1].x());
+	EXPECT_DOUBLE_EQ(2, result.second.size());
+	EXPECT_DOUBLE_EQ(smallDiff, result.second[0].x());
+	EXPECT_DOUBLE_EQ(POSITION_EPS ,result.second[1].x());
 }
 
 
@@ -213,5 +211,5 @@ TEST_F(PositionVectorTest, test_method_intersectsAtLenghts2D) {
     PositionVector vec2;
     vec2.push_back(Position(0,0,0));
     vec2.push_back(Position(3,1,0));
-	EXPECT_FLOAT_EQ(0, vec1.intersectsAtLengths2D(vec2)[0]);
+	EXPECT_DOUBLE_EQ(0, vec1.intersectsAtLengths2D(vec2)[0]);
 }

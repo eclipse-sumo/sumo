@@ -76,7 +76,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(GTEST_DEBUG_LIB);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(GTEST_DEBUG_LIB);ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX86</TargetMachine>
@@ -103,12 +103,20 @@
       <Project>{72cdb11a-ec19-4be2-bbe9-1fa33deccb20}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\build\msvc10\z_libutils_geom\z_libutils_geom.vcxproj">
+      <Project>{334df447-d0b3-4cea-9693-f755eb11c18f}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\build\msvc10\z_libutils_iodevices\z_libutils_iodevices.vcxproj">
       <Project>{fc588f88-ffc4-4ebd-a790-1b1fe06e1fc8}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\build\msvc10\z_libutils_options\z_libutils_options.vcxproj">
       <Project>{ee29af87-7317-488d-bf6d-ec422d1dbad6}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\build\msvc10\z_libutils_xml\z_libutils_xml.vcxproj">
+      <Project>{508f0bff-83fe-444c-9509-a359bca83bc4}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

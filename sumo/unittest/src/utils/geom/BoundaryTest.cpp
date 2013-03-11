@@ -1,8 +1,6 @@
 #include <gtest/gtest.h>
 #include <utils/geom/Boundary.h>
 
-using namespace std;
-
 /*
 Tests the class Boundary
 */
@@ -11,10 +9,10 @@ Tests the class Boundary
 TEST(Boundary, test_method_add) {
 	Boundary *bound = new Boundary();
     bound->add(1,2);
-	EXPECT_FLOAT_EQ(bound->xmax(), 1);
-	EXPECT_FLOAT_EQ(bound->xmin(), 1);
-	EXPECT_FLOAT_EQ(bound->ymax(), 2);
-	EXPECT_FLOAT_EQ(bound->ymin(), 2);
+	EXPECT_DOUBLE_EQ(bound->xmax(), 1);
+	EXPECT_DOUBLE_EQ(bound->xmin(), 1);
+	EXPECT_DOUBLE_EQ(bound->ymax(), 2);
+	EXPECT_DOUBLE_EQ(bound->ymin(), 2);
 }
 
 /* Test the method 'add' with multiple calls*/
@@ -23,25 +21,25 @@ TEST(Boundary, test_method_add_multiple) {
     bound->add(-1,-2);
 	bound->add(3,5);
 	bound->add(5,8);
-	EXPECT_FLOAT_EQ(bound->xmax(), 5);
-	EXPECT_FLOAT_EQ(bound->xmin(), -1);
-	EXPECT_FLOAT_EQ(bound->ymax(), 8);
-	EXPECT_FLOAT_EQ(bound->ymin(), -2);
+	EXPECT_DOUBLE_EQ(bound->xmax(), 5);
+	EXPECT_DOUBLE_EQ(bound->xmin(), -1);
+	EXPECT_DOUBLE_EQ(bound->ymax(), 8);
+	EXPECT_DOUBLE_EQ(bound->ymin(), -2);
 }
 
 /* Test the method 'getCenter'*/
 TEST(Boundary, test_method_getCenter) {
 	Boundary *bound = new Boundary(-2,-4,4,8);
 	Position pos = bound->getCenter();
-	EXPECT_FLOAT_EQ(pos.x(), 1);
-	EXPECT_FLOAT_EQ(pos.y(), 2);
+	EXPECT_DOUBLE_EQ(pos.x(), 1);
+	EXPECT_DOUBLE_EQ(pos.y(), 2);
 }
 
 /* Test the method 'getWidth' and getHeight*/
 TEST(Boundary, test_method_getWidthHeight) {
 	Boundary *bound = new Boundary(-2,-4,4,8);
-	EXPECT_FLOAT_EQ(bound->getHeight(), 12);
-	EXPECT_FLOAT_EQ(bound->getWidth(), 6);
+	EXPECT_DOUBLE_EQ(bound->getHeight(), 12);
+	EXPECT_DOUBLE_EQ(bound->getWidth(), 6);
 }
 
 /* Test the method 'around'*/
@@ -84,19 +82,19 @@ TEST(Boundary, test_method_partialWithin) {
 TEST(Boundary, test_method_flipY) {
 	Boundary *bound = new Boundary(1,2,3,6);
 	bound->flipY();
-	EXPECT_FLOAT_EQ(bound->xmax(), 3);
-	EXPECT_FLOAT_EQ(bound->xmin(), 1);
-	EXPECT_FLOAT_EQ(bound->ymax(), -2);
-	EXPECT_FLOAT_EQ(bound->ymin(), -6);
+	EXPECT_DOUBLE_EQ(bound->xmax(), 3);
+	EXPECT_DOUBLE_EQ(bound->xmin(), 1);
+	EXPECT_DOUBLE_EQ(bound->ymax(), -2);
+	EXPECT_DOUBLE_EQ(bound->ymin(), -6);
 }
 
 /* Test the method 'moveby'*/
 TEST(Boundary, test_method_moveby) {
 	Boundary *bound = new Boundary(1,2,3,6);
 	bound->moveby(2.5,-3.5);
-	EXPECT_FLOAT_EQ(bound->xmax(), 5.5);
-	EXPECT_FLOAT_EQ(bound->xmin(), 3.5);
-	EXPECT_FLOAT_EQ(bound->ymax(), 2.5);
-	EXPECT_FLOAT_EQ(bound->ymin(), -1.5);
+	EXPECT_DOUBLE_EQ(bound->xmax(), 5.5);
+	EXPECT_DOUBLE_EQ(bound->xmin(), 3.5);
+	EXPECT_DOUBLE_EQ(bound->ymax(), 2.5);
+	EXPECT_DOUBLE_EQ(bound->ymin(), -1.5);
 }
 
