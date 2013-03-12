@@ -142,37 +142,41 @@ AGActivityGen::varDepTime(AGTrip& trip) {
 void
 AGActivityGen::generateOutputFile(std::list<AGTrip>& trips) {
     AGActivityTripWriter atw(outputFile);
-    std::list<AGTrip>::iterator it;
-    //variables for TESTS:
-    int firstTrip = trips.front().getTime() + trips.front().getDay() * 86400;
-    int lastTrip = trips.front().getTime() + trips.front().getDay() * 86400;
-    std::map<int, int> histogram;
-    for (int i = 0; i < 100; ++i) {
-        histogram[i] = 0;
-    }
-    //END var TESTS
-    for (it = trips.begin(); it != trips.end(); ++it) {
-        atw.addTrip(*it);
-        //TEST
-        if (it->getTime() + 86400 * it->getDay() > lastTrip) {
-            lastTrip = it->getTime() + 86400 * it->getDay();
+    if(trips.size()!=0) {
+        std::list<AGTrip>::iterator it;
+        //variables for TESTS:
+        int firstTrip = trips.front().getTime() + trips.front().getDay() * 86400;
+        int lastTrip = trips.front().getTime() + trips.front().getDay() * 86400;
+        std::map<int, int> histogram;
+        for (int i = 0; i < 100; ++i) {
+            histogram[i] = 0;
         }
-        if (it->getTime() + 86400 * it->getDay() < firstTrip) {
-            firstTrip = it->getTime() + 86400 * it->getDay();
+        //END var TESTS
+        for (it = trips.begin(); it != trips.end(); ++it) {
+            atw.addTrip(*it);
+            //TEST
+            if (it->getTime() + 86400 * it->getDay() > lastTrip) {
+                lastTrip = it->getTime() + 86400 * it->getDay();
+            }
+            if (it->getTime() + 86400 * it->getDay() < firstTrip) {
+                firstTrip = it->getTime() + 86400 * it->getDay();
+            }
+            //++histogram[((it->getDay()-1)*86400 + it->getTime())/3600];
+            ++histogram[(it->getTime()) / 3600];
+            //END TEST
         }
-        //++histogram[((it->getDay()-1)*86400 + it->getTime())/3600];
-        ++histogram[(it->getTime()) / 3600];
-        //END TEST
-    }
-    //PRINT TEST
-    AGTime first(firstTrip);
-    AGTime last(lastTrip);
-    std::cout << "first real trip: " << first.getDay() << ", " << first.getHour() << ":" << first.getMinute() << ":" << first.getSecond() << std::endl;
-    std::cout << "last real trip: " << last.getDay() << ", " << last.getHour() << ":" << last.getMinute() << ":" << last.getSecond() << std::endl;
-    for (int i = 0; i < 100; ++i) {
-        if (histogram[i] > 0) {
-            std::cout << "histogram[ hour " << i << " ] = " << histogram[i] << std::endl;
+        //PRINT TEST
+        AGTime first(firstTrip);
+        AGTime last(lastTrip);
+        std::cout << "first real trip: " << first.getDay() << ", " << first.getHour() << ":" << first.getMinute() << ":" << first.getSecond() << std::endl;
+        std::cout << "last real trip: " << last.getDay() << ", " << last.getHour() << ":" << last.getMinute() << ":" << last.getSecond() << std::endl;
+        for (int i = 0; i < 100; ++i) {
+            if (histogram[i] > 0) {
+                std::cout << "histogram[ hour " << i << " ] = " << histogram[i] << std::endl;
+            }
         }
+    } else {
+        std::cout << "No real trips were generated" << std::endl;
     }
     //END TEST
     atw.writeOutputFile();
