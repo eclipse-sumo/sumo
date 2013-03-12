@@ -188,7 +188,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GUIPerson::drawGLAdditional(const GUIVisualizationSettings& /* s */) const {
+GUIPerson::drawGLAdditional(GUISUMOAbstractView* const /* parent */, const GUIVisualizationSettings& /* s */) const {
     glPushName(getGlID());
     glPushMatrix();
     /*
