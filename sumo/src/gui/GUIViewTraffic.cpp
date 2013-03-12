@@ -190,11 +190,15 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_POLYGON_OFFSET_LINE);
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
     //
-    glTranslated(0, 0, -.01);
-    for (std::map<GUIGlObject*, int>::iterator i = myAdditionallyDrawn.begin(); i != myAdditionallyDrawn.end(); ++i) {
-        (i->first)->drawGLAdditional(this, *myVisualizationSettings);
+    if (myAdditionallyDrawn.size() > 0) {
+        glTranslated(0, 0, -.01);
+        GUINet::getGUIInstance()->lock();
+        for (std::map<GUIGlObject*, int>::iterator i = myAdditionallyDrawn.begin(); i != myAdditionallyDrawn.end(); ++i) {
+            (i->first)->drawGLAdditional(this, *myVisualizationSettings);
+        }
+        GUINet::getGUIInstance()->unlock();
+        glTranslated(0, 0, .01);
     }
-    glTranslated(0, 0, .01);
     glPopMatrix();
     /*
     // draw legends

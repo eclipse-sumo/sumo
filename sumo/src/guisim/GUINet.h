@@ -63,6 +63,7 @@ class OutputDevice;
 class GUIVehicle;
 class GUIVehicleControl;
 class MSVehicleControl;
+class MFXMutex;
 #ifdef HAVE_INTERNAL
 class GUIMEVehicleControl;
 #endif
@@ -160,6 +161,9 @@ public:
     /// Some further steps needed for gui processing
     void guiSimulationStep();
 
+    /** @brief Performs a single simulation step (locking the simulation)
+     */
+    void simulationStep();
 
     /// @name functions for performance measurements
     /// @{
@@ -273,6 +277,12 @@ public:
     GUIMEVehicleControl* getGUIMEVehicleControl();
 #endif
 
+    /// @brief grant exclusive access to the simulation state
+    void lock();
+
+    /// @brief release exclusive access to the simulation state
+    void unlock();
+
     /** @brief Returns the pointer to the unique instance of GUINet (singleton).
      * @return Pointer to the unique GUINet-instance
      * @exception ProcessError If a network was not yet constructed
@@ -326,6 +336,10 @@ protected:
 
     long myLastVehicleMovementCount, myOverallVehicleCount;
     long myOverallSimDuration;
+
+private:
+    /// The mutex used to avoid concurrent updates of the vehicle buffer
+    mutable MFXMutex myLock;
 
 };
 

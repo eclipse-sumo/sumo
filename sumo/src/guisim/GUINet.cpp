@@ -96,6 +96,9 @@ GUINet::GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
 
 
 GUINet::~GUINet() {
+    if (myLock.locked()) {
+        myLock.unlock();
+    }
     // delete allocated wrappers
     //  of junctions
     for (std::vector<GUIJunctionWrapper*>::iterator i1 = myJunctionWrapper.begin(); i1 != myJunctionWrapper.end(); i1++) {
@@ -214,6 +217,13 @@ void
 GUINet::guiSimulationStep() {
     GLObjectValuePassConnector<SUMOReal>::updateAll();
     GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >::updateAll();
+}
+
+
+void 
+GUINet::simulationStep() {
+    AbstractMutex::ScopedLocker locker(myLock);
+    MSNet::simulationStep();
 }
 
 
@@ -473,6 +483,18 @@ GUINet::getGUIInstance() {
 GUIVehicleControl*
 GUINet::getGUIVehicleControl() {
     return dynamic_cast<GUIVehicleControl*>(myVehicleControl);
+}
+
+
+void 
+GUINet::lock() {
+    myLock.lock();
+}
+
+
+void 
+GUINet::unlock() {
+    myLock.unlock();
 }
 
 #ifdef HAVE_INTERNAL
