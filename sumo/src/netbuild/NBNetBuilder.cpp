@@ -164,8 +164,8 @@ NBNetBuilder::compute(OptionsCont& oc,
         myEdgeCont.reduceGeometries(oc.getFloat("geometry.min-dist"));
         PROGRESS_DONE_MESSAGE();
     }
-    // @note: removing geometry can create similar edges so "Joining" must come afterwards
-    // @note: likewise splitting can destroy similarities so "Joining" must come before
+    // @note: removing geometry can create similar edges so joinSimilarEdges  must come afterwards
+    // @note: likewise splitting can destroy similarities so joinSimilarEdges must come before
     PROGRESS_BEGIN_MESSAGE("Joining similar edges");
     myJoinedEdges.init(myEdgeCont);
     myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
