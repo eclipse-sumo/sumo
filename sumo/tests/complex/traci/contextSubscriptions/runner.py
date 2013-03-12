@@ -15,6 +15,19 @@ else:
 PORT = 8813
 DELTA_T = 1000
 
+def dist2(v, w):
+    return (v[0] - w[0]) ** 2 + (v[1] - w[1]) ** 2
+
+def distToSegmentSquared(p, v, w):
+    l2 = dist2(v, w)
+    if l2 == 0:
+        return dist2(p, v)
+    t = ((p[0] - v[0]) * (w[0] - v[0]) + (p[1] - v[1]) * (w[1] - v[1])) / l2
+    if t < 0:
+        return dist2(p, v)
+    if t > 1:
+        return dist2(p, w)
+    return dist2(p, (v[0] + t * (w[0] - v[0]), v[1] + t * (w[1] - v[1])))
 
 def runSingle(traciEndTime, viewRange, module, objID):
     seen1 = 0
@@ -42,19 +55,20 @@ def runSingle(traciEndTime, viewRange, module, objID):
             egoPos = module.getPosition(objID)
         elif hasattr(module, "getShape"):
             shape = module.getShape(objID)
+        elif module == traci.edge:
+            # it's a hack, I know,  but do we really need to introduce edge.getShape?
+            shape = traci.lane.getShape(objID+"_0")
         near2 = set()
         for v in pos:
             if egoPos:
-                dx = egoPos[0] - pos[v][0]
-                dy = egoPos[1] - pos[v][1]
-                if math.sqrt(dx*dx + dy*dy) < viewRange:
+                if math.sqrt(dist2(egoPos, pos[v])) < viewRange:
                     near2.add(v)
             if shape:
-                for x, y in shape:
-                    dx = x - pos[v][0]
-                    dy = y - pos[v][1]
-                    if math.sqrt(dx*dx + dy*dy) < viewRange:
+                lastP = shape[0]
+                for p in shape[1:]:
+                    if math.sqrt(distToSegmentSquared(pos[v], lastP, p)) < viewRange:
                         near2.add(v)
+                    lastP = p
         
         if not subscribed:
             module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [traci.constants.VAR_POSITION] )
