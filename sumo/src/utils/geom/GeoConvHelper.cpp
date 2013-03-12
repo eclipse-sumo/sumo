@@ -32,6 +32,8 @@
 
 #include <map>
 #include <cmath>
+#include <cassert>
+#include <climits>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
@@ -304,6 +306,10 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
             //!!! recheck whether the axes are mirrored
             from.add(myOffset);
         }
+    }
+    if (x > std::numeric_limits<double>::max() ||
+        y > std::numeric_limits<double>::max()) {
+        return false;
     }
     if (myProjectionMethod != SIMPLE) {
         from.set((SUMOReal)x, (SUMOReal)y);

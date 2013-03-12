@@ -335,9 +335,12 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     NBEdgeCont& ec = nb.getEdgeCont();
     NBTypeCont& tc = nb.getTypeCont();
     NBTrafficLightLogicCont& tlsc = nb.getTLLogicCont();
-
     // patch the id
     std::string id = toString(e->id);
+    if (from == 0 || to == 0) {
+        WRITE_ERROR("Discarding edge " + id + " because the nodes could not be built.");
+        return index;
+    }
     if (index >= 0) {
         id = id + "#" + toString(index);
     } else {
@@ -361,7 +364,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         NIOSMNode* n = myOSMNodes.find(*i)->second;
         Position pos(n->lon, n->lat);
         if (!NILoader::transformCoordinates(pos, true)) {
-            throw ProcessError("Unable to project coordinates for edge " + id + ".");
+            WRITE_ERROR("Unable to project coordinates for edge " + id + ".");
         }
         shape.push_back_noDoublePos(pos);
     }

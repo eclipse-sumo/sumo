@@ -355,6 +355,10 @@ NBNetBuilder::compute(OptionsCont& oc,
     WRITE_MESSAGE("  Converted boundary : " + toString(geoConvHelper.getConvBoundary()));
     WRITE_MESSAGE("-----------------------------------------------------");
     NBRequest::reportWarnings();
+    // report on very large networks
+    if (MAX2(geoConvHelper.getConvBoundary().getWidth(), geoConvHelper.getConvBoundary().getHeight()) > 1000000) {
+        WRITE_WARNING("Network is very large and will probably flicker in the GUI. Check for outlying nodes.");
+    }
 }
 
 
