@@ -1,0 +1,40 @@
+first completed in getStreet() of City: Consolidation of data not needed in ActivityGen any more
+--> work position: 
+  |-> in city: 2
+  |-> out city: 1
+  |-> in+out city: 3
+--> population: 
+  |-> city households: 1
+  |-> city people: 1
+    |-> city single: 1 / (in) couple: 0
+    |-> city adults: 1
+      |-> estimation: 1
+      |-> retired: 0
+    |-> city children: 0
+      |-> estimation: 0
+  |-> working people: 1
+    |-> working people in city: 1
+    |-> working people from outside: 0
+no problem during bus line trip generation...
+after public transportation: 6
+no problem during households' trips generation...
+after household activities: 6
+no problem during in/out traffic generation...
+after incoming/outgoing traffic: 6
+Before Random traffic generation (days are still entire):
+- Total number of trips: 12
+- Total daily trips: 6
+- Total one-day trips: 0
+added uniform random trips: 0
+no problem during random traffic generation...
+after random traffic: 6
+total trips generated: 6
+total trips finally taken: 6
+...sorted by departure time.
+
+first real trip: 1, 8:20:0
+last real trip: 1, 12:0:0
+histogram[ hour 8 ] = 2
+histogram[ hour 9 ] = 2
+histogram[ hour 12 ] = 2
+Success.

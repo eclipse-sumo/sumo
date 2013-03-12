@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<routes>
+    <vType id="default" accel="4.0" decel="8.0" sigma="0.0" length="5" minGap="2.5" maxSpeed="90"/>
+    <vType id="random" accel="4.0" decel="8.0" sigma="0.0" length="5" minGap="2.5" maxSpeed="90"/>
+    <vType id="bus" accel="2.0" decel="4.0" sigma="0.0" length="10" minGap="3" maxSpeed="70"/>
+
+    <vehicle id="bl101b1:1" type="bus" depart="30000" departPos="10" arrivalPos="10" departSpeed="0" arrivalSpeed="0" color="0,1,0">
+        <route edges="e11t01 e51t44"/>
+    </vehicle>
+    <vehicle id="bl101b2:3" type="bus" depart="30000" departPos="10" arrivalPos="10" departSpeed="0" arrivalSpeed="0" color="0,1,0">
+        <route edges="e51t44 e11t01"/>
+    </vehicle>
+    <vehicle id="bl101b2:1" type="bus" depart="33600" departPos="10" arrivalPos="10" departSpeed="0" arrivalSpeed="0" color="0,1,0">
+        <route edges="e11t01 e51t44"/>
+    </vehicle>
+    <vehicle id="bl101b1:5" type="bus" depart="33600" departPos="10" arrivalPos="10" departSpeed="0" arrivalSpeed="0" color="0,1,0">
+        <route edges="e51t44 e11t01"/>
+    </vehicle>
+    <vehicle id="bl101b1:3" type="bus" depart="43200" departPos="10" arrivalPos="10" departSpeed="0" arrivalSpeed="0" color="0,1,0">
+        <route edges="e11t01 e51t44"/>
+    </vehicle>
+    <vehicle id="bl101b2:5" type="bus" depart="43200" departPos="10" arrivalPos="10" departSpeed="0" arrivalSpeed="0" color="0,1,0">
+        <route edges="e51t44 e11t01"/>
+    </vehicle>
+</routes>

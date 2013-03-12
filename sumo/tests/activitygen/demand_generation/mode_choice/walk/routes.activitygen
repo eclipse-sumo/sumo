@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<routes>
+    <vType id="default" accel="4.0" decel="8.0" sigma="0.0" length="5" minGap="2.5" maxSpeed="90"/>
+    <vType id="random" accel="4.0" decel="8.0" sigma="0.0" length="5" minGap="2.5" maxSpeed="90"/>
+    <vType id="bus" accel="2.0" decel="4.0" sigma="0.0" length="10" minGap="3" maxSpeed="70"/>
+
+</routes>

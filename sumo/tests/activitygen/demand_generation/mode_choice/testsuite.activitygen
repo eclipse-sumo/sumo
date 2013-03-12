@@ -1,0 +1,18 @@
+# one person, one car, no bus
+use_car
+
+# one person, no car, no bus
+walk
+
+# one person, no car, one bus
+use_bus
+
+# one person, one car, one bus
+# car preference=0
+what_0car_preference
+
+# car preference=1
+what_1car_preference
+
+
+

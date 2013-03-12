@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	TITLE:	test1.stat.xml
+	AUTHOR:	Piotr Woznica - sf.contact@web-pw.com
+	DATE:	04/08/2010
+-->
+
+<city>
+	<general inhabitants="1" households="1" childrenAgeLimit="19" retirementAgeLimit="66" carRate="1" unemploymentRate="0" footDistanceLimit="10000" incomingTraffic="0" outgoingTraffic="0" />
+	<parameters carPreference="0" meanTimePerKmInCity="6" freeTimeActivityRate="0" uniformRandomTraffic="0" departureVariation="0" />
+	
+	<population>
+		<bracket beginAge="0" endAge="30" peopleNbr="30" />
+		<bracket beginAge="30" endAge="60" peopleNbr="40" />
+		<bracket beginAge="60" endAge="90" peopleNbr="30" />
+	</population>
+	
+	<workHours>
+		<opening hour="30600" proportion="0.30" />
+		<opening hour="32400" proportion="0.70" />
+		<closing hour="43200" proportion="0.20" />
+		<closing hour="63000" proportion="0.20" />
+		<closing hour="64800" proportion="0.60" />
+	</workHours>
+	
+	<streets>
+		<street edge="e51t44" population="1" workPosition="0" />
+		<street edge="e11t01" population="0" workPosition="1" />
+	</streets>
+	
+	<busStations>
+		<busStation id="1" edge="e11t01" pos="10" />
+		<busStation id="2" edge="e51t44" pos="10" />
+	</busStations>
+	
+	<busLines>
+		<busLine id="101" maxTripDuration="10">
+			<stations>
+				<station refId="1" />
+				<station refId="2" />
+			</stations>
+			<revStations>
+				<station refId="2" />
+				<station refId="1" />
+			</revStations>
+			<frequencies>
+				<frequency begin="30000" end="36000" rate="3600" />
+				<frequency begin="43200" end="46000" rate="3600" />
+			</frequencies>
+		</busLine>
+	</busLines>	
+</city>
