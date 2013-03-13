@@ -1121,7 +1121,7 @@ private:
      * startNode. laneShape may be shorted or extended
      * @note see [wiki:Developer/Network_Building_Process]
      */
-    PositionVector startShapeAt(const PositionVector& laneShape, const NBNode* startNode, unsigned int laneIndex) const;
+    PositionVector startShapeAt(const PositionVector& laneShape, const NBNode* startNode) const;
 
 private:
     /** @brief The building step

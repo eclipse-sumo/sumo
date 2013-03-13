@@ -375,9 +375,9 @@ NBEdge::computeEdgeShape() {
     for (unsigned int i = 0; i < myLanes.size(); i++) {
         PositionVector& shape = myLanes[i].shape;
         PositionVector old = shape;
-        shape = startShapeAt(shape, myFrom, i);
+        shape = startShapeAt(shape, myFrom);
         if (shape.size() >= 2) {
-            shape = startShapeAt(shape.reverse(), myTo, i).reverse();
+            shape = startShapeAt(shape.reverse(), myTo).reverse();
         }
         // sanity checks
         if (shape.length() < POSITION_EPS) {
@@ -406,8 +406,7 @@ NBEdge::computeEdgeShape() {
 
 
 PositionVector
-NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, unsigned int laneIndex) const {
-    // const std::string error = "Could not find a way to attach lane '" + getLaneID(laneIndex) + "' at node shape of '" + startNode->getID() + "'.";
+NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode) const {
     const PositionVector& nodeShape = startNode->getShape();
     Line lb = laneShape.getBegLine();
     // this doesn't look reasonable @todo use lb.extrapolateFirstBy(100.0);
