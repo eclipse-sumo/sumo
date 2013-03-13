@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/31/12 15:18:35 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Wed Mar 13 10:01:30 2013 by SUMO netconvert Version dev-SVN-r13478
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -88,18 +88,16 @@
         <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="90.88" type="priority" x="277.43" y="138.18" incLanes="-90_0 -88_0" intLanes="" shape="280.69,136.70 274.19,136.67 274.18,139.67 287.27,139.73">
-        <request index="0" response="000" foes="000"/>
-        <request index="1" response="000" foes="000"/>
-        <request index="2" response="000" foes="000"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="91.71" type="priority" x="157.03" y="270.59" incLanes="71_0 91_0" intLanes="" shape="157.01,273.84 157.04,267.34 157.01,273.84">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="91.89" type="priority" x="276.09" y="409.18" incLanes="-89_0 -91_0" intLanes="" shape="279.35,407.69 266.25,407.63 272.83,410.66 279.33,410.69">
-        <request index="0" response="000" foes="000"/>
-        <request index="1" response="000" foes="000"/>
-        <request index="2" response="000" foes="000"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
 
     <connection from="-71" to="-88" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -108,9 +106,7 @@
     <connection from="-82" to="-90" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-88" to="90" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-89" to="91" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-90" to="88" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-90" to="88" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="-91" to="89" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-91" to="89" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="71" to="-91" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="82" to="-89" fromLane="0" toLane="0" dir="r" state="m"/>
