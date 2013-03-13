@@ -118,7 +118,7 @@
         <phase duration="3" state="yyyyrrrrr"/>
     </tlLogic>
 
-    <junction id="node_centertl" type="priority" x="0.00" y="0.00" incLanes="edge_up_0 edge_right_0 edge_left_0" intLanes=":node_centertl_0_0 :node_centertl_9_0 :node_centertl_10_0 :node_centertl_3_0 :node_centertl_4_0 :node_centertl_11_0 :node_centertl_6_0 :node_centertl_12_0 :node_centertl_13_0" shape="-3.25,4.75 3.25,4.75 4.75,3.25 4.75,-3.25 -4.75,-3.25 -4.75,3.25">
+    <junction id="node_centertl" type="traffic_light" x="0.00" y="0.00" incLanes="edge_up_0 edge_right_0 edge_left_0" intLanes=":node_centertl_0_0 :node_centertl_9_0 :node_centertl_10_0 :node_centertl_3_0 :node_centertl_4_0 :node_centertl_11_0 :node_centertl_6_0 :node_centertl_12_0 :node_centertl_13_0" shape="-3.25,4.75 3.25,4.75 4.75,3.25 4.75,-3.25 -4.75,-3.25 -4.75,3.25">
         <request index="0" response="000010000" foes="100010000" cont="0"/>
         <request index="1" response="011010000" foes="011110000" cont="1"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
