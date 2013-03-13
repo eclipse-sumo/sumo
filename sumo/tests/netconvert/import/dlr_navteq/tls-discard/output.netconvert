@@ -1,5 +1,7 @@
 Loading nodes... done.
 Loading edges... done.
+Loading traffic lights... done.
+ Removed 1 traffic lights before loading plain-XML
  Import done:
    5 nodes loaded.
    8 edges loaded.

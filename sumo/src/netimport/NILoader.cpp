@@ -109,6 +109,13 @@ NILoader::load(OptionsCont& oc) {
     NIImporter_OpenDrive::loadNetwork(oc, myNetBuilder);
     NIImporter_MATSim::loadNetwork(oc, myNetBuilder);
     NIImporter_ITSUMO::loadNetwork(oc, myNetBuilder);
+    if (oc.getBool("tls.discard-loaded")) {
+        myNetBuilder.getNodeCont().discardTrafficLights(myNetBuilder.getTLLogicCont());
+        size_t removed = myNetBuilder.getTLLogicCont().getNumExtracted();
+        if (removed > 0) {
+            WRITE_MESSAGE(" Removed " + toString(removed) + " traffic lights before loading plain-XML");
+        }
+    }
     loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size() == 0) {

@@ -1,3 +1,4 @@
+ Removed 3 traffic lights before loading plain-XML
  Import done:
    221 nodes loaded.
    189 edges loaded.
@@ -21,7 +22,8 @@ Computing edge shapes... done.
 Assigning nodes to traffic lights... done.
 Computing traffic light control information... done.
 Computing node logics... done.
-Computing traffic light logics... done.
+Computing traffic light logics... 
+done.
  0 traffic light(s) computed.
 -----------------------------------------------------
 Summary:

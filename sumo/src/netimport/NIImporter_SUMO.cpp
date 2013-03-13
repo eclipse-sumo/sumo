@@ -184,7 +184,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                     false, c.mayDefinitelyPass);
 
                 // maybe we have a tls-controlled connection
-                if (c.tlID != "" && !OptionsCont::getOptions().getBool("tls.discard-loaded")) {
+                if (c.tlID != "") {
                     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(c.tlID);
                     if (programs.size() > 0) {
                         std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
@@ -265,14 +265,10 @@ NIImporter_SUMO::myStartElement(int element,
             addConnection(attrs);
             break;
         case SUMO_TAG_TLLOGIC:
-            if (!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
-                myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
-            }
+            myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
             break;
         case SUMO_TAG_PHASE:
-            if (!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
-                addPhase(attrs, myCurrentTL);
-            }
+            addPhase(attrs, myCurrentTL);
             break;
         case SUMO_TAG_LOCATION:
             myLocation = loadLocation(attrs);
@@ -308,16 +304,14 @@ NIImporter_SUMO::myEndElement(int element) {
             myCurrentLane = 0;
             break;
         case SUMO_TAG_TLLOGIC:
-            if (!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
-                if (!myCurrentTL) {
-                    WRITE_ERROR("Unmatched closing tag for tl-logic.");
-                } else {
-                    if (!myTLLCont.insert(myCurrentTL)) {
-                        WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() + "' for traffic light '" + myCurrentTL->getID() + "'");
-                        delete myCurrentTL;
-                    }
-                    myCurrentTL = 0;
+            if (!myCurrentTL) {
+                WRITE_ERROR("Unmatched closing tag for tl-logic.");
+            } else {
+                if (!myTLLCont.insert(myCurrentTL)) {
+                    WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() + "' for traffic light '" + myCurrentTL->getID() + "'");
+                    delete myCurrentTL;
                 }
+                myCurrentTL = 0;
             }
             break;
         default:

@@ -123,6 +123,12 @@ public:
     void extract(NBTrafficLightDefinition* definition);
 
 
+    /// @brief return the number of extracted traffic light definitions
+    size_t getNumExtracted() const {
+        return myExtracted.size();
+    }
+
+
     /// @brief Returns a list of all computed logics
     std::vector<NBTrafficLightLogic*> getComputed() const;
 

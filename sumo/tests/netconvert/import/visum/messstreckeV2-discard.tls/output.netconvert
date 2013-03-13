@@ -36,6 +36,7 @@ Parsing SIGNALGRUPPEZUFSABBIEGER... done.
 Parsing TEILFLAECHENELEMENT... done.
 Parsing PHASE... done.
 Parsing FAHRSTREIFENABBIEGER... done.
+ Removed 3 traffic lights before loading plain-XML
  Import done:
    26 nodes loaded.
    100 types loaded.

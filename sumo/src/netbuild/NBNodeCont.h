@@ -326,6 +326,9 @@ public:
     }
 
 
+    /// @brief discard all traffic lights
+    void discardTrafficLights(NBTrafficLightLogicCont& tlc);
+
 private:
     /// @name Helper methods for for joining nodes
     /// @{

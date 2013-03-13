@@ -20,3 +20,6 @@ long_tail
 # (important for big junction shapes)
 edge_length
 preserve_permissions
+
+# see ticket872
+preserve_long_edges
