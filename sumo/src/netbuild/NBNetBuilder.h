@@ -52,6 +52,7 @@
 // ===========================================================================
 class OptionsCont;
 class OutputDevice;
+class GeoConvHelper;
 
 
 // ===========================================================================
@@ -251,6 +252,9 @@ protected:
     /// @brief Map of joined edges
     NBJoinedEdgesMap myJoinedEdges;
 
+private:
+    /// @brief shift network so its lower left corner is at 0,0
+    void moveToOrigin(GeoConvHelper& geoConvHelper);
 
 private:
     /// @brief invalidated copy constructor

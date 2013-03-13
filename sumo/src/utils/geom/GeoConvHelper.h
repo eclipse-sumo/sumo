@@ -148,6 +148,11 @@ public:
     /// Returns the converted boundary
     const Boundary& getConvBoundary() const;
 
+    /// sets the converted boundary
+    void setConvBoundary(const Boundary& boundary) {
+        myConvBoundary = boundary;
+    }
+
     /// Returns the network offset
     const Position getOffset() const;
 

@@ -189,20 +189,7 @@ NBNetBuilder::compute(OptionsCont& oc,
 
     // MOVE TO ORIGIN
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
-        PROGRESS_BEGIN_MESSAGE("Moving network to origin");
-        const SUMOReal x = -geoConvHelper.getConvBoundary().xmin();
-        const SUMOReal y = -geoConvHelper.getConvBoundary().ymin();
-        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            (*i).second->reshiftPosition(x, y);
-        }
-        for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
-            (*i).second->reshiftPosition(x, y);
-        }
-        for (std::map<std::string, NBDistrict*>::const_iterator i = myDistrictCont.begin(); i != myDistrictCont.end(); ++i) {
-            (*i).second->reshiftPosition(x, y);
-        }
-        geoConvHelper.moveConvertedBy(x, y);
-        PROGRESS_DONE_MESSAGE();
+        moveToOrigin(geoConvHelper);
     }
     geoConvHelper.computeFinal(); // information needed for location element fixed at this point
 
@@ -361,5 +348,32 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
 }
 
+
+void 
+NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper) {
+    PROGRESS_BEGIN_MESSAGE("Moving network to origin");
+    // compute new boundary after network modifications have taken place
+    Boundary boundary;
+    for (std::map<std::string, NBNode*>::const_iterator it = myNodeCont.begin(); it != myNodeCont.end(); ++it) {
+        boundary.add(it->second->getPosition());
+    }
+    for (std::map<std::string, NBEdge*>::const_iterator it = myEdgeCont.begin(); it != myEdgeCont.end(); ++it) {
+        boundary.add(it->second->getGeometry().getBoxBoundary());
+    }
+    geoConvHelper.setConvBoundary(boundary);
+    const SUMOReal x = -boundary.xmin();
+    const SUMOReal y = -boundary.ymin();
+    for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+        (*i).second->reshiftPosition(x, y);
+    }
+    for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
+        (*i).second->reshiftPosition(x, y);
+    }
+    for (std::map<std::string, NBDistrict*>::const_iterator i = myDistrictCont.begin(); i != myDistrictCont.end(); ++i) {
+        (*i).second->reshiftPosition(x, y);
+    }
+    geoConvHelper.moveConvertedBy(x, y);
+    PROGRESS_DONE_MESSAGE();
+}
 
 /****************************************************************************/
