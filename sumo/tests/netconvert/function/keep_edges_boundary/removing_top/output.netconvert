@@ -33,6 +33,6 @@ Summary:
  Network boundaries:
   Original boundary  : -1000.00,-1000.00,1000.00,1000.00
   Applied offset     : 1000.00,1000.00
-  Converted boundary : 0.00,0.00,2000.00,2000.00
+  Converted boundary : 0.00,0.00,2000.00,1500.00
 -----------------------------------------------------
 Success.
