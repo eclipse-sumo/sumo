@@ -6,8 +6,8 @@ Parsing edges from 'input_edges.edg.xml'... done.
 Removing self-loops... done.
 Removing empty nodes and geometry nodes... done.
    1 nodes removed.
-Joining similar edges... done.
 Moving network to origin... done.
+Joining similar edges... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node types... done.

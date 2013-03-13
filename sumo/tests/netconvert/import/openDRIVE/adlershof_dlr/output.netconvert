@@ -10,8 +10,8 @@ Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +
 Removing self-loops... done.
 Removing empty nodes... done.
    4 nodes removed.
-Joining similar edges... done.
 Moving network to origin... done.
+Joining similar edges... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node types... done.
@@ -41,6 +41,6 @@ Summary:
  Network boundaries:
   Original boundary  : 13.52,52.43,13.55,52.43
   Applied offset     : -399345.66,-5809365.64
-  Converted boundary : 0.00,0.00,1737.68,1000.80
+  Converted boundary : 0.00,0.00,1737.68,767.39
 -----------------------------------------------------
 Success.

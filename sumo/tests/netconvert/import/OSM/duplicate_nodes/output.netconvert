@@ -14,9 +14,9 @@ Finding isolated roads...
 done.
 Removing empty nodes and geometry nodes... done.
    2 nodes removed.
+Moving network to origin... done.
 Joining similar edges... done.
 Guessing and setting on-/off-ramps... done.
-Moving network to origin... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node types... done.

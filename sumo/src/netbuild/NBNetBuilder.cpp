@@ -159,6 +159,12 @@ NBNetBuilder::compute(OptionsCont& oc,
         PROGRESS_DONE_MESSAGE();
         WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
     }
+    // MOVE TO ORIGIN
+    if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
+        moveToOrigin(geoConvHelper);
+    }
+    geoConvHelper.computeFinal(); // information needed for location element fixed at this point
+
     if(oc.exists("geometry.min-dist")&&oc.isSet("geometry.min-dist")) {
         PROGRESS_BEGIN_MESSAGE("Reducing geometries");
         myEdgeCont.reduceGeometries(oc.getFloat("geometry.min-dist"));
@@ -186,12 +192,6 @@ NBNetBuilder::compute(OptionsCont& oc,
 
     // check whether any not previously setable connections may be set now
     myEdgeCont.recheckPostProcessConnections();
-
-    // MOVE TO ORIGIN
-    if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
-        moveToOrigin(geoConvHelper);
-    }
-    geoConvHelper.computeFinal(); // information needed for location element fixed at this point
 
     // @todo Why?
     myEdgeCont.recomputeLaneShapes();
