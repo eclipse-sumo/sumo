@@ -386,10 +386,12 @@ NBEdge::computeEdgeShape() {
             shape = old;
         } else {
             // @note If the node shapes are overlapping we may get a shape which goes in the wrong direction
+            // in this case the result shape should shortened
             Line lc(shape[0], shape[-1]);
             Line lo(old[0], old[-1]);
             if (135 < GeomHelper::getMinAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle())) {
                 shape = shape.reverse();
+                shape = shape.getSubpart(0, 2*POSITION_EPS); // *2 because otherwhise shape has only a single point
             }
         }
     }
