@@ -595,7 +595,11 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
                 e->addLane2LaneConnection((*k).fromLane, (*k).toEdge, (*k).toLane, NBEdge::L2L_USER, false, (*k).mayDefinitelyPass);
             }
         }
+        // remove original nodes
         registerJoinedCluster(cluster);
+        for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
+            erase(*j);
+        }
     }
 }
 

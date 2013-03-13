@@ -109,28 +109,6 @@ NBNetBuilder::compute(OptionsCont& oc,
 
 
     // MODIFYING THE SETS OF NODES AND EDGES
-    // join junctions
-
-    if (oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
-        myNodeCont.addJoinExclusion(oc.getStringVector("junctions.join-exclude"));
-    }
-    unsigned int numJoined = myNodeCont.joinLoadedClusters(myDistrictCont, myEdgeCont, myTLLCont);
-    if (oc.getBool("junctions.join")) {
-        PROGRESS_BEGIN_MESSAGE("Joining junction clusters");
-        // preliminary geometry computations to determine the length of edges
-        // This depends on turning directions and sorting of edge list
-        // in case junctions are joined geometry computations have to be repeated
-        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
-        NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
-        myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
-        myEdgeCont.computeEdgeShapes();
-        numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
-        PROGRESS_DONE_MESSAGE();
-    }
-    if (numJoined > 0) {
-        // bit of a misnomer since we're already done
-        WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
-    }
 
     // Removes edges that are connecting the same node
     PROGRESS_BEGIN_MESSAGE("Removing self-loops");
@@ -176,6 +154,28 @@ NBNetBuilder::compute(OptionsCont& oc,
     myJoinedEdges.init(myEdgeCont);
     myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_DONE_MESSAGE();
+    //
+    // join junctions
+    if (oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
+        myNodeCont.addJoinExclusion(oc.getStringVector("junctions.join-exclude"));
+    }
+    unsigned int numJoined = myNodeCont.joinLoadedClusters(myDistrictCont, myEdgeCont, myTLLCont);
+    if (oc.getBool("junctions.join")) {
+        PROGRESS_BEGIN_MESSAGE("Joining junction clusters");
+        // preliminary geometry computations to determine the length of edges
+        // This depends on turning directions and sorting of edge list
+        // in case junctions are joined geometry computations have to be repeated
+        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
+        NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
+        myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
+        myEdgeCont.computeEdgeShapes();
+        numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
+        PROGRESS_DONE_MESSAGE();
+    }
+    if (numJoined > 0) {
+        // bit of a misnomer since we're already done
+        WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
+    }
     //
     if (oc.exists("geometry.split") && oc.getBool("geometry.split")) {
         PROGRESS_BEGIN_MESSAGE("Splitting geometry edges");
