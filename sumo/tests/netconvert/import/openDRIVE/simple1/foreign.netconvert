@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Aug 08 14:54:13 2012" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="2" maxJunc="2" maxPrg="0"/>
-    <road name="" length="50.00" id="0" junction="-1">
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Mar 13 13:49:55 2013" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="2" maxJunc="2" maxPrg="0"/>
+    <road name="" length="0.20" id="0" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="0"/>
             <successor elementType="junction" elementId="1"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="0.00" y="-0.05" hdg="0.00" length="50.00"><line/></geometry>
+            <geometry s="0.00" x="24.90" y="-0.05" hdg="0.00" length="0.20"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -36,14 +36,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name="" length="50.00" id="1" junction="-1">
+    <road name="" length="0.20" id="1" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="0"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="50.00" y="0.05" hdg="3.14" length="50.00"><line/></geometry>
+            <geometry s="0.00" x="25.10" y="0.05" hdg="3.14" length="0.20"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -79,10 +79,10 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="0.89" y="0.32" hdg="-2.55" length="1.06"><line/></geometry>
-            <geometry s="1.06" x="0.00" y="-0.27" hdg="1.11" length="0.30"><line/></geometry>
-            <geometry s="1.36" x="0.14" y="0.00" hdg="2.03" length="0.30"><line/></geometry>
-            <geometry s="1.67" x="0.00" y="0.27" hdg="-0.59" length="1.06"><line/></geometry>
+            <geometry s="0.00" x="25.79" y="0.32" hdg="-2.55" length="1.06"><line/></geometry>
+            <geometry s="1.06" x="24.90" y="-0.27" hdg="1.11" length="0.30"><line/></geometry>
+            <geometry s="1.36" x="25.04" y="0.00" hdg="2.03" length="0.30"><line/></geometry>
+            <geometry s="1.67" x="24.90" y="0.27" hdg="-0.59" length="1.06"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -117,10 +117,10 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="49.11" y="-0.32" hdg="0.59" length="1.06"><line/></geometry>
-            <geometry s="1.06" x="50.00" y="0.27" hdg="-2.03" length="0.30"><line/></geometry>
-            <geometry s="1.36" x="49.86" y="0.00" hdg="-1.11" length="0.30"><line/></geometry>
-            <geometry s="1.67" x="50.00" y="-0.27" hdg="2.55" length="1.06"><line/></geometry>
+            <geometry s="0.00" x="24.21" y="-0.32" hdg="0.59" length="1.06"><line/></geometry>
+            <geometry s="1.06" x="25.10" y="0.27" hdg="-2.03" length="0.30"><line/></geometry>
+            <geometry s="1.36" x="24.96" y="0.00" hdg="-1.11" length="0.30"><line/></geometry>
+            <geometry s="1.67" x="25.10" y="-0.27" hdg="2.55" length="1.06"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>

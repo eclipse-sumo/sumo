@@ -17,12 +17,7 @@ Dividing of lanes on approached lanes... done.
 Processing turnarounds... done.
 Rechecking of lane endings... done.
 Computing node shapes... done.
-Computing edge shapes... 
-Lane '1000702[0]' has calculated shape length near zero. Revert it back to old shape.
-Lane '1000705[0]' has calculated shape length near zero. Revert it back to old shape.
-Lane '1000708[0]' has calculated shape length near zero. Revert it back to old shape.
-Lane '1000711[0]' has calculated shape length near zero. Revert it back to old shape.
-done.
+Computing edge shapes... done.
 Assigning nodes to traffic lights... done.
 Computing traffic light control information... done.
 Computing node logics... done.

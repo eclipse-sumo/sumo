@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 13 12:11:49 2013 by SUMO netconvert Version dev-SVN-r13478
+<!-- generated on Wed Mar 13 13:49:49 2013 by SUMO netconvert Version dev-SVN-r13478
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -781,7 +781,7 @@
         <lane id="-27077598#0_0" index="0" speed="13.89" length="51.45" shape="8044.34,6950.95 8095.77,6949.97"/>
     </edge>
     <edge id="-27077598#1" from="297063777" to="297342190" name="Schlaggasse" priority="4" type="highway.residential">
-        <lane id="-27077598#1_0" index="0" speed="13.89" length="3.49" shape="8036.98,6950.39 8040.41,6951.06"/>
+        <lane id="-27077598#1_0" index="0" speed="13.89" length="0.20" shape="8038.60,6950.71 8038.79,6950.75"/>
     </edge>
     <edge id="-27077599#0" from="297063779" to="286919924" name="Domplatz" priority="4" type="highway.residential">
         <lane id="-27077599#0_0" index="0" speed="13.89" length="4.82" shape="8131.63,6832.03 8126.95,6833.20"/>
@@ -892,7 +892,7 @@
         <lane id="-27078849#0_0" index="0" speed="13.89" length="142.55" shape="8575.94,6067.12 8601.32,6112.44 8601.09,6143.39 8609.18,6174.42 8617.15,6200.83"/>
     </edge>
     <edge id="-27078849#1" from="303844054" to="300745218" name="Aumühlbrücke" priority="4" type="highway.residential">
-        <lane id="-27078849#1_0" index="0" speed="13.89" length="2.85" shape="8572.43,6060.64 8573.73,6063.18"/>
+        <lane id="-27078849#1_0" index="0" speed="13.89" length="0.20" shape="8573.04,6061.83 8573.13,6062.00"/>
     </edge>
     <edge id="-27078849#2" from="297063753" to="303844054" name="Aumühlbrücke" priority="4" type="highway.residential">
         <lane id="-27078849#2_0" index="0" speed="13.89" length="0.20" shape="8570.17,6055.31 8570.25,6055.50"/>
@@ -992,7 +992,7 @@
         <lane id="-27078867#1_0" index="0" speed="5.56" length="248.49" shape="7858.93,6021.57 7881.10,6007.13 7928.51,5978.02 8017.50,5898.81 8039.27,5870.22 8043.64,5859.76"/>
     </edge>
     <edge id="-27078867#2" from="303817535" to="297076133" priority="1" type="highway.track">
-        <lane id="-27078867#2_0" index="0" speed="5.56" length="4.86" shape="7852.44,6025.22 7856.76,6022.99"/>
+        <lane id="-27078867#2_0" index="0" speed="5.56" length="0.20" shape="7854.51,6024.15 7854.69,6024.06"/>
     </edge>
     <edge id="-27078867#3" from="297076145" to="303817535" priority="1" type="highway.track" shape="7754.73,6174.55 7752.60,6154.60 7756.68,6130.78 7776.87,6094.61 7789.20,6073.49 7802.99,6061.99 7853.19,6026.68">
         <lane id="-27078867#3_0" index="0" speed="5.56" length="185.26" shape="7752.84,6172.40 7750.94,6154.55 7755.10,6130.22 7775.43,6093.81 7787.92,6072.40 7801.94,6060.72 7849.30,6027.41"/>
@@ -1226,7 +1226,7 @@
         <lane id="-27078909_0" index="0" speed="22.22" length="36.96" shape="6776.50,7553.75 6809.28,7536.67"/>
     </edge>
     <edge id="-27079229#0" from="297798826" to="297079919" name="Am Herzogkeller" priority="4" type="highway.residential">
-        <lane id="-27079229#0_0" index="0" speed="13.89" length="5.04" shape="6374.81,7577.78 6370.98,7581.06"/>
+        <lane id="-27079229#0_0" index="0" speed="13.89" length="0.20" shape="6372.97,7579.36 6372.82,7579.49"/>
     </edge>
     <edge id="-27079229#1" from="297079936" to="297798826" name="Am Herzogkeller" priority="4" type="highway.residential" shape="6487.65,7518.99 6464.90,7520.48 6429.24,7528.12 6373.73,7576.53">
         <lane id="-27079229#1_0" index="0" speed="13.89" length="123.43" shape="6483.84,7520.90 6465.01,7522.13 6430.00,7529.65 6378.18,7574.84"/>
@@ -1863,7 +1863,7 @@
         <lane id="-27396205#1_0" index="0" speed="13.89" length="28.32" shape="10010.59,6699.58 10038.87,6701.15"/>
     </edge>
     <edge id="-27396205#2" from="300745433" to="320188227" name="Benedicta-von-Spiegel-Straße" priority="4" type="highway.residential">
-        <lane id="-27396205#2_0" index="0" speed="13.89" length="5.17" shape="10000.90,6698.16 10005.93,6699.35"/>
+        <lane id="-27396205#2_0" index="0" speed="13.89" length="0.20" shape="10003.32,6698.73 10003.51,6698.78"/>
     </edge>
     <edge id="-27396205#3" from="320188218" to="300745433" name="Benedicta-von-Spiegel-Straße" priority="4" type="highway.residential">
         <lane id="-27396205#3_0" index="0" speed="13.89" length="11.31" shape="9978.24,6698.33 9989.56,6698.22"/>
@@ -2448,7 +2448,7 @@
         <lane id="-27456224#4_0" index="0" allow="pedestrian" speed="8.33" length="25.06" shape="9910.43,6754.73 9934.84,6749.08"/>
     </edge>
     <edge id="-27456224#5" from="301463145" to="320188208" priority="1" type="highway.footway">
-        <lane id="-27456224#5_0" index="0" allow="pedestrian" speed="8.33" length="3.31" shape="9901.79,6757.75 9904.68,6756.13"/>
+        <lane id="-27456224#5_0" index="0" allow="pedestrian" speed="8.33" length="0.20" shape="9903.15,6756.99 9903.32,6756.89"/>
     </edge>
     <edge id="-27456224#6" from="320188189" to="301463145" priority="1" type="highway.footway">
         <lane id="-27456224#6_0" index="0" allow="pedestrian" speed="8.33" length="22.10" shape="9875.59,6768.75 9895.97,6760.18"/>
@@ -2941,8 +2941,8 @@
         <lane id="-27875772#6_1" index="1" speed="27.78" length="969.33" shape="10205.08,5848.70 10226.20,5840.46 10260.63,5829.50 10323.75,5809.93 10422.59,5774.45 10482.41,5752.96 10586.12,5717.67 10664.99,5691.09 10746.93,5672.70 10806.09,5665.09 10912.70,5650.51 10964.56,5645.11 11015.09,5638.44 11045.52,5638.06 11080.87,5641.60 11111.19,5645.83 11141.81,5652.00"/>
     </edge>
     <edge id="-27875772#7" from="301663295" to="301663035" name="St 2230" priority="7" type="highway.secondary">
-        <lane id="-27875772#7_0" index="0" speed="27.78" length="2.26" shape="10195.98,5850.90 10197.30,5849.06"/>
-        <lane id="-27875772#7_1" index="1" speed="27.78" length="2.26" shape="10198.67,5852.82 10199.98,5850.98"/>
+        <lane id="-27875772#7_0" index="0" speed="27.78" length="0.20" shape="10196.58,5850.06 10196.70,5849.90"/>
+        <lane id="-27875772#7_1" index="1" speed="27.78" length="0.20" shape="10199.27,5851.98 10199.38,5851.82"/>
     </edge>
     <edge id="-27875772#8" from="27229880" to="301663295" name="St 2230" priority="7" type="highway.secondary" shape="9520.32,6127.21 9916.19,5953.98 10147.22,5871.71 10180.30,5860.11 10200.01,5853.78">
         <lane id="-27875772#8_0" index="0" speed="27.78" length="720.06" shape="9526.79,6118.98 9914.20,5949.45 10145.56,5867.05 10178.66,5855.44 10194.54,5850.34"/>
@@ -3955,7 +3955,7 @@
         <lane id="-39270947#1_0" index="0" speed="13.89" length="31.64" shape="4814.40,6456.74 4813.69,6441.75 4810.15,6425.50"/>
     </edge>
     <edge id="-39271415" from="27230168" to="286919905" name="Fischerbuck" priority="1" type="highway.cycleway">
-        <lane id="-39271415_0" index="0" allow="bicycle" speed="5.56" length="7.24" shape="7059.56,6124.19 7065.74,6127.97"/>
+        <lane id="-39271415_0" index="0" allow="bicycle" speed="5.56" length="0.20" shape="7062.56,6126.02 7062.73,6126.13"/>
     </edge>
     <edge id="-39271417#0" from="297800151" to="89112374" name="Residenzplatz" priority="4" type="highway.residential" shape="8167.46,6632.54 8193.84,6633.34 8212.87,6641.29">
         <lane id="-39271417#0_0" index="0" speed="8.33" length="35.57" shape="8173.18,6631.06 8194.20,6631.70 8207.63,6637.31"/>
@@ -4823,7 +4823,7 @@
         <lane id="27077598#0_0" index="0" speed="13.89" length="51.45" shape="8095.84,6953.27 8044.40,6954.25"/>
     </edge>
     <edge id="27077598#1" from="297342190" to="297063777" name="Schlaggasse" priority="4" type="highway.residential">
-        <lane id="27077598#1_0" index="0" speed="13.89" length="3.49" shape="8039.78,6954.30 8036.35,6953.63"/>
+        <lane id="27077598#1_0" index="0" speed="13.89" length="0.20" shape="8038.16,6953.99 8037.97,6953.95"/>
     </edge>
     <edge id="27077599#0" from="286919924" to="297063779" name="Domplatz" priority="4" type="highway.residential">
         <lane id="27077599#0_0" index="0" speed="13.89" length="4.82" shape="8126.15,6830.00 8130.83,6828.83"/>
@@ -4946,7 +4946,7 @@
         <lane id="27078849#1_0" index="0" speed="13.89" length="0.20" shape="8570.79,6064.69 8570.70,6064.51"/>
     </edge>
     <edge id="27078849#2" from="303844054" to="297063753" name="Aumühlbrücke" priority="4" type="highway.residential">
-        <lane id="27078849#2_0" index="0" speed="13.89" length="5.91" shape="8569.45,6062.04 8567.14,6056.60"/>
+        <lane id="27078849#2_0" index="0" speed="13.89" length="0.20" shape="8568.33,6059.41 8568.25,6059.23"/>
     </edge>
     <edge id="27078850" from="297063698" to="297063700" priority="1" type="highway.cycleway" shape="8666.17,6617.91 8538.41,6698.20 8528.07,6683.45">
         <lane id="27078850_0" index="0" allow="bicycle" speed="5.56" length="164.06" shape="8662.88,6621.93 8537.96,6700.43 8528.47,6686.90"/>
@@ -5283,7 +5283,7 @@
         <lane id="27078909_0" index="0" speed="22.22" length="36.93" shape="6810.78,7539.61 6778.03,7556.68"/>
     </edge>
     <edge id="27079229#0" from="297079919" to="297798826" name="Am Herzogkeller" priority="4" type="highway.residential">
-        <lane id="27079229#0_0" index="0" speed="13.89" length="5.04" shape="6368.83,7578.56 6372.66,7575.27"/>
+        <lane id="27079229#0_0" index="0" speed="13.89" length="0.20" shape="6370.67,7576.98 6370.82,7576.85"/>
     </edge>
     <edge id="27079229#1" from="297798826" to="297079936" name="Am Herzogkeller" priority="4" type="highway.residential" shape="6373.73,7576.53 6429.24,7528.12 6464.90,7520.48 6487.65,7518.99">
         <lane id="27079229#1_0" index="0" speed="13.89" length="125.61" shape="6376.01,7572.35 6428.48,7526.60 6464.55,7518.87 6483.62,7517.61"/>
@@ -6514,7 +6514,7 @@
         <lane id="27456224#4_0" index="0" allow="pedestrian" speed="8.33" length="25.06" shape="9935.59,6752.30 9911.17,6757.94"/>
     </edge>
     <edge id="27456224#5" from="320188208" to="301463145" priority="1" type="highway.footway">
-        <lane id="27456224#5_0" index="0" allow="pedestrian" speed="8.33" length="3.31" shape="9906.29,6759.01 9903.41,6760.62"/>
+        <lane id="27456224#5_0" index="0" allow="pedestrian" speed="8.33" length="0.20" shape="9904.94,6759.77 9904.76,6759.86"/>
     </edge>
     <edge id="27456224#6" from="301463145" to="320188189" priority="1" type="highway.footway">
         <lane id="27456224#6_0" index="0" allow="pedestrian" speed="8.33" length="22.10" shape="9897.25,6763.22 9876.87,6771.79"/>
@@ -7017,8 +7017,8 @@
         <lane id="27875772#6_1" index="1" speed="27.78" length="965.57" shape="11141.16,5655.24 11110.64,5649.08 11080.47,5644.87 11045.38,5641.35 11015.32,5641.73 10964.95,5648.39 10913.10,5653.79 10806.53,5668.36 10747.50,5675.95 10665.88,5694.26 10587.18,5720.79 10483.50,5756.07 10423.71,5777.56 10324.80,5813.06 10261.61,5832.65 10227.30,5843.57 10206.28,5851.77"/>
     </edge>
     <edge id="27875772#7" from="301663035" to="301663295" name="St 2230" priority="7" type="highway.secondary">
-        <lane id="27875772#7_0" index="0" speed="27.78" length="2.26" shape="10205.35,5854.81 10204.04,5856.66"/>
-        <lane id="27875772#7_1" index="1" speed="27.78" length="2.26" shape="10202.67,5852.90 10201.35,5854.74"/>
+        <lane id="27875772#7_0" index="0" speed="27.78" length="0.20" shape="10204.75,5855.65 10204.64,5855.82"/>
+        <lane id="27875772#7_1" index="1" speed="27.78" length="0.20" shape="10202.07,5853.74 10201.95,5853.90"/>
     </edge>
     <edge id="27875772#8" from="301663295" to="27229880" name="St 2230" priority="7" type="highway.secondary" shape="10200.01,5853.78 10180.30,5860.11 10147.22,5871.71 9916.19,5953.98 9520.32,6127.21">
         <lane id="27875772#8_0" index="0" speed="27.78" length="719.39" shape="10197.57,5859.76 10181.82,5864.83 10148.86,5876.38 9917.85,5958.65 9530.76,6128.05"/>

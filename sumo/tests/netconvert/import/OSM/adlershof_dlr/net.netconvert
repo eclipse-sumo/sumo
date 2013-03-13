@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 13 12:11:46 2013 by SUMO netconvert Version dev-SVN-r13478
+<!-- generated on Wed Mar 13 13:49:46 2013 by SUMO netconvert Version dev-SVN-r13478
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -294,7 +294,7 @@
         <lane id="-7216737#3_1" index="1" speed="27.78" length="153.28" shape="483.60,118.94 636.23,104.89"/>
     </edge>
     <edge id="-7727483#0" from="294169342" to="38920501" name="Wegedornstraße" priority="6" type="highway.tertiary">
-        <lane id="-7727483#0_0" index="0" speed="22.22" length="4.46" shape="496.73,307.41 497.11,311.85"/>
+        <lane id="-7727483#0_0" index="0" speed="22.22" length="0.20" shape="496.91,309.53 496.93,309.73"/>
     </edge>
     <edge id="-7727483#1" from="261647692" to="294169342" name="Wegedornstraße" priority="6" type="highway.tertiary">
         <lane id="-7727483#1_0" index="0" speed="22.22" length="21.76" shape="494.45,280.95 496.32,302.63"/>
@@ -584,7 +584,7 @@
         <lane id="5784950#1_0" index="0" speed="13.89" length="5.53" shape="607.77,557.39 610.58,552.63"/>
     </edge>
     <edge id="5784950#2" from="283018817" to="38919712" name="Max-Born-Straße" priority="4" type="highway.residential" spreadType="center">
-        <lane id="5784950#2_0" index="0" speed="13.89" length="9.42" shape="613.50,547.70 618.29,539.59"/>
+        <lane id="5784950#2_0" index="0" speed="13.89" length="0.20" shape="615.84,543.73 615.95,543.56"/>
     </edge>
     <edge id="5784950#3" from="38919712" to="38919703" name="Max-Born-Straße" priority="4" type="highway.residential" spreadType="center">
         <lane id="5784950#3_0" index="0" speed="13.89" length="92.21" shape="620.41,535.52 662.94,453.71"/>
