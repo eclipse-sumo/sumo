@@ -42,7 +42,7 @@
     <junction id="1.begin" type="priority" x="0.00" y="0.00" incLanes="1_0" intLanes=":1.begin_0_0" shape="-0.00,-0.05 -0.00,-3.25 0.00,3.25 0.00,0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="1.end" type="priority" x="0.00" y="0.00" incLanes="-1_0" intLanes=":1.end_0_0" shape="0.00,0.05 0.00,3.25 0.00,-3.25 0.00,-0.05">
+    <junction id="1.end" type="priority" x="50.00" y="0.00" incLanes="-1_0" intLanes=":1.end_0_0" shape="0.00,0.05 0.00,3.25 0.00,-3.25 0.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
