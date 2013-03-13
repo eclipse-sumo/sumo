@@ -381,9 +381,15 @@ NBEdge::computeEdgeShape() {
         }
         // sanity checks
         if (shape.length() < POSITION_EPS) {
-            WRITE_MESSAGE("Lane '" + myID + "' has calculated shape length near zero. Revert it back to old shape.");
-            // @note old shape may still be shorter than POSITION_EPS
-            shape = old;
+            if (old.length() < 2 * POSITION_EPS) {
+                shape = old;
+            } else {
+                const SUMOReal midpoint = old.length() / 2;
+                // EPS*2 because otherwhise shape has only a single point
+                shape = old.getSubpart(midpoint - POSITION_EPS, midpoint + POSITION_EPS); 
+                assert(shape.size() >= 2);
+                assert(shape.length() > 0);
+            }
         } else {
             // @note If the node shapes are overlapping we may get a shape which goes in the wrong direction
             // in this case the result shape should shortened
