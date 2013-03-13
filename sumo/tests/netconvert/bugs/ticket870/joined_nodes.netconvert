@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Mar 13 12:53:27 2013 by SUMO netconvert Version dev-SVN-r13478
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="discard.net.xml"/>
+        <junctions.join-output value="joined.nod.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <edge_removal>
+        <keep-edges.by-vclass value="passenger"/>
+    </edge_removal>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <geometry.remove value="true"/>
+        <junctions.join value="true"/>
+        <junctions.join-dist value="5"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+    <join nodes="1456626196 1992596086"/>
+</nodes>

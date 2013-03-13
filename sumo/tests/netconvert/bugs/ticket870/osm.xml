@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2013-03-13T11:36:03Z"/>
+
+  <node id="443140" lat="50.9377120" lon="7.0003918"/>
+  <node id="63620236" lat="50.9337246" lon="7.0012708">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="1456626159" lat="50.9353022" lon="7.0010083">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="1456626174" lat="50.9357126" lon="7.0009575"/>
+  <node id="1456626178" lat="50.9358335" lon="7.0009440"/>
+  <node id="1456626189" lat="50.9362772" lon="7.0008117"/>
+  <node id="1456626196" lat="50.9366697" lon="7.0006707"/>
+  <node id="1456626201" lat="50.9367617" lon="7.0017845"/>
+  <node id="1456626211" lat="50.9371483" lon="6.9991428"/>
+  <node id="1456626213" lat="50.9372095" lon="7.0005057"/>
+  <node id="1668941566" lat="50.9340881" lon="7.0011934"/>
+  <node id="1668941573" lat="50.9342979" lon="7.0011793"/>
+  <node id="1668941576" lat="50.9344703" lon="7.0011559"/>
+  <node id="1992271226" lat="50.9351133" lon="7.0010349"/>
+  <node id="1992271245" lat="50.9354266" lon="7.0009848"/>
+  <node id="1992596086" lat="50.9366159" lon="7.0006992"/>
+  <node id="1992596087" lat="50.9367157" lon="7.0004911"/>
+  <node id="1992596088" lat="50.9367313" lon="7.0013635"/>
+  <node id="1992596090" lat="50.9369012" lon="6.9999512"/>
+  <node id="1992596091" lat="50.9370660" lon="6.9995587"/>
+  <node id="1992596092" lat="50.9371516" lon="6.9993578"/>
+  <node id="1992596093" lat="50.9371727" lon="6.9991747"/>
+  <node id="1992596095" lat="50.9371870" lon="6.9992328"/>
+  <node id="1992596122" lat="50.9376451" lon="7.0004040"/>
+  <way id="132409808">
+    <nd ref="1456626196"/>
+    <nd ref="1992596087"/>
+    <nd ref="1992596090"/>
+    <nd ref="1992596091"/>
+    <nd ref="1992596092"/>
+    <nd ref="1992596095"/>
+    <nd ref="1992596093"/>
+    <nd ref="1456626211"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Johann-Mayer-Straße"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="132409820">
+    <nd ref="443140"/>
+    <nd ref="1992596122"/>
+    <nd ref="1456626213"/>
+    <nd ref="1456626196"/>
+    <nd ref="1992596086"/>
+    <nd ref="1456626189"/>
+    <nd ref="1456626178"/>
+    <nd ref="1456626174"/>
+    <nd ref="1992271245"/>
+    <nd ref="1456626159"/>
+    <nd ref="1992271226"/>
+    <nd ref="1668941576"/>
+    <nd ref="1668941573"/>
+    <nd ref="1668941566"/>
+    <nd ref="63620236"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Rolshover Straße"/>
+  </way>
+  <way id="132409822">
+    <nd ref="1992596086"/>
+    <nd ref="1992596088"/>
+    <nd ref="1456626201"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Sieversstraße"/>
+  </way>
+</osm>
