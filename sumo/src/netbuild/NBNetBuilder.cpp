@@ -343,8 +343,9 @@ NBNetBuilder::compute(OptionsCont& oc,
     WRITE_MESSAGE("-----------------------------------------------------");
     NBRequest::reportWarnings();
     // report on very large networks
-    if (MAX2(geoConvHelper.getConvBoundary().getWidth(), geoConvHelper.getConvBoundary().getHeight()) > 1000000) {
-        WRITE_WARNING("Network is very large and will probably flicker in the GUI. Check for outlying nodes.");
+    if (MAX2(geoConvHelper.getConvBoundary().xmax(), geoConvHelper.getConvBoundary().ymax()) > 1000000 ||
+            MIN2(geoConvHelper.getConvBoundary().xmin(), geoConvHelper.getConvBoundary().ymin()) < -1000000) {
+        WRITE_WARNING("Network contains very large coordinates and will probably flicker in the GUI. Check for outlying nodes and make sure the network is shifted to the coordinate origin");
     }
 }
 
