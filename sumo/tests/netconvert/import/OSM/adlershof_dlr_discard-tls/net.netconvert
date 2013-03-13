@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 13 09:52:22 2013 by SUMO netconvert Version dev-SVN-r13478
+<!-- generated on Wed Mar 13 12:11:47 2013 by SUMO netconvert Version dev-SVN-r13478
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -228,7 +228,7 @@
         <lane id="-5198597#2_0" index="0" speed="13.89" length="31.34" shape="615.75,413.69 619.13,407.26 630.34,385.96"/>
     </edge>
     <edge id="-5784968#0" from="283721348" to="36268378" name="Gottfried-Leibniz-Straße" priority="4" type="highway.residential">
-        <lane id="-5784968#0_0" index="0" speed="13.89" length="0.85" shape="998.53,481.37 999.11,480.75"/>
+        <lane id="-5784968#0_0" index="0" speed="13.89" length="0.20" shape="998.53,481.37 998.67,481.23"/>
     </edge>
     <edge id="-5784968#1" from="36268403" to="283721348" name="Gottfried-Leibniz-Straße" priority="4" type="highway.residential">
         <lane id="-5784968#1_0" index="0" speed="13.89" length="78.31" shape="938.92,545.51 992.24,488.15"/>
@@ -584,7 +584,7 @@
         <lane id="5784950#3_0" index="0" speed="13.89" length="92.21" shape="620.41,535.52 662.94,453.71"/>
     </edge>
     <edge id="5784968#0" from="36268378" to="283721348" name="Gottfried-Leibniz-Straße" priority="4" type="highway.residential">
-        <lane id="5784968#0_0" index="0" speed="13.89" length="0.85" shape="1001.53,483.00 1000.95,483.62"/>
+        <lane id="5784968#0_0" index="0" speed="13.89" length="0.20" shape="1001.53,483.00 1001.39,483.15"/>
     </edge>
     <edge id="5784968#1" from="283721348" to="36268403" name="Gottfried-Leibniz-Straße" priority="4" type="highway.residential">
         <lane id="5784968#1_0" index="0" speed="13.89" length="78.31" shape="994.65,490.40 941.34,547.76"/>
