@@ -169,6 +169,20 @@ NBNetBuilder::compute(OptionsCont& oc,
         NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
         myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
         myEdgeCont.computeEdgeShapes();
+        // preliminary roundabout computations to avoid destroying roundabouts
+        if (oc.getBool("roundabouts.guess") || (oc.isDefault("roundabouts.guess") && myHaveSeenRoundabouts)) {
+            assert(myRoundabouts.size() == 0);
+            myEdgeCont.guessRoundabouts(myRoundabouts);
+            for (std::vector<EdgeVector>::const_iterator it_round = myRoundabouts.begin(); 
+                    it_round != myRoundabouts.end(); ++it_round) {
+                std::vector<std::string> nodeIDs;
+                for (EdgeVector::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
+                    nodeIDs.push_back((*it_edge)->getToNode()->getID());
+                }
+                myNodeCont.addJoinExclusion(nodeIDs);
+            }
+            myRoundabouts.clear();
+        }
         numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
         PROGRESS_DONE_MESSAGE();
     }
