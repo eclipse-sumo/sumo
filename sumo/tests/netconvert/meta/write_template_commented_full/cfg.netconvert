@@ -129,6 +129,9 @@
         <!-- Does not instatiate traffic lights loaded from other formats than XML -->
         <tls.discard-loaded value="false" type="BOOL"/>
 
+        <!-- Does not instatiate traffic lights at geometry-like nodes loaded from other formats than XML -->
+        <tls.discard-simple value="false" type="BOOL"/>
+
         <!-- Interprets STR as list of junctions to be controlled by TLS -->
         <tls.set value="" synonymes="explicite-tls" type="STR"/>
 
