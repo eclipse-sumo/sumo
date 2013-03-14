@@ -211,7 +211,8 @@ GUISettingsHandler::myStartElement(int element,
             d.height = TplConvert::_2SUMOReal(attrs.getStringSecure("height", toString(d.height)).c_str());
             d.altitude = TplConvert::_2SUMOReal(attrs.getStringSecure("altitude", toString(d.height)).c_str());
             d.rot = TplConvert::_2SUMOReal(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
-            d.tilt = TplConvert::_2SUMOReal(attrs.getStringSecure("tilt", toString(d.rot)).c_str());
+            d.tilt = TplConvert::_2SUMOReal(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
+            d.roll = TplConvert::_2SUMOReal(attrs.getStringSecure("roll", toString(d.roll)).c_str());
             d.layer = TplConvert::_2SUMOReal(attrs.getStringSecure("layer", toString(d.layer)).c_str());
             d.initialised = false;
             myDecals.push_back(d);

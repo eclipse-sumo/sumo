@@ -246,7 +246,7 @@ public:
         /// @brief Constructor
         Decal()
             : filename(), centerX(0), centerY(0), centerZ(0),
-              width(1000), height(1000), altitude(1000), rot(0), tilt(0), layer(0),
+              width(1000), height(1000), altitude(1000), rot(0), tilt(0), roll(0), layer(0),
               initialised(false), skip2D(false), glID(-1), image(0) { }
 
         /// @brief The path to the file the image is located at
@@ -267,6 +267,8 @@ public:
         SUMOReal rot;
         /// @brief The tilt of the image to the ground plane (in degrees)
         SUMOReal tilt;
+        /// @brief The roll of the image to the ground plane (in degrees)
+        SUMOReal roll;
         /// @brief The layer of the image
         SUMOReal layer;
         /// @brief Whether this image was initialised (inserted as a texture)

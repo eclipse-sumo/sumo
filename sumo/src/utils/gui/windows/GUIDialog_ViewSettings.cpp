@@ -824,6 +824,7 @@ GUIDialog_ViewSettings::saveDecals(const std::string& file) const {
                 << "\" altitude=\"" << d.altitude
                 << "\" rotation=\"" << d.rot
                 << "\" tilt=\"" << d.tilt
+                << "\" roll=\"" << d.roll
                 << "\" layer=\"" << d.layer
                 << "\"/>\n";
         }
