@@ -36,6 +36,7 @@
 
 #include <vector>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "OutputFormatter.h"
 
