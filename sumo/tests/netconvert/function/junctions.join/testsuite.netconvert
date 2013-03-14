@@ -23,3 +23,6 @@ preserve_permissions
 
 # see ticket872
 preserve_long_edges
+
+# do not join junctions in a roundabout
+roundabout
