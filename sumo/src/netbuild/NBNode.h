@@ -435,6 +435,10 @@ public:
         return myBlockedConnections;
     }
 
+    /** @brief whether this is structurally similar to a geometry node
+     */
+    bool geometryLike() const;
+
     /**
      * @class nodes_by_id_sorter
      * @brief Used for sorting the cells by the begin time they describe

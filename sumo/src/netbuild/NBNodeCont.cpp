@@ -949,17 +949,19 @@ NBNodeCont::rename(NBNode* node, const std::string& newID) {
 
 
 void 
-NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc) {
+NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike) {
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
         NBNode* node = i->second;
-        // make a copy of tldefs
-        const std::set<NBTrafficLightDefinition*> tldefs = node->getControllingTLS();
-        for( std::set<NBTrafficLightDefinition*>::const_iterator it = tldefs.begin(); it != tldefs.end(); ++it) {
-            NBTrafficLightDefinition* tlDef = *it;
-            node->removeTrafficLight(tlDef);
-            tlc.extract(tlDef);
+        if (!geometryLike || node->geometryLike()) {
+            // make a copy of tldefs
+            const std::set<NBTrafficLightDefinition*> tldefs = node->getControllingTLS();
+            for( std::set<NBTrafficLightDefinition*>::const_iterator it = tldefs.begin(); it != tldefs.end(); ++it) {
+                NBTrafficLightDefinition* tlDef = *it;
+                node->removeTrafficLight(tlDef);
+                tlc.extract(tlDef);
+            }
+            node->reinit(node->getPosition(), NODETYPE_UNKNOWN);
         }
-        node->reinit(node->getPosition(), NODETYPE_UNKNOWN);
     }
 }
 
