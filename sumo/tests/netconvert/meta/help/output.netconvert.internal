@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r13208
+SUMO netconvert Version dev-SVN-r13501
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -163,6 +163,7 @@ Processing Options:
                                         due to VISUM misbehaviour
   --osm.skip-duplicates-check         Skips the check for duplicate nodes and
                                         edges.
+  --opendrive.import-all-lanes        Imports all lane types.
   --no-internal-links                 Omits internal links
   --dismiss-vclasses                  Removes vehicle class restrictions from
                                         imported edges.
@@ -176,6 +177,7 @@ Processing Options:
                                         edges)
   --geometry.max-segment-length FLOAT  splits geometry to restrict segment
                                         length
+  --geometry.min-dist FLOAT           reduces too similar geometry points
   --offset.disable-normalization      Turn off normalizing node positions
   --offset.x FLOAT                    Adds FLOAT to net x-positions
   --offset.y FLOAT                    Adds FLOAT to net y-positions

@@ -327,6 +327,9 @@
         <!-- Skips the check for duplicate nodes and edges. -->
         <osm.skip-duplicates-check value="false" type="BOOL"/>
 
+        <!-- Imports all lane types. -->
+        <opendrive.import-all-lanes value="false" type="BOOL"/>
+
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
@@ -350,6 +353,9 @@
 
         <!-- splits geometry to restrict segment length -->
         <geometry.max-segment-length value="0" type="FLOAT"/>
+
+        <!-- reduces too similar geometry points -->
+        <geometry.min-dist value="" type="FLOAT"/>
 
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
