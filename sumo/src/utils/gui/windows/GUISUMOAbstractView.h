@@ -246,7 +246,7 @@ public:
         /// @brief Constructor
         Decal()
             : filename(), centerX(0), centerY(0), centerZ(0),
-              width(1000), height(1000), altitude(1000), rot(0), tilt(0), roll(0), layer(0),
+              width(0), height(0), altitude(0), rot(0), tilt(0), roll(0), layer(0),
               initialised(false), skip2D(false), glID(-1), image(0) { }
 
         /// @brief The path to the file the image is located at
