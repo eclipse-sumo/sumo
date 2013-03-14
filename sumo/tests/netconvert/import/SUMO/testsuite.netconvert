@@ -31,3 +31,6 @@ no_internal_lanes_modify
 # when importing networks with roundabouts, the ouput network should have the same roundabouts
 # see ticket775
 roundabouts
+
+# test discarding traffic lights for geometry-like junctions
+tls.discard-simple

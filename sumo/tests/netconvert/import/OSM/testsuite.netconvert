@@ -1,8 +1,5 @@
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 adlershof_dlr
-
-# test discarding traffic lights for geometry-like junctions
-tls.discard-simple
 adlershof_dlr_discard-tls
 eichstaett
 
