@@ -127,7 +127,7 @@ fillOptions() {
     oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection", true);
     oc.addDescription("shapefile.guess-projection", "Input", "Guesses the shapefile's projection");
 
-    oc.doRegister("shapefile.id-column", new Option_FileName());
+    oc.doRegister("shapefile.id-column", new Option_String());
     oc.addSynonyme("shapefile.id-column", "shapefile.id-name", true);
     oc.addSynonyme("shapefile.id-column", "shape-files.id-name", true);
     oc.addDescription("shapefile.id-column", "Input", "Defines in which column the id can be found");
