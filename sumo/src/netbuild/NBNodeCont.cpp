@@ -523,7 +523,27 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
             }
         }
         if (cluster.size() > 1) {
-            clusters.push_back(cluster);
+            // check for clusters which are to complex and probably won't work very well
+            // we count the incoming edges of the final junction
+            std::set<NBEdge*> finalIncoming;
+            std::vector<std::string> nodeIDs;
+            for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
+                nodeIDs.push_back((*j)->getID());
+                const EdgeVector& edges = (*j)->getIncomingEdges();
+                for (EdgeVector::const_iterator it_edge = edges.begin(); it_edge != edges.end(); ++it_edge) {
+                    NBEdge* edge = *it_edge;
+                    if (cluster.count(edge->getFromNode()) == 0) { 
+                        // incoming edge, does not originate in the cluster
+                        finalIncoming.insert(edge);
+                    }
+                }
+
+            }
+            if (finalIncoming.size() > 4) {
+                WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is to complex");
+            } else {
+                clusters.push_back(cluster);
+            }
         }
     }
     joinNodeClusters(clusters, dc, ec, tlc);
@@ -559,7 +579,7 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         // collect edges
         std::set<NBEdge*> allEdges;
         for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
-            const std::vector<NBEdge*>& edges = (*j)->getEdges();
+            const EdgeVector& edges = (*j)->getEdges();
             allEdges.insert(edges.begin(), edges.end());
         }
 

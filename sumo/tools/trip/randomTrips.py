@@ -137,7 +137,8 @@ def main(options):
         fouttrips.write("</trips>")
 
     if options.routefile:
-        subprocess.call(['duarouter', '-n', options.netfile, '-t', options.tripfile, '-o', options.routefile, '--ignore-errors'])
+        subprocess.call(['duarouter', '-n', options.netfile, '-t', options.tripfile, '-o', options.routefile, '--ignore-errors',
+            '--begin', str(options.begin), '--end', str(options.end)])
 
 
 if __name__ == "__main__":
