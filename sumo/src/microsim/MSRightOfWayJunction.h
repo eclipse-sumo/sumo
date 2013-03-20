@@ -80,11 +80,11 @@ public:
     void postloadInit();
 
     const std::vector<MSLink*>& getFoeLinks(const MSLink* const srcLink) const {
-        return myLinkFoeLinks.find((MSLink*) srcLink)->second;
+        return myLinkFoeLinks.find(srcLink)->second;
     }
 
     const std::vector<MSLane*>& getFoeInternalLanes(const MSLink* const srcLink) const {
-        return myLinkFoeInternalLanes.find((MSLink*) srcLink)->second;
+        return myLinkFoeInternalLanes.find(srcLink)->second;
     }
 
 
@@ -92,8 +92,8 @@ protected:
     /** the type of the junction (its logic) */
     MSJunctionLogic* myLogic;
 
-    std::map<MSLink*, std::vector<MSLink*> > myLinkFoeLinks;
-    std::map<MSLink*, std::vector<MSLane*> > myLinkFoeInternalLanes;
+    std::map<const MSLink*, std::vector<MSLink*> > myLinkFoeLinks;
+    std::map<const MSLink*, std::vector<MSLane*> > myLinkFoeInternalLanes;
 
 
 private:
