@@ -150,6 +150,9 @@ class Net:
     def getEdge(self, id):
         return self._id2edge[id]
 
+    def hasNode(self, id):
+        return id in self._id2node
+
     def getNode(self, id):
         return self._id2node[id]
 

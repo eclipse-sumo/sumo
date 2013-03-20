@@ -84,7 +84,7 @@ class Statistics:
             self.max = v
             self.max_label = label
         if self.counts is not None:
-            self.counts[v] += 1
+            self.counts[round(v)] += 1
 
     def count(self):
         return len(self.values)
@@ -102,7 +102,10 @@ class Statistics:
             return None
 
     def mean_abs(self):
-        return sorted(map(abs,self.values))[len(self.values) / 2]
+        if len(self.values) > 0:
+            return sorted(map(abs,self.values))[len(self.values) / 2]
+        else:
+            return None
 
     def __str__(self):
         if len(self.values) > 0:
