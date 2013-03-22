@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 13 12:06:53 2013 by SUMO netconvert Version dev-SVN-r13478
+<!-- generated on Fri Mar 22 10:34:16 2013 by SUMO netconvert Version dev-SVN-r13518
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="discard.net.xml"/>
         <junctions.join-output value="joined.nod.xml"/>
     </output>
 
@@ -33,5 +33,4 @@
 -->
 
 <nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
-    <join nodes="436241843 449770 449778 449797 449798"/>
 </nodes>
