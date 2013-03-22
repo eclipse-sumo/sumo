@@ -100,6 +100,13 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
 
 def _prefix_keyword(name, warn=False):
     result = name
+    # create a legal identifier (xml allows '-', ':' and '.' ...)
+    result = ''.join([c for c in name if c.isalnum() or c=='_'])
+    if result != name:
+        if result == '':
+            result == 'attr_'
+        if warn:
+            print >>sys.stderr, "Warning: Renaming attribute '%s' to '%s' because it contains illegal characters" % (name, result)
     if iskeyword(name):
         result = 'attr_' + name
         if warn:
@@ -122,14 +129,14 @@ def average(elements, attrname):
         raise "average of 0 elements is not defined"
 
 
-def parse_fast(xmlfile, element_name, attrnames):
+def parse_fast(xmlfile, element_name, attrnames, warn=False):
     # parses the given attribute from all elements with element_name
     # note that the element must be on its own line and 
     # the attributes must appear in the given order
     # example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     pattern = '.*'.join(['<%s' % element_name] +
         ['%s="([^"]*)"' % attr for attr in attrnames])
-    attrnames = [_prefix_keyword(a, True) for a in attrnames]
+    attrnames = [_prefix_keyword(a, warn) for a in attrnames]
     Record = namedtuple(element_name, attrnames)
     reprog = re.compile(pattern)
     for line in open(xmlfile):
