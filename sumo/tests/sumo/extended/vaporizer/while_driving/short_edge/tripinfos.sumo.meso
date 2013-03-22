@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/23/10 18:38:40 by SUMO sumo Version dev-SVN-r9400
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 22.03.2013 10:52:25 by SUMO gui Version dev-SVN-r13521
+<?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumo-gui.exeConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -13,6 +13,7 @@
 
     <output>
         <tripinfo-output value="tripinfos.xml"/>
+        <save-state.prefix value="state"/>
     </output>
 
     <time>
@@ -21,6 +22,8 @@
     </time>
 
     <report>
+        <message-log value="guisim.stdout"/>
+        <error-log value="guisim.stderr"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -29,9 +32,14 @@
         <mesosim value="true"/>
     </mesoscopic>
 
+    <gui_only>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+    </gui_only>
+
 </configuration>
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="18.00" arrivalLane="" arrivalPos="0.00" arrivalSpeed="28.17" duration="18.00" routeLength="1000.00" waitSteps="0" rerouteNo="0" devices="tripinfo_0" vType="DEFAULT_VEHTYPE" vaporized="0"/>
+    <tripinfo id="0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="18.00" arrivalLane="" arrivalPos="400.00" arrivalSpeed="28.17" duration="18.00" routeLength="1000.00" waitSteps="0" rerouteNo="0" devices="tripinfo_0" vType="DEFAULT_VEHTYPE" vaporized="0"/>
 </tripinfos>

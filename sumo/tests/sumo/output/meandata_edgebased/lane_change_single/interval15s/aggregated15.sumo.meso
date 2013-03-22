@@ -1,14 +1,18 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/15/12 11:58:47 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on 22.03.2013 10:49:00 by SUMO gui Version dev-SVN-r13521
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumo-gui.exeConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
         <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
     </input>
+
+    <output>
+        <save-state.prefix value="state"/>
+    </output>
 
     <time>
         <begin value="0"/>
@@ -16,6 +20,8 @@
     </time>
 
     <report>
+        <message-log value="guisim.stdout"/>
+        <error-log value="guisim.stderr"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -23,6 +29,11 @@
     <mesoscopic>
         <mesosim value="true"/>
     </mesoscopic>
+
+    <gui_only>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+    </gui_only>
 
 </configuration>
 -->
@@ -44,14 +55,9 @@
     <interval begin="60.00" end="75.00" id="dump_15">
         <edge id="4o" sampledSeconds="13.58" traveltime="48.87" density="1.85" occupancy="0.56" waitingTime="0.00" speed="10.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
-    <interval begin="75.00" end="90.00" id="dump_15">
-    </interval>
-    <interval begin="90.00" end="105.00" id="dump_15">
-    </interval>
-    <interval begin="105.00" end="120.00" id="dump_15">
-    </interval>
-    <interval begin="120.00" end="135.00" id="dump_15">
-    </interval>
-    <interval begin="135.00" end="150.00" id="dump_15">
-    </interval>
+    <interval begin="75.00" end="90.00" id="dump_15"/>
+    <interval begin="90.00" end="105.00" id="dump_15"/>
+    <interval begin="105.00" end="120.00" id="dump_15"/>
+    <interval begin="120.00" end="135.00" id="dump_15"/>
+    <interval begin="135.00" end="150.00" id="dump_15"/>
 </netstats>
