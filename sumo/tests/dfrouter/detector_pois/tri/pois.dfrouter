@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/08/12 10:36:10 by SUMO dfrouter Version dev-SVN-rUNKNOWN
+<!-- generated on 03/22/13 17:38:18 by SUMO dfrouter Version dev-SVN-r13532
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
@@ -18,13 +18,13 @@
 -->
 
 <pois>
-    <poi id="MQ_beg" type="source_detector_position" color="0.00,1.00,0.00" lane="beg_0" pos="5.00"/>
-    <poi id="MQ_middle" type="between_detector_position" color="0.00,0.00,1.00" lane="middle_0" pos="500.00"/>
-    <poi id="MQ_1toR" type="between_detector_position" color="0.00,0.00,1.00" lane="1toR_0" pos="100.00"/>
-    <poi id="MQ_R" type="between_detector_position" color="0.00,0.00,1.00" lane="R_0" pos="500.00"/>
-    <poi id="MQ_Rto2" type="between_detector_position" color="0.00,0.00,1.00" lane="Rto2_0" pos="100.00"/>
-    <poi id="MQ_1toL" type="between_detector_position" color="0.00,0.00,1.00" lane="1toL_0" pos="100.00"/>
-    <poi id="MQ_L" type="between_detector_position" color="0.00,0.00,1.00" lane="L_0" pos="500.00"/>
-    <poi id="MQ_Lto2" type="between_detector_position" color="0.00,0.00,1.00" lane="Lto2_0" pos="100.00"/>
-    <poi id="MQ_end" type="sink_detector_position" color="1.00,0.00,0.00" lane="end_0" pos="50.00"/>
+    <poi id="MQ_beg" type="source_detector_position" color="green" lane="beg_0" pos="5.00"/>
+    <poi id="MQ_middle" type="between_detector_position" color="blue" lane="middle_0" pos="500.00"/>
+    <poi id="MQ_1toR" type="between_detector_position" color="blue" lane="1toR_0" pos="100.00"/>
+    <poi id="MQ_R" type="between_detector_position" color="blue" lane="R_0" pos="500.00"/>
+    <poi id="MQ_Rto2" type="between_detector_position" color="blue" lane="Rto2_0" pos="100.00"/>
+    <poi id="MQ_1toL" type="between_detector_position" color="blue" lane="1toL_0" pos="100.00"/>
+    <poi id="MQ_L" type="between_detector_position" color="blue" lane="L_0" pos="500.00"/>
+    <poi id="MQ_Lto2" type="between_detector_position" color="blue" lane="Lto2_0" pos="100.00"/>
+    <poi id="MQ_end" type="sink_detector_position" color="red" lane="end_0" pos="50.00"/>
 </pois>

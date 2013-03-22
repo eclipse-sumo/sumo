@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/23/10 11:02:08 by SUMO polyconvert Version dev-SVN-r8982
-<configuration>
+<!-- generated on 03/22/13 17:39:44 by SUMO polyconvert Version dev-SVN-r13532
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <dlr-navteq-poi-files value="dlr_navteq_pois.txt"/>
     </input>
 
     <output>
-        <output value="pois.poi.xml"/>
+        <output-file value="pois.poi.xml"/>
     </output>
 
     <projection>
-        <proj.shift value="5"/>
+        <proj.scale value="5"/>
         <proj.utm value="true"/>
     </projection>
 
@@ -24,6 +26,6 @@
 -->
 
 <shapes>
-    <poi id="1" type="unknown" color="0.20,0.50,1.00" layer="-1" x="363758.16" y="5781233.23"/>
-    <poi id="2" type="unknown" color="0.20,0.50,1.00" layer="-1" x="360180.57" y="5788908.83"/>
+    <poi id="1" type="unknown" color="51,128,255" layer="-1.00" x="363758.16" y="5781233.23"/>
+    <poi id="2" type="unknown" color="51,128,255" layer="-1.00" x="360180.57" y="5788908.83"/>
 </shapes>

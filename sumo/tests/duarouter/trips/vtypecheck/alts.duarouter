@@ -1,18 +1,22 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/30/11 17:30:16 by SUMO duarouter Version dev-SVN-r11321
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 03/22/13 17:38:20 by SUMO duarouter Version dev-SVN-r13532
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <alternative-files value="input_alts.rou.alt.xml"/>
+        <trip-files value="input_trips.trips.xml"/>
     </input>
 
     <output>
         <output-file value="routes.rou.xml"/>
     </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -66,7 +70,7 @@
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vType id="6" color="0.00,0.00,0.00"/>
+    <vType id="6" color="black"/>
     <vehicle id="6" type="6" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/30/11 17:40:02 by SUMO duarouter Version dev-SVN-r11321
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 03/22/13 17:38:21 by SUMO duarouter Version dev-SVN-r13532
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
@@ -13,6 +13,10 @@
     <output>
         <output-file value="routes.rou.xml"/>
     </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -29,17 +33,17 @@
     <vType id="1">
         <carFollowing-Krauss decel="100.00"/>
     </vType>
-    <vehicle id="1_0" type="1" depart="10.00" color="0.00,0.00,0.00">
+    <vehicle id="1_0" type="1" depart="10.00" color="black">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" color="0.00,0.00,0.00" edges="beg middle end rend"/>
+            <route cost="125.11" probability="1.00000000" color="black" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vType id="2">
         <carFollowing-Krauss sigma="1.00"/>
     </vType>
-    <vehicle id="2_0" type="2" depart="11.00" color="1.00,0.00,1.00">
+    <vehicle id="2_0" type="2" depart="11.00" color="magenta">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" color="1.00,0.00,1.00" edges="beg middle end rend"/>
+            <route cost="125.11" probability="1.00000000" color="magenta" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vType id="3" length="100.00"/>
@@ -60,7 +64,7 @@
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vType id="6" color="0.00,0.00,0.00"/>
+    <vType id="6" color="black"/>
     <vehicle id="6_0" type="6" depart="23.00" departPos="random">
         <routeDistribution last="0">
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>

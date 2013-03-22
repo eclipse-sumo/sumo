@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 11 15:31:32 2013 by SUMO polyconvert Version dev-SVN-r13174
+<!-- generated on 03/22/13 17:39:45 by SUMO polyconvert Version dev-SVN-r13532
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/polyconvertConfiguration.xsd">
@@ -22,6 +22,6 @@
 -->
 
 <shapes>
-    <poly id="noname#0" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1.00" shape="38161.36,9358.03 38184.02,9310.68 38301.23,9270.79"/>
-    <poly id="noname#1" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1.00" shape="39893.88,3159.52 40328.85,2834.15 40363.50,2953.42 40369.96,3145.78"/>
+    <poly id="noname#0" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="38161.36,9358.03 38184.02,9310.68 38301.23,9270.79"/>
+    <poly id="noname#1" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="39893.88,3159.52 40328.85,2834.15 40363.50,2953.42 40369.96,3145.78"/>
 </shapes>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/16/11 10:44:25 by SUMO duarouter Version dev-SVN-r10630
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 03/22/13 17:39:15 by SUMO duarouter Version dev-SVN-r13532
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
@@ -18,14 +18,18 @@
         <skip-new-routes value="true"/>
     </processing>
 
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" color="0.00,0.00,0.00">
+    <vehicle id="0" depart="0.00" color="black">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
-    <vehicle id="9" depart="0.00" color="0.00,0.00,0.00">
+    <vehicle id="9" depart="0.00" color="black">
         <route edges="beg middle end rend"/>
     </vehicle>
 </routes>

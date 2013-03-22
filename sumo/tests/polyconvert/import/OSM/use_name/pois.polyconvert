@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/23/10 11:02:08 by SUMO polyconvert Version dev-SVN-r8982
-<configuration>
+<!-- generated on 03/22/13 17:39:43 by SUMO polyconvert Version dev-SVN-r13532
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -9,10 +11,11 @@
     </input>
 
     <output>
-        <output value="pois.poi.xml"/>
+        <output-file value="pois.poi.xml"/>
     </output>
 
     <projection>
+        <proj.scale value="0"/>
         <proj.utm value="true"/>
     </projection>
 
@@ -24,5 +27,5 @@
 -->
 
 <shapes>
-    <poly id="p0045" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="399863.40,5809422.23 399824.64,5809486.66 399823.45,5809472.85 399862.26,5809457.18 399986.69,5809471.75"/>
+    <poly id="p0045" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="399863.40,5809422.23 399824.64,5809486.66 399823.45,5809472.85 399862.26,5809457.18 399986.69,5809471.75"/>
 </shapes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 11 15:31:32 2013 by SUMO polyconvert Version dev-SVN-r13174
+<!-- generated on 03/22/13 17:39:45 by SUMO polyconvert Version dev-SVN-r13532
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/polyconvertConfiguration.xsd">
@@ -22,6 +22,6 @@
 -->
 
 <shapes>
-    <poi id="1" type="unknown" color="0.20,0.50,1.00" layer="-1.00" x="35510.00" y="4610.13"/>
-    <poi id="2" type="unknown" color="0.20,0.50,1.00" layer="-1.00" x="31932.41" y="12285.73"/>
+    <poi id="1" type="unknown" color="51,128,255" layer="-1.00" x="35510.00" y="4610.13"/>
+    <poi id="2" type="unknown" color="51,128,255" layer="-1.00" x="31932.41" y="12285.73"/>
 </shapes>

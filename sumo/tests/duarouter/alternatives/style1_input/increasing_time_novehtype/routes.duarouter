@@ -1,16 +1,22 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 14:23:51 by SUMO duarouter Version dev-SVN-r8460
-<configuration>
+<!-- generated on 03/22/13 17:38:53 by SUMO duarouter Version dev-SVN-r13532
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <alternatives value="input_alts.rou.alt.xml"/>
+        <alternative-files value="input_alts.rou.alt.xml"/>
     </input>
 
     <output>
         <output-file value="routes.rou.xml"/>
     </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -20,12 +26,12 @@
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="1" depart="10.00">
-        <route color="1.00,1.00,0.00" edges="beg middle end rend"/>
+        <route color="yellow" edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="2" depart="20.00" color="1.00,1.00,0.00">
+    <vehicle id="2" depart="20.00" color="yellow">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="3" depart="30.00" color="1.00,1.00,0.00">
-        <route color="1.00,1.00,0.00" edges="beg middle end rend"/>
+    <vehicle id="3" depart="30.00" color="yellow">
+        <route color="yellow" edges="beg middle end rend"/>
     </vehicle>
 </routes>

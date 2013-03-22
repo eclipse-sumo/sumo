@@ -6,7 +6,7 @@ pois ['0']
 examining 0
 pos (1.0, 1.0)
 type test
-color (1, 2, 3, 255)
+color (1, 2, 3, 4)
 {66: (1.0, 1.0)}
 step 3
 {66: (1.0, 1.0)}
@@ -18,15 +18,15 @@ pois ['0']
 examining 0
 pos (5.0, 5.0)
 type blub
-color (222, 111, 221, 255)
+color (222, 111, 221, 0)
 pois ['0', 'p2']
 examining p2
 pos (2.0, 2.0)
 type ptest
-color (11, 21, 31, 255)
+color (11, 21, 31, 41)
 pois ['p2']
 examining p2
 pos (2.0, 2.0)
 type ptest
-color (11, 21, 31, 255)
+color (11, 21, 31, 41)
 (14, 127, 0) OK Goodbye

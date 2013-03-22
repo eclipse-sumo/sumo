@@ -1,16 +1,22 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 14:23:41 by SUMO duarouter Version dev-SVN-r8460
-<configuration>
+<!-- generated on 03/22/13 17:38:20 by SUMO duarouter Version dev-SVN-r13532
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <flow-definition value="input_flows.flows.xml"/>
+        <flow-files value="input_flows.flows.xml"/>
     </input>
 
     <output>
         <output-file value="routes.rou.xml"/>
     </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -21,14 +27,14 @@
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="10_0" depart="10.00" color="0.00,0.00,0.00">
+    <vehicle id="10_0" depart="10.00" color="black">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" color="0.00,0.00,0.00" edges="beg middle end rend"/>
+            <route cost="125.11" probability="1.00000000" color="black" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="11_0" depart="11.00" color="1.00,0.00,1.00">
+    <vehicle id="11_0" depart="11.00" color="magenta">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" color="1.00,0.00,1.00" edges="beg middle end rend"/>
+            <route cost="125.11" probability="1.00000000" color="magenta" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="20_0" depart="20.00" departPos="0.00">

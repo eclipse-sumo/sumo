@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/23/10 11:02:09 by SUMO polyconvert Version dev-SVN-r8982
-<configuration>
+<!-- generated on 03/22/13 17:39:44 by SUMO polyconvert Version dev-SVN-r13532
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <dlr-navteq-poly-files value="dlr_navteq_polygons.txt"/>
     </input>
 
     <output>
-        <output value="pois.poi.xml"/>
+        <output-file value="pois.poi.xml"/>
     </output>
 
     <projection>
-        <proj.shift value="5"/>
+        <proj.scale value="5"/>
         <proj.utm value="true"/>
     </projection>
 
@@ -24,6 +26,6 @@
 -->
 
 <shapes>
-    <poly id="noname#0" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="366409.52,5785981.13 366432.18,5785933.78 366549.39,5785893.89"/>
-    <poly id="noname#1" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="368142.04,5779782.62 368577.01,5779457.25 368611.66,5779576.52 368618.12,5779768.88"/>
+    <poly id="noname#0" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="366409.52,5785981.13 366432.18,5785933.78 366549.39,5785893.89"/>
+    <poly id="noname#1" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="368142.04,5779782.62 368577.01,5779457.25 368611.66,5779576.52 368618.12,5779768.88"/>
 </shapes>

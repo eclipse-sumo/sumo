@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 14:24:09 by SUMO duarouter Version dev-SVN-r8460
-<configuration>
+<!-- generated on 03/22/13 17:39:18 by SUMO duarouter Version dev-SVN-r13532
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <trip-defs value="input_trips.trips.xml"/>
+        <trip-files value="input_trips.trips.xml"/>
     </input>
 
     <output>
@@ -13,9 +15,13 @@
     </output>
 
     <defaults>
-        <departLane value="0"/>
+        <departlane value="0"/>
         <defaults-override value="true"/>
     </defaults>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -24,11 +30,11 @@
     <vehicle id="0" depart="0.00" departLane="0">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="1" depart="10.00" departLane="0" color="0.00,0.00,0.00">
-        <route color="0.00,0.00,0.00" edges="beg middle end rend"/>
+    <vehicle id="1" depart="10.00" departLane="0" color="black">
+        <route color="black" edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="2" depart="11.00" departLane="0" color="1.00,0.00,1.00">
-        <route color="1.00,0.00,1.00" edges="beg middle end rend"/>
+    <vehicle id="2" depart="11.00" departLane="0" color="magenta">
+        <route color="magenta" edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="3" depart="20.00" departLane="0" departPos="0.00">
         <route edges="beg middle end rend"/>
