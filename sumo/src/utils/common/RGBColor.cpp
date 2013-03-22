@@ -171,16 +171,26 @@ RGBColor::parseColor(std::string coldef) throw(EmptyData, NumberFormatException)
             throw EmptyData();
         }
     } else {
-        StringTokenizer st(coldef, ",");
-        if (st.size() == 3) {
-            r = static_cast<unsigned char>(TplConvert::_2SUMOReal(st.next().c_str()) * 255. + 0.5);
-            g = static_cast<unsigned char>(TplConvert::_2SUMOReal(st.next().c_str()) * 255. + 0.5);
-            b = static_cast<unsigned char>(TplConvert::_2SUMOReal(st.next().c_str()) * 255. + 0.5);
-        } else if (st.size() == 4) {
-            r = static_cast<unsigned char>(TplConvert::_2int(st.next().c_str()));
-            g = static_cast<unsigned char>(TplConvert::_2int(st.next().c_str()));
-            b = static_cast<unsigned char>(TplConvert::_2int(st.next().c_str()));
-            a = static_cast<unsigned char>(TplConvert::_2int(st.next().c_str()));
+        std::vector<std::string> st = StringTokenizer(coldef, ",").getVector();
+        if (st.size() == 3 || st.size() == 4) {
+            try {
+                r = static_cast<unsigned char>(TplConvert::_2int(st[0].c_str()));
+                g = static_cast<unsigned char>(TplConvert::_2int(st[1].c_str()));
+                b = static_cast<unsigned char>(TplConvert::_2int(st[2].c_str()));
+                if (st.size() == 4) {
+                    a = static_cast<unsigned char>(TplConvert::_2int(st[3].c_str()));
+                }
+                if (r <= 1 && g <= 1 && b <= 1 && (st.size() == 3 || a <= 1)) {
+                    throw NumberFormatException();
+                }
+            } catch (NumberFormatException& e) {
+                r = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[0].c_str()) * 255. + 0.5);
+                g = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[1].c_str()) * 255. + 0.5);
+                b = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[2].c_str()) * 255. + 0.5);
+                if (st.size() == 4) {
+                    a = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[3].c_str()) * 255. + 0.5);
+                }
+            }
         } else {
             throw EmptyData();
         }
