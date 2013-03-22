@@ -93,10 +93,12 @@ RGBColor::set(unsigned char r, unsigned char g, unsigned char b, unsigned char a
 
 std::ostream&
 operator<<(std::ostream& os, const RGBColor& col) {
-    os
-            << col.myRed << ","
-            << col.myGreen << ","
-            << col.myBlue;
+    os << static_cast<int>(col.myRed) << ","
+       << static_cast<int>(col.myGreen) << ","
+       << static_cast<int>(col.myBlue);
+    if (col.myAlpha < 255) {
+        os << "," << static_cast<int>(col.myAlpha);
+    }
     return os;
 }
 
@@ -183,7 +185,7 @@ RGBColor::parseColor(std::string coldef) throw(EmptyData, NumberFormatException)
                 if (r <= 1 && g <= 1 && b <= 1 && (st.size() == 3 || a <= 1)) {
                     throw NumberFormatException();
                 }
-            } catch (NumberFormatException& e) {
+            } catch (NumberFormatException&) {
                 r = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[0].c_str()) * 255. + 0.5);
                 g = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[1].c_str()) * 255. + 0.5);
                 b = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[2].c_str()) * 255. + 0.5);
