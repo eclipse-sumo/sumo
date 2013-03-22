@@ -123,7 +123,7 @@ MFXUtils::getRGBColor(FXColor col) {
 
 FXColor
 MFXUtils::getFXColor(const RGBColor& col) {
-    return FXRGB(col.red(), col.green(), col.blue(), col.alpha());
+    return FXRGBA(col.red(), col.green(), col.blue(), col.alpha());
 }
 
 
