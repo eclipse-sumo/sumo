@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 22 Mar 2013 03:49:03 PM CET by Netedit Version dev-SVN-r13527
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/scr1/erdm_ja/debug/high_cycle_time/input_net.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/debug/high_cycle_time/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <node id="complicated" x="42.40" y="3.30" type="traffic_light" tl="complicated"/>
+    <node id="gneJ0" x="5.01" y="2.53" type="dead_end"/>
+    <node id="gneJ2" x="80.42" y="3.42" type="dead_end"/>
+    <node id="gneJ3" x="58.49" y="33.59" type="dead_end"/>
+    <node id="gneJ4" x="19.33" y="33.21" type="dead_end"/>
+    <node id="gneJ6" x="60.14" y="-34.22" type="dead_end"/>
+    <node id="gneJ7" x="25.29" y="-31.56" type="dead_end"/>
+    <node id="gneJ8" x="79.54" y="-22.44" type="dead_end"/>
+</nodes>

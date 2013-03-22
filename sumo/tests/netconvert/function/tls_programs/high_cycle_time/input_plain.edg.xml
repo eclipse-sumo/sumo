@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 22 Mar 2013 03:49:03 PM CET by Netedit Version dev-SVN-r13527
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/scr1/erdm_ja/debug/high_cycle_time/input_net.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/debug/high_cycle_time/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+    <edge id="gneE0" from="gneJ0" to="complicated" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE1" from="complicated" to="gneJ0" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE10" from="gneJ7" to="complicated" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE11" from="complicated" to="gneJ7" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE12" from="gneJ8" to="complicated" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE13" from="complicated" to="gneJ8" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE2" from="complicated" to="gneJ2" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE3" from="gneJ2" to="complicated" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE4" from="gneJ3" to="complicated" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE5" from="complicated" to="gneJ3" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE6" from="gneJ4" to="complicated" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE7" from="complicated" to="gneJ4" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE8" from="gneJ6" to="complicated" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE9" from="complicated" to="gneJ6" priority="1" numLanes="1" speed="13.89"/>
+</edges>
