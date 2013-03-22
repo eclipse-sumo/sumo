@@ -120,6 +120,20 @@ public:
     }
 
 
+    /** converts a char-type array with a hex value into the integer value described by it
+        throws an EmptyData - exception if the given string is empty
+        throws a NumberFormatException - exception when the string does
+            not contain an integer */
+    template<class E>
+    static int _hex2int(const E* const data) {
+        SUMOLong result = _hex2long(data);
+        if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min()) {
+            throw NumberFormatException();
+        }
+        return (int)result;
+    }
+
+
     /** converts a char-type array into the long value described by it
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
@@ -147,6 +161,52 @@ public:
                 throw NumberFormatException();
             }
             ret += akt - 48;
+        }
+        if (i == 0) {
+            throw EmptyData();
+        }
+        return ret * sgn;
+    }
+
+
+    /** converts a char-type array with a hex value into the long value described by it
+        throws an EmptyData - exception if the given string is empty
+        throws a NumberFormatException - exception when the string does
+            not contain a long */
+    template<class E>
+    static SUMOLong _hex2long(const E* const data) {
+        if (data == 0 || data[0] == 0) {
+            throw EmptyData();
+        }
+        SUMOLong sgn = 1;
+        unsigned i = 0;
+        if (data[0] == '+') {
+            i++;
+        }
+        if (data[0] == '-') {
+            i++;
+            sgn = -1;
+        }
+        if (data[i] == '#') { // for html color codes
+            i++;
+        }
+        if (data[i] == '0' && (data[i+1] == 'x' || data[i+1] == 'X')) {
+            i += 2;
+        }
+        SUMOLong ret = 0;
+        for (; data[i] != 0; i++) {
+            ret *= 16;
+            // !!! need to catch overflows
+            char akt = (char) data[i];
+            if (akt >= '0' && akt <= '9') {
+                ret += akt - '0';
+            } else if (akt >= 'A' && akt <= 'F') {
+                ret += akt - 'A' + 10;
+            } else if (akt >= 'a' && akt <= 'f') {
+                ret += akt - 'a' + 10;
+            } else {
+                throw NumberFormatException();
+            }
         }
         if (i == 0) {
             throw EmptyData();

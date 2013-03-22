@@ -298,10 +298,9 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     glTranslated(-1.0, -desc.getYCenter(), 0);
 
     // set color
-    const RGBColor& col = desc.getColor();
-    SUMOReal red = (SUMOReal) col.red();
-    SUMOReal green = (SUMOReal) col.green();
-    SUMOReal blue = (SUMOReal) col.blue();
+    const unsigned char red = desc.getColor().red();
+    const unsigned char green = desc.getColor().green();
+    const unsigned char blue = desc.getColor().blue();
     // draw value bounderies
     // draw minimum boundary
     glBegin(GL_LINES);
@@ -312,7 +311,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     glVertex2d(0, desc.getMax());
     glVertex2d(2.0, desc.getMax());
     glEnd();
-    glColor4f(red, green, blue, 0.3f);
+    glColor4ub(red, green, blue, 77);
     for (int a = 1; a < 6; a++) {
         SUMOReal ypos = (desc.getRange()) / (SUMOReal) 6.0 * (SUMOReal) a + desc.getMin();
         glBegin(GL_LINES);
@@ -334,7 +333,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         SUMOReal yp = (*i);
         SUMOReal xp = 0;
         i++;
-        glColor4f(red, green, blue, 1.0f);
+        glColor4ub(red, green, blue, 255);
         for (; i != values.end(); i++) {
             SUMOReal yn = (*i);
             SUMOReal xn = xp + xStep;
@@ -350,7 +349,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     }
 
     // draw value bounderies and descriptions
-    glColor3d(red, green, blue);
+    glColor3b(red, green, blue);
 
     // draw min time
     SUMOTime beginStep = desc.getRecordingBegin();

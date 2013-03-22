@@ -92,10 +92,10 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 break;
             case VAR_COLOR:
                 tempMsg.writeUnsignedByte(TYPE_COLOR);
-                tempMsg.writeUnsignedByte(static_cast<int>(p->getColor().red() * 255. + .5));
-                tempMsg.writeUnsignedByte(static_cast<int>(p->getColor().green() * 255. + .5));
-                tempMsg.writeUnsignedByte(static_cast<int>(p->getColor().blue() * 255. + .5));
-                tempMsg.writeUnsignedByte(255);
+                tempMsg.writeUnsignedByte(p->getColor().red());
+                tempMsg.writeUnsignedByte(p->getColor().green());
+                tempMsg.writeUnsignedByte(p->getColor().blue());
+                tempMsg.writeUnsignedByte(p->getColor().alpha());
                 break;
             case VAR_POSITION:
                 tempMsg.writeUnsignedByte(POSITION_2D);

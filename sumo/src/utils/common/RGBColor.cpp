@@ -35,6 +35,7 @@
 #include <string>
 #include <sstream>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
@@ -48,33 +49,44 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-const std::string RGBColor::DEFAULT_COLOR_STRING = "1,1,0";
-const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::parseColor(RGBColor::DEFAULT_COLOR_STRING);
+const RGBColor RGBColor::RED = RGBColor(255,0,0,255);
+const RGBColor RGBColor::GREEN = RGBColor(0,255,0,255);
+const RGBColor RGBColor::BLUE = RGBColor(0,0,255,255);
+const RGBColor RGBColor::YELLOW = RGBColor(255,255,0,255);
+const RGBColor RGBColor::CYAN = RGBColor(0,255,255,255);
+const RGBColor RGBColor::MAGENTA = RGBColor(255,0,255,255);
+const RGBColor RGBColor::WHITE = RGBColor(255,255,255,255);
+const RGBColor RGBColor::BLACK = RGBColor(0,0,0,255);
+const RGBColor RGBColor::GREY = RGBColor(128,128,128,255);
+
+const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::YELLOW;
+const std::string RGBColor::DEFAULT_COLOR_STRING = toString(RGBColor::DEFAULT_COLOR);
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 RGBColor::RGBColor()
-    : myRed(-1), myGreen(-1), myBlue(-1) {}
+    : myRed(0), myGreen(0), myBlue(0), myAlpha(0) {}
 
 
-RGBColor::RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue)
-    : myRed(red), myGreen(green), myBlue(blue) {}
+RGBColor::RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
+    : myRed(red), myGreen(green), myBlue(blue), myAlpha(alpha) {}
 
 
 RGBColor::RGBColor(const RGBColor& col)
-    : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue) {}
+    : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue), myAlpha(col.myAlpha) {}
 
 
 RGBColor::~RGBColor() {}
 
 
 void
-RGBColor::set(SUMOReal r, SUMOReal g, SUMOReal b) {
+RGBColor::set(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
     myRed = r;
     myGreen = g;
     myBlue = b;
+    myAlpha = a;
 }
 
 
@@ -91,37 +103,89 @@ operator<<(std::ostream& os, const RGBColor& col) {
 
 bool
 RGBColor::operator==(const RGBColor& c) const {
-    return fabs(myRed - c.myRed) < 0.1 && fabs(myGreen - c.myGreen) < 0.1 && fabs(myBlue - c.myBlue) < 0.1;
-    //return myRed==c.myRed&&myGreen==c.myGreen&&myBlue==c.myBlue;
+    return myRed == c.myRed && myGreen == c.myGreen && myBlue == c.myBlue && myAlpha == c.myAlpha;
 }
 
 
 bool
 RGBColor::operator!=(const RGBColor& c) const {
-    return fabs(myRed - c.myRed) > 0.1 || fabs(myGreen - c.myGreen) > 0.1 || fabs(myBlue - c.myBlue) > 0.1;
-    //return myRed!=c.myRed||myGreen!=c.myGreen||myBlue!=c.myBlue;
+    return myRed != c.myRed || myGreen != c.myGreen || myBlue != c.myBlue || myAlpha != c.myAlpha;
 }
 
 
 RGBColor
-RGBColor::changedBrightness(SUMOReal change) {
-    SUMOReal red = MIN2(MAX2(myRed + change, (SUMOReal)0), (SUMOReal)1);
-    SUMOReal blue = MIN2(MAX2(myBlue + change, (SUMOReal)0), (SUMOReal)1);
-    SUMOReal green = MIN2(MAX2(myGreen + change, (SUMOReal)0), (SUMOReal)1);
-    return RGBColor(red, green, blue);
+RGBColor::changedBrightness(const char change) {
+    const unsigned char red = static_cast<unsigned char>(MIN2(MAX2(myRed + change, 0), 255));
+    const unsigned char blue = static_cast<unsigned char>(MIN2(MAX2(myBlue + change, 0), 255));
+    const unsigned char green = static_cast<unsigned char>(MIN2(MAX2(myGreen + change, 0), 255));
+    return RGBColor(red, green, blue, myAlpha);
 
 }
 
 RGBColor
-RGBColor::parseColor(const std::string& coldef) throw(EmptyData, NumberFormatException) {
-    StringTokenizer st(coldef, ",");
-    if (st.size() < 3) {
-        throw EmptyData();
+RGBColor::parseColor(std::string coldef) throw(EmptyData, NumberFormatException) {
+    std::transform(coldef.begin(), coldef.end(), coldef.begin(), tolower);
+    if (coldef == "red") {
+        return RED;
     }
-    const SUMOReal r = TplConvert::_2SUMOReal(st.next().c_str());
-    const SUMOReal g = TplConvert::_2SUMOReal(st.next().c_str());
-    const SUMOReal b = TplConvert::_2SUMOReal(st.next().c_str());
-    return RGBColor(r, g, b);
+    if (coldef == "green") {
+        return GREEN;
+    }
+    if (coldef == "blue") {
+        return BLUE;
+    }
+    if (coldef == "yellow") {
+        return YELLOW;
+    }
+    if (coldef == "cyan") {
+        return CYAN;
+    }
+    if (coldef == "magenta") {
+        return MAGENTA;
+    }
+    if (coldef == "white") {
+        return WHITE;
+    }
+    if (coldef == "black") {
+        return BLACK;
+    }
+    if (coldef == "grey" || coldef == "gray") {
+        return GREY;
+    }
+    unsigned char r = 0;
+    unsigned char g = 0;
+    unsigned char b = 0;
+    unsigned char a = 255;
+    if (coldef[0] == '#') {
+        const int coldesc = TplConvert::_hex2int(coldef.c_str());
+        if (coldef.length() == 7) {
+            r = static_cast<unsigned char>((coldesc & 0xFF0000) >> 16);
+            g = static_cast<unsigned char>((coldesc & 0x00FF00) >> 8);
+            b = coldesc & 0xFF;
+        } else if (coldef.length() == 9) {
+            r = static_cast<unsigned char>((coldesc & 0xFF000000) >> 24);
+            g = static_cast<unsigned char>((coldesc & 0x00FF0000) >> 16);
+            b = static_cast<unsigned char>((coldesc & 0x0000FF00) >> 8);
+            a = coldesc & 0xFF;
+        } else {
+            throw EmptyData();
+        }
+    } else {
+        StringTokenizer st(coldef, ",");
+        if (st.size() == 3) {
+            r = static_cast<unsigned char>(TplConvert::_2SUMOReal(st.next().c_str()) * 255. + 0.5);
+            g = static_cast<unsigned char>(TplConvert::_2SUMOReal(st.next().c_str()) * 255. + 0.5);
+            b = static_cast<unsigned char>(TplConvert::_2SUMOReal(st.next().c_str()) * 255. + 0.5);
+        } else if (st.size() == 4) {
+            r = static_cast<unsigned char>(TplConvert::_2int(st.next().c_str()));
+            g = static_cast<unsigned char>(TplConvert::_2int(st.next().c_str()));
+            b = static_cast<unsigned char>(TplConvert::_2int(st.next().c_str()));
+            a = static_cast<unsigned char>(TplConvert::_2int(st.next().c_str()));
+        } else {
+            throw EmptyData();
+        }
+    }
+    return RGBColor(r, g, b, a);
 }
 
 
@@ -159,19 +223,20 @@ RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMORe
     if (weight > 1) {
         weight = 1;
     }
-    SUMOReal r = minColor.myRed + (maxColor.myRed - minColor.myRed) * weight;
-    SUMOReal g = minColor.myGreen + (maxColor.myGreen - minColor.myGreen) * weight;
-    SUMOReal b = minColor.myBlue + (maxColor.myBlue - minColor.myBlue) * weight;
-    return RGBColor(r, g, b);
+    const unsigned char r = minColor.myRed + static_cast<char>((maxColor.myRed - minColor.myRed) * weight);
+    const unsigned char g = minColor.myGreen + static_cast<char>((maxColor.myGreen - minColor.myGreen) * weight);
+    const unsigned char b = minColor.myBlue + static_cast<char>((maxColor.myBlue - minColor.myBlue) * weight);
+    const unsigned char a = minColor.myAlpha + static_cast<char>((maxColor.myAlpha - minColor.myAlpha) * weight);
+    return RGBColor(r, g, b, a);
 }
 
 
 RGBColor
 RGBColor::fromHSV(SUMOReal h, SUMOReal s, SUMOReal v) {
     // H is given on [0, 6] or UNDEFINED. S and V are given on [0, 1].
-    // RGB are each returned on [0, 1].
+    // RGB are each returned on [0, 255].
     //float h = HSV.H, s = HSV.S, v = HSV.V,
-    float m, n, f;
+    SUMOReal f;
     h /= 60.;
     int i;
     //if (h == UNDEFINED) RETURN_RGB(v, v, v);
@@ -180,24 +245,25 @@ RGBColor::fromHSV(SUMOReal h, SUMOReal s, SUMOReal v) {
     if (!(i & 1)) {
         f = 1 - f;    // if i is even
     }
-    m = float(v * (1 - s));
-    n = float(v * (1 - s * f));
+    const unsigned char m = static_cast<unsigned char>(v * (1 - s) * 255. + 0.5);
+    const unsigned char n = static_cast<unsigned char>(v * (1 - s * f) * 255. + 0.5);
+    const unsigned char vv = static_cast<unsigned char>(v * 255. + 0.5);
     switch (i) {
         case 6:
         case 0:
-            return RGBColor(v, n, m);
+            return RGBColor(vv, n, m, 255);
         case 1:
-            return RGBColor(n, v, m);
+            return RGBColor(n, vv, m, 255);
         case 2:
-            return RGBColor(m, v, n);
+            return RGBColor(m, vv, n, 255);
         case 3:
-            return RGBColor(m, n, v);
+            return RGBColor(m, n, vv, 255);
         case 4:
-            return RGBColor(n, m, v);
+            return RGBColor(n, m, vv, 255);
         case 5:
-            return RGBColor(v, m, n);
+            return RGBColor(vv, m, n, 255);
     }
-    return RGBColor(1, 1, 1);
+    return RGBColor(255, 255, 255, 255);
 }
 
 

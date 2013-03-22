@@ -155,19 +155,6 @@ public:
     void setCurrentScheme(const std::string&);
 
 
-    /** @brief Converts a FOX-color into a RGBColor
-     * @param[in] c The color to convert
-     * @return The converted color
-     */
-    static RGBColor convert(const FXColor c);
-
-
-    /** @brief Converts a RGBColor into a FOX-color
-     * @param[in] c The color to convert
-     * @return The converted color
-     */
-    static FXColor convert(const RGBColor& c);
-
 protected:
 
 

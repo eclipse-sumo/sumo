@@ -276,7 +276,7 @@ SUMOSAXAttributesImpl_Binary::getColor() const {
         throw EmptyData();
     }
     const int val = i->second;
-    return RGBColor((val & 0xff) / 255., ((val >> 8) & 0xff) / 255., ((val >> 16) & 0xff) / 255.);
+    return RGBColor(val & 0xff, (val >> 8) & 0xff, (val >> 16) & 0xff, (val >> 24) & 0xff);
 }
 
 

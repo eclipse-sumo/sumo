@@ -128,8 +128,8 @@ void
 GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    RGBColor green(76. / 255., 170. / 255., 50. / 255.);
-    RGBColor yellow(255. / 255., 235. / 255., 0. / 255.);
+    RGBColor green(76, 170, 50, 255);
+    RGBColor yellow(255, 235, 0, 255);
     // draw the area
     size_t i;
     glTranslated(0, 0, getType());

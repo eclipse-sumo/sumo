@@ -169,10 +169,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             case VAR_COLOR:
                 tempMsg.writeUnsignedByte(TYPE_COLOR);
-                tempMsg.writeUnsignedByte(static_cast<int>(v->getParameter().color.red() * 255. + 0.5));
-                tempMsg.writeUnsignedByte(static_cast<int>(v->getParameter().color.green() * 255. + 0.5));
-                tempMsg.writeUnsignedByte(static_cast<int>(v->getParameter().color.blue() * 255. + 0.5));
-                tempMsg.writeUnsignedByte(255);
+                tempMsg.writeUnsignedByte(v->getParameter().color.red());
+                tempMsg.writeUnsignedByte(v->getParameter().color.green());
+                tempMsg.writeUnsignedByte(v->getParameter().color.blue());
+                tempMsg.writeUnsignedByte(v->getParameter().color.alpha());
                 break;
             case VAR_LANEPOSITION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
@@ -766,7 +766,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if(!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The color must be given using the according type.", outputStorage);
             }
-            v->getParameter().color.set(col.red(), col.green(), col.blue());
+            v->getParameter().color.set(col.red(), col.green(), col.blue(), col.alpha());
             v->getParameter().setParameter |= VEHPARS_COLOR_SET;
         }
         break;

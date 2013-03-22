@@ -1034,14 +1034,14 @@ TraCIServer::readTypeCheckingStringList(tcpip::Storage& inputStorage, std::vecto
 
 bool
 TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, RGBColor &into) {
-     if (inputStorage.readUnsignedByte() != TYPE_COLOR) {
+    if (inputStorage.readUnsignedByte() != TYPE_COLOR) {
         return false;
-     }
-    SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-    SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-    SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-    inputStorage.readUnsignedByte(); // skipping alpha by now
-    into.set(r, g, b);
+    }
+    unsigned char r = static_cast<unsigned char>(inputStorage.readUnsignedByte());
+    unsigned char g = static_cast<unsigned char>(inputStorage.readUnsignedByte());
+    unsigned char b = static_cast<unsigned char>(inputStorage.readUnsignedByte());
+    unsigned char a = static_cast<unsigned char>(inputStorage.readUnsignedByte());
+    into.set(r, g, b, a);
     return true;
 }
 

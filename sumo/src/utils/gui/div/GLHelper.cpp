@@ -299,7 +299,7 @@ GLHelper::drawTriangleAtEnd(const Line& l, SUMOReal tLength,
 
 void
 GLHelper::setColor(const RGBColor& c) {
-    glColor3d(c.red(), c.green(), c.blue());
+    glColor4ub(c.red(), c.green(), c.blue(), c.alpha());
 }
 
 
@@ -307,7 +307,10 @@ RGBColor
 GLHelper::getColor() {
     GLdouble current[4];
     glGetDoublev(GL_CURRENT_COLOR, current);
-    return RGBColor(current[0], current[1], current[2]);
+    return RGBColor(static_cast<unsigned char>(current[0] * 255. + 0.5),
+                    static_cast<unsigned char>(current[1] * 255. + 0.5),
+                    static_cast<unsigned char>(current[2] * 255. + 0.5),
+                    static_cast<unsigned char>(current[3] * 255. + 0.5));
 }
 
 

@@ -232,10 +232,10 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
 template<>
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const RGBColor& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_COLOR);
-    FileHelpers::writeByte(into, char(val.red() * 255 + .5));
-    FileHelpers::writeByte(into, char(val.green() * 255 + .5));
-    FileHelpers::writeByte(into, char(val.blue() * 255 + .5));
-    FileHelpers::writeByte(into, 0);
+    FileHelpers::writeByte(into, val.red());
+    FileHelpers::writeByte(into, val.green());
+    FileHelpers::writeByte(into, val.blue());
+    FileHelpers::writeByte(into, val.alpha());
 }
 
 

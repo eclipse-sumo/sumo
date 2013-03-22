@@ -117,13 +117,13 @@ MFXUtils::getFilename2Write(FXWindow* parent,
 
 RGBColor
 MFXUtils::getRGBColor(FXColor col) {
-    return RGBColor(FXREDVAL(col) / 255.0, FXGREENVAL(col) / 255.0, FXBLUEVAL(col) / 255.0);
+    return RGBColor(FXREDVAL(col), FXGREENVAL(col), FXBLUEVAL(col), FXALPHAVAL(col));
 }
 
 
 FXColor
 MFXUtils::getFXColor(const RGBColor& col) {
-    return FXRGB(col.red() * 255, col.green() * 255, col.blue() * 255);
+    return FXRGB(col.red(), col.green(), col.blue(), col.alpha());
 }
 
 

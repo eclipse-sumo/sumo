@@ -144,7 +144,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
             new FXMatrix(frame1, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
         new FXLabel(m11, "Color", 0, LAYOUT_CENTER_Y);
-        myBackgroundColor = new FXColorWell(m11, convert(settings->backgroundColor),
+        myBackgroundColor = new FXColorWell(m11, MFXUtils::getFXColor(settings->backgroundColor),
                                             this, MID_SIMPLE_VIEW_COLORCHANGE,
                                             LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | LAYOUT_SIDE_TOP | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
                                             0, 0, 100, 0,   0, 0, 0, 0);
@@ -374,7 +374,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
 
         /*
         new FXLabel(m522, "Color", 0, LAYOUT_CENTER_Y);
-        myDetectorNameColor = new FXColorWell(m522, convert(settings->addNameColor),
+        myDetectorNameColor = new FXColorWell(m522, MFXUtils::getFXColor(settings->addNameColor),
                             this, MID_SIMPLE_VIEW_COLORCHANGE,
                             LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                             0, 0, 100, 0,   0, 0, 0, 0);
@@ -533,7 +533,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     }
     rebuildColorMatrices(true);
 
-    myBackgroundColor->setRGBA(convert(mySettings->backgroundColor));
+    myBackgroundColor->setRGBA(MFXUtils::getFXColor(mySettings->backgroundColor));
 
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
     myShowLaneBorders->setCheck(mySettings->laneShowBorders);
@@ -593,7 +593,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     bool doRebuildColorMatrices = false;
 
     tmpSettings.name = mySettings->name;
-    tmpSettings.backgroundColor = convert(myBackgroundColor->getRGBA());
+    tmpSettings.backgroundColor = MFXUtils::getRGBColor(myBackgroundColor->getRGBA());
     tmpSettings.showGrid = (myShowGrid->getCheck() != FALSE);
     tmpSettings.gridXSize = (SUMOReal) myGridXSizeDialer->getValue();
     tmpSettings.gridYSize = (SUMOReal) myGridYSizeDialer->getValue();
@@ -659,7 +659,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         while (colIt != myLaneColors.end()) {
             if (scheme.isFixed()) {
                 if (sender == *colIt) {
-                    scheme.setColor(pos, convert((*colIt)->getRGBA()));
+                    scheme.setColor(pos, MFXUtils::getRGBColor((*colIt)->getRGBA()));
                 }
             } else {
                 if (sender == *threshIt) {
@@ -680,12 +680,12 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
                     break;
                 }
                 if (sender == *colIt) {
-                    scheme.setColor(pos, convert((*colIt)->getRGBA()));
+                    scheme.setColor(pos, MFXUtils::getRGBColor((*colIt)->getRGBA()));
                     break;
                 }
                 if (sender == *buttonIt) {
                     if (pos == 0) {
-                        scheme.addColor(convert((*colIt)->getRGBA()), (*threshIt)->getValue());
+                        scheme.addColor(MFXUtils::getRGBColor((*colIt)->getRGBA()), (*threshIt)->getValue());
                     } else {
                         scheme.removeColor(pos);
                     }
@@ -715,7 +715,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         while (colIt != myVehicleColors.end()) {
             if (scheme.isFixed()) {
                 if (sender == *colIt) {
-                    scheme.setColor(pos, convert((*colIt)->getRGBA()));
+                    scheme.setColor(pos, MFXUtils::getRGBColor((*colIt)->getRGBA()));
                 }
             } else {
                 if (sender == *threshIt) {
@@ -736,12 +736,12 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
                     break;
                 }
                 if (sender == *colIt) {
-                    scheme.setColor(pos, convert((*colIt)->getRGBA()));
+                    scheme.setColor(pos, MFXUtils::getRGBColor((*colIt)->getRGBA()));
                     break;
                 }
                 if (sender == *buttonIt) {
                     if (pos == 0) {
-                        scheme.addColor(convert((*colIt)->getRGBA()), (*threshIt)->getValue());
+                        scheme.addColor(MFXUtils::getRGBColor((*colIt)->getRGBA()), (*threshIt)->getValue());
                     } else {
                         scheme.removeColor(pos);
                     }
@@ -1021,21 +1021,6 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject* sender, FXSelector, void* p
 }
 
 
-RGBColor
-GUIDialog_ViewSettings::convert(const FXColor c) {
-    return RGBColor(
-               (SUMOReal) FXREDVAL(c) / (SUMOReal) 255.,
-               (SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.,
-               (SUMOReal) FXBLUEVAL(c) / (SUMOReal) 255.);
-}
-
-
-FXColor
-GUIDialog_ViewSettings::convert(const RGBColor& c) {
-    return FXRGB(c.red() * 255., c.green() * 255., c.blue() * 255.);
-}
-
-
 void
 GUIDialog_ViewSettings::rebuildList() {
     myDecalsTable->clearItems();
@@ -1113,7 +1098,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
         FX::FXString buttonText = "Add";
         while (colIt != colors.end()) {
-            myLaneColors.push_back(new FXColorWell(m , convert(*colIt),
+            myLaneColors.push_back(new FXColorWell(m , MFXUtils::getFXColor(*colIt),
                                                    this, MID_SIMPLE_VIEW_COLORCHANGE,
                                                    LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
                                                    0, 0, 100, 0,   0, 0, 0, 0));
@@ -1169,7 +1154,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         std::vector<std::string>::const_iterator nameIt = mySettings->vehicleColorer.getScheme().getNames().begin();
         FX::FXString buttonText = "Add";
         while (colIt != colors.end()) {
-            myVehicleColors.push_back(new FXColorWell(m , convert(*colIt),
+            myVehicleColors.push_back(new FXColorWell(m , MFXUtils::getFXColor(*colIt),
                                       this, MID_SIMPLE_VIEW_COLORCHANGE,
                                       LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
                                       0, 0, 100, 0,   0, 0, 0, 0));
@@ -1350,7 +1335,7 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     FXMatrix* m2 = new FXMatrix(parent, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                                 0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
     new FXLabel(m2, "Color", 0, LAYOUT_CENTER_Y);
-    myColorWell = new FXColorWell(m2, convert(settings.color),
+    myColorWell = new FXColorWell(m2, MFXUtils::getFXColor(settings.color),
                                   target, MID_SIMPLE_VIEW_COLORCHANGE,
                                   LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | LAYOUT_SIDE_TOP | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
                                   0, 0, 100, 0,   0, 0, 0, 0);
@@ -1359,7 +1344,7 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
 GUIVisualizationTextSettings
 GUIDialog_ViewSettings::NamePanel::getSettings() {
     return GUIVisualizationTextSettings(myCheck->getCheck() != FALSE,
-                                        mySizeDial->getValue(), convert(myColorWell->getRGBA()));
+                                        mySizeDial->getValue(), MFXUtils::getRGBColor(myColorWell->getRGBA()));
 }
 
 
@@ -1367,7 +1352,7 @@ void
 GUIDialog_ViewSettings::NamePanel::update(const GUIVisualizationTextSettings& settings) {
     myCheck->setCheck(settings.show);
     mySizeDial->setValue(settings.size);
-    myColorWell->setRGBA(convert(settings.color));
+    myColorWell->setRGBA(MFXUtils::getFXColor(settings.color));
 }
 /****************************************************************************/
 

@@ -75,10 +75,7 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream& from) {
         r = TplConvert::_2int(colorName.c_str());
         from >> g; // type-checking is missing!
         from >> b; // type-checking is missing!
-        color = RGBColor(
-                    (SUMOReal) r / (SUMOReal) 255.0,
-                    (SUMOReal) g / (SUMOReal) 255.0,
-                    (SUMOReal) b / (SUMOReal) 255.0);
+        color = RGBColor(r, g, b, 255);
     }
     // types
     from >> tag;

@@ -372,7 +372,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_COLOR_SET;
     } else {
-        vtype->color = RGBColor(1, 1, 0);
+        vtype->color = RGBColor::YELLOW;
     }
     if (attrs.hasAttribute(SUMO_ATTR_PROB)) {
         vtype->defaultProbability = attrs.get<SUMOReal>(SUMO_ATTR_PROB, vtype->id.c_str(), ok);

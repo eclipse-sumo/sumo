@@ -119,15 +119,6 @@ GUICompleteSchemeStorage::getNumInitialSettings() const {
 }
 
 
-RGBColor
-convert(const FXColor c) {
-    return RGBColor(
-               (SUMOReal) FXREDVAL(c) / (SUMOReal) 255.,
-               (SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.,
-               (SUMOReal) FXBLUEVAL(c) / (SUMOReal) 255.);
-}
-
-
 void
 GUICompleteSchemeStorage::init(FXApp* app) {
     {
@@ -146,7 +137,7 @@ GUICompleteSchemeStorage::init(FXApp* app) {
         GUIVisualizationSettings vs;
         vs.name = "real world";
         vs.vehicleQuality = 2;
-        vs.backgroundColor = RGBColor((SUMOReal) .2, (SUMOReal) .5, (SUMOReal) .2);
+        vs.backgroundColor = RGBColor(51, 128, 51, 255);
         vs.laneShowBorders = true;
         vs.hideConnectors = true;
         vs.minVehicleSize = 0;

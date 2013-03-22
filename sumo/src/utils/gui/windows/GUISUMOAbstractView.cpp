@@ -210,10 +210,10 @@ GUISUMOAbstractView::paintGL() {
 
     // draw
     glClearColor(
-        myVisualizationSettings->backgroundColor.red(),
-        myVisualizationSettings->backgroundColor.green(),
-        myVisualizationSettings->backgroundColor.blue(),
-        1);
+        myVisualizationSettings->backgroundColor.red() / 255.,
+        myVisualizationSettings->backgroundColor.green() / 255.,
+        myVisualizationSettings->backgroundColor.blue() / 255.,
+        myVisualizationSettings->backgroundColor.alpha() / 255.);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -331,7 +331,7 @@ GUISUMOAbstractView::showToolTipFor(unsigned int id) {
         if (object != 0) {
             Position pos = getPositionInformation();
             pos.add(0, p2m(15));
-            GLHelper::drawTextBox(object->getFullName(), pos, GLO_MAX - 1, p2m(20), RGBColor(0, 0, 0), RGBColor(1, 0.7, 0));
+            GLHelper::drawTextBox(object->getFullName(), pos, GLO_MAX - 1, p2m(20), RGBColor::BLACK, RGBColor(255, 179, 0, 255));
             GUIGlObjectStorage::gIDStorage.unblockObject(id);
         }
     }
@@ -505,10 +505,10 @@ GUISUMOAbstractView::onConfigure(FXObject*, FXSelector, void*) {
     if (makeCurrent()) {
         glViewport(0, 0, getWidth() - 1, getHeight() - 1);
         glClearColor(
-            myVisualizationSettings->backgroundColor.red(),
-            myVisualizationSettings->backgroundColor.green(),
-            myVisualizationSettings->backgroundColor.blue(),
-            1);
+            myVisualizationSettings->backgroundColor.red() / 255.,
+            myVisualizationSettings->backgroundColor.green() / 255.,
+            myVisualizationSettings->backgroundColor.blue() / 255.,
+            myVisualizationSettings->backgroundColor.alpha() / 255.);
         doInit();
         myAmInitialised = true;
         makeNonCurrent();
@@ -719,10 +719,10 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
     }
     // draw
     glClearColor(
-        myVisualizationSettings->backgroundColor.red(),
-        myVisualizationSettings->backgroundColor.green(),
-        myVisualizationSettings->backgroundColor.blue(),
-        1);
+        myVisualizationSettings->backgroundColor.red() / 255.,
+        myVisualizationSettings->backgroundColor.green() / 255.,
+        myVisualizationSettings->backgroundColor.blue() / 255.,
+        myVisualizationSettings->backgroundColor.alpha() / 255.);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 

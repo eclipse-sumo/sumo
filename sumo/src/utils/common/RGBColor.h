@@ -41,8 +41,8 @@
 // ===========================================================================
 /**
  * @class RGBColor
- * The definition of a color in the RGB-space.
- * The cube is meant to lie between (0, 0, 0) and (1, 1, 1)
+ * The definition of a color in the RGB-space with an alpha channel.
+ * The cube is meant to lie between (0, 0, 0) and (255, 255, 255)
  */
 class RGBColor {
 public:
@@ -56,7 +56,7 @@ public:
      * @param[in] green The green component's value
      * @param[in] blue The blue component's value
      */
-    RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue);
+    RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
 
 
     /** @brief Copy constructor
@@ -72,24 +72,32 @@ public:
     /** @brief Returns the red-amount of the color
      * @return The red component's value
      */
-    SUMOReal red() const {
+    unsigned char red() const {
         return myRed;
     }
 
 
     /** @brief Returns the green-amount of the color
-     * @return The red component's value
+     * @return The green component's value
      */
-    SUMOReal green() const {
+    unsigned char green() const {
         return myGreen;
     }
 
 
     /** @brief Returns the blue-amount of the color
-     * @return The red component's value
+     * @return The blue component's value
      */
-    SUMOReal blue() const {
+    unsigned char blue() const {
         return myBlue;
+    }
+
+
+    /** @brief Returns the alpha-amount of the color
+     * @return The alpha component's value
+     */
+    unsigned char alpha() const {
+        return myAlpha;
     }
 
 
@@ -97,8 +105,9 @@ public:
      * @param[in] r The red component's value
      * @param[in] g The green component's value
      * @param[in] b The blue component's value
+     * @param[in] a The alpha component's value
      */
-    void set(SUMOReal r, SUMOReal g, SUMOReal b);
+    void set(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
 
     /** @brief Writes the color to the given stream
@@ -117,25 +126,29 @@ public:
      * @param[in] change The absolute change applied to all channels (within bounds)
      * @return The new color
      */
-    RGBColor changedBrightness(SUMOReal change);
+    RGBColor changedBrightness(const char change);
 
 
     /** @brief Parses a color information
      *
      * It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
-     * And each color is represented as a SUMOReal.
+     *  and each color is represented as a SUMOReal.
+     *  Alternatively the color can be stored as "<RED>,<GREEN>,<BLUE>,<ALPHA>"
+     *  and each color is represented as an unsigned byte.
      * @param[in] coldef The color definition to parse
      * @return The parsed color
      * @exception EmptyData If the definition has less than three entries
      * @exception NumberFormatException If one of the components is not numeric
      */
-    static RGBColor parseColor(const std::string& coldef) throw(EmptyData, NumberFormatException);
+    static RGBColor parseColor(std::string coldef) throw(EmptyData, NumberFormatException);
 
 
     /** @brief Parses a color information
      *
      * It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
-     * And each color is represented as a SUMOReal.
+     *  and each color is represented as a SUMOReal.
+     *  Alternatively the color can be stored as "<RED>,<GREEN>,<BLUE>,<ALPHA>"
+     *  and each color is represented as an unsigned byte.
      * @param[in] coldef The color definition to parse
      * @param[in] objecttype The type of the currently parsed object
      * @param[in] objectid The id of the currently parsed object
@@ -172,17 +185,26 @@ public:
     static RGBColor fromHSV(SUMOReal h, SUMOReal s, SUMOReal v);
 
 
-    /// @brief The string description of the default color
-    static const std::string DEFAULT_COLOR_STRING;
-
-
+    static const RGBColor RED;
+    static const RGBColor GREEN;
+    static const RGBColor BLUE;
+    static const RGBColor YELLOW;
+    static const RGBColor CYAN;
+    static const RGBColor MAGENTA;
+    static const RGBColor WHITE;
+    static const RGBColor BLACK;
+    static const RGBColor GREY;
     /// @brief The default color (for vehicle types and vehicles)
     static const RGBColor DEFAULT_COLOR;
 
 
+    /// @brief The string description of the default color
+    static const std::string DEFAULT_COLOR_STRING;
+
+
 private:
     /// @brief The color amounts
-    SUMOReal myRed, myGreen, myBlue;
+    unsigned char myRed, myGreen, myBlue, myAlpha;
 
 };
 

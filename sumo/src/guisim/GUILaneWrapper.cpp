@@ -127,7 +127,7 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
         GLHelper::drawText(toString(getLane().getLinkCont()[i]->getRespondIndex()),
-                           Position(x2, 0), 0, .6, RGBColor(.5, .5, 1), 180);
+                           Position(x2, 0), 0, .6, RGBColor(128, 128, 255, 255), 180);
         x1 -= w;
     }
     glPopMatrix();
@@ -158,7 +158,7 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet& net) const {
             continue;
         }
         GLHelper::drawText(toString(linkNo),
-                           Position(x2, 0), 0, .6, RGBColor(.5, .5, 1), 180);
+                           Position(x2, 0), 0, .6, RGBColor(128, 128, 255, 255), 180);
         x1 -= w;
     }
     glPopMatrix();

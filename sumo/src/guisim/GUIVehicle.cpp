@@ -407,8 +407,8 @@ GUIVehicle::drawPoly(double* poses, SUMOReal offset) {
 void
 GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const {
     RGBColor current = GLHelper::getColor();
-    RGBColor lighter = current.changedBrightness(.2);
-    RGBColor darker = current.changedBrightness(-.2);
+    RGBColor lighter = current.changedBrightness(51);
+    RGBColor darker = current.changedBrightness(-51);
 
     const SUMOReal length = getVehicleType().getLength();
     const SUMOReal width = getVehicleType().getWidth();
@@ -1097,7 +1097,7 @@ GUIVehicle::drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime lea
     glTranslated(pos.x(), pos.y(), -.1);
     GLHelper::drawFilledCircle(1);
     std::string times = toString(STEPS2TIME(arrivalTime)) + "/" + toString(STEPS2TIME(leaveTime));
-    GLHelper::drawText(times.c_str(), Position(), .1, 1.6 * exagerate, RGBColor(0, 1, 0), 0);
+    GLHelper::drawText(times.c_str(), Position(), .1, 1.6 * exagerate, RGBColor::GREEN, 0);
     glTranslated(-pos.x(), -pos.y(), .1);
 }
 
@@ -1370,7 +1370,7 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
 void
 GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, int firstPassengerCarriage, bool asImage) const {
     RGBColor current = GLHelper::getColor();
-    RGBColor darker = current.changedBrightness(-.2);
+    RGBColor darker = current.changedBrightness(-51);
     const SUMOReal length = getVehicleType().getLength() * s.vehicleExaggeration;
     const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.vehicleExaggeration;
     glPopMatrix(); // undo scaling and 90 degree rotation
