@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 17 14:57:12 2013 by SUMO netconvert Version dev-SVN-r13202
+<!-- generated on Fri Mar 22 14:35:26 2013 by SUMO netconvert Version dev-SVN-r13525
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -182,6 +182,17 @@
     <connection from="-26843019" to="-5198596#1" fromLane="0" toLane="0"/>
     <connection from="-26843019" to="5198596#2" fromLane="0" toLane="0"/>
     <connection from="-26843019" to="26843019" fromLane="0" toLane="0"/>
+
+    <connection from="-26843038#0" to="-5198596#0" fromLane="0" toLane="0"/>
+    <connection from="-26843038#0" to="5198596#1" fromLane="0" toLane="0"/>
+    <connection from="-26843038#0" to="26843038#0" fromLane="0" toLane="0"/>
+
+    <connection from="-26843038#1" to="-26843038#0" fromLane="0" toLane="0"/>
+    <connection from="-26843038#1" to="-26843038#2" fromLane="0" toLane="0"/>
+    <connection from="-26843038#1" to="26843038#1" fromLane="0" toLane="0"/>
+
+    <connection from="-26843038#2" to="-26843038#1" fromLane="0" toLane="0"/>
+    <connection from="-26843038#2" to="26843038#2" fromLane="0" toLane="0"/>
 
     <connection from="-26843133#0" to="-26816590#1" fromLane="0" toLane="0"/>
     <connection from="-26843133#0" to="26816590#2" fromLane="0" toLane="0"/>
@@ -555,10 +566,15 @@
     <connection from="26843019" to="-26843019" fromLane="0" toLane="0"/>
 
     <connection from="26843038#0" to="26843038#1" fromLane="0" toLane="0"/>
+    <connection from="26843038#0" to="-26843038#2" fromLane="0" toLane="0"/>
+    <connection from="26843038#0" to="-26843038#0" fromLane="0" toLane="0"/>
 
     <connection from="26843038#1" to="26843038#2" fromLane="0" toLane="0"/>
+    <connection from="26843038#1" to="-26843038#1" fromLane="0" toLane="0"/>
 
+    <connection from="26843038#2" to="-26843038#0" fromLane="0" toLane="0"/>
     <connection from="26843038#2" to="26843038#1" fromLane="0" toLane="0"/>
+    <connection from="26843038#2" to="-26843038#2" fromLane="0" toLane="0"/>
 
     <connection from="26843133#0" to="-26843133#2" fromLane="0" toLane="0"/>
     <connection from="26843133#0" to="26843133#1" fromLane="0" toLane="0"/>

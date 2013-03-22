@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 18 16:06:48 2013 by SUMO netconvert Version dev-SVN-r13360
+<!-- generated on Fri Mar 22 14:35:26 2013 by SUMO netconvert Version dev-SVN-r13525
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -127,6 +127,15 @@
         <lane index="0" allow="delivery"/>
     </edge>
     <edge id="-26843019" from="294829798" to="294829385" priority="2" type="highway.service" numLanes="1" speed="5.56">
+        <lane index="0" allow="delivery"/>
+    </edge>
+    <edge id="-26843038#0" from="294830184" to="294829881" priority="2" type="highway.service" numLanes="1" speed="5.56">
+        <lane index="0" allow="delivery"/>
+    </edge>
+    <edge id="-26843038#1" from="294830189" to="294830184" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="13.533465,52.429910 13.533834,52.429685 13.533448,52.429460 13.533106,52.429692">
+        <lane index="0" allow="delivery"/>
+    </edge>
+    <edge id="-26843038#2" from="294830184" to="294830189" priority="2" type="highway.service" numLanes="1" speed="5.56">
         <lane index="0" allow="delivery"/>
     </edge>
     <edge id="-26843133#0" from="294831560" to="294169339" priority="2" type="highway.service" numLanes="1" speed="5.56">

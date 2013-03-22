@@ -439,8 +439,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     // if we had been able to extract the number of lanes, override the highway type default
     if (e->myNoLanes > 0) {
-        if (!addBackward) {
+        if (addForward && !addBackward) {
             numLanesForward = e->myNoLanes;
+        } else if (!addForward && addBackward) {
+            numLanesBackward = e->myNoLanes;
         } else {
             if (e->myNoLanesForward > 0) {
                 numLanesForward = e->myNoLanesForward;
@@ -450,12 +452,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 numLanesForward = (int)std::ceil(e->myNoLanes / 2.0);
             }
             numLanesBackward = e->myNoLanes - numLanesForward;
+            // sometimes ways are tagged according to their physical width of a single
+            // lane but they are intended for traffic in both directions
+            numLanesForward = MAX2(1, numLanesForward);
+            numLanesBackward = MAX2(1, numLanesBackward);
         }
     } else if (e->myNoLanes == 0) {
         WRITE_WARNING("Skipping edge '" + id + "' because it has zero lanes.");
         ok = false;
     }
-    assert(numLanesForward > 0);
     // if we had been able to extract the maximum speed, override the type's default
     if (e->myMaxSpeed != MAXSPEED_UNGIVEN) {
         speed = (SUMOReal)(e->myMaxSpeed / 3.6);
@@ -467,6 +472,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (ok) { 
         LaneSpreadFunction lsf = addBackward ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
         if (addForward) {
+            assert(numLanesForward > 0);
             NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), from, to, type, speed, numLanesForward, tc.getPriority(type),
                     tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape, StringUtils::escapeXML(e->streetName), lsf);
             nbe->setPermissions(permissions);
@@ -477,17 +483,13 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             id = "-" + id;
         }
         if (addBackward) {
-            if (numLanesBackward > 0) {
-                NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), to, from, type, speed, numLanesBackward, tc.getPriority(type),
-                        tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), StringUtils::escapeXML(e->streetName), lsf);
-                nbe->setPermissions(permissions);
-                if (!ec.insert(nbe)) {
-                    delete nbe;
-                    throw ProcessError("Could not add edge " + id + "'.");
-                }
-            } else {
-                WRITE_WARNING("Skipping backward edge '" + id + "' because it has zero lanes.");
-                ok = false;
+            assert(numLanesBackward > 0);
+            NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), to, from, type, speed, numLanesBackward, tc.getPriority(type),
+                    tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), StringUtils::escapeXML(e->streetName), lsf);
+            nbe->setPermissions(permissions);
+            if (!ec.insert(nbe)) {
+                delete nbe;
+                throw ProcessError("Could not add edge " + id + "'.");
             }
         }
     }

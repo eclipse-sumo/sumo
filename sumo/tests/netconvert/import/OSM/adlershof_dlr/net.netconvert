@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 13 13:49:46 2013 by SUMO netconvert Version dev-SVN-r13478
+<!-- generated on Fri Mar 22 14:35:25 2013 by SUMO netconvert Version dev-SVN-r13525
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -142,6 +142,15 @@
     <edge id="-26843019" from="294829798" to="294829385" priority="2" type="highway.service">
         <lane id="-26843019_0" index="0" allow="delivery" speed="5.56" length="89.38" shape="921.00,411.54 863.22,479.74"/>
     </edge>
+    <edge id="-26843038#0" from="294830184" to="294829881" priority="2" type="highway.service">
+        <lane id="-26843038#0_0" index="0" allow="delivery" speed="5.56" length="34.41" shape="919.12,482.73 896.62,508.76"/>
+    </edge>
+    <edge id="-26843038#1" from="294830189" to="294830184" priority="2" type="highway.service" shape="945.99,501.67 970.58,476.14 943.81,451.65 921.09,477.93">
+        <lane id="-26843038#1_0" index="0" allow="delivery" speed="5.56" length="91.87" shape="947.05,498.20 968.21,476.21 943.94,454.01 925.34,475.54"/>
+    </edge>
+    <edge id="-26843038#2" from="294830184" to="294830189" priority="2" type="highway.service">
+        <lane id="-26843038#2_0" index="0" allow="delivery" speed="5.56" length="26.26" shape="925.78,480.13 944.79,498.25"/>
+    </edge>
     <edge id="-26843133#0" from="294831560" to="294169339" priority="2" type="highway.service">
         <lane id="-26843133#0_0" index="0" allow="delivery" speed="5.56" length="0.56" shape="545.52,297.08 545.56,297.64"/>
     </edge>
@@ -206,7 +215,7 @@
         <lane id="-5198588#1_0" index="0" speed="13.89" length="181.76" shape="1192.50,452.90 1055.60,333.35"/>
     </edge>
     <edge id="-5198596#0" from="294829881" to="36268403" name="Kekuléstraße" priority="4" type="highway.residential">
-        <lane id="-5198596#0_0" index="0" speed="13.89" length="52.96" shape="894.44,510.98 934.45,545.67"/>
+        <lane id="-5198596#0_0" index="0" speed="13.89" length="49.66" shape="896.93,513.14 934.45,545.67"/>
     </edge>
     <edge id="-5198596#1" from="294829385" to="294829881" name="Kekuléstraße" priority="4" type="highway.residential">
         <lane id="-5198596#1_0" index="0" speed="13.89" length="34.73" shape="863.51,484.16 889.75,506.92"/>
@@ -431,13 +440,13 @@
         <lane id="26843019_0" index="0" allow="delivery" speed="5.56" length="89.38" shape="860.70,477.61 918.48,409.41"/>
     </edge>
     <edge id="26843038#0" from="294829881" to="294830184" priority="2" type="highway.service">
-        <lane id="26843038#0_0" index="0" allow="delivery" speed="5.56" length="34.57" shape="894.13,506.60 916.73,480.45"/>
+        <lane id="26843038#0_0" index="0" allow="delivery" speed="5.56" length="34.41" shape="894.13,506.60 916.63,480.57"/>
     </edge>
     <edge id="26843038#1" from="294830184" to="294830189" priority="2" type="highway.service" shape="921.09,477.93 943.81,451.65 970.58,476.14 945.99,501.67">
-        <lane id="26843038#1_0" index="0" allow="delivery" speed="5.56" length="111.80" shape="920.79,475.76 943.67,449.29 972.94,476.07 947.18,502.82"/>
+        <lane id="26843038#1_0" index="0" allow="delivery" speed="5.56" length="105.43" shape="922.84,473.38 943.67,449.29 972.94,476.07 949.42,500.49"/>
     </edge>
     <edge id="26843038#2" from="294830189" to="294830184" priority="2" type="highway.service">
-        <lane id="26843038#2_0" index="0" allow="delivery" speed="5.56" length="32.80" shape="944.85,502.87 921.11,480.24"/>
+        <lane id="26843038#2_0" index="0" allow="delivery" speed="5.56" length="26.26" shape="942.51,500.64 923.50,482.52"/>
     </edge>
     <edge id="26843133#0" from="294169339" to="294831560" priority="2" type="highway.service">
         <lane id="26843133#0_0" index="0" allow="delivery" speed="5.56" length="0.56" shape="542.27,297.90 542.23,297.34"/>
@@ -548,7 +557,7 @@
         <lane id="5198588#1_0" index="0" speed="13.89" length="181.76" shape="1057.77,330.86 1194.67,450.42"/>
     </edge>
     <edge id="5198596#0" from="36268403" to="294829881" name="Kekuléstraße" priority="4" type="highway.residential">
-        <lane id="5198596#0_0" index="0" speed="13.89" length="52.96" shape="932.29,548.16 892.28,513.47"/>
+        <lane id="5198596#0_0" index="0" speed="13.89" length="49.66" shape="932.29,548.16 894.77,515.63"/>
     </edge>
     <edge id="5198596#1" from="294829881" to="294829385" name="Kekuléstraße" priority="4" type="highway.residential">
         <lane id="5198596#1_0" index="0" speed="13.89" length="34.73" shape="887.59,509.41 861.35,486.66"/>
@@ -1056,20 +1065,33 @@
         <request index="7" response="000011010" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="294829881" type="priority" x="892.27" y="511.28" incLanes="5198596#0_0 -5198596#1_0" intLanes="" shape="891.23,514.68 895.49,509.77 895.34,507.65 892.92,505.55 890.80,505.71 886.54,510.62">
-        <request index="0" response="000000" foes="100000"/>
-        <request index="1" response="011000" foes="011000"/>
-        <request index="2" response="010000" foes="010000"/>
-        <request index="3" response="000000" foes="000010"/>
-        <request index="4" response="000000" foes="000110"/>
-        <request index="5" response="000001" foes="000001"/>
+    <junction id="294829881" type="priority" x="892.27" y="511.28" incLanes="5198596#0_0 -26843038#0_0 -5198596#1_0" intLanes="" shape="893.72,516.84 897.98,511.93 897.83,509.80 892.92,505.55 890.80,505.71 886.54,510.62">
+        <request index="0" response="000000000" foes="100010000"/>
+        <request index="1" response="011000000" foes="011110000"/>
+        <request index="2" response="010001000" foes="010001000"/>
+        <request index="3" response="010000000" foes="010000100"/>
+        <request index="4" response="010000011" foes="110000011"/>
+        <request index="5" response="001000010" foes="001000010"/>
+        <request index="6" response="000000000" foes="000100010"/>
+        <request index="7" response="000000000" foes="000011110"/>
+        <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="294830184" type="right_before_left" x="921.09" y="477.93" incLanes="26843038#2_0 26843038#0_0" intLanes="" shape="920.01,481.40 922.22,479.08 922.00,476.80 919.58,474.71 915.52,479.40 917.94,481.50">
-        <request index="0" response="10" foes="10"/>
-        <request index="1" response="00" foes="01"/>
+    <junction id="294830184" type="right_before_left" x="921.09" y="477.93" incLanes="26843038#2_0 -26843038#1_0 26843038#0_0" intLanes="" shape="922.40,483.68 926.88,478.97 926.55,476.58 921.63,472.33 915.41,479.53 920.33,483.78">
+        <request index="0" response="000000000" foes="100001000"/>
+        <request index="1" response="011000000" foes="011101000"/>
+        <request index="2" response="010010000" foes="010010000"/>
+        <request index="3" response="000000011" foes="110000011"/>
+        <request index="4" response="000000000" foes="010000100"/>
+        <request index="5" response="001000010" foes="001000010"/>
+        <request index="6" response="000000000" foes="000100010"/>
+        <request index="7" response="000011000" foes="000011110"/>
+        <request index="8" response="000001001" foes="000001001"/>
     </junction>
-    <junction id="294830189" type="priority" x="945.99" y="501.67" incLanes="26843038#1_0" intLanes="" shape="945.96,501.71 943.75,504.03 948.33,503.93 946.03,501.71">
-        <request index="0" response="0" foes="0"/>
+    <junction id="294830189" type="priority" x="945.99" y="501.67" incLanes="26843038#1_0 -26843038#2_0" intLanes="" shape="950.58,501.60 945.89,497.09 941.41,501.80">
+        <request index="0" response="0000" foes="1000"/>
+        <request index="1" response="0100" foes="0100"/>
+        <request index="2" response="0000" foes="0010"/>
+        <request index="3" response="0001" foes="0001"/>
     </junction>
     <junction id="294831560" type="right_before_left" x="543.50" y="292.50" incLanes="26843133#0_0 -26843133#1_0 26843133#2_0" intLanes="" shape="540.63,297.46 547.11,296.96 546.37,287.49 539.89,287.99 538.51,289.59 538.97,296.07">
         <request index="0" response="000000000" foes="100010000"/>
@@ -1583,6 +1605,14 @@
     <connection from="-26843019" to="-5198596#1" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="-26843019" to="5198596#2" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="-26843019" to="26843019" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="-26843038#0" to="-5198596#0" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-26843038#0" to="5198596#1" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="-26843038#0" to="26843038#0" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="-26843038#1" to="-26843038#0" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="-26843038#1" to="-26843038#2" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-26843038#1" to="26843038#1" fromLane="0" toLane="0" dir="t" state="="/>
+    <connection from="-26843038#2" to="-26843038#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="-26843038#2" to="26843038#2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-26843133#0" to="-26816590#1" fromLane="0" toLane="0" dir="r" state="="/>
     <connection from="-26843133#0" to="26816590#2" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-26843133#0" to="26843133#0" fromLane="0" toLane="0" dir="t" state="="/>
@@ -1861,8 +1891,13 @@
     <connection from="26843019" to="5198585#4" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="26843019" to="-26843019" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="26843038#0" to="26843038#1" fromLane="0" toLane="0" dir="s" state="="/>
-    <connection from="26843038#1" to="26843038#2" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="26843038#2" to="26843038#1" fromLane="0" toLane="0" dir="t" state="="/>
+    <connection from="26843038#0" to="-26843038#2" fromLane="0" toLane="0" dir="l" state="="/>
+    <connection from="26843038#0" to="-26843038#0" fromLane="0" toLane="0" dir="t" state="="/>
+    <connection from="26843038#1" to="26843038#2" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="26843038#1" to="-26843038#1" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="26843038#2" to="-26843038#0" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="26843038#2" to="26843038#1" fromLane="0" toLane="0" dir="l" state="="/>
+    <connection from="26843038#2" to="-26843038#2" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="26843133#0" to="-26843133#2" fromLane="0" toLane="0" dir="r" state="="/>
     <connection from="26843133#0" to="26843133#1" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="26843133#0" to="-26843133#0" fromLane="0" toLane="0" dir="t" state="="/>
