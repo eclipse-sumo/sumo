@@ -417,10 +417,10 @@ TraCIAPI::getColor(int cmd, int var, const std::string& id, tcpip::Storage* add)
     send_commandGetVariable(cmd, var, id, add);
     processGET(inMsg, cmd, TYPE_COLOR);
     TraCIColor c;
-    c.r = inMsg.readInt();
-    c.g = inMsg.readInt();
-    c.b = inMsg.readInt();
-    c.a = inMsg.readInt();
+    c.r = inMsg.readUnsignedByte();
+    c.g = inMsg.readUnsignedByte();
+    c.b = inMsg.readUnsignedByte();
+    c.a = inMsg.readUnsignedByte();
     return c;
 }
 
@@ -935,10 +935,10 @@ void
 TraCIAPI::POIScope::setColor(const std::string& poiID, const TraCIColor& c) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COLOR);
-    content.writeInt(c.r);
-    content.writeInt(c.g);
-    content.writeInt(c.b);
-    content.writeInt(c.a);
+    content.writeUnsignedByte(c.r);
+    content.writeUnsignedByte(c.g);
+    content.writeUnsignedByte(c.b);
+    content.writeUnsignedByte(c.a);
     myParent.send_commandSetValue(CMD_SET_POI_VARIABLE, VAR_COLOR, poiID, content);
 }
 
@@ -950,10 +950,10 @@ TraCIAPI::POIScope::add(const std::string& poiID, SUMOReal x, SUMOReal y, const 
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(type);
     content.writeUnsignedByte(TYPE_COLOR);
-    content.writeInt(c.r);
-    content.writeInt(c.g);
-    content.writeInt(c.b);
-    content.writeInt(c.a);
+    content.writeUnsignedByte(c.r);
+    content.writeUnsignedByte(c.g);
+    content.writeUnsignedByte(c.b);
+    content.writeUnsignedByte(c.a);
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(layer);
     content.writeUnsignedByte(POSITION_2D);
@@ -1020,10 +1020,10 @@ void
 TraCIAPI::PolygonScope::setColor(const std::string& polygonID, const TraCIColor& c) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COLOR);
-    content.writeInt(c.r);
-    content.writeInt(c.g);
-    content.writeInt(c.b);
-    content.writeInt(c.a);
+    content.writeUnsignedByte(c.r);
+    content.writeUnsignedByte(c.g);
+    content.writeUnsignedByte(c.b);
+    content.writeUnsignedByte(c.a);
     myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, VAR_COLOR, polygonID, content);
 }
 
@@ -1035,10 +1035,10 @@ TraCIAPI::PolygonScope::add(const std::string& polygonID, const TraCIAPI::TraCIP
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(type);
     content.writeUnsignedByte(TYPE_COLOR);
-    content.writeInt(c.r);
-    content.writeInt(c.g);
-    content.writeInt(c.b);
-    content.writeInt(c.a);
+    content.writeUnsignedByte(c.r);
+    content.writeUnsignedByte(c.g);
+    content.writeUnsignedByte(c.b);
+    content.writeUnsignedByte(c.a);
     content.writeUnsignedByte(TYPE_UBYTE);
     int f = fill ? 1 : 0;
     content.writeUnsignedByte(f);
@@ -1504,10 +1504,10 @@ void
 TraCIAPI::VehicleTypeScope::setColor(const std::string& typeID, const TraCIColor& c) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COLOR);
-    content.writeInt(c.r);
-    content.writeInt(c.g);
-    content.writeInt(c.b);
-    content.writeInt(c.a);
+    content.writeUnsignedByte(c.r);
+    content.writeUnsignedByte(c.g);
+    content.writeUnsignedByte(c.b);
+    content.writeUnsignedByte(c.a);
     myParent.send_commandSetValue(CMD_SET_VEHICLETYPE_VARIABLE, VAR_COLOR, typeID, content);
 }
 

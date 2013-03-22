@@ -93,6 +93,33 @@ RGBColor::set(unsigned char r, unsigned char g, unsigned char b, unsigned char a
 
 std::ostream&
 operator<<(std::ostream& os, const RGBColor& col) {
+    if (col == RGBColor::RED) {
+        return os << "red";
+    }
+    if (col == RGBColor::GREEN) {
+        return os << "green";
+    }
+    if (col == RGBColor::BLUE) {
+        return os << "blue";
+    }
+    if (col == RGBColor::YELLOW) {
+        return os << "yellow";
+    }
+    if (col == RGBColor::CYAN) {
+        return os << "cyan";
+    }
+    if (col == RGBColor::MAGENTA) {
+        return os << "magenta";
+    }
+    if (col == RGBColor::WHITE) {
+        return os << "white";
+    }
+    if (col == RGBColor::BLACK) {
+        return os << "black";
+    }
+    if (col == RGBColor::GREY) {
+        return os << "grey";
+    }
     os << static_cast<int>(col.myRed) << ","
        << static_cast<int>(col.myGreen) << ","
        << static_cast<int>(col.myBlue);

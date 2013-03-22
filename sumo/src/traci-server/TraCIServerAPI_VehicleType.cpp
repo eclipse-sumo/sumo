@@ -152,10 +152,10 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType&
             break;
         case VAR_COLOR:
             tempMsg.writeUnsignedByte(TYPE_COLOR);
-            tempMsg.writeUnsignedByte(static_cast<int>(v.getColor().red() * 255. + 0.5));
-            tempMsg.writeUnsignedByte(static_cast<int>(v.getColor().green() * 255. + 0.5));
-            tempMsg.writeUnsignedByte(static_cast<int>(v.getColor().blue() * 255. + 0.5));
-            tempMsg.writeUnsignedByte(255);
+            tempMsg.writeUnsignedByte(v.getColor().red());
+            tempMsg.writeUnsignedByte(v.getColor().green());
+            tempMsg.writeUnsignedByte(v.getColor().blue());
+            tempMsg.writeUnsignedByte(v.getColor().alpha());
             break;
         default:
             break;

@@ -196,6 +196,9 @@ public:
      */
     SUMOReal getStoredEdgeTravelTime() const;
 
+    /// @brief gets the color value according to the current scheme index
+    SUMOReal getColorValue(size_t activeScheme) const;
+
 protected:
     /// The assigned lane
     MSLane& myLane;
@@ -237,9 +240,6 @@ private:
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
-
-    /// @brief gets the color value according to the current scheme index
-    SUMOReal getColorValue(size_t activeScheme) const;
 
 };
 
