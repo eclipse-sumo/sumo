@@ -161,8 +161,8 @@ public:
     /// @name junction visualization settings
     //@{
 
-    /// @brief The junction visualization (color assignment) scheme
-    int junctionMode;
+    /// @brief The junction colorer
+    GUIColorer junctionColorer;
     /// @brief Information whether a link's tls index shall be drawn
     bool drawLinkTLIndex;
     /// @brief Information whether a link's junction index shall be drawn

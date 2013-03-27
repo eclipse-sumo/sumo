@@ -33,6 +33,9 @@
 #include <string>
 #include <iostream>
 #include <utility>
+#ifdef HAVE_INTERNAL
+#include <osg/Geometry>
+#endif
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
@@ -69,19 +72,17 @@
 
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsigned int index) :
     GUIGlObject(GLO_LANE, lane.getID()),
     myLane(lane),
     myShape(shape),
-    myIndex(index) {
+    myIndex(index)
+#ifdef HAVE_INTERNAL
+    , myGeom(0)
+#endif
+    {
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
     int e = (int) myShape.size() - 1;
@@ -89,7 +90,7 @@ GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsign
         const Position& f = myShape[i];
         const Position& s = myShape[i + 1];
         myShapeLengths.push_back(f.distanceTo2D(s));
-        myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+        myShapeRotations.push_back(RAD2DEG(atan2(s.x() - f.x(), f.y() - s.y())));
     }
     //
     myHalfLaneWidth = (SUMOReal)(myLane.getWidth() / 2.);
@@ -108,7 +109,7 @@ GUILaneWrapper::forLane(const MSLane& lane) const {
 
 
 void
-GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
+GUILaneWrapper::drawLinkNo() const {
     unsigned int noLinks = getLinkNumber();
     if (noLinks == 0) {
         return;
@@ -135,7 +136,7 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
 
 
 void
-GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet& net) const {
+GUILaneWrapper::drawTLSLinkNo(const GUINet& net) const {
     unsigned int noLinks = getLinkNumber();
     if (noLinks == 0) {
         return;
@@ -166,7 +167,7 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet& net) const {
 
 
 void
-GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet& net) const {
+GUILaneWrapper::drawLinkRules(const GUINet& net) const {
     unsigned int noLinks = getLinkNumber();
     const PositionVector& g = getShape();
     const Position& end = g.getEnd();
@@ -264,7 +265,7 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet& net) const {
 
 
 void
-GUILaneWrapper::ROWdrawAction_drawArrows() const {
+GUILaneWrapper::drawArrows() const {
     unsigned int noLinks = getLinkNumber();
     if (noLinks == 0) {
         return;
@@ -325,7 +326,7 @@ GUILaneWrapper::ROWdrawAction_drawArrows() const {
 
 
 void
-GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
+GUILaneWrapper::drawLane2LaneConnections() const {
     unsigned int noLinks = getLinkNumber();
     for (unsigned int i = 0; i < noLinks; ++i) {
         LinkState state = getLane().getLinkCont()[i]->getState();
@@ -427,21 +428,21 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
             GUINet* net = (GUINet*) MSNet::getInstance();
             glTranslated(0, 0, .2);
-            ROWdrawAction_drawLinkRules(*net);
+            drawLinkRules(*net);
             if (s.showLinkDecals) {
-                ROWdrawAction_drawArrows();
+                drawArrows();
             }
             if (s.showLane2Lane) {
                 // this should be independent to the geometry:
                 //  draw from end of first to the begin of second
-                ROWdrawAction_drawLane2LaneConnections();
+                drawLane2LaneConnections();
             }
             glTranslated(0, 0, .1);
             if (s.drawLinkJunctionIndex) {
-                ROWdrawAction_drawLinkNo();
+                drawLinkNo();
             }
             if (s.drawLinkTLIndex) {
-                ROWdrawAction_drawTLSLinkNo(*net);
+                drawTLSLinkNo(*net);
             }
             glPopMatrix();
         }
@@ -725,5 +726,16 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
     return 0;
 }
 
+#ifdef HAVE_INTERNAL
+void
+GUILaneWrapper::updateColor(const GUIVisualizationSettings& s) {
+    const RGBColor& col = s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive()));
+    osg::Vec4ubArray *colors = dynamic_cast<osg::Vec4ubArray*>(myGeom->getColorArray());
+    (*colors)[0].set(col.red(), col.green(), col.blue(), col.alpha());
+    myGeom->setColorArray(colors);
+}
+#endif
+
+    
 /****************************************************************************/
 

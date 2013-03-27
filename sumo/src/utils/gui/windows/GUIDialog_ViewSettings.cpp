@@ -196,7 +196,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXMatrix* m21 =
             new FXMatrix(frame2, 3, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 2, 5, 5);
-        new FXLabel(m21, "Color by", 0, LAYOUT_CENTER_Y);
+        new FXLabel(m21, "Color", 0, LAYOUT_CENTER_Y);
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
         myLaneEdgeColorMode->setNumVisible(10);
         myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
@@ -264,7 +264,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         FXMatrix* m32 =
             new FXMatrix(frame3, 3, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 2, 5, 5);
-        new FXLabel(m32, "Color by", 0, LAYOUT_CENTER_Y);
+        new FXLabel(m32, "Color", 0, LAYOUT_CENTER_Y);
         myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
         mySettings->vehicleColorer.fill(*myVehicleColorMode);
         myVehicleColorMode->setNumVisible(10);
@@ -324,21 +324,34 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         new FXTabItem(tabbook, "Nodes", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
         FXVerticalFrame* frame4 =
             new FXVerticalFrame(tabbook, FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
+        FXMatrix* m41 =
+            new FXMatrix(frame4, 3, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 10, 2, 5, 5);
+        new FXLabel(m41, "Color", 0, LAYOUT_CENTER_Y);
+        myJunctionColorMode = new FXComboBox(m41, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
+        mySettings->junctionColorer.fill(*myJunctionColorMode);
+        myJunctionColorMode->setNumVisible(2);
+        myJunctionColorInterpolation = new FXCheckButton(m41, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
 
-        FXMatrix* m33 =
+        FXScrollWindow* genScroll = new FXScrollWindow(frame4, LAYOUT_FILL_X | LAYOUT_SIDE_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_HEIGHT, 0, 0, 0, 80);
+        myJunctionColorSettingFrame =
+            new FXVerticalFrame(genScroll, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
+
+        new FXHorizontalSeparator(frame4, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+        FXMatrix* m42 =
             new FXMatrix(frame4, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
-        myShowTLIndex = new FXCheckButton(m33, "Show link tls index", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowTLIndex = new FXCheckButton(m42, "Show link tls index", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
-        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
-        myShowJunctionIndex = new FXCheckButton(m33, "Show link junction index", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        new FXLabel(m42, " ", 0, LAYOUT_CENTER_Y);
+        myShowJunctionIndex = new FXCheckButton(m42, "Show link junction index", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
-        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
-        myShowLane2Lane = new FXCheckButton(m33, "Show lane to lane connections", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        new FXLabel(m42, " ", 0, LAYOUT_CENTER_Y);
+        myShowLane2Lane = new FXCheckButton(m42, "Show lane to lane connections", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLane2Lane->setCheck(mySettings->showLane2Lane);
-        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
-        myJunctionNamePanel = new NamePanel(m33, this, "Show junction name", mySettings->junctionName);
-        myInternalJunctionNamePanel = new NamePanel(m33, this, "Show internal junction name", mySettings->internalJunctionName);
+        new FXLabel(m42, " ", 0, LAYOUT_CENTER_Y);
+        myJunctionNamePanel = new NamePanel(m42, this, "Show junction name", mySettings->junctionName);
+        myInternalJunctionNamePanel = new NamePanel(m42, this, "Show internal junction name", mySettings->internalJunctionName);
     } {
         new FXTabItem(tabbook, "Detectors/Trigger", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
         FXVerticalFrame* frame5 =
@@ -556,6 +569,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     */
     myVehicleNamePanel->update(mySettings->vehicleName);
 
+    myJunctionColorMode->setCurrentItem((FXint) mySettings->junctionColorer.getActive());
     myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
     myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
     myJunctionNamePanel->update(mySettings->junctionName);
@@ -585,11 +599,64 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
 }
 
 
+bool
+GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorWell*>::const_iterator colIt,
+                       std::vector<FXColorWell*>::const_iterator colEnd,
+                       std::vector<FXRealSpinDial*>::const_iterator threshIt,
+                       std::vector<FXRealSpinDial*>::const_iterator threshEnd,
+                       std::vector<FXButton*>::const_iterator buttonIt,
+                       GUIColorScheme& scheme) {
+    size_t pos = 0;
+    while (colIt != colEnd) {
+        if (scheme.isFixed()) {
+            if (sender == *colIt) {
+                scheme.setColor(pos, MFXUtils::getRGBColor((*colIt)->getRGBA()));
+            }
+        } else {
+            if (sender == *threshIt) {
+                const SUMOReal val = (*threshIt)->getValue();
+                double lo, hi;
+                if (pos != 0) {
+                    threshIt--;
+                    (*threshIt)->getRange(lo, hi);
+                    (*threshIt)->setRange(lo, val);
+                    threshIt++;
+                }
+                threshIt++;
+                if (threshIt != threshEnd) {
+                    (*threshIt)->getRange(lo, hi);
+                    (*threshIt)->setRange(val, hi);
+                }
+                scheme.setThreshold(pos, val);
+                return false;
+            }
+            if (sender == *colIt) {
+                scheme.setColor(pos, MFXUtils::getRGBColor((*colIt)->getRGBA()));
+                return false;
+            }
+            if (sender == *buttonIt) {
+                if (pos == 0) {
+                    scheme.addColor(MFXUtils::getRGBColor((*colIt)->getRGBA()), (*threshIt)->getValue());
+                } else {
+                    scheme.removeColor(pos);
+                }
+                return true;
+            }
+            ++threshIt;
+            ++buttonIt;
+        }
+        ++colIt;
+        pos++;
+    }
+}
+
+
 long
 GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*val*/) {
     GUIVisualizationSettings tmpSettings = *mySettings;
     size_t prevLaneMode = mySettings->getLaneEdgeMode();
     size_t prevVehicleMode = mySettings->vehicleColorer.getActive();
+    size_t prevJunctionMode = mySettings->junctionColorer.getActive();
     bool doRebuildColorMatrices = false;
 
     tmpSettings.name = mySettings->name;
@@ -627,6 +694,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     */
     tmpSettings.vehicleName = myVehicleNamePanel->getSettings();
 
+    tmpSettings.junctionColorer.setActive(myJunctionColorMode->getCurrentItem());
     tmpSettings.drawLinkTLIndex = (myShowTLIndex->getCheck() != FALSE);
     tmpSettings.drawLinkJunctionIndex = (myShowJunctionIndex->getCheck() != FALSE);
     tmpSettings.junctionName = myJunctionNamePanel->getSettings();
@@ -651,55 +719,13 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     // lanes
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {
-        std::vector<FXColorWell*>::const_iterator colIt = myLaneColors.begin();
-        std::vector<FXRealSpinDial*>::const_iterator threshIt = myLaneThresholds.begin();
-        std::vector<FXButton*>::const_iterator buttonIt = myLaneButtons.begin();
-        GUIColorScheme& scheme = tmpSettings.getLaneEdgeScheme();
-        size_t pos = 0;
-        while (colIt != myLaneColors.end()) {
-            if (scheme.isFixed()) {
-                if (sender == *colIt) {
-                    scheme.setColor(pos, MFXUtils::getRGBColor((*colIt)->getRGBA()));
-                }
-            } else {
-                if (sender == *threshIt) {
-                    const SUMOReal val = (*threshIt)->getValue();
-                    double lo, hi;
-                    if (pos != 0) {
-                        threshIt--;
-                        (*threshIt)->getRange(lo, hi);
-                        (*threshIt)->setRange(lo, val);
-                        threshIt++;
-                    }
-                    threshIt++;
-                    if (threshIt != myLaneThresholds.end()) {
-                        (*threshIt)->getRange(lo, hi);
-                        (*threshIt)->setRange(val, hi);
-                    }
-                    scheme.setThreshold(pos, val);
-                    break;
-                }
-                if (sender == *colIt) {
-                    scheme.setColor(pos, MFXUtils::getRGBColor((*colIt)->getRGBA()));
-                    break;
-                }
-                if (sender == *buttonIt) {
-                    if (pos == 0) {
-                        scheme.addColor(MFXUtils::getRGBColor((*colIt)->getRGBA()), (*threshIt)->getValue());
-                    } else {
-                        scheme.removeColor(pos);
-                    }
-                    doRebuildColorMatrices = true;
-                    break;
-                }
-                ++threshIt;
-                ++buttonIt;
-            }
-            ++colIt;
-            pos++;
+        if (updateColorRanges(sender, myLaneColors.begin(), myLaneColors.end(),
+            myLaneThresholds.begin(), myLaneThresholds.end(), myLaneButtons.begin(),
+            tmpSettings.getLaneEdgeScheme())) {
+            doRebuildColorMatrices = true;
         }
         if (sender == myLaneColorInterpolation) {
-            scheme.setInterpolated(myLaneColorInterpolation->getCheck() != FALSE);
+            tmpSettings.getLaneEdgeScheme().setInterpolated(myLaneColorInterpolation->getCheck() != FALSE);
             doRebuildColorMatrices = true;
         }
     } else {
@@ -707,55 +733,27 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     }
     // vehicles
     if (tmpSettings.vehicleColorer.getActive() == prevVehicleMode) {
-        std::vector<FXColorWell*>::const_iterator colIt = myVehicleColors.begin();
-        std::vector<FXRealSpinDial*>::const_iterator threshIt = myVehicleThresholds.begin();
-        std::vector<FXButton*>::const_iterator buttonIt = myVehicleButtons.begin();
-        GUIColorScheme& scheme = tmpSettings.vehicleColorer.getScheme();
-        size_t pos = 0;
-        while (colIt != myVehicleColors.end()) {
-            if (scheme.isFixed()) {
-                if (sender == *colIt) {
-                    scheme.setColor(pos, MFXUtils::getRGBColor((*colIt)->getRGBA()));
-                }
-            } else {
-                if (sender == *threshIt) {
-                    const SUMOReal val = (*threshIt)->getValue();
-                    double lo, hi;
-                    if (pos != 0) {
-                        threshIt--;
-                        (*threshIt)->getRange(lo, hi);
-                        (*threshIt)->setRange(lo, val);
-                        threshIt++;
-                    }
-                    threshIt++;
-                    if (threshIt != myVehicleThresholds.end()) {
-                        (*threshIt)->getRange(lo, hi);
-                        (*threshIt)->setRange(val, hi);
-                    }
-                    scheme.setThreshold(pos, val);
-                    break;
-                }
-                if (sender == *colIt) {
-                    scheme.setColor(pos, MFXUtils::getRGBColor((*colIt)->getRGBA()));
-                    break;
-                }
-                if (sender == *buttonIt) {
-                    if (pos == 0) {
-                        scheme.addColor(MFXUtils::getRGBColor((*colIt)->getRGBA()), (*threshIt)->getValue());
-                    } else {
-                        scheme.removeColor(pos);
-                    }
-                    doRebuildColorMatrices = true;
-                    break;
-                }
-                ++threshIt;
-                ++buttonIt;
-            }
-            ++colIt;
-            pos++;
+        if (updateColorRanges(sender, myVehicleColors.begin(), myVehicleColors.end(),
+            myVehicleThresholds.begin(), myVehicleThresholds.end(), myVehicleButtons.begin(),
+            tmpSettings.vehicleColorer.getScheme())) {
+            doRebuildColorMatrices = true;
         }
         if (sender == myVehicleColorInterpolation) {
-            scheme.setInterpolated(myVehicleColorInterpolation->getCheck() != FALSE);
+            tmpSettings.vehicleColorer.getScheme().setInterpolated(myVehicleColorInterpolation->getCheck() != FALSE);
+            doRebuildColorMatrices = true;
+        }
+    } else {
+        doRebuildColorMatrices = true;
+    }
+    // junctions
+    if (tmpSettings.junctionColorer.getActive() == prevJunctionMode) {
+        if (updateColorRanges(sender, myJunctionColors.begin(), myJunctionColors.end(),
+            myJunctionThresholds.begin(), myJunctionThresholds.end(), myJunctionButtons.begin(),
+            tmpSettings.junctionColorer.getScheme())) {
+            doRebuildColorMatrices = true;
+        }
+        if (sender == myJunctionColorInterpolation) {
+            tmpSettings.junctionColorer.getScheme().setInterpolated(myJunctionColorInterpolation->getCheck() != FALSE);
             doRebuildColorMatrices = true;
         }
     } else {
@@ -1062,6 +1060,65 @@ GUIDialog_ViewSettings::rebuildList() {
 }
 
 
+FXMatrix*
+GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
+                                           std::vector<FXColorWell*>& colors,
+                                           std::vector<FXRealSpinDial*>& thresholds,
+                                           std::vector<FXButton*>& buttons,
+                                           FXCheckButton* interpolation,
+                                           GUIColorScheme& scheme) {
+    MFXUtils::deleteChildren(frame);
+    FXMatrix* m = new FXMatrix(frame, 3,
+                                LAYOUT_FILL_X | MATRIX_BY_COLUMNS,
+                                0, 0, 0, 0, 10, 10, 0, 0, 5, 3);
+    colors.clear();
+    thresholds.clear();
+    buttons.clear();
+    const bool fixed = scheme.isFixed();
+    std::vector<RGBColor>::const_iterator colIt = scheme.getColors().begin();
+    std::vector<SUMOReal>::const_iterator threshIt = scheme.getThresholds().begin();
+    std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
+    FX::FXString buttonText = "Add";
+    while (colIt != scheme.getColors().end()) {
+        colors.push_back(new FXColorWell(m , MFXUtils::getFXColor(*colIt),
+                                                this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                                LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
+                                                0, 0, 100, 0,   0, 0, 0, 0));
+        if (fixed) {
+            new FXLabel(m, nameIt->c_str());
+            new FXLabel(m, "");
+        } else {
+            const int dialerOptions = scheme.allowsNegativeValues() ? SPINDIAL_NOMIN : 0;
+            FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMAX | dialerOptions);
+            threshDialer->setValue(*threshIt);
+            thresholds.push_back(threshDialer);
+            buttons.push_back(new FXButton(m, buttonText, NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 20, 20, 4, 4));
+            buttonText = "Remove";
+        }
+        colIt++;
+        threshIt++;
+        nameIt++;
+    }
+    interpolation->setCheck(scheme.isInterpolated());
+    if (fixed) {
+        interpolation->disable();
+    } else {
+        if (colors.size() > 1) {
+            interpolation->enable();
+            if (interpolation->getCheck() != FALSE) {
+                thresholds.front()->enable();
+            } else {
+                thresholds.front()->disable();
+            }
+        } else {
+            interpolation->disable();
+            thresholds.front()->disable();
+        }
+    }
+    return m;
+}
+
+
 void
 GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     // decals
@@ -1081,120 +1138,21 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     if (doCreate) {
         myDecalsTable->create();
     }
-    {
-        // lane / edge
-        MFXUtils::deleteChildren(myLaneColorSettingFrame);
-        FXMatrix* m = new FXMatrix(myLaneColorSettingFrame, 3,
-                                   LAYOUT_FILL_X | MATRIX_BY_COLUMNS,
-                                   0, 0, 0, 0, 10, 10, 0, 0, 5, 3);
-        myLaneColors.clear();
-        myLaneThresholds.clear();
-        myLaneButtons.clear();
-        GUIColorScheme& scheme = mySettings->getLaneEdgeScheme();
-        const bool fixed = scheme.isFixed();
-        const std::vector<RGBColor>& colors = scheme.getColors();
-        std::vector<RGBColor>::const_iterator colIt = colors.begin();
-        std::vector<SUMOReal>::const_iterator threshIt = scheme.getThresholds().begin();
-        std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
-        FX::FXString buttonText = "Add";
-        while (colIt != colors.end()) {
-            myLaneColors.push_back(new FXColorWell(m , MFXUtils::getFXColor(*colIt),
-                                                   this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                                   LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
-                                                   0, 0, 100, 0,   0, 0, 0, 0));
-            if (fixed) {
-                new FXLabel(m, nameIt->c_str());
-                new FXLabel(m, "");
-            } else {
-                int dialerOptions = scheme.allowsNegativeValues() ? SPINDIAL_NOMIN : 0;
-                FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMAX | dialerOptions);
-                threshDialer->setValue(*threshIt);
-                myLaneThresholds.push_back(threshDialer);
-                myLaneButtons.push_back(new FXButton(m, buttonText, NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 20, 20, 4, 4));
-                buttonText = "Remove";
-            }
-            colIt++;
-            threshIt++;
-            nameIt++;
-        }
-        myLaneColorInterpolation->setCheck(scheme.isInterpolated());
-        if (fixed) {
-            myLaneColorInterpolation->disable();
-        } else {
-            if (colors.size() > 1) {
-                myLaneColorInterpolation->enable();
-                if (myLaneColorInterpolation->getCheck() != FALSE) {
-                    myLaneThresholds.front()->enable();
-                } else {
-                    myLaneThresholds.front()->disable();
-                }
-            } else {
-                myLaneColorInterpolation->disable();
-                myLaneThresholds.front()->disable();
-            }
-        }
-        if (doCreate) {
-            m->create();
-        }
-        myLaneColorSettingFrame->getParent()->recalc();
+    FXMatrix* m = rebuildColorMatrix(myLaneColorSettingFrame, myLaneColors, myLaneThresholds, myLaneButtons, myLaneColorInterpolation, mySettings->getLaneEdgeScheme());
+    if (doCreate) {
+        m->create();
     }
-    {
-        // vehicles
-        MFXUtils::deleteChildren(myVehicleColorSettingFrame);
-        FXMatrix* m = new FXMatrix(myVehicleColorSettingFrame, 3,
-                                   LAYOUT_FILL_X | MATRIX_BY_COLUMNS,
-                                   0, 0, 0, 0, 10, 10, 0, 0, 5, 3);
-        myVehicleColors.clear();
-        myVehicleThresholds.clear();
-        myVehicleButtons.clear();
-        const bool fixed = mySettings->vehicleColorer.getScheme().isFixed();
-        const std::vector<RGBColor>& colors = mySettings->vehicleColorer.getScheme().getColors();
-        std::vector<RGBColor>::const_iterator colIt = colors.begin();
-        std::vector<SUMOReal>::const_iterator threshIt = mySettings->vehicleColorer.getScheme().getThresholds().begin();
-        std::vector<std::string>::const_iterator nameIt = mySettings->vehicleColorer.getScheme().getNames().begin();
-        FX::FXString buttonText = "Add";
-        while (colIt != colors.end()) {
-            myVehicleColors.push_back(new FXColorWell(m , MFXUtils::getFXColor(*colIt),
-                                      this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                      LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
-                                      0, 0, 100, 0,   0, 0, 0, 0));
-            if (fixed) {
-                new FXLabel(m, nameIt->c_str());
-                new FXLabel(m, "");
-            } else {
-                FXRealSpinDial* threshDialer =
-                    new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                       LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | SPINDIAL_NOMAX);
-                threshDialer->setValue(*threshIt);
-                myVehicleThresholds.push_back(threshDialer);
-                myVehicleButtons.push_back(new FXButton(m, buttonText, NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 20, 20, 4, 4));
-                buttonText = "Remove";
-            }
-            colIt++;
-            threshIt++;
-            nameIt++;
-        }
-        myVehicleColorInterpolation->setCheck(mySettings->vehicleColorer.getScheme().isInterpolated());
-        if (fixed) {
-            myVehicleColorInterpolation->disable();
-        } else {
-            if (colors.size() > 1) {
-                myVehicleColorInterpolation->enable();
-                if (myVehicleColorInterpolation->getCheck() != FALSE) {
-                    myVehicleThresholds.front()->enable();
-                } else {
-                    myVehicleThresholds.front()->disable();
-                }
-            } else {
-                myVehicleColorInterpolation->disable();
-                myVehicleThresholds.front()->disable();
-            }
-        }
-        if (doCreate) {
-            m->create();
-        }
-        myVehicleColorSettingFrame->getParent()->recalc();
+    myLaneColorSettingFrame->getParent()->recalc();
+    m = rebuildColorMatrix(myVehicleColorSettingFrame, myVehicleColors, myVehicleThresholds, myVehicleButtons, myVehicleColorInterpolation, mySettings->vehicleColorer.getScheme());
+    if (doCreate) {
+        m->create();
     }
+    myVehicleColorSettingFrame->getParent()->recalc();
+    m = rebuildColorMatrix(myJunctionColorSettingFrame, myJunctionColors, myJunctionThresholds, myJunctionButtons, myJunctionColorInterpolation, mySettings->junctionColorer.getScheme());
+    if (doCreate) {
+        m->create();
+    }
+    myJunctionColorSettingFrame->getParent()->recalc();
     layout();
     update();
 }

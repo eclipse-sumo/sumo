@@ -47,6 +47,9 @@ class GUIGLObjectPopupMenu;
 class MSLane;
 class MSEdge;
 class PositionVector;
+#ifdef HAVE_INTERNAL
+namespace osg { class Geometry;}
+#endif
 
 
 // ===========================================================================
@@ -196,10 +199,29 @@ public:
      */
     SUMOReal getStoredEdgeTravelTime() const;
 
+#ifdef HAVE_INTERNAL
+    void setGeometry(osg::Geometry* geom) {
+        myGeom = geom;
+    }
+
+    void updateColor(const GUIVisualizationSettings& s);
+#endif
+
+private:
+    /// @brief helper methods
+    void drawLinkNo() const;
+    void drawTLSLinkNo(const GUINet& net) const;
+    void drawLinkRules(const GUINet& net) const;
+    void drawArrows() const;
+    void drawLane2LaneConnections() const;
+
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;
 
-protected:
+    /// @brief sets the color according to the currente settings
+    void setColor(const GUIVisualizationSettings& s) const;
+
+private:
     /// The assigned lane
     MSLane& myLane;
 
@@ -218,11 +240,12 @@ protected:
     /// @brief Quarter of lane width, for speed-up
     SUMOReal myQuarterLaneWidth;
 
-    /// The maximum velocity over all lanes
-    static SUMOReal myAllMaxSpeed;
-
     /// The lane index
     unsigned int myIndex;
+
+#ifdef HAVE_INTERNAL
+    osg::Geometry* myGeom;
+#endif
 
 private:
     /// @brief Invalidated copy constructor.
@@ -230,17 +253,6 @@ private:
 
     /// @brief Invalidated assignment operator.
     GUILaneWrapper& operator=(const GUILaneWrapper&);
-
-    /// @brief helper methods
-    void ROWdrawAction_drawLinkNo() const;
-    void ROWdrawAction_drawTLSLinkNo(const GUINet& net) const;
-    void ROWdrawAction_drawLinkRules(const GUINet& net) const;
-    void ROWdrawAction_drawArrows() const;
-    void ROWdrawAction_drawLane2LaneConnections() const;
-
-    /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
-
 };
 
 

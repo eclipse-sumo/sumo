@@ -155,7 +155,23 @@ public:
     void setCurrentScheme(const std::string&);
 
 
-protected:
+private:
+    bool updateColorRanges(FXObject* sender, std::vector<FXColorWell*>::const_iterator colIt,
+                       std::vector<FXColorWell*>::const_iterator colEnd,
+                       std::vector<FXRealSpinDial*>::const_iterator threshIt,
+                       std::vector<FXRealSpinDial*>::const_iterator threshEnd,
+                       std::vector<FXButton*>::const_iterator buttonIt,
+                       GUIColorScheme& scheme);
+
+    /** @brief Rebuilds color changing dialogs after choosing another coloring scheme
+     * @param[in] doCreate Whether "create" shall be called (only if built the first time)
+     */
+    FXMatrix* rebuildColorMatrix(FXVerticalFrame* frame,
+                                           std::vector<FXColorWell*>& colors,
+                                           std::vector<FXRealSpinDial*>& thresholds,
+                                           std::vector<FXButton*>& buttons,
+                                           FXCheckButton* interpolation,
+                                           GUIColorScheme& scheme);
 
 
     /** @brief Rebuilds color changing dialogs after choosing another coloring scheme
@@ -235,6 +251,12 @@ private:
     FXRealSpinDial* myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
     FXCheckButton* myShowBlinker, *myShowMinGap; /* *myShowLaneChangePreference,*/
 
+    FXComboBox* myJunctionColorMode;
+    FXVerticalFrame* myJunctionColorSettingFrame;
+    std::vector<FXColorWell*> myJunctionColors;
+    std::vector<FXRealSpinDial*> myJunctionThresholds;
+    std::vector<FXButton*> myJunctionButtons;
+    FXCheckButton* myJunctionColorInterpolation;
     FXCheckButton* myShowTLIndex, *myShowJunctionIndex;
 
     FXRealSpinDial* myDetectorMinSizeDialer, *myDetectorUpscaleDialer;

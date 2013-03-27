@@ -144,6 +144,9 @@ GUISettingsHandler::myStartElement(int element,
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_VEHICLES) {
                 myCurrentScheme = mySettings.vehicleColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
             }
+            if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_JUNCTIONS) {
+                myCurrentScheme = mySettings.vehicleColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+            }
             if (myCurrentScheme && !myCurrentScheme->isFixed()) {
                 bool ok = true;
                 myCurrentScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, 0, ok, false));
@@ -172,7 +175,7 @@ GUISettingsHandler::myStartElement(int element,
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_JUNCTIONS:
-            mySettings.junctionMode = TplConvert::_2int(attrs.getStringSecure("junctionMode", toString(mySettings.junctionMode)).c_str());
+            mySettings.junctionColorer.setActive(TplConvert::_2int(attrs.getStringSecure("junctionMode", "0").c_str()));
             mySettings.drawLinkTLIndex = TplConvert::_2bool(attrs.getStringSecure("drawLinkTLIndex", toString(mySettings.drawLinkTLIndex)).c_str());
             mySettings.drawLinkJunctionIndex = TplConvert::_2bool(attrs.getStringSecure("drawLinkJunctionIndex", toString(mySettings.drawLinkJunctionIndex)).c_str());
             mySettings.junctionName = parseTextSettings("junctionName", attrs, mySettings.junctionName);

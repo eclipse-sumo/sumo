@@ -90,7 +90,6 @@ RGBColor::set(unsigned char r, unsigned char g, unsigned char b, unsigned char a
 }
 
 
-
 std::ostream&
 operator<<(std::ostream& os, const RGBColor& col) {
     if (col == RGBColor::RED) {

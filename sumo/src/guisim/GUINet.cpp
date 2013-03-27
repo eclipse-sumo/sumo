@@ -502,6 +502,22 @@ GUIMEVehicleControl*
 GUINet::getGUIMEVehicleControl() {
     return dynamic_cast<GUIMEVehicleControl*>(myVehicleControl);
 }
+
+
+void
+GUINet::updateColor(const GUIVisualizationSettings& s) {
+    for (std::vector<GUIEdge*>::const_iterator i = myEdgeWrapper.begin(); i != myEdgeWrapper.end(); ++i) {
+        if ((*i)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+            const size_t numLanes = (*i)->getLanes().size();
+            for (size_t j = 0; j < numLanes; ++j) {
+                (*i)->getLaneGeometry(j).updateColor(s);
+            }
+        }
+    }
+    for (std::vector<GUIJunctionWrapper*>::iterator i = myJunctionWrapper.begin(); i != myJunctionWrapper.end(); ++i) {
+        (*i)->updateColor(s);
+    }
+}
 #endif
 
 /****************************************************************************/

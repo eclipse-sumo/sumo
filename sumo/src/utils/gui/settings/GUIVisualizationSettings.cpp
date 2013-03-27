@@ -61,7 +61,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
       drawLaneChangePreference(false), drawMinGap(false),
       vehicleName(false, 50, RGBColor(204, 153, 0, 255)),
-      junctionMode(0), drawLinkTLIndex(false), drawLinkJunctionIndex(false),
+      drawLinkTLIndex(false), drawLinkJunctionIndex(false),
       junctionName(false, 50, RGBColor(0, 255, 128, 255)),
       internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
       showLane2Lane(false), addMode(0), minAddSize(1), addExaggeration(1),
@@ -72,7 +72,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       gaming(false),
       selectionScale(1) {
     /// add lane coloring schemes
-        GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "", true);
+    GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "", true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(179, 179, 179, 255), "unselected", true);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
@@ -175,7 +175,6 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::WHITE, (SUMOReal)10.);
     vehicleColorer.addScheme(scheme);
 
-
 #ifdef HAVE_INTERNAL
     /// add edge coloring schemes
     edgeColorer.addScheme(GUIColorScheme("uniform (streetwise)", RGBColor::BLACK, "", true));
@@ -202,6 +201,11 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::BLUE, (SUMOReal)1);
     edgeColorer.addScheme(scheme);
 #endif
+
+    junctionColorer.addScheme(GUIColorScheme("uniform", RGBColor::BLACK, "", true));
+    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    junctionColorer.addScheme(scheme);
 }
 
 
@@ -259,12 +263,14 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     vehicleColorer.save(dev);
     dev << "        </vehicles>\n";
 
-    dev << "        <junctions junctionMode=\"" << junctionMode
+    dev << "        <junctions junctionMode=\"" << junctionColorer.getActive()
         << "\" drawLinkTLIndex=\"" << drawLinkTLIndex
         << "\" drawLinkJunctionIndex=\"" << drawLinkJunctionIndex << "\"\n"
         << "                  " << junctionName.print("junctionName") << "\n"
         << "                  " << internalJunctionName.print("internalJunctionName") << "\n"
-        << " showLane2Lane=\"" << showLane2Lane << "\"/>\n";
+        << " showLane2Lane=\"" << showLane2Lane << "\">\n";
+    junctionColorer.save(dev);
+    dev << "        </junctions>\n";
 
     dev << "        <additionals addMode=\"" << addMode
         << "\" minAddSize=\"" << minAddSize
@@ -368,7 +374,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (vehicleName != v2.vehicleName) {
         return false;
     }
-    if (junctionMode != v2.junctionMode) {
+    if (!(junctionColorer == v2.junctionColorer)) {
         return false;
     }
     if (drawLinkTLIndex != v2.drawLinkTLIndex) {

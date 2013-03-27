@@ -275,6 +275,8 @@ public:
      * @see myVehicleControl
      */
     GUIMEVehicleControl* getGUIMEVehicleControl();
+
+    void updateColor(const GUIVisualizationSettings& s);
 #endif
 
     /// @brief grant exclusive access to the simulation state
