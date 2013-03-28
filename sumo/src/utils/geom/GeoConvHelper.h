@@ -66,7 +66,7 @@ public:
     /** @brief Constructor
      */
     GeoConvHelper(const std::string& proj, const Position& offset,
-                  const Boundary& orig, const Boundary& conv, int shift = 0, bool inverse = false, bool baseFound = false);
+                  const Boundary& orig, const Boundary& conv, int shift = 0, bool inverse = false);
 
 
     /// @brief Destructor

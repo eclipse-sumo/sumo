@@ -57,7 +57,7 @@ int GeoConvHelper::myNumLoaded = 0;
 // method definitions
 // ===========================================================================
 GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
-                             const Boundary& orig, const Boundary& conv, int shift, bool inverse, bool baseFound):
+                             const Boundary& orig, const Boundary& conv, int shift, bool inverse):
     myProjString(proj),
 #ifdef HAVE_PROJ
     myProjection(0),
@@ -126,10 +126,6 @@ GeoConvHelper::init(OptionsCont& oc) {
     int shift = oc.getInt("proj.scale");
     Position offset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
     bool inverse = oc.exists("proj.inverse") && oc.getBool("proj.inverse");
-    bool baseFound = !oc.exists("offset.disable-normalization") ||
-                     oc.getBool("offset.disable-normalization") ||
-                     !oc.isDefault("offset.x") ||
-                     !oc.isDefault("offset.y");
 
     if (oc.getBool("simple-projection")) {
         proj = "-";
@@ -154,7 +150,7 @@ GeoConvHelper::init(OptionsCont& oc) {
         proj = oc.getString("proj");
     }
 #endif
-    myProcessing = GeoConvHelper(proj, offset, Boundary(), Boundary(), shift, inverse, baseFound);
+    myProcessing = GeoConvHelper(proj, offset, Boundary(), Boundary(), shift, inverse);
     myFinal = myProcessing;
     return true;
 }
