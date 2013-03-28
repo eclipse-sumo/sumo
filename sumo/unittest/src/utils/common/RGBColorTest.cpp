@@ -52,25 +52,12 @@ TEST(RGBColor, test_parseColor) {
 	EXPECT_EQ(255, color.blue());
 }
 
-/* Test the method 'parseColor' with a longer String*/
-TEST(RGBColor, test_parseColor_with_a_long_string) {
-	RGBColor color = RGBColor::parseColor("1,2,3,5,432test");
-	EXPECT_EQ(1, color.red());
-	EXPECT_EQ(2, color.green());
-	EXPECT_EQ(3, color.blue());
-	EXPECT_EQ(5, color.alpha());
-}
-
-/* Test the method 'parseColor' with an empty String*/
-TEST(RGBColor, test_parseColor_with_empty_string) {
-	std::string s;	
-	ASSERT_THROW(RGBColor::parseColor(s),EmptyData) << "Expect an EmptyData exception.";	
-}
-
 /* Test the method 'parseColor' with thrown EmptyData Exception*/
 TEST(RGBColor, test_parseColor_with_a_short_string) {	
+	ASSERT_THROW(RGBColor::parseColor(""),EmptyData) << "Expect an EmptyData exception.";	
 	ASSERT_THROW(RGBColor::parseColor("1,2"),EmptyData) << "Expect an EmptyData exception.";
 	ASSERT_THROW(RGBColor::parseColor("test"),EmptyData) << "Expect an EmptyData exception.";
+    ASSERT_THROW(RGBColor::parseColor("1,2,3,5,432test"), EmptyData) << "Expect an EmptyData exception.";
 }
 
 /* Test the method 'interpolate'*/
@@ -87,9 +74,11 @@ TEST(RGBColor, test_interpolate) {
 TEST(RGBColor, test_interpolate_weight_1) {	
 	RGBColor color1 = RGBColor(1,2,3);
 	RGBColor color2 = RGBColor(3,4,1);
-	RGBColor colorResult = RGBColor::interpolate(color1, color2, 1);
-	RGBColor colorResult2 = RGBColor::interpolate(color1, color2, 1000);
-	EXPECT_TRUE(colorResult==colorResult2);
+	RGBColor colorResult = RGBColor::interpolate(color1, color2, 0.5);
+	RGBColor colorResult1 = RGBColor::interpolate(color1, color2, 0);
+	RGBColor colorResult2 = RGBColor::interpolate(color1, color2, 1);
+	EXPECT_TRUE(color1==colorResult1);
+	EXPECT_TRUE(color2==colorResult2);
 	EXPECT_EQ(2, colorResult.red());
 	EXPECT_EQ(3, colorResult.green());
 	EXPECT_EQ(2, colorResult.blue());
@@ -107,11 +96,11 @@ TEST(RGBColor, test_interpolate_weight_0) {
 	EXPECT_EQ(3, colorResult.blue());
 }
 
-/* Test the operator '=='. It has an tolerance of 0.1*/
+/* Test the operator '=='. It has an tolerance of 1 */
 TEST(RGBColor, test_operator_equal) {	
 	RGBColor color1 = RGBColor(1,2,3);
-	RGBColor color2 = RGBColor(1.09,1.901,3);	
+	RGBColor color2 = RGBColor(1,2,3);	
 	EXPECT_TRUE(color1==color2 );	
-	color2 = RGBColor(1.19,2,3);	
+	color2 = RGBColor(1,2,4);	
 	EXPECT_FALSE(color1==color2 );
 }
