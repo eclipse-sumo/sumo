@@ -36,7 +36,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option("--trips-output", help="output trip file")
     optParser.add_option("--min-length", type='int', default=0, help="minimum route length in the subnetwork")
     optParser.add_option("--routes-output", help="output route file")
-    optParser.add_option("--speed-factor", default=1.0, 
+    optParser.add_option("--speed-factor", type='float', default=1.0, 
             help="Factor for modifying maximum edge speeds when extrapolating new departure times (default 1.0)")
     optParser.add_option("--orig-net", help="complete network for retrieving edge lengths")
     optParser.add_option("-b", "--big", action="store_true", default=False, 

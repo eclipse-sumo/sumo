@@ -1,0 +1,7 @@
+<!-- generated with /scr1/erdm_ja/internalTrunkDebug/sumo/tests/../tools/route/cutRoutes.py for input_net.net.xml from ['input_routes.rou.xml'] -->
+<routes>
+    
+    <vehicle depart="35.6294964029" id="straight" type="slow">
+        <route edges="middle end"/>
+    </vehicle>
+</routes>

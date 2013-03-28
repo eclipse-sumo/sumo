@@ -6,6 +6,9 @@ exitTimes
 # test extrapolating new departure times using the original network
 origNet
 
+# modify the speeds when extrapolation new departure times
+origNet_speedFactor
+
 # test memory efficient sorting
 big
 minLength
