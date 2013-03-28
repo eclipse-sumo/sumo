@@ -1,0 +1,10 @@
+<routes>
+    <vType id="fast" maxSpeed="50"/>
+    <vehicle id="left" type="fast" depart="0">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+    <vType id="slow" maxSpeed="5"/>
+    <vehicle id="straight" type="slow" depart="0">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+</routes>

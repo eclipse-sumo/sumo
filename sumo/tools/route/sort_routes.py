@@ -20,13 +20,13 @@ from xml.sax import make_parser
 from xml.sax import handler
 from optparse import OptionParser
 
-def parse_args():
+def get_options(args=None):
     USAGE = "Usage: " + sys.argv[0] + " <routefile>"
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
     optParser.add_option("-b", "--big", action="store_true", default=False, 
             help="Use alternative sortign strategy for large files (slower but more memory efficient)")
-    options, args = optParser.parse_args()
+    options, args = optParser.parse_args(args=args)
     if len(args) != 1:
         sys.exit(USAGE)
     options.routefile = args[0]
@@ -118,8 +118,8 @@ def copy_elements(routefilename, outfilename, element_lines, line_offsets):
     outfile.close()
 
 
-def main():
-    options = parse_args()
+def main(args=None):
+    options = get_options(args=args)
     if options.big:
         line_offsets = create_line_index(options.routefile)
         element_lines = get_element_lines(options.routefile)

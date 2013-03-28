@@ -27,3 +27,6 @@ sort
 
 # test generating polygons from a route file
 route2poly
+
+# Cut down routes from a large scenario to a sub-scenario
+cut_routes

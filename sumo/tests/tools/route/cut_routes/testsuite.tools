@@ -1,0 +1,11 @@
+write_trips
+write_routes
+keep_disconnected
+exitTimes
+
+# test extrapolating new departure times using the original network
+origNet
+
+# test memory efficient sorting
+big
+minLength

@@ -1,0 +1,8 @@
+Valid area contains 4 edges
+Parsing routes from input_routes.rou.xml
+Could not reconstruct new departure for vehicle 'left'. Using old departure
+Could not reconstruct new departure for vehicle 'straight'. Using old departure
+Parsed 2 vehicles and kept 2 routes
+Number of disconnected routes: 1. Most frequent missing edges:
+1 left
+Wrote 2 routes
