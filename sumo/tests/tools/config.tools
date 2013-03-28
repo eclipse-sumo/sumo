@@ -3,6 +3,7 @@ binary:$TEXTTEST_HOME/toolrunner.py
 copy_test_path:routes.rou.xml
 copy_test_path:routes2.rou.xml
 copy_test_path:net.net.xml
+copy_test_path:three_split.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:input_routes.rou.xml
