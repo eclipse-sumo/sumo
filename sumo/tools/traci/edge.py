@@ -212,7 +212,9 @@ def adaptTraveltime(edgeID, time):
     
     Adapt the travel time value (in s) used for (re-)routing for the given edge.
     """
-    traci._sendDoubleCmd(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, time)
+    traci._beginMessage(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, 1+4+1+8)
+    traci._message.string += struct.pack("!BiBd", tc.TYPE_COMPOUND, 1, tc.TYPE_DOUBLE, time)
+    traci._sendExact()
 
 def setEffort(edgeID, effort):
     """setEffort(string, double) -> None
