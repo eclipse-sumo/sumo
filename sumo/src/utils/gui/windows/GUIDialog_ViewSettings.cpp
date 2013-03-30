@@ -648,6 +648,7 @@ GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorW
         ++colIt;
         pos++;
     }
+    return false;
 }
 
 
