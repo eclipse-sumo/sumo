@@ -43,6 +43,8 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <weight-files value="%s"/>' % options.weightfiles
 
     add = 'dump_%s.add.xml' % step
+    if options.costmodifier != 'None':
+        add = '%s_dump_%s.add.xml' % (options.costmodifier, step)
     if options.additional:
         add += "," + options.additional
     print >> fd, """        <additional-files value="%s"/>
@@ -72,11 +74,18 @@ def writeSUMOConf(step, options, files):
     </reports>
 </configuration>""" % (step, options.updateInterval, options.withtaz, options.reroutingexplicit, options.lastRoutes, options.withexittime, options.routesorted, not options.withWarnings)
     fd.close()
-    fd = open("dump_%s.add.xml" % step, "w")
-    print >> fd, """<a>
-    <edgeData id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml" excludeEmpty="true"/>
-</a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
-    fd.close()
+    if options.costmodifier != 'None':
+        fd = open("%s_dump_%s.add.xml" % (options.costmodifier, step), "w")
+        print >> fd, """<a>
+        <edgeData id="%s_dump_%s_%s" freq="%s" file="%s_dump_%s_%s.xml" excludeEmpty="true"/>
+        </a>""" % (options.costmodifier, step, options.aggregation, options.aggregation, options.costmodifier, step, options.aggregation)
+        fd.close()
+    else:
+        fd = open("dump_%s.add.xml" % step, "w")
+        print >> fd, """<a>
+        <edgeData id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml" excludeEmpty="true"/>
+        </a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
+        fd.close()
 
 optParser = OptionParser()
 optParser.add_option("-W", "--with-warnings", action="store_true", dest="withWarnings",
@@ -125,6 +134,9 @@ optParser.add_option("-s", "--route-sorted", action="store_true", dest="routesor
                     default= False, help="sorts the output by departure time") 
 optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
+optParser.add_option("--cost-modifier", dest="costmodifier", type="choice",
+                     choices=('grohnde', 'isar', 'None'), 
+                     default='None', help="Whether to modify link travel costs of the given routes")
 (options, args) = optParser.parse_args()
 
 sumo = "sumo"
@@ -137,6 +149,11 @@ if options.path:
         sumoBinary = checkBinary(sumo, options.path)        
 else:
     sumoBinary = checkBinary(sumo)
+if options.costmodifier != 'None':
+    pyPath = os.path.abspath(os.path.dirname(sys.argv[0]))
+    sys.path.append(os.path.join(pyPath, "..", "..", "..", "..","..", "tools", "kkwSim"))
+    from kkwCostModifier import costModifier
+    print 'use the cost modifier'
 
 log = open("one_shot-log.txt", "w")
 starttime = datetime.now()
@@ -145,6 +162,11 @@ for step in options.frequencies.split(","):
     print "> Running simulation with update frequency %s" % step
     btime = datetime.now()
     print ">> Begin time %s" % btime
+    if options.costmodifier != 'None':
+        currentDir = os.getcwd()
+        print options.costmodifier
+        outputfile = '%s_dump_%s.add.xml' % (options.costmodifier, step)
+        costModifier(outputfile, step, "%s_dump" %options.costmodifier, options.aggregation, currentDir, options.costmodifier, 'one-shot')
     writeSUMOConf(step, options, options.trips)
     call([sumoBinary, "-c", "one_shot_%s.sumocfg" % step], log)
     etime = datetime.now()
