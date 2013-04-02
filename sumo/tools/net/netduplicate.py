@@ -21,8 +21,7 @@ def parseArgs():
     USAGE = "Usage: " + sys.argv[0] + " <net> <prefix:x:y> <prefix:x:y>+"
     optParser = optparse.OptionParser(usage=USAGE)
     sumolib.pullOptions("netconvert", optParser)
-    optParser.add_option("--path", dest="path",
-            default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
+    optParser.add_option("--drop-types", action="store_true", default=False, help="Remove edge types")
     options, args = optParser.parse_args()
     if len(args) < 3:
         sys.exit(USAGE)
@@ -42,10 +41,11 @@ def createPlain(netconvert, netfile, prefix, xOff, yOff):
 # run
 def main():
     options = parseArgs()
-    netconvert = sumolib.checkBinary("netconvert", options.path)
+    netconvert = sumolib.checkBinary("netconvert")
     nodes = []
     edges = []
     conns = []
+    tlls = []
     tmpDir = tempfile.mkdtemp()
     for d in options.desc:
         createPlain(netconvert, options.net, os.path.join(tmpDir, d[0]), d[1], d[2])
@@ -61,6 +61,11 @@ def main():
             line = line.replace('id="', 'id="%s_' % d[0])
             line = line.replace('from="', 'from="%s_' % d[0])
             line = line.replace('to="', 'to="%s_' % d[0])
+            if options.drop_types:
+                typeStart = line.find('type="')
+                if typeStart >= 0:
+                    typeEnd = line.find('"', typeStart + 6)
+                    line = line[0:typeStart] + line[typeEnd+1:]
             out.write(line);
         out.close()
         edges.append(out.name)
@@ -71,9 +76,19 @@ def main():
             out.write(line);
         out.close()
         conns.append(out.name)
+        out = open(os.path.join(tmpDir, "%s_.tll.xml" % d[0]), 'w')
+        for line in open(os.path.join(tmpDir, "%s.tll.xml" % d[0])):
+            line = line.replace('id="', 'id="%s_' % d[0])
+            line = line.replace('from="', 'from="%s_' % d[0])
+            line = line.replace('to="', 'to="%s_' % d[0])
+            line = line.replace('tl="', 'tl="%s_' % d[0])
+            out.write(line);
+        out.close()
+        tlls.append(out.name)
     options.node_files = ",".join(nodes)
     options.edge_files = ",".join(edges)
     options.connection_files = ",".join(conns)
+    options.tllogic_files = ",".join(tlls)
     if sumolib.call(netconvert, options) != 0:
         print >> sys.stderr, "Something went wrong, check '%s'!" % tmpDir
     else:
