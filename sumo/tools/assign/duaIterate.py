@@ -22,7 +22,7 @@ from datetime import datetime
 from optparse import OptionParser
 from costMemory import CostMemory
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from sumolib.options import get_long_option_names
 
 def addGenericOptions(optParser):
