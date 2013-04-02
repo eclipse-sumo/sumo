@@ -13,15 +13,14 @@ Copyright (C) 2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
-import sys, os, subprocess, optparse
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'lib'))
-from testUtil import checkBinary
+import sys, os, subprocess, optparse, tempfile, shutil
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import sumolib
 
 def parseArgs():
     USAGE = "Usage: " + sys.argv[0] + " <net> <prefix:x:y> <prefix:x:y>+"
     optParser = optparse.OptionParser(usage=USAGE)
-    optParser.add_option("-v", "--verbose", action="store_true",
-            default=False, help="Give more output")
+    sumolib.pullOptions("netconvert", optParser)
     optParser.add_option("--path", dest="path",
             default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
     options, args = optParser.parse_args()
@@ -29,7 +28,7 @@ def parseArgs():
         sys.exit(USAGE)
     options.net = args[0]
     options.desc = [d.split(":") for d in args[1:]]
-    return options 
+    return options
 
 
 def createPlain(netconvert, netfile, prefix, xOff, yOff):
@@ -43,37 +42,42 @@ def createPlain(netconvert, netfile, prefix, xOff, yOff):
 # run
 def main():
     options = parseArgs()
-    netconvert = checkBinary("netconvert", options.path)
+    netconvert = sumolib.checkBinary("netconvert", options.path)
     nodes = []
     edges = []
     conns = []
+    tmpDir = tempfile.mkdtemp()
     for d in options.desc:
-        createPlain(netconvert, options.net, d[0], d[1], d[2])
-        out = open("%s_.nod.xml" % d[0], 'w')
-        for line in open("%s.nod.xml" % d[0]):
+        createPlain(netconvert, options.net, os.path.join(tmpDir, d[0]), d[1], d[2])
+        out = open(os.path.join(tmpDir, "%s_.nod.xml" % d[0]), 'w')
+        for line in open(os.path.join(tmpDir, "%s.nod.xml" % d[0])):
             line = line.replace('id="', 'id="%s_' % d[0])
+            line = line.replace('tl="', 'tl="%s_' % d[0])
             out.write(line);
         out.close()
         nodes.append(out.name)
-        out = open("%s_.edg.xml" % d[0], 'w')
-        for line in open("%s.edg.xml" % d[0]):
+        out = open(os.path.join(tmpDir, "%s_.edg.xml" % d[0]), 'w')
+        for line in open(os.path.join(tmpDir, "%s.edg.xml" % d[0])):
             line = line.replace('id="', 'id="%s_' % d[0])
             line = line.replace('from="', 'from="%s_' % d[0])
             line = line.replace('to="', 'to="%s_' % d[0])
             out.write(line);
         out.close()
         edges.append(out.name)
-        out = open("%s_.con.xml" % d[0], 'w')
-        for line in open("%s.con.xml" % d[0]):
+        out = open(os.path.join(tmpDir, "%s_.con.xml" % d[0]), 'w')
+        for line in open(os.path.join(tmpDir, "%s.con.xml" % d[0])):
             line = line.replace('from="', 'from="%s_' % d[0])
             line = line.replace('to="', 'to="%s_' % d[0])
             out.write(line);
         out.close()
         conns.append(out.name)
-    subprocess.call([netconvert, 
-        "--node-files", ",".join(nodes),
-        "--edge-files", ",".join(edges),
-        "--connection-files", ",".join(conns)])
+    options.node_files = ",".join(nodes)
+    options.edge_files = ",".join(edges)
+    options.connection_files = ",".join(conns)
+    if sumolib.call(netconvert, options) != 0:
+        print >> sys.stderr, "Something went wrong, check '%s'!" % tmpDir
+    else:
+        shutil.rmtree(tmpDir)
 
 if __name__ == "__main__":
     main()

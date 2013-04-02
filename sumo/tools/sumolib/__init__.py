@@ -34,11 +34,10 @@ class ConfigurationReader(handler.ContentHandler):
         if "type" in attrs and name != "help":
             if self._options and name not in self._options:
                 return
-            option = Option("--" + name)
-            option.help = attrs.get("help", "")
+            help = attrs.get("help", "")
+            option = Option("--" + name, help=help)
             if attrs["type"] == "BOOL":
-                option.action = "store_true"
-                option.default = False
+                option = Option("--" + name, action="store_true", default=False, help=help)
             elif attrs["type"] in ["FLOAT", "TIME"]:
                 option.type = "float"
                 if attrs["value"]:
@@ -62,34 +61,50 @@ def pullOptions(executable, optParse, groups=None, options=None):
     parseString(output, ConfigurationReader(optParse, groups, options))
 
 def saveConfiguration(executable, options, filename):
+    options.save_configuration = filename
+    call(executable, options)
+
+def call(executable, options):
     optParser = OptionParser()
     pullOptions(executable, optParser)
-    cmd = [executable, "--save-configuration", filename]
+    cmd = [executable]
     for option, value in options.__dict__.iteritems():
         o = "--" + option.replace("_", "-")
         opt = optParser.get_option(o)
-        if value and opt.default != value:
+        if opt is not None and value is not None and opt.default != value:
             cmd.append(o)
             if opt.action != "store_true":
                 cmd.append(str(value))
-    subprocess.call(cmd)
+    return subprocess.call(cmd)
 
 def exeExists(binary):
     if os.name == "nt" and binary[-4:] != ".exe":
         binary += ".exe"
     return os.path.exists(binary)
 
-def checkBinary(name, bindir=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'bin'))):
+def checkBinary(name, bindir=None):
     """Checks for the given binary in the places, defined by the environment variables SUMO_HOME and SUMO_BINDIR."""
     if name == "sumo-gui":
         envName = "GUISIM_BINARY"
     else:
         envName = name.upper() + "_BINARY"
-    binary = os.environ.get(envName, os.path.join(bindir, name))
-    if not exeExists(binary):
-        binary = os.path.join(os.environ.get("SUMO_BINDIR"), name)
-        if not exeExists(binary):
-            binary = os.path.join(os.environ.get("SUMO_HOME"), "bin", name)
-            if not exeExists(binary):
-                return name
-    return binary
+    env = os.environ
+    join = os.path.join
+    if envName in env and exeExists(env.get(envName)):
+        return env.get(envName)
+    if bindir is not None:
+        binary = join(bindir, name)
+        if exeExists(binary):
+            return binary
+    if "SUMO_BINDIR" in env:
+        binary = join(env.get("SUMO_BINDIR"), name)
+        if exeExists(binary):
+            return binary
+    if "SUMO_HOME" in env:
+        binary = join(env.get("SUMO_HOME"), "bin", name)
+        if exeExists(binary):
+            return binary
+    binary = os.path.abspath(join(os.path.dirname(__file__), '..', '..', 'bin', name))
+    if exeExists(binary):
+        return binary
+    return name
