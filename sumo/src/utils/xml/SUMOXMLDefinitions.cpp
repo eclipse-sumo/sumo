@@ -123,6 +123,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "relation",         SUMO_TAG_RELATION },
     { "member",           SUMO_TAG_MEMBER },
 
+    { "viewsettings",     SUMO_TAG_VIEWSETTINGS },
     { "decal",            SUMO_TAG_VIEWSETTINGS_DECAL },
     { "scheme",           SUMO_TAG_VIEWSETTINGS_SCHEME },
     { "opengl",           SUMO_TAG_VIEWSETTINGS_OPENGL },

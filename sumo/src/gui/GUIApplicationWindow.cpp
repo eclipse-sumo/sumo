@@ -900,17 +900,23 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
         myWasStarted = false;
         // initialise views
         myViewNumber = 0;
-        const GUISUMOViewParent::ViewType vt = ec->myOsgView ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL;
-
+        const GUISUMOViewParent::ViewType defaultType = ec->myOsgView ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL;
         if (ec->mySettingsFiles.size() > 0) {
             // open a view for each file and apply settings
             for (std::vector<std::string>::const_iterator it = ec->mySettingsFiles.begin();
                     it != ec->mySettingsFiles.end(); ++it) {
+                GUISettingsHandler settings(*it);
+                GUISUMOViewParent::ViewType vt = defaultType;
+                if (settings.getViewType() == "osg" || settings.getViewType() == "3d") {
+                    vt = GUISUMOViewParent::VIEW_3D_OSG;
+                }
+                if (settings.getViewType() == "opengl" || settings.getViewType() == "2d") {
+                    vt = GUISUMOViewParent::VIEW_2D_OPENGL;
+                }
                 GUISUMOAbstractView* view = openNewView(vt);
                 if (view == 0) {
                     break;
                 }
-                GUISettingsHandler settings(*it);
                 std::string settingsName = settings.addSettings(view);
                 view->addDecals(settings.getDecals());
                 settings.setViewport(view);
@@ -923,7 +929,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 }
             }
         } else {
-            openNewView(vt);
+            openNewView(defaultType);
         }
 
         if (isGaming()) {

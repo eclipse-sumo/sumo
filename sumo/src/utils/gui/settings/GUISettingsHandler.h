@@ -127,9 +127,20 @@ public:
     static std::vector<SUMOTime> loadBreakpoints(const std::string& file);
 
 
+    /** @brief Returns the parsed view type
+     * @return the parsed view type
+     */
+    const std::string& getViewType() const {
+        return myViewType;
+    }
+
+
 private:
     /// @brief The settings to fill
     GUIVisualizationSettings mySettings;
+
+    /// @brief The view type (osg, opengl, default) loaded
+    std::string myViewType;
 
     /// @brief The delay loaded
     SUMOReal myDelay;

@@ -78,6 +78,10 @@ GUISettingsHandler::myStartElement(int element,
             myBreakpoints = loadBreakpoints(file);
             }
             break;
+        case SUMO_TAG_VIEWSETTINGS:
+            myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, 0, ok, "default");
+            std::transform(myViewType.begin(), myViewType.end(), myViewType.begin(), tolower);
+            break;
         case SUMO_TAG_DELAY:
             myDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_VALUE, 0, ok, myDelay);
             break;
