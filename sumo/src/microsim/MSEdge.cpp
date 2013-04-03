@@ -97,6 +97,9 @@ MSEdge::initialize(std::vector<MSLane*>* lanes) {
     if (myLanes && myLanes->size() > 1 && myFunction != EDGEFUNCTION_INTERNAL) {
         myLaneChanger = new MSLaneChanger(myLanes, OptionsCont::getOptions().getBool("lanechange.allow-swap"));
     }
+    if (myFunction == EDGEFUNCTION_DISTRICT) {
+        myCombinedPermissions = SVCFreeForAll;
+    }
 }
 
 
