@@ -48,6 +48,7 @@ class MSTriggeredRerouter;
 class MSLane;
 class MSEdge;
 class MSBusStop;
+class MSCalibrator;
 
 #ifdef HAVE_INTERNAL
 class METriggeredCalibrator;
@@ -138,7 +139,6 @@ public:
     void parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attrs) throw(InvalidArgument);
 
 
-#ifdef HAVE_INTERNAL
     /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
      *
      * @param[in] net The network the calibrator belongs to
@@ -148,7 +148,6 @@ public:
      */
     void parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& attrs,
                                  const std::string& base) throw(InvalidArgument);
-#endif
     //@}
 
 
@@ -196,6 +195,21 @@ protected:
                               MSLane* lane, SUMOReal frompos, SUMOReal topos) throw(InvalidArgument);
 
 
+    /** @brief builds a microscopic calibrator
+     *
+     * Simply calls the MSCalibrator constructor.
+     *
+     * @param[in] net The net the calibrator belongs to
+     * @param[in] id The id of the calibrator
+     * @param[in] edge The edge the calibrator is placed at
+     * @param[in] pos The position on the edge the calibrator lies at
+     * @param[in] file The file to read the flows from
+     * @todo Is the position correct/needed
+     */
+    MSCalibrator* buildCalibrator(MSNet& net,
+                                           const std::string& id, const MSEdge* edge, SUMOReal pos,
+                                           const std::string& file, const std::string& outfile,
+                                           const SUMOTime freq);
 #ifdef HAVE_INTERNAL
     /** @brief builds a mesoscopic calibrator
      *
@@ -208,7 +222,7 @@ protected:
      * @param[in] file The file to read the flows from
      * @todo Is the position correct/needed
      */
-    METriggeredCalibrator* buildCalibrator(MSNet& net,
+    METriggeredCalibrator* buildMECalibrator(MSNet& net,
                                            const std::string& id, const MSEdge* edge, SUMOReal pos,
                                            const std::string& file, const std::string& outfile,
                                            const SUMOTime freq);

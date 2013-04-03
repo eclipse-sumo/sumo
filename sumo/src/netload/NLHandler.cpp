@@ -155,11 +155,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_VSS:
                 myTriggerBuilder.parseAndBuildLaneSpeedTrigger(myNet, attrs, getFileName());
                 break;
-#ifdef HAVE_INTERNAL
             case SUMO_TAG_CALIBRATOR:
                 myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
                 break;
-#endif
             case SUMO_TAG_REROUTER:
                 myTriggerBuilder.parseAndBuildRerouter(myNet, attrs, getFileName());
                 break;
