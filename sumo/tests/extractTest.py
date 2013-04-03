@@ -23,6 +23,7 @@ optParser.add_option("-o", "--output", default=".", help="send output to directo
 optParser.add_option("-f", "--file", help="read list of source and target dirs from")
 optParser.add_option("-i", "--intelligent-names", dest="names", action="store_true",
                      default=False, help="generate cfg name from directory name")
+optParser.add_option("-a", "--application", help="sets the application to be used")
 options, args = optParser.parse_args()
 if not options.file and len(args) == 0:
     optParser.print_help()
@@ -46,8 +47,11 @@ for source, target in targets.iteritems():
     # directories instead. This would allow us to save config files for all variants
     appName = set([f.split('.')[-1] for f in outputFiles])
     if len(appName) != 1:
-        print >> sys.stderr, "Skipping %s because the application was not unique (found %s)." % (source, appName)
-        continue
+        if options.application in appName:
+            appName = set([options.application])
+        else:
+            print >> sys.stderr, "Skipping %s because the application was not unique (found %s)." % (source, appName)
+            continue
     app = iter(appName).next()
     optionsFiles = []
     potentials = {}
@@ -67,7 +71,7 @@ for source, target in targets.iteritems():
         curDir = os.path.dirname(curDir)
     config = join(curDir, "config."+app)
     if not os.path.exists(config):
-        print >> sys.stderr, "Config not found for %s." % source
+        print >> sys.stderr, "Config '%s' not found for %s." % (config, source)
         continue
     if target == "":
         target = source[len(os.path.commonprefix([curDir, source])):].replace(os.sep, '_')
