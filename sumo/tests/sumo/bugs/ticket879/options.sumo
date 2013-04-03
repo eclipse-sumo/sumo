@@ -1,0 +1,1 @@
+--no-step-log --no-duration-log --net-file=three_split.net.xml --route-files=input_routes.rou.xml -a input_districts.taz.xml --device.rerouting.probability 1 --device.rerouting.with-taz --device.rerouting.period -1 --device.rerouting.adaptation-interval 0
