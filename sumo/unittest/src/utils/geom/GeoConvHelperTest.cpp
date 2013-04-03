@@ -12,7 +12,7 @@ Tests the class GeoConvHelper
 TEST(GeoConvHelper, test_method_x2cartesian) {
     GeoConvHelper gch(
             "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
-            Position(), Boundary(), Boundary(), 0, false, true);
+            Position(), Boundary(), Boundary(), 0, false);
 
     Position pos(13.5326994, 52.428098100000007);
     gch.x2cartesian(pos);
