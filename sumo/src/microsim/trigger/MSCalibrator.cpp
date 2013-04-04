@@ -144,6 +144,9 @@ MSCalibrator::myStartElement(int element,
             state.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, myID.c_str(), ok, -1);
             state.vehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true, true);
             LeftoverVehicleParameters.push_back(state.vehicleParameter);
+            if (state.vehicleParameter->departSpeedProcedure == DEPART_SPEED_DEFAULT) {
+                state.vehicleParameter->departSpeedProcedure = DEPART_SPEED_MAX;
+            }
             if (MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid)==0) {
                 WRITE_ERROR("Unknown vehicle type '" + state.vehicleParameter->vtypeid + "' in calibrator '" + myID + "'.");
             }
@@ -285,6 +288,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
         << " arrived=" << myEdgeMeanData.nVehArrived
         << " left=" << myEdgeMeanData.nVehLeft
         << " waitSecs=" << myEdgeMeanData.waitSeconds
+        << " vaporized=" << myEdgeMeanData.nVehVaporized
         << "\n";
 #endif
     if ((calibrateFlow && adaptedNum >= totalWishedNum) || hasInvalidJam) {
@@ -292,7 +296,9 @@ MSCalibrator::execute(SUMOTime currentTime) {
         // subsequent vehicles in this calibration interval
         // Likewise, if the edge is experiencing an invalid jam we want to vaporize
         // all subsequent vehicles to avoid back-propagation of the jam
-        myEdge->incVaporization(currentTime);
+        if (!myEdge->isVaporizing()) {
+            myEdge->incVaporization(currentTime);
+        }
         if (hasInvalidJam) {
             if (!myHaveWarnedAboutClearingJam) {
                 WRITE_WARNING("Clearing jam at calibrator '" + myID + "' at time " + time2string(currentTime));

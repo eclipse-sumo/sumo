@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Thu Jul  5 12:09:40 2012 by SUMO sumo Version dev-SVN-r12454
+<!-- generated on Thu Apr  4 14:09:42 2013 by SUMO sumo Version dev-SVN-r13585
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -24,13 +24,9 @@
         <no-step-log value="true"/>
     </report>
 
-    <mesoscopic>
-        <mesosim value="true"/>
-    </mesoscopic>
-
 </configuration>
 -->
 
 <calibratorstats>
-   <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="28" removed="0" inserted="27" cleared="0" flow="1008.00" aspiredFlow="1000.00" speed="27.00" aspiredSpeed="-1.00"/>
+   <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="28" removed="0" inserted="27" cleared="0" flow="1008.00" aspiredFlow="1000.00" speed="27.14" aspiredSpeed="-1.00"/>
 </calibratorstats>

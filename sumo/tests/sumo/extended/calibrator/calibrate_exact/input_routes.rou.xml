@@ -2,7 +2,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
   
     <route id="r0" edges="beg middle end rend"/>
-    <flow id="low"  begin="0"    end="1000" route="r0" vehsPerHour="100"/>
-    <flow id="high" begin="2000" end="3000" route="r0" vehsPerHour="2000"/>
+    <flow id="low"  begin="0"    end="1000" route="r0" vehsPerHour="100" departSpeed="max"/>
+    <flow id="high" begin="2000" end="3000" route="r0" vehsPerHour="2000" departSpeed="max"/>
 
 </routes>
