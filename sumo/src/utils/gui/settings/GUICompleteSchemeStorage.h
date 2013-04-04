@@ -145,7 +145,7 @@ protected:
     unsigned int myNumInitialSettings;
 
     /// @brief The default viewport
-    SUMOReal myX, myY, myZoom;
+    Position myLookFrom, myLookAt;
 
 
 };

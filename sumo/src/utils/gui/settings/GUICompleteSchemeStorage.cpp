@@ -177,7 +177,7 @@ GUICompleteSchemeStorage::init(FXApp* app) {
         }
     }
     myDefaultSettingName = mySortedSchemeNames[0];
-    myX = myY = myZoom = 0;
+    myLookFrom.set(0, 0, 0);
 }
 
 
@@ -206,16 +206,14 @@ GUICompleteSchemeStorage::writeSettings(FXApp* app) {
 
 void
 GUICompleteSchemeStorage::saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom) {
-    myX = x;
-    myY = y;
-    myZoom = zoom;
+    myLookFrom.set(x, y, zoom);
 }
 
 
 void
 GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) {
-    if (myZoom > 0) {
-        view->setViewport(myZoom, myX, myY);
+    if (myLookFrom.z() > 0) {
+        view->setViewport(myLookFrom, myLookAt);
     } else {
         view->recenterView();
     }

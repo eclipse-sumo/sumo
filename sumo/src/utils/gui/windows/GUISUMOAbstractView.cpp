@@ -613,10 +613,8 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
     }
     if (myViewportChooser != 0 &&
             (xpos != myChanger->getXPos() || ypos != myChanger->getYPos() || zoom != myChanger->getZoom())) {
-
         myViewportChooser->setValues(
-            myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
-
+            myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom());
     }
     updatePositionInformation();
     return 1;
@@ -865,22 +863,20 @@ GUISUMOAbstractView::checkSnapshots() {
 
 void
 GUISUMOAbstractView::showViewportEditor() {
+    Position p(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom()), p1;
     if (myViewportChooser == 0) {
         myViewportChooser =
-            new GUIDialog_EditViewport(this, "Edit Viewport...",
-                                       myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos(),
-                                       0, 0);
+            new GUIDialog_EditViewport(this, "Edit Viewport...", p, 0, 0);
         myViewportChooser->create();
     }
-    myViewportChooser->setOldValues(
-        myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+    myViewportChooser->setOldValues(p, p1);
     myViewportChooser->show();
 }
 
 
 void
-GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos) {
-    myChanger->setViewport(zoom, xPos, yPos);
+GUISUMOAbstractView::setViewport(const Position& lookFrom, const Position& /* lookAt */) {
+    myChanger->setViewport(lookFrom.z(), lookFrom.x(), lookFrom.y());
     update();
 }
 

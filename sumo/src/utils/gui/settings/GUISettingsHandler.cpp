@@ -41,6 +41,7 @@
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/xml/SUMOSAXReader.h>
+#include <utils/xml/XMLSubSys.h>
 #include "GUISettingsHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -52,7 +53,8 @@
 // method definitions
 // ===========================================================================
 GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile)
-    : SUMOSAXHandler(content), myDelay(-1), myZoom(-1), myXPos(-1), myYPos(-1), myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0) {
+    : SUMOSAXHandler(content), myDelay(-1), myLookFrom(-1, -1, -1), myLookAt(-1, -1, -1),
+      myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0) {
     if (isFile) {
         XMLSubSys::runParser(*this, content);
     } else {
@@ -85,11 +87,17 @@ GUISettingsHandler::myStartElement(int element,
         case SUMO_TAG_DELAY:
             myDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_VALUE, 0, ok, myDelay);
             break;
-        case SUMO_TAG_VIEWPORT:
-            myZoom = attrs.getOpt<SUMOReal>(SUMO_ATTR_ZOOM, 0, ok, myZoom);
-            myXPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, 0, ok, myXPos);
-            myYPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, 0, ok, myYPos);
+        case SUMO_TAG_VIEWPORT: {
+            const SUMOReal x = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, 0, ok, myLookFrom.x());
+            const SUMOReal y = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, 0, ok, myLookFrom.y());
+            const SUMOReal z = attrs.getOpt<SUMOReal>(SUMO_ATTR_ZOOM, 0, ok, myLookFrom.z());
+            myLookFrom.set(x, y, z);
+            const SUMOReal cx = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_X, 0, ok, myLookAt.x());
+            const SUMOReal cy = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Y, 0, ok, myLookAt.y());
+            const SUMOReal cz = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Z, 0, ok, myLookAt.z());
+            myLookAt.set(cx, cy, cz);
             break;
+        }
         case SUMO_TAG_SNAPSHOT: {
             bool ok = true;
             std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, 0, ok);
@@ -211,16 +219,16 @@ GUISettingsHandler::myStartElement(int element,
             if (d.filename != "" && !FileHelpers::isAbsolute(d.filename)) {
                 d.filename = FileHelpers::getConfigurationRelative(getFileName(), d.filename);
             }
-            d.centerX = TplConvert::_2SUMOReal(attrs.getStringSecure("centerX", toString(d.centerX)).c_str());
-            d.centerY = TplConvert::_2SUMOReal(attrs.getStringSecure("centerY", toString(d.centerY)).c_str());
-            d.centerZ = TplConvert::_2SUMOReal(attrs.getStringSecure("centerZ", toString(d.centerZ)).c_str());
-            d.width = TplConvert::_2SUMOReal(attrs.getStringSecure("width", toString(d.width)).c_str());
-            d.height = TplConvert::_2SUMOReal(attrs.getStringSecure("height", toString(d.height)).c_str());
+            d.centerX = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_X, 0, ok, d.centerX);
+            d.centerY = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Y, 0, ok, d.centerY);
+            d.centerZ = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Z, 0, ok, d.centerZ);
+            d.width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, 0, ok, d.width);
+            d.height = attrs.getOpt<SUMOReal>(SUMO_ATTR_HEIGHT, 0, ok, d.height);
             d.altitude = TplConvert::_2SUMOReal(attrs.getStringSecure("altitude", toString(d.height)).c_str());
             d.rot = TplConvert::_2SUMOReal(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
             d.tilt = TplConvert::_2SUMOReal(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
             d.roll = TplConvert::_2SUMOReal(attrs.getStringSecure("roll", toString(d.roll)).c_str());
-            d.layer = TplConvert::_2SUMOReal(attrs.getStringSecure("layer", toString(d.layer)).c_str());
+            d.layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, 0, ok, d.layer);
             d.initialised = false;
             myDecals.push_back(d);
         }
@@ -259,17 +267,16 @@ GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const {
 
 void
 GUISettingsHandler::setViewport(GUISUMOAbstractView* view) const {
-    if (myZoom > 0) {
-        view->setViewport(myZoom, myXPos, myYPos);
+    if (myLookFrom.z() > 0) {
+        view->setViewport(myLookFrom, myLookAt);
     }
 }
 
 
 void
-GUISettingsHandler::setViewport(SUMOReal& zoom, SUMOReal& xoff, SUMOReal& yoff) const {
-    zoom = myZoom;
-    xoff = myXPos;
-    yoff = myYPos;
+GUISettingsHandler::setViewport(Position& lookFrom, Position& lookAt) const {
+    lookFrom = myLookFrom;
+    lookAt = myLookAt;
 }
 
 

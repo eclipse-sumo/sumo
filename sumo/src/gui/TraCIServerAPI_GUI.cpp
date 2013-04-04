@@ -139,24 +139,27 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     // process
     switch (variable) {
         case VAR_VIEW_ZOOM: {
+            Position off, p;
             double zoom = 1;
-            if(!server.readTypeCheckingDouble(inputStorage, zoom)) {
+            if (!server.readTypeCheckingDouble(inputStorage, zoom)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The zoom must be given as a double.", outputStorage);
             }
-            v->setViewport(zoom, v->getChanger().getXPos(), v->getChanger().getYPos());
-                            }
-            break;
+            off.set(v->getChanger().getXPos(), v->getChanger().getYPos(), zoom);
+            v->setViewport(off, p);
+        }
+        break;
         case VAR_VIEW_OFFSET: {
-            Position off(0,0);
-            if(!server.readTypeCheckingPosition2D(inputStorage, off)) {
+            Position off, p;
+            if (!server.readTypeCheckingPosition2D(inputStorage, off)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The view port must be given as a position.", outputStorage);
             }
-            v->setViewport(v->getChanger().getZoom(), off.x(), off.y());
+			off.set(off.x(), off.y(), v->getChanger().getZoom());
+            v->setViewport(off, p);
         }
         break;
         case VAR_VIEW_SCHEMA: {
             std::string schema;
-            if(!server.readTypeCheckingString(inputStorage, schema)) {
+            if (!server.readTypeCheckingString(inputStorage, schema)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The scheme must be specified by a string.", outputStorage);
             }
             if (!v->setColorScheme(schema)) {

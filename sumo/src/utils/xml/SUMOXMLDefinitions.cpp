@@ -201,6 +201,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "x",              SUMO_ATTR_X },
     { "y",              SUMO_ATTR_Y },
     { "z",              SUMO_ATTR_Z },
+    { "centerX",        SUMO_ATTR_CENTER_X },
+    { "centerY",        SUMO_ATTR_CENTER_Y },
+    { "centerZ",        SUMO_ATTR_CENTER_Z },
 
     { "key",            SUMO_ATTR_KEY },
     { "requestSize",    SUMO_ATTR_REQUESTSIZE },

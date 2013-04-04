@@ -39,6 +39,7 @@
 // class declarations
 // ===========================================================================
 class GUISUMOAbstractView;
+class Position;
 
 
 // ===========================================================================
@@ -65,14 +66,13 @@ public:
     /** @brief Constructor
      * @param[in] parent The view to change
      * @param[in] name This dialog's caption
-     * @param[in] zoom Current view's zoom
-     * @param[in] xoff Current view's x-offset
-     * @param[in] yoff Current view's y-offset
+     * @param[in] lookFrom Current viewport's from
+     * @param[in] lookAt Current viewport's at
      * @param[in] x x-position to show the dialog at
      * @param[in] y y-position to show the dialog at
      */
     GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name,
-                           SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y);
+                           Position& lookFrom, int x, int y);
 
 
     /// @brief Destructor
@@ -109,12 +109,18 @@ public:
     void setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
 
 
-    /** @brief Resets old values
-     * @param[in] zoom Current view's zoom
-     * @param[in] xoff Current view's x-offset
-     * @param[in] yoff Current view's y-offset
+    /** @brief Sets the given values into the dialog
+     * @param[in] lookFrom Current viewport's from
+     * @param[in] lookAt Current viewport's at
      */
-    void setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
+    void setValues(Position& lookFrom, Position& lookAt);
+
+
+    /** @brief Resets old values
+     * @param[in] lookFrom Current viewport's from
+     * @param[in] lookAt Current viewport's at
+     */
+    void setOldValues(Position& lookFrom, Position& lookAt);
 
 
     /** @brief Returns the information whether one of the spin dialers is grabbed
@@ -127,14 +133,11 @@ protected:
     /// @brief The calling view
     GUISUMOAbstractView* myParent;
 
-    /// @brief The old zoom
-    SUMOReal myOldZoom;
-
-    /// @brief The old offsets
-    SUMOReal myOldXOff, myOldYOff;
+    /// @brief The old viewport
+    Position myOldLookFrom, myOldLookAt;
 
     /// @brief The spin dialers used to change the view
-    FXRealSpinDial* myZoom, *myXOff, *myYOff;
+    FXRealSpinDial* myZoom, *myXOff, *myYOff, *myLookAtX, *myLookAtY, *myLookAtZ;
 
 
 protected:

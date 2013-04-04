@@ -108,7 +108,7 @@ public:
     void centerTo(const Boundary& bound);
 
     /// applies the given viewport settings
-    virtual void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
+    virtual void setViewport(const Position& lookFrom, const Position& lookAt);
 
     /// meter-to-pixels conversion method
     SUMOReal m2p(SUMOReal meter) const;

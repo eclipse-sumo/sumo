@@ -265,6 +265,9 @@ enum SumoXMLAttr {
     SUMO_ATTR_X,
     SUMO_ATTR_Y,
     SUMO_ATTR_Z,
+    SUMO_ATTR_CENTER_X,
+    SUMO_ATTR_CENTER_Y,
+    SUMO_ATTR_CENTER_Z,
     /* sumo-junction attributes */
     SUMO_ATTR_KEY,
     SUMO_ATTR_REQUESTSIZE,
