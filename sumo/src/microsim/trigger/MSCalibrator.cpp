@@ -66,15 +66,16 @@ MSCalibrator::MSCalibrator(const std::string &id,
         MSEdge *edge, SUMOReal pos,
         const std::string &aXMLFilename,
         const std::string &outputFilename,
-        const SUMOTime freq)
-        : MSTrigger(id), MSRouteHandler(aXMLFilename, false),
-        myEdge(edge),
-        myEdgeMeanData(0, myEdge->getLength(), false),
-        myOutput(0), myFrequency(freq), myRemoved(0),
-        myInserted(0), myClearedInJam(0),
-        mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
-        myDefaultSpeed(myEdge->getSpeedLimit()),
-        myHaveWarnedAboutClearingJam(false)
+        const SUMOTime freq) : 
+    MSTrigger(id), 
+    MSRouteHandler(aXMLFilename, false),
+    myEdge(edge),
+    myEdgeMeanData(0, myEdge->getLength(), false),
+    myOutput(0), myFrequency(freq), myRemoved(0),
+    myInserted(0), myClearedInJam(0),
+    mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
+    myDefaultSpeed(myEdge->getSpeedLimit()),
+    myHaveWarnedAboutClearingJam(false)
 {
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
@@ -101,10 +102,12 @@ MSCalibrator::init() {
                 MSNet::getInstance()->getCurrentTimeStep(),
                 MSEventControl::ADAPT_AFTER_EXECUTION);
         for (std::vector<MSLane*>::const_iterator i = myEdge->getLanes().begin(); i != myEdge->getLanes().end(); ++i) {
-            MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(*i, myEdge->getLength(), false);
+            MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(*i, myEdge->getLength(), true);
             LeftoverReminders.push_back(laneData);
             myLaneMeanData.push_back(laneData);
-            (*i)->addMoveReminder(laneData);
+            VehicleRemover* remover = new VehicleRemover(*i, this);
+            LeftoverReminders.push_back(remover);
+            myVehicleRemovers.push_back(remover);
         }
     } else {
         WRITE_WARNING("No flow intervals in calibrator '" + myID + "'.");
@@ -118,6 +121,9 @@ MSCalibrator::~MSCalibrator() {
         writeXMLOutput();
     }
     //mySegment->removeDetector(&myMeanData);
+    for (std::vector<VehicleRemover*>::iterator it = myVehicleRemovers.begin(); it != myVehicleRemovers.end(); ++it) {
+        (*it)->disable();
+    }
 }
 
 
@@ -183,15 +189,12 @@ MSCalibrator::myEndElement(int element) {
 void
 MSCalibrator::writeXMLOutput() {
     if (myOutput != 0) {
-        // update counts
-        myEdgeMeanData.reset();
-        for (std::vector<MSMeanData_Net::MSLaneMeanDataValues*>::iterator it = myLaneMeanData.begin(); 
-                it != myLaneMeanData.end(); ++it) {
-            (*it)->addTo(myEdgeMeanData);
-        }
+        updateMeanData();
         // vehicles drive to the end of an edge by default so they count as passed
         // but vaporized vehicles do not count
-        const int p = passed();
+        // if the calibrator is located on a short edge, the vehicles are
+        // vaporized on the next edge so we cannot rely on myEdgeMeanData.nVehVaporized
+        const int p = myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myClearedInJam - myRemoved;
         const SUMOReal durationSeconds = STEPS2TIME(myCurrentStateInterval->end-myCurrentStateInterval->begin);
         (*myOutput) << "   <interval begin=\"" << time2string(myCurrentStateInterval->begin) <<
         "\" end=\"" << time2string(myCurrentStateInterval->end) <<
@@ -246,12 +249,7 @@ SUMOTime
 MSCalibrator::execute(SUMOTime currentTime) {
     // get current simulation values (valid for the last simulation second)
     // XXX could we miss vehicle movements if this is called less often than every DELTA_T (default) ?
-    
-    myEdgeMeanData.reset();
-    for (std::vector<MSMeanData_Net::MSLaneMeanDataValues*>::iterator it = myLaneMeanData.begin(); it != myLaneMeanData.end(); ++it) {
-        (*it)->addTo(myEdgeMeanData);
-    }
-
+    updateMeanData();
     // check whether an adaptation value exists
     if (isCurrentStateActive(currentTime)) {
         // all happens in isCurrentStateActive()
@@ -282,13 +280,12 @@ MSCalibrator::execute(SUMOTime currentTime) {
     const SUMOReal totalHourFraction = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin) / (SUMOReal) 3600.;
     const int totalWishedNum = (int)std::floor(myCurrentStateInterval->q * totalHourFraction + 0.5); // round to closest int
     int adaptedNum = passed() + myClearedInJam; 
-    bool hasInvalidJam = invalidJam();
 #ifdef MSCalibrator_DEBUG
     std::cout << time2string(currentTime) << " " << myID 
         << " q=" << myCurrentStateInterval->q
         << " totalWished=" << totalWishedNum
         << " adapted=" << adaptedNum
-        << " jam=" << hasInvalidJam
+        << " jam=" << invalidJam()
         << " entered=" << myEdgeMeanData.nVehEntered
         << " departed=" << myEdgeMeanData.nVehDeparted
         << " arrived=" << myEdgeMeanData.nVehArrived
@@ -297,96 +294,79 @@ MSCalibrator::execute(SUMOTime currentTime) {
         << " vaporized=" << myEdgeMeanData.nVehVaporized
         << "\n";
 #endif
-    if (calibrateFlow && adaptedNum > totalWishedNum) {
-        // enough vehicles have passed this calibrator. we wish to vaporize all
-        // subsequent vehicles in this calibration interval
-        while (adaptedNum > totalWishedNum) {
-            if (removeLastCar()) {
-                myRemoved++;
-                adaptedNum--;
-            } else {
+    if (myToRemove.size() > 0) {
+        // it is not save to remove the vehicles inside
+        // VehicleRemover::notifyEnter so we do it here
+        for (std::vector<MSVehicle*>::iterator it = myToRemove.begin(); it != myToRemove.end(); ++it) {
+            MSVehicle* vehicle = *it;
+            vehicle->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+            vehicle->getLane()->removeVehicle(vehicle);
+            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(vehicle);
+        }
+        myToRemove.clear();
+    } else if (calibrateFlow && adaptedNum < totalWishedNum && !invalidJam()) {
+        // we need to insert some vehicles
+        const SUMOReal hourFraction = STEPS2TIME(currentTime - myCurrentStateInterval->begin + DELTA_T) / (SUMOReal) 3600.;
+        const int wishedNum = (int)std::floor(myCurrentStateInterval->q * hourFraction + 0.5); // round to closest int
+        // only the difference between inflow and aspiredFlow should be added, thus
+        // we should not count vehicles vaporized from a jam here
+        // if we have enough time left we can add missing vehicles later
+        const int relaxedInsertion = (int)std::floor(STEPS2TIME(myCurrentStateInterval->end - currentTime) / 3);
+        const int insertionSlack = MAX2(0, adaptedNum + relaxedInsertion - totalWishedNum);
+        // increase number of vehicles
+#ifdef MSCalibrator_DEBUG
+        std::cout  
+            << "   wished:" << wishedNum 
+            << " slack:" << insertionSlack 
+            << " before:" << adaptedNum
+            << " remainCap:" << remainingVehicleCapacity()
+            << " maxIn:" << maximumInflow()
+            << "\n";
+#endif
+        while (wishedNum > adaptedNum + insertionSlack && remainingVehicleCapacity() > maximumInflow()) {
+            SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
+            const MSRoute *route = 0;
+            StringTokenizer st(pars->routeid);
+            while (route == 0 && st.hasNext()) {
+                route = MSRoute::dictionary(st.next());
+            }
+            if (route == 0) {
+                WRITE_WARNING("No valid routes in calibrator '" + myID + "'.");
                 break;
             }
-        }
-    } else if (invalidJam()) {
-        // the edge is experiencing an invalid jam. We want to vaporize
-        // all subsequent vehicles to avoid back-propagation of the jam
-        if (!myHaveWarnedAboutClearingJam) {
-            WRITE_WARNING("Clearing jam at calibrator '" + myID + "' at time " + time2string(currentTime));
-            myHaveWarnedAboutClearingJam = true;
-        }
-        while (invalidJam()) {
-            if (removeLastCar()) {
-                myClearedInJam++;
-            } else {
+            if (!route->contains(myEdge)) {
+                WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + myID + "' does not contain edge '" + myEdge->getID() + "'.");
                 break;
             }
-        }
-    } else {
-        // maybe we need to insert some vehicles
-        if (calibrateFlow) {
-            const SUMOReal hourFraction = STEPS2TIME(currentTime - myCurrentStateInterval->begin + DELTA_T) / (SUMOReal) 3600.;
-            const int wishedNum = (int)std::floor(myCurrentStateInterval->q * hourFraction + 0.5); // round to closest int
-            // only the difference between inflow and aspiredFlow should be added, thus
-            // we should not count vehicles vaporized from a jam here
-            // if we have enough time left we can add missing vehicles later
-            const int relaxedInsertion = (int)std::floor(STEPS2TIME(myCurrentStateInterval->end - currentTime) / 3);
-            const int insertionSlack = MAX2(0, adaptedNum + relaxedInsertion - totalWishedNum);
-            // increase number of vehicles
+            const unsigned int routeIndex = (unsigned int)std::distance(route->begin(), 
+                    std::find(route->begin(), route->end(), myEdge));
+            MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
+            assert(route != 0 && vtype != 0);
+            // build the vehicle
+            SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
+            newPars->id = myID + "." + toString((int)STEPS2TIME(myCurrentStateInterval->begin)) + "." + toString(myInserted);
+            newPars->depart = currentTime;
+            newPars->routeid = route->getID();
+            MSVehicle *vehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
+                        newPars, route, vtype));
 #ifdef MSCalibrator_DEBUG
-            std::cout  
-                << "   wished:" << wishedNum 
-                << " slack:" << insertionSlack 
-                << " before:" << adaptedNum
-                << " remainCap:" << remainingVehicleCapacity()
-                << " maxIn:" << maximumInflow()
-                << "\n";
+            std::cout << " resetting route pos: " << routeIndex << "\n";
 #endif
-            while (wishedNum > adaptedNum + insertionSlack && remainingVehicleCapacity() > maximumInflow()) {
-                SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
-                const MSRoute *route = 0;
-                StringTokenizer st(pars->routeid);
-                while (route == 0 && st.hasNext()) {
-                    route = MSRoute::dictionary(st.next());
-                }
-                if (route == 0) {
-                    WRITE_WARNING("No valid routes in calibrator '" + myID + "'.");
-                    break;
-                }
-                if (!route->contains(myEdge)) {
-                    WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + myID + "' does not contain edge '" + myEdge->getID() + "'.");
-                    break;
-                }
-                const unsigned int routeIndex = (unsigned int)std::distance(route->begin(), 
-                        std::find(route->begin(), route->end(), myEdge));
-                MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
-                assert(route != 0 && vtype != 0);
-                // build the vehicle
-                SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-                newPars->id = myID + "." + toString((int)STEPS2TIME(myCurrentStateInterval->begin)) + "." + toString(myInserted);
-                newPars->depart = currentTime;
-                newPars->routeid = route->getID();
-                MSVehicle *vehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
-                            newPars, route, vtype));
+            vehicle->resetRoutePosition(routeIndex);
+            if (myEdge->insertVehicle(*vehicle, currentTime)) {
+                vehicle->onDepart();
+                myInserted++;
+                adaptedNum++;
 #ifdef MSCalibrator_DEBUG
-                std::cout << " resetting route pos: " << routeIndex << "\n";
+                std::cout << "I ";
 #endif
-                vehicle->resetRoutePosition(routeIndex);
-                if (myEdge->insertVehicle(*vehicle, currentTime)) {
-                    vehicle->onDepart();
-                    myInserted++;
-                    adaptedNum++;
+            } else {
+                // could not insert vehicle
 #ifdef MSCalibrator_DEBUG
-                    std::cout << "I ";
+                std::cout << "F ";
 #endif
-                } else {
-                    // could not insert vehicle
-#ifdef MSCalibrator_DEBUG
-                    std::cout << "F ";
-#endif
-                    MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
-                    break;
-                }
+                MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+                break;
             }
         }
     }
@@ -443,31 +423,47 @@ MSCalibrator::cleanup() {
 }
 
 
-bool 
-MSCalibrator::removeLastCar() {
-    MSVehicle* veh = 0;
-    for (std::vector<MSLane*>::const_iterator i = myEdge->getLanes().begin(); i != myEdge->getLanes().end(); ++i) {
-        MSVehicle* cand = (*i)->getLastVehicle();
-        if (cand != 0) {
-            if (veh == 0 || veh->getPositionOnLane() > cand->getPositionOnLane()) {
-                veh = cand;
-            }
-        }
-    }
-    if (veh != 0) {
-#ifdef MSCalibrator_DEBUG
-        std::cout << " vaporizing " << veh->getID() << "\n";
-#endif
-        veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
-        veh->getLane()->removeVehicle(veh);
-        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-        return true;
-    } else {
-#ifdef MSCalibrator_DEBUG
-        std::cout << " found no vehicle to vaporize\n";
-#endif
-        return false;
+void 
+MSCalibrator::updateMeanData() {
+    myEdgeMeanData.reset();
+    for (std::vector<MSMeanData_Net::MSLaneMeanDataValues*>::iterator it = myLaneMeanData.begin(); 
+            it != myLaneMeanData.end(); ++it) {
+        (*it)->addTo(myEdgeMeanData);
     }
 }
+
+bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification reason) {
+    if (myParent == 0) {
+        return false;
+    }
+    myParent->updateMeanData();
+    const bool calibrateFlow = myParent->myCurrentStateInterval->q >= 0;
+    const SUMOReal totalHourFraction = STEPS2TIME(myParent->myCurrentStateInterval->end - myParent->myCurrentStateInterval->begin) / (SUMOReal) 3600.;
+    const int totalWishedNum = (int)std::floor(myParent->myCurrentStateInterval->q * totalHourFraction + 0.5); // round to closest int
+    int adaptedNum = myParent->passed() + myParent->myClearedInJam; 
+    MSVehicle* vehicle = dynamic_cast<MSVehicle*>(&veh);
+    if (calibrateFlow && adaptedNum > totalWishedNum) {
+#ifdef MSCalibrator_DEBUG
+        std::cout << " vaporizing " << vehicle->getID() << " to reduce flow\n";
+#endif
+        myParent->scheduleRemoval(vehicle);
+        myParent->myRemoved++;
+    } else if (myParent->invalidJam()) {
+#ifdef MSCalibrator_DEBUG
+        std::cout << " vaporizing " << vehicle->getID() << " to clear jam\n";
+#endif
+        if (!myParent->myHaveWarnedAboutClearingJam) {
+            WRITE_WARNING("Clearing jam at calibrator '" + myParent->myID + "' at time " 
+                    + time2string(MSNet::getInstance()->getCurrentTimeStep()));
+            myParent->myHaveWarnedAboutClearingJam = true;
+        }
+        myParent->scheduleRemoval(vehicle);
+        myParent->myClearedInJam++;
+    }
+    return true;
+}
+
+
+
 /****************************************************************************/
 

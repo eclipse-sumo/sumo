@@ -66,6 +66,8 @@ public:
     /// @brief cleanup remaining data structures
     static void cleanup();
 
+
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -88,6 +90,34 @@ protected:
      */
     virtual void myEndElement(int element);
     //@}
+
+
+
+    class VehicleRemover : public MSMoveReminder {
+    public:
+        VehicleRemover(MSLane* lane, MSCalibrator* parent) : MSMoveReminder(lane, true), myParent(parent) {}
+
+        /// @name inherited from MSMoveReminder
+        //@{
+        /** @brief Checks whether the reminder is activated by a vehicle entering the lane
+         *
+         * Lane change means in this case that the vehicle changes to the lane
+         *  the reminder is placed at.
+         *
+         * @param[in] veh The entering vehicle.
+         * @param[in] reason how the vehicle enters the lane
+         * @return True if vehicle enters the reminder.
+         * @see Notification
+         */
+        //@}
+        virtual bool notifyEnter(SUMOVehicle& veh, Notification reason);
+
+        void disable() { myParent = 0; }
+
+    private:
+        MSCalibrator* myParent;
+    };
+    friend class VehicleRemover;
 
 private:
 
@@ -126,8 +156,12 @@ private:
     /// @brief reset collected vehicle data
     void reset();
 
-    /// @brief remove the last car on the calibrator edge
-    bool removeLastCar();
+    /// @brief aggregate lane values
+    void updateMeanData();
+
+    void scheduleRemoval(MSVehicle* veh) {
+        myToRemove.push_back(veh);
+    };
 
 private:
     /// @brief the edge on which this calibrator lies
@@ -140,6 +174,10 @@ private:
     std::vector<AspiredState> myIntervals;
     /// @brief Iterator pointing to the current interval
     std::vector<AspiredState>::const_iterator myCurrentStateInterval;
+
+    std::vector<VehicleRemover*> myVehicleRemovers;
+
+    std::vector<MSVehicle*> myToRemove;
 
     /// @brief The device for xml statistics
     OutputDevice* myOutput;
