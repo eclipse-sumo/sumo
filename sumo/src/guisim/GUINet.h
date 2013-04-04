@@ -275,7 +275,9 @@ public:
      * @see myVehicleControl
      */
     GUIMEVehicleControl* getGUIMEVehicleControl();
+#endif
 
+#ifdef HAVE_OSG
     void updateColor(const GUIVisualizationSettings& s);
 #endif
 

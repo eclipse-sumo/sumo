@@ -34,7 +34,7 @@
 
 #include <string>
 #include <utility>
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
 #include <osg/Geometry>
 #endif
 #include <microsim/MSLane.h>
@@ -135,7 +135,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
 void
 GUIJunctionWrapper::updateColor(const GUIVisualizationSettings& s) {
     const SUMOReal colorValue = static_cast<SUMOReal>(s.junctionColorer.getActive() == 1 && gSelected.isSelected(getType(), getGlID()));

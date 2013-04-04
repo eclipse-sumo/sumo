@@ -502,8 +502,10 @@ GUIMEVehicleControl*
 GUINet::getGUIMEVehicleControl() {
     return dynamic_cast<GUIMEVehicleControl*>(myVehicleControl);
 }
+#endif
 
 
+#ifdef HAVE_OSG
 void
 GUINet::updateColor(const GUIVisualizationSettings& s) {
     for (std::vector<GUIEdge*>::const_iterator i = myEdgeWrapper.begin(); i != myEdgeWrapper.end(); ++i) {

@@ -33,7 +33,7 @@
 #include <string>
 #include <iostream>
 #include <utility>
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
 #include <osg/Geometry>
 #endif
 #include <microsim/MSLane.h>
@@ -79,7 +79,7 @@ GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsign
     myLane(lane),
     myShape(shape),
     myIndex(index)
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
     , myGeom(0)
 #endif
     {
@@ -726,7 +726,7 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
     return 0;
 }
 
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
 void
 GUILaneWrapper::updateColor(const GUIVisualizationSettings& s) {
     const RGBColor& col = s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive()));

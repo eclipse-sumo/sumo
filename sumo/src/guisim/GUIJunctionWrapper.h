@@ -44,7 +44,7 @@
 // ===========================================================================
 class MSNet;
 class MSJunction;
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
 namespace osg { class Geometry;}
 #endif
 
@@ -137,7 +137,7 @@ public:
     }
 
 
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
     void setGeometry(osg::Geometry* geom) {
         myGeom = geom;
     }
@@ -158,7 +158,7 @@ private:
     /// @brief whether this wraps an instance of MSInternalJunction
     bool myIsInner;
 
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
     osg::Geometry* myGeom;
 #endif
 

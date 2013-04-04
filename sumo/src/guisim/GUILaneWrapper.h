@@ -47,7 +47,7 @@ class GUIGLObjectPopupMenu;
 class MSLane;
 class MSEdge;
 class PositionVector;
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
 namespace osg { class Geometry;}
 #endif
 
@@ -199,7 +199,7 @@ public:
      */
     SUMOReal getStoredEdgeTravelTime() const;
 
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
     void setGeometry(osg::Geometry* geom) {
         myGeom = geom;
     }
@@ -243,7 +243,7 @@ private:
     /// The lane index
     unsigned int myIndex;
 
-#ifdef HAVE_INTERNAL
+#ifdef HAVE_OSG
     osg::Geometry* myGeom;
 #endif
 
