@@ -365,7 +365,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
 #ifdef MSCalibrator_DEBUG
                     std::cout << "F ";
 #endif
-                    delete vehicle;
+                    MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
                     break;
                 }
             }
