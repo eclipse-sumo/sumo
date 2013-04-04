@@ -183,6 +183,12 @@ MSCalibrator::myEndElement(int element) {
 void
 MSCalibrator::writeXMLOutput() {
     if (myOutput != 0) {
+        // update counts
+        myEdgeMeanData.reset();
+        for (std::vector<MSMeanData_Net::MSLaneMeanDataValues*>::iterator it = myLaneMeanData.begin(); 
+                it != myLaneMeanData.end(); ++it) {
+            (*it)->addTo(myEdgeMeanData);
+        }
         // vehicles drive to the end of an edge by default so they count as passed
         // but vaporized vehicles do not count
         const int p = passed();
@@ -291,25 +297,32 @@ MSCalibrator::execute(SUMOTime currentTime) {
         << " vaporized=" << myEdgeMeanData.nVehVaporized
         << "\n";
 #endif
-    if ((calibrateFlow && adaptedNum >= totalWishedNum) || hasInvalidJam) {
-        // if enough vehicles have passed this calibrator we wish to vaporize all
+    if (calibrateFlow && adaptedNum > totalWishedNum) {
+        // enough vehicles have passed this calibrator. we wish to vaporize all
         // subsequent vehicles in this calibration interval
-        // Likewise, if the edge is experiencing an invalid jam we want to vaporize
-        // all subsequent vehicles to avoid back-propagation of the jam
-        if (!myEdge->isVaporizing()) {
-            myEdge->incVaporization(currentTime);
+        while (adaptedNum > totalWishedNum) {
+            if (removeLastCar()) {
+                myRemoved++;
+                adaptedNum--;
+            } else {
+                break;
+            }
         }
-        if (hasInvalidJam) {
-            if (!myHaveWarnedAboutClearingJam) {
-                WRITE_WARNING("Clearing jam at calibrator '" + myID + "' at time " + time2string(currentTime));
-                myHaveWarnedAboutClearingJam = true;
+    } else if (invalidJam()) {
+        // the edge is experiencing an invalid jam. We want to vaporize
+        // all subsequent vehicles to avoid back-propagation of the jam
+        if (!myHaveWarnedAboutClearingJam) {
+            WRITE_WARNING("Clearing jam at calibrator '" + myID + "' at time " + time2string(currentTime));
+            myHaveWarnedAboutClearingJam = true;
+        }
+        while (invalidJam()) {
+            if (removeLastCar()) {
+                myClearedInJam++;
+            } else {
+                break;
             }
         }
     } else {
-        if (myEdge->isVaporizing()) {
-            // disable previous vaporization request
-            myEdge->decVaporization(currentTime);
-        }
         // maybe we need to insert some vehicles
         if (calibrateFlow) {
             const SUMOReal hourFraction = STEPS2TIME(currentTime - myCurrentStateInterval->begin + DELTA_T) / (SUMOReal) 3600.;
@@ -429,5 +442,32 @@ MSCalibrator::cleanup() {
     }
 }
 
+
+bool 
+MSCalibrator::removeLastCar() {
+    MSVehicle* veh = 0;
+    for (std::vector<MSLane*>::const_iterator i = myEdge->getLanes().begin(); i != myEdge->getLanes().end(); ++i) {
+        MSVehicle* cand = (*i)->getLastVehicle();
+        if (cand != 0) {
+            if (veh == 0 || veh->getPositionOnLane() > cand->getPositionOnLane()) {
+                veh = cand;
+            }
+        }
+    }
+    if (veh != 0) {
+#ifdef MSCalibrator_DEBUG
+        std::cout << " vaporizing " << veh->getID() << "\n";
+#endif
+        veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+        veh->getLane()->removeVehicle(veh);
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+        return true;
+    } else {
+#ifdef MSCalibrator_DEBUG
+        std::cout << " found no vehicle to vaporize\n";
+#endif
+        return false;
+    }
+}
 /****************************************************************************/
 

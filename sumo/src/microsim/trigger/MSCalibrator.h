@@ -126,6 +126,9 @@ private:
     /// @brief reset collected vehicle data
     void reset();
 
+    /// @brief remove the last car on the calibrator edge
+    bool removeLastCar();
+
 private:
     /// @brief the edge on which this calibrator lies
     MSEdge *myEdge;
