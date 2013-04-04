@@ -36,9 +36,6 @@ swallow_downstream_jam
 # This tests whether the front gap is accounted for
 insertion_front_gap
 
-# vehicles should be removed from all queues in proportion to the queue size
-remove_from_all_queues
-
 # test calibrator without flow value (speed has to be given)
 speed_only
 

@@ -50,7 +50,7 @@ class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command {
 public:
     /** constructor */
     MSCalibrator(const std::string &id,
-            const MSEdge *edge, SUMOReal pos,
+            MSEdge *edge, SUMOReal pos,
             const std::string &aXMLFilename,
             const std::string &outputFilename,
             const SUMOTime freq);
@@ -62,6 +62,9 @@ public:
     /** the implementation of the MSTrigger / Command interface.
         Calibrating takes place here. */
     SUMOTime execute(SUMOTime currentTime);
+
+    /// @brief cleanup remaining data structures
+    static void cleanup();
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -106,7 +109,7 @@ private:
 
     inline int passed() const { 
         // calibrator measures at start of segment
-        return myMeanData.nVehEntered + myMeanData.nVehDeparted - myMeanData.nVehVaporized;
+        return myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myEdgeMeanData.nVehVaporized;
     }
 
     /// @brief returns whether the segment is jammed although it should not be
@@ -117,14 +120,19 @@ private:
 
     /// @brief returns the maximum number of vehicles that could enter from upstream until the calibrator is activated again
     inline int maximumInflow() const {
-        return (int)std::ceil((SUMOReal)myFrequency * myEdge->getLanes().size());
+        return (int)std::ceil((SUMOReal)STEPS2TIME(myFrequency) * myEdge->getLanes().size());
     }
+
+    /// @brief reset collected vehicle data
+    void reset();
 
 private:
     /// @brief the edge on which this calibrator lies
-    const MSEdge *myEdge;
+    MSEdge *myEdge;
     /// @brief data collector for the calibrator
-    MSMeanData_Net::MSLaneMeanDataValues myMeanData;
+    std::vector<MSMeanData_Net::MSLaneMeanDataValues*> myLaneMeanData;
+    /// @brief accumlated data for the whole edge
+    MSMeanData_Net::MSLaneMeanDataValues myEdgeMeanData;
     /// @brief List of adaptation intervals
     std::vector<AspiredState> myIntervals;
     /// @brief Iterator pointing to the current interval
@@ -151,6 +159,11 @@ private:
     SUMOReal myDefaultSpeed;
     /// @brief The default (maximum) speed on the segment
     bool myHaveWarnedAboutClearingJam;
+
+    /* @brief objects which need to live longer than the MSCalibrator
+     * instance which created them */
+    static std::vector<MSMoveReminder*> LeftoverReminders;
+    static std::vector<SUMOVehicleParameter*> LeftoverVehicleParameters;
 
 };
 

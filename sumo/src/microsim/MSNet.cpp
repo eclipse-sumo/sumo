@@ -60,6 +60,7 @@
 #include "MSRoute.h"
 #include <utils/xml/SUMORouteLoaderControl.h>
 #include "trigger/MSTrigger.h"
+#include "trigger/MSCalibrator.h"
 #include "traffic_lights/MSTLLogicControl.h"
 #include "MSVehicleControl.h"
 #include <utils/common/MsgHandler.h>
@@ -491,6 +492,7 @@ MSNet::clearAll() {
     delete MSVehicleTransfer::getInstance();
     MSDevice_Routing::cleanup();
     MSTrigger::cleanup();
+    MSCalibrator::cleanup();
 }
 
 

@@ -207,7 +207,7 @@ protected:
      * @todo Is the position correct/needed
      */
     MSCalibrator* buildCalibrator(MSNet& net,
-                                           const std::string& id, const MSEdge* edge, SUMOReal pos,
+                                           const std::string& id, MSEdge* edge, SUMOReal pos,
                                            const std::string& file, const std::string& outfile,
                                            const SUMOTime freq);
 #ifdef HAVE_INTERNAL

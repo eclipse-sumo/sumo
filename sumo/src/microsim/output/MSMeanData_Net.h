@@ -168,6 +168,9 @@ public:
         /// @brief The number of vehicles that left this lane within the sample interval
         unsigned nVehVaporized;
 
+        /// @brief The number of vehicle probes with small speed
+        SUMOReal waitSeconds;
+
     private:
         /// @brief The number of vehicles that changed from this lane
         unsigned nVehLaneChangeFrom;
@@ -175,8 +178,6 @@ public:
         /// @brief The number of vehicles that changed to this lane
         unsigned nVehLaneChangeTo;
 
-        /// @brief The number of vehicle probes with small speed
-        SUMOReal waitSeconds;
 
         /// @brief The sum of the lengths the vehicles had
         SUMOReal vehLengthSum;
