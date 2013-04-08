@@ -547,6 +547,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\trigger\MSCalibrator.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.cpp"
 				>
 			</File>
@@ -574,6 +578,10 @@
 			>
 			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSBusStop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\trigger\MSCalibrator.h"
 				>
 			</File>
 			<File
