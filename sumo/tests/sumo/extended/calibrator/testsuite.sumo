@@ -32,10 +32,6 @@ high_flow
 # Calibrators should prevent invalid downstream jams from affecting upstream edges
 swallow_downstream_jam
 
-# vehicles should be inserted into a properly sized gap to prevent speed drops. 
-# This tests whether the front gap is accounted for
-insertion_front_gap
-
 # test calibrator without flow value (speed has to be given)
 speed_only
 

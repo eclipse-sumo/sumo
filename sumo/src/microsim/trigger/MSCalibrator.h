@@ -95,7 +95,8 @@ protected:
 
     class VehicleRemover : public MSMoveReminder {
     public:
-        VehicleRemover(MSLane* lane, MSCalibrator* parent) : MSMoveReminder(lane, true), myParent(parent) {}
+        VehicleRemover(MSLane* lane, int laneIndex, MSCalibrator* parent) : 
+            MSMoveReminder(lane, true), myLaneIndex(laneIndex), myParent(parent) {}
 
         /// @name inherited from MSMoveReminder
         //@{
@@ -116,6 +117,7 @@ protected:
 
     private:
         MSCalibrator* myParent;
+        int myLaneIndex;
     };
     friend class VehicleRemover;
 
@@ -142,16 +144,17 @@ private:
         return myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myEdgeMeanData.nVehVaporized;
     }
 
-    /// @brief returns whether the segment is jammed although it should not be
-    bool invalidJam() const;
+    /* @brief returns whether the lane is jammed although it should not be
+     * @param[in] lane The lane to check or all for negative values
+     */
+    bool invalidJam(int laneIndex=-1) const;
 
-    /// @brief returns the number of vehicles (of the current type) that still fit onto the segment
-    int remainingVehicleCapacity() const;
 
-    /// @brief returns the maximum number of vehicles that could enter from upstream until the calibrator is activated again
-    inline int maximumInflow() const {
-        return (int)std::ceil((SUMOReal)STEPS2TIME(myFrequency) * myEdge->getLanes().size());
-    }
+    /* @brief returns the number of vehicles (of the current type) that still
+     * fit on the given lane
+     * @param[in] lane The lane to check (return the maximum of all lanes for negative values)
+     */
+    int remainingVehicleCapacity(int laneIndex=-1) const;
 
     /// @brief reset collected vehicle data
     void reset();
