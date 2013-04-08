@@ -238,7 +238,7 @@ def get_weightfilename(options, step, prefix):
     if options.weightmemory:
         prefix = "memory_" + prefix
     if options.costmodifier and options.costmodifier != 'None':
-        prefix = options.costModifier + "_" + prefix
+        prefix = options.costmodifier + "_" + prefix
     return get_dumpfilename(options, step, prefix)
 
 def writeSUMOConf(sumoBinary, step, options, additional_args, files):
