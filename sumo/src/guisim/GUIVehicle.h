@@ -52,6 +52,9 @@ class GUISUMOAbstractView;
 class GUIGLObjectPopupMenu;
 class GUILaneWrapper;
 class MSDevice_Vehroutes;
+#ifdef HAVE_OSG
+namespace osg { class ShapeDrawable;}
+#endif
 
 
 // ===========================================================================
@@ -276,16 +279,16 @@ public:
     void drawBestLanes() const;
     /// @}
 
+#ifdef HAVE_OSG
+    void setGeometry(osg::ShapeDrawable* geom) {
+        myGeom = geom;
+    }
+
+    void updateColor(const GUIVisualizationSettings& s);
+#endif
+
 
 private:
-
-    /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
-
-    MSDevice_Vehroutes* myRoutes;
-
-private:
-
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
@@ -327,9 +330,6 @@ private:
     /// @brief returns the seat position for the person with the given index
     const Position& getSeatPosition(size_t personIndex) const;
 
-    /// @brief positions of seats in the vehicle (updated at every drawing step)
-    mutable PositionVector mySeatPositions;
-
     /// @brief return the number of passengers
     int getNumPassengers() const;
 
@@ -337,6 +337,21 @@ private:
     void computeSeats(const Position& front, const Position& back, int& requiredSeats) const;
 
     static void drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate);
+
+
+private:
+    /// The mutex used to avoid concurrent updates of the vehicle buffer
+    mutable MFXMutex myLock;
+
+    MSDevice_Vehroutes* myRoutes;
+
+    /// @brief positions of seats in the vehicle (updated at every drawing step)
+    mutable PositionVector mySeatPositions;
+
+#ifdef HAVE_OSG
+    osg::ShapeDrawable* myGeom;
+#endif
+
 };
 
 

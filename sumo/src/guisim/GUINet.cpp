@@ -45,8 +45,6 @@
 #include <microsim/MSJunction.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSVehicleTransfer.h>
-#include <microsim/MSVehicle.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
@@ -59,7 +57,6 @@
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUIVehicleControl.h>
 #include <gui/GUIGlobals.h>
-#include "GUIVehicle.h"
 #include "GUINet.h"
 #include "GUIShapeContainer.h"
 

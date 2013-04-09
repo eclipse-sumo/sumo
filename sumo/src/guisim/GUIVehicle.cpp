@@ -33,6 +33,9 @@
 #include <cmath>
 #include <vector>
 #include <string>
+#ifdef HAVE_OSG
+#include <osg/ShapeDrawable>
+#endif
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOVehicleParameter.h>
@@ -1473,6 +1476,15 @@ GUIVehicle::computeSeats(const Position& front, const Position& back, int& requi
         }
     }
 }
+
+
+#ifdef HAVE_OSG
+void
+GUIVehicle::updateColor(const GUIVisualizationSettings& s) {
+    const RGBColor& col = s.vehicleColorer.getScheme().getColor(getColorValue(s.vehicleColorer.getActive()));
+    myGeom->setColor(osg::Vec4(col.red()/255., col.green()/255., col.blue()/255., col.alpha()/255.));
+}
+#endif
 
 /****************************************************************************/
 
