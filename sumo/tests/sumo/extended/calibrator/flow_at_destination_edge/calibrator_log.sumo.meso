@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- generated on Tue Apr  9 17:06:06 2013 by SUMO sumo Version dev-SVN-r13602
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <end value="1000"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<calibratorstats>
+   <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="28" removed="0" inserted="27" cleared="0" flow="1008.00" aspiredFlow="1000.00" speed="27.00" aspiredSpeed="-1.00"/>
+</calibratorstats>
