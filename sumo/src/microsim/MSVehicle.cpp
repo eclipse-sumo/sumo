@@ -950,8 +950,8 @@ MSVehicle::moveChecked() {
     vNext = MAX2(vNext, (SUMOReal) 0.);
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
-        SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
-        SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
+        const SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
+        const SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
     }
 #endif
@@ -971,8 +971,7 @@ MSVehicle::moveChecked() {
         switchOffSignal(VEH_SIGNAL_BRAKELIGHT);
     }
     // call reminders after vNext is set
-    SUMOReal pos = myState.myPos;
-    vNext = MIN2(vNext, getMaxSpeed());
+    const SUMOReal pos = myState.myPos;
 
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
@@ -1050,7 +1049,7 @@ MSVehicle::moveChecked() {
     myFurtherLanes.clear();
     if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
         if (myState.myPos > myLane->getLength()) {
-            WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop one lane '" + myLane->getID() + " at position " +
+            WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop on lane '" + myLane->getID() + " at position " +
                           toString(myState.myPos) + " (decel=" + toString(myAcceleration - myState.mySpeed) + "), time="
                           + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             myState.myPos = myLane->getLength();
