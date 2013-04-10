@@ -319,13 +319,13 @@ public:
     }
 
     /* @brief fit the given lane position to a visibly suitable geometry position
-     * (lane length might differ from geomety length */
+     * (lane length might differ from geometry length */
     inline SUMOReal interpolateLanePosToGeometryPos(SUMOReal lanePos) const {
         return lanePos * myLengthGeometryFactor;
     }
 
     /* @brief fit the given geomtry position to a valid lane position
-     * (lane length might differ from geomety length */
+     * (lane length might differ from geometry length */
     inline SUMOReal interpolateGeometryPosToLanePos(SUMOReal geometryPos) const {
         return geometryPos / myLengthGeometryFactor;
     }

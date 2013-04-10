@@ -156,12 +156,6 @@ Line::atan2PositiveAngle() const {
 
 
 SUMOReal
-Line::atan2TiltDegree() const {
-    return (SUMOReal) atan2(myP1.distanceTo2D(myP2), myP1.z() - myP2.z()) * (SUMOReal) 180.0 / (SUMOReal) PI;
-}
-
-
-SUMOReal
 Line::atan2DegreeSlope() const {
     return (SUMOReal) atan2(myP2.z() - myP1.z(), myP1.distanceTo2D(myP2)) * (SUMOReal) 180.0 / (SUMOReal) PI;
 }

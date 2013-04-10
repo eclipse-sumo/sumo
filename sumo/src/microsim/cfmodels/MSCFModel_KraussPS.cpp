@@ -32,11 +32,10 @@
 #include <config.h>
 #endif
 
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include "MSCFModel_KraussPS.h"
-#include <microsim/MSAbstractLaneChangeModel.h>
-#include <utils/common/RandHelper.h>
 
 
 // ===========================================================================
@@ -54,16 +53,13 @@ MSCFModel_KraussPS::~MSCFModel_KraussPS() {}
 
 SUMOReal 
 MSCFModel_KraussPS::maxNextSpeed(SUMOReal speed, const MSVehicle * const veh) const {
+    const SUMOReal gravity = 9.80665;
     const SUMOReal lp = veh->getPositionOnLane();
     const MSLane *lane = veh->getLane();
     const SUMOReal gp = lane->interpolateLanePosToGeometryPos(lp);
     const SUMOReal slope = lane->getShape().slopeDegreeAtLengthPosition(gp);
-    const SUMOReal cSlope = sin(slope);
-	SUMOReal aMax = getMaxAccel();
-    aMax = aMax - aMax*cSlope;
-	SUMOReal vMax = myType->getMaxSpeed();
-    vMax = vMax - vMax*cSlope;
-    return MIN2(speed + (SUMOReal) ACCEL2SPEED(aMax), vMax);
+    const SUMOReal aMax = getMaxAccel() - gravity * sin(DEG2RAD(slope));
+    return MIN2(speed + (SUMOReal) ACCEL2SPEED(aMax), myType->getMaxSpeed());
 }
 
 
