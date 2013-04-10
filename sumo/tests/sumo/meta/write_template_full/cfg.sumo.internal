@@ -125,6 +125,7 @@
         <game value="false" synonymes="G" type="BOOL" help="Start the GUI in gaming mode"/>
         <start value="false" synonymes="S" type="BOOL" help="Start the simulation after loading"/>
         <disable-textures value="false" synonymes="T" type="BOOL" help="Do not load background pictures"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
     </gui_only>
 
 </configuration>

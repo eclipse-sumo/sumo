@@ -303,6 +303,9 @@
         <!-- Do not load background pictures -->
         <disable-textures value="false" synonymes="T" type="BOOL"/>
 
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
+
     </gui_only>
 
 </configuration>

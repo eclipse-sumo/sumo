@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r13164
+SUMO sumo Version dev-SVN-r13521
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 A microscopic road traffic simulation.
 
@@ -172,6 +172,8 @@ GUI Only Options:
   -G, --game                          Start the GUI in gaming mode
   -S, --start                         Start the simulation after loading
   -T, --disable-textures              Do not load background pictures
+  --osg-view                          Start with an OpenSceneGraph view instead
+                                        of the regular 2D view
 
 
 Examples:
