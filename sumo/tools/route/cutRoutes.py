@@ -178,7 +178,7 @@ def main():
         writer = write_route
 
     def write_to_file(routes, f):
-        comment = '<!-- generated with %s for %s from %s -->' % (__file__, options.network, options.routeFiles)
+        comment = '<!-- generated with %s for %s from %s -->' % (os.path.basename(__file__), options.network, options.routeFiles)
         print >>f, comment
         print >>f, start_tag
         num_routes = 0
