@@ -163,6 +163,17 @@ public:
          * @see MSE3Collector::leave
          */
         bool notifyMove(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
+
+        /** @brief Processes state changes of a vehicle
+        *
+        * Checks whether the vehicle has changed lanes and this reminder needs to be removed
+        *
+        * @param[in] veh The leaving vehicle.
+        * @param[in] lastPos Position on the lane when leaving.
+        * @param[in] reason The reason for the state change
+        * @see MSMoveReminder::notifyLeave
+        */
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
         //@}
 
 
