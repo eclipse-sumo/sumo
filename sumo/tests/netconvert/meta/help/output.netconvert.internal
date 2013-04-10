@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r13501
+SUMO netconvert Version dev-SVN-r13521
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -71,6 +71,9 @@ Projection Options:
 TLS Building Options:
   --tls.discard-loaded                Does not instatiate traffic lights loaded
                                         from other formats than XML
+  --tls.discard-simple                Does not instatiate traffic lights at
+                                        geometry-like nodes loaded from other
+                                        formats than XML
   --tls.set STR                       Interprets STR as list of junctions to be
                                         controlled by TLS
   --tls.unset STR                     Interprets STR as list of junctions to be

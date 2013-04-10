@@ -54,6 +54,7 @@
 
     <tls_building>
         <tls.discard-loaded value="false" type="BOOL" help="Does not instatiate traffic lights loaded from other formats than XML"/>
+        <tls.discard-simple value="false" type="BOOL" help="Does not instatiate traffic lights at geometry-like nodes loaded from other formats than XML"/>
         <tls.set value="" synonymes="explicite-tls" type="STR" help="Interprets STR as list of junctions to be controlled by TLS"/>
         <tls.unset value="" synonymes="explicite-no-tls" type="STR" help="Interprets STR as list of junctions to be not controlled by TLS"/>
         <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
