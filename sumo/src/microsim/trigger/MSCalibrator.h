@@ -3,7 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, May 2005
-/// @version $Id: MSCalibrator.h 2120 2012-10-09 14:09:08Z erdm_ja $
+/// @version $Id$
 ///
 // Calibrates the flow on an edge by removing an inserting vehicles
 /****************************************************************************/
