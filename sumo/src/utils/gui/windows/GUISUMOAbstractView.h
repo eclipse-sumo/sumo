@@ -102,7 +102,7 @@ public:
      * @param[in] zoomDist The distance in m to use for the zoom, values < 0 means: use the centeringBoundary
      * @note caller is responsible for calling update
      */
-    void centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist = 20);
+    virtual void centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist = 20);
 
     /// centers to the chosen artifact
     void centerTo(const Boundary& bound);
@@ -184,8 +184,8 @@ public:
 
 
 
-    void showViewportEditor();
-    virtual void showViewschemeEditor() = 0;
+    virtual void showViewportEditor();
+    void showViewschemeEditor();
     void showToolTips(bool val);
     virtual bool setColorScheme(const std::string&) {
         return true;

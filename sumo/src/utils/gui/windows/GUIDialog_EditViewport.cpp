@@ -64,9 +64,9 @@ FXIMPLEMENT(GUIDialog_EditViewport, FXDialogBox, GUIDialog_EditViewportMap, ARRA
 // method definitions
 // ===========================================================================
 GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
-        const char* name, Position& lookFrom, int x, int y)
+        const char* name, int x, int y)
     : FXDialogBox(parent, name, DECOR_TITLE | DECOR_BORDER, x, y, 0, 0),
-      myParent(parent), myOldLookFrom(lookFrom) {
+      myParent(parent) {
     FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_TOP | FRAME_NONE | LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 1, 1);
     {
         FXHorizontalFrame* frame0 =
@@ -84,21 +84,18 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
         myZoom = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         myZoom->setRange(0.0001, 100000);
         myZoom->setNumberFormat(4);
-        myZoom->setValue(lookFrom.z());
     }
     {
         new FXLabel(m1, "X:", 0, LAYOUT_CENTER_Y);
         myXOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         myXOff->setRange(-1000000, 1000000);
         myXOff->setNumberFormat(4);
-        myXOff->setValue(lookFrom.x());
     }
     {
         new FXLabel(m1, "Y:", 0, LAYOUT_CENTER_Y);
         myYOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         myYOff->setRange(-1000000, 1000000);
         myYOff->setNumberFormat(4);
-        myYOff->setValue(lookFrom.y());
     }
 #ifdef HAVE_OSG
     {

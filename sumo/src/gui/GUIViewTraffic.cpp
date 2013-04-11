@@ -232,21 +232,6 @@ GUIViewTraffic::getTrackedID() const {
 
 
 void
-GUIViewTraffic::showViewschemeEditor() {
-    if (myVisualizationChanger == 0) {
-        myVisualizationChanger =
-            new GUIDialog_ViewSettings(
-            this, myVisualizationSettings,
-            &myDecals, &myDecalsLock);
-        myVisualizationChanger->create();
-    } else {
-        myVisualizationChanger->setCurrent(myVisualizationSettings);
-    }
-    myVisualizationChanger->show();
-}
-
-
-void
 GUIViewTraffic::onGamingClick(Position pos) {
     MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
     const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();

@@ -66,13 +66,11 @@ public:
     /** @brief Constructor
      * @param[in] parent The view to change
      * @param[in] name This dialog's caption
-     * @param[in] lookFrom Current viewport's from
-     * @param[in] lookAt Current viewport's at
      * @param[in] x x-position to show the dialog at
      * @param[in] y y-position to show the dialog at
      */
     GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name,
-                           Position& lookFrom, int x, int y);
+                           int x, int y);
 
 
     /// @brief Destructor

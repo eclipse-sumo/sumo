@@ -862,13 +862,28 @@ GUISUMOAbstractView::checkSnapshots() {
 
 
 void
+GUISUMOAbstractView::showViewschemeEditor() {
+    if (myVisualizationChanger==0) {
+        myVisualizationChanger =
+            new GUIDialog_ViewSettings(
+            this, myVisualizationSettings,
+            &myDecals, &myDecalsLock);
+        myVisualizationChanger->create();
+    } else {
+        myVisualizationChanger->setCurrent(myVisualizationSettings);
+    }
+    myVisualizationChanger->show();
+}
+
+
+void
 GUISUMOAbstractView::showViewportEditor() {
-    Position p(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom()), p1;
     if (myViewportChooser == 0) {
         myViewportChooser =
-            new GUIDialog_EditViewport(this, "Edit Viewport...", p, 0, 0);
+            new GUIDialog_EditViewport(this, "Edit Viewport...", 0, 0);
         myViewportChooser->create();
     }
+    Position p(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom()), p1;
     myViewportChooser->setOldValues(p, p1);
     myViewportChooser->show();
 }
