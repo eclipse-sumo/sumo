@@ -237,7 +237,7 @@ def get_weightfilename(options, step, prefix):
         prefix = "%s,%s" % (options.addweights, prefix)
     if options.weightmemory:
         prefix = "memory_" + prefix
-    if options.costmodifier and options.costmodifier != 'None':
+    if options.costmodifier != 'None':
         prefix = options.costmodifier + "_" + prefix
     return get_dumpfilename(options, step, prefix)
 
@@ -299,8 +299,12 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, files):
     with open(detectorfile, 'w') as fd:
         suffix = "_%03i_%s" % (step, options.aggregation)
         print >> fd, "<a>"
-        print >> fd, '    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"/>' % (
-                suffix, options.aggregation, get_dumpfilename(options, step, "dump"))
+        if options.costmodifier:
+            print >> fd, '    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="defaults" minSamples="1"/>' % (
+                    suffix, options.aggregation, get_dumpfilename(options, step, "dump"))
+        else:
+            print >> fd, '    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"/>' % (
+                    suffix, options.aggregation, get_dumpfilename(options, step, "dump"))
         if options.ecomeasure:
             print >> fd, '    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" excludeEmpty="true" minSamples="1"/>' % (suffix, options.aggregation, suffix)
         print >> fd, "</a>"
@@ -423,7 +427,7 @@ def main(args=None):
         pyPath = os.path.abspath(os.path.dirname(sys.argv[0]))
         sys.path.append(os.path.join(pyPath, "..", "..", "..", "..","..", "tools", "kkwSim"))
         from kkwCostModifier import costModifier
-        print 'use the cost modifier'
+        print 'Use the cost modifier for KKW simulation'
     for step in range(options.firstStep, options.lastStep):
         btimeA = datetime.now()
         print "> Executing step %s" % step
