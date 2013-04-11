@@ -1486,7 +1486,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
     if (nextStopEdge != 0) {
         // make sure that the "wrong" lanes get a penalty. (penalty needs to be
         // large enough to overcome a magic threshold in MSLCM_DK2004.cpp:383)
-        nextStopPos = MIN2(nextStopPos, nextStopEdge->getLength() - 2 * POSITION_EPS);
+        nextStopPos = MIN2((SUMOReal)nextStopPos, (SUMOReal)(nextStopEdge->getLength() - 2 * POSITION_EPS));
     }
 
     // go forward along the next lanes;
