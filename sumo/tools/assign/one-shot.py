@@ -165,8 +165,8 @@ for step in options.frequencies.split(","):
     if options.costmodifier != 'None':
         currentDir = os.getcwd()
         print options.costmodifier
-        outputfile = '%s_dump_%s.add.xml' % (options.costmodifier, step)
-        costModifier(outputfile, step, "%s_dump" %options.costmodifier, options.aggregation, currentDir, options.costmodifier, 'one-shot')
+        outputfile = '%s_weights_%s.xml' % (options.costmodifier, step)
+        costModifier(outputfile, step, "dump", options.aggregation, currentDir, options.costmodifier, 'one-shot')
     writeSUMOConf(step, options, options.trips)
     call([sumoBinary, "-c", "one_shot_%s.sumocfg" % step], log)
     etime = datetime.now()
