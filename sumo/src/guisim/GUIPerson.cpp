@@ -257,10 +257,31 @@ GUIPerson::setColor(const GUIVisualizationSettings& s) const {
 bool
 GUIPerson::setFunctionalColor(size_t activeScheme) const {
     switch (activeScheme) {
-        case 1:
-            GLHelper::setColor(getParameter().color);
-            return true;
-            // XXX color by stage
+        case 0: {
+            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                GLHelper::setColor(getParameter().color);
+                return true;
+            }
+            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                GLHelper::setColor(getVehicleType().getColor());
+                return true;
+            }
+            return false;
+        }
+        case 2: {
+            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                GLHelper::setColor(getParameter().color);
+                return true;
+            }
+            return false;
+        }
+        case 3: {
+            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                GLHelper::setColor(getVehicleType().getColor());
+                return true;
+            }
+            return false;
+        }
         default:
             return false;
     }
