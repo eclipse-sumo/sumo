@@ -299,7 +299,7 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, files):
     with open(detectorfile, 'w') as fd:
         suffix = "_%03i_%s" % (step, options.aggregation)
         print >> fd, "<a>"
-        if options.costmodifier:
+        if options.costmodifier !='None':
             print >> fd, '    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="defaults" minSamples="1"/>' % (
                     suffix, options.aggregation, get_dumpfilename(options, step, "dump"))
         else:
