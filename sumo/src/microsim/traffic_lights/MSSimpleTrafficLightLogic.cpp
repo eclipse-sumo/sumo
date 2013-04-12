@@ -38,6 +38,7 @@
 #include <bitset>
 #include <sstream>
 #include <microsim/MSEventControl.h>
+#include "MSTLLogicControl.h"
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
 
@@ -194,7 +195,11 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
         SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
-    myStep = step;
+    if (step != myStep) {
+        myStep = step;
+        setTrafficLightSignals(simStep);
+        tlcontrol.get(getID()).executeOnSwitchActions();
+    }
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         mySwitchCommand, stepDuration + simStep,
         MSEventControl::ADAPT_AFTER_EXECUTION);
