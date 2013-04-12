@@ -53,6 +53,7 @@ class GUIGLObjectPopupMenu;
 class GUILaneWrapper;
 class MSDevice_Vehroutes;
 #ifdef HAVE_OSG
+class GUIOSGView;
 namespace osg { class ShapeDrawable;}
 #endif
 
@@ -280,11 +281,11 @@ public:
     /// @}
 
 #ifdef HAVE_OSG
-    void setGeometry(osg::ShapeDrawable* geom) {
-        myGeom = geom;
+    void setGeometry(GUIOSGView* view, osg::ShapeDrawable* geom) {
+        myGeom[view] = geom;
     }
 
-    void updateColor(const GUIVisualizationSettings& s);
+    void updateColor(GUIOSGView* view);
 #endif
 
 
@@ -349,7 +350,7 @@ private:
     mutable PositionVector mySeatPositions;
 
 #ifdef HAVE_OSG
-    osg::ShapeDrawable* myGeom;
+    std::map<GUIOSGView*, osg::ShapeDrawable*> myGeom;
 #endif
 
 };
