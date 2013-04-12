@@ -437,7 +437,7 @@ MSCalibrator::remainingVehicleCapacity(int laneIndex) const {
         // ensure vehicles can be inserted on short edges
         return MAX2(1, (int)(myEdge->getLength() / spacePerVehicle));
     } else {
-        return last->getPositionOnLane() / spacePerVehicle;
+        return (int)(last->getPositionOnLane() / spacePerVehicle);
     }
 }
 
