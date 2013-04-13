@@ -110,11 +110,11 @@ class Statistics:
     def __str__(self):
         if len(self.values) > 0:
             min = 'min %.2f (%s), ' % (self.min, self.min_label) if self.printMin else ''
-            result = '"%s": count %s, %smax %.2f (%s), avg %.2f, mean %.2f' % (
+            result = '"%s": count %s, %smax %.2f (%s), mean %.2f, median %.2f' % (
                     self.label, len(self.values), min,
                     self.max, self.max_label, self.avg(), self.mean())
             if self.abs:
-                result += ', avg_abs %.2f, mean_abs %.2f' % (self.avg_abs(), self.mean_abs())
+                result += ', mean_abs %.2f, median_abs %.2f' % (self.avg_abs(), self.mean_abs())
             if self.counts is not None:
                 result += '\nhistogram: %s' % [(k,self.counts[k]) for k in sorted(self.counts.keys())]
             return result
