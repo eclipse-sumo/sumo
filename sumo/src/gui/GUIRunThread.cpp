@@ -73,7 +73,7 @@ GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
                            FXRealSpinDial& simDelay, MFXEventQue& eq,
                            FXEX::FXThreadEvent& ev)
     : FXSingleEventThread(app, parent),
-      myNet(0), myQuit(false), mySimulationInProgress(false), myOk(true),
+      myNet(0), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true),
       mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MT_MESSAGE);
