@@ -305,9 +305,6 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (backgroundColor != v2.backgroundColor) {
         return false;
     }
-    if (showBackgroundDecals != v2.showBackgroundDecals) {
-        return false;
-    }
     if (showGrid != v2.showGrid) {
         return false;
     }

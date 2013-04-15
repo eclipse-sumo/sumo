@@ -100,8 +100,6 @@ public:
 
     /// @brief The background color to use
     RGBColor backgroundColor;
-    /// @brief Information whether background decals (textures) shall be used
-    bool showBackgroundDecals;
     /// @brief Information whether a grid shall be shown
     bool showGrid;
     /// @brief Information about the grid spacings
