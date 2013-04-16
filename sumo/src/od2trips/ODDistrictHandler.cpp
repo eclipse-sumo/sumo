@@ -95,6 +95,13 @@ ODDistrictHandler::openDistrict(const SUMOSAXAttributes& attrs) {
         return;
     }
     myCurrentDistrict = new ODDistrict(id);
+    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
+        for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
+            myCurrentDistrict->addSource(*i, 1.);
+            myCurrentDistrict->addSink(*i, 1.);
+        }
+    }
 }
 
 

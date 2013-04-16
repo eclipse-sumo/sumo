@@ -248,7 +248,7 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
     source->setType(ROEdge::ET_DISTRICT);
     myNet.addEdge(source);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
+        std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
         for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
             ROEdge* edge = myNet.getEdge(*i);
             // check whether the edge exists

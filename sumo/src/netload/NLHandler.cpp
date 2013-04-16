@@ -1119,7 +1119,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         }
         source->initialize(new std::vector<MSLane*>());
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-            std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
+            std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
             for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
                 MSEdge* edge = MSEdge::dictionary(*i);
                 // check whether the edge exists
