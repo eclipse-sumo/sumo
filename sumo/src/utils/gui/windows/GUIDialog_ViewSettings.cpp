@@ -81,11 +81,6 @@ FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
 
 FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRAYNUMBER(GUIDialog_ViewSettingsMap))
 
-// ===========================================================================
-// static members
-// ===========================================================================
-unsigned int GUIDialog_ViewSettings::myCustomSchemes = 0;
-
 
 // ===========================================================================
 // method definitions
@@ -769,8 +764,11 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     if (index < (int) gSchemeStorage.getNumInitialSettings()) {
         // one of the initial settings is modified
         // every time this happens we create a new scheme
-        ++myCustomSchemes; // 1-based counting for the masses
-        tmpSettings.name = "custom_" + toString(myCustomSchemes);
+        int suffix = 1;
+        while (gSchemeStorage.contains("custom_" + toString(suffix))) {
+            suffix++;
+        }
+        tmpSettings.name = "custom_" + toString(suffix);
         // the newly created settings must be entered in several places:
         // - the comboBox mySchemeName of this dialog
         // - the comboBox of the parent view (set as active)

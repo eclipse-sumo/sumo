@@ -203,9 +203,6 @@ private:
 
 
 private:
-    /// @brief the number of newly created custom schemes
-    static unsigned int myCustomSchemes;
-
     /// @brief The parent view (which settings are changed)
     GUISUMOAbstractView* myParent;
 
