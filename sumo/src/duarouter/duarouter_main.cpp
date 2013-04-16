@@ -254,7 +254,7 @@ main(int argc, char** argv) {
         }
         RandHelper::initRandGlobal();
         // load data
-        ROLoader loader(oc, false);
+        ROLoader loader(oc, false, !oc.getBool("no-step-log"));
         net = new RONet();
         initNet(*net, loader, oc);
         // build routes

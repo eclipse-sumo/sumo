@@ -71,7 +71,7 @@ public:
      * @param[in] emptyDestinationsAllowed Whether trips may be given without destinations
      * @todo Recheck usage of emptyDestinationsAllowed
      */
-    ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed);
+    ROLoader(OptionsCont& oc, const bool emptyDestinationsAllowed, const bool logSteps);
 
 
     /// @brief Destructor

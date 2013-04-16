@@ -274,7 +274,7 @@ main(int argc, char** argv) {
         }
         RandHelper::initRandGlobal();
         // load data
-        ROLoader loader(oc, false);
+        ROLoader loader(oc, false, !oc.getBool("no-step-log"));
         net = new RODFNet(oc.getBool("highway-mode"));
         RODFEdgeBuilder builder;
         loader.loadNet(*net, builder);

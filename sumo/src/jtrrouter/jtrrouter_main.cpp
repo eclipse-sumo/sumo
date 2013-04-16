@@ -192,7 +192,7 @@ main(int argc, char** argv) {
         RandHelper::initRandGlobal();
         std::vector<SUMOReal> defs = getTurningDefaults(oc);
         // load data
-        ROLoader loader(oc, true);
+        ROLoader loader(oc, true, !oc.getBool("no-step-log"));
         net = new RONet();
         initNet(*net, loader, defs);
         try {
