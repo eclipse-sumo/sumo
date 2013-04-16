@@ -18,7 +18,6 @@ args_netc = [netconvert,
         '--node-files', 'input_nodes.nod.xml',
         '--edge-files', 'input_edges.edg.xml',
         '--output', net_output,
-        '--junctions.join',
         '--offset.disable-normalization']
 
 args_sumo = [sumo,

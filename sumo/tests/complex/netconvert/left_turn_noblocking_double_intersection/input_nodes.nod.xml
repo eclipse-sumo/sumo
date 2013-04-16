@@ -7,4 +7,6 @@
    <node id="node_R2" x="40.0"  y="10.0"/>
    <node id="node_U" x="0.0"   y="50.0"/>
    <node id="node_D" x="0.0"   y="-40.0"/>
+
+   <join nodes="node_C node_C2"/>
 </nodes>
