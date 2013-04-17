@@ -122,8 +122,11 @@ private:
     /// @brief the previous line width for deciding whether the display list must be refreshed
     mutable SUMOReal myLineWidth;
 
-    /// @brief erform the tesselation and store it in a display list
+    /// @brief store the drawing commands in a display list
     void storeTesselation(SUMOReal lineWidth) const;
+
+    // @brief perform the tesselation / drawing
+    void performTesselation(SUMOReal lineWidth) const;
 
 };
 
