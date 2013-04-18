@@ -122,11 +122,6 @@ MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder
 
 bool
 MSInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) {
-    if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myPosition) {
-        // vehicle-front is beyond detector. Ignore
-        return false;
-    }
-    // vehicle is in front of detector
     return true;
 }
 
