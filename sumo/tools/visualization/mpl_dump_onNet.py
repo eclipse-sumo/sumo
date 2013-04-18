@@ -279,7 +279,7 @@ class WeightsReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'interval':
-            self._beginTime = int(attrs['begin'])
+            self._beginTime = float(attrs['begin'])
             self._intervalBegins.append(self._beginTime)
             self._unaggEdge2value2[self._beginTime] = {}
             self._unaggEdge2value1[self._beginTime] = {}
