@@ -17,6 +17,7 @@
 
     <output>
         <output-file value="" synonymes="o output" type="FILE" help="Writes trip definitions into FILE"/>
+        <flow-output value="" type="FILE" help="Writes flow definitions into FILE"/>
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL" help="Does not save vtype information"/>
     </output>
 
@@ -32,7 +33,7 @@
         <prefix value="" type="STR" help="Defines the prefix for vehicle names"/>
         <timeline value="" type="STR" help="Uses STR as a timeline definition"/>
         <timeline.day-in-hours value="false" type="BOOL" help="Uses STR as a 24h-timeline definition"/>
-        <dismiss-loading-errors value="false" type="BOOL" help="Continue on broken input"/>
+        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
         <no-step-log value="false" type="BOOL" help="Disable console output of current time step"/>
     </processing>
 
