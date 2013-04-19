@@ -333,8 +333,11 @@ public:
 
     void setRestrictionFound();
 
-	OutputDevice& getRouteOutput() {
-		return *myRoutesOutput;
+	OutputDevice* getRouteOutput(const bool alternative=false) {
+        if (alternative) {
+            return myRouteAlternativesOutput;
+        }
+		return myRoutesOutput;
 	}
 
 protected:

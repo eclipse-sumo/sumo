@@ -102,6 +102,9 @@ fillOptions() {
     oc.addSynonyme("output-file", "output", true);
     oc.addDescription("output-file", "Output", "Writes trip definitions into FILE");
 
+    oc.doRegister("flow-output", new Option_FileName());
+    oc.addDescription("flow-output", "Output", "Writes flow definitions into FILE");
+
     oc.doRegister("ignore-vehicle-type", new Option_Bool(false));
     oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
     oc.addDescription("ignore-vehicle-type", "Output", "Does not save vtype information");
@@ -134,8 +137,9 @@ fillOptions() {
     oc.doRegister("timeline.day-in-hours", new Option_Bool(false));
     oc.addDescription("timeline.day-in-hours", "Processing", "Uses STR as a 24h-timeline definition");
 
-    oc.doRegister("dismiss-loading-errors", new Option_Bool(false)); // !!! describe, document
-    oc.addDescription("dismiss-loading-errors", "Processing", "Continue on broken input");
+    oc.doRegister("ignore-errors", new Option_Bool(false)); // !!! describe, document
+    oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);
+    oc.addDescription("ignore-errors", "Processing", "Continue on broken input");
 
     oc.doRegister("no-step-log", new Option_Bool(false));
     oc.addDescription("no-step-log", "Processing", "Disable console output of current time step");
@@ -256,7 +260,7 @@ main(int argc, char** argv) {
         if (matrix.getNoLoaded() == 0) {
             throw ProcessError("No vehicles loaded...");
         }
-        if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("dismiss-loading-errors")) {
+        if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("ignore-errors")) {
             throw ProcessError("Loading failed...");
         }
         WRITE_MESSAGE(toString(matrix.getNoLoaded()) + " vehicles loaded.");
