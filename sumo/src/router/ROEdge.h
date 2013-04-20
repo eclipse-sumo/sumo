@@ -377,11 +377,17 @@ protected:
 
 
 protected:
-    /// @brief The maximum speed allowed on this edge
-    SUMOReal mySpeed;
+    /// @brief The nodes this edge is connecting
+    RONode* const myFromNode, * const myToNode;
 
     /// @brief The index (numeric id) of the edge
-    unsigned int myIndex;
+    const unsigned int myIndex;
+
+	/// @brief The edge priority (road class)
+    const int myPriority;
+
+    /// @brief The maximum speed allowed on this edge
+    SUMOReal mySpeed;
 
     /// @brief The length of the edge
     SUMOReal myLength;
@@ -412,9 +418,6 @@ protected:
     /// @brief List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;
 	
-	/// @brief The edge priority (road class)
-    const int myPriority;
-
 #ifdef HAVE_INTERNAL // catchall for internal stuff
     /// @brief List of edges that approached this edge
     std::vector<ROEdge*> myApproachingEdges;
@@ -428,9 +431,6 @@ protected:
 
     /// @brief The list of allowed vehicle classes combined across lanes
     SVCPermissions myCombinedPermissions;
-
-    /// @brief The nodes this edge is connecting
-    RONode* myFromNode, *myToNode;
 
     static std::vector<ROEdge*> myEdges;
 
