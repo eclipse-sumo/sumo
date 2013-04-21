@@ -270,16 +270,15 @@ public:
 
     /** @brief Opens the output for computed routes
      *
-     * If the second parameter is true, a second file for route alternatives
-     *  will be opened. The route alternatives files is simply the given
-     *  name with ".alt" appended (before the ".xml"-suffix).
-     * If one of the file outputs can not be build, an IOError is thrown
+     * If the second parameter is set, a second file for route alternatives
+     *  will be opened.
+     * If one of the file outputs can not be build, an IOError is thrown.
      *
      * @param[in] filename The (base) name of the file(s) to create
-     * @param[in] useAlternatives Whether a file for writing alternatives shall be created
+     * @param[in] altFilename The name of the file for writing alternatives, "" means no alternatives
      * @param[in] filename The name of the vtype file to create, "" means no separate types
      */
-    void openOutput(const std::string& filename, bool useAlternatives, const std::string& typefilename);
+    void openOutput(const std::string& filename, const std::string altFilename, const std::string typeFilename);
 
 
     /** @brief closes the file output for computed routes */
@@ -333,12 +332,12 @@ public:
 
     void setRestrictionFound();
 
-	OutputDevice* getRouteOutput(const bool alternative=false) {
+    OutputDevice* getRouteOutput(const bool alternative=false) {
         if (alternative) {
             return myRouteAlternativesOutput;
         }
-		return myRoutesOutput;
-	}
+        return myRoutesOutput;
+    }
 
 protected:
     bool computeRoute(OptionsCont& options,

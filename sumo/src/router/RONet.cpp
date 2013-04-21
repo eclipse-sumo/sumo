@@ -107,28 +107,19 @@ RONet::addRouteDef(RORouteDef* def) {
 
 
 void
-RONet::openOutput(const std::string& filename, bool useAlternatives, const std::string& typefilename) {
-    myRoutesOutput = &OutputDevice::getDevice(filename);
-    if (useAlternatives) {
-        const size_t len = filename.length();
-        if (len > 4 && filename.substr(len - 4) == ".xml") {
-            myRouteAlternativesOutput = &OutputDevice::getDevice(filename.substr(0, len - 4) + ".alt.xml");
-        } else {
-            if (len > 4 && filename.substr(len - 4) == ".sbx") {
-                myRouteAlternativesOutput = &OutputDevice::getDevice(filename.substr(0, len - 4) + ".alt.sbx");
-            } else {
-                myRouteAlternativesOutput = &OutputDevice::getDevice(filename + ".alt");
-            }
-        }
+RONet::openOutput(const std::string& filename, const std::string altFilename, const std::string typeFilename) {
+    if (filename != "") {
+        myRoutesOutput = &OutputDevice::getDevice(filename);
+        myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
+        myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.sf.net/xsd/routes_file.xsd");
     }
-    myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
-    myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.sf.net/xsd/routes_file.xsd");
-    if (useAlternatives) {
+    if (altFilename != "") {
+        myRouteAlternativesOutput = &OutputDevice::getDevice(altFilename);
         myRouteAlternativesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
         myRouteAlternativesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.sf.net/xsd/routes_file.xsd");
     }
-    if (typefilename != "") {
-        myTypesOutput = &OutputDevice::getDevice(typefilename);
+    if (typeFilename != "") {
+        myTypesOutput = &OutputDevice::getDevice(typeFilename);
         myTypesOutput->writeXMLHeader("routes", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
     }
 }

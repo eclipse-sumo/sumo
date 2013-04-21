@@ -108,7 +108,15 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // initialise the loader
     loader.openRoutes(net);
     // prepare the output
-    net.openOutput(oc.getString("output-file"), true, oc.getString("vtype-output"));
+    const std::string& filename = oc.getString("output-file");
+    std::string altFilename = filename + ".alt";
+    const size_t len = filename.length();
+    if (len > 4 && filename.substr(len - 4) == ".xml") {
+        altFilename = filename.substr(0, len - 4) + ".alt.xml";
+    } else if (len > 4 && filename.substr(len - 4) == ".sbx") {
+        altFilename = filename.substr(0, len - 4) + ".alt.sbx";
+    }
+    net.openOutput(filename, altFilename, oc.getString("vtype-output"));
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle>* router;
     const std::string measure = oc.getString("weight-attribute");
