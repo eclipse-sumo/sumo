@@ -9,6 +9,7 @@ copy_test_path:input_od_o.fma
 [collate_file]
 cfg:config.cfg
 trips:trips.trips.xml
+routes:routes.rou.xml
 log:log.txt
 
 [run_dependent_text]

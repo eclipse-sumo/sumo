@@ -1,6 +1,8 @@
-
 # some basic tests for importing files
 import
+
+# basic tests with flow output
+flow_output
 
 # testing meta processing
 meta
