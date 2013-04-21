@@ -162,9 +162,6 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                                            string2time(oc.getString("weight-period")) :
                                            std::numeric_limits<int>::max());
 
-            if (!net.hasRestrictions()) {
-                WRITE_WARNING("CHWrapper is only needed for a restricted network");
-            }
             router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, begin, weightPeriod);
 
