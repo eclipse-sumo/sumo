@@ -108,6 +108,15 @@ public:
              SUMOTime end, const std::string& origin, const std::string& destination,
              const std::string& vehicleType);
 
+    /** @brief Helper function for flow and trip output writing the depart
+     *   and arrival attributes
+     *
+     * @param[in] dev The stream to write the generated vehicle trips to
+     * @param[in] noVtype Whether vtype information shall not be written
+     * @param[in] cell The OD cell containing the vtype
+     */
+    void writeDefaultAttrs(OutputDevice& dev, const bool noVtype,
+                           const ODCell* const cell);
 
     /** @brief Writes the vehicles stored in the matrix assigning the sources and sinks
      *
@@ -127,15 +136,28 @@ public:
      *
      * @param[in] begin The begin time to generate vehicles for
      * @param[in] end The end time to generate vehicles for
-     * @param[out] strm The stream to write the generated vehicle trips to
+     * @param[in] dev The stream to write the generated vehicle trips to
      * @param[in] uniform Information whether departure times shallbe uniformly spread or random
      * @param[in] noVtype Whether vtype information shall not be written
      * @param[in] prefix A prefix for the vehicle names
      * @param[in] stepLog Whether processed time shall be written
      */
-    void write(SUMOTime begin, SUMOTime end,
-               OutputDevice& dev, bool uniform, bool noVtype,
-               const std::string& prefix, bool stepLog);
+    void write(SUMOTime begin, const SUMOTime end,
+               OutputDevice& dev, const bool uniform, const bool noVtype,
+               const std::string& prefix, const bool stepLog);
+
+
+    /** @brief Writes the flows stored in the matrix
+     *
+     * @param[in] begin The begin time to generate vehicles for
+     * @param[in] end The end time to generate vehicles for
+     * @param[in] dev The stream to write the generated vehicle trips to
+     * @param[in] noVtype Whether vtype information shall not be written
+     * @param[in] prefix A prefix for the flow names
+     */
+    void writeFlows(const SUMOTime begin, const SUMOTime end,
+                    OutputDevice& dev, const bool noVtype,
+                    const std::string& prefix);
 
 
     /** @brief Returns the number of loaded vehicles

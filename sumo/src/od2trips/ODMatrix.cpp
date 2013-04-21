@@ -133,13 +133,41 @@ ODMatrix::computeDeparts(ODCell* cell,
 
 
 void
-ODMatrix::write(SUMOTime begin, SUMOTime end,
-                OutputDevice& dev, bool uniform, bool noVtype,
-                const std::string& prefix, bool stepLog) {
+ODMatrix::writeDefaultAttrs(OutputDevice& dev, const bool noVtype,
+                            const ODCell* const cell) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (!noVtype && cell->vehicleType != "") {
+        dev.writeAttr(SUMO_ATTR_TYPE, cell->vehicleType);
+    }
+    dev.writeAttr(SUMO_ATTR_FROM_TAZ, cell->origin).writeAttr(SUMO_ATTR_TO_TAZ, cell->destination);
+    if (oc.isSet("departlane") && oc.getString("departlane") != "default") {
+        dev.writeAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
+    }
+    if (oc.isSet("departpos")) {
+        dev.writeAttr(SUMO_ATTR_DEPARTPOS, oc.getString("departpos"));
+    }
+    if (oc.isSet("departspeed") && oc.getString("departspeed") != "default") {
+        dev.writeAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
+    }
+    if (oc.isSet("arrivallane")) {
+        dev.writeAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
+    }
+    if (oc.isSet("arrivalpos")) {
+        dev.writeAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
+    }
+    if (oc.isSet("arrivalspeed")) {
+        dev.writeAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
+    }
+}
+
+
+void
+ODMatrix::write(SUMOTime begin, const SUMOTime end,
+                OutputDevice& dev, const bool uniform, const bool noVtype,
+                const std::string& prefix, const bool stepLog) {
     if (myContainer.size() == 0) {
         return;
     }
-    OptionsCont& oc = OptionsCont::getOptions();
     std::map<std::pair<std::string, std::string>, SUMOReal> fractionLeft;
     size_t vehName = 0;
     sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
@@ -179,29 +207,9 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
         }
         for (std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin(); i != vehicles.rend() && (*i).depart == t; ++i) {
             myNoWritten++;
-            dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t)).writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
-            if (!noVtype && (*i).cell->vehicleType.length() != 0) {
-                dev.writeAttr(SUMO_ATTR_TYPE, (*i).cell->vehicleType);
-            }
-            dev.writeAttr(SUMO_ATTR_FROM_TAZ, (*i).cell->origin).writeAttr(SUMO_ATTR_TO_TAZ, (*i).cell->destination);
-            if (oc.isSet("departlane") && oc.getString("departlane") != "default") {
-                dev.writeAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
-            }
-            if (oc.isSet("departpos")) {
-                dev.writeAttr(SUMO_ATTR_DEPARTPOS, oc.getString("departpos"));
-            }
-            if (oc.isSet("departspeed") && oc.getString("departspeed") != "default") {
-                dev.writeAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
-            }
-            if (oc.isSet("arrivallane")) {
-                dev.writeAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
-            }
-            if (oc.isSet("arrivalpos")) {
-                dev.writeAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
-            }
-            if (oc.isSet("arrivalspeed")) {
-                dev.writeAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
-            }
+            dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
+            dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+            writeDefaultAttrs(dev, noVtype, i->cell);
             dev.closeTag();
         }
         while (vehicles.size() != 0 && vehicles.back().depart == t) {
@@ -215,6 +223,29 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
         }
         if (next == myContainer.end() && vehicles.empty()) {
             break;
+        }
+    }
+}
+
+
+void
+ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
+                     OutputDevice& dev, bool noVtype,
+                     const std::string& prefix) {
+    if (myContainer.size() == 0) {
+        return;
+    }
+    size_t flowName = 0;
+    sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
+    // recheck begin time
+    for (std::vector<ODCell*>::const_iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
+        const ODCell* const c = *i;        
+        if (c->end > begin && c->begin < end) {
+            dev.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
+            dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin));
+            dev.writeAttr(SUMO_ATTR_END, time2string(c->end)).writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
+            writeDefaultAttrs(dev, noVtype, *i);
+            dev.closeTag();
         }
     }
 }
@@ -473,6 +504,7 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
         }
     }
 }
+
 
 Distribution_Points
 ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInHours) {

@@ -243,25 +243,24 @@ main(int argc, char** argv) {
         }
         RandHelper::initRandGlobal();
         // load the districts
-		// check whether the user gave a net filename
-	    if (!oc.isSet("net-file")) {
-		    WRITE_ERROR("You must supply a network ('-n').");
-			throw ProcessError("No districts loaded...");
-		}
-		// get the file name and set it
+        // check whether the user gave a net filename
+        if (!oc.isSet("net-file")) {
+            throw ProcessError("You must supply a network or districts file ('-n').");
+        }
+        // get the file name and set it
         ODDistrictCont districts;
         districts.loadDistricts(oc.getString("net-file"));
         if (districts.size() == 0) {
-            throw ProcessError("No districts loaded...");
+            throw ProcessError("No districts loaded.");
         }
         // load the matrix
         ODMatrix matrix(districts);
         matrix.loadMatrix(oc);
         if (matrix.getNoLoaded() == 0) {
-            throw ProcessError("No vehicles loaded...");
+            throw ProcessError("No vehicles loaded.");
         }
         if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("ignore-errors")) {
-            throw ProcessError("Loading failed...");
+            throw ProcessError("Loading failed.");
         }
         WRITE_MESSAGE(toString(matrix.getNoLoaded()) + " vehicles loaded.");
         // apply a curve if wished
@@ -269,13 +268,23 @@ main(int argc, char** argv) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         // write
-        if (!OutputDevice::createDeviceByOption("output-file", "trips")) {
-            throw ProcessError("No output name is given.");
+        bool haveOutput = false;
+        if (OutputDevice::createDeviceByOption("output-file", "trips")) {
+            matrix.write(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+                         OutputDevice::getDeviceByOption("output-file"),
+                         oc.getBool("spread.uniform"), oc.getBool("ignore-vehicle-type"),
+                         oc.getString("prefix"), !oc.getBool("no-step-log"));
+            haveOutput = true;
         }
-        OutputDevice& dev = OutputDevice::getDeviceByOption("output-file");
-        matrix.write(string2time(oc.getString("begin")), string2time(oc.getString("end")),
-                     dev, oc.getBool("spread.uniform"), oc.getBool("ignore-vehicle-type"),
-                     oc.getString("prefix"), !oc.getBool("no-step-log"));
+        if (OutputDevice::createDeviceByOption("flow-output", "routes")) {
+            matrix.writeFlows(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+                              OutputDevice::getDeviceByOption("flow-output"),
+                              oc.getBool("ignore-vehicle-type"), oc.getString("prefix"));
+            haveOutput = true;
+        }
+        if (!haveOutput) {
+            throw ProcessError("No output file given.");
+        }
         WRITE_MESSAGE(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         WRITE_MESSAGE(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (const ProcessError& e) {
