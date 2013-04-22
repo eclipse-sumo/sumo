@@ -442,7 +442,7 @@ protected:
      * @return The retrieved/built node
      * @exception ProcessError If the node could not be built/retrieved
      */
-    static NBNode* getOrBuildNode(const std::string& id, Position& pos, NBNodeCont& nc);
+    static NBNode* getOrBuildNode(const std::string& id, const Position& pos, NBNodeCont& nc);
 
 
     static std::vector<Position> geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g);
