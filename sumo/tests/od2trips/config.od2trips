@@ -14,6 +14,7 @@ log:log.txt
 
 [run_dependent_text]
 trips:<!--{[->]}-->
+routes:<!--{[->]}-->
 
 [floating_point_tolerance]
 trips:0.0101
