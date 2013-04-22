@@ -2,9 +2,9 @@
     <delay value="100"/>
     <viewport zoom="300" x="200" y="200"/>
     <decal filename="cross.gif" centerX="218" centerY="200" width="343" height="240" rotation="0.00"/>
-    <scheme name="*real world">
+    <scheme name="game_cross">
         <opengl antialiase="0" dither="0"/>
-        <vehicles vehicleMode="8" vehicleQuality="2" minVehicleSize="1.00" vehicleExaggeration="1.00" showBlinker="1"
+        <vehicles vehicleMode="9" vehicleQuality="2" minVehicleSize="1.00" vehicleExaggeration="1.00" showBlinker="1"
                   vehicleName_show="0" vehicleName_size="50.00" vehicleName_color="0.80,0.60,0.00" >
             <colorScheme name="uniform">
                 <entry color="1.00,1.00,0.00"/>
