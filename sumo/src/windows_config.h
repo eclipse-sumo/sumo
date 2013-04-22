@@ -54,6 +54,9 @@
 /* defines the epsilon to use on position comparison */
 #define POSITION_EPS 0.1
 
+/* defines the epsilon to use on general floating point comparison */
+#define NUMERICAL_EPS 0.001
+
 /* defines the number of digits after the comma in output */
 #define OUTPUT_ACCURACY 2
 

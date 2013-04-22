@@ -126,14 +126,18 @@ NBOwnTLDef::getBestCombination(const EdgeVector& edges) {
     SUMOReal bestValue = -1;
     for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         for (EdgeVector::const_iterator j = i + 1; j != edges.end(); ++j) {
-            SUMOReal value = computeUnblockedWeightedStreamNumber(*i, *j);
+            const SUMOReal value = computeUnblockedWeightedStreamNumber(*i, *j);
             if (value > bestValue) {
                 bestValue = value;
                 bestPair = std::pair<NBEdge*, NBEdge*>(*i, *j);
             } else if (value == bestValue) {
-                SUMOReal ca = GeomHelper::getMinAngleDiff((*i)->getAngleAtNode((*i)->getToNode()), (*j)->getAngleAtNode((*j)->getToNode()));
-                SUMOReal oa = GeomHelper::getMinAngleDiff(bestPair.first->getAngleAtNode(bestPair.first->getToNode()), bestPair.second->getAngleAtNode(bestPair.second->getToNode()));
-                if (oa < ca) {
+                const SUMOReal ca = GeomHelper::getMinAngleDiff((*i)->getAngleAtNode((*i)->getToNode()), (*j)->getAngleAtNode((*j)->getToNode()));
+                const SUMOReal oa = GeomHelper::getMinAngleDiff(bestPair.first->getAngleAtNode(bestPair.first->getToNode()), bestPair.second->getAngleAtNode(bestPair.second->getToNode()));
+                if (fabs(oa - ca) < NUMERICAL_EPS) { // break ties by id
+                    if (bestPair.first->getID() < (*i)->getID()) {
+                        bestPair = std::pair<NBEdge*, NBEdge*>(*i, *j);
+                    }
+                } else if (oa < ca) {
                     bestPair = std::pair<NBEdge*, NBEdge*>(*i, *j);
                 }
             }
@@ -175,8 +179,8 @@ NBOwnTLDef::getBestPair(EdgeVector& incoming) {
 NBTrafficLightLogic*
 NBOwnTLDef::myCompute(const NBEdgeCont&,
                       unsigned int brakingTimeSeconds) {
-    SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
-    SUMOTime leftTurnTime = TIME2STEPS(6); // make configurable ?
+    const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
+    const SUMOTime leftTurnTime = TIME2STEPS(6); // make configurable ?
     // build complete lists first
     const EdgeVector& incoming = getIncomingEdges();
     EdgeVector fromEdges, toEdges;
@@ -234,9 +238,9 @@ NBOwnTLDef::myCompute(const NBEdgeCont&,
         // plain straight movers
         for (unsigned int i1 = 0; i1 < (unsigned int) incoming.size(); ++i1) {
             NBEdge* fromEdge = incoming[i1];
-            bool inChosen = fromEdge == chosen.first || fromEdge == chosen.second; //chosen.find(fromEdge)!=chosen.end();
-            unsigned int noLanes = fromEdge->getNumLanes();
-            for (unsigned int i2 = 0; i2 < noLanes; i2++) {
+            const bool inChosen = fromEdge == chosen.first || fromEdge == chosen.second; //chosen.find(fromEdge)!=chosen.end();
+            const unsigned int numLanes = fromEdge->getNumLanes();
+            for (unsigned int i2 = 0; i2 < numLanes; i2++) {
                 std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
                 for (unsigned int i3 = 0; i3 < approached.size(); ++i3) {
                     if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
@@ -282,7 +286,6 @@ NBOwnTLDef::myCompute(const NBEdgeCont&,
                 }
             }
         }
-
         // add step
         logic->addStep(greenTime, state);
 
