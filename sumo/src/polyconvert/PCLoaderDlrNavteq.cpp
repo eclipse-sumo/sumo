@@ -246,7 +246,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
         }
 
         // patch the values
-        bool fill = vec.getBegin() == vec.getEnd();
+        bool fill = vec.front() == vec.back();
         bool discard = oc.getBool("discard");
         int layer = oc.getInt("layer");
         RGBColor color;

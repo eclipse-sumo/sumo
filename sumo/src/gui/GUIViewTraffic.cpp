@@ -244,7 +244,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
             // get the links
             const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);
             if (lanes.size() > 0) {
-                const Position& endPos = lanes[0]->getShape().getEnd();
+                const Position& endPos = lanes[0]->getShape().back();
                 if (endPos.distanceTo(pos) < minDist) {
                     minDist = endPos.distanceTo(pos);
                     minTll = tll;

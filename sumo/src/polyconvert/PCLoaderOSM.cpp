@@ -221,7 +221,7 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
     if (def.discard) {
         return index;
     } else {
-        const bool closedShape = vec.getBegin() == vec.getEnd();
+        const bool closedShape = vec.front() == vec.back();
         const std::string idSuffix = (index == 0 ? "" : "#" + toString(index));
         const std::string id = def.prefix + (useName && edge->name != "" ? edge->name : edge->id) + idSuffix;
         Polygon* poly = new Polygon(

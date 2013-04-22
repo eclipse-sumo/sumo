@@ -394,8 +394,8 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
     bool noSpline = false;
     PositionVector ret;
     PositionVector init;
-    Position beg = fromE->getLaneShape(fromL).getEnd();
-    Position end = toE->getLaneShape(toL).getBegin();
+    Position beg = fromE->getLaneShape(fromL).back();
+    Position end = toE->getLaneShape(toL).front();
     Position intersection;
     unsigned int noInitialPoints = 0;
     if (beg.distanceTo(end) <= POSITION_EPS) {
@@ -473,8 +473,8 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
     }
     //
     if (noSpline) {
-        ret.push_back(fromE->getLaneShape(fromL).getEnd());
-        ret.push_back(toE->getLaneShape(toL).getBegin());
+        ret.push_back(fromE->getLaneShape(fromL).back());
+        ret.push_back(toE->getLaneShape(toL).front());
     } else {
         SUMOReal* def = new SUMOReal[1 + noInitialPoints * 3];
         for (int i = 0; i < (int) init.size(); ++i) {

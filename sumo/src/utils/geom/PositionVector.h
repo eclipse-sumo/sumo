@@ -186,12 +186,6 @@ public:
     /// Returns the information whether this polygon lies partially within the given polygon
     bool partialWithin(const AbstractPoly& poly, SUMOReal offset = 0) const;
 
-    /// Returns the first position
-    const Position& getBegin() const;
-
-    /// Returns the last position
-    const Position& getEnd() const;
-
     /// Returns the two lists made when this list vector is splitted at the given point
     std::pair<PositionVector, PositionVector> splitAt(SUMOReal where) const;
 
@@ -217,6 +211,14 @@ public:
 
     ContType::const_iterator end() const {
         return myCont.end();
+    }
+
+    const Position& front() const {
+        return myCont.front();
+    }
+
+    const Position& back() const {
+        return myCont.back();
     }
 
     PositionVector getSubpart(SUMOReal begin, SUMOReal end) const;

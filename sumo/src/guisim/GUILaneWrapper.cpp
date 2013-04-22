@@ -119,7 +119,7 @@ GUILaneWrapper::drawLinkNo() const {
     SUMOReal x1 = myLane.getWidth() / (SUMOReal) 2.;
     glPushMatrix();
     const PositionVector& g = getShape();
-    const Position& end = g.getEnd();
+    const Position& end = g.back();
     const Position& f = g[-2];
     const Position& s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
@@ -146,7 +146,7 @@ GUILaneWrapper::drawTLSLinkNo(const GUINet& net) const {
     SUMOReal x1 = (SUMOReal)(myLane.getWidth() / 2.);
     glPushMatrix();
     const PositionVector& g = getShape();
-    const Position& end = g.getEnd();
+    const Position& end = g.back();
     const Position& f = g[-2];
     const Position& s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
@@ -170,7 +170,7 @@ void
 GUILaneWrapper::drawLinkRules(const GUINet& net) const {
     unsigned int noLinks = getLinkNumber();
     const PositionVector& g = getShape();
-    const Position& end = g.getEnd();
+    const Position& end = g.back();
     const Position& f = g[-2];
     const Position& s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
@@ -271,7 +271,7 @@ GUILaneWrapper::drawArrows() const {
         return;
     }
     // draw all links
-    const Position& end = getShape().getEnd();
+    const Position& end = getShape().back();
     const Position& f = getShape()[-2];
     SUMOReal rot = (SUMOReal) atan2((end.x() - f.x()), (f.y() - end.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
     glPushMatrix();

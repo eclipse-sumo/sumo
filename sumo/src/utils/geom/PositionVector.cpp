@@ -415,23 +415,9 @@ PositionVector::partialWithin(const AbstractPoly& poly, SUMOReal offset) const {
 }
 
 
-
 bool
 PositionVector::crosses(const Position& p1, const Position& p2) const {
     return intersects(p1, p2);
-}
-
-
-
-const Position&
-PositionVector::getBegin() const {
-    return myCont[0];
-}
-
-
-const Position&
-PositionVector::getEnd() const {
-    return myCont.back();
 }
 
 
@@ -447,18 +433,18 @@ PositionVector::splitAt(SUMOReal where) const {
     first.push_back(myCont[0]);
     SUMOReal seen = 0;
     ContType::const_iterator it = myCont.begin() + 1;
-    SUMOReal next = first.getEnd().distanceTo(*it);
+    SUMOReal next = first.back().distanceTo(*it);
     // see how many points we can add to first
     while (where >= seen + next + POSITION_EPS) {
         seen += next;
         first.push_back(*it);
         it++;
-        next = first.getEnd().distanceTo(*it);
+        next = first.back().distanceTo(*it);
     }
     if (fabs(where - (seen + next)) > POSITION_EPS || it == myCont.end() - 1) {
         // we need to insert a new point because 'where' is not close to an
         // existing point or it is to close to the endpoint
-        Line tmpL(first.getEnd(), *it);
+        Line tmpL(first.back(), *it);
         Position p = tmpL.getPositionAtDistance(where - seen);
         first.push_back(p);
         second.push_back(p);
@@ -471,7 +457,7 @@ PositionVector::splitAt(SUMOReal where) const {
     }
     assert(first.size() >= 2);
     assert(second.size() >= 2);
-    assert(first.getEnd() == second.getBegin());
+    assert(first.back() == second.front());
     assert(fabs(first.length() + second.length() - length()) < 2 * POSITION_EPS);
     return std::pair<PositionVector, PositionVector>(first, second);
 }
@@ -784,7 +770,7 @@ PositionVector::pruneFromEndAt(const Position& p) {
 
 SUMOReal
 PositionVector::beginEndAngle() const {
-    Line tmp(getBegin(), getEnd());
+    Line tmp(front(), back());
     return tmp.atan2Angle();
 }
 

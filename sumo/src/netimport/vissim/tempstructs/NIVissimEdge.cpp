@@ -587,7 +587,7 @@ std::pair<NIVissimConnectionCluster*, NBNode*>
 NIVissimEdge::getFromNode(NBNodeCont& nc, ConnectionClusters& clusters) {
     const SUMOReal MAX_DISTANCE = 10.;
     assert(clusters.size() >= 1);
-    const Position& beg = myGeom.getBegin();
+    const Position& beg = myGeom.front();
     NIVissimConnectionCluster* c = *(clusters.begin());
     // check whether the edge starts within a already build node
     if (c->around(beg, MAX_DISTANCE)) {
@@ -620,7 +620,7 @@ NIVissimEdge::getFromNode(NBNodeCont& nc, ConnectionClusters& clusters) {
 
 std::pair<NIVissimConnectionCluster*, NBNode*>
 NIVissimEdge::getToNode(NBNodeCont& nc, ConnectionClusters& clusters) {
-    const Position& end = myGeom.getEnd();
+    const Position& end = myGeom.back();
     if (clusters.size() > 0) {
         const SUMOReal MAX_DISTANCE = 10.;
         assert(clusters.size() >= 1);
@@ -737,10 +737,10 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, SUMOReal offset,
 
         NIVissimConnectionCluster* c = *(myConnectionClusters.begin());
         // no end node given
-        if (c->around(myGeom.getBegin(), offset) && !c->around(myGeom.getEnd(), offset)) {
+        if (c->around(myGeom.front(), offset) && !c->around(myGeom.back(), offset)) {
             NBNode* end = new NBNode(
                 toString<int>(myID) + "-End",
-                myGeom.getEnd(),
+                myGeom.back(),
                 NODETYPE_NOJUNCTION);
             if (!nc.insert(end)) {
                 throw 1;
@@ -749,10 +749,10 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, SUMOReal offset,
         }
 
         // no begin node given
-        if (!c->around(myGeom.getBegin(), offset) && c->around(myGeom.getEnd(), offset)) {
+        if (!c->around(myGeom.front(), offset) && c->around(myGeom.back(), offset)) {
             NBNode* beg = new NBNode(
                 toString<int>(myID) + "-Begin",
-                myGeom.getBegin(),
+                myGeom.front(),
                 NODETYPE_NOJUNCTION);
             if (!nc.insert(beg)) {
                 std::cout << "nope, NIVissimDisturbance" << std::endl;
@@ -762,7 +762,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, SUMOReal offset,
         }
 
         // self-loop edge - both points lie within the same cluster
-        if (c->around(myGeom.getBegin()) && c->around(myGeom.getEnd())) {
+        if (c->around(myGeom.front()) && c->around(myGeom.back())) {
             return std::pair<NBNode*, NBNode*>(node, node);
         }
     }
@@ -903,8 +903,8 @@ NIVissimEdge::dict_checkEdges2Join() {
             // only parallel edges which do end at the same node
             //  should be joined
             // retrieve the "approximating" lines first
-            Line l1 = Line(g1.getBegin(), g1.getEnd());
-            Line l2 = Line(g2.getBegin(), g2.getEnd());
+            Line l1 = Line(g1.front(), g1.back());
+            Line l2 = Line(g2.front(), g2.back());
             // check for parallelity
             //  !!! the usage of an explicit value is not very fine
             if (fabs(l1.atan2DegreeAngle() - l2.atan2DegreeAngle()) > 2.0) {

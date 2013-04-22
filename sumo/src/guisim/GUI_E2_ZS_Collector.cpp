@@ -81,7 +81,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector& detector)
       myDetector(detector) {
     GUILaneWrapper& lw = static_cast<GUIEdge&>(detector.getLane()->getEdge()).getLaneGeometry(detector.getLane());
     const PositionVector& v = lw.getShape();
-    Line l(v.getBegin(), v.getEnd());
+    Line l(v.front(), v.back());
     // build geometry
     myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getEndPos());
     //

@@ -352,15 +352,15 @@ NBEdge::hasDefaultGeometry() const {
 
 bool
 NBEdge::hasDefaultGeometryEndpoints() const {
-    return myGeom.getBegin() == myFrom->getPosition() &&
-           myGeom.getEnd() == myTo->getPosition();
+    return myGeom.front() == myFrom->getPosition() &&
+           myGeom.back() == myTo->getPosition();
 }
 
 
 void
 NBEdge::setGeometry(const PositionVector& s, bool inner) {
-    Position begin = myGeom.getBegin(); // may differ from node position
-    Position end = myGeom.getEnd(); // may differ from node position
+    Position begin = myGeom.front(); // may differ from node position
+    Position end = myGeom.back(); // may differ from node position
     myGeom = s;
     if (inner) {
         myGeom.push_front(begin);
@@ -997,14 +997,14 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
         // compute the maximum speed allowed
         //  see !!! for an explanation (with a_lat_mean ~0.3)
         SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
-                        getLaneShape(con.fromLane).getEnd().distanceTo(
-                            con.toEdge->getLaneShape(con.toLane).getBegin())
+                        getLaneShape(con.fromLane).back().distanceTo(
+                            con.toEdge->getLaneShape(con.toLane).front())
                         / (SUMOReal) 2.0 / (SUMOReal) PI;
         vmax = MIN2(vmax, ((getSpeed() + con.toEdge->getSpeed()) / (SUMOReal) 2.0));
         vmax = (getSpeed() + con.toEdge->getSpeed()) / (SUMOReal) 2.0;
         //
-        Position end = con.toEdge->getLaneShape(con.toLane).getBegin();
-        Position beg = getLaneShape(con.fromLane).getEnd();
+        Position end = con.toEdge->getLaneShape(con.toLane).front();
+        Position beg = getLaneShape(con.fromLane).back();
 
         assert(shape.size() >= 2);
         // get internal splits if any

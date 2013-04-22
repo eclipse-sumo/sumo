@@ -422,8 +422,8 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
     if (oe == 0 || ie == 0) {
         return false;
     }
-    Line l1(oe->getGeometry().getBegin(), oe->getGeometry().getEnd());
-    Line l2(ie->getGeometry().getEnd(), ie->getGeometry().getBegin());
+    Line l1(oe->getGeometry().front(), oe->getGeometry().back());
+    Line l2(ie->getGeometry().back(), ie->getGeometry().front());
     SUMOReal a1 = l1.atan2DegreeAngle();
     SUMOReal a2 = l2.atan2DegreeAngle();
     return fabs(a1 - a2) < 5;
@@ -441,9 +441,9 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2) {
                 NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
                 const PositionVector& g = e->getGeometry();
                 SUMOReal pos1 = GeomHelper::nearest_position_on_line_to_point2D(
-                                    g.getBegin(), g.getEnd(), c1->getBoundary().getCenter());
+                                    g.front(), g.back(), c1->getBoundary().getCenter());
                 SUMOReal pos2 = GeomHelper::nearest_position_on_line_to_point2D(
-                                    g.getBegin(), g.getEnd(), c2->getBoundary().getCenter());
+                                    g.front(), g.back(), c2->getBoundary().getCenter());
                 if (pos1 <= 5.0 && pos2 <= 5.0) {
                     return true;
                 }
@@ -452,9 +452,9 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2) {
                 NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
                 const PositionVector& g = e->getGeometry();
                 SUMOReal pos1 = GeomHelper::nearest_position_on_line_to_point2D(
-                                    g.getBegin(), g.getEnd(), c1->getBoundary().getCenter());
+                                    g.front(), g.back(), c1->getBoundary().getCenter());
                 SUMOReal pos2 = GeomHelper::nearest_position_on_line_to_point2D(
-                                    g.getBegin(), g.getEnd(), c2->getBoundary().getCenter());
+                                    g.front(), g.back(), c2->getBoundary().getCenter());
                 if (pos1 >= g.length() - 5.0 && pos2 >= g.length() - 5.0) {
                     return true;
                 }
@@ -695,7 +695,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
     const PositionVector& edgeGeom = edge->getGeometry();
     Position p = GeomHelper::crossPoint(myBoundary, edgeGeom);
     return GeomHelper::nearest_position_on_line_to_point2D(
-               edgeGeom.getBegin(), edgeGeom.getEnd(), p);
+               edgeGeom.front(), edgeGeom.back(), p);
 }
 
 
