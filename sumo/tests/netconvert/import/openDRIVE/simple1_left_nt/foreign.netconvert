@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Mar 13 14:01:17 2013" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="1" maxJunc="2" maxPrg="0"/>
-    <road name="" length="0.20" id="0" junction="-1">
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Mon Apr 22 13:04:52 2013" north="0.00" south="0.00" east="50.00" west="0.00" maxRoad="1" maxJunc="2" maxPrg="0"/>
+    <road name="" length="50.00" id="0" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="0"/>
             <successor elementType="junction" elementId="1"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="25.10" y="0.05" hdg="3.14" length="0.20"><line/></geometry>
+            <geometry s="0.00" x="50.00" y="0.05" hdg="3.14" length="50.00"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
