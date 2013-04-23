@@ -98,7 +98,7 @@ for source, target in targets.iteritems():
                 shutil.copy2(potentials[entry[1]], testPath)
     oldWorkDir = os.getcwd()
     os.chdir(testPath)
-    if app in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
+    if app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
         if "meso" in testPath and app == "sumo":
             app = "meso"
         subprocess.call([checkBinary(app)] + appOptions)
