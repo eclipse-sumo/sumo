@@ -40,6 +40,9 @@ def build(args=None, bindir=os.environ.get('SUMO_BINDIR','')):
     netconvert = path.join(bindir, 'netconvert')
     polyconvert = path.join(bindir, 'polyconvert')
 
+    if not os.path.isfile(netconvert):
+        optParser.error("netconvert executable '%s' not found" % netconvert)
+
     if ((options.oldapi_prefix and options.osm_file) or
             not (options.oldapi_prefix or options.osm_file)):
         optParser.error("exactly one of the options --osm-file and --oldapi-prefix must be supplied")
