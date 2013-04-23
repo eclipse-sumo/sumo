@@ -98,6 +98,9 @@ readDetectors(RODFDetectorCon& detectors, OptionsCont& oc, RODFNet* optNet) {
             throw ProcessError();
         }
     }
+    if (detectors.getDetectors().empty()) {
+        throw ProcessError("No detectors found.");
+    }
 }
 
 
@@ -143,6 +146,15 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
         // compute the detector types (optionally)
         if (!detectors.detectorsHaveCompleteTypes() || oc.getBool("revalidate-detectors")) {
             optNet->computeTypes(detectors, oc.getBool("strict-sources"));
+        }
+        std::vector<RODFDetector*>::const_iterator i = detectors.getDetectors().begin();
+        for (; i != detectors.getDetectors().end(); ++i) {
+            if ((*i)->getType() == SOURCE_DETECTOR) {
+                break;
+            }
+        }
+        if (i == detectors.getDetectors().end() && !oc.getBool("routes-for-all")) {
+            throw ProcessError("No source detectors found.");
         }
         // compute routes between the detectors (optionally)
         if (!detectors.detectorsHaveRoutes() || oc.getBool("revalidate-routes") || oc.getBool("guess-empty-flows")) {
