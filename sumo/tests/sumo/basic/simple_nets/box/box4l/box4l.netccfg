@@ -3,8 +3,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="box4l.nod.xml"/>
-        <edge-files value="box4l.edg.xml"/>
+        <node-files value="../../../../../networkInputs/box/box.nod.xml"/>
+        <edge-files value="../../../../../networkInputs/box/box4l.edg.xml"/>
     </input>
 
     <output>
