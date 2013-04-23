@@ -92,16 +92,16 @@ GUIInternalLane::releaseVehicles() const {
 
 
 bool
-GUIInternalLane::moveCritical(SUMOTime t) {
+GUIInternalLane::planMovements(SUMOTime t) {
     AbstractMutex::ScopedLocker locker(myLock);
-    return MSInternalLane::moveCritical(t);
+    return MSInternalLane::planMovements(t);
 }
 
 
 bool
-GUIInternalLane::setCritical(SUMOTime t, std::vector<MSLane*>& into) {
+GUIInternalLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
     AbstractMutex::ScopedLocker locker(myLock);
-    return MSInternalLane::setCritical(t, into);
+    return MSInternalLane::executeMovements(t, into);
 }
 
 

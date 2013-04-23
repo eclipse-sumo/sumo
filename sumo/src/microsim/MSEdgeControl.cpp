@@ -97,9 +97,9 @@ MSEdgeControl::patchActiveLanes() {
 }
 
 void
-MSEdgeControl::moveCritical(SUMOTime t) {
+MSEdgeControl::planMovements(SUMOTime t) {
     for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
-        if ((*i)->getVehicleNumber() == 0 || (*i)->moveCritical(t)) {
+        if ((*i)->getVehicleNumber() == 0 || (*i)->planMovements(t)) {
             myLanes[(*i)->getNumericalID()].amActive = false;
             i = myActiveLanes.erase(i);
         } else {
@@ -110,10 +110,10 @@ MSEdgeControl::moveCritical(SUMOTime t) {
 
 
 void
-MSEdgeControl::moveFirst(SUMOTime t) {
+MSEdgeControl::executeMovements(SUMOTime t) {
     myWithVehicles2Integrate.clear();
     for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
-        if ((*i)->getVehicleNumber() == 0 || (*i)->setCritical(t, myWithVehicles2Integrate)) {
+        if ((*i)->getVehicleNumber() == 0 || (*i)->executeMovements(t, myWithVehicles2Integrate)) {
             myLanes[(*i)->getNumericalID()].amActive = false;
             i = myActiveLanes.erase(i);
         } else {

@@ -91,16 +91,16 @@ GUILane::releaseVehicles() const {
 
 
 bool
-GUILane::moveCritical(SUMOTime t) {
+GUILane::planMovements(SUMOTime t) {
     AbstractMutex::ScopedLocker locker(myLock);
-    return MSLane::moveCritical(t);
+    return MSLane::planMovements(t);
 }
 
 
 bool
-GUILane::setCritical(SUMOTime t, std::vector<MSLane*>& into) {
+GUILane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
     AbstractMutex::ScopedLocker locker(myLock);
-    return MSLane::setCritical(t, into);
+    return MSLane::executeMovements(t, into);
 }
 
 

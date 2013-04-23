@@ -204,25 +204,6 @@ public:
     //@}
 
 
-
-
-
-
-    /** @brief Moves the vehicle after the responds (right-of-way rules) are known
-     *
-     * In this second step, vehicles are moved. The right-of-way - conditions
-     *  have been computed and the vehicle knows which intersections may be passed.
-     *
-     * The vehicle computes the allowed velocity, first. Then, it is moved along the
-     *  previously computed links. If the vehicle enters a new lane, it is set in
-     *  myLane.
-     *
-     * The vehicle also sets the lanes it is in-lapping into and informs them about it.
-     * @return Whether the vehicle has moved to the next edge
-     */
-    bool moveChecked();
-
-
     /** @brief Returns the gap between pred and this vehicle.
      *
      * Assumes both vehicles are on the same or on are on parallel lanes.
@@ -276,15 +257,41 @@ public:
     //@}
 
 
-
-    /** @brief Moves vehicles
+    /** @brief Compute safe velocities for the upcoming lanes based on positions and
+     * speeds from the last time step. Also registers
+     * ApproachingVehicleInformation for all links
+     *
+     * This method goes through the best continuation lanes of the current lane and 
+     * computes the safe velocities for passing/stopping at the next link as a DriveProcessItem
+     *
+     * Afterwards it checks if any DriveProcessItem should be discared to avoid
+     * blocking a junction (checkRewindLinkLanes).
+     *
+     * Finally the ApproachingVehicleInformation is registed for all links that
+     * shall be passed
      *
      * @param[in] t The current timeStep
      * @param[in] pred The leader (may be 0)
      * @param[in] neigh The neighbor vehicle (may be 0)
      * @param[in] lengthsInFront Sum of vehicle lengths in front of the vehicle
      */
-    void move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront);
+    void planMove(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront);
+
+
+    /** @brief Executes planned vehicle movements with regards to right-of-way
+     *
+     * This method goes through all DriveProcessItems in myLFLinkLanes in order 
+     * to find a speed that is safe for all upcoming links.
+     *
+     * Using this speed the position is updated and the vehicle is moved to the
+     * next lane (myLane is updated) if the end of the current lane is reached (this may happen
+     * multiple times in this method)
+     *
+     * The vehicle also sets the lanes it is in-lapping into and informs them about it.
+     * @return Whether the vehicle has moved to the next edge
+     */
+    bool executeMove();
+
 
     /// @name state setter/getter
     //@{

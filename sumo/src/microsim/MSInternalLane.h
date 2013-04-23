@@ -118,7 +118,7 @@ public:
     /// @name Vehicle movement (longitudinal)
     /// @{
 
-    virtual bool moveCritical(SUMOTime t);
+    virtual bool planMovements(SUMOTime t);
     /// @}
 
 

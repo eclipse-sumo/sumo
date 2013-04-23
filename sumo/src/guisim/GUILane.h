@@ -117,11 +117,11 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool moveCritical(SUMOTime t);
+    bool planMovements(SUMOTime t);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool setCritical(SUMOTime t, std::vector<MSLane*>& into);
+    bool executeMovements(SUMOTime t, std::vector<MSLane*>& into);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */

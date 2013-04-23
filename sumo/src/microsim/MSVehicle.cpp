@@ -640,7 +640,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
 
 
 void
-MSVehicle::move(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront) {
+MSVehicle::planMove(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront) {
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
         if (isOnRoad()) {
@@ -876,7 +876,7 @@ MSVehicle::estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v) {
 }
 
 bool
-MSVehicle::moveChecked() {
+MSVehicle::executeMove() {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
         int bla = 0;

@@ -380,14 +380,12 @@ MSNet::simulationStep() {
         // assure all lanes with vehicles are 'active'
         myEdges->patchActiveLanes();
 
-        // move vehicles
-        //  precompute possible positions for vehicles that do interact with
-        //   their lane's end
-        myEdges->moveCritical(myStep);
+        // compute safe velocities for all vehicles for the next few lanes
+        // also register ApproachingVehicleInformation for all links
+        myEdges->planMovements(myStep);
 
-        // move vehicles which do interact with their lane's end
-        //  (it is now known whether they may drive
-        myEdges->moveFirst(myStep);
+        // decide right-of-way and execute movements
+        myEdges->executeMovements(myStep);
         if (MSGlobals::gCheck4Accidents) {
             myEdges->detectCollisions(myStep, 1);
         }

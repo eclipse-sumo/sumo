@@ -376,11 +376,24 @@ public:
     /// @name Vehicle movement (longitudinal)
     /// @{
 
-    virtual bool moveCritical(SUMOTime t);
+    /** @brief Compute safe velocities for all vehicles based on positions and
+     * speeds from the last time step. Also registers
+     * ApproachingVehicleInformation for all links
+     *
+     * This method goes through all vehicles calling their "planMove" method. 
+     * @see MSVehicle::planMove
+     */
+    virtual bool planMovements(SUMOTime t);
 
-    /** Moves the critical vehicles
-        This step is done after the responds have been set */
-    virtual bool setCritical(SUMOTime t, std::vector<MSLane*>& into);
+    /** @brief Executes planned vehicle movements with regards to right-of-way
+     *
+     * This method goes through all vehicles calling their executeMove method
+     * which causes vehicles to update their positions and speeds.
+     * Vehicles wich move to the next lane are stored in the targets lane buffer
+     *
+     * @see MSVehicle::executeMove
+     */
+    virtual bool executeMovements(SUMOTime t, std::vector<MSLane*>& into);
 
     /// Insert buffered vehicle into the real lane.
     virtual bool integrateNewVehicle(SUMOTime t);
@@ -666,10 +679,7 @@ protected:
     VehCont myTmpVehicles;
 
 
-    /** Vehicle-buffer for vehicle that was put onto this lane by a
-        junction. The  buffer is necessary, because of competing
-        push- and pop-operations on myVehicles during
-        Junction::moveFirst() */
+    /** buffer for vehicles that moved from their previous lane onto this one*/
     std::vector<MSVehicle*> myVehBuffer;
 
     /// The vClass permissions for this lane
