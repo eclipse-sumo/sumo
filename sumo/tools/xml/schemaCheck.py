@@ -48,7 +48,8 @@ def main(srcRoot, toCheck, err):
                 "*.net.xml", "*.rou.xml", "*.add.xml", "*.????cfg",
                 "net.netgen", "net.netconvert",
                 "net.scenario", "tls.scenario",
-                "routes.duarouter", "alts.duarouter", "routes.jtrrouter",
+                "routes.duarouter", "alts.duarouter", "routes.jtrrouter", "routes.marouter",
+                "vehroutes.sumo", "vehroutes.sumo.meso", "trips.od2trips",
                 "*.turns.xml" ]
     sax2count = "SAX2Count.exe"
     if 'XERCES_64' in os.environ:

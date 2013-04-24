@@ -31,8 +31,8 @@
         <xsd:attribute name="sigma">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">
-                    <xsd:maxInclusive value="1"></xsd:maxInclusive>
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
+                    <xsd:maxInclusive value="1"/>
+                    <xsd:minInclusive value="0"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -48,8 +48,8 @@
         <xsd:attribute name="sigma">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">
-                    <xsd:maxInclusive value="1"></xsd:maxInclusive>
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
+                    <xsd:maxInclusive value="1"/>
+                    <xsd:minInclusive value="0"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -91,10 +91,10 @@
         <xsd:attribute name="from" type="xsd:string"/>
         <xsd:attribute name="to" type="xsd:string"/>
         <xsd:attribute name="type" type="xsd:string"/>
-        <xsd:attribute name="begin" type="xsd:float"/>
-        <xsd:attribute name="end" type="xsd:float"/>
-        <xsd:attribute name="period" type="xsd:float"/>
-        <xsd:attribute name="vehsPerHour" type="xsd:float"/>
+        <xsd:attribute name="begin" type="nonNegativeFloatType"/>
+        <xsd:attribute name="end" type="nonNegativeFloatType"/>
+        <xsd:attribute name="period" type="positiveFloatType"/>
+        <xsd:attribute name="vehsPerHour" type="positiveFloatType"/>
         <xsd:attribute name="number" type="xsd:int"/>
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="departLane" type="departLaneType"/>
@@ -116,6 +116,7 @@
         <xsd:attribute name="from" type="xsd:string"/>
         <xsd:attribute name="to" type="xsd:string"/>
         <xsd:attribute name="type" type="xsd:string"/>
+        <xsd:attribute name="depart" type="departType" use="required"/>
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="departLane" type="departLaneType"/>
         <xsd:attribute name="departPos" type="departPosType"/>

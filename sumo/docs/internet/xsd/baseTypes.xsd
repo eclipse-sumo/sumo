@@ -146,4 +146,35 @@
         <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
+    <xsd:complexType name="tlLogicType">
+        <xsd:sequence>
+            <xsd:element name="phase" type="phaseType" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="type" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="actuated"/>
+                    <xsd:enumeration value="agentbased"/>
+                    <xsd:enumeration value="static"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="programID" type="xsd:string" use="required"/>
+        <xsd:attribute name="offset" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="phaseType">
+        <xsd:attribute name="duration" type="nonNegativeFloatType" use="required"/>
+        <xsd:attribute name="minDur" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="maxDur" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="state" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="[ryYgGoO]+"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+    </xsd:complexType>
+
 </xsd:schema>
