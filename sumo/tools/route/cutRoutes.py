@@ -1,13 +1,14 @@
+#!/usr/bin/env python
 """
 @file    cutRoutes.py
 @author  jakob.erdmann@dlr.de
 @date    2012-08-15
-@version $Id: cutRoutes.py$
+@version $Id$
 
 Cut down routes from a large scenario to a sub-scenario optionally using exitTimes
 Output can be a route file or a tripfile.
 
-Copyright (C) 2007-2012 DLR/FS, Germany
+Copyright (C) 2012-2013 DLR/TS, Germany
 All rights reserved
 """
 
