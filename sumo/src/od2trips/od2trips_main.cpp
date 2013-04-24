@@ -269,7 +269,7 @@ main(int argc, char** argv) {
         }
         // write
         bool haveOutput = false;
-        if (OutputDevice::createDeviceByOption("output-file", "trips")) {
+        if (OutputDevice::createDeviceByOption("output-file", "routes")) {
             matrix.write(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                          OutputDevice::getDeviceByOption("output-file"),
                          oc.getBool("spread.uniform"), oc.getBool("ignore-vehicle-type"),

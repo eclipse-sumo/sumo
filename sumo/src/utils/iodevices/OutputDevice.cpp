@@ -108,7 +108,11 @@ OutputDevice::createDeviceByOption(const std::string& optionName,
     }
     OutputDevice& dev = OutputDevice::getDevice(OptionsCont::getOptions().getString(optionName));
     if (rootElement != "") {
-        dev.writeXMLHeader(rootElement);
+        if (rootElement == "routes") {
+            dev.writeXMLHeader(rootElement, "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
+        } else {
+            dev.writeXMLHeader(rootElement);
+        }
     }
     return true;
 }
