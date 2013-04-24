@@ -131,12 +131,12 @@ def getFirstIndex(areaEdges, edges):
     return None
 
 def missingEdges(areaEdges, edges, missingEdgeOccurences):
-    hasBeenAffecedOnce = False
+    hasBeenAffectedOnce = False
     for edge in edges:
         if not edge in areaEdges:
-            hasBeenAffecedOnce = True
+            hasBeenAffectedOnce = True
             missingEdgeOccurences[edge] += 1
-    return hasBeenAffecedOnce
+    return hasBeenAffectedOnce
 
 
 def printTop(missingEdgeOccurences, num=1000):

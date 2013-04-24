@@ -81,7 +81,7 @@ def create_line_index(file):
     print "Building line offset index for %s" % file
     result = []
     offset = 0
-    with open(file, 'rb') as f:
+    with open(file, 'rb') as f: # need to read binary here for correct offsets
         for line in f:
             result.append(offset)
             offset += len(line)
@@ -108,7 +108,7 @@ def copy_elements(routefilename, outfilename, element_lines, line_offsets):
         outfile.write(line)
         if '<routes' in line:
             break
-    with open(routefilename, 'rb') as f:
+    with open(routefilename) as f: # don't read binary here for line end conversion
         for depart, start, end in element_lines:
             # convert from 1-based to 0-based indices
             f.seek(line_offsets[start - 1])
