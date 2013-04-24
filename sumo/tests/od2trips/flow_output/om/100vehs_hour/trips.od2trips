@@ -1,17 +1,18 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/27/12 11:55:56 by SUMO od2trips Version dev-SVN-r11548
+<!-- generated on 04/24/13 14:22:02 by SUMO od2trips Version dev-SVN-r13719
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/od2tripsConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
+        <net-file value="input_taz.taz.xml"/>
         <od-matrix-files value="input_od_om.fma"/>
     </input>
 
     <output>
         <output-file value="trips.trips.xml"/>
+        <flow-output value="routes.rou.xml"/>
     </output>
 
     <processing>
@@ -21,7 +22,7 @@
 </configuration>
 -->
 
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <trip id="63" depart="0.79" from="a1" to="b2" type="4" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
     <trip id="88" depart="16.72" from="a1" to="b2" type="4" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
     <trip id="9" depart="18.39" from="a1" to="b2" type="4" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
@@ -122,4 +123,4 @@
     <trip id="53" depart="3425.09" from="a1" to="b2" type="4" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
     <trip id="99" depart="3435.74" from="a1" to="b2" type="4" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
     <trip id="52" depart="3573.33" from="a1" to="b2" type="4" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-</trips>
+</routes>
