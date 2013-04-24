@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 11 15:53:21 2013 by SUMO netconvert Version dev-SVN-r13319
+<!-- generated on Wed Apr 24 12:15:35 2013 by SUMO netconvert Version dev-SVN-r13708
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -24,7 +24,7 @@
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
-    <location netOffset="-593345.09,-5779253.43" convBoundary="1983.71,3320.13,19741.11,18341.91" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-593345.09,-5779253.43" convBoundary="11671.30,15816.38,11852.28,16140.50" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":54536750_0" function="internal">
         <lane id=":54536750_0_0" index="0" speed="13.89" length="4.82" shape="11671.78,15864.79 11670.35,15864.36 11669.72,15863.69 11669.88,15862.78 11670.82,15861.63"/>
