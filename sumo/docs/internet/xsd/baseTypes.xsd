@@ -31,9 +31,31 @@
     </xsd:simpleType> 
 
     <xsd:simpleType name="colorType">
-        <xsd:restriction base="xsd:string">
-            <xsd:pattern value="(0|(0?.(\d+))|(1|1.0*)),(0|(0?.(\d+))|(1|1.0*)),(0|(0?.(\d+))|(1|1.0*))"></xsd:pattern>
-        </xsd:restriction>
+        <xsd:union>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="(0|(0?.(\d+))|(1|1.0*)),(0|(0?.(\d+))|(1|1.0*)),(0|(0?.(\d+))|(1|1.0*))(,(0|(0?.(\d+))|(1|1.0*)))?"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]),(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]),(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])(,(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))?"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="red"/>
+                    <xsd:enumeration value="green"/>
+                    <xsd:enumeration value="blue"/>
+                    <xsd:enumeration value="yellow"/>
+                    <xsd:enumeration value="cyan"/>
+                    <xsd:enumeration value="magenta"/>
+                    <xsd:enumeration value="black"/>
+                    <xsd:enumeration value="white"/>
+                    <xsd:enumeration value="grey"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
     </xsd:simpleType>
 
     <xsd:simpleType name="shapeType">
@@ -48,27 +70,21 @@
         <xsd:attribute name="netOffset">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern
-                        value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))">
-                    </xsd:pattern>
+                    <xsd:pattern value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="convBoundary">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern
-                        value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))">
-                    </xsd:pattern>
+                    <xsd:pattern value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="origBoundary">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern
-                        value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))">
-                    </xsd:pattern>
+                    <xsd:pattern value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
