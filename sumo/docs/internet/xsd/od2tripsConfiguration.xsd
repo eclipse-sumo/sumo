@@ -27,6 +27,7 @@
     <xsd:complexType name="outputType">
         <xsd:all>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="flow-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -46,7 +47,7 @@
             <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="timeline" type="strOptionType" minOccurs="0"/>
             <xsd:element name="timeline.day-in-hours" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="dismiss-loading-errors" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

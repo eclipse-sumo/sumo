@@ -91,6 +91,7 @@
             <xsd:element name="tls.yellow.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.half-offset" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.quarter-offset" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="tls.default-type" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

@@ -71,6 +71,7 @@
     <xsd:complexType name="tls_buildingType">
         <xsd:all>
             <xsd:element name="tls.discard-loaded" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.discard-simple" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.set" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.unset" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.guess" type="boolOptionType" minOccurs="0"/>
@@ -83,6 +84,7 @@
             <xsd:element name="tls.yellow.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.half-offset" type="strOptionType" minOccurs="0"/>
             <xsd:element name="tls.quarter-offset" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="tls.default-type" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -151,6 +153,7 @@
             <xsd:element name="visum.recompute-lane-number" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="visum.verbose-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.skip-duplicates-check" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive.import-all-lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="dismiss-vclasses" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds" type="boolOptionType" minOccurs="0"/>
@@ -159,6 +162,7 @@
             <xsd:element name="geometry.split" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-segment-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.min-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="offset.disable-normalization" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="offset.x" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="offset.y" type="floatOptionType" minOccurs="0"/>

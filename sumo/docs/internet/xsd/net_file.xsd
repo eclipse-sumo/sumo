@@ -101,7 +101,9 @@
     </xsd:complexType>
 
     <xsd:complexType name="phaseType">
-        <xsd:attribute name="duration" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="duration" type="nonNegativeFloatType" use="required"/>
+        <xsd:attribute name="minDur" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="maxDur" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="state" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -202,6 +204,7 @@
 
     <xsd:complexType name="roundaboutType">
         <xsd:attribute name="nodes" type="xsd:string" use="required"/>
+        <xsd:attribute name="edges" type="xsd:string" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>
