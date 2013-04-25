@@ -2,4 +2,17 @@
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
+    <input>
+        <node-files value="cross1l.nod.xml"/>
+        <edge-files value="cross1l.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
 </configuration>
