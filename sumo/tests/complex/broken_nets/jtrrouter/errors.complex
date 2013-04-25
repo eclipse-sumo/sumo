@@ -62,6 +62,18 @@ Quitting (on error).
 Error: Attribute 'to' is missing in definition of edge '2'.
 Error: unknown to-edge '2' in connection
 Quitting (on error).
+------------------ net/edge[0]:<remove>
+Error: unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]:<remove>
+Error: unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]:<duplicate>
+Error: The edge '1' occurs at least twice.
+Quitting (on error).
+------------------ net/edge[1]:<duplicate>
+Error: The edge '2' occurs at least twice.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@index:
  Wrong error code returned (0)!
 ------------------ net/edge[0]/lane[1]@index:
@@ -210,6 +222,22 @@ Quitting (on error).
  Wrong error code returned (0)!
 ------------------ net/edge[1]/lane[1]@shape:100.00,-4.95
  Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]:<duplicate>
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]:<duplicate>
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]:<duplicate>
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]:<duplicate>
+ Wrong error code returned (0)!
 ------------------ net/junction[0]@id:
 Error: Attribute 'id' in definition of a junction is empty.
 Quitting (on error).
@@ -260,6 +288,18 @@ Quitting (on error).
  Wrong error code returned (0)!
 ------------------ net/junction[2]@incLanes:2_0 a_1
  Wrong error code returned (0)!
+------------------ net/junction[0]:<remove>
+ Wrong error code returned (0)!
+------------------ net/junction[1]:<remove>
+ Wrong error code returned (0)!
+------------------ net/junction[2]:<remove>
+ Wrong error code returned (0)!
+------------------ net/junction[0]:<duplicate>
+ Wrong error code returned (0)!
+------------------ net/junction[1]:<duplicate>
+ Wrong error code returned (0)!
+------------------ net/junction[2]:<duplicate>
+ Wrong error code returned (0)!
 ------------------ net/connection[0]@from:
 Error: Attribute 'from' in definition of a connection is empty.
 Error: unknown from-edge '' in connection
@@ -304,3 +344,7 @@ Quitting (on error).
 Error: Attribute 'to' is missing in definition of a connection.
 Error: unknown to-edge '' in connection
 Quitting (on error).
+------------------ net/connection[0]:<duplicate>
+ Wrong error code returned (0)!
+------------------ net/connection[1]:<duplicate>
+ Wrong error code returned (0)!

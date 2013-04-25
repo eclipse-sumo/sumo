@@ -16,13 +16,3 @@ vtype_oldstyle_plainemission
 
 # plain emission, old style: duplicate vehicle id
 vehicleid_oldstyle_plainemission
-
-
-# net: duplicate edge
-net_edge
-
-# net: junction
-net_junction
-
-# net: lane
-net_lane

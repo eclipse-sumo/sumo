@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue 12 Feb 2013 08:28:19 PM CET by Netedit Version dev-SVN-r13140
+<!-- generated on 04/25/13 09:43:59 by SUMO netconvert Version dev-SVN-r13719
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/kobo/dlr/debug/ticket856/net.net.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/kobo/dlr/debug/ticket856/net.net.xml"/>
+        <output-file value="n2.net.xml"/>
     </output>
 
     <processing>
@@ -84,10 +84,7 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="b27" type="dead_end" x="952.11" y="1676.56" incLanes="b101_0 b101_1" intLanes="" shape="952.13,1676.61 957.83,1688.40 949.26,1670.66 952.09,1676.51"/>
-    <junction id="b65-begin" type="unregulated" x="964.78" y="1983.65" incLanes="" intLanes="" shape="">
-    </junction>
-    <junction id="b70-end" type="unregulated" x="888.17" y="1799.68" incLanes="end_0" intLanes="" shape="889.62,1799.00 886.72,1800.36">
-    </junction>
+    <junction id="b70-end" type="unregulated" x="888.17" y="1799.68" incLanes="end_0" intLanes="" shape="889.62,1799.00 886.72,1800.36"/>
     <junction id="b9" type="priority" x="851.73" y="1725.06" incLanes="gneE1_0 beg2_0 beg2_1 beg2_2 beg2_3 beg1_0 beg1_1" intLanes=":b9_0_0 :b9_1_0 :b9_2_0 :b9_3_0 :b9_4_0 :b9_5_0 :b9_6_0 :b9_7_0" shape="849.00,1742.45 860.85,1737.56 861.32,1735.03 852.75,1717.29 838.95,1723.77 847.23,1741.64">
         <request index="0" response="00000000" foes="10000000" cont="0"/>
         <request index="1" response="00000000" foes="10000000" cont="0"/>
@@ -98,8 +95,7 @@
         <request index="6" response="00000000" foes="00000000" cont="0"/>
         <request index="7" response="00011111" foes="00011111" cont="0"/>
     </junction>
-    <junction id="gneJ2" type="unregulated" x="870.36" y="1806.43" incLanes="" intLanes="" shape="870.31,1806.44 867.23,1807.31">
-    </junction>
+    <junction id="gneJ2" type="unregulated" x="870.36" y="1806.43" incLanes="" intLanes="" shape="870.31,1806.44 867.23,1807.31"/>
 
     <connection from="beg1" to="b101" fromLane="0" toLane="0" via=":b9_5_0" dir="s" state="m"/>
     <connection from="beg1" to="b101" fromLane="1" toLane="1" via=":b9_6_0" dir="s" state="m"/>

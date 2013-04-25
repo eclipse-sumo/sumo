@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:13 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on 04/25/13 09:41:00 by SUMO netconvert Version dev-SVN-r13719
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\sumo\bugs\ticket19\dead_end_problem1\prunned.nod.xml"/>
-        <edge-files value=".\sumo\bugs\ticket19\dead_end_problem1\prunned.edg.xml"/>
-        <connection-files value=".\sumo\bugs\ticket19\dead_end_problem1\prunned.con.xml"/>
+        <node-files value="prunned.nod.xml"/>
+        <edge-files value="prunned.edg.xml"/>
+        <connection-files value="prunned.con.xml"/>
     </input>
 
     <output>
-        <output-file value=".\sumo\bugs\ticket19\dead_end_problem1\net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
         <roundabouts.guess value="true"/>
     </processing>
-
-    <report>
-        <verbose value="true"/>
-    </report>
 
 </configuration>
 -->
@@ -219,8 +215,7 @@
         <phase duration="4" state="y"/>
     </tlLogic>
 
-    <junction id="15750" type="unregulated" x="0.00" y="572.11" incLanes="-7783_0" intLanes="" shape="-0.13,575.36 -0.00,572.16">
-    </junction>
+    <junction id="15750" type="unregulated" x="0.00" y="572.11" incLanes="-7783_0" intLanes="" shape="-0.13,575.36 -0.00,572.16"/>
     <junction id="15891" type="priority" x="240.55" y="729.08" incLanes="-9908_0 -9908_1" intLanes=":15891_0_0" shape="240.51,729.10 234.68,731.99 246.42,726.17 240.59,729.06">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
@@ -357,6 +352,6 @@
     <connection from=":6728_4" to="9458" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":6728_5" to="-9916" fromLane="0" toLane="1" dir="s" state="M"/>
 
-    <roundabout nodes="17208 17209 17210 6728"/>
+    <roundabout nodes="17208 17209 17210 6728" edges="-9914 -9915 -9916 -9917"/>
 
 </net>

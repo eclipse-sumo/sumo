@@ -16,7 +16,6 @@ All rights reserved
 
 import os,subprocess,sys,time
 import xml.dom.minidom as dom
-from copy import copy
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', "tools"))
 from sumolib import checkBinary
 
@@ -41,6 +40,10 @@ changes = [
     [ "net/edge[1]@to", "a" ],
     [ "net/edge[0]@to", "<remove>" ],
     [ "net/edge[1]@to", "<remove>" ],
+    [ "net/edge[0]", "<remove>" ],
+    [ "net/edge[1]", "<remove>" ],
+    [ "net/edge[0]", "<duplicate>" ],
+    [ "net/edge[1]", "<duplicate>" ],
 
     [ "net/edge[0]/lane[0]@index", "" ],
     [ "net/edge[0]/lane[1]@index", "" ],
@@ -106,6 +109,14 @@ changes = [
     [ "net/edge[0]/lane[1]@shape", "0100.00,-4.95" ],
     [ "net/edge[1]/lane[0]@shape", "100.00,-4.95" ],
     [ "net/edge[1]/lane[1]@shape", "100.00,-4.95" ],
+    [ "net/edge[0]/lane[0]", "<remove>" ],
+    [ "net/edge[0]/lane[1]", "<remove>" ],
+    [ "net/edge[1]/lane[0]", "<remove>" ],
+    [ "net/edge[1]/lane[1]", "<remove>" ],
+    [ "net/edge[0]/lane[0]", "<duplicate>" ],
+    [ "net/edge[0]/lane[1]", "<duplicate>" ],
+    [ "net/edge[1]/lane[0]", "<duplicate>" ],
+    [ "net/edge[1]/lane[1]", "<duplicate>" ],
 
     [ "net/junction[0]@id", "" ],
     [ "net/junction[1]@id", "" ],
@@ -129,6 +140,12 @@ changes = [
     [ "net/junction[1]@incLanes", "1_0 a_1" ],
     [ "net/junction[2]@incLanes", "a_0 2_1" ],
     [ "net/junction[2]@incLanes", "2_0 a_1" ],
+    [ "net/junction[0]", "<remove>" ],
+    [ "net/junction[1]", "<remove>" ],
+    [ "net/junction[2]", "<remove>" ],
+    [ "net/junction[0]", "<duplicate>" ],
+    [ "net/junction[1]", "<duplicate>" ],
+    [ "net/junction[2]", "<duplicate>" ],
 
     [ "net/connection[0]@from", "" ],
     [ "net/connection[1]@from", "" ],
@@ -142,6 +159,8 @@ changes = [
     [ "net/connection[1]@to", "a" ],
     [ "net/connection[0]@to", "<remove>" ],
     [ "net/connection[1]@to", "<remove>" ],
+    [ "net/connection[0]", "<duplicate>" ],
+    [ "net/connection[1]", "<duplicate>" ],
 
 ]
 
@@ -166,7 +185,12 @@ def tinyPath(xmlStruct, path, newValue):
         else:
             item.setAttribute(attribute, newValue)
     else:
-        raise "?"
+        if newValue=="<remove>":
+            item.parentNode.removeChild(item)
+        elif newValue=="<duplicate>":
+            item.parentNode.insertBefore(item.cloneNode(True),item)
+        else:
+            print >> sys.stderr, "Unsupported modification defined"
 
 if sys.argv[1]=="sumo":
     call = [checkBinary('sumo'), "--no-step-log", "--no-duration-log"]
@@ -212,6 +236,6 @@ for c in changes:
     retcode = subprocess.call(call, stdout=sys.stdout, stderr=sys.stderr)
     sys.stderr.flush()
     sys.stdout.flush()
-    if retcode!=1:
-        print >> sys.stderr, " Wrong error code returned (" + str(retcode) + ")!"
+    if retcode != 1:
+        print >> sys.stderr, " Wrong error code returned (%s)!" % retcode
 

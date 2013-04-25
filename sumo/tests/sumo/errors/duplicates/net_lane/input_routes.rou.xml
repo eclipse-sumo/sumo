@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-  <vType accel="1" decel="5" id="Car" length="5" maxSpeed="100" sigma="0" />
-
-  <route id="route0" edges="1to2"/>
-
-  <vehicle depart="1" id="route0" route="route0" type="Car" />
-</routes>
