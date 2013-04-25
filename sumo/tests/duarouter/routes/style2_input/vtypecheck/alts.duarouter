@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/22/13 17:38:52 by SUMO duarouter Version dev-SVN-r13532
+<!-- generated on Thu Apr 25 11:23:57 2013 by SUMO duarouter Version dev-SVN-r13722
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
@@ -82,7 +82,7 @@
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vType id="8" emissionClass="P_7_0"/>
+    <vType id="8" emissionClass="P_7_1"/>
     <vehicle id="8" type="8" depart="0.00">
         <routeDistribution last="0">
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
