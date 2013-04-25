@@ -532,18 +532,14 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes& attrs,
 
 SUMOEmissionClass
 SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes& attrs, const std::string& id) {
-    SUMOEmissionClass vclass = SVE_UNKNOWN;
     try {
         bool ok = true;
-        std::string vclassS = attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, "");
-        if (vclassS == "") {
-            return vclass;
-        }
-        return getVehicleEmissionTypeID(vclassS);
+        std::string eClassS = attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, "");
+        return getVehicleEmissionTypeID(eClassS);
     } catch (...) {
         WRITE_ERROR("The emission class for " + attrs.getObjectType() + " '" + id + "' is not known.");
+        return SVE_UNKNOWN;
     }
-    return vclass;
 }
 
 

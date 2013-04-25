@@ -297,6 +297,7 @@ enum SUMOEmissionClass {
     SVE_P_LDV_A0_14_14
 };
 
+extern StringBijection<SUMOEmissionClass> SumoEmissionClassStrings;
 
 
 // ===========================================================================

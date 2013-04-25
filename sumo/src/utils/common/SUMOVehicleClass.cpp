@@ -109,6 +109,115 @@ StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
 StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
     sumoVehicleShapeStringInitializer, SVS_UNKNOWN);
 
+
+StringBijection<SUMOEmissionClass>::Entry SumoEmissionClassStringInitializer[] = {
+    {"unknown",                SVE_UNKNOWN},
+    // heavy duty vehicles; 3 clusters
+    {"HDV_3_1",                SVE_HDV_3_1},
+    {"HDV_3_2",                SVE_HDV_3_2},
+    {"HDV_3_3",                SVE_HDV_3_3},
+    // heavy duty vehicles; 6 clusters
+    {"HDV_6_1",                SVE_HDV_6_1},
+    {"HDV_6_2",                SVE_HDV_6_2},
+    {"HDV_6_3",                SVE_HDV_6_3},
+    {"HDV_6_4",                SVE_HDV_6_4},
+    {"HDV_6_5",                SVE_HDV_6_5},
+    {"HDV_6_6",                SVE_HDV_6_6},
+    // heavy duty vehicles; 12 clusters
+    {"HDV_12_1",               SVE_HDV_12_1},
+    {"HDV_12_2",               SVE_HDV_12_2},
+    {"HDV_12_3",               SVE_HDV_12_3},
+    {"HDV_12_4",               SVE_HDV_12_4},
+    {"HDV_12_5",               SVE_HDV_12_5},
+    {"HDV_12_6",               SVE_HDV_12_6},
+    {"HDV_12_7",               SVE_HDV_12_7},
+    {"HDV_12_8",               SVE_HDV_12_8},
+    {"HDV_12_9",               SVE_HDV_12_9},
+    {"HDV_12_10",              SVE_HDV_12_10},
+    {"HDV_12_11",              SVE_HDV_12_11},
+    {"HDV_12_12",              SVE_HDV_12_12},
+    // passenger & light duty vehicles; 7 clusters           
+    {"P_7_1",                  SVE_P_LDV_7_1},
+    {"P_7_2",                  SVE_P_LDV_7_2},
+    {"P_7_3",                  SVE_P_LDV_7_3},
+    {"P_7_4",                  SVE_P_LDV_7_4},
+    {"P_7_5",                  SVE_P_LDV_7_5},
+    {"P_7_6",                  SVE_P_LDV_7_6},
+    {"P_7_7",                  SVE_P_LDV_7_7},
+    // passenger & light duty vehicles; 14 clusters
+    {"P_14_1",                 SVE_P_LDV_14_1},
+    {"P_14_2",                 SVE_P_LDV_14_2},
+    {"P_14_3",                 SVE_P_LDV_14_3},
+    {"P_14_4",                 SVE_P_LDV_14_4},
+    {"P_14_5",                 SVE_P_LDV_14_5},
+    {"P_14_6",                 SVE_P_LDV_14_6},
+    {"P_14_7",                 SVE_P_LDV_14_7},
+    {"P_14_8",                 SVE_P_LDV_14_8},
+    {"P_14_9",                 SVE_P_LDV_14_9},
+    {"P_14_10",                SVE_P_LDV_14_10},
+    {"P_14_11",                SVE_P_LDV_14_11},
+    {"P_14_12",                SVE_P_LDV_14_12},
+    {"P_14_13",                SVE_P_LDV_14_13},
+    {"P_14_14",                SVE_P_LDV_14_14},
+    // no emissions
+    {"zero",                   SVE_ZERO_EMISSIONS},
+    // heavy duty vehicles, no accel; 3 clusters
+    {"HDV_A0_3_1",             SVE_HDV_A0_3_1},
+    {"HDV_A0_3_2",             SVE_HDV_A0_3_2},
+    {"HDV_A0_3_3",             SVE_HDV_A0_3_3},
+    // heavy duty vehicles, no accel; 6 clusters
+    {"HDV_A0_6_1",             SVE_HDV_A0_6_1},
+    {"HDV_A0_6_2",             SVE_HDV_A0_6_2},
+    {"HDV_A0_6_3",             SVE_HDV_A0_6_3},
+    {"HDV_A0_6_4",             SVE_HDV_A0_6_4},
+    {"HDV_A0_6_5",             SVE_HDV_A0_6_5},
+    {"HDV_A0_6_6",             SVE_HDV_A0_6_6},
+    // heavy duty vehicles, no accel; 12 clusters
+    {"HDV_A0_12_1",            SVE_HDV_A0_12_1},
+    {"HDV_A0_12_2",            SVE_HDV_A0_12_2},
+    {"HDV_A0_12_3",            SVE_HDV_A0_12_3},
+    {"HDV_A0_12_4",            SVE_HDV_A0_12_4},
+    {"HDV_A0_12_5",            SVE_HDV_A0_12_5},
+    {"HDV_A0_12_6",            SVE_HDV_A0_12_6},
+    {"HDV_A0_12_7",            SVE_HDV_A0_12_7},
+    {"HDV_A0_12_8",            SVE_HDV_A0_12_8},
+    {"HDV_A0_12_9",            SVE_HDV_A0_12_9},
+    {"HDV_A0_12_10",           SVE_HDV_A0_12_10},
+    {"HDV_A0_12_11",           SVE_HDV_A0_12_11},
+    {"HDV_A0_12_12",           SVE_HDV_A0_12_12},
+    // passenger & light duty vehicles, no accel; 7 clusters
+    {"P_A0_7_1",               SVE_P_LDV_A0_7_1},
+    {"P_A0_7_2",               SVE_P_LDV_A0_7_2},
+    {"P_A0_7_3",               SVE_P_LDV_A0_7_3},
+    {"P_A0_7_4",               SVE_P_LDV_A0_7_4},
+    {"P_A0_7_5",               SVE_P_LDV_A0_7_5},
+    {"P_A0_7_6",               SVE_P_LDV_A0_7_6},
+    {"P_A0_7_7",               SVE_P_LDV_A0_7_7},
+    // passenger & light duty vehicles, no accel; 14 clusters
+    {"P_A0_14_1",              SVE_P_LDV_A0_14_1},
+    {"P_A0_14_2",              SVE_P_LDV_A0_14_2},
+    {"P_A0_14_3",              SVE_P_LDV_A0_14_3},
+    {"P_A0_14_4",              SVE_P_LDV_A0_14_4},
+    {"P_A0_14_5",              SVE_P_LDV_A0_14_5},
+    {"P_A0_14_6",              SVE_P_LDV_A0_14_6},
+    {"P_A0_14_7",              SVE_P_LDV_A0_14_7},
+    {"P_A0_14_8",              SVE_P_LDV_A0_14_8},
+    {"P_A0_14_9",              SVE_P_LDV_A0_14_9},
+    {"P_A0_14_10",             SVE_P_LDV_A0_14_10},
+    {"P_A0_14_11",             SVE_P_LDV_A0_14_11},
+    {"P_A0_14_12",             SVE_P_LDV_A0_14_12},
+    {"P_A0_14_13",             SVE_P_LDV_A0_14_13},
+    {"P_A0_14_14",             SVE_P_LDV_A0_14_14}
+};
+
+StringBijection<SUMOEmissionClass> SumoEmissionClassStrings(
+    SumoEmissionClassStringInitializer, SVE_P_LDV_A0_14_14);
+    
+
+// ===========================================================================
+// additional constants
+// ===========================================================================
+
 const int SUMOVehicleClass_MAX = SVC_PEDESTRIAN;
 const SVCPermissions SVCFreeForAll = std::numeric_limits<SVCPermissions>::max(); // all bits set to 1
 
@@ -270,58 +379,18 @@ bool isRailway(SVCPermissions permissions) {
 // ------------ Conversion of SUMOEmissionClass
 SUMOEmissionClass
 getVehicleEmissionTypeID(const std::string& name) {
-    try {
-        if (name == "") {
-            return SVE_UNKNOWN;
-        } else if (name == "zero") {
-            return SVE_ZERO_EMISSIONS;
-        } else if (name.find("HDV_3_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_3_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
-        } else if (name.find("HDV_6_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_6_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
-        } else if (name.find("HDV_12_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_12_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
-        } else if (name.find("P_7_") == 0) {
-            return (SUMOEmissionClass)(SVE_P_LDV_7_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
-        } else if (name.find("P_14_") == 0) {
-            return (SUMOEmissionClass)(SVE_P_LDV_14_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
-        } else if (name.find("HDV_A0_3_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_A0_3_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
-        } else if (name.find("HDV_A0_6_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_A0_6_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
-        } else if (name.find("HDV_A0_12_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_A0_12_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
-        } else if (name.find("P_A0_7_") == 0) {
-            return (SUMOEmissionClass)(SVE_P_LDV_A0_7_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
-        } else if (name.find("P_A0_14_") == 0) {
-            return (SUMOEmissionClass)(SVE_P_LDV_A0_14_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
-        }
-    } catch (NumberFormatException&) {
+    if (SumoEmissionClassStrings.hasString(name)) {
+        return SumoEmissionClassStrings.get(name);
+    } else {
+        throw ProcessError("Unknown emission type '" + name + "'.");
     }
-    throw ProcessError("Unknown emission type '" + name + "'.");
 }
-
 
 std::string
 getVehicleEmissionTypeName(SUMOEmissionClass id) {
-    if (id == SVE_ZERO_EMISSIONS) {
-        return "zero";
-    }
-    if (id < 0) {
-        return "";
-    } else if (id < 3) {
-        return "HDV_3_" + toString(int(id));
-    } else if (id < 3 + 6) {
-        return "HDV_6_" + toString(int(id - 3));
-    } else if (id < 3 + 6 + 12) {
-        return "HDV_12_" + toString(int(id - 3 - 6));
-    } else if (id < 3 + 6 + 12 + 7) {
-        return "P_7_" + toString(int(id - 3 - 6 - 12));
-    } else if (id < 3 + 6 + 12 + 7 + 14) {
-        return "P_14_" + toString(int(id - 3 - 6 - 12 - 7));
-    }
-    return "";
+    return SumoEmissionClassStrings.getString(id);
 }
+
 
 const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
 const SUMOReal DEFAULT_VEH_MAXSPEED(70.0);
