@@ -82,8 +82,7 @@ class CostMemory(handler.ContentHandler):
             return
         assert(weight > 0)
         if self.iteration == None and iteration != 0:
-            # need to reassamble self.memory_weight
-            raise Exception("Continuation of duaIterate not yet implemented")
+            print "Warning: continuing with empty memory"
         # update memory weights. memory is a weighted average across all runs
         self.memory_factor = self.memory_weight / (self.memory_weight + weight)
         self.memory_weight += weight
@@ -119,7 +118,10 @@ class CostMemory(handler.ContentHandler):
     def avg_error(self, values=None):
         if not values:
             values = self.errors
-        return sum(values) / len(values)
+        if len(values) > 0:
+            return sum(values) / len(values)
+        else:
+            return 0
 
     def avg_abs_error(self):
         return self.avg_error(map(abs,self.errors))
