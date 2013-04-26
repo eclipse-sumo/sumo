@@ -24,6 +24,7 @@
             <xsd:element name="routeProbe" type="routeProbeType" minOccurs="0"/>
             <xsd:element name="rerouter" type="rerouterType" minOccurs="0"/>
             <xsd:element name="instantInductionLoop" type="instantInductionLoopType" minOccurs="0"/>
+            <xsd:element name="busStop" type="busStopType" minOccurs="0"/>
 
             <xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0"/>
             <xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0"/>
@@ -66,6 +67,7 @@
         <xsd:attribute name="length" type="xsd:float" use="required"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
+        <xsd:attribute name="to" type="xsd:string" use="optional"/>
         <xsd:attribute name="cont" type="boolType" use="optional"/>
         <xsd:attribute name="timeThreshold" type="xsd:int" use="optional"/>
         <xsd:attribute name="speedThreshold" type="xsd:float" use="optional"/>
@@ -152,22 +154,13 @@
             <xsd:element name="step" minOccurs="1" maxOccurs="unbounded">
                 <xsd:complexType>
                     <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
-                    <xsd:attribute name="speed" type="nonNegativeFloatType" use="required"/>
+                    <xsd:attribute name="speed" type="xsd:float" use="required"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="lanes" type="xsd:string" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="instantInductionLoopType">
-        <xsd:attribute name="id" type="xsd:string" use="required"/>
-        <xsd:attribute name="lane" type="xsd:string" use="required"/>
-        <xsd:attribute name="pos" type="xsd:float" use="required"/>
-        <xsd:attribute name="file" type="xsd:string" use="required"/>
-        <xsd:attribute name="friendlyPos" use="optional" type="boolType">
-        </xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="routeProbeType">
@@ -209,6 +202,23 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="instantInductionLoopType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="required"/>
+        <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="busStopType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="startPos" type="xsd:float"/>
+        <xsd:attribute name="endPos" type="xsd:float"/>
+        <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
+        <xsd:attribute name="lines" type="xsd:string" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

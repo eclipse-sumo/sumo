@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xsd:schema [
+    <!ENTITY FloatPattern "(\-)?(\d+|(\d*.\d+))">
+    <!ENTITY FloatPattern01 "(0|(0?.(\d+))|(1|1.0*))">
+    <!ENTITY IntPattern255 "(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])">
+]>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:simpleType name="positiveFloatType">
@@ -34,12 +39,12 @@
         <xsd:union>
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="(0|(0?.(\d+))|(1|1.0*)),(0|(0?.(\d+))|(1|1.0*)),(0|(0?.(\d+))|(1|1.0*))(,(0|(0?.(\d+))|(1|1.0*)))?"/>
+                    <xsd:pattern value="&FloatPattern01;,&FloatPattern01;,&FloatPattern01;(,&FloatPattern01;)?"/>
                 </xsd:restriction>
             </xsd:simpleType>
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]),(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]),(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])(,(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))?"/>
+                    <xsd:pattern value="&IntPattern255;,&IntPattern255;,&IntPattern255;(,&IntPattern255;)?"/>
                 </xsd:restriction>
             </xsd:simpleType>
             <xsd:simpleType>
@@ -61,7 +66,7 @@
     <xsd:simpleType name="shapeType">
         <xsd:restriction base="xsd:string">
             <xsd:pattern
-                value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+">
+                value="&FloatPattern;,&FloatPattern;(,&FloatPattern;)?(\s&FloatPattern;,&FloatPattern;(,&FloatPattern;)?)+">
             </xsd:pattern>
         </xsd:restriction>
     </xsd:simpleType>
@@ -70,21 +75,21 @@
         <xsd:attribute name="netOffset">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))"/>
+                    <xsd:pattern value="&FloatPattern;,&FloatPattern;"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="convBoundary">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))"/>
+                    <xsd:pattern value="&FloatPattern;,&FloatPattern;,&FloatPattern;,&FloatPattern;"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="origBoundary">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))"/>
+                    <xsd:pattern value="&FloatPattern;,&FloatPattern;,&FloatPattern;,&FloatPattern;"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -148,7 +153,7 @@
 
     <xsd:complexType name="tlLogicType">
         <xsd:sequence>
-            <xsd:element name="phase" type="phaseType" minOccurs="1" maxOccurs="unbounded"/>
+            <xsd:element name="phase" type="phaseType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" use="required">
@@ -161,7 +166,7 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
-        <xsd:attribute name="offset" type="xsd:float" use="required"/>
+        <xsd:attribute name="offset" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="phaseType">
