@@ -82,8 +82,7 @@ MSVehicleType::computeChosenSpeedDeviation(MTRand& rng) const {
 // ------------ Setter methods
 void
 MSVehicleType::setLength(const SUMOReal& length) {
-    assert(myOriginalType != 0);
-    if (length < 0) {
+    if (myOriginalType != 0 && length < 0) {
         myParameter.length = myOriginalType->getLength();
     } else {
         myParameter.length = length;
@@ -93,8 +92,7 @@ MSVehicleType::setLength(const SUMOReal& length) {
 
 void
 MSVehicleType::setMinGap(const SUMOReal& minGap) {
-    assert(myOriginalType != 0);
-    if (minGap < 0) {
+    if (myOriginalType != 0 && minGap < 0) {
         myParameter.minGap = myOriginalType->getMinGap();
     } else {
         myParameter.minGap = minGap;
@@ -104,8 +102,7 @@ MSVehicleType::setMinGap(const SUMOReal& minGap) {
 
 void
 MSVehicleType::setMaxSpeed(const SUMOReal& maxSpeed) {
-    assert(myOriginalType != 0);
-    if (maxSpeed < 0) {
+    if (myOriginalType != 0 && maxSpeed < 0) {
         myParameter.maxSpeed = myOriginalType->getMaxSpeed();
     } else {
         myParameter.maxSpeed = maxSpeed;
@@ -121,8 +118,7 @@ MSVehicleType::setVClass(SUMOVehicleClass vclass) {
 
 void
 MSVehicleType::setDefaultProbability(const SUMOReal& prob) {
-    assert(myOriginalType != 0);
-    if (prob < 0) {
+    if (myOriginalType != 0 && prob < 0) {
         myParameter.defaultProbability = myOriginalType->getDefaultProbability();
     } else {
         myParameter.defaultProbability = prob;
@@ -132,8 +128,7 @@ MSVehicleType::setDefaultProbability(const SUMOReal& prob) {
 
 void
 MSVehicleType::setSpeedFactor(const SUMOReal& factor) {
-    assert(myOriginalType != 0);
-    if (factor < 0) {
+    if (myOriginalType != 0 && factor < 0) {
         myParameter.speedFactor = myOriginalType->getSpeedFactor();
     } else {
         myParameter.speedFactor = factor;
@@ -143,8 +138,7 @@ MSVehicleType::setSpeedFactor(const SUMOReal& factor) {
 
 void
 MSVehicleType::setSpeedDeviation(const SUMOReal& dev) {
-    assert(myOriginalType != 0);
-    if (dev < 0) {
+    if (myOriginalType != 0 && dev < 0) {
         myParameter.speedDev = myOriginalType->getSpeedDeviation();
     } else {
         myParameter.speedDev = dev;
@@ -166,8 +160,7 @@ MSVehicleType::setColor(const RGBColor& color) {
 
 void
 MSVehicleType::setWidth(const SUMOReal& width) {
-    assert(myOriginalType != 0);
-    if (width < 0) {
+    if (myOriginalType != 0 && width < 0) {
         myParameter.width = myOriginalType->getWidth();
     } else {
         myParameter.width = width;
