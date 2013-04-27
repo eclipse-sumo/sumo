@@ -13,7 +13,7 @@ decel 4.5
 imperfection 0.5
 tau 1.0
 vClass unknown
-emissionclass 
+emissionclass unknown
 shape 
 MinGap 2.5
 width 2.0
