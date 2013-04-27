@@ -1,1 +1,1 @@
-$SUMO_HOME/tests *.rou.xml,routes.duarouter,alts.duarouter,routes.jtrrouter tools/xml/schemaCheck.py
+$SUMO_HOME/tests *.rou.xml,routes.*router,alts.duarouter,vehroutes.sumo tools/xml/schemaCheck.py
