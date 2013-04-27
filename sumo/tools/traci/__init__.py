@@ -12,6 +12,7 @@ SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
+from __future__ import print_function
 import socket, time, struct
 try:
     import traciemb
@@ -90,7 +91,7 @@ class Storage:
     def printDebug(self):
         if _DEBUG:
             for char in self._content[self._pos:]:
-                print "%03i %02x %s" % (ord(char), ord(char), char)
+                print("%03i %02x %s" % (ord(char), ord(char), char))
 
 class SubscriptionResults:
     def __init__(self, valueFunc):
@@ -130,10 +131,10 @@ class SubscriptionResults:
         return self._contextResults.get(refID, None)
 
 
-import constants
-import inductionloop, multientryexit, trafficlights
-import lane, vehicle, vehicletype, route
-import poi, polygon, junction, edge, simulation, gui
+from . import constants
+from . import inductionloop, multientryexit, trafficlights
+from . import lane, vehicle, vehicletype, route
+from . import poi, polygon, junction, edge, simulation, gui
 
 _modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:\
@@ -216,7 +217,7 @@ def _sendExact():
         prefix = result.read("!BBB")
         err = result.readString()
         if prefix[2] or err:
-            print prefix, _RESULTS[prefix[2]], err
+            print(prefix, _RESULTS[prefix[2]], err)
         elif prefix[1] != command:
             raise FatalTraCIError("Received answer %s for command %s." % (prefix[1],
                                                                  command))
@@ -287,7 +288,7 @@ def _readSubscription(result):
             varID = result.read("!B")[0]
             status, varType = result.read("!BB")
             if status:
-                print "Error!", result.readString()
+                print("Error!", result.readString())
             elif response in _modules:
                 _modules[response].subscriptionResults.add(objectID, varID, result)
             else:
@@ -301,7 +302,7 @@ def _readSubscription(result):
                 varID = result.read("!B")[0]
                 status, varType = result.read("!BB")
                 if status:
-                    print "Error!", result.readString()
+                    print("Error!", result.readString())
                 elif response in _modules:
                     _modules[response].subscriptionResults.addContext(objectID, _modules[domain].subscriptionResults, oid, varID, result)
                 else:
@@ -361,7 +362,7 @@ def simulationStep(step=0):
     _message.queue.append(constants.CMD_SIMSTEP2)
     _message.string += struct.pack("!BBi", 1+1+4, constants.CMD_SIMSTEP2, step)
     result = _sendExact()
-    for module in _modules.itervalues():
+    for module in _modules.values():
         module.subscriptionResults.reset()
     numSubs = result.readInt()
     responses = []

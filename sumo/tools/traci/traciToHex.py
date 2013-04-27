@@ -2,6 +2,7 @@
 # Converts all testclient.prog to hex
 # $Id$
 
+from __future__ import print_function
 import os, sys
 
 mRoot = "."
@@ -24,7 +25,7 @@ for root, dirs, files in os.walk(mRoot):
                     if not l[2][:2] == "0x":
                         l[2] = "0x%x" % int(l[2])
                         change = True
-                print >> out, " ".join(l)
+                print(" ".join(l), file=out)
             out.close()
             if change:
                 if os.name != "posix":

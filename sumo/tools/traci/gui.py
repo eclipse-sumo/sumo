@@ -18,9 +18,9 @@ import traci.constants as tc
 DEFAULT_VIEW = 'View #0'
 _RETURN_VALUE_FUNC = {tc.ID_LIST:           traci.Storage.readStringList,
                       tc.VAR_VIEW_ZOOM:     traci.Storage.readDouble,
-                      tc.VAR_VIEW_OFFSET:   lambda(result): result.read("!dd"),
+                      tc.VAR_VIEW_OFFSET:   lambda result: result.read("!dd"),
                       tc.VAR_VIEW_SCHEMA:   traci.Storage.readString,
-                      tc.VAR_VIEW_BOUNDARY: lambda(result): (result.read("!dd"), result.read("!dd"))}
+                      tc.VAR_VIEW_BOUNDARY: lambda result: (result.read("!dd"), result.read("!dd"))}
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, viewID):

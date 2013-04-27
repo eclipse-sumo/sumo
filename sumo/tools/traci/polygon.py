@@ -17,7 +17,7 @@ import traci.constants as tc
 _RETURN_VALUE_FUNC = {tc.ID_LIST:   traci.Storage.readStringList,
                       tc.VAR_TYPE:  traci.Storage.readString,
                       tc.VAR_SHAPE: traci.Storage.readShape,
-                      tc.VAR_COLOR: lambda(result): result.read("!BBBB")}
+                      tc.VAR_COLOR: lambda result: result.read("!BBBB")}
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, polygonID):

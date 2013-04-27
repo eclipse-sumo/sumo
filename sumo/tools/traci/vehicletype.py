@@ -29,7 +29,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_SHAPECLASS:      traci.Storage.readString,
                       tc.VAR_MINGAP:          traci.Storage.readDouble,
                       tc.VAR_WIDTH:           traci.Storage.readDouble,
-                      tc.VAR_COLOR:           lambda(result): result.read("!BBBB")}
+                      tc.VAR_COLOR:           lambda result: result.read("!BBBB")}
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, typeID):

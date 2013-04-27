@@ -46,7 +46,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList
                       tc.VAR_WIDTH:                 traci.Storage.readDouble,
                       tc.LANE_ALLOWED:              traci.Storage.readStringList,
                       tc.LANE_DISALLOWED:           traci.Storage.readStringList,
-                      tc.LANE_LINK_NUMBER:          lambda(result): result.read("!B")[0],
+                      tc.LANE_LINK_NUMBER:          lambda result: result.read("!B")[0],
                       tc.LANE_LINKS:                _readLinks,
                       tc.VAR_SHAPE:                 traci.Storage.readShape,
                       tc.LANE_EDGE_ID:              traci.Storage.readString,
