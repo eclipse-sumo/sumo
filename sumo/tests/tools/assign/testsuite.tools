@@ -10,9 +10,6 @@ costFunctionChecker
 # in simulation rerouting tests
 one-shot
 
-# AddTaz test
-addTaz
-
 # Assignment test
 Assignment
 
