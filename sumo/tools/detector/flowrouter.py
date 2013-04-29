@@ -527,7 +527,7 @@ if net.checkNet():
         net.writeRoutes(options.routefile)
     else:
         for edge in sorted(net._source.outEdges, key=lambda e: e.label):
-            for route in edge.routes:
+            for route in sorted(edge.routes):
                 print route
     if options.emitfile:
         net.writeEmitters(options.emitfile)
