@@ -394,10 +394,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\ROTypedXMLRoutesLoader.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\ROVehicle.cpp"
 				>
 			</File>
@@ -472,10 +468,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\RORouteDef.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\ROTypedXMLRoutesLoader.h"
 				>
 			</File>
 			<File

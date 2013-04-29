@@ -10,6 +10,5 @@ RONet.cpp RONet.h RONetHandler.cpp RONetHandler.h \
 RONode.cpp RONode.h \
 RORoute.cpp RORoute.h RORouteDef.cpp RORouteDef.h \
 RORouteHandler.cpp RORouteHandler.h \
-ROTypedXMLRoutesLoader.cpp ROTypedXMLRoutesLoader.h \
 ROVehicle.cpp ROVehicle.h \
 ROVehicleCont.cpp ROVehicleCont.h
