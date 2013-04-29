@@ -241,13 +241,13 @@ def get_weightfilename(options, step, prefix):
         prefix = options.costmodifier + "_" + prefix
     return get_dumpfilename(options, step, prefix)
 
-def writeSUMOConf(sumoBinary, step, options, additional_args, files):
+def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     detectorfile = "dua_dump_%03i.add.xml" % step
     comma = (',' if options.additional != "" else '')
     sumoCmd = [sumoBinary,
         '--save-configuration', "iteration_%03i.sumocfg" % step,
         '--net-file', options.net,
-        '--route-files', files,
+        '--route-files', route_files,
         '--additional-files', "%s%s%s" % (detectorfile, comma, options.additional),
         '--no-step-log',
         '--random', options.absrand,
@@ -374,6 +374,15 @@ def assign_remaining_args(application, prefix, args):
 
     return assigned
 
+def get_basename(demand_file):
+    basename = os.path.basename(demand_file)
+    if 'alt' in basename:
+        return  basename[:-12]
+    elif 'trips' in basename:
+        return basename[:-10]
+    else:
+        return basename[:basename.find(".")]
+
 def main(args=None):
     optParser = initOptions()
     
@@ -428,38 +437,38 @@ def main(args=None):
         sys.path.append(os.path.join(pyPath, "..", "..", "..", "..","..", "tools", "kkwSim"))
         from kkwCostModifier import costModifier
         print('Use the cost modifier for KKW simulation')
+
+    if options.weightmemory and options.firstStep != 0:
+        # load previous dump files when continuing a run
+        print(">> Reassembling cost-memory from previous iteration steps")
+        for step in range(0, options.firstStep):
+            dumpfile = get_dumpfilename(options, step,"dump")
+            print(">>> Loading %s" % dumpfile)
+            costmemory.load_costs(dumpfile, step, get_scale(options, step))
+
     for step in range(options.firstStep, options.lastStep):
         btimeA = datetime.now()
         print("> Executing step %s" % step)
         
-        # dua-router
-        if options.skipFirstRouting and step == 0:
-            files = input_demands
-        else:
-            files = []
-            for demand_file in input_demands:
-                absPath = os.path.abspath(demand_file)
-                basename = os.path.basename(demand_file)
-                if 'alt' in basename:
-                    basename = basename[:-12]
-                elif 'trips' in basename:
-                    basename = basename[:-10]
-                else:
-                    basename = basename[:basename.find(".")]
-                output =  basename + "_%03i.rou%s" % (step, routesSuffix)
+        router_demands = input_demands
+        simulation_demands = input_demands
+        # demand files have regular names based on the basename and the step
+        if not (options.skipFirstRouting and step == 0):
+            simulation_demands = [get_basename(f) + "_%03i.rou%s" % (step, routesSuffix) for f in input_demands]
+        if not ((options.skipFirstRouting and step == 1) or step == 0):
+            router_demands = [get_basename(f) + "_%03i.rou.alt%s" % (step-1, routesSuffix) for fr in input_demands]
 
-                if step > 0 and not (options.skipFirstRouting and step == 1):
-                    # output of previous step
-                    demand_file = basename + "_%03i.rou.alt%s" % (step-1, routesSuffix)
-        
-                print(">> Running router")
+        if not (options.skipFirstRouting and step == options.firstStep):
+            # call duarouter
+            for router_input, output in zip(router_demands, simulation_demands):
+                print(">> Running router on %s" % router_input)
                 btime = datetime.now()
                 print(">>> Begin time: %s" % btime)
-                cfgname = writeRouteConf(step, options, demand_file, output, options.routefile, initial_type)
+                cfgname = writeRouteConf(step, options, router_input, output, options.routefile, initial_type)
                 log.flush()
                 call([duaBinary, "-c", cfgname], log)
-                if options.clean_alt and step != 0:
-                    os.remove(demand_file)
+                if options.clean_alt and not router_input in input_demands:
+                    os.remove(router_input)
                 etime = datetime.now()
                 print(">>> End time: %s" % etime)
                 print(">>> Duration: %s" % (etime-btime))
@@ -469,13 +478,13 @@ def main(args=None):
                     ecomeasure = None
                     if options.ecomeasure:
                         ecomeasure = options.ecomeasure
-                    if step == 1 and options.skipFirstRouting:
+                    if step == options.firstStep + 1 and options.skipFirstRouting:
                         if options.caloldprob:
                             calFirstRouteProbs("dump_000_%s.xml" % (options.aggregation), basename + "_001.rou.alt.xml",options.addweights,ecomeasure)
                         else:
                             shutil.copy(basename + "_001.rou.alt.xml", basename + "_001.rou.galt.xml")
                             shutil.copy(basename + "_001.rou.xml", basename + "_001.grou.xml")
-                    if step == 0 and not options.skipFirstRouting:
+                    if step == options.firstStep and not options.skipFirstRouting:
                         shutil.copy(basename + "_000.rou.alt.xml", basename + "_000.rou.galt.xml")
                         shutil.copy(basename + "_000.rou.xml", basename + "_000.grou.xml")
                     else:
@@ -484,13 +493,13 @@ def main(args=None):
                         dumpfile = "dump_%03i_%s.xml" % (step-1, options.aggregation)
                         if (not options.skipFirstRouting) or (options.skipFirstRouting and step > 1):
                             output, edgesMap = getRouteChoices(edgesMap,dumpfile,basename + "_%03i.rou.alt.xml" % step,options.net,options.addweights, options.gA, options.gBeta,step,ecomeasure)
-                files.append(output)
 
         # simulation
         print(">> Running simulation")
         btime = datetime.now()
         print(">>> Begin time: %s" % btime)
-        writeSUMOConf(sumoBinary, step, options, sumo_args, ",".join(files))   #  todo: change 'grou.xml'
+        writeSUMOConf(sumoBinary, step, options, sumo_args,
+                ",".join(simulation_demands))   #  todo: change 'grou.xml'
         log.flush()
         call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         if options.tripinfoFilter:
