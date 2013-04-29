@@ -12,7 +12,7 @@ SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import os
+import os, sys
 
 INFINITY = 1e400
 
@@ -35,7 +35,13 @@ OCCUPATION_PROBABILITY = 0.5
 BREAK_DELAY = 1200
 
 PORT = 8813
-BIN_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "bin")
-NETCONVERT = os.path.join(BIN_DIR, "netconvert")
-SUMO = os.path.join(BIN_DIR, "sumo")
-SUMOGUI = os.path.join(BIN_DIR, "sumo-gui")
+SUMO_HOME = os.path.realpath(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..")))
+sys.path.append(os.path.join(SUMO_HOME, "tools"))
+try:
+    from sumolib import checkBinary
+except ImportError:
+    def checkBinary(name):
+        return name
+NETCONVERT = checkBinary("netconvert")
+SUMO = checkBinary("sumo")
+SUMOGUI = checkBinary("sumo-gui")

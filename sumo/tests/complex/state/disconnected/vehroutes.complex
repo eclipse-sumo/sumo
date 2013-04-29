@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/23/12 14:38:29 by SUMO sumo Version dev-SVN-r13037
+<!-- generated on 04/29/13 13:00:03 by SUMO sumo Version dev-SVN-r13766
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <load-state value="state.bin"/>
+        <load-state value="state.sbx"/>
     </input>
 
     <output>
@@ -30,7 +30,7 @@
 </configuration>
 -->
 
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vehicle id="0" depart="0.00" arrival="108.00">
         <route edges="4/1to3/1 2/1to1/1 1/1to0/1"/>
     </vehicle>

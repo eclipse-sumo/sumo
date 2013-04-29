@@ -16,13 +16,12 @@ All rights reserved
 import subprocess, random, sys, os
 from optparse import OptionParser
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools"))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..")), "tools"))
+from constants import * # sys.path is modified here
+
 import traci
 import traci.constants as tc
 
 import statistics
-from constants import *
 
 class Manager:
     def personArrived(self, vehicleID, edge, target):

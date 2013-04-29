@@ -1,6 +1,5 @@
 Loading net... done.
 Loading precomputed net weights from 'input_weights.dump.xml'... done.
-Skipping...
 Skipped until: 0.00
 Building Contraction Hierarchy for vClass='unknown' and time=0.00 (7 edges)
 ... 
