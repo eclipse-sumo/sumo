@@ -1,5 +1,4 @@
-<detectors>
-
-
-</detectors>
+<a>
+    <trip id="0" depart="0" from="1" to="2"/>
+</a>
 
