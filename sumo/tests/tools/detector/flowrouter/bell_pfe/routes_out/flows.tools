@@ -13,8 +13,7 @@
     </routeDistribution>
     <vehicle id="src_29" route="dist_29" number="493" begin="0"/>
     <routeDistribution id="dist_10">
-        <route refid="10.0" probability="26"/>
-        <route refid="10.1" probability="223"/>
+        <route refid="10.0" probability="249"/>
     </routeDistribution>
     <vehicle id="src_10" route="dist_10" number="249" begin="0"/>
     <routeDistribution id="dist_51_50">
@@ -23,6 +22,12 @@
         <route refid="51_50.2" probability="2"/>
     </routeDistribution>
     <vehicle id="src_51_50" route="dist_51_50" number="141" begin="0"/>
+    <routeDistribution id="dist_7">
+        <route refid="7.0" probability="76"/>
+        <route refid="7.1" probability="68"/>
+        <route refid="7.2" probability="47"/>
+    </routeDistribution>
+    <vehicle id="src_7" route="dist_7" number="191" begin="0"/>
     <routeDistribution id="dist_35_65">
         <route refid="35_65.0" probability="3"/>
     </routeDistribution>
@@ -37,25 +42,19 @@
     <vehicle id="src_1" route="dist_1" number="26" begin="0"/>
     <routeDistribution id="dist_36_62">
         <route refid="36_62.0" probability="64"/>
-        <route refid="36_62.1" probability="139"/>
+        <route refid="36_62.1" probability="136"/>
         <route refid="36_62.2" probability="76"/>
-        <route refid="36_62.3" probability="67"/>
+        <route refid="36_62.3" probability="70"/>
     </routeDistribution>
     <vehicle id="src_36_62" route="dist_36_62" number="346" begin="0"/>
-    <routeDistribution id="dist_7">
-        <route refid="7.0" probability="76"/>
-        <route refid="7.1" probability="68"/>
-        <route refid="7.2" probability="47"/>
-    </routeDistribution>
-    <vehicle id="src_7" route="dist_7" number="191" begin="0"/>
     <routeDistribution id="dist_17">
         <route refid="17.0" probability="2"/>
     </routeDistribution>
     <vehicle id="src_17" route="dist_17" number="2" begin="0"/>
     <routeDistribution id="dist_33_60_61">
         <route refid="33_60_61.0" probability="27"/>
-        <route refid="33_60_61.1" probability="42"/>
-        <route refid="33_60_61.2" probability="26"/>
+        <route refid="33_60_61.1" probability="39"/>
+        <route refid="33_60_61.2" probability="29"/>
     </routeDistribution>
     <vehicle id="src_33_60_61" route="dist_33_60_61" number="95" begin="0"/>
 </additional>
