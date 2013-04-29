@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 14:26:50 by SUMO jtrrouter Version dev-SVN-r8460
-<configuration>
+<!-- generated on 01/24/13 14:08:50 by SUMO jtrrouter Version dev-SVN-r13238
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/jtrrouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <flow-definition value="input_flows.flows.xml"/>
-        <turn-definition value="input_turns.turns.xml"/>
+        <flow-files value="input_flows.flows.xml"/>
+        <turn-ratio-files value="input_turns.turns.xml"/>
     </input>
 
     <output>
@@ -14,18 +16,22 @@
     </output>
 
     <processing>
-        <sinks value="end"/>
+        <sink-edges value="end"/>
     </processing>
 
     <defaults>
-        <arrivalPos value="0"/>
+        <arrivalpos value="0"/>
     </defaults>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vehicle id="0_0" depart="0.00" arrivalPos="0">
+    <vehicle id="0.0" depart="0.00" arrivalPos="0">
         <route edges="beg beg2right right right2end -middle middle end"/>
     </vehicle>
 </routes>

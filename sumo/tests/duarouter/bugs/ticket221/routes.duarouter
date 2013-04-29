@@ -29,4 +29,31 @@
     <vehicle id="0" type="KRAUSS_DEFAULT" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
+    <vehicle id="1" type="KRAUSS_DEFAULT" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="2" type="KRAUSS_DEFAULT" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="3" type="KRAUSS_DEFAULT" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="4" type="KRAUSS_DEFAULT" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="5" type="KRAUSS_DEFAULT" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="6" type="KRAUSS_DEFAULT" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="7" type="KRAUSS_DEFAULT" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="8" type="KRAUSS_DEFAULT" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="9" type="KRAUSS_DEFAULT" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
 </routes>

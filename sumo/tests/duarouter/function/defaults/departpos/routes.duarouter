@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/22/13 17:39:17 by SUMO duarouter Version dev-SVN-r13532
+<!-- generated on 04/15/13 13:26:47 by SUMO duarouter Version dev-SVN-r13400
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
@@ -30,10 +30,10 @@
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="1" depart="10.00" departPos="0" color="black">
-        <route color="black" edges="beg middle end rend"/>
+        <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="2" depart="11.00" departPos="0" color="magenta">
-        <route color="magenta" edges="beg middle end rend"/>
+        <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="3" depart="20.00" departPos="0.00">
         <route edges="beg middle end rend"/>

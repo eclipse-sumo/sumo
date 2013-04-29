@@ -32,23 +32,19 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOAbstractRouter.h>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/xml/SAXWeightsHandler.h>
+#include <utils/xml/SUMORouteLoaderControl.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class OptionsCont;
-class RONet;
-class ROTypedXMLRoutesLoader; //!!!remove
-class RORouteHandler;
 class ROAbstractEdgeBuilder;
-class GUIRouterRunThread;
+class RONet;
 class ROVehicle;
 
 
@@ -84,27 +80,18 @@ public:
     bool loadWeights(RONet& net, const std::string& optionName,
                      const std::string& measure, bool useLanes);
 
-    /** @brief Builds and opens all route loaders
-        Route loaders are derived from ROTypedXMLRoutesLoader */
-    unsigned int openRoutes(RONet& net);
+    /** @brief Builds and opens all route loaders */
+    void openRoutes(RONet& net);
 
-    /** @brief Loads routes stepwise
-        This is done for all previously build route loaders */
-    void processRoutesStepWise(SUMOTime start, SUMOTime end,
-                               RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
-
-    /** @brief Loads all routes at once
-        This is done for all previously build route loaders */
-    void processAllRoutes(SUMOTime start, SUMOTime end,
-                          RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
+    /** @brief Loads routes from all previously build route loaders */
+    void processRoutes(SUMOTime start, SUMOTime end,
+                       RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
 #ifdef HAVE_INTERNAL // catchall for internal stuff
     /** @brief Loads all routes and processes them with BulkStarRouter */
     void processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
                                         RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 #endif
-
-    bool makeSingleStep(SUMOTime end, RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
 protected:
     /** @brief Opens route handler of the given type
@@ -129,19 +116,6 @@ protected:
      * @return Whether the wished handler(s) could be built
      */
     bool openTypedRoutes(const std::string& optionName, RONet& net);
-
-
-    /** @brief Returns the first time step known by the built handlers
-     *
-     * The handlers are responsible for not adding route definitions
-     *  prior to "begin"-Option's value. These priori departures
-     *  must also not be reported by them whaen asking via "getLastReadTimeStep".
-     *
-     * @return The first time step of loaded routes
-     * @see ROAbstractRouteDefLoader::getLastReadTimeStep
-     */
-    SUMOTime getMinTimeStep() const;
-
 
 
     /**
@@ -208,29 +182,15 @@ protected:
 
 
 protected:
-    ROTypedXMLRoutesLoader* buildNamedHandler(const std::string& optionName,
-            const std::string& file, RONet& net);
-
-
     void writeStats(SUMOTime time, SUMOTime start, int absNo);
-
-
-    /** @brief Deletes all handlers and clears their container ("myHandler") */
-    void destroyHandlers();
 
 
 protected:
     /// @brief Options to use
     OptionsCont& myOptions;
 
-    /// @brief Definition of route loader list
-    typedef std::vector<ROTypedXMLRoutesLoader*> RouteLoaderCont; //!!!remove
-
     /// @brief List of route loaders
-    RouteLoaderCont myHandler; //!!!remove
-
-    /// @brief List of route loaders
-    std::vector<RORouteHandler*> myHandlers;
+    SUMORouteLoaderControl myLoaders;
 
     /// @brief Information whether empty destinations are allowed
     bool myEmptyDestinationsAllowed;

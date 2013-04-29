@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/15/13 13:43:05 by SUMO duarouter Version dev-SVN-r13186
+<!-- generated on 02/22/13 08:51:12 by SUMO duarouter Version dev-SVN-r13378
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
@@ -21,4 +21,9 @@
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"/>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vType id="0" vClass="unknown"/>
+    <vehicle id="0.0" type="0" depart="0.00">
+        <route edges="absBeg middle end absEnd"/>
+    </vehicle>
+</routes>

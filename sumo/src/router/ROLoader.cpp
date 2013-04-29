@@ -47,14 +47,12 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/xml/SAXWeightsHandler.h>
+#include <utils/xml/SUMORouteLoader.h>
+#include <utils/xml/SUMORouteLoaderControl.h>
 #include "RONet.h"
 #include "RONetHandler.h"
 #include "ROLoader.h"
 #include "ROEdge.h"
-#include "RORDLoader_TripDefs.h"
-#include "RORDLoader_SUMOBase.h"
-#include "RORDGenerator_ODAmounts.h"
-#include "ROTypedXMLRoutesLoader.h"
 #include "RORouteHandler.h"
 
 #ifdef HAVE_INTERNAL // catchall for internal stuff
@@ -117,12 +115,12 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
 ROLoader::ROLoader(OptionsCont& oc, const bool emptyDestinationsAllowed, const bool logSteps) :
     myOptions(oc),
     myEmptyDestinationsAllowed(emptyDestinationsAllowed),
+    myLoaders(oc.exists("unsorted-input") && oc.getBool("unsorted-input") ? 0 : DELTA_T),
     myLogSteps(logSteps)
 {}
 
 
 ROLoader::~ROLoader() {
-    destroyHandlers();
 }
 
 
@@ -161,7 +159,7 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
 }
 
 
-unsigned int
+void
 ROLoader::openRoutes(RONet& net) {
     // build loader
     // load sumo-routes when wished
@@ -173,48 +171,35 @@ ROLoader::openRoutes(RONet& net) {
     // load the amount definitions if wished
     ok &= openTypedRoutes("flow-files", net);
     // check
-    if (ok && myHandler.size() == 0) {
-        throw ProcessError("No route input specified.");
-    }
-    // skip routes prior to the begin time
-    if (ok && !myOptions.getBool("unsorted-input")) {
-        WRITE_MESSAGE("Skipping...");
-        for (RouteLoaderCont::iterator i = myHandler.begin(); ok && i != myHandler.end(); i++) {
-            ok &= (*i)->readRoutesAtLeastUntil(string2time(myOptions.getString("begin")));
+    if (ok) {
+        myLoaders.loadNext(string2time(myOptions.getString("begin")));
+        if (!MsgHandler::getErrorInstance()->wasInformed() && !net.furtherStored()) {
+            throw ProcessError("No route input specified.");
         }
-        WRITE_MESSAGE("Skipped until: " + time2string(getMinTimeStep()));
+        // skip routes prior to the begin time
+        if (!myOptions.getBool("unsorted-input")) {
+            WRITE_MESSAGE("Skipped until: " + time2string(myLoaders.getFirstLoadTime()));
+        }
     }
-    // check whether everything's ok
-    if (!ok) {
-        destroyHandlers();
-        throw ProcessError();
-    }
-    return (unsigned int) myHandler.size();
 }
 
 
 void
-ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
-                                RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
+ROLoader::processRoutes(SUMOTime start, SUMOTime end,
+                        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
     SUMOTime absNo = end - start;
     // skip routes that begin before the simulation's begin
     // loop till the end
     bool endReached = false;
     bool errorOccured = false;
-    SUMOTime time = myHandler.size() != 0 ? getMinTimeStep() : start;
-    SUMOTime firstStep = time;
-    SUMOTime lastStep = time;
-    for (; time < end && !errorOccured && !endReached; time += DELTA_T) {
+    const SUMOTime firstStep = myLoaders.getFirstLoadTime();
+    SUMOTime lastStep = firstStep;
+    for (SUMOTime time = firstStep; time < end && !errorOccured && !endReached; time += DELTA_T) {
         writeStats(time, start, absNo);
-        makeSingleStep(time, net, router);
-        // check whether further data exist
+        myLoaders.loadNext(time);
+        net.saveAndRemoveRoutesUntil(myOptions, router, time);
         endReached = !net.furtherStored();
         lastStep = time;
-        for (RouteLoaderCont::iterator i = myHandler.begin(); endReached && i != myHandler.end(); i++) {
-            if (!(*i)->ended()) {
-                endReached = false;
-            }
-        }
         errorOccured = MsgHandler::getErrorInstance()->wasInformed() && !myOptions.getBool("ignore-errors");
     }
     if (myLogSteps) {
@@ -223,73 +208,11 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
 }
 
 
-bool
-ROLoader::makeSingleStep(SUMOTime end, RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
-    for (std::vector<RORouteHandler*>::iterator i = myHandlers.begin(); i != myHandlers.end(); ++i) {
-        net.saveAndRemoveRoutesUntil(myOptions, router, end);
-    }
-    RouteLoaderCont::iterator i;
-    // go through all handlers
-    if (myHandler.size() != 0) {
-        for (i = myHandler.begin(); i != myHandler.end(); i++) {
-            // load routes until the time point is reached
-            if ((*i)->readRoutesAtLeastUntil(end)) {
-                // save the routes
-                net.saveAndRemoveRoutesUntil(myOptions, router, end);
-            } else {
-                return false;
-            }
-        }
-        return MsgHandler::getErrorInstance()->wasInformed();
-    } else {
-        return false;
-    }
-}
-
-
-SUMOTime
-ROLoader::getMinTimeStep() const {
-    RouteLoaderCont::const_iterator i = myHandler.begin();
-    SUMOTime ret = (*i)->getLastReadTimeStep();
-    ++i;
-    for (; i != myHandler.end(); i++) {
-        SUMOTime akt = (*i)->getLastReadTimeStep();
-        if (akt < ret) {
-            ret = akt;
-        }
-    }
-    return ret;
-}
-
-
-void
-ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
-                           RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
-    long absNo = end - start;
-    bool ok = true;
-    for (RouteLoaderCont::iterator i = myHandler.begin(); ok && i != myHandler.end(); i++) {
-        ok &= (*i)->readRoutesAtLeastUntil(SUMOTime_MAX);
-    }
-    // save the routes
-    SUMOTime time = start;
-    for (; time < end;) {
-        writeStats(time, start, absNo);
-        time = net.saveAndRemoveRoutesUntil(myOptions, router, time);
-        if (time < 0) {
-            time = end;
-        }
-    }
-}
-
-
 #ifdef HAVE_INTERNAL // catchall for internal stuff
 void
 ROLoader::processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
         RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
-    bool ok = true;
-    for (RouteLoaderCont::iterator i = myHandler.begin(); ok && i != myHandler.end(); i++) {
-        ok &= (*i)->readRoutesAtLeastUntil(SUMOTime_MAX);
-    }
+    myLoaders.loadNext(SUMOTime_MAX);
     RouteAggregator::processAllRoutes(net, router);
     net.saveAndRemoveRoutesUntil(myOptions, router, end);
 }
@@ -314,9 +237,7 @@ ROLoader::openTypedRoutes(const std::string& optionName,
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         // build the instance when everything's all right
         try {
-//            myHandlers.push_back(new RORouteHandler(net, *fileIt, true));
-            ROTypedXMLRoutesLoader* instance = buildNamedHandler(optionName, *fileIt, net); //!!!remove
-            myHandler.push_back(instance);
+            myLoaders.add(new SUMORouteLoader(new RORouteHandler(net, *fileIt, myOptions.getBool("repair"), myEmptyDestinationsAllowed, myOptions.getBool("ignore-errors"))));
         } catch (ProcessError& e) {
             std::string msg = "The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised;";
             std::string reason = e.what();
@@ -330,29 +251,6 @@ ROLoader::openTypedRoutes(const std::string& optionName,
         }
     }
     return ok;
-}
-
-
-ROTypedXMLRoutesLoader*
-ROLoader::buildNamedHandler(const std::string& optionName, //!!!remove
-                            const std::string& file,
-                            RONet& net) {
-    if (optionName == "route-files" || optionName == "alternative-files") {
-        return new RORDLoader_SUMOBase(net,
-                                       string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
-                                       myOptions.getBool("repair"), myOptions.getBool("with-taz"), file);
-    }
-    if (optionName == "trip-files") {
-        return new RORDLoader_TripDefs(net,
-                                       string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
-                                       myEmptyDestinationsAllowed, myOptions.getBool("with-taz"), file);
-    }
-    if (optionName == "flow-files") {
-        return new RORDGenerator_ODAmounts(net,
-                                           string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
-                                           myEmptyDestinationsAllowed, myOptions.getBool("randomize-flows"), file);
-    }
-    return 0;
 }
 
 
@@ -405,15 +303,6 @@ ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) {
         const SUMOReal perc = (SUMOReal)(time - start) / (SUMOReal) absNo;
         std::cout << "Reading time step: " + time2string(time) + "  (" + time2string(time - start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       \r";
     }
-}
-
-
-void
-ROLoader::destroyHandlers() {
-    for (RouteLoaderCont::const_iterator i = myHandler.begin(); i != myHandler.end(); ++i) {
-        delete *i;
-    }
-    myHandler.clear();
 }
 
 

@@ -238,9 +238,6 @@
     <ClCompile Include="..\..\..\src\router\RONet.cpp" />
     <ClCompile Include="..\..\..\src\router\RONetHandler.cpp" />
     <ClCompile Include="..\..\..\src\router\RONode.cpp" />
-    <ClCompile Include="..\..\..\src\router\RORDGenerator_ODAmounts.cpp" />
-    <ClCompile Include="..\..\..\src\router\RORDLoader_SUMOBase.cpp" />
-    <ClCompile Include="..\..\..\src\router\RORDLoader_TripDefs.cpp" />
     <ClCompile Include="..\..\..\src\router\RORoute.cpp" />
     <ClCompile Include="..\..\..\src\router\RORouteDef.cpp" />
     <ClCompile Include="..\..\..\src\router\RORouteHandler.cpp" />
@@ -260,9 +257,6 @@
     <ClInclude Include="..\..\..\src\router\RONet.h" />
     <ClInclude Include="..\..\..\src\router\RONetHandler.h" />
     <ClInclude Include="..\..\..\src\router\RONode.h" />
-    <ClInclude Include="..\..\..\src\router\RORDGenerator_ODAmounts.h" />
-    <ClInclude Include="..\..\..\src\router\RORDLoader_SUMOBase.h" />
-    <ClInclude Include="..\..\..\src\router\RORDLoader_TripDefs.h" />
     <ClInclude Include="..\..\..\src\router\RORoute.h" />
     <ClInclude Include="..\..\..\src\router\RORouteDef.h" />
     <ClInclude Include="..\..\..\src\router\RORouteHandler.h" />

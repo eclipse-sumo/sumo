@@ -28,4 +28,7 @@
     <vehicle id="0" type="KRAUSS_DEFAULT" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
+    <vehicle id="1" type="KRAUSS_DEFAULT" depart="10.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
 </routes>

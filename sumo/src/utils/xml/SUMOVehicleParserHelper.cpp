@@ -37,7 +37,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOVehicleParameter.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/options/OptionsCont.h>
 #include "SUMOVehicleParserHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -56,7 +55,7 @@ SUMOVehicleParserHelper::CFAttrMap SUMOVehicleParserHelper::allowedCFModelAttrs;
 // method definitions
 // ===========================================================================
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) {
+SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, const SUMOTime beginDefault, const SUMOTime endDefault) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
@@ -105,7 +104,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) {
         }
     }
 
-    ret->depart = string2time(OptionsCont::getOptions().getString("begin"));
+    ret->depart = beginDefault;
     if (attrs.hasAttribute(SUMO_ATTR_BEGIN)) {
         ret->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok);
     }
@@ -113,7 +112,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) {
         delete ret;
         throw ProcessError("Negative begin time in the definition of flow '" + id + "'.");
     }
-    SUMOTime end = string2time(OptionsCont::getOptions().getString("end"));
+    SUMOTime end = endDefault;
     if (end < 0) {
         end = SUMOTime_MAX;
     }
@@ -155,10 +154,12 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) {
 
 SUMOVehicleParameter*
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
-        bool skipID, bool skipDepart) {
+        bool optionalID, bool skipDepart) {
     bool ok = true;
     std::string id, errorMsg;
-    if (!skipID) {
+    if (optionalID) {
+        id = attrs.getOpt<std::string>(SUMO_ATTR_ID, 0, ok, "");
+    } else {
         id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) ^ attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
@@ -555,6 +556,23 @@ SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes& attrs, const std
     }
 }
 
+
+void
+SUMOVehicleParserHelper::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs) {
+    stop.setParameter = 0;
+    if (attrs.hasAttribute(SUMO_ATTR_ENDPOS)) {
+        stop.setParameter |= STOP_END_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_STARTPOS)) {
+        stop.setParameter |= STOP_START_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_TRIGGERED)) {
+        stop.setParameter |= STOP_TRIGGER_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_PARKING)) {
+        stop.setParameter |= STOP_PARKING_SET;
+    }
+}
 
 /****************************************************************************/
 

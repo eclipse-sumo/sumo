@@ -64,7 +64,7 @@ public:
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVehicleParameter* parseFlowAttributes(const SUMOSAXAttributes& attrs);
+    static SUMOVehicleParameter* parseFlowAttributes(const SUMOSAXAttributes& attrs, const SUMOTime beginDefault, const SUMOTime endDefault);
 
 
     /** @brief Parses a vehicle's attributes
@@ -73,14 +73,14 @@ public:
      *
      * @see SUMOVehicleParameter
      * @param[in] attr The SAX-attributes to get vehicle parameter from
-     * @param[in] skipID Whether parsing the id shall be skipped
+     * @param[in] optionalID Whether the id shall be skipped
      * @param[in] skipDepart Whether parsing the departure time shall be skipped
      * @return The parsed attribute structure if no error occured, 0 otherwise
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
     static SUMOVehicleParameter* parseVehicleAttributes(const SUMOSAXAttributes& attrs,
-            bool skipID = false, bool skipDepart = false);
+            bool optionalID = false, bool skipDepart = false);
 
 
     /** @brief Starts to parse a vehicle type
@@ -167,6 +167,8 @@ public:
      */
     static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes& attrs, const std::string& id);
 
+
+    static void parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs);
 
 private:
     /** @brief Parses attributes common to vehicles and flows

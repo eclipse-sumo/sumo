@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/22/13 17:39:19 by SUMO duarouter Version dev-SVN-r13532
+<!-- generated on 04/15/13 13:26:49 by SUMO duarouter Version dev-SVN-r13400
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
@@ -34,12 +34,12 @@
     </vehicle>
     <vehicle id="1" depart="10.00" departSpeed="0" color="black">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" color="black" edges="beg middle end rend"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2" depart="11.00" departSpeed="0" color="magenta">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" color="magenta" edges="beg middle end rend"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="3" depart="20.00" departPos="0.00" departSpeed="0">

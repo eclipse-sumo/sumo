@@ -30,6 +30,7 @@
 #endif
 
 #include <vector>
+#include <utils/common/StdDefs.h>
 #include "SUMORouteLoader.h"
 #include "SUMORouteLoaderControl.h"
 
@@ -41,10 +42,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMORouteLoaderControl::SUMORouteLoaderControl(SUMOTime inAdvanceStepNo, std::vector<SUMORouteLoader*> loader):
-    myLastLoadTime(-inAdvanceStepNo),
+SUMORouteLoaderControl::SUMORouteLoaderControl(SUMOTime inAdvanceStepNo):
+    myFirstLoadTime(SUMOTime_MAX),
     myInAdvanceStepNo(inAdvanceStepNo),
-    myRouteLoaders(loader),
+    myRouteLoaders(),
     myLoadAll(inAdvanceStepNo <= 0),
     myAllLoaded(false) {
 }
@@ -55,6 +56,12 @@ SUMORouteLoaderControl::~SUMORouteLoaderControl() {
             i != myRouteLoaders.end(); ++i) {
         delete(*i);
     }
+}
+
+
+void
+SUMORouteLoaderControl::add(SUMORouteLoader* loader) {
+    myRouteLoaders.push_back(loader);
 }
 
 
@@ -70,7 +77,7 @@ SUMORouteLoaderControl::loadNext(SUMOTime step) {
     // load all routes for the specified time period
     bool furtherAvailable = false;
     for (std::vector<SUMORouteLoader*>::iterator i = myRouteLoaders.begin(); i != myRouteLoaders.end(); ++i) {
-        (*i)->loadUntil(loadMaxTime);
+        myFirstLoadTime = MIN2(myFirstLoadTime, (*i)->loadUntil(loadMaxTime));
         furtherAvailable |= (*i)->moreAvailable();
     }
     myAllLoaded = !furtherAvailable;

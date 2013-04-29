@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!-- generated on 03/22/13 17:39:15 by SUMO duarouter Version dev-SVN-r13532
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <alternative-files value="input_alts.rou.alt.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <skip-new-routes value="true"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" color="black">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+    <vehicle id="9" depart="0.00" color="black">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+</routes>

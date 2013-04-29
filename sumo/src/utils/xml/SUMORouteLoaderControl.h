@@ -56,18 +56,25 @@ class SUMORouteLoader;
 class SUMORouteLoaderControl {
 public:
     /// constructor
-    SUMORouteLoaderControl(SUMOTime inAdvanceStepNo,
-                         std::vector<SUMORouteLoader*> loader);
+    SUMORouteLoaderControl(SUMOTime inAdvanceStepNo);
 
     /// destructor
     ~SUMORouteLoaderControl();
 
+    /// add another loader
+    void add(SUMORouteLoader* loader);
+
     /// loads the next routes
     void loadNext(SUMOTime step);
 
+    /// returns the timestamp of the first loaded vehicle or flow
+    SUMOTime getFirstLoadTime() const {
+        return myFirstLoadTime;
+    }
+
 private:
-    /// the last time step new routes were loaded
-    SUMOTime myLastLoadTime;
+    /// the first time step for which vehicles were loaded
+    SUMOTime myFirstLoadTime;
 
     /// the number of routes to read in forward
     SUMOTime myInAdvanceStepNo;

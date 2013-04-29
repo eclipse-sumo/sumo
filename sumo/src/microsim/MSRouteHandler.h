@@ -105,7 +105,7 @@ protected:
         this method may throw exceptions when
         a) the route is empty or
         b) another route with the same id already exists */
-    void closeRoute();
+    void closeRoute(const bool mayBeDisconnected=false);
 
     /** opens a route distribution for reading */
     void openRouteDistribution(const SUMOSAXAttributes& attrs);

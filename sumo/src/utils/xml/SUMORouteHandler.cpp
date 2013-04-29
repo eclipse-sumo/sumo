@@ -54,9 +54,11 @@
 SUMORouteHandler::SUMORouteHandler(const std::string& file) :
     SUMOSAXHandler(file),
     myVehicleParameter(0),
-    myLastDepart(0),
+    myLastDepart(-1),
     myActiveRouteColor(0),
-    myCurrentVType(0) {
+    myCurrentVType(0),
+    myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
+    myEndDefault(string2time(OptionsCont::getOptions().getString("end"))) {
 }
 
 
@@ -105,7 +107,7 @@ SUMORouteHandler::myStartElement(int element,
             break;
         case SUMO_TAG_FLOW:
             delete myVehicleParameter;
-            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs);
+            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myBeginDefault, myEndDefault);
             break;
         case SUMO_TAG_VTYPE:
             myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
@@ -123,11 +125,21 @@ SUMORouteHandler::myStartElement(int element,
             addStop(attrs);
             break;
         case SUMO_TAG_TRIP: {
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true);
+            if (myVehicleParameter->id == "") {
+                //@todo warn about deprecation of missing trip ids
+                myVehicleParameter->id = myIdSupplier.getNext();
+            }
             myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
             myActiveRouteID = "!" + myVehicleParameter->id;
+            break;
         }
-        break;
+        case SUMO_TAG_INTERVAL: {
+            bool ok;
+            myBeginDefault = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok);
+            myEndDefault = attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok);
+            break;
+        }
         default:
             break;
     }
@@ -166,6 +178,10 @@ SUMORouteHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_VTYPE:
             SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
+            break;
+        case SUMO_TAG_INTERVAL:
+            myBeginDefault = string2time(OptionsCont::getOptions().getString("begin"));
+            myEndDefault = string2time(OptionsCont::getOptions().getString("end"));
             break;
         default:
             break;

@@ -152,14 +152,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     ROJTRRouter router(net, oc.getBool("ignore-errors"), oc.getBool("accept-all-destinations"),
                        (int)(((SUMOReal) net.getEdgeNo()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
                        oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
-    if (!oc.getBool("unsorted-input")) {
-        // the routes are sorted - process stepwise
-        loader.processRoutesStepWise(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, router);
-    } else {
-        // the routes are not sorted: load all and process
-        loader.processAllRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, router);
-    }
-    // end the processing
+    loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, router);
     net.closeOutput();
 }
 

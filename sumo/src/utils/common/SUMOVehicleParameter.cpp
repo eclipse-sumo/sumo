@@ -66,13 +66,16 @@ SUMOVehicleParameter::defaultOptionOverrides(const OptionsCont& oc, const std::s
 
 
 void
-SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
-                              const OptionsCont& oc) const {
-    dev.openTag(xmlElem).writeAttr(SUMO_ATTR_ID, id);
+SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
+    dev.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, id);
     if (wasSet(VEHPARS_VTYPE_SET)) {
         dev.writeAttr(SUMO_ATTR_TYPE, vtypeid);
     }
-    dev.writeAttr(SUMO_ATTR_DEPART, time2string(depart));
+    if (departProcedure == DEPART_TRIGGERED) {
+        dev.writeAttr(SUMO_ATTR_DEPART, "triggered");
+    } else {
+        dev.writeAttr(SUMO_ATTR_DEPART, time2string(depart));
+    }
 
     // optional parameter
     //  departlane
@@ -222,17 +225,6 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
     if (wasSet(VEHPARS_COLOR_SET)) {
         dev.writeAttr(SUMO_ATTR_COLOR, color);
     }
-    // repetition values
-    if (wasSet(VEHPARS_PERIODNUM_SET)) {
-        dev.writeAttr(SUMO_ATTR_REPNUMBER, repetitionNumber);
-    }
-    if (wasSet(VEHPARS_PERIODFREQ_SET)) {
-#ifdef HAVE_SUBSECOND_TIMESTEPS
-        dev.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
-#else
-        dev.writeAttr(SUMO_ATTR_PERIOD, repetitionOffset);
-#endif
-    }
     if (wasSet(VEHPARS_LINE_SET)) {
         dev.writeAttr(SUMO_ATTR_LINE, line);
     }
@@ -244,6 +236,37 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
     }
     if (wasSet(VEHPARS_PERSON_NUMBER_SET)) {
         dev.writeAttr(SUMO_ATTR_PERSON_NUMBER, personNumber);
+    }
+}
+
+
+void
+SUMOVehicleParameter::writeStops(OutputDevice& dev) const {
+    for (std::vector<Stop>::const_iterator stop = stops.begin(); stop != stops.end(); ++stop) {
+        if (stop->busstop != "") {
+            dev.writeAttr(SUMO_ATTR_BUS_STOP, stop->busstop);
+        } else {
+            dev.openTag(SUMO_TAG_STOP).writeAttr(SUMO_ATTR_LANE, stop->lane);
+            if ((stop->setParameter & STOP_START_SET) != 0) {
+                dev.writeAttr(SUMO_ATTR_STARTPOS, stop->startPos);
+            }
+            if ((stop->setParameter & STOP_END_SET) != 0) {
+                dev.writeAttr(SUMO_ATTR_ENDPOS, stop->endPos);
+            }
+        }
+        if (stop->duration >= 0) {
+            dev.writeAttr(SUMO_ATTR_DURATION, stop->duration);
+        }
+        if (stop->until >= 0) {
+            dev.writeAttr(SUMO_ATTR_UNTIL, stop->until);
+        }
+        if ((stop->setParameter & STOP_TRIGGER_SET) != 0) {
+            dev.writeAttr(SUMO_ATTR_TRIGGERED, stop->triggered);
+        }
+        if ((stop->setParameter & STOP_PARKING_SET) != 0) {
+            dev.writeAttr(SUMO_ATTR_PARKING, stop->parking);
+        }
+        dev.closeTag();
     }
 }
 
@@ -417,5 +440,5 @@ SUMOVehicleParameter::interpretEdgePos(SUMOReal pos, SUMOReal maximumValue, Sumo
     return pos;
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

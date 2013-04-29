@@ -1,2 +1,1 @@
-Error: Attribute 'probability' is missing in definition of route '1'.
-Quitting (on error).
+Warning: No probability for a route in 'distribution '1'', using default.

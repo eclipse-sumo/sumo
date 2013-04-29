@@ -135,17 +135,22 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         return;
     }
     std::vector<const ROEdge*> newEdges;
-    newEdges.push_back(*(oldEdges.begin()));
-    for (std::vector<const ROEdge*>::const_iterator i = oldEdges.begin() + 1; i != oldEdges.end(); ++i) {
-        if ((*(i - 1))->isConnectedTo(*i)) {
-            newEdges.push_back(*i);
-        } else {
-            std::vector<const ROEdge*> edges;
-            router.compute(*(i - 1), *i, &veh, begin, edges);
-            if (edges.size() == 0) {
-                return;
+    if (oldEdges.size() == 1) {
+        /// should happen with jtrrouter only
+        router.compute(oldEdges.front(), oldEdges.front(), &veh, begin, newEdges);
+    } else {
+        newEdges.push_back(*(oldEdges.begin()));
+        for (std::vector<const ROEdge*>::const_iterator i = oldEdges.begin() + 1; i != oldEdges.end(); ++i) {
+            if ((*(i - 1))->isConnectedTo(*i)) {
+                newEdges.push_back(*i);
+            } else {
+                std::vector<const ROEdge*> edges;
+                router.compute(*(i - 1), *i, &veh, begin, edges);
+                if (edges.size() == 0) {
+                    return;
+                }
+                std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
             }
-            std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
         }
     }
     if (myAlternatives[0]->getEdgeVector() != newEdges) {

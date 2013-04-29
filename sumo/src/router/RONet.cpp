@@ -30,11 +30,7 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <deque>
-#include <queue>
+#include <algorithm>
 #include "ROEdge.h"
 #include "RONode.h"
 #include "RONet.h"
@@ -227,6 +223,26 @@ RONet::addVehicle(const std::string& id, ROVehicle* veh) {
 
 
 bool
+RONet::addFlow(SUMOVehicleParameter* flow, const bool randomize) {
+    if (randomize) {
+        myDepartures[flow->id].reserve(flow->repetitionNumber);
+        for (int i = 0; i < flow->repetitionNumber; ++i) {
+            myDepartures[flow->id].push_back(flow->depart + RandHelper::rand(flow->repetitionNumber * flow->repetitionOffset));
+        }
+        std::sort(myDepartures[flow->id].begin(), myDepartures[flow->id].end());
+        std::reverse(myDepartures[flow->id].begin(), myDepartures[flow->id].end());
+    }
+    return myFlows.add(flow->id, flow);
+}
+
+
+void
+RONet::addPerson(const SUMOTime depart, const std::string desc) {
+    myPersons.insert(std::pair<const SUMOTime, const std::string>(depart, desc));
+}
+
+
+bool
 RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     const ROVehicle* const veh) {
     MsgHandler* mh = MsgHandler::getErrorInstance();
@@ -267,44 +283,91 @@ RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>&
 }
 
 
+void
+RONet::checkFlows(SUMOTime time) {
+    std::vector<std::string> toRemove;
+    for (NamedObjectCont<SUMOVehicleParameter*>::IDMap::const_iterator i = myFlows.getMyMap().begin(); i != myFlows.getMyMap().end(); ++i) {
+        SUMOVehicleParameter* pars = i->second;
+        while (pars->repetitionsDone < pars->repetitionNumber) {
+            SUMOTime depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset); 
+            if (myDepartures.find(pars->id) != myDepartures.end()) {
+                depart = myDepartures[pars->id].back();
+            }
+            if (depart >= time + DELTA_T) {
+                break;
+            }
+            if (myDepartures.find(pars->id) != myDepartures.end()) {
+                myDepartures[pars->id].pop_back();
+            }
+            SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
+            newPars->id = pars->id + "." + toString(pars->repetitionsDone);
+            newPars->depart = depart;
+            pars->repetitionsDone++;
+            // try to build the vehicle
+            SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
+            RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
+            ROVehicle* veh = new ROVehicle(*newPars, route, type);
+            addVehicle(newPars->id, veh);
+        }
+        if (pars->repetitionsDone == pars->repetitionNumber) {
+            toRemove.push_back(i->first);
+        }
+    }
+    for (std::vector<std::string>::const_iterator i = toRemove.begin(); i != toRemove.end(); ++i) {
+        myFlows.erase(*i);
+    }
+}
+
+
 SUMOTime
 RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                 SUMOTime time) {
+    checkFlows(time);
     SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
-    while (myVehicles.size() != 0) {
-        // get the next vehicle
+    while (myVehicles.size() != 0 || myPersons.size() != 0) {
+        // get the next vehicle and person
         const ROVehicle* const veh = myVehicles.getTopVehicle();
-        SUMOTime currentTime = veh->getDepartureTime();
+        const SUMOTime vehicleTime = veh == 0 ? SUMOTime_MAX : veh->getDepartureTime();
+        PersonMap::iterator person = myPersons.begin();
+        const SUMOTime personTime = person == myPersons.end() ? SUMOTime_MAX : person->first;
         // check whether it shall not yet be computed
-        if (currentTime > time) {
-            lastTime = currentTime;
+        if (vehicleTime > time && personTime > time) {
+            lastTime = MIN2(vehicleTime, personTime);
             break;
         }
-        // check whether to print the output
-        if (lastTime != currentTime && lastTime != -1) {
-            // report writing progress
-            if (options.getInt("stats-period") >= 0 && ((int) currentTime % options.getInt("stats-period")) == 0) {
-                WRITE_MESSAGE("Read: " + toString(myReadRouteNo) + ",  Discarded: " + toString(myDiscardedRouteNo) + ",  Written: " + toString(myWrittenRouteNo));
+        if (vehicleTime < personTime) {
+            // check whether to print the output
+            if (lastTime != vehicleTime && lastTime != -1) {
+                // report writing progress
+                if (options.getInt("stats-period") >= 0 && ((int) vehicleTime % options.getInt("stats-period")) == 0) {
+                    WRITE_MESSAGE("Read: " + toString(myReadRouteNo) + ",  Discarded: " + toString(myDiscardedRouteNo) + ",  Written: " + toString(myWrittenRouteNo));
+                }
             }
-        }
-        lastTime = currentTime;
+            lastTime = vehicleTime;
 
-        // ok, compute the route (try it)
-        if (computeRoute(options, router, veh)) {
-            // write the route
-            veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options.getBool("exit-times"));
-            myWrittenRouteNo++;
-        } else {
-            myDiscardedRouteNo++;
-        }
-        // delete routes and the vehicle
-        if (veh->getRouteDefinition()->getID()[0] == '!') {
-            if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
-                delete veh->getRouteDefinition();
+            // ok, compute the route (try it)
+            if (computeRoute(options, router, veh)) {
+                // write the route
+                veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options.getBool("exit-times"));
+                myWrittenRouteNo++;
+            } else {
+                myDiscardedRouteNo++;
             }
+            // delete routes and the vehicle
+            if (veh->getRouteDefinition()->getID()[0] == '!') {
+                if (!myRoutes.erase(veh->getRouteDefinition()->getID())) {
+                    delete veh->getRouteDefinition();
+                }
+            }
+            myVehicles.erase(veh->getID());
+        } else {
+            (*myRoutesOutput) << person->second;
+            if (myRouteAlternativesOutput != 0) {
+                (*myRouteAlternativesOutput) << person->second;
+            }
+            myPersons.erase(person);
         }
-        myVehicles.erase(veh->getID());
     }
     return lastTime;
 }
@@ -312,76 +375,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
 
 bool
 RONet::furtherStored() {
-    return myVehicles.size() > 0;
-}
-
-
-ROEdge*
-RONet::getRandomSource() {
-    // check whether an edge may be returned
-    checkSourceAndDestinations();
-    if (mySourceEdges.size() == 0) {
-        return 0;
-    }
-    // choose a random edge
-    return RandHelper::getRandomFrom(mySourceEdges);
-}
-
-
-const ROEdge*
-RONet::getRandomSource() const {
-    // check whether an edge may be returned
-    checkSourceAndDestinations();
-    if (mySourceEdges.size() == 0) {
-        return 0;
-    }
-    // choose a random edge
-    return RandHelper::getRandomFrom(mySourceEdges);
-}
-
-
-
-ROEdge*
-RONet::getRandomDestination() {
-    // check whether an edge may be returned
-    checkSourceAndDestinations();
-    if (myDestinationEdges.size() == 0) {
-        return 0;
-    }
-    // choose a random edge
-    return RandHelper::getRandomFrom(myDestinationEdges);
-}
-
-
-const ROEdge*
-RONet::getRandomDestination() const {
-    // check whether an edge may be returned
-    checkSourceAndDestinations();
-    if (myDestinationEdges.size() == 0) {
-        return 0;
-    }
-    // choose a random edge
-    return RandHelper::getRandomFrom(myDestinationEdges);
-}
-
-
-void
-RONet::checkSourceAndDestinations() const {
-    if (myDestinationEdges.size() != 0 || mySourceEdges.size() != 0) {
-        return;
-    }
-    const std::map<std::string, ROEdge*>& edges = myEdges.getMyMap();
-    for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        ROEdge* e = (*i).second;
-        ROEdge::EdgeType type = e->getType();
-        // !!! add something like "classified edges only" for using only sources or sinks
-        if (type != ROEdge::ET_SOURCE) {
-            myDestinationEdges.push_back(e);
-        }
-        if (type != ROEdge::ET_SINK) {
-            mySourceEdges.push_back(e);
-        }
-    }
+    return myVehicles.size() > 0 || myFlows.size() > 0;
 }
 
 

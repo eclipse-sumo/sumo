@@ -266,7 +266,7 @@ NLBuilder::load(const std::string& mmlWhat) {
 SUMORouteLoaderControl*
 NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
     // build the loaders
-    std::vector<SUMORouteLoader*> loaders;
+    SUMORouteLoaderControl* loaders =  new SUMORouteLoaderControl(string2time(oc.getString("route-steps")));
     // check whether a list is existing
     if (oc.isSet("route-files") && string2time(oc.getString("route-steps")) > 0) {
         std::vector<std::string> files = oc.getStringVector("route-files");
@@ -277,13 +277,11 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
         }
         // open files for reading
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-            loaders.push_back(new SUMORouteLoader(new MSRouteHandler(*fileIt, false)));
+            loaders->add(new SUMORouteLoader(new MSRouteHandler(*fileIt, false)));
         }
     }
-    // build the route control
-    return new SUMORouteLoaderControl(string2time(oc.getString("route-steps")), loaders);
+    return loaders;
 }
 
 
 /****************************************************************************/
-
