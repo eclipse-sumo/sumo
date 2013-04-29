@@ -87,6 +87,8 @@ enum DepartDefinition {
     DEPART_GIVEN,
     /// @brief The departure is person triggered
     DEPART_TRIGGERED,
+    /// @brief The vehicle is discarded if emission fails (not fully implemented yet)
+    DEPART_NOW,
     /// @brief Tag for the last element in the enum for safe int casting
     DEPART_DEF_MAX
 };
