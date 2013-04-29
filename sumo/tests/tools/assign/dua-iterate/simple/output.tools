@@ -1,71 +1,71 @@
 > Executing step 0
->> Running router
->>> Begin time: 2011-07-18 10:04:26.103804
->>> End time: 2011-07-18 10:04:26.121910
->>> Duration: 0:00:00.018106
+>> Running router on input_trips.trips.xml
+>>> Begin time: 2013-04-29 13:45:43.895353
+>>> End time: 2013-04-29 13:45:43.915169
+>>> Duration: 0:00:00.019816
 <<
 >> Running simulation
->>> Begin time: 2011-07-18 10:04:26.121969
->>> End time: 2011-07-18 10:04:26.163570
->>> Duration: 0:00:00.041601
+>>> Begin time: 2013-04-29 13:45:43.915231
+>>> End time: 2013-04-29 13:45:43.979153
+>>> Duration: 0:00:00.063922
 <<
-< Step 0 ended (duration: 0:00:00.059893)
+< Step 0 ended (duration: 0:00:00.083912)
 ------------------
 
 > Executing step 1
->> Running router
->>> Begin time: 2011-07-18 10:04:26.163683
->>> End time: 2011-07-18 10:04:26.182745
->>> Duration: 0:00:00.019062
+>> Running router on input_trips_000.rou.alt.xml
+>>> Begin time: 2013-04-29 13:45:43.979275
+>>> End time: 2013-04-29 13:45:43.999747
+>>> Duration: 0:00:00.020472
 <<
 >> Running simulation
->>> Begin time: 2011-07-18 10:04:26.182819
->>> End time: 2011-07-18 10:04:26.225441
->>> Duration: 0:00:00.042622
+>>> Begin time: 2013-04-29 13:45:43.999821
+>>> End time: 2013-04-29 13:45:44.064168
+>>> Duration: 0:00:00.064347
 <<
-< Step 1 ended (duration: 0:00:00.061846)
+< Step 1 ended (duration: 0:00:00.084998)
 ------------------
 
 > Executing step 2
->> Running router
->>> Begin time: 2011-07-18 10:04:26.225546
->>> End time: 2011-07-18 10:04:26.245022
->>> Duration: 0:00:00.019476
+>> Running router on input_trips_001.rou.alt.xml
+>>> Begin time: 2013-04-29 13:45:44.064293
+>>> End time: 2013-04-29 13:45:44.086043
+>>> Duration: 0:00:00.021750
 <<
 >> Running simulation
->>> Begin time: 2011-07-18 10:04:26.245083
->>> End time: 2011-07-18 10:04:26.287834
->>> Duration: 0:00:00.042751
+>>> Begin time: 2013-04-29 13:45:44.086106
+>>> End time: 2013-04-29 13:45:44.151749
+>>> Duration: 0:00:00.065643
 <<
-< Step 2 ended (duration: 0:00:00.062379)
+< Step 2 ended (duration: 0:00:00.087595)
 ------------------
 
 > Executing step 3
->> Running router
->>> Begin time: 2011-07-18 10:04:26.287944
->>> End time: 2011-07-18 10:04:26.307170
->>> Duration: 0:00:00.019226
+>> Running router on input_trips_002.rou.alt.xml
+>>> Begin time: 2013-04-29 13:45:44.151909
+>>> End time: 2013-04-29 13:45:44.173782
+>>> Duration: 0:00:00.021873
 <<
 >> Running simulation
->>> Begin time: 2011-07-18 10:04:26.307229
->>> End time: 2011-07-18 10:04:26.350171
->>> Duration: 0:00:00.042942
+>>> Begin time: 2013-04-29 13:45:44.173854
+>>> End time: 2013-04-29 13:45:44.236828
+>>> Duration: 0:00:00.062974
 <<
-< Step 3 ended (duration: 0:00:00.062316)
+< Step 3 ended (duration: 0:00:00.085035)
 ------------------
 
 > Executing step 4
->> Running router
->>> Begin time: 2011-07-18 10:04:26.350279
->>> End time: 2011-07-18 10:04:26.369286
->>> Duration: 0:00:00.019007
+>> Running router on input_trips_003.rou.alt.xml
+>>> Begin time: 2013-04-29 13:45:44.236956
+>>> End time: 2013-04-29 13:45:44.272417
+>>> Duration: 0:00:00.035461
 <<
 >> Running simulation
->>> Begin time: 2011-07-18 10:04:26.369347
->>> End time: 2011-07-18 10:04:26.412942
->>> Duration: 0:00:00.043595
+>>> Begin time: 2013-04-29 13:45:44.272481
+>>> End time: 2013-04-29 13:45:44.335317
+>>> Duration: 0:00:00.062836
 <<
-< Step 4 ended (duration: 0:00:00.062755)
+< Step 4 ended (duration: 0:00:00.098473)
 ------------------
 
-dua-iterate ended (duration: 0:00:00.309316)
+dua-iterate ended (duration: 0:00:00.440126)

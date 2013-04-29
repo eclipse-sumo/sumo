@@ -1,96 +1,96 @@
 > Executing step 0
->> Running router
->>> Begin time: 2012-09-21 10:03:36.411752
->>> End time: 2012-09-21 10:03:36.428819
->>> Duration: 0:00:00.017067
+>> Running router on input_trips.trips.xml
+>>> Begin time: 2013-04-29 13:45:46.176525
+>>> End time: 2013-04-29 13:45:46.196275
+>>> Duration: 0:00:00.019750
 <<
 >> Running simulation
->>> Begin time: 2012-09-21 10:03:36.428879
->>> End time: 2012-09-21 10:03:36.489199
->>> Duration: 0:00:00.060320
+>>> Begin time: 2013-04-29 13:45:46.196337
+>>> End time: 2013-04-29 13:45:46.264852
+>>> Duration: 0:00:00.068515
 <<
 >> Smoothing edge weights
 >>> Updated 4 edges
 >>> Decayed 0 unseen edges
 >>> Error avg:0 mean:0
 >>> Absolute Error avg:0 mean:0
-< Step 0 ended (duration: 0:00:00.079783)
+< Step 0 ended (duration: 0:00:00.109535)
 ------------------
 
 > Executing step 1
->> Running router
->>> Begin time: 2012-09-21 10:03:36.491524
->>> End time: 2012-09-21 10:03:36.509433
->>> Duration: 0:00:00.017909
+>> Running router on input_trips_000.rou.alt.xml
+>>> Begin time: 2013-04-29 13:45:46.286064
+>>> End time: 2013-04-29 13:45:46.307180
+>>> Duration: 0:00:00.021116
 <<
 >> Running simulation
->>> Begin time: 2012-09-21 10:03:36.509498
->>> End time: 2012-09-21 10:03:36.569830
->>> Duration: 0:00:00.060332
+>>> Begin time: 2013-04-29 13:45:46.307244
+>>> End time: 2013-04-29 13:45:46.372838
+>>> Duration: 0:00:00.065594
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 4 unseen edges
 >>> Error avg:0 mean:0
 >>> Absolute Error avg:0 mean:0
-< Step 1 ended (duration: 0:00:00.079212)
+< Step 1 ended (duration: 0:00:00.087914)
 ------------------
 
 > Executing step 2
->> Running router
->>> Begin time: 2012-09-21 10:03:36.570755
->>> End time: 2012-09-21 10:03:36.588806
->>> Duration: 0:00:00.018051
+>> Running router on input_trips_001.rou.alt.xml
+>>> Begin time: 2013-04-29 13:45:46.373998
+>>> End time: 2013-04-29 13:45:46.395590
+>>> Duration: 0:00:00.021592
 <<
 >> Running simulation
->>> Begin time: 2012-09-21 10:03:36.588868
->>> End time: 2012-09-21 10:03:36.649452
->>> Duration: 0:00:00.060584
+>>> Begin time: 2013-04-29 13:45:46.395654
+>>> End time: 2013-04-29 13:45:46.463207
+>>> Duration: 0:00:00.067553
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 4 unseen edges
 >>> Error avg:0.0 mean:0.0
 >>> Absolute Error avg:0.0 mean:0.0
-< Step 2 ended (duration: 0:00:00.079590)
+< Step 2 ended (duration: 0:00:00.090135)
 ------------------
 
 > Executing step 3
->> Running router
->>> Begin time: 2012-09-21 10:03:36.650359
->>> End time: 2012-09-21 10:03:36.668298
->>> Duration: 0:00:00.017939
+>> Running router on input_trips_002.rou.alt.xml
+>>> Begin time: 2013-04-29 13:45:46.464153
+>>> End time: 2013-04-29 13:45:46.485574
+>>> Duration: 0:00:00.021421
 <<
 >> Running simulation
->>> Begin time: 2012-09-21 10:03:36.668386
->>> End time: 2012-09-21 10:03:36.728916
->>> Duration: 0:00:00.060530
+>>> Begin time: 2013-04-29 13:45:46.485640
+>>> End time: 2013-04-29 13:45:46.550457
+>>> Duration: 0:00:00.064817
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 4 unseen edges
 >>> Error avg:0.0 mean:0.0
 >>> Absolute Error avg:0.0 mean:0.0
-< Step 3 ended (duration: 0:00:00.079466)
+< Step 3 ended (duration: 0:00:00.087212)
 ------------------
 
 > Executing step 4
->> Running router
->>> Begin time: 2012-09-21 10:03:36.729840
->>> End time: 2012-09-21 10:03:36.747758
->>> Duration: 0:00:00.017918
+>> Running router on input_trips_003.rou.alt.xml
+>>> Begin time: 2013-04-29 13:45:46.551380
+>>> End time: 2013-04-29 13:45:46.572468
+>>> Duration: 0:00:00.021088
 <<
 >> Running simulation
->>> Begin time: 2012-09-21 10:03:36.747821
->>> End time: 2012-09-21 10:03:36.808410
->>> Duration: 0:00:00.060589
+>>> Begin time: 2013-04-29 13:45:46.572533
+>>> End time: 2013-04-29 13:45:46.638554
+>>> Duration: 0:00:00.066021
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 4 unseen edges
 >>> Error avg:0.0 mean:0.0
 >>> Absolute Error avg:0.0 mean:0.0
-< Step 4 ended (duration: 0:00:00.079460)
+< Step 4 ended (duration: 0:00:00.088070)
 ------------------
 
-dua-iterate ended (duration: 0:00:00.397701)
+dua-iterate ended (duration: 0:00:00.463095)
