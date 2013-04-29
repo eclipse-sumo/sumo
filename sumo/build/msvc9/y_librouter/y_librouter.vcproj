@@ -374,23 +374,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\RORDGenerator_ODAmounts.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\RORDLoader_SUMOBase.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\RORDLoader_TripDefs.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\RORoute.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\RORouteDef.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\router\RORouteHandler.cpp"
 				>
 			</File>
 			<File
@@ -451,23 +443,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\RORDGenerator_ODAmounts.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\RORDLoader_SUMOBase.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\RORDLoader_TripDefs.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\RORoute.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\RORouteDef.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\router\RORouteHandler.h"
 				>
 			</File>
 			<File
