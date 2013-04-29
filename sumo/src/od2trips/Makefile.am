@@ -23,5 +23,6 @@ od2trips_LDFLAGS = $(XERCES_LDFLAGS)
 
 od2trips_LDADD   = ../utils/options/liboptions.a \
 ../utils/distribution/libdistribution.a \
+../utils/common/libcommon.a \
 ../utils/geom/libgeom.a \
 $(COMMON_LIBS)
