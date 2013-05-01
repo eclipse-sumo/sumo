@@ -513,16 +513,21 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 void
 RORouteHandler::parseEdges(const std::string& desc, std::vector<const ROEdge*>& into,
                            const std::string& rid) {
-    StringTokenizer st(desc);
-    while (st.hasNext()) {
-        const std::string id = st.next();
-        const ROEdge* edge = myNet.getEdge(id);
-        // check whether the edge exists
-        if (edge == 0) {
-            myErrorOutput->inform("The edge '" + id + "' within the route " + rid + " is not known."
-                                  + "\n The route can not be build.");
-        } else {
-            into.push_back(edge);
+    if (desc[0] == BinaryFormatter::BF_ROUTE) {
+        std::istringstream in(desc, std::ios::binary);
+        char c;
+        in >> c;
+        FileHelpers::readEdgeVector(in, into, rid);
+    } else {
+        for (StringTokenizer st(desc); st.hasNext();) {
+            const std::string id = st.next();
+            const ROEdge* edge = myNet.getEdge(id);
+            if (edge == 0) {
+                myErrorOutput->inform("The edge '" + id + "' within the route " + rid + " is not known."
+                                      + "\n The route can not be build.");
+            } else {
+                into.push_back(edge);
+            }
         }
     }
 }
