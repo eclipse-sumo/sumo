@@ -28,4 +28,5 @@ output:\([0-9]* ms\){REPLACE (TIME)}
 log:\([0-9]* ms\){REPLACE (TIME)}
 
 [floating_point_tolerance]
-alts:0.0000001
+routes:0.0101
+alts:0.0101
