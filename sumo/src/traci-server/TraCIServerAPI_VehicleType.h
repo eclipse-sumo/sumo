@@ -78,7 +78,7 @@ public:
 
     /** @brief Processes a set value for the given type
      */
-    static bool setVariable(const int cmd, const int variable, 
+    static bool setVariable(const int cmd, const int variable,
                             MSVehicleType& v, traci::TraCIServer& server,
                             tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
 

@@ -140,7 +140,7 @@ void
 GUIJunctionWrapper::updateColor(const GUIVisualizationSettings& s) {
     const SUMOReal colorValue = static_cast<SUMOReal>(s.junctionColorer.getActive() == 1 && gSelected.isSelected(getType(), getGlID()));
     const RGBColor& col = s.junctionColorer.getScheme().getColor(colorValue);
-    osg::Vec4ubArray *colors = dynamic_cast<osg::Vec4ubArray*>(myGeom->getColorArray());
+    osg::Vec4ubArray* colors = dynamic_cast<osg::Vec4ubArray*>(myGeom->getColorArray());
     (*colors)[0].set(col.red(), col.green(), col.blue(), col.alpha());
     myGeom->setColorArray(colors);
 }

@@ -71,8 +71,8 @@ struct ODCell {
     /// @brief Name of the vehicle type
     std::string vehicleType;
 
-	/// @brief the list of paths / routes
-	std::vector<RORoute*> pathsVector;  // path_id, string of edges? 
+    /// @brief the list of paths / routes
+    std::vector<RORoute*> pathsVector;  // path_id, string of edges?
 };
 
 

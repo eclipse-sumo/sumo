@@ -122,7 +122,7 @@ MSLink::removeApproaching(SUMOVehicle* veh) {
 }
 
 
-MSLink::ApproachingVehicleInformation 
+MSLink::ApproachingVehicleInformation
 MSLink::getApproaching(const SUMOVehicle* veh) const {
     LinkApproachingVehicles::const_iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(veh));
     if (i != myApproachingVehicles.end()) {
@@ -133,7 +133,7 @@ MSLink::getApproaching(const SUMOVehicle* veh) const {
 }
 
 
-SUMOTime 
+SUMOTime
 MSLink::getLeaveTime(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const {
     return arrivalTime + TIME2STEPS((getLength() + vehicleLength) / (0.5 * (arrivalSpeed + leaveSpeed)));
 }
@@ -165,8 +165,8 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
 
 
 bool
-MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, 
-        bool sameTargetLane) const {
+MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
+                      bool sameTargetLane) const {
     for (LinkApproachingVehicles::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
         if (!(*i).willPass) {
             continue;
@@ -197,18 +197,18 @@ MSLink::unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal f
     }
     // headwayTime is the expected time difference between the leaders rear and the followers front + safeGap
     if (leaderSpeed < DEFAULT_VEH_DECEL) {
-        // leader may break in one timestep 
+        // leader may break in one timestep
         leaderSpeed = 0;
     }
     // this formula is conservative since the headway time increases as soon as
     // the follower starts to break
     // on the other hand, vehicles turning onto a higher-priority road usually
-    // don't want to make other people break 
+    // don't want to make other people break
     return ((followerSpeed - leaderSpeed) / DEFAULT_VEH_DECEL) > STEPS2TIME(headwayTime);
 }
 
 
-bool 
+bool
 MSLink::maybeOccupied(MSLane* lane) {
     MSVehicle* veh = lane->getLastVehicle();
     SUMOReal distLeft = 0;
@@ -270,19 +270,19 @@ MSLink::getViaLane() const {
 }
 
 
-std::pair<MSVehicle*, SUMOReal> 
+std::pair<MSVehicle*, SUMOReal>
 MSLink::getLeaderInfo(const std::map<const MSLink*, std::string>& previousLeaders, SUMOReal dist) const {
     if (MSGlobals::gUsingInternalLanes && myJunctionInlane == 0) {
         // this is an exit link
-        
+
         // there might have been a link leader from previous steps who still qualifies
-        // but is not the last vehicle on the foe lane anymore 
+        // but is not the last vehicle on the foe lane anymore
         std::map<const MSLink*, std::string>::const_iterator it = previousLeaders.find(this);
         if (it != previousLeaders.end()) {
             MSVehicle* leader = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(it->second));
             if (leader != 0 && std::find(myFoeLanes.begin(), myFoeLanes.end(), leader->getLane()) != myFoeLanes.end()) {
-                return std::make_pair(leader, 
-                        dist - (leader->getLane()->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength());
+                return std::make_pair(leader,
+                                      dist - (leader->getLane()->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength());
             }
         }
         // now check for last vehicle on foe lane
@@ -292,8 +292,8 @@ MSLink::getLeaderInfo(const std::map<const MSLink*, std::string>& previousLeader
             if (myLane == exitLink->getLane()) {
                 MSVehicle* leader = (*i)->getLastVehicle();
                 if (leader != 0) {
-                    return std::make_pair(leader, 
-                            dist - ((*i)->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength());
+                    return std::make_pair(leader,
+                                          dist - ((*i)->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength());
                 }
             }
         }

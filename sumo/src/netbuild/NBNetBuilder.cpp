@@ -62,7 +62,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBNetBuilder::NBNetBuilder() : 
+NBNetBuilder::NBNetBuilder() :
     myEdgeCont(myTypeCont),
     myHaveSeenRoundabouts(false)
 {}
@@ -143,7 +143,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
     geoConvHelper.computeFinal(); // information needed for location element fixed at this point
 
-    if(oc.exists("geometry.min-dist")&&oc.isSet("geometry.min-dist")) {
+    if (oc.exists("geometry.min-dist") && oc.isSet("geometry.min-dist")) {
         PROGRESS_BEGIN_MESSAGE("Reducing geometries");
         myEdgeCont.reduceGeometries(oc.getFloat("geometry.min-dist"));
         PROGRESS_DONE_MESSAGE();
@@ -173,7 +173,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         if (oc.getBool("roundabouts.guess") || (oc.isDefault("roundabouts.guess") && myHaveSeenRoundabouts)) {
             assert(myRoundabouts.size() == 0);
             myEdgeCont.guessRoundabouts(myRoundabouts);
-            for (std::vector<EdgeVector>::const_iterator it_round = myRoundabouts.begin(); 
+            for (std::vector<EdgeVector>::const_iterator it_round = myRoundabouts.begin();
                     it_round != myRoundabouts.end(); ++it_round) {
                 std::vector<std::string> nodeIDs;
                 for (EdgeVector::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
@@ -364,7 +364,7 @@ NBNetBuilder::compute(OptionsCont& oc,
 }
 
 
-void 
+void
 NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper) {
     PROGRESS_BEGIN_MESSAGE("Moving network to origin");
     // compute new boundary after network modifications have taken place

@@ -301,7 +301,7 @@ public:
     void splitGeometry(NBNodeCont& nc);
 
 
-    /** @brief 
+    /** @brief
      * @param[in] nc The node container needed to build (geometry) nodes
      * @see NBEdge::reduceGeometry
      */

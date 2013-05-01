@@ -76,11 +76,11 @@ public:
      */
     struct ApproachingVehicleInformation {
         /// @brief Constructor
-        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime, 
-                SUMOReal _arrivalSpeed, SUMOReal _leaveSpeed, 
-                SUMOVehicle* _vehicle, const bool _willPass) : 
-            arrivalTime(_arrivalTime), leavingTime(_leavingTime), 
-            arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed), 
+        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime,
+                                      SUMOReal _arrivalSpeed, SUMOReal _leaveSpeed,
+                                      SUMOVehicle* _vehicle, const bool _willPass) :
+            arrivalTime(_arrivalTime), leavingTime(_leavingTime),
+            arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed),
             vehicle(_vehicle), willPass(_willPass) {}
 
         /// @brief The time the vehicle's front arrives at the link
@@ -139,8 +139,8 @@ public:
      *
      * The information is stored in myApproachingVehicles.
      */
-    void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, 
-            SUMOReal arrivalSpeed, SUMOReal leaveSpeed, bool setRequest);
+    void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime,
+                        SUMOReal arrivalSpeed, SUMOReal leaveSpeed, bool setRequest);
 
     /// @brief removes the vehicle from myApproachingVehicles
     void removeApproaching(SUMOVehicle* veh);
@@ -173,8 +173,8 @@ public:
      * @param[in] sameTargetLane Whether the link that calls this method has the same target lane as this link
      * @return Whether this link is blocked
      */
-    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, 
-            bool sameTargetLane) const;
+    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
+                       bool sameTargetLane) const;
 
     bool isBlockingAnyone() const {
         return myApproachingVehicles.size() != 0;
@@ -269,8 +269,8 @@ public:
     MSLane* getViaLane() const;
 
 
-    /** @brief Returns the information about the latest vehicle which is on one of the 
-     * same-target-foeLanes of this (exit)link 
+    /** @brief Returns the information about the latest vehicle which is on one of the
+     * same-target-foeLanes of this (exit)link
      * Valid during the move() phase
      * @param[in] previousLeaders Previous leader candidates which should be returned if they still qualify
      * @param[in] dist The distance of the vehicle who is asking about the leader to this link
@@ -286,7 +286,7 @@ public:
     /// @brief return the expected time at which the given vehicle will clear the link
     SUMOTime getLeaveTime(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
 
-    
+
 
 
 private:

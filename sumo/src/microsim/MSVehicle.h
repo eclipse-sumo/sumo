@@ -261,7 +261,7 @@ public:
      * speeds from the last time step. Also registers
      * ApproachingVehicleInformation for all links
      *
-     * This method goes through the best continuation lanes of the current lane and 
+     * This method goes through the best continuation lanes of the current lane and
      * computes the safe velocities for passing/stopping at the next link as a DriveProcessItem
      *
      * Afterwards it checks if any DriveProcessItem should be discared to avoid
@@ -280,7 +280,7 @@ public:
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
-     * This method goes through all DriveProcessItems in myLFLinkLanes in order 
+     * This method goes through all DriveProcessItems in myLFLinkLanes in order
      * to find a speed that is safe for all upcoming links.
      *
      * Using this speed the position is updated and the vehicle is moved to the

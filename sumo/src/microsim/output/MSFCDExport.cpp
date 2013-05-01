@@ -61,7 +61,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
     for (; it != end; ++it) {
         const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
         if (veh->isOnRoad()) {
-            MSLane *lane = veh->getLane();
+            MSLane* lane = veh->getLane();
             SUMOReal lp = veh->getPositionOnLane();
             SUMOReal gp = lane->interpolateLanePosToGeometryPos(lp);
             Position pos = lane->getShape().positionAtLengthPosition(gp);

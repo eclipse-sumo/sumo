@@ -53,17 +53,17 @@
 // ===========================================================================
 NBOwnTLDef::NBOwnTLDef(const std::string& id,
                        const std::vector<NBNode*>& junctions, SUMOTime offset,
-                       TrafficLightType type) : 
+                       TrafficLightType type) :
     NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type) {}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string& id, NBNode* junction, SUMOTime offset,
-        TrafficLightType type) : 
+                       TrafficLightType type) :
     NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type) {}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string& id, SUMOTime offset,
-        TrafficLightType type) : 
+                       TrafficLightType type) :
     NBTrafficLightDefinition(id, DefaultProgramID, offset, type) {}
 
 

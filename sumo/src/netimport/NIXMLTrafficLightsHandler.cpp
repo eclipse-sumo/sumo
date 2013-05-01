@@ -130,8 +130,8 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
     SUMOTime offset = attrs.hasAttribute(SUMO_ATTR_OFFSET) ? TIME2STEPS(attrs.get<SUMOReal>(SUMO_ATTR_OFFSET, id.c_str(), ok)) : 0;
-    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, 0, ok, 
-            OptionsCont::getOptions().getString("tls.default-type"));
+    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, 0, ok,
+                        OptionsCont::getOptions().getString("tls.default-type"));
     TrafficLightType type;
     if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
@@ -148,11 +148,11 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     if (loadedDef == 0) {
         // case 2
         NBTrafficLightDefinition* newDef = dynamic_cast<NBOwnTLDef*>(myTLLCont.getDefinition(
-                                 id, NBTrafficLightDefinition::DefaultProgramID));
+                                               id, NBTrafficLightDefinition::DefaultProgramID));
         if (newDef == 0) {
             // the default program may have already been replaced with a loaded program
             newDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(
-                                 id, NBTrafficLightDefinition::DefaultProgramID));
+                         id, NBTrafficLightDefinition::DefaultProgramID));
             if (newDef == 0) {
                 WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
                 return 0;

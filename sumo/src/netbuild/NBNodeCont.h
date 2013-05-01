@@ -314,8 +314,8 @@ public:
      * @param[out] hasTLS Whether the new node has a traffic light
      * @param[out] tlType The type of traffic light (if any)
      */
-    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, 
-            bool& hasTLS, TrafficLightType& type);
+    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos,
+                        bool& hasTLS, TrafficLightType& type);
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     void registerJoinedCluster(const std::set<NBNode*>& cluster);
@@ -327,7 +327,7 @@ public:
 
 
     /* @brief discards traffic lights
-     * @param[in] geometryLike Whether only tls at geometry-like nodes shall be discarded 
+     * @param[in] geometryLike Whether only tls at geometry-like nodes shall be discarded
      */
     void discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike);
 

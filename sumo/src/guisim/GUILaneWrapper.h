@@ -48,7 +48,9 @@ class MSLane;
 class MSEdge;
 class PositionVector;
 #ifdef HAVE_OSG
-namespace osg { class Geometry;}
+namespace osg {
+class Geometry;
+}
 #endif
 
 

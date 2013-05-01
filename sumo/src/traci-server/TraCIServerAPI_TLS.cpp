@@ -246,7 +246,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     switch (variable) {
         case TL_PHASE_INDEX: {
             int index = 0;
-            if(!server.readTypeCheckingInt(inputStorage, index)) {
+            if (!server.readTypeCheckingInt(inputStorage, index)) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase index must be given as an integer.", outputStorage);
             }
             if (index < 0 || vars.getActive()->getPhaseNumber() <= (unsigned int)index) {
@@ -258,7 +258,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         break;
         case TL_PROGRAM: {
             std::string subID;
-            if(!server.readTypeCheckingString(inputStorage, subID)) {
+            if (!server.readTypeCheckingString(inputStorage, subID)) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The program must be given as a string.", outputStorage);
             }
             try {
@@ -270,7 +270,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         break;
         case TL_PHASE_DURATION: {
             int duration = 0;
-            if(!server.readTypeCheckingInt(inputStorage, duration)) {
+            if (!server.readTypeCheckingInt(inputStorage, duration)) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase duration must be given as an integer.", outputStorage);
             }
             int index = vars.getActive()->getCurrentPhaseIndex();
@@ -279,7 +279,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         break;
         case TL_RED_YELLOW_GREEN_STATE: {
             std::string state;
-            if(!server.readTypeCheckingString(inputStorage, state)) {
+            if (!server.readTypeCheckingString(inputStorage, state)) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase must be given as a string.", outputStorage);
             }
             // build only once...
@@ -306,20 +306,20 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             //read itemNo
             inputStorage.readInt();
             std::string subid;
-            if(!server.readTypeCheckingString(inputStorage, subid)) {
+            if (!server.readTypeCheckingString(inputStorage, subid)) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 1. parameter (subid) must be a string.", outputStorage);
             }
-            if(!server.readTypeCheckingInt(inputStorage, type)) {
+            if (!server.readTypeCheckingInt(inputStorage, type)) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 2. parameter (type) must be an int.", outputStorage);
             }
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 3. parameter (subparams) must be a compound object.", outputStorage);
             }
             inputStorage.readInt();
-            if(!server.readTypeCheckingInt(inputStorage, index)) {
+            if (!server.readTypeCheckingInt(inputStorage, index)) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 4. parameter (index) must be an int.", outputStorage);
             }
-            if(!server.readTypeCheckingInt(inputStorage, phaseNo)) {
+            if (!server.readTypeCheckingInt(inputStorage, phaseNo)) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 5. parameter (phase number) must be an int.", outputStorage);
             }
             // make sure index and phaseNo are consistent
@@ -330,17 +330,17 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             std::vector<MSPhaseDefinition*> phases;
             for (int j = 0; j < phaseNo; ++j) {
                 int duration = 0, minDuration = 0, maxDuration = 0;
-                if(!server.readTypeCheckingInt(inputStorage, duration)) {
+                if (!server.readTypeCheckingInt(inputStorage, duration)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.1. parameter (duration) must be an int.", outputStorage);
                 }
-                if(!server.readTypeCheckingInt(inputStorage, minDuration)) {
+                if (!server.readTypeCheckingInt(inputStorage, minDuration)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.2. parameter (min duration) must be an int.", outputStorage);
                 }
-                if(!server.readTypeCheckingInt(inputStorage, maxDuration)) {
+                if (!server.readTypeCheckingInt(inputStorage, maxDuration)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.3. parameter (max duration) must be an int.", outputStorage);
                 }
                 std::string state;
-                if(!server.readTypeCheckingString(inputStorage, state)) {
+                if (!server.readTypeCheckingString(inputStorage, state)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.4. parameter (phase) must be a string.", outputStorage);
                 }
                 MSPhaseDefinition* phase = new MSPhaseDefinition(duration, minDuration, maxDuration, state);

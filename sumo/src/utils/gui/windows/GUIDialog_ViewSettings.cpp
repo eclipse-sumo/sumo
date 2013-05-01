@@ -596,11 +596,11 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
 
 bool
 GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorWell*>::const_iterator colIt,
-                       std::vector<FXColorWell*>::const_iterator colEnd,
-                       std::vector<FXRealSpinDial*>::const_iterator threshIt,
-                       std::vector<FXRealSpinDial*>::const_iterator threshEnd,
-                       std::vector<FXButton*>::const_iterator buttonIt,
-                       GUIColorScheme& scheme) {
+        std::vector<FXColorWell*>::const_iterator colEnd,
+        std::vector<FXRealSpinDial*>::const_iterator threshIt,
+        std::vector<FXRealSpinDial*>::const_iterator threshEnd,
+        std::vector<FXButton*>::const_iterator buttonIt,
+        GUIColorScheme& scheme) {
     size_t pos = 0;
     while (colIt != colEnd) {
         if (scheme.isFixed()) {
@@ -716,8 +716,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     // lanes
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {
         if (updateColorRanges(sender, myLaneColors.begin(), myLaneColors.end(),
-            myLaneThresholds.begin(), myLaneThresholds.end(), myLaneButtons.begin(),
-            tmpSettings.getLaneEdgeScheme())) {
+                              myLaneThresholds.begin(), myLaneThresholds.end(), myLaneButtons.begin(),
+                              tmpSettings.getLaneEdgeScheme())) {
             doRebuildColorMatrices = true;
         }
         if (sender == myLaneColorInterpolation) {
@@ -730,8 +730,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     // vehicles
     if (tmpSettings.vehicleColorer.getActive() == prevVehicleMode) {
         if (updateColorRanges(sender, myVehicleColors.begin(), myVehicleColors.end(),
-            myVehicleThresholds.begin(), myVehicleThresholds.end(), myVehicleButtons.begin(),
-            tmpSettings.vehicleColorer.getScheme())) {
+                              myVehicleThresholds.begin(), myVehicleThresholds.end(), myVehicleButtons.begin(),
+                              tmpSettings.vehicleColorer.getScheme())) {
             doRebuildColorMatrices = true;
         }
         if (sender == myVehicleColorInterpolation) {
@@ -744,8 +744,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     // junctions
     if (tmpSettings.junctionColorer.getActive() == prevJunctionMode) {
         if (updateColorRanges(sender, myJunctionColors.begin(), myJunctionColors.end(),
-            myJunctionThresholds.begin(), myJunctionThresholds.end(), myJunctionButtons.begin(),
-            tmpSettings.junctionColorer.getScheme())) {
+                              myJunctionThresholds.begin(), myJunctionThresholds.end(), myJunctionButtons.begin(),
+                              tmpSettings.junctionColorer.getScheme())) {
             doRebuildColorMatrices = true;
         }
         if (sender == myJunctionColorInterpolation) {
@@ -1061,15 +1061,15 @@ GUIDialog_ViewSettings::rebuildList() {
 
 FXMatrix*
 GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
-                                           std::vector<FXColorWell*>& colors,
-                                           std::vector<FXRealSpinDial*>& thresholds,
-                                           std::vector<FXButton*>& buttons,
-                                           FXCheckButton* interpolation,
-                                           GUIColorScheme& scheme) {
+        std::vector<FXColorWell*>& colors,
+        std::vector<FXRealSpinDial*>& thresholds,
+        std::vector<FXButton*>& buttons,
+        FXCheckButton* interpolation,
+        GUIColorScheme& scheme) {
     MFXUtils::deleteChildren(frame);
     FXMatrix* m = new FXMatrix(frame, 3,
-                                LAYOUT_FILL_X | MATRIX_BY_COLUMNS,
-                                0, 0, 0, 0, 10, 10, 0, 0, 5, 3);
+                               LAYOUT_FILL_X | MATRIX_BY_COLUMNS,
+                               0, 0, 0, 0, 10, 10, 0, 0, 5, 3);
     colors.clear();
     thresholds.clear();
     buttons.clear();
@@ -1080,9 +1080,9 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
     FX::FXString buttonText = "Add";
     while (colIt != scheme.getColors().end()) {
         colors.push_back(new FXColorWell(m , MFXUtils::getFXColor(*colIt),
-                                                this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                                LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
-                                                0, 0, 100, 0,   0, 0, 0, 0));
+                                         this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                         LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT,
+                                         0, 0, 100, 0,   0, 0, 0, 0));
         if (fixed) {
             new FXLabel(m, nameIt->c_str());
             new FXLabel(m, "");

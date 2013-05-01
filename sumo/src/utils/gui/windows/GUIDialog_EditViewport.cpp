@@ -215,8 +215,8 @@ GUIDialog_EditViewport::setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) {
     myXOff->setValue(xoff);
     myYOff->setValue(yoff);
 }
- 
- 
+
+
 void
 GUIDialog_EditViewport::setValues(Position& lookFrom, Position& lookAt) {
     myZoom->setValue(lookFrom.z());

@@ -68,13 +68,12 @@ const int NLJunctionControlBuilder::NO_REQUEST_SIZE = -1;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet& net, NLDetectorBuilder& db) : 
-    myNet(net), 
-    myDetectorBuilder(db), 
-    myOffset(0), 
+NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet& net, NLDetectorBuilder& db) :
+    myNet(net),
+    myDetectorBuilder(db),
+    myOffset(0),
     myJunctions(0),
-    myNetIsLoaded(false)
-{
+    myNetIsLoaded(false) {
     myLogicControl = new MSTLLogicControl();
     myJunctions = new MSJunctionControl();
 }
@@ -244,13 +243,13 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
         case TLTYPE_ACTUATED:
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram,
-                    myActivePhases, step, firstEventOffset, 
+                    myActivePhases, step, firstEventOffset,
                     myAdditionalParameter);
             break;
         case TLTYPE_AGENT:
             tlLogic = new MSAgentbasedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram,
-                    myActivePhases, step, firstEventOffset, 
+                    myActivePhases, step, firstEventOffset,
                     myAdditionalParameter);
             break;
         case TLTYPE_STATIC:
@@ -419,9 +418,9 @@ NLJunctionControlBuilder::getActiveSubKey() const {
 }
 
 
-void 
+void
 NLJunctionControlBuilder::postLoadInitialization() {
-    for (std::vector<MSTrafficLightLogic*>::const_iterator it = myLogics2PostLoadInit.begin(); 
+    for (std::vector<MSTrafficLightLogic*>::const_iterator it = myLogics2PostLoadInit.begin();
             it != myLogics2PostLoadInit.end(); ++it) {
         (*it)->init(myDetectorBuilder);
     }

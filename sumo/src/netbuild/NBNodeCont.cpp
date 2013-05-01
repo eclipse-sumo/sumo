@@ -532,7 +532,7 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 const EdgeVector& edges = (*j)->getIncomingEdges();
                 for (EdgeVector::const_iterator it_edge = edges.begin(); it_edge != edges.end(); ++it_edge) {
                     NBEdge* edge = *it_edge;
-                    if (cluster.count(edge->getFromNode()) == 0) { 
+                    if (cluster.count(edge->getFromNode()) == 0) {
                         // incoming edge, does not originate in the cluster
                         finalIncoming.insert(edge);
                     }
@@ -635,8 +635,8 @@ NBNodeCont::registerJoinedCluster(const std::set<NBNode*>& cluster) {
 
 
 void
-NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, 
-        bool& hasTLS, TrafficLightType& type) {
+NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos,
+                           bool& hasTLS, TrafficLightType& type) {
     id = "cluster";
     hasTLS = false;
     std::vector<std::string> member_ids;
@@ -844,8 +844,8 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, SUMOReal maxdist) {
 
 
 void
-NBNodeCont::setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, 
-        TrafficLightType type, std::string id) {
+NBNodeCont::setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc,
+                              TrafficLightType type, std::string id) {
     if (id == "") {
         id = node->getID();
     }
@@ -968,14 +968,14 @@ NBNodeCont::rename(NBNode* node, const std::string& newID) {
 }
 
 
-void 
+void
 NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike) {
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
         NBNode* node = i->second;
         if (!geometryLike || node->geometryLike()) {
             // make a copy of tldefs
             const std::set<NBTrafficLightDefinition*> tldefs = node->getControllingTLS();
-            for( std::set<NBTrafficLightDefinition*>::const_iterator it = tldefs.begin(); it != tldefs.end(); ++it) {
+            for (std::set<NBTrafficLightDefinition*>::const_iterator it = tldefs.begin(); it != tldefs.end(); ++it) {
                 NBTrafficLightDefinition* tlDef = *it;
                 node->removeTrafficLight(tlDef);
                 tlc.extract(tlDef);

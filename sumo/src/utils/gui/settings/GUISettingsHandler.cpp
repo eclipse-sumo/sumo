@@ -78,8 +78,8 @@ GUISettingsHandler::myStartElement(int element,
         case SUMO_TAG_BREAKPOINTS_FILE: {
             std::string file = attrs.get<std::string>(SUMO_ATTR_VALUE, 0, ok);
             myBreakpoints = loadBreakpoints(file);
-            }
-            break;
+        }
+        break;
         case SUMO_TAG_VIEWSETTINGS:
             myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, 0, ok, "default");
             std::transform(myViewType.begin(), myViewType.end(), myViewType.begin(), tolower);
@@ -307,7 +307,7 @@ GUISettingsHandler::getDelay() const {
 }
 
 
-std::vector<SUMOTime> 
+std::vector<SUMOTime>
 GUISettingsHandler::loadBreakpoints(const std::string& file) {
     std::vector<SUMOTime> result;
     std::ifstream strm(file.c_str());

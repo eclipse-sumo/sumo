@@ -304,7 +304,7 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
         }
     }
     if (x > std::numeric_limits<double>::max() ||
-        y > std::numeric_limits<double>::max()) {
+            y > std::numeric_limits<double>::max()) {
         return false;
     }
     if (myProjectionMethod != SIMPLE) {

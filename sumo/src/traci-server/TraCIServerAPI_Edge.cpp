@@ -100,7 +100,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             case VAR_EDGE_TRAVELTIME: {
                 // time
                 SUMOTime time = 0;
-                if(!server.readTypeCheckingInt(inputStorage, time)) {
+                if (!server.readTypeCheckingInt(inputStorage, time)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The message must contain the time definition.", outputStorage);
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
@@ -115,7 +115,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             case VAR_EDGE_EFFORT: {
                 // time
                 SUMOTime time = 0;
-                if(!server.readTypeCheckingInt(inputStorage, time)) {
+                if (!server.readTypeCheckingInt(inputStorage, time)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The message must contain the time definition.", outputStorage);
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
@@ -315,7 +315,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         case LANE_ALLOWED: {
             // read and set allowed vehicle classes
             std::vector<std::string> classes;
-            if(!server.readTypeCheckingStringList(inputStorage, classes)) {
+            if (!server.readTypeCheckingStringList(inputStorage, classes)) {
                 return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "Allowed vehicle classes must be given as a list of strings.", outputStorage);
             }
             SVCPermissions permissions = parseVehicleClasses(classes);
@@ -329,7 +329,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         case LANE_DISALLOWED: {
             // read and set disallowed vehicle classes
             std::vector<std::string> classes;
-            if(!server.readTypeCheckingStringList(inputStorage, classes)) {
+            if (!server.readTypeCheckingStringList(inputStorage, classes)) {
                 return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "Not allowed vehicle classes must be given as a list of strings.", outputStorage);
             }
             SVCPermissions permissions = ~parseVehicleClasses(classes); // negation yields allowed
@@ -350,20 +350,20 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 // bound by time
                 SUMOTime begTime = 0, endTime = 0;
                 double value = 0;
-                if(!server.readTypeCheckingInt(inputStorage, begTime)) {
+                if (!server.readTypeCheckingInt(inputStorage, begTime)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The first variable must be the begin time given as int.", outputStorage);
                 }
-                if(!server.readTypeCheckingInt(inputStorage, endTime)) {
+                if (!server.readTypeCheckingInt(inputStorage, endTime)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The second variable must be the end time given as int.", outputStorage);
                 }
-                if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The third variable must be the value given as double", outputStorage);
                 }
                 MSNet::getInstance()->getWeightsStorage().addTravelTime(e, begTime, endTime, value);
             } else if (parameterCount == 1) {
                 // unbound
                 double value = 0;
-                if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The variable must be the value given as double", outputStorage);
                 }
                 MSNet::getInstance()->getWeightsStorage().addTravelTime(e, 0, SUMOTime_MAX, value);
@@ -382,20 +382,20 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 // bound by time
                 SUMOTime begTime = 0, endTime = 0;
                 double value = 0;
-                if(!server.readTypeCheckingInt(inputStorage, begTime)) {
+                if (!server.readTypeCheckingInt(inputStorage, begTime)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The first variable must be the begin time given as int.", outputStorage);
                 }
-                if(!server.readTypeCheckingInt(inputStorage, endTime)) {
+                if (!server.readTypeCheckingInt(inputStorage, endTime)) {
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, "The second variable must be the end time given as int.", outputStorage);
                 }
-                if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The third variable must be the value given as double", outputStorage);
                 }
                 MSNet::getInstance()->getWeightsStorage().addEffort(e, begTime, endTime, value);
             } else if (parameterCount == 1) {
                 // unbound
                 double value = 0;
-                if(!server.readTypeCheckingDouble(inputStorage, value)) {
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The variable must be the value given as double", outputStorage);
                 }
                 MSNet::getInstance()->getWeightsStorage().addEffort(e, 0, SUMOTime_MAX, value);
@@ -407,7 +407,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         case VAR_MAXSPEED: {
             // read and set max. speed
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The speed must be given as a double.", outputStorage);
             }
             const std::vector<MSLane*>& lanes = e->getLanes();

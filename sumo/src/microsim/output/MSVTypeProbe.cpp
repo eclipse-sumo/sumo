@@ -76,10 +76,10 @@ MSVTypeProbe::execute(SUMOTime currentTime) {
             }
             Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
             myOutputDevice.openTag("vehicle") << " id=\"" << veh->getID()
-                           << "\" lane=\"" << veh->getLane()->getID()
-                           << "\" pos=\"" << veh->getPositionOnLane()
-                           << "\" x=\"" << pos.x()
-                           << "\" y=\"" << pos.y();
+                                              << "\" lane=\"" << veh->getLane()->getID()
+                                              << "\" pos=\"" << veh->getPositionOnLane()
+                                              << "\" x=\"" << pos.x()
+                                              << "\" y=\"" << pos.y();
             if (GeoConvHelper::getFinal().usingGeoProjection()) {
                 GeoConvHelper::getFinal().cartesian2geo(pos);
                 myOutputDevice.setPrecision(GEO_OUTPUT_ACCURACY);

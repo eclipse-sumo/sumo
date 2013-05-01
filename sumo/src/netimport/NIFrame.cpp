@@ -251,7 +251,7 @@ NIFrame::fillOptions() {
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));
     oc.addDescription("opendrive.import-all-lanes", "Processing", "Imports all lane types.");
-    
+
 
 
     // register some additional options

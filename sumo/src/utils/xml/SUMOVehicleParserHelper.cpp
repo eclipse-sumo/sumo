@@ -421,7 +421,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into,
             into.cfParameter[*it] = attrs.get<SUMOReal>(*it, into.id.c_str(), ok);
             if (*it == SUMO_ATTR_TAU && TIME2STEPS(into.cfParameter[*it]) < DELTA_T) {
                 WRITE_WARNING("Value of tau=" + toString(into.cfParameter[*it])
-                        + " in car following model '" + toString(into.cfModel)+ "' lower than simulation step size may cause collisions");
+                              + " in car following model '" + toString(into.cfModel) + "' lower than simulation step size may cause collisions");
             }
         }
     }

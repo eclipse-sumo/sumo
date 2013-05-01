@@ -380,7 +380,7 @@ public:
      * speeds from the last time step. Also registers
      * ApproachingVehicleInformation for all links
      *
-     * This method goes through all vehicles calling their "planMove" method. 
+     * This method goes through all vehicles calling their "planMove" method.
      * @see MSVehicle::planMove
      */
     virtual bool planMovements(SUMOTime t);

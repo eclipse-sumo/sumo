@@ -615,13 +615,13 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, EdgeVector >& same
         // store current edge's boundary as current ccw/cw boundary
         try {
             geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_WARNING(std::string("While computing intersection geometry: ") + std::string(e.what()));
             geomsCCW[*i] = (*i)->getGeometry();
         }
         try {
             geomsCW[*i] = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_WARNING(std::string("While computing intersection geometry: ") + std::string(e.what()));
             geomsCW[*i] = (*i)->getGeometry();
         }

@@ -117,12 +117,12 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
     switch (variable) {
         case ADD: {
             std::vector<std::string> edgeIDs;
-            if(!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
+            if (!server.readTypeCheckingStringList(inputStorage, edgeIDs)) {
                 return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "A string list is needed for adding a new route.", outputStorage);
             }
             //read itemNo
             MSEdgeVector edges;
-            for(std::vector<std::string>::const_iterator i=edgeIDs.begin(); i!=edgeIDs.end(); ++i) {
+            for (std::vector<std::string>::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
                 MSEdge* edge = MSEdge::dictionary(*i);
                 if (edge == 0) {
                     return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "Unknown edge '" + *i + "' in route.", outputStorage);

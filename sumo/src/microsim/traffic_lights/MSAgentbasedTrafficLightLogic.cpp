@@ -55,9 +55,9 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
     MSTLLogicControl& tlcontrol,
     const std::string& id, const std::string& programID,
     const Phases& phases, unsigned int step, SUMOTime delay,
-    const ParameterMap& parameter) : 
+    const ParameterMap& parameter) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter),
-      tSinceLastDecision(0), stepOfLastDecision(0) {
+    tSinceLastDecision(0), stepOfLastDecision(0) {
 
     tDecide = 1;
     if (parameter.find("decision-horizon") != parameter.end()) {

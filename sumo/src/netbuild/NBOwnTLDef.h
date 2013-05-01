@@ -60,7 +60,7 @@ public:
      * @param[in] type The algorithm type for the computed traffic light
      */
     NBOwnTLDef(const std::string& id,
-               const std::vector<NBNode*>& junctions, 
+               const std::vector<NBNode*>& junctions,
                SUMOTime offset,
                TrafficLightType type);
 
@@ -72,7 +72,7 @@ public:
      * @param[in] type The algorithm type for the computed traffic light
      */
     NBOwnTLDef(const std::string& id, NBNode* junction, SUMOTime offset,
-            TrafficLightType type);
+               TrafficLightType type);
 
 
     /** @brief Constructor

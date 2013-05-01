@@ -503,7 +503,7 @@ NBEdgeCont::splitGeometry(NBNodeCont& nc) {
 }
 
 
-void 
+void
 NBEdgeCont::reduceGeometries(const SUMOReal minDist) {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         (*i).second->reduceGeometry(minDist);

@@ -586,7 +586,7 @@ PositionVector::appendWithCrossingPoint(const PositionVector& v) {
 
 void
 PositionVector::append(const PositionVector& v) {
-    if (myCont.back().distanceTo(v.myCont[0]) < 2) { 
+    if (myCont.back().distanceTo(v.myCont[0]) < 2) {
         copy(v.myCont.begin() + 1, v.myCont.end(), back_inserter(myCont));
     } else {
         copy(v.myCont.begin(), v.myCont.end(), back_inserter(myCont));
@@ -1094,7 +1094,7 @@ void
 PositionVector::removeDoublePoints(SUMOReal minDist, bool assertLength) {
     if (myCont.size() > 1) {
         ContType::iterator last = myCont.begin();
-		for (ContType::iterator i = myCont.begin() + 1; i != myCont.end() && (!assertLength || myCont.size()>2);) {
+        for (ContType::iterator i = myCont.begin() + 1; i != myCont.end() && (!assertLength || myCont.size() > 2);) {
             if (last->almostSame(*i, minDist)) {
                 i = myCont.erase(i);
             } else {

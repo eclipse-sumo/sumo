@@ -49,15 +49,15 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-const RGBColor RGBColor::RED = RGBColor(255,0,0,255);
-const RGBColor RGBColor::GREEN = RGBColor(0,255,0,255);
-const RGBColor RGBColor::BLUE = RGBColor(0,0,255,255);
-const RGBColor RGBColor::YELLOW = RGBColor(255,255,0,255);
-const RGBColor RGBColor::CYAN = RGBColor(0,255,255,255);
-const RGBColor RGBColor::MAGENTA = RGBColor(255,0,255,255);
-const RGBColor RGBColor::WHITE = RGBColor(255,255,255,255);
-const RGBColor RGBColor::BLACK = RGBColor(0,0,0,255);
-const RGBColor RGBColor::GREY = RGBColor(128,128,128,255);
+const RGBColor RGBColor::RED = RGBColor(255, 0, 0, 255);
+const RGBColor RGBColor::GREEN = RGBColor(0, 255, 0, 255);
+const RGBColor RGBColor::BLUE = RGBColor(0, 0, 255, 255);
+const RGBColor RGBColor::YELLOW = RGBColor(255, 255, 0, 255);
+const RGBColor RGBColor::CYAN = RGBColor(0, 255, 255, 255);
+const RGBColor RGBColor::MAGENTA = RGBColor(255, 0, 255, 255);
+const RGBColor RGBColor::WHITE = RGBColor(255, 255, 255, 255);
+const RGBColor RGBColor::BLACK = RGBColor(0, 0, 0, 255);
+const RGBColor RGBColor::GREY = RGBColor(128, 128, 128, 255);
 
 const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::YELLOW;
 const std::string RGBColor::DEFAULT_COLOR_STRING = toString(RGBColor::DEFAULT_COLOR);

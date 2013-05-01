@@ -360,8 +360,8 @@ public:
         myInterpolate = interpolate;
     }
 
-	/// @brief get edge priority (road class)
-	int getPriority() const {
+    /// @brief get edge priority (road class)
+    int getPriority() const {
         return myPriority;
     }
 
@@ -383,7 +383,7 @@ protected:
     /// @brief The index (numeric id) of the edge
     const unsigned int myIndex;
 
-	/// @brief The edge priority (road class)
+    /// @brief The edge priority (road class)
     const int myPriority;
 
     /// @brief The maximum speed allowed on this edge
@@ -417,7 +417,7 @@ protected:
 
     /// @brief List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;
-	
+
 #ifdef HAVE_INTERNAL // catchall for internal stuff
     /// @brief List of edges that approached this edge
     std::vector<ROEdge*> myApproachingEdges;

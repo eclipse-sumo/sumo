@@ -42,12 +42,12 @@
 // method definitions
 // ===========================================================================
 PCTypeMap::PCTypeMap(const OptionsCont& oc) {
-	myDefaultType.id = oc.getString("type");
-	myDefaultType.color = RGBColor::parseColor(oc.getString("color"));
-	myDefaultType.layer = oc.getInt("layer");
-	myDefaultType.discard = oc.getBool("discard");
-	myDefaultType.allowFill = true;
-	myDefaultType.prefix = oc.getString("prefix");
+    myDefaultType.id = oc.getString("type");
+    myDefaultType.color = RGBColor::parseColor(oc.getString("color"));
+    myDefaultType.layer = oc.getInt("layer");
+    myDefaultType.discard = oc.getBool("discard");
+    myDefaultType.allowFill = true;
+    myDefaultType.prefix = oc.getString("prefix");
 }
 
 

@@ -190,7 +190,7 @@ public:
         if (data[i] == '#') { // for html color codes
             i++;
         }
-        if (data[i] == '0' && (data[i+1] == 'x' || data[i+1] == 'X')) {
+        if (data[i] == '0' && (data[i + 1] == 'x' || data[i + 1] == 'X')) {
             i += 2;
         }
         SUMOLong ret = 0;

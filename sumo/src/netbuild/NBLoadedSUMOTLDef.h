@@ -126,7 +126,7 @@ protected:
     /** @brief Collects the links participating in this traffic light
      *    (only if not previously loaded)
      */
-    void collectLinks(); 
+    void collectLinks();
 
 
     /** @brief Computes the traffic light logic finally in dependence to the type

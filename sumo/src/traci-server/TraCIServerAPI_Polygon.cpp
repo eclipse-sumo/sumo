@@ -145,7 +145,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     switch (variable) {
         case VAR_TYPE: {
             std::string type;
-            if(!server.readTypeCheckingString(inputStorage, type)) {
+            if (!server.readTypeCheckingString(inputStorage, type)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
             }
             p->setType(type);
@@ -153,7 +153,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
         break;
         case VAR_COLOR: {
             RGBColor col;
-            if(!server.readTypeCheckingColor(inputStorage, col)) {
+            if (!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The color must be given using an according type.", outputStorage);
             }
             p->setColor(col);
@@ -161,7 +161,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
         break;
         case VAR_SHAPE: {
             PositionVector shape;
-            if(!server.readTypeCheckingPolygon(inputStorage, shape)) {
+            if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The shape must be given using an accoring type.", outputStorage);
             }
             shapeCont.reshapePolygon(id, shape);
@@ -169,7 +169,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
         break;
         case VAR_FILL: {
             int value = 0;
-            if(!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
+            if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an unsigned byte.", outputStorage);
             }
             p->setFill(value != 0);
@@ -182,24 +182,24 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
             //readt itemNo
             inputStorage.readInt();
             std::string type;
-            if(!server.readTypeCheckingString(inputStorage, type)) {
+            if (!server.readTypeCheckingString(inputStorage, type)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
             }
             RGBColor col;
-            if(!server.readTypeCheckingColor(inputStorage, col)) {
+            if (!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The second polygon parameter must be the color.", outputStorage);
             }
             int value = 0;
-            if(!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
+            if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
             }
             bool fill = value != 0;
             int layer = 0;
-            if(!server.readTypeCheckingInt(inputStorage, layer)) {
+            if (!server.readTypeCheckingInt(inputStorage, layer)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
             }
             PositionVector shape;
-            if(!server.readTypeCheckingPolygon(inputStorage, shape)) {
+            if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fifth polygon parameter must be the shape.", outputStorage);
             }
             //
@@ -212,7 +212,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
         break;
         case REMOVE: {
             int layer = 0; // !!! layer not used yet (shouldn't the id be enough?)
-            if(!server.readTypeCheckingInt(inputStorage, layer)) {
+            if (!server.readTypeCheckingInt(inputStorage, layer)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The layer must be given using an int.", outputStorage);
             }
             if (!shapeCont.removePolygon(id)) {

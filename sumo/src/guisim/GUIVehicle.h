@@ -54,7 +54,9 @@ class GUILaneWrapper;
 class MSDevice_Vehroutes;
 #ifdef HAVE_OSG
 class GUIOSGView;
-namespace osg { class ShapeDrawable;}
+namespace osg {
+class ShapeDrawable;
+}
 #endif
 
 

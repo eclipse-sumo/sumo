@@ -176,9 +176,9 @@ public:
     writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                        const bool withCosts, const bool withExitTimes) const;
 
-    /** @brief add additional vehicles/probability 
+    /** @brief add additional vehicles/probability
      */
-	void addProbability(SUMOReal prob);
+    void addProbability(SUMOReal prob);
 
 private:
     /// @brief The costs of the route

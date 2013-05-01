@@ -167,15 +167,15 @@ PCPolyContainer::save(const std::string& file) {
         if (p->getImgFile() != Shape::DEFAULT_IMG_FILE) {
             out.writeAttr(SUMO_ATTR_IMGFILE, p->getImgFile());
         }
-		const std::map<std::string, std::string> &attrs = p->getMap();
-		if(attrs.size()!=0) {
-			for(std::map<std::string, std::string>::const_iterator j=attrs.begin(); j!=attrs.end(); ++j) {
-				out.openTag(SUMO_TAG_PARAM);
-			    out.writeAttr(SUMO_ATTR_KEY, (*j).first);
-				out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-		        out.closeTag();
-			}
-		}
+        const std::map<std::string, std::string>& attrs = p->getMap();
+        if (attrs.size() != 0) {
+            for (std::map<std::string, std::string>::const_iterator j = attrs.begin(); j != attrs.end(); ++j) {
+                out.openTag(SUMO_TAG_PARAM);
+                out.writeAttr(SUMO_ATTR_KEY, (*j).first);
+                out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+                out.closeTag();
+            }
+        }
         out.closeTag();
     }
     // write pois
@@ -200,15 +200,15 @@ PCPolyContainer::save(const std::string& file) {
         if (p->getHeight() != Shape::DEFAULT_IMG_HEIGHT) {
             out.writeAttr(SUMO_ATTR_HEIGHT, p->getHeight());
         }
-		const std::map<std::string, std::string> &attrs = p->getMap();
-		if(attrs.size()!=0) {
-			for(std::map<std::string, std::string>::const_iterator j=attrs.begin(); j!=attrs.end(); ++j) {
-				out.openTag(SUMO_TAG_PARAM);
-			    out.writeAttr(SUMO_ATTR_KEY, (*j).first);
-				out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-		        out.closeTag();
-			}
-		}
+        const std::map<std::string, std::string>& attrs = p->getMap();
+        if (attrs.size() != 0) {
+            for (std::map<std::string, std::string>::const_iterator j = attrs.begin(); j != attrs.end(); ++j) {
+                out.openTag(SUMO_TAG_PARAM);
+                out.writeAttr(SUMO_ATTR_KEY, (*j).first);
+                out.writeAttr(SUMO_ATTR_VALUE, (*j).second);
+                out.closeTag();
+            }
+        }
         out.closeTag();
     }
     out.close();

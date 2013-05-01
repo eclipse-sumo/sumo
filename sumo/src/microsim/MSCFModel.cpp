@@ -95,7 +95,7 @@ MSCFModel::leftVehicleVsafe(const MSVehicle* const ego, const MSVehicle* const n
 
 
 SUMOReal
-MSCFModel::maxNextSpeed(SUMOReal speed, const MSVehicle * const /*veh*/) const {
+MSCFModel::maxNextSpeed(SUMOReal speed, const MSVehicle* const /*veh*/) const {
     return MIN2(speed + (SUMOReal) ACCEL2SPEED(getMaxAccel()), myType->getMaxSpeed());
 }
 
@@ -110,7 +110,7 @@ MSCFModel::brakeGap(SUMOReal speed) const {
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel::freeSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed) const {
     UNUSED_PARAMETER(veh);
     // adapt speed to succeeding lane, no reaction time is involved
@@ -119,7 +119,7 @@ MSCFModel::freeSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal seen, 
     // g = (y^2 + y) * 0.5 * b + y * v
     // y = ((((sqrt((b + 2.0*v)*(b + 2.0*v) + 8.0*b*g)) - b)*0.5 - v)/b)
     const SUMOReal b = ACCEL2SPEED(myDecel);
-    const SUMOReal y = MAX2(0.0, ((sqrt((b + 2.0*maxSpeed)*(b + 2.0*maxSpeed) + 8.0*b*seen) - b)*0.5 - maxSpeed)/b);
+    const SUMOReal y = MAX2(0.0, ((sqrt((b + 2.0 * maxSpeed) * (b + 2.0 * maxSpeed) + 8.0 * b * seen) - b) * 0.5 - maxSpeed) / b);
     const SUMOReal yFull = floor(y);
     const SUMOReal exactGap = (yFull * yFull + yFull) * 0.5 * b + yFull * maxSpeed + (y > yFull ? maxSpeed : 0.0);
     return MAX2((SUMOReal)0.0, seen - exactGap) / (yFull + 1) + yFull * myDecel + maxSpeed;

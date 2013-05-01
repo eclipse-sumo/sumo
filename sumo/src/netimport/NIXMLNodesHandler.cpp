@@ -230,8 +230,8 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
     std::set<NBTrafficLightDefinition*> tlDefs;
     bool ok = true;
     std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
-    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TLTYPE, 0, ok, 
-            OptionsCont::getOptions().getString("tls.default-type"));
+    std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TLTYPE, 0, ok,
+                        OptionsCont::getOptions().getString("tls.default-type"));
     TrafficLightType type;
     if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);

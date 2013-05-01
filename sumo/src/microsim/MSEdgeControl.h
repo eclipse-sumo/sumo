@@ -106,7 +106,7 @@ public:
      * speeds from the last time step. Also registers
      * ApproachingVehicleInformation for all links
      *
-     * This method goes through all active lanes calling their "planMovements" method. 
+     * This method goes through all active lanes calling their "planMovements" method.
      * @see MSLane::planMovements
      */
     void planMovements(SUMOTime t);
@@ -114,9 +114,9 @@ public:
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
-     * This method goes through all active lanes calling their executeMovements 
+     * This method goes through all active lanes calling their executeMovements
      * method which causes vehicles to update their positions and speeds.
-     * Lanes which receive new vehicles are stored in myWithVehicles2Integrate 
+     * Lanes which receive new vehicles are stored in myWithVehicles2Integrate
      * After movements are executed the vehicles in myWithVehicles2Integrate are
      * put onto their new lanes
      * This method also updates the "active" status of lanes
@@ -147,7 +147,7 @@ public:
      * The parameter is simply passed to the lane-instance for reporting.
      *
      * @param[in] timestep The current time step
-     * @param[in] stage The current stage within the simulation step 
+     * @param[in] stage The current stage within the simulation step
      * @note see MSNet::simulationStep
      */
     void detectCollisions(SUMOTime timestep, int stage);

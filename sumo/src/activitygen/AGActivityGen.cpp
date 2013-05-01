@@ -142,7 +142,7 @@ AGActivityGen::varDepTime(AGTrip& trip) {
 void
 AGActivityGen::generateOutputFile(std::list<AGTrip>& trips) {
     AGActivityTripWriter atw(outputFile);
-    if(trips.size()!=0) {
+    if (trips.size() != 0) {
         std::list<AGTrip>::iterator it;
         //variables for TESTS:
         int firstTrip = trips.front().getTime() + trips.front().getDay() * 86400;

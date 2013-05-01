@@ -56,7 +56,7 @@ public:
      * @param[in] green The green component's value
      * @param[in] blue The blue component's value
      */
-    RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha=255);
+    RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha = 255);
 
 
     /** @brief Copy constructor

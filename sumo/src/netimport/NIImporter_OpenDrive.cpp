@@ -84,9 +84,9 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "right",            NIImporter_OpenDrive::OPENDRIVE_TAG_RIGHT },
     { "lane",             NIImporter_OpenDrive::OPENDRIVE_TAG_LANE },
     { "signal",           NIImporter_OpenDrive::OPENDRIVE_TAG_SIGNAL },
-	{ "junction",         NIImporter_OpenDrive::OPENDRIVE_TAG_JUNCTION },
-	{ "connection",       NIImporter_OpenDrive::OPENDRIVE_TAG_CONNECTION },
-	{ "laneLink",         NIImporter_OpenDrive::OPENDRIVE_TAG_LANELINK },
+    { "junction",         NIImporter_OpenDrive::OPENDRIVE_TAG_JUNCTION },
+    { "connection",       NIImporter_OpenDrive::OPENDRIVE_TAG_CONNECTION },
+    { "laneLink",         NIImporter_OpenDrive::OPENDRIVE_TAG_LANELINK },
 
     { "",                 NIImporter_OpenDrive::OPENDRIVE_TAG_NOTHING }
 };
@@ -148,7 +148,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     myLaneTypes2Import.insert("special1");
     myLaneTypes2Import.insert("parking");
     // build the handler
-	std::map<std::string, OpenDriveEdge*> edges;
+    std::map<std::string, OpenDriveEdge*> edges;
     NIImporter_OpenDrive handler(edges);
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("opendrive-files");
@@ -162,15 +162,15 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         XMLSubSys::runParser(handler, *file);
         PROGRESS_DONE_MESSAGE();
     }
-	// split inner/outer edges
-	std::map<std::string, OpenDriveEdge*> innerEdges, outerEdges;
+    // split inner/outer edges
+    std::map<std::string, OpenDriveEdge*> innerEdges, outerEdges;
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
-		if((*i).second->isInner) {
-			innerEdges[(*i).first] = (*i).second;
-		} else {
-			outerEdges[(*i).first] = (*i).second;
-		}
-	}
+        if ((*i).second->isInner) {
+            innerEdges[(*i).first] = (*i).second;
+        } else {
+            outerEdges[(*i).first] = (*i).second;
+        }
+    }
 
     // convert geometries into a discretised representation
     computeShapes(edges);
@@ -201,7 +201,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     //  assign built nodes
     for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
-		OpenDriveEdge* e = (*i).second;
+        OpenDriveEdge* e = (*i).second;
         for (std::vector<OpenDriveLink>::iterator j = e->links.begin(); j != e->links.end(); ++j) {
             OpenDriveLink& l = *j;
             if (l.elementType != OPENDRIVE_ET_ROAD) {
@@ -222,7 +222,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // build nodes#2
     //  build nodes for all outer edge-to-outer edge connections
     for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
-		OpenDriveEdge* e = (*i).second;
+        OpenDriveEdge* e = (*i).second;
         for (std::vector<OpenDriveLink>::iterator j = e->links.begin(); j != e->links.end(); ++j) {
             OpenDriveLink& l = *j;
             if (l.elementType != OPENDRIVE_ET_ROAD || edge2junction.find(l.elementID) != edge2junction.end()) {
@@ -259,7 +259,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     //  assign further nodes generated from inner-edges
     //  these nodes have not been assigned earlier, because the connectiosn are referenced in inner-edges
     for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
-		OpenDriveEdge* e = (*i).second;
+        OpenDriveEdge* e = (*i).second;
         if (e->to != 0 && e->from != 0) {
             continue;
         }
@@ -312,174 +312,178 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             WRITE_WARNING("Edge '" + e->id + "' has no lanes.");
         }
 
-		// idea: go along the lane sections, build a node in between of each pair
+        // idea: go along the lane sections, build a node in between of each pair
 
-		/// @todo: connections between lane sections are not processed, should
+        /// @todo: connections between lane sections are not processed, should
 
-		/// @todo: One could think of determining whether lane sections may be joined when being equal in SUMO's sense
-		/// Their naming would have to be updated, too, also in TraCI
+        /// @todo: One could think of determining whether lane sections may be joined when being equal in SUMO's sense
+        /// Their naming would have to be updated, too, also in TraCI
 
-		/// @todo: probably, the lane offsets to the center are not right
-		NBNode *sFrom = e->from;
-		NBNode *sTo = e->to;
+        /// @todo: probably, the lane offsets to the center are not right
+        NBNode* sFrom = e->from;
+        NBNode* sTo = e->to;
         int priorityR = e->getPriority(OPENDRIVE_TAG_RIGHT);
         int priorityL = e->getPriority(OPENDRIVE_TAG_LEFT);
-		SUMOReal sB = 0;
-		SUMOReal sE = e->length;
-		SUMOReal cF = e->length / e->geom.length();
-		NBEdge *prevRight = 0;
-		NBEdge *prevLeft = 0;
+        SUMOReal sB = 0;
+        SUMOReal sE = e->length;
+        SUMOReal cF = e->length / e->geom.length();
+        NBEdge* prevRight = 0;
+        NBEdge* prevLeft = 0;
 
-		// starting at the same node as ending, and no lane sections? 
-		if(sFrom==sTo && e->laneSections.size()==1) {
-			// --> loop, split!
-			OpenDriveLaneSection ls = e->laneSections[0];
-			ls.s = e->length / 2.;
-			e->laneSections.push_back(ls);
-			WRITE_WARNING("Edge '" + e->id + "' has to be split as it connects same junctions.")
-		}
+        // starting at the same node as ending, and no lane sections?
+        if (sFrom == sTo && e->laneSections.size() == 1) {
+            // --> loop, split!
+            OpenDriveLaneSection ls = e->laneSections[0];
+            ls.s = e->length / 2.;
+            e->laneSections.push_back(ls);
+            WRITE_WARNING("Edge '" + e->id + "' has to be split as it connects same junctions.")
+        }
 
-		// build along lane sections
-		for(std::vector<OpenDriveLaneSection>::iterator j=e->laneSections.begin(); j!=e->laneSections.end(); ++j) {
-			// add internal node if needed
-			if(j==e->laneSections.end()-1) {
-				sTo = e->to;
-				sE = e->length / cF;
-			} else {
-				SUMOReal nextS = (j+1)->s;
-				sTo = new NBNode(e->id + "." + toString(nextS), e->geom.positionAtLengthPosition(nextS));
-			    if (!nb.getNodeCont().insert(sTo)) {
-				    throw ProcessError("Could not add node '" + sTo->getID() + "'.");
-				}
-				sE = nextS / cF;
-			}
-			PositionVector geom = e->geom.getSubpart(sB, sE);
-			(*j).buildLaneMapping();
-			std::string id = e->id;
-			if(sFrom != e->from || sTo != e->to) {
-				id = id + "." + toString((*j).s);
-			}
+        // build along lane sections
+        for (std::vector<OpenDriveLaneSection>::iterator j = e->laneSections.begin(); j != e->laneSections.end(); ++j) {
+            // add internal node if needed
+            if (j == e->laneSections.end() - 1) {
+                sTo = e->to;
+                sE = e->length / cF;
+            } else {
+                SUMOReal nextS = (j + 1)->s;
+                sTo = new NBNode(e->id + "." + toString(nextS), e->geom.positionAtLengthPosition(nextS));
+                if (!nb.getNodeCont().insert(sTo)) {
+                    throw ProcessError("Could not add node '" + sTo->getID() + "'.");
+                }
+                sE = nextS / cF;
+            }
+            PositionVector geom = e->geom.getSubpart(sB, sE);
+            (*j).buildLaneMapping();
+            std::string id = e->id;
+            if (sFrom != e->from || sTo != e->to) {
+                id = id + "." + toString((*j).s);
+            }
 
-			// build lanes to right
-			int rightLanesSection = (*j).getLaneNumber(OPENDRIVE_TAG_RIGHT);
-			NBEdge *currRight = 0;
-			if(rightLanesSection>0) {
-				currRight = new NBEdge("-" + id, sFrom, sTo, "", speed, rightLanesSection, priorityR,
-					NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom, "", LANESPREAD_RIGHT, true);
-			    if (!nb.getEdgeCont().insert(currRight)) {
-				    throw ProcessError("Could not add edge '" + currRight->getID() + "'.");
-				}
-				for (int k = 0; k < (int) (*j).lanesByDir[OPENDRIVE_TAG_RIGHT].size(); ++k) {
-					if((*j).laneMap.find(-k)!=(*j).laneMap.end()) {
-						currRight->getLaneStruct((*j).laneMap[-k]).origID = e->id + " " + toString(-k);
-					}
-				}
-				// connect lane sections
-				if(prevRight!=0) {
-					std::map<int, int> connections = (*j).getInnerConnections(OPENDRIVE_TAG_RIGHT, *(j-1));
-					for(std::map<int, int>::const_iterator k=connections.begin(); k!=connections.end(); ++k) {
-						prevRight->addLane2LaneConnection((*k).first, currRight, (*k).second, NBEdge::L2L_VALIDATED);
-					}
-				}
-				prevRight = currRight;
-			}
+            // build lanes to right
+            int rightLanesSection = (*j).getLaneNumber(OPENDRIVE_TAG_RIGHT);
+            NBEdge* currRight = 0;
+            if (rightLanesSection > 0) {
+                currRight = new NBEdge("-" + id, sFrom, sTo, "", speed, rightLanesSection, priorityR,
+                                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom, "", LANESPREAD_RIGHT, true);
+                if (!nb.getEdgeCont().insert(currRight)) {
+                    throw ProcessError("Could not add edge '" + currRight->getID() + "'.");
+                }
+                for (int k = 0; k < (int)(*j).lanesByDir[OPENDRIVE_TAG_RIGHT].size(); ++k) {
+                    if ((*j).laneMap.find(-k) != (*j).laneMap.end()) {
+                        currRight->getLaneStruct((*j).laneMap[-k]).origID = e->id + " " + toString(-k);
+                    }
+                }
+                // connect lane sections
+                if (prevRight != 0) {
+                    std::map<int, int> connections = (*j).getInnerConnections(OPENDRIVE_TAG_RIGHT, *(j - 1));
+                    for (std::map<int, int>::const_iterator k = connections.begin(); k != connections.end(); ++k) {
+                        prevRight->addLane2LaneConnection((*k).first, currRight, (*k).second, NBEdge::L2L_VALIDATED);
+                    }
+                }
+                prevRight = currRight;
+            }
 
-			// build lanes to left
-			int leftLanesSection = (*j).getLaneNumber(OPENDRIVE_TAG_LEFT);
-			NBEdge *currLeft = 0;
-			if(leftLanesSection>0) {
-				currLeft = new NBEdge(id, sTo, sFrom, "", speed, leftLanesSection, priorityL,
-					NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom.reverse(), "", LANESPREAD_RIGHT, true);
-				if (!nb.getEdgeCont().insert(currLeft)) {
-					throw ProcessError("Could not add edge '" + currLeft->getID() + "'.");
-				}
-				for (int k = 0; k < (int) (*j).lanesByDir[OPENDRIVE_TAG_LEFT].size(); ++k) {
-					if((*j).laneMap.find(k)!=(*j).laneMap.end()) {
-						currLeft->getLaneStruct((*j).laneMap[k]).origID = e->id + " -" + toString(k);
-					}
-				}
-				// connect lane sections
-				if(prevLeft!=0) {
-					std::map<int, int> connections = (*j).getInnerConnections(OPENDRIVE_TAG_LEFT, *(j-1));
-					for(std::map<int, int>::const_iterator k=connections.begin(); k!=connections.end(); ++k) {
-						currLeft->addLane2LaneConnection((*k).first, prevLeft, (*k).second, NBEdge::L2L_VALIDATED);
-					}
-				}
-				prevLeft = currLeft;
-			}
-			(*j).sumoID = id;
+            // build lanes to left
+            int leftLanesSection = (*j).getLaneNumber(OPENDRIVE_TAG_LEFT);
+            NBEdge* currLeft = 0;
+            if (leftLanesSection > 0) {
+                currLeft = new NBEdge(id, sTo, sFrom, "", speed, leftLanesSection, priorityL,
+                                      NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom.reverse(), "", LANESPREAD_RIGHT, true);
+                if (!nb.getEdgeCont().insert(currLeft)) {
+                    throw ProcessError("Could not add edge '" + currLeft->getID() + "'.");
+                }
+                for (int k = 0; k < (int)(*j).lanesByDir[OPENDRIVE_TAG_LEFT].size(); ++k) {
+                    if ((*j).laneMap.find(k) != (*j).laneMap.end()) {
+                        currLeft->getLaneStruct((*j).laneMap[k]).origID = e->id + " -" + toString(k);
+                    }
+                }
+                // connect lane sections
+                if (prevLeft != 0) {
+                    std::map<int, int> connections = (*j).getInnerConnections(OPENDRIVE_TAG_LEFT, *(j - 1));
+                    for (std::map<int, int>::const_iterator k = connections.begin(); k != connections.end(); ++k) {
+                        currLeft->addLane2LaneConnection((*k).first, prevLeft, (*k).second, NBEdge::L2L_VALIDATED);
+                    }
+                }
+                prevLeft = currLeft;
+            }
+            (*j).sumoID = id;
 
 
-			sB = sE;
-			sFrom = sTo;
-		}
+            sB = sE;
+            sFrom = sTo;
+        }
     }
 
 
     // -------------------------
     // connections building
     // -------------------------
-	// generate explicit lane-to-lane connections
+    // generate explicit lane-to-lane connections
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
-		setEdgeLinks2(*(*i).second, edges);
-	}
-	// compute connections across intersections, if any
-	std::vector<Connection> connections2;
-	for (std::map<std::string, OpenDriveEdge*>::iterator j = edges.begin(); j != edges.end(); ++j) {
-		const std::set<Connection> &conns = (*j).second->connections;
+        setEdgeLinks2(*(*i).second, edges);
+    }
+    // compute connections across intersections, if any
+    std::vector<Connection> connections2;
+    for (std::map<std::string, OpenDriveEdge*>::iterator j = edges.begin(); j != edges.end(); ++j) {
+        const std::set<Connection>& conns = (*j).second->connections;
 
-		for(std::set<Connection>::const_iterator i=conns.begin(); i!=conns.end(); ++i) {
-			if(innerEdges.find((*i).fromEdge)!=innerEdges.end()) {
-				// connections starting at inner edges are processed by starting from outer edges
-				continue;
-			}
-			if(innerEdges.find((*i).toEdge)!=innerEdges.end()) {
-				buildConnectionsToOuter(*i, innerEdges, connections2);
-			} else {
-				connections2.push_back(*i);
-			}
-		}
-	}
-	// set connections
-	for(std::vector<Connection>::const_iterator i=connections2.begin(); i!=connections2.end(); ++i) {
-		std::string fromEdge = (*i).fromEdge;
-        if(edges.find(fromEdge)==edges.end()) {
+        for (std::set<Connection>::const_iterator i = conns.begin(); i != conns.end(); ++i) {
+            if (innerEdges.find((*i).fromEdge) != innerEdges.end()) {
+                // connections starting at inner edges are processed by starting from outer edges
+                continue;
+            }
+            if (innerEdges.find((*i).toEdge) != innerEdges.end()) {
+                buildConnectionsToOuter(*i, innerEdges, connections2);
+            } else {
+                connections2.push_back(*i);
+            }
+        }
+    }
+    // set connections
+    for (std::vector<Connection>::const_iterator i = connections2.begin(); i != connections2.end(); ++i) {
+        std::string fromEdge = (*i).fromEdge;
+        if (edges.find(fromEdge) == edges.end()) {
             WRITE_WARNING("While setting connections: from-edge '" + fromEdge + "' is not known.");
             continue;
         }
-		OpenDriveEdge *odFrom = edges[fromEdge];
-		bool fromLast = ((*i).fromCP==OPENDRIVE_CP_END) ^ ((*i).fromLane>0&&!(*i).all);
-		fromEdge = fromLast ? odFrom->laneSections.back().sumoID : odFrom->laneSections[0].sumoID;
+        OpenDriveEdge* odFrom = edges[fromEdge];
+        bool fromLast = ((*i).fromCP == OPENDRIVE_CP_END) ^ ((*i).fromLane > 0 && !(*i).all);
+        fromEdge = fromLast ? odFrom->laneSections.back().sumoID : odFrom->laneSections[0].sumoID;
 
-		std::string toEdge = (*i).toEdge;
-        if(edges.find(toEdge)==edges.end()) {
+        std::string toEdge = (*i).toEdge;
+        if (edges.find(toEdge) == edges.end()) {
             WRITE_WARNING("While setting connections: to-edge '" + toEdge + "' is not known.");
             continue;
         }
-		OpenDriveEdge *odTo = edges[toEdge];
-		bool toLast = ((*i).toCP==OPENDRIVE_CP_END) || ((*i).toLane<0);
-		toEdge = toLast ? odTo->laneSections.back().sumoID : odTo->laneSections[0].sumoID;
+        OpenDriveEdge* odTo = edges[toEdge];
+        bool toLast = ((*i).toCP == OPENDRIVE_CP_END) || ((*i).toLane < 0);
+        toEdge = toLast ? odTo->laneSections.back().sumoID : odTo->laneSections[0].sumoID;
 
-		int fromLane = (*i).fromLane;
-		if(fromLane==UNSET_CONNECTION) { fromLane = 0; } /// @todo: this is rather a try of a hack than a hack
-		int toLane = (*i).toLane;
-		if(toLane==UNSET_CONNECTION) { toLane = 0; } /// @todo: this is rather a try of a hack than a hack
+        int fromLane = (*i).fromLane;
+        if (fromLane == UNSET_CONNECTION) {
+            fromLane = 0;    /// @todo: this is rather a try of a hack than a hack
+        }
+        int toLane = (*i).toLane;
+        if (toLane == UNSET_CONNECTION) {
+            toLane = 0;    /// @todo: this is rather a try of a hack than a hack
+        }
 
-		if(fromLane<0) {
-			fromEdge = revertID(fromEdge); // counts for both, OpenDrive and SUMO
-		}
-		if(toLane<0) {
-			toEdge = revertID(toEdge); // counts for both, OpenDrive and SUMO
-		}
-		fromLane = fromLast ? odFrom->laneSections.back().laneMap[fromLane] : odFrom->laneSections[0].laneMap[fromLane];
-		toLane = toLast ?  odTo->laneSections.back().laneMap[toLane] : odTo->laneSections[0].laneMap[toLane];
-		NBEdge *from = nb.getEdgeCont().retrieve(fromEdge);
-		NBEdge *to = nb.getEdgeCont().retrieve(toEdge);
-		if(from!=0) {
-			/// @todo from should not be zero; there are many shuffles used to make this untrue
-			/// ...but it happens. So probably, also to may get zero
-			/// probably, it is somehwere around the determination whether the successor or the predecessor information shall be used
-			from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER);
+        if (fromLane < 0) {
+            fromEdge = revertID(fromEdge); // counts for both, OpenDrive and SUMO
+        }
+        if (toLane < 0) {
+            toEdge = revertID(toEdge); // counts for both, OpenDrive and SUMO
+        }
+        fromLane = fromLast ? odFrom->laneSections.back().laneMap[fromLane] : odFrom->laneSections[0].laneMap[fromLane];
+        toLane = toLast ?  odTo->laneSections.back().laneMap[toLane] : odTo->laneSections[0].laneMap[toLane];
+        NBEdge* from = nb.getEdgeCont().retrieve(fromEdge);
+        NBEdge* to = nb.getEdgeCont().retrieve(toEdge);
+        if (from != 0) {
+            /// @todo from should not be zero; there are many shuffles used to make this untrue
+            /// ...but it happens. So probably, also to may get zero
+            /// probably, it is somehwere around the determination whether the successor or the predecessor information shall be used
+            from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER);
 
             if ((*i).origID != "") {
                 std::vector<NBEdge::Connection>& cons = from->getConnections();
@@ -492,129 +496,129 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             }
 
         }
-	}
-	if(oc.exists("geometry.min-dist")&&oc.isSet("geometry.min-dist")) {
-		oc.unSet("geometry.min-dist");
-	}
+    }
+    if (oc.exists("geometry.min-dist") && oc.isSet("geometry.min-dist")) {
+        oc.unSet("geometry.min-dist");
+    }
 }
 
 
 
 void
-NIImporter_OpenDrive::buildConnectionsToOuter(const Connection &c, const std::map<std::string, OpenDriveEdge*> &innerEdges, std::vector<Connection> &into) {
+NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into) {
 
-OpenDriveEdge *dest = innerEdges.find(c.toEdge)->second;
-if(dest==0) {
-	/// !!! should not, look in all?
-	return;
-}
-	const std::set<Connection> &conts = dest->connections;
-	for(std::set<Connection>::const_iterator i=conts.begin(); i!=conts.end(); ++i) {
-		if(innerEdges.find((*i).toEdge)!=innerEdges.end()) {
-			std::vector<Connection> t;
-			buildConnectionsToOuter(*i, innerEdges, t);
-			for(std::vector<Connection>::const_iterator j=t.begin(); j!=t.end(); ++j) {
-				// @todo this section is unverified
-				Connection cn = (*j);
-				cn.fromEdge = c.fromEdge;
-				cn.fromLane = c.fromLane;
-				cn.fromCP = c.fromCP;
-				cn.all = c.all; // @todo "all" is a hack trying to avoid the "from is zero" problem; 
-				into.push_back(cn);
-			}
-		} else {
-			unsigned int laneNo = c.toLane<0?dest->laneSections[0].getLaneNumber(OPENDRIVE_TAG_RIGHT):dest->laneSections[dest->laneSections.size()-1].getLaneNumber(OPENDRIVE_TAG_LEFT); 
-			if((*i).fromLane==c.toLane) {
-				Connection cn = (*i);
-				cn.fromEdge = c.fromEdge;
-				cn.fromLane = c.fromLane;
-				cn.fromCP = c.fromCP;
-				cn.all = c.all;
+    OpenDriveEdge* dest = innerEdges.find(c.toEdge)->second;
+    if (dest == 0) {
+        /// !!! should not, look in all?
+        return;
+    }
+    const std::set<Connection>& conts = dest->connections;
+    for (std::set<Connection>::const_iterator i = conts.begin(); i != conts.end(); ++i) {
+        if (innerEdges.find((*i).toEdge) != innerEdges.end()) {
+            std::vector<Connection> t;
+            buildConnectionsToOuter(*i, innerEdges, t);
+            for (std::vector<Connection>::const_iterator j = t.begin(); j != t.end(); ++j) {
+                // @todo this section is unverified
+                Connection cn = (*j);
+                cn.fromEdge = c.fromEdge;
+                cn.fromLane = c.fromLane;
+                cn.fromCP = c.fromCP;
+                cn.all = c.all; // @todo "all" is a hack trying to avoid the "from is zero" problem;
+                into.push_back(cn);
+            }
+        } else {
+            unsigned int laneNo = c.toLane < 0 ? dest->laneSections[0].getLaneNumber(OPENDRIVE_TAG_RIGHT) : dest->laneSections[dest->laneSections.size() - 1].getLaneNumber(OPENDRIVE_TAG_LEFT);
+            if ((*i).fromLane == c.toLane) {
+                Connection cn = (*i);
+                cn.fromEdge = c.fromEdge;
+                cn.fromLane = c.fromLane;
+                cn.fromCP = c.fromCP;
+                cn.all = c.all;
                 cn.origID = c.toEdge;
                 cn.origLane = c.toLane;
-				into.push_back(cn);
-			}
-		}
-	}
+                into.push_back(cn);
+            }
+        }
+    }
 }
 
 
 void
-NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string, OpenDriveEdge*> &edges) {
-	for (std::vector<OpenDriveLink>::iterator i = e.links.begin(); i != e.links.end(); ++i) {
-		OpenDriveLink &l = *i;
-		if (l.elementType != OPENDRIVE_ET_ROAD) {
-			// we assume that links to nodes are later given as connections to edges
-			continue;
-		}
-		// get the right direction of the connected edge
-		std::string connectedEdge = l.elementID;
-		std::string edgeID = e.id;
+NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string, OpenDriveEdge*>& edges) {
+    for (std::vector<OpenDriveLink>::iterator i = e.links.begin(); i != e.links.end(); ++i) {
+        OpenDriveLink& l = *i;
+        if (l.elementType != OPENDRIVE_ET_ROAD) {
+            // we assume that links to nodes are later given as connections to edges
+            continue;
+        }
+        // get the right direction of the connected edge
+        std::string connectedEdge = l.elementID;
+        std::string edgeID = e.id;
 
-		OpenDriveLaneSection &laneSection = l.linkType==OPENDRIVE_LT_SUCCESSOR ? e.laneSections.back() : e.laneSections[0];
-		if(laneSection.lanesByDir.find(OPENDRIVE_TAG_RIGHT)!=laneSection.lanesByDir.end()) {
-			const std::vector<OpenDriveLane> &lanes = laneSection.lanesByDir.find(OPENDRIVE_TAG_RIGHT)->second;
-			for(std::vector<OpenDriveLane>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
-				if (!myImportAllTypes && myLaneTypes2Import.find((*j).type) == myLaneTypes2Import.end()) {
-					continue;
-				}
-				Connection c; // @todo: give Connection a new name and a constructor
-				c.fromEdge = e.id;
-				c.fromLane = (*j).id;
-				c.fromCP = OPENDRIVE_CP_END;
-				c.toLane = l.linkType==OPENDRIVE_LT_SUCCESSOR ? (*j).successor : (*j).predecessor;
-				c.toEdge = connectedEdge;
-				c.toCP = l.contactPoint;
-				c.all = false;
-				if(l.linkType!=OPENDRIVE_LT_SUCCESSOR) {
-					std::swap(c.fromEdge, c.toEdge);
-					std::swap(c.fromLane, c.toLane);
-					std::swap(c.fromCP, c.toCP);
-				}
-                if(edges.find(c.fromEdge)==edges.end()) {
+        OpenDriveLaneSection& laneSection = l.linkType == OPENDRIVE_LT_SUCCESSOR ? e.laneSections.back() : e.laneSections[0];
+        if (laneSection.lanesByDir.find(OPENDRIVE_TAG_RIGHT) != laneSection.lanesByDir.end()) {
+            const std::vector<OpenDriveLane>& lanes = laneSection.lanesByDir.find(OPENDRIVE_TAG_RIGHT)->second;
+            for (std::vector<OpenDriveLane>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
+                if (!myImportAllTypes && myLaneTypes2Import.find((*j).type) == myLaneTypes2Import.end()) {
+                    continue;
+                }
+                Connection c; // @todo: give Connection a new name and a constructor
+                c.fromEdge = e.id;
+                c.fromLane = (*j).id;
+                c.fromCP = OPENDRIVE_CP_END;
+                c.toLane = l.linkType == OPENDRIVE_LT_SUCCESSOR ? (*j).successor : (*j).predecessor;
+                c.toEdge = connectedEdge;
+                c.toCP = l.contactPoint;
+                c.all = false;
+                if (l.linkType != OPENDRIVE_LT_SUCCESSOR) {
+                    std::swap(c.fromEdge, c.toEdge);
+                    std::swap(c.fromLane, c.toLane);
+                    std::swap(c.fromCP, c.toCP);
+                }
+                if (edges.find(c.fromEdge) == edges.end()) {
                     WRITE_ERROR("While setting connections: incoming road '" + c.fromEdge + "' is not known.");
                 } else {
-    				OpenDriveEdge *src = edges.find(c.fromEdge)->second;
-    				src->connections.insert(c);
+                    OpenDriveEdge* src = edges.find(c.fromEdge)->second;
+                    src->connections.insert(c);
                 }
-			}
-		}
-		if(laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT)!=laneSection.lanesByDir.end()) {
-			const std::vector<OpenDriveLane> &lanes = laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT)->second;
-			for(std::vector<OpenDriveLane>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
-				if (!myImportAllTypes && myLaneTypes2Import.find((*j).type) == myLaneTypes2Import.end()) {
-					continue;
-				}
-				Connection c;
-				c.toEdge = e.id;
-				c.toLane = (*j).id;
-				c.toCP = OPENDRIVE_CP_END;
-				c.fromLane = l.linkType==OPENDRIVE_LT_SUCCESSOR ? (*j).successor : (*j).predecessor;
-				c.fromEdge = connectedEdge;
-				c.fromCP = l.contactPoint;
-				c.all = false;
-				if(l.linkType!=OPENDRIVE_LT_SUCCESSOR) {
-					std::swap(c.fromEdge, c.toEdge);
-					std::swap(c.fromLane, c.toLane);
-					std::swap(c.fromCP, c.toCP);
-				}
-                if(edges.find(c.fromEdge)==edges.end()) {
+            }
+        }
+        if (laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT) != laneSection.lanesByDir.end()) {
+            const std::vector<OpenDriveLane>& lanes = laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT)->second;
+            for (std::vector<OpenDriveLane>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
+                if (!myImportAllTypes && myLaneTypes2Import.find((*j).type) == myLaneTypes2Import.end()) {
+                    continue;
+                }
+                Connection c;
+                c.toEdge = e.id;
+                c.toLane = (*j).id;
+                c.toCP = OPENDRIVE_CP_END;
+                c.fromLane = l.linkType == OPENDRIVE_LT_SUCCESSOR ? (*j).successor : (*j).predecessor;
+                c.fromEdge = connectedEdge;
+                c.fromCP = l.contactPoint;
+                c.all = false;
+                if (l.linkType != OPENDRIVE_LT_SUCCESSOR) {
+                    std::swap(c.fromEdge, c.toEdge);
+                    std::swap(c.fromLane, c.toLane);
+                    std::swap(c.fromCP, c.toCP);
+                }
+                if (edges.find(c.fromEdge) == edges.end()) {
                     WRITE_ERROR("While setting connections: incoming road '" + c.fromEdge + "' is not known.");
                 } else {
-    				OpenDriveEdge *src = edges.find(c.fromEdge)->second;
-    				src->connections.insert(c);
+                    OpenDriveEdge* src = edges.find(c.fromEdge)->second;
+                    src->connections.insert(c);
                 }
-			}
-		}
-	}
+            }
+        }
+    }
 }
 
 
-std::string NIImporter_OpenDrive::revertID(const std::string &id) {
-	if(id[0]=='-') {
-		return id.substr(1);
-	}
-	return "-" + id;
+std::string NIImporter_OpenDrive::revertID(const std::string& id) {
+    if (id[0] == '-') {
+        return id.substr(1);
+    }
+    return "-" + id;
 }
 
 NBNode*
@@ -659,9 +663,9 @@ NIImporter_OpenDrive::setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
 
 void
 NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges) {
-	OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
-		OpenDriveEdge& e = *(*i).second;
+        OpenDriveEdge& e = *(*i).second;
         for (std::vector<OpenDriveGeometry>::iterator j = e.geometries.begin(); j != e.geometries.end(); ++j) {
             OpenDriveGeometry& g = *j;
             std::vector<Position> geom;
@@ -679,9 +683,9 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                     break;
                 case OPENDRIVE_GT_POLY3:
                     geom = geomFromPoly(e, g);
-					if(geom.size()==1) {
-						geom = geomFromPoly(e, g);
-					}
+                    if (geom.size() == 1) {
+                        geom = geomFromPoly(e, g);
+                    }
                     break;
                 default:
                     break;
@@ -690,9 +694,9 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 e.geom.push_back_noDoublePos(*k);
             }
         }
-		if(oc.exists("geometry.min-dist")&&oc.isSet("geometry.min-dist")) {
-			e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
-		}
+        if (oc.exists("geometry.min-dist") && oc.isSet("geometry.min-dist")) {
+            e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
+        }
         for (unsigned int j = 0; j < e.geom.size(); ++j) {
             if (!NILoader::transformCoordinates(e.geom[j])) {
                 WRITE_ERROR("Unable to project coordinates for.");
@@ -786,16 +790,16 @@ std::vector<Position>
 NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
     UNUSED_PARAMETER(e);
     std::vector<Position> ret;
-	for(SUMOReal off=0; off<g.length+2.; off+=2.) {
-		//SUMOReal off = g.length;
-		SUMOReal x = off;
-		SUMOReal y = g.params[0] + g.params[1]*off + g.params[2]*pow(off, 2.) + g.params[3]*pow(off, 3.);
-		SUMOReal s = sin(g.hdg);
-		SUMOReal c = cos(g.hdg);
-		SUMOReal xnew = x * c - y * s;
-		SUMOReal ynew = x * s + y * c;
-		ret.push_back(Position(g.x+xnew, g.y+ynew));
-	}
+    for (SUMOReal off = 0; off < g.length + 2.; off += 2.) {
+        //SUMOReal off = g.length;
+        SUMOReal x = off;
+        SUMOReal y = g.params[0] + g.params[1] * off + g.params[2] * pow(off, 2.) + g.params[3] * pow(off, 3.);
+        SUMOReal s = sin(g.hdg);
+        SUMOReal c = cos(g.hdg);
+        SUMOReal xnew = x * c - y * s;
+        SUMOReal ynew = x * s + y * c;
+        ret.push_back(Position(g.x + xnew, g.y + ynew));
+    }
     return ret;
 }
 
@@ -890,56 +894,56 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneMapping() {
     unsigned int sumoLane = 0;
     const std::vector<OpenDriveLane>& dirLanesR = lanesByDir.find(OPENDRIVE_TAG_RIGHT)->second;
     for (std::vector<OpenDriveLane>::const_reverse_iterator i = dirLanesR.rbegin(); i != dirLanesR.rend(); ++i) {
-		if (myImportAllTypes || myLaneTypes2Import.find((*i).type) != myLaneTypes2Import.end()) {
-			laneMap[(*i).id] = sumoLane++;
-		}
-	}
+        if (myImportAllTypes || myLaneTypes2Import.find((*i).type) != myLaneTypes2Import.end()) {
+            laneMap[(*i).id] = sumoLane++;
+        }
+    }
     sumoLane = 0;
     const std::vector<OpenDriveLane>& dirLanesL = lanesByDir.find(OPENDRIVE_TAG_LEFT)->second;
-	for (std::vector<OpenDriveLane>::const_iterator i = dirLanesL.begin(); i != dirLanesL.end(); ++i) {
-		if (myImportAllTypes || myLaneTypes2Import.find((*i).type) != myLaneTypes2Import.end()) {
-			laneMap[(*i).id] = sumoLane++;
-		}
-	}
+    for (std::vector<OpenDriveLane>::const_iterator i = dirLanesL.begin(); i != dirLanesL.end(); ++i) {
+        if (myImportAllTypes || myLaneTypes2Import.find((*i).type) != myLaneTypes2Import.end()) {
+            laneMap[(*i).id] = sumoLane++;
+        }
+    }
 }
 
 
-std::map<int, int> 
-NIImporter_OpenDrive::OpenDriveLaneSection::getInnerConnections(OpenDriveXMLTag dir, const OpenDriveLaneSection &prev) {
-	std::map<int, int> ret;
+std::map<int, int>
+NIImporter_OpenDrive::OpenDriveLaneSection::getInnerConnections(OpenDriveXMLTag dir, const OpenDriveLaneSection& prev) {
+    std::map<int, int> ret;
     const std::vector<OpenDriveLane>& dirLanes = lanesByDir.find(dir)->second;
     for (std::vector<OpenDriveLane>::const_reverse_iterator i = dirLanes.rbegin(); i != dirLanes.rend(); ++i) {
-		std::map<int, int>::const_iterator toP = laneMap.find((*i).id);
-		if(toP==laneMap.end()) {
-			// the current lane is not available in SUMO
-			continue;
-		}
-		int to = (*toP).second;
-		int from = UNSET_CONNECTION;
-		if((*i).predecessor!=UNSET_CONNECTION) {
-			from = (*i).predecessor;
-		}
-		if(from!=UNSET_CONNECTION) {
-			std::map<int, int>::const_iterator fromP = prev.laneMap.find(from);
-			if(fromP!=prev.laneMap.end()) { 
-				from =(*fromP).second;
-			} else {
-				from = UNSET_CONNECTION;
-			}
-		}
-		if(from!=UNSET_CONNECTION && to!=UNSET_CONNECTION) {
-			if(ret.find(from)!=ret.end()) {
+        std::map<int, int>::const_iterator toP = laneMap.find((*i).id);
+        if (toP == laneMap.end()) {
+            // the current lane is not available in SUMO
+            continue;
+        }
+        int to = (*toP).second;
+        int from = UNSET_CONNECTION;
+        if ((*i).predecessor != UNSET_CONNECTION) {
+            from = (*i).predecessor;
+        }
+        if (from != UNSET_CONNECTION) {
+            std::map<int, int>::const_iterator fromP = prev.laneMap.find(from);
+            if (fromP != prev.laneMap.end()) {
+                from = (*fromP).second;
+            } else {
+                from = UNSET_CONNECTION;
+            }
+        }
+        if (from != UNSET_CONNECTION && to != UNSET_CONNECTION) {
+            if (ret.find(from) != ret.end()) {
 //				WRITE_WARNING("double connection");
-			}
-			if(dir==OPENDRIVE_TAG_LEFT) {
-				std::swap(from, to);
-			}
-			ret[from] = to;
-		} else {
+            }
+            if (dir == OPENDRIVE_TAG_LEFT) {
+                std::swap(from, to);
+            }
+            ret[from] = to;
+        } else {
 //			WRITE_WARNING("missing connection");
-		}
-	}
-	return ret;
+        }
+    }
+    return ret;
 }
 
 
@@ -1115,35 +1119,35 @@ NIImporter_OpenDrive::myStartElement(int element,
             myCurrentEdge.signals.push_back(OpenDriveSignal(id, type, orientation, dynamic, s));
         }
         break;
-		case OPENDRIVE_TAG_JUNCTION: 
-			myCurrentJunctionID = attrs.get<std::string>(OPENDRIVE_ATTR_ID, myCurrentJunctionID.c_str(), ok);
-			break;
+        case OPENDRIVE_TAG_JUNCTION:
+            myCurrentJunctionID = attrs.get<std::string>(OPENDRIVE_ATTR_ID, myCurrentJunctionID.c_str(), ok);
+            break;
         case OPENDRIVE_TAG_CONNECTION: {
-			std::string id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, myCurrentJunctionID.c_str(), ok);
-			myCurrentIncomingRoad = attrs.get<std::string>(OPENDRIVE_ATTR_INCOMINGROAD, myCurrentJunctionID.c_str(), ok);
-			myCurrentConnectingRoad = attrs.get<std::string>(OPENDRIVE_ATTR_CONNECTINGROAD, myCurrentJunctionID.c_str(), ok);
-			std::string cp = attrs.get<std::string>(OPENDRIVE_ATTR_CONTACTPOINT, myCurrentJunctionID.c_str(), ok);
-			myCurrentContactPoint = cp=="start" ? OPENDRIVE_CP_START : OPENDRIVE_CP_END;
-			myConnectionWasEmpty = true;
+            std::string id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, myCurrentJunctionID.c_str(), ok);
+            myCurrentIncomingRoad = attrs.get<std::string>(OPENDRIVE_ATTR_INCOMINGROAD, myCurrentJunctionID.c_str(), ok);
+            myCurrentConnectingRoad = attrs.get<std::string>(OPENDRIVE_ATTR_CONNECTINGROAD, myCurrentJunctionID.c_str(), ok);
+            std::string cp = attrs.get<std::string>(OPENDRIVE_ATTR_CONTACTPOINT, myCurrentJunctionID.c_str(), ok);
+            myCurrentContactPoint = cp == "start" ? OPENDRIVE_CP_START : OPENDRIVE_CP_END;
+            myConnectionWasEmpty = true;
         }
         break;
         case OPENDRIVE_TAG_LANELINK: {
-			int from = attrs.get<int>(OPENDRIVE_ATTR_FROM, myCurrentJunctionID.c_str(), ok);
-			int to = attrs.get<int>(OPENDRIVE_ATTR_TO, myCurrentJunctionID.c_str(), ok);
-			Connection c;
-			c.fromEdge = myCurrentIncomingRoad;
-			c.toEdge = myCurrentConnectingRoad;
-			c.fromLane = from;
-			c.toLane = to;
-			c.fromCP = OPENDRIVE_CP_END;
-			c.toCP = myCurrentContactPoint;
-			c.all = false;
-            if(myEdges.find(c.fromEdge)==myEdges.end()) {
+            int from = attrs.get<int>(OPENDRIVE_ATTR_FROM, myCurrentJunctionID.c_str(), ok);
+            int to = attrs.get<int>(OPENDRIVE_ATTR_TO, myCurrentJunctionID.c_str(), ok);
+            Connection c;
+            c.fromEdge = myCurrentIncomingRoad;
+            c.toEdge = myCurrentConnectingRoad;
+            c.fromLane = from;
+            c.toLane = to;
+            c.fromCP = OPENDRIVE_CP_END;
+            c.toCP = myCurrentContactPoint;
+            c.all = false;
+            if (myEdges.find(c.fromEdge) == myEdges.end()) {
                 WRITE_ERROR("In laneLink-element: incoming road '" + c.fromEdge + "' is not known.");
             } else {
-			    OpenDriveEdge *e = myEdges.find(c.fromEdge)->second;
-			    e->connections.insert(c);
-			    myConnectionWasEmpty = false;
+                OpenDriveEdge* e = myEdges.find(c.fromEdge)->second;
+                e->connections.insert(c);
+                myConnectionWasEmpty = false;
             }
         }
         break;
@@ -1159,25 +1163,25 @@ NIImporter_OpenDrive::myEndElement(int element) {
     myElementStack.pop_back();
     switch (element) {
         case OPENDRIVE_TAG_ROAD:
-			myEdges[myCurrentEdge.id] = new OpenDriveEdge(myCurrentEdge);
+            myEdges[myCurrentEdge.id] = new OpenDriveEdge(myCurrentEdge);
             break;
-        case OPENDRIVE_TAG_CONNECTION: 
-			if(myConnectionWasEmpty) {
-				Connection c;
-				c.fromEdge = myCurrentIncomingRoad;
-				c.toEdge = myCurrentConnectingRoad;
-				c.fromLane = 0;
-				c.toLane = 0;
-				c.fromCP = OPENDRIVE_CP_END;
-				c.toCP = myCurrentContactPoint;
-				c.all = true;
-                if(myEdges.find(c.fromEdge)==myEdges.end()) {
+        case OPENDRIVE_TAG_CONNECTION:
+            if (myConnectionWasEmpty) {
+                Connection c;
+                c.fromEdge = myCurrentIncomingRoad;
+                c.toEdge = myCurrentConnectingRoad;
+                c.fromLane = 0;
+                c.toLane = 0;
+                c.fromCP = OPENDRIVE_CP_END;
+                c.toCP = myCurrentContactPoint;
+                c.all = true;
+                if (myEdges.find(c.fromEdge) == myEdges.end()) {
                     WRITE_ERROR("In laneLink-element: incoming road '" + c.fromEdge + "' is not known.");
                 } else {
-			        OpenDriveEdge *e = myEdges.find(c.fromEdge)->second;
-			        e->connections.insert(c);
+                    OpenDriveEdge* e = myEdges.find(c.fromEdge)->second;
+                    e->connections.insert(c);
                 }
-									 }
+            }
             break;
         default:
             break;

@@ -153,7 +153,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             if (!server.readTypeCheckingPosition2D(inputStorage, off)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The view port must be given as a position.", outputStorage);
             }
-			off.set(off.x(), off.y(), v->getChanger().getZoom());
+            off.set(off.x(), off.y(), v->getChanger().getZoom());
             v->setViewport(off, p);
         }
         break;
@@ -165,11 +165,11 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             if (!v->setColorScheme(schema)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The scheme is not known.", outputStorage);
             }
-                              }
-            break;
+        }
+        break;
         case VAR_VIEW_BOUNDARY: {
             Boundary b;
-            if(!server.readTypeCheckingBoundary(inputStorage, b)) {
+            if (!server.readTypeCheckingBoundary(inputStorage, b)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The boundary must be specified by a bounding box.", outputStorage);
             }
             v->centerTo(b);
@@ -177,7 +177,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         case VAR_SCREENSHOT: {
             std::string filename;
-            if(!server.readTypeCheckingString(inputStorage, filename)) {
+            if (!server.readTypeCheckingString(inputStorage, filename)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Making a snapshot requires a file name.", outputStorage);
             }
             std::string error = v->makeSnapshot(filename);
@@ -188,7 +188,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         break;
         case VAR_TRACK_VEHICLE: {
             std::string id;
-            if(!server.readTypeCheckingString(inputStorage, id)) {
+            if (!server.readTypeCheckingString(inputStorage, id)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Tracking requires a string vehicle ID.", outputStorage);
             }
             if (id == "") {

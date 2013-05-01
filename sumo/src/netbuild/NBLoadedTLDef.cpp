@@ -266,17 +266,17 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge* removed, int removedLane,
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::NBLoadedTLDef(const std::string& id,
-                             const std::vector<NBNode*>& junctions, SUMOTime offset, TrafficLightType type) : 
+                             const std::vector<NBNode*>& junctions, SUMOTime offset, TrafficLightType type) :
     NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type)
 {}
 
 
-NBLoadedTLDef::NBLoadedTLDef(const std::string& id, NBNode* junction, SUMOTime offset, TrafficLightType type) : 
+NBLoadedTLDef::NBLoadedTLDef(const std::string& id, NBNode* junction, SUMOTime offset, TrafficLightType type) :
     NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type)
 {}
 
 
-NBLoadedTLDef::NBLoadedTLDef(const std::string& id, SUMOTime offset, TrafficLightType type) : 
+NBLoadedTLDef::NBLoadedTLDef(const std::string& id, SUMOTime offset, TrafficLightType type) :
     NBTrafficLightDefinition(id, DefaultProgramID, offset, type)
 {}
 

@@ -217,7 +217,7 @@ GUINet::guiSimulationStep() {
 }
 
 
-void 
+void
 GUINet::simulationStep() {
     AbstractMutex::ScopedLocker locker(myLock);
     MSNet::simulationStep();
@@ -483,13 +483,13 @@ GUINet::getGUIVehicleControl() {
 }
 
 
-void 
+void
 GUINet::lock() {
     myLock.lock();
 }
 
 
-void 
+void
 GUINet::unlock() {
     myLock.unlock();
 }

@@ -239,7 +239,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
     sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
     // recheck begin time
     for (std::vector<ODCell*>::const_iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
-        const ODCell* const c = *i;        
+        const ODCell* const c = *i;
         if (c->end > begin && c->begin < end) {
             dev.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
             dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin));
@@ -307,7 +307,7 @@ ODMatrix::readFactor(LineReader& lr, SUMOReal scale) {
 
 void
 ODMatrix::readV(LineReader& lr, SUMOReal scale,
-      std::string vehType, bool matrixHasVehType) {
+                std::string vehType, bool matrixHasVehType) {
     PROGRESS_BEGIN_MESSAGE("Reading matrix '" + lr.getFileName() + "' stored as VMR");
     // parse first defs
     std::string line;
@@ -375,7 +375,7 @@ ODMatrix::readV(LineReader& lr, SUMOReal scale,
 
 void
 ODMatrix::readO(LineReader& lr, SUMOReal scale,
-      std::string vehType, bool matrixHasVehType) {
+                std::string vehType, bool matrixHasVehType) {
     PROGRESS_BEGIN_MESSAGE("Reading matrix '" + lr.getFileName() + "' stored as OR");
     // parse first defs
     std::string line;

@@ -197,13 +197,13 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
 
 
 bool
-TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, 
+TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                                         MSVehicleType& v, traci::TraCIServer& server,
                                         tcpip::Storage& inputStorage, tcpip::Storage& outputStorage) {
     switch (variable) {
         case VAR_LENGTH: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting length requires a double.", outputStorage);
             }
             if (value == 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
@@ -214,7 +214,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_MAXSPEED: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting maximum speed requires a double.", outputStorage);
             }
             if (value == 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
@@ -225,7 +225,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_VEHICLECLASS: {
             std::string vclass;
-            if(!server.readTypeCheckingString(inputStorage, vclass)) {
+            if (!server.readTypeCheckingString(inputStorage, vclass)) {
                 return server.writeErrorStatusCmd(cmd, "Setting vehicle class requires a string.", outputStorage);
             }
             v.setVClass(getVehicleClassID(vclass));
@@ -233,7 +233,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_SPEED_FACTOR: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting speed factor requires a double.", outputStorage);
             }
             v.setSpeedFactor(value);
@@ -241,7 +241,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_SPEED_DEVIATION: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting speed deviation requires a double.", outputStorage);
             }
             v.setSpeedDeviation(value);
@@ -249,7 +249,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_EMISSIONCLASS: {
             std::string eclass;
-            if(!server.readTypeCheckingString(inputStorage, eclass)) {
+            if (!server.readTypeCheckingString(inputStorage, eclass)) {
                 return server.writeErrorStatusCmd(cmd, "Setting emission class requires a string.", outputStorage);
             }
             v.setEmissionClass(getVehicleEmissionTypeID(eclass));
@@ -257,7 +257,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_WIDTH: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage,  value)) {
+            if (!server.readTypeCheckingDouble(inputStorage,  value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting width requires a double.", outputStorage);
             }
             v.setWidth(value);
@@ -265,7 +265,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_MINGAP: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting minimum gap requires a double.", outputStorage);
             }
             v.setMinGap(value);
@@ -273,7 +273,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_SHAPECLASS: {
             std::string sclass;
-            if(!server.readTypeCheckingString(inputStorage, sclass)) {
+            if (!server.readTypeCheckingString(inputStorage, sclass)) {
                 return server.writeErrorStatusCmd(cmd, "Setting vehicle shape requires a string.", outputStorage);
             }
             v.setShape(getVehicleShapeID(sclass));
@@ -281,7 +281,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_ACCEL: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting acceleration requires a double.", outputStorage);
             }
             v.getCarFollowModel().setMaxAccel(value);
@@ -289,7 +289,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_DECEL: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
             }
             v.getCarFollowModel().setMaxDecel(value);
@@ -297,7 +297,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_IMPERFECTION: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting driver imperfection requires a double.", outputStorage);
             }
             v.getCarFollowModel().setImperfection(value);
@@ -305,7 +305,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_TAU: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting headway time requires a double.", outputStorage);
             }
             v.getCarFollowModel().setHeadwayTime(value);
@@ -313,7 +313,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         break;
         case VAR_COLOR: {
             RGBColor col;
-            if(!server.readTypeCheckingColor(inputStorage, col)) {
+            if (!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(cmd, "The color must be given using the according type.", outputStorage);
             }
             v.setColor(col);

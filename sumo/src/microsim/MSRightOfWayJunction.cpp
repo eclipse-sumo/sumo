@@ -114,7 +114,7 @@ MSRightOfWayJunction::postloadInit() {
                         // add foe links after an internal junction
                         if (foeExitLink->getViaLane() != 0) {
                             myLinkFoeLinks[*j].push_back(foeExitLink);
-                        } 
+                        }
                     }
 #endif
                 }
@@ -163,13 +163,13 @@ MSRightOfWayJunction::postloadInit() {
 #endif
             (*j)->setRequestInformation(requestPos, requestPos, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
 #ifdef HAVE_INTERNAL_LANES
-            // the exit link for a link before an internal junction is handled in MSInternalJunction 
+            // the exit link for a link before an internal junction is handled in MSInternalJunction
             // so we need to skip if cont=true
             if (MSGlobals::gUsingInternalLanes && (*j)->getViaLane() != 0 && !cont) {
                 assert((*j)->getViaLane()->getLinkCont().size() == 1);
                 MSLink* exitLink = (*j)->getViaLane()->getLinkCont()[0];
-                exitLink->setRequestInformation(requestPos, requestPos, false, false, std::vector<MSLink*>(), 
-                        myLinkFoeInternalLanes[*j]);
+                exitLink->setRequestInformation(requestPos, requestPos, false, false, std::vector<MSLink*>(),
+                                                myLinkFoeInternalLanes[*j]);
             }
 #endif
             for (std::vector<MSLink*>::const_iterator k = foes.begin(); k != foes.end(); ++k) {

@@ -136,7 +136,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             // cannot be relevant as a polygon
             continue;
         }
-        if(e->myCurrentNodes.size()==0) {
+        if (e->myCurrentNodes.size() == 0) {
             WRITE_ERROR("Polygon '" + e->id + "' has no shape.");
             continue;
         }
@@ -150,7 +150,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             }
             vec.push_back_noDoublePos(pos);
         }
-        const bool ignorePruning = OptionsCont::getOptions().isInStringVector("prune.keep-list", toString(e->id));            
+        const bool ignorePruning = OptionsCont::getOptions().isInStringVector("prune.keep-list", toString(e->id));
         // add as many polygons as keys match defined types
         int index = 0;
         std::string unknownPolyType = "";
@@ -184,7 +184,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
             WRITE_WARNING("Unable to project coordinates for POI '" + toString(n->id) + "'.");
         }
-        const bool ignorePruning = OptionsCont::getOptions().isInStringVector("prune.keep-list", toString(n->id));     
+        const bool ignorePruning = OptionsCont::getOptions().isInStringVector("prune.keep-list", toString(n->id));
         // add as many POIs as keys match defined types
         int index = 0;
         std::string unKnownPOIType = "";
@@ -216,7 +216,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 }
 
 
-int 
+int
 PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const PCTypeMap::TypeDef& def, const std::string& fullType, int index, bool useName, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes) {
     if (def.discard) {
         return index;
@@ -225,15 +225,15 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
         const std::string idSuffix = (index == 0 ? "" : "#" + toString(index));
         const std::string id = def.prefix + (useName && edge->name != "" ? edge->name : edge->id) + idSuffix;
         Polygon* poly = new Polygon(
-                StringUtils::escapeXML(id), 
-                StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id), 
-                def.color, vec, def.allowFill && closedShape, (SUMOReal)def.layer);
+            StringUtils::escapeXML(id),
+            StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
+            def.color, vec, def.allowFill && closedShape, (SUMOReal)def.layer);
         if (withAttributes) {
             poly->addParameter(edge->myAttributes);
         }
         if (!toFill.insert(id, poly, def.layer, ignorePruning)) {
             WRITE_ERROR("Polygon '" + id + "' could not be added.");
-            delete poly; 
+            delete poly;
             return index;
         } else {
             return index + 1;
@@ -241,24 +241,24 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
     }
 }
 
-int 
-PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap::TypeDef& def, const std::string& fullType, 
-        int index, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes) {
+int
+PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap::TypeDef& def, const std::string& fullType,
+                    int index, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes) {
     if (def.discard) {
         return index;
     } else {
         const std::string idSuffix = (index == 0 ? "" : "#" + toString(index));
         const std::string id = def.prefix + toString(node->id) + idSuffix;
         PointOfInterest* poi = new PointOfInterest(
-                StringUtils::escapeXML(id), 
-                StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id), 
-                def.color, pos, (SUMOReal)def.layer);
+            StringUtils::escapeXML(id),
+            StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
+            def.color, pos, (SUMOReal)def.layer);
         if (withAttributes) {
             poi->addParameter(node->myAttributes);
         }
         if (!toFill.insert(id, poi, def.layer, ignorePruning)) {
             WRITE_ERROR("POI '" + id + "' could not be added.");
-            delete poi; 
+            delete poi;
             return index;
         } else {
             return index + 1;
@@ -271,7 +271,7 @@ PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap:
 // definitions of PCLoaderOSM::NodesHandler-methods
 // ---------------------------------------------------------------------------
 PCLoaderOSM::NodesHandler::NodesHandler(std::map<SUMOLong, PCOSMNode*>& toFill,
-        bool withAttributes, MsgHandler &errorHandler) : 
+                                        bool withAttributes, MsgHandler& errorHandler) :
     SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myErrorHandler(errorHandler),
     myToFill(toFill), myLastNodeID(-1) {}
 
@@ -294,7 +294,7 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
             // assume we are loading multiple files...
             //  ... so we won't report duplicate nodes
             PCOSMNode* toAdd = new PCOSMNode();
-            toAdd->id = id;            
+            toAdd->id = id;
             bool ok = true;
             toAdd->lon = attrs.get<SUMOReal>(SUMO_ATTR_LON, toString(id).c_str(), ok);
             toAdd->lat = attrs.get<SUMOReal>(SUMO_ATTR_LAT, toString(id).c_str(), ok);
@@ -305,12 +305,12 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
             myToFill[toAdd->id] = toAdd;
         }
     }
-    if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_NODE 
+    if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_NODE
             && myLastNodeID != -1) {
         bool ok = true;
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, "", false);
-        if(key=="") {
+        if (key == "") {
             myErrorHandler.inform("Empty key in a a tag while parsing node '" + toString(myLastNodeID) + "' occured.");
             ok = false;
         }
@@ -335,7 +335,7 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) {
 // definitions of PCLoaderOSM::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 PCLoaderOSM::EdgesHandler::EdgesHandler(const std::map<SUMOLong, PCOSMNode*>& osmNodes,
-    std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes, MsgHandler &errorHandler)
+                                        std::map<std::string, PCOSMEdge*>& toFill, bool withAttributes, MsgHandler& errorHandler)
     : SUMOSAXHandler("osm - file"), myWithAttributes(withAttributes), myErrorHandler(errorHandler),
       myOSMNodes(osmNodes), myEdgeMap(toFill) {
 }
@@ -378,7 +378,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         bool ok = true;
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, "", false);
-        if(key=="") {
+        if (key == "") {
             myErrorHandler.inform("Empty key in a a tag while parsing way '" + toString(myCurrentEdge->id) + "' occured.");
             ok = false;
         }

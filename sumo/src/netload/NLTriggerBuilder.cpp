@@ -261,10 +261,10 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet& /*net*/, const std::string& id,
 #ifdef HAVE_INTERNAL
 METriggeredCalibrator*
 NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
-                                  const MSEdge* edge, SUMOReal pos,
-                                  const std::string& file,
-                                  const std::string& outfile,
-                                  const SUMOTime freq) {
+                                    const MSEdge* edge, SUMOReal pos,
+                                    const std::string& file,
+                                    const std::string& outfile,
+                                    const SUMOTime freq) {
     return new METriggeredCalibrator(id, edge, pos, file, outfile, freq);
 }
 #endif

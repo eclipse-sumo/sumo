@@ -82,7 +82,7 @@ GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsign
 #ifdef HAVE_OSG
     , myGeom(0)
 #endif
-    {
+{
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
     int e = (int) myShape.size() - 1;
@@ -730,12 +730,12 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
 void
 GUILaneWrapper::updateColor(const GUIVisualizationSettings& s) {
     const RGBColor& col = s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive()));
-    osg::Vec4ubArray *colors = dynamic_cast<osg::Vec4ubArray*>(myGeom->getColorArray());
+    osg::Vec4ubArray* colors = dynamic_cast<osg::Vec4ubArray*>(myGeom->getColorArray());
     (*colors)[0].set(col.red(), col.green(), col.blue(), col.alpha());
     myGeom->setColorArray(colors);
 }
 #endif
 
-    
+
 /****************************************************************************/
 

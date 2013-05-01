@@ -56,11 +56,10 @@
 MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& programID,
         const Phases& phases,
-        unsigned int step, SUMOTime delay, 
-        const ParameterMap& parameter) : 
+        unsigned int step, SUMOTime delay,
+        const ParameterMap& parameter) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter),
-    myContinue(false) 
-{
+    myContinue(false) {
     myMaxGap = SUMOReal(3.1);
     if (parameter.find("max-gap") != parameter.end()) {
         myMaxGap = TplConvert::_2SUMOReal(parameter.find("max-gap")->second.c_str());

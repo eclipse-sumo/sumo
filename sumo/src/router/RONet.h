@@ -295,7 +295,7 @@ public:
 
     void setRestrictionFound();
 
-    OutputDevice* getRouteOutput(const bool alternative=false) {
+    OutputDevice* getRouteOutput(const bool alternative = false) {
         if (alternative) {
             return myRouteAlternativesOutput;
         }

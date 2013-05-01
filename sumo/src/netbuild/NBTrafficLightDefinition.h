@@ -126,7 +126,7 @@ public:
      * @param[in] offset The offset of the plan
      * @param[in] type The algorithm type for the computed traffic light
      */
-    NBTrafficLightDefinition(const std::string& id, const std::string& programID, 
+    NBTrafficLightDefinition(const std::string& id, const std::string& programID,
                              SUMOTime offset,
                              TrafficLightType type);
 

@@ -862,7 +862,7 @@ GUISUMOAbstractView::checkSnapshots() {
 
 void
 GUISUMOAbstractView::showViewschemeEditor() {
-    if (myVisualizationChanger==0) {
+    if (myVisualizationChanger == 0) {
         myVisualizationChanger =
             new GUIDialog_ViewSettings(
             this, myVisualizationSettings,

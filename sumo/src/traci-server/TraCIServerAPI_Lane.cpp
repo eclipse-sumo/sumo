@@ -303,7 +303,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     switch (variable) {
         case VAR_MAXSPEED: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The speed must be given as a double.", outputStorage);
             }
             l->setMaxSpeed(value);
@@ -311,7 +311,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         break;
         case VAR_LENGTH: {
             double value = 0;
-            if(!server.readTypeCheckingDouble(inputStorage, value)) {
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The length must be given as a double.", outputStorage);
             }
             l->setLength(value);
@@ -319,7 +319,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         break;
         case LANE_ALLOWED: {
             std::vector<std::string> classes;
-            if(!server.readTypeCheckingStringList(inputStorage, classes)) {
+            if (!server.readTypeCheckingStringList(inputStorage, classes)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Allowed classes must be given as a list of strings.", outputStorage);
             }
             l->setPermissions(parseVehicleClasses(classes));
@@ -328,7 +328,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
         break;
         case LANE_DISALLOWED: {
             std::vector<std::string> classes;
-            if(!server.readTypeCheckingStringList(inputStorage, classes)) {
+            if (!server.readTypeCheckingStringList(inputStorage, classes)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Not allowed classes must be given as a list of strings.", outputStorage);
             }
             l->setPermissions(~parseVehicleClasses(classes)); // negation yields allowed

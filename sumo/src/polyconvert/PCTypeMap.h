@@ -110,16 +110,16 @@ public:
      */
     bool has(const std::string& id);
 
-	/// @brief get the default type according to the given options
-	const TypeDef& getDefault() {
-		return myDefaultType;
-	}
+    /// @brief get the default type according to the given options
+    const TypeDef& getDefault() {
+        return myDefaultType;
+    }
 
 protected:
     /// @brief A map of type names to type definitions
     std::map<std::string, TypeDef> myTypes;
 
-	TypeDef myDefaultType;
+    TypeDef myDefaultType;
 
 };
 

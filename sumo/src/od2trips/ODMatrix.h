@@ -193,31 +193,31 @@ public:
     void applyCurve(const Distribution_Points& ps);
 
 
-	/** @brief read a VISUM-matrix with the O Format
-	 *  @todo Describe
-	 */
-	void readO(LineReader& lr, SUMOReal scale,
-      std::string vehType, bool matrixHasVehType);
+    /** @brief read a VISUM-matrix with the O Format
+     *  @todo Describe
+     */
+    void readO(LineReader& lr, SUMOReal scale,
+               std::string vehType, bool matrixHasVehType);
 
-	/** @brief read a VISUM-matrix with the V Format
-	 *  @todo Describe
-	 */
-	void readV(LineReader& lr, SUMOReal scale,
-      std::string vehType, bool matrixHasVehType);
+    /** @brief read a VISUM-matrix with the V Format
+     *  @todo Describe
+     */
+    void readV(LineReader& lr, SUMOReal scale,
+               std::string vehType, bool matrixHasVehType);
 
-	/** @brief read a VISUM-matrix with the V Format
-	 *  @todo Describe
-	 */
-	void loadMatrix(OptionsCont& oc);
+    /** @brief read a VISUM-matrix with the V Format
+     *  @todo Describe
+     */
+    void loadMatrix(OptionsCont& oc);
 
-	/** @brief split the given timeline 
-	 *  @todo Describe
-	 */
-	Distribution_Points parseTimeLine(const std::vector<std::string>& def, bool timelineDayInHours);
+    /** @brief split the given timeline
+     *  @todo Describe
+     */
+    Distribution_Points parseTimeLine(const std::vector<std::string>& def, bool timelineDayInHours);
 
-	const std::vector<ODCell*>& getCells() {
-		return myContainer;
-	}
+    const std::vector<ODCell*>& getCells() {
+        return myContainer;
+    }
 
 protected:
     /**
@@ -291,22 +291,22 @@ private:
     /** @used in the functions readV and readO
      * @todo Describe
      */
-	std::string getNextNonCommentLine(LineReader& lr);
+    std::string getNextNonCommentLine(LineReader& lr);
 
     /** @used in the functions readV and readO
      * @todo Describe
      */
-	SUMOTime parseSingleTime(const std::string& time);
+    SUMOTime parseSingleTime(const std::string& time);
 
     /** @used in the functions readV and readO
      * @todo Describe
      */
-	std::pair<SUMOTime, SUMOTime> readTime(LineReader& lr);
+    std::pair<SUMOTime, SUMOTime> readTime(LineReader& lr);
 
     /** @used in the functions readV and readO
      * @todo Describe
      */
-	SUMOReal readFactor(LineReader& lr, SUMOReal scale);
+    SUMOReal readFactor(LineReader& lr, SUMOReal scale);
 
 
 protected:

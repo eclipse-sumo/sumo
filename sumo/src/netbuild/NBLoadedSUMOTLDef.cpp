@@ -48,8 +48,8 @@
 // method definitions
 // ===========================================================================
 
-NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& programID, 
-        SUMOTime offset, TrafficLightType type) :
+NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& programID,
+                                     SUMOTime offset, TrafficLightType type) :
     NBTrafficLightDefinition(id, programID, offset, type),
     myTLLogic(0) {
     myTLLogic = new NBTrafficLightLogic(id, programID, 0, offset, type);
@@ -59,8 +59,7 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& p
 NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLightLogic* logic) :
     NBTrafficLightDefinition(def->getID(), def->getProgramID(), def->getOffset(), def->getType()),
     myTLLogic(new NBTrafficLightLogic(logic)),
-    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) 
-{
+    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) {
     assert(def->getOffset() == logic->getOffset());
     assert(def->getType() == logic->getType());
     myControlledLinks = def->getControlledLinks();
@@ -209,14 +208,14 @@ NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) 
 }
 
 
-void 
+void
 NBLoadedSUMOTLDef::setOffset(SUMOTime offset) {
     myOffset = offset;
     myTLLogic->setOffset(offset);
 }
 
 
-void 
+void
 NBLoadedSUMOTLDef::collectLinks() {
     if (myControlledLinks.size() == 0) {
         // maybe we only loaded a different program for a default traffic light.

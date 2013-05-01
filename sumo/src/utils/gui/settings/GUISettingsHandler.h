@@ -128,7 +128,7 @@ public:
     }
 
 
-    /// @brief loads breakpoints from the specified file 
+    /// @brief loads breakpoints from the specified file
     static std::vector<SUMOTime> loadBreakpoints(const std::string& file);
 
 

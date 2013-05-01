@@ -91,8 +91,8 @@ public:
      * @param[in] delay The time to wait before the first switch
      */
     MSTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                        const std::string& id, 
-                        const std::string& programID, 
+                        const std::string& id,
+                        const std::string& programID,
                         SUMOTime delay,
                         const ParameterMap& parameters);
 

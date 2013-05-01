@@ -189,7 +189,7 @@ int SUMOSAXAttributes::getInternal(const int attr) const {
 }
 
 
-template<> const SUMOLong invalid_return<SUMOLong>::value=-1;
+template<> const SUMOLong invalid_return<SUMOLong>::value = -1;
 template<> const std::string invalid_return<SUMOLong>::type = "long";
 template<>
 SUMOLong SUMOSAXAttributes::getInternal(const int attr) const {
@@ -197,7 +197,7 @@ SUMOLong SUMOSAXAttributes::getInternal(const int attr) const {
 }
 
 
-template<> const SUMOReal invalid_return<SUMOReal>::value=-1;
+template<> const SUMOReal invalid_return<SUMOReal>::value = -1;
 template<> const std::string invalid_return<SUMOReal>::type = "float";
 template<>
 SUMOReal SUMOSAXAttributes::getInternal(const int attr) const {
@@ -205,7 +205,7 @@ SUMOReal SUMOSAXAttributes::getInternal(const int attr) const {
 }
 
 
-template<> const bool invalid_return<bool>::value=false;
+template<> const bool invalid_return<bool>::value = false;
 template<> const std::string invalid_return<bool>::type = "bool";
 template<>
 bool SUMOSAXAttributes::getInternal(const int attr) const {

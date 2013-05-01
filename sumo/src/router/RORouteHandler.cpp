@@ -106,9 +106,9 @@ RORouteHandler::parseFromTo(std::string element,
     } else {
         bool ok = true;
         parseEdges(attrs.get<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
-                    myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+                   myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
         parseEdges(attrs.get<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, !myEmptyDestinationsAllowed),
-                    myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+                   myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
     }
     myActiveRouteID = "!" + myVehicleParameter->id;
     if (myVehicleParameter->routeid == "") {

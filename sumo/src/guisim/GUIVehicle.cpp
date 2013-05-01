@@ -1084,7 +1084,7 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
                     glColor3d(.8, 0, 0);
                 }
                 const SUMOTime leaveTime = (*i).myLink->getLeaveTime(
-                        (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLengthWithGap());
+                                               (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLengthWithGap());
                 drawLinkItem(p, (*i).myArrivalTime, leaveTime, s.addExaggeration);
                 // the time slot that ego vehicle uses when checking opened may
                 // differ from the one it requests in setApproaching
@@ -1101,7 +1101,7 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
 }
 
 
-void 
+void
 GUIVehicle::drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate) {
     glTranslated(pos.x(), pos.y(), -.1);
     GLHelper::drawFilledCircle(1);
@@ -1489,7 +1489,7 @@ void
 GUIVehicle::updateColor(GUIOSGView* view) {
     const GUIVisualizationSettings* s = view->getVisualisationSettings();
     const RGBColor& col = s->vehicleColorer.getScheme().getColor(getColorValue(s->vehicleColorer.getActive()));
-    myGeom[view]->setColor(osg::Vec4(col.red()/255., col.green()/255., col.blue()/255., col.alpha()/255.));
+    myGeom[view]->setColor(osg::Vec4(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
 }
 #endif
 

@@ -86,9 +86,9 @@ public:
      * @see ODDistrict::getRandomSink
      */
     std::string getRandomSinkFromDistrict(const std::string& name) const throw(OutOfBoundsException, InvalidArgument);
-	
+
     // @brief load districts from FILE
-	void loadDistricts(std::string districtfile);
+    void loadDistricts(std::string districtfile);
 
 private:
     /// @brief invalidated copy constructor
