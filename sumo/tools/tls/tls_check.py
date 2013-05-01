@@ -11,7 +11,7 @@ Currently verified:
 - phase length matches controlled link number
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2009-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

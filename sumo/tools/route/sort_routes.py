@@ -8,7 +8,7 @@
 
 This script sorts the vehicles in the given route file by their depart time
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2007-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2007-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import sys

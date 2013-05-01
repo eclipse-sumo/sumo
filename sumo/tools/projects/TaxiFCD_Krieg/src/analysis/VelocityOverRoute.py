@@ -9,7 +9,7 @@
 Shows the velocity of the chosen taxi over the driven route for all available sources.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

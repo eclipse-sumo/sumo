@@ -11,7 +11,7 @@ of detectors as second parameter. As result the script writes a new file
 with detectors which are actually used in the given network. 
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2010-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

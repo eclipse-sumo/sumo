@@ -9,7 +9,7 @@
 Shows the velocityCurve of the chosen taxi for all available sources, thereby the time duration per Edge is apparent.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

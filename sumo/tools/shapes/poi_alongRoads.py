@@ -20,7 +20,7 @@ So far POIs are situated in the middle on all edges without regard to the type o
  Output is written in file 'pois.add.xml'
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2009-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

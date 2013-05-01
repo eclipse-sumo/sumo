@@ -8,7 +8,7 @@
 Let all SUMO binaries write the schema for their config
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2011-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, sys, subprocess

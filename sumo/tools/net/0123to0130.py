@@ -10,7 +10,7 @@
 Changes xml network files from version 0.12.3 to version 0.13.0.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2009-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, string, sys, glob

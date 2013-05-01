@@ -19,7 +19,7 @@ matplotlib has to be installed for this purpose
 --values no,no --show --color-map 0:#888888,.4:#ff0000,1:#00ff00
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

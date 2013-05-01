@@ -8,7 +8,7 @@
 Converter between SUMO's binary XML and plain XML
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2012-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2012-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import sys, struct

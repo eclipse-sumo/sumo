@@ -9,7 +9,7 @@
 Approximates a list of circles by polygons.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2010-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

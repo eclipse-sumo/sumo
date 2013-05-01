@@ -19,7 +19,7 @@ All other vehicles are kept, but if they pass one of the mapped edges, the
 Attention! The routes are not sorted in time!
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2009-2012 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, string, sys, StringIO
