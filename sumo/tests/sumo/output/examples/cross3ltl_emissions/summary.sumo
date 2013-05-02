@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Feb 16 13:03:59 2013 by SUMO sumo Version dev-SVN-r13328
+<!-- generated on 05/02/13 14:15:08 by SUMO sumo Version 0.17.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -391,41 +391,41 @@
     <step time="360.00" loaded="106" emitted="103" running="97" waiting="3" ended="6" meanWaitingTime="2.45" meanTravelTime="229.17" />
     <step time="361.00" loaded="106" emitted="103" running="96" waiting="3" ended="7" meanWaitingTime="2.45" meanTravelTime="227.43" />
     <step time="362.00" loaded="107" emitted="104" running="97" waiting="3" ended="7" meanWaitingTime="2.54" meanTravelTime="227.43" />
-    <step time="363.00" loaded="107" emitted="104" running="96" waiting="3" ended="8" meanWaitingTime="2.54" meanTravelTime="225.12" />
-    <step time="364.00" loaded="107" emitted="104" running="96" waiting="3" ended="8" meanWaitingTime="2.54" meanTravelTime="225.12" />
-    <step time="365.00" loaded="107" emitted="105" running="97" waiting="2" ended="8" meanWaitingTime="2.56" meanTravelTime="225.12" />
-    <step time="366.00" loaded="108" emitted="106" running="98" waiting="2" ended="8" meanWaitingTime="2.69" meanTravelTime="225.12" />
-    <step time="367.00" loaded="108" emitted="106" running="98" waiting="2" ended="8" meanWaitingTime="2.69" meanTravelTime="225.12" />
-    <step time="368.00" loaded="108" emitted="106" running="98" waiting="2" ended="8" meanWaitingTime="2.69" meanTravelTime="225.12" />
-    <step time="369.00" loaded="108" emitted="106" running="98" waiting="2" ended="8" meanWaitingTime="2.69" meanTravelTime="225.12" />
-    <step time="370.00" loaded="111" emitted="107" running="99" waiting="4" ended="8" meanWaitingTime="2.76" meanTravelTime="225.12" />
-    <step time="371.00" loaded="111" emitted="107" running="99" waiting="4" ended="8" meanWaitingTime="2.76" meanTravelTime="225.12" />
-    <step time="372.00" loaded="111" emitted="107" running="99" waiting="4" ended="8" meanWaitingTime="2.76" meanTravelTime="225.12" />
-    <step time="373.00" loaded="111" emitted="107" running="99" waiting="4" ended="8" meanWaitingTime="2.76" meanTravelTime="225.12" />
-    <step time="374.00" loaded="112" emitted="108" running="100" waiting="4" ended="8" meanWaitingTime="2.86" meanTravelTime="225.12" />
-    <step time="375.00" loaded="112" emitted="108" running="100" waiting="4" ended="8" meanWaitingTime="2.86" meanTravelTime="225.12" />
-    <step time="376.00" loaded="112" emitted="108" running="100" waiting="4" ended="8" meanWaitingTime="2.86" meanTravelTime="225.12" />
-    <step time="377.00" loaded="112" emitted="108" running="100" waiting="4" ended="8" meanWaitingTime="2.86" meanTravelTime="225.12" />
-    <step time="378.00" loaded="112" emitted="109" running="101" waiting="3" ended="8" meanWaitingTime="2.91" meanTravelTime="225.12" />
-    <step time="379.00" loaded="112" emitted="109" running="101" waiting="3" ended="8" meanWaitingTime="2.91" meanTravelTime="225.12" />
-    <step time="380.00" loaded="113" emitted="109" running="101" waiting="4" ended="8" meanWaitingTime="2.91" meanTravelTime="225.12" />
-    <step time="381.00" loaded="113" emitted="109" running="101" waiting="4" ended="8" meanWaitingTime="2.91" meanTravelTime="225.12" />
-    <step time="382.00" loaded="113" emitted="109" running="101" waiting="4" ended="8" meanWaitingTime="2.91" meanTravelTime="225.12" />
-    <step time="383.00" loaded="114" emitted="110" running="102" waiting="4" ended="8" meanWaitingTime="3.00" meanTravelTime="225.12" />
-    <step time="384.00" loaded="114" emitted="110" running="102" waiting="4" ended="8" meanWaitingTime="3.00" meanTravelTime="225.12" />
-    <step time="385.00" loaded="114" emitted="110" running="102" waiting="4" ended="8" meanWaitingTime="3.00" meanTravelTime="225.12" />
-    <step time="386.00" loaded="114" emitted="110" running="102" waiting="4" ended="8" meanWaitingTime="3.00" meanTravelTime="225.12" />
-    <step time="387.00" loaded="114" emitted="111" running="103" waiting="3" ended="8" meanWaitingTime="3.04" meanTravelTime="225.12" />
-    <step time="388.00" loaded="115" emitted="112" running="104" waiting="3" ended="8" meanWaitingTime="3.17" meanTravelTime="225.12" />
-    <step time="389.00" loaded="116" emitted="113" running="105" waiting="3" ended="8" meanWaitingTime="3.31" meanTravelTime="225.12" />
-    <step time="390.00" loaded="117" emitted="113" running="105" waiting="4" ended="8" meanWaitingTime="3.31" meanTravelTime="225.12" />
-    <step time="391.00" loaded="118" emitted="114" running="106" waiting="4" ended="8" meanWaitingTime="3.38" meanTravelTime="225.12" />
-    <step time="392.00" loaded="118" emitted="114" running="106" waiting="4" ended="8" meanWaitingTime="3.38" meanTravelTime="225.12" />
-    <step time="393.00" loaded="120" emitted="116" running="108" waiting="4" ended="8" meanWaitingTime="3.54" meanTravelTime="225.12" />
-    <step time="394.00" loaded="120" emitted="116" running="108" waiting="4" ended="8" meanWaitingTime="3.54" meanTravelTime="225.12" />
-    <step time="395.00" loaded="120" emitted="117" running="109" waiting="3" ended="8" meanWaitingTime="3.56" meanTravelTime="225.12" />
-    <step time="396.00" loaded="120" emitted="117" running="109" waiting="3" ended="8" meanWaitingTime="3.56" meanTravelTime="225.12" />
-    <step time="397.00" loaded="120" emitted="119" running="111" waiting="1" ended="8" meanWaitingTime="3.61" meanTravelTime="225.12" />
+    <step time="363.00" loaded="107" emitted="104" running="96" waiting="3" ended="8" meanWaitingTime="2.54" meanTravelTime="225.13" />
+    <step time="364.00" loaded="107" emitted="104" running="96" waiting="3" ended="8" meanWaitingTime="2.54" meanTravelTime="225.13" />
+    <step time="365.00" loaded="107" emitted="105" running="97" waiting="2" ended="8" meanWaitingTime="2.56" meanTravelTime="225.13" />
+    <step time="366.00" loaded="108" emitted="106" running="98" waiting="2" ended="8" meanWaitingTime="2.69" meanTravelTime="225.13" />
+    <step time="367.00" loaded="108" emitted="106" running="98" waiting="2" ended="8" meanWaitingTime="2.69" meanTravelTime="225.13" />
+    <step time="368.00" loaded="108" emitted="106" running="98" waiting="2" ended="8" meanWaitingTime="2.69" meanTravelTime="225.13" />
+    <step time="369.00" loaded="108" emitted="106" running="98" waiting="2" ended="8" meanWaitingTime="2.69" meanTravelTime="225.13" />
+    <step time="370.00" loaded="111" emitted="107" running="99" waiting="4" ended="8" meanWaitingTime="2.76" meanTravelTime="225.13" />
+    <step time="371.00" loaded="111" emitted="107" running="99" waiting="4" ended="8" meanWaitingTime="2.76" meanTravelTime="225.13" />
+    <step time="372.00" loaded="111" emitted="107" running="99" waiting="4" ended="8" meanWaitingTime="2.76" meanTravelTime="225.13" />
+    <step time="373.00" loaded="111" emitted="107" running="99" waiting="4" ended="8" meanWaitingTime="2.76" meanTravelTime="225.13" />
+    <step time="374.00" loaded="112" emitted="108" running="100" waiting="4" ended="8" meanWaitingTime="2.86" meanTravelTime="225.13" />
+    <step time="375.00" loaded="112" emitted="108" running="100" waiting="4" ended="8" meanWaitingTime="2.86" meanTravelTime="225.13" />
+    <step time="376.00" loaded="112" emitted="108" running="100" waiting="4" ended="8" meanWaitingTime="2.86" meanTravelTime="225.13" />
+    <step time="377.00" loaded="112" emitted="108" running="100" waiting="4" ended="8" meanWaitingTime="2.86" meanTravelTime="225.13" />
+    <step time="378.00" loaded="112" emitted="109" running="101" waiting="3" ended="8" meanWaitingTime="2.91" meanTravelTime="225.13" />
+    <step time="379.00" loaded="112" emitted="109" running="101" waiting="3" ended="8" meanWaitingTime="2.91" meanTravelTime="225.13" />
+    <step time="380.00" loaded="113" emitted="109" running="101" waiting="4" ended="8" meanWaitingTime="2.91" meanTravelTime="225.13" />
+    <step time="381.00" loaded="113" emitted="109" running="101" waiting="4" ended="8" meanWaitingTime="2.91" meanTravelTime="225.13" />
+    <step time="382.00" loaded="113" emitted="109" running="101" waiting="4" ended="8" meanWaitingTime="2.91" meanTravelTime="225.13" />
+    <step time="383.00" loaded="114" emitted="110" running="102" waiting="4" ended="8" meanWaitingTime="3.00" meanTravelTime="225.13" />
+    <step time="384.00" loaded="114" emitted="110" running="102" waiting="4" ended="8" meanWaitingTime="3.00" meanTravelTime="225.13" />
+    <step time="385.00" loaded="114" emitted="110" running="102" waiting="4" ended="8" meanWaitingTime="3.00" meanTravelTime="225.13" />
+    <step time="386.00" loaded="114" emitted="110" running="102" waiting="4" ended="8" meanWaitingTime="3.00" meanTravelTime="225.13" />
+    <step time="387.00" loaded="114" emitted="111" running="103" waiting="3" ended="8" meanWaitingTime="3.04" meanTravelTime="225.13" />
+    <step time="388.00" loaded="115" emitted="112" running="104" waiting="3" ended="8" meanWaitingTime="3.17" meanTravelTime="225.13" />
+    <step time="389.00" loaded="116" emitted="113" running="105" waiting="3" ended="8" meanWaitingTime="3.31" meanTravelTime="225.13" />
+    <step time="390.00" loaded="117" emitted="113" running="105" waiting="4" ended="8" meanWaitingTime="3.31" meanTravelTime="225.13" />
+    <step time="391.00" loaded="118" emitted="114" running="106" waiting="4" ended="8" meanWaitingTime="3.38" meanTravelTime="225.13" />
+    <step time="392.00" loaded="118" emitted="114" running="106" waiting="4" ended="8" meanWaitingTime="3.38" meanTravelTime="225.13" />
+    <step time="393.00" loaded="120" emitted="116" running="108" waiting="4" ended="8" meanWaitingTime="3.54" meanTravelTime="225.13" />
+    <step time="394.00" loaded="120" emitted="116" running="108" waiting="4" ended="8" meanWaitingTime="3.54" meanTravelTime="225.13" />
+    <step time="395.00" loaded="120" emitted="117" running="109" waiting="3" ended="8" meanWaitingTime="3.56" meanTravelTime="225.13" />
+    <step time="396.00" loaded="120" emitted="117" running="109" waiting="3" ended="8" meanWaitingTime="3.56" meanTravelTime="225.13" />
+    <step time="397.00" loaded="120" emitted="119" running="111" waiting="1" ended="8" meanWaitingTime="3.61" meanTravelTime="225.13" />
     <step time="398.00" loaded="120" emitted="119" running="110" waiting="1" ended="9" meanWaitingTime="3.61" meanTravelTime="231.00" />
     <step time="399.00" loaded="120" emitted="120" running="111" waiting="0" ended="9" meanWaitingTime="3.66" meanTravelTime="231.00" />
     <step time="400.00" loaded="124" emitted="120" running="110" waiting="4" ended="10" meanWaitingTime="3.66" meanTravelTime="234.90" />

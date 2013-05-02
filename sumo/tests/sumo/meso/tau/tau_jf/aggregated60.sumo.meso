@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct  9 15:12:44 2012 by SUMO sumo Version dev-SVN-r12809
+<!-- generated on 05/02/13 15:11:48 by SUMO sumo Version 0.17.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -29,7 +29,7 @@
 </configuration>
 -->
 
-<netstats>
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
         <edge id="1/1to2/1" sampledSeconds="1265.94" traveltime="78.29" density="21.53" occupancy="10.77" waitingTime="0.00" speed="12.52" departed="36" arrived="0" entered="0" left="6" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="2/1to3/1" sampledSeconds="33.06" traveltime="49.99" density="0.56" occupancy="0.28" waitingTime="0.00" speed="19.60" departed="0" arrived="0" entered="6" left="0" laneChangedFrom="0" laneChangedTo="0"/>
@@ -2001,4 +2001,4 @@
         <edge id="8/1to9/1" sampledSeconds="759.35" traveltime="50.05" density="19.37" occupancy="9.69" waitingTime="0.00" speed="19.58" departed="0" arrived="0" entered="15" left="15" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="9/1to10/1" sampledSeconds="758.85" traveltime="50.16" density="19.36" occupancy="9.68" waitingTime="0.00" speed="19.53" departed="0" arrived="0" entered="15" left="15" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
-</netstats>
+</meandata>

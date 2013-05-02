@@ -1,18 +1,14 @@
-<?xml version="1.0"?>
-
-<!-- generated on 22.03.2013 10:50:49 by SUMO gui Version dev-SVN-r13521
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumo-gui.exeConfiguration.xsd">
+<!-- generated on 05/02/13 15:10:58 by SUMO sumo Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
         <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
     </input>
-
-    <output>
-        <save-state.prefix value="state"/>
-    </output>
 
     <time>
         <begin value="0"/>
@@ -20,8 +16,6 @@
     </time>
 
     <report>
-        <message-log value="guisim.stdout"/>
-        <error-log value="guisim.stderr"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -30,15 +24,10 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-    <gui_only>
-        <quit-on-end value="true"/>
-        <start value="true"/>
-    </gui_only>
-
 </configuration>
 -->
 
-<netstats>
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/meandata_file.xsd">
     <interval begin="0.00" end="15.00" id="dump_15">
         <edge id="4/1to3/1" sampledSeconds="61.83" traveltime="30.91" waitingTime="0.00" speed="9.47" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
@@ -57,4 +46,4 @@
     <interval begin="105.00" end="120.00" id="dump_15">
         <edge id="1/1to0/1" sampledSeconds="39.05" traveltime="39.05" waitingTime="0.00" speed="10.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
-</netstats>
+</meandata>

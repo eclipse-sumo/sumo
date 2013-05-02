@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 09:25:53 by SUMO sumo Version dev-SVN-r13169
+<!-- generated on 05/02/13 14:13:58 by SUMO sumo Version 0.17.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<netstats>
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/meandata_file.xsd">
     <interval begin="0.00" end="1.00" id="dump_1"/>
     <interval begin="1.00" end="2.00" id="dump_1">
         <edge id="4/1to3/1" sampledSeconds="1.00" CO_abs="0" CO2_abs="1680.070670" HC_abs="0.294197" PMx_abs="0.097945" NOx_abs="2.665688" fuel_abs="0.669819"
@@ -824,4 +824,4 @@
             CO_normed="0" CO2_normed="15488.487609" HC_normed="2.712187" PMx_normed="0.902955" NOx_normed="24.574845" fuel_normed="6.175025"
             traveltime="39.05" CO_perVeh="0" CO2_perVeh="65606.759655" HC_perVeh="11.488393" PMx_perVeh="3.824771" NOx_perVeh="104.095116" fuel_perVeh="26.156421"/>
     </interval>
-</netstats>
+</meandata>

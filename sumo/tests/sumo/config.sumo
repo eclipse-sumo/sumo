@@ -13,7 +13,7 @@ copy_test_path:busnet.net.xml
 copy_test_path:sumo.sumocfg
 copy_test_path:settings.xml
 copy_test_path:dlr.gif
-copy_test_path:input_state.bin
+copy_test_path:input_state.xml
 
 [collate_file]
 detector:detector.xml
@@ -49,7 +49,7 @@ c2x_vehicle_in_range:c2x_vehicle_in_range.xml
 c2x_saved_info_freq:c2x_saved_info_freq.xml
 c2x_edge_near_info:c2x_edge_near_info.xml
 log:log.txt
-state:state.bin
+state:state.xml
 calibrator_log:calibrator.log.xml
 
 [run_dependent_text]
