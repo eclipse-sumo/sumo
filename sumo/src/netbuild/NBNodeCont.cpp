@@ -540,7 +540,7 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
 
             }
             if (finalIncoming.size() > 4) {
-                WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is to complex");
+                WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex");
             } else {
                 clusters.push_back(cluster);
             }
