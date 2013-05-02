@@ -1,71 +1,71 @@
 > Executing step 0
->> Running router
->>> Begin time: 2011-07-18 10:04:26.103804
->>> End time: 2011-07-18 10:04:26.121910
->>> Duration: 0:00:00.018106
+>> Running router on input_trips.trips.xml
+>>> Begin time: 2013-05-01 21:43:40.042000
+>>> End time: 2013-05-01 21:43:40.145000
+>>> Duration: 0:00:00.103000
 <<
 >> Running simulation
->>> Begin time: 2011-07-18 10:04:26.121969
->>> End time: 2011-07-18 10:04:26.163570
->>> Duration: 0:00:00.041601
+>>> Begin time: 2013-05-01 21:43:40.150000
+>>> End time: 2013-05-01 21:43:40.305000
+>>> Duration: 0:00:00.155000
 <<
-< Step 0 ended (duration: 0:00:00.059893)
+< Step 0 ended (duration: 0:00:00.263000)
 ------------------
 
 > Executing step 1
->> Running router
->>> Begin time: 2011-07-18 10:04:26.163683
->>> End time: 2011-07-18 10:04:26.182745
->>> Duration: 0:00:00.019062
+>> Running router on input_trips_000.rou.alt.sbx
+>>> Begin time: 2013-05-01 21:43:40.305000
+>>> End time: 2013-05-01 21:43:40.351000
+>>> Duration: 0:00:00.046000
 <<
 >> Running simulation
->>> Begin time: 2011-07-18 10:04:26.182819
->>> End time: 2011-07-18 10:04:26.225441
->>> Duration: 0:00:00.042622
+>>> Begin time: 2013-05-01 21:43:40.352000
+>>> End time: 2013-05-01 21:43:40.498000
+>>> Duration: 0:00:00.146000
 <<
-< Step 1 ended (duration: 0:00:00.061846)
+< Step 1 ended (duration: 0:00:00.193000)
 ------------------
 
 > Executing step 2
->> Running router
->>> Begin time: 2011-07-18 10:04:26.225546
->>> End time: 2011-07-18 10:04:26.245022
->>> Duration: 0:00:00.019476
+>> Running router on input_trips_001.rou.alt.sbx
+>>> Begin time: 2013-05-01 21:43:40.498000
+>>> End time: 2013-05-01 21:43:40.544000
+>>> Duration: 0:00:00.046000
 <<
 >> Running simulation
->>> Begin time: 2011-07-18 10:04:26.245083
->>> End time: 2011-07-18 10:04:26.287834
->>> Duration: 0:00:00.042751
+>>> Begin time: 2013-05-01 21:43:40.544000
+>>> End time: 2013-05-01 21:43:40.707000
+>>> Duration: 0:00:00.163000
 <<
-< Step 2 ended (duration: 0:00:00.062379)
+< Step 2 ended (duration: 0:00:00.209000)
 ------------------
 
 > Executing step 3
->> Running router
->>> Begin time: 2011-07-18 10:04:26.287944
->>> End time: 2011-07-18 10:04:26.307170
->>> Duration: 0:00:00.019226
+>> Running router on input_trips_002.rou.alt.sbx
+>>> Begin time: 2013-05-01 21:43:40.707000
+>>> End time: 2013-05-01 21:43:40.753000
+>>> Duration: 0:00:00.046000
 <<
 >> Running simulation
->>> Begin time: 2011-07-18 10:04:26.307229
->>> End time: 2011-07-18 10:04:26.350171
->>> Duration: 0:00:00.042942
+>>> Begin time: 2013-05-01 21:43:40.753000
+>>> End time: 2013-05-01 21:43:40.851000
+>>> Duration: 0:00:00.098000
 <<
-< Step 3 ended (duration: 0:00:00.062316)
+< Step 3 ended (duration: 0:00:00.145000)
 ------------------
 
 > Executing step 4
->> Running router
->>> Begin time: 2011-07-18 10:04:26.350279
->>> End time: 2011-07-18 10:04:26.369286
->>> Duration: 0:00:00.019007
+>> Running router on input_trips_003.rou.alt.sbx
+>>> Begin time: 2013-05-01 21:43:40.852000
+>>> End time: 2013-05-01 21:43:40.898000
+>>> Duration: 0:00:00.046000
 <<
 >> Running simulation
->>> Begin time: 2011-07-18 10:04:26.369347
->>> End time: 2011-07-18 10:04:26.412942
->>> Duration: 0:00:00.043595
+>>> Begin time: 2013-05-01 21:43:40.898000
+>>> End time: 2013-05-01 21:43:40.990000
+>>> Duration: 0:00:00.092000
 <<
-< Step 4 ended (duration: 0:00:00.062755)
+< Step 4 ended (duration: 0:00:00.138000)
 ------------------
 
-dua-iterate ended (duration: 0:00:00.309316)
+dua-iterate ended (duration: 0:00:00.948000)

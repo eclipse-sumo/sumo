@@ -1,5 +1,5 @@
-SUMO netgenerate Version dev-SVN-r13207
- Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
+SUMO netgenerate Version 0.17.0
+ Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
 Road network generator for the microscopic road traffic simulation SUMO.
 
 Usage: netgenerate [OPTION]*
