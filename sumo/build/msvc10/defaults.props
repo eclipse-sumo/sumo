@@ -17,4 +17,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <PreBuildEvent>
+      <Command>..\..\..\tools\build\version.py</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
 </Project>

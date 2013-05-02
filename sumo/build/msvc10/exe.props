@@ -49,9 +49,6 @@
     <PostBuildEvent>
       <Command>xcopy /Y $(TargetPath) ..\..\..\bin\</Command>
     </PostBuildEvent>
-    <PreBuildEvent>
-      <Command>..\..\..\tools\build\version.py</Command>
-    </PreBuildEvent>
     <Link>
       <OutputFile>$(OutDir)$(TargetName).exe</OutputFile>
     </Link>
