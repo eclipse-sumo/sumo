@@ -22,7 +22,7 @@ subprocess.Popen("%s -c %s %s" % (sumoBinary, secondConfig, addOption), shell=Tr
 time.sleep(10)
 step = 0
 while not step>100:
-    traci.simulationStep(step)
+    traci.simulationStep(0)
     vehs = traci.vehicle.getIDList()
     if vehs.index("horiz")<0 or len(vehs)>1:
         print "Something is false"

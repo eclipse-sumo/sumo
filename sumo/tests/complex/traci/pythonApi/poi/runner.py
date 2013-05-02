@@ -17,7 +17,7 @@ sumoProcess = subprocess.Popen("%s -S -Q -c sumo.sumocfg" % (sumoBinary), shell=
 traci.init(8813)
 for step in range(3):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
 poiID = "0"
 print "adding", poiID
 traci.poi.add(poiID, 1, 1, (1,2,3,4), "test")

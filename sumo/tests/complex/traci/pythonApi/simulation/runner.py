@@ -12,7 +12,7 @@ traci.simulation.subscribe()
 print traci.simulation.getSubscriptionResults()
 for step in range(6):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
     print traci.simulation.getSubscriptionResults()
 print "time", traci.simulation.getCurrentTime()
 print "#loaded", traci.simulation.getLoadedNumber()

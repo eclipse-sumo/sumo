@@ -10,7 +10,7 @@ sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, 
 traci.init(8813)
 for step in range(3):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
 print "edges", traci.edge.getIDList()
 edgeID = "2fi"
 print "examining", edgeID
@@ -34,6 +34,6 @@ traci.edge.subscribe(edgeID)
 print traci.edge.getSubscriptionResults(edgeID)
 for step in range(3,6):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
     print traci.edge.getSubscriptionResults(edgeID)
 traci.close()

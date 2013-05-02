@@ -10,7 +10,7 @@ sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, 
 traci.init(8813)
 for step in range(4):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
 print "multientryexits", traci.multientryexit.getIDList()
 detID = "0"
 print "examining", detID
@@ -22,6 +22,6 @@ traci.multientryexit.subscribe(detID)
 print traci.multientryexit.getSubscriptionResults(detID)
 for step in range(3,6):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
     print traci.multientryexit.getSubscriptionResults(detID)
 traci.close()

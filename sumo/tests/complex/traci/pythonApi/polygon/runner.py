@@ -10,7 +10,7 @@ sumoProcess = subprocess.Popen("%s -S -Q -c sumo.sumocfg" % (sumoBinary), shell=
 traci.init(8813)
 for step in range(3):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
 polygonID = "0"
 print "adding", polygonID
 traci.polygon.add(polygonID, ((1,1), (1,10), (10,10)), (1,2,3,4), True, "test")
@@ -25,6 +25,6 @@ traci.polygon.subscribe(polygonID)
 print traci.polygon.getSubscriptionResults(polygonID)
 for step in range(3,6):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
     print traci.polygon.getSubscriptionResults(polygonID)
 traci.close()

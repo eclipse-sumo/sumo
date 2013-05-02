@@ -10,7 +10,7 @@ sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, 
 traci.init(8813)
 for step in range(3):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
 print "trafficlights", traci.trafficlights.getIDList()
 tlsID = "0"
 print "examining", tlsID

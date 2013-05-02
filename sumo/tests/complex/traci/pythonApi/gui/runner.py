@@ -10,7 +10,7 @@ sumoProcess = subprocess.Popen("%s -S -Q -c sumo.sumocfg" % (sumoBinary), shell=
 traci.init(8813)
 for step in range(3):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
 time.sleep(1) # give the gui a chance to draw itself
 print "views", traci.gui.getIDList()
 viewID = traci.gui.DEFAULT_VIEW
@@ -24,6 +24,6 @@ traci.gui.subscribe(viewID)
 print traci.gui.getSubscriptionResults(viewID)
 for step in range(3,6):
     print "step", step
-    traci.simulationStep(step)
+    traci.simulationStep(0)
     print traci.gui.getSubscriptionResults(viewID)
 traci.close()
