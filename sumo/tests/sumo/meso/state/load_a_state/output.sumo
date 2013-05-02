@@ -1,16 +1,13 @@
-Loading net-file from 'net.net.xml'...  done (4ms).
-Loading state from 'input_state.bin'... 
-    1 routes
-    0 route distributions
-done (13ms).
+Loading net-file from 'net.net.xml'...  done (2ms).
+Loading state from 'input_state.xml'... done (1ms).
 Loading done.
 Simulation started with time: 35.00
 Simulation ended at time: 58.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 14 ms
- Real time factor: 1642.86
- UPS: 1571.428571
+ Duration: 1 ms
+ Real time factor: 23000
+ UPS: 22000.000000
 Vehicles: 
  Emitted: 1
  Running: 0

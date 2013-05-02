@@ -1,14 +1,13 @@
-Written configuration to 'guisim.sumocfg'
-Loading net-file from 'net.net.xml'...  done (1ms).
+Loading net-file from 'net.net.xml'...  done (3ms).
 Loading additional-files from 'input_additional.add.xml'...  done (0ms).
 Loading done.
 Simulation started with time: 0.00
 Simulation ended at time: 3682.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 597 ms
- Real time factor: 6167.5
- UPS: 765115.577889
+ Duration: 99 ms
+ Real time factor: 37191.9
+ UPS: 4613878.787879
 Vehicles: 
  Emitted: 5395
  Running: 0
