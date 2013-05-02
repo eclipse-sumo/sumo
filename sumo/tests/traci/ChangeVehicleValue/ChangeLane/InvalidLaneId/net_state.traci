@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/08/11 12:34:08 by SUMO sumo Version dev-SVN-r10899
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 05/02/13 14:27:03 by SUMO sumo Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<sumo-netstate>
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netstate_file.xsd">
     <timestep time="0.00">
         <edge id="1fi">
             <lane id="1fi_0">
@@ -50,4 +50,4 @@
             <lane id="1fi_1"/>
         </edge>
     </timestep>
-</sumo-netstate>
+</netstate>
