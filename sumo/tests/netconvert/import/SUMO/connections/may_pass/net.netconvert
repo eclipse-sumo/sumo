@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 09:23:04 by SUMO netconvert Version dev-SVN-r13169
+<!-- generated on 02/28/13 21:33:39 by SUMO netconvert Version dev-SVN-r13422
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -30,9 +30,9 @@
         <lane id="on_0" index="0" speed="30.00" length="354.94" shape="1799.12,201.40 1498.56,12.59"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
-        <lane id="s1_0" index="0" speed="30.00" length="498.50" shape="2000.00,8.25 1501.50,8.25"/>
-        <lane id="s1_1" index="1" speed="30.00" length="498.50" shape="2000.00,4.95 1501.50,4.95"/>
-        <lane id="s1_2" index="2" speed="30.00" length="498.50" shape="2000.00,1.65 1501.50,1.65"/>
+        <lane id="s1_0" index="0" speed="30.00" length="501.30" shape="2000.00,8.25 1498.70,8.25"/>
+        <lane id="s1_1" index="1" speed="30.00" length="501.30" shape="2000.00,4.95 1498.70,4.95"/>
+        <lane id="s1_2" index="2" speed="30.00" length="501.30" shape="2000.00,1.65 1498.70,1.65"/>
     </edge>
     <edge id="s2" from="s2-AddedOnRampNode" to="3" priority="-1">
         <lane id="s2_0" index="0" speed="30.00" length="398.50" shape="1398.50,8.25 1000.00,8.25"/>
@@ -67,7 +67,7 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1497.71,13.95 1499.41,11.24 1501.50,9.85 1501.50,0.05 1494.94,0.05 1494.94,13.15">
+    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1497.71,13.95 1499.41,11.24 1498.70,9.85 1498.70,0.05 1494.94,0.05 1494.94,13.15">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
