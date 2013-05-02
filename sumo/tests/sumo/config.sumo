@@ -73,6 +73,7 @@ vehroutes:<!--{[->]}-->
 fcd:<!--{[->]}-->
 vehroutes_ignore_arrival:<!--{[->]}-->
 vehroutes_ignore_arrival:arrival="[^"]*"{REPLACE arrival="<ignored>"}
+state:<!--{[->]}-->
 tls_state:<!--{[->]}-->
 tls_switch:<!--{[->]}-->
 tls_state_switch:<!--{[->]}-->
