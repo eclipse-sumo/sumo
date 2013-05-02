@@ -128,6 +128,7 @@
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges."/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types."/>
+        <opendrive.import-widths value="false" type="BOOL" help="Whether lane widths shall be imported."/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <dismiss-vclasses value="false" type="BOOL" help="Removes vehicle class restrictions from imported edges."/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>

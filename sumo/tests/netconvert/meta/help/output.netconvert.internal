@@ -167,6 +167,7 @@ Processing Options:
   --osm.skip-duplicates-check         Skips the check for duplicate nodes and
                                         edges.
   --opendrive.import-all-lanes        Imports all lane types.
+  --opendrive.import-widths           Whether lane widths shall be imported.
   --no-internal-links                 Omits internal links
   --dismiss-vclasses                  Removes vehicle class restrictions from
                                         imported edges.
