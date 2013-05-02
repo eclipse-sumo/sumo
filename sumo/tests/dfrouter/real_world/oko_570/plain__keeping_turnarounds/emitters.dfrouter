@@ -1,19 +1,19 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 13 21:22:34 2011 by SUMO dfrouter Version dev-SVN-r9567
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 05/02/13 14:01:08 by SUMO dfrouter Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
         <detector-files value="input_detectors.det.xml"/>
-        <detector-flow-files value="input_flows.txt"/>
+        <measure-files value="input_flows.txt"/>
     </input>
 
     <output>
         <routes-output value="routes.rou.xml"/>
-        <detectors-output value="detectors_def.det.xml"/>
+        <detector-output value="detectors_def.det.xml"/>
         <emitters-output value="emitters.add.xml"/>
     </output>
 

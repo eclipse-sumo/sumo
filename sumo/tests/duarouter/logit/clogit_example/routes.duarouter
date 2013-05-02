@@ -1,14 +1,14 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/12/11 14:12:29 by SUMO duarouter Version dev-SVN-r9545
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 05/02/13 14:03:10 by SUMO duarouter Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <alternatives value="input_alts.rou.alt.xml"/>
-        <weights value="input_weights.dump.xml"/>
+        <alternative-files value="input_alts.rou.alt.xml"/>
+        <weight-files value="input_weights.dump.xml"/>
     </input>
 
     <output>
@@ -18,6 +18,10 @@
     <processing>
         <logit value="true"/>
     </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->

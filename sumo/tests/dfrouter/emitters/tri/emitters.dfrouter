@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Dec 19 21:37:17 2010 by SUMO dfrouter Version dev-SVN-r9480
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 05/02/13 14:00:45 by SUMO dfrouter Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
@@ -24,8 +24,8 @@
 
 <additional>
     <routeDistribution id="MQ_beg">
-        <route refId="beg_to_end" probability="1"/>
-        <route refId="beg_to_end_1" probability="1"/>
-        <route refId="beg_to_end_2" probability="1"/>
+        <route refId="beg_to_end" probability="1.00"/>
+        <route refId="beg_to_end_1" probability="1.00"/>
+        <route refId="beg_to_end_2" probability="1.00"/>
     </routeDistribution>
 </additional>

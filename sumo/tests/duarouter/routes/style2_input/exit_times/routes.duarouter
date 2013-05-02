@@ -1,17 +1,23 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/18/10 14:23:49 by SUMO duarouter Version dev-SVN-r8460
-<configuration>
+<!-- generated on 05/02/13 14:02:20 by SUMO duarouter Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <sumo-input value="input_routes.rou.xml"/>
+        <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
         <output-file value="routes.rou.xml"/>
         <exit-times value="true"/>
     </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->

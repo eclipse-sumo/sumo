@@ -1,14 +1,14 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Dec 19 22:45:48 2010 by SUMO dfrouter Version dev-SVN-r9480
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 05/02/13 14:00:49 by SUMO dfrouter Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
     <input>
         <net-file value="input_tri.net.xml"/>
         <detector-files value="input_tri.det.xml"/>
-        <detector-flow-files value="input_tri_flows.txt"/>
+        <measure-files value="input_tri_flows.txt"/>
     </input>
 
     <output>

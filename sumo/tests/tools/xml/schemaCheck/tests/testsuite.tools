@@ -19,5 +19,5 @@ tls
 # Testing jtrrouter files
 jtrrouter
 
-
-
+# Testing simulation outputs
+sim_outputs

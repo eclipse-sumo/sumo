@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/18/12 13:04:33 by SUMO duarouter Version dev-SVN-r11548
+<!-- generated on 05/02/13 14:02:16 by SUMO duarouter Version 0.17.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
@@ -15,28 +15,32 @@
         <vtype-output value="vtypes.rou.xml"/>
     </output>
 
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vehicle id="0" type="0" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="1" type="1" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="10" type="0" depart="10.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="11" type="1" depart="10.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 </routes>

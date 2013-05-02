@@ -1,11 +1,13 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/18/10 14:23:49 by SUMO duarouter Version dev-SVN-r8460
-<configuration>
+<!-- generated on 05/02/13 14:02:20 by SUMO duarouter Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <sumo-input value="input_routes.rou.xml"/>
+        <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
@@ -13,58 +15,62 @@
         <exit-times value="true"/>
     </output>
 
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vehicle id="0" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="1" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="3" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="4" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="5" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="6" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="7" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="8" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="9" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+            <route cost="125.11" probability="1.00000000" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
         </routeDistribution>
     </vehicle>
 </routes>
