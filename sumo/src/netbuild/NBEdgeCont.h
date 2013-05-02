@@ -393,7 +393,7 @@ public:
      * @todo Recheck usage
      * @see NBEdge::computeLaneShapes
      */
-    void recomputeLaneShapes();
+    void computeLaneShapes();
 
 
     /** @brief Clears information about controlling traffic lights for all connenections of all edges

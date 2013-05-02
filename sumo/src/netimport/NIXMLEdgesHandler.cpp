@@ -170,7 +170,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
             myShape = myCurrentEdge->getGeometry();
             myReinitKeepEdgeShape = true;
         }
-        myCurrentWidth = myCurrentEdge->getWidth();
+        myCurrentWidth = myCurrentEdge->getLaneWidth();
         myCurrentOffset = myCurrentEdge->getOffset();
         myLanesSpread = myCurrentEdge->getLaneSpreadFunction();
         if (myCurrentEdge->hasLoadedLength()) {
@@ -288,7 +288,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->setPreferredVehicleClass(parseVehicleClasses(preferred), lane);
     // try to get the width
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
-        myCurrentEdge->setWidth(lane, attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
+        myCurrentEdge->setLaneWidth(lane, attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
     }
     // try to get the end-offset (lane shortened due to pedestrian crossing etc..)
     if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {

@@ -1329,19 +1329,6 @@ NBNode::getShape() const {
 }
 
 
-SUMOReal
-NBNode::getMaxEdgeWidth() const {
-    EdgeVector::const_iterator i = myAllEdges.begin();
-    assert(i != myAllEdges.end());
-    SUMOReal ret = (*i)->width();
-    ++i;
-    for (; i != myAllEdges.end(); i++) {
-        ret = ret > (*i)->width() ? ret : (*i)->width();
-    }
-    return ret;
-}
-
-
 NBEdge*
 NBNode::getConnectionTo(NBNode* n) const {
     for (EdgeVector::const_iterator i = myOutgoingEdges.begin(); i != myOutgoingEdges.end(); i++) {

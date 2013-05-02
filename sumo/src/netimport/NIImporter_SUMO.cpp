@@ -204,7 +204,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             // allow/disallow XXX preferred
             nbe->setPermissions(parseVehicleClasses(lane->allow, lane->disallow), fromLaneIndex);
             // width, offset
-            nbe->setWidth(fromLaneIndex, lane->width);
+            nbe->setLaneWidth(fromLaneIndex, lane->width);
             nbe->setOffset(fromLaneIndex, lane->offset);
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
         }
@@ -580,16 +580,18 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
     // reverse logic of NBEdge::computeLaneShape
     // !!! this will only work for old-style constant width lanes
     const size_t noLanes = edge->lanes.size();
+    SUMOReal offset;
+    if(edge->lsf==LANESPREAD_RIGHT) {
+        offset = (SUMO_const_laneWidth+SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
+    } else {
+        offset = (SUMO_const_laneWidth) / 2. - (SUMO_const_laneWidth*(SUMOReal)noLanes-1) / 2.;///= -2.; // @todo: actually, when looking at the road networks, the center line is not in the center
+    }
     for (unsigned int i = 1; i < firstLane.size() - 1; i++) {
         Position from = firstLane[i - 1];
         Position me = firstLane[i];
         Position to = firstLane[i + 1];
-        std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(
-                from, me, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes - 1,
-                noLanes, edge->lsf, false);
-        std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(
-                    me, to, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes - 1,
-                    noLanes, edge->lsf, false);
+        std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(from, me, offset, false);
+        std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(me, to, offset, false);
 
         Line l1(
             Position(from.x() + offsets.first, from.y() + offsets.second),

@@ -392,7 +392,6 @@ public:
 
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
 
-    SUMOReal getMaxEdgeWidth() const;
 
     friend class NBNodeShapeComputer;
 

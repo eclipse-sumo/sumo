@@ -184,8 +184,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             edevice.writeAttr(SUMO_ATTR_LENGTH, e->getLoadedLength());
         }
         // some attributes can be set by edge default or per lane. Write as default if possible (efficiency)
-        if (e->getWidth() != NBEdge::UNSPECIFIED_WIDTH && !e->hasLaneSpecificWidth()) {
-            edevice.writeAttr(SUMO_ATTR_WIDTH, e->getWidth());
+        if (e->getLaneWidth() != NBEdge::UNSPECIFIED_WIDTH && !e->hasLaneSpecificWidth()) {
+            edevice.writeAttr(SUMO_ATTR_WIDTH, e->getLaneWidth());
         }
         if (e->getOffset() != NBEdge::UNSPECIFIED_OFFSET && !e->hasLaneSpecificOffset()) {
             edevice.writeAttr(SUMO_ATTR_OFFSET, e->getOffset());

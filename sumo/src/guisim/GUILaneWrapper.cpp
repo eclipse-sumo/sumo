@@ -474,6 +474,7 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings& s) const {
         setColor(s);
     // optionally draw inverse markings
     if (myIndex > 0) {
+		SUMOReal mw = myHalfLaneWidth + SUMO_const_laneOffset + .01;
         int e = (int) getShape().size() - 1;
         for (int i = 0; i < e; ++i) {
             glPushMatrix();
@@ -481,10 +482,10 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings& s) const {
             glRotated(myShapeRotations[i], 0, 0, 1);
             for (SUMOReal t = 0; t < myShapeLengths[i]; t += 6) {
                 glBegin(GL_QUADS);
-                glVertex2d(-1.8, -t);
-                glVertex2d(-1.8, -t - 3.);
-                glVertex2d(1.0, -t - 3.);
-                glVertex2d(1.0, -t);
+                glVertex2d(-mw, -t);
+                glVertex2d(-mw, -t - 3.);
+                glVertex2d(myQuarterLaneWidth, -t - 3.);
+                glVertex2d(myQuarterLaneWidth, -t);
                 glEnd();
             }
             glPopMatrix();

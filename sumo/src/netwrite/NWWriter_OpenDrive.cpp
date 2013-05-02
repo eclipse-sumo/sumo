@@ -94,7 +94,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         try {
             ls.move2side(-width / 2.);
         } catch (InvalidArgument&) {
-            // we do not write something, as this should have been reported, already
+            // we do not write anything, as this should have been reported, already
         }
         writePlanView(ls, device);
         device << "        <elevationProfile><elevation s=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/></elevationProfile>\n";
@@ -147,7 +147,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 try {
                     shape.move2side(-width / 2.);
                 } catch (InvalidArgument&) {
-                    // we do not write something, maybe we should
+                    // we do not write anything, maybe we should
                 }
                 device << "    <road name=\"" << c.id << "\" length=\"" << shape.length() << "\" id=\"" << getID(c.id, edgeMap, edgeID) << "\" junction=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
                 device << "        <link>\n";

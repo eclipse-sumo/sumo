@@ -207,8 +207,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     // check whether any not previously setable connections may be set now
     myEdgeCont.recheckPostProcessConnections();
 
-    // @todo Why?
-    myEdgeCont.recomputeLaneShapes();
+    myEdgeCont.computeLaneShapes();
 
     // APPLY SPEED MODIFICATIONS
     if (oc.exists("speed.offset")) {
