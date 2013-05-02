@@ -11,4 +11,5 @@ Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
-import phem
+import phem, omnet, ns2, shawn, gpsdat
+

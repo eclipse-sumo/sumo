@@ -22,6 +22,7 @@ class Lane:
         self._length = length
         self._shape = []
         self._outgoing = []
+        self._params = {}
         edge.addLane(self)
 
     def getSpeed(self):

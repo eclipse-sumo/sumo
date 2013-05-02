@@ -341,6 +341,9 @@ class NetReader(handler.ContentHandler):
             self._currentProgram.addPhase(attrs['state'], int(attrs['duration']))
         if name == 'roundabout':
             self._net.addRoundabout(attrs['nodes'].split())
+        if name == 'param':
+            if self._currentLane!=None:
+                self._currentLane._params[attrs['key']] = attrs['value']
 
     def characters(self, content):
         if self._currentLane!=None:

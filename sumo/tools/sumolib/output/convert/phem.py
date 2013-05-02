@@ -17,47 +17,10 @@ import math
 
 
 
-class _Running:
-  """
-  A generator of running, numerical IDs
-  Should be enhanced by:
-  - a member method for returning the size
-  - a member iterator over the stored ids
-  """
-  def __init__(self):
-    """Contructor"""
-    self._m = {}
-    
-  def g(self, id):
-    """
-    If the given id is known, the numerical representation is returned,
-    otherwise a new running number is assigned to the id and returned"""
-    if id not in self._m:
-      self._m[id] = len(self._m)   
-      return len(self._m)-1
-    return self._m[id]
 
 
 
 
-def _intTime(tStr):
-  """
-  Converts a time given as a string containing a float into an integer representation.
-  """
-  return int(float(tStr))
-
-
-def _getOutputStream(name):
-  if not name:
-    return None
-  return open(name, "w")
-
-def _closeOutputStream(strm):
-  if strm: strm.close()
-
-
-def _laneID2edgeID(laneID):
-  return laneID[:laneID.rfind("_")]
 
 def _convType(tID):
   if tID.lower().startswith("passenger") or tID.lower().startswith("PKW"):
@@ -70,7 +33,7 @@ def _convType(tID):
   return "unknown"
 
         
-def toDRI(fcd, outSTRM):
+def fcd2dri(inpFCD, outSTRM, ignored):
   """
   Reformats the contents of the given fcd-output file into a .dri file, readable
   by PHEM. The fcd-output "fcd" must be a valid file name of an fcd-output.
@@ -78,18 +41,17 @@ def toDRI(fcd, outSTRM):
   The following may be a matter of changes:
   - the engine torque is not given 
   """
-  inpFCD = sumolib.output.parse(fcd, "timestep")
   #print >> outSTRM, "v1\n<t>,<v>,<grad>,<n>\n[s],[km/h],[%],[1/min]\n"
   print >> outSTRM, "v1\n<t>,<v>,<grad>\n[s],[km/h],[%]"
   for q in inpFCD:
     if q.vehicle:
       for v in q.vehicle:
         percSlope = math.sin(float(v.slope))*100.
-        print >> outSTRM, "%s,%s,%s" % (_intTime(q.time), float(v.speed)*3.6, percSlope)
+        print >> outSTRM, "%s,%s,%s" % (sumolib._intTime(q.time), float(v.speed)*3.6, percSlope)
 
 
 
-def toSTR(inpNET, outSTRM):
+def net2str(net, outSTRM):
   """
   Writes the network object given as "inpNET" as a .str file readable by PHEM.
   Returns a map from the SUMO-road id to the generated numerical id used by PHEM.
@@ -101,8 +63,8 @@ def toSTR(inpNET, outSTRM):
   """
   if outSTRM!=None:
     print >> outSTRM, "Str-Id,Sp,SegAnX,SegEnX,SegAnY,SegEnY"
-  sIDm = _Running()
-  for e in inpNET._edges:
+  sIDm = sumolib._Running()
+  for e in net._edges:
     eid = sIDm.g(e._id)
     if outSTRM!=None:
       c1 = e._from._coord
@@ -112,7 +74,7 @@ def toSTR(inpNET, outSTRM):
 
 
 
-def toFZP(fcd, outSTRM, sIDm):
+def fcd2fzp(inpFCD, outSTRM, further):
   """
   Reformats the contents of the given fcd-output file into a .fzp file, readable
   by PHEM. The fcd-output "fcd" must be a valid file name of an fcd-output.
@@ -122,11 +84,11 @@ def toFZP(fcd, outSTRM, sIDm):
   Returns two maps, the first from vehicle ids to a numerical representation,
   the second from vehicle type ids to a numerical representation.
   """
-  inpFCD = sumolib.output.parse(fcd, "timestep")
+  sIDm = further["phemStreetMap"]
   if outSTRM!=None:
     print >> outSTRM, "t,WeltX,WeltY,Veh. No,v,Gradient,veh.Typ-Id,Str-Id"
-  vIDm = _Running()
-  vtIDm = _Running()
+  vIDm = sumolib._Running()
+  vtIDm = sumolib._Running()
   vtIDm.g("PKW")
   vtIDm.g("LKW")
   vtIDm.g("BUS")
@@ -136,17 +98,17 @@ def toFZP(fcd, outSTRM, sIDm):
         vid = vIDm.g(v.id)
         aType = _convType(v.type)
         vtid = vtIDm.g(aType)
-        sid = sIDm.g(_laneID2edgeID(v.lane))
+        sid = sIDm.g(sumolib._laneID2edgeID(v.lane))
         percSlope = math.sin(float(v.slope))*100.
         if outSTRM!=None:  
           print >> outSTRM, "%s,%s,%s,%s,%s,%s,%s,%s" % (
-                  _intTime(q.time), float(v.x), float(v.y), 
+                  sumolib._intTime(q.time), float(v.x), float(v.y), 
                   vid, float(v.speed)*3.6, percSlope, vtid, sid)
   return vIDm, vtIDm
   
   
   
-def toFLT(inpWHAT, outSTRM, vtIDm):
+def vehicleTypes2flt(outSTRM, vtIDm):
   """
   Currently, rather a stub than an implementation. Writes the vehicle ids stored
   in the given "vtIDm" map formatted as a .flt file readable by PHEM.

@@ -108,3 +108,45 @@ def checkBinary(name, bindir=None):
     if exeExists(binary):
         return binary
     return name
+
+class _Running:
+  """
+  A generator of running, numerical IDs
+  Should be enhanced by:
+  - a member method for returning the size
+  - a member iterator over the stored ids
+  """
+  def __init__(self):
+    """Contructor"""
+    self._m = {}
+    
+  def g(self, id):
+    """
+    If the given id is known, the numerical representation is returned,
+    otherwise a new running number is assigned to the id and returned"""
+    if id not in self._m:
+      self._m[id] = len(self._m)   
+      return len(self._m)-1
+    return self._m[id]
+
+  def k(self, id):
+    """
+    Returns whether the given id is known."""
+    return id in self._m
+
+  def d(self, id):
+    """
+    Removed the element."""
+    del self._m[id]
+
+
+
+def _intTime(tStr):
+  """
+  Converts a time given as a string containing a float into an integer representation.
+  """
+  return int(float(tStr))
+
+
+def _laneID2edgeID(laneID):
+  return laneID[:laneID.rfind("_")]
