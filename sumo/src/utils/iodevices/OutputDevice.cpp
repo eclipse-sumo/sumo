@@ -108,8 +108,8 @@ OutputDevice::createDeviceByOption(const std::string& optionName,
     }
     OutputDevice& dev = OutputDevice::getDevice(OptionsCont::getOptions().getString(optionName));
     if (rootElement != "") {
-        if (rootElement == "routes") {
-            dev.writeXMLHeader(rootElement, "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
+        if (rootElement == "routes" || rootElement == "netstate") {
+            dev.writeXMLHeader(rootElement, "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/" + rootElement + "_file.xsd\"");
         } else {
             dev.writeXMLHeader(rootElement);
         }
@@ -199,9 +199,9 @@ OutputDevice::setPrecision(unsigned int precision) {
 
 
 bool
-OutputDevice::writeXMLHeader(const std::string& rootElement, const std::string xmlParams,
+OutputDevice::writeXMLHeader(const std::string& rootElement,
                              const std::string& attrs, const std::string& comment) {
-    return myFormatter->writeXMLHeader(getOStream(), rootElement, xmlParams, attrs, comment);
+    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs, comment);
 }
 
 

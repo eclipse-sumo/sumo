@@ -314,7 +314,7 @@ MSFrame::fillOptions() {
 void
 MSFrame::buildStreams() {
     // standard outputs
-    OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
+    OutputDevice::createDeviceByOption("netstate-dump", "netstate");
     OutputDevice::createDeviceByOption("summary-output", "summary");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
 

@@ -468,7 +468,7 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
 
 void
 MSMeanData::writeXMLDetectorProlog(OutputDevice& dev) const {
-    dev.writeXMLHeader("netstats");
+    dev.writeXMLHeader("meandata", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/meandata_file.xsd\"");
 }
 
 

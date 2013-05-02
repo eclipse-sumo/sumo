@@ -57,10 +57,10 @@ PlainXMLFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElement
 
 
 bool
-PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement, const std::string xmlParams,
+PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
                                   const std::string& attrs, const std::string& comment) {
     if (myXMLStack.empty()) {
-        OptionsCont::getOptions().writeXMLHeader(into, xmlParams);
+        OptionsCont::getOptions().writeXMLHeader(into);
         if (comment != "") {
             into << comment << "\n";
         }

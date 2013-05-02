@@ -827,11 +827,11 @@ OptionsCont::writeSchema(std::ostream& os, bool /* addComments */) {
 
 
 void
-OptionsCont::writeXMLHeader(std::ostream& os, const std::string xmlParams) {
+OptionsCont::writeXMLHeader(std::ostream& os) {
     time_t rawtime;
     char buffer [80];
 
-    os << "<?xml version=\"1.0\"" << xmlParams << "?>\n\n";
+    os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
     time(&rawtime);
     strftime(buffer, 80, "<!-- generated on %c by ", localtime(&rawtime));
     os << buffer << myFullName << "\n";

@@ -150,7 +150,7 @@ PCPolyContainer::report() {
 void
 PCPolyContainer::save(const std::string& file) {
     OutputDevice& out = OutputDevice::getDevice(file);
-    out.writeXMLHeader("shapes", SUMOSAXAttributes::ENCODING);
+    out.writeXMLHeader("shapes");
     // write polygons
     for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); ++i) {
         Polygon* p = i->second;

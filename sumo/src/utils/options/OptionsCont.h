@@ -208,15 +208,15 @@ public:
     void writeSchema(std::ostream& os, bool addComments);
 
 
-    /** @brief Writes a standard XML header, optionally including the configuration
+    /** @brief Writes a standard XML header, including the configuration
      *
-     * The header consists of the xml-declaration, followed by a note which contains
-     *  the current date and time and optionally the application configuration (set values).
+     * The header consists of the xml-declaration with encoding as defined
+     *  by SUMOSAXAttributes::ENCODING, followed by a note which contains
+     *  the current date and time and the application configuration (set values).
      *
      * @param[in] os The stream to write the header into
-     * @param[in] xmlParams Additional parameters (such as encoding) to include in the <?xml> declaration
      */
-    void writeXMLHeader(std::ostream& os, const std::string xmlParams = "");
+    void writeXMLHeader(std::ostream& os);
     /// @}
 
 

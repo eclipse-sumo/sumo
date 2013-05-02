@@ -173,7 +173,6 @@ public:
      *  is written and false returned.
      *
      * @param[in] rootElement The root element to use
-     * @param[in] xmlParams Additional parameters (such as encoding) to include in the <?xml> declaration
      * @param[in] attrs Additional attributes to save within the rootElement
      * @param[in] comment Additional comment (saved in front the rootElement)
      * @return Whether the header could be written (stack was empty)
@@ -181,7 +180,6 @@ public:
      * @todo Describe what is saved
      */
     bool writeXMLHeader(const std::string& rootElement,
-                        const std::string xmlParams = "",
                         const std::string& attrs = "",
                         const std::string& comment = "");
 

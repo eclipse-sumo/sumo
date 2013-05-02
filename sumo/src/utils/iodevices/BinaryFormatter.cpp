@@ -65,7 +65,6 @@ BinaryFormatter::writeStringList(std::ostream& into, const std::vector<std::stri
 bool
 BinaryFormatter::writeXMLHeader(std::ostream& into,
                                 const std::string& rootElement,
-                                const std::string /* xmlParams */,
                                 const std::string& /* attrs */,
                                 const std::string& /* comment */) {
     if (myXMLStack.empty()) {
