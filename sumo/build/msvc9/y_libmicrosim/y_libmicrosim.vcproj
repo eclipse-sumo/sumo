@@ -779,6 +779,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_KraussPS.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.h"
 				>
 			</File>
@@ -939,10 +943,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_KraussPS.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
