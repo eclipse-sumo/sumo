@@ -271,9 +271,9 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
             distance += lanes[0]->getLength();
 #ifdef HAVE_INTERNAL_LANES
             // add length of internal lanes to the result
-            for (std::vector<MSLane*>::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
+            for (std::vector<MSLane*>::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); ++laneIt) {
                 const MSLinkCont& links = (*laneIt)->getLinkCont();
-                for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); linkIt++) {
+                for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); ++linkIt) {
                     if ((*linkIt) == 0 || (*linkIt)->getLane() == 0) {
                         continue;
                     }

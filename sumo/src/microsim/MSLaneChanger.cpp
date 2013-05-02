@@ -137,6 +137,11 @@ MSLaneChanger::change() {
         int bla = 0;
     }
 #endif
+#ifndef NO_TRACI
+	if (vehicle->hasInfluencer() && vehicle->getInfluencer().isVTDControlled()) {
+		return false; // !!! temporary; just because it broke, here
+    }
+#endif
     const std::vector<MSVehicle::LaneQ>& preb = vehicle->getBestLanes();
     assert(preb.size() == myChanger.size());
     for (int i = 0; i < (int) myChanger.size(); ++i) {

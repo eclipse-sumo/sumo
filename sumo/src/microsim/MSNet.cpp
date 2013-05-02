@@ -349,6 +349,10 @@ void
 MSNet::simulationStep() {
 #ifndef NO_TRACI
     traci::TraCIServer::processCommandsUntilSimStep(myStep);
+	traci::TraCIServer *t = traci::TraCIServer::getInstance();
+	if(t!=0&&t->getTargetTime()!=0&&t->getTargetTime()<myStep) {
+		return;
+	}
 #endif
     // execute beginOfTimestepEvents
     if (myLogExecutionTime) {
@@ -417,6 +421,11 @@ MSNet::simulationStep() {
     // execute endOfTimestepEvents
     myEndOfTimestepEvents->execute(myStep);
 
+#ifndef NO_TRACI
+    if(traci::TraCIServer::getInstance()!=0) {
+        traci::TraCIServer::getInstance()->postProcessVTD();
+    }
+#endif
     // update and write (if needed) detector values
     writeOutput();
 

@@ -79,6 +79,13 @@ public:
     typedef bool(*CmdExecutor)(traci::TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
 
 
+	SUMOTime getTargetTime() {
+		return myTargetTime;
+	}
+	static TraCIServer *getInstance() {
+		return myInstance;
+	}
+
     /// @name Initialisation and Shutdown
     /// @{
 
@@ -104,6 +111,11 @@ public:
     /// @brief process all commands until a simulation step is wanted
     static void processCommandsUntilSimStep(SUMOTime step);
 
+    void setVTDControlled(MSVehicle *v, MSLane *l, SUMOReal pos, int edgeOffset, MSEdgeVector route);
+
+    void postProcessVTD();
+
+	bool vtdDebug() const;
 
 
 
@@ -329,6 +341,8 @@ private:
 
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
     std::map<int, CmdExecutor> myExecutors;
+
+	std::map<std::string, MSVehicle*> myVTDControlledVehicles;
 
 
     /** @class Subscription

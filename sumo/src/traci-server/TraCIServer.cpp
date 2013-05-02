@@ -203,6 +203,31 @@ TraCIServer::wasClosed() {
 }
 
 
+void 
+TraCIServer::setVTDControlled(MSVehicle *v, MSLane *l, SUMOReal pos, int edgeOffset, MSEdgeVector route) {
+	myVTDControlledVehicles[v->getID()] = v;
+    v->getInfluencer().setVTDControlled(true, l, pos, edgeOffset, route);
+}
+
+void 
+TraCIServer::postProcessVTD() {
+	for(std::map<std::string, MSVehicle*>::const_iterator i=myVTDControlledVehicles.begin(); i!=myVTDControlledVehicles.end(); ++i) {
+		if(MSNet::getInstance()->getVehicleControl().getVehicle((*i).first)!=0) {
+			(*i).second->getInfluencer().postProcessVTD((*i).second);
+		} else {
+			WRITE_WARNING("Vehicle '" + (*i).first + "' was removed though being controlled by VTD");
+		}
+	}
+	myVTDControlledVehicles.clear();
+}
+
+
+bool 
+TraCIServer::vtdDebug() const {
+	return true;
+}
+
+
 // ---------- Initialisation and Shutdown
 
 

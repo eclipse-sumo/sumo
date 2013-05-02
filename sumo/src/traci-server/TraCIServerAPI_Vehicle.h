@@ -83,6 +83,17 @@ private:
     static MSVehicleType& getSingularType(SUMOVehicle* const veh);
 
 
+	static const std::map<std::string, std::vector<MSLane*> > &getOrBuildVTDMap();
+	static bool vtdMap_matchingEdgeLane(const Position &pos, const std::string &origID, MSVehicle &v, bool report, 
+		SUMOReal &bestDistance, MSLane **lane, SUMOReal &lanePos, int &routeOffset, MSEdgeVector &edges);
+	static bool vtdMap_matchingRoutePosition(const Position &pos, const std::string &origID, MSVehicle &v, bool report, 
+		SUMOReal &bestDistance, MSLane **lane, SUMOReal &lanePos, int &routeOffset, MSEdgeVector &edges);
+	static bool vtdMap_matchingNearest(const Position &pos, const std::string &origID, MSVehicle &v, traci::TraCIServer& server, bool report, 
+		SUMOReal &bestDistance, MSLane **lane, SUMOReal &lanePos, int &routeOffset, MSEdgeVector &edges);
+
+	static std::map<std::string, std::vector<MSLane*> > gVTDMap;
+
+
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Vehicle(const TraCIServerAPI_Vehicle& s);
