@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xsd:element name="netstate">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="unbounded" ref="timestep"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="timestep">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="edge"/>
+            </xsd:sequence>
+            <xsd:attribute name="time" use="required" type="xsd:decimal"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="edge">
+        <xsd:complexType>
+            <xsd:choice>
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" ref="lane"/>
+                </xsd:sequence>
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" ref="vehicle"/>
+                </xsd:sequence>
+            </xsd:choice>
+            <xsd:attribute name="id" use="required" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="lane">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="vehicle"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" use="required" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="vehicle">
+        <xsd:complexType>
+            <xsd:attribute name="id" use="required" type="xsd:string"/>
+            <xsd:attribute name="pos" use="required" type="xsd:decimal"/>
+            <xsd:attribute name="speed" use="required" type="xsd:decimal"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
