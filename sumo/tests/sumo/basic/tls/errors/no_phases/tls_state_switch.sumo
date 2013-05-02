@@ -1,23 +1,25 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/07/09 13:56:45 by SUMO sumo Version dev-SVN-r7675
-<configuration>
+<!-- generated on 05/02/13 14:10:22 by SUMO sumo Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <input
-        net-file="net.net.xml"
-        route-files="input_routes.rou.xml"
-        additional-files="input_additional.add.xml"
-    />
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
-    <time
-        begin="0"
-        end="200"
-    />
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
 
-    <report
-        no-duration-log="true"
-        no-step-log="true"
-    />
+    <time>
+        <begin value="0"/>
+        <end value="200"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->

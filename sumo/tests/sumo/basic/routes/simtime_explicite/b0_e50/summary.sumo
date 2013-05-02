@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/17/11 15:41:07 by SUMO sumo Version dev-SVN-r9763
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 05/02/13 14:10:02 by SUMO sumo Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -11,7 +11,7 @@
     </input>
 
     <output>
-        <summary value="emissions.xml"/>
+        <summary-output value="summary.xml"/>
     </output>
 
     <time>

@@ -1,9 +1,9 @@
-<?xml version="1.0"?>
-
-<!-- generated on 22.03.2013 10:44:58 by SUMO gui Version dev-SVN-r13521
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumo-gui.exeConfiguration.xsd">
+<!-- generated on 05/02/13 15:09:53 by SUMO sumo Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -12,7 +12,6 @@
 
     <output>
         <tripinfo-output value="tripinfos.xml"/>
-        <save-state.prefix value="state"/>
     </output>
 
     <time>
@@ -21,8 +20,6 @@
     </time>
 
     <report>
-        <message-log value="guisim.stdout"/>
-        <error-log value="guisim.stderr"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -30,11 +27,6 @@
     <mesoscopic>
         <mesosim value="true"/>
     </mesoscopic>
-
-    <gui_only>
-        <quit-on-end value="true"/>
-        <start value="true"/>
-    </gui_only>
 
 </configuration>
 -->
