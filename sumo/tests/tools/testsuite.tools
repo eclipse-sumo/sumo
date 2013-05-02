@@ -4,9 +4,6 @@ net
 # Tests for route scripts
 route
 
-# Tests for traceExporter
-traceExporter
-
 # Tests for the assignment tools
 assign
 

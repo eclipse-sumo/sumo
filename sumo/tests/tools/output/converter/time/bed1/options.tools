@@ -1,0 +1,3 @@
+-d 1 -i fcd.xml --dri-output test.dri
+
+

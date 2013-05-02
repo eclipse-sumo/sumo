@@ -73,10 +73,13 @@ diff_edg:diff.edg.xml
 diff_con:diff.con.xml
 diff_tll:diff.tll.xml
 diff_xml:diff.xml
+omnet:omnet.xml
+shawn:shawn.xml
 dri:test.dri
 fzp:test.fzp
 flt:test.flt
 str:test.str
+gpsdat:gpsdat.txt
 
 [run_dependent_text]
 output:Begin time
@@ -91,6 +94,8 @@ errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 errors:Traceback{->}XMLSyntaxError
+omnet:<!-- generated on
+shawn:<!-- generated on
 
 [unordered_text]
 errors:ERROR:SCHEMA
