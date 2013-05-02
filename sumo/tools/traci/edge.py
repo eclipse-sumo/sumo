@@ -204,6 +204,15 @@ def subscribeContext(edgeID, domain, dist, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,)
     traci._subscribeContext(tc.CMD_SUBSCRIBE_EDGE_CONTEXT, begin, end, edgeID, domain, dist, varIDs)
 
 def getContextSubscriptionResults(edgeID=None):
+    """getContextSubscriptionResults(string) -> dict(string: dict(integer: <value_type>))
+    
+    Returns the context subscription results for the last time step and the given edge.
+    If no edge id is given, all subscription results are returned in a dict.
+    If the edge id is unknown or the subscription did for any reason return no data,
+    'None' is returned.
+    It is not possible to retrieve older subscription results than the ones
+    from the last time step.
+    """
     return subscriptionResults.getContext(edgeID)
 
 
@@ -221,7 +230,9 @@ def setEffort(edgeID, effort):
     
     Adapt the effort value used for (re-)routing for the given edge.
     """
-    traci._sendDoubleCmd(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, effort)
+    traci._beginMessage(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1+4+1+8)
+    traci._message.string += struct.pack("!BiBd", tc.TYPE_COMPOUND, 1, tc.TYPE_DOUBLE, effort)
+    traci._sendExact()
 
 def setMaxSpeed(edgeID, speed):
     """setMaxSpeed(string, double) -> None

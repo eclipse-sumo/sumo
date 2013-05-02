@@ -20,6 +20,10 @@ traveltime 79.7638272613
 numVeh 1
 haltVeh 0
 vehIds ['horiz']
+traveltime after adaption 79.7638272613
+adaptedTraveltime after adaption 42.0
+effort after adaption 1234.0
+max speed after adaption 23.0
 {16: 1}
 step 3
 {16: 1}

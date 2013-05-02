@@ -80,63 +80,63 @@ def getIDList():
 def getLength(laneID):
     """getLength(string) -> double
     
-    .
+    Returns the length in m.
     """
     return _getUniversal(tc.VAR_LENGTH, laneID)
 
 def getMaxSpeed(laneID):
     """getMaxSpeed(string) -> double
     
-    .
+    Returns the maximum allowed speed on the lane in m/s.
     """
     return _getUniversal(tc.VAR_MAXSPEED, laneID)
 
 def getWidth(laneID):
     """getWidth(string) -> double
     
-    .
+    Returns the width of the lane in m.
     """
     return _getUniversal(tc.VAR_WIDTH, laneID)
 
 def getAllowed(laneID):
     """getAllowed(string) -> list(string)
     
-    .
+    Returns a list of allowed vehicle classes. An empty list means all vehicles are allowed.
     """
     return _getUniversal(tc.LANE_ALLOWED, laneID)
 
 def getDisallowed(laneID):
     """getDisallowed(string) -> list(string)
     
-    .
+    Returns a list of disallowed vehicle classes.
     """
     return _getUniversal(tc.LANE_DISALLOWED, laneID)
 
 def getLinkNumber(laneID):
     """getLinkNumber(string) -> integer
     
-    .
+    Returns the number of connections to successive lanes.
     """
     return _getUniversal(tc.LANE_LINK_NUMBER, laneID)
 
 def getLinks(laneID):
-    """getLinks(string) -> 
+    """getLinks(string) -> list((string, bool, bool, bool))
     
-    .
+    A list containing ids of successor lanes together with priority, open and foe.
     """
     return _getUniversal(tc.LANE_LINKS, laneID)
 
 def getShape(laneID):
     """getShape(string) -> list((double, double))
     
-    .
+    List of 2D positions (cartesian) describing the geometry.
     """
     return _getUniversal(tc.VAR_SHAPE, laneID)
 
 def getEdgeID(laneID):
     """getEdgeID(string) -> string
     
-    .
+    Returns the id of the edge the lane belongs to.
     """
     return _getUniversal(tc.LANE_EDGE_ID, laneID)
 
