@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 19 09:00:50 2013 by SUMO sumo Version dev-SVN-r13657
+<!-- generated on 05/02/13 14:17:18 by SUMO sumo Version 0.17.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -19,6 +19,6 @@
 </configuration>
 -->
 
-<detector>
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/det_e1_file.xsd">
    <interval begin="0.00" end="45.00" id="test" nVehContrib="1" flow="80.00" occupancy="1.11" speed="10.04" length="5.00" nVehEntered="1"/>
 </detector>
