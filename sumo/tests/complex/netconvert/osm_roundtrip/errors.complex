@@ -1,9 +1,9 @@
-Warning: Not joining junctions 38919652,38919808,283018817,38919712 because the cluster is to complex
-Warning: Not joining junctions 283018932,283018844 because the cluster is to complex
-Warning: Not joining junctions 283720461,287944368 because the cluster is to complex
-Warning: Not joining junctions 283721344,287944369 because the cluster is to complex
-Warning: Not joining junctions 294168098,294169338,294169339,294831560 because the cluster is to complex
-Warning: Not joining junctions 32266935,32266938 because the cluster is to complex
+Warning: Not joining junctions 38919652,38919808,283018817,38919712 because the cluster is too complex
+Warning: Not joining junctions 283018932,283018844 because the cluster is too complex
+Warning: Not joining junctions 283720461,287944368 because the cluster is too complex
+Warning: Not joining junctions 283721344,287944369 because the cluster is too complex
+Warning: Not joining junctions 294168098,294169338,294169339,294831560 because the cluster is too complex
+Warning: Not joining junctions 32266935,32266938 because the cluster is too complex
 Warning: The traffic light 'joinedG_0' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'joinedG_0'
 Warning: The traffic light 'joinedG_1' does not control any links; it will not be build.
@@ -15,41 +15,3 @@ Warning: Could not build program '0' for traffic light 'joinedG_3'
 Warning: The traffic light 'joinedG_4' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'joinedG_4'
 Warning: The traffic light 'joinedS_1' has a high cycle time of 160.00.
-Leaked object at 0x1e66520 (size 16, 0x337beb0499)
-Leaked object at 0x1e66df0 (size 60, 0x337ca9c3c9)
-Leaked object at 0x1e66eb0 (size 62, 0x337ca9c3c9)
-Leaked object at 0x1e66f70 (size 55, 0x337ca9c3c9)
-Leaked object at 0x1e67020 (size 59, 0x337ca9c3c9)
-Leaked object at 0x1e670e0 (size 78, 0x337ca9c3c9)
-Leaked object at 0x1e671b0 (size 61, 0x337ca9c3c9)
-Leaked object at 0x1e67270 (size 26, 0x337ca9c3c9)
-Leaked object at 0x1e67310 (size 782, 0x337ca9c3c9)
-*** 9 leaks found
-delete: freed 0x1e67310 (size 782, 417 bytes still allocated)
-delete: freed 0x1e67270 (size 26, 391 bytes still allocated)
-delete: freed 0x1e671b0 (size 61, 330 bytes still allocated)
-delete: freed 0x1e670e0 (size 78, 252 bytes still allocated)
-delete: freed 0x1e67020 (size 59, 193 bytes still allocated)
-delete: freed 0x1e66f70 (size 55, 138 bytes still allocated)
-delete: freed 0x1e66eb0 (size 62, 76 bytes still allocated)
-delete: freed 0x1e66df0 (size 60, 16 bytes still allocated)
-delete: freed 0x1e66520 (size 16, 0 bytes still allocated)
-Leaked object at 0x19e8520 (size 16, 0x337beb0499)
-Leaked object at 0x19e8df0 (size 60, 0x337ca9c3c9)
-Leaked object at 0x19e8eb0 (size 62, 0x337ca9c3c9)
-Leaked object at 0x19e8f70 (size 55, 0x337ca9c3c9)
-Leaked object at 0x19e9020 (size 59, 0x337ca9c3c9)
-Leaked object at 0x19e90e0 (size 78, 0x337ca9c3c9)
-Leaked object at 0x19e91b0 (size 61, 0x337ca9c3c9)
-Leaked object at 0x19e9270 (size 26, 0x337ca9c3c9)
-Leaked object at 0x19e9310 (size 782, 0x337ca9c3c9)
-*** 9 leaks found
-delete: freed 0x19e9310 (size 782, 417 bytes still allocated)
-delete: freed 0x19e9270 (size 26, 391 bytes still allocated)
-delete: freed 0x19e91b0 (size 61, 330 bytes still allocated)
-delete: freed 0x19e90e0 (size 78, 252 bytes still allocated)
-delete: freed 0x19e9020 (size 59, 193 bytes still allocated)
-delete: freed 0x19e8f70 (size 55, 138 bytes still allocated)
-delete: freed 0x19e8eb0 (size 62, 76 bytes still allocated)
-delete: freed 0x19e8df0 (size 60, 16 bytes still allocated)
-delete: freed 0x19e8520 (size 16, 0 bytes still allocated)

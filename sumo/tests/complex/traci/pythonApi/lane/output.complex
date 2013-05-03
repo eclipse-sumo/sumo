@@ -27,6 +27,10 @@ traveltime 79.7638272613
 numVeh 1
 haltVeh 0
 vehIds ['horiz']
+after setAllowed ['taxi'] ['private', 'public_transport', 'public_emergency', 'public_authority', 'public_army', 'vip', 'ignoring', 'passenger', 'hov', 'bus', 'delivery', 'transport', 'lightrail', 'cityrail', 'rail_slow', 'rail_fast', 'motorcycle', 'bicycle', 'pedestrian']
+after setDisallowed ['private', 'public_transport', 'public_emergency', 'public_authority', 'public_army', 'vip', 'ignoring', 'passenger', 'hov', 'taxi', 'delivery', 'transport', 'lightrail', 'cityrail', 'rail_slow', 'rail_fast', 'motorcycle', 'bicycle', 'pedestrian'] ['bus']
+after setMaxSpeed 42.0
+after setLength 123.0
 {16: 1}
 step 3
 {16: 1}

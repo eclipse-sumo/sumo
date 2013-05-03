@@ -37,6 +37,16 @@ print "traveltime", traci.lane.getTraveltime(laneID)
 print "numVeh", traci.lane.getLastStepVehicleNumber(laneID)
 print "haltVeh", traci.lane.getLastStepHaltingNumber(laneID)
 print "vehIds", traci.lane.getLastStepVehicleIDs(laneID)
+
+traci.lane.setAllowed(laneID, ["taxi"])
+print "after setAllowed", traci.lane.getAllowed(laneID), traci.lane.getDisallowed(laneID)
+traci.lane.setDisallowed(laneID, ["bus"])
+print "after setDisallowed", traci.lane.getAllowed(laneID), traci.lane.getDisallowed(laneID)
+traci.lane.setMaxSpeed(laneID, 42.)
+print "after setMaxSpeed", traci.lane.getMaxSpeed(laneID)
+traci.lane.setLength(laneID, 123.)
+print "after setLength", traci.lane.getLength(laneID)
+
 traci.lane.subscribe(laneID)
 print traci.lane.getSubscriptionResults(laneID)
 for step in range(3,6):

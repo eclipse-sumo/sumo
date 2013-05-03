@@ -78,7 +78,7 @@ def init(manager, forTest=False):
     sumoConfig = "%s%02i.sumocfg" % (PREFIX, options.demand)
     if options.cyber:
         sumoConfig = "%s%02i_cyber.sumocfg" % (PREFIX, options.demand)
-    sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
+    sumoProcess = subprocess.Popen([sumoExe, sumoConfig], stdout=sys.stdout, stderr=sys.stderr)
     traci.init(PORT)
     traci.simulation.subscribe()
     setting.manager = manager
@@ -91,6 +91,7 @@ def init(manager, forTest=False):
         statistics.evaluate(forTest)
     finally:
         traci.close()
+        sumoProcess.wait()
 
 def getCapacity():
     if setting.cyber:
@@ -176,7 +177,7 @@ def doStep():
     setting.step += 1
     if setting.verbose:
         print "step", setting.step
-    traci.simulationStep(setting.step)
+    traci.simulationStep()
     moveNodes = []
     for veh, subs in traci.vehicle.getSubscriptionResults().iteritems():
         moveNodes.append((veh, subs[tc.VAR_ROAD_ID], subs[tc.VAR_LANEPOSITION]))

@@ -35,7 +35,7 @@ OCCUPATION_PROBABILITY = 0.5
 BREAK_DELAY = 1200
 
 PORT = 8813
-SUMO_HOME = os.path.realpath(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..")))
+SUMO_HOME = os.path.realpath(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")))
 sys.path.append(os.path.join(SUMO_HOME, "tools"))
 try:
     from sumolib import checkBinary
