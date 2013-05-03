@@ -47,6 +47,9 @@
     <ClCompile Include="..\..\..\src\utils\shapes\Shape.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\geom\Position.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\geom\AbstractPoly.h">

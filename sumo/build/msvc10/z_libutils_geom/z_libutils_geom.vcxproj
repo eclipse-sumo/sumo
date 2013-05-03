@@ -171,6 +171,7 @@
     <ClCompile Include="..\..\..\src\utils\geom\GeomHelper.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\Helper_ConvexHull.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\Line.cpp" />
+    <ClCompile Include="..\..\..\src\utils\geom\Position.cpp" />
     <ClCompile Include="..\..\..\src\utils\shapes\Polygon.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\PositionVector.cpp" />
     <ClCompile Include="..\..\..\src\utils\shapes\Shape.cpp" />
