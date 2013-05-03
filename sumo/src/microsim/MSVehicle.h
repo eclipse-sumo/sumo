@@ -327,7 +327,7 @@ public:
 
     /** @brief Return current position (x/y, cartesian)
      *
-     * If the vehicle's myLane is 0, -1000/-1000 is returned.
+     * If the vehicle's myLane is 0, Position::INVALID.
      * @todo Recheck myLane usage in this context, think about a proper "invalid" return value
      * @return The current position (in cartesian coordinates)
      * @see myLane

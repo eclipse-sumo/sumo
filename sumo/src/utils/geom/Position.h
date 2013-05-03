@@ -238,6 +238,7 @@ public:
         return myX * pos.myX + myY * pos.myY + myZ * pos.myZ;
     }
 
+    static const Position INVALID;
 
 private:
     /// The x-position

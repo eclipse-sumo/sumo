@@ -476,7 +476,7 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) {
 Position
 MSVehicle::getPosition() const {
     if (myLane == 0) {
-        return Position(-1000, -1000);
+        return Position::INVALID;
     }
     return myLane->getShape().positionAtLengthPosition(myState.pos());
 }
