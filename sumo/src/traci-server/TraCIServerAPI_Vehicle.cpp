@@ -1025,7 +1025,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingEdgeLane(const Position &pos, const std::
 	const MSEdgeVector &tedges = v.getRoute().getEdges();
 	MSEdgeVector::const_iterator p = std::find(tedges.begin() + v.getRoutePosition(), tedges.end(), &pni->getEdge());
 	if(p!=tedges.end()) {
-		lanePos = MAX2(SUMOReal(0), MIN2((*lane)->getLength()-POSITION_EPS, (*lane)->getShape().nearest_position_on_line_to_point2D(pos, false)));
+		lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal((*lane)->getLength()-POSITION_EPS), (*lane)->getShape().nearest_position_on_line_to_point2D(pos, false)));
 		routeOffset = std::distance(tedges.begin(), p) - v.getRoutePosition();
 		if(report) std::cout << "  a ok lane:" << (*lane)->getID() << " lanePos:" << lanePos << " routeOffset:" << routeOffset << std::endl;
 		return true;
@@ -1069,7 +1069,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position &pos, const 
 		if(report) std::cout << "  b failed - no best route lane" << std::endl;
 		return false;
 	}
-	lanePos = MAX2(SUMOReal(0), MIN2(bestRouteLane->getLength()-POSITION_EPS, bestRouteLane->getShape().nearest_position_on_line_to_point2D(pos, false)));
+	lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal(bestRouteLane->getLength()-POSITION_EPS), bestRouteLane->getShape().nearest_position_on_line_to_point2D(pos, false)));
 	routeOffset = lastBestRouteEdge;
 	if(report) std::cout << "  b ok lane " << bestRouteLane->getID() << " lanePos:" << lanePos << " best:" << lastBestRouteEdge << std::endl;
 	return true;
