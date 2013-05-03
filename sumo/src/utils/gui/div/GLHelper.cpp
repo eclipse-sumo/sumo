@@ -57,7 +57,7 @@ GLHelper::drawFilledPoly(const PositionVector& v, bool close) {
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBegin(GL_POLYGON);
-    for (PositionVector::ContType ::const_iterator i = v.begin(); i != v.end(); i++) {
+    for (PositionVector::const_iterator i = v.begin(); i != v.end(); i++) {
         const Position& p = *i;
         glVertex2d(p.x(), p.y());
     }

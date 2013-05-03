@@ -52,7 +52,7 @@ NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
         const PositionVector& geom)
     : myID(id), myNode(-1) {
     // convert/publicate geometry
-    for (PositionVector::ContType::const_iterator i = geom.begin(); i != geom.end(); ++i) {
+    for (PositionVector::const_iterator i = geom.begin(); i != geom.end(); ++i) {
         Position p = *i;
         if (!NILoader::transformCoordinates(p)) {
             WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
