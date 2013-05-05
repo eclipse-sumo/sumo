@@ -83,23 +83,21 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">$(ProjectName)64F</TargetName>
   </PropertyGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\marouter\Assignments.cpp" />
+    <ClCompile Include="..\..\..\src\marouter\ROMAAssignments.cpp" />
     <ClCompile Include="..\..\..\src\marouter\marouter_main.cpp" />
     <ClCompile Include="..\..\..\src\marouter\ROMAEdge.cpp" />
     <ClCompile Include="..\..\..\src\marouter\ROMAEdgeBuilder.cpp" />
     <ClCompile Include="..\..\..\src\marouter\ROMAFrame.cpp" />
-    <ClCompile Include="..\..\..\src\marouter\RouteChoices.cpp" />
     <ClCompile Include="..\..\..\src\od2trips\ODDistrict.cpp" />
     <ClCompile Include="..\..\..\src\od2trips\ODDistrictCont.cpp" />
     <ClCompile Include="..\..\..\src\od2trips\ODDistrictHandler.cpp" />
     <ClCompile Include="..\..\..\src\od2trips\ODMatrix.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\marouter\Assignments.h" />
+    <ClInclude Include="..\..\..\src\marouter\ROMAAssignments.h" />
     <ClInclude Include="..\..\..\src\marouter\ROMAEdge.h" />
     <ClInclude Include="..\..\..\src\marouter\ROMAEdgeBuilder.h" />
     <ClInclude Include="..\..\..\src\marouter\ROMAFrame.h" />
-    <ClInclude Include="..\..\..\src\marouter\RouteChoices.h" />
     <ClInclude Include="..\..\..\src\od2trips\ODCell.h" />
     <ClInclude Include="..\..\..\src\od2trips\ODDistrict.h" />
     <ClInclude Include="..\..\..\src\od2trips\ODDistrictCont.h" />

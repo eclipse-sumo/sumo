@@ -35,10 +35,7 @@
     <ClCompile Include="..\..\..\src\od2trips\ODMatrix.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\marouter\Assignments.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\marouter\RouteChoices.cpp">
+    <ClCompile Include="..\..\..\src\marouter\ROMAAssignments.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -67,10 +64,7 @@
     <ClInclude Include="..\..\..\src\od2trips\ODMatrix.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\marouter\Assignments.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\marouter\RouteChoices.h">
+    <ClInclude Include="..\..\..\src\marouter\ROMAAssignments.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
