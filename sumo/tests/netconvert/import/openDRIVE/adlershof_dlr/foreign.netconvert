@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Tue Apr 30 22:02:19 2013" north="767.39" south="0.00" east="1737.68" west="0.00" maxRoad="213" maxJunc="87" maxPrg="0"/>
-    <road name="Teltowkanalbrücke" length="53.81" id="0" junction="-1">
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Fri May 03 13:45:53 2013" north="767.39" south="0.00" east="1737.68" west="0.00" maxRoad="213" maxJunc="87" maxPrg="0"/>
+    <road name="TeltowkanalbrÃ¼cke" length="53.81" id="0" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="0"/>
             <successor elementType="junction" elementId="1"/>
@@ -123,7 +123,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="0.90" id="3" junction="-1">
+    <road name="WegedornstraÃŸe" length="0.90" id="3" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="3"/>
@@ -1468,7 +1468,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Justus-von-Liebig-Straße" length="519.50" id="41" junction="-1">
+    <road name="Justus-von-Liebig-StraÃŸe" length="519.50" id="41" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="41"/>
             <successor elementType="junction" elementId="42"/>
@@ -1504,7 +1504,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="138.00" id="42" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="138.00" id="42" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="29"/>
             <successor elementType="junction" elementId="43"/>
@@ -1541,7 +1541,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="50.39" id="43" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="50.39" id="43" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="44"/>
             <successor elementType="junction" elementId="29"/>
@@ -1576,7 +1576,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="164.25" id="44" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="164.25" id="44" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="45"/>
             <successor elementType="junction" elementId="44"/>
@@ -1611,7 +1611,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="32.33" id="45" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="32.33" id="45" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="34"/>
             <successor elementType="junction" elementId="45"/>
@@ -1646,7 +1646,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="40.56" id="46" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="40.56" id="46" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="46"/>
             <successor elementType="junction" elementId="34"/>
@@ -1681,7 +1681,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="48.39" id="47" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="48.39" id="47" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="47"/>
             <successor elementType="junction" elementId="46"/>
@@ -1716,7 +1716,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="14.66" id="48" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="14.66" id="48" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="25"/>
             <successor elementType="junction" elementId="47"/>
@@ -1751,7 +1751,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="29.03" id="49" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="29.03" id="49" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="17"/>
             <successor elementType="junction" elementId="25"/>
@@ -1786,7 +1786,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="284.81" id="50" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="284.81" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="48"/>
             <successor elementType="junction" elementId="17"/>
@@ -1823,7 +1823,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Magnusstraße" length="67.07" id="51" junction="-1">
+    <road name="MagnusstraÃŸe" length="67.07" id="51" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="49"/>
             <successor elementType="junction" elementId="50"/>
@@ -1858,7 +1858,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Magnusstraße" length="89.24" id="52" junction="-1">
+    <road name="MagnusstraÃŸe" length="89.24" id="52" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="45"/>
             <successor elementType="junction" elementId="49"/>
@@ -1893,7 +1893,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Magnusstraße" length="136.08" id="53" junction="-1">
+    <road name="MagnusstraÃŸe" length="136.08" id="53" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="51"/>
             <successor elementType="junction" elementId="45"/>
@@ -1928,7 +1928,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Magnusstraße" length="99.11" id="54" junction="-1">
+    <road name="MagnusstraÃŸe" length="99.11" id="54" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="42"/>
             <successor elementType="junction" elementId="51"/>
@@ -1963,7 +1963,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Magnusstraße" length="90.03" id="55" junction="-1">
+    <road name="MagnusstraÃŸe" length="90.03" id="55" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="52"/>
             <successor elementType="junction" elementId="42"/>
@@ -1999,7 +1999,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gustav-Kirchhoff-Straße" length="134.56" id="56" junction="-1">
+    <road name="Gustav-Kirchhoff-StraÃŸe" length="134.56" id="56" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="53"/>
             <successor elementType="junction" elementId="46"/>
@@ -2034,7 +2034,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Max-Planck-Straße" length="82.02" id="57" junction="-1">
+    <road name="Max-Planck-StraÃŸe" length="82.02" id="57" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="53"/>
             <successor elementType="junction" elementId="51"/>
@@ -2069,7 +2069,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Max-Planck-Straße" length="181.76" id="58" junction="-1">
+    <road name="Max-Planck-StraÃŸe" length="181.76" id="58" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="54"/>
             <successor elementType="junction" elementId="53"/>
@@ -2104,7 +2104,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Kekuléstraße" length="49.66" id="59" junction="-1">
+    <road name="KekulÃ©straÃŸe" length="49.66" id="59" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="37"/>
             <successor elementType="junction" elementId="55"/>
@@ -2139,7 +2139,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Kekuléstraße" length="34.73" id="60" junction="-1">
+    <road name="KekulÃ©straÃŸe" length="34.73" id="60" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="35"/>
             <successor elementType="junction" elementId="37"/>
@@ -2174,7 +2174,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Kekuléstraße" length="30.89" id="61" junction="-1">
+    <road name="KekulÃ©straÃŸe" length="30.89" id="61" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="49"/>
             <successor elementType="junction" elementId="35"/>
@@ -2209,7 +2209,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Kekuléstraße" length="130.29" id="62" junction="-1">
+    <road name="KekulÃ©straÃŸe" length="130.29" id="62" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="56"/>
             <successor elementType="junction" elementId="49"/>
@@ -2244,7 +2244,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Kekuléstraße" length="29.92" id="63" junction="-1">
+    <road name="KekulÃ©straÃŸe" length="29.92" id="63" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="57"/>
             <successor elementType="junction" elementId="56"/>
@@ -2279,7 +2279,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Rutherfordstraße" length="87.45" id="64" junction="-1">
+    <road name="RutherfordstraÃŸe" length="87.45" id="64" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="57"/>
             <successor elementType="junction" elementId="44"/>
@@ -2314,7 +2314,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Rutherfordstraße" length="71.29" id="65" junction="-1">
+    <road name="RutherfordstraÃŸe" length="71.29" id="65" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="27"/>
             <successor elementType="junction" elementId="57"/>
@@ -2350,7 +2350,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Rutherfordstraße" length="31.34" id="66" junction="-1">
+    <road name="RutherfordstraÃŸe" length="31.34" id="66" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="58"/>
             <successor elementType="junction" elementId="27"/>
@@ -2386,7 +2386,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="0.20" id="67" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="0.20" id="67" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="22"/>
             <successor elementType="junction" elementId="47"/>
@@ -2421,7 +2421,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="78.31" id="68" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="78.31" id="68" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="55"/>
             <successor elementType="junction" elementId="22"/>
@@ -2456,7 +2456,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="2.50" id="69" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="2.50" id="69" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="19"/>
             <successor elementType="junction" elementId="55"/>
@@ -2491,7 +2491,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="37.97" id="70" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="37.97" id="70" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="59"/>
             <successor elementType="junction" elementId="19"/>
@@ -2526,7 +2526,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="5.97" id="71" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="5.97" id="71" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="60"/>
             <successor elementType="junction" elementId="59"/>
@@ -2561,7 +2561,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="4.21" id="72" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="4.21" id="72" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="61"/>
             <successor elementType="junction" elementId="60"/>
@@ -2596,7 +2596,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="38.50" id="73" junction="-1">
+    <road name="Ludwig-Boltzmann-StraÃŸe" length="38.50" id="73" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="62"/>
             <successor elementType="junction" elementId="63"/>
@@ -2631,7 +2631,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="15.32" id="74" junction="-1">
+    <road name="Ludwig-Boltzmann-StraÃŸe" length="15.32" id="74" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="9"/>
             <successor elementType="junction" elementId="62"/>
@@ -2666,7 +2666,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="47.99" id="75" junction="-1">
+    <road name="Ludwig-Boltzmann-StraÃŸe" length="47.99" id="75" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="11"/>
             <successor elementType="junction" elementId="9"/>
@@ -2701,7 +2701,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="120.28" id="76" junction="-1">
+    <road name="Ludwig-Boltzmann-StraÃŸe" length="120.28" id="76" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="12"/>
             <successor elementType="junction" elementId="11"/>
@@ -2737,7 +2737,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="78.20" id="77" junction="-1">
+    <road name="Ludwig-Boltzmann-StraÃŸe" length="78.20" id="77" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="64"/>
             <successor elementType="junction" elementId="12"/>
@@ -2772,7 +2772,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Carl-Scheele-Straße" length="64.94" id="78" junction="-1">
+    <road name="Carl-Scheele-StraÃŸe" length="64.94" id="78" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="10"/>
             <successor elementType="junction" elementId="62"/>
@@ -2809,7 +2809,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Carl-Scheele-Straße" length="117.42" id="79" junction="-1">
+    <road name="Carl-Scheele-StraÃŸe" length="117.42" id="79" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="14"/>
             <successor elementType="junction" elementId="10"/>
@@ -2844,7 +2844,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Carl-Scheele-Straße" length="93.23" id="80" junction="-1">
+    <road name="Carl-Scheele-StraÃŸe" length="93.23" id="80" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="65"/>
             <successor elementType="junction" elementId="14"/>
@@ -2881,7 +2881,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Carl-Scheele-Straße" length="2.01" id="81" junction="-1">
+    <road name="Carl-Scheele-StraÃŸe" length="2.01" id="81" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="66"/>
             <successor elementType="junction" elementId="65"/>
@@ -2916,7 +2916,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Carl-Scheele-Straße" length="165.81" id="82" junction="-1">
+    <road name="Carl-Scheele-StraÃŸe" length="165.81" id="82" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="67"/>
             <successor elementType="junction" elementId="66"/>
@@ -3135,7 +3135,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="0.20" id="87" junction="-1">
+    <road name="WegedornstraÃŸe" length="0.20" id="87" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="32"/>
             <successor elementType="junction" elementId="71"/>
@@ -3170,7 +3170,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="21.76" id="88" junction="-1">
+    <road name="WegedornstraÃŸe" length="21.76" id="88" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="72"/>
             <successor elementType="junction" elementId="32"/>
@@ -3205,7 +3205,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="114.12" id="89" junction="-1">
+    <road name="WegedornstraÃŸe" length="114.12" id="89" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="73"/>
             <successor elementType="junction" elementId="72"/>
@@ -3242,7 +3242,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="38.37" id="90" junction="-1">
+    <road name="WegedornstraÃŸe" length="38.37" id="90" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="3"/>
             <successor elementType="junction" elementId="73"/>
@@ -3388,7 +3388,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Teltowkanalbrücke" length="53.81" id="94" junction="-1">
+    <road name="TeltowkanalbrÃ¼cke" length="53.81" id="94" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
             <successor elementType="junction" elementId="0"/>
@@ -3581,7 +3581,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="0.90" id="99" junction="-1">
+    <road name="WegedornstraÃŸe" length="0.90" id="99" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="3"/>
             <successor elementType="junction" elementId="1"/>
@@ -5218,7 +5218,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="55.44" id="145" junction="-1">
+    <road name="WegedornstraÃŸe" length="55.44" id="145" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="77"/>
             <successor elementType="junction" elementId="71"/>
@@ -5293,7 +5293,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="7.94" id="147" junction="-1">
+    <road name="WegedornstraÃŸe" length="7.94" id="147" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="82"/>
             <successor elementType="junction" elementId="81"/>
@@ -5515,7 +5515,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Justus-von-Liebig-Straße" length="519.62" id="153" junction="-1">
+    <road name="Justus-von-Liebig-StraÃŸe" length="519.62" id="153" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="42"/>
             <successor elementType="junction" elementId="41"/>
@@ -5551,7 +5551,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="135.48" id="154" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="135.48" id="154" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="43"/>
             <successor elementType="junction" elementId="29"/>
@@ -5588,7 +5588,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="50.39" id="155" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="50.39" id="155" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="29"/>
             <successor elementType="junction" elementId="44"/>
@@ -5623,7 +5623,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="164.25" id="156" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="164.25" id="156" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="44"/>
             <successor elementType="junction" elementId="45"/>
@@ -5658,7 +5658,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="32.33" id="157" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="32.33" id="157" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="45"/>
             <successor elementType="junction" elementId="34"/>
@@ -5693,7 +5693,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="40.56" id="158" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="40.56" id="158" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="34"/>
             <successor elementType="junction" elementId="46"/>
@@ -5728,7 +5728,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="48.39" id="159" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="48.39" id="159" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="46"/>
             <successor elementType="junction" elementId="47"/>
@@ -5763,7 +5763,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="14.66" id="160" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="14.66" id="160" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="47"/>
             <successor elementType="junction" elementId="25"/>
@@ -5798,7 +5798,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="29.03" id="161" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="29.03" id="161" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="25"/>
             <successor elementType="junction" elementId="17"/>
@@ -5833,7 +5833,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Albert-Einstein-Straße" length="285.07" id="162" junction="-1">
+    <road name="Albert-Einstein-StraÃŸe" length="285.07" id="162" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="17"/>
             <successor elementType="junction" elementId="48"/>
@@ -5870,7 +5870,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Magnusstraße" length="67.07" id="163" junction="-1">
+    <road name="MagnusstraÃŸe" length="67.07" id="163" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="50"/>
             <successor elementType="junction" elementId="49"/>
@@ -5905,7 +5905,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Magnusstraße" length="89.24" id="164" junction="-1">
+    <road name="MagnusstraÃŸe" length="89.24" id="164" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="49"/>
             <successor elementType="junction" elementId="45"/>
@@ -5940,7 +5940,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Magnusstraße" length="136.08" id="165" junction="-1">
+    <road name="MagnusstraÃŸe" length="136.08" id="165" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="45"/>
             <successor elementType="junction" elementId="51"/>
@@ -5975,7 +5975,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Magnusstraße" length="99.11" id="166" junction="-1">
+    <road name="MagnusstraÃŸe" length="99.11" id="166" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="51"/>
             <successor elementType="junction" elementId="42"/>
@@ -6010,7 +6010,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Magnusstraße" length="90.67" id="167" junction="-1">
+    <road name="MagnusstraÃŸe" length="90.67" id="167" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="42"/>
             <successor elementType="junction" elementId="52"/>
@@ -6046,7 +6046,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gustav-Kirchhoff-Straße" length="134.56" id="168" junction="-1">
+    <road name="Gustav-Kirchhoff-StraÃŸe" length="134.56" id="168" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="46"/>
             <successor elementType="junction" elementId="53"/>
@@ -6081,7 +6081,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Max-Planck-Straße" length="82.02" id="169" junction="-1">
+    <road name="Max-Planck-StraÃŸe" length="82.02" id="169" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="51"/>
             <successor elementType="junction" elementId="53"/>
@@ -6116,7 +6116,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Max-Planck-Straße" length="181.76" id="170" junction="-1">
+    <road name="Max-Planck-StraÃŸe" length="181.76" id="170" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="53"/>
             <successor elementType="junction" elementId="54"/>
@@ -6151,7 +6151,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Kekuléstraße" length="49.66" id="171" junction="-1">
+    <road name="KekulÃ©straÃŸe" length="49.66" id="171" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="55"/>
             <successor elementType="junction" elementId="37"/>
@@ -6186,7 +6186,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Kekuléstraße" length="34.73" id="172" junction="-1">
+    <road name="KekulÃ©straÃŸe" length="34.73" id="172" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="37"/>
             <successor elementType="junction" elementId="35"/>
@@ -6221,7 +6221,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Kekuléstraße" length="30.89" id="173" junction="-1">
+    <road name="KekulÃ©straÃŸe" length="30.89" id="173" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="35"/>
             <successor elementType="junction" elementId="49"/>
@@ -6256,7 +6256,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Kekuléstraße" length="130.29" id="174" junction="-1">
+    <road name="KekulÃ©straÃŸe" length="130.29" id="174" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="49"/>
             <successor elementType="junction" elementId="56"/>
@@ -6291,7 +6291,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Kekuléstraße" length="29.92" id="175" junction="-1">
+    <road name="KekulÃ©straÃŸe" length="29.92" id="175" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="56"/>
             <successor elementType="junction" elementId="57"/>
@@ -6326,7 +6326,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Rutherfordstraße" length="87.45" id="176" junction="-1">
+    <road name="RutherfordstraÃŸe" length="87.45" id="176" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="44"/>
             <successor elementType="junction" elementId="57"/>
@@ -6361,7 +6361,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Rutherfordstraße" length="69.45" id="177" junction="-1">
+    <road name="RutherfordstraÃŸe" length="69.45" id="177" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="57"/>
             <successor elementType="junction" elementId="27"/>
@@ -6397,7 +6397,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Rutherfordstraße" length="31.34" id="178" junction="-1">
+    <road name="RutherfordstraÃŸe" length="31.34" id="178" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="27"/>
             <successor elementType="junction" elementId="58"/>
@@ -6433,7 +6433,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Max-Born-Straße" length="111.17" id="179" junction="-1">
+    <road name="Max-Born-StraÃŸe" length="111.17" id="179" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="79"/>
             <successor elementType="junction" elementId="66"/>
@@ -6471,7 +6471,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Max-Born-Straße" length="202.90" id="180" junction="-1">
+    <road name="Max-Born-StraÃŸe" length="202.90" id="180" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="66"/>
             <successor elementType="junction" elementId="85"/>
@@ -6507,7 +6507,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Max-Born-Straße" length="194.57" id="181" junction="-1">
+    <road name="Max-Born-StraÃŸe" length="194.57" id="181" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="86"/>
             <successor elementType="junction" elementId="65"/>
@@ -6543,7 +6543,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Max-Born-Straße" length="5.53" id="182" junction="-1">
+    <road name="Max-Born-StraÃŸe" length="5.53" id="182" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="65"/>
             <successor elementType="junction" elementId="6"/>
@@ -6578,7 +6578,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Max-Born-Straße" length="0.20" id="183" junction="-1">
+    <road name="Max-Born-StraÃŸe" length="0.20" id="183" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="6"/>
             <successor elementType="junction" elementId="64"/>
@@ -6613,7 +6613,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Max-Born-Straße" length="92.21" id="184" junction="-1">
+    <road name="Max-Born-StraÃŸe" length="92.21" id="184" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="64"/>
             <successor elementType="junction" elementId="80"/>
@@ -6648,7 +6648,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="0.20" id="185" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="0.20" id="185" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="47"/>
             <successor elementType="junction" elementId="22"/>
@@ -6683,7 +6683,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="78.31" id="186" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="78.31" id="186" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="22"/>
             <successor elementType="junction" elementId="55"/>
@@ -6718,7 +6718,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="1.63" id="187" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="1.63" id="187" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="55"/>
             <successor elementType="junction" elementId="19"/>
@@ -6753,7 +6753,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="37.97" id="188" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="37.97" id="188" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="19"/>
             <successor elementType="junction" elementId="59"/>
@@ -6788,7 +6788,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="5.97" id="189" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="5.97" id="189" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="59"/>
             <successor elementType="junction" elementId="60"/>
@@ -6823,7 +6823,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Gottfried-Leibniz-Straße" length="4.21" id="190" junction="-1">
+    <road name="Gottfried-Leibniz-StraÃŸe" length="4.21" id="190" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="60"/>
             <successor elementType="junction" elementId="61"/>
@@ -6858,7 +6858,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="38.50" id="191" junction="-1">
+    <road name="Ludwig-Boltzmann-StraÃŸe" length="38.50" id="191" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="63"/>
             <successor elementType="junction" elementId="62"/>
@@ -6893,7 +6893,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="15.32" id="192" junction="-1">
+    <road name="Ludwig-Boltzmann-StraÃŸe" length="15.32" id="192" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="62"/>
             <successor elementType="junction" elementId="9"/>
@@ -6928,7 +6928,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="47.97" id="193" junction="-1">
+    <road name="Ludwig-Boltzmann-StraÃŸe" length="47.97" id="193" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="9"/>
             <successor elementType="junction" elementId="11"/>
@@ -6963,7 +6963,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="120.67" id="194" junction="-1">
+    <road name="Ludwig-Boltzmann-StraÃŸe" length="120.67" id="194" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="11"/>
             <successor elementType="junction" elementId="12"/>
@@ -6999,7 +6999,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Ludwig-Boltzmann-Straße" length="78.20" id="195" junction="-1">
+    <road name="Ludwig-Boltzmann-StraÃŸe" length="78.20" id="195" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="12"/>
             <successor elementType="junction" elementId="64"/>
@@ -7034,7 +7034,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Carl-Scheele-Straße" length="61.78" id="196" junction="-1">
+    <road name="Carl-Scheele-StraÃŸe" length="61.78" id="196" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="62"/>
             <successor elementType="junction" elementId="10"/>
@@ -7071,7 +7071,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Carl-Scheele-Straße" length="117.42" id="197" junction="-1">
+    <road name="Carl-Scheele-StraÃŸe" length="117.42" id="197" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="10"/>
             <successor elementType="junction" elementId="14"/>
@@ -7106,7 +7106,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Carl-Scheele-Straße" length="92.12" id="198" junction="-1">
+    <road name="Carl-Scheele-StraÃŸe" length="92.12" id="198" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="14"/>
             <successor elementType="junction" elementId="65"/>
@@ -7143,7 +7143,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Carl-Scheele-Straße" length="2.01" id="199" junction="-1">
+    <road name="Carl-Scheele-StraÃŸe" length="2.01" id="199" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="65"/>
             <successor elementType="junction" elementId="66"/>
@@ -7178,7 +7178,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Carl-Scheele-Straße" length="168.54" id="200" junction="-1">
+    <road name="Carl-Scheele-StraÃŸe" length="168.54" id="200" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="66"/>
             <successor elementType="junction" elementId="67"/>
@@ -7216,7 +7216,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="7.40" id="201" junction="-1">
+    <road name="WegedornstraÃŸe" length="7.40" id="201" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="83"/>
             <successor elementType="junction" elementId="77"/>
@@ -7432,7 +7432,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="57.76" id="206" junction="-1">
+    <road name="WegedornstraÃŸe" length="57.76" id="206" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="71"/>
             <successor elementType="junction" elementId="82"/>
@@ -7468,7 +7468,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="12.17" id="207" junction="-1">
+    <road name="WegedornstraÃŸe" length="12.17" id="207" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="71"/>
             <successor elementType="junction" elementId="32"/>
@@ -7503,7 +7503,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="21.76" id="208" junction="-1">
+    <road name="WegedornstraÃŸe" length="21.76" id="208" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="32"/>
             <successor elementType="junction" elementId="72"/>
@@ -7538,7 +7538,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="114.12" id="209" junction="-1">
+    <road name="WegedornstraÃŸe" length="114.12" id="209" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="72"/>
             <successor elementType="junction" elementId="73"/>
@@ -7575,7 +7575,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name="Wegedornstraße" length="38.37" id="210" junction="-1">
+    <road name="WegedornstraÃŸe" length="38.37" id="210" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="73"/>
             <successor elementType="junction" elementId="3"/>
