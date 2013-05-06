@@ -75,6 +75,7 @@ public:
     using vp::iterator;
     using vp::const_iterator;
     using vp::const_reference;
+    using vp::value_type;
     using vp::begin;
     using vp::end;
     using vp::push_back;
