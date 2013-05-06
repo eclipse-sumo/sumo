@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
-  <edge id="D1" from="910" to="1" function="source" type="a"/>
+  <edge id="D1" from="910" to="1" type="a"/>
 
   <edge id="L2" from="1" to="4" type="a"/>
 
   <edge id="L3" from="2" to="4" type="a"/>
 
-  <edge id="D2" from="920" to="2" function="source" type="a"/>
+  <edge id="D2" from="920" to="2" type="a"/>
 
   <edge id="L4" from="4" to="8" type="b"/>
 
