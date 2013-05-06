@@ -220,7 +220,7 @@ SUMOReal
 Line::intersectsAtLength2D(const Line& v) {
     Position pos =
         GeomHelper::intersection_position2D(myP1, myP2, v.myP1, v.myP2);
-    return GeomHelper::nearest_position_on_line_to_point2D(myP1, myP2, pos);
+    return GeomHelper::nearest_offset_on_line_to_point2D(myP1, myP2, pos);
 }
 
 

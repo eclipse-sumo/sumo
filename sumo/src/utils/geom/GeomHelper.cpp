@@ -195,7 +195,7 @@ GeomHelper::extrapolate_second(const Position& p1,
 
 
 SUMOReal
-GeomHelper::nearest_position_on_line_to_point2D(const Position& LineStart,
+GeomHelper::nearest_offset_on_line_to_point2D(const Position& LineStart,
         const Position& LineEnd,
         const Position& Point, bool perpendicular) {
     const SUMOReal lineLength2D = LineStart.distanceTo2D(LineEnd);
@@ -250,7 +250,7 @@ GeomHelper::closestDistancePointLine(const Position& point,
                                      const Position& lineStart,
                                      const Position& lineEnd,
                                      Position& outIntersection) {
-    const SUMOReal length = nearest_position_on_line_to_point2D(lineStart, lineEnd, point, false);
+    const SUMOReal length = nearest_offset_on_line_to_point2D(lineStart, lineEnd, point, false);
     outIntersection.set(Line(lineStart, lineEnd).getPositionAtDistance(length));
     return point.distanceTo2D(outIntersection);
 }

@@ -97,7 +97,7 @@ NBSign::writeAsPOI(OutputDevice& into, const NBEdge* edge) const {
 	} catch (InvalidArgument&) { 
 		// we do not write anything, maybe we should
 	}
-    Position pos = shp.positionAtLengthPosition(myOffset);
+    Position pos = shp.positionAtOffset(myOffset);
     into.openTag(SUMO_TAG_POI);
     into.writeAttr(SUMO_ATTR_ID, edge->getID() + "." + toString(myOffset));
     into.writeAttr(SUMO_ATTR_TYPE, SignTypeStrings.getString(myType));

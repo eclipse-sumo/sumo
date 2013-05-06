@@ -371,9 +371,9 @@ NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                     const std::string& secondEdgeName,
                     unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) {
     SUMOReal pos;
-    pos = edge->getGeometry().nearest_position_on_line_to_point2D(node->getPosition());
+    pos = edge->getGeometry().nearest_offset_to_point2D(node->getPosition());
     if (pos <= 0) {
-        pos = GeomHelper::nearest_position_on_line_to_point2D(
+        pos = GeomHelper::nearest_offset_on_line_to_point2D(
                   edge->myFrom->getPosition(), edge->myTo->getPosition(),
                   node->getPosition());
     }

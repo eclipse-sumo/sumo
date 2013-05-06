@@ -78,7 +78,7 @@ public:
     static Position extrapolate_second(const Position& p1,
                                        const Position& p2, SUMOReal length);
 
-    static SUMOReal nearest_position_on_line_to_point2D(
+    static SUMOReal nearest_offset_on_line_to_point2D(
         const Position& l1, const Position& l2,
         const Position& p, bool perpendicular = true);
 

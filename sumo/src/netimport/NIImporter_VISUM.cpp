@@ -749,7 +749,7 @@ NIImporter_VISUM::parse_Lanes() {
         SUMOReal useLength = length - seenLength;
         useLength = edge->getLength() - useLength;
         std::string edgeID = edge->getID();
-        p = edge->getGeometry().positionAtLengthPosition(useLength);
+        p = edge->getGeometry().positionAtOffset(useLength);
         if (edgeID.substr(edgeID.length() - node->getID().length() - 1) == "_" + node->getID()) {
             edgeID = edgeID.substr(0, edgeID.find('_'));
         }

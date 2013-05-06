@@ -230,7 +230,7 @@ TraCIServerAPI_Simulation::convertCartesianToRoadMap(Position pos) {
         }
     }
     // @todo this may be a place where 3D is required but 2D is delivered
-    result.second = result.first->getShape().nearest_position_on_line_to_point2D(pos, false);
+    result.second = result.first->getShape().nearest_offset_to_point2D(pos, false);
     return result;
 }
 
@@ -287,7 +287,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server,
             SUMOReal pos = inputStorage.readDouble();
             int laneIdx = inputStorage.readUnsignedByte();
             try {
-                cartesianPos = geoPos = getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtLengthPosition(pos);
+                cartesianPos = geoPos = getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtOffset(pos);
                 GeoConvHelper::getFinal().cartesian2geo(geoPos);
             } catch (TraCIException& e) {
                 server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
@@ -359,7 +359,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer& server, tc
                 std::string roadID = inputStorage.readString();
                 roadPos1.second = inputStorage.readDouble();
                 roadPos1.first = getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos1.second);
-                pos1 = roadPos1.first->getShape().positionAtLengthPosition(roadPos1.second);
+                pos1 = roadPos1.first->getShape().positionAtOffset(roadPos1.second);
             } catch (TraCIException& e) {
                 server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
                 return false;
@@ -389,7 +389,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer& server, tc
                 std::string roadID = inputStorage.readString();
                 roadPos2.second = inputStorage.readDouble();
                 roadPos2.first = getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos2.second);
-                pos2 = roadPos2.first->getShape().positionAtLengthPosition(roadPos2.second);
+                pos2 = roadPos2.first->getShape().positionAtOffset(roadPos2.second);
             } catch (TraCIException& e) {
                 server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
                 return false;

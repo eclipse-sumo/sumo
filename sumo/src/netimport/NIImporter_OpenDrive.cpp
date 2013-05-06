@@ -353,7 +353,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 sE = e->length / cF;
             } else {
                 SUMOReal nextS = (j + 1)->s;
-                sTo = new NBNode(e->id + "." + toString(nextS), e->geom.positionAtLengthPosition(nextS));
+                sTo = new NBNode(e->id + "." + toString(nextS), e->geom.positionAtOffset(nextS));
                 if (!nb.getNodeCont().insert(sTo)) {
                     throw ProcessError("Could not add node '" + sTo->getID() + "'.");
                 }

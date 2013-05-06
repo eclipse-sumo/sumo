@@ -543,7 +543,7 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow& app,
     //
     buildShowParamsPopupEntry(ret, false);
     const SUMOReal pos = myLane.interpolateGeometryPosToLanePos(
-                             myShape.nearest_position_on_line_to_point2D(parent.getPositionInformation()));
+                             myShape.nearest_offset_to_point2D(parent.getPositionInformation()));
     new FXMenuCommand(ret, ("pos: " + toString(pos)).c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);

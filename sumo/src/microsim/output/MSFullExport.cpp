@@ -88,7 +88,7 @@ MSFullExport::writeVehicles(OutputDevice& of) {
             std::string fclass = veh->getVehicleType().getID();
             fclass = fclass.substr(0, fclass.find_first_of("@"));
 
-            Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
+            Position pos = veh->getLane()->getShape().positionAtOffset(veh->getPositionOnLane());
 
             of.openTag("vehicle") << " id=\"" << veh->getID() << "\" eclass=\"" <<  veh->getVehicleType().getEmissionClass() << "\" co2=\"" << veh->getHBEFA_CO2Emissions()
                                   << "\" co=\"" <<  veh->getHBEFA_COEmissions() << "\" hc=\"" <<  veh->getHBEFA_HCEmissions()

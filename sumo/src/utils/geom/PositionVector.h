@@ -149,23 +149,23 @@ public:
     Position& operator[](int index);
 
     /// Returns the position at the given length
-    Position positionAtLengthPosition(SUMOReal pos) const;
+    Position positionAtOffset(SUMOReal pos) const;
 
     /// Returns the position at the given length
-    Position positionAtLengthPosition2D(SUMOReal pos) const;
+    Position positionAtOffset2D(SUMOReal pos) const;
 
     /// Returns the rotation at the given length
-    SUMOReal rotationDegreeAtLengthPosition(SUMOReal pos) const;
+    SUMOReal rotationDegreeAtOffset(SUMOReal pos) const;
 
     /// Returns the slope at the given length
-    SUMOReal slopeDegreeAtLengthPosition(SUMOReal pos) const;
+    SUMOReal slopeDegreeAtOffset(SUMOReal pos) const;
 
     /// Returns the position between the two given point at the specified position */
-    static Position positionAtLengthPosition(const Position& p1,
+    static Position positionAtOffset(const Position& p1,
             const Position& p2, SUMOReal pos);
 
     /// Returns the position between the two given point at the specified position */
-    static Position positionAtLengthPosition2D(const Position& p1,
+    static Position positionAtOffset2D(const Position& p1,
             const Position& p2, SUMOReal pos);
 
     /// Returns a boundary enclosing this list of lines
@@ -269,7 +269,7 @@ public:
 
     SUMOReal beginEndAngle() const;
 
-    SUMOReal nearest_position_on_line_to_point2D(const Position& p, bool perpendicular = true) const;
+    SUMOReal nearest_offset_to_point2D(const Position& p, bool perpendicular = true) const;
 
     /* @brief index of the closest position to p
      * @note: may only be called for a non-empty vector */

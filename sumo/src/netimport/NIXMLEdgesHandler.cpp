@@ -467,7 +467,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
             unsigned int noLanesMax = e->getNumLanes();
             // compute the node positions and sort the lanes
             for (i = mySplits.begin(); i != mySplits.end(); ++i) {
-                (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
+                (*i).gpos = e->getGeometry().positionAtOffset((*i).pos);
                 sort((*i).lanes.begin(), (*i).lanes.end());
                 noLanesMax = MAX2(noLanesMax, (unsigned int)(*i).lanes.size());
             }

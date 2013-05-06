@@ -79,8 +79,8 @@ GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection& section) {
     const PositionVector& v = lane->getShape();
     Line l(v.front(), v.back());
     SingleCrossingDefinition def;
-    def.myFGPosition = v.positionAtLengthPosition(pos);
-    def.myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
+    def.myFGPosition = v.positionAtOffset(pos);
+    def.myFGRotation = -v.rotationDegreeAtOffset(pos);
     return def;
 }
 

@@ -178,7 +178,7 @@ GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (MSGlobals::gUseMesoSim) {
         buildShowParamsPopupEntry(ret);
     }
-    const SUMOReal pos = getLanes()[0]->getShape().nearest_position_on_line_to_point2D(parent.getPositionInformation());
+    const SUMOReal pos = getLanes()[0]->getShape().nearest_offset_to_point2D(parent.getPositionInformation());
     new FXMenuCommand(ret, ("pos: " + toString(pos)).c_str(), 0, 0, 0);
     buildPositionCopyEntry(ret, false);
     return ret;
@@ -333,10 +333,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (drawEdgeName || drawInternalEdgeName || drawStreetName) {
         GUILaneWrapper* lane1 = myLaneGeoms[0];
         GUILaneWrapper* lane2 = myLaneGeoms[myLaneGeoms.size() - 1];
-        Position p = lane1->getShape().positionAtLengthPosition(lane1->getShape().length() / (SUMOReal) 2.);
-        p.add(lane2->getShape().positionAtLengthPosition(lane2->getShape().length() / (SUMOReal) 2.));
+        Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
+        p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (SUMOReal) 2.));
         p.mul(.5);
-        SUMOReal angle = lane1->getShape().rotationDegreeAtLengthPosition(lane1->getShape().length() / (SUMOReal) 2.);
+        SUMOReal angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
         angle += 90;
         if (angle > 90 && angle < 270) {
             angle -= 180;
@@ -465,7 +465,7 @@ GUIEdge::getColorValue(size_t activeScheme) const {
 MESegment*
 GUIEdge::getSegmentAtPosition(const Position& pos) {
     const PositionVector& shape = getLanes()[0]->getShape();
-    const SUMOReal lanePos = shape.nearest_position_on_line_to_point2D(pos);
+    const SUMOReal lanePos = shape.nearest_offset_to_point2D(pos);
     return MSGlobals::gMesoNet->getSegmentForEdge(*this, lanePos);
 }
 

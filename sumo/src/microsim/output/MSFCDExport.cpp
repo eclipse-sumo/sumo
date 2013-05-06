@@ -64,7 +64,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             MSLane* lane = veh->getLane();
             SUMOReal lp = veh->getPositionOnLane();
             SUMOReal gp = lane->interpolateLanePosToGeometryPos(lp);
-            Position pos = lane->getShape().positionAtLengthPosition(gp);
+            Position pos = lane->getShape().positionAtOffset(gp);
             if (useGeo) {
                 of.setPrecision(GEO_OUTPUT_ACCURACY);
                 GeoConvHelper::getFinal().cartesian2geo(pos);
@@ -78,7 +78,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep) {
             of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
             of.writeAttr(SUMO_ATTR_POSITION, lp);
             of.writeAttr(SUMO_ATTR_LANE, lane->getID());
-            of.writeAttr(SUMO_ATTR_SLOPE, lane->getShape().slopeDegreeAtLengthPosition(gp));
+            of.writeAttr(SUMO_ATTR_SLOPE, lane->getShape().slopeDegreeAtOffset(gp));
             of.closeTag();
         }
     }

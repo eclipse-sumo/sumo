@@ -287,9 +287,9 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(
     std::vector<MSLane*>::const_iterator i;
     for (i = destLanes.begin(); i != destLanes.end(); ++i) {
         const PositionVector& v = (*i)->getShape();
-        myFGPositions.push_back(v.positionAtLengthPosition(0));
-        myBoundary.add(v.positionAtLengthPosition(0));
-        myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(0));
+        myFGPositions.push_back(v.positionAtOffset(0));
+        myBoundary.add(v.positionAtOffset(0));
+        myFGRotations.push_back(-v.rotationDegreeAtOffset(0));
     }
 }
 

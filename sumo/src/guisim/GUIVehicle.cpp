@@ -886,10 +886,10 @@ void
 GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    Position p1 = myLane->getShape().positionAtLengthPosition(
+    Position p1 = myLane->getShape().positionAtOffset(
                       myLane->interpolateLanePosToGeometryPos(myState.pos()));
     // one seat in the center of the vehicle by default
-    mySeatPositions[0] = myLane->getShape().positionAtLengthPosition(
+    mySeatPositions[0] = myLane->getShape().positionAtOffset(
                              myLane->interpolateLanePosToGeometryPos(
                                  myState.pos() - getVehicleType().getLength() / 2));
     glTranslated(p1.x(), p1.y(), getType());
@@ -1029,7 +1029,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     }
     */
     glPopMatrix();
-    drawName(myLane->getShape().positionAtLengthPosition(
+    drawName(myLane->getShape().positionAtOffset(
                  myLane->interpolateLanePosToGeometryPos(
                      myState.pos() - MIN2(getVehicleType().getLength() / 2, SUMOReal(5)))),
              s.scale, s.vehicleName);
@@ -1419,8 +1419,8 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
             backLane = getPreviousLane(backLane, backRouteIndex);
             carriageBackOffset += backLane->getLength();
         }
-        const Position front = lane->getShape().positionAtLengthPosition2D(carriageOffset);
-        const Position back = backLane->getShape().positionAtLengthPosition2D(carriageBackOffset);
+        const Position front = lane->getShape().positionAtOffset2D(carriageOffset);
+        const Position back = backLane->getShape().positionAtOffset2D(carriageBackOffset);
         const SUMOReal angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
         if (i >= firstPassengerCarriage) {
             computeSeats(front, back, requiredSeats);

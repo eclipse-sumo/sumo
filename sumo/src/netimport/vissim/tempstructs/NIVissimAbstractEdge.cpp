@@ -92,7 +92,7 @@ NIVissimAbstractEdge::dictionary(int id) {
 Position
 NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const {
     if (myGeom.length() > pos) {
-        return myGeom.positionAtLengthPosition(pos);
+        return myGeom.positionAtOffset(pos);
     } else if (myGeom.length() == pos) {
         return myGeom[-1];
     } else {
@@ -101,7 +101,7 @@ NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const {
         Position ne = GeomHelper::extrapolate_second(g[-2], g[-1], amount * 2);
         g.pop_back();
         g.push_back(ne);
-        return g.positionAtLengthPosition(pos);
+        return g.positionAtOffset(pos);
     }
 }
 
@@ -139,7 +139,7 @@ NIVissimAbstractEdge::crossesAtPoint(const Position& p1,
     // !!! not needed
     Position p = GeomHelper::intersection_position2D(
                      myGeom.front(), myGeom.back(), p1, p2);
-    return GeomHelper::nearest_position_on_line_to_point2D(
+    return GeomHelper::nearest_offset_on_line_to_point2D(
                myGeom.front(), myGeom.back(), p);
 }
 

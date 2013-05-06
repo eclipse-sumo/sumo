@@ -141,12 +141,12 @@ NBNodeShapeComputer::replaceLastChecking(PositionVector& g, bool decenter,
         size_t counterLanes, SUMOReal counterDist,
         int laneDiff) {
     counter.extrapolate(100);
-    Position counterPos = counter.positionAtLengthPosition2D(counterDist);
+    Position counterPos = counter.positionAtOffset2D(counterDist);
     PositionVector t = g;
     t.extrapolate(100);
-    SUMOReal p = t.nearest_position_on_line_to_point2D(counterPos);
+    SUMOReal p = t.nearest_offset_to_point2D(counterPos);
     if (p >= 0) {
-        counterPos = t.positionAtLengthPosition2D(p);
+        counterPos = t.positionAtOffset2D(p);
     }
     if (g[-1].distanceTo(counterPos) < SUMO_const_laneWidth * (SUMOReal) counterLanes) {
         g.replaceAt(g.size() - 1, counterPos);
@@ -168,12 +168,12 @@ NBNodeShapeComputer::replaceFirstChecking(PositionVector& g, bool decenter,
         size_t counterLanes, SUMOReal counterDist,
         int laneDiff) {
     counter.extrapolate(100);
-    Position counterPos = counter.positionAtLengthPosition2D(counterDist);
+    Position counterPos = counter.positionAtOffset2D(counterDist);
     PositionVector t = g;
     t.extrapolate(100);
-    SUMOReal p = t.nearest_position_on_line_to_point2D(counterPos);
+    SUMOReal p = t.nearest_offset_to_point2D(counterPos);
     if (p >= 0) {
-        counterPos = t.positionAtLengthPosition2D(p);
+        counterPos = t.positionAtOffset2D(p);
     }
     if (g[0].distanceTo(counterPos) < SUMO_const_laneWidth * (SUMOReal) counterLanes) {
         g.replaceAt(0, counterPos);
@@ -290,7 +290,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                 p.mul(0.25);
             }
             // ... compute the distance to this point ...
-            SUMOReal dist = geomsCCW[*i].nearest_position_on_line_to_point2D(p);
+            SUMOReal dist = geomsCCW[*i].nearest_offset_to_point2D(p);
             if (dist < 0) {
                 // ok, we have the problem that even the extrapolated geometry
                 //  does not reach the point
@@ -403,11 +403,11 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         assert(geomsCW.find(*ccwi) != geomsCW.end());
         assert(geomsCW.find(*cwi) != geomsCW.end());
         Position p1 = distances.find(*cwi) != distances.end() && distances[*cwi] != -1
-                      ? geomsCCW[*cwi].positionAtLengthPosition2D(distances[*cwi])
-                      : geomsCCW[*cwi].positionAtLengthPosition2D((SUMOReal) - .1);
+                      ? geomsCCW[*cwi].positionAtOffset2D(distances[*cwi])
+                      : geomsCCW[*cwi].positionAtOffset2D((SUMOReal) - .1);
         Position p2 = distances.find(*ccwi) != distances.end() && distances[*ccwi] != -1
-                      ? geomsCW[*ccwi].positionAtLengthPosition2D(distances[*ccwi])
-                      : geomsCW[*ccwi].positionAtLengthPosition2D((SUMOReal) - .1);
+                      ? geomsCW[*ccwi].positionAtOffset2D(distances[*ccwi])
+                      : geomsCW[*ccwi].positionAtOffset2D((SUMOReal) - .1);
         Line l(p1, p2);
         l.extrapolateBy(1000);
         SUMOReal angleI = geomsCCW[*i].lineAt(0).atan2PositiveAngle();
@@ -584,9 +584,9 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         }
         Position p;
         if (len >= offset) {
-            p = l.positionAtLengthPosition2D(offset);
+            p = l.positionAtOffset2D(offset);
         } else {
-            p = l.positionAtLengthPosition2D(len);
+            p = l.positionAtOffset2D(len);
         }
         p.set(p.x(), p.y(), myNode.getPosition().z());
         ret.push_back_noDoublePos(p);
@@ -594,9 +594,9 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         l = geomsCW[*i];
         len = l.length();
         if (len >= offset) {
-            p = l.positionAtLengthPosition2D(offset);
+            p = l.positionAtOffset2D(offset);
         } else {
-            p = l.positionAtLengthPosition2D(len);
+            p = l.positionAtOffset2D(len);
         }
         p.set(p.x(), p.y(), myNode.getPosition().z());
         ret.push_back_noDoublePos(p);
