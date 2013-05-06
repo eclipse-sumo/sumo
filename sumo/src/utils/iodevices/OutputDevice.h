@@ -74,18 +74,16 @@ public:
 
     /** @brief Returns the described OutputDevice
      *
-     * Creates and returns the named device. "stdout" and "-" refer to standard out,
+     * Creates and returns the named device. "stdout" and "stderr" refer to the relevant console streams,
      * "hostname:port" initiates socket connection. Otherwise a filename
-     * is assumed and the second parameter may be used to give a base directory.
+     * is assumed (where "nul" and "/dev/null" do what you would expect on both platforms).
      * If there already is a device with the same name this one is returned.
      *
      * @param[in] name The description of the output name/port/whatever
-     * @param[in] base The base path the application is run within
      * @return The corresponding (built or existing) device
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
-    static OutputDevice& getDevice(const std::string& name,
-                                   const std::string& base = "");
+    static OutputDevice& getDevice(const std::string& name);
 
 
     /** @brief Creates the device using the output definition stored in the named option

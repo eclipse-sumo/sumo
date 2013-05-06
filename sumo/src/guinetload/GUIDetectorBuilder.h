@@ -94,7 +94,7 @@ public:
      * @param[in] od The output device the loop shall use
      */
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
-            MSLane* lane, SUMOReal pos, OutputDevice& od);
+            MSLane* lane, SUMOReal pos, const std::string& od);
 
 
 #ifdef HAVE_INTERNAL

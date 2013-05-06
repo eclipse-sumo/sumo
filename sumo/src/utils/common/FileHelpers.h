@@ -122,7 +122,7 @@ public:
      * @param[in] basePath The path the configuration file (including the config's file name)
      * @return The file's position
      */
-    static std::string checkForRelativity(std::string filename,
+    static std::string checkForRelativity(const std::string& filename,
                                           const std::string& basePath);
     //@}
 

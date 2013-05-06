@@ -100,7 +100,7 @@ public:
      */
     void buildInductLoop(const std::string& id,
                          const std::string& lane, SUMOReal pos, int splInterval,
-                         OutputDevice& device, bool friendlyPos, bool splitByType) throw(InvalidArgument);
+                         const std::string& device, bool friendlyPos, bool splitByType) throw(InvalidArgument);
 
 
     /** @brief Builds an instantenous induction and adds it to the net
@@ -120,7 +120,7 @@ public:
      */
     void buildInstantInductLoop(const std::string& id,
                                 const std::string& lane, SUMOReal pos,
-                                OutputDevice& device, bool friendlyPos) throw(InvalidArgument);
+                                const std::string& device, bool friendlyPos) throw(InvalidArgument);
 
 
     /** @brief Builds an e2 detector with a fixed interval and adds it to the net
@@ -148,7 +148,7 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
-                         bool cont, int splInterval, OutputDevice& device, SUMOTime haltingTimeThreshold,
+                         bool cont, int splInterval, const std::string& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos) throw(InvalidArgument);
 
@@ -179,7 +179,7 @@ public:
      */
     void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
                          bool cont, MSTLLogicControl::TLSLogicVariants& tlls,
-                         OutputDevice& device, SUMOTime haltingTimeThreshold,
+                         const std::string& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos) throw(InvalidArgument);
 
@@ -211,7 +211,7 @@ public:
      */
     void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
                          bool cont, MSTLLogicControl::TLSLogicVariants& tlls, const std::string& tolane,
-                         OutputDevice& device, SUMOTime haltingTimeThreshold,
+                         const std::string& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos) throw(InvalidArgument);
 
@@ -229,7 +229,7 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @exception InvalidArgument If one of the values is invalid
      */
-    void beginE3Detector(const std::string& id, OutputDevice& device, int splInterval,
+    void beginE3Detector(const std::string& id, const std::string& device, int splInterval,
                          SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold) throw(InvalidArgument);
 
 
@@ -300,7 +300,7 @@ public:
      */
     void buildVTypeProbe(const std::string& id,
                          const std::string& vtype, SUMOTime frequency,
-                         OutputDevice& device) throw(InvalidArgument);
+                         const std::string& device) throw(InvalidArgument);
 
 
     /** @brief Builds a routeProbe and adds it to the net
@@ -319,7 +319,7 @@ public:
      */
     void buildRouteProbe(const std::string& id, const std::string& edge,
                          SUMOTime frequency, SUMOTime begin,
-                         OutputDevice& device) throw(InvalidArgument);
+                         const std::string& device) throw(InvalidArgument);
     /// @}
 
 
@@ -352,7 +352,7 @@ public:
      * @param[in] od The output device the loop shall use
      */
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
-            MSLane* lane, SUMOReal pos, OutputDevice& od);
+            MSLane* lane, SUMOReal pos, const std::string& od);
 
 #ifdef HAVE_INTERNAL
     /** @brief Creates an instance of a mesoscopic e1 detector using the given values
@@ -445,7 +445,7 @@ public:
                                 const bool withInternal, const bool trackVehicles,
                                 const SUMOReal maxTravelTime, const SUMOReal minSamples,
                                 const SUMOReal haltSpeed, const std::string& vTypes,
-                                OutputDevice& device) throw(InvalidArgument);
+                                const std::string& device) throw(InvalidArgument);
     /// @}
 
 
@@ -502,7 +502,7 @@ protected:
          * @param[in] splInterval The aggregation time span the detector shall use
          */
         E3DetectorDefinition(const std::string& id,
-                             OutputDevice& device, SUMOReal haltingSpeedThreshold,
+                             const std::string& device, SUMOReal haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold, int splInterval);
 
         /// @brief Destructor
@@ -511,7 +511,7 @@ protected:
         /// @brief The id of the detector
         std::string myID;
         /// @brief The device the detector shall use
-        OutputDevice& myDevice;
+        const std::string myDevice;
         /// @brief The speed a vehicle's speed must be below to be assigned as jammed
         SUMOReal myHaltingSpeedThreshold;
         /// @brief The time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed

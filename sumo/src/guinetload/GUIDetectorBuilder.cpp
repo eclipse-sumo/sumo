@@ -71,8 +71,8 @@ GUIDetectorBuilder::createInductLoop(const std::string& id,
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createInstantInductLoop(const std::string& id,
-        MSLane* lane, SUMOReal pos, OutputDevice& od) {
-    return new GUIInstantInductLoop(id, od, lane, pos);
+        MSLane* lane, SUMOReal pos, const std::string& od) {
+    return new GUIInstantInductLoop(id, OutputDevice::getDevice(od), lane, pos);
 }
 
 

@@ -62,40 +62,34 @@ std::map<std::string, OutputDevice*> OutputDevice::myOutputDevices;
 // static method definitions
 // ===========================================================================
 OutputDevice&
-OutputDevice::getDevice(const std::string& name,
-                        const std::string& base) {
-    std::string internalName = name;
-    if (name == "-") {
-        internalName = "stdout";
-    }
+OutputDevice::getDevice(const std::string& name) {
     // check whether the device has already been aqcuired
-    if (myOutputDevices.find(internalName) != myOutputDevices.end()) {
-        return *myOutputDevices[internalName];
+    if (myOutputDevices.find(name) != myOutputDevices.end()) {
+        return *myOutputDevices[name];
     }
     // build the device
     OutputDevice* dev = 0;
     // check whether the device shall print to stdout
-    if (internalName == "stdout") {
+    if (name == "stdout") {
         dev = OutputDevice_COUT::getDevice();
-    } else if (internalName == "stderr") {
+    } else if (name == "stderr") {
         dev = OutputDevice_CERR::getDevice();
-    } else if (FileHelpers::isSocket(internalName)) {
+    } else if (FileHelpers::isSocket(name)) {
         try {
-            int port = TplConvert::_2int(internalName.substr(internalName.find(":") + 1).c_str());
-            dev = new OutputDevice_Network(internalName.substr(0, internalName.find(":")), port);
+            int port = TplConvert::_2int(name.substr(name.find(":") + 1).c_str());
+            dev = new OutputDevice_Network(name.substr(0, name.find(":")), port);
         } catch (NumberFormatException&) {
-            throw IOError("Given port number '" + internalName.substr(internalName.find(":") + 1) + "' is not numeric.");
+            throw IOError("Given port number '" + name.substr(name.find(":") + 1) + "' is not numeric.");
         } catch (EmptyData&) {
             throw IOError("No port number given.");
         }
     } else {
-        const size_t len = internalName.length();
-        dev = new OutputDevice_File(FileHelpers::checkForRelativity(internalName, base),
-                                    len > 4 && internalName.substr(len - 4) == ".sbx");
+        const size_t len = name.length();
+        dev = new OutputDevice_File(name, len > 4 && name.substr(len - 4) == ".sbx");
     }
     dev->setPrecision();
     dev->getOStream() << std::setiosflags(std::ios::fixed);
-    myOutputDevices[internalName] = dev;
+    myOutputDevices[name] = dev;
     return *dev;
 }
 

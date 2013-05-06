@@ -106,7 +106,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes& attrs,
         const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
         for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
             const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(*tls);
-            new Command_SaveTLSState(logics, OutputDevice::getDevice(dest, basePath));
+            new Command_SaveTLSState(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
         }
     } else {
         // get the logic
@@ -115,7 +115,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes& attrs,
         }
         const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(source);
         // build the action
-        new Command_SaveTLSState(logics, OutputDevice::getDevice(dest, basePath));
+        new Command_SaveTLSState(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
     }
 }
 
@@ -134,7 +134,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const SUMOSAXAttributes& attr
         const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
         for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
             const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(*tls);
-            new Command_SaveTLSSwitches(logics, OutputDevice::getDevice(dest, basePath));
+            new Command_SaveTLSSwitches(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
         }
     } else {
         // get the logic
@@ -143,7 +143,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const SUMOSAXAttributes& attr
         }
         const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(source);
         // build the action
-        new Command_SaveTLSSwitches(logics, OutputDevice::getDevice(dest, basePath));
+        new Command_SaveTLSSwitches(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
     }
 }
 
@@ -162,7 +162,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes& 
         const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
         for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
             const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(*tls);
-            new Command_SaveTLSSwitchStates(logics, OutputDevice::getDevice(dest, basePath));
+            new Command_SaveTLSSwitchStates(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
         }
     } else {
         // get the logic
@@ -171,10 +171,9 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes& 
         }
         const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(source);
         // build the action
-        new Command_SaveTLSSwitchStates(logics, OutputDevice::getDevice(dest, basePath));
+        new Command_SaveTLSSwitchStates(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
     }
 }
-
 
 
 /****************************************************************************/

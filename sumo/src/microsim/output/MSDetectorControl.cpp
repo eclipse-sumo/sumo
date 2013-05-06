@@ -76,7 +76,7 @@ MSDetectorControl::close(SUMOTime step) {
 
 
 void
-MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& device, int splInterval, SUMOTime begin) {
+MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, int splInterval, SUMOTime begin) {
     if (myDetectors.find(type) == myDetectors.end()) {
         myDetectors[type] = NamedObjectCont<MSDetectorFileOutput*>();
     }
@@ -85,7 +85,7 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& d
     if (! m.add(d->getID(), d)) {
         throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
     }
-    addDetectorAndInterval(d, &device, splInterval, begin);
+    addDetectorAndInterval(d, &OutputDevice::getDevice(device), splInterval, begin);
 }
 
 
@@ -105,10 +105,10 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d) {
 
 
 void
-MSDetectorControl::add(MSMeanData* mn, OutputDevice& device,
+MSDetectorControl::add(MSMeanData* mn, const std::string& device,
                        SUMOTime frequency, SUMOTime begin) {
     myMeanData.push_back(mn);
-    addDetectorAndInterval(mn, &device, frequency, begin);
+    addDetectorAndInterval(mn, &OutputDevice::getDevice(device), frequency, begin);
     if (begin == string2time(OptionsCont::getOptions().getString("begin"))) {
         mn->init();
     }

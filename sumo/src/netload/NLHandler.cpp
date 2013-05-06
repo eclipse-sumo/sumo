@@ -742,7 +742,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     }
     try {
         myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
-                                          OutputDevice::getDevice(file, getFileName()),
+                                          FileHelpers::checkForRelativity(file, getFileName()),
                                           friendlyPos, splitByType);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
@@ -768,7 +768,7 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        myDetectorBuilder.buildInstantInductLoop(id, lane, position, OutputDevice::getDevice(file, getFileName()), friendlyPos);
+        myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -788,7 +788,7 @@ NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        myDetectorBuilder.buildVTypeProbe(id, type, frequency, OutputDevice::getDevice(file, getFileName()));
+        myDetectorBuilder.buildVTypeProbe(id, type, frequency, FileHelpers::checkForRelativity(file, getFileName()));
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -810,7 +810,7 @@ NLHandler::addRouteProbeDetector(const SUMOSAXAttributes& attrs) {
     }
     try {
         myDetectorBuilder.buildRouteProbe(id, edge, frequency, begin,
-                                          OutputDevice::getDevice(file, getFileName()));
+                                          FileHelpers::checkForRelativity(file, getFileName()));
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -844,13 +844,13 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
             if (toLane == "<invalid>") {
                 myDetectorBuilder.buildE2Detector(id, lane, position, length, cont,
                                                   myJunctionControlBuilder.getTLLogic(lsaid),
-                                                  OutputDevice::getDevice(file, getFileName()),
+                                                  FileHelpers::checkForRelativity(file, getFileName()),
                                                   haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                                   friendlyPos);
             } else {
                 myDetectorBuilder.buildE2Detector(id, lane, position, length, cont,
                                                   myJunctionControlBuilder.getTLLogic(lsaid), toLane,
-                                                  OutputDevice::getDevice(file, getFileName()),
+                                                  FileHelpers::checkForRelativity(file, getFileName()),
                                                   haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                                   friendlyPos);
             }
@@ -861,7 +861,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
                 return;
             }
             myDetectorBuilder.buildE2Detector(id, lane, position, length, cont, frequency,
-                                              OutputDevice::getDevice(file, getFileName()),
+                                              FileHelpers::checkForRelativity(file, getFileName()),
                                               haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                               friendlyPos);
         }
@@ -886,7 +886,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     }
     try {
         myDetectorBuilder.beginE3Detector(id,
-                                          OutputDevice::getDevice(file, getFileName()),
+                                          FileHelpers::checkForRelativity(file, getFileName()),
                                           frequency, haltingSpeedThreshold, haltingTimeThreshold);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
@@ -948,7 +948,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
                 excludeEmpty[0] != 't' && excludeEmpty[0] != 'T' && excludeEmpty[0] != '1' && excludeEmpty[0] != 'x',
                 excludeEmpty == "defaults", withInternal, trackVehicles,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
-                OutputDevice::getDevice(file, getFileName()));
+                FileHelpers::checkForRelativity(file, getFileName()));
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {

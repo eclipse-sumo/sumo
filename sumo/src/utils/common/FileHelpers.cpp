@@ -120,10 +120,16 @@ FileHelpers::isAbsolute(const std::string& path) {
 
 
 std::string
-FileHelpers::checkForRelativity(std::string filename,
+FileHelpers::checkForRelativity(const std::string& filename,
                                 const std::string& basePath) {
-    if (!isAbsolute(filename)) {
-        filename = getConfigurationRelative(basePath, filename);
+    if (filename == "stdout" || filename == "STDOUT" || filename == "-") {
+        return "stdout";
+    }
+    if (filename == "stderr" || filename == "STDERR") {
+        return "stderr";
+    }
+    if (!isSocket(filename) && !isAbsolute(filename)) {
+        return getConfigurationRelative(basePath, filename);
     }
     return filename;
 }
