@@ -84,6 +84,8 @@ public:
     using vp::size;
     using vp::front;
     using vp::back;
+	using vp::reference;
+
 
     /// @name Adding items to the container
     /// @{
