@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xsd:include schemaLocation="baseTypes.xsd"/>
+
     <xsd:element name="netstate">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element maxOccurs="unbounded" ref="timestep"/>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="timestep"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -12,7 +15,7 @@
             <xsd:sequence>
                 <xsd:element minOccurs="0" maxOccurs="unbounded" ref="edge"/>
             </xsd:sequence>
-            <xsd:attribute name="time" use="required" type="xsd:decimal"/>
+            <xsd:attribute name="time" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="edge">
@@ -39,8 +42,8 @@
     <xsd:element name="vehicle">
         <xsd:complexType>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
-            <xsd:attribute name="pos" use="required" type="xsd:decimal"/>
-            <xsd:attribute name="speed" use="required" type="xsd:decimal"/>
+            <xsd:attribute name="pos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="speed" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

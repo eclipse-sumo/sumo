@@ -46,6 +46,7 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
+        <xsd:attribute name="tlType" type="tlTypeType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="deleteType">

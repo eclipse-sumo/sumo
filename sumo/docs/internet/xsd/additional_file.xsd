@@ -2,6 +2,7 @@
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="routeTypes.xsd" />
+    <xsd:include schemaLocation="meandataTypes.xsd"/>
 
     <xsd:element name="additional" type="additionalType"/>
     
@@ -33,6 +34,9 @@
             <xsd:element name="vehicle" type="vehicleType" minOccurs="0"/>
             <xsd:element name="flow" type="flowType" minOccurs="0"/>
             <xsd:element name="person" type="personType" minOccurs="0"/>
+
+            <xsd:element name="interval" type="intervalType" minOccurs="0"/>
+
             <xsd:element name="include" minOccurs="0">
                 <xsd:complexType>
                     <xsd:attribute name="href" type="xsd:string"/>

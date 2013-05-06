@@ -156,18 +156,18 @@
             <xsd:element name="phase" type="phaseType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
-        <xsd:attribute name="type" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="actuated"/>
-                    <xsd:enumeration value="agentbased"/>
-                    <xsd:enumeration value="static"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="type" type="tlTypeType" use="required"/>
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
         <xsd:attribute name="offset" type="xsd:float" use="optional"/>
     </xsd:complexType>
+
+    <xsd:simpleType name="tlTypeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="actuated"/>
+            <xsd:enumeration value="agentbased"/>
+            <xsd:enumeration value="static"/>
+        </xsd:restriction>
+    </xsd:simpleType>
 
     <xsd:complexType name="phaseType">
         <xsd:attribute name="duration" type="nonNegativeFloatType" use="required"/>

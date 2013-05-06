@@ -1,72 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xsd:include schemaLocation="meandataTypes.xsd"/>
+
     <xsd:element name="meandata">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element maxOccurs="unbounded" ref="interval"/>
+                <xsd:element name="interval" maxOccurs="unbounded" type="intervalType"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
-
-    <xsd:element name="interval">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element minOccurs="0" maxOccurs="unbounded" name="edge">
-                    <xsd:complexType>
-                        <xsd:complexContent>
-                            <xsd:extension base="meandataType">
-                                <xsd:sequence>
-                                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="lane" type="meandataType"/>
-                                </xsd:sequence>
-                            </xsd:extension>
-                        </xsd:complexContent>
-                    </xsd:complexType>
-                </xsd:element>
-            </xsd:sequence>
-            <xsd:attribute name="begin" use="required" type="xsd:decimal"/>
-            <xsd:attribute name="end" use="required" type="xsd:decimal"/>
-            <xsd:attribute name="id" use="required" type="xsd:string"/>
-        </xsd:complexType>
-    </xsd:element>
-
-    <xsd:complexType name="meandataType">
-        <xsd:attribute name="id" use="required" type="xsd:string"/>
-        <xsd:attribute name="sampledSeconds" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="traveltime" use="optional" type="xsd:decimal"/>
-
-        <xsd:attribute name="density" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="occupancy" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="waitingTime" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="speed" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="departed" use="optional" type="xsd:integer"/>
-        <xsd:attribute name="arrived" use="optional" type="xsd:integer"/>
-        <xsd:attribute name="entered" use="optional" type="xsd:integer"/>
-        <xsd:attribute name="left" use="optional" type="xsd:integer"/>
-        <xsd:attribute name="laneChangedFrom" use="optional" type="xsd:integer"/>
-        <xsd:attribute name="laneChangedTo" use="optional" type="xsd:integer"/>
-        <xsd:attribute name="vaporized" use="optional" type="xsd:integer"/>
-
-        <xsd:attribute name="CO_abs" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="CO2_abs" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="HC_abs" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="PMx_abs" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="NOx_abs" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="fuel_abs" use="optional" type="xsd:decimal"/>
-
-        <xsd:attribute name="CO_normed" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="CO2_normed" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="HC_normed" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="PMx_normed" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="NOx_normed" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="fuel_normed" use="optional" type="xsd:decimal"/>
-
-        <xsd:attribute name="CO_perVeh" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="CO2_perVeh" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="HC_perVeh" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="PMx_perVeh" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="NOx_perVeh" use="optional" type="xsd:decimal"/>
-        <xsd:attribute name="fuel_perVeh" use="optional" type="xsd:decimal"/>
-
-        <xsd:attribute name="noise" use="optional" type="xsd:decimal"/>
-    </xsd:complexType>
 </xsd:schema>

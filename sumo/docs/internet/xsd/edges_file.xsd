@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:include schemaLocation="baseTypes.xsd" />
+    <xsd:include schemaLocation="baseTypes.xsd"/>
 
     <xsd:element name="edges" type="edgesType">
         <xsd:key name="edgeKey">
@@ -12,13 +12,13 @@
 
     <xsd:complexType name="edgesType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
-            <xsd:element name="edge" type="edgeType"></xsd:element>
-            <xsd:element name="delete" type="deleteType"></xsd:element>
+            <xsd:element name="edge" type="edgeType"/>
+            <xsd:element name="delete" type="deleteType"/>
         </xsd:choice>
         <xsd:attribute name="version" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="\d+.\d+"></xsd:pattern>
+                    <xsd:pattern value="\d+.\d+"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -26,8 +26,8 @@
 
     <xsd:complexType name="edgeType">
         <xsd:sequence>
-            <xsd:element name="lane" type="laneType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="split" type="splitType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="lane" type="laneType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="split" type="splitType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="refId" type="xsd:string"/>
