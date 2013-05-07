@@ -2,3 +2,6 @@ tls
 
 # attribute_form_of_way is used to modify edge priority as well as SVC-permissions
 form_of_way
+
+# parse elmar files and spit them back out
+roundtrip

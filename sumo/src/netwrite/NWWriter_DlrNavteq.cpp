@@ -74,7 +74,7 @@ void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc
     char buffer [80];
     strftime(buffer, 80, "on %c", localtime(&rawtime));
     device << "# Generated " << buffer << " by " << oc.getFullName() << "\n";
-    device << "# Format matches GdfExtractor version: V6.0\n";
+    device << "# Format matches Extraction version: V6.0 \n";
     std::stringstream tmp;
     oc.writeConfiguration(tmp, true, false, false);
     tmp.seekg(std::ios_base::beg);
@@ -179,19 +179,21 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
 std::string
 NWWriter_DlrNavteq::getAllowedTypes(SVCPermissions permissions) {
     if (permissions == SVCFreeForAll) {
-        return "1000000000";
+        return "100000000000";
     }
     std::ostringstream oss;
     oss << "0";
-    oss << (permissions & SVC_PASSENGER)                    > 0 ? 1 : 0;
-    oss << (permissions & SVC_HOV)                          > 0 ? 1 : 0;
-    oss << (permissions & SVC_PUBLIC_EMERGENCY)             > 0 ? 1 : 0;
-    oss << (permissions & SVC_TAXI)                         > 0 ? 1 : 0;
-    oss << (permissions & (SVC_PUBLIC_TRANSPORT | SVC_BUS)) > 0 ? 1 : 0;
-    oss << (permissions & SVC_DELIVERY)                     > 0 ? 1 : 0;
-    oss << (permissions & SVC_TRANSPORT)                    > 0 ? 1 : 0;
-    oss << (permissions & SVC_BICYCLE)                      > 0 ? 1 : 0;
-    oss << (permissions & SVC_PEDESTRIAN)                   > 0 ? 1 : 0;
+    oss << ((permissions & SVC_PASSENGER)                    > 0 ? 1 : 0); 
+    oss << ((permissions & SVC_PASSENGER)                    > 0 ? 1 : 0); // residential
+    oss << ((permissions & SVC_HOV)                          > 0 ? 1 : 0);
+    oss << ((permissions & SVC_PUBLIC_EMERGENCY)             > 0 ? 1 : 0);
+    oss << ((permissions & SVC_TAXI)                         > 0 ? 1 : 0);
+    oss << ((permissions & (SVC_PUBLIC_TRANSPORT | SVC_BUS)) > 0 ? 1 : 0);
+    oss << ((permissions & SVC_DELIVERY)                     > 0 ? 1 : 0);
+    oss << ((permissions & SVC_TRANSPORT)                    > 0 ? 1 : 0);
+    oss << ((permissions & SVC_MOTORCYCLE)                   > 0 ? 1 : 0);
+    oss << ((permissions & SVC_BICYCLE)                      > 0 ? 1 : 0);
+    oss << ((permissions & SVC_PEDESTRIAN)                   > 0 ? 1 : 0);
     return oss.str();
 }
 

@@ -16,5 +16,5 @@ street_names
 # tests for input data generated with gdfExtractor version 3.1
 version_3.1
 
-# read and write dlr_navteq format
-roundtrip
+# test input generated with gdfExtractor version 6.1
+version_6.1

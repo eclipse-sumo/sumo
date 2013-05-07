@@ -47,6 +47,7 @@ class NBTrafficLightLogicCont;
 class NBTypeCont;
 class OptionsCont;
 class PositionVector;
+class StringTokenizer;
 
 
 // ===========================================================================
@@ -140,6 +141,7 @@ protected:
      * in DLRNavteq's unsplit format.
      */
     class EdgesHandler : public LineHandler {
+
     public:
         /** @brief Constructor
          * @param[in] nc The node control to retrieve nodes from
@@ -185,6 +187,47 @@ protected:
 
         /// @brief Whether node positions shall not be added to the edge's geometry
         bool myTryIgnoreNodePositions;
+
+        /// @brief version number of current file
+        SUMOReal myVersion;
+
+        /// @brief the version number of the edge file being parsed
+        std::vector<int> myColumns;
+
+        /// @brief the file being parsed
+        const std::string myFile;
+
+        static const int MISSING_COLUMN;
+
+        enum ColumnName {
+            LINK_ID = 0,
+            NODE_ID_FROM,
+            NODE_ID_TO,
+            BETWEEN_NODE_ID,
+            LENGTH,
+            VEHICLE_TYPE,
+            FORM_OF_WAY,
+            BRUNNEL_TYPE,
+            FUNCTIONAL_ROAD_CLASS,
+            SPEED_CATEGORY,
+            NUMBER_OF_LANES,
+            SPEED_LIMIT,
+            SPEED_RESTRICTION,
+            NAME_ID1_REGIONAL,
+            NAME_ID2_LOCAL,
+            HOUSENUMBERS_RIGHT,
+            HOUSENUMBERS_LEFT,
+            ZIP_CODE,
+            AREA_ID,
+            SUBAREA_ID,
+            THROUGH_TRAFFIC,
+            SPECIAL_RESTRICTIONS,
+            EXTENDED_NUMBER_OF_LANES,
+            ISRAMP,
+            CONNECTION,
+        };
+
+    std::string getColumn(const StringTokenizer& st, ColumnName name, const std::string fallback="");
 
     private:
         /// @brief build the street name for the given ids

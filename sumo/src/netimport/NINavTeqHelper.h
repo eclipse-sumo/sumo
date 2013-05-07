@@ -95,6 +95,9 @@ public:
      */
     static void addVehicleClasses(NBEdge& e, const std::string& classS);
 
+    /// @brief same as addVehicleClasses but for version 6+
+    static void addVehicleClassesV6(NBEdge& e, const std::string& classS);
+
 };
 
 

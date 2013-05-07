@@ -32,6 +32,7 @@
 
 #include <string>
 #include <sstream>
+#include <limits>
 #include <utils/importio/LineHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
@@ -61,6 +62,7 @@
 // static members
 // ---------------------------------------------------------------------------
 const int NIImporter_DlrNavteq::GEO_SCALE = 5;
+const int NIImporter_DlrNavteq::EdgesHandler::MISSING_COLUMN = std::numeric_limits<int>::max();
 
 // ===========================================================================
 // method definitions
@@ -204,9 +206,13 @@ NIImporter_DlrNavteq::EdgesHandler::EdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
         const std::string& file,
         std::map<std::string, PositionVector>& geoms,
         std::map<std::string, std::string>& streetNames):
-    myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms), myStreetNames(streetNames) {
-    UNUSED_PARAMETER(file);
-}
+    myNodeCont(nc), 
+    myEdgeCont(ec), 
+    myGeoms(geoms), 
+    myStreetNames(streetNames),
+    myVersion(0),
+    myFile(file)
+{ }
 
 
 NIImporter_DlrNavteq::EdgesHandler::~EdgesHandler() {}
@@ -214,110 +220,126 @@ NIImporter_DlrNavteq::EdgesHandler::~EdgesHandler() {}
 
 bool
 NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
-//	0: LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID
-//  4: length	vehicle_type	form_of_way	brunnel_type
-//  7: street_type	speed_category	number_of_lanes	average_speed
-//  10: NAME_ID1	NAME_ID2	housenumbers_right	housenumbers_left
-//  ZIP_CODE	AREA_ID	SUBAREA_ID	through_traffic	special_restrictions
-//  extended_number_of_lanes  isRamp    (these two only exist in networks extracted since 05/2009)
-//  connection (this may be omitted)
-
+    // parse version number from first comment line and initialize column definitions
     if (result[0] == '#') {
+        if (!myColumns.empty()) {
+            return true;
+        }
+        const std::string marker = "Extraction version: V";
+        size_t vStart = result.find(marker);
+        if (vStart == std::string::npos) {
+            return true;
+        }
+        vStart += marker.size();
+        const size_t vEnd = result.find(" ", vStart);
+        try {
+            myVersion = TplConvert::_2SUMOReal(result.substr(vStart, vEnd - vStart).c_str());
+            if (myVersion < 0) {
+                throw ProcessError("Invalid version number '" + toString(myVersion) + "' in file '" + myFile + "'.");
+            }
+            // init columns
+            const size_t NUM_COLUMNS = 25; // @note arrays must match this size!
+            const int MC = MISSING_COLUMN;
+            if (myVersion < 3) {
+                const int columns[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, MC, 12, 13, 14, 15, 16, 17, 18, 19, 20, MC, MC, 21};
+                myColumns = std::vector<int>(columns, columns + NUM_COLUMNS);
+            } else if (myVersion < 6) {
+                const int columns[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, MC, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, -23};
+                myColumns = std::vector<int>(columns, columns + NUM_COLUMNS);
+            } else {
+                const int columns[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
+                myColumns = std::vector<int>(columns, columns + NUM_COLUMNS);
+            }
+        } catch (NumberFormatException&) {
+            throw ProcessError("Non-numerical value for version string in file '" + myFile + "'.");
+        }
         return true;
     }
-    std::string id, fromID, toID, interID;
-    SUMOReal length;
-    SUMOReal speed = (SUMOReal) 30.0 / (SUMOReal) 3.6;
-    int nolanes = 1;
-    int priority;
-    int form_of_way;
-    // parse
+    if (myColumns.empty()) {
+        throw ProcessError("Missing version string in file '" + myFile + "'.");
+    }
+    // interpret link attributes
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
-    // id
-    id = st.next();
-    // from node id
-    fromID = st.next();
-    // to node id
-    toID = st.next();
-    // intermediate node id
-    interID = st.next();
-    // length
+    const std::string id = getColumn(st, LINK_ID); 
+    // form of way (for priority and permissions)
+    int form_of_way;
     try {
-        length = TplConvert::_2SUMOReal(st.next().c_str());
+        form_of_way = TplConvert::_2int(getColumn(st, FORM_OF_WAY).c_str());
     } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for an edge's length occured (edge '" + id + "'.");
+        throw ProcessError("Non-numerical value for form_of_way of link '" + id + "'.");
     }
-    // vehicle_type
-    std::string veh_type = st.next();
-    // form_of_way
+    // priority based on street_type / frc
+    int priority;
     try {
-        form_of_way = TplConvert::_2int(st.next().c_str());
-    } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for an edge's form_of_way occured (edge '" + id + "'.");
-    }
-    // brunnel_type
-    std::string brunnel_type = st.next();
-    // street_type used for priority
-    try {
-        priority = -TplConvert::_2int(st.next().c_str());
-    } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for an edge's street_type occured (edge '" + id + "'.");
-    }
-    // modify priority using form_of_way
-    if (form_of_way == 11) {
-        priority -= 1; // frontage road, very often with lowered curb
-    } else if (form_of_way > 11) {
-        priority -= 2; // parking/service access assume lowered curb
-    }
-    speed = NINavTeqHelper::getSpeed(id, st.next());
-    // number of lanes
-    nolanes = NINavTeqHelper::getLaneNumber(id, st.next(), speed);
-    // average_speed (reportedly this is simply the speed from speed_category minus 10km/h)
-    std::string average_speed = st.next();
-    // regional street name id
-    std::string nameID_regional = st.next();
-    // local street name id
-    std::string nameID_local = st.next();
-    std::string streetName = getStreetNameFromIDs(nameID_regional, nameID_local);
-    std::vector<std::string> theRest = st.getVector();
-    bool connection = (theRest.size() == 8) && (theRest[7] == "1");
-    if (theRest.size() > 8) {
-        // post 05/2009 network
-        if (theRest[8] != "-1") {
-            try {
-                nolanes = TplConvert::_2int(theRest[8].c_str());
-            } catch (NumberFormatException&) {
-                throw ProcessError("Non-numerical value for the extended number of lanes (edge '" + id + "'.");
-            }
+        priority = -TplConvert::_2int(getColumn(st, FUNCTIONAL_ROAD_CLASS).c_str());
+        // lower priority using form_of_way
+        if (form_of_way == 11) {
+            priority -= 1; // frontage road, very often with lowered curb
+        } else if (form_of_way > 11) {
+            priority -= 2; // parking/service access assume lowered curb
         }
-        connection = (theRest.size() == 10) && (theRest[9] == "1");
+    } catch (NumberFormatException&) {
+        throw ProcessError("Non-numerical value for street_type of link '" + id + "').");
     }
+    // street name 
+    std::string streetName = getStreetNameFromIDs(
+            getColumn(st, NAME_ID1_REGIONAL),
+            getColumn(st, NAME_ID2_LOCAL));
     // try to get the nodes
+    const std::string fromID = getColumn(st, NODE_ID_FROM);
+    const std::string toID = getColumn(st, NODE_ID_TO);
     NBNode* from = myNodeCont.retrieve(fromID);
     NBNode* to = myNodeCont.retrieve(toID);
     if (from == 0) {
-        throw ProcessError("The from-node '" + fromID + "' of edge '" + id + "' could not be found");
+        throw ProcessError("The from-node '" + fromID + "' of link '" + id + "' could not be found");
     }
     if (to == 0) {
-        throw ProcessError("The to-node '" + toID + "' of edge '" + id + "' could not be found");
+        throw ProcessError("The to-node '" + toID + "' of link '" + id + "' could not be found");
+    }
+    // speed
+    SUMOReal speed; 
+    try {
+        speed = TplConvert::_2int(getColumn(st, SPEED_RESTRICTION, "-1").c_str()) / 3.6;
+    } catch (NumberFormatException) {
+        throw ProcessError("Non-numerical value for the SPEED_RESTRICTION of link '" + id + "'.");
+    }
+    if (speed < 0) {
+        // speed category as fallback
+        speed = NINavTeqHelper::getSpeed(id, getColumn(st, SPEED_CATEGORY));
+    }
+    // number of lanes
+    int numLanes;
+    try {
+        // EXTENDED_NUMBER_OF_LANES is prefered but may not be defined
+        numLanes = TplConvert::_2int(getColumn(st, EXTENDED_NUMBER_OF_LANES, "-1").c_str());
+        if (numLanes = -1) {  
+            numLanes = NINavTeqHelper::getLaneNumber(id, getColumn(st, NUMBER_OF_LANES), speed);
+        }
+    } catch (NumberFormatException&) {
+        throw ProcessError("Non-numerical value for the number of lanes of link '" + id + "'.");
     }
     // build the edge
     NBEdge* e = 0;
+    const std::string interID = getColumn(st, BETWEEN_NODE_ID);
     if (interID == "-1") {
-        e = new NBEdge(id, from, to, "", speed, nolanes, priority,
+        e = new NBEdge(id, from, to, "", speed, numLanes, priority,
                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, streetName);
     } else {
         PositionVector geoms = myGeoms[interID];
-        if (connection) {
+        if (getColumn(st, CONNECTION, "0") == "1") {
             geoms = geoms.reverse();
         }
         geoms.push_front(from->getPosition());
         geoms.push_back(to->getPosition());
-        e = new NBEdge(id, from, to, "", speed, nolanes, priority,
+        e = new NBEdge(id, from, to, "", speed, numLanes, priority,
                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, LANESPREAD_CENTER);
     }
     // add vehicle type information to the edge
-    NINavTeqHelper::addVehicleClasses(*e, veh_type);
+    if (myVersion < 6.0) {
+        NINavTeqHelper::addVehicleClasses(*e, getColumn(st, VEHICLE_TYPE));
+    } else {
+        NINavTeqHelper::addVehicleClassesV6(*e, getColumn(st, VEHICLE_TYPE));
+    }
     // permission modifications based on form_of_way
     if (form_of_way == 14) { // pedestrian area (fussgaengerzone)
         // unfortunately, the veh_type string is misleading in this case
@@ -329,6 +351,33 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         throw ProcessError("Could not add edge '" + id + "'.");
     }
     return true;
+}
+
+
+std::string 
+NIImporter_DlrNavteq::EdgesHandler::getColumn(const StringTokenizer& st, ColumnName name, const std::string fallback) {
+    assert(!myColumns.empty());
+    if (myColumns[name] == MISSING_COLUMN) {
+        if (fallback == "") {
+            throw ProcessError("Missing column " + toString(name) + ".");
+        } else {
+            return fallback;
+        }
+    } else if (myColumns[name] >= 0) {
+        return st.get((size_t)(myColumns[name]));
+    } else {
+        // negative column number implies an optional column
+        if (st.size() <= -myColumns[name]) {
+            // the column is not present
+            if (fallback == "") {
+                throw ProcessError("Missing optional column " + toString(name) + " without default value.");
+            } else {
+                return fallback;
+            }
+        } else {
+            return st.get((size_t)(-myColumns[name]));
+        }
+    }
 }
 
 
