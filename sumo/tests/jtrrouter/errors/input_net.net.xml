@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:06 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:12 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\jtrrouter\errors\../../duarouter/input_dua2s.nod.xml"/>
-        <edge-files value=".\jtrrouter\errors\../../duarouter/input_dua2s.edg.xml"/>
+        <node-files value="./tests/jtrrouter/errors/../../duarouter/input_dua2s.nod.xml"/>
+        <edge-files value="./tests/jtrrouter/errors/../../duarouter/input_dua2s.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\jtrrouter\errors\input_net.net.xml"/>
+        <output-file value="./tests/jtrrouter/errors/input_net.net.xml"/>
     </output>
 
     <processing>
@@ -54,8 +54,7 @@
         <lane id="rend_1" index="1" speed="27.80" length="500.00" shape="2000.00,-1.65 2500.00,-1.65"/>
     </edge>
 
-    <junction id="absBeg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55">
-    </junction>
+    <junction id="absBeg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-6.55"/>
     <junction id="absEnd" type="priority" x="2000.00" y="0.00" incLanes="end_0 end_1" intLanes="" shape="2000.00,-0.05 2000.00,-6.55 2000.00,-0.05">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
@@ -68,22 +67,21 @@
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="end" type="priority" x="1500.00" y="0.00" incLanes="left2end_0 middle_0" intLanes="" shape="1496.75,1.45 1499.95,1.45 1501.45,-0.05 1501.45,-6.55 1495.25,-3.25 1495.25,-0.05">
-        <request index="0" response="00" foes="10"/>
-        <request index="1" response="00" foes="01"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="endleft" type="priority" x="1500.00" y="500.00" incLanes="left_0" intLanes="" shape="1499.95,496.75 1496.75,496.75 1496.75,499.95">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="rabsEnd" type="unregulated" x="2500.00" y="0.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,-6.55 2500.00,-0.05">
-    </junction>
+    <junction id="rabsEnd" type="unregulated" x="2500.00" y="0.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,-6.55 2500.00,-0.05"/>
 
-    <connection from="beg" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="beg" to="beg2left" fromLane="1" toLane="0" dir="l" state="M"/>
+    <connection from="beg" to="middle" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
+    <connection from="beg" to="beg2left" fromLane="1" toLane="0" pass="1" dir="l" state="M"/>
     <connection from="beg2left" to="left" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="end" to="rend" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="end" to="rend" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="left" to="left2end" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="left2end" to="end" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="middle" to="end" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="left2end" to="end" fromLane="0" toLane="1" pass="1" dir="l" state="M"/>
+    <connection from="middle" to="end" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
 
 </net>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:16 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:13 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\sumo\extended\stops\second_near_end1\../../../spec/two_straight_3lanes.nod.xml"/>
-        <edge-files value=".\sumo\extended\stops\second_near_end1\../../../spec/two_straight_3lanes.edg.xml"/>
+        <node-files value="./tests/sumo/extended/stops/second_near_end1/../../../spec/two_straight_3lanes.nod.xml"/>
+        <edge-files value="./tests/sumo/extended/stops/second_near_end1/../../../spec/two_straight_3lanes.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\sumo\extended\stops\second_near_end1\net.net.xml"/>
+        <output-file value="./tests/sumo/extended/stops/second_near_end1/net.net.xml"/>
     </output>
 
     <processing>
@@ -40,15 +40,13 @@
         <lane id="end_2" index="2" speed="27.80" length="500.00" shape="500.00,-1.65 1000.00,-1.65"/>
     </edge>
 
-    <junction id="beg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85">
-    </junction>
+    <junction id="beg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-9.85"/>
     <junction id="center" type="priority" x="500.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes="" shape="500.00,-0.05 500.00,-9.85 500.00,-0.05">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="end" type="unregulated" x="1000.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="1000.00,-9.85 1000.00,-0.05">
-    </junction>
+    <junction id="end" type="unregulated" x="1000.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="1000.00,-9.85 1000.00,-0.05"/>
 
     <connection from="beg" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="beg" to="end" fromLane="1" toLane="1" dir="s" state="M"/>

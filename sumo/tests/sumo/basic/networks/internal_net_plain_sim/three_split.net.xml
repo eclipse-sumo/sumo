@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:09 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:15 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\sumo\basic\networks\internal_net_plain_sim\../three_split.nod.xml"/>
-        <edge-files value=".\sumo\basic\networks\internal_net_plain_sim\../three_split.edg.xml"/>
+        <node-files value="./tests/sumo/basic/networks/internal_net_plain_sim/../three_split.nod.xml"/>
+        <edge-files value="./tests/sumo/basic/networks/internal_net_plain_sim/../three_split.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\sumo\basic\networks\internal_net_plain_sim\three_split.net.xml"/>
+        <output-file value="./tests/sumo/basic/networks/internal_net_plain_sim/three_split.net.xml"/>
     </output>
 
     <report>
@@ -29,7 +29,7 @@
         <lane id=":absEnd_0_0" index="0" speed="27.80" length="0.10" shape="2000.00,498.35 2000.00,498.35"/>
     </edge>
     <edge id=":beg_0" function="internal">
-        <lane id=":beg_0_0" index="0" speed="20.85" length="5.00" shape="495.25,498.35 496.61,498.16 497.57,497.58 498.16,496.61 498.35,495.25"/>
+        <lane id=":beg_0_0" index="0" speed="20.85" length="5.00" shape="495.25,498.35 496.61,498.16 497.58,497.58 498.16,496.61 498.35,495.25"/>
     </edge>
     <edge id=":beg_1" function="internal">
         <lane id=":beg_1_0" index="0" speed="27.80" length="9.50" shape="495.25,498.35 504.75,498.35"/>
@@ -44,7 +44,7 @@
         <lane id=":begright_0_0" index="0" speed="13.90" length="2.58" shape="498.35,-0.05 498.45,-0.75 498.75,-1.25 499.25,-1.55 499.95,-1.65"/>
     </edge>
     <edge id=":end_0" function="internal">
-        <lane id=":end_0_0" index="0" speed="20.85" length="7.85" shape="1498.35,501.45 1498.75,500.09 1499.95,499.13 1501.95,498.54 1504.75,498.35"/>
+        <lane id=":end_0_0" index="0" speed="20.85" length="7.85" shape="1498.35,501.45 1498.75,500.09 1499.95,499.12 1501.95,498.54 1504.75,498.35"/>
     </edge>
     <edge id=":end_1" function="internal">
         <lane id=":end_1_0" index="0" speed="20.85" length="5.00" shape="1501.65,495.25 1501.84,496.61 1502.43,497.58 1503.39,498.16 1504.75,498.35"/>
@@ -90,8 +90,7 @@
         <lane id="right2end_0" index="0" speed="13.90" length="495.30" shape="1501.65,-0.05 1501.65,495.25"/>
     </edge>
 
-    <junction id="absBeg" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,496.75">
-    </junction>
+    <junction id="absBeg" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="-0.00,499.95 -0.00,496.75"/>
     <junction id="absEnd" type="priority" x="2000.00" y="500.00" incLanes="end_0" intLanes=":absEnd_0_0" shape="2000.00,499.95 2000.00,496.75 2000.00,499.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
@@ -117,8 +116,7 @@
     <junction id="endright" type="priority" x="1500.00" y="0.00" incLanes="right_0" intLanes=":endright_0_0" shape="1500.05,-0.05 1503.25,-0.05 1500.05,-3.25 1500.05,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="rabsEnd" type="unregulated" x="2500.00" y="500.00" incLanes="rend_0" intLanes="" shape="2500.00,496.75 2500.00,499.95">
-    </junction>
+    <junction id="rabsEnd" type="unregulated" x="2500.00" y="500.00" incLanes="rend_0" intLanes="" shape="2500.00,496.75 2500.00,499.95"/>
 
     <connection from="beg" to="beg2right" fromLane="0" toLane="0" via=":beg_0_0" dir="r" state="M"/>
     <connection from="beg" to="middle" fromLane="0" toLane="0" via=":beg_1_0" dir="s" state="M"/>

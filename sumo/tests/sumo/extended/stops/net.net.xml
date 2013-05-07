@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:15 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:13 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\sumo\extended\stops\hello.nod.xml"/>
-        <edge-files value=".\sumo\extended\stops\hello.edg.xml"/>
+        <node-files value="./tests/sumo/extended/stops/hello.nod.xml"/>
+        <edge-files value="./tests/sumo/extended/stops/hello.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\sumo\extended\stops\net.net.xml"/>
+        <output-file value="./tests/sumo/extended/stops/net.net.xml"/>
     </output>
 
     <report>
@@ -36,13 +36,11 @@
         <lane id="out_0" index="0" speed="13.90" length="1.00" shape="5.00,-1.65 6.00,-1.65"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
-    </junction>
+    <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
     <junction id="2" type="priority" x="5.00" y="0.00" incLanes="1to2_0" intLanes=":2_0_0" shape="5.00,-0.05 5.00,-3.25 5.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="3" type="unregulated" x="6.00" y="0.00" incLanes="out_0" intLanes="" shape="6.00,-3.25 6.00,-0.05">
-    </junction>
+    <junction id="3" type="unregulated" x="6.00" y="0.00" incLanes="out_0" intLanes="" shape="6.00,-3.25 6.00,-0.05"/>
 
     <connection from="1to2" to="out" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="M"/>
 

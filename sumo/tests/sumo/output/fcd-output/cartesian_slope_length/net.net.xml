@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/25/13 10:30:55 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Tue May  7 15:49:14 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="net.nod.xml"/>
-        <edge-files value="net.edg.xml"/>
+        <node-files value="./tests/sumo/output/fcd-output/cartesian_slope_length/net.nod.xml"/>
+        <edge-files value="./tests/sumo/output/fcd-output/cartesian_slope_length/net.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="./tests/sumo/output/fcd-output/cartesian_slope_length/net.net.xml"/>
     </output>
 
     <processing>
         <no-internal-links value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

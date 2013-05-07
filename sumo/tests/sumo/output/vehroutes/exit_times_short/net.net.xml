@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:21 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:14 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\sumo\output\vehroutes\exit_times_short\short_edge.nod.xml"/>
-        <edge-files value=".\sumo\output\vehroutes\exit_times_short\short_edge.edg.xml"/>
+        <node-files value="./tests/sumo/output/vehroutes/exit_times_short/short_edge.nod.xml"/>
+        <edge-files value="./tests/sumo/output/vehroutes/exit_times_short/short_edge.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\sumo\output\vehroutes\exit_times_short\net.net.xml"/>
+        <output-file value="./tests/sumo/output/vehroutes/exit_times_short/net.net.xml"/>
     </output>
 
     <report>
@@ -42,16 +42,14 @@
         <lane id="middle_0" index="0" speed="27.80" length="2.00" shape="500.00,-1.65 502.00,-1.65"/>
     </edge>
 
-    <junction id="beg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
-    </junction>
+    <junction id="beg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
     <junction id="c2" type="priority" x="502.00" y="0.00" incLanes="middle_0" intLanes=":c2_0_0" shape="502.00,-0.05 502.00,-3.25 502.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="center" type="priority" x="500.00" y="0.00" incLanes="beg_0" intLanes=":center_0_0" shape="500.00,-0.05 500.00,-3.25 500.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="end" type="unregulated" x="1000.00" y="0.00" incLanes="end_0" intLanes="" shape="1000.00,-3.25 1000.00,-0.05">
-    </junction>
+    <junction id="end" type="unregulated" x="1000.00" y="0.00" incLanes="end_0" intLanes="" shape="1000.00,-3.25 1000.00,-0.05"/>
 
     <connection from="beg" to="middle" fromLane="0" toLane="0" via=":center_0_0" dir="s" state="M"/>
     <connection from="middle" to="end" fromLane="0" toLane="0" via=":c2_0_0" dir="s" state="M"/>

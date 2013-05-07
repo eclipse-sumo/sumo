@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:04 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:17 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\duarouter\bugs\dijkstra\input_dijkstra.nod.xml"/>
-        <edge-files value=".\duarouter\bugs\dijkstra\input_dijkstra.edg.xml"/>
+        <node-files value="./tests/duarouter/bugs/dijkstra/input_dijkstra.nod.xml"/>
+        <edge-files value="./tests/duarouter/bugs/dijkstra/input_dijkstra.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\duarouter\bugs\dijkstra\input_net.net.xml"/>
+        <output-file value="./tests/duarouter/bugs/dijkstra/input_net.net.xml"/>
     </output>
 
     <processing>
@@ -127,10 +127,8 @@
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="end" type="unregulated" x="0.00" y="250.00" incLanes="c3e_0 a25e_0 c2e_0 c1e_0 a2e_0 b1e_0 a1e_0" intLanes="" shape="6.33,254.35 6.85,251.19 8.58,249.35 7.14,246.48 6.64,245.91 3.97,244.13">
-    </junction>
-    <junction id="start" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.04,-0.04 2.30,-2.30">
-    </junction>
+    <junction id="end" type="unregulated" x="0.00" y="250.00" incLanes="c3e_0 a25e_0 c2e_0 c1e_0 a2e_0 b1e_0 a1e_0" intLanes="" shape="6.33,254.35 6.85,251.19 8.58,249.35 7.14,246.48 6.64,245.91 3.97,244.13"/>
+    <junction id="start" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.04,-0.04 2.30,-2.30"/>
 
     <connection from="a3a25" to="a25e" fromLane="0" toLane="0" dir="r" state="="/>
     <connection from="b2a1" to="a1e" fromLane="0" toLane="0" dir="r" state="M"/>

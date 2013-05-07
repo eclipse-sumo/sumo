@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:10 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:15 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\sumo\basic\simple_nets\box\box1l\box1l.nod.xml"/>
-        <edge-files value=".\sumo\basic\simple_nets\box\box1l\box1l.edg.xml"/>
+        <node-files value="./tests/sumo/basic/simple_nets/box/box1l/../../../../../networkInputs/box/box.nod.xml"/>
+        <edge-files value="./tests/sumo/basic/simple_nets/box/box1l/../../../../../networkInputs/box/box1l.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\sumo\basic\simple_nets\box\box1l\net.net.xml"/>
+        <output-file value="./tests/sumo/basic/simple_nets/box/box1l/net.net.xml"/>
     </output>
 
     <report>

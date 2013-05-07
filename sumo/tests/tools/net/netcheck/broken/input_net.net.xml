@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/25/13 13:24:48 by SUMO netconvert Version dev-SVN-r13719
+<!-- generated on Tue May  7 15:49:12 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="cross1l.nod.xml"/>
-        <edge-files value="cross1l.edg.xml"/>
+        <node-files value="./tests/tools/net/netcheck/broken/cross1l.nod.xml"/>
+        <edge-files value="./tests/tools/net/netcheck/broken/cross1l.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="./tests/tools/net/netcheck/broken/input_net.net.xml"/>
     </output>
 
     <report>

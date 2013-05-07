@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:02 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:16 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\complex\tutorial\traci_tls\data\cross.nod.xml"/>
-        <edge-files value=".\complex\tutorial\traci_tls\data\cross.edg.xml"/>
-        <connection-files value=".\complex\tutorial\traci_tls\data\cross.con.xml"/>
+        <node-files value="./tests/complex/tutorial/traci_tls/data/cross.nod.xml"/>
+        <edge-files value="./tests/complex/tutorial/traci_tls/data/cross.edg.xml"/>
+        <connection-files value="./tests/complex/tutorial/traci_tls/data/cross.con.xml"/>
     </input>
 
     <output>
-        <output-file value=".\complex\tutorial\traci_tls\data\cross.net.xml"/>
+        <output-file value="./tests/complex/tutorial/traci_tls/data/cross.net.xml"/>
     </output>
 
     <report>
@@ -42,7 +42,7 @@
         <lane id=":1_0_0" index="0" speed="15.28" length="0.10" shape="10.00,511.65 10.00,511.65"/>
     </edge>
     <edge id=":1_1" function="internal">
-        <lane id=":1_1_0" index="0" speed="15.28" length="2.41" shape="10.00,511.65 8.76,510.83 8.35,510.00"/>
+        <lane id=":1_1_0" index="0" speed="15.28" length="2.41" shape="10.00,511.65 8.76,510.82 8.35,510.00"/>
     </edge>
     <edge id=":1_4" function="internal">
         <lane id=":1_4_0" index="0" speed="15.28" length="2.41" shape="8.35,510.00 8.76,509.18 10.00,508.35"/>
@@ -60,7 +60,7 @@
         <lane id=":2_0_0" index="0" speed="15.28" length="0.10" shape="1010.00,511.65 1010.00,511.65"/>
     </edge>
     <edge id=":2_1" function="internal">
-        <lane id=":2_1_0" index="0" speed="15.28" length="2.41" shape="1010.00,511.65 1008.76,510.83 1008.35,510.00"/>
+        <lane id=":2_1_0" index="0" speed="15.28" length="2.41" shape="1010.00,511.65 1008.76,510.82 1008.35,510.00"/>
     </edge>
     <edge id=":2_4" function="internal">
         <lane id=":2_4_0" index="0" speed="15.28" length="2.41" shape="1008.35,510.00 1008.76,509.18 1010.00,508.35"/>
@@ -114,7 +114,7 @@
         <lane id=":51_0_0" index="0" speed="15.28" length="4.82" shape="0.00,511.65 -1.24,510.82 -1.65,510.00 -1.24,509.18 0.00,508.35"/>
     </edge>
     <edge id=":52_0" function="internal">
-        <lane id=":52_0_0" index="0" speed="15.28" length="4.82" shape="1020.00,508.35 1021.24,509.17 1021.65,510.00 1021.24,510.82 1020.00,511.65"/>
+        <lane id=":52_0_0" index="0" speed="15.28" length="4.82" shape="1020.00,508.35 1021.24,509.18 1021.65,510.00 1021.24,510.82 1020.00,511.65"/>
     </edge>
     <edge id=":53_0" function="internal">
         <lane id=":53_0_0" index="0" speed="15.28" length="4.82" shape="508.35,0.00 509.18,-1.24 510.00,-1.65 510.82,-1.24 511.65,0.00"/>
@@ -209,13 +209,13 @@
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="51" type="priority" x="0.00" y="510.00" incLanes="51i_0" intLanes=":51_0_0" shape="0.00,509.95 0.00,506.75 -0.00,513.25 -0.00,510.05">
+    <junction id="51" type="priority" x="0.00" y="510.00" incLanes="51i_0" intLanes=":51_0_0" shape="-0.00,509.95 -0.00,506.75 0.00,513.25 0.00,510.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="52" type="priority" x="1020.00" y="510.00" incLanes="52i_0" intLanes=":52_0_0" shape="1020.00,510.05 1020.00,513.25 1020.00,506.75 1020.00,509.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="53" type="priority" x="510.00" y="0.00" incLanes="53i_0" intLanes=":53_0_0" shape="510.05,0.00 513.25,0.00 506.75,-0.00 509.95,-0.00">
+    <junction id="53" type="priority" x="510.00" y="0.00" incLanes="53i_0" intLanes=":53_0_0" shape="510.05,-0.00 513.25,-0.00 506.75,0.00 509.95,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="54" type="priority" x="510.00" y="1020.00" incLanes="54i_0" intLanes=":54_0_0" shape="509.95,1020.00 506.75,1020.00 513.25,1020.00 510.05,1020.00">

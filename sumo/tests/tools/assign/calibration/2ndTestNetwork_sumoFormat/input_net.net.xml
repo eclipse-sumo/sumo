@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/06/13 22:59:30 by SUMO netconvert Version dev-SVN-r13883
+<!-- generated on Tue May  7 15:49:12 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="testnetz1.nod.xml"/>
-        <edge-files value="testnetz1.edg.xml"/>
-        <type-files value="testnetz1.typ.xml"/>
+        <node-files value="./tests/tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.nod.xml"/>
+        <edge-files value="./tests/tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.edg.xml"/>
+        <type-files value="./tests/tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.typ.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="./tests/tools/assign/calibration/2ndTestNetwork_sumoFormat/input_net.net.xml"/>
     </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -71,7 +75,7 @@
         <lane id=":6_0_0" index="0" speed="15.00" length="5.00" shape="1295.25,798.35 1296.61,798.16 1297.57,797.58 1298.16,796.61 1298.35,795.25"/>
     </edge>
     <edge id=":6_1" function="internal">
-        <lane id=":6_1_0" index="0" speed="15.00" length="7.85" shape="1295.25,798.35 1298.05,798.54 1300.05,799.13 1301.25,800.09 1301.65,801.45"/>
+        <lane id=":6_1_0" index="0" speed="15.00" length="7.85" shape="1295.25,798.35 1298.05,798.54 1300.05,799.12 1301.25,800.09 1301.65,801.45"/>
     </edge>
     <edge id=":7_0" function="internal">
         <lane id=":7_0_0" index="0" speed="15.00" length="2.58" shape="1298.35,499.95 1298.45,499.25 1298.75,498.75 1299.25,498.45 1299.95,498.35"/>

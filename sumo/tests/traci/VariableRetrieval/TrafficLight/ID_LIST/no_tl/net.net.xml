@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:30 by SUMO netgen Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:17 2013 by SUMO netgenerate Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenerateConfiguration.xsd">
 
     <grid_network>
         <grid value="true"/>
@@ -12,7 +12,7 @@
     </grid_network>
 
     <output>
-        <output-file value=".\traci\VariableRetrieval\TrafficLight\ID_LIST\no_tl\net.net.xml"/>
+        <output-file value="./tests/traci/VariableRetrieval/TrafficLight/ID_LIST/no_tl/net.net.xml"/>
     </output>
 
     <processing>

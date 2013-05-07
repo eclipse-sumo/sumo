@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 10 13:23:17 2012 by SUMO netconvert Version dev-SVN-r12208
+<!-- generated on Tue May  7 15:49:14 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="dynNet.nod.xml"/>
-        <edge-files value="dynNet.edg.xml"/>
+        <node-files value="./tests/sumo/meso/state/changed_network/missing_egde__discard_started_vehicles_on_egde/dynNet.nod.xml"/>
+        <edge-files value="./tests/sumo/meso/state/changed_network/missing_egde__discard_started_vehicles_on_egde/dynNet.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="dynNet.net.xml"/>
+        <output-file value="./tests/sumo/meso/state/changed_network/missing_egde__discard_started_vehicles_on_egde/dynNet.net.xml"/>
     </output>
 
     <report>
@@ -126,8 +126,7 @@
         <lane id="9x10_0" index="0" speed="13.90" length="197.82" shape="400.32,38.35 598.14,38.35"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="0.00" y="20.00" incLanes="" intLanes="" shape="-0.00,19.95 -0.00,16.75">
-    </junction>
+    <junction id="1" type="unregulated" x="0.00" y="20.00" incLanes="" intLanes="" shape="-0.00,19.95 -0.00,16.75"/>
     <junction id="10" type="priority" x="600.00" y="40.00" incLanes="5x10_0 9x10_0" intLanes=":10_0_0 :10_1_0" shape="602.10,39.53 601.47,36.39 598.53,36.39 597.90,39.53">
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
@@ -163,8 +162,7 @@
         <request index="1" response="101" foes="101" cont="0"/>
         <request index="2" response="001" foes="011" cont="0"/>
     </junction>
-    <junction id="8" type="unregulated" x="800.00" y="20.00" incLanes="7x8_0" intLanes="" shape="800.00,16.75 800.00,19.95">
-    </junction>
+    <junction id="8" type="unregulated" x="800.00" y="20.00" incLanes="7x8_0" intLanes="" shape="800.00,16.75 800.00,19.95"/>
     <junction id="9" type="priority" x="400.00" y="40.00" incLanes="3x9_0" intLanes=":9_0_0" shape="400.32,39.95 400.32,36.75 399.69,39.89">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>

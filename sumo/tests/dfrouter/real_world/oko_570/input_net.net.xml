@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:04 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:16 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\dfrouter\real_world\oko_570\nodes.nod.xml"/>
-        <edge-files value=".\dfrouter\real_world\oko_570\edges.edg.xml"/>
+        <node-files value="./tests/dfrouter/real_world/oko_570/nodes.nod.xml"/>
+        <edge-files value="./tests/dfrouter/real_world/oko_570/edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\dfrouter\real_world\oko_570\input_net.net.xml"/>
+        <output-file value="./tests/dfrouter/real_world/oko_570/input_net.net.xml"/>
     </output>
 
     <processing>
@@ -126,10 +126,8 @@
         <lane id="b1_a3_0" index="0" speed="13.90" length="319.77" shape="199.49,298.43 503.82,200.26"/>
     </edge>
 
-    <junction id="00" type="unregulated" x="0.00" y="510.00" incLanes="10_00_0" intLanes="" shape="-0.00,513.25 -0.00,510.05">
-    </junction>
-    <junction id="01" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,496.75">
-    </junction>
+    <junction id="00" type="unregulated" x="0.00" y="510.00" incLanes="10_00_0" intLanes="" shape="0.00,513.25 0.00,510.05"/>
+    <junction id="01" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="-0.00,499.95 -0.00,496.75"/>
     <junction id="10" type="priority" x="100.00" y="510.00" incLanes="20_10_0" intLanes="" shape="100.00,513.25 100.00,510.05 100.00,513.25">
         <request index="0" response="0" foes="0"/>
     </junction>
@@ -184,10 +182,8 @@
     <junction id="61" type="priority" x="910.00" y="500.00" incLanes="51_61_0" intLanes="" shape="910.00,499.95 910.00,496.75 910.00,499.95">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="70" type="unregulated" x="1010.00" y="510.00" incLanes="" intLanes="" shape="1010.00,510.05 1010.00,513.25">
-    </junction>
-    <junction id="71" type="unregulated" x="1010.00" y="500.00" incLanes="61_71_0" intLanes="" shape="1010.00,496.75 1010.00,499.95">
-    </junction>
+    <junction id="70" type="unregulated" x="1010.00" y="510.00" incLanes="" intLanes="" shape="1010.00,510.05 1010.00,513.25"/>
+    <junction id="71" type="unregulated" x="1010.00" y="500.00" incLanes="61_71_0" intLanes="" shape="1010.00,496.75 1010.00,499.95"/>
     <junction id="a0" type="priority" x="500.00" y="400.00" incLanes="30_a0_0" intLanes="" shape="496.75,400.00 499.95,400.00 496.77,399.68">
         <request index="0" response="0" foes="0"/>
     </junction>
@@ -217,7 +213,7 @@
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="a5" type="priority" x="510.00" y="0.00" incLanes="a4_a5_0" intLanes="" shape="510.05,0.00 513.25,0.00 506.75,-0.00 509.95,-0.00">
+    <junction id="a5" type="priority" x="510.00" y="0.00" incLanes="a4_a5_0" intLanes="" shape="510.05,-0.00 513.25,-0.00 506.75,0.00 509.95,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="b1" type="priority" x="200.00" y="300.00" incLanes="a3_b1_0" intLanes="" shape="199.98,299.95 199.00,296.91 201.00,303.09 200.02,300.05">

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:29 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on Tue May  7 15:49:17 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\traci\VariableRetrieval\Simulation\POSITION_CONVERSION\../../../traci.nod.xml"/>
-        <edge-files value=".\traci\VariableRetrieval\Simulation\POSITION_CONVERSION\../../../traci.edg.xml"/>
+        <node-files value="./tests/traci/VariableRetrieval/Simulation/POSITION_CONVERSION/../../../traci.nod.xml"/>
+        <edge-files value="./tests/traci/VariableRetrieval/Simulation/POSITION_CONVERSION/../../../traci.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\traci\VariableRetrieval\Simulation\POSITION_CONVERSION\net.net.xml"/>
+        <output-file value="./tests/traci/VariableRetrieval/Simulation/POSITION_CONVERSION/net.net.xml"/>
     </output>
 
     <processing>
@@ -127,8 +127,7 @@
         <lane id="e_x1_1" index="1" speed="60.00" length="500.00" shape="3698.35,500.00 3698.35,0.00"/>
     </edge>
 
-    <junction id="n_m0" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,490.15">
-    </junction>
+    <junction id="n_m0" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="-0.00,499.95 -0.00,490.15"/>
     <junction id="n_m1" type="priority" x="500.00" y="500.00" incLanes="e_m0_0 e_m0_1 e_m0_2" intLanes="" shape="500.00,499.95 500.00,490.15 500.00,499.95">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
@@ -215,14 +214,12 @@
         <request index="3" response="00000" foes="00000"/>
         <request index="4" response="00000" foes="00000"/>
     </junction>
-    <junction id="n_x0" type="unregulated" x="3700.00" y="1000.00" incLanes="" intLanes="" shape="3699.95,1000.00 3693.45,1000.00">
-    </junction>
+    <junction id="n_x0" type="unregulated" x="3700.00" y="1000.00" incLanes="" intLanes="" shape="3699.95,1000.00 3693.45,1000.00"/>
     <junction id="n_x1" type="priority" x="3700.00" y="500.00" incLanes="e_x0_0 e_x0_1" intLanes="" shape="3693.45,500.00 3699.95,500.00 3693.45,500.00">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="n_x2" type="unregulated" x="3700.00" y="0.00" incLanes="e_x1_0 e_x1_1" intLanes="" shape="3693.45,-0.00 3699.95,-0.00">
-    </junction>
+    <junction id="n_x2" type="unregulated" x="3700.00" y="0.00" incLanes="e_x1_0 e_x1_1" intLanes="" shape="3693.45,0.00 3699.95,0.00"/>
 
     <connection from="e_m0" to="e_m1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="e_m0" to="e_m1" fromLane="1" toLane="1" dir="s" state="M"/>

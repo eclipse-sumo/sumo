@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 28 22:14:50 2012 by SUMO netconvert Version dev-SVN-r13051
+<!-- generated on Tue May  7 15:49:16 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="input_nodes.nod.xml"/>
-        <edge-files value="input_edges.edg.xml"/>
+        <node-files value="./tests/complex/traci/pythonApi/simulation/input_nodes.nod.xml"/>
+        <edge-files value="./tests/complex/traci/pythonApi/simulation/input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="./tests/complex/traci/pythonApi/simulation/input_net.net.xml"/>
     </output>
 
     <projection>
         <proj.utm value="true"/>
     </projection>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

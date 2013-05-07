@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Nov 24 07:47:34 2012 by SUMO netconvert Version dev-SVN-r13004
+<!-- generated on Tue May  7 15:49:11 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="../../../../networkInputs/bell_pfe/bell_pfe_koeln.nod.xml"/>
-        <edge-files value="../../../../networkInputs/bell_pfe/bell_pfe_koeln.edg.xml"/>
-        <connection-files value="../../../../networkInputs/bell_pfe/bell_pfe_koeln.con.xml"/>
+        <node-files value="./tests/tools/detector/flowrouter/bell_pfe/../../../../networkInputs/bell_pfe/bell_pfe_koeln.nod.xml"/>
+        <edge-files value="./tests/tools/detector/flowrouter/bell_pfe/../../../../networkInputs/bell_pfe/bell_pfe_koeln.edg.xml"/>
+        <connection-files value="./tests/tools/detector/flowrouter/bell_pfe/../../../../networkInputs/bell_pfe/bell_pfe_koeln.con.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="./tests/tools/detector/flowrouter/bell_pfe/input_net.net.xml"/>
     </output>
 
     <processing>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -211,11 +215,11 @@
     </junction>
     <junction id="106" type="priority" x="117.58" y="198.18" incLanes="11_47_0 11_47_1 46_13_0 46_13_1 8_0 10_0" intLanes="" shape="111.06,206.22 120.86,206.18 122.36,204.65 122.14,191.55 120.16,190.09 113.68,190.64 109.46,195.04 109.54,201.53">
         <request index="0" response="00000000" foes="10011000"/>
-        <request index="1" response="00000000" foes="01111000"/>
+        <request index="1" response="00000000" foes="01011000"/>
         <request index="2" response="00000000" foes="01000000"/>
         <request index="3" response="00000011" foes="01000011"/>
         <request index="4" response="00000011" foes="11000011"/>
-        <request index="5" response="00000010" foes="00000010"/>
+        <request index="5" response="00000000" foes="00000000"/>
         <request index="6" response="00011110" foes="00011110"/>
         <request index="7" response="00010001" foes="00010001"/>
     </junction>
@@ -295,8 +299,7 @@
     <junction id="gneJ52" type="dead_end" x="112.26" y="0.00" incLanes="3_0" intLanes="" shape="112.31,0.00 118.80,0.29 109.01,-0.14 112.21,-0.00"/>
     <junction id="gneJ53" type="dead_end" x="158.11" y="46.67" incLanes="42_0" intLanes="" shape="158.11,46.72 157.96,49.92 158.26,43.42 158.11,46.62"/>
     <junction id="gneJ54" type="dead_end" x="53.31" y="41.75" incLanes="43_0" intLanes="" shape="53.31,41.70 53.47,38.50 53.15,45.00 53.31,41.80"/>
-    <junction id="gneJ55" type="unregulated" x="32.66" y="294.35" incLanes="" intLanes="" shape="32.68,294.31 34.23,291.50">
-    </junction>
+    <junction id="gneJ55" type="unregulated" x="32.66" y="294.35" incLanes="" intLanes="" shape="32.68,294.31 34.23,291.50"/>
 
     <connection from="1" to="6" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="1" to="43" fromLane="0" toLane="0" dir="s" state="m"/>
@@ -371,7 +374,7 @@
     <connection from="6" to="8" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="7" to="8" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="7" to="5" fromLane="0" toLane="0" dir="l" state="m"/>
-    <connection from="8" to="14_58" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="8" to="14_58" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="8" to="12" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="9" to="5" fromLane="0" toLane="0" dir="s" state="M"/>
 
