@@ -861,19 +861,19 @@ public:
             return myOriginalSpeed;
         }
 
-		void setVTDControlled(bool c, MSLane *l, SUMOReal pos, int edgeOffset, const MSEdgeVector &route) {
-			myAmVTDControlled = c;
-			myVTDLane = l;
-			myVTDPos = pos;
-			myVTDEdgeOffset = edgeOffset;
-			myVTDRoute = route;
-		}
+        void setVTDControlled(bool c, MSLane* l, SUMOReal pos, int edgeOffset, const MSEdgeVector& route) {
+            myAmVTDControlled = c;
+            myVTDLane = l;
+            myVTDPos = pos;
+            myVTDEdgeOffset = edgeOffset;
+            myVTDRoute = route;
+        }
 
-		void postProcessVTD(MSVehicle *v);
+        void postProcessVTD(MSVehicle* v);
 
-		bool isVTDControlled() const {
-			return myAmVTDControlled;
-		}
+        bool isVTDControlled() const {
+            return myAmVTDControlled;
+        }
 
     private:
         /// @brief The velocity time line to apply
@@ -897,11 +897,11 @@ public:
         /// @brief Whether the maximum deceleration shall be regarded
         bool myConsiderMaxDeceleration;
 
-		bool myAmVTDControlled;
-		MSLane *myVTDLane;
-		SUMOReal myVTDPos;
-		int myVTDEdgeOffset;
-		MSEdgeVector myVTDRoute;
+        bool myAmVTDControlled;
+        MSLane* myVTDLane;
+        SUMOReal myVTDPos;
+        int myVTDEdgeOffset;
+        MSEdgeVector myVTDRoute;
 
     };
 
@@ -914,7 +914,7 @@ public:
     Influencer& getInfluencer();
 
     bool hasInfluencer() const {
-        return myInfluencer!=0;
+        return myInfluencer != 0;
     }
 
 

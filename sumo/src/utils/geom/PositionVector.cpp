@@ -268,8 +268,8 @@ PositionVector::slopeDegreeAtOffset(SUMOReal pos) const {
 
 Position
 PositionVector::positionAtOffset(const Position& p1,
-        const Position& p2,
-        SUMOReal pos) {
+                                 const Position& p2,
+                                 SUMOReal pos) {
     const SUMOReal dist = p1.distanceTo(p2);
     if (dist < pos) {
         return Position(-1, -1);
@@ -280,8 +280,8 @@ PositionVector::positionAtOffset(const Position& p1,
 
 Position
 PositionVector::positionAtOffset2D(const Position& p1,
-        const Position& p2,
-        SUMOReal pos) {
+                                   const Position& p2,
+                                   SUMOReal pos) {
     const SUMOReal dist = p1.distanceTo2D(p2);
     if (dist < pos) {
         return Position(-1, -1);

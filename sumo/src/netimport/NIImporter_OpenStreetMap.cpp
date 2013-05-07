@@ -607,8 +607,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     std::map<SUMOLong, Edge*>& toFill) :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
-    myEdgeMap(toFill) 
-{
+    myEdgeMap(toFill) {
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
     mySpeedMap["none"] = 300.;
     mySpeedMap["no"] = 300.;
@@ -771,8 +770,7 @@ NIImporter_OpenStreetMap::RelationHandler::RelationHandler(
     const std::map<SUMOLong, Edge*>& osmEdges) :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
-    myOSMEdges(osmEdges)
-{
+    myOSMEdges(osmEdges) {
     resetValues();
 }
 

@@ -143,7 +143,7 @@ GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
 #else
                           Position::INVALID
 #endif
-                          );
+                         );
     hide();
     return 1;
 }
@@ -165,7 +165,7 @@ GUIDialog_EditViewport::onCmdChanged(FXObject*, FXSelector, void*) {
 #else
                           Position::INVALID
 #endif
-                          );
+                         );
     return 1;
 }
 

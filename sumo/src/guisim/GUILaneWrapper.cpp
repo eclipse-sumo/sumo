@@ -474,7 +474,7 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings& s) const {
         setColor(s);
     // optionally draw inverse markings
     if (myIndex > 0) {
-		SUMOReal mw = myHalfLaneWidth + SUMO_const_laneOffset + .01;
+        SUMOReal mw = myHalfLaneWidth + SUMO_const_laneOffset + .01;
         int e = (int) getShape().size() - 1;
         for (int i = 0; i < e; ++i) {
             glPushMatrix();

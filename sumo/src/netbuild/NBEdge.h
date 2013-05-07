@@ -940,7 +940,7 @@ public:
     /// @brief set lane specific width (negative lane implies set for all lanes)
     void setLaneWidth(int lane, SUMOReal width);
 
-    /// @brief 
+    /// @brief
     SUMOReal getLaneWidth(int lane) const;
 
     /// @brief set lane specific end-offset (negative lane implies set for all lanes)

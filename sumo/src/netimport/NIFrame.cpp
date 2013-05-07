@@ -253,7 +253,7 @@ NIFrame::fillOptions() {
     oc.addDescription("opendrive.import-all-lanes", "Processing", "Imports all lane types.");
     oc.doRegister("opendrive.import-widths", new Option_Bool(false));
     oc.addDescription("opendrive.import-widths", "Processing", "Whether lane widths shall be imported.");
-    
+
 
 
 

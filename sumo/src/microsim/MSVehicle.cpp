@@ -146,7 +146,7 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
 MSVehicle::Influencer::Influencer()
     : mySpeedAdaptationStarted(true), myConsiderSafeVelocity(true),
       myConsiderMaxAcceleration(true), myConsiderMaxDeceleration(true),
-myAmVTDControlled(false) {}
+      myAmVTDControlled(false) {}
 
 
 MSVehicle::Influencer::~Influencer() {}
@@ -240,19 +240,19 @@ MSVehicle::Influencer::setConsiderMaxDeceleration(bool value) {
 }
 
 
-void 
-MSVehicle::Influencer::postProcessVTD(MSVehicle *v) {
-	v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
+void
+MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
+    v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
     v->getLane()->removeVehicle(v);
-	if(myVTDRoute.size()!=0) {
-		v->replaceRouteEdges(myVTDRoute, true);
-	}
-	v->myCurrEdge += myVTDEdgeOffset;
-	if(myVTDPos>myVTDLane->getLength()) {
-		myVTDPos = myVTDLane->getLength();
-	}
-	myVTDLane->forceVehicleInsertion(v, myVTDPos);
-	v->getBestLanes();
+    if (myVTDRoute.size() != 0) {
+        v->replaceRouteEdges(myVTDRoute, true);
+    }
+    v->myCurrEdge += myVTDEdgeOffset;
+    if (myVTDPos > myVTDLane->getLength()) {
+        myVTDPos = myVTDLane->getLength();
+    }
+    myVTDLane->forceVehicleInsertion(v, myVTDPos);
+    v->getBestLanes();
     myAmVTDControlled = false;
 }
 
@@ -690,9 +690,9 @@ MSVehicle::planMove(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal leng
         SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
         v = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), v, v, vMin, vMax);
         // !!! recheck - why is it done, here?
-		if(myInfluencer->isVTDControlled()) {
-			return; // !!! temporary
-		}
+        if (myInfluencer->isVTDControlled()) {
+            return; // !!! temporary
+        }
     }
 #endif
 
@@ -909,13 +909,13 @@ MSVehicle::executeMove() {
     myHaveToWaitOnNextLink = false;
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
-		if(myInfluencer->isVTDControlled()) {
-			return false;
-		}
+        if (myInfluencer->isVTDControlled()) {
+            return false;
+        }
     }
 #endif
 
-	assert(myLFLinkLanes.size() != 0 || (myInfluencer!=0&&myInfluencer->isVTDControlled()));
+    assert(myLFLinkLanes.size() != 0 || (myInfluencer != 0 && myInfluencer->isVTDControlled()));
     DriveItemVector::iterator i;
     bool braking = false;
     bool lastWasGreenCont = false;
@@ -982,9 +982,9 @@ MSVehicle::executeMove() {
         const SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
         const SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
-		if(myInfluencer->isVTDControlled()) {
-			vNext = 0;
-		}
+        if (myInfluencer->isVTDControlled()) {
+            vNext = 0;
+        }
     }
 #endif
     // visit waiting time
@@ -1081,12 +1081,12 @@ MSVehicle::executeMove() {
     myFurtherLanes.clear();
 
     if (myInfluencer != 0 && myInfluencer->isVTDControlled()) {
-		myWaitingTime = 0;
+        myWaitingTime = 0;
 //		myInfluencer->setVTDControlled(false);
-		return false;
-	}
+        return false;
+    }
 
-	if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
+    if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
         if (myState.myPos > myLane->getLength()) {
             WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop on lane '" + myLane->getID() + " at position " +
                           toString(myState.myPos) + " (decel=" + toString(myAcceleration - myState.mySpeed) + "), time="

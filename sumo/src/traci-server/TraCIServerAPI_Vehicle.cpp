@@ -895,13 +895,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 default:
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Unknown removal status.", outputStorage);
             }
-			if(v->hasDeparted()) {
-				v->onRemovalFromNet(n);
-				if(v->getLane()!=0) {
-					v->getLane()->removeVehicle(v);
-				}
-				MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
-			}
+            if (v->hasDeparted()) {
+                v->onRemovalFromNet(n);
+                if (v->getLane() != 0) {
+                    v->getLane()->removeVehicle(v);
+                }
+                MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
+            }
         }
         break;
         case VAR_MOVE_TO_VTD: {
@@ -940,44 +940,48 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 laneNum = -laneNum;
             }
             Position pos(x, y);
-			
-			Position vehPos = v->getPosition();
-			v->getBestLanes();
-			bool report = server.vtdDebug();
-			if(report) std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << v->getLane()->getID() << std::endl;
-			if(report) std::cout << " want pos:" << pos << " edge:" << edgeID << " laneNum:" << laneNum << std::endl;
 
-			MSEdgeVector edgesA, edgesB, edgesC;
-			MSLane *laneA, *laneB, *laneC;
-			laneA = laneB = laneC = 0;
-			SUMOReal lanePosA, lanePosB, lanePosC;
-			SUMOReal bestDistanceA, bestDistanceB, bestDistanceC;
-			bestDistanceA = bestDistanceB = bestDistanceC = 1000.;//pos.distanceSquaredTo2D(vehPos);
-			int routeOffsetA, routeOffsetB, routeOffsetC;
-			routeOffsetA = routeOffsetB = routeOffsetC = 0;
-			// case a): edge/lane is known and matches route
-			bool aFound = vtdMap_matchingEdgeLane(pos, origID, *v, server.vtdDebug(), bestDistanceA, &laneA, lanePosA, routeOffsetA, edgesA);
-			// case b): position is at route, should be somewhere near to it
-			bool bFound = vtdMap_matchingRoutePosition(pos, origID, *v, server.vtdDebug(), bestDistanceB, &laneB, lanePosB, routeOffsetB, edgesB);
-			// case c) nearest matching lane
-			bool cFound = vtdMap_matchingNearest(pos, origID, *v, server, server.vtdDebug(), bestDistanceC, &laneC, lanePosC, routeOffsetC, edgesC);
-			//
-			SUMOReal maxRouteDistance = 50;
-			if(cFound && (bestDistanceA>maxRouteDistance&&bestDistanceC>maxRouteDistance)) {
-				// both route-based approach yield in a position too far away from the submitted --> new route!?
-				server.setVTDControlled(v, laneC, lanePosC, routeOffsetC, edgesC);
-			} else {
-				// use the best we have
-				if(bFound) {
-					server.setVTDControlled(v, laneB, lanePosB, routeOffsetB, edgesB);
-				} else if(aFound) {
-					server.setVTDControlled(v, laneA, lanePosA, routeOffsetA, edgesA);
-				} else if (cFound) {
-					server.setVTDControlled(v, laneC, lanePosC, routeOffsetC, edgesC);
-				} else {
-					return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Could not map vehicle.", outputStorage);
-				}
-			}
+            Position vehPos = v->getPosition();
+            v->getBestLanes();
+            bool report = server.vtdDebug();
+            if (report) {
+                std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << v->getLane()->getID() << std::endl;
+            }
+            if (report) {
+                std::cout << " want pos:" << pos << " edge:" << edgeID << " laneNum:" << laneNum << std::endl;
+            }
+
+            MSEdgeVector edgesA, edgesB, edgesC;
+            MSLane* laneA, *laneB, *laneC;
+            laneA = laneB = laneC = 0;
+            SUMOReal lanePosA, lanePosB, lanePosC;
+            SUMOReal bestDistanceA, bestDistanceB, bestDistanceC;
+            bestDistanceA = bestDistanceB = bestDistanceC = 1000.;//pos.distanceSquaredTo2D(vehPos);
+            int routeOffsetA, routeOffsetB, routeOffsetC;
+            routeOffsetA = routeOffsetB = routeOffsetC = 0;
+            // case a): edge/lane is known and matches route
+            bool aFound = vtdMap_matchingEdgeLane(pos, origID, *v, server.vtdDebug(), bestDistanceA, &laneA, lanePosA, routeOffsetA, edgesA);
+            // case b): position is at route, should be somewhere near to it
+            bool bFound = vtdMap_matchingRoutePosition(pos, origID, *v, server.vtdDebug(), bestDistanceB, &laneB, lanePosB, routeOffsetB, edgesB);
+            // case c) nearest matching lane
+            bool cFound = vtdMap_matchingNearest(pos, origID, *v, server, server.vtdDebug(), bestDistanceC, &laneC, lanePosC, routeOffsetC, edgesC);
+            //
+            SUMOReal maxRouteDistance = 50;
+            if (cFound && (bestDistanceA > maxRouteDistance && bestDistanceC > maxRouteDistance)) {
+                // both route-based approach yield in a position too far away from the submitted --> new route!?
+                server.setVTDControlled(v, laneC, lanePosC, routeOffsetC, edgesC);
+            } else {
+                // use the best we have
+                if (bFound) {
+                    server.setVTDControlled(v, laneB, lanePosB, routeOffsetB, edgesB);
+                } else if (aFound) {
+                    server.setVTDControlled(v, laneA, lanePosA, routeOffsetA, edgesA);
+                } else if (cFound) {
+                    server.setVTDControlled(v, laneC, lanePosC, routeOffsetC, edgesC);
+                } else {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Could not map vehicle.", outputStorage);
+                }
+            }
         }
         break;
         default:
@@ -995,174 +999,198 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 }
 
 
-bool 
-TraCIServerAPI_Vehicle::vtdMap_matchingEdgeLane(const Position &pos, const std::string &origID, MSVehicle &v, bool report, 
-												SUMOReal &bestDistance, MSLane **lane, SUMOReal &lanePos, int &routeOffset, MSEdgeVector &edges) {
-	const std::map<std::string, std::vector<MSLane*> >  &vtdMap = getOrBuildVTDMap();
-	if(vtdMap.find(origID)==vtdMap.end()) {
-		if(report) std::cout << "  a failed - lane not in map" << std::endl;
-		return false;
-	}
-	const std::vector<MSLane*> &lanes = vtdMap.find(origID)->second;
-	for(std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end()&&bestDistance>POSITION_EPS; ++i) {
-		MSLane* l = *i;
-		SUMOReal dist = l->getShape().distance(pos);
-		if(report) std::cout << "   a at lane " << l->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
-		if (dist < bestDistance) {
-			bestDistance = dist;
-	        *lane = l;
-		}
-	}
-	MSLane *pni = *lane;
-	while(pni!=0&&pni->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL&&pni->getIncomingLanes().size()!=0) {
-		pni = pni->getIncomingLanes()[0].lane;
-	}
-	if(pni==0||pni->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-		// not found
-		if(report) std::cout << "  a failed - no incoming lane" << std::endl;
-		return false;
-	}
-	const MSEdgeVector &tedges = v.getRoute().getEdges();
-	MSEdgeVector::const_iterator p = std::find(tedges.begin() + v.getRoutePosition(), tedges.end(), &pni->getEdge());
-	if(p!=tedges.end()) {
-		lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal((*lane)->getLength()-POSITION_EPS), (*lane)->getShape().nearest_offset_to_point2D(pos, false)));
-		routeOffset = std::distance(tedges.begin(), p) - v.getRoutePosition();
-		if(report) std::cout << "  a ok lane:" << (*lane)->getID() << " lanePos:" << lanePos << " routeOffset:" << routeOffset << std::endl;
-		return true;
-	}
-	if(report) std::cout << "  a failed - route position beyond route length" << std::endl;
-	return false;
+bool
+TraCIServerAPI_Vehicle::vtdMap_matchingEdgeLane(const Position& pos, const std::string& origID, MSVehicle& v, bool report,
+        SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, MSEdgeVector& edges) {
+    const std::map<std::string, std::vector<MSLane*> >&  vtdMap = getOrBuildVTDMap();
+    if (vtdMap.find(origID) == vtdMap.end()) {
+        if (report) {
+            std::cout << "  a failed - lane not in map" << std::endl;
+        }
+        return false;
+    }
+    const std::vector<MSLane*>& lanes = vtdMap.find(origID)->second;
+    for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end() && bestDistance > POSITION_EPS; ++i) {
+        MSLane* l = *i;
+        SUMOReal dist = l->getShape().distance(pos);
+        if (report) {
+            std::cout << "   a at lane " << l->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
+        }
+        if (dist < bestDistance) {
+            bestDistance = dist;
+            *lane = l;
+        }
+    }
+    MSLane* pni = *lane;
+    while (pni != 0 && pni->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL && pni->getIncomingLanes().size() != 0) {
+        pni = pni->getIncomingLanes()[0].lane;
+    }
+    if (pni == 0 || pni->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+        // not found
+        if (report) {
+            std::cout << "  a failed - no incoming lane" << std::endl;
+        }
+        return false;
+    }
+    const MSEdgeVector& tedges = v.getRoute().getEdges();
+    MSEdgeVector::const_iterator p = std::find(tedges.begin() + v.getRoutePosition(), tedges.end(), &pni->getEdge());
+    if (p != tedges.end()) {
+        lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal((*lane)->getLength() - POSITION_EPS), (*lane)->getShape().nearest_offset_to_point2D(pos, false)));
+        routeOffset = std::distance(tedges.begin(), p) - v.getRoutePosition();
+        if (report) {
+            std::cout << "  a ok lane:" << (*lane)->getID() << " lanePos:" << lanePos << " routeOffset:" << routeOffset << std::endl;
+        }
+        return true;
+    }
+    if (report) {
+        std::cout << "  a failed - route position beyond route length" << std::endl;
+    }
+    return false;
 }
 
 
-bool 
-TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position &pos, const std::string &origID, MSVehicle &v, bool report, 
-													 SUMOReal &bestDistance, MSLane **lane, SUMOReal &lanePos, int &routeOffset, MSEdgeVector &edges) {
-				
-	int lastBestRouteEdge = 0;
-	int lastRouteEdge = 0;
-	MSLane *bestRouteLane = 0;
-	const std::vector<MSLane*>& bestLaneConts = v.getBestLanesContinuation(v.getLane());
-	for(std::vector<MSLane*>::const_iterator i=bestLaneConts.begin(); i!=bestLaneConts.end()&&bestDistance>POSITION_EPS; ++i) {
-		MSEdge &e = (*i)->getEdge();
-		if(i!=bestLaneConts.begin()&&e.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-			++lastRouteEdge;
-		}
-		const std::vector<MSLane*>& lanes = e.getLanes();
-		for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end()&&bestDistance>POSITION_EPS; ++k) {
-			MSLane* cl = *k;
-			SUMOReal dist = cl->getShape().distance(pos);
-			if(report) std::cout << "   b at lane " << cl->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
-			if (dist < bestDistance) {
-				bestDistance = dist;
-	            *lane = cl;
-				lastBestRouteEdge = lastRouteEdge;
-				if(e.getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-					bestRouteLane = *i;
-				} else {
-					bestRouteLane = *lane;
-				}
-			}
-		}
-	}
-	if(bestRouteLane==0) {
-		if(report) std::cout << "  b failed - no best route lane" << std::endl;
-		return false;
-	}
-	lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal(bestRouteLane->getLength()-POSITION_EPS), bestRouteLane->getShape().nearest_offset_to_point2D(pos, false)));
-	routeOffset = lastBestRouteEdge;
-	if(report) std::cout << "  b ok lane " << bestRouteLane->getID() << " lanePos:" << lanePos << " best:" << lastBestRouteEdge << std::endl;
-	return true;
+bool
+TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID, MSVehicle& v, bool report,
+        SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, MSEdgeVector& edges) {
+
+    int lastBestRouteEdge = 0;
+    int lastRouteEdge = 0;
+    MSLane* bestRouteLane = 0;
+    const std::vector<MSLane*>& bestLaneConts = v.getBestLanesContinuation(v.getLane());
+    for (std::vector<MSLane*>::const_iterator i = bestLaneConts.begin(); i != bestLaneConts.end() && bestDistance > POSITION_EPS; ++i) {
+        MSEdge& e = (*i)->getEdge();
+        if (i != bestLaneConts.begin() && e.getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+            ++lastRouteEdge;
+        }
+        const std::vector<MSLane*>& lanes = e.getLanes();
+        for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end() && bestDistance > POSITION_EPS; ++k) {
+            MSLane* cl = *k;
+            SUMOReal dist = cl->getShape().distance(pos);
+            if (report) {
+                std::cout << "   b at lane " << cl->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
+            }
+            if (dist < bestDistance) {
+                bestDistance = dist;
+                *lane = cl;
+                lastBestRouteEdge = lastRouteEdge;
+                if (e.getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+                    bestRouteLane = *i;
+                } else {
+                    bestRouteLane = *lane;
+                }
+            }
+        }
+    }
+    if (bestRouteLane == 0) {
+        if (report) {
+            std::cout << "  b failed - no best route lane" << std::endl;
+        }
+        return false;
+    }
+    lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal(bestRouteLane->getLength() - POSITION_EPS), bestRouteLane->getShape().nearest_offset_to_point2D(pos, false)));
+    routeOffset = lastBestRouteEdge;
+    if (report) {
+        std::cout << "  b ok lane " << bestRouteLane->getID() << " lanePos:" << lanePos << " best:" << lastBestRouteEdge << std::endl;
+    }
+    return true;
 }
 
 
-bool 
-TraCIServerAPI_Vehicle::vtdMap_matchingNearest(const Position &pos, const std::string &origID, MSVehicle &v, traci::TraCIServer& server, bool report, 
-											   SUMOReal &bestDistance, MSLane **lane, SUMOReal &lanePos, int &routeOffset, MSEdgeVector &edges) {
-	unsigned int r = 0;
-	SUMOReal minDist = 1 << (11);
+bool
+TraCIServerAPI_Vehicle::vtdMap_matchingNearest(const Position& pos, const std::string& origID, MSVehicle& v, traci::TraCIServer& server, bool report,
+        SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, MSEdgeVector& edges) {
+    unsigned int r = 0;
+    SUMOReal minDist = 1 << (11);
     MSLane* minDistLane = 0;
     MSLane* nameMatchingLane = 0;
     SUMOReal minDistNameMatchingLane = 1 << (11);
     for (; minDistLane == 0 && r < 10 && nameMatchingLane == 0; ++r) {
-		std::set<std::string> into;
+        std::set<std::string> into;
         PositionVector shape;
         shape.push_back(pos);
         server.collectObjectsInRange(CMD_GET_EDGE_VARIABLE, shape, 1 << r, into);
         for (std::set<std::string>::const_iterator j = into.begin(); j != into.end(); ++j) {
-			MSEdge* e = MSEdge::dictionary(*j);
+            MSEdge* e = MSEdge::dictionary(*j);
             const std::vector<MSLane*>& lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
-				MSLane* lane = *k;
+                MSLane* lane = *k;
                 SUMOReal dist = lane->getShape().distance(pos);
                 if (lane->knowsParameter("origId")) {
-					if (lane->getParameter("origId", "") == origID) {
-						if (dist < minDistNameMatchingLane) {
-							minDistNameMatchingLane = dist;
+                    if (lane->getParameter("origId", "") == origID) {
+                        if (dist < minDistNameMatchingLane) {
+                            minDistNameMatchingLane = dist;
                             nameMatchingLane = lane;
-						}
-					}
-				}
+                        }
+                    }
+                }
                 if (dist < minDist) {
-					minDist = dist;
+                    minDist = dist;
                     minDistLane = lane;
-				}
-			}
-		}
-	}
+                }
+            }
+        }
+    }
     *lane = nameMatchingLane != 0 ? nameMatchingLane : minDistLane;
-	if(lane==0) {
-		if(report) std::cout << "  c failed - no matching lane" << std::endl;
-		return false;
-	}
-	lanePos = (*lane)->interpolateGeometryPosToLanePos((*lane)->getShape().nearest_offset_to_point2D(pos, false));
-	if (*lane == v.getLane()) {
-		routeOffset = 0;
-		if(report) std::cout << "  c ok, on same lane" << std::endl;
-		return true;
-	}
-	MSEdge& destinationEdge = (*lane)->getEdge();
-	MSEdge* routePos = &destinationEdge;
+    if (lane == 0) {
+        if (report) {
+            std::cout << "  c failed - no matching lane" << std::endl;
+        }
+        return false;
+    }
+    lanePos = (*lane)->interpolateGeometryPosToLanePos((*lane)->getShape().nearest_offset_to_point2D(pos, false));
+    if (*lane == v.getLane()) {
+        routeOffset = 0;
+        if (report) {
+            std::cout << "  c ok, on same lane" << std::endl;
+        }
+        return true;
+    }
+    MSEdge& destinationEdge = (*lane)->getEdge();
+    MSEdge* routePos = &destinationEdge;
     while (routePos->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
-		routePos = &routePos->getLanes()[0]->getLogicalPredecessorLane()->getEdge();
-	}
+        routePos = &routePos->getLanes()[0]->getLogicalPredecessorLane()->getEdge();
+    }
     r = 0;
-	const MSRoute& route = v.getRoute();
-	unsigned int c = v.getRoutePosition();
+    const MSRoute& route = v.getRoute();
+    unsigned int c = v.getRoutePosition();
     unsigned int l = (int)route.getEdges().size();
     unsigned int rindex = 0;
     bool found = false;
     while (!found && ((int)(c - r) >= 0 || c + r < l)) {
-		if ((int)(c - r) >= 0 && route[c - r] == routePos) {
-			rindex = c - r;
+        if ((int)(c - r) >= 0 && route[c - r] == routePos) {
+            rindex = c - r;
             found = true;
-		}
-		if (c + r < l && route[c + r] == routePos) {
-			rindex = c + r;
-			found = true;
-		}
-		++r;
-	}
-	if(found) {
-		// the matching lane is part of the route
-		routeOffset = rindex - v.getRoutePosition();
-		if(report) std::cout << "  c ok, on a different edge of same route" << std::endl;
-		return true;
-	}
-	// build new route
+        }
+        if (c + r < l && route[c + r] == routePos) {
+            rindex = c + r;
+            found = true;
+        }
+        ++r;
+    }
+    if (found) {
+        // the matching lane is part of the route
+        routeOffset = rindex - v.getRoutePosition();
+        if (report) {
+            std::cout << "  c ok, on a different edge of same route" << std::endl;
+        }
+        return true;
+    }
+    // build new route
     MSLane* firstLane = *lane;
-	if (destinationEdge.getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
-		edges.push_back(&destinationEdge);
-	} else {
-		firstLane = (*lane)->getLogicalPredecessorLane();
-		edges.push_back(&firstLane->getEdge());
-	}
-	const MSLinkCont& lc = firstLane->getLinkCont();
+    if (destinationEdge.getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+        edges.push_back(&destinationEdge);
+    } else {
+        firstLane = (*lane)->getLogicalPredecessorLane();
+        edges.push_back(&firstLane->getEdge());
+    }
+    const MSLinkCont& lc = firstLane->getLinkCont();
     if (lc.size() != 0 && lc[0]->getLane() != 0) {
-		edges.push_back(&lc[0]->getLane()->getEdge());
-	}
-	if(report) std::cout << "  c ok, on a different route" << std::endl;
-	return true;
+        edges.push_back(&lc[0]->getLane()->getEdge());
+    }
+    if (report) {
+        std::cout << "  c ok, on a different route" << std::endl;
+    }
+    return true;
 }
 
 
@@ -1254,27 +1282,27 @@ TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle* const veh) {
 
 #include <microsim/MSEdgeControl.h>
 
-const std::map<std::string, std::vector<MSLane*> > &
+const std::map<std::string, std::vector<MSLane*> >&
 TraCIServerAPI_Vehicle::getOrBuildVTDMap() {
-	if(gVTDMap.size()==0) {
-		const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
-		for(std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-			const std::vector<MSLane*> &lanes = (*i)->getLanes();
-			for(std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
-				if ((*j)->knowsParameter("origId")) {
-					std::string origID = (*j)->getParameter("origId", "");
-					if(gVTDMap.find(origID)==gVTDMap.end()) {
-						gVTDMap[origID] = std::vector<MSLane*>();
-					}
-					gVTDMap[origID].push_back(*j);
-				}
-			}
-		}
-		if(gVTDMap.size()==0) {
-			gVTDMap["unknown"] = std::vector<MSLane*>();
-		}
-	}
-	return gVTDMap;
+    if (gVTDMap.size() == 0) {
+        const std::vector<MSEdge*>& edges = MSNet::getInstance()->getEdgeControl().getEdges();
+        for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            const std::vector<MSLane*>& lanes = (*i)->getLanes();
+            for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
+                if ((*j)->knowsParameter("origId")) {
+                    std::string origID = (*j)->getParameter("origId", "");
+                    if (gVTDMap.find(origID) == gVTDMap.end()) {
+                        gVTDMap[origID] = std::vector<MSLane*>();
+                    }
+                    gVTDMap[origID].push_back(*j);
+                }
+            }
+        }
+        if (gVTDMap.size() == 0) {
+            gVTDMap["unknown"] = std::vector<MSLane*>();
+        }
+    }
+    return gVTDMap;
 }
 
 

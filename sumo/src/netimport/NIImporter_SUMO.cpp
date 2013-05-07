@@ -581,10 +581,10 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
     // !!! this will only work for old-style constant width lanes
     const size_t noLanes = edge->lanes.size();
     SUMOReal offset;
-    if(edge->lsf==LANESPREAD_RIGHT) {
-        offset = (SUMO_const_laneWidth+SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
+    if (edge->lsf == LANESPREAD_RIGHT) {
+        offset = (SUMO_const_laneWidth + SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
     } else {
-        offset = (SUMO_const_laneWidth) / 2. - (SUMO_const_laneWidth*(SUMOReal)noLanes-1) / 2.;///= -2.; // @todo: actually, when looking at the road networks, the center line is not in the center
+        offset = (SUMO_const_laneWidth) / 2. - (SUMO_const_laneWidth * (SUMOReal)noLanes - 1) / 2.; ///= -2.; // @todo: actually, when looking at the road networks, the center line is not in the center
     }
     for (unsigned int i = 1; i < firstLane.size() - 1; i++) {
         Position from = firstLane[i - 1];

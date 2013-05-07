@@ -104,11 +104,11 @@ protected:
         OPENDRIVE_TAG_RIGHT,
         OPENDRIVE_TAG_LANE,
         OPENDRIVE_TAG_SIGNAL,
-		    OPENDRIVE_TAG_JUNCTION,
-		    OPENDRIVE_TAG_CONNECTION,
-		    OPENDRIVE_TAG_LANELINK,
-		    OPENDRIVE_TAG_WIDTH,
-		    OPENDRIVE_TAG_SPEED
+        OPENDRIVE_TAG_JUNCTION,
+        OPENDRIVE_TAG_CONNECTION,
+        OPENDRIVE_TAG_LANELINK,
+        OPENDRIVE_TAG_WIDTH,
+        OPENDRIVE_TAG_SPEED
     };
 
 
@@ -142,11 +142,11 @@ protected:
         OPENDRIVE_ATTR_LEVEL,
         OPENDRIVE_ATTR_ORIENTATION,
         OPENDRIVE_ATTR_DYNAMIC,
-		    OPENDRIVE_ATTR_INCOMINGROAD,
-		    OPENDRIVE_ATTR_CONNECTINGROAD,
-		    OPENDRIVE_ATTR_FROM,
-		    OPENDRIVE_ATTR_TO,
-		    OPENDRIVE_ATTR_MAX
+        OPENDRIVE_ATTR_INCOMINGROAD,
+        OPENDRIVE_ATTR_CONNECTINGROAD,
+        OPENDRIVE_ATTR_FROM,
+        OPENDRIVE_ATTR_TO,
+        OPENDRIVE_ATTR_MAX
     };
 
 
@@ -245,15 +245,15 @@ protected:
          */
         OpenDriveLane(int idArg, const std::string& levelArg, const std::string& typeArg)
             : id(idArg), level(levelArg), type(typeArg), successor(UNSET_CONNECTION), predecessor(UNSET_CONNECTION),
-		width(0), speed(0) { }
+              width(0), speed(0) { }
 
         int id;
         std::string level;
         std::string type;
         int successor;
         int predecessor;
-		SUMOReal speed;
-		SUMOReal width; ///< @todo: this is the maximum width only
+        SUMOReal speed;
+        SUMOReal width; ///< @todo: this is the maximum width only
     };
 
 
@@ -432,7 +432,7 @@ private:
 
     static std::set<std::string> myLaneTypes2Import;
     static bool myImportAllTypes;
-	static bool myImportWidths;
+    static bool myImportWidths;
 
 
 protected:

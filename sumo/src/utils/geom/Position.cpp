@@ -44,6 +44,6 @@
 
 // Position 1Mio km below the surface should suffice for signaling invalidity inside the solar system
 const Position Position::INVALID(
-        - 1024 * 1024 * 1024,
-        - 1024 * 1024 * 1024,
-        - 1024 * 1024 * 1024);
+    - 1024 * 1024 * 1024,
+    - 1024 * 1024 * 1024,
+    - 1024 * 1024 * 1024);

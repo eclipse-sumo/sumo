@@ -1094,27 +1094,27 @@ NBEdge::computeLaneShapes() {
         offsets.push_back(0);
     }
     SUMOReal offset = 0;
-    for (int i = myLanes.size()-2; i>=0; --i) {
-        offset += (getLaneWidth(i)+getLaneWidth(i+1)) / 2. + SUMO_const_laneOffset;
+    for (int i = myLanes.size() - 2; i >= 0; --i) {
+        offset += (getLaneWidth(i) + getLaneWidth(i + 1)) / 2. + SUMO_const_laneOffset;
         offsets[i] = offset;
     }
     offset -= SUMO_const_laneOffset;
-    if(myLaneSpreadFunction==LANESPREAD_RIGHT) {
-        SUMOReal laneWidth = myLanes.back().width!=UNSPECIFIED_WIDTH ? myLanes.back().width : SUMO_const_laneWidth;
-        offset = (laneWidth+SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
+    if (myLaneSpreadFunction == LANESPREAD_RIGHT) {
+        SUMOReal laneWidth = myLanes.back().width != UNSPECIFIED_WIDTH ? myLanes.back().width : SUMO_const_laneWidth;
+        offset = (laneWidth + SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
     } else {
-		SUMOReal width = 0;
-		for(unsigned int i=0; i<myLanes.size(); ++i) {
-			width += getLaneWidth(i);
-		}
-		width += SUMO_const_laneOffset*SUMOReal(myLanes.size()-1);
-        offset = -width/2. + getLaneWidth(myLanes.size()-1)/2.;
+        SUMOReal width = 0;
+        for (unsigned int i = 0; i < myLanes.size(); ++i) {
+            width += getLaneWidth(i);
+        }
+        width += SUMO_const_laneOffset * SUMOReal(myLanes.size() - 1);
+        offset = -width / 2. + getLaneWidth(myLanes.size() - 1) / 2.;
     }
     for (unsigned int i = 0; i < myLanes.size(); ++i) {
         offsets[i] += offset;
-		if(myAmLeftHand) {
-			offsets[i] *= -1.;
-		}
+        if (myAmLeftHand) {
+            offsets[i] *= -1.;
+        }
     }
 
     // build the shape of each lane
@@ -1916,11 +1916,11 @@ NBEdge::setLaneWidth(int lane, SUMOReal width) {
 }
 
 
-SUMOReal 
+SUMOReal
 NBEdge::getLaneWidth(int lane) const {
-	return myLanes[lane].width!=UNSPECIFIED_WIDTH 
-		? myLanes[lane].width 
-		: getLaneWidth()!=UNSPECIFIED_WIDTH ? getLaneWidth() : SUMO_const_laneWidth;
+    return myLanes[lane].width != UNSPECIFIED_WIDTH
+           ? myLanes[lane].width
+           : getLaneWidth() != UNSPECIFIED_WIDTH ? getLaneWidth() : SUMO_const_laneWidth;
 }
 
 void

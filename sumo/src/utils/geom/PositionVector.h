@@ -84,7 +84,7 @@ public:
     using vp::size;
     using vp::front;
     using vp::back;
-	using vp::reference;
+    using vp::reference;
 
 
     /// @name Adding items to the container
@@ -164,11 +164,11 @@ public:
 
     /// Returns the position between the two given point at the specified position */
     static Position positionAtOffset(const Position& p1,
-            const Position& p2, SUMOReal pos);
+                                     const Position& p2, SUMOReal pos);
 
     /// Returns the position between the two given point at the specified position */
     static Position positionAtOffset2D(const Position& p1,
-            const Position& p2, SUMOReal pos);
+                                       const Position& p2, SUMOReal pos);
 
     /// Returns a boundary enclosing this list of lines
     Boundary getBoxBoundary() const;
