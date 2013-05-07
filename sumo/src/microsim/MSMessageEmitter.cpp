@@ -54,7 +54,7 @@ MSMessageEmitter::MSMessageEmitter(std::string& file,
                                    bool tableOut,
                                    bool xy,
                                    SUMOReal step) :
-    myDev(OutputDevice::getDevice(file, base)),
+    myDev(OutputDevice::getDevice(FileHelpers::checkForRelativity(file, base))),
     writeLCEvent(false),
     writeBEvent(false),
     writeHBEvent(false) {
