@@ -882,8 +882,8 @@ GUISUMOAbstractView::showViewportEditor() {
             new GUIDialog_EditViewport(this, "Edit Viewport...", 0, 0);
         myViewportChooser->create();
     }
-    Position p(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom()), p1;
-    myViewportChooser->setOldValues(p, p1);
+    Position p(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom());
+    myViewportChooser->setOldValues(p, Position::INVALID);
     myViewportChooser->show();
 }
 
