@@ -27,7 +27,7 @@ def runSingle(traciEndTime):
     sumoProcess = subprocess.Popen("%s -c used.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
     traci.init(PORT)
     while not step>traciEndTime:
-        traci.simulationStep(0)
+        traci.simulationStep()
         step += 1
     print "Print ended at step %s" % (traci.simulation.getCurrentTime() / DELTA_T)
     traci.close()

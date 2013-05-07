@@ -10,7 +10,7 @@ sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, 
 traci.init(8813)
 for step in range(3):
     print "step", step
-    traci.simulationStep(0)
+    traci.simulationStep()
 
 def check(vehID):
     print "vehicles", traci.vehicle.getIDList()
@@ -59,7 +59,7 @@ traci.vehicle.subscribe(vehID)
 print traci.vehicle.getSubscriptionResults(vehID)
 for step in range(3,6):
     print "step", step
-    traci.simulationStep(0)
+    traci.simulationStep()
     print traci.vehicle.getSubscriptionResults(vehID)
 traci.vehicle.setLength(vehID, 1.0)
 traci.vehicle.setMaxSpeed(vehID, 1.0)
@@ -77,9 +77,9 @@ traci.vehicle.setWidth(vehID, 1.1)
 traci.vehicle.setColor(vehID, (1, 0, 0, 1))
 check(vehID)
 traci.vehicle.add("1", "horizontal")
-#traci.simulationStep(0)
+#traci.simulationStep()
 check("1")
-traci.simulationStep(0)
+traci.simulationStep()
 traci.vehicle.remove("1")
 print traci.vehicle.getIDList()
 traci.close()

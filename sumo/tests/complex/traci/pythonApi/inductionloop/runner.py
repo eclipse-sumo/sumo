@@ -10,7 +10,7 @@ sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, 
 traci.init(8813)
 for step in range(4):
     print "step", step
-    traci.simulationStep(0)
+    traci.simulationStep()
 print "inductionloops", traci.inductionloop.getIDList()
 loopID = "0"
 print "examining", loopID
@@ -26,6 +26,6 @@ traci.inductionloop.subscribe(loopID)
 print traci.inductionloop.getSubscriptionResults(loopID)
 for step in range(3,6):
     print "step", step
-    traci.simulationStep(0)
+    traci.simulationStep()
     print traci.inductionloop.getSubscriptionResults(loopID)
 traci.close()

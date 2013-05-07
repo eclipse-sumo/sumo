@@ -26,7 +26,7 @@ def runSingle(sumoEndTime, traciEndTime):
     sumoProcess = subprocess.Popen("%s -c used.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
     traci.init(PORT)
     while not step>traciEndTime:
-        traci.simulationStep(0)
+        traci.simulationStep()
         vehs = traci.vehicle.getIDList()
         if vehs.index("horiz")<0 or len(vehs)>1:
             print "Something is false"

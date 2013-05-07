@@ -40,7 +40,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
     traci.polygon.add("poly", ((400, 400), (450, 400), (450, 400)), (1,0,0,0))
     subscribed = False
     while not step>traciEndTime:
-        responses = traci.simulationStep(0)
+        responses = traci.simulationStep()
         near1 = set()
         if objID in module.getContextSubscriptionResults():
             for v in module.getContextSubscriptionResults()[objID]:

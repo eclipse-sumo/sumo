@@ -27,7 +27,7 @@ for root in sorted(roots):
     sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, stdout=sys.stdout)
     traci.init(8813)
     step = 0
-    traci.simulationStep(DELTA_T)
+    traci.simulationStep()
     step += 1
     lanes = traci.vehicle.getBestLanes("0")
     sys.stdout.flush()

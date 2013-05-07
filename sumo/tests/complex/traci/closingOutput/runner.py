@@ -19,7 +19,7 @@ traci.init(PORT)
 time.sleep(10)
 step = 0
 while not step>100:
-    traci.simulationStep(0)
+    traci.simulationStep()
     vehs = traci.vehicle.getIDList()
     if vehs.index("horiz")<0 or len(vehs)>1:
         print "Something is false"
