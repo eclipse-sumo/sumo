@@ -30,6 +30,7 @@
 #endif
 
 #include <iostream>
+#include <utils/common/UtilExceptions.h>
 #include "OutputDevice_File.h"
 
 #ifdef CHECK_MEMORY_LEAKS

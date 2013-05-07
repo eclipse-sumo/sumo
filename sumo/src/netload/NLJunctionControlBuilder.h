@@ -107,7 +107,7 @@ public:
                       const SumoXMLNodeType type, SUMOReal x, SUMOReal y,
                       const PositionVector& shape,
                       const std::vector<MSLane*>& incomingLanes,
-                      const std::vector<MSLane*>& internalLanes) throw(InvalidArgument);
+                      const std::vector<MSLane*>& internalLanes);
 
 
     /** @brief Closes (ends) the processing of the current junction
@@ -122,7 +122,7 @@ public:
      * @todo Throwing ProcessError would get unneeded if the container would be built by default (see prepare)
      * @todo The type of the junctions shoould probably be checked when supprted (in openJunction)
      */
-    void closeJunction() throw(InvalidArgument, ProcessError);
+    void closeJunction();
 
 
     /** @brief Builds the MSJunctionControl which holds all of the simulations junctions
@@ -153,7 +153,7 @@ public:
      * @todo Recheck "cont"; is the description correct?
      */
     void addLogicItem(int request, const std::string& response,
-                      const std::string& foes, bool cont) throw(InvalidArgument);
+                      const std::string& foes, bool cont);
 
 
     /** @brief Begins the reading of a traffic lights logic
@@ -189,7 +189,7 @@ public:
      * @exception InvalidArgument If the named tls logic was not built before
      */
     MSTLLogicControl::TLSLogicVariants& getTLLogic(const std::string& id)
-    const throw(InvalidArgument);
+    const;
 
 
     /** @brief Returns the built tls-logic control
@@ -212,7 +212,7 @@ public:
      *
      * @exception InvalidArgument If another tls logic with the same name as the currently built was loaded before
      */
-    virtual void closeTrafficLightLogic() throw(InvalidArgument, ProcessError);
+    virtual void closeTrafficLightLogic();
 
 
     /** @brief Ends the building of a junction logic (row-logic)
@@ -225,7 +225,7 @@ public:
      *
      * @exception InvalidArgument If the logic's values are false or another logic with the same id was built before
      */
-    void closeJunctionLogic() throw(InvalidArgument);
+    void closeJunctionLogic();
 
 
     /** @brief Adds a parameter
@@ -273,7 +273,7 @@ protected:
      * @exception InvalidArgument If the logic was not built before
      * @todo Where is this used?
      */
-    MSJunctionLogic* getJunctionLogicSecure() throw(InvalidArgument);
+    MSJunctionLogic* getJunctionLogicSecure();
 
 
 protected:
@@ -297,7 +297,7 @@ protected:
      * @return The built junction
      * @exception InvalidArgument If the logic of the junction was not built before
      */
-    virtual MSJunction* buildLogicJunction() throw(InvalidArgument);
+    virtual MSJunction* buildLogicJunction();
 
 
 #ifdef HAVE_INTERNAL_LANES

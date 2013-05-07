@@ -100,7 +100,7 @@ public:
      */
     void buildInductLoop(const std::string& id,
                          const std::string& lane, SUMOReal pos, int splInterval,
-                         const std::string& device, bool friendlyPos, bool splitByType) throw(InvalidArgument);
+                         const std::string& device, bool friendlyPos, bool splitByType);
 
 
     /** @brief Builds an instantenous induction and adds it to the net
@@ -120,7 +120,7 @@ public:
      */
     void buildInstantInductLoop(const std::string& id,
                                 const std::string& lane, SUMOReal pos,
-                                const std::string& device, bool friendlyPos) throw(InvalidArgument);
+                                const std::string& device, bool friendlyPos);
 
 
     /** @brief Builds an e2 detector with a fixed interval and adds it to the net
@@ -150,7 +150,7 @@ public:
     void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
                          bool cont, int splInterval, const std::string& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos) throw(InvalidArgument);
+                         bool friendlyPos);
 
 
     /** @brief Builds an e2 detector connected to a lsa
@@ -181,7 +181,7 @@ public:
                          bool cont, MSTLLogicControl::TLSLogicVariants& tlls,
                          const std::string& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos) throw(InvalidArgument);
+                         bool friendlyPos);
 
 
     /** @brief Builds an e2 detector connected to a link's state
@@ -213,7 +213,7 @@ public:
                          bool cont, MSTLLogicControl::TLSLogicVariants& tlls, const std::string& tolane,
                          const std::string& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos) throw(InvalidArgument);
+                         bool friendlyPos);
 
 
     /** @brief Stores temporary the initial information about an e3 detector to build
@@ -230,7 +230,7 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     void beginE3Detector(const std::string& id, const std::string& device, int splInterval,
-                         SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold) throw(InvalidArgument);
+                         SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold);
 
 
     /** @brief Builds an entry point of an e3 detector
@@ -245,7 +245,7 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void addE3Entry(const std::string& lane, SUMOReal pos, bool friendlyPos) throw(InvalidArgument);
+    void addE3Entry(const std::string& lane, SUMOReal pos, bool friendlyPos);
 
 
     /** @brief Builds an exit point of an e3 detector
@@ -260,7 +260,7 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void addE3Exit(const std::string& lane, SUMOReal pos, bool friendlyPos) throw(InvalidArgument);
+    void addE3Exit(const std::string& lane, SUMOReal pos, bool friendlyPos);
 
 
     /** @brief Builds of an e3 detector using collected values
@@ -272,7 +272,7 @@ public:
      * @param[in] pos The position on the lane the exit shall be placed at
      * @exception InvalidArgument If one of the values is invalid
      */
-    void endE3Detector() throw(InvalidArgument);
+    void endE3Detector();
 
 
     /** @brief Returns the id of the currently built e3 detector
@@ -300,7 +300,7 @@ public:
      */
     void buildVTypeProbe(const std::string& id,
                          const std::string& vtype, SUMOTime frequency,
-                         const std::string& device) throw(InvalidArgument);
+                         const std::string& device);
 
 
     /** @brief Builds a routeProbe and adds it to the net
@@ -319,7 +319,7 @@ public:
      */
     void buildRouteProbe(const std::string& id, const std::string& edge,
                          SUMOTime frequency, SUMOTime begin,
-                         const std::string& device) throw(InvalidArgument);
+                         const std::string& device);
     /// @}
 
 
@@ -445,7 +445,7 @@ public:
                                 const bool withInternal, const bool trackVehicles,
                                 const SUMOReal maxTravelTime, const SUMOReal minSamples,
                                 const SUMOReal haltSpeed, const std::string& vTypes,
-                                const std::string& device) throw(InvalidArgument);
+                                const std::string& device);
     /// @}
 
 
@@ -552,7 +552,7 @@ protected:
      * @exception InvalidArgument If the defined position is invalid
      */
     SUMOReal getPositionChecking(SUMOReal pos, MSLane* lane, bool friendlyPos,
-                                 const std::string& detid) throw(InvalidArgument);
+                                 const std::string& detid);
 
 
     /** @brief Converts the length and the position information for an e2 detector
@@ -564,7 +564,7 @@ protected:
      * @exception InvalidArgument If the defined position or the defined length is invalid
      */
     void convUncontE2PosLength(const std::string& id, MSLane* clane,
-                               SUMOReal& pos, SUMOReal& length, bool frinedly_pos) throw(InvalidArgument);
+                               SUMOReal& pos, SUMOReal& length, bool frinedly_pos);
 
 
     /** @brief Converts the length and the position information for an e2ol-detector
@@ -576,7 +576,7 @@ protected:
      * @exception InvalidArgument If the defined position or the defined length is invalid
      */
     void convContE2PosLength(const std::string& id, MSLane* clane,
-                             SUMOReal& pos, SUMOReal& length, bool frinedly_pos) throw(InvalidArgument);
+                             SUMOReal& pos, SUMOReal& length, bool frinedly_pos);
 
 
 
@@ -590,7 +590,7 @@ protected:
      * @exception InvalidArgument If the named edge is not known
      */
     MSEdge* getEdgeChecking(const std::string& edgeID, SumoXMLTag type,
-                            const std::string& detid) throw(InvalidArgument);
+                            const std::string& detid);
 
 
     /** @brief Returns the named lane
@@ -600,7 +600,7 @@ protected:
      * @exception InvalidArgument If the named lane is not known
      */
     MSLane* getLaneChecking(const std::string& laneID, SumoXMLTag type,
-                            const std::string& detid) throw(InvalidArgument);
+                            const std::string& detid);
 
 
     /** @brief Checks whether the given frequency (sample interval) is valid
@@ -610,7 +610,7 @@ protected:
      * @exception InvalidArgument If the given sample interval is invalid (<=0)
      * @todo Why is splInterval an int???
      */
-    void checkSampleInterval(int splInterval, SumoXMLTag type, const std::string& id) throw(InvalidArgument);
+    void checkSampleInterval(int splInterval, SumoXMLTag type, const std::string& id);
     /// @}
 
 

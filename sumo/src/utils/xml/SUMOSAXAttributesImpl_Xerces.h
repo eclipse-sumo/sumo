@@ -96,7 +96,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception BoolFormatException If the attribute value can not be parsed to a bool
      */
-    bool getBool(int id) const throw(EmptyData, BoolFormatException);
+    bool getBool(int id) const;
 
 
     /**
@@ -147,7 +147,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    std::string getString(int id) const throw(EmptyData);
+    std::string getString(int id) const;
 
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
@@ -162,7 +162,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
     std::string getStringSecure(int id,
-                                const std::string& def) const throw(EmptyData);
+                                const std::string& def) const;
 
 
     /**

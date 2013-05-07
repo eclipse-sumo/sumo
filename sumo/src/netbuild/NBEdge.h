@@ -1063,10 +1063,10 @@ private:
     };
 
     /// Computes the shape for the given lane
-    PositionVector computeLaneShape(unsigned int lane, SUMOReal offset) throw(InvalidArgument);
+    PositionVector computeLaneShape(unsigned int lane, SUMOReal offset);
 
     /// Computes the offset from the edge shape on the current segment
-    //std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset) throw(InvalidArgument);
+    //std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset);
 
     void computeLaneShapes();
 

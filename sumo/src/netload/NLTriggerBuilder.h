@@ -116,7 +116,7 @@ public:
      * @see buildLaneSpeedTrigger
      */
     void parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttributes& attrs,
-                                       const std::string& base) throw(InvalidArgument);
+                                       const std::string& base);
 
 
     /** @brief Parses his values and builds a rerouter
@@ -127,7 +127,7 @@ public:
      * @exception InvalidArgument If a parameter (edge) is not valid
      */
     void parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& attrs,
-                               const std::string& base) throw(InvalidArgument);
+                               const std::string& base);
 
 
     /** @brief Parses his values and builds a bus stop
@@ -136,7 +136,7 @@ public:
      * @param[in] attrs SAX-attributes which define the trigger
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
-    void parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attrs) throw(InvalidArgument);
+    void parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attrs);
 
 
     /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
@@ -147,7 +147,7 @@ public:
      * @exception InvalidArgument If a parameter (edge/position) is not valid
      */
     void parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& attrs,
-                                 const std::string& base) throw(InvalidArgument);
+                                 const std::string& base);
     //@}
 
 
@@ -192,7 +192,7 @@ protected:
      */
     virtual void buildBusStop(MSNet& net,
                               const std::string& id, const std::vector<std::string>& lines,
-                              MSLane* lane, SUMOReal frompos, SUMOReal topos) throw(InvalidArgument);
+                              MSLane* lane, SUMOReal frompos, SUMOReal topos);
 
 
     /** @brief builds a microscopic calibrator
@@ -262,7 +262,7 @@ protected:
      */
     std::string getFileName(const SUMOSAXAttributes& attrs,
                             const std::string& base,
-                            const bool allowEmpty = false) throw(InvalidArgument);
+                            const bool allowEmpty = false);
 
 
     /** @brief Returns the lane defined by attribute "lane"
@@ -277,7 +277,7 @@ protected:
      * @exception InvalidArgument If the named lane does not exist or a lane is not named
      */
     MSLane* getLane(const SUMOSAXAttributes& attrs,
-                    const std::string& tt, const std::string& tid) throw(InvalidArgument);
+                    const std::string& tt, const std::string& tid);
 
 
     /** @brief returns the position on the lane checking it
@@ -294,7 +294,7 @@ protected:
      * @exception InvalidArgument If the position is beyond the lane
      */
     SUMOReal getPosition(const SUMOSAXAttributes& attrs,
-                         MSLane* lane, const std::string& tt, const std::string& tid) throw(InvalidArgument);
+                         MSLane* lane, const std::string& tt, const std::string& tid);
     /// @}
 
 

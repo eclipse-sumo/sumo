@@ -186,7 +186,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception BoolFormatException If the attribute value can not be parsed to a bool
      */
-    virtual bool getBool(int id) const throw(EmptyData, BoolFormatException) = 0;
+    virtual bool getBool(int id) const = 0;
 
     /**
      * @brief Returns the int-value of the named (by its enum-value) attribute
@@ -236,7 +236,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    virtual std::string getString(int id) const throw(EmptyData) = 0;
+    virtual std::string getString(int id) const = 0;
 
 
     /**
@@ -252,7 +252,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
     virtual std::string getStringSecure(int id,
-                                        const std::string& def) const throw(EmptyData) = 0;
+                                        const std::string& def) const = 0;
 
 
     /**

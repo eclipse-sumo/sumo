@@ -113,7 +113,7 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
 
 void
 NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttributes& attrs,
-        const std::string& base) throw(InvalidArgument) {
+        const std::string& base) {
     // get the id, throw if not given or empty...
     bool ok = true;
     // get the id, throw if not given or empty...
@@ -152,7 +152,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
 
 
 void
-NLTriggerBuilder::parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attrs) throw(InvalidArgument) {
+NLTriggerBuilder::parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, throw if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
@@ -178,7 +178,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attr
 
 void
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& attrs,
-        const std::string& base) throw(InvalidArgument) {
+        const std::string& base) {
     bool ok = true;
     // get the id, throw if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
@@ -209,7 +209,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
 
 void
 NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& attrs,
-                                        const std::string& base) throw(InvalidArgument) {
+                                        const std::string& base) {
     bool ok = true;
     // get the id, throw if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
@@ -291,7 +291,7 @@ NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
 void
 NLTriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
                                const std::vector<std::string>& lines,
-                               MSLane* lane, SUMOReal frompos, SUMOReal topos) throw(InvalidArgument) {
+                               MSLane* lane, SUMOReal frompos, SUMOReal topos) {
     MSBusStop* stop = new MSBusStop(id, lines, *lane, frompos, topos);
     if (!net.addBusStop(stop)) {
         delete stop;
@@ -305,7 +305,7 @@ NLTriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
 std::string
 NLTriggerBuilder::getFileName(const SUMOSAXAttributes& attrs,
                               const std::string& base,
-                              const bool allowEmpty) throw(InvalidArgument) {
+                              const bool allowEmpty) {
     // get the file name to read further definitions from
     bool ok = true;
     std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, 0, ok, "");
@@ -326,7 +326,7 @@ NLTriggerBuilder::getFileName(const SUMOSAXAttributes& attrs,
 MSLane*
 NLTriggerBuilder::getLane(const SUMOSAXAttributes& attrs,
                           const std::string& tt,
-                          const std::string& tid) throw(InvalidArgument) {
+                          const std::string& tid) {
     bool ok = true;
     std::string objectid = attrs.get<std::string>(SUMO_ATTR_LANE, tid.c_str(), ok);
     MSLane* lane = MSLane::dictionary(objectid);
@@ -340,7 +340,7 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes& attrs,
 SUMOReal
 NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
                               MSLane* lane,
-                              const std::string& tt, const std::string& tid) throw(InvalidArgument) {
+                              const std::string& tt, const std::string& tid) {
     bool ok = true;
     SUMOReal pos = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);

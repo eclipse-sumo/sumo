@@ -1130,7 +1130,7 @@ NBEdge::computeLaneShapes() {
 
 
 PositionVector
-NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) throw(InvalidArgument) {
+NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) {
     PositionVector shape;
     bool haveWarned = false;
     for (int i = 0; i < (int) myGeom.size(); i++) {
@@ -1185,7 +1185,7 @@ NBEdge::computeLaneShape(unsigned int lane, SUMOReal offset) throw(InvalidArgume
 
 
 /*std::pair<SUMOReal, SUMOReal>
-NBEdge::laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset) throw(InvalidArgument) {
+NBEdge::laneOffset(const Position& from, const Position& to, SUMOReal laneCenterOffset) {
     return laneOffset(from, to, laneCenterOffset, myAmLeftHand);
 }
 */
