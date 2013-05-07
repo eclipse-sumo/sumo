@@ -1031,7 +1031,7 @@ PositionVector::insertAt(int index, const Position& p) {
 
 void
 PositionVector::replaceAt(int index, const Position& p) {
-    assert(index < size());
+    assert(index < static_cast<int>(size()));
     assert(index + size() >= 0);
     if (index >= 0) {
         (*this)[index] = p;
