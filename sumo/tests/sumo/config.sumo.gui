@@ -1,9 +1,5 @@
 binary:$GUISIM_BINARY
-interpreter:python $TEXTTEST_HOME/guisimrunner.py
 use_case_record_mode:GUI
-
-[run_dependent_text]
-output:Written configuration to 'guisim.sumocfg'
 
 [batch_extra_version]
 default:{CLEAR perf}
