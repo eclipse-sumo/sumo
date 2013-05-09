@@ -113,7 +113,7 @@ OutputDevice::createDeviceByOption(const std::string& optionName,
 
 
 OutputDevice&
-OutputDevice::getDeviceByOption(const std::string& optionName) throw(IOError, InvalidArgument) {
+OutputDevice::getDeviceByOption(const std::string& optionName) {
     std::string devName = OptionsCont::getOptions().getString(optionName);
     if (myOutputDevices.find(devName) == myOutputDevices.end()) {
         throw InvalidArgument("Device '" + devName + "' has not been created.");

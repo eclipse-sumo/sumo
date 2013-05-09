@@ -109,7 +109,7 @@ public:
      * @return the work position
      * @throw runtime_error the adult has no work position
      */
-    const AGWorkPosition& getWorkPosition() const throw(std::runtime_error);
+    const AGWorkPosition& getWorkPosition() const;
 
 private:
     /** The work position of this adult.

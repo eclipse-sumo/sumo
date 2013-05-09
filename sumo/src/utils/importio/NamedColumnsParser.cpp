@@ -76,7 +76,7 @@ NamedColumnsParser::parseLine(const std::string& line) {
 
 
 std::string
-NamedColumnsParser::get(const std::string& name, bool prune) const throw(UnknownElement, OutOfBoundsException) {
+NamedColumnsParser::get(const std::string& name, bool prune) const {
     PosMap::const_iterator i = myDefinitionsMap.find(name);
     if (i == myDefinitionsMap.end()) {
         if (myAmCaseInsensitive) {

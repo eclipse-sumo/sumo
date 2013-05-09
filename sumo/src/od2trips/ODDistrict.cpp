@@ -66,13 +66,13 @@ ODDistrict::addSink(const std::string& id, SUMOReal weight) {
 
 
 std::string
-ODDistrict::getRandomSource() const throw(OutOfBoundsException) {
+ODDistrict::getRandomSource() const {
     return mySources.get();
 }
 
 
 std::string
-ODDistrict::getRandomSink() const throw(OutOfBoundsException) {
+ODDistrict::getRandomSink() const {
     return mySinks.get();
 }
 

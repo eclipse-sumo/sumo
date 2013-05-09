@@ -59,7 +59,7 @@ using namespace traci;
 // ===========================================================================
 bool
 TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                               tcpip::Storage& outputStorage) throw(TraCIException, std::invalid_argument) {
+                               tcpip::Storage& outputStorage) {
     // variable & id
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
@@ -121,7 +121,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
 
 bool
 TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
-                               tcpip::Storage& outputStorage) throw(TraCIException, std::invalid_argument) {
+                               tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();

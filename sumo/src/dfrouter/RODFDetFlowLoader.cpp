@@ -63,7 +63,7 @@ RODFDetFlowLoader::~RODFDetFlowLoader() {}
 
 
 void
-RODFDetFlowLoader::read(const std::string& file) throw(IOError, ProcessError) {
+RODFDetFlowLoader::read(const std::string& file) {
     LineReader lr(file);
     // parse first line
     myLineHandler.reinit(lr.readLine(), ";", ";", true, true);

@@ -151,7 +151,7 @@ RGBColor::changedBrightness(const char change) {
 }
 
 RGBColor
-RGBColor::parseColor(std::string coldef) throw(EmptyData, NumberFormatException) {
+RGBColor::parseColor(std::string coldef) {
     std::transform(coldef.begin(), coldef.end(), coldef.begin(), tolower);
     if (coldef == "red") {
         return RED;

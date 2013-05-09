@@ -140,7 +140,7 @@ public:
      * @exception EmptyData If the definition has less than three entries
      * @exception NumberFormatException If one of the components is not numeric
      */
-    static RGBColor parseColor(std::string coldef) throw(EmptyData, NumberFormatException);
+    static RGBColor parseColor(std::string coldef);
 
 
     /** @brief Parses a color information

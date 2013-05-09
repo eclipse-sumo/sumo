@@ -80,7 +80,7 @@ public:
      * @exception IOError Not yet implemented!
      * @exception ProcessError Thrown if a value could not be parsed properly or a needed value is missing
      */
-    void read(const std::string& file) throw(IOError, ProcessError);
+    void read(const std::string& file);
 
 
 private:

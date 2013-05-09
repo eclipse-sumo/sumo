@@ -57,7 +57,7 @@ ODDistrictCont::~ODDistrictCont() {}
 
 
 std::string
-ODDistrictCont::getRandomSourceFromDistrict(const std::string& name) const throw(OutOfBoundsException, InvalidArgument) {
+ODDistrictCont::getRandomSourceFromDistrict(const std::string& name) const {
     ODDistrict* district = get(name);
     if (district == 0) {
         throw InvalidArgument("There is no district '" + name + "'.");
@@ -67,7 +67,7 @@ ODDistrictCont::getRandomSourceFromDistrict(const std::string& name) const throw
 
 
 std::string
-ODDistrictCont::getRandomSinkFromDistrict(const std::string& name) const throw(OutOfBoundsException, InvalidArgument) {
+ODDistrictCont::getRandomSinkFromDistrict(const std::string& name) const {
     ODDistrict* district = get(name);
     if (district == 0) {
         throw InvalidArgument("There is no district '" + name + "'.");

@@ -99,10 +99,6 @@ GUILoadThread::run() {
     bool osgView = false;
     OptionsCont& oc = OptionsCont::getOptions();
 
-    // within gui-based applications, nothing is reported to the console
-    MsgHandler::getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
-    MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
-    MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
@@ -115,6 +111,10 @@ GUILoadThread::run() {
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
+    // within gui-based applications, nothing is reported to the console
+    MsgHandler::getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
+    MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
+    MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     // do this once again to get parsed options
     MsgHandler::initOutputOptions();
     GUIGlobals::gRunAfterLoad = oc.getBool("start");
@@ -140,19 +140,20 @@ GUILoadThread::run() {
 #endif
         vehControl = new GUIVehicleControl();
 
-    net = new GUINet(
-        vehControl,
-        new GUIEventControl(),
-        new GUIEventControl(),
-        new GUIEventControl());
-    GUIEdgeControlBuilder* eb = new GUIEdgeControlBuilder();
-    GUIDetectorBuilder db(*net);
-    NLJunctionControlBuilder jb(*net, db);
-    GUITriggerBuilder tb;
-    NLHandler handler("", *net, db, tb, *eb, jb);
-    tb.setHandler(&handler);
-    NLBuilder builder(oc, *net, *eb, jb, db, handler);
+    GUIEdgeControlBuilder* eb = 0;
     try {
+        net = new GUINet(
+            vehControl,
+            new GUIEventControl(),
+            new GUIEventControl(),
+            new GUIEventControl());
+        eb = new GUIEdgeControlBuilder();
+        GUIDetectorBuilder db(*net);
+        NLJunctionControlBuilder jb(*net, db);
+        GUITriggerBuilder tb;
+        NLHandler handler("", *net, db, tb, *eb, jb);
+        tb.setHandler(&handler);
+        NLBuilder builder(oc, *net, *eb, jb, db, handler);
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
@@ -160,6 +161,7 @@ GUILoadThread::run() {
             throw ProcessError();
         } else {
             net->initGUIStructures();
+            std::cout << "parsing begin" << std::endl;
             simStartTime = string2time(oc.getString("begin"));
             simEndTime = string2time(oc.getString("end"));
             guiSettingsFiles = oc.getStringVector("gui-settings-file");

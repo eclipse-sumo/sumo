@@ -129,7 +129,7 @@ private:
      * @exception NumberFormatException If the float is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    SUMOReal getNamedFloat(const std::string& fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+    SUMOReal getNamedFloat(const std::string& fieldName);
 
     /** @brief The same, but two different names for the field are allowed
      *
@@ -140,7 +140,7 @@ private:
      * @exception NumberFormatException If the float is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    SUMOReal getNamedFloat(const std::string& fieldName1, const std::string& fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+    SUMOReal getNamedFloat(const std::string& fieldName1, const std::string& fieldName2);
 
 
     /** @brief Returns the value from the named column as a float or the default value if an error occurs
@@ -172,7 +172,7 @@ private:
      * @exception NumberFormatException If the string is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    std::string getNamedString(const std::string& fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+    std::string getNamedString(const std::string& fieldName);
 
     /** @brief The same, but two different names for the field are allowed
      *
@@ -183,7 +183,7 @@ private:
      * @exception NumberFormatException If the string is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    std::string getNamedString(const std::string& fieldName1, const std::string& fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+    std::string getNamedString(const std::string& fieldName1, const std::string& fieldName2);
 
 
     /** @brief tries to get a SUMOReal which is possibly assigned to a certain modality
@@ -222,7 +222,7 @@ private:
      * @exception NumberFormatException If the node id is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    NBNode* getNamedNode(const std::string& fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+    NBNode* getNamedNode(const std::string& fieldName);
 
     /** @brief The same, but two different names for the field are allowed
      *
@@ -233,7 +233,7 @@ private:
      * @exception NumberFormatException If the node id is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    NBNode* getNamedNode(const std::string& fieldName1, const std::string& fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+    NBNode* getNamedNode(const std::string& fieldName1, const std::string& fieldName2);
 
 
     /** @brief Tries to get the edge which name is stored in the given field
@@ -248,7 +248,7 @@ private:
      * @exception NumberFormatException If the edge id is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    NBEdge* getNamedEdge(const std::string& fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+    NBEdge* getNamedEdge(const std::string& fieldName);
 
     /** @brief The same, but two different names for the field are allowed
      *
@@ -259,7 +259,7 @@ private:
      * @exception NumberFormatException If the edge id is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    NBEdge* getNamedEdge(const std::string& fieldName1, const std::string& fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+    NBEdge* getNamedEdge(const std::string& fieldName1, const std::string& fieldName2);
 
 
     /** @brief Tries to get the edge which name is stored in the given field
@@ -276,7 +276,7 @@ private:
      * @exception NumberFormatException If the edge id is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    NBEdge* getNamedEdgeContinuating(const std::string& fieldName, NBNode* node) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+    NBEdge* getNamedEdgeContinuating(const std::string& fieldName, NBNode* node);
 
     /** @brief The same, but two different names for the field are allowed
      *
@@ -289,7 +289,7 @@ private:
      * @exception UnknownElement If the named data field is not in the line
      */
     NBEdge* getNamedEdgeContinuating(const std::string& fieldName1, const std::string& fieldName2,
-                                     NBNode* node) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+                                     NBNode* node);
 
     /** @brief The same, but for an already given edge
      *

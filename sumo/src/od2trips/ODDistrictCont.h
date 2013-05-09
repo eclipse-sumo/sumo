@@ -68,7 +68,7 @@ public:
      * @exception OutOfBoundsException If the named district has no sources
      * @see ODDistrict::getRandomSource
      */
-    std::string getRandomSourceFromDistrict(const std::string& name) const throw(OutOfBoundsException, InvalidArgument);
+    std::string getRandomSourceFromDistrict(const std::string& name) const;
 
 
     /** @brief Returns the id of a random sink from the named district
@@ -85,7 +85,7 @@ public:
      * @exception OutOfBoundsException If the named district has no sinks
      * @see ODDistrict::getRandomSink
      */
-    std::string getRandomSinkFromDistrict(const std::string& name) const throw(OutOfBoundsException, InvalidArgument);
+    std::string getRandomSinkFromDistrict(const std::string& name) const;
 
     // @brief load districts from FILE
     void loadDistricts(std::string districtfile);

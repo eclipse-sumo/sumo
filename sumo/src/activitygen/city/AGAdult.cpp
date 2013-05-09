@@ -113,7 +113,7 @@ AGAdult::resignFromWorkPosition() {
 /****************************************************************************/
 
 const AGWorkPosition&
-AGAdult::getWorkPosition() const throw(std::runtime_error) {
+AGAdult::getWorkPosition() const {
     if (work != 0) {
         return *work;
     }

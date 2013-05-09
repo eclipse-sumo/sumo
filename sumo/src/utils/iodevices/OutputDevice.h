@@ -118,7 +118,7 @@ public:
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      * @exception InvalidArgument If the option with the given name does not exist
      */
-    static OutputDevice& getDeviceByOption(const std::string& name) throw(IOError, InvalidArgument);
+    static OutputDevice& getDeviceByOption(const std::string& name);
 
 
     /**  Closes all registered devices

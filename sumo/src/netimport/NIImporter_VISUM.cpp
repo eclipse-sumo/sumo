@@ -1057,7 +1057,7 @@ NIImporter_VISUM::getWeightedBool(const std::string& name) {
 
 
 NBNode*
-NIImporter_VISUM::getNamedNode(const std::string& fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedNode(const std::string& fieldName) {
     std::string nodeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBNode* node = myNetBuilder.getNodeCont().retrieve(nodeS);
     if (node == 0) {
@@ -1068,7 +1068,7 @@ NIImporter_VISUM::getNamedNode(const std::string& fieldName) throw(OutOfBoundsEx
 
 
 NBNode*
-NIImporter_VISUM::getNamedNode(const std::string& fieldName1, const std::string& fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedNode(const std::string& fieldName1, const std::string& fieldName2) {
     if (myLineParser.know(fieldName1)) {
         return getNamedNode(fieldName1);
     } else {
@@ -1078,7 +1078,7 @@ NIImporter_VISUM::getNamedNode(const std::string& fieldName1, const std::string&
 
 
 NBEdge*
-NIImporter_VISUM::getNamedEdge(const std::string& fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedEdge(const std::string& fieldName) {
     std::string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge == 0) {
@@ -1089,7 +1089,7 @@ NIImporter_VISUM::getNamedEdge(const std::string& fieldName) throw(OutOfBoundsEx
 
 
 NBEdge*
-NIImporter_VISUM::getNamedEdge(const std::string& fieldName1, const std::string& fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedEdge(const std::string& fieldName1, const std::string& fieldName2) {
     if (myLineParser.know(fieldName1)) {
         return getNamedEdge(fieldName1);
     } else {
@@ -1176,7 +1176,7 @@ NIImporter_VISUM::getNamedEdgeContinuating(NBEdge* begin, NBNode* node) {
 
 
 NBEdge*
-NIImporter_VISUM::getNamedEdgeContinuating(const std::string& fieldName, NBNode* node) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedEdgeContinuating(const std::string& fieldName, NBNode* node) {
     std::string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge == 0) {
@@ -1188,7 +1188,7 @@ NIImporter_VISUM::getNamedEdgeContinuating(const std::string& fieldName, NBNode*
 
 NBEdge*
 NIImporter_VISUM::getNamedEdgeContinuating(const std::string& fieldName1, const std::string& fieldName2,
-        NBNode* node) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+        NBNode* node) {
     if (myLineParser.know(fieldName1)) {
         return getNamedEdgeContinuating(fieldName1, node);
     } else {
@@ -1211,7 +1211,7 @@ NIImporter_VISUM::getEdge(NBNode* FromNode, NBNode* ToNode) {
 
 
 SUMOReal
-NIImporter_VISUM::getNamedFloat(const std::string& fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedFloat(const std::string& fieldName) {
     std::string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     return TplConvert::_2SUMOReal(valS.c_str());
 }
@@ -1229,7 +1229,7 @@ NIImporter_VISUM::getNamedFloat(const std::string& fieldName, SUMOReal defaultVa
 
 
 SUMOReal
-NIImporter_VISUM::getNamedFloat(const std::string& fieldName1, const std::string& fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedFloat(const std::string& fieldName1, const std::string& fieldName2) {
     if (myLineParser.know(fieldName1)) {
         return getNamedFloat(fieldName1);
     } else {
@@ -1250,14 +1250,14 @@ NIImporter_VISUM::getNamedFloat(const std::string& fieldName1, const std::string
 
 
 std::string
-NIImporter_VISUM::getNamedString(const std::string& fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedString(const std::string& fieldName) {
     return NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
 }
 
 
 std::string
 NIImporter_VISUM::getNamedString(const std::string& fieldName1,
-                                 const std::string& fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+                                 const std::string& fieldName2) {
     if (myLineParser.know(fieldName1)) {
         return getNamedString(fieldName1);
     } else {

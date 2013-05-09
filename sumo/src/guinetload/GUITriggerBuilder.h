@@ -114,7 +114,7 @@ protected:
      */
     virtual void buildBusStop(MSNet& net, const std::string& id,
                               const std::vector<std::string>& lines, MSLane* lane,
-                              SUMOReal frompos, SUMOReal topos) throw(InvalidArgument);
+                              SUMOReal frompos, SUMOReal topos);
     /// @}
 
 };

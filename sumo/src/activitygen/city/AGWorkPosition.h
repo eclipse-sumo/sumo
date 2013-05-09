@@ -58,7 +58,7 @@ public:
     AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet, SUMOReal pos);
     ~AGWorkPosition();
 
-    void take(AGAdult* ad) throw(std::runtime_error);
+    void take(AGAdult* ad);
     void let();
     bool isTaken() const;
 

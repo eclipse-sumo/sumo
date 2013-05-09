@@ -127,7 +127,7 @@ AGWorkPosition::let() {
 
 
 void
-AGWorkPosition::take(AGAdult* worker) throw(std::runtime_error) {
+AGWorkPosition::take(AGAdult* worker) {
     if (myAdult == 0) {
         myStatData->workPositions--;
         myAdult = worker;

@@ -195,9 +195,6 @@ MsgHandler::initOutputOptions() {
     OutputDevice::getDevice("stdout");
     OutputDevice::getDevice("stderr");
     OptionsCont& oc = OptionsCont::getOptions();
-    if (!oc.getBool("verbose")) {
-        getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
-    }
     if (oc.getBool("no-warnings")) {
         getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     }
@@ -230,6 +227,9 @@ MsgHandler::initOutputOptions() {
         } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("error-log") + "'");
         }
+    }
+    if (!oc.getBool("verbose")) {
+        getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
     }
 }
 
