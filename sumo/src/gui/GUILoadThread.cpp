@@ -161,7 +161,6 @@ GUILoadThread::run() {
             throw ProcessError();
         } else {
             net->initGUIStructures();
-            std::cout << "parsing begin" << std::endl;
             simStartTime = string2time(oc.getString("begin"));
             simEndTime = string2time(oc.getString("end"));
             guiSettingsFiles = oc.getStringVector("gui-settings-file");
