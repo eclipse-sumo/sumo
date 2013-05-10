@@ -77,24 +77,22 @@ public:
     struct ApproachingVehicleInformation {
         /// @brief Constructor
         ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime,
-                                      SUMOReal _arrivalSpeed, SUMOReal _leaveSpeed,
-                                      SUMOVehicle* _vehicle, const bool _willPass) :
+                                      const SUMOReal _arrivalSpeed, const SUMOReal _leaveSpeed,
+                                      const bool _willPass) :
             arrivalTime(_arrivalTime), leavingTime(_leavingTime),
             arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed),
-            vehicle(_vehicle), willPass(_willPass) {}
+            willPass(_willPass) {}
 
         /// @brief The time the vehicle's front arrives at the link
-        SUMOTime arrivalTime;
+        const SUMOTime arrivalTime;
         /// @brief The estimated time at which the vehicle leaves the link
-        SUMOTime leavingTime;
+        const SUMOTime leavingTime;
         /// @brief The estimated speed with which the vehicle arrives at the link (for headway computation)
-        SUMOReal arrivalSpeed;
+        const SUMOReal arrivalSpeed;
         /// @brief The estimated speed with which the vehicle leaves the link (for headway computation)
-        SUMOReal leaveSpeed;
-        /// @brief The vehicle
-        SUMOVehicle* vehicle;
+        const SUMOReal leaveSpeed;
         /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
-        bool willPass;
+        const bool willPass;
     };
 
 
@@ -146,10 +144,6 @@ public:
     void removeApproaching(SUMOVehicle* veh);
 
     void addBlockedLink(MSLink* link);
-
-    const std::vector<ApproachingVehicleInformation>& getApproaching() const {
-        return myApproachingVehicles;
-    }
 
     /* @brief return information about this vehicle if it is registered as
      * approaching (dummy values otherwise)
@@ -290,21 +284,6 @@ public:
 
 
 private:
-    typedef std::vector<ApproachingVehicleInformation> LinkApproachingVehicles;
-
-    class vehicle_in_request_finder {
-    public:
-        explicit vehicle_in_request_finder(const SUMOVehicle* const v) : myVehicle(v) { }
-        bool operator()(const ApproachingVehicleInformation& vo) {
-            return vo.vehicle == myVehicle;
-        }
-    private:
-        vehicle_in_request_finder& operator=(const vehicle_in_request_finder&); // just to avoid a compiler warning
-    private:
-        const SUMOVehicle* const myVehicle;
-
-    };
-
     /// @brief return whether the given headwayTime is unsafe
     static SUMOTime unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed);
 
@@ -315,7 +294,7 @@ private:
     /// @brief The lane approached by this link
     MSLane* myLane;
 
-    LinkApproachingVehicles myApproachingVehicles;
+    std::map<const SUMOVehicle*, ApproachingVehicleInformation> myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position of the link within this request

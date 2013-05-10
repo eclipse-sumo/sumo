@@ -45,13 +45,13 @@
 #include <vector>
 #include "MSVehicleType.h"
 #include "MSBaseVehicle.h"
+#include "MSLink.h"
+#include "MSLane.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSLane;
-class MSLink;
 class MSMoveReminder;
 class MSLaneChanger;
 class MSVehicleTransfer;
@@ -1010,11 +1010,13 @@ protected:
         SUMOReal myArrivalSpeed;
         SUMOReal myDistance;
         SUMOReal accelV;
+        bool hadVehicle;
+        SUMOReal availableSpace;
         DriveProcessItem(MSLink* link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
                          SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal distance) :
             myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), myDistance(distance),
-            accelV(-1) { };
+            accelV(-1), hadVehicle(false), availableSpace(-1.) { };
         void adaptLeaveSpeed(SUMOReal v) {
             if (accelV < 0) {
                 accelV = v;
@@ -1033,13 +1035,23 @@ protected:
     DriveItemVector myLFLinkLanes;
 
     /// @brief estimate leaving speed when accelerating across a link
-    SUMOReal estimateLeaveSpeed(MSLink* link, SUMOReal vLinkPass);
+    inline SUMOReal estimateLeaveSpeed(const MSLink* const link, const SUMOReal vLinkPass) {
+        // estimate leave speed for passing time computation
+        // l=linkLength, a=accel, t=continuousTime, v=vLeave
+        // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
+        return MIN2(link->getViaLaneOrLane()->getVehicleMaxSpeed(this),
+                    estimateSpeedAfterDistance(link->getLength(), vLinkPass));
+    }
 
     /* @brief estimate speed while accelerating for the given distance
      * @param[in] dist The distance during which accelerating takes place
      * @param[in] v The initial speed
      */
-    SUMOReal estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v);
+    inline SUMOReal estimateSpeedAfterDistance(const SUMOReal dist, const SUMOReal v) {
+        // dist=v*t + 0.5*accel*t^2, solve for t and multiply with accel, then add v
+        return MIN2(getVehicleType().getMaxSpeed(),
+                    (SUMOReal)sqrt(2 * dist * getVehicleType().getCarFollowModel().getMaxAccel() + v * v));
+    }
 
     /* @brief estimate speed while accelerating for the given distance
      * @param[in] leaderInfo The leading vehicle and the (virtual) distance to it

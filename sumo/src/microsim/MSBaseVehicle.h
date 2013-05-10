@@ -82,13 +82,17 @@ public:
     /** @brief Returns the current route
      * @return The route the vehicle uses
      */
-    const MSRoute& getRoute() const;
+    inline const MSRoute& getRoute() const {
+        return *myRoute;
+    }
 
 
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
      */
-    const MSVehicleType& getVehicleType() const;
+    inline const MSVehicleType& getVehicleType() const  {
+        return *myType;
+    }
 
 
     /** @brief Returns the maximum speed

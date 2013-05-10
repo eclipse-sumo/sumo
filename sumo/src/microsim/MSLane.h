@@ -334,7 +334,7 @@ public:
      * @param[in] The vehicle to return the adapted speed limit for
      * @return This lane's resulting max. speed
      */
-    SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
+    inline SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
         return myMaxSpeed * veh->getChosenSpeedFactor();
     }
 
@@ -342,7 +342,7 @@ public:
     /** @brief Returns the lane's maximum allowed speed
      * @return This lane's maximum allowed speed
      */
-    SUMOReal getSpeedLimit() const {
+    inline SUMOReal getSpeedLimit() const {
         return myMaxSpeed;
     }
 
@@ -350,7 +350,7 @@ public:
     /** @brief Returns the lane's length
      * @return This lane's length
      */
-    SUMOReal getLength() const {
+    inline SUMOReal getLength() const {
         return myLength;
     }
 

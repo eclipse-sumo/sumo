@@ -220,7 +220,13 @@ public:
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
      */
-    SUMOReal brakeGap(SUMOReal speed) const;
+    inline SUMOReal brakeGap(const SUMOReal speed) const {
+        /* one possiblity to speed this up is to precalculate speedReduction * steps * (steps+1) / 2
+        for small values of steps (up to 10 maybe) and store them in an array */
+        const SUMOReal speedReduction = ACCEL2SPEED(getMaxDecel());
+        const int steps = int(speed / speedReduction);
+        return SPEED2DIST(steps * speed - speedReduction * steps * (steps + 1) / 2) + speed * myHeadwayTime;
+    }
 
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
@@ -228,7 +234,7 @@ public:
       * @param[in] leaderSpeed LEADER's speed
       * @param[in] leaderMaxDecel LEADER's max. deceleration rate
       */
-    SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeed, const SUMOReal leaderMaxDecel) const {
+    inline SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeed, const SUMOReal leaderMaxDecel) const {
         const int leaderSteps = int(leaderSpeed / ACCEL2SPEED(leaderMaxDecel));
         const SUMOReal leaderBreak = SPEED2DIST(leaderSteps * leaderSpeed - ACCEL2SPEED(leaderMaxDecel) * leaderSteps * (leaderSteps + 1) / 2);
         return MAX2((SUMOReal) 0, brakeGap(speed) - leaderBreak);
@@ -239,7 +245,7 @@ public:
      * @param[in] v The velocity
      * @return The velocity after maximum deceleration
      */
-    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
+    inline SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
         return MAX2((SUMOReal) 0, v - (SUMOReal) ACCEL2SPEED(myDecel));
     }
     /// @}

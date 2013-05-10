@@ -101,16 +101,6 @@ MSCFModel::maxNextSpeed(SUMOReal speed, const MSVehicle* const /*veh*/) const {
 
 
 SUMOReal
-MSCFModel::brakeGap(SUMOReal speed) const {
-    /* one possiblity to speed this up is to precalculate speedReduction * steps * (steps+1) / 2
-       for small values of steps (up to 10 maybe) and store them in an array */
-    const SUMOReal speedReduction = ACCEL2SPEED(getMaxDecel());
-    const int steps = int(speed / speedReduction);
-    return SPEED2DIST(steps * speed - speedReduction * steps * (steps + 1) / 2) + speed * myHeadwayTime;
-}
-
-
-SUMOReal
 MSCFModel::freeSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed) const {
     UNUSED_PARAMETER(veh);
     // adapt speed to succeeding lane, no reaction time is involved

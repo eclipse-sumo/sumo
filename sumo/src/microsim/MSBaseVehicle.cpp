@@ -101,18 +101,6 @@ MSBaseVehicle::getParameter() const {
 }
 
 
-const MSRoute&
-MSBaseVehicle::getRoute() const {
-    return *myRoute;
-}
-
-
-const MSVehicleType&
-MSBaseVehicle::getVehicleType() const {
-    return *myType;
-}
-
-
 SUMOReal
 MSBaseVehicle::getMaxSpeed() const {
     return myType->getMaxSpeed();

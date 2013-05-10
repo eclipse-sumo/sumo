@@ -879,24 +879,6 @@ MSVehicle::adaptToLeader(std::pair<MSVehicle*, SUMOReal> leaderInfo, SUMOReal se
 }
 
 
-
-SUMOReal
-MSVehicle::estimateLeaveSpeed(MSLink* link, SUMOReal vLinkPass) {
-    // estimate leave speed for passing time computation
-    // l=linkLength, a=accel, t=continuousTime, v=vLeave
-    // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
-    return MIN2(link->getViaLaneOrLane()->getVehicleMaxSpeed(this),
-                estimateSpeedAfterDistance(link->getLength(), vLinkPass));
-}
-
-
-SUMOReal
-MSVehicle::estimateSpeedAfterDistance(SUMOReal dist, SUMOReal v) {
-    // dist=v*t + 0.5*accel*t^2, solve for t and multiply with accel, then add v
-    return MIN2(getVehicleType().getMaxSpeed(),
-                (SUMOReal)sqrt(2 * dist * getVehicleType().getCarFollowModel().getMaxAccel() + v * v));
-}
-
 bool
 MSVehicle::executeMove() {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
@@ -1143,16 +1125,14 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
         bool hadVehicle = false;
         SUMOReal seenSpace = -lengthsInFront;
 
-        std::vector<SUMOReal> availableSpace;
-        std::vector<bool> hadVehicles;
         bool foundStopped = false;
 
         for (unsigned int i = 0; i < myLFLinkLanes.size(); ++i) {
             // skip unset links
             DriveProcessItem& item = myLFLinkLanes[i];
             if (item.myLink == 0 || foundStopped) {
-                availableSpace.push_back(seenSpace);
-                hadVehicles.push_back(hadVehicle);
+                item.availableSpace = seenSpace;
+                item.hadVehicle = hadVehicle;
                 continue;
             }
             // get the next lane, determine whether it is an internal lane
@@ -1165,8 +1145,8 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
                     seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
                     hadVehicle |= approachedLane->getVehicleNumber() != 0;
                 }
-                availableSpace.push_back(seenSpace);
-                hadVehicles.push_back(hadVehicle);
+                item.availableSpace = seenSpace;
+                item.hadVehicle = hadVehicle;
                 continue;
             }
             approachedLane = item.myLink->getLane();
@@ -1174,8 +1154,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
             if (last == 0) {
                 last = approachedLane->getPartialOccupator();
                 if (last != 0) {
-                    SUMOReal m = MAX2(seenSpace, seenSpace + approachedLane->getPartialOccupatorEnd() + last->getCarFollowModel().brakeGap(last->getSpeed()));
-                    availableSpace.push_back(m);
+                    item.availableSpace = MAX2(seenSpace, seenSpace + approachedLane->getPartialOccupatorEnd() + last->getCarFollowModel().brakeGap(last->getSpeed()));
                     hadVehicle = true;
                     seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
                     if (last->myHaveToWaitOnNextLink) {
@@ -1184,28 +1163,27 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
                 } else {
 //                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
 //                    availableSpace.push_back(seenSpace);
-                    availableSpace.push_back(seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped));
+                    item.availableSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);
                     if (!foundStopped) {
                         seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
                     } else {
-                        seenSpace = availableSpace.back();
+                        seenSpace = item.availableSpace;
                     }
                 }
             } else {
                 if (last->signalSet(VEH_SIGNAL_BRAKELIGHT)) {
-                    SUMOReal lastBrakeGap = last->getCarFollowModel().brakeGap(approachedLane->getLastVehicle()->getSpeed());
-                    SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLengthWithGap() + lastBrakeGap - last->getSpeed() * last->getCarFollowModel().getHeadwayTime();
-                    SUMOReal m = MAX2(seenSpace, seenSpace + lastGap);
-                    availableSpace.push_back(m);
+                    const SUMOReal lastBrakeGap = last->getCarFollowModel().brakeGap(approachedLane->getLastVehicle()->getSpeed());
+                    const SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLengthWithGap() + lastBrakeGap - last->getSpeed() * last->getCarFollowModel().getHeadwayTime();
+                    item.availableSpace = MAX2(seenSpace, seenSpace + lastGap);
                     seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
                 } else {
 //                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
 //                    availableSpace.push_back(seenSpace);
-                    availableSpace.push_back(seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped));
+                    item.availableSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);
                     if (!foundStopped) {
                         seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
                     } else {
-                        seenSpace = availableSpace.back();
+                        seenSpace = item.availableSpace;
                     }
                 }
                 if (last->myHaveToWaitOnNextLink) {
@@ -1213,7 +1191,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
                 }
                 hadVehicle = true;
             }
-            hadVehicles.push_back(hadVehicle);
+            item.hadVehicle = hadVehicle;
         }
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
         if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
@@ -1225,7 +1203,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
             const bool opened = item.myLink != 0 && (item.myLink->havePriority() ||
                                 item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
                                                     item.getLeaveSpeed(), getVehicleType().getLengthWithGap()));
-            bool allowsContinuation = item.myLink == 0 || item.myLink->isCont() || !hadVehicles[i] || opened;
+            bool allowsContinuation = item.myLink == 0 || item.myLink->isCont() || !myLFLinkLanes[i].hadVehicle || opened;
             if (!opened && item.myLink != 0) {
                 if (i > 1) {
                     DriveProcessItem& item2 = myLFLinkLanes[i - 2];
@@ -1235,13 +1213,13 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
                 }
             }
             if (allowsContinuation) {
-                availableSpace[i - 1] = availableSpace[i];
+                item.availableSpace = myLFLinkLanes[i].availableSpace;
             }
         }
 
         for (unsigned int i = 0; hadVehicle && i < myLFLinkLanes.size() && removalBegin < 0; ++i) {
             // skip unset links
-            DriveProcessItem& item = myLFLinkLanes[i];
+            const DriveProcessItem& item = myLFLinkLanes[i];
             if (item.myLink == 0) {
                 continue;
             }
@@ -1252,7 +1230,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
             }
             */
 
-            SUMOReal leftSpace = availableSpace[i] - getVehicleType().getLengthWithGap();
+            const SUMOReal leftSpace = item.availableSpace - getVehicleType().getLengthWithGap();
             if (leftSpace < 0/* && item.myLink->willHaveBlockedFoe()*/) {
                 SUMOReal impatienceCorrection = 0;
                 /*

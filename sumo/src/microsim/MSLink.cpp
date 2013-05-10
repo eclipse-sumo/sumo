@@ -88,10 +88,9 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 void
 MSLink::setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, bool setRequest) {
-    removeApproaching(approaching);
+    myApproachingVehicles.erase(approaching);
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLengthWithGap());
-    ApproachingVehicleInformation approachInfo(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, approaching, setRequest);
-    myApproachingVehicles.push_back(approachInfo);
+    myApproachingVehicles.insert(std::make_pair(approaching, ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest)));
 }
 
 
@@ -115,20 +114,17 @@ MSLink::willHaveBlockedFoe() const {
 
 void
 MSLink::removeApproaching(SUMOVehicle* veh) {
-    LinkApproachingVehicles::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(veh));
-    if (i != myApproachingVehicles.end()) {
-        myApproachingVehicles.erase(i);
-    }
+    myApproachingVehicles.erase(veh);
 }
 
 
 MSLink::ApproachingVehicleInformation
 MSLink::getApproaching(const SUMOVehicle* veh) const {
-    LinkApproachingVehicles::const_iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(veh));
+    std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.find(veh);
     if (i != myApproachingVehicles.end()) {
-        return *i;
+        return i->second;
     } else {
-        return ApproachingVehicleInformation(-1000, -1000, 0, 0, 0, false);
+        return ApproachingVehicleInformation(-1000, -1000, 0, 0, false);
     }
 }
 
@@ -167,18 +163,18 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
                       bool sameTargetLane) const {
-    for (LinkApproachingVehicles::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
-        if (!(*i).willPass) {
+    for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
+        if (!i->second.willPass) {
             continue;
         }
-        if ((*i).leavingTime < arrivalTime) {
+        if (i->second.leavingTime < arrivalTime) {
             // ego wants to be follower
-            if (sameTargetLane && unsafeHeadwayTime(arrivalTime - (*i).leavingTime, (*i).leaveSpeed, arrivalSpeed)) {
+            if (sameTargetLane && unsafeHeadwayTime(arrivalTime - i->second.leavingTime, i->second.leaveSpeed, arrivalSpeed)) {
                 return true;
             }
-        } else if ((*i).arrivalTime > leaveTime) {
+        } else if (i->second.arrivalTime > leaveTime) {
             // ego wants to be leader
-            if (sameTargetLane && unsafeHeadwayTime((*i).arrivalTime - leaveTime, leaveSpeed, (*i).arrivalSpeed)) {
+            if (sameTargetLane && unsafeHeadwayTime(i->second.arrivalTime - leaveTime, leaveSpeed, i->second.arrivalSpeed)) {
                 return true;
             }
         } else {
