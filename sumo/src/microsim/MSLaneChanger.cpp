@@ -167,7 +167,7 @@ MSLaneChanger::change() {
             vehicle->getLaneChangeModel().fulfillChangeRequest(MSVehicle::REQUEST_RIGHT);
 #endif
             (myCandi - 1)->hoppedVeh = vehicle;
-            (myCandi - 1)->lane->myTmpVehicles.push_front(vehicle);
+            (myCandi - 1)->lane->myTmpVehicles.insert((myCandi - 1)->lane->myTmpVehicles.begin(), vehicle);
             vehicle->leaveLane(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
             myCandi->lane->leftByLaneChange(vehicle);
             vehicle->enterLaneAtLaneChange((myCandi - 1)->lane);
@@ -202,7 +202,7 @@ MSLaneChanger::change() {
             vehicle->getLaneChangeModel().fulfillChangeRequest(MSVehicle::REQUEST_LEFT);
 #endif
             (myCandi + 1)->hoppedVeh = veh(myCandi);
-            (myCandi + 1)->lane->myTmpVehicles.push_front(veh(myCandi));
+            (myCandi + 1)->lane->myTmpVehicles.insert((myCandi + 1)->lane->myTmpVehicles.begin(), veh(myCandi));
             vehicle->leaveLane(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
             myCandi->lane->leftByLaneChange(vehicle);
             vehicle->enterLaneAtLaneChange((myCandi + 1)->lane);
@@ -264,9 +264,9 @@ MSLaneChanger::change() {
                     target->lane->myTmpVehicles.erase(i);
                     // set this vehicle
                     target->hoppedVeh = vehicle;
-                    target->lane->myTmpVehicles.push_front(vehicle);
+                    target->lane->myTmpVehicles.insert(target->lane->myTmpVehicles.begin(), vehicle);
                     myCandi->hoppedVeh = prohibitor;
-                    myCandi->lane->myTmpVehicles.push_front(prohibitor);
+                    myCandi->lane->myTmpVehicles.insert(myCandi->lane->myTmpVehicles.begin(), prohibitor);
 
                     // leave lane and detectors
                     vehicle->leaveLane(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
@@ -294,7 +294,7 @@ MSLaneChanger::change() {
         }
     }
     // Candidate didn't change lane.
-    myCandi->lane->myTmpVehicles.push_front(veh(myCandi));
+    myCandi->lane->myTmpVehicles.insert(myCandi->lane->myTmpVehicles.begin(), veh(myCandi));
     vehicle->myLastLaneChangeOffset += DELTA_T;
     (myCandi)->dens += vehicle->getVehicleType().getLengthWithGap();
     return false;

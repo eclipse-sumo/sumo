@@ -84,15 +84,15 @@ public:
             willPass(_willPass) {}
 
         /// @brief The time the vehicle's front arrives at the link
-        const SUMOTime arrivalTime;
+        SUMOTime arrivalTime;
         /// @brief The estimated time at which the vehicle leaves the link
-        const SUMOTime leavingTime;
+        SUMOTime leavingTime;
         /// @brief The estimated speed with which the vehicle arrives at the link (for headway computation)
-        const SUMOReal arrivalSpeed;
+        SUMOReal arrivalSpeed;
         /// @brief The estimated speed with which the vehicle leaves the link (for headway computation)
-        const SUMOReal leaveSpeed;
+        SUMOReal leaveSpeed;
         /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
-        const bool willPass;
+        bool willPass;
     };
 
 

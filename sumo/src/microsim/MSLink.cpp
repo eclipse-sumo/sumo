@@ -88,9 +88,17 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 void
 MSLink::setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, bool setRequest) {
-    myApproachingVehicles.erase(approaching);
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLengthWithGap());
-    myApproachingVehicles.insert(std::make_pair(approaching, ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest)));
+    std::map<const SUMOVehicle*, ApproachingVehicleInformation>::iterator i = myApproachingVehicles.find(approaching);
+    if (i != myApproachingVehicles.end()) {
+        i->second.arrivalTime = arrivalTime;
+        i->second.leavingTime = leaveTime;
+        i->second.arrivalSpeed = arrivalSpeed;
+        i->second.leaveSpeed = leaveSpeed;
+        i->second.willPass = setRequest;        
+    } else {
+        myApproachingVehicles.insert(std::make_pair(approaching, ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest)));
+    }
 }
 
 

@@ -62,7 +62,7 @@ public:
      * @param[in] speedFactor The factor for driven lane's speed limits
      * @exception ProcessError If a value is wrong
      */
-    MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type, SUMOReal speedFactor);
+    MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type, const SUMOReal speedFactor);
 
 
     /// @brief Destructor
@@ -245,7 +245,7 @@ public:
     /** @brief Returns the precomputed factor by which the driver wants to be faster than the speed limit
      * @return Speed limit factor
      */
-    SUMOReal getChosenSpeedFactor() const {
+    inline SUMOReal getChosenSpeedFactor() const {
         return myChosenSpeedFactor;
     }
 
@@ -268,7 +268,7 @@ protected:
     MSRouteIterator myCurrEdge;
 
     /// @brief A precomputed factor by which the driver wants to be faster than the speed limit
-    SUMOReal myChosenSpeedFactor;
+    const SUMOReal myChosenSpeedFactor;
 
 
     /// @name Move reminder structures

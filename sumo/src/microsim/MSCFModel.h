@@ -151,13 +151,10 @@ public:
     /// @}
 
 
-    /// @name Virtual methods with default implementation
-    /// @{
-
     /** @brief Get the vehicle type's maximum acceleration [m/s^2]
      * @return The maximum acceleration (in m/s^2) of vehicles of this class
      */
-    virtual SUMOReal getMaxAccel() const {
+    inline SUMOReal getMaxAccel() const {
         return myAccel;
     }
 
@@ -165,10 +162,13 @@ public:
     /** @brief Get the vehicle type's maximum deceleration [m/s^2]
      * @return The maximum deceleration (in m/s^2) of vehicles of this class
      */
-    virtual SUMOReal getMaxDecel() const {
+    inline SUMOReal getMaxDecel() const {
         return myDecel;
     }
 
+
+    /// @name Virtual methods with default implementation
+    /// @{
 
     /** @brief Get the driver's imperfection
      * @return The imperfection of drivers of this class

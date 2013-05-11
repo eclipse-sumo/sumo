@@ -82,6 +82,9 @@ public:
     friend class MSQueueExport;
 
 
+    /// Container for vehicles.
+    typedef std::vector< MSVehicle* > VehCont;
+
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
     struct VehPosition : public std::binary_function < const MSVehicle*, SUMOReal, bool > {
@@ -287,7 +290,7 @@ public:
      *  afterwards using "releaseVehicles".
      * @return The vehicles on this lane
      */
-    virtual const std::deque< MSVehicle* >& getVehiclesSecure() const {
+    virtual const VehCont& getVehiclesSecure() const {
         return myVehicles;
     }
 
@@ -453,9 +456,6 @@ public:
     }
 
     static void insertIDs(std::vector<std::string>& into);
-
-    /// Container for vehicles.
-    typedef std::deque< MSVehicle* > VehCont;
 
     /** Same as succLink, but does not throw any assertions when
         the succeeding link could not be found;

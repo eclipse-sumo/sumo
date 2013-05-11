@@ -825,7 +825,7 @@ MSLane::integrateNewVehicle(SUMOTime) {
     sort(myVehBuffer.begin(), myVehBuffer.end(), vehicle_position_sorter());
     for (std::vector<MSVehicle*>::const_iterator i = myVehBuffer.begin(); i != myVehBuffer.end(); ++i) {
         MSVehicle* veh = *i;
-        myVehicles.push_front(veh);
+        myVehicles.insert(myVehicles.begin(), veh);
         myVehicleLengthSum += veh->getVehicleType().getLengthWithGap();
     }
     myVehBuffer.clear();

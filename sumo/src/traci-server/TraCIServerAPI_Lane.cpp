@@ -219,8 +219,8 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 break;
             case LAST_STEP_VEHICLE_ID_LIST: {
                 std::vector<std::string> vehIDs;
-                const std::deque<MSVehicle*>& vehs = lane->getVehiclesSecure();
-                for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
+                const MSLane::VehCont& vehs = lane->getVehiclesSecure();
+                for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                     vehIDs.push_back((*j)->getID());
                 }
                 lane->releaseVehicles();
@@ -234,8 +234,8 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 break;
             case LAST_STEP_VEHICLE_HALTING_NUMBER: {
                 int halting = 0;
-                const std::deque<MSVehicle*>& vehs = lane->getVehiclesSecure();
-                for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
+                const MSLane::VehCont& vehs = lane->getVehiclesSecure();
+                for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                     if ((*j)->getSpeed() < 0.1) {
                         ++halting;
                     }
@@ -247,8 +247,8 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             break;
             case LAST_STEP_LENGTH: {
                 SUMOReal lengthSum = 0;
-                const std::deque<MSVehicle*>& vehs = lane->getVehiclesSecure();
-                for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
+                const MSLane::VehCont& vehs = lane->getVehiclesSecure();
+                for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                     lengthSum += (*j)->getVehicleType().getLength();
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);

@@ -135,8 +135,8 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 std::vector<std::string> vehIDs;
                 const std::vector<MSLane*>& lanes = e->getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    const std::deque<MSVehicle*>& vehs = (*i)->getVehiclesSecure();
-                    for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
+                    const MSLane::VehCont& vehs = (*i)->getVehiclesSecure();
+                    for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                         vehIDs.push_back((*j)->getID());
                     }
                     (*i)->releaseVehicles();
@@ -253,8 +253,8 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 int halting = 0;
                 const std::vector<MSLane*>& lanes = e->getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    const std::deque<MSVehicle*>& vehs = (*i)->getVehiclesSecure();
-                    for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
+                    const MSLane::VehCont& vehs = (*i)->getVehiclesSecure();
+                    for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                         if ((*j)->getSpeed() < 0.1) {
                             ++halting;
                         }
@@ -270,8 +270,8 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 int noVehicles = 0;
                 const std::vector<MSLane*>& lanes = e->getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    const std::deque<MSVehicle*>& vehs = (*i)->getVehiclesSecure();
-                    for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
+                    const MSLane::VehCont& vehs = (*i)->getVehiclesSecure();
+                    for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                         lengthSum += (*j)->getVehicleType().getLength();
                     }
                     noVehicles += (int) vehs.size();
