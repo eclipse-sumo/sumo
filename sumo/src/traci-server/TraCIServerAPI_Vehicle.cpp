@@ -1036,7 +1036,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingEdgeLane(const Position& pos, const std::
     MSEdgeVector::const_iterator p = std::find(tedges.begin() + v.getRoutePosition(), tedges.end(), &pni->getEdge());
     if (p != tedges.end()) {
         lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal((*lane)->getLength() - POSITION_EPS), (*lane)->getShape().nearest_offset_to_point2D(pos, false)));
-        routeOffset = std::distance(tedges.begin(), p) - v.getRoutePosition();
+        routeOffset = (int)(std::distance(tedges.begin(), p) - v.getRoutePosition());
         if (report) {
             std::cout << "  a ok lane:" << (*lane)->getID() << " lanePos:" << lanePos << " routeOffset:" << routeOffset << std::endl;
         }

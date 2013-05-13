@@ -149,7 +149,7 @@ NBNodeShapeComputer::replaceLastChecking(PositionVector& g, bool decenter,
         counterPos = t.positionAtOffset2D(p);
     }
     if (g[-1].distanceTo(counterPos) < SUMO_const_laneWidth * (SUMOReal) counterLanes) {
-        g.replaceAt(g.size() - 1, counterPos);
+        g.replaceAt((int)g.size() - 1, counterPos);
     } else {
         g.push_back_noDoublePos(counterPos);
     }
@@ -157,7 +157,7 @@ NBNodeShapeComputer::replaceLastChecking(PositionVector& g, bool decenter,
         Line l(g[-2], g[-1]);
         SUMOReal factor = laneDiff % 2 != 0 ? SUMO_const_halfLaneAndOffset : SUMO_const_laneWidthAndOffset;
         l.move2side(-factor);//SUMO_const_laneWidthAndOffset);
-        g.replaceAt(g.size() - 1, l.p2());
+        g.replaceAt((int)g.size() - 1, l.p2());
     }
 }
 

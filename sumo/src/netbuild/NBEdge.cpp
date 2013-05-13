@@ -1094,7 +1094,7 @@ NBEdge::computeLaneShapes() {
         offsets.push_back(0);
     }
     SUMOReal offset = 0;
-    for (int i = myLanes.size() - 2; i >= 0; --i) {
+    for (int i = (int)myLanes.size() - 2; i >= 0; --i) {
         offset += (getLaneWidth(i) + getLaneWidth(i + 1)) / 2. + SUMO_const_laneOffset;
         offsets[i] = offset;
     }
@@ -1108,7 +1108,7 @@ NBEdge::computeLaneShapes() {
             width += getLaneWidth(i);
         }
         width += SUMO_const_laneOffset * SUMOReal(myLanes.size() - 1);
-        offset = -width / 2. + getLaneWidth(myLanes.size() - 1) / 2.;
+        offset = -width / 2. + getLaneWidth((int)myLanes.size() - 1) / 2.;
     }
     for (unsigned int i = 0; i < myLanes.size(); ++i) {
         offsets[i] += offset;
