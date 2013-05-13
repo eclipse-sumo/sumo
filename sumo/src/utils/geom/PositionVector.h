@@ -228,7 +228,7 @@ public:
 
     void move2side(SUMOReal amount);
 
-    Line lineAt(size_t pos) const;
+    Line lineAt(int pos) const;
 
     Line getBegLine() const;
 

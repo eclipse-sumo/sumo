@@ -84,15 +84,15 @@ public:
             willPass(_willPass) {}
 
         /// @brief The time the vehicle's front arrives at the link
-        SUMOTime arrivalTime;
+        const SUMOTime arrivalTime;
         /// @brief The estimated time at which the vehicle leaves the link
-        SUMOTime leavingTime;
+        const SUMOTime leavingTime;
         /// @brief The estimated speed with which the vehicle arrives at the link (for headway computation)
-        SUMOReal arrivalSpeed;
+        const SUMOReal arrivalSpeed;
         /// @brief The estimated speed with which the vehicle leaves the link (for headway computation)
-        SUMOReal leaveSpeed;
+        const SUMOReal leaveSpeed;
         /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
-        bool willPass;
+        const bool willPass;
     };
 
 
@@ -137,11 +137,11 @@ public:
      *
      * The information is stored in myApproachingVehicles.
      */
-    void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime,
-                        SUMOReal arrivalSpeed, SUMOReal leaveSpeed, bool setRequest);
+    void setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime,
+                        const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed, const bool setRequest);
 
     /// @brief removes the vehicle from myApproachingVehicles
-    void removeApproaching(SUMOVehicle* veh);
+    void removeApproaching(const SUMOVehicle* veh);
 
     void addBlockedLink(MSLink* link);
 

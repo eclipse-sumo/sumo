@@ -646,26 +646,16 @@ MSLane::getLastVehicleInformation() const {
 
 
 // ------  ------
-bool
+void
 MSLane::planMovements(SUMOTime t) {
-    myLeftVehLength = myVehicleLengthSum;
     assert(myVehicles.size() != 0);
-    std::vector<MSVehicle*> collisions;
-    VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
-    VehCont::iterator veh;
-    // Move all next vehicles beside the first
-    for (veh = myVehicles.begin(); veh != lastBeforeEnd; ++veh) {
-        myLeftVehLength -= (*veh)->getVehicleType().getLengthWithGap();
-        VehCont::const_iterator pred(veh + 1);
-        assert((*veh)->getLane() == this);
-        (*veh)->planMove(t, *pred, 0, myLeftVehLength);
+    SUMOReal cumulatedVehLength = 0.;
+    const MSVehicle* pred = getPartialOccupator();
+    for (VehCont::reverse_iterator veh = myVehicles.rbegin(); veh != myVehicles.rend(); ++veh) {
+        (*veh)->planMove(t, pred, 0, cumulatedVehLength);
+        pred = *veh;
+        cumulatedVehLength += pred->getVehicleType().getLengthWithGap();
     }
-    myLeftVehLength -= (*veh)->getVehicleType().getLengthWithGap();
-    assert((*veh)->getLane() == this);
-    (*veh)->planMove(t, 0, 0, myLeftVehLength);
-    assert((*veh)->getPositionOnLane() <= myLength);
-    assert((*veh)->getLane() == this);
-    return myVehicles.size() == 0;
 }
 
 

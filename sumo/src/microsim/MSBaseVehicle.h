@@ -299,6 +299,9 @@ private:
      */
     static const SUMOTime NOT_YET_DEPARTED;
 
+    /// invalidated assignment operator
+    MSBaseVehicle& operator=(const MSBaseVehicle& s);
+
 };
 
 #endif

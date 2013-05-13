@@ -99,10 +99,11 @@ MSEdgeControl::patchActiveLanes() {
 void
 MSEdgeControl::planMovements(SUMOTime t) {
     for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
-        if ((*i)->getVehicleNumber() == 0 || (*i)->planMovements(t)) {
+        if ((*i)->getVehicleNumber() == 0) {
             myLanes[(*i)->getNumericalID()].amActive = false;
             i = myActiveLanes.erase(i);
         } else {
+            (*i)->planMovements(t);
             ++i;
         }
     }

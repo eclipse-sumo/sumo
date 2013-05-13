@@ -90,10 +90,10 @@ GUILane::releaseVehicles() const {
 }
 
 
-bool
-GUILane::planMovements(SUMOTime t) {
+void
+GUILane::planMovements(const SUMOTime t) {
     AbstractMutex::ScopedLocker locker(myLock);
-    return MSLane::planMovements(t);
+    MSLane::planMovements(t);
 }
 
 

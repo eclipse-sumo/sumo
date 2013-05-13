@@ -117,7 +117,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool planMovements(SUMOTime t);
+    void planMovements(const SUMOTime t);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */

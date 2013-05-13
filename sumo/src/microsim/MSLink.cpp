@@ -87,18 +87,9 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 
 void
-MSLink::setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, bool setRequest) {
+MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed, const bool setRequest) {
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLengthWithGap());
-    std::map<const SUMOVehicle*, ApproachingVehicleInformation>::iterator i = myApproachingVehicles.find(approaching);
-    if (i != myApproachingVehicles.end()) {
-        i->second.arrivalTime = arrivalTime;
-        i->second.leavingTime = leaveTime;
-        i->second.arrivalSpeed = arrivalSpeed;
-        i->second.leaveSpeed = leaveSpeed;
-        i->second.willPass = setRequest;        
-    } else {
-        myApproachingVehicles.insert(std::make_pair(approaching, ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest)));
-    }
+    myApproachingVehicles.insert(std::make_pair(approaching, ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest)));
 }
 
 
@@ -121,7 +112,7 @@ MSLink::willHaveBlockedFoe() const {
 
 
 void
-MSLink::removeApproaching(SUMOVehicle* veh) {
+MSLink::removeApproaching(const SUMOVehicle* veh) {
     myApproachingVehicles.erase(veh);
 }
 
@@ -312,12 +303,9 @@ MSLink::getViaLaneOrLane() const {
 #ifdef HAVE_INTERNAL_LANES
     if (myJunctionInlane != 0) {
         return myJunctionInlane;
-    } else {
-        return myLane;
     }
-#else
-    return myLane;
 #endif
+    return myLane;
 }
 
 

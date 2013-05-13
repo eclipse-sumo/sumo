@@ -204,22 +204,6 @@ public:
     //@}
 
 
-    /** @brief Returns the gap between pred and this vehicle.
-     *
-     * Assumes both vehicles are on the same or on are on parallel lanes.
-     *
-     * @param[in] pred The leader
-     * @return The gap between this vehicle and the leader (may be <0)
-     */
-    SUMOReal gap2pred(const MSVehicle& pred) const {
-        SUMOReal gap = pred.getPositionOnLane() - pred.getVehicleType().getLength() - getPositionOnLane() - getVehicleType().getMinGap();
-        if (gap < 0 && gap > -1.0e-12) {
-            gap = 0;
-        }
-        return gap;
-    }
-
-
     /** @brief Uses the given values to compute the brutto-gap
      *
      * @param[in] predPos Position of the leader
@@ -267,7 +251,7 @@ public:
      * Afterwards it checks if any DriveProcessItem should be discared to avoid
      * blocking a junction (checkRewindLinkLanes).
      *
-     * Finally the ApproachingVehicleInformation is registed for all links that
+     * Finally the ApproachingVehicleInformation is registered for all links that
      * shall be passed
      *
      * @param[in] t The current timeStep
@@ -275,7 +259,7 @@ public:
      * @param[in] neigh The neighbor vehicle (may be 0)
      * @param[in] lengthsInFront Sum of vehicle lengths in front of the vehicle
      */
-    void planMove(SUMOTime t, MSVehicle* pred, MSVehicle* neigh, SUMOReal lengthsInFront);
+    void planMove(const SUMOTime t, const MSVehicle* pred, const MSVehicle* neigh, const SUMOReal lengthsInFront);
 
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
@@ -779,14 +763,6 @@ public:
     bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
 
 
-#ifdef HAVE_INTERNAL_LANES
-    /// @brief return whether this vehicle is currently following the given veh
-    bool hasLinkLeader(MSVehicle* veh) const {
-        return myLinkLeaders.count(veh->getID()) > 0;
-    }
-#endif
-
-
     /** @class Influencer
      * @brief Changes the wished vehicle speed / lanes
      *
@@ -922,8 +898,7 @@ public:
 
 protected:
 
-    void checkRewindLinkLanes(SUMOReal lengthsInFront);
-    SUMOReal getSpaceTillLastStanding(MSLane* l, bool& foundStopped);
+    SUMOReal getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const;
 
     /// @name Interaction with move reminders
     ///@{
@@ -1034,8 +1009,11 @@ protected:
     /// Container for used Links/visited Lanes during lookForward.
     DriveItemVector myLFLinkLanes;
 
+    void planMoveInternal(const SUMOTime t, const MSVehicle* pred, const MSVehicle* neigh, DriveItemVector& lfLinks) const;
+    void checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& lfLinks) const;
+
     /// @brief estimate leaving speed when accelerating across a link
-    inline SUMOReal estimateLeaveSpeed(const MSLink* const link, const SUMOReal vLinkPass) {
+    inline SUMOReal estimateLeaveSpeed(const MSLink* const link, const SUMOReal vLinkPass) const {
         // estimate leave speed for passing time computation
         // l=linkLength, a=accel, t=continuousTime, v=vLeave
         // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
@@ -1047,7 +1025,7 @@ protected:
      * @param[in] dist The distance during which accelerating takes place
      * @param[in] v The initial speed
      */
-    inline SUMOReal estimateSpeedAfterDistance(const SUMOReal dist, const SUMOReal v) {
+    inline SUMOReal estimateSpeedAfterDistance(const SUMOReal dist, const SUMOReal v) const {
         // dist=v*t + 0.5*accel*t^2, solve for t and multiply with accel, then add v
         return MIN2(getVehicleType().getMaxSpeed(),
                     (SUMOReal)sqrt(2 * dist * getVehicleType().getCarFollowModel().getMaxAccel() + v * v));
@@ -1061,7 +1039,10 @@ protected:
      * @param[in,out] the safe velocity for driving
      * @param[in,out] the safe velocity for arriving at the next link
      */
-    void adaptToLeader(std::pair<MSVehicle*, SUMOReal> leaderInfo, SUMOReal seen, int lastLink, MSLane* lane, SUMOReal& v, SUMOReal& vLinkPass);
+    void adaptToLeader(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
+                       const SUMOReal seen, const int lastLink,
+                       const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass,
+                       DriveItemVector& lfLinks) const;
 
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
@@ -1078,9 +1059,9 @@ private:
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief ids of vehicles being followed across a link (for resolving priority)
-    std::set<std::string> myLinkLeaders;
+    mutable std::set<std::string> myLinkLeaders;
     /// @brief map from the links to link leader ids
-    std::map<const MSLink*, std::string> myLeaderForLink;
+    mutable std::map<const MSLink*, std::string> myLeaderForLink;
 #endif
 
 private:

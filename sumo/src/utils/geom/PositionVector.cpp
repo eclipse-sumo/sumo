@@ -350,7 +350,7 @@ PositionVector::getCentroid() const {
 void
 PositionVector::scaleSize(SUMOReal factor) {
     Position centroid = getCentroid();
-    for (int i = 0; i < (int)size(); i++) {
+    for (int i = 0; i < static_cast<int>(size()); i++) {
         (*this)[i] = centroid + (((*this)[i] - centroid) * factor);
     }
 }
@@ -473,7 +473,7 @@ PositionVector::sortAsPolyCWByAngle() {
 
 void
 PositionVector::add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff) {
-    for (int i = 0; i < (int)size(); i++) {
+    for (int i = 0; i < static_cast<int>(size()); i++) {
         (*this)[i].add(xoff, yoff, zoff);
     }
 }
@@ -481,7 +481,7 @@ PositionVector::add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff) {
 
 void
 PositionVector::reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
-    for (int i = 0; i < (int)size(); i++) {
+    for (int i = 0; i < static_cast<int>(size()); i++) {
         (*this)[i].reshiftRotate(xoff, yoff, rot);
     }
 }
@@ -552,13 +552,13 @@ PositionVector::appendWithCrossingPoint(const PositionVector& v) {
         return 1;
     }
     //
-    Line l1((*this)[(int)size() - 2], back());
+    Line l1((*this)[static_cast<int>(size()) - 2], back());
     l1.extrapolateBy(100);
     Line l2(v[0], v[1]);
     l2.extrapolateBy(100);
     if (l1.intersects(l2) && l1.intersectsAtLength2D(l2) < l1.length2D() - 100) { // !!! heuristic
         Position p = l1.intersectsAt(l2);
-        (*this)[(int)size() - 1] = p;
+        (*this)[static_cast<int>(size()) - 1] = p;
         copy(v.begin() + 1, v.end(), back_inserter(*this));
         return 2;
     } else {
@@ -735,7 +735,7 @@ PositionVector::pruneFromEndAt(const Position& p) {
     // replace last item by the new position
     SUMOReal lpos =
         GeomHelper::nearest_offset_on_line_to_point2D(
-            (*this)[(int)size() - 1], (*this)[size() - 2], p);
+            (*this)[static_cast<int>(size()) - 1], (*this)[static_cast<int>(size()) - 2], p);
     if (lpos == -1) {
         return;
     }
@@ -874,7 +874,7 @@ PositionVector::extrapolate(SUMOReal val) {
         GeomHelper::extrapolate_first((*this)[0], (*this)[1], val);
     Position ne =
         GeomHelper::extrapolate_second(
-            (*this)[(int)size() - 2], (*this)[(int)size() - 1], val);
+            (*this)[static_cast<int>(size()) - 2], (*this)[static_cast<int>(size()) - 1], val);
     erase(begin());
     push_front(nb);
     erase(end() - 1);
@@ -898,7 +898,7 @@ PositionVector::move2side(SUMOReal amount) {
         return;
     }
     PositionVector shape;
-    for (int i = 0; i < (int)size(); i++) {
+    for (int i = 0; i < static_cast<int>(size()); i++) {
         if (i == 0) {
             Position from = (*this)[i];
             Position to = (*this)[i + 1];
@@ -906,7 +906,7 @@ PositionVector::move2side(SUMOReal amount) {
                 GeomHelper::getNormal90D_CW(from, to, amount);
             shape.push_back(Position(from.x() - offsets.first,
                                      from.y() - offsets.second, from.z()));
-        } else if (i == size() - 1) {
+        } else if (i == static_cast<int>(size()) - 1) {
             Position from = (*this)[i - 1];
             Position to = (*this)[i];
             std::pair<SUMOReal, SUMOReal> offsets =
@@ -978,9 +978,9 @@ PositionVector::move2side(SUMOReal amount) {
 
 
 Line
-PositionVector::lineAt(size_t pos) const {
+PositionVector::lineAt(int pos) const {
     assert(size() > pos + 1);
-    return Line((*this)[(int)pos], (*this)[(int)pos + 1]);
+    return Line((*this)[pos], (*this)[pos + 1]);
 }
 
 
@@ -1036,7 +1036,7 @@ PositionVector::replaceAt(int index, const Position& p) {
     if (index >= 0) {
         (*this)[index] = p;
     } else {
-        (*this)[index + (int)size()] = p;
+        (*this)[index + static_cast<int>(size())] = p;
     }
 }
 

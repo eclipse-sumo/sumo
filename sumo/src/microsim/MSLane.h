@@ -386,7 +386,7 @@ public:
      * This method goes through all vehicles calling their "planMove" method.
      * @see MSVehicle::planMove
      */
-    virtual bool planMovements(SUMOTime t);
+    virtual void planMovements(const SUMOTime t);
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
@@ -699,9 +699,6 @@ protected:
     MSVehicle* myInlappingVehicle;
 
 
-    /// @brief Not yet seen vehicle lengths
-    SUMOReal myLeftVehLength;
-
     /** The lane's Links to it's succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
     MSLinkCont myLinks;
@@ -711,7 +708,7 @@ protected:
     // precomputed myShape.length / myLength
     const SUMOReal myLengthGeometryFactor;
 
-    /// definition of the tatic dictionary type
+    /// definition of the static dictionary type
     typedef std::map< std::string, MSLane* > DictType;
 
     /// Static dictionary to associate string-ids with objects.

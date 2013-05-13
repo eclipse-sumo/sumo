@@ -81,7 +81,7 @@ MSBusStop::enter(SUMOVehicle* what, SUMOReal beg, SUMOReal end) {
 
 
 SUMOReal
-MSBusStop::getLastFreePos(SUMOVehicle& forVehicle) const {
+MSBusStop::getLastFreePos(const SUMOVehicle& forVehicle) const {
     if (myLastFreePos != myEndPos) {
         return myLastFreePos - forVehicle.getVehicleType().getMinGap();
     }

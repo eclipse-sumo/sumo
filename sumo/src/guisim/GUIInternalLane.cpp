@@ -91,10 +91,10 @@ GUIInternalLane::releaseVehicles() const {
 }
 
 
-bool
-GUIInternalLane::planMovements(SUMOTime t) {
+void
+GUIInternalLane::planMovements(const SUMOTime t) {
     AbstractMutex::ScopedLocker locker(myLock);
-    return MSInternalLane::planMovements(t);
+    MSInternalLane::planMovements(t);
 }
 
 

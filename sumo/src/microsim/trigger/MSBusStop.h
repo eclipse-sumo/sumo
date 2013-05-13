@@ -131,7 +131,7 @@ public:
      *
      * @return The last free position of this bus stop
      */
-    SUMOReal getLastFreePos(SUMOVehicle& forVehicle) const;
+    SUMOReal getLastFreePos(const SUMOVehicle& forVehicle) const;
 
 
     /** @brief Returns the number of persons waiting on this stop

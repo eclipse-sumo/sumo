@@ -77,13 +77,13 @@ MSInternalLane::setParentJunctionInformation(MSLogicJunction::InnerState* const 
 }
 
 
-bool
-MSInternalLane::planMovements(SUMOTime t) {
+void
+MSInternalLane::planMovements(const SUMOTime t) {
     assert(myVehicles.size() > 0);
     if (myFoesIndex >= 0) {
         (*myFoesCont)[myFoesIndex] = true;
     }
-    return MSLane::planMovements(t);
+    MSLane::planMovements(t);
 }
 
 
