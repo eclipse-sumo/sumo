@@ -91,7 +91,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
             && variable != VAR_TAU && variable != VAR_BEST_LANES && variable != DISTANCE_REQUEST
-            && variable != ID_COUNT
+            && variable != ID_COUNT && variable != VAR_STOPSTATE
        ) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable specified", outputStorage);
     }
@@ -333,6 +333,14 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeStorage(tempContent);
             }
             break;
+			case VAR_STOPSTATE:{
+					char b = (v->isStopped() ? 1 : 0 +
+                            2 * (v->isParking() ? 1 : 0) +
+                            4 * (v->isStoppedTriggered() ? 1 : 0));
+					tempMsg.writeUnsignedByte(TYPE_UBYTE);
+					tempMsg.writeUnsignedByte(b);
+				}
+			break;
             case DISTANCE_REQUEST:
                 if (!commandDistanceRequest(server, inputStorage, tempMsg, v)) {
                     return false;
@@ -356,7 +364,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != CMD_STOP && variable != CMD_CHANGELANE
-            && variable != CMD_SLOWDOWN && variable != CMD_CHANGETARGET
+            && variable != CMD_SLOWDOWN && variable != CMD_CHANGETARGET && variable != CMD_RESUME
             && variable != VAR_ROUTE_ID && variable != VAR_ROUTE
             && variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT
             && variable != CMD_REROUTE_TRAVELTIME && variable != CMD_REROUTE_EFFORT
@@ -390,8 +398,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Stop needs a compound object description.", outputStorage);
             }
-            if (inputStorage.readInt() != 4) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Stop needs a compound object description of four items.", outputStorage);
+            int compoundSize = inputStorage.readInt();
+            if (compoundSize != 4 && compoundSize != 5) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Stop needs a compound object description of four of five items.", outputStorage);
             }
             // read road map position
             std::string roadId;
@@ -411,6 +420,17 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!server.readTypeCheckingInt(inputStorage, waitTime)) {
                 return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "The fourth stop parameter must be the waiting time given as an integer.", outputStorage);
             }
+			// optional stop flags
+            bool parking = false;
+            bool triggered = false;
+            if (compoundSize == 5) {
+                int stopFlags;
+                if (!server.readTypeCheckingByte(inputStorage, stopFlags)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fifth stop parameter must be a byte indicating its parking/triggered status.", outputStorage);
+                }
+                parking = ((stopFlags & 1) != 0);
+                triggered = ((stopFlags & 2) != 0);
+            }
             // check
             if (pos < 0) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Position on lane must not be negative", outputStorage);
@@ -425,11 +445,33 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane existing with such id on the given road", outputStorage);
             }
             // Forward command to vehicle
-            if (!v->addTraciStop(allLanes[laneIndex], pos, 0, waitTime)) {
+            if (!v->addTraciStop(allLanes[laneIndex], pos, 0, waitTime, parking, triggered)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Vehicle is too close or behind the stop on " + allLanes[laneIndex]->getID(), outputStorage);
             }
         }
         break;
+		case CMD_RESUME: {
+			if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Resuming requires a compound object.", outputStorage);
+				return false;
+			}
+			if (inputStorage.readInt() != 0) {
+				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Resuming should obtain an empty compound object.", outputStorage);
+				return false;
+			}
+			if (!static_cast<MSVehicle*>(v)->resumeFromStopping()) {
+				MSVehicle::Stop& sto = (static_cast<MSVehicle*>(v))->getNextStop();
+				std::ostringstream strs;
+				strs << "reached: " << sto.reached;
+				strs << ", duration:" << sto.duration;
+				strs << ", edge:" << (*sto.edge)->getID();
+				strs << ", startPos: " << sto.startPos;
+				std::string posStr = strs.str();
+				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Failed to resume a non parking vehicle: "+v->getID() + ", "+posStr, outputStorage);
+				return false;
+			}
+		}
+		break;
         case CMD_CHANGELANE: {
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description.", outputStorage);

@@ -550,6 +550,8 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffs
             (prevStopEdge == stop.edge && prevStopPos > stop.endPos)) {
         return false;
     }
+    // David.C:
+    //if (!stop.parking && (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
     if (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed)) {
         return false;
     }
@@ -567,6 +569,12 @@ MSVehicle::isStopped() const {
 bool
 MSVehicle::isParking() const {
     return isStopped() && myStops.begin()->parking;
+}
+
+
+bool
+MSVehicle::isStoppedTriggered() const {
+    return isStopped() && myStops.begin()->triggered;
 }
 
 
@@ -1838,7 +1846,7 @@ MSVehicle::getLaneIndex() const {
 
 #ifndef NO_TRACI
 bool
-MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTime duration) {
+MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTime duration, bool parking, bool triggered) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
         if (iter->lane == lane && fabs(iter->endPos - pos) < POSITION_EPS) {
@@ -1858,10 +1866,26 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTim
     newStop.endPos = pos;
     newStop.duration = duration;
     newStop.until = -1;
-    newStop.triggered = false;
-    newStop.parking = false;
-    newStop.index = STOP_INDEX_END;
+    newStop.triggered = triggered;
+    newStop.parking = parking;
+    newStop.index = STOP_INDEX_FIT;
     return addStop(newStop);
+}
+
+
+bool
+MSVehicle::resumeFromStopping() {
+	Stop& stop = myStops.front();
+	if (!stop.reached)
+		return false;
+	stop.duration = 0;
+	return true;
+}
+
+
+MSVehicle::Stop& 
+MSVehicle::getNextStop() {
+	return myStops.front();
 }
 
 

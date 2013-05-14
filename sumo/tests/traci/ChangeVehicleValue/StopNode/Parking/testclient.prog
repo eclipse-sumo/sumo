@@ -1,0 +1,5 @@
+simstep2 1
+
+setvalue 0xc4 0x12 veh0 <compound> 5 <string> 1fi <double> 200 <byte> 0 <int> 5000 <byte> 1
+
+repeat 49 simstep2 0

@@ -577,6 +577,12 @@ public:
      * @return whether the vehicle is parking
      */
     bool isParking() const;
+
+
+    /** @brief Returns whether the vehicle is on a triggered stop
+     * @return whether the vehicle is on a triggered stop
+     */
+    bool isStoppedTriggered() const;
     /// @}
 
     bool knowsEdgeTest(MSEdge& edge) const;
@@ -758,9 +764,22 @@ public:
      * @param pos		position on the given lane at wich to stop
      * @param radius	the vehicle will stop if it is within the range [pos-radius, pos+radius]
      * @param duration	after waiting for the time period duration, the vehicle will
-     *					continue until the stop is reached again
+     * @param parking   a flag indicating whether the traci stop is used for parking or not
+     * @param triggered a flag indicating whether the traci stop is triggered or not
      */
-    bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
+    bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration, bool parking, bool triggered);
+
+    /**
+    * returns the next imminent stop in the stop queue
+    * @return the upcoming stop
+    */
+    Stop& getNextStop();
+
+    /**
+    * resumes a vehicle from stopping
+    * @return true on success, the resuming fails if the vehicle wasn't parking in the first place
+    */
+    bool resumeFromStopping();
 
 
     /** @class Influencer

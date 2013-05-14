@@ -43,18 +43,15 @@ REMOVE
 # rerouting tests
 rerouting
 
-
 # some tests for simply setting/getting values
 zSimpleSetGet
-
 
 # further tests for changing vehicle type values
 VehicleTypeRelated
 
-
 # checking SlowDown and SetSpeed
 SlowDownAndSetSpeed
 
-
 # check whether a vehicle may be forced to run at red light
 runs_at_red_forced
+resume_from_stop

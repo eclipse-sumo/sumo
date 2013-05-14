@@ -46,6 +46,9 @@
 // command: stop node
 #define CMD_STOP 0x12
 
+// command: Resume from parking
+#define CMD_RESUME 0x19
+
 // command: set lane
 #define CMD_CHANGELANE 0x13
 
@@ -555,7 +558,9 @@
 // move vehicle, VTD version (set: vehicle)
 #define VAR_MOVE_TO_VTD 0xb4
 
-
+// is the vehicle stopped, and if so parked and/or triggered?
+// value = stopped + 2 * parking + 4 * triggered
+#define VAR_STOPSTATE 0xb5
 
 // current CO2 emission of a node (get: vehicle, lane, edge)
 #define VAR_CO2EMISSION 0x60
