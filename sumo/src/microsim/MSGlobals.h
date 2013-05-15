@@ -72,6 +72,9 @@ public:
     /** information whether the routes shall be checked for connectivity */
     static bool gCheckRoutes;
 
+    /** information Duration of a lane change maneuver */
+    static SUMOTime gLaneChangeDuration;
+
 #ifdef HAVE_INTERNAL
     /// Information whether a state has been loaded
     static bool gStateLoaded;

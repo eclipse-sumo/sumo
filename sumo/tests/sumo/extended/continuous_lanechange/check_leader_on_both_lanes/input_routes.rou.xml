@@ -1,0 +1,10 @@
+<routes>
+    <vType id="thin" width="1"/>
+    <vehicle id="v0" depart="0" departLane="0" arrivalLane="0">
+        <route edges="1si"/>
+        <stop lane="1si_0" endPos="150" until="25"/>
+    </vehicle>
+    <vehicle id="v1" depart="1" type="thin" departPos="0" departLane="0" arrivalLane="1">
+        <route edges="1si"/>
+    </vehicle>
+</routes>

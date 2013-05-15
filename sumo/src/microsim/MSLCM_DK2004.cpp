@@ -34,6 +34,7 @@
 #include <iostream>
 #include <utils/common/RandHelper.h>
 #include "MSEdge.h"
+#include "MSLane.h"
 #include "MSLCM_DK2004.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -609,8 +610,9 @@ MSLCM_DK2004::inform(void* info, MSVehicle* /*sender*/) {
 
 void
 MSLCM_DK2004::changed() {
-    myChangeProbability = 0;
     myOwnState = 0;
+    myLastLaneChangeOffset = 0;
+    myChangeProbability = 0;
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;
     myVSafes.clear();

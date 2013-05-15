@@ -485,7 +485,8 @@ public:
     // valid for gui-version only
     virtual GUILaneWrapper* buildLaneWrapper(unsigned int index);
 
-    virtual MSVehicle* removeVehicle(MSVehicle* remVehicle);
+    /// @brief remove the vehicle from this lane
+    virtual MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification);
 
     /// The shape of the lane
     PositionVector myShape;
@@ -496,8 +497,11 @@ public:
     void enteredByLaneChange(MSVehicle* v);
 
 
-    MSLane* getLeftLane() const;
-    MSLane* getRightLane() const;
+    /** @brief Returns the lane with the given offset parallel to this one or 0 if it does not exist
+     * @param[in] offset The offset of the result lane
+     */
+    MSLane* getParallelLane(int offset) const;
+
 
     inline void setPermissions(SVCPermissions permissions) {
         myPermissions = permissions;

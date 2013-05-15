@@ -125,10 +125,15 @@ public:
     bool integrateNewVehicle(SUMOTime t);
     ///@}
 
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
     GUILaneWrapper* buildLaneWrapper(unsigned int index);
 
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
+    MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification);
+
     void detectCollisions(SUMOTime timestep, int stage);
-    MSVehicle* removeVehicle(MSVehicle* remVehicle);
 
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure

@@ -224,6 +224,9 @@ MSFrame::fillOptions() {
     oc.doRegister("lanechange.allow-swap", new Option_Bool(false));
     oc.addDescription("lanechange.allow-swap", "Processing", "Whether blocking vehicles trying to change lanes may be swapped.");
 
+    oc.doRegister("lanechange.duration", new Option_String("0", "TIME"));
+    oc.addDescription("lanechange.duration", "Processing", "Duration of a lane change maneuver (default 0).");
+
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Processing",
                       "Select among routing algorithms ['dijkstra', 'astar']");
@@ -387,6 +390,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gTimeToGridlock = string2time(oc.getString("time-to-teleport")) < 0 ? 0 : string2time(oc.getString("time-to-teleport"));
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");
+    MSGlobals::gLaneChangeDuration = string2time(oc.getString("lanechange.duration"));
 #ifdef HAVE_INTERNAL
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");

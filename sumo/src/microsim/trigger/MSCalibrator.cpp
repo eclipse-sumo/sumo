@@ -305,7 +305,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
         for (std::vector<MSVehicle*>::iterator it = myToRemove.begin(); it != myToRemove.end(); ++it) {
             MSVehicle* vehicle = *it;
             vehicle->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
-            vehicle->getLane()->removeVehicle(vehicle);
+            vehicle->getLane()->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(vehicle);
         }
         myToRemove.clear();

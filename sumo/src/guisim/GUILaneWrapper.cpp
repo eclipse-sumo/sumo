@@ -455,7 +455,9 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
         // retrieve vehicles from lane; disallow simulation
         const MSLane::VehCont& vehicles = myLane.getVehiclesSecure();
         for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
-            static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+            if ((*v)->getLane() == &myLane) {
+                static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+            } // else: this is the shadow during a continuous lane change
         }
         // allow lane simulation
         myLane.releaseVehicles();

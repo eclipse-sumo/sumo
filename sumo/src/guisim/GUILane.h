@@ -129,12 +129,17 @@ public:
     ///@}
 
 
-
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
     void detectCollisions(SUMOTime timestep, int stage);
 
 
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
+    MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification);
+
+    /// @brief builds the visualisation wrapper for this lane
     GUILaneWrapper* buildLaneWrapper(unsigned int index);
-    MSVehicle* removeVehicle(MSVehicle* remVehicle);
 
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure

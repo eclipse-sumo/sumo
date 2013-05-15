@@ -37,6 +37,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 #include "MSVehicle.h"
+#include "MSAbstractLaneChangeModel.h"
 #include "MSNet.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
@@ -652,7 +653,9 @@ MSLane::planMovements(SUMOTime t) {
     SUMOReal cumulatedVehLength = 0.;
     const MSVehicle* pred = getPartialOccupator();
     for (VehCont::reverse_iterator veh = myVehicles.rbegin(); veh != myVehicles.rend(); ++veh) {
-        (*veh)->planMove(t, pred, 0, cumulatedVehLength);
+        if ((*veh)->getLane() == this) {
+            (*veh)->planMove(t, pred, 0, cumulatedVehLength);
+        }
         pred = *veh;
         cumulatedVehLength += pred->getVehicleType().getLengthWithGap();
     }
@@ -679,16 +682,28 @@ MSLane::detectCollisions(SUMOTime timestep, int stage) {
         SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getVehicleType().getLength() - (*veh)->getPositionOnLane() - (*veh)->getVehicleType().getMinGap();
         if (gap < -0.001) {
             MSVehicle* vehV = *veh;
-            WRITE_WARNING("Teleporting vehicle '" + vehV->getID() + "'; collision with '"
-                          + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
-                          + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + toString(stage) + ".");
-            MSNet::getInstance()->getVehicleControl().registerCollision();
-            myVehicleLengthSum -= vehV->getVehicleType().getLengthWithGap();
-            MSVehicleTransfer::getInstance()->addVeh(timestep, vehV);
-            veh = myVehicles.erase(veh); // remove current vehicle
-            lastVeh = myVehicles.end() - 1;
-            if (veh == myVehicles.end()) {
-                break;
+            if (vehV->getLane() == this) {
+                WRITE_WARNING("Teleporting vehicle '" + vehV->getID() + "'; collision with '"
+                              + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
+                              + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + toString(stage) + ".");
+                MSNet::getInstance()->getVehicleControl().registerCollision();
+                myVehicleLengthSum -= vehV->getVehicleType().getLengthWithGap();
+                MSVehicleTransfer::getInstance()->addVeh(timestep, vehV);
+                veh = myVehicles.erase(veh); // remove current vehicle
+                lastVeh = myVehicles.end() - 1;
+                if (veh == myVehicles.end()) {
+                    break;
+                }
+            } else {
+                WRITE_WARNING("Shadow of vehicle '" + vehV->getID() + "'; collision with '"
+                              + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
+                              + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + toString(stage) + ".");
+                veh = myVehicles.erase(veh); // remove current vehicle
+                lastVeh = myVehicles.end() - 1;
+                vehV->getLaneChangeModel().endLaneChangeManeuver();
+                if (veh == myVehicles.end()) {
+                    break;
+                }
             }
         } else {
             ++veh;
@@ -699,12 +714,17 @@ MSLane::detectCollisions(SUMOTime timestep, int stage) {
 
 bool
 MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
-    // move critical vehicles
     for (VehCont::iterator i = myVehicles.begin(); i != myVehicles.end();) {
         MSVehicle* veh = *i;
+        if (veh->getLane() != this || veh->getLaneChangeModel().alreadyMoved()) {
+            // this is the shadow during a continuous lane change
+            ++i;
+            continue;
+        }
+        // length is needed later when the vehicle may not exist anymore
+        const SUMOReal length = veh->getVehicleType().getLengthWithGap();
         bool moved = veh->executeMove();
         MSLane* target = veh->getLane();
-        SUMOReal length = veh->getVehicleType().getLengthWithGap();
 #ifndef NO_TRACI
         bool vtdControlled = veh->hasInfluencer() && veh->getInfluencer().isVTDControlled();
         if (veh->hasArrived() && !vtdControlled) {
@@ -720,12 +740,19 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
                 veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             } else {
-                // vehicle has entered a new lane
+                // vehicle has entered a new lane (leaveLane was already called in MSVehicle::executeMove)
                 target->myVehBuffer.push_back(veh);
                 SUMOReal pspeed = veh->getSpeed();
                 SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
                 veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
                 into.push_back(target);
+                if (veh->getLaneChangeModel().isChangingLanes()) {
+                    MSLane* shadowLane = veh->getLaneChangeModel().getShadowLane();
+                    if (shadowLane != 0) {
+                        into.push_back(shadowLane);
+                        shadowLane->myVehBuffer.push_back(veh);
+                    }
+                }
             }
         } else if (veh->isParking()) {
             // vehicle started to park
@@ -733,7 +760,8 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
         } else if (veh->getPositionOnLane() > getLength()) {
             // for any reasons the vehicle is beyond its lane... error
-            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; beyond lane (2), targetLane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; beyond lane (2), targetLane='" + getID() + "', time=" + 
+                    time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSNet::getInstance()->getVehicleControl().registerTeleport();
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
         } else {
@@ -919,10 +947,10 @@ MSLane::buildLaneWrapper(unsigned int) {
 
 
 MSVehicle*
-MSLane::removeVehicle(MSVehicle* remVehicle) {
+MSLane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification) {
     for (MSLane::VehCont::iterator it = myVehicles.begin(); it < myVehicles.end(); it++) {
         if (remVehicle == *it) {
-            remVehicle->leaveLane(MSMoveReminder::NOTIFICATION_ARRIVED);
+            remVehicle->leaveLane(notification);
             myVehicles.erase(it);
             myVehicleLengthSum -= remVehicle->getVehicleType().getLengthWithGap();
             break;
@@ -932,15 +960,9 @@ MSLane::removeVehicle(MSVehicle* remVehicle) {
 }
 
 
-MSLane*
-MSLane::getLeftLane() const {
-    return myEdge->leftLane(this);
-}
-
-
-MSLane*
-MSLane::getRightLane() const {
-    return myEdge->rightLane(this);
+MSLane* 
+MSLane::getParallelLane(int offset) const {
+    return myEdge->parallelLane(this, offset);
 }
 
 

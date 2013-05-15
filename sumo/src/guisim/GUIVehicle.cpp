@@ -49,6 +49,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSLane.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
@@ -886,8 +887,7 @@ void
 GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    Position p1 = myLane->getShape().positionAtOffset(
-                      myLane->interpolateLanePosToGeometryPos(myState.pos()));
+    Position p1 = getPosition();
     // one seat in the center of the vehicle by default
     mySeatPositions[0] = myLane->getShape().positionAtOffset(
                              myLane->interpolateLanePosToGeometryPos(
@@ -1481,6 +1481,12 @@ GUIVehicle::computeSeats(const Position& front, const Position& back, int& requi
             requiredSeats--;
         }
     }
+}
+
+
+SUMOReal 
+GUIVehicle::getLastLaneChangeOffset() const {
+    return STEPS2TIME(getLaneChangeModel().getLastLaneChangeOffset());
 }
 
 

@@ -36,6 +36,7 @@
 #include <string>
 #include <functional>
 #include <vector>
+#include <deque>
 #include <set>
 #include <limits>
 #include <algorithm>

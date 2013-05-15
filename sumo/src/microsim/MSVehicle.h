@@ -426,9 +426,6 @@ public:
     void leaveLane(const MSMoveReminder::Notification reason);
 
 
-
-
-
     MSAbstractLaneChangeModel& getLaneChangeModel();
     const MSAbstractLaneChangeModel& getLaneChangeModel() const;
 
@@ -487,7 +484,14 @@ public:
      * @todo Describe better
      */
     const std::vector<MSLane*>& getBestLanesContinuation(const MSLane* const l) const;
+
+
+    /// @brief repair errors in bestLanes after changing between internal edges
+    bool fixContinuations();
     /// @}
+
+    /// @brief repair errors in vehicle position after changing between internal edges
+    bool fixPosition();
 
 
     /** @brief Replaces the current vehicle type by the one given
@@ -745,8 +749,6 @@ public:
     /// @}
 
 
-
-
 #ifndef NO_TRACI
     /** @brief Returns the uninfluenced velocity
      *
@@ -944,9 +946,6 @@ protected:
 
     void setBlinkerInformation();
 
-
-    /// @brief information how long ago the vehicle has performed a lane-change
-    SUMOTime myLastLaneChangeOffset;
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
     SUMOTime myWaitingTime;

@@ -34,3 +34,6 @@ busses
 # test loading of shapes 
 # (relevant for cmd-line sumo since they can be access via TraCI)
 shapes
+
+# test continuous lane change maneuvers
+continuous_lanechange

@@ -4,6 +4,7 @@
 /// @author  Friedemann Wesner
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
+/// @author  Jakob Erdmann
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
@@ -23,7 +24,6 @@
 #ifndef MSAbstractLaneChangeModel_h
 #define MSAbstractLaneChangeModel_h
 
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -33,9 +33,8 @@
 #include <config.h>
 #endif
 
-#include "MSLane.h"
 #include "MSVehicle.h"
-
+class MSLane;
 
 // ===========================================================================
 // used enumeration
@@ -165,29 +164,19 @@ public:
     };
 
 
-
     /** @brief Constructor
      * @param[in] v The vehicle this lane-changer belongs to
      */
-    MSAbstractLaneChangeModel(MSVehicle& v)
-        : myVehicle(v), myOwnState(0),
-#ifndef NO_TRACI
-          myChangeRequest(MSVehicle::REQUEST_NONE),
-#endif
-          myCarFollowModel(v.getCarFollowModel()) {
-    }
-
+    MSAbstractLaneChangeModel(MSVehicle& v);
 
     /// @brief Destructor
-    virtual ~MSAbstractLaneChangeModel() { }
+    virtual ~MSAbstractLaneChangeModel();
 
-
-
-    int getOwnState() const {
+    inline int getOwnState() const {
         return myOwnState;
     }
 
-    void setOwnState(int state) {
+    inline void setOwnState(int state) {
         myOwnState = state;
     }
 
@@ -235,6 +224,74 @@ public:
 
     virtual void changed() = 0;
 
+    void unchanged() {
+        myLastLaneChangeOffset += DELTA_T;
+    }
+
+    /** @brief Returns the lane the vehicles shadow is on during continuouss lane change
+     * @return The vehicle's shadow lane
+     */
+    MSLane* getShadowLane() const {
+        return myShadowLane;
+    }
+
+
+    inline SUMOTime getLastLaneChangeOffset() const {
+        return myLastLaneChangeOffset;
+    }
+
+
+    /// @brief return whether the vehicle passed the midpoint of a continuous lane change maneuver
+    inline bool isLaneChangeMidpointPassed() const {
+        return myLaneChangeMidpointPassed;
+    }
+
+    /// @brief return whether the vehicle passed the midpoint of a continuous lane change maneuver
+    inline SUMOReal getLaneChangeCompletion() const {
+        return myLaneChangeCompletion;
+    }
+
+    /// @brief return true if the vehicle currently performs a lane change maneuver
+    inline bool isChangingLanes() const {
+        return myLaneChangeCompletion < (1 - NUMERICAL_EPS);
+    }
+
+    /// @brief return the direction of the current lane change maneuver
+    inline int getLaneChangeDirection() const {
+        return myLaneChangeDirection;
+    }
+
+    /// @brief reset the flag whether a vehicle already moved to false
+    inline bool alreadyMoved() const {
+        return myAlreadyMoved;
+    }
+
+    /// @brief reset the flag whether a vehicle already moved to false
+    void resetMoved() {
+        myAlreadyMoved = false;
+    }
+
+
+    /// @brief start the lane change maneuver and return whether it continues
+    bool startLaneChangeManeuver(MSLane* source, MSLane* target, int direction);
+
+
+    /* @brief continue the lane change maneuver
+     * @param[in] moved Whether the vehicle has moved to a new lane
+     */
+    void continueLaneChangeManeuver(bool moved);
+
+    /* @brief finish the lane change maneuver
+     */
+    inline void endLaneChangeManeuver() {
+        removeLaneChangeShadow();
+        myLaneChangeCompletion = 1;
+        myShadowLane = 0;
+    }
+
+    /// @brief remove the shadow copy of a lane change maneuver
+    void removeLaneChangeShadow();
+
 #ifndef NO_TRACI
     /**
      * The vehicle is requested to change the lane as soon as possible
@@ -260,35 +317,9 @@ public:
 #endif
 
 protected:
-    virtual bool congested(const MSVehicle* const neighLeader) {
-        if (neighLeader == 0) {
-            return false;
-        }
-        // Congested situation are relevant only on highways (maxSpeed > 70km/h)
-        // and congested on German Highways means that the vehicles have speeds
-        // below 60km/h. Overtaking on the right is allowed then.
-        if ((myVehicle.getLane()->getSpeedLimit() <= 70.0 / 3.6) || (neighLeader->getLane()->getSpeedLimit() <= 70.0 / 3.6)) {
+    virtual bool congested(const MSVehicle* const neighLeader);
 
-            return false;
-        }
-        if (myVehicle.congested() && neighLeader->congested()) {
-            return true;
-        }
-        return false;
-    }
-
-    virtual bool predInteraction(const MSVehicle* const leader) {
-        if (leader == 0) {
-            return false;
-        }
-        // let's check it on highways only
-        if (leader->getSpeed() < (80.0 / 3.6)) {
-            return false;
-        }
-        SUMOReal gap = leader->getPositionOnLane() - leader->getVehicleType().getLength() - myVehicle.getVehicleType().getMinGap() - myVehicle.getPositionOnLane();
-        return gap < myCarFollowModel.interactionGap(&myVehicle, leader->getSpeed());
-    }
-
+    virtual bool predInteraction(const MSVehicle* const leader);
 
 
 protected:
@@ -298,6 +329,26 @@ protected:
     /// @brief The current state of the vehicle
     int myOwnState;
 
+    /// @brief information how long ago the vehicle has performed a lane-change
+    SUMOTime myLastLaneChangeOffset;
+
+    /// @brief progress of the lane change maneuver 0:started, 1:complete
+    SUMOReal myLaneChangeCompletion;
+
+    /// @brief direction of the lane change maneuver -1 means right, 1 means left
+    int myLaneChangeDirection;
+
+    /// @brief whether myLane has already been set to the target of the lane-change maneuver
+    bool myLaneChangeMidpointPassed;
+
+    /// @brief whether the vehicle has already moved this step
+    bool myAlreadyMoved;
+
+    /// @brief The lane the vehicle shadow is on during a continuous lane change
+    MSLane* myShadowLane;
+
+    /// Wether a vehicle shadow exists
+    bool myHaveShadow;
 
 #ifndef NO_TRACI
     MSVehicle::ChangeRequest myChangeRequest;

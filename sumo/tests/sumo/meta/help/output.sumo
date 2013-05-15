@@ -1,4 +1,4 @@
-SUMO sumo Version 0.17.0
+SUMO sumo Version dev-SVN-rUNKNOWN
  Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
 A microscopic road traffic simulation.
 
@@ -76,6 +76,8 @@ Processing Options:
                                         repeated in same step once failed.
   --lanechange.allow-swap             Whether blocking vehicles trying to
                                         change lanes may be swapped.
+  --lanechange.duration TIME          Duration of a lane change maneuver
+                                        (default 0).
   --routing-algorithm STR             Select among routing algorithms
                                         ['dijkstra', 'astar']
   --routeDist.maxsize INT             Restrict the maximum size of route

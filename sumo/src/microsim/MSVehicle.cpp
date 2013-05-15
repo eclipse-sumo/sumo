@@ -37,6 +37,33 @@
 #include <config.h>
 #endif
 
+#include <iostream>
+#include <cassert>
+#include <cmath>
+#include <cstdlib>
+#include <algorithm>
+#include <map>
+#include <utils/options/OptionsCont.h>
+#include <utils/common/ToString.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/DijkstraRouterTT.h>
+#include <utils/common/RandHelper.h>
+#include <utils/common/HelpersHBEFA.h>
+#include <utils/common/HelpersHarmonoise.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StdDefs.h>
+#include <utils/geom/Line.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/iodevices/BinaryInputDevice.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/MSGlobals.h>
+#include "trigger/MSBusStop.h"
+#include "devices/MSDevice_Person.h"
+#include "MSEdgeWeightsStorage.h"
+#include "MSLCM_DK2004.h"
+#include "MSMoveReminder.h"
+#include "MSPerson.h"
+#include "MSPersonControl.h"
 #include "MSLane.h"
 #include "MSVehicle.h"
 #include "MSEdge.h"
@@ -44,32 +71,6 @@
 #include "MSNet.h"
 #include "MSRoute.h"
 #include "MSLinkCont.h"
-#include <utils/common/StringUtils.h>
-#include <utils/common/StdDefs.h>
-#include <microsim/MSVehicleControl.h>
-#include <microsim/MSGlobals.h>
-#include <iostream>
-#include <cassert>
-#include <cmath>
-#include <cstdlib>
-#include <algorithm>
-#include <map>
-#include "MSMoveReminder.h"
-#include <utils/options/OptionsCont.h>
-#include "MSLCM_DK2004.h"
-#include <utils/common/ToString.h>
-#include <utils/common/FileHelpers.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/iodevices/BinaryInputDevice.h>
-#include "trigger/MSBusStop.h"
-#include <utils/common/DijkstraRouterTT.h>
-#include "MSPerson.h"
-#include "MSPersonControl.h"
-#include <utils/common/RandHelper.h>
-#include "devices/MSDevice_Person.h"
-#include "MSEdgeWeightsStorage.h"
-#include <utils/common/HelpersHBEFA.h>
-#include <utils/common/HelpersHarmonoise.h>
 
 #ifdef _MESSAGES
 #include "MSMessageEmitter.h"
@@ -243,7 +244,7 @@ MSVehicle::Influencer::setConsiderMaxDeceleration(bool value) {
 void
 MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
     v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
-    v->getLane()->removeVehicle(v);
+    v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
     if (myVTDRoute.size() != 0) {
         v->replaceRouteEdges(myVTDRoute, true);
     }
@@ -291,7 +292,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      SUMOReal speedFactor,
                      int /*vehicleIndex*/) :
     MSBaseVehicle(pars, route, type, speedFactor),
-    myLastLaneChangeOffset(0),
     myWaitingTime(0),
     myState(0, 0), //
     myLane(0),
@@ -478,7 +478,15 @@ MSVehicle::getPosition() const {
     if (myLane == 0) {
         return Position::INVALID;
     }
-    return myLane->getShape().positionAtOffset(myState.pos());
+    Position result = myLane->getShape().positionAtOffset(
+            myLane->interpolateLanePosToGeometryPos(getPositionOnLane()));
+    if (getLaneChangeModel().isChangingLanes()) {
+        const Position other = getLaneChangeModel().getShadowLane()->getShape().positionAtOffset(
+                getLaneChangeModel().getShadowLane()->interpolateLanePosToGeometryPos(getPositionOnLane()));
+        Line line = getLaneChangeModel().isLaneChangeMidpointPassed() ?  Line(other, result) : Line(result, other);
+        return line.getPositionAtDistance(getLaneChangeModel().getLaneChangeCompletion() * line.length());
+    } 
+    return result;
 }
 
 
@@ -488,11 +496,14 @@ MSVehicle::getAngle() const {
     Position p2 = myFurtherLanes.size() > 0
                   ? myFurtherLanes.back()->getShape().positionAtOffset(myFurtherLanes.back()->getPartialOccupatorEnd())
                   : myLane->getShape().positionAtOffset(myState.pos() - myType->getLength());
-    if (p1 != p2) {
-        return atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / PI;
-    } else {
-        return -myLane->getShape().rotationDegreeAtOffset(getPositionOnLane());
+    SUMOReal result = (p1 != p2 ?
+            atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / PI :
+            -myLane->getShape().rotationDegreeAtOffset(getPositionOnLane()));
+    if (getLaneChangeModel().isChangingLanes()) {
+        const SUMOReal angleOffset = 60 / STEPS2TIME(MSGlobals::gLaneChangeDuration) * (getLaneChangeModel().isLaneChangeMidpointPassed() ? 1 - getLaneChangeModel().getLaneChangeCompletion() : getLaneChangeModel().getLaneChangeCompletion());
+        result += getLaneChangeModel().getLaneChangeDirection() * angleOffset;
     }
+    return result;
 }
 
 
@@ -670,6 +681,7 @@ void
 MSVehicle::planMove(const SUMOTime t, const MSVehicle* pred, const MSVehicle* neigh, const SUMOReal lengthsInFront) {
     planMoveInternal(t, pred, neigh, myLFLinkLanes);
     checkRewindLinkLanes(lengthsInFront, myLFLinkLanes);
+    getLaneChangeModel().resetMoved();
 }
     
 
@@ -788,6 +800,18 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, const MSVeh
             }
             lfLinks.push_back(DriveProcessItem(0, v, v, false, 0, 0, seen));
             break;
+        }
+        // check whether we need to slow down in order to finish a continuous lane change
+        if (getLaneChangeModel().isChangingLanes()) {
+            if (    // slow down to finish lane change before a turn lane
+                    ((*link)->getDirection() == LINKDIR_LEFT || (*link)->getDirection() == LINKDIR_RIGHT) ||
+                    // slow down to finish lane change before the shadow lane ends
+                    (getLaneChangeModel().isLaneChangeMidpointPassed() && 
+                    (*link)->getViaLaneOrLane()->getParallelLane(-getLaneChangeModel().getLaneChangeDirection()) == 0)) {
+                const SUMOReal timeRemaining = STEPS2TIME((1 - getLaneChangeModel().getLaneChangeCompletion()) * MSGlobals::gLaneChangeDuration);
+                const SUMOReal va = seen / timeRemaining;
+                v = MIN2(va, v);
+            }
         }
 
         const bool yellow = (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR || (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
@@ -1054,6 +1078,14 @@ MSVehicle::executeMove() {
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
                     myLane = approachedLane;
+                    if (getLaneChangeModel().isChangingLanes()) {
+                        if (link->getDirection() == LINKDIR_LEFT || link->getDirection() == LINKDIR_RIGHT) {
+                            // abort lane change
+                            WRITE_WARNING("Vehicle '" + getID() + "' could not finish continuous lane change (turn lane) time=" + 
+                                    time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                            getLaneChangeModel().endLaneChangeManeuver();
+                        }
+                    }
 #ifdef HAVE_INTERNAL_LANES
                     // erase leader for the past link
                     if (myLeaderForLink.find(link) != myLeaderForLink.end()) {
@@ -1098,6 +1130,9 @@ MSVehicle::executeMove() {
                 leftLength -= (*i)->setPartialOccupation(this, leftLength);
                 ++i;
             }
+        }
+        if (getLaneChangeModel().isChangingLanes()) {
+            getLaneChangeModel().continueLaneChangeManeuver(moved);
         }
         setBlinkerInformation();
     }
@@ -1713,6 +1748,26 @@ MSVehicle::getBestLanesContinuation(const MSLane* const l) const {
     return myEmptyLaneVector;
 }
 
+
+bool 
+MSVehicle::fixContinuations() {
+    std::vector<MSLane*>& bestLaneConts = (*myCurrentLaneInBestLanes).bestContinuations;
+    if (myLane->getLinkCont()[0]->getLane() != bestLaneConts[1]) {
+        bestLaneConts.erase(bestLaneConts.begin() + 1, bestLaneConts.end());
+        return true;
+    }
+    return false;
+}
+
+
+bool 
+MSVehicle::fixPosition() {
+    if (getPositionOnLane() > myLane->getLength()) {
+        myState.myPos = myLane->getLength();
+        return true;
+    }
+    return false;
+}
 
 
 SUMOReal

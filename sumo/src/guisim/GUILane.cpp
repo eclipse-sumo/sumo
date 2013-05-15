@@ -105,9 +105,9 @@ GUILane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
 
 
 MSVehicle*
-GUILane::removeVehicle(MSVehicle* remVehicle) {
+GUILane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification) {
     AbstractMutex::ScopedLocker locker(myLock);
-    return MSLane::removeVehicle(remVehicle);
+    return MSLane::removeVehicle(remVehicle, notification);
 }
 
 

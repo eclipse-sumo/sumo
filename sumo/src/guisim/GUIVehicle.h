@@ -171,9 +171,7 @@ public:
      * @see MSVehicle::myLastLaneChangeOffset
      * @return The time since the last lane change in seconds
      */
-    SUMOReal getLastLaneChangeOffset() const {
-        return STEPS2TIME(myLastLaneChangeOffset);
-    }
+    SUMOReal getLastLaneChangeOffset() const;
 
 
     /** @brief Returns the description of best lanes to use in order to continue the route

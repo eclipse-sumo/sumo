@@ -771,7 +771,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Vehicle '" + laneID + "' may be set onto an edge to pass only.", outputStorage);
             }
             v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
-            v->getLane()->removeVehicle(v);
+            v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
             while (v->getEdge() != &destinationEdge) {
                 const MSEdge* nextEdge = v->succEdge(1);
                 // let the vehicle move to the next edge
@@ -937,13 +937,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 default:
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Unknown removal status.", outputStorage);
             }
-            if (v->hasDeparted()) {
-                v->onRemovalFromNet(n);
-                if (v->getLane() != 0) {
-                    v->getLane()->removeVehicle(v);
-                }
-                MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
-            }
+			if(v->hasDeparted()) {
+				v->onRemovalFromNet(n);
+				if(v->getLane()!=0) {
+					v->getLane()->removeVehicle(v, n);
+				}
+				MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
+			}
         }
         break;
         case VAR_MOVE_TO_VTD: {

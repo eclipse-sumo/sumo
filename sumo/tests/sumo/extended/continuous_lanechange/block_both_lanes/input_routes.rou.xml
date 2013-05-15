@@ -1,0 +1,10 @@
+<routes>
+    <vType id="fast" speedFactor="3"/>
+    <vType id="slow" speedFactor="0.5"/>
+    <vehicle id="v0" type="slow" depart="0" departLane="0" arrivalLane="2">
+        <route edges="1si"/>
+    </vehicle>
+    <vehicle id="v1" type="fast" depart="20" departPos="125" departLane="0" arrivalLane="0" departSpeed="max">
+        <route edges="1si"/>
+    </vehicle>
+</routes>

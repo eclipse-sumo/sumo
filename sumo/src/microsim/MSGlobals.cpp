@@ -49,6 +49,8 @@ bool MSGlobals::gCheck4Accidents;
 
 bool MSGlobals::gCheckRoutes;
 
+SUMOTime MSGlobals::gLaneChangeDuration;
+
 #ifdef HAVE_INTERNAL
 bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;

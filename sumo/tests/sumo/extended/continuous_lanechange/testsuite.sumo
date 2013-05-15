@@ -1,0 +1,25 @@
+basic
+
+# verify that both lanes are blocked during a lane change maneuver
+block_both_lanes
+
+# consider remainig space to complete a lane change maneuver
+check_remaining_space
+
+# check that a continuous lane change can proceed 
+# across a straight-running internal lane with a parallel internal lane
+internal_lane_straight
+
+# check that a continuous lane change can proceed 
+# across a straight-running internal lane with a parallel internal lane
+# even if the midpoint of the change is reached on an internal lane
+internal_lane_straight_midpoint
+
+# check that a lane change is forbidden across a turning internal lane
+internal_lane_turn
+
+# make sure that neither the vehicle nor its shadow cause collisions
+check_leader_on_both_lanes
+
+# test dynamics of continuous lane changing at speed 0
+change_while_stopped
