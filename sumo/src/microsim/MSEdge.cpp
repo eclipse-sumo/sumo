@@ -192,7 +192,7 @@ MSEdge::parallelLane(const MSLane* const lane, int offset) const {
             if (predParallel != 0 && nextParallel != 0) {
                 const MSLink* connecting = MSLinkContHelper::getConnectingLink(*predParallel, *nextParallel);
                 if (connecting != 0) {
-                    return connecting->getViaLane();
+                    return connecting->getViaLaneOrLane();
                 }
             }
         }
