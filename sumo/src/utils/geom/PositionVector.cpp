@@ -992,7 +992,7 @@ PositionVector::getBegLine() const {
 
 Line
 PositionVector::getEndLine() const {
-    return lineAt(size() - 2);
+    return lineAt((int)size() - 2);
 }
 
 
