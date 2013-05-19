@@ -191,16 +191,6 @@ public:
     /// @name Currently fixed methods
     /// @{
 
-    /** @brief Incorporates the influence of the vehicle on the left lane
-     *
-     * In Germany, vehicles on the right lane must not pass a vehicle on the lane left to the if the allowed velocity>60km/h
-     * @param[in] ego The ego vehicle
-     * @param[in] neigh The neighbor vehicle on the left lane
-     * @param[in, out] vSafe Current vSafe; may be adapted due to the left neighbor
-     */
-    void leftVehicleVsafe(const MSVehicle* const ego, const MSVehicle* const neigh, SUMOReal& vSafe) const;
-
-
     /** @brief Returns the maximum speed given the current speed
      *
      * The implementation of this method must take into account the time step

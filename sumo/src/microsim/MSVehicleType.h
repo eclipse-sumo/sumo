@@ -36,7 +36,7 @@
 #include <cassert>
 #include <map>
 #include <string>
-#include "MSCFModel.h"
+#include <microsim/cfmodels/MSCFModel.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOVehicleClass.h>

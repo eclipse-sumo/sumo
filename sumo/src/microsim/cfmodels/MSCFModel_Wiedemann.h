@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSCFModel.h>
+#include "MSCFModel.h"
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>

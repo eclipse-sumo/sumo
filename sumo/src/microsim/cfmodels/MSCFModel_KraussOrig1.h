@@ -32,7 +32,7 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSCFModel.h>
+#include "MSCFModel.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 

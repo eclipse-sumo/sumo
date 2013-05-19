@@ -654,7 +654,7 @@ MSLane::planMovements(SUMOTime t) {
     const MSVehicle* pred = getPartialOccupator();
     for (VehCont::reverse_iterator veh = myVehicles.rbegin(); veh != myVehicles.rend(); ++veh) {
         if ((*veh)->getLane() == this) {
-            (*veh)->planMove(t, pred, 0, cumulatedVehLength);
+            (*veh)->planMove(t, pred, cumulatedVehLength);
         }
         pred = *veh;
         cumulatedVehLength += pred->getVehicleType().getLengthWithGap();

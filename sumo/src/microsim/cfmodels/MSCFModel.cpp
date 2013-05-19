@@ -33,11 +33,11 @@
 #endif
 
 #include <math.h>
+#include <microsim/MSVehicleType.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSAbstractLaneChangeModel.h>
 #include "MSCFModel.h"
-#include "MSVehicleType.h"
-#include "MSVehicle.h"
-#include "MSLane.h"
-#include "MSAbstractLaneChangeModel.h"
 
 
 // ===========================================================================
@@ -79,18 +79,6 @@ MSCFModel::interactionGap(const MSVehicle* const veh, SUMOReal vL) const {
 
     // Don't allow timeHeadWay < deltaT situations.
     return MAX2(gap, SPEED2DIST(vNext));
-}
-
-
-void
-MSCFModel::leftVehicleVsafe(const MSVehicle* const ego, const MSVehicle* const neigh, SUMOReal& vSafe) const {
-    if (neigh != 0 && neigh->getSpeed() > 60. / 3.6) {
-        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane() - neigh->getVehicleType().getLength() - ego->getPositionOnLane() - ego->getVehicleType().getMinGap());
-        SUMOReal nVSafe = followSpeed(ego, ego->getSpeed(), mgap, neigh->getSpeed(), neigh->getCarFollowModel().getMaxDecel());
-        if (mgap - neigh->getSpeed() >= 0) {
-            vSafe = MIN2(vSafe, nVSafe);
-        }
-    }
 }
 
 

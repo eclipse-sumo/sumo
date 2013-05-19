@@ -256,10 +256,9 @@ public:
      *
      * @param[in] t The current timeStep
      * @param[in] pred The leader (may be 0)
-     * @param[in] neigh The neighbor vehicle (may be 0)
      * @param[in] lengthsInFront Sum of vehicle lengths in front of the vehicle
      */
-    void planMove(const SUMOTime t, const MSVehicle* pred, const MSVehicle* neigh, const SUMOReal lengthsInFront);
+    void planMove(const SUMOTime t, const MSVehicle* pred, const SUMOReal lengthsInFront);
 
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
@@ -1006,18 +1005,20 @@ protected:
         bool hadVehicle;
         SUMOReal availableSpace;
         DriveProcessItem(MSLink* link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
-                         SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal distance) :
+                         SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal distance,
+                         SUMOReal leaveSpeed=-1.
+                        ) :
             myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), myDistance(distance),
-            accelV(-1), hadVehicle(false), availableSpace(-1.) { };
-        void adaptLeaveSpeed(SUMOReal v) {
+            accelV(leaveSpeed), hadVehicle(false), availableSpace(-1.) { };
+        inline void adaptLeaveSpeed(const SUMOReal v) {
             if (accelV < 0) {
                 accelV = v;
             } else {
                 accelV = MIN2(accelV, v);
             }
         }
-        SUMOReal getLeaveSpeed() const {
+        inline SUMOReal getLeaveSpeed() const {
             return accelV < 0 ? myVLinkPass : accelV;
         }
     };
@@ -1027,7 +1028,7 @@ protected:
     /// Container for used Links/visited Lanes during lookForward.
     DriveItemVector myLFLinkLanes;
 
-    void planMoveInternal(const SUMOTime t, const MSVehicle* pred, const MSVehicle* neigh, DriveItemVector& lfLinks) const;
+    void planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVector& lfLinks) const;
     void checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& lfLinks) const;
 
     /// @brief estimate leaving speed when accelerating across a link

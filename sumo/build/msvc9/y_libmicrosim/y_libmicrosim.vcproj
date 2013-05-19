@@ -551,7 +551,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSCFModel.cpp"
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel.cpp"
 				>
 			</File>
 			<File
@@ -755,7 +755,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSCFModel.h"
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel.h"
 				>
 			</File>
 			<File

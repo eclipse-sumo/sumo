@@ -1,6 +1,7 @@
 noinst_LIBRARIES = libmicrosimcfmodels.a
 
 libmicrosimcfmodels_a_SOURCES = \
+MSCFModel.cpp MSCFModel.h \
 MSCFModel_Daniel1.cpp MSCFModel_Daniel1.h \
 MSCFModel_IDM.cpp MSCFModel_IDM.h \
 MSCFModel_Kerner.cpp MSCFModel_Kerner.h \
