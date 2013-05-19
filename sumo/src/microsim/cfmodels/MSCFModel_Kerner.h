@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSCFModel.h>
+#include "MSCFModel.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -58,6 +58,13 @@ public:
 
     /// @name Implementations of the MSCFModel interface
     /// @{
+
+    /** @brief Applies interaction with stops and lane changing model influences
+     * @param[in] veh The ego vehicle
+     * @param[in] vPos The possible velocity
+     * @return The velocity after applying interactions with stops and lane change model influences
+     */
+    SUMOReal moveHelper(MSVehicle* const veh, SUMOReal vPos) const;
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
@@ -98,13 +105,21 @@ public:
     MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
 
+    MSCFModel::VehicleVariables* createVehicleVariables() const;
+
+
 private:
+    class VehicleVariables : public MSCFModel::VehicleVariables {
+    public:
+        SUMOReal rand;
+    };
+
     /** @brief Returns the "safe" velocity
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The LEADER's speed
      * @return the safe velocity
      */
-    SUMOReal _v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const;
+    SUMOReal _v(const MSVehicle* const veh, SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const;
 
 
 
@@ -120,6 +135,9 @@ private:
     /// @brief The precomputed value for myDecel*myTau
     SUMOReal myTauDecel;
     /// @}
+
+    /// @brief The random deviation (constant between two calls of movehelper)
+    SUMOReal myRand;
 
 };
 
