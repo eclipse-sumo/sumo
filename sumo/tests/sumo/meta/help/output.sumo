@@ -45,6 +45,7 @@ Output Options:
   --vehroute-output.sorted            Sorts the output by departure time
   --vehroute-output.write-unfinished  Write vehroute output for vehicles which
                                         have not arrived at simulation end
+  --link-output FILE                  Save links states into FILE
 
 Time Options:
   -b, --begin TIME                    Defines the begin time;

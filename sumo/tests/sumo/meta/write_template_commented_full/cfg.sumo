@@ -84,6 +84,9 @@
         <!-- Write vehroute output for vehicles which have not arrived at simulation end -->
         <vehroute-output.write-unfinished value="false" type="BOOL"/>
 
+        <!-- Save links states into FILE -->
+        <link-output value="" type="FILE"/>
+
     </output>
 
     <time>

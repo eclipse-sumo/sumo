@@ -44,6 +44,7 @@
 class MSLane;
 class SUMOVehicle;
 class MSVehicle;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -285,7 +286,8 @@ public:
     /// @brief return the expected time at which the given vehicle will clear the link
     SUMOTime getLeaveTime(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
 
-
+    /// @brief write information about all approaching vehicles to the given output device
+    void writeApproaching(OutputDevice& od, const std::string fromLaneID) const;
 
 
 private:
