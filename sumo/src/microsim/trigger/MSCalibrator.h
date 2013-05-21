@@ -126,6 +126,7 @@ protected:
 private:
 
     struct AspiredState {
+        AspiredState() : begin(-1), end(-1), q(-1.), v(-1.), vehicleParameter(0) {}
         SUMOTime begin;
         SUMOTime end;
         SUMOReal q;
@@ -170,7 +171,9 @@ private:
 
 private:
     /// @brief the edge on which this calibrator lies
-    MSEdge* myEdge;
+    MSEdge* const myEdge;
+    /// @brief the position on the edge where this calibrator lies
+    const SUMOReal myPos;
     /// @brief data collector for the calibrator
     std::vector<MSMeanData_Net::MSLaneMeanDataValues*> myLaneMeanData;
     /// @brief accumlated data for the whole edge

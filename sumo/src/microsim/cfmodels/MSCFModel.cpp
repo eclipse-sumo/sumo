@@ -89,8 +89,7 @@ MSCFModel::maxNextSpeed(SUMOReal speed, const MSVehicle* const /*veh*/) const {
 
 
 SUMOReal
-MSCFModel::freeSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed) const {
-    UNUSED_PARAMETER(veh);
+MSCFModel::freeSpeed(const MSVehicle* const /* veh */, SUMOReal /* speed */, SUMOReal seen, SUMOReal maxSpeed) const {
     // adapt speed to succeeding lane, no reaction time is involved
     // when breaking for y steps the following distance g is covered
     // (drive with v in the final step)

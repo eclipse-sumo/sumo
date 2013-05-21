@@ -329,7 +329,7 @@ MSRouteHandler::myEndElement(int element) {
 
 
 void
-MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
+MSRouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
     if (myActiveRoute.size() == 0) {
         delete myActiveRouteColor;
         myActiveRouteColor = 0;

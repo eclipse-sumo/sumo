@@ -133,12 +133,6 @@ MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveR
 }
 
 
-bool
-MSInstantInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) {
-    return true;
-}
-
-
 void
 MSInstantInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
     dev.writeXMLHeader("instantE1");

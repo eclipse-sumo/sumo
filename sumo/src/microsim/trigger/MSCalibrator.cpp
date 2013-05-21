@@ -69,7 +69,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
                            const SUMOTime freq) :
     MSTrigger(id),
     MSRouteHandler(aXMLFilename, false),
-    myEdge(edge),
+    myEdge(edge), myPos(pos),
     myEdgeMeanData(0, myEdge->getLength(), false),
     myOutput(0), myFrequency(freq), myRemoved(0),
     myInserted(0), myClearedInJam(0),
@@ -234,22 +234,6 @@ MSCalibrator::isCurrentStateActive(SUMOTime time) {
 }
 
 
-bool
-MSCalibrator::tryEmit(MSLane* lane, MSVehicle* vehicle) {
-    /// XXX Not yet implemented
-    /*
-    if (s->initialise(vehicle, vehicle->getParameter().depart)) {
-        vehicle->onDepart();
-        if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
-            throw ProcessError("Emission of vehicle '" + vehicle->getID() + "' in calibrator '" + getID() + "'failed!");
-        }
-        return true;
-    }
-    */
-    return false;
-}
-
-
 SUMOTime
 MSCalibrator::execute(SUMOTime currentTime) {
     // get current simulation values (valid for the last simulation second)
@@ -403,9 +387,7 @@ MSCalibrator::invalidJam(int laneIndex) const {
         return false;
     }
     assert(laneIndex < (int)myEdge->getLanes().size());
-    MSLane* lane = myEdge->getLanes()[laneIndex];
-    unsigned int vehiclesOnEdge = 0;
-    SUMOReal meanSpeed = 0;
+    const MSLane* const lane = myEdge->getLanes()[laneIndex];
     if (lane->getVehicleNumber() < 4) {
         // cannot reliably detect invalid jams
         return false;
@@ -462,7 +444,7 @@ MSCalibrator::updateMeanData() {
     }
 }
 
-bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification reason) {
+bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification /* reason */) {
     if (myParent == 0) {
         return false;
     }

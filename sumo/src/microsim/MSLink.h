@@ -93,6 +93,11 @@ public:
         const SUMOReal leaveSpeed;
         /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
         const bool willPass;
+
+    private:
+        /// invalidated assignment operator
+        ApproachingVehicleInformation& operator=(const ApproachingVehicleInformation& s);
+
     };
 
 
