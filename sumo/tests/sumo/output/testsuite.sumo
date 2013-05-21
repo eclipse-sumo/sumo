@@ -61,3 +61,4 @@ examples
 # test the duration log output
 duration_log
 fcd-output
+link-output

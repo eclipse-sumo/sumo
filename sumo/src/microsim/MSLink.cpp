@@ -261,13 +261,13 @@ MSLink::getLane() const {
 
 void 
 MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
-    od.openTag("link");
-    od.writeAttr(SUMO_ATTR_FROM, fromLaneID);
-    od.writeAttr(SUMO_ATTR_VIA, getViaLane() == 0 ? "" : getViaLane()->getID());
-    od.writeAttr(SUMO_ATTR_TO, getLane()==0 ? "" : getLane()->getID());
     if (myApproachingVehicles.size() > 0) {
-        od.openTag("approaching");
+        od.openTag("link");
+        od.writeAttr(SUMO_ATTR_FROM, fromLaneID);
+        od.writeAttr(SUMO_ATTR_VIA, getViaLane() == 0 ? "" : getViaLane()->getID());
+        od.writeAttr(SUMO_ATTR_TO, getLane()==0 ? "" : getLane()->getID());
         for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
+            od.openTag("approaching");
             const ApproachingVehicleInformation& avi = i->second;
             od.writeAttr(SUMO_ATTR_ID, i->first->getID());
             od.writeAttr("arrivalTime", time2string(avi.arrivalTime));
@@ -275,10 +275,10 @@ MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
             od.writeAttr("arrivalSpeed", toString(avi.arrivalSpeed));
             od.writeAttr("leaveSpeed", toString(avi.leaveSpeed));
             od.writeAttr("willPass", toString(avi.willPass));
+            od.closeTag();
         }
         od.closeTag();
     }
-    od.closeTag();
 }
 
 

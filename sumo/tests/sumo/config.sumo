@@ -51,6 +51,7 @@ c2x_edge_near_info:c2x_edge_near_info.xml
 log:log.txt
 state:state.xml
 calibrator_log:calibrator.log.xml
+links:linkstate.xml
 
 [run_dependent_text]
 output:\r{REPLACE \n}

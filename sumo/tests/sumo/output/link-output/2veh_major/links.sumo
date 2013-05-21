@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue May 21 15:38:57 2013 by SUMO sumo Version dev-SVN-rUNKNOWN
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <link-output value="linkstate.xml"/>
+    </output>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<link-output>
+    <timestep id="0.00"/>
+    <timestep id="1.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="23.02" leaveTime="23.64" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="2.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="23.48" leaveTime="24.09" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="3.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="23.84" leaveTime="24.45" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="4.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="23.91" leaveTime="24.52" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="5.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="24.13" leaveTime="24.74" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="6.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="24.36" leaveTime="24.98" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="7.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="24.42" leaveTime="25.04" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="8.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="24.65" leaveTime="25.27" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="9.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="24.75" leaveTime="25.36" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="10.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="24.89" leaveTime="25.51" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="11.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.05" leaveTime="25.66" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="199.52" leaveTime="202.89" arrivalSpeed="2.60" leaveSpeed="7.49" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="12.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.17" leaveTime="25.78" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="105.90" leaveTime="108.34" arrivalSpeed="5.19" leaveSpeed="8.74" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="13.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.25" leaveTime="25.86" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="80.21" leaveTime="82.18" arrivalSpeed="7.19" leaveSpeed="10.05" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="14.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.31" leaveTime="25.92" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="66.65" leaveTime="68.31" arrivalSpeed="9.05" leaveSpeed="11.46" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="15.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.35" leaveTime="25.96" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="55.40" leaveTime="56.76" arrivalSpeed="11.57" leaveSpeed="13.54" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="16.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.38" leaveTime="25.99" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="49.19" leaveTime="50.35" arrivalSpeed="13.75" leaveSpeed="15.44" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="17.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.41" leaveTime="26.02" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="44.17" leaveTime="45.17" arrivalSpeed="16.29" leaveSpeed="17.74" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="18.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.43" leaveTime="26.05" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="41.08" leaveTime="41.97" arrivalSpeed="18.49" leaveSpeed="19.78" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="19.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.47" leaveTime="26.08" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="39.61" leaveTime="40.44" arrivalSpeed="19.87" leaveSpeed="21.08" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="20.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.49" leaveTime="26.10" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="38.33" leaveTime="39.11" arrivalSpeed="21.32" leaveSpeed="22.45" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="21.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.50" leaveTime="26.11" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="36.95" leaveTime="37.66" arrivalSpeed="23.21" leaveSpeed="24.25" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="22.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.52" leaveTime="26.13" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="35.47" leaveTime="36.11" arrivalSpeed="25.77" leaveSpeed="26.71" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="23.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.52" leaveTime="26.14" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="34.77" leaveTime="35.39" arrivalSpeed="27.38" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="24.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.53" leaveTime="26.14" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="34.65" leaveTime="35.26" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="25.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="0" arrivalTime="25.54" leaveTime="26.15" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" arrivalTime="34.68" leaveTime="35.30" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="26.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" arrivalTime="34.69" leaveTime="35.30" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="27.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" arrivalTime="34.71" leaveTime="35.32" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="28.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" arrivalTime="34.72" leaveTime="35.33" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="29.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" arrivalTime="34.73" leaveTime="35.34" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="30.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" arrivalTime="34.74" leaveTime="35.35" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="31.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" arrivalTime="34.74" leaveTime="35.36" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="32.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" arrivalTime="34.78" leaveTime="35.39" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="33.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" arrivalTime="34.81" leaveTime="35.42" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="34.00">
+        <link from="beg_0" via="" to="middle_0">
+            <approaching id="1" arrivalTime="34.85" leaveTime="35.47" arrivalSpeed="27.80" leaveSpeed="27.80" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="35.00"/>
+    <timestep id="36.00"/>
+    <timestep id="37.00"/>
+    <timestep id="38.00"/>
+    <timestep id="39.00"/>
+    <timestep id="40.00"/>
+    <timestep id="41.00"/>
+    <timestep id="42.00"/>
+    <timestep id="43.00"/>
+    <timestep id="44.00"/>
+    <timestep id="45.00"/>
+    <timestep id="46.00"/>
+    <timestep id="47.00"/>
+    <timestep id="48.00"/>
+    <timestep id="49.00"/>
+    <timestep id="50.00"/>
+    <timestep id="51.00"/>
+    <timestep id="52.00"/>
+    <timestep id="53.00"/>
+    <timestep id="54.00"/>
+    <timestep id="55.00"/>
+    <timestep id="56.00"/>
+    <timestep id="57.00"/>
+    <timestep id="58.00"/>
+    <timestep id="59.00"/>
+    <timestep id="60.00"/>
+    <timestep id="61.00"/>
+    <timestep id="62.00"/>
+    <timestep id="63.00"/>
+    <timestep id="64.00"/>
+    <timestep id="65.00"/>
+    <timestep id="66.00"/>
+    <timestep id="67.00"/>
+    <timestep id="68.00"/>
+    <timestep id="69.00"/>
+    <timestep id="70.00"/>
+    <timestep id="71.00"/>
+</link-output>
