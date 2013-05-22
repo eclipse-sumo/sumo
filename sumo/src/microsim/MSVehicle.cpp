@@ -1001,7 +1001,7 @@ MSVehicle::executeMove() {
     }
 #endif
     // visit waiting time
-    if (vNext <= 0.1) {
+    if (vNext <= HALTING_THRESHOLD) {
         myWaitingTime += DELTA_T;
         braking = true;
     } else {
@@ -1138,7 +1138,7 @@ MSVehicle::getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const {
     SUMOReal lengths = 0;
     const MSLane::VehCont& vehs = l->getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        if ((*i)->getSpeed() < .1) {
+        if ((*i)->getSpeed() < HALTING_THRESHOLD) {
             foundStopped = true;
             const SUMOReal ret = (*i)->getPositionOnLane() - (*i)->getVehicleType().getLengthWithGap() - lengths;
             l->releaseVehicles();
@@ -1196,21 +1196,18 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
             if (last == 0) {
                 last = approachedLane->getPartialOccupator();
                 if (last != 0) {
+                    /// XXX MAX2 redundant?
                     item.availableSpace = MAX2(seenSpace, seenSpace + approachedLane->getPartialOccupatorEnd() + last->getCarFollowModel().brakeGap(last->getSpeed()));
                     hadVehicle = true;
+                    /// XXX spaceTillLastStanding should already be covered by getPartialOccupatorEnd()
                     seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    /// XXX why not check BRAKELIGHT?
                     if (last->myHaveToWaitOnNextLink) {
                         foundStopped = true;
                     }
                 } else {
-//                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
-//                    availableSpace.push_back(seenSpace);
-                    item.availableSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);
-                    if (!foundStopped) {
-                        seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
-                    } else {
-                        seenSpace = item.availableSpace;
-                    }
+                    seenSpace += approachedLane->getLength();
+                    item.availableSpace = seenSpace;
                 }
             } else {
                 if (last->signalSet(VEH_SIGNAL_BRAKELIGHT)) {
