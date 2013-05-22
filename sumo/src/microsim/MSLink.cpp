@@ -271,10 +271,15 @@ MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
 #endif
         od.writeAttr(SUMO_ATTR_VIA, via);
         od.writeAttr(SUMO_ATTR_TO, getLane()==0 ? "" : getLane()->getID());
-        for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
+        std::vector<std::pair<SUMOTime, const SUMOVehicle*> > toSort; // stabilize output
+        for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator it = myApproachingVehicles.begin(); it != myApproachingVehicles.end(); ++it) {
+            toSort.push_back(std::make_pair(it->second.arrivalTime, it->first));
+        }
+        std::sort(toSort.begin(), toSort.end());
+        for (std::vector<std::pair<SUMOTime, const SUMOVehicle*> >::const_iterator it = toSort.begin(); it != toSort.end(); ++it) {
             od.openTag("approaching");
-            const ApproachingVehicleInformation& avi = i->second;
-            od.writeAttr(SUMO_ATTR_ID, i->first->getID());
+            const ApproachingVehicleInformation& avi = myApproachingVehicles.find(it->second)->second;
+            od.writeAttr(SUMO_ATTR_ID, it->second->getID());
             od.writeAttr("arrivalTime", time2string(avi.arrivalTime));
             od.writeAttr("leaveTime", time2string(avi.leavingTime));
             od.writeAttr("arrivalSpeed", toString(avi.arrivalSpeed));
