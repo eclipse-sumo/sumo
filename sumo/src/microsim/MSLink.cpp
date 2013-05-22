@@ -264,7 +264,12 @@ MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
     if (myApproachingVehicles.size() > 0) {
         od.openTag("link");
         od.writeAttr(SUMO_ATTR_FROM, fromLaneID);
-        od.writeAttr(SUMO_ATTR_VIA, getViaLane() == 0 ? "" : getViaLane()->getID());
+#ifdef HAVE_INTERNAL_LANES
+        const std::string via = getViaLane() == 0 ? "" : getViaLane()->getID();
+#else
+        const std::string via = "";
+#endif
+        od.writeAttr(SUMO_ATTR_VIA, via);
         od.writeAttr(SUMO_ATTR_TO, getLane()==0 ? "" : getLane()->getID());
         for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
             od.openTag("approaching");
