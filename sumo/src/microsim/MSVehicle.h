@@ -1006,8 +1006,7 @@ protected:
         SUMOReal availableSpace;
         DriveProcessItem(MSLink* link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
                          SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal distance,
-                         SUMOReal leaveSpeed=-1.
-                        ) :
+                         SUMOReal leaveSpeed=-1.) :
             myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), myDistance(distance),
             accelV(leaveSpeed), hadVehicle(false), availableSpace(-1.) { };
