@@ -920,10 +920,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             MSMoveReminder::Notification n = MSMoveReminder::NOTIFICATION_ARRIVED;
             switch (why) {
                 case REMOVE_TELEPORT:
-                    n = MSMoveReminder::NOTIFICATION_TELEPORT;
+                    // XXX semantics unclear
+                    // n = MSMoveReminder::NOTIFICATION_TELEPORT;
+                    n = MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
                     break;
                 case REMOVE_PARKING:
-                    n = MSMoveReminder::NOTIFICATION_PARKING;
+                    // XXX semantics unclear
+                    // n = MSMoveReminder::NOTIFICATION_PARKING;
+                    n = MSMoveReminder::NOTIFICATION_ARRIVED;
                     break;
                 case REMOVE_ARRIVED:
                     n = MSMoveReminder::NOTIFICATION_ARRIVED;
@@ -937,13 +941,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 default:
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Unknown removal status.", outputStorage);
             }
-			if(v->hasDeparted()) {
-				v->onRemovalFromNet(n);
-				if(v->getLane()!=0) {
-					v->getLane()->removeVehicle(v, n);
-				}
-				MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
-			}
+            if(v->hasDeparted()) {
+                v->onRemovalFromNet(n);
+                if(v->getLane()!=0) {
+                    v->getLane()->removeVehicle(v, n);
+                }
+                MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
+            }
         }
         break;
         case VAR_MOVE_TO_VTD: {
