@@ -126,6 +126,10 @@ NLBuilder::build() {
     if (!load("net-file")) {
         return false;
     }
+    // check whether the loaded net agrees with the simulation options
+    if (myOptions.getBool("no-internal-links") && myXMLHandler.haveSeenInternalEdge()) {
+        WRITE_WARNING("Network contains internal links but option --no-internal-links is set. Vehicles will 'jump' across junctions and thus underestimate route lenghts and travel times");
+    }
     buildNet();
 #ifdef HAVE_INTERNAL
     // load the previous state if wished
