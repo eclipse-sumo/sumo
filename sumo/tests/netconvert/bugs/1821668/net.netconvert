@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 09:23:43 by SUMO netconvert Version dev-SVN-r13169
+<!-- generated on Wed May 22 12:12:27 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -31,16 +31,16 @@
     <location netOffset="-11.59,-1937.83" convBoundary="0.00,0.00,289.54,167.05" origBoundary="11.59,1937.83,301.13,2104.88" projParameter="!"/>
 
     <edge id="1" from="node104" to="node123" priority="75" shape="278.40,167.05 0.00,167.05 0.00,77.96">
-        <lane id="1_0" index="0" speed="15.00" length="366.04" shape="278.40,172.00 -4.95,172.00 -4.95,86.01"/>
-        <lane id="1_1" index="1" speed="15.00" length="366.04" shape="278.40,168.70 -1.65,168.70 -1.65,86.01"/>
+        <lane id="1_0" index="0" speed="15.00" length="367.49" shape="278.40,172.00 -4.95,172.00 -4.95,86.01"/>
+        <lane id="1_1" index="1" speed="15.00" length="367.49" shape="278.40,168.70 -1.65,168.70 -1.65,86.01"/>
     </edge>
     <edge id="2" from="node103" to="node123" priority="75">
-        <lane id="2_0" index="0" speed="15.00" length="288.09" shape="289.54,82.91 1.45,82.91"/>
-        <lane id="2_1" index="1" speed="15.00" length="288.09" shape="289.54,79.61 1.45,79.61"/>
+        <lane id="2_0" index="0" speed="15.00" length="289.54" shape="289.54,82.91 1.45,82.91"/>
+        <lane id="2_1" index="1" speed="15.00" length="289.54" shape="289.54,79.61 1.45,79.61"/>
     </edge>
     <edge id="3" from="node123" to="node125" priority="75">
-        <lane id="3_0" index="0" speed="15.00" length="76.51" shape="-4.95,76.51 -4.95,0.00"/>
-        <lane id="3_1" index="1" speed="15.00" length="76.51" shape="-1.65,76.51 -1.65,0.00"/>
+        <lane id="3_0" index="0" speed="15.00" length="77.96" shape="-4.95,76.51 -4.95,0.00"/>
+        <lane id="3_1" index="1" speed="15.00" length="77.96" shape="-1.65,76.51 -1.65,0.00"/>
     </edge>
 
     <junction id="node103" type="unregulated" x="289.54" y="77.96" incLanes="" intLanes="" shape="289.54,78.01 289.54,84.51"/>

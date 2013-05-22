@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov  5 07:42:18 2012 by SUMO netconvert Version dev-SVN-r12925
+<!-- generated on Wed May 22 13:06:51 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -15,6 +15,7 @@
     </output>
 
     <processing>
+        <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
     </processing>

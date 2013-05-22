@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/01/11 09:29:04 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Wed May 22 12:12:18 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -10,7 +11,7 @@
     </input>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -30,52 +31,52 @@
     <location netOffset="100.00,0.00" convBoundary="-400.00,-500.00,600.00,500.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
     <edge id="1fi" from="1" to="m1" priority="2">
-        <lane id="1fi_0" index="0" speed="11.11" length="248.50" shape="-400.00,-4.95 -151.50,-4.95"/>
-        <lane id="1fi_1" index="1" speed="11.11" length="248.50" shape="-400.00,-1.65 -151.50,-1.65"/>
+        <lane id="1fi_0" index="0" speed="11.11" length="250.00" shape="-400.00,-4.95 -151.50,-4.95"/>
+        <lane id="1fi_1" index="1" speed="11.11" length="250.00" shape="-400.00,-1.65 -151.50,-1.65"/>
     </edge>
     <edge id="1o" from="0" to="1" priority="1">
-        <lane id="1o_0" index="0" speed="11.11" length="488.65" shape="88.65,1.65 -400.00,1.65"/>
+        <lane id="1o_0" index="0" speed="11.11" length="500.00" shape="88.65,1.65 -400.00,1.65"/>
     </edge>
     <edge id="1si" from="m1" to="0" priority="3">
-        <lane id="1si_0" index="0" speed="13.89" length="237.15" shape="-148.50,-8.25 88.65,-8.25"/>
-        <lane id="1si_1" index="1" speed="13.89" length="237.15" shape="-148.50,-4.95 88.65,-4.95"/>
-        <lane id="1si_2" index="2" speed="13.89" length="237.15" shape="-148.50,-1.65 88.65,-1.65"/>
+        <lane id="1si_0" index="0" speed="13.89" length="250.00" shape="-148.50,-8.25 88.65,-8.25"/>
+        <lane id="1si_1" index="1" speed="13.89" length="250.00" shape="-148.50,-4.95 88.65,-4.95"/>
+        <lane id="1si_2" index="2" speed="13.89" length="250.00" shape="-148.50,-1.65 88.65,-1.65"/>
     </edge>
     <edge id="2fi" from="2" to="m2" priority="2">
-        <lane id="2fi_0" index="0" speed="11.11" length="248.50" shape="600.00,4.95 351.50,4.95"/>
-        <lane id="2fi_1" index="1" speed="11.11" length="248.50" shape="600.00,1.65 351.50,1.65"/>
+        <lane id="2fi_0" index="0" speed="11.11" length="250.00" shape="600.00,4.95 351.50,4.95"/>
+        <lane id="2fi_1" index="1" speed="11.11" length="250.00" shape="600.00,1.65 351.50,1.65"/>
     </edge>
     <edge id="2o" from="0" to="2" priority="1">
-        <lane id="2o_0" index="0" speed="11.11" length="488.65" shape="111.35,-1.65 600.00,-1.65"/>
+        <lane id="2o_0" index="0" speed="11.11" length="500.00" shape="111.35,-1.65 600.00,-1.65"/>
     </edge>
     <edge id="2si" from="m2" to="0" priority="3">
-        <lane id="2si_0" index="0" speed="13.89" length="237.15" shape="348.50,8.25 111.35,8.25"/>
-        <lane id="2si_1" index="1" speed="13.89" length="237.15" shape="348.50,4.95 111.35,4.95"/>
-        <lane id="2si_2" index="2" speed="13.89" length="237.15" shape="348.50,1.65 111.35,1.65"/>
+        <lane id="2si_0" index="0" speed="13.89" length="250.00" shape="348.50,8.25 111.35,8.25"/>
+        <lane id="2si_1" index="1" speed="13.89" length="250.00" shape="348.50,4.95 111.35,4.95"/>
+        <lane id="2si_2" index="2" speed="13.89" length="250.00" shape="348.50,1.65 111.35,1.65"/>
     </edge>
     <edge id="3fi" from="3" to="m3" priority="2">
-        <lane id="3fi_0" index="0" speed="11.11" length="248.50" shape="104.95,-500.00 104.95,-251.50"/>
-        <lane id="3fi_1" index="1" speed="11.11" length="248.50" shape="101.65,-500.00 101.65,-251.50"/>
+        <lane id="3fi_0" index="0" speed="11.11" length="250.00" shape="104.95,-500.00 104.95,-251.50"/>
+        <lane id="3fi_1" index="1" speed="11.11" length="250.00" shape="101.65,-500.00 101.65,-251.50"/>
     </edge>
     <edge id="3o" from="0" to="3" priority="1">
-        <lane id="3o_0" index="0" speed="11.11" length="488.65" shape="98.35,-11.35 98.35,-500.00"/>
+        <lane id="3o_0" index="0" speed="11.11" length="500.00" shape="98.35,-11.35 98.35,-500.00"/>
     </edge>
     <edge id="3si" from="m3" to="0" priority="3">
-        <lane id="3si_0" index="0" speed="13.89" length="237.15" shape="108.25,-248.50 108.25,-11.35"/>
-        <lane id="3si_1" index="1" speed="13.89" length="237.15" shape="104.95,-248.50 104.95,-11.35"/>
-        <lane id="3si_2" index="2" speed="13.89" length="237.15" shape="101.65,-248.50 101.65,-11.35"/>
+        <lane id="3si_0" index="0" speed="13.89" length="250.00" shape="108.25,-248.50 108.25,-11.35"/>
+        <lane id="3si_1" index="1" speed="13.89" length="250.00" shape="104.95,-248.50 104.95,-11.35"/>
+        <lane id="3si_2" index="2" speed="13.89" length="250.00" shape="101.65,-248.50 101.65,-11.35"/>
     </edge>
     <edge id="4fi" from="4" to="m4" priority="2">
-        <lane id="4fi_0" index="0" speed="11.11" length="248.50" shape="95.05,500.00 95.05,251.50"/>
-        <lane id="4fi_1" index="1" speed="11.11" length="248.50" shape="98.35,500.00 98.35,251.50"/>
+        <lane id="4fi_0" index="0" speed="11.11" length="250.00" shape="95.05,500.00 95.05,251.50"/>
+        <lane id="4fi_1" index="1" speed="11.11" length="250.00" shape="98.35,500.00 98.35,251.50"/>
     </edge>
     <edge id="4o" from="0" to="4" priority="1">
-        <lane id="4o_0" index="0" speed="11.11" length="488.65" shape="101.65,11.35 101.65,500.00"/>
+        <lane id="4o_0" index="0" speed="11.11" length="500.00" shape="101.65,11.35 101.65,500.00"/>
     </edge>
     <edge id="4si" from="m4" to="0" priority="3">
-        <lane id="4si_0" index="0" speed="13.89" length="237.15" shape="91.75,248.50 91.75,11.35"/>
-        <lane id="4si_1" index="1" speed="13.89" length="237.15" shape="95.05,248.50 95.05,11.35"/>
-        <lane id="4si_2" index="2" speed="13.89" length="237.15" shape="98.35,248.50 98.35,11.35"/>
+        <lane id="4si_0" index="0" speed="13.89" length="250.00" shape="91.75,248.50 91.75,11.35"/>
+        <lane id="4si_1" index="1" speed="13.89" length="250.00" shape="95.05,248.50 95.05,11.35"/>
+        <lane id="4si_2" index="2" speed="13.89" length="250.00" shape="98.35,248.50 98.35,11.35"/>
     </edge>
 
     <junction id="0" type="priority" x="100.00" y="0.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes="" shape="90.15,11.35 103.25,11.35 111.35,9.85 111.35,-3.25 109.85,-11.35 96.75,-11.35 88.65,-9.85 88.65,3.25">
