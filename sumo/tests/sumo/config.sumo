@@ -101,6 +101,8 @@ aggregated25:0.0101
 aggregated60:0.0101
 aggregated300:0.0101
 aggregated900:0.0101
+fcd:0.0101
+links:0.0101
 tripinfos:0.0101
 rawdump:0.0101
 errors:0.0101
