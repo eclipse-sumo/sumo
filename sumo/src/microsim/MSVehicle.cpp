@@ -1168,7 +1168,8 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
         SUMOReal seenSpace = -lengthsInFront;
 
         bool foundStopped = false;
-
+        // compute available space until a stopped vehicle is found
+        // this is the sum of non-interal lane length minus in-between vehicle lenghts
         for (unsigned int i = 0; i < lfLinks.size(); ++i) {
             // skip unset links
             DriveProcessItem& item = lfLinks[i];
@@ -1214,16 +1215,10 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
                     const SUMOReal lastBrakeGap = last->getCarFollowModel().brakeGap(approachedLane->getLastVehicle()->getSpeed());
                     const SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLengthWithGap() + lastBrakeGap - last->getSpeed() * last->getCarFollowModel().getHeadwayTime();
                     item.availableSpace = MAX2(seenSpace, seenSpace + lastGap);
-                    seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    seenSpace += getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
                 } else {
-//                    seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
-//                    availableSpace.push_back(seenSpace);
-                    item.availableSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);
-                    if (!foundStopped) {
-                        seenSpace = seenSpace - approachedLane->getVehLenSum() + approachedLane->getLength();
-                    } else {
-                        seenSpace = item.availableSpace;
-                    }
+                    seenSpace += getSpaceTillLastStanding(approachedLane, foundStopped);
+                    item.availableSpace = seenSpace;
                 }
                 if (last->myHaveToWaitOnNextLink) {
                     foundStopped = true;
@@ -1232,6 +1227,8 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
             }
             item.hadVehicle = hadVehicle;
         }
+
+
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
         if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
             int bla = 0;
