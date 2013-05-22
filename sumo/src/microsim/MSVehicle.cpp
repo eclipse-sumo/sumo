@@ -737,7 +737,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
     SUMOReal seenNonInternal = 0;
     SUMOReal vLinkPass = MIN2(estimateSpeedAfterDistance(seen, v), laneMaxV); // upper bound
     unsigned int view = 0;
-    int lastLink = -1;
+    DriveProcessItem* lastLink = 0;
     SUMOReal gap = 0;
     if (pred != 0) {
         if (pred == myLane->getPartialOccupator()) {
@@ -752,7 +752,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
     while (true) {
         // check leader on lane
         //  leader is given for the first edge only
-        adaptToLeader(leaderInfo, seen, lastLink, lane, v, vLinkPass, lfLinks);
+        adaptToLeader(leaderInfo, seen, lastLink, lane, v, vLinkPass);
 
         // process stops
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge()) {
@@ -760,8 +760,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             const Stop& stop = *myStops.begin();
             SUMOReal stopDist = stop.busstop == 0 ? seen + stop.endPos - lane->getLength() : seen + stop.busstop->getLastFreePos(*this) - POSITION_EPS - lane->getLength();
             SUMOReal stopSpeed = cfModel.stopSpeed(this, stopDist);
-            if (lastLink > 0) {
-                lfLinks[lastLink].adaptLeaveSpeed(stopSpeed);
+            if (lastLink != 0) {
+                lastLink->adaptLeaveSpeed(stopSpeed);
             }
             v = MIN2(v, stopSpeed);
             lfLinks.push_back(DriveProcessItem(0, v, v, false, 0, 0, stopDist));
@@ -779,8 +779,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             const SUMOReal distToArrival = seen + myArrivalPos - lane->getLength() - SPEED2DIST(arrivalSpeed);
             const SUMOReal va = cfModel.freeSpeed(this, getSpeed(), distToArrival, arrivalSpeed);
             v = MIN2(v, va);
-            if (lastLink > 0) {
-                lfLinks[lastLink].adaptLeaveSpeed(va);
+            if (lastLink != 0) {
+                lastLink->adaptLeaveSpeed(va);
             }
             lfLinks.push_back(DriveProcessItem(0, v, v, false, 0, 0, seen));
             break;
@@ -790,8 +790,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         const SUMOReal stopDist = MAX2(SUMOReal(0), seen - laneStopOffset);
         if (lane->isLinkEnd(link)) {
             SUMOReal va = MIN2(cfModel.stopSpeed(this, stopDist), laneMaxV);
-            if (lastLink > 0) {
-                lfLinks[lastLink].adaptLeaveSpeed(va);
+            if (lastLink != 0) {
+                lastLink->adaptLeaveSpeed(va);
             }
             v = MIN2(va, v);
             lfLinks.push_back(DriveProcessItem(0, v, v, false, 0, 0, seen));
@@ -829,14 +829,14 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             if (linkLeaderInfo.first->myLinkLeaders.count(getID()) == 0) {
                 myLeaderForLink[*link] = linkLeaderInfo.first->getID();
                 myLinkLeaders.insert(linkLeaderInfo.first->getID());
-                adaptToLeader(linkLeaderInfo, seen, lastLink, lane, v, vLinkPass, lfLinks);
+                adaptToLeader(linkLeaderInfo, seen, lastLink, lane, v, vLinkPass);
             }
         }
 #endif
 
-        if (lastLink > 0) {
-            lfLinks[lastLink].adaptLeaveSpeed(laneMaxV);
-        } //if(!lfLinks.empty()) { lfLinks.back().accelV = va; }
+        if (lastLink != 0) {
+            lastLink->adaptLeaveSpeed(laneMaxV);
+        }
         SUMOReal arrivalSpeed = vLinkPass;
         SUMOTime arrivalTime;
         // vehicles should decelerate when approaching a minor link
@@ -880,16 +880,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         leaderInfo = lane->getLastVehicleInformation();
         leaderInfo.second = leaderInfo.second + seen - lane->getLength() - getVehicleType().getMinGap();
         vLinkPass = MIN2(estimateSpeedAfterDistance(lane->getLength(), v), laneMaxV); // upper bound
-        lastLink++;
+        lastLink = &lfLinks.back();
     }
 }
 
 
 void
 MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, SUMOReal> leaderInfo, 
-                         const SUMOReal seen, const int lastLink, 
-                         const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass,
-                         DriveItemVector& lfLinks) const {
+                         const SUMOReal seen, DriveProcessItem* const lastLink, 
+                         const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass) const {
     if (leaderInfo.first != 0) {
         const MSCFModel& cfModel = getCarFollowModel();
         SUMOReal vsafeLeader = 0;
@@ -900,8 +899,8 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
             // stop before entering this lane
             vsafeLeader = cfModel.stopSpeed(this, seen - lane->getLength() - POSITION_EPS);
         }
-        if (lastLink > 0) {
-            lfLinks[lastLink].adaptLeaveSpeed(vsafeLeader);
+        if (lastLink != 0) {
+            lastLink->adaptLeaveSpeed(vsafeLeader);
         }
         v = MIN2(v, vsafeLeader);
         vLinkPass = MIN2(vLinkPass, vsafeLeader);

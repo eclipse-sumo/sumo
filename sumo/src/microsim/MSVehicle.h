@@ -1059,9 +1059,8 @@ protected:
      * @param[in,out] the safe velocity for arriving at the next link
      */
     void adaptToLeader(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
-                       const SUMOReal seen, const int lastLink,
-                       const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass,
-                       DriveItemVector& lfLinks) const;
+                       const SUMOReal seen, DriveProcessItem* const lastLink,
+                       const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass) const;
 
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
