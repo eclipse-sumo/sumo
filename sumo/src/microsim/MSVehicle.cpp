@@ -1001,7 +1001,7 @@ MSVehicle::executeMove() {
     }
 #endif
     // visit waiting time
-    if (vNext <= HALTING_THRESHOLD) {
+    if (vNext <= SUMO_const_haltingSpeed) {
         myWaitingTime += DELTA_T;
         braking = true;
     } else {
@@ -1138,7 +1138,7 @@ MSVehicle::getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const {
     SUMOReal lengths = 0;
     const MSLane::VehCont& vehs = l->getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        if ((*i)->getSpeed() < HALTING_THRESHOLD) {
+        if ((*i)->getSpeed() < SUMO_const_haltingSpeed) {
             foundStopped = true;
             const SUMOReal ret = (*i)->getPositionOnLane() - (*i)->getVehicleType().getLengthWithGap() - lengths;
             l->releaseVehicles();

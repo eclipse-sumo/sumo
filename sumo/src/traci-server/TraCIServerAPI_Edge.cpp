@@ -255,7 +255,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
                     const MSLane::VehCont& vehs = (*i)->getVehiclesSecure();
                     for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                        if ((*j)->getSpeed() < 0.1) {
+                        if ((*j)->getSpeed() < SUMO_const_haltingSpeed) {
                             ++halting;
                         }
                     }

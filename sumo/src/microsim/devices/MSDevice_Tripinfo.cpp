@@ -72,7 +72,7 @@ MSDevice_Tripinfo::~MSDevice_Tripinfo() {
 bool
 MSDevice_Tripinfo::notifyMove(SUMOVehicle& /*veh*/, SUMOReal /*oldPos*/,
                               SUMOReal /*newPos*/, SUMOReal newSpeed) {
-    if (newSpeed <= 0.1) {
+    if (newSpeed <= SUMO_const_haltingSpeed) {
         myWaitingSteps++;
     }
     return true;

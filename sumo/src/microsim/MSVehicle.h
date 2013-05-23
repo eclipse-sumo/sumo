@@ -992,8 +992,6 @@ protected:
 
     bool myHaveToWaitOnNextLink;
 
-    static const SUMOReal HALTING_THRESHOLD = 0.1;
-
 protected:
     struct DriveProcessItem {
         MSLink* myLink;

@@ -122,7 +122,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
             (leader.first->getLaneChangeModel().getOwnState()&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0) {
 
         myOwnState &= (0xffffffff - LCA_AMBLOCKINGFOLLOWER_DONTBRAKE);
-        if (myVehicle.getSpeed() > 0.1) {
+        if (myVehicle.getSpeed() > SUMO_const_haltingSpeed) {
             myOwnState |= LCA_AMBACKBLOCKER;
         } else {
             ret |= LCA_AMBACKBLOCKER;
@@ -136,7 +136,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
         SUMOReal gap = (*lastBlocked)->getPositionOnLane() - (*lastBlocked)->getVehicleType().getLength() - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
         if (gap > 0.1) {
             if (myVehicle.getSpeed() < ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())) {
-                if ((*lastBlocked)->getSpeed() < 0.1) {
+                if ((*lastBlocked)->getSpeed() < SUMO_const_haltingSpeed) {
                     ret |= LCA_AMBACKBLOCKER_STANDING;
                 } else {
                     ret |= LCA_AMBACKBLOCKER;
@@ -339,7 +339,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
             (leader.first->getLaneChangeModel().getOwnState()&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0) {
 
         myOwnState &= (0xffffffff - LCA_AMBLOCKINGFOLLOWER_DONTBRAKE);
-        if (myVehicle.getSpeed() > 0.1) {
+        if (myVehicle.getSpeed() > SUMO_const_haltingSpeed) {
             myOwnState |= LCA_AMBACKBLOCKER;
         } else {
             ret |= LCA_AMBACKBLOCKER;
@@ -353,7 +353,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
         SUMOReal gap = (*lastBlocked)->getPositionOnLane() - (*lastBlocked)->getVehicleType().getLength() - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
         if (gap > 0.1) {
             if (myVehicle.getSpeed() < ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())) {
-                if ((*lastBlocked)->getSpeed() < 0.1) {
+                if ((*lastBlocked)->getSpeed() < SUMO_const_haltingSpeed) {
                     ret |= LCA_AMBACKBLOCKER_STANDING;
                 } else {
                     ret |= LCA_AMBACKBLOCKER;

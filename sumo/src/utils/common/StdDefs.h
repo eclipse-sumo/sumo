@@ -45,6 +45,9 @@ const SUMOReal SUMO_const_laneOffset = (SUMOReal) .1;
 const SUMOReal SUMO_const_laneWidthAndOffset = (SUMOReal) 3.3;
 const SUMOReal SUMO_const_halfLaneAndOffset = (SUMOReal)(3.2 / 2. + .1);
 
+/// @brief the speed threshold at which vehicles are considered as halting
+const SUMOReal SUMO_const_haltingSpeed = (SUMOReal) 0.1;
+
 
 /* -------------------------------------------------------------------------
  * templates for mathematical functions missing in some c++-implementations
