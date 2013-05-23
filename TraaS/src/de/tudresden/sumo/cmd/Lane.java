@@ -26,7 +26,7 @@ public class Lane {
 	//getter methods
 
 	/**
-	 * getAllowed
+	 * Returns a list of allowed vehicle classes. An empty list means all vehicles are allowed.
 	 */
 
 	public static SumoCommand getAllowed(String laneID){
@@ -34,7 +34,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the CO2 emission in mg for the last time step on the given lane.
+	 * Returns the CO2 emissions (in mg) on the given lane during the last time step.
 	 */
 
 	public static SumoCommand getCO2Emission(String laneID){
@@ -42,7 +42,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the CO emission in mg for the last time step on the given lane.
+	 * Returns the CO emissions (in mg) on the given lane during the last time step.
 	 */
 
 	public static SumoCommand getCOEmission(String laneID){
@@ -50,7 +50,7 @@ public class Lane {
 	}
 
 	/**
-	 * getDisallowed
+	 * Returns a list of disallowed vehicle classes.
 	 */
 
 	public static SumoCommand getDisallowed(String laneID){
@@ -58,7 +58,7 @@ public class Lane {
 	}
 
 	/**
-	 * getEdgeID
+	 * Returns the ID of the edge this lane belongs to.
 	 */
 
 	public static SumoCommand getEdgeID(String laneID){
@@ -66,7 +66,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the fuel consumption in ml for the last time step on the given lane.
+	 * Returns the fuel consumption (in ml) on the given lane during the last time step.
 	 */
 
 	public static SumoCommand getFuelConsumption(String laneID){
@@ -74,7 +74,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the HC emission in mg for the last time step on the given lane.
+	 * Returns the HC emissions (in mg) on the given lane during the last time step.
 	 */
 
 	public static SumoCommand getHCEmission(String laneID){
@@ -82,7 +82,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns a list of all lanes in the network.
+	 * Returns a list of IDs of all lanes in the network.
 	 */
 
 	public static SumoCommand getIDList(){
@@ -90,7 +90,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the total number of halting vehicles for the last time step on the given lane.
+	 * Returns the total number of halting vehicles on the given lane within the last time step.
 	 */
 
 	public static SumoCommand getLastStepHaltingNumber(String laneID){
@@ -98,7 +98,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the total vehicle length in m for the last time step on the given lane.
+	 * Returns the total vehicle length (in m) on the given lane during the last time step.
 	 */
 
 	public static SumoCommand getLastStepLength(String laneID){
@@ -106,7 +106,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the average speed in m/s for the last time step on the given lane.
+	 * Returns the mean speed (in m/s) on the given lane within the last time step.
 	 */
 
 	public static SumoCommand getLastStepMeanSpeed(String laneID){
@@ -114,7 +114,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the occupancy in % for the last time step on the given lane.
+	 * Returns the occupancy (in %) on the given lane during the last time step.
 	 */
 
 	public static SumoCommand getLastStepOccupancy(String laneID){
@@ -122,7 +122,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the subscription results for the last time step and the given lane.
+	 * Returns the IDs of the vehicles on the given lane within the last time step.
 	 */
 
 	public static SumoCommand getLastStepVehicleIDs(String laneID){
@@ -130,7 +130,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the total number of vehicles for the last time step on the given lane.
+	 * Returns number of vehicles on this lane within the last time step.
 	 */
 
 	public static SumoCommand getLastStepVehicleNumber(String laneID){
@@ -138,7 +138,7 @@ public class Lane {
 	}
 
 	/**
-	 * getLength
+	 * Returns the length (in m) of the named lane.
 	 */
 
 	public static SumoCommand getLength(String laneID){
@@ -146,7 +146,7 @@ public class Lane {
 	}
 
 	/**
-	 * getLinkNumber
+	 * Returns the number of links outgoing from this lane.
 	 */
 
 	public static SumoCommand getLinkNumber(String laneID){
@@ -154,7 +154,7 @@ public class Lane {
 	}
 
 	/**
-	 * getLinks
+	 * Returns descriptions of the links (in m) outgoing from this lane.
 	 */
 
 	public static SumoCommand getLinks(String laneID){
@@ -162,7 +162,7 @@ public class Lane {
 	}
 
 	/**
-	 * getMaxSpeed
+	 * Returns the maximum speed (in m/s) allowed on this lane.
 	 */
 
 	public static SumoCommand getMaxSpeed(String laneID){
@@ -170,7 +170,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the NOx emission in mg for the last time step on the given lane.
+	 * Returns the NOx emissions (in mg) on the given lane during the last time step.
 	 */
 
 	public static SumoCommand getNOxEmission(String laneID){
@@ -178,7 +178,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the noise emission in db for the last time step on the given lane.
+	 * Returns the noise emissions (in db) on the given lane during the last time step.
 	 */
 
 	public static SumoCommand getNoiseEmission(String laneID){
@@ -186,7 +186,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the particular matter emission in mg for the last time step on the given lane.
+	 * Returns the particular matter emissions (in mg) on the given lane during the last time step.
 	 */
 
 	public static SumoCommand getPMxEmission(String laneID){
@@ -194,7 +194,7 @@ public class Lane {
 	}
 
 	/**
-	 * getShape
+	 * Returns this lane's shape.
 	 */
 
 	public static SumoCommand getShape(String laneID){
@@ -202,7 +202,7 @@ public class Lane {
 	}
 
 	/**
-	 * Returns the estimated travel time in s for the last time step on the given lane.
+	 * Returns the estimated travel time (in s) on the given lane during the last time step.
 	 */
 
 	public static SumoCommand getTraveltime(String laneID){
@@ -210,7 +210,7 @@ public class Lane {
 	}
 
 	/**
-	 * getWidth
+	 * Returns the width (in m) of the named lane.
 	 */
 
 	public static SumoCommand getWidth(String laneID){
@@ -220,7 +220,7 @@ public class Lane {
 	//setter methods
 
 	/**
-	 * setAllowed
+	 * Set a list of allowed vehicle classes.
 	 */
 
 	public static SumoCommand setAllowed(String laneID, SumoStringList allowedClasses){
@@ -229,7 +229,7 @@ public class Lane {
 	}
 
 	/**
-	 * setDisallowed
+	 * Set a list of disallowed vehicle classes.
 	 */
 
 	public static SumoCommand setDisallowed(String laneID, SumoStringList disallowedClasses){
@@ -238,7 +238,7 @@ public class Lane {
 	}
 
 	/**
-	 * setLength
+	 * Set the length (in m) of the named lane.
 	 */
 
 	public static SumoCommand setLength(String laneID, double length){
@@ -247,7 +247,7 @@ public class Lane {
 	}
 
 	/**
-	 * setMaxSpeed
+	 * Set the maximum speed (in m/s) allowed on this lane.
 	 */
 
 	public static SumoCommand setMaxSpeed(String laneID, double speed){

@@ -26,7 +26,7 @@ public class Inductionloop {
 	//getter methods
 
 	/**
-	 * Returns a list of all induction loops in the network.
+	 * Returns a list of IDs of all induction loops within the scenario.
 	 */
 
 	public static SumoCommand getIDList(){
@@ -34,7 +34,7 @@ public class Inductionloop {
 	}
 
 	/**
-	 * Returns the id of the lane the loop is on.
+	 * Returns the ID of the lane the loop is placed at.
 	 */
 
 	public static SumoCommand getLaneID(String loopID){
@@ -42,7 +42,7 @@ public class Inductionloop {
 	}
 
 	/**
-	 * getLastStepMeanLength
+	 * Returns the mean length of vehicles (in m) which were on the detector in the last step. 
 	 */
 
 	public static SumoCommand getLastStepMeanLength(String loopID){
@@ -50,7 +50,7 @@ public class Inductionloop {
 	}
 
 	/**
-	 * getLastStepMeanSpeed
+	 * Returns the mean speed of vehicles (in m/s) that were on the named induction loop within the last simulation step.
 	 */
 
 	public static SumoCommand getLastStepMeanSpeed(String loopID){
@@ -58,7 +58,7 @@ public class Inductionloop {
 	}
 
 	/**
-	 * getLastStepOccupancy
+	 * Returns the percentage of time (in %) the detector was occupied by a vehicle within the last time step.
 	 */
 
 	public static SumoCommand getLastStepOccupancy(String loopID){
@@ -66,7 +66,7 @@ public class Inductionloop {
 	}
 
 	/**
-	 * getLastStepVehicleIDs
+	 * Returns the list of IDs of vehicles that were on the named induction loop in the last simulation step.
 	 */
 
 	public static SumoCommand getLastStepVehicleIDs(String loopID){
@@ -74,7 +74,7 @@ public class Inductionloop {
 	}
 
 	/**
-	 * getLastStepVehicleNumber
+	 * Returns the number of vehicles that were on the named induction loop within the last simulation step.
 	 */
 
 	public static SumoCommand getLastStepVehicleNumber(String loopID){
@@ -82,7 +82,7 @@ public class Inductionloop {
 	}
 
 	/**
-	 * Returns the position measured from the beginning of the lane.
+	 * Returns the position (in m) of the induction loop at it's lane, counted from the lane's begin.
 	 */
 
 	public static SumoCommand getPosition(String loopID){
@@ -90,7 +90,7 @@ public class Inductionloop {
 	}
 
 	/**
-	 * getTimeSinceDetection
+	 * Return the time (in s) since last detection.
 	 */
 
 	public static SumoCommand getTimeSinceDetection(String loopID){
@@ -98,7 +98,7 @@ public class Inductionloop {
 	}
 
 	/**
-	 * Returns the subscription results for the last time step and the given loop.
+	 * A complex structure containing several information about vehicles which passed the detector.
 	 */
 
 	public static SumoCommand getVehicleData(SumoStringList loopID){
@@ -106,6 +106,5 @@ public class Inductionloop {
 	}
 
 	//setter methods
-
-
+	
 }

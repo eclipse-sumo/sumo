@@ -26,7 +26,7 @@ public class Poi {
 	//getter methods
 
 	/**
-	 * add
+	 * Add a new poi.
 	 */
 
 	public static SumoCommand add(String poiID, double x, double y, SumoColor color, String poiType, int layer){
@@ -35,7 +35,7 @@ public class Poi {
 	}
 
 	/**
-	 * Returns the subscription results for the last time step and the given poi.
+	 * Returns the color of this poi.
 	 */
 
 	public static SumoCommand getColor(String poiID){
@@ -43,7 +43,7 @@ public class Poi {
 	}
 
 	/**
-	 * Returns a list of all pois in the network.
+	 * Returns a list of IDs of all poi.
 	 */
 
 	public static SumoCommand getIDList(){
@@ -51,7 +51,7 @@ public class Poi {
 	}
 
 	/**
-	 * getPosition
+	 * Returns the position of this poi.
 	 */
 
 	public static SumoCommand getPosition(String poiID){
@@ -59,7 +59,7 @@ public class Poi {
 	}
 
 	/**
-	 * getType
+	 * Returns the type of the poi.
 	 */
 
 	public static SumoCommand getType(String poiID){
@@ -69,7 +69,7 @@ public class Poi {
 	//setter methods
 
 	/**
-	 * remove
+	 * Remove a poi.
 	 */
 
 	public static SumoCommand remove(String poiID, int layer){
@@ -78,7 +78,7 @@ public class Poi {
 	}
 
 	/**
-	 * setColor
+	 * Set the color of this poi.
 	 */
 
 	public static SumoCommand setColor(String poiID, SumoColor color){
@@ -87,7 +87,7 @@ public class Poi {
 	}
 
 	/**
-	 * setPosition
+	 * Set the position of this poi.
 	 */
 
 	public static SumoCommand setPosition(String poiID, double x, double y){
@@ -97,7 +97,7 @@ public class Poi {
 	}
 
 	/**
-	 * setType
+	 * Set the type of the poi.
 	 */
 
 	public static SumoCommand setType(String poiID, String poiType){

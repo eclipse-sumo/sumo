@@ -26,7 +26,7 @@ public class Route {
 	//getter methods
 
 	/**
-	 * Returns the subscription results for the last time step and the given route.
+	 * Returns the IDs of the edges this route covers.
 	 */
 
 	public static SumoCommand getEdges(String routeID){
@@ -34,7 +34,7 @@ public class Route {
 	}
 
 	/**
-	 * Returns a list of all routes in the network.
+	 * Returns a list of IDs of all currently loaded routes.
 	 */
 
 	public static SumoCommand getIDList(){
@@ -44,7 +44,7 @@ public class Route {
 	//setter methods
 
 	/**
-	 * add
+	 * Add a new route.
 	 */
 
 	public static SumoCommand add(String routeID, SumoStringList edges){

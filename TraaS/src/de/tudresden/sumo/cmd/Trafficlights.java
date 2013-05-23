@@ -26,7 +26,7 @@ public class Trafficlights {
 	//getter methods
 
 	/**
-	 * getCompleteRedYellowGreenDefinition
+	 * Returns the complete traffic light program.
 	 */
 
 	public static SumoCommand getCompleteRedYellowGreenDefinition(String tlsID){
@@ -34,7 +34,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * getControlledLanes
+	 * Returns the list of lanes which are controlled by the named traffic light.
 	 */
 
 	public static SumoCommand getControlledLanes(String tlsID){
@@ -42,7 +42,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * getControlledLinks
+	 * Returns the links controlled by the traffic light, sorted by the signal index and described by giving the incoming, outgoing, and via lane.
 	 */
 
 	public static SumoCommand getControlledLinks(String tlsID){
@@ -50,7 +50,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * Returns a list of all traffic lights in the network.
+	 * Returns a list of IDs of all traffic lights within the scenario.
 	 */
 
 	public static SumoCommand getIDList(){
@@ -58,7 +58,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * Returns the subscription results for the last time step and the given traffic light.
+	 * Returns the assumed time (in ms) at which the TLS changes the phase.
 	 */
 
 	public static SumoCommand getNextSwitch(String tlsID){
@@ -66,7 +66,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * getPhase
+	 * Returns the index of the current phase in the current program.
 	 */
 
 	public static SumoCommand getPhase(String tlsID){
@@ -74,7 +74,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * getProgram
+	 * Returns the id of the current program.
 	 */
 
 	public static SumoCommand getProgram(String tlsID){
@@ -82,7 +82,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * getRedYellowGreenState
+	 * Returns the named tl's state as a tuple of light definitions from rRgGyYoO, for red, green, yellow, off, where lower case letters mean that the stream has to decelerate.
 	 */
 
 	public static SumoCommand getRedYellowGreenState(String tlsID){
@@ -92,7 +92,7 @@ public class Trafficlights {
 	//setter methods
 
 	/**
-	 * setCompleteRedYellowGreenDefinition
+	 * Set the complete traffic light program.
 	 */
 
 	public static SumoCommand setCompleteRedYellowGreenDefinition(String tlsID, SumoTLSLogic tls){
@@ -101,7 +101,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * setPhase
+	 * Set the index of the current phase in the current program.
 	 */
 
 	public static SumoCommand setPhase(String tlsID, int index){
@@ -110,7 +110,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * setPhaseDuration
+	 * Set the duration of the currently active phase (in s).
 	 */
 
 	public static SumoCommand setPhaseDuration(String tlsID, int phaseDuration){
@@ -119,7 +119,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * setProgram
+	 * Set the id of the current program.
 	 */
 
 	public static SumoCommand setProgram(String tlsID, String programID){
@@ -128,7 +128,7 @@ public class Trafficlights {
 	}
 
 	/**
-	 * setRedYellowGreenState
+	 * Set the named tl's state as a tuple of light definitions.
 	 */
 
 	public static SumoCommand setRedYellowGreenState(String tlsID, String state){

@@ -25,7 +25,7 @@ public class Multientryexit {
 	//getter methods
 
 	/**
-	 * Returns a list of all e3 detectors in the network.
+	 * Returns a list of IDs of all multi-entry/multi-exit detectors within the scenario.
 	 */
 
 	public static SumoCommand getIDList(){
@@ -33,7 +33,7 @@ public class Multientryexit {
 	}
 
 	/**
-	 * Returns the subscription results for the last time step and the given detector.
+	 * Returns the number of vehicles which were halting during the last time step.
 	 */
 
 	public static SumoCommand getLastStepHaltingNumber(String detID){
@@ -41,7 +41,7 @@ public class Multientryexit {
 	}
 
 	/**
-	 * getLastStepMeanSpeed
+	 * Returns the mean speed of vehicles (in m/s) that have been within the named multi-entry/multi-exit detector within the last simulation step.
 	 */
 
 	public static SumoCommand getLastStepMeanSpeed(String detID){
@@ -49,7 +49,7 @@ public class Multientryexit {
 	}
 
 	/**
-	 * getLastStepVehicleIDs
+	 * Returns the list of IDs of vehicles that have been within the named multi-entry/multi-exit detector in the last simulation step.
 	 */
 
 	public static SumoCommand getLastStepVehicleIDs(String detID){
@@ -57,7 +57,7 @@ public class Multientryexit {
 	}
 
 	/**
-	 * getLastStepVehicleNumber
+	 * Returns the number of vehicles that have been within the named multi-entry/multi-exit detector within the last simulation step.
 	 */
 
 	public static SumoCommand getLastStepVehicleNumber(String detID){

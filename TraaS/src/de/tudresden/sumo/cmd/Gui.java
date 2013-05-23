@@ -25,7 +25,7 @@ public class Gui {
 	//getter methods
 
 	/**
-	 * Returns the subscription results for the last time step and the given view.
+	 * Returns the coordinates of the lower left and the upper right corner of the currently visible view.
 	 */
 
 	public static SumoCommand getBoundary(String viewID){
@@ -67,7 +67,7 @@ public class Gui {
 	//setter methods
 
 	/**
-	 * screenshot
+	 * Save a screenshot for the given view to the given filename.
 	 */
 
 	public static SumoCommand screenshot(String viewID, String filename){
@@ -114,7 +114,7 @@ public class Gui {
 	}
 
 	/**
-	 * trackVehicle
+	 * Start visually tracking the given vehicle on the given view.
 	 */
 
 	public static SumoCommand trackVehicle(String viewID, String vehID){

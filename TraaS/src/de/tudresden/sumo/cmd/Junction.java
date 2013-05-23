@@ -25,7 +25,7 @@ public class Junction {
 	//getter methods
 
 	/**
-	 * Returns a list of all junctions in the network.
+	 * Returns a list of IDs of all junctions within the scenario.
 	 */
 
 	public static SumoCommand getIDList(){
@@ -33,7 +33,7 @@ public class Junction {
 	}
 
 	/**
-	 * Returns the subscription results for the last time step and the given junction.
+	 * Returns the position of the named junction.
 	 */
 
 	public static SumoCommand getPosition(String junctionID){

@@ -24,7 +24,7 @@ public class Edge {
 
 
 	/**
-	 * Returns the travel time value (in s) used for (re-)routing
+	 * Returns the travel time value (in s) used for (re-)routing.
 	 */
 
 	public static SumoCommand getAdaptedTraveltime(String edgeID, double time){
@@ -33,7 +33,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the CO2 emission in mg/s for the last time step on the given edge.
+	 * Returns the CO2 emissions (in mg) on the given edge during the last time step.
 	 */
 
 	public static SumoCommand getCO2Emission(String edgeID){
@@ -41,7 +41,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the CO emission in mg/s for the last time step on the given edge.
+	 * Returns the CO emissions (in mg) on the given edge during the last time step.
 	 */
 
 	public static SumoCommand getCOEmission(String edgeID){
@@ -49,7 +49,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the effort value used for (re-)routing
+	 * Returns the effort value used for (re-)routing.
 	 */
 
 	public static SumoCommand getEffort(String edgeID, double time){
@@ -58,7 +58,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the fuel consumption in ml for the last time step on the given edge.
+	 * Returns the fuel consumption (in ml) on the given edge during the last time step.
 	 */
 
 	public static SumoCommand getFuelConsumption(String edgeID){
@@ -66,7 +66,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the HC emission in mg for the last time step on the given edge.
+	 * Returns the HC emissions (in mg) on the given edge during the last time step.
 	 */
 
 	public static SumoCommand getHCEmission(String edgeID){
@@ -90,7 +90,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the total number of halting vehicles for the last time step on the given edge.
+	 * Returns the total number of halting vehicles on the given edge within the last time step.
 	 */
 
 	public static SumoCommand getLastStepHaltingNumber(String edgeID){
@@ -98,7 +98,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the total vehicle length in m for the last time step on the given edge.
+	 * Returns the total vehicle length (in m) on the given edge within the last time step.
 	 */
 
 	public static SumoCommand getLastStepLength(String edgeID){
@@ -106,7 +106,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the average speed in m/s for the last time step on the given edge.
+	 * Returns the mean speed of vehicles (in m/s) that were on the named induction loop within the last simulation step.
 	 */
 
 	public static SumoCommand getLastStepMeanSpeed(String edgeID){
@@ -114,7 +114,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the occupancy in % for the last time step on the given edge.
+	 *  	 Returns the percentage of time (in %) the detector was occupied by a vehicle.
 	 */
 
 	public static SumoCommand getLastStepOccupancy(String edgeID){
@@ -122,7 +122,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the subscription results for the last time step and the given edge.
+	 * Returns the list of ids of vehicles that were on the named induction loop in the last simulation step.
 	 */
 
 	public static SumoCommand getLastStepVehicleIDs(String edgeID){
@@ -130,7 +130,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the total number of vehicles for the last time step on the given edge.
+	 * Returns the total number of vehicles on this edge within the last time step.
 	 */
 
 	public static SumoCommand getLastStepVehicleNumber(String edgeID){
@@ -138,7 +138,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the NOx emission in mg for the last time step on the given edge.
+	 * Returns the NOx emissions (in mg) on the given edge during the last time step.
 	 */
 
 	public static SumoCommand getNOxEmission(String edgeID){
@@ -146,7 +146,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the noise emission in db for the last time step on the given edge.
+	 * Returns the noise emissions (in db)on the given edge within the last time step.
 	 */
 
 	public static SumoCommand getNoiseEmission(String edgeID){
@@ -154,7 +154,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the particular matter emission in mg for the last time step on the given edge.
+	 * Returns the particular matter emissions (in mg) on the given edge on this edge during the last time step.
 	 */
 
 	public static SumoCommand getPMxEmission(String edgeID){
@@ -162,7 +162,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the estimated travel time in s for the last time step on the given edge.
+	 * Returns the estimated travel time (in s) on the given edge on this edge within the last time step.
 	 */
 
 	public static SumoCommand getTraveltime(String edgeID){
@@ -172,7 +172,7 @@ public class Edge {
 	//setter methods
 
 	/**
-	 * adapt the Traveltime
+	 * Adapt the travel time value (in s) used for (re-)routing on the given edge.
 	 */
 
 	public static SumoCommand adaptTraveltime(String edgeID, int time){
@@ -181,7 +181,7 @@ public class Edge {
 	}
 
 	/**
-	 * setEffort
+	 * Adapt the effort value used for (re-)routing on the given edge.
 	 */
 
 	public static SumoCommand setEffort(String edgeID, double effort){
@@ -190,7 +190,7 @@ public class Edge {
 	}
 
 	/**
-	 * Set a new maximum speed (in m/s) for all lanes of the edge..
+	 * Set a new maximum speed (in m/s) for all lanes of the edge.
 	 */
 
 	public static SumoCommand setMaxSpeed(String edgeID, double speed){

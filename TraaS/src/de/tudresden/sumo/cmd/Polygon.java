@@ -28,7 +28,7 @@ public class Polygon {
 	//getter methods
 
 	/**
-	 * Returns the subscription results for the last time step and the given poi.
+	 * Returns the color of this polygon.
 	 */
 
 	public static SumoCommand getColor(String polygonID){
@@ -36,7 +36,7 @@ public class Polygon {
 	}
 
 	/**
-	 * Returns a list of all polygons in the network.
+	 * Returns a list of IDs of all polygons.
 	 */
 
 	public static SumoCommand getIDList(){
@@ -44,7 +44,7 @@ public class Polygon {
 	}
 
 	/**
-	 * getShape
+	 * Returns the shape of this polygon.
 	 */
 
 	public static SumoCommand getShape(String polygonID){
@@ -52,7 +52,7 @@ public class Polygon {
 	}
 
 	/**
-	 * getType
+	 * Returns the type of the polygon.
 	 */
 
 	public static SumoCommand getType(String polygonID){
@@ -62,7 +62,7 @@ public class Polygon {
 	//setter methods
 
 	/**
-	 * add
+	 * Add a new polygon.
 	 */
 
 	public static SumoCommand add(String polygonID, SumoGeometry shape, SumoColor color, boolean fill, String polygonType, int layer){
@@ -72,7 +72,7 @@ public class Polygon {
 	}
 
 	/**
-	 * remove
+	 * Remove a polygon.
 	 */
 
 	public static SumoCommand remove(String polygonID, int layer){
@@ -81,7 +81,7 @@ public class Polygon {
 	}
 
 	/**
-	 * setColor
+	 * Set the color of this polygon.
 	 */
 
 	public static SumoCommand setColor(String polygonID, SumoColor color){
@@ -90,7 +90,7 @@ public class Polygon {
 	}
 
 	/**
-	 * setShape
+	 * Set the shape of this polygon.
 	 */
 
 	public static SumoCommand setShape(String polygonID, SumoStringList shape){
@@ -99,7 +99,7 @@ public class Polygon {
 	}
 
 	/**
-	 * setType
+	 * Set the type of the polygon.
 	 */
 
 	public static SumoCommand setType(String polygonID, String polygonType){

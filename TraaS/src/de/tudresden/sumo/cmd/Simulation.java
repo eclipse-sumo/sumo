@@ -52,7 +52,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getArrivedIDList
+	 * Returns a list of IDs of vehicles which arrived in this time step.
 	 */
 
 	public static SumoCommand getArrivedIDList(){
@@ -60,7 +60,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getArrivedNumber
+	 * Returns the number of vehicles which arrived in this time step.
 	 */
 
 	public static SumoCommand getArrivedNumber(){
@@ -68,7 +68,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getCurrentTime
+	 * Returns the current simulation time (in ms).
 	 */
 
 	public static SumoCommand getCurrentTime(){
@@ -84,7 +84,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getDepartedIDList
+	 * Returns a list of IDs of vehicles which departed in this time step.
 	 */
 
 	public static SumoCommand getDepartedIDList(){
@@ -92,7 +92,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getDepartedNumber
+	 * Returns the number of vehicles which departed in this time step.
 	 */
 
 	public static SumoCommand getDepartedNumber(){
@@ -109,7 +109,7 @@ public class Simulation {
 	}
 
 	/**
-	 * Returns the subscription results for the last time step.
+	 * getDistanceRoad
 	 */
 
 	public static SumoCommand getDistanceRoad(String edgeID1, double pos1, String edgeID2, double pos2, String isDriving){
@@ -118,7 +118,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getEndingTeleportIDList
+	 * Returns a list of IDs of vehicles which ended to be teleported in this time step.
 	 */
 
 	public static SumoCommand getEndingTeleportIDList(){
@@ -126,7 +126,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getEndingTeleportNumber
+	 * Returns the number of vehicles which ended to be teleported in this time step.
 	 */
 
 	public static SumoCommand getEndingTeleportNumber(){
@@ -134,7 +134,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getLoadedIDList
+	 * Returns a list of IDs of vehicles which were loaded in this time step.
 	 */
 
 	public static SumoCommand getLoadedIDList(){
@@ -142,7 +142,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getLoadedNumber
+	 * Return the number of vehicles which were loaded in this time step.
 	 */
 
 	public static SumoCommand getLoadedNumber(){
@@ -150,7 +150,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getMinExpectedNumber
+	 * Returns the number of vehicles which are in the net plus the ones still waiting to start.
 	 */
 
 	public static SumoCommand getMinExpectedNumber(){
@@ -158,7 +158,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getNetBoundary
+	 * Returns the boundary box of the simulation network.
 	 */
 
 	public static SumoCommand getNetBoundary(){
@@ -166,7 +166,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getStartingTeleportIDList
+	 * Returns a list of IDs of vehicles which started to teleport in this time step.
 	 */
 
 	public static SumoCommand getStartingTeleportIDList(){
@@ -174,7 +174,7 @@ public class Simulation {
 	}
 
 	/**
-	 * getStartingTeleportNumber
+	 * Returns the number of vehicles which started to teleport in this time step.
 	 */
 
 	public static SumoCommand getStartingTeleportNumber(){

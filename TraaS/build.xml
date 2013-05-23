@@ -42,22 +42,19 @@
   <target name="release" description="generate the distribution" >
   	
   	<mkdir dir="${dist}"/>
-  	<jar jarfile="${dist}/TraaS-${DSTAMP}_JRE6.jar" basedir="${build1.6}"/>
   	<jar jarfile="${dist}/TraaS-${DSTAMP}_JRE7.jar" basedir="${build1.7}"/>  
   	
   </target>
 
 	
-	<target name="dist" depends="clean, compile_JRE6, compile_JRE7, javadoc, release">
+	<target name="dist" depends="clean, compile_JRE7, javadoc, release">
 		
 	    <mkdir dir="${release}"/>
 		
-	    <copy file="${dist}/TraaS-${DSTAMP}_JRE6.jar" todir="${dist}"/>
 	    <copy file="${dist}/TraaS-${DSTAMP}_JRE7.jar" todir="${dist}"/>
 		<copy file="license.txt" todir="${dist}"/>
 		
 		<zip basedir="${dist}" includes="**" excludes="*_JRE7.jar" destfile="${release}/TraaS-${DSTAMP}-JRE6.zip"/>
-		<zip basedir="${dist}" includes="**" excludes="*_JRE6.jar" destfile="${release}/TraaS-${DSTAMP}-JRE7.zip"/>		
 		<zip basedir="${src}" includes="**"  destfile="${release}/TraaS-${DSTAMP}-sources.zip"/>	
 		<copy file="license.txt" todir="${release}"/>
 		
