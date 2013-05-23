@@ -528,11 +528,7 @@ GUIApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
     getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
     getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
     getApp()->reg().writeStringEntry("SETTINGS", "basedir", gCurrentFolder.text());
-    if (isMaximized()) {
-        getApp()->reg().writeIntEntry("SETTINGS", "maximized", 1);
-    } else {
-        getApp()->reg().writeIntEntry("SETTINGS", "maximized", 0);
-    }
+    getApp()->reg().writeIntEntry("SETTINGS", "maximized", isMaximized() ? 1 : 0);
     getApp()->reg().writeIntEntry("gui", "timeasHMS", myShowTimeAsHMS ? 1 :0);
     getApp()->exit(0);
     return 1;
