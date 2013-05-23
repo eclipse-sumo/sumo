@@ -22,9 +22,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.jws.soap.SOAPBinding.Style;
-
+import javax.xml.ws.BindingType;
 
 import de.tudresden.sumo.util.ConvertHelper;
 import de.tudresden.sumo.util.Sumo;
@@ -32,7 +30,7 @@ import de.tudresden.ws.conf.Config;
 import de.tudresden.ws.log.Log;
 
 @WebService(serviceName = "Sumo-Webservice")
-@SOAPBinding(style=Style.RPC)
+@BindingType(value="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
 public class Service_Impl extends Traci implements Service {
 
 	Log logger;
@@ -115,9 +113,9 @@ public class Service_Impl extends Traci implements Service {
 	}
 
 	@WebMethod(action="do timestep")
-	public void doTimestep(@WebParam(name = "value") int value) {
+	public void doTimestep() {
 		
-		if(conf.running){this.sumo.do_timestep(value);}
+		if(conf.running){this.sumo.do_timestep();}
 		
 	}
 

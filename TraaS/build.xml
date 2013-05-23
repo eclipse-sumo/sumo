@@ -9,8 +9,9 @@
 	
 	<property name="dist"  location="dist"/>
 	<property name="release"  location="release"/>
-	
 	<property name="javadoc"  location="javadoc"/>
+	<property name="examples"  location="examples"/>
+		
 	
 	<property name="JDK1.6.dir" location="f:/Programme/Java/jdk1.6.0_43" />
 	<property name="javac1.6" location="${JDK1.6.dir}/bin/javac" />
@@ -20,6 +21,7 @@
   	<tstamp/>
   	<mkdir dir="${build1.7}"/>
   	<javac srcdir="${src}" destdir="${build1.7}"/>
+  	
   	
   </target>
 
@@ -34,28 +36,48 @@
 	
 	
  <target name="javadoc">
+ 	
  		<mkdir dir="${javadoc}"/>
         <javadoc access="public" author="true" classpath="." destdir="${javadoc}" doctitle="TraaS - TraCI as a Service" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="de.tudresden.sumo.util,de.uniluebeck.itm.tcpip,it.polito.appeal.traci,de.tudresden.sumo.cmd,de.tudresden.ws,it.polito.appeal.traci.protocol,de.tudresden.ws.conf,de.tudresden.sumo.config,de.tudresden.ws.log,de.tudresden.ws.container" source="1.7" sourcepath="src" splitindex="true" use="true" version="true"/>
- 	    <zip basedir="${javadoc}" includes="**" destfile="${release}/TraaS-${DSTAMP}-Javadoc.zip"/>		
+ 	  	<jar basedir="${javadoc}" destfile="${release}/TraaS-${DSTAMP}_javadoc.jar"/>
+ 	
  </target>
 	
-  <target name="release" description="generate the distribution" >
+ <target name="sources">
+
+ 	<jar basedir="${src}" destfile="${release}/TraaS-${DSTAMP}_sources.jar"/>
+	 	
+  </target>
+	
+  <target name="dist" description="generate the distribution" >
   	
   	<mkdir dir="${dist}"/>
-  	<jar jarfile="${dist}/TraaS-${DSTAMP}_JRE7.jar" basedir="${build1.7}"/>  
+  	<jar jarfile="${dist}/TraaS-${DSTAMP}_JRE6.jar" basedir="${build1.6}">
+  		 <manifest>
+  	          <attribute name="Main-Class" value="de.tudresden.ws.WebService"/>
+  	     </manifest>
+  	</jar>
+  		
+  	<jar jarfile="${dist}/TraaS-${DSTAMP}_JRE7.jar" basedir="${build1.7}">
+  		 <manifest>
+  	          <attribute name="Main-Class" value="de.tudresden.ws.WebService"/>
+  	     </manifest>
+  	</jar>
   	
   </target>
 
 	
-	<target name="dist" depends="clean, compile_JRE7, javadoc, release">
+	<target name="release" depends="clean, compile_JRE7, compile_JRE6, javadoc, sources, dist">
 		
 	    <mkdir dir="${release}"/>
 		
+	    <copy file="${dist}/TraaS-${DSTAMP}_JRE6.jar" todir="${dist}"/>
 	    <copy file="${dist}/TraaS-${DSTAMP}_JRE7.jar" todir="${dist}"/>
 		<copy file="license.txt" todir="${dist}"/>
 		
+		<zip basedir="${examples}" includes="**" destfile="${release}/TraaS-${DSTAMP}_examples.zip"/>
 		<zip basedir="${dist}" includes="**" excludes="*_JRE7.jar" destfile="${release}/TraaS-${DSTAMP}-JRE6.zip"/>
-		<zip basedir="${src}" includes="**"  destfile="${release}/TraaS-${DSTAMP}-sources.zip"/>	
+		<zip basedir="${dist}" includes="**" excludes="*_JRE6.jar" destfile="${release}/TraaS-${DSTAMP}-JRE7.zip"/>			
 		<copy file="license.txt" todir="${release}"/>
 		
 	</target>

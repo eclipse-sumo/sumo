@@ -104,9 +104,9 @@ public class Sumo {
 		return obj;
 	}
 	
-	public void do_timestep(int value){
+	public void do_timestep(){
 
-		try {conn.do_timestep(value);
+		try {conn.do_timestep();
 		} catch (Exception ex) {this.logger.write(ex.getStackTrace());}
 
 	}

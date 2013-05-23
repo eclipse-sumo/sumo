@@ -392,12 +392,12 @@ public class SumoTraciConnection {
 	}
 	
 	
-	public synchronized void do_timestep(int timestep) throws Exception{
+	public synchronized void do_timestep() throws Exception{
 		
 		if (isClosed())
 			throw new IllegalStateException("connection is closed");
 		
-		try {this.cp.do_job_set(new SumoCommand(Constants.CMD_SIMSTEP2, timestep));}
+		try {this.cp.do_job_set(new SumoCommand(Constants.CMD_SIMSTEP2, 0));}
 		catch (Exception e) {
 			closeAndDontCareAboutInterruptedException();
 			throw e;
