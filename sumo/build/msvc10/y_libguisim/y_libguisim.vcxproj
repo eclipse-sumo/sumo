@@ -270,7 +270,6 @@
     <ClCompile Include="..\..\..\src\guisim\GUIEdge.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIEventControl.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIInductLoop.cpp" />
-    <ClCompile Include="..\..\..\src\guisim\GUIInternalLane.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIJunctionWrapper.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUILane.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUILaneSpeedTrigger.cpp" />
@@ -294,7 +293,6 @@
     <ClInclude Include="..\..\..\src\guisim\GUIEdge.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIEventControl.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIInductLoop.h" />
-    <ClInclude Include="..\..\..\src\guisim\GUIInternalLane.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIJunctionWrapper.h" />
     <ClInclude Include="..\..\..\src\guisim\GUILane.h" />
     <ClInclude Include="..\..\..\src\guisim\GUILaneSpeedTrigger.h" />

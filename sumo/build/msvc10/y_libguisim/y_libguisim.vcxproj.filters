@@ -35,9 +35,6 @@
     <ClCompile Include="..\..\..\src\guisim\GUIInductLoop.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\guisim\GUIInternalLane.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\guisim\GUIJunctionWrapper.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -101,9 +98,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guisim\GUIInductLoop.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\guisim\GUIInternalLane.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guisim\GUIJunctionWrapper.h">

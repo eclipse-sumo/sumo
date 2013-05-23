@@ -189,7 +189,6 @@
     <ClCompile Include="..\..\..\src\microsim\MSInsertionControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSGlobals.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSInternalJunction.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\MSInternalLane.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSJunction.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSJunctionControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSJunctionLogic.cpp" />
@@ -242,7 +241,6 @@
     <ClInclude Include="..\..\..\src\microsim\MSInsertionControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSGlobals.h" />
     <ClInclude Include="..\..\..\src\microsim\MSInternalJunction.h" />
-    <ClInclude Include="..\..\..\src\microsim\MSInternalLane.h" />
     <ClInclude Include="..\..\..\src\microsim\MSJunction.h" />
     <ClInclude Include="..\..\..\src\microsim\MSJunctionControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSJunctionLogic.h" />

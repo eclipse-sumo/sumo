@@ -61,9 +61,6 @@
     <ClCompile Include="..\..\..\src\microsim\MSInternalJunction.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSInternalLane.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSJunction.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -217,9 +214,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSInternalJunction.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSInternalLane.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSJunction.h">
