@@ -825,13 +825,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
 
 #ifdef HAVE_INTERNAL_LANES
         // we want to pass the link but need to check for foes on internal lanes
-        std::pair<const MSVehicle*, SUMOReal> linkLeaderInfo = (*link)->getLeaderInfo(myLeaderForLink, seen - getVehicleType().getMinGap());
-        if (linkLeaderInfo.first != 0) {
+        const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(seen - getVehicleType().getMinGap());
+        for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
             // the vehicle to enter the junction first has priority
-            if (linkLeaderInfo.first->myLinkLeaders.count(getID()) == 0) {
-                myLeaderForLink[*link] = linkLeaderInfo.first->getID();
-                myLinkLeaders.insert(linkLeaderInfo.first->getID());
-                adaptToLeader(linkLeaderInfo, seen, lastLink, lane, v, vLinkPass);
+            const MSVehicle* leader = it->first;
+            if (leader->myLinkLeaders.count(getID()) == 0) {
+                // leader isn't already following us, now we follow it
+                myLeaderForLink[*link] = leader->getID();
+                myLinkLeaders.insert(leader->getID());
+                adaptToLeader(*it, seen, lastLink, lane, v, vLinkPass);
             }
         }
 #endif

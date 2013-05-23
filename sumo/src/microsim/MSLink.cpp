@@ -299,35 +299,33 @@ MSLink::getViaLane() const {
 }
 
 
-std::pair<MSVehicle*, SUMOReal>
-MSLink::getLeaderInfo(const std::map<const MSLink*, std::string>& previousLeaders, SUMOReal dist) const {
+MSLink::LinkLeaders
+MSLink::getLeaderInfo(SUMOReal dist) const {
+    LinkLeaders result;
     if (MSGlobals::gUsingInternalLanes && myJunctionInlane == 0) {
         // this is an exit link
 
-        // there might have been a link leader from previous steps who still qualifies
-        // but is not the last vehicle on the foe lane anymore
-        std::map<const MSLink*, std::string>::const_iterator it = previousLeaders.find(this);
-        if (it != previousLeaders.end()) {
-            MSVehicle* leader = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(it->second));
-            if (leader != 0 && std::find(myFoeLanes.begin(), myFoeLanes.end(), leader->getLane()) != myFoeLanes.end()) {
-                return std::make_pair(leader,
-                                      dist - (leader->getLane()->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength());
+        for (std::vector<MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
+            // it is not sufficient to return the last vehicle on the foeLane because ego might be its leader
+            // therefore we return all vehicles on the lane
+            const MSLane::VehCont& vehicles = (*it_lane)->getVehiclesSecure();
+            (*it_lane)->releaseVehicles();
+            for (MSLane::VehCont::const_iterator it_veh = vehicles.begin(); it_veh != vehicles.end(); ++it_veh) {
+                MSVehicle* leader = *it_veh;
+                // XXX apply viaLane/foeLane specific distance offset 
+                // to account for the fact that the crossing point has different distances from the lane ends
+                result.push_back(std::make_pair(leader,
+                            dist - ((*it_lane)->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength()));
+
             }
-        }
-        // now check for last vehicle on foe lane
-        for (std::vector<MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
-            assert((*i)->getLinkCont().size() == 1);
-            MSLink* exitLink = (*i)->getLinkCont()[0];
-            if (myLane == exitLink->getLane()) {
-                MSVehicle* leader = (*i)->getLastVehicle();
-                if (leader != 0) {
-                    return std::make_pair(leader,
-                                          dist - ((*i)->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength());
-                }
+            // XXX partial occupates should be ignored if they do not extend past the crossing point
+            MSVehicle* leader = (*it_lane)->getPartialOccupator();
+            if (leader != 0) {
+                result.push_back(std::make_pair(leader, dist - ((*it_lane)->getLength() - (*it_lane)->getPartialOccupatorEnd())));
             }
         }
     }
-    return std::make_pair<MSVehicle*, SUMOReal>(0, 0);
+    return result;
 }
 #endif
 
