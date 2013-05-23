@@ -176,8 +176,12 @@ enum SUMOVehicleClass {
     /// @brief vehicle is a bicycle
     SVC_BICYCLE = 262144,
     /// @brief is a pedestrian
-    SVC_PEDESTRIAN = 524288
-                     //@}
+    SVC_PEDESTRIAN = 524288,
+    /// @brief is a user-defined type
+    SVC_CUSTOM1 = 1048576,
+    /// @brief is a user-defined type
+    SVC_CUSTOM2 = 2097152
+    //@}
 };
 
 extern const int SUMOVehicleClass_MAX;
