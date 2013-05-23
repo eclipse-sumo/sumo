@@ -177,6 +177,9 @@ public:
     /// @brief Called on "time toggle"
     long onCmdTimeToggle(FXObject*, FXSelector, void*);
 
+    /// @brief Called on "delay toggle"
+    long onCmdDelayToggle(FXObject*, FXSelector, void*);
+
     /// @brief Called if a new view shall be opened (2D view)
     long onCmdNewView(FXObject*, FXSelector, void*);
 
@@ -289,8 +292,8 @@ protected:
     ///
     FXRealSpinDial* mySimDelayTarget;
 
-    /// The simulation delay
-    FXdouble mySimDelay;
+    /// The alternate simulation delay for toggling
+    SUMOTime myAlternateSimDelay;
 
     /// List of got requests
     MFXEventQue myEvents;

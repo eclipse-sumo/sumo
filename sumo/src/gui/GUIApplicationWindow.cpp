@@ -112,6 +112,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_STOP,               GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_STEP,               GUIApplicationWindow::onCmdStep),
     FXMAPFUNC(SEL_COMMAND,  MID_TIME_TOOGLE,        GUIApplicationWindow::onCmdTimeToggle),
+    FXMAPFUNC(SEL_COMMAND,  MID_DELAY_TOOGLE,       GUIApplicationWindow::onCmdDelayToggle),
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GUIApplicationWindow::onCmdClearMsgWindow),
 
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,       GUIApplicationWindow::onUpdOpen),
@@ -147,7 +148,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
     : GUIMainWindow(a),
       myLoadThread(0), myRunThread(0),
       myAmLoading(false),
-      mySimDelay(50),
+      myAlternateSimDelay(0),
       myRecentNets(a, "nets"), myConfigPattern(configPattern),
       hadDependentBuild(false),
       myShowTimeAsHMS(false) {
@@ -263,6 +264,7 @@ GUIApplicationWindow::create() {
         maximize();
     }
     myShowTimeAsHMS = (getApp()->reg().readIntEntry("gui", "timeasHMS", 0) == 1);
+    myAlternateSimDelay = getApp()->reg().readIntEntry("gui", "alternateSimDelay", 100);
 }
 
 
@@ -476,7 +478,7 @@ GUIApplicationWindow::buildToolBars() {
                                    LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXButton(myToolBar3, "Time:\t\tClick to Toggle between seconds and hour:minute:seconds display", 0, this, MID_TIME_TOOGLE, 
+        new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display", 0, this, MID_TIME_TOOGLE, 
                 BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
         myLCDLabel = new FXEX::FXLCDLabel(myToolBar3, 13, 0, 0, JUSTIFY_RIGHT);
         myLCDLabel->setHorizontal(2);
@@ -492,7 +494,8 @@ GUIApplicationWindow::buildToolBars() {
                                    LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED | LAYOUT_FILL_Y);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXLabel(myToolBar4, "Delay (ms):", 0, LAYOUT_CENTER_Y);
+        new FXButton(myToolBar4, "Delay (ms):\t\tToggle between alternative delay values", 0, this, MID_DELAY_TOOGLE,
+                BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
         mySimDelayTarget =
             new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y);
@@ -530,6 +533,7 @@ GUIApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
     getApp()->reg().writeStringEntry("SETTINGS", "basedir", gCurrentFolder.text());
     getApp()->reg().writeIntEntry("SETTINGS", "maximized", isMaximized() ? 1 : 0);
     getApp()->reg().writeIntEntry("gui", "timeasHMS", myShowTimeAsHMS ? 1 :0);
+    getApp()->reg().writeIntEntry("gui", "alternateSimDelay", myAlternateSimDelay);
     getApp()->exit(0);
     return 1;
 }
@@ -705,6 +709,15 @@ GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
     if (myRunThread->simulationAvailable()) {
         updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdDelayToggle(FXObject*, FXSelector, void*) {
+    const SUMOTime tmp = myAlternateSimDelay;
+    myAlternateSimDelay = mySimDelayTarget->getValue();
+    mySimDelayTarget->setValue(tmp);
     return 1;
 }
 
