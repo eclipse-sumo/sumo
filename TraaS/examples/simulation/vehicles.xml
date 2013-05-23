@@ -1,0 +1,13 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/additional_file.xsd">
+
+  <vType id="non_classified" accel="5.0" decel="6.0" sigma="0.0" length="4.5" minGap="1.5" maxSpeed="60" guiShape="passenger" vClass="private"/>
+  <vType id="car" accel="6.0" decel="6.0" sigma="0.0" length="4.5" minGap="1.5" maxSpeed="60" guiShape="passenger" vClass="private"/>
+  <vType id="car_trailer" accel="3.5" decel="5.0" sigma="0.0" length="7.5" minGap="1.5" maxSpeed="60" guiShape="passenger" vClass="private"/>
+  <vType id="truck" accel="1.5" decel="4.0" sigma="0.0" length="12.0" minGap="1.5" maxSpeed="20" guiShape="transport" vClass="private"/>
+  <vType id="truck_trailer" accel="1.0" decel="3.5" sigma="0.0" length="20.0" minGap="1.5" maxSpeed="10" guiShape="transport/trailer" vClass="private"/>
+  <vType id="bus" accel="2.6" decel="4.5" sigma="0.0" length="18" minGap="3" maxSpeed="60" color="1,1,0" guiShape="bus" vClass="private"/>
+  <vType id="semitrailer" accel="3.0" decel="3.5" sigma="0.0" length="20.0" minGap="1.5" maxSpeed="60" guiShape="transport/semitrailer" vClass="private"/>
+  <vType id="van" accel="3.5" decel="5.5" sigma="0.0" length="5.0" minGap="1.5" maxSpeed="60" guiShape="delivery" vClass="private"/>
+  <vType id="motorcycle" accel="6.0" decel="5.5" sigma="0.0" length="2.0" minGap="1.5" maxSpeed="220" guiShape="motorcycle" vClass="private"/>
+
+</additional>

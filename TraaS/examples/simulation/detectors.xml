@@ -1,0 +1,4 @@
+<add>
+	<e1Detector id="loop1" lane="gneE0_0" pos="70" freq="1" file="output/loop1.xml" friendlyPos="x"/>
+	<e1Detector id="loop2" lane="gneE0_1" pos="70" freq="1" file="output/loop2.xml" friendlyPos="x"/>
+</add>
