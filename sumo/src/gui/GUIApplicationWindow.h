@@ -174,6 +174,9 @@ public:
     /// @brief Called on "step"
     long onCmdStep(FXObject*, FXSelector, void*);
 
+    /// @brief Called on "time toggle"
+    long onCmdTimeToggle(FXObject*, FXSelector, void*);
+
     /// @brief Called if a new view shall be opened (2D view)
     long onCmdNewView(FXObject*, FXSelector, void*);
 
@@ -232,6 +235,8 @@ private:
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();
 
+    /// @brief updates the simulation time display
+    void updateTimeLCD(const SUMOTime time);
 
     /** opens a new simulation display */
     GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL);
@@ -319,6 +324,8 @@ protected:
 
     bool hadDependentBuild;
 
+    /// @brief whether to show time as hour:minute:second
+    bool myShowTimeAsHMS;
 
 };
 
