@@ -16,7 +16,7 @@ invalid_float
 
 # the value for --device.rerouting.probability is not a float
 invalid_bool
-invald_step_length
+invalid_step_length
 
 # Tests for broken routes
 routes
