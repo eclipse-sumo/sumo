@@ -33,7 +33,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the CO2 emission in mg for the last time step on the given edge.
+	 * Returns the CO2 emission in mg/s for the last time step on the given edge.
 	 */
 
 	public static SumoCommand getCO2Emission(String edgeID){
@@ -41,7 +41,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the CO emission in mg for the last time step on the given edge.
+	 * Returns the CO emission in mg/s for the last time step on the given edge.
 	 */
 
 	public static SumoCommand getCOEmission(String edgeID){
