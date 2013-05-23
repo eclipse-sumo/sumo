@@ -32,7 +32,6 @@
 #include "MSLinkCont.h"
 #include "MSLogicJunction.h"
 #include "MSLane.h"
-#include "MSInternalLane.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -52,13 +51,13 @@ MSLogicJunction::MSLogicJunction(const std::string& id,
 #ifdef HAVE_INTERNAL_LANES
                                  , std::vector<MSLane*> internal
 #endif
-                                )
-    : MSJunction(id, position, shape),
-      myIncomingLanes(incoming),
+                                ): 
+    MSJunction(id, position, shape),
+    myIncomingLanes(incoming)
 #ifdef HAVE_INTERNAL_LANES
-      myInternalLanes(internal),
+    ,myInternalLanes(internal)
 #endif
-      myInnerState(false) {}
+{}
 
 
 MSLogicJunction::~MSLogicJunction() {}

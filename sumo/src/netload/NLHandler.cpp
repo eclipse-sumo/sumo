@@ -47,7 +47,6 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSInternalLane.h>
 #include <microsim/MSBitSetLogic.h>
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>

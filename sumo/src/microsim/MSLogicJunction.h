@@ -96,10 +96,6 @@ protected:
     std::vector<MSLane*> myInternalLanes;
 #endif
 
-    /** Current inner state */
-    InnerState  myInnerState;
-
-
 private:
     /// @brief Invalidated copy constructor.
     MSLogicJunction(const MSLogicJunction&);

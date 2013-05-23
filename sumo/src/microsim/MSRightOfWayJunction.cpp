@@ -32,10 +32,10 @@
 
 #include "MSRightOfWayJunction.h"
 #include "MSLane.h"
+#include "MSEdge.h"
 #include "MSJunctionLogic.h"
 #include "MSBitSetLogic.h"
 #include "MSGlobals.h"
-#include "MSInternalLane.h"
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -179,14 +179,6 @@ MSRightOfWayJunction::postloadInit() {
             requestPos++;
         }
     }
-#ifdef HAVE_INTERNAL_LANES
-    // set information for the internal lanes
-    requestPos = 0;
-    for (i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
-        // ... set information about participation
-        static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(&myInnerState, requestPos++);
-    }
-#endif
 }
 
 

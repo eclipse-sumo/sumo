@@ -36,7 +36,6 @@
 #include <algorithm>
 #include <iterator>
 #include <microsim/MSLane.h>
-#include <microsim/MSInternalLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
 #include <utils/common/StringTokenizer.h>
@@ -90,9 +89,6 @@ NLEdgeControlBuilder::addLane(const std::string& id,
     MSLane* lane = 0;
     switch (myActiveEdge->getPurpose()) {
         case MSEdge::EDGEFUNCTION_INTERNAL:
-            lane = new MSInternalLane(id, maxSpeed, length, myActiveEdge,
-                                      myCurrentNumericalLaneID++, shape, width, permissions);
-            break;
         case MSEdge::EDGEFUNCTION_NORMAL:
         case MSEdge::EDGEFUNCTION_CONNECTOR:
             lane = new MSLane(id, maxSpeed, length, myActiveEdge,

@@ -79,7 +79,6 @@ public:
      * @param[in] permissions Encoding of vehicle classes that may drive on this lane
      * @see SUMOVehicleClass
      * @see MSLane
-     * @see MSInternalLane
      */
     virtual MSLane* addLane(const std::string& id,
                             SUMOReal maxSpeed, SUMOReal length,

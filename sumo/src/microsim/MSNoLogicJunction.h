@@ -91,13 +91,6 @@ private:
     /// @brief Invalidated assignment operator.
     MSNoLogicJunction& operator=(const MSNoLogicJunction&);
 
-    /** @brief a dump container
-        Request-setting vehicles may write into this container and responds
-        are read from it. As responds are always true, this container is
-        set to true for all links.
-        This dump is also used as the mask for incoming non-first vehicles */
-    static std::bitset<64> myDump;
-
 };
 
 

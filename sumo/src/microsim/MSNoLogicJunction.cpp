@@ -31,7 +31,6 @@
 
 #include "MSNoLogicJunction.h"
 #include "MSLane.h"
-#include "MSInternalLane.h"
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -44,9 +43,6 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-std::bitset<64> MSNoLogicJunction::myDump((unsigned long long) 0xffffffff);
-
-
 
 // ===========================================================================
 // method definitions
@@ -58,14 +54,13 @@ MSNoLogicJunction::MSNoLogicJunction(const std::string& id,
 #ifdef HAVE_INTERNAL_LANES
                                      , std::vector<MSLane*> internal
 #endif
-                                    )
-    : MSJunction(id, position, shape),
-      myIncomingLanes(incoming)
+        ): 
+    MSJunction(id, position, shape),
+    myIncomingLanes(incoming)
 #ifdef HAVE_INTERNAL_LANES
-      , myInternalLanes(internal)
+    ,myInternalLanes(internal)
 #endif
-{
-}
+{}
 
 
 MSNoLogicJunction::~MSNoLogicJunction() {}
@@ -81,13 +76,6 @@ MSNoLogicJunction::postloadInit() {
             (*j)->setRequestInformation(0, 0, false, false, std::vector<MSLink*>(), std::vector<MSLane*>());
         }
     }
-#ifdef HAVE_INTERNAL_LANES
-    // set information for the internal lanes
-    for (i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
-        // ... set information about participation
-        static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(&myDump, 0);
-    }
-#endif
 }
 
 
