@@ -373,6 +373,10 @@ MSFrame::checkOptions() {
         oc.set("meso-junction-control", "true");
     }
 #endif
+    if (string2time(oc.getString("step-length")) <= 0) {
+        WRITE_ERROR("the minimum step-length is 0.001");
+        ok = false;
+    }
     return ok;
 }
 
