@@ -84,4 +84,7 @@
 /* define to use nvwa for memory leak checking */
 //#define CHECK_MEMORY_LEAKS 1
 
+/* work around missing snprintf function (WARNING: return value semantics differ) */
+#define snprintf _snprintf
+
 #endif
