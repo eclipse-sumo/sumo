@@ -1,7 +1,7 @@
  Import done:
    221 nodes loaded.
-   189 edges loaded.
-The split of edges was performed 56 times.
+   202 edges loaded.
+The split of edges was performed 69 times.
 Removing self-loops... done.
 Removing empty nodes... done.
    0 nodes removed.
@@ -27,8 +27,8 @@ done.
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 157
-  Priority junctions          : 64
+  Unregulated junctions       : 155
+  Priority junctions          : 66
   Right-before-left junctions : 0
  Network boundaries:
   Original boundary  : -749.69,-1632.80,1187.22,701.26
