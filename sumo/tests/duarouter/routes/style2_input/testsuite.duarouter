@@ -43,5 +43,8 @@ with_persons
 # same as noid_one_time but with a stop
 with_stops
 
+# same as noid_one_time but with a bus stop
+with_busstops
+
 # Tests for false user input
 errors
