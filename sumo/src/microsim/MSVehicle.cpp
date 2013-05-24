@@ -1090,6 +1090,7 @@ MSVehicle::executeMove() {
 #endif
                     moved = true;
                     if (approachedLane->getEdge().isVaporizing()) {
+                        leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED);
                         break;
                     }
                 }
