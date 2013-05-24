@@ -39,6 +39,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/MSVehicleTransfer.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/geom/PositionVector.h>
 #include <microsim/MSNet.h>
@@ -458,6 +459,11 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
             if ((*v)->getLane() == &myLane) {
                 static_cast<const GUIVehicle* const>(*v)->drawGL(s);
             } // else: this is the shadow during a continuous lane change
+        }
+        // draw parking vehicles
+        const std::set<const MSVehicle*> parking = MSVehicleTransfer::getInstance()->getParkingVehicles(&myLane);
+        for (std::set<const MSVehicle*>::const_iterator v = parking.begin(); v != parking.end(); ++v) {
+            static_cast<const GUIVehicle* const>(*v)->drawGL(s);
         }
         // allow lane simulation
         myLane.releaseVehicles();

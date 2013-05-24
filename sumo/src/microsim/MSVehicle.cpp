@@ -489,15 +489,20 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) {
 
 // ------------ Other getter methods
 Position
-MSVehicle::getPosition() const {
+MSVehicle::getPosition(SUMOReal offset) const {
     if (myLane == 0) {
         return Position::INVALID;
     }
+    if (isParking()) {
+        PositionVector shp = myLane->getEdge().getLanes()[0]->getShape();
+        shp.move2side(SUMO_const_laneWidth);
+        return shp.positionAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane() + offset));
+    }
     Position result = myLane->getShape().positionAtOffset(
-            myLane->interpolateLanePosToGeometryPos(getPositionOnLane()));
+            myLane->interpolateLanePosToGeometryPos(getPositionOnLane() + offset));
     if (getLaneChangeModel().isChangingLanes()) {
         const Position other = getLaneChangeModel().getShadowLane()->getShape().positionAtOffset(
-                getLaneChangeModel().getShadowLane()->interpolateLanePosToGeometryPos(getPositionOnLane()));
+                getLaneChangeModel().getShadowLane()->interpolateLanePosToGeometryPos(getPositionOnLane() + offset));
         Line line = getLaneChangeModel().isLaneChangeMidpointPassed() ?  Line(other, result) : Line(result, other);
         return line.getPositionAtDistance(getLaneChangeModel().getLaneChangeCompletion() * line.length());
     } 

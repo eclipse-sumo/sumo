@@ -1029,10 +1029,8 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     }
     */
     glPopMatrix();
-    drawName(myLane->getShape().positionAtOffset(
-                 myLane->interpolateLanePosToGeometryPos(
-                     myState.pos() - MIN2(getVehicleType().getLength() / 2, SUMOReal(5)))),
-             s.scale, s.vehicleName);
+    drawName(getPosition(-MIN2(getVehicleType().getLength() / 2, SUMOReal(5))),
+            s.scale, s.vehicleName);
     glPopName();
     if (myPersonDevice != 0) {
         const std::vector<MSPerson*>& ps = myPersonDevice->getPersons();

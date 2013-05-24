@@ -50,7 +50,7 @@
 // ===========================================================================
 MSVehicleTransfer* MSVehicleTransfer::myInstance = 0;
 const SUMOReal MSVehicleTransfer::TeleportMinSpeed = 1;
-
+const std::set<const MSVehicle*> MSVehicleTransfer::myEmptyVehicleSet;
 
 // ===========================================================================
 // member method definitions
@@ -59,6 +59,7 @@ void
 MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) {
     veh->getLaneChangeModel().endLaneChangeManeuver();
     if (veh->isParking()) {
+        myParkingVehicles[veh->getLane()].insert(veh); // initialized to empty set on first use
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_PARKING);
     } else {
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
@@ -102,6 +103,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
         if (desc.myParking) {
             // handle parking vehicles
             if (l->isInsertionSuccess(desc.myVeh, 0, desc.myVeh->getPositionOnLane(), false, MSMoveReminder::NOTIFICATION_PARKING)) {
+                myParkingVehicles[desc.myVeh->getLane()].erase(desc.myVeh);
                 i = myVehicles.erase(i);
             } else {
                 i++;
@@ -158,6 +160,16 @@ MSVehicleTransfer::~MSVehicleTransfer() {
     myInstance = 0;
 }
 
+
+const std::set<const MSVehicle*>&
+MSVehicleTransfer::getParkingVehicles(const MSLane* lane) const {
+    ParkingVehicles::const_iterator it = myParkingVehicles.find(lane);
+    if (it != myParkingVehicles.end()) {
+        return it->second;
+    } else {
+        return myEmptyVehicleSet;
+    }
+}
 
 
 /****************************************************************************/

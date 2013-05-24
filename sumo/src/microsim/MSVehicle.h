@@ -311,11 +311,11 @@ public:
     /** @brief Return current position (x/y, cartesian)
      *
      * If the vehicle's myLane is 0, Position::INVALID.
-     * @todo Recheck myLane usage in this context, think about a proper "invalid" return value
+     * @param[in] offset optional offset in longitudianl direction
      * @return The current position (in cartesian coordinates)
      * @see myLane
      */
-    Position getPosition() const;
+    Position getPosition(SUMOReal offset=0) const;
 
 
     /** @brief Returns the lane the vehicle is on
