@@ -72,9 +72,12 @@ MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_te
 // ===========================================================================
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         const std::vector<MSEdge*>& edges,
-        SUMOReal prob, const std::string& file, bool off)
-    : MSTrigger(id), MSMoveReminder(), SUMOSAXHandler(file),
-      myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
+        SUMOReal prob, const std::string& file, bool off) : 
+    MSTrigger(id), 
+    MSMoveReminder(id), 
+    SUMOSAXHandler(file),
+    myProbability(prob), myUserProbability(prob), myAmInUserMode(false) 
+{
     // read in the trigger description
     if (file != "" && !XMLSubSys::runParser(*this, file)) {
         throw ProcessError();

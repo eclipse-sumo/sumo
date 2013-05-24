@@ -64,6 +64,7 @@ class MSLane;
  *
  * @see MSLane::addMoveReminder
  * @see MSLane::getMoveReminder
+ * @note: cannot inherit from Named because it would couse double inheritance
  */
 class MSMoveReminder {
 public:
@@ -72,7 +73,7 @@ public:
      * @param[in] lane Lane on which the reminder will work.
      * @param[in] doAdd whether to add the reminder to the lane
      */
-    MSMoveReminder(MSLane* const lane = 0, const bool doAdd = true);
+    MSMoveReminder(const std::string& description, MSLane* const lane = 0, const bool doAdd = true);
 
 
     /** @brief Destructor
@@ -206,18 +207,24 @@ public:
     }
 
 
-private:
-    MSMoveReminder& operator=(const MSMoveReminder&); // just to avoid a compiler warning
+    const std::string& getDescription() const {
+        return myDescription;
+    }
 
 
 protected:
     /// @brief Lane on which the reminder works
     MSLane* const myLane;
-
+    /// @brief a description of this moveReminder
+    const std::string myDescription;
 
 #ifdef HAVE_INTERNAL
     std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> > myLastVehicleUpdateValues;
 #endif
+
+
+private:
+    MSMoveReminder& operator=(const MSMoveReminder&); // just to avoid a compiler warning
 
 };
 

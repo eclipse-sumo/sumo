@@ -96,7 +96,7 @@ protected:
     class VehicleRemover : public MSMoveReminder {
     public:
         VehicleRemover(MSLane* lane, int laneIndex, MSCalibrator* parent) :
-            MSMoveReminder(lane, true), myLaneIndex(laneIndex), myParent(parent) {}
+            MSMoveReminder(parent->getID(), lane, true), myLaneIndex(laneIndex), myParent(parent) {}
 
         /// @name inherited from MSMoveReminder
         //@{

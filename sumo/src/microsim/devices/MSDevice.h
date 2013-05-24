@@ -69,8 +69,8 @@ public:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice(SUMOVehicle& holder, const std::string& id)
-        : Named(id), myHolder(holder) {
+    MSDevice(SUMOVehicle& holder, const std::string& id) : 
+        MSMoveReminder(id), Named(id), myHolder(holder) {
     }
 
 

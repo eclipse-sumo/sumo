@@ -62,7 +62,7 @@
 MSMeanData::MeanDataValues::MeanDataValues(
     MSLane* const lane, const SUMOReal length, const bool doAdd,
     const std::set<std::string>* const vTypes) :
-    MSMoveReminder(lane, doAdd),
+    MSMoveReminder("meandata_" + (lane == 0 ? "NULL" :  lane->getID()), lane, doAdd),
     myLaneLength(length),
     sampleSeconds(0),
     travelledDistance(0),
