@@ -312,7 +312,7 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 20);
+        new GUIParameterTableWindow(app, *this, 21);
     // add items
     ret->mkItem("type [NAME]", false, myType->getID());
     if (getParameter().repetitionNumber > 0) {
@@ -336,6 +336,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getSpeed));
     ret->mkItem("angle", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getAngle));
+    ret->mkItem("stop info", false, getStopInfo());
     ret->mkItem("CO2 (HBEFA) [mg/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_CO2Emissions));
     ret->mkItem("CO (HBEFA) [mg/s]", true,
@@ -1486,6 +1487,25 @@ GUIVehicle::computeSeats(const Position& front, const Position& back, int& requi
 SUMOReal 
 GUIVehicle::getLastLaneChangeOffset() const {
     return STEPS2TIME(getLaneChangeModel().getLastLaneChangeOffset());
+}
+
+
+std::string 
+GUIVehicle::getStopInfo() const {
+    std::string result = "";
+    if (isParking()) {
+        result += "parking";
+    } else if (isStopped()) {
+        result += "stopped";
+    } else {
+        return "";
+    }
+    if (myStops.front().triggered) {
+        result += ", triggered";
+    } else {
+        result += ", duration=" + time2string(myStops.front().duration);
+    }
+    return result;
 }
 
 

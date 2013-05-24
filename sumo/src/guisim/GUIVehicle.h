@@ -337,8 +337,10 @@ private:
     /// @brief add seats to mySeatPositions and update requiredSeats
     void computeSeats(const Position& front, const Position& back, int& requiredSeats) const;
 
-    static void drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate);
+    /// @brief retrieve information about the current stop state
+    std::string getStopInfo() const;
 
+    static void drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate);
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
