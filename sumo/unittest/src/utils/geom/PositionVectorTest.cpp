@@ -213,3 +213,15 @@ TEST_F(PositionVectorTest, test_method_intersectsAtLenghts2D) {
     vec2.push_back(Position(3,1,0));
 	EXPECT_DOUBLE_EQ(0, vec1.intersectsAtLengths2D(vec2)[0]);
 }
+
+
+/* Test the method 'nearest_offset_to_point2D'*/
+TEST_F(PositionVectorTest, test_method_nearest_offset_to_point2D) {	
+    PositionVector vec1;
+    vec1.push_back(Position(0,1,0));
+    vec1.push_back(Position(0,0,0));
+    vec1.push_back(Position(1,0,0));
+
+	EXPECT_DOUBLE_EQ(1, vec1.nearest_offset_to_point2D(Position(-1,-1), false));
+	EXPECT_DOUBLE_EQ(1, vec1.nearest_offset_to_point2D(Position(-1,-1), true));
+}
