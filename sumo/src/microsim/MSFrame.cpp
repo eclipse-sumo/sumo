@@ -165,6 +165,13 @@ MSFrame::fillOptions() {
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", "Save links states into FILE");
 
+#ifdef _DEBUG
+    oc.doRegister("movereminder-output", new Option_FileName());
+    oc.addDescription("movereminder-output", "Output", "Save movereminder states of selected vehicles into FILE");
+    oc.doRegister("movereminder-output.vehicles", new Option_String());
+    oc.addDescription("movereminder-output.vehicles", "Output", "List of vehicle ids which shall save their movereminder states");
+#endif
+
 #ifdef HAVE_INTERNAL
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
@@ -329,6 +336,9 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("queue-output", "queue-export");
     OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");
+#ifdef _DEBUG
+    OutputDevice::createDeviceByOption("movereminder-output", "movereminder-output");
+#endif
 
     MSDevice_Vehroutes::init();
 }
@@ -377,6 +387,12 @@ MSFrame::checkOptions() {
         WRITE_ERROR("the minimum step-length is 0.001");
         ok = false;
     }
+#ifdef _DEBUG
+    if (oc.isSet("movereminder-output.vehicles") && !oc.isSet("movereminder-output")) {
+        WRITE_ERROR("option movereminder-output.vehicles requires option movereminder-output to be set");
+        ok = false;
+    }
+#endif
     return ok;
 }
 
@@ -412,6 +428,11 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     if (oc.isSet("routeDist.maxsize")) {
         MSRoute::setMaxRouteDistSize(oc.getInt("routeDist.maxsize"));
     }
+#ifdef _DEBUG
+    if (oc.isSet("movereminder-output")) {
+        MSBaseVehicle::initMoveReminderOutput(oc);
+    }
+#endif
 }
 
 

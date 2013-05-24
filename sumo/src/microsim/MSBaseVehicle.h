@@ -33,6 +33,7 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
 #include <utils/common/SUMOVehicle.h>
 #include <utils/common/StdDefs.h>
 #include "MSRoute.h"
@@ -301,6 +302,23 @@ private:
 
     /// invalidated assignment operator
     MSBaseVehicle& operator=(const MSBaseVehicle& s);
+
+
+#ifdef _DEBUG
+public:
+    static void initMoveReminderOutput(const OptionsCont& oc);
+
+protected:
+    /// @brief optionally generate movereminder-output for this vehicle
+    void traceMoveReminder(const std::string& type, MSMoveReminder* rem, SUMOReal pos, bool keep) const;
+
+    /// @brief whether this vehicle shall trace its moveReminders
+    const bool myTraceMoveReminders;
+private:
+    /// @brief vehicles which shall trace their move reminders
+    static std::set<std::string> myShallTraceMoveReminders;
+#endif
+
 
 };
 

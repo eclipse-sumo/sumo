@@ -34,15 +34,17 @@
 #include <cassert>
 #include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
-#include "MSVehicleType.h"
-#include "MSEdge.h"
-#include "MSLane.h"
-#include "MSMoveReminder.h"
+#include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_Person.h>
 #include <microsim/devices/MSDevice_HBEFA.h>
+#include "MSVehicleType.h"
+#include "MSEdge.h"
+#include "MSLane.h"
+#include "MSMoveReminder.h"
 #include "MSBaseVehicle.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -53,6 +55,9 @@
 // static members
 // ===========================================================================
 const SUMOTime MSBaseVehicle::NOT_YET_DEPARTED = SUMOTime_MAX;
+#ifdef _DEBUG
+std::set<std::string> MSBaseVehicle::myShallTraceMoveReminders;
+#endif
 
 // ===========================================================================
 // method definitions
@@ -66,7 +71,11 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
     myMoveReminders(0),
     myDeparture(NOT_YET_DEPARTED),
     myArrivalPos(-1),
-    myNumberReroutes(0) {
+    myNumberReroutes(0)
+#ifdef _DEBUG
+    ,myTraceMoveReminders(myShallTraceMoveReminders.count(pars->id) > 0)
+#endif
+{
     // init devices
     MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices);
     MSDevice_Tripinfo::buildVehicleDevices(*this, myDevices);
@@ -224,6 +233,11 @@ MSBaseVehicle::hasValidRoute(std::string& msg) const {
 
 void
 MSBaseVehicle::addReminder(MSMoveReminder* rem) {
+#ifdef _DEBUG
+    if (myTraceMoveReminders) {
+        traceMoveReminder("add", rem, 0, true);
+    }
+#endif
     myMoveReminders.push_back(std::make_pair(rem, 0.));
 }
 
@@ -232,6 +246,11 @@ void
 MSBaseVehicle::removeReminder(MSMoveReminder* rem) {
     for (MoveReminderCont::iterator r = myMoveReminders.begin(); r != myMoveReminders.end(); ++r) {
         if (r->first == rem) {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("remove", rem, 0, false);
+            }
+#endif
             myMoveReminders.erase(r);
             return;
         }
@@ -243,8 +262,18 @@ void
 MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason) {
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
         if (rem->first->notifyEnter(*this, reason)) {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyEnter", rem->first, rem->second, true);
+            }
+#endif
             ++rem;
         } else {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyEnter", rem->first, rem->second, false);
+            }
+#endif
             rem = myMoveReminders.erase(rem);
         }
     }
@@ -274,6 +303,30 @@ MSBaseVehicle::calculateArrivalPos() {
     }
 }
 
+
+#ifdef _DEBUG
+void 
+MSBaseVehicle::initMoveReminderOutput(const OptionsCont& oc) {
+    if (oc.isSet("movereminder-output.vehicles")) {
+        const std::vector<std::string> vehicles = oc.getStringVector("movereminder-output.vehicles");
+        myShallTraceMoveReminders.insert(vehicles.begin(), vehicles.end());
+    }
+}
+
+
+void 
+MSBaseVehicle::traceMoveReminder(const std::string& type, MSMoveReminder* rem, SUMOReal pos, bool keep) const {
+    OutputDevice& od = OutputDevice::getDeviceByOption("movereminder-output");
+    od.openTag("movereminder");
+    od.writeAttr(SUMO_ATTR_TIME, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()));
+    od.writeAttr("veh", getID());
+    od.writeAttr(SUMO_ATTR_ID, rem->getDescription());
+    od.writeAttr("type", type);
+    od.writeAttr("pos", toString(pos));
+    od.writeAttr("keep", toString(keep));
+    od.closeTag();
+}
+#endif
 
 /****************************************************************************/
 

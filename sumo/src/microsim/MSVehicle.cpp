@@ -450,8 +450,18 @@ MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpe
     // See Meyers: Effective STL, Item 9
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
         if (!rem->first->notifyMove(*this, oldPos + rem->second, newPos + rem->second, newSpeed)) {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyMove", rem->first, rem->second, false);
+            }
+#endif
             rem = myMoveReminders.erase(rem);
         } else {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyMove", rem->first, rem->second, true);
+            }
+#endif
             ++rem;
         }
     }
@@ -465,6 +475,11 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) {
     const SUMOReal oldLaneLength = myLane->getLength();
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end(); ++rem) {
         rem->second += oldLaneLength;
+#ifdef _DEBUG
+        if (myTraceMoveReminders) {
+            traceMoveReminder("adaptedPos", rem->first, rem->second, true);
+        }
+#endif
     }
     for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane.getMoveReminders().begin(); rem != enteredLane.getMoveReminders().end(); ++rem) {
         addReminder(*rem);
@@ -1309,11 +1324,26 @@ void
 MSVehicle::activateReminders(const MSMoveReminder::Notification reason) {
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
         if (rem->first->getLane() != 0 && rem->first->getLane() != getLane()) {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyEnter_skipped", rem->first, rem->second, true);
+            }
+#endif
             ++rem;
         } else {
             if (rem->first->notifyEnter(*this, reason)) {
+#ifdef _DEBUG
+                if (myTraceMoveReminders) {
+                    traceMoveReminder("notifyEnter", rem->first, rem->second, true);
+                }
+#endif
                 ++rem;
             } else {
+#ifdef _DEBUG
+                if (myTraceMoveReminders) {
+                    traceMoveReminder("notifyEnter", rem->first, rem->second, false);
+                }
+#endif
                 rem = myMoveReminders.erase(rem);
             }
         }
@@ -1458,8 +1488,18 @@ void
 MSVehicle::leaveLane(const MSMoveReminder::Notification reason) {
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
         if (rem->first->notifyLeave(*this, myState.myPos + rem->second, reason)) {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyLeave", rem->first, rem->second, true);
+            }
+#endif
             ++rem;
         } else {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyLeave", rem->first, rem->second, false);
+            }
+#endif
             rem = myMoveReminders.erase(rem);
         }
     }
