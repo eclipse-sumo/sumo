@@ -782,6 +782,14 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
             nearestPos = pos + seen;
             minDist = dist;
         }
+        if (perpendicular && i != begin()) {
+            // even if perpendicular is set we still need to check the distance to the inner points
+            const SUMOReal cornerDist = p.distanceTo2D(*i);
+            if (cornerDist < minDist) {
+                nearestPos = seen;
+                minDist = cornerDist;
+            }
+        }
         seen += (*i).distanceTo2D(*(i + 1));
     }
     return nearestPos;
