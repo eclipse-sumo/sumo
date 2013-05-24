@@ -243,10 +243,11 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
 void
 SUMOVehicleParameter::writeStops(OutputDevice& dev) const {
     for (std::vector<Stop>::const_iterator stop = stops.begin(); stop != stops.end(); ++stop) {
+        dev.openTag(SUMO_TAG_STOP);
         if (stop->busstop != "") {
             dev.writeAttr(SUMO_ATTR_BUS_STOP, stop->busstop);
         } else {
-            dev.openTag(SUMO_TAG_STOP).writeAttr(SUMO_ATTR_LANE, stop->lane);
+            dev.writeAttr(SUMO_ATTR_LANE, stop->lane);
             if ((stop->setParameter & STOP_START_SET) != 0) {
                 dev.writeAttr(SUMO_ATTR_STARTPOS, stop->startPos);
             }
@@ -255,10 +256,10 @@ SUMOVehicleParameter::writeStops(OutputDevice& dev) const {
             }
         }
         if (stop->duration >= 0) {
-            dev.writeAttr(SUMO_ATTR_DURATION, stop->duration);
+            dev.writeAttr(SUMO_ATTR_DURATION, STEPS2TIME(stop->duration));
         }
         if (stop->until >= 0) {
-            dev.writeAttr(SUMO_ATTR_UNTIL, stop->until);
+            dev.writeAttr(SUMO_ATTR_UNTIL, STEPS2TIME(stop->until));
         }
         if ((stop->setParameter & STOP_TRIGGER_SET) != 0) {
             dev.writeAttr(SUMO_ATTR_TRIGGERED, stop->triggered);
