@@ -67,7 +67,7 @@ Summary:
   Priority junctions          : 49
   Right-before-left junctions : 0
  Network boundaries:
-  Original boundary  : 4436760.00,5472772.00,4441717.00,5475996.00
+  Original boundary  : 4436760.00,5472772.00,4440780.00,5475980.00
   Applied offset     : -4436760.00,-5472772.00
   Converted boundary : 0.00,0.00,4020.00,3208.00
 -----------------------------------------------------

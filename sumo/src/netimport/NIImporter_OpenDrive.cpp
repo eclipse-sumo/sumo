@@ -741,7 +741,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true);
         }
         for (unsigned int j = 0; j < e.geom.size(); ++j) {
-            if (!NILoader::transformCoordinates(e.geom[j])) {
+            if (!GeoConvHelper::transformCoordinates(e.geom[j])) {
                 WRITE_ERROR("Unable to project coordinates for.");
             }
         }

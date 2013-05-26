@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-rUNKNOWN
+SUMO netconvert Version dev-SVN-r14017
  Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -115,6 +115,11 @@ Edge Removal Options:
                                         CARTESIAN corner coordinates
                                         <xmin,ymin,xmax,ymax> or as polygon
                                         <x0,y0,x1,y1,...>)
+  --keep-edges.in-geo-boundary STR    Only keep edges which are located within
+                                        the given boundary (given either as
+                                        GEODETIC corner coordinates
+                                        <lon-min,lat-min,lon-max,lat-max> or as
+                                        polygon <lon0,lat0,lon1,lat1,...>)
   --keep-edges.by-vclass STR          Only keep edges which allow one of the
                                         vclasss in STR
   --remove-edges.by-vclass STR        Remove edges which allow only vclasses

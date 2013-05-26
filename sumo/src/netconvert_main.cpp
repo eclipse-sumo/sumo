@@ -120,6 +120,10 @@ main(int argc, char** argv) {
             throw ProcessError();
         }
         RandHelper::initRandGlobal();
+        // build the projection
+        if (!GeoConvHelper::init(oc)) {
+            throw ProcessError("Could not build projection!");
+        }
         NBNetBuilder nb;
         nb.applyOptions(oc);
         // load data

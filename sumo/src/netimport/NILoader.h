@@ -45,7 +45,6 @@ class SUMOSAXHandler;
 class NBNetBuilder;
 class Position;
 class PositionVector;
-class GeoConvHelper;
 
 
 // ===========================================================================
@@ -71,16 +70,6 @@ public:
 
     /** loads data from the files specified in the given option container */
     void load(OptionsCont& oc);
-
-    /**
-     * @brief transforms loaded coordinates
-     * handles projections, offsets (using GeoConvHelper) and import of height data (using Heightmapper if available)
-     * @param[in,out] from The coordinate to be transformed
-     * @param[in] includeInBoundary Whether to patch the convex boundary of the GeoConvHelper default instance
-     * @param[in] from_srs The spatial reference system of the input coordinate
-     */
-    static bool transformCoordinates(Position& from, bool includeInBoundary = true, GeoConvHelper* from_srs = 0);
-    static bool transformCoordinates(PositionVector& from, bool includeInBoundary = true, GeoConvHelper* from_srs = 0);
 
 private:
     /** loads data from sumo-files */

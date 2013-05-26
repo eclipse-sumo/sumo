@@ -404,7 +404,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
         return PositionVector();
     }
     PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, 0, ok, PositionVector());
-    if (!NILoader::transformCoordinates(shape)) {
+    if (!GeoConvHelper::transformCoordinates(shape)) {
         WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
     }
     myReinitKeepEdgeShape = myKeepEdgeShape;

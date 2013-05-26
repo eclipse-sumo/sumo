@@ -40,6 +40,7 @@
 #include <iomanip>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
@@ -113,8 +114,9 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
         myTypes2Remove.insert(types.begin(), types.end());
     }
 
-    if (oc.isSet("keep-edges.in-boundary")) {
-        std::vector<std::string> polyS = oc.getStringVector("keep-edges.in-boundary");
+    if (oc.isSet("keep-edges.in-boundary") || oc.isSet("keep-edges.in-geo-boundary")) {
+        std::vector<std::string> polyS = oc.getStringVector(oc.isSet("keep-edges.in-boundary") ?
+                "keep-edges.in-boundary" : "keep-edges.in-geo-boundary");
         // !!! throw something if length<4 || length%2!=0?
         std::vector<SUMOReal> poly;
         for (std::vector<std::string>::iterator i = polyS.begin(); i != polyS.end(); ++i) {
@@ -136,6 +138,9 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
                 SUMOReal y = *j++;
                 myPrunningBoundary.push_back(Position(x, y));
             }
+        }
+        if (oc.isSet("keep-edges.in-geo-boundary")) {
+            GeoConvHelper::transformCoordinates(myPrunningBoundary, false);
         }
     }
 }

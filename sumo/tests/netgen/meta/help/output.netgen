@@ -1,4 +1,4 @@
-SUMO netgenerate Version 0.17.0
+SUMO netgenerate Version dev-SVN-r14017
  Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -109,6 +109,11 @@ Edge Removal Options:
                                         CARTESIAN corner coordinates
                                         <xmin,ymin,xmax,ymax> or as polygon
                                         <x0,y0,x1,y1,...>)
+  --keep-edges.in-geo-boundary STR    Only keep edges which are located within
+                                        the given boundary (given either as
+                                        GEODETIC corner coordinates
+                                        <lon-min,lat-min,lon-max,lat-max> or as
+                                        polygon <lon0,lat0,lon1,lat1,...>)
 
 Unregulated Nodes Options:
   --keep-nodes-unregulated            All nodes will be unregulated

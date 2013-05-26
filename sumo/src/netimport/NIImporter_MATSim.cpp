@@ -157,7 +157,7 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
         return;
     }
     Position pos(x, y);
-    if (!NILoader::transformCoordinates(pos)) {
+    if (!GeoConvHelper::transformCoordinates(pos)) {
         WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
     }
     NBNode* node = new NBNode(id, pos);

@@ -133,7 +133,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         myPosition.set(myPosition.x(), myPosition.y(), attrs.get<SUMOReal>(SUMO_ATTR_Z, myID.c_str(), ok));
     }
     if (xOk && yOk) {
-        if (needConversion && !NILoader::transformCoordinates(myPosition, true, myLocation)) {
+        if (needConversion && !GeoConvHelper::transformCoordinates(myPosition, true, myLocation)) {
             WRITE_ERROR("Unable to project coordinates for node '" + myID + "'.");
         }
     } else {
