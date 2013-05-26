@@ -40,6 +40,10 @@
 #include <utils/options/OptionsCont.h>
 #include "GeoConvHelper.h"
 
+#ifdef HAVE_INTERNAL
+#include <internal/HeightMapper.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
