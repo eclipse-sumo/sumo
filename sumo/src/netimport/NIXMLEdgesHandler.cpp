@@ -43,6 +43,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
+#include <netbuild/NBNetBuilder.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
@@ -51,7 +52,6 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
-#include "NILoader.h"
 #include "NIXMLEdgesHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -404,7 +404,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
         return PositionVector();
     }
     PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, 0, ok, PositionVector());
-    if (!GeoConvHelper::transformCoordinates(shape)) {
+    if (!NBNetBuilder::transformCoordinates(shape)) {
         WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
     }
     myReinitKeepEdgeShape = myKeepEdgeShape;

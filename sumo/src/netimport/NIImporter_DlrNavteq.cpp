@@ -180,7 +180,7 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) {
             throw ProcessError("Non-numerical value for y-position in node " + id + ".");
         }
         Position pos(x, y);
-        if (!GeoConvHelper::transformCoordinates(pos, true)) {
+        if (!NBNetBuilder::transformCoordinates(pos, true)) {
             throw ProcessError("Unable to project coordinates for node " + id + ".");
         }
         geoms.push_back(pos);

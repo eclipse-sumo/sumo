@@ -238,7 +238,7 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                 SUMOReal x = TplConvert::_2SUMOReal(myParameter["x"].c_str());
                 SUMOReal y = TplConvert::_2SUMOReal(myParameter["y"].c_str());
                 Position pos(x, y);
-                if (!GeoConvHelper::transformCoordinates(pos)) {
+                if (!NBNetBuilder::transformCoordinates(pos)) {
                     WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
                 }
                 NBNode* node = new NBNode(id, pos);

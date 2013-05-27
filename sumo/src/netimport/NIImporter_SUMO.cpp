@@ -344,7 +344,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1);
     myCurrentEdge->type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     myCurrentEdge->shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok, PositionVector());
-    GeoConvHelper::transformCoordinates(myCurrentEdge->shape, true, myLocation);
+    NBNetBuilder::transformCoordinates(myCurrentEdge->shape, true, myLocation);
     myCurrentEdge->length = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
@@ -392,7 +392,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentLane->offset = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
     myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     // lane coordinates are derived (via lane spread) do not include them in convex boundary
-    GeoConvHelper::transformCoordinates(myCurrentLane->shape, false, myLocation);
+    NBNetBuilder::transformCoordinates(myCurrentLane->shape, false, myLocation);
 }
 
 
@@ -416,7 +416,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
         WRITE_WARNING("Unknown node type for junction '" + id + "'.");
     }
     Position pos = readPosition(attrs, id, ok);
-    GeoConvHelper::transformCoordinates(pos, true, myLocation);
+    NBNetBuilder::transformCoordinates(pos, true, myLocation);
     // the network may have non-default edge geometry.
     // accurate reconstruction of legacy networks is not possible. We ought to warn about this
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {

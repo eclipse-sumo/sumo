@@ -9,6 +9,9 @@ log:log.txt
 
 [run_dependent_text]
 net:<!--{[->]}-->
+errors:Leaked object at 
+errors:*** 9 leaks found
+errors:delete: freed
 
 [floating_point_tolerance]
 net:0.0101

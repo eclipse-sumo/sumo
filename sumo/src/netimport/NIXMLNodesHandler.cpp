@@ -48,7 +48,7 @@
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBOwnTLDef.h>
-#include "NILoader.h"
+#include <netbuild/NBNetBuilder.h>
 #include "NIXMLNodesHandler.h"
 #include "NIImporter_SUMO.h"
 
@@ -133,7 +133,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         myPosition.set(myPosition.x(), myPosition.y(), attrs.get<SUMOReal>(SUMO_ATTR_Z, myID.c_str(), ok));
     }
     if (xOk && yOk) {
-        if (needConversion && !GeoConvHelper::transformCoordinates(myPosition, true, myLocation)) {
+        if (needConversion && !NBNetBuilder::transformCoordinates(myPosition, true, myLocation)) {
             WRITE_ERROR("Unable to project coordinates for node '" + myID + "'.");
         }
     } else {

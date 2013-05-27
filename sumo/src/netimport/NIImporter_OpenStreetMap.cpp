@@ -300,7 +300,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(SUMOLong id, NBNodeCont& nc, NBTraf
     if (node == 0) {
         NIOSMNode* n = myOSMNodes.find(id)->second;
         Position pos(n->lon, n->lat);
-        if (!GeoConvHelper::transformCoordinates(pos, true)) {
+        if (!NBNetBuilder::transformCoordinates(pos, true)) {
             WRITE_ERROR("Unable to project coordinates for node " + toString(id) + ".");
             return 0;
         }
@@ -363,7 +363,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     for (std::vector<SUMOLong>::const_iterator i = passed.begin(); i != passed.end(); ++i) {
         NIOSMNode* n = myOSMNodes.find(*i)->second;
         Position pos(n->lon, n->lat);
-        if (!GeoConvHelper::transformCoordinates(pos, true)) {
+        if (!NBNetBuilder::transformCoordinates(pos, true)) {
             WRITE_ERROR("Unable to project coordinates for edge " + id + ".");
         }
         shape.push_back_noDoublePos(pos);

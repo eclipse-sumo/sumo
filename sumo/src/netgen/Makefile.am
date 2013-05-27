@@ -2,8 +2,16 @@ if WITH_PROJ
 PROJ_LIBS = -l$(LIB_PROJ)
 endif
 
+if WITH_GDAL
+GDAL_LIBS = -l$(LIB_GDAL)
+endif
+
 if CHECK_MEMORY_LEAKS
 MEM_LIBS  = ../foreign/nvwa/libnvwa.a
+endif
+
+if INTERNAL
+INTERNAL_LIBS = ../internal/libinternal.a $(GDAL_LIBS) 
 endif
 
 bin_PROGRAMS = netgenerate
@@ -25,4 +33,5 @@ netgenerate_LDADD   = ../netbuild/libnetbuild.a \
 ../foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) \
+$(INTERNAL_LIBS) \
 $(PROJ_LIBS)

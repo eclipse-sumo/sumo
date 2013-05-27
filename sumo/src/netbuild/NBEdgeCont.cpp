@@ -140,7 +140,7 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
             }
         }
         if (oc.isSet("keep-edges.in-geo-boundary")) {
-            GeoConvHelper::transformCoordinates(myPrunningBoundary, false);
+            NBNetBuilder::transformCoordinates(myPrunningBoundary, false);
         }
     }
 }
