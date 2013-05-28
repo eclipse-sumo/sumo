@@ -12,14 +12,14 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg2315"
    sodipodi:version="0.32"
-   inkscape:version="0.48.0 r9654"
+   inkscape:version="0.48.4 r9939"
    width="256"
    height="256"
    version="1.0"
    sodipodi:docname="vector_v1.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <sodipodi:namedview
-     inkscape:window-height="1128"
+     inkscape:window-height="1148"
      inkscape:window-width="1600"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -32,11 +32,11 @@
      id="base"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:zoom="8.3306016"
-     inkscape:cx="74.964754"
-     inkscape:cy="171.56698"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4"
+     inkscape:zoom="4.1653008"
+     inkscape:cx="37.512477"
+     inkscape:cy="152.36068"
+     inkscape:window-x="1358"
+     inkscape:window-y="-8"
      inkscape:current-layer="svg2315"
      showgrid="false"
      inkscape:window-maximized="1">
@@ -113,11 +113,11 @@
       <stop
          id="stop13740"
          offset="0"
-         style="stop-color:#e5c254;stop-opacity:1;" />
+         style="stop-color:#fcf82f;stop-opacity:1;" />
       <stop
          id="stop13742"
          offset="1"
-         style="stop-color:#bc7500;stop-opacity:1;" />
+         style="stop-color:#ef9500;stop-opacity:1;" />
     </linearGradient>
     <linearGradient
        id="linearGradient11356">
@@ -148,11 +148,11 @@
     <linearGradient
        id="linearGradient4360">
       <stop
-         style="stop-color:#db8a45;stop-opacity:1;"
+         style="stop-color:#fb9983;stop-opacity:1;"
          offset="0"
          id="stop4362" />
       <stop
-         style="stop-color:#d80e00;stop-opacity:1;"
+         style="stop-color:#f50000;stop-opacity:1;"
          offset="1"
          id="stop4364" />
     </linearGradient>
