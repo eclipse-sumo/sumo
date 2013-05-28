@@ -108,9 +108,10 @@ $(OSG_LIBS) \
 endif
 
 
-SUBDIRS = foreign utils microsim netbuild netwrite netgen netimport netload \
-od2trips polyconvert router dfrouter duarouter jtrrouter activitygen \
-$(INTERNAL_DIRS) $(TRACI_DIRS) $(GUI_DIRS)
+SUBDIRS = foreign utils microsim router od2trips $(INTERNAL_DIRS) \
+netbuild netwrite netgen netimport netload \
+polyconvert dfrouter duarouter jtrrouter activitygen \
+$(TRACI_DIRS) $(GUI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
 guisim.rc \
