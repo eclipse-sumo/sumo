@@ -31,9 +31,9 @@ def _readLinks(result):
         result.read("!B")                           # Type Byte
         hasFoe = bool(result.read("!B"))
         result.read("!B")                           # Type String
-        state = result.readString() #not implemented
+        state = result.readString() 
         result.read("!B")                           # Type String
-        direction = result.readString() #not implemented
+        direction = result.readString() 
         result.read("!B")                           # Type Float
         length = result.readDouble()
         links.append((approachedLane, hasPrio, isOpen, hasFoe))
