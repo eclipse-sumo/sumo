@@ -235,7 +235,6 @@ public class SumoCommand {
 	
 	private void add_type(Object input){
 		
-		//Fallunterscheidung
 		if(input.getClass().equals(Integer.class)){
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
 		}else if(input.getClass().equals(String.class)){
@@ -256,7 +255,6 @@ public class SumoCommand {
 
 	private void add_variable(Object input){
 		
-		//Fallunterscheidung
 		if(input.getClass().equals(Integer.class)){
 			this.cmd.content().writeInt((Integer) input);
 		}else if(input.getClass().equals(String.class)){
@@ -280,7 +278,7 @@ public class SumoCommand {
 		}else if(input.getClass().equals(SumoGeometry.class)){
 			
 			SumoGeometry sg = (SumoGeometry) input;
-			cmd.content().writeUnsignedByte(5);
+			cmd.content().writeUnsignedByte(sg.coords.size());
 			
 			for(SumoPosition2D pos : sg.coords){		
 				cmd.content().writeDouble(pos.x);
