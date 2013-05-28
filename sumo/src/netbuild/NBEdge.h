@@ -138,8 +138,7 @@ public:
         SUMOReal width;
         /// @brief An original ID, if given (@todo: is only seldom used, should be stored somewhere else, probably)
         std::string origID;
-        /// @brief The lateral offset; computed
-        SUMOReal _latOffset;
+
     };
 
 
