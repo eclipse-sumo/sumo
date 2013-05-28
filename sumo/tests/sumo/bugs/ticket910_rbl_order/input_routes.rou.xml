@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vType id="g" sigma="0" /> 
+    <route id="right" edges="3i 4o"/>
+    <vehicle id="r" type="g" route="right" depart="0" departPos="400"/>
+    <route id="left" edges="4i 3o"/>
+    <vehicle id="l" type="g" route="left" depart="0" departPos="400"/>
+    <route id="down" edges="2i 1o"/>
+    <vehicle id="d" type="g" route="down" depart="0" departPos="400"/>
+</routes>
