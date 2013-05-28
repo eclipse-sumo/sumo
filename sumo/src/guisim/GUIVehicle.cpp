@@ -1088,11 +1088,7 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
                 // the time slot that ego vehicle uses when checking opened may
                 // differ from the one it requests in setApproaching
                 MSLink::ApproachingVehicleInformation avi = (*i).myLink->getApproaching(this);
-                if (avi.arrivalTime != (*i).myArrivalTime || avi.leavingTime != leaveTime) {
-                    assert(false);
-                    glColor3d(1, 0.65, 0);
-                    drawLinkItem(p + Position(0, -1), avi.arrivalTime, avi.leavingTime, s.addExaggeration * 0.7);
-                }
+                assert(avi.arrivalTime == (*i).myArrivalTime && avi.leavingTime == leaveTime);
             }
         }
     }
