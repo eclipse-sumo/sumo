@@ -174,6 +174,9 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::YELLOW, (SUMOReal)1.);
     scheme.addColor(RGBColor::WHITE, (SUMOReal)10.);
     vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    vehicleColorer.addScheme(scheme);
 
 #ifdef HAVE_INTERNAL
     /// add edge coloring schemes

@@ -186,6 +186,58 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrival
 }
 
 
+std::vector<const SUMOVehicle*> 
+MSLink::getBlockingFoes(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const {
+    std::vector<const SUMOVehicle*> result;
+    if (myState == LINKSTATE_TL_RED) {
+        return result;
+    }
+    if (myAmCont && MSGlobals::gUsingInternalLanes) {
+        return result;
+    }
+    const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, vehicleLength);
+    for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
+#ifdef HAVE_INTERNAL
+        if (MSGlobals::gUseMesoSim) {
+            if ((*i)->getState() == LINKSTATE_TL_RED) {
+                continue;
+            }
+        }
+#endif
+        std::vector<const SUMOVehicle*> foes = (*i)->blockedAtTimeFoes(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane());
+        result.insert(result.end(), foes.begin(), foes.end());
+    }
+    return result;
+}
+
+
+std::vector<const SUMOVehicle*>
+MSLink::blockedAtTimeFoes(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
+                      bool sameTargetLane) const {
+    std::vector<const SUMOVehicle*> result;
+    for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
+        if (!i->second.willPass) {
+            continue;
+        }
+        if (i->second.leavingTime < arrivalTime) {
+            // ego wants to be follower
+            if (sameTargetLane && unsafeHeadwayTime(arrivalTime - i->second.leavingTime, i->second.leaveSpeed, arrivalSpeed)) {
+                result.push_back(i->first);
+            }
+        } else if (i->second.arrivalTime > leaveTime) {
+            // ego wants to be leader
+            if (sameTargetLane && unsafeHeadwayTime(i->second.arrivalTime - leaveTime, leaveSpeed, i->second.arrivalSpeed)) {
+                result.push_back(i->first);
+            }
+        } else {
+            // even without considering safeHeadwayTime there is already a conflict
+            result.push_back(i->first);
+        }
+    }
+    return result;
+}
+
+
 SUMOTime
 MSLink::unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed) {
     if (headwayTime < myLookaheadTime) {

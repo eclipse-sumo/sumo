@@ -48,6 +48,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/logging/CastingFunctionBinding.h>
@@ -83,6 +84,7 @@ FXDEFMAP(GUIVehicle::GUIVehiclePopupMenu) GUIVehiclePopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK, GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack),
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_LFLINKITEMS, GUIVehicle::GUIVehiclePopupMenu::onCmdShowLFLinkItems),
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_LFLINKITEMS, GUIVehicle::GUIVehiclePopupMenu::onCmdHideLFLinkItems),
+    FXMAPFUNC(SEL_COMMAND, MID_SHOW_FOES, GUIVehicle::GUIVehiclePopupMenu::onCmdShowFoes),
 };
 
 // Object implementation
@@ -232,6 +234,14 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdHideLFLinkItems(FXObject*, FXSelector, voi
     return 1;
 }
 
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdShowFoes(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_VEHICLE);
+    static_cast<GUIVehicle*>(myObject)->selectBlockingFoes();
+    GUIVehicle* veh = dynamic_cast<GUIVehicle*>(myObject);
+    return 1;
+}
+
 
 /* -------------------------------------------------------------------------
  * GUIVehicle - methods
@@ -300,6 +310,8 @@ GUIVehicle::getPopUpMenu(GUIMainWindow& app,
     } else {
         new FXMenuCommand(ret, "Stop Tracking", 0, ret, MID_STOP_TRACK);
     }
+    new FXMenuCommand(ret, "Select Foes", 0, ret, MID_SHOW_FOES);
+
     new FXMenuSeparator(ret);
     //
     buildShowParamsPopupEntry(ret);
@@ -1227,6 +1239,8 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
                 return -1;
             }
             return getNumberReroutes();
+        case 20:
+            return gSelected.isSelected(GLO_VEHICLE, getGlID());
     }
     return 0;
 }
@@ -1502,6 +1516,23 @@ GUIVehicle::getStopInfo() const {
         result += ", duration=" + time2string(myStops.front().duration);
     }
     return result;
+}
+
+
+void 
+GUIVehicle::selectBlockingFoes() const {
+    if (myLFLinkLanes.size() == 0) {
+        return;
+    }
+    const DriveProcessItem& dpi = myLFLinkLanes[0];
+    if (dpi.myLink == 0) {
+        return;
+    }
+    std::vector<const SUMOVehicle*> blockingFoes = dpi.myLink->getBlockingFoes(
+            dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLengthWithGap());
+    for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
+        gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
+    }
 }
 
 

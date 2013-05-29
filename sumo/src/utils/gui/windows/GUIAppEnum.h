@@ -247,6 +247,8 @@ enum {
     MID_START_TRACK,
     /// Stop to track a vehicle
     MID_STOP_TRACK,
+    /// select foes of a vehicle
+    MID_SHOW_FOES,
     MID_SHOW_LFLINKITEMS,
     MID_HIDE_LFLINKITEMS,
     //@}
