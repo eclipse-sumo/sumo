@@ -50,15 +50,8 @@ import de.tudresden.sumo.util.SumoCommand;
  * the subprocess. From there, you can use all the other methods to interact
  * with the simulator.
  * <p>
- * The method {@link #nextSimStep()} will advance SUMO by a time step (one
- * second). The methods
- * {@link #addVehicleLifecycleObserver(VehicleLifecycleObserver)} and
- * {@link #removeVehicleLifecycleObserver(VehicleLifecycleObserver)} allow you
- * to register and unregister objects that will be notified whenever a vehicle
- * enters or exits the simulation.
- * <p>
- * The executable path must be specified via the system property specified in
- * {@link #SUMO_EXE_PROPERTY}.
+ * 
+ * The executable path must be specified via the system property specified
  * <p>
  * At simulation end, one should call {@link #close()} to gracefully close the
  * simulator and free any resources.
@@ -125,22 +118,6 @@ public class SumoTraciConnection {
 	private List<String> args = new ArrayList<String>();
 	
 	private boolean remote = false;
-	
-	/**
-	 * Constructor for the object.
-	 * 
-	 * @param configFile
-	 *            the file name of the SUMO XML configuration file
-	 * @param randomSeed
-	 *            the random seed for SUMO (passed with the --srand option); if
-	 *            different to -1, it overrides the value specified in the
-	 *            config file or, if absent, the system time
-	 * @param useGeoOffset
-	 *            if true, scans the network description file specified in the
-	 *            config file to search the latitude/longitude of a
-	 *            georeferenced map
-	 */
-	
 	
 	public SumoTraciConnection(String sumo_bin, String net_file, String route_file) {
 		this.sumoEXE=sumo_bin;
@@ -326,8 +303,7 @@ public class SumoTraciConnection {
 	}
 
 	/**
-	 * Closes the connection, quits the simulator, frees any stale
-	 * resource and makes all {@link Vehicle} instances inactive.
+	 * Closes the connection, quits the simulator
 	 * 
 	 * @throws InterruptedException
 	 *             if the current thread was interrupted while waiting for SUMO

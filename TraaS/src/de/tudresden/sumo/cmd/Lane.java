@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Evamarie Wieﬂner, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Evamarie Wie√üner, Dresden University of Technology
 
     This file is part of TraaS.
 
