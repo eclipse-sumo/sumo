@@ -30,7 +30,6 @@
 
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
-#include "GUILaneWrapper.h"
 #include "GUIInstantInductLoop.h"
 #include <utils/gui/div/GLHelper.h>
 #include <utils/geom/Line.h>
@@ -63,18 +62,17 @@ GUIInstantInductLoop::~GUIInstantInductLoop() {}
 
 GUIDetectorWrapper*
 GUIInstantInductLoop::buildDetectorGUIRepresentation() {
-    return new MyWrapper(*this, static_cast<GUIEdge&>(getLane()->getEdge()).getLaneGeometry(getLane()), myPosition);
+    return new MyWrapper(*this, myPosition);
 }
 
 
 /* -------------------------------------------------------------------------
  * GUIInstantInductLoop::MyWrapper-methods
  * ----------------------------------------------------------------------- */
-GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector,
-        GUILaneWrapper& wrapper, SUMOReal pos)
+GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, SUMOReal pos)
     : GUIDetectorWrapper("instant induct loop", detector.getID()),
       myDetector(detector), myPosition(pos) {
-    const PositionVector& v = wrapper.getShape();
+    const PositionVector& v = detector.getLane()->getShape();
     myFGPosition = v.positionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (SUMOReal) 5.5, myFGPosition.y() + (SUMOReal) 5.5);
     myBoundary.add(myFGPosition.x() - (SUMOReal) 5.5, myFGPosition.y() - (SUMOReal) 5.5);

@@ -50,7 +50,6 @@
 // ===========================================================================
 class GUISUMOAbstractView;
 class GUIGLObjectPopupMenu;
-class GUILaneWrapper;
 class MSDevice_Vehroutes;
 #ifdef HAVE_OSG
 class GUIOSGView;
@@ -303,9 +302,6 @@ private:
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(size_t activeScheme) const;
-
-    /// @brief retrieves the laneWrapper for this vehicles lane
-    GUILaneWrapper& getLaneWrapper() const;
 
     /// @name drawing helper methods
     /// @{

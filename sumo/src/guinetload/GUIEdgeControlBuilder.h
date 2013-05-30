@@ -86,7 +86,6 @@ public:
                             SVCPermissions permissions);
 
 
-    MSEdge* closeEdge();
 
 
     /** @brief Builds an edge instance (GUIEdge in this case)

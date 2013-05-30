@@ -51,6 +51,7 @@
 #include <utils/gui/windows/GUIDialog_GLObjChooser.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
+#include <guisim/GUILane.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicleControl.h>
 #include <microsim/MSJunction.h>
@@ -239,10 +240,10 @@ GUISUMOViewParent::isSelected(GUIGlObject* o) const {
             // hmph, just some security stuff
             return false;
         }
-        size_t noLanes = edge->getLanes().size();
-        for (size_t j = 0; j < noLanes; ++j) {
-            const GUILaneWrapper& l = edge->getLaneGeometry(j);
-            if (gSelected.isSelected(GLO_LANE, l.getGlID())) {
+        const std::vector<MSLane*> &lanes = edge->getLanes();
+        for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
+            GUILane *l = dynamic_cast<GUILane*>(*j);
+            if(l!=0 && gSelected.isSelected(GLO_LANE, l->getGlID())) {
                 return true;
             }
         }

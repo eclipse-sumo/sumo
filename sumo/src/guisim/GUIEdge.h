@@ -38,7 +38,7 @@
 #include <microsim/MSEdge.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/foxtools/MFXMutex.h>
-#include "GUILaneWrapper.h"
+
 
 // ===========================================================================
 // class declarations
@@ -47,6 +47,7 @@
 class MESegment;
 #endif
 class MSBaseVehicle;
+
 
 // ===========================================================================
 // class definitions
@@ -72,11 +73,6 @@ public:
     ~GUIEdge();
 
 
-    /** @brief Builds lane wrappers for this edge's lanes
-     */
-    void initGeometry();
-
-
     /* @brief Returns the gl-ids of all known edges
      * @param[in] includeInternal Whether to include ids of internal edges
      */
@@ -89,11 +85,6 @@ public:
     MSLane& getLane(size_t laneNo);
 
 
-
-    /// returns the enumerated lane's geometry (!!! why not private with a friend?)
-    GUILaneWrapper& getLaneGeometry(size_t laneNo) const;
-
-    GUILaneWrapper& getLaneGeometry(const MSLane* lane) const;
 
     /** returns the position on the line given by the coordinates where "prev"
         is the length of the line and "wanted" the distance from the begin
@@ -182,34 +173,6 @@ public:
 
 #endif
 
-private:
-    /// Definition of the lane's positions vector
-    typedef std::vector<GUILaneWrapper*> LaneWrapperVector;
-
-    /// List of the edge's lanes geometrical information
-    LaneWrapperVector myLaneGeoms;
-
-    /**
-     * @class lane_wrapper_finder
-     * @brief A class to find the matching lane wrapper
-     */
-    class lane_wrapper_finder {
-    public:
-        /** @brief constructor */
-        explicit lane_wrapper_finder(const MSLane& lane) : myLane(lane) { }
-
-        /** @brief the comparing function */
-        bool operator()(const GUILaneWrapper* const wrapper) {
-            return wrapper->forLane(myLane);
-        }
-
-    private:
-        lane_wrapper_finder& operator=(const lane_wrapper_finder&); // just to avoid a compiler warning
-    private:
-        /// @brief The lane to search for
-        const MSLane& myLane;
-
-    };
 
 private:
     /// @brief invalidated copy constructor
@@ -217,6 +180,7 @@ private:
 
     /// @brief invalidated assignment operator
     GUIEdge& operator=(const GUIEdge& s);
+
 
 private:
     /// The mutex used to avoid concurrent updates of myPersons

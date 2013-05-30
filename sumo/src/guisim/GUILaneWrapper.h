@@ -130,98 +130,10 @@ public:
     }
 
 
-    const PositionVector& getShape() const;
-    const std::vector<SUMOReal>& getShapeRotations() const;
-    const std::vector<SUMOReal>& getShapeLengths() const;
-
-    SUMOReal firstWaitingTime() const;
-
-
     /// Returns true if the given lane id the lane this wrapper wraps the geometry of
     bool forLane(const MSLane& lane) const;
 
 
-    /// @brief draw lane borders and white markings
-    void drawMarkings(const GUIVisualizationSettings& s) const;
-
-    /// @brief draw crossties for railroads
-    void drawCrossties(const GUIVisualizationSettings& s) const;
-
-    /// Returns the number of links
-    unsigned int getLinkNumber() const;
-
-    SUMOReal getHalfWidth() const {
-        return myHalfLaneWidth;
-    }
-
-
-    /// @name Current state retrieval
-    //@{
-
-    /** @brief Returns the sum of last step CO2 emissions normed by the lane's length
-     * @return CO2 emissions of vehicles on this lane during the last step, normed by the lane length
-     */
-    SUMOReal getNormedHBEFA_CO2Emissions() const;
-
-
-    /** @brief Returns the sum of last step CO emissions normed by the lane's length
-     * @return CO emissions of vehicles on this lane during the last step, normed by the lane length
-     */
-    SUMOReal getNormedHBEFA_COEmissions() const;
-
-
-    /** @brief Returns the sum of last step PMx emissions normed by the lane's length
-     * @return PMx emissions of vehicles on this lane during the last step, normed by the lane length
-     */
-    SUMOReal getNormedHBEFA_PMxEmissions() const;
-
-
-    /** @brief Returns the sum of last step NOx emissions normed by the lane's length
-     * @return NOx emissions of vehicles on this lane during the last step, normed by the lane length
-     */
-    SUMOReal getNormedHBEFA_NOxEmissions() const;
-
-
-    /** @brief Returns the sum of last step HC emissions normed by the lane's length
-     * @return HC emissions of vehicles on this lane during the last step, normed by the lane length
-     */
-    SUMOReal getNormedHBEFA_HCEmissions() const;
-
-
-    /** @brief Returns the sum of last step fuel comsumption normed by the lane's length
-     * @return Fuel comsumption of vehicles on this lane during the last step, normed by the lane length
-     */
-    SUMOReal getNormedHBEFA_FuelConsumption() const;
-    /// @}
-
-
-    SUMOReal getEdgeLaneNumber() const;
-
-    /** @brief Returns the stored traveltime for the edge of this lane
-     */
-    SUMOReal getStoredEdgeTravelTime() const;
-
-#ifdef HAVE_OSG
-    void setGeometry(osg::Geometry* geom) {
-        myGeom = geom;
-    }
-
-    void updateColor(const GUIVisualizationSettings& s);
-#endif
-
-private:
-    /// @brief helper methods
-    void drawLinkNo() const;
-    void drawTLSLinkNo(const GUINet& net) const;
-    void drawLinkRules(const GUINet& net) const;
-    void drawArrows() const;
-    void drawLane2LaneConnections() const;
-
-    /// @brief gets the color value according to the current scheme index
-    SUMOReal getColorValue(size_t activeScheme) const;
-
-    /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
 
 private:
     /// The assigned lane
@@ -229,25 +141,6 @@ private:
 
     /// The shape of the lane
     const PositionVector& myShape;
-
-    /// The rotations of the shape parts
-    std::vector<SUMOReal> myShapeRotations;
-
-    /// The lengths of the shape parts
-    std::vector<SUMOReal> myShapeLengths;
-
-    /// @brief Half of lane width, for speed-up
-    SUMOReal myHalfLaneWidth;
-
-    /// @brief Quarter of lane width, for speed-up
-    SUMOReal myQuarterLaneWidth;
-
-    /// The lane index
-    unsigned int myIndex;
-
-#ifdef HAVE_OSG
-    osg::Geometry* myGeom;
-#endif
 
 private:
     /// @brief Invalidated copy constructor.

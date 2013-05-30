@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -273,7 +273,6 @@
     <ClCompile Include="..\..\..\src\guisim\GUIJunctionWrapper.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUILane.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUILaneSpeedTrigger.cpp" />
-    <ClCompile Include="..\..\..\src\guisim\GUILaneWrapper.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUINet.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIShapeContainer.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUITrafficLightLogicWrapper.cpp" />
@@ -296,7 +295,6 @@
     <ClInclude Include="..\..\..\src\guisim\GUIJunctionWrapper.h" />
     <ClInclude Include="..\..\..\src\guisim\GUILane.h" />
     <ClInclude Include="..\..\..\src\guisim\GUILaneSpeedTrigger.h" />
-    <ClInclude Include="..\..\..\src\guisim\GUILaneWrapper.h" />
     <ClInclude Include="..\..\..\src\guisim\GUINet.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIShapeContainer.h" />
     <ClInclude Include="..\..\..\src\guisim\GUITrafficLightLogicWrapper.h" />

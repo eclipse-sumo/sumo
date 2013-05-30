@@ -206,7 +206,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     glLoadIdentity();
     glTranslated(1.-.2, 1.-.5, 0.);
     glScaled(.2, .5, 1.);
-    GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!
+    GUIColoringSchemesMap<GUILane> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!
     sm.getColorer(myVisualizationSettings->laneEdgeMode)->drawLegend();
     */
     return hits2;

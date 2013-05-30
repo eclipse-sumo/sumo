@@ -38,7 +38,6 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <guisim/GUIEdge.h>
-#include "GUILaneWrapper.h"
 #include "GUI_E2_ZS_CollectorOverLanes.h"
 
 #ifdef CHECK_MEMORY_LEAKS

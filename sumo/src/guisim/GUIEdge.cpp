@@ -79,26 +79,9 @@ GUIEdge::GUIEdge(const std::string& id, int numericalID,
 
 
 GUIEdge::~GUIEdge() {
-    for (LaneWrapperVector::iterator i = myLaneGeoms.begin(); i != myLaneGeoms.end(); ++i) {
-        delete(*i);
-    }
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();
-    }
-}
-
-
-void
-GUIEdge::initGeometry() {
-    // don't do this twice
-    if (myLaneGeoms.size() > 0) {
-        return;
-    }
-    // build the lane wrapper
-    myLaneGeoms.reserve(myLanes->size());
-    for (unsigned int i = 0; i < myLanes->size(); ++i) {
-        myLaneGeoms.push_back(myLanes->at(i)->buildLaneWrapper(i));
     }
 }
 
@@ -107,22 +90,6 @@ MSLane&
 GUIEdge::getLane(size_t laneNo) {
     assert(laneNo < myLanes->size());
     return *((*myLanes)[laneNo]);
-}
-
-
-GUILaneWrapper&
-GUIEdge::getLaneGeometry(size_t laneNo) const {
-    assert(laneNo < myLanes->size());
-    return *(myLaneGeoms[laneNo]);
-}
-
-
-GUILaneWrapper&
-GUIEdge::getLaneGeometry(const MSLane* lane) const {
-    LaneWrapperVector::const_iterator i =
-        find_if(myLaneGeoms.begin(), myLaneGeoms.end(), lane_wrapper_finder(*lane));
-    assert(i != myLaneGeoms.end());
-    return *(*i);
 }
 
 
@@ -144,11 +111,8 @@ GUIEdge::getIDs(bool includeInternal) {
 Boundary
 GUIEdge::getBoundary() const {
     Boundary ret;
-    for (LaneWrapperVector::const_iterator i = myLaneGeoms.begin(); i != myLaneGeoms.end(); ++i) {
-        const PositionVector& g = (*i)->getShape();
-        for (unsigned int j = 0; j < g.size(); ++j) {
-            ret.add(g[j]);
-        }
+    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+        ret.add((*i)->getShape().getBoxBoundary());
     }
     ret.grow(10);
     return ret;
@@ -242,13 +206,16 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
     }
     // draw the lanes
-    for (LaneWrapperVector::const_iterator i = myLaneGeoms.begin(); i != myLaneGeoms.end(); ++i) {
+    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
 #ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             setColor(s);
         }
 #endif
-        (*i)->drawGL(s);
+        GUILane *l = dynamic_cast<GUILane*>(*i);
+        if(l!=0) {
+            l->drawGL(s);
+        }
     }
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
@@ -259,10 +226,11 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             vehicleControl->secureVehicles();
             size_t laneIndex = 0;
             MESegment::Queue queue;
-            for (LaneWrapperVector::const_iterator l = myLaneGeoms.begin(); l != myLaneGeoms.end(); ++l, ++laneIndex) {
-                const PositionVector& shape = (*l)->getShape();
-                const std::vector<SUMOReal>& shapeRotations = (*l)->getShapeRotations();
-                const std::vector<SUMOReal>& shapeLengths = (*l)->getShapeLengths();
+            for (std::vector<MSLane*>::const_iterator msl = myLanes.begin(); msl != myLanes.end(); ++msl, ++laneIndex) {
+                GUILane* l = static_cast<GUILane*>(*msl);
+                const PositionVector& shape = l->getShape();
+                const std::vector<SUMOReal>& shapeRotations = l->getShapeRotations();
+                const std::vector<SUMOReal>& shapeLengths = l->getShapeLengths();
                 const Position& laneBeg = shape[0];
                 glPushMatrix();
                 glTranslated(laneBeg.x(), laneBeg.y(), 0);
@@ -331,24 +299,26 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction != EDGEFUNCTION_NORMAL;
     const bool drawStreetName = s.streetName.show && myStreetName != "";
     if (drawEdgeName || drawInternalEdgeName || drawStreetName) {
-        GUILaneWrapper* lane1 = myLaneGeoms[0];
-        GUILaneWrapper* lane2 = myLaneGeoms[myLaneGeoms.size() - 1];
-        Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
-        p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (SUMOReal) 2.));
-        p.mul(.5);
-        SUMOReal angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
-        angle += 90;
-        if (angle > 90 && angle < 270) {
-            angle -= 180;
-        }
-        if (drawEdgeName) {
-            drawName(p, s.scale, s.edgeName, angle);
-        } else if (drawInternalEdgeName) {
-            drawName(p, s.scale, s.internalEdgeName, angle);
-        }
-        if (drawStreetName) {
-            GLHelper::drawText(getStreetName(), p, GLO_MAX,
-                               s.streetName.size / s.scale, s.streetName.color, angle);
+        GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
+        GUILane* lane2 = dynamic_cast<GUILane*>((*myLanes).back());
+        if(lane1!=0&&lane2!=0) {
+            Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
+            p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (SUMOReal) 2.));
+            p.mul(.5);
+            SUMOReal angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
+            angle += 90;
+            if (angle > 90 && angle < 270) {
+                angle -= 180;
+            }
+            if (drawEdgeName) {
+                drawName(p, s.scale, s.edgeName, angle);
+            } else if (drawInternalEdgeName) {
+                drawName(p, s.scale, s.internalEdgeName, angle);
+            }
+            if (drawStreetName) {
+                GLHelper::drawText(getStreetName(), p, GLO_MAX,
+                                   s.streetName.size / s.scale, s.streetName.color, angle);
+            }
         }
     }
     myLock.lock();

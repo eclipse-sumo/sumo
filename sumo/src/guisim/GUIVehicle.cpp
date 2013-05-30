@@ -63,7 +63,7 @@
 #include "GUIPerson.h"
 #include "GUINet.h"
 #include "GUIEdge.h"
-#include "GUILaneWrapper.h"
+#include "GUILane.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -1342,19 +1342,9 @@ void
 GUIVehicle::draw(const MSRoute& r) const {
     MSRouteIterator i = r.begin();
     for (; i != r.end(); ++i) {
-        const MSEdge* e = *i;
-        const GUIEdge* ge = static_cast<const GUIEdge*>(e);
-        const GUILaneWrapper& lane = ge->getLaneGeometry((size_t) 0);
-        GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 1.0);
+        const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);
+        GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), 1.0);
     }
-}
-
-
-GUILaneWrapper&
-GUIVehicle::getLaneWrapper() const {
-    GUIEdge* edge = dynamic_cast<GUIEdge*>(&(myLane->getEdge()));
-    assert(edge != 0);
-    return edge->getLaneGeometry(myLane);
 }
 
 

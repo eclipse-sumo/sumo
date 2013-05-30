@@ -55,7 +55,6 @@ class MSEdge;
 class MSVehicle;
 class MSLaneChanger;
 class MSLink;
-class GUILaneWrapper;
 class MSVehicleTransfer;
 class OutputDevice;
 
@@ -74,8 +73,6 @@ class MSLane : public Named, public Parameterised {
 public:
     /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
     friend class MSLaneChanger;
-
-    friend class GUILaneWrapper;
 
     friend class MSXMLRawOut;
 
@@ -481,9 +478,6 @@ public:
 
 
 
-
-    // valid for gui-version only
-    virtual GUILaneWrapper* buildLaneWrapper(unsigned int index);
 
     /// @brief remove the vehicle from this lane
     virtual MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification);

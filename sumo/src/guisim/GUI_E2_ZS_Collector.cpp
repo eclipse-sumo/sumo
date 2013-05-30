@@ -33,7 +33,6 @@
 
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
-#include "GUILaneWrapper.h"
 #include "GUI_E2_ZS_Collector.h"
 #include <utils/gui/div/GLHelper.h>
 #include <utils/geom/Line.h>
@@ -79,8 +78,7 @@ GUI_E2_ZS_Collector::buildDetectorGUIRepresentation() {
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector& detector)
     : GUIDetectorWrapper("E2 detector", detector.getID()),
       myDetector(detector) {
-    GUILaneWrapper& lw = static_cast<GUIEdge&>(detector.getLane()->getEdge()).getLaneGeometry(detector.getLane());
-    const PositionVector& v = lw.getShape();
+    const PositionVector& v = detector.getLane()->getShape();
     Line l(v.front(), v.back());
     // build geometry
     myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getEndPos());

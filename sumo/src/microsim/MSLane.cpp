@@ -938,14 +938,6 @@ MSLane::swapAfterLaneChange(SUMOTime) {
 }
 
 
-
-
-GUILaneWrapper*
-MSLane::buildLaneWrapper(unsigned int) {
-    throw "Only within the gui-version";
-}
-
-
 MSVehicle*
 MSLane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification) {
     for (MSLane::VehCont::iterator it = myVehicles.begin(); it < myVehicles.end(); it++) {

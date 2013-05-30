@@ -57,21 +57,13 @@ GUIEdgeControlBuilder::GUIEdgeControlBuilder()
 GUIEdgeControlBuilder::~GUIEdgeControlBuilder() {}
 
 
-MSEdge*
-GUIEdgeControlBuilder::closeEdge() {
-    MSEdge* ret = NLEdgeControlBuilder::closeEdge();
-    static_cast<GUIEdge*>(ret)->initGeometry();
-    return ret;
-}
-
-
 MSLane*
 GUIEdgeControlBuilder::addLane(const std::string& id,
                                SUMOReal maxSpeed, SUMOReal length,
                                const PositionVector& shape,
                                SUMOReal width,
                                SVCPermissions permissions) {
-    MSLane* lane = new GUILane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions);
+    MSLane* lane = new GUILane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, myLaneStorage->size());
     myLaneStorage->push_back(lane);
     return lane;
 }

@@ -37,12 +37,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class GUILaneWrapper;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -81,9 +75,7 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// @brief Constructor
-        MyWrapper(GUIInstantInductLoop& detector,
-                  GUILaneWrapper& wrapper,
-                  SUMOReal pos);
+        MyWrapper(GUIInstantInductLoop& detector, SUMOReal pos);
 
         /// @brief Destructor
         ~MyWrapper();
