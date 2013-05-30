@@ -50,6 +50,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/MSJunctionControl.h>
 #include <guisim/GUIEdge.h>
+#include <guisim/GUILane.h>
 #include <guisim/GUIPersonControl.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>
@@ -509,7 +510,7 @@ GUINet::updateColor(const GUIVisualizationSettings& s) {
         if ((*i)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
             const std::vector<MSLane*> &lanes = (*i)->getLanes();
             for (std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
-                (*j)->updateColor(s);
+                static_cast<GUILane*>(*j)->updateColor(s);
             }
         }
     }

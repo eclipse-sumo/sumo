@@ -876,8 +876,8 @@ NIImporter_OpenDrive::calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOR
     normY = tmpX * sin(ad_hdg) + normY * cos(ad_hdg);
 
     tmpX = normX;
-    normX = normX * cos(90 * PI / 180) + turn * normY * sin(90 * PI / 180);
-    normY = -1 * turn * tmpX * sin(90 * PI / 180) + normY * cos(90 * PI / 180);
+    normX = turn * normY;
+    normY = -turn * tmpX;
 
     normX = fabs(ad_radius) * normX;
     normY = fabs(ad_radius) * normY;

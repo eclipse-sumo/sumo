@@ -37,6 +37,7 @@
 #include <utility>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <utils/foxtools/MFXMutex.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -49,7 +50,6 @@
 class GUINet;
 class MSVehicle;
 class MSNet;
-class MFXMutex;
 #ifdef HAVE_OSG
 namespace osg {
 class Geometry;

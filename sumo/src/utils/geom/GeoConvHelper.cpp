@@ -298,7 +298,7 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
 #endif
         if (myProjectionMethod == SIMPLE) {
             double ys = y;
-            x *= 111320. * cos(ys * PI / 180.0);
+            x *= 111320. * cos(DEG2RAD(ys));
             y *= 111136.;
             from.set((SUMOReal)x, (SUMOReal)y);
             //!!! recheck whether the axes are mirrored

@@ -33,6 +33,7 @@
 #include <string>
 #include <utility>
 #include <utils/foxtools/MFXMutex.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/geom/Position.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/common/MsgHandler.h>
@@ -176,7 +177,7 @@ GUILane::drawLinkNo() const {
     const Position& end = g.back();
     const Position& f = g[-2];
     const Position& s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
+    const SUMOReal rot = RAD2DEG(atan2((s.x() - f.x()), (f.y() - s.y())));
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     for (int i = noLinks; --i >= 0;) {
@@ -203,7 +204,7 @@ GUILane::drawTLSLinkNo(const GUINet& net) const {
     const Position& end = g.back();
     const Position& f = g[-2];
     const Position& s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
+    const SUMOReal rot = RAD2DEG(atan2((s.x() - f.x()), (f.y() - s.y())));
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     for (int i = noLinks; --i >= 0;) {
@@ -227,7 +228,7 @@ GUILane::drawLinkRules(const GUINet& net) const {
     const Position& end = g.back();
     const Position& f = g[-2];
     const Position& s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
+    const SUMOReal rot = RAD2DEG(atan2((s.x() - f.x()), (f.y() - s.y())));
     if (noLinks == 0) {
         glPushName(getGlID());
         // draw a grey bar if no links are on the street
@@ -326,7 +327,7 @@ GUILane::drawArrows() const {
     // draw all links
     const Position& end = getShape().back();
     const Position& f = getShape()[-2];
-    SUMOReal rot = (SUMOReal) atan2((end.x() - f.x()), (f.y() - end.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
+    const SUMOReal rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     glPushMatrix();
     glPushName(0);
     glColor3d(1, 1, 1);

@@ -226,7 +226,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             vehicleControl->secureVehicles();
             size_t laneIndex = 0;
             MESegment::Queue queue;
-            for (std::vector<MSLane*>::const_iterator msl = myLanes.begin(); msl != myLanes.end(); ++msl, ++laneIndex) {
+            for (std::vector<MSLane*>::const_iterator msl = myLanes->begin(); msl != myLanes->end(); ++msl, ++laneIndex) {
                 GUILane* l = static_cast<GUILane*>(*msl);
                 const PositionVector& shape = l->getShape();
                 const std::vector<SUMOReal>& shapeRotations = l->getShapeRotations();

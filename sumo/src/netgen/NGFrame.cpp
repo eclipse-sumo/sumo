@@ -140,7 +140,7 @@ NGFrame::fillOptions() {
     oc.addSynonyme("rand.min-distance", "min-dist");
     oc.addDescription("rand.min-distance", "Random Network", "");
 
-    oc.doRegister("rand.min-angle", new Option_Float((SUMOReal)(45.0 / 180.0 * PI)));
+    oc.doRegister("rand.min-angle", new Option_Float(DEG2RAD(45.0)));
     oc.addSynonyme("rand.min-angle", "rand-min-anglee", true);
     oc.addSynonyme("rand.min-angle", "min-angle");
     oc.addDescription("rand.min-angle", "Random Network", "");

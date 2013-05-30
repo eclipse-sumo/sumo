@@ -59,7 +59,7 @@ FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYN
 GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
     : FXDialogBox(parent, "Application Settings"),
       myAppQuitOnEnd(GUIGlobals::gQuitOnEnd),
-      myAllowTextures(gAllowTextures) {
+      myAllowTextures(GUITexturesHelper::texturesAllowed()) {
     FXCheckButton* b = 0;
     FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     b = new FXCheckButton(f1, "Quit on Simulation End", this , MID_QUITONSIMEND);
@@ -82,7 +82,7 @@ GUIDialog_AppSettings::~GUIDialog_AppSettings() {}
 long
 GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
     GUIGlobals::gQuitOnEnd = myAppQuitOnEnd;
-    gAllowTextures = myAllowTextures;
+    GUITexturesHelper::allowTextures(myAllowTextures);
     destroy();
     return 1;
 }

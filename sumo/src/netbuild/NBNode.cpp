@@ -413,13 +413,13 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
             Position center = straightCenter;//.add(straightCenter);
             Line cross(straightConn);
             cross.sub(cross.p1().x(), cross.p1().y());
-            cross.rotateAtP1(PI / 2);
+            cross.rotateAtP1(M_PI / 2);
             center.sub(cross.p2());
             init.push_back(center);
             init.push_back(end);
         } else {
             const SUMOReal angle = fabs(fromE->getLaneShape(fromL).getEndLine().atan2Angle() - toE->getLaneShape(toL).getBegLine().atan2Angle());
-            if (angle < PI / 4. || angle > 7. / 4.*PI) {
+            if (angle < M_PI / 4. || angle > 7. / 4.*M_PI) {
                 // very low angle: almost straight
                 noInitialPoints = 4;
                 init.push_back(beg);

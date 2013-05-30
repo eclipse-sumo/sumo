@@ -134,7 +134,7 @@ GLHelper::drawBoxLines(const PositionVector& geom, SUMOReal width) {
         const Position& f = geom[i];
         const Position& s = geom[i + 1];
         drawBoxLine(f,
-                    (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI,
+                    RAD2DEG(atan2((s.x() - f.x()), (f.y() - s.y()))),
                     f.distanceTo(s),
                     width);
     }
@@ -202,8 +202,8 @@ void
 GLHelper::drawFilledCircle(SUMOReal width, int steps, SUMOReal beg, SUMOReal end) {
     if (myCircleCoords.size() == 0) {
         for (int i = 0; i < 360; i += 10) {
-            SUMOReal x = (SUMOReal) sin((SUMOReal) i / 180.0 * PI);
-            SUMOReal y = (SUMOReal) cos((SUMOReal) i / 180.0 * PI);
+            const SUMOReal x = (SUMOReal) sin(DEG2RAD(i));
+            const SUMOReal y = (SUMOReal) cos(DEG2RAD(i));
             myCircleCoords.push_back(std::pair<SUMOReal, SUMOReal>(x, y));
         }
     }
@@ -241,8 +241,8 @@ GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps,
                             SUMOReal beg, SUMOReal end) {
     if (myCircleCoords.size() == 0) {
         for (int i = 0; i < 360; i += 10) {
-            SUMOReal x = (SUMOReal) sin((SUMOReal) i / 180.0 * PI);
-            SUMOReal y = (SUMOReal) cos((SUMOReal) i / 180.0 * PI);
+            SUMOReal x = (SUMOReal) sin(DEG2RAD(i));
+            SUMOReal y = (SUMOReal) cos(DEG2RAD(i));
             myCircleCoords.push_back(std::pair<SUMOReal, SUMOReal>(x, y));
         }
     }

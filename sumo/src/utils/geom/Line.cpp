@@ -141,7 +141,7 @@ Line::atan2Angle() const {
 
 SUMOReal
 Line::atan2DegreeAngle() const {
-    return (SUMOReal) atan2(myP1.x() - myP2.x(), myP1.y() - myP2.y()) * (SUMOReal) 180.0 / (SUMOReal) PI;
+    return RAD2DEG(atan2(myP1.x() - myP2.x(), myP1.y() - myP2.y()));
 }
 
 
@@ -149,7 +149,7 @@ SUMOReal
 Line::atan2PositiveAngle() const {
     SUMOReal angle = atan2Angle();
     if (angle < 0) {
-        angle = (SUMOReal) PI * (SUMOReal) 2.0 + angle;
+        angle = (SUMOReal) M_PI * (SUMOReal) 2.0 + angle;
     }
     return angle;
 }
@@ -157,7 +157,7 @@ Line::atan2PositiveAngle() const {
 
 SUMOReal
 Line::atan2DegreeSlope() const {
-    return (SUMOReal) atan2(myP2.z() - myP1.z(), myP1.distanceTo2D(myP2)) * (SUMOReal) 180.0 / (SUMOReal) PI;
+    return RAD2DEG(atan2(myP2.z() - myP1.z(), myP1.distanceTo2D(myP2)));
 }
 
 

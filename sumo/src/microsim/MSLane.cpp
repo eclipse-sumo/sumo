@@ -1328,11 +1328,11 @@ MSLane::by_connections_to_sorter::operator()(const MSEdge* const e1, const MSEdg
     const std::vector<MSLane*>* ae2 = e2->allowedLanes(*myEdge);
     SUMOReal s1 = 0;
     if (ae1 != 0 && ae1->size() != 0) {
-        s1 = (SUMOReal) ae1->size() + GeomHelper::getMinAngleDiff((*ae1)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / PI / 2.;
+        s1 = (SUMOReal) ae1->size() + GeomHelper::getMinAngleDiff((*ae1)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / M_PI / 2.;
     }
     SUMOReal s2 = 0;
     if (ae2 != 0 && ae2->size() != 0) {
-        s2 = (SUMOReal) ae2->size() + GeomHelper::getMinAngleDiff((*ae2)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / PI / 2.;
+        s2 = (SUMOReal) ae2->size() + GeomHelper::getMinAngleDiff((*ae2)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / M_PI / 2.;
     }
     return s1 < s2;
 }

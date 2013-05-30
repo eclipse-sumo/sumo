@@ -47,8 +47,8 @@
 // ===========================================================================
 // definition of static variables
 // ===========================================================================
-bool gAllowTextures;
 std::map<std::string, int> GUITexturesHelper::myTextures;
+bool GUITexturesHelper::myAllowTextures = true;
 
 
 // ===========================================================================
@@ -81,7 +81,7 @@ void
 GUITexturesHelper::drawTexturedBox(unsigned int which,
                                    SUMOReal sizeX1, SUMOReal sizeY1,
                                    SUMOReal sizeX2, SUMOReal sizeY2) {
-    if (!gAllowTextures) {
+    if (!myAllowTextures) {
         return;
     }
     glEnable(GL_TEXTURE_2D);

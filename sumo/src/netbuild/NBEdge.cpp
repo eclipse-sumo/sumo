@@ -999,7 +999,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
         SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
                         getLaneShape(con.fromLane).back().distanceTo(
                             con.toEdge->getLaneShape(con.toLane).front())
-                        / (SUMOReal) 2.0 / (SUMOReal) PI;
+                        / (SUMOReal) 2.0 / (SUMOReal) M_PI;
         vmax = MIN2(vmax, ((getSpeed() + con.toEdge->getSpeed()) / (SUMOReal) 2.0));
         vmax = (getSpeed() + con.toEdge->getSpeed()) / (SUMOReal) 2.0;
         //

@@ -212,7 +212,7 @@ bool
 NGRandomNetBuilder::createNewNode(NGNode* baseNode) {
     // calculate position of new node based on BaseNode
     SUMOReal dist = RandHelper::rand(myMinDistance, myMaxDistance);
-    SUMOReal angle = RandHelper::rand((SUMOReal)(2 * PI));
+    SUMOReal angle = RandHelper::rand((SUMOReal)(2 * M_PI));
     SUMOReal x = baseNode->getPosition().x() + dist * cos(angle);
     SUMOReal y = baseNode->getPosition().y() + dist * sin(angle);
     NGNode* newNode = new NGNode(myNet.getNextFreeID());

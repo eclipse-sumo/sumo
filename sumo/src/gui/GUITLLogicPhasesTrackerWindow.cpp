@@ -38,7 +38,6 @@
 #include <microsim/MSLink.h>
 #include <utils/common/ToString.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
-#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <foreign/polyfonts/polyfonts.h>

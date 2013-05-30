@@ -160,7 +160,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool ha
     }
 
     int ir, ic;
-    SUMOReal angle = (SUMOReal)(2 * PI / numRadDiv); // angle between radial divisions
+    SUMOReal angle = (SUMOReal)(2 * M_PI / numRadDiv); // angle between radial divisions
     NGNode* Node;
     for (ir = 1; ir < numRadDiv + 1; ir++) {
         for (ic = 1; ic < numCircles + 1; ic++) {

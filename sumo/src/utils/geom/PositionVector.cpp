@@ -111,7 +111,7 @@ PositionVector::around(const Position& p, SUMOReal offset) const {
         (*(begin())).x() - p.x(),
         (*(begin())).y() - p.y());
     angle += GeomHelper::Angle2D(p1.x(), p1.y(), p2.x(), p2.y());
-    return (!(fabs(angle) < PI));
+    return (!(fabs(angle) < M_PI));
 }
 
 

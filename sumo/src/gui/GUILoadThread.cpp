@@ -130,7 +130,7 @@ GUILoadThread::run() {
     RandHelper::initRandGlobal();
     RandHelper::initRandGlobal(&MSVehicleControl::myVehicleParamsRNG);
     MSFrame::setMSGlobals(oc);
-    gAllowTextures = !oc.getBool("disable-textures");
+    GUITexturesHelper::allowTextures(!oc.getBool("disable-textures"));
     MSVehicleControl* vehControl = 0;
 #ifdef HAVE_INTERNAL
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;

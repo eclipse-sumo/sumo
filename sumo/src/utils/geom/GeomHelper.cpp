@@ -160,11 +160,11 @@ GeomHelper::intersection_position2D(const Position& p11,
 SUMOReal
 GeomHelper::Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
     SUMOReal dtheta = atan2(y2, x2) - atan2(y1, x1);
-    while (dtheta > (SUMOReal) PI) {
-        dtheta -= (SUMOReal)(2.0 * PI);
+    while (dtheta > (SUMOReal) M_PI) {
+        dtheta -= (SUMOReal)(2.0 * M_PI);
     }
-    while (dtheta < (SUMOReal) - PI) {
-        dtheta += (SUMOReal)(2.0 * PI);
+    while (dtheta < (SUMOReal) - M_PI) {
+        dtheta += (SUMOReal)(2.0 * M_PI);
     }
     return dtheta;
 }

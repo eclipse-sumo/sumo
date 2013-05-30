@@ -49,7 +49,6 @@
 #include <gui/GUIGlobals.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <gui/GUIApplicationWindow.h>
-#include <utils/gui/images/GUITexturesHelper.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <foreign/polyfonts/polyfonts.h>
