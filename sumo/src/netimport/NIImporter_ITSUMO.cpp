@@ -219,12 +219,12 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
     switch (element) {
         case ITSUMO_TAG_SIMULATION: {
             for (std::vector<Section*>::iterator i = mySections.begin(); i != mySections.end(); ++i) {
-                for (std::vector<LaneSet*>::iterator j = (*i)->myLaneSets.begin(); j != (*i)->myLaneSets.end(); ++j) {
+                for (std::vector<LaneSet*>::iterator j = (*i)->laneSets.begin(); j != (*i)->laneSets.end(); ++j) {
                     LaneSet* ls = (*j);
-                    NBEdge* edge = new NBEdge(ls->myID, ls->myFrom, ls->myTo, "", ls->myV, (unsigned int)ls->myLanes.size(), -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
+                    NBEdge* edge = new NBEdge(ls->id, ls->from, ls->to, "", ls->v, (unsigned int)ls->lanes.size(), -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
                     if (!myNetBuilder.getEdgeCont().insert(edge)) {
                         delete edge;
-                        WRITE_ERROR("Could not add edge '" + ls->myID + "'. Probably declared twice.");
+                        WRITE_ERROR("Could not add edge '" + ls->id + "'. Probably declared twice.");
                     }
                     delete ls;
                 }
@@ -274,7 +274,7 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                     } else {
                         SUMOReal vSum = 0;
                         for (std::vector<Lane>::iterator j = myCurrentLanes.begin(); j != myCurrentLanes.end(); ++j) {
-                            vSum += (*j).myV;
+                            vSum += (*j).v;
                         }
                         vSum /= (SUMOReal) myCurrentLanes.size();
                         LaneSet* ls = new LaneSet(id, myCurrentLanes, vSum, i, from, to);

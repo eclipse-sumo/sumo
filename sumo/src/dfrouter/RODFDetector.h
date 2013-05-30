@@ -37,6 +37,7 @@
 #include <vector>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RandomDistributor.h>
+#include <utils/common/Named.h>
 #include "RODFRouteCont.h"
 
 
@@ -83,7 +84,7 @@ enum RODFDetectorType {
  * @class RODFDetector
  * @brief Class representing a detector within the DFROUTER
  */
-class RODFDetector {
+class RODFDetector : public Named {
 public:
     /** @brief Constructor
      *
@@ -116,14 +117,6 @@ public:
 
     /// @name Atomar getter methods
     /// @{
-
-    /** @brief Returns the ID of this detector
-     * @return The id of this detector
-     */
-    const std::string& getID() const {
-        return myID;
-    };
-
 
     /** @brief Returns the id of the lane this detector is placed on
      * @return The id of the lane this detector is placed on
@@ -207,7 +200,6 @@ protected:
 
 
 protected:
-    std::string myID;
     std::string myLaneID;
     SUMOReal myPosition;
     RODFDetectorType myType;

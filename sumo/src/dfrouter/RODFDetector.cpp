@@ -62,11 +62,11 @@
 // ===========================================================================
 RODFDetector::RODFDetector(const std::string& id, const std::string& laneID,
                            SUMOReal pos, const RODFDetectorType type)
-    : myID(id), myLaneID(laneID), myPosition(pos), myType(type), myRoutes(0) {}
+    : Named(id), myLaneID(laneID), myPosition(pos), myType(type), myRoutes(0) {}
 
 
 RODFDetector::RODFDetector(const std::string& id, const RODFDetector& f)
-    : myID(id), myLaneID(f.myLaneID), myPosition(f.myPosition),
+    : Named(id), myLaneID(f.myLaneID), myPosition(f.myPosition),
       myType(f.myType), myRoutes(0) {
     if (f.myRoutes != 0) {
         myRoutes = new RODFRouteCont(*(f.myRoutes));

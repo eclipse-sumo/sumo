@@ -61,8 +61,7 @@ class MSE2Collector;
  * There are still some problems with it: we do not know how the different
  *  combinations shall be treated.
  */
-class MS_E2_ZS_CollectorOverLanes :
-    public MSDetectorFileOutput {
+class MS_E2_ZS_CollectorOverLanes : public MSDetectorFileOutput {
 public:
     /// Definition of a E2 collector storage
     typedef std::vector< MSE2Collector* > CollectorCont;
@@ -98,12 +97,6 @@ public:
 
     /// @brief Destructor
     virtual ~MS_E2_ZS_CollectorOverLanes();
-
-
-    /** @brief Returns this detector's id
-     * @return The id of this detector
-     */
-    const std::string& getID() const;
 
 
     /** @brief Returns the id of the lane this detector starts at
@@ -237,9 +230,6 @@ protected:
      * Each length combination is a vector of consecutive lanes (backwards) */
     LengthVector myLengths;
 
-
-    /// @brief The id of this detector
-    std::string myID;
 
     /// @brief The id of the lane this detector starts at
     std::string myStartLaneID;

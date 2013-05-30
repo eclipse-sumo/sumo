@@ -136,25 +136,25 @@ private:
 
         struct Lane {
         public:
-            Lane(const std::string& id, unsigned int idx, SUMOReal v)
-                : myID(id), myIndex(idx), myV(v) {}
-            std::string myID;
-            unsigned int myIndex;
-            SUMOReal myV;
+            Lane(const std::string& _id, unsigned int _idx, SUMOReal _v)
+                : id(_id), index(_idx), v(_v) {}
+            std::string id;
+            unsigned int index;
+            SUMOReal v;
         };
 
         std::vector<Lane> myCurrentLanes;
 
         struct LaneSet {
         public:
-            LaneSet(const std::string& id, const std::vector<Lane>& lanes, SUMOReal v, int pos, NBNode* from, NBNode* to)
-                : myID(id), myLanes(lanes), myV(v), myPosition(pos), myFrom(from), myTo(to) {}
-            std::string myID;
-            std::vector<Lane> myLanes;
-            SUMOReal myV;
-            int myPosition;
-            NBNode* myFrom;
-            NBNode* myTo;
+            LaneSet(const std::string& _id, const std::vector<Lane>& _lanes, SUMOReal _v, int _pos, NBNode* _from, NBNode* _to)
+                : id(_id), lanes(_lanes), v(_v), position(_pos), from(_from), to(_to) {}
+            std::string id;
+            std::vector<Lane> lanes;
+            SUMOReal v;
+            int position;
+            NBNode* from;
+            NBNode* to;
         };
 
         std::map<std::string, LaneSet*> myLaneSets;
@@ -162,10 +162,10 @@ private:
 
         struct Section {
         public:
-            Section(const std::string& id, const std::vector<LaneSet*>& laneSets)
-                : myID(id), myLaneSets(laneSets) {}
-            std::string myID;
-            std::vector<LaneSet*> myLaneSets;
+            Section(const std::string& _id, const std::vector<LaneSet*>& _laneSets)
+                : id(_id), laneSets(_laneSets) {}
+            std::string id;
+            std::vector<LaneSet*> laneSets;
         };
 
         std::vector<Section*> mySections;
