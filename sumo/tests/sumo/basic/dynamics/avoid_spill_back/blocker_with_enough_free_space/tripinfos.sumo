@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 30 May 2013 12:44:46 PM CEST by SUMO gui Version dev-SVN-r14060
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="30"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="ego" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="6.00" arrivalLane="middle_0" arrivalPos="4.00" arrivalSpeed="2.56" duration="6.00" routeLength="17.45" waitSteps="0" rerouteNo="0" devices="tripinfo_ego" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="across" depart="0.00" departLane="across1_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="15.00" arrivalLane="across2_0" arrivalPos="18.55" arrivalSpeed="10.73" duration="15.00" routeLength="108.70" waitSteps="0" rerouteNo="0" devices="tripinfo_across" vType="DEFAULT_VEHTYPE" vaporized=""/>
+</tripinfos>

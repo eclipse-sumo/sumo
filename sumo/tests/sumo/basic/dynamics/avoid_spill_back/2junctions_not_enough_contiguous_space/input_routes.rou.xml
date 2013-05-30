@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vehicle id="ego" depart="0" arrivalPos="4">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="blocker" depart="0" departPos="10">
+        <route edges="end"/>
+        <stop lane="end_0" endPos="11" duration="1000"/>
+    </vehicle>
+
+    <vehicle id="across" depart="0">
+        <route edges="across3 across4"/>
+    </vehicle>
+</routes>

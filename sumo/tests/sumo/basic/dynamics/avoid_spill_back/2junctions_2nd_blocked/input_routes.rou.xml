@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vehicle id="ego" depart="0" arrivalPos="4">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="across" depart="0">
+        <route edges="across1 across2"/>
+    </vehicle>
+
+    <flow id="blocker" begin="0" end="30" period="2" departPos="90">
+        <route edges="across3 across4"/>
+    </flow>
+</routes>

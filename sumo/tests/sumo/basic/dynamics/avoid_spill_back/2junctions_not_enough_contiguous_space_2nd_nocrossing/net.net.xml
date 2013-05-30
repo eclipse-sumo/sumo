@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 30 May 2013 12:58:16 PM CEST by Netedit Version dev-SVN-r13777
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/erdm_ja/internalTrunkDebug/sumo/tests/sumo/basic/dynamics/avoid_spill_back/2junctions_not_enough_contiguous_space_2nd_nocrossing/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/erdm_ja/internalTrunkDebug/sumo/tests/sumo/basic/dynamics/avoid_spill_back/2junctions_not_enough_contiguous_space_2nd_nocrossing/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="0.00,100.00" convBoundary="0.00,0.00,130.00,120.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":gneJ1_0" function="internal">
+        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="6.20" shape="21.65,95.25 21.65,101.45"/>
+    </edge>
+    <edge id=":gneJ1_1" function="internal">
+        <lane id=":gneJ1_1_0" index="0" speed="13.89" length="6.20" shape="18.55,98.35 24.75,98.35"/>
+    </edge>
+    <edge id=":gneJ2_0" function="internal">
+        <lane id=":gneJ2_0_0" index="0" speed="13.89" length="0.10" shape="30.00,98.35 30.00,98.35"/>
+    </edge>
+
+    <edge id="across1" from="gneJ3" to="gneJ1" priority="1">
+        <lane id="across1_0" index="0" speed="13.89" length="95.25" shape="21.65,0.00 21.65,95.25"/>
+    </edge>
+    <edge id="across2" from="gneJ1" to="gneJ4" priority="1">
+        <lane id="across2_0" index="0" speed="13.89" length="18.55" shape="21.65,101.45 21.65,120.00"/>
+    </edge>
+    <edge id="beg" from="gneJ0" to="gneJ1" priority="2">
+        <lane id="beg_0" index="0" speed="13.89" length="18.55" shape="0.00,98.35 18.55,98.35"/>
+    </edge>
+    <edge id="end" from="gneJ2" to="gneJ5" priority="2">
+        <lane id="end_0" index="0" speed="13.89" length="100.00" shape="30.00,98.35 130.00,98.35"/>
+    </edge>
+    <edge id="middle" from="gneJ1" to="gneJ2" priority="2">
+        <lane id="middle_0" index="0" speed="13.89" length="5.25" shape="24.75,98.35 30.00,98.35"/>
+    </edge>
+
+    <junction id="gneJ0" type="unregulated" x="0.00" y="100.00" incLanes="" intLanes="" shape="-0.00,99.95 -0.00,96.75"/>
+    <junction id="gneJ1" type="priority" x="20.00" y="100.00" incLanes="across1_0 beg_0" intLanes=":gneJ1_0_0 :gneJ1_1_0" shape="20.05,101.45 23.25,101.45 24.75,99.95 24.75,96.75 23.25,95.25 20.05,95.25 18.55,96.75 18.55,99.95">
+        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="1" response="00" foes="01" cont="0"/>
+    </junction>
+    <junction id="gneJ2" type="priority" x="30.00" y="100.00" incLanes="middle_0" intLanes=":gneJ2_0_0" shape="30.00,99.95 30.00,96.75 30.00,99.95">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ3" type="unregulated" x="20.00" y="0.00" incLanes="" intLanes="" shape="20.05,-0.00 23.25,-0.00"/>
+    <junction id="gneJ4" type="unregulated" x="20.00" y="120.00" incLanes="across2_0" intLanes="" shape="23.25,120.00 20.05,120.00"/>
+    <junction id="gneJ5" type="unregulated" x="130.00" y="100.00" incLanes="end_0" intLanes="" shape="130.00,96.75 130.00,99.95"/>
+
+    <connection from="across1" to="across2" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="s" state="m"/>
+    <connection from="beg" to="middle" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="s" state="M"/>
+    <connection from="middle" to="end" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="s" state="M"/>
+
+    <connection from=":gneJ1_0" to="across2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ1_1" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ2_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

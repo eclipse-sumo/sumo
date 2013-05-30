@@ -1,0 +1,23 @@
+# the base case where a blocking vehicle stands directly behind the junction
+no_space_behind_junction
+
+# the blocking vehicle stands directly behind a non-crossing junction (should pass)
+no_space_behind_junction_nocrossing
+
+# the blocking vehicle starts braking directly behind the junction (but is not yet stopped)
+no_space_behind_junction_blocker_braking
+
+# the blocking vehicle leaves enough space (should pass)
+blocker_with_enough_free_space
+
+# the blocking vehicle doesn't leaves enough space
+blocker_without_enough_free_space
+
+# 2 close junctions, with a blocker after the 2nd. The sumo of free space is sufficient but not contiguous
+2junctions_not_enough_contiguous_space
+
+# 2 close junctions, with a blocker after the 2nd. The second junction is non-crossing (should pass)
+2junctions_not_enough_contiguous_space_2nd_nocrossing
+
+# 2 close junctions, but the link across the second junction is not open
+2junctions_2nd_blocked
