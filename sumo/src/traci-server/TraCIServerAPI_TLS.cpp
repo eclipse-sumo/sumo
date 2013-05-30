@@ -287,7 +287,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state);
                 std::vector<MSPhaseDefinition*> phases;
                 phases.push_back(phase);
-                MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime + DELTA_T);
+                MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime + DELTA_T, std::map<std::string, std::string>());
                 vars.addLogic("online", logic, true, true);
             } else {
                 MSPhaseDefinition nphase(DELTA_T, state);
@@ -347,7 +347,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 phases.push_back(phase);
             }
             if (vars.getLogic(subid) == 0) {
-                MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0);
+                MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0, std::map<std::string, std::string>());
                 vars.addLogic(subid, logic, true, true);
             } else {
                 static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->setPhases(phases, index);

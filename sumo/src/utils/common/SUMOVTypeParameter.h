@@ -37,6 +37,7 @@
 #include "SUMOVehicleClass.h"
 #include "RGBColor.h"
 #include "SUMOTime.h"
+#include <utils/common/Parameterised.h>
 
 
 // ===========================================================================
@@ -72,7 +73,7 @@ const int VTYPEPARS_IMGFILE_SET = 2 << 13;
  * @class SUMOVTypeParameter
  * @brief Structure representing possible vehicle parameter
  */
-class SUMOVTypeParameter {
+class SUMOVTypeParameter : public Parameterised {
 public:
     /** @brief Constructor
      *

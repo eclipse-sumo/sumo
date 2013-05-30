@@ -100,13 +100,9 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
 /* -------------------------------------------------------------------------
  * member method definitions
  * ----------------------------------------------------------------------- */
-MSTrafficLightLogic::MSTrafficLightLogic(
-    MSTLLogicControl& tlcontrol,
-    const std::string& id,
-    const std::string& programID,
-    SUMOTime delay,
-    const ParameterMap& parameters) :
-    myParameter(parameters),
+MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
+    const std::string& programID, SUMOTime delay, const std::map<std::string, std::string>& parameters) :
+    Parameterised(parameters),
     myID(id),
     myProgramID(programID),
     myCurrentDurationIncrement(-1),
@@ -229,24 +225,6 @@ MSTrafficLightLogic::addOverridingDuration(SUMOTime duration) {
 void
 MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) {
     myCurrentDurationIncrement = delay;
-}
-
-
-
-
-// ----------- Algorithm parameter handling
-void
-MSTrafficLightLogic::setParameter(const ParameterMap& params) {
-    myParameter = params;
-}
-
-
-std::string
-MSTrafficLightLogic::getParameterValue(const std::string& key) const {
-    if (myParameter.find(key) == myParameter.end()) {
-        return "";
-    }
-    return myParameter.find(key)->second;
 }
 
 

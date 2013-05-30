@@ -37,6 +37,7 @@
 #include "SUMOVehicleClass.h"
 #include "RGBColor.h"
 #include "SUMOTime.h"
+#include <utils/common/Parameterised.h>
 
 
 // ===========================================================================
@@ -225,7 +226,7 @@ enum ArrivalSpeedDefinition {
  * @see DepartPosDefinition
  * @see DepartSpeedDefinition
  */
-class SUMOVehicleParameter {
+class SUMOVehicleParameter : public Parameterised {
 public:
     /** @brief Constructor
      *

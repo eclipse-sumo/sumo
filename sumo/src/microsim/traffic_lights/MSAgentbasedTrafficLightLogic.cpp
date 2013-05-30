@@ -49,38 +49,36 @@
 
 
 // ===========================================================================
+// parameter defaults definitions
+// ===========================================================================
+#define DEFAULT_T_DECIDE "1"
+#define DEFAULT_LEARN_HORIZON "3"
+#define DEFAULT_CYCLE_TIME "90"
+#define DEFAULT_MIN_DIFF "1"
+#define DEFAULT_DETECTOR_OFFSET "0"
+
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
     MSTLLogicControl& tlcontrol,
     const std::string& id, const std::string& programID,
     const Phases& phases, unsigned int step, SUMOTime delay,
-    const ParameterMap& parameter) :
+    const std::map<std::string, std::string>& parameter) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter),
     tSinceLastDecision(0), stepOfLastDecision(0) {
 
-    tDecide = 1;
-    if (parameter.find("decision-horizon") != parameter.end()) {
-        tDecide = (unsigned int) TplConvert::_2int(parameter.find("decision-horizon")->second.c_str());
-    }
-    numberOfValues = 3;
-    if (parameter.find("learn-horizon") != parameter.end()) {
-        numberOfValues = (unsigned int) TplConvert::_2int(parameter.find("learn-horizon")->second.c_str());
-    }
-    tCycle = 90;
-    if (parameter.find("tcycle") != parameter.end()) {
-        tCycle = (unsigned int) TplConvert::_2SUMOReal(parameter.find("tcycle")->second.c_str());
-    }
-    deltaLimit = 1;
-    if (parameter.find("min-diff") != parameter.end()) {
-        deltaLimit = TplConvert::_2int(parameter.find("min-diff")->second.c_str());
-    }
+    tDecide = TplConvert::_2int(getParameter("decision-horizon", DEFAULT_T_DECIDE).c_str());
+    numberOfValues = TplConvert::_2int(getParameter("learn-horizon", DEFAULT_LEARN_HORIZON).c_str());
+    tCycle = TplConvert::_2int(getParameter("tcycle", DEFAULT_CYCLE_TIME).c_str());
+    deltaLimit = TplConvert::_2SUMOReal(getParameter("min-diff", DEFAULT_MIN_DIFF).c_str());
 }
 
 
 void
 MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
-    SUMOReal det_offset = TplConvert::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
+    SUMOReal det_offset = TplConvert::_2SUMOReal(getParameter("detector_offset", DEFAULT_DETECTOR_OFFSET).c_str());
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
     // build the detectors

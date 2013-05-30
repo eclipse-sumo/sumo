@@ -220,7 +220,7 @@ MSTLLogicControl::TLSLogicVariants::addLink(MSLink* link, MSLane* lane, unsigned
  * ----------------------------------------------------------------------- */
 unsigned int
 MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(const MSTrafficLightLogic& logic) const {
-    std::string val = logic.getParameterValue("GSP");
+    std::string val = logic.getParameter("GSP", "");
     if (val.length() == 0) {
         return 0;
     }
@@ -382,7 +382,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step) {
         assert(def.end >= def.begin);
         deltaPossible += TIME2STEPS(def.end - def.begin);
     }
-    int stretchUmlaufAnz = (int) TplConvert::_2SUMOReal(myTo->getParameterValue("StretchUmlaufAnz").c_str());
+    int stretchUmlaufAnz = (int) TplConvert::_2SUMOReal(myTo->getParameter("StretchUmlaufAnz", "").c_str());
     deltaPossible = stretchUmlaufAnz * deltaPossible;
     if ((deltaPossible > deltaToCut) && (deltaToCut < (cycleTime / 2))) {
         cutLogic(step, gspTo, deltaToCut);
@@ -447,7 +447,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
     SUMOTime durOfPhase = myTo->getPhase(currStep).duration;
     SUMOTime remainingStretchTime = allStretchTime;
     SUMOTime StretchTimeOfPhase = 0;
-    unsigned int stretchUmlaufAnz = (unsigned int) TplConvert::_2SUMOReal(myTo->getParameterValue("StretchUmlaufAnz").c_str());
+    unsigned int stretchUmlaufAnz = (unsigned int) TplConvert::_2SUMOReal(myTo->getParameter("StretchUmlaufAnz", "").c_str());
     SUMOReal facSum = 0;
     int areasNo = getStretchAreaNo(myTo);
     for (int x = 0; x < areasNo; x++) {
@@ -505,7 +505,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
 int
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchAreaNo(MSTrafficLightLogic* from) const {
     int no = 0;
-    while (from->getParameterValue("B" + toString(no + 1) + ".begin") != "") {
+    while (from->getParameter("B" + toString(no + 1) + ".begin", "") != "") {
         no++;
     }
     return no;
@@ -515,9 +515,9 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchAreaNo(MSTrafficLightLo
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::StretchBereichDef
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchBereichDef(MSTrafficLightLogic* from, int index) const {
     StretchBereichDef def;
-    def.begin = TplConvert::_2SUMOReal(from->getParameterValue("B" + toString(index) + ".begin").c_str());
-    def.end = TplConvert::_2SUMOReal(from->getParameterValue("B" + toString(index) + ".end").c_str());
-    def.fac = TplConvert::_2SUMOReal(from->getParameterValue("B" + toString(index) + ".factor").c_str());
+    def.begin = TplConvert::_2SUMOReal(from->getParameter("B" + toString(index) + ".begin", "").c_str());
+    def.end = TplConvert::_2SUMOReal(from->getParameter("B" + toString(index) + ".end", "").c_str());
+    def.fac = TplConvert::_2SUMOReal(from->getParameter("B" + toString(index) + ".factor", "").c_str());
     return def;
 }
 

@@ -51,27 +51,27 @@
 
 
 // ===========================================================================
+// parameter defaults definitions
+// ===========================================================================
+#define DEFAULT_MAX_GAP "3.1"
+#define DEFAULT_PASSING_TIME "1.9"
+#define DEFAULT_DETECTOR_GAP "3.0"
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& programID,
         const Phases& phases,
         unsigned int step, SUMOTime delay,
-        const ParameterMap& parameter) :
+        const std::map<std::string, std::string>& parameter) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter),
     myContinue(false) {
-    myMaxGap = SUMOReal(3.1);
-    if (parameter.find("max-gap") != parameter.end()) {
-        myMaxGap = TplConvert::_2SUMOReal(parameter.find("max-gap")->second.c_str());
-    }
-    myPassingTime = SUMOReal(1.9);
-    if (parameter.find("passing-time") != parameter.end()) {
-        myPassingTime = TplConvert::_2SUMOReal(parameter.find("passing-time")->second.c_str());
-    }
-    myDetectorGap = SUMOReal(3.0);
-    if (parameter.find("detector-gap") != parameter.end()) {
-        myDetectorGap = TplConvert::_2SUMOReal(parameter.find("detector-gap")->second.c_str());
-    }
+
+    myMaxGap = TplConvert::_2SUMOReal(getParameter("max-gap", DEFAULT_MAX_GAP).c_str());
+    myPassingTime = TplConvert::_2SUMOReal(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str());
+    myDetectorGap = TplConvert::_2SUMOReal(getParameter("detector-gap", DEFAULT_DETECTOR_GAP).c_str());
 }
 
 

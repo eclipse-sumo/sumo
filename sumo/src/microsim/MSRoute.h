@@ -41,6 +41,7 @@
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleParameter.h>
+#include <utils/common/Parameterised.h>
 
 
 // ===========================================================================
@@ -51,6 +52,9 @@ class BinaryInputDevice;
 class OutputDevice;
 
 
+// ===========================================================================
+// types definitions
+// ===========================================================================
 typedef std::vector<const MSEdge*> MSEdgeVector;
 typedef MSEdgeVector::const_iterator MSRouteIterator;
 
@@ -61,7 +65,7 @@ typedef MSEdgeVector::const_iterator MSRouteIterator;
 /**
  * @class MSRoute
  */
-class MSRoute : public Named {
+class MSRoute : public Named, public Parameterised {
 public:
     /// Constructor
     MSRoute(const std::string& id, const MSEdgeVector& edges,
