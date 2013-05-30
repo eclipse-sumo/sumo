@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Evamarie Wieﬂner, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -114,7 +114,7 @@ public class Edge {
 	}
 
 	/**
-	 *  	 Returns the percentage of time (in %) the detector was occupied by a vehicle.
+	 * Returns the percentage of time (in %) the detector was occupied by a vehicle.
 	 */
 
 	public static SumoCommand getLastStepOccupancy(String edgeID){
@@ -122,7 +122,7 @@ public class Edge {
 	}
 
 	/**
-	 * Returns the list of ids of vehicles that were on the named induction loop in the last simulation step.
+	 * Returns the list of ids of the vehicles on the given edge within the last simulation step.
 	 */
 
 	public static SumoCommand getLastStepVehicleIDs(String edgeID){

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Evamarie Wieﬂner, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -26,7 +26,7 @@ public class Vehicletype {
 	//getter methods
 
 	/**
-	 * getAccel
+	 * Returns the maximum acceleration of the named vehicle class.
 	 */
 
 	public static SumoCommand getAccel(String typeID){
@@ -34,7 +34,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * Returns the subscription results for the last time step and the given vehicle type.
+	 * Returns the vehicle type's color.
 	 */
 
 	public static SumoCommand getColor(String typeID){
@@ -42,7 +42,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * getDecel
+	 * Returns the maximum deceleration of the names vehicle type.
 	 */
 
 	public static SumoCommand getDecel(String typeID){
@@ -50,7 +50,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * getEmissionClass
+	 * Returns the emission class of the named vehicle type.
 	 */
 
 	public static SumoCommand getEmissionClass(String typeID){
@@ -74,7 +74,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * getLength
+	 * Returns the length of the named vehicle type.
 	 */
 
 	public static SumoCommand getLength(String typeID){
@@ -82,7 +82,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * getMaxSpeed
+	 * Return the maximum speed of the named vehicle type.
 	 */
 
 	public static SumoCommand getMaxSpeed(String typeID){
@@ -90,7 +90,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * getMinGap
+	 * Returns the minimum headway gap of the named vehicle type.
 	 */
 
 	public static SumoCommand getMinGap(String typeID){
@@ -106,7 +106,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * getSpeedDeviation
+	 * Returns the speed deviation of the named vehicle type.
 	 */
 
 	public static SumoCommand getSpeedDeviation(String typeID){
@@ -114,7 +114,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * getSpeedFactor
+	 * Return the speed factor of the names vehicle type.
 	 */
 
 	public static SumoCommand getSpeedFactor(String typeID){
@@ -130,7 +130,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * getVehicleClass
+	 * Returns the vehicle class of the names vehicle type.
 	 */
 
 	public static SumoCommand getVehicleClass(String typeID){
@@ -138,7 +138,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * getWidth
+	 * Returns the width of the named vehicle type.
 	 */
 
 	public static SumoCommand getWidth(String typeID){
@@ -148,7 +148,7 @@ public class Vehicletype {
 	//setter methods
 
 	/**
-	 * setAccel
+	 * Sets the vehicle type's wished maximum acceleration to the given value.
 	 */
 
 	public static SumoCommand setAccel(String typeID, double accel){
@@ -157,7 +157,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * setColor
+	 * Sets the vehicle type's color.
 	 */
 
 	public static SumoCommand setColor(String typeID, SumoColor color){
@@ -166,7 +166,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * setDecel
+	 * Sets the vehicle type's wished maximum deceleration to the given value.
 	 */
 
 	public static SumoCommand setDecel(String typeID, double decel){
@@ -175,7 +175,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * setEmissionClass
+	 * Sets the vehicle type's emission class to the given value.
 	 */
 
 	public static SumoCommand setEmissionClass(String typeID, String clazz){
@@ -193,7 +193,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * setLength
+	 * Sets the vehicle type's length to the given value.
 	 */
 
 	public static SumoCommand setLength(String typeID, double length){
@@ -202,7 +202,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * setMaxSpeed
+	 * Sets the vehicle type's maximum speed to the given value.
 	 */
 
 	public static SumoCommand setMaxSpeed(String typeID, double speed){
@@ -211,7 +211,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * setMinGap
+	 * Sets the vehicle type's minimum headway gap to the given value.
 	 */
 
 	public static SumoCommand setMinGap(String typeID, double minGap){
@@ -229,7 +229,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * setSpeedDeviation
+	 * Sets the vehicle type's speed deviation to the given value.
 	 */
 
 	public static SumoCommand setSpeedDeviation(String typeID, double deviation){
@@ -238,7 +238,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * setSpeedFactor
+	 * Sets the vehicle type's speed factor to the given value.
 	 */
 
 	public static SumoCommand setSpeedFactor(String typeID, double factor){
@@ -256,7 +256,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * setVehicleClass
+	 * Sets the vehicle type's vehicle class to the given value.
 	 */
 
 	public static SumoCommand setVehicleClass(String typeID, String clazz){
@@ -265,7 +265,7 @@ public class Vehicletype {
 	}
 
 	/**
-	 * setWidth
+	 * Sets the vehicle type's width to the given value.
 	 */
 
 	public static SumoCommand setWidth(String typeID, double width){

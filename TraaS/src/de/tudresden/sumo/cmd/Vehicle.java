@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Evamarie Wieﬂner, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -344,7 +344,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * isRouteValid
+	 * Returns whether the Route is valid.
 	 */
 
 	public static SumoCommand isRouteValid(String vehID){
@@ -354,7 +354,7 @@ public class Vehicle {
 	//setter methods
 	
 	/**
-	 * Set the IDs of the edges the vehicle's route is made of.
+	 * Sets the IDs of the edges the vehicle's route is made of.
 	 */
 
 	public static SumoCommand setRoute(String vehID, SumoStringList edgeList){
@@ -363,7 +363,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * slowDown
+	 * Reduces the speed to the given for the given amount of time.
 	 */
 
 	public static SumoCommand slowDown(String vehID, double speed, int duration){
@@ -382,7 +382,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * The named vehicle changes the lane.
+	 * Forces a lane change to the lane with the given index; if successful, the lane will be chosen for the given amount of time.
 	 */
 
 	public static SumoCommand changeLane(String vehID, int laneIndex, int duration){
@@ -392,7 +392,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * The named vehicle changes its target.
+	 * The vehicle's destination edge is set to the given. The route is rebuilt.
 	 */
 
 	public static SumoCommand changeTarget(String vehID, String edgeID){
@@ -401,7 +401,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * moveTo
+	 * Moves the vehicle to a new position.
 	 */
 
 	public static SumoCommand moveTo(String vehID, String laneID, double pos){
@@ -421,7 +421,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * Remove vehicle with the given ID for the give reason.  Reasons are defined in module constants and start with REMOVE_
+	 * Removes vehicle with the given ID for the given reason. Reasons are defined in module constants and start with REMOVE_
 	 */
 
 	public static SumoCommand remove(String vehID, int reason){
@@ -430,7 +430,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * rerouteEffort
+	 * Computes a new route using the vehicle's internal and the global edge effort information.
 	 */
 
 	public static SumoCommand rerouteEffort(String vehID){
@@ -440,7 +440,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * rerouteTraveltime
+	 * Computes a new route using the vehicle's internal and the global edge travel time information.
 	 */
 
 	public static SumoCommand rerouteTraveltime(String vehID){
@@ -450,7 +450,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setAccel
+	 * Sets the acceleration of the named vehicle.
 	 */
 
 	public static SumoCommand setAccel(String vehID, double accel){
@@ -459,7 +459,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setAdaptedTraveltime
+	 * Sets the edge travel time of the named vehicle.
 	 */
 
 	public static SumoCommand setAdaptedTraveltime(String vehID, int begTime, int endTime, String edgeID, double time){
@@ -469,7 +469,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setColor
+	 * Sets the vehicle's color (RGBA).
 	 */
 
 	public static SumoCommand setColor(String vehID, SumoColor color){
@@ -478,7 +478,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setDecel
+	 * Sets the deceleration of the named vehicle.
 	 */
 
 	public static SumoCommand setDecel(String vehID, double decel){
@@ -487,7 +487,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setEffort
+	 * Sets the edge effort for the given time as stored in the vehicle's internal container.
 	 */
 
 	public static SumoCommand setEffort(String vehID, int begTime, int endTime, String edgeID, double effort){
@@ -497,7 +497,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setEmissionClass
+	 * Sets the emission class of the named vehicle.
 	 */
 
 	public static SumoCommand setEmissionClass(String vehID, String clazz){
@@ -515,7 +515,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setLength
+	 * Sets the length (in m) of the named vehicle.
 	 */
 
 	public static SumoCommand setLength(String vehID, double length){
@@ -524,7 +524,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setMaxSpeed
+	 * Sets the maximum speed (in m/s) of the named vehicle.
 	 */
 
 	public static SumoCommand setMaxSpeed(String vehID, double speed){
@@ -533,7 +533,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setMinGap
+	 * Sets the minimum gap (in m) between this vehicle and the vehicle before it.
 	 */
 
 	public static SumoCommand setMinGap(String vehID, double minGap){
@@ -542,7 +542,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setRouteID
+	 * Sets the id of the route of the named vehicle.
 	 */
 
 	public static SumoCommand setRouteID(String vehID, String routeID){
@@ -569,7 +569,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setSpeed
+	 * Sets the speed (in m/s) of the named vehicle.
 	 */
 
 	public static SumoCommand setSpeed(String vehID, double speed){
@@ -578,7 +578,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setSpeedDeviation
+	 *  Sets the standard deviation of the estimated maximum speed.
 	 */
 
 	public static SumoCommand setSpeedDeviation(String vehID, double deviation){
@@ -587,7 +587,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setSpeedFactor
+	 * Sets the factor by which the driver multiplies the speed read from street signs to estimate "real" maximum allowed speed.
 	 */
 
 	public static SumoCommand setSpeedFactor(String vehID, double factor){
@@ -596,7 +596,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setStop
+	 * Lets the vehicle stop at the given edge, at the given position and lane. The vehicle will stop for the given duration. Re-issuing a stop command with the same lane and position allows changing the duration.
 	 */
 
 	public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, int duration){
@@ -615,7 +615,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setVehicleClass
+	 * Sets the vehicle class.
 	 */
 
 	public static SumoCommand setVehicleClass(String vehID, String clazz){
@@ -624,7 +624,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * setWidth
+	 * Sets the vehicle's width (in m).
 	 */
 
 	public static SumoCommand setWidth(String vehID, double width){
