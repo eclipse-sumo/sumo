@@ -5,3 +5,6 @@ multiple_reroute
 # Also test the special dest values 'keepDestination' and 'terminateRoute'.
 # Vehicles which's route do not take them across the closed edges should not be affected.
 closing_and_dest_prob_and_specialDestinations
+
+# closing an edge with probability 0.5
+closing_with_prob
