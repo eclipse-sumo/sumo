@@ -100,7 +100,7 @@ TEST(Line, test_method_intersectsAtLength_no_intersect) {
 /* Test the method 'rotateAtP1' */
 TEST(Line, test_method_rotateAtP1) {
 	Line line(Position(0,0),Position(2,2));
-	line.rotateAtP1(PI/2);
+	line.rotateAtP1(M_PI/2);
 	EXPECT_DOUBLE_EQ(-2,(line.p2()).x());
 	EXPECT_DOUBLE_EQ(2,(line.p2()).y());
 }
@@ -108,7 +108,7 @@ TEST(Line, test_method_rotateAtP1) {
 /* Test the method 'rotateAtP1' with negative rotation */
 TEST(Line, test_method_rotateAtP1_negative) {
 	Line line(Position(0,0),Position(2,2));
-	line.rotateAtP1(-3*PI/4);
+	line.rotateAtP1(-3*M_PI/4);
 	EXPECT_DOUBLE_EQ(1,SUMOReal((line.p2()).x())+1);
 	EXPECT_DOUBLE_EQ(-2*sqrt(SUMOReal(2)),(line.p2()).y());
 }
