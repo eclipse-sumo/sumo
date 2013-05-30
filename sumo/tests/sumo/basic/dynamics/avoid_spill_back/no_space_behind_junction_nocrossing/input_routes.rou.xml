@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="0" arrivalPos="4">
+    <vehicle id="ego" depart="0" arrivalPos="3">
         <route edges="beg middle"/>
     </vehicle>
 

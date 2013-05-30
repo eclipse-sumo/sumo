@@ -1299,7 +1299,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
                     impatienceCorrection = MAX2(SUMOReal(0), STEPS2TIME(myWaitingTime));
                 }
                 */
-                if (leftSpace < -impatienceCorrection / 10.) {
+                if (leftSpace < -impatienceCorrection / 10. && item.myLink->isCrossing()) {
                     removalBegin = i;
                 }
                 //removalBegin = i;
