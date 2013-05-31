@@ -54,6 +54,14 @@ bool GUITexturesHelper::myAllowTextures = true;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+int
+GUITexturesHelper::getMaxTextureSize() {
+    int max;
+    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max);
+    return max;
+}
+
+
 GUIGlID
 GUITexturesHelper::add(FXImage* i) {
     GUIGlID id;
@@ -112,19 +120,12 @@ GUITexturesHelper::drawTexturedBox(unsigned int which,
 }
 
 
-
-void
-GUITexturesHelper::clearTextures() {
-    myTextures.clear();
-}
-
-
 int
 GUITexturesHelper::getTextureID(const std::string& filename) {
     if (myTextures.count(filename) == 0) {
         try {
             FXImage* i = MFXImageHelper::loadImage(GUIMainWindow::getInstance()->getApp(), filename);
-            if (MFXImageHelper::scalePower2(i)) {
+            if (MFXImageHelper::scalePower2(i, getMaxTextureSize())) {
                 WRITE_WARNING("Scaling '" + filename + "'.");
             }
             GUIGlID id = add(i);
@@ -136,6 +137,12 @@ GUITexturesHelper::getTextureID(const std::string& filename) {
         }
     }
     return myTextures[filename];
+}
+
+
+void
+GUITexturesHelper::clearTextures() {
+    myTextures.clear();
 }
 
 /****************************************************************************/

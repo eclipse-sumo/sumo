@@ -145,64 +145,64 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalRelease\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalRelease\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\x64\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\x64\InternalRelease\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\x64\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\x64\InternalRelease\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalRelease\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalDebug\y_libmesogui.lib;$(OSG_DEBUG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalDebug\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalDebug\y_libmesogui.lib;$(OSG_DEBUG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalDebug\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\x64\InternalDebug\y_libmesogui.lib;$(OSG_DEBUG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\x64\InternalDebug\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\x64\InternalDebug\y_libmesogui.lib;$(OSG_DEBUG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\x64\InternalDebug\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalFastbuild\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalFastbuild\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\x64\InternalFastbuild\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\x64\InternalFastbuild\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\InternalFastbuild\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

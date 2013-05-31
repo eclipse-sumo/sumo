@@ -338,6 +338,10 @@ protected:
 
 
 protected:
+    /** @brief check whether we can read image data or position with gdal
+     */
+    FXImage* checkGDALImage(Decal& d);
+
     /** @brief Draws the stored decals
      */
     void drawDecals();

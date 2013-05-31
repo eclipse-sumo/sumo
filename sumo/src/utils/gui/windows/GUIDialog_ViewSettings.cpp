@@ -1172,8 +1172,8 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
         d.filename = "";
         d.centerX = SUMOReal(myParent->getGridWidth() / 2.);
         d.centerY = SUMOReal(myParent->getGridHeight() / 2.);
-        d.width = SUMOReal(myParent->getGridWidth());
-        d.height = SUMOReal(myParent->getGridHeight());
+        d.width = 0.;
+        d.height = 0.;
         d.initialised = false;
         d.rot = 0;
         d.layer = 0;

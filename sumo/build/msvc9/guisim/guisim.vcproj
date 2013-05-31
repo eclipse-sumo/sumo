@@ -52,7 +52,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile="$(OutDir)\sumo-guiD.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -113,7 +113,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile="$(OutDir)\sumo-gui64D.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -174,7 +174,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile="$(OutDir)\sumo-gui.exe"
 				SubSystem="2"
 				EntryPointSymbol="mainCRTStartup"
@@ -237,7 +237,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile="$(OutDir)\sumo-gui64.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -298,7 +298,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile="$(OutDir)\meso-gui.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -359,7 +359,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile="$(OutDir)\meso-gui64.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -420,7 +420,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile="$(OutDir)\meso-guiD.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -481,7 +481,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile="$(OutDir)\meso-gui64D.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -544,7 +544,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile="$(OutDir)\sumo-guiF.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -608,7 +608,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(GDAL_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile="$(OutDir)\sumo-gui64F.exe"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"

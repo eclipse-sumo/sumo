@@ -68,7 +68,8 @@
 #include "GUIDanielPerspectiveChanger.h"
 #include "GUIDialog_EditViewport.h"
 
-#ifdef WIN32
+#ifdef HAVE_GDAL
+#include <gdal_priv.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -920,6 +921,85 @@ GUISUMOAbstractView::getColoringSchemesCombo() {
 }
 
 
+FXImage*
+GUISUMOAbstractView::checkGDALImage(Decal& d) {
+#ifdef HAVE_GDAL
+    GDALAllRegister();
+    GDALDataset* poDataset = (GDALDataset*)GDALOpen(d.filename.c_str(), GA_ReadOnly);
+    if (poDataset == 0) {
+        return 0;
+    }
+    const int xSize = poDataset->GetRasterXSize();
+    const int ySize = poDataset->GetRasterYSize();
+    // checking for geodata in the picture and try to adapt position and scale
+    if (d.width <= 0.) {
+        double adfGeoTransform[6];
+        if (poDataset->GetGeoTransform(adfGeoTransform) == CE_None) {
+            Position topLeft(adfGeoTransform[0], adfGeoTransform[3]);
+            const double horizontalSize = xSize * adfGeoTransform[1];
+            const double verticalSize = ySize * adfGeoTransform[5];
+            Position bottomRight(topLeft.x() + horizontalSize, topLeft.y() + verticalSize);
+            if (GeoConvHelper::getProcessing().x2cartesian(topLeft) && GeoConvHelper::getProcessing().x2cartesian(bottomRight)) {
+                d.width = bottomRight.x() - topLeft.x();
+                d.height = topLeft.y() - bottomRight.y();
+                d.centerX = (topLeft.x() + bottomRight.x()) / 2;
+                d.centerY = (topLeft.y() + bottomRight.y()) / 2;
+                //WRITE_MESSAGE("proj: " + toString(poDataset->GetProjectionRef()) + " dim: " + toString(d.width) + "," + toString(d.height) + " center: " + toString(d.centerX) + "," + toString(d.centerY));
+            } else {
+                WRITE_WARNING("Could not convert coordinates in " + d.filename + ".");
+            }
+        }
+    }
+#endif
+    if (d.width <= 0.) {
+        d.width = getGridWidth();
+        d.height = getGridHeight();
+    }
+
+    // trying to read the picture
+#ifdef HAVE_GDAL
+    const int picSize = xSize * ySize;
+    FXColor* result;
+    if (!FXMALLOC(&result, FXColor, picSize)) {
+        WRITE_WARNING("Could not allocate memory for " + d.filename + ".");
+        return 0;
+    }
+    for (int j = 0; j < picSize; j++) {
+        result[j] = FXRGB(0, 0, 0);
+    }
+    bool valid = true;
+    for (int i = 1; i <= poDataset->GetRasterCount(); i++) {
+        GDALRasterBand* poBand = poDataset->GetRasterBand(i);
+        int shift = -1;
+        if (poBand->GetColorInterpretation() == GCI_RedBand) {
+            shift = 0;
+        } else if (poBand->GetColorInterpretation() == GCI_GreenBand) {
+            shift = 1;
+        } else if (poBand->GetColorInterpretation() == GCI_BlueBand) {
+            shift = 2;
+        } else if (poBand->GetColorInterpretation() == GCI_AlphaBand) {
+            shift = 3;
+        } else {
+            WRITE_MESSAGE("Unknown color band in " + d.filename + ", maybe fox can parse it.");
+            valid = false;
+            break;
+        }
+        assert(xSize == poBand->GetXSize() && ySize == poBand->GetYSize());
+        if (poBand->RasterIO(GF_Read, 0, 0, xSize, ySize, ((unsigned char*)result) + shift, xSize, ySize, GDT_Byte, 4, 4 * xSize) == CE_Failure) {
+            valid = false;
+            break;
+        }
+    }
+    GDALClose(poDataset);
+    if (valid) {
+        return new FXImage(getApp(), result, IMAGE_OWNED | IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP, xSize, ySize);
+    }
+    FXFREE(&result);
+#endif
+    return 0;
+}
+
+
 void
 GUISUMOAbstractView::drawDecals() {
     glPushName(0);
@@ -931,13 +1011,16 @@ GUISUMOAbstractView::drawDecals() {
         }
         if (!d.initialised) {
             try {
-                FXImage* i = MFXImageHelper::loadImage(getApp(), d.filename);
-                if (MFXImageHelper::scalePower2(i)) {
+                FXImage* img = checkGDALImage(d);
+                if (img == 0) {
+                    img = MFXImageHelper::loadImage(getApp(), d.filename);
+                }
+                if (MFXImageHelper::scalePower2(img, GUITexturesHelper::getMaxTextureSize())) {
                     WRITE_WARNING("Scaling '" + d.filename + "'.");
                 }
-                d.glID = GUITexturesHelper::add(i);
+                d.glID = GUITexturesHelper::add(img);
                 d.initialised = true;
-                d.image = i;
+                d.image = img;
             } catch (InvalidArgument& e) {
                 WRITE_ERROR("Could not load '" + d.filename + "'.\n" + e.what());
                 d.skip2D = true;
@@ -947,8 +1030,8 @@ GUISUMOAbstractView::drawDecals() {
         glTranslated(d.centerX, d.centerY, d.layer);
         glRotated(d.rot, 0, 0, 1);
         glColor3d(1, 1, 1);
-        SUMOReal halfWidth((d.width / 2.));
-        SUMOReal halfHeight((d.height / 2.));
+        const SUMOReal halfWidth = d.width / 2.;
+        const SUMOReal halfHeight = d.height / 2.;
         GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
         glPopMatrix();
     }
