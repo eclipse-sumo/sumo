@@ -241,7 +241,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
             const size_t NUM_COLUMNS = 25; // @note arrays must match this size!
             const int MC = MISSING_COLUMN;
             if (myVersion < 3) {
-                const int columns[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, MC, 12, 13, 14, 15, 16, 17, 18, 19, 20, MC, MC, 21};
+                const int columns[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, MC, 12, 13, 14, 15, 16, 17, 18, 19, 20, MC, MC, -21};
                 myColumns = std::vector<int>(columns, columns + NUM_COLUMNS);
             } else if (myVersion < 6) {
                 const int columns[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, MC, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, -23};
@@ -367,7 +367,7 @@ NIImporter_DlrNavteq::EdgesHandler::getColumn(const StringTokenizer& st, ColumnN
         return st.get((size_t)(myColumns[name]));
     } else {
         // negative column number implies an optional column
-        if (st.size() <= -myColumns[name]) {
+        if ((int) st.size() <= -myColumns[name]) {
             // the column is not present
             if (fallback == "") {
                 throw ProcessError("Missing optional column " + toString(name) + " without default value.");
