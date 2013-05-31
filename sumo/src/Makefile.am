@@ -104,6 +104,7 @@ $(sumo_LDADD) \
 ./gui/GUIManipulator.o \
 ./gui/GUITLLogicPhasesTrackerWindow.o \
 $(OSG_LIBS) \
+$(GDAL_LIBS) \
 -l$(LIB_FOX)
 endif
 
