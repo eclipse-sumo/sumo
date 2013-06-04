@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 """
 @file    route2poly.py
 @author  Jakob Erdmann
