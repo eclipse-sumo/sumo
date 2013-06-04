@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 22 12:11:58 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Tue Jun  4 14:31:58 2013 by SUMO netconvert Version dev-SVN-r14073
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -85,10 +85,10 @@
         <request index="2" response="000" foes="000"/>
     </junction>
 
-    <connection from="on" to="s2-AddedOnRampEdge" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
-    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="0" toLane="1" pass="1" dir="s" state="M"/>
-    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="1" toLane="2" pass="1" dir="s" state="M"/>
-    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="2" toLane="3" pass="1" dir="s" state="M"/>
+    <connection from="on" to="s2-AddedOnRampEdge" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="2" toLane="3" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="2" toLane="2" dir="s" state="M"/>

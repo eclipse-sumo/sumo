@@ -1,9 +1,4 @@
-Parsing sumo-net from 'input_net.net.xml'... 
-Infering connection attribute pass="1" from to-edge id 's2-AddedOnRampEdge'
-Infering connection attribute pass="1" from to-edge id 's2-AddedOnRampEdge'
-Infering connection attribute pass="1" from to-edge id 's2-AddedOnRampEdge'
-Infering connection attribute pass="1" from to-edge id 's2-AddedOnRampEdge'
-done.
+Parsing sumo-net from 'input_net.net.xml'... done.
  Import done:
    7 nodes loaded.
    6 edges loaded.
