@@ -5,3 +5,6 @@ impatience_1
 
 # tests setting time-to-teleport to 60
 impatience_zero_ttt_60
+
+# disable growing impatience
+impatience_off

@@ -94,7 +94,11 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_EMISSIONCLASS, getVehicleEmissionTypeName(emissionClass));
     }
     if (wasSet(VTYPEPARS_IMPATIENCE_SET)) {
-        dev.writeAttr(SUMO_ATTR_IMPATIENCE, impatience);
+        if (impatience == -std::numeric_limits<SUMOReal>::max()) {
+            dev.writeAttr(SUMO_ATTR_IMPATIENCE, "off");
+        } else {
+            dev.writeAttr(SUMO_ATTR_IMPATIENCE, impatience);
+        }
     }
     if (wasSet(VTYPEPARS_SHAPE_SET)) {
         dev.writeAttr(SUMO_ATTR_GUISHAPE, getVehicleShapeName(shape));
