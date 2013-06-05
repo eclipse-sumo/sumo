@@ -83,7 +83,8 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCurrentTL(0),
       myLocation(0),
       mySuspectKeepShape(false),
-      myHaveSeenInternalEdge(false) {}
+      myHaveSeenInternalEdge(false)
+{}
 
 
 NIImporter_SUMO::~NIImporter_SUMO() {
@@ -348,6 +349,9 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->length = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
+    if (myCurrentEdge->streetName != "" && OptionsCont::getOptions().isDefault("output.street-names")) {
+        OptionsCont::getOptions().set("output.street-names", "true");
+    }
 
     std::string lsfS = toString(LANESPREAD_RIGHT);
     lsfS = attrs.getOpt<std::string>(SUMO_ATTR_SPREADTYPE, id.c_str(), ok, lsfS);

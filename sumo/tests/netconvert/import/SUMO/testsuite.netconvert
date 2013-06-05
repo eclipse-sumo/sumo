@@ -34,3 +34,6 @@ roundabouts
 
 # test discarding traffic lights for geometry-like junctions
 tls.discard-simple
+
+# see ticket917
+infer_option_street_names

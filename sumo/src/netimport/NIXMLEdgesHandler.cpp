@@ -203,7 +203,12 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentOffset = attrs.get<SUMOReal>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
     }
     // try to get the street name
-    myCurrentStreetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, myCurrentID.c_str(), ok, myCurrentStreetName);
+    if (attrs.hasAttribute(SUMO_ATTR_NAME)) {
+        myCurrentStreetName = attrs.get<std::string>(SUMO_ATTR_NAME, myCurrentID.c_str(), ok);
+        if (myCurrentStreetName != "" && myOptions.isDefault("output.street-names")) {
+            myOptions.set("output.street-names", "true");
+        }
+    }
 
     // try to get the allowed/disallowed classes
     if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {

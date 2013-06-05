@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 10 13:29:58 2012 by SUMO netconvert Version dev-SVN-r11688
+<!-- generated on Wed Jun  5 09:35:42 2013 by SUMO netconvert Version dev-SVN-r14096
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -11,6 +11,7 @@
 
     <output>
         <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
     </output>
 
     <edge_removal>
@@ -88,27 +89,27 @@
         <lane id=":-29_0_0" index="0" speed="27.78" length="4.82" shape="490.29,18.70 491.30,17.61 492.18,17.33 492.93,17.87 493.55,19.22"/>
     </edge>
 
-    <edge id="--33#0" from="-15" to="-2" priority="9" type="highway.primary" shape="303.59,700.77 133.00,786.04 0.26,822.04">
+    <edge id="--33#0" from="-15" to="-2" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="303.59,700.77 133.00,786.04 0.26,822.04">
         <lane id="--33#0_0" index="0" speed="27.78" length="328.74" shape="305.65,705.27 134.77,790.69 1.56,826.82"/>
         <lane id="--33#0_1" index="1" speed="27.78" length="328.74" shape="304.18,702.32 133.59,787.59 0.69,823.63"/>
     </edge>
-    <edge id="--33#1" from="-26" to="-15" priority="9" type="highway.primary" shape="493.51,408.13 473.55,508.62 426.27,583.95 339.53,680.45 303.59,700.77">
+    <edge id="--33#1" from="-26" to="-15" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="493.51,408.13 473.55,508.62 426.27,583.95 339.53,680.45 303.59,700.77">
         <lane id="--33#1_0" index="0" speed="27.78" length="364.28" shape="498.20,409.92 478.23,510.48 430.46,586.58 342.67,684.36 306.17,705.00"/>
         <lane id="--33#1_1" index="1" speed="27.78" length="364.28" shape="494.96,409.28 475.11,509.24 427.67,584.83 340.58,681.75 304.55,702.12"/>
     </edge>
-    <edge id="--33#2" from="-29" to="-26" priority="9" type="highway.primary" shape="491.92,18.96 476.29,117.02 493.51,408.13">
+    <edge id="--33#2" from="-29" to="-26" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="491.92,18.96 476.29,117.02 493.51,408.13">
         <lane id="--33#2_0" index="0" speed="27.78" length="389.36" shape="496.81,19.74 481.26,117.27 498.40,407.00"/>
         <lane id="--33#2_1" index="1" speed="27.78" length="389.36" shape="493.55,19.22 477.95,117.10 495.11,407.19"/>
     </edge>
-    <edge id="-33#0" from="-2" to="-15" priority="9" type="highway.primary" shape="0.26,822.04 133.00,786.04 303.59,700.77">
+    <edge id="-33#0" from="-2" to="-15" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="0.26,822.04 133.00,786.04 303.59,700.77">
         <lane id="-33#0_0" index="0" speed="27.78" length="327.42" shape="-1.04,817.26 131.23,781.39 301.23,696.42"/>
         <lane id="-33#0_1" index="1" speed="27.78" length="327.42" shape="-0.17,820.45 132.41,784.49 302.70,699.37"/>
     </edge>
-    <edge id="-33#1" from="-15" to="-26" priority="9" type="highway.primary" shape="303.59,700.77 339.53,680.45 426.27,583.95 473.55,508.62 493.51,408.13">
+    <edge id="-33#1" from="-15" to="-26" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="303.59,700.77 339.53,680.45 426.27,583.95 473.55,508.62 493.51,408.13">
         <lane id="-33#1_0" index="0" speed="27.78" length="358.57" shape="301.30,696.38 336.39,676.54 422.59,580.64 468.87,506.76 488.49,407.99"/>
         <lane id="-33#1_1" index="1" speed="27.78" length="358.57" shape="302.92,699.25 338.48,679.15 425.04,582.85 471.99,508.00 491.73,408.63"/>
     </edge>
-    <edge id="-33#2" from="-26" to="-29" priority="9" type="highway.primary" shape="493.51,408.13 476.29,117.02 491.92,18.96">
+    <edge id="-33#2" from="-26" to="-29" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="493.51,408.13 476.29,117.02 491.92,18.96">
         <lane id="-33#2_0" index="0" speed="27.78" length="390.80" shape="488.52,407.58 471.32,116.77 487.03,18.18"/>
         <lane id="-33#2_1" index="1" speed="27.78" length="390.80" shape="491.81,407.39 474.63,116.94 490.29,18.70"/>
     </edge>
