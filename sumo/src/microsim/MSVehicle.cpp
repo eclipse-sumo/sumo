@@ -498,11 +498,9 @@ MSVehicle::getPosition(SUMOReal offset) const {
         shp.move2side(SUMO_const_laneWidth);
         return shp.positionAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane() + offset));
     }
-    Position result = myLane->getShape().positionAtOffset(
-            myLane->interpolateLanePosToGeometryPos(getPositionOnLane() + offset));
+    Position result = myLane->geometryPositionAtOffset(getPositionOnLane() + offset);
     if (getLaneChangeModel().isChangingLanes()) {
-        const Position other = getLaneChangeModel().getShadowLane()->getShape().positionAtOffset(
-                getLaneChangeModel().getShadowLane()->interpolateLanePosToGeometryPos(getPositionOnLane() + offset));
+        const Position other = getLaneChangeModel().getShadowLane()->geometryPositionAtOffset(getPositionOnLane() + offset);
         Line line = getLaneChangeModel().isLaneChangeMidpointPassed() ?  Line(other, result) : Line(result, other);
         return line.getPositionAtDistance(getLaneChangeModel().getLaneChangeCompletion() * line.length());
     } 
@@ -690,7 +688,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 }
             }
             // decelerate
-            return getCarFollowModel().stopSpeed(this, endPos - myState.pos());
+            return getCarFollowModel().stopSpeed(this, getSpeed(), endPos - myState.pos());
         }
     }
     return currentVelocity;
@@ -779,7 +777,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             // we are approaching a stop on the edge; must not drive further
             const Stop& stop = *myStops.begin();
             SUMOReal stopDist = stop.busstop == 0 ? seen + stop.endPos - lane->getLength() : seen + stop.busstop->getLastFreePos(*this) - POSITION_EPS - lane->getLength();
-            SUMOReal stopSpeed = cfModel.stopSpeed(this, stopDist);
+            SUMOReal stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist);
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(stopSpeed);
             }
@@ -809,7 +807,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         const SUMOReal laneStopOffset = lane->getLength() > getVehicleType().getMinGap() ? getVehicleType().getMinGap() : POSITION_EPS;
         const SUMOReal stopDist = MAX2(SUMOReal(0), seen - laneStopOffset);
         if (lane->isLinkEnd(link)) {
-            SUMOReal va = MIN2(cfModel.stopSpeed(this, stopDist), laneMaxV);
+            SUMOReal va = MIN2(cfModel.stopSpeed(this, getSpeed(), stopDist), laneMaxV);
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(va);
             }
@@ -834,7 +832,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
                                  (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR ||
                                  (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
         const bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
-        const SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, stopDist));
+        const SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
         if (yellowOrRed && seen > cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime()) {
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / vLinkWait), vLinkWait, stopDist));
@@ -921,7 +919,7 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
         } else {
             // the leading, in-lapping vehicle is occupying the complete next lane
             // stop before entering this lane
-            vsafeLeader = cfModel.stopSpeed(this, seen - lane->getLength() - POSITION_EPS);
+            vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - lane->getLength() - POSITION_EPS);
         }
         if (lastLink != 0) {
             lastLink->adaptLeaveSpeed(vsafeLeader);

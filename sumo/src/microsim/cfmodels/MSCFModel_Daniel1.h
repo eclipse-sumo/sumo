@@ -85,7 +85,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    virtual SUMOReal stopSpeed(const MSVehicle* const veh, SUMOReal gap2pred) const;
+    virtual SUMOReal stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap2pred) const;
 
 
     /** @brief Returns the model's name

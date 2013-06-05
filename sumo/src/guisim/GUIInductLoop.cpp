@@ -107,12 +107,10 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const {
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, SUMOReal pos)
     : GUIDetectorWrapper("induct loop", detector.getID()),
       myDetector(detector), myPosition(pos) {
-	const PositionVector& v = detector.getLane()->getShape();
-    myFGPosition = v.positionAtOffset(pos);
-    Line l(v.front(), v.back());
+    myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (SUMOReal) 5.5, myFGPosition.y() + (SUMOReal) 5.5);
     myBoundary.add(myFGPosition.x() - (SUMOReal) 5.5, myFGPosition.y() - (SUMOReal) 5.5);
-    myFGRotation = -v.rotationDegreeAtOffset(pos);
+    myFGRotation = -detector.getLane()->getShape().rotationDegreeAtOffset(pos);
 }
 
 

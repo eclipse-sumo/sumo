@@ -52,14 +52,14 @@ MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 
 SUMOReal
-MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
+MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
     return MIN2(_vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh));
 }
 
 
 SUMOReal
-MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
-    return MIN2(_vsafe(gap, 0, 0), maxNextSpeed(veh->getSpeed(), veh));
+MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
+    return MIN2(_vsafe(gap, 0, 0), maxNextSpeed(speed, veh));
 }
 
 

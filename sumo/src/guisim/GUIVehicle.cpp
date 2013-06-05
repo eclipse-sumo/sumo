@@ -902,9 +902,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     Position p1 = getPosition();
     // one seat in the center of the vehicle by default
-    mySeatPositions[0] = myLane->getShape().positionAtOffset(
-                             myLane->interpolateLanePosToGeometryPos(
-                                 myState.pos() - getVehicleType().getLength() / 2));
+    mySeatPositions[0] = myLane->geometryPositionAtOffset(myState.pos() - getVehicleType().getLength() / 2);
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(getAngle(), 0, 0, 1);
     // set lane color

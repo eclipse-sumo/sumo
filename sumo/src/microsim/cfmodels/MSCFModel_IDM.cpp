@@ -86,11 +86,11 @@ MSCFModel_IDM::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal 
 
 
 SUMOReal
-MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, SUMOReal gap2pred) const {
+MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap2pred) const {
     if (gap2pred < 0.01) {
         return 0;
     }
-    return _v(veh, gap2pred, veh->getSpeed(), 0, desiredSpeed(veh));
+    return _v(veh, gap2pred, speed, 0, desiredSpeed(veh));
 }
 
 

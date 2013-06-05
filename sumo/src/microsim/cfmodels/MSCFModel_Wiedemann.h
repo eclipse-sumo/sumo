@@ -95,7 +95,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal stopSpeed(const MSVehicle* const veh, SUMOReal gap) const;
+    SUMOReal stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs

@@ -79,8 +79,8 @@ MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, SUMOReal speed, S
 
 
 SUMOReal
-MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
-    return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed(), veh));
+MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
+    return MIN2(_vsafe(gap, 0), maxNextSpeed(speed, veh));
 }
 
 

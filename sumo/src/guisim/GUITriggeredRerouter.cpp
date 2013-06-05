@@ -321,10 +321,10 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
     myFGRotations.reserve(lanes.size());
     for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
         const PositionVector& v = (*i)->getShape();
-        SUMOReal pos = closed ? 3 : v.length() - (SUMOReal) 6.;
-        myFGPositions.push_back(v.positionAtOffset(pos));
+        const SUMOReal pos = closed ? 3 : v.length() - (SUMOReal) 6.;
+        myFGPositions.push_back((*i)->geometryPositionAtOffset(pos));
         myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
-        myBoundary.add(v.positionAtOffset(pos));
+        myBoundary.add(myFGPositions.back());
     }
 }
 

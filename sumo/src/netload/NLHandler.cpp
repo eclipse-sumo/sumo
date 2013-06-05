@@ -567,7 +567,7 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
             if (lanePos < 0) {
                 lanePos = lane->getLength() + lanePos;
             }
-            pos = lane->getShape().positionAtOffset(lanePos);
+            pos = lane->geometryPositionAtOffset(lanePos);
         } else {
             // try computing x,y from lon,lat
             if (lat == INVALID_POSITION || lon == INVALID_POSITION) {

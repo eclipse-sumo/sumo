@@ -87,12 +87,11 @@ MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMO
 
 // uses the safe speed and preferred acceleration with the same NORMAL tau to compute stopSpeed
 SUMOReal
-MSCFModel_PWag2009::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
+MSCFModel_PWag2009::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
     if (gap < 0.01) {
         return 0;
     }
     const SUMOReal vsafe = -myTauDecel + sqrt(myTauDecel * myTauDecel +  2.0 * myDecel * gap);
-    const SUMOReal speed = veh->getSpeed();
     const SUMOReal asafe = SPEED2ACCEL(vsafe - speed);
 //    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     SUMOReal apref = myDecelDivTau * (gap  - 2 * speed * myHeadwayTime) / (speed + myTauDecel);

@@ -72,11 +72,10 @@ GUIInstantInductLoop::buildDetectorGUIRepresentation() {
 GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, SUMOReal pos)
     : GUIDetectorWrapper("instant induct loop", detector.getID()),
       myDetector(detector), myPosition(pos) {
-    const PositionVector& v = detector.getLane()->getShape();
-    myFGPosition = v.positionAtOffset(pos);
+    myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (SUMOReal) 5.5, myFGPosition.y() + (SUMOReal) 5.5);
     myBoundary.add(myFGPosition.x() - (SUMOReal) 5.5, myFGPosition.y() - (SUMOReal) 5.5);
-    myFGRotation = -v.rotationDegreeAtOffset(pos);
+    myFGRotation = -detector.getLane()->getShape().rotationDegreeAtOffset(pos);
 }
 
 

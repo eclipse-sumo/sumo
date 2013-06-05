@@ -82,14 +82,14 @@ MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, SUMOReal /* speed *
 
 
 SUMOReal
-MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
+MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
     /* Wiedemann does not handle approaching junctions or stops very well:
      * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)
      * for dv ~ 0 the standard decision tree will switch to following() which
      * does a lousy job of closing in on a stop / junction
      * hence we borrow from Krauss here
      */
-    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(krauss_vsafe(gap, 0), maxNextSpeed(veh->getSpeed(), veh)));
+    return MAX2(getSpeedAfterMaxDecel(speed), MIN2(krauss_vsafe(gap, 0), maxNextSpeed(speed, veh)));
 }
 
 

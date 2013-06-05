@@ -521,7 +521,7 @@ MSLCM_DK2004::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
         SUMOReal space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
         if (space > 0) {
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
-            SUMOReal safe = cfModel.stopSpeed(&myVehicle, space);
+            SUMOReal safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use

@@ -75,8 +75,8 @@ MSCFModel_Daniel1::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOR
 
 
 SUMOReal
-MSCFModel_Daniel1::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
-    return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed(), veh));
+MSCFModel_Daniel1::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
+    return MIN2(_vsafe(gap, 0), maxNextSpeed(speed, veh));
 }
 
 
