@@ -64,6 +64,7 @@ const int VTYPEPARS_HEIGHT_SET = 2 << 10;
 const int VTYPEPARS_SHAPE_SET = 2 << 11;
 const int VTYPEPARS_OSGFILE_SET = 2 << 12;
 const int VTYPEPARS_IMGFILE_SET = 2 << 13;
+const int VTYPEPARS_IMPATIENCE_SET = 2 << 14;
 
 
 // ===========================================================================
@@ -132,6 +133,8 @@ public:
     RGBColor color;
     /// @brief The vehicle's class
     SUMOVehicleClass vehicleClass;
+    /// @brief The vehicle's impatience (willingness to obstruct others)
+    SUMOReal impatience;
 
 
     /// @name Values for drawing this class' vehicles

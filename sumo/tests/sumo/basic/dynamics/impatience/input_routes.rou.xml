@@ -1,0 +1,10 @@
+<routes>
+    <vehicle id="ego" depart="0" departPos="400" type="t">
+        <route edges="right2end end"/>
+    </vehicle>
+
+    <vType id="tflow" speedDev="0.05"/>
+    <flow id="priority" type="tflow" begin="0" end="500" departPos="800" departSpeed="max" period="3.0">
+        <route edges="middle end"/>
+    </flow>
+</routes>

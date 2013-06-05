@@ -673,6 +673,8 @@ public:
      */
     unsigned int getPersonNumber() const;
 
+    /// @brief Returns this vehicles impatience
+    SUMOReal getImpatience() const;
 
     /// @name Access to bool signals
     /// @{
@@ -1000,16 +1002,33 @@ protected:
         bool mySetRequest;
         SUMOTime myArrivalTime;
         SUMOReal myArrivalSpeed;
+        SUMOTime myArrivalTimeBraking;
+        SUMOReal myArrivalSpeedBraking;
         SUMOReal myDistance;
         SUMOReal accelV;
         bool hadVehicle;
         SUMOReal availableSpace;
+
         DriveProcessItem(MSLink* link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
-                         SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal distance,
+                         SUMOTime arrivalTime, SUMOReal arrivalSpeed, 
+                         SUMOTime arrivalTimeBraking, SUMOReal arrivalSpeedBraking, 
+                         SUMOReal distance,
                          SUMOReal leaveSpeed=-1.) :
             myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
-            myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), myDistance(distance),
+            myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), 
+            myArrivalTimeBraking(arrivalTimeBraking), myArrivalSpeedBraking(arrivalSpeedBraking), 
+            myDistance(distance),
             accelV(leaveSpeed), hadVehicle(false), availableSpace(-1.) { };
+
+        /// @brief constructor if the link shall not be passed
+        DriveProcessItem(SUMOReal vWait, SUMOReal distance) :
+            myLink(0), myVLinkPass(vWait), myVLinkWait(vWait), mySetRequest(false),
+            myArrivalTime(0), myArrivalSpeed(0), 
+            myArrivalTimeBraking(0), myArrivalSpeedBraking(0), 
+            myDistance(distance),
+            accelV(-1), hadVehicle(false), availableSpace(-1.) { };
+
+
         inline void adaptLeaveSpeed(const SUMOReal v) {
             if (accelV < 0) {
                 accelV = v;
@@ -1036,18 +1055,20 @@ protected:
         // l=linkLength, a=accel, t=continuousTime, v=vLeave
         // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
         return MIN2(link->getViaLaneOrLane()->getVehicleMaxSpeed(this),
-                    estimateSpeedAfterDistance(link->getLength(), vLinkPass));
+                    estimateSpeedAfterDistance(link->getLength(), vLinkPass, getVehicleType().getCarFollowModel().getMaxAccel()));
     }
 
     /* @brief estimate speed while accelerating for the given distance
      * @param[in] dist The distance during which accelerating takes place
      * @param[in] v The initial speed
+     * @param[in] accel The acceleration
      */
-    inline SUMOReal estimateSpeedAfterDistance(const SUMOReal dist, const SUMOReal v) const {
+    inline SUMOReal estimateSpeedAfterDistance(const SUMOReal dist, const SUMOReal v, const SUMOReal accel) const {
         // dist=v*t + 0.5*accel*t^2, solve for t and multiply with accel, then add v
         return MIN2(getVehicleType().getMaxSpeed(),
-                    (SUMOReal)sqrt(2 * dist * getVehicleType().getCarFollowModel().getMaxAccel() + v * v));
+                    (SUMOReal)sqrt(2 * dist * accel + v * v));
     }
+
 
     /* @brief estimate speed while accelerating for the given distance
      * @param[in] leaderInfo The leading vehicle and the (virtual) distance to it

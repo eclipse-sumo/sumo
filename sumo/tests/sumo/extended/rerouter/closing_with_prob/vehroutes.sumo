@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 30 09:27:38 2013 by SUMO sumo Version dev-SVN-r14060
+<!-- generated on Wed Jun  5 12:32:22 2013 by SUMO sumo Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -59,6 +59,13 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
+    <vehicle id="flow_maybe_detour.1" depart="10.00" arrival="230.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="10.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+
     <vehicle id="flow_maybe_detour.14" depart="140.00" arrival="234.00">
         <route edges="beg middle end rend"/>
     </vehicle>
@@ -67,21 +74,14 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="flow_maybe_detour.1" depart="10.00" arrival="250.00">
-        <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="10.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2left left left2end end rend"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_maybe_detour.2" depart="20.00" arrival="252.00">
+    <vehicle id="flow_maybe_detour.2" depart="20.00" arrival="250.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="20.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_maybe_detour.3" depart="30.00" arrival="253.00">
+    <vehicle id="flow_maybe_detour.3" depart="30.00" arrival="252.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="30.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end end rend"/>

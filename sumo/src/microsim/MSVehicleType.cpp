@@ -169,6 +169,16 @@ MSVehicleType::setWidth(const SUMOReal& width) {
 
 
 void
+MSVehicleType::setImpatience(const SUMOReal impatience) {
+    if (myOriginalType != 0 && impatience < 0) {
+        myParameter.impatience = myOriginalType->getImpatience();
+    } else {
+        myParameter.impatience = impatience;
+    }
+}
+
+
+void
 MSVehicleType::setShape(SUMOVehicleShape shape) {
     myParameter.shape = shape;
 }

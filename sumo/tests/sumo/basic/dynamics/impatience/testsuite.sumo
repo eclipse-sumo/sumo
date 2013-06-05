@@ -1,0 +1,7 @@
+# tests default value (impatience=0)
+impatience_zero
+impatience_0.5
+impatience_1
+
+# tests setting time-to-teleport to 60
+impatience_zero_ttt_60

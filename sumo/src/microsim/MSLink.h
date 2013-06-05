@@ -82,10 +82,15 @@ public:
         /// @brief Constructor
         ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime,
                                       const SUMOReal _arrivalSpeed, const SUMOReal _leaveSpeed,
-                                      const bool _willPass) :
+                                      const bool _willPass,
+                                      const SUMOTime _arrivalTimeBraking,
+                                      const SUMOReal _arrivalSpeedBraking
+                                      ) :
             arrivalTime(_arrivalTime), leavingTime(_leavingTime),
             arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed),
-            willPass(_willPass) {}
+            willPass(_willPass),
+            arrivalTimeBraking(_arrivalTimeBraking),
+            arrivalSpeedBraking(_arrivalSpeedBraking) {}
 
         /// @brief The time the vehicle's front arrives at the link
         const SUMOTime arrivalTime;
@@ -97,6 +102,10 @@ public:
         const SUMOReal leaveSpeed;
         /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
         const bool willPass;
+        /// @brief The time the vehicle's front arrives at the link if it starts braking
+        const SUMOTime arrivalTimeBraking;
+        /// @brief The estimated speed with which the vehicle arrives at the link if it starts braking(for headway computation)
+        const SUMOTime arrivalSpeedBraking;
 
     private:
         /// invalidated assignment operator
@@ -147,7 +156,8 @@ public:
      * The information is stored in myApproachingVehicles.
      */
     void setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime,
-                        const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed, const bool setRequest);
+                        const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed, const bool setRequest, 
+                        const SUMOTime arrivalTimeBraking, const SUMOReal arrivalSpeedBraking);
 
     /// @brief removes the vehicle from myApproachingVehicles
     void removeApproaching(const SUMOVehicle* veh);
@@ -165,7 +175,7 @@ public:
      *
      * @return Whether this link may be passed.
      */
-    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
+    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, SUMOReal impatience) const;
 
     /** @brief Returns the information whether this link is blocked
      * Valid after the vehicles have set their requests
@@ -177,7 +187,7 @@ public:
      * @return Whether this link is blocked
      */
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
-                       bool sameTargetLane) const;
+                       bool sameTargetLane, SUMOReal impatience) const;
 
 
     /** @brief Returns the list of vehicles blocking the given approach
@@ -185,7 +195,7 @@ public:
      * @return Whether the list of blocking foes
      * @note works the same as opened() but continues after the first foe is found 
      */
-     std::vector<const SUMOVehicle*> getBlockingFoes(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength) const;
+     std::vector<const SUMOVehicle*> getBlockingFoes(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, SUMOReal impatience) const;
 
     /** @brief Returns the vehicles requesting use of this link
      * Valid after the vehicles have set their requests
@@ -198,7 +208,7 @@ public:
      * @note works the same as blockedAtTime but continues after the first foe is found
      */
     std::vector<const SUMOVehicle*> blockedAtTimeFoes(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
-                       bool sameTargetLane) const;
+                       bool sameTargetLane, SUMOReal impatience) const;
 
     bool isBlockingAnyone() const {
         return myApproachingVehicles.size() != 0;

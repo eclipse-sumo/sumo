@@ -342,6 +342,10 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->emissionClass = parseEmissionClass(attrs, vtype->id);
         vtype->setParameter |= VTYPEPARS_EMISSIONCLASS_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_IMPATIENCE)) {
+        vtype->impatience = attrs.get<SUMOReal>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_IMPATIENCE_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
         vtype->vehicleClass = parseVehicleClass(attrs, vtype->id);
         vtype->setParameter |= VTYPEPARS_VEHICLECLASS_SET;

@@ -342,6 +342,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "imgFile",        SUMO_ATTR_IMGFILE },
     { "angle",          SUMO_ATTR_ANGLE },
     { "emissionClass",  SUMO_ATTR_EMISSIONCLASS },
+    { "impatience",     SUMO_ATTR_IMPATIENCE },
     { "startPos",       SUMO_ATTR_STARTPOS },
     { "endPos",         SUMO_ATTR_ENDPOS },
     { "triggered",      SUMO_ATTR_TRIGGERED },
