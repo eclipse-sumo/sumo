@@ -2,8 +2,6 @@
 #include <microsim/MSEventControl.h>
 #include "../utils/common/CommandMock.h"
 
-using namespace std;
-
 /*
 Tests the class MSEventControl 
 */
