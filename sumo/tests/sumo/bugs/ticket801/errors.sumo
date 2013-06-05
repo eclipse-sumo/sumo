@@ -1,3 +1,2 @@
-warning: debug_new used with placement new (SUMOSAXReader.cpp:132)
-Error: Vehicle 'swap_to_right' will not be able to depart using given velocity!
-Error: Vehicle 'swap_to_left' will not be able to depart using given velocity!
+Error: Vehicle 'swap_to_right' will not be able to depart using the given velocity (junction too close)!
+Error: Vehicle 'swap_to_left' will not be able to depart using the given velocity (junction too close)!
