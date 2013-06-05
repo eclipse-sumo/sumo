@@ -1,0 +1,7 @@
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+    <!-- Copied Elements -->
+    <location convBoundary="0.00,0.00,92.46,78.21" netOffset="0.00,0.00" projParameter="!" origBoundary="0.00,0.00,92.46,78.21"/>
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+</nodes>

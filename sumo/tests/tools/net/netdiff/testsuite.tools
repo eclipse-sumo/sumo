@@ -9,3 +9,6 @@ join_junctions
 
 # use netdiff to compare dump files
 direct
+
+# tests copying of unchanged elements
+copy_location

@@ -78,9 +78,11 @@ RESET = 0
 # stores attributes for later comparison
 class AttributeStore:
 
-    def __init__(self, type, level=1):
+    def __init__(self, type, copy_tags, level=1):
         # xml type being parsed
         self.type = type
+        # tag names to copy even if unchanged
+        self.copy_tags = copy_tags
         # indent level
         self.level = level
         # dict of names-tuples
@@ -88,11 +90,13 @@ class AttributeStore:
         # sets of (tag, id) preserve order to avoid dangling references during loading
         self.ids_deleted = OrderedMultiSet()
         self.ids_created = OrderedMultiSet()
+        self.ids_copied = OrderedMultiSet()
         # dict from (tag, id) to (names, values, children)
         self.id_attrs = {}
         # dict from tag to (names, values)-sets, need to preserve order (CAVEAT5)
         self.idless_deleted = defaultdict(lambda:OrderedMultiSet())
         self.idless_created = defaultdict(lambda:OrderedMultiSet())
+        self.idless_copied = defaultdict(lambda:OrderedMultiSet())
 
 
     # getAttribute returns "" if not present
@@ -119,7 +123,7 @@ class AttributeStore:
         values = tuple([self.getValue(xmlnode, a) for a in names])
         children = None
         if any([c.nodeType == Node.ELEMENT_NODE for c in xmlnode.childNodes]):
-            children = AttributeStore(self.type, self.level + 1)
+            children = AttributeStore(self.type, self.copy_tags, self.level + 1)
         tag = xmlnode.localName
         id = tuple([xmlnode.getAttribute(a) for a in IDATTRS[tag] if xmlnode.hasAttribute(a)])
         return tag, id, children, (names, values, children)
@@ -156,14 +160,14 @@ class AttributeStore:
                 for child in xmlnode.childNodes:
                     if child.nodeType == Node.ELEMENT_NODE:
                         children.compare(child)
-                if tag == TAG_TLL: # see CAVEAT2
+                if tag == TAG_TLL or tag in self.copy_tags: # see CAVEAT2
                     child_strings = StringIO.StringIO()
                     children.writeDeleted(child_strings)
                     children.writeCreated(child_strings)
                     children.writeChanged(child_strings)
-                    if child_strings.len > 0:
+                    if child_strings.len > 0 or tag in self.copy_tags:
                         # there are some changes. Go back and store everything
-                        children = AttributeStore(self.type, self.level + 1)
+                        children = AttributeStore(self.type, self.copy_tags, self.level + 1)
                         for child in xmlnode.childNodes:
                             if child.nodeType == Node.ELEMENT_NODE:
                                 children.compare(child)
@@ -174,6 +178,8 @@ class AttributeStore:
             self.no_children_supported(children, tag)
             if attrs in self.idless_deleted[tag]:
                 self.idless_deleted[tag].remove(attrs)
+                if tag in self.copy_tags:
+                    self.idless_copied[tag].add(attrs)
             else:
                 self.idless_created[tag].add(attrs)
 
@@ -243,6 +249,13 @@ class AttributeStore:
         self.write_tagids(file, tagids_changed, False)
 
 
+    def writeCopies(self, file, copy_tags):
+        tagids_unchanged = OrderedMultiSet(self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
+        self.write_tagids(file, tagids_unchanged, False)
+        for tag, value_set in self.idless_copied.iteritems():
+            self.write_idless(file, value_set, tag)
+
+
     def write_idless(self, file, attr_set, tag):
         for names, values, children in attr_set:
             self.write(file, '<%s %s/>\n' % (tag, self.attr_string(names, values)))
@@ -259,7 +272,7 @@ class AttributeStore:
                 children.writeCreated(child_strings)
                 children.writeChanged(child_strings)
 
-            if len(attrs) > 0 or child_strings.len > 0 or create:
+            if len(attrs) > 0 or child_strings.len > 0 or create or tag in self.copy_tags:
                 close_tag = "/>\n"
                 if child_strings.len > 0:
                     close_tag = ">\n%s" % child_strings.getvalue()
@@ -294,6 +307,7 @@ def parse_args():
             default=False, help="interpret source and dest as plain-xml prefix instead of network names")
     optParser.add_option("-d", "--direct", action="store_true",
             default=False, help="compare source and dest files directly")
+    optParser.add_option("-c", "--copy", help="comma-separated list of element names to copy (if they are unchanged)")
     optParser.add_option("--path", dest="path",
             default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
     options, args = optParser.parse_args()
@@ -315,8 +329,8 @@ def create_plain(netfile, netconvert):
 
 # creates diff of a flat xml structure 
 # (only children of the root element and their attrs are compared)
-def xmldiff(source, dest, diff, type):
-    attributeStore = AttributeStore(type)
+def xmldiff(source, dest, diff, type, copy_tags):
+    attributeStore = AttributeStore(type, copy_tags)
     root_open = None
     have_source = os.path.isfile(source)
     have_dest = os.path.isfile(dest)
@@ -335,6 +349,9 @@ def xmldiff(source, dest, diff, type):
 
         with open(diff, 'w') as diff_file:
             diff_file.write(root_open)
+            if copy_tags:
+                attributeStore.write(diff_file, "<!-- Copied Elements -->\n")
+                attributeStore.writeCopies(diff_file, copy_tags)
             attributeStore.write(diff_file, "<!-- Deleted Elements -->\n")
             attributeStore.writeDeleted(diff_file)
             attributeStore.write(diff_file, "<!-- Created Elements -->\n")
@@ -372,12 +389,14 @@ def handle_children(xmlfile, handle_parsenode):
 # run
 def main():
     options = parse_args()
+    copy_tags = options.copy.split(',') if options.copy else []
     if options.direct:
         type = '.xml'
         xmldiff(options.source, 
                 options.dest, 
                 options.outprefix + type, 
-                type)
+                type,
+                copy_tags)
     else:
         if not options.use_prefix:
             netconvert = checkBinary("netconvert", options.path)        
@@ -387,7 +406,8 @@ def main():
             xmldiff(options.source + type, 
                     options.dest + type, 
                     options.outprefix + type, 
-                    type)
+                    type,
+                    copy_tags)
 
 if __name__ == "__main__":
     main()
