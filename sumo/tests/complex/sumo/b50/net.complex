@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 10:24:54 by SUMO netconvert Version dev-SVN-r13169
+<!-- generated on 06/05/13 14:03:00 by SUMO netconvert Version dev-SVN-r14102
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -40,22 +40,22 @@
         <lane id=":f2_2_0" index="0" speed="13.90" length="1.26" shape="401.18,98.85 401.39,99.09 401.53,99.37 401.62,99.66 401.65,99.98"/>
     </edge>
     <edge id=":f3_0" function="internal">
-        <lane id=":f3_0_0" index="0" speed="13.90" length="6.44" shape="408.25,300.02 408.10,301.66 407.65,303.17 406.90,304.56 405.85,305.82"/>
+        <lane id=":f3_0_0" index="0" speed="13.90" length="6.28" shape="408.25,300.02 405.85,305.82"/>
     </edge>
     <edge id=":f3_1" function="internal">
-        <lane id=":f3_1_0" index="0" speed="13.90" length="3.85" shape="404.95,300.02 404.86,301.00 404.59,301.90 404.14,302.73 403.51,303.49"/>
+        <lane id=":f3_1_0" index="0" speed="13.90" length="3.75" shape="404.95,300.02 403.51,303.49"/>
     </edge>
     <edge id=":f3_2" function="internal">
-        <lane id=":f3_2_0" index="0" speed="13.90" length="1.26" shape="401.65,300.02 401.62,300.34 401.53,300.63 401.39,300.91 401.18,301.15"/>
+        <lane id=":f3_2_0" index="0" speed="13.90" length="1.22" shape="401.65,300.02 401.18,301.15"/>
     </edge>
     <edge id=":f4_0" function="internal">
-        <lane id=":f4_0_0" index="0" speed="13.90" length="6.44" shape="305.82,405.85 304.56,406.90 303.17,407.65 301.66,408.10 300.02,408.25"/>
+        <lane id=":f4_0_0" index="0" speed="13.90" length="6.28" shape="305.82,405.85 300.02,408.25"/>
     </edge>
     <edge id=":f4_1" function="internal">
-        <lane id=":f4_1_0" index="0" speed="13.90" length="3.85" shape="303.49,403.51 302.73,404.14 301.90,404.59 301.00,404.86 300.02,404.95"/>
+        <lane id=":f4_1_0" index="0" speed="13.90" length="3.75" shape="303.49,403.51 300.02,404.95"/>
     </edge>
     <edge id=":f4_2" function="internal">
-        <lane id=":f4_2_0" index="0" speed="13.90" length="1.26" shape="301.15,401.18 300.91,401.39 300.63,401.53 300.34,401.62 300.02,401.65"/>
+        <lane id=":f4_2_0" index="0" speed="13.90" length="1.22" shape="301.15,401.18 300.02,401.65"/>
     </edge>
     <edge id=":f5_0" function="internal">
         <lane id=":f5_0_0" index="0" speed="13.90" length="2.58" shape="9.85,408.25 9.15,408.35 8.65,408.65 8.35,409.15 8.25,409.85"/>
@@ -79,13 +79,13 @@
         <lane id=":f7_0_0" index="0" speed="13.90" length="7.25" shape="398.50,691.75 401.50,698.35"/>
     </edge>
     <edge id=":z0_0" function="internal">
-        <lane id=":z0_0_0" index="0" speed="13.90" length="4.54" shape="701.56,689.89 702.51,690.70 703.49,691.29 704.52,691.63 705.58,691.75"/>
+        <lane id=":z0_0_0" index="0" speed="13.90" length="4.43" shape="701.56,689.89 705.58,691.75"/>
     </edge>
     <edge id=":z0_1" function="internal">
-        <lane id=":z0_1_0" index="0" speed="13.90" length="7.14" shape="699.22,692.22 700.68,693.46 702.23,694.34 703.86,694.87 705.58,695.05"/>
+        <lane id=":z0_1_0" index="0" speed="13.90" length="6.95" shape="699.22,692.22 705.58,695.05"/>
     </edge>
     <edge id=":z0_2" function="internal">
-        <lane id=":z0_2_0" index="0" speed="13.90" length="9.73" shape="696.89,694.56 698.86,696.22 700.96,697.40 703.20,698.11 705.58,698.35"/>
+        <lane id=":z0_2_0" index="0" speed="13.90" length="9.48" shape="696.89,694.56 705.58,698.35"/>
     </edge>
     <edge id=":z0_3" function="internal">
         <lane id=":z0_3_0" index="0" speed="13.90" length="10.93" shape="695.32,698.35 698.28,697.83 700.30,696.70 702.41,695.57 705.58,695.05"/>
