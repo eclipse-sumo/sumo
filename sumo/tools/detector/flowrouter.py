@@ -19,8 +19,8 @@ import detector
 class Vertex:
 
     def __init__(self):
-        self.inEdges = set()
-        self.outEdges = set()
+        self.inEdges = []
+        self.outEdges = []
         self.reset()
 
     def reset(self):
@@ -42,6 +42,9 @@ class Vertex:
             if edge.capacity < sys.maxint:
                 self.gain -= flow
 
+    def __repr__(self):
+        return "<%s,%s,%s>" % (self.inPathEdge, self.flowDelta, self.gain)
+
 
 # Edge class which stores start and end vertex, type amd label of the edge
 # as well as flow and capacity for the flow computation and some parameters
@@ -52,13 +55,16 @@ class Edge:
         self.label = label
         self.source = source
         self.target = target
-        self.capacity = sys.maxint
-        self.startCapacity = sys.maxint
-        self.flow = 0
         self.kind = kind
         self.maxSpeed = 0.0
         self.length = 0.0
         self.detGroup = []
+        self.reset()
+    
+    def reset(self):
+        self.capacity = sys.maxint
+        self.startCapacity = sys.maxint
+        self.flow = 0
         self.routes = []
 
     def __repr__(self):
@@ -95,6 +101,7 @@ class Net:
     def __init__(self):
         self._vertices = []
         self._edges = {}
+        self._internalEdges = []
         self._possibleSources = set()
         self._possibleSinks = set()
         self._source = self.newVertex()
@@ -109,10 +116,12 @@ class Net:
         return self._edges[edgeLabel]
 
     def addEdge(self, edgeObj):
-        edgeObj.source.outEdges.add(edgeObj)
-        edgeObj.target.inEdges.add(edgeObj)
+        edgeObj.source.outEdges.append(edgeObj)
+        edgeObj.target.inEdges.append(edgeObj)
         if edgeObj.kind == "real":
             self._edges[edgeObj.label] = edgeObj
+        else:
+            self._internalEdges.append(edgeObj)
 
     def removeEdge(self, edgeObj):
         edgeObj.source.outEdges.remove(edgeObj)
@@ -184,7 +193,10 @@ class Net:
         return True
 
     def initNet(self):
+        for edge in self._internalEdges:
+            edge.reset()
         for edge in self._edges.itervalues():
+            edge.reset()
             if len(edge.detGroup) > 0:
                 edge.capacity = 0
                 for group in edge.detGroup:
@@ -372,14 +384,15 @@ class Net:
             if len(srcEdge.routes) == 0:
                 continue
             assert len(srcEdge.target.outEdges) == 1
-            edge = iter(srcEdge.target.outEdges).next()
-            print >> emitOut, '    <routeDistribution id="dist_%s%s">' % (edge.label, suffix)
-            for id, route in enumerate(srcEdge.routes):
-                print >> emitOut, '        <route refId="%s.%s%s"' % (edge.label, id, suffix),
-                print >> emitOut, 'probability="%s"/>' % route.frequency
-            print >> emitOut, '    </routeDistribution>'
-            print >> emitOut, '    <flow id="src_%s%s"' % (edge.label, suffix),
-            print >> emitOut, 'route="dist_%s%s" number="%s" begin="%s" end="%s"/>' % (edge.label, suffix, srcEdge.flow, begin, end)
+            edge = srcEdge.target.outEdges[0]
+            if len(srcEdge.routes) == 1:
+                print >> emitOut, '    <flow id="src_%s%s" route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (edge.label, suffix, edge.label, suffix, srcEdge.flow, begin, end)
+            else:
+                ids = " ".join(["%s.%s%s" % (edge.label, id, suffix) for id in range(len(srcEdge.routes))])
+                probs = " ".join([str(route.frequency) for route in srcEdge.routes])
+                print >> emitOut, '    <flow id="src_%s%s" number="%s" begin="%s" end="%s">' % (edge.label, suffix, srcEdge.flow, begin, end)
+                print >> emitOut, '        <routeDistribution routes="%s" probabilities="%s"/>' % (ids, probs)
+                print >> emitOut, '    </flow>'
 
     def writeFlowPOIs(self, poiOut, suffix=""):
         if not poiOut:
