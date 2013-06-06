@@ -1,91 +1,32 @@
 <additional>
-    <routeDistribution id="dist_19_48_1">
-        <route refid="19_48_1.0" probability="17"/>
-        <route refid="19_48_1.1" probability="35"/>
-        <route refid="19_48_1.2" probability="207"/>
-        <route refid="19_48_1.3" probability="22"/>
-    </routeDistribution>
-    <vehicle id="src_19_48_1" route="dist_19_48_1" number="281" begin="0"/>
-    <routeDistribution id="dist_51_50_0">
-        <route refid="51_50_0.0" probability="22"/>
-    </routeDistribution>
-    <vehicle id="src_51_50_0" route="dist_51_50_0" number="22" begin="0"/>
-    <routeDistribution id="dist_10_0">
-        <route refid="10_0.0" probability="18"/>
-    </routeDistribution>
-    <vehicle id="src_10_0" route="dist_10_0" number="18" begin="0"/>
-    <routeDistribution id="dist_51_50_1">
-        <route refid="51_50_1.0" probability="119"/>
-    </routeDistribution>
-    <vehicle id="src_51_50_1" route="dist_51_50_1" number="119" begin="0"/>
-    <routeDistribution id="dist_1_0">
-        <route refid="1_0.0" probability="26"/>
-    </routeDistribution>
-    <vehicle id="src_1_0" route="dist_1_0" number="26" begin="0"/>
-    <routeDistribution id="dist_4_0">
-        <route refid="4_0.0" probability="15"/>
-    </routeDistribution>
-    <vehicle id="src_4_0" route="dist_4_0" number="15" begin="0"/>
-    <routeDistribution id="dist_32_63_1">
-        <route refid="32_63_1.0" probability="13"/>
-    </routeDistribution>
-    <vehicle id="src_32_63_1" route="dist_32_63_1" number="13" begin="0"/>
-    <routeDistribution id="dist_28_57_0">
-        <route refid="28_57_0.0" probability="1"/>
-    </routeDistribution>
-    <vehicle id="src_28_57_0" route="dist_28_57_0" number="1" begin="0"/>
-    <routeDistribution id="dist_36_62_0">
-        <route refid="36_62_0.0" probability="26"/>
-        <route refid="36_62_0.1" probability="227"/>
-        <route refid="36_62_0.2" probability="2"/>
-        <route refid="36_62_0.3" probability="13"/>
-    </routeDistribution>
-    <vehicle id="src_36_62_0" route="dist_36_62_0" number="268" begin="0"/>
-    <routeDistribution id="dist_36_62_1">
-        <route refid="36_62_1.0" probability="43"/>
-    </routeDistribution>
-    <vehicle id="src_36_62_1" route="dist_36_62_1" number="43" begin="0"/>
-    <routeDistribution id="dist_45_2_1">
-        <route refid="45_2_1.0" probability="16"/>
-    </routeDistribution>
-    <vehicle id="src_45_2_1" route="dist_45_2_1" number="16" begin="0"/>
-    <routeDistribution id="dist_45_2_0">
-        <route refid="45_2_0.0" probability="61"/>
-    </routeDistribution>
-    <vehicle id="src_45_2_0" route="dist_45_2_0" number="61" begin="0"/>
-    <routeDistribution id="dist_17_0">
-        <route refid="17_0.0" probability="24"/>
-        <route refid="17_0.1" probability="2"/>
-    </routeDistribution>
-    <vehicle id="src_17_0" route="dist_17_0" number="26" begin="0"/>
-    <routeDistribution id="dist_29_0">
-        <route refid="29_0.0" probability="212"/>
-    </routeDistribution>
-    <vehicle id="src_29_0" route="dist_29_0" number="212" begin="0"/>
-    <routeDistribution id="dist_33_60_61_2">
-        <route refid="33_60_61_2.0" probability="5"/>
-    </routeDistribution>
-    <vehicle id="src_33_60_61_2" route="dist_33_60_61_2" number="5" begin="0"/>
-    <routeDistribution id="dist_35_65_1">
-        <route refid="35_65_1.0" probability="2"/>
-    </routeDistribution>
-    <vehicle id="src_35_65_1" route="dist_35_65_1" number="2" begin="0"/>
-    <routeDistribution id="dist_7_0">
-        <route refid="7_0.0" probability="47"/>
-    </routeDistribution>
-    <vehicle id="src_7_0" route="dist_7_0" number="47" begin="0"/>
-    <routeDistribution id="dist_35_65_0">
-        <route refid="35_65_0.0" probability="1"/>
-    </routeDistribution>
-    <vehicle id="src_35_65_0" route="dist_35_65_0" number="1" begin="0"/>
-    <routeDistribution id="dist_33_60_61_0">
-        <route refid="33_60_61_0.0" probability="22"/>
-        <route refid="33_60_61_0.1" probability="9"/>
-        <route refid="33_60_61_0.2" probability="38"/>
-    </routeDistribution>
-    <vehicle id="src_33_60_61_0" route="dist_33_60_61_0" number="69" begin="0"/>
-    <routeDistribution id="dist_33_60_61_1">
-        <route refid="33_60_61_1.0" probability="6"/>
-    </routeDistribution>
-    <vehicle id="src_33_60_61_1" route="dist_33_60_61_1" number="6" begin="0"/>
+    <flow id="src_29_0" route="29_0.0" number="212" begin="0" end="3600"/>
+    <flow id="src_35_65_1" route="35_65_1.0" number="2" begin="0" end="3600"/>
+    <flow id="src_19_48_1" number="281" begin="0" end="3600">
+        <routeDistribution routes="19_48_1.0 19_48_1.1 19_48_1.2 19_48_1.3" probabilities="17 35 207 22"/>
+    </flow>
+    <flow id="src_10_0" route="10_0.0" number="18" begin="0" end="3600"/>
+    <flow id="src_1_0" route="1_0.0" number="26" begin="0" end="3600"/>
+    <flow id="src_32_63_1" route="32_63_1.0" number="13" begin="0" end="3600"/>
+    <flow id="src_28_57_0" route="28_57_0.0" number="1" begin="0" end="3600"/>
+    <flow id="src_17_0" number="26" begin="0" end="3600">
+        <routeDistribution routes="17_0.0 17_0.1" probabilities="24 2"/>
+    </flow>
+    <flow id="src_7_0" number="47" begin="0" end="3600">
+        <routeDistribution routes="7_0.0 7_0.1" probabilities="24 23"/>
+    </flow>
+    <flow id="src_4_0" route="4_0.0" number="15" begin="0" end="3600"/>
+    <flow id="src_51_50_0" route="51_50_0.0" number="22" begin="0" end="3600"/>
+    <flow id="src_51_50_1" route="51_50_1.0" number="119" begin="0" end="3600"/>
+    <flow id="src_36_62_0" number="268" begin="0" end="3600">
+        <routeDistribution routes="36_62_0.0 36_62_0.1 36_62_0.2 36_62_0.3" probabilities="26 227 2 13"/>
+    </flow>
+    <flow id="src_36_62_1" route="36_62_1.0" number="43" begin="0" end="3600"/>
+    <flow id="src_45_2_1" route="45_2_1.0" number="16" begin="0" end="3600"/>
+    <flow id="src_45_2_0" route="45_2_0.0" number="61" begin="0" end="3600"/>
+    <flow id="src_33_60_61_2" route="33_60_61_2.0" number="5" begin="0" end="3600"/>
+    <flow id="src_35_65_0" route="35_65_0.0" number="1" begin="0" end="3600"/>
+    <flow id="src_33_60_61_0" number="69" begin="0" end="3600">
+        <routeDistribution routes="33_60_61_0.0 33_60_61_0.1" probabilities="22 47"/>
+    </flow>
+    <flow id="src_33_60_61_1" route="33_60_61_1.0" number="6" begin="0" end="3600"/>
 </additional>
