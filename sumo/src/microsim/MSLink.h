@@ -105,7 +105,7 @@ public:
         /// @brief The time the vehicle's front arrives at the link if it starts braking
         const SUMOTime arrivalTimeBraking;
         /// @brief The estimated speed with which the vehicle arrives at the link if it starts braking(for headway computation)
-        const SUMOTime arrivalSpeedBraking;
+        const SUMOReal arrivalSpeedBraking;
 
     private:
         /// invalidated assignment operator
