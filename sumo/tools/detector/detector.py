@@ -113,7 +113,7 @@ class DetectorReader(handler.ContentHandler):
         hadFlow = False
         with open(flowFile) as f:
             for l in f:
-                flowDef = l.split(';')
+                flowDef = [e.strip() for e in l.split(';')]
                 if detIdx == -1 and det in flowDef:
                     detIdx = flowDef.index(det)
                     if flow in flowDef:

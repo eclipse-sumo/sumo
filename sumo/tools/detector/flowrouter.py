@@ -578,8 +578,8 @@ if net.detectSourceSink(sources, sinks):
                 if routeOut:
                     net.writeRoutes(routeOut, suffix)
                 else:
-                    for edge in sorted(net._source.outEdges, key=lambda e: e.label):
-                        for route in sorted(edge.routes):
+                    for edge in net._source.outEdges:
+                        for route in edge.routes:
                             print route
                 net.writeEmitters(emitOut, 60*start, 60*(start+options.interval), suffix)
                 net.writeFlowPOIs(poiOut, suffix)
@@ -596,8 +596,8 @@ if net.detectSourceSink(sources, sinks):
         if routeOut:
             net.writeRoutes(routeOut)
         else:
-            for edge in sorted(net._source.outEdges, key=lambda e: e.label):
-                for route in sorted(edge.routes):
+            for edge in net._source.outEdges:
+                for route in edge.routes:
                     print route
         net.writeEmitters(emitOut)
         net.writeFlowPOIs(poiOut)
