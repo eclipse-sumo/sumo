@@ -138,7 +138,8 @@ MSLink::getLeaveTime(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leave
 
 
 bool
-MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, SUMOReal impatience) const {
+MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, SUMOReal impatience,
+        std::vector<const SUMOVehicle*>* collectFoes) const {
     if (myState == LINKSTATE_TL_RED) {
         return false;
     }
@@ -154,7 +155,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
             }
         }
 #endif
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(), impatience)) {
+        if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(), impatience, collectFoes)) {
             return false;
         }
     }
@@ -164,7 +165,8 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
 
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
-                      bool sameTargetLane, SUMOReal impatience) const {
+                      bool sameTargetLane, SUMOReal impatience,
+                      std::vector<const SUMOVehicle*>* collectFoes) const {
     for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
         if (!i->second.willPass) {
             continue;
@@ -174,73 +176,31 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrival
         if (i->second.leavingTime < arrivalTime) {
             // ego wants to be follower
             if (sameTargetLane && unsafeHeadwayTime(arrivalTime - i->second.leavingTime, i->second.leaveSpeed, arrivalSpeed)) {
-                return true;
+                if (collectFoes == 0) {
+                    return true;
+                } else {
+                    collectFoes->push_back(i->first);
+                }
             }
         } else if (foeArrivalTime > leaveTime) {
             // ego wants to be leader.
             if (sameTargetLane && unsafeHeadwayTime(foeArrivalTime - leaveTime, leaveSpeed, foeArrivalSpeed)) {
-                return true;
+                if (collectFoes == 0) {
+                    return true;
+                } else {
+                    collectFoes->push_back(i->first);
+                }
             }
         } else {
             // even without considering safeHeadwayTime there is already a conflict
-            return true;
+            if (collectFoes == 0) {
+                return true;
+            } else {
+                collectFoes->push_back(i->first);
+            }
         }
     }
     return false;
-}
-
-
-std::vector<const SUMOVehicle*> 
-MSLink::getBlockingFoes(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, SUMOReal impatience) const {
-    std::vector<const SUMOVehicle*> result;
-    if (myState == LINKSTATE_TL_RED) {
-        return result;
-    }
-    if (myAmCont && MSGlobals::gUsingInternalLanes) {
-        return result;
-    }
-    const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, vehicleLength);
-    for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
-#ifdef HAVE_INTERNAL
-        if (MSGlobals::gUseMesoSim) {
-            if ((*i)->getState() == LINKSTATE_TL_RED) {
-                continue;
-            }
-        }
-#endif
-        std::vector<const SUMOVehicle*> foes = (*i)->blockedAtTimeFoes(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(), impatience);
-        result.insert(result.end(), foes.begin(), foes.end());
-    }
-    return result;
-}
-
-
-std::vector<const SUMOVehicle*>
-MSLink::blockedAtTimeFoes(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
-                      bool sameTargetLane, SUMOReal impatience) const {
-    std::vector<const SUMOVehicle*> result;
-    for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
-        if (!i->second.willPass) {
-            continue;
-        }
-        if (i->second.leavingTime < arrivalTime) {
-            // ego wants to be follower
-            if (sameTargetLane && unsafeHeadwayTime(arrivalTime - i->second.leavingTime, i->second.leaveSpeed, arrivalSpeed)) {
-                result.push_back(i->first);
-            }
-        } else if (i->second.arrivalTime > leaveTime) {
-            // ego wants to be leader
-            const SUMOTime foeArrivalTime = (1.0 - impatience) * i->second.arrivalTime + impatience * i->second.arrivalTimeBraking;
-            const SUMOReal foeArrivalSpeed = (1.0 - impatience) * i->second.arrivalSpeed + impatience * i->second.arrivalSpeedBraking;
-            if (sameTargetLane && unsafeHeadwayTime(i->second.arrivalTime - leaveTime, leaveSpeed, i->second.arrivalSpeed)) {
-                result.push_back(i->first);
-            }
-        } else {
-            // even without considering safeHeadwayTime there is already a conflict
-            result.push_back(i->first);
-        }
-    }
-    return result;
 }
 
 

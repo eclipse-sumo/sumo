@@ -173,9 +173,11 @@ public:
      *
      * Valid after the junctions have set their reponds
      *
+     * @param[in] collectFoes If a vector is passed, all blocking foes are collected and inserted into this vector
      * @return Whether this link may be passed.
      */
-    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, SUMOReal impatience) const;
+    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, SUMOReal impatience, 
+            std::vector<const SUMOVehicle*>* collectFoes=0) const;
 
     /** @brief Returns the information whether this link is blocked
      * Valid after the vehicles have set their requests
@@ -184,31 +186,13 @@ public:
      * @param[in] arrivalSpeed The speed with which the checking vehicle plans to arrive at the link
      * @param[in] leaveSpeed The speed with which the checking vehicle plans to leave the link
      * @param[in] sameTargetLane Whether the link that calls this method has the same target lane as this link
+     * @param[in] collectFoes If a vector is passed the return value is always False, instead all blocking foes are collected and inserted into this vector 
      * @return Whether this link is blocked
      */
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
-                       bool sameTargetLane, SUMOReal impatience) const;
+                       bool sameTargetLane, SUMOReal impatience,
+                       std::vector<const SUMOVehicle*>* collectFoes=0) const;
 
-
-    /** @brief Returns the list of vehicles blocking the given approach
-     * Valid after the junctions have set their reponds
-     * @return Whether the list of blocking foes
-     * @note works the same as opened() but continues after the first foe is found 
-     */
-     std::vector<const SUMOVehicle*> getBlockingFoes(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, SUMOReal impatience) const;
-
-    /** @brief Returns the vehicles requesting use of this link
-     * Valid after the vehicles have set their requests
-     * @param[in] arrivalTime The arrivalTime of the vehicle who checks for an approaching foe
-     * @param[in] leaveTime The leaveTime of the vehicle who checks for an approaching foe
-     * @param[in] arrivalSpeed The speed with which the checking vehicle plans to arrive at the link
-     * @param[in] leaveSpeed The speed with which the checking vehicle plans to leave the link
-     * @param[in] sameTargetLane Whether the link that calls this method has the same target lane as this link
-     * @return Whether this link is blocked
-     * @note works the same as blockedAtTime but continues after the first foe is found
-     */
-    std::vector<const SUMOVehicle*> blockedAtTimeFoes(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
-                       bool sameTargetLane, SUMOReal impatience) const;
 
     bool isBlockingAnyone() const {
         return myApproachingVehicles.size() != 0;
