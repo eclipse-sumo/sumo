@@ -60,7 +60,7 @@ class NLDetectorBuilder;
  * @class MSTrafficLightLogic
  * @brief The parent class for traffic light logics
  */
-class MSTrafficLightLogic : public Parameterised {
+class MSTrafficLightLogic : public Named, public Parameterised {
 public:
     /// @name Structure definitions
     /// @{
@@ -167,14 +167,6 @@ public:
 
     /// @name Static Information Retrieval
     /// @{
-
-    /** @brief Returns this tl-logic's id
-     * @return This tls' id
-     */
-    const std::string& getID() const {
-        return myID;
-    }
-
 
     /** @brief Returns this tl-logic's id
      * @return This program's id
@@ -395,7 +387,7 @@ protected:
 
 protected:
     /// @brief The id of the logic
-    std::string myID, myProgramID;
+    std::string myProgramID;
 
     /// @brief The list of links which do participate in this traffic light
     LinkVectorVector myLinks;
