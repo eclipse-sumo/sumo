@@ -26,13 +26,15 @@ class EdgeMemory:
         self.cost = cost
         self.seen = True
 
-    def update(self, cost, memory_factor):
+    def update(self, cost, memory_weight, new_weight, pessimism):
+        p = (cost / self.cost) ** pessimism if self.cost > 0 else 1
+        memory_factor = memory_weight / (memory_weight + new_weight * p)
         self.cost = self.cost * memory_factor + cost * (1 - memory_factor) 
         self.seen = True
 
 class CostMemory(handler.ContentHandler):
     # memorize the weighted average of edge costs
-    def __init__(self, cost_attribute, network_file=None):
+    def __init__(self, cost_attribute, pessimism=0, network_file=None):
         # the cost attribute to parse (i.e. 'traveltime')
         self.cost_attribute = cost_attribute.decode('utf8')
         # the duaIterate iteration index
@@ -60,6 +62,7 @@ class CostMemory(handler.ContentHandler):
             # build a map of default weights for decaying edges assuming the attribute is traveltime
             self.traveltime_free = dict([(e.getID(), e.getLength() / e.getSpeed()) 
                 for e in readNet(network_file).getEdges()])
+        self.pessimism = pessimism
 
 
     def startElement(self, name, attrs):
@@ -73,7 +76,7 @@ class CostMemory(handler.ContentHandler):
                 if id in self.current_interval:
                     edgeMemory = self.current_interval[id]
                     self.errors.append(edgeMemory.cost - cost)
-                    edgeMemory.update(cost, self.memory_factor)
+                    edgeMemory.update(cost, self.memory_weight, self.new_weight, self.pessimism)
                     #if id == "4.3to4.4":
                     #    with open('debuglog', 'a') as f:
                     #        print(self.memory_factor, edgeMemory.cost, file=f)
@@ -91,9 +94,7 @@ class CostMemory(handler.ContentHandler):
         if self.iteration == None and iteration != 0:
             print("Warning: continuing with empty memory")
         # update memory weights. memory is a weighted average across all runs
-        weight = float(weight)
-        self.memory_factor = self.memory_weight / (self.memory_weight + weight)
-        self.memory_weight += weight
+        self.new_weight = float(weight)
         self.iteration = iteration
         self.errors = []
         # mark all edges as unseen
@@ -110,7 +111,7 @@ class CostMemory(handler.ContentHandler):
         for edges in self.intervals.itervalues():
             for id, edgeMemory in edges.iteritems():
                 if not edgeMemory.seen:
-                    edgeMemory.update(self.traveltime_free[id], self.memory_factor)
+                    edgeMemory.update(self.traveltime_free[id], self.memory_weight, self.new_weight, self.pessimism)
                     self.num_decayed += 1
                     #if id == "4.3to4.4":
                     #    with open('debuglog', 'a') as f:
@@ -119,6 +120,7 @@ class CostMemory(handler.ContentHandler):
         if len(self.intervals.keys()) > 1:
             sorted_begin_times = sorted(self.intervals.keys())
             self.interval_length = sorted_begin_times[1] - sorted_begin_times[0]
+        self.memory_weight += self.new_weight
 
 
     def write_costs(self, weight_file):

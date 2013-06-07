@@ -135,6 +135,7 @@ def initOptions():
                          default=False, help="calculate the old route probabilities with the free-flow travel times when using the external gawron calculation")   
     optParser.add_option("--weight-memory", action="store_true", default=False, dest="weightmemory",
                          help="smoothe edge weights across iterations")    
+    optParser.add_option("--pessimism", default=1, type="float", help="give traffic jams a higher weight")
     optParser.add_option("--clean-alt", action="store_true", dest="clean_alt",
                          default=False, help="Whether old rou.alt.xml files shall be removed")
     optParser.add_option("--binary", action="store_true",
@@ -428,7 +429,10 @@ def main(args=None):
         print('use externalgawron')
         edgesMap = {}
     if options.weightmemory:
-        costmemory = CostMemory('traveltime')
+        costmemory = CostMemory('traveltime'
+                ,pessimism=options.pessimism
+                ,network_file=options.net
+                )
     routesSuffix = ".xml"
     if options.binary:
         routesSuffix = ".sbx"
