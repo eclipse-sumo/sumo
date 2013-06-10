@@ -17,6 +17,6 @@
         <route edges="top0to0/1 0/1to0/0 0/0tobottom0"/>
         <route edges="top1to1/1 1/1to1/0 1/0tobottom1"/>
     </routeDistribution>
-    <flow id="horiz" route="horizontal" begin="0" number="200" period="2" arrivalPos="-10" type="vtdist"/>
-    <flow id="vertic" route="vertical" begin="0" number="100" period="4" arrivalPos="-10" type="vtdist"/>
+    <flow id="horiz" route="horizontal" begin="0" end="90000" period="2" arrivalPos="-10" type="vtdist"/>
+    <flow id="vertic" route="vertical" begin="0" end="90000" period="4" arrivalPos="-10" type="vtdist"/>
 </routes>
