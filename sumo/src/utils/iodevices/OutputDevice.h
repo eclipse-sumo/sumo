@@ -268,6 +268,20 @@ public:
     }
 
 
+    /** @brief writes a string attribute only if it is not the empty string and not the string "default"
+     *
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     * @return The OutputDevice for further processing
+     */
+    OutputDevice& writeNonEmptyAttr(const SumoXMLAttr attr, const std::string& val) {
+        if (val != "" && val != "default") {
+            writeAttr(attr, val);
+        }
+        return *this;
+    }
+
+
     /** @brief Retrieves a message to this device.
      *
      * Implementation of the MessageRetriever interface. Writes the given message to the output device.

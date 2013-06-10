@@ -51,6 +51,7 @@
 #include "RODFNet.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
+#include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -252,6 +253,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                                      bool insertionsOnly,
                                      SUMOReal defaultSpeed) const {
     OutputDevice& out = OutputDevice::getDevice(file);
+    OptionsCont& oc = OptionsCont::getOptions();
     if (getType() != SOURCE_DETECTOR) {
         out.writeXMLHeader("calibrator");
     }
@@ -319,12 +321,49 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                     out.writeAttr(SUMO_ATTR_ID, "calibrator_" + myID + "_" + toString(ctime));
                 }
                 out.writeAttr(SUMO_ATTR_DEPART, time2string(ctime));
-                if (v > defaultSpeed) {
-                    out.writeAttr(SUMO_ATTR_DEPARTSPEED, "max");
+                if (oc.isSet("departlane")) {
+                    out.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
                 } else {
-                    out.writeAttr(SUMO_ATTR_DEPARTSPEED, v);
+                    out.writeAttr(SUMO_ATTR_DEPARTLANE, TplConvert::_2int(myLaneID.substr(myLaneID.rfind("_") + 1).c_str()));
                 }
-                out.writeAttr(SUMO_ATTR_DEPARTPOS, myPosition).writeAttr(SUMO_ATTR_DEPARTLANE, TplConvert::_2int(myLaneID.substr(myLaneID.rfind("_") + 1).c_str()));
+                if (oc.isSet("departpos")) {
+                    std::string posDesc = oc.getString("departpos");
+                    if (posDesc.substr(0, 8) == "detector") {
+                        SUMOReal position = myPosition;
+                        if (posDesc.length() > 8) {
+                            if (posDesc[8] == '+') {
+                                position += TplConvert::_2SUMOReal(posDesc.substr(9).c_str());
+                            } else if (posDesc[8] == '-') {
+                                position -= TplConvert::_2SUMOReal(posDesc.substr(9).c_str());
+                            } else {
+                                throw NumberFormatException();
+                            }
+                        }
+                        out.writeAttr(SUMO_ATTR_DEPARTPOS, position);
+                    } else {
+                        out.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, posDesc);
+                    }
+                } else {
+                    out.writeAttr(SUMO_ATTR_DEPARTPOS, myPosition);
+                }
+                if (oc.isSet("departspeed")) {
+                    out.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
+                } else {
+                    if (v > defaultSpeed) {
+                        out.writeAttr(SUMO_ATTR_DEPARTSPEED, "max");
+                    } else {
+                        out.writeAttr(SUMO_ATTR_DEPARTSPEED, v);
+                    }
+                }
+                if (oc.isSet("arrivallane")) {
+                    out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
+                }
+                if (oc.isSet("arrivalpos")) {
+                    out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
+                }
+                if (oc.isSet("arrivalspeed")) {
+                    out.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
+                }
                 if (destIndex >= 0) {
                     out.writeAttr(SUMO_ATTR_ROUTE, myRoutes->get()[destIndex].routename);
                 } else {

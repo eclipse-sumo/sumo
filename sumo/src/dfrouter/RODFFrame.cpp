@@ -41,7 +41,6 @@
 #include <utils/common/ToString.h>
 #include <utils/common/SystemFrame.h>
 #include "RODFFrame.h"
-#include <router/ROFrame.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
 
@@ -64,6 +63,7 @@ RODFFrame::fillOptions() {
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Defaults");
     oc.addOptionSubTopic("Time");
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
@@ -209,6 +209,26 @@ RODFFrame::fillOptions() {
     //
     oc.doRegister("scale", new Option_Float(1.));
     oc.addDescription("scale", "Processing", "Scale factor for flows");
+
+    // register defaults options
+    oc.doRegister("departlane", new Option_String());
+    oc.addDescription("departlane", "Defaults", "Assigns a default depart lane");
+
+    oc.doRegister("departpos", new Option_String());
+    oc.addDescription("departpos", "Defaults", "Assigns a default depart position");
+
+    oc.doRegister("departspeed", new Option_String());
+    oc.addDescription("departspeed", "Defaults", "Assigns a default depart speed");
+
+    oc.doRegister("arrivallane", new Option_String());
+    oc.addDescription("arrivallane", "Defaults", "Assigns a default arrival lane");
+
+    oc.doRegister("arrivalpos", new Option_String());
+    oc.addDescription("arrivalpos", "Defaults", "Assigns a default arrival position");
+
+    oc.doRegister("arrivalspeed", new Option_String());
+    oc.addDescription("arrivalspeed", "Defaults", "Assigns a default arrival speed");
+
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));

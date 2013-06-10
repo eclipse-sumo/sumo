@@ -101,9 +101,9 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
             default:
                 break;
         }
-        dev.writeAttr(SUMO_ATTR_DEPARTLANE, val);
+        dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, val);
     } else if (oc.isSet("departlane")) {
-        dev.writeAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
+        dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
     }
     //  departpos
     if (wasSet(VEHPARS_DEPARTPOS_SET) && !defaultOptionOverrides(oc, "departpos")) {
@@ -137,9 +137,9 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
             default:
                 break;
         }
-        dev.writeAttr(SUMO_ATTR_DEPARTPOS, val);
+        dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, val);
     } else if (oc.isSet("departpos")) {
-        dev.writeAttr(SUMO_ATTR_DEPARTPOS, oc.getString("departpos"));
+        dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS, oc.getString("departpos"));
     }
     //  departspeed
     if (wasSet(VEHPARS_DEPARTSPEED_SET) && !defaultOptionOverrides(oc, "departspeed")) {
@@ -158,9 +158,9 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
             default:
                 break;
         }
-        dev.writeAttr(SUMO_ATTR_DEPARTSPEED, val);
+        dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, val);
     } else if (oc.isSet("departspeed")) {
-        dev.writeAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
+        dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
     }
 
     //  arrivallane
@@ -177,9 +177,9 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
             default:
                 break;
         }
-        dev.writeAttr(SUMO_ATTR_ARRIVALLANE, val);
+        dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALLANE, val);
     } else if (oc.isSet("arrivallane")) {
-        dev.writeAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
+        dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
     }
     //  arrivalpos
     if (wasSet(VEHPARS_ARRIVALPOS_SET) && !defaultOptionOverrides(oc, "arrivalpos")) {
@@ -198,9 +198,9 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
             default:
                 break;
         }
-        dev.writeAttr(SUMO_ATTR_ARRIVALPOS, val);
+        dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, val);
     } else if (oc.isSet("arrivalpos")) {
-        dev.writeAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
+        dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
     }
     //  arrivalspeed
     if (wasSet(VEHPARS_ARRIVALSPEED_SET) && !defaultOptionOverrides(oc, "arrivalspeed")) {
@@ -216,9 +216,9 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
             default:
                 break;
         }
-        dev.writeAttr(SUMO_ATTR_ARRIVALSPEED, val);
+        dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, val);
     } else if (oc.isSet("arrivalspeed")) {
-        dev.writeAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
+        dev.writeNonEmptyAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
     }
 
     // color
@@ -296,7 +296,7 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string&
         }
     }
     if (!ok) {
-        error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", or an int>0)";
+        error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", or an int>=0)";
     }
     return ok;
 }
@@ -355,7 +355,7 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
         }
     }
     if (!ok) {
-        error = "Invalid departSpeed definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float>0)";
+        error = "Invalid departSpeed definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float>=0)";
     }
     return ok;
 }
@@ -379,7 +379,7 @@ SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string
         }
     }
     if (!ok) {
-        error = "Invalid arrivalLane definition for " + element + " '" + id + "';\n must be one of (\"current\", or int>0)";
+        error = "Invalid arrivalLane definition for " + element + " '" + id + "';\n must be one of (\"current\", or an int>=0)";
     }
     return ok;
 }
@@ -417,13 +417,16 @@ SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::strin
     } else {
         try {
             speed = TplConvert::_2SUMOReal(val.c_str());
+            if (speed < 0) {
+                ok = false;
+            }
             asd = ARRIVAL_SPEED_GIVEN;
         } catch (...) {
             ok = false;
         }
     }
     if (!ok) {
-        error = "Invalid arrivalSpeed definition for " + element + " '" + id + "';\n must be one of (\"current\", or a float>0)";
+        error = "Invalid arrivalSpeed definition for " + element + " '" + id + "';\n must be one of (\"current\", or a float>=0)";
     }
     return ok;
 }
