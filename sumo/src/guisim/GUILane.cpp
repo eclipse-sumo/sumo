@@ -165,7 +165,7 @@ GUILane::detectCollisions(SUMOTime timestep, int stage) {
 // ------ Drawing methods ------
 void
 GUILane::drawLinkNo() const {
-    unsigned int noLinks = myLinks.size();
+    unsigned int noLinks = (unsigned int)myLinks.size();
     if (noLinks == 0) {
         return;
     }
@@ -192,7 +192,7 @@ GUILane::drawLinkNo() const {
 
 void
 GUILane::drawTLSLinkNo(const GUINet& net) const {
-    unsigned int noLinks = myLinks.size();
+    unsigned int noLinks = (unsigned int)myLinks.size();
     if (noLinks == 0) {
         return;
     }
@@ -223,7 +223,7 @@ GUILane::drawTLSLinkNo(const GUINet& net) const {
 
 void
 GUILane::drawLinkRules(const GUINet& net) const {
-    unsigned int noLinks = myLinks.size();
+    unsigned int noLinks = (unsigned int)myLinks.size();
     const PositionVector& g = getShape();
     const Position& end = g.back();
     const Position& f = g[-2];
