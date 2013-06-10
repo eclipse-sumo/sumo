@@ -309,6 +309,8 @@ enum {
     MID_CHOOSEN_SAVE,
     /// Clear set
     MID_CHOOSEN_CLEAR,
+    /// Reset set
+    MID_CHOOSEN_RESET,
     /// Deselect selected items
     MID_CHOOSEN_DESELECT,
     /// Deselect selected items
