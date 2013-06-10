@@ -427,6 +427,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
 StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[] = {
     {"traffic_light",       NODETYPE_TRAFFIC_LIGHT},
+    {"traffic_light_unregulated", NODETYPE_TRAFFIC_LIGHT_NOJUNCTION},
     {"priority",            NODETYPE_PRIORITY_JUNCTION},
     {"right_before_left",   NODETYPE_RIGHT_BEFORE_LEFT},
     {"district",            NODETYPE_DISTRICT},

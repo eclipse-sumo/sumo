@@ -177,7 +177,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         node->reinit(myPosition, type, updateEdgeGeometries);
     }
     // process traffic light definition
-    if (type == NODETYPE_TRAFFIC_LIGHT) {
+    if (type == NODETYPE_TRAFFIC_LIGHT || type == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
         processTrafficLightDefinitions(attrs, node);
     }
 }

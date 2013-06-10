@@ -556,6 +556,7 @@ enum SumoXMLAttr {
 enum SumoXMLNodeType {
     NODETYPE_UNKNOWN, // terminator
     NODETYPE_TRAFFIC_LIGHT,
+    NODETYPE_TRAFFIC_LIGHT_NOJUNCTION, // junction controlled only by traffic light but without other prohibitions
     NODETYPE_PRIORITY_JUNCTION,
     NODETYPE_RIGHT_BEFORE_LEFT,
     NODETYPE_DISTRICT,

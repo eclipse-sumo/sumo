@@ -1,2 +1,21 @@
-Error: Only the following junction types are known: traffic_light, priority, right_before_left
+Error: Only the following junction types are known: traffic_light, traffic_light_unregulated, priority, right_before_left
 Quitting (on error).
+Leaked object at 0xe35520 (size 16, 0x337beb0499)
+Leaked object at 0xe35df0 (size 60, 0x337ca9c3c9)
+Leaked object at 0xe35eb0 (size 62, 0x337ca9c3c9)
+Leaked object at 0xe35f70 (size 55, 0x337ca9c3c9)
+Leaked object at 0xe36020 (size 59, 0x337ca9c3c9)
+Leaked object at 0xe360e0 (size 78, 0x337ca9c3c9)
+Leaked object at 0xe361b0 (size 61, 0x337ca9c3c9)
+Leaked object at 0xe36270 (size 26, 0x337ca9c3c9)
+Leaked object at 0xe36310 (size 782, 0x337ca9c3c9)
+*** 9 leaks found
+delete: freed 0xe36310 (size 782, 417 bytes still allocated)
+delete: freed 0xe36270 (size 26, 391 bytes still allocated)
+delete: freed 0xe361b0 (size 61, 330 bytes still allocated)
+delete: freed 0xe360e0 (size 78, 252 bytes still allocated)
+delete: freed 0xe36020 (size 59, 193 bytes still allocated)
+delete: freed 0xe35f70 (size 55, 138 bytes still allocated)
+delete: freed 0xe35eb0 (size 62, 76 bytes still allocated)
+delete: freed 0xe35df0 (size 60, 16 bytes still allocated)
+delete: freed 0xe35520 (size 16, 0 bytes still allocated)

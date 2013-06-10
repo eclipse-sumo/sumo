@@ -224,7 +224,7 @@ NBNode::reinit(const Position& position, SumoXMLNodeType type,
     myPosition = position;
     // patch type
     myType = type;
-    if (myType != NODETYPE_TRAFFIC_LIGHT) {
+    if (myType != NODETYPE_TRAFFIC_LIGHT && myType != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
         removeTrafficLights();
     }
     if (updateEdgeGeometries) {
@@ -255,7 +255,9 @@ NBNode::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
 void
 NBNode::addTrafficLight(NBTrafficLightDefinition* tlDef) {
     myTrafficLights.insert(tlDef);
-    myType = NODETYPE_TRAFFIC_LIGHT;
+    if (myType != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
+        myType = NODETYPE_TRAFFIC_LIGHT;
+    }
 }
 
 
@@ -551,7 +553,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
         return;
     }
     // compute the logic if necessary or split the junction
-    if (myType != NODETYPE_NOJUNCTION && myType != NODETYPE_DISTRICT) {
+    if (myType != NODETYPE_NOJUNCTION && myType != NODETYPE_DISTRICT && myType != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION) {
         // build the request
         myRequest = new NBRequest(ec, this,
                                   myAllEdges, myIncomingEdges, myOutgoingEdges, myBlockedConnections);

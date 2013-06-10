@@ -916,6 +916,7 @@ NBNodeCont::printBuiltNodesStatistics() const {
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         switch ((*i).second->getType()) {
             case NODETYPE_NOJUNCTION:
+            case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
                 ++numUnregulatedJunctions;
                 break;
             case NODETYPE_DEAD_END:

@@ -118,6 +118,7 @@ NLJunctionControlBuilder::closeJunction() {
         case NODETYPE_DEAD_END:
         case NODETYPE_DEAD_END_DEPRECATED:
         case NODETYPE_DISTRICT:
+        case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
             junction = buildNoLogicJunction();
             break;
         case NODETYPE_TRAFFIC_LIGHT:
