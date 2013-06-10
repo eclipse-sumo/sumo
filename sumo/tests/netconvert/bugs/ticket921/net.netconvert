@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jun 10 12:32:20 2013 by SUMO netconvert Version dev-SVN-r14126
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="10.00,10.00" convBoundary="0.00,0.00,20.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="gneE0_0" index="0" speed="13.89" length="10.00" shape="0.00,8.35 5.25,8.35"/>
+    </edge>
+    <edge id="gneE1" from="gneJ1" to="gneJ3" priority="1">
+        <lane id="gneE1_0" index="0" speed="13.89" length="10.00" shape="11.45,8.35 20.00,8.35"/>
+    </edge>
+    <edge id="gneE2" from="gneJ4" to="gneJ1" priority="1">
+        <lane id="gneE2_0" index="0" speed="13.89" length="10.00" shape="8.35,20.00 8.35,11.45"/>
+    </edge>
+    <edge id="gneE3" from="gneJ1" to="gneJ5" priority="1">
+        <lane id="gneE3_0" index="0" speed="13.89" length="10.00" shape="8.35,5.25 8.35,0.00"/>
+    </edge>
+
+    <junction id="gneJ0" type="unregulated" x="0.00" y="10.00" incLanes="" intLanes="" shape="-0.00,9.95 -0.00,6.75"/>
+    <junction id="gneJ1" type="priority" x="10.00" y="10.00" incLanes="gneE2_0 gneE0_0" intLanes="" shape="6.75,11.45 9.95,11.45 11.45,9.95 11.45,6.75 9.95,5.25 6.75,5.25 5.25,6.75 5.25,9.95">
+        <request index="0" response="1100" foes="1100"/>
+        <request index="1" response="1000" foes="1000"/>
+        <request index="2" response="0000" foes="0001"/>
+        <request index="3" response="0000" foes="0011"/>
+    </junction>
+    <junction id="gneJ3" type="unregulated" x="20.00" y="10.00" incLanes="gneE1_0" intLanes="" shape="20.00,6.75 20.00,9.95"/>
+    <junction id="gneJ4" type="unregulated" x="10.00" y="20.00" incLanes="" intLanes="" shape="9.95,20.00 6.75,20.00"/>
+    <junction id="gneJ5" type="unregulated" x="10.00" y="0.00" incLanes="gneE3_0" intLanes="" shape="6.75,0.00 9.95,0.00"/>
+
+    <connection from="gneE0" to="gneE3" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="gneE2" to="gneE3" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="gneE2" to="gneE1" fromLane="0" toLane="0" dir="l" state="m"/>
+
+</net>
