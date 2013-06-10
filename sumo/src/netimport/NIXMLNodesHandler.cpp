@@ -152,8 +152,12 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     std::string typeS = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myID.c_str(), ok, "");
     if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::NodeTypes.get(typeS);
+        if (type == NODETYPE_DEAD_END_DEPRECATED || type == NODETYPE_DEAD_END) { 
+            // dead end is a computed status. Reset this to unknown so it will
+            // be corrected if additional connections are loaded
+            type = NODETYPE_UNKNOWN;
+        }
     }
-
     // check whether a prior node shall be modified
     if (node == 0) {
         node = new NBNode(myID, myPosition, type);

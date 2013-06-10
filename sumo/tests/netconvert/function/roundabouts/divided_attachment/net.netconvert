@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 22 12:12:17 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Mon Jun 10 12:47:28 2013 by SUMO netconvert Version dev-SVN-r14126
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -111,7 +111,9 @@
     <junction id="61318628" type="priority" x="219.88" y="108.85" incLanes="96329516#0_0" intLanes="" shape="222.06,106.37 218.93,105.69 216.70,107.98">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="61321724" type="dead_end" x="205.52" y="0.00" incLanes="8856384_0 8856384_1" intLanes="" shape="202.40,0.90 208.64,-0.90 202.27,0.14 208.77,-0.14"/>
+    <junction id="61321724" type="priority" x="205.52" y="0.00" incLanes="8856384_0 8856384_1" intLanes="" shape="202.40,0.90 208.64,-0.90 202.27,0.14 208.77,-0.14">
+        <request index="0" response="0" foes="0"/>
+    </junction>
     <junction id="61322089" type="priority" x="229.05" y="49.45" incLanes="8616185_0 8616185_1 8615594_0 8615594_1" intLanes="" shape="227.56,52.82 232.67,48.80 230.05,45.91 225.55,50.60">
         <request index="0" response="00000" foes="00000"/>
         <request index="1" response="11000" foes="11000"/>
@@ -119,7 +121,9 @@
         <request index="3" response="00000" foes="00110"/>
         <request index="4" response="00000" foes="00110"/>
     </junction>
-    <junction id="61322707" type="dead_end" x="265.54" y="54.90" incLanes="8615654_0 8615654_1" intLanes="" shape="263.89,52.10 267.19,57.70 264.73,51.75 266.35,58.05"/>
+    <junction id="61322707" type="priority" x="265.54" y="54.90" incLanes="8615654_0 8615654_1" intLanes="" shape="263.89,52.10 267.19,57.70 264.73,51.75 266.35,58.05">
+        <request index="0" response="0" foes="0"/>
+    </junction>
     <junction id="61323097" type="priority" x="228.58" y="76.64" incLanes="8615831_0 8615831_1 8615120#0_0 8615120#0_1" intLanes="" shape="231.62,78.63 228.32,73.02 225.42,74.86 229.08,80.23">
         <request index="0" response="1100" foes="1100"/>
         <request index="1" response="1100" foes="1100"/>
