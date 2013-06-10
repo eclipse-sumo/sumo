@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:01:08 by SUMO dfrouter Version 0.17.0
+<!-- generated on 06/10/13 09:46:01 by SUMO dfrouter Version dev-SVN-r14133
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
@@ -38,8 +38,8 @@
         <route refId="a4_a5_to_20_10" probability="0.21"/>
         <route refId="a4_a5_to_51_61" probability="0.21"/>
     </routeDistribution>
-    <vehicle id="emitter_BO_0" depart="0.00" departSpeed="max" departPos="50.00" departLane="0" route="a4_a5_to_51_61"/>
-    <vehicle id="emitter_BO_15000" depart="15.00" departSpeed="max" departPos="50.00" departLane="0" route="a4_a5_to_51_61"/>
-    <vehicle id="emitter_BO_30000" depart="30.00" departSpeed="max" departPos="50.00" departLane="0" route="a4_a5_to_20_10"/>
-    <vehicle id="emitter_BO_45000" depart="45.00" departSpeed="max" departPos="50.00" departLane="0" route="a4_a5_to_20_10"/>
+    <vehicle id="emitter_BO_0" depart="0.00" departLane="0" departPos="50.00" departSpeed="max" route="a4_a5_to_51_61"/>
+    <vehicle id="emitter_BO_15000" depart="15.00" departLane="0" departPos="50.00" departSpeed="max" route="a4_a5_to_51_61"/>
+    <vehicle id="emitter_BO_30000" depart="30.00" departLane="0" departPos="50.00" departSpeed="max" route="a4_a5_to_20_10"/>
+    <vehicle id="emitter_BO_45000" depart="45.00" departLane="0" departPos="50.00" departSpeed="max" route="a4_a5_to_20_10"/>
 </additional>

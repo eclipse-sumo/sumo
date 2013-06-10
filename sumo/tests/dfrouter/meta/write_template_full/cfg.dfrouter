@@ -54,6 +54,15 @@
         <scale value="1" type="FLOAT" help="Scale factor for flows"/>
     </processing>
 
+    <defaults>
+        <departlane value="" type="STR" help="Assigns a default depart lane"/>
+        <departpos value="" type="STR" help="Assigns a default depart position"/>
+        <departspeed value="" type="STR" help="Assigns a default depart speed"/>
+        <arrivallane value="" type="STR" help="Assigns a default arrival lane"/>
+        <arrivalpos value="" type="STR" help="Assigns a default arrival position"/>
+        <arrivalspeed value="" type="STR" help="Assigns a default arrival speed"/>
+    </defaults>
+
     <time>
         <begin value="0" synonymes="b" type="TIME" help="Defines the begin time; Previous defs will be discarded"/>
         <end value="86400" synonymes="e" type="TIME" help="Defines the end time; Later defs will be discarded; Defaults to one day"/>

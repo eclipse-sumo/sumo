@@ -134,6 +134,27 @@
 
     </processing>
 
+    <defaults>
+        <!-- Assigns a default depart lane -->
+        <departlane value="" type="STR"/>
+
+        <!-- Assigns a default depart position -->
+        <departpos value="" type="STR"/>
+
+        <!-- Assigns a default depart speed -->
+        <departspeed value="" type="STR"/>
+
+        <!-- Assigns a default arrival lane -->
+        <arrivallane value="" type="STR"/>
+
+        <!-- Assigns a default arrival position -->
+        <arrivalpos value="" type="STR"/>
+
+        <!-- Assigns a default arrival speed -->
+        <arrivalspeed value="" type="STR"/>
+
+    </defaults>
+
     <time>
         <!-- Defines the begin time; Previous defs will be discarded -->
         <begin value="0" synonymes="b" type="TIME"/>

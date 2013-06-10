@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:01:04 by SUMO dfrouter Version 0.17.0
+<!-- generated on 06/10/13 09:45:58 by SUMO dfrouter Version dev-SVN-r14133
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
@@ -39,19 +39,19 @@
         <route refId="beg_to_end_2" probability="0.00"/>
         <route refId="beg_to_end_2" probability="1.00"/>
     </routeDistribution>
-    <vehicle id="emitter_MQ_beg_0" depart="0.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_4000" depart="4.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_8000" depart="8.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_16000" depart="16.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_20000" depart="20.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_28000" depart="28.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_32000" depart="32.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_40000" depart="40.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_44000" depart="44.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_52000" depart="52.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
-    <vehicle id="emitter_MQ_beg_56000" depart="56.00" departSpeed="max" departPos="5.00" departLane="0" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_0" depart="0.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_4000" depart="4.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_8000" depart="8.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_16000" depart="16.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_20000" depart="20.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_28000" depart="28.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_32000" depart="32.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_40000" depart="40.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_44000" depart="44.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_52000" depart="52.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
+    <vehicle id="emitter_MQ_beg_56000" depart="56.00" departLane="0" departPos="5.00" departSpeed="max" route="MQ_beg"/>
 </additional>

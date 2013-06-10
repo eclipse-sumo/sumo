@@ -1,4 +1,4 @@
-SUMO dfrouter Version 0.17.0
+SUMO dfrouter Version dev-SVN-r14133
  Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
 Builds vehicle routes for SUMO using detector values.
 
@@ -64,6 +64,14 @@ Processing Options:
   --remove-empty-detectors             Removes empty detectors from the list
   --strict-sources                     
   --scale FLOAT                        Scale factor for flows
+
+Defaults Options:
+  --departlane STR                     Assigns a default depart lane
+  --departpos STR                      Assigns a default depart position
+  --departspeed STR                    Assigns a default depart speed
+  --arrivallane STR                    Assigns a default arrival lane
+  --arrivalpos STR                     Assigns a default arrival position
+  --arrivalspeed STR                   Assigns a default arrival speed
 
 Time Options:
   -b, --begin TIME                     Defines the begin time;
