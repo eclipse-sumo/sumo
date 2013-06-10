@@ -195,6 +195,10 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
                 first = curr;
             }
         }
+        if (curr == cont && dontSplit) {
+            WRITE_WARNING("Could not build on-ramp for edge '"  + curr->getID() + "' due to option '--ramps.no-split'");
+            return;
+        }
     }
     // set connections from ramp/highway to added ramp
     if (!potHighway->addLane2LaneConnections(0, first, potRamp->getNumLanes(), MIN2(first->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true, true)) {
@@ -275,6 +279,10 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             if (wasFirst) {
                 first = curr;
             }
+        }
+        if (curr == prev && dontSplit) {
+            WRITE_WARNING("Could not build off-ramp for edge '"  + curr->getID() + "' due to option '--ramps.no-split'");
+            return;
         }
     }
     // set connections from added ramp to ramp/highway
