@@ -171,7 +171,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrival
         if (!i->second.willPass) {
             continue;
         }
-        const SUMOTime foeArrivalTime = (SUMOTime)(1.0 - impatience) * i->second.arrivalTime + impatience * i->second.arrivalTimeBraking;
+        const SUMOTime foeArrivalTime = (SUMOTime)((1.0 - impatience) * i->second.arrivalTime + impatience * i->second.arrivalTimeBraking);
         const SUMOReal foeArrivalSpeed = (1.0 - impatience) * i->second.arrivalSpeed + impatience * i->second.arrivalSpeedBraking;
         if (i->second.leavingTime < arrivalTime) {
             // ego wants to be follower
