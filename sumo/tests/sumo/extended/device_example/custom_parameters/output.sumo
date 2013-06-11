@@ -1,4 +1,4 @@
-initialized device 'example_veh0' with myCustomValue1=23.00, myCustomValue2=42.00
+initialized device 'example_veh0' with myCustomValue1=23.00, myCustomValue2=42.00, myCustomValue3=113.00
 device 'example_veh0' notifyEnter: reason=0 currentEdge=right2end
 device 'example_veh0' notifyMove: newSpeed=1.44
 device 'example_veh0' notifyMove: newSpeed=3.12

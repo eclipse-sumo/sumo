@@ -237,6 +237,8 @@ SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
     std::string val = attrs.get<std::string>(SUMO_ATTR_VALUE, 0, ok);
     if (myVehicleParameter != 0) {
         myVehicleParameter->addParameter(key, val);
+    } else if (myCurrentVType != 0) {
+        myCurrentVType->addParameter(key, val);
     }
 }
 

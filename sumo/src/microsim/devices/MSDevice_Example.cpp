@@ -75,20 +75,34 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
     }
     if (myExplicitIDs.count(v.getID()) > 0) {
         // build the device
-        SUMOReal customParameter = -1;
+        // get custom vehicle parameter
+        SUMOReal customParameter2 = -1;
         if (v.getParameter().knowsParameter("example")) {
             try {
-                customParameter = TplConvert::_2SUMOReal(v.getParameter().getParameter("example", "-1").c_str());
+                customParameter2 = TplConvert::_2SUMOReal(v.getParameter().getParameter("example", "-1").c_str());
             } catch (...) {
-                WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("example", "-1") + "'for parameter 'example'");
+                WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("example", "-1") + "'for vehicle parameter 'example'");
             }
 
         } else {
-            std::cout << "vehicle '" << v.getID() << "' does not supply parameter 'example'. Using default of " << customParameter << "\n";
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'example'. Using default of " << customParameter2 << "\n";
+        }
+        // get custom vType parameter
+        SUMOReal customParameter3 = -1;
+        if (v.getVehicleType().getParameter().knowsParameter("example")) {
+            try {
+                customParameter3 = TplConvert::_2SUMOReal(v.getVehicleType().getParameter().getParameter("example", "-1").c_str());
+            } catch (...) {
+                WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("example", "-1") + "'for vType parameter 'example'");
+            }
+
+        } else {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vType parameter 'example'. Using default of " << customParameter3 << "\n";
         }
         MSDevice_Example* device = new MSDevice_Example(v, "example_" + v.getID(),
                 oc.getFloat("device.example.parameter"),
-                customParameter);
+                customParameter2,
+                customParameter3);
         into.push_back(device);
     }
 }
@@ -97,12 +111,14 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
 // ---------------------------------------------------------------------------
 // MSDevice_Example-methods
 // ---------------------------------------------------------------------------
-MSDevice_Example::MSDevice_Example(SUMOVehicle& holder, const std::string& id, SUMOReal customValue1, SUMOReal customValue2) : 
+MSDevice_Example::MSDevice_Example(SUMOVehicle& holder, const std::string& id, 
+        SUMOReal customValue1, SUMOReal customValue2, SUMOReal customValue3) : 
     MSDevice(holder, id), 
     myCustomValue1(customValue1),
-    myCustomValue2(customValue2) 
+    myCustomValue2(customValue2),
+    myCustomValue3(customValue3)
 { 
-    std::cout << "initialized device '" << id << "' with myCustomValue1=" << myCustomValue1 << ", myCustomValue2=" << myCustomValue2 << "\n";
+    std::cout << "initialized device '" << id << "' with myCustomValue1=" << myCustomValue1 << ", myCustomValue2=" << myCustomValue2 << ", myCustomValue3=" << myCustomValue3 << "\n";
 }
 
 

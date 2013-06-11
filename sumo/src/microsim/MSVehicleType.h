@@ -394,6 +394,11 @@ public:
     }
 
 
+    const Parameterised& getParameter() const {
+        return myParameter;
+    }
+
+
 private:
     /// @brief the parameter container
     SUMOVTypeParameter myParameter;

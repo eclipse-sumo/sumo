@@ -1,7 +1,6 @@
 <routes>
     <vehicle id="veh0" depart="0" departPos="400">
         <route edges="right2end"/>
-        <param key="example" value="42"/>
     </vehicle>
 
 </routes>

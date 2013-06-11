@@ -129,7 +129,8 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Example(SUMOVehicle& holder, const std::string& id, SUMOReal customValue1, SUMOReal customValue2);
+    MSDevice_Example(SUMOVehicle& holder, const std::string& id, SUMOReal customValue1, 
+            SUMOReal customValue2, SUMOReal customValue3);
 
 
 private:
@@ -140,6 +141,8 @@ private:
     SUMOReal myCustomValue1;
     /// @brief a value which is initialised based on a vehicle parameter
     SUMOReal myCustomValue2;
+    /// @brief a value which is initialised based on a vType parameter
+    SUMOReal myCustomValue3;
 
     /// @brief the vehicles which explicitly carry a device
     static std::set<std::string> myExplicitIDs;
