@@ -1,4 +1,4 @@
 Error: Attribute 'departSpeed' in definition of a trip is empty.
 Error: Invalid departSpeed definition for vehicle '';
- must be one of ("random", "max", or a float>0)
+ must be one of ("random", "max", or a float>=0)
 Quitting (on error).

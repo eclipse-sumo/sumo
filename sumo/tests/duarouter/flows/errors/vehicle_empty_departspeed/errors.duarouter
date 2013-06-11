@@ -1,4 +1,4 @@
 Error: Attribute 'departSpeed' in definition of a flow is empty.
 Error: Invalid departSpeed definition for flow '0';
- must be one of ("random", "max", or a float>0)
+ must be one of ("random", "max", or a float>=0)
 Quitting (on error).
