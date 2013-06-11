@@ -34,6 +34,7 @@
 
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSGlobals.h>
 #include "MSCFModel_Krauss.h"
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
@@ -103,11 +104,16 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel
     // As a workaround we lower the value of b to get a collision free model
     // This approach should be refined to get a higher (still safe) following speed.
     const SUMOReal egoDecel = MIN2(myDecel, predMaxDecel);
-    return (SUMOReal)(0.5 * sqrt(
+    const SUMOReal result = (SUMOReal)(0.5 * sqrt(
                           4.0 * egoDecel * (2.0 * gap + predSpeed * predSpeed / predMaxDecel - predSpeed - 1.0)
                           + (egoDecel * (2.0 * myHeadwayTime - 1.0))
                           * (egoDecel * (2.0 * myHeadwayTime - 1.0)))
                       + myDecel * (0.5 - myHeadwayTime));
+    if (ISNAN(result)) {
+        return 0;
+    } else {
+        return result;
+    }
 }
 
 
