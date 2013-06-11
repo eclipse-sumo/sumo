@@ -41,6 +41,7 @@
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_Person.h>
 #include <microsim/devices/MSDevice_HBEFA.h>
+#include <microsim/devices/MSDevice_Example.h>
 #include "MSVehicleType.h"
 #include "MSEdge.h"
 #include "MSLane.h"
@@ -81,6 +82,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
     MSDevice_Tripinfo::buildVehicleDevices(*this, myDevices);
     MSDevice_Routing::buildVehicleDevices(*this, myDevices);
     MSDevice_HBEFA::buildVehicleDevices(*this, myDevices);
+    MSDevice_Example::buildVehicleDevices(*this, myDevices);
     //
     for (std::vector< MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
         myMoveReminders.push_back(std::make_pair(*dev, 0.));
@@ -301,6 +303,17 @@ MSBaseVehicle::calculateArrivalPos() {
             myArrivalPos = lastLaneLength;
             break;
     }
+}
+
+
+MSDevice* 
+MSBaseVehicle::getDevice(const std::type_info& type) const {
+    for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
+        if (typeid(**dev) == type) {
+            return *dev;
+        }
+    }
+    return 0;
 }
 
 

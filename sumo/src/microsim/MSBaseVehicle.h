@@ -250,6 +250,9 @@ public:
         return myChosenSpeedFactor;
     }
 
+    /// @brief Returns a device of the given type if it exists or 0
+    MSDevice* getDevice(const std::type_info& type) const;
+
 protected:
     /** @brief (Re-)Calculates the arrival position from the vehicle parameters
      */

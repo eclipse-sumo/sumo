@@ -1,11 +1,10 @@
 /****************************************************************************/
-/// @file    MSDevice_Tripinfo.h
-/// @author  Daniel Krajzewicz
-/// @author  Michael Behrisch
-/// @date    Fri, 30.01.2009
-/// @version $Id$
+/// @file    MSDevice_Example.cpp
+/// @author  Jakob Erdmann
+/// @date    11.06.2013
+/// @version $Id: MSDevice_Example.cpp 13989 2013-05-23 11:40:37Z namdre $
 ///
-// A device which collects info on the vehicle trip
+// A device which stands as an implementation example and which outputs movereminder calls
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
@@ -18,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSDevice_Tripinfo_h
-#define MSDevice_Tripinfo_h
+#ifndef MSDevice_Example_h
+#define MSDevice_Example_h
 
 
 // ===========================================================================
@@ -43,18 +42,23 @@ class SUMOVehicle;
 // class definitions
 // ===========================================================================
 /**
- * @class MSDevice_Tripinfo
+ * @class MSDevice_Example
  * @brief A device which collects info on the vehicle trip (mainly on departure and arrival)
  *
  * Each device collects departure time, lane and speed and the same for arrival.
  *
  * @see MSDevice
  */
-class MSDevice_Tripinfo : public MSDevice {
+class MSDevice_Example : public MSDevice {
 public:
+
+    /** @brief Inserts MSDevice_Example-options
+     */
+    static void insertOptions();
+
     /** @brief Build devices for the given vehicle, if needed
      *
-     * The options are read and evaluated whether a tripinfo-device shall be built
+     * The options are read and evaluated whether a example-device shall be built
      *  for the given vehicle.
      *
      * The built device is stored in the given vector.
@@ -64,10 +68,6 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
-    /// @brief 
-    static const std::type_info& getTypeInfo() {
-        return typeid(MSDevice_Tripinfo);
-    }
 
 public:
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
@@ -120,7 +120,7 @@ public:
 
 
     /// @brief Destructor.
-    ~MSDevice_Tripinfo();
+    ~MSDevice_Example();
 
 
 private:
@@ -129,29 +129,27 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id);
-
-    /// @brief dummy constructor
-    MSDevice_Tripinfo();
+    MSDevice_Example(SUMOVehicle& holder, const std::string& id, SUMOReal customValue1, SUMOReal customValue2);
 
 
 private:
 
-    std::string myDepartLane;
-    SUMOReal myDepartPos;
-    SUMOReal myDepartSpeed;
-    unsigned int myWaitingSteps;
-    SUMOTime myArrivalTime;
-    std::string myArrivalLane;
-    SUMOReal myArrivalPos;
-    SUMOReal myArrivalSpeed;
+    // private state members of the Example device
+
+    /// @brief a value which is initialised based on a commandline/configuration option
+    SUMOReal myCustomValue1;
+    /// @brief a value which is initialised based on a vehicle parameter
+    SUMOReal myCustomValue2;
+
+    /// @brief the vehicles which explicitly carry a device
+    static std::set<std::string> myExplicitIDs;
 
 private:
     /// @brief Invalidated copy constructor.
-    MSDevice_Tripinfo(const MSDevice_Tripinfo&);
+    MSDevice_Example(const MSDevice_Example&);
 
     /// @brief Invalidated assignment operator.
-    MSDevice_Tripinfo& operator=(const MSDevice_Tripinfo&);
+    MSDevice_Example& operator=(const MSDevice_Example&);
 
 
 };

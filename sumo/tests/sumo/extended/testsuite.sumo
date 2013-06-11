@@ -37,3 +37,6 @@ shapes
 
 # test continuous lane change maneuvers
 continuous_lanechange
+
+# tests functions of the example device
+device_example

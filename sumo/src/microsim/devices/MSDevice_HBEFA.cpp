@@ -117,15 +117,17 @@ MSDevice_HBEFA::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*new
 
 void
 MSDevice_HBEFA::generateOutput() const {
-    OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
-    (os.openTag("emissions") <<
-     " CO_abs=\"" << OutputDevice::realString(myCO, 6) <<
-     "\" CO2_abs=\"" << OutputDevice::realString(myCO2, 6) <<
-     "\" HC_abs=\"" << OutputDevice::realString(myHC, 6) <<
-     "\" PMx_abs=\"" << OutputDevice::realString(myPMx, 6) <<
-     "\" NOx_abs=\"" << OutputDevice::realString(myNOx, 6) <<
-     "\" fuel_abs=\"" << OutputDevice::realString(myFuel, 6) <<
-     "\"").closeTag();
+    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
+        OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
+        (os.openTag("emissions") <<
+         " CO_abs=\"" << OutputDevice::realString(myCO, 6) <<
+         "\" CO2_abs=\"" << OutputDevice::realString(myCO2, 6) <<
+         "\" HC_abs=\"" << OutputDevice::realString(myHC, 6) <<
+         "\" PMx_abs=\"" << OutputDevice::realString(myPMx, 6) <<
+         "\" NOx_abs=\"" << OutputDevice::realString(myNOx, 6) <<
+         "\" fuel_abs=\"" << OutputDevice::realString(myFuel, 6) <<
+         "\"").closeTag();
+    }
 }
 
 

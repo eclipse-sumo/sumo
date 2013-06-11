@@ -134,6 +134,9 @@ protected:
     /// save last depart (only to be used if vehicle is not discarded)
     void registerLastDepart();
 
+    /// @brief assign arbitrary vehicle parameters
+    void addParam(const SUMOSAXAttributes& attrs);
+
 protected:
     /// @brief Parameter of the current vehicle, trip, person, or flow
     SUMOVehicleParameter* myVehicleParameter;

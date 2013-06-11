@@ -140,6 +140,9 @@ SUMORouteHandler::myStartElement(int element,
             myEndDefault = attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok);
             break;
         }
+        case SUMO_TAG_PARAM:
+            addParam(attrs);
+            break;
         default:
             break;
     }
@@ -225,5 +228,18 @@ SUMORouteHandler::checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMOR
     }
     return true;
 }
+
+
+void
+SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+    std::string val = attrs.get<std::string>(SUMO_ATTR_VALUE, 0, ok);
+    if (myVehicleParameter != 0) {
+        myVehicleParameter->addParameter(key, val);
+    }
+}
+
+
 
 /****************************************************************************/

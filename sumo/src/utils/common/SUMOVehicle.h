@@ -196,6 +196,9 @@ public:
      */
     virtual bool isStopped() const = 0;
 
+    /// @brief Returns a device of the given type if it exists or 0
+    virtual MSDevice* getDevice(const std::type_info& type) const = 0;
+
 
     virtual SUMOReal getChosenSpeedFactor() const = 0;
 };

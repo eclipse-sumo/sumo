@@ -52,6 +52,7 @@
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_HBEFA.h>
+#include <microsim/devices/MSDevice_Example.h>
 #include <utils/common/RandHelper.h>
 #include "MSFrame.h"
 #include <utils/common/SystemFrame.h>
@@ -246,6 +247,7 @@ MSFrame::fillOptions() {
     // devices
     MSDevice_Routing::insertOptions();
     MSDevice_HBEFA::insertOptions();
+    MSDevice_Example::insertOptions();
 
 
     // register report options

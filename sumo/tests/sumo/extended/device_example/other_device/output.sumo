@@ -1,0 +1,25 @@
+initialized device 'example_veh0' with myCustomValue1=23.00, myCustomValue2=42.00
+device 'example_veh0' notifyEnter: reason=0 currentEdge=right2end
+device 'example_veh0' notifyMove: newSpeed=1.44
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyMove: newSpeed=3.12
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyMove: newSpeed=5.66
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyMove: newSpeed=7.62
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyMove: newSpeed=9.45
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyMove: newSpeed=11.99
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyMove: newSpeed=12.93
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyMove: newSpeed=13.58
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyMove: newSpeed=13.19
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyMove: newSpeed=12.93
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyMove: newSpeed=13.89
+  veh 'veh0 has device 'tripinfo_veh0'
+device 'example_veh0' notifyLeave: reason=6 currentEdge=right2end
