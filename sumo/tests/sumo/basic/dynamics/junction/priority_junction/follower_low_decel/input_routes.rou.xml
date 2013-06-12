@@ -6,7 +6,7 @@
     </vehicle>
 
     <vType id="t_leader" decel="1"/>
-    <vehicle id="priority" type="t_leader" depart="0" departPos="900" departSpeed="max">
+    <vehicle id="priority" type="t_leader" depart="0" departPos="750" departSpeed="max">
         <route edges="middle end"/>
     </vehicle>
 </routes>
