@@ -90,20 +90,35 @@ class Statistics:
         return len(self.values)
 
     def avg(self):
+        """return the mean value"""
+        # XXX rename this method
         return sum(self.values) / float(len(self.values))
 
     def avg_abs(self):
+        """return the mean of absolute values"""
+        # XXX rename this method
         return sum(map(abs, self.values)) / float(len(self.values))
 
     def mean(self):
+        """return the median value"""
+        # XXX rename this method
         if len(self.values) > 0:
             return sorted(self.values)[len(self.values) / 2]
         else:
             return None
 
     def mean_abs(self):
+        """return the median of absolute values"""
+        # XXX rename this method
         if len(self.values) > 0:
             return sorted(map(abs,self.values))[len(self.values) / 2]
+        else:
+            return None
+
+    def average_absolute_deviation_from_mean(self):
+        if len(self.values) > 0:
+            m = self.avg()
+            return sum([abs(v - m) for v in self.values]) / len(self.values)
         else:
             return None
 
