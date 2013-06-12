@@ -92,12 +92,18 @@ class Statistics:
     def avg(self):
         """return the mean value"""
         # XXX rename this method
-        return sum(self.values) / float(len(self.values))
+        if len(self.values) > 0:
+            return sum(self.values) / float(len(self.values))
+        else:
+            return None
 
     def avg_abs(self):
         """return the mean of absolute values"""
         # XXX rename this method
-        return sum(map(abs, self.values)) / float(len(self.values))
+        if len(self.values) > 0:
+            return sum(map(abs, self.values)) / float(len(self.values))
+        else:
+            return None
 
     def mean(self):
         """return the median value"""
