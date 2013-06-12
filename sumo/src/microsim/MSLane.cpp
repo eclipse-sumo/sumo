@@ -459,7 +459,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             break;
         }
-        if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience())
+        if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(), cfModel.getMaxDecel() )
              || !(*link)->havePriority()) {
             // have to stop at junction
             SUMOReal nspeed = cfModel.stopSpeed(aVehicle, speed, seen);
@@ -524,7 +524,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // may already be comitted to blocking the link and unable to stop
             const SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / speed);
             const SUMOTime leaveTime = arrivalTime + TIME2STEPS((*link)->getLength() * speed);
-            if ((*link)->hasApproachingFoe(arrivalTime, leaveTime, speed)) {
+            if ((*link)->hasApproachingFoe(arrivalTime, leaveTime, speed, cfModel.getMaxDecel())) {
                 SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, 0, 0);
                 if (nspeed < speed) {
                     if (patchSpeed) {
@@ -1112,7 +1112,8 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
     do {
         // get the next link used
         MSLinkCont::const_iterator link = targetLane->succLinkSec(veh, view, *nextLane, bestLaneConts);
-        if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, veh.getVehicleType().getLength(), veh.getImpatience()) || (*link)->getState() == LINKSTATE_TL_RED) {
+        if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, veh.getVehicleType().getLength(), 
+                    veh.getImpatience(), veh.getCarFollowModel().getMaxDecel()) || (*link)->getState() == LINKSTATE_TL_RED) {
             break;
         }
 #ifdef HAVE_INTERNAL_LANES

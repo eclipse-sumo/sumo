@@ -35,6 +35,7 @@
 #include <vector>
 #include <set>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -176,7 +177,8 @@ public:
      * @param[in] collectFoes If a vector is passed, all blocking foes are collected and inserted into this vector
      * @return Whether this link may be passed.
      */
-    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, SUMOReal impatience, 
+    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, 
+            SUMOReal impatience, SUMOReal decel,
             std::vector<const SUMOVehicle*>* collectFoes=0) const;
 
     /** @brief Returns the information whether this link is blocked
@@ -186,11 +188,13 @@ public:
      * @param[in] arrivalSpeed The speed with which the checking vehicle plans to arrive at the link
      * @param[in] leaveSpeed The speed with which the checking vehicle plans to leave the link
      * @param[in] sameTargetLane Whether the link that calls this method has the same target lane as this link
+     * @param[in] impatience The impatience of the checking vehicle
+     * @param[in] decel The maximum deceleration of the checking vehicle
      * @param[in] collectFoes If a vector is passed the return value is always False, instead all blocking foes are collected and inserted into this vector 
      * @return Whether this link is blocked
      */
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
-                       bool sameTargetLane, SUMOReal impatience,
+                       bool sameTargetLane, SUMOReal impatience, SUMOReal decel,
                        std::vector<const SUMOVehicle*>* collectFoes=0) const;
 
 
@@ -208,9 +212,11 @@ public:
      * @param[in] arrivalTime The arrivalTime of the vehicle who checks for an approaching foe
      * @param[in] leaveTime The leaveTime of the vehicle who checks for an approaching foe
      * @param[in] speed The speed with which the checking vehicle plans to leave the link
+     * @param[in] decel The maximum deceleration of the checking vehicle
      * @return Whether a foe of this link is approaching
      */
-    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed) const;
+    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed, 
+            SUMOReal decel=DEFAULT_VEH_DECEL) const;
 
 
     /** @brief Returns the current state of the link
@@ -307,8 +313,11 @@ public:
 
 
 private:
-    /// @brief return whether the given headwayTime is unsafe
-    static SUMOTime unsafeHeadwayTime(SUMOTime headwayTime, SUMOReal leaderSpeed, SUMOReal followerSpeed);
+    /// @brief return whether the given vehicles may NOT merge safely
+    static inline bool unsafeMergeSpeeds(SUMOReal leaderSpeed, SUMOReal followerSpeed, SUMOReal leaderDecel, SUMOReal followerDecel) {
+        // XXX mismatch between continuous an discrete deceleration
+        return (leaderSpeed * leaderSpeed / leaderDecel) <= (followerSpeed * followerSpeed / followerDecel);
+    }
 
     /// @brief returns whether the given lane may still be occupied by a vehicle currently on it
     static bool maybeOccupied(MSLane* lane);
