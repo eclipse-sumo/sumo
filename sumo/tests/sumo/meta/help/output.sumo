@@ -125,6 +125,11 @@ Emissions Options:
   --device.hbefa.deterministic        The devices are set deterministic using a
                                         fraction of 1000
 
+Example Device Options:
+  --device.example.explicit STR       Assign a device to named vehicles
+  --device.example.parameter FLOAT    An exemplary parameter which can be used
+                                        by all instances of the example device
+
 TraCI Server Options:
   --remote-port INT                   Enables TraCI Server if set
 

@@ -93,6 +93,11 @@
         <device.hbefa.deterministic value="false" type="BOOL" help="The devices are set deterministic using a fraction of 1000"/>
     </emissions>
 
+    <example_device>
+        <device.example.explicit value="" type="STR" help="Assign a device to named vehicles"/>
+        <device.example.parameter value="0" type="FLOAT" help="An exemplary parameter which can be used by all instances of the example device"/>
+    </example_device>
+
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
     </traci_server>

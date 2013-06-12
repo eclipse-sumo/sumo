@@ -227,6 +227,15 @@
 
     </emissions>
 
+    <example_device>
+        <!-- Assign a device to named vehicles -->
+        <device.example.explicit value="" type="STR"/>
+
+        <!-- An exemplary parameter which can be used by all instances of the example device -->
+        <device.example.parameter value="0" type="FLOAT"/>
+
+    </example_device>
+
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
