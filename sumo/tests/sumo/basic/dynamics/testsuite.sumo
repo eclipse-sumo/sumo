@@ -21,3 +21,6 @@ avoid_spill_back
 
 # tests for driver impatience
 impatience
+
+# test proper behavior at junctions (collision avoidance, efficent usage)
+junction

@@ -1,0 +1,2 @@
+# ego vehicle may not merge because the follower vehicle cannot decelerate fast enough
+follower_low_decel
