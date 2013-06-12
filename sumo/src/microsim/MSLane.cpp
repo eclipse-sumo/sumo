@@ -459,7 +459,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             break;
         }
-        if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience())) {
+        if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience())
+             || !(*link)->havePriority()) {
             // have to stop at junction
             SUMOReal nspeed = cfModel.stopSpeed(aVehicle, speed, seen);
             if (nspeed < speed) {

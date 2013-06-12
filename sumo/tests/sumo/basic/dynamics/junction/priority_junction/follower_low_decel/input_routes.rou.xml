@@ -2,7 +2,7 @@
     <vType id="t_ego" impatience="0.0"/>
     <vehicle id="ego" depart="0" departPos="485" type="t_ego" departSpeed="max">
         <route edges="right2end end"/>
-        <stop lane="end_0" endPos="20"/>
+        <stop lane="end_0" endPos="20" duration="10"/>
     </vehicle>
 
     <vType id="t_leader" decel="1"/>
