@@ -3,6 +3,7 @@
 @author  Yun-Pang Wang
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
+@author  Jakob Erdmann
 @date    2007-10-25
 @version $Id$
 
@@ -16,6 +17,15 @@ SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
+
+import os,sys
+from Queue import PriorityQueue
+from collections import defaultdict
+from xml.sax import make_parser, handler
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from sumolib.net import readNet
+
+
 class priorityDictionary(dict):
     def __init__(self):
         '''Initialize priorityDictionary by creating binary heap
@@ -152,3 +162,71 @@ def dijkstraBoost(boostGraph, start):
                 P[v.partner] = edge
                 break
     return (D, P)
+
+
+class DijkstraRouter(handler.ContentHandler):
+    """standalone class for routing on a sumolib network.
+    The edges from the network recieve new attribute 'cost' based on 
+    a loaded meanData output
+    """
+    def __init__(self, netfile, weightfile=None):
+        self.net = readNet(netfile)
+        self.cost_attribute = 'traveltime'
+        self.weightfile = weightfile
+        if self.weightfile is not None:
+            self.load_weights(self.weightfile)
+
+    def load_weights(self, weightfile):
+        # reset weights before loading
+        for e in self.net.getEdges():
+            e.cost = e.getLength() / e.getSpeed()
+        self.weightfile = weightfile
+        self.intervals = 0
+        parser = make_parser()
+        parser.setContentHandler(self)
+        parser.parse(weightfile)
+
+    def startElement(self, name, attrs):
+        if name == 'interval':
+            self.intervals += 1
+            if self.intervals > 1:
+                print("ignoring weights from interval [%s,%s]" % (attrs['begin'], attrs['end']))
+        if name == 'edge':
+            if self.intervals > 1:
+                return
+            if attrs.has_key(self.cost_attribute): # may be missing for some
+                self.net.getEdge(attrs['id']).cost = float(attrs[self.cost_attribute])
+
+    def _route(self, start, dest, costFactors):
+        if self.weightfile is None:
+            raise Exception("not weights loaded")
+        # dictionary of final distances
+        D = {}
+        # dictionary of predecessors
+        P = {}
+        # est.dist. of non-final vert.
+        Q = priorityDictionary()
+        Q[start] = 0
+        for edge in Q:
+            D[edge] = Q[edge]
+            #print("final const to %s: %s" % (edge.getID(), D[edge]))
+            if edge == dest:
+                #print [(e.getID(), c) for e,c in Q.items()]
+                return (D, P)
+            cost = Q[edge] + edge.cost * costFactors[edge.getID()]
+            for succ in edge.getOutgoing():
+                if succ not in Q or Q[succ] > cost:
+                    #print("reaching %s in %s (from %s)" % (succ.getID(), cost, edge.getID()))
+                    Q[succ] = cost
+                    P[succ] = edge
+        return None
+
+    def least_cost(self, start, dest, costFactors=defaultdict(lambda:1.0)):
+        """return the cost of the shortest path from start to destination edge"""
+        if type(start) == str:
+            start = self.net.getEdge(start)
+        if type(dest) == str:
+            dest = self.net.getEdge(dest)
+        D, P = self._route(start, dest, costFactors)
+        return D[dest]
+
