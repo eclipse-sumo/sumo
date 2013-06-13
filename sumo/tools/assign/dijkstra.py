@@ -232,6 +232,7 @@ class DijkstraRouter(handler.ContentHandler):
                     raise Exception("unkown edge '%s'" % id)
             else:
                 result.append(id)
+        return result
 
     def least_cost(self, start, dest, costFactors=defaultdict(lambda:1.0)):
         """return the cost of the shortest path from start to destination edge"""
