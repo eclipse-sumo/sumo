@@ -27,6 +27,7 @@ TraCITestClient TraCITestClientD TraCITestClientInt TraCITestClientIntD \
 sumo-unittest sumo-unittestD \
 netedit neteditD marouter marouterD
 
+install: all
 all: sumo dfrouter duarouter jtrrouter netconvert netgenerate od2trips polyconvert activitygen $(GUI_APP) $(NETEDIT_APP) $(MAROUTER_APP) $(TRACI_TESTCLIENT_APP)
 sumo: ../src/sumo
 	cp ../src/sumo ./`echo sumo | sed '$(transform)'`
