@@ -219,14 +219,26 @@ class DijkstraRouter(handler.ContentHandler):
                     #print("reaching %s in %s (from %s)" % (succ.getID(), cost, edge.getID()))
                     Q[succ] = cost
                     P[succ] = edge
-        return None
+        return (D, P)
+
+    def _getEdge(self, *ids):
+        """retrieves edge objects based on their ids"""
+        result = []
+        for id in ids:
+            if type(id) == str:
+                if self.net.hasEdge(id):
+                    result.append(self.net.getEdge(id))
+                else:
+                    raise Exception("unkown edge '%s'" % id)
+            else:
+                result.append(id)
 
     def least_cost(self, start, dest, costFactors=defaultdict(lambda:1.0)):
         """return the cost of the shortest path from start to destination edge"""
-        if type(start) == str:
-            start = self.net.getEdge(start)
-        if type(dest) == str:
-            dest = self.net.getEdge(dest)
+        start, dest = self._getEdge(start, dest)
         D, P = self._route(start, dest, costFactors)
-        return D[dest]
+        if dest in D:
+            return D[dest]
+        else:
+            raise("No path between %s and %s found" % (start.getID(), dest.getID()))
 
