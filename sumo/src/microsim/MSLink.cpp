@@ -179,13 +179,12 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrival
         if (myState == LINKSTATE_ALLWAY_STOP) {
             assert(waitingTime > 0);
             if (waitingTime > i->first->getWaitingTime()) {
-                return false;
+                continue;
             }
             if (waitingTime == i->first->getWaitingTime() && arrivalTime < i->second.arrivalTimeBraking) {
-                return false;
+                continue;
             }
             /// XXX may need another tiebraker
-            return false;
         }
         const SUMOTime foeArrivalTime = (SUMOTime)((1.0 - impatience) * i->second.arrivalTime + impatience * i->second.arrivalTimeBraking);
         const SUMOReal foeArrivalSpeed = (1.0 - impatience) * i->second.arrivalSpeed + impatience * i->second.arrivalSpeedBraking;

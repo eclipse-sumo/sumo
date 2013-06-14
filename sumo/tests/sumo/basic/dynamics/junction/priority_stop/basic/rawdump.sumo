@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 14 Jun 2013 12:52:55 PM CEST by SUMO gui Version dev-SVN-r14159
+<!-- generated on Fri Jun 14 14:20:07 2013 by SUMO sumo Version dev-SVN-r14159
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumo-gui.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -193,4 +193,33 @@
             </lane>
         </edge>
     </timestep>
+    <timestep time="22.00">
+        <edge id="2o">
+            <lane id="2o_0">
+                <vehicle id="ego" pos="43.37" speed="14.68"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="23.00">
+        <edge id="2o">
+            <lane id="2o_0">
+                <vehicle id="ego" pos="58.97" speed="15.60"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="24.00">
+        <edge id="2o">
+            <lane id="2o_0">
+                <vehicle id="ego" pos="74.15" speed="15.18"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="25.00">
+        <edge id="2o">
+            <lane id="2o_0">
+                <vehicle id="ego" pos="88.93" speed="14.78"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="26.00"/>
 </netstate>
