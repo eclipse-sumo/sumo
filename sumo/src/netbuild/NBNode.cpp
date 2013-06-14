@@ -1236,8 +1236,11 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane,
     if (myType == NODETYPE_RIGHT_BEFORE_LEFT) {
         return LINKSTATE_EQUAL; // all the same
     }
+    if (myType == NODETYPE_ALLWAY_STOP) {
+        return LINKSTATE_ALLWAY_STOP; // all drive, first one to arrive may drive first
+    }
     if ((!incoming->isInnerEdge() && mustBrake(incoming, outgoing, fromlane)) && !mayDefinitelyPass) {
-        return LINKSTATE_MINOR; // minor road
+        return myType == NODETYPE_PRIORITY_STOP ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road
     }
     // traffic lights are not regarded here
     return LINKSTATE_MAJOR;

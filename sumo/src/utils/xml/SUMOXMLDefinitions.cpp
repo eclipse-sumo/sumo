@@ -428,8 +428,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[] = {
     {"traffic_light",       NODETYPE_TRAFFIC_LIGHT},
     {"traffic_light_unregulated", NODETYPE_TRAFFIC_LIGHT_NOJUNCTION},
-    {"priority",            NODETYPE_PRIORITY_JUNCTION},
+    {"priority",            NODETYPE_PRIORITY},
+    {"priority_stop",       NODETYPE_PRIORITY_STOP},
     {"right_before_left",   NODETYPE_RIGHT_BEFORE_LEFT},
+    {"allway_stop",         NODETYPE_ALLWAY_STOP},
     {"district",            NODETYPE_DISTRICT},
     {"unregulated",         NODETYPE_NOJUNCTION},
     {"internal",            NODETYPE_INTERNAL},
@@ -467,6 +469,8 @@ StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
     { "M", LINKSTATE_MAJOR },
     { "m", LINKSTATE_MINOR },
     { "=", LINKSTATE_EQUAL },
+    { "s", LINKSTATE_STOP },
+    { "w", LINKSTATE_ALLWAY_STOP },
     { "-", LINKSTATE_DEADEND }
 };
 

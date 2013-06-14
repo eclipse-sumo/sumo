@@ -804,7 +804,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             break;
         }
         // check whether the lane is a dead end
-        const SUMOReal laneStopOffset = lane->getLength() > getVehicleType().getMinGap() ? getVehicleType().getMinGap() : POSITION_EPS;
+        // @todo: recheck propper value for laneStopOffset based on real-world
+        // measurements. 
+        // For links that require stopping it is important that vehicles stop close to the stopping line
+        const SUMOReal laneStopOffset = ((lane->getLength() <= getVehicleType().getMinGap() 
+                    || (!lane->isLinkEnd(link) && (
+                            (*link)->getState() == LINKSTATE_ALLWAY_STOP || (*link)->getState() == LINKSTATE_STOP)))
+                ? POSITION_EPS : getVehicleType().getMinGap());
         const SUMOReal stopDist = MAX2(SUMOReal(0), seen - laneStopOffset);
         if (lane->isLinkEnd(link)) {
             SUMOReal va = MIN2(cfModel.stopSpeed(this, getSpeed(), stopDist), laneMaxV);
@@ -982,7 +988,7 @@ MSVehicle::executeMove() {
             }
             //
             const bool opened = yellow || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), 
-                    getVehicleType().getLengthWithGap(), getImpatience(), getCarFollowModel().getMaxDecel());
+                    getVehicleType().getLengthWithGap(), getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime());
             // vehicles should decelerate when approaching a minor link
             // XXX check if this is still necessary
             if (opened && !lastWasGreenCont && !link->havePriority() && (*i).myDistance > getCarFollowModel().getMaxDecel()) {
@@ -1274,7 +1280,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
             const bool opened = item.myLink != 0 && (item.myLink->havePriority() ||
                                 item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
                                                     item.getLeaveSpeed(), getVehicleType().getLengthWithGap(), 
-                                                    getImpatience(), getCarFollowModel().getMaxDecel()));
+                                                    getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime()));
             bool allowsContinuation = item.myLink == 0 || item.myLink->isCont() || !lfLinks[i].hadVehicle || opened;
             if (!opened && item.myLink != 0) {
                 if (i > 1) {

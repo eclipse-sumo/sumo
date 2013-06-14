@@ -1518,7 +1518,7 @@ GUIVehicle::selectBlockingFoes() const {
     }
     std::vector<const SUMOVehicle*> blockingFoes; 
     dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLengthWithGap(), 
-            getImpatience(), getCarFollowModel().getMaxDecel(), &blockingFoes);
+            getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), &blockingFoes);
     for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
         gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
     }

@@ -226,6 +226,13 @@ NBRequest::setBlocking(bool leftHanded,
     // mark the crossings as done
     myDone[idx1][idx2] = true;
     myDone[idx2][idx1] = true;
+    // special case all-way stop
+    if (myJunction->getType() == NODETYPE_ALLWAY_STOP) {
+        // all ways forbid each other. Conflict resolution happens via arrival time
+        myForbids[idx1][idx2] = true;
+        myForbids[idx2][idx1] = true;
+        return;
+    }
     // check if one of the links is a turn; this link is always not priorised
     //  true for right-before-left and priority
     if (from1->isTurningDirectionAt(myJunction, to1)) {
@@ -236,7 +243,6 @@ NBRequest::setBlocking(bool leftHanded,
         myForbids[idx1][idx2] = true;
         return;
     }
-
     // check the priorities if required by node type
     if (myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT) {
         int from1p = from1->getJunctionPriority(myJunction);

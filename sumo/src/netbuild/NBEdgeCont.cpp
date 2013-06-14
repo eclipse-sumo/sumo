@@ -879,13 +879,24 @@ NBEdgeCont::generateStreetSigns() {
         //continue
         const SUMOReal offset = e->getLength() - 3;
         switch (e->getToNode()->getType()) {
-            case NODETYPE_PRIORITY_JUNCTION:
+            case NODETYPE_PRIORITY:
                 // yield or major?
                 if (e->getJunctionPriority(e->getToNode()) > 0) {
                     e->addSign(NBSign(NBSign::SIGN_TYPE_PRIORITY, offset));
                 } else {
                     e->addSign(NBSign(NBSign::SIGN_TYPE_YIELD, offset));
                 }
+                break;
+            case NODETYPE_PRIORITY_STOP:
+                // yield or major?
+                if (e->getJunctionPriority(e->getToNode()) > 0) {
+                    e->addSign(NBSign(NBSign::SIGN_TYPE_PRIORITY, offset));
+                } else {
+                    e->addSign(NBSign(NBSign::SIGN_TYPE_STOP, offset));
+                }
+                break;
+            case NODETYPE_ALLWAY_STOP:
+                e->addSign(NBSign(NBSign::SIGN_TYPE_ALLWAY_STOP, offset));
                 break;
             case NODETYPE_RIGHT_BEFORE_LEFT:
                 e->addSign(NBSign(NBSign::SIGN_TYPE_RIGHT_BEFORE_LEFT, offset));

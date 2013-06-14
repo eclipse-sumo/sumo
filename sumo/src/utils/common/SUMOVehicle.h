@@ -201,6 +201,8 @@ public:
 
 
     virtual SUMOReal getChosenSpeedFactor() const = 0;
+
+    virtual SUMOTime getWaitingTime() const = 0;
 };
 
 

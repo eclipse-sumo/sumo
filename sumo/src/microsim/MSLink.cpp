@@ -139,13 +139,16 @@ MSLink::getLeaveTime(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leave
 
 bool
 MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, 
-        SUMOReal impatience, SUMOReal decel,
+        SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime,
         std::vector<const SUMOVehicle*>* collectFoes) const {
     if (myState == LINKSTATE_TL_RED) {
         return false;
     }
     if (myAmCont && MSGlobals::gUsingInternalLanes) {
         return true;
+    }
+    if ((myState == LINKSTATE_STOP || myState == LINKSTATE_ALLWAY_STOP) && waitingTime == 0) {
+        return false;
     }
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, vehicleLength);
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
@@ -157,7 +160,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
         }
 #endif
         if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(), 
-                    impatience, decel, collectFoes)) {
+                    impatience, decel, waitingTime, collectFoes)) {
             return false;
         }
     }
@@ -167,11 +170,22 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
 
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
-                      bool sameTargetLane, SUMOReal impatience, SUMOReal decel,
+                      bool sameTargetLane, SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime,
                       std::vector<const SUMOVehicle*>* collectFoes) const {
     for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
         if (!i->second.willPass) {
             continue;
+        }
+        if (myState == LINKSTATE_ALLWAY_STOP) {
+            assert(waitingTime > 0);
+            if (waitingTime > i->first->getWaitingTime()) {
+                return false;
+            }
+            if (waitingTime == i->first->getWaitingTime() && arrivalTime < i->second.arrivalTimeBraking) {
+                return false;
+            }
+            /// XXX may need another tiebraker
+            return false;
         }
         const SUMOTime foeArrivalTime = (SUMOTime)((1.0 - impatience) * i->second.arrivalTime + impatience * i->second.arrivalTimeBraking);
         const SUMOReal foeArrivalSpeed = (1.0 - impatience) * i->second.arrivalSpeed + impatience * i->second.arrivalSpeedBraking;
@@ -234,7 +248,7 @@ MSLink::maybeOccupied(MSLane* lane) {
 bool
 MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed, SUMOReal decel) const {
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime, speed, speed, myLane == (*i)->getLane(), 0, decel)) {
+        if ((*i)->blockedAtTime(arrivalTime, leaveTime, speed, speed, myLane == (*i)->getLane(), 0, decel, 0)) {
             return true;
         }
     }

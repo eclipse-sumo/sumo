@@ -459,7 +459,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             break;
         }
-        if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(), cfModel.getMaxDecel() )
+        if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(), cfModel.getMaxDecel(), 0)
              || !(*link)->havePriority()) {
             // have to stop at junction
             SUMOReal nspeed = cfModel.stopSpeed(aVehicle, speed, seen);
@@ -1113,7 +1113,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         // get the next link used
         MSLinkCont::const_iterator link = targetLane->succLinkSec(veh, view, *nextLane, bestLaneConts);
         if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, veh.getVehicleType().getLength(), 
-                    veh.getImpatience(), veh.getCarFollowModel().getMaxDecel()) || (*link)->getState() == LINKSTATE_TL_RED) {
+                    veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0) || (*link)->getState() == LINKSTATE_TL_RED) {
             break;
         }
 #ifdef HAVE_INTERNAL_LANES

@@ -178,7 +178,7 @@ public:
      * @return Whether this link may be passed.
      */
     bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, 
-            SUMOReal impatience, SUMOReal decel,
+            SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime,
             std::vector<const SUMOVehicle*>* collectFoes=0) const;
 
     /** @brief Returns the information whether this link is blocked
@@ -190,11 +190,13 @@ public:
      * @param[in] sameTargetLane Whether the link that calls this method has the same target lane as this link
      * @param[in] impatience The impatience of the checking vehicle
      * @param[in] decel The maximum deceleration of the checking vehicle
+     * @param[in] waitingTime The waiting time of the checking vehicle
      * @param[in] collectFoes If a vector is passed the return value is always False, instead all blocking foes are collected and inserted into this vector 
      * @return Whether this link is blocked
-     */
+     * @note Since this needs to be called without a SUMOVehicle (TraCI), we cannot simply pass the checking vehicle itself
+     **/
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
-                       bool sameTargetLane, SUMOReal impatience, SUMOReal decel,
+                       bool sameTargetLane, SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime,
                        std::vector<const SUMOVehicle*>* collectFoes=0) const;
 
 

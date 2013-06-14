@@ -53,6 +53,8 @@ public:
     enum SignType {
         SIGN_TYPE_SPEED,
         SIGN_TYPE_YIELD,
+        SIGN_TYPE_STOP,
+        SIGN_TYPE_ALLWAY_STOP,
         SIGN_TYPE_ON_RAMP,
         SIGN_TYPE_PRIORITY,
         SIGN_TYPE_RIGHT_BEFORE_LEFT,
@@ -60,7 +62,7 @@ public:
         SIGN_TYPE_RAIL_CROSSING,
         SIGN_TYPE_SLOPE,
         SIGN_TYPE_CITY,
-        SIGN_TYPE_INFO
+        SIGN_TYPE_INFO // terminator
     };
 
     /** @brief Constructor with id, and position

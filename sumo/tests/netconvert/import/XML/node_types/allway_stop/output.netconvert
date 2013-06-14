@@ -1,0 +1,40 @@
+Parsing nodes from 'input_nodes.nod.xml'... done.
+Parsing edges from 'input_edges.edg.xml'... done.
+ Import done:
+   5 nodes loaded.
+   8 edges loaded.
+Removing self-loops... done.
+Removing empty nodes... done.
+   0 nodes removed.
+Moving network to origin... done.
+Joining similar edges... done.
+Computing turning directions... done.
+Sorting nodes' edges... done.
+Computing node types... done.
+Computing priorities... done.
+Computing approached edges... done.
+Computing approaching lanes... done.
+Dividing of lanes on approached lanes... done.
+Processing turnarounds... done.
+Rechecking of lane endings... done.
+Computing node shapes... done.
+Computing edge shapes... done.
+Assigning nodes to traffic lights... done.
+Computing traffic light control information... done.
+Computing node logics... done.
+Computing traffic light logics... done.
+ 0 traffic light(s) computed.
+Building inner edges... done.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Priority junctions          : 4
+  Right-before-left junctions : 0
+  All-way stop junctions      : 1
+ Network boundaries:
+  Original boundary  : -500.00,-500.00,500.00,500.00
+  Applied offset     : 500.00,500.00
+  Converted boundary : 0.00,0.00,1000.00,1000.00
+-----------------------------------------------------
+Success.

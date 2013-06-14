@@ -179,7 +179,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont& nc) {
                     "actuated_traffic_light");
             }
         }*/
-    NBNode* node = new NBNode(getNodeName(), pos, NODETYPE_PRIORITY_JUNCTION);
+    NBNode* node = new NBNode(getNodeName(), pos, NODETYPE_PRIORITY);
     if (!nc.insert(node)) {
         delete node;
         throw 1;

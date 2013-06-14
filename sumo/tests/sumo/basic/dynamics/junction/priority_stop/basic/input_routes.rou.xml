@@ -1,0 +1,5 @@
+<routes>
+    <vehicle id="ego" depart="0" departPos="400" arrivalPos="100">
+        <route edges="1fi 2o"/>
+    </vehicle>
+</routes>

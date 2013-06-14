@@ -45,6 +45,8 @@
 StringBijection<NBSign::SignType>::Entry signTypeStringsInitializaer[] = {
     {"speed limit",       NBSign::SIGN_TYPE_SPEED},
     {"yield",             NBSign::SIGN_TYPE_YIELD},
+    {"stop",              NBSign::SIGN_TYPE_STOP},
+    {"allway_stop",       NBSign::SIGN_TYPE_ALLWAY_STOP},
     {"on ramp",           NBSign::SIGN_TYPE_ON_RAMP},
     {"priority",          NBSign::SIGN_TYPE_PRIORITY},
     {"right before left", NBSign::SIGN_TYPE_RIGHT_BEFORE_LEFT},

@@ -104,7 +104,7 @@ NGNode::buildNBNode(NBNetBuilder& nb) const {
         }
     } else {
         // otherwise netbuild may guess NODETYPE_TRAFFIC_LIGHT without actually building one
-        node = new NBNode(myID, pos, NODETYPE_PRIORITY_JUNCTION);
+        node = new NBNode(myID, pos, NODETYPE_PRIORITY);
     }
 
     return node;
