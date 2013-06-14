@@ -64,6 +64,8 @@ StringBijection<NBSign::SignType> NBSign::SignTypeStrings(
 StringBijection<NBSign::SignType>::Entry SignTypeColorsInitializaer[] = {
     {"0.5,0.5,0.5", NBSign::SIGN_TYPE_SPEED},
     {"1.0,0.0,0.0", NBSign::SIGN_TYPE_YIELD},
+    {"1.0,0.0,0.0", NBSign::SIGN_TYPE_STOP},
+    {"1.0,0.0,0.0", NBSign::SIGN_TYPE_ALLWAY_STOP},
     {"1.0,0.0,0.0", NBSign::SIGN_TYPE_ON_RAMP},
     {"1.0,1.0,0.0", NBSign::SIGN_TYPE_PRIORITY},
     {"1.0,0.6,0.0", NBSign::SIGN_TYPE_RIGHT_BEFORE_LEFT},
