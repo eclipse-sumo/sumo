@@ -305,7 +305,7 @@ GUILane::drawLinkRules(const GUINet& net) const {
                 glColor3d(.5, .5, .5);
                 break;
             case LINKSTATE_ALLWAY_STOP:
-                glColor3d(.5, .5, 1);
+                glColor3d(.2, .2, .4);
                 break;
             case LINKSTATE_DEADEND:
                 glColor3d(0, 0, 0);
