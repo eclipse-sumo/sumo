@@ -1341,8 +1341,11 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
 #endif
     for (DriveItemVector::iterator i = lfLinks.begin(); i != lfLinks.end(); ++i) {
         if ((*i).myLink != 0) {
+            if ((*i).myLink->getState() == LINKSTATE_ALLWAY_STOP) {
+                (*i).myArrivalTime += (SUMOTime)RandHelper::rand((size_t)2); // tie braker 
+            }
             (*i).myLink->setApproaching(this, (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), 
-                    (*i).mySetRequest, (*i).myArrivalTimeBraking, (*i).myArrivalSpeedBraking);
+                    (*i).mySetRequest, (*i).myArrivalTimeBraking, (*i).myArrivalSpeedBraking, getWaitingTime());
         }
     }
 }

@@ -80,18 +80,24 @@ public:
      * @brief A structure holding the information about vehicles approaching a link
      */
     struct ApproachingVehicleInformation {
-        /// @brief Constructor
+        /** @brief Constructor
+         * @param[in] waitingTime The time during which the vehicle is waiting at this link
+         *   this needs to be placed here because MSVehicle::myWaitingTime is updated in between 
+         *   calls to opened() causing order dependencies
+         **/
         ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime,
                                       const SUMOReal _arrivalSpeed, const SUMOReal _leaveSpeed,
                                       const bool _willPass,
                                       const SUMOTime _arrivalTimeBraking,
-                                      const SUMOReal _arrivalSpeedBraking
+                                      const SUMOReal _arrivalSpeedBraking,
+                                      const SUMOTime _waitingTime
                                       ) :
             arrivalTime(_arrivalTime), leavingTime(_leavingTime),
             arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed),
             willPass(_willPass),
             arrivalTimeBraking(_arrivalTimeBraking),
-            arrivalSpeedBraking(_arrivalSpeedBraking) {}
+            arrivalSpeedBraking(_arrivalSpeedBraking),
+            waitingTime(_waitingTime) {}
 
         /// @brief The time the vehicle's front arrives at the link
         const SUMOTime arrivalTime;
@@ -107,6 +113,8 @@ public:
         const SUMOTime arrivalTimeBraking;
         /// @brief The estimated speed with which the vehicle arrives at the link if it starts braking(for headway computation)
         const SUMOReal arrivalSpeedBraking;
+        /// @brief The waiting duration at the current link
+        const SUMOTime waitingTime;
 
     private:
         /// invalidated assignment operator
@@ -158,7 +166,8 @@ public:
      */
     void setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime,
                         const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed, const bool setRequest, 
-                        const SUMOTime arrivalTimeBraking, const SUMOReal arrivalSpeedBraking);
+                        const SUMOTime arrivalTimeBraking, const SUMOReal arrivalSpeedBraking, 
+                        const SUMOTime waitingTime);
 
     /// @brief removes the vehicle from myApproachingVehicles
     void removeApproaching(const SUMOVehicle* veh);

@@ -89,10 +89,12 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 void
 MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed, 
-        const bool setRequest, const SUMOTime arrivalTimeBraking, const SUMOReal arrivalSpeedBraking) {
+        const bool setRequest, const SUMOTime arrivalTimeBraking, const SUMOReal arrivalSpeedBraking, const SUMOTime waitingTime) 
+{
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLengthWithGap());
     myApproachingVehicles.insert(std::make_pair(approaching, 
-                ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest, arrivalTimeBraking, arrivalSpeedBraking)));
+                ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest, 
+                    arrivalTimeBraking, arrivalSpeedBraking, waitingTime)));
 }
 
 
@@ -126,7 +128,7 @@ MSLink::getApproaching(const SUMOVehicle* veh) const {
     if (i != myApproachingVehicles.end()) {
         return i->second;
     } else {
-        return ApproachingVehicleInformation(-1000, -1000, 0, 0, false, -1000, 0);
+        return ApproachingVehicleInformation(-1000, -1000, 0, 0, false, -1000, 0, 0);
     }
 }
 
@@ -178,13 +180,12 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrival
         }
         if (myState == LINKSTATE_ALLWAY_STOP) {
             assert(waitingTime > 0);
-            if (waitingTime > i->first->getWaitingTime()) {
+            if (waitingTime > i->second.waitingTime) {
                 continue;
             }
-            if (waitingTime == i->first->getWaitingTime() && arrivalTime < i->second.arrivalTimeBraking) {
+            if (waitingTime == i->second.waitingTime && arrivalTime < i->second.arrivalTime) {
                 continue;
             }
-            /// XXX may need another tiebraker
         }
         const SUMOTime foeArrivalTime = (SUMOTime)((1.0 - impatience) * i->second.arrivalTime + impatience * i->second.arrivalTimeBraking);
         const SUMOReal foeArrivalSpeed = (1.0 - impatience) * i->second.arrivalSpeed + impatience * i->second.arrivalSpeedBraking;
