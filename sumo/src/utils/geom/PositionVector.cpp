@@ -987,7 +987,7 @@ PositionVector::move2side(SUMOReal amount) {
 
 Line
 PositionVector::lineAt(int pos) const {
-    assert(size() > pos + 1);
+    assert((int)size() > pos + 1);
     return Line((*this)[pos], (*this)[pos + 1]);
 }
 
