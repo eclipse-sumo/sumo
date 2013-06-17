@@ -83,7 +83,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Vehicle: changeLane")
-	public void Vehicle_changeLane(@WebParam(name = "vehID") String vehID, @WebParam(name = "laneIndex") int laneIndex, @WebParam(name = "duration") int duration){
+	public void Vehicle_changeLane(@WebParam(name = "vehID") String vehID, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "duration") int duration){
 		this.sumo.set_cmd(Vehicle.changeLane(vehID, laneIndex, duration));
 	}
 
@@ -742,7 +742,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Simulation: convert2D")
-	public SumoStringList Simulation_convert2D(@WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") int laneIndex, @WebParam(name = "toGeo") String toGeo){
+	public SumoStringList Simulation_convert2D(@WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "toGeo") String toGeo){
 		return this.helper.getStringList(this.sumo.get_cmd(Simulation.convert2D(edgeID, pos, laneIndex, toGeo)));
 	}
 

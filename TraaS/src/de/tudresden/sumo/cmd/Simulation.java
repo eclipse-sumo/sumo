@@ -28,7 +28,7 @@ public class Simulation {
 	 * convert2D
 	 */
 
-	public static SumoCommand convert2D(String edgeID, double pos, int laneIndex, String toGeo){
+	public static SumoCommand convert2D(String edgeID, double pos, byte laneIndex, String toGeo){
 		Object[] array = new Object[]{pos, laneIndex, toGeo};
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.POSITION_CONVERSION, edgeID, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
 	}

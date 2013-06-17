@@ -385,7 +385,7 @@ public class Vehicle {
 	 * Forces a lane change to the lane with the given index; if successful, the lane will be chosen for the given amount of time.
 	 */
 
-	public static SumoCommand changeLane(String vehID, int laneIndex, int duration){
+	public static SumoCommand changeLane(String vehID, byte laneIndex, int duration){
 
 		Object[] array = new Object[]{laneIndex, duration};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_CHANGELANE, vehID, array);
