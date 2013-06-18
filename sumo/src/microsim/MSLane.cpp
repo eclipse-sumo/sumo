@@ -468,7 +468,16 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     speed = MIN2(nspeed, speed);
                     dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
-                    // we may not drive with the given velocity - we cannot stop at the junction in time (try again later)
+                    // we may not drive with the given velocity - we cannot stop at the junction in time 
+                    const LinkState state = (*link)->getState();
+                    if (state == LINKSTATE_MINOR 
+                            || state == LINKSTATE_EQUAL 
+                            || state == LINKSTATE_STOP
+                            || state == LINKSTATE_ALLWAY_STOP) {
+                        // no sense in trying later
+                        WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (unpriorised junction too close)!");
+                        MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
+                    }
                     return false;
                 }
             }
