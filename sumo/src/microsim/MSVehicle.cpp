@@ -1015,7 +1015,7 @@ MSVehicle::executeMove() {
             }
         } else {
             vSafe = (*i).myVLinkWait;
-            braking = true;
+            braking = vSafe < getSpeed();
             break;
         }
     }
