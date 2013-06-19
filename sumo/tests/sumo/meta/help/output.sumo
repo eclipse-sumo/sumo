@@ -29,6 +29,8 @@ Output Options:
   --fcd-output FILE                   Save the Floating Car Data
   --fcd-output.geo                    Save the Floating Car Data using
                                         geo-coordinates (lon/lat)
+  --fcd-output.signals                Add the vehicle signal state to the FCD
+                                        output (brake lights etc.)
   --full-output FILE                  Save a lot of information for each
                                         timestep (very redundant)
   --queue-output FILE                 Save the vehicle queues at the junctions

@@ -54,6 +54,9 @@
         <!-- Save the Floating Car Data using geo-coordinates (lon/lat) -->
         <fcd-output.geo value="false" type="BOOL"/>
 
+        <!-- Add the vehicle signal state to the FCD output (brake lights etc.) -->
+        <fcd-output.signals value="false" type="BOOL"/>
+
         <!-- Save a lot of information for each timestep (very redundant) -->
         <full-output value="" type="FILE"/>
 
