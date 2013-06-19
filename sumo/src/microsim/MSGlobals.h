@@ -93,11 +93,9 @@ public:
 
 #endif
 
-#ifdef _DEBUG
     /// @brief global utility flags for debugging
     static bool gDebugFlag1;
     static bool gDebugFlag2;
-#endif
 
 };
 
