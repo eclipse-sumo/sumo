@@ -3,6 +3,7 @@
     <input>
         <net-file value="hello.net.xml"/>
         <route-files value="hello.rou.xml"/>
+        <gui-settings-file value="hello.settings.xml"/>
     </input>
 
     <time>
