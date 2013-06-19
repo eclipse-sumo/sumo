@@ -144,7 +144,7 @@ def getLastStepOccupancy(edgeID):
 def getLastStepLength(edgeID):
     """getLastStepLength(string) -> double
     
-    Returns the total vehicle length in m for the last time step on the given edge.
+    Returns the mean vehicle length in m for the last time step on the given edge.
     """
     return _getUniversal(tc.LAST_STEP_LENGTH, edgeID)
 

@@ -206,7 +206,7 @@ def getLastStepOccupancy(laneID):
 def getLastStepLength(laneID):
     """getLastStepLength(string) -> double
     
-    Returns the total vehicle length in m for the last time step on the given lane.
+    Returns the mean vehicle length in m for the last time step on the given lane.
     """
     return _getUniversal(tc.LAST_STEP_LENGTH, laneID)
 
