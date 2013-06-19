@@ -126,6 +126,8 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output", "Output", "Save the Floating Car Data");
     oc.doRegister("fcd-output.geo", new Option_Bool(false));
     oc.addDescription("fcd-output.geo", "Output", "Save the Floating Car Data using geo-coordinates (lon/lat)");
+    oc.doRegister("fcd-output.signals", new Option_Bool(false));
+    oc.addDescription("fcd-output.signals", "Output", "Add the vehicle signal state to the FCD output (brake lights etc.)");
     oc.doRegister("full-output", new Option_FileName());
     oc.addDescription("full-output", "Output", "Save a lot of information for each timestep (very redundant)");
     oc.doRegister("queue-output", new Option_FileName());

@@ -9,4 +9,5 @@ cartesian_slope
 cartesian_slope_geom
 cartesian_slope_length
 
-
+# test output of vehicle signals
+signals
