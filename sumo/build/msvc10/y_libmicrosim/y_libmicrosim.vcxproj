@@ -199,7 +199,6 @@
     <ClCompile Include="..\..\..\src\microsim\MSLink.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSLinkCont.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSLogicJunction.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\MSMessageEmitter.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSMoveReminder.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSNet.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSNoLogicJunction.cpp" />

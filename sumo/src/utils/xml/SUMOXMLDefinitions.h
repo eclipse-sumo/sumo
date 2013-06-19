@@ -61,10 +61,6 @@ enum SumoXMLTag {
     SUMO_TAG_POLY,
     /** begin/end of the description of a junction */
     SUMO_TAG_JUNCTION,
-#ifdef _MESSAGES
-    /** tag for a message emitter */
-    SUMO_TAG_MSG_EMITTER,
-#endif
     /** an e1 detector */
     SUMO_TAG_E1DETECTOR,
     SUMO_TAG_INDUCTION_LOOP,
@@ -373,22 +369,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_VIA,
     /// a list of node ids, used for controlling joining
     SUMO_ATTR_NODES,
-#ifdef _MESSAGES
-    // Attributes for message emitter
-    /// what events to emit
-    SUMO_ATTR_EVENTS,
-    /// reversed order?
-    SUMO_ATTR_REVERSE,
-    /// table output?
-    SUMO_ATTR_TABLE,
-    /// xy coordinates?
-    SUMO_ATTR_XY,
-    /// Steps (for heartbeat)
-    SUMO_ATTR_STEP,
-    // Attribute for detectors
-    /// What message to emit?
-    SUMO_ATTR_MSG,
-#endif
     // Attributes for actuated traffic lights:
     /// minimum duration of a phase
     SUMO_ATTR_MINDURATION,

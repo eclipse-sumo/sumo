@@ -88,9 +88,6 @@
     <ClCompile Include="..\..\..\src\microsim\MSLogicJunction.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSMessageEmitter.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSMoveReminder.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>

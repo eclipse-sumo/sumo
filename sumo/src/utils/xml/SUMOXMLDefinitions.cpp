@@ -61,9 +61,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "edgeData",         SUMO_TAG_MEANDATA_EDGE },
     { "laneData",         SUMO_TAG_MEANDATA_LANE },
 
-#ifdef _MESSAGES
-    { "msgemitter",		  SUMO_TAG_MSG_EMITTER },
-#endif
     { "detEntry",         SUMO_TAG_DET_ENTRY },
     { "detExit",          SUMO_TAG_DET_EXIT },
     { "edgeFollowDetector", SUMO_TAG_EDGEFOLLOWDETECTOR },
@@ -296,14 +293,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "via",            SUMO_ATTR_VIA },
     { "nodes",          SUMO_ATTR_NODES },
 
-#ifdef _MESSAGES
-    { "msg",			SUMO_ATTR_MSG },
-    { "emit_msg",		SUMO_ATTR_EVENTS },
-    { "reverse",		SUMO_ATTR_REVERSE },
-    { "table",			SUMO_ATTR_TABLE },
-    { "xy",				SUMO_ATTR_XY },
-    { "step",			SUMO_ATTR_STEP },
-#endif
     { "minDur",         SUMO_ATTR_MINDURATION },
     { "maxDur",         SUMO_ATTR_MAXDURATION },
     { "foes",           SUMO_ATTR_FOES },

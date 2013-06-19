@@ -75,9 +75,6 @@ class ShapeContainer;
 class BinaryInputDevice;
 class MSEdgeWeightsStorage;
 class SUMOVehicle;
-#ifdef _MESSAGES
-class MSMessageEmitter;
-#endif
 
 
 // ===========================================================================
@@ -488,33 +485,6 @@ public:
         const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
 
 
-#ifdef _MESSAGES
-    /// @brief Map of MSMsgEmitter by ID
-    typedef NamedObjectCont< MSMessageEmitter* > MsgEmitterDict;
-
-    // TODO
-    /**
-     * @brief Returns the Message Emitter needed
-     *
-     * @param whatemit std::string defining the requested MSMessageEmitter.
-     * @return the first MessageEmitter found, which has the requested element enabled
-     */
-    MSMessageEmitter* getMsgEmitter(const std::string& whatemit);
-
-    /**
-     *
-     *
-     */
-    void createMsgEmitter(std::string& id,
-                          std::string& file,
-                          const std::string& base,
-                          std::string& whatemit,
-                          bool reverse,
-                          bool table,
-                          bool xy,
-                          SUMOReal step);
-#endif
-
 protected:
     /// @brief Unique instance of MSNet
     static MSNet* myInstance;
@@ -599,14 +569,6 @@ protected:
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;
 
-
-#ifdef _MESSAGES
-    /// @brief The message emitter map
-    MsgEmitterDict myMsgEmitter;
-
-    /// @brief List of message emitters
-    std::vector<MSMessageEmitter*> msgEmitVec;
-#endif
 
     /* @brief The router instance for routing by trigger and by traci
      * @note MSDevice_Routing has its own instance since it uses a different weight function

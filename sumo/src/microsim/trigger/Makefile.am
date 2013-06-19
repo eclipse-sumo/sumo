@@ -5,6 +5,4 @@ MSCalibrator.cpp MSCalibrator.h \
 MSLaneSpeedTrigger.cpp MSLaneSpeedTrigger.h \
 MSTrigger.h MSTrigger.cpp \
 MSTriggeredReader.cpp MSTriggeredReader.h \
-MSTriggeredRerouter.cpp MSTriggeredRerouter.h \
-MSTriggeredXMLReader.cpp MSTriggeredXMLReader.h
-
+MSTriggeredRerouter.cpp MSTriggeredRerouter.h

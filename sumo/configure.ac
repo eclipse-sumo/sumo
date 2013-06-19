@@ -47,14 +47,6 @@ AM_PROG_LIBTOOL
 
 
 dnl Check for enable-features that shall go into config.h
-AC_ARG_ENABLE([messages], [AS_HELP_STRING([--enable-messages],[enable static and dynamic messages emitted by vehicles [default=no].])])
-if test x$enable_messages = xyes; then
-    AC_DEFINE(_MESSAGES, 1, [Define to 1 in order to enable messages.])
-    ac_enabled="$ac_enabled Messages"
-else
-    ac_disabled="$ac_disabled Messages"
-fi
-
 AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilation of memory leak checks [default=no].])])
 AM_CONDITIONAL(CHECK_MEMORY_LEAKS, test x$enable_memcheck = xyes)
 if test x$enable_memcheck = xyes; then

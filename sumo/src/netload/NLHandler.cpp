@@ -127,11 +127,6 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_WAUT_JUNCTION:
                 addWAUTJunction(attrs);
                 break;
-#ifdef _MESSAGES
-            case SUMO_TAG_MSG_EMITTER:
-                addMsgEmitter(attrs);
-                break;
-#endif
             case SUMO_TAG_E1DETECTOR:
             case SUMO_TAG_INDUCTION_LOOP:
                 addE1Detector(attrs);
@@ -700,29 +695,6 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
                                SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
     myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration);
 }
-
-
-#ifdef _MESSAGES
-void
-NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, 0, ok, "");
-    // if no file given, use stdout
-    if (file == "") {
-        file = "-";
-    }
-    SUMOTime step = attrs.getOptSUMOTimeReporting(SUMO_ATTR_STEP, id.c_str(), ok, 1);
-    bool reverse = attrs.getOpt<bool>(SUMO_ATTR_REVERSE, 0, ok, false);
-    bool table = attrs.getOpt<bool>(SUMO_ATTR_TABLE, 0, ok, false);
-    bool xycoord = attrs.getOpt<bool>(SUMO_ATTR_XY, 0, ok, false);
-    std::string whatemit = attrs.get<std::string>(SUMO_ATTR_EVENTS, 0, ok);
-    if (!ok) {
-        return;
-    }
-    myNet.createMsgEmitter(id, file, getFileName(), whatemit, reverse, table, xycoord, step);
-}
-#endif
 
 
 void

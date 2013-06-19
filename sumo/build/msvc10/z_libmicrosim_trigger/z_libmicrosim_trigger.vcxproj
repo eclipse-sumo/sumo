@@ -180,7 +180,6 @@
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTrigger.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredReader.cpp" />
     <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredRerouter.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\trigger\MSTriggeredXMLReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\trigger\MSBusStop.h" />
@@ -189,7 +188,6 @@
     <ClInclude Include="..\..\..\src\microsim\trigger\MSTrigger.h" />
     <ClInclude Include="..\..\..\src\microsim\trigger\MSTriggeredReader.h" />
     <ClInclude Include="..\..\..\src\microsim\trigger\MSTriggeredRerouter.h" />
-    <ClInclude Include="..\..\..\src\microsim\trigger\MSTriggeredXMLReader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

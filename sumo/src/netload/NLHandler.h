@@ -215,11 +215,6 @@ private:
 
     void parseLanes(const std::string& junctionID, const std::string& def, std::vector<MSLane*>& into, bool& ok);
 
-#ifdef _MESSAGES
-    /// adds a message emitter
-    void addMsgEmitter(const SUMOSAXAttributes& attrs);
-#endif
-
     /// adds a connection
     void addConnection(const SUMOSAXAttributes& attrs);
 

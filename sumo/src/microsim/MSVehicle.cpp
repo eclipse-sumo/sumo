@@ -72,10 +72,6 @@
 #include "MSRoute.h"
 #include "MSLinkCont.h"
 
-#ifdef _MESSAGES
-#include "MSMessageEmitter.h"
-#endif
-
 #ifdef HAVE_INTERNAL
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
@@ -331,11 +327,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         throw ProcessError("Departure speed for vehicle '" + pars->id +
                            "' is too high for the vehicle type '" + type->getID() + "'.");
     }
-#ifdef _MESSAGES
-    myLCMsgEmitter = MSNet::getInstance()->getMsgEmitter("lanechange");
-    myBMsgEmitter = MSNet::getInstance()->getMsgEmitter("break");
-    myHBMsgEmitter = MSNet::getInstance()->getMsgEmitter("heartbeat");
-#endif
     myLaneChangeModel = new MSLCM_DK2004(*this);
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
 }
@@ -705,14 +696,6 @@ MSVehicle::planMove(const SUMOTime t, const MSVehicle* pred, const SUMOReal leng
 
 void
 MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVector& lfLinks) const {
-#ifdef _MESSAGES
-    if (myHBMsgEmitter != 0) {
-        if (isOnRoad()) {
-            SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-            myHBMsgEmitter->writeHeartBeatEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
-        }
-    }
-#endif
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
         int bla = 0;
@@ -1058,20 +1041,6 @@ MSVehicle::executeMove() {
     // call reminders after vNext is set
     const SUMOReal pos = myState.myPos;
 
-#ifdef _MESSAGES
-    if (myHBMsgEmitter != 0) {
-        if (isOnRoad()) {
-            SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-            myHBMsgEmitter->writeHeartBeatEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
-        }
-    }
-    if (myBMsgEmitter != 0) {
-        if (vNext < myState.mySpeed) {
-            SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-            myBMsgEmitter->writeBreakEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
-        }
-    }
-#endif
     // update position and speed
     myAcceleration = vNext - myState.mySpeed;
     myState.myPos += SPEED2DIST(vNext);
@@ -1423,12 +1392,6 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
 void
 MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     myAmOnNet = true;
-#ifdef _MESSAGES
-    if (myLCMsgEmitter != 0) {
-        SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-        myLCMsgEmitter->writeLaneChangeEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), enteredLane, getPosition().x(), getPosition().y());
-    }
-#endif
     myLane = enteredLane;
     // need to update myCurrentLaneInBestLanes
     getBestLanes();
