@@ -128,6 +128,18 @@ class Statistics:
         else:
             return None
 
+    def median(self):
+        return self.mean()
+
+    def median_abs(self):
+        return self.mean_abs()
+
+    def rank(self, fraction):
+        if len(self.values) > 0:
+            return sorted(self.values)[int(round(len(self.values) * fraction + 0.5))]
+        else:
+            return None
+
     def __str__(self):
         if len(self.values) > 0:
             min = 'min %.2f (%s), ' % (self.min, self.min_label) if self.printMin else ''
@@ -150,4 +162,16 @@ def geh(m,c):
     else:
         return math.sqrt(2 * (m-c) * (m-c) / (m+c))
 
+
+# temporarily change working directory using 'with' statement
+class working_dir:
+    def __init__(self, dir):
+        self.dir = dir
+        self.origdir = os.getcwd()
+
+    def __enter__(self):
+        os.chdir(self.dir)
+
+    def __exit__(self, type, value, traceback):
+        os.chdir(self.origdir)
 
