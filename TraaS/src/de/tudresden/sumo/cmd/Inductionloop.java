@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Evamarie Wießner, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Evamarie Wiessner, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -27,6 +27,8 @@ public class Inductionloop {
 
 	/**
 	 * Returns a list of IDs of all induction loops within the scenario.
+	 * 
+	 * @return list of IDs of all induction loops in the network
 	 */
 
 	public static SumoCommand getIDList(){
@@ -35,6 +37,9 @@ public class Inductionloop {
 
 	/**
 	 * Returns the ID of the lane the loop is placed at.
+	 * 
+	 * @param loopID a string identifying the induction loop
+	 * @return a string identifying the lane
 	 */
 
 	public static SumoCommand getLaneID(String loopID){
@@ -42,7 +47,10 @@ public class Inductionloop {
 	}
 
 	/**
-	 * Returns the mean length of vehicles (in m) which were on the detector in the last step. 
+	 * Returns the mean length of vehicles (in m) which were on the detector in the last step.
+	 * 
+	 * @param loopID a string identifying the induction loop
+	 * @return average length of the vehicles (in m)
 	 */
 
 	public static SumoCommand getLastStepMeanLength(String loopID){
@@ -51,6 +59,9 @@ public class Inductionloop {
 
 	/**
 	 * Returns the mean speed of vehicles (in m/s) that were on the named induction loop within the last simulation step.
+	 * 
+	 * @param loopID a string identifying the induction loop
+	 * @return average speed of the vehicles (in m/s) 
 	 */
 
 	public static SumoCommand getLastStepMeanSpeed(String loopID){
@@ -59,6 +70,9 @@ public class Inductionloop {
 
 	/**
 	 * Returns the percentage of time (in %) the detector was occupied by a vehicle within the last time step.
+	 * 
+	 * @param loopID a string identifying the induction loop
+	 * @return occupancy of the detector (in %)
 	 */
 
 	public static SumoCommand getLastStepOccupancy(String loopID){
@@ -67,6 +81,9 @@ public class Inductionloop {
 
 	/**
 	 * Returns the list of IDs of vehicles that were on the named induction loop in the last simulation step.
+	 * 
+	 * @param loopID a string identifying the induction loop
+	 * @return list of all vehicleIDs
 	 */
 
 	public static SumoCommand getLastStepVehicleIDs(String loopID){
@@ -75,6 +92,9 @@ public class Inductionloop {
 
 	/**
 	 * Returns the number of vehicles that were on the named induction loop within the last simulation step.
+	 * 
+	 * @param loopID a string identifying the induction loop
+	 * @return total number of vehicles
 	 */
 
 	public static SumoCommand getLastStepVehicleNumber(String loopID){
@@ -83,6 +103,9 @@ public class Inductionloop {
 
 	/**
 	 * Returns the position (in m) of the induction loop at it's lane, counted from the lane's begin.
+	 * 
+	 * @param loopID a string identifying the induction loop
+	 * @return position of the detector, counted from the lane's begin
 	 */
 
 	public static SumoCommand getPosition(String loopID){
@@ -91,6 +114,9 @@ public class Inductionloop {
 
 	/**
 	 * Return the time (in s) since last detection.
+	 * 
+	 * @param loopID a string identifying the induction loop
+	 * @return time since last detection (in s)
 	 */
 
 	public static SumoCommand getTimeSinceDetection(String loopID){
@@ -99,6 +125,8 @@ public class Inductionloop {
 
 	/**
 	 * A complex structure containing several information about vehicles which passed the detector.
+	 * 
+	 * @param loopID a SumoStringList containing induction loops
 	 */
 
 	public static SumoCommand getVehicleData(SumoStringList loopID){
