@@ -120,3 +120,6 @@ ticket882
 ticket889
 ticket925
 ticket929
+
+# test junction deadlock
+ticket699

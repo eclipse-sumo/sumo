@@ -1,0 +1,73 @@
+<routes>
+  <vType id="type1" accel="6" decel="4.5" sigma="0.5" length="5" maxSpeed="70"/>
+  <route id="route01" edges="E111 E131"/>
+  <route id="route02" edges="E111 E12 E222"/>
+  <route id="route03" edges="E111 E12 E212x"/>
+  <route id="route04" edges="E212 E222"/>
+  <route id="route05" edges="E212 E12x E131"/>
+  <route id="route06" edges="E212 E12x E111x"/>
+  <route id="route07" edges="E121 E131"/>
+  <route id="route08" edges="E121 E111x"/>
+  <route id="route09" edges="E121 E12 E212x"/>
+  <route id="route10" edges="E121 E12 E222"/>
+  <route id="route11" edges="E232 E222"/>
+  <route id="route12" edges="E232 E212x"/>
+  <route id="route13" edges="E232 E12x E111x"/>
+  <route id="route14" edges="E232 E12x E131"/>
+  <vehicle depart="54000" id="veh0" route="route01" type="type1" /> 
+  <vehicle depart="54000" id="veh1" route="route02" type="type1" />
+  <vehicle depart="54000" id="veh2" route="route03" type="type1" />
+  <vehicle depart="54000" id="veh3" route="route04" type="type1" />
+  <vehicle depart="54000" id="veh4" route="route05" type="type1" />
+  <vehicle depart="54000" id="veh5" route="route06" type="type1" />
+  <vehicle depart="54000" id="veh6" route="route07" type="type1" />
+  <vehicle depart="54000" id="veh7" route="route08" type="type1" />
+  <vehicle depart="54000" id="veh8" route="route09" type="type1" />
+  <vehicle depart="54000" id="veh9" route="route10" type="type1" />
+  <vehicle depart="54000" id="veh10" route="route11" type="type1" />
+  <vehicle depart="54000" id="veh11" route="route12" type="type1" />
+  <vehicle depart="54000" id="veh12" route="route13" type="type1" />
+  <vehicle depart="54000" id="veh13" route="route14" type="type1" />
+    <vehicle depart="54000" id="veh012" route="route01" type="type1" /> 
+  <vehicle depart="54000" id="veh1325" route="route02" type="type1" />
+  <vehicle depart="54000" id="veh2235" route="route03" type="type1" />
+  <vehicle depart="54000" id="veh3325" route="route04" type="type1" />
+  <vehicle depart="54000" id="veh6434" route="route05" type="type1" />
+  <vehicle depart="54000" id="veh523" route="route06" type="type1" />
+  <vehicle depart="54000" id="veh1356" route="route07" type="type1" />
+  <vehicle depart="54000" id="veh623457" route="route08" type="type1" />
+  <vehicle depart="54000" id="veh72348" route="route09" type="type1" />
+  <vehicle depart="54000" id="veh82829" route="route10" type="type1" />
+  <vehicle depart="54000" id="veh19760" route="route11" type="type1" />
+  <vehicle depart="54000" id="veh107851" route="route12" type="type1" />
+  <vehicle depart="54000" id="veh12342" route="route13" type="type1" />
+  <vehicle depart="54000" id="veh15263" route="route14" type="type1" />
+    <vehicle depart="54000" id="veh23460" route="route01" type="type1" /> 
+  <vehicle depart="54000" id="veh63241" route="route02" type="type1" />
+  <vehicle depart="54000" id="veh75342" route="route03" type="type1" />
+  <vehicle depart="54000" id="veh33555" route="route04" type="type1" />
+  <vehicle depart="54000" id="veh43444" route="route05" type="type1" />
+  <vehicle depart="54000" id="veh54545" route="route06" type="type1" />
+  <vehicle depart="54000" id="veh3456" route="route07" type="type1" />
+  <vehicle depart="54000" id="veh55447" route="route08" type="type1" />
+  <vehicle depart="54000" id="veh7458" route="route09" type="type1" />
+  <vehicle depart="54000" id="veh9777777" route="route10" type="type1" />
+  <vehicle depart="54000" id="veh1055555" route="route11" type="type1" />
+  <vehicle depart="54000" id="veh11345345" route="route12" type="type1" />
+  <vehicle depart="54000" id="veh12375645" route="route13" type="type1" />
+  <vehicle depart="54000" id="veh13465343" route="route14" type="type1" />
+    <vehicle depart="54000" id="veh0435" route="route01" type="type1" /> 
+  <vehicle depart="54000" id="veh1345637" route="route02" type="type1" />
+  <vehicle depart="54000" id="veh2345734" route="route03" type="type1" />
+  <vehicle depart="54000" id="veh36345634" route="route04" type="type1" />
+  <vehicle depart="54000" id="veh434578" route="route05" type="type1" />
+  <vehicle depart="54000" id="veh5345734" route="route06" type="type1" />
+  <vehicle depart="54000" id="veh663543" route="route07" type="type1" />
+  <vehicle depart="54000" id="veh78365" route="route08" type="type1" />
+  <vehicle depart="54000" id="veh3453462238" route="route09" type="type1" />
+  <vehicle depart="54000" id="veh9438435" route="route10" type="type1" />
+  <vehicle depart="54000" id="veh134340" route="route11" type="type1" />
+  <vehicle depart="54000" id="veh13463465341" route="route12" type="type1" />
+  <vehicle depart="54000" id="veh13454632" route="route13" type="type1" />
+  <vehicle depart="54000" id="veh1346433" route="route14" type="type1" />
+</routes>
