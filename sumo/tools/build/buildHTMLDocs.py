@@ -30,7 +30,7 @@ between the <!-- content begins --> / <!-- content ends --> markers. Then,
 the page is saved into HTML_FOLDER/<PAGE_PATH>. All images are copied
 from MIRROR_FOLDER/images to HTML_FOLDER/images.
 
-Copyright (C) 2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import urllib, os, sys, shutil
@@ -262,7 +262,7 @@ except: pass
 try: os.mkdir(HTML_FOLDER + "/images")
 except: pass
 for p in pages:
-    if(not p.startswith("href")):
+    if not p.startswith("href"):
         continue
     b = p.find("?title=")
     e = p.find("\"", b)
@@ -305,6 +305,4 @@ for p in pages:
     fd.close()
 for i in imageFiles:
     shutil.copy(os.path.join(MIRROR_FOLDER, i), os.path.join(HTML_FOLDER, i))
-
-
-
+shutil.copy(os.path.join(HTML_FOLDER, 'SUMO_User_Documentation.html'), os.path.join(HTML_FOLDER, 'index.html'))
