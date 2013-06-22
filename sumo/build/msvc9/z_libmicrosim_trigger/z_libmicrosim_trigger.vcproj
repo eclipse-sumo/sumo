@@ -566,10 +566,6 @@
 				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredRerouter.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredXMLReader.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
@@ -598,10 +594,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredRerouter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredXMLReader.h"
 				>
 			</File>
 		</Filter>

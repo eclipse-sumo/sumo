@@ -595,6 +595,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_Example.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp"
 				>
 			</File>
@@ -680,10 +684,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSLogicJunction.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSMessageEmitter.cpp"
 				>
 			</File>
 			<File
@@ -939,6 +939,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\..\src\microsim\devices\MSDevice_Example.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
