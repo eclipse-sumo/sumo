@@ -20,6 +20,7 @@ package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 import de.tudresden.ws.container.SumoColor;
+import de.tudresden.ws.container.SumoPosition2D;
 
 public class Poi {
 
@@ -30,8 +31,8 @@ public class Poi {
 	 */
 
 	public static SumoCommand add(String poiID, double x, double y, SumoColor color, String poiType, int layer){
-		Object[] array = new Object[]{x, y, color, poiType, layer};
-		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.CMD_SET_POI_VARIABLE, poiID, array, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_INTEGER);
+		Object[] array = new Object[]{poiType, color, layer, new SumoPosition2D(x, y)};
+		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.ADD, poiID, array);
 	}
 
 	/**

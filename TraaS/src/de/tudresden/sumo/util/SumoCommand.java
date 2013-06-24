@@ -247,6 +247,8 @@ public class SumoCommand {
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_COLOR);
 		}else if(input.getClass().equals(SumoGeometry.class)){
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_POLYGON);
+		}else if(input.getClass().equals(SumoPosition2D.class)){
+			this.cmd.content().writeUnsignedByte(Constants.POSITION_2D);
 		}else if(input.getClass().equals(Boolean.class)){
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_UBYTE);
 		}
@@ -284,9 +286,15 @@ public class SumoCommand {
 				cmd.content().writeDouble(pos.x);
 				cmd.content().writeDouble(pos.y);
 			}
+		}else if(input.getClass().equals(SumoPosition2D.class)){
 			
+			SumoPosition2D pos = (SumoPosition2D) input;
+			cmd.content().writeDouble(pos.x);
+			cmd.content().writeDouble(pos.y);
 			
 		}
+		
+		
 		
 	}
 
