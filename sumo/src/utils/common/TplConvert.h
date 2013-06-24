@@ -284,7 +284,7 @@ public:
             throw EmptyData();
         }
         std::string s = _2str(data);
-        std::transform(s.begin(), s.end(), s.begin(), tolower);
+        std::transform(s.begin(), s.end(), s.begin(), ::tolower);
         if (s == "1" || s == "yes" || s == "true" || s == "on" || s == "x" || s == "t") {
             return true;
         } else if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
