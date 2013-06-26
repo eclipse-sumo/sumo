@@ -99,6 +99,9 @@
                     <xsd:enumeration value="dead_end"/>
                     <xsd:enumeration value="unregulated"/>
                     <xsd:enumeration value="internal"/>
+                    <xsd:enumeration value="traffic_light_unregulated"/>
+                    <xsd:enumeration value="allway_stop"/>
+                    <xsd:enumeration value="priority_stop"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -159,6 +162,8 @@
                     <xsd:enumeration value="o"/>
                     <xsd:enumeration value="="/>
                     <xsd:enumeration value="-"/>
+                    <xsd:enumeration value="s"/>
+                    <xsd:enumeration value="w"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
