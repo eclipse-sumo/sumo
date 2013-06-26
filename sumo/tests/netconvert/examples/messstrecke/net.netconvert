@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/04/12 12:50:17 by SUMO netconvert Version dev-SVN-r13131
+<!-- generated on Wed Jun 26 17:30:01 2013 by SUMO netconvert Version dev-SVN-r14205
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -394,22 +394,22 @@
     </junction>
     <junction id="EinsteinSinkEnd" type="dead_end" x="294.91" y="400.00" incLanes="EinsteinSinkN_0" intLanes="" shape="294.86,400.00 291.66,400.00 298.16,400.00 294.96,400.00"/>
     <junction id="ErnstRuskaAltglienicker" type="traffic_light" x="1908.47" y="200.00" incLanes="ErnstRuska5W_0 ErnstRuska5W_1 ErnstRuska5W_2 AltglienickerBreitN_0 AltglienickerBreitN_1 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_0_0 :ErnstRuskaAltglienicker_1_0 :ErnstRuskaAltglienicker_8_0 :ErnstRuskaAltglienicker_3_0 :ErnstRuskaAltglienicker_9_0 :ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_7_0" shape="1916.52,209.85 1916.52,193.45 1915.02,191.95 1905.22,191.95 1903.72,193.45 1903.72,206.55">
-        <request index="0" response="00000000" foes="00010000" cont="0"/>
+        <request index="0" response="00000000" foes="00000000" cont="0"/>
         <request index="1" response="00000000" foes="00010000" cont="0"/>
         <request index="2" response="11100000" foes="11110000" cont="1"/>
-        <request index="3" response="11000000" foes="11000000" cont="0"/>
-        <request index="4" response="11000111" foes="11000111" cont="1"/>
+        <request index="3" response="01000000" foes="01000000" cont="0"/>
+        <request index="4" response="11000110" foes="11000110" cont="1"/>
         <request index="5" response="00000000" foes="00000100" cont="0"/>
         <request index="6" response="00000000" foes="00011100" cont="0"/>
-        <request index="7" response="00000000" foes="00011100" cont="0"/>
+        <request index="7" response="00000000" foes="00010100" cont="0"/>
     </junction>
     <junction id="ErnstRuskaEinstein" type="priority" x="294.91" y="200.00" incLanes="EinsteinS_0 ErnstRuska2W_0 ErnstRuska2W_1 ErnstRuska1O_0 ErnstRuska1O_1" intLanes=":ErnstRuskaEinstein_0_0 :ErnstRuskaEinstein_1_0 :ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_4_0 :ErnstRuskaEinstein_5_0 :ErnstRuskaEinstein_6_0 :ErnstRuskaEinstein_8_0" shape="291.66,208.05 298.16,208.05 299.66,206.55 299.66,193.45 290.16,193.45 290.16,206.55">
-        <request index="0" response="00011000" foes="00011000" cont="0"/>
-        <request index="1" response="11111000" foes="11111000" cont="0"/>
+        <request index="0" response="00001000" foes="00001000" cont="0"/>
+        <request index="1" response="11011000" foes="11011000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>
         <request index="3" response="00000000" foes="10000011" cont="0"/>
-        <request index="4" response="00000000" foes="10000011" cont="0"/>
-        <request index="5" response="00000000" foes="00000010" cont="0"/>
+        <request index="4" response="00000000" foes="10000010" cont="0"/>
+        <request index="5" response="00000000" foes="00000000" cont="0"/>
         <request index="6" response="00000000" foes="00000010" cont="0"/>
         <request index="7" response="00011100" foes="00011110" cont="1"/>
     </junction>
@@ -427,14 +427,14 @@
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
     <junction id="ErnstRuskaHavestadt" type="priority" x="1015.25" y="200.00" incLanes="HavestadtS_0 HavestadtS_1 ErnstRuska232W_0 ErnstRuska232W_1 ErnstRuska231O_0 ErnstRuska231O_1 ErnstRuska231O_2" intLanes=":ErnstRuskaHavestadt_0_0 :ErnstRuskaHavestadt_1_0 :ErnstRuskaHavestadt_2_0 :ErnstRuskaHavestadt_3_0 :ErnstRuskaHavestadt_4_0 :ErnstRuskaHavestadt_5_0 :ErnstRuskaHavestadt_6_0 :ErnstRuskaHavestadt_7_0 :ErnstRuskaHavestadt_9_0" shape="1008.70,208.05 1021.80,208.05 1023.30,206.55 1023.30,190.15 1007.20,190.15 1007.20,206.55">
-        <request index="0" response="000110000" foes="000110000" cont="0"/>
-        <request index="1" response="111110000" foes="111110000" cont="0"/>
-        <request index="2" response="111110000" foes="111110000" cont="0"/>
+        <request index="0" response="000010000" foes="000010000" cont="0"/>
+        <request index="1" response="110110000" foes="110110000" cont="0"/>
+        <request index="2" response="100110000" foes="100110000" cont="0"/>
         <request index="3" response="000000000" foes="100000000" cont="0"/>
         <request index="4" response="000000000" foes="100000111" cont="0"/>
-        <request index="5" response="000000000" foes="100000111" cont="0"/>
-        <request index="6" response="000000000" foes="000000110" cont="0"/>
-        <request index="7" response="000000000" foes="000000110" cont="0"/>
+        <request index="5" response="000000000" foes="100000110" cont="0"/>
+        <request index="6" response="000000000" foes="000000000" cont="0"/>
+        <request index="7" response="000000000" foes="000000010" cont="0"/>
         <request index="8" response="000111000" foes="000111110" cont="1"/>
     </junction>
     <junction id="ErnstRuskaHavestadtDiv1" type="priority" x="985.25" y="200.00" incLanes="ErnstRuska231W_0 ErnstRuska231W_1 ErnstRuska2O_0 ErnstRuska2O_1" intLanes=":ErnstRuskaHavestadtDiv1_0_0 :ErnstRuskaHavestadtDiv1_1_0 :ErnstRuskaHavestadtDiv1_2_0 :ErnstRuskaHavestadtDiv1_3_0 :ErnstRuskaHavestadtDiv1_4_0" shape="986.75,206.55 986.75,190.15 983.75,193.45 983.75,206.55">
@@ -453,12 +453,12 @@
     <junction id="ErnstRuskaSink1" type="dead_end" x="0.00" y="200.00" incLanes="ErnstRuskaSink1W_0 ErnstRuskaSink1W_1" intLanes="" shape="-0.00,199.95 -0.00,193.45 0.00,206.55 0.00,200.05"/>
     <junction id="ErnstRuskaSink2" type="dead_end" x="2125.42" y="200.00" incLanes="ErnstRuskaSink5O_0 ErnstRuskaSink5O_1" intLanes="" shape="2125.42,200.05 2125.42,206.55 2125.42,193.45 2125.42,199.95"/>
     <junction id="ErnstRuskaVolmer" type="priority" x="1584.75" y="200.00" incLanes="VolmerS_0 ErnstRuska4W_0 ErnstRuska4W_1 ErnstRuska3O_0 ErnstRuska3O_1" intLanes=":ErnstRuskaVolmer_0_0 :ErnstRuskaVolmer_1_0 :ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_4_0 :ErnstRuskaVolmer_5_0 :ErnstRuskaVolmer_6_0 :ErnstRuskaVolmer_8_0" shape="1581.50,208.05 1588.00,208.05 1589.50,206.55 1589.50,193.45 1580.00,193.45 1580.00,206.55">
-        <request index="0" response="00011000" foes="00011000" cont="0"/>
-        <request index="1" response="11111000" foes="11111000" cont="0"/>
+        <request index="0" response="00001000" foes="00001000" cont="0"/>
+        <request index="1" response="11011000" foes="11011000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>
         <request index="3" response="00000000" foes="10000011" cont="0"/>
-        <request index="4" response="00000000" foes="10000011" cont="0"/>
-        <request index="5" response="00000000" foes="00000010" cont="0"/>
+        <request index="4" response="00000000" foes="10000010" cont="0"/>
+        <request index="5" response="00000000" foes="00000000" cont="0"/>
         <request index="6" response="00000000" foes="00000010" cont="0"/>
         <request index="7" response="00011100" foes="00011110" cont="1"/>
     </junction>

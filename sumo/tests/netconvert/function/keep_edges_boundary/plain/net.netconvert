@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 22 12:12:11 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Wed Jun 26 18:43:26 2013 by SUMO netconvert Version dev-SVN-r14205
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -106,8 +106,8 @@
     </junction>
     <junction id="1" type="priority" x="500.00" y="1000.00" incLanes="1o_0 1fi_0 1fi_1" intLanes="" shape="500.00,1003.25 500.00,993.45 500.00,1003.25">
         <request index="0" response="00000" foes="10000"/>
-        <request index="1" response="01100" foes="01100"/>
-        <request index="2" response="00000" foes="00010"/>
+        <request index="1" response="01000" foes="01000"/>
+        <request index="2" response="00000" foes="00000"/>
         <request index="3" response="00000" foes="00010"/>
         <request index="4" response="00001" foes="00001"/>
     </junction>
@@ -115,19 +115,19 @@
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="2" type="priority" x="1500.00" y="1000.00" incLanes="2fi_0 2fi_1 2o_0" intLanes="" shape="1500.00,1006.55 1500.00,996.75 1500.00,1006.55">
-        <request index="0" response="00000" foes="10000"/>
+        <request index="0" response="00000" foes="00000"/>
         <request index="1" response="00000" foes="10000"/>
         <request index="2" response="01000" foes="01000"/>
         <request index="3" response="00000" foes="00100"/>
-        <request index="4" response="00011" foes="00011"/>
+        <request index="4" response="00010" foes="00010"/>
     </junction>
     <junction id="2f" type="priority" x="2000.00" y="1000.00" incLanes="2fo_0" intLanes="" shape="2000.00,1000.05 2000.00,1006.55 2000.00,996.75 2000.00,999.95">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="3" type="priority" x="1000.00" y="500.00" incLanes="3o_0 3fi_0 3fi_1" intLanes="" shape="996.75,500.00 1006.55,500.00 996.75,500.00">
         <request index="0" response="00000" foes="10000"/>
-        <request index="1" response="01100" foes="01100"/>
-        <request index="2" response="00000" foes="00010"/>
+        <request index="1" response="01000" foes="01000"/>
+        <request index="2" response="00000" foes="00000"/>
         <request index="3" response="00000" foes="00010"/>
         <request index="4" response="00001" foes="00001"/>
     </junction>
@@ -135,11 +135,11 @@
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="4" type="priority" x="1000.00" y="1500.00" incLanes="4fi_0 4fi_1 4o_0" intLanes="" shape="993.45,1500.00 1003.25,1500.00 993.45,1500.00">
-        <request index="0" response="00000" foes="10000"/>
+        <request index="0" response="00000" foes="00000"/>
         <request index="1" response="00000" foes="10000"/>
         <request index="2" response="01000" foes="01000"/>
         <request index="3" response="00000" foes="00100"/>
-        <request index="4" response="00011" foes="00011"/>
+        <request index="4" response="00010" foes="00010"/>
     </junction>
     <junction id="4f" type="priority" x="1000.00" y="2000.00" incLanes="4fo_0" intLanes="" shape="999.95,2000.00 993.45,2000.00 1003.25,2000.00 1000.05,2000.00">
         <request index="0" response="0" foes="0"/>

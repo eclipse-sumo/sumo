@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 13 12:12:07 2013 by SUMO netconvert Version dev-SVN-r13478
+<!-- generated on Wed Jun 26 18:43:36 2013 by SUMO netconvert Version dev-SVN-r14205
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -153,24 +153,24 @@
     <junction id="492462300" type="unregulated" x="1.87" y="40.76" incLanes="" intLanes="" shape="1.70,42.35 2.04,39.17"/>
     <junction id="567607201" type="unregulated" x="92.46" y="68.26" incLanes="27445015#0_0 27445015#0_1" intLanes="" shape="93.82,65.31 91.10,71.21"/>
     <junction id="59993001" type="traffic_light" x="36.97" y="44.55" incLanes="46039050_0 6137245_0 6137245_1" intLanes=":59993001_0_0 :59993001_1_0 :59993001_2_0 :59993001_3_0 :59993001_4_0" shape="41.30,47.33 42.11,44.23 37.69,41.53 31.39,39.93 29.30,42.11 28.96,45.29 33.19,47.31 39.59,48.43">
-        <request index="0" response="01100" foes="01100" cont="0"/>
+        <request index="0" response="00100" foes="00100" cont="0"/>
         <request index="1" response="11100" foes="11100" cont="0"/>
         <request index="2" response="00000" foes="00011" cont="0"/>
-        <request index="3" response="00000" foes="00011" cont="0"/>
+        <request index="3" response="00000" foes="00010" cont="0"/>
         <request index="4" response="00000" foes="00010" cont="0"/>
     </junction>
     <junction id="945141569" type="unregulated" x="0.00" y="51.05" incLanes="27445000#0_0" intLanes="" shape="-0.17,52.64 0.17,49.46"/>
     <junction id="cluster_301292612_56231397" type="traffic_light" x="44.47" y="51.82" incLanes="27437972_0 27437972_1 27441289.95_0 27441289.95_1 27441168_0" intLanes=":cluster_301292612_56231397_0_0 :cluster_301292612_56231397_1_0 :cluster_301292612_56231397_2_0 :cluster_301292612_56231397_10_0 :cluster_301292612_56231397_4_0 :cluster_301292612_56231397_5_0 :cluster_301292612_56231397_11_0 :cluster_301292612_56231397_12_0 :cluster_301292612_56231397_8_0 :cluster_301292612_56231397_13_0" shape="47.17,62.29 54.14,47.09 53.23,45.04 47.02,43.10 44.87,44.95 40.43,62.88">
-        <request index="0" response="0000000000" foes="1011000000" cont="0"/>
-        <request index="1" response="0000000000" foes="1011000000" cont="0"/>
-        <request index="2" response="0000000000" foes="1011000000" cont="0"/>
-        <request index="3" response="0100110000" foes="0100110000" cont="1"/>
-        <request index="4" response="0000000000" foes="0100001000" cont="0"/>
+        <request index="0" response="0000000000" foes="0000000000" cont="0"/>
+        <request index="1" response="0000000000" foes="0000000000" cont="0"/>
+        <request index="2" response="0000000000" foes="0001000000" cont="0"/>
+        <request index="3" response="0100100000" foes="0100100000" cont="1"/>
+        <request index="4" response="0000000000" foes="0000000000" cont="0"/>
         <request index="5" response="0000000000" foes="0100001000" cont="0"/>
-        <request index="6" response="0000000111" foes="1100000111" cont="1"/>
-        <request index="7" response="0000000111" foes="1100000111" cont="1"/>
-        <request index="8" response="0011110000" foes="0011111000" cont="0"/>
-        <request index="9" response="0011000111" foes="0011000111" cont="1"/>
+        <request index="6" response="0000000100" foes="0100000100" cont="1"/>
+        <request index="7" response="0000000000" foes="1100000000" cont="1"/>
+        <request index="8" response="0011100000" foes="0011101000" cont="0"/>
+        <request index="9" response="0010000000" foes="0010000000" cont="1"/>
     </junction>
     <junction id="gneJ0" type="unregulated" x="48.35" y="0.00" incLanes="27441289.0_0 27441289.0_1" intLanes="" shape="42.00,-1.62 48.30,-0.01"/>
     <junction id="gneJ1" type="unregulated" x="59.75" y="2.19" incLanes="" intLanes="" shape="59.80,2.20 66.00,4.14"/>
