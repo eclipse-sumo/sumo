@@ -478,6 +478,7 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
                              int fromLane, int pos) const {
     std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (std::vector<NBEdge::Connection>::iterator j = connected.begin(); j != connected.end(); j++) {
+        assert((*j).toEdge != 0);
         od.openTag(SUMO_TAG_REQUEST);
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
         od.writeAttr(SUMO_ATTR_RESPONSE, getResponseString(from, (*j).toEdge, fromLane, (*j).mayDefinitelyPass));
@@ -508,9 +509,6 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
             for (int k = size; k-- > 0;) {
                 if (mayDefinitelyPass) {
                     result += '0';
-                } else if (to == 0) {
-                    // should wait if no further connection!?
-                    result += '1';
                 } else if ((*i) == from && fromLane == j) {
                     // do not prohibit a connection by others from same lane
                     result += '0';
@@ -547,15 +545,10 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to) const {
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
-                if (to == 0) {
-                    result += '0';
+                if (foes(from, to, (*i), connected[k].toEdge)) {
+                    result += '1';
                 } else {
-//                    if (foes(from, to, (*i), connected[k].edge) && !isInnerEnd) {
-                    if (foes(from, to, (*i), connected[k].toEdge)) {
-                        result += '1';
-                    } else {
-                        result += '0';
-                    }
+                    result += '0';
                 }
             }
         }
