@@ -168,11 +168,11 @@ private:
      * @exception IOError not yet implemented
      */
     std::string getResponseString(const NBEdge* const from, const NBEdge* const to,
-                                  int fromLane, bool mayDefinitelyPass) const;
+                                  int fromLane, int toLane, bool mayDefinitelyPass) const;
 
 
     /** writes which participating links are foes to the given */
-    std::string getFoesString(NBEdge* from, NBEdge* to) const;
+    std::string getFoesString(NBEdge* from, NBEdge* to, int toLane) const;
 
 
     /** @brief Returns the index to the internal combination container for the given edge combination
@@ -204,6 +204,11 @@ private:
 
     /// @brief reset foes it the number of lanes matches (or exceeds) the number of incoming connections for an edge
     void resetCooperating();
+
+    /** @brief return whether the given laneToLane connections prohibit each other 
+     * under the assumption that the edge2edge connections are in conflict
+     */ 
+    bool laneConflict(const NBEdge* from, const NBEdge* to, int toLane, const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorToLane) const;
 
 private:
     /// the node the request is assigned to
