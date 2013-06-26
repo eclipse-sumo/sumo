@@ -334,7 +334,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
 			case VAR_STOPSTATE:{
-					char b = (v->isStopped() ? 1 : 0 +
+					char b = (
+                            1 * (v->isStopped() ? 1 : 0) +
                             2 * (v->isParking() ? 1 : 0) +
                             4 * (v->isStoppedTriggered() ? 1 : 0));
 					tempMsg.writeUnsignedByte(TYPE_UBYTE);
