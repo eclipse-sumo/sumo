@@ -10,6 +10,7 @@
             <xsd:element name="input" type="inputType" minOccurs="0"/>
             <xsd:element name="output" type="outputType" minOccurs="0"/>
             <xsd:element name="processing" type="processingType" minOccurs="0"/>
+            <xsd:element name="defaults" type="defaultsType" minOccurs="0"/>
             <xsd:element name="time" type="timeType" minOccurs="0"/>
             <xsd:element name="report" type="reportType" minOccurs="0"/>
             <xsd:element name="random_number" type="random_numberType" minOccurs="0"/>
@@ -63,6 +64,17 @@
             <xsd:element name="remove-empty-detectors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="strict-sources" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="defaultsType">
+        <xsd:all>
+            <xsd:element name="departlane" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="departpos" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="departspeed" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="arrivallane" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="arrivalpos" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="arrivalspeed" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

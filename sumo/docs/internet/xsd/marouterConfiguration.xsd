@@ -34,6 +34,7 @@
             <xsd:element name="flow-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="netload-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="exit-times" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -50,21 +51,23 @@
             <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="timeline" type="strOptionType" minOccurs="0"/>
             <xsd:element name="timeline.day-in-hours" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="assign-methods" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="left-turn-penalty" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="route-choice-methods" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="k-paths" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="assignment-method" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="left-turn-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="paths" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="paths.penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="lambda" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="upperbound" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="lowerbound" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="max-iterations" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="max-inner-iterations" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="route-choice-method" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="gawron.beta" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="gawron.a" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="keep-all-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="skip-new-routes" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="route-choice-method" type="strOptionType" minOccurs="0"/>
             <xsd:element name="logit.beta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.gamma" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.theta" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="max-iterations" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="max-inner-iterations" type="intOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

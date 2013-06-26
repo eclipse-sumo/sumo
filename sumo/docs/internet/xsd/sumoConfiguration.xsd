@@ -14,6 +14,7 @@
             <xsd:element name="report" type="reportType" minOccurs="0"/>
             <xsd:element name="routing" type="routingType" minOccurs="0"/>
             <xsd:element name="emissions" type="emissionsType" minOccurs="0"/>
+            <xsd:element name="example_device" type="example_deviceType" minOccurs="0"/>
             <xsd:element name="traci_server" type="traci_serverType" minOccurs="0"/>
             <xsd:element name="mesoscopic" type="mesoscopicType" minOccurs="0"/>
             <xsd:element name="random_number" type="random_numberType" minOccurs="0"/>
@@ -40,6 +41,7 @@
             <xsd:element name="emission-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.geo" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output.signals" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="full-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="queue-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vtk-output" type="fileOptionType" minOccurs="0"/>
@@ -50,6 +52,7 @@
             <xsd:element name="vehroute-output.last-route" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.sorted" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.times" type="intArrayOptionType" minOccurs="0"/>
             <xsd:element name="save-state.prefix" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.files" type="fileOptionType" minOccurs="0"/>
@@ -78,6 +81,7 @@
             <xsd:element name="max-depart-delay" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="sloppy-insert" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.allow-swap" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="lanechange.duration" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="routeDist.maxsize" type="intOptionType" minOccurs="0"/>
         </xsd:all>
@@ -121,6 +125,13 @@
         </xsd:all>
     </xsd:complexType>
 
+    <xsd:complexType name="example_deviceType">
+        <xsd:all>
+            <xsd:element name="device.example.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.example.parameter" type="floatOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
     <xsd:complexType name="traci_serverType">
         <xsd:all>
             <xsd:element name="remote-port" type="intOptionType" minOccurs="0"/>
@@ -157,6 +168,7 @@
             <xsd:element name="game" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="start" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="disable-textures" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

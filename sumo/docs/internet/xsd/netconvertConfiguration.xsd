@@ -38,6 +38,7 @@
             <xsd:element name="robocup-dir" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="matsim-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="itsumo-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="heightmap.shapefiles" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -107,6 +108,7 @@
             <xsd:element name="keep-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.postload" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-boundary" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="keep-edges.in-geo-boundary" type="strOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.by-vclass" type="strOptionType" minOccurs="0"/>
             <xsd:element name="remove-edges.by-vclass" type="strOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.by-type" type="strOptionType" minOccurs="0"/>
@@ -154,6 +156,7 @@
             <xsd:element name="visum.verbose-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.skip-duplicates-check" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.import-all-lanes" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive.import-widths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="dismiss-vclasses" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds" type="boolOptionType" minOccurs="0"/>

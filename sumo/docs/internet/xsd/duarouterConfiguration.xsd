@@ -50,6 +50,7 @@
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="weight-period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gawron.beta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="gawron.a" type="floatOptionType" minOccurs="0"/>
