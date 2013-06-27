@@ -271,6 +271,8 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     }
 #endif
 #endif
+    // preload the routes especially for TraCI
+    myRouteLoaders->loadNext(myStep);
     while (state == SIMSTATE_RUNNING) {
         if (myLogStepNumber) {
             preSimStepOutput();
