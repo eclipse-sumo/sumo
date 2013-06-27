@@ -27,7 +27,15 @@ public class Poi {
 	//getter methods
 
 	/**
-	 * Add a new poi.
+	 * Add a new point-of-interest.
+	 * 
+	 * @param poiID a string identifying the point-of-interest
+	 * @param x x-coordinate of the point
+	 * @param y y-coordinate of the point
+	 * @param color value (r,g,b,a) of color
+	 * @param poiType s string identifying the type of a poi
+	 * @param layer
+	 * @return
 	 */
 
 	public static SumoCommand add(String poiID, double x, double y, SumoColor color, String poiType, int layer){
