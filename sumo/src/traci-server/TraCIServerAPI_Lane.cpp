@@ -117,6 +117,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 const MSLinkCont& links = lane->getLinkCont();
                 tempContent.writeInt((int) links.size());
                 ++cnt;
+                const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
                 for (MSLinkCont::const_iterator i = links.begin(); i != links.end(); ++i) {
                     MSLink* link = (*i);
                     // approached non-internal lane (if any)
@@ -137,11 +138,12 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     ++cnt;
                     // opened
                     tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->opened(MSNet::getInstance()->getCurrentTimeStep(), 0, 0, DEFAULT_VEH_LENGTH, 0.0, DEFAULT_VEH_DECEL, 0) ? 1 : 0);
+                    const SUMOReal speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
+                    tempContent.writeUnsignedByte(link->opened(currTime, speed, speed, DEFAULT_VEH_LENGTH, 0.0, DEFAULT_VEH_DECEL, 0) ? 1 : 0);
                     ++cnt;
                     // approaching foe
                     tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->hasApproachingFoe(MSNet::getInstance()->getCurrentTimeStep(), MSNet::getInstance()->getCurrentTimeStep(), 0) ? 1 : 0);
+                    tempContent.writeUnsignedByte(link->hasApproachingFoe(currTime, currTime, 0) ? 1 : 0);
                     ++cnt;
                     // state (not implemented, yet)
                     tempContent.writeUnsignedByte(TYPE_STRING);
