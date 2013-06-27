@@ -216,8 +216,9 @@ MSDevice_Vehroutes::generateOutput() const {
         od.writeAttr(SUMO_ATTR_TYPE, myHolder.getVehicleType().getID());
     }
     od.writeAttr(SUMO_ATTR_DEPART, time2string(myHolder.getDeparture()));
-    od.writeAttr("arrival", (myHolder.hasArrived() ?
-                             time2string(MSNet::getInstance()->getCurrentTimeStep()) : ""));
+    if (myHolder.hasArrived()) {
+        od.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
+    }
     if (myWithTaz) {
         od.writeAttr(SUMO_ATTR_FROM_TAZ, myHolder.getParameter().fromTaz).writeAttr(SUMO_ATTR_TO_TAZ, myHolder.getParameter().toTaz);
     }
