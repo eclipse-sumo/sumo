@@ -77,11 +77,15 @@
         <xsd:attribute name="arrivalLane" type="arrivalLaneType"/>
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
+        <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowType">
         <xsd:sequence>
-            <xsd:element name="route" type="vehicleRouteType" minOccurs="0" maxOccurs="1"/>
+            <xsd:choice minOccurs="0">
+                <xsd:element name="route" type="vehicleRouteType"/>
+                <xsd:element name="routeDistribution" type="vehicleRouteDistributionType"/>
+            </xsd:choice>
             <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
@@ -234,6 +238,8 @@
         <xsd:attribute name="probability" type="xsd:float"/>
         <xsd:attribute name="exitTimes" type="xsd:string"/>
         <xsd:attribute name="refId" type="xsd:string"/>
+        <xsd:attribute name="replacedOnEdge" type="xsd:string"/>
+        <xsd:attribute name="replacedAtTime" type="nonNegativeFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="stopType">
