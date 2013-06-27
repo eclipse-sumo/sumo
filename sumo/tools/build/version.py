@@ -21,6 +21,7 @@ All rights reserved
 
 import sys
 import re
+from subprocess import Popen, PIPE
 from os.path import dirname, exists, getmtime, join, isdir
 
 UNKNOWN_REVISION = "UNKNOWN"
@@ -114,7 +115,12 @@ def main():
                 create_version_file(versionFile, UNKNOWN_REVISION, "<None>")
         if not exists(versionFile) or getmtime(versionFile) < getmtime(svnFile):
             # svnFile is newer. lets update the revision number
-            svnRevision = parseRevision(svnFile)
+            try:
+                svnRevision = int(re.search(
+                        'Revision: (\d*)\n',
+                        Popen(['svn', 'info', sumoSrc], stdout=PIPE).communicate()[0]).group(1))
+            except:
+                svnRevision = parseRevision(svnFile)
             create_version_file(versionFile, svnRevision, svnFile)
 
 
