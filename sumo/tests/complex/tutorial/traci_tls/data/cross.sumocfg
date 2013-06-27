@@ -1,17 +1,24 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
     <input>
         <net-file value="cross.net.xml"/>
         <route-files value="cross.rou.xml"/>
         <additional-files value="cross.det.xml"/>
     </input>
+
     <time>
         <begin value="0"/>
     </time>
+
     <report>
-	<no-step-log value="true"/>
+        <verbose value="true"/>
+        <no-step-log value="true"/>
     </report>
+
     <traci_server>
         <remote-port value="8813"/>
     </traci_server>
+
 </configuration>

@@ -33,9 +33,9 @@ Summary:
   Priority junctions          : 1
   Right-before-left junctions : 0
  Network boundaries:
-  Original boundary  : -500.00,0.00,501.00,0.00
-  Applied offset     : 500.00,0.00
-  Converted boundary : 0.00,0.00,1001.00,0.00
+  Original boundary  : -250.00,0.00,251.00,0.00
+  Applied offset     : 250.00,0.00
+  Converted boundary : 0.00,0.00,501.00,0.00
 -----------------------------------------------------
 Success.
 >> Netbuilding closed with status 0
