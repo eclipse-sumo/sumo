@@ -260,6 +260,8 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     // the simulation loop
     MSNet::SimulationState state = SIMSTATE_RUNNING;
     myStep = start;
+    // preload the routes especially for TraCI
+    myRouteLoaders->loadNext(myStep);
 #ifndef NO_TRACI
 #ifdef HAVE_PYTHON
     if (OptionsCont::getOptions().isSet("python-script")) {
@@ -271,8 +273,6 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     }
 #endif
 #endif
-    // preload the routes especially for TraCI
-    myRouteLoaders->loadNext(myStep);
     while (state == SIMSTATE_RUNNING) {
         if (myLogStepNumber) {
             preSimStepOutput();
