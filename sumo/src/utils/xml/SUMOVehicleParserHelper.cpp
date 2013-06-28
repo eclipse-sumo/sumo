@@ -580,6 +580,10 @@ SUMOVehicleParserHelper::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOS
     if (attrs.hasAttribute(SUMO_ATTR_PARKING)) {
         stop.setParameter |= STOP_PARKING_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_EXPECTED)) {
+        stop.setParameter |= STOP_EXPECTED_SET;
+    }
+    // don't like this (dkrajzew)
 }
 
 /****************************************************************************/

@@ -34,6 +34,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
@@ -397,6 +398,17 @@ public:
      * @param[out] into The vector to fill
      */
     static void parseStringVector(const std::string& def, std::vector<std::string>& into);
+
+
+    /** @brief Splits the given string, stores it in a set
+     *
+     * Spaces, ",", and ";" are assumed to be separator characters.
+     * Though, in the case a "," or a ";" occurs, a warning is generated (once).
+     *
+     * @param[in] def The string to split
+     * @param[out] into The set to fill
+     */
+    static void parseStringSet(const std::string& def, std::set<std::string>& into);
 
 
 protected:

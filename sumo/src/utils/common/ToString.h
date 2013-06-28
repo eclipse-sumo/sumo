@@ -175,6 +175,12 @@ inline std::string joinToString(const std::set<T>& s, const T_BETWEEN& between, 
     return oss.str();
 }
 
+template <>
+inline std::string toString(const std::set<std::string>& v, std::streamsize accuracy) {
+    return joinToString(v, " ", accuracy);
+}
+
+
 #endif
 
 /****************************************************************************/

@@ -181,6 +181,21 @@ SUMOSAXAttributes::parseStringVector(const std::string& def, std::vector<std::st
 }
 
 
+void
+SUMOSAXAttributes::parseStringSet(const std::string& def, std::set<std::string>& into) {
+    if (def.find(';') != std::string::npos || def.find(',') != std::string::npos) {
+        if (!myHaveInformedAboutDeprecatedDivider) {
+            WRITE_WARNING("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
+            myHaveInformedAboutDeprecatedDivider = true;
+        }
+    }
+    StringTokenizer st(def, ";, ", true);
+    while (st.hasNext()) {
+        into.insert(st.next());
+    }
+}
+
+
 template<> const int invalid_return<int>::value = -1;
 template<> const std::string invalid_return<int>::type = "int";
 template<>

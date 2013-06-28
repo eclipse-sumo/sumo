@@ -336,6 +336,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "endPos",         SUMO_ATTR_ENDPOS },
     { "triggered",      SUMO_ATTR_TRIGGERED },
     { "parking",        SUMO_ATTR_PARKING },
+    { "expected",       SUMO_ATTR_EXPECTED },
     { "index",          SUMO_ATTR_INDEX },
 
     { "entering",       SUMO_ATTR_ENTERING },

@@ -490,6 +490,13 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         myErrorOutput->inform("Invalid bool for 'triggered' or 'parking' for stop" + errorSuffix);
         return;
     }
+
+    // expected persons
+    std::string expectedStr = attrs.getOpt<std::string>(SUMO_ATTR_EXPECTED, 0, ok, "");
+    std::set<std::string> personIDs;
+    SUMOSAXAttributes::parseStringSet(expectedStr, personIDs);
+    stop.awaitedPersons = personIDs;
+
     const std::string idx = attrs.getOpt<std::string>(SUMO_ATTR_INDEX, 0, ok, "end");
     if (idx == "end") {
         stop.index = STOP_INDEX_END;

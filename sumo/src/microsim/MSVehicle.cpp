@@ -526,6 +526,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffs
     stop.endPos = stopPar.endPos;
     stop.duration = stopPar.duration;
     stop.until = stopPar.until;
+    stop.awaitedPersons = stopPar.awaitedPersons;
     if (stop.until != -1) {
         stop.until += untilOffset;
     }
@@ -609,6 +610,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
         // ok, we have already reached the next stop
         // any waiting persons may board now
         bool boarded = MSNet::getInstance()->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this);
+        boarded &= stop.awaitedPersons.size()==0;
         if (boarded) {
             if (stop.busstop != 0) {
                 const std::vector<MSPerson*>& persons = myPersonDevice->getPersons();
@@ -1864,7 +1866,17 @@ MSVehicle::addPerson(MSPerson* person) {
     }
     myPersonDevice->addPerson(person);
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered) {
-        myStops.front().duration = 0;
+        unsigned int numExpected = (unsigned int) myStops.front().awaitedPersons.size();
+        if(numExpected!=0) {
+            // I added the if-statement and number retrieval, assuming that it should be a "conditional short jump" only and
+            //  in most cases we won't have the list of expected passenger - only for simulating car-sharing, probably.
+            //  Bus drivers usually do not know the names of the passengers.
+            myStops.front().awaitedPersons.erase(person->getID());
+            numExpected = (unsigned int) myStops.front().awaitedPersons.size();
+        }
+        if(numExpected==0) {
+            myStops.front().duration = 0;
+        }
     }
 }
 

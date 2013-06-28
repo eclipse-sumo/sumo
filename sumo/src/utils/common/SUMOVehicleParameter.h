@@ -74,6 +74,7 @@ const int STOP_END_SET = 1;
 const int STOP_START_SET = 2;
 const int STOP_TRIGGER_SET = 2 << 1;
 const int STOP_PARKING_SET = 2 << 2;
+const int STOP_EXPECTED_SET = 2 << 3;
 
 
 // ===========================================================================
@@ -457,6 +458,8 @@ public:
         bool triggered;
         /// @brief whether the vehicle is removed from the net while stopping
         bool parking;
+        /// @brief IDs of persons the vehicle has to wait for until departing
+        std::set<std::string> awaitedPersons;
         /// @brief at which position in the stops list
         int index;
         /// @brief Information for the output which parameter were set

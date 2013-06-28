@@ -41,6 +41,7 @@
 #include <list>
 #include <deque>
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
 #include "MSVehicleType.h"
@@ -549,6 +550,8 @@ public:
         bool parking;
         /// @brief Information whether the stop has been reached
         bool reached;
+        /// @brief IDs of persons the vehicle has to wait for until departing
+        std::set<std::string> awaitedPersons;
     };
 
 
