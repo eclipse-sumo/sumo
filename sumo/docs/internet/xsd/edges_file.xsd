@@ -5,8 +5,8 @@
 
     <xsd:element name="edges" type="edgesType">
         <xsd:key name="edgeKey">
-            <xsd:selector xpath="edge"></xsd:selector>
-            <xsd:field xpath="@id"></xsd:field>
+            <xsd:selector xpath="edge"/>
+            <xsd:field xpath="@id"/>
         </xsd:key>
     </xsd:element>
 
@@ -47,8 +47,8 @@
         <xsd:attribute name="spreadType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="center"></xsd:enumeration>
-                    <xsd:enumeration value="right"></xsd:enumeration>
+                    <xsd:enumeration value="center"/>
+                    <xsd:enumeration value="right"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -69,9 +69,7 @@
         <xsd:attribute name="lanes" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern
-                        value="\d+(([,;]|\s)\d+)*">
-                    </xsd:pattern>
+                    <xsd:pattern value="\d+(([,;]|\s)\d+)*"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
