@@ -40,3 +40,10 @@ teleport_across_stopped
 
 # waiting for the stop to be free
 occupied
+
+# expecting persons
+simple_stop_expecting0
+simple_stop_expecting1
+simple_stop_expecting2
+
+

@@ -1,0 +1,4 @@
+Warning: Attribute 'expected' in definition of a stop is empty.
+Warning: Person p1 aborted waiting for a ride that will never come.
+Warning: Person p2 aborted waiting for a ride that will never come.
+Warning: Vehicle veh0 aborted waiting for a person that will never come.
