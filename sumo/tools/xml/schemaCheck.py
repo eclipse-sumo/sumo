@@ -14,7 +14,7 @@ Copyright (C) 2009-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
-import os, sys, subprocess, glob, traceback
+import os, sys, subprocess, glob, traceback, urllib
 try:
     from lxml import etree
     haveLxml = True
@@ -35,7 +35,7 @@ def validate(root, f):
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
             for entry in schemes[schemaLoc].error_log:
-                s = str(entry)
+                s = urllib.unquote(str(entry))
                 s = s[s.find(f.replace('\\', '/'))+len(f):] # remove everything before (and including) the filename
                 print >> sys.stderr, os.path.abspath(f)[len(root)+1:].replace('\\', '/') + s
     except:
