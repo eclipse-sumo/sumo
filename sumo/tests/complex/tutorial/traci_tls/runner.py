@@ -24,7 +24,7 @@ try:
     sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools")) # tutorial in tests
     sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..")), "tools")) # tutorial in docs
     from sumolib import checkBinary
-except ImportError:    
+except ImportError:
     sys.exit("please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
 
 import traci
@@ -55,15 +55,16 @@ def generate_routefile():
         lastVeh = 0
         vehNr = 0
         for i in range(N):
-            if random.uniform(0,1) < pWE:
+# you could use something like            if random.uniform(0,1) < pWE:
+            if i % int(1 / pWE) == 0:
                 print >> routes, '    <vehicle id="%i" type="typeWE" route="right" depart="%i" />' % (vehNr, i)
                 vehNr += 1
                 lastVeh = i
-            if random.uniform(0,1) < pEW:
+            if i % int(1 / pEW) == 0:
                 print >> routes, '    <vehicle id="%i" type="typeWE" route="left" depart="%i" />' % (vehNr, i)
                 vehNr += 1
                 lastVeh = i
-            if random.uniform(0,1) < pNS:
+            if i % int(1 / pNS) == 0:
                 print >> routes, '    <vehicle id="%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (vehNr, i)
                 vehNr += 1
                 lastVeh = i
@@ -108,6 +109,6 @@ if __name__ == "__main__":
 
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
-    sumoProcess = subprocess.Popen([sumoBinary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml"], shell=True, stdout=sys.stdout)
+    sumoProcess = subprocess.Popen([sumoBinary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml"], stdout=sys.stdout, stderr=sys.stderr)
     run()
     sumoProcess.wait()
