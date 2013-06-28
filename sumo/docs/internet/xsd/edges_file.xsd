@@ -70,7 +70,7 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:pattern
-                        value="\d+((,|\s)\d+)*">
+                        value="\d+(([,;]|\s)\d+)*">
                     </xsd:pattern>
                 </xsd:restriction>
             </xsd:simpleType>
