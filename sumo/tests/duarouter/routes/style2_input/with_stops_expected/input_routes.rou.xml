@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+   <vehicle id="0" depart="0">
+      <route edges="beg middle end rend"/>
+      <stop lane="middle_0" triggered="x" expected="p1 p2"/>
+   </vehicle>
+</routes>

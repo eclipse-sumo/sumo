@@ -46,5 +46,9 @@ with_stops
 # same as noid_one_time but with a bus stop
 with_busstops
 
+# with stops and expected persons
+with_stops_expected
+
 # Tests for false user input
 errors
+
