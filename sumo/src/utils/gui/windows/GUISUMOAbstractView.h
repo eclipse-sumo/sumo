@@ -138,6 +138,8 @@ public:
     virtual long onPaint(FXObject*, FXSelector, void*);
     virtual long onLeftBtnPress(FXObject*, FXSelector, void*);
     virtual long onLeftBtnRelease(FXObject*, FXSelector, void*);
+    virtual long onMiddleBtnPress(FXObject*, FXSelector, void*) { return 1; }
+    virtual long onMiddleBtnRelease(FXObject*, FXSelector, void*) { return 1; }
     virtual long onRightBtnPress(FXObject*, FXSelector, void*);
     virtual long onRightBtnRelease(FXObject*, FXSelector, void*);
     virtual long onMouseWheel(FXObject*, FXSelector, void*);
