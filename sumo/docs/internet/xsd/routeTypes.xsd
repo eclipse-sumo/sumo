@@ -253,6 +253,7 @@
         <xsd:attribute name="index" type="xsd:string"/>
         <xsd:attribute name="parking" type="boolType"/>
         <xsd:attribute name="triggered" type="boolType"/>
+        <xsd:attribute name="expected" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">
@@ -297,6 +298,7 @@
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="depart" type="xsd:float" use="required"/>
+        <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
     </xsd:complexType>
 
 </xsd:schema>
