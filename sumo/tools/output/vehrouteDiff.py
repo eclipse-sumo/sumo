@@ -4,7 +4,7 @@
 @file    vehrouteDiff.py
 @author  Jakob Erdmann
 @date    2012-11-20
-@version $Id: vehrouteDiff.py 13811 2013-05-01 20:31:43Z behrisch $
+@version $Id$
 
 Compute differences between two vehroute-output files
 
