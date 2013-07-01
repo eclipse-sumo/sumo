@@ -65,6 +65,8 @@ ticket604
 ticket609
 ticket611
 ticket651
+# test junction deadlock
+ticket699
 ticket720
 ticket747
 
@@ -118,8 +120,7 @@ ticket881b
 ticket881c
 ticket882
 ticket889
+
 ticket925
 ticket929
-
-# test junction deadlock
-ticket699
+ticket941

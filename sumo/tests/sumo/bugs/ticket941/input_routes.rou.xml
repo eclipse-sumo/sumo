@@ -1,0 +1,9 @@
+<routes>
+    <vehicle id="priority" depart="0" departPos="0" departSpeed="max" departLane="1" arrivalLane="0" arrivalPos="70">
+        <route edges="main1 main2"/>
+    </vehicle>
+    <vType id="t2" accel="0.6" decel="2.0"/>
+    <vehicle id="yield" depart="0" departPos="63" departSpeed="max" type="t2">
+        <route edges="side main2"/>
+    </vehicle>
+</routes>
