@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Jan 03 12:38:03 2012
+TraCITestClient output file. Date: Mon Jul 01 13:28:27 2013
 
 
 -> Command sent: <SimulationStep2>:
@@ -86,4 +86,4 @@ TraCITestClient output file. Date: Tue Jan 03 12:38:03 2012
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
-.. Command acknowledged (127), [description: Goodbye]
+.. Command acknowledged (127), [description: ]

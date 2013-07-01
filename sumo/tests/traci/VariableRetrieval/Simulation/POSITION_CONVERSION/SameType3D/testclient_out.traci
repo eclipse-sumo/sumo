@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Apr 21 22:02:32 2011
+TraCITestClient output file. Date: Mon Jul 01 13:27:14 2013
 
 
 -> Command sent: <GetVariable>:
@@ -8,4 +8,4 @@ TraCITestClient output file. Date: Thu Apr 21 22:02:32 2011
  x: 1.00 y: 1.00 z: 0.00
 
 -> Command sent: <Close>:
-.. Command acknowledged (127), [description: Goodbye]
+.. Command acknowledged (127), [description: ]

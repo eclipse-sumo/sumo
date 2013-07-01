@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Apr 05 09:44:58 2011
+TraCITestClient output file. Date: Mon Jul 01 13:27:13 2013
 
 
 -> Command sent: <GetVariable>:
@@ -27,4 +27,4 @@ TraCITestClient output file. Date: Tue Apr 05 09:44:58 2011
   CommandID=187  VariableID=130  ObjectID=0 valueDataType=4 RoadMapPositionValue: roadId=e_m0 pos=0.00 laneId=0
 
 -> Command sent: <Close>:
-.. Command acknowledged (127), [description: Goodbye]
+.. Command acknowledged (127), [description: ]

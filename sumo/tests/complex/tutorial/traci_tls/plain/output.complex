@@ -1,18 +1,17 @@
 Loading configuration... done.
-Loading net-file from 'data/cross.net.xml'...  done (2ms).
-Loading additional-files from 'data/cross.det.xml'...  done (0ms).
+Loading net-file from 'data/cross.net.xml'...  done (4ms).
+Loading additional-files from 'data/cross.det.xml'...  done (9ms).
 Loading done.
 Simulation started with time: 0.00
 ***Starting server on port 8813 ***
 Simulation ended at time: 3690.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 1997 ms
- Real time factor: 1847.77
- UPS: 39248.873310
+ Duration: 1699 ms
+ Real time factor: 2171.87
+ UPS: 46133.019423
 Vehicles: 
  Emitted: 808
  Running: 0
  Waiting: 0
 
-(14, 127, 0) OK Goodbye

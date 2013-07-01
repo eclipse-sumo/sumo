@@ -2,26 +2,20 @@
 ----------- SUMO end time is smaller than TraCI's -----------
 Loading configuration... done.
 Print ended at step 100
-(14, 127, 0) OK Goodbye
 ----------- SUMO end time is not given -----------
 Loading configuration... done.
 Print ended at step 100
-(14, 127, 0) OK Goodbye
 =========== empty routes in SUMO ===========
 ----------- SUMO end time is smaller than TraCI's -----------
 Loading configuration... done.
 Print ended at step 100
-(14, 127, 0) OK Goodbye
 ----------- SUMO end time is not given -----------
 Loading configuration... done.
 Print ended at step 100
-(14, 127, 0) OK Goodbye
 =========== vehicle leaves before TraCI ends ===========
 ----------- SUMO end time is smaller than TraCI's -----------
 Loading configuration... done.
 Print ended at step 100
-(14, 127, 0) OK Goodbye
 ----------- SUMO end time is not given -----------
 Loading configuration... done.
 Print ended at step 100
-(14, 127, 0) OK Goodbye

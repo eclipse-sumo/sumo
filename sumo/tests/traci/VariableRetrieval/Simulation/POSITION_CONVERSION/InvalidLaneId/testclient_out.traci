@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Apr 05 09:45:03 2011
+TraCITestClient output file. Date: Mon Jul 01 13:27:18 2013
 
 
 -> Command sent: <GetVariable>:
@@ -6,4 +6,4 @@ TraCITestClient output file. Date: Tue Apr 05 09:45:03 2011
 .. Answered with error to command (171), [description: Invalid lane index for e_m0]
 
 -> Command sent: <Close>:
-.. Command acknowledged (127), [description: Goodbye]
+.. Command acknowledged (127), [description: ]
