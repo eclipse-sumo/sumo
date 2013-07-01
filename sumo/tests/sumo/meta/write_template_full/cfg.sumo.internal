@@ -26,6 +26,7 @@
         <emission-output value="" type="FILE" help="Save the emission values of each vehicle"/>
         <fcd-output value="" type="FILE" help="Save the Floating Car Data"/>
         <fcd-output.geo value="false" type="BOOL" help="Save the Floating Car Data using geo-coordinates (lon/lat)"/>
+        <fcd-output.signals value="false" type="BOOL" help="Add the vehicle signal state to the FCD output (brake lights etc.)"/>
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>
         <vtk-output value="" type="FILE" help="Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files)"/>
@@ -97,6 +98,11 @@
         <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh" type="STR" help="Assign a device to named vehicles"/>
         <device.hbefa.deterministic value="false" type="BOOL" help="The devices are set deterministic using a fraction of 1000"/>
     </emissions>
+
+    <example_device>
+        <device.example.explicit value="" type="STR" help="Assign a device to named vehicles"/>
+        <device.example.parameter value="0" type="FLOAT" help="An exemplary parameter which can be used by all instances of the example device"/>
+    </example_device>
 
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
