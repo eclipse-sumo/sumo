@@ -241,11 +241,11 @@ RESPONSE_SUBSCRIBE_GUI_VARIABLE = 0xec
 # POSITION REPRESENTATIONS
 # ****************************************
 # Position in geo-coordinates
-POSITION_LAT_LON = 0x00
+POSITION_LON_LAT = 0x00
 # 2D cartesian coordinates
 POSITION_2D = 0x01
 # Position in geo-coordinates with altitude
-POSITION_LAT_LON_ALT = 0x02
+POSITION_LON_LAT_ALT = 0x02
 # 3D cartesian coordinates
 POSITION_3D = 0x03
 # Position on road map

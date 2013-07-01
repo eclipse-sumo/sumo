@@ -131,7 +131,7 @@ def getNetBoundary():
 def convert2D(edgeID, pos, laneIndex=0, toGeo=False):
     posType = tc.POSITION_2D
     if toGeo:
-        posType = tc.POSITION_LAT_LON
+        posType = tc.POSITION_LON_LAT
     traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+4+len(edgeID)+8+1 + 1+1)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
     traci._message.string += struct.pack("!Bi", tc.POSITION_ROADMAP, len(edgeID)) + edgeID
@@ -141,7 +141,7 @@ def convert2D(edgeID, pos, laneIndex=0, toGeo=False):
 def convertRoad(x, y, isGeo=False):
     posType = tc.POSITION_2D
     if isGeo:
-        posType = tc.POSITION_LAT_LON
+        posType = tc.POSITION_LON_LAT
     traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+8+8 + 1+1)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
     traci._message.string += struct.pack("!Bdd", posType, x, y)
@@ -151,9 +151,9 @@ def convertRoad(x, y, isGeo=False):
 
 def convertGeo(x, y, fromGeo=False):
     fromType = tc.POSITION_2D
-    toType = tc.POSITION_LAT_LON
+    toType = tc.POSITION_LON_LAT
     if fromGeo:
-        fromType = tc.POSITION_LAT_LON
+        fromType = tc.POSITION_LON_LAT
         toType = tc.POSITION_2D
     traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+8+8 + 1+1)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
@@ -168,7 +168,7 @@ def getDistance2D(x1, y1, x2, y2, isGeo=False, isDriving=False):
     """
     posType = tc.POSITION_2D
     if isGeo:
-        posType = tc.POSITION_LAT_LON
+        posType = tc.POSITION_LON_LAT
     distType = tc.REQUEST_AIRDIST
     if isDriving:
         distType = tc.REQUEST_DRIVINGDIST

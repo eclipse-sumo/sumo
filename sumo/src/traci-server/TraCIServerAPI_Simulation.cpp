@@ -266,16 +266,16 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server,
     switch (srcPosType) {
         case POSITION_2D:
         case POSITION_3D:
-        case POSITION_LAT_LON:
-        case POSITION_LAT_LON_ALT: {
+        case POSITION_LON_LAT:
+        case POSITION_LON_LAT_ALT: {
             SUMOReal x = inputStorage.readDouble();
             SUMOReal y = inputStorage.readDouble();
-            if (srcPosType != POSITION_2D && srcPosType != POSITION_LAT_LON) {
+            if (srcPosType != POSITION_2D && srcPosType != POSITION_LON_LAT) {
                 z = inputStorage.readDouble();
             }
             geoPos.set(x, y);
             cartesianPos.set(x, y);
-            if (srcPosType == POSITION_LAT_LON || srcPosType == POSITION_LAT_LON_ALT) {
+            if (srcPosType == POSITION_LON_LAT || srcPosType == POSITION_LON_LAT_ALT) {
                 GeoConvHelper::getFinal().x2cartesian_const(cartesianPos);
             } else {
                 GeoConvHelper::getFinal().cartesian2geo(geoPos);
@@ -320,17 +320,17 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server,
         break;
         case POSITION_2D:
         case POSITION_3D:
-        case POSITION_LAT_LON:
-        case POSITION_LAT_LON_ALT:
+        case POSITION_LON_LAT:
+        case POSITION_LON_LAT_ALT:
             outputStorage.writeUnsignedByte(destPosType);
-            if (destPosType == POSITION_LAT_LON || destPosType == POSITION_LAT_LON_ALT) {
+            if (destPosType == POSITION_LON_LAT || destPosType == POSITION_LON_LAT_ALT) {
                 outputStorage.writeDouble(geoPos.x());
                 outputStorage.writeDouble(geoPos.y());
             } else {
                 outputStorage.writeDouble(cartesianPos.x());
                 outputStorage.writeDouble(cartesianPos.y());
             }
-            if (destPosType != POSITION_2D && destPosType != POSITION_LAT_LON) {
+            if (destPosType != POSITION_2D && destPosType != POSITION_LON_LAT) {
                 outputStorage.writeDouble(z);
             }
             break;

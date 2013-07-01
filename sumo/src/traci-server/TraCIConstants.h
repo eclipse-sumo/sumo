@@ -261,11 +261,11 @@
 // POSITION REPRESENTATIONS
 // ****************************************
 // Position in geo-coordinates
-#define POSITION_LAT_LON 0x00
+#define POSITION_LON_LAT 0x00
 // 2D cartesian coordinates
 #define POSITION_2D 0x01
 // Position in geo-coordinates with altitude
-#define POSITION_LAT_LON_ALT 0x02
+#define POSITION_LON_LAT_ALT 0x02
 // 3D cartesian coordinates
 #define POSITION_3D 0x03
 // Position on road map
