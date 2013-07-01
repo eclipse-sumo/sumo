@@ -29,6 +29,9 @@ vss:vss.xml
 results:results.csv
 
 [run_dependent_text]
+output:\r{REPLACE \n}
+output:\([0-9]*ms\){REPLACE (TIME)}
+output:^Performance:{->}^Vehicles:
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 tripinfo:<!--{[->]}-->

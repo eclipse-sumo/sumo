@@ -39,6 +39,7 @@ WEYELLOW = "ryry"
 PROGRAM = [WEYELLOW,WEYELLOW,WEYELLOW,NSGREEN,NSGREEN,NSGREEN,NSGREEN,NSGREEN,NSGREEN,NSGREEN,NSGREEN,NSYELLOW,NSYELLOW,WEGREEN]
 
 def generate_routefile():
+    random.seed(42) # make tests reproducible
     N = 3600 # number of time steps
     # demand per second from different directions
     pWE = 1./10 
@@ -55,16 +56,15 @@ def generate_routefile():
         lastVeh = 0
         vehNr = 0
         for i in range(N):
-# you could use something like            if random.uniform(0,1) < pWE:
-            if i % int(1 / pWE) == 0:
+            if random.uniform(0,1) < pWE:
                 print >> routes, '    <vehicle id="%i" type="typeWE" route="right" depart="%i" />' % (vehNr, i)
                 vehNr += 1
                 lastVeh = i
-            if i % int(1 / pEW) == 0:
+            if random.uniform(0,1) < pEW:
                 print >> routes, '    <vehicle id="%i" type="typeWE" route="left" depart="%i" />' % (vehNr, i)
                 vehNr += 1
                 lastVeh = i
-            if i % int(1 / pNS) == 0:
+            if random.uniform(0,1) < pNS:
                 print >> routes, '    <vehicle id="%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (vehNr, i)
                 vehNr += 1
                 lastVeh = i
