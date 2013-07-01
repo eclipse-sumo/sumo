@@ -76,7 +76,7 @@ links:<!--{[->]}-->
 vehroutes_ignore_arrival:<!--{[->]}-->
 vehroutes_ignore_arrival:arrival="[^"]*"{REPLACE arrival="<ignored>"}
 state:<!--{[->]}-->
-state:<snapshot version="[^"]*"{REPLACE<snapshot version="<version>"}
+state:<snapshot version="[^"]*"{REPLACE <snapshot version="<version>"}
 tls_state:<!--{[->]}-->
 tls_switch:<!--{[->]}-->
 tls_state_switch:<!--{[->]}-->
@@ -91,6 +91,7 @@ errors:Leaked object at
 errors:\*\*\* \d+ leaks found
 errors:delete: freed
 errors:warning: debug_new used with placement new
+errors:Warning: State was written with sumo version
 
 [floating_point_tolerance]
 detector:0.0101
