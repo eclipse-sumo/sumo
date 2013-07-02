@@ -698,7 +698,7 @@ NBEdge::getConnectedSorted() {
             edges->push_back(outedge);
         }
     }
-    sort(edges->begin(), edges->end(), NBContHelper::relative_edge_sorter(this, myTo));
+    sort(edges->begin(), edges->end(), NBContHelper::relative_edge_sorter(this));
     return edges;
 }
 

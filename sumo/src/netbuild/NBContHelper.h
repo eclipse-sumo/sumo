@@ -84,8 +84,8 @@ public:
     class relative_edge_sorter {
     public:
         /// constructor
-        explicit relative_edge_sorter(NBEdge* e, NBNode* n)
-            : myEdge(e), myNode(n) {}
+        explicit relative_edge_sorter(NBEdge* e)
+            : myEdge(e) {}
 
     public:
         /// comparing operation
@@ -103,9 +103,6 @@ public:
     private:
         /// the edge to compute the relative angle of
         NBEdge* myEdge;
-
-        /// the node to use
-        NBNode* myNode;
 
     };
 
