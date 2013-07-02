@@ -150,6 +150,8 @@
         <junctions.join-exclude value="" type="STR" help="Interprets STR as list of junctions to exclude from joining"/>
         <speed.offset value="0" type="FLOAT" help="Modifies all edge speeds by adding FLOAT"/>
         <speed.factor value="1" type="FLOAT" help="Modifies all edge speeds by multiplying FLOAT"/>
+        <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>
+        <check-lane-foes.all value="false" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)"/>
         <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
     </processing>
 

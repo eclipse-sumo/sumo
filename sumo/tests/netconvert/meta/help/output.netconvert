@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r14017
+SUMO netconvert Version dev-SVN-r14251
  Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -201,6 +201,12 @@ Processing Options:
   --speed.offset FLOAT                Modifies all edge speeds by adding FLOAT
   --speed.factor FLOAT                Modifies all edge speeds by multiplying
                                         FLOAT
+  --check-lane-foes.roundabout        Allow driving onto a multi-lane road if
+                                        there are foes on other lanes (at
+                                        roundabouts)
+  --check-lane-foes.all               Allow driving onto a multi-lane road if
+                                        there are foes on other lanes
+                                        (everywhere)
   --tls.join-dist FLOAT               Determines the maximal distance for
                                         joining traffic lights (defaults to 20)
 
