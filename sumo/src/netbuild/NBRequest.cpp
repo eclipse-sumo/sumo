@@ -331,13 +331,13 @@ NBRequest::distanceCounterClockwise(NBEdge* from, NBEdge* to) {
 
 
 void
-NBRequest::writeLogic(std::string /* key */, OutputDevice& into) const {
+NBRequest::writeLogic(std::string /* key */, OutputDevice& into, const bool checkLaneFoes) const {
     int pos = 0;
     EdgeVector::const_iterator i;
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {
         unsigned int noLanes = (*i)->getNumLanes();
         for (unsigned int k = 0; k < noLanes; k++) {
-            pos = writeLaneResponse(into, *i, k, pos);
+            pos = writeLaneResponse(into, *i, k, pos, checkLaneFoes);
         }
     }
 }
@@ -475,14 +475,14 @@ NBRequest::forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const p
 
 int
 NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
-                             int fromLane, int pos) const {
+                             int fromLane, int pos, const bool checkLaneFoes) const {
     std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (std::vector<NBEdge::Connection>::iterator j = connected.begin(); j != connected.end(); j++) {
         assert((*j).toEdge != 0);
         od.openTag(SUMO_TAG_REQUEST);
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
-        od.writeAttr(SUMO_ATTR_RESPONSE, getResponseString(from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass));
-        od.writeAttr(SUMO_ATTR_FOES, getFoesString(from, (*j).toEdge, (*j).toLane));
+        od.writeAttr(SUMO_ATTR_RESPONSE, getResponseString(from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass, checkLaneFoes));
+        od.writeAttr(SUMO_ATTR_FOES, getFoesString(from, (*j).toEdge, (*j).toLane, checkLaneFoes));
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {
             od.writeAttr(SUMO_ATTR_CONT, j->haveVia);
         }
@@ -494,7 +494,7 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
 
 std::string
 NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
-                             int fromLane, int toLane, bool mayDefinitelyPass) const {
+                             int fromLane, int toLane, bool mayDefinitelyPass, const bool checkLaneFoes) const {
     int idx = 0;
     if (to != 0) {
         idx = getIndex(from, to);
@@ -519,7 +519,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                     assert((size_t) getIndex(*i, connected[k].toEdge) < myIncoming.size()*myOutgoing.size());
                     // check whether the connection is prohibited by another one
                     if (myForbids[getIndex(*i, connected[k].toEdge)][idx] && 
-                            laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)) {
+                            (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane))) {
                         result += '1';
                         continue;
                     }
@@ -533,7 +533,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
 
 
 std::string
-NBRequest::getFoesString(NBEdge* from, NBEdge* to, int toLane) const {
+NBRequest::getFoesString(NBEdge* from, NBEdge* to, int toLane, const bool checkLaneFoes) const {
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
@@ -548,7 +548,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int toLane) const {
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
                 if (foes(from, to, (*i), connected[k].toEdge) && 
-                        laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)) {
+                        (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane))) {
                     result += '1';
                 } else {
                     result += '0';

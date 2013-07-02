@@ -142,8 +142,9 @@ protected:
     /** @brief Writes a junction (<junction ...)
      * @param[in] into The device to write the edge into
      * @param[in] n The junction/node to write
+     * @param[in] checkLaneFoes Whether laneConflicts shall be checked at this junction
      */
-    static void writeJunction(OutputDevice& into, const NBNode& n);
+    static void writeJunction(OutputDevice& into, const NBNode& n, const bool checkLaneFoes);
 
 
     /** @brief Writes internal junctions (<junction with id[0]==':' ...) of the given node

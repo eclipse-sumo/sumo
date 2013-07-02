@@ -99,8 +99,20 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     writeTrafficLights(device, nb.getTLLogicCont());
 
     // write the nodes (junctions)
+    std::set<NBNode*> roundaboutNodes;
+    const bool checkLaneFoesAll = oc.getBool("check-lane-foes.all");
+    const bool checkLaneFoesRoundabout = !checkLaneFoesAll && oc.getBool("check-lane-foes.roundabout");
+    if (checkLaneFoesRoundabout) {
+        const std::vector<EdgeVector>& roundabouts = nb.getRoundabouts();
+        for (std::vector<EdgeVector>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
+            for (EdgeVector::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
+                roundaboutNodes.insert((*j)->getToNode());
+            }
+        }
+    }
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        writeJunction(device, *(*i).second);
+        const bool checkLaneFoes = checkLaneFoesAll || (checkLaneFoesRoundabout && roundaboutNodes.count((*i).second) > 0);
+        writeJunction(device, *(*i).second, checkLaneFoes);
     }
     device.lf();
     const bool includeInternal = !oc.getBool("no-internal-links");
@@ -305,7 +317,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
 
 
 void
-NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
+NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool checkLaneFoes) {
     // write the attributes
     into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, n.getID());
     into.writeAttr(SUMO_ATTR_TYPE, n.getType());
@@ -352,7 +364,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
         into.closeTag();
     } else {
         // write right-of-way logics
-        n.writeLogic(into);
+        n.writeLogic(into, checkLaneFoes);
         into.closeTag();
     }
 }

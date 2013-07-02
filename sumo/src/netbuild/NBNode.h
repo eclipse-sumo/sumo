@@ -288,7 +288,7 @@ public:
 
     /** writes the XML-representation of the logic as a bitset-logic
         XML representation */
-    bool writeLogic(OutputDevice& into) const;
+    bool writeLogic(OutputDevice& into, const bool checkLaneFoes) const;
 
     /** @brief Returns something like the most unused direction
         Should only be used to add source or sink nodes */

@@ -577,9 +577,9 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
 
 
 bool
-NBNode::writeLogic(OutputDevice& into) const {
+NBNode::writeLogic(OutputDevice& into, const bool checkLaneFoes) const {
     if (myRequest) {
-        myRequest->writeLogic(myID, into);
+        myRequest->writeLogic(myID, into, checkLaneFoes);
         return true;
     }
     return false;

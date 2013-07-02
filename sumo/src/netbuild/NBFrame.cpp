@@ -151,6 +151,14 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("speed.factor", "Processing", "Modifies all edge speeds by multiplying FLOAT");
     }
 
+
+    oc.doRegister("check-lane-foes.roundabout", new Option_Bool(true));
+    oc.addDescription("check-lane-foes.roundabout", "Processing",
+                      "Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)");
+    oc.doRegister("check-lane-foes.all", new Option_Bool(false));
+    oc.addDescription("check-lane-foes.all", "Processing",
+                      "Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)");
+
     // tls setting options
     // explicit tls
     oc.doRegister("tls.set", new Option_String());

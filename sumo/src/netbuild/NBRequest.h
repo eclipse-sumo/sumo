@@ -130,7 +130,7 @@ public:
 
     /** writes the XML-representation of the logic as a bitset-logic
         XML representation */
-    void writeLogic(std::string key, OutputDevice& into) const;
+    void writeLogic(std::string key, OutputDevice& into, const bool checkLaneFoes) const;
 
     /// prints the request
     friend std::ostream& operator<<(std::ostream& os, const NBRequest& r);
@@ -147,7 +147,7 @@ private:
     /** @brief writes the response of a certain lane
         Returns the next link index within the junction */
     int writeLaneResponse(OutputDevice& od, NBEdge* from, int lane,
-                          int pos) const;
+                          int pos, const bool checkLaneFoes) const;
 
     /** @brief Writes the response of a certain link
      *
@@ -168,11 +168,11 @@ private:
      * @exception IOError not yet implemented
      */
     std::string getResponseString(const NBEdge* const from, const NBEdge* const to,
-                                  int fromLane, int toLane, bool mayDefinitelyPass) const;
+                                  int fromLane, int toLane, bool mayDefinitelyPass, const bool checkLaneFoes) const;
 
 
     /** writes which participating links are foes to the given */
-    std::string getFoesString(NBEdge* from, NBEdge* to, int toLane) const;
+    std::string getFoesString(NBEdge* from, NBEdge* to, int toLane, const bool checkLaneFoes) const;
 
 
     /** @brief Returns the index to the internal combination container for the given edge combination
