@@ -42,6 +42,7 @@ designed to handle large road networks.
 %prep
 %setup -q
 unzip -o %{SOURCE1} -d ..
+mv docs/tutorial docs/examples
 %if 0%{?sles_version}
 find . -name "*.jar" | xargs rm
 %endif
@@ -61,6 +62,6 @@ cp -a tools/* %{buildroot}%{_prefix}/lib/sumo
 %defattr(-,root,root)
 %{_bindir}/*
 %{_prefix}/lib/sumo
-%doc AUTHORS COPYING README ChangeLog docs/pydoc docs/userdoc docs/tutorial docs/examples
+%doc AUTHORS COPYING README ChangeLog docs/pydoc docs/userdoc docs/examples
 
 %changelog
