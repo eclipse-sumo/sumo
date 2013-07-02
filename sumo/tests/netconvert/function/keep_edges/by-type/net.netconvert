@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 26 18:43:26 2013 by SUMO netconvert Version dev-SVN-r14205
+<!-- generated on Wed Jun  5 09:35:42 2013 by SUMO netconvert Version dev-SVN-r14096
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -126,23 +126,23 @@
     </tlLogic>
 
     <junction id="-15" type="priority" x="303.59" y="700.77" incLanes="--33#1_0 --33#1_1 -33#0_0 -33#0_1" intLanes=":-15_0_0 :-15_1_0 :-15_6_0 :-15_3_0 :-15_4_0 :-15_7_0" shape="306.96,706.39 300.51,694.99 306.37,706.70">
-        <request index="0" response="000000" foes="000000" cont="0"/>
+        <request index="0" response="000000" foes="100000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
-        <request index="2" response="010000" foes="010000" cont="1"/>
-        <request index="3" response="000000" foes="000000" cont="0"/>
+        <request index="2" response="011000" foes="011000" cont="1"/>
+        <request index="3" response="000000" foes="000100" cont="0"/>
         <request index="4" response="000000" foes="000100" cont="0"/>
-        <request index="5" response="000010" foes="000010" cont="1"/>
+        <request index="5" response="000011" foes="000011" cont="1"/>
     </junction>
     <junction id="-2" type="priority" x="0.26" y="822.04" incLanes="--33#0_0 --33#0_1" intLanes=":-2_0_0" shape="0.25,821.99 -1.45,815.72 1.97,828.36 0.27,822.09">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="-26" type="traffic_light" x="493.51" y="408.13" incLanes="--33#2_0 --33#2_1 -33#1_0 -33#1_1" intLanes=":-26_0_0 :-26_1_0 :-26_6_0 :-26_3_0 :-26_4_0 :-26_7_0" shape="500.00,406.90 486.92,407.68 499.77,410.23">
-        <request index="0" response="000000" foes="000000" cont="0"/>
+        <request index="0" response="000000" foes="100000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
-        <request index="2" response="010000" foes="010000" cont="1"/>
-        <request index="3" response="000000" foes="000000" cont="0"/>
+        <request index="2" response="011000" foes="011000" cont="1"/>
+        <request index="3" response="000000" foes="000100" cont="0"/>
         <request index="4" response="000000" foes="000100" cont="0"/>
-        <request index="5" response="000010" foes="000010" cont="1"/>
+        <request index="5" response="000011" foes="000011" cont="1"/>
     </junction>
     <junction id="-29" type="traffic_light" x="491.92" y="18.96" incLanes="-33#2_0 -33#2_1" intLanes=":-29_0_0" shape="491.97,18.97 498.39,19.99 485.45,17.93 491.87,18.95">
         <request index="0" response="0" foes="0" cont="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 26 17:30:22 2013 by SUMO netconvert Version dev-SVN-r14205
+<!-- generated on 12/18/12 09:22:42 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -110,14 +110,14 @@
     </tlLogic>
 
     <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_U2C_0 edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_9_0 :node_C_3_0 :node_C_4_0 :node_C_10_0 :node_C_6_0 :node_C_11_0 :node_C_12_0" shape="-3.25,5.73 -0.05,5.73 4.42,3.45 4.75,-4.47 3.25,-6.04 -3.25,-6.04 -6.37,-1.66 -4.70,4.62">
-        <request index="0" response="000000000" foes="000000000" cont="0"/>
+        <request index="0" response="000000000" foes="010001000" cont="0"/>
         <request index="1" response="000000000" foes="110011000" cont="0"/>
         <request index="2" response="001000000" foes="001111000" cont="1"/>
-        <request index="3" response="010000110" foes="010000110" cont="0"/>
+        <request index="3" response="010000111" foes="010000111" cont="0"/>
         <request index="4" response="010000110" foes="110000110" cont="0"/>
         <request index="5" response="001000100" foes="001000100" cont="1"/>
         <request index="6" response="000000000" foes="000100100" cont="0"/>
-        <request index="7" response="000000010" foes="000011010" cont="1"/>
+        <request index="7" response="000000011" foes="000011011" cont="1"/>
         <request index="8" response="000010010" foes="000010010" cont="1"/>
     </junction>
     <junction id="node_D" type="priority" x="0.00" y="-10.00" incLanes="edge_C2D_0" intLanes=":node_D_0_0" shape="0.05,-10.00 3.25,-10.00 -3.25,-10.00 -0.05,-10.00">

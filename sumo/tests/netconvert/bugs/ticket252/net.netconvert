@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 26 18:43:42 2013 by SUMO netconvert Version dev-SVN-r14205
+<!-- generated on 12/18/12 09:23:44 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -27,7 +27,7 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <offset.x value="-280900"/>
-        <offset.y value="-4.1536e+06"/>
+        <offset.y value="-4.1536e+006"/>
     </processing>
 
 </configuration>
@@ -241,12 +241,12 @@
     <junction id="-7" type="unregulated" x="4244.47" y="3146.49" incLanes="-15_0" intLanes="" shape="4243.12,3143.53 4244.45,3146.44"/>
     <junction id="-9" type="unregulated" x="4421.76" y="3443.90" incLanes="38232907_0" intLanes="" shape="4423.35,3443.75 4420.16,3444.04"/>
     <junction id="29933572" type="priority" x="4414.95" y="2718.20" incLanes="37961316#1_0 37961316#1_1 37961316#1_2 38232910#0_0 38232910#0_1 38232910#0_2" intLanes=":29933572_0_0 :29933572_1_0 :29933572_2_0 :29933572_3_0 :29933572_4_0 :29933572_5_0" shape="4420.05,2717.75 4410.46,2715.74 4409.84,2718.52 4419.37,2720.77">
-        <request index="0" response="000000" foes="001000" cont="0"/>
-        <request index="1" response="000000" foes="011000" cont="0"/>
+        <request index="0" response="000000" foes="111000" cont="0"/>
+        <request index="1" response="000000" foes="111000" cont="0"/>
         <request index="2" response="000000" foes="111000" cont="0"/>
         <request index="3" response="000111" foes="000111" cont="0"/>
-        <request index="4" response="000110" foes="000110" cont="0"/>
-        <request index="5" response="000100" foes="000100" cont="0"/>
+        <request index="4" response="000111" foes="000111" cont="0"/>
+        <request index="5" response="000111" foes="000111" cont="0"/>
     </junction>
     <junction id="29933574" type="priority" x="4517.55" y="2225.18" incLanes="38232910#1_0 38232910#1_1 38232910#1_2" intLanes=":29933574_0_0 :29933574_1_0 :29933574_2_0 :29933574_3_0" shape="4522.64,2224.67 4513.03,2222.76 4512.44,2225.66 4522.04,2227.64">
         <request index="0" response="0000" foes="0000" cont="0"/>
@@ -281,14 +281,14 @@
     <junction id="49609811" type="dead_end" x="4420.70" y="3100.94" incLanes="6033364#1_0" intLanes="" shape="4420.71,3100.99 4421.53,3104.08 4419.86,3097.80 4420.69,3100.89"/>
     <junction id="49613186" type="unregulated" x="4510.41" y="-362.93" incLanes="" intLanes="" shape="4505.69,-361.62 4515.13,-364.24"/>
     <junction id="49613629" type="priority" x="4148.34" y="3227.84" incLanes="6034273#0_0 6034273#0_1 -6033364#0_0 -6034273#1_0 -6034273#1_1" intLanes=":49613629_0_0 :49613629_1_0 :49613629_8_0 :49613629_3_0 :49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_7_0" shape="4142.44,3231.39 4155.20,3228.42 4158.46,3224.21 4154.52,3219.04 4153.01,3218.48 4140.21,3221.26">
-        <request index="0" response="00000000" foes="00000000" cont="0"/>
+        <request index="0" response="00000000" foes="00010000" cont="0"/>
         <request index="1" response="00000000" foes="00010000" cont="0"/>
         <request index="2" response="11100000" foes="11110000" cont="1"/>
-        <request index="3" response="01000000" foes="01000000" cont="0"/>
-        <request index="4" response="11000110" foes="11000110" cont="0"/>
+        <request index="3" response="11000000" foes="11000000" cont="0"/>
+        <request index="4" response="11000111" foes="11000111" cont="0"/>
         <request index="5" response="00000000" foes="00000100" cont="0"/>
         <request index="6" response="00000000" foes="00011100" cont="0"/>
-        <request index="7" response="00000000" foes="00010100" cont="0"/>
+        <request index="7" response="00000000" foes="00011100" cont="0"/>
     </junction>
     <junction id="49613631" type="right_before_left" x="4216.05" y="3176.19" incLanes="6040380_0 -6033364#1_0 6033364#0_0" intLanes=":49613631_0_0 :49613631_1_0 :49613631_2_0 :49613631_3_0 :49613631_4_0 :49613631_5_0" shape="4216.66,3182.05 4221.69,3177.93 4221.94,3175.88 4218.07,3170.66 4210.40,3176.42 4214.34,3181.59">
         <request index="0" response="000000" foes="001000" cont="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 26 18:43:38 2013 by SUMO netconvert Version dev-SVN-r14205
+<!-- generated on Wed Mar 13 12:12:08 2013 by SUMO netconvert Version dev-SVN-r13478
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -143,17 +143,17 @@
     <junction id="492462300" type="unregulated" x="1.87" y="40.76" incLanes="" intLanes="" shape="1.70,42.35 2.04,39.17"/>
     <junction id="56231397" type="traffic_light" x="45.80" y="46.84" incLanes="27441289.95_0 27441289.95_1 27441168_0" intLanes=":56231397_0_0 :56231397_1_0 :56231397_2_0 :56231397_3_0 :56231397_4_0" shape="51.43,53.00 54.14,47.09 53.23,45.04 47.02,43.10 41.59,44.10 40.79,47.19 41.28,51.17 47.55,52.85">
         <request index="0" response="00000" foes="00000" cont="0"/>
-        <request index="1" response="00000" foes="01000" cont="0"/>
+        <request index="1" response="00000" foes="11000" cont="0"/>
         <request index="2" response="00000" foes="11000" cont="0"/>
         <request index="3" response="00110" foes="00110" cont="0"/>
-        <request index="4" response="00100" foes="00100" cont="0"/>
+        <request index="4" response="00110" foes="00110" cont="0"/>
     </junction>
     <junction id="567607201" type="unregulated" x="92.46" y="68.26" incLanes="27445015#0_0 27445015#0_1" intLanes="" shape="93.82,65.31 91.10,71.21"/>
     <junction id="59993001" type="traffic_light" x="36.97" y="44.55" incLanes="46039050_0 6137245_0 6137245_1" intLanes=":59993001_0_0 :59993001_1_0 :59993001_2_0 :59993001_3_0 :59993001_4_0" shape="41.30,47.33 42.11,44.23 37.69,41.53 31.39,39.93 29.30,42.11 28.96,45.29 33.19,47.31 39.59,48.43">
-        <request index="0" response="00000" foes="00100" cont="0"/>
+        <request index="0" response="00000" foes="01100" cont="0"/>
         <request index="1" response="00000" foes="11100" cont="0"/>
         <request index="2" response="00011" foes="00011" cont="0"/>
-        <request index="3" response="00010" foes="00010" cont="0"/>
+        <request index="3" response="00011" foes="00011" cont="0"/>
         <request index="4" response="00010" foes="00010" cont="0"/>
     </junction>
     <junction id="945141569" type="unregulated" x="0.00" y="51.05" incLanes="27445000#0_0" intLanes="" shape="-0.17,52.64 0.17,49.46"/>

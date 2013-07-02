@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 26 17:30:01 2013 by SUMO netconvert Version dev-SVN-r14205
+<!-- generated on 12/18/12 09:22:09 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -89,16 +89,16 @@
     </edge>
 
     <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 2i_0 2i_1 2i_2 3i_0" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0" shape="46.75,61.35 53.25,61.35 54.75,59.85 54.75,50.05 53.25,48.55 46.75,48.55 45.25,50.05 45.25,59.85">
-        <request index="0" response="00000010000" foes="00000010000" cont="0"/>
+        <request index="0" response="00001110000" foes="01001110000" cont="0"/>
         <request index="1" response="00011110000" foes="11011110000" cont="0"/>
         <request index="2" response="00100001000" foes="00100001000" cont="0"/>
         <request index="3" response="00000000000" foes="00100000100" cont="0"/>
-        <request index="4" response="00000000000" foes="00100000011" cont="0"/>
-        <request index="5" response="00000000000" foes="00100000010" cont="0"/>
-        <request index="6" response="00000000000" foes="01100000010" cont="0"/>
+        <request index="4" response="00000000000" foes="01100000011" cont="0"/>
+        <request index="5" response="00000000000" foes="01100000011" cont="0"/>
+        <request index="6" response="00000000000" foes="01100000011" cont="0"/>
         <request index="7" response="00000000000" foes="11100000010" cont="0"/>
         <request index="8" response="00011111000" foes="00011111100" cont="0"/>
-        <request index="9" response="00011000010" foes="00011000010" cont="0"/>
+        <request index="9" response="00011110011" foes="00011110011" cont="0"/>
         <request index="10" response="00010000010" foes="00010000010" cont="0"/>
     </junction>
     <junction id="1" type="unregulated" x="0.00" y="50.00" incLanes="1o_0 1o_1 1o_2" intLanes="" shape="0.00,59.85 0.00,50.05"/>

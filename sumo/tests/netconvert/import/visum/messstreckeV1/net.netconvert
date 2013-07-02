@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 26 18:43:03 2013 by SUMO netconvert Version dev-SVN-r14205
+<!-- generated on Wed Mar 13 09:52:14 2013 by SUMO netconvert Version dev-SVN-r13478
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -544,12 +544,12 @@
     <junction id="2" type="priority" x="461.00" y="576.00" incLanes="-22_0 -22_1 1_0 1_1 -10_0" intLanes=":2_0_0 :2_1_0 :2_2_0 :2_3_0 :2_4_0 :2_8_0 :2_6_0 :2_7_0" shape="464.51,582.26 463.32,569.21 452.75,570.62 454.70,583.57 455.89,584.82 462.26,586.12">
         <request index="0" response="00000000" foes="00100000" cont="0"/>
         <request index="1" response="00000000" foes="11100000" cont="0"/>
-        <request index="2" response="00000000" foes="10100000" cont="0"/>
-        <request index="3" response="00000000" foes="00000000" cont="0"/>
+        <request index="2" response="00000000" foes="11100000" cont="0"/>
+        <request index="3" response="00000000" foes="10000000" cont="0"/>
         <request index="4" response="00000000" foes="10000000" cont="0"/>
         <request index="5" response="00000111" foes="10000111" cont="1"/>
-        <request index="6" response="00000010" foes="00000010" cont="0"/>
-        <request index="7" response="00110110" foes="00110110" cont="0"/>
+        <request index="6" response="00000110" foes="00000110" cont="0"/>
+        <request index="7" response="00111110" foes="00111110" cont="0"/>
     </junction>
     <junction id="20" type="priority" x="1751.00" y="0.00" incLanes="20_0" intLanes=":20_0_0" shape="1751.05,-0.02 1754.06,-1.10 1747.94,1.10 1750.95,0.02">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -579,37 +579,37 @@
     </junction>
     <junction id="3" type="priority" x="898.00" y="544.00" incLanes="-24_0 -24_1 -24_2 -27_0 -21_0 -21_1 -26_0 -26_1 -26_2" intLanes=":3_0_0 :3_1_0 :3_2_0 :3_15_0 :3_4_0 :3_5_0 :3_6_0 :3_7_0 :3_8_0 :3_9_0 :3_16_0 :3_11_0 :3_12_0 :3_13_0 :3_14_0" shape="904.66,553.07 902.55,536.80 901.02,535.50 894.52,535.67 885.70,538.20 886.51,551.28 887.94,554.78 901.04,555.03">
         <request index="0" response="000000000000000" foes="000010000100000" cont="0"/>
-        <request index="1" response="000000000000000" foes="111110000100000" cont="0"/>
-        <request index="2" response="000000000000000" foes="111010001100000" cont="0"/>
+        <request index="1" response="000000000000000" foes="111110001100000" cont="0"/>
+        <request index="2" response="000000000000000" foes="111110001100000" cont="0"/>
         <request index="3" response="000001110000000" foes="110001111100000" cont="1"/>
-        <request index="4" response="000000100000000" foes="000000100000000" cont="0"/>
+        <request index="4" response="000001100000000" foes="100001100000000" cont="0"/>
         <request index="5" response="000011100001111" foes="100011100001111" cont="0"/>
-        <request index="6" response="011011100001100" foes="011011100001100" cont="0"/>
+        <request index="6" response="011111100001110" foes="011111100001110" cont="0"/>
         <request index="7" response="000000000000000" foes="010000000001000" cont="0"/>
-        <request index="8" response="000000000000000" foes="010000001111000" cont="0"/>
-        <request index="9" response="000000000000000" foes="110000001101000" cont="0"/>
+        <request index="8" response="000000000000000" foes="110000001111000" cont="0"/>
+        <request index="9" response="000000000000000" foes="110000001111000" cont="0"/>
         <request index="10" response="000000000000111" foes="110000001100111" cont="1"/>
-        <request index="11" response="000000000000010" foes="000000000000010" cont="0"/>
+        <request index="11" response="000000000000110" foes="000000001000110" cont="0"/>
         <request index="12" response="000000000000110" foes="000000001000110" cont="0"/>
         <request index="13" response="000011110001110" foes="000011111001110" cont="0"/>
-        <request index="14" response="000011000101110" foes="000011000101110" cont="0"/>
+        <request index="14" response="000011100111110" foes="000011100111110" cont="0"/>
     </junction>
     <junction id="4" type="priority" x="1060.00" y="521.00" incLanes="-4_0 -4_1 -23_0 -23_1 -13_0" intLanes=":4_0_0 :4_1_0 :4_2_0 :4_3_0 :4_4_0 :4_8_0 :4_6_0 :4_7_0" shape="1064.15,527.26 1063.19,514.20 1052.48,515.58 1054.56,528.51 1055.90,529.77 1062.37,530.38">
         <request index="0" response="00000000" foes="00100000" cont="0"/>
         <request index="1" response="00000000" foes="11100000" cont="0"/>
-        <request index="2" response="00000000" foes="10100000" cont="0"/>
-        <request index="3" response="00000000" foes="00000000" cont="0"/>
+        <request index="2" response="00000000" foes="11100000" cont="0"/>
+        <request index="3" response="00000000" foes="10000000" cont="0"/>
         <request index="4" response="00000000" foes="10000000" cont="0"/>
         <request index="5" response="00000111" foes="10000111" cont="1"/>
-        <request index="6" response="00000010" foes="00000010" cont="0"/>
-        <request index="7" response="00110110" foes="00110110" cont="0"/>
+        <request index="6" response="00000110" foes="00000110" cont="0"/>
+        <request index="7" response="00111110" foes="00111110" cont="0"/>
     </junction>
     <junction id="5" type="priority" x="1532.00" y="486.00" incLanes="17_0 17_1 -5_0 -5_1 4_0 4_1" intLanes=":5_0_0 :5_1_0 :5_2_0 :5_3_0 :5_4_0 :5_5_0" shape="1525.45,494.55 1531.95,494.55 1533.45,492.55 1533.45,479.45 1522.99,480.10 1523.95,493.16">
-        <request index="0" response="000100" foes="000100" cont="0"/>
-        <request index="1" response="101100" foes="101100" cont="0"/>
+        <request index="0" response="001100" foes="001100" cont="0"/>
+        <request index="1" response="111100" foes="111100" cont="0"/>
         <request index="2" response="000000" foes="000011" cont="0"/>
-        <request index="3" response="000000" foes="000010" cont="0"/>
-        <request index="4" response="000000" foes="000000" cont="0"/>
+        <request index="3" response="000000" foes="000011" cont="0"/>
+        <request index="4" response="000000" foes="000010" cont="0"/>
         <request index="5" response="000000" foes="000010" cont="0"/>
     </junction>
     <junction id="6" type="priority" x="1555.00" y="486.00" incLanes="-6_0 -6_1 5_0 5_1" intLanes=":6_0_0 :6_1_0 :6_2_0 :6_3_0 :6_4_0 :6_6_0" shape="1556.22,494.28 1562.65,493.38 1563.94,491.75 1562.73,478.71 1553.20,479.45 1553.20,492.55">
@@ -621,12 +621,12 @@
         <request index="5" response="000110" foes="000110" cont="1"/>
     </junction>
     <junction id="7" type="priority" x="1924.00" y="452.00" incLanes="-19_0 -7_0 -7_1 6_0 6_1" intLanes=":7_0_0 :7_1_0 :7_2_0 :7_3_0 :7_4_0 :7_5_0 :7_6_0 :7_8_0" shape="1922.18,460.84 1928.59,459.77 1929.84,458.20 1929.04,445.13 1919.14,445.87 1920.34,458.91">
-        <request index="0" response="00001000" foes="00001000" cont="0"/>
-        <request index="1" response="11011000" foes="11011000" cont="0"/>
+        <request index="0" response="00011000" foes="00011000" cont="0"/>
+        <request index="1" response="11111000" foes="11111000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>
         <request index="3" response="00000000" foes="10000011" cont="0"/>
-        <request index="4" response="00000000" foes="10000010" cont="0"/>
-        <request index="5" response="00000000" foes="00000000" cont="0"/>
+        <request index="4" response="00000000" foes="10000011" cont="0"/>
+        <request index="5" response="00000000" foes="00000010" cont="0"/>
         <request index="6" response="00000000" foes="00000010" cont="0"/>
         <request index="7" response="00011100" foes="00011110" cont="1"/>
     </junction>

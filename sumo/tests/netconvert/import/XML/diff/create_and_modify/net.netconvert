@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 26 17:30:22 2013 by SUMO netconvert Version dev-SVN-r14205
+<!-- generated on 12/18/12 09:22:40 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -153,17 +153,17 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="node_C" type="traffic_light" x="0.00" y="10.00" incLanes="edge_U2C_0 edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_12_0 :node_C_13_0 :node_C_4_0 :node_C_5_0 :node_C_14_0 :node_C_15_0 :node_C_8_0 :node_C_9_0 :node_C_16_0 :node_C_17_0" shape="-3.25,13.70 -0.05,13.70 1.90,15.55 4.94,14.54 6.68,12.27 4.60,8.00 3.25,3.70 -3.25,3.70 -4.64,4.64 -7.06,10.68">
-        <request index="0" response="000000000000" foes="000000000000" cont="0"/>
+        <request index="0" response="000000000000" foes="010000100000" cont="0"/>
         <request index="1" response="000000000000" foes="110001100000" cont="0"/>
         <request index="2" response="001100000000" foes="001111100000" cont="1"/>
         <request index="3" response="001000010000" foes="001000010000" cont="1"/>
         <request index="4" response="001000000000" foes="001000001000" cont="0"/>
-        <request index="5" response="011000000110" foes="011000000110" cont="0"/>
+        <request index="5" response="011000000111" foes="011000000111" cont="0"/>
         <request index="6" response="011000000110" foes="111000000110" cont="1"/>
         <request index="7" response="000100000100" foes="000100000100" cont="1"/>
         <request index="8" response="000000000000" foes="000010000100" cont="0"/>
         <request index="9" response="000000000000" foes="000001111100" cont="0"/>
-        <request index="10" response="000000000010" foes="000001100010" cont="1"/>
+        <request index="10" response="000000000011" foes="000001100011" cont="1"/>
         <request index="11" response="000001000010" foes="000001000010" cont="1"/>
     </junction>
     <junction id="node_D" type="priority" x="0.00" y="-10.00" incLanes="edge_C2D_0" intLanes=":node_D_0_0" shape="0.05,-10.00 3.25,-10.00 -3.25,-10.00 -0.05,-10.00">

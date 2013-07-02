@@ -252,6 +252,12 @@
         <!-- Determines the maximal distance for joining junctions (defaults to 10) -->
         <junctions.join-dist value="10" type="FLOAT"/>
 
+        <!-- Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts) -->
+        <check-lane-foes.roundabout value="true" type="BOOL"/>
+
+        <!-- Allow driving onto a multi-lane road if there are foes on other lanes (everywhere) -->
+        <check-lane-foes.all value="false" type="BOOL"/>
+
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
 

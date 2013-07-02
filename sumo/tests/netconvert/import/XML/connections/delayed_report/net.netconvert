@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 26 18:42:46 2013 by SUMO netconvert Version dev-SVN-r14205
+<!-- generated on 12/18/12 09:22:19 by SUMO netconvert Version dev-SVN-r13169
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -181,23 +181,23 @@
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
     <junction id="cluster_42717004_42717128_42717332_42717527" type="traffic_light" x="195.90" y="403.63" incLanes="7152678.-165_0 7152678.-165_1 7152678.-165_2 7152678.-165_3 7152615_0 7152615_1 7152689_0 7152689_1 7152674_0 7152674_1" intLanes=":cluster_42717004_42717128_42717332_42717527_0_0 :cluster_42717004_42717128_42717332_42717527_1_0 :cluster_42717004_42717128_42717332_42717527_2_0 :cluster_42717004_42717128_42717332_42717527_17_0 :cluster_42717004_42717128_42717332_42717527_4_0 :cluster_42717004_42717128_42717332_42717527_5_0 :cluster_42717004_42717128_42717332_42717527_18_0 :cluster_42717004_42717128_42717332_42717527_19_0 :cluster_42717004_42717128_42717332_42717527_8_0 :cluster_42717004_42717128_42717332_42717527_9_0 :cluster_42717004_42717128_42717332_42717527_10_0 :cluster_42717004_42717128_42717332_42717527_20_0 :cluster_42717004_42717128_42717332_42717527_21_0 :cluster_42717004_42717128_42717332_42717527_13_0 :cluster_42717004_42717128_42717332_42717527_14_0 :cluster_42717004_42717128_42717332_42717527_22_0 :cluster_42717004_42717128_42717332_42717527_23_0" shape="208.13,426.94 217.79,394.53 216.91,392.71 188.72,381.10 184.98,383.94 175.01,412.76 175.40,415.97 202.00,426.66">
-        <request index="0" response="00000000000000000" foes="00000000000000000" cont="0"/>
-        <request index="1" response="00000000000000000" foes="01110100000100000" cont="0"/>
-        <request index="2" response="00000000000000000" foes="01101100001100000" cont="0"/>
-        <request index="3" response="00000011000000000" foes="01100011011100000" cont="1"/>
-        <request index="4" response="00000001000000000" foes="00000001000000000" cont="0"/>
-        <request index="5" response="00000111000001110" foes="11000111000001110" cont="0"/>
-        <request index="6" response="00100111000001100" foes="00101111000001100" cont="1"/>
-        <request index="7" response="00100000000001000" foes="00100000000001000" cont="1"/>
-        <request index="8" response="00000000000000000" foes="00000000000000000" cont="0"/>
-        <request index="9" response="00000000000000000" foes="00100000001111000" cont="0"/>
-        <request index="10" response="00000000000000000" foes="01100000001101000" cont="0"/>
-        <request index="11" response="00000000000000110" foes="11100000001100110" cont="1"/>
-        <request index="12" response="00000000001000100" foes="00000000001000100" cont="1"/>
-        <request index="13" response="00000000000000010" foes="00000000000000010" cont="0"/>
-        <request index="14" response="00000111000001110" foes="00000111011001110" cont="0"/>
-        <request index="15" response="00000110000101110" foes="00000110000101110" cont="1"/>
-        <request index="16" response="00000100000100000" foes="00000100000100000" cont="1"/>
+        <request index="0" response="00000000000000000" foes="10000100000100000" cont="0"/>
+        <request index="1" response="00000000000000000" foes="01111100001100000" cont="0"/>
+        <request index="2" response="00000000000000000" foes="01111100001100000" cont="0"/>
+        <request index="3" response="00000011100000000" foes="01100011111100000" cont="1"/>
+        <request index="4" response="00000011000000000" foes="01000011000000000" cont="0"/>
+        <request index="5" response="00000111000001111" foes="11000111000001111" cont="0"/>
+        <request index="6" response="00110111000001110" foes="00111111000001110" cont="1"/>
+        <request index="7" response="00100000100001000" foes="00100000100001000" cont="1"/>
+        <request index="8" response="00000000000000000" foes="00100000010001000" cont="0"/>
+        <request index="9" response="00000000000000000" foes="01100000001111000" cont="0"/>
+        <request index="10" response="00000000000000000" foes="01100000001111000" cont="0"/>
+        <request index="11" response="00000000000000111" foes="11100000001100111" cont="1"/>
+        <request index="12" response="00010000001000110" foes="00010000001000110" cont="1"/>
+        <request index="13" response="00000000000000110" foes="00001000001000110" cont="0"/>
+        <request index="14" response="00000111100001110" foes="00000111111001110" cont="0"/>
+        <request index="15" response="00000111000111110" foes="00000111000111110" cont="1"/>
+        <request index="16" response="00000100000100001" foes="00000100000100001" cont="1"/>
     </junction>
 
     <junction id=":cluster_42717004_42717128_42717332_42717527_17_0" type="internal" x="203.99" y="412.60" incLanes=":cluster_42717004_42717128_42717332_42717527_3_0 7152689_0 7152689_1" intLanes=":cluster_42717004_42717128_42717332_42717527_5_0 :cluster_42717004_42717128_42717332_42717527_6_0 :cluster_42717004_42717128_42717332_42717527_7_0 :cluster_42717004_42717128_42717332_42717527_8_0 :cluster_42717004_42717128_42717332_42717527_9_0 :cluster_42717004_42717128_42717332_42717527_10_0 :cluster_42717004_42717128_42717332_42717527_14_0 :cluster_42717004_42717128_42717332_42717527_15_0"/>
