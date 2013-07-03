@@ -74,36 +74,47 @@ public:
 
 
     /**
-     * relative_edge_sorter
+     * relative_outgoing_edge_sorter
      * Class to sort edges by their angle in relation to the node the
      * edge using this class is incoming into. This is normally done to
      * sort edges outgoing from the node the using edge is incoming in
      * by their angle in relation to the using edge's angle (this angle
      * is the reference angle).
      */
-    class relative_edge_sorter {
+    class relative_outgoing_edge_sorter {
     public:
         /// constructor
-        explicit relative_edge_sorter(NBEdge* e)
-            : myEdge(e) {}
+        explicit relative_outgoing_edge_sorter(NBEdge* e) : myEdge(e) {}
 
     public:
         /// comparing operation
-        int operator()(NBEdge* e1, NBEdge* e2) const {
-            if (e1 == 0 || e2 == 0) {
-                return -1;
-            }
-            SUMOReal relAngle1 = NBHelpers::normRelAngle(
-                                     myEdge->getAngle(), e1->getAngle());
-            SUMOReal relAngle2 = NBHelpers::normRelAngle(
-                                     myEdge->getAngle(), e2->getAngle());
-            return relAngle1 > relAngle2;
-        }
+        int operator()(NBEdge* e1, NBEdge* e2) const;
 
     private:
         /// the edge to compute the relative angle of
         NBEdge* myEdge;
+    };
 
+
+    /**
+     * relative_incoming_edge_sorter
+     * Class to sort edges by their angle in relation to an outgoing edge. 
+     * This is normally done to sort edges incoming at the starting node of this edge
+     * by their angle in relation to the using edge's angle (this angle
+     * is the reference angle).
+     */
+    class relative_incoming_edge_sorter {
+    public:
+        /// constructor
+        explicit relative_incoming_edge_sorter(NBEdge* e) : myEdge(e) {}
+
+    public:
+        /// comparing operation
+        int operator()(NBEdge* e1, NBEdge* e2) const;
+
+    private:
+        /// the edge to compute the relative angle of
+        NBEdge* myEdge;
     };
 
 
@@ -205,12 +216,12 @@ public:
     public:
         /// constructor
         explicit edge_similar_direction_sorter(const NBEdge* const e)
-            : myAngle(e->getAngle()) {}
+            : myAngle(e->getTotalAngle()) {}
 
         /// comparing operation
         int operator()(NBEdge* e1, NBEdge* e2) const {
-            SUMOReal d1 = GeomHelper::getMinAngleDiff(e1->getAngle(), myAngle);
-            SUMOReal d2 = GeomHelper::getMinAngleDiff(e2->getAngle(), myAngle);
+            SUMOReal d1 = GeomHelper::getMinAngleDiff(e1->getTotalAngle(), myAngle);
+            SUMOReal d2 = GeomHelper::getMinAngleDiff(e2->getTotalAngle(), myAngle);
             return d1 < d2;
         }
 
@@ -324,7 +335,7 @@ public:
             const EdgeVector& ev = e->getConnectedEdges();
             for (EdgeVector::const_iterator i = ev.begin(); i != ev.end(); ++i) {
                 SUMOReal angle = NBHelpers::normRelAngle(
-                                     e->getAngle(), (*i)->getAngle());
+                                     e->getTotalAngle(), (*i)->getTotalAngle());
                 if (min == 360 || min > angle) {
                     min = angle;
                 }

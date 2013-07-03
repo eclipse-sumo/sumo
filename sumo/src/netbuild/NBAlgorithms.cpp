@@ -320,13 +320,13 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     for (i = bestIncoming.begin(); i != bestIncoming.end(); ++i) {
         EdgeVector::iterator j;
         NBEdge* t1 = *i;
-        SUMOReal angle1 = t1->getAngle() + 180;
+        SUMOReal angle1 = t1->getTotalAngle() + 180;
         if (angle1 >= 360) {
             angle1 -= 360;
         }
         for (j = i + 1; j != bestIncoming.end(); ++j) {
             NBEdge* t2 = *j;
-            SUMOReal angle2 = t2->getAngle() + 180;
+            SUMOReal angle2 = t2->getTotalAngle() + 180;
             if (angle2 >= 360) {
                 angle2 -= 360;
             }

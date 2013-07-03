@@ -64,6 +64,7 @@
 const SUMOReal NBEdge::UNSPECIFIED_WIDTH = -1;
 const SUMOReal NBEdge::UNSPECIFIED_LOADED_LENGTH = -1;
 const SUMOReal NBEdge::UNSPECIFIED_OFFSET = 0;
+const SUMOReal NBEdge::ANGLE_LOOKAHEAD = 10.0;
 
 // ===========================================================================
 // method definitions
@@ -155,6 +156,17 @@ NBEdge::MainDirections::includes(Direction d) const {
 }
 
 
+/* -------------------------------------------------------------------------
+ * NBEdge::connections_relative_edgelane_sorter-methods
+ * ----------------------------------------------------------------------- */
+int 
+NBEdge::connections_relative_edgelane_sorter::operator()(const Connection& c1, const Connection& c2) const {
+    if (c1.toEdge != c2.toEdge) {
+        return NBContHelper::relative_outgoing_edge_sorter(myEdge)(c1.toEdge, c2.toEdge);
+    }
+    return c1.toLane < c2.toLane;
+}
+
 
 /* -------------------------------------------------------------------------
  * NBEdge-methods
@@ -167,7 +179,8 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
     myType(StringUtils::convertUmlaute(type)),
-    myFrom(from), myTo(to), myAngle(0),
+    myFrom(from), myTo(to), 
+    myStartAngle(0), myEndAngle(0), myTotalAngle(0),
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
@@ -188,7 +201,8 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
     myType(StringUtils::convertUmlaute(type)),
-    myFrom(from), myTo(to), myAngle(0),
+    myFrom(from), myTo(to), 
+    myStartAngle(0), myEndAngle(0), myTotalAngle(0),
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
@@ -204,7 +218,8 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
     myType(tpl->getTypeID()),
-    myFrom(from), myTo(to), myAngle(0),
+    myFrom(from), myTo(to), 
+    myStartAngle(0), myEndAngle(0), myTotalAngle(0),
     myPriority(tpl->getPriority()), mySpeed(tpl->getSpeed()),
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
@@ -304,10 +319,6 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) {
         myGeom[1].add(Position(POSITION_EPS, POSITION_EPS));
     }
     //
-    myAngle = NBHelpers::angle(
-                  myFrom->getPosition().x(), myFrom->getPosition().y(),
-                  myTo->getPosition().x(), myTo->getPosition().y()
-              );
     myFrom->addOutgoingEdge(this);
     myTo->addIncomingEdge(this);
     // prepare container
@@ -318,6 +329,7 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) {
         myLanes.push_back(Lane(this));
     }
     computeLaneShapes();
+    computeAngle();
 }
 
 
@@ -367,6 +379,7 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
         myGeom.push_back(end);
     }
     computeLaneShapes();
+    computeAngle();
 }
 
 
@@ -698,7 +711,7 @@ NBEdge::getConnectedSorted() {
             edges->push_back(outedge);
         }
     }
-    sort(edges->begin(), edges->end(), NBContHelper::relative_edge_sorter(this));
+    sort(edges->begin(), edges->end(), NBContHelper::relative_outgoing_edge_sorter(this));
     return edges;
 }
 
@@ -731,7 +744,7 @@ NBEdge::getConnectionLanes(NBEdge* currentOutgoing) const {
 
 void
 NBEdge::sortOutgoingConnectionsByAngle() {
-    sort(myConnections.begin(), myConnections.end(), connections_relative_edgelane_sorter(this, myTo));
+    sort(myConnections.begin(), myConnections.end(), connections_relative_edgelane_sorter(this));
 }
 
 
@@ -1061,6 +1074,7 @@ NBEdge::setJunctionPriority(const NBNode* const node, int prio) {
 
 SUMOReal
 NBEdge::getAngleAtNode(const NBNode* const atNode) const {
+    // myStartAngle, myEndAngle are in [0,360] and this returns results in [-180,180]
     if (atNode == myFrom) {
         return myGeom.getBegLine().atan2DegreeAngle();
     } else {
@@ -1198,6 +1212,25 @@ NBEdge::laneOffset(const Position& from, const Position& to, SUMOReal laneCenter
     } else {
         return std::pair<SUMOReal, SUMOReal>(offsets.first, offsets.second);
     }
+}
+
+
+void 
+NBEdge::computeAngle() {
+    // taking the angle at the first might be unstable, thus we take the angle
+    // at a certain distance. (To compare two edges, additional geometry
+    // segments are considered to resolve ambiguities)
+    const Position referencePosStart = myGeom.positionAtOffset2D(ANGLE_LOOKAHEAD);
+    myStartAngle = NBHelpers::angle(
+            myFrom->getPosition().x(), myFrom->getPosition().y(),
+            referencePosStart.x(), referencePosStart.y());
+    const Position referencePosEnd = myGeom.positionAtOffset2D(myGeom.length() - ANGLE_LOOKAHEAD);
+    myEndAngle = NBHelpers::angle(
+            referencePosEnd.x(), referencePosEnd.y(),
+            myTo->getPosition().x(), myTo->getPosition().y());
+    myTotalAngle = NBHelpers::angle(
+            myFrom->getPosition().x(), myFrom->getPosition().y(),
+            myTo->getPosition().x(), myTo->getPosition().y());
 }
 
 
