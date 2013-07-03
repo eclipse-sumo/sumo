@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue 02 Jul 2013 04:01:20 PM CEST by Netedit Version dev-SVN-r14256
+<!-- generated on Wed 03 Jul 2013 11:17:59 AM CEST by Netedit Version dev-SVN-r14256
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="/scr1/erdm_ja/debug/936/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="/scr1/erdm_ja/debug/936/net.netconvert"/>
         <plain-output-prefix value="/scr1/erdm_ja/debug/936/input_plain"/>
     </output>
 
@@ -23,10 +23,10 @@
 -->
 
 <nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
-    <location netOffset="26.66,-12.78" convBoundary="0.00,0.00,171.45,74.16" origBoundary="0.00,0.00,2415.53,1274.55" projParameter="!"/>
+    <location netOffset="26.66,-2.78" convBoundary="0.00,0.00,200.00,50.00" origBoundary="0.00,0.00,2415.53,1274.55" projParameter="!"/>
 
-    <node id="gneJ0" x="0.00" y="0.00" type="unregulated"/>
-    <node id="gneJ1" x="100.00" y="0.00" type="priority"/>
-    <node id="gneJ2" x="200.00" y="0.00" type="unregulated"/>
-    <node id="gneJ3" x="200.00" y="40.00" type="unregulated"/>
+    <node id="gneJ0" x="0.00" y="10.00" type="unregulated"/>
+    <node id="gneJ1" x="100.00" y="10.00" type="priority"/>
+    <node id="gneJ2" x="200.00" y="10.00" type="unregulated"/>
+    <node id="gneJ3" x="200.00" y="50.00" type="unregulated"/>
 </nodes>
