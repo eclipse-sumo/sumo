@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed 03 Jul 2013 11:16:16 AM CEST by Netedit Version dev-SVN-r14256
+<!-- generated on Wed Jul  3 11:20:57 2013 by SUMO netconvert Version dev-SVN-r14256
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/scr1/erdm_ja/debug/936/net2.net.xml"/>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr1/erdm_ja/debug/936/net.netconvert"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
         <no-internal-links value="true"/>
-        <no-turnarounds value="true"/>
-        <offset.disable-normalization value="false"/>
+        <check-lane-foes.all value="true"/>
     </processing>
 
 </configuration>
@@ -48,8 +48,8 @@
     <junction id="gneJ2" type="unregulated" x="200.00" y="10.00" incLanes="main2_0 main2_1" intLanes="" shape="200.00,3.45 200.00,9.95"/>
     <junction id="gneJ3" type="unregulated" x="200.00" y="50.00" incLanes="ramp_0" intLanes="" shape="202.70,48.20 200.04,49.97"/>
 
-    <connection from="main1" to="ramp" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="main1" to="main2" fromLane="1" toLane="0" dir="s" state="M"/>
-    <connection from="main1" to="main2" fromLane="2" toLane="1" dir="s" state="M"/>
+    <connection from="main1" to="ramp" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
+    <connection from="main1" to="main2" fromLane="1" toLane="0" pass="1" dir="s" state="M"/>
+    <connection from="main1" to="main2" fromLane="2" toLane="1" pass="1" dir="s" state="M"/>
 
 </net>

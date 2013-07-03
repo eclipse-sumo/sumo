@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri May 24 16:29:07 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Wed Jul  3 13:27:04 2013 by SUMO netconvert Version dev-SVN-r14256
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -945,10 +945,10 @@
     <junction id="29-DestinationNode" type="unregulated" x="1215.21" y="1529.17" incLanes="29_0" intLanes="" shape="1213.98,1528.15 1216.43,1530.20"/>
     <junction id="29-SourceNode" type="unregulated" x="1180.34" y="1570.73" incLanes="" intLanes="" shape="1181.57,1571.76 1179.12,1569.70"/>
     <junction id="3" type="priority" x="1555.39" y="1921.66" incLanes="3[1][0]_0 3[1][0]_1 69_0 69_1 71_0 71_1 71_2 71_3 6[1][1][1][1][1][1][1][0]_0 6[1][1][1][1][1][1][1][0]_1 72_0 73_0 70_0 70_1 65[1][0]_0 65[1][0]_1 67_0 66_0" intLanes="" shape="1551.51,1885.48 1558.01,1885.36 1569.80,1937.40 1571.10,1926.17 1573.00,1922.95 1560.92,1911.16 1560.08,1910.76 1553.63,1909.92 1558.80,1879.92 1528.00,1890.65 1595.74,1904.87 1593.57,1910.99 1545.75,1908.42 1543.69,1920.55 1542.95,1922.69 1549.57,1933.02 1547.96,1884.12 1550.91,1885.36">
-        <request index="0" response="110000000000000011000000000" foes="110000000110000011000000000"/>
-        <request index="1" response="110000000000000011000000000" foes="110000000110000011000000000"/>
-        <request index="2" response="111100000000000111000000000" foes="111100000110000111000000000"/>
-        <request index="3" response="001111110000000111000000000" foes="001111110110000111000000000"/>
+        <request index="0" response="111100000000000111000000000" foes="111100000110000111000000000"/>
+        <request index="1" response="001111110000000111000000000" foes="001111110110000111000000000"/>
+        <request index="2" response="110000000000000011000000000" foes="110000000110000011000000000"/>
+        <request index="3" response="110000000000000011000000000" foes="110000000110000011000000000"/>
         <request index="4" response="111100000000000111000000000" foes="111100000110000111000000000"/>
         <request index="5" response="001111111001100111000000000" foes="001111111001111111000000000"/>
         <request index="6" response="001111111001100111000000000" foes="001111111001111111000000000"/>
@@ -956,7 +956,7 @@
         <request index="8" response="000000000000000000000000000" foes="001100000001100000000000000"/>
         <request index="9" response="000000000000000000000000000" foes="111100000111100000001111111"/>
         <request index="10" response="000000000000000000000000000" foes="111100000111100000001111111"/>
-        <request index="11" response="000000000000000000000000000" foes="110000000111100000001111100"/>
+        <request index="11" response="000000000000000000000000000" foes="110000000111100000001110011"/>
         <request index="12" response="000011111000000000001100000" foes="000011111000000000001100000"/>
         <request index="13" response="000011111000000000001100000" foes="000011111000000000001100000"/>
         <request index="14" response="001100000000000111110000000" foes="001111111000000111111100000"/>
@@ -964,14 +964,14 @@
         <request index="16" response="111100000000000111000011111" foes="111111111000000111000011111"/>
         <request index="17" response="111100000000000111000011111" foes="111111111000000111000011111"/>
         <request index="18" response="000000000111100000000000000" foes="000011110111111000001100000"/>
-        <request index="19" response="000000001111100000000000000" foes="000011001111111000001101000"/>
-        <request index="20" response="000000001111100000000000000" foes="000011001111111000001101000"/>
-        <request index="21" response="000000111111100000000000000" foes="000000111111111000001101000"/>
-        <request index="22" response="000000111111100000000000000" foes="000000111111111000001101000"/>
-        <request index="23" response="000000000000000011110000000" foes="110000000111100011111111100"/>
-        <request index="24" response="000000000000000011110000000" foes="110000000111100011111111100"/>
-        <request index="25" response="001100000000000111000000000" foes="001100000110000111000010111"/>
-        <request index="26" response="001100000000000111000000000" foes="001100000110000111000010111"/>
+        <request index="19" response="000000001111100000000000000" foes="000011001111111000001100010"/>
+        <request index="20" response="000000001111100000000000000" foes="000011001111111000001100010"/>
+        <request index="21" response="000000111111100000000000000" foes="000000111111111000001100010"/>
+        <request index="22" response="000000111111100000000000000" foes="000000111111111000001100010"/>
+        <request index="23" response="000000000000000011110000000" foes="110000000111100011111110011"/>
+        <request index="24" response="000000000000000011110000000" foes="110000000111100011111110011"/>
+        <request index="25" response="001100000000000111000000000" foes="001100000110000111000011101"/>
+        <request index="26" response="001100000000000111000000000" foes="001100000110000111000011101"/>
     </junction>
     <junction id="3-begin" type="unregulated" x="1780.18" y="2334.07" incLanes="" intLanes="" shape="1783.01,2332.48 1777.35,2335.66"/>
     <junction id="30" type="priority" x="732.24" y="1306.60" incLanes="30001[1][1][1]_0 30001[1][1][1]_1" intLanes="" shape="735.36,1312.19 738.31,1306.40 738.46,1306.16 735.47,1311.93">
@@ -1405,8 +1405,8 @@
     <connection from="30009[0]" to="30020" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="30009[1][0]" to="30009[1][1][0]" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="30009[1][0]" to="30009[1][1][0]" fromLane="1" toLane="1" dir="s" state="m"/>
-    <connection from="30009[1][1][0]" to="30009[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30009[1][1][0]" to="30010" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="30009[1][1][0]" to="30009[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30009[1][1][0]" to="30009[1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="30009[1][1][1][0]" to="30009[1][1][1][1]" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="30009[1][1][1][0]" to="30009[1][1][1][1]" fromLane="1" toLane="1" dir="l" state="m"/>
@@ -1455,20 +1455,20 @@
     <connection from="3[0]" to="3[1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="3[0]" to="69" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="3[0]" to="69" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="3[1][0]" to="68" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="3[1][0]" to="68" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from="3[1][0]" to="3[1][1][0]" fromLane="0" toLane="0" dir="R" state="m"/>
     <connection from="3[1][0]" to="20004" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="3[1][0]" to="68" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="3[1][0]" to="68" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from="3[1][0]" to="3[1][1][0]" fromLane="1" toLane="1" dir="R" state="m"/>
     <connection from="3[1][1][0]" to="3[1][1][1][0]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="3[1][1][0]" to="3[1][1][1][0]" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="3[1][1][1][0]" to="3[1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="3[1][1][1][0]" to="57" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="3[1][1][1][0]" to="3[1][1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="3[1][1][1][0]" to="57" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="3[1][1][1][1][0]" to="3[1][1][1][1][1][0]" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="3[1][1][1][1][0]" to="3[1][1][1][1][1][0]" fromLane="1" toLane="1" dir="r" state="M"/>
-    <connection from="3[1][1][1][1][1][0]" to="3[1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="3[1][1][1][1][1][0]" to="20001" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="3[1][1][1][1][1][0]" to="3[1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="3[1][1][1][1][1][0]" to="3[1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="3[1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="3[1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="l" state="M"/>
@@ -1481,8 +1481,8 @@
     <connection from="3[1][1][1][1][1][1][1][1][0]" to="1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="r" state="m"/>
-    <connection from="3[1][1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][1][0]" to="20005" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="3[1][1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][1][1]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][1][1]" fromLane="1" toLane="1" dir="l" state="M"/>
@@ -1505,8 +1505,8 @@
     <connection from="56" to="5" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="56" to="5" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="57" to="39" fromLane="0" toLane="0" dir="l" state="m"/>
-    <connection from="65[0]" to="65[1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="65[0]" to="66" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="65[0]" to="65[1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="65[0]" to="65[1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="65[0]" to="67" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="65[1][0]" to="65[1][1][0]" fromLane="0" toLane="0" dir="R" state="m"/>
@@ -1526,8 +1526,8 @@
     <connection from="6[0]" to="26[0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="6[1][0]" to="6[1][1][0]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="6[1][0]" to="6[1][1][0]" fromLane="1" toLane="1" dir="l" state="M"/>
-    <connection from="6[1][1][0]" to="6[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][0]" to="20002" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="6[1][1][0]" to="6[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][0]" to="6[1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="6[1][1][1][0]" to="6[1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][1][0]" to="6[1][1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -1536,10 +1536,10 @@
     <connection from="6[1][1][1][1][0]" to="6[1][1][1][1][1][0]" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="6[1][1][1][1][1][0]" to="6[1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="6[1][1][1][1][1][0]" to="6[1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="L" state="M"/>
-    <connection from="6[1][1][1][1][1][1][0]" to="6[1][1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="6[1][1][1][1][1][1][0]" to="73" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][0]" to="70" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][0]" to="70" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="6[1][1][1][1][1][1][0]" to="73" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="6[1][1][1][1][1][1][0]" to="6[1][1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][0]" to="6[1][1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][0]" to="72" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][1][0]" to="6[1][1][1][1][1][1][1][1]" fromLane="0" toLane="0" dir="R" state="m"/>
@@ -1593,8 +1593,8 @@
     <connection from="86[1][1]" to="71" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from="86[1][1]" to="71" fromLane="2" toLane="3" dir="s" state="M"/>
     <connection from="87[0]+94" to="87[1]" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="88[0]" to="88[1]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="88[0]" to="90" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="88[0]" to="88[1]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="88[1]" to="86[1][1]" fromLane="0" toLane="0" tl="454" linkIndex="0" dir="r" state="o"/>
     <connection from="88[1]" to="86[1][1]" fromLane="0" toLane="1" tl="454" linkIndex="1" dir="r" state="o"/>
     <connection from="88[1]" to="86[1][1]" fromLane="0" toLane="2" tl="454" linkIndex="2" dir="r" state="o"/>

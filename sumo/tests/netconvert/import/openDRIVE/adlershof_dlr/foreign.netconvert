@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Fri May 03 13:45:53 2013" north="767.39" south="0.00" east="1737.68" west="0.00" maxRoad="213" maxJunc="87" maxPrg="0"/>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Jul  3 13:27:18 2013" north="767.39" south="0.00" east="1737.68" west="0.00" maxRoad="213" maxJunc="87" maxPrg="0"/>
     <road name="Teltowkanalbrücke" length="53.81" id="0" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="0"/>
@@ -15863,7 +15863,45 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_0" length="7.24" id="431" junction="28">
+    <road name=":294168098_0" length="7.82" id="431" junction="28">
+        <link>
+            <predecessor elementType="road" elementId="124"/>
+            <successor elementType="road" elementId="125"/>
+        </link>
+        <type s="0" type="town"/>
+        <planView>
+            <geometry s="0.00" x="568.08" y="323.22" hdg="-2.50" length="1.93"><line/></geometry>
+            <geometry s="1.93" x="566.54" y="322.07" hdg="-2.73" length="2.01"><line/></geometry>
+            <geometry s="3.94" x="564.69" y="321.27" hdg="-2.98" length="2.00"><line/></geometry>
+            <geometry s="5.94" x="562.71" y="320.95" hdg="3.06" length="1.88"><line/></geometry>
+        </planView>
+        <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
+        <lateralProfile/>
+        <lanes>
+            <laneSection s="0">
+                <center>
+                    <lane id="0" type="none" level= "0">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                        <width sOffset="0" a="0" b="0" c="0" d="0"/>
+                    </lane>
+                </center>
+                <right>
+                    <lane id="-1" type="driving" level="0">
+                        <link>
+                            <predecessor id="-1"/>
+                            <successor id="-1"/>
+                        </link>
+                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
+                    </lane>
+                 </right>
+            </laneSection>
+        </lanes>
+        <objects/>
+        <signals/>
+    </road>
+    <road name=":294168098_1" length="7.24" id="432" junction="28">
         <link>
             <predecessor elementType="road" elementId="124"/>
             <successor elementType="road" elementId="127"/>
@@ -15898,7 +15936,7 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_1" length="7.19" id="432" junction="28">
+    <road name=":294168098_2" length="7.19" id="433" junction="28">
         <link>
             <predecessor elementType="road" elementId="124"/>
             <successor elementType="road" elementId="126"/>
@@ -15906,44 +15944,6 @@
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00" x="568.54" y="323.76" hdg="-2.06" length="7.19"><line/></geometry>
-        </planView>
-        <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
-        <lateralProfile/>
-        <lanes>
-            <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level= "0">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                        <width sOffset="0" a="0" b="0" c="0" d="0"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="0">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                    </lane>
-                 </right>
-            </laneSection>
-        </lanes>
-        <objects/>
-        <signals/>
-    </road>
-    <road name=":294168098_2" length="7.82" id="433" junction="28">
-        <link>
-            <predecessor elementType="road" elementId="124"/>
-            <successor elementType="road" elementId="125"/>
-        </link>
-        <type s="0" type="town"/>
-        <planView>
-            <geometry s="0.00" x="568.08" y="323.22" hdg="-2.50" length="1.93"><line/></geometry>
-            <geometry s="1.93" x="566.54" y="322.07" hdg="-2.73" length="2.01"><line/></geometry>
-            <geometry s="3.94" x="564.69" y="321.27" hdg="-2.98" length="2.00"><line/></geometry>
-            <geometry s="5.94" x="562.71" y="320.95" hdg="3.06" length="1.88"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -16009,17 +16009,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_4" length="7.57" id="435" junction="28">
+    <road name=":294168098_4" length="6.23" id="435" junction="28">
         <link>
             <predecessor elementType="road" elementId="29"/>
-            <successor elementType="road" elementId="125"/>
+            <successor elementType="road" elementId="28"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="565.11" y="316.55" hdg="1.50" length="1.79"><line/></geometry>
-            <geometry s="1.79" x="565.23" y="318.34" hdg="2.04" length="1.15"><line/></geometry>
-            <geometry s="2.94" x="564.71" y="319.36" hdg="2.54" length="1.72"><line/></geometry>
-            <geometry s="4.66" x="563.29" y="320.33" hdg="2.85" length="2.91"><line/></geometry>
+            <geometry s="0.00" x="565.26" y="317.12" hdg="1.13" length="6.23"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -16047,14 +16044,17 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_5" length="6.23" id="436" junction="28">
+    <road name=":294168098_5" length="7.57" id="436" junction="28">
         <link>
             <predecessor elementType="road" elementId="29"/>
-            <successor elementType="road" elementId="28"/>
+            <successor elementType="road" elementId="125"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="565.26" y="317.12" hdg="1.13" length="6.23"><line/></geometry>
+            <geometry s="0.00" x="565.11" y="316.55" hdg="1.50" length="1.79"><line/></geometry>
+            <geometry s="1.79" x="565.23" y="318.34" hdg="2.04" length="1.15"><line/></geometry>
+            <geometry s="2.94" x="564.71" y="319.36" hdg="2.54" length="1.72"><line/></geometry>
+            <geometry s="4.66" x="563.29" y="320.33" hdg="2.85" length="2.91"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -16193,17 +16193,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_9" length="6.30" id="440" junction="28">
+    <road name=":294168098_9" length="6.25" id="440" junction="28">
         <link>
             <predecessor elementType="road" elementId="30"/>
-            <successor elementType="road" elementId="125"/>
+            <successor elementType="road" elementId="28"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="564.08" y="317.62" hdg="1.23" length="1.50"><line/></geometry>
-            <geometry s="1.50" x="564.58" y="319.03" hdg="1.90" length="0.59"><line/></geometry>
-            <geometry s="2.08" x="564.39" y="319.59" hdg="2.54" length="1.36"><line/></geometry>
-            <geometry s="3.44" x="563.27" y="320.36" hdg="2.86" length="2.86"><line/></geometry>
+            <geometry s="0.00" x="564.31" y="318.05" hdg="0.92" length="6.25"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -16231,14 +16228,17 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168098_10" length="6.25" id="441" junction="28">
+    <road name=":294168098_10" length="6.30" id="441" junction="28">
         <link>
             <predecessor elementType="road" elementId="30"/>
-            <successor elementType="road" elementId="28"/>
+            <successor elementType="road" elementId="125"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="564.31" y="318.05" hdg="0.92" length="6.25"><line/></geometry>
+            <geometry s="0.00" x="564.08" y="317.62" hdg="1.23" length="1.50"><line/></geometry>
+            <geometry s="1.50" x="564.58" y="319.03" hdg="1.90" length="0.59"><line/></geometry>
+            <geometry s="2.08" x="564.39" y="319.59" hdg="2.54" length="1.36"><line/></geometry>
+            <geometry s="3.44" x="563.27" y="320.36" hdg="2.86" length="2.86"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -16450,17 +16450,17 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168710_4" length="5.94" id="447" junction="26">
+    <road name=":294168710_4" length="7.20" id="447" junction="26">
         <link>
             <predecessor elementType="road" elementId="125"/>
-            <successor elementType="road" elementId="27"/>
+            <successor elementType="road" elementId="124"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="583.26" y="343.77" hdg="-0.73" length="2.68"><line/></geometry>
-            <geometry s="2.68" x="585.26" y="341.99" hdg="-0.53" length="1.65"><line/></geometry>
-            <geometry s="4.33" x="586.69" y="341.15" hdg="-0.16" length="0.75"><line/></geometry>
-            <geometry s="5.08" x="587.43" y="341.03" hdg="0.44" length="0.86"><line/></geometry>
+            <geometry s="0.00" x="583.48" y="343.53" hdg="-0.94" length="1.72"><line/></geometry>
+            <geometry s="1.72" x="584.50" y="342.14" hdg="-1.34" length="1.88"><line/></geometry>
+            <geometry s="3.60" x="584.93" y="340.31" hdg="-1.85" length="1.88"><line/></geometry>
+            <geometry s="5.48" x="584.41" y="338.51" hdg="-2.26" length="1.72"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -16488,17 +16488,17 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294168710_5" length="7.20" id="448" junction="26">
+    <road name=":294168710_5" length="5.94" id="448" junction="26">
         <link>
             <predecessor elementType="road" elementId="125"/>
-            <successor elementType="road" elementId="124"/>
+            <successor elementType="road" elementId="27"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="583.48" y="343.53" hdg="-0.94" length="1.72"><line/></geometry>
-            <geometry s="1.72" x="584.50" y="342.14" hdg="-1.34" length="1.88"><line/></geometry>
-            <geometry s="3.60" x="584.93" y="340.31" hdg="-1.85" length="1.88"><line/></geometry>
-            <geometry s="5.48" x="584.41" y="338.51" hdg="-2.26" length="1.72"><line/></geometry>
+            <geometry s="0.00" x="583.26" y="343.77" hdg="-0.73" length="2.68"><line/></geometry>
+            <geometry s="2.68" x="585.26" y="341.99" hdg="-0.53" length="1.65"><line/></geometry>
+            <geometry s="4.33" x="586.69" y="341.15" hdg="-0.16" length="0.75"><line/></geometry>
+            <geometry s="5.08" x="587.43" y="341.03" hdg="0.44" length="0.86"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -19035,14 +19035,17 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294830184_3" length="9.51" id="516" junction="36">
+    <road name=":294830184_3" length="7.22" id="516" junction="36">
         <link>
             <predecessor elementType="road" elementId="36"/>
-            <successor elementType="road" elementId="35"/>
+            <successor elementType="road" elementId="37"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="924.13" y="474.49" hdg="2.28" length="9.51"><line/></geometry>
+            <geometry s="0.00" x="923.98" y="474.69" hdg="2.13" length="1.69"><line/></geometry>
+            <geometry s="1.69" x="923.09" y="476.12" hdg="1.71" length="1.88"><line/></geometry>
+            <geometry s="3.56" x="922.82" y="477.98" hdg="1.25" length="1.88"><line/></geometry>
+            <geometry s="5.44" x="923.42" y="479.76" hdg="0.89" length="1.77"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -19070,17 +19073,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294830184_4" length="7.22" id="517" junction="36">
+    <road name=":294830184_4" length="9.51" id="517" junction="36">
         <link>
             <predecessor elementType="road" elementId="36"/>
-            <successor elementType="road" elementId="37"/>
+            <successor elementType="road" elementId="35"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="923.98" y="474.69" hdg="2.13" length="1.69"><line/></geometry>
-            <geometry s="1.69" x="923.09" y="476.12" hdg="1.71" length="1.88"><line/></geometry>
-            <geometry s="3.56" x="922.82" y="477.98" hdg="1.25" length="1.88"><line/></geometry>
-            <geometry s="5.44" x="923.42" y="479.76" hdg="0.89" length="1.77"><line/></geometry>
+            <geometry s="0.00" x="924.13" y="474.49" hdg="2.28" length="9.51"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -19631,17 +19631,17 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294831560_6" length="8.24" id="532" junction="39">
+    <road name=":294831560_6" length="7.11" id="532" junction="39">
         <link>
             <predecessor elementType="road" elementId="137"/>
-            <successor elementType="road" elementId="38"/>
+            <successor elementType="road" elementId="136"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="538.52" y="292.78" hdg="0.07" length="2.52"><line/></geometry>
-            <geometry s="2.52" x="541.02" y="292.96" hdg="0.46" length="1.62"><line/></geometry>
-            <geometry s="4.14" x="542.47" y="293.69" hdg="0.95" length="1.61"><line/></geometry>
-            <geometry s="5.75" x="543.41" y="295.00" hdg="1.35" length="2.49"><line/></geometry>
+            <geometry s="0.00" x="538.96" y="292.75" hdg="-0.21" length="1.70"><line/></geometry>
+            <geometry s="1.70" x="540.62" y="292.39" hdg="-0.61" length="1.86"><line/></geometry>
+            <geometry s="3.56" x="542.14" y="291.32" hdg="-1.11" length="1.86"><line/></geometry>
+            <geometry s="5.41" x="542.98" y="289.66" hdg="-1.51" length="1.70"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -19669,17 +19669,17 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":294831560_7" length="7.11" id="533" junction="39">
+    <road name=":294831560_7" length="8.24" id="533" junction="39">
         <link>
             <predecessor elementType="road" elementId="137"/>
-            <successor elementType="road" elementId="136"/>
+            <successor elementType="road" elementId="38"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00" x="538.96" y="292.75" hdg="-0.21" length="1.70"><line/></geometry>
-            <geometry s="1.70" x="540.62" y="292.39" hdg="-0.61" length="1.86"><line/></geometry>
-            <geometry s="3.56" x="542.14" y="291.32" hdg="-1.11" length="1.86"><line/></geometry>
-            <geometry s="5.41" x="542.98" y="289.66" hdg="-1.51" length="1.70"><line/></geometry>
+            <geometry s="0.00" x="538.52" y="292.78" hdg="0.07" length="2.52"><line/></geometry>
+            <geometry s="2.52" x="541.02" y="292.96" hdg="0.46" length="1.62"><line/></geometry>
+            <geometry s="4.14" x="542.47" y="293.69" hdg="0.95" length="1.61"><line/></geometry>
+            <geometry s="5.75" x="543.41" y="295.00" hdg="1.35" length="2.49"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
