@@ -799,6 +799,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_Example.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_HBEFA.h"
 				>
 			</File>
@@ -939,10 +943,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\..\..\src\microsim\devices\MSDevice_Example.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
