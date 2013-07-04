@@ -27,6 +27,8 @@ public class Trafficlights {
 
 	/**
 	 * Returns the complete traffic light program.
+	 * 
+	 * @param tlsID a string identifying the traffic light
 	 */
 
 	public static SumoCommand getCompleteRedYellowGreenDefinition(String tlsID){
@@ -35,6 +37,9 @@ public class Trafficlights {
 
 	/**
 	 * Returns the list of lanes which are controlled by the named traffic light.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return list of controlled lanes
 	 */
 
 	public static SumoCommand getControlledLanes(String tlsID){
@@ -43,6 +48,9 @@ public class Trafficlights {
 
 	/**
 	 * Returns the links controlled by the traffic light, sorted by the signal index and described by giving the incoming, outgoing, and via lane.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return list of controlled links
 	 */
 
 	public static SumoCommand getControlledLinks(String tlsID){
@@ -51,6 +59,8 @@ public class Trafficlights {
 
 	/**
 	 * Returns a list of IDs of all traffic lights within the scenario.
+	 * 
+	 * @return a list of IDs of all TLS
 	 */
 
 	public static SumoCommand getIDList(){
@@ -59,6 +69,9 @@ public class Trafficlights {
 
 	/**
 	 * Returns the assumed time (in ms) at which the TLS changes the phase.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return absolute time, counting from simulation start, at which TLS may change
 	 */
 
 	public static SumoCommand getNextSwitch(String tlsID){
@@ -67,6 +80,9 @@ public class Trafficlights {
 
 	/**
 	 * Returns the index of the current phase in the current program.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return index of the current phase
 	 */
 
 	public static SumoCommand getPhase(String tlsID){
@@ -75,6 +91,9 @@ public class Trafficlights {
 
 	/**
 	 * Returns the id of the current program.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return index of the current program
 	 */
 
 	public static SumoCommand getProgram(String tlsID){
@@ -83,6 +102,8 @@ public class Trafficlights {
 
 	/**
 	 * Returns the named tl's state as a tuple of light definitions from rRgGyYoO, for red, green, yellow, off, where lower case letters mean that the stream has to decelerate.
+	 * 
+	 * @param tlsID a string identifying the traffic light
 	 */
 
 	public static SumoCommand getRedYellowGreenState(String tlsID){
@@ -93,6 +114,9 @@ public class Trafficlights {
 
 	/**
 	 * Set the complete traffic light program.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @param tls complete program definition
 	 */
 
 	public static SumoCommand setCompleteRedYellowGreenDefinition(String tlsID, SumoTLSLogic tls){
@@ -102,6 +126,9 @@ public class Trafficlights {
 
 	/**
 	 * Set the index of the current phase in the current program.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @param index an integer identifying the phase (it must be between 0 and the number of phases known to the current program of the tls - 1)
 	 */
 
 	public static SumoCommand setPhase(String tlsID, int index){
@@ -110,7 +137,10 @@ public class Trafficlights {
 	}
 
 	/**
-	 * Set the duration of the currently active phase (in s).
+	 * Set the duration of the currently active phase (in s?).
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @param phaseDuration remaining duration of the current phase
 	 */
 
 	public static SumoCommand setPhaseDuration(String tlsID, int phaseDuration){
@@ -120,6 +150,9 @@ public class Trafficlights {
 
 	/**
 	 * Set the id of the current program.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @param programID a string identifying the program
 	 */
 
 	public static SumoCommand setProgram(String tlsID, String programID){
@@ -129,6 +162,9 @@ public class Trafficlights {
 
 	/**
 	 * Set the named tl's state as a tuple of light definitions.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @param state as a tuple of light definitions from rRgGyYoO, for red, green, yellow, off, where lower case letters mean that the stream has to decelerate
 	 */
 
 	public static SumoCommand setRedYellowGreenState(String tlsID, String state){

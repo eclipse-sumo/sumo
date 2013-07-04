@@ -14,43 +14,60 @@
 
     You should have received a copy of the GNU General Public License
     along with TraaS.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 package de.tudresden.sumo.cmd;
+
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 import de.tudresden.ws.container.SumoStringList;
 
 public class Route {
 
-	//getter methods
+	// getter methods
 
 	/**
 	 * Returns the IDs of the edges this route covers.
+	 * 
+	 * @param routeID
+	 *            a string identifying the route
+	 * @return a list of IDs of the edges
 	 */
 
-	public static SumoCommand getEdges(String routeID){
-		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE, Constants.VAR_EDGES, routeID, Constants.RESPONSE_GET_ROUTE_VARIABLE, Constants.TYPE_STRINGLIST);
+	public static SumoCommand getEdges(String routeID) {
+		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE,
+				Constants.VAR_EDGES, routeID,
+				Constants.RESPONSE_GET_ROUTE_VARIABLE,
+				Constants.TYPE_STRINGLIST);
 	}
 
 	/**
 	 * Returns a list of IDs of all currently loaded routes.
+	 * 
+	 * @return a list of ID's of all routes
 	 */
 
-	public static SumoCommand getIDList(){
-		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_ROUTE_VARIABLE, Constants.TYPE_STRINGLIST);
+	public static SumoCommand getIDList() {
+		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE,
+				Constants.ID_LIST, "", Constants.RESPONSE_GET_ROUTE_VARIABLE,
+				Constants.TYPE_STRINGLIST);
 	}
 
-	//setter methods
+	// setter methods
 
 	/**
 	 * Add a new route.
+	 * 
+	 * @param routeID
+	 *            a string identifying the route
+	 * @param edges
+	 *            list of edges the new route is following
 	 */
 
-	public static SumoCommand add(String routeID, SumoStringList edges){
+	public static SumoCommand add(String routeID, SumoStringList edges) {
 
-		return new SumoCommand(Constants.CMD_SET_ROUTE_VARIABLE, Constants.VAR_ROUTE, routeID, edges);
+		return new SumoCommand(Constants.CMD_SET_ROUTE_VARIABLE,
+				Constants.VAR_ROUTE, routeID, edges);
 	}
-
 
 }
