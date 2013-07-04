@@ -782,15 +782,18 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
         i = myVehicles.erase(i);
     }
     if (myVehicles.size() > 0) {
-        if (MSGlobals::gTimeToGridlock > 0
-                && !(*(myVehicles.end() - 1))->isStopped()
-                && (*(myVehicles.end() - 1))->getWaitingTime() > MSGlobals::gTimeToGridlock) {
-            MSVehicle* veh = *(myVehicles.end() - 1);
-            myVehicleLengthSum -= veh->getVehicleType().getLengthWithGap();
-            myVehicles.erase(myVehicles.end() - 1);
-            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            MSNet::getInstance()->getVehicleControl().registerTeleport();
-            MSVehicleTransfer::getInstance()->addVeh(t, veh);
+        if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0) {
+            MSVehicle *last = myVehicles.back();
+            bool r1 = MSGlobals::gTimeToGridlock>0 && !last->isStopped() && last->getWaitingTime() > MSGlobals::gTimeToGridlock;
+            bool r2 = MSGlobals::gTimeToGridlockHighways>0 && !last->isStopped() && last->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && last->getLane()->getSpeedLimit()>69./3.6 && !last->getLane()->appropriate(last);
+            if(r1||r2) {
+                MSVehicle* veh = *(myVehicles.end() - 1);
+                myVehicleLengthSum -= veh->getVehicleType().getLengthWithGap();
+                myVehicles.erase(myVehicles.end() - 1);
+                WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                MSNet::getInstance()->getVehicleControl().registerTeleport();
+                MSVehicleTransfer::getInstance()->addVeh(t, veh);
+            }
         }
     }
     return myVehicles.size() == 0;

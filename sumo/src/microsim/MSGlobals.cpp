@@ -44,6 +44,7 @@ bool MSGlobals::gOmitEmptyEdgesOnDump;
 bool MSGlobals::gUsingInternalLanes;
 
 SUMOTime MSGlobals::gTimeToGridlock;
+SUMOTime MSGlobals::gTimeToGridlockHighways;
 
 bool MSGlobals::gCheck4Accidents;
 
