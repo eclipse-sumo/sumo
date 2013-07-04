@@ -72,6 +72,7 @@ Processing Options:
   --time-to-teleport TIME             Specify how long a vehicle may wait until
                                         being teleported, defaults to 300,
                                         non-positive values disable teleporting
+  --time-to-teleport.highways TIME    The teleport time on highways
   --max-depart-delay TIME             How long vehicles wait for departure
                                         before being skipped, defaults to -1
                                         which means vehicles are never skipped

@@ -54,6 +54,7 @@
         <incremental-dua-base value="10" type="INT" help="Base value for incremental DUA"/>
         <scale value="" type="FLOAT" help="Scale demand by the given factor (0..1)"/>
         <time-to-teleport value="300" type="TIME" help="Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting"/>
+        <time-to-teleport.highways value="0" type="TIME" help="The teleport time on highways"/>
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed."/>
         <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped."/>
