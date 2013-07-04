@@ -63,6 +63,12 @@ class TLS:
 
     def addProgram(self, program):
         self._programs[program._id] = program
+        
+    def toXML(self):
+        ret = ""
+        for p in self._programs:
+            ret = ret + self._programs[p].toXML(self._id)
+        return ret 
 
 
 class TLSProgram:
@@ -74,6 +80,13 @@ class TLSProgram:
 
     def addPhase(self, state, duration):
         self._phases.append( (state, duration) )
+
+    def toXML(self, tlsID):
+        ret = '  <tlLogic id="%s" type="%s" programID="%s" offset="%s">\n' % (tlsID, self._type, self._id, self._offset)
+        for p in self._phases:
+            ret = ret + '    <phase duration="%s" state="%s"/>\n' % (p[1], p[0])
+        ret = ret + '  </tlLogic>\n'
+        return ret
 
 
 class Net:
