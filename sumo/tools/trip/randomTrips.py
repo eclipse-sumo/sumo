@@ -97,13 +97,13 @@ def get_options():
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args()
-    if not options.netfile:
-        optParser.print_help()
-        sys.exit()
     return options
 
 
 def main(options):
+    if not options.netfile:
+        optParser.print_help()
+        sys.exit()
     if options.seed:
         random.seed(options.seed)
 
