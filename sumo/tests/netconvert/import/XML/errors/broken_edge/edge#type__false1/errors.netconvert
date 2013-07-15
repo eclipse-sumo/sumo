@@ -1,2 +1,21 @@
-Error: Type 'xxx' used by edge '1' was not defined.
+Error: Type 'xxx' used by edge '1' was not defined (ignore with option --ignore-errors.edge-type).
 Quitting (on error).
+Leaked object at 0x1f9f520 (size 16, 0x3406cb0499)
+Leaked object at 0x1f9fdf0 (size 60, 0x340549c3c9)
+Leaked object at 0x1f9feb0 (size 62, 0x340549c3c9)
+Leaked object at 0x1f9ff70 (size 55, 0x340549c3c9)
+Leaked object at 0x1fa0020 (size 59, 0x340549c3c9)
+Leaked object at 0x1fa00e0 (size 78, 0x340549c3c9)
+Leaked object at 0x1fa01b0 (size 61, 0x340549c3c9)
+Leaked object at 0x1fa0270 (size 26, 0x340549c3c9)
+Leaked object at 0x1fa0310 (size 782, 0x340549c3c9)
+*** 9 leaks found
+delete: freed 0x1fa0310 (size 782, 417 bytes still allocated)
+delete: freed 0x1fa0270 (size 26, 391 bytes still allocated)
+delete: freed 0x1fa01b0 (size 61, 330 bytes still allocated)
+delete: freed 0x1fa00e0 (size 78, 252 bytes still allocated)
+delete: freed 0x1fa0020 (size 59, 193 bytes still allocated)
+delete: freed 0x1f9ff70 (size 55, 138 bytes still allocated)
+delete: freed 0x1f9feb0 (size 62, 76 bytes still allocated)
+delete: freed 0x1f9fdf0 (size 60, 16 bytes still allocated)
+delete: freed 0x1f9f520 (size 16, 0 bytes still allocated)

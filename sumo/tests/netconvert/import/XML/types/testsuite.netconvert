@@ -17,4 +17,4 @@ cross_usingtypes
 
 # Simple cross using types for edge definition (verbose)
 cross_usingtypes_v
-
+ignore_unknown_type

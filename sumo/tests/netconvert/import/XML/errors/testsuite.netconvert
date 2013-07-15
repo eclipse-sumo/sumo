@@ -10,9 +10,5 @@ xml_false_nod
 # Tests what happens if no xml-nodes are given
 xml_no_nod
 
-
 # Tests for broken edges
 broken_edge
-
-
-
