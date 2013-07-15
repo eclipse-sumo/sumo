@@ -37,3 +37,4 @@ tls.discard-simple
 
 # see ticket917
 infer_option_street_names
+add_split
