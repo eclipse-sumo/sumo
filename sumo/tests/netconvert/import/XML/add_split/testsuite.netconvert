@@ -6,3 +6,7 @@ two_plus_left
 
 # the edge has per default two lanes but begins with three lanes
 def_two_three_minus_right
+
+# split two times adding 1 lane each time,
+# measure the split positions from the end of the edge
+two_plus_left_plus_left_negative_offset
