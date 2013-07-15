@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r14251
+SUMO netconvert Version dev-SVN-r14278
  Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -137,6 +137,7 @@ Processing Options:
   --ignore-errors                     Continue on broken input
   --ignore-errors.connections         Continue on invalid connections
   --show-errors.connections-first-try  Show errors in connections at parsing
+  --ignore-errors.edge-type           Continue on unknown edge types
   --lanes-from-capacity.norm FLOAT    The factor for flow to no. lanes
                                         conversion.
   --speed-in-kmh                      vmax is parsed as given in km/h (some)

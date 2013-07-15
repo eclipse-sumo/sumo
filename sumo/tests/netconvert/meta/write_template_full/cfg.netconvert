@@ -103,6 +103,7 @@
         <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
         <ignore-errors.connections value="false" type="BOOL" help="Continue on invalid connections"/>
         <show-errors.connections-first-try value="false" type="BOOL" help="Show errors in connections at parsing"/>
+        <ignore-errors.edge-type value="false" type="BOOL" help="Continue on unknown edge types"/>
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion."/>
         <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>

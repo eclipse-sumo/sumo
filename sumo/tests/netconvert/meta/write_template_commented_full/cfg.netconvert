@@ -255,6 +255,9 @@
         <!-- Show errors in connections at parsing -->
         <show-errors.connections-first-try value="false" type="BOOL"/>
 
+        <!-- Continue on unknown edge types -->
+        <ignore-errors.edge-type value="false" type="BOOL"/>
+
         <!-- The factor for flow to no. lanes conversion. -->
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT"/>
 
