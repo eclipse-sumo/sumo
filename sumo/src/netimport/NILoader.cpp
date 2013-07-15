@@ -152,7 +152,9 @@ NILoader::loadXML(OptionsCont& oc) {
     loadXMLType(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
                                       myNetBuilder.getEdgeCont(),
                                       myNetBuilder.getTypeCont(),
-                                      myNetBuilder.getDistrictCont(), oc),
+                                      myNetBuilder.getDistrictCont(), 
+                                      myNetBuilder.getTLLogicCont(),
+                                      oc),
                 oc.getStringVector("edge-files"), "edges");
     // load the connections
     loadXMLType(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont()),

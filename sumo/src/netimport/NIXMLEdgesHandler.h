@@ -78,7 +78,9 @@ public:
      * @param[in] options The options to use while building edges
      */
     NIXMLEdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
-                      NBTypeCont& tc, NBDistrictCont& dc, OptionsCont& options);
+                      NBTypeCont& tc, NBDistrictCont& dc, 
+                      NBTrafficLightLogicCont& tlc,
+                      OptionsCont& options);
 
 
     /// @brief Destructor
@@ -210,6 +212,10 @@ private:
 
     /// @brief The districts container (needed if an edge must be split)
     NBDistrictCont& myDistrictCont;
+
+    /** @brief The traffic lights container to add built tls to (when
+     * invalidating tls because of splits) */
+    NBTrafficLightLogicCont& myTLLogicCont;
     /// @}
 
 

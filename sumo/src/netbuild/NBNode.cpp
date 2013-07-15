@@ -63,6 +63,7 @@
 #include "NBRequest.h"
 #include "NBOwnTLDef.h"
 #include "NBTrafficLightLogicCont.h"
+#include "NBTrafficLightDefinition.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -288,6 +289,21 @@ NBNode::isJoinedTLSControlled() const {
         }
     }
     return false;
+}
+
+
+void
+NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont) {
+    if (isTLControlled()) {
+        NBTrafficLightDefinition* orig = *myTrafficLights.begin();
+        removeTrafficLights();
+        NBTrafficLightDefinition* tlDef = new NBOwnTLDef(orig->getID() + "_reguessed", this, orig->getOffset(), orig->getType());
+        if (!tlCont.insert(tlDef)) {
+            // actually, nothing should fail here
+            delete tlDef;
+            throw ProcessError("Could not allocate tls '" + myID + "'.");
+        }
+    }
 }
 
 

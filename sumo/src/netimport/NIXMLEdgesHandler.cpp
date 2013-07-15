@@ -71,10 +71,15 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
                                      NBEdgeCont& ec,
                                      NBTypeCont& tc,
                                      NBDistrictCont& dc,
+                                     NBTrafficLightLogicCont& tlc,
                                      OptionsCont& options)
     : SUMOSAXHandler("xml-edges - file"),
       myOptions(options),
-      myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
+      myNodeCont(nc), 
+      myEdgeCont(ec), 
+      myTypeCont(tc), 
+      myDistrictCont(dc),
+      myTLLogicCont(tlc),
       myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
       myHaveWarnedAboutDeprecatedLaneId(false),
       myKeepEdgeShape(!options.getBool("plain.extend-edge-shape"))
@@ -476,6 +481,11 @@ NIXMLEdgesHandler::myEndElement(int element) {
                 sort((*i).lanes.begin(), (*i).lanes.end());
                 noLanesMax = MAX2(noLanesMax, (unsigned int)(*i).lanes.size());
             }
+            // invalidate traffic light definitions loaded from a SUMO network
+            // XXX it would be preferable to reconstruct the phase definitions heuristically
+            e->getToNode()->invalidateTLS(myTLLogicCont);
+            e->invalidateConnections(true);
+
             // split the edge
             std::vector<int> currLanes;
             for (unsigned int l = 0; l < e->getNumLanes(); ++l) {
@@ -536,6 +546,9 @@ NIXMLEdgesHandler::myEndElement(int element) {
                         e->decLaneNo(e->getNumLanes() - (int) exp.lanes.size());
                     }
                     currLanes = exp.lanes;
+                    // invalidate traffic light definition loaded from a SUMO network
+                    // XXX it would be preferable to reconstruct the phase definitions heuristically
+                    e->getFromNode()->invalidateTLS(myTLLogicCont);
                 } else {
                     WRITE_WARNING("Split at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + myCurrentID + "').");
                 }

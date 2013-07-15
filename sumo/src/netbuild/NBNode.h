@@ -238,6 +238,10 @@ public:
     const std::set<NBTrafficLightDefinition*>& getControllingTLS() const {
         return myTrafficLights;
     }
+
+
+    /// @brief causes the traffic light to be computed anew
+    void invalidateTLS(NBTrafficLightLogicCont& tlCont);
     /// @}
 
 

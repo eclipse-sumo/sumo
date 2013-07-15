@@ -1,0 +1,21 @@
+Warning: The traffic light 'gneJ1' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light 'gneJ1'
+Leaked object at 0x2129520 (size 16, 0x3406cb0499)
+Leaked object at 0x2129df0 (size 60, 0x340549c3c9)
+Leaked object at 0x2129eb0 (size 62, 0x340549c3c9)
+Leaked object at 0x2129f70 (size 55, 0x340549c3c9)
+Leaked object at 0x212a020 (size 59, 0x340549c3c9)
+Leaked object at 0x212a0e0 (size 78, 0x340549c3c9)
+Leaked object at 0x212a1b0 (size 61, 0x340549c3c9)
+Leaked object at 0x212a270 (size 26, 0x340549c3c9)
+Leaked object at 0x212a310 (size 782, 0x340549c3c9)
+*** 9 leaks found
+delete: freed 0x212a310 (size 782, 417 bytes still allocated)
+delete: freed 0x212a270 (size 26, 391 bytes still allocated)
+delete: freed 0x212a1b0 (size 61, 330 bytes still allocated)
+delete: freed 0x212a0e0 (size 78, 252 bytes still allocated)
+delete: freed 0x212a020 (size 59, 193 bytes still allocated)
+delete: freed 0x2129f70 (size 55, 138 bytes still allocated)
+delete: freed 0x2129eb0 (size 62, 76 bytes still allocated)
+delete: freed 0x2129df0 (size 60, 16 bytes still allocated)
+delete: freed 0x2129520 (size 16, 0 bytes still allocated)
