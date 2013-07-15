@@ -3,6 +3,7 @@ skip_new_routes
 
 # go on even if the route is defect
 ignore_errors
+ignore_errors_invalid_depart_edge
 
 # Testing loop removal
 remove_loops

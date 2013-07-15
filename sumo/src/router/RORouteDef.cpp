@@ -96,6 +96,11 @@ void
 RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                    SUMOTime begin, const ROVehicle& veh) const {
     myNewRoute = false;
+    if (myAlternatives[0]->getEdgeVector().size() > 0 && myAlternatives[0]->getEdgeVector()[0]->prohibits(&veh)) {
+        MsgHandler* m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
+        m->inform("Vehicle '" + veh.getID() + "' is not allowed to depart on edge '" + myAlternatives[0]->getEdgeVector()[0]->getID() + "'.");
+        return;
+    }
     if (myTryRepair) {
         repairCurrentRoute(router, begin, veh);
         return;
