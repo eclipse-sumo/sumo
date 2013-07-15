@@ -261,7 +261,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     MSNet::SimulationState state = SIMSTATE_RUNNING;
     myStep = start;
     // preload the routes especially for TraCI
-    myRouteLoaders->loadNext(myStep);
+    loadRoutes();
 #ifndef NO_TRACI
 #ifdef HAVE_PYTHON
     if (OptionsCont::getOptions().isSet("python-script")) {
@@ -296,6 +296,11 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     // exit simulation loop
     closeSimulation(start);
     return 0;
+}
+
+void 
+MSNet::loadRoutes() {
+    myRouteLoaders->loadNext(myStep);
 }
 
 
@@ -394,8 +399,7 @@ MSNet::simulationStep() {
 #ifdef HAVE_INTERNAL
     }
 #endif
-    // load routes
-    myRouteLoaders->loadNext(myStep);
+    loadRoutes();
 
     // persons
     if (myPersonControl != 0) {

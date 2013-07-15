@@ -95,6 +95,7 @@ GUIRunThread::~GUIRunThread() {
 
 void
 GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
+    assert(net != 0);
     // assign new values
     myNet = net;
     mySimStartTime = start;
@@ -103,6 +104,8 @@ GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    // preload the routes especially for TraCI
+    net->loadRoutes();
 }
 
 

@@ -173,6 +173,9 @@ public:
      */
     void simulationStep();
 
+    /** @brief loads routes for the next few steps */
+    void loadRoutes();
+
 
     /** @brief Closes the simulation (all files, connections, etc.)
      *
