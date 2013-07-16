@@ -250,6 +250,9 @@ NIFrame::fillOptions() {
     oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
     oc.addDescription("osm.skip-duplicates-check", "Processing", "Skips the check for duplicate nodes and edges.");
 
+    oc.doRegister("osm.railway.oneway-default", new Option_Bool(true));
+    oc.addDescription("osm.railway.oneway-default", "Processing", "Imports railway edges as one-way by default");
+
 
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));
