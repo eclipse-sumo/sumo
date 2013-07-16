@@ -171,6 +171,8 @@ Processing Options:
                                         due to VISUM misbehaviour
   --osm.skip-duplicates-check         Skips the check for duplicate nodes and
                                         edges.
+  --osm.railway.oneway-default        Imports railway edges as one-way by
+                                        default
   --opendrive.import-all-lanes        Imports all lane types.
   --opendrive.import-widths           Whether lane widths shall be imported.
   --no-internal-links                 Omits internal links

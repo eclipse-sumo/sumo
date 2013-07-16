@@ -129,6 +129,7 @@
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges&apos; capacities"/>
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges."/>
+        <osm.railway.oneway-default value="true" type="BOOL" help="Imports railway edges as one-way by default"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types."/>
         <opendrive.import-widths value="false" type="BOOL" help="Whether lane widths shall be imported."/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
