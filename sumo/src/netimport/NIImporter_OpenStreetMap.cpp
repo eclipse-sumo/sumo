@@ -743,6 +743,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             myCurrentEdge->myIsOneWay = value;
         } else if (key == "name") {
             myCurrentEdge->streetName = value;
+        } else if (key == "tracks") {
+            if (TplConvert::_2int(value.c_str()) > 1) {
+                myCurrentEdge->myIsOneWay = "false";
+            }
         }
     }
 }
