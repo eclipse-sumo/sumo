@@ -843,6 +843,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
                 myLeaderForLink[*link] = leader->getID();
                 myLinkLeaders.insert(leader->getID());
                 adaptToLeader(*it, seen, lastLink, lane, v, vLinkPass);
+                if (view > 0) {
+                    // we are not yet on the junction with this linkLeader.
+                    // at least we can drive up to the junction and stop there
+                    v = MAX2(v, vLinkWait);
+                }
             }
         }
 #endif
