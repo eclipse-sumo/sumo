@@ -1075,6 +1075,11 @@ protected:
                        const SUMOReal seen, DriveProcessItem* const lastLink,
                        const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass) const;
 
+#ifdef HAVE_INTERNAL_LANES
+    /// @brief ids of vehicles being followed across a link (for resolving priority)
+    mutable std::set<std::string> myLinkLeaders;
+#endif
+
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
      * @note member is initialized on first access */
@@ -1089,8 +1094,6 @@ private:
 #endif
 
 #ifdef HAVE_INTERNAL_LANES
-    /// @brief ids of vehicles being followed across a link (for resolving priority)
-    mutable std::set<std::string> myLinkLeaders;
     /// @brief map from the links to link leader ids
     mutable std::map<const MSLink*, std::string> myLeaderForLink;
 #endif
