@@ -25,6 +25,7 @@ import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoTLSLogic;
+import de.tudresden.ws.container.SumoTLSPhase;
 
 import it.polito.appeal.traci.protocol.Command;
 
@@ -200,12 +201,40 @@ public class SumoCommand {
 			
 		}else if(input.getClass().equals(SumoTLSLogic.class)){
 		
-			@SuppressWarnings("unused")
 			SumoTLSLogic stl = (SumoTLSLogic) input;
+			System.out.println("hier!");
+			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+			cmd.content().writeInt(stl.phases.size());	
 		
+			cmd.content().writeUnsignedByte(Constants.TYPE_STRING);
+			cmd.content().writeStringASCII(stl.subID);	
+			
+			cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
+			cmd.content().writeInt(0);
+			
+			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+			cmd.content().writeInt(0);	
+		
+			cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
+			cmd.content().writeInt(stl.currentPhaseIndex);
+			
+			cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
+			cmd.content().writeInt(stl.phases.size());
+		
+			for(SumoTLSPhase phase : stl.phases){
+				add_variable(phase);
+			}
+			
 		
 		}else if(input.getClass().equals(SumoGeometry.class)){
 
+			SumoGeometry sg = (SumoGeometry) input;
+			cmd.content().writeUnsignedByte(sg.coords.size());
+			
+			for(SumoPosition2D pos : sg.coords){		
+				cmd.content().writeDouble(pos.x);
+				cmd.content().writeDouble(pos.y);
+			}
 			
 		}
 		else{
@@ -291,6 +320,19 @@ public class SumoCommand {
 			SumoPosition2D pos = (SumoPosition2D) input;
 			cmd.content().writeDouble(pos.x);
 			cmd.content().writeDouble(pos.y);
+			
+		}else if(input.getClass().equals(SumoTLSPhase.class)){
+			
+			SumoTLSPhase stp = (SumoTLSPhase) input;
+			
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
+			cmd.content().writeInt(stp.duration);
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
+			cmd.content().writeInt(stp.duration1);
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
+			cmd.content().writeInt(stp.duration2);
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_STRING);
+			cmd.content().writeStringASCII(stp.phasedef);
 			
 		}
 		

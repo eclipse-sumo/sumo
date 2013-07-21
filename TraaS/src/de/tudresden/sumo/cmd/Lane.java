@@ -396,7 +396,7 @@ public class Lane {
 	 * 
 	 * @param laneID
 	 *            a string identifying a lane
-	 * @param allowedClasses
+	 * @param disallowedClasses
 	 *            not allowed vehicle classes
 	 */
 

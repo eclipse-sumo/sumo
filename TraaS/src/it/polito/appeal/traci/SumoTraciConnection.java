@@ -31,8 +31,7 @@ import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.xml.sax.SAXException;
-
+import de.tudresden.sumo.cmd.Vehicle;
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.CommandProcessor;
 import de.tudresden.sumo.util.SumoCommand;
@@ -40,21 +39,6 @@ import de.tudresden.sumo.util.SumoCommand;
 /**
  * Models a TCP/IP connection to a local or remote SUMO server via the TraCI
  * protocol.
- * <p>
- * It runs a SUMO instance as a subprocess with a given configuration file and a
- * random seed, and provides methods and objects to advance to the next
- * simulation step, to retrieve vehicles' info, to set vehicles' routes and to
- * get roads' info.
- * <p>
- * To use it, create an instance and call {@link #runServer()}, that will start
- * the subprocess. From there, you can use all the other methods to interact
- * with the simulator.
- * <p>
- * 
- * The executable path must be specified via the system property specified
- * <p>
- * At simulation end, one should call {@link #close()} to gracefully close the
- * simulator and free any resources.
  * 
  * @author Enrico Gueli &lt;enrico.gueli@gmail.com&gt;
  * 
@@ -106,19 +90,16 @@ public class SumoTraciConnection {
 	private String net_file;
 	private String route_file;
 	String sumoEXE = "/opt/sumo/sumo-0.15.0/bin/sumo";
-	private boolean configfile_available = false;
 	private CommandProcessor cp;
 	
 	private Process sumoProcess;
 	private static final int CONNECT_RETRIES = 1;
 	@SuppressWarnings("unused")
 	private CloseQuery closeQuery;
-
-	private SumoHttpRetriever httpRetriever;
 	private List<String> args = new ArrayList<String>();
 	
 	private boolean remote = false;
-	
+		
 	public SumoTraciConnection(String sumo_bin, String net_file, String route_file) {
 		this.sumoEXE=sumo_bin;
 		this.net_file=net_file;
@@ -193,8 +174,6 @@ public class SumoTraciConnection {
 		
 		if(!this.remote){
 		
-		if(this.configfile_available){retrieveFromURLs();}
-		
 		findAvailablePort();
 
 		runSUMO();
@@ -233,21 +212,6 @@ public class SumoTraciConnection {
 		
 		}
 		
-	}
-
-	private void retrieveFromURLs() throws IOException {
-		if (configFile.startsWith("http://")) {
-			
-			httpRetriever = new SumoHttpRetriever(configFile);
-			try {
-				httpRetriever.fetchAndParse();
-			} catch (SAXException e) {
-				throw new IOException(e);
-			}
-			
-			configFile = httpRetriever.getConfigFileName();
-		}
-			
 	}
 
 	private void runSUMO() throws IOException {
@@ -303,7 +267,8 @@ public class SumoTraciConnection {
 	}
 
 	/**
-	 * Closes the connection, quits the simulator
+	 * Closes the connection, quits the simulator, frees any stale
+	 * resource and makes all {@link Vehicle} instances inactive.
 	 * 
 	 * @throws InterruptedException
 	 *             if the current thread was interrupted while waiting for SUMO

@@ -42,7 +42,6 @@ public class Poi {
 	 *            a string identifying the type of a poi
 	 * @param layer
 	 *            an integer identifying the layer
-	 * @return
 	 */
 
 	public static SumoCommand add(String poiID, double x, double y,
