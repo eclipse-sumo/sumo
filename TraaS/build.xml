@@ -39,13 +39,13 @@
  	
  		<mkdir dir="${javadoc}"/>
         <javadoc access="public" author="true" classpath="." destdir="${javadoc}" doctitle="TraaS - TraCI as a Service" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="de.tudresden.sumo.util,de.uniluebeck.itm.tcpip,it.polito.appeal.traci,de.tudresden.sumo.cmd,de.tudresden.ws,it.polito.appeal.traci.protocol,de.tudresden.ws.conf,de.tudresden.sumo.config,de.tudresden.ws.log,de.tudresden.ws.container" noqualifier="java.lang" source="1.7" sourcepath="src" splitindex="true" use="true" version="true"/>
- 	  	<jar basedir="${javadoc}" destfile="${release}/TraaS-${DSTAMP}_javadoc.jar"/>
+ 	  	<jar basedir="${javadoc}" destfile="${release}/TraaS_javadoc.jar"/>
  	
  </target>
 	
  <target name="sources">
 
- 	<jar basedir="${src}" destfile="${release}/TraaS-${DSTAMP}_sources.jar"/>
+ 	<jar basedir="${src}" destfile="${release}/TraaS_sources.jar"/>
 	 	
   </target>
 	
@@ -75,9 +75,9 @@
 	    <copy file="${dist}/TraaS-${DSTAMP}_JRE7.jar" todir="${dist}"/>
 		<copy file="license.txt" todir="${dist}"/>
 		
-		<zip basedir="${examples}" includes="**" destfile="${release}/TraaS-${DSTAMP}_examples.zip"/>
-		<zip basedir="${dist}" includes="**" excludes="*_JRE7.jar" destfile="${release}/TraaS-${DSTAMP}-JRE6.zip"/>
-		<zip basedir="${dist}" includes="**" excludes="*_JRE6.jar" destfile="${release}/TraaS-${DSTAMP}-JRE7.zip"/>			
+		<zip basedir="${examples}" includes="**" destfile="${release}/TraaS_examples.zip"/>
+		<zip basedir="${dist}" includes="**" excludes="*_JRE7.jar" destfile="${release}/TraaS-JRE6.zip"/>
+		<zip basedir="${dist}" includes="**" excludes="*_JRE6.jar" destfile="${release}/TraaS-JRE7.zip"/>			
 		<copy file="license.txt" todir="${release}"/>
 		
 	</target>
