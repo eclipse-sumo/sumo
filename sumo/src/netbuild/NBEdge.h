@@ -429,12 +429,17 @@ public:
     }
 
 
-    /** @brief Returns the width of lanes of this edge
+    /** @brief Returns the default width of lanes of this edge
      * @return The width of lanes of this edge
      */
     SUMOReal getLaneWidth() const {
         return myLaneWidth;
     }
+
+    /** @brief Returns the width of the lane of this edge
+     * @return The width of the lane of this edge
+     */
+    SUMOReal getLaneWidth(int lane) const;
 
 
     /** @brief Returns the street name of this edge
@@ -455,6 +460,11 @@ public:
     SUMOReal getOffset() const {
         return myOffset;
     }
+
+    /** @brief Returns the offset to the destination node a the specified lane
+     * @return The offset to the destination node
+     */
+    SUMOReal getOffset(int lane) const;
 
 
     /** @brief Returns the type name
@@ -954,9 +964,6 @@ public:
 
     /// @brief set lane specific width (negative lane implies set for all lanes)
     void setLaneWidth(int lane, SUMOReal width);
-
-    /// @brief
-    SUMOReal getLaneWidth(int lane) const;
 
     /// @brief set lane specific end-offset (negative lane implies set for all lanes)
     void setOffset(int lane, SUMOReal offset);

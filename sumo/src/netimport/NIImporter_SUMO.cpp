@@ -210,6 +210,12 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
         }
         nbe->declareConnectionsAsLoaded();
+        if (!nbe->hasLaneSpecificWidth() && nbe->getLanes()[0].width != NBEdge::UNSPECIFIED_WIDTH) {
+            nbe->setLaneWidth(-1, nbe->getLaneWidth(0));
+        }
+        if (!nbe->hasLaneSpecificOffset() && nbe->getOffset(0) != NBEdge::UNSPECIFIED_OFFSET) {
+            nbe->setOffset(-1, nbe->getOffset(0));
+        }
     }
     // insert loaded prohibitions
     for (std::vector<Prohibition>::const_iterator it = myProhibitions.begin(); it != myProhibitions.end(); it++) {

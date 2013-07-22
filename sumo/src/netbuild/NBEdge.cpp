@@ -1262,7 +1262,7 @@ NBEdge::hasLaneSpecificPermissions() const {
 bool
 NBEdge::hasLaneSpecificWidth() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        if (i->width != getLaneWidth()) {
+        if (i->width != myLanes.begin()->width) {
             return true;
         }
     }
@@ -1284,7 +1284,7 @@ NBEdge::hasLaneSpecificSpeed() const {
 bool
 NBEdge::hasLaneSpecificOffset() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        if (i->offset != getOffset()) {
+        if (i->offset != myLanes.begin()->offset) {
             return true;
         }
     }
@@ -1955,6 +1955,13 @@ NBEdge::getLaneWidth(int lane) const {
            ? myLanes[lane].width
            : getLaneWidth() != UNSPECIFIED_WIDTH ? getLaneWidth() : SUMO_const_laneWidth;
 }
+
+
+SUMOReal
+NBEdge::getOffset(int lane) const {
+    return myLanes[lane].offset != UNSPECIFIED_OFFSET ? myLanes[lane].offset : getOffset();
+}
+
 
 void
 NBEdge::setOffset(int lane, SUMOReal offset) {
