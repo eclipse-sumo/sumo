@@ -48,3 +48,7 @@ may_pass
 
 # infer connection attribute pass from lane id
 may_pass_legacy
+
+# test loading of connections which (dangerously) start on the same edge and target the same lane
+# 
+multiple_to_same_lane
