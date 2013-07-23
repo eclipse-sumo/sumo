@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/02/13 14:03:14 by SUMO duarouter Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vType id="0" length="3.00" minGap="2.00" maxSpeed="70.00" vClass="passenger">
+        <carFollowing-Krauss accel="2.60" decel="4.50" sigma="0.50" tau="1.00"/>
+    </vType>
+    <vehicle id="0_0" type="0" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="125.11" probability="1.00000000" edges="absBeg middle end absEnd"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

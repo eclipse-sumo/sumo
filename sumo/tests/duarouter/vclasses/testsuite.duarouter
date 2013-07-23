@@ -1,6 +1,6 @@
 # Tests for vehicle class usage
-#  The network has a shorter, straight path where only "passenger" are allowed
-#   and a longer path where "bus" is allowed
+# The network has a shorter, straight path where only "passenger" are allowed
+# and a longer path where "bus" is allowed
 
 # Tests for importing passenger-trip
 passenger_test_trips
@@ -13,14 +13,13 @@ passenger_test_routes_correct
 
 # Tests for importing passenger-routes (previous was false)
 passenger_test_routes_false
+passenger_test_routes_false_repair
 
 # Tests for importing passenger-alternatives (previous was correct)
 passenger_test_alts_correct
 
 # Tests for importing passenger-alternatives(previous was false)
 passenger_test_alts_false
-
-
 
 # Tests for importing bus-trip
 bus_test_trips
@@ -39,8 +38,6 @@ bus_test_alts_correct
 
 # Tests for importing bus-alternatives (previous was false)
 bus_test_alts_false
-
-
 
 # Tests for importing trips with no vehicle class given
 no_vclass_test_trips
