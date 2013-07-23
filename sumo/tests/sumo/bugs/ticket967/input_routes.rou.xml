@@ -1,0 +1,13 @@
+<routes>
+    <route id="r0" edges="beg end"/>
+    <route id="r1" edges="end"/>
+
+    <vType id="victim" maxSpeed="3" color="0,0,1"/>
+    <vehicle id="victim" type="victim" route="r1" depart="0" departLane="2" arrivalLane="2"/>
+
+    <vType id="false_leader"/>
+    <vehicle id="false_leader" type="false_leader" route="r0" depart="0" departLane="1" arrivalLane="1" departSpeed="max" departPos="100"/>
+
+    <vType id="collider" color="1,0,0" maxSpeed="40"/>
+    <vehicle id="collider" type="collider" route="r0" depart="0" departLane="0" arrivalLane="2" departSpeed="max" departPos="100"/>
+</routes>
