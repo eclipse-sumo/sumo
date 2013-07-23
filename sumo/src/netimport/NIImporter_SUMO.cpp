@@ -180,9 +180,12 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 if (toEdge == 0) { // removed by explicit list, vclass, ...
                     continue;
                 }
+                if (nbe->hasConnectionTo(toEdge, c.toLaneIdx)) {
+                    WRITE_WARNING("Target lane '" + toEdge->getLaneID(c.toLaneIdx) + "' has multiple connections from '" + nbe->getID() + "'.");
+                }
                 nbe->addLane2LaneConnection(
                     fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::L2L_VALIDATED,
-                    false, c.mayDefinitelyPass);
+                    true, c.mayDefinitelyPass);
 
                 // maybe we have a tls-controlled connection
                 if (c.tlID != "") {
