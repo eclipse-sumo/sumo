@@ -450,14 +450,13 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
             break;
         case SVS_PEDESTRIAN:
-            //glScaled(1./(lenght)), 1, 1.);
             glTranslated(0, 0, .045);
-            GLHelper::drawFilledCircle(1);
+            GLHelper::drawFilledCircle(0.25);
             glTranslated(0, 0, -.045);
             glScaled(.7, 2, 1);
             glTranslated(0, 0, .04);
             GLHelper::setColor(lighter);
-            GLHelper::drawFilledCircle(1);
+            GLHelper::drawFilledCircle(0.25);
             glTranslated(0, 0, -.04);
             break;
         case SVS_BICYCLE:
