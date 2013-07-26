@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Jul 26 10:57:03 2013 by SUMO sumo Version dev-SVN-r14311
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <routing>
+        <device.rerouting.probability value="1"/>
+        <device.rerouting.period value="5"/>
+    </routing>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" arrival="98.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="5.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="10.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="15.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="20.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="25.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="30.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="35.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="40.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="45.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="50.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="55.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="65.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="70.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="75.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="85.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="90.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="95.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="1" depart="20.00" arrival="118.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="20.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="25.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="30.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="35.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="40.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="45.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="50.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="55.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="65.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="70.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="75.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="85.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="90.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="95.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="105.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="115.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="2" depart="40.00" arrival="138.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="40.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="45.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="50.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="55.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="65.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="70.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="75.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="85.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="90.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="95.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="105.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="115.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="125.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="135.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="3" depart="60.00" arrival="159.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="65.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="70.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="75.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="85.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="90.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="95.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="105.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="115.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="125.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="135.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="145.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="155.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="4" depart="80.00" arrival="178.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="85.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="90.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="95.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="105.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="115.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="125.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="135.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="145.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="155.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="160.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="165.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="170.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="175.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="5" depart="100.00" arrival="199.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="105.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="115.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="125.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="135.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="145.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="155.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="160.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="165.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="170.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="175.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="185.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="190.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="195.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="6" depart="120.00" arrival="219.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="125.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="135.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="145.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="155.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="160.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="165.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="170.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="175.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="185.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="190.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="195.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="200.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="205.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="210.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="215.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="7" depart="140.00" arrival="238.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="145.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="155.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="160.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="165.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="170.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="175.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="185.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="190.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="195.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="200.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="205.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="210.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="215.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="220.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="225.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="230.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="235.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="8" depart="160.00" arrival="258.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="160.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="165.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="170.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="175.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="185.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="190.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="195.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="200.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="205.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="210.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="215.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="220.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="225.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="230.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="235.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="240.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="245.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="250.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="255.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="9" depart="180.00" arrival="278.00">
+        <routeDistribution>
+            <route replacedOnEdge="" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="185.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="190.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="195.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="200.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" replacedAtTime="205.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="210.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="215.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="220.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="225.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="230.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="235.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="middle" replacedAtTime="240.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="245.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="250.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="255.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="end" replacedAtTime="260.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="265.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="270.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="275.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>
