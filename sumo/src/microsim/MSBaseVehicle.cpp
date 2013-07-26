@@ -163,7 +163,7 @@ MSBaseVehicle::replaceRouteEdges(const MSEdgeVector& edges, bool onInit) {
         id = "!" + id;
     }
     if (myRoute->getID().find("!var#") != std::string::npos) {
-        id = myRoute->getID().substr(0, myRoute->getID().rfind("!var#") + 4) + toString(getNumberReroutes() + 1);
+        id = myRoute->getID().substr(0, myRoute->getID().rfind("!var#") + 5) + toString(getNumberReroutes() + 1);
     } else {
         id = id + "!var#1";
     }
