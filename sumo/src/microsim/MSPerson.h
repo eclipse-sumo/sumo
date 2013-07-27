@@ -121,6 +121,11 @@ public:
             return false;
         }
 
+        /// @brief the time this person spent waiting for a vehicle 
+        virtual SUMOTime timeWaiting4Vehicle(SUMOTime /*now*/) const {
+            return false;
+        }
+
         /// @brief get position on edge e at length at with orthogonal offset
         Position getEdgePosition(const MSEdge* e, SUMOReal at, SUMOReal offset) const;
 
@@ -318,8 +323,11 @@ public:
         /// Whether the person waits for a vehicle of the line specified.
         bool isWaitingFor(const std::string& line) const;
 
-        /// Whether the person waits for a vehicle
+        /// @brief Whether the person waits for a vehicle
         bool isWaiting4Vehicle() const;
+
+        /// @brief time spent waiting for a ride
+        SUMOTime timeWaiting4Vehicle(SUMOTime now) const;
 
         void setVehicle(SUMOVehicle* v) {
             myVehicle = v;
@@ -352,8 +360,9 @@ public:
         SUMOVehicle* myVehicle;
 
         MSBusStop* myDestinationBusStop;
-        //Position myWaitingPos;
         SUMOReal myWaitingPos;
+        /// @brief The time since which this person is waiting for a ride
+        SUMOTime myWaitingSince;
         const MSEdge* myWaitingEdge;
 
     private:
@@ -530,9 +539,15 @@ public:
         return (*myStep)->isWaitingFor(line);
     }
 
-    /// Whether the person waits for a vehicle of the line specified.
+    /// Whether the person waits for a vehicle 
     bool isWaiting4Vehicle() const {
         return (*myStep)->isWaiting4Vehicle();
+    }
+
+
+    /// @brief the time this person spent waiting for a vehicle 
+    SUMOTime timeWaiting4Vehicle(SUMOTime now) const {
+        return (*myStep)->timeWaiting4Vehicle(now);
     }
 
     const SUMOVehicleParameter& getParameter() const {

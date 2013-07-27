@@ -343,10 +343,11 @@ MSPerson::MSPersonStage_Driving::getAngle(SUMOTime /* now */) const {
 
 
 void
-MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSPerson* person, SUMOTime /* now */,
+MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSPerson* person, SUMOTime now,
         MSEdge* previousEdge, const SUMOReal at) {
     myWaitingEdge = previousEdge;
     myWaitingPos = at;
+    myWaitingSince = now;
     myVehicle = net->getVehicleControl().getWaitingVehicle(previousEdge, myLines);
     if (myVehicle != 0 && myVehicle->getParameter().departProcedure == DEPART_TRIGGERED) {
         previousEdge->removePerson(person);
@@ -370,6 +371,12 @@ MSPerson::MSPersonStage_Driving::isWaitingFor(const std::string& line) const {
 bool
 MSPerson::MSPersonStage_Driving::isWaiting4Vehicle() const {
     return myVehicle == 0;
+}
+
+
+SUMOTime
+MSPerson::MSPersonStage_Driving::timeWaiting4Vehicle(SUMOTime now) const {
+    return isWaiting4Vehicle() ? now - myWaitingSince : 0;
 }
 
 

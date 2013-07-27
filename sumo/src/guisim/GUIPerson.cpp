@@ -298,8 +298,7 @@ GUIPerson::getColorValue(size_t activeScheme) const {
                 return (SUMOReal)getCurrentStageType();
             }
         case 5:
-            // XXX time spent waiting for a ride
-            return isWaiting4Vehicle() ? 0 : 0;
+            return STEPS2TIME(timeWaiting4Vehicle(MSNet::getInstance()->getCurrentTimeStep()));
     }
     return 0;
 }
