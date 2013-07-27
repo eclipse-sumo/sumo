@@ -66,9 +66,9 @@ typedef std::vector<const MSEdge*> MSEdgeVector;
 class MSPerson {
 public:
     enum StageType {
-        WALKING,
-        DRIVING,
-        WAITING
+        WALKING = 0,
+        DRIVING = 1,
+        WAITING = 2
     };
 
 

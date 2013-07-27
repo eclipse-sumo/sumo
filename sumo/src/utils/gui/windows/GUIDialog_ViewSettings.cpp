@@ -237,7 +237,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myStreetNamePanel = new NamePanel(m22, this, "Show street name", mySettings->streetName);
         myInternalEdgeNamePanel = new NamePanel(m22, this, "Show internal edge name", mySettings->internalEdgeName);
     }
-    {
+    { // vehicles
         new FXTabItem(tabbook, "Vehicles", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
         FXVerticalFrame* frame3 =
             new FXVerticalFrame(tabbook, FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
@@ -315,7 +315,71 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         myVehicleUpscaleDialer->setRange(0, 10000);
         myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
-    } {
+    } 
+    
+    { // persons
+        new FXTabItem(tabbook, "Persons", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
+        FXVerticalFrame* frame3 =
+            new FXVerticalFrame(tabbook, FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
+
+        FXMatrix* m101 =
+            new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 10, 2, 5, 5);
+        new FXLabel(m101, "Show As", 0, LAYOUT_CENTER_Y);
+        myPersonShapeDetail = new FXComboBox(m101, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
+        myPersonShapeDetail->appendItem("'triangles'");
+        myPersonShapeDetail->appendItem("'boxes'");
+        myPersonShapeDetail->appendItem("'simple shapes'");
+        myPersonShapeDetail->appendItem("'raster images'");
+        myPersonShapeDetail->setNumVisible(4);
+        myPersonShapeDetail->setCurrentItem(settings->personQuality);
+
+        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+
+        FXMatrix* m102 =
+            new FXMatrix(frame3, 3, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 10, 2, 5, 5);
+        new FXLabel(m102, "Color", 0, LAYOUT_CENTER_Y);
+        myPersonColorMode = new FXComboBox(m102, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | COMBOBOX_STATIC);
+        mySettings->personColorer.fill(*myPersonColorMode);
+        myPersonColorMode->setNumVisible(10);
+        myPersonColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y | CHECKBUTTON_NORMAL);
+
+        FXScrollWindow* genScroll = new FXScrollWindow(frame3, LAYOUT_FILL_X | LAYOUT_SIDE_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_HEIGHT, 0, 0, 0, 80);
+        myPersonColorSettingFrame =
+            new FXVerticalFrame(genScroll, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
+
+        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+
+        FXMatrix* m103 =
+            new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        myPersonNamePanel = new NamePanel(m103, this, "Show person name", mySettings->personName);
+
+        new FXHorizontalSeparator(frame3, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+
+        FXMatrix* m104 =
+            new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
+        FXMatrix* m1041 =
+            new FXMatrix(m104, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
+        new FXLabel(m1041, "Minimum size", 0, LAYOUT_CENTER_Y);
+        myPersonMinSizeDialer =
+            new FXRealSpinDial(m1041, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+        myPersonMinSizeDialer->setValue(mySettings->minPersonSize);
+        FXMatrix* m1042 =
+            new FXMatrix(m104, 2, LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
+                         0, 0, 0, 0, 10, 10, 0, 0, 5, 5);
+        new FXLabel(m1042, "Exaggerate by", 0, LAYOUT_CENTER_Y);
+        myPersonUpscaleDialer =
+            new FXRealSpinDial(m1042, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+        myPersonUpscaleDialer->setRange(0, 10000);
+        myPersonUpscaleDialer->setValue(mySettings->personExaggeration);
+    } 
+    { // nodes
         new FXTabItem(tabbook, "Nodes", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
         FXVerticalFrame* frame4 =
             new FXVerticalFrame(tabbook, FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
@@ -564,6 +628,12 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     */
     myVehicleNamePanel->update(mySettings->vehicleName);
 
+    myPersonColorMode->setCurrentItem((FXint) mySettings->personColorer.getActive());
+    myPersonShapeDetail->setCurrentItem(mySettings->personQuality);
+    myPersonUpscaleDialer->setValue(mySettings->personExaggeration);
+    myPersonMinSizeDialer->setValue(mySettings->minPersonSize);
+    myPersonNamePanel->update(mySettings->personName);
+
     myJunctionColorMode->setCurrentItem((FXint) mySettings->junctionColorer.getActive());
     myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
     myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
@@ -652,6 +722,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     GUIVisualizationSettings tmpSettings = *mySettings;
     size_t prevLaneMode = mySettings->getLaneEdgeMode();
     size_t prevVehicleMode = mySettings->vehicleColorer.getActive();
+    size_t prevPersonMode = mySettings->personColorer.getActive();
     size_t prevJunctionMode = mySettings->junctionColorer.getActive();
     bool doRebuildColorMatrices = false;
 
@@ -689,6 +760,12 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.drawLaneChangePreference = (myShowLaneChangePreference->getCheck() != FALSE);
     */
     tmpSettings.vehicleName = myVehicleNamePanel->getSettings();
+
+    tmpSettings.personColorer.setActive(myPersonColorMode->getCurrentItem());
+    tmpSettings.personQuality = myPersonShapeDetail->getCurrentItem();
+    tmpSettings.personExaggeration = (SUMOReal) myPersonUpscaleDialer->getValue();
+    tmpSettings.minPersonSize = (SUMOReal) myPersonMinSizeDialer->getValue();
+    tmpSettings.personName = myPersonNamePanel->getSettings();
 
     tmpSettings.junctionColorer.setActive(myJunctionColorMode->getCurrentItem());
     tmpSettings.drawLinkTLIndex = (myShowTLIndex->getCheck() != FALSE);
@@ -736,6 +813,20 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         }
         if (sender == myVehicleColorInterpolation) {
             tmpSettings.vehicleColorer.getScheme().setInterpolated(myVehicleColorInterpolation->getCheck() != FALSE);
+            doRebuildColorMatrices = true;
+        }
+    } else {
+        doRebuildColorMatrices = true;
+    }
+    // persons
+    if (tmpSettings.personColorer.getActive() == prevPersonMode) {
+        if (updateColorRanges(sender, myPersonColors.begin(), myPersonColors.end(),
+                              myPersonThresholds.begin(), myPersonThresholds.end(), myPersonButtons.begin(),
+                              tmpSettings.personColorer.getScheme())) {
+            doRebuildColorMatrices = true;
+        }
+        if (sender == myPersonColorInterpolation) {
+            tmpSettings.personColorer.getScheme().setInterpolated(myPersonColorInterpolation->getCheck() != FALSE);
             doRebuildColorMatrices = true;
         }
     } else {
@@ -1146,7 +1237,12 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     if (doCreate) {
         m->create();
     }
-    myVehicleColorSettingFrame->getParent()->recalc();
+    myPersonColorSettingFrame->getParent()->recalc();
+    m = rebuildColorMatrix(myPersonColorSettingFrame, myPersonColors, myPersonThresholds, myPersonButtons, myPersonColorInterpolation, mySettings->personColorer.getScheme());
+    if (doCreate) {
+        m->create();
+    }
+    myPersonColorSettingFrame->getParent()->recalc();
     m = rebuildColorMatrix(myJunctionColorSettingFrame, myJunctionColors, myJunctionThresholds, myJunctionButtons, myJunctionColorInterpolation, mySettings->junctionColorer.getScheme());
     if (doCreate) {
         m->create();

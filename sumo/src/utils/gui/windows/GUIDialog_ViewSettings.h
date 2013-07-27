@@ -248,6 +248,14 @@ private:
     FXRealSpinDial* myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
     FXCheckButton* myShowBlinker, *myShowMinGap; /* *myShowLaneChangePreference,*/
 
+    FXComboBox* myPersonColorMode, *myPersonShapeDetail;
+    FXVerticalFrame* myPersonColorSettingFrame;
+    std::vector<FXColorWell*> myPersonColors;
+    std::vector<FXRealSpinDial*> myPersonThresholds;
+    std::vector<FXButton*> myPersonButtons;
+    FXCheckButton* myPersonColorInterpolation;
+    FXRealSpinDial* myPersonMinSizeDialer, *myPersonUpscaleDialer;
+
     FXComboBox* myJunctionColorMode;
     FXVerticalFrame* myJunctionColorSettingFrame;
     std::vector<FXColorWell*> myJunctionColors;
@@ -267,7 +275,8 @@ private:
 
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myStreetNamePanel,
                *myJunctionNamePanel, *myInternalJunctionNamePanel,
-               *myVehicleNamePanel, *myAddNamePanel, *myPOINamePanel, *myPolyNamePanel;
+               *myVehicleNamePanel, *myPersonNamePanel,
+               *myAddNamePanel, *myPOINamePanel, *myPolyNamePanel;
     /// @}
 
 

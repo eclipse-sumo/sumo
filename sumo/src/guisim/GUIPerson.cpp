@@ -6,7 +6,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A MSVehicle extended by some values for usage within the gui
+// A MSPerson extended by some values for usage within the gui
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
@@ -166,9 +166,9 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     // set person color
     setColor(s);
     // scale
-    SUMOReal upscale = s.vehicleExaggeration;
+    SUMOReal upscale = s.personExaggeration;
     glScaled(upscale, upscale, 1);
-    switch (s.vehicleQuality) {
+    switch (s.personQuality) {
         case 0:
         case 1:
             drawAction_drawAsTriangle(s);
@@ -182,7 +182,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
             break;
     }
     glPopMatrix();
-    drawName(p1, s.scale, s.vehicleName);
+    drawName(p1, s.scale, s.personName);
     glPopName();
 }
 
@@ -247,7 +247,7 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const /* parent */, const GUIVi
 
 void
 GUIPerson::setColor(const GUIVisualizationSettings& s) const {
-    const GUIColorer& c = s.vehicleColorer;
+    const GUIColorer& c = s.personColorer;
     if (!setFunctionalColor(c.getActive())) {
         GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
     }
@@ -289,46 +289,25 @@ GUIPerson::setFunctionalColor(size_t activeScheme) const {
 
 
 SUMOReal
-GUIPerson::getColorValue(size_t /* activeScheme */) const {
-    // XXX color by time spend waiting for a ride
-    /*
+GUIPerson::getColorValue(size_t activeScheme) const {
     switch (activeScheme) {
-        case 7:
-            return getSpeed();
-        case 8:
-            return getWaitingSeconds();
-        case 9:
-            return getLastLaneChangeOffset();
-        case 10:
-            return getMaxSpeed();
-        case 11:
-            return getHBEFA_CO2Emissions();
-        case 12:
-            return getHBEFA_COEmissions();
-        case 13:
-            return getHBEFA_PMxEmissions();
-        case 14:
-            return getHBEFA_NOxEmissions();
-        case 15:
-            return getHBEFA_HCEmissions();
-        case 16:
-            return getHBEFA_FuelConsumption();
-        case 17:
-            return getHarmonoise_NoiseEmissions();
-        case 18:
-            if (getNumberReroutes() == 0) {
-                return -1;
+        case 4:
+            if (isWaiting4Vehicle()) {
+                return 3;
+            } else {
+                return (SUMOReal)getCurrentStageType();
             }
-            return getNumberReroutes();
+        case 5:
+            // XXX time spent waiting for a ride
+            return isWaiting4Vehicle() ? 0 : 0;
     }
-    */
     return 0;
 }
 
 
 Position
 GUIPerson::getPosition(SUMOTime now) const {
-    if ((*myStep)->getStageType() == DRIVING && !isWaiting4Vehicle()) {
+    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
         return myPositionInVehicle;
     }
     return MSPerson::getPosition(now);

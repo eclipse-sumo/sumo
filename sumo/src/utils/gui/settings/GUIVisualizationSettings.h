@@ -156,6 +156,22 @@ public:
     //@}
 
 
+    /// @name person visualization settings
+    //@{
+
+    /// @brief The person colorer
+    GUIColorer personColorer;
+    /// @brief The quality of person drawing
+    int personQuality;
+    /// @brief The minimum size of persons to let them be drawn
+    float minPersonSize;
+    /// @brief The person exaggeration (upscale)
+    float personExaggeration;
+    // Setting bundles for optional drawing person names
+    GUIVisualizationTextSettings personName;
+    //@}
+
+
     /// @name junction visualization settings
     //@{
 

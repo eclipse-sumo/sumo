@@ -186,6 +186,14 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);
             myCurrentColorer = element;
             break;
+        case SUMO_TAG_VIEWSETTINGS_PERSONS:
+            mySettings.personColorer.setActive(TplConvert::_2int(attrs.getStringSecure("personMode", "0").c_str()));
+            mySettings.personQuality = TplConvert::_2int(attrs.getStringSecure("personQuality", toString(mySettings.personQuality)).c_str());
+            mySettings.minPersonSize = TplConvert::_2SUMOReal(attrs.getStringSecure("minPersonSize", toString(mySettings.minPersonSize)).c_str());
+            mySettings.personExaggeration = TplConvert::_2SUMOReal(attrs.getStringSecure("personExaggeration", toString(mySettings.personExaggeration)).c_str());
+            mySettings.personName = parseTextSettings("personName", attrs, mySettings.personName);
+            myCurrentColorer = element;
+            break;
         case SUMO_TAG_VIEWSETTINGS_JUNCTIONS:
             mySettings.junctionColorer.setActive(TplConvert::_2int(attrs.getStringSecure("junctionMode", "0").c_str()));
             mySettings.drawLinkTLIndex = TplConvert::_2bool(attrs.getStringSecure("drawLinkTLIndex", toString(mySettings.drawLinkTLIndex)).c_str());
