@@ -137,9 +137,12 @@ def main(options):
         os.chdir(testPath)
         if (not options.skip_configuration 
                 and app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert", 
-                    "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]):
+                    "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]):
             if "meso" in testPath and app == "sumo":
                 app = "meso"
+            if app == "netgen":
+                # binary is now called differently but app still has the old name
+                app = "netgenerate"
             subprocess.call([checkBinary(app)] + appOptions)
         os.chdir(oldWorkDir)
 
