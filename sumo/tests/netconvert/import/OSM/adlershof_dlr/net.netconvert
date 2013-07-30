@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  3 13:27:10 2013 by SUMO netconvert Version dev-SVN-r14256
+<!-- generated on Tue Jul 30 15:49:28 2013 by SUMO netconvert Version dev-SVN-r14318
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -53,10 +53,10 @@
         <lane id="-25944590#0_0" index="0" allow="pedestrian" speed="8.33" length="94.64" shape="527.42,533.61 530.18,534.58 551.58,538.15 609.10,545.47"/>
     </edge>
     <edge id="-25944590#1" from="283018842" to="283018841" priority="1" type="highway.footway">
-        <lane id="-25944590#1_0" index="0" allow="pedestrian" speed="8.33" length="40.80" shape="493.76,523.83 514.56,529.56"/>
+        <lane id="-25944590#1_0" index="0" allow="pedestrian" speed="8.33" length="51.68" shape="493.76,523.83 514.56,529.56"/>
     </edge>
     <edge id="-25944590#2" from="283018844" to="283018842" priority="1" type="highway.footway" shape="402.53,486.32 420.24,495.86 480.89,521.99">
-        <lane id="-25944590#2_0" index="0" allow="pedestrian" speed="8.33" length="86.16" shape="408.16,487.48 421.02,494.41 488.79,523.60"/>
+        <lane id="-25944590#2_0" index="0" allow="pedestrian" speed="8.33" length="97.04" shape="408.16,487.48 421.02,494.41 488.79,523.60"/>
     </edge>
     <edge id="-25944590#3" from="283018845" to="283018844" priority="1" type="highway.footway">
         <lane id="-25944590#3_0" index="0" allow="pedestrian" speed="8.33" length="50.40" shape="361.14,458.30 398.99,482.14"/>
@@ -77,7 +77,7 @@
         <lane id="-25944603#2_0" index="0" allow="pedestrian" speed="8.33" length="11.27" shape="502.67,555.67 503.70,553.19"/>
     </edge>
     <edge id="-25944605" from="283018842" to="283018937" priority="1" type="highway.footway" shape="480.89,521.99 494.62,536.85 506.58,550.58">
-        <lane id="-25944605_0" index="0" allow="pedestrian" speed="8.33" length="38.43" shape="490.86,530.34 495.83,535.73 504.23,545.37"/>
+        <lane id="-25944605_0" index="0" allow="pedestrian" speed="8.33" length="49.31" shape="490.86,530.34 495.83,535.73 504.23,545.37"/>
     </edge>
     <edge id="-25951490" from="32266938" to="175648134" priority="1" type="highway.cycleway">
         <lane id="-25951490_0" index="0" allow="bicycle" speed="5.56" length="466.10" shape="473.15,109.48 15.89,169.70"/>
@@ -321,7 +321,7 @@
         <lane id="-7730464_0" index="0" speed="22.22" length="10.25" shape="616.96,421.85 616.84,424.23"/>
     </edge>
     <edge id="20430080" from="57343359" to="59993001" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="0.00,348.44 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 486.97,382.40">
-        <lane id="20430080_0" index="0" speed="22.22" length="497.45" shape="1.94,345.92 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 483.90,381.71"/>
+        <lane id="20430080_0" index="0" speed="22.22" length="500.05" shape="1.94,345.92 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 483.90,381.71"/>
     </edge>
     <edge id="22917251" from="32266938" to="32266936" name="Teltowkanalbrücke" priority="6" type="highway.tertiary">
         <lane id="22917251_0" index="0" speed="22.22" length="58.42" shape="475.75,102.76 471.12,49.15"/>
@@ -347,10 +347,10 @@
         <lane id="25944590#0_0" index="0" allow="pedestrian" speed="8.33" length="94.64" shape="608.68,548.75 551.10,541.41 529.36,537.76 526.33,536.70"/>
     </edge>
     <edge id="25944590#1" from="283018841" to="283018842" priority="1" type="highway.footway">
-        <lane id="25944590#1_0" index="0" allow="pedestrian" speed="8.33" length="40.80" shape="513.69,532.74 492.88,527.01"/>
+        <lane id="25944590#1_0" index="0" allow="pedestrian" speed="8.33" length="51.68" shape="513.69,532.74 492.88,527.01"/>
     </edge>
     <edge id="25944590#2" from="283018842" to="283018844" priority="1" type="highway.footway" shape="480.89,521.99 420.24,495.86 402.53,486.32">
-        <lane id="25944590#2_0" index="0" allow="pedestrian" speed="8.33" length="86.16" shape="487.49,526.63 419.58,497.37 406.59,490.38"/>
+        <lane id="25944590#2_0" index="0" allow="pedestrian" speed="8.33" length="97.04" shape="487.49,526.63 419.58,497.37 406.59,490.38"/>
     </edge>
     <edge id="25944590#3" from="283018844" to="283018845" priority="1" type="highway.footway">
         <lane id="25944590#3_0" index="0" allow="pedestrian" speed="8.33" length="50.40" shape="397.23,484.93 360.28,461.66"/>
@@ -371,7 +371,7 @@
         <lane id="25944603#2_0" index="0" allow="pedestrian" speed="8.33" length="11.27" shape="506.75,554.46 505.71,556.94"/>
     </edge>
     <edge id="25944605" from="283018937" to="283018842" priority="1" type="highway.footway" shape="506.58,550.58 494.62,536.85 480.89,521.99">
-        <lane id="25944605_0" index="0" allow="pedestrian" speed="8.33" length="38.43" shape="501.74,547.54 493.38,537.93 488.43,532.58"/>
+        <lane id="25944605_0" index="0" allow="pedestrian" speed="8.33" length="49.31" shape="501.74,547.54 493.38,537.93 488.43,532.58"/>
     </edge>
     <edge id="25951490" from="175648134" to="32266938" priority="1" type="highway.cycleway">
         <lane id="25951490_0" index="0" allow="bicycle" speed="5.56" length="466.10" shape="15.46,166.43 472.72,106.21"/>
@@ -482,7 +482,7 @@
         <lane id="27441289_0" index="0" speed="22.22" length="71.09" shape="487.56,379.30 493.84,346.12 494.87,324.48"/>
     </edge>
     <edge id="27445000" from="38919945" to="57343359" name="Rudower Chaussee" priority="6" type="highway.tertiary" spreadType="center" shape="484.37,395.86 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 0.00,348.44">
-        <lane id="27445000_0" index="0" speed="22.22" length="488.20" shape="481.29,395.12 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 3.17,348.50"/>
+        <lane id="27445000_0" index="0" speed="22.22" length="490.80" shape="481.29,395.12 387.27,372.75 303.84,361.55 189.83,353.29 133.74,350.94 3.17,348.50"/>
     </edge>
     <edge id="27445003" from="56231397" to="301292612" name="Wegedornstraße" priority="6" type="highway.tertiary" spreadType="center">
         <lane id="27445003_0" index="0" speed="22.22" length="14.40" shape="499.79,388.48 498.28,396.28"/>

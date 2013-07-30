@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun May 26 14:47:01 2013 by SUMO netconvert Version dev-SVN-r14017
+<!-- generated on Tue Jul 30 15:49:20 2013 by SUMO netconvert Version dev-SVN-r14318
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -176,10 +176,10 @@
         <lane id="-905006117_0" index="0" speed="22.22" length="133.79" shape="3931.33,3108.01 4021.22,3206.89"/>
     </edge>
     <edge id="-905006119" from="1559" to="1558" priority="-1" type="83" shape="1700.00,1338.00 1605.00,1244.00 1420.00,1128.00">
-        <lane id="-905006119_0" index="0" speed="13.89" length="352.00" shape="1692.12,1332.53 1603.97,1245.30 1419.34,1129.53"/>
+        <lane id="-905006119_0" index="0" speed="13.89" length="358.91" shape="1692.12,1332.53 1603.97,1245.30 1419.34,1129.53"/>
     </edge>
     <edge id="-905006120" from="1560" to="1559" priority="-1" type="83" shape="2080.00,1608.00 1758.00,1356.00 1700.00,1338.00">
-        <lane id="-905006120_0" index="0" speed="13.89" length="469.62" shape="2072.62,1604.32 1757.22,1357.49 1695.64,1338.37"/>
+        <lane id="-905006120_0" index="0" speed="13.89" length="476.52" shape="2072.62,1604.32 1757.22,1357.49 1695.64,1338.37"/>
     </edge>
     <edge id="-905006352" from="1672" to="261" priority="-1" type="0">
         <lane id="-905006352_0" index="0" speed="3.06" length="105.42" shape="1504.87,2898.38 1564.70,2821.98"/>
@@ -332,11 +332,11 @@
         <lane id="905006117_0" index="0" speed="22.22" length="133.79" shape="4018.78,3209.11 3928.89,3110.23"/>
     </edge>
     <edge id="905006119" from="1558" to="1559" priority="-1" type="83" shape="1420.00,1128.00 1605.00,1244.00 1700.00,1338.00">
-        <lane id="905006119_0" index="0" speed="13.89" length="352.00" shape="1421.09,1126.74 1606.03,1242.70 1694.44,1330.18"/>
+        <lane id="905006119_0" index="0" speed="13.89" length="358.91" shape="1421.09,1126.74 1606.03,1242.70 1694.44,1330.18"/>
     </edge>
     <edge id="905006120" from="1559" to="1560" priority="-1" type="83" shape="1700.00,1338.00 1758.00,1356.00 2080.00,1608.00">
-        <lane id="905006120_0" index="0" speed="13.89" length="469.62" shape="1697.59,1332.07 1760.34,1351.54 2076.69,1599.12"/>
-        <lane id="905006120_1" index="1" speed="13.89" length="469.62" shape="1696.61,1335.22 1758.78,1354.51 2074.65,1601.72"/>
+        <lane id="905006120_0" index="0" speed="13.89" length="476.52" shape="1697.59,1332.07 1760.34,1351.54 2076.69,1599.12"/>
+        <lane id="905006120_1" index="1" speed="13.89" length="476.52" shape="1696.61,1335.22 1758.78,1354.51 2074.65,1601.72"/>
     </edge>
     <edge id="905006352" from="261" to="1672" priority="-1" type="0">
         <lane id="905006352_0" index="0" speed="3.06" length="105.42" shape="1567.30,2824.02 1507.47,2900.41"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 22 12:12:27 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Tue Jul 30 15:49:45 2013 by SUMO netconvert Version dev-SVN-r14318
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -34,15 +34,15 @@
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,200.00" origBoundary="-1000.00,0.00,1000.00,200.00" projParameter="!"/>
 
     <edge id="off" from="2" to="2a" priority="-1" shape="500.00,11.55 200.00,200.00">
-        <lane id="off_0" index="0" speed="30.00" length="365.83" shape="501.44,12.59 200.88,201.40"/>
+        <lane id="off_0" index="0" speed="30.00" length="358.64" shape="501.44,12.59 200.88,201.40"/>
     </edge>
     <edge id="on" from="4a" to="4" priority="-1" shape="1800.00,200.00 1500.00,11.55">
-        <lane id="on_0" index="0" speed="30.00" length="365.83" shape="1799.12,201.40 1498.56,12.59"/>
+        <lane id="on_0" index="0" speed="30.00" length="358.64" shape="1799.12,201.40 1498.56,12.59"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
-        <lane id="s1_0" index="0" speed="30.00" length="500.00" shape="2000.00,8.25 1498.70,8.25"/>
-        <lane id="s1_1" index="1" speed="30.00" length="500.00" shape="2000.00,4.95 1498.70,4.95"/>
-        <lane id="s1_2" index="2" speed="30.00" length="500.00" shape="2000.00,1.65 1498.70,1.65"/>
+        <lane id="s1_0" index="0" speed="30.00" length="508.46" shape="2000.00,8.25 1498.70,8.25"/>
+        <lane id="s1_1" index="1" speed="30.00" length="508.46" shape="2000.00,4.95 1498.70,4.95"/>
+        <lane id="s1_2" index="2" speed="30.00" length="508.46" shape="2000.00,1.65 1498.70,1.65"/>
     </edge>
     <edge id="s2" from="s2-AddedOnRampNode" to="3" priority="-1">
         <lane id="s2_0" index="0" speed="30.00" length="400.00" shape="1398.50,8.25 1000.00,8.25"/>
@@ -50,10 +50,10 @@
         <lane id="s2_2" index="2" speed="30.00" length="400.00" shape="1398.50,1.65 1000.00,1.65"/>
     </edge>
     <edge id="s2-AddedOnRampEdge" from="4" to="s2-AddedOnRampNode" priority="-1">
-        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="100.00" shape="1494.94,11.55 1401.50,11.55"/>
-        <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="100.00" shape="1494.94,8.25 1401.50,8.25"/>
-        <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="100.00" shape="1494.94,4.95 1401.50,4.95"/>
-        <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="100.00" shape="1494.94,1.65 1401.50,1.65"/>
+        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="108.46" shape="1494.94,11.55 1401.50,11.55"/>
+        <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="108.46" shape="1494.94,8.25 1401.50,8.25"/>
+        <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="108.46" shape="1494.94,4.95 1401.50,4.95"/>
+        <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="108.46" shape="1494.94,1.65 1401.50,1.65"/>
     </edge>
     <edge id="s3" from="3" to="s3-AddedOffRampNode" priority="-1">
         <lane id="s3_0" index="0" speed="30.00" length="400.00" shape="1000.00,8.25 601.50,8.25"/>
@@ -61,15 +61,15 @@
         <lane id="s3_2" index="2" speed="30.00" length="400.00" shape="1000.00,1.65 601.50,1.65"/>
     </edge>
     <edge id="s3-AddedOffRampEdge" from="s3-AddedOffRampNode" to="2" priority="-1">
-        <lane id="s3-AddedOffRampEdge_0" index="0" speed="30.00" length="100.00" shape="598.50,11.55 505.06,11.55"/>
-        <lane id="s3-AddedOffRampEdge_1" index="1" speed="30.00" length="100.00" shape="598.50,8.25 505.06,8.25"/>
-        <lane id="s3-AddedOffRampEdge_2" index="2" speed="30.00" length="100.00" shape="598.50,4.95 505.06,4.95"/>
-        <lane id="s3-AddedOffRampEdge_3" index="3" speed="30.00" length="100.00" shape="598.50,1.65 505.06,1.65"/>
+        <lane id="s3-AddedOffRampEdge_0" index="0" speed="30.00" length="108.46" shape="598.50,11.55 505.06,11.55"/>
+        <lane id="s3-AddedOffRampEdge_1" index="1" speed="30.00" length="108.46" shape="598.50,8.25 505.06,8.25"/>
+        <lane id="s3-AddedOffRampEdge_2" index="2" speed="30.00" length="108.46" shape="598.50,4.95 505.06,4.95"/>
+        <lane id="s3-AddedOffRampEdge_3" index="3" speed="30.00" length="108.46" shape="598.50,1.65 505.06,1.65"/>
     </edge>
     <edge id="s4" from="2" to="1" priority="-1">
-        <lane id="s4_0" index="0" speed="30.00" length="500.00" shape="501.30,8.25 0.00,8.25"/>
-        <lane id="s4_1" index="1" speed="30.00" length="500.00" shape="501.30,4.95 0.00,4.95"/>
-        <lane id="s4_2" index="2" speed="30.00" length="500.00" shape="501.30,1.65 0.00,1.65"/>
+        <lane id="s4_0" index="0" speed="30.00" length="508.46" shape="501.30,8.25 0.00,8.25"/>
+        <lane id="s4_1" index="1" speed="30.00" length="508.46" shape="501.30,4.95 0.00,4.95"/>
+        <lane id="s4_2" index="2" speed="30.00" length="508.46" shape="501.30,1.65 0.00,1.65"/>
     </edge>
 
     <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.85 0.00,0.05"/>

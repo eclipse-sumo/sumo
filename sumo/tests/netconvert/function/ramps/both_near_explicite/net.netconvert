@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 22 12:12:16 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Tue Jul 30 15:49:40 2013 by SUMO netconvert Version dev-SVN-r14318
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -33,18 +33,18 @@
         <lane id="off_0" index="0" speed="30.00" length="784.86" shape="951.50,12.87 200.40,201.60"/>
     </edge>
     <edge id="on" from="4a" to="4" priority="-1" shape="1800.00,200.00 1050.00,11.55">
-        <lane id="on_0" index="0" speed="30.00" length="784.86" shape="1799.60,201.60 1044.88,11.96"/>
+        <lane id="on_0" index="0" speed="30.00" length="780.48" shape="1799.60,201.60 1044.88,11.96"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
-        <lane id="s1_0" index="0" speed="30.00" length="950.00" shape="2000.00,8.25 1044.49,8.25"/>
-        <lane id="s1_1" index="1" speed="30.00" length="950.00" shape="2000.00,4.95 1043.30,4.95"/>
-        <lane id="s1_2" index="2" speed="30.00" length="950.00" shape="2000.00,1.65 1042.11,1.65"/>
+        <lane id="s1_0" index="0" speed="30.00" length="961.50" shape="2000.00,8.25 1044.49,8.25"/>
+        <lane id="s1_1" index="1" speed="30.00" length="961.50" shape="2000.00,4.95 1043.30,4.95"/>
+        <lane id="s1_2" index="2" speed="30.00" length="961.50" shape="2000.00,1.65 1042.11,1.65"/>
     </edge>
     <edge id="s2" from="4" to="3" priority="-1">
-        <lane id="s2_0" index="0" speed="30.00" length="50.00" shape="1041.53,11.55 1000.00,11.55"/>
-        <lane id="s2_1" index="1" speed="30.00" length="50.00" shape="1041.53,8.25 1000.00,8.25"/>
-        <lane id="s2_2" index="2" speed="30.00" length="50.00" shape="1041.53,4.95 1000.00,4.95"/>
-        <lane id="s2_3" index="3" speed="30.00" length="50.00" shape="1041.53,1.65 1000.00,1.65"/>
+        <lane id="s2_0" index="0" speed="30.00" length="61.50" shape="1041.53,11.55 1000.00,11.55"/>
+        <lane id="s2_1" index="1" speed="30.00" length="61.50" shape="1041.53,8.25 1000.00,8.25"/>
+        <lane id="s2_2" index="2" speed="30.00" length="61.50" shape="1041.53,4.95 1000.00,4.95"/>
+        <lane id="s2_3" index="3" speed="30.00" length="61.50" shape="1041.53,1.65 1000.00,1.65"/>
     </edge>
     <edge id="s3" from="3" to="2" priority="-1">
         <lane id="s3_0" index="0" speed="30.00" length="50.00" shape="1000.00,11.55 951.50,11.55"/>
