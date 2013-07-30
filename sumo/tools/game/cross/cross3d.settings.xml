@@ -1,6 +1,7 @@
 <viewsettings>
     <delay value="100"/>
     <viewport zoom="30" x="330" y="330"/>
+    <decal filename="light0" centerX="300" centerY="300" centerZ="300"/>
     <scheme name="game_cross">
         <opengl antialiase="0" dither="0"/>
         <vehicles vehicleMode="9" vehicleQuality="2" minVehicleSize="1.00" vehicleExaggeration="1.00" showBlinker="1"
@@ -31,8 +32,8 @@
                 <entry color="0.00,0.00,1.00" threshold="41.67"/>
             </colorScheme>
             <colorScheme name="by waiting time" interpolated="1">
-                <entry color="1.00,1.00,0.00" threshold="0.00"/>
-                <entry color="1.00,0.00,0.00" threshold="20.00"/>
+                <entry color="1.00,1.00,0.00,0.3" threshold="0.00"/>
+                <entry color="1.00,0.00,0.00,0.3" threshold="20.00"/>
             </colorScheme>
             <colorScheme name="by time since last lanechange" interpolated="1">
                 <entry color="1.00,1.00,1.00" threshold="0.00"/>
