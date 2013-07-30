@@ -16,10 +16,11 @@ All rights reserved
 import os, sys
 from os.path import join 
 import optparse, os, glob, sys, shutil, subprocess
+from collections import defaultdict
 
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
-SUMO_HOME = os.path.join(THIS_DIR, '..')
-sys.path.append(os.path.join(SUMO_HOME, "tools"))
+SUMO_HOME = join(THIS_DIR, '..')
+sys.path.append(join(SUMO_HOME, "tools"))
 
 from sumolib import checkBinary
 os.environ["PATH"] += os.pathsep + join(SUMO_HOME, 'bin')
@@ -40,6 +41,17 @@ def get_options(args=None):
         sys.exit(1)
     options.args = args
     return options
+
+def merge(srcDir, dstDir):
+    """merge contents of srcDir recursively into dstDir"""
+    for dir, subdirs, files in os.walk(srcDir):
+        dst = dir.replace(srcDir, dstDir)
+        if not os.path.exists(dst):
+            #print "creating dir '%s' as a copy of '%s'" % (dst, srcDir)
+            os.mkdir(dst)
+        for file in files:
+            #print "copying file '%s' to '%s'" % (join(dir, file), join(dst, file))
+            shutil.copy(join(dir, file), join(dst, file))
 
 
 def main(options):
@@ -68,7 +80,7 @@ def main(options):
                 continue
         app = iter(appName).next()
         optionsFiles = []
-        potentials = {}
+        potentials = defaultdict(list)
         source = os.path.realpath(source)
         curDir = source
         if curDir[-1] == os.path.sep:
@@ -76,8 +88,8 @@ def main(options):
         while True:
             for f in os.listdir(curDir):
                 path = join(curDir, f)
-                if not f in potentials:
-                    potentials[f] = path
+                if not f in potentials or os.path.isdir(path):
+                    potentials[f].append(path)
                 if f == "options."+app:
                     optionsFiles.append(path)
             if curDir == os.path.dirname(curDir) or os.path.exists(join(curDir, "config."+app)):
@@ -107,11 +119,18 @@ def main(options):
         appOptions += ['--save-configuration', '%s.%scfg' % (nameBase, app[:4])]
         for line in open(config):
             entry = line.strip().split(':')
-            if entry and entry[0] == "copy_test_path" and entry[1] in potentials:
+            if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
                 if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
-                    toCopy = potentials[entry[1]]
+                    toCopy = potentials[entry[1]][0]
                     if os.path.isdir(toCopy):
-                        shutil.copytree(toCopy, os.path.join(testPath, os.path.basename(toCopy)))
+                        if entry[0] == "copy_test_path_merge":
+                            # copy from least specific to most specific
+                            for toCopy in reversed(potentials[entry[1]]):
+                                merge(toCopy, join(testPath, os.path.basename(toCopy)))
+                        else:
+                            # only use the most specific version
+                            shutil.copytree(toCopy, os.path.join(testPath,
+                                os.path.basename(toCopy)))
                     else:
                         shutil.copy2(toCopy, testPath)
         oldWorkDir = os.getcwd()
