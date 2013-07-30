@@ -1,7 +1,6 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-@file    duaIterate.py
+@file    costMemory.py
 @author  Jakob Erdmann
 @date    2012-03-14
 @version $Id$

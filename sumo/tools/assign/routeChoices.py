@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    routeChoices.py
 @author  Evamarie Wiessner

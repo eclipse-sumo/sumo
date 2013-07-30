@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    miscutils.py
 @author  Jakob.Erdmann@dlr.de
@@ -7,7 +6,7 @@
 
 Common utility functions
 
-Copyright (C) 2007 DLR/FS, Germany
+Copyright (C) 2007-2013 DLR/FS, Germany
 All rights reserved
 
 This is a duplicate of tools/util/miscutils.py from the VABENE repository
