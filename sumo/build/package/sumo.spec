@@ -16,7 +16,7 @@ Release:        1
 Url:            http://sumo.sourceforge.net/
 Source0:        %{name}-src-%{version}.tar.gz
 Source1:        %{name}-doc-%{version}.zip
-License:        GPL v3 or later
+License:        GPL-3.0+
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  gcc-c++ libproj-devel libgdal-devel fox16-devel unzip
