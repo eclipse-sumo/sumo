@@ -167,6 +167,10 @@ public:
     }
 
 
+    /** @brief Returns a position that is guaranteed to lie within the node shape */
+    Position getCenter() const;
+
+
     /** @brief Returns this node's incoming edges
      * @return The edges which yield in this node
      */

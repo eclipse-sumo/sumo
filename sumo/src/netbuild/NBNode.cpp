@@ -1438,5 +1438,22 @@ NBNode::geometryLike() const {
     return false;
 }
 
+Position
+NBNode::getCenter() const {
+     /* Conceptually, the center point would be identical with myPosition. 
+     * However, if the shape is influenced by custom geometry endpoints of the adjoining edges,
+     * myPosition may fall outside the shape. In this case it is better to use
+     * the center of the shape 
+     **/
+    PositionVector tmp = myPoly;
+    tmp.closePolygon();
+    //std::cout << getID() << " around=" << tmp.around(myPosition) << " dist=" << tmp.distance(myPosition) << "\n";
+    if (tmp.size() < 3 || tmp.around(myPosition) || tmp.distance(myPosition) < POSITION_EPS) {
+        return myPosition;
+    } else {
+        return myPoly.getPolygonCenter();
+    }
+}
+
 /****************************************************************************/
 

@@ -257,8 +257,8 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
     if (OptionsCont::getOptions().getBool("no-internal-links") && !e.hasLoadedLength()) {
         // use length to junction center even if a modified geometry was given
         PositionVector geom = e.getGeometry();
-        geom.push_back_noDoublePos(e.getToNode()->getPosition());
-        geom.push_front_noDoublePos(e.getFromNode()->getPosition());
+        geom.push_back_noDoublePos(e.getToNode()->getCenter());
+        geom.push_front_noDoublePos(e.getFromNode()->getCenter());
         length = geom.length();
     }
     if (length <= 0) {
