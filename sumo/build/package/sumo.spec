@@ -1,7 +1,7 @@
 #
 # spec file for package sumo
 #
-# Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
+# Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
 #  This file is part of SUMO.
 #  SUMO is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -16,6 +16,9 @@ Release:        1
 Url:            http://sumo.sourceforge.net/
 Source0:        %{name}-src-%{version}.tar.gz
 Source1:        %{name}-doc-%{version}.zip
+Source2:        %{name}.desktop
+Source3:        %{name}.png
+Source4:        %{name}.xml
 License:        GPL-3.0+
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -32,6 +35,10 @@ BuildRequires:  libGLU-devel libXext-devel libXft-devel
 BuildRequires:  netcdf hdf5 javamail
 %endif
 %endif
+%if 0%{?suse_version}
+BuildRequires: update-desktop-files
+%endif
+
 Autoreqprov: on
 
 %description
@@ -50,6 +57,7 @@ find . -name "*.jar" | xargs rm
 %build
 %configure
 %{__make}
+%{__make} man
 
 %install
 %makeinstall
@@ -57,9 +65,17 @@ find . -name "*.jar" | xargs rm
 cp -a tools/* %{buildroot}%{_prefix}/lib/sumo
 %__mkdir_p %{buildroot}%{_bindir}
 %__ln_s ../lib/sumo/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
-%{__make} man
 install -d -m 755 %{buildroot}%{_mandir}/man1
 install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
+install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/applications/%{name}.desktop
+install -Dm644 %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.png
+%if 0%{?suse_version}
+%if 0%{?suse_version} > 1200
+install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
+%endif
+%suse_update_desktop_file %{name} Science Education
+%endif
+
 %fdupes %{buildroot}
 
 %files
@@ -68,5 +84,10 @@ install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
 %{_prefix}/lib/sumo
 %doc AUTHORS COPYING README ChangeLog docs/pydoc docs/userdoc docs/examples
 %{_mandir}/man1/*
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.png
+%if 0%{?suse_version} > 1200
+%{_datadir}/mime/application/%{name}.xml
+%endif
 
 %changelog
