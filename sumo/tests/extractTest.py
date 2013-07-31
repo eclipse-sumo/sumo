@@ -42,10 +42,15 @@ def get_options(args=None):
     options.args = args
     return options
 
-def merge(srcDir, dstDir):
+def copy_merge(srcDir, dstDir, merge, exclude):
     """merge contents of srcDir recursively into dstDir"""
     for dir, subdirs, files in os.walk(srcDir):
+        for ex in exclude:
+            if ex in subdirs:
+                subdirs.remove(ex)
         dst = dir.replace(srcDir, dstDir)
+        if os.path.exists(dst) and not merge:
+            shutil.rmtree(dst)
         if not os.path.exists(dst):
             #print "creating dir '%s' as a copy of '%s'" % (dst, srcDir)
             os.mkdir(dst)
@@ -117,20 +122,23 @@ def main(options):
         if options.names:
             nameBase = os.path.basename(target)
         appOptions += ['--save-configuration', '%s.%scfg' % (nameBase, app[:4])]
+        exclude = []
+        # gather copy_test_path exclusions
+        for line in open(config):
+            entry = line.strip().split(':')
+            if entry and entry[0] == "test_data_ignore":
+                exclude.append(entry[1])
+        # copy test data from the tree
         for line in open(config):
             entry = line.strip().split(':')
             if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
                 if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
                     toCopy = potentials[entry[1]][0]
                     if os.path.isdir(toCopy):
-                        if entry[0] == "copy_test_path_merge":
-                            # copy from least specific to most specific
-                            for toCopy in reversed(potentials[entry[1]]):
-                                merge(toCopy, join(testPath, os.path.basename(toCopy)))
-                        else:
-                            # only use the most specific version
-                            shutil.copytree(toCopy, os.path.join(testPath,
-                                os.path.basename(toCopy)))
+                        # copy from least specific to most specific
+                        merge = entry[0] == "copy_test_path_merge"
+                        for toCopy in reversed(potentials[entry[1]]):
+                            copy_merge(toCopy, join(testPath, os.path.basename(toCopy)), merge, exclude)
                     else:
                         shutil.copy2(toCopy, testPath)
         oldWorkDir = os.getcwd()
