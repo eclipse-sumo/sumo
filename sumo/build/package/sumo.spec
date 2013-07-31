@@ -20,7 +20,7 @@ License:        GPL-3.0+
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  gcc-c++ libproj-devel libgdal-devel fox16-devel unzip
-BuildRequires:  libxerces-c-devel
+BuildRequires:  libxerces-c-devel help2man fdupes
 %if 0%{?mandriva_version}
 BuildRequires:  XFree86-devel postgresql-devel libmesaglu1-devel
 %else
@@ -57,11 +57,16 @@ find . -name "*.jar" | xargs rm
 cp -a tools/* %{buildroot}%{_prefix}/lib/sumo
 %__mkdir_p %{buildroot}%{_bindir}
 %__ln_s ../lib/sumo/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
+%{__make} man
+install -d -m 755 %{buildroot}%{_mandir}/man1
+install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
+%fdupes %{buildroot}
 
 %files
 %defattr(-,root,root)
 %{_bindir}/*
 %{_prefix}/lib/sumo
 %doc AUTHORS COPYING README ChangeLog docs/pydoc docs/userdoc docs/examples
+%{_mandir}/man1/*
 
 %changelog
