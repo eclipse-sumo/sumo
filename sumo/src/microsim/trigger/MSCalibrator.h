@@ -118,8 +118,8 @@ protected:
         }
 
     private:
-        MSCalibrator* myParent;
         int myLaneIndex;
+        MSCalibrator* myParent;
     };
     friend class VehicleRemover;
 

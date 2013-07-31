@@ -224,7 +224,7 @@ protected:
             SPECIAL_RESTRICTIONS,
             EXTENDED_NUMBER_OF_LANES,
             ISRAMP,
-            CONNECTION,
+            CONNECTION
         };
 
     std::string getColumn(const StringTokenizer& st, ColumnName name, const std::string fallback="");

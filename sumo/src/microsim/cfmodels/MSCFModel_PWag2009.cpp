@@ -87,7 +87,7 @@ MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMO
 
 // uses the safe speed and preferred acceleration with the same NORMAL tau to compute stopSpeed
 SUMOReal
-MSCFModel_PWag2009::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
+MSCFModel_PWag2009::stopSpeed(const MSVehicle* const /* veh */, const SUMOReal speed, SUMOReal gap) const {
     if (gap < 0.01) {
         return 0;
     }

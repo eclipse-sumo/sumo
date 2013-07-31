@@ -122,7 +122,7 @@ MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder
 
 
 bool
-MSInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) {
+MSInductLoop::notifyEnter(SUMOVehicle& /* veh */, MSMoveReminder::Notification) {
     return true;
 }
 

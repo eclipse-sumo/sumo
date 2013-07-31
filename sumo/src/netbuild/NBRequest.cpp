@@ -576,8 +576,8 @@ NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
     }
     const SUMOReal prohibitorAngle = NBHelpers::relAngle(
             prohibitorFrom->getAngleAtNode(prohibitorFrom->getToNode()), to->getAngleAtNode(to->getFromNode()));  
-    const bool rightOfProhibitor = (prohibitorFrom->isTurningDirectionAt(prohibitorFrom->getToNode(), to) 
-            || angle > prohibitorAngle && !from->isTurningDirectionAt(from->getToNode(), to));
+    const bool rightOfProhibitor = prohibitorFrom->isTurningDirectionAt(prohibitorFrom->getToNode(), to) 
+            || (angle > prohibitorAngle && !from->isTurningDirectionAt(from->getToNode(), to));
     return rightOfProhibitor ? toLane >= prohibitorToLane : toLane <= prohibitorToLane;
 }
 

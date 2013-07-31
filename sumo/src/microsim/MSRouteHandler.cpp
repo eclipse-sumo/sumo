@@ -91,7 +91,6 @@ MSRouteHandler::myStartElement(int element,
             const std::string pid = myVehicleParameter->id;
             bool ok = true;
             MSEdge* from = 0;
-            SUMOReal departPos = 0;
             const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
             StringTokenizer st(desc);
             std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
@@ -101,7 +100,6 @@ MSRouteHandler::myStartElement(int element,
                 if (bs == 0) {
                     throw ProcessError("Unknown bus stop '" + bsID + "' for person '" + myVehicleParameter->id + "'.");
                 }
-                departPos = bs->getBeginLanePosition();
             }
             if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                 const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);

@@ -185,15 +185,18 @@ protected:
     void writeStats(SUMOTime time, SUMOTime start, int absNo);
 
 
-protected:
+private:
     /// @brief Options to use
     OptionsCont& myOptions;
 
+    /// @brief Information whether empty destinations are allowed
+    const bool myEmptyDestinationsAllowed;
+
+    /// @brief Information whether the routing steps should be logged
+    const bool myLogSteps;
+
     /// @brief List of route loaders
     SUMORouteLoaderControl myLoaders;
-
-    /// @brief Information whether empty destinations are allowed
-    bool myEmptyDestinationsAllowed;
 
 
 private:
@@ -202,9 +205,6 @@ private:
 
     /// @brief Invalidated assignment operator
     ROLoader& operator=(const ROLoader& src);
-
-    /// @brief Information whether the routing steps should be logged
-    bool myLogSteps;
 };
 
 

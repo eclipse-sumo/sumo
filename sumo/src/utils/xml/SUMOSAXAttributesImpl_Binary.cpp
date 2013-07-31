@@ -312,17 +312,6 @@ SUMOSAXAttributesImpl_Binary::getStringVector(int attr) const {
 }
 
 
-std::vector<SUMOReal>
-SUMOSAXAttributesImpl_Binary::getFloatVector(int attr) const {
-    std::vector<SUMOReal> ret;
-    /*    StringTokenizer st(getString(attr));
-        while (st.hasNext()) {
-            ret.push_back(TplConvert::_2SUMOReal(st.next().c_str()));
-        }*/
-    return ret;
-}
-
-
 std::string
 SUMOSAXAttributesImpl_Binary::getName(int attr) const {
     if (myAttrIds.find(attr) == myAttrIds.end()) {

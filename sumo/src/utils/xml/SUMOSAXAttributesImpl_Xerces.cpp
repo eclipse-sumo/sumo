@@ -253,17 +253,6 @@ SUMOSAXAttributesImpl_Xerces::getStringVector(int attr) const {
 }
 
 
-std::vector<SUMOReal>
-SUMOSAXAttributesImpl_Xerces::getFloatVector(int attr) const {
-    std::vector<SUMOReal> ret;
-    StringTokenizer st(getString(attr));
-    while (st.hasNext()) {
-        ret.push_back(TplConvert::_2SUMOReal(st.next().c_str()));
-    }
-    return ret;
-}
-
-
 std::string
 SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
     if (myPredefinedTagsMML.find(attr) == myPredefinedTagsMML.end()) {

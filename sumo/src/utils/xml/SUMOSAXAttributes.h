@@ -352,13 +352,6 @@ public:
      * @return The read value if given and not empty; empty vector if an error occured
      */
     virtual std::vector<std::string> getStringVector(int attr) const = 0;
-
-    /** @brief Tries to read given attribute assuming it is a vector of floats
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty vector if an error occured
-     */
-    virtual std::vector<SUMOReal> getFloatVector(int attr) const = 0;
     //}
 
 
