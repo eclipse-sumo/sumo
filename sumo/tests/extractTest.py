@@ -25,6 +25,8 @@ sys.path.append(join(SUMO_HOME, "tools"))
 from sumolib import checkBinary
 os.environ["PATH"] += os.pathsep + join(SUMO_HOME, 'bin')
 
+SOURCE_DEST_SEP = ';' # cannot use ':' because it is a component of absolute paths on windows
+
 def get_options(args=None):
     optParser = optparse.OptionParser(usage="%prog <options> <test directory>")
     optParser.add_option("-o", "--output", default=".", help="send output to directory")
@@ -66,14 +68,15 @@ def main(options):
         for line in open(options.file):
             line = line.strip()
             if line and line[0] != '#':
-                key, value = line.split(':')
+                key, value = line.split(SOURCE_DEST_SEP)
                 targets[join(dirname, key)] = join(dirname, value)
     for val in options.args:
-        source_and_maybe_target = val.split(':') + [""]
+        source_and_maybe_target = val.split(SOURCE_DEST_SEP) + [""]
         targets[source_and_maybe_target[0]] = source_and_maybe_target[1]
 
     for source, target in targets.iteritems():
         outputFiles = glob.glob(join(source, "output.[0-9a-z]*"))
+        print source, target, outputFiles
         # XXX we should collect the options.app.variant files in all parent
         # directories instead. This would allow us to save config files for all variants
         appName = set([f.split('.')[-1] for f in outputFiles])
