@@ -79,7 +79,7 @@ def main(options):
 
     for source, target in targets.iteritems():
         outputFiles = glob.glob(join(source, "output.[0-9a-z]*"))
-        print source, target, outputFiles
+        #print source, target, outputFiles
         # XXX we should collect the options.app.variant files in all parent
         # directories instead. This would allow us to save config files for all variants
         appName = set([f.split('.')[-1] for f in outputFiles])
