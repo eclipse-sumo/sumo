@@ -60,6 +60,9 @@ def copy_merge(srcDir, dstDir, merge, exclude):
             #print "copying file '%s' to '%s'" % (join(dir, file), join(dst, file))
             shutil.copy(join(dir, file), join(dst, file))
 
+def generateTargetName(baseDir, source):
+    return source[len(os.path.commonprefix([baseDir, source])):].replace(os.sep, '_')
+
 
 def main(options):
     targets = {}
@@ -108,7 +111,7 @@ def main(options):
             print >> sys.stderr, "Config '%s' not found for %s." % (config, source)
             continue
         if target == "":
-            target = source[len(os.path.commonprefix([curDir, source])):].replace(os.sep, '_')
+            target = generateTargetName(curDir, source)
         testPath = os.path.abspath(join(options.output, target))
         if not os.path.exists(testPath):
             os.makedirs(testPath)
