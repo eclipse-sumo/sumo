@@ -191,6 +191,9 @@ Processing Options:
   --geometry.min-dist FLOAT           reduces too similar geometry points
   --geometry.max-angle FLOAT          Warn about edge geometries with an angle
                                         above DEGREES in successive segments
+  --geometry.min-radius FLOAT         Warn about edge geometries with a turning
+                                        radius less than METERS at the start or
+                                        end
   --offset.disable-normalization      Turn off normalizing node positions
   --offset.x FLOAT                    Adds FLOAT to net x-positions
   --offset.y FLOAT                    Adds FLOAT to net y-positions
