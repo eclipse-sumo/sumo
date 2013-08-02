@@ -238,6 +238,8 @@ GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& look
     myLookAtX->setValue(lookAt.x());
     myLookAtY->setValue(lookAt.y());
     myLookAtZ->setValue(lookAt.z());
+#else
+    UNUSED_PARAMETER(lookAt);
 #endif
 }
 
