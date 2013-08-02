@@ -194,6 +194,9 @@ Processing Options:
   --geometry.min-radius FLOAT         Warn about edge geometries with a turning
                                         radius less than METERS at the start or
                                         end
+  --geometry.min-radius.fix           Straighten edge geometries to avoid
+                                        turning radii less than
+                                        geometry.min-radius
   --offset.disable-normalization      Turn off normalizing node positions
   --offset.x FLOAT                    Adds FLOAT to net x-positions
   --offset.y FLOAT                    Adds FLOAT to net y-positions

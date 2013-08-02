@@ -375,6 +375,9 @@
         <!-- Warn about edge geometries with a turning radius less than METERS at the start or end -->
         <geometry.min-radius value="9" type="FLOAT"/>
 
+        <!-- Straighten edge geometries to avoid turning radii less than geometry.min-radius -->
+        <geometry.min-radius.fix value="false" type="BOOL"/>
+
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
 
