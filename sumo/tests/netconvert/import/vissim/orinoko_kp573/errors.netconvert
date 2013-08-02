@@ -1,0 +1,21 @@
+Warning: Found sharp turn with radius 5.63 at the start of edge 1000705[1]
+Warning: Found sharp turn with radius 4.34 at the start of edge 17
+Leaked object at 0x1858520 (size 16, 0x3406cb0499)
+Leaked object at 0x1858df0 (size 60, 0x340549c3c9)
+Leaked object at 0x1858eb0 (size 62, 0x340549c3c9)
+Leaked object at 0x1858f70 (size 55, 0x340549c3c9)
+Leaked object at 0x1859020 (size 59, 0x340549c3c9)
+Leaked object at 0x18590e0 (size 78, 0x340549c3c9)
+Leaked object at 0x18591b0 (size 61, 0x340549c3c9)
+Leaked object at 0x1859270 (size 26, 0x340549c3c9)
+Leaked object at 0x1859310 (size 782, 0x340549c3c9)
+*** 9 leaks found
+delete: freed 0x1859310 (size 782, 417 bytes still allocated)
+delete: freed 0x1859270 (size 26, 391 bytes still allocated)
+delete: freed 0x18591b0 (size 61, 330 bytes still allocated)
+delete: freed 0x18590e0 (size 78, 252 bytes still allocated)
+delete: freed 0x1859020 (size 59, 193 bytes still allocated)
+delete: freed 0x1858f70 (size 55, 138 bytes still allocated)
+delete: freed 0x1858eb0 (size 62, 76 bytes still allocated)
+delete: freed 0x1858df0 (size 60, 16 bytes still allocated)
+delete: freed 0x1858520 (size 16, 0 bytes still allocated)

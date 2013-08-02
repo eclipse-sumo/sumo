@@ -517,9 +517,11 @@ NBEdgeCont::reduceGeometries(const SUMOReal minDist) {
 
 
 void
-NBEdgeCont::checkGeometries(const SUMOReal maxAngle) {
-    for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        (*i).second->checkGeometry(maxAngle);
+NBEdgeCont::checkGeometries(const SUMOReal maxAngle, const SUMOReal minRadius) {
+    if (maxAngle > 0 || minRadius > 0) {
+        for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
+            (*i).second->checkGeometry(maxAngle, minRadius);
+        }
     }
 }
 

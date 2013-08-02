@@ -535,20 +535,38 @@ NBEdge::reduceGeometry(const SUMOReal minDist) {
 
 
 void
-NBEdge::checkGeometry(const SUMOReal maxAngle) {
+NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius) {
     if (myGeom.size() < 3) {
         return;
     }
+    //std::cout << "checking geometry of " << getID() << " geometry = " << toString(myGeom) << "\n";
     std::vector<SUMOReal> angles; // absolute segment angles
+    //std::cout << "  absolute angles:";
     for (int i = 0; i < myGeom.size() - 1; ++i) {
         angles.push_back(myGeom.lineAt(i).atan2DegreeAngle());
+        //std::cout << " " << angles.back();
     }
+    //std::cout << "\n  relative angles: ";
     for (int i = 0; i < angles.size() - 1; ++i) {
         const SUMOReal relAngle = fabs(NBHelpers::relAngle(angles[i], angles[i + 1]));
-        if (relAngle > maxAngle) {
+        //std::cout << relAngle << " ";
+        if (maxAngle > 0 && relAngle > maxAngle) {
             WRITE_WARNING("Found angle of " + toString(relAngle) + " degrees at edge " + getID() + ", segment " + toString(i));
         }
+        if (relAngle < 1) {
+            continue;
+        }
+        if (i == 0 || i == angles.size() - 2) {
+            const Line l = (i == 0 ? myGeom.getBegLine() : myGeom.getEndLine());
+            const SUMOReal r = tan(DEG2RAD(90 - 0.5 * relAngle)) * l.length2D();
+            //std::cout << (i == 0 ? "  start" : "  end") << " length=" << l.length2D() << " radius=" << r << "  ";
+            if (minRadius > 0 && r < minRadius) {
+                WRITE_WARNING("Found sharp turn with radius " + toString(r) + " at the " + 
+                        (i == 0 ? "start" : "end") + " of edge " + getID());
+            }
+        }
     }
+    //std::cout << "\n";
 }
 
 

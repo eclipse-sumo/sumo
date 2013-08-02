@@ -588,8 +588,9 @@ public:
 
     /** @brief Check the angles of successive geometry segments
      * @param[in] maxAngle The maximum angle allowed
+     * @param[in] minRadius The minimum turning radius allowed at the start and end
      */
-    void checkGeometry(const SUMOReal maxAngle);
+    void checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius);
     //@}
 
 

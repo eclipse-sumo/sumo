@@ -235,8 +235,8 @@ NBNetBuilder::compute(OptionsCont& oc,
     NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
     PROGRESS_DONE_MESSAGE();
     //
-    if (oc.exists("geometry.max-angle") && oc.getFloat("geometry.max-angle") > 0) {
-        myEdgeCont.checkGeometries(oc.getFloat("geometry.max-angle"));
+    if (oc.exists("geometry.max-angle")) {
+        myEdgeCont.checkGeometries(oc.getFloat("geometry.max-angle"), oc.getFloat("geometry.min-radius"));
     }
     //
     PROGRESS_BEGIN_MESSAGE("Computing node types");

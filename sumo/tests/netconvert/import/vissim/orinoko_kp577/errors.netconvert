@@ -12,3 +12,27 @@ Warning: Could not set connection between '1001201_0' and '15_0'.
 Warning: Could not set connection between '1001201_1' and '15_1'.
 Warning: 10 of 236 connections could not be assigned.
 Warning: Could not build 36 of 66 disturbances.
+Warning: Found sharp turn with radius 5.74 at the start of edge 1000702[1]
+Warning: Found sharp turn with radius 5.75 at the start of edge 1000705[1]
+Warning: Found sharp turn with radius 5.68 at the start of edge 1000708[1]
+Warning: Found sharp turn with radius 5.72 at the start of edge 1000711[1]
+Warning: Found sharp turn with radius 4.34 at the start of edge 31
+Leaked object at 0x255e520 (size 16, 0x3406cb0499)
+Leaked object at 0x255edf0 (size 60, 0x340549c3c9)
+Leaked object at 0x255eeb0 (size 62, 0x340549c3c9)
+Leaked object at 0x255ef70 (size 55, 0x340549c3c9)
+Leaked object at 0x255f020 (size 59, 0x340549c3c9)
+Leaked object at 0x255f0e0 (size 78, 0x340549c3c9)
+Leaked object at 0x255f1b0 (size 61, 0x340549c3c9)
+Leaked object at 0x255f270 (size 26, 0x340549c3c9)
+Leaked object at 0x255f310 (size 782, 0x340549c3c9)
+*** 9 leaks found
+delete: freed 0x255f310 (size 782, 417 bytes still allocated)
+delete: freed 0x255f270 (size 26, 391 bytes still allocated)
+delete: freed 0x255f1b0 (size 61, 330 bytes still allocated)
+delete: freed 0x255f0e0 (size 78, 252 bytes still allocated)
+delete: freed 0x255f020 (size 59, 193 bytes still allocated)
+delete: freed 0x255ef70 (size 55, 138 bytes still allocated)
+delete: freed 0x255eeb0 (size 62, 76 bytes still allocated)
+delete: freed 0x255edf0 (size 60, 16 bytes still allocated)
+delete: freed 0x255e520 (size 16, 0 bytes still allocated)

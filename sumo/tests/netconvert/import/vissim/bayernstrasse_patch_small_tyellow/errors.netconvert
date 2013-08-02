@@ -229,7 +229,16 @@ Warning: The signal '53222' could not be assigned to tl '532'.
 Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
 Warning: Could not set 4 of 37 signals.
+Warning: Found sharp turn with radius 7.29 at the end of edge 3[1][1][0]
+Warning: Found sharp turn with radius 8.90 at the end of edge 3[1][1][1][1][1][1][0]
+Warning: Found sharp turn with radius 5.33 at the end of edge 6[0]
 Warning: Found angle of 129.21 degrees at edge 6[1][1][1][1][1][0], segment 0
+Warning: Found sharp turn with radius 4.99 at the start of edge 6[1][1][1][1][1][0]
+Warning: Found sharp turn with radius 3.90 at the end of edge 82[0]
+Warning: Found sharp turn with radius 5.59 at the start of edge 82[1]
+Warning: Found sharp turn with radius 2.68 at the start of edge 83[1][1]
+Warning: Found sharp turn with radius 8.32 at the start of edge 84[1][1][1][1][1][1][1]
+Warning: Found sharp turn with radius 7.23 at the end of edge 85[1][1][1][0]
 Warning: The traffic light '451' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '451'
 Warning: The traffic light '452' does not control any links; it will not be build.
@@ -259,22 +268,22 @@ Warning: During computation of traffic light '532'.
 Warning: TYellow of signal group '4' was less than the computed one; patched (was:3, is:4)
 Warning: TYellow of signal group '5' was less than the computed one; patched (was:3, is:4)
 Warning: During computation of traffic light '534'.
-Leaked object at 0x2108520 (size 16, 0x3406cb0499)
-Leaked object at 0x2108df0 (size 60, 0x340549c3c9)
-Leaked object at 0x2108eb0 (size 62, 0x340549c3c9)
-Leaked object at 0x2108f70 (size 55, 0x340549c3c9)
-Leaked object at 0x2109020 (size 59, 0x340549c3c9)
-Leaked object at 0x21090e0 (size 78, 0x340549c3c9)
-Leaked object at 0x21091b0 (size 61, 0x340549c3c9)
-Leaked object at 0x2109270 (size 26, 0x340549c3c9)
-Leaked object at 0x2109310 (size 782, 0x340549c3c9)
+Leaked object at 0x12f8520 (size 16, 0x3406cb0499)
+Leaked object at 0x12f8df0 (size 60, 0x340549c3c9)
+Leaked object at 0x12f8eb0 (size 62, 0x340549c3c9)
+Leaked object at 0x12f8f70 (size 55, 0x340549c3c9)
+Leaked object at 0x12f9020 (size 59, 0x340549c3c9)
+Leaked object at 0x12f90e0 (size 78, 0x340549c3c9)
+Leaked object at 0x12f91b0 (size 61, 0x340549c3c9)
+Leaked object at 0x12f9270 (size 26, 0x340549c3c9)
+Leaked object at 0x12f9310 (size 782, 0x340549c3c9)
 *** 9 leaks found
-delete: freed 0x2109310 (size 782, 417 bytes still allocated)
-delete: freed 0x2109270 (size 26, 391 bytes still allocated)
-delete: freed 0x21091b0 (size 61, 330 bytes still allocated)
-delete: freed 0x21090e0 (size 78, 252 bytes still allocated)
-delete: freed 0x2109020 (size 59, 193 bytes still allocated)
-delete: freed 0x2108f70 (size 55, 138 bytes still allocated)
-delete: freed 0x2108eb0 (size 62, 76 bytes still allocated)
-delete: freed 0x2108df0 (size 60, 16 bytes still allocated)
-delete: freed 0x2108520 (size 16, 0 bytes still allocated)
+delete: freed 0x12f9310 (size 782, 417 bytes still allocated)
+delete: freed 0x12f9270 (size 26, 391 bytes still allocated)
+delete: freed 0x12f91b0 (size 61, 330 bytes still allocated)
+delete: freed 0x12f90e0 (size 78, 252 bytes still allocated)
+delete: freed 0x12f9020 (size 59, 193 bytes still allocated)
+delete: freed 0x12f8f70 (size 55, 138 bytes still allocated)
+delete: freed 0x12f8eb0 (size 62, 76 bytes still allocated)
+delete: freed 0x12f8df0 (size 60, 16 bytes still allocated)
+delete: freed 0x12f8520 (size 16, 0 bytes still allocated)
