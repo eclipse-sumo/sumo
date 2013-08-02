@@ -535,7 +535,7 @@ NBEdge::reduceGeometry(const SUMOReal minDist) {
 
 
 void
-NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius) {
+NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius, bool fix) {
     if (myGeom.size() < 3) {
         return;
     }
@@ -557,12 +557,21 @@ NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius) {
             continue;
         }
         if (i == 0 || i == angles.size() - 2) {
-            const Line l = (i == 0 ? myGeom.getBegLine() : myGeom.getEndLine());
+            const bool start = i == 0;
+            const Line l = (start ? myGeom.getBegLine() : myGeom.getEndLine());
             const SUMOReal r = tan(DEG2RAD(90 - 0.5 * relAngle)) * l.length2D();
-            //std::cout << (i == 0 ? "  start" : "  end") << " length=" << l.length2D() << " radius=" << r << "  ";
+            //std::cout << (start ? "  start" : "  end") << " length=" << l.length2D() << " radius=" << r << "  ";
             if (minRadius > 0 && r < minRadius) {
-                WRITE_WARNING("Found sharp turn with radius " + toString(r) + " at the " + 
-                        (i == 0 ? "start" : "end") + " of edge " + getID());
+                if (fix) {
+                    WRITE_MESSAGE("Removing sharp turn with radius " + toString(r) + " at the " + 
+                            (start ? "start" : "end") + " of edge " + getID());
+                    myGeom.eraseAt(start ? 1 : i + 1);
+                    checkGeometry(maxAngle, minRadius, fix);
+                    return;
+                } else {
+                    WRITE_WARNING("Found sharp turn with radius " + toString(r) + " at the " + 
+                            (start ? "start" : "end") + " of edge " + getID());
+                }
             }
         }
     }

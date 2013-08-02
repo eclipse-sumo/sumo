@@ -209,7 +209,14 @@ NBNetBuilder::compute(OptionsCont& oc,
 
     // check whether any not previously setable connections may be set now
     myEdgeCont.recheckPostProcessConnections();
-
+    //
+    if (oc.exists("geometry.max-angle")) {
+        myEdgeCont.checkGeometries(
+                oc.getFloat("geometry.max-angle"), 
+                oc.getFloat("geometry.min-radius"),
+                oc.getBool("geometry.min-radius.fix"));
+    }
+    //
     myEdgeCont.computeLaneShapes();
 
     // APPLY SPEED MODIFICATIONS
@@ -234,10 +241,6 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_BEGIN_MESSAGE("Sorting nodes' edges");
     NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
     PROGRESS_DONE_MESSAGE();
-    //
-    if (oc.exists("geometry.max-angle")) {
-        myEdgeCont.checkGeometries(oc.getFloat("geometry.max-angle"), oc.getFloat("geometry.min-radius"));
-    }
     //
     PROGRESS_BEGIN_MESSAGE("Computing node types");
     NBNodeTypeComputer::computeNodeTypes(myNodeCont);

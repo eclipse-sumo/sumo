@@ -311,9 +311,10 @@ public:
     /** @brief
      * @param[in] maxAngle The maximum geometry angle allowed
      * @param[in] minRadius The minimum turning radius allowed at the start and end
+     * @param[in] fix Whether to prune geometry points to avoid sharp turns at start and end
      * @see NBEdge::checkGeometry
      */
-    void checkGeometries(const SUMOReal maxAngle, const SUMOReal minRadius);
+    void checkGeometries(const SUMOReal maxAngle, const SUMOReal minRadius, bool fix);
     /// @}
 
 

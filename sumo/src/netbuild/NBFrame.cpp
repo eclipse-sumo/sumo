@@ -113,6 +113,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("geometry.min-radius", new Option_Float(9));
         oc.addDescription("geometry.min-radius", "Processing", "Warn about edge geometries with a turning radius less than METERS at the start or end");
+
+        oc.doRegister("geometry.min-radius.fix", new Option_Bool(false));
+        oc.addDescription("geometry.min-radius.fix", "Processing", "Straighten edge geometries to avoid turning radii less than geometry.min-radius");
     }
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));
