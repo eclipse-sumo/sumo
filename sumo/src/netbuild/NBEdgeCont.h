@@ -306,6 +306,13 @@ public:
      * @see NBEdge::reduceGeometry
      */
     void reduceGeometries(const SUMOReal minDist);
+
+
+    /** @brief
+     * @param[in] maxAngle The maximum geometry angle allowed
+     * @see NBEdge::checkGeometry
+     */
+    void checkGeometries(const SUMOReal maxAngle);
     /// @}
 
 

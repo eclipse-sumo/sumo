@@ -534,6 +534,24 @@ NBEdge::reduceGeometry(const SUMOReal minDist) {
 }
 
 
+void
+NBEdge::checkGeometry(const SUMOReal maxAngle) {
+    if (myGeom.size() < 3) {
+        return;
+    }
+    std::vector<SUMOReal> angles; // absolute segment angles
+    for (int i = 0; i < myGeom.size() - 1; ++i) {
+        angles.push_back(myGeom.lineAt(i).atan2DegreeAngle());
+    }
+    for (int i = 0; i < angles.size() - 1; ++i) {
+        const SUMOReal relAngle = fabs(NBHelpers::relAngle(angles[i], angles[i + 1]));
+        if (relAngle > maxAngle) {
+            WRITE_WARNING("Found angle of " + toString(relAngle) + " degrees at edge " + getID() + ", segment " + toString(i));
+        }
+    }
+}
+
+
 // ----------- Setting and getting connections
 bool
 NBEdge::addEdge2EdgeConnection(NBEdge* dest) {

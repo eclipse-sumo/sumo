@@ -107,6 +107,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("geometry.min-dist", new Option_Float());
         oc.addDescription("geometry.min-dist", "Processing", "reduces too similar geometry points");
+
+        oc.doRegister("geometry.max-angle", new Option_Float(99));
+        oc.addDescription("geometry.max-angle", "Processing", "Warn about edge geometries with an angle above DEGREES in successive segments");
     }
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));

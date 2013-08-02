@@ -584,6 +584,12 @@ public:
      * @param[in] minDist The minimum distance between two position to keep the second
      */
     void reduceGeometry(const SUMOReal minDist);
+
+
+    /** @brief Check the angles of successive geometry segments
+     * @param[in] maxAngle The maximum angle allowed
+     */
+    void checkGeometry(const SUMOReal maxAngle);
     //@}
 
 
