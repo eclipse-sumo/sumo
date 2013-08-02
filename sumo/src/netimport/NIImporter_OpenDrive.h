@@ -245,7 +245,7 @@ protected:
          */
         OpenDriveLane(int idArg, const std::string& levelArg, const std::string& typeArg)
             : id(idArg), level(levelArg), type(typeArg), successor(UNSET_CONNECTION), predecessor(UNSET_CONNECTION),
-              width(0), speed(0) { }
+              speed(0), width(0) { }
 
         int id;
         std::string level;

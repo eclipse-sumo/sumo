@@ -957,7 +957,7 @@ NIImporter_OpenStreetMap::RelationHandler::findEdgeRef(SUMOLong wayRef, const st
         result = 0;
     }
     return result;
-};
+}
 
 
 /****************************************************************************/

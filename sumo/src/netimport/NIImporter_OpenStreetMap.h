@@ -418,7 +418,7 @@ protected:
             /// @brief The only invalid connection is declared
             RESTRICTION_NO,
             /// @brief The relation tag was missing
-            RESTRICTION_UNKNOWN,
+            RESTRICTION_UNKNOWN
         };
         RestrictionType myRestrictionType;
 

@@ -417,8 +417,14 @@ GUILane::drawLane2LaneConnections() const {
             case LINKSTATE_MINOR:
                 glColor3d(.2, .2, .2);
                 break;
+            case LINKSTATE_STOP:
+                glColor3d(.4, .2, .2);
+                break;
             case LINKSTATE_EQUAL:
                 glColor3d(.5, .5, .5);
+                break;
+            case LINKSTATE_ALLWAY_STOP:
+                glColor3d(.2, .2, .4);
                 break;
             case LINKSTATE_DEADEND:
                 glColor3d(0, 0, 0);

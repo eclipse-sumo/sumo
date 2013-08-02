@@ -238,7 +238,6 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdShowFoes(FXObject*, FXSelector, void*) {
     assert(myObject->getType() == GLO_VEHICLE);
     static_cast<GUIVehicle*>(myObject)->selectBlockingFoes();
-    GUIVehicle* veh = dynamic_cast<GUIVehicle*>(myObject);
     return 1;
 }
 

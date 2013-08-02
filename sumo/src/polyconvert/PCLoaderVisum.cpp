@@ -157,8 +157,6 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             lineParser.parseLine(line);
             SUMOLong id = TplConvert::_2long(lineParser.get("FLAECHEID").c_str());
             SUMOLong tid = TplConvert::_2long(lineParser.get("TFLAECHEID").c_str());
-            int enklave = TplConvert::_2int(lineParser.get("ENKLAVE").c_str()); // !!! unused
-            enklave = 0;
             flaechenelemente[id] = tid;
             continue;
         }
