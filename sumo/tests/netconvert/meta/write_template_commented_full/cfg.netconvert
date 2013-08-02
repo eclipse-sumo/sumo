@@ -369,6 +369,9 @@
         <!-- reduces too similar geometry points -->
         <geometry.min-dist value="" type="FLOAT"/>
 
+        <!-- Warn about edge geometries with an angle above DEGREES in successive segments -->
+        <geometry.max-angle value="99" type="FLOAT"/>
+
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
 
