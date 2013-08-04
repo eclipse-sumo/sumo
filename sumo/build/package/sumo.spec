@@ -62,6 +62,7 @@ find . -name "*.jar" | xargs rm
 %install
 %makeinstall
 %__mkdir_p %{buildroot}%{_prefix}/lib/sumo
+rm -rf tools/contributed/traci4j
 cp -a tools/* %{buildroot}%{_prefix}/lib/sumo
 %__mkdir_p %{buildroot}%{_bindir}
 %__ln_s ../lib/sumo/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
@@ -74,9 +75,9 @@ install -Dm644 %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.png
 install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %endif
 %suse_update_desktop_file %{name} Science Education
-%endif
-
+%fdupes -s docs
 %fdupes %{buildroot}
+%endif
 
 %files
 %defattr(-,root,root)
