@@ -137,6 +137,12 @@ public:
          */
         virtual void tripInfoOutput(OutputDevice& os) const = 0;
 
+        /** @brief Called on writing vehroute output
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void routeOutput(OutputDevice& os) const = 0;
+
         /** @brief Called for writing the events output (begin of an action)
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
@@ -208,6 +214,12 @@ public:
          */
         virtual void tripInfoOutput(OutputDevice& os) const;
 
+        /** @brief Called on writing vehroute output
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void routeOutput(OutputDevice& os) const;
+
         /** @brief Called for writing the events output
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
@@ -242,7 +254,6 @@ public:
 
     private:
         void computeWalkingTime(const MSEdge* const e, SUMOReal fromPos, SUMOReal toPos, MSBusStop* bs);
-        bool checkNoDuration(MSNet* net, MSPerson* person, SUMOTime duration, SUMOTime now);
 
 
     private:
@@ -340,6 +351,13 @@ public:
          */
         virtual void tripInfoOutput(OutputDevice& os) const;
 
+        /** @brief Called on writing vehroute output
+         *
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void routeOutput(OutputDevice& os) const;
+
         /** @brief Called for writing the events output
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
@@ -390,6 +408,7 @@ public:
         const MSEdge* getEdge(SUMOTime now) const;
         const MSEdge* getFromEdge() const;
         SUMOReal getEdgePos(SUMOTime now) const;
+        SUMOTime getUntil() const;
 
         ///
         Position getPosition(SUMOTime now) const;
@@ -409,6 +428,13 @@ public:
          * @exception IOError not yet implemented
          */
         virtual void tripInfoOutput(OutputDevice& os) const;
+
+        /** @brief Called on writing vehroute output
+         *
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void routeOutput(OutputDevice& os) const;
 
         /** @brief Called for writing the events output
          * @param[in] os The stream to write the information into
@@ -533,6 +559,13 @@ public:
      * @exception IOError not yet implemented
      */
     void tripInfoOutput(OutputDevice& os) const;
+
+    /** @brief Called on writing vehroute output
+     *
+     * @param[in] os The stream to write the information into
+     * @exception IOError not yet implemented
+     */
+    void routeOutput(OutputDevice& os) const;
 
     /// Whether the person waits for a vehicle of the line specified.
     bool isWaitingFor(const std::string& line) const {

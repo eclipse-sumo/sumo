@@ -87,6 +87,7 @@ MSPersonControl::erase(MSPerson* person) {
                              << "\" depart=\"" << time2string(person->getDesiredDepart())
                              << "\" arrival=\"" << time2string(MSNet::getInstance()->getCurrentTimeStep())
                              << "\"";
+        person->routeOutput(od);
         od.closeTag();
         od << "\n";
     }
