@@ -19,7 +19,6 @@ waiting time (max, mean, dev): True True True
 ('footmainout', 'footmain6to7') True True True
 ('footmainout', 'footmain7to8') True True True
 CO2: True
-(14, 127, 0) OK Goodbye
 waiting time (max, mean, dev): True True True
 ('footmain0to1', 'footmainout') True True True
 ('footmain1to2', 'footmainout') True True True
@@ -38,5 +37,4 @@ waiting time (max, mean, dev): True True True
 ('footmainout', 'footmain6to7') True True True
 ('footmainout', 'footmain7to8') True True True
 CO2: True
-(14, 127, 0) OK Goodbye
 Missing 'all-the-results.txt'

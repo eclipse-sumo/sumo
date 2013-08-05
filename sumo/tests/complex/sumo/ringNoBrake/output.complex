@@ -3,17 +3,13 @@ Loading configuration... done.
 Success.
 Loading configuration... done.
 >>> Checking Simulation (network: internal, simulation: internal)
-(14, 127, 0) OK Goodbye
 Loading configuration... done.
 >>> Checking Simulation (network: internal, simulation: no internal)
-(14, 127, 0) OK Goodbye
 
 >>> Building the network (without internal)
 Loading configuration... done.
 Success.
 Loading configuration... done.
 >>> Checking Simulation (network: no internal, simulation: internal)
-(14, 127, 0) OK Goodbye
 Loading configuration... done.
 >>> Checking Simulation (network: no internal, simulation: no internal)
-(14, 127, 0) OK Goodbye
