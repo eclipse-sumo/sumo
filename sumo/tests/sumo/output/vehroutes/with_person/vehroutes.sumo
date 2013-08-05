@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08/05/13 12:29:52 by SUMO sumo Version dev-SVN-r14338
+<!-- generated on 08/05/13 14:09:45 by SUMO sumo Version dev-SVN-r14338
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
-        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
     </input>
 
     <output>
         <vehroute-output value="vehroutes.xml"/>
     </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
 
     <report>
         <no-duration-log value="true"/>
@@ -23,20 +28,14 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vehicle id="veh1" type="Car" depart="10.00" arrival="14.00">
-        <route edges="1to2 out"/>
+    <vehicle id="0" depart="150.00" arrival="312.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 
-    <person id="p1" depart="100.00" arrival="202.00">
-        <ride from="1to2" to="out" lines="veh0"/>
+    <person id="p1" depart="100.00" arrival="469.00">
+        <stop lane="4/1to3/1" until="150.00"/>
+        <ride from="4/1to3/1" to="1/1to0/1" lines="0"/>
+        <walk edges="1/1to0/1 0/1to0/0 0/0to0/1" speed="5.00"/>
     </person>
-
-    <person id="p2" depart="200.00" arrival="202.00">
-        <ride from="1to2" to="out" lines="veh0"/>
-    </person>
-
-    <vehicle id="veh0" type="Car" depart="1.00" arrival="202.00">
-        <route edges="1to2 out"/>
-    </vehicle>
 
 </routes>

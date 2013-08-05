@@ -37,5 +37,8 @@ write_unfinished
 # only write edges with exit times
 write_unfinished_exit_times
 
+# output of person route
+with_person
+
 # Testing error cases
 errors

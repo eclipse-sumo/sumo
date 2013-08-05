@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/28/13 01:45:18 by SUMO sumo Version dev-SVN-r14220
+<!-- generated on 08/05/13 12:29:52 by SUMO sumo Version dev-SVN-r14338
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -27,12 +27,16 @@
         <route edges="1to2 out"/>
     </vehicle>
 
-    <person id="p1" depart="100.00" arrival="102.00"/>
+    <person id="p1" depart="100.00" arrival="102.00">
+        <ride from="1to2" to="out" lines="veh0"/>
+    </person>
 
     <vehicle id="veh0" type="Car" depart="1.00" arrival="102.00">
         <route edges="1to2 out"/>
     </vehicle>
 
-    <person id="p2" depart="200.00" arrival="201.00"/>
+    <person id="p2" depart="200.00" arrival="201.00">
+        <ride from="1to2" to="out" lines="veh0"/>
+    </person>
 
 </routes>
