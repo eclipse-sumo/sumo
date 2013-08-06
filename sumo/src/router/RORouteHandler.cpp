@@ -411,6 +411,7 @@ RORouteHandler::closeFlow() {
     while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
         myVehicleParameter->repetitionsDone++;
         if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
+            delete myVehicleParameter;
             return;
         }
     }
@@ -418,10 +419,12 @@ RORouteHandler::closeFlow() {
     RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);
     if (type == 0) {
         myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
+        delete myVehicleParameter;
         return;
     }
     if (route == 0) {
         myErrorOutput->inform("Vehicle '" + myVehicleParameter->id + "' has no route.");
+        delete myVehicleParameter;
         return;
     }
     myActiveRouteID = "";

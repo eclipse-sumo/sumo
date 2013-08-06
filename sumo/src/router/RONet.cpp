@@ -308,6 +308,7 @@ RONet::checkFlows(SUMOTime time) {
             RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
             ROVehicle* veh = new ROVehicle(*newPars, route, type);
             addVehicle(newPars->id, veh);
+            delete newPars;
         }
         if (pars->repetitionsDone == pars->repetitionNumber) {
             toRemove.push_back(i->first);

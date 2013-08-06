@@ -186,6 +186,9 @@ SUMORouteHandler::myEndElement(int element) {
             myBeginDefault = string2time(OptionsCont::getOptions().getString("begin"));
             myEndDefault = string2time(OptionsCont::getOptions().getString("end"));
             break;
+        case SUMO_TAG_TRIP:
+            delete myVehicleParameter;
+            myVehicleParameter = 0;
         default:
             break;
     }

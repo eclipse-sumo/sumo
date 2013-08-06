@@ -81,7 +81,12 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     SUMOVehicleParameter* ret = new SUMOVehicleParameter();
     ret->id = id;
-    parseCommonAttributes(attrs, ret, "flow");
+    try {
+        parseCommonAttributes(attrs, ret, "flow");
+    } catch (ProcessError&) {
+        delete ret;
+        throw;
+    }
 
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
