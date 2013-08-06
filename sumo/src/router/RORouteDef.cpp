@@ -133,7 +133,7 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
 void
 RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                SUMOTime begin, const ROVehicle& veh) const {
-    const std::vector<const ROEdge*>& oldEdges = myAlternatives[0]->getEdgeVector();
+    std::vector<const ROEdge*> oldEdges = myAlternatives[0]->getEdgeVector();
     if (oldEdges.size() == 0) {
         MsgHandler* m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
         m->inform("Could not repair empty route of vehicle '" + veh.getID() + "'.");
@@ -144,6 +144,15 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         /// should happen with jtrrouter only
         router.compute(oldEdges.front(), oldEdges.front(), &veh, begin, newEdges);
     } else {
+
+        for (std::vector<const ROEdge*>::iterator i = oldEdges.begin(); i != oldEdges.end(); ) {
+            if((*i)->prohibits(&veh)) {
+                i = oldEdges.erase(i);
+            } else {
+                ++i;
+            }
+        }
+
         newEdges.push_back(*(oldEdges.begin()));
         for (std::vector<const ROEdge*>::const_iterator i = oldEdges.begin() + 1; i != oldEdges.end(); ++i) {
             if ((*(i - 1))->isConnectedTo(*i)) {
@@ -152,6 +161,12 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                 std::vector<const ROEdge*> edges;
                 router.compute(*(i - 1), *i, &veh, begin, edges);
                 if (edges.size() == 0) {
+                    if(newEdges.size()!=0) {
+                                myNewRoute = true;
+        RGBColor* col = myAlternatives[0]->getColor() != 0 ? new RGBColor(*myAlternatives[0]->getColor()) : 0;
+        myPrecomputed = new RORoute(myID, 0, 1, newEdges, col);
+
+                    }
                     return;
                 }
                 std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
