@@ -496,7 +496,7 @@ NBEdge::splitGeometry(NBEdgeCont& ec, NBNodeCont& nc) {
     NBEdge* currentEdge = this;
     for (int i = 1; i < (int) myGeom.size() - 1; i++) {
         // build the node first
-        if (i != static_cast<int>(myGeom.size() - 2)) {
+        if (i != (int)myGeom.size() - 2) {
             std::string nodename = myID + "_in_between#" + toString(i);
             if (!nc.insert(nodename, myGeom[i])) {
                 throw ProcessError("Error on adding in-between node '" + nodename + "'.");
@@ -542,12 +542,12 @@ NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius, bool fi
     //std::cout << "checking geometry of " << getID() << " geometry = " << toString(myGeom) << "\n";
     std::vector<SUMOReal> angles; // absolute segment angles
     //std::cout << "  absolute angles:";
-    for (int i = 0; i < myGeom.size() - 1; ++i) {
+    for (int i = 0; i < (int)myGeom.size() - 1; ++i) {
         angles.push_back(myGeom.lineAt(i).atan2DegreeAngle());
         //std::cout << " " << angles.back();
     }
     //std::cout << "\n  relative angles: ";
-    for (int i = 0; i < angles.size() - 1; ++i) {
+    for (int i = 0; i < (int)angles.size() - 1; ++i) {
         const SUMOReal relAngle = fabs(NBHelpers::relAngle(angles[i], angles[i + 1]));
         //std::cout << relAngle << " ";
         if (maxAngle > 0 && relAngle > maxAngle) {
@@ -556,7 +556,7 @@ NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius, bool fi
         if (relAngle < 1) {
             continue;
         }
-        if (i == 0 || i == angles.size() - 2) {
+        if (i == 0 || i == (int)angles.size() - 2) {
             const bool start = i == 0;
             const Line l = (start ? myGeom.getBegLine() : myGeom.getEndLine());
             const SUMOReal r = tan(DEG2RAD(90 - 0.5 * relAngle)) * l.length2D();

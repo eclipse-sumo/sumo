@@ -790,7 +790,6 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
     SUMOReal endY = g.y;
     SUMOReal startX = g.x;
     SUMOReal startY = g.y;
-    SUMOReal hdgE;
     SUMOReal geo_posS = g.s;
     SUMOReal geo_posE = g.s;
     bool end = false;
@@ -805,11 +804,6 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
         calcPointOnCurve(&endX, &endY, centerX, centerY, radius, geo_posE - geo_posS);
 
         dist += (geo_posE - geo_posS);
-        if (curvature > 0.0) {
-            hdgE = g.hdg + dist / fabs(radius);
-        } else {
-            hdgE = g.hdg - dist / fabs(radius);
-        }
         //
         ret.push_back(Position(startX, startY));
         //
