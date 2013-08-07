@@ -15,6 +15,12 @@ passenger_test_routes_correct
 passenger_test_routes_false
 passenger_test_routes_false_repair
 
+# route start is inaccessible
+passenger_test_start_false_repair
+
+# route end is inaccessible
+passenger_test_end_false_repair
+
 # Tests for importing passenger-alternatives (previous was correct)
 passenger_test_alts_correct
 

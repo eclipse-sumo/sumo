@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug  7 06:09:14 2013 by SUMO duarouter Version dev-SVN-r14233
+<!-- generated on Wed Aug  7 06:24:13 2013 by SUMO duarouter Version dev-SVN-r14233
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
@@ -30,6 +30,6 @@
         <carFollowing-Krauss accel="2.60" decel="4.50" sigma="0.50" tau="1.00"/>
     </vType>
     <vehicle id="0_0" type="0" depart="0.00">
-        <route edges="absBeg middle end absEnd"/>
+        <route edges="absBeg"/>
     </vehicle>
 </routes>
