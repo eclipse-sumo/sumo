@@ -1,0 +1,5 @@
+# route around intermediate edges which are unreachable
+intermediate_unconnected_ignore
+
+# invalid route if unreachable edges contain stops
+intermediate_unconnected_ignore_stops

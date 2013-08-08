@@ -1,0 +1,4 @@
+Warning: No connection between 'left' and 'middle' found.
+Error: Mandatory edge 'middle' not reachable by vehicle '0_0'.
+Error: The vehicle '0_0' has no valid route.
+Quitting (on error).
