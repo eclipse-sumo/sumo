@@ -152,8 +152,9 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                 ++i;
             }
         }
-
+//        int keepEdges = myMinKeep > 1 ? myMinKeep : myMinKeep * oldEdges.size();
         newEdges.push_back(*(oldEdges.begin()));
+//        keepEdges--;
         for (std::vector<const ROEdge*>::const_iterator i = oldEdges.begin() + 1; i != oldEdges.end(); ++i) {
             if ((*(i - 1))->isConnectedTo(*i)) {
                 newEdges.push_back(*i);
@@ -161,16 +162,16 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                 std::vector<const ROEdge*> edges;
                 router.compute(*(i - 1), *i, &veh, begin, edges);
                 if (edges.size() == 0) {
-                    if(newEdges.size()!=0) {
-                                myNewRoute = true;
-        RGBColor* col = myAlternatives[0]->getColor() != 0 ? new RGBColor(*myAlternatives[0]->getColor()) : 0;
-        myPrecomputed = new RORoute(myID, 0, 1, newEdges, col);
-
+                    if (newEdges.size() != 0) {
+                        myNewRoute = true;
+                        RGBColor* col = myAlternatives[0]->getColor() != 0 ? new RGBColor(*myAlternatives[0]->getColor()) : 0;
+                        myPrecomputed = new RORoute(myID, 0, 1, newEdges, col);
                     }
                     return;
                 }
                 std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
             }
+//            keepEdges--;
         }
     }
     if (myAlternatives[0]->getEdgeVector() != newEdges) {
