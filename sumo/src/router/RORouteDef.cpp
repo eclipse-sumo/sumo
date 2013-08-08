@@ -31,6 +31,7 @@
 
 #include <string>
 #include <iterator>
+#include <algorithm>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/Named.h>
@@ -96,9 +97,19 @@ void
 RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                    SUMOTime begin, const ROVehicle& veh) const {
     myNewRoute = false;
-    if (myAlternatives[0]->getEdgeVector().size() > 0 && myAlternatives[0]->getEdgeVector()[0]->prohibits(&veh)) {
-        MsgHandler* m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
-        m->inform("Vehicle '" + veh.getID() + "' is not allowed to depart on edge '" + myAlternatives[0]->getEdgeVector()[0]->getID() + "'.");
+    assert(myAlternatives[0]->getEdgeVector().size() > 0);
+    MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ? 
+            MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
+    if (myAlternatives[0]->getFirst()->prohibits(&veh)) {
+        /// XXX check for specified arrivalLane / departLane
+        mh->inform("Vehicle '" + veh.getID() + "' is not allowed to depart on edge '" + 
+                myAlternatives[0]->getFirst()->getID() + "'.");
+        return;
+    } else if (myAlternatives[0]->getLast()->prohibits(&veh)) {
+        // this check is not strictly necessary unless myTryRepair is set.
+        // However, the error message is more helpful than "no connection found"
+        mh->inform("Vehicle '" + veh.getID() + "' is not allowed to arrive on edge '" + 
+                myAlternatives[0]->getLast()->getID() + "'.");
         return;
     }
     if (myTryRepair) {
@@ -133,45 +144,74 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
 void
 RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                SUMOTime begin, const ROVehicle& veh) const {
+    MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ? 
+            MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
     std::vector<const ROEdge*> oldEdges = myAlternatives[0]->getEdgeVector();
-    if (oldEdges.size() == 0) {
-        MsgHandler* m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
-        m->inform("Could not repair empty route of vehicle '" + veh.getID() + "'.");
-        return;
-    }
     std::vector<const ROEdge*> newEdges;
+    std::vector<const ROEdge*> mandatory;
     if (oldEdges.size() == 1) {
         /// should happen with jtrrouter only
         router.compute(oldEdges.front(), oldEdges.front(), &veh, begin, newEdges);
     } else {
-
+        // prepare mandatory edges
+        mandatory.push_back(oldEdges.front());
+        /*XXX add stop edges to the list of mandatory edges (ticket #988)
+        std::vector<const ROEdge*> stops = veh.getStopEdges();
+        for (std::vector<const ROEdge*>::const_iterator i = stops.begin(); i != stops.end(); ++i) {
+            if (*i != mandatory.back()) {
+                mandatory.push_back(*i);
+            }
+        }
+        */
+        if (mandatory.size() < 2 || oldEdges.back() != mandatory.back()) {
+            mandatory.push_back(oldEdges.back());
+        }
+        assert(mandatory.size() >= 2);
+        // removed prohibited
         for (std::vector<const ROEdge*>::iterator i = oldEdges.begin(); i != oldEdges.end(); ) {
             if((*i)->prohibits(&veh)) {
+                if (std::find(mandatory.begin(), mandatory.end(), *i) != mandatory.end()) {
+                    mh->inform("Stop edge '" + (*i)->getID() + "' does not allow vehicle '" + veh.getID() + "'.");
+                    return;
+                }
                 i = oldEdges.erase(i);
             } else {
                 ++i;
             }
         }
-//        int keepEdges = myMinKeep > 1 ? myMinKeep : myMinKeep * oldEdges.size();
+        // reconnect remaining edges
         newEdges.push_back(*(oldEdges.begin()));
-//        keepEdges--;
-        for (std::vector<const ROEdge*>::const_iterator i = oldEdges.begin() + 1; i != oldEdges.end(); ++i) {
+        std::vector<const ROEdge*>::iterator nextMandatory = mandatory.begin() + 1;
+        std::vector<const ROEdge*>::iterator lastMandatory = newEdges.begin();
+        for (std::vector<const ROEdge*>::iterator i = oldEdges.begin() + 1; i != oldEdges.end(); ++i) {
             if ((*(i - 1))->isConnectedTo(*i)) {
+                /// XXX could be connected from a prohibited lane only
                 newEdges.push_back(*i);
             } else {
                 std::vector<const ROEdge*> edges;
-                router.compute(*(i - 1), *i, &veh, begin, edges);
+                router.compute(newEdges.back(), *i, &veh, begin, edges);
                 if (edges.size() == 0) {
-                    if (newEdges.size() != 0) {
-                        myNewRoute = true;
-                        RGBColor* col = myAlternatives[0]->getColor() != 0 ? new RGBColor(*myAlternatives[0]->getColor()) : 0;
-                        myPrecomputed = new RORoute(myID, 0, 1, newEdges, col);
+                    if (*i == *nextMandatory) {
+                        // fallback: try to route from last mandatory edge
+                        if (newEdges.back() != *lastMandatory) {
+                            router.compute(*lastMandatory, *nextMandatory, &veh, begin, edges);
+                        }
+                        if (edges.size() == 0) {
+                            mh->inform( "Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
+                            return;
+                        } else {
+                            newEdges.erase(lastMandatory + 1, newEdges.end());
+                            std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
+                        }
                     }
-                    return;
+                } else {
+                    std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
                 }
-                std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
+                if (*i == *nextMandatory) {
+                    nextMandatory++;
+                    lastMandatory = i;
+                }
             }
-//            keepEdges--;
         }
     }
     if (myAlternatives[0]->getEdgeVector() != newEdges) {
