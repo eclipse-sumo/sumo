@@ -159,15 +159,6 @@ public:
         return myRoute;
     }
 
-
-    /** @brief Returns the list of stop edges this route contains
-     *
-     * @return The stop edges of this route
-     */
-    const std::vector<const ROEdge*>& getStops() const {
-        return myStops;
-    }
-
     /** @brief Returns this route's color
      *
      * @return This route's color
@@ -198,8 +189,6 @@ private:
 
     /// @brief The edges the route consists of
     std::vector<const ROEdge*> myRoute;
-    /// @brief The edges of the route which have stops
-    std::vector<const ROEdge*> myStops;
 
     /// @brief The color of the route
     const RGBColor* myColor;
