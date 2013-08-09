@@ -127,7 +127,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "background",       SUMO_TAG_VIEWSETTINGS_BACKGROUND },
     { "edges",            SUMO_TAG_VIEWSETTINGS_EDGES },
     { "vehicles",         SUMO_TAG_VIEWSETTINGS_VEHICLES },
-    { "persons",          SUMO_TAG_VIEWSETTINGS_VEHICLES },
+    { "persons",          SUMO_TAG_VIEWSETTINGS_PERSONS },
     { "junctions",        SUMO_TAG_VIEWSETTINGS_JUNCTIONS },
     { "additionals",      SUMO_TAG_VIEWSETTINGS_ADDITIONALS },
     { "pois",             SUMO_TAG_VIEWSETTINGS_POIS },
