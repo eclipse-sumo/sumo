@@ -258,6 +258,9 @@
         <!-- Show errors in connections at parsing -->
         <show-errors.connections-first-try value="false" type="BOOL"/>
 
+        <!-- Continue on unknown edge types -->
+        <ignore-errors.edge-type value="false" type="BOOL"/>
+
         <!-- The factor for flow to no. lanes conversion. -->
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT"/>
 
@@ -333,6 +336,9 @@
         <!-- Skips the check for duplicate nodes and edges. -->
         <osm.skip-duplicates-check value="false" type="BOOL"/>
 
+        <!-- Imports railway edges as one-way by default -->
+        <osm.railway.oneway-default value="true" type="BOOL"/>
+
         <!-- Imports all lane types. -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
 
@@ -398,6 +404,12 @@
 
         <!-- Modifies all edge speeds by multiplying FLOAT -->
         <speed.factor value="1" type="FLOAT"/>
+
+        <!-- Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts) -->
+        <check-lane-foes.roundabout value="true" type="BOOL"/>
+
+        <!-- Allow driving onto a multi-lane road if there are foes on other lanes (everywhere) -->
+        <check-lane-foes.all value="false" type="BOOL"/>
 
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>

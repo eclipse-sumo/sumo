@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r14022
+SUMO netconvert Version dev-SVN-r14338
  Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -138,6 +138,7 @@ Processing Options:
   --ignore-errors                     Continue on broken input
   --ignore-errors.connections         Continue on invalid connections
   --show-errors.connections-first-try  Show errors in connections at parsing
+  --ignore-errors.edge-type           Continue on unknown edge types
   --lanes-from-capacity.norm FLOAT    The factor for flow to no. lanes
                                         conversion.
   --speed-in-kmh                      vmax is parsed as given in km/h (some)
@@ -171,6 +172,8 @@ Processing Options:
                                         due to VISUM misbehaviour
   --osm.skip-duplicates-check         Skips the check for duplicate nodes and
                                         edges.
+  --osm.railway.oneway-default        Imports railway edges as one-way by
+                                        default
   --opendrive.import-all-lanes        Imports all lane types.
   --opendrive.import-widths           Whether lane widths shall be imported.
   --no-internal-links                 Omits internal links
@@ -202,6 +205,12 @@ Processing Options:
   --speed.offset FLOAT                Modifies all edge speeds by adding FLOAT
   --speed.factor FLOAT                Modifies all edge speeds by multiplying
                                         FLOAT
+  --check-lane-foes.roundabout        Allow driving onto a multi-lane road if
+                                        there are foes on other lanes (at
+                                        roundabouts)
+  --check-lane-foes.all               Allow driving onto a multi-lane road if
+                                        there are foes on other lanes
+                                        (everywhere)
   --tls.join-dist FLOAT               Determines the maximal distance for
                                         joining traffic lights (defaults to 20)
 

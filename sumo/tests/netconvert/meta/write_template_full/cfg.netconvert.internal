@@ -104,6 +104,7 @@
         <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
         <ignore-errors.connections value="false" type="BOOL" help="Continue on invalid connections"/>
         <show-errors.connections-first-try value="false" type="BOOL" help="Show errors in connections at parsing"/>
+        <ignore-errors.edge-type value="false" type="BOOL" help="Continue on unknown edge types"/>
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion."/>
         <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
@@ -129,6 +130,7 @@
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges&apos; capacities"/>
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges."/>
+        <osm.railway.oneway-default value="true" type="BOOL" help="Imports railway edges as one-way by default"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types."/>
         <opendrive.import-widths value="false" type="BOOL" help="Whether lane widths shall be imported."/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
@@ -151,6 +153,8 @@
         <junctions.join-exclude value="" type="STR" help="Interprets STR as list of junctions to exclude from joining"/>
         <speed.offset value="0" type="FLOAT" help="Modifies all edge speeds by adding FLOAT"/>
         <speed.factor value="1" type="FLOAT" help="Modifies all edge speeds by multiplying FLOAT"/>
+        <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>
+        <check-lane-foes.all value="false" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)"/>
         <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
     </processing>
 
