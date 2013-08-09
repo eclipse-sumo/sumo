@@ -220,7 +220,7 @@ NLBuilder::buildNet() {
             stateDumpTimes.push_back(TIME2STEPS(*i));
         }
         if (myOptions.isSet("save-state.files")) {
-            stateDumpFiles = StringTokenizer(myOptions.getString("save-state.files")).getVector();
+            stateDumpFiles = myOptions.getStringVector("save-state.files");
             if (stateDumpFiles.size() != stateDumpTimes.size()) {
                 WRITE_ERROR("Wrong number of state file names!");
             }
