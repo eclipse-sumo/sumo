@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Aug  9 12:26:20 2013 by SUMO netconvert Version dev-SVN-r14359
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <ramp_guessing>
+        <ramps.set value="on_ramp"/>
+    </ramp_guessing>
+
+    <processing>
+        <junctions.join value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="-71626.16,-353610.43" convBoundary="0.00,0.00,421.87,363.38" origBoundary="71626.16,353610.43,72048.03,353973.81" projParameter="!"/>
+
+    <edge id=":N_merge_0" function="internal">
+        <lane id=":N_merge_0_0" index="0" speed="33.33" length="3.00" shape="120.47,267.03 118.19,268.98"/>
+    </edge>
+    <edge id=":N_merge_1" function="internal">
+        <lane id=":N_merge_1_0" index="0" speed="33.33" length="3.00" shape="118.33,264.52 116.05,266.47"/>
+    </edge>
+    <edge id=":N_merge_2" function="internal">
+        <lane id=":N_merge_2_0" index="0" speed="25.00" length="2.41" shape="122.74,271.57 120.33,271.49"/>
+    </edge>
+
+    <edge id="main" from="N_main_start" to="N_merge" priority="10" length="404.00" shape="421.87,0.00 414.17,6.69 398.18,20.57 373.61,41.87 359.76,53.76 357.58,55.64 345.68,65.89 343.06,68.21 336.86,73.70 321.87,86.63 316.79,91.02 311.37,95.70 309.79,97.05 282.73,120.34 255.39,143.84 241.81,155.61 223.34,171.71 206.44,186.44 202.88,189.55 189.59,201.17 177.29,211.89 173.83,214.90 152.06,233.47 129.88,252.50 116.12,264.24">
+        <lane id="main_0" index="0" speed="33.33" length="404.00" shape="425.12,3.74 417.42,10.43 401.42,24.31 376.85,45.61 362.98,57.52 360.81,59.39 348.91,69.64 346.34,71.92 340.14,77.41 325.10,90.38 320.03,94.77 314.61,99.45 313.01,100.81 285.96,124.09 258.62,147.59 245.05,159.35 226.59,175.44 209.69,190.17 206.14,193.28 192.85,204.90 180.54,215.62 177.08,218.63 155.27,237.24 133.10,256.26 120.47,267.03"/>
+        <lane id="main_1" index="1" speed="33.33" length="404.00" shape="422.95,1.25 415.25,7.94 399.26,21.82 374.69,43.12 360.83,55.01 358.66,56.89 346.76,67.14 344.15,69.45 337.95,74.94 322.95,87.88 317.87,92.27 312.45,96.95 310.86,98.30 283.81,121.59 256.47,145.09 242.89,156.86 224.42,172.95 207.52,187.68 203.97,190.79 190.68,202.41 178.37,213.13 174.91,216.14 153.13,234.73 130.95,253.75 118.33,264.52"/>
+    </edge>
+    <edge id="on_ramp" from="N_merge" to="N_end" priority="10" length="152.63" shape="116.12,264.24 106.99,272.03 84.88,290.92 59.27,312.87 41.25,328.16 32.26,335.85 17.83,348.19 0.01,363.38">
+        <lane id="on_ramp_0" index="0" speed="33.33" length="152.63" shape="120.33,271.49 112.34,278.31 90.24,297.19 64.64,319.13 46.59,334.45 37.62,342.12 23.19,354.46 5.36,369.66"/>
+        <lane id="on_ramp_1" index="1" speed="33.33" length="152.63" shape="118.19,268.98 110.20,275.80 88.10,294.68 62.49,316.63 44.45,331.93 35.48,339.61 21.05,351.95 3.22,367.15"/>
+        <lane id="on_ramp_2" index="2" speed="33.33" length="152.63" shape="116.05,266.47 108.06,273.29 85.95,292.17 60.34,314.12 42.32,329.42 33.33,337.10 18.90,349.44 1.08,364.64"/>
+    </edge>
+    <edge id="ramp" from="N_ramp_start" to="N_merge" priority="8" length="304.79" shape="398.33,181.18 396.29,182.14 387.96,184.48 383.22,185.62 377.56,186.55 372.73,186.98 367.90,187.22 362.89,187.14 357.05,186.80 349.21,186.12 341.76,185.32 332.45,184.26 326.05,183.63 319.49,183.13 314.08,182.77 306.39,182.61 300.50,182.58 292.71,182.73 287.19,183.03 279.72,183.72 274.02,184.33 267.21,185.36 261.76,186.22 256.18,187.36 250.67,188.64 243.11,190.52 237.57,192.08 234.35,193.10 232.29,193.76 227.63,195.39 220.88,197.91 214.92,200.27 213.05,201.10 190.35,212.10 184.42,215.60 181.60,217.48 177.28,220.35 168.62,226.41 155.04,235.92 154.08,236.73 138.62,249.89 121.47,270.52">
+        <lane id="ramp_0" index="0" speed="16.67" length="304.79" shape="399.03,182.68 396.99,183.64 388.41,186.07 383.61,187.23 377.83,188.18 372.88,188.62 367.98,188.87 362.86,188.79 356.96,188.45 349.07,187.76 341.58,186.96 332.26,185.90 325.88,185.27 319.37,184.78 313.97,184.42 306.36,184.26 300.49,184.23 292.74,184.38 287.28,184.67 279.88,185.37 274.20,185.97 267.45,186.99 262.01,187.85 256.51,188.98 251.05,190.25 243.51,192.12 238.01,193.67 234.84,194.67 232.79,195.33 228.18,196.95 221.46,199.46 215.53,201.80 213.72,202.61 191.07,213.58 185.26,217.02 182.51,218.85 178.20,221.72 169.57,227.76 155.98,237.27 155.16,237.99 139.69,251.15 122.74,271.57"/>
+    </edge>
+
+    <junction id="N_end" type="unregulated" x="0.00" y="363.37" incLanes="on_ramp_0 on_ramp_1 on_ramp_2" intLanes="" shape="6.40,370.88 0.04,363.42"/>
+    <junction id="N_main_start" type="unregulated" x="421.87" y="0.01" incLanes="" intLanes="" shape="421.90,0.04 426.16,4.95"/>
+    <junction id="N_merge" type="priority" x="116.12" y="264.27" incLanes="main_0 main_1 ramp_0" intLanes=":N_merge_0_0 :N_merge_1_0 :N_merge_2_0" shape="121.51,268.25 117.29,263.30 115.01,265.25 121.37,272.71">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="N_ramp_start" type="unregulated" x="398.33" y="181.20" incLanes="" intLanes="" shape="398.34,181.23 399.71,184.13"/>
+
+    <connection from="main" to="on_ramp" fromLane="0" toLane="1" pass="1" via=":N_merge_0_0" dir="s" state="M"/>
+    <connection from="main" to="on_ramp" fromLane="1" toLane="2" pass="1" via=":N_merge_1_0" dir="s" state="M"/>
+    <connection from="ramp" to="on_ramp" fromLane="0" toLane="0" pass="1" via=":N_merge_2_0" dir="s" state="M"/>
+
+    <connection from=":N_merge_0" to="on_ramp" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":N_merge_1" to="on_ramp" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":N_merge_2" to="on_ramp" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

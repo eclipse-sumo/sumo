@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+    <node id="N_merge" x="71742.28" y="353874.70" type="priority"/>
+    <node id="N_end" x="71626.16" y="353973.80" type="priority"/>
+    <node id="N_main_start" x="72048.03" y="353610.44" type="priority"/>
+    <node id="N_ramp_start" x="72024.49" y="353791.63" type="priority"/>
+</nodes>
