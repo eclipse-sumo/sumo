@@ -57,6 +57,7 @@
         <time-to-teleport.highways value="0" type="TIME" help="The teleport time on highways"/>
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed."/>
+        <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge."/>
         <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped."/>
         <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)."/>
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;]"/>

@@ -147,11 +147,17 @@
         <!-- Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting -->
         <time-to-teleport value="300" type="TIME"/>
 
+        <!-- The teleport time on highways -->
+        <time-to-teleport.highways value="0" type="TIME"/>
+
         <!-- How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped -->
         <max-depart-delay value="-1" type="TIME"/>
 
         <!-- Whether insertion on an edge shall not be repeated in same step once failed. -->
         <sloppy-insert value="false" type="BOOL"/>
+
+        <!-- Whether each vehicle is checked separately for insertion on an edge. -->
+        <eager-insert value="false" type="BOOL"/>
 
         <!-- Whether blocking vehicles trying to change lanes may be swapped. -->
         <lanechange.allow-swap value="false" type="BOOL"/>

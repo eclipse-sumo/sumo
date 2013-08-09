@@ -234,6 +234,9 @@ MSFrame::fillOptions() {
     oc.doRegister("sloppy-insert", new Option_Bool(false));
     oc.addDescription("sloppy-insert", "Processing", "Whether insertion on an edge shall not be repeated in same step once failed.");
 
+    oc.doRegister("eager-insert", new Option_Bool(false));
+    oc.addDescription("eager-insert", "Processing", "Whether each vehicle is checked separately for insertion on an edge.");
+
     oc.doRegister("lanechange.allow-swap", new Option_Bool(false));
     oc.addDescription("lanechange.allow-swap", "Processing", "Whether blocking vehicles trying to change lanes may be swapped.");
 
@@ -399,6 +402,9 @@ MSFrame::checkOptions() {
         ok = false;
     }
 #endif
+    if (oc.getBool("sloppy-insert")) {
+        WRITE_WARNING("The option 'sloppy-insert' is deprecated, because it is now activated by default, see the new option 'eager-insert'.");
+    }
     return ok;
 }
 

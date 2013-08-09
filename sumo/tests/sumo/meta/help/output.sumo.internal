@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r14234
+SUMO sumo Version dev-SVN-r14338
  Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
 A microscopic road traffic simulation.
 
@@ -79,11 +79,14 @@ Processing Options:
   --time-to-teleport TIME             Specify how long a vehicle may wait until
                                         being teleported, defaults to 300,
                                         non-positive values disable teleporting
+  --time-to-teleport.highways TIME    The teleport time on highways
   --max-depart-delay TIME             How long vehicles wait for departure
                                         before being skipped, defaults to -1
                                         which means vehicles are never skipped
   --sloppy-insert                     Whether insertion on an edge shall not be
                                         repeated in same step once failed.
+  --eager-insert                      Whether each vehicle is checked
+                                        separately for insertion on an edge.
   --lanechange.allow-swap             Whether blocking vehicles trying to
                                         change lanes may be swapped.
   --lanechange.duration TIME          Duration of a lane change maneuver

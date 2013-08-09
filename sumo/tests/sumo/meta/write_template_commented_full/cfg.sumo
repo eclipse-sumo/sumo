@@ -141,6 +141,9 @@
         <!-- Whether insertion on an edge shall not be repeated in same step once failed. -->
         <sloppy-insert value="false" type="BOOL"/>
 
+        <!-- Whether each vehicle is checked separately for insertion on an edge. -->
+        <eager-insert value="false" type="BOOL"/>
+
         <!-- Whether blocking vehicles trying to change lanes may be swapped. -->
         <lanechange.allow-swap value="false" type="BOOL"/>
 
