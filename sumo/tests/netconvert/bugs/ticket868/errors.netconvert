@@ -1,0 +1,36 @@
+Warning: No way found for reference '204001555' in relation '1995435'
+Warning: Ignoring restriction relation '1995435' with unknown from-way.
+Warning: No way found for reference '4045173' in relation '2080223'
+Warning: Ignoring restriction relation '2080223' with unknown from-way.
+Warning: Found angle of 102.81 degrees at edge 151059738#0, segment 0
+Warning: The traffic light '1638988387' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1638988387'
+Warning: The traffic light '1672368516' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1672368516'
+Warning: The traffic light '249536359' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '249536359'
+Warning: The traffic light '255072664' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '255072664'
+Warning: The traffic light '449266' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '449266'
+Warning: The traffic light '474459' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '474459'
+Leaked object at 0xbd4520 (size 16, 0x3406cb0499)
+Leaked object at 0xbd4df0 (size 60, 0x340549c3c9)
+Leaked object at 0xbd4eb0 (size 62, 0x340549c3c9)
+Leaked object at 0xbd4f70 (size 55, 0x340549c3c9)
+Leaked object at 0xbd5020 (size 59, 0x340549c3c9)
+Leaked object at 0xbd50e0 (size 78, 0x340549c3c9)
+Leaked object at 0xbd51b0 (size 61, 0x340549c3c9)
+Leaked object at 0xbd5270 (size 26, 0x340549c3c9)
+Leaked object at 0xbd5310 (size 782, 0x340549c3c9)
+*** 9 leaks found
+delete: freed 0xbd5310 (size 782, 417 bytes still allocated)
+delete: freed 0xbd5270 (size 26, 391 bytes still allocated)
+delete: freed 0xbd51b0 (size 61, 330 bytes still allocated)
+delete: freed 0xbd50e0 (size 78, 252 bytes still allocated)
+delete: freed 0xbd5020 (size 59, 193 bytes still allocated)
+delete: freed 0xbd4f70 (size 55, 138 bytes still allocated)
+delete: freed 0xbd4eb0 (size 62, 76 bytes still allocated)
+delete: freed 0xbd4df0 (size 60, 16 bytes still allocated)
+delete: freed 0xbd4520 (size 16, 0 bytes still allocated)

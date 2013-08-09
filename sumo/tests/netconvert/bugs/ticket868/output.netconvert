@@ -1,0 +1,50 @@
+Parsing nodes from osm-file 'osm.xml'... done.
+Parsing edges from osm-file 'osm.xml'... done.
+Removing duplicate edges... done.
+Parsing relations from osm-file 'osm.xml'... 
+done.
+ Import done:
+   56 nodes loaded.
+   34 types loaded.
+   35 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+Removing self-loops... done.
+Finding isolated roads... done.
+Removing empty nodes and geometry nodes... done.
+   32 nodes removed.
+Moving network to origin... done.
+Joining similar edges... done.
+Guessing and setting on-/off-ramps... done.
+Removing sharp turn with radius 1.52 at the end of edge 151057631#0
+Removing sharp turn with radius 5.54 at the start of edge 151059738#0
+Removing sharp turn with radius 8.22 at the start of edge 151059738#0
+Computing turning directions... done.
+Sorting nodes' edges... done.
+Computing node types... done.
+Computing priorities... done.
+Computing approached edges... done.
+Guessing and setting roundabouts... done.
+Computing approaching lanes... done.
+Dividing of lanes on approached lanes... done.
+Processing turnarounds... done.
+Rechecking of lane endings... done.
+Computing node shapes... done.
+Computing edge shapes... done.
+Assigning nodes to traffic lights... done.
+Computing traffic light control information... done.
+Computing node logics... done.
+Computing traffic light logics... 
+done.
+ 12 traffic light(s) computed.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 7
+  Priority junctions          : 18
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : 6.94,50.94,6.95,50.95
+  Applied offset     : -355340.39,-5645704.86
+  Converted boundary : 0.00,0.00,364.54,256.22
+-----------------------------------------------------
+Success.
