@@ -187,6 +187,8 @@ NBNetBuilder::compute(OptionsCont& oc,
             myRoundabouts.clear();
         }
         numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
+        // reset geometry to avoid influencing subsequent steps (ramps.guess)
+        myEdgeCont.computeLaneShapes();
         PROGRESS_DONE_MESSAGE();
     }
     if (numJoined > 0) {
