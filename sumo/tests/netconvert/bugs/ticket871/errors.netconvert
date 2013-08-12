@@ -1,3 +1,3 @@
-Warning: Not joining junctions 449778,449770,436241843,449797,449798 because the cluster is too complex
+Warning: Not joining junctions 449778,449770,436241843,456826693,456826694,449797,436241848,449798 because the cluster is too complex
 Warning: The traffic light '436241833' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '436241833'

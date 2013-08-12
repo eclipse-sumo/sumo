@@ -295,13 +295,27 @@ NBNode::isJoinedTLSControlled() const {
 void
 NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont) {
     if (isTLControlled()) {
-        NBTrafficLightDefinition* orig = *myTrafficLights.begin();
+        std::set<NBTrafficLightDefinition*> newDefs;
+        for (std::set<NBTrafficLightDefinition*>::iterator it =  myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
+            NBTrafficLightDefinition* orig = *it;
+            if (dynamic_cast<NBOwnTLDef*>(orig) != 0) {
+                // this definition will be guessed anyway. no need to invalidate
+                newDefs.insert(orig);
+            } else {
+                const std::string new_id = orig->getID() + "_reguessed";
+                NBTrafficLightDefinition* newDef = new NBOwnTLDef(new_id, orig->getOffset(), orig->getType());
+                if (!tlCont.insert(newDef)) {
+                    // the original definition was shared by other nodes and was already invalidated
+                    delete newDef;
+                    newDef = tlCont.getDefinition(new_id, orig->getProgramID());
+                    assert(newDef != 0);
+                }
+                newDefs.insert(newDef);
+            }
+        }
         removeTrafficLights();
-        NBTrafficLightDefinition* tlDef = new NBOwnTLDef(orig->getID() + "_reguessed", this, orig->getOffset(), orig->getType());
-        if (!tlCont.insert(tlDef)) {
-            // actually, nothing should fail here
-            delete tlDef;
-            throw ProcessError("Could not allocate tls '" + myID + "'.");
+        for (std::set<NBTrafficLightDefinition*>::iterator it =  newDefs.begin(); it != newDefs.end(); ++it) {
+            (*it)->addNode(this);
         }
     }
 }
