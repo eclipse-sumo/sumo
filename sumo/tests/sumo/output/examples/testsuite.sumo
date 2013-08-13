@@ -8,3 +8,6 @@ cross3ltl_rawdump
 cross3ltl_tripinfo
 cross3ltl_vehroutes
 cross3ltl_vtypeprobe
+cross3ltl_queue
+cross3ltl_emission
+cross3ltl_full
