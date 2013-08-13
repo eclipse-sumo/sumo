@@ -52,34 +52,28 @@
 void
 MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
 
-    of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
+    of.openTag("timestep").writeAttr("time", time2string(timestep));
 
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
-
     for (; it != end; ++it) {
         const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
-
-        if (veh->isOnRoad()) {
+        if (!veh->isOnRoad()) {
+            continue;
+        }
 
             std::string fclass = veh->getVehicleType().getID();
             fclass = fclass.substr(0, fclass.find_first_of("@"));
 
             Position pos = veh->getLane()->getShape().positionAtOffset(veh->getPositionOnLane());
-            of.openTag("vehicle") << " id=\"" << veh->getID() << "\" eclass=\"" <<  veh->getVehicleType().getEmissionClass() << "\" co2=\"" << veh->getHBEFA_CO2Emissions()
-                                  << "\" co=\"" <<  veh->getHBEFA_COEmissions() << "\" hc=\"" <<  veh->getHBEFA_HCEmissions()
-                                  << "\" nox=\"" <<  veh->getHBEFA_NOxEmissions() << "\" pmx=\"" <<  veh->getHBEFA_PMxEmissions()
-                                  << "\" fuel=\"" <<  veh->getHBEFA_FuelConsumption() << "\" noise=\"" <<  veh->getHarmonoise_NoiseEmissions() 
-                                  << "\" route=\"" << veh->getRoute().getID()
-                                  << "\" type=\"" <<  fclass << "\" waiting=\"" <<  veh->getWaitingSeconds()
-                                  << "\" lane=\"" <<  veh->getLane()->getID() << "\" pos=\""
-                                  << veh->getPositionOnLane() << "\" speed=\"" << veh->getSpeed() * 3.6
-                                  << "\" angle=\"" << veh->getAngle() << "\" x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
+            of.openTag("vehicle").writeAttr("id", veh->getID()).writeAttr("eclass", veh->getVehicleType().getEmissionClass()).writeAttr("co2", veh->getHBEFA_CO2Emissions());
+            of.writeAttr("co", veh->getHBEFA_COEmissions()).writeAttr("hc", veh->getHBEFA_HCEmissions()).writeAttr("nox", veh->getHBEFA_NOxEmissions());
+            of.writeAttr("pmx", veh->getHBEFA_PMxEmissions()).writeAttr("fuel", veh->getHBEFA_FuelConsumption()).writeAttr("noise", veh->getHarmonoise_NoiseEmissions());
+            of.writeAttr("route", veh->getRoute().getID()).writeAttr("type", fclass).writeAttr("waiting", veh->getWaitingSeconds());
+            of.writeAttr("lane", veh->getLane()->getID()).writeAttr("pos", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed() * 3.6);
+            of.writeAttr("angle", veh->getAngle()).writeAttr("x", pos.x()).writeAttr("y", pos.y());
             of.closeTag();
-
-        }
     }
-
     of.closeTag();
 }
