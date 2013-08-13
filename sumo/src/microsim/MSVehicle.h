@@ -53,6 +53,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class SUMOSAXAttributes;
 class MSMoveReminder;
 class MSLaneChanger;
 class MSVehicleTransfer;
@@ -917,6 +918,17 @@ public:
 
 
 #endif
+
+    /// @name state io
+    //@{
+
+    /// Saves the states of a vehicle
+    void saveState(OutputDevice& out);
+
+    /** @brief Loads the state of this vehicle from the given description
+     */
+    void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset);
+    //@}
 
 protected:
 

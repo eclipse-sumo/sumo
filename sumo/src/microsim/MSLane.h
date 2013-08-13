@@ -56,6 +56,7 @@ class MSVehicle;
 class MSLaneChanger;
 class MSLink;
 class MSVehicleTransfer;
+class MSVehicleControl;
 class OutputDevice;
 
 
@@ -632,6 +633,34 @@ public:
      */
     SUMOReal getHarmonoise_NoiseEmissions() const;
     /// @}
+    
+
+    /// @name State saving/loading
+    /// @{
+
+    /** @brief Saves the state of this lane into the given stream
+     *
+     * Basically, a list of vehicle ids
+     *
+     * @param[in, filled] out The (possibly binary) device to write the state into
+     * @todo What about throwing an IOError?
+     */
+    void saveState(OutputDevice& out);
+
+    /** @brief Loads the state of this segment with the given parameters
+     *
+     * This method is called for every internal que the segment has.
+     *  Every vehicle is retrieved from the given MSVehicleControl and added to this
+     *  lane. 
+     *
+     * @param[in] vehIDs The vehicle ids for the current que
+     * @param[in] vc The vehicle control to retrieve references vehicles from
+     * @todo What about throwing an IOError?
+     * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
+     */
+    void loadState(std::vector<std::string>& vehIDs, MSVehicleControl& vc);
+    /// @}
+
 
 
 protected:

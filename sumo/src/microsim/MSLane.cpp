@@ -50,6 +50,7 @@
 #include "MSGlobals.h"
 #include "MSVehicleControl.h"
 #include "MSInsertionControl.h"
+#include "MSVehicleControl.h"
 #include <cmath>
 #include <bitset>
 #include <iostream>
@@ -1357,6 +1358,30 @@ MSLane::by_connections_to_sorter::operator()(const MSEdge* const e1, const MSEdg
     }
     return s1 < s2;
 }
+
+
+void
+MSLane::saveState(OutputDevice& out) {
+    out.openTag(SUMO_TAG_LANE);
+    out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
+    out.writeAttr(SUMO_ATTR_VALUE, myVehicles);
+    out.closeTag();
+    out.closeTag();
+}
+
+
+void
+MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
+    for (std::vector<std::string>::const_iterator it = vehIds.begin(); it != vehIds.end(); ++it) {
+        MSVehicle* v = dynamic_cast<MSVehicle*>(vc.getVehicle(*it));
+        assert(v != 0);
+        v->getBestLanes(true, this);
+        incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), myVehicles.end(), 
+                MSMoveReminder::NOTIFICATION_JUNCTION);
+    }
+}
+
+
 
 /****************************************************************************/
 

@@ -36,6 +36,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOAbstractRouter.h>
 #include <utils/common/SUMOVehicleParameter.h>
+#include <utils/iodevices/OutputDevice.h>
 
 
 // ===========================================================================
@@ -47,6 +48,7 @@ class MSEdge;
 class MSLane;
 class MSDevice;
 class MSPerson;
+class SUMOSAXAttributes;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
 
@@ -203,6 +205,17 @@ public:
     virtual SUMOReal getChosenSpeedFactor() const = 0;
 
     virtual SUMOTime getWaitingTime() const = 0;
+
+    /// @name state io
+    //@{
+
+    /// Saves the states of a vehicle
+    virtual void saveState(OutputDevice& out) = 0;
+
+    /** @brief Loads the state of this vehicle from the given description
+     */
+    virtual void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) = 0;
+    //@}
 };
 
 

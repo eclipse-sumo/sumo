@@ -253,6 +253,15 @@ public:
     /// @brief Returns a device of the given type if it exists or 0
     MSDevice* getDevice(const std::type_info& type) const;
 
+
+    /// @name state io
+    //@{
+
+    /// Saves the (common) state of a vehicle
+    virtual void saveState(OutputDevice& out);
+
+    //@}
+
 protected:
     /** @brief (Re-)Calculates the arrival position from the vehicle parameters
      */

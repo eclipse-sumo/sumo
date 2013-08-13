@@ -367,9 +367,8 @@ public:
     void setState(int runningVehNo, int endedVehNo, SUMOReal totalDepartureDelay, SUMOReal totalTravelTime);
 
     /** @brief Saves the current state into the given stream
-     * @todo Does not work for microsim
      */
-    virtual void saveState(OutputDevice& out);
+    void saveState(OutputDevice& out);
     /// @}
 
 
@@ -391,7 +390,6 @@ private:
      * @return Whether the type (distribution) may be added
      */
     bool checkVType(const std::string& id);
-
 
 protected:
     /// @name Vehicle statistics (always accessable)

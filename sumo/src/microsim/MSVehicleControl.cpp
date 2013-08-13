@@ -164,7 +164,34 @@ MSVehicleControl::setState(int runningVehNo, int endedVehNo, SUMOReal totalDepar
 
 
 void
-MSVehicleControl::saveState(OutputDevice& /*out*/) {
+MSVehicleControl::saveState(OutputDevice& out) {
+    out.openTag(SUMO_TAG_DELAY).writeAttr(SUMO_ATTR_NUMBER, myRunningVehNo).writeAttr(SUMO_ATTR_END, myEndedVehNo);
+    out.writeAttr(SUMO_ATTR_DEPART, myTotalDepartureDelay).writeAttr(SUMO_ATTR_TIME, myTotalTravelTime).closeTag();
+    // save vehicle types
+    for (VTypeDictType::iterator it = myVTypeDict.begin(); it != myVTypeDict.end(); ++it) {
+        out.openTag(SUMO_TAG_VTYPE).writeAttr(SUMO_ATTR_ID, it->second->getID());
+        out.writeAttr(SUMO_ATTR_LENGTH, it->second->getLength());
+        out.writeAttr(SUMO_ATTR_MINGAP, it->second->getMinGap());
+        out.writeAttr(SUMO_ATTR_MAXSPEED, it->second->getMaxSpeed());
+        out.writeAttr(SUMO_ATTR_VCLASS, (int)it->second->getVehicleClass());
+        out.writeAttr(SUMO_ATTR_EMISSIONCLASS, (int)it->second->getEmissionClass());
+        out.writeAttr(SUMO_ATTR_SHAPE, (int)it->second->getGuiShape());
+        out.writeAttr(SUMO_ATTR_WIDTH, it->second->getWidth());
+        out.writeAttr(SUMO_ATTR_PROB, it->second->getDefaultProbability());
+        out.writeAttr(SUMO_ATTR_SPEEDFACTOR, it->second->getSpeedFactor());
+        out.writeAttr(SUMO_ATTR_SPEEDDEV, it->second->getSpeedDeviation());
+        out.writeAttr(SUMO_ATTR_COLOR, it->second->getColor());
+        out.closeTag();
+    }
+    for (VTypeDistDictType::iterator it = myVTypeDistDict.begin(); it != myVTypeDistDict.end(); ++it) {
+        out.openTag(SUMO_TAG_VTYPE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, it->first);
+        out.writeAttr(SUMO_ATTR_VTYPES, (*it).second->getVals());
+        out.writeAttr(SUMO_ATTR_PROBS, (*it).second->getProbs());
+        out.closeTag();
+    }
+    for (VehicleDictType::iterator it = myVehicleDict.begin(); it != myVehicleDict.end(); ++it) {
+        (*it).second->saveState(out);
+    }
 }
 
 

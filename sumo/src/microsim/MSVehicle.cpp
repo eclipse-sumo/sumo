@@ -55,6 +55,7 @@
 #include <utils/geom/Line.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/BinaryInputDevice.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSGlobals.h>
 #include "trigger/MSBusStop.h"
@@ -2014,6 +2015,34 @@ MSVehicle::getSpeedWithoutTraciInfluence() const {
     return myState.mySpeed;
 }
 
+
+void
+MSVehicle::saveState(OutputDevice& out) {
+    MSBaseVehicle::saveState(out);
+    // here starts the vehicle internal part (see loading)
+    std::vector<int> internals;
+    internals.push_back(myDeparture);
+    internals.push_back(distance(myRoute->begin(), myCurrEdge));
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
+    out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
+    out.closeTag();
+}
+
+
+void
+MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
+    unsigned int routeOffset;
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myDeparture;
+    bis >> routeOffset;
+    if (hasDeparted()) {
+        myDeparture -= offset;
+        myCurrEdge += routeOffset;
+    }
+    myState.myPos = attrs.getFloat(SUMO_ATTR_POSITION);
+    myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);
+}
 
 #endif
 
