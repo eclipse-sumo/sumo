@@ -788,6 +788,9 @@ GUILane::getColorValue(size_t activeScheme) const {
                 return 100 * myLength / value / getSpeedLimit();
             }
         }
+        case 16: {
+            return 1 / myLengthGeometryFactor;
+        }
     }
     return 0;
 }
