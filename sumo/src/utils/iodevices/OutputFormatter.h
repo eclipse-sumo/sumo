@@ -110,14 +110,6 @@ public:
     virtual bool closeTag(std::ostream& into) = 0;
 
 
-    /** @brief writes an arbitrary attribute
-     *
-     * @param[in] into The output stream to use
-     * @param[in] attr The attribute (name)
-     * @param[in] val The attribute value
-     */
-    virtual void writeAttr(std::ostream& into, const std::string& attr, const std::string& val) = 0;
-
 };
 
 

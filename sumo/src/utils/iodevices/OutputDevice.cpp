@@ -238,11 +238,5 @@ OutputDevice::inform(const std::string& msg, const char progress) {
 }
 
 
-OutputDevice&
-OutputDevice::writeAttr(std::string attr, std::string val) {
-    myFormatter->writeAttr(getOStream(), attr, val);
-    return *this;
-}
-
 /****************************************************************************/
 

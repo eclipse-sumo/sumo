@@ -118,7 +118,10 @@ public:
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
-    void writeAttr(std::ostream& into, const std::string& attr, const std::string& val);
+    template <class T>
+    static void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
+        into << " " << attr << "=\"" << toString(val, into.precision()) << "\"";
+    }
 
 
     /** @brief writes a named attribute

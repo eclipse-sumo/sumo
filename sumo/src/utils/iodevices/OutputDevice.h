@@ -225,13 +225,6 @@ public:
      */
     bool closeTag();
 
-    /** @brief writes an arbitrary attribute
-     *
-     * @param[in] attr The attribute (name)
-     * @param[in] val The attribute value
-     * @return The OutputDevice for further processing
-     */
-    OutputDevice& writeAttr(std::string attr, std::string val);
 
 
     /** @brief writes a line feed if applicable
@@ -259,6 +252,23 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
+        if (myAmBinary) {
+            BinaryFormatter::writeAttr(getOStream(), attr, val);
+        } else {
+            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        }
+        return *this;
+    }
+
+
+    /** @brief writes an arbitrary attribute
+     *
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     * @return The OutputDevice for further processing
+     */
+    template <typename T>
+    OutputDevice& writeAttr(const std::string& attr, const T& val) {
         if (myAmBinary) {
             BinaryFormatter::writeAttr(getOStream(), attr, val);
         } else {

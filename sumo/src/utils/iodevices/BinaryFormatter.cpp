@@ -116,14 +116,6 @@ BinaryFormatter::closeTag(std::ostream& into) {
 }
 
 
-void
-BinaryFormatter::writeAttr(std::ostream& into, const std::string& attr, const std::string& val) {
-    if (SUMOXMLDefinitions::Attrs.hasString(attr)) {
-        writeAttr(into, (const SumoXMLAttr)(SUMOXMLDefinitions::Attrs.get(attr)), val);
-    }
-}
-
-
 template<>
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const bool& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_BYTE);

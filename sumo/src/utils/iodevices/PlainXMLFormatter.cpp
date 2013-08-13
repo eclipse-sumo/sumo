@@ -110,10 +110,5 @@ PlainXMLFormatter::closeTag(std::ostream& into) {
 }
 
 
-void
-PlainXMLFormatter::writeAttr(std::ostream& into, const std::string& attr, const std::string& val) {
-    into << " " << attr << "=\"" << val << "\"";
-}
-
 /****************************************************************************/
 
