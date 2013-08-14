@@ -50,6 +50,7 @@ c2x_saved_info_freq:c2x_saved_info_freq.xml
 c2x_edge_near_info:c2x_edge_near_info.xml
 log:log.txt
 state:state.xml
+state2:state2.xml
 calibrator_log:calibrator.log.xml
 links:linkstate.xml
 
@@ -77,6 +78,8 @@ vehroutes_ignore_arrival:<!--{[->]}-->
 vehroutes_ignore_arrival:arrival="[^"]*"{REPLACE arrival="<ignored>"}
 state:<!--{[->]}-->
 state:<snapshot version="[^"]*"{REPLACE <snapshot version="<version>"}
+state2:<!--{[->]}-->
+state2:<snapshot version="[^"]*"{REPLACE <snapshot version="<version>"}
 tls_state:<!--{[->]}-->
 tls_switch:<!--{[->]}-->
 tls_state_switch:<!--{[->]}-->
