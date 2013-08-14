@@ -207,6 +207,7 @@
     <ClCompile Include="..\..\..\src\microsim\MSRightOfWayJunction.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSRoute.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSRouteHandler.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSStateHandler.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSVehicle.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSVehicleContainer.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSVehicleControl.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="..\..\..\src\microsim\MSRightOfWayJunction.h" />
     <ClInclude Include="..\..\..\src\microsim\MSRoute.h" />
     <ClInclude Include="..\..\..\src\microsim\MSRouteHandler.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSStateHandler.h" />
     <ClInclude Include="..\..\..\src\microsim\MSVehicle.h" />
     <ClInclude Include="..\..\..\src\microsim\MSVehicleContainer.h" />
     <ClInclude Include="..\..\..\src\microsim\MSVehicleControl.h" />

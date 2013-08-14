@@ -29,9 +29,6 @@
     <ClCompile Include="..\..\..\src\mesosim\MEVehicleControl.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\mesosim\StateHandler.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\mesosim\MEInductLoop.h">
@@ -50,9 +47,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\mesosim\MEVehicleControl.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\mesosim\StateHandler.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
