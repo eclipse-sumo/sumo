@@ -220,7 +220,6 @@ MSRoute::operator[](unsigned index) const {
 }
 
 
-#ifdef HAVE_INTERNAL
 void
 MSRoute::dict_saveState(OutputDevice& out) {
     for (RouteDict::iterator it = myDict.begin(); it != myDict.end(); ++it) {
@@ -235,7 +234,6 @@ MSRoute::dict_saveState(OutputDevice& out) {
         out.closeTag();
     }
 }
-#endif
 
 
 SUMOReal

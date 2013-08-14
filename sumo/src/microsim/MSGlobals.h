@@ -78,10 +78,10 @@ public:
     /** information Duration of a lane change maneuver */
     static SUMOTime gLaneChangeDuration;
 
-#ifdef HAVE_INTERNAL
     /// Information whether a state has been loaded
     static bool gStateLoaded;
 
+#ifdef HAVE_INTERNAL
     /** Information whether mesosim shall be used */
     static bool gUseMesoSim;
 

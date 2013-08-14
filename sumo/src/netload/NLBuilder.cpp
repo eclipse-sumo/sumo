@@ -61,10 +61,8 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSFrame.h>
 #include <microsim/MSEdgeWeightsStorage.h>
+#include <microsim/MSStateHandler.h>
 #include <utils/iodevices/BinaryInputDevice.h>
-#ifdef HAVE_INTERNAL
-#include <mesosim/StateHandler.h>
-#endif
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -131,13 +129,12 @@ NLBuilder::build() {
         WRITE_WARNING("Network contains internal links but option --no-internal-links is set. Vehicles will 'jump' across junctions and thus underestimate route lenghts and travel times");
     }
     buildNet();
-#ifdef HAVE_INTERNAL
     // load the previous state if wished
     if (myOptions.isSet("load-state")) {
         long before = SysUtils::getCurrentMillis();
         const std::string& f = myOptions.getString("load-state");
         PROGRESS_BEGIN_MESSAGE("Loading state from '" + f + "'");
-        StateHandler h(f, string2time(OptionsCont::getOptions().getString("load-state.offset")));
+        MSStateHandler h(f, string2time(OptionsCont::getOptions().getString("load-state.offset")));
         XMLSubSys::runParser(h, f);
         if (myOptions.isDefault("begin")) {
             myOptions.set("begin", time2string(h.getTime()));
@@ -150,7 +147,6 @@ NLBuilder::build() {
         }
         MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
     }
-#endif
     // load weights if wished
     if (myOptions.isSet("weight-files")) {
         if (!myOptions.isUsableFileList("weight-files")) {
@@ -214,7 +210,6 @@ NLBuilder::buildNet() {
         MSFrame::buildStreams();
         std::vector<SUMOTime> stateDumpTimes;
         std::vector<std::string> stateDumpFiles;
-#ifdef HAVE_INTERNAL
         const std::vector<int> times = myOptions.getIntVector("save-state.times");
         for (std::vector<int>::const_iterator i = times.begin(); i != times.end(); ++i) {
             stateDumpTimes.push_back(TIME2STEPS(*i));
@@ -230,7 +225,6 @@ NLBuilder::buildNet() {
                 stateDumpFiles.push_back(prefix + "_" + time2string(*i) + ".sbx");
             }
         }
-#endif
         myNet.closeBuilding(edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles);
     } catch (IOError& e) {
         delete edges;

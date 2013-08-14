@@ -306,13 +306,9 @@ MSRouteHandler::myEndElement(int element) {
             if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
                 const std::string id = vehType->getID();
                 delete vehType;
-#ifdef HAVE_INTERNAL
                 if (!MSGlobals::gStateLoaded) {
-#endif
                     throw ProcessError("Another vehicle type (or distribution) with the id '" + id + "' exists.");
-#ifdef HAVE_INTERNAL
                 }
-#endif
             } else {
                 if (myCurrentVTypeDistribution != 0) {
                     myCurrentVTypeDistribution->add(vehType->getDefaultProbability(), vehType);
@@ -349,9 +345,7 @@ MSRouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
-#ifdef HAVE_INTERNAL
         if (!MSGlobals::gStateLoaded) {
-#endif
             if (myVehicleParameter != 0) {
                 if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id) == 0) {
                     throw ProcessError("Another route for vehicle '" + myVehicleParameter->id + "' exists.");
@@ -361,9 +355,7 @@ MSRouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
             } else {
                 throw ProcessError("Another route (or distribution) with the id '" + myActiveRouteID + "' exists.");
             }
-#ifdef HAVE_INTERNAL
         }
-#endif
     } else {
         if (myCurrentRouteDistribution != 0) {
             myCurrentRouteDistribution->add(myActiveRouteProbability, route);
@@ -496,18 +488,14 @@ MSRouteHandler::closeVehicle() {
         }
     } else {
         // strange: another vehicle with the same id already exists
-#ifdef HAVE_INTERNAL
         if (!MSGlobals::gStateLoaded) {
-#endif
             // and was not loaded while loading a simulation state
             // -> error
             throw ProcessError("Another vehicle with the id '" + myVehicleParameter->id + "' exists.");
-#ifdef HAVE_INTERNAL
         } else {
             // ok, it seems to be loaded previously while loading a simulation state
             vehicle = 0;
         }
-#endif
     }
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer

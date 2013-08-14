@@ -89,10 +89,10 @@
 #include <ctime>
 #include "MSPerson.h"
 #include "MSEdgeWeightsStorage.h"
+#include "MSStateHandler.h"
 
 #ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
-#include <mesosim/StateHandler.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #endif
 
@@ -356,14 +356,12 @@ MSNet::simulationStep() {
     if (myLogExecutionTime) {
         mySimStepBegin = SysUtils::getCurrentMillis();
     }
-#ifdef HAVE_INTERNAL
-    // netstate output
+    // simulation state output
     std::vector<SUMOTime>::iterator timeIt = find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep);
     if (timeIt != myStateDumpTimes.end()) {
         const int dist = distance(myStateDumpTimes.begin(), timeIt);
-        StateHandler::saveState(myStateDumpFiles[dist], myStep);
+        MSStateHandler::saveState(myStateDumpFiles[dist], myStep);
     }
-#endif
     myBeginOfTimestepEvents->execute(myStep);
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(myStep, 0);

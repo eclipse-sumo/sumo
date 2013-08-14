@@ -109,7 +109,6 @@ public:
 
     const MSEdge* operator[](unsigned index) const;
 
-#ifdef HAVE_INTERNAL
     /// @name State I/O (mesosim only)
     /// @{
 
@@ -119,7 +118,6 @@ public:
      */
     static void dict_saveState(OutputDevice& out);
     /// @}
-#endif
 
     const MSEdgeVector& getEdges() const {
         return myEdges;
