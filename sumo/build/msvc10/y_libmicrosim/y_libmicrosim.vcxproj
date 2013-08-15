@@ -164,25 +164,8 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   </PropertyGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Daniel1.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussPS.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Example.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Vehroutes.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSAbstractLaneChangeModel.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSBaseVehicle.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Person.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Routing.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdge.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdgeControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdgeWeightsStorage.cpp" />
@@ -216,26 +199,9 @@
     <ClCompile Include="..\..\..\src\microsim\MSVehicleType.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Daniel1.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussPS.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.h" />
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Example.h" />
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.h" />
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Vehroutes.h" />
     <ClInclude Include="..\..\..\src\microsim\MSAbstractLaneChangeModel.h" />
     <ClInclude Include="..\..\..\src\microsim\MSBaseVehicle.h" />
     <ClInclude Include="..\..\..\src\microsim\MSBitSetLogic.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Kerner.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Krauss.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_KraussOrig1.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.h" />
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice.h" />
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.h" />
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Person.h" />
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Routing.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdge.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdgeControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdgeWeightsStorage.h" />

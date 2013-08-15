@@ -229,6 +229,12 @@
       <Project>{a54d4a8b-9520-40f0-b8cb-152bf506cb47}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\z_libmicrosim_cfmodels\z_libmicrosim_cfmodels.vcxproj">
+      <Project>{014f0919-66a3-4aed-8901-b6e02f56dc7c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libmicrosim_devices\z_libmicrosim_devices.vcxproj">
+      <Project>{9f9f769c-e533-4359-b4d2-09f9e20b0b2e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\z_libmicrosim_output\z_libmicrosim_output.vcxproj">
       <Project>{cc278de5-d3d8-4bd8-b8a4-bd76cb8fb4f1}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
