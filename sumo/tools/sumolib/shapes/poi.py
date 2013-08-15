@@ -16,7 +16,8 @@ from xml.sax import handler, parse
 from .. import color
 
 class PoI:
-    def __init__(self, id, type, layer, color, x, y, lane=None, pos=None):
+    def __init__(self, id, type, layer, color, x, y, lane=None, pos=None, lonLat=False):
+        """interpret x,y as lon,lat if lonLat is True"""
         self.id = id
         self.type = type
         self.color = color
@@ -26,10 +27,13 @@ class PoI:
         self.lane = lane
         self.pos = pos
         self.attributes = {}
+        self.lonLat = lonLat
 
     def toXML(self):
         if self.lane:
             ret = '<poi id="%s" type="%s" color="%s" layer="%s" lane="%s" pos="%s"' % (self.id, self.type, self.color.toXML(), self.layer, self.lane, self.pos)
+        elif self.lonLat:
+            ret = '<poi id="%s" type="%s" color="%s" layer="%s" lon="%s" lat="%s"' % (self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
         else:
             ret = '<poi id="%s" type="%s" color="%s" layer="%s" x="%s" y="%s"' % (self.id, self.type, self.color.toXML(), self.layer, self.x, self.y)
         if len(self.attributes)==0:
@@ -52,7 +56,10 @@ class PoIReader(handler.ContentHandler):
         if name == 'poi':
             c = color.decodeXML(attrs['color'])
             if not attrs.has_key('lane'):
-                poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, float(attrs['x']), float(attrs['y']))
+                if not attrs.has_key('x'):
+                    poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, float(attrs['lon']), float(attrs['lat']), lonLat=True)
+                else:
+                    poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, float(attrs['x']), float(attrs['y']))
             else:
                 poi = PoI(attrs['id'], attrs['type'], float(attrs['layer']), c, None, None, attrs['lane'], float(attrs['pos']))
             self._id2poi[poi.id] = poi
