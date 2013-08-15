@@ -36,17 +36,13 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <microsim/devices/MSDevice_Vehroutes.h>
-#include <microsim/devices/MSDevice_Tripinfo.h>
-#include <microsim/devices/MSDevice_Routing.h>
-#include <microsim/devices/MSDevice_Person.h>
-#include <microsim/devices/MSDevice_HBEFA.h>
-#include <microsim/devices/MSDevice_Example.h>
 #include "MSVehicleType.h"
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSMoveReminder.h"
 #include "MSBaseVehicle.h"
+#include "MSNet.h"
+#include "devices/MSDevice.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -78,11 +74,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
 #endif
 {
     // init devices
-    MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices);
-    MSDevice_Tripinfo::buildVehicleDevices(*this, myDevices);
-    MSDevice_Routing::buildVehicleDevices(*this, myDevices);
-    MSDevice_HBEFA::buildVehicleDevices(*this, myDevices);
-    MSDevice_Example::buildVehicleDevices(*this, myDevices);
+    MSDevice::buildVehicleDevices(*this, myDevices);
     //
     for (std::vector< MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
         myMoveReminders.push_back(std::make_pair(*dev, 0.));

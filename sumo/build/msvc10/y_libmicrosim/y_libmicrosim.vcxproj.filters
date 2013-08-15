@@ -154,6 +154,9 @@
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Example.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSStateHandler.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>

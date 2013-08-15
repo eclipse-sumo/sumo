@@ -49,10 +49,8 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/devices/MSDevice.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
-#include <microsim/devices/MSDevice_Routing.h>
-#include <microsim/devices/MSDevice_HBEFA.h>
-#include <microsim/devices/MSDevice_Example.h>
 #include <utils/common/RandHelper.h>
 #include "MSFrame.h"
 #include <utils/common/SystemFrame.h>
@@ -248,9 +246,8 @@ MSFrame::fillOptions() {
                       "Restrict the maximum size of route distributions");
 
     // devices
-    MSDevice_Routing::insertOptions();
-    MSDevice_HBEFA::insertOptions();
-    MSDevice_Example::insertOptions();
+    oc.addOptionSubTopic("Emissions");
+    MSDevice::insertOptions();
 
 
     // register report options

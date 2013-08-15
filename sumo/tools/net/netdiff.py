@@ -311,7 +311,7 @@ def parse_args():
     optParser.add_option("--path", dest="path",
             default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
     options, args = optParser.parse_args()
-    if len(args) != 3:
+    if len(args) < 3:
         sys.exit(USAGE)
     if options.use_prefix and options.direct:
         optParser.error("Options --use-prefix and --direct are mutually exclusive")

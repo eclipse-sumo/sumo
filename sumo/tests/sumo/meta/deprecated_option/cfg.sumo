@@ -7,6 +7,10 @@
         <route-files value="input_routes.rou.xml"/>
     </input>
 
+    <output>
+        <save-state.prefix value="state"/>
+    </output>
+
     <random_number>
         <random value="true"/>
     </random_number>

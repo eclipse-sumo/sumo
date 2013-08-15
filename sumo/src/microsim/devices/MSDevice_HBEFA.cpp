@@ -51,7 +51,6 @@
 void
 MSDevice_HBEFA::insertOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.addOptionSubTopic("Emissions");
 
     oc.doRegister("device.hbefa.probability", new Option_Float(0.));//!!! describe
     oc.addDescription("device.hbefa.probability", "Emissions", "The probability for a vehicle to have an emission logging device");

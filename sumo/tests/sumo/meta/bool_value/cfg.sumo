@@ -7,6 +7,10 @@
         <route-files value="input_routes.rou.xml"/>
     </input>
 
+    <output>
+        <save-state.prefix value="state"/>
+    </output>
+
     <report>
         <no-duration-log value="true"/>
     </report>
