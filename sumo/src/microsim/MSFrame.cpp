@@ -45,6 +45,7 @@
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <microsim/MSBaseVehicle.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSNet.h>
