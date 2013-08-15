@@ -2022,7 +2022,7 @@ MSVehicle::saveState(OutputDevice& out) {
     // here starts the vehicle internal part (see loading)
     std::vector<int> internals;
     internals.push_back(myDeparture);
-    internals.push_back(distance(myRoute->begin(), myCurrEdge));
+    internals.push_back((int)distance(myRoute->begin(), myCurrEdge));
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
