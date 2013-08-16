@@ -7,3 +7,6 @@ left_turn_noblocking_double_intersection
 # import osm network
 # then import the constructed sumo net and check for idempotency
 osm_roundtrip
+
+# export sumo.net.xml as dlr-navteq then reimport and check for consistency with the original net.xml
+dlr-navteq_roundtrip
