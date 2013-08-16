@@ -10,8 +10,4 @@ RewriteRule	^/?wiki(/.*)?$	%{DOCUMENT_ROOT}/w/index.php [L]
 
 RewriteRule	^/?trac(/.*)?$	%{DOCUMENT_ROOT}/trac.wsgi [L]
 
-RewriteBase /blog/
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /blog/index.php [L]
+RewriteRule     ^/?blog(/.*)?$  %{DOCUMENT_ROOT}/wordpress/index.php [L]
