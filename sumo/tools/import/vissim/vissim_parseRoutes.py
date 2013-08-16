@@ -20,7 +20,7 @@ A third parameter may be given to change the random number seed (default=42)
 (Starting?) edges of the route may be renamed by setting them within "edgemap"
  variable (see below).
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2009-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

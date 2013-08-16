@@ -8,7 +8,7 @@
 
 Converts the vtypeProbe XML-File to the raw FCD-Format which can afterwards used to process FCD. 
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

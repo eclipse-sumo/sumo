@@ -8,7 +8,7 @@
 Extract all used edges from routes and person plans and output a file suitable
 for pruning edges with netconvert
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2010-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

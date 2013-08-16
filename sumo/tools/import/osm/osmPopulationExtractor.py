@@ -12,7 +12,7 @@ This script is to
 The redundant information is removed and saved in the output file *_redundantOSMData.txt.
 If there are data entries without names, they will be saved in *_nameNone.txt.
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

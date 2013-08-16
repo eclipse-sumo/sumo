@@ -9,7 +9,7 @@ Applies a given offset to edges given in an xml-edge-file.
 The results are written into <XMLEDGES>.mod.xml.
 Call: xmledges_applyOffset.py <XMLEDGES> <X-OFFSET> <Y-OFFSET>
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2009-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

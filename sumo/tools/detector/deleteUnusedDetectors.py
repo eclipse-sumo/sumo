@@ -10,7 +10,7 @@ This script reads a network as first parameter and a file with the positions
 of detectors as second parameter. As result the script writes a new file
 with detectors which are actually used in the given network. 
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2010-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

@@ -12,7 +12,7 @@ It checks for possible scenarios in the current working directory
 and lets the user start them as a game. Furthermore it
 saves highscores to local disc and to the central highscore server.
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2010-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
@@ -20,7 +20,7 @@ import os, subprocess, sys, re, pickle, httplib, glob, Tkinter
 from xml.dom import pulldom
 
 _SCOREFILE = "scores.pkl"
-_SCORESERVER = "sumo.sourceforge.net"
+_SCORESERVER = "sumo-sim.org"
 _SCORESCRIPT = "/scores.php?game=TLS&"
 _DEBUG = False
 

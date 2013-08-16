@@ -21,7 +21,7 @@ If the route file uses the old format (<route>edge1 edge2</route>)
 this is changed without adding comments. The same is true for camelCase
 changes of attributes.
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2007-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

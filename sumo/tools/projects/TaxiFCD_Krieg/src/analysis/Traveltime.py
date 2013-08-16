@@ -10,7 +10,7 @@ Compares the travel time of vtypeprobe and FCD. (avg=False)
 
 Secondly the average travel time will be calculate (avg=True). 
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

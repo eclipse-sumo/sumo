@@ -11,7 +11,7 @@ This script reads a network and a dump file and
  draws the network, coloring it by the values
  found within the dump-file.
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

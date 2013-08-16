@@ -11,7 +11,7 @@ This script is to define classes, functions, parse-reader and output files/forma
 - conducting significance tests (either t-Test or Kruskal-Wallis-Test) and
 - writing results into files.
 
-SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
