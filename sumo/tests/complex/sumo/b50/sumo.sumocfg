@@ -5,10 +5,6 @@
         <route-files value="input_routes.rou.xml"/>
     </input>
 
-    <processing>
-        <sloppy-insert value="true"/>
-    </processing>
-
     <report>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
