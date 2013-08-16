@@ -359,7 +359,7 @@ MSNet::simulationStep() {
     // simulation state output
     std::vector<SUMOTime>::iterator timeIt = find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep);
     if (timeIt != myStateDumpTimes.end()) {
-        const int dist = distance(myStateDumpTimes.begin(), timeIt);
+        const int dist = (int)distance(myStateDumpTimes.begin(), timeIt);
         MSStateHandler::saveState(myStateDumpFiles[dist], myStep);
     }
     myBeginOfTimestepEvents->execute(myStep);
