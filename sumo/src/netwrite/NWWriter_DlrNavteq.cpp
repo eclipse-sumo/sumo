@@ -65,6 +65,7 @@ NWWriter_DlrNavteq::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     writeNodesUnsplitted(oc, nb.getNodeCont(), nb.getEdgeCont());
     writeLinksUnsplitted(oc, nb.getEdgeCont());
+    writeTrafficSignals(oc, nb.getNodeCont());
 }
 
 
@@ -292,5 +293,39 @@ NWWriter_DlrNavteq::getGraphLength(NBEdge* edge) {
     geom.push_front_noDoublePos(edge->getFromNode()->getPosition());
     return geom.length();
 }
+
+
+void
+NWWriter_DlrNavteq::writeTrafficSignals(const OptionsCont& oc, NBNodeCont& nc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_traffic_signals.txt");
+    writeHeader(device, oc);
+    const GeoConvHelper& gch = GeoConvHelper::getFinal();
+    const bool haveGeo = gch.usingGeoProjection();
+    const SUMOReal geoScale = pow(10.0f, haveGeo ? 5 : 2); // see NIImporter_DlrNavteq::GEO_SCALE
+    device.setPrecision(0);
+    // write format specifier
+    device << "#Traffic signal related to LINK_ID and NODE_ID with location relative to driving direction.\n#column format like pointcollection.\n#DESCRIPTION->LOCATION: 1-rechts von LINK; 2-links von LINK; 3-oberhalb LINK -1-keineAngabe\n#RELATREC_ID\tPOICOL_TYPE\tDESCRIPTION\tLONGITUDE\tLATITUDE\tLINK_ID\n";
+    // write record for every edge incoming to a tls controlled node
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+        NBNode* n = (*i).second;
+        if (n->isTLControlled()) {
+            Position pos = n->getPosition();
+            gch.cartesian2geo(pos);
+            pos.mul(geoScale);
+            const EdgeVector& incoming = n->getIncomingEdges();
+            for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); ++it) {
+                NBEdge* e = *it;
+                device << e->getID() << "\t"
+                    << "12\t" // POICOL_TYPE
+                    << "LSA;NODEIDS#" << n->getID() << "#;LOCATION#-1#;\t" 
+                    << pos.x() << "\t" 
+                    << pos.y() << "\t" 
+                    << e->getID() << "\n";
+            }
+        }
+    }
+}
+
+
 /****************************************************************************/
 

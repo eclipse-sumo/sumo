@@ -74,12 +74,18 @@ private:
      */
     static void writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec);
 
-    /** @brief Writes the links_unsplitted files
+    /** @brief Writes the links_unsplitted file
      * @param[in] oc The options to use
      * @param[in] nc The node-container from which to read data
      * @param[in] ec The edge-container from which to read data
      */
     static void writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec);
+
+    /** @brief Writes the traffic_signals file
+     * @param[in] oc The options to use
+     * @param[in] nc The node-container from which to read data
+     */
+    static void writeTrafficSignals(const OptionsCont& oc, NBNodeCont& nc);
 
 
     /// @brief write header comments (input paramters, date, etc...)
