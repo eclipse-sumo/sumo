@@ -713,7 +713,7 @@ OptionsCont::printHelp(std::ostream& os) {
         }
     }
     os << std::endl;
-    os << "Report bugs at <http://sourceforge.net/apps/trac/sumo/>." << std::endl;
+    os << "Report bugs at <http://sumo-sim.org/trac/>." << std::endl;
     os << "Get in contact via <sumo-user@lists.sourceforge.net>." << std::endl;
 }
 

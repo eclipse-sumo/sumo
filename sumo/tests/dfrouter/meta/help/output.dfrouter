@@ -1,5 +1,5 @@
 SUMO dfrouter Version dev-SVN-r14133
- Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
+ Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Builds vehicle routes for SUMO using detector values.
 
 Usage: dfrouter [OPTION]*
@@ -108,5 +108,5 @@ Examples:
   dfrouter -c <CONFIGURATION>
     run routing with options from file
 
-Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
+Report bugs at <http://sumo-sim.org/trac/>.
 Get in contact via <sumo-user@lists.sourceforge.net>.

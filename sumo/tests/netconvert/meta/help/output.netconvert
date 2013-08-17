@@ -1,5 +1,5 @@
 SUMO netconvert Version dev-SVN-r14341
- Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
+ Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Road network importer / builder for the road traffic simulation SUMO.
 
 Usage: netconvert [OPTION]*
@@ -252,5 +252,5 @@ Examples:
   netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
     generate net with given nodes, edges, and edge types doing verbose output
 
-Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
+Report bugs at <http://sumo-sim.org/trac/>.
 Get in contact via <sumo-user@lists.sourceforge.net>.

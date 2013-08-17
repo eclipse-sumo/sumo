@@ -1,5 +1,5 @@
 SUMO duarouter Version 0.17.0
- Copyright (C) 2001-2013 DLR and contributors; http://sumo.sourceforge.net
+ Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
 
@@ -105,5 +105,5 @@ Examples:
   duarouter -c <CONFIGURATION>
     run routing with options from file
 
-Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
+Report bugs at <http://sumo-sim.org/trac/>.
 Get in contact via <sumo-user@lists.sourceforge.net>.
