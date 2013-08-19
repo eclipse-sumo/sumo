@@ -55,6 +55,7 @@ c2x_edge_near_info:c2x_edge_near_info.xml
 log:log.txt
 state:state.xml
 state2:state2.xml
+binstate:state.sbx
 calibrator_log:calibrator.log.xml
 links:linkstate.xml
 
@@ -88,6 +89,7 @@ state:<!--{[->]}-->
 state:<snapshot version="[^"]*"{REPLACE <snapshot version="<version>"}
 state2:<!--{[->]}-->
 state2:<snapshot version="[^"]*"{REPLACE <snapshot version="<version>"}
+binstate:dev-SVN-r\d+{REPLACE dev-SVN-r<version>}
 tls_state:<!--{[->]}-->
 tls_switch:<!--{[->]}-->
 tls_state_switch:<!--{[->]}-->

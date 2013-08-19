@@ -119,9 +119,6 @@ NLEdgeControlBuilder::build() {
 
 MSEdge*
 NLEdgeControlBuilder::buildEdge(const std::string& id, const MSEdge::EdgeBasicFunction function, const std::string& streetName) {
-    if (function == MSEdge::EDGEFUNCTION_INTERNAL) {
-        return new MSEdge(id, -1, function, streetName);
-    }
     return new MSEdge(id, myCurrentNumericalEdgeID++, function, streetName);
 }
 

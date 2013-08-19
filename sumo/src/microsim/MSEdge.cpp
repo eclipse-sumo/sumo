@@ -463,12 +463,10 @@ MSEdge::dictionary(const std::string& id, MSEdge* ptr) {
     if (it == myDict.end()) {
         // id not in myDict.
         myDict[id] = ptr;
-        if (ptr->getNumericalID() != -1) {
-            while ((int)myEdges.size() < ptr->getNumericalID() + 1) {
-                myEdges.push_back(0);
-            }
-            myEdges[ptr->getNumericalID()] = ptr;
+        while ((int)myEdges.size() < ptr->getNumericalID() + 1) {
+            myEdges.push_back(0);
         }
+        myEdges[ptr->getNumericalID()] = ptr;
         return true;
     }
     return false;
