@@ -286,7 +286,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
     if (myToRemove.size() > 0) {
         // it is not save to remove the vehicles inside
         // VehicleRemover::notifyEnter so we do it here
-        for (std::vector<MSVehicle*>::iterator it = myToRemove.begin(); it != myToRemove.end(); ++it) {
+        for (std::set<MSVehicle*>::iterator it = myToRemove.begin(); it != myToRemove.end(); ++it) {
             MSVehicle* vehicle = *it;
             vehicle->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
             vehicle->getLane()->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED);
@@ -456,21 +456,25 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification /*
     MSVehicle* vehicle = dynamic_cast<MSVehicle*>(&veh);
     if (calibrateFlow && adaptedNum > totalWishedNum) {
 #ifdef MSCalibrator_DEBUG
-        std::cout << " vaporizing " << vehicle->getID() << " to reduce flow\n";
+        std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
+            << " vaporizing " << vehicle->getID() << " to reduce flow\n";
 #endif
-        myParent->scheduleRemoval(vehicle);
-        myParent->myRemoved++;
+        if (myParent->scheduleRemoval(vehicle)) {
+            myParent->myRemoved++;
+        }
     } else if (myParent->invalidJam(myLaneIndex)) {
 #ifdef MSCalibrator_DEBUG
-        std::cout << " vaporizing " << vehicle->getID() << " to clear jam\n";
+        std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
+            << " vaporizing " << vehicle->getID() << " to clear jam\n";
 #endif
         if (!myParent->myHaveWarnedAboutClearingJam) {
             WRITE_WARNING("Clearing jam at calibrator '" + myParent->myID + "' at time "
                           + time2string(MSNet::getInstance()->getCurrentTimeStep()));
             myParent->myHaveWarnedAboutClearingJam = true;
         }
-        myParent->scheduleRemoval(vehicle);
-        myParent->myClearedInJam++;
+        if (myParent->scheduleRemoval(vehicle)) {
+            myParent->myClearedInJam++;
+        }
     }
     return true;
 }
