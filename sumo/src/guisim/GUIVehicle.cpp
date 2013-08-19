@@ -1290,11 +1290,11 @@ GUIVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal d
     }
     glColor3dv(colors);
     if (routeNo == 0) {
-        draw(*myRoute);
+        drawRouteHelper(*myRoute, s.vehicleExaggeration);
         return;
     }
     --routeNo; // only prior routes are stored
-    draw(*myRoutes->getRoute(routeNo));
+    drawRouteHelper(*myRoutes->getRoute(routeNo), s.vehicleExaggeration);
 }
 
 
@@ -1336,11 +1336,11 @@ GUIVehicle::drawBestLanes() const {
 
 
 void
-GUIVehicle::draw(const MSRoute& r) const {
+GUIVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
     MSRouteIterator i = r.begin();
     for (; i != r.end(); ++i) {
         const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);
-        GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), 1.0);
+        GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
     }
 }
 

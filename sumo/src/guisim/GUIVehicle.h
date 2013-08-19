@@ -265,7 +265,7 @@ public:
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void draw(const MSRoute& r) const;
+    void drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const;
 
 
     /** @brief Chooses the route to draw and draws it, darkening it as given
