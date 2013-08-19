@@ -34,7 +34,7 @@ optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"trunk\sumo\
                      help="directory containg the tests, relative to the root dir")
 optParser.add_option("-e", "--sumo-exe", dest="sumoExe", default="sumo",
                      help="name of the sumo executable")
-optParser.add_option("-m", "--remote-dir", dest="remoteDir",
+optParser.add_option("-m", "--remote-dir", dest="remoteDir", default=r"O:\Daten\Sumo\daily",
                      help="directory to move the results to")
 optParser.add_option("-a", "--add-build-config-prefix", dest="addConf",
                      help="prefix of an additional configuration to build")
@@ -53,9 +53,7 @@ compiler=r"D:\Programme\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe"
 svnrev=""
 for platform in ["Win32", "x64"]:
     env["FILEPREFIX"]="msvc10" + options.suffix + platform
-    prefix = os.path.join(options.rootDir, env["FILEPREFIX"])
-    if options.remoteDir:
-        prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
+    prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
     makeLog = prefix + "Release.log"
     makeAllLog = prefix + "Debug.log"
     statusLog = prefix + "status.log"
@@ -195,6 +193,3 @@ for platform in ["Win32", "x64"]:
     log = open(statusLog, 'w')
     status.printStatus(makeLog, makeAllLog, env["TEXTTEST_TMP"], env["SMTP_SERVER"], log)
     log.close()
-    if not options.remoteDir:
-        toPut = " ".join([env["SUMO_REPORT"], makeLog, makeAllLog, testLog, statusLog, binaryZip, binaryZip.replace(".zip", ".msi")])
-        subprocess.call('WinSCP3.com behrisch,sumo@web.sourceforge.net /privatekey=%s\\key.ppk /command "option batch on" "option confirm off" "put %s /home/groups/s/su/sumo/htdocs/daily/" "exit"' % (options.rootDir, toPut))
