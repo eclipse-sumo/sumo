@@ -72,9 +72,6 @@ GUIEdgeControlBuilder::addLane(const std::string& id,
 
 MSEdge*
 GUIEdgeControlBuilder::buildEdge(const std::string& id, const MSEdge::EdgeBasicFunction function, const std::string& streetName) {
-    if (function == MSEdge::EDGEFUNCTION_INTERNAL) {
-        return new GUIEdge(id, -1, function, streetName);
-    }
     return new GUIEdge(id, myCurrentNumericalEdgeID++, function, streetName);
 }
 
