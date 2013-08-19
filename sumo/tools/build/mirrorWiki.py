@@ -22,20 +22,19 @@ The page is saved into MIRROR_FOLDER/<PAGE_PATH>.
 After mirroring all pages, the images are downloaded and stored into 
 MIRROR_FOLDER/images.
 
-Copyright (C) 2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import urllib, os, sys, shutil
 from optparse import OptionParser
 
 def readParsePage(page):
-    f = urllib.urlopen("http://sourceforge.net/apps/mediawiki/sumo/index.php?title=%s" % page)
+    f = urllib.urlopen("http://sumo-sim.org/wiki/%s" % page)
     c = f.read()
     b = c.find("This page was last modified on");
     e = c.find("<", b)
     lastMod = c[b:e]
-    b = c.find("globalWrapper")
-    b = c.find('<a name="top"', b)
+    b = c.find('<a id="top"')
     e = c.find("<div class=\"printfooter\">")
     c = c[b:e]
     c = c.replace("<h3 id=\"siteSub\">From sumo</h3>", "")
@@ -46,7 +45,7 @@ def readParsePage(page):
     return c
 
 def readParseEditPage(page):
-    f = urllib.urlopen("http://sourceforge.net/apps/mediawiki/sumo/index.php?title=%s&action=edit" % page)
+    f = urllib.urlopen("http://sumo-sim.org/w/index.php?title=%s&action=edit" % page)
     c = f.read()
     b = c.find("wpTextbox1")
     b = c.find('>', b) + 1
@@ -86,9 +85,9 @@ else:
 for p in pages:
     if not p.startswith("href"):
         continue
-    b = p.find("?title=")
+    b = p.find("/wiki/")
     e = p.find("\"", b)
-    name = p[b+7:e]
+    name = p[b+6:e]
     print "Fetching %s" % name
     c = readParseEditPage(name)
     if name.find("/")>0:
@@ -105,7 +104,7 @@ for p in pages:
 for i in images:
     print "Fetching image %s" % i
     if i.find(":")>=0:
-        f = urllib.urlopen("http://sourceforge.net/apps/mediawiki/sumo/index.php?title=%s" % i)
+        f = urllib.urlopen("http://sumo-sim.org/wiki/%s" % i)
         c = f.read()
         b = c.find("<div class=\"fullImageLink\" id=\"file\">")
         b = c.find("href=", b)+6
