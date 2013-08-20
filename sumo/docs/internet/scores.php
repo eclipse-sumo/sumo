@@ -1,3 +1,62 @@
+<?php
+require_once('./database.php');
+import_request_variables("g", "g_");
+
+function query($query) {
+    global $handle, $database;
+    $res = mysql($database, $query, $handle);
+    if (mysql_errno() > 0)
+        echo mysql_errno().": ".mysql_error()." ($query)<br>";
+    return $res;
+}
+
+$gameIDs = array();
+$res = query("SELECT * FROM games");
+while ($row = mysql_fetch_assoc($res)):
+    $gameID = $row["gameID"];
+    $gameIDs[$row["title"]] = $gameID;
+    $titles[$row["gameID"]] = $row["fulltitle"];
+endwhile;
+mysql_free_result($res);
+
+if (!isset($g_game)):
+    $g_game="TLS";
+endif;
+
+$gameID = $gameIDs[$g_game];
+if (isset($g_name, $g_category, $g_points)):
+    query("INSERT highscore VALUES(0, $gameID, '$g_category', $g_points, '$g_name', '$g_instance', '')");
+    exit();
+    endif;
+
+if (isset($g_top)):
+    $res = query("SELECT * FROM highscore WHERE gameID='$gameID' ORDER BY category, points DESC, id");
+    $cat = "";
+    while ($row = mysql_fetch_assoc($res)):
+        if ($row[category] != $cat):
+            if ($cat != ""):
+                echo "\n";
+            endif;
+            $cat = $row[category];
+            echo "$cat $row[name],$row[instance],$row[points]";
+            $count = $g_top-1;
+        else:
+            if ($count > 0):
+                echo ":$row[name],$row[instance],$row[points]";
+                $count--;
+            endif;
+        endif;
+    endwhile;
+    exit();
+endif;
+
+$res = query("SELECT DISTINCT category FROM highscore WHERE gameID=$gameID ORDER BY category");
+if (mysql_num_rows($res) == 0):
+    print("Es sind momentan keine Eintr&auml;ge f&uuml;r dieses Spiel vorhanden.");
+    exit();
+endif;
+
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<link rel="stylesheet" type="text/css" href="./css/sumo.css">
@@ -73,65 +132,6 @@ und man kommt in die Highscores (oder eben nicht).
 
 <hr class="thin"/>
 
-<?php
-require_once('./database.php');
-import_request_variables("g", "g_");
-
-function query($query) {
-    global $handle, $database;
-    $res = mysql($database, $query, $handle);
-    if (mysql_errno() > 0)
-        echo mysql_errno().": ".mysql_error()." ($query)<br>";
-    return $res;
-}
-
-$gameIDs = array();
-$res = query("SELECT * FROM games");
-while ($row = mysql_fetch_assoc($res)):
-    $gameID = $row["gameID"];
-    $gameIDs[$row["title"]] = $gameID;
-    $titles[$row["gameID"]] = $row["fulltitle"];
-endwhile;
-mysql_free_result($res);
-
-if (!isset($g_game)):
-    $g_game="TLS";
-endif;
-
-$gameID = $gameIDs[$g_game];
-if (isset($g_name, $g_category, $g_points)):
-    query("INSERT highscore VALUES(0, $gameID, '$g_category', $g_points, '$g_name', '$g_instance', '')");
-    exit();
-    endif;
-
-if (isset($g_top)):
-    $res = query("SELECT * FROM highscore WHERE gameID='$gameID' ORDER BY category, points DESC, id");
-    $cat = "";
-    while ($row = mysql_fetch_assoc($res)):
-        if ($row[category] != $cat):
-            if ($cat != ""):
-                echo "\n";
-            endif;
-            $cat = $row[category];
-            echo "$cat $row[name],$row[instance],$row[points]";
-            $count = $g_top-1;
-        else:
-            if ($count > 0):
-                echo ":$row[name],$row[instance],$row[points]";
-                $count--;
-            endif;
-        endif;
-    endwhile;
-    exit();
-endif;
-
-$res = query("SELECT DISTINCT category FROM highscore WHERE gameID=$gameID ORDER BY category");
-if (mysql_num_rows($res) == 0):
-    print("Es sind momentan keine Eintr&auml;ge f&uuml;r dieses Spiel vorhanden.");
-    exit();
-endif;
-
-?>
   <form method="get" action="scores.php">
   <input type="hidden" name="game" value="<?php echo htmlentities($g_game)?>"/>
   <h2>Bestenliste f&uuml;r
