@@ -67,7 +67,6 @@ class StartDialog:
         # there is one column for every config, +2 more columns for control buttons
         configs = glob.glob(os.path.join(base, "*.sumocfg"))
         numButtons = len(configs) + 2
-        print numButtons
         # button dimensions
         bWidth_start = 15
         bWidth_high = 7
@@ -115,7 +114,8 @@ class StartDialog:
 
     def start_cfg(self, cfg):
         self.root.destroy()
-        print "starting", cfg
+        if _DEBUG:
+            print "starting", cfg
         self.gametime = parseEndTime(cfg)
         self.ret = subprocess.call([guisimPath, "-S", "-G", "-Q", "-c", cfg])
         self.category = self.category_name(cfg) # remember which which cfg was launched
