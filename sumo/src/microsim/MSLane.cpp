@@ -791,7 +791,9 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
                 MSVehicle* veh = *(myVehicles.end() - 1);
                 myVehicleLengthSum -= veh->getVehicleType().getLengthWithGap();
                 myVehicles.erase(myVehicles.end() - 1);
-                WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long" 
+                        + (r2 ? " on highway" : "")
+                        + ", lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 MSNet::getInstance()->getVehicleControl().registerTeleport();
                 MSVehicleTransfer::getInstance()->addVeh(t, veh);
             }
