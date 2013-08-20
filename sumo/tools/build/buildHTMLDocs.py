@@ -34,45 +34,16 @@ Copyright (C) 2011-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import urllib, os, sys, shutil
+from mirrorWiki import readParsePage, readParseEditPage
 
-def getIndex():
-    f = urllib.urlopen("http://sumo-sim.org/w/index.php?title=SUMO_User_Documentation&action=edit")
-    c = f.read()
-    b = c.find('name="wpTextbox1"')
-    b = c.find(">", b)+1
-    e = c.find("</textarea>", b)
-    return c[b:e]
-
-def readParsePage(page):
-    f = urllib.urlopen("http://sumo-sim.org/wiki/%s" % page)
-    c = f.read()
-    b = c.find("This page was last modified on");
-    e = c.find("<", b)
-    lastMod = c[b:e]
-    b = c.find('<a id="top"')
-    e = c.find("<div class=\"printfooter\">")
-    c = c[b:e]
-    c = c.replace("<h3 id=\"siteSub\">From sumo</h3>", "")
-    b = c.find("<div id=\"jump-to-nav\">")
-    e = c.find("</div>", b)+6
-    c = c[:b] + c[e:]
-    c = c + '</div><hr/><div id="lastmod">' + lastMod + '</div>'
-    return c
-    
 def patchLinks(page, name):
     images = set()
     level = len(name.split("/"))-1
     level = "../" * level
     b = page.find("<a href")
     while b>=0:
-        # images
-        if page[b+9:].startswith("File:") or page[b+9:].startswith("Image:"):
-            print "!!!!! HERE !!!!!"
-            images.add(page[b+9:page.find("\"",b+9)])
-            e = page.find(":", b+9)+1
-            page = page[:b] + level + "images/" + page[e:]
         # images/files
-        elif page[b+9:].startswith("/wiki/File:") or page[b+9:].startswith("/wiki/Image:"):
+        if page[b+9:].startswith("/wiki/File:") or page[b+9:].startswith("/wiki/Image:"):
             b2 = b
             b = page.find(":", b)+1
             images.add(page[b:page.find("\"",b)])
@@ -205,7 +176,7 @@ for i in images:
     imageFiles.append(os.path.join("images", i))
 
 # build navigation
-nav = getIndex()
+nav = readParseEditPage("SUMO_User_Documentation")
 lines = nav[nav.find("="):].split("\n")
 level = 0
 c = "<ul>\n";
