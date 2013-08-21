@@ -36,6 +36,7 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIBusStop.h>
+#include <guisim/GUICalibrator.h>
 #include "GUITriggerBuilder.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -83,6 +84,18 @@ GUITriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
         throw InvalidArgument("Could not build bus stop '" + id + "'; probably declared twice.");
     }
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(stop);
+}
+
+
+MSCalibrator*
+GUITriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
+                                  MSEdge* edge, SUMOReal pos,
+                                  const std::string& file,
+                                  const std::string& outfile,
+                                  const SUMOTime freq) {
+    GUICalibrator* cali = new GUICalibrator(id, edge, pos, file, outfile, freq);
+    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(cali);
+    return cali;
 }
 
 

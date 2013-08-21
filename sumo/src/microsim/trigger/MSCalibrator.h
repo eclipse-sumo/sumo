@@ -123,6 +123,11 @@ protected:
     };
     friend class VehicleRemover;
 
+    // @return whether the current state is active (GUI)
+    bool isActive() const {
+        return myAmActive;
+    }
+
 private:
 
     struct AspiredState {
@@ -171,7 +176,7 @@ private:
         return myToRemove.insert(veh).second;
     };
 
-private:
+protected:
     /// @brief the edge on which this calibrator lies
     MSEdge* const myEdge;
     /// @brief the position on the edge where this calibrator lies
@@ -210,6 +215,9 @@ private:
     SUMOReal myDefaultSpeed;
     /// @brief The default (maximum) speed on the segment
     bool myHaveWarnedAboutClearingJam;
+
+    /// @brief whether the calibrator was active when last checking
+    bool myAmActive;
 
     /* @brief objects which need to live longer than the MSCalibrator
      * instance which created them */

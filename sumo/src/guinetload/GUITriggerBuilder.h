@@ -42,6 +42,7 @@
 class MSTrigger;
 class MSNet;
 class MSLaneSpeedTrigger;
+class MSCalibrator;
 class MSTriggerControl;
 
 
@@ -115,6 +116,23 @@ protected:
     virtual void buildBusStop(MSNet& net, const std::string& id,
                               const std::vector<std::string>& lines, MSLane* lane,
                               SUMOReal frompos, SUMOReal topos);
+
+
+    /** @brief builds a microscopic calibrator
+     *
+     * Simply calls the MSCalibrator constructor.
+     *
+     * @param[in] net The net the calibrator belongs to
+     * @param[in] id The id of the calibrator
+     * @param[in] edge The edge the calibrator is placed at
+     * @param[in] pos The position on the edge the calibrator lies at
+     * @param[in] file The file to read the flows from
+     * @todo Is the position correct/needed
+     */
+    virtual MSCalibrator* buildCalibrator(MSNet& net,
+            const std::string& id, MSEdge* edge, SUMOReal pos,
+            const std::string& file, const std::string& outfile,
+            const SUMOTime freq);
     /// @}
 
 };

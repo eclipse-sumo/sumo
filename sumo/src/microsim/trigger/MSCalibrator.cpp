@@ -75,7 +75,9 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myInserted(0), myClearedInJam(0),
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
     myDefaultSpeed(myEdge->getSpeedLimit()),
-    myHaveWarnedAboutClearingJam(false) {
+    myHaveWarnedAboutClearingJam(false),
+    myAmActive(false)
+{
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
         myOutput->writeXMLHeader("calibratorstats");
@@ -241,8 +243,10 @@ MSCalibrator::execute(SUMOTime currentTime) {
     updateMeanData();
     // check whether an adaptation value exists
     if (isCurrentStateActive(currentTime)) {
+        myAmActive = true;
         // all happens in isCurrentStateActive()
     } else {
+        myAmActive = false;
         reset();
         if (!mySpeedIsDefault) {
             // reset speed to default
@@ -252,7 +256,8 @@ MSCalibrator::execute(SUMOTime currentTime) {
             mySpeedIsDefault = true;
         }
         if (myCurrentStateInterval == myIntervals.end()) {
-            return 0;
+            // keep calibrator alive for gui but do not call again
+            return TIME2STEPS(86400);
         }
         return myFrequency;
     }
