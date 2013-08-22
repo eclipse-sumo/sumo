@@ -136,6 +136,7 @@ for p in pages:
     name = p[b+6:e]
     if name.endswith(".css"):
         print "Skipping css-file %s" % name
+        continue
     print "Fetching %s" % name
     c = readParsePage(name)
     if name.find("/")>0:
@@ -234,11 +235,12 @@ except: pass
 for p in pages:
     if not p.startswith("href"):
         continue
-    b = p.find("?title=")
+    b = p.find("/wiki/")
     e = p.find("\"", b)
-    name = p[b+7:e]
+    name = p[b+6:e]
     if name.endswith(".css"):
         print "Skipping css-file %s" % name
+        continue
     name = name + ".html"
     t = os.path.join(HTML_FOLDER, name)
     fd = open(os.path.join(MIRROR_FOLDER, name))
