@@ -444,10 +444,12 @@ MSCalibrator::cleanup() {
     for (std::vector<MSMoveReminder*>::iterator it = LeftoverReminders.begin(); it != LeftoverReminders.end(); ++it) {
         delete *it;
     }
+    LeftoverReminders.clear();
     for (std::vector<SUMOVehicleParameter*>::iterator it = LeftoverVehicleParameters.begin();
             it != LeftoverVehicleParameters.end(); ++it) {
         delete *it;
     }
+    LeftoverVehicleParameters.clear();
 }
 
 
