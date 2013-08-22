@@ -169,6 +169,14 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
+                                ValueSource<int>* src) {
+    GUIParameterTableItemInterface* i = new GUIParameterTableItem<int>(myTable, myCurrentPos++, name, dynamic, src);
+    myItems.push_back(i);
+}
+
+
+void
+GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
                                 ValueSource<SUMOReal>* src) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOReal>(myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
@@ -206,6 +214,14 @@ void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
                                 unsigned value) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<unsigned>(myTable, myCurrentPos++, name, dynamic, value);
+    myItems.push_back(i);
+}
+
+
+void
+GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
+                                int value) {
+    GUIParameterTableItemInterface* i = new GUIParameterTableItem<int>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
 

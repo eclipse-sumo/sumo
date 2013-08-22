@@ -128,7 +128,7 @@ protected:
         return myAmActive;
     }
 
-private:
+protected:
 
     struct AspiredState {
         AspiredState() : begin(-1), end(-1), q(-1.), v(-1.), vehicleParameter(0) {}
@@ -149,14 +149,30 @@ private:
 
     inline int passed() const {
         // calibrator measures at start of segment
-        return myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myEdgeMeanData.nVehVaporized;
+        // vehicles drive to the end of an edge by default so they count as passed
+        // but vaporized vehicles do not count
+        // if the calibrator is located on a short edge, the vehicles are
+        // vaporized on the next edge so we cannot rely on myEdgeMeanData.nVehVaporized
+        return myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myClearedInJam - myRemoved;
     }
+
+    /// @brief number of vehicles expected to pass this interval
+    int totalWished() const;
 
     /* @brief returns whether the lane is jammed although it should not be
      * @param[in] lane The lane to check or all for negative values
      */
     bool invalidJam(int laneIndex = -1) const;
 
+    inline int inserted() const {
+        return myInserted;
+    }
+    inline int removed() const {
+        return myRemoved;
+    }
+    inline int clearedInJam() const {
+        return myClearedInJam;
+    }
 
     /* @brief returns the number of vehicles (of the current type) that still
      * fit on the given lane

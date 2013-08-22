@@ -197,11 +197,11 @@ void
 MSCalibrator::writeXMLOutput() {
     if (myOutput != 0) {
         updateMeanData();
-        // vehicles drive to the end of an edge by default so they count as passed
-        // but vaporized vehicles do not count
-        // if the calibrator is located on a short edge, the vehicles are
-        // vaporized on the next edge so we cannot rely on myEdgeMeanData.nVehVaporized
-        const int p = myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myClearedInJam - myRemoved;
+        const int p = passed();
+        // meandata will be off if vehicles are removed on the next edge instead of this one
+        const int discrepancy = myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myEdgeMeanData.nVehVaporized - passed();
+        assert(discrepancy >= 0);
+        const std::string ds = (discrepancy > 0 ? "\" vaporizedOnNextEdge=\"" + toString(discrepancy) : "");
         const SUMOReal durationSeconds = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin);
         (*myOutput) << "   <interval begin=\"" << time2string(myCurrentStateInterval->begin) <<
                     "\" end=\"" << time2string(myCurrentStateInterval->end) <<
@@ -214,6 +214,7 @@ MSCalibrator::writeXMLOutput() {
                     "\" aspiredFlow=\"" << myCurrentStateInterval->q <<
                     "\" speed=\"" << myEdgeMeanData.travelledDistance / myEdgeMeanData.getSamples() <<
                     "\" aspiredSpeed=\"" << myCurrentStateInterval->v <<
+                    ds << //optional
                     "\"/>\n";
     }
     myDidSpeedAdaption = false;
@@ -233,6 +234,16 @@ MSCalibrator::isCurrentStateActive(SUMOTime time) {
     }
     return myCurrentStateInterval != myIntervals.end() &&
            myCurrentStateInterval->begin <= time && myCurrentStateInterval->end > time;
+}
+
+int 
+MSCalibrator::totalWished() const {
+    if (myCurrentStateInterval != myIntervals.end()) {
+        const SUMOReal totalHourFraction = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin) / (SUMOReal) 3600.;
+        return (int)std::floor(myCurrentStateInterval->q * totalHourFraction + 0.5); // round to closest int
+    } else {
+        return -1;
+    }
 }
 
 
@@ -272,7 +283,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
 
     const bool calibrateFlow = myCurrentStateInterval->q >= 0;
     const SUMOReal totalHourFraction = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin) / (SUMOReal) 3600.;
-    const int totalWishedNum = (int)std::floor(myCurrentStateInterval->q * totalHourFraction + 0.5); // round to closest int
+    const int totalWishedNum = totalWished();
     int adaptedNum = passed() + myClearedInJam;
 #ifdef MSCalibrator_DEBUG
     std::cout << time2string(currentTime) << " " << myID
@@ -455,8 +466,7 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification /*
     }
     myParent->updateMeanData();
     const bool calibrateFlow = myParent->myCurrentStateInterval->q >= 0;
-    const SUMOReal totalHourFraction = STEPS2TIME(myParent->myCurrentStateInterval->end - myParent->myCurrentStateInterval->begin) / (SUMOReal) 3600.;
-    const int totalWishedNum = (int)std::floor(myParent->myCurrentStateInterval->q * totalHourFraction + 0.5); // round to closest int
+    const int totalWishedNum = myParent->totalWished();
     int adaptedNum = myParent->passed() + myParent->myClearedInJam;
     MSVehicle* vehicle = dynamic_cast<MSVehicle*>(&veh);
     if (calibrateFlow && adaptedNum > totalWishedNum) {

@@ -322,11 +322,29 @@ GUICalibrator::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUICalibrator::getParameterWindow(GUIMainWindow& app,
                                         GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 1);
-    // add items
-    ret->mkItem("speed [m/s]", true, 0.0);
-                //new FunctionBinding<GUICalibrator, SUMOReal>(this, &GUICalibrator::getCurrentSpeed));
+    GUIParameterTableWindow* ret;
+    if (isActive()) {
+        ret = new GUIParameterTableWindow(app, *this, 10);
+        const int p = myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myClearedInJam - myRemoved;
+        // add items
+        ret->mkItem("interval start", false, STEPS2TIME(myCurrentStateInterval->begin));
+        ret->mkItem("interval end", false, STEPS2TIME(myCurrentStateInterval->end));
+        ret->mkItem("aspired flow [veh/h]", false, myCurrentStateInterval->q);
+        ret->mkItem("aspired speed", false, myCurrentStateInterval->v);
+        ret->mkItem("default speed", false, myDefaultSpeed);
+        ret->mkItem("required vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::totalWished));
+        ret->mkItem("passed vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::passed));
+        ret->mkItem("inserted vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::inserted));
+        ret->mkItem("removed vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::removed));
+        ret->mkItem("cleared in jam", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::clearedInJam));
+    } else {
+        ret = new GUIParameterTableWindow(app, *this, 1);
+        const std::string nextStart = 
+                (myCurrentStateInterval != myIntervals.end() ?
+                 time2string(myCurrentStateInterval->begin) :
+                 "simulation end");
+        ret->mkItem("inactive until", false, nextStart);
+    }
     // close building
     ret->closeBuilding();
     return ret;

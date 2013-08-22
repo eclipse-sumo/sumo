@@ -110,6 +110,14 @@ public:
      */
     void mkItem(const char* name, bool dynamic, ValueSource<unsigned>* src);
 
+    /** @brief Adds a row which obtains its value from an integer-ValueSource
+     *
+     * @param[in] name The name of the row entry
+     * @param[in] dynamic Information whether the entry is dynamic
+     * @param[in] src The value source to use
+     */
+    void mkItem(const char* name, bool dynamic, ValueSource<int>* src);
+
 
     /** @brief Adds a row which obtains its value from an SUMOReal-ValueSource
      *
@@ -148,6 +156,16 @@ public:
      * @todo the dynamic-parameter is obsolete
      */
     void mkItem(const char* name, bool dynamic, unsigned value);
+
+
+    /** @brief Adds a row which shows a integer-value
+     *
+     * @param[in] name The name of the row entry
+     * @param[in] dynamic Information whether the entry is dynamic
+     * @param[in] value The value to show
+     * @todo the dynamic-parameter is obsolete
+     */
+    void mkItem(const char* name, bool dynamic, int value);
 
 
     /** @brief Adds a row which shows a SUMOReal-value
