@@ -573,6 +573,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUICalibrator.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUIDetectorWrapper.cpp"
 				>
 			</File>
@@ -655,6 +659,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIBusStop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUICalibrator.h"
 				>
 			</File>
 			<File
