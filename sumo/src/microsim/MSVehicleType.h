@@ -394,7 +394,7 @@ public:
     }
 
 
-    const Parameterised& getParameter() const {
+    const SUMOVTypeParameter& getParameter() const {
         return myParameter;
     }
 

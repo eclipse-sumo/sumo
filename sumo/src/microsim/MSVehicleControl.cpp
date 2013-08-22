@@ -169,19 +169,7 @@ MSVehicleControl::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_DEPART, myTotalDepartureDelay).writeAttr(SUMO_ATTR_TIME, myTotalTravelTime).closeTag();
     // save vehicle types
     for (VTypeDictType::iterator it = myVTypeDict.begin(); it != myVTypeDict.end(); ++it) {
-        out.openTag(SUMO_TAG_VTYPE).writeAttr(SUMO_ATTR_ID, it->second->getID());
-        out.writeAttr(SUMO_ATTR_LENGTH, it->second->getLength());
-        out.writeAttr(SUMO_ATTR_MINGAP, it->second->getMinGap());
-        out.writeAttr(SUMO_ATTR_MAXSPEED, it->second->getMaxSpeed());
-        out.writeAttr(SUMO_ATTR_VCLASS, (int)it->second->getVehicleClass());
-        out.writeAttr(SUMO_ATTR_EMISSIONCLASS, (int)it->second->getEmissionClass());
-        out.writeAttr(SUMO_ATTR_SHAPE, (int)it->second->getGuiShape());
-        out.writeAttr(SUMO_ATTR_WIDTH, it->second->getWidth());
-        out.writeAttr(SUMO_ATTR_PROB, it->second->getDefaultProbability());
-        out.writeAttr(SUMO_ATTR_SPEEDFACTOR, it->second->getSpeedFactor());
-        out.writeAttr(SUMO_ATTR_SPEEDDEV, it->second->getSpeedDeviation());
-        out.writeAttr(SUMO_ATTR_COLOR, it->second->getColor());
-        out.closeTag();
+        it->second->getParameter().write(out);
     }
     for (VTypeDistDictType::iterator it = myVTypeDistDict.begin(); it != myVTypeDistDict.end(); ++it) {
         out.openTag(SUMO_TAG_VTYPE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, it->first);

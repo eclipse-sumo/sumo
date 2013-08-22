@@ -30,13 +30,14 @@
 #endif
 
 #include <sstream>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOVehicleParserHelper.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSRoute.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include "MSStateHandler.h"
 
 #ifdef HAVE_INTERNAL
@@ -139,25 +140,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_VTYPE: {
-            const std::string id = attrs.getString(SUMO_ATTR_ID);
-            if (vc.getVType(id) == 0) {
-                bool ok;
-                SUMOVTypeParameter defType;
-                defType.id = id;
-                defType.length = attrs.getFloat(SUMO_ATTR_LENGTH);
-                defType.minGap = attrs.getFloat(SUMO_ATTR_MINGAP);
-                defType.maxSpeed = attrs.getFloat(SUMO_ATTR_MAXSPEED);
-                defType.vehicleClass = (SUMOVehicleClass)attrs.getInt(SUMO_ATTR_VCLASS);
-                defType.emissionClass = (SUMOEmissionClass)attrs.getInt(SUMO_ATTR_EMISSIONCLASS);
-                defType.shape = (SUMOVehicleShape)attrs.getInt(SUMO_ATTR_SHAPE);
-                defType.width = attrs.getFloat(SUMO_ATTR_WIDTH);
-                defType.defaultProbability = attrs.getFloat(SUMO_ATTR_PROB);
-                defType.speedFactor = attrs.getFloat(SUMO_ATTR_SPEEDFACTOR);
-                defType.speedDev = attrs.getFloat(SUMO_ATTR_SPEEDDEV);
-                defType.color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok);
-                vc.addVType(MSVehicleType::build(defType));
-            }
-            break;
+            SUMOVTypeParameter* def = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
+            vc.addVType(MSVehicleType::build(*def));
+            delete def;
         }
         case SUMO_TAG_VTYPE_DISTRIBUTION: {
             const std::string id = attrs.getString(SUMO_ATTR_ID);
