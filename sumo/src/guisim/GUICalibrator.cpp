@@ -310,7 +310,7 @@ GUICalibrator::getPopUpMenu(GUIMainWindow& app,
     GUIGLObjectPopupMenu* ret = new GUICalibratorPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
-    buildShowManipulatorPopupEntry(ret);
+    //buildShowManipulatorPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
