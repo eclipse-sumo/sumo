@@ -33,10 +33,12 @@
 #include "MSDevice.h"
 #include <utils/common/SUMOTime.h>
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+
 
 // ===========================================================================
 // class definitions
@@ -51,10 +53,11 @@ class SUMOVehicle;
  */
 class MSDevice_Example : public MSDevice {
 public:
-
     /** @brief Inserts MSDevice_Example-options
+     * @param[filled] oc The options container to add the options to
      */
-    static void insertOptions();
+    static void insertOptions(OptionsCont &oc);
+
 
     /** @brief Build devices for the given vehicle, if needed
      *
@@ -70,6 +73,10 @@ public:
 
 
 public:
+    /// @brief Destructor.
+    ~MSDevice_Example();
+
+
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
 
@@ -119,10 +126,6 @@ public:
     void generateOutput() const;
 
 
-    /// @brief Destructor.
-    ~MSDevice_Example();
-
-
 private:
     /** @brief Constructor
      *
@@ -134,7 +137,6 @@ private:
 
 
 private:
-
     // private state members of the Example device
 
     /// @brief a value which is initialised based on a commandline/configuration option
@@ -144,8 +146,6 @@ private:
     /// @brief a value which is initialised based on a vType parameter
     SUMOReal myCustomValue3;
 
-    /// @brief the vehicles which explicitly carry a device
-    static std::set<std::string> myExplicitIDs;
 
 private:
     /// @brief Invalidated copy constructor.

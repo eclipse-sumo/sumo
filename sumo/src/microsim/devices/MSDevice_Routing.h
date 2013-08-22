@@ -70,8 +70,9 @@ class MSLane;
 class MSDevice_Routing : public MSDevice {
 public:
     /** @brief Inserts MSDevice_Routing-options
+     * @param[filled] oc The options container to add the options to
      */
-    static void insertOptions();
+    static void insertOptions(OptionsCont &oc);
 
 
     /** @brief Build devices for the given vehicle, if needed
@@ -93,10 +94,17 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
+
     /// @brief deletes the router instance
     static void cleanup();
 
+
 public:
+    /// @brief Destructor.
+    ~MSDevice_Routing();
+
+
+
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
 
@@ -120,10 +128,6 @@ public:
      */
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
     /// @}
-
-
-    /// @brief Destructor.
-    ~MSDevice_Routing();
 
 
 private:
@@ -237,9 +241,6 @@ private:
 
     /// @brief The router to use
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
-
-    /// @brief the vehicles which explicitly carry a device
-    static std::set<std::string> myExplicitIDs;
 
 
 private:

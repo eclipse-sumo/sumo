@@ -56,7 +56,6 @@ SUMOTime MSDevice_Routing::myAdaptationInterval;
 bool MSDevice_Routing::myWithTaz;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routing::myCachedRoutes;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSDevice_Routing::myRouter = 0;
-std::set<std::string> MSDevice_Routing::myExplicitIDs;
 
 
 // ===========================================================================
@@ -66,21 +65,9 @@ std::set<std::string> MSDevice_Routing::myExplicitIDs;
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Routing::insertOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
+MSDevice_Routing::insertOptions(OptionsCont &oc) {
     oc.addOptionSubTopic("Routing");
-
-    oc.doRegister("device.rerouting.probability", new Option_Float(0.));
-    oc.addSynonyme("device.rerouting.probability", "device.routing.probability", true);
-    oc.addDescription("device.rerouting.probability", "Routing", "The probability for a vehicle to have a routing device");
-
-    oc.doRegister("device.rerouting.explicit", new Option_String());
-    oc.addSynonyme("device.rerouting.explicit", "device.routing.knownveh", true);
-    oc.addDescription("device.rerouting.explicit", "Routing", "Assign a device to named vehicles");
-
-    oc.doRegister("device.rerouting.deterministic", new Option_Bool(false));
-    oc.addSynonyme("device.rerouting.deterministic", "device.routing.deterministic", true);
-    oc.addDescription("device.rerouting.deterministic", "Routing", "The devices are set deterministic using a fraction of 1000");
+    insertDefaultAssignmentOptions("rerouting", "Routing", oc);
 
     oc.doRegister("device.rerouting.period", new Option_String("0", "TIME"));
     oc.addSynonyme("device.rerouting.period", "device.routing.period", true);
@@ -112,27 +99,16 @@ MSDevice_Routing::insertOptions() {
 
 void
 MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
-    OptionsCont& oc = OptionsCont::getOptions();
     bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
-    if (!needRerouting && oc.getFloat("device.rerouting.probability") == 0 && !oc.isSet("device.rerouting.explicit")) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    bool equipped = equippedByDefaultAssignmentOptions(oc, "rerouting", v);
+    if (!needRerouting && !equipped) {
         // no route computation is modelled
         return;
     }
     // route computation is enabled
-    bool haveByNumber = false;
-    if (oc.getBool("device.rerouting.deterministic")) {
-        haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device.rerouting.probability"));
-    } else {
-        haveByNumber = RandHelper::rand() <= oc.getFloat("device.rerouting.probability");
-    }
-    // initialize myExplicitIDs if not done before
-    if (oc.isSet("device.rerouting.explicit") && myExplicitIDs.size() == 0) {
-        const std::vector<std::string> idList = OptionsCont::getOptions().getStringVector("device.rerouting.explicit");
-        myExplicitIDs.insert(idList.begin(), idList.end());
-    }
-    const bool haveByName = myExplicitIDs.count(v.getID()) > 0;
-    myWithTaz = oc.getBool("device.rerouting.with-taz");
-    if (needRerouting || haveByNumber || haveByName) {
+    if (needRerouting || equipped) {
+        myWithTaz = oc.getBool("device.rerouting.with-taz");
         // build the device
         MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(),
                 string2time(oc.getString("device.rerouting.period")),
@@ -293,5 +269,7 @@ MSDevice_Routing::cleanup() {
     delete myRouter;
     myRouter = 0;
 }
+
+
 /****************************************************************************/
 

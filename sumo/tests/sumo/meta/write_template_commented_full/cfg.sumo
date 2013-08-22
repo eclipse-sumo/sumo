@@ -210,26 +210,26 @@
     </report>
 
     <emissions>
-        <!-- The probability for a vehicle to have an emission logging device -->
+        <!-- The probability for a vehicle to have a &apos;hbefa&apos; device -->
         <device.hbefa.probability value="0" type="FLOAT"/>
 
-        <!-- Assign a device to named vehicles -->
+        <!-- Assign a &apos;hbefa&apos; device to named vehicles -->
         <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh" type="STR"/>
 
-        <!-- The devices are set deterministic using a fraction of 1000 -->
+        <!-- The &apos;hbefa&apos; devices are set deterministic using a fraction of 1000 -->
         <device.hbefa.deterministic value="false" type="BOOL"/>
 
     </emissions>
 
     <routing>
-        <!-- The probability for a vehicle to have a routing device -->
-        <device.rerouting.probability value="0" synonymes="device.routing.probability" type="FLOAT"/>
+        <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
+        <device.rerouting.probability value="0" type="FLOAT"/>
 
-        <!-- Assign a device to named vehicles -->
-        <device.rerouting.explicit value="" synonymes="device.routing.knownveh" type="STR"/>
+        <!-- Assign a &apos;rerouting&apos; device to named vehicles -->
+        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR"/>
 
-        <!-- The devices are set deterministic using a fraction of 1000 -->
-        <device.rerouting.deterministic value="false" synonymes="device.routing.deterministic" type="BOOL"/>
+        <!-- The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.rerouting.deterministic value="false" type="BOOL"/>
 
         <!-- The period with which the vehicle shall be rerouted -->
         <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME"/>

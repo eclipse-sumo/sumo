@@ -67,6 +67,10 @@ public:
 
 
 public:
+    /// @brief Destructor.
+    ~MSDevice_Person();
+
+
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
 
@@ -108,6 +112,7 @@ public:
     /// @}
 
 
+
     /** @brief Add a passenger
      *
      * @param[in] person The passenger to add.
@@ -122,13 +127,14 @@ public:
         return static_cast<unsigned int>(myPersons.size());
     }
 
+
+    /** @brief Returns the list of persons using this vehicle
+     * @return Persons within this vehicle
+     */
     const std::vector<MSPerson*>& getPersons() const {
         return myPersons;
     }
 
-
-    /// @brief Destructor.
-    ~MSDevice_Person();
 
 private:
     /** @brief Constructor
@@ -139,12 +145,14 @@ private:
     MSDevice_Person(SUMOVehicle& holder, const std::string& id);
 
 
+
 private:
     /// @brief The passengers of the vehicle
     std::vector<MSPerson*> myPersons;
 
     /// @brief Whether the vehicle is at a stop
     bool myStopped;
+
 
 
 private:

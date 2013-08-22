@@ -44,18 +44,13 @@
 
 
 // ===========================================================================
-// static member variables
-// ===========================================================================
-std::set<std::string> MSDevice_Example::myExplicitIDs;
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Example::insertOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
+MSDevice_Example::insertOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Example Device");
 
     oc.doRegister("device.example.explicit", new Option_String());
@@ -69,11 +64,7 @@ MSDevice_Example::insertOptions() {
 void
 MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.isSet("device.example.explicit") && myExplicitIDs.size() == 0) {
-        const std::vector<std::string> idList = OptionsCont::getOptions().getStringVector("device.example.explicit");
-        myExplicitIDs.insert(idList.begin(), idList.end());
-    }
-    if (myExplicitIDs.count(v.getID()) > 0) {
+    if (equippedByDefaultAssignmentOptions(oc, "example", v)) {
         // build the device
         // get custom vehicle parameter
         SUMOReal customParameter2 = -1;

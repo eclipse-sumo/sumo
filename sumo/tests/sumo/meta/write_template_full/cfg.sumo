@@ -84,15 +84,15 @@
     </report>
 
     <emissions>
-        <device.hbefa.probability value="0" type="FLOAT" help="The probability for a vehicle to have an emission logging device"/>
-        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh" type="STR" help="Assign a device to named vehicles"/>
-        <device.hbefa.deterministic value="false" type="BOOL" help="The devices are set deterministic using a fraction of 1000"/>
+        <device.hbefa.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;hbefa&apos; device"/>
+        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh" type="STR" help="Assign a &apos;hbefa&apos; device to named vehicles"/>
+        <device.hbefa.deterministic value="false" type="BOOL" help="The &apos;hbefa&apos; devices are set deterministic using a fraction of 1000"/>
     </emissions>
 
     <routing>
-        <device.rerouting.probability value="0" synonymes="device.routing.probability" type="FLOAT" help="The probability for a vehicle to have a routing device"/>
-        <device.rerouting.explicit value="" synonymes="device.routing.knownveh" type="STR" help="Assign a device to named vehicles"/>
-        <device.rerouting.deterministic value="false" synonymes="device.routing.deterministic" type="BOOL" help="The devices are set deterministic using a fraction of 1000"/>
+        <device.rerouting.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;rerouting&apos; device"/>
+        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR" help="Assign a &apos;rerouting&apos; device to named vehicles"/>
+        <device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
         <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME" help="The period with which the vehicle shall be rerouted"/>
         <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period" type="TIME" help="The rerouting period before depart"/>
         <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights."/>

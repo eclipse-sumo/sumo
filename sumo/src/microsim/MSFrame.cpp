@@ -243,12 +243,11 @@ MSFrame::fillOptions() {
                       "Select among routing algorithms ['dijkstra', 'astar']");
 
     oc.doRegister("routeDist.maxsize", new Option_Integer());
-    oc.addDescription("routeDist.maxsize", "Processing",
-                      "Restrict the maximum size of route distributions");
+    oc.addDescription("routeDist.maxsize", "Processing", "Restrict the maximum size of route distributions");
 
     // devices
     oc.addOptionSubTopic("Emissions");
-    MSDevice::insertOptions();
+    MSDevice::insertOptions(oc);
 
 
     // register report options

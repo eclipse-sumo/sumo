@@ -114,18 +114,19 @@ Report Options:
                                         simulation step
 
 Emissions Options:
-  --device.hbefa.probability FLOAT    The probability for a vehicle to have an
-                                        emission logging device
-  --device.hbefa.explicit STR         Assign a device to named vehicles
-  --device.hbefa.deterministic        The devices are set deterministic using a
-                                        fraction of 1000
+  --device.hbefa.probability FLOAT    The probability for a vehicle to have a
+                                        'hbefa' device
+  --device.hbefa.explicit STR         Assign a 'hbefa' device to named vehicles
+  --device.hbefa.deterministic        The 'hbefa' devices are set deterministic
+                                        using a fraction of 1000
 
 Routing Options:
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
-                                        routing device
-  --device.rerouting.explicit STR     Assign a device to named vehicles
-  --device.rerouting.deterministic    The devices are set deterministic using a
-                                        fraction of 1000
+                                        'rerouting' device
+  --device.rerouting.explicit STR     Assign a 'rerouting' device to named
+                                        vehicles
+  --device.rerouting.deterministic    The 'rerouting' devices are set
+                                        deterministic using a fraction of 1000
   --device.rerouting.period TIME      The period with which the vehicle shall
                                         be rerouted
   --device.rerouting.pre-period TIME  The rerouting period before depart

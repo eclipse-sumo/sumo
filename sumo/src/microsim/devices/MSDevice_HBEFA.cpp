@@ -49,37 +49,16 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_HBEFA::insertOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
-
-    oc.doRegister("device.hbefa.probability", new Option_Float(0.));//!!! describe
-    oc.addDescription("device.hbefa.probability", "Emissions", "The probability for a vehicle to have an emission logging device");
-
-    oc.doRegister("device.hbefa.explicit", new Option_String());//!!! describe
-    oc.addSynonyme("device.hbefa.explicit", "device.hbefa.knownveh", true);
-    oc.addDescription("device.hbefa.explicit", "Emissions", "Assign a device to named vehicles");
-
-    oc.doRegister("device.hbefa.deterministic", new Option_Bool(false)); //!!! describe
-    oc.addDescription("device.hbefa.deterministic", "Emissions", "The devices are set deterministic using a fraction of 1000");
+MSDevice_HBEFA::insertOptions(OptionsCont &oc) {
+    insertDefaultAssignmentOptions("hbefa", "Emissions", oc);
 }
 
 
 void
 MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.getFloat("device.hbefa.probability") == 0 && !oc.isSet("device.hbefa.explicit")) {
-        // no route computation is modelled
-        return;
-    }
     // route computation is enabled
-    bool haveByNumber = false;
-    if (oc.getBool("device.hbefa.deterministic")) {
-        haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device.hbefa.probability"));
-    } else {
-        haveByNumber = RandHelper::rand() <= oc.getFloat("device.hbefa.probability");
-    }
-    bool haveByName = oc.isSet("device.hbefa.explicit") && OptionsCont::getOptions().isInStringVector("device.hbefa.explicit", v.getID());
-    if (haveByNumber || haveByName) {
+    if (equippedByDefaultAssignmentOptions(oc, "hbefa", v)) {
         // build the device
         MSDevice_HBEFA* device = new MSDevice_HBEFA(v, "hbefa_" + v.getID());
         into.push_back(device);
