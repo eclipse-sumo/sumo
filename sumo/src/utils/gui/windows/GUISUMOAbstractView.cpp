@@ -615,8 +615,7 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
     }
     if (myViewportChooser != 0 &&
             (xpos != myChanger->getXPos() || ypos != myChanger->getYPos() || zoom != myChanger->getZoom())) {
-        myViewportChooser->setValues(
-            myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom());
+        myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
     }
     updatePositionInformation();
     return 1;
