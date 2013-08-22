@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html style="width: 100%">
 
 <head>
  <title>SUMO - Status of daily build and tests</title>
@@ -20,12 +20,12 @@
   <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
-<body id="bmission">
-<div id="container">
+<body id="bmission" style="width: 100%">
+<div id="container" style="width: 100%">
 
 
 
- <div id="logo" align="left"><img src="logo.png" width="128" height="128" align="left"
+ <div id="logo" align="left"><img src="../logo.png" width="128" height="128" align="left"
      alt="SUMO-Simulation of Urban Mobility" style="margin-left:10px;
      margin-right:20px;"/>
      <div id="logo_text1"> SUMO </div>
