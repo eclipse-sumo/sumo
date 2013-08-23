@@ -183,16 +183,6 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 }
 
 
-#ifndef HAVE_SUBSECOND_TIMESTEPS
-void
-GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                ValueSource<SUMOTime>* src) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOTime>(myTable, myCurrentPos++, name, dynamic, src);
-    myItems.push_back(i);
-}
-#endif
-
-
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
                                 std::string value) {
@@ -224,16 +214,6 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<int>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
-
-
-#ifndef HAVE_SUBSECOND_TIMESTEPS
-void
-GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                SUMOTime value) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOTime>(myTable, myCurrentPos++, name, dynamic, value);
-    myItems.push_back(i);
-}
-#endif
 
 
 void
