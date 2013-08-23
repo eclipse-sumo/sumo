@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r14338
+SUMO netconvert Version dev-SVN-r14489
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -190,6 +190,14 @@ Processing Options:
   --geometry.max-segment-length FLOAT  splits geometry to restrict segment
                                         length
   --geometry.min-dist FLOAT           reduces too similar geometry points
+  --geometry.max-angle FLOAT          Warn about edge geometries with an angle
+                                        above DEGREES in successive segments
+  --geometry.min-radius FLOAT         Warn about edge geometries with a turning
+                                        radius less than METERS at the start or
+                                        end
+  --geometry.min-radius.fix           Straighten edge geometries to avoid
+                                        turning radii less than
+                                        geometry.min-radius
   --offset.disable-normalization      Turn off normalizing node positions
   --offset.x FLOAT                    Adds FLOAT to net x-positions
   --offset.y FLOAT                    Adds FLOAT to net y-positions
