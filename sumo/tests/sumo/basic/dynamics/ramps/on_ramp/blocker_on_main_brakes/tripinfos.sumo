@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Aug 23 10:48:10 2013 by SUMO sumo Version dev-SVN-r14477
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="A" depart="0.00" departLane="main_beg_0" departPos="5.10" departSpeed="20.00" departDelay="0.00" arrival="17.00" arrivalLane="main_end_0" arrivalPos="0.00" arrivalSpeed="11.88" duration="17.00" routeLength="295.68" waitSteps="0" rerouteNo="0" devices="tripinfo_A" vType="t0" vaporized=""/>
+    <tripinfo id="B" depart="0.00" departLane="ramp_beg_0" departPos="90.00" departSpeed="13.89" departDelay="0.00" arrival="19.00" arrivalLane="main_end_0" arrivalPos="0.00" arrivalSpeed="8.66" duration="19.00" routeLength="232.63" waitSteps="0" rerouteNo="0" devices="tripinfo_B" vType="t0" vaporized=""/>
+</tripinfos>

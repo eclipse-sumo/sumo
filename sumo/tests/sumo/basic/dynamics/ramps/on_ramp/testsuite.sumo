@@ -1,2 +1,10 @@
 # a vehicle on the main highway should change to the left to help vehicles on the ramp with merging.
 blocker_on_main_frees_lane
+
+# This test shows undesireable dynamics:
+# A brakes to let B merge but B breaks as well so it does not help
+blocker_on_main_brakes
+
+# This test shows undesireable dynamics:
+# A brakes to let B merge but A is much to fast for this to be useful
+blocker_on_main_brakes2
