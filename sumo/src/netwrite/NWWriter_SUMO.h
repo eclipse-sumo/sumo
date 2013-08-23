@@ -49,6 +49,7 @@ class NBNetBuilder;
 class NBTrafficLightLogicCont;
 class NBNode;
 class NBDistrict;
+class NBEdgeControl;
 
 
 // ===========================================================================
@@ -164,8 +165,10 @@ protected:
     /** @brief Writes a roundabout
      * @param[in] into The device to write the edge into
      * @param[in] r The roundabout to write
+     * @param[in] ec The edge control to retrieve named edges from
      */
-    static void writeRoundabout(OutputDevice& into, const EdgeVector& r);
+    static void writeRoundabout(OutputDevice& into, const std::vector<std::string>& r,
+        const NBEdgeCont &ec);
 
 
     /** @brief Writes a district

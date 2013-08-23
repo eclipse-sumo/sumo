@@ -158,8 +158,20 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     // write roundabout information
     const std::vector<EdgeVector>& roundabouts = nb.getRoundabouts();
+    //  make output deterministic
+    std::vector<std::vector<std::string> > edgeIDs;
     for (std::vector<EdgeVector>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
-        writeRoundabout(device, *i);
+        std::vector<std::string> tEdgeIDs;
+        for (EdgeVector::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
+            tEdgeIDs.push_back((*j)->getID());
+        }
+        std::sort(tEdgeIDs.begin(), tEdgeIDs.end());
+        edgeIDs.push_back(tEdgeIDs);
+    }
+    std::sort(edgeIDs.begin(), edgeIDs.end());
+    //  write
+    for (std::vector<std::vector<std::string> >::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
+        writeRoundabout(device, *i, ec);
     }
     if (roundabouts.size() != 0) {
         device.lf();
@@ -477,15 +489,12 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
 
 
 void
-NWWriter_SUMO::writeRoundabout(OutputDevice& into, const EdgeVector& r) {
-    std::vector<std::string> edgeIDs;
+NWWriter_SUMO::writeRoundabout(OutputDevice& into, const std::vector<std::string>& edgeIDs,
+                               const NBEdgeCont &ec) {
     std::vector<std::string> nodeIDs;
-    for (EdgeVector::const_iterator j = r.begin(); j != r.end(); ++j) {
-        edgeIDs.push_back((*j)->getID());
-        nodeIDs.push_back((*j)->getToNode()->getID());
+    for(std::vector<std::string>::const_iterator i=edgeIDs.begin(); i!=edgeIDs.end(); ++i) {
+        nodeIDs.push_back(ec.retrieve(*i)->getToNode()->getID());
     }
-    // make output deterministic
-    std::sort(edgeIDs.begin(), edgeIDs.end());
     std::sort(nodeIDs.begin(), nodeIDs.end());
     into.openTag(SUMO_TAG_ROUNDABOUT);
     into.writeAttr(SUMO_ATTR_NODES, joinToString(nodeIDs, " "));
