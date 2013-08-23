@@ -46,7 +46,7 @@ def patchLinks(page, name):
         if page[b+9:].startswith("/wiki/File:") or page[b+9:].startswith("/wiki/Image:"):
             b2 = b
             b = page.find(":", b)+1
-            images.add(page[b:page.find("\"",b)])
+            images.add(page[b2+9:page.find("\"",b)])
             page = page[:b2+9] + level + "images/" + page[b:]
         # pages (HTML)
         elif page[b+9:].startswith("/wiki/"):
@@ -159,7 +159,7 @@ imageFiles = []
 for i in images:
     print "Fetching image %s" % i
     if i.find(":")>=0:
-        f = urllib.urlopen("http://sumo-sim.org/wiki/%s" % i)
+        f = urllib.urlopen("http://sumo-sim.org%s" % i)
         c = f.read()
         b = c.find("<div class=\"fullImageLink\" id=\"file\">")
         b = c.find("href=", b)+6
