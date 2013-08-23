@@ -325,7 +325,6 @@ GUICalibrator::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret;
     if (isActive()) {
         ret = new GUIParameterTableWindow(app, *this, 10);
-        const int p = myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myClearedInJam - myRemoved;
         // add items
         ret->mkItem("interval start", false, STEPS2TIME(myCurrentStateInterval->begin));
         ret->mkItem("interval end", false, STEPS2TIME(myCurrentStateInterval->end));

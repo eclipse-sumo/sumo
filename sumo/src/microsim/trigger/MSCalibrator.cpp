@@ -282,7 +282,6 @@ MSCalibrator::execute(SUMOTime currentTime) {
     }
 
     const bool calibrateFlow = myCurrentStateInterval->q >= 0;
-    const SUMOReal totalHourFraction = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin) / (SUMOReal) 3600.;
     const int totalWishedNum = totalWished();
     int adaptedNum = passed() + myClearedInJam;
 #ifdef MSCalibrator_DEBUG

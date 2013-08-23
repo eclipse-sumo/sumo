@@ -196,7 +196,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 #endif
         case SUMO_TAG_LANE: {
             myEdgeAndLane.second++;
-            if (myEdgeAndLane.second == MSEdge::dictionary(myEdgeAndLane.first)->getLanes().size()) {
+            if (myEdgeAndLane.second == (int)MSEdge::dictionary(myEdgeAndLane.first)->getLanes().size()) {
                 myEdgeAndLane.first++;
                 myEdgeAndLane.second = 0;
             }

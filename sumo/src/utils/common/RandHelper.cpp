@@ -74,9 +74,6 @@ RandHelper::initRandGlobal(MTRand* which) {
 #ifdef _MSC_VER
         long s = myRandomNumberGenerator.hash(time(NULL), clock()) + SysUtils::getWindowsTicks();
         unsigned int s2 = (unsigned int)(s & 0xffff) ^ (s >> 16);
-        if (s2 < 0) {
-            s2 *= -1;
-        }
         which->seed(s2);
 #else
         which->seed();
