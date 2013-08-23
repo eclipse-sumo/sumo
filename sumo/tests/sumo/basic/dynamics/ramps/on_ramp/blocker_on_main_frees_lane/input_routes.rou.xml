@@ -1,0 +1,7 @@
+<routes>
+    <route id="main" edges="main_beg main_ramp main_end"/>
+    <route id="ramp" edges="ramp_beg main_ramp main_end"/>
+
+    <vehicle id="ramp" route="ramp" depart="0" color="green"/>
+    <vehicle id="main" route="main" depart="8" color="red" arrivalLane="0"/>
+</routes>

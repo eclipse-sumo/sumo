@@ -27,3 +27,6 @@ junction
 
 # test behavior when vehicles cannot drive
 deadlock
+
+# tests for dynamics at ramps leading to and from motorways
+ramps
