@@ -24,11 +24,11 @@ endif;
 
 $gameID = $gameIDs[$_GET["game"]];
 if (isset($_GET["name"], $_GET["category"], $_GET["points"])):
-    query("INSERT highscore VALUES(0, $gameID, '$_GET["category"]', $_GET["points"], '$_GET["name"]', '$_GET["instance"]', '')");
+    query("INSERT highscore VALUES(0, $gameID, '" . $_GET["category"] . "', " . $_GET["points"] . ", '" . $_GET["name"] . "', '" . $_GET["instance"] . "', '')");
     exit();
 endif;
 
-if (isset($_GET["top"]):
+if (isset($_GET["top"])):
     $res = query("SELECT * FROM highscore WHERE gameID='$gameID' ORDER BY category, points DESC, id");
     $cat = "";
     while ($row = mysql_fetch_assoc($res)):
@@ -101,16 +101,15 @@ endif;
   <li class="sub"><a href="http://sourceforge.net/projects/sumo/">SF-Project</a></li>
  </ul></div>
 
-<h1>SUMO - <u>S</u>imulation of <u>U</u>rban <u>MO</u>bility</h1>
 <h2>Das Spiel</h2>
 <p>Auf dieser Seite pr&auml;sentieren wir das Ampelspiel zur Langen Nacht der Wissenschaften.</p>
 <p>Sie k&ouml;nnen das vollst&auml;ndige <a href="sumogame.zip">Spiel herunterladen</a> und unten
 auch die globale Highscoreliste sehen.
 Zum Spielen sollte das heruntergeladene Archiv in einen Ordner entpackt werden und die darin enthaltene 
 Datei runner.exe gestartet werden.
-Anschließend geht ein winziges Fensterchen auf in dem die Sie wählen können, ob eine Einzelkreuzung oder vier Kreuzungen gespielt werden.
-Durch einen Mausklick in der Nähe der gewählten Ampel wird die nächste Fahrtrichtung freigegeben.
-Spielzeit sind 180 Simulationssekunden, danach gibt es für jeden Milliliter gesparten Kraftstoff einen Punkt
+Anschlie&szlig;end geht ein winziges Fensterchen auf in dem die Sie w&auml;hlen k&ouml;nnen, ob eine Einzelkreuzung oder vier Kreuzungen gespielt werden.
+Durch einen Mausklick in der N&auml;he der gew&auml;hlten Ampel wird die n&auml;chste Fahrtrichtung freigegeben.
+Spielzeit sind 180 Simulationssekunden, danach gibt es f&uuml;r jeden Milliliter gesparten Kraftstoff einen Punkt
 und man kommt in die Highscores (oder eben nicht).
 </p>
 
@@ -144,7 +143,7 @@ mysql_free_result($res);
 </tr>
 <?php
 $res = query("SELECT * FROM highscore ".
-             "WHERE gameID='$gameID' AND category='$_GET["category"]' ORDER BY points DESC, id");
+             "WHERE gameID='$gameID' AND category='" . $_GET["category"] . "' ORDER BY points DESC, id");
 $i = 1;
 while ($row = mysql_fetch_assoc($res))
     echo "<tr class=\"".($i%2 ? "odd" : "even")."\"><td>".$i++."</td><td>$row[points]</td><td>$row[name]</td></tr>\n";

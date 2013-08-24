@@ -43,32 +43,31 @@
   <li class="sub"><a href="http://sourceforge.net/projects/sumo/">SF-Project</a></li>
  </ul></div>
 
-<h1>SUMO - <u>S</u>imulation of <u>U</u>rban <u>MO</u>bility</h1>
 <h2>Planet SUMO</h2>
 
 <?php
-if (isset($_POST["file"])):
+if (isset($_FILES["file"])):
     $allowedExts = array("zip", "gz", "bz2", "7z", "xml", "cfg", "txt");
     $extension = end(explode(".", $_FILES["file"]["name"]));
-    if (($_FILES["file"]["size"] < 20000) && in_array($extension, $allowedExts) {
+    if (($_FILES["file"]["size"] < 20000) && in_array($extension, $allowedExts)) {
         if ($_FILES["file"]["error"] > 0) {
             echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
         } else {
             echo "Upload: " . $_FILES["file"]["name"] . "<br>";
             echo "Type: " . $_FILES["file"]["type"] . "<br>";
             echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-            echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
+#            echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
             if (file_exists("upload/" . $_FILES["file"]["name"])) {
                 echo $_FILES["file"]["name"] . " already exists. ";
             } else {
                 move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $_FILES["file"]["name"]);
-                echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
+#                echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
             }
         }
     } else {
         echo "Invalid file";
     }
-else:
+endif;
 ?>
 <form action="planetsumo.php" method="post"
 enctype="multipart/form-data">
@@ -76,8 +75,12 @@ enctype="multipart/form-data">
 <input type="file" name="file" id="file"><br>
 <input type="submit" name="submit" value="Submit">
 </form>
-<?php
-endif;
-?>
-</body>
+
+ <div id="footer">
+   <div>(c) 2011-2013, German Aerospace Center, Institute of Transportation Systems</div>
+   <div>Layout based on <a href="http://www.oswd.org/design/preview/id/3365">"Three Quarters"</a> by "SimplyGold"</div>
+ </div>
+ 
+</div></body>
+
 </html>
