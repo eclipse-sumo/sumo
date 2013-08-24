@@ -285,7 +285,7 @@ MSLaneChanger::change() {
 }
 
 
-void 
+void
 MSLaneChanger::registerUnchanged(MSVehicle* vehicle) {
     myCandi->lane->myTmpVehicles.insert(myCandi->lane->myTmpVehicles.begin(), veh(myCandi));
     vehicle->getLaneChangeModel().unchanged();
@@ -293,16 +293,16 @@ MSLaneChanger::registerUnchanged(MSVehicle* vehicle) {
 }
 
 
-void 
+void
 MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
     ChangerIt to = from + direction;
     to->hoppedVeh = vehicle;
     // @todo delay entering the target lane until the vehicle intersects it
     //       physically (considering lane width and vehicle width)
-    to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle); 
+    to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);
     const bool continuous = vehicle->getLaneChangeModel().startLaneChangeManeuver(from->lane, to->lane, direction);
     if (continuous) {
-        from->lane->myTmpVehicles.insert(from->lane->myTmpVehicles.begin(), vehicle); 
+        from->lane->myTmpVehicles.insert(from->lane->myTmpVehicles.begin(), vehicle);
         from->dens += vehicle->getVehicleType().getLengthWithGap();
     }
     to->dens += to->hoppedVeh->getVehicleType().getLengthWithGap();

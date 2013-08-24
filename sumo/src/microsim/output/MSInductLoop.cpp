@@ -58,7 +58,7 @@
 // ===========================================================================
 MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
                            SUMOReal positionInMeters, bool splitByType) :
-    MSMoveReminder(id, lane), 
+    MSMoveReminder(id, lane),
     MSDetectorFileOutput(id),
     myPosition(positionInMeters), mySplitByType(splitByType),
     myLastLeaveTime(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())),

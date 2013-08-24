@@ -54,11 +54,11 @@ MSNoLogicJunction::MSNoLogicJunction(const std::string& id,
 #ifdef HAVE_INTERNAL_LANES
                                      , std::vector<MSLane*> internal
 #endif
-        ): 
+                                    ):
     MSJunction(id, position, shape),
     myIncomingLanes(incoming)
 #ifdef HAVE_INTERNAL_LANES
-    ,myInternalLanes(internal)
+    , myInternalLanes(internal)
 #endif
 {}
 

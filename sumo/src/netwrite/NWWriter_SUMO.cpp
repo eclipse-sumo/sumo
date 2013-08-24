@@ -490,9 +490,9 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
 
 void
 NWWriter_SUMO::writeRoundabout(OutputDevice& into, const std::vector<std::string>& edgeIDs,
-                               const NBEdgeCont &ec) {
+                               const NBEdgeCont& ec) {
     std::vector<std::string> nodeIDs;
-    for(std::vector<std::string>::const_iterator i=edgeIDs.begin(); i!=edgeIDs.end(); ++i) {
+    for (std::vector<std::string>::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
         nodeIDs.push_back(ec.retrieve(*i)->getToNode()->getID());
     }
     std::sort(nodeIDs.begin(), nodeIDs.end());

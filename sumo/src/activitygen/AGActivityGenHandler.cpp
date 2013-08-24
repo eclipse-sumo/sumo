@@ -186,8 +186,8 @@ AGActivityGenHandler::parseStreets(const SUMOSAXAttributes& attrs) {
             work = attrs.getFloat(AGEN_ATTR_OUT_WORKPOSITION);
         }
         std::string eid = attrs.getString(SUMO_ATTR_EDGE);
-        ROEdge *e = net->getEdge(eid);
-        if(e==0) {
+        ROEdge* e = net->getEdge(eid);
+        if (e == 0) {
             WRITE_ERROR("Edge '" + eid + "' is not known.");
             return;
         }

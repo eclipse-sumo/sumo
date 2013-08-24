@@ -68,10 +68,9 @@
 GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
                  MSEdge* const edge, unsigned int numericalID,
                  const PositionVector& shape, SUMOReal width,
-                 SVCPermissions permissions, unsigned int index) 
-	: MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions),
-	GUIGlObject(GLO_LANE, id)
-{
+                 SVCPermissions permissions, unsigned int index)
+    : MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions),
+      GUIGlObject(GLO_LANE, id) {
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
     int e = (int) myShape.size() - 1;
@@ -84,7 +83,7 @@ GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
     //
     myHalfLaneWidth = (SUMOReal)(myWidth / 2.);
     myQuarterLaneWidth = (SUMOReal)(myWidth / 4.);
-	myIndex = index;
+    myIndex = index;
 }
 
 
@@ -388,7 +387,7 @@ GUILane::drawArrows() const {
 void
 GUILane::drawLane2LaneConnections() const {
     for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
-        LinkState state =(*i)->getState();
+        LinkState state = (*i)->getState();
         const MSLane* connected = (*i)->getLane();
         if (connected == 0) {
             continue;
@@ -606,7 +605,7 @@ GUILane::drawCrossties(const GUIVisualizationSettings& s) const {
 // ------ inherited from GUIGlObject
 GUIGLObjectPopupMenu*
 GUILane::getPopUpMenu(GUIMainWindow& app,
-                             GUISUMOAbstractView& parent) {
+                      GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -625,7 +624,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app,
-                                   GUISUMOAbstractView&) {
+                            GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 4);
     // add items

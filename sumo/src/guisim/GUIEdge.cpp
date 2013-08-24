@@ -212,8 +212,8 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             setColor(s);
         }
 #endif
-        GUILane *l = dynamic_cast<GUILane*>(*i);
-        if(l!=0) {
+        GUILane* l = dynamic_cast<GUILane*>(*i);
+        if (l != 0) {
             l->drawGL(s);
         }
     }
@@ -301,7 +301,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (drawEdgeName || drawInternalEdgeName || drawStreetName) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
         GUILane* lane2 = dynamic_cast<GUILane*>((*myLanes).back());
-        if(lane1!=0&&lane2!=0) {
+        if (lane1 != 0 && lane2 != 0) {
             Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
             p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (SUMOReal) 2.));
             p.mul(.5);

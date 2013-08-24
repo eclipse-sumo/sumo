@@ -314,7 +314,7 @@ public:
      * @return The current position (in cartesian coordinates)
      * @see myLane
      */
-    Position getPosition(SUMOReal offset=0) const;
+    Position getPosition(SUMOReal offset = 0) const;
 
 
     /** @brief Returns the lane the vehicle is on
@@ -1015,21 +1015,21 @@ protected:
         SUMOReal availableSpace;
 
         DriveProcessItem(MSLink* link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
-                         SUMOTime arrivalTime, SUMOReal arrivalSpeed, 
-                         SUMOTime arrivalTimeBraking, SUMOReal arrivalSpeedBraking, 
+                         SUMOTime arrivalTime, SUMOReal arrivalSpeed,
+                         SUMOTime arrivalTimeBraking, SUMOReal arrivalSpeedBraking,
                          SUMOReal distance,
-                         SUMOReal leaveSpeed=-1.) :
+                         SUMOReal leaveSpeed = -1.) :
             myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
-            myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), 
-            myArrivalTimeBraking(arrivalTimeBraking), myArrivalSpeedBraking(arrivalSpeedBraking), 
+            myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed),
+            myArrivalTimeBraking(arrivalTimeBraking), myArrivalSpeedBraking(arrivalSpeedBraking),
             myDistance(distance),
             accelV(leaveSpeed), hadVehicle(false), availableSpace(-1.) { };
 
         /// @brief constructor if the link shall not be passed
         DriveProcessItem(SUMOReal vWait, SUMOReal distance) :
             myLink(0), myVLinkPass(vWait), myVLinkWait(vWait), mySetRequest(false),
-            myArrivalTime(0), myArrivalSpeed(0), 
-            myArrivalTimeBraking(0), myArrivalSpeedBraking(0), 
+            myArrivalTime(0), myArrivalSpeed(0),
+            myArrivalTimeBraking(0), myArrivalSpeedBraking(0),
             myDistance(distance),
             accelV(-1), hadVehicle(false), availableSpace(-1.) { };
 

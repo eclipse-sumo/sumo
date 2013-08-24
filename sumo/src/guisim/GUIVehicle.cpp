@@ -1039,8 +1039,8 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     */
     glPopMatrix();
     drawName(getPosition(-MIN2(getVehicleType().getLength() / 2, SUMOReal(5))),
-            s.scale, 
-            getVehicleType().getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName);
+             s.scale,
+             getVehicleType().getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName);
     glPopName();
     if (myPersonDevice != 0) {
         const std::vector<MSPerson*>& ps = myPersonDevice->getPersons();
@@ -1481,13 +1481,13 @@ GUIVehicle::computeSeats(const Position& front, const Position& back, int& requi
 }
 
 
-SUMOReal 
+SUMOReal
 GUIVehicle::getLastLaneChangeOffset() const {
     return STEPS2TIME(getLaneChangeModel().getLastLaneChangeOffset());
 }
 
 
-std::string 
+std::string
 GUIVehicle::getStopInfo() const {
     std::string result = "";
     if (isParking()) {
@@ -1506,7 +1506,7 @@ GUIVehicle::getStopInfo() const {
 }
 
 
-void 
+void
 GUIVehicle::selectBlockingFoes() const {
     if (myLFLinkLanes.size() == 0) {
         return;
@@ -1515,9 +1515,9 @@ GUIVehicle::selectBlockingFoes() const {
     if (dpi.myLink == 0) {
         return;
     }
-    std::vector<const SUMOVehicle*> blockingFoes; 
-    dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLengthWithGap(), 
-            getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), &blockingFoes);
+    std::vector<const SUMOVehicle*> blockingFoes;
+    dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLengthWithGap(),
+                       getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), &blockingFoes);
     for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
         gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
     }

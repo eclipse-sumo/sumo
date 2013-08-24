@@ -66,7 +66,7 @@ MSQueueExport::writeEdge(OutputDevice& of) {
         MSEdge& edge = **e;
         const std::vector<MSLane*>& lanes = edge.getLanes();
         for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-           writeLane(of, **lane);
+            writeLane(of, **lane);
         }
     }
     of.closeTag();
@@ -87,14 +87,14 @@ MSQueueExport::writeLane(OutputDevice& of, const MSLane& lane) {
             if (!veh_tmp.isOnRoad()) {
                 continue;
             }
-                if (veh_tmp.getWaitingSeconds() > 0) {
-                    if (veh_tmp.getWaitingSeconds() > queueing_time) {
-                        queueing_time = veh_tmp.getWaitingSeconds();
-                    }
-                    double tmp_length = (lane.getLength() -  veh_tmp.getPositionOnLane()) + veh_tmp.getVehicleType().getLengthWithGap();
-                    if (tmp_length > queueing_length) {
-                        queueing_length = tmp_length;
-                    }
+            if (veh_tmp.getWaitingSeconds() > 0) {
+                if (veh_tmp.getWaitingSeconds() > queueing_time) {
+                    queueing_time = veh_tmp.getWaitingSeconds();
+                }
+                double tmp_length = (lane.getLength() -  veh_tmp.getPositionOnLane()) + veh_tmp.getVehicleType().getLengthWithGap();
+                if (tmp_length > queueing_length) {
+                    queueing_length = tmp_length;
+                }
             }
         }
 
@@ -104,14 +104,14 @@ MSQueueExport::writeLane(OutputDevice& of, const MSLane& lane) {
                 continue;
             }
 
-                if (veh_tmp.getWaitingSeconds() > 0) {
-                    if (veh_tmp.getWaitingSeconds() > queueing_time) {
-                        queueing_time = veh_tmp.getWaitingSeconds();
-                    }
-                    double tmp_length = (lane.getLength() - veh_tmp.getPositionOnLane()) + veh_tmp.getVehicleType().getLengthWithGap();
-                    if (tmp_length > queueing_length) {
-                        queueing_length = tmp_length;
-                    }
+            if (veh_tmp.getWaitingSeconds() > 0) {
+                if (veh_tmp.getWaitingSeconds() > queueing_time) {
+                    queueing_time = veh_tmp.getWaitingSeconds();
+                }
+                double tmp_length = (lane.getLength() - veh_tmp.getPositionOnLane()) + veh_tmp.getVehicleType().getLengthWithGap();
+                if (tmp_length > queueing_length) {
+                    queueing_length = tmp_length;
+                }
             }
         }
 
@@ -126,12 +126,12 @@ MSQueueExport::writeLane(OutputDevice& of, const MSLane& lane) {
                 continue;
             }
 
-                if (veh_tmp.getSpeed() < (threshold_velocity) && (veh_tmp.getPositionOnLane() > (veh_tmp.getLane()->getLength()) * 0.25)) {
-                    tmp_length2 = (lane.getLength() - veh_tmp.getPositionOnLane()) + veh_tmp.getVehicleType().getLengthWithGap();
-                }
-                if (tmp_length2 > queueing_length2) {
-                    queueing_length2 = tmp_length2;
-                }
+            if (veh_tmp.getSpeed() < (threshold_velocity) && (veh_tmp.getPositionOnLane() > (veh_tmp.getLane()->getLength()) * 0.25)) {
+                tmp_length2 = (lane.getLength() - veh_tmp.getPositionOnLane()) + veh_tmp.getVehicleType().getLengthWithGap();
+            }
+            if (tmp_length2 > queueing_length2) {
+                queueing_length2 = tmp_length2;
+            }
         }
     }
 

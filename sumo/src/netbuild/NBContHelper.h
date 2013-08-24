@@ -98,7 +98,7 @@ public:
 
     /**
      * relative_incoming_edge_sorter
-     * Class to sort edges by their angle in relation to an outgoing edge. 
+     * Class to sort edges by their angle in relation to an outgoing edge.
      * This is normally done to sort edges incoming at the starting node of this edge
      * by their angle in relation to the using edge's angle (this angle
      * is the reference angle).

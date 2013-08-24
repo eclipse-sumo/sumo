@@ -240,10 +240,10 @@ GUISUMOViewParent::isSelected(GUIGlObject* o) const {
             // hmph, just some security stuff
             return false;
         }
-        const std::vector<MSLane*> &lanes = edge->getLanes();
+        const std::vector<MSLane*>& lanes = edge->getLanes();
         for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-            GUILane *l = dynamic_cast<GUILane*>(*j);
-            if(l!=0 && gSelected.isSelected(GLO_LANE, l->getGlID())) {
+            GUILane* l = dynamic_cast<GUILane*>(*j);
+            if (l != 0 && gSelected.isSelected(GLO_LANE, l->getGlID())) {
                 return true;
             }
         }

@@ -298,7 +298,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     return 0;
 }
 
-void 
+void
 MSNet::loadRoutes() {
     myRouteLoaders->loadNext(myStep);
 }
@@ -577,12 +577,12 @@ MSNet::writeOutput() {
         OutputDevice& od = OutputDevice::getDeviceByOption("link-output");
         od.openTag("timestep");
         od.writeAttr(SUMO_ATTR_ID, STEPS2TIME(myStep));
-        const std::vector<MSEdge*> &edges = myEdges->getEdges();
-        for(std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-            const std::vector<MSLane*> &lanes = (*i)->getLanes();
-            for(std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
-                const std::vector<MSLink*> &links = (*j)->getLinkCont();
-                for(std::vector<MSLink*>::const_iterator k=links.begin(); k!=links.end(); ++k) {
+        const std::vector<MSEdge*>& edges = myEdges->getEdges();
+        for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            const std::vector<MSLane*>& lanes = (*i)->getLanes();
+            for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
+                const std::vector<MSLink*>& links = (*j)->getLinkCont();
+                for (std::vector<MSLink*>::const_iterator k = links.begin(); k != links.end(); ++k) {
                     (*k)->writeApproaching(od, (*j)->getID());
                 }
             }

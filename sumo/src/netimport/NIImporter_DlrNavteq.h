@@ -227,7 +227,7 @@ protected:
             CONNECTION
         };
 
-    std::string getColumn(const StringTokenizer& st, ColumnName name, const std::string fallback="");
+        std::string getColumn(const StringTokenizer& st, ColumnName name, const std::string fallback = "");
 
     private:
         /// @brief build the street name for the given ids

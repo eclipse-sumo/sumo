@@ -51,8 +51,8 @@ MSE2Collector::MSE2Collector(const std::string& id, DetectorUsage usage,
                              MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
                              SUMOTime haltingTimeThreshold,
                              SUMOReal haltingSpeedThreshold,
-                             SUMOReal jamDistThreshold) : 
-    MSMoveReminder(id, lane), 
+                             SUMOReal jamDistThreshold) :
+    MSMoveReminder(id, lane),
     MSDetectorFileOutput(id),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),

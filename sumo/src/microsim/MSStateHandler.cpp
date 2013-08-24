@@ -3,7 +3,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Thu, 13 Dec 2012
-/// @version $Id: MSStateHandler.cpp 2618 2013-05-01 20:42:40Z behr_mi $
+/// @version $Id$
 ///
 // Parser and output filter for routes and vehicles state saving and loading
 /****************************************************************************/
@@ -55,11 +55,11 @@
 // method definitions
 // ===========================================================================
 MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
-    SUMOSAXHandler(file), myOffset(offset), 
+    SUMOSAXHandler(file), myOffset(offset),
 #ifdef HAVE_INTERNAL
-    mySegment(0), 
+    mySegment(0),
 #endif
-    myEdgeAndLane(0,-1) {
+    myEdgeAndLane(0, -1) {
 }
 
 
@@ -211,7 +211,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 #endif
             } else {
                 MSEdge::dictionary(myEdgeAndLane.first)->getLanes()[myEdgeAndLane.second]->loadState(
-                        vehIDs, MSNet::getInstance()->getVehicleControl());
+                    vehIDs, MSNet::getInstance()->getVehicleControl());
             }
             break;
         }

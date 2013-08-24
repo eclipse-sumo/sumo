@@ -89,10 +89,10 @@ GUITriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
 
 MSCalibrator*
 GUITriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
-                                  MSEdge* edge, SUMOReal pos,
-                                  const std::string& file,
-                                  const std::string& outfile,
-                                  const SUMOTime freq) {
+                                   MSEdge* edge, SUMOReal pos,
+                                   const std::string& file,
+                                   const std::string& outfile,
+                                   const SUMOTime freq) {
     GUICalibrator* cali = new GUICalibrator(id, edge, pos, file, outfile, freq);
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(cali);
     return cali;

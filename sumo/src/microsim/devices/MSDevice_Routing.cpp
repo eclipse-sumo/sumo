@@ -65,7 +65,7 @@ SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSDevice_Routing::myRouter = 0;
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Routing::insertOptions(OptionsCont &oc) {
+MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Routing");
     insertDefaultAssignmentOptions("rerouting", "Routing", oc);
 

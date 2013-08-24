@@ -213,9 +213,9 @@ NBNetBuilder::compute(OptionsCont& oc,
     //
     if (oc.exists("geometry.max-angle")) {
         myEdgeCont.checkGeometries(
-                oc.getFloat("geometry.max-angle"), 
-                oc.getFloat("geometry.min-radius"),
-                oc.getBool("geometry.min-radius.fix"));
+            oc.getFloat("geometry.max-angle"),
+            oc.getFloat("geometry.min-radius"),
+            oc.getBool("geometry.min-radius.fix"));
     }
     //
     myEdgeCont.computeLaneShapes();

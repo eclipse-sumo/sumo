@@ -508,8 +508,8 @@ void
 GUINet::updateColor(const GUIVisualizationSettings& s) {
     for (std::vector<GUIEdge*>::const_iterator i = myEdgeWrapper.begin(); i != myEdgeWrapper.end(); ++i) {
         if ((*i)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
-            const std::vector<MSLane*> &lanes = (*i)->getLanes();
-            for (std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
+            const std::vector<MSLane*>& lanes = (*i)->getLanes();
+            for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
                 static_cast<GUILane*>(*j)->updateColor(s);
             }
         }

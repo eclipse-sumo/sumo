@@ -72,7 +72,7 @@ public:
     /** @brief Inserts MSDevice_Routing-options
      * @param[filled] oc The options container to add the options to
      */
-    static void insertOptions(OptionsCont &oc);
+    static void insertOptions(OptionsCont& oc);
 
 
     /** @brief Build devices for the given vehicle, if needed

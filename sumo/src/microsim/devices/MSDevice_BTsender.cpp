@@ -2,7 +2,7 @@
 /// @file    MSDevice_BTsender.cpp
 /// @author  Daniel Krajzewicz
 /// @date    14.08.2013
-/// @version $Id: MSDevice_BTsender.cpp 13989 2013-05-23 11:40:37Z namdre $
+/// @version $Id$
 ///
 // A BT sender
 /****************************************************************************/
@@ -50,7 +50,7 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_BTsender::insertOptions(OptionsCont &oc) {
+MSDevice_BTsender::insertOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Communication");
     insertDefaultAssignmentOptions("btsender", "Communication", oc);
 }

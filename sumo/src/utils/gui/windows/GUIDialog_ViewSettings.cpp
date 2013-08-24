@@ -237,7 +237,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
         myStreetNamePanel = new NamePanel(m22, this, "Show street name", mySettings->streetName);
         myInternalEdgeNamePanel = new NamePanel(m22, this, "Show internal edge name", mySettings->internalEdgeName);
     }
-    { // vehicles
+    {
+        // vehicles
         new FXTabItem(tabbook, "Vehicles", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
         FXVerticalFrame* frame3 =
             new FXVerticalFrame(tabbook, FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
@@ -315,9 +316,10 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         myVehicleUpscaleDialer->setRange(0, 10000);
         myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
-    } 
-    
-    { // persons
+    }
+
+    {
+        // persons
         new FXTabItem(tabbook, "Persons", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
         FXVerticalFrame* frame3 =
             new FXVerticalFrame(tabbook, FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);
@@ -378,8 +380,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         myPersonUpscaleDialer->setRange(0, 10000);
         myPersonUpscaleDialer->setValue(mySettings->personExaggeration);
-    } 
-    { // nodes
+    }
+    {
+        // nodes
         new FXTabItem(tabbook, "Nodes", NULL, TAB_LEFT_NORMAL, 0, 0, 0, 0, 4, 8, 4, 4);
         FXVerticalFrame* frame4 =
             new FXVerticalFrame(tabbook, FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2);

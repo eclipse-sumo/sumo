@@ -173,7 +173,7 @@ MSEdge::rightLane(const MSLane* const lane) const {
 }
 
 
-MSLane* 
+MSLane*
 MSEdge::parallelLane(const MSLane* const lane, int offset) const {
     const int index = (int)(find(myLanes->begin(), myLanes->end(), lane) - myLanes->begin());
     if (index == (int)myLanes->size()) {

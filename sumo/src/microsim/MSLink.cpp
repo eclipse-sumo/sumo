@@ -89,13 +89,12 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 
 void
-MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed, 
-        const bool setRequest, const SUMOTime arrivalTimeBraking, const SUMOReal arrivalSpeedBraking, const SUMOTime waitingTime) 
-{
+MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const SUMOReal arrivalSpeed, const SUMOReal leaveSpeed,
+                       const bool setRequest, const SUMOTime arrivalTimeBraking, const SUMOReal arrivalSpeedBraking, const SUMOTime waitingTime) {
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLengthWithGap());
-    myApproachingVehicles.insert(std::make_pair(approaching, 
-                ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest, 
-                    arrivalTimeBraking, arrivalSpeedBraking, waitingTime)));
+    myApproachingVehicles.insert(std::make_pair(approaching,
+                                 ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
+                                         arrivalTimeBraking, arrivalSpeedBraking, waitingTime)));
 }
 
 
@@ -141,9 +140,9 @@ MSLink::getLeaveTime(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leave
 
 
 bool
-MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength, 
-        SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime,
-        std::vector<const SUMOVehicle*>* collectFoes) const {
+MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed, SUMOReal vehicleLength,
+               SUMOReal impatience, SUMOReal decel, SUMOTime waitingTime,
+               std::vector<const SUMOVehicle*>* collectFoes) const {
     if (myState == LINKSTATE_TL_RED) {
         return false;
     }
@@ -162,8 +161,8 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal leaveSpeed,
             }
         }
 #endif
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(), 
-                    impatience, decel, waitingTime, collectFoes)) {
+        if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(),
+                                impatience, decel, waitingTime, collectFoes)) {
             return false;
         }
     }
@@ -192,8 +191,8 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrival
         if (i->second.leavingTime < arrivalTime) {
             // ego wants to be follower
             if (sameTargetLane && (arrivalTime - i->second.leavingTime < myLookaheadTime
-                        || unsafeMergeSpeeds(i->second.leaveSpeed, arrivalSpeed, 
-                        i->first->getVehicleType().getCarFollowModel().getMaxDecel(), decel))) {
+                                   || unsafeMergeSpeeds(i->second.leaveSpeed, arrivalSpeed,
+                                           i->first->getVehicleType().getCarFollowModel().getMaxDecel(), decel))) {
                 if (collectFoes == 0) {
                     return true;
                 } else {
@@ -202,9 +201,9 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal arrival
             }
         } else if (foeArrivalTime > leaveTime) {
             // ego wants to be leader.
-            if (sameTargetLane && (foeArrivalTime - leaveTime < myLookaheadTime 
-                        || unsafeMergeSpeeds(leaveSpeed, i->second.arrivalSpeedBraking, 
-                        decel, i->first->getVehicleType().getCarFollowModel().getMaxDecel()))) {
+            if (sameTargetLane && (foeArrivalTime - leaveTime < myLookaheadTime
+                                   || unsafeMergeSpeeds(leaveSpeed, i->second.arrivalSpeedBraking,
+                                           decel, i->first->getVehicleType().getCarFollowModel().getMaxDecel()))) {
                 if (collectFoes == 0) {
                     return true;
                 } else {
@@ -279,7 +278,7 @@ MSLink::getLane() const {
 }
 
 
-void 
+void
 MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
     if (myApproachingVehicles.size() > 0) {
         od.openTag("link");
@@ -290,7 +289,7 @@ MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
         const std::string via = "";
 #endif
         od.writeAttr(SUMO_ATTR_VIA, via);
-        od.writeAttr(SUMO_ATTR_TO, getLane()==0 ? "" : getLane()->getID());
+        od.writeAttr(SUMO_ATTR_TO, getLane() == 0 ? "" : getLane()->getID());
         std::vector<std::pair<SUMOTime, const SUMOVehicle*> > toSort; // stabilize output
         for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator it = myApproachingVehicles.begin(); it != myApproachingVehicles.end(); ++it) {
             toSort.push_back(std::make_pair(it->second.arrivalTime, it->first));
@@ -336,19 +335,19 @@ MSLink::getLeaderInfo(SUMOReal dist) const {
             (*it_lane)->releaseVehicles();
             for (MSLane::VehCont::const_iterator it_veh = vehicles.begin(); it_veh != vehicles.end(); ++it_veh) {
                 MSVehicle* leader = *it_veh;
-                // XXX apply viaLane/foeLane specific distance offset 
+                // XXX apply viaLane/foeLane specific distance offset
                 // to account for the fact that the crossing point has different distances from the lane ends
                 result.push_back(std::make_pair(leader,
-                            contLane ? -1 :
-                            dist - ((*it_lane)->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength()));
+                                                contLane ? -1 :
+                                                dist - ((*it_lane)->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength()));
 
             }
             // XXX partial occupates should be ignored if they do not extend past the crossing point
             MSVehicle* leader = (*it_lane)->getPartialOccupator();
             if (leader != 0) {
-                result.push_back(std::make_pair(leader, 
-                            contLane ? -1 :
-                            dist - ((*it_lane)->getLength() - (*it_lane)->getPartialOccupatorEnd())));
+                result.push_back(std::make_pair(leader,
+                                                contLane ? -1 :
+                                                dist - ((*it_lane)->getLength() - (*it_lane)->getPartialOccupatorEnd())));
             }
         }
     }

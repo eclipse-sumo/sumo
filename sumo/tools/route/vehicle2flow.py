@@ -3,7 +3,7 @@
 @file    vehicle2flow.py
 @author  Michael Behrisch
 @date    2012-11-15
-@version $Id: route2poly.py 13811 2013-05-01 20:31:43Z behrisch $
+@version $Id$
 
 This script replaces all vehicle definitions in a route file by
 flow definitions, adding an XML ntity for the repeat interval for

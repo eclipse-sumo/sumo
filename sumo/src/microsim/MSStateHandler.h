@@ -3,7 +3,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Thu, 13 Dec 2012
-/// @version $Id: MSStateHandler.h 2618 2013-05-01 20:42:40Z behr_mi $
+/// @version $Id$
 ///
 // Parser and output filter for routes and vehicles state saving and loading
 /****************************************************************************/

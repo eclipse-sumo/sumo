@@ -506,7 +506,7 @@ MSPerson::MSPersonStage_Waiting::routeOutput(OutputDevice& os) const {
     if (myWaitingUntil >= 0) {
         os.writeAttr(SUMO_ATTR_UNTIL, time2string(myWaitingUntil));
     }
-     os.closeTag();
+    os.closeTag();
 }
 
 

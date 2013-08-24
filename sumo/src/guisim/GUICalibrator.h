@@ -4,7 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 26.04.2004
-/// @version $Id: GUICalibrator.h 14425 2013-08-16 20:11:47Z behrisch $
+/// @version $Id$
 ///
 // Changes flow and speed on a set of lanes (gui version)
 /****************************************************************************/
@@ -59,10 +59,10 @@ public:
      * @param[in] file Name of the file to read the speeds to set from
      */
     GUICalibrator(const std::string& id,
-            MSEdge* edge, SUMOReal pos,
-            const std::string& aXMLFilename,
-            const std::string& outputFilename,
-            const SUMOTime freq);
+                  MSEdge* edge, SUMOReal pos,
+                  const std::string& aXMLFilename,
+                  const std::string& outputFilename,
+                  const SUMOTime freq);
 
 
     /** destructor */
@@ -121,7 +121,7 @@ public:
     public:
 
         GUICalibratorPopupMenu(GUIMainWindow& app,
-                                     GUISUMOAbstractView& parent, GUIGlObject& o);
+                               GUISUMOAbstractView& parent, GUIGlObject& o);
 
         ~GUICalibratorPopupMenu();
 
@@ -145,8 +145,8 @@ public:
         };
         /// Constructor
         GUIManip_Calibrator(GUIMainWindow& app,
-                                  const std::string& name, GUICalibrator& o,
-                                  int xpos, int ypos);
+                            const std::string& name, GUICalibrator& o,
+                            int xpos, int ypos);
 
         /// Destructor
         virtual ~GUIManip_Calibrator();

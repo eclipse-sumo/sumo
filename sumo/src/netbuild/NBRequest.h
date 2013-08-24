@@ -205,9 +205,9 @@ private:
     /// @brief reset foes it the number of lanes matches (or exceeds) the number of incoming connections for an edge
     void resetCooperating();
 
-    /** @brief return whether the given laneToLane connections prohibit each other 
+    /** @brief return whether the given laneToLane connections prohibit each other
      * under the assumption that the edge2edge connections are in conflict
-     */ 
+     */
     bool laneConflict(const NBEdge* from, const NBEdge* to, int toLane, const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorToLane) const;
 
 private:

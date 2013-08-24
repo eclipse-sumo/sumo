@@ -152,7 +152,7 @@ NILoader::loadXML(OptionsCont& oc) {
     loadXMLType(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
                                       myNetBuilder.getEdgeCont(),
                                       myNetBuilder.getTypeCont(),
-                                      myNetBuilder.getDistrictCont(), 
+                                      myNetBuilder.getDistrictCont(),
                                       myNetBuilder.getTLLogicCont(),
                                       oc),
                 oc.getStringVector("edge-files"), "edges");

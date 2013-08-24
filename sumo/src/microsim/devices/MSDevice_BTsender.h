@@ -2,7 +2,7 @@
 /// @file    MSDevice_BTsender.h
 /// @author  Daniel Krajzewicz
 /// @date    14.08.2013
-/// @version $Id: MSDevice_BTsender.cpp 13989 2013-05-23 11:40:37Z namdre $
+/// @version $Id$
 ///
 // A BT sender
 /****************************************************************************/
@@ -51,7 +51,7 @@ class MSDevice_BTsender : public MSDevice {
 public:
     /** @brief Inserts MSDevice_BTsender-options
      */
-    static void insertOptions(OptionsCont &oc);
+    static void insertOptions(OptionsCont& oc);
 
 
     /** @brief Build devices for the given vehicle, if needed

@@ -518,7 +518,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                     assert(connected[k].toEdge != 0);
                     assert((size_t) getIndex(*i, connected[k].toEdge) < myIncoming.size()*myOutgoing.size());
                     // check whether the connection is prohibited by another one
-                    if (myForbids[getIndex(*i, connected[k].toEdge)][idx] && 
+                    if (myForbids[getIndex(*i, connected[k].toEdge)][idx] &&
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane))) {
                         result += '1';
                         continue;
@@ -547,7 +547,7 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int toLane, const bool checkL
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
-                if (foes(from, to, (*i), connected[k].toEdge) && 
+                if (foes(from, to, (*i), connected[k].toEdge) &&
                         (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane))) {
                     result += '1';
                 } else {
@@ -560,9 +560,9 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int toLane, const bool checkL
 }
 
 
-bool 
-NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane, 
-        const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorToLane) const {
+bool
+NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
+                        const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorToLane) const {
     if (to != prohibitorTo) {
         return true;
     }
@@ -570,14 +570,14 @@ NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
     // situation in which the lane2lane connections can be conflict-free is, if
     // they target the same edge but do not cross each other
     SUMOReal angle = NBHelpers::relAngle(
-            from->getAngleAtNode(from->getToNode()), to->getAngleAtNode(to->getFromNode()));
+                         from->getAngleAtNode(from->getToNode()), to->getAngleAtNode(to->getFromNode()));
     if (angle == 180) {
         angle = -180; // turnarounds are left turns
     }
     const SUMOReal prohibitorAngle = NBHelpers::relAngle(
-            prohibitorFrom->getAngleAtNode(prohibitorFrom->getToNode()), to->getAngleAtNode(to->getFromNode()));  
-    const bool rightOfProhibitor = prohibitorFrom->isTurningDirectionAt(prohibitorFrom->getToNode(), to) 
-            || (angle > prohibitorAngle && !from->isTurningDirectionAt(from->getToNode(), to));
+                                         prohibitorFrom->getAngleAtNode(prohibitorFrom->getToNode()), to->getAngleAtNode(to->getFromNode()));
+    const bool rightOfProhibitor = prohibitorFrom->isTurningDirectionAt(prohibitorFrom->getToNode(), to)
+                                   || (angle > prohibitorAngle && !from->isTurningDirectionAt(from->getToNode(), to));
     return rightOfProhibitor ? toLane >= prohibitorToLane : toLane <= prohibitorToLane;
 }
 

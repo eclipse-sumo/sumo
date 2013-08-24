@@ -2,7 +2,7 @@
 /// @file    MSDevice_BTreceiver.cpp
 /// @author  Daniel Krajzewicz
 /// @date    14.08.2013
-/// @version $Id: MSDevice_BTreceiver.cpp 13989 2013-05-23 11:40:37Z namdre $
+/// @version $Id$
 ///
 // A BT sender
 /****************************************************************************/
@@ -50,9 +50,9 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_BTreceiver::insertOptions(OptionsCont &oc) {
+MSDevice_BTreceiver::insertOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Communication");
-    
+
     insertDefaultAssignmentOptions("btreceiver", "Communication", oc);
 
     oc.doRegister("device.btreceiver.range", new Option_String("0", "TIME"));
@@ -84,7 +84,7 @@ MSDevice_BTreceiver::~MSDevice_BTreceiver() {
 
 bool
 MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                              SUMOReal newPos, SUMOReal newSpeed) {
+                                SUMOReal newPos, SUMOReal newSpeed) {
     Position p = static_cast<MSVehicle&>(veh).getPosition();
     // collect edges around
     std::set<std::string> tmp;
@@ -92,7 +92,7 @@ MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
     std::set<std::string> inRange;
     //!!!myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
 
-    // check vehicles in range first; 
+    // check vehicles in range first;
     //  determine when they've entered range
     for (std::set<std::string>::const_iterator i = tmp.begin(); i != tmp.end(); ++i) {
         MSLane* l = MSLane::dictionary(*i);
@@ -108,10 +108,10 @@ MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
             // save, we have to investigate vehicles we do not see anymore
             inRange.insert((*j)->getID());
             // add new vehicles to myCurrentlySeen
-            if(myCurrentlySeen.find((*j)->getID())==myCurrentlySeen.end()) {
-                MeetingPoint mp(MSNet::getInstance()->getCurrentTimeStep(), 
-                    static_cast<MSVehicle&>(myHolder).getPosition(), myHolder.getSpeed(), (*j)->getPosition(), (*j)->getSpeed());
-                SeenDevice *sd = new SeenDevice(mp);
+            if (myCurrentlySeen.find((*j)->getID()) == myCurrentlySeen.end()) {
+                MeetingPoint mp(MSNet::getInstance()->getCurrentTimeStep(),
+                                static_cast<MSVehicle&>(myHolder).getPosition(), myHolder.getSpeed(), (*j)->getPosition(), (*j)->getSpeed());
+                SeenDevice* sd = new SeenDevice(mp);
                 myCurrentlySeen[(*j)->getID()] = sd;
             }
         }
@@ -119,15 +119,15 @@ MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
     }
     // check vehicles that are not longer in range
     //  set their range exit information
-    for(std::map<std::string, SeenDevice*>::const_iterator i=myCurrentlySeen.begin(); i!=myCurrentlySeen.end(); ++i) {
-        if(inRange.find((*i).first)!=inRange.end()) {
+    for (std::map<std::string, SeenDevice*>::const_iterator i = myCurrentlySeen.begin(); i != myCurrentlySeen.end(); ++i) {
+        if (inRange.find((*i).first) != inRange.end()) {
             continue;
         }
-        MSVehicle *v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle((*i).first));
-        MeetingPoint mp(MSNet::getInstance()->getCurrentTimeStep(), 
-            static_cast<MSVehicle&>(myHolder).getPosition(), myHolder.getSpeed(), v->getPosition(), v->getSpeed());
+        MSVehicle* v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle((*i).first));
+        MeetingPoint mp(MSNet::getInstance()->getCurrentTimeStep(),
+                        static_cast<MSVehicle&>(myHolder).getPosition(), myHolder.getSpeed(), v->getPosition(), v->getSpeed());
         myCurrentlySeen[(*i).first]->meetingEnd = mp;
-        if(mySeen.find((*i).first)==mySeen.end()) {
+        if (mySeen.find((*i).first) == mySeen.end()) {
             mySeen[(*i).first] = std::vector<SeenDevice*>();
         }
         mySeen[(*i).first].push_back(myCurrentlySeen[(*i).first]);

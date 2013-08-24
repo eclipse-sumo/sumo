@@ -76,8 +76,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
     myDefaultSpeed(myEdge->getSpeedLimit()),
     myHaveWarnedAboutClearingJam(false),
-    myAmActive(false)
-{
+    myAmActive(false) {
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
         myOutput->writeXMLHeader("calibratorstats");
@@ -236,7 +235,7 @@ MSCalibrator::isCurrentStateActive(SUMOTime time) {
            myCurrentStateInterval->begin <= time && myCurrentStateInterval->end > time;
 }
 
-int 
+int
 MSCalibrator::totalWished() const {
     if (myCurrentStateInterval != myIntervals.end()) {
         const SUMOReal totalHourFraction = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin) / (SUMOReal) 3600.;
@@ -473,7 +472,7 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification /*
     if (calibrateFlow && adaptedNum > totalWishedNum) {
 #ifdef MSCalibrator_DEBUG
         std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
-            << " vaporizing " << vehicle->getID() << " to reduce flow\n";
+                  << " vaporizing " << vehicle->getID() << " to reduce flow\n";
 #endif
         if (myParent->scheduleRemoval(vehicle)) {
             myParent->myRemoved++;
@@ -481,7 +480,7 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification /*
     } else if (myParent->invalidJam(myLaneIndex)) {
 #ifdef MSCalibrator_DEBUG
         std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
-            << " vaporizing " << vehicle->getID() << " to clear jam\n";
+                  << " vaporizing " << vehicle->getID() << " to clear jam\n";
 #endif
         if (!myParent->myHaveWarnedAboutClearingJam) {
             WRITE_WARNING("Clearing jam at calibrator '" + myParent->myID + "' at time "

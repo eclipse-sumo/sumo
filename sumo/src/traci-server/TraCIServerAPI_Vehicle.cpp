@@ -333,15 +333,15 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeStorage(tempContent);
             }
             break;
-			case VAR_STOPSTATE:{
-					char b = (
-                            1 * (v->isStopped() ? 1 : 0) +
-                            2 * (v->isParking() ? 1 : 0) +
-                            4 * (v->isStoppedTriggered() ? 1 : 0));
-					tempMsg.writeUnsignedByte(TYPE_UBYTE);
-					tempMsg.writeUnsignedByte(b);
-				}
-			break;
+            case VAR_STOPSTATE: {
+                char b = (
+                             1 * (v->isStopped() ? 1 : 0) +
+                             2 * (v->isParking() ? 1 : 0) +
+                             4 * (v->isStoppedTriggered() ? 1 : 0));
+                tempMsg.writeUnsignedByte(TYPE_UBYTE);
+                tempMsg.writeUnsignedByte(b);
+            }
+            break;
             case DISTANCE_REQUEST:
                 if (!commandDistanceRequest(server, inputStorage, tempMsg, v)) {
                     return false;
@@ -421,7 +421,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!server.readTypeCheckingInt(inputStorage, waitTime)) {
                 return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "The fourth stop parameter must be the waiting time given as an integer.", outputStorage);
             }
-			// optional stop flags
+            // optional stop flags
             bool parking = false;
             bool triggered = false;
             if (compoundSize == 5) {
@@ -451,28 +451,28 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
         }
         break;
-		case CMD_RESUME: {
-			if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Resuming requires a compound object.", outputStorage);
-				return false;
-			}
-			if (inputStorage.readInt() != 0) {
-				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Resuming should obtain an empty compound object.", outputStorage);
-				return false;
-			}
-			if (!static_cast<MSVehicle*>(v)->resumeFromStopping()) {
-				MSVehicle::Stop& sto = (static_cast<MSVehicle*>(v))->getNextStop();
-				std::ostringstream strs;
-				strs << "reached: " << sto.reached;
-				strs << ", duration:" << sto.duration;
-				strs << ", edge:" << (*sto.edge)->getID();
-				strs << ", startPos: " << sto.startPos;
-				std::string posStr = strs.str();
-				server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Failed to resume a non parking vehicle: "+v->getID() + ", "+posStr, outputStorage);
-				return false;
-			}
-		}
-		break;
+        case CMD_RESUME: {
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Resuming requires a compound object.", outputStorage);
+                return false;
+            }
+            if (inputStorage.readInt() != 0) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Resuming should obtain an empty compound object.", outputStorage);
+                return false;
+            }
+            if (!static_cast<MSVehicle*>(v)->resumeFromStopping()) {
+                MSVehicle::Stop& sto = (static_cast<MSVehicle*>(v))->getNextStop();
+                std::ostringstream strs;
+                strs << "reached: " << sto.reached;
+                strs << ", duration:" << sto.duration;
+                strs << ", edge:" << (*sto.edge)->getID();
+                strs << ", startPos: " << sto.startPos;
+                std::string posStr = strs.str();
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Failed to resume a non parking vehicle: " + v->getID() + ", " + posStr, outputStorage);
+                return false;
+            }
+        }
+        break;
         case CMD_CHANGELANE: {
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description.", outputStorage);
@@ -944,7 +944,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             if (v->hasDeparted()) {
                 v->onRemovalFromNet(n);
-                if(v->getLane()!=0) {
+                if (v->getLane() != 0) {
                     v->getLane()->removeVehicle(v, n);
                 }
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);

@@ -159,7 +159,7 @@ NBEdge::MainDirections::includes(Direction d) const {
 /* -------------------------------------------------------------------------
  * NBEdge::connections_relative_edgelane_sorter-methods
  * ----------------------------------------------------------------------- */
-int 
+int
 NBEdge::connections_relative_edgelane_sorter::operator()(const Connection& c1, const Connection& c2) const {
     if (c1.toEdge != c2.toEdge) {
         return NBContHelper::relative_outgoing_edge_sorter(myEdge)(c1.toEdge, c2.toEdge);
@@ -179,7 +179,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
     myType(StringUtils::convertUmlaute(type)),
-    myFrom(from), myTo(to), 
+    myFrom(from), myTo(to),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
@@ -201,7 +201,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
     myType(StringUtils::convertUmlaute(type)),
-    myFrom(from), myTo(to), 
+    myFrom(from), myTo(to),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
     myPriority(priority), mySpeed(speed),
     myTurnDestination(0),
@@ -218,7 +218,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl) :
     Named(StringUtils::convertUmlaute(id)),
     myStep(INIT),
     myType(tpl->getTypeID()),
-    myFrom(from), myTo(to), 
+    myFrom(from), myTo(to),
     myStartAngle(0), myEndAngle(0), myTotalAngle(0),
     myPriority(tpl->getPriority()), mySpeed(tpl->getSpeed()),
     myTurnDestination(0),
@@ -563,14 +563,14 @@ NBEdge::checkGeometry(const SUMOReal maxAngle, const SUMOReal minRadius, bool fi
             //std::cout << (start ? "  start" : "  end") << " length=" << l.length2D() << " radius=" << r << "  ";
             if (minRadius > 0 && r < minRadius) {
                 if (fix) {
-                    WRITE_MESSAGE("Removing sharp turn with radius " + toString(r) + " at the " + 
-                            (start ? "start" : "end") + " of edge " + getID());
+                    WRITE_MESSAGE("Removing sharp turn with radius " + toString(r) + " at the " +
+                                  (start ? "start" : "end") + " of edge " + getID());
                     myGeom.eraseAt(start ? 1 : i + 1);
                     checkGeometry(maxAngle, minRadius, fix);
                     return;
                 } else {
-                    WRITE_WARNING("Found sharp turn with radius " + toString(r) + " at the " + 
-                            (start ? "start" : "end") + " of edge " + getID());
+                    WRITE_WARNING("Found sharp turn with radius " + toString(r) + " at the " +
+                                  (start ? "start" : "end") + " of edge " + getID());
                 }
             }
         }
@@ -1260,22 +1260,22 @@ NBEdge::laneOffset(const Position& from, const Position& to, SUMOReal laneCenter
 }
 
 
-void 
+void
 NBEdge::computeAngle() {
     // taking the angle at the first might be unstable, thus we take the angle
     // at a certain distance. (To compare two edges, additional geometry
     // segments are considered to resolve ambiguities)
     const Position referencePosStart = myGeom.positionAtOffset2D(ANGLE_LOOKAHEAD);
     myStartAngle = NBHelpers::angle(
-            myFrom->getPosition().x(), myFrom->getPosition().y(),
-            referencePosStart.x(), referencePosStart.y());
+                       myFrom->getPosition().x(), myFrom->getPosition().y(),
+                       referencePosStart.x(), referencePosStart.y());
     const Position referencePosEnd = myGeom.positionAtOffset2D(myGeom.length() - ANGLE_LOOKAHEAD);
     myEndAngle = NBHelpers::angle(
-            referencePosEnd.x(), referencePosEnd.y(),
-            myTo->getPosition().x(), myTo->getPosition().y());
+                     referencePosEnd.x(), referencePosEnd.y(),
+                     myTo->getPosition().x(), myTo->getPosition().y());
     myTotalAngle = NBHelpers::angle(
-            myFrom->getPosition().x(), myFrom->getPosition().y(),
-            myTo->getPosition().x(), myTo->getPosition().y());
+                       myFrom->getPosition().x(), myFrom->getPosition().y(),
+                       myTo->getPosition().x(), myTo->getPosition().y());
 }
 
 

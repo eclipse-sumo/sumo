@@ -633,7 +633,7 @@ public:
      */
     SUMOReal getHarmonoise_NoiseEmissions() const;
     /// @}
-    
+
 
     /// @name State saving/loading
     /// @{
@@ -651,7 +651,7 @@ public:
      *
      * This method is called for every internal que the segment has.
      *  Every vehicle is retrieved from the given MSVehicleControl and added to this
-     *  lane. 
+     *  lane.
      *
      * @param[in] vehIDs The vehicle ids for the current que
      * @param[in] vc The vehicle control to retrieve references vehicles from

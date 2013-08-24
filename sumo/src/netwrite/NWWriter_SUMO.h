@@ -168,7 +168,7 @@ protected:
      * @param[in] ec The edge control to retrieve named edges from
      */
     static void writeRoundabout(OutputDevice& into, const std::vector<std::string>& r,
-        const NBEdgeCont &ec);
+                                const NBEdgeCont& ec);
 
 
     /** @brief Writes a district

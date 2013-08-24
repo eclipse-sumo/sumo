@@ -57,7 +57,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       edgeName(false, 50, RGBColor(255, 128, 0, 255)),
       internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
       streetName(false, 55, RGBColor::YELLOW),
-      hideConnectors(false), laneWidthExaggeration(1), 
+      hideConnectors(false), laneWidthExaggeration(1),
       vehicleQuality(0), minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
       drawLaneChangePreference(false), drawMinGap(false),
       vehicleName(false, 50, RGBColor(204, 153, 0, 255)),

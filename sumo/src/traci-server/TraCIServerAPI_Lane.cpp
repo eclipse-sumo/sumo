@@ -149,7 +149,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(SUMOXMLDefinitions::LinkStates.getString(link->getState()));
                     ++cnt;
-                    // direction 
+                    // direction
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(SUMOXMLDefinitions::LinkDirections.getString(link->getDirection()));
                     ++cnt;

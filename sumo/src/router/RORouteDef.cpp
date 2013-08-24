@@ -98,18 +98,18 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
                                    SUMOTime begin, const ROVehicle& veh) const {
     myNewRoute = false;
     assert(myAlternatives[0]->getEdgeVector().size() > 0);
-    MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ? 
-            MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
+    MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
+                      MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
     if (myAlternatives[0]->getFirst()->prohibits(&veh)) {
         /// XXX check for specified arrivalLane / departLane
-        mh->inform("Vehicle '" + veh.getID() + "' is not allowed to depart on edge '" + 
-                myAlternatives[0]->getFirst()->getID() + "'.");
+        mh->inform("Vehicle '" + veh.getID() + "' is not allowed to depart on edge '" +
+                   myAlternatives[0]->getFirst()->getID() + "'.");
         return;
     } else if (myAlternatives[0]->getLast()->prohibits(&veh)) {
         // this check is not strictly necessary unless myTryRepair is set.
         // However, the error message is more helpful than "no connection found"
-        mh->inform("Vehicle '" + veh.getID() + "' is not allowed to arrive on edge '" + 
-                myAlternatives[0]->getLast()->getID() + "'.");
+        mh->inform("Vehicle '" + veh.getID() + "' is not allowed to arrive on edge '" +
+                   myAlternatives[0]->getLast()->getID() + "'.");
         return;
     }
     if (myTryRepair) {
@@ -144,8 +144,8 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
 void
 RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                SUMOTime begin, const ROVehicle& veh) const {
-    MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ? 
-            MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
+    MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
+                      MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
     std::vector<const ROEdge*> oldEdges = myAlternatives[0]->getEdgeVector();
     std::vector<const ROEdge*> newEdges;
     std::vector<const ROEdge*> mandatory;
@@ -168,8 +168,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         assert(mandatory.size() >= 2);
         // removed prohibited
-        for (std::vector<const ROEdge*>::iterator i = oldEdges.begin(); i != oldEdges.end(); ) {
-            if((*i)->prohibits(&veh)) {
+        for (std::vector<const ROEdge*>::iterator i = oldEdges.begin(); i != oldEdges.end();) {
+            if ((*i)->prohibits(&veh)) {
                 if (std::find(mandatory.begin(), mandatory.end(), *i) != mandatory.end()) {
                     mh->inform("Stop edge '" + (*i)->getID() + "' does not allow vehicle '" + veh.getID() + "'.");
                     return;
@@ -197,7 +197,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                             router.compute(*lastMandatory, *nextMandatory, &veh, begin, edges);
                         }
                         if (edges.size() == 0) {
-                            mh->inform( "Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
+                            mh->inform("Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
                             return;
                         } else {
                             newEdges.erase(lastMandatory + 1, newEdges.end());

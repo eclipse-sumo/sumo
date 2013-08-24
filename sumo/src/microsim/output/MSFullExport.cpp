@@ -80,7 +80,7 @@ MSFullExport::writeVehicles(OutputDevice& of) {
             of.writeAttr("co2", veh->getHBEFA_CO2Emissions()).writeAttr("co", veh->getHBEFA_COEmissions()).writeAttr("hc", veh->getHBEFA_HCEmissions());
             of.writeAttr("nox", veh->getHBEFA_NOxEmissions()).writeAttr("pmx", veh->getHBEFA_PMxEmissions()).writeAttr("noise", veh->getHarmonoise_NoiseEmissions());
             of.writeAttr("route", veh->getRoute().getID()).writeAttr("type", fclass).writeAttr("waiting", veh->getWaitingSeconds());
-            of.writeAttr("lane", veh->getLane()->getID()).writeAttr("pos_lane", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed()*3.6);
+            of.writeAttr("lane", veh->getLane()->getID()).writeAttr("pos_lane", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed() * 3.6);
             of.writeAttr("angle", veh->getAngle()).writeAttr("x", pos.x()).writeAttr("y", pos.y());
             of.closeTag();
         }

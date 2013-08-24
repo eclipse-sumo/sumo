@@ -2,7 +2,7 @@
 /// @file    MSDevice_Example.cpp
 /// @author  Jakob Erdmann
 /// @date    11.06.2013
-/// @version $Id: MSDevice_Example.cpp 13989 2013-05-23 11:40:37Z namdre $
+/// @version $Id$
 ///
 // A device which stands as an implementation example and which outputs movereminder calls
 /****************************************************************************/
@@ -102,13 +102,12 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
 // ---------------------------------------------------------------------------
 // MSDevice_Example-methods
 // ---------------------------------------------------------------------------
-MSDevice_Example::MSDevice_Example(SUMOVehicle& holder, const std::string& id, 
-        SUMOReal customValue1, SUMOReal customValue2, SUMOReal customValue3) : 
-    MSDevice(holder, id), 
+MSDevice_Example::MSDevice_Example(SUMOVehicle& holder, const std::string& id,
+                                   SUMOReal customValue1, SUMOReal customValue2, SUMOReal customValue3) :
+    MSDevice(holder, id),
     myCustomValue1(customValue1),
     myCustomValue2(customValue2),
-    myCustomValue3(customValue3)
-{ 
+    myCustomValue3(customValue3) {
     std::cout << "initialized device '" << id << "' with myCustomValue1=" << myCustomValue1 << ", myCustomValue2=" << myCustomValue2 << ", myCustomValue3=" << myCustomValue3 << "\n";
 }
 
@@ -119,7 +118,7 @@ MSDevice_Example::~MSDevice_Example() {
 
 bool
 MSDevice_Example::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */,
-                              SUMOReal /* newPos */, SUMOReal newSpeed) {
+                             SUMOReal /* newPos */, SUMOReal newSpeed) {
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
     // check whether another device is present on the vehicle:
     MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(MSDevice_Tripinfo::getTypeInfo()));
@@ -139,7 +138,7 @@ MSDevice_Example::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification rea
 
 bool
 MSDevice_Example::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
-                               MSMoveReminder::Notification reason) {
+                              MSMoveReminder::Notification reason) {
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
     return true; // keep the device
 }

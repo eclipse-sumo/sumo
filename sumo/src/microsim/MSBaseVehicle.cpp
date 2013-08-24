@@ -70,7 +70,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
     myArrivalPos(-1),
     myNumberReroutes(0)
 #ifdef _DEBUG
-    ,myTraceMoveReminders(myShallTraceMoveReminders.count(pars->id) > 0)
+    , myTraceMoveReminders(myShallTraceMoveReminders.count(pars->id) > 0)
 #endif
 {
     // init devices
@@ -298,7 +298,7 @@ MSBaseVehicle::calculateArrivalPos() {
 }
 
 
-MSDevice* 
+MSDevice*
 MSBaseVehicle::getDevice(const std::type_info& type) const {
     for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
         if (typeid(**dev) == type) {
@@ -321,7 +321,7 @@ MSBaseVehicle::saveState(OutputDevice& out) {
 
 
 #ifdef _DEBUG
-void 
+void
 MSBaseVehicle::initMoveReminderOutput(const OptionsCont& oc) {
     if (oc.isSet("movereminder-output.vehicles")) {
         const std::vector<std::string> vehicles = oc.getStringVector("movereminder-output.vehicles");
@@ -330,7 +330,7 @@ MSBaseVehicle::initMoveReminderOutput(const OptionsCont& oc) {
 }
 
 
-void 
+void
 MSBaseVehicle::traceMoveReminder(const std::string& type, MSMoveReminder* rem, SUMOReal pos, bool keep) const {
     OutputDevice& od = OutputDevice::getDeviceByOption("movereminder-output");
     od.openTag("movereminder");

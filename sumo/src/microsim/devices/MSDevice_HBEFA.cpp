@@ -49,7 +49,7 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_HBEFA::insertOptions(OptionsCont &oc) {
+MSDevice_HBEFA::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("hbefa", "Emissions", oc);
 }
 

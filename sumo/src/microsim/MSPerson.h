@@ -121,7 +121,7 @@ public:
             return false;
         }
 
-        /// @brief the time this person spent waiting for a vehicle 
+        /// @brief the time this person spent waiting for a vehicle
         virtual SUMOTime timeWaiting4Vehicle(SUMOTime /*now*/) const {
             return false;
         }
@@ -572,13 +572,13 @@ public:
         return (*myStep)->isWaitingFor(line);
     }
 
-    /// Whether the person waits for a vehicle 
+    /// Whether the person waits for a vehicle
     bool isWaiting4Vehicle() const {
         return (*myStep)->isWaiting4Vehicle();
     }
 
 
-    /// @brief the time this person spent waiting for a vehicle 
+    /// @brief the time this person spent waiting for a vehicle
     SUMOTime timeWaiting4Vehicle(SUMOTime now) const {
         return (*myStep)->timeWaiting4Vehicle(now);
     }

@@ -4,7 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 26.04.2004
-/// @version $Id: GUICalibrator.cpp 14425 2013-08-16 20:11:47Z behrisch $
+/// @version $Id$
 ///
 // Changes flow and speed on a set of lanes (gui version)
 /****************************************************************************/
@@ -99,16 +99,15 @@ FXIMPLEMENT(GUICalibrator::GUIManip_Calibrator, GUIManipulator, GUIManip_Calibra
 GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
     GUIMainWindow& app,
     const std::string& name, GUICalibrator& o,
-    int /*xpos*/, int /*ypos*/) : 
+    int /*xpos*/, int /*ypos*/) :
     GUIManipulator(app, name, 0, 0),
-    myParent(&app), 
-    myChosenValue(0), 
+    myParent(&app),
+    myChosenValue(0),
     myChosenTarget(myChosenValue, NULL, MID_OPTION),
-    //mySpeed(o.getDefaultSpeed()), 
-    mySpeed(0), 
+    //mySpeed(o.getDefaultSpeed()),
+    mySpeed(0),
     mySpeedTarget(mySpeed),
-    myObject(&o) 
-{
+    myObject(&o) {
     myChosenTarget.setTarget(this);
     FXVerticalFrame* f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -168,7 +167,7 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
         myUserDefinedSpeed->setIncrements(1, 10, 10);
         myUserDefinedSpeed->setRange(0, 300);
         myUserDefinedSpeed->setValue(0);
-            //static_cast<GUICalibrator*>(myObject)->getDefaultSpeed() * 3.6);
+        //static_cast<GUICalibrator*>(myObject)->getDefaultSpeed() * 3.6);
     }
     new FXButton(f1, "Close", NULL, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
@@ -281,14 +280,13 @@ GUICalibrator::GUICalibratorPopupMenu::onCmdOpenManip(FXObject*,
  * GUICalibrator - methods
  * ----------------------------------------------------------------------- */
 GUICalibrator::GUICalibrator(const std::string& id,
-        MSEdge* edge, SUMOReal pos,
-        const std::string& aXMLFilename,
-        const std::string& outputFilename,
-        const SUMOTime freq) :   
+                             MSEdge* edge, SUMOReal pos,
+                             const std::string& aXMLFilename,
+                             const std::string& outputFilename,
+                             const SUMOTime freq) :
     MSCalibrator(id, edge, pos, aXMLFilename, outputFilename, freq),
     GUIGlObject_AbstractAdd("calibrator", GLO_TRIGGER, id),
-    myShowAsKMH(true)
-{
+    myShowAsKMH(true) {
     const std::vector<MSLane*>& destLanes = edge->getLanes();
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());
@@ -306,7 +304,7 @@ GUICalibrator::~GUICalibrator() {}
 
 GUIGLObjectPopupMenu*
 GUICalibrator::getPopUpMenu(GUIMainWindow& app,
-                                  GUISUMOAbstractView& parent) {
+                            GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUICalibratorPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -321,7 +319,7 @@ GUICalibrator::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUICalibrator::getParameterWindow(GUIMainWindow& app,
-                                        GUISUMOAbstractView&) {
+                                  GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret;
     if (isActive()) {
         ret = new GUIParameterTableWindow(app, *this, 10);
@@ -338,10 +336,10 @@ GUICalibrator::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("cleared in jam", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::clearedInJam));
     } else {
         ret = new GUIParameterTableWindow(app, *this, 1);
-        const std::string nextStart = 
-                (myCurrentStateInterval != myIntervals.end() ?
-                 time2string(myCurrentStateInterval->begin) :
-                 "simulation end");
+        const std::string nextStart =
+            (myCurrentStateInterval != myIntervals.end() ?
+             time2string(myCurrentStateInterval->begin) :
+             "simulation end");
         ret->mkItem("inactive until", false, nextStart);
     }
     // close building
@@ -428,7 +426,7 @@ GUICalibrator::getCenteringBoundary() const {
 
 GUIManipulator*
 GUICalibrator::openManipulator(GUIMainWindow& app,
-                                     GUISUMOAbstractView&) {
+                               GUISUMOAbstractView&) {
     GUIManip_Calibrator* gui =
         new GUIManip_Calibrator(app, getFullName(), *this, 0, 0);
     gui->create();

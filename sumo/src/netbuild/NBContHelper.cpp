@@ -147,15 +147,15 @@ NBContHelper::edge_with_destination_finder::operator()(NBEdge* e) const {
 /* -------------------------------------------------------------------------
  * methods from relative_outgoing_edge_sorter
  * ----------------------------------------------------------------------- */
-int 
+int
 NBContHelper::relative_outgoing_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
     if (e1 == 0 || e2 == 0) {
         return -1;
     }
     SUMOReal relAngle1 = NBHelpers::normRelAngle(
-            myEdge->getEndAngle(), e1->getStartAngle());
+                             myEdge->getEndAngle(), e1->getStartAngle());
     SUMOReal relAngle2 = NBHelpers::normRelAngle(
-            myEdge->getEndAngle(), e2->getStartAngle());
+                             myEdge->getEndAngle(), e2->getStartAngle());
 
     SUMOReal lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
     while (fabs(relAngle1 - relAngle2) < 3.0) {
@@ -163,11 +163,11 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
         const Position referencePos1 = e1->getGeometry().positionAtOffset2D(lookAhead);
         const Position referencePos2 = e2->getGeometry().positionAtOffset2D(lookAhead);
         relAngle1 = NBHelpers::normRelAngle(myEdge->getEndAngle(), NBHelpers::angle(
-                    e1->getFromNode()->getPosition().x(), e1->getFromNode()->getPosition().y(),
-                    referencePos1.x(), referencePos1.y()));
+                                                e1->getFromNode()->getPosition().x(), e1->getFromNode()->getPosition().y(),
+                                                referencePos1.x(), referencePos1.y()));
         relAngle2 = NBHelpers::normRelAngle(myEdge->getEndAngle(), NBHelpers::angle(
-                    e2->getFromNode()->getPosition().x(), e2->getFromNode()->getPosition().y(),
-                    referencePos2.x(), referencePos2.y()));
+                                                e2->getFromNode()->getPosition().x(), e2->getFromNode()->getPosition().y(),
+                                                referencePos2.x(), referencePos2.y()));
         if (lookAhead > MAX2(e1->getLength(), e2->getLength())) {
             break;
         }
@@ -180,15 +180,15 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
 /* -------------------------------------------------------------------------
  * methods from relative_incoming_edge_sorter
  * ----------------------------------------------------------------------- */
-int 
+int
 NBContHelper::relative_incoming_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
     if (e1 == 0 || e2 == 0) {
         return -1;
     }
     SUMOReal relAngle1 = NBHelpers::normRelAngle(
-            myEdge->getStartAngle(), e1->getEndAngle());
+                             myEdge->getStartAngle(), e1->getEndAngle());
     SUMOReal relAngle2 = NBHelpers::normRelAngle(
-            myEdge->getStartAngle(), e2->getEndAngle());
+                             myEdge->getStartAngle(), e2->getEndAngle());
 
     SUMOReal lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
     while (fabs(relAngle1 - relAngle2) < 3.0) {
@@ -196,11 +196,11 @@ NBContHelper::relative_incoming_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
         const Position referencePos1 = e1->getGeometry().positionAtOffset2D(e1->getGeometry().length() - lookAhead);
         const Position referencePos2 = e2->getGeometry().positionAtOffset2D(e2->getGeometry().length() - lookAhead);
         relAngle1 = NBHelpers::normRelAngle(myEdge->getStartAngle(), NBHelpers::angle(
-                    referencePos1.x(), referencePos1.y(),
-                    e1->getToNode()->getPosition().x(), e1->getToNode()->getPosition().y()));
+                                                referencePos1.x(), referencePos1.y(),
+                                                e1->getToNode()->getPosition().x(), e1->getToNode()->getPosition().y()));
         relAngle2 = NBHelpers::normRelAngle(myEdge->getStartAngle(), NBHelpers::angle(
-                    referencePos2.x(), referencePos2.y(),
-                    e2->getToNode()->getPosition().x(), e2->getToNode()->getPosition().y()));
+                                                referencePos2.x(), referencePos2.y(),
+                                                e2->getToNode()->getPosition().x(), e2->getToNode()->getPosition().y()));
         if (lookAhead > MAX2(e1->getLength(), e2->getLength())) {
             break;
         }

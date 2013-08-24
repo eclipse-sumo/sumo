@@ -2,7 +2,7 @@
 /// @file    MSDevice_BTreceiver.h
 /// @author  Daniel Krajzewicz
 /// @date    14.08.2013
-/// @version $Id: MSDevice_BTreceiver.cpp 13989 2013-05-23 11:40:37Z namdre $
+/// @version $Id$
 ///
 // A BT sender
 /****************************************************************************/
@@ -53,7 +53,7 @@ class MSDevice_BTreceiver : public MSDevice {
 public:
     /** @brief Inserts MSDevice_BTreceiver-options
      */
-    static void insertOptions(OptionsCont &oc);
+    static void insertOptions(OptionsCont& oc);
 
 
     /** @brief Build devices for the given vehicle, if needed
@@ -116,10 +116,10 @@ private:
 
     class MeetingPoint {
     public:
-        MeetingPoint(SUMOTime t_, const Position &observerPos_, SUMOReal observerSpeed_,
-            const Position &seenPos_, SUMOReal seenSpeed_)
+        MeetingPoint(SUMOTime t_, const Position& observerPos_, SUMOReal observerSpeed_,
+                     const Position& seenPos_, SUMOReal seenSpeed_)
             : t(t_), observerPos(observerPos_), observerSpeed(observerSpeed_),
-                seenPos(seenPos_), seenSpeed(seenSpeed_) {}
+              seenPos(seenPos_), seenSpeed(seenSpeed_) {}
 
         ~MeetingPoint() {}
 
@@ -143,7 +143,7 @@ private:
          * @param[in] seenPos_ The position of the seen device at tBegin
          * @param[in] seenSpeed_ The position of the seen device at tBegin
          */
-        SeenDevice(const MeetingPoint &meetingBegin_)
+        SeenDevice(const MeetingPoint& meetingBegin_)
             : meetingBegin(meetingBegin_), meetingEnd(meetingBegin_) {}
 
         ~SeenDevice() {}

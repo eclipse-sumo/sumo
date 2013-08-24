@@ -78,7 +78,7 @@ public:
      * @param[in] options The options to use while building edges
      */
     NIXMLEdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
-                      NBTypeCont& tc, NBDistrictCont& dc, 
+                      NBTypeCont& tc, NBDistrictCont& dc,
                       NBTrafficLightLogicCont& tlc,
                       OptionsCont& options);
 

@@ -184,7 +184,7 @@ NWWriter_DlrNavteq::getAllowedTypes(SVCPermissions permissions) {
     }
     std::ostringstream oss;
     oss << "0";
-    oss << ((permissions & SVC_PASSENGER)                    > 0 ? 1 : 0); 
+    oss << ((permissions & SVC_PASSENGER)                    > 0 ? 1 : 0);
     oss << ((permissions & SVC_PASSENGER)                    > 0 ? 1 : 0); // residential
     oss << ((permissions & SVC_HOV)                          > 0 ? 1 : 0);
     oss << ((permissions & SVC_PUBLIC_EMERGENCY)             > 0 ? 1 : 0);
@@ -316,11 +316,11 @@ NWWriter_DlrNavteq::writeTrafficSignals(const OptionsCont& oc, NBNodeCont& nc) {
             for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); ++it) {
                 NBEdge* e = *it;
                 device << e->getID() << "\t"
-                    << "12\t" // POICOL_TYPE
-                    << "LSA;NODEIDS#" << n->getID() << "#;LOCATION#-1#;\t" 
-                    << pos.x() << "\t" 
-                    << pos.y() << "\t" 
-                    << e->getID() << "\n";
+                       << "12\t" // POICOL_TYPE
+                       << "LSA;NODEIDS#" << n->getID() << "#;LOCATION#-1#;\t"
+                       << pos.x() << "\t"
+                       << pos.y() << "\t"
+                       << e->getID() << "\n";
             }
         }
     }

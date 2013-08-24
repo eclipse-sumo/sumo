@@ -207,9 +207,9 @@ protected:
      * @todo Is the position correct/needed
      */
     virtual MSCalibrator* buildCalibrator(MSNet& net,
-                                  const std::string& id, MSEdge* edge, SUMOReal pos,
-                                  const std::string& file, const std::string& outfile,
-                                  const SUMOTime freq);
+                                          const std::string& id, MSEdge* edge, SUMOReal pos,
+                                          const std::string& file, const std::string& outfile,
+                                          const SUMOTime freq);
 #ifdef HAVE_INTERNAL
     /** @brief builds a mesoscopic calibrator
      *

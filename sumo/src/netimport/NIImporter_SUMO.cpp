@@ -422,7 +422,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     }
     SumoXMLNodeType type = attrs.getNodeType(ok);
     if (ok) {
-        if (type == NODETYPE_DEAD_END_DEPRECATED || type == NODETYPE_DEAD_END) { 
+        if (type == NODETYPE_DEAD_END_DEPRECATED || type == NODETYPE_DEAD_END) {
             // dead end is a computed status. Reset this to unknown so it will
             // be corrected if additional connections are loaded
             type = NODETYPE_UNKNOWN;

@@ -2,7 +2,7 @@
 @file    __init__.py
 @author  Daniel Krajzewicz
 @date    2012-12-04
-@version $Id: __init__.py 13143 2012-12-07 11:10:53Z behrisch $
+@version $Id$
 
 This file includes all sensor structures.
 

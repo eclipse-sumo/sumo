@@ -42,7 +42,7 @@
 MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel,
                                    SUMOReal decel, SUMOReal headwayTime, SUMOReal k, SUMOReal phi)
     : MSCFModel(vtype, accel, decel, headwayTime), myK(k), myPhi(phi),
-      myTauDecel(decel * headwayTime) {
+      myTauDecel(decel* headwayTime) {
 }
 
 
@@ -77,7 +77,7 @@ MSCFModel_Kerner::createVehicleVariables() const {
     return ret;
 }
 
-    
+
 SUMOReal
 MSCFModel_Kerner::_v(const MSVehicle* const veh, SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const {
     if (predSpeed == 0 && gap < 0.01) {

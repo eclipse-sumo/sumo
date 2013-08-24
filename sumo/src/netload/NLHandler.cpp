@@ -77,7 +77,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
       myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
       myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
       myAmInTLLogicMode(false), myCurrentIsBroken(false),
-      myHaveWarnedAboutDeprecatedLanes(false), 
+      myHaveWarnedAboutDeprecatedLanes(false),
       myLastParameterised(0),
       myHaveSeenInternalEdge(false) {}
 

@@ -116,7 +116,7 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
 
     if (oc.isSet("keep-edges.in-boundary") || oc.isSet("keep-edges.in-geo-boundary")) {
         std::vector<std::string> polyS = oc.getStringVector(oc.isSet("keep-edges.in-boundary") ?
-                "keep-edges.in-boundary" : "keep-edges.in-geo-boundary");
+                                         "keep-edges.in-boundary" : "keep-edges.in-geo-boundary");
         // !!! throw something if length<4 || length%2!=0?
         std::vector<SUMOReal> poly;
         for (std::vector<std::string>::iterator i = polyS.begin(); i != polyS.end(); ++i) {

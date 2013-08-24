@@ -478,8 +478,8 @@ GUIApplicationWindow::buildToolBars() {
                                    LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display", 0, this, MID_TIME_TOOGLE, 
-                BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+        new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display", 0, this, MID_TIME_TOOGLE,
+                     BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
         myLCDLabel = new FXEX::FXLCDLabel(myToolBar3, 13, 0, 0, JUSTIFY_RIGHT);
         myLCDLabel->setHorizontal(2);
         myLCDLabel->setVertical(6);
@@ -495,7 +495,7 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
         new FXButton(myToolBar4, "Delay (ms):\t\tToggle between alternative delay values", 0, this, MID_DELAY_TOOGLE,
-                BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+                     BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
         mySimDelayTarget =
             new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY,
                                LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_Y);
@@ -532,7 +532,7 @@ GUIApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
     getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
     getApp()->reg().writeStringEntry("SETTINGS", "basedir", gCurrentFolder.text());
     getApp()->reg().writeIntEntry("SETTINGS", "maximized", isMaximized() ? 1 : 0);
-    getApp()->reg().writeIntEntry("gui", "timeasHMS", myShowTimeAsHMS ? 1 :0);
+    getApp()->reg().writeIntEntry("gui", "timeasHMS", myShowTimeAsHMS ? 1 : 0);
     getApp()->reg().writeIntEntry("gui", "alternateSimDelay", myAlternateSimDelay);
     getApp()->exit(0);
     return 1;
@@ -1119,7 +1119,7 @@ GUIApplicationWindow::setStatusBarText(const std::string& text) {
 }
 
 
-void 
+void
 GUIApplicationWindow::updateTimeLCD(const SUMOTime time) {
     SUMOReal fracSeconds = STEPS2TIME(time);
     const bool hideFraction = myAmGaming || fmod(TS, 1.) == 0.;
@@ -1130,11 +1130,11 @@ GUIApplicationWindow::updateTimeLCD(const SUMOTime time) {
         const int minutes = ((int)fracSeconds % 3600) / 60;
         fracSeconds = fracSeconds - 3600 * hours - 60 * minutes;
         const std::string format = (hideFraction ?
-                 "%02d-%02d-%02.0f" : "%02d-%02d-%06.3f");
+                                    "%02d-%02d-%02.0f" : "%02d-%02d-%06.3f");
         snprintf(buffer, BuffSize, format.c_str(), hours, minutes, fracSeconds);
     } else {
         const std::string format = (hideFraction ?
-                 "%13.0f" : "%13.3f");
+                                    "%13.0f" : "%13.3f");
         snprintf(buffer, BuffSize, format.c_str(), fracSeconds);
     }
     myLCDLabel->setText(buffer);

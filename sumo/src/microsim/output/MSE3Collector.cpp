@@ -49,7 +49,7 @@
  * MSE3Collector::MSE3EntryReminder - definitions
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
-    const MSCrossSection& crossSection, MSE3Collector& collector) : 
+    const MSCrossSection& crossSection, MSE3Collector& collector) :
     MSMoveReminder(collector.getID() + "_entry", crossSection.myLane),
     myCollector(collector), myPosition(crossSection.myPosition) {}
 
@@ -89,7 +89,7 @@ MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, SUMOReal, MSMove
  * MSE3Collector::MSE3LeaveReminder - definitions
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
-    const MSCrossSection& crossSection, MSE3Collector& collector) : 
+    const MSCrossSection& crossSection, MSE3Collector& collector) :
     MSMoveReminder(collector.getID() + "_exit", crossSection.myLane),
     myCollector(collector), myPosition(crossSection.myPosition) {}
 
