@@ -1,6 +1,5 @@
 <?php
 require_once('./database.php');
-import_request_variables("g", "g_");
 
 function query($query) {
     global $handle, $database;
@@ -19,17 +18,17 @@ while ($row = mysql_fetch_assoc($res)):
 endwhile;
 mysql_free_result($res);
 
-if (!isset($g_game)):
-    $g_game="TLS";
+if (!isset($_GET["game"])):
+    $_GET["game"]="TLS";
 endif;
 
-$gameID = $gameIDs[$g_game];
-if (isset($g_name, $g_category, $g_points)):
-    query("INSERT highscore VALUES(0, $gameID, '$g_category', $g_points, '$g_name', '$g_instance', '')");
+$gameID = $gameIDs[$_GET["game"]];
+if (isset($_GET["name"], $_GET["category"], $_GET["points"])):
+    query("INSERT highscore VALUES(0, $gameID, '$_GET["category"]', $_GET["points"], '$_GET["name"]', '$_GET["instance"]', '')");
     exit();
-    endif;
+endif;
 
-if (isset($g_top)):
+if (isset($_GET["top"]):
     $res = query("SELECT * FROM highscore WHERE gameID='$gameID' ORDER BY category, points DESC, id");
     $cat = "";
     while ($row = mysql_fetch_assoc($res)):
@@ -39,7 +38,7 @@ if (isset($g_top)):
             endif;
             $cat = $row[category];
             echo "$cat $row[name],$row[instance],$row[points]";
-            $count = $g_top-1;
+            $count = $_GET["top"]-1;
         else:
             if ($count > 0):
                 echo ":$row[name],$row[instance],$row[points]";
@@ -59,64 +58,49 @@ endif;
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-	<link rel="stylesheet" type="text/css" href="./css/sumo.css">
-	<head>
-		<title>SUMO - Simulation of Urban MObility  -  Home</title>
-<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Home">
-<META NAME="DC.Creator.PersonalName" CONTENT="Krajzewicz, Daniel">
-<META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
-<META NAME="DC.Description" CONTENT="">
-<META NAME="DC.Publisher" CONTENT="Institute of Transport Research at the German Aerospace Centre">
-<META NAME="DC.Contributor" CONTENT="Center for Applied Informatics, Cologne">
-<META NAME="DC.Type" CONTENT="Text">
-<META NAME="DC.Format" SCHEME="IMT" CONTENT="text/html">
-<META NAME="DC.Identifier" CONTENT="http://sumo.sourceforge.net">
-<META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
-<META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/index.html">
-<META NAME="DC.Coverage" CONTENT="Introduction, Navigation">
-<META NAME="DC.Rights" CONTENT="(c) IFS/DLR">
-<META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
 
-	</head>
-	<body>
+<head>
+ <title>SUMO - Status of daily build and tests</title>
+ <link rel="stylesheet" type="text/css" href="sumo.css"/>
 
-        <table border="0">
-          <tr>
-              <td><img src="./images/64x64_web.gif" width="64" height="64"></td>
-              <td><img src="./images/sumo_logo.gif" width="72" height="17"><br>
-              <img src="./images/sumo_full.gif" width="211" height="16"></td>
-          </tr>
-          </table>
-		<hr>
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <META NAME="DC.Title" CONTENT="SUMO - Status of daily build and tests">
+  <META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
+  <META NAME="DC.Description" CONTENT="">
+  <META NAME="DC.Publisher" CONTENT="Institute of Transportation Systems at the German Aerospace Center">
+  <META NAME="DC.Type" CONTENT="Text">
+  <META NAME="DC.Format" SCHEME="IMT" CONTENT="text/html">
+  <META NAME="DC.Identifier" CONTENT="http://sumo-sim.org">
+  <META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
+  <META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo-sim.org/index.html">
+  <META NAME="DC.Rights" CONTENT="(c) ITS/DLR">
+  <META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2011-03-04">
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body id="bmission">
+<div id="container">
 
 
-<!-- Navigation bar begin -->
-		<table border="0" ID="Table1">
-		<tr><td valign="top" width="120">
-		<div class="navbar">
-			<a href="index.shtml" class="SUMOMainLink">Home</a><br>
-			<a href="docs/documentation.shtml" class="SUMOMainLink">Documentation</a><br>
-			<a href="downloads/downloads.shtml" class="SUMOMainLink">Downloads</a><br>
-			<a href="contact.shtml" class="SUMOMainLink">Contact</a><br>
 
-			<a href="http://sumo.sourceforge.net/wiki/" class="SUMOMainLink">wiki</a><br/>
+ <div id="logo" align="left"><img src="logo.png" width="128" height="128" align="left"
+     alt="SUMO-Simulation of Urban Mobility" style="margin-left:10px;
+     margin-right:20px;"/>
+     <div id="logo_text1"> SUMO </div>
+     <div id="logo_text2"> Simulation of Urban MObility</div>
+ </div>
 
-			<center><br>
-			<a href="http://www.dlr.de/ts/" class="SUMOMainLink">
-            <img src="./images/logo_dlr.gif" width="40" height="42"></a>
-<br>
+ <div id="subsMenu"><ul>
+  <li class="sub"><a href="/">Home</a></li>
+  <li class="sub"><a href="/wiki/Downloads">Download</a></li>
+  <li class="sub"><a href="/userdoc/">Documentation</a></li>
+  <li class="sub"><a href="/wiki/">Wiki</a></li>
+  <li class="sub"><a href="/trac/">Trac</a></li>
+  <li class="sub"><a href="/blog/">Blog</a></li>
+  <li class="sub"><a href="/userdoc/Contact.html">Contact</a></li>
+  <li class="sub"><a href="http://sourceforge.net/projects/sumo/">SF-Project</a></li>
+ </ul></div>
 
-			<a href="http://sourceforge.net/projects/sumo/"><img src="http://sourceforge.net/sflogo.php?group_id=45607&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"></a>
-			</center>
-		</div>
-		</td><td width="20"></td>
-<!-- Navigation bar end -->
-
-
-		<td valign="top">
-		<div class="SUMOMainText">
-<!-- Text area here -->
 <h1>SUMO - <u>S</u>imulation of <u>U</u>rban <u>MO</u>bility</h1>
 <h2>Das Spiel</h2>
 <p>Auf dieser Seite pr&auml;sentieren wir das Ampelspiel zur Langen Nacht der Wissenschaften.</p>
@@ -133,19 +117,19 @@ und man kommt in die Highscores (oder eben nicht).
 <hr class="thin"/>
 
   <form method="get" action="scores.php">
-  <input type="hidden" name="game" value="<?php echo htmlentities($g_game)?>"/>
+  <input type="hidden" name="game" value="<?php echo htmlentities($_GET["game"])?>"/>
   <h2>Bestenliste f&uuml;r
   <select name="category" onchange="this.form.submit()" style="font-weight:bold;font-size:0.9em;padding:0;margin:0;">
 <?php
 $found = false;
 while ($row = mysql_fetch_array($res)):
     $cat = $row["category"];
-    if ($g_category==$cat)
+    if ($_GET["category"]==$cat)
         $found = true;
-    echo "<option value=\"$cat\"".($g_category==$cat ? " selected=\"selected\"" : "").">$cat</option>\n";
+    echo "<option value=\"$cat\"".($_GET["category"]==$cat ? " selected=\"selected\"" : "").">$cat</option>\n";
 endwhile;
 if (!$found)
-    $g_category = mysql_result($res, 0, "category");
+    $_GET["category"] = mysql_result($res, 0, "category");
 mysql_free_result($res);
 ?>
   </select>
@@ -160,13 +144,21 @@ mysql_free_result($res);
 </tr>
 <?php
 $res = query("SELECT * FROM highscore ".
-             "WHERE gameID='$gameID' AND category='$g_category' ORDER BY points DESC, id");
+             "WHERE gameID='$gameID' AND category='$_GET["category"]' ORDER BY points DESC, id");
 $i = 1;
 while ($row = mysql_fetch_assoc($res))
     echo "<tr class=\"".($i%2 ? "odd" : "even")."\"><td>".$i++."</td><td>$row[points]</td><td>$row[name]</td></tr>\n";
 mysql_free_result($res);
 ?>
 </table>
+ </div>
 
-	</body>
+ <div id="footer">
+   <div>(c) 2011-2013, German Aerospace Center, Institute of Transportation Systems</div>
+   <div>Layout based on <a href="http://www.oswd.org/design/preview/id/3365">"Three Quarters"</a> by "SimplyGold"</div>
+ </div>
+                                                       
+ 
+</div></body>
+
 </html>
