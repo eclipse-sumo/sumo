@@ -12,8 +12,8 @@
             <xsd:element name="time" type="timeType" minOccurs="0"/>
             <xsd:element name="processing" type="processingType" minOccurs="0"/>
             <xsd:element name="report" type="reportType" minOccurs="0"/>
-            <xsd:element name="routing" type="routingType" minOccurs="0"/>
             <xsd:element name="emissions" type="emissionsType" minOccurs="0"/>
+            <xsd:element name="routing" type="routingType" minOccurs="0"/>
             <xsd:element name="example_device" type="example_deviceType" minOccurs="0"/>
             <xsd:element name="traci_server" type="traci_serverType" minOccurs="0"/>
             <xsd:element name="mesoscopic" type="mesoscopicType" minOccurs="0"/>
@@ -78,8 +78,10 @@
             <xsd:element name="incremental-dua-base" type="intOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-teleport.highways" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-depart-delay" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="sloppy-insert" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="eager-insert" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.allow-swap" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.duration" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
@@ -103,6 +105,14 @@
         </xsd:all>
     </xsd:complexType>
 
+    <xsd:complexType name="emissionsType">
+        <xsd:all>
+            <xsd:element name="device.hbefa.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.hbefa.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.hbefa.deterministic" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
     <xsd:complexType name="routingType">
         <xsd:all>
             <xsd:element name="device.rerouting.probability" type="floatOptionType" minOccurs="0"/>
@@ -114,14 +124,6 @@
             <xsd:element name="device.rerouting.adaptation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.init-with-loaded-weights" type="boolOptionType" minOccurs="0"/>
-        </xsd:all>
-    </xsd:complexType>
-
-    <xsd:complexType name="emissionsType">
-        <xsd:all>
-            <xsd:element name="device.hbefa.probability" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="device.hbefa.explicit" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="device.hbefa.deterministic" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

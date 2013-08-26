@@ -128,6 +128,8 @@
             <xsd:element name="lefthand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-dist" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="check-lane-foes.all" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

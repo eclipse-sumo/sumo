@@ -130,6 +130,7 @@
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-errors.connections" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="show-errors.connections-first-try" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-errors.edge-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanes-from-capacity.norm" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="speed-in-kmh" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="plain.extend-edge-shape" type="boolOptionType" minOccurs="0"/>
@@ -155,6 +156,7 @@
             <xsd:element name="visum.recompute-lane-number" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="visum.verbose-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.skip-duplicates-check" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.railway.oneway-default" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.import-all-lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.import-widths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
@@ -166,6 +168,9 @@
             <xsd:element name="geometry.remove" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-segment-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.min-dist" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.max-angle" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.min-radius" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.min-radius.fix" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="offset.disable-normalization" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="offset.x" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="offset.y" type="floatOptionType" minOccurs="0"/>
@@ -177,6 +182,8 @@
             <xsd:element name="junctions.join-exclude" type="strOptionType" minOccurs="0"/>
             <xsd:element name="speed.offset" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="speed.factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="check-lane-foes.all" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
