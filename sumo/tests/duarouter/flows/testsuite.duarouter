@@ -44,6 +44,9 @@ distribution_tests
 # Tests whether vehicle type attributes are parsed
 vtypecheck
 
+# Tests what happens if no vehicle shall be written
+0_vehicles
+
 
 # Tests with false user input
 errors
