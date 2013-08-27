@@ -916,54 +916,59 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             getApp()->exit(1);
         }
     } else {
-        // report success
-        setStatusBarText("'" + ec->myFile + "' loaded.");
         // initialise simulation thread
-        myRunThread->init(ec->myNet, ec->myBegin, ec->myEnd);
-        myWasStarted = false;
-        // initialise views
-        myViewNumber = 0;
-        const GUISUMOViewParent::ViewType defaultType = ec->myOsgView ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL;
-        if (ec->mySettingsFiles.size() > 0) {
-            // open a view for each file and apply settings
-            for (std::vector<std::string>::const_iterator it = ec->mySettingsFiles.begin();
-                    it != ec->mySettingsFiles.end(); ++it) {
-                GUISettingsHandler settings(*it);
-                GUISUMOViewParent::ViewType vt = defaultType;
-                if (settings.getViewType() == "osg" || settings.getViewType() == "3d") {
-                    vt = GUISUMOViewParent::VIEW_3D_OSG;
-                }
-                if (settings.getViewType() == "opengl" || settings.getViewType() == "2d") {
-                    vt = GUISUMOViewParent::VIEW_2D_OPENGL;
-                }
-                GUISUMOAbstractView* view = openNewView(vt);
-                if (view == 0) {
-                    break;
-                }
-                std::string settingsName = settings.addSettings(view);
-                view->addDecals(settings.getDecals());
-                settings.setViewport(view);
-                settings.setSnapshots(view);
-                if (settings.getDelay() > 0) {
-                    mySimDelayTarget->setValue(settings.getDelay());
-                }
-                if (settings.getBreakpoints().size() > 0) {
-                    GUIGlobals::gBreakpoints = settings.getBreakpoints();
-                }
+        if(!myRunThread->init(ec->myNet, ec->myBegin, ec->myEnd)) {
+            if (GUIGlobals::gQuitOnEnd) {
+                closeAllWindows();
+                getApp()->exit(1);
             }
         } else {
-            openNewView(defaultType);
-        }
+            // report success
+            setStatusBarText("'" + ec->myFile + "' loaded.");
+            myWasStarted = false;
+            // initialise views
+            myViewNumber = 0;
+            const GUISUMOViewParent::ViewType defaultType = ec->myOsgView ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL;
+            if (ec->mySettingsFiles.size() > 0) {
+                // open a view for each file and apply settings
+                for (std::vector<std::string>::const_iterator it = ec->mySettingsFiles.begin(); it != ec->mySettingsFiles.end(); ++it) {
+                    GUISettingsHandler settings(*it);
+                    GUISUMOViewParent::ViewType vt = defaultType;
+                    if (settings.getViewType() == "osg" || settings.getViewType() == "3d") {
+                        vt = GUISUMOViewParent::VIEW_3D_OSG;
+                    }
+                    if (settings.getViewType() == "opengl" || settings.getViewType() == "2d") {
+                        vt = GUISUMOViewParent::VIEW_2D_OPENGL;
+                    }
+                    GUISUMOAbstractView* view = openNewView(vt);
+                    if (view == 0) {
+                        break;
+                    }
+                    std::string settingsName = settings.addSettings(view);
+                    view->addDecals(settings.getDecals());
+                    settings.setViewport(view);
+                    settings.setSnapshots(view);
+                    if (settings.getDelay() > 0) {
+                        mySimDelayTarget->setValue(settings.getDelay());
+                    }
+                    if (settings.getBreakpoints().size() > 0) {
+                        GUIGlobals::gBreakpoints = settings.getBreakpoints();
+                    }
+                }
+            } else {
+                openNewView(defaultType);
+            }
 
-        if (isGaming()) {
-            setTitle("SUMO Traffic Light Game");
-        } else {
-            // set simulation name on the caption
-            std::string caption = "SUMO " + std::string(VERSION_STRING);
-            setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
+            if (isGaming()) {
+                setTitle("SUMO Traffic Light Game");
+            } else {
+                // set simulation name on the caption
+                std::string caption = "SUMO " + std::string(VERSION_STRING);
+                setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
+            }
+            // set simulation step begin information
+            updateTimeLCD(ec->myNet->getCurrentTimeStep());
         }
-        // set simulation step begin information
-        updateTimeLCD(ec->myNet->getCurrentTimeStep());
     }
     getApp()->endWaitCursor();
     // start if wished

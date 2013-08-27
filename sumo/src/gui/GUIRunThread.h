@@ -69,7 +69,7 @@ public:
     virtual ~GUIRunThread();
 
     /// initialises the thread with the new simulation
-    virtual void init(GUINet* net, SUMOTime start, SUMOTime end);
+    virtual bool init(GUINet* net, SUMOTime start, SUMOTime end);
 
     /// starts the execution
     virtual FXint run();
