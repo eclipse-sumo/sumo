@@ -246,6 +246,7 @@ GUILane::drawLinkRules(const GUINet& net) const {
         return;
     }
     // draw all links
+    const bool railway = isRailway(myPermissions);
     SUMOReal w = myWidth / (SUMOReal) noLinks;
     SUMOReal x1 = 0;
     glPushMatrix();
@@ -293,6 +294,11 @@ GUILane::drawLinkRules(const GUINet& net) const {
                 break;
             case LINKSTATE_MAJOR:
                 glColor3d(1, 1, 1);
+                if (railway) {
+                    // the white bar should be the default for most railway
+                    // links and looks ugly so we do not draw it
+                    continue;
+                }
                 break;
             case LINKSTATE_MINOR:
                 glColor3d(.2, .2, .2);
@@ -466,22 +472,20 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             glPopName();
         }
         glPopMatrix();
-    } else if (isRailway(myPermissions)) {
-        // draw as railway
-        const SUMOReal halfRailWidth = 0.725;
-        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth * s.laneWidthExaggeration);
-        glColor3d(1, 1, 1);
-        glTranslated(0, 0, .1);
-        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, (halfRailWidth - 0.2) * s.laneWidthExaggeration);
-        drawCrossties(s);
-        if (!MSGlobals::gUseMesoSim) {
-            glPopName();
-        }
-        glPopMatrix();
     } else {
-        const SUMOReal laneWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
-        mustDrawMarkings = !isInternal;
-        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * s.laneWidthExaggeration);
+        if (isRailway(myPermissions)) {
+            // draw as railway
+            const SUMOReal halfRailWidth = 0.725;
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth * s.laneWidthExaggeration);
+            glColor3d(1, 1, 1);
+            glTranslated(0, 0, .1);
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, (halfRailWidth - 0.2) * s.laneWidthExaggeration);
+            drawCrossties(s);
+        } else {
+            const SUMOReal laneWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
+            mustDrawMarkings = !isInternal;
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, laneWidth * s.laneWidthExaggeration);
+        }
         if (!MSGlobals::gUseMesoSim) {
             glPopName();
         }
@@ -493,7 +497,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             GUINet* net = (GUINet*) MSNet::getInstance();
             glTranslated(0, 0, .2);
             drawLinkRules(*net);
-            if (s.showLinkDecals) {
+            if (s.showLinkDecals && !isRailway(myPermissions)) {
                 drawArrows();
             }
             if (s.showLane2Lane) {
