@@ -189,8 +189,10 @@ for keyIndex, key in enumerate(allKeys):
                 state = state + "y"
             elif d[i]=='g':
                 state = state + "g"
+            elif d[i]=='o' or d[i]=='x':
+                state = state + "o"
             else:
-                print "missing value; setting to g"
+                sys.stderr.write("missing value at %s (%s); setting to g\n" % (index, linkMap[l]))
                 state = state + "g"
         for l1 in range(0, len(state)):
             if state[l1]=='g':
