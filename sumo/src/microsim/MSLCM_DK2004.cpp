@@ -164,6 +164,8 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
 
     SUMOReal tdist = currentDist - myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
 
+    // assert(best.length > curr.length);
+    // XXX if (curr.length != best.length) && ... 
     if (fabs(best.length - curr.length) > MIN2((SUMOReal) .1, best.lane->getLength()) && bestLaneOffset < 0 && currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if (neighLead.second > 0 && neighLead.second > leader.second) {
