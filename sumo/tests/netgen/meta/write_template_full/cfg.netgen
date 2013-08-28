@@ -51,12 +51,12 @@
         <plain-output-prefix value="" synonymes="plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
         <map-output value="" synonymes="M" type="FILE" help="Writes joined edges information to FILE"/>
-        <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format."/>
-        <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using openDRIVE format."/>
-        <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX."/>
-        <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)."/>
-        <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter."/>
-        <street-sign-output value="" type="FILE" help="Writes street signs as POIs to FILE."/>
+        <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format"/>
+        <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>
+        <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX"/>
+        <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)"/>
+        <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter"/>
+        <street-sign-output value="" type="FILE" help="Writes street signs as POIs to FILE"/>
     </output>
 
     <tls_building>
@@ -71,7 +71,7 @@
         <tls.yellow.time value="" synonymes="traffic-light-yellow" type="INT" help="Set INT as fixed time for yellow phase durations"/>
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR" help="TLSs in STR will be shifted by half-phase"/>
         <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR" help="TLSs in STR will be shifted by quarter-phase"/>
-        <tls.default-type value="static" type="STR" help="TLSs with unspecified type will use STR as their algorithm."/>
+        <tls.default-type value="static" type="STR" help="TLSs with unspecified type will use STR as their algorithm"/>
     </tls_building>
 
     <edge_removal>
