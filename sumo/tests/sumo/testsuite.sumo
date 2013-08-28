@@ -21,3 +21,6 @@ bugs
 
 # testing car-following model properties
 cf_model
+
+# test lane-changing model properties
+lc_model
