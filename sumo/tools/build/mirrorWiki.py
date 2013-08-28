@@ -80,7 +80,7 @@ if __name__ == "__main__":
         p = p[p.find("<table "):]
         pages = p.split("<a ")
     else:
-        pages = ["href=?title=" + args[0] + "\""]
+        pages = ['href="/wiki/%s"' % a for a in args]
     for p in pages:
         if not p.startswith("href"):
             continue
