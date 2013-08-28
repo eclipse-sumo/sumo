@@ -17,23 +17,25 @@ page is downloaded and stripped from wiki-header/footer, first.
 Then, the image-links are extracted from the HTML page and stored 
 temporarily, the links themselves are patched to point to local pages/images
 (if the page behind the link exists).
-The page is saved into MIRROR_FOLDER/<PAGE_PATH>. 
+The page is saved into options.mirror/<PAGE_PATH>. 
 
 After parsing all pages, the images are downloaded and stored into 
-MIRROR_FOLDER/images.
+options.mirror/images.
 
 After downloading all data, the title page is extracted and the content
 included in this page is extracted. This content is embedded into "index.html"
 between the <!-- nav begins --> / <!-- nav ends --> markers. 
 All pages downloaded earlier are loaded, and embedded into the index.html
 between the <!-- content begins --> / <!-- content ends --> markers. Then,
-the page is saved into HTML_FOLDER/<PAGE_PATH>. All images are copied
-from MIRROR_FOLDER/images to HTML_FOLDER/images.
+the page is saved into options.output/<PAGE_PATH>. All images are copied
+from options.mirror/images to options.output/images.
 
 Copyright (C) 2011-2013 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import urllib, os, sys, shutil
+from optparse import OptionParser
+
 from mirrorWiki import readParsePage, readParseEditPage
 
 def patchLinks(page, name):
@@ -113,21 +115,24 @@ def parseWikiLink(l):
         link = ""
     return text, link
 
-MIRROR_FOLDER = "mirror"
-HTML_FOLDER = "docs"
+optParser = OptionParser()
+optParser.add_option("-m", "--mirror", default="mirror", help="mirror folder")
+optParser.add_option("-o", "--output", default="docs", help="output folder")
+optParser.add_option("-i", "--index", default="index.html", help="index template file")
+(options, args) = optParser.parse_args()
 
-try: os.mkdir(MIRROR_FOLDER)
+try: os.mkdir(options.mirror)
 except: pass
-try: os.mkdir(MIRROR_FOLDER + "/images")
+try: os.mkdir(options.mirror + "/images")
 except: pass
 images = set()
-if len(sys.argv)<2:
+if len(args) == 0:
     p = readParsePage("Special:AllPages")
     p = p[p.find("<input type=\"submit\" value=\"Go\" />"):]
     p = p[p.find("<table "):]
     pages = p.split("<a ")
 else:
-    pages = ["href=?title=" + sys.argv[1] + "\""]
+    pages = ['href="/wiki/%s"' % a for a in args]
 for p in pages:
     if not p.startswith("href"):
         continue
@@ -141,7 +146,7 @@ for p in pages:
     c = readParsePage(name)
     if name.find("/")>0:
         try: 
-            os.makedirs(os.path.join(MIRROR_FOLDER, name[:name.rfind("/")]))
+            os.makedirs(os.path.join(options.mirror, name[:name.rfind("/")]))
         except: pass
     if True:#name.find(".")<0:
         c, pi, level = patchLinks(c, name)
@@ -151,7 +156,7 @@ for p in pages:
         for i in pi:
             images.add(i)
     name = name + ".html"
-    fd = open(os.path.join(MIRROR_FOLDER, name), "w")
+    fd = open(os.path.join(options.mirror, name), "w")
     fd.write(c)
     fd.close()
 
@@ -171,7 +176,7 @@ for i in images:
         i = i[i.rfind("/")+1:]
     if i.find("px-")>=0:
         i = i[:i.find('-')+1]
-    fd = open(os.path.join(MIRROR_FOLDER, "images", i), "wb")
+    fd = open(os.path.join(options.mirror, "images", i), "wb")
     fd.write(f.read())
     fd.close()
     imageFiles.append(os.path.join("images", i))
@@ -219,7 +224,7 @@ for l in lines:
     level = nLevel
 
 # get template and embed navigation
-fd = open("index.html")
+fd = open(options.index)
 tpl = fd.read()
 fd.close()
 b = tpl.find("<!-- nav begins -->")
@@ -228,9 +233,9 @@ e = tpl.find("<!-- nav ends -->")
 tpl = tpl[:b] + c + tpl[e:]
     
 # build HTML pages
-try: os.mkdir(HTML_FOLDER)
+try: os.mkdir(options.output)
 except: pass
-try: os.mkdir(HTML_FOLDER + "/images")
+try: os.mkdir(options.output + "/images")
 except: pass
 for p in pages:
     if not p.startswith("href"):
@@ -242,8 +247,8 @@ for p in pages:
         print "Skipping css-file %s" % name
         continue
     name = name + ".html"
-    t = os.path.join(HTML_FOLDER, name)
-    fd = open(os.path.join(MIRROR_FOLDER, name))
+    t = os.path.join(options.output, name)
+    fd = open(os.path.join(options.mirror, name))
     c = fd.read()
     fd.close()
     #
@@ -276,5 +281,5 @@ for p in pages:
     fd.write(cc)
     fd.close()
 for i in imageFiles:
-    shutil.copy(os.path.join(MIRROR_FOLDER, i), os.path.join(HTML_FOLDER, i))
-shutil.copy(os.path.join(HTML_FOLDER, 'SUMO_User_Documentation.html'), os.path.join(HTML_FOLDER, 'index.html'))
+    shutil.copy(os.path.join(options.mirror, i), os.path.join(options.output, i))
+shutil.copy(os.path.join(options.output, 'SUMO_User_Documentation.html'), os.path.join(options.output, 'index.html'))

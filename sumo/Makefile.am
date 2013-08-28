@@ -18,7 +18,7 @@ doxygen:
 	doxygen sumo.doxyconf &> doxygen.log
 
 wikidump:
-	cd docs/wiki && ../../tools/build/buildHTMLDocs.py && cp *.png *.css docs
+	tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html && cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
 
 man:
 	rm -rf docs/man
@@ -54,13 +54,12 @@ dist-doc: doc
 	cd $(srcdir)
 	$(am__remove_distdir)
 	mkdir -p $(distdir)/docs
-	cp -r docs/wiki/docs $(distdir)/docs/userdoc
 	find tests/complex/tutorial -regex ".*\.\(xml\|txt\|sumocfg\|netccfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
 	mv $(distdir)/tests/complex/tutorial $(distdir)/docs
 	rmdir $(distdir)/tests/complex
 	rmdir $(distdir)/tests
 	svn export docs/internet/xsd $(distdir)/docs/xsd
-	cp -r docs/pydoc docs/doxygen $(distdir)/docs
+	cp -r docs/pydoc docs/doxygen docs/userdoc $(distdir)/docs
 	tests/extractTest.py -i -f tests/examples.txt -o $(distdir)/docs
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
 	rm -f $(PACKAGE)-doc-$(VERSION).zip

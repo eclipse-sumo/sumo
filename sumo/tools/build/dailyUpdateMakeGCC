@@ -45,8 +45,7 @@ if make >> $MAKELOG 2>&1; then
             scp -q $f $REMOTEDIR
           fi
         done
-        rsync -r $PREFIX/sumo/docs/wiki/docs $REMOTEDIR
-        rsync -r $PREFIX/sumo/docs/pydoc $PREFIX/sumo/docs/doxygen $REMOTEDIR/docs
+        rsync -acz $PREFIX/sumo/docs/pydoc $PREFIX/sumo/docs/doxygen $PREFIX/sumo/docs/userdoc $REMOTEDIR/docs
       else
         echo "make dist-complete failed" | tee -a $STATUSLOG; tail -10 $MAKELOG
       fi
