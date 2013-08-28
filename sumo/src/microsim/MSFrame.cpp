@@ -247,6 +247,7 @@ MSFrame::fillOptions() {
 
     // devices
     oc.addOptionSubTopic("Emissions");
+    oc.addOptionSubTopic("Communication");
     MSDevice::insertOptions(oc);
 
 

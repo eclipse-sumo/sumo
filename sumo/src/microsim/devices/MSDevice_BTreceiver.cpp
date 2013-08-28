@@ -51,12 +51,10 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_BTreceiver::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic("Communication");
-
     insertDefaultAssignmentOptions("btreceiver", "Communication", oc);
 
-    oc.doRegister("device.btreceiver.range", new Option_String("0", "TIME"));
-    oc.addDescription("device.btreceiver.range", "Communication", "The period with which the vehicle shall be rerouted");
+    oc.doRegister("device.btreceiver.range", new Option_Float(300));
+    oc.addDescription("device.btreceiver.range", "Communication", "The range of the bt receiver");
 }
 
 

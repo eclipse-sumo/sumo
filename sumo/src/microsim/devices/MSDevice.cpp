@@ -30,12 +30,14 @@
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSVehicle.h>
 #include "MSDevice.h"
-#include <microsim/devices/MSDevice_Vehroutes.h>
-#include <microsim/devices/MSDevice_Tripinfo.h>
-#include <microsim/devices/MSDevice_Routing.h>
-#include <microsim/devices/MSDevice_Person.h>
-#include <microsim/devices/MSDevice_HBEFA.h>
-#include <microsim/devices/MSDevice_Example.h>
+#include "MSDevice_Vehroutes.h"
+#include "MSDevice_Tripinfo.h"
+#include "MSDevice_Routing.h"
+#include "MSDevice_Person.h"
+#include "MSDevice_HBEFA.h"
+#include "MSDevice_BTreceiver.h"
+#include "MSDevice_BTsender.h"
+#include "MSDevice_Example.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -58,6 +60,8 @@ void
 MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Routing::insertOptions(oc);
     MSDevice_HBEFA::insertOptions(oc);
+    MSDevice_BTreceiver::insertOptions(oc);
+    MSDevice_BTsender::insertOptions(oc);
     MSDevice_Example::insertOptions(oc);
 }
 
@@ -68,6 +72,8 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     MSDevice_Tripinfo::buildVehicleDevices(v, into);
     MSDevice_Routing::buildVehicleDevices(v, into);
     MSDevice_HBEFA::buildVehicleDevices(v, into);
+    MSDevice_BTreceiver::buildVehicleDevices(v, into);
+    MSDevice_BTsender::buildVehicleDevices(v, into);
     MSDevice_Example::buildVehicleDevices(v, into);
 }
 

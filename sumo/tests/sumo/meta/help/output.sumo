@@ -4,160 +4,178 @@ A microscopic road traffic simulation.
 
 Usage: sumo [OPTION]*
 Configuration Options:
-  -c, --configuration-file FILE       Loads the named config on startup
-  --save-configuration FILE           Saves current configuration into FILE
-  --save-template FILE                Saves a configuration template (empty)
-                                        into FILE
-  --save-schema FILE                  Saves the configuration schema into FILE
-  --save-commented                    Adds comments to saved template,
-                                        configuration, or schema
+  -c, --configuration-file FILE        Loads the named config on startup
+  --save-configuration FILE            Saves current configuration into FILE
+  --save-template FILE                 Saves a configuration template (empty)
+                                         into FILE
+  --save-schema FILE                   Saves the configuration schema into FILE
+  --save-commented                     Adds comments to saved template,
+                                         configuration, or schema
 
 Input Options:
-  -n, --net-file FILE                 Load road network description from FILE
-  -r, --route-files FILE              Load routes descriptions from FILE(s)
-  -a, --additional-files FILE         Load further descriptions from FILE(s)
-  -w, --weight-files FILE             Load edge/lane weights for online
-                                        rerouting from FILE
-  -x, --weight-attribute STR          Name of the xml attribute which gives the
-                                        edge weight
-  --load-state FILE                   Loads a network state from FILE
-  --load-state.offset TIME            Sets the time offset for vehicle segment
-                                        exit times.
+  -n, --net-file FILE                  Load road network description from FILE
+  -r, --route-files FILE               Load routes descriptions from FILE(s)
+  -a, --additional-files FILE          Load further descriptions from FILE(s)
+  -w, --weight-files FILE              Load edge/lane weights for online
+                                         rerouting from FILE
+  -x, --weight-attribute STR           Name of the xml attribute which gives
+                                         the edge weight
+  --load-state FILE                    Loads a network state from FILE
+  --load-state.offset TIME             Sets the time offset for vehicle segment
+                                         exit times.
 
 Output Options:
-  --netstate-dump FILE                Save complete network states into FILE
-  --netstate-dump.empty-edges         Write also empty edges completely when
-                                        dumping
-  --emission-output FILE              Save the emission values of each vehicle
-  --fcd-output FILE                   Save the Floating Car Data
-  --fcd-output.geo                    Save the Floating Car Data using
-                                        geo-coordinates (lon/lat)
-  --fcd-output.signals                Add the vehicle signal state to the FCD
-                                        output (brake lights etc.)
-  --full-output FILE                  Save a lot of information for each
-                                        timestep (very redundant)
-  --queue-output FILE                 Save the vehicle queues at the junctions
-                                        (experimental)
-  --vtk-output FILE                   Save complete vehicle positions in VTK
-                                        Format (usage: /file/out will produce
-                                        /file/out_$NR$.vtp files)
-  --summary-output FILE               Save aggregated vehicle departure info
-                                        into FILE
-  --tripinfo-output FILE              Save single vehicle trip info into FILE
-  --vehroute-output FILE              Save single vehicle route info into FILE
-  --vehroute-output.exit-times        Write the exit times for all edges
-  --vehroute-output.last-route        Write the last route only
-  --vehroute-output.sorted            Sorts the output by departure time
-  --vehroute-output.write-unfinished  Write vehroute output for vehicles which
-                                        have not arrived at simulation end
-  --link-output FILE                  Save links states into FILE
-  --save-state.times INT[]            Use INT[] as times at which a network
-                                        state written
-  --save-state.prefix FILE            Prefix for network states
-  --save-state.files FILE             Files for network states
+  --netstate-dump FILE                 Save complete network states into FILE
+  --netstate-dump.empty-edges          Write also empty edges completely when
+                                         dumping
+  --emission-output FILE               Save the emission values of each vehicle
+  --fcd-output FILE                    Save the Floating Car Data
+  --fcd-output.geo                     Save the Floating Car Data using
+                                         geo-coordinates (lon/lat)
+  --fcd-output.signals                 Add the vehicle signal state to the FCD
+                                         output (brake lights etc.)
+  --full-output FILE                   Save a lot of information for each
+                                         timestep (very redundant)
+  --queue-output FILE                  Save the vehicle queues at the junctions
+                                         (experimental)
+  --vtk-output FILE                    Save complete vehicle positions in VTK
+                                         Format (usage: /file/out will produce
+                                         /file/out_$NR$.vtp files)
+  --summary-output FILE                Save aggregated vehicle departure info
+                                         into FILE
+  --tripinfo-output FILE               Save single vehicle trip info into FILE
+  --vehroute-output FILE               Save single vehicle route info into FILE
+  --vehroute-output.exit-times         Write the exit times for all edges
+  --vehroute-output.last-route         Write the last route only
+  --vehroute-output.sorted             Sorts the output by departure time
+  --vehroute-output.write-unfinished   Write vehroute output for vehicles which
+                                         have not arrived at simulation end
+  --link-output FILE                   Save links states into FILE
+  --save-state.times INT[]             Use INT[] as times at which a network
+                                         state written
+  --save-state.prefix FILE             Prefix for network states
+  --save-state.files FILE              Files for network states
 
 Time Options:
-  -b, --begin TIME                    Defines the begin time;
-                                        The simulation starts at this time
-  -e, --end TIME                      Defines the end time;
-                                        The simulation ends at this time
-  --step-length TIME                  Defines the step duration
+  -b, --begin TIME                     Defines the begin time;
+                                         The simulation starts at this time
+  -e, --end TIME                       Defines the end time;
+                                         The simulation ends at this time
+  --step-length TIME                   Defines the step duration
 
 Processing Options:
-  -s, --route-steps TIME              Load routes for the next number of
-                                        seconds ahead
-  --no-internal-links                 Disable (junction) internal links
-  --ignore-accidents                  Do not check whether accidents occure
-                                        more deeply
-  --ignore-route-errors               Do not check whether routes are connected
-  --max-num-vehicles INT              Quit simulation if this number of
-                                        vehicles is exceeded
-  --incremental-dua-step INT          Perform the simulation as a step in
-                                        incremental DUA
-  --incremental-dua-base INT          Base value for incremental DUA
-  --scale FLOAT                       Scale demand by the given factor (0..1)
-  --time-to-teleport TIME             Specify how long a vehicle may wait until
-                                        being teleported, defaults to 300,
-                                        non-positive values disable teleporting
-  --time-to-teleport.highways TIME    The teleport time on highways
-  --max-depart-delay TIME             How long vehicles wait for departure
-                                        before being skipped, defaults to -1
-                                        which means vehicles are never skipped
-  --sloppy-insert                     Whether insertion on an edge shall not be
-                                        repeated in same step once failed.
-  --eager-insert                      Whether each vehicle is checked
-                                        separately for insertion on an edge.
-  --lanechange.allow-swap             Whether blocking vehicles trying to
-                                        change lanes may be swapped.
-  --lanechange.duration TIME          Duration of a lane change maneuver
-                                        (default 0).
-  --routing-algorithm STR             Select among routing algorithms
-                                        ['dijkstra', 'astar']
-  --routeDist.maxsize INT             Restrict the maximum size of route
-                                        distributions
+  -s, --route-steps TIME               Load routes for the next number of
+                                         seconds ahead
+  --no-internal-links                  Disable (junction) internal links
+  --ignore-accidents                   Do not check whether accidents occure
+                                         more deeply
+  --ignore-route-errors                Do not check whether routes are
+                                         connected
+  --max-num-vehicles INT               Quit simulation if this number of
+                                         vehicles is exceeded
+  --incremental-dua-step INT           Perform the simulation as a step in
+                                         incremental DUA
+  --incremental-dua-base INT           Base value for incremental DUA
+  --scale FLOAT                        Scale demand by the given factor (0..1)
+  --time-to-teleport TIME              Specify how long a vehicle may wait
+                                         until being teleported, defaults to
+                                         300, non-positive values disable
+                                         teleporting
+  --time-to-teleport.highways TIME     The teleport time on highways
+  --max-depart-delay TIME              How long vehicles wait for departure
+                                         before being skipped, defaults to -1
+                                         which means vehicles are never skipped
+  --sloppy-insert                      Whether insertion on an edge shall not
+                                         be repeated in same step once failed.
+  --eager-insert                       Whether each vehicle is checked
+                                         separately for insertion on an edge.
+  --lanechange.allow-swap              Whether blocking vehicles trying to
+                                         change lanes may be swapped.
+  --lanechange.duration TIME           Duration of a lane change maneuver
+                                         (default 0).
+  --routing-algorithm STR              Select among routing algorithms
+                                         ['dijkstra', 'astar']
+  --routeDist.maxsize INT              Restrict the maximum size of route
+                                         distributions
 
 Report Options:
-  -v, --verbose                       Switches to verbose output
-  -p, --print-options                 Prints option values before processing
-  -?, --help                          Prints this screen
-  -V, --version                       Prints the current version
-  -X, --xml-validation                Enable schema validation of XML inputs
-  -W, --no-warnings                   Disables output of warnings
-  -l, --log FILE                      Writes all messages to FILE (implies
-                                        verbose)
-  --message-log FILE                  Writes all non-error messages to FILE
-                                        (implies verbose)
-  --error-log FILE                    Writes all warnings and errors to FILE
-  --no-duration-log                   Disable performance reports for
-                                        individual simulation steps
-  --no-step-log                       Disable console output of current
-                                        simulation step
+  -v, --verbose                        Switches to verbose output
+  -p, --print-options                  Prints option values before processing
+  -?, --help                           Prints this screen
+  -V, --version                        Prints the current version
+  -X, --xml-validation                 Enable schema validation of XML inputs
+  -W, --no-warnings                    Disables output of warnings
+  -l, --log FILE                       Writes all messages to FILE (implies
+                                         verbose)
+  --message-log FILE                   Writes all non-error messages to FILE
+                                         (implies verbose)
+  --error-log FILE                     Writes all warnings and errors to FILE
+  --no-duration-log                    Disable performance reports for
+                                         individual simulation steps
+  --no-step-log                        Disable console output of current
+                                         simulation step
 
 Emissions Options:
-  --device.hbefa.probability FLOAT    The probability for a vehicle to have a
-                                        'hbefa' device
-  --device.hbefa.explicit STR         Assign a 'hbefa' device to named vehicles
-  --device.hbefa.deterministic        The 'hbefa' devices are set deterministic
-                                        using a fraction of 1000
+  --device.hbefa.probability FLOAT     The probability for a vehicle to have a
+                                         'hbefa' device
+  --device.hbefa.explicit STR          Assign a 'hbefa' device to named
+                                         vehicles
+  --device.hbefa.deterministic         The 'hbefa' devices are set
+                                         deterministic using a fraction of 1000
+
+Communication Options:
+  --device.btreceiver.probability FLOAT  The probability for a vehicle to have
+                                         a 'btreceiver' device
+  --device.btreceiver.explicit STR     Assign a 'btreceiver' device to named
+                                         vehicles
+  --device.btreceiver.deterministic    The 'btreceiver' devices are set
+                                         deterministic using a fraction of 1000
+  --device.btreceiver.range FLOAT      The range of the bt receiver
+  --device.btsender.probability FLOAT  The probability for a vehicle to have a
+                                         'btsender' device
+  --device.btsender.explicit STR       Assign a 'btsender' device to named
+                                         vehicles
+  --device.btsender.deterministic      The 'btsender' devices are set
+                                         deterministic using a fraction of 1000
 
 Routing Options:
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
-                                        'rerouting' device
-  --device.rerouting.explicit STR     Assign a 'rerouting' device to named
-                                        vehicles
-  --device.rerouting.deterministic    The 'rerouting' devices are set
-                                        deterministic using a fraction of 1000
-  --device.rerouting.period TIME      The period with which the vehicle shall
-                                        be rerouted
-  --device.rerouting.pre-period TIME  The rerouting period before depart
+                                         'rerouting' device
+  --device.rerouting.explicit STR      Assign a 'rerouting' device to named
+                                         vehicles
+  --device.rerouting.deterministic     The 'rerouting' devices are set
+                                         deterministic using a fraction of 1000
+  --device.rerouting.period TIME       The period with which the vehicle shall
+                                         be rerouted
+  --device.rerouting.pre-period TIME   The rerouting period before depart
   --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights.
   --device.rerouting.adaptation-interval TIME  The interval for updating the
-                                        edge weights.
-  --device.rerouting.with-taz         Use zones (districts) as routing end
-                                        points
+                                         edge weights.
+  --device.rerouting.with-taz          Use zones (districts) as routing end
+                                         points
   --device.rerouting.init-with-loaded-weights  Use given weight files for
-                                        initializing edge weights
+                                         initializing edge weights
 
 Example Device Options:
-  --device.example.explicit STR       Assign a device to named vehicles
-  --device.example.parameter FLOAT    An exemplary parameter which can be used
-                                        by all instances of the example device
+  --device.example.explicit STR        Assign a device to named vehicles
+  --device.example.parameter FLOAT     An exemplary parameter which can be used
+                                         by all instances of the example device
 
 TraCI Server Options:
-  --remote-port INT                   Enables TraCI Server if set
+  --remote-port INT                    Enables TraCI Server if set
 
 Random Number Options:
-  --random                            Initialises the random number generator
-                                        with the current system time
-  --seed INT                          Initialises the random number generator
-                                        with the given value
+  --random                             Initialises the random number generator
+                                         with the current system time
+  --seed INT                           Initialises the random number generator
+                                         with the given value
 
 GUI Only Options:
-  --gui-settings-file FILE            Load visualisation settings from FILE
-  -Q, --quit-on-end                   Quits the GUI when the simulation stops
-  -G, --game                          Start the GUI in gaming mode
-  -S, --start                         Start the simulation after loading
-  -T, --disable-textures              Do not load background pictures
+  --gui-settings-file FILE             Load visualisation settings from FILE
+  -Q, --quit-on-end                    Quits the GUI when the simulation stops
+  -G, --game                           Start the GUI in gaming mode
+  -S, --start                          Start the simulation after loading
+  -T, --disable-textures               Do not load background pictures
 
 
 Examples:

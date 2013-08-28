@@ -51,15 +51,13 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_BTsender::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic("Communication");
     insertDefaultAssignmentOptions("btsender", "Communication", oc);
 }
 
 
 void
 MSDevice_BTsender::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
-    OptionsCont& oc = OptionsCont::getOptions();
-    if (equippedByDefaultAssignmentOptions(oc, "btsender", v)) {
+    if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "btsender", v)) {
         MSDevice_BTsender* device = new MSDevice_BTsender(v, "btsender_" + v.getID());
         into.push_back(device);
     }

@@ -221,6 +221,30 @@
 
     </emissions>
 
+    <communication>
+        <!-- The probability for a vehicle to have a &apos;btreceiver&apos; device -->
+        <device.btreceiver.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;btreceiver&apos; device to named vehicles -->
+        <device.btreceiver.explicit value="" synonymes="device.btreceiver.knownveh" type="STR"/>
+
+        <!-- The &apos;btreceiver&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.btreceiver.deterministic value="false" type="BOOL"/>
+
+        <!-- The range of the bt receiver -->
+        <device.btreceiver.range value="300" type="FLOAT"/>
+
+        <!-- The probability for a vehicle to have a &apos;btsender&apos; device -->
+        <device.btsender.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;btsender&apos; device to named vehicles -->
+        <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR"/>
+
+        <!-- The &apos;btsender&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.btsender.deterministic value="false" type="BOOL"/>
+
+    </communication>
+
     <routing>
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
         <device.rerouting.probability value="0" type="FLOAT"/>
