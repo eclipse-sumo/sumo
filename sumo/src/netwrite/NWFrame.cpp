@@ -86,22 +86,22 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.addDescription("map-output", "Output", "Writes joined edges information to FILE");
 
     oc.doRegister("matsim-output", new Option_FileName());
-    oc.addDescription("matsim-output", "Output", "The generated net will be written to FILE using MATsim format.");
+    oc.addDescription("matsim-output", "Output", "The generated net will be written to FILE using MATsim format");
 
     oc.doRegister("opendrive-output", new Option_FileName());
-    oc.addDescription("opendrive-output", "Output", "The generated net will be written to FILE using openDRIVE format.");
+    oc.addDescription("opendrive-output", "Output", "The generated net will be written to FILE using OpenDRIVE format");
 
     oc.doRegister("dlr-navteq-output", new Option_FileName());
-    oc.addDescription("dlr-navteq-output", "Output", "The generated net will be written to dlr-navteq files with the given PREFIX.");
+    oc.addDescription("dlr-navteq-output", "Output", "The generated net will be written to dlr-navteq files with the given PREFIX");
 
     oc.doRegister("output.street-names", new Option_Bool(false));
-    oc.addDescription("output.street-names", "Output", "Street names will be included in the output (if available).");
+    oc.addDescription("output.street-names", "Output", "Street names will be included in the output (if available)");
 
     oc.doRegister("output.original-names", new Option_Bool(false));
-    oc.addDescription("output.original-names", "Output", "Writes original names, if given, as parameter.");
+    oc.addDescription("output.original-names", "Output", "Writes original names, if given, as parameter");
 
     oc.doRegister("street-sign-output", new Option_FileName());
-    oc.addDescription("street-sign-output", "Output", "Writes street signs as POIs to FILE.");
+    oc.addDescription("street-sign-output", "Output", "Writes street signs as POIs to FILE");
 }
 
 
@@ -119,7 +119,7 @@ NWFrame::checkOptions() {
     }
     // some outputs need internal lanes
     if (oc.isSet("opendrive-output") && oc.getBool("no-internal-links")) {
-        WRITE_ERROR("openDRIVE export needs internal links computation.");
+        WRITE_ERROR("OpenDRIVE export needs internal links computation.");
         ok = false;
     }
     return ok;

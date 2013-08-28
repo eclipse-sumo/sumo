@@ -80,7 +80,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
     if (!forNetgen) {
         oc.doRegister("dismiss-vclasses", new Option_Bool(false));
-        oc.addDescription("dismiss-vclasses", "Processing", "Removes vehicle class restrictions from imported edges.");
+        oc.addDescription("dismiss-vclasses", "Processing", "Removes vehicle class restrictions from imported edges");
     }
 
     oc.doRegister("no-turnarounds", new Option_Bool(false));
@@ -228,7 +228,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
     // tls type
     oc.doRegister("tls.default-type", new Option_String("static"));
-    oc.addDescription("tls.default-type", "TLS Building", "TLSs with unspecified type will use STR as their algorithm.");
+    oc.addDescription("tls.default-type", "TLS Building", "TLSs with unspecified type will use STR as their algorithm");
 
 
     // edge pruning
