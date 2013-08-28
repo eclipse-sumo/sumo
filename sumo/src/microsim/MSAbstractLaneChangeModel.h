@@ -101,6 +101,7 @@ enum LaneChangeAction {
  */
 class MSAbstractLaneChangeModel {
 public:
+
     /** @class MSLCMessager
      * @brief A class responsible for exchanging messages between cars involved in lane-change interaction
      */
@@ -163,6 +164,11 @@ public:
 
     };
 
+    /** @brief Factory method for instantiating new lane changing models
+     * @param[in] lcm The type of model to build
+     * @param[in] vehicle The vehicle for which this model shall be built
+     */
+    static MSAbstractLaneChangeModel* build(LaneChangeModel lcm, MSVehicle& vehicle);
 
     /** @brief Constructor
      * @param[in] v The vehicle this lane-changer belongs to

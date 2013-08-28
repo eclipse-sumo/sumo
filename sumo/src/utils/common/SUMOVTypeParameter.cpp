@@ -118,6 +118,9 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_IMGFILE_SET)) {
         dev.writeAttr(SUMO_ATTR_IMGFILE, imgFile);
     }
+    if (wasSet(VTYPEPARS_LCM_SET)) {
+        dev.writeAttr(SUMO_ATTR_LCM, lcModel);
+    }
 
     if (cfParameter.size() != 0) {
         dev.openTag(cfModel);

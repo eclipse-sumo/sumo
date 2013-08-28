@@ -455,6 +455,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_CF_WIEDEMANN_SECURITY,
     SUMO_ATTR_CF_WIEDEMANN_ESTIMATION,
 
+    SUMO_ATTR_LCM,
+
     SUMO_ATTR_GENERATE_WALKS,
     SUMO_ATTR_ACTTYPE,
     SUMO_ATTR_SLOPE,
@@ -655,6 +657,14 @@ enum TrafficLightType {
 };
 
 
+/**
+ * @enum LaneChangeModel
+ */
+enum LaneChangeModel {
+    LCM_DK2008
+};
+
+
 //@}
 
 /**
@@ -690,6 +700,8 @@ public:
     static StringBijection<LinkDirection> LinkDirections;
 
     static StringBijection<TrafficLightType> TrafficLightTypes;
+
+    static StringBijection<LaneChangeModel> LaneChangeModels;
     //@}
 
 private:
@@ -705,6 +717,8 @@ private:
     static StringBijection<LinkDirection>::Entry linkDirectionValues[];
 
     static StringBijection<TrafficLightType>::Entry trafficLightTypesVales[];
+
+    static StringBijection<LaneChangeModel>::Entry laneChangeModelValues[];
 
 };
 

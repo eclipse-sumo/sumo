@@ -144,6 +144,11 @@ public:
     }
 
 
+    inline LaneChangeModel getLaneChangeModel() const {
+        return myParameter.lcModel;
+    }
+
+
     /** @brief Get vehicle's maximum speed [m/s].
      * @return The maximum speed (in m/s) of vehicles of this class
      */

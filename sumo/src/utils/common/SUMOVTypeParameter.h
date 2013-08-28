@@ -65,6 +65,7 @@ const int VTYPEPARS_SHAPE_SET = 2 << 11;
 const int VTYPEPARS_OSGFILE_SET = 2 << 12;
 const int VTYPEPARS_IMGFILE_SET = 2 << 13;
 const int VTYPEPARS_IMPATIENCE_SET = 2 << 14;
+const int VTYPEPARS_LCM_SET = 2 << 15;
 
 
 // ===========================================================================
@@ -164,8 +165,8 @@ public:
     typedef std::map<SumoXMLAttr, SUMOReal> CFParams;
     CFParams cfParameter;
 
-    /// @brief The name of the lane-change model to use
-    std::string lcModel;
+    /// @brief The lane-change model to use
+    LaneChangeModel lcModel;
 
     /// @brief Information for the router which parameter were set
     int setParameter;

@@ -442,7 +442,7 @@ extern const SUMOReal DEFAULT_VEH_SPEEDDEV;
 extern const SUMOReal DEFAULT_VEH_WIDTH;
 extern const SUMOReal DEFAULT_VEH_HEIGHT;
 extern const SumoXMLTag DEFAULT_VEH_FOLLOW_MODEL;
-extern const std::string DEFAULT_VEH_LANE_CHANGE_MODEL;
+extern const LaneChangeModel DEFAULT_VEH_LANE_CHANGE_MODEL;
 extern const SUMOVehicleShape DEFAULT_VEH_SHAPE;
 extern const SUMOReal DEFAULT_VEH_TMP1;
 extern const SUMOReal DEFAULT_VEH_TMP2;

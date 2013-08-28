@@ -61,7 +61,7 @@
 #include "trigger/MSBusStop.h"
 #include "devices/MSDevice_Person.h"
 #include "MSEdgeWeightsStorage.h"
-#include "MSLCM_DK2004.h"
+#include "MSAbstractLaneChangeModel.h"
 #include "MSMoveReminder.h"
 #include "MSPerson.h"
 #include "MSPersonControl.h"
@@ -328,7 +328,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         throw ProcessError("Departure speed for vehicle '" + pars->id +
                            "' is too high for the vehicle type '" + type->getID() + "'.");
     }
-    myLaneChangeModel = new MSLCM_DK2004(*this);
+    myLaneChangeModel = MSAbstractLaneChangeModel::build(type->getLaneChangeModel(), *this);
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
 }
 

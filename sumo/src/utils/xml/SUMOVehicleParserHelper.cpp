@@ -396,6 +396,16 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->defaultProbability = attrs.get<SUMOReal>(SUMO_ATTR_PROB, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_PROBABILITY_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_LCM)) {
+        const std::string lcmS = attrs.get<std::string>(SUMO_ATTR_LCM, vtype->id.c_str(), ok);
+        if (SUMOXMLDefinitions::LaneChangeModels.hasString(lcmS)) {
+            vtype->lcModel = SUMOXMLDefinitions::LaneChangeModels.get(lcmS);
+            vtype->setParameter |= VTYPEPARS_LCM_SET;
+        } else {
+            WRITE_ERROR("Unknown lane change model '" + lcmS + "' when parsing vtype '" + vtype->id + "'");
+            throw ProcessError();
+        }
+    }
     try {
         parseVTypeEmbedded(*vtype, SUMO_TAG_CF_KRAUSS, attrs, true);
     } catch (ProcessError&) {

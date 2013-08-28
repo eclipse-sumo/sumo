@@ -373,6 +373,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "security",       SUMO_ATTR_CF_WIEDEMANN_SECURITY },
     { "estimation",     SUMO_ATTR_CF_WIEDEMANN_ESTIMATION },
 
+    { "lcm",            SUMO_ATTR_LCM},
+
     { "generateWalks",  SUMO_ATTR_GENERATE_WALKS },
     { "actType",        SUMO_ATTR_ACTTYPE },
     { "slope",          SUMO_ATTR_SLOPE },
@@ -483,6 +485,11 @@ StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVa
     { "agentbased", TLTYPE_AGENT }
 };
 
+
+StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValues[] = {
+    { "DK2008", LCM_DK2008 }
+};
+
 StringBijection<int> SUMOXMLDefinitions::Tags(
     SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
@@ -506,6 +513,9 @@ StringBijection<LinkDirection> SUMOXMLDefinitions::LinkDirections(
 
 StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
     SUMOXMLDefinitions::trafficLightTypesVales, TLTYPE_AGENT);
+
+StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
+    SUMOXMLDefinitions::laneChangeModelValues, LCM_DK2008);
 
 /****************************************************************************/
 
