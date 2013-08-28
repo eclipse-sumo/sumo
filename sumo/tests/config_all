@@ -21,5 +21,4 @@ errors:input ended before all started tags were ended; last tag started is{REPLA
 errors:attribute '(.*)' is already specified for element '(.*)'{REPLACE The attribute '\1' is already used in element '\2'}
 
 [bug_system_location]
-trac:http://sourceforge.net/apps/trac/sumo/
-
+trac:http://sumo-sim.org/trac.wsgi/
