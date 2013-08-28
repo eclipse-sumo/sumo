@@ -10,8 +10,8 @@ output
 # tests for additional structures
 extended
 
-# model properties
-model
+# testing car-following model properties
+cf_model
 
 # Tests for mesoscopic features
 meso
