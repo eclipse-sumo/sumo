@@ -114,27 +114,34 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         return;
     }
     // get the edge
+    RONode* fromNode;
+    RONode* toNode;
+    int priority;
     myCurrentEdge = 0;
-    if (myCurrentName[0] == ':') {
-        // this is an internal edge - we will not use it
+    if (type == EDGEFUNC_INTERNAL) {
+        // this is an internal edge - for now we only us it the ensure a match
+        // between numerical edge ids in router and simulation
         //  !!! recheck this; internal edges may be of importance during the dua
-        return;
-    }
-    const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
-    const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
-    const int priority = attrs.get<int>(SUMO_ATTR_PRIORITY, myCurrentName.c_str(), ok);
-    if (!ok) {
-        return;
-    }
-    RONode* fromNode = myNet.getNode(from);
-    if (fromNode == 0) {
-        fromNode = new RONode(from);
-        myNet.addNode(fromNode);
-    }
-    RONode* toNode = myNet.getNode(to);
-    if (toNode == 0) {
-        toNode = new RONode(to);
-        myNet.addNode(toNode);
+        fromNode = 0;
+        toNode = 0;
+        priority = 0;
+    } else { 
+        const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
+        const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
+        priority = attrs.get<int>(SUMO_ATTR_PRIORITY, myCurrentName.c_str(), ok);
+        if (!ok) {
+            return;
+        }
+        fromNode = myNet.getNode(from);
+        if (fromNode == 0) {
+            fromNode = new RONode(from);
+            myNet.addNode(fromNode);
+        }
+        toNode = myNet.getNode(to);
+        if (toNode == 0) {
+            toNode = new RONode(to);
+            myNet.addNode(toNode);
+        }
     }
     // build the edge
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority);
