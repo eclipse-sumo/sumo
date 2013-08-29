@@ -55,84 +55,39 @@
 void
 MSVTKExport::write(OutputDevice& of, SUMOTime /* timestep */) {
 
-    of.openTag("?xml") <<  " version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-    of.openTag("VTKFile")  << " type=\"PolyData\" version=\"0.1\" order=\"LittleEndian\" >\n";
-    of.openTag("PolyData") << ">\n";
-
-    std::vector<double> speed = getSpeed();
+	std::vector<double> speed = getSpeed();
     std::vector<double> points = getPositions();
 
-
-    of.openTag("Piece")  << " NumberOfPoints=\"" << speed.size() <<
-                         "\" NumberOfVerts=\"1\" NumberOfLines=\"0\" NumberOfStrips=\"0\" NumberOfPolys=\"0\">\n";
-
-    of.openTag("PointData")  << ">\n";
-    of.openTag("DataArray") << " type=\"Float64\" Name=\"speed\" format=\"ascii\" >" << List2String(getSpeed());
-    of.closeTag();
-
-    //close PointData
-    of.closeTag();
-
-    of.openTag("CellData");
-
-    //close CellData
-    of.closeTag();
-
-    of.openTag("Points")  << ">\n";
-    of.openTag("DataArray") << " type=\"Float64\" Name=\"Points\" NumberOfComponents=\"3\" format=\"ascii\" >" << List2String(getPositions());
-    of.closeTag();
-
-    //close Points
-    of.closeTag();
-
-    of.openTag("Verts")  << ">\n";
-    of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\" >" << getOffset((int) speed.size());
-    of.closeTag();
-
-    of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\" >" << speed.size();
-    of.closeTag();
-
-    //Close Verts
-    of.closeTag();
-
-    of.openTag("Lines")  << ">\n";
-    of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\"";
-    of.closeTag();
-
-    of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\"";
-    of.closeTag();
-
-    //Close Lines
-    of.closeTag();
-
-    of.openTag("Strips")  << ">\n";
-    of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\"";
-    of.closeTag();
-
-    of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\"";
-    of.closeTag();
-
-    //Close Strips
-    of.closeTag();
-
-    of.openTag("Polys")  << ">\n";
-    of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\"";
-    of.closeTag();
-
-    of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\"";
-    of.closeTag();
-
-    //close Polys
-    of.closeTag();
-
-    //close Piece
-    of.closeTag();
-
-    //close PolyData
-    of.closeTag();
-
-    //close VTKFile
-    of.closeTag();
+	of << "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
+	of << "<VTKFile type=\"PolyData\" version=\"0.1\" order=\"LittleEndian\">\n";
+	of << "<PolyData>\n";
+	of << " <Piece NumberOfPoints=\"" << speed.size() << "\" NumberOfVerts=\"1\" NumberOfLines=\"0\" NumberOfStrips=\"0\" NumberOfPolys=\"0\">\n";
+	of << "<PointData>\n";
+	of << " <DataArray type=\"Float64\" Name=\"speed\" format=\"ascii\">" << List2String(getSpeed()) << "</DataArray>\n";
+	of << "</PointData>\n";
+	of << "<CellData/>\n";
+	of << "<Points>\n";
+    of << " <DataArray type=\"Float64\" Name=\"Points\" NumberOfComponents=\"3\" format=\"ascii\">" << List2String(getPositions()) << "</DataArray>\n";
+	of << "</Points>\n";
+	of << "<Verts>\n";
+	of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\">" <<  getOffset((int) speed.size()) << "</DataArray>\n";
+    of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\">" << speed.size() << "</DataArray>\n";
+    of << "</Verts>\n";
+	of << "<Lines>\n";
+	of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\"/>\n";
+	of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\"/>\n";
+	of << "</Lines>\n";
+	of << "<Stripes>\n";
+	of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\"/>\n";
+	of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\"/>\n";
+	of << "</Stripes>\n";
+	of << "<Polys>\n";
+	of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\"/>\n";
+	of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\"/>\n";
+	of << "</Polys>\n";
+	of << "</Piece>\n";
+	of << "</PolyData>\n";
+	of << "</VTKFile>";
 
 }
 
@@ -152,7 +107,7 @@ MSVTKExport::getSpeed() {
         if (veh->isOnRoad()) {
 
             Position pos = veh->getLane()->getShape().positionAtOffset(veh->getPositionOnLane());
-            output.push_back(veh->getSpeed() * 3.6);
+            output.push_back(veh->getSpeed());
         }
 
     }
@@ -195,9 +150,9 @@ MSVTKExport::List2String(std::vector<double> input) {
         std::stringstream ss;
 
         //for a high precision
-        ss.precision(::std::numeric_limits<double>::digits10);
-        ss.unsetf(::std::ios::dec);
-        ss.setf(::std::ios::scientific);
+        //ss.precision(::std::numeric_limits<double>::digits10);
+        //ss.unsetf(::std::ios::dec);
+        //ss.setf(::std::ios::scientific);
 
         ss << input[i] << " ";
         output += ss.str();

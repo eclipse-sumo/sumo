@@ -130,7 +130,7 @@ MSFrame::fillOptions() {
     oc.doRegister("queue-output", new Option_FileName());
     oc.addDescription("queue-output", "Output", "Save the vehicle queues at the junctions (experimental)");
     oc.doRegister("vtk-output", new Option_FileName());
-    oc.addDescription("vtk-output", "Output", "Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files)");
+    oc.addDescription("vtk-output", "Output", "Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)");
 
 
     oc.doRegister("summary-output", new Option_FileName());
@@ -337,8 +337,11 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("emission-output", "emission-export");
     OutputDevice::createDeviceByOption("full-output", "full-export");
     OutputDevice::createDeviceByOption("queue-output", "queue-export");
-    OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
+    
+	//OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");
+
+
 #ifdef _DEBUG
     OutputDevice::createDeviceByOption("movereminder-output", "movereminder-output");
 #endif

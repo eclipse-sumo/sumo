@@ -77,10 +77,10 @@ MSFullExport::writeVehicles(OutputDevice& of) {
             fclass = fclass.substr(0, fclass.find_first_of("@"));
             Position pos = veh->getLane()->getShape().positionAtOffset(veh->getPositionOnLane());
             of.openTag("vehicle").writeAttr("id", veh->getID()).writeAttr("eclass", toString(veh->getVehicleType().getEmissionClass()));
-            of.writeAttr("co2", veh->getHBEFA_CO2Emissions()).writeAttr("co", veh->getHBEFA_COEmissions()).writeAttr("hc", veh->getHBEFA_HCEmissions());
-            of.writeAttr("nox", veh->getHBEFA_NOxEmissions()).writeAttr("pmx", veh->getHBEFA_PMxEmissions()).writeAttr("noise", veh->getHarmonoise_NoiseEmissions());
+            of.writeAttr("CO2", veh->getHBEFA_CO2Emissions()).writeAttr("CO", veh->getHBEFA_COEmissions()).writeAttr("HC", veh->getHBEFA_HCEmissions());
+            of.writeAttr("NOx", veh->getHBEFA_NOxEmissions()).writeAttr("PMx", veh->getHBEFA_PMxEmissions()).writeAttr("noise", veh->getHarmonoise_NoiseEmissions());
             of.writeAttr("route", veh->getRoute().getID()).writeAttr("type", fclass).writeAttr("waiting", veh->getWaitingSeconds());
-            of.writeAttr("lane", veh->getLane()->getID()).writeAttr("pos_lane", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed() * 3.6);
+            of.writeAttr("lane", veh->getLane()->getID()).writeAttr("pos_lane", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed());
             of.writeAttr("angle", veh->getAngle()).writeAttr("x", pos.x()).writeAttr("y", pos.y());
             of.closeTag();
         }
@@ -109,9 +109,9 @@ MSFullExport::writeEdge(OutputDevice& of) {
 void
 MSFullExport::writeLane(OutputDevice& of, const MSLane& lane) {
 
-    of.openTag("lane").writeAttr("id", lane.getID()).writeAttr("co", lane.getHBEFA_COEmissions()).writeAttr("co2", lane.getHBEFA_CO2Emissions());
-    of.writeAttr("nox", lane.getHBEFA_NOxEmissions()).writeAttr("pmx", lane.getHBEFA_PMxEmissions()).writeAttr("hc", lane.getHBEFA_HCEmissions());
-    of.writeAttr("noise", lane.getHarmonoise_NoiseEmissions()).writeAttr("fuel", lane.getHBEFA_FuelConsumption()).writeAttr("maxspeed", lane.getSpeedLimit() * 3.6); // @todo: use m/s for speed
+    of.openTag("lane").writeAttr("id", lane.getID()).writeAttr("CO", lane.getHBEFA_COEmissions()).writeAttr("CO2", lane.getHBEFA_CO2Emissions());
+    of.writeAttr("NOx", lane.getHBEFA_NOxEmissions()).writeAttr("PMx", lane.getHBEFA_PMxEmissions()).writeAttr("HC", lane.getHBEFA_HCEmissions());
+    of.writeAttr("noise", lane.getHarmonoise_NoiseEmissions()).writeAttr("fuel", lane.getHBEFA_FuelConsumption()).writeAttr("maxspeed", lane.getSpeedLimit());
     of.writeAttr("meanspeed", lane.getMeanSpeed() * 3.6).writeAttr("occupancy", lane.getOccupancy()).writeAttr("vehicle_count", lane.getVehicleNumber());
     of.closeTag();
 }

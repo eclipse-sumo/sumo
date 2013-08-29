@@ -67,11 +67,11 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
         fclass = fclass.substr(0, fclass.find_first_of("@"));
 
         Position pos = veh->getLane()->getShape().positionAtOffset(veh->getPositionOnLane());
-        of.openTag("vehicle").writeAttr("id", veh->getID()).writeAttr("eclass", veh->getVehicleType().getEmissionClass()).writeAttr("co2", veh->getHBEFA_CO2Emissions());
-        of.writeAttr("co", veh->getHBEFA_COEmissions()).writeAttr("hc", veh->getHBEFA_HCEmissions()).writeAttr("nox", veh->getHBEFA_NOxEmissions());
-        of.writeAttr("pmx", veh->getHBEFA_PMxEmissions()).writeAttr("fuel", veh->getHBEFA_FuelConsumption()).writeAttr("noise", veh->getHarmonoise_NoiseEmissions());
+        of.openTag("vehicle").writeAttr("id", veh->getID()).writeAttr("eclass", veh->getVehicleType().getEmissionClass()).writeAttr("CO2", veh->getHBEFA_CO2Emissions());
+        of.writeAttr("CO", veh->getHBEFA_COEmissions()).writeAttr("HC", veh->getHBEFA_HCEmissions()).writeAttr("NOx", veh->getHBEFA_NOxEmissions());
+        of.writeAttr("PMx", veh->getHBEFA_PMxEmissions()).writeAttr("fuel", veh->getHBEFA_FuelConsumption()).writeAttr("noise", veh->getHarmonoise_NoiseEmissions());
         of.writeAttr("route", veh->getRoute().getID()).writeAttr("type", fclass).writeAttr("waiting", veh->getWaitingSeconds());
-        of.writeAttr("lane", veh->getLane()->getID()).writeAttr("pos", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed() * 3.6);
+        of.writeAttr("lane", veh->getLane()->getID()).writeAttr("pos", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed());
         of.writeAttr("angle", veh->getAngle()).writeAttr("x", pos.x()).writeAttr("y", pos.y());
         of.closeTag();
     }
