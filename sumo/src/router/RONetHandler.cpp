@@ -108,6 +108,11 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         throw ProcessError();
     }
+    const SumoXMLEdgeFunc type = attrs.getEdgeFunc(ok);
+    if (!ok) {
+        WRITE_ERROR("Edge '" + myCurrentName + "' has an unknown type.");
+        return;
+    }
     // get the edge
     myCurrentEdge = 0;
     if (myCurrentName[0] == ':') {
@@ -117,7 +122,6 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     }
     const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
     const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
-    const std::string type = attrs.hasAttribute(SUMO_ATTR_FUNCTION) ? attrs.get<std::string>(SUMO_ATTR_FUNCTION, myCurrentName.c_str(), ok) : "";
     const int priority = attrs.get<int>(SUMO_ATTR_PRIORITY, myCurrentName.c_str(), ok);
     if (!ok) {
         return;
@@ -137,17 +141,22 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     if (myNet.addEdge(myCurrentEdge)) {
         // get the type of the edge
         myProcess = true;
-        if (type == "" || type == "normal" || type == "connector") {
-            myCurrentEdge->setType(ROEdge::ET_NORMAL);
-        } else if (type == "source") {
-            myCurrentEdge->setType(ROEdge::ET_SOURCE);
-        } else if (type == "sink") {
-            myCurrentEdge->setType(ROEdge::ET_SINK);
-        } else if (type == "internal") {
-            myProcess = false;
-        } else {
-            WRITE_ERROR("Edge '" + myCurrentName + "' has an unknown type.");
-            return;
+        switch (type) {
+            case EDGEFUNC_CONNECTOR:
+            case EDGEFUNC_NORMAL:
+                myCurrentEdge->setType(ROEdge::ET_NORMAL);
+                break;
+            case EDGEFUNC_SOURCE:
+                myCurrentEdge->setType(ROEdge::ET_SOURCE);
+                break;
+            case EDGEFUNC_SINK:
+                myCurrentEdge->setType(ROEdge::ET_SINK);
+                break;
+            case EDGEFUNC_INTERNAL:
+                myProcess = false;
+                break;
+            default:
+                throw ProcessError("Unhandled EdgeFunk " + toString(type));
         }
     } else {
         myCurrentEdge = 0;
