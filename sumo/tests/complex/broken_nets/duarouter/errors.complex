@@ -20,9 +20,11 @@ Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@function:a
 Error: Edge '1' has an unknown type.
+Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@function:a
 Error: Edge '2' has an unknown type.
+Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@id:
 Error: Attribute 'id' in definition of a edge is empty.
