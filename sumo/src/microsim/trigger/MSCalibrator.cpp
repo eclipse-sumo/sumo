@@ -246,11 +246,35 @@ MSCalibrator::totalWished() const {
 }
 
 
+bool 
+MSCalibrator::removePending() {
+    if (myToRemove.size() > 0) {
+        MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+        // it is not save to remove the vehicles inside
+        // VehicleRemover::notifyEnter so we do it here
+        for (std::set<std::string>::iterator it = myToRemove.begin(); it != myToRemove.end(); ++it) {
+            MSVehicle* vehicle = dynamic_cast<MSVehicle*>(vc.getVehicle(*it));
+            if (vehicle != 0) {
+                vehicle->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+                vehicle->getLane()->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED);
+                vc.scheduleVehicleRemoval(vehicle);
+            } else {
+                WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + *it);
+            }
+        }
+        myToRemove.clear();
+        return true;
+    }
+    return false;
+}
+
+
 SUMOTime
 MSCalibrator::execute(SUMOTime currentTime) {
     // get current simulation values (valid for the last simulation second)
     // XXX could we miss vehicle movements if this is called less often than every DELTA_T (default) ?
     updateMeanData();
+    const bool hadRemovals = removePending();
     // check whether an adaptation value exists
     if (isCurrentStateActive(currentTime)) {
         myAmActive = true;
@@ -297,17 +321,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
               << " vaporized=" << myEdgeMeanData.nVehVaporized
               << "\n";
 #endif
-    if (myToRemove.size() > 0) {
-        // it is not save to remove the vehicles inside
-        // VehicleRemover::notifyEnter so we do it here
-        for (std::set<MSVehicle*>::iterator it = myToRemove.begin(); it != myToRemove.end(); ++it) {
-            MSVehicle* vehicle = *it;
-            vehicle->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
-            vehicle->getLane()->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED);
-            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(vehicle);
-        }
-        myToRemove.clear();
-    } else if (calibrateFlow && adaptedNum < totalWishedNum) {
+    if (calibrateFlow && adaptedNum < totalWishedNum && !hadRemovals) {
         // we need to insert some vehicles
         const SUMOReal hourFraction = STEPS2TIME(currentTime - myCurrentStateInterval->begin + DELTA_T) / (SUMOReal) 3600.;
         const int wishedNum = (int)std::floor(myCurrentStateInterval->q * hourFraction + 0.5); // round to closest int
@@ -464,31 +478,33 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification /*
     if (myParent == 0) {
         return false;
     }
-    myParent->updateMeanData();
-    const bool calibrateFlow = myParent->myCurrentStateInterval->q >= 0;
-    const int totalWishedNum = myParent->totalWished();
-    int adaptedNum = myParent->passed() + myParent->myClearedInJam;
-    MSVehicle* vehicle = dynamic_cast<MSVehicle*>(&veh);
-    if (calibrateFlow && adaptedNum > totalWishedNum) {
+    if (myParent->isActive()) {
+        myParent->updateMeanData();
+        const bool calibrateFlow = myParent->myCurrentStateInterval->q >= 0;
+        const int totalWishedNum = myParent->totalWished();
+        int adaptedNum = myParent->passed() + myParent->myClearedInJam;
+        MSVehicle* vehicle = dynamic_cast<MSVehicle*>(&veh);
+        if (calibrateFlow && adaptedNum > totalWishedNum) {
 #ifdef MSCalibrator_DEBUG
-        std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
-                  << " vaporizing " << vehicle->getID() << " to reduce flow\n";
+            std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
+                << " vaporizing " << vehicle->getID() << " to reduce flow\n";
 #endif
-        if (myParent->scheduleRemoval(vehicle)) {
-            myParent->myRemoved++;
-        }
-    } else if (myParent->invalidJam(myLaneIndex)) {
+            if (myParent->scheduleRemoval(vehicle)) {
+                myParent->myRemoved++;
+            }
+        } else if (myParent->invalidJam(myLaneIndex)) {
 #ifdef MSCalibrator_DEBUG
-        std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
-                  << " vaporizing " << vehicle->getID() << " to clear jam\n";
+            std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
+                << " vaporizing " << vehicle->getID() << " to clear jam\n";
 #endif
-        if (!myParent->myHaveWarnedAboutClearingJam) {
-            WRITE_WARNING("Clearing jam at calibrator '" + myParent->myID + "' at time "
-                          + time2string(MSNet::getInstance()->getCurrentTimeStep()));
-            myParent->myHaveWarnedAboutClearingJam = true;
-        }
-        if (myParent->scheduleRemoval(vehicle)) {
-            myParent->myClearedInJam++;
+            if (!myParent->myHaveWarnedAboutClearingJam) {
+                WRITE_WARNING("Clearing jam at calibrator '" + myParent->myID + "' at time "
+                        + time2string(MSNet::getInstance()->getCurrentTimeStep()));
+                myParent->myHaveWarnedAboutClearingJam = true;
+            }
+            if (myParent->scheduleRemoval(vehicle)) {
+                myParent->myClearedInJam++;
+            }
         }
     }
     return true;

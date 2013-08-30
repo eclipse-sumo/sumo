@@ -189,8 +189,13 @@ protected:
     /** @brief try to schedule the givne vehicle for removal. return true if it
      * isn't already scheduled */
     bool scheduleRemoval(MSVehicle* veh) {
-        return myToRemove.insert(veh).second;
+        return myToRemove.insert(veh->getID()).second;
     };
+
+
+    /** @brief remove any vehicles which are scheduled for removal. 
+     * return true if removals took place */
+    bool removePending();
 
 protected:
     /// @brief the edge on which this calibrator lies
@@ -208,7 +213,11 @@ protected:
 
     std::vector<VehicleRemover*> myVehicleRemovers;
 
-    std::set<MSVehicle*> myToRemove;
+    /** @brief set of vehicle ids to remove
+     * @note: we avoid keeping vehicle points because someone else might
+     * invalidate it before look at it again (i.e. another calibrator)
+     */
+    std::set<std::string> myToRemove;
 
     /// @brief The device for xml statistics
     OutputDevice* myOutput;
