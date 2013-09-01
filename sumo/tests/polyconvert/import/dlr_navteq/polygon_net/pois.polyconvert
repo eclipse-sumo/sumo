@@ -3,7 +3,7 @@
 <!-- generated on 03/22/13 17:39:45 by SUMO polyconvert Version dev-SVN-r13532
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/polyconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>

@@ -1,4 +1,4 @@
-<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/tllogic_file.xsd">
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tllogic_file.xsd">
     <!-- Deleted Elements -->
     <!-- implicit via changed node type: <delete id="56231397" programID="0"/> -->
     <!-- implicit via changed node type: <delete id="joinedS_0" programID="0"/> -->

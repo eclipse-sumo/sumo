@@ -3,7 +3,7 @@
 <!-- generated on 02.05.2013 13:54:12 by SUMO gui Version 0.17.0
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumo-gui.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -37,7 +37,7 @@
 </configuration>
 -->
 
-<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netstate_file.xsd">
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netstate_file.xsd">
     <timestep time="0.00">
         <edge id="2fi">
             <lane id="2fi_0">
