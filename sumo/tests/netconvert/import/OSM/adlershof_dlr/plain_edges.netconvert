@@ -3,7 +3,7 @@
 <!-- generated on Fri Mar 22 14:35:26 2013 by SUMO netconvert Version dev-SVN-r13525
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -31,7 +31,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
     <edge id="-22917251" from="32266936" to="32266938" name="Teltowkanalbrücke" priority="6" type="highway.tertiary" numLanes="1" speed="22.22"/>
     <edge id="-24214693#0" from="261599791" to="32266935" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" numLanes="2" speed="27.78" shape="13.520153,52.426821 13.522632,52.426659 13.526713,52.426404"/>
     <edge id="-24214693#1" from="57343510" to="261599791" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" numLanes="2" speed="27.78"/>

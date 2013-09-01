@@ -3,7 +3,7 @@
 <!-- generated on Mon Jan 14 13:03:47 2013 by SUMO netconvert Version dev-SVN-r13174
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_nodes.nod.xml"/>
@@ -18,7 +18,7 @@
 </configuration>
 -->
 
-<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd">
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
     <connection from="1" to="2" fromLane="0" toLane="0"/>
     <connection from="1" to="2" fromLane="1" toLane="1"/>
     <connection from="1" to="2" fromLane="2" toLane="2"/>

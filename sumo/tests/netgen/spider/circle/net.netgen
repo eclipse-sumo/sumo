@@ -2,7 +2,7 @@
 
 <!-- generated on 06/01/11 09:29:31 by SUMO netgen Version dev-SVN-r10489
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netgenConfiguration.xsd">
 
     <spider_network>
         <spider value="true"/>
@@ -17,7 +17,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
 
     <location netOffset="97.09,99.27" convBoundary="0.00,0.00,197.09,198.54" origBoundary="-97.09,-99.27,100.00,99.27" projParameter="!"/>
 

@@ -3,7 +3,7 @@
 <!-- generated on Fri Sep  7 07:35:20 2012 by SUMO netconvert Version dev-SVN-r12683
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
         <dlr-navteq-prefix value="elmar"/>
@@ -26,7 +26,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
     <edge id="-1" from="0" to="1" priority="0" numLanes="3" speed="55.56"/>
     <edge id="-2" from="0" to="2" priority="-1" numLanes="3" speed="55.56"/>
     <edge id="-3" from="0" to="3" priority="-2" numLanes="3" speed="55.56"/>

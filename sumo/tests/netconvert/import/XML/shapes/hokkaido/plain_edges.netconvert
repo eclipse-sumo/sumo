@@ -3,7 +3,7 @@
 <!-- generated on Fri Nov 11 12:09:02 2011 by SUMO netconvert Version dev-SVN-r11490
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_nodes.nod.xml"/>
@@ -18,7 +18,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
     <edge id="1" from="dl" to="dr" priority="-1" numLanes="1" speed="13.90" spreadType="center"/>
     <edge id="2" from="dr" to="tr" priority="-1" numLanes="1" speed="13.90" shape="1295.49,0.00 1312.08,1.45 1328.15,5.76 1343.24,12.79 1356.87,22.34 1368.64,34.11 1378.19,47.75 1385.23,62.83 1389.54,78.91 1390.99,95.49 1389.54,112.08 1385.23,128.15 1378.19,143.24 1368.64,156.87 1356.87,168.64 1343.24,178.19 1328.15,185.23 1312.08,189.54 1295.49,190.99" spreadType="center"/>
     <edge id="3" from="tr" to="tl" priority="-1" numLanes="1" speed="13.90" spreadType="center"/>

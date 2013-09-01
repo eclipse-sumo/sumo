@@ -3,7 +3,7 @@
 <!-- generated on 05/02/13 14:09:06 by SUMO od2trips Version 0.17.0
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/od2tripsConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/od2tripsConfiguration.xsd">
 
     <input>
         <net-file value="input_taz.taz.xml"/>
@@ -21,6 +21,6 @@
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <trip id="0" depart="2488.08" from="131" to="204[1][1]" fromTaz="131" toTaz="204[1][1]" departLane="free" departSpeed="max"/>
 </routes>

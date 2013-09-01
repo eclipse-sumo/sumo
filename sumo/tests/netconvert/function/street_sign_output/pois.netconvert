@@ -3,7 +3,7 @@
 <!-- generated on Wed May 22 13:06:51 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="input_net.net.xml"/>
@@ -27,7 +27,7 @@
 </configuration>
 -->
 
-<pois version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/poi_file.xsd">
+<pois version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/poi_file.xsd">
     <poi id="gneE0.37.42" type="priority" color="1.0,1.0,0.0" x="32.17" y="43.51" angle="0"/>
     <poi id="gneE1.37.42" type="priority" color="1.0,1.0,0.0" x="-2.25" y="52.81" angle="0"/>
     <poi id="gneE10.34.56" type="priority" color="1.0,1.0,0.0" x="-17.89" y="43.55" angle="0"/>
