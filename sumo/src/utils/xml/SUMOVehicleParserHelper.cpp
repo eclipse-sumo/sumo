@@ -396,8 +396,8 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->defaultProbability = attrs.get<SUMOReal>(SUMO_ATTR_PROB, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_PROBABILITY_SET;
     }
-    if (attrs.hasAttribute(SUMO_ATTR_LCM)) {
-        const std::string lcmS = attrs.get<std::string>(SUMO_ATTR_LCM, vtype->id.c_str(), ok);
+    if (attrs.hasAttribute(SUMO_ATTR_LANE_CHANGE_MODEL)) {
+        const std::string lcmS = attrs.get<std::string>(SUMO_ATTR_LANE_CHANGE_MODEL, vtype->id.c_str(), ok);
         if (SUMOXMLDefinitions::LaneChangeModels.hasString(lcmS)) {
             vtype->lcModel = SUMOXMLDefinitions::LaneChangeModels.get(lcmS);
             vtype->setParameter |= VTYPEPARS_LCM_SET;

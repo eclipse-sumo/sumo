@@ -119,7 +119,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_IMGFILE, imgFile);
     }
     if (wasSet(VTYPEPARS_LCM_SET)) {
-        dev.writeAttr(SUMO_ATTR_LCM, lcModel);
+        dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
     }
 
     if (cfParameter.size() != 0) {
