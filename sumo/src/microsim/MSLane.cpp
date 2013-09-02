@@ -1223,13 +1223,31 @@ MSLane::enteredByLaneChange(MSVehicle* v) {
 // ------------ Current state retrieval
 SUMOReal
 MSLane::getBruttoOccupancy() const {
-    return myBruttoVehicleLengthSum / myLength;
+    SUMOReal fractions = myInlappingVehicle!=0 ? myLength - myInlappingVehicleEnd : 0;
+    getVehiclesSecure();
+    if(myVehicles.size()!=0) {
+        MSVehicle *lastVeh = myVehicles.front();
+        if(lastVeh->getPositionOnLane()<lastVeh->getVehicleType().getLength()) {
+            fractions -= (lastVeh->getVehicleType().getLength()-lastVeh->getPositionOnLane());
+        }
+    }
+    releaseVehicles();
+    return (myBruttoVehicleLengthSum+fractions) / myLength;
 }
 
 
 SUMOReal
 MSLane::getNettoOccupancy() const {
-    return myNettoVehicleLengthSum / myLength;
+    SUMOReal fractions = myInlappingVehicle!=0 ? myLength - myInlappingVehicleEnd : 0;
+    getVehiclesSecure();
+    if(myVehicles.size()!=0) {
+        MSVehicle *lastVeh = myVehicles.front();
+        if(lastVeh->getPositionOnLane()<lastVeh->getVehicleType().getLength()) {
+            fractions -= (lastVeh->getVehicleType().getLength()-lastVeh->getPositionOnLane());
+        }
+    }
+    releaseVehicles();
+    return (myBruttoVehicleLengthSum+fractions) / myLength;
 }
 
 
