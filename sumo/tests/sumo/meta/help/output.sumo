@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-rUNKNOWN
+SUMO sumo Version dev-SVN-r14525
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -38,9 +38,10 @@ Output Options:
                                          timestep (very redundant)
   --queue-output FILE                  Save the vehicle queues at the junctions
                                          (experimental)
-  --vtk-output FILE                    Save complete vehicle positions in VTK
-                                         Format (usage: /file/out will produce
-                                         /file/out_$NR$.vtp files)
+  --vtk-output FILE                    Save complete vehicle positions
+                                         inclusive speed values in the VTK
+                                         Format (usage: /path/out will produce
+                                         /path/out_$TIMESTEP$.vtp files)
   --summary-output FILE                Save aggregated vehicle departure info
                                          into FILE
   --tripinfo-output FILE               Save single vehicle trip info into FILE

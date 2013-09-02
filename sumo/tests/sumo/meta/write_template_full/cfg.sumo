@@ -29,7 +29,7 @@
         <fcd-output.signals value="false" type="BOOL" help="Add the vehicle signal state to the FCD output (brake lights etc.)"/>
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>
-        <vtk-output value="" type="FILE" help="Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files)"/>
+        <vtk-output value="" type="FILE" help="Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"/>
         <summary-output value="" synonymes="emissions emissions-output summary" type="FILE" help="Save aggregated vehicle departure info into FILE"/>
         <tripinfo-output value="" synonymes="tripinfo" type="FILE" help="Save single vehicle trip info into FILE"/>
         <vehroute-output value="" synonymes="vehroutes" type="FILE" help="Save single vehicle route info into FILE"/>

@@ -69,7 +69,7 @@
         <!-- Save the vehicle queues at the junctions (experimental) -->
         <queue-output value="" type="FILE"/>
 
-        <!-- Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files) -->
+        <!-- Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) -->
         <vtk-output value="" type="FILE"/>
 
         <!-- Save aggregated vehicle departure info into FILE -->
