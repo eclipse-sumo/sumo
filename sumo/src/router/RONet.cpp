@@ -59,7 +59,9 @@ RONet::RONet()
     : myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
       myRoutesOutput(0), myRouteAlternativesOutput(0), myTypesOutput(0),
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
-      myHaveRestrictions(false) {
+      myHaveRestrictions(false),
+      myNumInternalEdges(0)
+{
     SUMOVTypeParameter* type = new SUMOVTypeParameter();
     type->id = DEFAULT_VTYPE_ID;
     type->onlyReferenced = true;
@@ -82,6 +84,9 @@ RONet::addEdge(ROEdge* edge) {
         WRITE_ERROR("The edge '" + edge->getID() + "' occurs at least twice.");
         delete edge;
         return false;
+    }
+    if (edge->getType() == ROEdge::ET_INTERNAL) {
+        myNumInternalEdges += 1;
     }
     return true;
 }
@@ -381,6 +386,12 @@ RONet::furtherStored() {
 unsigned int
 RONet::getEdgeNo() const {
     return (unsigned int) myEdges.size();
+}
+
+
+unsigned int
+RONet::getEdgeNoWithoutInternal() const {
+    return (unsigned int) (myEdges.size() - myNumInternalEdges);
 }
 
 

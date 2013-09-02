@@ -286,8 +286,11 @@ public:
     void closeOutput();
 
 
-    /// Returns the number of edges thenetwork contains
+    /// Returns the number of edges the network contains
     unsigned int getEdgeNo() const;
+
+    /// Returns the number of non-internal edges the network contains
+    unsigned int getEdgeNoWithoutInternal() const;
 
     const std::map<std::string, ROEdge*>& getEdgeMap() const;
 
@@ -373,6 +376,8 @@ protected:
     /// @brief Whether the network contains edges which not all vehicles may pass
     bool myHaveRestrictions;
 
+    /// @brief The number of internal edges in the dictionary
+    int myNumInternalEdges;
 
 private:
     /// @brief Invalidated copy constructor

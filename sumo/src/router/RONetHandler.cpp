@@ -145,27 +145,28 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     }
     // build the edge
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority);
-    if (myNet.addEdge(myCurrentEdge)) {
-        // get the type of the edge
-        myProcess = true;
-        switch (type) {
-            case EDGEFUNC_CONNECTOR:
-            case EDGEFUNC_NORMAL:
-                myCurrentEdge->setType(ROEdge::ET_NORMAL);
-                break;
-            case EDGEFUNC_SOURCE:
-                myCurrentEdge->setType(ROEdge::ET_SOURCE);
-                break;
-            case EDGEFUNC_SINK:
-                myCurrentEdge->setType(ROEdge::ET_SINK);
-                break;
-            case EDGEFUNC_INTERNAL:
-                myProcess = false;
-                break;
-            default:
-                throw ProcessError("Unhandled EdgeFunk " + toString(type));
-        }
-    } else {
+    // set the type
+    myProcess = true;
+    switch (type) {
+        case EDGEFUNC_CONNECTOR:
+        case EDGEFUNC_NORMAL:
+            myCurrentEdge->setType(ROEdge::ET_NORMAL);
+            break;
+        case EDGEFUNC_SOURCE:
+            myCurrentEdge->setType(ROEdge::ET_SOURCE);
+            break;
+        case EDGEFUNC_SINK:
+            myCurrentEdge->setType(ROEdge::ET_SINK);
+            break;
+        case EDGEFUNC_INTERNAL:
+            myCurrentEdge->setType(ROEdge::ET_INTERNAL);
+            myProcess = false;
+            break;
+        default:
+            throw ProcessError("Unhandled EdgeFunk " + toString(type));
+    }
+
+    if (!myNet.addEdge(myCurrentEdge)) {
         myCurrentEdge = 0;
     }
 }
