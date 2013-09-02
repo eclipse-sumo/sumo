@@ -86,7 +86,10 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor::RED);
     scheme.addColor(RGBColor::BLUE, (SUMOReal)(150.0 / 3.6));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by current occupancy (lanewise)", RGBColor::BLUE);
+    scheme = GUIColorScheme("by current occupancy (lanewise, brutto)", RGBColor::BLUE);
+    scheme.addColor(RGBColor::RED, (SUMOReal)0.95);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by current occupancy (lanewise, netto)", RGBColor::BLUE);
     scheme.addColor(RGBColor::RED, (SUMOReal)0.95);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by first vehicle waiting time (lanewise)", RGBColor::GREEN);

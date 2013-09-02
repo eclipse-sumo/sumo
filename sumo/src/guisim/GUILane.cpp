@@ -759,29 +759,31 @@ GUILane::getColorValue(size_t activeScheme) const {
         case 3:
             return getSpeedLimit();
         case 4:
-            return getOccupancy();
+            return getBruttoOccupancy();
         case 5:
-            return firstWaitingTime();
+            return getNettoOccupancy();
         case 6:
-            return getEdgeLaneNumber();
+            return firstWaitingTime();
         case 7:
-            return getNormedHBEFA_CO2Emissions();
+            return getEdgeLaneNumber();
         case 8:
-            return getNormedHBEFA_COEmissions();
+            return getNormedHBEFA_CO2Emissions();
         case 9:
-            return getNormedHBEFA_PMxEmissions();
+            return getNormedHBEFA_COEmissions();
         case 10:
-            return getNormedHBEFA_NOxEmissions();
+            return getNormedHBEFA_PMxEmissions();
         case 11:
-            return getNormedHBEFA_HCEmissions();
+            return getNormedHBEFA_NOxEmissions();
         case 12:
-            return getNormedHBEFA_FuelConsumption();
+            return getNormedHBEFA_HCEmissions();
         case 13:
+            return getNormedHBEFA_FuelConsumption();
+        case 14:
             return getHarmonoise_NoiseEmissions();
-        case 14: {
+        case 15: {
             return getStoredEdgeTravelTime();
         }
-        case 15: {
+        case 16: {
             MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
             if (!ews.knowsTravelTime(myEdge)) {
                 return -1;
@@ -791,7 +793,7 @@ GUILane::getColorValue(size_t activeScheme) const {
                 return 100 * myLength / value / getSpeedLimit();
             }
         }
-        case 16: {
+        case 17: {
             return 1 / myLengthGeometryFactor;
         }
     }

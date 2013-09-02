@@ -580,16 +580,22 @@ public:
     SUMOReal getMeanSpeed() const;
 
 
-    /** @brief Returns the occupancy of this lane during the last step
+    /** @brief Returns the brutto (including minGaps) occupancy of this lane during the last step 
      * @return The occupancy during the last step
      */
-    SUMOReal getOccupancy() const;
+    SUMOReal getBruttoOccupancy() const;
 
 
-    /** @brief Returns the sum of lengths of vehicles which were on the lane during the last step
+    /** @brief Returns the netto (excluding minGaps) occupancy of this lane during the last step (including minGaps)
+     * @return The occupancy during the last step
+     */
+    SUMOReal getNettoOccupancy() const;
+
+
+    /** @brief Returns the sum of lengths of vehicles, including their minGaps, which were on the lane during the last step
      * @return The sum of vehicle lengths of vehicles in the last step
      */
-    SUMOReal getVehLenSum() const;
+    SUMOReal getBruttoVehLenSum() const;
 
 
     /** @brief Returns the sum of last step CO2 emissions
@@ -722,8 +728,11 @@ protected:
     mutable MSLane* myLogicalPredecessorLane;
 
 
-    /// @brief The current length of all vehicles on this lane
-    SUMOReal myVehicleLengthSum;
+    /// @brief The current length of all vehicles on this lane, including their minGaps
+    SUMOReal myBruttoVehicleLengthSum;
+
+    /// @brief The current length of all vehicles on this lane, excluding their minGaps
+    SUMOReal myNettoVehicleLengthSum;
 
     /// @brief End position of a vehicle which laps into this lane
     SUMOReal myInlappingVehicleEnd;

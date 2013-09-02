@@ -1205,10 +1205,10 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
             const MSLane* approachedLane = item.myLink->getViaLane();
             if (approachedLane != 0) {
                 if (item.myLink->isCrossing()/* && item.myLink->willHaveBlockedFoe()*/) {
-                    seenSpace = seenSpace - approachedLane->getVehLenSum();
+                    seenSpace = seenSpace - approachedLane->getBruttoVehLenSum();
                     hadVehicle |= approachedLane->getVehicleNumber() != 0;
                 } else {
-                    seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getBruttoVehLenSum() + approachedLane->getLength();
                     hadVehicle |= approachedLane->getVehicleNumber() != 0;
                 }
                 item.availableSpace = seenSpace;
@@ -1224,7 +1224,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
                     item.availableSpace = MAX2(seenSpace, seenSpace + approachedLane->getPartialOccupatorEnd() + last->getCarFollowModel().brakeGap(last->getSpeed()));
                     hadVehicle = true;
                     /// XXX spaceTillLastStanding should already be covered by getPartialOccupatorEnd()
-                    seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getBruttoVehLenSum() + approachedLane->getLength();
                     /// XXX why not check BRAKELIGHT?
                     if (last->myHaveToWaitOnNextLink) {
                         foundStopped = true;
@@ -1238,7 +1238,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
                     const SUMOReal lastBrakeGap = last->getCarFollowModel().brakeGap(approachedLane->getLastVehicle()->getSpeed());
                     const SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLengthWithGap() + lastBrakeGap - last->getSpeed() * last->getCarFollowModel().getHeadwayTime();
                     item.availableSpace = MAX2(seenSpace, seenSpace + lastGap);
-                    seenSpace += getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
+                    seenSpace += getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getBruttoVehLenSum() + approachedLane->getLength();
                 } else {
                     seenSpace += getSpaceTillLastStanding(approachedLane, foundStopped);
                     item.availableSpace = seenSpace;
@@ -1557,7 +1557,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
         for (i = lanes.begin(); i != lanes.end(); ++i) {
             SUMOReal nextOccupation = 0;
             for (std::vector<MSLane*>::const_iterator j = (*i).bestContinuations.begin() + 1; j != (*i).bestContinuations.end(); ++j) {
-                nextOccupation += (*j)->getVehLenSum();
+                nextOccupation += (*j)->getBruttoVehLenSum();
             }
             (*i).nextOccupation = nextOccupation;
             if ((*i).lane == startLane) {
@@ -1752,7 +1752,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
     for (i = currLanes.begin(); i != currLanes.end(); ++i) {
         SUMOReal nextOccupation = 0;
         for (std::vector<MSLane*>::const_iterator j = (*i).bestContinuations.begin() + 1; j != (*i).bestContinuations.end(); ++j) {
-            nextOccupation += (*j)->getVehLenSum();
+            nextOccupation += (*j)->getBruttoVehLenSum();
         }
         (*i).nextOccupation = nextOccupation;
         if ((*i).lane == startLane) {

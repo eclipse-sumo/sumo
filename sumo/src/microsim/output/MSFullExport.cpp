@@ -112,7 +112,7 @@ MSFullExport::writeLane(OutputDevice& of, const MSLane& lane) {
     of.openTag("lane").writeAttr("id", lane.getID()).writeAttr("CO", lane.getHBEFA_COEmissions()).writeAttr("CO2", lane.getHBEFA_CO2Emissions());
     of.writeAttr("NOx", lane.getHBEFA_NOxEmissions()).writeAttr("PMx", lane.getHBEFA_PMxEmissions()).writeAttr("HC", lane.getHBEFA_HCEmissions());
     of.writeAttr("noise", lane.getHarmonoise_NoiseEmissions()).writeAttr("fuel", lane.getHBEFA_FuelConsumption()).writeAttr("maxspeed", lane.getSpeedLimit());
-    of.writeAttr("meanspeed", lane.getMeanSpeed() * 3.6).writeAttr("occupancy", lane.getOccupancy()).writeAttr("vehicle_count", lane.getVehicleNumber());
+    of.writeAttr("meanspeed", lane.getMeanSpeed() * 3.6).writeAttr("occupancy", lane.getNettoOccupancy()).writeAttr("vehicle_count", lane.getVehicleNumber());
     of.closeTag();
 }
 

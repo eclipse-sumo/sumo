@@ -243,7 +243,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 SUMOReal sum = 0;
                 const std::vector<MSLane*>& lanes = e->getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    sum += (*i)->getOccupancy();
+                    sum += (*i)->getNettoOccupancy();
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(sum / (SUMOReal) lanes.size());

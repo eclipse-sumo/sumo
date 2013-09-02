@@ -90,7 +90,7 @@ MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge
     myVehicles(), myLength(length), myWidth(width), myEdge(edge), myMaxSpeed(maxSpeed),
     myPermissions(permissions),
     myLogicalPredecessorLane(0),
-    myVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0),
+    myBruttoVehicleLengthSum(0), myNettoVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0),
     myLengthGeometryFactor(myShape.length() / myLength) {}
 
 
@@ -130,7 +130,8 @@ MSLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, const M
     } else {
         myVehicles.insert(at, veh);
     }
-    myVehicleLengthSum += veh->getVehicleType().getLengthWithGap();
+    myBruttoVehicleLengthSum += veh->getVehicleType().getLengthWithGap();
+    myNettoVehicleLengthSum += veh->getVehicleType().getLength();
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);
     }
@@ -698,7 +699,8 @@ MSLane::detectCollisions(SUMOTime timestep, int stage) {
                               + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
                               + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + toString(stage) + ".");
                 MSNet::getInstance()->getVehicleControl().registerCollision();
-                myVehicleLengthSum -= vehV->getVehicleType().getLengthWithGap();
+                myBruttoVehicleLengthSum -= vehV->getVehicleType().getLengthWithGap();
+                myNettoVehicleLengthSum -= vehV->getVehicleType().getLength();
                 MSVehicleTransfer::getInstance()->addVeh(timestep, vehV);
                 veh = myVehicles.erase(veh); // remove current vehicle
                 lastVeh = myVehicles.end() - 1;
@@ -734,6 +736,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
         }
         // length is needed later when the vehicle may not exist anymore
         const SUMOReal length = veh->getVehicleType().getLengthWithGap();
+        const SUMOReal nettoLength = veh->getVehicleType().getLength();
         bool moved = veh->executeMove();
         MSLane* target = veh->getLane();
 #ifndef NO_TRACI
@@ -779,7 +782,8 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
             ++i;
             continue;
         }
-        myVehicleLengthSum -= length;
+        myBruttoVehicleLengthSum -= length;
+        myNettoVehicleLengthSum -= nettoLength;
         i = myVehicles.erase(i);
     }
     if (myVehicles.size() > 0) {
@@ -789,7 +793,8 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
             bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && !last->isStopped() && last->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && last->getLane()->getSpeedLimit() > 69. / 3.6 && !last->getLane()->appropriate(last);
             if (r1 || r2) {
                 MSVehicle* veh = *(myVehicles.end() - 1);
-                myVehicleLengthSum -= veh->getVehicleType().getLengthWithGap();
+                myBruttoVehicleLengthSum -= veh->getVehicleType().getLengthWithGap();
+                myNettoVehicleLengthSum -= veh->getVehicleType().getLength();
                 myVehicles.erase(myVehicles.end() - 1);
                 WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long"
                               + (r2 ? " on highway" : "")
@@ -860,7 +865,8 @@ MSLane::integrateNewVehicle(SUMOTime) {
     for (std::vector<MSVehicle*>::const_iterator i = myVehBuffer.begin(); i != myVehBuffer.end(); ++i) {
         MSVehicle* veh = *i;
         myVehicles.insert(myVehicles.begin(), veh);
-        myVehicleLengthSum += veh->getVehicleType().getLengthWithGap();
+        myBruttoVehicleLengthSum += veh->getVehicleType().getLengthWithGap();
+        myNettoVehicleLengthSum += veh->getVehicleType().getLength();
     }
     myVehBuffer.clear();
     return wasInactive && myVehicles.size() != 0;
@@ -960,7 +966,8 @@ MSLane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notifi
         if (remVehicle == *it) {
             remVehicle->leaveLane(notification);
             myVehicles.erase(it);
-            myVehicleLengthSum -= remVehicle->getVehicleType().getLengthWithGap();
+            myBruttoVehicleLengthSum -= remVehicle->getVehicleType().getLengthWithGap();
+            myNettoVehicleLengthSum -= remVehicle->getVehicleType().getLength();
             break;
         }
     }
@@ -1201,26 +1208,34 @@ MSLane::getLogicalPredecessorLane() const {
 
 void
 MSLane::leftByLaneChange(MSVehicle* v) {
-    myVehicleLengthSum -= v->getVehicleType().getLengthWithGap();
+    myBruttoVehicleLengthSum -= v->getVehicleType().getLengthWithGap();
+    myNettoVehicleLengthSum -= v->getVehicleType().getLength();
 }
 
 
 void
 MSLane::enteredByLaneChange(MSVehicle* v) {
-    myVehicleLengthSum += v->getVehicleType().getLengthWithGap();
+    myBruttoVehicleLengthSum += v->getVehicleType().getLengthWithGap();
+    myNettoVehicleLengthSum += v->getVehicleType().getLength();
 }
 
 
 // ------------ Current state retrieval
 SUMOReal
-MSLane::getOccupancy() const {
-    return myVehicleLengthSum / myLength;
+MSLane::getBruttoOccupancy() const {
+    return myBruttoVehicleLengthSum / myLength;
 }
 
 
 SUMOReal
-MSLane::getVehLenSum() const {
-    return myVehicleLengthSum;
+MSLane::getNettoOccupancy() const {
+    return myNettoVehicleLengthSum / myLength;
+}
+
+
+SUMOReal
+MSLane::getBruttoVehLenSum() const {
+    return myBruttoVehicleLengthSum;
 }
 
 
