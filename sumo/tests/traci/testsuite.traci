@@ -5,9 +5,10 @@ get_variable
 set_variable
 
 # Tests for variable subscription
-VariableSubscription
+variable_subscription
 
 # Tests for context subscription
-ContextSubscription
+context_subscription
+
 
 
