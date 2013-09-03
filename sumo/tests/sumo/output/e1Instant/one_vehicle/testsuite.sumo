@@ -5,3 +5,5 @@ one1s_1vehicle_10m_s
 # Two detectors sampling at 1s, one vehicle driving 10m/s
 two1s_1vehicle_10m_s
 
+# one vehicle which changes lanes on the detector edge
+lane_change
