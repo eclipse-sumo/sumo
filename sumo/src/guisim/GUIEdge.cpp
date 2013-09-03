@@ -366,7 +366,7 @@ SUMOReal
 GUIEdge::getBruttoOccupancy() const {
     SUMOReal occ = 0;
     for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
-        occ += segment->getOccupancy();
+        occ += segment->getBruttoOccupancy();
     }
     return occ / (*myLanes)[0]->getLength() / (SUMOReal)(myLanes->size());
 }
