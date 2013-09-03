@@ -368,6 +368,8 @@ MSNet::simulationStep() {
     }
     // check whether the tls programs need to be switched
     myLogics->check2Switch(myStep);
+    // set the signals
+    myLogics->setTrafficLightSignals(myStep);
 
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
