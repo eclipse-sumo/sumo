@@ -1,29 +1,13 @@
 # Tests for variable retrieval
 get_variable
 
+# Tests for setting variables
+set_variable
+
 # Tests for variable subscription
 VariableSubscription
 
 # Tests for context subscription
 ContextSubscription
-
-
-# Tests for changing TL values
-ChangeTLValue
-
-# Tests for changing vehicle values
-ChangeVehicleValue
-
-# Tests for changing PoI values
-ChangePoIValue
-
-# Tests for changing polygon values
-ChangePolygonValue
-
-# Tests for changing lane values
-ChangeLaneValue
-
-# Tests for changing edge values
-ChangeEdgeValue
 
 
