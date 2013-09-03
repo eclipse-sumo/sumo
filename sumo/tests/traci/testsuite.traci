@@ -1,5 +1,5 @@
 # Tests for variable retrieval
-VariableRetrieval
+get_variable
 
 # Tests for variable subscription
 VariableSubscription
