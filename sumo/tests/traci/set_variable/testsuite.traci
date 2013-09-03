@@ -1,19 +1,20 @@
 # Tests for changing TL values
-ChangeTLValue
+TrafficLight
 
 # Tests for changing vehicle values
-ChangeVehicleValue
+Vehicle
 
 # Tests for changing PoI values
-ChangePoIValue
+POI
 
 # Tests for changing polygon values
-ChangePolygonValue
+Polygon
 
 # Tests for changing lane values
-ChangeLaneValue
+Lane
 
 # Tests for changing edge values
-ChangeEdgeValue
+Edge
+
 
 
