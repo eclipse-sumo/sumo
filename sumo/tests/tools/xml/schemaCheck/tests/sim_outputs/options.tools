@@ -1,1 +1,1 @@
-$SUMO_HOME/tests rawdump.sumo*,aggregated*.sumo* tools/xml/schemaCheck.py
+$SUMO_HOME/tests detector.sumo*,rawdump.sumo*,aggregated*.sumo* tools/xml/schemaCheck.py
