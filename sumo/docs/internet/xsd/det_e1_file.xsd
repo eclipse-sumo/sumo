@@ -10,7 +10,7 @@
   <xsd:element name="interval">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element maxOccurs="unbounded" ref="typedInterval"/>
+        <xsd:element minOccurs="0" maxOccurs="unbounded" ref="typedInterval"/>
       </xsd:sequence>
       <xsd:attribute name="begin" use="required" type="xsd:decimal"/>
       <xsd:attribute name="end" use="required" type="xsd:decimal"/>
