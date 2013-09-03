@@ -249,7 +249,7 @@ public class Constants {
 	public static final int CMD_SUBSCRIBE_POI_CONTEXT = 0x87;
 
 	/**Position in geo-coordinates with altitude*/
-	public static final int POSITION_LAT_LON_ALT = 0x2;
+	public static final int POSITION_LON_LAT_ALT = 0x2;
 
 	/**set poi variable*/
 	public static final int CMD_SET_POI_VARIABLE = 0xc7;
@@ -272,6 +272,9 @@ public class Constants {
 	/**subscribe lane context*/
 	public static final int CMD_SUBSCRIBE_LANE_CONTEXT = 0x83;
 
+	/**stop state*/
+	public static final int VAR_STOPSTATE = 0xb5;
+	
 	/**driver reaction time (get: vehicle types)*/
 	public static final int VAR_TAU = 0x48;
 
@@ -440,6 +443,9 @@ public class Constants {
 	/**angle (get: vehicle types, lanes, set: lanes)*/
 	public static final int VAR_LENGTH = 0x44;
 
+	/**resume*/
+	public static final int CMD_RESUME = 0x19;
+	
 	/**set edge variable*/
 	public static final int CMD_SET_EDGE_VARIABLE = 0xca;
 
@@ -621,7 +627,9 @@ public class Constants {
 	public static final int CMD_GET_ROUTE_VARIABLE = 0xa6;
 
 	/**Position in geo-coordinates*/
-	public static final int POSITION_LAT_LON = 0x0;
+	public static final int POSITION_LON_LAT = 0x0;
+	
+	
 
 	/**vehicle arrived*/
 	public static final int REMOVE_ARRIVED = 0x2;

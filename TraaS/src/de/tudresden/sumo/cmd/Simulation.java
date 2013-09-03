@@ -105,7 +105,7 @@ public class Simulation {
 
 	public static SumoCommand getDistance2D(double x1, double y1, double x2, double y2, String isGeo, String isDriving){
 		Object[] array = new Object[]{y1, x2, y2, isGeo, isDriving};
-		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.POSITION_LAT_LON, x1, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_DOUBLE);
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.POSITION_LON_LAT, x1, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
