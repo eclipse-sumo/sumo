@@ -294,11 +294,6 @@ GUILane::drawLinkRules(const GUINet& net) const {
                 break;
             case LINKSTATE_MAJOR:
                 glColor3d(1, 1, 1);
-                if (railway) {
-                    // the white bar should be the default for most railway
-                    // links and looks ugly so we do not draw it
-                    continue;
-                }
                 break;
             case LINKSTATE_MINOR:
                 glColor3d(.2, .2, .2);
@@ -316,12 +311,16 @@ GUILane::drawLinkRules(const GUINet& net) const {
                 glColor3d(0, 0, 0);
                 break;
         }
-        glBegin(GL_QUADS);
-        glVertex2d(x1 - myHalfLaneWidth, 0.0);
-        glVertex2d(x1 - myHalfLaneWidth, 0.5);
-        glVertex2d(x2 - myHalfLaneWidth, 0.5);
-        glVertex2d(x2 - myHalfLaneWidth, 0.0);
-        glEnd();
+        if (!railway || link->getState() != LINKSTATE_MAJOR) {
+            // THE WHITE BAR SHOULD BE THE DEFAULT FOR MOST RAILWAY
+            // LINKS AND LOOKS UGLY SO WE DO NOT DRAW IT
+            glBegin(GL_QUADS);
+            glVertex2d(x1 - myHalfLaneWidth, 0.0);
+            glVertex2d(x1 - myHalfLaneWidth, 0.5);
+            glVertex2d(x2 - myHalfLaneWidth, 0.5);
+            glVertex2d(x2 - myHalfLaneWidth, 0.0);
+            glEnd();
+        }
         glPopName();
         x1 = x2;
         x2 += w;
