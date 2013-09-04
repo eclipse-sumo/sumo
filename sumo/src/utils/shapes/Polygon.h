@@ -63,18 +63,22 @@ public:
             SUMOReal angle = DEFAULT_ANGLE,
             const std::string& imgFile = DEFAULT_IMG_FILE);
 
+
     /// @brief Destructor
     virtual ~Polygon();
 
 
+
     /// @name Getter
     /// @{
+
     /** @brief Returns whether the shape of the polygon
      * @return The shape of the polygon
      */
     inline const PositionVector& getShape() const {
         return myShape;
     }
+
 
     /** @brief Returns whether the polygon is filled
      * @return Whether the polygon is filled
@@ -88,6 +92,7 @@ public:
 
     /// @name Setter
     /// @{
+
     /** @brief Sets whether the polygon shall be filled
      * @param[in] fill Whether the polygon shall be filled
      */
