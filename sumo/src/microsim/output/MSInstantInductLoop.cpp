@@ -125,8 +125,15 @@ MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveR
     if (i != myEntryTimes.end()) {
         write("leave", i->second, veh, veh.getSpeed());
         myEntryTimes.erase(i);
+        return false;
     }
-    return false;
+    if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
+        // vehicle might have jumped over detector at the end of the lane. we need
+        // one more notifyMove to register it
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
