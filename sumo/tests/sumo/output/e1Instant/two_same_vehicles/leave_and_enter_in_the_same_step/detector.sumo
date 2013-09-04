@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep  4 13:12:35 2013 by SUMO sumo Version dev-SVN-r14553
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<instantE1>
+    <instantOut id="instant" time="6.43" state="enter" vehID="0" speed="25.60" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="instant" time="6.66" state="leave" vehID="0" speed="28.20" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.23"/>
+    <instantOut id="instant" time="7.83" state="enter" vehID="1" speed="23.83" length="5.00" type="DEFAULT_VEHTYPE" gap="1.17"/>
+    <instantOut id="instant" time="8.04" state="leave" vehID="1" speed="26.43" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.21"/>
+</instantE1>

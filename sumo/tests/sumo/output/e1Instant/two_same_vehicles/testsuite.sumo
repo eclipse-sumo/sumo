@@ -5,4 +5,5 @@ one1s_1vehicle_10m_s
 # Two detectors sampling at 1s, one vehicle driving 10m/s
 two1s_1vehicle_10m_s
 
-
+# Two vehicles pass the detector. The first one leaves the detector in the same step as the second one enters it
+leave_and_enter_in_the_same_step
