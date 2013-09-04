@@ -159,7 +159,7 @@ MSCalibrator::myStartElement(int element,
             if (state.vehicleParameter->departLaneProcedure == DEPART_LANE_DEFAULT) {
                 state.vehicleParameter->departLaneProcedure = DEPART_LANE_ALLOWED_FREE;
             }
-            if (MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid) == 0) {
+            if (MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid, false) == 0) {
                 WRITE_ERROR("Unknown vehicle type '" + state.vehicleParameter->vtypeid + "' in calibrator '" + myID + "'.");
             }
         } catch (EmptyData) {

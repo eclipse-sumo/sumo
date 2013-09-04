@@ -317,9 +317,10 @@ public:
 
     /** @brief Returns the named vehicle type or a sample from the named distribution
      * @param[in] id The id of the vehicle type to return. If left out, the default type is returned.
+     * @param[in] id freezeDefault whether a request for DEFAULT_VTYPE_ID should prevent this type from being modified in the future
      * @return The named vehicle type, or 0 if no such type exists
      */
-    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID);
+    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID, bool freezeDefault=true);
 
 
     /** @brief Inserts ids of all known vehicle types and vehicle type distributions to the given vector

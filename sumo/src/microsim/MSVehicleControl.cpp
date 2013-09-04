@@ -253,7 +253,7 @@ MSVehicleControl::hasVTypeDistribution(const std::string& id) const {
 
 
 MSVehicleType*
-MSVehicleControl::getVType(const std::string& id) {
+MSVehicleControl::getVType(const std::string& id, bool freezeDefault) {
     VTypeDictType::iterator it = myVTypeDict.find(id);
     if (it == myVTypeDict.end()) {
         VTypeDistDictType::iterator it2 = myVTypeDistDict.find(id);
@@ -262,7 +262,7 @@ MSVehicleControl::getVType(const std::string& id) {
         }
         return it2->second->get(&myVehicleParamsRNG);
     }
-    if (id == DEFAULT_VTYPE_ID) {
+    if (id == DEFAULT_VTYPE_ID && freezeDefault) {
         myDefaultVTypeMayBeDeleted = false;
     }
     return it->second;
