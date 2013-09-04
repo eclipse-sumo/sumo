@@ -118,7 +118,15 @@ if (isset($_POST["submit"])) {
         echo "Please give at least one file!<br>";
         $valid = False;
     }
+    $handle = fopen($scenDir . "/description", "a");
+    if (!$handle) {
+        $valid = False;
+    }
     if ($valid) {
+        fwrite($handle, 'Description: ' . $_POST["description"] . "\n\n");
+        fwrite($handle, 'License: ' . $_POST["license"] . "\n\n");
+        fwrite($handle, 'E-Mail: ' . $_POST["email"] . "\n\n");
+        fclose($handle);
         $header = 'From: sumo-tests@dlr.de' . "\n" .
         'CC: sumo-tests@dlr.de' . "\n" .
         'X-Mailer: PHP/' . phpversion() . "\n";
