@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 04Sep08:45:26]
+search_string:<vehicle id="overtaking_right" depart="10.00" arrival="691.00">
+search_file:vehroutes
+full_description:vehicle fails to change lanes
+brief_description:see #718
