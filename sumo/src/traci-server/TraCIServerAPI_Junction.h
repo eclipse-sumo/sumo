@@ -65,8 +65,8 @@ public:
     static bool getPosition(const std::string& id, Position& p);
 
 
-    /** @brief Returns a tree filled with inductive loop instances
-     * @return The rtree of inductive loop
+    /** @brief Returns a tree filled with junction instances
+     * @return The rtree of junctions
      */
     static TraCIRTree* getTree();
 

@@ -76,8 +76,8 @@ public:
     static bool getShape(const std::string& id, PositionVector& shape);
 
 
-    /** @brief Returns a tree filled with inductive loop instances
-     * @return The rtree of inductive loop
+    /** @brief Returns a tree filled with lane instances
+     * @return The rtree of lanes
      */
     static TraCIRTree* getTree();
 

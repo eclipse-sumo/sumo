@@ -72,24 +72,22 @@ public:
     /** @brief Insert entry
      * @param a_min Min of bounding rect
      * @param a_max Max of bounding rect
-     * @param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
+     * @param a_data The instance of a Named-object to add (the ID is added)
      * @see RTree::Insert
      */
-    void Insert(const float a_min[2], const float a_max[2], Named* a_dataId) {
-        //AbstractMutex::ScopedLocker locker(myLock);
-        RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Insert(a_min, a_max, a_dataId);
+    void Insert(const float a_min[2], const float a_max[2], Named* a_data) {
+        RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Insert(a_min, a_max, a_data);
     }
 
 
     /** @brief Remove entry
      * @param a_min Min of bounding rect
      * @param a_max Max of bounding rect
-     * @param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
+     * @param a_data The instance of a Named-object to remove
      * @see RTree::Remove
      */
-    void Remove(const float a_min[2], const float a_max[2], Named* a_dataId) {
-        //AbstractMutex::ScopedLocker locker(myLock);
-        RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Remove(a_min, a_max, a_dataId);
+    void Remove(const float a_min[2], const float a_max[2], Named* a_data) {
+        RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Remove(a_min, a_max, a_data);
     }
 
 
@@ -103,12 +101,11 @@ public:
      * @see RTree::Search
      */
     int Search(const float a_min[2], const float a_max[2], const Named::StoringVisitor& c) {
-        //AbstractMutex::ScopedLocker locker(myLock);
         return RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Search(a_min, a_max, c);
     }
 
 
-    /** @brief Adds an additional object (detector/shape/trigger) for visualisation
+    /** @brief Adds "Named" object instance's ID
      * @param[in] o The object to add
      * @param[in] b The object's boundary
      */
@@ -119,7 +116,7 @@ public:
     }
 
 
-    /** @brief Adds an additional object (detector/shape/trigger) for visualisation
+    /** @brief Adds "Named" object instance's ID
      * @param[in] o The object to add
      * @param[in] p The object's position
      */
@@ -130,7 +127,7 @@ public:
     }
 
 
-    /** @brief Removes an additional object (detector/shape/trigger) from being visualised
+    /** @brief Removes a "Named" object instance
      * @param[in] o The object to remove
      */
     void removeAdditionalGLObject(Named* o, Boundary& b) {
@@ -139,10 +136,6 @@ public:
         Remove(cmin, cmax, o);
     }
 
-
-protected:
-    /// @brief A mutex avoiding parallel change and traversal of the tree
-    //MFXMutex myLock;
 
 };
 
