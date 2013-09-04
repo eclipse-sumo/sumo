@@ -121,12 +121,6 @@ MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder
 }
 
 
-bool
-MSInductLoop::notifyEnter(SUMOVehicle& /* veh */, MSMoveReminder::Notification) {
-    return true;
-}
-
-
 SUMOReal
 MSInductLoop::getCurrentSpeed() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
