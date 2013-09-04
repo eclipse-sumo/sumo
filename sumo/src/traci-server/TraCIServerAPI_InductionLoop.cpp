@@ -184,7 +184,9 @@ TraCIServerAPI_InductionLoop::getTree() {
     for (std::map<std::string, MSDetectorFileOutput*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
         MSInductLoop* il = static_cast<MSInductLoop*>((*i).second);
         Position p = il->getLane()->getShape().positionAtOffset(il->getPosition());
-        t->addObject(il, p);
+        const float cmin[2] = {(float) p.x(), (float) p.y()};
+        const float cmax[2] = {(float) p.x(), (float) p.y()};
+        t->Insert(cmin, cmax, il);
     }
     return t;
 }

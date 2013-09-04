@@ -57,7 +57,7 @@ inline float RTree<Named*, Named, float, 2, Named::StoringVisitor, float, 8, 4>:
  * It stores names of "Named"-objects.
  * @see Named
  */
-class NamedRTree : private RTree<Named*, Named, float, 2, Named::StoringVisitor >, public Boundary {
+class NamedRTree : private RTree<Named*, Named, float, 2, Named::StoringVisitor > {
 public:
     /// @brief Constructor
     NamedRTree()
@@ -103,38 +103,6 @@ public:
      */
     int Search(const float a_min[2], const float a_max[2], const Named::StoringVisitor& c) {
         return RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Search(a_min, a_max, c);
-    }
-
-
-    /** @brief Adds "Named" object instance's ID
-     * @param[in] o The object to add
-     * @param[in] b The object's boundary
-     */
-    void addObject(Named* o, Boundary& b) {
-        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-        Insert(cmin, cmax, o);
-    }
-
-
-    /** @brief Adds "Named" object instance's ID
-     * @param[in] o The object to add
-     * @param[in] p The object's position
-     */
-    void addObject(Named* o, Position& p) {
-        Boundary b;
-        b.add(p);
-        addObject(o, b);
-    }
-
-
-    /** @brief Removes a "Named" object instance
-     * @param[in] o The object to remove
-     */
-    void removeAdditionalGLObject(Named* o, Boundary& b) {
-        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-        Remove(cmin, cmax, o);
     }
 
 

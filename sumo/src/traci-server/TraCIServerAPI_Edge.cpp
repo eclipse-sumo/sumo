@@ -449,7 +449,9 @@ TraCIServerAPI_Edge::getTree() {
         for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             b.add((*j)->getShape().getBoxBoundary());
         }
-        t->addObject(*i, b);
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+        t->Insert(cmin, cmax, *i);
     }
     return t;
 }

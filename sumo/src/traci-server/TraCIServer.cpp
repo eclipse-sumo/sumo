@@ -755,11 +755,14 @@ TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, SUMO
             case CMD_GET_TL_VARIABLE:
                 break;
             case CMD_GET_LANE_VARIABLE:
-                myObjects[CMD_GET_LANE_VARIABLE] = TraCIServerAPI_Lane::getTree();
+                myObjects[CMD_GET_LANE_VARIABLE] = new NamedRTree();
+                MSLane::fill(*myObjects[CMD_GET_LANE_VARIABLE]);
                 break;
             case CMD_GET_VEHICLE_VARIABLE:
                 if (myObjects.find(CMD_GET_LANE_VARIABLE) == myObjects.end()) {
-                    myObjects[CMD_GET_LANE_VARIABLE] = TraCIServerAPI_Lane::getTree();
+                    myObjects[CMD_GET_LANE_VARIABLE] = new NamedRTree();
+                    MSLane::fill(*myObjects[CMD_GET_LANE_VARIABLE]);
+                    myObjects[CMD_GET_VEHICLE_VARIABLE] = 0;
                 }
                 break;
             case CMD_GET_VEHICLETYPE_VARIABLE:

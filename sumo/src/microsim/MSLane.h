@@ -43,6 +43,7 @@
 #include <utils/common/Parameterised.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/SUMOVehicle.h>
+#include <utils/common/NamedRTree.h>
 #include <utils/geom/PositionVector.h>
 #include "MSLinkCont.h"
 #include "MSMoveReminder.h"
@@ -443,23 +444,59 @@ public:
         return *myEdge;
     }
 
+
+
+    /// @brief Static (sic!) container methods 
+    /// {
+
     /** @brief Inserts a MSLane into the static dictionary
-        Returns true if the key id isn't already in the dictionary.
-        Otherwise returns false. */
-    static bool dictionary(std::string id, MSLane* lane);
+     * 
+     * Returns true if the key id isn't already in the dictionary.
+     *  Otherwise returns false. 
+     * @param[in] id The id of the lane 
+     * @param[in] lane The lane itself
+     * @return Whether the lane was added
+     * @todo make non-static
+     * @todo why is the id given? The lane is named
+     */
+    static bool dictionary(const std::string &id, MSLane* lane);
 
-    /** @brief Returns the MSLane associated to the key id if exists
-       Otherwise returns 0. */
-    static MSLane* dictionary(std::string id);
 
-    /** Clears the dictionary */
+    /** @brief Returns the MSLane associated to the key id 
+     *
+     * The lane is returned if exists, otherwise 0 is returned.
+     * @param[in] id The id of the lane 
+     * @return The lane
+     */
+    static MSLane* dictionary(const std::string &id);
+
+
+    /** @brief Clears the dictionary */
     static void clear();
 
+
+    /** @brief Returns the number of stored lanes
+     * @return The number of stored lanes
+     */
     static size_t dictSize() {
         return myDict.size();
     }
 
+
+    /** @brief Adds the ids of all stored lanes into the given vector
+     * @param[in, filled] into The vector to add the IDs into
+     */
     static void insertIDs(std::vector<std::string>& into);
+
+
+    /** @brief Fills the given NamedRTree with lane instances
+     * @param[in, filled] into The NamedRTree to fill
+     * @see NamedRTree
+     */
+    static void fill(NamedRTree& into);
+    /// @}
+
+
 
     /** Same as succLink, but does not throw any assertions when
         the succeeding link could not be found;

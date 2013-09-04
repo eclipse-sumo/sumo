@@ -808,8 +808,10 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
 }
 
 
+
+// ------ Static (sic!) container methods  ------
 bool
-MSLane::dictionary(std::string id, MSLane* ptr) {
+MSLane::dictionary(const std::string &id, MSLane* ptr) {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -821,7 +823,7 @@ MSLane::dictionary(std::string id, MSLane* ptr) {
 
 
 MSLane*
-MSLane::dictionary(std::string id) {
+MSLane::dictionary(const std::string &id) {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -848,6 +850,21 @@ MSLane::insertIDs(std::vector<std::string>& into) {
 }
 
 
+void 
+MSLane::fill(NamedRTree& into) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
+        MSLane *l = (*i).second;
+        Boundary b = l->getShape().getBoxBoundary();
+        b.grow(3.);
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+        into.Insert(cmin, cmax, l);
+    }
+}
+
+
+
+// ------   ------
 bool
 MSLane::appropriate(const MSVehicle* veh) {
     if (myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {

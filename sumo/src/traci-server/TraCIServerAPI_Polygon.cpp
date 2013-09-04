@@ -252,7 +252,9 @@ TraCIServerAPI_Polygon::getTree() {
     const std::map<std::string, Polygon*>& polygons = shapeCont.getPolygons().getMyMap();
     for (std::map<std::string, Polygon*>::const_iterator i = polygons.begin(); i != polygons.end(); ++i) {
         Boundary b = (*i).second->getShape().getBoxBoundary();
-        t->addObject((*i).second, b);
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+        t->Insert(cmin, cmax, (*i).second);
     }
     return t;
 }
