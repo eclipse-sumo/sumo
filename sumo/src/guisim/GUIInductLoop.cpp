@@ -88,9 +88,9 @@ GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) {
 }
 
 void
-GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) {
+GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal lastPos) {
     AbstractMutex::ScopedLocker locker(myLock);
-    MSInductLoop::leaveDetectorByLaneChange(veh);
+    MSInductLoop::leaveDetectorByLaneChange(veh, lastPos);
 }
 
 

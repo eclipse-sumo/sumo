@@ -124,8 +124,9 @@ protected:
      * Locks the internal mutex before calling MSInductLoop::leaveDetectorByLaneChange()
      * @see MSInductLoop::leaveDetectorByLaneChange()
      * @param veh The leaving vehicle.
+     * @param lastPos The last position of the leaving vehicle.
      */
-    void leaveDetectorByLaneChange(SUMOVehicle& veh);
+    void leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal lastPos);
     /// @}
 
 

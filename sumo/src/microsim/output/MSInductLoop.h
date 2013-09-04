@@ -300,8 +300,9 @@ protected:
 
     /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
      * @param veh The leaving vehicle.
+     * @param lastPos The last position of the leaving vehicle.
      */
-    virtual void leaveDetectorByLaneChange(SUMOVehicle& veh);
+    virtual void leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal lastPos);
     /// @}
 
 
