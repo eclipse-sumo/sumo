@@ -19,3 +19,6 @@ two100s_1vehicle_10m_s
 
 # One detector sampling at 10s, with early sim end
 one10s_1vehicle_10m_s_end
+
+# one vehicle which changes lanes on the detector edge
+lane_change
