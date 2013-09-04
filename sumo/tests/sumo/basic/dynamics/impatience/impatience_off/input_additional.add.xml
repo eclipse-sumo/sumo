@@ -1,3 +1,3 @@
 <routes>
-    <vType id="t" impatience="off"/>
+    <vType sigma="0" id="t" impatience="off"/>
 </routes>

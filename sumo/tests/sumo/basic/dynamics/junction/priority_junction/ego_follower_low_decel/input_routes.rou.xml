@@ -1,10 +1,10 @@
 <routes>
-    <vType id="t_ego" decel="1.0" accel="4"/>
+    <vType sigma="0" id="t_ego" decel="1.0" accel="4"/>
     <vehicle id="ego" depart="0" departPos="480" type="t_ego" departSpeed="max">
         <route edges="right2end end"/>
     </vehicle>
 
-    <vType id="t_leader"/>
+    <vType sigma="0" id="t_leader"/>
     <vehicle id="priority" type="t_leader" depart="0" departPos="780" departSpeed="max">
         <route edges="middle end"/>
         <stop lane="end_0" endPos="20" duration="10"/>

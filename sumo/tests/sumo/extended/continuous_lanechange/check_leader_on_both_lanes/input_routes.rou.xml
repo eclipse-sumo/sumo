@@ -1,5 +1,5 @@
 <routes>
-    <vType id="thin" width="1"/>
+    <vType sigma="0" id="thin" width="1"/>
     <vehicle id="v0" depart="0" departLane="0" arrivalLane="0">
         <route edges="1si"/>
         <stop lane="1si_0" endPos="150" until="25"/>

@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vType id="crash">
+    <vType sigma="0" id="crash">
         <carFollowing-Invalid/>
     </vType>
     <route id="0" edges="beg"/>

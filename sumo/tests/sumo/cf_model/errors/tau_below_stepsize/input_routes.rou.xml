@@ -1,6 +1,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vType id="lowTau" tau="0.5"/>
-    <vType id="slow" maxSpeed="27.0"/>
+    <vType sigma="0" id="lowTau" tau="0.5"/>
+    <vType sigma="0" id="slow" maxSpeed="27.0"/>
     <route id="straight" edges="beg middle end rend"/>
     <vehicle id="leader" type="slow" depart="0" route="straight" departSpeed="max">
         <stop lane="end_0" endPos="20" duration="10"/>

@@ -1,6 +1,6 @@
 <routes>
-    <vType class="passenger" id="pkwNah2b" color=".6,.6,.8" minGap="1.0" accel="2.8" decel="4.5" sigma="0.5" length="4.0" maxSpeed="70" probability=".2" guiShape="passenger/hatchback" emissionClass="P_7_7"/>
-    <vType class="passenger" id="pkwNah3"  color=".7,.7,.7" minGap="1.5" accel="2.7" decel="4.5" sigma="0.5" length="4.5" maxSpeed="70" probability=".2" guiShape="passenger/wagon" emissionClass="P_7_7"/>
+    <vType class="passenger" id="pkwNah2b" color=".6,.6,.8" minGap="1.0" accel="2.8" decel="4.5" sigma="0" length="4.0" maxSpeed="70" probability=".2" guiShape="passenger/hatchback" emissionClass="P_7_7"/>
+    <vType class="passenger" id="pkwNah3"  color=".7,.7,.7" minGap="1.5" accel="2.7" decel="4.5" sigma="0" length="4.5" maxSpeed="70" probability=".2" guiShape="passenger/wagon" emissionClass="P_7_7"/>
 
     <vehicle id="yield" type="pkwNah2b" depart="23100.00" departLane="best">
         <route edges="-51808425 51808368 -51808368"/>

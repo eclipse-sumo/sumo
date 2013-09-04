@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:17:15 by SUMO sumo Version 0.17.0
+<!-- generated on Wed Sep  4 15:31:28 2013 by SUMO sumo Version dev-SVN-r14576
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -23,6 +23,6 @@
 -->
 
 <tripinfos>
-    <tripinfo id="should_drive" depart="0.00" departLane="beg1_0" departPos="95.00" departSpeed="0.00" departDelay="0.00" arrival="107.00" arrivalLane="end_0" arrivalPos="150.92" arrivalSpeed="1.21" duration="107.00" routeLength="161.27" waitSteps="0" rerouteNo="0" devices="tripinfo_should_drive" vType="slow" vaporized=""/>
-    <tripinfo id="should_follow" depart="0.00" departLane="beg2_0" departPos="490.00" departSpeed="0.50" departDelay="0.00" arrival="442.00" arrivalLane="end_0" arrivalPos="150.92" arrivalSpeed="0.32" duration="442.00" routeLength="158.15" waitSteps="0" rerouteNo="0" devices="tripinfo_should_follow" vType="very_slow" vaporized=""/>
+    <tripinfo id="should_drive" depart="0.00" departLane="beg1_0" departPos="95.00" departSpeed="0.00" departDelay="0.00" arrival="84.00" arrivalLane="end_0" arrivalPos="150.92" arrivalSpeed="2.00" duration="84.00" routeLength="161.27" waitSteps="0" rerouteNo="0" devices="tripinfo_should_drive" vType="slow" vaporized=""/>
+    <tripinfo id="should_follow" depart="0.00" departLane="beg2_0" departPos="490.00" departSpeed="0.50" departDelay="0.00" arrival="329.00" arrivalLane="end_0" arrivalPos="150.92" arrivalSpeed="0.50" duration="329.00" routeLength="158.15" waitSteps="0" rerouteNo="0" devices="tripinfo_should_follow" vType="very_slow" vaporized=""/>
 </tripinfos>

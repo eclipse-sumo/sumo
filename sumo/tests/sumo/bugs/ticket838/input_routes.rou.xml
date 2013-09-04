@@ -1,6 +1,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vType id="highDecel" decel="6"/>
-    <vType id="lowDecel" decel="4" maxSpeed="27.0"/>
+    <vType sigma="0" id="highDecel" decel="6"/>
+    <vType sigma="0" id="lowDecel" decel="4" maxSpeed="27.0"/>
     <route id="straight" edges="beg middle end rend"/>
     <vehicle id="leader" type="lowDecel" depart="0" route="straight" departSpeed="max"/>
     <vehicle id="follower" type="highDecel" depart="1" route="straight" departSpeed="max"/>

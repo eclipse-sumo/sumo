@@ -1,7 +1,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vType id="long" length="20" minGap="2"/>
-    <vType id="short" length="5" minGap="2" maxSpeed="13"/>
-    <vType id="low_decel" decel="0.1"/>
+    <vType sigma="0" id="long" length="20" minGap="2"/>
+    <vType sigma="0" id="short" length="5" minGap="2" maxSpeed="13"/>
+    <vType sigma="0" id="low_decel" decel="0.1"/>
     <route id="r0" edges="gneE7 gneE15"/>
     <route id="r1" edges="gneE14 gneE15"/>
 

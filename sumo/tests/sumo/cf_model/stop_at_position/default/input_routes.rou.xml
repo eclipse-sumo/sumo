@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vType id="default" length="5" minGap="2"/>
+    <vType sigma="0" id="default" length="5" minGap="2"/>
     <vehicle id="0" type="default" depart="0" departPos="100" arrivalPos="300">
         <route edges="gneE0"/>
         <stop lane="gneE0_0" startPos="200" endPos="220" duration="10"/>

@@ -1,5 +1,5 @@
 <routes>
-    <vType id="custom">
+    <vType sigma="0" id="custom">
         <param key="example" value="113"/>
     </vType>
     <vehicle id="veh0" depart="0" departPos="400" endPos="20" type="custom">

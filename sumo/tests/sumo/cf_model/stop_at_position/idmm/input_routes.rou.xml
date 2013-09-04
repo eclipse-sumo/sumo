@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vType id="idmm" length="5" minGap="2">
+    <vType sigma="0" id="idmm" length="5" minGap="2">
         <carFollowing-IDMM/>
     </vType>
     <vehicle id="0" type="idmm" depart="0" departPos="100" arrivalPos="300">

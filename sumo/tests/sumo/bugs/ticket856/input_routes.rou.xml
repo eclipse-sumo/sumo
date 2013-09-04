@@ -1,6 +1,6 @@
 <routes>
-    <vType id="low_decel" decel="3"/>
-    <vType id="high_accel" accel="7"/>
+    <vType sigma="0" id="low_decel" decel="3"/>
+    <vType sigma="0" id="high_accel" accel="7"/>
     <vehicle id="yield" type="low_decel" depart="0" departLane="1" departPos="36" departSpeed="max">
         <route edges="beg1 end"/>
     </vehicle>

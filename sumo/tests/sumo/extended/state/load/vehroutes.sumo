@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 14 08:34:15 2013 by SUMO sumo Version dev-SVN-r14373
+<!-- generated on Wed Sep  4 15:31:11 2013 by SUMO sumo Version dev-SVN-r14576
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -8,13 +8,16 @@
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <load-state value="input_state.xml"/>
     </input>
 
     <output>
         <vehroute-output value="vehroutes.xml"/>
-        <save-state.times value="1,10"/>
-        <save-state.files value="state.xml,state2.xml"/>
     </output>
+
+    <time>
+        <begin value="10"/>
+    </time>
 
     <report>
         <verbose value="true"/>
@@ -30,7 +33,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="v1" depart="5.00" arrival="34.00">
+    <vehicle id="v1" depart="5.00" arrival="32.00">
         <route edges="beg middle end"/>
     </vehicle>
 

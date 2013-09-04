@@ -1,8 +1,8 @@
 <routes>
-    <vType id="orig">
+    <vType sigma="0" id="orig">
         <carFollowing-KraussOrig1/>
     </vType>
-    <vType id="krauss">
+    <vType sigma="0" id="krauss">
         <carFollowing-Krauss/>
     </vType>
 

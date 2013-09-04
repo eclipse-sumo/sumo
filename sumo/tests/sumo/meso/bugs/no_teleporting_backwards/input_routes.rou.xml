@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vType id="car" length="5" minGap="2"/>
+    <vType sigma="0" id="car" length="5" minGap="2"/>
 
     <flow id="flow0" type="car" begin="0" end="6000" period="1.0">
         <route edges="start0 start2 dest"/>

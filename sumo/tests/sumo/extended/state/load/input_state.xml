@@ -28,7 +28,7 @@
 <snapshot version="dev-SVN-r14431" time="10000">
     <route id="r0" state="5" edges="beg middle end"/>
     <delay number="2" end="0" depart="5.00" time="0.00"/>
-    <vType id="DEFAULT_VEHTYPE"/>
+    <vType sigma="0" id="DEFAULT_VEHTYPE"/>
     <vehicle id="v0" depart="0" route="r0" type="DEFAULT_VEHTYPE" state="0 1" pos="49.34" speed="13.22"/>
     <vehicle id="v1" depart="0" route="r0" type="DEFAULT_VEHTYPE" state="5000 1" pos="3.17" speed="2.72"/>
     <lane>

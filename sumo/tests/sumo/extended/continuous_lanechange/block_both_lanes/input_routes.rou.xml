@@ -1,6 +1,6 @@
 <routes>
-    <vType id="fast" speedFactor="3"/>
-    <vType id="slow" speedFactor="0.5"/>
+    <vType sigma="0" id="fast" speedFactor="3"/>
+    <vType sigma="0" id="slow" speedFactor="0.5"/>
     <vehicle id="v0" type="slow" depart="0" departLane="0" arrivalLane="2">
         <route edges="1si"/>
     </vehicle>

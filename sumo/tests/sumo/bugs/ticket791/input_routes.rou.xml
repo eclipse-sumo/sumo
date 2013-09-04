@@ -1,6 +1,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-    <vType id="very_slow" maxSpeed="0.5"/>
-    <vType id="slow" maxSpeed="1"/>
+    <vType sigma="0" id="very_slow" maxSpeed="0.5"/>
+    <vType sigma="0" id="slow" maxSpeed="1"/>
     <vehicle id="blocker" type="very_slow" departPos="0" depart="0">
         <route edges="target"/>
         <stop lane="target_0" endPos="15" duration="200"/>
