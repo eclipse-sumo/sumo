@@ -65,14 +65,6 @@ public:
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
 
-    /** @brief Returns this device's type information
-     * @return The c++ type information
-     */
-    static const std::type_info& getTypeInfo() {
-        return typeid(MSDevice_Tripinfo);
-    }
-
-
 
 public:
     /// @brief Destructor.
