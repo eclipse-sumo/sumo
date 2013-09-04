@@ -31,13 +31,16 @@
 #endif
 
 #include "MSDevice.h"
+#include <microsim/MSNet.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/NamedRTree.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+class MSDevice_BTreceiver;
 
 
 // ===========================================================================
@@ -49,7 +52,7 @@ class SUMOVehicle;
  *
  * @see MSDevice
  */
-class MSDevice_BTreceiver : public MSDevice {
+class MSDevice_BTreceiver : public MSDevice, public MSNet::VehicleStateListener {
 public:
     /** @brief Inserts MSDevice_BTreceiver-options
      */
@@ -69,7 +72,13 @@ public:
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
 
+
 public:
+    /// @brief Destructor.
+    ~MSDevice_BTreceiver();
+
+
+
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
 
@@ -87,6 +96,17 @@ public:
     /// @}
 
 
+
+    /// @name Interfaces from MSNet::VehicleStateListener
+    /// @{
+
+    /** @brief Called if a vehicle changes its state
+     * @param[in] vehicle The vehicle which changed its state
+     * @param[in] to The state the vehicle has changed to
+     */
+    void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
+
+
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into
@@ -95,9 +115,6 @@ public:
      */
     void generateOutput() const;
 
-
-    /// @brief Destructor.
-    ~MSDevice_BTreceiver();
 
 
 private:
@@ -158,6 +175,9 @@ private:
     std::map<std::string, SeenDevice*> myCurrentlySeen;
     std::map<std::string, std::vector<SeenDevice*> > mySeen;
 
+    static NamedRTree myLanesRTree;
+    static bool myWasInitialised;
+
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_BTreceiver(const MSDevice_BTreceiver&);
@@ -167,7 +187,6 @@ private:
 
 
 };
-
 
 #endif
 
