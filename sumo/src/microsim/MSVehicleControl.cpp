@@ -127,26 +127,6 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) {
 
 
 void
-MSVehicleControl::printMeanWaitingTime(OutputDevice& od) const {
-    if (getDepartedVehicleNo() == 0) {
-        od << -1.;
-    } else {
-        od << (myTotalDepartureDelay / (SUMOReal) getDepartedVehicleNo());
-    }
-}
-
-
-void
-MSVehicleControl::printMeanTravelTime(OutputDevice& od) const {
-    if (myEndedVehNo == 0) {
-        od << -1.;
-    } else {
-        od << (myTotalTravelTime / (SUMOReal) myEndedVehNo);
-    }
-}
-
-
-void
 MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
     ++myRunningVehNo;
     myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - STEPFLOOR(v.getParameter().depart));

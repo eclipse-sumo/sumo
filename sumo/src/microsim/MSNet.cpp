@@ -555,21 +555,18 @@ MSNet::writeOutput() {
     // emission output
     if (OptionsCont::getOptions().isSet("summary-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("summary-output");
-        od << "    <step time=\"" << time2string(myStep) << "\" "
-           << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
-           << "emitted=\"" << myVehicleControl->getDepartedVehicleNo() << "\" "
-           << "running=\"" << myVehicleControl->getRunningVehicleNo() << "\" "
-           << "waiting=\"" << myInserter->getWaitingVehicleNo() << "\" "
-           << "ended=\"" << myVehicleControl->getEndedVehicleNo() << "\" "
-           << "meanWaitingTime=\"";
-        myVehicleControl->printMeanWaitingTime(od);
-        od << "\" meanTravelTime=\"";
-        myVehicleControl->printMeanTravelTime(od);
-        od << "\" ";
+        unsigned int departedVehiclesNumber = myVehicleControl->getDepartedVehicleNo();
+        const SUMOReal meanWaitingTime = departedVehiclesNumber!=0 ? myVehicleControl->getTotalDepartureDelay() / (SUMOReal) departedVehiclesNumber : -1.;
+        unsigned int endedVehicleNumber = myVehicleControl->getEndedVehicleNo();
+        const SUMOReal meanTravelTime = endedVehicleNumber!=0 ? myVehicleControl->getTotalTravelTime() / (SUMOReal) endedVehicleNumber : -1.;
+        od.openTag("step").writeAttr("time", time2string(myStep)).writeAttr("loaded", myVehicleControl->getLoadedVehicleNo())
+            .writeAttr("emitted", myVehicleControl->getDepartedVehicleNo()).writeAttr("running", myVehicleControl->getRunningVehicleNo())
+            .writeAttr("waiting", myInserter->getWaitingVehicleNo()).writeAttr("ended", myVehicleControl->getEndedVehicleNo())
+            .writeAttr("meanWaitingTime", meanWaitingTime).writeAttr("meanTravelTime", meanTravelTime);
         if (myLogExecutionTime) {
-            od << "duration=\"" << mySimStepDuration << "\" ";
+            od.writeAttr("duration", mySimStepDuration);
         }
-        od << "/>\n";
+        od.closeTag();
     }
     // write detector values
     myDetectorControl->writeOutput(myStep + DELTA_T, false);
