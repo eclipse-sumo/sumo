@@ -2,11 +2,11 @@
 <html>
 
 <head>
- <title>SUMO - Status of daily build and tests</title>
+ <title>SUMO - Planet SUMO</title>
  <link rel="stylesheet" type="text/css" href="sumo.css"/>
 
   <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-  <META NAME="DC.Title" CONTENT="SUMO - Status of daily build and tests">
+  <META NAME="DC.Title" CONTENT="SUMO - Planet SUMO">
   <META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
   <META NAME="DC.Description" CONTENT="">
   <META NAME="DC.Publisher" CONTENT="Institute of Transportation Systems at the German Aerospace Center">
@@ -44,12 +44,34 @@
  </ul></div>
 
 <h2>Planet SUMO</h2>
-
+<p>This is the place where you can upload your scenarios to make them available to the community and
+have them executed regularly with the most recent version of sumo. If you prefer to follow all the scenarios
+you can head over to the <a href="https://github.com/planetsumo/sumo/tree/planet">Planet SUMO GitHub repository</a>. You can of course also submit your
+scenario there via a pull request.
+</p>
+<h3>What to submit</h3>
+<p>The minimal scenario consists of three files:
+<ul><li>a network file (.net.xml),</li><li>a route file (.rou.xml), and</li><li>a configuration (.sumocfg).</li></ul>
+You can also provide additional files for instance the sources of the network file or additional detector files and
+even Python scripts if you use TraCI. Please be aware that we only accept the following file extensions for uploaded
+files:
 <?php
-if (isset($_FILES["file"])):
-    $allowedExts = array("zip", "gz", "bz2", "7z", "xml", "cfg", "txt");
+$allowedExts = array("zip", "gz", "bz2", "7z", "xml", "cfg", "txt", "sumocfg", "netccfg");
+foreach (array_values($allowedExts) as $ext) {
+    print " " . $ext
+}
+?>
+. So if you include Python files, you will need to zip your contribution.</p>
+<h3>How to submit</h3>
+<p>Please use the form below to submit at most three files together with a license. Please use a short but descriptive name
+consisting preferrably of letters, numbers and underscores only. If you have README.txt accompanying your scenario you
+can safely leave the description open. Please provide an email address which lets us keep in touch.
+<emph>Thank you very much in advance for sharing your scenario!</emph>
+</p>
+<?php
+if (isset($_FILES["file1"])):
     $extension = end(explode(".", $_FILES["file"]["name"]));
-    if (($_FILES["file"]["size"] < 20000) && in_array($extension, $allowedExts)) {
+    if (($_FILES["file"]["size"] < pow(2, 20)) && in_array($extension, $allowedExts)) {
         if ($_FILES["file"]["error"] > 0) {
             echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
         } else {
@@ -69,11 +91,20 @@ if (isset($_FILES["file"])):
     }
 endif;
 ?>
-<form action="planetsumo.php" method="post"
-enctype="multipart/form-data">
-<label for="file">Filename:</label>
-<input type="file" name="file" id="file"><br>
-<input type="submit" name="submit" value="Submit">
+<form action="planetsumo.php" method="post" enctype="multipart/form-data">
+    <label for="file1">Filename:</label>
+    <input type="file" name="file1" id="file1">
+    <input type="file" name="file2" id="file2">
+    <input type="file" name="file3" id="file3"><br>
+    <label for="license">License:</label>
+    <select name="license">
+        <option value="CC-BY-SA">Creative Commons Attribution Share Alike</option>
+        <option value="GPL3">GNU General Public License v3.0</option>
+        <option value="PD">Public Domain</option>
+    </select>
+    <label for="description">Description:</label>
+    <textarea name="description" cols="50" rows="10"/>
+    <input type="submit" name="submit" value="Submit">
 </form>
 
  <div id="footer">
