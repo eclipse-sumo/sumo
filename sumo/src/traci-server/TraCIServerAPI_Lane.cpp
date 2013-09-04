@@ -356,9 +356,9 @@ TraCIServerAPI_Lane::getShape(const std::string& id, PositionVector& shape) {
 }
 
 
-TraCIRTree*
+NamedRTree*
 TraCIServerAPI_Lane::getTree() {
-    TraCIRTree* t = new TraCIRTree();
+    NamedRTree* t = new NamedRTree();
     const std::vector<MSEdge*>& edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         const std::vector<MSLane*>& lanes = (*i)->getLanes();

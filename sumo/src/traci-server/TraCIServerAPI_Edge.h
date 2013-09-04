@@ -77,7 +77,7 @@ public:
     /** @brief Returns a tree filled with edge instances
      * @return The rtree of edges
      */
-    static TraCIRTree* getTree();
+    static NamedRTree* getTree();
 
 
 private:

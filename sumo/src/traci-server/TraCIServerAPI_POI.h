@@ -78,7 +78,7 @@ public:
     /** @brief Returns a tree filled with PoI instances
      * @return The rtree of PoIs
      */
-    static TraCIRTree* getTree();
+    static NamedRTree* getTree();
 
 
 private:

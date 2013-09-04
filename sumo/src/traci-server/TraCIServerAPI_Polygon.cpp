@@ -245,9 +245,9 @@ TraCIServerAPI_Polygon::getPolygon(const std::string& id) {
 }
 
 
-TraCIRTree*
+NamedRTree*
 TraCIServerAPI_Polygon::getTree() {
-    TraCIRTree* t = new TraCIRTree();
+    NamedRTree* t = new NamedRTree();
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     const std::map<std::string, Polygon*>& polygons = shapeCont.getPolygons().getMyMap();
     for (std::map<std::string, Polygon*>::const_iterator i = polygons.begin(); i != polygons.end(); ++i) {

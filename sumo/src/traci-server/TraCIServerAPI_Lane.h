@@ -79,7 +79,7 @@ public:
     /** @brief Returns a tree filled with lane instances
      * @return The rtree of lanes
      */
-    static TraCIRTree* getTree();
+    static NamedRTree* getTree();
 
 
 private:

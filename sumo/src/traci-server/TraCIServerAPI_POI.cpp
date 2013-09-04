@@ -224,9 +224,9 @@ TraCIServerAPI_POI::getPoI(const std::string& id) {
 }
 
 
-TraCIRTree*
+NamedRTree*
 TraCIServerAPI_POI::getTree() {
-    TraCIRTree* t = new TraCIRTree();
+    NamedRTree* t = new NamedRTree();
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     const std::map<std::string, PointOfInterest*>& pois = shapeCont.getPOIs().getMyMap();
     for (std::map<std::string, PointOfInterest*>::const_iterator i = pois.begin(); i != pois.end(); ++i) {

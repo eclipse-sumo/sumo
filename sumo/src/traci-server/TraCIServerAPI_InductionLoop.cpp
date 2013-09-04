@@ -177,9 +177,9 @@ TraCIServerAPI_InductionLoop::getPosition(const std::string& id, Position& p) {
 }
 
 
-TraCIRTree*
+NamedRTree*
 TraCIServerAPI_InductionLoop::getTree() {
-    TraCIRTree* t = new TraCIRTree();
+    NamedRTree* t = new NamedRTree();
     const std::map<std::string, MSDetectorFileOutput*>& dets = MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).getMyMap();
     for (std::map<std::string, MSDetectorFileOutput*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
         MSInductLoop* il = static_cast<MSInductLoop*>((*i).second);

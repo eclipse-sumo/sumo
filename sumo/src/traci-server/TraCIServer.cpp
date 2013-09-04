@@ -167,7 +167,7 @@ TraCIServer::~TraCIServer() {
         mySocket->close();
         delete mySocket;
     }
-    for (std::map<int, TraCIRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
+    for (std::map<int, NamedRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
         delete(*i).second;
     }
 }

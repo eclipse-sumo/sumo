@@ -79,7 +79,7 @@ public:
     /** @brief Returns a tree filled with polygon instances
      * @return The rtree of polygons
      */
-    static TraCIRTree* getTree();
+    static NamedRTree* getTree();
 
 
 private:

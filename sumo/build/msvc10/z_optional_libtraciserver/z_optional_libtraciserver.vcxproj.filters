@@ -98,8 +98,5 @@
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_VehicleType.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\traci-server\TraCIRTree.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

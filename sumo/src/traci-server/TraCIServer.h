@@ -57,7 +57,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "TraCIException.h"
-#include "TraCIRTree.h"
+#include <utils/common/NamedRTree.h>
 
 #include <map>
 #include <string>
@@ -391,7 +391,7 @@ private:
     std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
 
     /// @brief A storage of objects
-    std::map<int, TraCIRTree*> myObjects;
+    std::map<int, NamedRTree*> myObjects;
 
 
 private:

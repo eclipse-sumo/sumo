@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    TraCIRTree.h
+/// @file    NamedRTree.h
 /// @author  Daniel Krajzewicz
 /// @date    27.10.2008
 /// @version $Id$
 ///
-// A RT-tree for efficient storing of SUMO's GL-objects
+// A RT-tree for efficient storing of SUMO's Named objects
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 // Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef TraCIRTree_h
-#define TraCIRTree_h
+#ifndef NamedRTree_h
+#define NamedRTree_h
 
 
 // ===========================================================================
@@ -50,22 +50,23 @@ inline float RTree<Named*, Named, float, 2, Named::StoringVisitor, float, 8, 4>:
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/** @class TraCIRTree
- * @brief A RT-tree for efficient storing of SUMO's GL-objects
+/** @class NamedRTree
+ * @brief A RT-tree for efficient storing of SUMO's Named objects
  *
- * This class specialises the used RT-tree implementation from "rttree.h" and
- *  extends it by a mutex for avoiding parallel change and traversal of the tree.
+ * This class specialises the used RT-tree implementation from "rttree.h".
+ * It stores names of "Named"-objects.
+ * @see Named
  */
-class TraCIRTree : private RTree<Named*, Named, float, 2, Named::StoringVisitor >, public Boundary {
+class NamedRTree : private RTree<Named*, Named, float, 2, Named::StoringVisitor >, public Boundary {
 public:
     /// @brief Constructor
-    TraCIRTree()
+    NamedRTree()
         : RTree<Named*, Named, float, 2, Named::StoringVisitor, float>(&Named::addTo) {
     }
 
 
     /// @brief Destructor
-    ~TraCIRTree() {
+    ~NamedRTree() {
     }
 
 

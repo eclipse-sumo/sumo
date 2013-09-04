@@ -68,7 +68,7 @@ public:
     /** @brief Returns a tree filled with junction instances
      * @return The rtree of junctions
      */
-    static TraCIRTree* getTree();
+    static NamedRTree* getTree();
 
 
 private:
