@@ -97,6 +97,9 @@ MSDevice_BTreceiver::~MSDevice_BTreceiver() {
 bool
 MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                                 SUMOReal newPos, SUMOReal newSpeed) {
+    if(!myHolder.isOnRoad()) {    
+        return true;
+    }
     Position p = static_cast<MSVehicle&>(veh).getPosition();
     // collect edges around
     std::set<std::string> tmp;
