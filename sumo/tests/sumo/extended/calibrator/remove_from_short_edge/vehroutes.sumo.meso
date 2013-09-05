@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:11:33 by SUMO sumo Version 0.17.0
+<!-- generated on Thu Sep  5 12:38:43 2013 by SUMO sumo Version dev-SVN-r14588
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -28,43 +28,43 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="high.10" depart="18.00" arrival="">
+    <vehicle id="high.10" depart="18.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.12" depart="21.00" arrival="">
+    <vehicle id="high.12" depart="21.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.13" depart="23.00" arrival="">
+    <vehicle id="high.13" depart="23.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.14" depart="25.00" arrival="">
+    <vehicle id="high.14" depart="25.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.15" depart="27.00" arrival="">
+    <vehicle id="high.15" depart="27.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.17" depart="30.00" arrival="">
+    <vehicle id="high.17" depart="30.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.18" depart="32.00" arrival="">
+    <vehicle id="high.18" depart="32.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.19" depart="34.00" arrival="">
+    <vehicle id="high.19" depart="34.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.20" depart="36.00" arrival="">
+    <vehicle id="high.20" depart="36.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.22" depart="39.00" arrival="">
+    <vehicle id="high.22" depart="39.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -76,7 +76,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.23" depart="41.00" arrival="">
+    <vehicle id="high.23" depart="41.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -84,7 +84,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.24" depart="43.00" arrival="">
+    <vehicle id="high.24" depart="43.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -92,7 +92,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.25" depart="45.00" arrival="">
+    <vehicle id="high.25" depart="45.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -100,7 +100,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.27" depart="48.00" arrival="">
+    <vehicle id="high.27" depart="48.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -112,7 +112,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.28" depart="50.00" arrival="">
+    <vehicle id="high.28" depart="50.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -120,7 +120,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.29" depart="52.00" arrival="">
+    <vehicle id="high.29" depart="52.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -128,7 +128,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.30" depart="54.00" arrival="">
+    <vehicle id="high.30" depart="54.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -136,7 +136,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.32" depart="57.00" arrival="">
+    <vehicle id="high.32" depart="57.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -144,19 +144,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.33" depart="59.00" arrival="">
+    <vehicle id="high.33" depart="59.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.34" depart="61.00" arrival="">
+    <vehicle id="high.34" depart="61.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.35" depart="63.00" arrival="">
+    <vehicle id="high.35" depart="63.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.37" depart="66.00" arrival="">
+    <vehicle id="high.37" depart="66.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -164,19 +164,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.38" depart="68.00" arrival="">
+    <vehicle id="high.38" depart="68.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.39" depart="70.00" arrival="">
+    <vehicle id="high.39" depart="70.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.40" depart="72.00" arrival="">
+    <vehicle id="high.40" depart="72.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.42" depart="75.00" arrival="">
+    <vehicle id="high.42" depart="75.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -184,19 +184,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.43" depart="77.00" arrival="">
+    <vehicle id="high.43" depart="77.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.44" depart="79.00" arrival="">
+    <vehicle id="high.44" depart="79.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.45" depart="81.00" arrival="">
+    <vehicle id="high.45" depart="81.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.47" depart="84.00" arrival="">
+    <vehicle id="high.47" depart="84.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -204,19 +204,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.48" depart="86.00" arrival="">
+    <vehicle id="high.48" depart="86.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.49" depart="88.00" arrival="">
+    <vehicle id="high.49" depart="88.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.50" depart="90.00" arrival="">
+    <vehicle id="high.50" depart="90.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.52" depart="93.00" arrival="">
+    <vehicle id="high.52" depart="93.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -224,19 +224,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.53" depart="95.00" arrival="">
+    <vehicle id="high.53" depart="95.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.54" depart="97.00" arrival="">
+    <vehicle id="high.54" depart="97.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.55" depart="99.00" arrival="">
+    <vehicle id="high.55" depart="99.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.57" depart="102.00" arrival="">
+    <vehicle id="high.57" depart="102.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -244,19 +244,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.58" depart="104.00" arrival="">
+    <vehicle id="high.58" depart="104.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.59" depart="106.00" arrival="">
+    <vehicle id="high.59" depart="106.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.60" depart="108.00" arrival="">
+    <vehicle id="high.60" depart="108.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.62" depart="111.00" arrival="">
+    <vehicle id="high.62" depart="111.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -264,19 +264,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.63" depart="113.00" arrival="">
+    <vehicle id="high.63" depart="113.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.64" depart="115.00" arrival="">
+    <vehicle id="high.64" depart="115.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.65" depart="117.00" arrival="">
+    <vehicle id="high.65" depart="117.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.67" depart="120.00" arrival="">
+    <vehicle id="high.67" depart="120.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -284,19 +284,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.68" depart="122.00" arrival="">
+    <vehicle id="high.68" depart="122.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.69" depart="124.00" arrival="">
+    <vehicle id="high.69" depart="124.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.70" depart="126.00" arrival="">
+    <vehicle id="high.70" depart="126.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.72" depart="129.00" arrival="">
+    <vehicle id="high.72" depart="129.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -304,19 +304,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.73" depart="131.00" arrival="">
+    <vehicle id="high.73" depart="131.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.74" depart="133.00" arrival="">
+    <vehicle id="high.74" depart="133.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.75" depart="135.00" arrival="">
+    <vehicle id="high.75" depart="135.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.77" depart="138.00" arrival="">
+    <vehicle id="high.77" depart="138.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -324,19 +324,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.78" depart="140.00" arrival="">
+    <vehicle id="high.78" depart="140.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.79" depart="142.00" arrival="">
+    <vehicle id="high.79" depart="142.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.80" depart="144.00" arrival="">
+    <vehicle id="high.80" depart="144.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.82" depart="147.00" arrival="">
+    <vehicle id="high.82" depart="147.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -344,19 +344,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.83" depart="149.00" arrival="">
+    <vehicle id="high.83" depart="149.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.84" depart="151.00" arrival="">
+    <vehicle id="high.84" depart="151.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.85" depart="153.00" arrival="">
+    <vehicle id="high.85" depart="153.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.87" depart="156.00" arrival="">
+    <vehicle id="high.87" depart="156.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -364,19 +364,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.88" depart="158.00" arrival="">
+    <vehicle id="high.88" depart="158.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.89" depart="160.00" arrival="">
+    <vehicle id="high.89" depart="160.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.90" depart="162.00" arrival="">
+    <vehicle id="high.90" depart="162.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.92" depart="165.00" arrival="">
+    <vehicle id="high.92" depart="165.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -384,19 +384,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.93" depart="167.00" arrival="">
+    <vehicle id="high.93" depart="167.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.94" depart="169.00" arrival="">
+    <vehicle id="high.94" depart="169.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.95" depart="171.00" arrival="">
+    <vehicle id="high.95" depart="171.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.97" depart="174.00" arrival="">
+    <vehicle id="high.97" depart="174.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -404,19 +404,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.98" depart="176.00" arrival="">
+    <vehicle id="high.98" depart="176.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.99" depart="178.00" arrival="">
+    <vehicle id="high.99" depart="178.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.100" depart="180.00" arrival="">
+    <vehicle id="high.100" depart="180.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.102" depart="183.00" arrival="">
+    <vehicle id="high.102" depart="183.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -424,19 +424,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.103" depart="185.00" arrival="">
+    <vehicle id="high.103" depart="185.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.104" depart="187.00" arrival="">
+    <vehicle id="high.104" depart="187.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.105" depart="189.00" arrival="">
+    <vehicle id="high.105" depart="189.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.107" depart="192.00" arrival="">
+    <vehicle id="high.107" depart="192.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -444,19 +444,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.108" depart="194.00" arrival="">
+    <vehicle id="high.108" depart="194.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.109" depart="196.00" arrival="">
+    <vehicle id="high.109" depart="196.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.110" depart="198.00" arrival="">
+    <vehicle id="high.110" depart="198.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.112" depart="201.00" arrival="">
+    <vehicle id="high.112" depart="201.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -464,19 +464,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.113" depart="203.00" arrival="">
+    <vehicle id="high.113" depart="203.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.114" depart="205.00" arrival="">
+    <vehicle id="high.114" depart="205.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.115" depart="207.00" arrival="">
+    <vehicle id="high.115" depart="207.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.117" depart="210.00" arrival="">
+    <vehicle id="high.117" depart="210.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -484,19 +484,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.118" depart="212.00" arrival="">
+    <vehicle id="high.118" depart="212.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.119" depart="214.00" arrival="">
+    <vehicle id="high.119" depart="214.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.120" depart="216.00" arrival="">
+    <vehicle id="high.120" depart="216.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.122" depart="219.00" arrival="">
+    <vehicle id="high.122" depart="219.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -504,19 +504,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.123" depart="221.00" arrival="">
+    <vehicle id="high.123" depart="221.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.124" depart="223.00" arrival="">
+    <vehicle id="high.124" depart="223.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.125" depart="225.00" arrival="">
+    <vehicle id="high.125" depart="225.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.127" depart="228.00" arrival="">
+    <vehicle id="high.127" depart="228.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -524,19 +524,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.128" depart="230.00" arrival="">
+    <vehicle id="high.128" depart="230.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.129" depart="232.00" arrival="">
+    <vehicle id="high.129" depart="232.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.130" depart="234.00" arrival="">
+    <vehicle id="high.130" depart="234.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.132" depart="237.00" arrival="">
+    <vehicle id="high.132" depart="237.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -544,19 +544,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.133" depart="239.00" arrival="">
+    <vehicle id="high.133" depart="239.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.134" depart="241.00" arrival="">
+    <vehicle id="high.134" depart="241.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.135" depart="243.00" arrival="">
+    <vehicle id="high.135" depart="243.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.137" depart="246.00" arrival="">
+    <vehicle id="high.137" depart="246.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -564,19 +564,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.138" depart="248.00" arrival="">
+    <vehicle id="high.138" depart="248.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.139" depart="250.00" arrival="">
+    <vehicle id="high.139" depart="250.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.140" depart="252.00" arrival="">
+    <vehicle id="high.140" depart="252.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.142" depart="255.00" arrival="">
+    <vehicle id="high.142" depart="255.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -584,19 +584,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.143" depart="257.00" arrival="">
+    <vehicle id="high.143" depart="257.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.144" depart="259.00" arrival="">
+    <vehicle id="high.144" depart="259.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.145" depart="261.00" arrival="">
+    <vehicle id="high.145" depart="261.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.147" depart="264.00" arrival="">
+    <vehicle id="high.147" depart="264.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -604,19 +604,19 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.148" depart="266.00" arrival="">
+    <vehicle id="high.148" depart="266.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.149" depart="268.00" arrival="">
+    <vehicle id="high.149" depart="268.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.150" depart="270.00" arrival="">
+    <vehicle id="high.150" depart="270.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.152" depart="273.00" arrival="">
+    <vehicle id="high.152" depart="273.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -624,15 +624,15 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.153" depart="275.00" arrival="">
+    <vehicle id="high.153" depart="275.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.154" depart="277.00" arrival="">
+    <vehicle id="high.154" depart="277.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="high.155" depart="279.00" arrival="">
+    <vehicle id="high.155" depart="279.00">
         <route edges="beg middle end"/>
     </vehicle>
 

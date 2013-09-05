@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 15:11:35 by SUMO sumo Version 0.17.0
+<!-- generated on Thu Sep  5 12:38:45 2013 by SUMO sumo Version dev-SVN-r14588
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -201,7 +201,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_left.32" depart="64.00" arrival="">
+    <vehicle id="flow_left.32" depart="64.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -209,7 +209,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.16" depart="64.00" arrival="">
+    <vehicle id="flow_right.16" depart="64.00">
         <route edges="beg middle end2"/>
     </vehicle>
 
@@ -217,7 +217,7 @@
         <route edges="beg middle end2"/>
     </vehicle>
 
-    <vehicle id="flow_left.33" depart="66.00" arrival="">
+    <vehicle id="flow_left.33" depart="66.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -225,7 +225,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_left.34" depart="68.00" arrival="">
+    <vehicle id="flow_left.34" depart="68.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -233,7 +233,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.17" depart="68.00" arrival="">
+    <vehicle id="flow_right.17" depart="68.00">
         <route edges="beg middle end2"/>
     </vehicle>
 
@@ -241,7 +241,7 @@
         <route edges="beg middle end2"/>
     </vehicle>
 
-    <vehicle id="flow_left.35" depart="70.00" arrival="">
+    <vehicle id="flow_left.35" depart="70.00">
         <route edges="beg middle end"/>
     </vehicle>
 
@@ -249,11 +249,11 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_left.36" depart="72.00" arrival="">
+    <vehicle id="flow_left.36" depart="72.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.18" depart="72.00" arrival="">
+    <vehicle id="flow_right.18" depart="72.00">
         <route edges="beg middle end2"/>
     </vehicle>
 
@@ -261,67 +261,67 @@
         <route edges="beg middle end2"/>
     </vehicle>
 
-    <vehicle id="flow_left.37" depart="74.00" arrival="">
+    <vehicle id="flow_left.37" depart="74.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_left.38" depart="76.00" arrival="">
+    <vehicle id="flow_left.38" depart="76.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.19" depart="76.00" arrival="">
+    <vehicle id="flow_right.19" depart="76.00">
         <route edges="beg middle end2"/>
     </vehicle>
 
-    <vehicle id="flow_left.39" depart="78.00" arrival="">
+    <vehicle id="flow_left.39" depart="78.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_left.40" depart="80.00" arrival="">
+    <vehicle id="flow_left.40" depart="80.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.20" depart="80.00" arrival="">
+    <vehicle id="flow_right.20" depart="80.00">
         <route edges="beg middle end2"/>
     </vehicle>
 
-    <vehicle id="flow_left.41" depart="82.00" arrival="">
+    <vehicle id="flow_left.41" depart="82.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_left.42" depart="84.00" arrival="">
+    <vehicle id="flow_left.42" depart="84.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.21" depart="84.00" arrival="">
+    <vehicle id="flow_right.21" depart="84.00">
         <route edges="beg middle end2"/>
     </vehicle>
 
-    <vehicle id="flow_left.43" depart="86.00" arrival="">
+    <vehicle id="flow_left.43" depart="86.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_left.44" depart="88.00" arrival="">
+    <vehicle id="flow_left.44" depart="88.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.22" depart="88.00" arrival="">
+    <vehicle id="flow_right.22" depart="88.00">
         <route edges="beg middle end2"/>
     </vehicle>
 
-    <vehicle id="flow_left.45" depart="90.00" arrival="">
+    <vehicle id="flow_left.45" depart="90.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_left.46" depart="92.00" arrival="">
+    <vehicle id="flow_left.46" depart="92.00">
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="flow_right.23" depart="92.00" arrival="">
+    <vehicle id="flow_right.23" depart="92.00">
         <route edges="beg middle end2"/>
     </vehicle>
 
-    <vehicle id="flow_left.47" depart="94.00" arrival="">
+    <vehicle id="flow_left.47" depart="94.00">
         <route edges="beg middle end"/>
     </vehicle>
 
