@@ -118,8 +118,11 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("skip-new-routes", new Option_Bool(false));
     oc.addDescription("skip-new-routes", "Processing", "Only reuse routes from input, do not calculate new ones");
 
-    oc.doRegister("logit", new Option_Bool(false));
-    oc.addDescription("logit", "Processing", "Use c-logit model");
+    oc.doRegister("logit", new Option_Bool(false)); // deprecated
+    oc.addDescription("logit", "Processing", "Use c-logit model (deprecated in favor of --route-choice-method logit)");
+
+    oc.doRegister("route-choice-method", new Option_String("gawron"));
+    oc.addDescription("route-choice-method", "Processing", "Choose a route choice method: gawron, logit, or lohse");
 
     oc.doRegister("logit.beta", new Option_Float(SUMOReal(-1)));
     oc.addSynonyme("logit.beta", "lBeta", true);
@@ -171,6 +174,16 @@ RODUAFrame::checkOptions() {
     if (oc.getString("routing-algorithm") != "dijkstra" && oc.getString("weight-attribute") != "traveltime") {
         WRITE_ERROR("Routing algorithm '" + oc.getString("routing-algorithm") + "' does not support weight-attribute '" + oc.getString("weight-attribute") + "'.");
         return false;
+    }
+
+    if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit") {
+        WRITE_ERROR("Invalid route choice method '" + oc.getString("route-choice-method") + "'.");
+        return false;
+    }
+
+    if (oc.getBool("logit")) {
+        WRITE_WARNING("The --logit option is deprecated, please use --route-choice-method logit.");
+        oc.set("route-choice-method", "logit");
     }
     return ok;
 }

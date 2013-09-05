@@ -68,9 +68,9 @@ ROCostCalculator&
 ROCostCalculator::getCalculator() {
     if (myInstance == 0) {
         OptionsCont& oc = OptionsCont::getOptions();
-        if (oc.getBool("logit")) {
+        if (oc.getString("route-choice-method") == "logit") {
             myInstance = new ROLogitCalculator(oc.getFloat("logit.beta"), oc.getFloat("logit.gamma"), oc.getFloat("logit.theta"));
-        } else {
+        } else if (oc.getString("route-choice-method") == "gawron") {
             myInstance = new ROGawronCalculator(oc.getFloat("gawron.beta"), oc.getFloat("gawron.a"));
         }
     }
