@@ -81,6 +81,9 @@ public:
     static bool commandDistanceRequest(traci::TraCIServer& server, tcpip::Storage& inputStorage,
                                        tcpip::Storage& outputStorage, int commandId);
 
+    static void writeVehicleStateNumber(traci::TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
+    static void writeVehicleStateIDs(traci::TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
+
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Simulation(const TraCIServerAPI_Simulation& s);

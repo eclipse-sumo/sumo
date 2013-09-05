@@ -414,7 +414,15 @@ public:
         /// @brief The vehicle arrived at his destination (is deleted)
         VEHICLE_STATE_ARRIVED,
         /// @brief The vehicle got a new route
-        VEHICLE_STATE_NEWROUTE
+        VEHICLE_STATE_NEWROUTE,
+        /// @brief The vehicles starts to park
+        VEHICLE_STATE_STARTING_PARKING,
+        /// @brief The vehicle ends to park
+        VEHICLE_STATE_ENDING_PARKING,
+        /// @brief The vehicles starts to stop
+        VEHICLE_STATE_STARTING_STOP,
+        /// @brief The vehicle ends to stop
+        VEHICLE_STATE_ENDING_STOP
     };
 
 

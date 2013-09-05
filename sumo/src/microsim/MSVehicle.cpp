@@ -641,6 +641,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
             // maybe the next stop is on the same edge; let's rebuild best lanes
             getBestLanes(true);
             // continue as wished...
+            MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_ENDING_STOP);
         } else {
             // we have to wait some more time
             if (stop.triggered && !myAmRegisteredAsWaitingForPerson) {
@@ -668,6 +669,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 // ok, we may stop (have reached the stop)
                 stop.reached = true;
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
+                MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
                 // compute stopping time
                 if (stop.until >= 0) {
                     if (stop.duration == -1) {

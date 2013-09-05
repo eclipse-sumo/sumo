@@ -75,6 +75,10 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             && variable != VAR_MIN_EXPECTED_VEHICLES
             && variable != POSITION_CONVERSION && variable != DISTANCE_REQUEST
             && variable != VAR_BUS_STOP_WAITING
+            && variable != VAR_PARKING_STARTING_VEHICLES_NUMBER && variable != VAR_PARKING_STARTING_VEHICLES_IDS
+            && variable != VAR_PARKING_ENDING_VEHICLES_NUMBER && variable != VAR_PARKING_ENDING_VEHICLES_IDS
+            && variable != VAR_STOP_STARTING_VEHICLES_NUMBER && variable != VAR_STOP_STARTING_VEHICLES_IDS
+            && variable != VAR_STOP_ENDING_VEHICLES_NUMBER && variable != VAR_STOP_ENDING_VEHICLES_IDS
        ) {
         return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable specified", outputStorage);
     }
@@ -90,66 +94,63 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(MSNet::getInstance()->getCurrentTimeStep());
             break;
-        case VAR_LOADED_VEHICLES_NUMBER: {
-            const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_BUILT)->second;
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) ids.size());
-        }
-        break;
+        case VAR_LOADED_VEHICLES_NUMBER:
+            writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_BUILT);
+            break;
         case VAR_LOADED_VEHICLES_IDS: {
             const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_BUILT)->second;
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(ids);
         }
         break;
-        case VAR_DEPARTED_VEHICLES_NUMBER: {
-            const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_DEPARTED)->second;
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) ids.size());
-        }
-        break;
-        case VAR_DEPARTED_VEHICLES_IDS: {
-            const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_DEPARTED)->second;
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(ids);
-        }
-        break;
-        case VAR_TELEPORT_STARTING_VEHICLES_NUMBER: {
-            const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_STARTING_TELEPORT)->second;
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) ids.size());
-        }
-        break;
-        case VAR_TELEPORT_STARTING_VEHICLES_IDS: {
-            const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_STARTING_TELEPORT)->second;
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(ids);
-        }
-        break;
-        case VAR_TELEPORT_ENDING_VEHICLES_NUMBER: {
-            const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ENDING_TELEPORT)->second;
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) ids.size());
-        }
-        break;
-        case VAR_TELEPORT_ENDING_VEHICLES_IDS: {
-            const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ENDING_TELEPORT)->second;
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(ids);
-        }
-        break;
-        case VAR_ARRIVED_VEHICLES_NUMBER: {
-            const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) ids.size());
-        }
-        break;
-        case VAR_ARRIVED_VEHICLES_IDS: {
-            const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(ids);
-        }
-        break;
+        case VAR_DEPARTED_VEHICLES_NUMBER:
+            writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_DEPARTED);
+            break;
+        case VAR_DEPARTED_VEHICLES_IDS:
+            writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_DEPARTED);
+            break;
+        case VAR_TELEPORT_STARTING_VEHICLES_NUMBER:
+            writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+            break;
+        case VAR_TELEPORT_STARTING_VEHICLES_IDS:
+            writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+            break;
+        case VAR_TELEPORT_ENDING_VEHICLES_NUMBER:
+            writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+            break;
+        case VAR_TELEPORT_ENDING_VEHICLES_IDS:
+            writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+            break;
+        case VAR_ARRIVED_VEHICLES_NUMBER:
+            writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_ARRIVED);
+            break;
+        case VAR_ARRIVED_VEHICLES_IDS:
+            writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_ARRIVED);
+            break;
+        case VAR_PARKING_STARTING_VEHICLES_NUMBER:
+            writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_PARKING);
+            break;
+        case VAR_PARKING_STARTING_VEHICLES_IDS:
+            writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_PARKING);
+            break;
+        case VAR_PARKING_ENDING_VEHICLES_NUMBER:
+            writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_PARKING);
+            break;
+        case VAR_PARKING_ENDING_VEHICLES_IDS:
+            writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_PARKING);
+            break;
+        case VAR_STOP_STARTING_VEHICLES_NUMBER:
+            writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_STOP);
+            break;
+        case VAR_STOP_STARTING_VEHICLES_IDS:
+            writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_STOP);
+            break;
+        case VAR_STOP_ENDING_VEHICLES_NUMBER:
+            writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_STOP);
+            break;
+        case VAR_STOP_ENDING_VEHICLES_IDS:
+            writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_STOP);
+            break;
         case VAR_DELTA_T:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(DELTA_T);
@@ -209,6 +210,22 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
     server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
+}
+
+
+void 
+TraCIServerAPI_Simulation::writeVehicleStateNumber(traci::TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state) {
+    const std::vector<std::string>& ids = server.getVehicleStateChanges().find(state)->second;
+    outputStorage.writeUnsignedByte(TYPE_INTEGER);
+    outputStorage.writeInt((int) ids.size());
+}
+
+
+void 
+TraCIServerAPI_Simulation::writeVehicleStateIDs(traci::TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state) {
+    const std::vector<std::string>& ids = server.getVehicleStateChanges().find(state)->second;
+    outputStorage.writeUnsignedByte(TYPE_STRINGLIST);
+    outputStorage.writeStringList(ids);
 }
 
 

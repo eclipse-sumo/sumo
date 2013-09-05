@@ -631,6 +631,31 @@
 // minimum number of expected vehicles (get: simulation)
 #define VAR_MIN_EXPECTED_VEHICLES 0x7d
 
+// number of vehicles starting to park (get: simulation)
+#define VAR_STOP_STARTING_VEHICLES_NUMBER 0x68
+
+// ids of vehicles starting to park (get: simulation)
+#define VAR_STOP_STARTING_VEHICLES_IDS 0x69
+
+// number of vehicles ending to park (get: simulation)
+#define VAR_STOP_ENDING_VEHICLES_NUMBER 0x6a
+
+// ids of vehicles ending to park (get: simulation)
+#define VAR_STOP_ENDING_VEHICLES_IDS 0x6b
+
+// number of vehicles starting to park (get: simulation)
+#define VAR_PARKING_STARTING_VEHICLES_NUMBER 0x6c
+
+// ids of vehicles starting to park (get: simulation)
+#define VAR_PARKING_STARTING_VEHICLES_IDS 0x6d
+
+// number of vehicles ending to park (get: simulation)
+#define VAR_PARKING_ENDING_VEHICLES_NUMBER 0x6e
+
+// ids of vehicles ending to park (get: simulation)
+#define VAR_PARKING_ENDING_VEHICLES_IDS 0x6f
+
+
 
 
 // add an instance (poi, polygon, vehicle, route)
