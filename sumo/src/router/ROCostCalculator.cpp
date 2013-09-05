@@ -103,7 +103,7 @@ ROGawronCalculator::setCosts(RORoute* route, const SUMOReal costs, const bool is
 
 
 void
-ROGawronCalculator::calculateProbabilities(const ROVehicle* const /* veh */, std::vector<RORoute*> alternatives) {
+ROGawronCalculator::calculateProbabilities(std::vector<RORoute*> alternatives, const ROVehicle* const /* veh */, const SUMOTime /* time */) {
     for (std::vector<RORoute*>::iterator i = alternatives.begin(); i != alternatives.end() - 1; i++) {
         RORoute* pR = *i;
         for (std::vector<RORoute*>::iterator j = i + 1; j != alternatives.end(); j++) {
@@ -166,7 +166,7 @@ ROLogitCalculator::setCosts(RORoute* route, const SUMOReal costs, const bool /* 
 
 
 void
-ROLogitCalculator::calculateProbabilities(const ROVehicle* const veh, std::vector<RORoute*> alternatives) {
+ROLogitCalculator::calculateProbabilities(std::vector<RORoute*> alternatives, const ROVehicle* const veh, const SUMOTime time) {
     const SUMOReal theta = myTheta >= 0 ? myTheta : getThetaForCLogit(alternatives);
     const SUMOReal beta = myBeta >= 0 ? myBeta : getBetaForCLogit(alternatives);
     if (beta > 0) {
@@ -177,7 +177,7 @@ ROLogitCalculator::calculateProbabilities(const ROVehicle* const veh, std::vecto
             const std::vector<const ROEdge*>& edgesR = pR->getEdgeVector();
             for (std::vector<const ROEdge*>::const_iterator edge = edgesR.begin(); edge != edgesR.end(); ++edge) {
                 //@todo we should use costs here
-                lengthR += (*edge)->getTravelTime(veh, STEPS2TIME(veh->getDepartureTime()));
+                lengthR += (*edge)->getTravelTime(veh, STEPS2TIME(time));
             }
             SUMOReal overlapSum = 0;
             for (std::vector<RORoute*>::const_iterator j = alternatives.begin(); j != alternatives.end(); j++) {
@@ -186,9 +186,9 @@ ROLogitCalculator::calculateProbabilities(const ROVehicle* const veh, std::vecto
                 SUMOReal lengthS = 0;
                 const std::vector<const ROEdge*>& edgesS = pS->getEdgeVector();
                 for (std::vector<const ROEdge*>::const_iterator edge = edgesS.begin(); edge != edgesS.end(); ++edge) {
-                    lengthS += (*edge)->getTravelTime(veh, STEPS2TIME(veh->getDepartureTime()));
+                    lengthS += (*edge)->getTravelTime(veh, STEPS2TIME(time));
                     if (std::find(edgesR.begin(), edgesR.end(), *edge) != edgesR.end()) {
-                        overlapLength += (*edge)->getTravelTime(veh, STEPS2TIME(veh->getDepartureTime()));
+                        overlapLength += (*edge)->getTravelTime(veh, STEPS2TIME(time));
                     }
                 }
                 overlapSum += pow(overlapLength / sqrt(lengthR * lengthS), myGamma);

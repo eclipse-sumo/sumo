@@ -268,7 +268,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         ROCostCalculator::getCalculator().setCosts(alt, newCosts, *i == myAlternatives[myLastUsed]);
     }
     assert(myAlternatives.size() != 0);
-    ROCostCalculator::getCalculator().calculateProbabilities(veh, myAlternatives);
+    ROCostCalculator::getCalculator().calculateProbabilities(myAlternatives, veh, veh->getDepartureTime());
     if (!ROCostCalculator::getCalculator().keepRoutes()) {
         // remove with probability of 0 (not mentioned in Gawron)
         for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end();) {

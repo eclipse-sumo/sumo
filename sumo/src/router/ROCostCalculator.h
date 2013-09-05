@@ -58,7 +58,7 @@ public:
     virtual void setCosts(RORoute* route, const SUMOReal costs, const bool isActive = false) const = 0;
 
     /** @brief calculate the probabilities in the logit model */
-    virtual void calculateProbabilities(const ROVehicle* const veh, std::vector<RORoute*> alternatives) = 0;
+    virtual void calculateProbabilities(std::vector<RORoute*> alternatives, const ROVehicle* const veh, const SUMOTime time) = 0;
 
     unsigned int getMaxRouteNumber() const {
         return myMaxRouteNumber;
@@ -109,7 +109,7 @@ public:
     void setCosts(RORoute* route, const SUMOReal costs, const bool isActive = false) const;
 
     /** @brief calculate the probabilities */
-    void calculateProbabilities(const ROVehicle* const veh, std::vector<RORoute*> alternatives);
+    void calculateProbabilities(std::vector<RORoute*> alternatives, const ROVehicle* const veh, const SUMOTime time);
 
 private:
     /** @brief Performs the gawron - f() function
@@ -150,7 +150,7 @@ public:
     void setCosts(RORoute* route, const SUMOReal costs, const bool isActive = false) const;
 
     /** @brief calculate the probabilities in the logit model */
-    void calculateProbabilities(const ROVehicle* const veh, std::vector<RORoute*> alternatives);
+    void calculateProbabilities(std::vector<RORoute*> alternatives, const ROVehicle* const veh, const SUMOTime time);
 
 private:
     /** @brief calculate the scaling factor in the logit model */
