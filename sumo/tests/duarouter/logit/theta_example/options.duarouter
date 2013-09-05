@@ -1,1 +1,1 @@
---net-file=input_net.net.xml --weight-files=input_weights.dump.xml --alternative-files=input_alts.rou.alt.xml -o routes.rou.xml --logit --logit.theta 0.01
+--net-file=input_net.net.xml --weight-files=input_weights.dump.xml --alternative-files=input_alts.rou.alt.xml -o routes.rou.xml --logit.theta 0.01
