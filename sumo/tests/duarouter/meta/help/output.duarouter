@@ -52,6 +52,8 @@ Processing Options:
   --keep-all-routes                Save routes with near zero probability
   --skip-new-routes                Only reuse routes from input, do not
                                      calculate new ones
+  --logit                          Use c-logit model (deprecated in favor of
+                                     --route-choice-method logit)
   --route-choice-method STR        Choose a route choice method: gawron, logit,
                                      or lohse
   --logit.beta FLOAT               Use FLOAT as logit's beta
