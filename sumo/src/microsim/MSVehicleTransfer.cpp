@@ -119,7 +119,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             } else {
                 // could not insert. maybe we should proceed in virtual space
                 if (desc.myProceedTime < time) {
-                    // active move reminders
+                    // active move reminders (i.e. rerouters)
                     desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
                     // let the vehicle move to the next edge
                     const bool hasArrived = (desc.myVeh->succEdge(1) == 0 ||
