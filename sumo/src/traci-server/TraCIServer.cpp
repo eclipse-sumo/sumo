@@ -512,7 +512,8 @@ TraCIServer::postProcessSimulationStep2() {
     int noActive = 0;
     for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
         const Subscription& s = *i;
-        bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE) && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
+        bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT) 
+            && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
         if ((s.endTime < t) || isArrivedVehicle) {
             i = mySubscriptions.erase(i);
             continue;
@@ -524,15 +525,21 @@ TraCIServer::postProcessSimulationStep2() {
         ++noActive;
     }
     myOutputStorage.writeInt(noActive);
-    for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end(); ++i) {
+    for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end(); ) {
         const Subscription& s = *i;
         if (s.beginTime > t) {
+            ++i;
             continue;
         }
         tcpip::Storage into;
         std::string errors;
-        processSingleSubscription(s, into, errors);
+        bool ok = processSingleSubscription(s, into, errors);
         myOutputStorage.writeStorage(into);
+        if(ok) {
+            ++i;
+        } else {
+            i = mySubscriptions.erase(i);
+        }
     }
 }
 
@@ -688,58 +695,58 @@ TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& 
         case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
             if (TraCIServerAPI_InductionLoop::getPosition(id, p)) {
                 shape.push_back(p);
-                break;
+                return true;
             }
-            return false;
+            break;
         case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
-            return false;
+            break;
         case CMD_SUBSCRIBE_TL_CONTEXT:
-            return false;
+            break;
         case CMD_SUBSCRIBE_LANE_CONTEXT:
             if (TraCIServerAPI_Lane::getShape(id, shape)) {
-                break;
+                return true;
             }
-            return false;
+            break;
         case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
             if (TraCIServerAPI_Vehicle::getPosition(id, p)) {
                 shape.push_back(p);
-                break;
+                return true;
             }
-            return false;
+            break;
         case CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
-            return false;
+            break;
         case CMD_SUBSCRIBE_ROUTE_CONTEXT:
-            return false;
+            break;
         case CMD_SUBSCRIBE_POI_CONTEXT:
             if (TraCIServerAPI_POI::getPosition(id, p)) {
                 shape.push_back(p);
-                break;
+                return true;
             }
             return false;
         case CMD_SUBSCRIBE_POLYGON_CONTEXT:
             if (TraCIServerAPI_Polygon::getShape(id, shape)) {
-                break;
+                return true;
             }
-            return false;
+            break;
         case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
             if (TraCIServerAPI_Junction::getPosition(id, p)) {
                 shape.push_back(p);
-                break;
+                return true;
             }
-            return false;
+            break;
         case CMD_SUBSCRIBE_EDGE_CONTEXT:
             if (TraCIServerAPI_Edge::getShape(id, shape)) {
-                break;
+               return true;
             }
-            return false;
+            break;
         case CMD_SUBSCRIBE_SIM_CONTEXT:
             return false;
         case CMD_SUBSCRIBE_GUI_CONTEXT:
-            return false;
+            break;
         default:
-            return false;
+            break;
     }
-    return true;
+    return false;
 }
 
 void
