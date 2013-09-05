@@ -583,27 +583,5 @@ SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes& attrs, const std
     }
 }
 
-
-void
-SUMOVehicleParserHelper::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs) {
-    stop.setParameter = 0;
-    if (attrs.hasAttribute(SUMO_ATTR_ENDPOS)) {
-        stop.setParameter |= STOP_END_SET;
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_STARTPOS)) {
-        stop.setParameter |= STOP_START_SET;
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_TRIGGERED)) {
-        stop.setParameter |= STOP_TRIGGER_SET;
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_PARKING)) {
-        stop.setParameter |= STOP_PARKING_SET;
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_EXPECTED)) {
-        stop.setParameter |= STOP_EXPECTED_SET;
-    }
-    // don't like this (dkrajzew)
-}
-
 /****************************************************************************/
 

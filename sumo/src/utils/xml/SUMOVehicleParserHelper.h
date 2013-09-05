@@ -167,9 +167,6 @@ public:
      */
     static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes& attrs, const std::string& id);
 
-
-    static void parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs);
-
 private:
     /** @brief Parses attributes common to vehicles and flows
      *
