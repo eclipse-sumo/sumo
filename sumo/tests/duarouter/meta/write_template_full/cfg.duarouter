@@ -43,7 +43,7 @@
         <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>
         <keep-all-routes value="false" type="BOOL" help="Save routes with near zero probability"/>
         <skip-new-routes value="false" type="BOOL" help="Only reuse routes from input, do not calculate new ones"/>
-        <logit value="false" type="BOOL" help="Use c-logit model"/>
+        <route-choice-method value="gawron" type="STR" help="Choose a route choice method: gawron, logit, or lohse"/>
         <logit.beta value="-1" synonymes="lBeta" type="FLOAT" help="Use FLOAT as logit&apos;s beta"/>
         <logit.gamma value="1" synonymes="lGamma" type="FLOAT" help="Use FLOAT as logit&apos;s gamma"/>
         <logit.theta value="-1" synonymes="lTheta" type="FLOAT" help="Use FLOAT as logit&apos;s theta (negative values mean auto-estimation)"/>

@@ -105,8 +105,8 @@
         <!-- Only reuse routes from input, do not calculate new ones -->
         <skip-new-routes value="false" type="BOOL"/>
 
-        <!-- Use c-logit model -->
-        <logit value="false" type="BOOL"/>
+        <!-- Choose a route choice method: gawron, logit, or lohse -->
+        <route-choice-method value="gawron" type="STR"/>
 
         <!-- Use FLOAT as logit&apos;s beta -->
         <logit.beta value="-1" synonymes="lBeta" type="FLOAT"/>
