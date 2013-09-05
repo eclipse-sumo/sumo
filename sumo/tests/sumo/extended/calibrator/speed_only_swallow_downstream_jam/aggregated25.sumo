@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:16:34 by SUMO sumo Version 0.17.0
+<!-- generated on Wed Sep  4 18:08:32 2013 by SUMO sumo Version dev-SVN-r14576
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -25,14 +25,14 @@
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/meandata_file.xsd">
     <interval begin="0.00" end="3600.00" id="expect_2500_vehs">
-        <edge id="beg" sampledSeconds="31212.96" traveltime="26.07" density="17.51" occupancy="8.75" waitingTime="18.00" speed="19.00" departed="1195" arrived="0" entered="0" left="1186" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="32533.13" traveltime="24.10" density="18.25" occupancy="9.12" waitingTime="0.00" speed="20.55" departed="1350" arrived="0" entered="0" left="1341" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="beg2left" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="beg2right" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="176907.61" traveltime="686.93" density="99.22" occupancy="49.61" waitingTime="0.00" speed="0.72" departed="0" arrived="0" entered="283" left="228" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="190068.20" traveltime="492.17" density="106.61" occupancy="53.30" waitingTime="0.00" speed="1.01" departed="0" arrived="0" entered="411" left="354" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="left" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="left2end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="381919.18" traveltime="1086.35" density="107.11" occupancy="53.55" waitingTime="0.00" speed="0.91" departed="0" arrived="0" entered="1186" left="1072" laneChangedFrom="0" laneChangedTo="0" vaporized="789"/>
-        <edge id="rend" sampledSeconds="5710.61" traveltime="25.01" density="3.17" occupancy="1.59" waitingTime="0.00" speed="19.99" departed="0" arrived="225" entered="228" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="380076.02" traveltime="789.00" density="106.59" occupancy="53.29" waitingTime="0.00" speed="1.26" departed="0" arrived="0" entered="1341" left="1229" laneChangedFrom="0" laneChangedTo="0" vaporized="818"/>
+        <edge id="rend" sampledSeconds="8158.59" traveltime="22.93" density="4.53" occupancy="2.27" waitingTime="0.00" speed="21.80" departed="0" arrived="351" entered="354" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="right" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="right2end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>

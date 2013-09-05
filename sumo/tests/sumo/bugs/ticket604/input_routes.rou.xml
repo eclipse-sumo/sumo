@@ -28,6 +28,7 @@
 -->
 
 <routes>
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
    <vehicle id="1630" arrivalPos="-0.1" depart="63" departLane="0" departSpeed="max">
       <route edges="-55229045 -543230545 -543230544"/>
    </vehicle>

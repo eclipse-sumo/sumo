@@ -2,26 +2,24 @@ vehicle 'veh0' does not supply vehicle parameter 'example'. Using default of -1.
 vehicle 'veh0' does not supply vType parameter 'example'. Using default of -1.00
 initialized device 'example_veh0' with myCustomValue1=23.00, myCustomValue2=-1.00, myCustomValue3=-1.00
 device 'example_veh0' notifyEnter: reason=0 currentEdge=right2end
-device 'example_veh0' notifyMove: newSpeed=1.44
+device 'example_veh0' notifyMove: newSpeed=2.60
   veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyMove: newSpeed=3.12
+device 'example_veh0' notifyMove: newSpeed=5.20
   veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyMove: newSpeed=5.66
+device 'example_veh0' notifyMove: newSpeed=7.80
   veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyMove: newSpeed=7.62
+device 'example_veh0' notifyMove: newSpeed=10.40
   veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyMove: newSpeed=9.45
+device 'example_veh0' notifyMove: newSpeed=13.00
   veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyMove: newSpeed=11.99
+device 'example_veh0' notifyMove: newSpeed=13.90
   veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyMove: newSpeed=12.93
+device 'example_veh0' notifyMove: newSpeed=13.90
   veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyMove: newSpeed=13.58
+device 'example_veh0' notifyMove: newSpeed=13.90
   veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyMove: newSpeed=13.19
+device 'example_veh0' notifyMove: newSpeed=13.90
   veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyMove: newSpeed=12.93
-  veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyMove: newSpeed=13.89
+device 'example_veh0' notifyMove: newSpeed=13.90
   veh 'veh0 has device 'tripinfo_veh0'
 device 'example_veh0' notifyLeave: reason=6 currentEdge=right2end

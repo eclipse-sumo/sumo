@@ -1,4 +1,5 @@
 <routes>
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <vehicle id="v0" depart="0" departLane="0" arrivalLane="1">
         <route edges="1si 2o"/>
     </vehicle>

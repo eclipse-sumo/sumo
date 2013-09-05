@@ -1,4 +1,5 @@
 <routes>
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <route id="ac" edges="a_in ab bc c_out"/>
     <route id="ba" edges="b_in bc ca a_out"/>
     <route id="cb" edges="c_in ca ab b_out b_out2"/>

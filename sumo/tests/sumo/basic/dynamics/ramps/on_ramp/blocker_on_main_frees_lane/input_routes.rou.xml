@@ -1,4 +1,5 @@
 <routes>
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <route id="main" edges="main_beg main_ramp main_end"/>
     <route id="ramp" edges="ramp_beg main_ramp main_end"/>
 

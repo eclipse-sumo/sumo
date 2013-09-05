@@ -2,6 +2,7 @@
 	 v1,v2,p2 should be recognized as deadlocked 
 	 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <vehicle id="v1_need_rider" depart="triggered">
         <route edges="beg beg2left left left2end end">
         </route>

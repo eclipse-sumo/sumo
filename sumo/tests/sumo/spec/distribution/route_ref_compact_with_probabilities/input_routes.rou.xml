@@ -1,4 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
    <route id="r1" edges="beg end"/>
    <route id="r2" edges="beg"/>
    <routeDistribution id="rd1" routes="r1 r2" probabilities="3 1.0"/>

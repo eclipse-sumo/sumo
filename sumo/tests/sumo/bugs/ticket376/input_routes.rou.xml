@@ -1,4 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <person id="1678427" depart="5">
         <walk edges="1fi 1fi" duration="1"/>
         <ride from="1fi" to="2fi" lines="1678427_1070"/>
