@@ -1,0 +1,733 @@
+TraCITestClient output file. Date: Thu Sep 05 09:36:42 2013
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SubscribeContext>:
+  domID=132 objID=0 domain=163 range=100.00 with 2 variables
+.. Command acknowledged (132), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=2
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=2
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=2
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=2
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=2
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=2
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=2
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=2
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=2
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=2
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=6
+   ObjectID=2/0to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/0_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/2_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/2to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=8
+   ObjectID=1/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/0to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to1/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/0_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/2_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/2to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=8
+   ObjectID=1/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/0to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to1/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/0_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/2_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/2to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=8
+   ObjectID=1/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/0to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to1/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/0_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/2_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/2to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=8
+   ObjectID=1/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/0to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to1/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/0_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/2_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/2to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=8
+   ObjectID=1/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/0to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to1/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/0_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/2_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/2to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=8
+   ObjectID=1/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/0to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to1/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/0_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/2_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/2to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=8
+   ObjectID=1/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/0to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to1/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/0_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/2_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/2to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=8
+   ObjectID=1/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/0to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to1/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/0_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/2_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/2to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=148  ObjectID=0  Domain=163  #variables=2
+  #objects=8
+   ObjectID=1/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/0to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to1/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/0_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to2/2_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/1to3/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=2/2to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+   ObjectID=3/1to2/1_0
+      VariableID=65      ok=1 valueDataType=11 Double value: 10.00
+      VariableID=68      ok=1 valueDataType=11 Double value: 390.50
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]
