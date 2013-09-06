@@ -63,6 +63,7 @@ links:linkstate.xml
 output:\r{REPLACE \n}
 output:\([0-9]*ms\){REPLACE (TIME)}
 output:^Performance:{->}^Vehicles:
+output:ms answering queries
 log:\([0-9]*ms\){REPLACE (TIME)}
 calibrator_log:<!--{[->]}-->
 detector:<!--{[->]}-->
@@ -120,6 +121,7 @@ links:0.0101
 tripinfos:0.0101
 rawdump:0.0101
 errors:0.0101
+full:0.0101
 
 [relative_float_tolerance]
 aggregated1:0.00001

@@ -3,6 +3,6 @@
    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <route id="left" edges="beg middle end"/>
     <route id="right" edges="beg middle end2"/>
-    <flow id="flow_left" depart="0.00" end="100" route="left" number="50"/>
-    <flow id="flow_right" depart="0.00" end="100" route="right" number="25"/>
+    <flow id="flow_left" begin="0" end="100" route="left" number="50"/>
+    <flow id="flow_right" begin="0" end="100" route="right" number="25"/>
 </routes>
