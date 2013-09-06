@@ -270,10 +270,12 @@
     </xsd:complexType>
 
     <xsd:complexType name="routeDistributionType">
-        <xsd:sequence>
+        <xsd:sequence minOccurs="0">
             <xsd:element name="route" type="routeDistRouteType" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="routes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="probabilities" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="vehicleRouteDistributionType">
