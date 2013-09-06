@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 17:13:41 by SUMO sumo Version 0.17.0
+<!-- generated on Fri Sep  6 10:11:18 2013 by SUMO sumo Version dev-SVN-r14588
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -27,11 +27,13 @@
 </configuration>
 -->
 
-<snapshot version="0.17.0" time="35000">
+<snapshot version="dev-SVN-r14588" time="35000">
     <route id="route0" state="2" edges="1x2 2x3 3x4 4x5 5x6 6x7 7x8"/>
     <delay number="1" end="0" depart="0.00" time="0.00"/>
-    <vType id="Car" length="5.00" minGap="2.00" maxSpeed="50.00" vClass="0" emissionClass="-1" shape="0" width="2.00" probability="1.00" speedFactor="1.00" speedDev="0.00" color="yellow"/>
-    <vType id="DEFAULT_VEHTYPE" length="5.00" minGap="2.50" maxSpeed="70.00" vClass="0" emissionClass="-1" shape="0" width="2.00" probability="1.00" speedFactor="1.00" speedDev="0.00" color="yellow"/>
+    <vType id="Car" length="5.00" minGap="2.00" maxSpeed="50.00">
+        <carFollowing-Krauss accel="1.00" decel="5.00" sigma="0.00"/>
+    </vType>
+    <vType id="DEFAULT_VEHTYPE"/>
     <vehicle id="veh0" depart="1000" route="route0" type="Car" state="1000 3 0 0 36877 29383 2147483647"/>
     <segment>
         <vehicles time="-1" value=""/>

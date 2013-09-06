@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Sep  6 09:35:36 2013 by SUMO sumo Version dev-SVN-r14588
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<detector>
+    <interval begin="0.00" end="37.00" id="instant_beg_0_before" sampledSeconds="7.20" density="1.95" occupancy="0.49" waitingTime="0.00" speed="13.89" departed="1" arrived="0" entered="0" left="1"/>
+    <interval begin="0.00" end="37.00" id="instant_beg_1_before" sampledSeconds="7.20" density="1.95" occupancy="0.49" waitingTime="0.00" speed="13.89" departed="1" arrived="0" entered="0" left="1"/>
+    <interval begin="0.00" end="37.00" id="instant_beg_0_at" sampledSeconds="7.20" density="1.95" occupancy="0.49" waitingTime="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
+    <interval begin="0.00" end="37.00" id="instant_beg_1_at" sampledSeconds="7.20" density="1.95" occupancy="0.49" waitingTime="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
+    <interval begin="0.00" end="37.00" id="instant_beg_0_after" sampledSeconds="7.20" density="1.95" occupancy="0.49" waitingTime="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
+    <interval begin="0.00" end="37.00" id="instant_beg_1_after" sampledSeconds="7.20" density="1.95" occupancy="0.49" waitingTime="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
+</detector>
