@@ -104,6 +104,7 @@ MSCalibrator::init() {
         for (size_t i = 0; i < myEdge->getLanes().size(); ++i) {
             MSLane* lane = myEdge->getLanes()[i];
             MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, myEdge->getLength(), true);
+            laneData->setDescription("meandata_calibrator_" + lane->getID());
             LeftoverReminders.push_back(laneData);
             myLaneMeanData.push_back(laneData);
             VehicleRemover* remover = new VehicleRemover(lane, (int)i, this);
