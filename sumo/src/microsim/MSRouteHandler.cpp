@@ -154,11 +154,14 @@ MSRouteHandler::myStartElement(int element,
             SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, myVehicleParameter->id.c_str(), ok, 0);
             SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok, -1);
             const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
+            if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
+                throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
+            }
             SUMOReal speed = DEFAULT_PERSON_SPEED;
             if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
                 speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, 0, ok, speed);
-                if (speed < 0) {
-                    throw ProcessError("Negative walking speed for  '" + myVehicleParameter->id + "'.");
+                if (speed <= 0) {
+                    throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
                 }
             }
             std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
