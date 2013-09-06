@@ -1,0 +1,6 @@
+<add>
+    <!-- element is terminated twice! -->
+    <calibrator id="slow" lane="middle_0" pos="0"/>
+        <flow begin="0" end="1000" route="c1" speed="1"/>
+    </calibrator>
+</add>

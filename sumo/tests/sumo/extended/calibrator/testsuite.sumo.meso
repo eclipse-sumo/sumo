@@ -44,3 +44,8 @@ speed_only
 
 # check that speed-only calibrators also swallow invalid downstream jams
 speed_only_swallow_downstream_jam
+
+# tests whether calibration works correctly if there are non-consecutive calibration intervals
+inactive_in_between
+
+errors
