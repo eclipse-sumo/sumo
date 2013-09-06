@@ -1,2 +1,6 @@
 invalid_route_multiqueue
 no_teleporting_backwards
+
+# teleporting across a calibrator which no longer exists 
+# when the teleport ends should not crash the simulation
+ticket1017
