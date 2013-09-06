@@ -243,12 +243,12 @@ MSNet::~MSNet() {
     delete myRouterTTDijkstra;
     delete myRouterTTAStar;
     delete myRouterEffort;
+    clearAll();
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         delete MSGlobals::gMesoNet;
     }
 #endif
-    clearAll();
     myInstance = 0;
 }
 
