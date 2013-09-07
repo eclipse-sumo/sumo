@@ -170,7 +170,7 @@ RODFFrame::fillOptions() {
     oc.doRegister("min-route-length", new Option_Float(-1));
     oc.addSynonyme("min-route-length", "min-dist", true);
     oc.addSynonyme("min-route-length", "min-distance", true);
-    oc.addDescription("min-route-length", "Processing", "Minimum distance in meters between start and end node of every route.");
+    oc.addDescription("min-route-length", "Processing", "Minimum distance in meters between start and end node of every route");
 
     // flow reading
     oc.doRegister("time-factor", new Option_String("60", "TIME"));

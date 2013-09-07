@@ -79,11 +79,11 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.rerouting.adaptation-weight", new Option_Float(.5));
     oc.addSynonyme("device.rerouting.adaptation-weight", "device.routing.adaptation-weight", true);
-    oc.addDescription("device.rerouting.adaptation-weight", "Routing", "The weight of prior edge weights.");
+    oc.addDescription("device.rerouting.adaptation-weight", "Routing", "The weight of prior edge weights");
 
     oc.doRegister("device.rerouting.adaptation-interval", new Option_String("1", "TIME"));
     oc.addSynonyme("device.rerouting.adaptation-interval", "device.routing.adaptation-interval", true);
-    oc.addDescription("device.rerouting.adaptation-interval", "Routing", "The interval for updating the edge weights.");
+    oc.addDescription("device.rerouting.adaptation-interval", "Routing", "The interval for updating the edge weights");
 
     oc.doRegister("device.rerouting.with-taz", new Option_Bool(false));
     oc.addSynonyme("device.rerouting.with-taz", "device.routing.with-taz", true);

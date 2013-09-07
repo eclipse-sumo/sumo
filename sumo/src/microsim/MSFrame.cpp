@@ -104,7 +104,7 @@ MSFrame::fillOptions() {
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
     oc.addDescription("load-state", "Input", "Loads a network state from FILE");
     oc.doRegister("load-state.offset", new Option_String("0", "TIME"));//!!! check, describe
-    oc.addDescription("load-state.offset", "Input", "Sets the time offset for vehicle segment exit times.");
+    oc.addDescription("load-state.offset", "Input", "Sets the time offset for vehicle segment exit times");
 
     //  register output options
     oc.doRegister("netstate-dump", new Option_FileName());
@@ -227,16 +227,16 @@ MSFrame::fillOptions() {
     oc.addDescription("max-depart-delay", "Processing", "How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped");
 
     oc.doRegister("sloppy-insert", new Option_Bool(false));
-    oc.addDescription("sloppy-insert", "Processing", "Whether insertion on an edge shall not be repeated in same step once failed.");
+    oc.addDescription("sloppy-insert", "Processing", "Whether insertion on an edge shall not be repeated in same step once failed");
 
     oc.doRegister("eager-insert", new Option_Bool(false));
-    oc.addDescription("eager-insert", "Processing", "Whether each vehicle is checked separately for insertion on an edge.");
+    oc.addDescription("eager-insert", "Processing", "Whether each vehicle is checked separately for insertion on an edge");
 
     oc.doRegister("lanechange.allow-swap", new Option_Bool(false));
-    oc.addDescription("lanechange.allow-swap", "Processing", "Whether blocking vehicles trying to change lanes may be swapped.");
+    oc.addDescription("lanechange.allow-swap", "Processing", "Whether blocking vehicles trying to change lanes may be swapped");
 
     oc.doRegister("lanechange.duration", new Option_String("0", "TIME"));
-    oc.addDescription("lanechange.duration", "Processing", "Duration of a lane change maneuver (default 0).");
+    oc.addDescription("lanechange.duration", "Processing", "Duration of a lane change maneuver (default 0)");
 
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Processing",
