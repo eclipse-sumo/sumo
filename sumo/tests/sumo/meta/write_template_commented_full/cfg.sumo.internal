@@ -39,7 +39,7 @@
         <!-- Loads a network state from FILE -->
         <load-state value="" type="FILE"/>
 
-        <!-- Sets the time offset for vehicle segment exit times. -->
+        <!-- Sets the time offset for vehicle segment exit times -->
         <load-state.offset value="0" type="TIME"/>
 
     </input>
@@ -69,7 +69,7 @@
         <!-- Save the vehicle queues at the junctions (experimental) -->
         <queue-output value="" type="FILE"/>
 
-        <!-- Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files) -->
+        <!-- Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) -->
         <vtk-output value="" type="FILE"/>
 
         <!-- Save aggregated vehicle departure info into FILE -->
@@ -153,16 +153,16 @@
         <!-- How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped -->
         <max-depart-delay value="-1" type="TIME"/>
 
-        <!-- Whether insertion on an edge shall not be repeated in same step once failed. -->
+        <!-- Whether insertion on an edge shall not be repeated in same step once failed -->
         <sloppy-insert value="false" type="BOOL"/>
 
-        <!-- Whether each vehicle is checked separately for insertion on an edge. -->
+        <!-- Whether each vehicle is checked separately for insertion on an edge -->
         <eager-insert value="false" type="BOOL"/>
 
-        <!-- Whether blocking vehicles trying to change lanes may be swapped. -->
+        <!-- Whether blocking vehicles trying to change lanes may be swapped -->
         <lanechange.allow-swap value="false" type="BOOL"/>
 
-        <!-- Duration of a lane change maneuver (default 0). -->
+        <!-- Duration of a lane change maneuver (default 0) -->
         <lanechange.duration value="0" type="TIME"/>
 
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;] -->
@@ -209,15 +209,51 @@
 
     </report>
 
+    <emissions>
+        <!-- The probability for a vehicle to have a &apos;hbefa&apos; device -->
+        <device.hbefa.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;hbefa&apos; device to named vehicles -->
+        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh" type="STR"/>
+
+        <!-- The &apos;hbefa&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.hbefa.deterministic value="false" type="BOOL"/>
+
+    </emissions>
+
+    <communication>
+        <!-- The probability for a vehicle to have a &apos;btreceiver&apos; device -->
+        <device.btreceiver.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;btreceiver&apos; device to named vehicles -->
+        <device.btreceiver.explicit value="" synonymes="device.btreceiver.knownveh" type="STR"/>
+
+        <!-- The &apos;btreceiver&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.btreceiver.deterministic value="false" type="BOOL"/>
+
+        <!-- The range of the bt receiver -->
+        <device.btreceiver.range value="300" type="FLOAT"/>
+
+        <!-- The probability for a vehicle to have a &apos;btsender&apos; device -->
+        <device.btsender.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;btsender&apos; device to named vehicles -->
+        <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR"/>
+
+        <!-- The &apos;btsender&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.btsender.deterministic value="false" type="BOOL"/>
+
+    </communication>
+
     <routing>
-        <!-- The probability for a vehicle to have a routing device -->
-        <device.rerouting.probability value="0" synonymes="device.routing.probability" type="FLOAT"/>
+        <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
+        <device.rerouting.probability value="0" type="FLOAT"/>
 
-        <!-- Assign a device to named vehicles -->
-        <device.rerouting.explicit value="" synonymes="device.routing.knownveh" type="STR"/>
+        <!-- Assign a &apos;rerouting&apos; device to named vehicles -->
+        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR"/>
 
-        <!-- The devices are set deterministic using a fraction of 1000 -->
-        <device.rerouting.deterministic value="false" synonymes="device.routing.deterministic" type="BOOL"/>
+        <!-- The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.rerouting.deterministic value="false" type="BOOL"/>
 
         <!-- The period with which the vehicle shall be rerouted -->
         <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME"/>
@@ -225,10 +261,10 @@
         <!-- The rerouting period before depart -->
         <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period" type="TIME"/>
 
-        <!-- The weight of prior edge weights. -->
+        <!-- The weight of prior edge weights -->
         <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT"/>
 
-        <!-- The interval for updating the edge weights. -->
+        <!-- The interval for updating the edge weights -->
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME"/>
 
         <!-- Use zones (districts) as routing end points -->
@@ -238,18 +274,6 @@
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL"/>
 
     </routing>
-
-    <emissions>
-        <!-- The probability for a vehicle to have an emission logging device -->
-        <device.hbefa.probability value="0" type="FLOAT"/>
-
-        <!-- Assign a device to named vehicles -->
-        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh" type="STR"/>
-
-        <!-- The devices are set deterministic using a fraction of 1000 -->
-        <device.hbefa.deterministic value="false" type="BOOL"/>
-
-    </emissions>
 
     <example_device>
         <!-- Assign a device to named vehicles -->
@@ -263,6 +287,9 @@
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
+
+        <!-- Runs TraCI script with embedded python -->
+        <python-script value="" type="STR"/>
 
     </traci_server>
 

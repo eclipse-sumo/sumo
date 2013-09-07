@@ -20,7 +20,7 @@
         <shapefile-prefix value="" synonymes="arcview shapefile tiger" type="FILE" help="Read shapefiles (ArcView, Tiger, ...) from files starting with &apos;FILE&apos;"/>
         <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2" type="FILE" help="Read converted Navteq GDF data (unsplitted Elmar-network) from path &apos;FILE&apos;"/>
         <osm-files value="" synonymes="osm" type="FILE" help="Read OSM-network from path &apos;FILE(s)&apos;"/>
-        <opendrive-files value="" synonymes="opendrive" type="FILE" help="Read openDrive-network from FILE"/>
+        <opendrive-files value="" synonymes="opendrive" type="FILE" help="Read OpenDRIVE-network from FILE"/>
         <visum-file value="" synonymes="visum" type="FILE" help="Read VISUM-net from FILE"/>
         <vissim-file value="" synonymes="vissim" type="FILE" help="Read VISSIM-net from FILE"/>
         <robocup-dir value="" synonymes="robocup robocup-net" type="FILE" help="Read RoboCup-net from DIR"/>
@@ -34,12 +34,12 @@
         <plain-output-prefix value="" synonymes="plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
         <map-output value="" synonymes="M" type="FILE" help="Writes joined edges information to FILE"/>
-        <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format."/>
-        <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using openDRIVE format."/>
-        <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX."/>
-        <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)."/>
-        <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter."/>
-        <street-sign-output value="" type="FILE" help="Writes street signs as POIs to FILE."/>
+        <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format"/>
+        <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>
+        <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX"/>
+        <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)"/>
+        <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter"/>
+        <street-sign-output value="" type="FILE" help="Writes street signs as POIs to FILE"/>
     </output>
 
     <projection>
@@ -67,7 +67,7 @@
         <tls.yellow.time value="" synonymes="traffic-light-yellow" type="INT" help="Set INT as fixed time for yellow phase durations"/>
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR" help="TLSs in STR will be shifted by half-phase"/>
         <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR" help="TLSs in STR will be shifted by quarter-phase"/>
-        <tls.default-type value="static" type="STR" help="TLSs with unspecified type will use STR as their algorithm."/>
+        <tls.default-type value="static" type="STR" help="TLSs with unspecified type will use STR as their algorithm"/>
     </tls_building>
 
     <ramp_guessing>
@@ -105,11 +105,11 @@
         <ignore-errors.connections value="false" type="BOOL" help="Continue on invalid connections"/>
         <show-errors.connections-first-try value="false" type="BOOL" help="Show errors in connections at parsing"/>
         <ignore-errors.edge-type value="false" type="BOOL" help="Continue on unknown edge types"/>
-        <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion."/>
+        <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
         <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
-        <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSIM-file will be kept."/>
-        <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity."/>
+        <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSIM-file will be kept"/>
+        <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
         <shapefile.street-id value="" synonymes="arcview.street-id" type="STR" help="Read edge ids from column STR"/>
         <shapefile.from-id value="" synonymes="arcview.from-id" type="STR" help="Read from-node ids from column STR"/>
         <shapefile.to-id value="" synonymes="arcview.to-id" type="STR" help="Read to-node ids from column STR"/>
@@ -120,7 +120,7 @@
         <vissim.join-distance value="5" synonymes="vissim.offset" type="FLOAT" help="Structure join offset"/>
         <vissim.default-speed value="50" type="FLOAT" help="Use FLOAT as default speed"/>
         <vissim.speed-norm value="1" type="FLOAT" help="Factor for edge velocity"/>
-        <vissim.report-unset-speeds value="false" type="BOOL" help="Writes lanes without an explicit speed set."/>
+        <vissim.report-unset-speeds value="false" type="BOOL" help="Writes lanes without an explicit speed set"/>
         <visum.use-type-priority value="false" type="BOOL" help="Uses priorities from types"/>
         <visum.use-type-laneno value="false" type="BOOL" help="Uses lane numbers from types"/>
         <visum.use-type-speed value="false" type="BOOL" help="Uses speeds from types"/>
@@ -129,12 +129,12 @@
         <visum.no-connectors value="false" type="BOOL" help="Excludes connectors"/>
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges&apos; capacities"/>
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
-        <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges."/>
+        <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges"/>
         <osm.railway.oneway-default value="true" type="BOOL" help="Imports railway edges as one-way by default"/>
-        <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types."/>
-        <opendrive.import-widths value="false" type="BOOL" help="Whether lane widths shall be imported."/>
+        <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
+        <opendrive.import-widths value="false" type="BOOL" help="Whether lane widths shall be imported"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
-        <dismiss-vclasses value="false" type="BOOL" help="Removes vehicle class restrictions from imported edges."/>
+        <dismiss-vclasses value="false" type="BOOL" help="Removes vehicle class restrictions from imported edges"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>

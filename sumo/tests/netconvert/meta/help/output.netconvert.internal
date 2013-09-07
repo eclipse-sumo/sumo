@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r14489
+SUMO netconvert Version dev-SVN-r14233
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -25,7 +25,7 @@ Input Options:
                                         (unsplitted Elmar-network) from path
                                         'FILE'
   --osm-files FILE                    Read OSM-network from path 'FILE(s)'
-  --opendrive-files FILE              Read openDrive-network from FILE
+  --opendrive-files FILE              Read OpenDRIVE-network from FILE
   --visum-file FILE                   Read VISUM-net from FILE
   --vissim-file FILE                  Read VISSIM-net from FILE
   --robocup-dir FILE                  Read RoboCup-net from DIR
@@ -42,16 +42,16 @@ Output Options:
                                         node-file to reproduce joins
   -M, --map-output FILE               Writes joined edges information to FILE
   --matsim-output FILE                The generated net will be written to FILE
-                                        using MATsim format.
+                                        using MATsim format
   --opendrive-output FILE             The generated net will be written to FILE
-                                        using openDRIVE format.
+                                        using OpenDRIVE format
   --dlr-navteq-output FILE            The generated net will be written to
-                                        dlr-navteq files with the given PREFIX.
+                                        dlr-navteq files with the given PREFIX
   --output.street-names               Street names will be included in the
-                                        output (if available).
+                                        output (if available)
   --output.original-names             Writes original names, if given, as
-                                        parameter.
-  --street-sign-output FILE           Writes street signs as POIs to FILE.
+                                        parameter
+  --street-sign-output FILE           Writes street signs as POIs to FILE
 
 Projection Options:
   --simple-projection                 Uses a simple method for projection
@@ -92,7 +92,7 @@ TLS Building Options:
   --tls.quarter-offset STR            TLSs in STR will be shifted by
                                         quarter-phase
   --tls.default-type STR              TLSs with unspecified type will use STR
-                                        as their algorithm.
+                                        as their algorithm
 
 Ramp Guessing Options:
   --ramps.guess                       Enable ramp-guessing
@@ -140,14 +140,14 @@ Processing Options:
   --show-errors.connections-first-try  Show errors in connections at parsing
   --ignore-errors.edge-type           Continue on unknown edge types
   --lanes-from-capacity.norm FLOAT    The factor for flow to no. lanes
-                                        conversion.
+                                        conversion
   --speed-in-kmh                      vmax is parsed as given in km/h (some)
   --plain.extend-edge-shape           If edge shapes do not end at the node
                                         positions, extend them
   --matsim.keep-length                The edge lengths given in the MATSIM-file
-                                        will be kept.
+                                        will be kept
   --matsim.lanes-from-capacity        The lane number will be computed from the
-                                        capacity.
+                                        capacity
   --shapefile.street-id STR           Read edge ids from column STR
   --shapefile.from-id STR             Read from-node ids from column STR
   --shapefile.to-id STR               Read to-node ids from column STR
@@ -159,7 +159,7 @@ Processing Options:
   --vissim.default-speed FLOAT        Use FLOAT as default speed
   --vissim.speed-norm FLOAT           Factor for edge velocity
   --vissim.report-unset-speeds        Writes lanes without an explicit speed
-                                        set.
+                                        set
   --visum.use-type-priority           Uses priorities from types
   --visum.use-type-laneno             Uses lane numbers from types
   --visum.use-type-speed              Uses speeds from types
@@ -171,14 +171,14 @@ Processing Options:
   --visum.verbose-warnings            Prints all warnings, some of which are
                                         due to VISUM misbehaviour
   --osm.skip-duplicates-check         Skips the check for duplicate nodes and
-                                        edges.
+                                        edges
   --osm.railway.oneway-default        Imports railway edges as one-way by
                                         default
-  --opendrive.import-all-lanes        Imports all lane types.
-  --opendrive.import-widths           Whether lane widths shall be imported.
+  --opendrive.import-all-lanes        Imports all lane types
+  --opendrive.import-widths           Whether lane widths shall be imported
   --no-internal-links                 Omits internal links
   --dismiss-vclasses                  Removes vehicle class restrictions from
-                                        imported edges.
+                                        imported edges
   --no-turnarounds                    Disables building turnarounds
   --no-turnarounds.tls                Disables building turnarounds at
                                         tls-controlled junctions

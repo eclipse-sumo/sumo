@@ -48,7 +48,7 @@
         <!-- Read OSM-network from path &apos;FILE(s)&apos; -->
         <osm-files value="" synonymes="osm" type="FILE"/>
 
-        <!-- Read openDrive-network from FILE -->
+        <!-- Read OpenDRIVE-network from FILE -->
         <opendrive-files value="" synonymes="opendrive" type="FILE"/>
 
         <!-- Read VISUM-net from FILE -->
@@ -84,22 +84,22 @@
         <!-- Writes joined edges information to FILE -->
         <map-output value="" synonymes="M" type="FILE"/>
 
-        <!-- The generated net will be written to FILE using MATsim format. -->
+        <!-- The generated net will be written to FILE using MATsim format -->
         <matsim-output value="" type="FILE"/>
 
-        <!-- The generated net will be written to FILE using openDRIVE format. -->
+        <!-- The generated net will be written to FILE using OpenDRIVE format -->
         <opendrive-output value="" type="FILE"/>
 
-        <!-- The generated net will be written to dlr-navteq files with the given PREFIX. -->
+        <!-- The generated net will be written to dlr-navteq files with the given PREFIX -->
         <dlr-navteq-output value="" type="FILE"/>
 
-        <!-- Street names will be included in the output (if available). -->
+        <!-- Street names will be included in the output (if available) -->
         <output.street-names value="false" type="BOOL"/>
 
-        <!-- Writes original names, if given, as parameter. -->
+        <!-- Writes original names, if given, as parameter -->
         <output.original-names value="false" type="BOOL"/>
 
-        <!-- Writes street signs as POIs to FILE. -->
+        <!-- Writes street signs as POIs to FILE -->
         <street-sign-output value="" type="FILE"/>
 
     </output>
@@ -171,7 +171,7 @@
         <!-- TLSs in STR will be shifted by quarter-phase -->
         <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR"/>
 
-        <!-- TLSs with unspecified type will use STR as their algorithm. -->
+        <!-- TLSs with unspecified type will use STR as their algorithm -->
         <tls.default-type value="static" type="STR"/>
 
     </tls_building>
@@ -261,7 +261,7 @@
         <!-- Continue on unknown edge types -->
         <ignore-errors.edge-type value="false" type="BOOL"/>
 
-        <!-- The factor for flow to no. lanes conversion. -->
+        <!-- The factor for flow to no. lanes conversion -->
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT"/>
 
         <!-- vmax is parsed as given in km/h (some) -->
@@ -270,10 +270,10 @@
         <!-- If edge shapes do not end at the node positions, extend them -->
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL"/>
 
-        <!-- The edge lengths given in the MATSIM-file will be kept. -->
+        <!-- The edge lengths given in the MATSIM-file will be kept -->
         <matsim.keep-length value="false" type="BOOL"/>
 
-        <!-- The lane number will be computed from the capacity. -->
+        <!-- The lane number will be computed from the capacity -->
         <matsim.lanes-from-capacity value="false" type="BOOL"/>
 
         <!-- Read edge ids from column STR -->
@@ -306,7 +306,7 @@
         <!-- Factor for edge velocity -->
         <vissim.speed-norm value="1" type="FLOAT"/>
 
-        <!-- Writes lanes without an explicit speed set. -->
+        <!-- Writes lanes without an explicit speed set -->
         <vissim.report-unset-speeds value="false" type="BOOL"/>
 
         <!-- Uses priorities from types -->
@@ -333,22 +333,22 @@
         <!-- Prints all warnings, some of which are due to VISUM misbehaviour -->
         <visum.verbose-warnings value="false" type="BOOL"/>
 
-        <!-- Skips the check for duplicate nodes and edges. -->
+        <!-- Skips the check for duplicate nodes and edges -->
         <osm.skip-duplicates-check value="false" type="BOOL"/>
 
         <!-- Imports railway edges as one-way by default -->
         <osm.railway.oneway-default value="true" type="BOOL"/>
 
-        <!-- Imports all lane types. -->
+        <!-- Imports all lane types -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
 
-        <!-- Whether lane widths shall be imported. -->
+        <!-- Whether lane widths shall be imported -->
         <opendrive.import-widths value="false" type="BOOL"/>
 
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
-        <!-- Removes vehicle class restrictions from imported edges. -->
+        <!-- Removes vehicle class restrictions from imported edges -->
         <dismiss-vclasses value="false" type="BOOL"/>
 
         <!-- Disables building turnarounds -->

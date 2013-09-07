@@ -17,7 +17,7 @@
         <weight-files value="" synonymes="w weights" type="FILE" help="Load edge/lane weights for online rerouting from FILE"/>
         <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
         <load-state value="" type="FILE" help="Loads a network state from FILE"/>
-        <load-state.offset value="0" type="TIME" help="Sets the time offset for vehicle segment exit times."/>
+        <load-state.offset value="0" type="TIME" help="Sets the time offset for vehicle segment exit times"/>
     </input>
 
     <output>
@@ -29,7 +29,7 @@
         <fcd-output.signals value="false" type="BOOL" help="Add the vehicle signal state to the FCD output (brake lights etc.)"/>
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>
-        <vtk-output value="" type="FILE" help="Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files)"/>
+        <vtk-output value="" type="FILE" help="Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"/>
         <summary-output value="" synonymes="emissions emissions-output summary" type="FILE" help="Save aggregated vehicle departure info into FILE"/>
         <tripinfo-output value="" synonymes="tripinfo" type="FILE" help="Save single vehicle trip info into FILE"/>
         <vehroute-output value="" synonymes="vehroutes" type="FILE" help="Save single vehicle route info into FILE"/>
@@ -61,10 +61,10 @@
         <time-to-teleport value="300" type="TIME" help="Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting"/>
         <time-to-teleport.highways value="0" type="TIME" help="The teleport time on highways"/>
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
-        <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed."/>
-        <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge."/>
-        <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped."/>
-        <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)."/>
+        <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed"/>
+        <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge"/>
+        <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped"/>
+        <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)"/>
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;]"/>
         <routeDist.maxsize value="" type="INT" help="Restrict the maximum size of route distributions"/>
     </processing>
@@ -83,23 +83,33 @@
         <no-step-log value="false" type="BOOL" help="Disable console output of current simulation step"/>
     </report>
 
+    <emissions>
+        <device.hbefa.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;hbefa&apos; device"/>
+        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh" type="STR" help="Assign a &apos;hbefa&apos; device to named vehicles"/>
+        <device.hbefa.deterministic value="false" type="BOOL" help="The &apos;hbefa&apos; devices are set deterministic using a fraction of 1000"/>
+    </emissions>
+
+    <communication>
+        <device.btreceiver.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;btreceiver&apos; device"/>
+        <device.btreceiver.explicit value="" synonymes="device.btreceiver.knownveh" type="STR" help="Assign a &apos;btreceiver&apos; device to named vehicles"/>
+        <device.btreceiver.deterministic value="false" type="BOOL" help="The &apos;btreceiver&apos; devices are set deterministic using a fraction of 1000"/>
+        <device.btreceiver.range value="300" type="FLOAT" help="The range of the bt receiver"/>
+        <device.btsender.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;btsender&apos; device"/>
+        <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR" help="Assign a &apos;btsender&apos; device to named vehicles"/>
+        <device.btsender.deterministic value="false" type="BOOL" help="The &apos;btsender&apos; devices are set deterministic using a fraction of 1000"/>
+    </communication>
+
     <routing>
-        <device.rerouting.probability value="0" synonymes="device.routing.probability" type="FLOAT" help="The probability for a vehicle to have a routing device"/>
-        <device.rerouting.explicit value="" synonymes="device.routing.knownveh" type="STR" help="Assign a device to named vehicles"/>
-        <device.rerouting.deterministic value="false" synonymes="device.routing.deterministic" type="BOOL" help="The devices are set deterministic using a fraction of 1000"/>
+        <device.rerouting.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;rerouting&apos; device"/>
+        <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR" help="Assign a &apos;rerouting&apos; device to named vehicles"/>
+        <device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
         <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME" help="The period with which the vehicle shall be rerouted"/>
         <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period" type="TIME" help="The rerouting period before depart"/>
-        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights."/>
-        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights."/>
+        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights"/>
+        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz" type="BOOL" help="Use zones (districts) as routing end points"/>
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use given weight files for initializing edge weights"/>
     </routing>
-
-    <emissions>
-        <device.hbefa.probability value="0" type="FLOAT" help="The probability for a vehicle to have an emission logging device"/>
-        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh" type="STR" help="Assign a device to named vehicles"/>
-        <device.hbefa.deterministic value="false" type="BOOL" help="The devices are set deterministic using a fraction of 1000"/>
-    </emissions>
 
     <example_device>
         <device.example.explicit value="" type="STR" help="Assign a device to named vehicles"/>
@@ -108,6 +118,7 @@
 
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
+        <python-script value="" type="STR" help="Runs TraCI script with embedded python"/>
     </traci_server>
 
     <mesoscopic>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
 
     <configuration>
         <!-- Loads the named config on startup -->
@@ -108,8 +108,11 @@
         <!-- Only reuse routes from input, do not calculate new ones -->
         <skip-new-routes value="false" type="BOOL"/>
 
-        <!-- Use c-logit model -->
+        <!-- Use c-logit model (deprecated in favor of --route-choice-method logit) -->
         <logit value="false" type="BOOL"/>
+
+        <!-- Choose a route choice method: gawron, logit, or lohse -->
+        <route-choice-method value="gawron" type="STR"/>
 
         <!-- Use FLOAT as logit&apos;s beta -->
         <logit.beta value="-1" synonymes="lBeta" type="FLOAT"/>
