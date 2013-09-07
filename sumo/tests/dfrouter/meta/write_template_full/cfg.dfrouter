@@ -42,7 +42,7 @@
         <emissions-only value="false" type="BOOL" help="Writes only emission times"/>
         <disallowed-edges value="" type="STR" help="Do not route on these edges"/>
         <keep-turnarounds value="false" type="BOOL" help="Allow turnarounds as route continuations"/>
-        <min-route-length value="-1" synonymes="min-dist min-distance" type="FLOAT" help="Minimum distance in meters between start and end node of every route."/>
+        <min-route-length value="-1" synonymes="min-dist min-distance" type="FLOAT" help="Minimum distance in meters between start and end node of every route"/>
         <time-factor value="60" type="TIME" help="Multiply flow times with TIME to get seconds"/>
         <time-offset value="0" type="TIME" help="Subtracts TIME seconds from (scaled) flow times"/>
         <time-step value="60" type="TIME" help="Expected distance between two successive data sets"/>

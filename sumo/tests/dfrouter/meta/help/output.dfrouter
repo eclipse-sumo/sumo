@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r14133
+SUMO dfrouter Version dev-SVN-r14233
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Builds vehicle routes for SUMO using detector values.
 
@@ -51,7 +51,7 @@ Processing Options:
   --disallowed-edges STR               Do not route on these edges
   --keep-turnarounds                   Allow turnarounds as route continuations
   --min-route-length FLOAT             Minimum distance in meters between start
-                                         and end node of every route.
+                                         and end node of every route
   --time-factor TIME                   Multiply flow times with TIME to get
                                          seconds
   --time-offset TIME                   Subtracts TIME seconds from (scaled)

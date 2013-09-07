@@ -102,7 +102,7 @@
         <!-- Allow turnarounds as route continuations -->
         <keep-turnarounds value="false" type="BOOL"/>
 
-        <!-- Minimum distance in meters between start and end node of every route. -->
+        <!-- Minimum distance in meters between start and end node of every route -->
         <min-route-length value="-1" synonymes="min-dist min-distance" type="FLOAT"/>
 
         <!-- Multiply flow times with TIME to get seconds -->

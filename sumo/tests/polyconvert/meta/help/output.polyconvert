@@ -1,4 +1,4 @@
-SUMO polyconvert Version 0.17.0
+SUMO polyconvert Version dev-SVN-r14233
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
@@ -26,13 +26,13 @@ Input Options:
   --osm-files FILE                 Reads pois from FILE+ assuming they're coded
                                      in OSM
   --osm.keep-full-type             The type will be made of the key-value -
-                                     pair.
+                                     pair
   --osm.use-name                   The id will be set from the given 'name'
-                                     attribute.
+                                     attribute
   --shapefile-prefixes FILE        Reads shapes from shapefiles FILE+
   --shapefile.guess-projection     Guesses the shapefile's projection
   --shapefile.id-column STR        Defines in which column the id can be found
-  --shapefile.use-running-id       A running number will be used as id.
+  --shapefile.use-running-id       A running number will be used as id
   --type-file FILE                 Reads types from FILE
 
 Output Options:
