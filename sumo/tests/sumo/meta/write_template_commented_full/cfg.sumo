@@ -39,7 +39,7 @@
         <!-- Loads a network state from FILE -->
         <load-state value="" type="FILE"/>
 
-        <!-- Sets the time offset for vehicle segment exit times. -->
+        <!-- Sets the time offset for vehicle segment exit times -->
         <load-state.offset value="0" type="TIME"/>
 
     </input>
@@ -153,16 +153,16 @@
         <!-- How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped -->
         <max-depart-delay value="-1" type="TIME"/>
 
-        <!-- Whether insertion on an edge shall not be repeated in same step once failed. -->
+        <!-- Whether insertion on an edge shall not be repeated in same step once failed -->
         <sloppy-insert value="false" type="BOOL"/>
 
-        <!-- Whether each vehicle is checked separately for insertion on an edge. -->
+        <!-- Whether each vehicle is checked separately for insertion on an edge -->
         <eager-insert value="false" type="BOOL"/>
 
-        <!-- Whether blocking vehicles trying to change lanes may be swapped. -->
+        <!-- Whether blocking vehicles trying to change lanes may be swapped -->
         <lanechange.allow-swap value="false" type="BOOL"/>
 
-        <!-- Duration of a lane change maneuver (default 0). -->
+        <!-- Duration of a lane change maneuver (default 0) -->
         <lanechange.duration value="0" type="TIME"/>
 
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;] -->
@@ -261,10 +261,10 @@
         <!-- The rerouting period before depart -->
         <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period" type="TIME"/>
 
-        <!-- The weight of prior edge weights. -->
+        <!-- The weight of prior edge weights -->
         <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT"/>
 
-        <!-- The interval for updating the edge weights. -->
+        <!-- The interval for updating the edge weights -->
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME"/>
 
         <!-- Use zones (districts) as routing end points -->

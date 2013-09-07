@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r14525
+SUMO sumo Version dev-SVN-r14618
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -22,7 +22,7 @@ Input Options:
                                          the edge weight
   --load-state FILE                    Loads a network state from FILE
   --load-state.offset TIME             Sets the time offset for vehicle segment
-                                         exit times.
+                                         exit times
 
 Output Options:
   --netstate-dump FILE                 Save complete network states into FILE
@@ -87,13 +87,13 @@ Processing Options:
                                          before being skipped, defaults to -1
                                          which means vehicles are never skipped
   --sloppy-insert                      Whether insertion on an edge shall not
-                                         be repeated in same step once failed.
+                                         be repeated in same step once failed
   --eager-insert                       Whether each vehicle is checked
-                                         separately for insertion on an edge.
+                                         separately for insertion on an edge
   --lanechange.allow-swap              Whether blocking vehicles trying to
-                                         change lanes may be swapped.
+                                         change lanes may be swapped
   --lanechange.duration TIME           Duration of a lane change maneuver
-                                         (default 0).
+                                         (default 0)
   --routing-algorithm STR              Select among routing algorithms
                                          ['dijkstra', 'astar']
   --routeDist.maxsize INT              Restrict the maximum size of route
@@ -149,9 +149,9 @@ Routing Options:
   --device.rerouting.period TIME       The period with which the vehicle shall
                                          be rerouted
   --device.rerouting.pre-period TIME   The rerouting period before depart
-  --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights.
+  --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights
   --device.rerouting.adaptation-interval TIME  The interval for updating the
-                                         edge weights.
+                                         edge weights
   --device.rerouting.with-taz          Use zones (districts) as routing end
                                          points
   --device.rerouting.init-with-loaded-weights  Use given weight files for
