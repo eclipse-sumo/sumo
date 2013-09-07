@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <vehicle id="0" type="0" depart="0.00">
         <route edges="0/0to1/0 1/0to2/0 2/0to3/0 3/0to2/0"/>
     </vehicle>

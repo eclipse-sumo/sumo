@@ -3,7 +3,7 @@
 <!-- generated on Mon 11 Mar 2013 11:03:36 AM CET by Netedit Version dev-SVN-r13458
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="/scr1/erdm_ja/debug/geomRemove/input_net.net.xml"/>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
 
     <location netOffset="-351890.66,-5648296.80" convBoundary="921.47,621.97,1028.60,1072.05" origBoundary="6.889891,50.967530,6.918908,50.993657" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

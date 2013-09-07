@@ -1,4 +1,4 @@
-<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/types_file.xsd">
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/types_file.xsd">
       <type id="highway.motorway" priority="13" numLanes="3" speed="29.1"/>
       <type id="highway.motorway_link" priority="12" numLanes="1" speed="24.6"/>
       <type id="highway.trunk" priority="11" numLanes="2" speed="29.1"/>

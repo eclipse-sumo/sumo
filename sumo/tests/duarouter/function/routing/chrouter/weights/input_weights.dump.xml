@@ -3,7 +3,7 @@
 <!-- generated on Thu 22 Mar 2012 10:09:59 AM CET by SUMO gui Version dev-SVN-r12151
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumo-gui.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
 
     <input>
         <net-file value="road.net.xml"/>

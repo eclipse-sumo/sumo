@@ -3,7 +3,7 @@
 <!-- generated on Tue 19 Jun 2012 03:45:05 PM CEST by Netedit Version dev-SVN-r12396
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="/home/erdm_ja/delphi-extern/sumo/tests/sumo/extended/calibrator/remove_from_short_edge/net.net.xml"/>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
 
     <location netOffset="0.00,500.00" convBoundary="0.00,500.00,1600.00,500.00" origBoundary="0.00,-500.00,2500.00,500.00" projParameter="!"/>
 

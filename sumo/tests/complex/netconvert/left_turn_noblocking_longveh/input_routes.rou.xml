@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <vType accel="3.0" decel="6.0" id="longveh" length="22.0" minGap="3.0" maxSpeed="45.0" sigma="0.5" guiShape="transport/trailer" color="1.0,0.0,0.0"/>
 
     <vehicle id="veh0" depart="0" type="longveh" departPos="0" arrivalPos="-1">

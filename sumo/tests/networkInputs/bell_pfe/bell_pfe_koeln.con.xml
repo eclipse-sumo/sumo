@@ -3,7 +3,7 @@
 <!-- generated on 05.11.2012 16:01:28 by Netedit Version dev-SVN-r12940
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumo\tests\bell_pfe_koeln2.net.xml"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd">
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
     <connection from="1" to="6" fromLane="0" toLane="0"/>
     <connection from="1" to="43" fromLane="0" toLane="0"/>
     <connection from="1" to="3" fromLane="0" toLane="0"/>

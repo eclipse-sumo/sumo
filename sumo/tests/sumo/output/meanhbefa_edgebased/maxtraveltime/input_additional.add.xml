@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <variableSpeedSign id="vss" lanes="2/1to1/1_0" file="input_definition2.def.xml"/>
 	<edgeData id="dump_15" type="hbefa" freq="15" file="aggregated_15.xml" excludeEmpty="true" begin="600" end="659" maxTraveltime="100"/>
 </additional>

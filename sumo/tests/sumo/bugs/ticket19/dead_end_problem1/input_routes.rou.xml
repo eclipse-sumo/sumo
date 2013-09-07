@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <vType id="t1" sigma="0"/>
     <route id="r1" edges="-4312 9910 -9917 -9916 -9908"/>
     <route id="r2" edges="-4312 9910 -9917 -9916 -9915 -9912"/>

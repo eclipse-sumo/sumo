@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <vType id="t1" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="5"/>
     <vType id="t2" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="10"/>
     <route id="r1" edges="1si 4o"/>

@@ -1,4 +1,4 @@
-<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
 	<!-- main direction edges -->
 	<edge id="10_00" from="10" to="00" numLanes="1"/>
 	<edge id="01_11" from="01" to="11" numLanes="1"/>

@@ -3,7 +3,7 @@
 <!-- generated on 21.08.2012 14:06:23 by Netedit Version dev-SVN-r12571
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="D:\cvs\SiP_trunk\trunk\tests\scenario\use\DRIVE\Helmond_GLOSA_1veh\data\t1.net.xml"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
     <location netOffset="-676418.99,-5702859.68" convBoundary="0.00,0.00,9614.45,3940.82" origBoundary="5.538970,51.449400,5.678834,51.482295" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <node id="42708272" x="4996.11" y="2238.59" type="unregulated"/>

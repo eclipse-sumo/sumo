@@ -3,7 +3,7 @@
 <!-- generated on Mon 05 Dec 2011 01:12:14 PM CET by Netedit Version dev-SVN-r11577
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
 
     <output>
         <output-file value="/home/erdm_ja/debug/height_glitch/debug.net.xml"/>
@@ -18,6 +18,6 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1" numLanes="1" speed="13.89"/>
 </edges>

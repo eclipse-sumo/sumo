@@ -3,7 +3,7 @@
 <!-- generated on Fri 02 Nov 2012 09:22:45 AM CET by Netedit Version dev-SVN-r12914
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="/home/erdm_ja/debug/roundabout_brett_wiesner/freshPond.net.xml"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
     <edge id="8616185" from="61321724" to="61322089" priority="11" numLanes="2" speed="27.78" shape="1268.42,1237.86 1274.87,1260.26 1280.26,1272.86 1285.99,1281.60 1291.95,1287.31" spreadType="center"/>
     <edge id="128366152#0" from="634899414" to="61317607" priority="11" numLanes="2" speed="27.78" shape="1062.90,1482.27 1074.32,1472.59 1080.97,1468.22 1087.70,1464.44 1098.66,1456.60 1110.20,1446.59 1121.53,1436.88 1134.33,1425.21 1189.61,1376.76 1224.57,1345.28 1251.24,1314.88 1258.52,1303.14 1262.19,1296.06" spreadType="center"/>
     <edge id="8615117" from="61317607" to="61317605" priority="11" numLanes="2" speed="27.78" spreadType="center"/>

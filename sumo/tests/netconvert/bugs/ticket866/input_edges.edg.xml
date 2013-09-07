@@ -3,7 +3,7 @@
 <!-- generated on Fri 08 Mar 2013 03:11:41 PM CET by Netedit Version dev-SVN-r13453
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="/scr1/erdm_ja/debug/ticket866/debug.net.xml"/>
@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
     <edge id="exit_with_only_one_lane" from="443238" to="324321646" priority="10" numLanes="1" speed="22.22" shape="567.03,433.03 592.00,439.44 613.17,443.45 625.15,443.72 635.82,441.35 645.59,437.41 653.46,431.77 660.31,422.83 663.97,414.17 665.21,405.00 665.03,397.15 663.72,389.02 660.53,382.78 655.00,375.73 647.67,369.81 633.69,365.93 622.83,365.48 610.21,368.69 599.24,375.54 594.27,385.27" spreadType="center"/>
     <edge id="motorway" from="2159689627" to="443238" priority="9" numLanes="2" speed="13.89" shape="318.86,414.64 379.85,414.04 458.25,416.27 509.47,421.57 538.62,426.38 567.03,433.03" spreadType="center"/>
     <edge id="bug_in_osm_db" from="cluster_35916474_35916475_443246" to="443238" priority="9" numLanes="2" speed="13.89" shape="808.88,609.23 791.08,591.28 757.24,558.31 741.18,543.43 724.43,529.50 695.07,506.97 663.40,487.12 639.19,474.52 612.98,461.01 590.80,444.99 567.03,433.03" spreadType="center"/>

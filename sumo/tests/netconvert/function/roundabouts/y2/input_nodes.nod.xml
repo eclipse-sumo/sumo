@@ -1,4 +1,4 @@
-<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
    <node id="10731" x="49376.59" y="59657.25"/>
    <node id="10732" x="49409.46" y="59716.5"/>
    <node id="17394" x="49350.02" y="59665.63"/>

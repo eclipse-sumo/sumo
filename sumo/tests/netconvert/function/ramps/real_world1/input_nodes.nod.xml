@@ -3,7 +3,7 @@
 <!-- generated on 30.03.2012 09:59:25 by Netedit Version dev-SVN-r11684
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="J:\t1.net.xml"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
     <location netOffset="-589753.17,-5774842.04" convBoundary="2465.12,2777.99,33013.88,33030.49" origBoundary="10.313140,52.115477,10.801520,52.424030" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <node id="1461605567" x="14355.28" y="22125.73" type="priority"/>

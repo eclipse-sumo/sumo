@@ -3,7 +3,7 @@
 <!-- generated on Tue May  7 15:49:14 2013 by SUMO netgenerate Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenerateConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netgenerateConfiguration.xsd">
 
     <spider_network>
         <spider value="true"/>
@@ -32,7 +32,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
 
     <location netOffset="1589.00,1511.23" convBoundary="0.00,0.00,3178.00,3022.46" origBoundary="-1589.00,-1511.23,1589.00,1511.23" projParameter="!"/>
 

@@ -35,7 +35,7 @@
 </configuration>
 -->
 
-<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd">
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
 	<connection from="-4312" to="9910" fromLane="0" toLane="0"/>
 	<connection from="-4312" to="9910" fromLane="1" toLane="1"/>
 	<connection from="-4312" to="-7783" fromLane="1" toLane="0"/>

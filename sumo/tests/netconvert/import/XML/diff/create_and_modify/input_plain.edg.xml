@@ -1,4 +1,4 @@
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
     <!-- Deleted Elements -->
     <!-- Created Elements -->
     <edge id="gneE0" from="node_L" spreadType="center" priority="1" to="gneJ1" numLanes="1" speed="13.89"/>

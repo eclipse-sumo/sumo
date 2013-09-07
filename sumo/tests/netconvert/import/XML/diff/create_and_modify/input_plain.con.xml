@@ -1,4 +1,4 @@
-<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd">
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
     <!-- Deleted Elements -->
     <!-- Created Elements -->
     <connection from="edge_C2L" to="gneE0" fromLane="0" toLane="0" />

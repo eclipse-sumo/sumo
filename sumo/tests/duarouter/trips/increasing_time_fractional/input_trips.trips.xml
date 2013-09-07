@@ -3,7 +3,7 @@
 <!-- generated on 03/27/12 11:55:55 by SUMO od2trips Version dev-SVN-r11548
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/od2tripsConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/od2tripsConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>

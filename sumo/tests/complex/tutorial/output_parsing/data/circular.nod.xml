@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
     <node id="bottom-left" x="0" y="0"/>
     <node id="bottom-right" x="1250" y="0"/>
     <node id="top-right" x="1250" y="1250"/>

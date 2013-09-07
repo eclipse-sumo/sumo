@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <variableSpeedSign id="vss" lanes="middle_0">
         <step time="0" speed="2.8"/>
         <step time="100" speed="47.22"/>

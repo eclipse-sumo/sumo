@@ -1,4 +1,4 @@
-<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
        <location netOffset="-277843.65,-5330206.51" convBoundary="0.00,0.00,100.00,0.00" origBoundary="12.014694,48.087529,12.061386,48.121459" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
    <node id="0" x="0.0" y="0.0"/>
    <node id="1" x="100.0" y="0.0"/>

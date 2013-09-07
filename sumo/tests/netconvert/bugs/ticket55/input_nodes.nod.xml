@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
    <node id="1" x="446.66" y="616.68"/>
    <node id="102" x="822.75" y="421.00"/>
    <node id="108" x="612.66" y="691.24"/>
