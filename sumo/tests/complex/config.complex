@@ -57,3 +57,7 @@ vss:0.0001
 meso:meso
 msvc10mesox64:meso
 msvc10mesoWin32:meso
+gcc4:perf
+gcc4_64:perf
+msvc10Win32:perf
+msvc10x64:perf

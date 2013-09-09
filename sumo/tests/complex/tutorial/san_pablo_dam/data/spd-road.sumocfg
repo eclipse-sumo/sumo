@@ -9,7 +9,6 @@
     </time>	
     <processing>
         <time-to-teleport value="0"/>
-        <sloppy-insert value="true"/>
     </processing>
     <report>
         <no-duration-log value="true"/>
