@@ -117,8 +117,8 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
         .writeAttr("PMx_normed", OutputDevice::realString(normFactor * PMx, 6))
         .writeAttr("NOx_normed", OutputDevice::realString(normFactor * NOx, 6))
         .writeAttr("fuel_normed", OutputDevice::realString(normFactor * fuel, 6));
-    dev << "\n           ";
     if (sampleSeconds > myParent->myMinSamples) {
+        dev << "\n           ";
         SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
         SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
@@ -133,6 +133,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
             .writeAttr("NOx_perVeh", OutputDevice::realString(NOx * vehFactor, 6))
             .writeAttr("fuel_perVeh", OutputDevice::realString(fuel * vehFactor, 6));
     } else if (defaultTravelTime >= 0.) {
+        dev << "\n           ";
         const MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType();
         const SUMOReal speed = MIN2(myLaneLength / defaultTravelTime, t->getMaxSpeed());
         dev.writeAttr("traveltime", OutputDevice::realString(defaultTravelTime))
