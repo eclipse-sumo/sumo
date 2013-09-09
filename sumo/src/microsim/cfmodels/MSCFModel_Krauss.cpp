@@ -92,6 +92,7 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel
         if (gap < 0.01) {
             return 0;
         }
+        // g = t * x + x^2 / (2 * b)
         return (SUMOReal)(-myTauDecel + sqrt(myTauDecel * myTauDecel + 2. * myDecel * gap));
     }
     // follow the leader
