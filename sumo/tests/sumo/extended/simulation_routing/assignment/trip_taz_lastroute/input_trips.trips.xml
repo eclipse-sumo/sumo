@@ -1,4 +1,6 @@
 <trips>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
 	<trip id="0" depart="0" fromTaz="1" toTaz="2"/>
 	<trip id="1" depart="20" fromTaz="1" toTaz="2"/>
 	<trip id="2" depart="40" fromTaz="1" toTaz="2"/>
