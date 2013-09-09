@@ -727,7 +727,8 @@ MSLane::detectCollisions(SUMOTime timestep, int stage) {
 
 bool
 MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
-    for (VehCont::iterator i = myVehicles.begin(); i != myVehicles.end();) {
+    // iteratate over vehicles in reverse so that move reminders will be called in the correct order
+    for (VehCont::reverse_iterator i = myVehicles.rbegin(); i != myVehicles.rend();) {
         MSVehicle* veh = *i;
         if (veh->getLane() != this || veh->getLaneChangeModel().alreadyMoved()) {
             // this is the shadow during a continuous lane change
@@ -784,7 +785,8 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
         }
         myBruttoVehicleLengthSum -= length;
         myNettoVehicleLengthSum -= nettoLength;
-        i = myVehicles.erase(i);
+        ++i;
+        i = VehCont::reverse_iterator(myVehicles.erase(i.base())); 
     }
     if (myVehicles.size() > 0) {
         if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0) {

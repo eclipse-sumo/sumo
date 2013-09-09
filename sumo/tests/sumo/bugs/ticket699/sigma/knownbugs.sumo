@@ -1,0 +1,12 @@
+
+[Reported by erdm_ja at 09Sep12:44:30]
+search_string:Teleporting vehicle
+search_file:errors
+full_description:see #699
+brief_description:another failure of checkRewindLinkLanes
+
+[Reported by erdm_ja at 09Sep12:44:52]
+search_string:Teleporting vehicle
+search_file:errors
+full_description:another failure of checkRewindLinkLanes
+brief_description:see #699
