@@ -94,15 +94,17 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._hadKeywords = False
 
 
+sumoRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+svnRoots = [sumoRoot]
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-f", "--fix", action="store_true",
                       default=False, help="fix invalid svn properties")
+optParser.add_option("-r", "--recheck",
+                      default=sumoRoot, help="fully recheck all files in given dir")
 (options, args) = optParser.parse_args()
 seen = set()
-sumoRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-svnRoots = [sumoRoot]
 if len(args) > 0:
     svnRoots = [os.path.abspath(a) for a in args]
 else:
@@ -117,8 +119,8 @@ for svnRoot in svnRoots:
     xml.sax.parseString(output, PropertyReader(options.fix))
 
 if options.verbose:
-    print "re-checking tree at", sumoRoot 
-for root, dirs, files in os.walk(sumoRoot):
+    print "re-checking tree at", options.recheck 
+for root, dirs, files in os.walk(options.recheck):
     for name in files:
         fullName = os.path.join(root, name)
         if fullName in seen or subprocess.call(["svn", "ls", fullName], stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):
