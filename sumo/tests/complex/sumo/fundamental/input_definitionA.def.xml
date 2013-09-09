@@ -1,5 +1,0 @@
-<rerouter>
-    <interval begin="0" end="86400">
-        <routeProbReroute id="completeA"/>
-    </interval>
-</rerouter>
