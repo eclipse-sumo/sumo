@@ -16,6 +16,9 @@ approach_slow_lane
 # one vehicle approaching a lane with a lower max speed
 approach_slow_lane_dawdle
 
+# one vehicle approaching a lane with a lower max speed and step-length 0.1
+approach_slow_subsecond
+
 # avoid spill back of jams onto a junction (checkRewindLinkLanes)
 avoid_spill_back
 

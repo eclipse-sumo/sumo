@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<!-- generated on 01/03/12 21:56:34 by SUMO duarouter Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="D:\Wang\SUMO\ecoRouting\Symmetrie_clear\limitedSpeed\duaIterate\testExtended_sep_limitedSpeed_8.3.net.xml"/>
+        <taz-files value="D:\Wang\SUMO\ecoRouting\Symmetrie_clear\limitedSpeed\duaIterate\inputs\districts.xml"/>
+        <alternative-files value="route_500_0_149.rou.alt.xml"/>
+        <weight-files value="dump_149_86400.xml"/>
+    </input>
+
+    <output>
+        <output-file value="route_500_0_150.rou.xml"/>
+        <exit-times value="true"/>
+    </output>
+
+    <processing>
+        <ignore-errors value="false"/>
+        <with-taz value="true"/>
+        <gawron.beta value="0.9"/>
+        <gawron.a value="0.5"/>
+        <keep-all-routes value="true"/>
+    </processing>
+
+    <time>
+        <begin value="25200"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+        <no-warnings value="false"/>
+    </report>
+
+    <random_number>
+        <random value="true"/>
+    </random_number>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="v0" depart="0" departSpeed="max" departPos="1800" arrivalPos="50">
+        <route edges="fast slow"/>
+    </vehicle>
+</routes>
