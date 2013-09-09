@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  4 15:29:27 2013 by SUMO sumo Version dev-SVN-r14576
+<!-- generated on Mon Sep  9 14:22:49 2013 by SUMO sumo Version dev-SVN-r14631
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -21,5 +21,6 @@
 
 <instantE1>
     <instantOut id="end_of_lane" time="12.91" state="enter" vehID="0.99" speed="30.00" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="end_of_lane" time="13.00" state="stay" vehID="0.99" speed="30.00" length="5.00" type="DEFAULT_VEHTYPE"/>
     <instantOut id="end_of_lane" time="13.07" state="leave" vehID="0.99" speed="30.00" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.17"/>
 </instantE1>

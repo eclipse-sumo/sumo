@@ -86,7 +86,6 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
             write("enter", entryTime, veh, newSpeed);
         }
         myEntryTimes[&veh] = entryTime;
-        return true;
     }
     if (newPos - veh.getVehicleType().getLength() > myPosition) {
         std::map<SUMOVehicle*, SUMOReal>::iterator i = myEntryTimes.find(&veh);
@@ -101,7 +100,7 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         return false;
     }
     // vehicle stays on the detector
-    write("stay", STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), veh, newSpeed);
+    write("stay", STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T), veh, newSpeed);
     return true;
 }
 

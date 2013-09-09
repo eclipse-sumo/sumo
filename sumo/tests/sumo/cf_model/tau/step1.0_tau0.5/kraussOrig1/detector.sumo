@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  9 13:59:46 2013 by SUMO sumo Version dev-SVN-r14631
+<!-- generated on Mon Sep  9 14:21:59 2013 by SUMO sumo Version dev-SVN-r14631
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -26,6 +26,7 @@
 <instantE1>
     <instantOut id="beg_end" time="24.11" state="enter" vehID="leader" speed="20.00" length="5.00" type="leader"/>
     <instantOut id="beg_end" time="24.36" state="leave" vehID="leader" speed="20.00" length="5.00" type="leader" occupancy="0.25"/>
-    <instantOut id="beg_end" time="24.92" state="enter" vehID="follower" speed="20.31" length="5.00" type="follower"/>
+    <instantOut id="beg_end" time="24.92" state="enter" vehID="follower" speed="20.31" length="5.00" type="follower" gap="0.56"/>
+    <instantOut id="beg_end" time="25.00" state="stay" vehID="follower" speed="20.31" length="5.00" type="follower"/>
     <instantOut id="beg_end" time="25.16" state="leave" vehID="follower" speed="20.25" length="5.00" type="follower" occupancy="0.25"/>
 </instantE1>
