@@ -35,7 +35,7 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
             if f.startswith("batchreport"):
                 b = open(join(root, f))
                 l = b.readline()
-                if l.startswith("FAILED") or l.startswith("succeeded") or l.startswith("killed"):
+                if l.startswith("FAILED") or l.startswith("succeeded") or l.startswith("killed") or l.startswith("known bugs"):
                     print >> out, f, l,
                 b.close()
     print >> out, "--"
