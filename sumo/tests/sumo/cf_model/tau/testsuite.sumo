@@ -1,0 +1,5 @@
+# tests whether vehicles follow each other with the appropriate headway
+step1.0_tau1.0
+step1.0_tau0.5
+step0.5_tau1.0
+step0.5_tau0.5

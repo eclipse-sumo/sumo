@@ -14,6 +14,6 @@ slope
 adap_speed_for_new_lane
 
 # tests behavior with different values of the reactionTime/headway parameter tau
-#tau
+tau
 
 errors
