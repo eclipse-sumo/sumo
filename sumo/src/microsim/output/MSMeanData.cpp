@@ -419,7 +419,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
 bool
 MSMeanData::writePrefix(OutputDevice& dev, const MeanDataValues& values, const SumoXMLTag tag, const std::string id) const {
     if (myDumpEmpty || !values.isEmpty()) {
-        dev.openTag(tag).writeAttr(SUMO_ATTR_ID, id) << " sampledSeconds=\"" << values.getSamples();
+        dev.openTag(tag).writeAttr(SUMO_ATTR_ID, id).writeAttr("sampledSeconds", values.getSamples());
         return true;
     }
     return false;
