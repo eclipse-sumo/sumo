@@ -109,7 +109,7 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel
                                            4.0 * egoDecel * (2.0 * gap + predSpeed * predSpeed / predMaxDecel - predSpeed - 1.0)
                                            + (egoDecel * (2.0 * myHeadwayTime - 1.0))
                                            * (egoDecel * (2.0 * myHeadwayTime - 1.0)))
-                                       + myDecel * (0.5 - myHeadwayTime));
+                                       + egoDecel * (0.5 - myHeadwayTime));
     if (ISNAN(result)) {
         return 0;
     } else {
