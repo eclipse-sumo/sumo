@@ -211,11 +211,16 @@ public:
      * @return The distance needed to halt
      */
     inline SUMOReal brakeGap(const SUMOReal speed) const {
+        return brakeGap(speed, myDecel, myHeadwayTime);
+    }
+
+
+    inline static SUMOReal brakeGap(const SUMOReal speed, const SUMOReal decel, const SUMOReal headwayTime) {
         /* one possiblity to speed this up is to precalculate speedReduction * steps * (steps+1) / 2
         for small values of steps (up to 10 maybe) and store them in an array */
-        const SUMOReal speedReduction = ACCEL2SPEED(getMaxDecel());
+        const SUMOReal speedReduction = ACCEL2SPEED(decel);
         const int steps = int(speed / speedReduction);
-        return SPEED2DIST(steps * speed - speedReduction * steps * (steps + 1) / 2) + speed * myHeadwayTime;
+        return SPEED2DIST(steps * speed - speedReduction * steps * (steps + 1) / 2) + speed * headwayTime;
     }
 
 
@@ -225,9 +230,11 @@ public:
       * @param[in] leaderMaxDecel LEADER's max. deceleration rate
       */
     inline SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeed, const SUMOReal leaderMaxDecel) const {
-        const int leaderSteps = int(leaderSpeed / ACCEL2SPEED(leaderMaxDecel));
-        const SUMOReal leaderBreak = SPEED2DIST(leaderSteps * leaderSpeed - ACCEL2SPEED(leaderMaxDecel) * leaderSteps * (leaderSteps + 1) / 2);
-        return MAX2((SUMOReal) 0, brakeGap(speed) - leaderBreak);
+        // The solution approach leaderBrakeGap >= followerBrakeGap is not
+        // secure when the follower can brake harder than the leader because the paths may still cross.
+        // As a workaround we lower the value of followerDecel which errs on the side of caution
+        const SUMOReal followDecel = MIN2(myDecel, leaderMaxDecel);
+        return MAX2((SUMOReal) 0, brakeGap(speed, followDecel, myHeadwayTime) - brakeGap(leaderSpeed, leaderMaxDecel, 0));
     }
 
 
