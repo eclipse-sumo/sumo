@@ -60,5 +60,20 @@ examples
 
 # test the duration log output
 duration_log
+
+#Test for Floating Car Data
 fcd-output
+
 link-output
+
+#Tests for full-output (huge overhead)
+full-output
+
+# Tests for emission-output 
+emission-output
+
+# Tests for vkt-output (The Visualization Toolkit)
+vtk-output
+
+# Tests for the queue-output
+queue-output
