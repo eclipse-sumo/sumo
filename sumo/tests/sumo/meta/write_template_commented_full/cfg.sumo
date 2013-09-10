@@ -234,6 +234,9 @@
         <!-- The range of the bt receiver -->
         <device.btreceiver.range value="300" type="FLOAT"/>
 
+        <!-- The file to write seen vehicles into -->
+        <device.btreceiver.output value="" type="FILE"/>
+
         <!-- The probability for a vehicle to have a &apos;btsender&apos; device -->
         <device.btsender.probability value="0" type="FLOAT"/>
 

@@ -94,6 +94,7 @@
         <device.btreceiver.explicit value="" synonymes="device.btreceiver.knownveh" type="STR" help="Assign a &apos;btreceiver&apos; device to named vehicles"/>
         <device.btreceiver.deterministic value="false" type="BOOL" help="The &apos;btreceiver&apos; devices are set deterministic using a fraction of 1000"/>
         <device.btreceiver.range value="300" type="FLOAT" help="The range of the bt receiver"/>
+        <device.btreceiver.output value="" type="FILE" help="The file to write seen vehicles into"/>
         <device.btsender.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;btsender&apos; device"/>
         <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR" help="Assign a &apos;btsender&apos; device to named vehicles"/>
         <device.btsender.deterministic value="false" type="BOOL" help="The &apos;btsender&apos; devices are set deterministic using a fraction of 1000"/>
