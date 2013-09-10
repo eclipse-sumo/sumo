@@ -80,7 +80,7 @@ void
 MSDevice_BTsender::generateOutput() const {
     if (myReportRoute) {
         OutputDevice& os = OutputDevice::getDeviceByOption("bt-output");
-        os.openTag("found");
+        os.openTag("equipped");
         os.writeAttr("id", myHolder.getID());
         os.writeAttr("route", myHolder.getRoute().getEdges());
         os.closeTag();

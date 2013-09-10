@@ -117,6 +117,10 @@ public:
 
 
 
+protected:
+    void enterRange(const MSVehicle &other, const Position &atPos, SUMOReal atOffset);
+    void leaveRange(const MSVehicle &other, const Position &atPos, SUMOReal atOffset);
+
 private:
     /** @brief Constructor
      *
@@ -133,7 +137,7 @@ private:
 
     class MeetingPoint {
     public:
-        MeetingPoint(SUMOTime t_, const Position& observerPos_, SUMOReal observerSpeed_,
+        MeetingPoint(SUMOReal t_, const Position& observerPos_, SUMOReal observerSpeed_,
                      const Position& seenPos_, SUMOReal seenSpeed_)
             : t(t_), observerPos(observerPos_), observerSpeed(observerSpeed_),
               seenPos(seenPos_), seenSpeed(seenSpeed_) {}
@@ -141,7 +145,7 @@ private:
         ~MeetingPoint() {}
 
     public:
-        SUMOTime t;
+        SUMOReal t;
         Position observerPos;
         SUMOReal observerSpeed;
         Position seenPos;
