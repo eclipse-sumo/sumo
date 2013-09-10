@@ -43,3 +43,7 @@ device_example
 
 # saving and loading simulation state
 state
+
+# tests for bt devices
+device_bt
+
