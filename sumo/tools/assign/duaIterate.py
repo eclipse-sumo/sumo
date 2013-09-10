@@ -61,8 +61,8 @@ def addGenericOptions(optParser):
     optParser.add_option("-Q", "--eco-measure", dest="ecomeasure", type="choice",
                          choices=('CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'),
                          help="define the applied eco measure, e.g. fuel, CO2, noise")
-    optParser.add_option("-s", "--sloppy-insert", action="store_true",
-                         default=False, help="sloppy insertion tests (may speed up the sim considerably)")
+    optParser.add_option("--eager-insert", action="store_true",
+                         default=False, help="eager insertion tests (may slow down the sim considerably)")
     optParser.add_option("--time-to-teleport", dest="timetoteleport", type="int", default=300,
                          help="Delay before blocked vehicles are teleported where -1 means no teleporting")
     optParser.add_option("--time-to-teleport.highways", dest="timetoteleport_highways", type="int", default=0,
@@ -259,7 +259,7 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
         '--route-steps', options.routeSteps,
         '--no-internal-links', options.internallink,
         '--lanechange.allow-swap', options.lanechangeallowed,
-        '--sloppy-insert', options.sloppy_insert,
+        '--eager-insert', options.eager_insert,
         '--time-to-teleport', options.timetoteleport,
         '--time-to-teleport.highways', options.timetoteleport_highways,
         '--verbose',
