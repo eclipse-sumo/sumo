@@ -1,31 +1,54 @@
 # Tests retrieval of vehicle number in scenario (ID_COUNT)
 ID_COUNT
+ID_COUNT_subseconds
 
 # Tests retrieval of vehicles in scenario (ID_LIST)
 ID_LIST
+ID_LIST_subseconds
 
 # Variables Retrieval
 VAR_ANGLE
+VAR_ANGLE_subseconds
 VAR_COLOR
+VAR_COLOR_subseconds
 VAR_LANE_ID
+VAR_LANE_ID_subseconds
 VAR_POSITION
+VAR_POSITION_subseconds
 VAR_ROAD_ID
+VAR_ROAD_ID_subseconds
 VAR_ROUTE
+VAR_ROUTE_subseconds
 VAR_EDGES
+VAR_EDGES_subseconds
 VAR_SPEED
+VAR_SPEED_subseconds
 VAR_TYPE
+VAR_TYPE_subseconds
 VAR_LANEPOSITION
+VAR_LANEPOSITION_subseconds
 VAR_CO2EMISSION
+VAR_CO2EMISSION_subseconds
 VAR_COEMISSION
+VAR_COEMISSION_subseconds
 VAR_HCEMISSION
+VAR_HCEMISSION_subseconds
 VAR_PMXEMISSION
+VAR_PMXEMISSION_subseconds
 VAR_NOXEMISSION
+VAR_NOXEMISSION_subseconds
 VAR_FUELCONSUMPTION
+VAR_FUELCONSUMPTION_subseconds
 VAR_NOISEEMISSION
+VAR_NOISEEMISSION_subseconds
 VAR_EDGE_TRAVELTIME
+VAR_EDGE_TRAVELTIME_subseconds
 VAR_EDGE_EFFORT
+VAR_EDGE_EFFORT_subseconds
 VAR_STOPSTATE
+VAR_STOPSTATE_subseconds
 DISTANCE_REQUEST
 
 # Testing error cases
 errors
+errors_subseconds

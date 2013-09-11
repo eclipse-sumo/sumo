@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Mon Jul 01 13:25:59 2013
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=255 objID=dummy
+.. Answered with error to command (164), [description: Get Vehicle Variable: unsupported variable specified]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]
