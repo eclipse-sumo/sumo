@@ -102,6 +102,9 @@ private:
     std::pair<int, int> myEdgeAndLane;
     unsigned int myQueIndex;
 
+    /// @brief The currently parsed vehicle type
+    SUMOVTypeParameter* myCurrentVType;
+
 private:
     /// @brief Invalidated copy constructor
     MSStateHandler(const MSStateHandler& s);
