@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Mon Jul 01 13:26:30 2013
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=167 varID=69 objID=xxx
+.. Answered with error to command (167), [description: POI 'xxx' is not known]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]
