@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Mon Jul 01 13:26:43 2013
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=169 varID=255 objID=1/1
+.. Answered with error to command (169), [description: Get Junction Variable: unsupported variable specified]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]
