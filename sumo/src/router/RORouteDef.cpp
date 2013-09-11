@@ -134,7 +134,7 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
             myPrecomputed = myAlternatives[cheapest];
         } else {
             RGBColor* col = myAlternatives[0]->getColor() != 0 ? new RGBColor(*myAlternatives[0]->getColor()) : 0;
-            myPrecomputed = new RORoute(myID, 0, 1, edges, col);
+            myPrecomputed = new RORoute(myID, 0, 1, edges, col, myAlternatives[0]->getStops());
             myNewRoute = true;
         }
     }
@@ -218,7 +218,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         WRITE_MESSAGE("Repaired route of vehicle '" + veh.getID() + "'.");
         myNewRoute = true;
         RGBColor* col = myAlternatives[0]->getColor() != 0 ? new RGBColor(*myAlternatives[0]->getColor()) : 0;
-        myPrecomputed = new RORoute(myID, 0, 1, newEdges, col);
+        myPrecomputed = new RORoute(myID, 0, 1, newEdges, col, myAlternatives[0]->getStops());
     } else {
         myPrecomputed = myAlternatives[0];
     }
@@ -343,7 +343,7 @@ RORouteDef::copyOrigDest(const std::string& id) const {
     std::vector<const ROEdge*> edges;
     edges.push_back(route->getFirst());
     edges.push_back(route->getLast());
-    result->addLoadedAlternative(new RORoute(id, 0, 1, edges, col));
+    result->addLoadedAlternative(new RORoute(id, 0, 1, edges, col, route->getStops()));
     return result;
 }
 
@@ -354,7 +354,7 @@ RORouteDef::copy(const std::string& id) const {
     for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
         RORoute* route = *i;
         RGBColor* col = route->getColor() != 0 ? new RGBColor(*route->getColor()) : 0;
-        result->addLoadedAlternative(new RORoute(id, 0, 1, route->getEdgeVector(), col));
+        result->addLoadedAlternative(new RORoute(id, 0, 1, route->getEdgeVector(), col, route->getStops()));
     }
     return result;
 }

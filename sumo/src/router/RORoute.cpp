@@ -49,9 +49,10 @@
 // ===========================================================================
 RORoute::RORoute(const std::string& id, SUMOReal costs, SUMOReal prop,
                  const std::vector<const ROEdge*>& route,
-                 const RGBColor* const color)
+                 const RGBColor* const color,
+                 const std::vector<SUMOVehicleParameter::Stop>& stops)
     : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
-      myProbability(prop), myRoute(route), myColor(color) {}
+      myProbability(prop), myRoute(route), myColor(color), myStops(stops) {}
 
 
 RORoute::RORoute(const RORoute& src)
@@ -65,12 +66,6 @@ RORoute::RORoute(const RORoute& src)
 
 RORoute::~RORoute() {
     delete myColor;
-}
-
-
-void
-RORoute::add(ROEdge* edge) {
-    myRoute.push_back(edge);
 }
 
 
@@ -129,6 +124,7 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
         }
         dev.writeAttr("exitTimes", exitTimes);
     }
+    SUMOVehicleParameter::writeStops(myStops, dev);
     dev.closeTag();
     return dev;
 }

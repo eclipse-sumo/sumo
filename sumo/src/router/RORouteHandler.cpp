@@ -280,7 +280,7 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
         return;
     }
     RORoute* route = new RORoute(myActiveRouteID, myCurrentCosts, myActiveRouteProbability, myActiveRoute,
-                                 myActiveRouteColor);
+                                 myActiveRouteColor, myActiveRouteStops);
     myActiveRoute.clear();
     if (myCurrentAlternatives == 0) {
         if (myNet.getRouteDef(myActiveRouteID) != 0) {
