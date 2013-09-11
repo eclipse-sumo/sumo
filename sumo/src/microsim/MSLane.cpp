@@ -403,6 +403,24 @@ MSLane::insertVehicle(MSVehicle& veh) {
 
 
 bool
+MSLane::checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const SUMOReal nspeed, const bool patchSpeed, const std::string errorMsg) const {
+    if (nspeed < speed) {
+        if (patchSpeed) {
+            speed = MIN2(nspeed, speed);
+            dist = aVehicle->getCarFollowModel().brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+        } else {
+            if (errorMsg != "") {
+                WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (" + errorMsg + ")!");
+                MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                            SUMOReal speed, SUMOReal pos, bool patchSpeed,
                            MSMoveReminder::Notification notification) {
@@ -431,32 +449,18 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (&currentLane->getEdge() == r.getLastEdge()) {
                 // reached the end of the route
                 if (aVehicle->getParameter().arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-                    SUMOReal nspeed = cfModel.freeSpeed(aVehicle, speed, seen, aVehicle->getParameter().arrivalSpeed);
-                    if (nspeed < speed) {
-                        if (patchSpeed) {
-                            speed = MIN2(nspeed, speed);
-                            dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-                        } else {
-                            // we may not drive with the given velocity - we cannot match the specified arrival speed
-                            WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity due (arrival speed too low)!");
-                            MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
-                            return false;
-                        }
+                    if (checkFailure(aVehicle, speed, dist, cfModel.freeSpeed(aVehicle, speed, seen, aVehicle->getParameter().arrivalSpeed),
+                                     patchSpeed, "arrival speed too low")) {
+                        // we may not drive with the given velocity - we cannot match the specified arrival speed
+                        return false;
                     }
                 }
             } else {
                 // lane does not continue
-                SUMOReal nspeed = cfModel.stopSpeed(aVehicle, speed, seen);
-                if (nspeed < speed) {
-                    if (patchSpeed) {
-                        speed = MIN2(nspeed, speed);
-                        dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-                    } else {
-                        // we may not drive with the given velocity - we cannot stop at the junction
-                        WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (junction too close)!");
-                        MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
-                        return false;
-                    }
+                if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, seen),
+                                 patchSpeed, "junction too close")) {
+                    // we may not drive with the given velocity - we cannot stop at the junction
+                    return false;
                 }
             }
             break;
@@ -464,24 +468,19 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(), cfModel.getMaxDecel(), 0)
                 || !(*link)->havePriority()) {
             // have to stop at junction
-            SUMOReal nspeed = cfModel.stopSpeed(aVehicle, speed, seen);
-            if (nspeed < speed) {
-                if (patchSpeed) {
-                    speed = MIN2(nspeed, speed);
-                    dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-                } else {
-                    // we may not drive with the given velocity - we cannot stop at the junction in time
-                    const LinkState state = (*link)->getState();
-                    if (state == LINKSTATE_MINOR
-                            || state == LINKSTATE_EQUAL
-                            || state == LINKSTATE_STOP
-                            || state == LINKSTATE_ALLWAY_STOP) {
-                        // no sense in trying later
-                        WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (unpriorised junction too close)!");
-                        MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
-                    }
-                    return false;
-                }
+            std::string errorMsg = "";
+            const LinkState state = (*link)->getState();
+            if (state == LINKSTATE_MINOR
+                    || state == LINKSTATE_EQUAL
+                    || state == LINKSTATE_STOP
+                    || state == LINKSTATE_ALLWAY_STOP) {
+                // no sense in trying later
+                errorMsg = "unpriorised junction too close";
+            }
+            if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, seen),
+                             patchSpeed, errorMsg)) {
+                // we may not drive with the given velocity - we cannot stop at the junction in time
+                return false;
             }
             break;
         }
@@ -506,29 +505,16 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     return false;
                 }
                 const SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
-                if (nspeed < speed) {
-                    if (patchSpeed) {
-                        speed = MIN2(nspeed, speed);
-                        dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-                    } else {
-                        // we may not drive with the given velocity - we crash into the leader
-                        return false;
-                    }
+                if (checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
+                    // we may not drive with the given velocity - we crash into the leader
+                    return false;
                 }
             }
             // check next lane's maximum velocity
-            const SUMOReal nspeed = nextLane->getVehicleMaxSpeed(aVehicle);
-            if (nspeed < speed) {
-                // patch speed if needed
-                if (patchSpeed) {
-                    speed = MIN2(cfModel.freeSpeed(aVehicle, speed, seen, nspeed), speed);
-                    dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-                } else {
-                    // we may not drive with the given velocity - we would be too fast on the next lane
-                    WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (slow lane ahead)!");
-                    MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
-                    return false;
-                }
+            if (checkFailure(aVehicle, speed, dist, nextLane->getVehicleMaxSpeed(aVehicle),
+                             patchSpeed, "slow lane ahead")) {
+                // we may not drive with the given velocity - we would be too fast on the next lane
+                return false;
             }
             // check traffic on next junction
             // we cannot use (*link)->opened because a vehicle without priority
@@ -536,15 +522,10 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             const SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / speed);
             const SUMOTime leaveTime = arrivalTime + TIME2STEPS((*link)->getLength() * speed);
             if ((*link)->hasApproachingFoe(arrivalTime, leaveTime, speed, cfModel.getMaxDecel())) {
-                SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, 0, 0);
-                if (nspeed < speed) {
-                    if (patchSpeed) {
-                        speed = MIN2(nspeed, speed);
-                        dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
-                    } else {
-                        // we may not drive with the given velocity - we crash at the junction
-                        return false;
-                    }
+                if (checkFailure(aVehicle, speed, dist, cfModel.followSpeed(aVehicle, speed, seen, 0, 0),
+                                 patchSpeed, "")) {
+                    // we may not drive with the given velocity - we crash at the junction
+                    return false;
                 }
             }
             seen += nextLane->getLength();

@@ -193,6 +193,7 @@ public:
                                     bool recheckNextLanes,
                                     MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
+    bool checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const SUMOReal nspeed, const bool patchSpeed, const std::string errorMsg) const;
     bool pWagGenericInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos);
     bool pWagSimpleInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos);
     bool maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed);
