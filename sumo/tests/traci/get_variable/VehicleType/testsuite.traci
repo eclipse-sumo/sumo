@@ -1,25 +1,39 @@
 # Tests retrieval of vehicle type number in scenario (ID_COUNT)
 ID_COUNT
+ID_COUNT_subseconds
 
 # Tests retrieval of vehicle types in scenario (ID_LIST)
 ID_LIST
+ID_LIST_subseconds
 
 # Variables Retrieval
 VAR_ACCEL
+VAR_ACCEL_subseconds
 VAR_COLOR
+VAR_COLOR_subseconds
 VAR_DECEL
+VAR_DECEL_subseconds
 VAR_EMISSIONCLASS
+VAR_EMISSIONCLASS_subseconds
 VAR_MINGAP
+VAR_MINGAP_subseconds
 VAR_LENGTH
+VAR_LENGTH_subseconds
 VAR_MAXSPEED
+VAR_MAXSPEED_subseconds
 VAR_SHAPECLASS
+VAR_SHAPECLASS_subseconds
 VAR_TAU
+VAR_TAU_subseconds
 VAR_VEHICLECLASS
+VAR_VEHICLECLASS_subseconds
 VAR_WIDTH
+VAR_WIDTH_subseconds
 
 
 # Testing error cases
 errors
+errors_subseconds
 
 
 
