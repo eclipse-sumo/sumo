@@ -1,0 +1,42 @@
+TraCITestClient output file. Date: Mon Jul 01 13:25:00 2013
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=163 varID=51 objID=2/1to2/0_0
+.. Command acknowledged (163), [description: ]
+  CommandID=179  VariableID=51  ObjectID=2/1to2/0_0 valueDataType=15 compound value with 25 members: [ 
+ valueDataType=9 Int value: 3
+ valueDataType=12 string value: 2/0to1/0_0
+ valueDataType=12 string value: 
+ valueDataType=7 Unsigned Byte Value: 0
+ valueDataType=7 Unsigned Byte Value: 0
+ valueDataType=7 Unsigned Byte Value: 0
+ valueDataType=12 string value: r
+ valueDataType=12 string value: r
+ valueDataType=11 Double value: 4.38
+ valueDataType=12 string value: 2/0to3/0_0
+ valueDataType=12 string value: 
+ valueDataType=7 Unsigned Byte Value: 0
+ valueDataType=7 Unsigned Byte Value: 0
+ valueDataType=7 Unsigned Byte Value: 0
+ valueDataType=12 string value: r
+ valueDataType=12 string value: l
+ valueDataType=11 Double value: 9.05
+ valueDataType=12 string value: 2/0to2/1_0
+ valueDataType=12 string value: 
+ valueDataType=7 Unsigned Byte Value: 0
+ valueDataType=7 Unsigned Byte Value: 0
+ valueDataType=7 Unsigned Byte Value: 0
+ valueDataType=12 string value: r
+ valueDataType=12 string value: t
+ valueDataType=11 Double value: 3.30
+ ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]
