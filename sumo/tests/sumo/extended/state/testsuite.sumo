@@ -1,6 +1,7 @@
 # save 2 states
 save2
 load
+load_late_insertion
 
 # save state for a network with internal links
 save_with_internal_links
