@@ -1,6 +1,5 @@
 [Reported by erdm_ja at 04Sep15:03:09]
 search_string:emitted="1"
-trigger_on_absence:1
 search_file:summary
 full_description:fractional end time bug
 brief_description:see #689
