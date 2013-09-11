@@ -41,6 +41,7 @@
 // ===========================================================================
 class NBEdge;
 class NBEdgeCont;
+class NBTrafficLightLogicCont;
 class MsgHandler;
 
 
@@ -59,7 +60,7 @@ public:
     /** @brief Constructor
      * @param[in] ec The edge container which includes the edges to change connections of
      */
-    NIXMLConnectionsHandler(NBEdgeCont& ec);
+    NIXMLConnectionsHandler(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
 
     /// @brief Destructor
@@ -144,6 +145,10 @@ private:
 private:
     /// @brief The edge container to fill
     NBEdgeCont& myEdgeCont;
+
+    /** @brief The traffic lights container to add built tls to (when
+     * invalidating tls)  */
+    NBTrafficLightLogicCont& myTLLogicCont;
 
     /// @brief Information whether we have a deprecated attribute
     bool myHaveWarnedAboutDeprecatedLanes;

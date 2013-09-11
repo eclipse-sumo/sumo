@@ -40,6 +40,7 @@
 #include "NIXMLConnectionsHandler.h"
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBNode.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/SUMOSAXHandler.h>
@@ -58,9 +59,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont& ec) :
+NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) :
     SUMOSAXHandler("xml-connection-description"),
     myEdgeCont(ec),
+    myTLLogicCont(tlc),
     myHaveWarnedAboutDeprecatedLanes(false),
     myErrorMsgHandler(OptionsCont::getOptions().getBool("ignore-errors.connections") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {}
@@ -133,6 +135,9 @@ NIXMLConnectionsHandler::myStartElement(int element,
             myErrorMsgHandler->inform("The connection-destination edge '" + to + "' is not known.");
             return;
         }
+        // invalidate traffic light definition loaded from a SUMO network
+        // XXX it would be preferable to reconstruct the phase definitions heuristically
+        fromEdge->getToNode()->invalidateTLS(myTLLogicCont);
         // parse optional lane information
         if (attrs.hasAttribute(SUMO_ATTR_LANE) || attrs.hasAttribute(SUMO_ATTR_FROM_LANE) || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
             parseLaneBound(attrs, fromEdge, toEdge);

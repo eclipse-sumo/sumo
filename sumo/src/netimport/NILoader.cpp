@@ -157,7 +157,7 @@ NILoader::loadXML(OptionsCont& oc) {
                                       oc),
                 oc.getStringVector("edge-files"), "edges");
     // load the connections
-    loadXMLType(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont()),
+    loadXMLType(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont(), myNetBuilder.getTLLogicCont()),
                 oc.getStringVector("connection-files"), "connections");
     // load traffic lights (needs to come last, references loaded edges and connections)
     loadXMLType(new NIXMLTrafficLightsHandler(
