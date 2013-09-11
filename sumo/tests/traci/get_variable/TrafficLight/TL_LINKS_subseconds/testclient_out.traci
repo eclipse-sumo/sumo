@@ -1,0 +1,64 @@
+TraCITestClient output file. Date: Mon Jul 01 13:24:52 2013
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=162 varID=39 objID=0
+.. Command acknowledged (162), [description: ]
+  CommandID=178  VariableID=39  ObjectID=0 valueDataType=15 compound value with 32 members: [ 
+ valueDataType=9 Int value: 16
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"4si_0", "1o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"4si_1", "3o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"4si_2", "2o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"4si_2", "4o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"2si_0", "4o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"2si_1", "1o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"2si_2", "3o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"2si_2", "2o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"3si_0", "2o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"3si_1", "4o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"3si_2", "1o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"3si_2", "3o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"1si_0", "3o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"1si_1", "2o_0", "" ]
+ valueDataType=9 Int value: 1
+ valueDataType=14 string list value: [ 
+"1si_2", "4o_0", "" ]
+ valueDataType=9 Int value: 1
+ ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

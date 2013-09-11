@@ -1,0 +1,56 @@
+TraCITestClient output file. Date: Mon Jul 01 13:24:51 2013
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=162 varID=43 objID=0
+.. Command acknowledged (162), [description: ]
+  CommandID=178  VariableID=43  ObjectID=0 valueDataType=15 compound value with 38 members: [ 
+ valueDataType=9 Int value: 1
+ valueDataType=12 string value: 0
+ valueDataType=9 Int value: 0
+ valueDataType=15 compound value with 0 members: [ 
+ ]
+ valueDataType=9 Int value: 0
+ valueDataType=9 Int value: 8
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
+ valueDataType=12 string value: GGggrrrrGGggrrrr
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=12 string value: yyggrrrryyggrrrr
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
+ valueDataType=12 string value: rrGGrrrrrrGGrrrr
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=12 string value: rryyrrrrrryyrrrr
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
+ valueDataType=9 Int value: 31000
+ valueDataType=12 string value: rrrrGGggrrrrGGgg
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=12 string value: rrrryyggrrrryygg
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
+ valueDataType=9 Int value: 6000
+ valueDataType=12 string value: rrrrrrGGrrrrrrGG
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=9 Int value: 4000
+ valueDataType=12 string value: rrrrrryyrrrrrryy
+ ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

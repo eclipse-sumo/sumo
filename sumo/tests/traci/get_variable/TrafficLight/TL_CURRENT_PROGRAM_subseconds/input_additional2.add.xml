@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+   <tlLogic id="1/1" type="static" programID="prog1" offset="0">
+      <phase duration="10" state="GGGGGGGGGGGGGGGG"/>
+      <phase duration="10" state="rrrrrrrrrrrrrrrr"/>
+   </tlLogic>
+</additional>

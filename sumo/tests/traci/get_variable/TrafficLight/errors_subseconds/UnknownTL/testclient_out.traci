@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Mon Jul 01 13:24:57 2013
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=162 varID=32 objID=xxx
+.. Answered with error to command (162), [description: Traffic light 'xxx' is not known]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]
