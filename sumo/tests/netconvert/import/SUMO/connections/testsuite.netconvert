@@ -50,5 +50,7 @@ may_pass
 may_pass_legacy
 
 # test loading of connections which (dangerously) start on the same edge and target the same lane
-# 
 multiple_to_same_lane
+
+# this was reported to fail in #666
+update_tls_with_added_connections
