@@ -37,6 +37,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSRoute.h>
 #include "MSStateHandler.h"
 
@@ -178,6 +179,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             v->loadState(attrs, myOffset);
             if (!vc.addVehicle(p->id, v)) {
                 throw ProcessError("Error: Could not build vehicle " + p->id + "!");
+            }
+            if (!v->hasDeparted()) {
+                MSNet::getInstance()->getInsertionControl().add(v);
             }
             break;
         }
