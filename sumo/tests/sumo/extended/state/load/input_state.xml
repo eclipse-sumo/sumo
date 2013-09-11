@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 22 10:57:08 2013 by SUMO sumo Version dev-SVN-r14432
+<!-- generated on Wed Sep  4 18:08:37 2013 by SUMO sumo Version dev-SVN-r14576
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -25,12 +25,14 @@
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r14431" time="10000">
+<snapshot version="dev-SVN-r14576" time="10000">
     <route id="r0" state="5" edges="beg middle end"/>
-    <delay number="2" end="0" depart="5.00" time="0.00"/>
-    <vType sigma="0" id="DEFAULT_VEHTYPE"/>
-    <vehicle id="v0" depart="0" route="r0" type="DEFAULT_VEHTYPE" state="0 1" pos="49.34" speed="13.22"/>
-    <vehicle id="v1" depart="0" route="r0" type="DEFAULT_VEHTYPE" state="5000 1" pos="3.17" speed="2.72"/>
+    <delay number="2" end="0" depart="4.00" time="0.00"/>
+    <vType id="DEFAULT_VEHTYPE">
+        <carFollowing-Krauss sigma="0.00"/>
+    </vType>
+    <vehicle id="v0" depart="0" route="r0" type="DEFAULT_VEHTYPE" state="0 1" pos="71.77" speed="13.89"/>
+    <vehicle id="v1" depart="0" route="r0" type="DEFAULT_VEHTYPE" state="4000 1" pos="18.70" speed="8.80"/>
     <lane>
         <vehicles value=""/>
     </lane>
