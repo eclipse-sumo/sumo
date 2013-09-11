@@ -1,0 +1,17 @@
+TraCITestClient output file. Date: Mon Jul 01 13:26:21 2013
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=166 varID=84 objID=r1
+.. Command acknowledged (166), [description: ]
+  CommandID=182  VariableID=84  ObjectID=r1 valueDataType=14 string list value: [ 
+"4/1to3/1", "3/1to2/1", "2/1to1/1", "1/1to0/1" ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]
