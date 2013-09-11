@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  4 15:30:41 2013 by SUMO sumo Version dev-SVN-r14576
+<!-- generated on Wed Sep 11 09:14:49 2013 by SUMO sumo Version dev-SVN-r14643
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -338,7 +338,9 @@
         <lanes/>
     </data>
     <data timestep="103.00">
-        <lanes/>
+        <lanes>
+            <lane id="3fi_0" queueing_time="1.00" queueing_length="250.90" queueing_length_experimental="0.00"/>
+        </lanes>
     </data>
     <data timestep="104.00">
         <lanes/>
@@ -470,335 +472,324 @@
         <lanes/>
     </data>
     <data timestep="147.00">
-        <lanes/>
+        <lanes>
+            <lane id="3si_0" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.04"/>
+        </lanes>
     </data>
     <data timestep="148.00">
-        <lanes/>
+        <lanes>
+            <lane id="3si_0" queueing_time="1.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+        </lanes>
     </data>
     <data timestep="149.00">
         <lanes>
-            <lane id="3si_0" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="7.09"/>
+            <lane id="3si_0" queueing_time="2.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
         </lanes>
     </data>
     <data timestep="150.00">
         <lanes>
-            <lane id="3si_0" queueing_time="1.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="3.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="3si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.95"/>
         </lanes>
     </data>
     <data timestep="151.00">
         <lanes>
-            <lane id="3si_0" queueing_time="2.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="4.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="3si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.48"/>
         </lanes>
     </data>
     <data timestep="152.00">
         <lanes>
-            <lane id="3si_0" queueing_time="3.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="5.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="3si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.24"/>
         </lanes>
     </data>
     <data timestep="153.00">
         <lanes>
-            <lane id="3si_0" queueing_time="4.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="7.04"/>
+            <lane id="3si_0" queueing_time="6.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="3si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.11"/>
         </lanes>
     </data>
     <data timestep="154.00">
         <lanes>
-            <lane id="3si_0" queueing_time="5.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_1" queueing_time="1.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="7.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="3si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.00"/>
         </lanes>
     </data>
     <data timestep="155.00">
         <lanes>
-            <lane id="3si_0" queueing_time="6.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_1" queueing_time="2.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="8.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="3si_1" queueing_time="1.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
         </lanes>
     </data>
     <data timestep="156.00">
         <lanes>
-            <lane id="3si_0" queueing_time="7.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_1" queueing_time="3.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="9.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="3si_1" queueing_time="2.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
         </lanes>
     </data>
     <data timestep="157.00">
         <lanes>
-            <lane id="3si_0" queueing_time="8.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_1" queueing_time="4.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="10.00" queueing_length="10.00" queueing_length_experimental="17.67"/>
+            <lane id="3si_1" queueing_time="3.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
         </lanes>
     </data>
     <data timestep="158.00">
         <lanes>
-            <lane id="3si_0" queueing_time="9.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_1" queueing_time="5.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="11.00" queueing_length="10.00" queueing_length_experimental="17.55"/>
+            <lane id="3si_1" queueing_time="4.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
         </lanes>
     </data>
     <data timestep="159.00">
         <lanes>
-            <lane id="3si_0" queueing_time="10.00" queueing_length="7.00" queueing_length_experimental="12.02"/>
-            <lane id="3si_1" queueing_time="6.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="12.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
+            <lane id="3si_1" queueing_time="5.00" queueing_length="10.00" queueing_length_experimental="18.63"/>
         </lanes>
     </data>
     <data timestep="160.00">
         <lanes>
-            <lane id="3si_0" queueing_time="11.00" queueing_length="12.00" queueing_length_experimental="12.00"/>
-            <lane id="3si_1" queueing_time="7.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="13.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
+            <lane id="3si_1" queueing_time="6.00" queueing_length="10.00" queueing_length_experimental="17.84"/>
         </lanes>
     </data>
     <data timestep="161.00">
         <lanes>
-            <lane id="3si_0" queueing_time="12.00" queueing_length="12.00" queueing_length_experimental="12.00"/>
-            <lane id="3si_1" queueing_time="8.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="14.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
+            <lane id="3si_1" queueing_time="7.00" queueing_length="10.00" queueing_length_experimental="17.62"/>
         </lanes>
     </data>
     <data timestep="162.00">
         <lanes>
-            <lane id="3si_0" queueing_time="13.00" queueing_length="12.00" queueing_length_experimental="12.00"/>
-            <lane id="3si_1" queueing_time="9.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
+            <lane id="3si_0" queueing_time="15.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
+            <lane id="3si_1" queueing_time="8.00" queueing_length="17.54" queueing_length_experimental="17.54"/>
         </lanes>
     </data>
     <data timestep="163.00">
         <lanes>
-            <lane id="3si_0" queueing_time="14.00" queueing_length="12.00" queueing_length_experimental="12.00"/>
-            <lane id="3si_1" queueing_time="10.00" queueing_length="7.00" queueing_length_experimental="12.01"/>
+            <lane id="3si_0" queueing_time="16.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
+            <lane id="3si_1" queueing_time="9.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="164.00">
         <lanes>
-            <lane id="3si_0" queueing_time="15.00" queueing_length="12.00" queueing_length_experimental="12.00"/>
-            <lane id="3si_1" queueing_time="11.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="3si_0" queueing_time="17.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
+            <lane id="3si_1" queueing_time="10.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="165.00">
         <lanes>
-            <lane id="3si_0" queueing_time="16.00" queueing_length="12.00" queueing_length_experimental="12.00"/>
-            <lane id="3si_1" queueing_time="12.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="3si_0" queueing_time="18.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
+            <lane id="3si_1" queueing_time="11.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="166.00">
         <lanes>
-            <lane id="3si_0" queueing_time="17.00" queueing_length="12.00" queueing_length_experimental="12.00"/>
-            <lane id="3si_1" queueing_time="13.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="3si_0" queueing_time="19.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
+            <lane id="3si_1" queueing_time="12.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="167.00">
         <lanes>
-            <lane id="3si_0" queueing_time="18.00" queueing_length="12.00" queueing_length_experimental="12.00"/>
-            <lane id="3si_1" queueing_time="14.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="3si_0" queueing_time="20.00" queueing_length="17.51" queueing_length_experimental="25.08"/>
+            <lane id="3si_1" queueing_time="13.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="168.00">
         <lanes>
-            <lane id="2si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="7.18"/>
-            <lane id="3si_0" queueing_time="19.00" queueing_length="12.00" queueing_length_experimental="17.19"/>
-            <lane id="3si_1" queueing_time="15.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="3si_0" queueing_time="21.00" queueing_length="25.03" queueing_length_experimental="25.03"/>
+            <lane id="3si_1" queueing_time="14.00" queueing_length="17.51" queueing_length_experimental="26.01"/>
         </lanes>
     </data>
     <data timestep="169.00">
         <lanes>
-            <lane id="2si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_0" queueing_time="20.00" queueing_length="12.00" queueing_length_experimental="17.00"/>
-            <lane id="3si_1" queueing_time="16.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="3si_0" queueing_time="22.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
+            <lane id="3si_1" queueing_time="15.00" queueing_length="17.51" queueing_length_experimental="25.40"/>
         </lanes>
     </data>
     <data timestep="170.00">
         <lanes>
-            <lane id="2si_1" queueing_time="1.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_0" queueing_time="21.00" queueing_length="17.00" queueing_length_experimental="17.00"/>
-            <lane id="3si_1" queueing_time="17.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="3si_0" queueing_time="23.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
+            <lane id="3si_1" queueing_time="16.00" queueing_length="17.51" queueing_length_experimental="25.03"/>
         </lanes>
     </data>
     <data timestep="171.00">
         <lanes>
-            <lane id="2si_1" queueing_time="2.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_0" queueing_time="22.00" queueing_length="17.00" queueing_length_experimental="17.00"/>
-            <lane id="3si_1" queueing_time="18.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="3si_0" queueing_time="24.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
+            <lane id="3si_1" queueing_time="17.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
         </lanes>
     </data>
     <data timestep="172.00">
         <lanes>
-            <lane id="2si_1" queueing_time="3.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_0" queueing_time="23.00" queueing_length="17.00" queueing_length_experimental="17.00"/>
-            <lane id="3si_1" queueing_time="19.00" queueing_length="12.01" queueing_length_experimental="17.12"/>
+            <lane id="3si_0" queueing_time="25.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
+            <lane id="3si_1" queueing_time="18.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
         </lanes>
     </data>
     <data timestep="173.00">
         <lanes>
-            <lane id="2si_1" queueing_time="4.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_0" queueing_time="24.00" queueing_length="17.00" queueing_length_experimental="17.00"/>
-            <lane id="3si_1" queueing_time="20.00" queueing_length="12.01" queueing_length_experimental="17.01"/>
+            <lane id="3si_0" queueing_time="26.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
+            <lane id="3si_1" queueing_time="19.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
         </lanes>
     </data>
     <data timestep="174.00">
         <lanes>
-            <lane id="2si_1" queueing_time="5.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_0" queueing_time="25.00" queueing_length="17.00" queueing_length_experimental="17.00"/>
-            <lane id="3si_1" queueing_time="21.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="3si_0" queueing_time="27.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
+            <lane id="3si_1" queueing_time="20.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
         </lanes>
     </data>
     <data timestep="175.00">
         <lanes>
-            <lane id="2si_1" queueing_time="6.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_0" queueing_time="26.00" queueing_length="17.00" queueing_length_experimental="17.00"/>
-            <lane id="3si_1" queueing_time="22.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="3si_0" queueing_time="28.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
+            <lane id="3si_1" queueing_time="21.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
         </lanes>
     </data>
     <data timestep="176.00">
         <lanes>
-            <lane id="2si_1" queueing_time="7.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_0" queueing_time="27.00" queueing_length="17.00" queueing_length_experimental="17.00"/>
-            <lane id="3si_1" queueing_time="23.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="2si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.39"/>
+            <lane id="3si_0" queueing_time="29.00" queueing_length="25.02" queueing_length_experimental="32.84"/>
+            <lane id="3si_1" queueing_time="22.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
         </lanes>
     </data>
     <data timestep="177.00">
         <lanes>
-            <lane id="2si_1" queueing_time="8.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_0" queueing_time="28.00" queueing_length="17.00" queueing_length_experimental="17.00"/>
-            <lane id="3si_1" queueing_time="24.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="2si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.14"/>
+            <lane id="3si_0" queueing_time="30.00" queueing_length="25.02" queueing_length_experimental="32.59"/>
+            <lane id="3si_1" queueing_time="23.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
         </lanes>
     </data>
     <data timestep="178.00">
         <lanes>
-            <lane id="1si_2" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="9.00" queueing_length="7.00" queueing_length_experimental="7.00"/>
-            <lane id="3si_0" queueing_time="29.00" queueing_length="17.00" queueing_length_experimental="22.07"/>
-            <lane id="3si_1" queueing_time="25.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="2si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.04"/>
+            <lane id="3si_0" queueing_time="31.00" queueing_length="32.55" queueing_length_experimental="32.55"/>
+            <lane id="3si_1" queueing_time="24.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
         </lanes>
     </data>
     <data timestep="179.00">
         <lanes>
-            <lane id="1si_2" queueing_time="1.00" queueing_length="6.62" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="10.00" queueing_length="7.00" queueing_length_experimental="12.01"/>
-            <lane id="3si_0" queueing_time="30.00" queueing_length="22.01" queueing_length_experimental="22.01"/>
-            <lane id="3si_1" queueing_time="26.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="2si_1" queueing_time="1.00" queueing_length="10.01" queueing_length_experimental="10.01"/>
+            <lane id="3si_0" queueing_time="32.00" queueing_length="32.53" queueing_length_experimental="32.53"/>
+            <lane id="3si_1" queueing_time="25.00" queueing_length="25.02" queueing_length_experimental="32.69"/>
         </lanes>
     </data>
     <data timestep="180.00">
         <lanes>
-            <lane id="1si_2" queueing_time="2.00" queueing_length="6.62" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="11.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
-            <lane id="3si_0" queueing_time="21.00" queueing_length="22.01" queueing_length_experimental="22.01"/>
-            <lane id="3si_1" queueing_time="17.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="2si_1" queueing_time="2.00" queueing_length="10.01" queueing_length_experimental="10.01"/>
+            <lane id="3si_0" queueing_time="22.00" queueing_length="32.52" queueing_length_experimental="32.52"/>
+            <lane id="3si_1" queueing_time="19.00" queueing_length="25.02" queueing_length_experimental="32.56"/>
         </lanes>
     </data>
     <data timestep="181.00">
         <lanes>
-            <lane id="1si_2" queueing_time="3.00" queueing_length="6.62" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="12.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
-            <lane id="3si_0" queueing_time="12.00" queueing_length="22.01" queueing_length_experimental="22.01"/>
-            <lane id="3si_1" queueing_time="8.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="2si_1" queueing_time="3.00" queueing_length="10.01" queueing_length_experimental="10.01"/>
+            <lane id="3si_0" queueing_time="14.00" queueing_length="32.52" queueing_length_experimental="32.52"/>
+            <lane id="3si_1" queueing_time="11.00" queueing_length="32.53" queueing_length_experimental="32.53"/>
         </lanes>
     </data>
     <data timestep="182.00">
         <lanes>
-            <lane id="1si_2" queueing_time="4.00" queueing_length="6.62" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="13.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
-            <lane id="3si_0" queueing_time="4.00" queueing_length="22.01" queueing_length_experimental="22.01"/>
-            <lane id="3si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="22.04"/>
+            <lane id="2si_1" queueing_time="4.00" queueing_length="10.01" queueing_length_experimental="10.01"/>
+            <lane id="3si_0" queueing_time="5.00" queueing_length="32.52" queueing_length_experimental="32.52"/>
+            <lane id="3si_1" queueing_time="2.00" queueing_length="32.52" queueing_length_experimental="32.52"/>
         </lanes>
     </data>
     <data timestep="183.00">
         <lanes>
-            <lane id="1si_2" queueing_time="5.00" queueing_length="6.62" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="14.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
-            <lane id="3si_0" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="21.36"/>
-            <lane id="3si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="21.37"/>
+            <lane id="2si_1" queueing_time="5.00" queueing_length="10.01" queueing_length_experimental="10.01"/>
+            <lane id="3si_0" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="31.86"/>
+            <lane id="3si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="32.08"/>
         </lanes>
     </data>
     <data timestep="184.00">
         <lanes>
-            <lane id="1si_2" queueing_time="6.00" queueing_length="6.62" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="15.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
-            <lane id="3si_0" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="20.17"/>
-            <lane id="3si_1" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="20.17"/>
+            <lane id="2si_1" queueing_time="6.00" queueing_length="10.01" queueing_length_experimental="10.01"/>
         </lanes>
     </data>
     <data timestep="185.00">
         <lanes>
-            <lane id="1si_2" queueing_time="7.00" queueing_length="6.62" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="16.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="2si_1" queueing_time="7.00" queueing_length="10.01" queueing_length_experimental="10.01"/>
         </lanes>
     </data>
     <data timestep="186.00">
         <lanes>
-            <lane id="1si_2" queueing_time="8.00" queueing_length="6.62" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="17.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="1si_2" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="11.24"/>
+            <lane id="2si_1" queueing_time="8.00" queueing_length="10.01" queueing_length_experimental="17.92"/>
         </lanes>
     </data>
     <data timestep="187.00">
         <lanes>
-            <lane id="1si_2" queueing_time="9.00" queueing_length="6.62" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="18.00" queueing_length="12.01" queueing_length_experimental="12.01"/>
+            <lane id="1si_2" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.48"/>
+            <lane id="2si_1" queueing_time="9.00" queueing_length="10.01" queueing_length_experimental="17.69"/>
         </lanes>
     </data>
     <data timestep="188.00">
         <lanes>
-            <lane id="1si_2" queueing_time="10.00" queueing_length="6.62" queueing_length_experimental="6.62"/>
-            <lane id="2si_1" queueing_time="19.00" queueing_length="12.01" queueing_length_experimental="17.12"/>
+            <lane id="1si_2" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.11"/>
+            <lane id="2si_1" queueing_time="10.00" queueing_length="10.01" queueing_length_experimental="17.52"/>
         </lanes>
     </data>
     <data timestep="189.00">
         <lanes>
-            <lane id="1si_2" queueing_time="11.00" queueing_length="6.62" queueing_length_experimental="11.63"/>
-            <lane id="2si_1" queueing_time="20.00" queueing_length="12.01" queueing_length_experimental="17.01"/>
+            <lane id="1si_2" queueing_time="0.00" queueing_length="0.00" queueing_length_experimental="10.00"/>
+            <lane id="2si_1" queueing_time="11.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="190.00">
         <lanes>
-            <lane id="1si_2" queueing_time="12.00" queueing_length="11.63" queueing_length_experimental="11.63"/>
-            <lane id="2si_1" queueing_time="21.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="1si_2" queueing_time="1.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="2si_1" queueing_time="12.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="191.00">
         <lanes>
-            <lane id="1si_2" queueing_time="13.00" queueing_length="11.63" queueing_length_experimental="11.63"/>
-            <lane id="2si_1" queueing_time="22.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="1si_2" queueing_time="2.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="2si_1" queueing_time="13.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="192.00">
         <lanes>
-            <lane id="1si_2" queueing_time="14.00" queueing_length="11.63" queueing_length_experimental="11.63"/>
-            <lane id="2si_1" queueing_time="23.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="1si_2" queueing_time="3.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="2si_1" queueing_time="14.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="193.00">
         <lanes>
-            <lane id="1si_2" queueing_time="15.00" queueing_length="11.63" queueing_length_experimental="11.63"/>
-            <lane id="2si_1" queueing_time="24.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="1si_2" queueing_time="4.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="2si_1" queueing_time="15.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="194.00">
         <lanes>
-            <lane id="1si_2" queueing_time="16.00" queueing_length="11.63" queueing_length_experimental="11.63"/>
-            <lane id="2si_1" queueing_time="25.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="1si_2" queueing_time="5.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="2si_1" queueing_time="16.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="195.00">
         <lanes>
-            <lane id="1si_2" queueing_time="17.00" queueing_length="11.63" queueing_length_experimental="11.63"/>
-            <lane id="2si_1" queueing_time="26.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="1si_2" queueing_time="6.00" queueing_length="10.00" queueing_length_experimental="10.00"/>
+            <lane id="2si_1" queueing_time="17.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
         </lanes>
     </data>
     <data timestep="196.00">
         <lanes>
-            <lane id="1si_2" queueing_time="18.00" queueing_length="11.63" queueing_length_experimental="11.63"/>
-            <lane id="2si_1" queueing_time="27.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="1si_2" queueing_time="7.00" queueing_length="10.00" queueing_length_experimental="18.24"/>
+            <lane id="2si_1" queueing_time="18.00" queueing_length="17.51" queueing_length_experimental="25.58"/>
         </lanes>
     </data>
     <data timestep="197.00">
         <lanes>
-            <lane id="1si_2" queueing_time="19.00" queueing_length="11.63" queueing_length_experimental="11.63"/>
-            <lane id="2si_1" queueing_time="28.00" queueing_length="17.01" queueing_length_experimental="17.01"/>
+            <lane id="1si_2" queueing_time="8.00" queueing_length="10.00" queueing_length_experimental="17.73"/>
+            <lane id="2si_1" queueing_time="19.00" queueing_length="17.51" queueing_length_experimental="25.20"/>
         </lanes>
     </data>
     <data timestep="198.00">
         <lanes>
-            <lane id="1si_2" queueing_time="20.00" queueing_length="11.63" queueing_length_experimental="16.71"/>
-            <lane id="2si_1" queueing_time="29.00" queueing_length="17.01" queueing_length_experimental="22.05"/>
+            <lane id="1si_2" queueing_time="9.00" queueing_length="10.00" queueing_length_experimental="17.56"/>
+            <lane id="2si_1" queueing_time="20.00" queueing_length="17.51" queueing_length_experimental="25.06"/>
         </lanes>
     </data>
     <data timestep="199.00">
         <lanes>
-            <lane id="1si_2" queueing_time="21.00" queueing_length="16.63" queueing_length_experimental="16.63"/>
-            <lane id="2si_1" queueing_time="30.00" queueing_length="22.01" queueing_length_experimental="22.01"/>
+            <lane id="1si_2" queueing_time="10.00" queueing_length="17.51" queueing_length_experimental="17.51"/>
+            <lane id="2si_1" queueing_time="21.00" queueing_length="25.02" queueing_length_experimental="25.02"/>
         </lanes>
     </data>
 </queue-export>
