@@ -104,7 +104,7 @@ public:
   /// \param a_resultCallback Callback function to return result.  Callback should return 'true' to continue searching
   /// \param a_context User context to pass as parameter to a_resultCallback
   /// \return Returns the number of entries found
-  virtual int Search(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMDIMS], const CONTEXT &c);
+  virtual int Search(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMDIMS], const CONTEXT &c) const;
 
   /// DK 15.10.2008 - end
 
@@ -287,8 +287,8 @@ protected:
   /// Node for each branch level
   struct Node
   {
-    bool IsInternalNode()                         { return (m_level > 0); } // Not a leaf, but a internal node
-    bool IsLeaf()                                 { return (m_level == 0); } // A leaf, contains data
+    bool IsInternalNode() const                   { return (m_level > 0); } // Not a leaf, but a internal node
+    bool IsLeaf() const                           { return (m_level == 0); } // A leaf, contains data
     
     int m_count;                                  ///< Count
     int m_level;                                  ///< Leaf is zero, others positive
@@ -344,9 +344,9 @@ protected:
   bool RemoveRectRec(Rect* a_rect, const DATATYPE& a_id, Node* a_node, ListNode** a_listNode);
   ListNode* AllocListNode();
   void FreeListNode(ListNode* a_listNode);
-  bool Overlap(Rect* a_rectA, Rect* a_rectB);
+  bool Overlap(Rect* a_rectA, Rect* a_rectB) const;
   void ReInsert(Node* a_node, ListNode** a_listNode);
-  bool Search(Node* a_node, Rect* a_rect, int& a_foundCount, const CONTEXT &c);
+  bool Search(Node* a_node, Rect* a_rect, int& a_foundCount, const CONTEXT &c) const;
   void RemoveAllRec(Node* a_node);
   void Reset();
   void CountRec(Node* a_node, int& a_count);
@@ -524,7 +524,7 @@ void RTREE_QUAL::Remove(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMD
 
 
 RTREE_TEMPLATE
-int RTREE_QUAL::Search(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMDIMS], const CONTEXT &c)
+int RTREE_QUAL::Search(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMDIMS], const CONTEXT &c) const
 {
 #ifdef _DEBUG
   for(int index=0; index<NUMDIMS; ++index)
@@ -1517,7 +1517,7 @@ bool RTREE_QUAL::RemoveRectRec(Rect* a_rect, const DATATYPE& a_id, Node* a_node,
 
 // Decide whether two rectangles overlap.
 RTREE_TEMPLATE
-bool RTREE_QUAL::Overlap(Rect* a_rectA, Rect* a_rectB)
+bool RTREE_QUAL::Overlap(Rect* a_rectA, Rect* a_rectB) const
 {
   ASSERT(a_rectA && a_rectB);
 
@@ -1550,7 +1550,7 @@ void RTREE_QUAL::ReInsert(Node* a_node, ListNode** a_listNode)
 
 // Search in an index tree or subtree for all data retangles that overlap the argument rectangle.
 RTREE_TEMPLATE
-bool RTREE_QUAL::Search(Node* a_node, Rect* a_rect, int& a_foundCount, const CONTEXT &c)
+bool RTREE_QUAL::Search(Node* a_node, Rect* a_rect, int& a_foundCount, const CONTEXT &c) const
 {
   ASSERT(a_node);
   ASSERT(a_node->m_level >= 0);

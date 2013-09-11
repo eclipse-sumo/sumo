@@ -105,7 +105,7 @@ public:
      * @return Returns the number of entries found
      * @see RTree::Search
      */
-    virtual int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) {
+    virtual int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) const {
         AbstractMutex::ScopedLocker locker(myLock);
         return RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>::Search(a_min, a_max, c);
     }
@@ -115,6 +115,7 @@ public:
      * @param[in] o The object to add
      */
     void addAdditionalGLObject(GUIGlObject *o) {
+        AbstractMutex::ScopedLocker locker(myLock);
         Boundary b = o->getCenteringBoundary();
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
@@ -126,6 +127,7 @@ public:
      * @param[in] o The object to remove
      */
     void removeAdditionalGLObject(GUIGlObject *o) {
+        AbstractMutex::ScopedLocker locker(myLock);
         Boundary b = o->getCenteringBoundary();
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
@@ -135,7 +137,7 @@ public:
 
 protected:
     /// @brief A mutex avoiding parallel change and traversal of the tree
-    MFXMutex myLock;
+    mutable MFXMutex myLock;
 
 };
 

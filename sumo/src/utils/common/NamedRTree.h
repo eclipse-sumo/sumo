@@ -101,7 +101,7 @@ public:
      * @return Returns the number of entries found
      * @see RTree::Search
      */
-    int Search(const float a_min[2], const float a_max[2], const Named::StoringVisitor& c) {
+    int Search(const float a_min[2], const float a_max[2], const Named::StoringVisitor& c) const {
         return RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::Search(a_min, a_max, c);
     }
 

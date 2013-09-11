@@ -98,9 +98,9 @@ public:
      * @param a_context User context to pass as parameter to a_resultCallback
      * @return Returns the number of entries found
      */
-    int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) {
+    int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) const {
         int result = 0;
-        for (std::vector<SUMORTree*>::iterator it = myLayers.begin(); it != myLayers.end(); ++it) {
+        for (std::vector<SUMORTree*>::const_iterator it = myLayers.begin(); it != myLayers.end(); ++it) {
             result += (*it)->Search(a_min, a_max, c);
         }
         return result;
