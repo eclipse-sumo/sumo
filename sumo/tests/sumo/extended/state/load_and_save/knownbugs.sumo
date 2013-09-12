@@ -1,0 +1,5 @@
+[Reported by erdm_ja at 04Sep15:03:09]
+search_string:<route id="r0" state="9"
+search_file:state2
+full_description:reference count is messed up by state loading
+brief_description:see #1028
