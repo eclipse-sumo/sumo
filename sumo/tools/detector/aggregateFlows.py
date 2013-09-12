@@ -1,9 +1,25 @@
 #!/usr/bin/env python
-# This script aggregates flows as they come from the Datenverteiler
-# into files suitable for the dfrouter.
-# It takes as an optional argument a file listing the detectors of
-# interest (one per line, additional whitespace separated entries
-# do not hurt, for instance a bab_map.txt will do)
+"""
+@file    aggregateFlows.py
+@author  Michael Behrisch
+@date    2007-06-28
+@version $Id$
+
+This script aggregates flows as they come from the Datenverteiler
+into files suitable for the dfrouter.
+It takes as an optional argument a file listing the detectors of
+interest (one per line, additional whitespace separated entries
+do not hurt, for instance a bab_map.txt will do)
+
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+Copyright (C) 2007-2013 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+"""
 import os, sys, zipfile
 from optparse import OptionParser
 
