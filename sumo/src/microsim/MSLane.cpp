@@ -511,10 +511,17 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             }
             // check next lane's maximum velocity
-            if (checkFailure(aVehicle, speed, dist, nextLane->getVehicleMaxSpeed(aVehicle),
-                             patchSpeed, "slow lane ahead")) {
-                // we may not drive with the given velocity - we would be too fast on the next lane
-                return false;
+            const SUMOReal nspeed = nextLane->getVehicleMaxSpeed(aVehicle); 
+            if (nspeed < speed) {
+                if (patchSpeed) {
+                    speed = MIN2(cfModel.freeSpeed(aVehicle, speed, seen, nspeed), speed);
+                    dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+                } else {
+                    // we may not drive with the given velocity - we would be too fast on the next lane 
+                    WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (slow lane ahead)!");
+                    MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
+                    return false;
+                }
             }
             // check traffic on next junction
             // we cannot use (*link)->opened because a vehicle without priority
