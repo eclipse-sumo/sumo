@@ -1,6 +1,8 @@
 /****************************************************************************/
 /// @file    MSVTKExport.h
 /// @author  Mario Krumnow
+/// @date    2012-04-26
+/// @version $Id$
 ///
 // Produce a VTK output to use with Tools like ParaView
 /****************************************************************************/

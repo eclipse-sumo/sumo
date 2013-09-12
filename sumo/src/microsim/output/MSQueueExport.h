@@ -1,6 +1,8 @@
 /****************************************************************************/
 /// @file    MSQueueExport.h
 /// @author  Mario Krumnow
+/// @date    2012-04-26
+/// @version $Id$
 ///
 // Export the queueing length in front of a junction (very experimental!)
 /****************************************************************************/

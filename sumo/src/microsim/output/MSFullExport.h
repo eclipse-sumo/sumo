@@ -1,6 +1,8 @@
 /****************************************************************************/
 /// @file    MSFullExport.h
 /// @author  Mario Krumnow
+/// @date    2012-04-26
+/// @version $Id$
 ///
 // Dumping a hugh List of Parameters available in the Simulation
 /****************************************************************************/
