@@ -56,6 +56,8 @@
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/DijkstraRouterEffort.h>
 #include <utils/common/AStarRouter.h>
+#include <utils/common/NamedRTree.h>
+
 
 // ===========================================================================
 // class declarations
@@ -173,6 +175,7 @@ public:
      */
     void simulationStep();
 
+
     /** @brief loads routes for the next few steps */
     void loadRoutes();
 
@@ -219,6 +222,7 @@ public:
     bool logSimulationDuration() const;
 
 
+
     /// @name Output during the simulation
     //@{
 
@@ -235,6 +239,7 @@ public:
      */
     void postSimStepOutput() const;
     //}
+
 
 
     /// @name Retrieval of references to substructures
@@ -395,9 +400,6 @@ public:
 
 
 
-
-
-
     /// @name Notification about vehicle state changes
     /// @{
 
@@ -467,6 +469,7 @@ public:
     /// @}
 
 
+
     /** @brief Returns the travel time to pass an edge
      * @param[in] e The edge for which the travel time to be passed shall be returned
      * @param[in] v The vehicle that is rerouted
@@ -494,6 +497,12 @@ public:
         const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
         const std::vector<MSEdge*>& prohibited = std::vector<MSEdge*>()) const;
+
+
+    /** @brief Returns an RTree that contains lane IDs
+     * @return An Rtree containing lane IDs
+     */
+    const NamedRTree &getLanesRTree() const;
 
 
 protected:
@@ -570,9 +579,9 @@ protected:
     /// @}
 
 
+
     /// @brief Storage for maximum vehicle number
     int myTooManyVehicles;
-
 
     /// @brief Dictionary of bus stops
     NamedObjectCont<MSBusStop*> myBusStopDict;
@@ -589,6 +598,10 @@ protected:
     mutable DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterTTDijkstra;
     mutable AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterTTAStar;
     mutable DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterEffort;
+
+
+    /// @brief An RTree structure holding lane IDs
+    mutable std::pair<bool, NamedRTree> myLanesRTree;
 
 
 private:

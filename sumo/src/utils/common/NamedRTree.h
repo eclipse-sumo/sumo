@@ -92,6 +92,14 @@ public:
     }
 
 
+    /** @brief Remove all enrties
+     * @see RTree::RemoveAll
+     */
+    void RemoveAll() {
+        RTree<Named*, Named, float, 2, Named::StoringVisitor, float>::RemoveAll();
+    }
+
+
     /** @brief Find all within search rectangle
      * @param a_min Min of search bounding rect
      * @param a_max Max of search bounding rect

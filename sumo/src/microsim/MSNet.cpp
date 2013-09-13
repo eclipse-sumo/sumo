@@ -185,6 +185,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myBeginOfTimestepEvents = beginOfTimestepEvents;
     myEndOfTimestepEvents = endOfTimestepEvents;
     myInsertionEvents = insertionEvents;
+    myLanesRTree.first = false;
 
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
@@ -243,6 +244,7 @@ MSNet::~MSNet() {
     delete myRouterTTDijkstra;
     delete myRouterTTAStar;
     delete myRouterEffort;
+    myLanesRTree.second.RemoveAll();
     clearAll();
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
@@ -552,7 +554,7 @@ MSNet::writeOutput() {
 
     }
 
-    // emission output
+    // summary output
     if (OptionsCont::getOptions().isSet("summary-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("summary-output");
         unsigned int departedVehiclesNumber = myVehicleControl->getDepartedVehicleNo();
@@ -568,6 +570,7 @@ MSNet::writeOutput() {
         }
         od.closeTag();
     }
+
     // write detector values
     myDetectorControl->writeOutput(myStep + DELTA_T, false);
 
@@ -733,6 +736,15 @@ MSNet::getRouterEffort(const std::vector<MSEdge*>& prohibited) const {
     }
     myRouterEffort->prohibit(prohibited);
     return *myRouterEffort;
+}
+
+
+const NamedRTree &
+MSNet::getLanesRTree() const {
+    if(!myLanesRTree.first) {
+        MSLane::fill(myLanesRTree.second);
+    }
+    return myLanesRTree.second;
 }
 
 
