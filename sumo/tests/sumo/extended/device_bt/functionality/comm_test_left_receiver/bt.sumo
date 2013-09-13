@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 09/13/13 14:00:56 by SUMO sumo Version dev-SVN-rUNKNOWN
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <bt-output value="bt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <communication>
+        <device.btreceiver.explicit value="left"/>
+        <device.btreceiver.range value="50"/>
+        <device.btsender.explicit value="right"/>
+    </communication>
+
+</configuration>
+-->
+
+<bt-output>
+    <bt id="left">
+        <seen id="right" tBeg="180.11" observerPosBeg="1498.35,545.42" observerSpeedBeg="13.89" seenPosBeg="1502.68,495.60" seenSpeedBeg="6.26" tEnd="185.57" observerPosEnd="1513.47,498.35" observerSpeedEnd="10.52" seenPosEnd="1563.47,498.35" seenSpeedEnd="13.89"/>
+    </bt>
+</bt-output>

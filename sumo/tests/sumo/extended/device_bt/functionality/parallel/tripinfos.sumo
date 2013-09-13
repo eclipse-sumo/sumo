@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 09/13/13 13:04:59 by SUMO sumo Version dev-SVN-rUNKNOWN
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <bt-output value="bt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <communication>
+        <device.btreceiver.probability value="1"/>
+        <device.btreceiver.range value="50"/>
+        <device.btsender.probability value="1"/>
+    </communication>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="2" depart="0.00" departLane="1i_1" departPos="10.00" departSpeed="10.00" departDelay="0.00" arrival="10.00" arrivalLane="1i_1" arrivalPos="110.00" arrivalSpeed="10.00" duration="10.00" routeLength="100.00" waitSteps="0" rerouteNo="0" devices="tripinfo_2 btreceiver_2 btsender_2" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="1" depart="0.00" departLane="1i_0" departPos="10.00" departSpeed="10.00" departDelay="0.00" arrival="10.00" arrivalLane="1i_0" arrivalPos="110.00" arrivalSpeed="10.00" duration="10.00" routeLength="100.00" waitSteps="0" rerouteNo="0" devices="tripinfo_1 btreceiver_1 btsender_1" vType="DEFAULT_VEHTYPE" vaporized=""/>
+</tripinfos>
