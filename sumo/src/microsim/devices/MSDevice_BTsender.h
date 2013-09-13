@@ -33,10 +33,12 @@
 #include "MSDevice.h"
 #include <utils/common/SUMOTime.h>
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+
 
 // ===========================================================================
 // class definitions
@@ -50,42 +52,28 @@ class SUMOVehicle;
 class MSDevice_BTsender : public MSDevice {
 public:
     /** @brief Inserts MSDevice_BTsender-options
+     * @param[filled] oc The options container to add the options to
      */
     static void insertOptions(OptionsCont& oc);
 
 
     /** @brief Build devices for the given vehicle, if needed
      *
-     * The options are read and evaluated whether a example-device shall be built
+     * The options are read and evaluated whether a bt-sender-device shall be built
      *  for the given vehicle.
      *
      * The built device is stored in the given vector.
      *
      * @param[in] v The vehicle for which a device may be built
-     * @param[in, filled] into The vector to store the built device in
+     * @param[filled] into The vector to store the built device in
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
 
+
 public:
-    /** @brief Called on writing tripinfo output
-     *
-     * @param[in] os The stream to write the information into
-     * @exception IOError not yet implemented
-     * @see MSDevice::generateOutput
-     */
-    void generateOutput() const;
-
-
     /// @brief Destructor.
     ~MSDevice_BTsender();
-
-
-    /** @brief Says the device the holder shall report his route
-     */
-    void reportRoute() {
-        myReportRoute = true;
-    }
 
 
 private:
@@ -95,11 +83,6 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_BTsender(SUMOVehicle& holder, const std::string& id);
-
-
-private:
-    /// @brief Whether the vehicle shall report it's route
-    bool myReportRoute;
 
 
 private:

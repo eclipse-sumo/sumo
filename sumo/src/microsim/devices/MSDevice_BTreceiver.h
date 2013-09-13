@@ -51,45 +51,69 @@ class SUMOVehicle;
  *
  * @see MSDevice
  */
-class MSDevice_BTreceiver : public MSDevice/*, public MSNet::VehicleStateListener*/ {
+class MSDevice_BTreceiver : public MSDevice {
 public:
     /** @brief Inserts MSDevice_BTreceiver-options
+     * @param[filled] oc The options container to add the options to
      */
     static void insertOptions(OptionsCont& oc);
 
 
     /** @brief Build devices for the given vehicle, if needed
      *
-     * The options are read and evaluated whether a example-device shall be built
+     * The options are read and evaluated whether a bt-receiver-device shall be built
      *  for the given vehicle.
      *
      * The built device is stored in the given vector.
      *
      * @param[in] v The vehicle for which a device may be built
-     * @param[in, filled] into The vector to store the built device in
+     * @param[filled] into The vector to store the built device in
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
 
 
 public:
-    
+    /// @brief Destructor.
+    ~MSDevice_BTreceiver();
+
+
+
+    /** @class MeetingPoint
+     * @brief Holds the information about exact positions/speeds/time of the begin/end of a meeting
+     */
     class MeetingPoint {
     public:
+        /** @brief Constructor
+         * @param[in] t_ The time of the meeting
+         * @param[in] observerPos_ The position the observer had at the time
+         * @param[in] observerSpeed_ The speed the observer had at the time
+         * @param[in] seenPos_ The position the seen vehicle had at the time
+         * @param[in] seenSpeed_ The speed the vehicle had at the time
+         */
         MeetingPoint(SUMOReal t_, const Position& observerPos_, SUMOReal observerSpeed_,
                      const Position& seenPos_, SUMOReal seenSpeed_)
             : t(t_), observerPos(observerPos_), observerSpeed(observerSpeed_),
               seenPos(seenPos_), seenSpeed(seenSpeed_) {}
 
+        /// @brief Destructor
         ~MeetingPoint() {}
 
     public:
+        /// @brief The time of the meeting
         SUMOReal t;
+        /// @brief The position the observer had at the time
         Position observerPos;
+        /// @brief The speed the observer had at the time
         SUMOReal observerSpeed;
+        /// @brief The position the seen vehicle had at the time
         Position seenPos;
+        /// @brief The speed the vehicle had at the time
         SUMOReal seenSpeed;
+
     };
+
+
 
     /** @class SeenDevice
      * @brief Class representing a single seen device
@@ -97,25 +121,22 @@ public:
     class SeenDevice {
     public:
         /** @brief Constructor
-         * @param[in] tBegin_ The first time the device was seen
-         * @param[in] observerPos_ The position of the observer at tBegin
-         * @param[in] observerSpeed_ The speed of the observer at tBegin
-         * @param[in] seenPos_ The position of the seen device at tBegin
-         * @param[in] seenSpeed_ The position of the seen device at tBegin
+         * @param[in] meetingBegin_ Description of the meeting's begin
          */
         SeenDevice(const MeetingPoint& meetingBegin_)
             : meetingBegin(meetingBegin_), meetingEnd(meetingBegin_) {}
 
+        /// @brief Destructor
         ~SeenDevice() {}
 
+
     public:
+        /// @brief Description of the meeting's begin
         MeetingPoint meetingBegin;
+        /// @brief Description of the meeting's end
         MeetingPoint meetingEnd;
 
     };
-
-    /// @brief Destructor.
-    ~MSDevice_BTreceiver();
 
 
 
@@ -137,33 +158,17 @@ public:
 
 
 
-    /// @name Interfaces from MSNet::VehicleStateListener
-    /// @{
-
-    /** @brief Called if a vehicle changes its state
-     * @param[in] vehicle The vehicle which changed its state
-     * @param[in] to The state the vehicle has changed to
+    /** @brief Returns the currently seen devices
+     * @return the map from ID of holder to seen device
      */
-    //void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
-
-
-    /** @brief Called on writing tripinfo output
-     *
-     * @param[in] os The stream to write the information into
-     * @exception IOError not yet implemented
-     * @see MSDevice::generateOutput
-     */
-    void generateOutput() const;
-
-
-    void updateNeighbors();
-    void onRemovalFromNet();
-    bool sees(const std::string &id) const;
     const std::map<std::string, SeenDevice*> &getCurrentlySeen() const {
         return myCurrentlySeen;
     }
 
 
+    /** @brief Returns the list of meetings so far
+     * @return the map from ID of holder to the list of meetings
+     */
     const std::map<std::string, std::vector<SeenDevice*> > getSeen() const {
         return mySeen;
     }
@@ -171,14 +176,53 @@ public:
 
 
 protected:
+    /** @brief Updates the currently seen devices
+     */
+    void updateNeighbors();
+
+
+    /** @brief Informs the receiver about a sender entering it's radius
+     * @param[in] thisPos The receiver's position at the time
+     * @param[in] thisSpeed The receiver's speed at the time
+     * @param[in] otherID The ID of the entering sender
+     * @param[in] otherPos The position of the entering sender
+     * @param[in] otherSpeed The speed of the entering sender
+     * @param[in] tOffset The time offset to the current time step
+     */
     void enterRange(const Position &thisPos, SUMOReal thisSpeed, 
-        const std::string &otherID, const Position &atPos, SUMOReal otherSpeed, SUMOReal atOffset);
+        const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal tOffset);
+
+
+    /** @brief Informs the receiver about a sender leaving it's radius
+     * @param[in] thisPos The receiver's position at the time
+     * @param[in] thisSpeed The receiver's speed at the time
+     * @param[in] otherID The ID of the entering sender
+     * @param[in] otherPos The position of the entering sender
+     * @param[in] otherSpeed The speed of the entering sender
+     * @param[in] tOffset The time offset to the current time step
+     * @param[in] remove Whether the sender shall be removed from this device's myCurrentlySeen
+     */
     void leaveRange(const Position &thisPos, SUMOReal thisSpeed, 
         const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal tOffset, bool remove = false);
+
+
+    /** @brief Removes the sender from the currently seen devices to past episodes
+     * @param[in] currentlySeen The currently seen devices
+     * @param[in] seen The lists of episodes to add this one to
+     * @param[in] thisPos The receiver's position at the time
+     * @param[in] thisSpeed The receiver's speed at the time
+     * @param[in] otherID The ID of the entering sender
+     * @param[in] otherPos The position of the entering sender
+     * @param[in] otherSpeed The speed of the entering sender
+     * @param[in] tOffset The time offset to the current time step
+     * @param[in] remove Whether the sender shall be removed from this device's myCurrentlySeen
+     */
     static void leaveRange(std::map<std::string, SeenDevice*> &currentlySeen, std::map<std::string, std::vector<SeenDevice*> > &seen,
         const Position &thisPos, SUMOReal thisSpeed, 
         const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, 
         SUMOReal tOffset, bool remove);
+
+
 
 private:
     /** @brief Constructor
@@ -189,44 +233,93 @@ private:
     MSDevice_BTreceiver(SUMOVehicle& holder, const std::string& id, SUMOReal range);
 
 
+
 private:
     /// @brief The range of the device
     SUMOReal myRange;
-
-
-
-
+    
+    /// @brief The currently seen devices
     std::map<std::string, SeenDevice*> myCurrentlySeen;
+
+    /// @brief The devices seen so far
     std::map<std::string, std::vector<SeenDevice*> > mySeen;
+
+    /// @brief Whether the complete bt-system was already initialised
     static bool myWasInitialised;
 
 
-
+    /** @class ArrivedVehicleInformation
+     * @brief Stores the information of a removed device
+     */
     class ArrivedVehicleInformation {
     public:
+        /** @brief Constructor
+         * @param[in] _id The id of the removed vehicle
+         * @param[in] _speed The speed of the removed vehicle at removal time
+         * @param[in] _position The position of the removed vehicle at removal time
+         * @param[in] _currentlySeen The map of devices seen by the vehicle at removal time
+         * @param[in] _seen The past episodes of removed vehicle
+         */
         ArrivedVehicleInformation(const std::string &_id, SUMOReal _speed, const Position &_position, 
             const std::map<std::string, SeenDevice*> &_currentlySeen, const std::map<std::string, std::vector<SeenDevice*> > &_seen) 
             : id(_id), speed(_speed), position(_position), currentlySeen(_currentlySeen), seen(_seen) {}
 
+        /// @brief Destructor
         ~ArrivedVehicleInformation() {}
+
+        /// @brief The id of the removed vehicle
         std::string id;
+        /// @brief The speed of the removed vehicle at removal time
         SUMOReal speed;
+        /// @brief The position of the removed vehicle at removal time
         Position position;
+        /// @brief The map of devices seen by the vehicle at removal time
         std::map<std::string, SeenDevice*> currentlySeen;
+        /// @brief The past episodes of removed vehicle
         std::map<std::string, std::vector<SeenDevice*> > seen;
+
     };
 
+
+
+    /** @class BTreceiverUpdate
+     * @brief A global update performer
+     */
     class BTreceiverUpdate : public MSNet::VehicleStateListener, public Command {
     public:
+        /// @brief Constructor
         BTreceiverUpdate();
+
+        /// @brief Destructor
         ~BTreceiverUpdate();
+
+        /** @brief Informs the updater about a vehicle entering/leaving the simulation
+         * @pram[in] vehicle The vehicle that changes it's state
+         * @pram[in] to the new state of this vehicle
+         */
         void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
+
+        /** @brief Performs the update
+         * @param[in] currentTime The current simulation time
+         * @return Always DELTA_T - the time to being called back
+         */
         SUMOTime execute(SUMOTime currentTime);
+
+
+        /// @brief The list of running receivers
         std::set<MSVehicle*> myRunningReceiverVehicles;
+
+        /// @brief The list of running senders
         std::set<MSVehicle*> myRunningSenderVehicles;
+
+        /// @brief The list of arrived receivers
         std::set<ArrivedVehicleInformation*> myArrivedReceiverVehicles;
+
+        /// @brief The list of arrived senders
         std::set<ArrivedVehicleInformation*> myArrivedSenderVehicles;
+
     };
+
 
 
 private:

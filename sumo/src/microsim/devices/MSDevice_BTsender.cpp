@@ -68,23 +68,11 @@ MSDevice_BTsender::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& i
 // MSDevice_BTsender-methods
 // ---------------------------------------------------------------------------
 MSDevice_BTsender::MSDevice_BTsender(SUMOVehicle& holder, const std::string& id)
-    : MSDevice(holder, id), myReportRoute(false) {
+    : MSDevice(holder, id) {
 }
 
 
 MSDevice_BTsender::~MSDevice_BTsender() {
-}
-
-
-void
-MSDevice_BTsender::generateOutput() const {
-    if (myReportRoute) {
-        OutputDevice& os = OutputDevice::getDeviceByOption("bt-output");
-        os.openTag("equipped");
-        os.writeAttr("id", myHolder.getID());
-        os.writeAttr("route", myHolder.getRoute().getEdges());
-        os.closeTag();
-    }
 }
 
 

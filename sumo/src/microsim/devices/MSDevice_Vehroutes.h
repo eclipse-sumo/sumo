@@ -69,13 +69,14 @@ public:
      * The built device is stored in the given vector.
      *
      * @param[in] v The vehicle for which a device may be built
-     * @param[in, filled] into The vector to store the built device in
+     * @param[filled] into The vector to store the built device in
      */
     static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into, unsigned int maxRoutes = INT_MAX);
 
 
     /// @brief generate vehroute output for vehicles which are still in the network
     static void generateOutputForUnfinished();
+
 
 
 public:
@@ -130,6 +131,7 @@ public:
     const MSRoute* getRoute(int index) const;
 
 
+
 private:
     /** @brief Constructor
      *
@@ -150,6 +152,7 @@ private:
     /** @brief Called on route change
      */
     void addRoute();
+
 
 
 private:
@@ -184,7 +187,6 @@ private:
         std::map<const SUMOVehicle*, MSDevice_Vehroutes*> myDevices;
 
     };
-
 
 
     /// @brief A class that is notified about reroutings

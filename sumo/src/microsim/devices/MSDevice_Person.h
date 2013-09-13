@@ -61,9 +61,10 @@ public:
      * The built device is stored in the given vector.
      *
      * @param[in] v The vehicle for which a device may be built
-     * @param[in, filled] into The vector to store the built device in
+     * @param[filled] into The vector to store the built device in
      */
     static MSDevice_Person* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+
 
 
 public:
@@ -134,6 +135,7 @@ public:
     const std::vector<MSPerson*>& getPersons() const {
         return myPersons;
     }
+
 
 
 private:

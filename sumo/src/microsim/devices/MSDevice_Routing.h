@@ -90,13 +90,14 @@ public:
      * The built device is stored in the given vector.
      *
      * @param[in] v The vehicle for which a device may be built
-     * @param[in, filled] into The vector to store the built device in
+     * @param[filled] into The vector to store the built device in
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
 
     /// @brief deletes the router instance
     static void cleanup();
+
 
 
 public:
@@ -138,8 +139,7 @@ private:
      * @param[in] period The period with which a new route shall be searched
      * @param[in] preInsertionPeriod The route search period before insertion
      */
-    MSDevice_Routing(SUMOVehicle& holder, const std::string& id, SUMOTime period,
-                     SUMOTime preInsertionPeriod);
+    MSDevice_Routing(SUMOVehicle& holder, const std::string& id, SUMOTime period, SUMOTime preInsertionPeriod);
 
 
     /** @brief Performs rerouting at insertion into the network
@@ -190,6 +190,7 @@ private:
     static SUMOReal getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t);
 
 
+
     /// @name Network state adaptation
     /// @{
 
@@ -208,8 +209,11 @@ private:
     /// @}
 
 
+
     /// @brief get the router, initialize on first use
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter();
+
+
 
 private:
     /// @brief The period with which a vehicle shall be rerouted

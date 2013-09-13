@@ -67,14 +67,16 @@ public:
      * The built device is stored in the given vector.
      *
      * @param[in] v The vehicle for which a device may be built
-     * @param[in, filled] into The vector to store the built device in
+     * @param[filled] into The vector to store the built device in
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+
 
 
 public:
     /// @brief Destructor.
     ~MSDevice_Example();
+
 
 
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
@@ -117,6 +119,7 @@ public:
     /// @}
 
 
+
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into
@@ -124,6 +127,7 @@ public:
      * @see MSDevice::generateOutput
      */
     void generateOutput() const;
+
 
 
 private:
@@ -136,15 +140,19 @@ private:
                      SUMOReal customValue2, SUMOReal customValue3);
 
 
+
 private:
     // private state members of the Example device
 
     /// @brief a value which is initialised based on a commandline/configuration option
     SUMOReal myCustomValue1;
+
     /// @brief a value which is initialised based on a vehicle parameter
     SUMOReal myCustomValue2;
+
     /// @brief a value which is initialised based on a vType parameter
     SUMOReal myCustomValue3;
+
 
 
 private:
