@@ -113,15 +113,15 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 void
 MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) {
     assert(myRunningVehNo > 0);
+    myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
+    myRunningVehNo--;
+    MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
     for (std::vector<MSDevice*>::const_iterator i = veh->getDevices().begin(); i != veh->getDevices().end(); ++i) {
         (*i)->generateOutput();
     }
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
     }
-    myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
-    myRunningVehNo--;
-    MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
     deleteVehicle(veh);
 }
 

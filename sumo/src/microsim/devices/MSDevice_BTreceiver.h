@@ -33,14 +33,13 @@
 #include "MSDevice.h"
 #include <microsim/MSNet.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/NamedRTree.h>
+#include <utils/common/Command.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
-class MSDevice_BTreceiver;
 
 
 // ===========================================================================
@@ -52,7 +51,7 @@ class MSDevice_BTreceiver;
  *
  * @see MSDevice
  */
-class MSDevice_BTreceiver : public MSDevice, public MSNet::VehicleStateListener {
+class MSDevice_BTreceiver : public MSDevice/*, public MSNet::VehicleStateListener*/ {
 public:
     /** @brief Inserts MSDevice_BTreceiver-options
      */
@@ -74,67 +73,7 @@ public:
 
 
 public:
-    /// @brief Destructor.
-    ~MSDevice_BTreceiver();
-
-
-
-    /// @name Methods called on vehicle movement / state change, overwriting MSDevice
-    /// @{
-
-    /** @brief Checks for waiting steps when the vehicle moves
-     *
-     * @param[in] veh Vehicle that asks this reminder.
-     * @param[in] oldPos Position before move.
-     * @param[in] newPos Position after move with newSpeed.
-     * @param[in] newSpeed Moving speed.
-     *
-     * @return True (always).
-     */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                    SUMOReal newPos, SUMOReal newSpeed);
-    /// @}
-
-
-
-    /// @name Interfaces from MSNet::VehicleStateListener
-    /// @{
-
-    /** @brief Called if a vehicle changes its state
-     * @param[in] vehicle The vehicle which changed its state
-     * @param[in] to The state the vehicle has changed to
-     */
-    void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
-
-
-    /** @brief Called on writing tripinfo output
-     *
-     * @param[in] os The stream to write the information into
-     * @exception IOError not yet implemented
-     * @see MSDevice::generateOutput
-     */
-    void generateOutput() const;
-
-
-
-protected:
-    void enterRange(const MSVehicle &other, const Position &atPos, SUMOReal atOffset);
-    void leaveRange(const MSVehicle &other, const Position &atPos, SUMOReal atOffset);
-
-private:
-    /** @brief Constructor
-     *
-     * @param[in] holder The vehicle that holds this device
-     * @param[in] id The ID of the device
-     */
-    MSDevice_BTreceiver(SUMOVehicle& holder, const std::string& id, SUMOReal range);
-
-
-private:
-    /// @brief The range of the device
-    SUMOReal myRange;
-
-
+    
     class MeetingPoint {
     public:
         MeetingPoint(SUMOReal t_, const Position& observerPos_, SUMOReal observerSpeed_,
@@ -175,12 +114,118 @@ private:
 
     };
 
+    /// @brief Destructor.
+    ~MSDevice_BTreceiver();
+
+
+
+    /// @name Methods called on vehicle movement / state change, overwriting MSDevice
+    /// @{
+
+    /** @brief Checks for waiting steps when the vehicle moves
+     *
+     * @param[in] veh Vehicle that asks this reminder.
+     * @param[in] oldPos Position before move.
+     * @param[in] newPos Position after move with newSpeed.
+     * @param[in] newSpeed Moving speed.
+     *
+     * @return True (always).
+     */
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
+                    SUMOReal newPos, SUMOReal newSpeed);
+    /// @}
+
+
+
+    /// @name Interfaces from MSNet::VehicleStateListener
+    /// @{
+
+    /** @brief Called if a vehicle changes its state
+     * @param[in] vehicle The vehicle which changed its state
+     * @param[in] to The state the vehicle has changed to
+     */
+    //void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
+
+
+    /** @brief Called on writing tripinfo output
+     *
+     * @param[in] os The stream to write the information into
+     * @exception IOError not yet implemented
+     * @see MSDevice::generateOutput
+     */
+    void generateOutput() const;
+
+
+    void updateNeighbors();
+    void onRemovalFromNet();
+    bool sees(const std::string &id) const;
+    const std::map<std::string, SeenDevice*> &getCurrentlySeen() const {
+        return myCurrentlySeen;
+    }
+
+
+    const std::map<std::string, std::vector<SeenDevice*> > getSeen() const {
+        return mySeen;
+    }
+
+
+
+protected:
+    void enterRange(const MSVehicle &other, const Position &atPos, SUMOReal atOffset);
+    void leaveRange(const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal tOffset, bool remove = false);
+    static void leaveRange(std::map<std::string, SeenDevice*> &currentlySeen, std::map<std::string, std::vector<SeenDevice*> > &seen,
+        const Position &thisPos, SUMOReal thisSpeed, 
+        const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, 
+        SUMOReal tOffset, bool remove);
+
+private:
+    /** @brief Constructor
+     *
+     * @param[in] holder The vehicle that holds this device
+     * @param[in] id The ID of the device
+     */
+    MSDevice_BTreceiver(SUMOVehicle& holder, const std::string& id, SUMOReal range);
+
+
+private:
+    /// @brief The range of the device
+    SUMOReal myRange;
+
+
+
 
     std::map<std::string, SeenDevice*> myCurrentlySeen;
     std::map<std::string, std::vector<SeenDevice*> > mySeen;
-
-    static NamedRTree myLanesRTree;
     static bool myWasInitialised;
+
+
+
+    class ArrivedVehicleInformation {
+    public:
+        ArrivedVehicleInformation(const std::string &_id, SUMOReal _speed, const Position &_position, 
+            const std::map<std::string, SeenDevice*> &_currentlySeen, const std::map<std::string, std::vector<SeenDevice*> > &_seen) 
+            : id(_id), speed(_speed), position(_position), currentlySeen(_currentlySeen), seen(_seen) {}
+
+        ~ArrivedVehicleInformation() {}
+        std::string id;
+        SUMOReal speed;
+        Position position;
+        std::map<std::string, SeenDevice*> currentlySeen;
+        std::map<std::string, std::vector<SeenDevice*> > seen;
+    };
+
+    class BTreceiverUpdate : public MSNet::VehicleStateListener, public Command {
+    public:
+        BTreceiverUpdate();
+        ~BTreceiverUpdate();
+        void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
+        SUMOTime execute(SUMOTime currentTime);
+        std::set<MSVehicle*> myRunningReceiverVehicles;
+        std::set<MSVehicle*> myRunningSenderVehicles;
+        std::set<ArrivedVehicleInformation*> myArrivedReceiverVehicles;
+        std::set<ArrivedVehicleInformation*> myArrivedSenderVehicles;
+    };
+
 
 private:
     /// @brief Invalidated copy constructor.

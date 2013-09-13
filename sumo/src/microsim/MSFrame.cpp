@@ -165,6 +165,10 @@ MSFrame::fillOptions() {
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", "Save links states into FILE");
 
+    oc.doRegister("bt-output", new Option_FileName());
+    oc.addDescription("bt-output", "Output", "Save bt visibilities into FILE");
+
+
 #ifdef _DEBUG
     oc.doRegister("movereminder-output", new Option_FileName());
     oc.addDescription("movereminder-output", "Output", "Save movereminder states of selected vehicles into FILE");
@@ -337,11 +341,10 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("emission-output", "emission-export");
     OutputDevice::createDeviceByOption("full-output", "full-export");
     OutputDevice::createDeviceByOption("queue-output", "queue-export");
-    OutputDevice::createDeviceByOption("device.btreceiver.output", "seen");
     
 	//OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");
-
+    OutputDevice::createDeviceByOption("bt-output", "bt-output");
 
 #ifdef _DEBUG
     OutputDevice::createDeviceByOption("movereminder-output", "movereminder-output");
