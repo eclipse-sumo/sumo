@@ -25,6 +25,7 @@ aggregated60:aggregated_60.xml
 aggregated300:aggregated_300.xml
 aggregated900:aggregated_900.xml
 rawdump:rawdump.xml
+bt:bt.xml
 tripinfos:tripinfos.xml
 vtypeprobe:vtypeprobe.xml
 vehroutes:vehroutes.xml
@@ -75,6 +76,7 @@ aggregated60:<!--{[->]}-->
 aggregated300:<!--{[->]}-->
 aggregated900:<!--{[->]}-->
 rawdump:<!--{[->]}-->
+bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
