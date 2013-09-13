@@ -3,3 +3,7 @@ intermediate_unconnected_ignore
 
 # invalid route if unreachable edges contain stops
 intermediate_unconnected_ignore_stops
+
+# route between A,B,C where A is not connected to B but B is reachable C is not rechable from B. 
+# The result should be a route between A and C skipping B
+route_around_non_mandatory
