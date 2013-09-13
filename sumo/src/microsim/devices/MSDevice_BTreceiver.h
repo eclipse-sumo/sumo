@@ -171,8 +171,10 @@ public:
 
 
 protected:
-    void enterRange(const MSVehicle &other, const Position &atPos, SUMOReal atOffset);
-    void leaveRange(const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal tOffset, bool remove = false);
+    void enterRange(const Position &thisPos, SUMOReal thisSpeed, 
+        const std::string &otherID, const Position &atPos, SUMOReal otherSpeed, SUMOReal atOffset);
+    void leaveRange(const Position &thisPos, SUMOReal thisSpeed, 
+        const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal tOffset, bool remove = false);
     static void leaveRange(std::map<std::string, SeenDevice*> &currentlySeen, std::map<std::string, std::vector<SeenDevice*> > &seen,
         const Position &thisPos, SUMOReal thisSpeed, 
         const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, 
