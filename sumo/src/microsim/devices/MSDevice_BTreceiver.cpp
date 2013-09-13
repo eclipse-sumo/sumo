@@ -127,7 +127,6 @@ MSDevice_BTreceiver::BTreceiverUpdate::vehicleStateChanged(const SUMOVehicle* co
         }
         i = myRunningSenderVehicles.find(vehicle);
         if(i!=myRunningSenderVehicles.end()) {
-            MSDevice_BTsender *device = static_cast<MSDevice_BTsender*>(vehicle->getDevice(typeid(MSDevice_BTreceiver)));
             myArrivedSenderVehicles.insert(new ArrivedVehicleInformation(vehicle->getID(), 
                 vehicle->getSpeed(), vehicle->getPosition(), std::map<std::string, SeenDevice*>(), std::map<std::string, std::vector<SeenDevice*> >()));
             myRunningSenderVehicles.erase(i);
@@ -138,7 +137,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::vehicleStateChanged(const SUMOVehicle* co
 
 
 SUMOTime 
-MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime currentTime) {
+MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
     // process arrived sender
     for (std::set<ArrivedVehicleInformation*>::iterator i = myArrivedSenderVehicles.begin(); i != myArrivedSenderVehicles.end(); ++i) {
         // remove from running receivers
@@ -246,7 +245,6 @@ int FindLineCircleIntersections(const Position &c, SUMOReal radius, const Positi
         return 0;
     } else if (det == 0) {
         // One solution.
-        SUMOReal length = Line(p1, p2).length();
         SUMOReal t = -B / (2 * A);
         Position intersection(p1.x() + t * dx, p1.y() + t * dy);
         if(pointOnLine(intersection, p1, p2)) {
@@ -255,7 +253,6 @@ int FindLineCircleIntersections(const Position &c, SUMOReal radius, const Positi
         return 1;
     } else {
         // Two solutions.
-        SUMOReal length = Line(p1, p2).length();
         SUMOReal t = (float)((-B + sqrt(det)) / (2 * A));
         Position intersection(p1.x() + t * dx, p1.y() + t * dy);
         if(pointOnLine(intersection, p1, p2)) {
@@ -306,14 +303,6 @@ MSDevice_BTreceiver::leaveRange(std::map<std::string, SeenDevice*> &currentlySee
     if(remove) {
         currentlySeen.erase(i);
     }
-}
-
-
-bool
-MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */,
-                                SUMOReal /* newPos */, SUMOReal /* newSpeed */) {
-
-    return true;
 }
 
 

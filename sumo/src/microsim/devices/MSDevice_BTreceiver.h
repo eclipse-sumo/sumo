@@ -140,24 +140,6 @@ public:
 
 
 
-    /// @name Methods called on vehicle movement / state change, overwriting MSDevice
-    /// @{
-
-    /** @brief Checks for waiting steps when the vehicle moves
-     *
-     * @param[in] veh Vehicle that asks this reminder.
-     * @param[in] oldPos Position before move.
-     * @param[in] newPos Position after move with newSpeed.
-     * @param[in] newSpeed Moving speed.
-     *
-     * @return True (always).
-     */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                    SUMOReal newPos, SUMOReal newSpeed);
-    /// @}
-
-
-
     /** @brief Returns the currently seen devices
      * @return the map from ID of holder to seen device
      */
