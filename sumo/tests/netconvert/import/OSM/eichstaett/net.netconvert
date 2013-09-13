@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 30 15:49:31 2013 by SUMO netconvert Version dev-SVN-r14318
+<!-- generated on Fri Sep 13 16:11:05 2013 by SUMO netconvert Version dev-SVN-r14700
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -20,6 +20,8 @@
 
     <processing>
         <no-internal-links value="true"/>
+        <geometry.max-angle value="-1"/>
+        <geometry.min-radius value="-1"/>
     </processing>
 
     <report>
@@ -25014,7 +25016,7 @@
     <connection from="28074493#0" to="28074493#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="28074493#0" to="-27396169#5" fromLane="1" toLane="0" dir="l" state="m"/>
     <connection from="28074493#0" to="-28074493#0" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="28074493#1" to="4379609#2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="28074493#1" to="4379609#2" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="28074493#1" to="4379609#2" fromLane="1" toLane="1" dir="r" state="m"/>
     <connection from="28074493#1" to="-28074493#1" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="28074516" to="28074493#0" fromLane="0" toLane="0" dir="s" state="M"/>

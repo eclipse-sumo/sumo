@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/04/12 12:50:33 by SUMO netconvert Version dev-SVN-r13131
+<!-- generated on Fri Sep 13 16:10:45 2013 by SUMO netconvert Version dev-SVN-r14700
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -230,10 +230,10 @@
         <lane id=":4_6_0" index="0" speed="19.44" length="8.93" shape="578.96,533.67 587.85,532.82"/>
     </edge>
     <edge id=":4_7" function="internal">
-        <lane id=":4_7_0" index="0" speed="16.67" length="9.85" shape="578.96,533.67 581.88,534.10 584.02,535.81 585.36,538.81 585.47,539.67"/>
+        <lane id=":4_7_0" index="0" speed="16.67" length="6.41" shape="578.96,533.67 581.88,534.10 584.02,535.81 584.31,536.47"/>
     </edge>
     <edge id=":4_8" function="internal">
-        <lane id=":4_8_0" index="0" speed="16.67" length="3.45" shape="585.47,539.67 585.92,543.09"/>
+        <lane id=":4_8_0" index="0" speed="16.67" length="6.88" shape="584.31,536.47 585.36,538.81 585.92,543.09"/>
     </edge>
     <edge id=":5_0" function="internal">
         <lane id=":5_0_0" index="0" speed="16.67" length="5.28" shape="1053.61,499.37 1053.32,497.87 1052.68,496.80 1051.70,496.16 1050.38,495.95"/>
@@ -275,10 +275,10 @@
         <lane id=":6_4_0" index="0" speed="19.44" length="9.70" shape="1081.66,485.10 1091.00,487.75"/>
     </edge>
     <edge id=":6_5" function="internal">
-        <lane id=":6_5_0" index="0" speed="16.67" length="7.57" shape="1081.80,488.40 1083.04,488.95 1084.04,490.73 1084.81,493.74 1084.95,494.79"/>
+        <lane id=":6_5_0" index="0" speed="16.67" length="4.23" shape="1081.80,488.40 1083.04,488.95 1084.04,490.73 1084.25,491.53"/>
     </edge>
     <edge id=":6_6" function="internal">
-        <lane id=":6_6_0" index="0" speed="16.67" length="3.20" shape="1084.95,494.79 1085.35,497.96"/>
+        <lane id=":6_6_0" index="0" speed="16.67" length="6.54" shape="1084.25,491.53 1084.81,493.74 1085.35,497.96"/>
     </edge>
     <edge id=":7_0" function="internal">
         <lane id=":7_0_0" index="0" speed="16.67" length="5.01" shape="1452.04,465.16 1451.74,463.82 1451.07,462.90 1450.06,462.40 1448.70,462.32"/>
@@ -302,10 +302,10 @@
         <lane id=":7_6_0" index="0" speed="19.44" length="9.46" shape="1448.16,455.74 1457.59,454.95"/>
     </edge>
     <edge id=":7_7" function="internal">
-        <lane id=":7_7_0" index="0" speed="16.67" length="9.95" shape="1448.16,455.74 1450.99,456.12 1453.13,457.77 1454.57,460.69 1454.78,461.81"/>
+        <lane id=":7_7_0" index="0" speed="16.67" length="6.48" shape="1448.16,455.74 1450.99,456.12 1453.13,457.77 1453.54,458.60"/>
     </edge>
     <edge id=":7_8" function="internal">
-        <lane id=":7_8_0" index="0" speed="16.67" length="3.12" shape="1454.78,461.81 1455.33,464.88"/>
+        <lane id=":7_8_0" index="0" speed="16.67" length="6.59" shape="1453.54,458.60 1454.57,460.69 1455.33,464.88"/>
     </edge>
     <edge id=":8_0" function="internal">
         <lane id=":8_0_0" index="0" speed="19.44" length="8.35" shape="1682.57,478.15 1676.92,472.00"/>
@@ -746,9 +746,9 @@
     <junction id=":3_15_0" type="internal" x="425.71" y="548.23" incLanes=":3_6_0 -21_0 -21_1" intLanes=":3_1_0 :3_2_0 :3_8_0 :3_9_0 :3_10_0 :3_11_0 :3_12_0"/>
     <junction id=":3_16_0" type="internal" x="424.26" y="542.52" incLanes=":3_9_0 -21_0 -21_1 -24_0 -24_1 -26_0 -26_1" intLanes=":3_0_0 :3_1_0 :3_4_0 :3_5_0 :3_6_0 :3_11_0 :3_12_0 :3_13_0"/>
     <junction id=":3_17_0" type="internal" x="420.27" y="548.38" incLanes=":3_13_0 -24_0 -24_1" intLanes=":3_1_0 :3_2_0 :3_3_0 :3_4_0 :3_5_0 :3_8_0 :3_9_0"/>
-    <junction id=":4_8_0" type="internal" x="585.47" y="539.67" incLanes=":4_7_0 -33_0" intLanes=":4_1_0 :4_2_0 :4_3_0 :4_4_0"/>
-    <junction id=":6_6_0" type="internal" x="1084.95" y="494.79" incLanes=":6_5_0 -6_0" intLanes=":6_1_0 :6_2_0"/>
-    <junction id=":7_8_0" type="internal" x="1454.78" y="461.81" incLanes=":7_7_0 -7_0" intLanes=":7_1_0 :7_2_0 :7_3_0 :7_4_0"/>
+    <junction id=":4_8_0" type="internal" x="584.31" y="536.47" incLanes=":4_7_0 -33_0 -33_1" intLanes=":4_1_0 :4_2_0 :4_3_0 :4_4_0"/>
+    <junction id=":6_6_0" type="internal" x="1084.25" y="491.53" incLanes=":6_5_0 -6_0 -6_1" intLanes=":6_1_0 :6_2_0"/>
+    <junction id=":7_8_0" type="internal" x="1453.54" y="458.60" incLanes=":7_7_0 -7_0 -7_1" intLanes=":7_1_0 :7_2_0 :7_3_0 :7_4_0"/>
     <junction id=":8_8_0" type="internal" x="1683.03" y="467.53" incLanes=":8_2_0 7_0 7_1" intLanes=":8_4_0 :8_5_0 :8_6_0 :8_7_0"/>
     <junction id=":8_9_0" type="internal" x="1685.92" y="465.22" incLanes=":8_4_0 -35_0 -35_1 7_0 7_1" intLanes=":8_0_0 :8_1_0 :8_2_0 :8_6_0 :8_7_0"/>
     <junction id=":9_8_0" type="internal" x="1766.81" y="538.14" incLanes=":9_5_0 -9_0 -9_1" intLanes=":9_0_0 :9_1_0 :9_2_0 :9_7_0"/>
@@ -848,7 +848,7 @@
     <connection from="35" to="-34" fromLane="1" toLane="2" via=":28_5_0" dir="s" state="M"/>
     <connection from="5" to="6" fromLane="0" toLane="0" via=":6_3_0" dir="s" state="M"/>
     <connection from="5" to="6" fromLane="1" toLane="1" via=":6_4_0" dir="s" state="M"/>
-    <connection from="5" to="18" fromLane="2" toLane="1" via=":6_5_0" dir="l" state="M"/>
+    <connection from="5" to="18" fromLane="2" toLane="1" via=":6_5_0" dir="l" state="m"/>
     <connection from="6" to="7" fromLane="0" toLane="0" via=":7_5_0" dir="s" state="M"/>
     <connection from="6" to="7" fromLane="1" toLane="1" via=":7_6_0" dir="s" state="M"/>
     <connection from="6" to="19" fromLane="1" toLane="0" via=":7_7_0" dir="l" state="m"/>

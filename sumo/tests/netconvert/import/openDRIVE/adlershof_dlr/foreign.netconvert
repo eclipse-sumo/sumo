@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="3" name="" version="1.00" date="Wed Jul  3 13:27:18 2013" north="767.39" south="0.00" east="1737.68" west="0.00" maxRoad="213" maxJunc="87" maxPrg="0"/>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="Fri Sep 13 16:11:15 2013" north="767.39" south="0.00" east="1737.68" west="0.00" maxRoad="213" maxJunc="87" maxPrg="0"/>
     <road name="Teltowkanalbrücke" length="53.81" id="0" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="0"/>
@@ -21506,9 +21506,9 @@
         <planView>
             <geometry s="0.00" x="636.04" y="106.48" hdg="0.12" length="2.40"><line/></geometry>
             <geometry s="2.40" x="638.42" y="106.77" hdg="0.65" length="1.90"><line/></geometry>
-            <geometry s="4.30" x="639.93" y="107.91" hdg="1.09" length="2.66"><line/></geometry>
-            <geometry s="6.96" x="641.15" y="110.28" hdg="1.37" length="0.75"><line/></geometry>
-            <geometry s="7.71" x="641.30" y="111.02" hdg="1.37" length="3.26"><line/></geometry>
+            <geometry s="4.30" x="639.93" y="107.91" hdg="1.09" length="0.41"><line/></geometry>
+            <geometry s="4.71" x="640.12" y="108.28" hdg="1.09" length="2.25"><line/></geometry>
+            <geometry s="6.96" x="641.15" y="110.28" hdg="1.37" length="4.02"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>
@@ -26102,9 +26102,9 @@
         <planView>
             <geometry s="0.00" x="1140.98" y="50.63" hdg="0.31" length="1.01"><line/></geometry>
             <geometry s="1.01" x="1141.94" y="50.94" hdg="0.98" length="1.26"><line/></geometry>
-            <geometry s="2.27" x="1142.64" y="51.99" hdg="1.31" length="2.71"><line/></geometry>
-            <geometry s="4.97" x="1143.34" y="54.60" hdg="1.46" length="0.96"><line/></geometry>
-            <geometry s="5.94" x="1143.44" y="55.56" hdg="1.46" length="3.18"><line/></geometry>
+            <geometry s="2.27" x="1142.64" y="51.99" hdg="1.31" length="0.59"><line/></geometry>
+            <geometry s="2.86" x="1142.79" y="52.56" hdg="1.31" length="2.12"><line/></geometry>
+            <geometry s="4.97" x="1143.34" y="54.60" hdg="1.46" length="4.14"><line/></geometry>
         </planView>
         <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
         <lateralProfile/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 09:23:44 by SUMO netconvert Version dev-SVN-r13169
+<!-- generated on Fri Sep 13 16:11:35 2013 by SUMO netconvert Version dev-SVN-r14700
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -27,7 +27,7 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <offset.x value="-280900"/>
-        <offset.y value="-4.1536e+006"/>
+        <offset.y value="-4.1536e+06"/>
     </processing>
 
 </configuration>
@@ -107,10 +107,10 @@
         <lane id=":49613629_1_0" index="0" speed="20.10" length="10.30" shape="4147.21,3230.28 4146.53,3227.30 4146.08,3225.26 4145.64,3223.21 4145.00,3220.22"/>
     </edge>
     <edge id=":49613629_2" function="internal">
-        <lane id=":49613629_2_0" index="0" speed="16.75" length="9.25" shape="4147.21,3230.28 4147.46,3228.49 4148.92,3226.24 4151.60,3223.51 4152.32,3222.91"/>
+        <lane id=":49613629_2_0" index="0" speed="16.75" length="5.37" shape="4147.21,3230.28 4147.46,3228.49 4148.92,3226.24 4149.53,3225.61"/>
     </edge>
     <edge id=":49613629_8" function="internal">
-        <lane id=":49613629_8_0" index="0" speed="16.75" length="4.10" shape="4152.32,3222.91 4155.49,3220.31"/>
+        <lane id=":49613629_8_0" index="0" speed="16.75" length="7.98" shape="4149.53,3225.61 4151.60,3223.51 4155.49,3220.31"/>
     </edge>
     <edge id=":49613629_3" function="internal">
         <lane id=":49613629_3_0" index="0" speed="16.75" length="7.33" shape="4157.49,3222.94 4155.59,3224.57 4154.32,3226.09 4153.67,3227.49 4153.64,3228.78"/>
@@ -301,7 +301,7 @@
     <junction id="49615901" type="dead_end" x="4363.01" y="3360.48" incLanes="-6040380_0" intLanes="" shape="4362.97,3360.51 4360.44,3362.46 4365.58,3358.49 4363.05,3360.45"/>
     <junction id="49616450" type="dead_end" x="4198.31" y="3421.69" incLanes="-6034273#0_0 -6034273#0_1" intLanes="" shape="4198.26,3421.70 4192.05,3423.61 4204.57,3419.76 4198.36,3421.67"/>
 
-    <junction id=":49613629_8_0" type="internal" x="4152.32" y="3222.91" incLanes=":49613629_2_0 -6034273#1_0" intLanes=":49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_7_0"/>
+    <junction id=":49613629_8_0" type="internal" x="4149.53" y="3225.61" incLanes=":49613629_2_0 -6034273#1_0 -6034273#1_1" intLanes=":49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_7_0"/>
 
     <connection from="-14" to="38232899#0" fromLane="0" toLane="0" via=":450601528_0_0" dir="s" state="M"/>
     <connection from="-14" to="38232899#0" fromLane="1" toLane="1" via=":450601528_1_0" dir="s" state="M"/>

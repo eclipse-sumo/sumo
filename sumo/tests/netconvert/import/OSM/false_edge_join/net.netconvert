@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 09:23:10 by SUMO netconvert Version dev-SVN-r13169
+<!-- generated on Fri Sep 13 16:11:09 2013 by SUMO netconvert Version dev-SVN-r14700
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -104,10 +104,10 @@
         <lane id=":49613629_1_0" index="0" speed="20.10" length="10.30" shape="234.01,3593.21 233.32,3590.24 232.87,3588.19 232.44,3586.15 231.79,3583.16"/>
     </edge>
     <edge id=":49613629_2" function="internal">
-        <lane id=":49613629_2_0" index="0" speed="16.75" length="9.25" shape="234.01,3593.21 234.26,3591.43 235.72,3589.17 238.40,3586.44 239.12,3585.85"/>
+        <lane id=":49613629_2_0" index="0" speed="16.75" length="5.37" shape="234.01,3593.21 234.26,3591.43 235.72,3589.17 236.33,3588.55"/>
     </edge>
     <edge id=":49613629_8" function="internal">
-        <lane id=":49613629_8_0" index="0" speed="16.75" length="4.10" shape="239.12,3585.85 242.29,3583.25"/>
+        <lane id=":49613629_8_0" index="0" speed="16.75" length="7.98" shape="236.33,3588.55 238.40,3586.44 242.29,3583.25"/>
     </edge>
     <edge id=":49613629_3" function="internal">
         <lane id=":49613629_3_0" index="0" speed="16.75" length="7.33" shape="244.29,3585.87 242.39,3587.50 241.11,3589.02 240.46,3590.42 240.44,3591.72"/>
@@ -298,7 +298,7 @@
     <junction id="49615901" type="dead_end" x="449.80" y="3723.41" incLanes="-6040380_0" intLanes="" shape="449.76,3723.44 447.23,3725.40 452.37,3721.42 449.84,3723.38"/>
     <junction id="49616450" type="dead_end" x="285.10" y="3784.62" incLanes="-6034273#0_0 -6034273#0_1" intLanes="" shape="285.06,3784.63 278.84,3786.54 291.37,3782.70 285.15,3784.60"/>
 
-    <junction id=":49613629_8_0" type="internal" x="239.12" y="3585.85" incLanes=":49613629_2_0 -6034273#1_0" intLanes=":49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_7_0"/>
+    <junction id=":49613629_8_0" type="internal" x="236.33" y="3588.55" incLanes=":49613629_2_0 -6034273#1_0 -6034273#1_1" intLanes=":49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_7_0"/>
 
     <connection from="-14" to="38232899#0" fromLane="0" toLane="0" via=":450601528_0_0" dir="s" state="M"/>
     <connection from="-14" to="38232899#0" fromLane="1" toLane="1" via=":450601528_1_0" dir="s" state="M"/>

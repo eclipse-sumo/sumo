@@ -1063,27 +1063,7 @@ NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int toLane) 
         return true;
     }
     // check whether any other connection on this node prohibits this connection
-    bool try1 = myRequest->mustBrake(from, to);
-    if (!try1 || toLane == -1) {
-        return try1;
-    }
-    if (from->getSpeed() < 70. / 3.6) {
-        return try1;
-    }
-    // on highways (on-ramps, in fact):
-    // check whether any other connection uses the same destination edge
-    for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        if ((*i) == from) {
-            continue;
-        }
-        const std::vector<NBEdge::Connection>& connections = (*i)->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator j = connections.begin(); j != connections.end(); ++j) {
-            if ((*j).toEdge == to && ((*j).toLane < 0 || (*j).toLane == toLane)) {
-                return true;
-            }
-        }
-    }
-    return false;
+    return myRequest->mustBrake(from, to);
 }
 
 

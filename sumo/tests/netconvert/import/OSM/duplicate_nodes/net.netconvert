@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 13 09:52:26 2013 by SUMO netconvert Version dev-SVN-r13478
+<!-- generated on Fri Sep 13 16:11:07 2013 by SUMO netconvert Version dev-SVN-r14700
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -104,10 +104,10 @@
         <lane id=":-15_8_0" index="0" speed="27.78" length="12.19" shape="301.36,681.09 304.58,679.43 306.74,678.23 308.87,676.97 312.01,675.16"/>
     </edge>
     <edge id=":-15_9" function="internal">
-        <lane id=":-15_9_0" index="0" speed="16.67" length="10.10" shape="301.36,681.09 303.06,680.93 305.98,681.54 310.12,682.93 311.08,683.32"/>
+        <lane id=":-15_9_0" index="0" speed="16.67" length="5.73" shape="301.36,681.09 303.06,680.93 305.98,681.54 306.97,681.88"/>
     </edge>
     <edge id=":-15_12" function="internal">
-        <lane id=":-15_12_0" index="0" speed="16.67" length="4.75" shape="311.08,683.32 315.49,685.10"/>
+        <lane id=":-15_12_0" index="0" speed="16.67" length="9.12" shape="306.97,681.88 310.12,682.93 315.49,685.10"/>
     </edge>
     <edge id=":-15_10" function="internal">
         <lane id=":-15_10_0" index="0" speed="27.78" length="2.41" shape="301.36,681.09 302.84,681.27 303.57,681.82"/>
@@ -388,7 +388,7 @@
     </junction>
 
     <junction id=":-15_11_0" type="internal" x="311.38" y="677.41" incLanes=":-15_6_0 -33#0_0 -33#0_1 -38#1_0" intLanes=":-15_1_0 :-15_7_0 :-15_8_0"/>
-    <junction id=":-15_12_0" type="internal" x="311.08" y="683.32" incLanes=":-15_9_0 --33#1_0" intLanes=":-15_1_0 :-15_2_0 :-15_3_0 :-15_4_0 :-15_5_0"/>
+    <junction id=":-15_12_0" type="internal" x="306.97" y="681.88" incLanes=":-15_9_0 --33#1_0 --33#1_1" intLanes=":-15_1_0 :-15_2_0 :-15_3_0 :-15_4_0 :-15_5_0"/>
     <junction id=":-15_13_0" type="internal" x="303.57" y="681.82" incLanes=":-15_10_0 --33#1_0 --33#1_1 -38#1_0" intLanes=":-15_0_0 :-15_4_0 :-15_5_0"/>
     <junction id=":-26_6_0" type="internal" x="493.55" y="389.98" incLanes=":-26_2_0 -33#1_0 -33#1_1" intLanes=":-26_3_0 :-26_4_0"/>
     <junction id=":-26_7_0" type="internal" x="493.66" y="388.38" incLanes=":-26_5_0 --33#2_0 --33#2_1" intLanes=":-26_0_0 :-26_1_0"/>

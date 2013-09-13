@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 30 15:49:34 2013 by SUMO netconvert Version dev-SVN-r14318
+<!-- generated on Fri Sep 13 16:11:13 2013 by SUMO netconvert Version dev-SVN-r14700
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -382,26 +382,26 @@
     <connection from="1" to="2" fromLane="18" toLane="0" dir="s" state="M"/>
     <connection from="1" to="2" fromLane="19" toLane="1" dir="s" state="M"/>
     <connection from="10" to="19" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="11" to="20" fromLane="0" toLane="18" dir="l" state="M"/>
-    <connection from="11" to="20" fromLane="0" toLane="19" dir="l" state="M"/>
+    <connection from="11" to="20" fromLane="0" toLane="18" dir="l" state="m"/>
+    <connection from="11" to="20" fromLane="0" toLane="19" dir="l" state="m"/>
     <connection from="12" to="20" fromLane="0" toLane="16" dir="l" state="m"/>
-    <connection from="12" to="20" fromLane="0" toLane="17" dir="l" state="M"/>
-    <connection from="13" to="20" fromLane="0" toLane="13" dir="s" state="M"/>
-    <connection from="13" to="20" fromLane="0" toLane="14" dir="s" state="M"/>
-    <connection from="13" to="20" fromLane="0" toLane="15" dir="s" state="M"/>
+    <connection from="12" to="20" fromLane="0" toLane="17" dir="l" state="m"/>
+    <connection from="13" to="20" fromLane="0" toLane="13" dir="s" state="m"/>
+    <connection from="13" to="20" fromLane="0" toLane="14" dir="s" state="m"/>
+    <connection from="13" to="20" fromLane="0" toLane="15" dir="s" state="m"/>
     <connection from="13" to="20" fromLane="0" toLane="16" dir="s" state="m"/>
-    <connection from="14" to="20" fromLane="0" toLane="11" dir="s" state="M"/>
-    <connection from="14" to="20" fromLane="0" toLane="12" dir="s" state="M"/>
-    <connection from="15" to="20" fromLane="0" toLane="9" dir="s" state="M"/>
-    <connection from="15" to="20" fromLane="0" toLane="10" dir="s" state="M"/>
+    <connection from="14" to="20" fromLane="0" toLane="11" dir="s" state="m"/>
+    <connection from="14" to="20" fromLane="0" toLane="12" dir="s" state="m"/>
+    <connection from="15" to="20" fromLane="0" toLane="9" dir="s" state="m"/>
+    <connection from="15" to="20" fromLane="0" toLane="10" dir="s" state="m"/>
     <connection from="16" to="20" fromLane="0" toLane="7" dir="s" state="m"/>
-    <connection from="16" to="20" fromLane="0" toLane="8" dir="s" state="M"/>
-    <connection from="17" to="20" fromLane="0" toLane="4" dir="s" state="M"/>
-    <connection from="17" to="20" fromLane="0" toLane="5" dir="s" state="M"/>
-    <connection from="17" to="20" fromLane="0" toLane="6" dir="s" state="M"/>
+    <connection from="16" to="20" fromLane="0" toLane="8" dir="s" state="m"/>
+    <connection from="17" to="20" fromLane="0" toLane="4" dir="s" state="m"/>
+    <connection from="17" to="20" fromLane="0" toLane="5" dir="s" state="m"/>
+    <connection from="17" to="20" fromLane="0" toLane="6" dir="s" state="m"/>
     <connection from="17" to="20" fromLane="0" toLane="7" dir="s" state="m"/>
-    <connection from="18" to="20" fromLane="0" toLane="2" dir="r" state="M"/>
-    <connection from="18" to="20" fromLane="0" toLane="3" dir="r" state="M"/>
+    <connection from="18" to="20" fromLane="0" toLane="2" dir="r" state="m"/>
+    <connection from="18" to="20" fromLane="0" toLane="3" dir="r" state="m"/>
     <connection from="19" to="20" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="19" to="20" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from="2" to="11" fromLane="0" toLane="0" dir="r" state="M"/>
