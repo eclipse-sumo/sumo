@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 13 Sep 2013 03:40:46 PM CEST by Netedit Version dev-SVN-r14655
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/scr1/erdm_ja/debug/christina/debug2.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/debug/christina/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <node id="gneJ0" x="40.64" y="-19.65" type="unregulated"/>
+    <node id="gneJ2" x="30.60" y="107.29" type="unregulated"/>
+    <node id="gneJ3" x="97.10" y="57.02" type="unregulated"/>
+    <node id="under_test" x="35.72" y="51.78" type="priority"/>
+</nodes>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Sep 13 15:42:28 2013 by SUMO netconvert Version dev-SVN-r14700
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
+
+    <location netOffset="-30.60,19.65" convBoundary="0.00,0.00,66.50,126.94" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="minor1" from="gneJ0" to="under_test" priority="1">
+        <lane id="minor1_0" index="0" speed="22.22" length="71.60" shape="18.27,0.57 13.45,70.50"/>
+        <lane id="minor1_1" index="1" speed="22.22" length="71.60" shape="14.98,0.34 10.16,70.27"/>
+        <lane id="minor1_2" index="2" speed="22.22" length="71.60" shape="11.69,0.11 6.87,70.05"/>
+    </edge>
+    <edge id="minor2" from="under_test" to="gneJ2" priority="1">
+        <lane id="minor2_0" index="0" speed="22.22" length="55.75" shape="12.91,76.85 8.22,127.70"/>
+        <lane id="minor2_1" index="1" speed="22.22" length="55.75" shape="9.62,76.55 4.93,127.39"/>
+        <lane id="minor2_2" index="2" speed="22.22" length="55.75" shape="6.33,76.24 1.64,127.09"/>
+    </edge>
+    <edge id="priority" from="gneJ3" to="under_test" priority="2">
+        <lane id="priority_0" index="0" speed="19.44" length="61.60" shape="66.36,78.31 16.27,74.04"/>
+    </edge>
+
+    <junction id="gneJ0" type="unregulated" x="10.04" y="0.00" incLanes="" intLanes="" shape="10.09,0.00 19.87,0.68"/>
+    <junction id="gneJ2" type="unregulated" x="0.00" y="126.94" incLanes="minor2_0 minor2_1 minor2_2" intLanes="" shape="9.81,127.84 0.05,126.94"/>
+    <junction id="gneJ3" type="unregulated" x="66.50" y="76.67" incLanes="" intLanes="" shape="66.50,76.72 66.22,79.91"/>
+    <junction id="under_test" type="priority" x="5.12" y="71.43" incLanes="priority_0 minor1_0 minor1_1 minor1_2" intLanes="" shape="16.13,75.63 16.40,72.44 15.05,70.61 5.27,69.94 4.74,76.10 14.50,77.00">
+        <request index="0" response="0000" foes="1110"/>
+        <request index="1" response="0001" foes="0001"/>
+        <request index="2" response="0001" foes="0001"/>
+        <request index="3" response="0001" foes="0001"/>
+    </junction>
+
+    <connection from="minor1" to="minor2" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="minor1" to="minor2" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="minor1" to="minor2" fromLane="2" toLane="2" dir="s" state="m"/>
+    <connection from="priority" to="minor2" fromLane="0" toLane="0" dir="r" state="M"/>
+
+</net>

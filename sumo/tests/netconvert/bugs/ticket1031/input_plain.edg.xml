@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 13 Sep 2013 03:40:46 PM CEST by Netedit Version dev-SVN-r14655
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/scr1/erdm_ja/debug/christina/debug2.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/debug/christina/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+    <edge id="minor1" from="gneJ0" to="under_test" priority="1" numLanes="3" speed="22.22"/>
+    <edge id="minor2" from="under_test" to="gneJ2" priority="1" numLanes="3" speed="22.22"/>
+    <edge id="priority" from="gneJ3" to="under_test" priority="2" numLanes="1" speed="19.44"/>
+</edges>
