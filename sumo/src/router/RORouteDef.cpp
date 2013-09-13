@@ -182,7 +182,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         // reconnect remaining edges
         newEdges.push_back(*(oldEdges.begin()));
         std::vector<const ROEdge*>::iterator nextMandatory = mandatory.begin() + 1;
-        std::vector<const ROEdge*>::iterator lastMandatory = newEdges.begin();
+        size_t lastMandatory = 0;
         for (std::vector<const ROEdge*>::iterator i = oldEdges.begin() + 1; i != oldEdges.end(); ++i) {
             if ((*(i - 1))->isConnectedTo(*i)) {
                 /// XXX could be connected from a prohibited lane only
@@ -193,14 +193,14 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                 if (edges.size() == 0) {
                     if (*i == *nextMandatory) {
                         // fallback: try to route from last mandatory edge
-                        if (newEdges.back() != *lastMandatory) {
-                            router.compute(*lastMandatory, *nextMandatory, &veh, begin, edges);
+                        if (newEdges.back() != newEdges[lastMandatory]) {
+                            router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges);
                         }
                         if (edges.size() == 0) {
                             mh->inform("Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
                             return;
                         } else {
-                            newEdges.erase(lastMandatory + 1, newEdges.end());
+                            newEdges.erase(newEdges.begin() + lastMandatory + 1, newEdges.end());
                             std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
                         }
                     }
@@ -209,7 +209,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                 }
                 if (*i == *nextMandatory) {
                     nextMandatory++;
-                    lastMandatory = i;
+                    lastMandatory = newEdges.size() - 1;
                 }
             }
         }
