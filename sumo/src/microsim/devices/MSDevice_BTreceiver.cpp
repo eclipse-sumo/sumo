@@ -422,7 +422,7 @@ MSDevice_BTreceiver::updateNeighbors() {
     }
     // check vehicles that are not longer in range
     //  set their range exit information
-    for (std::map<std::string, SeenDevice*>::const_iterator i = myCurrentlySeen.begin(); i != myCurrentlySeen.end();) {
+    for (std::map<std::string, SeenDevice*>::iterator i = myCurrentlySeen.begin(); i != myCurrentlySeen.end();) {
         if (seen.find((*i).first) != seen.end()) {
             // skip those which are still visible
             ++i;
@@ -437,7 +437,7 @@ MSDevice_BTreceiver::updateNeighbors() {
             // leaving range
             WRITE_WARNING("Vehicle '" + (*i).first + "' was in range of '" + myHolder.getID() + "' and is no longer visible.");
             leaveRange(p, myHolder.getSpeed(), v->getID(), v->getPosition(), v->getSpeed(), 0);
-            i = myCurrentlySeen.erase(i);
+            myCurrentlySeen.erase(i++);
         }
     }
     return; // keep the device
