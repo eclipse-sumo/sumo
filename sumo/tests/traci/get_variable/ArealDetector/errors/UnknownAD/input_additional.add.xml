@@ -1,0 +1,5 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
+
+   <laneAreaDetector id="tmp" lane="3/1to2/1_0" pos="200" length="50" freq="1" file="NUL" friendlyPos="true" />
+
+</additional>
