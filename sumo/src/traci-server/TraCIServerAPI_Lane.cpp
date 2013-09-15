@@ -64,11 +64,12 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
     if (variable != ID_LIST && variable != LANE_LINK_NUMBER && variable != LANE_EDGE_ID && variable != VAR_LENGTH
             && variable != VAR_MAXSPEED && variable != LANE_LINKS && variable != VAR_SHAPE
             && variable != VAR_CO2EMISSION && variable != VAR_COEMISSION && variable != VAR_HCEMISSION && variable != VAR_PMXEMISSION
-            && variable != VAR_NOXEMISSION && variable != VAR_FUELCONSUMPTION && variable != VAR_NOISEEMISSION
+            && variable != VAR_NOXEMISSION && variable != VAR_FUELCONSUMPTION && variable != VAR_NOISEEMISSION && variable != VAR_WAITING_TIME
             && variable != LAST_STEP_MEAN_SPEED && variable != LAST_STEP_VEHICLE_NUMBER
             && variable != LAST_STEP_VEHICLE_ID_LIST && variable != LAST_STEP_OCCUPANCY && variable != LAST_STEP_VEHICLE_HALTING_NUMBER
             && variable != LAST_STEP_LENGTH && variable != VAR_CURRENT_TRAVELTIME
-            && variable != LANE_ALLOWED && variable != LANE_DISALLOWED && variable != VAR_WIDTH && variable != ID_COUNT) {
+            && variable != LANE_ALLOWED && variable != LANE_DISALLOWED && variable != VAR_WIDTH && variable != ID_COUNT
+			) {
         return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
@@ -96,6 +97,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             case LANE_LINK_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_UBYTE);
                 tempMsg.writeUnsignedByte((int) lane->getLinkCont().size());
+				
                 break;
             case LANE_EDGE_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -261,6 +263,11 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 }
                 lane->releaseVehicles();
             }
+            break;
+			case VAR_WAITING_TIME: {
+				tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(lane->getWaitingTime());
+			}
             break;
             case VAR_CURRENT_TRAVELTIME: {
                 SUMOReal meanSpeed = lane->getMeanSpeed();

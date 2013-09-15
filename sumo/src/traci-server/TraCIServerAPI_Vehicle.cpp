@@ -85,13 +85,13 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_PERSON_NUMBER
             && variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT
             && variable != VAR_ROUTE_VALID && variable != VAR_EDGES
-            && variable != VAR_SIGNALS
+            && variable != VAR_SIGNALS && variable != VAR_DISTANCE
             && variable != VAR_LENGTH && variable != VAR_MAXSPEED && variable != VAR_VEHICLECLASS
             && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_EMISSIONCLASS
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
-            && variable != VAR_TAU && variable != VAR_BEST_LANES && variable != DISTANCE_REQUEST
-            && variable != ID_COUNT && variable != VAR_STOPSTATE
+			&& variable != VAR_TAU && variable != VAR_BEST_LANES && variable != DISTANCE_REQUEST 
+            && variable != ID_COUNT && variable != VAR_STOPSTATE && variable !=  VAR_WAITING_TIME
        ) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable specified", outputStorage);
     }
@@ -212,6 +212,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             case VAR_PERSON_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt(v->getPersonNumber());
+                break;
+			case VAR_WAITING_TIME:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt((int) v->getWaitingSeconds());
                 break;
             case VAR_EDGE_TRAVELTIME: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
@@ -342,7 +346,17 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeUnsignedByte(b);
             }
             break;
-            case DISTANCE_REQUEST:
+
+			case VAR_DISTANCE:{
+			    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+				SUMOReal distance = onRoad ? v->getRoute().getDistanceBetween(0, v->getPositionOnLane(), v->getRoute().getEdges()[0],  &v->getLane()->getEdge()): INVALID_DOUBLE_VALUE;
+			    if (distance == std::numeric_limits<SUMOReal>::max()) {
+					distance = INVALID_DOUBLE_VALUE;
+				}
+				tempMsg.writeDouble(distance);
+			}
+            break;
+			case DISTANCE_REQUEST:
                 if (!commandDistanceRequest(server, inputStorage, tempMsg, v)) {
                     return false;
                 }
@@ -818,7 +832,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         break;
         case ADD: {
             if (v != 0) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The vehicle " + id + " to add already exists.", outputStorage);
+				  return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The vehicle " + id + " to add already exists.", outputStorage);
             }
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Adding a vehicle requires a compound object.", outputStorage);

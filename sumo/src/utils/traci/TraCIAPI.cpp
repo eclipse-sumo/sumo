@@ -859,6 +859,16 @@ TraCIAPI::LaneScope::setLength(const std::string& laneID, SUMOReal length) const
 }
 
 
+// ---------------------------------------------------------------------------
+// TraCIAPI::AreaDetector-methods
+// ---------------------------------------------------------------------------
+std::vector<std::string>
+TraCIAPI::AreaScope::getIDList() const {
+    return myParent.getStringVector(CMD_GET_AREAL_DETECTOR_VARIABLE, ID_LIST, "");
+}
+
+
+
 
 // ---------------------------------------------------------------------------
 // TraCIAPI::MeMeScope-methods

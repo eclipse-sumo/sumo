@@ -78,6 +78,8 @@
 #include "TraCIServerAPI_Junction.h"
 #include "TraCIServerAPI_Lane.h"
 #include "TraCIServerAPI_MeMeDetector.h"
+#include "TraCIServerAPI_ArealDetector.h"
+
 #include "TraCIServerAPI_TLS.h"
 #include "TraCIServerAPI_Vehicle.h"
 #include "TraCIServerAPI_VehicleType.h"
@@ -123,7 +125,9 @@ TraCIServer::TraCIServer(int port)
     MSNet::getInstance()->addVehicleStateListener(this);
 
     myExecutors[CMD_GET_INDUCTIONLOOP_VARIABLE] = &TraCIServerAPI_InductionLoop::processGet;
-    myExecutors[CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE] = &TraCIServerAPI_MeMeDetector::processGet;
+	myExecutors[CMD_GET_AREAL_DETECTOR_VARIABLE] = &TraCIServerAPI_ArealDetector::processGet;
+	myExecutors[CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE] = &TraCIServerAPI_MeMeDetector::processGet;
+
     myExecutors[CMD_GET_TL_VARIABLE] = &TraCIServerAPI_TLS::processGet;
     myExecutors[CMD_SET_TL_VARIABLE] = &TraCIServerAPI_TLS::processSet;
     myExecutors[CMD_GET_LANE_VARIABLE] = &TraCIServerAPI_Lane::processGet;

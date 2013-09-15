@@ -381,7 +381,26 @@ public:
     };
 
 
+	 /** @class AreaScope
+     * @brief Scope for interaction with areal detectors
+     */
+    class AreaScope : public TraCIScopeWrapper {
+    public:
+        AreaScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
+        virtual ~AreaScope() {}
 
+        std::vector<std::string> getIDList() const;
+        int getJamLengthVehicle(const std::string& laneID) const;
+        SUMOReal getJamLengthMeters(const std::string& laneID) const;
+
+    private:
+        /// @brief invalidated copy constructor
+        AreaScope(const AreaScope& src);
+
+        /// @brief invalidated assignment operator
+        AreaScope& operator=(const AreaScope& src);
+
+    };
 
 
     /** @class MeMeScope
