@@ -377,6 +377,11 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.cpp"
+				>
+			</File>
+			
+			<File
 				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Junction.cpp"
 				>
 			</File>
@@ -436,6 +441,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.h"
 				>
 			</File>
 			<File
