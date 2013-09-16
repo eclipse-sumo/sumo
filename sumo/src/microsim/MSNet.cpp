@@ -743,6 +743,7 @@ const NamedRTree &
 MSNet::getLanesRTree() const {
     if(!myLanesRTree.first) {
         MSLane::fill(myLanesRTree.second);
+        myLanesRTree.first = true;
     }
     return myLanesRTree.second;
 }
