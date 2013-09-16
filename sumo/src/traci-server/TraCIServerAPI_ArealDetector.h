@@ -2,7 +2,7 @@
 /// @file    TraCIServerAPI_AreaDetector.h
 /// @author  Mario Krumnow
 /// @date    15.09.2013
-/// @version $Id: TraCIServerAPI_AreaDetector.h 14425 2013-08-16 20:11:47Z behrisch $
+/// @version $Id$
 ///
 // APIs for getting/setting areal detector values via TraCI
 /****************************************************************************/
