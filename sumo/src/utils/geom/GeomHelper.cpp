@@ -7,7 +7,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some geometrical helpers
+// Some static methods performing geometrical operations
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 // Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
@@ -127,13 +127,62 @@ GeomHelper::intersects(const SUMOReal x1, const SUMOReal y1,
 
 
 
-
 bool
 GeomHelper::intersects(const Position& p11, const Position& p12,
                        const Position& p21, const Position& p22) {
     return intersects(p11.x(), p11.y(), p12.x(), p12.y(),
                       p21.x(), p21.y(), p22.x(), p22.y(), 0, 0, 0);
 }
+
+
+bool 
+GeomHelper::pointOnLine(const Position &p, const Position &from, const Position &to) {
+    if (p.x() >= MIN2(from.x(), to.x()) && p.x() <= MAX2(from.x(), to.x()) && 
+        p.y() >= MIN2(from.y(), to.y()) && p.y() <= MAX2(from.y(), to.y())) {
+        return true;
+    }
+    return false;
+}
+
+
+void 
+GeomHelper::FindLineCircleIntersections(const Position &c, SUMOReal radius, const Position &p1, const Position &p2,
+                                        std::vector<SUMOReal> &into) {
+    SUMOReal dx = p2.x() - p1.x();
+    SUMOReal dy = p2.y() - p1.y();
+
+    SUMOReal A = dx * dx + dy * dy;
+    SUMOReal B = 2 * (dx * (p1.x() - c.x()) + dy * (p1.y() - c.y()));
+    SUMOReal C = (p1.x() - c.x()) * (p1.x() - c.x()) + (p1.y() - c.y()) * (p1.y() - c.y()) - radius * radius;
+
+    SUMOReal det = B * B - 4 * A * C;
+    if ((A <= 0.0000001) || (det < 0)) {
+        // No real solutions.
+        return;
+    } else if (det == 0) {
+        // One solution.
+        SUMOReal t = -B / (2 * A);
+        Position intersection(p1.x() + t * dx, p1.y() + t * dy);
+        if(GeomHelper::pointOnLine(intersection, p1, p2)) {
+            into.push_back(t);
+        }
+        return;
+    } else {
+        // Two solutions.
+        SUMOReal t = (float)((-B + sqrt(det)) / (2 * A));
+        Position intersection(p1.x() + t * dx, p1.y() + t * dy);
+        if(GeomHelper::pointOnLine(intersection, p1, p2)) {
+            into.push_back(t);
+        }
+        t = (float)((-B - sqrt(det)) / (2 * A));
+        intersection.set(p1.x() + t * dx, p1.y() + t * dy);
+        if(GeomHelper::pointOnLine(intersection, p1, p2)) {
+            into.push_back(t);
+        }
+        return;
+    }
+}
+
 
 
 Position

@@ -7,7 +7,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some geometrical helpers
+// Some static methods performing geometrical operations
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 // Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
@@ -45,19 +45,47 @@
 #define DEG2RAD(x) static_cast<SUMOReal>((x) * M_PI / 180.)
 #define RAD2DEG(x) static_cast<SUMOReal>((x) * 180. / M_PI)
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- *
+/** @class GeomHelper
+ * @brief Some static methods performing geometrical operations
  */
 class GeomHelper {
 public:
-    /** @brief return whether the line segments defined by
-     * Line p11,p12 and Line p21,p22 intersect
+    /** @brief return whether given lines intersect
+     * @param[in] p11 The begin position of the first line
+     * @param[in] p12 The end position of the first line
+     * @param[in] p21 The begin position of the second line
+     * @param[in] p22 The end position of the second line
+     * @return Whether both lines intersect
      */
     static bool intersects(const Position& p11, const Position& p12,
                            const Position& p21, const Position& p22);
+
+
+    /** @brief Returns whether the given point lies on the given line
+     * @param[in] p The position
+     * @param[in] from The begin position of the line
+     * @param[in] to The end position of the line
+     * @return Whether the point lies on the line
+     */
+    static bool pointOnLine(const Position &p, const Position &from, const Position &to);
+
+
+    /** @brief Returns the positions the given circle is crossed by the given line
+     * @param[in] c The center position of the circle
+     * @param[in] radius The radius of the circle
+     * @param[in] p1 The begin of the line
+     * @param[in] p2 The end of the line
+     * @param[filled] into The list of crossing positions (0-1 along the line's length)
+     * @see http://blog.csharphelper.com/2010/03/28/determine-where-a-line-intersects-a-circle-in-c.aspx
+     * @see http://gamedev.stackexchange.com/questions/18333/circle-line-collision-detection-problem (jazzdawg)
+     */
+    static void FindLineCircleIntersections(const Position &c, SUMOReal radius, const Position &p1, const Position &p2,
+        std::vector<SUMOReal> &into);
+
 
     /** @brief returns the intersection point
      * of the (infinite) lines p11,p12 and p21,p22.

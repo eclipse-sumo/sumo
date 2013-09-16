@@ -216,56 +216,6 @@ MSDevice_BTreceiver::~MSDevice_BTreceiver() {
 }
 
 
-bool pointOnLine(const Position &p, const Position &from, const Position &to)
-{
-    if (p.x() >= MIN2(from.x(), to.x()) && p.x() <= MAX2(from.x(), to.x()) && 
-        p.y() >= MIN2(from.y(), to.y()) && p.y() <= MAX2(from.y(), to.y()))
-        return true;
-    return false;
-}
-
-
-// from http://blog.csharphelper.com/2010/03/28/determine-where-a-line-intersects-a-circle-in-c.aspx
-// and http://gamedev.stackexchange.com/questions/18333/circle-line-collision-detection-problem (jazzdawg)
-int FindLineCircleIntersections(const Position &c, SUMOReal radius, const Position &p1, const Position &p2,
-    std::vector<SUMOReal> &into)
-{
-    //float dx, dy, A, B, C, det, t;
-
-    SUMOReal dx = p2.x() - p1.x();
-    SUMOReal dy = p2.y() - p1.y();
-
-    SUMOReal A = dx * dx + dy * dy;
-    SUMOReal B = 2 * (dx * (p1.x() - c.x()) + dy * (p1.y() - c.y()));
-    SUMOReal C = (p1.x() - c.x()) * (p1.x() - c.x()) + (p1.y() - c.y()) * (p1.y() - c.y()) - radius * radius;
-
-    SUMOReal det = B * B - 4 * A * C;
-    if ((A <= 0.0000001) || (det < 0)) {
-        // No real solutions.
-        return 0;
-    } else if (det == 0) {
-        // One solution.
-        SUMOReal t = -B / (2 * A);
-        Position intersection(p1.x() + t * dx, p1.y() + t * dy);
-        if(pointOnLine(intersection, p1, p2)) {
-            into.push_back(t);
-        }
-        return 1;
-    } else {
-        // Two solutions.
-        SUMOReal t = (float)((-B + sqrt(det)) / (2 * A));
-        Position intersection(p1.x() + t * dx, p1.y() + t * dy);
-        if(pointOnLine(intersection, p1, p2)) {
-            into.push_back(t);
-        }
-        t = (float)((-B - sqrt(det)) / (2 * A));
-        intersection.set(p1.x() + t * dx, p1.y() + t * dy);
-        if(pointOnLine(intersection, p1, p2)) {
-            into.push_back(t);
-        }
-        return 2;
-    }
-}
 
 
 void 
@@ -368,7 +318,7 @@ MSDevice_BTreceiver::updateNeighbors() {
             if(DEBUG_OUTPUT) std::cout << " " << otherP1 << " " << otherP2 << std::endl;
             // find crossing points
             std::vector<SUMOReal> intersections;
-            FindLineCircleIntersections(egoP1, myRange, otherP1, otherP2, intersections);
+            GeomHelper::FindLineCircleIntersections(egoP1, myRange, otherP1, otherP2, intersections);
             int count = intersections.size();
             if(DEBUG_OUTPUT) std::cout << " " << count << " " 
                 << (*j)->getPosition().distanceTo(static_cast<const MSVehicle&>(myHolder).getPosition()) << " " 
@@ -440,7 +390,6 @@ MSDevice_BTreceiver::updateNeighbors() {
             myCurrentlySeen.erase(i++);
         }
     }
-    return; // keep the device
 }
 
 
