@@ -153,6 +153,7 @@ for platform in ["Win32", "x64"]:
                     print >> log, "I/O error(%s): %s" % (errno, strerror)
         zipf.close()
         wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), platformSuffix=programSuffix)
+        shutil.copy2(binaryZip, options.remoteDir)
     except IOError, (errno, strerror):
         print >> log, "Warning: Could not zip to %s!" % binaryZip
         print >> log, "I/O error(%s): %s" % (errno, strerror)
