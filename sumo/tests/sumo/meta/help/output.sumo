@@ -133,6 +133,8 @@ Communication Options:
   --device.btreceiver.deterministic    The 'btreceiver' devices are set
                                          deterministic using a fraction of 1000
   --device.btreceiver.range FLOAT      The range of the bt receiver
+  --device.btreceiver.all-recognitions  Whether all recognition point shall be
+                                         written
   --device.btsender.probability FLOAT  The probability for a vehicle to have a
                                          'btsender' device
   --device.btsender.explicit STR       Assign a 'btsender' device to named
