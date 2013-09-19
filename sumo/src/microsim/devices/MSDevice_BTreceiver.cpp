@@ -74,6 +74,9 @@ MSDevice_BTreceiver::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.btreceiver.range", new Option_Float(300));
     oc.addDescription("device.btreceiver.range", "Communication", "The range of the bt receiver");
+
+    oc.doRegister("device.btreceiver.all-recognitions", new Option_Bool(false));
+    oc.addDescription("device.btreceiver.all-recognitions", "Communication", "Whether all recognition point shall be written");
 }
 
 
@@ -172,7 +175,9 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
             leaveRange(currentlySeen, seen, (*i)->position, (*i)->speed, (*j).first, vehicle->getPosition(), vehicle->getSpeed(), 0, true);
         }
         // write results
-        if(OptionsCont::getOptions().isSet("bt-output")) {
+        OptionsCont &oc = OptionsCont::getOptions();
+        bool allRecognitions = oc.getBool("device.btreceiver.all-recognitions");
+        if(oc.isSet("bt-output")) {
             OutputDevice& os = OutputDevice::getDeviceByOption("bt-output");
             os.openTag("bt").writeAttr("id", (*i)->id);
             for(std::map<std::string, std::vector<SeenDevice*> >::const_iterator j=seen.begin(); j!=seen.end(); ++j) {
@@ -190,6 +195,9 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
                             .writeAttr("observerPos", (*l)->observerPos).writeAttr("observerSpeed", (*l)->observerSpeed)
                             .writeAttr("seenPos", (*l)->seenPos).writeAttr("seenSpeed", (*l)->seenSpeed)
                             .closeTag();
+                        if(!allRecognitions) {
+                            break;
+                        }
                     }
                     os.closeTag();
                 }

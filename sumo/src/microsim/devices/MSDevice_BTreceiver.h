@@ -215,11 +215,29 @@ protected:
         SUMOReal tOffset, bool remove);
 
 
-
+    /** @brief Determines whether the other vehicle got visible until the given time
+     * @param[in] otherID The ID of the other vehicle
+     * @param[in] tEnd The end of contact
+     * @param[changed] currentlySeen Contact information, updated if the sender was recognized
+     * @return The recognition time
+     */
     static SUMOReal recognizedAt(const std::string &otherID, SUMOReal tEnd, std::map<std::string, SeenDevice*> &currentlySeen);
+
+
+    /** @brief Adds a point of recognition
+     * @param[in] thisPos The receiver's position at the time
+     * @param[in] thisSpeed The receiver's speed at the time
+     * @param[in] otherID The ID of the entering sender
+     * @param[in] otherPos The position of the entering sender
+     * @param[in] otherSpeed The speed of the entering sender
+     * @param[in] tOffset The time offset to the current time step
+     * @param[filled] currentlySeen The contact information storage for saving the contact point
+     */
     static void addRecognitionPoint(const Position &thisPos, SUMOReal thisSpeed, 
         const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal t, 
         std::map<std::string, SeenDevice*> &currentlySeen);
+
+
 private:
     /** @brief Constructor
      *
