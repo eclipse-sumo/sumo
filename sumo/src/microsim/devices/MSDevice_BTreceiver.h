@@ -161,10 +161,24 @@ public:
     /** @brief Returns the list of meetings so far
      * @return the map from ID of holder to the list of meetings
      */
-    const std::map<std::string, std::vector<SeenDevice*> > getSeen() const {
+    const std::map<std::string, std::vector<SeenDevice*> > &getSeen() const {
         return mySeen;
     }
 
+
+    /** @brief Clears the given containers deleting the stored items
+     * @param[in] c The currently seen container to clear
+     * @param[in] s The seen container to clear
+     */
+    static void cleanUp(std::map<std::string, SeenDevice*> &c, std::map<std::string, std::vector<SeenDevice*> > &s);
+
+
+    /** @brief Clears containers after copying them
+     */
+    void unref() {
+        myCurrentlySeen.clear();
+        mySeen.clear();
+    }
 
 
 protected:

@@ -128,6 +128,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::vehicleStateChanged(const SUMOVehicle* co
             MSDevice_BTreceiver *device = static_cast<MSDevice_BTreceiver*>(vehicle->getDevice(typeid(MSDevice_BTreceiver)));
             myArrivedReceiverVehicles.insert(new ArrivedVehicleInformation(vehicle->getID(), 
                 vehicle->getSpeed(), vehicle->getPosition(), device->getCurrentlySeen(), device->getSeen()));
+            device->unref();
             myRunningReceiverVehicles.erase(i);
         }
         i = myRunningSenderVehicles.find(vehicle);
@@ -204,6 +205,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
             }
             os.closeTag();
         }
+        MSDevice_BTreceiver::cleanUp((*i)->currentlySeen, (*i)->seen);
         delete *i;
     }
     myArrivedReceiverVehicles.clear();
@@ -229,18 +231,23 @@ MSDevice_BTreceiver::MSDevice_BTreceiver(SUMOVehicle& holder, const std::string&
 
 
 MSDevice_BTreceiver::~MSDevice_BTreceiver() {
-    /*
-    for(std::map<std::string, SeenDevice*>::iterator i=myCurrentlySeen.begin(); i!=myCurrentlySeen.end(); ++i) {
+    cleanUp(myCurrentlySeen, mySeen);
+}
+
+
+void
+MSDevice_BTreceiver::cleanUp(std::map<std::string, MSDevice_BTreceiver::SeenDevice*> &c, 
+                             std::map<std::string, std::vector<MSDevice_BTreceiver::SeenDevice*> > &s) {
+    for(std::map<std::string, SeenDevice*>::iterator i=c.begin(); i!=c.end(); ++i) {
         delete (*i).second;
     }
-    myCurrentlySeen.clear();
-    for(std::map<std::string, std::vector<SeenDevice*> >::iterator i=mySeen.begin(); i!=mySeen.end(); ++i) {
+    c.clear();
+    for(std::map<std::string, std::vector<SeenDevice*> >::iterator i=s.begin(); i!=s.end(); ++i) {
         for(std::vector<SeenDevice*>::iterator j=(*i).second.begin(); j!=(*i).second.end(); ++j) {
             delete *j;
         }
     }
-    mySeen.clear();
-    */
+    s.clear();
 }
 
 
