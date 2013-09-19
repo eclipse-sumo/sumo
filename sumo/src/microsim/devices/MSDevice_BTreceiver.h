@@ -252,6 +252,15 @@ protected:
         std::map<std::string, SeenDevice*> &currentlySeen);
 
 
+    /** @brief Writes the output
+     * @param[in] id The id of the receiver
+     * @param[in] seen The information about seen senders
+     * @param[in] allRecognitions Whether all recognitions shall be written
+     */
+    static void writeOutput(const std::string &id, const std::map<std::string, std::vector<SeenDevice*> > &seen, 
+        bool allRecognitions);
+
+
 private:
     /** @brief Constructor
      *
@@ -351,6 +360,9 @@ private:
 
     /// @brief A random number generator used to determine whether the opposite was recognized
     static MTRand myRecognitionRNG;
+
+    /// @brief The static updater
+    static BTreceiverUpdate *myUpdater;
 
 private:
     /// @brief Invalidated copy constructor.
