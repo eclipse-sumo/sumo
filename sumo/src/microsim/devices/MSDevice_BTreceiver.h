@@ -34,6 +34,7 @@
 #include <microsim/MSNet.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Command.h>
+#include <utils/common/RandHelper.h>
 
 
 // ===========================================================================
@@ -124,10 +125,15 @@ public:
          * @param[in] meetingBegin_ Description of the meeting's begin
          */
         SeenDevice(const MeetingPoint& meetingBegin_)
-            : meetingBegin(meetingBegin_), meetingEnd(meetingBegin_) {}
+            : meetingBegin(meetingBegin_), meetingEnd(meetingBegin_), lastView(meetingBegin_.t) {}
 
         /// @brief Destructor
-        ~SeenDevice() {}
+        ~SeenDevice() {
+            for(std::vector<MeetingPoint*>::iterator i=recognitionPoints.begin(); i!=recognitionPoints.end(); ++i) {
+                delete *i;
+            }
+            recognitionPoints.clear();
+        }
 
 
     public:
@@ -135,6 +141,10 @@ public:
         MeetingPoint meetingBegin;
         /// @brief Description of the meeting's end
         MeetingPoint meetingEnd;
+        /// @brief Last recognition point
+        SUMOReal lastView;
+        /// @brief List of recognition points
+        std::vector<MeetingPoint*> recognitionPoints;
 
     };
 
@@ -206,6 +216,10 @@ protected:
 
 
 
+    static SUMOReal recognizedAt(const std::string &otherID, SUMOReal tEnd, std::map<std::string, SeenDevice*> &currentlySeen);
+    static void addRecognitionPoint(const Position &thisPos, SUMOReal thisSpeed, 
+        const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal t, 
+        std::map<std::string, SeenDevice*> &currentlySeen);
 private:
     /** @brief Constructor
      *
@@ -303,6 +317,8 @@ private:
     };
 
 
+    /// @brief A random number generator used to determine whether the opposite was recognized
+    static MTRand myRecognitionRNG;
 
 private:
     /// @brief Invalidated copy constructor.
