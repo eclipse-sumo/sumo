@@ -20,17 +20,18 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os, sys
 import math
 from xml.sax import saxutils, parse, handler
 from copy import copy
 from itertools import *
-import lane, edge, node, connection, roundabout
-from lane import Lane
-from edge import Edge
-from node import Node
-from connection import Connection
-from roundabout import Roundabout
+from . import lane, edge, node, connection, roundabout
+from .lane import Lane
+from .edge import Edge
+from .node import Node
+from .connection import Connection
+from .roundabout import Roundabout
 
 
 class TLS:
@@ -256,7 +257,7 @@ class Net:
 
     def getLocationOffset(self):
         """ offset to be added after converting from geo-coordinates to UTM"""
-        return map(float,self._location["netOffset"].split(","))
+        return list(map(float,self._location["netOffset"].split(",")))
 
 
     def convertLatLon2XY(self, lat, lon):
@@ -282,25 +283,25 @@ class NetReader(handler.ContentHandler):
         if name == 'location':
             self._net.setLocation(attrs["netOffset"], attrs["convBoundary"], attrs["origBoundary"], attrs["projParameter"])
         if name == 'edge':
-            if not attrs.has_key('function') or attrs['function'] != 'internal':
+            if 'function' not in attrs or attrs['function'] != 'internal':
                 prio = -1
-                if attrs.has_key('priority'):
+                if 'priority' in attrs:
                     prio = int(attrs['priority'])
                 function = ""
-                if attrs.has_key('function'):
+                if 'function' in attrs:
                     function = attrs['function']
                 name = ""
-                if attrs.has_key('name'):
+                if 'name' in attrs:
                     name = attrs['name']
                 self._currentEdge = self._net.addEdge(attrs['id'],
                     attrs['from'], attrs['to'], prio, function, name)
-                if attrs.has_key('shape'):
+                if 'shape' in attrs:
                     self.processShape(self._currentEdge, attrs['shape'])
             else:
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge!=None:
             self._currentLane = self._net.addLane(self._currentEdge, float(attrs['speed']), float(attrs['length']))
-            if attrs.has_key('shape'):
+            if 'shape' in attrs:
                 self._currentShape = attrs['shape'] # deprecated: at some time, this is mandatory
             else:
                 self._currentShape = ""
@@ -319,7 +320,7 @@ class NetReader(handler.ContentHandler):
             if lid[0]!=':' and lid!="SUMO_NO_DESTINATION" and self._currentEdge:
                 connected = self._net.getEdge(lid[:lid.rfind('_')])
                 tolane = int(lid[lid.rfind('_')+1:])
-                if attrs.has_key('tl') and attrs['tl']!="":
+                if 'tl' in attrs and attrs['tl']!="":
                     tl = attrs['tl']
                     tllink = int(attrs['linkIdx'])
                     tlid = attrs['tl']
@@ -338,7 +339,7 @@ class NetReader(handler.ContentHandler):
             toEdge = self._net.getEdge(attrs['to'])
             fromLane = fromEdge.getLane(int(attrs['fromLane']))
             toLane = toEdge.getLane(int(attrs['toLane']))
-            if attrs.has_key('tl') and attrs['tl']!="":
+            if 'tl' in attrs and attrs['tl']!="":
                 tl = attrs['tl']
                 tllink = int(attrs['linkIndex'])
                 tls = self._net.addTLS(tl, fromLane, toLane, tllink)
@@ -400,10 +401,10 @@ def readNet(filename, **others):
     netreader = NetReader(**others)
     try:
         if not os.path.isfile(filename):
-            print >> sys.stderr, "Network file '%s' not found" % filename
+            print("Network file '%s' not found" % filename, file=sys.stderr)
             sys.exit(1)
         parse(filename, netreader)
     except KeyError:
-        print >> sys.stderr, "Please mind that the network format has changed in 0.13.0, you may need to update your network!"
+        print("Please mind that the network format has changed in 0.13.0, you may need to update your network!", file=sys.stderr)
         sys.exit(1)
     return netreader.getNet()

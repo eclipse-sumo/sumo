@@ -16,15 +16,17 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import print_function
+import datetime
 import sumolib.output
 import sumolib.net
-from datetime import datetime, timedelta
+
 TAXI_STATUS_FREE_FLOW = "70"
 
 def fcd2gpsdat(inpFCD, outSTRM, further):
   date = further["base-date"]
   for timestep in inpFCD:
     if timestep.vehicle:
-      mtime = str(date + timedelta(seconds=int(float(timestep.time)))) # does not work with subseconds
+      mtime = str(date + datetime.timedelta(seconds=int(float(timestep.time)))) # does not work with subseconds
       for v in timestep.vehicle:
-        print >> outSTRM, '\t'.join([v.id, mtime, str(v.x), str(v.y), TAXI_STATUS_FREE_FLOW,str(float(v.speed)*3.6)])
+        print('\t'.join([v.id, mtime, str(v.x), str(v.y), TAXI_STATUS_FREE_FLOW,str(float(v.speed)*3.6)]), file=outSTRM)

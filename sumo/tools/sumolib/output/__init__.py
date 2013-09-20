@@ -17,13 +17,15 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import print_function
 import sys
-import dump, inductionloop
+from . import dump, inductionloop
 import re
 import xml.dom
 from xml.dom import pulldom
 from collections import namedtuple, defaultdict
 from keyword import iskeyword
+from functools import reduce
 
 
 def compound_object(element_name, attrnames):
@@ -111,11 +113,11 @@ def _prefix_keyword(name, warn=False):
         if result == '':
             result == 'attr_'
         if warn:
-            print >>sys.stderr, "Warning: Renaming attribute '%s' to '%s' because it contains illegal characters" % (name, result)
+            print("Warning: Renaming attribute '%s' to '%s' because it contains illegal characters" % (name, result), file=sys.stderr)
     if iskeyword(name):
         result = 'attr_' + name
         if warn:
-            print >>sys.stderr, "Warning: Renaming attribute '%s' to '%s' because it conflicts with a python keyword" % (name, result)
+            print("Warning: Renaming attribute '%s' to '%s' because it conflicts with a python keyword" % (name, result), file=sys.stderr)
     return result
 
 
@@ -131,7 +133,7 @@ def average(elements, attrname):
     if elements:
         return sum(elements, attrname) / len(elements)
     else:
-        raise "average of 0 elements is not defined"
+        raise Exception("average of 0 elements is not defined")
 
 
 def parse_fast(xmlfile, element_name, attrnames, warn=False):
