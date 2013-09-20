@@ -540,6 +540,7 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
 
             }
             if (finalIncoming.size() > 4) {
+                std::sort(nodeIDs.begin(), nodeIDs.end());
                 WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex");
             } else {
                 clusters.push_back(cluster);
