@@ -343,6 +343,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_BTreceiver.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_BTsender.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_Example.cpp"
 				>
 			</File>
@@ -374,6 +382,14 @@
 			>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_BTreceiver.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_BTsender.h"
 				>
 			</File>
 			<File
