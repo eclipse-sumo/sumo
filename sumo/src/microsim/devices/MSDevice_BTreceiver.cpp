@@ -106,6 +106,19 @@ MSDevice_BTreceiver::BTreceiverUpdate::BTreceiverUpdate() {
 
 
 MSDevice_BTreceiver::BTreceiverUpdate::~BTreceiverUpdate() {
+    for(std::set<MSVehicle*>::iterator i=myRunningReceiverVehicles.begin(); i!=myRunningReceiverVehicles.end(); ++i) {
+            MSDevice_BTreceiver *device = static_cast<MSDevice_BTreceiver*>((*i)->getDevice(typeid(MSDevice_BTreceiver)));
+            myArrivedReceiverVehicles.insert(new ArrivedVehicleInformation((*i)->getID(), 
+                (*i)->getSpeed(), (*i)->getPosition(), device->getCurrentlySeen(), device->getSeen()));
+            device->unref();
+            myRunningReceiverVehicles.erase(i);
+    }
+    for(std::set<MSVehicle*>::iterator i=myRunningSenderVehicles.begin(); i!=myRunningSenderVehicles.end(); ++i) {
+            myArrivedSenderVehicles.insert(new ArrivedVehicleInformation((*i)->getID(), 
+                (*i)->getSpeed(), (*i)->getPosition(), std::map<std::string, SeenDevice*>(), std::map<std::string, std::vector<SeenDevice*> >()));
+            myRunningSenderVehicles.erase(i);
+    }
+    execute(MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
@@ -426,6 +439,7 @@ MSDevice_BTreceiver::updateNeighbors() {
 
 SUMOReal
 MSDevice_BTreceiver::recognizedAt(const std::string &otherID, SUMOReal tEnd, std::map<std::string, SeenDevice*> &currentlySeen) {
+    /// @todo: remodel into a function that gives the time of recognition, too
     SUMOReal t = tEnd - currentlySeen.find(otherID)->second->lastView;
     if(myRecognitionRNG.rand() <= 1-exp(-0.24*pow(t, 2.68))) {
         currentlySeen.find(otherID)->second->lastView = tEnd;
