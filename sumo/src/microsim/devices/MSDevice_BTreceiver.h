@@ -80,8 +80,33 @@ public:
 
 
 
+    /// @name Methods inherited from MSMoveReminder.
+    /// @{
+
+    /** @brief Adds the vehicle to running vehicles if it (re-) enters the network
+     *
+     * @param[in] veh The entering vehicle.
+     * @param[in] reason how the vehicle enters the lane
+     * @return Always true
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
+     */
     bool notifyEnter(SUMOVehicle& veh, Notification reason);
+
+
+    /** @brief Moves (the known) vehicle from running to arrived vehicles' list
+     *
+     * @param[in] veh The leaving vehicle.
+     * @param[in] lastPos Position on the lane when leaving.
+     * @param[in] isArrival whether the vehicle arrived at its destination
+     * @param[in] isLaneChange whether the vehicle changed from the lane
+     * @see leaveDetectorByLaneChange
+     * @see MSMoveReminder
+     * @see MSMoveReminder::notifyLeave
+     */
     bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason);
+    //@}
+
 
 
     /** @class MeetingPoint
@@ -175,14 +200,6 @@ public:
      * @param[in] s The seen container to clear
      */
     static void cleanUp(std::map<std::string, SeenDevice*> &c, std::map<std::string, std::vector<SeenDevice*> > &s);
-
-
-    /** @brief Clears containers after copying them
-     */
-    void unref() {
-        myCurrentlySeen.clear();
-        mySeen.clear();
-    }
 
 
 protected:
@@ -344,7 +361,7 @@ private:
 
 
     /// @brief A random number generator used to determine whether the opposite was recognized
-    static MTRand myRecognitionRNG;
+    static MTRand sRecognitionRNG;
 
     /// @brief The list of running receivers
     static std::set<MSVehicle*> sRunningVehicles;

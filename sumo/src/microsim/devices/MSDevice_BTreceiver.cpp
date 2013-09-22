@@ -51,7 +51,7 @@
 // static members
 // ===========================================================================
 bool MSDevice_BTreceiver::myWasInitialised = false;
-MTRand MSDevice_BTreceiver::myRecognitionRNG;
+MTRand MSDevice_BTreceiver::sRecognitionRNG;
 std::set<MSVehicle*> MSDevice_BTreceiver::sRunningVehicles;
 std::set<MSDevice_BTreceiver::ArrivedVehicleInformation*> MSDevice_BTreceiver::sArrivedVehicles;
 
@@ -83,7 +83,7 @@ MSDevice_BTreceiver::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>&
         if(!myWasInitialised) {
             new BTreceiverUpdate();
             myWasInitialised = true;
-            myRecognitionRNG.seed(oc.getInt("seed"));
+            sRecognitionRNG.seed(oc.getInt("seed"));
         }
     }
 }
@@ -401,7 +401,7 @@ SUMOReal
 MSDevice_BTreceiver::recognizedAt(const std::string &otherID, SUMOReal tEnd, std::map<std::string, SeenDevice*> &currentlySeen) {
     /// @todo: remodel into a function that gives the time of recognition, too
     SUMOReal t = tEnd - currentlySeen.find(otherID)->second->lastView;
-    if(myRecognitionRNG.rand() <= 1-exp(-0.24*pow(t, 2.68))) {
+    if(sRecognitionRNG.rand() <= 1-exp(-0.24*pow(t, 2.68))) {
         currentlySeen.find(otherID)->second->lastView = tEnd;
         return tEnd;
     }
