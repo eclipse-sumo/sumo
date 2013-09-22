@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 09/21/13 00:24:44 by SUMO sumo Version dev-SVN-r14730
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <bt-output value="bt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="5"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <communication>
+        <device.btreceiver.probability value="1"/>
+        <device.btreceiver.range value="50"/>
+        <device.btreceiver.all-recognitions value="true"/>
+        <device.btsender.probability value="1"/>
+    </communication>
+
+</configuration>
+-->
+
+<bt-output>
+    <bt id="1">
+        <seen id="2" tBeg="2.50" observerPosBeg="84.94,5001.65" observerSpeedBeg="10.00" seenPosBeg="34.94,5001.65" seenSpeedBeg="10.00" tEnd="5.00" observerPosEnd="69.93,5001.65" observerSpeedEnd="10.00" seenPosEnd="49.95,5001.65" seenSpeedEnd="10.00">
+            <recognitionPoint t="5.00" observerPos="69.93,5001.65" observerSpeed="10.00" seenPos="49.95,5001.65" seenSpeed="10.00"/>
+        </seen>
+    </bt>
+    <bt id="2">
+        <seen id="1" tBeg="2.50" observerPosBeg="34.94,5001.65" observerSpeedBeg="10.00" seenPosBeg="84.94,5001.65" seenSpeedBeg="10.00" tEnd="5.00" observerPosEnd="49.95,5001.65" observerSpeedEnd="10.00" seenPosEnd="69.93,5001.65" seenSpeedEnd="10.00">
+            <recognitionPoint t="5.00" observerPos="49.95,5001.65" observerSpeed="10.00" seenPos="69.93,5001.65" seenSpeed="10.00"/>
+        </seen>
+    </bt>
+</bt-output>
