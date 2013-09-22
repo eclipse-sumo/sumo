@@ -80,6 +80,10 @@ public:
 
 
 
+    bool notifyEnter(SUMOVehicle& veh, Notification reason);
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason);
+
+
     /** @class MeetingPoint
      * @brief Holds the information about exact positions/speeds/time of the begin/end of a meeting
      */
@@ -261,7 +265,7 @@ protected:
         bool allRecognitions);
 
 
-private:
+protected:
     /** @brief Constructor
      *
      * @param[in] holder The vehicle that holds this device
@@ -322,7 +326,7 @@ private:
     /** @class BTreceiverUpdate
      * @brief A global update performer
      */
-    class BTreceiverUpdate : public MSNet::VehicleStateListener, public Command {
+    class BTreceiverUpdate : public Command {
     public:
         /// @brief Constructor
         BTreceiverUpdate();
@@ -330,30 +334,11 @@ private:
         /// @brief Destructor
         ~BTreceiverUpdate();
 
-        /** @brief Informs the updater about a vehicle entering/leaving the simulation
-         * @pram[in] vehicle The vehicle that changes it's state
-         * @pram[in] to the new state of this vehicle
-         */
-        void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
-
         /** @brief Performs the update
          * @param[in] currentTime The current simulation time
          * @return Always DELTA_T - the time to being called back
          */
         SUMOTime execute(SUMOTime currentTime);
-
-
-        /// @brief The list of running receivers
-        std::set<MSVehicle*> myRunningReceiverVehicles;
-
-        /// @brief The list of running senders
-        std::set<MSVehicle*> myRunningSenderVehicles;
-
-        /// @brief The list of arrived receivers
-        std::set<ArrivedVehicleInformation*> myArrivedReceiverVehicles;
-
-        /// @brief The list of arrived senders
-        std::set<ArrivedVehicleInformation*> myArrivedSenderVehicles;
 
     };
 
@@ -361,8 +346,12 @@ private:
     /// @brief A random number generator used to determine whether the opposite was recognized
     static MTRand myRecognitionRNG;
 
-    /// @brief The static updater
-    static BTreceiverUpdate *myUpdater;
+    /// @brief The list of running receivers
+    static std::set<MSVehicle*> sRunningVehicles;
+
+    /// @brief The list of arrived receivers
+    static std::set<ArrivedVehicleInformation*> sArrivedVehicles;
+
 
 private:
     /// @brief Invalidated copy constructor.

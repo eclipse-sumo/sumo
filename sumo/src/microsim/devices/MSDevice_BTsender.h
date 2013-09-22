@@ -30,8 +30,11 @@
 #include <config.h>
 #endif
 
+#include <set>
+#include <string>
 #include "MSDevice.h"
 #include <utils/common/SUMOTime.h>
+#include <utils/geom/Position.h>
 
 
 // ===========================================================================
@@ -76,6 +79,33 @@ public:
     ~MSDevice_BTsender();
 
 
+    bool notifyEnter(SUMOVehicle& veh, Notification reason);
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason);
+
+    /** @class ArrivedVehicleInformation
+     * @brief Stores the information of a removed device
+     */
+    class ArrivedVehicleInformation {
+    public:
+        /** @brief Constructor
+         * @param[in] _id The id of the removed vehicle
+         * @param[in] _speed The speed of the removed vehicle at removal time
+         * @param[in] _position The position of the removed vehicle at removal time
+         */
+        ArrivedVehicleInformation(const std::string &_id, SUMOReal _speed, const Position &_position) 
+            : id(_id), speed(_speed), position(_position) {}
+
+        /// @brief Destructor
+        ~ArrivedVehicleInformation() {}
+
+        /// @brief The id of the removed vehicle
+        std::string id;
+        /// @brief The speed of the removed vehicle at removal time
+        SUMOReal speed;
+        /// @brief The position of the removed vehicle at removal time
+        Position position;
+
+    };
 private:
     /** @brief Constructor
      *
@@ -84,6 +114,11 @@ private:
      */
     MSDevice_BTsender(SUMOVehicle& holder, const std::string& id);
 
+
+public: // !!!
+
+    static std::set<MSVehicle*> sRunningVehicles;
+    static std::set<ArrivedVehicleInformation*> sArrivedVehicles;
 
 private:
     /// @brief Invalidated copy constructor.

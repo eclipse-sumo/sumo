@@ -37,10 +37,18 @@
 #include <microsim/MSVehicle.h>
 #include "MSDevice_Tripinfo.h"
 #include "MSDevice_BTsender.h"
+#include "MSDevice_BTreceiver.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
+
+
+// ===========================================================================
+// static members
+// ===========================================================================
+std::set<MSVehicle*> MSDevice_BTsender::sRunningVehicles;
+std::set<MSDevice_BTsender::ArrivedVehicleInformation*> MSDevice_BTsender::sArrivedVehicles;
 
 
 // ===========================================================================
@@ -75,6 +83,25 @@ MSDevice_BTsender::MSDevice_BTsender(SUMOVehicle& holder, const std::string& id)
 MSDevice_BTsender::~MSDevice_BTsender() {
 }
 
+
+bool 
+MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason) {
+    if(reason==MSMoveReminder::NOTIFICATION_TELEPORT || reason==MSMoveReminder::NOTIFICATION_PARKING || reason==MSMoveReminder::NOTIFICATION_DEPARTED) {
+        sRunningVehicles.insert(static_cast<MSVehicle*>(&veh));
+    }
+    return true;
+}
+
+
+bool 
+MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason) {
+    if (reason >= MSMoveReminder::NOTIFICATION_TELEPORT) {
+        MSVehicle *vehicle = static_cast<MSVehicle*>(&veh);
+        sArrivedVehicles.insert(new ArrivedVehicleInformation(vehicle->getID(), vehicle->getSpeed(), vehicle->getPosition()));
+        sRunningVehicles.erase(vehicle);
+    }
+    return true;
+}
 
 
 /****************************************************************************/
