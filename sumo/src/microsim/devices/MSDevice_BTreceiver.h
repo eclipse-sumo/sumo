@@ -370,6 +370,7 @@ private:
     static std::set<ArrivedVehicleInformation*> sArrivedVehicles;
 
 
+
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_BTreceiver(const MSDevice_BTreceiver&);

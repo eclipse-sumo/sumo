@@ -73,14 +73,45 @@ public:
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
 
+    /// for accessing the maps of running/arrived vehicles
+    friend class MSDevice_BTreceiver;
+
+
 
 public:
     /// @brief Destructor.
     ~MSDevice_BTsender();
 
 
+
+    /// @name Methods inherited from MSMoveReminder.
+    /// @{
+
+    /** @brief Adds the vehicle to running vehicles if it (re-) enters the network
+     *
+     * @param[in] veh The entering vehicle.
+     * @param[in] reason how the vehicle enters the lane
+     * @return Always true
+     * @see MSMoveReminder::notifyEnter
+     * @see MSMoveReminder::Notification
+     */
     bool notifyEnter(SUMOVehicle& veh, Notification reason);
+
+
+    /** @brief Moves (the known) vehicle from running to arrived vehicles' list
+     *
+     * @param[in] veh The leaving vehicle.
+     * @param[in] lastPos Position on the lane when leaving.
+     * @param[in] isArrival whether the vehicle arrived at its destination
+     * @param[in] isLaneChange whether the vehicle changed from the lane
+     * @see leaveDetectorByLaneChange
+     * @see MSMoveReminder
+     * @see MSMoveReminder::notifyLeave
+     */
     bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason);
+    /// @}
+
+
 
     /** @class ArrivedVehicleInformation
      * @brief Stores the information of a removed device
@@ -106,6 +137,9 @@ public:
         Position position;
 
     };
+
+
+
 private:
     /** @brief Constructor
      *
@@ -115,10 +149,15 @@ private:
     MSDevice_BTsender(SUMOVehicle& holder, const std::string& id);
 
 
-public: // !!!
 
+protected:
+    /// @brief The list of running senders
     static std::set<MSVehicle*> sRunningVehicles;
+
+    /// @brief The list of arrived senders
     static std::set<ArrivedVehicleInformation*> sArrivedVehicles;
+
+
 
 private:
     /// @brief Invalidated copy constructor.
