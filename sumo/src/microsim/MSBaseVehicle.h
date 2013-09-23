@@ -281,7 +281,7 @@ protected:
     MSRouteIterator myCurrEdge;
 
     /// @brief A precomputed factor by which the driver wants to be faster than the speed limit
-    const SUMOReal myChosenSpeedFactor;
+    SUMOReal myChosenSpeedFactor;
 
 
     /// @name Move reminder structures

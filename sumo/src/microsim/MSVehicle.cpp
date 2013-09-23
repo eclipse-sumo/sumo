@@ -321,8 +321,13 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
     }
     if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > depLane->getVehicleMaxSpeed(this)) {
-        throw ProcessError("Departure speed for vehicle '" + pars->id +
-                           "' is too high for the departure lane '" + depLane->getID() + "'.");
+        if (type->getSpeedDeviation() > 0 && pars->departSpeed <= type->getSpeedFactor() * depLane->getSpeedLimit() * (2 * type->getSpeedDeviation() + 1.)) {
+            WRITE_WARNING("Choosing new speed factor for vehicle '" + pars->id + "' to match departure speed.");
+            myChosenSpeedFactor = type->computeChosenSpeedDeviation(MSVehicleControl::myVehicleParamsRNG, pars->departSpeed / (type->getSpeedFactor() * depLane->getSpeedLimit()));
+        } else {
+            throw ProcessError("Departure speed for vehicle '" + pars->id +
+                               "' is too high for the departure lane '" + depLane->getID() + "'.");
+        }
     }
     if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > type->getMaxSpeed()) {
         throw ProcessError("Departure speed for vehicle '" + pars->id +

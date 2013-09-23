@@ -70,12 +70,11 @@ MSVehicleType::~MSVehicleType() {
 
 
 SUMOReal
-MSVehicleType::computeChosenSpeedDeviation(MTRand& rng) const {
+MSVehicleType::computeChosenSpeedDeviation(MTRand& rng, const SUMOReal minDevFactor) const {
     // for speedDev = 0.1, most 95% of the vehicles will drive between 80% and 120% of speedLimit * speedFactor
     const SUMOReal devA = MIN2(SUMOReal(2.), RandHelper::randNorm(0, 1., rng));
     // avoid voluntary speeds below 20% of the requested speedFactor
-    return MAX2(0.2 * myParameter.speedFactor,
-                (devA * myParameter.speedDev + 1.) * myParameter.speedFactor);
+    return MAX2(minDevFactor, devA * myParameter.speedDev + 1.) * myParameter.speedFactor;
 }
 
 
