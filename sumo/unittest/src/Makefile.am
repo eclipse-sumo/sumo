@@ -10,21 +10,13 @@ INTERNAL_LIB = ../../src/internal/libinternal.a
 INTERNAL_TESTS = ./internal/HeightMapperTest.o
 endif
 
-if WITH_GDAL
-GDAL_LIBS = -l$(LIB_GDAL)
-endif
-
-if WITH_PROJ
-PROJ_LIBS = -l$(LIB_PROJ)
-endif
-
 
 if WITH_GTEST
 bin_PROGRAMS = sumo-unittest
 
 sumo_unittest_SOURCES = unittest_main.cpp
 
-sumo_unittest_LDFLAGS = $(GTEST_LDFLAGS) 
+sumo_unittest_LDFLAGS = $(GTEST_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_unittest_LDADD   = \
 ./utils/common/StringUtilsTest.o \
@@ -61,8 +53,6 @@ $(MESO_LIBS) \
 $(INTERNAL_LIB) \
 $(MEM_LIBS) \
 $(XERCES_LIBS) \
-$(GDAL_LIBS) \
-$(PROJ_LIBS) \
 $(LIB_GTEST)
 
 SUBDIRS = utils microsim netbuild $(UNITTEST_INTERNAL_DIRS)

@@ -207,21 +207,20 @@ fi
 
 dnl  ... for proj.4
 dnl   ... for libs
-LIB_PROJ="proj"
+PROJ_LDFLAGS="-lproj"
 AC_ARG_WITH([proj-libraries], [AS_HELP_STRING([--with-proj-libraries=DIR],[where the PROJ library is installed (overrides previous settings).])])
 if test x"$with_proj_libraries" = x; then
-   AC_CHECK_LIB([$LIB_PROJ], [main], [with_proj_libraries=yes],
+   AC_CHECK_LIB([proj], [main], [with_proj_libraries=yes],
                 [AC_MSG_WARN([proj-lib not found. Specify path with option --with-proj-libraries=DIR.])])
 else
    save_ldflags=$LDFLAGS
    LDFLAGS="-L$with_proj_libraries"
    export LDFLAGS
-   AC_CHECK_LIB([$LIB_PROJ], [main], [PROJ_LDFLAGS=$LDFLAGS],
+   AC_CHECK_LIB([proj], [main], [PROJ_LDFLAGS="$LDFLAGS $PROJ_LDFLAGS"],
                 [AC_MSG_ERROR([proj-lib not found in "$with_proj_libraries".])])
    LDFLAGS=$save_ldflags
-   AC_SUBST(PROJ_LDFLAGS)
 fi
-AC_SUBST(LIB_PROJ)
+AC_SUBST(PROJ_LDFLAGS)
 
 dnl   ... for includes
 AC_ARG_WITH([proj-includes], [AS_HELP_STRING([--with-proj-includes=DIR],[where the PROJ includes are (overrides previous settings).])])
@@ -237,7 +236,6 @@ else
    CPPFLAGS=$save_cppflags
 fi
 fi
-AM_CONDITIONAL([WITH_PROJ], [test x"$with_proj_includes" != x && test x"$with_proj_libraries" != x])
 if test x"$with_proj_includes" != x && test x"$with_proj_libraries" != x; then
    AC_DEFINE([HAVE_PROJ], [1], [defined if PROJ is available])
    ac_enabled="$ac_enabled PROJ"
@@ -248,43 +246,35 @@ fi
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for gdal
-dnl   ... for libs
 if test x"$with_proj_gdal" != xno; then
-LIB_GDAL="gdal"
-AC_ARG_WITH([gdal-libraries], [AS_HELP_STRING([--with-gdal-libraries=DIR],[where the GDAL library is installed (overrides previous settings).])])
-if test x"$with_gdal_libraries" = x; then
-   AC_CHECK_LIB([$LIB_GDAL], [main], [with_gdal_libraries=yes],
-                [AC_MSG_WARN([gdal-lib not found. Specify path with option --with-gdal-libraries=DIR.])])
+AC_ARG_WITH([gdal-config], 
+        [AS_HELP_STRING([--with-gdal-config=FILE], [specify an alternative gdal-config file])], 
+        [GDAL_CONFIG="$withval"], [GDAL_CONFIG=""])
+if test -z $GDAL_CONFIG; then
+    AC_PATH_PROG([GDAL_CONFIG], [gdal-config])
+    if test -z $GDAL_CONFIG; then
+        AC_MSG_ERROR([could not find gdal-config from libgdal within the current path. Specify path with option --with-gdal-config.])
+    fi    
 else
-   save_ldflags=$LDFLAGS
-   LDFLAGS="-L$with_gdal_libraries"
-   export LDFLAGS
-   AC_CHECK_LIB([$LIB_GDAL], [main], [GDAL_LDFLAGS=$LDFLAGS],
-                [AC_MSG_ERROR([gdal-lib not found in "$with_gdal_libraries".])])
-   LDFLAGS=$save_ldflags
-   AC_SUBST(GDAL_LDFLAGS)
+    if test -f $GDAL_CONFIG; then
+        AC_MSG_RESULT([Using user-specified gdal-config file: $GDAL_CONFIG])
+    else
+        AC_MSG_ERROR([the user-specified gdal-config file $GDAL_CONFIG does not exist])
+    fi
 fi
-AC_SUBST(LIB_GDAL)
 
-dnl   ... for includes
-AC_ARG_WITH([gdal-includes], [AS_HELP_STRING([--with-gdal-includes=DIR],[where the GDAL includes are (overrides previous settings).])])
+GDAL_CFLAGS="`$GDAL_CONFIG --cflags`"
+GDAL_LDFLAGS="`$GDAL_CONFIG --libs`"
+AC_SUBST([GDAL_LDFLAGS])
+
 save_cppflags=$CPPFLAGS
-if test x"$with_gdal_includes" = x; then
-    CPPFLAGS="$CPPFLAGS -I/usr/local/include/gdal -I/usr/include/gdal"
-    export CPPFLAGS
-    AC_CHECK_HEADER([ogr_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
-                                  with_gdal_includes=yes],
-                    [AC_MSG_WARN([gdal-includes not found. Specify path with option --with-gdal-includes=DIR.])])
-else
-    CPPFLAGS="-I$with_gdal_includes"
-    export CPPFLAGS
-    AC_CHECK_HEADER([ogr_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
-                    [AC_MSG_ERROR([gdal-includes not found in "$with_gdal_includes".])])
-fi
+CPPFLAGS="$GDAL_CFLAGS"
+export CPPFLAGS
+AC_CHECK_HEADER([ogr_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+                [AC_MSG_ERROR([gdal-includes not found.])])
 CPPFLAGS=$save_cppflags
 fi
-AM_CONDITIONAL([WITH_GDAL], [test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x])
-if test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x; then
+if test x"$GDAL_CFLAGS" != x && test x"$GDAL_LDFLAGS" != x; then
     AC_DEFINE([HAVE_GDAL], [1], [defined if GDAL is available])
     ac_enabled="$ac_enabled GDAL"
 else

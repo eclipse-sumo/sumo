@@ -1,13 +1,5 @@
 XERCES_LIBS = -l$(LIB_XERCES)
 
-if WITH_PROJ
-PROJ_LIBS = -l$(LIB_PROJ)
-endif
-
-if WITH_GDAL
-GDAL_LIBS = -l$(LIB_GDAL)
-endif
-
 if INTERNAL
 MESO_LIBS = ./mesosim/libmesosim.a
 MESOGUI_LIBS = ./mesogui/libmesogui.a ./osgview/libosgview.a
@@ -42,7 +34,7 @@ $(XERCES_LIBS)
 
 sumo_SOURCES = sumo_main.cpp
 
-sumo_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
+sumo_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
@@ -58,8 +50,7 @@ $(MESO_LIBS) \
 ./utils/shapes/libshapes.a \
 $(TRACI_LIBS) \
 $(COMMON_LIBS) \
-$(PYTHON_LIBS) \
-$(PROJ_LIBS)
+$(PYTHON_LIBS)
 
 
 netconvert_SOURCES = netconvert_main.cpp
@@ -76,15 +67,13 @@ netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/geom/libgeom.a \
 ./foreign/eulerspiral/libeulerspiral.a \
 $(COMMON_LIBS) \
-$(INTERNAL_LIBS) \
-$(GDAL_LIBS) \
-$(PROJ_LIBS)
+$(INTERNAL_LIBS)
 
 
 if WITH_GUI
 sumo_gui_SOURCES = guisim_main.cpp
 
-sumo_gui_LDFLAGS = $(FOX_LDFLAGS) $(sumo_LDFLAGS) $(X_LDFLAGS)
+sumo_gui_LDFLAGS = $(FOX_LDFLAGS) $(sumo_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 
 sumo_gui_LDADD =  ./gui/libgui.a \
 ./guinetload/libguinetload.a \
@@ -104,7 +93,6 @@ $(sumo_LDADD) \
 ./gui/GUIManipulator.o \
 ./gui/GUITLLogicPhasesTrackerWindow.o \
 $(OSG_LIBS) \
-$(GDAL_LIBS) \
 -l$(LIB_FOX)
 endif
 
