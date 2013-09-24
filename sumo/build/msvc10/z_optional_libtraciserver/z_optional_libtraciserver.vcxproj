@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -186,9 +186,9 @@
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\traci-server\TraCIServer.cpp" />
+    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Junction.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Lane.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.cpp" />
@@ -203,9 +203,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServer.h" />
+    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.h" />
-    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Junction.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Lane.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.h" />

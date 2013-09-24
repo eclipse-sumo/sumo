@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Quelldateien">
@@ -21,6 +21,9 @@
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+	  <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -31,9 +34,6 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-	<ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_POI.cpp">
@@ -65,6 +65,9 @@
     <ClInclude Include="..\..\..\src\traci-server\TraCIServer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+	  <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -78,9 +81,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-	 <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_POI.h">
