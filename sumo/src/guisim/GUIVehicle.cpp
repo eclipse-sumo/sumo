@@ -247,8 +247,8 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowFoes(FXObject*, FXSelector, void*) {
  * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type,
-                       SUMOReal speedFactor, int vehicleIndex) :
-    MSVehicle(pars, route, type, speedFactor, vehicleIndex),
+                       SUMOReal speedFactor) :
+    MSVehicle(pars, route, type, speedFactor),
     GUIGlObject(GLO_VEHICLE, pars->id) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices, 5);

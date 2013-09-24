@@ -138,11 +138,10 @@ public:
      * @param[in] route The vehicle's route
      * @param[in] type The vehicle's type
      * @param[in] speedFactor The factor for driven lane's speed limits
-     * @param[in] vehicleIndex The vehicle's running index
      * @exception ProcessError If a value is wrong
      */
     MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-              const MSVehicleType* type, SUMOReal speedFactor, int vehicleIndex);
+              const MSVehicleType* type, SUMOReal speedFactor);
 
     /// @brief Destructor.
     virtual ~MSVehicle();

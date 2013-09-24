@@ -286,8 +286,7 @@ MSVehicle::~MSVehicle() {
 MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSRoute* route,
                      const MSVehicleType* type,
-                     SUMOReal speedFactor,
-                     int /*vehicleIndex*/) :
+                     SUMOReal speedFactor) :
     MSBaseVehicle(pars, route, type, speedFactor),
     myWaitingTime(0),
     myState(0, 0), //

@@ -60,7 +60,7 @@ SUMOVehicle*
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                 const MSRoute* route, const MSVehicleType* type) {
     myLoadedVehNo++;
-    MSVehicle* built = new GUIVehicle(defs, route, type, type->computeChosenSpeedDeviation(myVehicleParamsRNG), myLoadedVehNo - 1);
+    MSVehicle* built = new GUIVehicle(defs, route, type, type->computeChosenSpeedDeviation(myVehicleParamsRNG));
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
     return built;
 }

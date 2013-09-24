@@ -82,7 +82,7 @@ public:
      * @exception ProcessError If a value is wrong
      */
     GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-               const MSVehicleType* type, SUMOReal speedFactor, int vehicleIndex);
+               const MSVehicleType* type, SUMOReal speedFactor);
 
 
     /// @brief destructor
