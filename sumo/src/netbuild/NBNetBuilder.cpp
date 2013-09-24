@@ -107,7 +107,7 @@ NBNetBuilder::applyOptions(OptionsCont& oc) {
 void
 NBNetBuilder::compute(OptionsCont& oc,
                       const std::set<std::string>& explicitTurnarounds,
-                      bool removeUnwishedNodes) {
+                      bool removeElements) {
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
 
 
@@ -169,7 +169,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
     }
     //
-    if (removeUnwishedNodes) {
+    if (removeElements) {
         unsigned int no = 0;
         const bool removeGeometryNodes = oc.exists("geometry.remove") && oc.getBool("geometry.remove");
         PROGRESS_BEGIN_MESSAGE("Removing empty nodes" + std::string(removeGeometryNodes ? " and geometry nodes" : ""));
@@ -190,10 +190,12 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
     // @note: removing geometry can create similar edges so joinSimilarEdges  must come afterwards
     // @note: likewise splitting can destroy similarities so joinSimilarEdges must come before
-    PROGRESS_BEGIN_MESSAGE("Joining similar edges");
-    myJoinedEdges.init(myEdgeCont);
-    myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
-    PROGRESS_DONE_MESSAGE();
+    if (removeElements) {
+        PROGRESS_BEGIN_MESSAGE("Joining similar edges");
+        myJoinedEdges.init(myEdgeCont);
+        myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
+        PROGRESS_DONE_MESSAGE();
+    }
     //
     if (oc.exists("geometry.split") && oc.getBool("geometry.split")) {
         PROGRESS_BEGIN_MESSAGE("Splitting geometry edges");

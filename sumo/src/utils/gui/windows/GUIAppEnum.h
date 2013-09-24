@@ -413,6 +413,8 @@ enum {
     MID_GNE_OPEN_ATTRIBUTE_EDITOR,
     /** split an edge */
     MID_GNE_SPLIT_EDGE,
+    /** reverse an edge */
+    MID_GNE_REVERSE_EDGE,
     /** set non-default geometry endpoint */
     MID_GNE_SET_EDGE_ENDPOINT,
     /** restore geometry endpoint to node position */
