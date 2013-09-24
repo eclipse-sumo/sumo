@@ -41,6 +41,8 @@ emissionclass unknown
 shape 
 MinGap 2.5
 width 2.0
+driving dist 3002.95289395
+driving dist 2D 1098.13130535
 {80: '2fi', 86: 9.657135966210626}
 step 3
 {80: '2fi', 86: 15.313460015063175}
@@ -87,6 +89,8 @@ emissionclass zero
 shape bicycle
 MinGap 1.1
 width 1.1
+driving dist 2980.22862056
+driving dist 2D 1075.40703196
 vehicles ['horiz']
 examining 1
 speed -1001.0
@@ -126,6 +130,8 @@ emissionclass unknown
 shape 
 MinGap 2.5
 width 2.0
+driving dist -1001.0
+driving dist 2D -1001.0
 routeID horizontal
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 ['horiz']

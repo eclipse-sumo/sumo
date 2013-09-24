@@ -52,6 +52,8 @@ def check(vehID):
     print "shape", traci.vehicle.getShapeClass(vehID)
     print "MinGap", traci.vehicle.getMinGap(vehID)
     print "width", traci.vehicle.getWidth(vehID)
+    print "driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.)
+    print "driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.)
 
 vehID = "horiz"
 check(vehID)
