@@ -256,9 +256,14 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
         // start or destination not contained in route
         return std::numeric_limits<SUMOReal>::max();
     }
-    if (fromEdge == toEdge && fromPos <= toPos) {
+    if (fromEdge == toEdge) {
         // destination position is on start edge
-        return (toPos - fromPos);
+        if (fromPos <= toPos) {
+            return toPos - fromPos;
+        } else if (std::find(it + 1, myEdges.end(), toEdge) == myEdges.end()) {
+            // we don't visit the edge again
+            return std::numeric_limits<SUMOReal>::max();
+        }
     }
     for (; it != end(); ++it) {
         if ((*it) == toEdge && !isFirstIteration) {
