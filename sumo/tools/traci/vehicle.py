@@ -358,10 +358,10 @@ def getDrivingDistance(vehID, edgeID, pos, laneID=0):
     
     .
     """
-    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1+4+1+4+len(edgeID)+4+1+1)
+    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1+4+1+4+len(edgeID) + 8+1+1)
     traci._message.string += struct.pack("!BiBi", tc.TYPE_COMPOUND, 2,
                                          tc.POSITION_ROADMAP, len(edgeID)) + edgeID
-    traci._message.string += struct.pack("!dBB", pos, laneID, REQUEST_DRIVINGDIST)
+    traci._message.string += struct.pack("!dBB", pos, laneID, tc.REQUEST_DRIVINGDIST)
     return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readDouble()
 
 def getDrivingDistance2D(vehID, x, y):
@@ -369,9 +369,9 @@ def getDrivingDistance2D(vehID, x, y):
     
     .
     """
-    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1+4+1+4+4+1)
+    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1+4+1+8+8+1)
     traci._message.string += struct.pack("!BiBddB", tc.TYPE_COMPOUND, 2,
-                                         tc.POSITION_2D, x, y, REQUEST_DRIVINGDIST)
+                                         tc.POSITION_2D, x, y, tc.REQUEST_DRIVINGDIST)
     return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readDouble()
 
 
