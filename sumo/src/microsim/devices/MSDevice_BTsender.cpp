@@ -86,7 +86,7 @@ MSDevice_BTsender::~MSDevice_BTsender() {
 
 bool 
 MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason) {
-    if(reason==MSMoveReminder::NOTIFICATION_TELEPORT || reason==MSMoveReminder::NOTIFICATION_PARKING || reason==MSMoveReminder::NOTIFICATION_DEPARTED) {
+    if(reason==MSMoveReminder::NOTIFICATION_DEPARTED) {
         sRunningVehicles.insert(static_cast<MSVehicle*>(&veh));
     }
     return true;
@@ -95,7 +95,7 @@ MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason) {
 
 bool 
 MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason) {
-    if (reason >= MSMoveReminder::NOTIFICATION_TELEPORT) {
+    if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         MSVehicle *vehicle = static_cast<MSVehicle*>(&veh);
         sArrivedVehicles.insert(new ArrivedVehicleInformation(vehicle->getID(), vehicle->getSpeed(), vehicle->getPosition()));
         sRunningVehicles.erase(vehicle);

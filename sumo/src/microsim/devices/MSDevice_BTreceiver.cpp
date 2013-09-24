@@ -145,8 +145,9 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
         std::map<std::string, std::vector<SeenDevice*> > &seen = (*i)->seen;
         for (std::map<std::string, SeenDevice*>::iterator j = currentlySeen.begin(); j != currentlySeen.end(); ++j) {
             MSVehicle *vehicle = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle((*j).first));
-            leaveRange(currentlySeen, seen, (*i)->position, (*i)->speed, (*j).first, vehicle->getPosition(), vehicle->getSpeed(), 0, true);
+            leaveRange(currentlySeen, seen, (*i)->position, (*i)->speed, (*j).first, vehicle->getPosition(), vehicle->getSpeed(), 0, false);
         }
+        currentlySeen.clear();
         // write results
         if(haveOutput) {
             writeOutput((*i)->id, seen, allRecognitions);
@@ -198,7 +199,7 @@ MSDevice_BTreceiver::cleanUp(std::map<std::string, MSDevice_BTreceiver::SeenDevi
 
 bool 
 MSDevice_BTreceiver::notifyEnter(SUMOVehicle& veh, Notification reason) {
-    if(reason==MSMoveReminder::NOTIFICATION_TELEPORT || reason==MSMoveReminder::NOTIFICATION_PARKING || reason==MSMoveReminder::NOTIFICATION_DEPARTED) {
+    if(reason==MSMoveReminder::NOTIFICATION_DEPARTED) {
         MSDevice_BTreceiver::sRunningVehicles.insert(static_cast<MSVehicle*>(&veh));
     }
     return true;
@@ -207,7 +208,7 @@ MSDevice_BTreceiver::notifyEnter(SUMOVehicle& veh, Notification reason) {
 
 bool 
 MSDevice_BTreceiver::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason) {
-    if (reason >= MSMoveReminder::NOTIFICATION_TELEPORT) {
+    if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         MSVehicle *vehicle = static_cast<MSVehicle*>(&veh);
         MSDevice_BTreceiver *device = static_cast<MSDevice_BTreceiver*>(vehicle->getDevice(typeid(MSDevice_BTreceiver)));
        MSDevice_BTreceiver::sArrivedVehicles.insert(new ArrivedVehicleInformation(vehicle->getID(), 
@@ -266,6 +267,12 @@ MSDevice_BTreceiver::leaveRange(std::map<std::string, SeenDevice*> &currentlySee
 void 
 MSDevice_BTreceiver::updateNeighbors() {
     if(!myHolder.isOnRoad()) {    
+        // well, lost contact, uh?
+        for (std::map<std::string, SeenDevice*>::iterator j = myCurrentlySeen.begin(); j != myCurrentlySeen.end(); ++j) {
+            MSVehicle *vehicle = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle((*j).first));
+            leaveRange(myCurrentlySeen, mySeen, static_cast<MSVehicle&>(myHolder).getPosition(), static_cast<MSVehicle&>(myHolder).getSpeed(), (*j).first, vehicle->getPosition(), vehicle->getSpeed(), 0, false);
+        }
+        myCurrentlySeen.clear();
         return;
     }
     // collect edges around
@@ -300,7 +307,15 @@ MSDevice_BTreceiver::updateNeighbors() {
                 // skipping not equipped vehicles
                 continue;
             }
+            
+            if(!(*j)->isOnRoad()) {
+                // lost contact, uh uh?
+                continue;
+            }
+
             if(&myHolder==*j) {
+                // no self-investigation
+                // @todo: really?
                 continue;
             }
             
@@ -414,7 +429,12 @@ MSDevice_BTreceiver::addRecognitionPoint(const Position &thisPos, SUMOReal thisS
                                          const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal t, 
                                          std::map<std::string, SeenDevice*> &currentlySeen) {
     MeetingPoint *mp = new MeetingPoint(t, thisPos, thisSpeed, otherPos, otherSpeed);
-    currentlySeen.find(otherID)->second->recognitionPoints.push_back(mp);
+    std::map<std::string, SeenDevice*>::iterator i = currentlySeen.find(otherID);
+    if(i!=currentlySeen.end()) {
+        (*i).second->recognitionPoints.push_back(mp);
+    } else {
+        WRITE_WARNING("Could not add a recognition point as the sender '" + otherID + "' is not currently seen.");
+    }
 }
 
 
