@@ -38,7 +38,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import urllib, os, sys, shutil
+import urllib, os, sys, shutil, datetime
 from optparse import OptionParser
 
 from mirrorWiki import readParsePage, readParseEditPage
@@ -124,6 +124,7 @@ optParser = OptionParser()
 optParser.add_option("-m", "--mirror", default="mirror", help="mirror folder")
 optParser.add_option("-o", "--output", default="docs", help="output folder")
 optParser.add_option("-i", "--index", default="index.html", help="index template file")
+optParser.add_option("-r", "--version", help="add version info")
 (options, args) = optParser.parse_args()
 
 try: os.mkdir(options.mirror)
@@ -190,7 +191,7 @@ for i in images:
 nav = readParseEditPage("SUMO_User_Documentation")
 lines = nav[nav.find("="):].split("\n")
 level = 0
-c = "<ul>\n";
+c = ""
 hadHeader = False
 for l in lines:
     if len(l)==0:
@@ -198,11 +199,12 @@ for l in lines:
     if l[0]=='=':
         text, link = parseWikiLink(" " + l.replace("=", ""))
         if hadHeader:
-            c = c + "</ul>\n";
+            if level > 0:
+                c += "</ul></li>\n" * level
         spc = ' ' * (level+1)
         c = c + spc + "<li>";	
         if link!="":
-            c = c + "<a href=\"" + link + "\">";	
+            c = c + "<a href=\"" + link + "\">";
         c = c + text;
         if link!="":
             c = c + "</a>";
@@ -210,14 +212,14 @@ for l in lines:
         hadHeader = True
         level = 0
         continue
-    if l[0].find('*')<0:
+    if l[0].find('*') < 0:
         continue
     text, link = parseWikiLink(l)
     nLevel = l.count('*')
-    if level>nLevel:
-        c = c + ("</ul>\n" * (level-nLevel))
-    if level<nLevel:
-        c = c + ("<ul>\n" * (nLevel-level))
+    if level > nLevel:
+        c = c + ("</ul></li>\n" * (level-nLevel))
+    if level < nLevel:
+        c = c + ('<li style="list-style: none; display: inline"><ul>\n' * (nLevel-level))
     spc = ' ' * (nLevel+1)
     #+ str(level) + "-" + str(nLevel) 
     c = c + spc + "<li>";
@@ -227,6 +229,8 @@ for l in lines:
         c = c + text;
     c = c + "</li>\n";
     level = nLevel
+if level > 0:
+    c += "</ul></li>\n" * level
 
 # get template and embed navigation
 fd = open(options.index)
@@ -251,10 +255,14 @@ for p in pages:
     if name.endswith(".css"):
         print "Skipping css-file %s" % name
         continue
+    fromStr = 'generated on %s from <a href="http://sumo-sim.org/wiki/%s">the wiki page for %s</a>' % (datetime.datetime.now(), name, name)
     name = name + ".html"
     t = os.path.join(options.output, name)
     fd = open(os.path.join(options.mirror, name))
     c = fd.read()
+    if options.version:
+         fromStr += " for SUMO %s" % options.version
+    c = c.replace('<div id="siteSub">From Sumo</div>', '<div id="siteSub">%s</div>' % fromStr)
     fd.close()
     #
     if name.find('/')>=0:

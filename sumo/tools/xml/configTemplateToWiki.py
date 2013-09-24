@@ -53,11 +53,11 @@ class ConfigReader(handler.ContentHandler):
             print """%s
 {| cellspacing="0" border="1" width="90%%" align="center"
 |-
-! style="background:#ddffdd;" valign="top" | Option
-! style="background:#ddffdd;" valign="top" | Description""" % title
+! style="background:#ddffdd; vertical-align:top" | Option
+! style="background:#ddffdd; vertical-align:top" | Description""" % title
         if self._level == 2:
             # entry
-            print '|-\n| valign="top" |',
+            print '|-\n| style="vertical-align:top" |',
             a = ""
             for s in attrs.get('synonymes', '').split():
                 if len(s) == 1:
