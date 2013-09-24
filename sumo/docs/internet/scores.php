@@ -56,26 +56,15 @@ if (mysql_num_rows($res) == 0):
 endif;
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
 
+<html lang="en">
 <head>
- <title>SUMO - Status of daily build and tests</title>
- <link rel="stylesheet" type="text/css" href="sumo.css"/>
-
-  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-  <META NAME="DC.Title" CONTENT="SUMO - Status of daily build and tests">
-  <META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
-  <META NAME="DC.Description" CONTENT="">
-  <META NAME="DC.Publisher" CONTENT="Institute of Transportation Systems at the German Aerospace Center">
-  <META NAME="DC.Type" CONTENT="Text">
-  <META NAME="DC.Format" SCHEME="IMT" CONTENT="text/html">
-  <META NAME="DC.Identifier" CONTENT="http://sumo-sim.org">
-  <META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
-  <META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo-sim.org/index.html">
-  <META NAME="DC.Rights" CONTENT="(c) ITS/DLR">
-  <META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2011-03-04">
-  <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>SUMO - Simulation of Urban Mobility - The Game</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="sumo.css">
+  <link rel="license" href=
+  "http://creativecommons.org/licenses/by-sa/3.0/">
 </head>
 
 <body id="bmission">
