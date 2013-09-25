@@ -2,7 +2,7 @@ SUBDIRS = src unittest bin
 
 EXTRA_DIST = README ChangeLog AUTHORS COPYING INSTALL NEWS sumo.doxyconf
 
-doc: pydoc doxygen wikidump
+doc: pydoc doxygen userdoc
 
 pydoc:
 	rm -rf docs/pydoc
@@ -17,8 +17,8 @@ doxygen:
 	mkdir docs/doxygen
 	doxygen sumo.doxyconf &> doxygen.log
 
-wikidump:
-	tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -r $(VERSION) && cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
+userdoc:
+	tools/docs/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -r $(VERSION) && cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
 
 man:
 	rm -rf docs/man
