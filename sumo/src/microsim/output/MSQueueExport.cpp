@@ -76,29 +76,15 @@ MSQueueExport::writeEdge(OutputDevice& of) {
 
 void
 MSQueueExport::writeLane(OutputDevice& of, const MSLane& lane) {
-    //Fahrzeug mit der höchsten Wartezeit
-    //Fahrzeug am Ende des Rückstaus
-    double queueing_time = 0.0;
-    double queueing_length = 0.0;
+    // maximum of all vehicle waiting times
+    double queueing_time = 0.0; 
+    // back of last stopped vehicle (XXX does not check for continuous queue)
+    double queueing_length = 0.0; 
+    // back of last slow vehicle (XXX does not check for continuous queue)
     double queueing_length2 = 0.0;
+    const double threshold_velocity = 5 / 3.6; // slow
 
     if (lane.getVehicleNumber() != 0) {
-        for (std::vector<MSVehicle*>::const_iterator veh = lane.myVehBuffer.begin(); veh != lane.myVehBuffer.end(); ++veh) {
-            const MSVehicle& veh_tmp = **veh;
-            if (!veh_tmp.isOnRoad()) {
-                continue;
-            }
-            if (veh_tmp.getWaitingSeconds() > 0) {
-                if (veh_tmp.getWaitingSeconds() > queueing_time) {
-                    queueing_time = veh_tmp.getWaitingSeconds();
-                }
-                double tmp_length = (lane.getLength() -  veh_tmp.getPositionOnLane()) + veh_tmp.getVehicleType().getLengthWithGap();
-                if (tmp_length > queueing_length) {
-                    queueing_length = tmp_length;
-                }
-            }
-        }
-
         for (MSLane::VehCont::const_iterator veh = lane.myVehicles.begin(); veh != lane.myVehicles.end(); ++veh) {
             const MSVehicle& veh_tmp = **veh;
             if (!veh_tmp.isOnRoad()) {
@@ -121,7 +107,6 @@ MSQueueExport::writeLane(OutputDevice& of, const MSLane& lane) {
         double tmp_length2 = 0.0;
         for (MSLane::VehCont::const_iterator veh = lane.myVehicles.begin(); veh != lane.myVehicles.end(); ++veh) {
             //wenn Fahrzeug langsamer als 5 km/h fährt = Rückstau
-            double threshold_velocity = 5 / 3.6;
             const MSVehicle& veh_tmp = **veh;
             if (!veh_tmp.isOnRoad()) {
                 continue;
