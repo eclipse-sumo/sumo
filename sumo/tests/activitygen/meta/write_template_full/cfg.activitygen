@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/activitygenConfiguration.xsd">
+
+    <configuration>
+        <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
+        <save-configuration value="" synonymes="save-config" type="FILE" help="Saves current configuration into FILE"/>
+        <save-template value="" type="FILE" help="Saves a configuration template (empty) into FILE"/>
+        <save-schema value="" type="FILE" help="Saves the configuration schema into FILE"/>
+        <save-commented value="false" synonymes="save-template.commented" type="BOOL" help="Adds comments to saved template, configuration, or schema"/>
+    </configuration>
+
+    <input>
+        <net-file value="" synonymes="n net" type="FILE" help="Use FILE as SUMO-network to route on"/>
+        <stat-file value="" synonymes="s" type="FILE" help="Loads the SUMO-statistics FILE"/>
+    </input>
+
+    <output>
+        <output-file value="" synonymes="o output" type="FILE" help="Write generated routes to FILE"/>
+    </output>
+
+    <processing>
+        <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
+        <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
+    </processing>
+
+    <time>
+        <begin value="" synonymes="b" type="INT" help="Sets the time of beginning of the simulation during the first day (in seconds)"/>
+        <end value="" synonymes="e" type="INT" help="Sets the time of ending of the simulation during the last day (in seconds)"/>
+        <duration-d value="" type="INT" help="Sets the duration of the simulation in days"/>
+    </time>
+
+    <report>
+        <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
+        <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
+        <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
+        <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
+        <xml-validation value="false" synonymes="X" type="BOOL" help="Enable schema validation of XML inputs"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
+        <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
+        <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <debug value="false" type="BOOL" help="Detailed messages about every single step"/>
+    </report>
+
+    <random_number>
+        <random value="false" synonymes="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
+        <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
+    </random_number>
+
+</configuration>

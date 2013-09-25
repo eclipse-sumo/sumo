@@ -8,7 +8,7 @@ copy_test_path:osm.xml
 copy_test_path:typemap.xml
 
 [collate_file]
-config:config.cfg
+cfg:config.cfg
 pois:pois.poi.xml
 log:log.txt
 

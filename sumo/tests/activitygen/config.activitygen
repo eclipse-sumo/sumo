@@ -8,6 +8,6 @@ copy_test_path:activitygen-example.net.xml
 copy_test_path:activitygen-example.stat.xml
 
 [collate_file]
-config:config.cfg
+cfg:config.cfg
 log:log.txt
 

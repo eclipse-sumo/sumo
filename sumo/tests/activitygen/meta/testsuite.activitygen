@@ -6,3 +6,7 @@ version
 
 # Tests no input
 noop
+
+# Tests template
+write_template_full
+

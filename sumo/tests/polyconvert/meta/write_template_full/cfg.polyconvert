@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/polyconvertConfiguration.xsd">
+
+    <configuration>
+        <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
+        <save-configuration value="" synonymes="save-config" type="FILE" help="Saves current configuration into FILE"/>
+        <save-template value="" type="FILE" help="Saves a configuration template (empty) into FILE"/>
+        <save-schema value="" type="FILE" help="Saves the configuration schema into FILE"/>
+        <save-commented value="false" synonymes="save-template.commented" type="BOOL" help="Adds comments to saved template, configuration, or schema"/>
+    </configuration>
+
+    <input>
+        <net-file value="" synonymes="n net" type="FILE" help="Loads SUMO-network FILE as reference to offset and projection"/>
+        <dlr-navteq-poly-files value="" type="FILE" help="Reads polygons from FILE assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
+        <dlr-navteq-poi-files value="" type="FILE" help="Reads pois from FILE+ assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
+        <visum-files value="" synonymes="visum" type="FILE" help="Reads polygons from FILE assuming it&apos;s a Visum-net"/>
+        <xml-files value="" synonymes="xml" type="FILE" help="Reads pois and shapes from FILE assuming they&apos;re coded in XML"/>
+        <osm-files value="" synonymes="osm" type="FILE" help="Reads pois from FILE+ assuming they&apos;re coded in OSM"/>
+        <osm.keep-full-type value="false" type="BOOL" help="The type will be made of the key-value - pair"/>
+        <osm.use-name value="false" type="BOOL" help="The id will be set from the given &apos;name&apos; attribute"/>
+        <shapefile-prefixes value="" synonymes="shape-files shapefile shapefile-prefix" type="FILE" help="Reads shapes from shapefiles FILE+"/>
+        <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guesses the shapefile&apos;s projection"/>
+        <shapefile.id-column value="" synonymes="shape-files.id-name shapefile.id-name" type="STR" help="Defines in which column the id can be found"/>
+        <shapefile.use-running-id value="" type="BOOL" help="A running number will be used as id"/>
+        <type-file value="" synonymes="typemap" type="FILE" help="Reads types from FILE"/>
+    </input>
+
+    <output>
+        <output-file value="polygons.xml" synonymes="o output" type="FILE" help="Write generated polygons/pois to FILE"/>
+    </output>
+
+    <projection>
+        <simple-projection value="false" synonymes="proj.simple" type="BOOL" help="Uses a simple method for projection"/>
+        <proj.scale value="0" synonymes="proj.shift" type="INT" help="Number of places to shift decimal point to right in geo-coordinates"/>
+        <proj.utm value="false" type="BOOL" help="Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid)"/>
+        <proj.dhdn value="false" type="BOOL" help="Determine the DHDN zone (for a transversal mercator projection based on the bessel ellipsoid)"/>
+        <proj value="!" type="STR" help="Uses STR as proj.4 definition for projection"/>
+        <proj.inverse value="false" type="BOOL" help="Inverses projection"/>
+    </projection>
+
+    <pruning>
+        <prune.in-net value="false" synonymes="prune.on-net" type="BOOL" help="Enables pruning on net boundaries"/>
+        <prune.in-net.offsets value="0,0,0,0" synonymes="prune.on-net.offsets" type="STR" help="Uses STR as offset definition added to the net boundaries"/>
+        <prune.boundary value="" type="STR" help="Uses STR as pruning boundary"/>
+        <prune.keep-list value="" synonymes="prune.ignore prune.keep" type="STR" help="Items in STR will be kept though out of boundary"/>
+        <prune.explicit value="" synonymes="remove" type="STR" help="Items with names in STR will be removed"/>
+    </pruning>
+
+    <processing>
+        <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
+        <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
+        <all-attributes value="false" type="BOOL" help="Imports all attributes as key/value pairs"/>
+        <ignore-errors value="false" type="BOOL" help="Continue on broken input"/>
+    </processing>
+
+    <building_defaults>
+        <color value="0.2,0.5,1." type="STR" help="Sets STR as default color"/>
+        <prefix value="" type="STR" help="Sets STR as default prefix"/>
+        <type value="unknown" type="STR" help="Sets STR as default type"/>
+        <layer value="-1" type="INT" help="Sets INT as default layer"/>
+        <discard value="false" type="BOOL" help="Sets default action to discard"/>
+    </building_defaults>
+
+    <report>
+        <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
+        <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
+        <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
+        <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
+        <xml-validation value="false" synonymes="X" type="BOOL" help="Enable schema validation of XML inputs"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
+        <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
+        <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+    </report>
+
+</configuration>
