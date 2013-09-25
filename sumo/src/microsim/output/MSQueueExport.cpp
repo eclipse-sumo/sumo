@@ -93,13 +93,13 @@ MSQueueExport::writeLane(OutputDevice& of, const MSLane& lane) {
 
             if (veh.getWaitingSeconds() > 0) {
                 queueing_time = MAX2(veh.getWaitingSeconds(), queueing_time);
-                const double veh_back_to_lane_end = (lane.getLength() - veh.getPositionOnLane()) + veh.getVehicleType().getLengthWithGap();
+                const double veh_back_to_lane_end = (lane.getLength() - veh.getPositionOnLane()) + veh.getVehicleType().getLength();
                 queueing_length = MAX2(veh_back_to_lane_end, queueing_length);
             }
 
             //Experimental
             if (veh.getSpeed() < (threshold_velocity) && (veh.getPositionOnLane() > (veh.getLane()->getLength()) * 0.25)) {
-                const double veh_back_to_lane_end = (lane.getLength() - veh.getPositionOnLane()) + veh.getVehicleType().getLengthWithGap();
+                const double veh_back_to_lane_end = (lane.getLength() - veh.getPositionOnLane()) + veh.getVehicleType().getLength();
                 queueing_length2 = MAX2(veh_back_to_lane_end, queueing_length2);
             }
         }
