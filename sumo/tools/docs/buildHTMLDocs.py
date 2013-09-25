@@ -123,7 +123,7 @@ def parseWikiLink(l):
 optParser = OptionParser()
 optParser.add_option("-m", "--mirror", default="mirror", help="mirror folder")
 optParser.add_option("-o", "--output", default="docs", help="output folder")
-optParser.add_option("-i", "--index", default="index.html", help="index template file")
+optParser.add_option("-i", "--index", default=os.path.join(os.path.dirname(__file__), "..", "..", "docs", "wiki", "index.html"), help="index template file")
 optParser.add_option("-r", "--version", help="add version info")
 (options, args) = optParser.parse_args()
 
@@ -295,4 +295,5 @@ for p in pages:
     fd.close()
 for i in imageFiles:
     shutil.copy(os.path.join(options.mirror, i), os.path.join(options.output, i))
-shutil.copy(os.path.join(options.output, 'SUMO_User_Documentation.html'), os.path.join(options.output, 'index.html'))
+if os.path.exists(os.path.join(options.output, 'SUMO_User_Documentation.html')):
+    shutil.copy(os.path.join(options.output, 'SUMO_User_Documentation.html'), os.path.join(options.output, 'index.html'))

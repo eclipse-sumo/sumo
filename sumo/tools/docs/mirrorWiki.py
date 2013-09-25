@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    getWikiPages.py
+@file    mirrorWiki.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2011-10-20
