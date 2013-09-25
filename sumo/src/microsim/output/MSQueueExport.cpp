@@ -84,39 +84,23 @@ MSQueueExport::writeLane(OutputDevice& of, const MSLane& lane) {
     double queueing_length2 = 0.0;
     const double threshold_velocity = 5 / 3.6; // slow
 
-    if (lane.getVehicleNumber() != 0) {
-        for (MSLane::VehCont::const_iterator veh = lane.myVehicles.begin(); veh != lane.myVehicles.end(); ++veh) {
-            const MSVehicle& veh_tmp = **veh;
-            if (!veh_tmp.isOnRoad()) {
+    if (!lane.empty()) {
+        for (MSLane::VehCont::const_iterator it_veh = lane.myVehicles.begin(); it_veh != lane.myVehicles.end(); ++it_veh) {
+            const MSVehicle& veh = **it_veh;
+            if (!veh.isOnRoad()) {
                 continue;
             }
 
-            if (veh_tmp.getWaitingSeconds() > 0) {
-                if (veh_tmp.getWaitingSeconds() > queueing_time) {
-                    queueing_time = veh_tmp.getWaitingSeconds();
-                }
-                double tmp_length = (lane.getLength() - veh_tmp.getPositionOnLane()) + veh_tmp.getVehicleType().getLengthWithGap();
-                if (tmp_length > queueing_length) {
-                    queueing_length = tmp_length;
-                }
-            }
-        }
-
-
-        //Experimental
-        double tmp_length2 = 0.0;
-        for (MSLane::VehCont::const_iterator veh = lane.myVehicles.begin(); veh != lane.myVehicles.end(); ++veh) {
-            //wenn Fahrzeug langsamer als 5 km/h fährt = Rückstau
-            const MSVehicle& veh_tmp = **veh;
-            if (!veh_tmp.isOnRoad()) {
-                continue;
+            if (veh.getWaitingSeconds() > 0) {
+                queueing_time = MAX2(veh.getWaitingSeconds(), queueing_time);
+                const double veh_back_to_lane_end = (lane.getLength() - veh.getPositionOnLane()) + veh.getVehicleType().getLengthWithGap();
+                queueing_length = MAX2(veh_back_to_lane_end, queueing_length);
             }
 
-            if (veh_tmp.getSpeed() < (threshold_velocity) && (veh_tmp.getPositionOnLane() > (veh_tmp.getLane()->getLength()) * 0.25)) {
-                tmp_length2 = (lane.getLength() - veh_tmp.getPositionOnLane()) + veh_tmp.getVehicleType().getLengthWithGap();
-            }
-            if (tmp_length2 > queueing_length2) {
-                queueing_length2 = tmp_length2;
+            //Experimental
+            if (veh.getSpeed() < (threshold_velocity) && (veh.getPositionOnLane() > (veh.getLane()->getLength()) * 0.25)) {
+                const double veh_back_to_lane_end = (lane.getLength() - veh.getPositionOnLane()) + veh.getVehicleType().getLengthWithGap();
+                queueing_length2 = MAX2(veh_back_to_lane_end, queueing_length2);
             }
         }
     }
