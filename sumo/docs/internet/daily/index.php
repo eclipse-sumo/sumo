@@ -4,7 +4,7 @@
 <head>
   <title>SUMO - Status of daily build and tests</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="sumo.css">
+  <link rel="stylesheet" type="text/css" href="../sumo.css">
   <link rel="license" href=
   "http://creativecommons.org/licenses/by-sa/3.0/">
 </head>
