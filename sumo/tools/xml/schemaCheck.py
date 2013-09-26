@@ -36,8 +36,8 @@ def validate(root, f):
             localSchema = os.path.join(os.path.dirname(__file__), '..', '..', 'docs', 'internet', 'xsd', os.path.basename(schemaLoc))
             if os.path.exists(localSchema):
                 schemaLoc = localSchema
-            if schemaLoc not in schemes:
-                schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
+#            if schemaLoc not in schemes: // temporarily disabled due to lxml bug https://bugs.launchpad.net/lxml/+bug/1222132
+            schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
             for entry in schemes[schemaLoc].error_log:
                 s = urllib.unquote(str(entry))
