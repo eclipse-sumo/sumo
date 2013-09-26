@@ -154,11 +154,13 @@ class Net:
                           "real"))
 
     def addSourceEdge(self, edgeObj):
+        print "source", edgeObj.label
         newEdge = Edge("s_"+edgeObj.label, self._source, edgeObj.source,
                        "source")
         self.addEdge(newEdge)
 
     def addSinkEdge(self, edgeObj):
+        print "sink", edgeObj.label
         newEdge = Edge("t_"+edgeObj.label, edgeObj.target, self._sink,
                        "sink")
         self.addEdge(newEdge)
@@ -401,12 +403,13 @@ class Net:
                 continue
             assert len(srcEdge.target.outEdges) == 1
             edge = srcEdge.target.outEdges[0]
+            vtype = ' type="%s"' % options.vtype if options.vtype else ""
             if len(srcEdge.routes) == 1:
-                print >> emitOut, '    <flow id="src_%s%s" route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (edge.label, suffix, edge.label, suffix, srcEdge.flow, begin, end)
+                print >> emitOut, '    <flow id="src_%s%s"%s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (edge.label, suffix, vtype, edge.label, suffix, srcEdge.flow, begin, end)
             else:
                 ids = " ".join(["%s.%s%s" % (edge.label, id, suffix) for id in range(len(srcEdge.routes))])
                 probs = " ".join([str(route.frequency) for route in srcEdge.routes])
-                print >> emitOut, '    <flow id="src_%s%s" number="%s" begin="%s" end="%s">' % (edge.label, suffix, srcEdge.flow, begin, end)
+                print >> emitOut, '    <flow id="src_%s%s"%s number="%s" begin="%s" end="%s">' % (edge.label, suffix, vtype, srcEdge.flow, begin, end)
                 print >> emitOut, '        <routeDistribution routes="%s" probabilities="%s"/>' % (ids, probs)
                 print >> emitOut, '    </flow>'
 
@@ -495,9 +498,9 @@ class NetDetectorFlowReader(handler.ContentHandler):
 
     def readFlows(self, flowFile, t=None):
         if t is None:
-            return self._detReader.readFlows(flowFile)
+            return self._detReader.readFlows(flowFile, flow=options.flowcol)
         else:
-            return self._detReader.readFlows(flowFile, time="Time", timeVal=t)            
+            return self._detReader.readFlows(flowFile, flow=options.flowcol, time="Time", timeVal=t)            
 
     def clearFlows(self):
         self._detReader.clearFlows()
@@ -526,10 +529,13 @@ optParser.add_option("-d", "--detector-file", dest="detfile",
 optParser.add_option("-f", "--detector-flow-files", dest="flowfiles",
                      action="callback", callback=addFlowFile, type="string",
                      help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
+optParser.add_option("-c", "--flow-column", dest="flowcol", default="qPKW",
+                     help="which column contains flows", metavar="STRING")
 optParser.add_option("-o", "--routes-output", dest="routefile",
                      help="write routes to FILE", metavar="FILE")
 optParser.add_option("-e", "--emitters-output", dest="emitfile",
                      help="write emitters to FILE and create files per emitter (needs -o)", metavar="FILE")
+optParser.add_option("-y", "--vtype", help="vType to use", metavar="STRING")
 optParser.add_option("-t", "--trimmed-output", dest="trimfile",
                      help="write edges of trimmed network to FILE", metavar="FILE")
 optParser.add_option("-p", "--flow-poi-output", dest="flowpoifile",
