@@ -297,12 +297,15 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
             for (size_t car = 0; car < carNo; ++car) {
                 // get the vehicle parameter
                 SUMOReal v = -1;
+				std::string vtype;
                 int destIndex = destDist != 0 && destDist->getOverallProb() > 0 ? (int) destDist->get() : -1;
                 if (srcFD.isLKW >= 1) {
                     srcFD.isLKW = srcFD.isLKW - (SUMOReal) 1.;
                     v = srcFD.vLKW;
+					vtype = "LKW";
                 } else {
                     v = srcFD.vPKW;
+					vtype = "PKW";
                 }
                 // compute insertion speed
                 if (v <= 0 || v > 250) {
@@ -320,6 +323,9 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 } else {
                     out.writeAttr(SUMO_ATTR_ID, "calibrator_" + myID + "_" + toString(ctime));
                 }
+				if (oc.getBool("vtype")) {
+					out.writeAttr(SUMO_ATTR_TYPE, vtype);
+				}
                 out.writeAttr(SUMO_ATTR_DEPART, time2string(ctime));
                 if (oc.isSet("departlane")) {
                     out.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
