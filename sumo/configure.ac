@@ -247,36 +247,38 @@ fi
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for gdal
 if test x"$with_proj_gdal" != xno; then
-AC_ARG_WITH([gdal-config], 
-        [AS_HELP_STRING([--with-gdal-config=FILE], [specify an alternative gdal-config file])], 
-        [GDAL_CONFIG="$withval"], [GDAL_CONFIG=""])
-if test -z $GDAL_CONFIG; then
-    AC_PATH_PROG([GDAL_CONFIG], [gdal-config])
+    AC_ARG_WITH([gdal-config], 
+            [AS_HELP_STRING([--with-gdal-config=FILE], [specify an alternative gdal-config file])], 
+            [GDAL_CONFIG="$withval"], [GDAL_CONFIG=""])
     if test -z $GDAL_CONFIG; then
-        AC_MSG_ERROR([could not find gdal-config from libgdal within the current path. Specify path with option --with-gdal-config.])
-    fi    
-else
-    if test -f $GDAL_CONFIG; then
-        AC_MSG_RESULT([Using user-specified gdal-config file: $GDAL_CONFIG])
+        AC_PATH_PROG([GDAL_CONFIG], [gdal-config])
+        if test -z $GDAL_CONFIG; then
+            AC_MSG_WARN([could not find gdal-config from libgdal within the current path. Specify path with option --with-gdal-config.])
+        fi    
     else
-        AC_MSG_ERROR([the user-specified gdal-config file $GDAL_CONFIG does not exist])
+        if test -f $GDAL_CONFIG; then
+            AC_MSG_RESULT([Using user-specified gdal-config file: $GDAL_CONFIG])
+        else
+            AC_MSG_ERROR([the user-specified gdal-config file $GDAL_CONFIG does not exist])
+        fi
     fi
-fi
 
-GDAL_CFLAGS="`$GDAL_CONFIG --cflags`"
-GDAL_LDFLAGS="`$GDAL_CONFIG --libs`"
-AC_SUBST([GDAL_LDFLAGS])
+    if test -z $GDAL_CONFIG; then 
+        ac_disabled="$ac_disabled GDAL"
+    else
+        GDAL_CFLAGS="`$GDAL_CONFIG --cflags`"
+        GDAL_LDFLAGS="`$GDAL_CONFIG --libs`"
+        AC_SUBST([GDAL_LDFLAGS])
 
-save_cppflags=$CPPFLAGS
-CPPFLAGS="$GDAL_CFLAGS"
-export CPPFLAGS
-AC_CHECK_HEADER([ogr_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
-                [AC_MSG_ERROR([gdal-includes not found.])])
-CPPFLAGS=$save_cppflags
-fi
-if test x"$GDAL_CFLAGS" != x && test x"$GDAL_LDFLAGS" != x; then
-    AC_DEFINE([HAVE_GDAL], [1], [defined if GDAL is available])
-    ac_enabled="$ac_enabled GDAL"
+        save_cppflags=$CPPFLAGS
+        CPPFLAGS="$GDAL_CFLAGS"
+        export CPPFLAGS
+        AC_CHECK_HEADER([ogr_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+                        [AC_MSG_ERROR([gdal-includes not found.])])
+        CPPFLAGS=$save_cppflags
+        AC_DEFINE([HAVE_GDAL], [1], [defined if GDAL is available])
+        ac_enabled="$ac_enabled GDAL"
+    fi
 else
     ac_disabled="$ac_disabled GDAL"
 fi
