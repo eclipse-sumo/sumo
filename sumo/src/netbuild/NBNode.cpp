@@ -1432,6 +1432,15 @@ NBNode::geometryLike() const {
     return false;
 }
 
+
+void
+NBNode::setRoundabout() {
+    if (myType == NODETYPE_RIGHT_BEFORE_LEFT) {
+        myType = NODETYPE_PRIORITY;
+    }
+}
+
+
 Position
 NBNode::getCenter() const {
     /* Conceptually, the center point would be identical with myPosition.

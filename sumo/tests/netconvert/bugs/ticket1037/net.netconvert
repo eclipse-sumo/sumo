@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 27 12:31:07 2013 by SUMO netconvert Version dev-SVN-r14769
+<!-- generated on Fri Sep 27 13:05:20 2013 by SUMO netconvert Version dev-SVN-r14769
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -98,10 +98,10 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="61041992" type="right_before_left" x="77.04" y="158.35" incLanes="53478448_0 -53478418_0" intLanes="" shape="79.45,154.00 76.30,153.43 74.55,154.69 73.58,161.11 75.31,162.88 78.51,162.97">
-        <request index="0" response="000" foes="100"/>
+    <junction id="61041992" type="priority" x="77.04" y="158.35" incLanes="53478448_0 -53478418_0" intLanes="" shape="79.45,154.00 76.30,153.43 74.55,154.69 73.58,161.11 75.31,162.88 78.51,162.97">
+        <request index="0" response="100" foes="100"/>
         <request index="1" response="000" foes="000"/>
-        <request index="2" response="001" foes="001"/>
+        <request index="2" response="000" foes="001"/>
     </junction>
     <junction id="61041994" type="priority" x="125.01" y="115.02" incLanes="-53478500_0" intLanes="" shape="130.14,116.51 130.07,113.31 128.81,111.86 122.39,110.83 120.41,114.32 121.05,117.46">
         <request index="0" response="000" foes="000"/>
@@ -112,14 +112,14 @@
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="61041997" type="right_before_left" x="155.74" y="122.13" incLanes="53478758_0 53478758_1 923797609_0" intLanes="" shape="157.75,126.30 159.98,124.00 159.74,118.04 153.33,116.95 151.83,117.59 150.03,120.30">
-        <request index="0" response="00" foes="10"/>
-        <request index="1" response="01" foes="01"/>
+    <junction id="61041997" type="priority" x="155.74" y="122.13" incLanes="53478758_0 53478758_1 923797609_0" intLanes="" shape="157.75,126.30 159.98,124.00 159.74,118.04 153.33,116.95 151.83,117.59 150.03,120.30">
+        <request index="0" response="10" foes="10"/>
+        <request index="1" response="00" foes="01"/>
     </junction>
-    <junction id="61042004" type="right_before_left" x="183.49" y="179.39" incLanes="-53478384_0 53665664_0" intLanes="" shape="185.51,182.99 186.50,176.57 184.99,174.84 181.79,174.91 180.18,182.73 183.09,184.08">
-        <request index="0" response="000" foes="100"/>
+    <junction id="61042004" type="priority" x="183.49" y="179.39" incLanes="-53478384_0 53665664_0" intLanes="" shape="185.51,182.99 186.50,176.57 184.99,174.84 181.79,174.91 180.18,182.73 183.09,184.08">
+        <request index="0" response="100" foes="100"/>
         <request index="1" response="000" foes="000"/>
-        <request index="2" response="001" foes="001"/>
+        <request index="2" response="000" foes="001"/>
     </junction>
     <junction id="61042005" type="priority" x="139.54" y="220.41" incLanes="53478385_0" intLanes="" shape="144.15,220.37 143.02,217.37 134.68,218.57 134.53,221.77 135.79,223.32 142.21,224.33">
         <request index="0" response="000" foes="000"/>
@@ -142,16 +142,16 @@
     <connection from="-53477973" to="-53478295" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="-53477973" to="-53478295" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from="-53477973" to="53477973" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="-53478295" to="-53478418" fromLane="0" toLane="0" dir="r" state="="/>
-    <connection from="-53478384" to="53478385" fromLane="0" toLane="0" dir="r" state="="/>
-    <connection from="-53478418" to="-53478448" fromLane="0" toLane="0" dir="r" state="="/>
-    <connection from="-53478418" to="-53478500" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="-53478295" to="-53478418" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-53478384" to="53478385" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-53478418" to="-53478448" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="-53478418" to="-53478500" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-53478448" to="53478448" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="-53478500" to="-53478773" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-53478500" to="-53478773" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from="-53478500" to="923797609" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-53478773" to="923797611" fromLane="0" toLane="0" dir="l" state="="/>
-    <connection from="-923797607" to="-53478418" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="-923797607" to="-53478418" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-923797612" to="923797611" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="53477973" to="-53477973" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="53478287" to="-53477973" fromLane="0" toLane="0" dir="l" state="="/>
@@ -159,11 +159,11 @@
     <connection from="53478385" to="53478287" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="53478385" to="53478287" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from="53478385" to="-923797607" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="53478448" to="-53478500" fromLane="0" toLane="0" dir="r" state="="/>
-    <connection from="53478758" to="53665664" fromLane="0" toLane="0" dir="r" state="="/>
-    <connection from="53665664" to="53478384" fromLane="0" toLane="0" dir="r" state="="/>
-    <connection from="53665664" to="53478385" fromLane="0" toLane="0" dir="s" state="="/>
-    <connection from="923797609" to="53665664" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="53478448" to="-53478500" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="53478758" to="53665664" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="53665664" to="53478384" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="53665664" to="53478385" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="923797609" to="53665664" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="923797611" to="53478758" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="923797611" to="53478758" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from="923797611" to="-923797612" fromLane="0" toLane="0" dir="t" state="M"/>

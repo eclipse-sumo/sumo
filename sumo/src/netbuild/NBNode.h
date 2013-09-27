@@ -446,6 +446,9 @@ public:
      */
     bool geometryLike() const;
 
+    /// @brief update the type of this node as a roundabout
+    void setRoundabout();
+
     /**
      * @class nodes_by_id_sorter
      * @brief Used for sorting the cells by the begin time they describe

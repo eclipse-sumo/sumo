@@ -873,6 +873,7 @@ NBEdgeCont::guessRoundabouts(std::vector<EdgeVector>& marked) {
                 }
                 // let the connections to succeeding roundabout edge have a higher priority
                 (*j)->setJunctionPriority(node, 1000);
+                node->setRoundabout();
             }
             marked.push_back(loopEdges);
         }
