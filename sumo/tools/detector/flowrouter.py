@@ -154,13 +154,11 @@ class Net:
                           "real"))
 
     def addSourceEdge(self, edgeObj):
-        print "source", edgeObj.label
         newEdge = Edge("s_"+edgeObj.label, self._source, edgeObj.source,
                        "source")
         self.addEdge(newEdge)
 
     def addSinkEdge(self, edgeObj):
-        print "sink", edgeObj.label
         newEdge = Edge("t_"+edgeObj.label, edgeObj.target, self._sink,
                        "sink")
         self.addEdge(newEdge)
