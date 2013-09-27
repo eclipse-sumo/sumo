@@ -98,6 +98,11 @@ public:
         return myProcessing;
     }
 
+    /** @brief the coordinate transformation that was loaded fron an input file
+     */
+    static GeoConvHelper& getLoaded() {
+        return myLoaded;
+    }
 
     /** @brief compute the location attributes which will be used for output
      * based on the loaded location data, the given options and the transformations applied during processing

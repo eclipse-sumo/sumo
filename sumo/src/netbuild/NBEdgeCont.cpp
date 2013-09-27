@@ -70,7 +70,8 @@ NBEdgeCont::NBEdgeCont(NBTypeCont& tc) :
     myEdgesSplit(0),
     myVehicleClasses2Keep(0),
     myVehicleClasses2Remove(0),
-    myTypeCont(tc)
+    myTypeCont(tc),
+    myNeedGeoTransformedPrunningBoundary(false)
 {}
 
 
@@ -139,9 +140,7 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
                 myPrunningBoundary.push_back(Position(x, y));
             }
         }
-        if (oc.isSet("keep-edges.in-geo-boundary")) {
-            NBNetBuilder::transformCoordinates(myPrunningBoundary, false);
-        }
+        myNeedGeoTransformedPrunningBoundary = oc.isSet("keep-edges.in-geo-boundary");
     }
 }
 
@@ -225,6 +224,18 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
     }
     // check whether the edge is within the prunning boundary
     if (myPrunningBoundary.size() != 0) {
+        if (myNeedGeoTransformedPrunningBoundary) {
+            if (GeoConvHelper::getProcessing().usingGeoProjection()) {
+                NBNetBuilder::transformCoordinates(myPrunningBoundary, false);
+            } else if (GeoConvHelper::getLoaded().usingGeoProjection()) { 
+                // XXX what if input file with different projections are loaded?
+                for (int i = 0; i < (int) myPrunningBoundary.size(); i++) {
+                    GeoConvHelper::getLoaded().x2cartesian_const(myPrunningBoundary[i]);
+                }
+            } else {
+                WRITE_ERROR("Cannot prune edges using a geo-boundary because no projection has been loaded");
+            }
+        }
         if (!(edge->getGeometry().getBoxBoundary().grow((SUMOReal) POSITION_EPS).overlapsWith(myPrunningBoundary))) {
             return true;
         }

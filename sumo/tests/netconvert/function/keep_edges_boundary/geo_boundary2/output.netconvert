@@ -1,9 +1,7 @@
-Parsing nodes from 'input_nodes.nod.xml'... done.
-Parsing edges from 'input_edges.edg.xml'... done.
+Parsing sumo-net from 'input_net.net.xml'... done.
  Import done:
    87 nodes loaded.
    111 edges loaded.
-Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done.
 Removing empty nodes... done.
    41 nodes removed.
@@ -33,8 +31,8 @@ Summary:
   Priority junctions          : 36
   Right-before-left junctions : 7
  Network boundaries:
-  Original boundary  : 13.52,52.43,13.55,52.43
-  Applied offset     : -399909.35,-5809365.68
-  Converted boundary : 0.00,0.00,1173.99,767.38
+  Original boundary  : 0.00,0.00,1737.68,767.39
+  Applied offset     : -563.73,0.00
+  Converted boundary : 0.00,0.00,1173.95,767.39
 -----------------------------------------------------
 Success.

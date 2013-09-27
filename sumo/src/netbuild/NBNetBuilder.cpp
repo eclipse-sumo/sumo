@@ -177,7 +177,18 @@ NBNetBuilder::compute(OptionsCont& oc,
         PROGRESS_DONE_MESSAGE();
         WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
     }
+
     // MOVE TO ORIGIN
+    // compute new boundary after network modifications have taken place
+    Boundary boundary;
+    for (std::map<std::string, NBNode*>::const_iterator it = myNodeCont.begin(); it != myNodeCont.end(); ++it) {
+        boundary.add(it->second->getPosition());
+    }
+    for (std::map<std::string, NBEdge*>::const_iterator it = myEdgeCont.begin(); it != myEdgeCont.end(); ++it) {
+        boundary.add(it->second->getGeometry().getBoxBoundary());
+    }
+    geoConvHelper.setConvBoundary(boundary);
+
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
         moveToOrigin(geoConvHelper);
     }
@@ -379,15 +390,7 @@ NBNetBuilder::compute(OptionsCont& oc,
 void
 NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper) {
     PROGRESS_BEGIN_MESSAGE("Moving network to origin");
-    // compute new boundary after network modifications have taken place
-    Boundary boundary;
-    for (std::map<std::string, NBNode*>::const_iterator it = myNodeCont.begin(); it != myNodeCont.end(); ++it) {
-        boundary.add(it->second->getPosition());
-    }
-    for (std::map<std::string, NBEdge*>::const_iterator it = myEdgeCont.begin(); it != myEdgeCont.end(); ++it) {
-        boundary.add(it->second->getGeometry().getBoxBoundary());
-    }
-    geoConvHelper.setConvBoundary(boundary);
+    Boundary boundary = geoConvHelper.getConvBoundary();
     const SUMOReal x = -boundary.xmin();
     const SUMOReal y = -boundary.ymin();
     for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {

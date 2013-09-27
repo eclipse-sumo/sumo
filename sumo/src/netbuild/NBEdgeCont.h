@@ -579,6 +579,9 @@ private:
 
     /// @brief Boundary within which an edge must be located in order to be kept
     PositionVector myPrunningBoundary;
+
+    /// @brief whether a geo transform has been applied to the pruning boundary
+    bool myNeedGeoTransformedPrunningBoundary;
     /// @}
 
 
