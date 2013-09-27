@@ -12,8 +12,6 @@ netgenerate_SOURCES = netgen_main.cpp NGEdge.cpp NGEdge.h NGFrame.cpp NGFrame.h 
 NGNet.h NGNet.cpp NGNode.cpp NGNode.h \
 NGRandomNetBuilder.h NGRandomNetBuilder.cpp
 
-netgenerate_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
-
 netgenerate_LDADD   = ../netbuild/libnetbuild.a \
 ../netwrite/libnetwrite.a \
 ../utils/geom/libgeom.a \
@@ -25,4 +23,5 @@ netgenerate_LDADD   = ../netbuild/libnetbuild.a \
 ../foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) \
-$(INTERNAL_LIBS)
+$(INTERNAL_LIBS) \
+$(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
