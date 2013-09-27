@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 27 Sep 2013 12:23:51 PM CEST by Netedit Version dev-SVN-r14761
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/debug/bad_roundabout/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+    <edge id="-53477973" from="cluster_61042033_61042034" to="61042031" name="Selchower Strasse" priority="-4" numLanes="1" speed="8.33" shape="43819.12,32731.70 43802.07,32728.73"/>
+    <edge id="-53478295" from="61042031" to="61041996" name="Schillerpromenade" priority="-4" numLanes="2" speed="8.33" spreadType="center"/>
+    <edge id="-53478384" from="61042083" to="61042004" name="Herrfurthstrasse" priority="-4" numLanes="1" speed="8.33"/>
+    <edge id="-53478418" from="61041996" to="61041992" name="KREISVERKEHR / Herrfurthplatz" priority="-4" numLanes="1" speed="8.33" shape="43824.93,32593.59 43817.39,32590.42 43810.48,32585.01 43803.54,32578.48 43799.30,32570.78 43795.76,32564.19 43793.52,32555.33 43793.38,32548.66 43793.77,32535.30" spreadType="center"/>
+    <edge id="-53478448" from="61041992" to="61041982" name="Herrfurthstrasse" priority="-4" numLanes="1" speed="8.33"/>
+    <edge id="-53478500" from="61041992" to="61041994" name="KREISVERKEHR / Herrfurthplatz" priority="-4" numLanes="1" speed="8.33" shape="43793.77,32535.30 43794.98,32528.59 43798.20,32520.74 43802.13,32513.97 43808.07,32506.05 43817.44,32499.17 43825.51,32495.66 43835.65,32493.21 43841.74,32491.97" spreadType="center"/>
+    <edge id="-53478773" from="61041994" to="61041990" name="Schillerpromenade" priority="-4" numLanes="2" speed="8.33" spreadType="center"/>
+    <edge id="-923797607" from="61042005" to="61041996" name="KREISVERKEHR / Herrfurthplatz" priority="-4" numLanes="1" speed="8.33" shape="43856.27,32597.36 43840.63,32596.59 43824.93,32593.59" spreadType="center"/>
+    <edge id="-923797612" from="61041991" to="61041990" name="Kienitzer Strasse" priority="-4" numLanes="1" speed="8.33" shape="43892.35,32382.92 43878.02,32379.90 43860.29,32376.95"/>
+    <edge id="53477973" from="61042031" to="cluster_61042033_61042034" name="Selchower Strasse" priority="-4" numLanes="1" speed="8.33" shape="43802.07,32728.73 43819.12,32731.70"/>
+    <edge id="53478287" from="61042005" to="cluster_61042033_61042034" name="Schillerpromenade" priority="-4" numLanes="2" speed="8.33" shape="43856.27,32597.36 43834.79,32733.58" spreadType="center"/>
+    <edge id="53478384" from="61042004" to="61042083" name="Herrfurthstrasse" priority="-4" numLanes="1" speed="8.33"/>
+    <edge id="53478385" from="61042004" to="61042005" name="KREISVERKEHR / Herrfurthplatz" priority="-4" numLanes="1" speed="8.33" shape="43900.22,32556.34 43895.03,32567.58 43887.80,32578.87 43881.15,32585.69 43871.77,32591.46 43856.27,32597.36" spreadType="center"/>
+    <edge id="53478448" from="61041982" to="61041992" name="Herrfurthstrasse" priority="-4" numLanes="1" speed="8.33"/>
+    <edge id="53478758" from="61041991" to="61041997" name="Schillerpromenade" priority="-4" numLanes="2" speed="8.33" spreadType="center"/>
+    <edge id="53665664" from="61041997" to="61042004" name="KREISVERKEHR / Herrfurthplatz" priority="-4" numLanes="1" speed="8.33" shape="43872.47,32499.08 43881.49,32507.79 43886.37,32513.25 43892.65,32520.90 43896.24,32529.72 43898.50,32539.69 43900.07,32549.67 43900.22,32556.34" spreadType="center"/>
+    <edge id="923797609" from="61041994" to="61041997" name="KREISVERKEHR / Herrfurthplatz" priority="-4" numLanes="1" speed="8.33" shape="43841.74,32491.97 43849.89,32491.79 43858.06,32492.72 43867.64,32495.85 43872.47,32499.08" spreadType="center"/>
+    <edge id="923797611" from="61041990" to="61041991" name="Kienitzer Strasse" priority="-4" numLanes="1" speed="8.33" shape="43860.29,32376.95 43878.02,32379.90 43892.35,32382.92"/>
+</edges>

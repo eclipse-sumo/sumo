@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 27 Sep 2013 12:23:51 PM CEST by Netedit Version dev-SVN-r14761
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/debug/bad_roundabout/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+    <location netOffset="-348988.12,-5782727.78" convBoundary="0.00,0.00,71977.42,72061.73" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="61041982" x="43716.73" y="32523.63"/>
+    <node id="61041990" x="43860.29" y="32376.95"/>
+    <node id="61041991" x="43892.35" y="32382.92"/>
+    <node id="61041992" x="43793.77" y="32535.30"/>
+    <node id="61041994" x="43841.74" y="32491.97"/>
+    <node id="61041996" x="43824.93" y="32593.59"/>
+    <node id="61041997" x="43872.47" y="32499.08"/>
+    <node id="61042004" x="43900.22" y="32556.34"/>
+    <node id="61042005" x="43856.27" y="32597.36"/>
+    <node id="61042031" x="43802.07" y="32728.73"/>
+    <node id="61042083" x="43975.89" y="32568.04"/>
+    <node id="cluster_61042033_61042034" x="43826.95" y="32732.64"/>
+</nodes>
