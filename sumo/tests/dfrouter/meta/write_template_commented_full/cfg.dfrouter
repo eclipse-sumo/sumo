@@ -48,6 +48,9 @@
         <!-- Saves emitter definitions for source detectors to FILE -->
         <emitters-output value="" type="FILE"/>
 
+        <!-- Add vehicle types to the emitters file (PKW, LKW) -->
+        <vtype value="false" type="BOOL"/>
+
         <!-- Saves emitter positions as pois to FILE -->
         <emitters-poi-output value="" type="FILE"/>
 

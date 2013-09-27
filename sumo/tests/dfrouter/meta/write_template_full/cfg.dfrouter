@@ -22,6 +22,7 @@
         <detector-output value="" synonymes="detectors-output" type="FILE" help="Saves typed detectors to FILE"/>
         <detectors-poi-output value="" type="FILE" help="Saves detector positions as pois to FILE"/>
         <emitters-output value="" type="FILE" help="Saves emitter definitions for source detectors to FILE"/>
+        <vtype value="false" type="BOOL" help="Add vehicle types to the emitters file (PKW, LKW)"/>
         <emitters-poi-output value="" type="FILE" help="Saves emitter positions as pois to FILE"/>
         <variable-speed-sign-output value="" synonymes="speed-trigger-output" type="FILE" help="Saves variable seed sign definitions for sink detectors to FILE"/>
         <end-reroute-output value="" type="FILE" help="Saves rerouter definitions for sink detectors to FILE"/>

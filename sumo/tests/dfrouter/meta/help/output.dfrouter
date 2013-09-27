@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r14233
+SUMO dfrouter Version dev-SVN-r14764
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Builds vehicle routes for SUMO using detector values.
 
@@ -25,6 +25,8 @@ Output Options:
   --detectors-poi-output FILE          Saves detector positions as pois to FILE
   --emitters-output FILE               Saves emitter definitions for source
                                          detectors to FILE
+  --vtype                              Add vehicle types to the emitters file
+                                         (PKW, LKW)
   --emitters-poi-output FILE           Saves emitter positions as pois to FILE
   --variable-speed-sign-output FILE    Saves variable seed sign definitions for
                                          sink detectors to FILE
