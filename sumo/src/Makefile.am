@@ -89,7 +89,6 @@ $(sumo_LDADD) \
 ./gui/GUIManipulator.o \
 ./gui/GUITLLogicPhasesTrackerWindow.o \
 $(OSG_LIBS) \
--l$(LIB_FOX) \
 $(FOX_LDFLAGS) $(sumo_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif
 
