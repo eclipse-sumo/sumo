@@ -620,7 +620,7 @@ public:
 	 /** @brief Returns the overall waiting time on this lane
      * @return The sum of the waiting time of all vehicles during the last step;
      */
-    int getWaitingTime() const;
+    SUMOReal getWaitingSeconds() const;
 
 
     /** @brief Returns the brutto (including minGaps) occupancy of this lane during the last step 

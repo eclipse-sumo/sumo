@@ -1264,17 +1264,15 @@ MSLane::getBruttoVehLenSum() const {
 }
 
 
-int
-MSLane::getWaitingTime() const {
+SUMOReal
+MSLane::getWaitingSeconds() const {
     if (myVehicles.size() == 0) {
         return 0;
     }
-    int wtime = 0;
-    const MSLane::VehCont& vehs = getVehiclesSecure();
-    for (VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
+    SUMOReal wtime = 0;
+    for (VehCont::const_iterator i = myVehicles.begin(); i != myVehicles.end(); ++i) {
 		wtime += (*i)->getWaitingSeconds();
     }
-    releaseVehicles();
     return wtime;
 }
 

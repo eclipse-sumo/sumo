@@ -131,16 +131,16 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(e->getCurrentTravelTime());
                 break;
-			case VAR_WAITING_TIME:{
-				int wtime = 0;
-				const std::vector<MSLane*>& lanes = e->getLanes();
-				for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-						wtime += (*i)->getWaitingTime();
-				}
-				tempMsg.writeUnsignedByte(TYPE_INTEGER);
-				tempMsg.writeInt(wtime);
-			}
-			break;
+            case VAR_WAITING_TIME:{
+                SUMOReal wtime = 0;
+                const std::vector<MSLane*>& lanes = e->getLanes();
+                for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
+                        wtime += (*i)->getWaitingSeconds();
+                }
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(wtime); 
+            }
+            break;
             case LAST_STEP_VEHICLE_ID_LIST: {
                 std::vector<std::string> vehIDs;
                 const std::vector<MSLane*>& lanes = e->getLanes();

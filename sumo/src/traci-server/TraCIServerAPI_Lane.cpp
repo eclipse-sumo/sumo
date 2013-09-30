@@ -69,7 +69,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             && variable != LAST_STEP_VEHICLE_ID_LIST && variable != LAST_STEP_OCCUPANCY && variable != LAST_STEP_VEHICLE_HALTING_NUMBER
             && variable != LAST_STEP_LENGTH && variable != VAR_CURRENT_TRAVELTIME
             && variable != LANE_ALLOWED && variable != LANE_DISALLOWED && variable != VAR_WIDTH && variable != ID_COUNT
-			) {
+            ) {
         return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable specified", outputStorage);
     }
     // begin response building
@@ -97,7 +97,6 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             case LANE_LINK_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_UBYTE);
                 tempMsg.writeUnsignedByte((int) lane->getLinkCont().size());
-				
                 break;
             case LANE_EDGE_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -264,10 +263,10 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 lane->releaseVehicles();
             }
             break;
-			case VAR_WAITING_TIME: {
-				tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(lane->getWaitingTime());
-			}
+            case VAR_WAITING_TIME: {
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(lane->getWaitingSeconds());
+            }
             break;
             case VAR_CURRENT_TRAVELTIME: {
                 SUMOReal meanSpeed = lane->getMeanSpeed();
