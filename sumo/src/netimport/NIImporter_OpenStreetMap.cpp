@@ -745,10 +745,15 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key == "name") {
             myCurrentEdge->streetName = value;
         } else if (key == "tracks") {
-            if (TplConvert::_2int(value.c_str()) > 1) {
-                myCurrentEdge->myIsOneWay = "false";
-            } else {
-                myCurrentEdge->myIsOneWay = "true";
+            try {
+                if (TplConvert::_2int(value.c_str()) > 1) {
+                    myCurrentEdge->myIsOneWay = "false";
+                } else {
+                    myCurrentEdge->myIsOneWay = "true";
+                }
+            } catch (NumberFormatException&) {
+                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
+                        toString(myCurrentEdge->id) + "'.");
             }
         }
     }
