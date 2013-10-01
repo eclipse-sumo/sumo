@@ -69,7 +69,7 @@ class MSRoute : public Named, public Parameterised {
 public:
     /// Constructor
     MSRoute(const std::string& id, const MSEdgeVector& edges,
-            unsigned int references, const RGBColor* const c,
+            const bool isPermanent, const RGBColor* const c,
             const std::vector<SUMOVehicleParameter::Stop>& stops);
 
     /// Destructor
@@ -207,6 +207,9 @@ private:
 
     /// Information by how many vehicles the route is used
     mutable unsigned int myReferenceCounter;
+
+    /// whether the route may be deleted after the last vehicle abandoned it
+    const bool myAmPermanent;
 
     /// The color
     const RGBColor* const myColor;

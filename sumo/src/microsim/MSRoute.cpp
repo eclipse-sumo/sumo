@@ -59,10 +59,10 @@ unsigned int MSRoute::MaxRouteDistSize = std::numeric_limits<unsigned int>::max(
 // ===========================================================================
 MSRoute::MSRoute(const std::string& id,
                  const MSEdgeVector& edges,
-                 unsigned int references, const RGBColor* const c,
+                 const bool isPermanent, const RGBColor* const c,
                  const std::vector<SUMOVehicleParameter::Stop>& stops)
-    : Named(id), myEdges(edges),
-      myReferenceCounter(references),
+    : Named(id), myEdges(edges), myAmPermanent(isPermanent), 
+      myReferenceCounter(isPermanent ? 1 : 0),
       myColor(c), myStops(stops) {}
 
 
@@ -224,7 +224,7 @@ void
 MSRoute::dict_saveState(OutputDevice& out) {
     for (RouteDict::iterator it = myDict.begin(); it != myDict.end(); ++it) {
         out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_ID, (*it).second->getID());
-        out.writeAttr(SUMO_ATTR_STATE, (*it).second->myReferenceCounter);
+        out.writeAttr(SUMO_ATTR_STATE, (*it).second->myAmPermanent);
         out.writeAttr(SUMO_ATTR_EDGES, (*it).second->myEdges).closeTag();
     }
     for (RouteDistDict::iterator it = myDistDict.begin(); it != myDistDict.end(); ++it) {

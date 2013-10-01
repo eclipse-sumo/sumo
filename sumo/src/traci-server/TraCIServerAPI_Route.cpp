@@ -130,7 +130,7 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
                 edges.push_back(edge);
             }
             const std::vector<SUMOVehicleParameter::Stop> stops;
-            if (!MSRoute::dictionary(id, new MSRoute(id, edges, 1, 0, stops))) {
+            if (!MSRoute::dictionary(id, new MSRoute(id, edges, true, 0, stops))) {
                 return server.writeErrorStatusCmd(CMD_SET_ROUTE_VARIABLE, "Could not add route.", outputStorage);
             }
         }
