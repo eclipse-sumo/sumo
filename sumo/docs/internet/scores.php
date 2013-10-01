@@ -92,7 +92,7 @@ endif;
 
 <h2>Das Spiel</h2>
 <p>Auf dieser Seite pr&auml;sentieren wir das Ampelspiel zur Langen Nacht der Wissenschaften.</p>
-<p>Sie k&ouml;nnen das vollst&auml;ndige <a href="sumogame.zip">Spiel herunterladen</a> und unten
+<p>Sie k&ouml;nnen das vollst&auml;ndige <a href="https://sourceforge.net/projects/sumo/files/sumo/version%200.18.0/sumo-game-0.18.0.zip/download">Spiel herunterladen</a> und unten
 auch die globale Highscoreliste sehen.
 Zum Spielen sollte das heruntergeladene Archiv in einen Ordner entpackt werden und die darin enthaltene 
 Datei runner.exe gestartet werden.
