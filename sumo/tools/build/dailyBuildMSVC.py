@@ -53,7 +53,7 @@ import runInternalTests
 env = os.environ
 env["SMTP_SERVER"]="smtprelay.dlr.de"
 env["TEMP"]=env["TMP"]=r"D:\Delphi\texttesttmp"
-nightlyDir=r"M:\Daten\Sumo\Nightly"
+nightlyDir=r"O:\Daten\Sumo\Nightly"
 compiler=r"D:\Programme\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe"
 svnrev=""
 for platform in ["Win32", "x64"]:
