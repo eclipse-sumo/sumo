@@ -26,7 +26,7 @@
 -->
 
 <snapshot version="dev-SVN-r14576" time="10000">
-    <route id="r0" state="5" edges="beg middle end"/>
+    <route id="r0" state="1" edges="beg middle end"/>
     <delay number="2" end="0" depart="4.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE">
         <carFollowing-Krauss sigma="0.00"/>
