@@ -6,9 +6,8 @@ Parsing edges from 'data/spd-road.edg.xml'... done.
 Removing self-loops... done.
 Removing empty nodes... done.
    0 nodes removed.
-Joining similar edges... done.
 Moving network to origin... done.
-Assigning nodes to traffic lights... done.
+Joining similar edges... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node types... done.
@@ -20,6 +19,7 @@ Processing turnarounds... done.
 Rechecking of lane endings... done.
 Computing node shapes... done.
 Computing edge shapes... done.
+Assigning nodes to traffic lights... done.
 Computing traffic light control information... done.
 Computing node logics... done.
 Computing traffic light logics... done.
@@ -40,260 +40,281 @@ Success.
 >> Netbuilding closed with status 0
 data read:  2298 2298
 Loading configuration... done.
-# simulation with: sigA:0.500 lCar:7.500 vMax:22.000 tTau:1.500 bMax:2.000 aMax:2.000
+# simulation with: sigA:0.500 lCar:5.000 vMax:22.000 tTau:1.500 bMax:2.000 aMax:2.000
 Loading configuration... done.
-#### yields rmse: 223.6423
-# simulation with: sigA:0.500 lCar:7.500 vMax:23.000 tTau:1.500 bMax:2.000 aMax:2.000
+#### yields rmse: 180.5533
+# simulation with: sigA:0.500 lCar:5.000 vMax:23.000 tTau:1.500 bMax:2.000 aMax:2.000
 Loading configuration... done.
-#### yields rmse: 221.2192
-# simulation with: sigA:0.500 lCar:7.500 vMax:23.000 tTau:1.500 bMax:2.000 aMax:3.000
+#### yields rmse: 178.9020
+# simulation with: sigA:0.500 lCar:5.000 vMax:23.000 tTau:1.500 bMax:2.000 aMax:3.000
 Loading configuration... done.
-#### yields rmse: 269.7032
-# simulation with: sigA:0.500 lCar:7.500 vMax:23.000 tTau:1.500 bMax:3.000 aMax:2.000
+#### yields rmse: 229.2642
+# simulation with: sigA:0.500 lCar:5.000 vMax:23.000 tTau:1.500 bMax:3.000 aMax:2.000
 Loading configuration... done.
-#### yields rmse: 223.4325
-# simulation with: sigA:0.500 lCar:8.500 vMax:23.000 tTau:1.500 bMax:2.000 aMax:2.000
+#### yields rmse: 175.5284
+# simulation with: sigA:0.500 lCar:6.000 vMax:23.000 tTau:1.500 bMax:3.000 aMax:2.000
 Loading configuration... done.
-#### yields rmse: 240.4484
-# simulation with: sigA:1.500 lCar:7.500 vMax:23.000 tTau:1.500 bMax:2.000 aMax:2.000
+#### yields rmse: 190.6189
+# simulation with: sigA:1.500 lCar:5.000 vMax:23.000 tTau:1.500 bMax:3.000 aMax:2.000
 Loading configuration... done.
-#### yields rmse: 1018.2597
-# simulation with: sigA:0.500 lCar:7.500 vMax:23.000 tTau:2.500 bMax:2.000 aMax:2.000
+#### yields rmse: 1029.3789
+# simulation with: sigA:0.500 lCar:5.000 vMax:23.000 tTau:2.500 bMax:3.000 aMax:2.000
 Loading configuration... done.
-#### yields rmse: 271.7157
-# simulation with: sigA:0.100 lCar:7.197 vMax:23.038 tTau:1.100 bMax:1.965 aMax:1.235
+#### yields rmse: 237.2829
+# simulation with: sigA:0.100 lCar:4.764 vMax:23.026 tTau:1.100 bMax:3.053 aMax:1.212
 Loading configuration... done.
-#### yields rmse: 60.8189
-# simulation with: sigA:0.100 lCar:7.117 vMax:23.048 tTau:1.100 bMax:1.956 aMax:2.232
+#### yields rmse: 91.7473
+# simulation with: sigA:0.100 lCar:4.722 vMax:23.030 tTau:1.100 bMax:3.062 aMax:2.211
 Loading configuration... done.
-#### yields rmse: 55.6699
-# simulation with: sigA:0.100 lCar:6.632 vMax:23.109 tTau:1.100 bMax:1.900 aMax:2.322
+#### yields rmse: 90.9317
+# simulation with: sigA:0.100 lCar:4.237 vMax:23.083 tTau:1.100 bMax:3.171 aMax:2.216
 Loading configuration... done.
-#### yields rmse: 66.1663
-# simulation with: sigA:-0.077 lCar:7.117 vMax:23.048 tTau:1.277 bMax:1.956 aMax:2.232
+#### yields rmse: 92.6318
+# simulation with: sigA:0.100 lCar:4.750 vMax:23.279 tTau:1.100 bMax:3.062 aMax:2.211
 Loading configuration... done.
-#### yields rmse: 57.0951
-# simulation with: sigA:0.100 lCar:7.592 vMax:23.097 tTau:1.100 bMax:1.911 aMax:2.373
+#### yields rmse: 91.2015
+# simulation with: sigA:0.100 lCar:5.088 vMax:22.894 tTau:1.100 bMax:3.363 aMax:2.297
 Loading configuration... done.
-#### yields rmse: 42.2154
-# simulation with: sigA:0.100 lCar:8.040 vMax:23.142 tTau:1.100 bMax:1.871 aMax:2.587
+#### yields rmse: 87.8684
+# simulation with: sigA:0.100 lCar:5.434 vMax:22.767 tTau:1.100 bMax:3.692 aMax:2.375
 Loading configuration... done.
-#### yields rmse: 76.7998
-# simulation with: sigA:0.084 lCar:7.599 vMax:23.338 tTau:1.117 bMax:1.911 aMax:2.310
+#### yields rmse: 84.5886
+# simulation with: sigA:0.100 lCar:5.748 vMax:22.703 tTau:1.100 bMax:4.070 aMax:2.434
 Loading configuration... done.
-#### yields rmse: 40.9677
-# simulation with: sigA:0.100 lCar:7.676 vMax:23.248 tTau:1.100 bMax:1.907 aMax:1.825
+#### yields rmse: 77.6091
+# simulation with: sigA:0.100 lCar:5.792 vMax:22.974 tTau:1.100 bMax:4.484 aMax:2.373
 Loading configuration... done.
-#### yields rmse: 41.2859
-# simulation with: sigA:0.061 lCar:7.620 vMax:23.338 tTau:1.091 bMax:2.158 aMax:2.311
+#### yields rmse: 75.8296
+# simulation with: sigA:0.100 lCar:5.664 vMax:22.605 tTau:1.100 bMax:4.782 aMax:2.281
 Loading configuration... done.
-#### yields rmse: 47.4753
-# simulation with: sigA:0.100 lCar:7.219 vMax:23.459 tTau:1.100 bMax:1.612 aMax:2.280
+#### yields rmse: 76.3892
+# simulation with: sigA:-0.077 lCar:5.792 vMax:22.974 tTau:1.277 bMax:4.484 aMax:2.373
 Loading configuration... done.
-#### yields rmse: 49.5131
-# simulation with: sigA:0.100 lCar:7.951 vMax:23.324 tTau:1.100 bMax:1.560 aMax:2.354
+#### yields rmse: 72.6430
+# simulation with: sigA:0.100 lCar:5.736 vMax:22.974 tTau:1.100 bMax:4.577 aMax:2.792
 Loading configuration... done.
-#### yields rmse: 68.3326
-# simulation with: sigA:0.100 lCar:7.536 vMax:23.395 tTau:1.100 bMax:2.145 aMax:2.308
+#### yields rmse: 74.9249
+# simulation with: sigA:-0.254 lCar:5.792 vMax:22.974 tTau:1.100 bMax:4.484 aMax:2.373
 Loading configuration... done.
-#### yields rmse: 42.2365
-# simulation with: sigA:-0.005 lCar:7.599 vMax:23.338 tTau:1.029 bMax:1.911 aMax:2.310
+#### yields rmse: 92.5504
+# simulation with: sigA:0.210 lCar:5.890 vMax:22.965 tTau:1.673 bMax:4.509 aMax:2.394
 Loading configuration... done.
-#### yields rmse: 69.1060
-# simulation with: sigA:0.267 lCar:7.626 vMax:23.344 tTau:1.285 bMax:1.911 aMax:2.314
+#### yields rmse: 147.9995
+# simulation with: sigA:0.100 lCar:5.972 vMax:22.951 tTau:1.100 bMax:4.638 aMax:2.842
 Loading configuration... done.
-#### yields rmse: 173.6433
-# simulation with: sigA:0.165 lCar:7.618 vMax:23.351 tTau:1.025 bMax:1.901 aMax:2.316
+#### yields rmse: 70.9735
+# simulation with: sigA:0.100 lCar:6.207 vMax:22.932 tTau:1.100 bMax:4.701 aMax:2.893
 Loading configuration... done.
-#### yields rmse: 45.9196
-# simulation with: sigA:0.100 lCar:7.834 vMax:23.319 tTau:1.100 bMax:1.991 aMax:2.312
+#### yields rmse: 65.9080
+# simulation with: sigA:0.100 lCar:6.450 vMax:22.902 tTau:1.100 bMax:4.750 aMax:2.909
 Loading configuration... done.
-#### yields rmse: 53.4742
-# simulation with: sigA:0.100 lCar:7.482 vMax:23.335 tTau:1.100 bMax:1.880 aMax:2.287
+#### yields rmse: 62.1388
+# simulation with: sigA:0.100 lCar:6.672 vMax:22.883 tTau:1.100 bMax:4.820 aMax:3.000
 Loading configuration... done.
-#### yields rmse: 42.2024
-# simulation with: sigA:0.081 lCar:7.588 vMax:23.353 tTau:1.120 bMax:1.905 aMax:2.369
+#### yields rmse: 54.8277
+# simulation with: sigA:0.100 lCar:6.876 vMax:22.853 tTau:1.100 bMax:4.818 aMax:2.860
 Loading configuration... done.
-#### yields rmse: 40.8153
-# simulation with: sigA:0.100 lCar:7.432 vMax:23.282 tTau:1.100 bMax:1.904 aMax:2.189
+#### yields rmse: 49.9034
+# simulation with: sigA:0.100 lCar:7.007 vMax:22.646 tTau:1.100 bMax:4.825 aMax:2.913
 Loading configuration... done.
-#### yields rmse: 44.2178
-# simulation with: sigA:0.053 lCar:7.482 vMax:23.337 tTau:1.059 bMax:1.880 aMax:2.286
+#### yields rmse: 47.4140
+# simulation with: sigA:0.100 lCar:7.126 vMax:22.659 tTau:1.100 bMax:5.043 aMax:2.891
 Loading configuration... done.
-#### yields rmse: 59.7160
-# simulation with: sigA:0.178 lCar:7.485 vMax:23.355 tTau:1.196 bMax:1.875 aMax:2.282
+#### yields rmse: 48.5637
+# simulation with: sigA:0.012 lCar:7.007 vMax:22.646 tTau:1.012 bMax:4.825 aMax:2.913
 Loading configuration... done.
-#### yields rmse: 108.9032
-# simulation with: sigA:0.097 lCar:7.498 vMax:23.314 tTau:1.103 bMax:1.825 aMax:2.277
+#### yields rmse: 70.7109
+# simulation with: sigA:0.217 lCar:7.052 vMax:22.663 tTau:1.313 bMax:4.795 aMax:2.931
 Loading configuration... done.
-#### yields rmse: 41.8755
-# simulation with: sigA:0.111 lCar:7.468 vMax:23.234 tTau:1.100 bMax:1.901 aMax:2.355
+#### yields rmse: 156.9303
+# simulation with: sigA:0.153 lCar:7.059 vMax:22.695 tTau:1.047 bMax:4.800 aMax:2.978
 Loading configuration... done.
-#### yields rmse: 42.4723
-# simulation with: sigA:0.147 lCar:7.495 vMax:23.334 tTau:1.061 bMax:1.881 aMax:2.281
+#### yields rmse: 50.4394
+# simulation with: sigA:0.280 lCar:6.919 vMax:22.560 tTau:1.100 bMax:4.866 aMax:2.797
 Loading configuration... done.
-#### yields rmse: 43.8418
-# simulation with: sigA:0.100 lCar:7.532 vMax:23.261 tTau:1.100 bMax:1.879 aMax:2.374
+#### yields rmse: 106.9287
+# simulation with: sigA:0.106 lCar:6.938 vMax:22.628 tTau:1.112 bMax:4.872 aMax:3.003
 Loading configuration... done.
-#### yields rmse: 41.7972
-# simulation with: sigA:0.100 lCar:7.543 vMax:23.219 tTau:1.100 bMax:1.902 aMax:2.335
+#### yields rmse: 47.4061
+# simulation with: sigA:0.100 lCar:6.783 vMax:22.505 tTau:1.100 bMax:4.951 aMax:3.133
 Loading configuration... done.
-#### yields rmse: 41.5419
-# simulation with: sigA:0.081 lCar:7.541 vMax:23.221 tTau:1.076 bMax:1.910 aMax:2.337
+#### yields rmse: 48.9037
+# simulation with: sigA:0.100 lCar:6.861 vMax:22.567 tTau:1.100 bMax:4.911 aMax:3.068
 Loading configuration... done.
-#### yields rmse: 47.1311
-# simulation with: sigA:0.128 lCar:7.549 vMax:23.214 tTau:1.152 bMax:1.885 aMax:2.329
+#### yields rmse: 47.4414
+# simulation with: sigA:0.049 lCar:6.948 vMax:22.638 tTau:1.098 bMax:4.868 aMax:3.020
 Loading configuration... done.
-#### yields rmse: 69.8983
-# simulation with: sigA:0.073 lCar:7.538 vMax:23.216 tTau:1.114 bMax:1.898 aMax:2.334
+#### yields rmse: 57.2421
+# simulation with: sigA:0.207 lCar:6.920 vMax:22.598 tTau:1.165 bMax:4.877 aMax:2.968
 Loading configuration... done.
-#### yields rmse: 42.0365
-# simulation with: sigA:0.100 lCar:7.542 vMax:23.233 tTau:1.100 bMax:1.961 aMax:2.350
+#### yields rmse: 103.6340
+# simulation with: sigA:0.096 lCar:6.972 vMax:22.596 tTau:1.141 bMax:4.858 aMax:3.027
 Loading configuration... done.
-#### yields rmse: 41.8719
-# simulation with: sigA:0.098 lCar:7.541 vMax:23.240 tTau:1.101 bMax:1.903 aMax:2.312
+#### yields rmse: 52.4817
+# simulation with: sigA:0.100 lCar:6.922 vMax:22.743 tTau:1.100 bMax:4.875 aMax:3.046
 Loading configuration... done.
-#### yields rmse: 41.2297
-# simulation with: sigA:0.100 lCar:7.489 vMax:23.238 tTau:1.100 bMax:1.896 aMax:2.279
+#### yields rmse: 47.0773
+# simulation with: sigA:0.123 lCar:6.894 vMax:22.743 tTau:1.117 bMax:4.827 aMax:3.046
 Loading configuration... done.
-#### yields rmse: 42.1314
-# simulation with: sigA:0.100 lCar:7.569 vMax:23.247 tTau:1.100 bMax:1.898 aMax:2.301
+#### yields rmse: 51.1940
+# simulation with: sigA:0.139 lCar:6.910 vMax:22.763 tTau:1.100 bMax:4.976 aMax:2.988
 Loading configuration... done.
-#### yields rmse: 41.8375
-# simulation with: sigA:0.098 lCar:7.539 vMax:23.246 tTau:1.098 bMax:1.890 aMax:2.317
+#### yields rmse: 51.8741
+# simulation with: sigA:0.101 lCar:6.893 vMax:22.720 tTau:1.050 bMax:4.875 aMax:3.045
 Loading configuration... done.
-#### yields rmse: 41.6662
-# simulation with: sigA:0.100 lCar:7.541 vMax:23.241 tTau:1.100 bMax:1.934 aMax:2.311
+#### yields rmse: 57.3030
+# simulation with: sigA:0.100 lCar:6.994 vMax:22.818 tTau:1.170 bMax:4.871 aMax:3.040
 Loading configuration... done.
-#### yields rmse: 41.7661
-# simulation with: sigA:0.092 lCar:7.540 vMax:23.236 tTau:1.087 bMax:1.903 aMax:2.309
+#### yields rmse: 64.6280
+# simulation with: sigA:0.100 lCar:6.866 vMax:22.721 tTau:1.100 bMax:4.869 aMax:3.032
 Loading configuration... done.
-#### yields rmse: 43.4321
-# simulation with: sigA:0.115 lCar:7.534 vMax:23.236 tTau:1.125 bMax:1.900 aMax:2.305
+#### yields rmse: 48.1248
+# simulation with: sigA:0.107 lCar:6.916 vMax:22.740 tTau:1.112 bMax:4.886 aMax:3.070
 Loading configuration... done.
-#### yields rmse: 49.5056
-# simulation with: sigA:0.100 lCar:7.544 vMax:23.244 tTau:1.114 bMax:1.904 aMax:2.318
+#### yields rmse: 47.1827
+# simulation with: sigA:0.108 lCar:6.927 vMax:22.723 tTau:1.100 bMax:4.881 aMax:3.104
 Loading configuration... done.
-#### yields rmse: 42.7314
-# simulation with: sigA:0.106 lCar:7.540 vMax:23.239 tTau:1.100 bMax:1.902 aMax:2.310
+#### yields rmse: 46.7941
+# simulation with: sigA:0.106 lCar:6.916 vMax:22.745 tTau:1.083 bMax:4.881 aMax:3.113
 Loading configuration... done.
-#### yields rmse: 42.1538
-# simulation with: sigA:0.098 lCar:7.543 vMax:23.243 tTau:1.101 bMax:1.903 aMax:2.310
+#### yields rmse: 48.5515
+# simulation with: sigA:0.100 lCar:6.954 vMax:22.689 tTau:1.141 bMax:4.897 aMax:3.108
 Loading configuration... done.
-#### yields rmse: 41.3368
-# simulation with: sigA:0.100 lCar:7.535 vMax:23.242 tTau:1.103 bMax:1.903 aMax:2.308
+#### yields rmse: 53.9174
+# simulation with: sigA:0.100 lCar:6.925 vMax:22.730 tTau:1.115 bMax:4.857 aMax:3.110
 Loading configuration... done.
-#### yields rmse: 41.1267
-# simulation with: sigA:0.099 lCar:7.535 vMax:23.240 tTau:1.104 bMax:1.901 aMax:2.307
+#### yields rmse: 47.2057
+# simulation with: sigA:0.166 lCar:6.933 vMax:22.722 tTau:1.100 bMax:4.861 aMax:3.098
 Loading configuration... done.
-#### yields rmse: 41.7893
-# simulation with: sigA:0.100 lCar:7.531 vMax:23.245 tTau:1.100 bMax:1.908 aMax:2.310
+#### yields rmse: 64.7916
+# simulation with: sigA:0.107 lCar:6.906 vMax:22.701 tTau:1.100 bMax:4.875 aMax:3.099
 Loading configuration... done.
-#### yields rmse: 41.6910
-# simulation with: sigA:0.100 lCar:7.535 vMax:23.240 tTau:1.104 bMax:1.906 aMax:2.307
+#### yields rmse: 46.8114
+# simulation with: sigA:0.100 lCar:6.887 vMax:22.752 tTau:1.100 bMax:4.909 aMax:3.128
 Loading configuration... done.
-#### yields rmse: 41.3641
-# simulation with: sigA:0.100 lCar:7.532 vMax:23.241 tTau:1.101 bMax:1.896 aMax:2.306
+#### yields rmse: 47.2115
+# simulation with: sigA:0.100 lCar:6.943 vMax:22.712 tTau:1.100 bMax:4.863 aMax:3.119
 Loading configuration... done.
-#### yields rmse: 41.8273
-# simulation with: sigA:0.100 lCar:7.535 vMax:23.244 tTau:1.109 bMax:1.902 aMax:2.312
+#### yields rmse: 47.0530
+# simulation with: sigA:0.100 lCar:6.919 vMax:22.729 tTau:1.100 bMax:4.887 aMax:3.110
 Loading configuration... done.
-#### yields rmse: 41.5591
-# simulation with: sigA:0.100 lCar:7.537 vMax:23.245 tTau:1.103 bMax:1.903 aMax:2.306
+#### yields rmse: 46.9766
+# simulation with: sigA:0.109 lCar:6.928 vMax:22.720 tTau:1.106 bMax:4.884 aMax:3.106
 Loading configuration... done.
-#### yields rmse: 41.5077
-# simulation with: sigA:0.104 lCar:7.535 vMax:23.242 tTau:1.103 bMax:1.903 aMax:2.309
+#### yields rmse: 47.3951
+# simulation with: sigA:0.100 lCar:6.932 vMax:22.721 tTau:1.100 bMax:4.882 aMax:3.091
 Loading configuration... done.
-#### yields rmse: 41.8274
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.7564
+# simulation with: sigA:0.100 lCar:6.930 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.090
 Loading configuration... done.
-#### yields rmse: 41.1001
-# simulation with: sigA:0.100 lCar:7.533 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.5813
+# simulation with: sigA:0.103 lCar:6.927 vMax:22.732 tTau:1.100 bMax:4.867 aMax:3.084
 Loading configuration... done.
-#### yields rmse: 41.6741
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.104 bMax:1.901 aMax:2.309
+#### yields rmse: 46.9601
+# simulation with: sigA:0.099 lCar:6.925 vMax:22.728 tTau:1.105 bMax:4.882 aMax:3.088
 Loading configuration... done.
-#### yields rmse: 41.5743
-# simulation with: sigA:0.100 lCar:7.533 vMax:23.242 tTau:1.103 bMax:1.902 aMax:2.308
+#### yields rmse: 46.7168
+# simulation with: sigA:0.100 lCar:6.927 vMax:22.727 tTau:1.102 bMax:4.871 aMax:3.103
 Loading configuration... done.
-#### yields rmse: 41.2645
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.101 bMax:1.902 aMax:2.309
+#### yields rmse: 46.8125
+# simulation with: sigA:0.101 lCar:6.936 vMax:22.730 tTau:1.105 bMax:4.879 aMax:3.091
 Loading configuration... done.
-#### yields rmse: 41.4829
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.242 tTau:1.102 bMax:1.901 aMax:2.308
+#### yields rmse: 46.7216
+# simulation with: sigA:0.102 lCar:6.930 vMax:22.717 tTau:1.118 bMax:4.876 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.7380
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.240 tTau:1.102 bMax:1.902 aMax:2.307
+#### yields rmse: 47.8600
+# simulation with: sigA:0.100 lCar:6.935 vMax:22.725 tTau:1.102 bMax:4.873 aMax:3.086
 Loading configuration... done.
-#### yields rmse: 41.6155
-# simulation with: sigA:0.101 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.7666
+# simulation with: sigA:0.100 lCar:6.930 vMax:22.725 tTau:1.104 bMax:4.876 aMax:3.093
 Loading configuration... done.
-#### yields rmse: 41.7309
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.243 tTau:1.102 bMax:1.901 aMax:2.307
+#### yields rmse: 46.8120
+# simulation with: sigA:0.102 lCar:6.930 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.4636
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.309
+#### yields rmse: 46.6189
+# simulation with: sigA:0.100 lCar:6.931 vMax:22.723 tTau:1.108 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.6179
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.103 bMax:1.901 aMax:2.308
+#### yields rmse: 46.6208
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.725 tTau:1.105 bMax:4.878 aMax:3.088
 Loading configuration... done.
-#### yields rmse: 41.7089
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.901 aMax:2.308
+#### yields rmse: 46.7140
+# simulation with: sigA:0.100 lCar:6.930 vMax:22.724 tTau:1.105 bMax:4.877 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 42.1305
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.4858
+# simulation with: sigA:0.100 lCar:6.930 vMax:22.722 tTau:1.104 bMax:4.878 aMax:3.090
 Loading configuration... done.
-#### yields rmse: 41.4665
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.5688
+# simulation with: sigA:0.100 lCar:6.930 vMax:22.724 tTau:1.104 bMax:4.876 aMax:3.088
 Loading configuration... done.
-#### yields rmse: 41.7726
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.242 tTau:1.102 bMax:1.902 aMax:2.309
+#### yields rmse: 46.6541
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.877 aMax:3.090
 Loading configuration... done.
-#### yields rmse: 41.4882
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.901 aMax:2.308
+#### yields rmse: 46.7152
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.104 bMax:4.877 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.3212
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.7581
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.7407
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.3548
+# simulation with: sigA:0.100 lCar:6.930 vMax:22.723 tTau:1.106 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.6293
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.103 bMax:1.902 aMax:2.308
+#### yields rmse: 46.7257
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 42.0040
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.5419
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.877 aMax:3.088
 Loading configuration... done.
-#### yields rmse: 41.5358
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.5364
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.723 tTau:1.105 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.7402
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.7665
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.7467
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.103 bMax:1.902 aMax:2.308
+#### yields rmse: 46.5710
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.088
 Loading configuration... done.
-#### yields rmse: 41.1960
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.6670
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.723 tTau:1.105 bMax:4.877 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.6942
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.7234
+# simulation with: sigA:0.100 lCar:6.930 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.1012
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.6939
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.723 tTau:1.105 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.5983
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.7312
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.4843
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
+#### yields rmse: 46.6988
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
 Loading configuration... done.
-#### yields rmse: 41.8738
-# simulation with: sigA:0.100 lCar:7.534 vMax:23.241 tTau:1.102 bMax:1.902 aMax:2.308
-#### yields rmse: 41.7683
+#### yields rmse: 46.8016
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
+Loading configuration... done.
+#### yields rmse: 46.5830
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.723 tTau:1.105 bMax:4.878 aMax:3.089
+Loading configuration... done.
+#### yields rmse: 46.8246
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
+Loading configuration... done.
+#### yields rmse: 46.5739
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
+Loading configuration... done.
+#### yields rmse: 46.6598
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
+Loading configuration... done.
+#### yields rmse: 46.6269
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
+Loading configuration... done.
+#### yields rmse: 46.7503
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
+Loading configuration... done.
+#### yields rmse: 46.6031
+# simulation with: sigA:0.100 lCar:6.929 vMax:22.724 tTau:1.105 bMax:4.878 aMax:3.089
+#### yields rmse: 46.7516
 
    Normal return from subroutine COBYLA
 
-   NFVALS =   84   F = 4.176831E+01    MAXCV = 0.000000E+00
-   X = 2.324135E+01   2.308288E+00   1.901676E+00   7.533679E+00   1.000038E-01
-       1.102472E+00
+   NFVALS =   91   F = 4.675157E+01    MAXCV = 0.000000E+00
+   X = 2.272362E+01   3.088803E+00   4.877616E+00   6.929356E+00   1.000000E-01
+       1.105209E+00
