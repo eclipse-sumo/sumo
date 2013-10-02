@@ -21,3 +21,6 @@ key_lanes_non_numerical
 way_with_with_insufficient_nodes
 way_with_selfloop
 turning_restrictions
+
+# test handling various problems with osm input files 
+recoverable_errors

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Oct  2 12:36:48 2013 by SUMO netconvert Version dev-SVN-r14776
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="ignore.net.xml"/>
+        <plain-output-prefix value="plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+    <location netOffset="-405213.33,-5803545.51" convBoundary="0.00,0.00,647.27,350.76" origBoundary="13.607621,52.373967,13.617027,52.377232" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1" x="0.00" y="0.00" type="priority"/>
+    <node id="2" x="647.27" y="350.76" type="priority"/>
+</nodes>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Oct  2 12:36:48 2013 by SUMO netconvert Version dev-SVN-r14776
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="ignore.net.xml"/>
+        <plain-output-prefix value="plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+</configuration>
+-->
+
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/connections_file.xsd">
+    <connection from="-10860201" to="10860201" fromLane="1" toLane="1"/>
+
+    <connection from="10860201" to="-10860201" fromLane="1" toLane="1"/>
+
+</connections>

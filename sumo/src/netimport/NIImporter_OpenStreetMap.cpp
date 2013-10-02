@@ -578,11 +578,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             return;
         }
         bool ok = true;
-        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok);
+        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, false);
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
-        if (!ok) {
-            return;
-        }
         if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
             myToFill[myLastNodeID]->tlsControlled = true;
         }
@@ -667,11 +664,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             return;
         }
         bool ok = true;
-        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok);
+        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, false);
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
-        if (!ok) {
-            return;
-        }
+
         if (key == "highway" || key == "railway") {
             if (myCurrentEdge->myHighWayType != "") {
                 // osm-ways may be used by more than one mode (eg railway.tram + highway.residential. this is relevant for multimodal traffic)
@@ -844,11 +839,9 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
     // parse values
     if (element == SUMO_TAG_TAG) {
         bool ok = true;
-        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentRelation).c_str(), ok);
+        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentRelation).c_str(), ok, false);
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
-        if (!ok) {
-            return;
-        }
+
         if (key == "type" && value == "restriction") {
             myIsRestriction = true;
             return;
