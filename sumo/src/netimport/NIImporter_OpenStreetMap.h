@@ -160,6 +160,9 @@ private:
     /** @brief the map from OSM way ids to edge objects */
     std::map<SUMOLong, Edge*> myEdges;
 
+    /// @brief The compounds types that do not contain known types
+    std::set<std::string> myUnusableTypes;
+
     /** @brief Builds an NBNode
      *
      * If a node with the given id is already known, nothing is done.

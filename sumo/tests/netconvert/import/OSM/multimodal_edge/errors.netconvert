@@ -1,0 +1,4 @@
+Warning: Discarding unknown compound "railway.platform" in type "railway.tram|railway.platform" (first occurence for edge "10860202").
+Warning: Discarding unknown compound "railway.abandoned" in type "railway.abandoned|railway.platform" (first occurence for edge "10860204").
+Warning: Discarding unknown compound "railway.platform" in type "railway.abandoned|railway.platform" (first occurence for edge "10860204").
+Warning: Discarding unusable type "railway.abandoned|railway.platform" (first occurence for edge "10860204").
