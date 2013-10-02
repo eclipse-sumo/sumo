@@ -284,7 +284,7 @@ public:
      * If the given value<0 then the one from the original type will
      *  be used.
      *
-     * @param[in] offset The new minimum gap of this type
+     * @param[in] minGap The new minimum gap of this type
      */
     void setMinGap(const SUMOReal& minGap);
 
