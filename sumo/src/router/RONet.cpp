@@ -101,6 +101,17 @@ RONet::addNode(RONode* node) {
 }
 
 
+void
+RONet::addBusStop(const std::string& id, SUMOVehicleParameter::Stop* stop) {
+    std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator it = myBusStops.find(id);
+    if (it != myBusStops.end()) {
+        WRITE_ERROR("The bus stop '" + id + "' occurs at least twice.");
+        delete stop;
+    }
+    myBusStops[id] = stop;
+}
+
+
 bool
 RONet::addRouteDef(RORouteDef* def) {
     return myRoutes.add(def->getID(), def);
@@ -309,7 +320,7 @@ RONet::checkFlows(SUMOTime time) {
             // try to build the vehicle
             SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
             RORouteDef* route = getRouteDef(pars->routeid)->copy("!" + newPars->id);
-            ROVehicle* veh = new ROVehicle(*newPars, route, type);
+            ROVehicle* veh = new ROVehicle(*newPars, route, type, this);
             addVehicle(newPars->id, veh);
             delete newPars;
         }

@@ -67,8 +67,8 @@ public:
     SUMOTime getLastDepart() const;
 
     /// check start and end position of a stop
-    bool checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMOReal laneLength,
-                      const SUMOReal minLength, const bool friendlyPos);
+    static bool checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMOReal laneLength,
+                             const SUMOReal minLength, const bool friendlyPos);
 
 protected:
     /// @name inherited from GenericSAXHandler

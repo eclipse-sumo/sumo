@@ -383,7 +383,7 @@ RORouteHandler::closeVehicle() {
     }
     // build the vehicle
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
-        ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type);
+        ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type, &myNet);
         myNet.addVehicle(myVehicleParameter->id, veh);
         registerLastDepart();
     }
@@ -454,7 +454,16 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         return;
     }
     // try to parse the assigned bus stop
-    if (stop.busstop == "") {
+    if (stop.busstop != "") {
+        const SUMOVehicleParameter::Stop* busstop = myNet.getBusStop(stop.busstop);
+        if (busstop == 0) {
+            myErrorOutput->inform("Unknown bus stop '" + stop.busstop + "'" + errorSuffix);
+        } else {
+            stop.lane = busstop->lane;
+            stop.endPos = busstop->endPos;
+            stop.startPos = busstop->startPos;
+        }
+    } else {
         // no, the lane and the position should be given
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, 0, ok, "");
         if (!ok || stop.lane == "") {

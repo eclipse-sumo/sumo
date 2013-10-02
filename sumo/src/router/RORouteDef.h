@@ -105,6 +105,10 @@ public:
 
     const ROEdge* getDestination() const;
 
+    const RORoute* getFirstRoute() const {
+        return myAlternatives.front();
+    }
+
     /** @brief Saves the built route / route alternatives
      *
      * Writes the route into the given stream.

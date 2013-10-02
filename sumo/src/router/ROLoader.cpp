@@ -142,18 +142,20 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     } else {
         PROGRESS_DONE_MESSAGE();
     }
-    if (myOptions.isSet("taz-files", false)) { // dfrouter does not register this option
-        file = myOptions.getString("taz-files");
-        if (!FileHelpers::exists(file)) {
-            throw ProcessError("The districts file '" + file + "' could not be found.");
-        }
-        PROGRESS_BEGIN_MESSAGE("Loading districts");
-        handler.setFileName(file);
-        if (!XMLSubSys::runParser(handler, file)) {
-            PROGRESS_FAILED_MESSAGE();
-            throw ProcessError();
-        } else {
-            PROGRESS_DONE_MESSAGE();
+    if (myOptions.isSet("additional-files", false)) { // dfrouter does not register this option
+        std::vector<std::string> files = myOptions.getStringVector("additional-files");
+        for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
+            if (!FileHelpers::exists(*fileIt)) {
+                throw ProcessError("The additional file '" + *fileIt + "' could not be found.");
+            }
+            PROGRESS_BEGIN_MESSAGE("Loading additional file '" + *fileIt + "' ");
+            handler.setFileName(*fileIt);
+            if (!XMLSubSys::runParser(handler, *fileIt)) {
+                PROGRESS_FAILED_MESSAGE();
+                throw ProcessError();
+            } else {
+                PROGRESS_DONE_MESSAGE();
+            }
         }
     }
 }

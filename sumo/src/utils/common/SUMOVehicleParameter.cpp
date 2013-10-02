@@ -242,12 +242,6 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc) const {
 
 void
 SUMOVehicleParameter::writeStops(OutputDevice& dev) const {
-    writeStops(stops, dev);
-}
-
-
-void
-SUMOVehicleParameter::writeStops(const std::vector<SUMOVehicleParameter::Stop>& stops, OutputDevice& dev) {
     for (std::vector<Stop>::const_iterator stop = stops.begin(); stop != stops.end(); ++stop) {
         dev.openTag(SUMO_TAG_STOP);
         if (stop->busstop != "") {

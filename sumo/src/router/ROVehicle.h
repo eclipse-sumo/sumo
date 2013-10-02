@@ -45,6 +45,7 @@
 class RORouteDef;
 class OutputDevice;
 class ROEdge;
+class RONet;
 
 
 // ===========================================================================
@@ -63,7 +64,8 @@ public:
      * @param[in] type The type of the vehicle
      */
     ROVehicle(const SUMOVehicleParameter& pars,
-              RORouteDef* route, const SUMOVTypeParameter* type);
+              RORouteDef* route, const SUMOVTypeParameter* type,
+              const RONet* net);
 
 
     /// @brief Destructor
@@ -109,6 +111,9 @@ public:
         return myParameter.depart;
     }
 
+    const std::vector<const ROEdge*>& getStopEdges() const {
+        return myStopEdges;
+    }
 
     /// @brief Returns the vehicle's maximum speed
     SUMOReal getMaxSpeed() const;
@@ -135,16 +140,13 @@ public:
                       OutputDevice* const typeos, bool withExitTimes) const;
 
 
-    /** @brief Returns a copy of the vehicle using a new id, departure time and route
+private:
+    /** @brief Adds a stop to this vehicle
      *
-     * @param[in] id the new id to use
-     * @param[in] depTime The new vehicle's departure time
-     * @param[in] newRoute The new vehicle's route
-     * @return The new vehicle
-     *
-     * @todo Is this used? What for if everything is replaced?
+     * @param[in] stopPar the stop paramters
+     * @param[in] net     pointer to the network, used for edge retrieval
      */
-    virtual ROVehicle* copy(const std::string& id, unsigned int depTime, RORouteDef* newRoute) const;
+    void addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net);
 
 
 protected:
@@ -156,6 +158,9 @@ protected:
 
     /// @brief The route the vehicle takes
     RORouteDef* const myRoute;
+
+    /// @brief The edges where the vehicle stops
+    std::vector<const ROEdge*> myStopEdges;
 
 
 private:

@@ -42,6 +42,7 @@
 #include "ROVehicle.h"
 #include "RORoute.h"
 #include "ROHelper.h"
+#include "RONet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -52,8 +53,59 @@
 // method definitions
 // ===========================================================================
 ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
-                     RORouteDef* route, const SUMOVTypeParameter* type)
-    : myParameter(pars), myType(type), myRoute(route) {}
+                     RORouteDef* route, const SUMOVTypeParameter* type, const RONet* net)
+    : myParameter(pars), myType(type), myRoute(route) {
+    myParameter.stops.clear();
+    if (route != 0) {
+        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
+            addStop(*s, net);
+        }
+    }
+    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {
+        addStop(*s, net);
+    }
+}
+
+
+void
+ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net) {
+    const ROEdge* stopEdge = net->getEdge(stopPar.lane.substr(0, stopPar.lane.rfind("_")));
+    if (stopEdge == 0) {
+        // warn here?
+        return;
+    }
+    // where to insert the stop
+    std::vector<SUMOVehicleParameter::Stop>::iterator iter = myParameter.stops.begin();
+    std::vector<const ROEdge*>::iterator edgeIter = myStopEdges.begin();
+    if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myParameter.stops.size())) {
+        if (myParameter.stops.size() > 0) {
+            iter = myParameter.stops.end();
+            edgeIter = myStopEdges.end();
+        }
+    } else {
+        if (stopPar.index == STOP_INDEX_FIT) {
+            const std::vector<const ROEdge*> edges = myRoute->getFirstRoute()->getEdgeVector();
+            std::vector<const ROEdge*>::const_iterator stopEdgeIt = std::find(edges.begin(), edges.end(), stopEdge);
+            if (stopEdgeIt == edges.end()) {
+                iter = myParameter.stops.end();
+                edgeIter = myStopEdges.end();
+            } else {
+                while (iter != myParameter.stops.end()) {
+                    if (edgeIter > stopEdgeIt || (edgeIter == stopEdgeIt && iter->endPos >= stopPar.endPos)) {
+                        break;
+                    }
+                    ++iter;
+                    ++edgeIter;
+                }
+            }
+        } else {
+            iter += stopPar.index;
+            edgeIter += stopPar.index;
+        }
+    }
+    myParameter.stops.insert(iter, stopPar);
+    myStopEdges.insert(edgeIter, stopEdge);
+}
 
 
 ROVehicle::~ROVehicle() {}
@@ -103,16 +155,6 @@ ROVehicle::saveAllAsXML(OutputDevice& os, OutputDevice* const altos,
 SUMOReal
 ROVehicle::getMaxSpeed() const {
     return myType->maxSpeed;
-}
-
-
-ROVehicle*
-ROVehicle::copy(const std::string& id, unsigned int depTime,
-                RORouteDef* newRoute) const {
-    SUMOVehicleParameter pars(myParameter);
-    pars.id = id;
-    pars.depart = depTime;
-    return new ROVehicle(pars, newRoute, myType);
 }
 
 

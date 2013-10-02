@@ -155,14 +155,12 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     } else {
         // prepare mandatory edges
         mandatory.push_back(oldEdges.front());
-        /*XXX add stop edges to the list of mandatory edges (ticket #988)
         std::vector<const ROEdge*> stops = veh.getStopEdges();
         for (std::vector<const ROEdge*>::const_iterator i = stops.begin(); i != stops.end(); ++i) {
             if (*i != mandatory.back()) {
                 mandatory.push_back(*i);
             }
         }
-        */
         if (mandatory.size() < 2 || oldEdges.back() != mandatory.back()) {
             mandatory.push_back(oldEdges.back());
         }
@@ -171,7 +169,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         for (std::vector<const ROEdge*>::iterator i = oldEdges.begin(); i != oldEdges.end();) {
             if ((*i)->prohibits(&veh)) {
                 if (std::find(mandatory.begin(), mandatory.end(), *i) != mandatory.end()) {
-                    mh->inform("Stop edge '" + (*i)->getID() + "' does not allow vehicle '" + veh.getID() + "'.");
+                    mh->inform("Mandatory edge '" + (*i)->getID() + "' does not allow vehicle '" + veh.getID() + "'.");
                     return;
                 }
                 i = oldEdges.erase(i);

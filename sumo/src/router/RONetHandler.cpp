@@ -37,6 +37,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/xml/SUMORouteHandler.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "ROEdge.h"
@@ -84,6 +85,9 @@ RONetHandler::myStartElement(int element,
             break;
         case SUMO_TAG_CONNECTION:
             parseConnection(attrs);
+            break;
+        case SUMO_TAG_BUS_STOP:
+            parseBusStop(attrs);
             break;
         case SUMO_TAG_TAZ:
             parseDistrict(attrs);
@@ -247,6 +251,32 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         throw ProcessError("unknown to-edge '" + toID + "' in connection");
     }
     from->addFollower(to, dir);
+}
+
+
+void
+RONetHandler::parseBusStop(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    SUMOVehicleParameter::Stop* stop = new SUMOVehicleParameter::Stop();
+    // get the id, throw if not given or empty...
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "busStop", ok);
+    // get the lane
+    stop->lane = attrs.get<std::string>(SUMO_ATTR_LANE, "busStop", ok);
+    if (!ok) {
+        throw ProcessError();
+    }
+    const ROEdge* edge = myNet.getEdge(stop->lane.substr(0, stop->lane.rfind("_")));
+    if (edge == 0) {
+        throw InvalidArgument("Unknown lane '" + stop->lane + "' for bus stop '" + id + "'.");
+    }
+    // get the positions
+    stop->startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    stop->endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, edge->getLength());
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    if (!ok || !SUMORouteHandler::checkStopPos(stop->startPos, stop->endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
+        throw InvalidArgument("Invalid position for bus stop '" + id + "'.");
+    }
+    myNet.addBusStop(id, stop);
 }
 
 

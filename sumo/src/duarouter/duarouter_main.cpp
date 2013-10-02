@@ -150,7 +150,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         } else if (routingAlgorithm == "CH") {
             // defaultVehicle is only in constructor and may be safely deleted
             // it is mainly needed for its maximum speed. @todo XXX make this configurable
-            ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID));
+            ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
             const SUMOTime begin = string2time(oc.getString("begin"));
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
