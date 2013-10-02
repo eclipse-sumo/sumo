@@ -1,4 +1,4 @@
-SUMO jtrrouter Version 0.17.0
+SUMO jtrrouter Version dev-SVN-r14787
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
@@ -15,7 +15,8 @@ Configuration Options:
 
 Input Options:
   -n, --net-file FILE              Use FILE as SUMO-network to route on
-  -d, --taz-files FILE             Read (additional) districts from FILE
+  -d, --additional-files FILE      Read additional network data (districts, bus
+                                     stops) from FILE
   -a, --alternative-files FILE     Read alternatives from FILE
   -f, --flow-files FILE            Read flow-definitions from FILE(s)
   -t, --turn-ratio-files FILE      Read turning ratios from FILE(s)

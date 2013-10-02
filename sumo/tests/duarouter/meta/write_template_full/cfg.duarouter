@@ -12,7 +12,7 @@
 
     <input>
         <net-file value="" synonymes="n net" type="FILE" help="Use FILE as SUMO-network to route on"/>
-        <taz-files value="" synonymes="d districts" type="FILE" help="Read (additional) districts from FILE"/>
+        <additional-files value="" synonymes="additional d districts taz-files" type="FILE" help="Read additional network data (districts, bus stops) from FILE"/>
         <alternative-files value="" synonymes="a alternatives alternatives-files" type="FILE" help="Read alternatives from FILE"/>
         <flow-files value="" synonymes="f flow-definition flows" type="FILE" help="Read flow-definitions from FILE(s)"/>
         <weight-files value="" synonymes="w weights" type="FILE" help="Read network weights from FILE(s)"/>
