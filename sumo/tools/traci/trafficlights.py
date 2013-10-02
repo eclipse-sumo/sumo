@@ -110,14 +110,14 @@ def _getUniversal(varID, tlsID):
 def getIDList():
     """getIDList() -> list(string)
     
-    Returns a list of all traffic lights in the network.
+    Returns a list of ids of all traffic lights within the scenario.
     """
     return _getUniversal(tc.ID_LIST, "")
 
 def getRedYellowGreenState(tlsID):
     """getRedYellowGreenState(string) -> string
     
-    .
+    Returns the named tl's state as a tuple of light definitions from rRgGyYoO, for red, green, yellow, off, where lower case letters mean that the stream has to decelerate.
     """
     return _getUniversal(tc.TL_RED_YELLOW_GREEN_STATE, tlsID)
 
@@ -131,21 +131,21 @@ def getCompleteRedYellowGreenDefinition(tlsID):
 def getControlledLanes(tlsID):
     """getControlledLanes(string) -> c
     
-    .
+    Returns the list of lanes which are controlled by the named traffic light.
     """
     return _getUniversal(tc.TL_CONTROLLED_LANES, tlsID)
 
 def getControlledLinks(tlsID):
     """getControlledLinks(string) -> list(list(list(string)))
     
-    .
+    Returns the links controlled by the traffic light, sorted by the signal index and described by giving the incoming, outgoing, and via lane.
     """
     return _getUniversal(tc.TL_CONTROLLED_LINKS, tlsID)
 
 def getProgram(tlsID):
     """getProgram(string) -> string
     
-    .
+    Returns the id of the current program.
     """
     return _getUniversal(tc.TL_CURRENT_PROGRAM, tlsID)
 

@@ -42,80 +42,84 @@ def _getUniversal(varID):
 def getCurrentTime():
     """getCurrentTime() -> integer
     
-    .
+    Returns the current simulation time in ms.
     """
     return _getUniversal(tc.VAR_TIME_STEP)
 
 def getLoadedNumber():
     """getLoadedNumber() -> integer
     
-    .
+    Returns the number of vehicles which were loaded in this time step.
     """
     return _getUniversal(tc.VAR_LOADED_VEHICLES_NUMBER)
 
 def getLoadedIDList():
     """getLoadedIDList() -> list(string)
     
-    .
+    Returns a list of ids of vehicles which were loaded in this time step. 
     """
     return _getUniversal(tc.VAR_LOADED_VEHICLES_IDS)
 
 def getDepartedNumber():
     """getDepartedNumber() -> integer
-    returns the number vehicles which departed in the last time step.
+    
+    Returns the number of vehicles which departed (were inserted into the road network) in this time step.
     """
     return _getUniversal(tc.VAR_DEPARTED_VEHICLES_NUMBER)
 
 def getDepartedIDList():
     """getDepartedIDList() -> list(string)
-    returns the list of ids of all vehicles which departed in the last time step.
+    
+    Returns a list of ids of vehicles which departed (were inserted into the road network) in this time step. 
     """
     return _getUniversal(tc.VAR_DEPARTED_VEHICLES_IDS)
 
 def getArrivedNumber():
     """getArrivedNumber() -> integer
-    returns the number vehicles which arrived in the last time step.
+    
+    Returns the number of vehicles which arrived (have reached their destination and are removed from the road network) in this time step. 
     """
     return _getUniversal(tc.VAR_ARRIVED_VEHICLES_NUMBER)
 
 def getArrivedIDList():
     """getArrivedIDList() -> list(string)
-    returns the list of ids of all vehicles which arrived in the last time step.
+    
+    Returns a list of ids of vehicles which arrived (have reached their destination and are removed from the road network) in this time step. 
     """
     return _getUniversal(tc.VAR_ARRIVED_VEHICLES_IDS)
 
 def getMinExpectedNumber():
     """getMinExpectedNumber() -> integer
     
-    .
+    Returns the number of vehicles which are in the net plus the ones still waiting to start. This number may be smaller than the actual number of vehicles still to come because of delayed route file parsing. If the number is 0 however, it is guaranteed that all route files have been parsed completely.
     """
     return _getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
 
 def getStartingTeleportNumber():
     """getStartingTeleportNumber() -> integer
     
-    .
+    Returns the number of vehicles which started to teleport in this time step. 
     """
     return _getUniversal(tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER)
 
 def getStartingTeleportIDList():
     """getStartingTeleportIDList() -> list(string)
     
-    .
+    Returns a list of ids of vehicles which started to teleport in this time step. 
     """
     return _getUniversal(tc.VAR_TELEPORT_STARTING_VEHICLES_IDS)
 
 def getEndingTeleportNumber():
     """getEndingTeleportNumber() -> integer
     
-    .
+    Returns the number of vehicles which ended to be teleported in this time step. 
     """
     return _getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER)
 
 def getEndingTeleportIDList():
     """getEndingTeleportIDList() -> list(string)
     
-    .
+    Returns a list of ids of vehicles which ended to be teleported in this time step. 
     """
     return _getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_IDS)
 
@@ -129,7 +133,7 @@ def getDeltaT():
 def getNetBoundary():
     """getNetBoundary() -> ((double, double), (double, double))
     
-    .
+    The boundary box of the simulation network.
     """
     return _getUniversal(tc.VAR_NET_BOUNDING_BOX)
 
@@ -169,7 +173,7 @@ def convertGeo(x, y, fromGeo=False):
 def getDistance2D(x1, y1, x2, y2, isGeo=False, isDriving=False):
     """getDistance2D(double, double, double, double, boolean, boolean) -> double
     
-    .
+    Reads two positions and an indicator whether the air or the driving distance shall be computed. Returns the according distance.
     """
     posType = tc.POSITION_2D
     if isGeo:

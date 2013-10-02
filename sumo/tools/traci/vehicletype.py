@@ -44,21 +44,21 @@ def _getUniversal(varID, typeID):
 def getIDList():
     """getIDList() -> list(string)
     
-    Returns a list of all known vehicle types.
+    Returns a list of ids of currently loaded vehicle types.
     """
     return _getUniversal(tc.ID_LIST, "")
 
 def getLength(typeID):
     """getLength(string) -> double
     
-    .
+    Returns the length in m of the vehicles of this type.
     """
     return _getUniversal(tc.VAR_LENGTH, typeID)
 
 def getMaxSpeed(typeID):
     """getMaxSpeed(string) -> double
     
-    .
+    Returns the maximum speed in m/s of vehicles of this type.
     """
     return _getUniversal(tc.VAR_MAXSPEED, typeID)
 
@@ -72,21 +72,21 @@ def getSpeedFactor(typeID):
 def getSpeedDeviation(typeID):
     """getSpeedDeviation(string) -> double
     
-    .
+    Returns the maximum speed deviation of vehicles of this type.
     """
     return _getUniversal(tc.VAR_SPEED_DEVIATION, typeID)
 
 def getAccel(typeID):
     """getAccel(string) -> double
     
-    .
+    Returns the maximum acceleration in m/s^2 of vehicles of this type.
     """
     return _getUniversal(tc.VAR_ACCEL, typeID)
 
 def getDecel(typeID):
     """getDecel(string) -> double
     
-    .
+    Returns the maximum deceleration in m/s^2 of vehicles of this type.
     """
     return _getUniversal(tc.VAR_DECEL, typeID)
 
@@ -100,49 +100,49 @@ def getImperfection(typeID):
 def getTau(typeID):
     """getTau(string) -> double
     
-    .
+    Returns the driver's reaction time in s for vehicles of this type.
     """
     return _getUniversal(tc.VAR_TAU, typeID)
 
 def getVehicleClass(typeID):
     """getVehicleClass(string) -> string
     
-    .
+    Returns the class of vehicles of this type.
     """
     return _getUniversal(tc.VAR_VEHICLECLASS, typeID)
 
 def getEmissionClass(typeID):
     """getEmissionClass(string) -> string
     
-    .
+    Returns the emission class of vehicles of this type.
     """
     return _getUniversal(tc.VAR_EMISSIONCLASS, typeID)
 
 def getShapeClass(typeID):
     """getShapeClass(string) -> string
     
-    .
+    Returns the shape class of vehicles of this type. 
     """
     return _getUniversal(tc.VAR_SHAPECLASS, typeID)
 
 def getMinGap(typeID):
     """getMinGap(string) -> double
     
-    .
+    Returns the offset (gap to front vehicle if halting) of vehicles of this type.
     """
     return _getUniversal(tc.VAR_MINGAP, typeID)
 
 def getWidth(typeID):
     """getWidth(string) -> double
     
-    .
+    Returns the width in m of vehicles of this type.
     """
     return _getUniversal(tc.VAR_WIDTH, typeID)
 
 def getColor(typeID):
     """getColor(string) -> (integer, integer, integer, integer)
     
-    .
+    Returns the color of this type.
     """
     return _getUniversal(tc.VAR_COLOR, typeID)
 

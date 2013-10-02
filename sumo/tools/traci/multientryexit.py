@@ -33,35 +33,35 @@ def _getUniversal(varID, detID):
 def getIDList():
     """getIDList() -> list(string)
     
-    Returns a list of all e3 detectors in the network.
+    Returns a list of ids of all multi-entry/multi-exit (e3) detectors within the scenario.
     """
     return _getUniversal(tc.ID_LIST, "")
 
 def getLastStepVehicleNumber(detID):
     """getLastStepVehicleNumber(string) -> integer
     
-    .
+    Returns the number of vehicles that have been within the named multi-entry/multi-exit detector within the last simulation step.
     """
     return _getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, detID)
 
 def getLastStepMeanSpeed(detID):
     """getLastStepMeanSpeed(string) -> double
     
-    .
+    Returns the mean speed in m/s of vehicles that have been within the named multi-entry/multi-exit detector within the last simulation step. 
     """
     return _getUniversal(tc.LAST_STEP_MEAN_SPEED, detID)
 
 def getLastStepVehicleIDs(detID):
     """getLastStepVehicleIDs(string) -> list(string)
     
-    .
+    Returns the list of ids of vehicles that have been within the named multi-entry/multi-exit detector in the last simulation step.
     """
     return _getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, detID)
 
 def getLastStepHaltingNumber(detID):
     """getLastStepHaltingNumber(string) -> integer
     
-    .
+    Returns the number of vehicles which were halting during the last time step.
     """
     return _getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, detID)
 

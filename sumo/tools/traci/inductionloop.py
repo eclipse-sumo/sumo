@@ -64,7 +64,7 @@ def getIDList():
 def getPosition(loopID):
     """getPosition(string) -> double
     
-    Returns the position measured from the beginning of the lane.
+    Returns the position measured from the beginning of the lane in meters.
     """
     return _getUniversal(tc.VAR_POSITION, loopID)
 
@@ -78,49 +78,49 @@ def getLaneID(loopID):
 def getLastStepVehicleNumber(loopID):
     """getLastStepVehicleNumber(string) -> integer
     
-    .
+    Returns the number of vehicles that were on the named induction loop within the last simulation step.
     """
     return _getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, loopID)
 
 def getLastStepMeanSpeed(loopID):
     """getLastStepMeanSpeed(string) -> double
     
-    .
+    Returns the mean speed in m/s of vehicles that were on the named induction loop within the last simulation step.
     """
     return _getUniversal(tc.LAST_STEP_MEAN_SPEED, loopID)
 
 def getLastStepVehicleIDs(loopID):
     """getLastStepVehicleIDs(string) -> list(string)
     
-    .
+    Returns the list of ids of vehicles that were on the named induction loop in the last simulation step.
     """
     return _getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, loopID)
 
 def getLastStepOccupancy(loopID):
     """getLastStepOccupancy(string) -> double
     
-    .
+    Returns the percentage of time the detector was occupied by a vehicle.
     """
     return _getUniversal(tc.LAST_STEP_OCCUPANCY, loopID)
 
 def getLastStepMeanLength(loopID):
     """getLastStepMeanLength(string) -> double
     
-    .
+    Returns the mean length in m of vehicles which were on the detector in the last step.
     """
     return _getUniversal(tc.LAST_STEP_LENGTH, loopID)
 
 def getTimeSinceDetection(loopID):
     """getTimeSinceDetection(string) -> double
     
-    .
+    Returns the time in s since last detection.
     """
     return _getUniversal(tc.LAST_STEP_TIME_SINCE_DETECTION, loopID)
 
 def getVehicleData(loopID):
     """getVehicleData(string) -> integer
     
-    .
+    Returns a complex structure containing several information about vehicles which passed the detector.
     """
     return _getUniversal(tc.LAST_STEP_VEHICLE_DATA, loopID)
 

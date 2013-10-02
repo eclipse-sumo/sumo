@@ -39,21 +39,21 @@ def getIDList():
 def getType(polygonID):
     """getType(string) -> string
     
-    .
+    Returns the (abstract) type of the polygon.
     """
     return _getUniversal(tc.VAR_TYPE, polygonID)
 
 def getShape(polygonID):
     """getShape(string) -> list((double, double))
     
-    .
+    Returns the shape (list of 2D-positions) of this polygon.
     """
     return _getUniversal(tc.VAR_SHAPE, polygonID)
 
 def getColor(polygonID):
     """getColor(string) -> (integer, integer, integer, integer)
     
-    .
+    Returns the rgba color of this polygon.
     """
     return _getUniversal(tc.VAR_COLOR, polygonID)
 

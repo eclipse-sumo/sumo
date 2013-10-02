@@ -33,28 +33,28 @@ def _getUniversal(varID, poiID):
 def getIDList():
     """getIDList() -> list(string)
     
-    Returns a list of all pois in the network.
+    Returns a list of ids of all poi.
     """
     return _getUniversal(tc.ID_LIST, "")
 
 def getType(poiID):
     """getType(string) -> string
     
-    .
+    Returns the (abstract) type of the poi.
     """
     return _getUniversal(tc.VAR_TYPE, poiID)
 
 def getPosition(poiID):
     """getPosition(string) -> (double, double)
     
-    .
+    Returns the position coordinates of the given poi. 
     """
     return _getUniversal(tc.VAR_POSITION, poiID)
 
 def getColor(poiID):
     """getColor(string) -> (integer, integer, integer, integer)
     
-    .
+    Returns the rgba color of the given poi.
     """
     return _getUniversal(tc.VAR_COLOR, poiID)
 
