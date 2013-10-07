@@ -1159,7 +1159,8 @@ MSVehicle::executeMove() {
         }
         setBlinkerInformation();
     }
-    getLaneChangeModel().setOwnState(0); // XXX figure out why this is needed and move it someplace else
+    // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
+    getLaneChangeModel().setOwnState(0); 
     return moved;
 }
 
