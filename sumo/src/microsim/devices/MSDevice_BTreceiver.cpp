@@ -52,8 +52,7 @@
 // ===========================================================================
 bool MSDevice_BTreceiver::myWasInitialised = false;
 MTRand MSDevice_BTreceiver::sRecognitionRNG;
-std::set<MSVehicle*> MSDevice_BTreceiver::sRunningVehicles;
-std::set<MSDevice_BTreceiver::ArrivedVehicleInformation*> MSDevice_BTreceiver::sArrivedVehicles;
+std::map<std::string, MSDevice_BTreceiver::VehicleInformation*> MSDevice_BTreceiver::sVehicles;
 
 
 // ===========================================================================
@@ -98,15 +97,13 @@ MSDevice_BTreceiver::BTreceiverUpdate::BTreceiverUpdate() {
 
 
 MSDevice_BTreceiver::BTreceiverUpdate::~BTreceiverUpdate() {
-    for(std::set<MSVehicle*>::iterator i=MSDevice_BTreceiver::sRunningVehicles.begin(); i!=MSDevice_BTreceiver::sRunningVehicles.end(); ++i) {
-        MSDevice_BTreceiver *device = static_cast<MSDevice_BTreceiver*>((*i)->getDevice(typeid(MSDevice_BTreceiver)));
-        MSDevice_BTreceiver::sArrivedVehicles.insert(new ArrivedVehicleInformation((*i)->getID(), 
-            (*i)->getSpeed(), (*i)->getPosition(), device->getCurrentlySeen(), device->getSeen()));
-        MSDevice_BTreceiver::sRunningVehicles.erase(i);
+    for (std::map<std::string, MSDevice_BTsender::VehicleInformation*>::const_iterator i=MSDevice_BTsender::sVehicles.begin(); i!=MSDevice_BTsender::sVehicles.end(); ++i) {
+        (*i).second->amOnNet = false;
+        (*i).second->haveArrived = true;
     }
-    for(std::set<MSVehicle*>::iterator i=MSDevice_BTsender::sRunningVehicles.begin(); i!=MSDevice_BTsender::sRunningVehicles.end(); ++i) {
-        MSDevice_BTsender::sArrivedVehicles.insert(new MSDevice_BTsender::ArrivedVehicleInformation((*i)->getID(), (*i)->getSpeed(), (*i)->getPosition()));
-        MSDevice_BTsender::sRunningVehicles.erase(i);
+    for (std::map<std::string, MSDevice_BTreceiver::VehicleInformation*>::const_iterator i=MSDevice_BTreceiver::sVehicles.begin(); i!=MSDevice_BTreceiver::sVehicles.end(); ++i) {
+        (*i).second->amOnNet = false;
+        (*i).second->haveArrived = true;
     }
     execute(MSNet::getInstance()->getCurrentTimeStep());
 }
@@ -114,58 +111,239 @@ MSDevice_BTreceiver::BTreceiverUpdate::~BTreceiverUpdate() {
 
 SUMOTime 
 MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
-    // process arrived sender
-    for (std::set<MSDevice_BTsender::ArrivedVehicleInformation*>::iterator i = MSDevice_BTsender::sArrivedVehicles.begin(); i != MSDevice_BTsender::sArrivedVehicles.end(); ++i) {
-        // remove from running receivers
-        for(std::set<MSVehicle*>::iterator j=MSDevice_BTreceiver::sRunningVehicles.begin(); j!=MSDevice_BTreceiver::sRunningVehicles.end(); ++j) {
-            MSDevice_BTreceiver *device = static_cast<MSDevice_BTreceiver*>((*j)->getDevice(typeid(MSDevice_BTreceiver)));
-            const std::map<std::string, SeenDevice*> &currentlySeen = device->getCurrentlySeen();
-            if(currentlySeen.find((*i)->id)!=currentlySeen.end()) {
-                device->leaveRange((*j)->getPosition(), (*j)->getSpeed(), (*i)->id, (*i)->position, (*i)->speed, 0, true);
-            }
-        }
-        // remove from arrived receivers
-        for(std::set<ArrivedVehicleInformation*>::iterator j=MSDevice_BTreceiver::sArrivedVehicles.begin(); j!=MSDevice_BTreceiver::sArrivedVehicles.end(); ++j) {
-            std::map<std::string, SeenDevice*> &currentlySeen = (*j)->currentlySeen;
-            if(currentlySeen.find((*i)->id)!=currentlySeen.end()) {
-                leaveRange(currentlySeen, (*j)->seen, (*j)->position, (*j)->speed, (*i)->id, (*i)->position, (*i)->speed, 0, true);
-            }
-        }
-        delete *i;
+    // build rtree with senders
+    NamedRTree rt;
+    for (std::map<std::string, MSDevice_BTsender::VehicleInformation*>::const_iterator i=MSDevice_BTsender::sVehicles.begin(); i!=MSDevice_BTsender::sVehicles.end(); ++i) {
+        MSDevice_BTsender::VehicleInformation *vi = (*i).second;
+        Boundary b = vi->getBoxBoundary();
+        b.grow(3.);
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+        rt.Insert(cmin, cmax, vi);
     }
-    MSDevice_BTsender::sArrivedVehicles.clear();
 
-    // process arrived receiver
+    // check visibility for all receivers
     OptionsCont &oc = OptionsCont::getOptions();
     bool allRecognitions = oc.getBool("device.btreceiver.all-recognitions");
     bool haveOutput = oc.isSet("bt-output");
-    for (std::set<ArrivedVehicleInformation*>::iterator i = MSDevice_BTreceiver::sArrivedVehicles.begin(); i != MSDevice_BTreceiver::sArrivedVehicles.end(); ++i) {
-        // remove all (running) senders
-        std::map<std::string, SeenDevice*> &currentlySeen = (*i)->currentlySeen;
-        std::map<std::string, std::vector<SeenDevice*> > &seen = (*i)->seen;
-        for (std::map<std::string, SeenDevice*>::iterator j = currentlySeen.begin(); j != currentlySeen.end(); ++j) {
-            MSVehicle *vehicle = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle((*j).first));
-            leaveRange(currentlySeen, seen, (*i)->position, (*i)->speed, (*j).first, vehicle->getPosition(), vehicle->getSpeed(), 0, false);
-        }
-        currentlySeen.clear();
-        // write results
-        if(haveOutput) {
-            writeOutput((*i)->id, seen, allRecognitions);
-        }
-        cleanUp((*i)->currentlySeen, (*i)->seen);
-        delete *i;
-    }
-    MSDevice_BTreceiver::sArrivedVehicles.clear();
+    for (std::map<std::string, MSDevice_BTreceiver::VehicleInformation*>::const_iterator i=MSDevice_BTreceiver::sVehicles.begin(); i!=MSDevice_BTreceiver::sVehicles.end();) {
+        // compute own direction vector
+        MSDevice_BTreceiver::VehicleState &state = (*i).second->updates.back();
+        Position egoPosition = state.position;
+        SUMOReal angle = state.angle * M_PI / 180.;
+        SUMOReal speed = state.speed;
+        SUMOReal dist = SPEED2DIST(speed);
+        Position egoP2 = egoPosition;
+        Position egoP1(egoP2.x()-sin(angle)*dist, egoP2.y()+cos(angle)*dist);
+        Position egoD = egoP2 - egoP1;
 
-    // update running vehicles
-    for(std::set<MSVehicle*>::const_iterator i=MSDevice_BTreceiver::sRunningVehicles.begin(); i!=MSDevice_BTreceiver::sRunningVehicles.end(); ++i) {
-        if(!(*i)->isOnRoad()) {
-            continue;
+        // collect surrounding vehicles
+        MSDevice_BTreceiver::VehicleInformation *vi = (*i).second;
+        Boundary b = vi->getBoxBoundary();
+        b.grow(vi->range + 500 / 3.6); // two vehicles passing at 250*2 km/h
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+        std::set<std::string> surroundingVehicles;
+        Named::StoringVisitor sv(surroundingVehicles);
+        rt.Search(cmin, cmax, sv);
+
+        // loop over surrounding vehicles, check visibility status
+        for(std::set<std::string>::const_iterator j=surroundingVehicles.begin(); j!=surroundingVehicles.end(); ++j) {
+            if((*i).first==*j) {
+                // seeing oneself? skip
+                continue;
+            }
+            updateVisibility(*vi, *MSDevice_BTsender::sVehicles.find(*j)->second, egoP1, egoD);
         }
-        static_cast<MSDevice_BTreceiver*>((*i)->getDevice(typeid(MSDevice_BTreceiver)))->updateNeighbors();
+
+        if(vi->haveArrived) {
+            // vehicle has left the simulation; remove
+            if(haveOutput) {
+                writeOutput((*i).first, vi->seen, allRecognitions);
+            }
+            delete (*i).second;
+            MSDevice_BTreceiver::sVehicles.erase(i++);
+        } else {
+            // vehicle is still in the simulation; reset state 
+            VehicleState last = (*i).second->updates.back();
+            (*i).second->updates.clear();
+            (*i).second->updates.push_back(last);
+            ++i;
+        }
+    }
+
+    // remove arrived senders / reset state 
+    for (std::map<std::string, MSDevice_BTsender::VehicleInformation*>::const_iterator i=MSDevice_BTsender::sVehicles.begin(); i!=MSDevice_BTsender::sVehicles.end();) {
+        if((*i).second->haveArrived) {
+            delete (*i).second;
+            MSDevice_BTsender::sVehicles.erase(i++);
+        } else {
+            MSDevice_BTsender::VehicleState last = (*i).second->updates.back();
+            (*i).second->updates.clear();
+            (*i).second->updates.push_back(last);
+            ++i;
+        }
     }
     return DELTA_T;
 }
+
+
+void 
+MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::VehicleInformation &receiver, MSDevice_BTsender::VehicleInformation &sender,
+                                                        const Position &receiverStartPos, const Position &receiverD) {
+    Position receiverPos = receiver.updates.back().position;
+    std::vector<SUMOReal> intersections;
+    if(!receiver.amOnNet || !sender.amOnNet) {
+        // at least one of the vehicles has left the simulation area for any reason
+        if (receiver.currentlySeen.find(sender.getID()) != receiver.currentlySeen.end()) {
+            leaveRange(receiver.currentlySeen, receiver.seen, receiverPos, receiver.updates.back().speed,
+                sender.getID(), sender.updates.back().position, sender.updates.back().speed, 0);
+        }
+    }
+
+    // get the encountered vehicle's current and prior position (based on speed and direction)
+    Position otherPosition = sender.updates.back().position;
+    Position otherP2 = otherPosition;
+    SUMOReal angle = sender.updates.back().angle * M_PI / 180.;
+    SUMOReal speed = sender.updates.back().speed;
+    SUMOReal dist = SPEED2DIST(speed);
+
+    // let the other's current position be the one obtained by applying the relative direction vector to the initial position
+    Position otherP1(otherPosition.x()-sin(angle)*dist, otherPosition.y()+cos(angle)*dist);
+    Position otherD = otherP2 - otherP1;
+    otherP2 = otherP1 - receiverD + otherD;
+    // find crossing points
+    GeomHelper::FindLineCircleIntersections(receiverStartPos, receiver.range, otherP1, otherP2, intersections);
+    int count = (int) intersections.size();
+    switch(count) {
+    case 0:
+        // no intersections -> other vehicle either stays within or beyond range
+        if(receiver.amOnNet && sender.amOnNet && receiverPos.distanceTo(otherPosition)<receiver.range) {
+            if (receiver.currentlySeen.find(sender.getID()) == receiver.currentlySeen.end()) {
+                SUMOReal atOffset = 0;
+                enterRange(atOffset, receiverPos, receiver.updates.back().speed, 
+                    sender.getID(), otherPosition, sender.updates.back().speed, receiver.currentlySeen);
+            } else {
+                addRecognitionPoint(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), receiverPos, receiver.updates.back().speed, sender.getID(), otherPosition, sender.updates.back().speed, receiver.currentlySeen);
+            }
+        } else {
+            if (receiver.currentlySeen.find(sender.getID()) != receiver.currentlySeen.end()) {
+                leaveRange(receiver.currentlySeen, receiver.seen, receiverPos, receiver.updates.back().speed,
+                    sender.getID(), otherPosition, sender.updates.back().speed, 0);
+            }
+        }
+        break;
+    case 1: {
+        // one intersection -> other vehicle either enters or leaves the range
+        Position intersection1Other = otherP1 + otherD * intersections.front();
+        Position intersection1Ego = receiverStartPos + receiverD * intersections.front();
+        if (receiver.currentlySeen.find(sender.getID()) != receiver.currentlySeen.end()) {
+            leaveRange(receiver.currentlySeen, receiver.seen, intersection1Ego, receiver.updates.back().speed, 
+                sender.getID(), intersection1Other, sender.updates.back().speed, -1.+intersections.front());
+        } else {
+            enterRange(-1.+intersections.front(), intersection1Ego, receiver.updates.back().speed, 
+                sender.getID(), intersection1Other, sender.updates.back().speed, receiver.currentlySeen);
+        }
+            }
+        break;
+    case 2:
+        // two intersections -> other vehicle enters and leaves the range
+        if(receiver.currentlySeen.find(sender.getID())==receiver.currentlySeen.end()) {
+            Position intersection1Other = otherP1 + otherD * intersections.front();
+            Position intersection1Ego = receiverStartPos + receiverD * intersections.front();
+            enterRange(-1.+intersections.front(), intersection1Ego, receiver.updates.back().speed, 
+                sender.getID(), intersection1Other, sender.updates.back().speed, receiver.currentlySeen);
+            Position intersection2Other = otherP1 + otherD * intersections[1];
+            Position intersection2Ego = receiverStartPos + receiverD * intersections[1];
+            leaveRange(receiver.currentlySeen, receiver.seen, intersection2Ego, receiver.updates.back().speed, 
+                sender.getID(), intersection2Other, sender.updates.back().speed, -1.+intersections.front());
+        } else {
+            WRITE_WARNING("Nope, a vehicle cannot be in the range, leave, and enter it in one step.");
+        }
+        break;
+    default:
+        WRITE_WARNING("Nope, a circle cannot be crossed more often than twice by a line.");
+        break;
+    }
+}
+
+
+void
+MSDevice_BTreceiver::BTreceiverUpdate::enterRange(SUMOReal atOffset, const Position &thisPos, SUMOReal thisSpeed, 
+                                const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed,
+                                std::map<std::string, SeenDevice*> &currentlySeen) {
+    MeetingPoint mp(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())+atOffset, thisPos, thisSpeed, otherPos, otherSpeed);
+    SeenDevice* sd = new SeenDevice(mp);
+    currentlySeen[otherID] = sd;
+    addRecognitionPoint(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), thisPos, thisSpeed, otherID, otherPos, otherSpeed, currentlySeen);
+}
+
+
+void 
+MSDevice_BTreceiver::BTreceiverUpdate::leaveRange(std::map<std::string, SeenDevice*> &currentlySeen, std::map<std::string, std::vector<SeenDevice*> > &seen,
+                                const Position &thisPos, SUMOReal thisSpeed,
+                                const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal tOffset) {
+    // check whether the other was recognized
+    addRecognitionPoint(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())+tOffset, thisPos, thisSpeed, otherID, otherPos, otherSpeed, currentlySeen);
+    // build leaving point
+    MeetingPoint mp(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())+tOffset, thisPos, thisSpeed, otherPos, otherSpeed);
+    std::map<std::string, SeenDevice*>::iterator i = currentlySeen.find(otherID);
+    (*i).second->meetingEnd = mp;
+    if (seen.find(otherID) == seen.end()) {
+        seen[otherID] = std::vector<SeenDevice*>();
+    }
+    seen[otherID].push_back((*i).second);
+    currentlySeen.erase(i);
+}
+
+
+void 
+MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(SUMOReal tEnd, const Position &thisPos, SUMOReal thisSpeed, 
+                                                           const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, 
+                                                           std::map<std::string, SeenDevice*> &currentlySeen) {
+    SUMOReal t = tEnd - currentlySeen.find(otherID)->second->lastView;
+    if(sRecognitionRNG.rand() <= 1-exp(-0.24*pow(t, 2.68))) {
+        currentlySeen.find(otherID)->second->lastView = tEnd;
+        MeetingPoint *mp = new MeetingPoint(tEnd, thisPos, thisSpeed, otherPos, otherSpeed);
+        std::map<std::string, SeenDevice*>::iterator i = currentlySeen.find(otherID);
+        if(i!=currentlySeen.end()) {
+            (*i).second->recognitionPoints.push_back(mp);
+        } else {
+            WRITE_WARNING("Could not add a recognition point as the sender '" + otherID + "' is not currently seen.");
+        }
+    }
+}
+
+
+void 
+MSDevice_BTreceiver::BTreceiverUpdate::writeOutput(const std::string &id, const std::map<std::string, std::vector<SeenDevice*> > &seen, bool allRecognitions) {
+    OutputDevice& os = OutputDevice::getDeviceByOption("bt-output");
+    os.openTag("bt").writeAttr("id", id);
+    for(std::map<std::string, std::vector<SeenDevice*> >::const_iterator j=seen.begin(); j!=seen.end(); ++j) {
+        const std::vector<SeenDevice*> &sts = (*j).second;
+        for(std::vector<SeenDevice*>::const_iterator k=sts.begin(); k!=sts.end(); ++k) {
+            os.openTag("seen").writeAttr("id", (*j).first);
+            os.writeAttr("tBeg", (*k)->meetingBegin.t)
+                .writeAttr("observerPosBeg", (*k)->meetingBegin.observerPos).writeAttr("observerSpeedBeg", (*k)->meetingBegin.observerSpeed)
+                .writeAttr("seenPosBeg", (*k)->meetingBegin.seenPos).writeAttr("seenSpeedBeg", (*k)->meetingBegin.seenSpeed);
+            os.writeAttr("tEnd", (*k)->meetingEnd.t)
+                .writeAttr("observerPosEnd", (*k)->meetingEnd.observerPos).writeAttr("observerSpeedEnd", (*k)->meetingEnd.observerSpeed)
+                .writeAttr("seenPosEnd", (*k)->meetingEnd.seenPos).writeAttr("seenSpeedEnd", (*k)->meetingEnd.seenSpeed);
+            for(std::vector<MeetingPoint*>::iterator l=(*k)->recognitionPoints.begin(); l!=(*k)->recognitionPoints.end(); ++l) {
+                os.openTag("recognitionPoint").writeAttr("t", (*l)->t)
+                    .writeAttr("observerPos", (*l)->observerPos).writeAttr("observerSpeed", (*l)->observerSpeed)
+                    .writeAttr("seenPos", (*l)->seenPos).writeAttr("seenSpeed", (*l)->seenSpeed)
+                    .closeTag();
+                if(!allRecognitions) {
+                    break;
+                }
+            }
+            os.closeTag();
+        }
+    }
+    os.closeTag();
+}
+
 
 
 
@@ -181,291 +359,53 @@ MSDevice_BTreceiver::~MSDevice_BTreceiver() {
 }
 
 
-void
-MSDevice_BTreceiver::cleanUp(std::map<std::string, MSDevice_BTreceiver::SeenDevice*> &c, 
-                             std::map<std::string, std::vector<MSDevice_BTreceiver::SeenDevice*> > &s) {
-    for(std::map<std::string, SeenDevice*>::iterator i=c.begin(); i!=c.end(); ++i) {
-        delete (*i).second;
+bool 
+MSDevice_BTreceiver::notifyEnter(SUMOVehicle& veh, Notification reason) {
+    if(reason==MSMoveReminder::NOTIFICATION_DEPARTED && sVehicles.find(veh.getID())==sVehicles.end()) {
+        sVehicles[veh.getID()] = new VehicleInformation(veh.getID(), myRange);
     }
-    c.clear();
-    for(std::map<std::string, std::vector<SeenDevice*> >::iterator i=s.begin(); i!=s.end(); ++i) {
-        for(std::vector<SeenDevice*>::iterator j=(*i).second.begin(); j!=(*i).second.end(); ++j) {
-            delete *j;
-        }
-    }
-    s.clear();
+    sVehicles[veh.getID()]->updates.push_back(VehicleState(
+        MSNet::getInstance()->getCurrentTimeStep(), veh.getSpeed(), static_cast<MSVehicle&>(veh).getAngle(), static_cast<MSVehicle&>(veh).getPosition(), static_cast<MSVehicle&>(veh).getLane()->getID(), veh.getPositionOnLane()
+        ));
+    return true;
 }
 
 
 bool 
-MSDevice_BTreceiver::notifyEnter(SUMOVehicle& veh, Notification reason) {
-    if(reason==MSMoveReminder::NOTIFICATION_DEPARTED) {
-        MSDevice_BTreceiver::sRunningVehicles.insert(static_cast<MSVehicle*>(&veh));
+MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) {
+    if(sVehicles.find(veh.getID())==sVehicles.end()) {
+        WRITE_WARNING("btreceiver: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
+        return true;
     }
+    sVehicles[veh.getID()]->updates.push_back(VehicleState(
+        MSNet::getInstance()->getCurrentTimeStep(), newSpeed, static_cast<MSVehicle&>(veh).getAngle(), static_cast<MSVehicle&>(veh).getPosition(), static_cast<MSVehicle&>(veh).getLane()->getID(), newPos
+        ));
     return true;
 }
 
 
 bool 
 MSDevice_BTreceiver::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason) {
+    if (reason < MSMoveReminder::NOTIFICATION_TELEPORT) {
+        return true;
+    }
+    if(sVehicles.find(veh.getID())==sVehicles.end()) {
+        WRITE_WARNING("btreceiver: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
+        return true;
+    }
+    sVehicles[veh.getID()]->updates.push_back(VehicleState(
+        MSNet::getInstance()->getCurrentTimeStep(), veh.getSpeed(), static_cast<MSVehicle&>(veh).getAngle(), static_cast<MSVehicle&>(veh).getPosition(), static_cast<MSVehicle&>(veh).getLane()->getID(), veh.getPositionOnLane()
+        ));
+    if (reason >= MSMoveReminder::NOTIFICATION_TELEPORT) {
+        sVehicles[veh.getID()]->amOnNet = false;
+    }
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
-        MSVehicle *vehicle = static_cast<MSVehicle*>(&veh);
-        MSDevice_BTreceiver *device = static_cast<MSDevice_BTreceiver*>(vehicle->getDevice(typeid(MSDevice_BTreceiver)));
-       MSDevice_BTreceiver::sArrivedVehicles.insert(new ArrivedVehicleInformation(vehicle->getID(), 
-            vehicle->getSpeed(), vehicle->getPosition(), device->getCurrentlySeen(), device->getSeen()));
-        MSDevice_BTreceiver::sRunningVehicles.erase(vehicle);
+        sVehicles[veh.getID()]->haveArrived = true;
     }
     return true;
 }
 
 
-
-void 
-MSDevice_BTreceiver::enterRange(const Position &thisPos, SUMOReal thisSpeed, 
-                                const std::string &otherID, const Position &atPos, SUMOReal otherSpeed, SUMOReal atOffset) {
-    // add new vehicles to myCurrentlySeen
-    if (myCurrentlySeen.find(otherID) == myCurrentlySeen.end()) {
-        MeetingPoint mp(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())+atOffset, thisPos, thisSpeed, atPos, otherSpeed);
-        SeenDevice* sd = new SeenDevice(mp);
-        myCurrentlySeen[otherID] = sd;
-    }
-}
-
-
-void 
-MSDevice_BTreceiver::leaveRange(const Position &thisPos, SUMOReal thisSpeed, 
-                                const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal otherOffset, bool remove) {
-    leaveRange(myCurrentlySeen, mySeen, thisPos, thisSpeed,
-        otherID, otherPos, otherSpeed, otherOffset, remove);
-}
-
-
-void 
-MSDevice_BTreceiver::leaveRange(std::map<std::string, SeenDevice*> &currentlySeen, std::map<std::string, std::vector<SeenDevice*> > &seen,
-                                const Position &thisPos, SUMOReal thisSpeed,
-                                const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal tOffset, bool remove) {
-    // check whether the other was recognized
-    SUMOReal rp = recognizedAt(otherID, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())+tOffset, currentlySeen);
-    if(rp>0) {
-        addRecognitionPoint(thisPos, thisSpeed, otherID, otherPos, otherSpeed, rp, currentlySeen);
-    }
-    // build leaving point
-    MeetingPoint mp(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())+tOffset, thisPos, thisSpeed, otherPos, otherSpeed);
-    std::map<std::string, SeenDevice*>::iterator i = currentlySeen.find(otherID);
-    (*i).second->meetingEnd = mp;
-    if (seen.find(otherID) == seen.end()) {
-        seen[otherID] = std::vector<SeenDevice*>();
-    }
-    seen[otherID].push_back((*i).second);
-    // 
-    if(remove) {
-        currentlySeen.erase(i);
-    }
-}
-
-
-void 
-MSDevice_BTreceiver::updateNeighbors() {
-    if(!myHolder.isOnRoad()) {    
-        // well, lost contact, uh?
-        for (std::map<std::string, SeenDevice*>::iterator j = myCurrentlySeen.begin(); j != myCurrentlySeen.end(); ++j) {
-            MSVehicle *vehicle = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle((*j).first));
-            leaveRange(myCurrentlySeen, mySeen, static_cast<MSVehicle&>(myHolder).getPosition(), static_cast<MSVehicle&>(myHolder).getSpeed(), (*j).first, vehicle->getPosition(), vehicle->getSpeed(), 0, false);
-        }
-        myCurrentlySeen.clear();
-        return;
-    }
-    // collect edges around
-    std::set<std::string> tmp;
-    Named::StoringVisitor sv(tmp);
-    Position egoPosition = static_cast<MSVehicle&>(myHolder).getPosition();
-    SUMOReal angle = static_cast<MSVehicle&>(myHolder).getAngle() * M_PI / 180.;
-    SUMOReal speed = static_cast<MSVehicle&>(myHolder).getSpeed();
-    SUMOReal dist = SPEED2DIST(speed);
-    Position egoP2 = egoPosition;
-    Position egoP1(egoP2.x()-sin(angle)*dist, egoP2.y()+cos(angle)*dist);
-    Position egoD = egoP2 - egoP1;
-    Boundary b;
-    b.add(egoPosition);
-    b.grow(myRange + 500 / 3.6); // two vehicles passing at 250*2 km/h
-    const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-    const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-    MSNet::getInstance()->getLanesRTree().Search(cmin, cmax, sv);
-
-    // check vehicles in range first;
-    //  determine when they've entered range
-    std::set<std::string> seen;
-    for (std::set<std::string>::const_iterator i = tmp.begin(); i != tmp.end(); ++i) {
-        MSLane* l = MSLane::dictionary(*i);
-        if (l == 0) {
-            continue;
-        }
-
-        const MSLane::VehCont& vehs = l->getVehiclesSecure();
-        for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-            if(static_cast<MSVehicle*>(*j)->getDevice(typeid(MSDevice_BTsender))==0) {
-                // skipping not equipped vehicles
-                continue;
-            }
-            
-            if(!(*j)->isOnRoad()) {
-                // lost contact, uh uh?
-                continue;
-            }
-
-            if(&myHolder==*j) {
-                // no self-investigation
-                // @todo: really?
-                continue;
-            }
-            
-            // get the encountered vehicle's current and prior position (based on speed and direction)
-            Position otherPosition = (*j)->getPosition();
-            Position otherP2 = (*j)->getPosition();
-
-            SUMOReal angle = (*j)->getAngle() * M_PI / 180.;
-            SUMOReal speed = (*j)->getSpeed();
-            SUMOReal dist = SPEED2DIST(speed);
-            Position otherP1(otherPosition.x()-sin(angle)*dist, otherPosition.y()+cos(angle)*dist);
-            Position otherD = otherP2 - otherP1;
-            // let the other's current position be the one obtained by applying the relative direction vector to the initial position
-            otherP2 = otherP1 - egoD + otherD;
-            // find crossing points
-            std::vector<SUMOReal> intersections;
-            GeomHelper::FindLineCircleIntersections(egoP1, myRange, otherP1, otherP2, intersections);
-            int count = (int) intersections.size();
-
-            if(intersections.size()==0) {
-                // no state change (is either still outside or still within the range)
-                if((*j)->getPosition().distanceTo(egoPosition)<myRange) {
-                    seen.insert((*j)->getID());
-                    if(myCurrentlySeen.find((*j)->getID())==myCurrentlySeen.end()) {
-                        // was not seen before, enter
-                        enterRange(egoPosition, myHolder.getSpeed(), (*j)->getID(), (*j)->getPosition(), (*j)->getSpeed(), 0);
-                    }
-                }
-                continue;
-            }
-
-            std::sort(intersections.begin(), intersections.end());
-            seen.insert((*j)->getID());
-            if(myCurrentlySeen.find((*j)->getID())!=myCurrentlySeen.end()) {
-                // vehicle was within range
-                if(count==2) {
-                    // should not happen
-                    WRITE_WARNING("Vehicle '" + (*j)->getID() + "' was in range of '" + myHolder.getID() + "' but crosses the circle twice.");
-                } else {
-                    // vehicle leaves range
-                    Position intersection1Other = otherP1 + otherD * intersections.front();
-                    Position intersection1Ego = egoP1 + egoD * intersections.front();
-                    leaveRange(intersection1Ego, myHolder.getSpeed(), (*j)->getID(), intersection1Other, (*j)->getSpeed(), -1.+intersections.front(), true);
-                }
-            } else {
-                // vehicle was outside range
-                if(count==1) {
-                    // entered only
-                    Position intersection1Other = otherP1 + otherD * intersections.front();
-                    Position intersection1Ego = egoP1 + egoD * intersections.front();
-                    enterRange(intersection1Ego, myHolder.getSpeed(), (*j)->getID(), intersection1Other, (*j)->getSpeed(), -1.+intersections.front());
-                } else {
-                    Position intersection1Other = otherP1 + otherD * intersections.front();
-                    Position intersection1Ego = egoP1 + egoD * intersections.front();
-                    enterRange(intersection1Ego, myHolder.getSpeed(), (*j)->getID(), intersection1Other, (*j)->getSpeed(), -1.+intersections.front());
-                    Position intersection2Other = otherP1 + otherD * intersections[1];
-                    Position intersection2Ego = egoP1 + egoD * intersections[1];
-                    leaveRange(intersection2Ego, myHolder.getSpeed(), (*j)->getID(), intersection2Other, (*j)->getSpeed(), -1.+intersections[1], true);
-                }
-            }
-        }
-        l->releaseVehicles();
-    }
-    // check vehicles that are not longer in range
-    //  set their range exit information
-    for (std::map<std::string, SeenDevice*>::iterator i = myCurrentlySeen.begin(); i != myCurrentlySeen.end();) {
-        if (seen.find((*i).first) != seen.end()) {
-            // skip those which are still visible
-            MSVehicle *v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle((*i).first));
-            const Position p(static_cast<const MSVehicle&>(myHolder).getPosition());
-            SUMOReal rp = recognizedAt(v->getID(), STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())+1., myCurrentlySeen);
-            if(rp>0) {
-                addRecognitionPoint(p, myHolder.getSpeed(), v->getID(), v->getPosition(), v->getSpeed(), rp, myCurrentlySeen);
-            }
-            ++i;
-            continue;
-        }
-        MSVehicle *v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle((*i).first));
-        const Position p(static_cast<const MSVehicle&>(myHolder).getPosition());
-        if(v->getPosition().distanceTo(p)<myRange) {
-            // still in range
-            SUMOReal rp = recognizedAt(v->getID(), STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())+1., myCurrentlySeen);
-            if(rp>0) {
-                addRecognitionPoint(p, myHolder.getSpeed(), v->getID(), v->getPosition(), v->getSpeed(), rp, myCurrentlySeen);
-            }
-            ++i;
-        } else {
-            // leaving range
-            WRITE_WARNING("Vehicle '" + (*i).first + "' was in range of '" + myHolder.getID() + "' and is no longer visible.");
-            leaveRange(p, myHolder.getSpeed(), v->getID(), v->getPosition(), v->getSpeed(), 0);
-            myCurrentlySeen.erase(i++);
-        }
-    }
-}
-
-
-SUMOReal
-MSDevice_BTreceiver::recognizedAt(const std::string &otherID, SUMOReal tEnd, std::map<std::string, SeenDevice*> &currentlySeen) {
-    /// @todo: remodel into a function that gives the time of recognition, too
-    SUMOReal t = tEnd - currentlySeen.find(otherID)->second->lastView;
-    if(sRecognitionRNG.rand() <= 1-exp(-0.24*pow(t, 2.68))) {
-        currentlySeen.find(otherID)->second->lastView = tEnd;
-        return tEnd;
-    }
-    return -1;
-}
-
-
-void 
-MSDevice_BTreceiver::addRecognitionPoint(const Position &thisPos, SUMOReal thisSpeed, 
-                                         const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, SUMOReal t, 
-                                         std::map<std::string, SeenDevice*> &currentlySeen) {
-    MeetingPoint *mp = new MeetingPoint(t, thisPos, thisSpeed, otherPos, otherSpeed);
-    std::map<std::string, SeenDevice*>::iterator i = currentlySeen.find(otherID);
-    if(i!=currentlySeen.end()) {
-        (*i).second->recognitionPoints.push_back(mp);
-    } else {
-        WRITE_WARNING("Could not add a recognition point as the sender '" + otherID + "' is not currently seen.");
-    }
-}
-
-
-void 
-MSDevice_BTreceiver::writeOutput(const std::string &id, const std::map<std::string, std::vector<SeenDevice*> > &seen, bool allRecognitions) {
-            OutputDevice& os = OutputDevice::getDeviceByOption("bt-output");
-            os.openTag("bt").writeAttr("id", id);
-            for(std::map<std::string, std::vector<SeenDevice*> >::const_iterator j=seen.begin(); j!=seen.end(); ++j) {
-                const std::vector<SeenDevice*> &sts = (*j).second;
-                for(std::vector<SeenDevice*>::const_iterator k=sts.begin(); k!=sts.end(); ++k) {
-                    os.openTag("seen").writeAttr("id", (*j).first);
-                    os.writeAttr("tBeg", (*k)->meetingBegin.t)
-                        .writeAttr("observerPosBeg", (*k)->meetingBegin.observerPos).writeAttr("observerSpeedBeg", (*k)->meetingBegin.observerSpeed)
-                        .writeAttr("seenPosBeg", (*k)->meetingBegin.seenPos).writeAttr("seenSpeedBeg", (*k)->meetingBegin.seenSpeed);
-                    os.writeAttr("tEnd", (*k)->meetingEnd.t)
-                        .writeAttr("observerPosEnd", (*k)->meetingEnd.observerPos).writeAttr("observerSpeedEnd", (*k)->meetingEnd.observerSpeed)
-                        .writeAttr("seenPosEnd", (*k)->meetingEnd.seenPos).writeAttr("seenSpeedEnd", (*k)->meetingEnd.seenSpeed);
-                    for(std::vector<MeetingPoint*>::iterator l=(*k)->recognitionPoints.begin(); l!=(*k)->recognitionPoints.end(); ++l) {
-                        os.openTag("recognitionPoint").writeAttr("t", (*l)->t)
-                            .writeAttr("observerPos", (*l)->observerPos).writeAttr("observerSpeed", (*l)->observerSpeed)
-                            .writeAttr("seenPos", (*l)->seenPos).writeAttr("seenSpeed", (*l)->seenSpeed)
-                            .closeTag();
-                        if(!allRecognitions) {
-                            break;
-                        }
-                    }
-                    os.closeTag();
-                }
-            }
-            os.closeTag();
-}
 
 
 

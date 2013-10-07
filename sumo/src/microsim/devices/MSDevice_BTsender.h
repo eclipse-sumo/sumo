@@ -98,6 +98,22 @@ public:
     bool notifyEnter(SUMOVehicle& veh, Notification reason);
 
 
+    /** @brief Checks whether the reminder still has to be notified about the vehicle moves
+     *
+     * Indicator if the reminders is still active for the passed
+     * vehicle/parameters. If false, the vehicle will erase this reminder
+     * from it's reminder-container.
+     *
+     * @param[in] veh Vehicle that asks this reminder.
+     * @param[in] oldPos Position before move.
+     * @param[in] newPos Position after move with newSpeed.
+     * @param[in] newSpeed Moving speed.
+     *
+     * @return True if vehicle hasn't passed the reminder completely.
+     */
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+
+
     /** @brief Moves (the known) vehicle from running to arrived vehicles' list
      *
      * @param[in] veh The leaving vehicle.
@@ -113,28 +129,74 @@ public:
 
 
 
-    /** @class ArrivedVehicleInformation
-     * @brief Stores the information of a removed device
+    /** @class VehicleState
+     * @brief A single movement state of the vehicle
      */
-    class ArrivedVehicleInformation {
+    class VehicleState {
     public:
         /** @brief Constructor
-         * @param[in] _id The id of the removed vehicle
-         * @param[in] _speed The speed of the removed vehicle at removal time
-         * @param[in] _position The position of the removed vehicle at removal time
+         * @param[in] _time The current time
+         * @param[in] _speed The speed of the vehicle
+         * @param[in] _angle The angle of the vehicle
+         * @param[in] _position The position of the vehicle
+         * @param[in] _laneID The id of the lane the vehicle is located at
+         * @param[in] _lanePos The position of the vehicle along the lane
          */
-        ArrivedVehicleInformation(const std::string &_id, SUMOReal _speed, const Position &_position) 
-            : id(_id), speed(_speed), position(_position) {}
+        VehicleState(SUMOReal _time, SUMOReal _speed, SUMOReal _angle, const Position &_position, const std::string &_laneID, SUMOReal _lanePos) 
+            : time(_time), speed(_speed), angle(_angle), position(_position), laneID(_laneID), lanePos(_lanePos) {}
 
         /// @brief Destructor
-        ~ArrivedVehicleInformation() {}
+        ~VehicleState() {}
 
-        /// @brief The id of the removed vehicle
-        std::string id;
-        /// @brief The speed of the removed vehicle at removal time
+        /// @brief The current time
+        SUMOReal time;
+        /// @brief The speed of the vehicle
         SUMOReal speed;
-        /// @brief The position of the removed vehicle at removal time
+        /// @brief The angle of the vehicle
+        SUMOReal angle;
+        /// @brief The position of the vehicle
         Position position;
+        /// @brief The lane the vehicle was at
+        std::string laneID;
+        /// @brief The position at the lane of the vehicle
+        SUMOReal lanePos;
+
+    };
+
+
+
+    /** @class VehicleInformation
+     * @brief Stores the information of a vehicle
+     */
+    class VehicleInformation : public Named {
+    public:
+        /** @brief Constructor
+         * @param[in] id The id of the vehicle
+         */
+        VehicleInformation(const std::string &id) : Named(id), amOnNet(true), haveArrived(false)  {}
+
+        /// @brief Destructor
+        ~VehicleInformation() {}
+
+        /** @brief Returns the boundary of passed positions
+         * @return The positions boundary
+         */
+        Boundary getBoxBoundary() const {
+            Boundary ret;
+            for(std::vector<VehicleState>::const_iterator i=updates.begin(); i!=updates.end(); ++i) {
+                ret.add((*i).position);
+            }
+            return ret;
+        }
+
+        /// @brief List of position updates during last step
+        std::vector<VehicleState> updates;
+
+        /// @brief Whether the vehicle is within the simulated network
+        bool amOnNet;
+
+        /// @brief Whether the vehicle was removed from the simulation
+        bool haveArrived;
 
     };
 
@@ -151,11 +213,8 @@ private:
 
 
 protected:
-    /// @brief The list of running senders
-    static std::set<MSVehicle*> sRunningVehicles;
-
     /// @brief The list of arrived senders
-    static std::set<ArrivedVehicleInformation*> sArrivedVehicles;
+    static std::map<std::string, VehicleInformation*> sVehicles;
 
 
 
