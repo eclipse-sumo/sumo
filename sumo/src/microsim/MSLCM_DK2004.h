@@ -40,17 +40,18 @@
 // enumeration definition
 // ===========================================================================
 enum MyLCAEnum {
-    LCA_AMBLOCKINGLEADER = 256, // 0
-    LCA_AMBLOCKINGFOLLOWER = 512,// 1
-    LCA_MRIGHT = 1024, // 2
-    LCA_MLEFT = 2048,// 3
-    // !!! never set LCA_UNBLOCK = 4096,// 4
-    LCA_AMBLOCKINGFOLLOWER_DONTBRAKE = 8192,// 5
-    // !!! never used LCA_AMBLOCKINGSECONDFOLLOWER = 16384, // 6
-    // !!! never read LCA_KEEP1 = 65536,// 8
-    // !!! never used LCA_KEEP2 = 131072,// 9
-    LCA_AMBACKBLOCKER = 262144,// 10
-    LCA_AMBACKBLOCKER_STANDING = 524288// 11
+    LCA_AMBLOCKINGLEADER = 256,                             //  8
+    LCA_AMBLOCKINGFOLLOWER = 512,                           //  9
+    LCA_MRIGHT = 1024,                                      // 10
+    LCA_MLEFT = 2048,                                       // 11
+    // !!! never set LCA_UNBLOCK = 4096,                    // 12
+    LCA_AMBLOCKINGFOLLOWER_DONTBRAKE = 8192,                // 13
+    // !!! never used LCA_AMBLOCKINGSECONDFOLLOWER = 16384, // 14
+    
+    // !!! never read LCA_KEEP1 = 65536,                    // 16
+    // !!! never used LCA_KEEP2 = 131072,                   // 17
+    LCA_AMBACKBLOCKER = 262144,                             // 18
+    LCA_AMBACKBLOCKER_STANDING = 524288                     // 19
 
 };
 
