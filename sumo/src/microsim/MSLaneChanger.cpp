@@ -191,7 +191,6 @@ MSLaneChanger::change() {
             state2 |= LCA_LEFT;
         }
         bool changingAllowed2 = (state2 & LCA_BLOCKED) == 0;
-        //vehicle->getLaneChangeModel().setOwnState(state2|state1);
         // change if the vehicle wants to and is allowed to change
         if ((state2 & LCA_LEFT) != 0 && changingAllowed2) {
 #ifndef NO_TRACI
@@ -205,14 +204,14 @@ MSLaneChanger::change() {
             (myCandi + 1)->lastBlocked = vehicle;
         }
     }
-    vehicle->getLaneChangeModel().setOwnState(state2 | state1);
 
     if ((state1 & (LCA_URGENT)) != 0 && (state2 & (LCA_URGENT)) != 0) {
         // ... wants to go to the left AND to the right
         // just let them go to the right lane...
         state2 = 0;
-        vehicle->getLaneChangeModel().setOwnState(state1);
     }
+    vehicle->getLaneChangeModel().setOwnState(state2 | state1);
+
     // check whether the vehicles should be swapped
     if (myAllowsSwap && ((state1 & (LCA_URGENT)) != 0 || (state2 & (LCA_URGENT)) != 0)) {
         // get the direction ...
