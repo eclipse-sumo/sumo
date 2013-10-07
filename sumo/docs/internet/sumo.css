@@ -97,7 +97,9 @@ del { color: #555555; }
 }
 
 #shortIntro {
-	margin: 5 15px; text-align: left;
+  text-align: left;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #wrapper { text-align: center; }
@@ -244,10 +246,10 @@ del { color: #555555; }
 /* Logo */
 #logo
 {
-    background-color:#080063;
-    height:160;
-    color:white;
-	padding-top: 20px;
+  background-color:#080063;
+  height:148px;
+  color:white;
+	padding-top: 10px;
 }
 #logo_text1 {
 	font: normal 70px Tahoma, Verdana, "Lucida Grande", Georgia, Sans-Serif;
