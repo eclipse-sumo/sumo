@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/19/13 11:53:56 by SUMO sumo Version dev-SVN-rUNKNOWN
+<!-- generated on 10/07/13 17:39:05 by SUMO sumo Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -34,14 +34,14 @@
 -->
 
 <bt-output>
-    <bt id="2">
-        <seen id="1" tBeg="0.00" observerPosBeg="9.99,5001.65" observerSpeedBeg="10.00" seenPosBeg="9.99,4998.35" seenSpeedBeg="10.00" tEnd="10.00" observerPosEnd="109.90,5001.65" observerSpeedEnd="10.00" seenPosEnd="109.90,4998.35" seenSpeedEnd="10.00">
-            <recognitionPoint t="2.00" observerPos="19.98,5001.65" observerSpeed="10.00" seenPos="19.98,4998.35" seenSpeed="10.00"/>
-        </seen>
-    </bt>
     <bt id="1">
         <seen id="2" tBeg="0.00" observerPosBeg="9.99,4998.35" observerSpeedBeg="10.00" seenPosBeg="9.99,5001.65" seenSpeedBeg="10.00" tEnd="10.00" observerPosEnd="109.90,4998.35" observerSpeedEnd="10.00" seenPosEnd="109.90,5001.65" seenSpeedEnd="10.00">
-            <recognitionPoint t="2.00" observerPos="19.98,4998.35" observerSpeed="10.00" seenPos="19.98,5001.65" seenSpeed="10.00"/>
+            <recognitionPoint t="1.00" observerPos="19.98,4998.35" observerSpeed="10.00" seenPos="19.98,5001.65" seenSpeed="10.00"/>
+        </seen>
+    </bt>
+    <bt id="2">
+        <seen id="1" tBeg="0.00" observerPosBeg="9.99,5001.65" observerSpeedBeg="10.00" seenPosBeg="9.99,4998.35" seenSpeedBeg="10.00" tEnd="10.00" observerPosEnd="109.90,5001.65" observerSpeedEnd="10.00" seenPosEnd="109.90,4998.35" seenSpeedEnd="10.00">
+            <recognitionPoint t="2.00" observerPos="29.97,5001.65" observerSpeed="10.00" seenPos="29.97,4998.35" seenSpeed="10.00"/>
         </seen>
     </bt>
 </bt-output>

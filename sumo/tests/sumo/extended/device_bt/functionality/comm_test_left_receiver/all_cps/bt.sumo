@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/19/13 11:39:49 by SUMO sumo Version dev-SVN-rUNKNOWN
+<!-- generated on 10/07/13 17:39:05 by SUMO sumo Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -27,6 +27,7 @@
     <communication>
         <device.btreceiver.explicit value="left"/>
         <device.btreceiver.range value="50"/>
+        <device.btreceiver.all-recognitions value="true"/>
         <device.btsender.explicit value="right"/>
     </communication>
 
@@ -35,10 +36,11 @@
 
 <bt-output>
     <bt id="left">
-        <seen id="right" tBeg="180.11" observerPosBeg="1498.35,545.42" observerSpeedBeg="13.89" seenPosBeg="1502.68,495.60" seenSpeedBeg="6.26" tEnd="185.57" observerPosEnd="1513.47,498.35" observerSpeedEnd="10.52" seenPosEnd="1563.47,498.35" seenSpeedEnd="13.89">
-            <recognitionPoint t="183.00" observerPos="1498.35,520.63" observerSpeed="12.43" seenPos="1516.38,498.35" seenSpeed="8.86"/>
-            <recognitionPoint t="184.00" observerPos="1498.35,511.90" observerSpeed="8.72" seenPos="1527.84,498.35" seenSpeed="11.46"/>
-            <recognitionPoint t="186.00" observerPos="1507.53,498.35" observerSpeed="7.92" seenPos="1555.62,498.35" seenSpeed="13.89"/>
+        <seen id="right" tBeg="180.11" observerPosBeg="1498.35,545.42" observerSpeedBeg="13.89" seenPosBeg="1502.68,495.60" seenSpeedBeg="6.26" tEnd="185.58" observerPosEnd="1513.71,499.08" observerSpeedEnd="10.52" seenPosEnd="1563.70,498.35" seenSpeedEnd="13.89">
+            <recognitionPoint t="182.00" observerPos="1498.35,520.63" observerSpeed="12.43" seenPos="1516.38,498.35" seenSpeed="8.86"/>
+            <recognitionPoint t="183.00" observerPos="1498.35,511.90" observerSpeed="8.72" seenPos="1527.84,498.35" seenSpeed="11.46"/>
+            <recognitionPoint t="185.00" observerPos="1507.53,498.35" observerSpeed="7.92" seenPos="1555.62,498.35" seenSpeed="13.89"/>
+            <recognitionPoint t="185.58" observerPos="1513.71,499.08" observerSpeed="10.52" seenPos="1563.70,498.35" seenSpeed="13.89"/>
         </seen>
     </bt>
 </bt-output>
