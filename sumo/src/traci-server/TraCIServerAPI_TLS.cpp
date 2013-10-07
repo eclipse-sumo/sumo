@@ -282,20 +282,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             if (!server.readTypeCheckingString(inputStorage, state)) {
                 return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase must be given as a string.", outputStorage);
             }
-            // build only once...
-            if (vars.getLogic("online") == 0) {
-                MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state);
-                std::vector<MSPhaseDefinition*> phases;
-                phases.push_back(phase);
-                MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime + DELTA_T, std::map<std::string, std::string>());
-                vars.addLogic("online", logic, true, true);
-            } else {
-                MSPhaseDefinition nphase(DELTA_T, state);
-                *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
-            }
-            // @note: this assumes logic "online" is still active
-            vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-            vars.executeOnSwitchActions();
+            vars.setStateInstantiatingOnline(tlsControl, state);
         }
         break;
         case TL_COMPLETE_PROGRAM_RYG: {
@@ -352,8 +339,6 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             } else {
                 static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->setPhases(phases, index);
             }
-            vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-            vars.executeOnSwitchActions();
         }
         break;
         default:

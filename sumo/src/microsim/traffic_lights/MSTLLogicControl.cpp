@@ -159,6 +159,27 @@ MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl& t
 }
 
 
+void 
+MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl& tlc,
+                const std::string& state) {
+    // build only once...
+    MSTrafficLightLogic* logic = getLogic("online");
+    if (logic == 0) {
+        MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state);
+        std::vector<MSPhaseDefinition*> phases;
+        phases.push_back(phase);
+        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), "online", phases, 0, 
+                MSNet::getInstance()->getCurrentTimeStep() + DELTA_T, 
+                std::map<std::string, std::string>());
+        addLogic("online", logic, true, true);
+    } else {
+        MSPhaseDefinition nphase(DELTA_T, state);
+        *(dynamic_cast<MSSimpleTrafficLightLogic*>(logic)->getPhases()[0]) = nphase;
+        switchTo(tlc, "online");
+    }
+}
+
+
 void
 MSTLLogicControl::TLSLogicVariants::addSwitchCommand(OnSwitchAction* c) {
     mySwitchActions.push_back(c);
@@ -192,6 +213,8 @@ void
 MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl& tlc, const std::string& programID) {
     // set the found wished sub-program as this tls' current one
     myCurrentProgram = getLogicInstantiatingOff(tlc, programID);
+    myCurrentProgram->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+    executeOnSwitchActions();
 }
 
 
