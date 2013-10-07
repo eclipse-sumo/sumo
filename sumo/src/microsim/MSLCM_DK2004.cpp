@@ -514,7 +514,6 @@ MSLCM_DK2004::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
     }
 #endif
     int state = myOwnState;
-    myOwnState = 0;
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
     SUMOReal MAGIC_offset = 1.;

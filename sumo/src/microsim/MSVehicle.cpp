@@ -1159,6 +1159,7 @@ MSVehicle::executeMove() {
         }
         setBlinkerInformation();
     }
+    getLaneChangeModel().setOwnState(0); // XXX figure out why this is needed and move it someplace else
     return moved;
 }
 
