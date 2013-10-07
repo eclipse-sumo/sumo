@@ -1,0 +1,8 @@
+<add>
+
+    <tlLogic id="center" type="static" programID="1" offset="0">
+        <phase duration="20" state="r"/>
+    </tlLogic>
+
+
+</add>

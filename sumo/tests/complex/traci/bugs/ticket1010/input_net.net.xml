@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 02 Oct 2013 04:12:01 PM CEST by Netedit Version dev-SVN-r14782
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/scr1/erdm_ja/debug/1010/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-30.78,37.60,91.78,38.37" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id="beg" from="gneJ0" to="center" priority="1">
+        <lane id="beg_0" index="0" speed="13.89" length="59.57" shape="-30.78,35.95 28.79,35.95"/>
+    </edge>
+    <edge id="end" from="center" to="gneJ2" priority="1">
+        <lane id="end_0" index="0" speed="13.89" length="63.00" shape="28.80,35.95 91.80,36.72"/>
+    </edge>
+
+    <tlLogic id="center" type="static" programID="0" offset="0">
+        <phase duration="20" state="G"/>
+    </tlLogic>
+
+    <junction id="center" type="traffic_light" x="28.79" y="37.60" incLanes="beg_0" intLanes="" shape="28.78,37.55 28.81,34.35 28.80,37.55">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="gneJ0" type="unregulated" x="-30.78" y="37.60" incLanes="" intLanes="" shape="-30.78,37.55 -30.78,34.35"/>
+    <junction id="gneJ2" type="unregulated" x="91.78" y="38.37" incLanes="end_0" intLanes="" shape="91.82,35.12 91.78,38.32"/>
+
+    <connection from="beg" to="end" fromLane="0" toLane="0" tl="center" linkIndex="0" dir="s" state="o"/>
+
+</net>
