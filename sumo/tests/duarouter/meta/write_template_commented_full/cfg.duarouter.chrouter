@@ -24,8 +24,8 @@
         <!-- Use FILE as SUMO-network to route on -->
         <net-file value="" synonymes="n net" type="FILE"/>
 
-        <!-- Read (additional) districts from FILE -->
-        <taz-files value="" synonymes="d districts" type="FILE"/>
+        <!-- Read additional network data (districts, bus stops) from FILE -->
+        <additional-files value="" synonymes="additional d districts taz-files" type="FILE"/>
 
         <!-- Read alternatives from FILE -->
         <alternative-files value="" synonymes="a alternatives alternatives-files" type="FILE"/>

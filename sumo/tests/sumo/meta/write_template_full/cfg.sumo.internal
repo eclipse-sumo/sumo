@@ -38,6 +38,7 @@
         <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL" help="Sorts the output by departure time"/>
         <vehroute-output.write-unfinished value="false" type="BOOL" help="Write vehroute output for vehicles which have not arrived at simulation end"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
+        <bt-output value="" type="FILE" help="Save bt visibilities into FILE"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
         <save-state.files value="" type="FILE" help="Files for network states"/>
@@ -94,6 +95,7 @@
         <device.btreceiver.explicit value="" synonymes="device.btreceiver.knownveh" type="STR" help="Assign a &apos;btreceiver&apos; device to named vehicles"/>
         <device.btreceiver.deterministic value="false" type="BOOL" help="The &apos;btreceiver&apos; devices are set deterministic using a fraction of 1000"/>
         <device.btreceiver.range value="300" type="FLOAT" help="The range of the bt receiver"/>
+        <device.btreceiver.all-recognitions value="false" type="BOOL" help="Whether all recognition point shall be written"/>
         <device.btsender.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;btsender&apos; device"/>
         <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR" help="Assign a &apos;btsender&apos; device to named vehicles"/>
         <device.btsender.deterministic value="false" type="BOOL" help="The &apos;btsender&apos; devices are set deterministic using a fraction of 1000"/>

@@ -96,6 +96,9 @@
         <!-- Save links states into FILE -->
         <link-output value="" type="FILE"/>
 
+        <!-- Save bt visibilities into FILE -->
+        <bt-output value="" type="FILE"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -233,6 +236,9 @@
 
         <!-- The range of the bt receiver -->
         <device.btreceiver.range value="300" type="FLOAT"/>
+
+        <!-- Whether all recognition point shall be written -->
+        <device.btreceiver.all-recognitions value="false" type="BOOL"/>
 
         <!-- The probability for a vehicle to have a &apos;btsender&apos; device -->
         <device.btsender.probability value="0" type="FLOAT"/>

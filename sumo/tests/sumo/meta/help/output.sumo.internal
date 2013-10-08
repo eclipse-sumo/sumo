@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r14233
+SUMO sumo Version dev-SVN-r14807
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -52,6 +52,7 @@ Output Options:
   --vehroute-output.write-unfinished   Write vehroute output for vehicles which
                                          have not arrived at simulation end
   --link-output FILE                   Save links states into FILE
+  --bt-output FILE                     Save bt visibilities into FILE
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states
@@ -132,6 +133,8 @@ Communication Options:
   --device.btreceiver.deterministic    The 'btreceiver' devices are set
                                          deterministic using a fraction of 1000
   --device.btreceiver.range FLOAT      The range of the bt receiver
+  --device.btreceiver.all-recognitions  Whether all recognition point shall be
+                                         written
   --device.btsender.probability FLOAT  The probability for a vehicle to have a
                                          'btsender' device
   --device.btsender.explicit STR       Assign a 'btsender' device to named
