@@ -20,6 +20,7 @@ import struct, traci
 import traci.constants as tc
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:   traci.Storage.readStringList,
+                      tc.ID_COUNT:  traci.Storage.readInt,
                       tc.VAR_TYPE:  traci.Storage.readString,
                       tc.VAR_SHAPE: traci.Storage.readShape,
                       tc.VAR_COLOR: lambda result: result.read("!BBBB")}
@@ -35,6 +36,13 @@ def getIDList():
     Returns a list of all polygons in the network.
     """
     return _getUniversal(tc.ID_LIST, "")
+
+def getIDCount():
+    """getIDCount() -> integer
+    
+    Returns the number of polygons in the network.
+    """
+    return _getUniversal(tc.ID_COUNT, "")
 
 def getType(polygonID):
     """getType(string) -> string
@@ -88,11 +96,19 @@ def getContextSubscriptionResults(polygonID=None):
 
 
 def setType(polygonID, polygonType):
+    """setType(string, string) -> None
+    
+    Sets the (abstract) type of the polygon.
+    """
     traci._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_TYPE, polygonID, 1+4+len(polygonType))
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(polygonType)) + polygonType
     traci._sendExact()
 
 def setShape(polygonID, shape):
+    """setShape(string, list((double, double))) -> None
+    
+    Sets the shape (list of 2D-positions) of this polygon.
+    """
     traci._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_SHAPE, polygonID, 1+1+len(shape)*(8+8))
     traci._message.string += struct.pack("!BB", tc.TYPE_POLYGON, len(shape))
     for p in shape:
@@ -100,6 +116,10 @@ def setShape(polygonID, shape):
     traci._sendExact()
 
 def setColor(polygonID, color):
+    """setColor(string, (integer, integer, integer, integer)) -> None
+    
+    Sets the rgba color of this polygon.
+    """
     traci._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_COLOR, polygonID, 1+1+1+1+1)
     traci._message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
     traci._sendExact()

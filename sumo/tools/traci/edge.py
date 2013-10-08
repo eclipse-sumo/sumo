@@ -22,6 +22,7 @@ import traci.constants as tc
 _RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList,
                       tc.ID_COUNT:                  traci.Storage.readInt,
                       tc.VAR_EDGE_TRAVELTIME:       traci.Storage.readDouble,
+                      tc.VAR_WAITING_TIME:          traci.Storage.readDouble,
                       tc.VAR_EDGE_EFFORT:           traci.Storage.readDouble,
                       tc.VAR_CO2EMISSION:           traci.Storage.readDouble,
                       tc.VAR_COEMISSION:            traci.Storage.readDouble,
@@ -69,6 +70,13 @@ def getAdaptedTraveltime(edgeID, time):
                                          traci._TIME2STEPS(time))
     return traci._checkResult(tc.CMD_GET_EDGE_VARIABLE,
                               tc.VAR_EDGE_TRAVELTIME, edgeID).readDouble()
+
+def getWaitingTime(edgeID)
+    """getWaitingTime() -> double
+    
+    .
+    """
+    return _getUniversal(tc.WAITING_TIME, edgeID) 
 
 def getEffort(edgeID, time):
     """getEffort(string, double) -> double
@@ -242,6 +250,6 @@ def setEffort(edgeID, effort):
 def setMaxSpeed(edgeID, speed):
     """setMaxSpeed(string, double) -> None
     
-    Set a new maximum speed (in m/s) for all lanes of the edge..
+    Set a new maximum speed (in m/s) for all lanes of the edge.
     """
     traci._sendDoubleCmd(tc.CMD_SET_EDGE_VARIABLE, tc.VAR_MAXSPEED, edgeID, speed)

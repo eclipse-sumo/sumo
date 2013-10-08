@@ -21,6 +21,7 @@ import traci, struct
 import traci.constants as tc
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
+                      tc.ID_COUNT:            traci.Storage.readInt,
                       tc.VAR_LENGTH:          traci.Storage.readDouble,
                       tc.VAR_MAXSPEED:        traci.Storage.readDouble,
                       tc.VAR_SPEED_FACTOR:    traci.Storage.readDouble,
@@ -47,6 +48,13 @@ def getIDList():
     Returns a list of ids of currently loaded vehicle types.
     """
     return _getUniversal(tc.ID_LIST, "")
+
+def getIDCount():
+    """getIDCount() -> integer
+    
+    Returns the number of currently loaded vehicle types.
+    """
+    return _getUniversal(tc.ID_COUNT, "")
 
 def getLength(typeID):
     """getLength(string) -> double
@@ -177,45 +185,101 @@ def getContextSubscriptionResults(typeID=None):
 
 
 def setLength(typeID, length):
+    """setLength(string, double) -> None
+    
+    Sets the length in m of the vehicles of this type.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_LENGTH, typeID, length)
 
 def setMaxSpeed(typeID, speed):
+    """setMaxSpeed(string, double) -> None
+    
+    Sets the maximum speed in m/s of vehicles of this type.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MAXSPEED, typeID, speed)
 
 def setVehicleClass(typeID, clazz):
+    """setVehicleClass(string, string) -> None
+    
+    Sets the class of vehicles of this type.
+    """
     traci._sendStringCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_VEHICLECLASS, typeID, clazz)
 
 def setSpeedFactor(typeID, factor):
+    """setSpeedFactor(string, double) -> None
+    
+    .
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SPEED_FACTOR, typeID, factor)
 
 def setSpeedDeviation(typeID, deviation):
+    """setSpeedDeviation(string, double) -> None
+    
+    Sets the maximum speed deviation of vehicles of this type.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SPEED_DEVIATION, typeID, deviation)
 
 def setEmissionClass(typeID, clazz):
+    """setEmissionClass(string, string) -> None
+    
+    Sets the emission class of vehicles of this type.
+    """
     traci._sendStringCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_EMISSIONCLASS, typeID, clazz)
 
 def setWidth(typeID, width):
+    """setWidth(string, double) -> None
+    
+    Sets the width in m of vehicles of this type.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_WIDTH, typeID, width)
 
 def setMinGap(typeID, minGap):
+    """setMinGap(string, double) -> None
+    
+    Sets the offset (gap to front vehicle if halting) of vehicles of this type.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MINGAP, typeID, minGap)
 
 def setShapeClass(typeID, clazz):
+    """setShapeClass(string, string) -> None
+    
+    Sets the shape class of vehicles of this type. 
+    """
     traci._sendStringCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SHAPECLASS, typeID, clazz)
 
 def setAccel(typeID, accel):
+    """setAccel(string, double) -> None
+    
+    Sets the maximum acceleration in m/s^2 of vehicles of this type.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_ACCEL, typeID, accel)
 
 def setDecel(typeID, decel):
+    """setDecel(string, double) -> None
+
+    Sets the maximum deceleration in m/s^2 of vehicles of this type.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_DECEL, typeID, decel)
 
 def setImperfection(typeID, imperfection):
+    """setImperfection(string, double) -> None
+    
+    .
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_IMPERFECTION, typeID, imperfection)
 
 def setTau(typeID, tau):
+    """setTau(string, double) -> None
+    
+    Sets the driver's reaction time in s for vehicles of this type.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_TAU, typeID, tau)
 
 def setColor(typeID, color):
+    """setColor(string, (integer, integer, integer, integer)) -> None
+    
+    Sets the color of this type.
+    """
     traci._beginMessage(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_COLOR, typeID, 1+1+1+1+1)
     traci._message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
     traci._sendExact()

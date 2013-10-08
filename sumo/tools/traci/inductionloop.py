@@ -38,9 +38,10 @@ def readVehicleData(result):
         data.append( [ vehID, length, entryTime, leaveTime, typeID ] ) 
     return data
 
-_RETURN_VALUE_FUNC = {tc.ID_LIST:                        traci.Storage.readStringList,
-                     tc.VAR_POSITION:       traci.Storage.readDouble,
-                     tc.VAR_LANE_ID:       traci.Storage.readString,
+_RETURN_VALUE_FUNC = {tc.ID_LIST:                       traci.Storage.readStringList,
+                     tc.ID_COUNT:                       traci.Storage.readInt,
+                     tc.VAR_POSITION:                   traci.Storage.readDouble,
+                     tc.VAR_LANE_ID:                    traci.Storage.readString,
                      tc.LAST_STEP_VEHICLE_NUMBER:       traci.Storage.readInt,
                      tc.LAST_STEP_MEAN_SPEED:           traci.Storage.readDouble,
                      tc.LAST_STEP_VEHICLE_ID_LIST:      traci.Storage.readStringList,
@@ -60,6 +61,13 @@ def getIDList():
     Returns a list of all induction loops in the network.
     """
     return _getUniversal(tc.ID_LIST, "")
+
+def getIDCount():
+    """getIDCount() -> integer
+    
+    Returns the number of induction loops in the network.
+    """
+    return _getUniversal(tc.ID_COUNT, "")
 
 def getPosition(loopID):
     """getPosition(string) -> double

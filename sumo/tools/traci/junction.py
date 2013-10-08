@@ -20,6 +20,7 @@ import traci
 import traci.constants as tc
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:      traci.Storage.readStringList,
+                     tc.ID_COUNT:      traci.Storage.readInt,
                      tc.VAR_POSITION: lambda result: result.read("!dd")}
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
@@ -34,6 +35,13 @@ def getIDList():
     """
     return _getUniversal(tc.ID_LIST, "")
 
+def getIDCount():
+    """getIDCount() -> integer
+    
+    Returns the number of junctions in the network.
+    """
+    return _getUniversal(tc.ID_COUNT, "")
+    
 def getPosition(junctionID):
     """getPosition(string) -> (double, double)
     

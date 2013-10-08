@@ -173,7 +173,7 @@ def convertGeo(x, y, fromGeo=False):
 def getDistance2D(x1, y1, x2, y2, isGeo=False, isDriving=False):
     """getDistance2D(double, double, double, double, boolean, boolean) -> double
     
-    Reads two positions and an indicator whether the air or the driving distance shall be computed. Returns the according distance.
+    Reads two coordinate pairs and an indicator whether the air or the driving distance shall be computed. Returns the according distance.
     """
     posType = tc.POSITION_2D
     if isGeo:
@@ -190,7 +190,7 @@ def getDistance2D(x1, y1, x2, y2, isGeo=False, isDriving=False):
 def getDistanceRoad(edgeID1, pos1, edgeID2, pos2, isDriving=False):
     """getDistanceRoad(string, double, string, double, boolean) -> double
     
-    .
+    Reads two positions on the road network and an indicator whether the air or the driving distance shall be computed. Returns the according distance.
     """
     distType = tc.REQUEST_AIRDIST
     if isDriving:

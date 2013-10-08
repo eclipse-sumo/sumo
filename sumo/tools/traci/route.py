@@ -21,6 +21,7 @@ import traci, struct
 import traci.constants as tc
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:   traci.Storage.readStringList,
+                      tc.ID_COUNT:  traci.Storage.readInt,
                       tc.VAR_EDGES: traci.Storage.readStringList}
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
@@ -34,6 +35,13 @@ def getIDList():
     Returns a list of all routes in the network.
     """
     return _getUniversal(tc.ID_LIST, "")
+
+def getIDCount():
+    """getIDCount() -> integer
+    
+    Returns the number of currently loaded routes.
+    """
+    return _getUniversal(tc.ID_COUNT, "")
 
 def getEdges(routeID):
     """getEdges(string) -> list(string)

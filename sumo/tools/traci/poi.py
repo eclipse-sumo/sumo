@@ -21,6 +21,7 @@ import struct, traci
 import traci.constants as tc
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:      traci.Storage.readStringList,
+                      tc.ID_COUNT:     traci.Storage.readInt,
                       tc.VAR_TYPE:     traci.Storage.readString,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
                       tc.VAR_COLOR:    lambda result: result.read("!BBBB")}
@@ -37,6 +38,13 @@ def getIDList():
     """
     return _getUniversal(tc.ID_LIST, "")
 
+def getIDCount():
+    """getIDCount() -> integer
+    
+    Returns the number of pois in the network.
+    """
+    return _getUniversal(tc.ID_COUNT, "")
+    
 def getType(poiID):
     """getType(string) -> string
     
@@ -89,16 +97,28 @@ def getContextSubscriptionResults(poiID=None):
 
 
 def setType(poiID, poiType):
+    """setType(string, string) -> None
+    
+    Sets the (abstract) type of the poi.
+    """
     traci._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.VAR_TYPE, poiID, 1+4+len(poiType))
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(poiType)) + poiType
     traci._sendExact()
 
 def setPosition(poiID, x, y):
+    """setPosition(string, (double, double)) -> None
+    
+    Sets the position coordinates of the poi. 
+    """
     traci._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.VAR_POSITION, poiID, 1+8+8)
     traci._message.string += struct.pack("!Bdd", tc.POSITION_2D, x, y)
     traci._sendExact()
 
 def setColor(poiID, color):
+    """setColor(string, (integer, integer, integer, integer)) -> None
+    
+    Sets the rgba color of the poi.
+    """
     traci._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.VAR_COLOR, poiID, 1+1+1+1+1)
     traci._message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
     traci._sendExact()

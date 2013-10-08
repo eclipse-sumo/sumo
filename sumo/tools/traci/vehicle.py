@@ -41,6 +41,7 @@ def _readBestLanes(result):
 
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
+                      tc.ID_COUNT:                  traci.Storage.readInt,
                       tc.VAR_SPEED:           traci.Storage.readDouble,
                       tc.VAR_SPEED_WITHOUT_TRACI: traci.Storage.readDouble,
                       tc.VAR_POSITION:        lambda result: result.read("!dd"),
@@ -70,6 +71,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_SPEED_FACTOR:    traci.Storage.readDouble,
                       tc.VAR_SPEED_DEVIATION: traci.Storage.readDouble,
                       tc.VAR_EMISSIONCLASS:   traci.Storage.readString,
+                      tc.VAR_WAITING_TIME:    traci.Storage.readDouble,
                       tc.VAR_WIDTH:           traci.Storage.readDouble,
                       tc.VAR_MINGAP:          traci.Storage.readDouble,
                       tc.VAR_SHAPECLASS:      traci.Storage.readString,
@@ -91,6 +93,13 @@ def getIDList():
     Returns a list of ids of all vehicles currently running within the scenario.
     """
     return _getUniversal(tc.ID_LIST, "")
+
+def getIDCount():
+    """getIDCount() -> integer
+    
+    Returns the number of vehicle in the network.
+    """
+    return _getUniversal(tc.ID_COUNT, "")
 
 def getSpeed(vehID):
     """getSpeed(string) -> double
@@ -225,6 +234,13 @@ def getNoiseEmission(vehID):
     """
     return _getUniversal(tc.VAR_NOISEEMISSION, vehID)
 
+def getPersonNumber(vehID):
+    """getPersonNumber(string) -> integer
+    
+    .
+    """
+    return _getUniversal(tc.VAR_PERSONNUMBER, vehID)
+
 def getAdaptedTraveltime(vehID, time, edgeID):
     """getAdaptedTraveltime(string, double, string) -> double
     
@@ -296,6 +312,13 @@ def getEmissionClass(vehID):
     Returns the emission class of this vehicle.
     """
     return _getUniversal(tc.VAR_EMISSIONCLASS, vehID)
+
+def getWaitingTime(vehID)
+    """getWaitingTime() -> double
+    
+    .
+    """
+    return _getUniversal(tc.WAITING_TIME, vehID)
 
 def getWidth(vehID):
     """getWidth(string) -> double
@@ -405,6 +428,10 @@ def getContextSubscriptionResults(vehID=None):
 
 
 def setMaxSpeed(vehID, speed):
+    """setMaxSpeed(string, double) -> None
+    
+    Sets the maximum speed in m/s for this vehicle.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED, vehID, speed)
 
 def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31-1):
@@ -428,6 +455,10 @@ def changeTarget(vehID, edgeID):
     traci._sendStringCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGETARGET, vehID, edgeID)
 
 def setRouteID(vehID, routeID):
+    """setRouteID(string, string) -> None
+    
+    Sets the id of the route for the named vehicle.
+    """
     traci._sendStringCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ROUTE_ID, vehID, routeID)
 
 def setRoute(vehID, edgeList):
@@ -448,6 +479,10 @@ def setRoute(vehID, edgeList):
     traci._sendExact()
 
 def setAdaptedTraveltime(vehID, begTime, endTime, edgeID, time):
+    """setAdaptedTraveltime(string, double, string, double) -> None
+    
+    .
+    """
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID, 1+4+1+4+1+4+1+4+len(edgeID)+1+8)
     traci._message.string += struct.pack("!BiBiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
                                          tc.TYPE_INTEGER, endTime, tc.TYPE_STRING, len(edgeID)) + edgeID
@@ -455,6 +490,10 @@ def setAdaptedTraveltime(vehID, begTime, endTime, edgeID, time):
     traci._sendExact()
 
 def setEffort(vehID, begTime, endTime, edgeID, effort):
+    """setEffort(string, double, string, double) -> None
+    
+    .
+    """
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID, 1+4+1+4+1+4+1+4+len(edgeID)+1+4)
     traci._message.string += struct.pack("!BiBiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
                                          tc.TYPE_INTEGER, endTime, tc.TYPE_STRING, len(edgeID)) + edgeID
@@ -472,6 +511,10 @@ def rerouteEffort(vehID):
     traci._sendExact()
 
 def setSignals(vehID, signals):
+    """setSignals(string, integer) -> None
+    
+    Sets an integer encoding the state of the vehicle's signals.
+    """
     traci._sendIntCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SIGNALS, vehID, signals)
 
 def moveTo(vehID, laneID, pos):
@@ -482,6 +525,10 @@ def moveTo(vehID, laneID, pos):
     traci._sendExact()
 
 def setSpeed(vehID, speed):
+    """setSpeed(string, double) -> None
+    
+    Sets the speed in m/s for the named vehicle within the last step.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED, vehID, speed)
 
 def setColor(vehID, color):
@@ -495,39 +542,87 @@ def setColor(vehID, color):
     traci._sendExact()
 
 def setLength(vehID, length):
+    """setLength(string, double) -> None
+    
+    Sets the length in m for the given vehicle.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LENGTH, vehID, length)
 
 def setVehicleClass(vehID, clazz):
+    """setVehicleClass(string, string) -> None
+    
+    Sets the vehicle class for this vehicle.
+    """
     traci._sendStringCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_VEHICLECLASS, vehID, clazz)
 
 def setSpeedFactor(vehID, factor):
+    """setSpeedFactor(string, double) -> None
+    
+    .
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED_FACTOR, vehID, factor)
 
 def setSpeedDeviation(vehID, deviation):
+    """setSpeedDeviation(string, double) -> None
+    
+    Sets the maximum speed deviation for this vehicle.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED_DEVIATION, vehID, deviation)
 
 def setEmissionClass(vehID, clazz):
+    """setEmissionClass(string, string) -> None
+    
+    Sets the emission class for this vehicle.
+    """
     traci._sendStringCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EMISSIONCLASS, vehID, clazz)
 
 def setWidth(vehID, width):
+    """setWidth(string, double) -> None
+    
+    Sets the width in m for this vehicle.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_WIDTH, vehID, width)
 
 def setMinGap(vehID, minGap):
+    """setMinGap(string, double) -> None
+    
+    Sets the offset (gap to front vehicle if halting) for this vehicle.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MINGAP, vehID, minGap)
 
 def setShapeClass(vehID, clazz):
+    """setShapeClass(string, string) -> None
+    
+    Sets the shape class for this vehicle.
+    """
     traci._sendStringCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SHAPECLASS, vehID, clazz)
 
 def setAccel(vehID, accel):
+    """setAccel(string, double) -> None
+    
+    Sets the maximum acceleration in m/s^2 for this vehicle.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ACCEL, vehID, accel)
 
 def setDecel(vehID, decel):
+    """setDecel(string, double) -> None
+    
+    Sets the maximum deceleration in m/s^2 for this vehicle.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_DECEL, vehID, decel)
 
 def setImperfection(vehID, imperfection):
+    """setImperfection(string, double) -> None
+    
+    .
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_IMPERFECTION, vehID, imperfection)
 
 def setTau(vehID, tau):
+    """setTau(string, double) -> None
+    
+    Sets the driver's reaction time in s for this vehicle.
+    """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_TAU, vehID, tau)
 
 def add(vehID, routeID, depart=DEPART_NOW, pos=0, speed=0, lane=0, typeID="DEFAULT_VEHTYPE"):

@@ -100,7 +100,8 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:                     traci.Storage.readStringLi
                       tc.TL_CONTROLLED_LINKS:         _readLinks,
                       tc.TL_CURRENT_PROGRAM:          traci.Storage.readString,
                       tc.TL_CURRENT_PHASE:            traci.Storage.readInt,
-                      tc.TL_NEXT_SWITCH:              traci.Storage.readInt}
+                      tc.TL_NEXT_SWITCH:              traci.Storage.readInt,
+                      tc.ID_COUNT:                  traci.Storage.readInt}
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, tlsID):
@@ -113,6 +114,13 @@ def getIDList():
     Returns a list of ids of all traffic lights within the scenario.
     """
     return _getUniversal(tc.ID_LIST, "")
+
+def getIDCount():
+    """getIDCount() -> integer
+    
+    Returns the number of traffic lights in the network.
+    """
+    return _getUniversal(tc.ID_COUNT, "")
 
 def getRedYellowGreenState(tlsID):
     """getRedYellowGreenState(string) -> string
@@ -194,18 +202,34 @@ def getContextSubscriptionResults(tlsID=None):
 
 
 def setRedYellowGreenState(tlsID, state):
+    """setRedYellowGreenState(string, string) -> None
+    
+    Sets the named tl's state as a tuple of light definitions from rRgGyYoO, for red, green, yellow, off, where lower case letters mean that the stream has to decelerate.
+    """ 
     traci._sendStringCmd(tc.CMD_SET_TL_VARIABLE, tc.TL_RED_YELLOW_GREEN_STATE, tlsID, state)
 
 def setPhase(tlsID, index):
+    """setPhase(string, integer) -> None
+    
+    .
+    """
     traci._sendIntCmd(tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_INDEX, tlsID, index)
 
 def setProgram(tlsID, programID):
+    """setProgram(string, string) -> None
+    
+    Sets the id of the current program.
+    """
     traci._sendStringCmd(tc.CMD_SET_TL_VARIABLE, tc.TL_PROGRAM, tlsID, programID)
 
 def setPhaseDuration(tlsID, phaseDuration):
     traci._sendIntCmd(tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, int(1000*phaseDuration))
 
 def setCompleteRedYellowGreenDefinition(tlsID, tls):
+    """setCompleteRedYellowGreenDefinition(string, ) -> None
+    
+    .
+    """
     length = 1+4 + 1+4+len(tls._subID) + 1+4 + 1+4 + 1+4 + 1+4 # tls parameter
     itemNo = 1+1+1+1+1
     for p in tls._phases:
