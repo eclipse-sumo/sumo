@@ -485,7 +485,8 @@ StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVa
 
 
 StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValues[] = {
-    { "DK2008", LCM_DK2008 }
+    { "DK2008", LCM_DK2008 },
+    { "JE2013", LCM_JE2013 },
 };
 
 StringBijection<int> SUMOXMLDefinitions::Tags(
@@ -513,7 +514,7 @@ StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
     SUMOXMLDefinitions::trafficLightTypesVales, TLTYPE_AGENT);
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
-    SUMOXMLDefinitions::laneChangeModelValues, LCM_DK2008);
+    SUMOXMLDefinitions::laneChangeModelValues, LCM_JE2013);
 
 /****************************************************************************/
 

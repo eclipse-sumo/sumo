@@ -659,7 +659,8 @@ enum TrafficLightType {
  * @enum LaneChangeModel
  */
 enum LaneChangeModel {
-    LCM_DK2008
+    LCM_DK2008,
+    LCM_JE2013
 };
 
 

@@ -1,13 +1,11 @@
 /****************************************************************************/
-/// @file    MSLCM_DK2004.h
-/// @author  Daniel Krajzewicz
-/// @author  Friedemann Wesner
-/// @author  Sascha Krieg
-/// @author  Michael Behrisch
-/// @date    Fri, 29.04.2005
-/// @version $Id$
+/// @file    MSLCM_JE2013.h
+/// @author  Jakob Erdmann
+/// @date    Fri, 08.10.2013
+/// @version $Id: MSLCM_JE2013.h 14804 2013-10-07 14:42:49Z namdre $
 ///
-// A lane change model developed by D. Krajzewicz between 2004 and 2010
+// A lane change model developed by J. Erdmann 
+// based on the model of D. Krajzewicz developed between 2004 and 2011 (MSLCM_DK2004)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 // Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
@@ -20,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSLCM_DK2004_h
-#define MSLCM_DK2004_h
+#ifndef MSLCM_JE2013_h
+#define MSLCM_JE2013_h
 
 
 // ===========================================================================
@@ -36,14 +34,15 @@
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <vector>
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class MSLCM_DK2004
- * @brief A lane change model developed by D. Krajzewicz between 2004 and 2010
+ * @class MSLCM_JE2013
+ * @brief A lane change model developed by J. Erdmann
  */
-class MSLCM_DK2004 : public MSAbstractLaneChangeModel {
+class MSLCM_JE2013 : public MSAbstractLaneChangeModel {
 public:
 
     enum MyLCAEnum {
@@ -62,14 +61,14 @@ public:
 
     };
 
-    MSLCM_DK2004(MSVehicle& v);
+    MSLCM_JE2013(MSVehicle& v);
 
-    virtual ~MSLCM_DK2004();
+    virtual ~MSLCM_JE2013();
 
     /** @brief Called to examine whether the vehicle wants to change to right
         This method gets the information about the surrounding vehicles
         and whether another lane may be more preferable */
-    virtual int wantsChangeToRight(
+    int wantsChangeToRight(
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal>& leader,
         const std::pair<MSVehicle*, SUMOReal>& neighLead,
@@ -81,7 +80,7 @@ public:
     /** @brief Called to examine whether the vehicle wants to change to left
         This method gets the information about the surrounding vehicles
         and whether another lane may be more preferable */
-    virtual int wantsChangeToLeft(
+    int wantsChangeToLeft(
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal>& leader,
         const std::pair<MSVehicle*, SUMOReal>& neighLead,
@@ -90,7 +89,7 @@ public:
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked);
 
-    virtual void* inform(void* info, MSVehicle* sender);
+    void* inform(void* info, MSVehicle* sender);
 
     /** @brief Called to adapt the speed in order to allow a lane change.
      *
@@ -100,13 +99,13 @@ public:
      * @param cfModel The model used
      * @return the new speed of the vehicle as proposed by the lane changer
      */
-    virtual SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
+    SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
                                 const MSCFModel& cfModel);
 
-    virtual void changed();
+    void changed();
 
     SUMOReal getProb() const;
-    virtual void prepareStep();
+    void prepareStep();
 
     SUMOReal getChangeProbability() const {
         return myChangeProbability;
@@ -114,6 +113,24 @@ public:
 
 
 protected:
+    /** @brief Called to examine whether the vehicle wants to change 
+     * using the given laneOffset. 
+     * This method gets the information about the surrounding vehicles
+     * and whether another lane may be more preferable */
+    int wantsChange(
+        int laneOffset,
+        MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
+        const std::pair<MSVehicle*, SUMOReal>& leader,
+        const std::pair<MSVehicle*, SUMOReal>& neighLead,
+        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
+        const MSLane& neighLane,
+        const std::vector<MSVehicle::LaneQ>& preb,
+        MSVehicle** lastBlocked);
+
+
+
+
+
     void informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                        int& blocked, int dir,
                        const std::pair<MSVehicle*, SUMOReal>& neighLead,

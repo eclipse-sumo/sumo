@@ -33,6 +33,7 @@
 
 #include "MSAbstractLaneChangeModel.h"
 #include "MSLCM_DK2004.h"
+#include "MSLCM_JE2013.h"
 #include "MSNet.h"
 #include "MSEdge.h"
 #include "MSLane.h"
@@ -47,6 +48,8 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
     switch (lcm) {
         case LCM_DK2008:
             return new MSLCM_DK2004(v);
+        case LCM_JE2013:
+            return new MSLCM_JE2013(v);
         default:
             throw ProcessError("Lane change model '" + toString(lcm) + "' not implemented");
     }

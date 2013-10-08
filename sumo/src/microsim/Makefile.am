@@ -13,6 +13,7 @@ MSJunction.cpp MSJunction.h \
 MSJunctionControl.cpp MSJunctionControl.h \
 MSJunctionLogic.cpp MSJunctionLogic.h MSLane.cpp MSLane.h \
 MSLCM_DK2004.cpp MSLCM_DK2004.h \
+MSLCM_JE2013.cpp MSLCM_JE2013.h \
 MSLaneChanger.cpp MSLaneChanger.h \
 MSLink.cpp MSLink.h MSLinkCont.cpp MSLinkCont.h \
 MSLogicJunction.cpp MSLogicJunction.h MSMoveReminder.cpp MSMoveReminder.h \
