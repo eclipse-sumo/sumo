@@ -139,6 +139,7 @@ AGActivityGen::varDepTime(AGTrip& trip) {
     }
 }
 
+
 void
 AGActivityGen::generateOutputFile(std::list<AGTrip>& trips) {
     AGActivityTripWriter atw(outputFile);
@@ -178,8 +179,6 @@ AGActivityGen::generateOutputFile(std::list<AGTrip>& trips) {
     } else {
         std::cout << "No real trips were generated" << std::endl;
     }
-    //END TEST
-    atw.writeOutputFile();
 }
 
 void

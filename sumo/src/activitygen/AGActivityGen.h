@@ -55,7 +55,7 @@ public:
      * @param[in] output xml file in which we'll write the routes generated
      * @param[in] net network of the city
      */
-    AGActivityGen(std::string input, std::string output, RONet* net) :
+    AGActivityGen(std::string input, OutputDevice &output, RONet* net) :
         inputFile(input),
         outputFile(output),
         net(net),
@@ -84,8 +84,10 @@ public:
     void makeActivityTrips(int days = 1, int beginTime = 0, int endTime = 0);
 
 protected:
-    // @brief xml files: statistics on the city and generated routes
-    std::string inputFile, outputFile;
+    // @brief xml file statistics on the city and generated routes
+    std::string inputFile;
+    /// @brief The generated routes
+    OutputDevice &outputFile;
     // @brief network of the city
     RONet* net;
     //Activities activities;

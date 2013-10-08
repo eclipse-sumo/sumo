@@ -41,16 +41,14 @@
 // ===========================================================================
 void
 AGActivityTripWriter::initialize() {
-    routes << "<?xml version=\"1.0\"?>" << std::endl << std::endl;
-    routes << "<routes>" << std::endl;
     vtypes();
 }
 
 void
 AGActivityTripWriter::vtypes() {
-    routes << "    <vType id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" minGap=\"2.5\" maxSpeed=\"90\"/>" << std::endl;
-    routes << "    <vType id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" minGap=\"2.5\" maxSpeed=\"90\"/>" << std::endl;
-    routes << "    <vType id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" minGap=\"3\" maxSpeed=\"70\"/>" << std::endl << std::endl;
+    routes << "    <vType id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" minGap=\"2.5\" maxSpeed=\"90\"/>\n";
+    routes << "    <vType id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" minGap=\"2.5\" maxSpeed=\"90\"/>\n";
+    routes << "    <vType id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" minGap=\"3\" maxSpeed=\"70\"/>\n\n";
 
     colors["default"] = "1,0,0";
     colors["bus"] = "0,1,0";
@@ -72,7 +70,7 @@ AGActivityTripWriter::addTrip(AGTrip trip) {
            << "\" departSpeed=\"" << 0
            << "\" arrivalSpeed=\"" << 0
            << "\" color=\"" << colors[trip.getType()]
-           << "\">" << std::endl;
+           << "\">\n";
 
     //the route
     routes << "        <route edges=\"" << trip.getDep().getStreet().getName();
@@ -80,15 +78,10 @@ AGActivityTripWriter::addTrip(AGTrip trip) {
         routes << " " << it->getStreet().getName();
     }
     routes << " " << trip.getArr().getStreet().getName();
-    routes << "\"/>" << std::endl;
+    routes << "\"/>\n";
 
-    routes << "    </vehicle>" << std::endl;
+    routes << "    </vehicle>\n";
 }
 
-void
-AGActivityTripWriter::writeOutputFile() {
-    routes << "</routes>" << std::endl;
-    routes.close();
-}
 
 /****************************************************************************/
