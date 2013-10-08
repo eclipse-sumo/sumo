@@ -126,7 +126,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
     OptionsCont &oc = OptionsCont::getOptions();
     bool allRecognitions = oc.getBool("device.btreceiver.all-recognitions");
     bool haveOutput = oc.isSet("bt-output");
-    for (std::map<std::string, MSDevice_BTreceiver::VehicleInformation*>::const_iterator i=MSDevice_BTreceiver::sVehicles.begin(); i!=MSDevice_BTreceiver::sVehicles.end();) {
+    for (std::map<std::string, MSDevice_BTreceiver::VehicleInformation*>::iterator i=MSDevice_BTreceiver::sVehicles.begin(); i!=MSDevice_BTreceiver::sVehicles.end();) {
         // compute own direction vector
         MSDevice_BTreceiver::VehicleState &state = (*i).second->updates.back();
         Position egoPosition = state.position;
@@ -173,7 +173,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
     }
 
     // remove arrived senders / reset state 
-    for (std::map<std::string, MSDevice_BTsender::VehicleInformation*>::const_iterator i=MSDevice_BTsender::sVehicles.begin(); i!=MSDevice_BTsender::sVehicles.end();) {
+    for (std::map<std::string, MSDevice_BTsender::VehicleInformation*>::iterator i=MSDevice_BTsender::sVehicles.begin(); i!=MSDevice_BTsender::sVehicles.end();) {
         if((*i).second->haveArrived) {
             delete (*i).second;
             MSDevice_BTsender::sVehicles.erase(i++);
