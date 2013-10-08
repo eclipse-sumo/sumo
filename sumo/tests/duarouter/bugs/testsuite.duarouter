@@ -29,3 +29,4 @@ ticket445
 # The bug is circumvented in test ticket646 by adding another dummy edge.
 ticket646_vehspeed_ignored
 ticket895
+ticket1045

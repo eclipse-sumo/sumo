@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Oct  7 15:11:38 2013 by SUMO od2trips Version 0.18.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/od2tripsConfiguration.xsd">
+
+    <input>
+        <net-file value="Rede6x6.taz.xml"/>
+        <od-matrix-files value="demand.od"/>
+    </input>
+
+    <output>
+        <output-file value="Rede6x6.rou.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <trip id="147" depart="0.00" from="F4E4" to="E4E5"/>
+</routes>
