@@ -11,3 +11,5 @@ copy_test_path:activitygen-example.stat.xml
 cfg:config.cfg
 log:log.txt
 
+[run_dependent_text]
+routes:<!--{[->]}-->
