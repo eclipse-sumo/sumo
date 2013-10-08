@@ -216,7 +216,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         WRITE_MESSAGE("Repaired route of vehicle '" + veh.getID() + "'.");
         myNewRoute = true;
         RGBColor* col = myAlternatives[0]->getColor() != 0 ? new RGBColor(*myAlternatives[0]->getColor()) : 0;
-        myPrecomputed = new RORoute(myID, 0, 1, newEdges, col, myAlternatives[0]->getStops());
+        myPrecomputed = new RORoute(myID, 0, myAlternatives[0]->getProbability(), newEdges, col, myAlternatives[0]->getStops());
     } else {
         myPrecomputed = myAlternatives[0];
     }

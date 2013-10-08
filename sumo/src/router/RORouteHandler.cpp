@@ -142,9 +142,11 @@ RORouteHandler::myStartElement(int element,
             break;
         }
         case SUMO_TAG_FLOW:
+            myActiveRouteProbability = DEFAULT_VEH_PROB;
             parseFromTo("flow", attrs);
             break;
         case SUMO_TAG_TRIP: {
+            myActiveRouteProbability = DEFAULT_VEH_PROB;
             parseFromTo("trip", attrs);
             closeVehicle();
         }
