@@ -279,8 +279,6 @@ MSLCM_JE2013::wantsChange(
         MSVehicle** lastBlocked) 
 {
     assert(laneOffset == 1 || laneOffset == -1);
-
-
     // compute bestLaneOffset
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
@@ -301,21 +299,18 @@ MSLCM_JE2013::wantsChange(
             currIdx = p;
         }
     }
-
+    // direction specific constants
     const bool right = (laneOffset == -1);
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
     const bool changeToBest = (right && bestLaneOffset < 0) || (!right && bestLaneOffset > 0);
-
     // keep information about being a leader/follower
     int ret = (myOwnState & 0x00ffff00);
 
     if (leader.first != 0
-            &&
-            (myOwnState & LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0
-            &&
-            (leader.first->getLaneChangeModel().getOwnState()&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0) {
+            && (myOwnState & LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0
+            && (leader.first->getLaneChangeModel().getOwnState() & LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0) {
 
         myOwnState &= (0xffffffff - LCA_AMBLOCKINGFOLLOWER_DONTBRAKE);
         if (myVehicle.getSpeed() > SUMO_const_haltingSpeed) {
@@ -340,7 +335,7 @@ MSLCM_JE2013::wantsChange(
                 myVSafes.push_back(myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), (SUMOReal)(gap - 0.1), (*lastBlocked)->getSpeed(), (*lastBlocked)->getCarFollowModel().getMaxDecel()));
                 (*lastBlocked) = 0;
             }
-            return ret;
+            //return ret;
         }
     }
 
@@ -382,7 +377,6 @@ MSLCM_JE2013::wantsChange(
             myLeftSpace = currentDist - myVehicle.getPositionOnLane();
         }
         //
-
         return ret | lca | LCA_URGENT;
     }
 
@@ -421,8 +415,7 @@ MSLCM_JE2013::wantsChange(
 
     // -------- make place on current lane if blocking follower
     if (amBlockingFollowerPlusNB()
-            &&
-            (currentDistAllows(neighDist, bestLaneOffset, laDist) || neighDist >= currentDist)) {
+            && (currentDistAllows(neighDist, bestLaneOffset, laDist) || neighDist >= currentDist)) {
 
         return ret | lca | LCA_URGENT;
     }

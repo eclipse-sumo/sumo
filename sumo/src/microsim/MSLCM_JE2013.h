@@ -155,6 +155,7 @@ protected:
         return dist / abs(laneOffset) > lookForwardDist;
     }
 
+    /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
     typedef std::pair<SUMOReal, int> Info;
 
 
