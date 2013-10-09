@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 09 Oct 2013 04:07:01 PM CEST by Netedit Version dev-SVN-r14808
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/scr1/erdm_ja/debug/1044b/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-100.00,-50.00,300.00,0.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id="main_beg" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="main_beg_0" index="0" speed="40.00" length="107.60" shape="-100.00,-1.65 -7.89,-1.65"/>
+    </edge>
+    <edge id="main_end" from="gneJ3" to="gneJ5" priority="1">
+        <lane id="main_end_0" index="0" speed="40.00" length="200.00" shape="101.50,-1.65 300.00,-1.65"/>
+    </edge>
+    <edge id="merge" from="gneJ1" to="gneJ3" priority="1">
+        <lane id="merge_0" index="0" speed="40.00" length="107.60" shape="-4.33,-4.95 98.50,-4.95"/>
+        <lane id="merge_1" index="1" speed="40.00" length="107.60" shape="-4.33,-1.65 98.50,-1.65"/>
+    </edge>
+    <edge id="ramp_beg" from="gneJ4" to="gneJ1" priority="1">
+        <lane id="ramp_beg_0" index="0" speed="20.00" length="119.40" shape="-99.26,-51.48 -7.89,-5.79"/>
+    </edge>
+
+    <junction id="gneJ0" type="unregulated" x="-100.00" y="0.00" incLanes="" intLanes="" shape="-100.00,-0.05 -100.00,-3.25"/>
+    <junction id="gneJ1" type="priority" x="0.00" y="0.00" incLanes="ramp_beg_0 main_beg_0" intLanes="" shape="-4.33,-0.05 -4.33,-6.55 -7.17,-7.22 -8.61,-4.36 -7.89,-3.25 -7.89,-0.05">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="gneJ3" type="priority" x="100.00" y="0.00" incLanes="merge_0 merge_1" intLanes="" shape="101.50,-0.05 101.50,-3.25 98.50,-6.55 98.50,-0.05">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="gneJ4" type="unregulated" x="-100.00" y="-50.00" incLanes="" intLanes="" shape="-99.98,-50.04 -98.55,-52.91"/>
+    <junction id="gneJ5" type="unregulated" x="300.00" y="0.00" incLanes="main_end_0" intLanes="" shape="300.00,-3.25 300.00,-0.05"/>
+
+    <connection from="main_beg" to="merge" fromLane="0" toLane="1" pass="1" dir="s" state="M"/>
+    <connection from="merge" to="main_end" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="ramp_beg" to="merge" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
+
+</net>

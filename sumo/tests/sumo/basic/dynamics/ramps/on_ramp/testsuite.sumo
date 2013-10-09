@@ -8,3 +8,9 @@ blocker_on_main_brakes
 # This test shows undesireable dynamics:
 # A brakes to let B merge but A is much to fast for this to be useful
 blocker_on_main_brakes2
+
+# This test shows undesireable dynamics:
+# This is an expanded case of test 'blocker_on_main_brakes2'
+# A flow of vehicles on the main road tries to help a vehicle merge from the ramp.
+# Everyone brakes only a little but this accumulates into a standstill on the main highway.
+blocker_on_main_brakes3
