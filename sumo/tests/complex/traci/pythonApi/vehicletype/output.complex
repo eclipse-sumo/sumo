@@ -3,6 +3,7 @@ step 0
 step 1
 step 2
 vehicletypes ['DEFAULT_VEHTYPE']
+vehicletype count 1
 examining DEFAULT_VEHTYPE
 length 5.0
 maxSpeed 70.0

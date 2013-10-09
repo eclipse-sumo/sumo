@@ -12,6 +12,7 @@ for step in range(4):
     print "step", step
     traci.simulationStep()
 print "multientryexits", traci.multientryexit.getIDList()
+print "multientryexit count", traci.multientryexit.getIDCount()
 detID = "0"
 print "examining", detID
 print "vehNum", traci.multientryexit.getLastStepVehicleNumber(detID)

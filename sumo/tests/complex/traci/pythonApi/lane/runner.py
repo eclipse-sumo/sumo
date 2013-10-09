@@ -12,6 +12,7 @@ for step in range(3):
     print "step", step
     traci.simulationStep()
 print "lanes", traci.lane.getIDList()
+print "lane count", traci.lane.getIDCount()
 laneID = "2fi_0"
 print "examining", laneID
 print "length", traci.lane.getLength(laneID)
@@ -37,6 +38,7 @@ print "traveltime", traci.lane.getTraveltime(laneID)
 print "numVeh", traci.lane.getLastStepVehicleNumber(laneID)
 print "haltVeh", traci.lane.getLastStepHaltingNumber(laneID)
 print "vehIds", traci.lane.getLastStepVehicleIDs(laneID)
+print "waiting time", traci.lane.getWaitingTime(laneID)
 
 traci.lane.setAllowed(laneID, ["taxi"])
 print "after setAllowed", traci.lane.getAllowed(laneID), traci.lane.getDisallowed(laneID)

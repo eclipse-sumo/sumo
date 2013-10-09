@@ -4,6 +4,7 @@ step 1
 step 2
 adding 0
 pois ['0']
+poi count 1
 examining 0
 pos (1.0, 1.0)
 type test
@@ -16,16 +17,19 @@ step 4
 step 5
 {66: (1.0, 1.0)}
 pois ['0']
+poi count 1
 examining 0
 pos (5.0, 5.0)
 type blub
 color (222, 111, 221, 0)
 pois ['0', 'p2']
+poi count 2
 examining p2
 pos (2.0, 2.0)
 type ptest
 color (11, 21, 31, 41)
 pois ['p2']
+poi count 1
 examining p2
 pos (2.0, 2.0)
 type ptest

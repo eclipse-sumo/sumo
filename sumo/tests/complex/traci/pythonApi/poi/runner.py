@@ -6,6 +6,7 @@ import traci, sumolib
 
 def check(poiID):
     print "pois", traci.poi.getIDList()
+    print "poi count", traci.poi.getIDCount()
     print "examining", poiID
     print "pos", traci.poi.getPosition(poiID)
     print "type", traci.poi.getType(poiID)

@@ -14,6 +14,7 @@ for step in range(3):
 
 def check(vehID):
     print "vehicles", traci.vehicle.getIDList()
+    print "vehicle count", traci.vehicle.getIDCount()
     print "examining", vehID
     print "speed", traci.vehicle.getSpeed(vehID)
     print "speed w/o traci", traci.vehicle.getSpeedWithoutTraCI(vehID)
@@ -52,6 +53,7 @@ def check(vehID):
     print "shape", traci.vehicle.getShapeClass(vehID)
     print "MinGap", traci.vehicle.getMinGap(vehID)
     print "width", traci.vehicle.getWidth(vehID)
+    print "waiting time", traci.vehicle.getWaitingTime(vehID)
     print "driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.)
     print "driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.)
 

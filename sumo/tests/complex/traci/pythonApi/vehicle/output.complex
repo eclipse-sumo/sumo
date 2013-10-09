@@ -3,6 +3,7 @@ step 0
 step 1
 step 2
 vehicles ['horiz']
+vehicle count 1
 examining horiz
 speed 3.1154472965
 speed w/o traci 3.1154472965
@@ -41,6 +42,7 @@ emissionclass unknown
 shape 
 MinGap 2.5
 width 2.0
+waiting time 0.0
 driving dist 3002.95289395
 driving dist 2D 1098.13130535
 {80: '2fi', 86: 9.657135966210626}
@@ -51,6 +53,7 @@ step 4
 step 5
 {80: '2fi', 86: 32.38140935478732}
 vehicles ['horiz']
+vehicle count 1
 examining horiz
 speed 9.45050405245
 speed w/o traci 9.45050405245
@@ -89,9 +92,11 @@ emissionclass zero
 shape bicycle
 MinGap 1.1
 width 1.1
+waiting time 0.0
 driving dist 2980.22862056
 driving dist 2D 1075.40703196
 vehicles ['horiz']
+vehicle count 1
 examining 1
 speed -1001.0
 speed w/o traci -1001.0
@@ -130,6 +135,7 @@ emissionclass unknown
 shape 
 MinGap 2.5
 width 2.0
+waiting time 0.0
 driving dist -1001.0
 driving dist 2D -1001.0
 routeID horizontal

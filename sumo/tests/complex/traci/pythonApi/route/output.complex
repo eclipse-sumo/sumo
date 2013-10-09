@@ -3,6 +3,7 @@ step 0
 step 1
 step 2
 routes ['horizontal']
+route count 1
 examining horizontal
 edges ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 {0: ['horizontal']}

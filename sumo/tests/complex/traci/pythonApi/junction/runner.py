@@ -12,6 +12,7 @@ for step in range(3):
     print "step", step
     traci.simulationStep()
 print "junctions", traci.junction.getIDList()
+print "junction count", traci.junction.getIDCount()
 junctionID = "0"
 print "examining", junctionID
 print "pos", traci.junction.getPosition(junctionID)

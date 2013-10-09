@@ -12,6 +12,7 @@ for step in range(3):
     print "step", step
     traci.simulationStep()
 print "vehicletypes", traci.vehicletype.getIDList()
+print "vehicletype count", traci.vehicletype.getIDCount()
 typeID = "DEFAULT_VEHTYPE"
 print "examining", typeID
 print "length", traci.vehicletype.getLength(typeID)

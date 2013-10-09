@@ -4,6 +4,7 @@ step 1
 step 2
 step 3
 inductionloops ['0']
+inductionloop count 1
 examining 0
 vehNum 1
 meanSpeed 5.65632404885

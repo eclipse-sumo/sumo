@@ -3,6 +3,7 @@ step 0
 step 1
 step 2
 edges ['1fi', '1o', '1si', '2fi', '2o', '2si', '3fi', '3o', '3si', '4fi', '4o', '4si']
+edge count 12
 examining 2fi
 adaptedTraveltime -1.0
 effort -1.0
@@ -20,6 +21,7 @@ traveltime 79.7638272613
 numVeh 1
 haltVeh 0
 vehIds ['horiz']
+waiting time 0.0
 traveltime after adaption 79.7638272613
 adaptedTraveltime after adaption 42.0
 effort after adaption 1234.0

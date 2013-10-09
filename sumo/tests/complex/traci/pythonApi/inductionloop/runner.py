@@ -12,6 +12,7 @@ for step in range(4):
     print "step", step
     traci.simulationStep()
 print "inductionloops", traci.inductionloop.getIDList()
+print "inductionloop count", traci.inductionloop.getIDCount()
 loopID = "0"
 print "examining", loopID
 print "vehNum", traci.inductionloop.getLastStepVehicleNumber(loopID)

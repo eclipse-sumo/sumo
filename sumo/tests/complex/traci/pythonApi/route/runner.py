@@ -12,6 +12,7 @@ for step in range(3):
     print "step", step
     traci.simulationStep()
 print "routes", traci.route.getIDList()
+print "route count", traci.route.getIDCount()
 routeID = "horizontal"
 print "examining", routeID
 print "edges", traci.route.getEdges(routeID)

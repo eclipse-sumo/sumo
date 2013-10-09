@@ -3,6 +3,7 @@ step 0
 step 1
 step 2
 lanes ['1fi_0', '1o_0', '1si_0', '1si_1', '1si_2', '2fi_0', '2o_0', '2si_0', '2si_1', '2si_2', '3fi_0', '3o_0', '3si_0', '3si_1', '3si_2', '4fi_0', '4o_0', '4si_0', '4si_1', '4si_2']
+lane count 20
 examining 2fi_0
 length 248.5
 maxSpeed 11.11
@@ -27,6 +28,7 @@ traveltime 79.7638272613
 numVeh 1
 haltVeh 0
 vehIds ['horiz']
+waiting time 0.0
 after setAllowed ['taxi'] ['private', 'public_transport', 'public_emergency', 'public_authority', 'public_army', 'vip', 'ignoring', 'passenger', 'hov', 'bus', 'delivery', 'transport', 'lightrail', 'cityrail', 'rail_slow', 'rail_fast', 'motorcycle', 'bicycle', 'pedestrian', 'custom1', 'custom2']
 after setDisallowed ['private', 'public_transport', 'public_emergency', 'public_authority', 'public_army', 'vip', 'ignoring', 'passenger', 'hov', 'taxi', 'delivery', 'transport', 'lightrail', 'cityrail', 'rail_slow', 'rail_fast', 'motorcycle', 'bicycle', 'pedestrian', 'custom1', 'custom2'] ['bus']
 after setMaxSpeed 42.0

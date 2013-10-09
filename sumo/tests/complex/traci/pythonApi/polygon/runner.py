@@ -16,6 +16,7 @@ print "adding", polygonID
 traci.polygon.add(polygonID, ((1,1), (1,10), (10,10)), (1,2,3,4), True, "test")
 
 print "polygons", traci.polygon.getIDList()
+print "polygon count", traci.polygon.getIDCount()
 print "examining", polygonID
 print "shape", traci.polygon.getShape(polygonID)
 print "type", traci.polygon.getType(polygonID)

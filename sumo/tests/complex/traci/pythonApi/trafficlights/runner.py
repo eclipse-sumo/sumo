@@ -12,6 +12,7 @@ for step in range(3):
     print "step", step
     traci.simulationStep()
 print "trafficlights", traci.trafficlights.getIDList()
+print "trafficlights count", traci.trafficlights.getIDCount()
 tlsID = "0"
 print "examining", tlsID
 print "ryg", traci.trafficlights.getRedYellowGreenState(tlsID)

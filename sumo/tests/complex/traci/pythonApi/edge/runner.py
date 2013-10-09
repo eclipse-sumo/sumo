@@ -12,6 +12,7 @@ for step in range(3):
     print "step", step
     traci.simulationStep()
 print "edges", traci.edge.getIDList()
+print "edge count", traci.edge.getIDCount()
 edgeID = "2fi"
 print "examining", edgeID
 print "adaptedTraveltime", traci.edge.getAdaptedTraveltime(edgeID, 0)
@@ -30,6 +31,7 @@ print "traveltime", traci.edge.getTraveltime(edgeID)
 print "numVeh", traci.edge.getLastStepVehicleNumber(edgeID)
 print "haltVeh", traci.edge.getLastStepHaltingNumber(edgeID)
 print "vehIds", traci.edge.getLastStepVehicleIDs(edgeID)
+print "waiting time", traci.edge.getWaitingTime(edgeID)
 
 traci.edge.adaptTraveltime(edgeID, 42.)
 print "traveltime after adaption", traci.edge.getTraveltime(edgeID)
