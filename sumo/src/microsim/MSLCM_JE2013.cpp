@@ -2,7 +2,7 @@
 /// @file    MSLCM_JE2013.h
 /// @author  Jakob Erdmann
 /// @date    Fri, 08.10.2013
-/// @version $Id: MSLCM_JE2013.h 14804 2013-10-07 14:42:49Z namdre $
+/// @version $Id$
 ///
 // A lane change model developed by J. Erdmann 
 // based on the model of D. Krajzewicz developed between 2004 and 2011 (MSLCM_DK2004)
