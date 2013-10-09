@@ -224,12 +224,12 @@ def getLastStepLength(laneID):
     """
     return _getUniversal(tc.LAST_STEP_LENGTH, laneID)
 
-def getWaitingTime(laneID)
+def getWaitingTime(laneID):
     """getWaitingTime() -> double
     
     .
     """
-    return _getUniversal(tc.WAITING_TIME, laneID)     
+    return _getUniversal(tc.VAR_WAITING_TIME, laneID)     
     
 def getTraveltime(laneID):
     """getTraveltime(string) -> double

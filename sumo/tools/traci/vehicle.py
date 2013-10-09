@@ -313,12 +313,12 @@ def getEmissionClass(vehID):
     """
     return _getUniversal(tc.VAR_EMISSIONCLASS, vehID)
 
-def getWaitingTime(vehID)
+def getWaitingTime(vehID):
     """getWaitingTime() -> double
     
     .
     """
-    return _getUniversal(tc.WAITING_TIME, vehID)
+    return _getUniversal(tc.VAR_WAITING_TIME, vehID)
 
 def getWidth(vehID):
     """getWidth(string) -> double

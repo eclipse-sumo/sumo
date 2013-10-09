@@ -71,12 +71,12 @@ def getAdaptedTraveltime(edgeID, time):
     return traci._checkResult(tc.CMD_GET_EDGE_VARIABLE,
                               tc.VAR_EDGE_TRAVELTIME, edgeID).readDouble()
 
-def getWaitingTime(edgeID)
+def getWaitingTime(edgeID):
     """getWaitingTime() -> double
     
     .
     """
-    return _getUniversal(tc.WAITING_TIME, edgeID) 
+    return _getUniversal(tc.VAR_WAITING_TIME, edgeID) 
 
 def getEffort(edgeID, time):
     """getEffort(string, double) -> double
