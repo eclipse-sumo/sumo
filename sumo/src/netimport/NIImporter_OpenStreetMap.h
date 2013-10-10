@@ -163,6 +163,9 @@ private:
     /// @brief The compounds types that do not contain known types
     std::set<std::string> myUnusableTypes;
 
+    /// @brief The compound types that have already been mapped to other known types
+    std::map<std::string, std::string> myKnownCompoundTypes;
+
     /** @brief Builds an NBNode
      *
      * If a node with the given id is already known, nothing is done.

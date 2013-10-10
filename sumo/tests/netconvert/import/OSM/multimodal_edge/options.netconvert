@@ -1,1 +1,1 @@
- --osm-files osm.xml --plain-output plain -o ignore.net.xml --output.street-names
+ --osm-files osm.xml --plain-output plain -o ignore.net.xml --output.street-names -v

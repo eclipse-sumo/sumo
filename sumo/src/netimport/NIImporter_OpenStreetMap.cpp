@@ -374,14 +374,18 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (!tc.knows(type)) {
         if (myUnusableTypes.count(type) > 0) {
             return newIndex;
+        } else if (myKnownCompoundTypes.count(type) > 0) {
+            type = myKnownCompoundTypes[type];
         } else {
             // this edge has a type which does not yet exist in the TypeContainer
             StringTokenizer tok = StringTokenizer(type, compoundTypeSeparator);
-            std::set<std::string> types;
+            std::vector<std::string> types;
             while (tok.hasNext()) {
                 std::string t = tok.next();
-                if (tc.knows(t)) {
-                    types.insert(t);
+                if (tc.knows(t)) { 
+                    if (std::find(types.begin(), types.end(), t) == types.end()) {
+                        types.push_back(t);
+                    }
                 } else if (tok.size() > 1) {
                     WRITE_WARNING("Discarding unknown compound \"" + t + "\" in type \"" + type + "\" (first occurence for edge \"" + id + "\").");
                 }
@@ -391,22 +395,32 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 myUnusableTypes.insert(type);
                 return newIndex;
             } else {
-                // build a new type by merging all values
-                int numLanes = 0;
-                SUMOReal maxSpeed = 0;
-                int prio = 0;
-                SUMOReal width = NBEdge::UNSPECIFIED_WIDTH;
-                bool defaultIsOneWay = false;
-                SVCPermissions permissions = 0;
-                for (std::set<std::string>::iterator it = types.begin(); it != types.end(); it++) {
-                    numLanes = MAX2(numLanes, tc.getNumLanes(*it));
-                    maxSpeed = MAX2(maxSpeed, tc.getSpeed(*it));
-                    prio = MAX2(prio, tc.getPriority(*it));
-                    defaultIsOneWay &= tc.getIsOneWay(*it);
-                    permissions |= tc.getPermissions(*it);
+                const std::string newType = joinToString(types, "|");
+                if (tc.knows(newType)) {
+                    myKnownCompoundTypes[type] = newType;
+                    type = newType;
+                } else if (myKnownCompoundTypes.count(newType) > 0) {
+                    type = myKnownCompoundTypes[newType];
+                } else {
+                    // build a new type by merging all values
+                    int numLanes = 0;
+                    SUMOReal maxSpeed = 0;
+                    int prio = 0;
+                    SUMOReal width = NBEdge::UNSPECIFIED_WIDTH;
+                    bool defaultIsOneWay = false;
+                    SVCPermissions permissions = 0;
+                    for (std::vector<std::string>::iterator it = types.begin(); it != types.end(); it++) {
+                        numLanes = MAX2(numLanes, tc.getNumLanes(*it));
+                        maxSpeed = MAX2(maxSpeed, tc.getSpeed(*it));
+                        prio = MAX2(prio, tc.getPriority(*it));
+                        defaultIsOneWay &= tc.getIsOneWay(*it);
+                        permissions |= tc.getPermissions(*it);
+                    }
+                    WRITE_MESSAGE("Adding new type \"" + type + "\" (first occurence for edge \"" + id + "\").");
+                    tc.insert(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay);
+                    myKnownCompoundTypes[type] = newType;
+                    type = newType;
                 }
-                WRITE_MESSAGE("Adding new type \"" + type + "\" (first occurence for edge \"" + id + "\").");
-                tc.insert(type, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay);
             }
         } 
     }

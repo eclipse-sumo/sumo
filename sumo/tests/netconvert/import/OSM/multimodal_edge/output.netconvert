@@ -1,1 +1,44 @@
+Parsing nodes from osm-file 'osm.xml'... done.
+Parsing edges from osm-file 'osm.xml'... done.
+Removing duplicate edges... done.
+Adding new type "highway.secondary|highway.secondary|railway.tram" (first occurence for edge "10860201").
+Parsing relations from osm-file 'osm.xml'... done.
+ Import done:
+   4 nodes loaded.
+   35 types loaded.
+   4 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+Removing self-loops... done.
+Removing empty nodes... done.
+   0 nodes removed.
+Moving network to origin... done.
+Joining similar edges... done.
+Computing turning directions... done.
+Sorting nodes' edges... done.
+Computing node types... done.
+Computing priorities... done.
+Computing approached edges... done.
+Computing approaching lanes... done.
+Dividing of lanes on approached lanes... done.
+Processing turnarounds... done.
+Rechecking of lane endings... done.
+Computing node shapes... done.
+Computing edge shapes... done.
+Assigning nodes to traffic lights... done.
+Computing traffic light control information... done.
+Computing node logics... done.
+Computing traffic light logics... done.
+ 0 traffic light(s) computed.
+Building inner edges... done.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 2
+  Priority junctions          : 2
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : 13.61,52.37,13.82,52.38
+  Applied offset     : -405213.33,-5803545.51
+  Converted boundary : 0.00,0.00,14260.81,350.76
+-----------------------------------------------------
 Success.

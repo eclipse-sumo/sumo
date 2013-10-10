@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  2 15:32:17 2013 by SUMO netconvert Version dev-SVN-r14776
+<!-- generated on Thu Oct 10 08:57:59 2013 by SUMO netconvert Version dev-SVN-r14807
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -19,13 +19,18 @@
         <proj.utm value="true"/>
     </projection>
 
+    <report>
+        <verbose value="true"/>
+    </report>
+
 </configuration>
 -->
 
 <nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
-    <location netOffset="-405213.33,-5803545.51" convBoundary="0.00,0.00,7454.01,350.76" origBoundary="13.607621,52.373967,13.817027,52.377232" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-405213.33,-5803545.51" convBoundary="0.00,0.00,14260.81,350.76" origBoundary="13.607621,52.373967,13.817027,52.377232" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <node id="1" x="0.00" y="0.00" type="priority"/>
     <node id="2" x="647.27" y="350.76" type="priority"/>
-    <node id="3" x="7454.01" y="225.32" type="priority"/>
+    <node id="3" x="7454.01" y="225.32" type="unregulated"/>
+    <node id="4" x="14260.81" y="109.28" type="unregulated"/>
 </nodes>

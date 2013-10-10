@@ -12,6 +12,7 @@
   <nd ref="1"/>
   <nd ref="2"/>
   <tag k="highway" v="secondary"/>
+  <tag k="highway" v="secondary"/>
   <tag k="electrified" v="contact_line"/>
   <tag k="railway" v="tram"/>
   <tag k="note" v="Übergeordnete Straße, Stufe II"/>
@@ -32,7 +33,7 @@
 
 <way id="10860203">
   <nd ref="2"/>
-  <nd ref="3"/>
+  <nd ref="4"/>
   <tag k="electrified" v="contact_line"/>
   <tag k="railway" v="tram"/>
   <tag k="railway" v="platform"/>
