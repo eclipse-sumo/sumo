@@ -296,7 +296,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
         << "\" personQuality=\"" << personQuality
         << "\" minPersonSize=\"" << minPersonSize
         << "\" personExaggeration=\"" << personExaggeration
-        << "                  " << personName.print("personName")
+        << "\" " << personName.print("personName")
         << ">\n";
     personColorer.save(dev);
     dev << "        </persons>\n";
