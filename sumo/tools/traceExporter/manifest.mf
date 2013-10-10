@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Sealed: true
-Main-Class: Main
-Class-Path: libs/stax-1.2.0.jar libs/stax-api-1.0.jar .
