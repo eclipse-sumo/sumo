@@ -53,7 +53,7 @@ public:
         // !!! never set LCA_UNBLOCK = 4096,                    // 12
         LCA_AMBLOCKINGFOLLOWER_DONTBRAKE = 8192,                // 13
         // !!! never used LCA_AMBLOCKINGSECONDFOLLOWER = 16384, // 14
-        
+        LCA_CHANGE_TO_HELP = 32768,                             // 15 
         // !!! never read LCA_KEEP1 = 65536,                    // 16
         // !!! never used LCA_KEEP2 = 131072,                   // 17
         LCA_AMBACKBLOCKER = 262144,                             // 18
@@ -101,6 +101,9 @@ public:
      */
     SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
                                 const MSCFModel& cfModel);
+    /** helper function which contains the actual logic */
+    SUMOReal _patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
+                                const MSCFModel& cfModel);
 
     void changed();
 
@@ -127,12 +130,22 @@ protected:
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked);
 
+    // @brief helper function for doing the actual work
+    int _wantsChange(
+        int laneOffset,
+        MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
+        const std::pair<MSVehicle*, SUMOReal>& leader,
+        const std::pair<MSVehicle*, SUMOReal>& neighLead,
+        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
+        const MSLane& neighLane,
+        const std::vector<MSVehicle::LaneQ>& preb,
+        MSVehicle** lastBlocked);
 
 
 
 
     void informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
-                       int& blocked, int dir,
+                       int blocked, int dir,
                        const std::pair<MSVehicle*, SUMOReal>& neighLead,
                        const std::pair<MSVehicle*, SUMOReal>& neighFollow);
 
@@ -168,6 +181,10 @@ protected:
 
     std::vector<SUMOReal> myVSafes;
     bool myDontBrake;
+
+    /* @brief acceleration during this step in m/s. This is used to extrapolate 
+     * future maneuvers when deciding whether blockers should slow down */
+    SUMOReal myLastAccel;
 
 };
 
