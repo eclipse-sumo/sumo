@@ -795,6 +795,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSStateHandler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSVehicle.h"
 				>
 			</File>
@@ -815,10 +819,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\..\..\src\microsim\MSStateHandler.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
