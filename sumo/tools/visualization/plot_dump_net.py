@@ -5,6 +5,7 @@ from xml.sax.handler import ContentHandler
 from matplotlib import rcParams
 from pylab import *
 from matplotlib.ticker import FuncFormatter as ff
+import matplotlib.pyplot as plt
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), '..', '..')), 'tools'))
@@ -116,7 +117,14 @@ def main(args=None):
   
     fig, ax = helpers.openFigure(options)
     helpers.plotNet(net, colors, widths, options)
-    helpers.closeFigure(fig, ax, options) 
+    
+    # drawing the legend, at least for the colors
+    sm = matplotlib.cm.ScalarMappable(cmap=get_cmap(options.colormap), norm=plt.normalize(vmin=minColorValue, vmax=maxColorValue))
+    # fake up the array of the scalar mappable. Urgh...
+    sm._A = []
+    plt.colorbar(sm)
+    helpers.closeFigure(fig, ax, options, False)
+    break # just one time step by now
 
 
 if __name__ == "__main__":

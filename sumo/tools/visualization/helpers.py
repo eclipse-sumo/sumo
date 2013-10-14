@@ -138,8 +138,8 @@ def openFigure(options):
   return fig, ax
 
 
-def closeFigure(fig, ax, options):
-  legend()
+def closeFigure(fig, ax, options, showLegend=True):
+  if showLegend: legend()
   applyPlotOptions(fig, ax, options)
   if options.output: savefig(options.output)
   if not options.blind: show()
