@@ -2,10 +2,13 @@
 """
 @file    districtMapper.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2007-07-26
 @version $Id$
 
-<documentation missing>
+Maps the geomtetry of the districts of two networks by calculating 
+translation and scale parameters from junctions which have been 
+identified by the user as reference points.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2007-2013 DLR (http://www.dlr.de/) and contributors
@@ -16,9 +19,9 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-from xml.sax import saxutils, make_parser, handler
-from optparse import OptionParser
 import math
+from xml.sax import make_parser, handler
+from optparse import OptionParser
 
 
 def parseShape(shape):
@@ -68,6 +71,8 @@ class DistrictMapper(handler.ContentHandler):
         if name == 'taz':    
             self._haveDistrict = True
             self._currentID = attrs['id']
+            if 'shape' in attrs:
+                self._shape = attrs['shape']
         elif name == 'shape' and self._haveDistrict:
             self._parsingDistrictShape = True
 
@@ -78,11 +83,11 @@ class DistrictMapper(handler.ContentHandler):
     def endElement(self, name):
         if name == 'taz':    
             self._haveDistrict = False
-        elif name == 'shape' and self._haveDistrict:
-            self._parsingDistrictShape = False
-            if self._shape!='':
+            if self._shape != '':
                 self._districtShapes[self._currentID] = parseShape(self._shape)
                 self._shape = ""
+        elif name == 'shape' and self._haveDistrict:
+            self._parsingDistrictShape = False
 
     def convertShapes(self, xoff1, xoff2, xscale, yoff1, yoff2, yscale):
         for district in self._districtShapes:
@@ -99,74 +104,70 @@ class DistrictMapper(handler.ContentHandler):
         fd.write("<tazs>\n")
         for district in self._districtShapes:
             shape = self._districtShapes[district]
-            shapeStr = ""
-            for i in range(0, len(shape)):
-                if i!=0:
-                    shapeStr = shapeStr + " "
-                shapeStr = shapeStr + str(shape[i][0]) + "," + str(shape[i][1])
-            fd.write("   <taz id=\"" + district + "\">\n")
-            fd.write("      <shape>" + shapeStr + "</shape>\n")
-            fd.write("   </taz>\n")
-            fd.write("   <poly id=\"" + district + "\" color=\"" + color + "\">" + shapeStr + "</poly>\n")
+            shapeStr = " ".join(["%s,%s" % s for s in shape])
+            fd.write('   <taz id="%s" shape="%s"/>\n' % (district, shapeStr))
+            fd.write('   <poly id="%s" color="%s" shape="%s"/>\n' % (district, color, shapeStr))
         fd.write("</tazs>\n")
         fd.close()
 
 
         
+if __name__ == "__main__":
+    optParser = OptionParser()
+    optParser.add_option("-v", "--verbose", action="store_true",
+                         default=False, help="tell me what you are doing")
+    optParser.add_option("-1", "--net-file1", dest="netfile1",
+                         help="read first SUMO network from FILE (mandatory)", metavar="FILE")
+    optParser.add_option("-2", "--net-file2", dest="netfile2",
+                         help="read second SUMO network from FILE (mandatory)", metavar="FILE")
+    optParser.add_option("-o", "--output", default="districts.add.xml",
+                         help="write results to FILE (default: %default)", metavar="FILE")
+    optParser.add_option("-a", "--junctions1",
+                         help="list of junction ids to use from first network (mandatory)")
+    optParser.add_option("-b", "--junctions2",
+                         help="list of junction ids to use from second network (mandatory)")
+    optParser.add_option("-c", "--color", default="1,0,0",
+                         help="Assign this color to districts (default: %default)")
+    (options, args) = optParser.parse_args()
+    if not options.netfile1 or not options.netfile2 or not options.junctions1 or not options.junctions2:
+        optParser.print_help()
+        optParser.exit("Error! Providing two networks and junction lists is mandatory")
+    parser = make_parser()
+    if options.verbose:
+        print "Reading net#1"
+    reader1 = JunctionPositionsReader()
+    parser.setContentHandler(reader1)
+    parser.parse(options.netfile1)
+    if options.verbose:
+        print "Reading net#2"
+    reader2 = JunctionPositionsReader()
+    parser.setContentHandler(reader2)
+    parser.parse(options.netfile2)
 
-optParser = OptionParser()
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-optParser.add_option("-1", "--net-file1", dest="netfile1",
-                     help="read first SUMO network from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-2", "--net-file2", dest="netfile2",
-                     help="read second SUMO network from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-o", "--output", dest="output",
-                     help="write results to FILE (mandatory)", metavar="FILE")
-optParser.add_option("-a", "--junctions1", dest="junctions1",
-                     default=False, help="Triplet of junctions to use from first network (mandatory)")
-optParser.add_option("-b", "--junctions2", dest="junctions2",
-                     default=False, help="Triplet of junctions to use from second network (mandatory)")
-optParser.add_option("-c", "--color", dest="color",
-                     default=False, help="Assign this color to districts (mandatory)")
-(options, args) = optParser.parse_args()
+    junctions1 = options.junctions1.split(",")
+    junctions2 = options.junctions2.split(",")
+    xposes1 = reader1.getJunctionXPoses(junctions1)
+    yposes1 = reader1.getJunctionYPoses(junctions1)
+    xposes2 = reader2.getJunctionXPoses(junctions2)
+    yposes2 = reader2.getJunctionYPoses(junctions2)
 
-parser = make_parser()
-if options.verbose:
-    print "Reading net#1"
-reader1 = JunctionPositionsReader()
-parser.setContentHandler(reader1)
-parser.parse(options.netfile1)
-if options.verbose:
-    print "Reading net#2"
-reader2 = JunctionPositionsReader()
-parser.setContentHandler(reader2)
-parser.parse(options.netfile2)
+    xmin1 = min(xposes1)
+    xmax1 = max(xposes1)
+    ymin1 = min(yposes1)
+    ymax1 = max(yposes1)
+    xmin2 = min(xposes2)
+    xmax2 = max(xposes2)
+    ymin2 = min(yposes2)
+    ymax2 = max(yposes2)
 
-junctions1 = options.junctions1.split(",")
-junctions2 = options.junctions2.split(",")
-xposes1 = reader1.getJunctionXPoses(junctions1)
-yposes1 = reader1.getJunctionYPoses(junctions1)
-xposes2 = reader2.getJunctionXPoses(junctions2)
-yposes2 = reader2.getJunctionYPoses(junctions2)
+    width1 = xmax1 - xmin1
+    height1 = ymax1 - ymin1
+    width2 = xmax2 - xmin2
+    height2 = ymax2 - ymin2
 
-xmin1 = min(xposes1)
-xmax1 = max(xposes1)
-ymin1 = min(yposes1)
-ymax1 = max(yposes1)
-xmin2 = min(xposes2)
-xmax2 = max(xposes2)
-ymin2 = min(yposes2)
-ymax2 = max(yposes2)
-
-width1 = xmax1 - xmin1
-height1 = ymax1 - ymin1
-width2 = xmax2 - xmin2
-height2 = ymax2 - ymin2
-
-reader = DistrictMapper()
-parser.setContentHandler(reader)
-parser.parse(options.netfile1)
-reader.convertShapes(xmin1, xmin2, width1/width2, ymin1, ymin2, height1/height2)
-reader.writeResults(options.output, options.color)
+    reader = DistrictMapper()
+    parser.setContentHandler(reader)
+    parser.parse(options.netfile1)
+    reader.convertShapes(xmin1, xmin2, width1/width2, ymin1, ymin2, height1/height2)
+    reader.writeResults(options.output, options.color)
 

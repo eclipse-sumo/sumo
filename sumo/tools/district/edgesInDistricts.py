@@ -2,10 +2,13 @@
 """
 @file    edgesInDistricts.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2007-07-26
 @version $Id$
 
-<documentation missing>
+Parsing a number of networks and taz (district) files with shapes
+this script writes a taz file with all the edges which are inside
+the relevant taz.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2007-2013 DLR (http://www.dlr.de/) and contributors
@@ -30,14 +33,26 @@ def parseShape(shape):
     return ret
 
 
+def getBoundingBox(shape):
+    min = [1e400, 1e400]
+    max = [-1e400, -1e400]
+    for pos in shape:
+        for idx in [0, 1]:
+            if pos[idx] > max[idx]:
+                max[idx] = pos[idx]
+            if pos[idx] < min[idx]:
+                min[idx] = pos[idx]
+    return min, max
+
+
 def angle2D(p1, p2):
     theta1 = math.atan2(p1[1], p1[0]);
     theta2 = math.atan2(p2[1], p2[0]);
     dtheta = theta2 - theta1;
-    while dtheta > 3.1415926535897932384626433832795:
-        dtheta -= 2.0*3.1415926535897932384626433832795
-    while dtheta < -3.1415926535897932384626433832795:
-        dtheta += 2.0*3.1415926535897932384626433832795
+    while dtheta > math.pi:
+        dtheta -= 2.0*math.pi
+    while dtheta < -math.pi:
+        dtheta += 2.0*math.pi
     return dtheta
     
 
@@ -51,7 +66,7 @@ def isWithin(pos, shape):
     p1 = ( (shape[i][0] - pos[0]), (shape[i][1] - pos[1]) )
     p2 = ( (shape[0][0] - pos[0]), (shape[0][1] - pos[1]) )
     angle = angle + angle2D(p1, p2)
-    return math.fabs(angle)>=3.1415926535897932384626433832795
+    return math.fabs(angle) >= math.pi
 
 
 # written into the net. All members are "private".
@@ -63,33 +78,37 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
         self._currentID = ""
         self._shape = ""
         self._districtShapes = {}
-        self._laneShapes = {}
-        self._districtLanes = {}
-        self._laneDisttricts = {}
-        self._invalidatedLanes = []
-        self._laneSpeeds = {}
-        self._laneLengths = {}
-        self._noLanes = {}
+        self._districtBoxes = {}
+        self._edgeShapes = {}
+        self._districtEdges = {}
+        self._edgeDistricts = {}
+        self._invalidatedEdges = []
+        self._edgeSpeeds = {}
+        self._edgeLengths = {}
+        self._numLanes = {}
 
     def startElement(self, name, attrs):
         if name == 'taz':    
             self._haveDistrict = True
             self._currentID = attrs['id']
-            self._districtLanes[self._currentID] = []
+            self._districtEdges[self._currentID] = []
+            if 'shape' in attrs:
+                self._shape = attrs['shape']
         elif name == 'shape' and self._haveDistrict:
             self._parsingDistrictShape = True
-        elif name == 'lane':
+        elif name == 'edge':
             self._currentID = attrs['id']
+            self._edgeDistricts[self._currentID] = []
+        elif name == 'lane':
             self._parsingLaneShape = True
-            self._laneDisttricts[self._currentID] = []
-            self._laneSpeeds[self._currentID] = float(attrs['speed'])
-            self._laneLengths[self._currentID] = float(attrs['length'])
-            edgeid = self._currentID
-            edgeid = edgeid[:edgeid.rfind("_")]
-            if edgeid in self._noLanes:
-                self._noLanes[edgeid] = self._noLanes[edgeid] + 1
+            if self._currentID not in self._numLanes:
+                self._edgeSpeeds[self._currentID] = float(attrs['speed'])
+                self._edgeLengths[self._currentID] = float(attrs['length'])
+                self._numLanes[self._currentID] = 1
+                if 'shape' in attrs:
+                    self._shape = attrs['shape']
             else:
-                self._noLanes[edgeid] = 1
+                self._numLanes[self._currentID] += 1
 
     def characters(self, content):
         if self._parsingDistrictShape:
@@ -98,89 +117,90 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
             self._shape += content
 
     def endElement(self, name):
-        if name == 'district':    
+        if name == 'taz':    
             self._haveDistrict = False
+            if self._shape != '':
+                self._districtShapes[self._currentID] = parseShape(self._shape)
+                self._districtBoxes[self._currentID] = getBoundingBox(self._districtShapes[self._currentID])
+                self._shape = ""
         elif name == 'shape' and self._haveDistrict:
             self._parsingDistrictShape = False
-            if self._shape!='':
-                self._districtShapes[self._currentID] = parseShape(self._shape)
-                self._shape = ""
         elif name == 'lane':
             self._parsingLaneShape = False
-            if self._shape!='':
-                self._laneShapes[self._currentID] = parseShape(self._shape)
+            if self._shape != '':
+                self._edgeShapes[self._currentID] = parseShape(self._shape)
                 self._shape = ""
 
-    def computeWithin(self, complete):
-        for lane in self._laneShapes:
-            lshape = self._laneShapes[lane]
-            for district in self._districtShapes:
-                dshape = self._districtShapes[district]
-                found = False
-                for pos in lshape:
-                    if not found and isWithin(pos, dshape):
-                        found = True
-                        self._districtLanes[district].append(lane)
-                        self._laneDisttricts[lane].append(district)
+    def computeWithin(self, complete, maxspeed):
+        for edge, shape in self._edgeShapes.iteritems():
+            if self._edgeSpeeds[edge] < maxspeed:
+                min, max = getBoundingBox(shape)
+                for district, dshape in self._districtShapes.iteritems():
+                    dmin, dmax = self._districtBoxes[district]
+                    if dmin[0] <= max[0] and dmin[1] <= max[1] and dmax[0] >= min[0] and dmax[1] >= min[1]:
+                        for pos in shape:
+                            if isWithin(pos, dshape):
+                                self._districtEdges[district].append(edge)
+                                self._edgeDistricts[edge].append(district)
+                                break
         if complete:
-            for lane in self._laneDisttricts:
-                if len(self._laneDisttricts[lane])>1:
-                    self._invalidatedLanes.append(lane)
+            for edge, districts in self._edgeDistricts.iteritems():
+                if len(districts) > 1:
+                    self._invalidatedEdges.append(edge)
 
-    def writeResults(self, output, maxspeed, weighted):
+    def writeResults(self, output, weighted):
         fd = open(output, "w")
         fd.write("<tazs>\n")
-        for district in self._districtLanes:
-            lanes = 0
-            for lane in self._districtLanes[district]:
-                if lane not in self._invalidatedLanes and self._laneSpeeds[lane]<maxspeed:
-                    lanes = lanes + 1
-            if lanes==0:
+        for district, edges in self._districtEdges.iteritems():
+            validEdgeCount = 0
+            for edge in edges:
+                if edge not in self._invalidatedEdges:
+                    validEdgeCount += 1
+            if validEdgeCount == 0:
                 print "District '" + district + "' has no edges!"
             else:
-                edges = {}
-                fd.write("   <taz id=\"" + district + "\">\n")
-                for lane in self._districtLanes[district]:
-                    edgeid = lane 
-                    edgeid = edgeid[:edgeid.rfind("_")]
-                    if edgeid not in edges and lane not in self._invalidatedLanes and self._laneSpeeds[lane]<maxspeed:
+                fd.write("    <taz id=\"" + district + "\">\n")
+                for edge in edges:
+                    if edge not in self._invalidatedEdges:
                         weight = 1.
                         if weighted:
-                            weight = float(self._laneSpeeds[lane]) * float(self._laneLengths[lane])
-                        fd.write("      <tazSource id=\"" + edgeid + "\" weight=\"" + str(weight) + "\"/>\n")
-                        fd.write("      <tazSink id=\"" + edgeid + "\" weight=\"" + str(weight) + "\"/>\n")
-                        edges[edgeid] = 1
-                fd.write("   </taz>\n")
+                            weight = self._edgeSpeeds[edge] * self._edgeLengths[edge]
+                        fd.write("        <tazSource id=\"" + edge + "\" weight=\"" + str(weight) + "\"/>\n")
+                        fd.write("        <tazSink id=\"" + edge + "\" weight=\"" + str(weight) + "\"/>\n")
+                fd.write("    </taz>\n")
         fd.write("</tazs>\n")
         fd.close()
                 
         
+if __name__ == "__main__":
+    optParser = OptionParser()
+    optParser.add_option("-v", "--verbose", action="store_true",
+                         default=False, help="tell me what you are doing")
+    optParser.add_option("-c", "--complete", action="store_true",
+                         default=False, help="assign edges only if they are not in more than one district")
+    optParser.add_option("-n", "--net-files", dest="netfiles",
+                         help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
+    optParser.add_option("-o", "--output", default="districts.taz.xml",
+                         help="write results to FILE (default: %default)", metavar="FILE")
+    optParser.add_option("-m", "--max-speed", type="float", dest="maxspeed",
+                         default=1000.0, help="use lanes where speed is not greater than this (m/s) (default: %default)")
+    optParser.add_option("-w", "--weighted", action="store_true", dest="weighted",
+                         default=False, help="Weights sources/sinks by lane number and length")
+    (options, args) = optParser.parse_args()
+    if not options.netfiles:
+        optParser.print_help()
+        optParser.exit("Error! Providing networks is mandatory")
 
-optParser = OptionParser()
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-optParser.add_option("-c", "--complete", action="store_true", dest="complete",
-                     default=False, help="Assigns only distinct lanes")
-optParser.add_option("-n", "--net-files", dest="netfiles",
-                     help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
-optParser.add_option("-o", "--output", dest="output",
-                     help="write results to FILE (mandatory)", metavar="FILE")
-optParser.add_option("-m", "--max-speed", type="float", dest="maxspeed",
-                     default=1000.0, help="used lanes which speed is not greater than this (m/s)")
-optParser.add_option("-w", "--weighted", action="store_true", dest="weighted",
-                     default=False, help="Weights sources/sinks by lane number and length")
-(options, args) = optParser.parse_args()
-
-parser = make_parser()
-reader = NetDistrictEdgeHandler()
-parser.setContentHandler(reader)
-for netfile in options.netfiles.split(","):
+    parser = make_parser()
+    reader = NetDistrictEdgeHandler()
+    parser.setContentHandler(reader)
+    for netfile in options.netfiles.split(","):
+        if options.verbose:
+            print "Reading net '" + netfile + "'"
+        parser.parse(netfile)
     if options.verbose:
-        print "Reading net '" + netfile + "'"
-    parser.parse(netfile)
-if options.verbose:
-    print "Calculating"
-reader.computeWithin(options.complete)
-if options.verbose:
-    print "Writing results"
-reader.writeResults(options.output, options.maxspeed, options.weighted)
+        print "Calculating"
+    reader.computeWithin(options.complete, options.maxspeed)
+    if options.verbose:
+        print "Writing results"
+    reader.writeResults(options.output, options.weighted)
