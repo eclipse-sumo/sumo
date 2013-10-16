@@ -145,6 +145,7 @@ public:
     }
     /// @}
 
+    static const std::string DEFAULT_TYPE;
     static const SUMOReal DEFAULT_LAYER;
     static const SUMOReal DEFAULT_ANGLE;
     static const std::string DEFAULT_IMG_FILE;

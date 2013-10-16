@@ -590,9 +590,9 @@ NLHandler::addPoly(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    SUMOReal layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, id.c_str(), ok, (SUMOReal)GLO_POLYGON);
+    SUMOReal layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, id.c_str(), ok, Shape::DEFAULT_LAYER);
     bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, false);
-    std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+    std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, Shape::DEFAULT_TYPE);
     std::string colorStr = attrs.get<std::string>(SUMO_ATTR_COLOR, id.c_str(), ok);
     RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok);
     PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
@@ -603,7 +603,7 @@ NLHandler::addPoly(const SUMOSAXAttributes& attrs) {
     }
     if (shape.size() != 0) {
         if (!myNet.getShapeContainer().addPolygon(id, type, color, layer, angle, imgFile, shape, fill)) {
-            WRITE_ERROR("Polygon '" + id + "' already exists.");
+            WRITE_WARNING("Skipping redefinition of polygon '" + id + "'.");
         }
     }
 }
@@ -1102,6 +1102,14 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
                 }
                 source->addFollower(edge);
                 edge->addFollower(sink);
+            }
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+            PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentDistrictID.c_str(), ok);
+            if (shape.size() != 0) {
+                if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", RGBColor::parseColor("1.0,.33,.33"), 0, 0, "", shape, false)) {
+                    WRITE_WARNING("Skipping visualization of taz '" + myCurrentDistrictID + "', polygon already exists.");
+                }
             }
         }
     } catch (InvalidArgument& e) {

@@ -37,6 +37,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+const std::string Shape::DEFAULT_TYPE = "";
 const SUMOReal Shape::DEFAULT_LAYER = 128;
 const SUMOReal Shape::DEFAULT_ANGLE = 0;
 const std::string Shape::DEFAULT_IMG_FILE = "";
