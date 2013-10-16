@@ -1,0 +1,15 @@
+Usage: edgesInDistricts.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -v, --verbose         tell me what you are doing
+  -c, --complete        assign edges only if they are not in more than one
+                        district
+  -n FILE, --net-files=FILE
+                        read SUMO network(s) from FILE(s) (mandatory)
+  -o FILE, --output=FILE
+                        write results to FILE (default: districts.taz.xml)
+  -m MAXSPEED, --max-speed=MAXSPEED
+                        use lanes where speed is not greater than this (m/s)
+                        (default: 1000.0)
+  -w, --weighted        Weights sources/sinks by lane number and length

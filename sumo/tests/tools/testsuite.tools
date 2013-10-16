@@ -30,3 +30,6 @@ turndefs
 
 # Tests for detector tools
 detector
+
+# tests for district tools (especially visum and net mapping)
+district
