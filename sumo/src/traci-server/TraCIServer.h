@@ -265,7 +265,7 @@ private:
     /** @brief Constructor
      * @param[in] port The port to listen to (to open)
      */
-    TraCIServer(int port = 0);
+    TraCIServer(const SUMOTime begin, const int port = 0);
 
 
     /// @brief Destructor
