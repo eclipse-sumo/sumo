@@ -144,7 +144,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
