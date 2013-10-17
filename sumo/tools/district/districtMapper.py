@@ -99,16 +99,24 @@ class DistrictMapper(handler.ContentHandler):
                 nshape.append((nx, ny))
             self._districtShapes[district] = nshape
 
-    def writeResults(self, output, color):
+    def writeResults(self, output, color, polyoutput):
         fd = open(output, "w")
         fd.write("<tazs>\n")
         for district in self._districtShapes:
             shape = self._districtShapes[district]
             shapeStr = " ".join(["%s,%s" % s for s in shape])
             fd.write('   <taz id="%s" shape="%s"/>\n' % (district, shapeStr))
-            fd.write('   <poly id="%s" color="%s" shape="%s"/>\n' % (district, color, shapeStr))
         fd.write("</tazs>\n")
         fd.close()
+        if polyoutput:
+            fd = open(polyoutput, "w")
+            fd.write("<shapes>\n")
+            for district in self._districtShapes:
+                shape = self._districtShapes[district]
+                shapeStr = " ".join(["%s,%s" % s for s in shape])
+                fd.write('   <poly id="%s" color="%s" shape="%s"/>\n' % (district, color, shapeStr))
+            fd.write("</shapes>\n")
+            fd.close()
 
 
         
@@ -121,7 +129,9 @@ if __name__ == "__main__":
     optParser.add_option("-2", "--net-file2", dest="netfile2",
                          help="read second SUMO network from FILE (mandatory)", metavar="FILE")
     optParser.add_option("-o", "--output", default="districts.add.xml",
-                         help="write results to FILE (default: %default)", metavar="FILE")
+                         help="write resulting districts to FILE (default: %default)", metavar="FILE")
+    optParser.add_option("-p", "--polyoutput",
+                         help="write districts as polygons to FILE", metavar="FILE")
     optParser.add_option("-a", "--junctions1",
                          help="list of junction ids to use from first network (mandatory)")
     optParser.add_option("-b", "--junctions2",
@@ -169,5 +179,4 @@ if __name__ == "__main__":
     parser.setContentHandler(reader)
     parser.parse(options.netfile1)
     reader.convertShapes(xmin1, xmin2, width1/width2, ymin1, ymin2, height1/height2)
-    reader.writeResults(options.output, options.color)
-
+    reader.writeResults(options.output, options.color, options.polyoutput)
