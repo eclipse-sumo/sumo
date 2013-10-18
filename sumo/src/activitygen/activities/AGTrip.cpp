@@ -125,13 +125,8 @@ AGTrip::getTimeTrip(SUMOReal secPerKm) {
     }
     positions.push_back(myTo);
 
-    bool firstPass = true;
-    AGPosition* temp;
-    for (it = positions.begin(); it != positions.end(); ++it) {
-        if (firstPass) {
-            temp = &*it;
-            continue;
-        }
+	AGPosition* temp = &positions.front();
+    for (it = positions.begin(), ++it; it != positions.end(); ++it) {
         dist += temp->distanceTo(*it);
         temp = &*it;
     }

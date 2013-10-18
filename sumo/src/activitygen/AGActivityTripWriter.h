@@ -59,6 +59,14 @@ private:
     std::map<std::string, std::string> colors;
 
     void vtypes();
+
+private:
+    /// @brief Invalidated copy constructor.
+    AGActivityTripWriter(const AGActivityTripWriter&);
+
+    /// @brief Invalidated assignment operator.
+    AGActivityTripWriter& operator=(const AGActivityTripWriter&);
+
 };
 
 
