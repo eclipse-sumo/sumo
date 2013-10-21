@@ -981,7 +981,7 @@ protected:
     /// @brief The passengers this vehicle may have
     MSDevice_Person* myPersonDevice;
 
-    /// @brief The current acceleration before dawdling in m/s
+    /// @brief The current acceleration after dawdling in m/s
     SUMOReal myAcceleration;
 
     /// @brief The information into which lanes the vehicle laps into
