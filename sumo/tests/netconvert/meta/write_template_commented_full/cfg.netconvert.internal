@@ -114,7 +114,7 @@
         <!-- Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid) -->
         <proj.utm value="false" type="BOOL"/>
 
-        <!-- Determine the DHDN zone (for a transversal mercator projection based on the bessel ellipsoid) -->
+        <!-- Determine the DHDN zone (for a transversal mercator projection based on the bessel ellipsoid, &quot;Gauss-Krueger&quot;) -->
         <proj.dhdn value="false" type="BOOL"/>
 
         <!-- Uses STR as proj.4 definition for projection -->
@@ -122,6 +122,9 @@
 
         <!-- Inverses projection -->
         <proj.inverse value="false" type="BOOL"/>
+
+        <!-- Convert from Gauss-Krueger to UTM -->
+        <proj.dhdnutm value="false" type="BOOL"/>
 
         <!-- Write geo coordinates in plain-xml -->
         <proj.plain-geo value="false" type="BOOL"/>
