@@ -26,7 +26,16 @@ _RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP:                         traci.Storage.re
                       tc.VAR_DEPARTED_VEHICLES_IDS:             traci.Storage.readStringList,
                       tc.VAR_ARRIVED_VEHICLES_NUMBER:           traci.Storage.readInt,
                       tc.VAR_ARRIVED_VEHICLES_IDS:              traci.Storage.readStringList,
+                      tc.VAR_PARKING_STARTING_VEHICLES_NUMBER   traci.Storage.readInt,
+                      tc.VAR_PARKING_STARTING_VEHICLES_IDS      traci.Storage.readStringList,
+                      tc.VAR_PARKING_ENDING_VEHICLES_NUMBER     traci.Storage.readInt,
+                      tc.VAR_PARKING_ENDING_VEHICLES_IDS        traci.Storage.readStringList,
+                      tc.VAR_STOP_STARTING_VEHICLES_NUMBER      traci.Storage.readInt,
+                      tc.VAR_STOP_STARTING_VEHICLES_IDS         traci.Storage.readStringList,
+                      tc.VAR_STOP_ENDING_VEHICLES_NUMBER        traci.Storage.readInt,
+                      tc.VAR_STOP_ENDING_VEHICLES_IDS           traci.Storage.readStringList,
                       tc.VAR_MIN_EXPECTED_VEHICLES:             traci.Storage.readInt,
+                      tc.VAR_BUS_STOP_WAITING:                  traci.Storage.readInt,
                       tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER: traci.Storage.readInt,
                       tc.VAR_TELEPORT_STARTING_VEHICLES_IDS:    traci.Storage.readStringList,
                       tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER:   traci.Storage.readInt,
@@ -88,6 +97,62 @@ def getArrivedIDList():
     """
     return _getUniversal(tc.VAR_ARRIVED_VEHICLES_IDS)
 
+def getParkingStartingVehiclesNumber():
+    """getParkingStartingVehiclesNumber() -> integer
+    
+    . 
+    """
+    return _getUniversal(tc.VAR_PARKING_STARTING_VEHICLES_NUMBER)   
+
+def getParkingStartingVehiclesIDList():
+    """getParkingStartingVehiclesIDList() -> list(string)
+    
+    . 
+    """
+    return _getUniversal(tc.VAR_PARKING_STARTING_VEHICLES_IDS)
+
+def getParkingEndingVehiclesNumber():
+    """getParkingEndingVehiclesNumber() -> integer
+    
+    . 
+    """
+    return _getUniversal(tc.VAR_PARKING_ENDING_VEHICLES_NUMBER)   
+
+def getParkingEndingVehiclesIDList():
+    """getParkingEndingVehiclesIDList() -> list(string)
+    
+    . 
+    """
+    return _getUniversal(tc.VAR_PARKING_ENDING_VEHICLES_IDS)
+ 
+def getStopStartingVehiclesNumber():
+    """getStopStartingVehiclesNumber() -> integer
+    
+    . 
+    """
+    return _getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER)   
+
+def getStopStartingVehiclesIDList():
+    """getStopStartingVehiclesIDList() -> list(string)
+    
+    . 
+    """
+    return _getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS)
+
+def getStopEndingVehiclesNumber():
+    """getStopEndingVehiclesNumber() -> integer
+    
+    . 
+    """
+    return _getUniversal(tc.VAR_STOP_ENDING_VEHICLES_NUMBER)   
+
+def getStopEndingVehiclesIDList():
+    """getStopEndingVehiclesIDList() -> list(string)
+    
+    . 
+    """
+    return _getUniversal(tc.VAR_STOP_ENDING_VEHICLES_IDS)
+    
 def getMinExpectedNumber():
     """getMinExpectedNumber() -> integer
     
@@ -95,6 +160,13 @@ def getMinExpectedNumber():
     """
     return _getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
 
+def getBusStopWaiting():
+    """getBusStopWaiting() -> integer
+    
+    .
+    """
+    return _getUniversal(tc.VAR_BUS_STOP_WAITING)    
+    
 def getStartingTeleportNumber():
     """getStartingTeleportNumber() -> integer
     

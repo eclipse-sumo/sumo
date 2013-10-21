@@ -101,7 +101,8 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:                     traci.Storage.readStringLi
                       tc.TL_CURRENT_PROGRAM:          traci.Storage.readString,
                       tc.TL_CURRENT_PHASE:            traci.Storage.readInt,
                       tc.TL_NEXT_SWITCH:              traci.Storage.readInt,
-                      tc.ID_COUNT:                  traci.Storage.readInt}
+                      tc.TL_PHASE_DURATION:           traci.Storage.readInt,
+                      tc.ID_COUNT:                    traci.Storage.readInt}
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, tlsID):
@@ -171,6 +172,12 @@ def getNextSwitch(tlsID):
     """
     return _getUniversal(tc.TL_NEXT_SWITCH, tlsID)
 
+def getPhaseDuration(tlsID):
+    """getPhaseDuration(string) -> integer
+    
+    .
+    """
+    return _getUniversal(tc.TL_PHASE_DURATION, tlsID)    
 
 def subscribe(tlsID, varIDs=(tc.TL_CURRENT_PHASE,), begin=0, end=2**31-1):
     """subscribe(string, list(integer), double, double) -> None
