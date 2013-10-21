@@ -560,7 +560,7 @@ MSNet::writeOutput() {
         unsigned int endedVehicleNumber = myVehicleControl->getEndedVehicleNo();
         const SUMOReal meanTravelTime = endedVehicleNumber!=0 ? myVehicleControl->getTotalTravelTime() / (SUMOReal) endedVehicleNumber : -1.;
         od.openTag("step").writeAttr("time", time2string(myStep)).writeAttr("loaded", myVehicleControl->getLoadedVehicleNo())
-            .writeAttr("emitted", myVehicleControl->getDepartedVehicleNo()).writeAttr("running", myVehicleControl->getRunningVehicleNo())
+            .writeAttr("inserted", myVehicleControl->getDepartedVehicleNo()).writeAttr("running", myVehicleControl->getRunningVehicleNo())
             .writeAttr("waiting", myInserter->getWaitingVehicleNo()).writeAttr("ended", myVehicleControl->getEndedVehicleNo())
             .writeAttr("meanWaitingTime", meanWaitingTime).writeAttr("meanTravelTime", meanTravelTime);
         if (myLogExecutionTime) {
