@@ -1062,7 +1062,7 @@ MSVehicle::executeMove() {
     const SUMOReal pos = myState.myPos;
 
     // update position and speed
-    myAcceleration = vNext - myState.mySpeed;
+    myAcceleration = SPEED2ACCEL(vNext - myState.mySpeed);
     myState.myPos += SPEED2DIST(vNext);
     myState.mySpeed = vNext;
     std::vector<MSLane*> passedLanes;

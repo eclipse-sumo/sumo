@@ -293,7 +293,7 @@ public:
     }
 
 
-    /** @brief Returns the vehicle's acceleration
+    /** @brief Returns the vehicle's acceleration in m/s
      * @return The acceleration
      */
     SUMOReal getAcceleration() const {
@@ -981,7 +981,7 @@ protected:
     /// @brief The passengers this vehicle may have
     MSDevice_Person* myPersonDevice;
 
-    /// @brief The current acceleration before dawdling
+    /// @brief The current acceleration before dawdling in m/s
     SUMOReal myAcceleration;
 
     /// @brief The information into which lanes the vehicle laps into
