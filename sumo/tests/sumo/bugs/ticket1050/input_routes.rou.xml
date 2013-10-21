@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <route id="horizontal_leftwards" edges="2si 1o"/>
+    <route id="horizontal_rightwards" edges="1si 2o"/>
+    <route id="vertical_upwards" edges="3si 4o"/>
+
+    <vehicle id="sudden_stop" route="horizontal_leftwards" depart="0">
+        <stop lane="1o_0" endPos="9" duration="400"/>
+    </vehicle>
+
+    <vehicle id="blocked_on_junction1" route="horizontal_leftwards" depart="2"/>
+    <vehicle id="blocked_on_junction2" route="vertical_upwards" depart="12"/>
+    <vehicle id="blocked_on_junction3" route="horizontal_rightwards" depart="15"/>
+
+
+
+</routes>
