@@ -42,6 +42,7 @@
 bool MSGlobals::gOmitEmptyEdgesOnDump;
 
 bool MSGlobals::gUsingInternalLanes;
+SUMOTime MSGlobals::gIgnoreJunctionBlocker;
 
 SUMOTime MSGlobals::gTimeToGridlock;
 SUMOTime MSGlobals::gTimeToGridlockHighways;

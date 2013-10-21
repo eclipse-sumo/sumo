@@ -203,6 +203,9 @@ MSFrame::fillOptions() {
 #ifdef HAVE_INTERNAL_LANES
     oc.doRegister("no-internal-links", new Option_Bool(false));
     oc.addDescription("no-internal-links", "Processing", "Disable (junction) internal links");
+
+    oc.doRegister("ignore-junction-blocker", new Option_String("-1", "TIME"));
+    oc.addDescription("ignore-junction-blocker", "Processing", "Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore)");
 #endif
 
     oc.doRegister("ignore-accidents", new Option_Bool(false));
@@ -420,8 +423,11 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
 #ifdef HAVE_INTERNAL_LANES
     // set whether internal lanes shall be used
     MSGlobals::gUsingInternalLanes = !oc.getBool("no-internal-links");
+    MSGlobals::gIgnoreJunctionBlocker = string2time(oc.getString("ignore-junction-blocker")) < 0 ? 
+            std::numeric_limits<SUMOTime>::max() : string2time(oc.getString("ignore-junction-blocker"));
 #else
     MSGlobals::gUsingInternalLanes = false;
+    MSGlobals::gIgnoreJunctionBlocker = 0;
 #endif
     // set the grid lock time
     MSGlobals::gTimeToGridlock = string2time(oc.getString("time-to-teleport")) < 0 ? 0 : string2time(oc.getString("time-to-teleport"));

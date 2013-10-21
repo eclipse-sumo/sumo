@@ -69,6 +69,9 @@ public:
     /// Information whether the simulation regards internal lanes
     static bool gUsingInternalLanes;
 
+    /// Information whether the simulation regards internal lanes
+    static SUMOTime gIgnoreJunctionBlocker;
+
     /** information whether the network shall check for collisions */
     static bool gCheck4Accidents;
 

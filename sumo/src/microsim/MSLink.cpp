@@ -331,23 +331,29 @@ MSLink::getLeaderInfo(SUMOReal dist) const {
             // special care must be taken for continuation lanes. (next lane is also internal)
             // vehicles on these lanes should always block (gap = -1)
             const bool contLane = ((*it_lane)->getLinkCont()[0]->getViaLaneOrLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL);
+            // vehicles on cont. lanes or on internal lanes with the same target as this link can never be ignored
+            const bool cannotIgnore = contLane || (myLane == (*it_lane)->getLinkCont()[0]->getLane());
             const MSLane::VehCont& vehicles = (*it_lane)->getVehiclesSecure();
             (*it_lane)->releaseVehicles();
             for (MSLane::VehCont::const_iterator it_veh = vehicles.begin(); it_veh != vehicles.end(); ++it_veh) {
                 MSVehicle* leader = *it_veh;
                 // XXX apply viaLane/foeLane specific distance offset
                 // to account for the fact that the crossing point has different distances from the lane ends
-                result.push_back(std::make_pair(leader,
-                                                contLane ? -1 :
-                                                dist - ((*it_lane)->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength()));
+                if (cannotIgnore || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {
+                    result.push_back(std::make_pair(leader,
+                                contLane ? -1 :
+                                dist - ((*it_lane)->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength()));
+                }
 
             }
             // XXX partial occupates should be ignored if they do not extend past the crossing point
             MSVehicle* leader = (*it_lane)->getPartialOccupator();
             if (leader != 0) {
-                result.push_back(std::make_pair(leader,
-                                                contLane ? -1 :
-                                                dist - ((*it_lane)->getLength() - (*it_lane)->getPartialOccupatorEnd())));
+                if (cannotIgnore || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {
+                    result.push_back(std::make_pair(leader,
+                                contLane ? -1 :
+                                dist - ((*it_lane)->getLength() - (*it_lane)->getPartialOccupatorEnd())));
+                }
             }
         }
     }
