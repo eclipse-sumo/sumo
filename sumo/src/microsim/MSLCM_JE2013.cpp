@@ -131,6 +131,7 @@ MSLCM_JE2013::wantsChange(
 {
     MSGlobals::gDebugFlag2 = false;
     //MSGlobals::gDebugFlag2 = (myVehicle.getID() == "1503_24123000" || myVehicle.getID() == "1503_24123000"); 
+    //MSGlobals::gDebugFlag2 = (myVehicle.getID() == "needless_wait");
 
     const int result = _wantsChange(laneOffset, msgPass, blocked, leader, neighLead, neighFollow, neighLane, preb, lastBlocked);
     if (MSGlobals::gDebugFlag2) {
@@ -153,6 +154,8 @@ SUMOReal
 MSLCM_JE2013::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
     MSGlobals::gDebugFlag1 = false; 
     //MSGlobals::gDebugFlag1 = (myVehicle.getID() == "1503_24123000" || myVehicle.getID() == "1503_24123000"); 
+    //MSGlobals::gDebugFlag1 = (myVehicle.getID() == "needless_wait");
+
     const SUMOReal newSpeed = _patchSpeed(min, wanted, max, cfModel);
     if (MSGlobals::gDebugFlag1) {
         const std::string patched = (wanted != newSpeed ? " patched=" + toString(newSpeed) : "");
@@ -254,12 +257,14 @@ MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
     if ((state & LCA_AMBACKBLOCKER) != 0) {
         if (max <= myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle) && min == 0) { // !!! was standing
             if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " LCA_AMBACKBLOCKER (standing)\n";
-            return min;
+            //return min; VARIANT_9 (backBlockVSafe)
+            return nVSafe;
         }
     }
     if ((state & LCA_AMBACKBLOCKER_STANDING) != 0) {
         if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " LCA_AMBACKBLOCKER_STANDING\n";
-        return min;
+        //return min;
+        return nVSafe;
     }
     // accelerate if being a blocking leader or blocking follower not able to brake
     //  (and does not have to change lanes)
