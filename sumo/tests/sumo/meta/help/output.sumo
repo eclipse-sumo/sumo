@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-rUNKNOWN
+SUMO sumo Version dev-SVN-r14876
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -69,6 +69,9 @@ Processing Options:
   -s, --route-steps TIME               Load routes for the next number of
                                          seconds ahead
   --no-internal-links                  Disable (junction) internal links
+  --ignore-junction-blocker TIME       Ignore vehicles which block the junction
+                                         after they have been standing for
+                                         SECONDS (-1 means never ignore)
   --ignore-accidents                   Do not check whether accidents occure
                                          more deeply
   --ignore-route-errors                Do not check whether routes are

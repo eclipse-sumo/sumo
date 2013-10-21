@@ -129,6 +129,9 @@
         <!-- Disable (junction) internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
+        <!-- Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore) -->
+        <ignore-junction-blocker value="-1" type="TIME"/>
+
         <!-- Do not check whether accidents occure more deeply -->
         <ignore-accidents value="false" type="BOOL"/>
 
