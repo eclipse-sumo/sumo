@@ -61,6 +61,8 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
     myProjString(proj),
 #ifdef HAVE_PROJ
     myProjection(0),
+    myInverseProjection(0),
+    myGeoProjection(0),
 #endif
     myOffset(offset),
     myGeoScale(pow(10, (double) - shift)),
@@ -76,6 +78,8 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
         myProjectionMethod = UTM;
     } else if (proj == "DHDN") {
         myProjectionMethod = DHDN;
+    } else if (proj == "DHDN_UTM") {
+        myProjectionMethod = DHDN_UTM;
 #ifdef HAVE_PROJ
     } else {
         myProjectionMethod = PROJ;
@@ -93,6 +97,12 @@ GeoConvHelper::~GeoConvHelper() {
 #ifdef HAVE_PROJ
     if (myProjection != 0) {
         pj_free(myProjection);
+    }
+    if (myInverseProjection != 0) {
+        pj_free(myInverseProjection);
+    }
+    if (myGeoProjection != 0) {
+        pj_free(myInverseProjection);
     }
 #endif
 }
@@ -112,8 +122,22 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
         pj_free(myProjection);
         myProjection = 0;
     }
+    if (myInverseProjection != 0) {
+        pj_free(myInverseProjection);
+        myInverseProjection = 0;
+    }
+    if (myGeoProjection != 0) {
+        pj_free(myGeoProjection);
+        myGeoProjection = 0;
+    }
     if (orig.myProjection != 0) {
         myProjection = pj_init_plus(orig.myProjString.c_str());
+    }
+    if (orig.myInverseProjection != 0) {
+        myInverseProjection = pj_init_plus(pj_get_def(orig.myInverseProjection, 0));
+    }
+    if (orig.myGeoProjection != 0) {
+        myGeoProjection = pj_init_plus(pj_get_def(orig.myGeoProjection, 0));
     }
 #endif
     return *this;
@@ -136,7 +160,7 @@ GeoConvHelper::init(OptionsCont& oc) {
         WRITE_ERROR("Inverse projection works only with explicit proj parameters.");
         return false;
     }
-    unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
+    unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + oc.getBool("proj.dhdnutm") + (oc.getString("proj").length() > 1);
     if (numProjections > 1) {
         WRITE_ERROR("The projection method needs to be uniquely defined.");
         return false;
@@ -146,6 +170,8 @@ GeoConvHelper::init(OptionsCont& oc) {
         proj = "UTM";
     } else if (oc.getBool("proj.dhdn")) {
         proj = "DHDN";
+    } else if (oc.getBool("proj.dhdnutm")) {
+        proj = "DHDN_UTM";
     } else {
         proj = oc.getString("proj");
     }
@@ -184,13 +210,16 @@ GeoConvHelper::addProjectionOptions(OptionsCont& oc) {
     oc.addDescription("proj.utm", "Projection", "Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid)");
 
     oc.doRegister("proj.dhdn", new Option_Bool(false));
-    oc.addDescription("proj.dhdn", "Projection", "Determine the DHDN zone (for a transversal mercator projection based on the bessel ellipsoid)");
+    oc.addDescription("proj.dhdn", "Projection", "Determine the DHDN zone (for a transversal mercator projection based on the bessel ellipsoid, \"Gauss-Krueger\")");
 
     oc.doRegister("proj", new Option_String("!"));
     oc.addDescription("proj", "Projection", "Uses STR as proj.4 definition for projection");
 
     oc.doRegister("proj.inverse", new Option_Bool(false));
     oc.addDescription("proj.inverse", "Projection", "Inverses projection");
+
+    oc.doRegister("proj.dhdnutm", new Option_Bool(false));
+    oc.addDescription("proj.dhdnutm", "Projection", "Convert from Gauss-Krueger to UTM");
 #endif // HAVE_PROJ
 }
 
@@ -234,8 +263,22 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
     // init projection parameter on first use
 #ifdef HAVE_PROJ
     if (myProjection == 0) {
-        const double x = from.x() * myGeoScale;
+        double x = from.x() * myGeoScale;
         switch (myProjectionMethod) {
+            case DHDN_UTM: {
+                int zone = (int)((x - 500000.) / 1000000.);
+                if (zone < 1 || zone > 5) {
+                    WRITE_WARNING("Attempt to initialize DHDN_UTM-projection on invalid longitude " + toString(x));
+                    return false;
+                }
+                myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3 * zone) +
+                               " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
+                               " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
+                myInverseProjection = pj_init_plus(myProjString.c_str());
+                myGeoProjection = pj_init_plus("+proj=latlong +datum=WGS84");
+                //!!! check pj_errno
+                x = ((x - 500000.) / 1000000.) * 3; // continues with UTM
+            }
             case UTM: {
                 int zone = (int)(x + 180) / 6 + 1;
                 myProjString = "+proj=utm +zone=" + toString(zone) +
@@ -260,6 +303,14 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
             default:
                 break;
         }
+    }
+    if (myInverseProjection != 0) {
+        double x = from.x();
+        double y = from.y();
+        if (pj_transform(myInverseProjection, myGeoProjection, 1, 1, &x, &y, NULL )) {
+            WRITE_WARNING("Could not transform (" + toString(x) + "," + toString(y) +")");
+        }
+        from.set(SUMOReal(x * RAD_TO_DEG), SUMOReal(y * RAD_TO_DEG));
     }
 #endif
     // perform conversion
