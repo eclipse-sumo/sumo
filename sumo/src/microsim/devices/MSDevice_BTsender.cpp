@@ -96,7 +96,7 @@ MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason) {
 
 
 bool 
-MSDevice_BTsender::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) {
+MSDevice_BTsender::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal newPos, SUMOReal newSpeed) {
     if(sVehicles.find(veh.getID())==sVehicles.end()) {
         WRITE_WARNING("btsender: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
         return true;
@@ -109,7 +109,7 @@ MSDevice_BTsender::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos
 
 
 bool 
-MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason) {
+MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, Notification reason) {
     if (reason < MSMoveReminder::NOTIFICATION_TELEPORT) {
         return true;
     }
