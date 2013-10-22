@@ -423,11 +423,23 @@ MSLCM_JE2013::_wantsChange(
     for (int p = 0; p < (int) preb.size(); ++p) {
         if (preb[p].lane == myVehicle.getLane()) {
             curr = preb[p];
-            bestLaneOffset = curr.bestLaneOffset;
             currentDist = curr.length;
             currExtDist = curr.lane->getLength();
             neighDist = preb[p + laneOffset].length;
             neighExtDist = preb[p + laneOffset].lane->getLength();
+            bestLaneOffset = curr.bestLaneOffset;
+            // VARIANT_13 (equalBest)
+            if (laneOffset != bestLaneOffset && preb[p + laneOffset].length >= preb[p + bestLaneOffset].length) {
+                if (MSGlobals::gDebugFlag2) {
+                    std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                        << " veh=" << myVehicle.getID()
+                        << " bestLaneOffsetOld=" << bestLaneOffset
+                        << " bestLaneOffsetNew=" << laneOffset
+                        << " deltaLength=" << (preb[p + laneOffset].length - preb[p + bestLaneOffset].length)
+                        << "\n";
+                }
+                bestLaneOffset = laneOffset;
+            }
             best = preb[p + bestLaneOffset];
             currIdx = p;
         }
@@ -462,16 +474,16 @@ MSLCM_JE2013::_wantsChange(
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
     if ((*lastBlocked) != 0) {
         SUMOReal gap = (*lastBlocked)->getPositionOnLane() - (*lastBlocked)->getVehicleType().getLength() - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
-        if (MSGlobals::gDebugFlag2) {
-            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
-                << " veh=" << myVehicle.getID()
-                << " to=" << (right ? "right" : "left")
-                << " lastBlocked=" << tryID(*lastBlocked)
-                << " gap=" << gap
-                << " neighLead=" << tryID(neighLead.first) << ", " << neighLead.second
-                << " neighFollow=" << tryID(neighFollow.first) << ", " << neighFollow.second
-                << "\n";
-        }
+        //if (MSGlobals::gDebugFlag2) {
+        //    std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        //        << " veh=" << myVehicle.getID()
+        //        << " to=" << (right ? "right" : "left")
+        //        << " lastBlocked=" << tryID(*lastBlocked)
+        //        << " gap=" << gap
+        //        << " neighLead=" << tryID(neighLead.first) << ", " << neighLead.second
+        //        << " neighFollow=" << tryID(neighFollow.first) << ", " << neighFollow.second
+        //        << "\n";
+        //}
         if (gap > 0.1) {
             //const bool lastBlockedWantsUrgentRight = (((*lastBlocked)->getLaneChangeModel().getOwnState() & LCA_RIGHT != 0)
             //    && ((*lastBlocked)->getLaneChangeModel().getOwnState() & LCA_URGENT != 0));
