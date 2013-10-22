@@ -68,6 +68,8 @@
 
 #define LCA_RIGHT_IMPATIENCE 45.
 
+#define LOOK_AHEAD_MIN_SPEED 10.
+
 // debug function
 std::string 
 tryID(const MSVehicle* v) {
@@ -499,9 +501,11 @@ MSLCM_JE2013::_wantsChange(
     //
     // this rule forces our vehicle to change the lane if a lane changing is necessary soon
     // lookAheadDistance:
-    SUMOReal laDist = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-                  ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
-                  : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
+    //const SUMOReal laSpeed = myVehicle.getSpeed();
+    const SUMOReal laSpeed = MAX2(myVehicle.getSpeed(), LOOK_AHEAD_MIN_SPEED); // VARIANT_12 (laMinSpeed)
+    SUMOReal laDist = laSpeed > LOOK_FORWARD_SPEED_DIVIDER
+                  ? laSpeed * (SUMOReal) LOOK_FORWARD_FAR
+                  : laSpeed * (SUMOReal) LOOK_FORWARD_NEAR;
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (SUMOReal) 2.;
     // free space that is available for changing
     //const SUMOReal neighSpeed = (neighLead.first != 0 ? neighLead.first->getSpeed() :
