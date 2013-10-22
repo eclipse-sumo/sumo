@@ -56,6 +56,8 @@ def addPlotOptions(optParser):
                          default=None, help="Adjust the subplots <LEFT>,<BOTTOM> or <LEFT>,<BOTTOM>,<RIGHT>,<TOP>")
   optParser.add_option("-s", "--size", dest="size", 
                          default=False, help="Defines the figure size <X>,<Y>")
+  optParser.add_option("--no-legend", dest="nolegend", action="store_true",
+                         default=False, help="Disables the legend")
 
 def addInteractionOptions(optParser):
   optParser.add_option("-o", "--output", dest="output", metavar="FILE",
@@ -138,8 +140,8 @@ def openFigure(options):
   return fig, ax
 
 
-def closeFigure(fig, ax, options, showLegend=True):
-  if showLegend: legend()
+def closeFigure(fig, ax, options):
+  if not options.nolegend: legend()
   applyPlotOptions(fig, ax, options)
   if options.output: savefig(options.output)
   if not options.blind: show()

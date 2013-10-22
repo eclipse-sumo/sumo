@@ -35,6 +35,10 @@ def main(args=None):
   helpers.addPlotOptions(optParser)
   # parse
   options, remaining_args = optParser.parse_args(args=args)
+  
+  if options.summary==None:
+    print "Error: at least one summary file must be given"
+    sys.exit(1)
 
   minV = 0
   maxV = 0

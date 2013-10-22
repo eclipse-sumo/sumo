@@ -23,7 +23,7 @@ def main(args=None):
   optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="If set, the script says what it's doing")
   optParser.add_option("-m", "--measure", dest="measure", 
-                         default="running", help="Define which measure to plot")
+                         default="duration", help="Define which measure to plot")
   optParser.add_option("--bins", dest="bins", 
                          type="int", default=20, help="Define the bin number")
   optParser.add_option("--minV", dest="minV", 
@@ -36,6 +36,9 @@ def main(args=None):
   # parse
   options, remaining_args = optParser.parse_args(args=args)
 
+  if options.tripinfos==None:
+    print "Error: at least one tripinfo file must be given"
+    sys.exit(1)
 
   minV = None
   maxV = None
