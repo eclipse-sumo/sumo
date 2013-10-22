@@ -345,7 +345,7 @@ MSLCM_JE2013::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         // new gap between follower and self in case the follower does brake
         SUMOReal decelGap = neighFollow.second + deltaGap;
         if (decelGap > 0 &&
-                (//(dir == LCA_MRIGHT && myVehicle.getWaitingSeconds() > LCA_RIGHT_IMPATIENCE) || // VARIANT_11 (lcaRightImpatience)
+                ((dir == LCA_MRIGHT && myVehicle.getWaitingSeconds() > LCA_RIGHT_IMPATIENCE) || // VARIANT_11 (lcaRightImpatience)
                 (decelGap >= nv->getCarFollowModel().getSecureGap(neighNewSpeed, egoNewSpeed, myVehicle.getCarFollowModel().getMaxDecel())))) {
             // if the blocking neighbor brakes it could actually help
             // how hard does it actually need to be?
