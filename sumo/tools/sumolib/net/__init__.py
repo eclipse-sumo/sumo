@@ -107,6 +107,7 @@ class Net:
         self._tlss = []
         self._ranges = [ [10000, -10000], [10000, -10000] ]
         self._roundabouts = []
+        self._rtree = None
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
@@ -168,6 +169,21 @@ class Net:
         
     def getEdge(self, id):
         return self._id2edge[id]
+
+    def _initRTree(self, includeJunctions=True):
+        import rtree
+        self._rtree = rtree.index.Index()
+        self._rtree.interleaved = True
+        for ri, edge in enumerate(self._edges):
+            self._rtree.add(ri, edge.getBoundingBox(includeJunctions))
+
+    def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True):
+        if self._rtree == None:
+            self._initRTree()
+        edges = []
+        for e in self._rtree.intersection((x - r, y - r, x + r, y + r)):
+            edges.append(self._edges[e])
+        return edges
 
     def hasNode(self, id):
         return id in self._id2node
@@ -242,7 +258,6 @@ class Net:
                 (self._ranges[0][0] - self._ranges[0][1]) ** 2 +
                 (self._ranges[1][0] - self._ranges[1][1]) ** 2)
 
-
     def getGeoProj(self):
         import pyproj
         p1 = self._location["projParameter"].split()
@@ -259,11 +274,19 @@ class Net:
         """ offset to be added after converting from geo-coordinates to UTM"""
         return list(map(float,self._location["netOffset"].split(",")))
 
-
     def convertLatLon2XY(self, lat, lon):
         x,y = self.getGeoProj()(lon,lat)
         x_off, y_off = self.getLocationOffset()
         return x + x_off, y + y_off
+
+    def move(self, dx, dy):
+        for n in self._nodes:
+            n._coord[0] += dx
+            n._coord[1] += dy
+        for e in self._edges:
+            for l in e._lanes:
+                l._shape = [(p[0] + dx, p[1] + dy) for p in l._shape]
+            e.rebuildShape()
 
     
 class NetReader(handler.ContentHandler):

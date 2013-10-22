@@ -79,6 +79,22 @@ class Edge:
             return shape
         return self._shape
 
+    def getBoundingBox(self, includeJunctions=True):
+        s = list(self.getShape())
+        if includeJunctions:
+            s += [self._from._coord, self._to._coord]
+        xmin = s[0][0]
+        xmax = s[0][0]
+        ymin = s[0][1]
+        ymax = s[0][1]
+        for p in s[1:]:
+            xmin = min(xmin, p[0])
+            xmax = max(xmax, p[0])
+            ymin = min(ymin, p[1])
+            ymax = max(ymax, p[1])
+        assert(xmin != xmax or ymin != ymax)
+        return (xmin, ymin, xmax, ymax)
+
     def getSpeed(self):
         return self._speed
 
@@ -123,3 +139,6 @@ class Edge:
          
     def is_fringe(self):
         return len(self.getIncoming()) == 0 or len(self.getOutgoing()) == 0
+
+    def __repr__(self):
+        return '<edge id="%s" from="%s" to="%s"/>' % (self._id, self._from.getID(), self._to.getID())
