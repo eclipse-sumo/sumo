@@ -90,10 +90,12 @@ def main(args=None):
       if not maxColorValue or maxColorValue<hc._edge2value[t][e]: maxColorValue = hc._edge2value[t][e] 
       if not minColorValue or minColorValue>hc._edge2value[t][e]: minColorValue = hc._edge2value[t][e]
       colors[e] = hc._edge2value[t][e] 
+    if options.colorMax!=None: maxColorValue = options.colorMax 
+    if options.colorMin!=None: minColorValue = options.colorMin 
     if options.logColors: 
       helpers.logNormalise(colors, options.colorMax)
     else:
-      helpers.linNormalise(colors, minColorValue, maxColorValue)
+      helpers.linNormalise(colors, options.colorMin, options.colorMax)
     for e in colors:
       colors[e] = helpers.getColor(options, colors[e], 1.)
     if options.verbose: print "Color values are between %s and %s" % (minColorValue, maxColorValue)
@@ -107,6 +109,8 @@ def main(args=None):
       if not maxWidthValue or maxWidthValue<hw._edge2value[t][e]: maxWidthValue = hw._edge2value[t][e] 
       if not minWidthValue or minWidthValue>hw._edge2value[t][e]: minWidthValue = hw._edge2value[t][e]
       widths[e] = hw._edge2value[t][e] 
+    if options.widthMax!=None: maxWidthValue = options.widthMax 
+    if options.widthMin!=None: minWidthValue = options.widthMin 
     if options.logWidths: 
       helpers.logNormalise(widths, options.colorMax)
     else:
