@@ -80,6 +80,7 @@ fzp:test.fzp
 flt:test.flt
 str:test.str
 gpsdat:gpsdat.txt
+match:match.txt
 
 [run_dependent_text]
 output:Begin time

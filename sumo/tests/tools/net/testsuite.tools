@@ -7,3 +7,4 @@ netextract
 # tests tools\net\netcheck.py
 netcheck
 netdiff
+netmatch
