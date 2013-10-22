@@ -43,7 +43,7 @@
 // ===========================================================================
 /**
  * @class MSLCM_DK2013
- * @brief A lane change model developed by J. Erdmann
+ * @brief A lane change model developed by D. Krajzewicz et al. between 2004 and 2013
  */
 class MSLCM_DK2013 : public MSAbstractLaneChangeModel {
 public:

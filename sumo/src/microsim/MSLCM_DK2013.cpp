@@ -58,16 +58,11 @@
 // 80km/h will be the threshold for dividing between long/short foresight
 #define LOOK_FORWARD_SPEED_DIVIDER 14.
 
-// VARIANT_1 (lf*2)
 #define LOOK_FORWARD_FAR  15.
 #define LOOK_FORWARD_NEAR 5.
-//#define LOOK_FORWARD_FAR  30.
-//#define LOOK_FORWARD_NEAR 10.
-
 
 
 #define JAM_FACTOR 1.
-//#define JAM_FACTOR 2. // VARIANT_8 (makes vehicles more focused but also more "selfish")
 
 
 // ===========================================================================
@@ -205,7 +200,6 @@ MSLCM_DK2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
             return 0;
         }
         
-        //return min; // VARIANT_3 (brakeStrong)
         return (min + wanted) / (SUMOReal) 2.0; 
     }
     if ((state & LCA_AMBACKBLOCKER) != 0) {
@@ -222,15 +216,6 @@ MSLCM_DK2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
         return (max + wanted) / (SUMOReal) 2.0;
     }
 
-    /*
-    // VARIANT_4 (dontbrake)
-    if ((state & LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0) {
-        if (max <= myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle) && min == 0) { // !!! was standing
-            return wanted;
-        }
-        return (min + wanted) / (SUMOReal) 2.0;
-    }
-    */
     return wanted;
 }
 
@@ -361,22 +346,6 @@ MSLCM_DK2013::_wantsChange(
     // keep information about being a leader/follower
     int ret = (myOwnState & 0x00ffff00);
 
-    // VARIANT_5 (disableAMBACKBLOCKER1)
-    /*
-    if (leader.first != 0
-            && (myOwnState & LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0
-            && (leader.first->getLaneChangeModel().getOwnState() & LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0) {
-
-        myOwnState &= (0xffffffff - LCA_AMBLOCKINGFOLLOWER_DONTBRAKE);
-        if (myVehicle.getSpeed() > SUMO_const_haltingSpeed) {
-            myOwnState |= LCA_AMBACKBLOCKER;
-        } else {
-            ret |= LCA_AMBACKBLOCKER;
-            myDontBrake = true;
-        }
-    }
-    */
-
     // process information about the last blocked vehicle
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
     if ((*lastBlocked) != 0) {
@@ -417,7 +386,6 @@ MSLCM_DK2013::_wantsChange(
     // it also makes the vehicles more "selfish" and prevents changes which are necessary to help others
 
     const SUMOReal usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR);
-            //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
 
     if (fabs(best.length - currentDist) > MIN2((SUMOReal) .1, best.lane->getLength()) 
             && changeToBest
@@ -452,7 +420,6 @@ MSLCM_DK2013::_wantsChange(
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist - myVehicle.getPositionOnLane() - maxJam);
     if (!changeToBest && (currentDistDisallows(neighLeftPlace, bestLaneOffset - (2 * laneOffset), laDist))) {
         // ...we will not change the lane if not
-        //std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (1) neighLeftPlace=" << neighLeftPlace << "\n";
         return ret;
     }
 
@@ -463,7 +430,6 @@ MSLCM_DK2013::_wantsChange(
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
     if (currExtDist > neighExtDist && (neighLeftPlace * 2. < laDist)) {
-        //std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2)\n";
         return ret;
     }
 
@@ -477,18 +443,10 @@ MSLCM_DK2013::_wantsChange(
     // --------
 
     // -------- make place on current lane if blocking follower
-    //if (amBlockingFollowerPlusNB()) {
-    //    std::cout << myVehicle.getID() << ", " << currentDistAllows(neighDist, bestLaneOffset, laDist) 
-    //        << " neighDist=" << neighDist
-    //        << " currentDist=" << currentDist 
-    //        << "\n";
-    //}
     if (amBlockingFollowerPlusNB()
-            //&& ((myOwnState & myLcaCounter) == 0) // VARIANT_6 : counterNoHelp
             && (currentDistAllows(neighDist, bestLaneOffset, laDist) || neighDist >= currentDist)) {
 
-        // VARIANT_2 (nbWhenChangingToHelp)
-        return ret | lca | LCA_URGENT ;//| LCA_CHANGE_TO_HELP;
+        return ret | lca | LCA_URGENT ;
     }
     // --------
 
