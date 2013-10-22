@@ -34,9 +34,10 @@
         <simple-projection value="false" synonymes="proj.simple" type="BOOL" help="Uses a simple method for projection"/>
         <proj.scale value="0" synonymes="proj.shift" type="INT" help="Number of places to shift decimal point to right in geo-coordinates"/>
         <proj.utm value="false" type="BOOL" help="Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid)"/>
-        <proj.dhdn value="false" type="BOOL" help="Determine the DHDN zone (for a transversal mercator projection based on the bessel ellipsoid)"/>
+        <proj.dhdn value="false" type="BOOL" help="Determine the DHDN zone (for a transversal mercator projection based on the bessel ellipsoid, &quot;Gauss-Krueger&quot;)"/>
         <proj value="!" type="STR" help="Uses STR as proj.4 definition for projection"/>
         <proj.inverse value="false" type="BOOL" help="Inverses projection"/>
+        <proj.dhdnutm value="false" type="BOOL" help="Convert from Gauss-Krueger to UTM"/>
     </projection>
 
     <pruning>
