@@ -19,11 +19,10 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-import os, string, sys, StringIO, random
-from xml.sax import saxutils, make_parser, handler
+import os, string, sys, random
 from optparse import OptionParser
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../lib"))
-import sumonet
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+import sumolib
 
 
 found = 0
@@ -72,23 +71,27 @@ def sorter(idx):
 # initialise 
 optParser = OptionParser()
 optParser.add_option("-n", "--net-file", dest="netfile",
-                     help="Net-File to work with", type="string", default=None)
+                     help="SUMO net file to work with", type="string")
 optParser.add_option("-r", "--visum-routes", dest="routes",
-                     help="The VISUM-routes files to parse", type="string", default=None)
+                     help="The VISUM-routes files to parse", type="string")
 optParser.add_option("-o", "--output", dest="output",
-                     help="Name of the file to write", type="string", default=None)
+                     help="Name of the file to write", type="string")
 optParser.add_option("-b", "--begin", dest="begin",
                      help="The begin time of the routes to generate", type="int", default=0)
 optParser.add_option("-e", "--end", dest="end",
                      help="The end time (+1) of the routes to generate", type="int", default=3600)
 optParser.add_option("-p", "--prefix", dest="prefix",
-                     help="ID prefix to use", type="string", default=None)
+                     help="ID prefix to use", type="string")
 optParser.add_option("-t", "--type", dest="type",
-                     help="The type to use for vehicles", type="string", default=None)
+                     help="The type to use for vehicles", type="string")
 optParser.add_option("-u", "--uniform", dest="uniform",
                      help="Whether departures shall be distributed uniform in each interval", action="store_true", default=False)
 optParser.add_option("-l", "--timeline", dest="timeline",
-                     help="Percentages over a day", type="string", default=None)
+                     help="Percentages over a day", type="string")
+optParser.add_option("-s", "--tabs", action="store_true",
+                     default=False, help="tab separated route file")
+optParser.add_option("-v", "--verbose", action="store_true",
+                     default=False, help="tell me what you are doing")
 
 optParser.set_usage('\nvisum_convertRoutes.py -n visum.net.xml -r visum_routes.att -o visum.rou.xml')
 # parse options
@@ -98,12 +101,9 @@ if not options.netfile or not options.routes or not options.output:
     optParser.print_help()
     exit()
 
-print "Reading net..."
-parser = make_parser()
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(options.netfile)
-net = net.getNet()
+if options.verbose:
+    print "Reading net..."
+net = sumolib.net.readNet(options.netfile)
 
 # initialise nodes/edge map
 emap = {}
@@ -114,21 +114,24 @@ for e in net._edges:
         emap[e._from._id][e._to._id] = e._id
 
 # fill with read values
-print "Reading routes..."
+if options.verbose:
+    print "Reading routes..."
+separator = "\t" if options.tabs else ";"
 parse = False
 ok = True
 fd = open(options.routes)
 for line in fd:
-    if line.find("$")==0 or line.find("*")==0 or line.find(";")<0:
+    if line.find("$")==0 or line.find("*")==0 or line.find(separator)<0:
         parse = False
         addRouteChecking(ok);
 
     if parse:
-        values = line.strip().split(";")
+        values = line.strip('\n\r').split(separator)
+#        print line, len(values), len(attributes)
         amap = {}
         for i in range(0, len(attributes)):
             amap[attributes[i]] = values[i]
-        if amap["origzoneno"]!="":
+        if amap["origzoneno"] != "":
             # route begin (not the route)
             addRouteChecking(ok);
             id = amap["origzoneno"] + "_" + amap["destzoneno"] + "_" + amap["pathindex"]
@@ -160,7 +163,7 @@ for line in fd:
             route = route + edge + " "
 
     if line.find("$PRTPATHLINK:")==0 or line.find("$IVTEILWEG:")==0:
-        attributes = line[line.find(":")+1:].strip().lower().split(";")
+        attributes = line[line.find(":")+1:].strip().lower().split(separator)
         for i in range(0, len(attributes)):
             if attributes[i]=="qbeznr":
                 attributes[i] = "origzoneno"
@@ -181,8 +184,9 @@ for line in fd:
 addRouteChecking(ok);
 fd.close()
 
-print " " + str(found) + " routes found (" + str(foundN) + " vehs)"
-print " " + str(missing) + " routes missing (" + str(missingN) + " vehs)"
+if options.verbose:
+    print " %s routes found (%s vehs)" % (found, foundN)
+    print " %s routes missing (%s vehs)" % (missing, missingN)
 
 timeline = None
 # apply timeline
