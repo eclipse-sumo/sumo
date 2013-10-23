@@ -69,10 +69,15 @@ def main(args=None):
   helpers.addPlotOptions(optParser)
   # parse
   options, remaining_args = optParser.parse_args(args=args)
-  options.colormap = "jet"
 
+  if options.net==None: 
+    print "Error: a network to load must be given."
+    return 1
   if options.verbose: print "Reading network from '%s'" % options.net
   net = sumolib.net.readNet(options.net)
+  if options.measures==None: 
+    print "Error: a colors dump file must be given."
+    return 1
   if options.verbose: print "Reading colors from '%s'" % options.dumps.split(",")[0]
   hc = WeightsReader(options.measures.split(",")[0])
   sumolib.output.parse_sax(options.dumps.split(",")[0], hc)
@@ -87,15 +92,15 @@ def main(args=None):
     for e in hc._edge2value[t]:
       if options.colorMax!=None and hc._edge2value[t][e]>options.colorMax: hc._edge2value[t][e] = options.colorMax
       if options.colorMin!=None and hc._edge2value[t][e]<options.colorMin: hc._edge2value[t][e] = options.colorMin
-      if not maxColorValue or maxColorValue<hc._edge2value[t][e]: maxColorValue = hc._edge2value[t][e] 
-      if not minColorValue or minColorValue>hc._edge2value[t][e]: minColorValue = hc._edge2value[t][e]
+      if maxColorValue==None or maxColorValue<hc._edge2value[t][e]: maxColorValue = hc._edge2value[t][e] 
+      if minColorValue==None or minColorValue>hc._edge2value[t][e]: minColorValue = hc._edge2value[t][e]
       colors[e] = hc._edge2value[t][e] 
     if options.colorMax!=None: maxColorValue = options.colorMax 
     if options.colorMin!=None: minColorValue = options.colorMin 
     if options.logColors: 
-      helpers.logNormalise(colors, options.colorMax)
+      helpers.logNormalise(colors, maxColorValue)
     else:
-      helpers.linNormalise(colors, options.colorMin, options.colorMax)
+      helpers.linNormalise(colors, minColorValue, maxColorValue)
     for e in colors:
       colors[e] = helpers.getColor(options, colors[e], 1.)
     if options.verbose: print "Color values are between %s and %s" % (minColorValue, maxColorValue)
@@ -124,11 +129,12 @@ def main(args=None):
     
     # drawing the legend, at least for the colors
     sm = matplotlib.cm.ScalarMappable(cmap=get_cmap(options.colormap), norm=plt.normalize(vmin=minColorValue, vmax=maxColorValue))
-    # fake up the array of the scalar mappable. Urgh...
+    # "fake up the array of the scalar mappable. Urgh..." (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
     sm._A = []
     plt.colorbar(sm)
-    helpers.closeFigure(fig, ax, options, False)
-    break # just one time step by now
+    options.nolegend = True
+    helpers.closeFigure(fig, ax, options)
+  return 0
 
 
 if __name__ == "__main__":
