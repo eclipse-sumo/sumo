@@ -25,9 +25,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import sumolib
 import netshiftadaptor
-
-def distance(p1, p2):
-    return math.sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
+from sumolib.geomhelper import distance
 
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
@@ -48,6 +46,8 @@ optParser.add_option("-d", "--delta", default="1",
                      type="float", help="maximum distance between end points")
 optParser.add_option("-o", "--output", dest="output",
                      help="(base) name for the output", metavar="FILE")
+optParser.add_option("--edges1", help="matched edges in net 1", metavar="FILE")
+optParser.add_option("--edges2", help="matched edges in net 2", metavar="FILE")
 (options, args) = optParser.parse_args()
 
 
@@ -87,6 +87,11 @@ f.close()
 
 print( "matched", len(matchedEdges1), "out of", len(net1.getEdges()), "in", options.net1)
 print( "matched", len(matchedEdges2), "out of", len(net2.getEdges()), "in", options.net2)
+
+if options.edges1:
+    print("\n".join(["edge:%s" % e.getID() for e in matchedEdges1]), file=open(options.edges1, "w"))
+if options.edges2:
+    print("\n".join(["edge:%s" % e.getID() for e in matchedEdges2]), file=open(options.edges2, "w"))
 
 #adaptor = netshiftadaptor.NetShiftAdaptor(net1, net2, options.nodes1.split(","), options.nodes2.split(","))
 #adaptor.reproject(options.verbose)
