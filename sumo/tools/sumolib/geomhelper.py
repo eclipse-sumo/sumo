@@ -86,6 +86,25 @@ def distancePointToPolygon(point, polygon, perpendicular=False):
         return INVALID_DISTANCE
 
 
+def positionAtOffset(p1, p2, offset):
+    dist = distance(p1, p2)
+    if dist < offset:
+        return None
+    return (p1[0] + (p2[0] - p1[0]) * (offset / dist), p1[1] + (p2[1] - p1[1]) * (offset / dist))
+
+
+def positionAtShapeOffset(shape, offset):
+    seenLength = 0
+    curr = shape[0]
+    for next in shape[1:]:
+        nextLength = distance(curr, next)
+        if seenLength + nextLength > offset:
+            return positionAtOffset(curr, next, offset - seenLength)
+        seenLength += nextLength
+        curr = next
+    return shape[-1]
+
+
 if __name__ == "__main__":
     # run some tests
     point = (81365.994719034992, 9326.8304398041219)
