@@ -127,17 +127,16 @@ protected:
 
     /** @brief Writes a lane (<lane ...) of an edge
      * @param[in] into The device to write the edge into
-     * @param[in] e The edge to write
      * @param[in] lID The ID of the lane
      * @param[in] eID The ID of the edge
-     * @param[in] lane Lane definition
      * @param[in] length Lane's length
      * @param[in] index The index of the lane within the edge
      * @param[in] origNames Whether original names shall be written as parameter
      */
-    static void writeLane(OutputDevice& into, const std::string& lID, const std::string& eID,
-                          const NBEdge::Lane& lane, SUMOReal length, unsigned int index,
-                          bool origNames);
+    static void writeLane(OutputDevice& into, const std::string& eID, const std::string& lID, 
+            SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
+            SUMOReal offset, SUMOReal width, const PositionVector& shape,
+            const std::string& origID, SUMOReal length, unsigned int index, bool origNames);
 
 
     /** @brief Writes a junction (<junction ...)
@@ -184,9 +183,10 @@ private:
      * @param[in] id The id of the edge
      * @param[in] vmax The maximum speed of the edge
      * @param[in] shape The shape of the edge
+     * @param[in] origNames Whether original names shall be written as parameter
      */
     static void writeInternalEdge(OutputDevice& into, const std::string& id, SUMOReal vmax, const PositionVector& shape,
-                                  const std::string& origID);
+                                  const std::string& origID, bool origNames);
 
     /** @brief Writes a single internal connection
      * @param[in] from The id of the from-edge

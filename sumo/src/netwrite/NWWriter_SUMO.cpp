@@ -198,10 +198,9 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
             if ((*k).toEdge == 0) {
                 continue;
             }
-            std::string origID = origNames ? (*k).origID : "";
-            writeInternalEdge(into, (*k).id, (*k).vmax, (*k).shape, origID);
+            writeInternalEdge(into, (*k).id, (*k).vmax, (*k).shape, (*k).origID, origNames);
             if ((*k).haveVia) {
-                writeInternalEdge(into, (*k).viaID, (*k).viaVmax, (*k).viaShape, origID);
+                writeInternalEdge(into, (*k).viaID, (*k).viaVmax, (*k).viaShape, (*k).origID, origNames);
             }
             ret = true;
         }
@@ -212,26 +211,14 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
 
 void
 NWWriter_SUMO::writeInternalEdge(OutputDevice& into, const std::string& id, SUMOReal vmax, const PositionVector& shape,
-                                 const std::string& origID) {
-    SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // microsim needs positive length
+                                 const std::string& origID, bool origNames) {
     into.openTag(SUMO_TAG_EDGE);
     into.writeAttr(SUMO_ATTR_ID, id);
     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
-    into.openTag(SUMO_TAG_LANE);
-    into.writeAttr(SUMO_ATTR_ID, id + "_0");
-    into.writeAttr(SUMO_ATTR_INDEX, 0);
-    into.writeAttr(SUMO_ATTR_SPEED, vmax);
-    into.writeAttr(SUMO_ATTR_LENGTH, length);
-    into.writeAttr(SUMO_ATTR_SHAPE, shape);
-    if (origID != "") {
-        into.openTag(SUMO_TAG_PARAM);
-        into.writeAttr(SUMO_ATTR_KEY, "origId");
-        into.writeAttr(SUMO_ATTR_VALUE, origID);
-        into.closeTag();
-        into.closeTag();
-    } else {
-        into.closeTag();
-    }
+    writeLane(into, id, id + "_0", vmax, SVCFreeForAll, SVCFreeForAll, 
+            NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_WIDTH, shape, origID,
+            MAX2(shape.length(), (SUMOReal)POSITION_EPS), // microsim needs positive length
+            0, origNames);
     into.closeTag();
 }
 
@@ -277,7 +264,10 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
         length = (SUMOReal)POSITION_EPS;
     }
     for (unsigned int i = 0; i < (unsigned int) lanes.size(); i++) {
-        writeLane(into, e.getID(), e.getLaneID(i), lanes[i], length, i, origNames);
+        const NBEdge::Lane& l = lanes[i];
+        writeLane(into, e.getID(), e.getLaneID(i), l.speed, 
+                l.permissions, l.preferred, l.offset, l.width, l.shape, l.origID,
+                length, i, origNames);
     }
     // close the edge
     into.closeTag();
@@ -285,47 +275,49 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
 
 
 void
-NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::string& lID, const NBEdge::Lane& lane,
-                         SUMOReal length, unsigned int index, bool origNames) {
+NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::string& lID, 
+        SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred, 
+        SUMOReal offset, SUMOReal width, const PositionVector& shape,
+        const std::string& origID, SUMOReal length, unsigned int index, bool origNames) 
+{
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
     // the first lane of an edge will be the depart lane
     into.writeAttr(SUMO_ATTR_INDEX, index);
     // write the list of allowed/disallowed vehicle classes
-    writePermissions(into, lane.permissions);
-    writePreferences(into, lane.preferred);
+    writePermissions(into, permissions);
+    writePreferences(into, preferred);
     // some further information
-    if (lane.speed == 0) {
+    if (speed == 0) {
         WRITE_WARNING("Lane #" + toString(index) + " of edge '" + eID + "' has a maximum velocity of 0.");
-    } else if (lane.speed < 0) {
-        throw ProcessError("Negative velocity (" + toString(lane.speed) + " on edge '" + eID + "' lane#" + toString(index) + ".");
+    } else if (speed < 0) {
+        throw ProcessError("Negative velocity (" + toString(speed) + " on edge '" + eID + "' lane#" + toString(index) + ".");
     }
-    if (lane.offset > 0) {
-        length = length - lane.offset;
+    if (offset > 0) {
+        length = length - offset;
     }
-    into.writeAttr(SUMO_ATTR_SPEED, lane.speed);
+    into.writeAttr(SUMO_ATTR_SPEED, speed);
     into.writeAttr(SUMO_ATTR_LENGTH, length);
-    if (lane.offset != NBEdge::UNSPECIFIED_OFFSET) {
-        into.writeAttr(SUMO_ATTR_ENDOFFSET, lane.offset);
+    if (offset != NBEdge::UNSPECIFIED_OFFSET) {
+        into.writeAttr(SUMO_ATTR_ENDOFFSET, offset);
     }
-    if (lane.width != NBEdge::UNSPECIFIED_WIDTH) {
-        into.writeAttr(SUMO_ATTR_WIDTH, lane.width);
+    if (width != NBEdge::UNSPECIFIED_WIDTH) {
+        into.writeAttr(SUMO_ATTR_WIDTH, width);
     }
-    PositionVector shape = lane.shape;
-    if (lane.offset > 0) {
-        shape = shape.getSubpart(0, shape.length() - lane.offset);
-    }
-    into.writeAttr(SUMO_ATTR_SHAPE, shape);
-    if (origNames && lane.origID != "") {
+    into.writeAttr(SUMO_ATTR_SHAPE, offset > 0 ?
+            shape.getSubpart(0, shape.length() - offset) : shape);
+    if (origNames && origID != "") {
         into.openTag(SUMO_TAG_PARAM);
         into.writeAttr(SUMO_ATTR_KEY, "origId");
-        into.writeAttr(SUMO_ATTR_VALUE, lane.origID);
+        into.writeAttr(SUMO_ATTR_VALUE, origID);
         into.closeTag();
         into.closeTag();
     } else {
         into.closeTag();
     }
 }
+
+
 
 
 void
