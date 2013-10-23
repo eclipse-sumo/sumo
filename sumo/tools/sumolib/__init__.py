@@ -16,11 +16,11 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
-import net, shapes, output, files
-
 import os, subprocess
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
+
+from . import net, shapes, output, files, sensors, color, geomhelper, miscutils, options
 
 class ConfigurationReader(handler.ContentHandler):
     """Reads a configuration template, storing the options in an OptionParser"""

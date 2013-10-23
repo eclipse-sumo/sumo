@@ -19,7 +19,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import print_function
 import sys
-from . import dump, inductionloop
 import re
 import xml.dom
 from xml.dom import pulldom
@@ -28,6 +27,7 @@ from keyword import iskeyword
 from functools import reduce
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
+from . import dump, inductionloop, convert
 
 
 def compound_object(element_name, attrnames):
