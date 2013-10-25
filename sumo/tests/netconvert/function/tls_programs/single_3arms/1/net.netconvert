@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/04/12 12:50:47 by SUMO netconvert Version dev-SVN-r13131
+<!-- generated on Fri Oct 25 08:21:02 2013 by SUMO netconvert Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -35,11 +35,11 @@
     <edge id=":n1_1" function="internal">
         <lane id=":n1_1_0" index="0" speed="13.89" length="3.63" shape="90.59,74.27 90.16,71.44 90.28,70.68"/>
     </edge>
-    <edge id=":n1_9" function="internal">
-        <lane id=":n1_9_0" index="0" speed="13.89" length="6.40" shape="90.28,70.68 90.54,69.06 91.71,67.11 93.69,65.61"/>
-    </edge>
     <edge id=":n1_2" function="internal">
         <lane id=":n1_2_0" index="0" speed="13.89" length="2.41" shape="90.59,74.27 91.06,72.86 91.75,72.25"/>
+    </edge>
+    <edge id=":n1_9" function="internal">
+        <lane id=":n1_9_0" index="0" speed="13.89" length="6.40" shape="90.28,70.68 90.54,69.06 91.71,67.11 93.69,65.61"/>
     </edge>
     <edge id=":n1_10" function="internal">
         <lane id=":n1_10_0" index="0" speed="13.89" length="2.41" shape="91.75,72.25 92.66,72.43 93.78,73.41"/>
@@ -62,11 +62,11 @@
     <edge id=":n1_7" function="internal">
         <lane id=":n1_7_0" index="0" speed="13.89" length="6.75" shape="85.59,69.14 88.50,68.54 90.84,69.06 91.86,70.00"/>
     </edge>
-    <edge id=":n1_12" function="internal">
-        <lane id=":n1_12_0" index="0" speed="13.89" length="3.98" shape="91.86,70.00 92.60,70.68 93.78,73.41"/>
-    </edge>
     <edge id=":n1_8" function="internal">
         <lane id=":n1_8_0" index="0" speed="13.89" length="2.41" shape="85.59,69.14 87.04,69.50 87.70,70.13"/>
+    </edge>
+    <edge id=":n1_12" function="internal">
+        <lane id=":n1_12_0" index="0" speed="13.89" length="3.98" shape="91.86,70.00 92.60,70.68 93.78,73.41"/>
     </edge>
     <edge id=":n1_13" function="internal">
         <lane id=":n1_13_0" index="0" speed="13.89" length="2.41" shape="87.70,70.13 87.59,71.05 86.70,72.24"/>

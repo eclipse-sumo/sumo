@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 13 09:51:59 2013 by SUMO netconvert Version dev-SVN-r13478
+<!-- generated on Fri Oct 25 08:20:01 2013 by SUMO netconvert Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -23,18 +23,12 @@
 
     <edge id=":1.30_0" function="internal">
         <lane id=":1.30_0_0" index="0" speed="28.00" length="3.00" shape="28.50,-4.95 31.50,-4.95"/>
-    </edge>
-    <edge id=":1.30_1" function="internal">
-        <lane id=":1.30_1_0" index="0" speed="28.00" length="3.00" shape="28.50,-1.65 31.50,-1.65"/>
-    </edge>
-    <edge id=":1.30_2" function="internal">
-        <lane id=":1.30_2_0" index="0" speed="28.00" length="3.00" shape="28.50,1.65 31.50,1.65"/>
+        <lane id=":1.30_0_1" index="1" speed="28.00" length="3.00" shape="28.50,-1.65 31.50,-1.65"/>
+        <lane id=":1.30_0_2" index="2" speed="28.00" length="3.00" shape="28.50,1.65 31.50,1.65"/>
     </edge>
     <edge id=":1.70_0" function="internal">
         <lane id=":1.70_0_0" index="0" speed="28.00" length="3.00" shape="68.50,-4.95 71.50,-4.95"/>
-    </edge>
-    <edge id=":1.70_1" function="internal">
-        <lane id=":1.70_1_0" index="0" speed="28.00" length="3.00" shape="68.50,-1.65 71.50,-1.65"/>
+        <lane id=":1.70_0_1" index="1" speed="28.00" length="3.00" shape="68.50,-1.65 71.50,-1.65"/>
     </edge>
 
     <edge id="1" from="0" to="1.30" priority="-1">
@@ -55,26 +49,26 @@
 
     <junction id="0" type="unregulated" x="0.00" y="3.30" incLanes="" intLanes="" shape="-0.00,3.25 -0.00,-9.85"/>
     <junction id="1" type="unregulated" x="100.00" y="3.30" incLanes="1.70_0 1.70_1" intLanes="" shape="100.00,-6.55 100.00,-0.05"/>
-    <junction id="1.30" type="priority" x="30.00" y="3.30" incLanes="1_0 1_1 1_2 1_3" intLanes=":1.30_0_0 :1.30_1_0 :1.30_2_0" shape="31.50,3.25 31.50,-6.55 28.50,-9.85 28.50,3.25">
+    <junction id="1.30" type="priority" x="30.00" y="3.30" incLanes="1_0 1_1 1_2 1_3" intLanes=":1.30_0_0 :1.30_0_1 :1.30_0_2" shape="31.50,3.25 31.50,-6.55 28.50,-9.85 28.50,3.25">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="1.70" type="priority" x="70.00" y="3.30" incLanes="1.30_0 1.30_1 1.30_2" intLanes=":1.70_0_0 :1.70_1_0" shape="71.50,-0.05 71.50,-6.55 68.50,-6.55 68.50,3.25">
+    <junction id="1.70" type="priority" x="70.00" y="3.30" incLanes="1.30_0 1.30_1 1.30_2" intLanes=":1.70_0_0 :1.70_0_1" shape="71.50,-0.05 71.50,-6.55 68.50,-6.55 68.50,3.25">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
     <connection from="1" to="1.30" fromLane="1" toLane="0" via=":1.30_0_0" dir="s" state="M"/>
-    <connection from="1" to="1.30" fromLane="2" toLane="1" via=":1.30_1_0" dir="s" state="M"/>
-    <connection from="1" to="1.30" fromLane="3" toLane="2" via=":1.30_2_0" dir="s" state="M"/>
+    <connection from="1" to="1.30" fromLane="2" toLane="1" via=":1.30_0_1" dir="s" state="M"/>
+    <connection from="1" to="1.30" fromLane="3" toLane="2" via=":1.30_0_2" dir="s" state="M"/>
     <connection from="1.30" to="1.70" fromLane="0" toLane="0" via=":1.70_0_0" dir="s" state="M"/>
-    <connection from="1.30" to="1.70" fromLane="1" toLane="1" via=":1.70_1_0" dir="s" state="M"/>
+    <connection from="1.30" to="1.70" fromLane="1" toLane="1" via=":1.70_0_1" dir="s" state="M"/>
 
     <connection from=":1.30_0" to="1.30" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":1.30_1" to="1.30" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":1.30_2" to="1.30" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":1.30_0" to="1.30" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":1.30_0" to="1.30" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":1.70_0" to="1.70" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":1.70_1" to="1.70" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":1.70_0" to="1.70" fromLane="1" toLane="1" dir="s" state="M"/>
 
 </net>

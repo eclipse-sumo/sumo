@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug  9 12:26:20 2013 by SUMO netconvert Version dev-SVN-r14359
+<!-- generated on Fri Oct 25 08:21:18 2013 by SUMO netconvert Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -31,9 +31,7 @@
 
     <edge id=":N_merge_0" function="internal">
         <lane id=":N_merge_0_0" index="0" speed="33.33" length="3.00" shape="120.47,267.03 118.19,268.98"/>
-    </edge>
-    <edge id=":N_merge_1" function="internal">
-        <lane id=":N_merge_1_0" index="0" speed="33.33" length="3.00" shape="118.33,264.52 116.05,266.47"/>
+        <lane id=":N_merge_0_1" index="1" speed="33.33" length="3.00" shape="118.33,264.52 116.05,266.47"/>
     </edge>
     <edge id=":N_merge_2" function="internal">
         <lane id=":N_merge_2_0" index="0" speed="25.00" length="2.41" shape="122.74,271.57 120.33,271.49"/>
@@ -54,7 +52,7 @@
 
     <junction id="N_end" type="unregulated" x="0.00" y="363.37" incLanes="on_ramp_0 on_ramp_1 on_ramp_2" intLanes="" shape="6.40,370.88 0.04,363.42"/>
     <junction id="N_main_start" type="unregulated" x="421.87" y="0.01" incLanes="" intLanes="" shape="421.90,0.04 426.16,4.95"/>
-    <junction id="N_merge" type="priority" x="116.12" y="264.27" incLanes="main_0 main_1 ramp_0" intLanes=":N_merge_0_0 :N_merge_1_0 :N_merge_2_0" shape="121.51,268.25 117.29,263.30 115.01,265.25 121.37,272.71">
+    <junction id="N_merge" type="priority" x="116.12" y="264.27" incLanes="main_0 main_1 ramp_0" intLanes=":N_merge_0_0 :N_merge_0_1 :N_merge_2_0" shape="121.51,268.25 117.29,263.30 115.01,265.25 121.37,272.71">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -62,11 +60,11 @@
     <junction id="N_ramp_start" type="unregulated" x="398.33" y="181.20" incLanes="" intLanes="" shape="398.34,181.23 399.71,184.13"/>
 
     <connection from="main" to="on_ramp" fromLane="0" toLane="1" pass="1" via=":N_merge_0_0" dir="s" state="M"/>
-    <connection from="main" to="on_ramp" fromLane="1" toLane="2" pass="1" via=":N_merge_1_0" dir="s" state="M"/>
+    <connection from="main" to="on_ramp" fromLane="1" toLane="2" pass="1" via=":N_merge_0_1" dir="s" state="M"/>
     <connection from="ramp" to="on_ramp" fromLane="0" toLane="0" pass="1" via=":N_merge_2_0" dir="s" state="M"/>
 
     <connection from=":N_merge_0" to="on_ramp" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":N_merge_1" to="on_ramp" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":N_merge_0" to="on_ramp" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from=":N_merge_2" to="on_ramp" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

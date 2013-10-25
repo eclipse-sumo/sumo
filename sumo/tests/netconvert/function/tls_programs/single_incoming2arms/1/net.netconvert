@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 09:23:22 by SUMO netconvert Version dev-SVN-r13169
+<!-- generated on Fri Oct 25 08:21:03 2013 by SUMO netconvert Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -31,9 +31,7 @@
 
     <edge id=":15030102_0" function="internal">
         <lane id=":15030102_0_0" index="0" speed="13.89" length="9.49" shape="233.74,147.26 241.68,152.45"/>
-    </edge>
-    <edge id=":15030102_1" function="internal">
-        <lane id=":15030102_1_0" index="0" speed="13.89" length="9.50" shape="231.93,150.02 239.88,155.22"/>
+        <lane id=":15030102_0_1" index="1" speed="13.89" length="9.50" shape="231.93,150.02 239.88,155.22"/>
     </edge>
     <edge id=":15030102_2" function="internal">
         <lane id=":15030102_2_0" index="0" speed="13.20" length="7.86" shape="231.93,150.02 234.16,151.71 235.52,153.30 235.99,154.77 235.59,156.13"/>
@@ -71,7 +69,7 @@
     </tlLogic>
 
     <junction id="15030099" type="unregulated" x="405.00" y="265.00" incLanes="153120299_0 153120299_1" intLanes="" shape="408.58,259.52 405.03,264.96"/>
-    <junction id="15030102" type="traffic_light" x="235.00" y="154.00" incLanes="153120297_0 153120297_1 -152850000_0" intLanes=":15030102_0_0 :15030102_1_0 :15030102_2_0 :15030102_3_0 :15030102_4_0" shape="239.00,156.55 242.56,151.11 234.62,145.92 231.05,151.35 231.47,153.48 236.94,157.00">
+    <junction id="15030102" type="traffic_light" x="235.00" y="154.00" incLanes="153120297_0 153120297_1 -152850000_0" intLanes=":15030102_0_0 :15030102_0_1 :15030102_2_0 :15030102_3_0 :15030102_4_0" shape="239.00,156.55 242.56,151.11 234.62,145.92 231.05,151.35 231.47,153.48 236.94,157.00">
         <request index="0" response="00000" foes="01000" cont="0"/>
         <request index="1" response="00000" foes="01000" cont="0"/>
         <request index="2" response="00000" foes="11000" cont="0"/>
@@ -87,11 +85,11 @@
     <connection from="-152850000" to="152850000" fromLane="0" toLane="0" via=":15030102_4_0" tl="15030102" linkIndex="4" dir="t" state="o"/>
     <connection from="152850000" to="-152850000" fromLane="0" toLane="0" via=":15034045_0_0" dir="t" state="M"/>
     <connection from="153120297" to="153120299" fromLane="0" toLane="0" via=":15030102_0_0" tl="15030102" linkIndex="0" dir="s" state="o"/>
-    <connection from="153120297" to="153120299" fromLane="1" toLane="1" via=":15030102_1_0" tl="15030102" linkIndex="1" dir="s" state="o"/>
+    <connection from="153120297" to="153120299" fromLane="1" toLane="1" via=":15030102_0_1" tl="15030102" linkIndex="1" dir="s" state="o"/>
     <connection from="153120297" to="152850000" fromLane="1" toLane="0" via=":15030102_2_0" tl="15030102" linkIndex="2" dir="l" state="o"/>
 
     <connection from=":15030102_0" to="153120299" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":15030102_1" to="153120299" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":15030102_0" to="153120299" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":15030102_2" to="152850000" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":15030102_3" to="153120299" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":15030102_4" to="152850000" fromLane="0" toLane="0" dir="s" state="M"/>

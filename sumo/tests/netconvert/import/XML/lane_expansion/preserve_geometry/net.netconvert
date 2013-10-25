@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  6 10:34:14 2011 by SUMO netconvert Version dev-SVN-r10863
+<!-- generated on Fri Oct 25 08:20:02 2013 by SUMO netconvert Version dev-SVN-r14913
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
@@ -22,25 +23,23 @@
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="0.00,-10.00,100.00,10.00" origBoundary="0.00,-10.00,100.00,10.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="0.00,-8.39,100.00,10.00" origBoundary="0.00,-10.00,100.00,10.00" projParameter="!"/>
 
     <edge id=":1.50_0" function="internal">
-        <lane id=":1.50_0_0" index="0" speed="28.00" length="3.42" shape="45.32,3.30 47.64,0.79"/>
+        <lane id=":1.50_0_0" index="0" speed="28.00" length="3.00" shape="66.53,-3.77 69.39,-4.67"/>
     </edge>
 
-    <edge id="1" from="0" to="1.50" priority="-1" spreadType="center" shape="0.00,0.00 20.00,10.00 46.22,1.26">
-        <lane id="1_0" index="0" speed="28.00" length="48.50" shape="0.74,-1.48 20.13,8.22 44.28,0.17"/>
-        <lane id="1_1" index="1" speed="28.00" length="48.50" shape="-0.74,1.48 19.87,11.78 45.32,3.30"/>
+    <edge id="1" from="0" to="1.50" priority="-1" spreadType="center" shape="20.00,10.00 67.43,-5.81">
+        <lane id="1_0" index="0" speed="28.00" length="64.31" shape="4.48,13.43 65.49,-6.90"/>
+        <lane id="1_1" index="1" speed="28.00" length="64.31" shape="5.52,16.57 66.53,-3.77"/>
     </edge>
-    <edge id="1.50" from="1.50" to="1" priority="-1" spreadType="center" shape="46.22,1.26 80.00,-10.00 100.00,0.00">
-        <lane id="1.50_0" index="0" speed="28.00" length="56.47" shape="47.64,0.79 80.00,-10.00 100.00,0.00"/>
+    <edge id="1.50" from="1.50" to="1" priority="-1" spreadType="center" shape="67.97,-4.20 80.54,-8.39">
+        <lane id="1.50_0" index="0" speed="28.00" length="27.56" shape="69.39,-4.67 95.54,-13.39"/>
     </edge>
 
-    <junction id="0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-1.45,2.91 1.45,-2.91">
-    </junction>
-    <junction id="1" type="unregulated" x="100.00" y="0.00" incLanes="1.50_0" intLanes="" shape="100.72,-1.43 99.28,1.43">
-    </junction>
-    <junction id="1.50" type="priority" x="46.22" y="1.26" incLanes="1_0 1_1" intLanes=":1.50_0_0" shape="48.15,2.30 47.14,-0.73 43.77,-1.35 45.83,4.82">
+    <junction id="0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="6.03,18.08 3.97,11.92"/>
+    <junction id="1" type="unregulated" x="100.00" y="0.00" incLanes="1.50_0" intLanes="" shape="95.03,-14.91 96.04,-11.87"/>
+    <junction id="1.50" type="priority" x="67.43" y="-5.81" incLanes="1_0 1_1" intLanes=":1.50_0_0" shape="69.90,-3.16 68.89,-6.19 64.98,-8.42 67.04,-2.25">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 09:22:40 by SUMO netconvert Version dev-SVN-r13169
+<!-- generated on Fri Oct 25 08:20:12 2013 by SUMO netconvert Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -33,7 +33,7 @@
         <lane id=":gneJ1_0_0" index="0" speed="13.89" length="5.00" shape="-40.00,35.25 -39.81,36.61 -39.22,37.57 -38.26,38.16 -36.90,38.35"/>
     </edge>
     <edge id=":node_C_0" function="internal">
-        <lane id=":node_C_0_0" index="0" speed="12.50" length="6.95" shape="-1.65,13.70 -1.95,12.45 -2.85,11.28 -4.36,10.20 -6.46,9.19"/>
+        <lane id=":node_C_0_0" index="0" disallow="bus" speed="12.50" length="6.95" shape="-1.65,13.70 -1.95,12.45 -2.85,11.28 -4.36,10.20 -6.46,9.19"/>
     </edge>
     <edge id=":node_C_1" function="internal">
         <lane id=":node_C_1_0" index="0" speed="14.50" length="10.00" shape="-1.65,13.70 -1.65,10.73 -1.65,8.70 -1.65,6.67 -1.65,3.70"/>
@@ -41,11 +41,11 @@
     <edge id=":node_C_2" function="internal">
         <lane id=":node_C_2_0" index="0" speed="13.50" length="4.82" shape="-1.65,13.70 -1.22,13.10 0.09,12.19 2.26,10.97"/>
     </edge>
-    <edge id=":node_C_12" function="internal">
-        <lane id=":node_C_12_0" index="0" speed="13.50" length="3.40" shape="2.26,10.97 5.30,9.44"/>
-    </edge>
     <edge id=":node_C_3" function="internal">
         <lane id=":node_C_3_0" index="0" speed="18.50" length="3.83" shape="-1.65,13.70 0.12,12.14 1.56,11.84"/>
+    </edge>
+    <edge id=":node_C_12" function="internal">
+        <lane id=":node_C_12_0" index="0" speed="13.50" length="3.40" shape="2.26,10.97 5.30,9.44"/>
     </edge>
     <edge id=":node_C_13" function="internal">
         <lane id=":node_C_13_0" index="0" speed="18.50" length="3.83" shape="1.56,11.84 2.66,12.81 3.42,15.05"/>
@@ -59,11 +59,11 @@
     <edge id=":node_C_6" function="internal">
         <lane id=":node_C_6_0" index="0" speed="13.50" length="3.72" shape="5.98,10.82 2.64,11.48 2.35,11.36"/>
     </edge>
-    <edge id=":node_C_14" function="internal">
-        <lane id=":node_C_14_0" index="0" speed="13.50" length="9.46" shape="2.35,11.36 0.26,10.51 -1.17,7.92 -1.65,3.70"/>
-    </edge>
     <edge id=":node_C_7" function="internal">
         <lane id=":node_C_7_0" index="0" speed="12.50" length="1.12" shape="5.98,10.82 5.29,10.73 4.95,10.47"/>
+    </edge>
+    <edge id=":node_C_14" function="internal">
+        <lane id=":node_C_14_0" index="0" speed="13.50" length="9.46" shape="2.35,11.36 0.26,10.51 -1.17,7.92 -1.65,3.70"/>
     </edge>
     <edge id=":node_C_15" function="internal">
         <lane id=":node_C_15_0" index="0" speed="12.50" length="1.12" shape="4.95,10.47 4.95,10.04 5.30,9.44"/>
@@ -77,11 +77,11 @@
     <edge id=":node_C_10" function="internal">
         <lane id=":node_C_10_0" index="0" speed="12.50" length="5.42" shape="1.65,3.70 1.22,5.80 -0.07,6.90 -1.65,6.98"/>
     </edge>
-    <edge id=":node_C_16" function="internal">
-        <lane id=":node_C_16_0" index="0" speed="12.50" length="3.71" shape="-1.65,6.98 -2.22,7.01 -5.24,6.13"/>
-    </edge>
     <edge id=":node_C_11" function="internal">
         <lane id=":node_C_11_0" index="0" speed="14.50" length="2.41" shape="1.65,3.70 0.83,4.94 0.00,5.35"/>
+    </edge>
+    <edge id=":node_C_16" function="internal">
+        <lane id=":node_C_16_0" index="0" speed="12.50" length="3.71" shape="-1.65,6.98 -2.22,7.01 -5.24,6.13"/>
     </edge>
     <edge id=":node_C_17" function="internal">
         <lane id=":node_C_17_0" index="0" speed="14.50" length="2.41" shape="0.00,5.35 -0.82,4.94 -1.65,3.70"/>

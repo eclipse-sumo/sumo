@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 21 13:22:11 2012 by SUMO netgenerate Version dev-SVN-r13008
+<!-- generated on Fri Oct 25 08:50:42 2013 by SUMO netgenerate Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netgenerateConfiguration.xsd">
@@ -50,11 +50,11 @@
     <edge id=":0/1_1" function="internal">
         <lane id=":0/1_1_0" index="0" speed="13.90" length="7.14" shape="-1.65,44.75 -1.25,41.95 -0.05,39.95 1.65,38.93"/>
     </edge>
-    <edge id=":0/1_9" function="internal">
-        <lane id=":0/1_9_0" index="0" speed="13.90" length="3.18" shape="1.65,38.93 1.95,38.75 4.75,38.35"/>
-    </edge>
     <edge id=":0/1_2" function="internal">
         <lane id=":0/1_2_0" index="0" speed="13.90" length="2.41" shape="-1.65,44.75 -0.83,43.51 -0.00,43.10"/>
+    </edge>
+    <edge id=":0/1_9" function="internal">
+        <lane id=":0/1_9_0" index="0" speed="13.90" length="3.18" shape="1.65,38.93 1.95,38.75 4.75,38.35"/>
     </edge>
     <edge id=":0/1_10" function="internal">
         <lane id=":0/1_10_0" index="0" speed="13.90" length="2.41" shape="-0.00,43.10 0.82,43.51 1.65,44.75"/>
@@ -125,11 +125,11 @@
     <edge id=":1/0_7" function="internal">
         <lane id=":1/0_7_0" index="0" speed="13.90" length="7.14" shape="35.25,-1.65 38.05,-1.25 40.05,-0.05 41.07,1.65"/>
     </edge>
-    <edge id=":1/0_10" function="internal">
-        <lane id=":1/0_10_0" index="0" speed="13.90" length="3.18" shape="41.07,1.65 41.25,1.95 41.65,4.75"/>
-    </edge>
     <edge id=":1/0_8" function="internal">
         <lane id=":1/0_8_0" index="0" speed="13.90" length="2.41" shape="35.25,-1.65 36.49,-0.83 36.90,-0.00"/>
+    </edge>
+    <edge id=":1/0_10" function="internal">
+        <lane id=":1/0_10_0" index="0" speed="13.90" length="3.18" shape="41.07,1.65 41.25,1.95 41.65,4.75"/>
     </edge>
     <edge id=":1/0_11" function="internal">
         <lane id=":1/0_11_0" index="0" speed="13.90" length="2.41" shape="36.90,-0.00 36.49,0.82 35.25,1.65"/>
@@ -143,11 +143,11 @@
     <edge id=":1/1_2" function="internal">
         <lane id=":1/1_2_0" index="0" speed="13.90" length="7.14" shape="38.35,44.75 38.75,41.95 39.95,39.95 41.65,38.93"/>
     </edge>
-    <edge id=":1/1_16" function="internal">
-        <lane id=":1/1_16_0" index="0" speed="13.90" length="3.18" shape="41.65,38.93 41.95,38.75 44.75,38.35"/>
-    </edge>
     <edge id=":1/1_3" function="internal">
         <lane id=":1/1_3_0" index="0" speed="13.90" length="2.41" shape="38.35,44.75 39.18,43.51 40.00,43.10"/>
+    </edge>
+    <edge id=":1/1_16" function="internal">
+        <lane id=":1/1_16_0" index="0" speed="13.90" length="3.18" shape="41.65,38.93 41.95,38.75 44.75,38.35"/>
     </edge>
     <edge id=":1/1_17" function="internal">
         <lane id=":1/1_17_0" index="0" speed="13.90" length="2.41" shape="40.00,43.10 40.83,43.51 41.65,44.75"/>
@@ -173,11 +173,11 @@
     <edge id=":1/1_10" function="internal">
         <lane id=":1/1_10_0" index="0" speed="13.90" length="7.14" shape="41.65,35.25 41.25,38.05 40.05,40.05 38.35,41.07"/>
     </edge>
-    <edge id=":1/1_18" function="internal">
-        <lane id=":1/1_18_0" index="0" speed="13.90" length="3.18" shape="38.35,41.07 38.05,41.25 35.25,41.65"/>
-    </edge>
     <edge id=":1/1_11" function="internal">
         <lane id=":1/1_11_0" index="0" speed="13.90" length="2.41" shape="41.65,35.25 40.82,36.49 40.00,36.90"/>
+    </edge>
+    <edge id=":1/1_18" function="internal">
+        <lane id=":1/1_18_0" index="0" speed="13.90" length="3.18" shape="38.35,41.07 38.05,41.25 35.25,41.65"/>
     </edge>
     <edge id=":1/1_19" function="internal">
         <lane id=":1/1_19_0" index="0" speed="13.90" length="2.41" shape="40.00,36.90 39.17,36.49 38.35,35.25"/>
@@ -200,11 +200,11 @@
     <edge id=":1/2_1" function="internal">
         <lane id=":1/2_1_0" index="0" speed="13.90" length="7.14" shape="44.75,81.65 41.95,81.25 39.95,80.05 38.93,78.35"/>
     </edge>
-    <edge id=":1/2_9" function="internal">
-        <lane id=":1/2_9_0" index="0" speed="13.90" length="3.18" shape="38.93,78.35 38.75,78.05 38.35,75.25"/>
-    </edge>
     <edge id=":1/2_2" function="internal">
         <lane id=":1/2_2_0" index="0" speed="13.90" length="2.41" shape="44.75,81.65 43.51,80.82 43.10,80.00"/>
+    </edge>
+    <edge id=":1/2_9" function="internal">
+        <lane id=":1/2_9_0" index="0" speed="13.90" length="3.18" shape="38.93,78.35 38.75,78.05 38.35,75.25"/>
     </edge>
     <edge id=":1/2_10" function="internal">
         <lane id=":1/2_10_0" index="0" speed="13.90" length="2.41" shape="43.10,80.00 43.51,79.17 44.75,78.35"/>
@@ -266,11 +266,11 @@
     <edge id=":2/1_4" function="internal">
         <lane id=":2/1_4_0" index="0" speed="13.90" length="7.14" shape="81.65,35.25 81.25,38.05 80.05,40.05 78.35,41.07"/>
     </edge>
-    <edge id=":2/1_10" function="internal">
-        <lane id=":2/1_10_0" index="0" speed="13.90" length="3.18" shape="78.35,41.07 78.05,41.25 75.25,41.65"/>
-    </edge>
     <edge id=":2/1_5" function="internal">
         <lane id=":2/1_5_0" index="0" speed="13.90" length="2.41" shape="81.65,35.25 80.82,36.49 80.00,36.90"/>
+    </edge>
+    <edge id=":2/1_10" function="internal">
+        <lane id=":2/1_10_0" index="0" speed="13.90" length="3.18" shape="78.35,41.07 78.05,41.25 75.25,41.65"/>
     </edge>
     <edge id=":2/1_11" function="internal">
         <lane id=":2/1_11_0" index="0" speed="13.90" length="2.41" shape="80.00,36.90 79.17,36.49 78.35,35.25"/>

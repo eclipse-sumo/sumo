@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 13 14:01:23 2013 by SUMO netconvert Version dev-SVN-r13478
+<!-- generated on Fri Oct 25 08:21:06 2013 by SUMO netconvert Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -27,19 +27,19 @@
     <location netOffset="-593345.09,-5779253.43" convBoundary="4215.39,2341.00,4331.69,2716.03" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":54525860_0" function="internal">
-        <lane id=":54525860_0_0" index="0" speed="13.89" length="6.70" shape="4220.72,2542.43 4218.58,2542.63 4217.49,2542.12 4217.45,2540.92 4218.45,2539.02"/>
+        <lane id=":54525860_0_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="13.89" length="6.70" shape="4220.72,2542.43 4218.58,2542.63 4217.49,2542.12 4217.45,2540.92 4218.45,2539.02"/>
     </edge>
     <edge id=":54525860_1" function="internal">
-        <lane id=":54525860_1_0" index="0" speed="13.89" length="2.99" shape="4220.21,2540.58 4218.29,2541.59 4217.47,2541.65"/>
+        <lane id=":54525860_1_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="13.89" length="2.99" shape="4220.21,2540.58 4218.29,2541.59 4217.47,2541.65"/>
     </edge>
     <edge id=":54525860_2" function="internal">
         <lane id=":54525860_2_0" index="0" speed="13.89" length="3.03" shape="4217.47,2541.65 4217.36,2541.66 4217.41,2540.81 4218.45,2539.02"/>
     </edge>
     <edge id=":54525871_0" function="internal">
-        <lane id=":54525871_0_0" index="0" speed="13.89" length="5.33" shape="4256.15,2510.06 4258.50,2505.28"/>
+        <lane id=":54525871_0_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="13.89" length="5.33" shape="4256.15,2510.06 4258.50,2505.28"/>
     </edge>
     <edge id=":54525871_1" function="internal">
-        <lane id=":54525871_1_0" index="0" speed="13.89" length="5.01" shape="4256.15,2510.06 4260.87,2508.39"/>
+        <lane id=":54525871_1_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="13.89" length="5.01" shape="4256.15,2510.06 4260.87,2508.39"/>
     </edge>
     <edge id=":54525873_0" function="internal">
         <lane id=":54525873_0_0" index="0" speed="19.44" length="13.32" shape="4282.99,2462.83 4282.54,2459.37 4282.14,2456.22 4281.73,2453.08 4281.27,2449.62"/>
@@ -67,9 +67,7 @@
     </edge>
     <edge id=":54525877_0" function="internal">
         <lane id=":54525877_0_0" index="0" speed="19.44" length="9.83" shape="4298.49,2499.85 4299.84,2509.59"/>
-    </edge>
-    <edge id=":54525877_1" function="internal">
-        <lane id=":54525877_1_0" index="0" speed="19.44" length="9.84" shape="4295.22,2500.30 4296.57,2510.04"/>
+        <lane id=":54525877_0_1" index="1" speed="19.44" length="9.84" shape="4295.22,2500.30 4296.57,2510.04"/>
     </edge>
     <edge id=":54525877_2" function="internal">
         <lane id=":54525877_2_0" index="0" speed="16.66" length="8.01" shape="4295.22,2500.30 4295.41,2502.93 4295.18,2505.04 4294.53,2506.64 4293.46,2507.73"/>
@@ -146,7 +144,7 @@
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
-    <junction id="54525877" type="priority" x="4297.54" y="2505.08" incLanes="51800052_0 51800052_1 51800053_0" intLanes=":54525877_0_0 :54525877_1_0 :54525877_2_0 :54525877_3_0 :54525877_4_0" shape="4294.98,2510.27 4301.42,2509.37 4300.07,2499.63 4293.63,2500.51 4292.43,2501.48 4291.32,2504.48 4291.78,2506.91 4293.52,2509.60">
+    <junction id="54525877" type="priority" x="4297.54" y="2505.08" incLanes="51800052_0 51800052_1 51800053_0" intLanes=":54525877_0_0 :54525877_0_1 :54525877_2_0 :54525877_3_0 :54525877_4_0" shape="4294.98,2510.27 4301.42,2509.37 4300.07,2499.63 4293.63,2500.51 4292.43,2501.48 4291.32,2504.48 4291.78,2506.91 4293.52,2509.60">
         <request index="0" response="00000" foes="01000" cont="0"/>
         <request index="1" response="00000" foes="01000" cont="0"/>
         <request index="2" response="00000" foes="11000" cont="0"/>
@@ -169,7 +167,7 @@
     <connection from="-51800062" to="-51800060" fromLane="0" toLane="0" via=":54525860_0_0" dir="l" state="M"/>
     <connection from="-51800063" to="-51800054" fromLane="0" toLane="0" via=":54525876_0_0" dir="s" state="M"/>
     <connection from="51800052" to="51800087" fromLane="0" toLane="0" via=":54525877_0_0" dir="s" state="M"/>
-    <connection from="51800052" to="51800087" fromLane="1" toLane="1" via=":54525877_1_0" dir="s" state="M"/>
+    <connection from="51800052" to="51800087" fromLane="1" toLane="1" via=":54525877_0_1" dir="s" state="M"/>
     <connection from="51800052" to="51800055" fromLane="1" toLane="0" via=":54525877_2_0" dir="l" state="M"/>
     <connection from="51800053" to="51800087" fromLane="0" toLane="1" via=":54525877_3_0" dir="L" state="m"/>
     <connection from="51800053" to="51800055" fromLane="0" toLane="0" via=":54525877_4_0" dir="l" state="m"/>
@@ -190,7 +188,7 @@
     <connection from=":54525876_0" to="-51800054" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525876_1" to="-51800054" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525877_0" to="51800087" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54525877_1" to="51800087" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":54525877_0" to="51800087" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":54525877_2" to="51800055" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525877_3" to="51800087" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":54525877_4" to="51800055" fromLane="0" toLane="0" dir="s" state="M"/>

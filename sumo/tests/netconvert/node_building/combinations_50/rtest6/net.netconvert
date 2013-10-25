@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 09:22:09 by SUMO netconvert Version dev-SVN-r13169
+<!-- generated on Fri Oct 25 08:19:49 2013 by SUMO netconvert Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -39,12 +39,8 @@
     </edge>
     <edge id=":0_4" function="internal">
         <lane id=":0_4_0" index="0" speed="15.28" length="9.50" shape="54.75,58.25 45.25,58.25"/>
-    </edge>
-    <edge id=":0_5" function="internal">
-        <lane id=":0_5_0" index="0" speed="15.28" length="9.50" shape="54.75,54.95 45.25,54.95"/>
-    </edge>
-    <edge id=":0_6" function="internal">
-        <lane id=":0_6_0" index="0" speed="15.28" length="9.50" shape="54.75,51.65 45.25,51.65"/>
+        <lane id=":0_4_1" index="1" speed="15.28" length="9.50" shape="54.75,54.95 45.25,54.95"/>
+        <lane id=":0_4_2" index="2" speed="15.28" length="9.50" shape="54.75,51.65 45.25,51.65"/>
     </edge>
     <edge id=":0_7" function="internal">
         <lane id=":0_7_0" index="0" speed="15.28" length="7.85" shape="54.75,51.65 51.95,51.46 49.95,50.88 48.75,49.91 48.35,48.55"/>
@@ -88,7 +84,7 @@
         <lane id="4o_0" index="0" speed="15.28" length="38.65" shape="51.65,61.35 51.65,100.00"/>
     </edge>
 
-    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 2i_0 2i_1 2i_2 3i_0" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0" shape="46.75,61.35 53.25,61.35 54.75,59.85 54.75,50.05 53.25,48.55 46.75,48.55 45.25,50.05 45.25,59.85">
+    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 2i_0 2i_1 2i_2 3i_0" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_4_1 :0_4_2 :0_7_0 :0_8_0 :0_9_0 :0_10_0" shape="46.75,61.35 53.25,61.35 54.75,59.85 54.75,50.05 53.25,48.55 46.75,48.55 45.25,50.05 45.25,59.85">
         <request index="0" response="00001110000" foes="01001110000" cont="0"/>
         <request index="1" response="00011110000" foes="11011110000" cont="0"/>
         <request index="2" response="00100001000" foes="00100001000" cont="0"/>
@@ -112,8 +108,8 @@
 
     <connection from="2i" to="4o" fromLane="0" toLane="0" via=":0_3_0" dir="r" state="M"/>
     <connection from="2i" to="1o" fromLane="0" toLane="0" via=":0_4_0" dir="s" state="M"/>
-    <connection from="2i" to="1o" fromLane="1" toLane="1" via=":0_5_0" dir="s" state="M"/>
-    <connection from="2i" to="1o" fromLane="2" toLane="2" via=":0_6_0" dir="s" state="M"/>
+    <connection from="2i" to="1o" fromLane="1" toLane="1" via=":0_4_1" dir="s" state="M"/>
+    <connection from="2i" to="1o" fromLane="2" toLane="2" via=":0_4_2" dir="s" state="M"/>
     <connection from="2i" to="3o" fromLane="2" toLane="0" via=":0_7_0" dir="l" state="M"/>
     <connection from="3i" to="4o" fromLane="0" toLane="0" via=":0_8_0" dir="s" state="m"/>
     <connection from="3i" to="1o" fromLane="0" toLane="2" via=":0_9_0" dir="l" state="m"/>
@@ -129,8 +125,8 @@
     <connection from=":0_2" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":0_3" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":0_4" to="1o" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":0_5" to="1o" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":0_6" to="1o" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":0_4" to="1o" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":0_4" to="1o" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":0_7" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":0_8" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":0_9" to="1o" fromLane="0" toLane="2" dir="s" state="M"/>

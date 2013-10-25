@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 11 17:04:04 2013 by SUMO netconvert Version dev-SVN-r13319
+<!-- generated on Fri Oct 25 08:21:06 2013 by SUMO netconvert Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -27,16 +27,16 @@
     <location netOffset="-593345.09,-5779253.43" convBoundary="22505.06,17291.07,22652.47,17362.98" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":54544854_0" function="internal">
-        <lane id=":54544854_0_0" index="0" speed="8.33" length="6.33" shape="22650.60,17309.15 22651.17,17315.45"/>
+        <lane id=":54544854_0_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="6.33" shape="22650.60,17309.15 22651.17,17315.45"/>
     </edge>
     <edge id=":552609822_0" function="internal">
-        <lane id=":552609822_0_0" index="0" speed="8.33" length="6.15" shape="22558.69,17298.60 22558.81,17296.64 22559.33,17295.21 22560.26,17294.32 22561.59,17293.97"/>
+        <lane id=":552609822_0_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="6.15" shape="22558.69,17298.60 22558.81,17296.64 22559.33,17295.21 22560.26,17294.32 22561.59,17293.97"/>
     </edge>
     <edge id=":552609822_1" function="internal">
-        <lane id=":552609822_1_0" index="0" speed="8.33" length="7.26" shape="22554.88,17296.74 22561.59,17293.97"/>
+        <lane id=":552609822_1_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="7.26" shape="22554.88,17296.74 22561.59,17293.97"/>
     </edge>
     <edge id=":662904038_0" function="internal">
-        <lane id=":662904038_0_0" index="0" speed="8.33" length="0.10" shape="22617.93,17291.07 22617.93,17291.07"/>
+        <lane id=":662904038_0_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="0.10" shape="22617.93,17291.07 22617.93,17291.07"/>
     </edge>
 
     <edge id="-572217565" from="552609826" to="552609822" priority="-1" spreadType="center" shape="22505.06,17362.98 22525.56,17332.30 22541.76,17310.43 22549.50,17300.59 22558.52,17294.13">

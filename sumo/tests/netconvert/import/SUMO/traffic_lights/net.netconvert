@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/04/12 12:50:39 by SUMO netconvert Version dev-SVN-r13131
+<!-- generated on Fri Oct 25 08:20:42 2013 by SUMO netconvert Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -32,11 +32,11 @@
     <edge id=":node_centertl_1" function="internal">
         <lane id=":node_centertl_1_0" index="0" speed="10.00" length="3.18" shape="-1.65,4.75 -1.25,1.95 -1.07,1.65"/>
     </edge>
-    <edge id=":node_centertl_9" function="internal">
-        <lane id=":node_centertl_9_0" index="0" speed="10.00" length="7.14" shape="-1.07,1.65 -0.05,-0.05 1.95,-1.25 4.75,-1.65"/>
-    </edge>
     <edge id=":node_centertl_2" function="internal">
         <lane id=":node_centertl_2_0" index="0" speed="10.00" length="2.41" shape="-1.65,4.75 -0.83,3.51 -0.00,3.10"/>
+    </edge>
+    <edge id=":node_centertl_9" function="internal">
+        <lane id=":node_centertl_9_0" index="0" speed="10.00" length="7.14" shape="-1.07,1.65 -0.05,-0.05 1.95,-1.25 4.75,-1.65"/>
     </edge>
     <edge id=":node_centertl_10" function="internal">
         <lane id=":node_centertl_10_0" index="0" speed="10.00" length="2.41" shape="-0.00,3.10 0.82,3.51 1.65,4.75"/>
@@ -59,11 +59,11 @@
     <edge id=":node_centertl_7" function="internal">
         <lane id=":node_centertl_7_0" index="0" speed="10.00" length="7.14" shape="-4.75,-1.65 -1.95,-1.25 0.05,-0.05 1.07,1.65"/>
     </edge>
-    <edge id=":node_centertl_12" function="internal">
-        <lane id=":node_centertl_12_0" index="0" speed="10.00" length="3.18" shape="1.07,1.65 1.25,1.95 1.65,4.75"/>
-    </edge>
     <edge id=":node_centertl_8" function="internal">
         <lane id=":node_centertl_8_0" index="0" speed="10.00" length="2.41" shape="-4.75,-1.65 -3.51,-0.83 -3.10,-0.00"/>
+    </edge>
+    <edge id=":node_centertl_12" function="internal">
+        <lane id=":node_centertl_12_0" index="0" speed="10.00" length="3.18" shape="1.07,1.65 1.25,1.95 1.65,4.75"/>
     </edge>
     <edge id=":node_centertl_13" function="internal">
         <lane id=":node_centertl_13_0" index="0" speed="10.00" length="2.41" shape="-3.10,-0.00 -3.51,0.82 -4.75,1.65"/>

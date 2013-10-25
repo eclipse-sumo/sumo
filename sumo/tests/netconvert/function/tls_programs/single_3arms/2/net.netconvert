@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/04/12 12:50:47 by SUMO netconvert Version dev-SVN-r13131
+<!-- generated on Fri Oct 25 08:21:02 2013 by SUMO netconvert Version dev-SVN-r14913
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -44,11 +44,11 @@
     <edge id=":n5_1" function="internal">
         <lane id=":n5_1_0" index="0" speed="13.89" length="7.28" shape="135.70,203.45 132.92,203.73 130.68,203.01 129.18,201.49"/>
     </edge>
-    <edge id=":n5_9" function="internal">
-        <lane id=":n5_9_0" index="0" speed="13.89" length="3.23" shape="129.18,201.49 128.98,201.29 127.84,198.57"/>
-    </edge>
     <edge id=":n5_2" function="internal">
         <lane id=":n5_2_0" index="0" speed="13.89" length="2.41" shape="135.70,203.45 134.30,202.96 133.70,202.26"/>
+    </edge>
+    <edge id=":n5_9" function="internal">
+        <lane id=":n5_9_0" index="0" speed="13.89" length="3.23" shape="129.18,201.49 128.98,201.29 127.84,198.57"/>
     </edge>
     <edge id=":n5_10" function="internal">
         <lane id=":n5_10_0" index="0" speed="13.89" length="2.41" shape="133.70,202.26 133.90,201.36 134.90,200.25"/>
@@ -59,11 +59,11 @@
     <edge id=":n5_4" function="internal">
         <lane id=":n5_4_0" index="0" speed="13.89" length="3.37" shape="131.02,197.71 131.39,200.67 131.27,201.04"/>
     </edge>
-    <edge id=":n5_11" function="internal">
-        <lane id=":n5_11_0" index="0" speed="13.89" length="7.39" shape="131.27,201.04 130.69,202.96 128.92,204.58 126.10,205.53"/>
-    </edge>
     <edge id=":n5_5" function="internal">
         <lane id=":n5_5_0" index="0" speed="13.89" length="2.41" shape="131.02,197.71 130.55,199.12 129.86,199.73"/>
+    </edge>
+    <edge id=":n5_11" function="internal">
+        <lane id=":n5_11_0" index="0" speed="13.89" length="7.39" shape="131.27,201.04 130.69,202.96 128.92,204.58 126.10,205.53"/>
     </edge>
     <edge id=":n5_12" function="internal">
         <lane id=":n5_12_0" index="0" speed="13.89" length="2.41" shape="129.86,199.73 128.96,199.55 127.84,198.57"/>
