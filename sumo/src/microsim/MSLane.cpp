@@ -949,6 +949,9 @@ MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
         return succLinkSource.myLinks.end();
     }
     // the only case where this should happen is for a disconnected route (deliberately ignored)
+#ifdef _DEBUG
+    WRITE_WARNING("Could not find connection between '" + succLinkSource.getID() + "' and '" + conts[nRouteSuccs]->getID() + "'");
+#endif
     return succLinkSource.myLinks.end();
 }
 
