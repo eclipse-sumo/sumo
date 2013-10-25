@@ -93,6 +93,8 @@
 
 #define BUS_STOP_OFFSET 0.5
 
+#define CRLL_LOOK_AHEAD 5
+
 
 // ===========================================================================
 // static value definitions
@@ -908,7 +910,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
 #else
         ++view;
 #endif
-        if (!setRequest || ((v <= 0 || seen > dist) && hadNonInternal && seenNonInternal > vehicleLength * 2)) {
+        // we need to look ahead far enough to see available space for checkRewindLinkLanes
+        if (!setRequest || ((v <= 0 || seen > dist) && hadNonInternal && seenNonInternal > vehicleLength * CRLL_LOOK_AHEAD)) {
             break;
         }
         // get the following lane
