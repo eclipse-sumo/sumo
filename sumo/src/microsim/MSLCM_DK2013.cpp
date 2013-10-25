@@ -158,7 +158,7 @@ MSLCM_DK2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
     }
 
     // just to make sure to be notified about lane chaning end
-    if (myVehicle.getLane()->getEdge().getLanes().size() == 1) {
+    if (myVehicle.getLane()->getEdge().getLanes().size() == 1 || myVehicle.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         // remove chaning information if on a road with a single lane
         changed();
         return wanted;

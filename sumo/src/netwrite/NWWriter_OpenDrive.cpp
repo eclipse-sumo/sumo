@@ -147,7 +147,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 } catch (InvalidArgument&) {
                     // we do not write anything, maybe we should
                 }
-                device << "    <road name=\"" << c.id << "\" length=\"" << shape.length() << "\" id=\"" << getID(c.id, edgeMap, edgeID) << "\" junction=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
+                device << "    <road name=\"" << c.getInternalLaneID() << "\" length=\"" << shape.length() << "\" id=\"" << getID(c.getInternalLaneID(), edgeMap, edgeID) << "\" junction=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
                 device << "        <link>\n";
                 device << "            <predecessor elementType=\"road\" elementId=\"" << getID((*j)->getID(), edgeMap, edgeID) << "\"/>\n";
                 device << "            <successor elementType=\"road\" elementId=\"" << getID((*k).toEdge->getID(), edgeMap, edgeID) << "\"/>\n";
@@ -191,7 +191,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     continue;
                 }
                 device << "    <connection id=\"" << index << "\" incomingRoad=\"" << getID((*j)->getID(), edgeMap, edgeID)
-                       << "\" connectingRoad=\"" << getID((*k).id, edgeMap, edgeID) << "\" contactPoint=\"start\"/>\n";
+                       << "\" connectingRoad=\"" << getID((*k).getInternalLaneID(), edgeMap, edgeID) << "\" contactPoint=\"start\"/>\n";
                 ++index;
             }
         }

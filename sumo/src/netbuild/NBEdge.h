@@ -183,8 +183,13 @@ public:
         SUMOReal viaVmax;
         PositionVector viaShape;
 
-        std::string foeInternalLanes;
+        std::vector<unsigned int> foeInternalLinks;
         std::string foeIncomingLanes;
+
+        /// @brief The lane index of this internal lane within the internal edge
+        unsigned int internalLaneIndex;
+
+        std::string getInternalLaneID() const;
 
     };
 
@@ -1001,7 +1006,13 @@ public:
         myStep = LANES2LANES_USER;
     }
 
-    void buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsigned int& lno, unsigned int& splitNo);
+    /* @brief fill connection attributes shape, viaShape, ...
+     *
+     * @param[in,out] edgeIndex The number of connections already handled
+     * @param[in,out] splitIndex The number of via edges already built
+     * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
+     */
+    void buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsigned int& linkIndex, unsigned int& splitIndex);
 
     inline const std::vector<NBSign>& getSigns() const {
         return mySigns;
