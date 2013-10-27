@@ -1,0 +1,8 @@
+# Testing reroutes with cyclic route
+plain
+
+# reroutes with stops defined in vehicle
+stops_in_veh
+
+# reroutes with stops defined in route
+stops_in_route
