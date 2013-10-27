@@ -21,7 +21,9 @@ import traci.constants as tc
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:      traci.Storage.readStringList,
                      tc.ID_COUNT:      traci.Storage.readInt,
-                     tc.VAR_POSITION: lambda result: result.read("!dd")}
+                     tc.VAR_POSITION:  lambda result: result.read("!dd"),
+					 tc.VAR_SHAPE:     traci.Storage.readShape}
+					 
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, junctionID):
@@ -48,6 +50,13 @@ def getPosition(junctionID):
     Returns the coordinates of the center of the junction.
     """
     return _getUniversal(tc.VAR_POSITION, junctionID)
+
+def getShape(junctionID):
+    """getShape(string) -> list((double, double))
+    
+    List of 2D positions (cartesian) describing the geometry.
+    """
+    return _getUniversal(tc.VAR_SHAPE, junctionID)
 
 
 def subscribe(junctionID, varIDs=(tc.VAR_POSITION,), begin=0, end=2**31-1):
