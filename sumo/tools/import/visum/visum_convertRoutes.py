@@ -24,38 +24,42 @@ from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 import sumolib
 
+class Statistics:
+    found = 0
+    foundN = 0
+    missing = 0
+    missingN = 0
 
-found = 0
-foundN = 0
-missing = 0
-missingN = 0
-route = ""
+stats = Statistics()
 routes = []
-no = 0
-id = ""
-route = ""
 
-def addRouteChecking(ok):
-    global found
-    global foundN
-    global missing
-    global missingN
-    global routes
-    global route
-    global id
-    global no
+def addRouteChecking(route, id, count, ok):
     route = route.strip()
-    if route!="":
-        # append already built route
+    if route != "":
         if ok:
-            routes.append((id, no, route))
-            found = found + 1
-            foundN = foundN + no
+            if options.distribution and routes:
+                distID = routes[0][0][:routes[0][0].rfind("_")]
+                if distID != id[:id.rfind("_")]:
+                    fdo.write('    <routeDistribution id="%s">\n' % distID)
+                    for r in routes:
+                        if net2:
+                            trace = []
+                            for e in route.split():
+                                edge = net.getEdge(e)
+                                numSteps = int(edge.getLength() / options.step)
+                                for p in range(numSteps):
+                                    trace.append(sumolib.geomhelper.positionAtShapeOffset(edge.getShape(), p * options.step))
+                            path = sumolib.route.mapTrace(trace, net2, options.delta)
+                            r = (r[0], r[1], " ".join(path))
+                        fdo.write('        <route id="%s" probability="%s" edges="%s"/>\n' % r)
+                    fdo.write('    </routeDistribution>\n')
+                    del routes[:]
+            routes.append((id, count, route))
+            stats.found += 1
+            stats.foundN += count
         else:
-            missing = missing + 1
-            missingN = missingN + no
-        route = ""
-
+            stats.missing += 1
+            stats.missingN += count
 
 def sorter(idx):
     def t(i, j):
@@ -88,10 +92,18 @@ optParser.add_option("-u", "--uniform", dest="uniform",
                      help="Whether departures shall be distributed uniform in each interval", action="store_true", default=False)
 optParser.add_option("-l", "--timeline", dest="timeline",
                      help="Percentages over a day", type="string")
-optParser.add_option("-s", "--tabs", action="store_true",
+optParser.add_option("-a", "--tabs", action="store_true",
                      default=False, help="tab separated route file")
 optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
+optParser.add_option("-2", "--net2",
+                     help="immediately match routes to a second network", metavar="FILE")
+optParser.add_option("-s", "--step", default="10",
+                     type="float", help="distance between successive trace points")
+optParser.add_option("-d", "--delta", default="1",
+                     type="float", help="maximum distance between edge and trace points when matching to the second net")
+optParser.add_option("-i", "--distribution", action="store_true",
+                     default=False, help="write route distributions only")
 
 optParser.set_usage('\nvisum_convertRoutes.py -n visum.net.xml -r visum_routes.att -o visum.rou.xml')
 # parse options
@@ -104,6 +116,11 @@ if not options.netfile or not options.routes or not options.output:
 if options.verbose:
     print "Reading net..."
 net = sumolib.net.readNet(options.netfile)
+net2 = None
+if options.net2:
+    net.move(-net.getLocationOffset()[0], -net.getLocationOffset()[1])
+    net2 = sumolib.net.readNet(options.net2)
+    net2.move(-net2.getLocationOffset()[0], -net2.getLocationOffset()[1])
 
 # initialise nodes/edge map
 emap = {}
@@ -119,23 +136,26 @@ if options.verbose:
 separator = "\t" if options.tabs else ";"
 parse = False
 ok = True
+route = ""
+id = ""
+count = 0
 fd = open(options.routes)
+fdo = open(options.output, "w")
+fdo.write("<routes>\n")
 for line in fd:
     if line.find("$")==0 or line.find("*")==0 or line.find(separator)<0:
         parse = False
-        addRouteChecking(ok);
-
+        addRouteChecking(route, id, count, ok);
     if parse:
         values = line.strip('\n\r').split(separator)
-#        print line, len(values), len(attributes)
         amap = {}
         for i in range(0, len(attributes)):
             amap[attributes[i]] = values[i]
         if amap["origzoneno"] != "":
             # route begin (not the route)
-            addRouteChecking(ok);
+            addRouteChecking(route, id, count, ok);
             id = amap["origzoneno"] + "_" + amap["destzoneno"] + "_" + amap["pathindex"]
-            no = float(amap["prtpath\\vol(ap)"])
+            count = float(amap["prtpath\\vol(ap)"])
             route = " "
             ok = True
         else:
@@ -181,12 +201,23 @@ for line in fd:
                 attributes[i] = "linkno"
         parse = True
 
-addRouteChecking(ok);
+addRouteChecking(route, id, count, ok);
 fd.close()
 
 if options.verbose:
     print " %s routes found (%s vehs)" % (found, foundN)
     print " %s routes missing (%s vehs)" % (missing, missingN)
+
+if options.distribution:
+    if routes:
+        distID = routes[0][0][:routes[0][0].rfind("_")]
+        fdo.write('    <routeDistribution id="%s">\n' % distID)
+        for r in routes:
+            fdo.write('        <route id="%s" probability="%s" edges="%s"/>\n' % r)
+        fdo.write('    </routeDistribution>\n')
+    fdo.write("</routes>\n")    
+    fdo.close()
+    exit()
 
 timeline = None
 # apply timeline
@@ -248,8 +279,6 @@ emissions.sort(sorter(0))
 
 # save emissions
 print "Writing routes..."
-fdo = open(options.output, "w")
-fdo.write("<routes>\n")
 for emission in emissions:
     fdo.write('    <vehicle id="')
     if options.prefix:
