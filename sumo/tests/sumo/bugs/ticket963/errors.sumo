@@ -8,5 +8,3 @@ Warning: Vehicle 's3_car_0' ends teleporting on edge 'gneE1', simulation time 31
 Warning: Vehicle 'n3_car_trailer_0' ends teleporting on edge 'gneE3', simulation time 313.00.
 Warning: Teleporting vehicle 'n3_car_1'; waited too long, lane='gneE4_3', time=320.00.
 Warning: Vehicle 'n3_car_1' ends teleporting on edge 'gneE3', simulation time 320.00.
-Warning: Teleporting vehicle 'n1_car_9'; waited too long, lane='gneE4_1', time=371.00.
-Warning: Vehicle 'n1_car_9' ends teleporting on end edge 'gneE7'.

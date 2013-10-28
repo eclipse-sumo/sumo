@@ -962,8 +962,9 @@ MSVehicle::executeMove() {
         int bla = 0;
     }
 #endif
-    // get vsafe
-    SUMOReal vSafe = 0;
+    // get safe velocities from DriveProcessItems
+    SUMOReal vSafe = 0; // maximum safe velocity
+    SUMOReal vSafeMin = 0; // minimum safe velocity
     myHaveToWaitOnNextLink = false;
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
@@ -996,15 +997,24 @@ MSVehicle::executeMove() {
             const bool opened = yellow || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
                                 getVehicleType().getLengthWithGap(), getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime());
             // vehicles should decelerate when approaching a minor link
-            // XXX check if this is still necessary
-            if (opened && !lastWasGreenCont && !link->havePriority() && (*i).myDistance > getCarFollowModel().getMaxDecel()) {
-                vSafe = (*i).myVLinkWait;
-                braking = true;
-                lastWasGreenCont = false;
-                if (ls == LINKSTATE_EQUAL) {
-                    link->removeApproaching(this);
+            if (opened && !lastWasGreenCont && !link->havePriority()) {
+                if ((*i).myDistance > getCarFollowModel().getMaxDecel()) {
+                    vSafe = (*i).myVLinkWait;
+                    braking = true;
+                    lastWasGreenCont = false;
+                    if (ls == LINKSTATE_EQUAL) {
+                        link->removeApproaching(this);
+                    }
+                    break; // could be revalidated
+                } else {
+                    // past the point of no return. we need to drive fast enough
+                    // to make it accross the junction. However, minor slowdowns
+                    // should be permissible to follow leading traffic safely
+                    // There is a problem in subsecond simulation: If we cannot
+                    // make it across the minor link in one step, new traffic
+                    // could appear on a major foe link and cause a collision
+                    vSafeMin = MIN2(DIST2SPEED(myLane->getLength() - getPositionOnLane() + POSITION_EPS), (*i).myVLinkPass);
                 }
-                break; // could be revalidated
             }
             // have waited; may pass if opened...
             if (opened) {
@@ -1025,11 +1035,18 @@ MSVehicle::executeMove() {
             break;
         }
     }
+    if (vSafe + NUMERICAL_EPS < vSafeMin) {
+        // cannot drive safely, so we need to stop
+        vSafe = 0;
+        vSafeMin = 0;
+        braking = true;
+    }
     if (braking) {
         myHaveToWaitOnNextLink = true;
     }
 
-    SUMOReal vNext = getCarFollowModel().moveHelper(this, vSafe);
+    // apply speed reduction due to dawdling / lane changing but ensure minimum save speed
+    SUMOReal vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
     //if (vNext > vSafe) {
     //    WRITE_WARNING("vehicle '" + getID() + "' cannot brake hard enough to reach safe speed "
     //            + toString(vSafe) + ", moving at " + toString(vNext) + " instead. time="
