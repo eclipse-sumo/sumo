@@ -67,6 +67,7 @@ def main(args=None):
     tlspY.append(y) 
   
   fig, ax = helpers.openFigure(options)
+  ax.set_aspect("equal", None, 'C')
   helpers.plotNet(net, {}, {}, options)
   plt.plot(tlspX, tlspY, options.color, linestyle='.', marker='o', markersize=options.width)
   options.nolegend = True

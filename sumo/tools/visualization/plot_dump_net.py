@@ -125,6 +125,7 @@ def main(args=None):
     if options.verbose: print "Width values are between %s and %s" % (minWidthValue, maxWidthValue)
   
     fig, ax = helpers.openFigure(options)
+    ax.set_aspect("equal", None, 'C')
     helpers.plotNet(net, colors, widths, options)
     
     # drawing the legend, at least for the colors
