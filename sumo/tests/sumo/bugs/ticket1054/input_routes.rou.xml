@@ -1,0 +1,8 @@
+<routes>
+    <route id="major" edges="beg_tls middle end"/>
+    <route id="minor" edges="beg_minor end"/>
+    <vType id="highAccel" accel="6" minGap="0" sigma="0"/>
+
+    <vehicle id="major" route="major" type="highAccel" depart="0" departPos="95"/>
+    <vehicle id="minor" route="minor" depart="0" departPos="86"/>
+</routes>
