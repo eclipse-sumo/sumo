@@ -74,7 +74,7 @@ matchedEdges2 = set()
 for e1 in net1.getEdges():
     from1 = e1.getFromNode().getCoord()
     to1 = e1.getToNode().getCoord()
-    for e2 in net2.getNeighboringEdges(from1[0], from1[1], options.delta):
+    for e2, d in net2.getNeighboringEdges(from1[0], from1[1], options.delta):
         if distance(from1, e2.getFromNode().getCoord()) < options.delta \
             and distance(to1, e2.getToNode().getCoord()) < options.delta \
             and e2 not in matchedEdges2:

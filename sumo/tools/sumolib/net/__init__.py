@@ -185,12 +185,14 @@ class Net:
             if self._rtree == None:
                 self._initRTree(includeJunctions)
             for e in self._rtree.intersection((x - r, y - r, x + r, y + r)):
-                if sumolib.geomhelper.distancePointToPolygon((x,y), self._edges[e].getShape(includeJunctions)) < r:
-                    edges.append(self._edges[e])
+                d = sumolib.geomhelper.distancePointToPolygon((x,y), self._edges[e].getShape(includeJunctions))
+                if d < r:
+                    edges.append((self._edges[e], d))
         except ImportError:
             for edge in self._edges:
-                if sumolib.geomhelper.distancePointToPolygon((x,y), edge.getShape(includeJunctions)) < r:
-                    edges.append(edge)
+                d = sumolib.geomhelper.distancePointToPolygon((x,y), edge.getShape(includeJunctions))
+                if d < r:
+                    edges.append((edge,d))
         return edges
 
     def hasNode(self, id):

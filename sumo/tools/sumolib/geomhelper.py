@@ -32,14 +32,14 @@ def lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicu
     p1 = line_start
     p2 = line_end
     l = distance(p1, p2)
-    u = (((p[0] - p1[0]) * (p2[0] - p1[0])) + ((p[1] - p1[1]) * (p2[1] - p1[1]))) / (l * l)
-    if u < 0.0 or u > 1:
+    u = ((p[0] - p1[0]) * (p2[0] - p1[0])) + ((p[1] - p1[1]) * (p2[1] - p1[1]))
+    if l == 0 or u < 0.0 or u > l * l:
         if perpendicular:
             return INVALID_DISTANCE
         if u < 0:
             return 0
         return l
-    return u * l
+    return u / l
 
 
 def polygonOffsetWithMinimumDistanceToPoint(point, polygon, perpendicular=False):
@@ -65,6 +65,8 @@ def distancePointToLine(point, line_start, line_end, perpendicular=False):
     offset = lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicular)
     if offset == INVALID_DISTANCE: 
         return INVALID_DISTANCE
+    if offset == 0:
+        return distance(point, p1)
     u = offset / distance(line_start, line_end)
     intersection = (p1[0] + u*(p2[0]-p1[0]), p1[1] + u*(p2[1]-p1[1]))
     return distance(point, intersection)

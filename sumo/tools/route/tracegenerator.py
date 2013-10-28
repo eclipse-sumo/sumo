@@ -23,7 +23,6 @@ from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import sumolib
-import tracemapper
 
 def generateTrace(route, step):
     trace = []
@@ -73,7 +72,7 @@ if __name__ == "__main__":
         edges = [net.getEdge(e) for e in route.edges.split()]
         trace = generateTrace(edges, options.step)
         if net2:
-            path = tracemapper.mapTrace(trace, net2, options.delta)
+            path = sumolib.route.mapTrace(trace, net2, options.delta)
             if not path or path == ["*"]:
                 print("No match for", route.id)
             print(route.id, path, file=f)

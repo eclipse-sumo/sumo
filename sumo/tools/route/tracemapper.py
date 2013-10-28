@@ -24,49 +24,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import sumolib
 
-def getMinPath(paths):
-    minDist = 1e400
-    minPath = None
-    for path, dist in paths.iteritems():
-        if dist < minDist:
-            minPath = path
-            minDist = dist
-    return minPath
-
-def mapTrace(trace, net, delta):
-    result = []
-    paths = {}
-    for pos in trace:
-        newPaths = {}
-        for edge in net.getNeighboringEdges(pos[0], pos[1], delta):
-            d = sumolib.geomhelper.distancePointToPolygon(pos, edge.getShape())
-            if d < delta:
-                if paths:
-                    minDist = 1e400
-                    minPath = None
-                    for path, dist in paths.iteritems():
-                        if dist < minDist:
-                            if edge == path[-1]:
-                                minPath = path
-                                minDist = dist
-                            elif edge in path[-1].getOutgoing():
-                                minPath = path + (edge,)
-                                minDist = dist
-                    if minPath:
-                        newPaths[minPath] = minDist + d
-                else:
-                    newPaths[(edge,)] = d
-        if not newPaths:
-            if paths:
-                result += [e.getID() for e in getMinPath(paths)]
-                result.append("*")
-            if not result:
-                result.append("*")
-        paths = newPaths
-    if paths:
-        return result + [e.getID() for e in getMinPath(paths)]
-    return result
-
 if __name__ == "__main__":
     optParser = OptionParser()
     optParser.add_option("-v", "--verbose", action="store_true",
@@ -97,5 +54,5 @@ if __name__ == "__main__":
         for line in traces:
             id, traceString = line.split(":")
             trace = [map(float, pos.split(",")) for pos in traceString.split()]
-            print(mapTrace(trace, net, options.delta), file=f)
+            print(sumolib.route.mapTrace(trace, net, options.delta), file=f)
     f.close()

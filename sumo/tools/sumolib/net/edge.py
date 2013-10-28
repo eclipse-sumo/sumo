@@ -75,8 +75,13 @@ class Edge:
         if not self._shape:
             return [self._from._coord, self._to._coord]
         if includeJunctions:
-            if self._from._coord != self._shape[0] or self._to._coord != self._shape[-1]:
-                return [self._from._coord] + self._shape + [self._to._coord]
+            if self._from._coord != self._shape[0]:
+                s = [self._from._coord] + self._shape
+            else:
+                s = list(self._shape)
+            if self._to._coord != self._shape[-1]:
+                s += [self._to._coord]
+            return s
         return self._shape
 
     def getBoundingBox(self, includeJunctions=True):
