@@ -34,6 +34,7 @@ class Edge:
         self._incoming = {}
         self._outgoing = {}
         self._shape = None
+        self._cachedShapeWithJunctions = None
         self._function = function
         self._tls = None
         self._name = name
@@ -61,6 +62,7 @@ class Edge:
 
     def setShape(self, shape):
         self._shape = shape
+        self._cachedShapeWithJunctions = None
 
     def getID(self):
         return self._id
@@ -73,15 +75,18 @@ class Edge:
 
     def getShape(self, includeJunctions=False):
         if not self._shape:
-            return [self._from._coord, self._to._coord]
+            if self._cachedShapeWithJunctions == None:
+                self._cachedShapeWithJunctions = [self._from._coord, self._to._coord]
+            return self._cachedShapeWithJunctions
         if includeJunctions:
-            if self._from._coord != self._shape[0]:
-                s = [self._from._coord] + self._shape
-            else:
-                s = list(self._shape)
-            if self._to._coord != self._shape[-1]:
-                s += [self._to._coord]
-            return s
+            if self._cachedShapeWithJunctions == None:
+                if self._from._coord != self._shape[0]:
+                    self._cachedShapeWithJunctions = [self._from._coord] + self._shape
+                else:
+                    self._cachedShapeWithJunctions = list(self._shape)
+                if self._to._coord != self._shape[-1]:
+                    self._cachedShapeWithJunctions += [self._to._coord]
+            return self._cachedShapeWithJunctions
         return self._shape
 
     def getBoundingBox(self, includeJunctions=True):
@@ -139,7 +144,7 @@ class Edge:
 
     def getToNode(self):
         return self._to
-         
+
     def is_fringe(self):
         return len(self.getIncoming()) == 0 or len(self.getOutgoing()) == 0
 
