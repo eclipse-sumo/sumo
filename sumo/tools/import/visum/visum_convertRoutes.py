@@ -49,8 +49,10 @@ def addRouteChecking(route, id, count, ok):
                     if sum < options.cutoff:
                         del routes[:]
                         routes.append((r_max[0], sum, r_max[2]))
-                            
-                    fdo.write('    <routeDistribution id="%s">\n' % distID)
+                    if len(routes) > 1:
+                        fdo.write('    <routeDistribution id="%s">\n' % distID)
+                    else:
+                        routes[0] = (distID, routes[0][1], routes[0][2])
                     for r in routes:
                         if net2:
                             trace = []
@@ -62,7 +64,8 @@ def addRouteChecking(route, id, count, ok):
                             path = sumolib.route.mapTrace(trace, net2, options.delta)
                             r = (r[0], r[1], " ".join(path))
                         fdo.write('        <route id="%s" probability="%s" edges="%s"/>\n' % r)
-                    fdo.write('    </routeDistribution>\n')
+                    if len(routes) > 1:
+                        fdo.write('    </routeDistribution>\n')
                     del routes[:]
             routes.append((id, count, route))
             stats.found += 1
@@ -156,7 +159,7 @@ fdo = open(options.output, "w")
 fdo.write("<routes>\n")
 for idx, line in enumerate(fd):
     if options.verbose and idx % 10000 == 0:
-        sys.stdout.write("%s lines read\r" % idx)
+        sys.stdout.write("%s lines read\r" % "{:,}".format(idx))
     if line.find("$")==0 or line.find("*")==0 or line.find(separator)<0:
         parse = False
         addRouteChecking(route, id, count, ok);
