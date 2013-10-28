@@ -1022,7 +1022,11 @@ protected:
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed),
             myArrivalTimeBraking(arrivalTimeBraking), myArrivalSpeedBraking(arrivalSpeedBraking),
             myDistance(distance),
-            accelV(leaveSpeed), hadVehicle(false), availableSpace(-1.) { };
+            accelV(leaveSpeed), hadVehicle(false), availableSpace(-1.) 
+        { 
+            assert(vWait >= 0);
+            assert(vPass >= 0);
+        };
 
         /// @brief constructor if the link shall not be passed
         DriveProcessItem(SUMOReal vWait, SUMOReal distance) :
@@ -1030,7 +1034,10 @@ protected:
             myArrivalTime(0), myArrivalSpeed(0),
             myArrivalTimeBraking(0), myArrivalSpeedBraking(0),
             myDistance(distance),
-            accelV(-1), hadVehicle(false), availableSpace(-1.) { };
+            accelV(-1), hadVehicle(false), availableSpace(-1.) 
+        {
+            assert(vWait >= 0);
+        };
 
 
         inline void adaptLeaveSpeed(const SUMOReal v) {
