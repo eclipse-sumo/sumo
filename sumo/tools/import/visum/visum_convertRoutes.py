@@ -18,7 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-
+from __future__ import print_function
 import os, string, sys, random
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -40,6 +40,16 @@ def addRouteChecking(route, id, count, ok):
             if options.distribution and routes:
                 distID = routes[0][0][:routes[0][0].rfind("_")]
                 if distID != id[:id.rfind("_")]:
+                    sum = 0 
+                    r_max = (None, 0, None)    
+                    for r in routes:
+                        sum += r[1]
+                        if r_max[1] < r[1]: 
+                            r_max = r
+                    if sum < options.cutoff:
+                        del routes[:]
+                        routes.append((r_max[0], sum, r_max[2]))
+                            
                     fdo.write('    <routeDistribution id="%s">\n' % distID)
                     for r in routes:
                         if net2:
@@ -78,19 +88,19 @@ optParser.add_option("-n", "--net-file", dest="netfile",
                      help="SUMO net file to work with", type="string")
 optParser.add_option("-r", "--visum-routes", dest="routes",
                      help="The VISUM-routes files to parse", type="string")
-optParser.add_option("-o", "--output", dest="output",
+optParser.add_option("-o", "--output",
                      help="Name of the file to write", type="string")
-optParser.add_option("-b", "--begin", dest="begin",
+optParser.add_option("-b", "--begin",
                      help="The begin time of the routes to generate", type="int", default=0)
-optParser.add_option("-e", "--end", dest="end",
+optParser.add_option("-e", "--end",
                      help="The end time (+1) of the routes to generate", type="int", default=3600)
-optParser.add_option("-p", "--prefix", dest="prefix",
+optParser.add_option("-p", "--prefix",
                      help="ID prefix to use", type="string")
-optParser.add_option("-t", "--type", dest="type",
+optParser.add_option("-t", "--type",
                      help="The type to use for vehicles", type="string")
-optParser.add_option("-u", "--uniform", dest="uniform",
+optParser.add_option("-u", "--uniform",
                      help="Whether departures shall be distributed uniform in each interval", action="store_true", default=False)
-optParser.add_option("-l", "--timeline", dest="timeline",
+optParser.add_option("-l", "--timeline",
                      help="Percentages over a day", type="string")
 optParser.add_option("-a", "--tabs", action="store_true",
                      default=False, help="tab separated route file")
@@ -104,17 +114,19 @@ optParser.add_option("-d", "--delta", default="1",
                      type="float", help="maximum distance between edge and trace points when matching to the second net")
 optParser.add_option("-i", "--distribution", action="store_true",
                      default=False, help="write route distributions only")
+optParser.add_option("-c", "--cutoff",
+                     help="Keep only one route when less than CUTOFF vehicles drive the OD", type="int", default=0)
 
 optParser.set_usage('\nvisum_convertRoutes.py -n visum.net.xml -r visum_routes.att -o visum.rou.xml')
 # parse options
 (options, args) = optParser.parse_args()
 if not options.netfile or not options.routes or not options.output:
-    print "Missing arguments"
+    print("Missing arguments")
     optParser.print_help()
     exit()
 
 if options.verbose:
-    print "Reading net..."
+    print("Reading net...")
 net = sumolib.net.readNet(options.netfile)
 net2 = None
 if options.net2:
@@ -132,7 +144,7 @@ for e in net._edges:
 
 # fill with read values
 if options.verbose:
-    print "Reading routes..."
+    print("Reading routes...")
 separator = "\t" if options.tabs else ";"
 parse = False
 ok = True
@@ -142,7 +154,9 @@ count = 0
 fd = open(options.routes)
 fdo = open(options.output, "w")
 fdo.write("<routes>\n")
-for line in fd:
+for idx, line in enumerate(fd):
+    if options.verbose and idx % 10000 == 0:
+        sys.stdout.write("%s lines read\r" % idx)
     if line.find("$")==0 or line.find("*")==0 or line.find(separator)<0:
         parse = False
         addRouteChecking(route, id, count, ok);
@@ -166,18 +180,18 @@ for line in fd:
             link = amap["linkno"]
             if fromnode not in emap:
                 if no!=0:
-                    print "Missing from-node '" + fromnode + "'; skipping"
+                    print("Missing from-node '" + fromnode + "'; skipping")
                 ok = False
                 continue
             if tonode not in emap[fromnode]:
                 if no!=0:
-                    print "No connection between from-node '" + fromnode + "' and to-node '" + tonode + "'; skipping"
+                    print("No connection between from-node '" + fromnode + "' and to-node '" + tonode + "'; skipping")
                 ok = False
                 continue
             edge = emap[fromnode][tonode]
             if link!=edge and link!=edge[1:]:
                 if no!=0:
-                    print "Mismatching edge '" + link + "' (from '" + fromnode + "', to '" + tonode + "'); skipping"
+                    print("Mismatching edge '" + link + "' (from '" + fromnode + "', to '" + tonode + "'); skipping")
                 ok = False
                 continue
             route = route + edge + " "
@@ -205,8 +219,8 @@ addRouteChecking(route, id, count, ok);
 fd.close()
 
 if options.verbose:
-    print " %s routes found (%s vehs)" % (found, foundN)
-    print " %s routes missing (%s vehs)" % (missing, missingN)
+    print(" %s routes found (%s vehs)" % (found, foundN))
+    print(" %s routes missing (%s vehs)" % (missing, missingN))
 
 if options.distribution:
     if routes:
@@ -229,14 +243,14 @@ if options.timeline:
     for v in vals:
         timeline.append(float(v))
         sum += float(v)
-    print sum
     if len(timeline)!=24:
-        print "The timeline must have 24 entries"
+        print("The timeline must have 24 entries")
         sys.exit()
     nRoutes = []
 
 # convert to vehicles
-print "Generating vehicles..."
+if options.verbose:
+    print("Generating vehicles...")
 emissions = []
 begin = options.begin
 end = options.end
@@ -270,15 +284,18 @@ else:
                 j = j + 1
             nNo += no
             tbeg += 3600
-    print " " + str(nNo) + " vehicles after applying timeline"
+    if options.verbose:
+        print(" %s vehicles after applying timeline" % nNo)
 
 
 # sort emissions
-print "Sorting routes..."
+if options.verbose:
+    print("Sorting routes...")
 emissions.sort(sorter(0))
 
 # save emissions
-print "Writing routes..."
+if options.verbose:
+    print("Writing routes...")
 for emission in emissions:
     fdo.write('    <vehicle id="')
     if options.prefix:
@@ -289,5 +306,5 @@ for emission in emissions:
     fdo.write('><route edges="' + emission[2] + '"/></vehicle>\n')
 fdo.write("</routes>\n")    
 fdo.close()
-print " " + str(len(emissions)) + " vehicles written"
-
+if options.verbose:
+    print(" %s vehicles written" % len(emissions))
