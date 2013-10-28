@@ -6,7 +6,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Fri, 08.10.2013
-/// @version $Id: MSLCM_DK2013.cpp 14890 2013-10-21 12:16:27Z namdre $
+/// @version $Id$
 ///
 // A lane change model developed by D. Krajzewicz et al. between 2004 and 2013
 /****************************************************************************/
