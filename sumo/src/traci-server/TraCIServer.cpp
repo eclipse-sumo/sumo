@@ -384,6 +384,9 @@ TraCIServer::runEmbedded(std::string pyFile) {
         PyList_Insert(sys_path, 0, path);
         Py_DECREF(path);
         FILE* pFile = fopen(pyFile.c_str(), "r");
+        if (pFile == NULL) {
+            throw ProcessError("Failed to load \"" + pyFile + "\"!");
+        }
         PyRun_SimpleFile(pFile, pyFile.c_str());
         fclose(pFile);
     } else {

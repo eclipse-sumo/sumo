@@ -449,7 +449,7 @@ MSLCM_JE2013::_wantsChange(
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
-    const int myLcaCounter = (right ? LCA_MLEFT : LCA_MRIGHT);
+    //const int myLcaCounter = (right ? LCA_MLEFT : LCA_MRIGHT);
     const bool changeToBest = (right && bestLaneOffset < 0) || (!right && bestLaneOffset > 0);
     // keep information about being a leader/follower
     int ret = (myOwnState & 0x00ffff00);
@@ -514,7 +514,7 @@ MSLCM_JE2013::_wantsChange(
     // this rule forces our vehicle to change the lane if a lane changing is necessary soon
     // lookAheadDistance:
     //const SUMOReal laSpeed = myVehicle.getSpeed();
-    const SUMOReal laSpeed = MAX2(myVehicle.getSpeed(), LOOK_AHEAD_MIN_SPEED); // VARIANT_12 (laMinSpeed)
+    const SUMOReal laSpeed = MAX2(myVehicle.getSpeed(), (SUMOReal) LOOK_AHEAD_MIN_SPEED); // VARIANT_12 (laMinSpeed)
     SUMOReal laDist = laSpeed > LOOK_FORWARD_SPEED_DIVIDER
                   ? laSpeed * (SUMOReal) LOOK_FORWARD_FAR
                   : laSpeed * (SUMOReal) LOOK_FORWARD_NEAR;
