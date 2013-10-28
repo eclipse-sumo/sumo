@@ -26,6 +26,8 @@ import math
 from xml.sax import saxutils, parse, handler
 from copy import copy
 from itertools import *
+
+import sumolib
 from . import lane, edge, node, connection, roundabout
 from .lane import Lane
 from .edge import Edge
@@ -178,11 +180,17 @@ class Net:
             self._rtree.add(ri, edge.getBoundingBox(includeJunctions))
 
     def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True):
-        if self._rtree == None:
-            self._initRTree()
         edges = []
-        for e in self._rtree.intersection((x - r, y - r, x + r, y + r)):
-            edges.append(self._edges[e])
+        try:
+            if self._rtree == None:
+                self._initRTree(includeJunctions)
+            for e in self._rtree.intersection((x - r, y - r, x + r, y + r)):
+                if sumolib.geomhelper.distancePointToPolygon((x,y), self._edges[e].getShape(includeJunctions)) < r:
+                    edges.append(self._edges[e])
+        except ImportError:
+            for edge in self._edges:
+                if sumolib.geomhelper.distancePointToPolygon((x,y), edge.getShape(includeJunctions)) < r:
+                    edges.append(edge)
         return edges
 
     def hasNode(self, id):

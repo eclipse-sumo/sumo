@@ -71,18 +71,16 @@ class Edge:
     def getOutgoing(self):
         return self._outgoing
 
-    def getShape(self):
+    def getShape(self, includeJunctions=False):
         if not self._shape:
-            shape = []
-            shape.append(self._from._coord)
-            shape.append(self._to._coord)
-            return shape
+            return [self._from._coord, self._to._coord]
+        if includeJunctions:
+            if self._from._coord != self._shape[0] or self._to._coord != self._shape[-1]:
+                return [self._from._coord] + self._shape + [self._to._coord]
         return self._shape
 
     def getBoundingBox(self, includeJunctions=True):
-        s = list(self.getShape())
-        if includeJunctions:
-            s += [self._from._coord, self._to._coord]
+        s = self.getShape(includeJunctions)
         xmin = s[0][0]
         xmax = s[0][0]
         ymin = s[0][1]
