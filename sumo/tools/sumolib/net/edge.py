@@ -29,7 +29,7 @@ class Edge:
         fromN.addOutgoing(self)
         toN.addIncoming(self)
         self._lanes = []
-        self._speed = None                                                          
+        self._speed = None
         self._length = None
         self._incoming = {}
         self._outgoing = {}

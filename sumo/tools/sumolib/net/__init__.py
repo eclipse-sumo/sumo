@@ -71,7 +71,7 @@ class TLS:
 
     def addProgram(self, program):
         self._programs[program._id] = program
-        
+
     def toXML(self):
         ret = ""
         for p in self._programs:
@@ -168,7 +168,7 @@ class Net:
 
     def hasEdge(self, id):
         return id in self._id2edge
-        
+
     def getEdge(self, id):
         return self._id2edge[id]
 
@@ -291,14 +291,13 @@ class Net:
 
     def move(self, dx, dy):
         for n in self._nodes:
-            n._coord[0] += dx
-            n._coord[1] += dy
+            n._coord = (n._coord[0] + dx, n._coord[1] + dy)
         for e in self._edges:
             for l in e._lanes:
                 l._shape = [(p[0] + dx, p[1] + dy) for p in l._shape]
             e.rebuildShape()
 
-    
+
 class NetReader(handler.ContentHandler):
     """Reads a network, storing the edge geometries, lane numbers and max. speeds"""
 
@@ -340,7 +339,7 @@ class NetReader(handler.ContentHandler):
                 self._currentShape = ""
         if name == 'junction':
             if attrs['id'][0]!=':':
-                self._currentNode = self._net.addNode(attrs['id'], attrs['type'], [ float(attrs['x']), float(attrs['y']) ], attrs['incLanes'].split(" ") )
+                self._currentNode = self._net.addNode(attrs['id'], attrs['type'], (float(attrs['x']), float(attrs['y'])), attrs['incLanes'].split(" ") )
         if name == 'succ' and self._withConnections: # deprecated
             if attrs['edge'][0]!=':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
