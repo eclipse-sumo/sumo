@@ -242,10 +242,9 @@ TraCIServer::vtdDebug() const {
 
 void
 TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to) {
-    if (myDoCloseConnection || OptionsCont::getOptions().getInt("remote-port") == 0) {
-        return;
+    if (!myDoCloseConnection) {
+        myVehicleStateChanges[to].push_back(vehicle->getID());
     }
-    myVehicleStateChanges[to].push_back(vehicle->getID());
 }
 
 
