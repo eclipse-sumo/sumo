@@ -71,26 +71,28 @@ public:
     /** @brief Called to examine whether the vehicle wants to change to right
         This method gets the information about the surrounding vehicles
         and whether another lane may be more preferable */
-    int wantsChangeToRight(
+    virtual int wantsChangeToRight(
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal>& leader,
         const std::pair<MSVehicle*, SUMOReal>& neighLead,
         const std::pair<MSVehicle*, SUMOReal>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
-        MSVehicle** lastBlocked);
+        MSVehicle** lastBlocked,
+        MSVehicle** firstBlocked);
 
     /** @brief Called to examine whether the vehicle wants to change to left
         This method gets the information about the surrounding vehicles
         and whether another lane may be more preferable */
-    int wantsChangeToLeft(
+    virtual int wantsChangeToLeft(
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal>& leader,
         const std::pair<MSVehicle*, SUMOReal>& neighLead,
         const std::pair<MSVehicle*, SUMOReal>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
-        MSVehicle** lastBlocked);
+        MSVehicle** lastBlocked,
+        MSVehicle** firstBlocked);
 
     void* inform(void* info, MSVehicle* sender);
 

@@ -86,7 +86,10 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
                                  const std::pair<MSVehicle*, SUMOReal>& neighFollow,
                                  const MSLane& neighLane,
                                  const std::vector<MSVehicle::LaneQ>& preb,
-                                 MSVehicle** lastBlocked) {
+                                 MSVehicle** lastBlocked,
+                                 MSVehicle** firstBlocked) 
+{
+    UNUSED_PARAMETER(firstBlocked);
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
         int bla = 0;
@@ -305,7 +308,10 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
                                 const std::pair<MSVehicle*, SUMOReal>& neighFollow,
                                 const MSLane& neighLane,
                                 const std::vector<MSVehicle::LaneQ>& preb,
-                                MSVehicle** lastBlocked) {
+                                MSVehicle** lastBlocked,
+                                MSVehicle** firstBlocked) 
+{
+    UNUSED_PARAMETER(firstBlocked);
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
         int bla = 0;

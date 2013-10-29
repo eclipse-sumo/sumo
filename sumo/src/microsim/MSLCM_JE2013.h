@@ -68,26 +68,28 @@ public:
     /** @brief Called to examine whether the vehicle wants to change to right
         This method gets the information about the surrounding vehicles
         and whether another lane may be more preferable */
-    int wantsChangeToRight(
+    virtual int wantsChangeToRight(
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal>& leader,
         const std::pair<MSVehicle*, SUMOReal>& neighLead,
         const std::pair<MSVehicle*, SUMOReal>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
-        MSVehicle** lastBlocked);
+        MSVehicle** lastBlocked,
+        MSVehicle** firstBlocked);
 
     /** @brief Called to examine whether the vehicle wants to change to left
         This method gets the information about the surrounding vehicles
         and whether another lane may be more preferable */
-    int wantsChangeToLeft(
+    virtual int wantsChangeToLeft(
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal>& leader,
         const std::pair<MSVehicle*, SUMOReal>& neighLead,
         const std::pair<MSVehicle*, SUMOReal>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
-        MSVehicle** lastBlocked);
+        MSVehicle** lastBlocked,
+        MSVehicle** firstBlocked);
 
     void* inform(void* info, MSVehicle* sender);
 
@@ -128,9 +130,10 @@ protected:
         const std::pair<MSVehicle*, SUMOReal>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
-        MSVehicle** lastBlocked);
+        MSVehicle** lastBlocked,
+        MSVehicle** firstBlocked);
 
-    // @brief helper function for doing the actual work
+    /// @brief helper function for doing the actual work
     int _wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
@@ -139,7 +142,8 @@ protected:
         const std::pair<MSVehicle*, SUMOReal>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
-        MSVehicle** lastBlocked);
+        MSVehicle** lastBlocked,
+        MSVehicle** firstBlocked);
 
 
 
@@ -148,6 +152,12 @@ protected:
                        int blocked, int dir,
                        const std::pair<MSVehicle*, SUMOReal>& neighLead,
                        const std::pair<MSVehicle*, SUMOReal>& neighFollow);
+
+    /// @brief compute useful slowdowns for blocked vehicles
+    int slowDownForBlocked(MSVehicle** blocked, int state);
+
+    /// @brief save space for vehicles which need to counter-lane-change
+    int saveBlockerLength(MSVehicle* blocker, int lcaCounter);
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;

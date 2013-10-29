@@ -89,8 +89,10 @@ MSLCM_DK2013::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
                                  const std::pair<MSVehicle*, SUMOReal>& neighFollow,
                                  const MSLane& neighLane,
                                  const std::vector<MSVehicle::LaneQ>& preb,
-                                 MSVehicle** lastBlocked) 
+                                 MSVehicle** lastBlocked,
+                                 MSVehicle** firstBlocked) 
 {
+    UNUSED_PARAMETER(firstBlocked);
     return wantsChange(-1, msgPass, blocked, leader, neighLead, neighFollow, neighLane, preb, lastBlocked);
 }
 
@@ -103,8 +105,10 @@ MSLCM_DK2013::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
                                 const std::pair<MSVehicle*, SUMOReal>& neighFollow,
                                 const MSLane& neighLane,
                                 const std::vector<MSVehicle::LaneQ>& preb,
-                                MSVehicle** lastBlocked) 
+                                MSVehicle** lastBlocked,
+                                MSVehicle** firstBlocked) 
 {
+    UNUSED_PARAMETER(firstBlocked);
     return wantsChange(1, msgPass, blocked, leader, neighLead, neighFollow, neighLane, preb, lastBlocked);
 }
 

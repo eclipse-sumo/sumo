@@ -80,6 +80,8 @@ public:
         MSVehicle*                hoppedVeh;
         /// the vehicle that really wants to change to this lane
         MSVehicle*                lastBlocked;
+        /// the first vehicle on this edge that wants to change to this lane
+        MSVehicle*                firstBlocked;
 
         SUMOReal dens;
 

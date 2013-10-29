@@ -72,6 +72,7 @@ MSLaneChanger::MSLaneChanger(std::vector<MSLane*>* lanes, bool allowSwap)
         ce.veh       = (*lane)->myVehicles.rbegin();
         ce.hoppedVeh = 0;
         ce.lastBlocked = 0;
+        ce.firstBlocked = 0;
         myChanger.push_back(ce);
     }
 }
@@ -103,6 +104,7 @@ MSLaneChanger::initChanger() {
         ce->lead = 0;
         ce->hoppedVeh = 0;
         ce->lastBlocked = 0;
+        ce->firstBlocked = 0;
         ce->dens = 0;
 
         MSLane::VehCont& vehicles = ce->lane->myVehicles;
@@ -176,6 +178,9 @@ MSLaneChanger::change() {
         }
         if ((state1 & LCA_RIGHT) != 0 && (state1 & LCA_URGENT) != 0) {
             (myCandi - 1)->lastBlocked = vehicle;
+            if ((myCandi - 1)->firstBlocked == 0) {
+                (myCandi - 1)->firstBlocked = vehicle;
+            }
         }
     }
 
@@ -202,6 +207,9 @@ MSLaneChanger::change() {
         }
         if ((state2 & LCA_LEFT) != 0 && (state2 & LCA_URGENT) != 0) {
             (myCandi + 1)->lastBlocked = vehicle;
+            if ((myCandi + 1)->firstBlocked == 0) {
+                (myCandi + 1)->firstBlocked = vehicle;
+            }
         }
     }
 
@@ -510,7 +518,7 @@ MSLaneChanger::change2right(const std::pair<MSVehicle* const, SUMOReal>& leader,
 
     MSAbstractLaneChangeModel::MSLCMessager msg(leader.first, rLead.first, rFollow.first);
     return blocked | veh(myCandi)->getLaneChangeModel().wantsChangeToRight(
-               msg, blocked, leader, rLead, rFollow, *(myCandi - 1)->lane, preb, &(myCandi->lastBlocked));
+               msg, blocked, leader, rLead, rFollow, *(myCandi - 1)->lane, preb, &(myCandi->lastBlocked), &(myCandi->firstBlocked));
 }
 
 
@@ -548,7 +556,7 @@ MSLaneChanger::change2left(const std::pair<MSVehicle* const, SUMOReal>& leader,
     }
     MSAbstractLaneChangeModel::MSLCMessager msg(leader.first, rLead.first, rFollow.first);
     return blocked | veh(myCandi)->getLaneChangeModel().wantsChangeToLeft(
-               msg, blocked, leader, rLead, rFollow, *(myCandi + 1)->lane, preb, &(myCandi->lastBlocked));
+               msg, blocked, leader, rLead, rFollow, *(myCandi + 1)->lane, preb, &(myCandi->lastBlocked), &(myCandi->firstBlocked));
 }
 
 
