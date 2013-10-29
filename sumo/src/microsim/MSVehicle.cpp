@@ -1013,7 +1013,7 @@ MSVehicle::executeMove() {
                     // There is a problem in subsecond simulation: If we cannot
                     // make it across the minor link in one step, new traffic
                     // could appear on a major foe link and cause a collision
-                    vSafeMin = MIN2(DIST2SPEED(myLane->getLength() - getPositionOnLane() + POSITION_EPS), (*i).myVLinkPass);
+                    vSafeMin = MIN2((SUMOReal) DIST2SPEED(myLane->getLength() - getPositionOnLane() + POSITION_EPS), (*i).myVLinkPass);
                 }
             }
             // have waited; may pass if opened...
