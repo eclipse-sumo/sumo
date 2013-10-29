@@ -1,2 +1,6 @@
 # vehicle A needs to leave the main road and vehicle B needs to merge onto the main road
 2veh_cross_paths
+
+# another case of counter-lane changing. In this case the blocked vehicle is obscured by follower who also want to counter-change. 
+# Due to different vehicle lengths a deadlock may occur.
+2veh_cross_paths2
