@@ -1,4 +1,4 @@
-<add>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <calibrator id="calibtest" lane="beg_0" pos="0" output="detector.xml">
         <route id="c1" edges="beg middle end rend"/>
         <!-- 10 vehs in 100s -->
@@ -22,4 +22,4 @@
     <edgeData id="expect10vehs"  begin="2000" end="2100" file="aggregated_25.xml"/>
     <edgeData id="expect31vehs"  begin="2200" end="2400" file="aggregated_25.xml"/>
     <edgeData id="expect100vehs" begin="2400" end="2700" file="aggregated_25.xml"/>
-</add>
+</additional>

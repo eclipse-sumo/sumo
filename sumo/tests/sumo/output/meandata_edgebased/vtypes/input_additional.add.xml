@@ -1,5 +1,5 @@
-<add>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
 	<edgeData id="dump_all_15" freq="15" file="aggregated_15.xml" excludeEmpty="true" vTypes="t1 t2"/>
 	<edgeData id="dump_t1_15" freq="15" file="aggregated_15.xml" excludeEmpty="true" vTypes="t1"/>
 	<edgeData id="dump_t2_15" freq="15" file="aggregated_15.xml" excludeEmpty="true" vTypes="t2"/>
-</add>
+</additional>

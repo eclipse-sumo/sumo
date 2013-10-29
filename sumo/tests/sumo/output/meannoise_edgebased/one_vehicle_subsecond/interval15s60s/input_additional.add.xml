@@ -1,6 +1,6 @@
-<add>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
 
 	<edgeData id="dump_15" type="harmonoise" freq="15" file="aggregated_15.xml" excludeEmpty="true"/>
 	<edgeData id="dump_60" type="harmonoise" freq="60" file="aggregated_60.xml" excludeEmpty="true"/>
 
-</add>
+</additional>

@@ -1,6 +1,6 @@
-<add>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
 
     <vaporizer id="middle" begin="0" end="86400"/>
     <edgeData id="dump25" begin="0" end="86400" file="aggregated_25.xml"/>
 
-</add>
+</additional>

@@ -1,4 +1,4 @@
-<add>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <route id="r1" edges="beg middle end rend"/>
     <calibrator id="swallow_jam" lane="middle_0" pos="0" output="detector.xml">
         <!-- 2500 vehs in 3600s -->
@@ -11,4 +11,4 @@
     </variableSpeedSign>
 
     <edgeData id="expect_2500_vehs"  begin="0"       end="3600"  file="aggregated_25.xml"/>
-</add>
+</additional>

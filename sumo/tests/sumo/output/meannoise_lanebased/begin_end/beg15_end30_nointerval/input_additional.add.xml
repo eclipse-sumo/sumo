@@ -1,5 +1,5 @@
-<add>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
 
 	<laneData id="dump_15" type="harmonoise" file="aggregated_15.xml" excludeEmpty="true" begin="15" end="30"/>
 
-</add>
+</additional>

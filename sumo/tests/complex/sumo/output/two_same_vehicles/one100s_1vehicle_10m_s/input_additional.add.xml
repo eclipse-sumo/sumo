@@ -1,4 +1,4 @@
-<add>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <e1Detector id="3/1to2/1" lane="3/1to2/1_0" pos="200" freq="100" file="e1detector.xml"/>
     <e2Detector id="3/1to2/1" lane="3/1to2/1_0" pos="100" length="200" freq="100" file="e2detector.xml"/>
     <e3Detector id="3/1to2/1" freq="100" file="e3detector.xml">
@@ -7,4 +7,4 @@
     </e3Detector>
     <edgeData id="dump_15" freq="100" file="meandataedge.xml" excludeEmpty="true"/>
     <laneData id="dump_15" freq="100" file="meandatalane.xml" excludeEmpty="true"/>
-</add>
+</additional>
