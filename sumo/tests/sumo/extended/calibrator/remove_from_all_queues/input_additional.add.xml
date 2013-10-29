@@ -1,8 +1,8 @@
-<add>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <calibrator id="calibtest" lane="middle_0" pos="0" output="detector.xml">
         <route id="c1" edges="beg middle end"/>
         <flow begin="0"   end="100" route="c1" vehsPerHour="1800"/>
     </calibrator>
 
     <edgeData id="expect10vehs"  begin="0"    end="300"  file="aggregated_25.xml"/>
-</add>
+</additional>
