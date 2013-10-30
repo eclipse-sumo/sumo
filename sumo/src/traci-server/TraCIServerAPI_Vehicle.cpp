@@ -388,7 +388,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_EMISSIONCLASS
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
-            && variable != VAR_TAU
+            && variable != VAR_TAU && variable != VAR_LANECHANGE_MODE
             && variable != VAR_SPEED && variable != VAR_SPEEDSETMODE && variable != VAR_COLOR
             && variable != ADD && variable != REMOVE
             && variable != VAR_MOVE_TO_VTD
@@ -819,6 +819,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             v->getInfluencer().setConsiderSafeVelocity((speedMode & 1) != 0);
             v->getInfluencer().setConsiderMaxAcceleration((speedMode & 2) != 0);
             v->getInfluencer().setConsiderMaxDeceleration((speedMode & 4) != 0);
+        }
+        break;
+        case VAR_LANECHANGE_MODE: {
+            int laneChangeMode = 0;
+            if (!server.readTypeCheckingInt(inputStorage, laneChangeMode)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting lane change mode requires an integer.", outputStorage);
+            }
+            v->getInfluencer().setLaneChangeMode(laneChangeMode);
         }
         break;
         case VAR_COLOR: {

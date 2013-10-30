@@ -715,6 +715,11 @@ public:
         VEH_SIGNAL_EMERGENCY_YELLOW = 8192
     };
 
+    enum LaneChangeMode {
+        LC_NEVER,
+        LC_NOCONFLICT,
+        LC_ALWAYS
+    };
 
     /** @brief Switches the given signal on
      * @param[in] signal The signal to mark as being switched on
@@ -852,6 +857,12 @@ public:
         void setConsiderMaxDeceleration(bool value);
 
 
+        /** @brief Sets lane changing behavior
+         * @param[in] value a bitset controlling the different modes
+         */
+        void setLaneChangeMode(int value);
+
+
         /** @brief Returns the originally longitudianl speed to use
          * @return The speed given before influence
          */
@@ -900,6 +911,12 @@ public:
         SUMOReal myVTDPos;
         int myVTDEdgeOffset;
         MSEdgeVector myVTDRoute;
+
+        LaneChangeMode myStrategicLC;
+        LaneChangeMode mySpeedGainLC;
+        LaneChangeMode myCooperativeLC;
+        LaneChangeMode myRightDriveLC;
+        LaneChangeMode myTraciLC;
 
     };
 

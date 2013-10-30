@@ -586,6 +586,9 @@
 // value = stopped + 2 * parking + 4 * triggered
 #define VAR_STOPSTATE 0xb5
 
+// how lane changing is performed (set: vehicle)
+#define VAR_LANECHANGE_MODE 0xb6
+
 // current CO2 emission of a node (get: vehicle, lane, edge)
 #define VAR_CO2EMISSION 0x60
 
