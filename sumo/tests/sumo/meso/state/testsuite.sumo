@@ -1,8 +1,0 @@
-# simply load a state
-load_a_state
-
-# simply load a state
-save_a_state
-
-# test for loading state that was saved on net1 onto net2
-changed_network

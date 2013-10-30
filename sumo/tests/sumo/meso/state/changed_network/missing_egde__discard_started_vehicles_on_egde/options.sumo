@@ -1,1 +1,0 @@
---load-state input_state.bin --verbose --no-step-log  --net-file=net.net.xml --routes=input_routes.rou.xml 
