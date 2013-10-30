@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <routeDistribution id="r">
+        <route edges="beg end" probability="0.5"/>
+        <route edges="beg end" probability="0.5"/>
+    </routeDistribution>
+    <vehicle id="0" depart="0" route="r"/>
+    <vehicle id="1" depart="100" route="r"/>
+</routes>
