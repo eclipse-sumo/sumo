@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 10/30/13 22:51:19 by SUMO sumo Version dev-SVN-r14975
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="1,10"/>
+        <save-state.files value="state.xml,state2.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<snapshot version="dev-SVN-r14975" time="10000">
+    <route id="r0" state="1" edges="beg middle end"/>
+    <delay number="2" end="0" depart="7.00" time="0.00"/>
+    <vType id="DEFAULT_VEHTYPE">
+        <carFollowing-Krauss sigma="0.00"/>
+    </vType>
+    <vehicle id="v0" depart="0" route="r0" type="DEFAULT_VEHTYPE" state="0 1 0 0 14199 7000 2147483647"/>
+    <vehicle id="v1" depart="0" route="r0" type="DEFAULT_VEHTYPE" state="7000 0 0 0 14000 7000 2147483647"/>
+    <segment>
+        <vehicles time="8400" value="v1"/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value="v0"/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+</snapshot>
