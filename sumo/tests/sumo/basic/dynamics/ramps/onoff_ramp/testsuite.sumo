@@ -4,3 +4,6 @@
 # another case of counter-lane changing. In this case the blocked vehicle is obscured by follower who also want to counter-change. 
 # Due to different vehicle lengths a deadlock may occur.
 2veh_cross_paths2
+
+# One vehicle has to change across two lanes and cannot "see" the vehicle that whishes to counter-change. Deadlock should be avoided
+2veh_cross_paths3
