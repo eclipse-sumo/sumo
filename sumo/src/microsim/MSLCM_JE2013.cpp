@@ -741,7 +741,7 @@ MSLCM_JE2013::slowDownForBlocked(MSVehicle** blocked, int state) {
 }
 
 
-int 
+void 
 MSLCM_JE2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
     if (blocker != 0 && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
         // save at least his length in myLeadingBlockerLength

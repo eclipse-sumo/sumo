@@ -157,7 +157,7 @@ protected:
     int slowDownForBlocked(MSVehicle** blocked, int state);
 
     /// @brief save space for vehicles which need to counter-lane-change
-    int saveBlockerLength(MSVehicle* blocker, int lcaCounter);
+    void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;
