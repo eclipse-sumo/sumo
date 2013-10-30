@@ -2071,6 +2071,9 @@ MSVehicle::saveState(OutputDevice& out) {
 
 void
 MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
+    if (!attrs.hasAttribute(SUMO_ATTR_POSITION)) {
+        throw ProcessError("Error: Invalid vehicles in state (may be a meso state)!");
+    }
     unsigned int routeOffset;
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myDeparture;
