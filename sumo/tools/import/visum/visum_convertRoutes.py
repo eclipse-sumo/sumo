@@ -222,8 +222,8 @@ addRouteChecking(route, id, count, ok);
 fd.close()
 
 if options.verbose:
-    print(" %s routes found (%s vehs)" % (found, foundN))
-    print(" %s routes missing (%s vehs)" % (missing, missingN))
+    print(" %s routes found (%s vehs)" % (stats.found, stats.foundN))
+    print(" %s routes missing (%s vehs)" % (stats.missing, stats.missingN))
 
 if options.distribution:
     if routes:
