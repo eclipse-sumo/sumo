@@ -177,7 +177,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalDebug\y_libmesogui.lib;$(OSG_DEBUG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalDebug\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);$(PYTHON_DEBUG_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\InternalDebug\y_libmesogui.lib;$(OSG_DEBUG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\InternalDebug\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\InternalDebug\y_libmesosim.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'">
