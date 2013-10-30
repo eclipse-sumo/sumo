@@ -237,8 +237,8 @@ MSVehicle::Influencer::setConsiderMaxAcceleration(bool value) {
 void
 MSVehicle::Influencer::setLaneChangeMode(int value) {
     myStrategicLC = (LaneChangeMode) (value & (1+2));
-    mySpeedGainLC = (LaneChangeMode) ((value & (4+8)) >> 2);
-    myCooperativeLC = (LaneChangeMode) ((value & (16+32)) >> 4);
+    myCooperativeLC = (LaneChangeMode) ((value & (4+8)) >> 2);
+    mySpeedGainLC = (LaneChangeMode) ((value & (16+32)) >> 4);
     myRightDriveLC = (LaneChangeMode) ((value & (64+128)) >> 6);
     myTraciLC = (LaneChangeMode) ((value & (256+512)) >> 8);
 }

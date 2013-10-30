@@ -913,8 +913,8 @@ public:
         MSEdgeVector myVTDRoute;
 
         LaneChangeMode myStrategicLC;
-        LaneChangeMode mySpeedGainLC;
         LaneChangeMode myCooperativeLC;
+        LaneChangeMode mySpeedGainLC;
         LaneChangeMode myRightDriveLC;
         LaneChangeMode myTraciLC;
 
