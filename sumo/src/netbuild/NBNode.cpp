@@ -1044,7 +1044,7 @@ NBNode::invalidateOutgoingConnections() {
 
 
 bool
-NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int toLane) const {
+NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int /* toLane */) const {
     // check whether it is participant to a traffic light
     //  - controlled links are set by the traffic lights, not the normal
     //    right-of-way rules
