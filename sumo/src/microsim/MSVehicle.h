@@ -361,8 +361,6 @@ public:
     //@}
 
 
-    class Influencer;
-
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
         if (veh1->myState.myPos < veh2->myState.myPos) {
