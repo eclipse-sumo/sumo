@@ -226,7 +226,7 @@ void*
 MSLCM_DK2013::inform(void* info, MSVehicle* /*sender*/) {
     /// XXX use info.first
     Info* pinfo = (Info*) info;
-    myOwnState &= 0xffffffff;
+    //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
     delete pinfo;
     return (void*) true;

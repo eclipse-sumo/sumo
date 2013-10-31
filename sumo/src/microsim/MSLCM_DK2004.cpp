@@ -337,7 +337,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
         }
     }
     // keep information about being a leader/follower
-    int ret = (myOwnState & 0x00ffff00);
+    int ret = (myOwnState & 0xffff0000);
 
     // ?!!!
     if (leader.first != 0
@@ -608,7 +608,7 @@ MSLCM_DK2004::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
 void*
 MSLCM_DK2004::inform(void* info, MSVehicle* /*sender*/) {
     Info* pinfo = (Info*) info;
-    myOwnState &= 0xffffffff;
+    //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
     delete pinfo;
     return (void*) true;

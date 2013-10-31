@@ -46,33 +46,45 @@ enum LaneChangeAction {
     /// @name currently wanted lane-change action
     /// @{
 
-    /// @brief No action
+    /// @brief No action desired
     LCA_NONE = 0,
-    /// @brief The action is due to the wish to follow the route (navigational lc)
-    LCA_URGENT = 1,
-    /// @brief The action is due to the wish to be faster (tactical lc)
-    LCA_SPEEDGAIN = 2,
+    /// @brief Needs to stay on the current lane
+    LCA_STAY = 0,
     /// @brief Wants go to the left
-    LCA_LEFT = 4,
+    LCA_LEFT = 1 << 2,
     /// @brief Wants go to the right
-    LCA_RIGHT = 8,
+    LCA_RIGHT = 1 << 3,
 
-    LCA_WANTS_LANECHANGE = LCA_URGENT | LCA_SPEEDGAIN | LCA_LEFT | LCA_RIGHT,
+    /// @brief The action is needed to follow the route (navigational lc)
+    LCA_STRATEGIC = 1 << 4,
+    /// @brief The action is done to help someone else 
+    LCA_COOPERATIVE = 1 << 5,
+    /// @brief The action is due to the wish to be faster (tactical lc)
+    LCA_SPEEDGAIN = 1 << 6,
+    /// @brief The action is due to the default of keeping right "Rechtsfahrgebot"
+    LCA_KEEPRIGHT = 1 << 7,
+
+    /// @brief The action is urgent (to be defined by lc-model)
+    LCA_URGENT = 1 << 8,
+
+    LCA_WANTS_LANECHANGE = LCA_LEFT | LCA_RIGHT,
     /// @}
-
 
     /// @name External state
     /// @{
 
     /// @brief The vehicle is blocked by left leader
-    LCA_BLOCKED_BY_LEFT_LEADER = 16,
+    LCA_BLOCKED_BY_LEFT_LEADER = 1 << 9,
     /// @brief The vehicle is blocked by left follower
-    LCA_BLOCKED_BY_LEFT_FOLLOWER = 32,
+    LCA_BLOCKED_BY_LEFT_FOLLOWER = 1 << 10,
 
     /// @brief The vehicle is blocked by right leader
-    LCA_BLOCKED_BY_RIGHT_LEADER = 64,
+    LCA_BLOCKED_BY_RIGHT_LEADER = 1 << 11,
     /// @brief The vehicle is blocked by right follower
-    LCA_BLOCKED_BY_RIGHT_FOLLOWER = 128,
+    LCA_BLOCKED_BY_RIGHT_FOLLOWER = 1 << 12,
+
+    // The vehicle is blocked being overlapping
+    LCA_OVERLAPPING =  1 << 13,
 
     LCA_BLOCKED_LEFT = LCA_BLOCKED_BY_LEFT_LEADER | LCA_BLOCKED_BY_LEFT_FOLLOWER,
     LCA_BLOCKED_RIGHT = LCA_BLOCKED_BY_RIGHT_LEADER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
@@ -80,11 +92,7 @@ enum LaneChangeAction {
     LCA_BLOCKED_BY_FOLLOWER = LCA_BLOCKED_BY_LEFT_FOLLOWER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
     LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT
 
-                  // The vehicle is blocked being overlapping
-                  // This is currently not used, but I'll keep it while working on this, as
-                  //  overlapping may be interested, but surely divided by leader/follower
-                  // LCA_OVERLAPPING = 64
-                  /// @}
+    /// @}
 
 };
 

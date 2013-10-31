@@ -302,7 +302,7 @@ void*
 MSLCM_JE2013::inform(void* info, MSVehicle* sender) {
     /// XXX use info.first
     Info* pinfo = (Info*) info;
-    myOwnState &= 0xffffffff;
+    //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
     if (MSGlobals::gDebugFlag2) {
         std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())

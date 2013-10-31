@@ -49,19 +49,18 @@ class MSLCM_DK2013 : public MSAbstractLaneChangeModel {
 public:
 
     enum MyLCAEnum {
-        LCA_AMBLOCKINGLEADER = 256,                             //  8
-        LCA_AMBLOCKINGFOLLOWER = 512,                           //  9
-        LCA_MRIGHT = 1024,                                      // 10
-        LCA_MLEFT = 2048,                                       // 11
-        // !!! never set LCA_UNBLOCK = 4096,                    // 12
-        LCA_AMBLOCKINGFOLLOWER_DONTBRAKE = 8192,                // 13
-        // !!! never used LCA_AMBLOCKINGSECONDFOLLOWER = 16384, // 14
-        LCA_CHANGE_TO_HELP = 32768,                             // 15 
-        // !!! never read LCA_KEEP1 = 65536,                    // 16
-        // !!! never used LCA_KEEP2 = 131072,                   // 17
-        LCA_AMBACKBLOCKER = 262144,                             // 18
-        LCA_AMBACKBLOCKER_STANDING = 524288                     // 19
-
+        LCA_AMBLOCKINGLEADER = 1 << 16,
+        LCA_AMBLOCKINGFOLLOWER = 1 << 17,                          
+        LCA_MRIGHT = 1 << 18,                                     
+        LCA_MLEFT = 1 << 19,                                      
+        // !!! never set LCA_UNBLOCK = 1 << 20,                   
+        LCA_AMBLOCKINGFOLLOWER_DONTBRAKE = 1 << 21,               
+        // !!! never used LCA_AMBLOCKINGSECONDFOLLOWER = 1 << 22,
+        LCA_CHANGE_TO_HELP = 1 << 23,
+        // !!! never read LCA_KEEP1 = 1 << 24,                   
+        // !!! never used LCA_KEEP2 = 1 << 25,                  
+        LCA_AMBACKBLOCKER = 1 << 26,                            
+        LCA_AMBACKBLOCKER_STANDING = 1 << 27                    
     };
 
     MSLCM_DK2013(MSVehicle& v);
