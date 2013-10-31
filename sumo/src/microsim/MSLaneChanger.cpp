@@ -32,6 +32,7 @@
 #endif
 
 #include "MSLaneChanger.h"
+#include "MSNet.h"
 #include "MSVehicle.h"
 #include "MSVehicleType.h"
 #include "MSVehicleTransfer.h"
@@ -164,10 +165,6 @@ MSLaneChanger::change() {
         bool changingAllowed1 = (state1 & LCA_BLOCKED) == 0;
         // change if the vehicle wants to and is allowed to change
         if ((state1 & LCA_RIGHT) != 0 && changingAllowed1) {
-#ifndef NO_TRACI
-            // inform lane change model about this change
-            vehicle->getLaneChangeModel().fulfillChangeRequest(MSVehicle::REQUEST_RIGHT);
-#endif
             startChange(vehicle, myCandi, -1);
             return true;
         }
@@ -188,10 +185,6 @@ MSLaneChanger::change() {
         bool changingAllowed2 = (state2 & LCA_BLOCKED) == 0;
         // change if the vehicle wants to and is allowed to change
         if ((state2 & LCA_LEFT) != 0 && changingAllowed2) {
-#ifndef NO_TRACI
-            // inform lane change model about this change
-            vehicle->getLaneChangeModel().fulfillChangeRequest(MSVehicle::REQUEST_LEFT);
-#endif
             startChange(vehicle, myCandi, 1);
             return true;
         }
@@ -479,23 +472,24 @@ MSLaneChanger::checkChange(
 {
     std::pair<MSVehicle* const, SUMOReal> neighLead = getRealLeader(myCandi + laneOffset);
     std::pair<MSVehicle* const, SUMOReal> neighFollow = getRealFollower(myCandi + laneOffset);
+    MSVehicle* vehicle = veh(myCandi);
     ChangerIt target = myCandi + laneOffset;
     int blocked = overlapWithHopped(target)
-                  ? target->hoppedVeh->getPositionOnLane() < veh(myCandi)->getPositionOnLane()
-                  ? LCA_BLOCKED_BY_RIGHT_FOLLOWER
-                  : LCA_BLOCKED_BY_RIGHT_LEADER
+                  ? target->hoppedVeh->getPositionOnLane() < vehicle->getPositionOnLane()
+                  ? (LCA_BLOCKED_BY_RIGHT_FOLLOWER | LCA_OVERLAPPING)
+                  : (LCA_BLOCKED_BY_RIGHT_LEADER | LCA_OVERLAPPING)
                   : 0;
     // overlap
     if (neighFollow.first != 0 && neighFollow.second < 0) {
-        blocked |= (LCA_BLOCKED_BY_RIGHT_FOLLOWER);
+        blocked |= (LCA_BLOCKED_BY_RIGHT_FOLLOWER | LCA_OVERLAPPING);
     }
     if (neighLead.first != 0 && neighLead.second < 0) {
-        blocked |= (LCA_BLOCKED_BY_RIGHT_LEADER);
+        blocked |= (LCA_BLOCKED_BY_RIGHT_LEADER | LCA_OVERLAPPING);
     }
     // safe back gap
     if (neighFollow.first != 0) {
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-        if (neighFollow.second < neighFollow.first->getCarFollowModel().getSecureGap(neighFollow.first->getSpeed(), veh(myCandi)->getSpeed(), veh(myCandi)->getCarFollowModel().getMaxDecel())) {
+        if (neighFollow.second < neighFollow.first->getCarFollowModel().getSecureGap(neighFollow.first->getSpeed(), vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxDecel())) {
             blocked |= LCA_BLOCKED_BY_RIGHT_FOLLOWER;
         }
     }
@@ -503,15 +497,24 @@ MSLaneChanger::checkChange(
     // safe front gap
     if (neighLead.first != 0) {
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-        if (neighLead.second < veh(myCandi)->getCarFollowModel().getSecureGap(veh(myCandi)->getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())) {
+        if (neighLead.second < vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())) {
             blocked |= LCA_BLOCKED_BY_RIGHT_LEADER;
         }
     }
 
     MSAbstractLaneChangeModel::MSLCMessager msg(leader.first, neighLead.first, neighFollow.first);
-    const int lcWish = veh(myCandi)->getLaneChangeModel().wantsChange(
+    int state = blocked | vehicle->getLaneChangeModel().wantsChange(
             laneOffset, msg, blocked, leader, neighLead, neighFollow, *(target->lane), preb, &(myCandi->lastBlocked), &(myCandi->firstBlocked));
-    return blocked | lcWish;
+
+#ifndef NO_TRACI
+            // let TraCI influence the wish to change lanes and the security
+            // precautions to take
+            if (vehicle->hasInfluencer()) {
+                state = vehicle->getInfluencer().influenceChangeDecision(state);
+                //std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) << " veh=" << vehicle->getID() << " oldstate=" << oldstate << " newstate=" << state << "\n";
+            }
+#endif
+    return state;
 }
 
 /****************************************************************************/

@@ -69,9 +69,6 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v) :
     myAlreadyMoved(false),
     myShadowLane(0),
     myHaveShadow(false),
-#ifndef NO_TRACI
-    myChangeRequest(MSVehicle::REQUEST_NONE),
-#endif
     myCarFollowModel(v.getCarFollowModel()) {
 }
 

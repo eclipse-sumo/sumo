@@ -143,10 +143,19 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
  * methods of MSVehicle::Influencer
  * ----------------------------------------------------------------------- */
 #ifndef NO_TRACI
-MSVehicle::Influencer::Influencer()
-    : mySpeedAdaptationStarted(true), myConsiderSafeVelocity(true),
-      myConsiderMaxAcceleration(true), myConsiderMaxDeceleration(true),
-      myAmVTDControlled(false) {}
+MSVehicle::Influencer::Influencer() : 
+    mySpeedAdaptationStarted(true), 
+    myConsiderSafeVelocity(true),
+    myConsiderMaxAcceleration(true), 
+    myConsiderMaxDeceleration(true),
+    myAmVTDControlled(false),
+    myChangeRequest(REQUEST_NONE),
+    myStrategicLC(LC_ALWAYS),
+    myCooperativeLC(LC_ALWAYS),
+    mySpeedGainLC(LC_ALWAYS),
+    myRightDriveLC(LC_ALWAYS),
+    myTraciLC(LC_ALWAYS)
+{}
 
 
 MSVehicle::Influencer::~Influencer() {}
@@ -198,7 +207,7 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMO
 }
 
 
-MSVehicle::ChangeRequest
+void
 MSVehicle::Influencer::checkForLaneChanges(SUMOTime currentTime, const MSEdge& currentEdge, unsigned int currentLaneIndex) {
     // remove leading commands which are no longer valid
     while (myLaneTimeLine.size() == 1 || (myLaneTimeLine.size() > 1 && currentTime > myLaneTimeLine[1].first)) {
@@ -206,18 +215,79 @@ MSVehicle::Influencer::checkForLaneChanges(SUMOTime currentTime, const MSEdge& c
     }
     // do nothing if the time line does not apply for the current time
     if (myLaneTimeLine.size() < 2 || currentTime < myLaneTimeLine[0].first) {
-        return REQUEST_NONE;
-    }
-    unsigned int destinationLaneIndex = myLaneTimeLine[1].second;
-    if ((unsigned int)currentEdge.getLanes().size() <= destinationLaneIndex) {
-        return REQUEST_NONE;
-    }
-    if (currentLaneIndex > destinationLaneIndex) {
-        return REQUEST_RIGHT;
-    } else if (currentLaneIndex < destinationLaneIndex) {
-        return REQUEST_LEFT;
+        myChangeRequest = REQUEST_NONE;
     } else {
-        return REQUEST_HOLD;
+        unsigned int destinationLaneIndex = myLaneTimeLine[1].second;
+        if ((unsigned int)currentEdge.getLanes().size() <= destinationLaneIndex) {
+            myChangeRequest = REQUEST_NONE;
+        } else if (currentLaneIndex > destinationLaneIndex) {
+            myChangeRequest = REQUEST_RIGHT;
+        } else if (currentLaneIndex < destinationLaneIndex) {
+            myChangeRequest = REQUEST_LEFT;
+        } else {
+            myChangeRequest = REQUEST_HOLD;
+        }
+    }
+}
+
+
+
+int
+MSVehicle::Influencer::influenceChangeDecision(int state) {
+    // security checks
+    if ((state & LCA_OVERLAPPING) && myTraciLC != LC_NEVER) {
+        return state;
+    }
+    if (((state & LCA_BLOCKED) != 0) && myTraciLC == LC_ALWAYS) {
+        return state;
+    }
+    // check whether the current reason shall be canceled / overridden
+    if ((state & LCA_WANTS_LANECHANGE_OR_STAY) != 0) {
+        // flags for the current reason
+        LaneChangeMode mode = LC_NEVER;
+        if ((state & LCA_STRATEGIC) != 0) {
+            mode = myStrategicLC;
+        } else if ((state & LCA_COOPERATIVE) != 0) {
+            mode = myCooperativeLC;
+        } else if ((state & LCA_SPEEDGAIN) != 0) {
+            mode = mySpeedGainLC;
+        } else if ((state & LCA_KEEPRIGHT) != 0) {
+            mode = myRightDriveLC;
+        } else {
+            WRITE_WARNING("Lane change model did not provide a reason for changing (state=" + toString(state) + ")");
+        }
+        if (mode == LC_NEVER) {
+            // cancel all lcModel requests
+            state &= ~LCA_WANTS_LANECHANGE_OR_STAY;
+        } else if (mode == LC_NOCONFLICT && myChangeRequest != REQUEST_NONE) {
+            if (
+                    ((state & LCA_LEFT) != 0 && myChangeRequest != REQUEST_LEFT) ||
+                    ((state & LCA_RIGHT) != 0 && myChangeRequest != REQUEST_RIGHT) ||
+                    ((state & LCA_STAY) != 0 && myChangeRequest != REQUEST_HOLD)) {
+                // cancel conflicting lcModel request
+                state &= ~LCA_WANTS_LANECHANGE_OR_STAY;
+            }
+        } else if (mode == LC_ALWAYS) {
+            // ignore any TraCI requests
+            return state;
+        }
+    }
+    // apply traci requests
+    if (myChangeRequest == REQUEST_NONE) {
+        return state;
+    } else {
+        state &= ~LCA_BLOCKED;
+        state |= LCA_TRACI;
+        switch (myChangeRequest) {
+            case REQUEST_HOLD:
+                return state | LCA_STAY;
+            case REQUEST_LEFT:
+                return state | LCA_LEFT;
+            case REQUEST_RIGHT:
+                return state | LCA_RIGHT;
+            default:
+                throw ProcessError("should not happen");
+        }
     }
 }
 
@@ -1429,7 +1499,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
 #ifndef NO_TRACI
         if (myInfluencer != 0) {
-            myLaneChangeModel->requestLaneChange(myInfluencer->checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), **myCurrEdge, getLaneIndex()));
+            myInfluencer->checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), **myCurrEdge, getLaneIndex());
         }
 #endif
     } else {
@@ -1493,7 +1563,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
 #ifndef NO_TRACI
     // check if further changes are necessary
     if (myInfluencer != 0) {
-        myLaneChangeModel->requestLaneChange(myInfluencer->checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), **myCurrEdge, getLaneIndex()));
+        myInfluencer->checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), **myCurrEdge, getLaneIndex());
     }
 #endif
 }

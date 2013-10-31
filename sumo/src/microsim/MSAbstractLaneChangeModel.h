@@ -49,25 +49,28 @@ enum LaneChangeAction {
     /// @brief No action desired
     LCA_NONE = 0,
     /// @brief Needs to stay on the current lane
-    LCA_STAY = 0,
+    LCA_STAY = 1 << 0,
     /// @brief Wants go to the left
-    LCA_LEFT = 1 << 2,
+    LCA_LEFT = 1 << 1,
     /// @brief Wants go to the right
-    LCA_RIGHT = 1 << 3,
+    LCA_RIGHT = 1 << 2,
 
     /// @brief The action is needed to follow the route (navigational lc)
-    LCA_STRATEGIC = 1 << 4,
+    LCA_STRATEGIC = 1 << 3,
     /// @brief The action is done to help someone else 
-    LCA_COOPERATIVE = 1 << 5,
+    LCA_COOPERATIVE = 1 << 4,
     /// @brief The action is due to the wish to be faster (tactical lc)
-    LCA_SPEEDGAIN = 1 << 6,
+    LCA_SPEEDGAIN = 1 << 5,
     /// @brief The action is due to the default of keeping right "Rechtsfahrgebot"
-    LCA_KEEPRIGHT = 1 << 7,
+    LCA_KEEPRIGHT = 1 << 6,
+    /// @brief The action is due to a TraCI request
+    LCA_TRACI = 1 << 7,
 
     /// @brief The action is urgent (to be defined by lc-model)
     LCA_URGENT = 1 << 8,
 
     LCA_WANTS_LANECHANGE = LCA_LEFT | LCA_RIGHT,
+    LCA_WANTS_LANECHANGE_OR_STAY = LCA_WANTS_LANECHANGE | LCA_STAY,
     /// @}
 
     /// @name External state
@@ -297,30 +300,6 @@ public:
     /// @brief remove the shadow copy of a lane change maneuver
     void removeLaneChangeShadow();
 
-#ifndef NO_TRACI
-    /**
-     * The vehicle is requested to change the lane as soon as possible
-     * without violating any directives defined by this lane change model
-     *
-     * @param request	indicates the requested change
-     */
-    virtual void requestLaneChange(MSVehicle::ChangeRequest request) {
-        myChangeRequest = request;
-    };
-
-    /**
-     * Inform the model that a certain lane change request has been fulfilled
-     * by the lane changer, so the request won't be taken into account the next time.
-     *
-     * @param request	indicates the request that was fulfilled
-     */
-    virtual void fulfillChangeRequest(MSVehicle::ChangeRequest request) {
-        if (request == myChangeRequest) {
-            myChangeRequest = MSVehicle::REQUEST_NONE;
-        }
-    }
-#endif
-
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
 
@@ -354,10 +333,6 @@ protected:
 
     /// Wether a vehicle shadow exists
     bool myHaveShadow;
-
-#ifndef NO_TRACI
-    MSVehicle::ChangeRequest myChangeRequest;
-#endif
 
     /// @brief The vehicle's car following model
     const MSCFModel& myCarFollowModel;

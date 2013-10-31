@@ -713,11 +713,17 @@ public:
         VEH_SIGNAL_EMERGENCY_YELLOW = 8192
     };
 
+
+    /* @brief modes for resolving conflicts between external control (traci)
+     * and vehicle control over lane changing. Each level of the lane-changing
+     * hirarchy (strategic, cooperative, speedGain, keepRight) can be controlled
+     * separately */
     enum LaneChangeMode {
-        LC_NEVER,
-        LC_NOCONFLICT,
-        LC_ALWAYS
+        LC_NEVER      = 0,  // lcModel shall never trigger changes at this level
+        LC_NOCONFLICT = 1,  // lcModel may trigger changes if not in conflict with TraCI request
+        LC_ALWAYS     = 2   // lcModel may always trigger changes of this level regardless of requests
     };
+
 
     /** @brief Switches the given signal on
      * @param[in] signal The signal to mark as being switched on
@@ -792,11 +798,13 @@ public:
      * @brief Changes the wished vehicle speed / lanes
      *
      * The class is used for passing velocities or velocity profiles obtained via TraCI to the vehicle.
-     *
-     * The adaptation is controlled by the stored time line of speeds/lanes.
+     * The speed adaptation is controlled by the stored speedTimeLine
      * Additionally, the variables myConsiderSafeVelocity, myConsiderMaxAcceleration, and myConsiderMaxDeceleration
-     *  control whether the safe velocity, the maximum acceleration, and the maximum deceleration
-     *  have to be regarded.
+     * control whether the safe velocity, the maximum acceleration, and the maximum deceleration
+     * have to be regarded.
+     *
+     * Furthermore this class is used to affect lane changing decisions according to
+     * LaneChangeMode and any given laneTimeLine
      */
     class Influencer {
     public:
@@ -833,9 +841,22 @@ public:
          */
         SUMOReal influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMOReal vSafe, SUMOReal vMin, SUMOReal vMax);
 
+        /// @brief check for valid change requests in the current laneTimeLine
+        void checkForLaneChanges(SUMOTime currentTime, const MSEdge& currentEdge, unsigned int currentLaneIndex); 
 
-        ChangeRequest checkForLaneChanges(SUMOTime currentTime, const MSEdge& currentEdge, unsigned int currentLaneIndex);
+        /** @brief Applies stored LaneChangeMode information and laneTimeLine
+         *
+         * @param[in] state The LaneChangeAction flags as computed by the laneChangeModel
+         * @param[in] currentTime The current simulation time
+         * @param[in] currentEdge The current edge the vehicle is on
+         * @param[in] currentLaneIndex The index of the lane the vehicle is currently on
+         * @return The new LaneChangeAction flags to use
+         */
+        int influenceChangeDecision(int state);
 
+        inline ChangeRequest getCurrentChangeRequest() {
+            return myChangeRequest;
+        }
 
         /** @brief Sets whether the safe velocity shall be regarded
          * @param[in] value Whether the safe velocity shall be regarded
@@ -878,8 +899,12 @@ public:
 
         void postProcessVTD(MSVehicle* v);
 
-        bool isVTDControlled() const {
+        inline bool isVTDControlled() const {
             return myAmVTDControlled;
+        }
+
+        inline ChangeRequest getChangeRequest() const {
+            return myChangeRequest;
         }
 
     private:
@@ -910,10 +935,25 @@ public:
         int myVTDEdgeOffset;
         MSEdgeVector myVTDRoute;
 
+        /// @brief the currently active change request
+        ChangeRequest myChangeRequest;
+
+    /// @name Flags for managing conflicts between the laneChangeModel and TraCI laneTimeLine 
+    //@{
+        /// @brief lane changing which is necessary to follow the current route
         LaneChangeMode myStrategicLC;
+        /// @brief lane changing with the intent to help other vehicles
         LaneChangeMode myCooperativeLC;
+        /// @brief lane changing to travel with higher speed
         LaneChangeMode mySpeedGainLC;
+        /// @brief changing to the rightmost lane 
         LaneChangeMode myRightDriveLC;
+    //@}
+        /* @brief flags for influencing security precautions when following a TraCI change-request
+         * LC_NEVER : ignore other drivers
+         * LC_NOCONFLICT : avoid immediate collisions
+         * LC_ALWAYS : perform full security checks (front and rear gap)
+         */
         LaneChangeMode myTraciLC;
 
     };

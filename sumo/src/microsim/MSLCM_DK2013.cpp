@@ -371,7 +371,7 @@ MSLCM_DK2013::_wantsChange(
             myLeftSpace = currentDist - myVehicle.getPositionOnLane();
         }
         //
-        return ret | lca | LCA_URGENT;
+        return ret | lca | LCA_STRATEGIC | LCA_URGENT;
     }
 
 
@@ -385,7 +385,7 @@ MSLCM_DK2013::_wantsChange(
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist - myVehicle.getPositionOnLane() - maxJam);
     if (!changeToBest && (currentDistDisallows(neighLeftPlace, bestLaneOffset - (2 * laneOffset), laDist))) {
         // ...we will not change the lane if not
-        return ret;
+        return ret | LCA_STAY | LCA_STRATEGIC;
     }
 
 
@@ -395,14 +395,14 @@ MSLCM_DK2013::_wantsChange(
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
     if (currExtDist > neighExtDist && (neighLeftPlace * 2. < laDist)) {
-        return ret;
+        return ret | LCA_STAY | LCA_STRATEGIC;
     }
 
     // let's also regard the case where the vehicle is driving on a highway...
     //  in this case, we do not want to get to the dead-end of an on-ramp
     if (right) {
         if (bestLaneOffset == 0 && preb[currIdx + laneOffset].bestLaneOffset != 0 && myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle) > 80. / 3.6) {
-            return ret;
+            return ret | LCA_STAY | LCA_STRATEGIC;
         }
     }
     // --------
@@ -411,7 +411,7 @@ MSLCM_DK2013::_wantsChange(
     if (amBlockingFollowerPlusNB()
             && (currentDistAllows(neighDist, bestLaneOffset, laDist) || neighDist >= currentDist)) {
 
-        return ret | lca | LCA_URGENT ;
+        return ret | lca | LCA_COOPERATIVE | LCA_URGENT ;
     }
     // --------
 
@@ -465,7 +465,7 @@ MSLCM_DK2013::_wantsChange(
 #ifndef NO_TRACI
             /* if there was a request by TraCI for changing to this lane
             and holding it, this rule is ignored */
-            if (myChangeRequest != MSVehicle::REQUEST_HOLD) {
+            if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getChangeRequest() != MSVehicle::REQUEST_HOLD) {
 #endif
                 mySpeedGainProbability -= (SUMOReal)((neighLaneVSafe - vmax) / (vmax));
 #ifndef NO_TRACI
@@ -492,14 +492,6 @@ MSLCM_DK2013::_wantsChange(
         }
     }
     // --------
-
-#ifndef NO_TRACI
-    // If there is a request by TraCI, try to change the lane
-    if ((right && myChangeRequest == MSVehicle::REQUEST_RIGHT) || 
-            (!right && myChangeRequest == MSVehicle::REQUEST_LEFT)) {
-        return ret | lca;
-    }
-#endif
 
     return ret;
 }
