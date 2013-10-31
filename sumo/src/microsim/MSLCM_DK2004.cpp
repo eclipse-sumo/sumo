@@ -686,11 +686,5 @@ MSLCM_DK2004::prepareStep() {
 }
 
 
-SUMOReal
-MSLCM_DK2004::getProb() const {
-    return myChangeProbability;
-}
-
-
 /****************************************************************************/
 

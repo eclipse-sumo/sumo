@@ -98,12 +98,7 @@ public:
 
     void changed();
 
-    SUMOReal getProb() const;
     void prepareStep();
-
-    SUMOReal getChangeProbability() const {
-        return myChangeProbability;
-    }
 
 
 protected:
@@ -159,7 +154,10 @@ protected:
 
 
 protected:
-    SUMOReal myChangeProbability;
+    /// @brief a value for tracking the probability that a change to the offset with the same sign is beneficial
+    SUMOReal mySpeedGainProbability;
+    /// @brief a value for tracking the probability of following the/"Rechtsfahrgebot" (never a positive value)
+    SUMOReal myKeepRightProbability;
 
     SUMOReal myLeadingBlockerLength;
     SUMOReal myLeftSpace;

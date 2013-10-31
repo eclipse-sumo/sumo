@@ -95,12 +95,7 @@ public:
 
     virtual void changed();
 
-    SUMOReal getProb() const;
     virtual void prepareStep();
-
-    SUMOReal getChangeProbability() const {
-        return myChangeProbability;
-    }
 
 
 protected:

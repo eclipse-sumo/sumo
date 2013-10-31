@@ -82,7 +82,7 @@ tryID(const MSVehicle* v) {
 // ===========================================================================
 MSLCM_JE2013::MSLCM_JE2013(MSVehicle& v) : 
     MSAbstractLaneChangeModel(v),
-    myChangeProbability(0),
+    mySpeedGainProbability(0),
     myLeadingBlockerLength(0), 
     myLeftSpace(0),
     myLastAccel(0)
@@ -290,7 +290,7 @@ void
 MSLCM_JE2013::changed() {
     myOwnState = 0;
     myLastLaneChangeOffset = 0;
-    myChangeProbability = 0;
+    mySpeedGainProbability = 0;
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;
     myVSafes.clear();
@@ -362,14 +362,8 @@ MSLCM_JE2013::prepareStep() {
     myLeftSpace = 0;
     myVSafes.clear();
     myDontBrake = false;
-    // truncate myChangeProbability to work around numerical instability between different builds
-    myChangeProbability = ceil(myChangeProbability * 100000.0) * 0.00001;
-}
-
-
-SUMOReal
-MSLCM_JE2013::getProb() const {
-    return myChangeProbability;
+    // truncate mySpeedGainProbability to work around numerical instability between different builds
+    mySpeedGainProbability = ceil(mySpeedGainProbability * 100000.0) * 0.00001;
 }
 
 
@@ -620,12 +614,12 @@ MSLCM_JE2013::_wantsChange(
         // ONLY FOR CHANGING TO THE RIGHT
         if (thisLaneVSafe - neighLaneVSafe > 5. / 3.6) {
             // ok, the current lane is faster than the right one...
-            if (myChangeProbability < 0) {
-                myChangeProbability /= 2.0;
+            if (mySpeedGainProbability < 0) {
+                mySpeedGainProbability /= 2.0;
             }
         } else {
             // ok, the right lane is faster than the current
-            myChangeProbability -= (SUMOReal)((neighLaneVSafe - thisLaneVSafe) / (myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle)));
+            mySpeedGainProbability -= (SUMOReal)((neighLaneVSafe - thisLaneVSafe) / (myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle)));
         }
 
         // let's recheck the "Rechtsfahrgebot"
@@ -637,27 +631,27 @@ MSLCM_JE2013::_wantsChange(
             and holding it, this rule is ignored */
             if (myChangeRequest != MSVehicle::REQUEST_HOLD) {
 #endif
-                myChangeProbability -= (SUMOReal)((neighLaneVSafe - vmax) / (vmax));
+                mySpeedGainProbability -= (SUMOReal)((neighLaneVSafe - vmax) / (vmax));
 #ifndef NO_TRACI
             }
 #endif
         }
 
-        if (myChangeProbability < -2 && neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > 20.) { //./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // -.1
+        if (mySpeedGainProbability < -2 && neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > 20.) { //./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // -.1
             return ret | lca | LCA_SPEEDGAIN;
         }
     } else {
         // ONLY FOR CHANGING TO THE LEFT
         if (thisLaneVSafe > neighLaneVSafe) {
             // this lane is better
-            if (myChangeProbability > 0) {
-                myChangeProbability /= 2.0;
+            if (mySpeedGainProbability > 0) {
+                mySpeedGainProbability /= 2.0;
             }
         } else {
             // left lane is better
-            myChangeProbability += (SUMOReal)((neighLaneVSafe - thisLaneVSafe) / (myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle))); // !!! Fahrzeuggeschw.!
+            mySpeedGainProbability += (SUMOReal)((neighLaneVSafe - thisLaneVSafe) / (myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle))); // !!! Fahrzeuggeschw.!
         }
-        if (myChangeProbability > .2 && neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > 20.) { // .1
+        if (mySpeedGainProbability > .2 && neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > 20.) { // .1
             return ret | lca | LCA_SPEEDGAIN;
         }
     }
