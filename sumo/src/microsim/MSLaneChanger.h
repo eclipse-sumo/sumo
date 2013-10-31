@@ -144,18 +144,12 @@ protected:
         If there is none, myChanger.end() is returned. */
     ChangerIt findCandidate();
 
-    int change2right(
+    /* @brief check whether lane changing in the given direction is desirable
+     * and possible */
+    int checkChange(
+        int laneOffset,
         const std::pair<MSVehicle* const, SUMOReal>& leader,
-        const std::pair<MSVehicle* const, SUMOReal>& rLead,
-        const std::pair<MSVehicle* const, SUMOReal>& rFollow,
         const std::vector<MSVehicle::LaneQ>& preb) const;
-
-    int change2left(
-        const std::pair<MSVehicle* const, SUMOReal>& leader,
-        const std::pair<MSVehicle* const, SUMOReal>& rLead,
-        const std::pair<MSVehicle* const, SUMOReal>& rFollow,
-        const std::vector<MSVehicle::LaneQ>& preb) const;
-
 
     ///  @brief start the lane change maneuver (and finish it instantly if gLaneChangeDuration == 0)
     void startChange(MSVehicle* vehicle, ChangerIt& from, int direction);

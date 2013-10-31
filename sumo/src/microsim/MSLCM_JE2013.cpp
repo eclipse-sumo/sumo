@@ -94,36 +94,6 @@ MSLCM_JE2013::~MSLCM_JE2013() {
 
 
 int
-MSLCM_JE2013::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
-                                 int blocked,
-                                 const std::pair<MSVehicle*, SUMOReal>& leader,
-                                 const std::pair<MSVehicle*, SUMOReal>& neighLead,
-                                 const std::pair<MSVehicle*, SUMOReal>& neighFollow,
-                                 const MSLane& neighLane,
-                                 const std::vector<MSVehicle::LaneQ>& preb,
-                                 MSVehicle** lastBlocked,
-                                 MSVehicle** firstBlocked) 
-{
-    return wantsChange(-1, msgPass, blocked, leader, neighLead, neighFollow, neighLane, preb, lastBlocked, firstBlocked);
-}
-
-
-int
-MSLCM_JE2013::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
-                                int blocked,
-                                const std::pair<MSVehicle*, SUMOReal>& leader,
-                                const std::pair<MSVehicle*, SUMOReal>& neighLead,
-                                const std::pair<MSVehicle*, SUMOReal>& neighFollow,
-                                const MSLane& neighLane,
-                                const std::vector<MSVehicle::LaneQ>& preb,
-                                MSVehicle** lastBlocked,
-                                MSVehicle** firstBlocked) 
-{
-    return wantsChange(1, msgPass, blocked, leader, neighLead, neighFollow, neighLane, preb, lastBlocked, firstBlocked);
-}
-
-
-int
 MSLCM_JE2013::wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass,
