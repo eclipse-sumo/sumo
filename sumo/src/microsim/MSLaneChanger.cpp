@@ -161,9 +161,6 @@ MSLaneChanger::change() {
     int state1 = 0;
     if (myCandi != myChanger.begin() && (myCandi - 1)->lane->allowsVehicleClass(veh(myCandi)->getVehicleType().getVehicleClass())) {
         state1 = checkChange(-1, leader, preb);
-        if ((state1 & LCA_URGENT) != 0 || (state1 & LCA_SPEEDGAIN) != 0) {
-            state1 |= LCA_RIGHT;
-        }
         bool changingAllowed1 = (state1 & LCA_BLOCKED) == 0;
         // change if the vehicle wants to and is allowed to change
         if ((state1 & LCA_RIGHT) != 0 && changingAllowed1) {
@@ -188,9 +185,6 @@ MSLaneChanger::change() {
     int state2 = 0;
     if ((myCandi + 1) != myChanger.end() && (myCandi + 1)->lane->allowsVehicleClass(veh(myCandi)->getVehicleType().getVehicleClass())) {
         state2 = checkChange(1, leader, preb);
-        if ((state2 & LCA_URGENT) != 0 || (state2 & LCA_SPEEDGAIN) != 0) {
-            state2 |= LCA_LEFT;
-        }
         bool changingAllowed2 = (state2 & LCA_BLOCKED) == 0;
         // change if the vehicle wants to and is allowed to change
         if ((state2 & LCA_LEFT) != 0 && changingAllowed2) {
