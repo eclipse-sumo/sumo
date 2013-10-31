@@ -421,7 +421,7 @@ MSLCM_JE2013::_wantsChange(
     //const int myLcaCounter = (right ? LCA_MLEFT : LCA_MRIGHT);
     const bool changeToBest = (right && bestLaneOffset < 0) || (!right && bestLaneOffset > 0);
     // keep information about being a leader/follower
-    int ret = (myOwnState & 0x00ffff00);
+    int ret = (myOwnState & 0xffff0000);
 
     // VARIANT_5 (disableAMBACKBLOCKER1)
     /*
