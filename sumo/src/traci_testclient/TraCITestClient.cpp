@@ -422,7 +422,7 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
 // ---------- Conversion helper
 int
 TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defFile, std::stringstream& msg) {
-    std::string dataTypeS, valueS;
+    std::string dataTypeS;
     defFile >> dataTypeS;
     if (dataTypeS == "<airDist>") {
         into.writeUnsignedByte(REQUEST_AIRDIST);
@@ -443,36 +443,44 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         }
         return 4 + 4 + 4 + numVars;
     }
-    defFile >> valueS;
+    int valI;
+    double valF;
     if (dataTypeS == "<int>") {
+        defFile >> valI;
         into.writeUnsignedByte(TYPE_INTEGER);
-        into.writeInt(atoi(valueS.c_str()));
+        into.writeInt(valI);
         return 4 + 1;
     } else if (dataTypeS == "<byte>") {
+        defFile >> valI;
         into.writeUnsignedByte(TYPE_BYTE);
-        into.writeByte(atoi(valueS.c_str()));
+        into.writeByte(valI);
         return 1 + 1;
     }  else if (dataTypeS == "<ubyte>") {
+        defFile >> valI;
         into.writeUnsignedByte(TYPE_UBYTE);
-        into.writeUnsignedByte(atoi(valueS.c_str()));
+        into.writeUnsignedByte(valI);
         return 1 + 1;
     } else if (dataTypeS == "<float>") {
+        defFile >> valF;
         into.writeUnsignedByte(TYPE_FLOAT);
-        into.writeFloat(float(atof(valueS.c_str())));
+        into.writeFloat(float(valF));
         return 4 + 1;
     } else if (dataTypeS == "<double>") {
+        defFile >> valF;
         into.writeUnsignedByte(TYPE_DOUBLE);
-        into.writeDouble(atof(valueS.c_str()));
+        into.writeDouble(valF);
         return 8 + 1;
     } else if (dataTypeS == "<string>") {
+        std::string valueS;
+        defFile >> valueS;
         into.writeUnsignedByte(TYPE_STRING);
         into.writeString(valueS);
         return 4 + 1 + (int) valueS.length();
     } else if (dataTypeS == "<string*>") {
         std::vector<std::string> slValue;
-        int number = atoi(valueS.c_str());
+        defFile >> valI;
         int length = 1 + 4;
-        for (int i = 0; i < number; ++i) {
+        for (int i = 0; i < valI; ++i) {
             std::string tmp;
             defFile >> tmp;
             slValue.push_back(tmp);
@@ -482,55 +490,60 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         into.writeStringList(slValue);
         return length;
     } else if (dataTypeS == "<compound>") {
-        int number = atoi(valueS.c_str());
+        defFile >> valI;
         into.writeUnsignedByte(TYPE_COMPOUND);
-        into.writeInt(number);
+        into.writeInt(valI);
         int length = 1 + 4;
-        for (int i = 0; i < number; ++i) {
+        for (int i = 0; i < valI; ++i) {
             length += setValueTypeDependant(into, defFile, msg);
         }
         return length;
     } else if (dataTypeS == "<color>") {
+        defFile >> valI;
         into.writeUnsignedByte(TYPE_COLOR);
-        into.writeUnsignedByte(atoi(valueS.c_str()));
+        into.writeUnsignedByte(valI);
         for (int i = 0; i < 3; ++i) {
-            defFile >> valueS;
-            into.writeUnsignedByte(atoi(valueS.c_str()));
+            defFile >> valI;
+            into.writeUnsignedByte(valI);
         }
         return 1 + 4;
     } else if (dataTypeS == "<position2D>") {
+        defFile >> valF;
         into.writeUnsignedByte(POSITION_2D);
-        into.writeDouble(atof(valueS.c_str()));
-        defFile >> valueS;
-        into.writeDouble(atof(valueS.c_str()));
+        into.writeDouble(valF);
+        defFile >> valF;
+        into.writeDouble(valF);
         return 1 + 8 + 8;
     } else if (dataTypeS == "<position3D>") {
+        defFile >> valF;
         into.writeUnsignedByte(POSITION_3D);
-        into.writeDouble(atof(valueS.c_str()));
-        defFile >> valueS;
-        into.writeDouble(atof(valueS.c_str()));
-        defFile >> valueS;
-        into.writeDouble(atof(valueS.c_str()));
+        into.writeDouble(valF);
+        defFile >> valF;
+        into.writeDouble(valF);
+        defFile >> valF;
+        into.writeDouble(valF);
         return 1 + 8 + 8 + 8;
     } else if (dataTypeS == "<positionRoadmap>") {
+        std::string valueS;
+        defFile >> valueS;
         into.writeUnsignedByte(POSITION_ROADMAP);
         into.writeString(valueS);
         int length = 1 + 8 + (int) valueS.length();
-        defFile >> valueS;
-        into.writeDouble(atof(valueS.c_str()));
-        defFile >> valueS;
-        into.writeUnsignedByte(atoi(valueS.c_str()));
+        defFile >> valF;
+        into.writeDouble(valF);
+        defFile >> valI;
+        into.writeUnsignedByte(valI);
         return length + 4 + 1;
     } else if (dataTypeS == "<shape>") {
+        defFile >> valI;
         into.writeUnsignedByte(TYPE_POLYGON);
-        int number = atoi(valueS.c_str());
-        into.writeUnsignedByte(number);
+        into.writeUnsignedByte(valI);
         int length = 1 + 1;
-        for (int i = 0; i < number; ++i) {
-            std::string x, y;
+        for (int i = 0; i < valI; ++i) {
+            double x, y;
             defFile >> x >> y;
-            into.writeDouble(atof(x.c_str()));
-            into.writeDouble(atof(y.c_str()));
+            into.writeDouble(x);
+            into.writeDouble(y);
             length += 8 + 8;
         }
         return length;
