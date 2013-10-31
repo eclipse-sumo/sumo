@@ -7,6 +7,9 @@ SlowDown
 # tests for command <changeLane>
 ChangeLane
 
+# different lane change modi
+LaneChangeMode
+
 # Test command <ChangeTarget>
 ChangeTarget
 

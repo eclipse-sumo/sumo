@@ -1,6 +1,9 @@
 # tests basic lane changing
 Basic
 
+# tests preventing lane changing
+hold
+
 # test that lane is not changed, when interferring with vehicle's route
 RouteDisallows
 

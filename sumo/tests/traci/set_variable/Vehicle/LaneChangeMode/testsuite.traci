@@ -1,0 +1,11 @@
+# tests preventing strategic lane changing
+NoStrategic
+
+# tests preventing cooperative lane changing
+NoCoop
+
+# tests preventing lane changing for speed gain
+NoSpeedGain
+
+# tests preventing right drive lane changing
+NoRight
