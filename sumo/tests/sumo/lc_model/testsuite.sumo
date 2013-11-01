@@ -1,3 +1,6 @@
 # test vType attribute 'lcm'
 specify_lcm
+
+# change towards the best continuation lane if the current lane does not continue
+change_towards_best
 errors
