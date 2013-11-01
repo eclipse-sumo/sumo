@@ -401,13 +401,12 @@ MSLCM_JE2013::_wantsChange(
             neighExtDist = preb[p + laneOffset].lane->getLength();
             bestLaneOffset = curr.bestLaneOffset;
             // VARIANT_13 (equalBest)
-            if (laneOffset != bestLaneOffset && preb[p + laneOffset].length >= preb[p + bestLaneOffset].length) {
+            if (bestLaneOffset == 0 && preb[p + laneOffset].bestLaneOffset == 0) { 
                 if (MSGlobals::gDebugFlag2) {
                     std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
                         << " veh=" << myVehicle.getID()
                         << " bestLaneOffsetOld=" << bestLaneOffset
                         << " bestLaneOffsetNew=" << laneOffset
-                        << " deltaLength=" << (preb[p + laneOffset].length - preb[p + bestLaneOffset].length)
                         << "\n";
                 }
                 bestLaneOffset = laneOffset;
@@ -488,8 +487,7 @@ MSLCM_JE2013::_wantsChange(
     //        << "\n";
     //}
 
-    if (fabs(best.length - currentDist) > MIN2((SUMOReal) .1, best.lane->getLength()) 
-            && changeToBest
+    if (changeToBest && bestLaneOffset == curr.bestLaneOffset
             && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
 
         informBlocker(msgPass, blocked, myLca, neighLead, neighFollow);

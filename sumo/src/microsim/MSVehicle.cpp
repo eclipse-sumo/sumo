@@ -1804,8 +1804,9 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
                     } else {
                         (*j).length += bestConnectedNext.length;
                     }
+                    (*j).bestLaneOffset = bestConnectedNext.bestLaneOffset;
                 }
-                if (clanes[bestThisIndex].length < (*j).length || (clanes[bestThisIndex].length == (*j).length && abs(abs(clanes[bestThisIndex].bestLaneOffset > (*j).bestLaneOffset)))) {
+                if (clanes[bestThisIndex].length < (*j).length || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) > abs((*j).bestLaneOffset))) {
                     bestThisIndex = index;
                 }
                 copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter((*j).bestContinuations));
@@ -1836,7 +1837,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
         // set bestLaneOffset for all lanes
         index = 0;
         for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
-            if ((*j).length < clanes[bestThisIndex].length || ((*j).length == clanes[bestThisIndex].length && abs((*j).bestLaneOffset) < abs(clanes[bestThisIndex].bestLaneOffset))) {
+            if ((*j).length < clanes[bestThisIndex].length || ((*j).length == clanes[bestThisIndex].length && abs((*j).bestLaneOffset) > abs(clanes[bestThisIndex].bestLaneOffset))) {
                 (*j).bestLaneOffset = bestThisIndex - index;
             } else {
                 (*j).bestLaneOffset = 0;
