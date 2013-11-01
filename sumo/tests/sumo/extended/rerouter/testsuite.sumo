@@ -11,3 +11,6 @@ closing_with_prob
 
 # closing rerouter where the destination is not closed but is not reachable anymore
 closing_disconnects_dest
+
+# circular route tests
+cyclic_route
