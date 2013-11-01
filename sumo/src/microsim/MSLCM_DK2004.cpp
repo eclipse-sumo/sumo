@@ -670,7 +670,6 @@ MSLCM_DK2004::prepareStep() {
     myDontBrake = false;
     // truncate myChangeProbability to work around numerical instability between different builds
     myChangeProbability = ceil(myChangeProbability * 100000.0) * 0.00001;
-    //std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) << " " << myChangeProbability << "\n";
 }
 
 
