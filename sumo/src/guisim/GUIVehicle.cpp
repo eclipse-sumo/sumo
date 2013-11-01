@@ -1238,6 +1238,12 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
             return getNumberReroutes();
         case 20:
             return gSelected.isSelected(GLO_VEHICLE, getGlID());
+        case 21: 
+            if (myBestLanes.empty() || myBestLanes[0].empty()) {
+                return 0;
+            } else {
+                return (*myCurrentLaneInBestLanes).bestLaneOffset;
+            }
     }
     return 0;
 }

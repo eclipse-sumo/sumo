@@ -189,6 +189,12 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by offset from best lane", RGBColor(179, 179, 179, 255), "0");
+    scheme.addColor(RGBColor(255,   0, 0, 255), -5, "-5");
+    scheme.addColor(RGBColor(255, 255, 0, 255), -1, "-1");
+    scheme.addColor(RGBColor(0, 255, 255, 255),  1,  "1");
+    scheme.addColor(RGBColor(0,   0, 255, 255),  5,  "5");
+    vehicleColorer.addScheme(scheme);
 
     /// add person coloring schemes
     personColorer.addScheme(GUIColorScheme("given person/type color", RGBColor::YELLOW, "", true));
