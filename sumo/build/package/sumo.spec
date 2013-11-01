@@ -13,7 +13,7 @@ Name:           sumo
 Summary:        Simulation of Urban Mobility - A Microscopic Traffic Simulation
 Version:        svn
 Release:        1
-Url:            http://sumo.sourceforge.net/
+Url:            http://sumo-sim.org/
 Source0:        %{name}-src-%{version}.tar.gz
 Source1:        %{name}-doc-%{version}.zip
 Source2:        %{name}.desktop
