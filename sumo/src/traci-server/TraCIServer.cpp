@@ -432,6 +432,9 @@ TraCIServer::dispatchCommand() {
                 if (myAmEmbedded) {
                     MSNet::getInstance()->simulationStep();
                     postProcessSimulationStep2();
+                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myInstance->myVehicleStateChanges.begin(); i != myInstance->myVehicleStateChanges.end(); ++i) {
+                        (*i).second.clear();
+                    }
                 }
                 return commandId;
             }
