@@ -22,7 +22,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import with_statement
-import re
+import re, io
 from datetime import date
 import optparse, os, glob, subprocess, zipfile, shutil, datetime, sys
 import status, wix
@@ -102,7 +102,7 @@ for platform in ["Win32", "x64"]:
     if platform == "x64":
         envSuffix="_64"
         programSuffix="64"
-    log = open(makeLog, 'a')
+    log = io.open(makeLog, 'a')
     try:
         maxTime = 0
         for fname in glob.glob(os.path.join(nightlyDir, "sumo-src-*.zip")):
