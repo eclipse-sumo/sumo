@@ -625,6 +625,13 @@ def setTau(vehID, tau):
     """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_TAU, vehID, tau)
 
+def setLaneChangeMode(vehID, lcm):
+    """setLaneChangeMode(string, integer) -> None
+    
+    Sets the vehicle's lane change mode as a bitset.
+    """
+    traci._sendIntCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LANECHANGE_MODE, vehID, lcm)
+
 def add(vehID, routeID, depart=DEPART_NOW, pos=0, speed=0, lane=0, typeID="DEFAULT_VEHTYPE"):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD, vehID,
                         1+4 + 1+4+len(typeID) + 1+4+len(routeID) + 1+4 + 1+8 + 1+8 + 1+1)
