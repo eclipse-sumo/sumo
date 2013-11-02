@@ -182,14 +182,14 @@ private:
     std::string myProjString;
 
 #ifdef HAVE_PROJ
+    /// The proj.4-projection to use
+    projPJ myProjection;
+
     /// The inverse proj.4-projection to use first
     projPJ myInverseProjection;
 
     /// The geo proj.4-projection which is the target of the inverse projection
     projPJ myGeoProjection;
-
-    /// The proj.4-projection to use
-    projPJ myProjection;
 #endif
 
     /// The offset to apply

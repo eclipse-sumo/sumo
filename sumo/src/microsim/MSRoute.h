@@ -205,11 +205,11 @@ private:
     /// The list of edges to pass
     MSEdgeVector myEdges;
 
-    /// Information by how many vehicles the route is used
-    mutable unsigned int myReferenceCounter;
-
     /// whether the route may be deleted after the last vehicle abandoned it
     const bool myAmPermanent;
+
+    /// Information by how many vehicles the route is used
+    mutable unsigned int myReferenceCounter;
 
     /// The color
     const RGBColor* const myColor;

@@ -268,7 +268,7 @@ private:
          * @param[in] id The id of the vehicle
          * @param[in] range Recognition range of the vehicle
          */
-        VehicleInformation(const std::string &id, SUMOReal _range) : Named(id), range(_range), amOnNet(true), haveArrived(false) {}
+        VehicleInformation(const std::string &id, const SUMOReal _range) : Named(id), range(_range), amOnNet(true), haveArrived(false) {}
 
         /// @brief Destructor
         ~VehicleInformation() {}
@@ -285,6 +285,9 @@ private:
             return ret;
         }
 
+        /// @brief Recognition range of the vehicle
+        const SUMOReal range;
+
         /// @brief List of position updates during last step
         std::vector<VehicleState> updates;
 
@@ -293,9 +296,6 @@ private:
 
         /// @brief Whether the vehicle was removed from the simulation
         bool haveArrived;
-
-        /// @brief Recognition range of the vehicle
-        SUMOReal range;
 
         /// @brief The map of devices seen by the vehicle at removal time
         std::map<std::string, SeenDevice*> currentlySeen;
