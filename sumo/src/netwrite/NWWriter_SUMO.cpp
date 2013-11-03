@@ -255,12 +255,6 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
 
 
 void
-NWWriter_SUMO::writeInternalEdge(OutputDevice& into, const std::string& id, SUMOReal vmax, const PositionVector& shape,
-                                 const std::string& origID, bool origNames) {
-}
-
-
-void
 NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool origNames) {
     // write the edge's begin
     into.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, e.getID());

@@ -67,10 +67,10 @@
 // method definitions
 // ===========================================================================
 NBEdgeCont::NBEdgeCont(NBTypeCont& tc) :
+    myTypeCont(tc),
     myEdgesSplit(0),
     myVehicleClasses2Keep(0),
     myVehicleClasses2Remove(0),
-    myTypeCont(tc),
     myNeedGeoTransformedPrunningBoundary(false)
 {}
 

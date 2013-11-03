@@ -178,16 +178,6 @@ protected:
 
 
 private:
-    /** @brief Writes a single internal edge
-     * @param[in] into The device to write the edges into
-     * @param[in] id The id of the edge
-     * @param[in] vmax The maximum speed of the edge
-     * @param[in] shape The shape of the edge
-     * @param[in] origNames Whether original names shall be written as parameter
-     */
-    static void writeInternalEdge(OutputDevice& into, const std::string& id, SUMOReal vmax, const PositionVector& shape,
-                                  const std::string& origID, bool origNames);
-
     /** @brief Writes a single internal connection
      * @param[in] from The id of the from-edge
      * @param[in] to The id of the to-edge

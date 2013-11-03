@@ -4,7 +4,7 @@
 /// @date    14.08.2013
 /// @version $Id$
 ///
-// A BT sender
+// A BT receiver
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
@@ -49,7 +49,7 @@ class SUMOVehicle;
 // ===========================================================================
 /**
  * @class MSDevice_BTreceiver
- * @brief A BT sender
+ * @brief A BT receiver
  *
  * @see MSDevice
  */
@@ -302,6 +302,14 @@ private:
 
         /// @brief The past episodes of removed vehicle
         std::map<std::string, std::vector<SeenDevice*> > seen;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        VehicleInformation(const VehicleInformation&);
+
+        /// @brief Invalidated assignment operator.
+        VehicleInformation& operator=(const VehicleInformation&);
+
     };
 
 

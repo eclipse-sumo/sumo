@@ -500,6 +500,9 @@ private:
 
 
 private:
+    /// @brief The network builder; used to obtain type information
+    NBTypeCont& myTypeCont;
+
     /** @struct PostProcessConnection
      * @brief A structure representing a connection between two lanes
      */
@@ -583,10 +586,6 @@ private:
     /// @brief whether a geo transform has been applied to the pruning boundary
     bool myNeedGeoTransformedPrunningBoundary;
     /// @}
-
-
-    /// @brief The network builder; used to obtain type information
-    NBTypeCont& myTypeCont;
 
 
 private:
