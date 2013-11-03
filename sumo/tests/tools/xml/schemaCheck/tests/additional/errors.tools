@@ -1,91 +1,100 @@
-Error on parsing 'sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml'!
-Traceback (most recent call last):
-  File "D:/behr_mi/Projekte/Vabene/trunk/SE/extern/sumoInternal/sumo/tests\..\tools/xml/schemaCheck.py", line 28, in validate
-    doc = etree.parse(f)
-  File "lxml.etree.pyx", line 2942, in lxml.etree.parse (src/lxml/lxml.etree.c:54187)
-  File "parser.pxi", line 1528, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:79485)
-  File "parser.pxi", line 1557, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:79768)
-  File "parser.pxi", line 1457, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:78843)
-  File "parser.pxi", line 997, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:75698)
-  File "parser.pxi", line 564, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:71739)
-  File "parser.pxi", line 645, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:72614)
-  File "parser.pxi", line 585, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:71955)
-XMLSyntaxError: Opening and ending tag mismatch: add line 1 and calibrator, line 5, column 18
-sumo/extended/wauts/errors/cross3ltl_error_missing_startprog/input_additional.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'WAUT': The attribute 'startProg' is required but missing.
-sumo/extended/wauts/errors/cross3ltl_error_missing_switchtime/input_additional.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'wautSwitch': The attribute 'time' is required but missing.
-sumo/extended/wauts/errors/cross3ltl_error_missing_to_prog/input_additional.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'wautSwitch': The attribute 'to' is required but missing.
-sumo/extended/wauts/errors/cross3ltl_error_missing_wautid/input_additional.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'WAUT': The attribute 'id' is required but missing.
 sumo/meta/xml_validation/input_additional.add.xml:1:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'additional', attribute 'blub': The attribute 'blub' is not allowed.
-sumo/output/e1/errors/file_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'file' is required but missing.
+sumo/output/vtypeprobe/errors/id_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vTypeProbe': The attribute 'id' is required but missing.
+sumo/output/vtypeprobe/errors/freq_empty/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vTypeProbe', attribute 'freq': '' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/output/vtypeprobe/errors/freq_false/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vTypeProbe', attribute 'freq': 'xxx' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/output/vtypeprobe/errors/freq_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vTypeProbe': The attribute 'freq' is required but missing.
+sumo/output/vtypeprobe/errors/freq0/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vTypeProbe', attribute 'freq': [facet 'minExclusive'] The value '0' must be greater than '0'.
+sumo/output/vtypeprobe/errors/freq0/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vTypeProbe', attribute 'freq': '0' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/output/vtypeprobe/errors/freq_negative/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vTypeProbe', attribute 'freq': [facet 'minExclusive'] The value '-10' must be greater than '0'.
+sumo/output/vtypeprobe/errors/freq_negative/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vTypeProbe', attribute 'freq': '-10' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/output/vtypeprobe/errors/file_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vTypeProbe': The attribute 'file' is required but missing.
+sumo/output/meannoise_lanebased/errors/broken_number/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'laneData', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/output/meannoise_lanebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'laneData', attribute 'begin': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
+sumo/output/meannoise_lanebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'laneData', attribute 'begin': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/output/meannoise_edgebased/errors/broken_number/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edgeData', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/output/meannoise_edgebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'edgeData', attribute 'begin': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
+sumo/output/meannoise_edgebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edgeData', attribute 'begin': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/output/e1Instant/errors/id_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'instantInductionLoop': The attribute 'id' is required but missing.
+sumo/output/e1Instant/errors/pos_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'instantInductionLoop': The attribute 'pos' is required but missing.
+sumo/output/e1Instant/errors/lane_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'instantInductionLoop': The attribute 'lane' is required but missing.
+sumo/output/e1Instant/errors/pos_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'instantInductionLoop', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
+sumo/output/e1Instant/errors/file_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'instantInductionLoop': The attribute 'file' is required but missing.
+sumo/output/e1Instant/errors/pos_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'instantInductionLoop', attribute 'pos': 'xxx' is not a valid value of the atomic type 'xs:float'.
+sumo/output/e1/errors/id_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'id' is required but missing.
+sumo/output/e1/errors/pos_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'pos' is required but missing.
+sumo/output/e1/errors/lane_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'lane' is required but missing.
 sumo/output/e1/errors/freq_empty/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e1Detector', attribute 'freq': '' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/output/e1/errors/pos_empty/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e1Detector', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
 sumo/output/e1/errors/freq_false/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e1Detector', attribute 'freq': 'sss' is not a valid value of the atomic type 'positiveFloatType'.
 sumo/output/e1/errors/freq_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'freq' is required but missing.
 sumo/output/e1/errors/freq_negative/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'e1Detector', attribute 'freq': [facet 'minExclusive'] The value '-100' must be greater than '0'.
 sumo/output/e1/errors/freq_negative/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e1Detector', attribute 'freq': '-100' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/output/e1/errors/id_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'id' is required but missing.
-sumo/output/e1/errors/lane_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'lane' is required but missing.
-sumo/output/e1/errors/pos_empty/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e1Detector', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
+sumo/output/e1/errors/file_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'file' is required but missing.
 sumo/output/e1/errors/pos_false/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e1Detector', attribute 'pos': 'xxx' is not a valid value of the atomic type 'xs:float'.
-sumo/output/e1/errors/pos_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'pos' is required but missing.
-sumo/output/e1Instant/errors/file_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'instantInductionLoop': The attribute 'file' is required but missing.
-sumo/output/e1Instant/errors/id_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'instantInductionLoop': The attribute 'id' is required but missing.
-sumo/output/e1Instant/errors/lane_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'instantInductionLoop': The attribute 'lane' is required but missing.
-sumo/output/e1Instant/errors/pos_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'instantInductionLoop', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
-sumo/output/e1Instant/errors/pos_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'instantInductionLoop', attribute 'pos': 'xxx' is not a valid value of the atomic type 'xs:float'.
-sumo/output/e1Instant/errors/pos_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'instantInductionLoop': The attribute 'pos' is required but missing.
-sumo/output/e2/errors/file_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'file' is required but missing.
-sumo/output/e2/errors/freq_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'freq': '' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/output/e2/errors/freq_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'freq': 'aaa' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/output/e2/errors/freq_negative/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'e2Detector', attribute 'freq': [facet 'minExclusive'] The value '-100' must be greater than '0'.
-sumo/output/e2/errors/freq_negative/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'freq': '-100' is not a valid value of the atomic type 'positiveFloatType'.
 sumo/output/e2/errors/id_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'id' is required but missing.
+sumo/output/e2/errors/pos_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'pos' is required but missing.
 sumo/output/e2/errors/lane_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'lane' is required but missing.
-sumo/output/e2/errors/length_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'length': '' is not a valid value of the atomic type 'xs:float'.
-sumo/output/e2/errors/length_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'length': 'aaa' is not a valid value of the atomic type 'xs:float'.
+sumo/output/e2/errors/freq_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'freq': '' is not a valid value of the atomic type 'positiveFloatType'.
 sumo/output/e2/errors/length_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'length' is required but missing.
 sumo/output/e2/errors/pos_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
+sumo/output/e2/errors/freq_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'freq': 'aaa' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/output/e2/errors/length_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'length': '' is not a valid value of the atomic type 'xs:float'.
+sumo/output/e2/errors/length_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'length': 'aaa' is not a valid value of the atomic type 'xs:float'.
+sumo/output/e2/errors/freq_negative/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'e2Detector', attribute 'freq': [facet 'minExclusive'] The value '-100' must be greater than '0'.
+sumo/output/e2/errors/freq_negative/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'freq': '-100' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/output/e2/errors/file_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'file' is required but missing.
 sumo/output/e2/errors/pos_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'pos': 'aaa' is not a valid value of the atomic type 'xs:float'.
-sumo/output/e2/errors/pos_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'pos' is required but missing.
-sumo/output/e3/errors/file_missing/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e3Detector': The attribute 'file' is required but missing.
-sumo/output/e3/errors/freq_empty/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'freq': '' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/output/e3/errors/freq_false/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'freq': 'xxx' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/output/e3/errors/freq_missing/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e3Detector': The attribute 'freq' is required but missing.
-sumo/output/e3/errors/freq_negative/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'e3Detector', attribute 'freq': [facet 'minExclusive'] The value '-100' must be greater than '0'.
-sumo/output/e3/errors/freq_negative/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'freq': '-100' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/output/e3/errors/id_missing/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e3Detector': The attribute 'id' is required but missing.
-sumo/output/e3/errors/lane_missing__entry/input_additional.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'detEntry': The attribute 'lane' is required but missing.
-sumo/output/e3/errors/lane_missing__exit/input_additional.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'detExit': The attribute 'lane' is required but missing.
-sumo/output/e3/errors/pos_empty__entry/input_additional.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detEntry', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
-sumo/output/e3/errors/pos_empty__exit/input_additional.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detExit', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
-sumo/output/e3/errors/pos_false__entry/input_additional.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detEntry', attribute 'pos': 'xxx' is not a valid value of the atomic type 'xs:float'.
-sumo/output/e3/errors/pos_false__exit/input_additional.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detExit', attribute 'pos': 'xxx' is not a valid value of the atomic type 'xs:float'.
-sumo/output/e3/errors/pos_missing__entry/input_additional.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'detEntry': The attribute 'pos' is required but missing.
-sumo/output/e3/errors/pos_missing__exit/input_additional.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'detExit': The attribute 'pos' is required but missing.
-sumo/output/meandata_edgebased/errors/broken_number/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edgeData', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
-sumo/output/meandata_edgebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'edgeData', attribute 'begin': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
-sumo/output/meandata_edgebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edgeData', attribute 'begin': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
 sumo/output/meandata_lanebased/errors/broken_number/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'laneData', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
 sumo/output/meandata_lanebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'laneData', attribute 'begin': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
 sumo/output/meandata_lanebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'laneData', attribute 'begin': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/output/meandata_edgebased/errors/broken_number/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edgeData', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/output/meandata_edgebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'edgeData', attribute 'begin': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
+sumo/output/meandata_edgebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edgeData', attribute 'begin': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
 sumo/output/meanhbefa_edgebased/errors/broken_number/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edgeData', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
 sumo/output/meanhbefa_edgebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'edgeData', attribute 'begin': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
 sumo/output/meanhbefa_edgebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edgeData', attribute 'begin': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/output/e3/errors/id_missing/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e3Detector': The attribute 'id' is required but missing.
+sumo/output/e3/errors/freq_empty/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'freq': '' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/output/e3/errors/pos_false__entry/input_additional.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detEntry', attribute 'pos': 'xxx' is not a valid value of the atomic type 'xs:float'.
+sumo/output/e3/errors/freq_false/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'freq': 'xxx' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/output/e3/errors/pos_missing__entry/input_additional.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'detEntry': The attribute 'pos' is required but missing.
+sumo/output/e3/errors/pos_missing__exit/input_additional.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'detExit': The attribute 'pos' is required but missing.
+sumo/output/e3/errors/freq_missing/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e3Detector': The attribute 'freq' is required but missing.
+sumo/output/e3/errors/freq_negative/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'e3Detector', attribute 'freq': [facet 'minExclusive'] The value '-100' must be greater than '0'.
+sumo/output/e3/errors/freq_negative/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'freq': '-100' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/output/e3/errors/lane_missing__exit/input_additional.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'detExit': The attribute 'lane' is required but missing.
+sumo/output/e3/errors/pos_false__exit/input_additional.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detExit', attribute 'pos': 'xxx' is not a valid value of the atomic type 'xs:float'.
+sumo/output/e3/errors/file_missing/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e3Detector': The attribute 'file' is required but missing.
+sumo/output/e3/errors/lane_missing__entry/input_additional.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'detEntry': The attribute 'lane' is required but missing.
+sumo/output/e3/errors/pos_empty__entry/input_additional.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detEntry', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
+sumo/output/e3/errors/pos_empty__exit/input_additional.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detExit', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
 sumo/output/meanhbefa_lanebased/errors/broken_number/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'laneData', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
 sumo/output/meanhbefa_lanebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'laneData', attribute 'begin': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
 sumo/output/meanhbefa_lanebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'laneData', attribute 'begin': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
-sumo/output/meannoise_edgebased/errors/broken_number/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edgeData', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
-sumo/output/meannoise_edgebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'edgeData', attribute 'begin': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
-sumo/output/meannoise_edgebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'edgeData', attribute 'begin': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
-sumo/output/meannoise_lanebased/errors/broken_number/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'laneData', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
-sumo/output/meannoise_lanebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'laneData', attribute 'begin': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
-sumo/output/meannoise_lanebased/errors/negative_begin/input_additional.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'laneData', attribute 'begin': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
-sumo/output/vtypeprobe/errors/file_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vTypeProbe': The attribute 'file' is required but missing.
-sumo/output/vtypeprobe/errors/freq0/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vTypeProbe', attribute 'freq': [facet 'minExclusive'] The value '0' must be greater than '0'.
-sumo/output/vtypeprobe/errors/freq0/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vTypeProbe', attribute 'freq': '0' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/output/vtypeprobe/errors/freq_empty/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vTypeProbe', attribute 'freq': '' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/output/vtypeprobe/errors/freq_false/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vTypeProbe', attribute 'freq': 'xxx' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/output/vtypeprobe/errors/freq_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vTypeProbe': The attribute 'freq' is required but missing.
-sumo/output/vtypeprobe/errors/freq_negative/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vTypeProbe', attribute 'freq': [facet 'minExclusive'] The value '-10' must be greater than '0'.
-sumo/output/vtypeprobe/errors/freq_negative/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vTypeProbe', attribute 'freq': '-10' is not a valid value of the atomic type 'positiveFloatType'.
-sumo/output/vtypeprobe/errors/id_missing/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vTypeProbe': The attribute 'id' is required but missing.
+sumo/extended/wauts/errors/cross3ltl_error_missing_wautid/input_additional.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'WAUT': The attribute 'id' is required but missing.
+sumo/extended/wauts/errors/cross3ltl_error_missing_switchtime/input_additional.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'wautSwitch': The attribute 'time' is required but missing.
+sumo/extended/wauts/errors/cross3ltl_error_missing_startprog/input_additional.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'WAUT': The attribute 'startProg' is required but missing.
+sumo/extended/wauts/errors/cross3ltl_error_missing_to_prog/input_additional.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'wautSwitch': The attribute 'to' is required but missing.
+Error on parsing 'sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml'!
+Traceback (most recent call last):
+  File "/home/micha/programming/vabene/SE/extern/sumoInternal/sumo/tests/../tools/xml/schemaCheck.py", line 33, in validate
+    doc = etree.parse(f)
+  File "lxml.etree.pyx", line 2954, in lxml.etree.parse (src/lxml/lxml.etree.c:56220)
+  File "parser.pxi", line 1533, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:82303)
+  File "parser.pxi", line 1562, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:82596)
+  File "parser.pxi", line 1462, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:81635)
+  File "parser.pxi", line 1002, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:78544)
+  File "parser.pxi", line 569, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:74488)
+  File "parser.pxi", line 650, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:75379)
+  File "parser.pxi", line 590, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:74712)
+XMLSyntaxError: Opening and ending tag mismatch: additional line 1 and calibrator, line 5, column 18
+sumo/extended/vaporizer/errors/id_missing/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vaporizer': The attribute 'id' is required but missing.
+sumo/extended/vaporizer/errors/begin_empty/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'begin': '' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/extended/vaporizer/errors/begin_negative/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'vaporizer', attribute 'begin': [facet 'minInclusive'] The value '-10' is less than the minimum value allowed ('0').
+sumo/extended/vaporizer/errors/begin_negative/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'begin': '-10' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/extended/vaporizer/errors/end_negative/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'vaporizer', attribute 'end': [facet 'minInclusive'] The value '-86400' is less than the minimum value allowed ('0').
+sumo/extended/vaporizer/errors/end_negative/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'end': '-86400' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/extended/vaporizer/errors/end_empty/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'end': '' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/extended/vaporizer/errors/begin_not_numeric/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
+sumo/extended/vaporizer/errors/end_not_numeric/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'end': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
 traci/get_variable/MeMeDetector/errors/UnknownAD/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detector': This element is not expected.
