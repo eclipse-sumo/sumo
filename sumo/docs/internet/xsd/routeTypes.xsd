@@ -88,7 +88,7 @@
         <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
     </xsd:complexType>
 
-    <xsd:complexType name="flowType">
+    <xsd:complexType name="flowWithoutIDType">
         <xsd:sequence>
             <xsd:choice minOccurs="0">
                 <xsd:element name="route" type="vehicleRouteType"/>
@@ -96,7 +96,6 @@
             </xsd:choice>
             <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
-        <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="route" type="xsd:string"/>
         <xsd:attribute name="fromTaz" type="xsd:string"/>
         <xsd:attribute name="toTaz" type="xsd:string"/>
@@ -106,7 +105,7 @@
         <xsd:attribute name="begin" type="nonNegativeFloatType"/>
         <xsd:attribute name="end" type="nonNegativeFloatType"/>
         <xsd:attribute name="period" type="positiveFloatType"/>
-        <xsd:attribute name="vehsPerHour" type="positiveFloatType"/>
+        <xsd:attribute name="vehsPerHour" type="nonNegativeFloatType"/>
         <xsd:attribute name="number" type="xsd:int"/>
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="departLane" type="departLaneType"/>
@@ -116,6 +115,22 @@
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
         <xsd:attribute name="line" type="xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="flowCalibratorType">
+        <xsd:complexContent>
+            <xsd:extension base="flowWithoutIDType">
+                <xsd:attribute name="speed" type="nonNegativeFloatType"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="flowType">
+        <xsd:complexContent>
+            <xsd:extension base="flowWithoutIDType">
+                <xsd:attribute name="id" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="tripType">
