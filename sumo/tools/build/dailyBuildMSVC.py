@@ -102,6 +102,7 @@ for platform in ["Win32", "x64"]:
     if platform == "x64":
         envSuffix="_64"
         programSuffix="64"
+    # we need to use io.open here due to http://bugs.python.org/issue16273
     log = io.open(makeLog, 'a')
     try:
         maxTime = 0
