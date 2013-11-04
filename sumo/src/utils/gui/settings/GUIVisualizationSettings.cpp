@@ -190,10 +190,16 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by offset from best lane", RGBColor(179, 179, 179, 255), "0");
-    scheme.addColor(RGBColor(255,   0, 0, 255), -5, "-5");
+    scheme.addColor(RGBColor(255,   0, 0, 255), -3, "-3");
     scheme.addColor(RGBColor(255, 255, 0, 255), -1, "-1");
     scheme.addColor(RGBColor(0, 255, 255, 255),  1,  "1");
-    scheme.addColor(RGBColor(0,   0, 255, 255),  5,  "5");
+    scheme.addColor(RGBColor(0,   0, 255, 255),  3,  "3");
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by acceleration", RGBColor(179, 179, 179, 255), "0");
+    scheme.addColor(RGBColor(255,   0, 0, 255), -DEFAULT_VEH_DECEL);
+    scheme.addColor(RGBColor(255, 255, 0, 255), -0.1);
+    scheme.addColor(RGBColor(0, 255, 255, 255),  0.1);
+    scheme.addColor(RGBColor(0,   0, 255, 255),  DEFAULT_VEH_ACCEL);
     vehicleColorer.addScheme(scheme);
 
     /// add person coloring schemes
