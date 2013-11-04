@@ -52,6 +52,7 @@
 
 
 #ifdef HAVE_INTERNAL
+#include <mesosim/MELoop.h>
 #include <mesosim/METriggeredCalibrator.h>
 #endif
 
@@ -265,7 +266,7 @@ NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
                                     const std::string& file,
                                     const std::string& outfile,
                                     const SUMOTime freq) {
-    return new METriggeredCalibrator(id, edge, pos, file, outfile, freq);
+    return new METriggeredCalibrator(id, edge, pos, file, outfile, freq, MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)->getLength());
 }
 #endif
 
@@ -276,7 +277,7 @@ NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
                                   const std::string& file,
                                   const std::string& outfile,
                                   const SUMOTime freq) {
-    return new MSCalibrator(id, edge, pos, file, outfile, freq);
+    return new MSCalibrator(id, edge, pos, file, outfile, freq, edge->getLength());
 }
 
 

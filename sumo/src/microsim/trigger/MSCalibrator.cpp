@@ -64,14 +64,14 @@ std::vector<SUMOVehicleParameter*> MSCalibrator::LeftoverVehicleParameters;
 // method definitions
 // ===========================================================================
 MSCalibrator::MSCalibrator(const std::string& id,
-                           MSEdge* edge, SUMOReal pos,
+                           const MSEdge* const edge, const SUMOReal pos,
                            const std::string& aXMLFilename,
                            const std::string& outputFilename,
-                           const SUMOTime freq) :
+                           const SUMOTime freq, const SUMOReal length, const bool addLaneMeanData) :
     MSTrigger(id),
     MSRouteHandler(aXMLFilename, false),
     myEdge(edge), myPos(pos),
-    myEdgeMeanData(0, myEdge->getLength(), false),
+    myEdgeMeanData(0, length, false),
     myOutput(0), myFrequency(freq), myRemoved(0),
     myInserted(0), myClearedInJam(0),
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
@@ -88,6 +88,18 @@ MSCalibrator::MSCalibrator(const std::string& id,
             init();
         }
     }
+    if (addLaneMeanData) {
+        for (size_t i = 0; i < myEdge->getLanes().size(); ++i) {
+            MSLane* lane = myEdge->getLanes()[i];
+            MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, myEdge->getLength(), true);
+            laneData->setDescription("meandata_calibrator_" + lane->getID());
+            LeftoverReminders.push_back(laneData);
+            myLaneMeanData.push_back(laneData);
+            VehicleRemover* remover = new VehicleRemover(lane, (int)i, this);
+            LeftoverReminders.push_back(remover);
+            myVehicleRemovers.push_back(remover);
+        }
+    }
 }
 
 
@@ -102,16 +114,6 @@ MSCalibrator::init() {
         MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
                 MSNet::getInstance()->getCurrentTimeStep(),
                 MSEventControl::ADAPT_AFTER_EXECUTION);
-        for (size_t i = 0; i < myEdge->getLanes().size(); ++i) {
-            MSLane* lane = myEdge->getLanes()[i];
-            MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, myEdge->getLength(), true);
-            laneData->setDescription("meandata_calibrator_" + lane->getID());
-            LeftoverReminders.push_back(laneData);
-            myLaneMeanData.push_back(laneData);
-            VehicleRemover* remover = new VehicleRemover(lane, (int)i, this);
-            LeftoverReminders.push_back(remover);
-            myVehicleRemovers.push_back(remover);
-        }
     } else {
         WRITE_WARNING("No flow intervals in calibrator '" + myID + "'.");
     }
@@ -123,7 +125,6 @@ MSCalibrator::~MSCalibrator() {
     if (myCurrentStateInterval != myIntervals.end()) {
         writeXMLOutput();
     }
-    //mySegment->removeDetector(&myMeanData);
     for (std::vector<VehicleRemover*>::iterator it = myVehicleRemovers.begin(); it != myVehicleRemovers.end(); ++it) {
         (*it)->disable();
     }
@@ -315,7 +316,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
               << " q=" << myCurrentStateInterval->q
               << " totalWished=" << totalWishedNum
               << " adapted=" << adaptedNum
-              << " jam=" << invalidJam()
+              << " jam=" << invalidJam(-1)
               << " entered=" << myEdgeMeanData.nVehEntered
               << " departed=" << myEdgeMeanData.nVehDeparted
               << " arrived=" << myEdgeMeanData.nVehArrived

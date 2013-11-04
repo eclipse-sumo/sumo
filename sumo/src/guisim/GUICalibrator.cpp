@@ -284,7 +284,7 @@ GUICalibrator::GUICalibrator(const std::string& id,
                              const std::string& aXMLFilename,
                              const std::string& outputFilename,
                              const SUMOTime freq) :
-    MSCalibrator(id, edge, pos, aXMLFilename, outputFilename, freq),
+    MSCalibrator(id, edge, pos, aXMLFilename, outputFilename, freq, edge->getLength()),
     GUIGlObject_AbstractAdd("calibrator", GLO_TRIGGER, id),
     myShowAsKMH(true) {
     const std::vector<MSLane*>& destLanes = edge->getLanes();

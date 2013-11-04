@@ -33,11 +33,16 @@
 
 #include <string>
 #include <vector>
-#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/Command.h>
 #include <microsim/MSRouteHandler.h>
 #include <microsim/output/MSMeanData_Net.h>
 #include <microsim/trigger/MSTrigger.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
 
 
 // ===========================================================================
@@ -51,10 +56,10 @@ class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command {
 public:
     /** constructor */
     MSCalibrator(const std::string& id,
-                 MSEdge* edge, SUMOReal pos,
+                 const MSEdge* const edge, const SUMOReal pos,
                  const std::string& aXMLFilename,
                  const std::string& outputFilename,
-                 const SUMOTime freq);
+                 const SUMOTime freq, const SUMOReal length, const bool addLaneMeanData=true);
 
     /** destructor */
     virtual ~MSCalibrator();
@@ -62,7 +67,7 @@ public:
 
     /** the implementation of the MSTrigger / Command interface.
         Calibrating takes place here. */
-    SUMOTime execute(SUMOTime currentTime);
+    virtual SUMOTime execute(SUMOTime currentTime);
 
     /// @brief cleanup remaining data structures
     static void cleanup();
@@ -148,7 +153,7 @@ protected:
 
     void init();
 
-    inline int passed() const {
+    inline virtual int passed() const {
         // calibrator measures at start of segment
         // vehicles drive to the end of an edge by default so they count as passed
         // but vaporized vehicles do not count
@@ -163,7 +168,7 @@ protected:
     /* @brief returns whether the lane is jammed although it should not be
      * @param[in] lane The lane to check or all for negative values
      */
-    bool invalidJam(int laneIndex = -1) const;
+    bool invalidJam(int laneIndex) const;
 
     inline int inserted() const {
         return myInserted;
@@ -179,13 +184,13 @@ protected:
      * fit on the given lane
      * @param[in] lane The lane to check (return the maximum of all lanes for negative values)
      */
-    int remainingVehicleCapacity(int laneIndex = -1) const;
+    int remainingVehicleCapacity(int laneIndex) const;
 
     /// @brief reset collected vehicle data
-    void reset();
+    virtual void reset();
 
     /// @brief aggregate lane values
-    void updateMeanData();
+    virtual void updateMeanData();
 
     /** @brief try to schedule the givne vehicle for removal. return true if it
      * isn't already scheduled */
@@ -200,7 +205,7 @@ protected:
 
 protected:
     /// @brief the edge on which this calibrator lies
-    MSEdge* const myEdge;
+    const MSEdge* const myEdge;
     /// @brief the position on the edge where this calibrator lies
     const SUMOReal myPos;
     /// @brief data collector for the calibrator
