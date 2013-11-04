@@ -454,6 +454,13 @@ def slowDown(vehID, speed, duration):
 def changeTarget(vehID, edgeID):
     traci._sendStringCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGETARGET, vehID, edgeID)
 
+def setType(vehID, typeID):
+    """setType(string, string) -> None
+    
+    Sets the id of the type for the named vehicle.
+    """
+    traci._sendStringCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_TYPE, vehID, typeID)
+
 def setRouteID(vehID, routeID):
     """setRouteID(string, string) -> None
     

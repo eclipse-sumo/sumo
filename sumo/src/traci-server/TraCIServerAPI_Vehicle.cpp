@@ -380,7 +380,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
     int variable = inputStorage.readUnsignedByte();
     if (variable != CMD_STOP && variable != CMD_CHANGELANE
             && variable != CMD_SLOWDOWN && variable != CMD_CHANGETARGET && variable != CMD_RESUME
-            && variable != VAR_ROUTE_ID && variable != VAR_ROUTE
+            && variable != VAR_TYPE && variable != VAR_ROUTE_ID && variable != VAR_ROUTE
             && variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT
             && variable != CMD_REROUTE_TRAVELTIME && variable != CMD_REROUTE_EFFORT
             && variable != VAR_SIGNALS && variable != VAR_MOVE_TO
@@ -560,6 +560,18 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!v->replaceRouteEdges(newRoute, v->getLane() == 0)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Route replacement failed for " + v->getID(), outputStorage);
             }
+        }
+        break;
+        case VAR_TYPE: {
+            std::string vTypeID;
+            if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The vehicle type id must be given as a string.", outputStorage);
+            }
+            MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
+            if (vehicleType == 0) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The vehicle type '" + vTypeID + "' is not known.", outputStorage);
+            }
+            v->replaceVehicleType(vehicleType);
         }
         break;
         case VAR_ROUTE_ID: {
