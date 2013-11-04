@@ -480,6 +480,8 @@ public:
      */
     const std::vector<MSLane*>& getBestLanesContinuation(const MSLane* const l) const;
 
+    /// @brief returns the current offset from the best lane
+    int getBestLaneOffset() const;
 
     /// @brief repair errors in bestLanes after changing between internal edges
     bool fixContinuations();

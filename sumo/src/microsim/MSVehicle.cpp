@@ -1885,6 +1885,16 @@ MSVehicle::getBestLanesContinuation(const MSLane* const l) const {
 }
 
 
+int 
+MSVehicle::getBestLaneOffset() const {
+    if (myBestLanes.empty() || myBestLanes[0].empty()) {
+        return 0;
+    } else {
+        return (*myCurrentLaneInBestLanes).bestLaneOffset;
+    }
+}
+
+
 bool
 MSVehicle::fixContinuations() {
     std::vector<MSLane*>& bestLaneConts = (*myCurrentLaneInBestLanes).bestContinuations;
