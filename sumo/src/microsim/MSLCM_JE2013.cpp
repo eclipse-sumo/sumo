@@ -111,6 +111,13 @@ MSLCM_JE2013::wantsChange(
     //MSGlobals::gDebugFlag2 = (myVehicle.getID() == "lkw15304" || myVehicle.getID() == "pkw71405"); 
     //MSGlobals::gDebugFlag2 = (myVehicle.getID() == "A");
 
+    if (MSGlobals::gDebugFlag2) {
+        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            << " veh=" << myVehicle.getID()
+            << " considerChangeTo=" << (laneOffset == -1  ? "right" : "left")
+            << "\n";
+    }
+
     const int result = _wantsChange(laneOffset, msgPass, blocked, leader, neighLead, neighFollow, neighLane, preb, lastBlocked, firstBlocked);
     if (MSGlobals::gDebugFlag2) {
         if (result & LCA_WANTS_LANECHANGE) {
@@ -118,8 +125,13 @@ MSLCM_JE2013::wantsChange(
                 << " veh=" << myVehicle.getID()
                 << " wantsChangeTo=" << (laneOffset == -1  ? "right" : "left")
                 << ((result & LCA_URGENT) ? " (urgent)" : "")
-                << ((result & LCA_SPEEDGAIN) ? " (speedgain)" : "")
                 << ((result & LCA_CHANGE_TO_HELP) ? " (toHelp)" : "")
+                << ((result & LCA_STRATEGIC) ? " (strat)" : "")
+                << ((result & LCA_COOPERATIVE) ? " (coop)" : "")
+                << ((result & LCA_SPEEDGAIN) ? " (speed)" : "")
+                << ((result & LCA_KEEPRIGHT) ? " (right)" : "")
+                << ((result & LCA_BLOCKED) ? " (blocked)" : "")
+                << ((result & LCA_OVERLAPPING) ? " (overlap)" : "")
                 << "\n";
         }
     }
