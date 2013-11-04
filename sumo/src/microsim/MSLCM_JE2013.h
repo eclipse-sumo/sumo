@@ -165,10 +165,6 @@ protected:
     std::vector<SUMOReal> myVSafes;
     bool myDontBrake;
 
-    /* @brief acceleration during this step in m/s. This is used to extrapolate 
-     * future maneuvers when deciding whether blockers should slow down */
-    SUMOReal myLastAccel;
-
 };
 
 

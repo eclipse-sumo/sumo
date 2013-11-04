@@ -85,8 +85,7 @@ MSLCM_JE2013::MSLCM_JE2013(MSVehicle& v) :
     mySpeedGainProbability(0),
     myKeepRightProbability(0),
     myLeadingBlockerLength(0), 
-    myLeftSpace(0),
-    myLastAccel(0)
+    myLeftSpace(0)
 {}
 
 MSLCM_JE2013::~MSLCM_JE2013() {
@@ -158,7 +157,6 @@ MSLCM_JE2013::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
             << patched 
             << "\n";
     }
-    myLastAccel = SPEED2ACCEL(newSpeed - myVehicle.getSpeed());
     MSGlobals::gDebugFlag1 = false;
     return newSpeed;
 }
@@ -329,7 +327,7 @@ MSLCM_JE2013::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         const SUMOReal helpDecel = nv->getCarFollowModel().getMaxDecel();
 
         // change in the gap between ego and blocker over 1 second (not STEP!)
-        const SUMOReal egoNewSpeed = myVehicle.getSpeed() + myLastAccel;
+        const SUMOReal egoNewSpeed = myVehicle.getSpeed() + myVehicle.getAcceleration();
         const SUMOReal neighNewSpeed = MAX2((SUMOReal)0, nv->getSpeed() - helpDecel);
         const SUMOReal deltaGap =  egoNewSpeed - neighNewSpeed; 
         // new gap between follower and self in case the follower does brake
