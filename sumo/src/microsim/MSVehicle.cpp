@@ -150,11 +150,11 @@ MSVehicle::Influencer::Influencer() :
     myConsiderMaxDeceleration(true),
     myAmVTDControlled(false),
     myChangeRequest(REQUEST_NONE),
-    myStrategicLC(LC_ALWAYS),
-    myCooperativeLC(LC_ALWAYS),
-    mySpeedGainLC(LC_ALWAYS),
-    myRightDriveLC(LC_ALWAYS),
-    myTraciLC(LC_ALWAYS)
+    myStrategicLC(LC_NOCONFLICT),
+    myCooperativeLC(LC_NOCONFLICT),
+    mySpeedGainLC(LC_NOCONFLICT),
+    myRightDriveLC(LC_NOCONFLICT),
+    myRespectGapLC(LC_ALWAYS)
 {}
 
 
@@ -235,10 +235,10 @@ MSVehicle::Influencer::checkForLaneChanges(SUMOTime currentTime, const MSEdge& c
 int
 MSVehicle::Influencer::influenceChangeDecision(int state) {
     // security checks
-    if ((state & LCA_OVERLAPPING) && myTraciLC != LC_NEVER) {
+    if ((state & LCA_OVERLAPPING) && myRespectGapLC != LC_NEVER) {
         return state;
     }
-    if (((state & LCA_BLOCKED) != 0) && myTraciLC == LC_ALWAYS) {
+    if (((state & LCA_BLOCKED) != 0) && myRespectGapLC == LC_ALWAYS) {
         return state;
     }
     // check whether the current reason shall be canceled / overridden
@@ -310,7 +310,7 @@ MSVehicle::Influencer::setLaneChangeMode(int value) {
     myCooperativeLC = (LaneChangeMode) ((value & (4+8)) >> 2);
     mySpeedGainLC = (LaneChangeMode) ((value & (16+32)) >> 4);
     myRightDriveLC = (LaneChangeMode) ((value & (64+128)) >> 6);
-    myTraciLC = (LaneChangeMode) ((value & (256+512)) >> 8);
+    myRespectGapLC = (LaneChangeMode) ((value & (256+512)) >> 8);
 }
 
 

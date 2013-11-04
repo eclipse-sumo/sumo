@@ -716,7 +716,7 @@ public:
 
     /* @brief modes for resolving conflicts between external control (traci)
      * and vehicle control over lane changing. Each level of the lane-changing
-     * hirarchy (strategic, cooperative, speedGain, keepRight) can be controlled
+     * hierarchy (strategic, cooperative, speedGain, keepRight) can be controlled
      * separately */
     enum LaneChangeMode {
         LC_NEVER      = 0,  // lcModel shall never trigger changes at this level
@@ -882,7 +882,7 @@ public:
         void setLaneChangeMode(int value);
 
 
-        /** @brief Returns the originally longitudianl speed to use
+        /** @brief Returns the originally longitudinal speed to use
          * @return The speed given before influence
          */
         SUMOReal getOriginalSpeed() const {
@@ -954,7 +954,7 @@ public:
          * LC_NOCONFLICT : avoid immediate collisions
          * LC_ALWAYS : perform full security checks (front and rear gap)
          */
-        LaneChangeMode myTraciLC;
+        LaneChangeMode myRespectGapLC;
 
     };
 
