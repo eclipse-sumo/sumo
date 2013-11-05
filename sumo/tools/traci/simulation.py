@@ -279,9 +279,7 @@ def subscribe(varIDs=(tc.VAR_DEPARTED_VEHICLES_IDS,), begin=0, end=2**31-1):
     """subscribe(list(integer), double, double) -> None
     
     Subscribe to one or more simulation values for the given interval.
-    A call to this method clears all previous subscription results.
     """
-    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_SIM_VARIABLE, begin, end, "x", varIDs)
 
 def getSubscriptionResults():

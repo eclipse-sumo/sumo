@@ -183,9 +183,7 @@ def subscribe(tlsID, varIDs=(tc.TL_CURRENT_PHASE,), begin=0, end=2**31-1):
     """subscribe(string, list(integer), double, double) -> None
     
     Subscribe to one or more traffic light values for the given interval.
-    A call to this method clears all previous subscription results.
     """
-    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_TL_VARIABLE, begin, end, tlsID, varIDs)
 
 def getSubscriptionResults(tlsID=None):
@@ -201,7 +199,6 @@ def getSubscriptionResults(tlsID=None):
     return subscriptionResults.get(tlsID)
 
 def subscribeContext(tlsID, domain, dist, varIDs=(tc.TL_CURRENT_PHASE,), begin=0, end=2**31-1):
-    subscriptionResults.reset()
     traci._subscribeContext(tc.CMD_SUBSCRIBE_TL_CONTEXT, begin, end, tlsID, domain, dist, varIDs)
 
 def getContextSubscriptionResults(tlsID=None):

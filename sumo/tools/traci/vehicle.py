@@ -67,6 +67,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_SIGNALS:         traci.Storage.readInt,
                       tc.VAR_LENGTH:          traci.Storage.readDouble,
                       tc.VAR_MAXSPEED:        traci.Storage.readDouble,
+                      tc.VAR_ALLOWED_SPEED:   traci.Storage.readDouble,
                       tc.VAR_VEHICLECLASS:    traci.Storage.readString,
                       tc.VAR_SPEED_FACTOR:    traci.Storage.readDouble,
                       tc.VAR_SPEED_DEVIATION: traci.Storage.readDouble,
@@ -285,6 +286,13 @@ def getMaxSpeed(vehID):
     """
     return _getUniversal(tc.VAR_MAXSPEED, vehID)
 
+def getAllowedSpeed(vehID):
+    """getAllowedSpeed(string) -> double
+    
+    Returns the maximum allowed speed on the current lane regarding speed factor in m/s for this vehicle.
+    """
+    return _getUniversal(tc.VAR_MAXSPEED, vehID)
+
 def getVehicleClass(vehID):
     """getVehicleClass(string) -> string
     
@@ -295,14 +303,14 @@ def getVehicleClass(vehID):
 def getSpeedFactor(vehID):
     """getSpeedFactor(string) -> double
     
-    .
+    Returns the chosen speed factor for this vehicle.
     """
     return _getUniversal(tc.VAR_SPEED_FACTOR, vehID)
 
 def getSpeedDeviation(vehID):
     """getSpeedDeviation(string) -> double
     
-    Returns the maximum speed defiation of this vehicle.
+    Returns the maximum speed deviation of the vehicle type.
     """
     return _getUniversal(tc.VAR_SPEED_DEVIATION, vehID)
 
@@ -402,9 +410,7 @@ def subscribe(vehID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=
     """subscribe(string, list(integer), double, double) -> None
     
     Subscribe to one or more vehicle values for the given interval.
-    A call to this method clears all previous subscription results.
     """
-    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, begin, end, vehID, varIDs)
 
 def getSubscriptionResults(vehID=None):
@@ -420,7 +426,6 @@ def getSubscriptionResults(vehID=None):
     return subscriptionResults.get(vehID)
 
 def subscribeContext(vehID, domain, dist, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31-1):
-    subscriptionResults.reset()
     traci._subscribeContext(tc.CMD_SUBSCRIBE_VEHICLE_CONTEXT, begin, end, vehID, domain, dist, varIDs)
 
 def getContextSubscriptionResults(vehID=None):

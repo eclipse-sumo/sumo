@@ -137,9 +137,7 @@ def subscribe(loopID, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-
     """subscribe(string, list(integer), double, double) -> None
     
     Subscribe to one or more induction loop values for the given interval.
-    A call to this method clears all previous subscription results.
     """
-    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, begin, end, loopID, varIDs)
 
 def getSubscriptionResults(loopID=None):
@@ -155,7 +153,6 @@ def getSubscriptionResults(loopID=None):
     return subscriptionResults.get(loopID)
 
 def subscribeContext(loopID, domain, dist, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-1):
-    subscriptionResults.reset()
     traci._subscribeContext(tc.CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT, begin, end, loopID, domain, dist, varIDs)
 
 def getContextSubscriptionResults(loopID=None):

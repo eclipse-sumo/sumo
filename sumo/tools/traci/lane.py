@@ -265,9 +265,7 @@ def subscribe(laneID, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-
     """subscribe(string, list(integer), double, double) -> None
     
     Subscribe to one or more lane values for the given interval.
-    A call to this method clears all previous subscription results.
     """
-    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_LANE_VARIABLE, begin, end, laneID, varIDs)
 
 def getSubscriptionResults(laneID=None):
@@ -283,7 +281,6 @@ def getSubscriptionResults(laneID=None):
     return subscriptionResults.get(laneID)
 
 def subscribeContext(laneID, domain, dist, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-1):
-    subscriptionResults.reset()
     traci._subscribeContext(tc.CMD_SUBSCRIBE_LANE_CONTEXT, begin, end, laneID, domain, dist, varIDs)
 
 def getContextSubscriptionResults(laneID=None):

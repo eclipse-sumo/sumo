@@ -159,9 +159,7 @@ def subscribe(typeID, varIDs=(tc.VAR_MAXSPEED,), begin=0, end=2**31-1):
     """subscribe(string, list(integer), double, double) -> None
     
     Subscribe to one or more vehicle type values for the given interval.
-    A call to this method clears all previous subscription results.
     """
-    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE, begin, end, typeID, varIDs)
 
 def getSubscriptionResults(typeID=None):
@@ -177,7 +175,6 @@ def getSubscriptionResults(typeID=None):
     return subscriptionResults.get(typeID)
 
 def subscribeContext(typeID, domain, dist, varIDs=(tc.VAR_MAXSPEED,), begin=0, end=2**31-1):
-    subscriptionResults.reset()
     traci._subscribeContext(tc.CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT, begin, end, typeID, domain, dist, varIDs)
 
 def getContextSubscriptionResults(typeID=None):

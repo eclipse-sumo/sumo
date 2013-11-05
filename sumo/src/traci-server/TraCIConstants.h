@@ -589,6 +589,10 @@
 // how lane changing is performed (set: vehicle)
 #define VAR_LANECHANGE_MODE 0xb6
 
+// maximum speed regarding max speed on the current lane and speed factor (get: vehicle)
+#define VAR_ALLOWED_SPEED 0xb7
+
+
 // current CO2 emission of a node (get: vehicle, lane, edge)
 #define VAR_CO2EMISSION 0x60
 

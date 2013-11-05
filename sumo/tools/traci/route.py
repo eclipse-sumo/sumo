@@ -55,9 +55,7 @@ def subscribe(routeID, varIDs=(tc.ID_LIST,), begin=0, end=2**31-1):
     """subscribe(string, list(integer), double, double) -> None
     
     Subscribe to one or more route values for the given interval.
-    A call to this method clears all previous subscription results.
     """
-    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_ROUTE_VARIABLE, begin, end, routeID, varIDs)
 
 def getSubscriptionResults(routeID=None):
@@ -73,7 +71,6 @@ def getSubscriptionResults(routeID=None):
     return subscriptionResults.get(routeID)
 
 def subscribeContext(routeID, domain, dist, varIDs=(tc.ID_LIST,), begin=0, end=2**31-1):
-    subscriptionResults.reset()
     traci._subscribeContext(tc.CMD_SUBSCRIBE_ROUTE_CONTEXT, begin, end, routeID, domain, dist, varIDs)
 
 def getContextSubscriptionResults(routeID=None):

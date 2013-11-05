@@ -70,9 +70,7 @@ def subscribe(polygonID, varIDs=(tc.VAR_SHAPE,), begin=0, end=2**31-1):
     """subscribe(string, list(integer), double, double) -> None
     
     Subscribe to one or more polygon values for the given interval.
-    A call to this method clears all previous subscription results.
     """
-    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_POLYGON_VARIABLE, begin, end, polygonID, varIDs)
 
 def getSubscriptionResults(polygonID=None):
@@ -88,7 +86,6 @@ def getSubscriptionResults(polygonID=None):
     return subscriptionResults.get(polygonID)
 
 def subscribeContext(polygonID, domain, dist, varIDs=(tc.VAR_SHAPE,), begin=0, end=2**31-1):
-    subscriptionResults.reset()
     traci._subscribeContext(tc.CMD_SUBSCRIBE_POLYGON_CONTEXT, begin, end, polygonID, domain, dist, varIDs)
 
 def getContextSubscriptionResults(polygonID=None):

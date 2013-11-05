@@ -76,18 +76,21 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable != ID_LIST && variable != VAR_SPEED && variable != VAR_SPEED_WITHOUT_TRACI && variable != VAR_POSITION && variable != VAR_ANGLE
+    if (variable != ID_LIST && variable != VAR_SPEED && variable != VAR_SPEED_WITHOUT_TRACI
+            && variable != VAR_POSITION && variable != VAR_ANGLE
             && variable != VAR_ROAD_ID && variable != VAR_LANE_ID && variable != VAR_LANE_INDEX
             && variable != VAR_TYPE && variable != VAR_ROUTE_ID && variable != VAR_COLOR
             && variable != VAR_LANEPOSITION
-            && variable != VAR_CO2EMISSION && variable != VAR_COEMISSION && variable != VAR_HCEMISSION && variable != VAR_PMXEMISSION
+            && variable != VAR_CO2EMISSION && variable != VAR_COEMISSION
+            && variable != VAR_HCEMISSION && variable != VAR_PMXEMISSION
             && variable != VAR_NOXEMISSION && variable != VAR_FUELCONSUMPTION && variable != VAR_NOISEEMISSION
             && variable != VAR_PERSON_NUMBER
             && variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT
             && variable != VAR_ROUTE_VALID && variable != VAR_EDGES
             && variable != VAR_SIGNALS && variable != VAR_DISTANCE
             && variable != VAR_LENGTH && variable != VAR_MAXSPEED && variable != VAR_VEHICLECLASS
-            && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_EMISSIONCLASS
+            && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION
+            && variable != VAR_ALLOWED_SPEED && variable != VAR_EMISSIONCLASS
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
             && variable != VAR_TAU && variable != VAR_BEST_LANES && variable != DISTANCE_REQUEST 
@@ -346,8 +349,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeUnsignedByte(b);
             }
             break;
-
-            case VAR_DISTANCE:{
+            case VAR_DISTANCE: {
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 SUMOReal distance = onRoad ? v->getRoute().getDistanceBetween(0, v->getPositionOnLane(), v->getRoute().getEdges()[0],  &v->getLane()->getEdge()): INVALID_DOUBLE_VALUE;
                 if (distance == std::numeric_limits<SUMOReal>::max()) {
@@ -360,6 +362,14 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!commandDistanceRequest(server, inputStorage, tempMsg, v)) {
                     return false;
                 }
+                break;
+            case VAR_ALLOWED_SPEED:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(onRoad ? v->getLane()->getVehicleMaxSpeed(v) : INVALID_DOUBLE_VALUE);
+                break;
+            case VAR_SPEED_FACTOR:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(v->getChosenSpeedFactor());
                 break;
             default:
                 TraCIServerAPI_VehicleType::getVariable(variable, v->getVehicleType(), tempMsg);

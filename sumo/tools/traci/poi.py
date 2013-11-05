@@ -71,9 +71,7 @@ def subscribe(poiID, varIDs=(tc.VAR_POSITION,), begin=0, end=2**31-1):
     """subscribe(string, list(integer), double, double) -> None
     
     Subscribe to one or more poi values for the given interval.
-    A call to this method clears all previous subscription results.
     """
-    subscriptionResults.reset()
     traci._subscribe(tc.CMD_SUBSCRIBE_POI_VARIABLE, begin, end, poiID, varIDs)
 
 def getSubscriptionResults(poiID=None):
@@ -89,7 +87,6 @@ def getSubscriptionResults(poiID=None):
     return subscriptionResults.get(poiID)
 
 def subscribeContext(poiID, domain, dist, varIDs=(tc.VAR_POSITION,), begin=0, end=2**31-1):
-    subscriptionResults.reset()
     traci._subscribeContext(tc.CMD_SUBSCRIBE_POI_CONTEXT, begin, end, poiID, domain, dist, varIDs)
 
 def getContextSubscriptionResults(poiID=None):
