@@ -79,6 +79,9 @@ def distancePointToPolygon(point, polygon, perpendicular=False):
     minDist = None
     for i in range(0, len(s)-1):
         dist = distancePointToLine(p, s[i], s[i+1], perpendicular)
+        if dist == INVALID_DISTANCE and perpendicular and i != 0: 
+            # distance to inner corner
+            dist = distance(point, s[i])
         if dist != INVALID_DISTANCE:
             if minDist is None or dist < minDist:
                 minDist = dist
