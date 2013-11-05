@@ -1,0 +1,43 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+	<vType id="t1" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="13.89"/>
+	<vType id="t2" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="13.89">
+  </vType>
+
+	<vehicle id="0" depart="0" departSpeed="13.89" type="t2">
+		<param key="has.btreceiver.device" value="true"/>
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle id="1" depart="20" departSpeed="13.89" type="t1">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle id="2" depart="40" departSpeed="13.89" type="t2">
+		<param key="has.btreceiver.device" value="true"/>
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle id="3" depart="60" departSpeed="13.89" type="t1">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle id="4" depart="80" departSpeed="13.89" type="t2">
+		<param key="has.btreceiver.device" value="true"/>
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle id="5" depart="100" departSpeed="13.89" type="t1">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle id="6" depart="120" departSpeed="13.89" type="t2">
+		<param key="has.btreceiver.device" value="true"/>
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle id="7" depart="140" departSpeed="13.89" type="t1">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle id="8" depart="160" departSpeed="13.89" type="t2">
+		<param key="has.btreceiver.device" value="true"/>
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle id="9" depart="180" departSpeed="13.89" type="t1">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+
+
+</routes>

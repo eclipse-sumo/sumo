@@ -13,3 +13,11 @@ half_by_prob__sender
 # half vehicles have the device, by naming all of them (even ones)
 half_by_name__receiver
 half_by_name__sender
+
+# whether setting via parameter works
+by_vehicle_param
+by_vtype_param
+by_vehicle_param_over_vtype1
+by_vehicle_param_over_vtype2
+
+
