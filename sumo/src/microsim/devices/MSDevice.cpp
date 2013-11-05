@@ -28,6 +28,7 @@
 #endif
 
 #include <utils/options/OptionsCont.h>
+#include <utils/common/TplConvert.h>
 #include <microsim/MSVehicle.h>
 #include "MSDevice.h"
 #include "MSDevice_Vehroutes.h"
@@ -113,7 +114,14 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
         }
         haveByName = myExplicitIDs[deviceName].count(v.getID()) > 0;
     }
-    return haveByNumber || haveByName;
+    // assignment by abstract parameters
+    bool haveByParameter = false;
+    if(v.getParameter().knowsParameter("has." + deviceName + ".device")) {
+        haveByParameter = TplConvert::_2bool(v.getParameter().getParameter("has." + deviceName + ".device", "false").c_str());
+    } else {
+        haveByParameter = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("has." + deviceName + ".device", "false").c_str());
+    }
+    return haveByNumber || haveByName || haveByParameter;
 }
 
 
