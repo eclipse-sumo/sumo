@@ -132,16 +132,22 @@ public:
     class MeetingPoint {
     public:
         /** @brief Constructor
-         * @param[in] t_ The time of the meeting
-         * @param[in] observerPos_ The position the observer had at the time
-         * @param[in] observerSpeed_ The speed the observer had at the time
-         * @param[in] seenPos_ The position the seen vehicle had at the time
-         * @param[in] seenSpeed_ The speed the vehicle had at the time
+         * @param[in] _t The time of the meeting
+         * @param[in] _observerPos The position the observer had at the time
+         * @param[in] _observerSpeed The speed the observer had at the time
+         * @param[in] _observerLaneID The lane the observer was at
+         * @param[in] _observerLanePos The position at the lane of the observer
+         * @param[in] _seenPos The position the seen vehicle had at the time
+         * @param[in] _seenSpeed The speed the vehicle had at the time
+         * @param[in] _seenLaneID The lane the vehicle was at
+         * @param[in] _seenLanePos The position at the lane of the vehicle
          */
-        MeetingPoint(SUMOReal t_, const Position& observerPos_, SUMOReal observerSpeed_,
-                     const Position& seenPos_, SUMOReal seenSpeed_)
-            : t(t_), observerPos(observerPos_), observerSpeed(observerSpeed_),
-              seenPos(seenPos_), seenSpeed(seenSpeed_) {}
+        MeetingPoint(SUMOReal _t, const Position& _observerPos, SUMOReal _observerSpeed,
+                     const std::string &_observerLaneID, SUMOReal _observerLanePos,
+                     const Position& _seenPos, SUMOReal _seenSpeed, 
+                     const std::string &_seenLaneID, SUMOReal _seenLanePos)
+            : t(_t), observerPos(_observerPos), observerSpeed(_observerSpeed), observerLaneID(_observerLaneID), observerLanePos(_observerLanePos),
+              seenPos(_seenPos), seenSpeed(_seenSpeed), seenLaneID(_seenLaneID), seenLanePos(_seenLanePos) {}
 
         /// @brief Destructor
         ~MeetingPoint() {}
@@ -153,10 +159,18 @@ public:
         Position observerPos;
         /// @brief The speed the observer had at the time
         SUMOReal observerSpeed;
+        /// @brief The lane the observer was at
+        std::string observerLaneID;
+        /// @brief The position at the lane of the observer
+        SUMOReal observerLanePos;
         /// @brief The position the seen vehicle had at the time
         Position seenPos;
         /// @brief The speed the vehicle had at the time
         SUMOReal seenSpeed;
+        /// @brief The lane the vehicle was at
+        std::string seenLaneID;
+        /// @brief The position at the lane of the vehicle
+        SUMOReal seenLanePos;
 
     };
 
@@ -346,13 +360,17 @@ private:
          * @param[in] atOffset The time offset to the current time step
          * @param[in] thisPos The receiver's position at the time
          * @param[in] thisSpeed The receiver's speed at the time
+         * @param[in] thisLaneID The lane the observer was at
+         * @param[in] thisLanePos The position at the lane of the observer
          * @param[in] otherID The ID of the entering sender
          * @param[in] otherPos The position of the entering sender
          * @param[in] otherSpeed The speed of the entering sender
+         * @param[in] otherLaneID The lane the sender was at
+         * @param[in] otherLanePos The position at the lane of the sender
          * @param[in] currentlySeen The container storing episodes
          */
-        void enterRange(SUMOReal atOffset, const Position &thisPos, SUMOReal thisSpeed, 
-            const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed,
+        void enterRange(SUMOReal atOffset, const Position &thisPos, SUMOReal thisSpeed, const std::string &thisLaneID, SUMOReal thisLanePos, 
+            const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, const std::string &otherLaneID, SUMOReal otherLanePos,
             std::map<std::string, SeenDevice*> &currentlySeen);
 
 
@@ -361,15 +379,19 @@ private:
          * @param[in] seen The lists of episodes to add this one to
          * @param[in] thisPos The receiver's position at the time
          * @param[in] thisSpeed The receiver's speed at the time
+         * @param[in] thisLaneID The lane the observer was at
+         * @param[in] thisLanePos The position at the lane of the observer
          * @param[in] otherID The ID of the entering sender
          * @param[in] otherPos The position of the entering sender
          * @param[in] otherSpeed The speed of the entering sender
+         * @param[in] otherLaneID The lane the sender was at
+         * @param[in] otherLanePos The position at the lane of the sender
          * @param[in] tOffset The time offset to the current time step
          * @param[in] remove Whether the sender shall be removed from this device's myCurrentlySeen
          */
         void leaveRange(std::map<std::string, SeenDevice*> &currentlySeen, std::map<std::string, std::vector<SeenDevice*> > &seen,
-            const Position &thisPos, SUMOReal thisSpeed, 
-            const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, 
+            const Position &thisPos, SUMOReal thisSpeed, const std::string &thisLaneID, SUMOReal thisLanePos, 
+            const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, const std::string &otherLaneID, SUMOReal otherLanePos,
             SUMOReal tOffset);
 
 
@@ -387,14 +409,18 @@ private:
     /** @brief Adds a point of recognition
      * @param[in] thisPos The receiver's position at the time
      * @param[in] thisSpeed The receiver's speed at the time
+     * @param[in] thisLaneID The lane the observer was at
+     * @param[in] thisLanePos The position at the lane of the observer
      * @param[in] otherID The ID of the entering sender
      * @param[in] otherPos The position of the entering sender
      * @param[in] otherSpeed The speed of the entering sender
+     * @param[in] otherLaneID The lane the sender was at
+     * @param[in] otherLanePos The position at the lane of the sender
      * @param[in] tOffset The time offset to the current time step
      * @param[filled] currentlySeen The contact information storage for saving the contact point
      */
-    void addRecognitionPoint(SUMOReal tEnd, const Position &thisPos, SUMOReal thisSpeed, 
-        const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, 
+    void addRecognitionPoint(SUMOReal tEnd, const Position &thisPos, SUMOReal thisSpeed, const std::string &thisLaneID, SUMOReal thisLanePos, 
+        const std::string &otherID, const Position &otherPos, SUMOReal otherSpeed, const std::string &otherLaneID, SUMOReal otherLanePos,
         std::map<std::string, SeenDevice*> &currentlySeen);
 
 
