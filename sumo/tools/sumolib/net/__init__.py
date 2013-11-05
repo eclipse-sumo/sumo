@@ -284,10 +284,20 @@ class Net:
         """ offset to be added after converting from geo-coordinates to UTM"""
         return list(map(float,self._location["netOffset"].split(",")))
 
-    def convertLatLon2XY(self, lat, lon):
+    def convertLonLat2XY(self, lat, lon, rawUTM=False):
         x,y = self.getGeoProj()(lon,lat)
-        x_off, y_off = self.getLocationOffset()
-        return x + x_off, y + y_off
+        if rawUTM:
+            return x, y
+        else:
+            x_off, y_off = self.getLocationOffset()
+            return x + x_off, y + y_off
+
+    def convertXY2LonLat(self, x, y, rawUTM=False):
+        if not rawUTM:
+            x_off, y_off = self.getLocationOffset()
+            x -= x_off
+            y -= y_off
+        return self.getGeoProj()(x, y, inverse=True)
 
     def move(self, dx, dy):
         for n in self._nodes:
