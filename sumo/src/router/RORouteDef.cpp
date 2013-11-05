@@ -181,7 +181,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         newEdges.push_back(*(oldEdges.begin()));
         std::vector<const ROEdge*>::iterator nextMandatory = mandatory.begin() + 1;
         size_t lastMandatory = 0;
-        for (std::vector<const ROEdge*>::iterator i = oldEdges.begin() + 1; i != oldEdges.end(); ++i) {
+        for (std::vector<const ROEdge*>::iterator i = oldEdges.begin() + 1; 
+                i != oldEdges.end() && nextMandatory != mandatory.end(); ++i) {
             if ((*(i - 1))->isConnectedTo(*i)) {
                 /// XXX could be connected from a prohibited lane only
                 newEdges.push_back(*i);
@@ -189,26 +190,27 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                 std::vector<const ROEdge*> edges;
                 router.compute(newEdges.back(), *i, &veh, begin, edges);
                 if (edges.size() == 0) {
-                    if (*i == *nextMandatory) {
-                        // fallback: try to route from last mandatory edge
-                        if (newEdges.back() != newEdges[lastMandatory]) {
-                            router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges);
+                    // backtrack: try to route from last mandatory edge to next mandatory edge
+                    // XXX add option for backtracking in smaller increments
+                    // (i.e. previous edge to edge after *i)
+                    // we would then need to decide whether we have found a good
+                    // tradeoff between faithfulness to the input data and detour-length
+                    router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges);
+                    if (edges.size() == 0) {
+                        mh->inform("Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
+                        return;
+                    } else {
+                        while (*i != *nextMandatory) {
+                            ++i;
                         }
-                        if (edges.size() == 0) {
-                            mh->inform("Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
-                            return;
-                        } else {
-                            newEdges.erase(newEdges.begin() + lastMandatory + 1, newEdges.end());
-                            std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
-                        }
+                        newEdges.erase(newEdges.begin() + lastMandatory + 1, newEdges.end());
                     }
-                } else {
-                    std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
-                }
-                if (*i == *nextMandatory) {
-                    nextMandatory++;
-                    lastMandatory = newEdges.size() - 1;
-                }
+                } 
+                std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
+            }
+            if (*i == *nextMandatory) {
+                nextMandatory++;
+                lastMandatory = newEdges.size() - 1;
             }
         }
     }
