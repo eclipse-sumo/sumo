@@ -97,6 +97,9 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel
         assert(result >= 0);
         return result;
     }
+    if (gap < 0) {
+        gap = 0;
+    }
     // follow the leader
     // g=gap, t=myHeadwayTime, a=predMaxDecel, b=myDecel, v=predSpeed, x=vSafe
     // Solution approach: equal distances after leader and follower have stopped (partly discretized).
