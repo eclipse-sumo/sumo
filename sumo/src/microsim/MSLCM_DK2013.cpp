@@ -260,6 +260,7 @@ MSLCM_DK2013::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
 void
 MSLCM_DK2013::prepareStep() {
+    myOwnState = 0;
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;
     myVSafes.clear();

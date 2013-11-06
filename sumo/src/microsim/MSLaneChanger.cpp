@@ -156,7 +156,6 @@ MSLaneChanger::change() {
         ((std::vector<MSVehicle::LaneQ>&) preb)[i].occupation = myChanger[i].dens + preb[i].nextOccupation;
     }
 
-    vehicle->getLaneChangeModel().prepareStep();
     std::pair<MSVehicle* const, SUMOReal> leader = getRealThisLeader(myCandi);
     // check whether the vehicle wants and is able to change to right lane
     int state1 = 0;
