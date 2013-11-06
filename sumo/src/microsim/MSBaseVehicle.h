@@ -250,6 +250,13 @@ public:
         return myChosenSpeedFactor;
     }
 
+    /** @brief Returns the precomputed factor by which the driver wants to be faster than the speed limit
+     * @return Speed limit factor
+     */
+    inline void setChosenSpeedFactor(SUMOReal factor) {
+        myChosenSpeedFactor = factor;
+    }
+
     /// @brief Returns a device of the given type if it exists or 0
     MSDevice* getDevice(const std::type_info& type) const;
 

@@ -395,7 +395,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != CMD_REROUTE_TRAVELTIME && variable != CMD_REROUTE_EFFORT
             && variable != VAR_SIGNALS && variable != VAR_MOVE_TO
             && variable != VAR_LENGTH && variable != VAR_MAXSPEED && variable != VAR_VEHICLECLASS
-            && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_EMISSIONCLASS
+            && variable != VAR_SPEED_FACTOR && variable != VAR_EMISSIONCLASS
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
             && variable != VAR_TAU && variable != VAR_LANECHANGE_MODE
@@ -1071,6 +1071,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Could not map vehicle.", outputStorage);
                 }
             }
+        }
+        break;
+        case VAR_SPEED_FACTOR: {
+            double factor = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, factor)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting speed factor requires a double.", outputStorage);
+            }
+            v->setChosenSpeedFactor(factor);
         }
         break;
         default:
