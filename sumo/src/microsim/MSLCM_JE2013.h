@@ -116,18 +116,31 @@ protected:
         MSVehicle** firstBlocked);
 
 
-
-
-    void informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+    /* @brief decide whether we will overtake or follow a blocking leader 
+     * and inform it accordingly
+     * If we decide to follow, myVSafes will be extended
+     * returns the planned speed if following or -1 if overtaking */
+    SUMOReal informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                        int blocked, int dir,
                        const std::pair<MSVehicle*, SUMOReal>& neighLead,
-                       const std::pair<MSVehicle*, SUMOReal>& neighFollow);
+                       SUMOReal remainingSeconds);
+
+    /// @brief decide whether we will try cut in before the follower or allow to be overtaken 
+    void informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+                       int blocked, int dir,
+                       const std::pair<MSVehicle*, SUMOReal>& neighFollow,
+                       SUMOReal remainingSeconds,
+                       SUMOReal plannedSpeed);
+
 
     /// @brief compute useful slowdowns for blocked vehicles
     int slowDownForBlocked(MSVehicle** blocked, int state);
 
     /// @brief save space for vehicles which need to counter-lane-change
     void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
+
+    /// @brief updated myKeepRightProbability and mySpeedGainProbability if the right neighbours are faster
+    void keepRight(MSVehicle* neigh);
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;
@@ -161,6 +174,10 @@ protected:
 
     SUMOReal myLeadingBlockerLength;
     SUMOReal myLeftSpace;
+
+    /*@brief the speed to use when computing the look-ahead distance for
+     * determining urgency of strategic lane changes */
+    SUMOReal myLookAheadSpeed;
 
     std::vector<SUMOReal> myVSafes;
     bool myDontBrake;
