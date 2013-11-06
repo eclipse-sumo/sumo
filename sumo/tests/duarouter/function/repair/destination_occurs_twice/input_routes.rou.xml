@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+
+    <vehicle id="0" depart="0">
+        <route edges="absBeg left middle end middle end"/>
+    </vehicle>
+</routes>
