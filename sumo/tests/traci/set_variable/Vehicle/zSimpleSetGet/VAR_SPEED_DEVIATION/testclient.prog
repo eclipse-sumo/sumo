@@ -1,5 +1,0 @@
-simstep2 5
-getvariable 0xa4 0x5f 0
-setvalue 0xc4 0x5f 0 <double> 2
-getvariable 0xa4 0x5f 0
-simstep2 6
