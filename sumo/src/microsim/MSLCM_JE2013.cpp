@@ -76,12 +76,11 @@
 #define MIN_FALLBEHIND  (SUMOReal)(14.0 / 3.6)
 
 #define KEEP_RIGHT_HEADWAY (SUMOReal)2.0
-#define OVERTAKE_RIGHT_THRESHOLD (SUMOReal)(5.0 / 3.6)
 
 #define URGENCY (SUMOReal)2.0 
 
-//#define DEBUG_COND (myVehicle.getID() == "1501_25915000" || myVehicle.getID() == "1501_25900000") 
-//#define DEBUG_COND (myVehicle.getID() == "1502_25417241")
+//#define DEBUG_COND (myVehicle.getID() == "1503_25640000" || myVehicle.getID() == "1502_25642222") 
+//#define DEBUG_COND (myVehicle.getID() == "1501_25630909")
 #define DEBUG_COND false
 
 // debug function
@@ -708,11 +707,19 @@ MSLCM_JE2013::_wantsChange(
         // check for slower leader on the left. we should not overtake but
         // rather move left ourselves (unless congested)
         MSVehicle* nv = neighLead.first;
-        if (nv->getSpeed() + OVERTAKE_RIGHT_THRESHOLD < myVehicle.getSpeed()) {
+        if (nv->getSpeed() < myVehicle.getSpeed()) {
             myVSafes.push_back(myCarFollowModel.followSpeed(
                     &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
+            mySpeedGainProbability += 0.3;
+            if (MSGlobals::gDebugFlag2) {
+                std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                    << " avoid overtaking on the right nv=" << nv->getID()
+                    << " nvSpeed=" << nv->getSpeed()
+                    << " mySpeedGainProbability=" << mySpeedGainProbability
+                    << " plannedSpeed=" << myVSafes.back()
+                    << "\n";
+            }
         }
-        mySpeedGainProbability += 0.3;
     }
 
     // the opposite lane-changing direction should be done than the one examined herein
@@ -819,7 +826,7 @@ MSLCM_JE2013::_wantsChange(
         }
 
         // let's recheck the "Rechtsfahrgebot"
-        keepRight(neighLead.first);
+        //keepRight(neighLead.first);
         keepRight(neighFollow.first);
         if (MSGlobals::gDebugFlag2) {
             std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
