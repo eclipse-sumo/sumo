@@ -76,12 +76,13 @@
 #define MIN_FALLBEHIND  (SUMOReal)(14.0 / 3.6)
 
 #define KEEP_RIGHT_HEADWAY (SUMOReal)2.0
+#define OVERTAKE_RIGHT_THRESHOLD (SUMOReal)(5.0 / 3.6)
 
 #define URGENCY (SUMOReal)2.0 
 
-//#define DEBUG_COND (myVehicle.getID() == "1503_20203200" || myVehicle.getID() == "1502_20170588") 
+#define DEBUG_COND (myVehicle.getID() == "1501_25915000" || myVehicle.getID() == "1501_25900000") 
 //#define DEBUG_COND (myVehicle.getID() == "1502_25417241")
-#define DEBUG_COND false
+//#define DEBUG_COND false
 
 // debug function
 std::string 
@@ -330,7 +331,7 @@ MSLCM_JE2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         // decide whether we want to overtake the leader or follow it
         const SUMOReal dv = plannedSpeed - nv->getSpeed();
         if (dv < 0 
-                // overtaking on the right on an uncongested highway is forbidden
+                // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
                 || (dir == LCA_MLEFT && !myVehicle.congested())
                 // not enough time to overtake?
                 || dv * remainingSeconds < ( 
@@ -405,7 +406,7 @@ MSLCM_JE2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         return MIN2(targetSpeed, plannedSpeed);
     } else {
         // not overtaking
-        return MIN2(myVehicle.getSpeed() + myVehicle.getAcceleration(), plannedSpeed);
+        return plannedSpeed;
     }
 }
 
@@ -702,6 +703,17 @@ MSLCM_JE2013::_wantsChange(
         return ret | lca | LCA_STRATEGIC | LCA_URGENT;
     }
 
+    // VARIANT_20 (noOvertakeRight)
+    if (!right && !myVehicle.congested() && neighLead.first !=0) {
+        // check for slower leader on the left. we should not overtake but
+        // rather move left ourselves (unless congested)
+        MSVehicle* nv = neighLead.first;
+        if (nv->getSpeed() + OVERTAKE_RIGHT_THRESHOLD < myVehicle.getSpeed()) {
+            myVSafes.push_back(myCarFollowModel.followSpeed(
+                    &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
+        }
+        mySpeedGainProbability += 0.3;
+    }
 
     // the opposite lane-changing direction should be done than the one examined herein
     //  we'll check whether we assume we could change anyhow and get back in time...
