@@ -79,7 +79,7 @@
 
 #define URGENCY (SUMOReal)2.0 
 
-//#define DEBUG_COND (myVehicle.getID() == "1503_25477500" || myVehicle.getID() == "1501_25460000") 
+//#define DEBUG_COND (myVehicle.getID() == "1503_20203200" || myVehicle.getID() == "1502_20170588") 
 //#define DEBUG_COND (myVehicle.getID() == "1502_25417241")
 #define DEBUG_COND false
 
@@ -329,9 +329,14 @@ MSLCM_JE2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             << myVehicle.getCarFollowModel().getSecureGap(myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()) << "\n";
         // decide whether we want to overtake the leader or follow it
         const SUMOReal dv = plannedSpeed - nv->getSpeed();
-        if (dv < 0 || dv * remainingSeconds < ( 
+        if (dv < 0 
+                // overtaking on the right on an uncongested highway is forbidden
+                || (dir == LCA_MLEFT && !myVehicle.congested())
+                // not enough time to overtake?
+                || dv * remainingSeconds < ( 
                     neighLead.second + nv->getVehicleType().getLengthWithGap() + nv->getCarFollowModel().getSecureGap(
-                        nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()))) {
+                        nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()))
+                ) {
             // cannot overtake
             msgPass.informNeighLeader(new Info(-1, dir | LCA_AMBLOCKINGLEADER), &myVehicle);
             // slow down smoothly to follow leader 
@@ -461,7 +466,7 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                     nv, nv->getSpeed(), neighFollow.second, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel()));
             msgPass.informNeighFollower(new Info(vsafe, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
             if (MSGlobals::gDebugFlag2) std::cout << " wants to cut in before nv=" << nv->getID() << "\n";
-        } else if (dv > 0 && myVehicle.getAcceleration() >= 0 && dv * remainingSeconds > secureGap) {
+        } else if (dv > 0 && dv * remainingSeconds > (secureGap - decelGap + POSITION_EPS)) {
             // decelerating once is sufficient to open up a large enough gap in time
             msgPass.informNeighFollower(new Info(neighNewSpeed, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
             if (MSGlobals::gDebugFlag2) std::cout << " wants to cut in before nv=" << nv->getID() << " (eventually)\n";
