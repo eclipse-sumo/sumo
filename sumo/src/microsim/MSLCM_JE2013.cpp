@@ -53,29 +53,29 @@
 // variable definitions
 // ===========================================================================
 // 80km/h will be the threshold for dividing between long/short foresight
-#define LOOK_FORWARD_SPEED_DIVIDER 14.
+#define LOOK_FORWARD_SPEED_DIVIDER (SUMOReal)14.
 
 // VARIANT_1 (lf*2)
 //#define LOOK_FORWARD_FAR  30.
 //#define LOOK_FORWARD_NEAR 10.
 
-#define LOOK_FORWARD_RIGHT 10.
-#define LOOK_FORWARD_LEFT  20.
+#define LOOK_FORWARD_RIGHT (SUMOReal)10.
+#define LOOK_FORWARD_LEFT  (SUMOReal)20.
 
-#define JAM_FACTOR 1.
+#define JAM_FACTOR (SUMOReal)1.
 //#define JAM_FACTOR 2. // VARIANT_8 (makes vehicles more focused but also more "selfish")
 
-#define LCA_RIGHT_IMPATIENCE -1.
+#define LCA_RIGHT_IMPATIENCE (SUMOReal)-1.
 
-#define LOOK_AHEAD_MIN_SPEED 10.
+#define LOOK_AHEAD_MIN_SPEED (SUMOReal)10.
 #define LOOK_AHEAD_SPEED_DECREMENT 6.
 
-#define HELP_DECEL_FACTOR 1.0
+#define HELP_DECEL_FACTOR (SUMOReal)1.0
 
-#define HELP_OVERTAKE  10.0 / 3.6
-#define MIN_FALLBEHIND  14.0 / 3.6
+#define HELP_OVERTAKE  (SUMOReal)(10.0 / 3.6)
+#define MIN_FALLBEHIND  (SUMOReal)(14.0 / 3.6)
 
-#define URGENCY 2.0 
+#define URGENCY (SUMOReal)2.0 
 
 //#define DEBUG_COND (myVehicle.getID() == "1503_25477500" || myVehicle.getID() == "1501_25460000") 
 //#define DEBUG_COND (myVehicle.getID() == "1502_25417241")
@@ -341,7 +341,7 @@ MSLCM_JE2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             if (targetSpeed < myVehicle.getSpeed()) {
                 // slow down smoothly to follow leader 
                 const SUMOReal decel = MIN2(myVehicle.getCarFollowModel().getMaxDecel(), 
-                        MAX2((SUMOReal) MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds));
+                        MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds));
                 const SUMOReal nextSpeed = myVehicle.getSpeed() - decel;
                 if (MSGlobals::gDebugFlag2) {
                     std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
@@ -617,13 +617,13 @@ MSLCM_JE2013::_wantsChange(
     //if (myVehicle.getSpeed() > myLookAheadSpeed) {
     //    myLookAheadSpeed = myVehicle.getSpeed();
     //} else if (myVehicle.getSpeed() < myLookAheadSpeed - LOOK_AHEAD_SPEED_DECREMENT) {
-    //    myLookAheadSpeed = MAX2((SUMOReal) LOOK_AHEAD_MIN_SPEED,myVehicle.getSpeed());
+    //    myLookAheadSpeed = MAX2(LOOK_AHEAD_MIN_SPEED, myVehicle.getSpeed());
     //}
     myLookAheadSpeed = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
 
     //SUMOReal laDist = laSpeed > LOOK_FORWARD_SPEED_DIVIDER
-    //              ? laSpeed * (SUMOReal) LOOK_FORWARD_FAR
-    //              : laSpeed * (SUMOReal) LOOK_FORWARD_NEAR;
+    //              ? laSpeed *  LOOK_FORWARD_FAR
+    //              : laSpeed *  LOOK_FORWARD_NEAR;
     SUMOReal laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT);
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (SUMOReal) 2.;
     // free space that is available for changing
@@ -633,7 +633,7 @@ MSLCM_JE2013::_wantsChange(
     // @note: while this lets vehicles change earlier into the correct direction
     // it also makes the vehicles more "selfish" and prevents changes which are necessary to help others
 
-    const SUMOReal usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR);
+    const SUMOReal usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);
             //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
 
     if (MSGlobals::gDebugFlag2) {
