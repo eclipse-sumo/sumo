@@ -80,9 +80,9 @@
 
 #define URGENCY (SUMOReal)2.0 
 
-#define DEBUG_COND (myVehicle.getID() == "1501_25915000" || myVehicle.getID() == "1501_25900000") 
+//#define DEBUG_COND (myVehicle.getID() == "1501_25915000" || myVehicle.getID() == "1501_25900000") 
 //#define DEBUG_COND (myVehicle.getID() == "1502_25417241")
-//#define DEBUG_COND false
+#define DEBUG_COND false
 
 // debug function
 std::string 
