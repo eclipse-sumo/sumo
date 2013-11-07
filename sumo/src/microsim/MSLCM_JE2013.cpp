@@ -67,7 +67,8 @@
 
 #define LCA_RIGHT_IMPATIENCE (SUMOReal)-1.
 
-#define LOOK_AHEAD_MIN_SPEED (SUMOReal)10.
+#define LOOK_AHEAD_MIN_SPEED (SUMOReal)0.0
+#define LOOK_AHEAD_SPEED_MEMORY (SUMOReal)0.9
 #define LOOK_AHEAD_SPEED_DECREMENT 6.
 
 #define HELP_DECEL_FACTOR (SUMOReal)1.0
@@ -80,7 +81,7 @@
 #define URGENCY (SUMOReal)2.0 
 
 //#define DEBUG_COND (myVehicle.getID() == "1503_25640000" || myVehicle.getID() == "1502_25642222") 
-//#define DEBUG_COND (myVehicle.getID() == "1501_25630909")
+//#define DEBUG_COND (myVehicle.getID() == "overtaking_right")
 #define DEBUG_COND false
 
 // debug function
@@ -633,11 +634,13 @@ MSLCM_JE2013::_wantsChange(
     // we do not want the lookahead distance to change all the time so we discrectize the speed a bit
 
     // VARIANT_18 (laHyst)
-    //const SUMOReal laSpeedCandidate = (myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle) + myVehicle.getSpeed()) / 2.0;
-    //if (laSpeedCandidate > myLookAheadSpeed) {
-    //    myLookAheadSpeed = laSpeedCandidate;
-    //}
-    myLookAheadSpeed = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
+    if (myVehicle.getSpeed() > myLookAheadSpeed) {
+        myLookAheadSpeed = myVehicle.getSpeed();
+    } else {
+        myLookAheadSpeed = MAX2(LOOK_AHEAD_MIN_SPEED,
+                (LOOK_AHEAD_SPEED_MEMORY * myLookAheadSpeed + (1 - LOOK_AHEAD_SPEED_MEMORY) * myVehicle.getSpeed()));
+    }
+    //myLookAheadSpeed = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
 
     //SUMOReal laDist = laSpeed > LOOK_FORWARD_SPEED_DIVIDER
     //              ? laSpeed *  LOOK_FORWARD_FAR
@@ -730,9 +733,9 @@ MSLCM_JE2013::_wantsChange(
     //  is long enough
     SUMOReal maxJam = MAX2(preb[currIdx + laneOffset].occupation, preb[currIdx].occupation);
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist - myVehicle.getPositionOnLane() - maxJam);
-    if (!changeToBest && (currentDistDisallows(neighLeftPlace, bestLaneOffset - (2 * laneOffset), laDist))) {
+    if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
         // ...we will not change the lane if not
-        //std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (1) neighLeftPlace=" << neighLeftPlace << "\n";
+        if (MSGlobals::gDebugFlag2) std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (1) neighLeftPlace=" << neighLeftPlace << "\n";
         return ret | LCA_STAY | LCA_STRATEGIC;
     }
 
@@ -744,6 +747,7 @@ MSLCM_JE2013::_wantsChange(
     //  close to this lane's end
     if (currExtDist > neighExtDist && (neighLeftPlace * 2. < laDist)) {
         //std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2)\n";
+        if (MSGlobals::gDebugFlag2) std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2) currExtDist=" << currExtDist << " neighExtDist=" << neighExtDist << " neighLeftPlace=" << neighLeftPlace << "\n";
         return ret | LCA_STAY | LCA_STRATEGIC;
     }
 
@@ -751,6 +755,7 @@ MSLCM_JE2013::_wantsChange(
     //  in this case, we do not want to get to the dead-end of an on-ramp
     if (right) {
         if (bestLaneOffset == 0 && preb[currIdx + laneOffset].bestLaneOffset != 0 && myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle) > 80. / 3.6) {
+        if (MSGlobals::gDebugFlag2) std::cout << " veh=" << myVehicle.getID() << " does not want to get stranded on the on-ramp of a highway\n";
             return ret | LCA_STAY | LCA_STRATEGIC;
         }
     }
