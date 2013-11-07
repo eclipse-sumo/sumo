@@ -291,7 +291,7 @@ def getAllowedSpeed(vehID):
     
     Returns the maximum allowed speed on the current lane regarding speed factor in m/s for this vehicle.
     """
-    return _getUniversal(tc.VAR_MAXSPEED, vehID)
+    return _getUniversal(tc.VAR_ALLOWED_SPEED, vehID)
 
 def getVehicleClass(vehID):
     """getVehicleClass(string) -> string
