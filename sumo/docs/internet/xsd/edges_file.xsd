@@ -28,6 +28,7 @@
         <xsd:sequence>
             <xsd:element name="lane" type="laneType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="split" type="splitType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="refId" type="xsd:string"/>
@@ -56,6 +57,9 @@
     </xsd:complexType>
 
     <xsd:complexType name="laneType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
         <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>

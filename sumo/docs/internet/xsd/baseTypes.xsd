@@ -182,4 +182,9 @@
         </xsd:attribute>
     </xsd:complexType>
 
+    <xsd:complexType name="paramType">
+        <xsd:attribute name="key" type="xsd:string" use="required"/>
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
 </xsd:schema>
