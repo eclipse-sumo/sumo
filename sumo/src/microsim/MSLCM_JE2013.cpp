@@ -128,6 +128,7 @@ MSLCM_JE2013::wantsChange(
     if (MSGlobals::gDebugFlag2) {
         std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
             << " veh=" << myVehicle.getID()
+            << " lane=" << myVehicle.getLane()->getID()
             << " considerChangeTo=" << (laneOffset == -1  ? "right" : "left")
             << "\n";
     }
