@@ -144,7 +144,7 @@ MSLCM_JE2013::wantsChange(
                 << ((result & LCA_STRATEGIC) ? " (strat)" : "")
                 << ((result & LCA_COOPERATIVE) ? " (coop)" : "")
                 << ((result & LCA_SPEEDGAIN) ? " (speed)" : "")
-                << ((result & LCA_KEEPRIGHT) ? " (right)" : "")
+                << ((result & LCA_KEEPRIGHT) ? " (keepright)" : "")
                 << ((result & LCA_BLOCKED) ? " (blocked)" : "")
                 << ((result & LCA_OVERLAPPING) ? " (overlap)" : "")
                 << "\n";
