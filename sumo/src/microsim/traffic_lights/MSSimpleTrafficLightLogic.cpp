@@ -170,7 +170,7 @@ MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const {
 
 unsigned int
 MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
-    assert(offset <= myDefaultCycleTime);
+    offset = offset % myDefaultCycleTime;
     if (offset == myDefaultCycleTime) {
         return 0;
     }
