@@ -481,12 +481,13 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 // follower should still be fast enough to open a gap
                 const SUMOReal vhelp = MAX2(neighNewSpeed, myVehicle.getSpeed() + HELP_OVERTAKE);
                 if (MSGlobals::gDebugFlag2) std::cout << " wants right follower to slow down a bit\n";
-                msgPass.informNeighFollower(new Info(vhelp, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
                 if ((nv->getSpeed() - myVehicle.getSpeed()) / helpDecel < remainingSeconds) {
                     if (MSGlobals::gDebugFlag2) std::cout << " wants to cut in before right follower nv=" << nv->getID() << " (eventually)\n";
+                    msgPass.informNeighFollower(new Info(vhelp, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
                     return;
                 }
             }
+            msgPass.informNeighFollower(new Info(vhelp, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
             // this follower is supposed to overtake us. slow down smoothly to allow this
             const SUMOReal overtakeGap = myVehicle.getCarFollowModel().getSecureGap(plannedSpeed, vhelp, nv->getCarFollowModel().getMaxDecel());
             const SUMOReal needDV = (neighFollow.second + overtakeGap + myVehicle.getVehicleType().getLengthWithGap()) / remainingSeconds;
@@ -756,8 +757,7 @@ MSLCM_JE2013::_wantsChange(
     //
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
-    if (currExtDist > neighExtDist && (neighLeftPlace * 2. < laDist)) {
-        //std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2)\n";
+    if (bestLaneOffset == 0 && (neighLeftPlace * 2. < laDist)) {
         if (MSGlobals::gDebugFlag2) std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2) currExtDist=" << currExtDist << " neighExtDist=" << neighExtDist << " neighLeftPlace=" << neighLeftPlace << "\n";
         return ret | LCA_STAY | LCA_STRATEGIC;
     }
