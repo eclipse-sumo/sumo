@@ -234,13 +234,6 @@ MSVehicle::Influencer::checkForLaneChanges(SUMOTime currentTime, const MSEdge& c
 
 int
 MSVehicle::Influencer::influenceChangeDecision(int state) {
-    // security checks
-    if ((state & LCA_OVERLAPPING) && myRespectGapLC != LC_NEVER) {
-        return state;
-    }
-    if (((state & LCA_BLOCKED) != 0) && myRespectGapLC == LC_ALWAYS) {
-        return state;
-    }
     // check whether the current reason shall be canceled / overridden
     if ((state & LCA_WANTS_LANECHANGE_OR_STAY) != 0) {
         // flags for the current reason
@@ -271,6 +264,13 @@ MSVehicle::Influencer::influenceChangeDecision(int state) {
             // ignore any TraCI requests
             return state;
         }
+    }
+    // security checks
+    if ((state & LCA_OVERLAPPING) && myRespectGapLC != LC_NEVER) {
+        return state;
+    }
+    if (((state & LCA_BLOCKED) != 0) && myRespectGapLC == LC_ALWAYS) {
+        return state;
     }
     // apply traci requests
     if (myChangeRequest == REQUEST_NONE) {
