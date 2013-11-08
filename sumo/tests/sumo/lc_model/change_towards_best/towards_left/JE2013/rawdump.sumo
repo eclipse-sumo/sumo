@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  1 11:24:55 2013 by SUMO sumo Version dev-SVN-r14990
+<!-- generated on Fri Nov  8 07:11:34 2013 by SUMO sumo Version dev-SVN-r15052
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -53,38 +53,38 @@
     </timestep>
     <timestep time="3.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="veh" pos="20.70" speed="7.80"/>
             </lane>
-            <lane id="beg_1"/>
             <lane id="beg_2"/>
         </edge>
     </timestep>
     <timestep time="4.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="veh" pos="31.10" speed="10.40"/>
             </lane>
-            <lane id="beg_1"/>
             <lane id="beg_2"/>
         </edge>
     </timestep>
     <timestep time="5.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1"/>
+            <lane id="beg_2">
                 <vehicle id="veh" pos="44.10" speed="13.00"/>
             </lane>
-            <lane id="beg_1"/>
-            <lane id="beg_2"/>
         </edge>
     </timestep>
     <timestep time="6.00">
         <edge id="beg">
             <lane id="beg_0"/>
-            <lane id="beg_1">
+            <lane id="beg_1"/>
+            <lane id="beg_2">
                 <vehicle id="veh" pos="59.70" speed="15.60"/>
             </lane>
-            <lane id="beg_2"/>
         </edge>
     </timestep>
     <timestep time="7.00">
