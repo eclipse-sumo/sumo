@@ -32,7 +32,7 @@ signals 0
 length 5.0
 maxSpeed 70.0
 speedFactor 1.0
-allowedSpeed 70.0
+allowedSpeed 11.11
 accel 2.6
 decel 4.5
 imperfection 0.5
@@ -82,7 +82,7 @@ signals 0
 length 1.0
 maxSpeed 1.0
 speedFactor 1.1
-allowedSpeed 1.0
+allowedSpeed 12.221
 accel 1.1
 decel 1.1
 imperfection 0.1
@@ -125,7 +125,7 @@ signals 0
 length 5.0
 maxSpeed 70.0
 speedFactor 1.0
-allowedSpeed 70.0
+allowedSpeed -1001.0
 accel 2.6
 decel 4.5
 imperfection 0.5
