@@ -176,7 +176,7 @@ ROLoader::openRoutes(RONet& net) {
     if (ok) {
         myLoaders.loadNext(string2time(myOptions.getString("begin")));
         if (!MsgHandler::getErrorInstance()->wasInformed() && !net.furtherStored()) {
-            throw ProcessError("No route input specified.");
+            throw ProcessError("No route input specified or all routes were invalid.");
         }
         // skip routes prior to the begin time
         if (!myOptions.getBool("unsorted-input")) {
