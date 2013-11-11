@@ -3,11 +3,17 @@ Crossing8Course
 CrossingComplex8Course
 Roundabout8Course
 
+# test whether loading further edge types works
+C8C_add_sidewalk
+
 # a round-trip test
 C8C_roundtrip
 
 # a round-trip test with no internal lanes (error)
 C8C_roundtrip_nointernal
+
+# a round-trip test with no widths import
+Crossing8Course_no_widths
 
 # own examples (roundtrip)
 simple1

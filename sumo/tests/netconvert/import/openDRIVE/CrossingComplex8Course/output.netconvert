@@ -1,6 +1,7 @@
 Parsing opendrive from 'opendrive.xodr'... done.
  Import done:
    5 nodes loaded.
+   6 types loaded.
    12 edges loaded.
 Removing self-loops... done.
 Removing empty nodes... done.
@@ -22,7 +23,7 @@ Assigning nodes to traffic lights... done.
 Computing traffic light control information... done.
 Computing node logics... done.
 Computing traffic light logics... done.
- 0 traffic light(s) computed.
+ 4 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:

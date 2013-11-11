@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/26/13 09:11:15 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on 05/30/13 13:43:19 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -32,24 +32,24 @@
         <lane id=":1.end_0_0" index="0" speed="13.90" length="4.53" shape="50.00,-1.55 51.16,-0.78 51.55,-0.00 51.16,0.78 50.00,1.55"/>
     </edge>
 
-    <edge id="-1" from="1.begin" to="1.end" priority="1">
-        <lane id="-1_0" index="0" speed="13.90" length="50.00" width="3.00" shape="0.00,-1.55 50.00,-1.55"/>
+    <edge id="-1.0.00" from="1.begin" to="1.end" priority="1">
+        <lane id="-1.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="50.00" width="3.00" shape="0.00,-1.55 50.00,-1.55"/>
     </edge>
-    <edge id="1" from="1.end" to="1.begin" priority="1">
-        <lane id="1_0" index="0" speed="13.90" length="50.00" width="3.00" shape="50.00,1.55 0.00,1.55"/>
+    <edge id="1.0.00" from="1.end" to="1.begin" priority="1">
+        <lane id="1.0.00_0" index="0" disallow="pedestrian" speed="22.22" length="50.00" width="3.00" shape="50.00,1.55 0.00,1.55"/>
     </edge>
 
-    <junction id="1.begin" type="priority" x="0.00" y="0.00" incLanes="1_0" intLanes=":1.begin_0_0" shape="0.00,0.05 -0.00,-3.15 0.00,3.15 -0.00,-0.05">
+    <junction id="1.begin" type="priority" x="0.00" y="0.00" incLanes="1.0.00_0" intLanes=":1.begin_0_0" shape="0.00,0.05 -0.00,-3.15 0.00,3.15 -0.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="1.end" type="priority" x="50.00" y="0.00" incLanes="-1_0" intLanes=":1.end_0_0" shape="50.00,-0.05 50.00,3.15 50.00,-3.15 50.00,0.05">
+    <junction id="1.end" type="priority" x="50.00" y="0.00" incLanes="-1.0.00_0" intLanes=":1.end_0_0" shape="50.00,-0.05 50.00,3.15 50.00,-3.15 50.00,0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <connection from="-1" to="1" fromLane="0" toLane="0" via=":1.end_0_0" dir="t" state="M"/>
-    <connection from="1" to="-1" fromLane="0" toLane="0" via=":1.begin_0_0" dir="t" state="M"/>
+    <connection from="-1.0.00" to="1.0.00" fromLane="0" toLane="0" via=":1.end_0_0" dir="t" state="M"/>
+    <connection from="1.0.00" to="-1.0.00" fromLane="0" toLane="0" via=":1.begin_0_0" dir="t" state="M"/>
 
-    <connection from=":1.begin_0" to="-1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":1.end_0" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1.begin_0" to="-1.0.00" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1.end_0" to="1.0.00" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

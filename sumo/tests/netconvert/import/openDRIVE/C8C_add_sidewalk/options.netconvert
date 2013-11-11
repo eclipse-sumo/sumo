@@ -1,0 +1,1 @@
+--no-internal-links --opendrive opendrive.xodr -v  --type-files input_types.typ.xml

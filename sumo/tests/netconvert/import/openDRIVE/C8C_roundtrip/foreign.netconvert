@@ -29,6 +29,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -64,6 +65,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -182,6 +184,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -300,6 +303,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -335,6 +339,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -370,6 +375,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -405,6 +411,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -440,6 +447,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -558,6 +566,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -676,6 +685,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -711,6 +721,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
@@ -746,6 +757,7 @@
                         </link>
                         <width sOffset="0" a="3.75" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="22.22"/>
                     </lane>
                  </right>
             </laneSection>
