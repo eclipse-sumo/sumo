@@ -80,7 +80,7 @@
 
 #define URGENCY (SUMOReal)2.0 
 
-//#define DEBUG_COND (myVehicle.getID() == "lkw13709" || myVehicle.getID() == "pkw15436") // fail change to right
+//#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
 //#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_26966400" || myVehicle.getID() == "emitter_SST92-150 FG 1 DE 1_26932941" || myVehicle.getID() == "emitter_SST92-175 FG 1 DE 129_27105000") 
 //#define DEBUG_COND (myVehicle.getID() == "1502_46117142") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "overtaking_right") // test stops_overtaking
@@ -335,14 +335,19 @@ MSLCM_JE2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             << myVehicle.getCarFollowModel().getSecureGap(myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()) << "\n";
         // decide whether we want to overtake the leader or follow it
         const SUMOReal dv = plannedSpeed - nv->getSpeed();
+        const SUMOReal overtakeDist = (neighLead.second // drive to back of follower
+                + nv->getVehicleType().getLengthWithGap() // drive to front of follower
+                + myVehicle.getVehicleType().getLength() // ego back reaches follower front
+                + nv->getCarFollowModel().getSecureGap( // save gap to follower
+                    nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()));
+
         if (dv < 0 
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
                 || (dir == LCA_MLEFT && !myVehicle.congested())
+                // not enough space to overtake?
+                || myLeftSpace < overtakeDist
                 // not enough time to overtake?
-                || dv * remainingSeconds < ( 
-                    neighLead.second + nv->getVehicleType().getLengthWithGap() + nv->getCarFollowModel().getSecureGap(
-                        nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()))
-                ) {
+                || dv * remainingSeconds < overtakeDist) {
             // cannot overtake
             msgPass.informNeighLeader(new Info(-1, dir | LCA_AMBLOCKINGLEADER), &myVehicle);
             // slow down smoothly to follow leader 
@@ -492,22 +497,24 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             }
             msgPass.informNeighFollower(new Info(vhelp, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
             // this follower is supposed to overtake us. slow down smoothly to allow this
-            const SUMOReal overtakeGap = myVehicle.getCarFollowModel().getSecureGap(plannedSpeed, vhelp, nv->getCarFollowModel().getMaxDecel());
-            const SUMOReal needDV = (neighFollow.second + overtakeGap + myVehicle.getVehicleType().getLengthWithGap()) / remainingSeconds;
-            myVSafes.push_back(vhelp - needDV);
-
-            const SUMOReal targetSpeed = myCarFollowModel.followSpeed(
-                    &myVehicle, myVehicle.getSpeed(), neighFollow.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
-            const SUMOReal nextSpeed = myVehicle.getSpeed() + (myVehicle.getSpeed() - targetSpeed) / remainingSeconds;
+            const SUMOReal overtakeDist = (neighFollow.second // follower reaches ego back
+                    + myVehicle.getVehicleType().getLengthWithGap() // follower reaches ego front
+                    + nv->getVehicleType().getLength() // follower back at ego front
+                    + myVehicle.getCarFollowModel().getSecureGap( // follower has safe dist to ego
+                        plannedSpeed, vhelp, nv->getCarFollowModel().getMaxDecel()));
+            // speed difference to create a sufficiently large gap
+            const SUMOReal needDV = overtakeDist / remainingSeconds;
+            // make sure the deceleration is not to strong
+            myVSafes.push_back(MAX2(vhelp - needDV, myVehicle.getSpeed() - myVehicle.getCarFollowModel().getMaxDecel()));
 
             if (MSGlobals::gDebugFlag2) {
                 std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
                     << " veh=" << myVehicle.getID()
                     << " wants to be overtaken by=" << nv->getID()
-                    << " overtakeGap=" << overtakeGap
+                    << " overtakeDist=" << overtakeDist
                     << " vneigh=" << nv->getSpeed()
                     << " vhelp=" << vhelp
-                    << " vsafe=" << vhelp - needDV
+                    << " vsafe=" << myVSafes.back()
                     << "\n";
             }
         }
