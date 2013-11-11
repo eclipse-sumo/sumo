@@ -80,7 +80,7 @@
 
 #define URGENCY (SUMOReal)2.0 
 
-//#define DEBUG_COND (myVehicle.getID() == "pkw696" || myVehicle.getID() == "pkw786") // fail change to right
+//#define DEBUG_COND (myVehicle.getID() == "lkw13709" || myVehicle.getID() == "pkw15436") // fail change to right
 //#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_26966400" || myVehicle.getID() == "emitter_SST92-150 FG 1 DE 1_26932941" || myVehicle.getID() == "emitter_SST92-175 FG 1 DE 129_27105000") 
 //#define DEBUG_COND (myVehicle.getID() == "1502_46117142") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "overtaking_right") // test stops_overtaking
@@ -129,6 +129,8 @@ MSLCM_JE2013::wantsChange(
         std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
             << " veh=" << myVehicle.getID()
             << " lane=" << myVehicle.getLane()->getID()
+            << " pos=" << myVehicle.getPositionOnLane()
+            << " speed=" << myVehicle.getSpeed()
             << " considerChangeTo=" << (laneOffset == -1  ? "right" : "left")
             << "\n";
     }
@@ -195,7 +197,7 @@ MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use
-                if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " slowing down for leading blocker\n";
+                if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " slowing down for leading blocker" << (safe < min ? " (not enough)": "") << "\n";
                 return MAX2(min, safe);
             }
         }
@@ -705,7 +707,9 @@ MSLCM_JE2013::_wantsChange(
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
         //   if there is a leader and he wants to change to the opposite direction
         saveBlockerLength(neighLead.first, lcaCounter);
-        saveBlockerLength(*firstBlocked, lcaCounter);
+        if (*firstBlocked != neighLead.first) {
+            saveBlockerLength(*firstBlocked, lcaCounter);
+        }
         if (MSGlobals::gDebugFlag2) {
             std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
                 << " veh=" << myVehicle.getID()
@@ -946,8 +950,31 @@ MSLCM_JE2013::slowDownForBlocked(MSVehicle** blocked, int state) {
 void 
 MSLCM_JE2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
     if (blocker != 0 && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
-        // save at least his length in myLeadingBlockerLength
-        myLeadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
+        // is there enough space in front of us for the blocker?
+        const SUMOReal potential = myLeftSpace - myVehicle.getCarFollowModel().brakeGap(
+                myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel(), 0);
+        if (blocker->getVehicleType().getLengthWithGap() <= potential) {
+            // save at least his length in myLeadingBlockerLength
+            myLeadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
+            if (MSGlobals::gDebugFlag2) {
+                std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                    << " veh=" << myVehicle.getID()
+                    << " blocker=" << tryID(blocker)
+                    << " saving myLeadingBlockerLength=" << myLeadingBlockerLength
+                    << "\n";
+            }
+        } else {
+            // we cannot save enough space for the blocker. It needs to save
+            // space for ego instead
+            if (MSGlobals::gDebugFlag2) {
+                std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                    << " veh=" << myVehicle.getID()
+                    << " blocker=" << tryID(blocker)
+                    << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
+                    << "\n";
+            }
+            blocker->getLaneChangeModel().saveBlockerLength(myVehicle.getVehicleType().getLengthWithGap());
+        }
     }
 }
 /****************************************************************************/

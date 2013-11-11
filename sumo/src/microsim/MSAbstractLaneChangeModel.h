@@ -300,6 +300,9 @@ public:
     /// @brief remove the shadow copy of a lane change maneuver
     void removeLaneChangeShadow();
 
+    /// @brief reserve space at the end of the lane to avoid dead locks
+    virtual bool saveBlockerLength(SUMOReal length) {};
+
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
 

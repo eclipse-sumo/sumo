@@ -139,6 +139,11 @@ protected:
     /// @brief save space for vehicles which need to counter-lane-change
     void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
 
+    /// @brief reserve space at the end of the lane to avoid dead locks
+    inline bool saveBlockerLength(SUMOReal length) {
+        myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+    };
+
     /// @brief updated myKeepRightProbability and mySpeedGainProbability if the right neighbours are faster
     void keepRight(MSVehicle* neigh);
 
