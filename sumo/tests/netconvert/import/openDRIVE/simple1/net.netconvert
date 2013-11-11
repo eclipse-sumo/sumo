@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/30/13 13:43:19 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on 11/11/13 10:33:27 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -26,10 +26,10 @@
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="0.00,0.00,50.00,0.00" projParameter="!"/>
 
     <edge id=":1.begin_0" function="internal">
-        <lane id=":1.begin_0_0" index="0" speed="13.90" length="4.53" shape="0.00,1.55 -1.16,0.78 -1.55,0.00 -1.16,-0.78 0.00,-1.55"/>
+        <lane id=":1.begin_0_0" index="0" disallow="pedestrian" speed="13.90" length="4.53" shape="0.00,1.55 -1.16,0.78 -1.55,0.00 -1.16,-0.78 0.00,-1.55"/>
     </edge>
     <edge id=":1.end_0" function="internal">
-        <lane id=":1.end_0_0" index="0" speed="13.90" length="4.53" shape="50.00,-1.55 51.16,-0.78 51.55,-0.00 51.16,0.78 50.00,1.55"/>
+        <lane id=":1.end_0_0" index="0" disallow="pedestrian" speed="13.90" length="4.53" shape="50.00,-1.55 51.16,-0.78 51.55,-0.00 51.16,0.78 50.00,1.55"/>
     </edge>
 
     <edge id="-1.0.00" from="1.begin" to="1.end" priority="1">

@@ -342,8 +342,8 @@
         <!-- Imports all lane types -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
 
-        <!-- Whether lane widths shall be imported -->
-        <opendrive.import-widths value="false" type="BOOL"/>
+        <!-- Whether lane widths shall be ignored. -->
+        <opendrive.ignore-widths value="false" type="BOOL"/>
 
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
