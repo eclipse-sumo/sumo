@@ -81,7 +81,7 @@
 #define URGENCY (SUMOReal)2.0 
 
 //#define DEBUG_COND (myVehicle.getID() == "pkw696" || myVehicle.getID() == "pkw786") // fail change to right
-//#define DEBUG_COND (myVehicle.getID() == "1502_46165263" || myVehicle.getID() == "1502_46114285") // fail change to right and change to left, deadlock?
+//#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_26966400" || myVehicle.getID() == "emitter_SST92-150 FG 1 DE 1_26932941" || myVehicle.getID() == "emitter_SST92-175 FG 1 DE 129_27105000") 
 //#define DEBUG_COND (myVehicle.getID() == "1502_46117142") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "overtaking_right") // test stops_overtaking
 #define DEBUG_COND false
@@ -145,8 +145,8 @@ MSLCM_JE2013::wantsChange(
                 << ((result & LCA_COOPERATIVE) ? " (coop)" : "")
                 << ((result & LCA_SPEEDGAIN) ? " (speed)" : "")
                 << ((result & LCA_KEEPRIGHT) ? " (keepright)" : "")
-                << ((result & LCA_BLOCKED) ? " (blocked)" : "")
-                << ((result & LCA_OVERLAPPING) ? " (overlap)" : "")
+                << ((blocked & LCA_BLOCKED) ? " (blocked)" : "")
+                << ((blocked & LCA_OVERLAPPING) ? " (overlap)" : "")
                 << "\n";
         }
     }
@@ -297,7 +297,7 @@ MSLCM_JE2013::inform(void* info, MSVehicle* sender) {
     myVSafes.push_back(pinfo->first);
     //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
-    if (MSGlobals::gDebugFlag2) {
+    if (MSGlobals::gDebugFlag2 || DEBUG_COND) {
         std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
             << " veh=" << myVehicle.getID()
             << " informedBy=" << sender->getID()
