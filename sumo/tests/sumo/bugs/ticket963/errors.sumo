@@ -1,10 +1,2 @@
-Warning: Teleporting vehicle 's1_car_0'; waited too long, lane='gneE6_0', time=309.00.
-Warning: Vehicle 's1_car_0' ends teleporting on edge 'gneE5', simulation time 309.00.
-Warning: Teleporting vehicle 'n1_car_0'; waited too long, lane='gneE4_1', time=310.00.
-Warning: Vehicle 'n1_car_0' ends teleporting on edge 'gneE7', simulation time 311.00.
-Warning: Teleporting vehicle 's3_car_0'; waited too long, lane='gneE6_1', time=313.00.
-Warning: Teleporting vehicle 'n3_car_trailer_0'; waited too long, lane='gneE4_2', time=313.00.
-Warning: Vehicle 's3_car_0' ends teleporting on edge 'gneE1', simulation time 313.00.
-Warning: Vehicle 'n3_car_trailer_0' ends teleporting on edge 'gneE3', simulation time 313.00.
-Warning: Teleporting vehicle 'n3_car_1'; waited too long, lane='gneE4_3', time=320.00.
-Warning: Vehicle 'n3_car_1' ends teleporting on edge 'gneE3', simulation time 320.00.
+Warning: Teleporting vehicle 'n1_car_9'; waited too long, lane='gneE4_1', time=368.00.
+Warning: Vehicle 'n1_car_9' ends teleporting on edge 'gneE7', simulation time 368.00.
