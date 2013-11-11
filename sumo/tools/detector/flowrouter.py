@@ -376,6 +376,14 @@ class Net:
 
     def writeRoutes(self, routeOut, suffix=""):
         for edge in self._source.outEdges:
+            routeByEdges = {}
+            for route in edge.routes:
+                key = tuple([e.label for e in route.edges if e.kind == "real"])
+                if key in routeByEdges:
+                    routeByEdges[key].frequency += route.frequency
+                else:
+                    routeByEdges[key] = route
+            edge.routes = routeByEdges.values()
             for id, route in enumerate(edge.routes):
                 firstReal = ''
                 lastReal = None
