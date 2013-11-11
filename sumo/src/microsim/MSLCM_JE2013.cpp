@@ -80,7 +80,7 @@
 
 #define URGENCY (SUMOReal)2.0 
 
-//#define DEBUG_COND (myVehicle.getID() == "1503_46013333" || myVehicle.getID() == "1501_46020000") // fail change to right
+//#define DEBUG_COND (myVehicle.getID() == "pkw696" || myVehicle.getID() == "pkw786") // fail change to right
 //#define DEBUG_COND (myVehicle.getID() == "1502_46165263" || myVehicle.getID() == "1502_46114285") // fail change to right and change to left, deadlock?
 //#define DEBUG_COND (myVehicle.getID() == "1502_46117142") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "overtaking_right") // test stops_overtaking
@@ -475,12 +475,12 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             msgPass.informNeighFollower(new Info(neighNewSpeed, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
             if (MSGlobals::gDebugFlag2) std::cout << " wants to cut in before nv=" << nv->getID() << " (eventually)\n";
         } else { 
-            SUMOReal vhelp = nv->getSpeed();
+            SUMOReal vhelp = MAX2(nv->getSpeed(), myVehicle.getSpeed() + HELP_OVERTAKE);
             if (dir == LCA_MRIGHT && myVehicle.getWaitingSeconds() > LCA_RIGHT_IMPATIENCE &&
                     nv->getSpeed() > myVehicle.getSpeed()) {
                 // let the follower slow down to increase the likelyhood that later vehicles will be slow enough to help
                 // follower should still be fast enough to open a gap
-                const SUMOReal vhelp = MAX2(neighNewSpeed, myVehicle.getSpeed() + HELP_OVERTAKE);
+                vhelp = MAX2(neighNewSpeed, myVehicle.getSpeed() + HELP_OVERTAKE);
                 if (MSGlobals::gDebugFlag2) std::cout << " wants right follower to slow down a bit\n";
                 if ((nv->getSpeed() - myVehicle.getSpeed()) / helpDecel < remainingSeconds) {
                     if (MSGlobals::gDebugFlag2) std::cout << " wants to cut in before right follower nv=" << nv->getID() << " (eventually)\n";
