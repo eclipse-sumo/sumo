@@ -187,6 +187,8 @@ public:
 
     /// Returns the length
     SUMOReal length() const;
+    /// Returns the length
+    SUMOReal length2D() const;
 
 
     /// Returns the area (0 for non-closed)

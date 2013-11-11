@@ -374,6 +374,15 @@ PositionVector::length() const {
     return len;
 }
 
+SUMOReal
+PositionVector::length2D() const {
+    SUMOReal len = 0;
+    for (const_iterator i = begin(); i != end() - 1; i++) {
+        len += (*i).distanceTo2D(*(i + 1));
+    }
+    return len;
+}
+
 
 SUMOReal
 PositionVector::area() const {
