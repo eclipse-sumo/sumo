@@ -114,6 +114,12 @@ public:
     /// @}
 
 
+    /** @brief Forces the definition not to compute an additional phase for left-movers
+     */
+    void setSinglePhase() {
+        myHaveSinglePhase = true;
+    }
+
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface
     /// @{
@@ -210,6 +216,11 @@ protected:
             return e1->getID() > e2->getID();
         }
     };
+
+private:
+    /// @brief Whether left-mover should not have an additional phase
+    bool myHaveSinglePhase;
+
 
 };
 

@@ -121,7 +121,9 @@ NBTrafficLightDefinition::compute(const NBEdgeCont& ec, OptionsCont& oc) {
     if (oc.isSet("tls.yellow.time")) {
         brakingTime = oc.getInt("tls.yellow.time");
     }
-    return myCompute(ec, brakingTime);
+    NBTrafficLightLogic*ret = myCompute(ec, brakingTime);
+    ret->addParameter(getMap());
+    return ret;
 }
 
 

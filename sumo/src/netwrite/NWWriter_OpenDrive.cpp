@@ -114,6 +114,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 markType = "solid";
             }
             device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
+            device << "                        <speed sOffset=\"0\" max=\"" << lanes[j].speed << "\"/>\n";
             device << "                    </lane>\n";
         }
         device << "                 </right>\n";

@@ -40,6 +40,7 @@
 #include <utils/common/VectorHelper.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/Parameterised.h>
 #include "NBCont.h"
 #include "NBConnection.h"
 #include "NBConnectionDefs.h"
@@ -69,7 +70,7 @@ class NBTrafficLightLogic;
  * @see NBLoadedTLDef
  * @see NBOwnTLDef
  */
-class NBTrafficLightDefinition : public Named {
+class NBTrafficLightDefinition : public Named, public Parameterised {
 public:
 
     static const std::string DefaultProgramID;
@@ -386,6 +387,8 @@ protected:
 
     /// @brief The algorithm type for the traffic light
     TrafficLightType myType;
+
+
 };
 
 

@@ -104,11 +104,11 @@ protected:
         OPENDRIVE_TAG_RIGHT,
         OPENDRIVE_TAG_LANE,
         OPENDRIVE_TAG_SIGNAL,
-        OPENDRIVE_TAG_JUNCTION,
-        OPENDRIVE_TAG_CONNECTION,
-        OPENDRIVE_TAG_LANELINK,
-        OPENDRIVE_TAG_WIDTH,
-        OPENDRIVE_TAG_SPEED
+		    OPENDRIVE_TAG_JUNCTION,
+		    OPENDRIVE_TAG_CONNECTION,
+		    OPENDRIVE_TAG_LANELINK,
+		    OPENDRIVE_TAG_WIDTH,
+		    OPENDRIVE_TAG_SPEED
     };
 
 
@@ -142,11 +142,13 @@ protected:
         OPENDRIVE_ATTR_LEVEL,
         OPENDRIVE_ATTR_ORIENTATION,
         OPENDRIVE_ATTR_DYNAMIC,
-        OPENDRIVE_ATTR_INCOMINGROAD,
-        OPENDRIVE_ATTR_CONNECTINGROAD,
-        OPENDRIVE_ATTR_FROM,
-        OPENDRIVE_ATTR_TO,
-        OPENDRIVE_ATTR_MAX
+		    OPENDRIVE_ATTR_INCOMINGROAD,
+		    OPENDRIVE_ATTR_CONNECTINGROAD,
+		    OPENDRIVE_ATTR_FROM,
+		    OPENDRIVE_ATTR_TO,
+		    OPENDRIVE_ATTR_MAX,
+            OPENDRIVE_ATTR_SOFFSET,
+            OPENDRIVE_ATTR_NAME
     };
 
 
@@ -247,15 +249,15 @@ protected:
             : id(idArg), level(levelArg), type(typeArg), successor(UNSET_CONNECTION), predecessor(UNSET_CONNECTION),
               speed(0), width(0) { }
 
-        int id;
-        std::string level;
-        std::string type;
-        int successor;
-        int predecessor;
-        SUMOReal speed;
-        SUMOReal width; ///< @todo: this is the maximum width only
+        int id; //!< The lane's id
+        std::string level; //!< The lane's level (not used)
+        std::string type; //!< The lane's type
+        int successor; //!< The lane's successor lane
+        int predecessor; //!< The lane's predecessor lane
+        std::vector<std::pair<SUMOReal, SUMOReal> > speeds; //!< List of positions/speeds of speed changes
+		SUMOReal speed; //!< The lane's speed (set in post-processing)
+		SUMOReal width; //!< The lane's width; @todo: this is the maximum width only
     };
-
 
 
     /**
@@ -269,22 +271,25 @@ protected:
         OpenDriveLaneSection(SUMOReal sArg);
 
 
-        /** @brief Returns the number of lanes for the given direction
-         * @return The named direction's lane number
-         */
-        unsigned int getLaneNumber(OpenDriveXMLTag dir) const;
-
-
         /** @brief Build the mapping from OpenDrive to SUMO lanes
          *
          * Not all lanes are converted to SUMO-lanes; the mapping includes only those
          * which are included in the SUMO network.
+		 * @param[in] tc The type container needed to determine whether a lane shall be imported by using the lane's type
          */
-        void buildLaneMapping();
+        void buildLaneMapping(const NBTypeCont &tc);
 
 
+		/** @brief Returns the links from the previous to this lane section
+		 * @param[in] dir The OpenDrive-direction of drive
+		 * @param[in] pre The previous lane section
+		 * @return which lane is approached from which lane of the given previous lane section
+		 */
         std::map<int, int> getInnerConnections(OpenDriveXMLTag dir, const OpenDriveLaneSection& prev);
 
+
+        bool buildSpeedChanges(const NBTypeCont &tc, std::vector<OpenDriveLaneSection> &newSections);
+        OpenDriveLaneSection buildLaneSection(SUMOReal startPos);
 
         /// @brief The starting offset of this lane section
         SUMOReal s;
@@ -294,6 +299,8 @@ protected:
         std::map<OpenDriveXMLTag, std::vector<OpenDriveLane> > lanesByDir;
         /// @brief The id (generic, without the optionally leading '-') of the edge generated for this section
         std::string sumoID;
+		/// @brief The number of lanes on the right and on the left side, respectively
+		unsigned int rightLaneNumber, leftLaneNumber;
     };
 
 
@@ -306,15 +313,17 @@ protected:
         /** @brief Constructor
          * @param[in] idArg The OpenDrive id of the signal
          * @param[in] typeArg The type of the signal
+         * @param[in] nameArg The type of the signal
          * @param[in] orientationArg The direction the signal belongs to
          * @param[in] dynamicArg Whether the signal is dynamic
          * @param[in] sArg The offset from the start, counted from the begin
          */
-        OpenDriveSignal(int idArg, const std::string typeArg, int orientationArg, bool dynamicArg, SUMOReal sArg)
-            : id(idArg), type(typeArg), orientation(orientationArg), dynamic(dynamicArg), s(sArg) { }
+        OpenDriveSignal(int idArg, const std::string typeArg, const std::string nameArg, int orientationArg, bool dynamicArg, SUMOReal sArg)
+            : id(idArg), type(typeArg), name(nameArg), orientation(orientationArg), dynamic(dynamicArg), s(sArg) { }
 
         int id;
         std::string type;
+        std::string name;
         int orientation;
         bool dynamic;
         SUMOReal s;
@@ -349,8 +358,15 @@ protected:
             isInner = junction != "" && junction != "-1";
         }
 
-        unsigned int getMaxLaneNumber(OpenDriveXMLTag dir) const;
+
+		/** @brief Returns the edge's priority, regarding the direction
+		 *
+		 * The priority is determined by evaluating the signs located at the road
+		 * @param[in] dir The direction which priority shall be returned
+		 * @return The priority of the given direction
+		 */
         int getPriority(OpenDriveXMLTag dir) const;
+
 
         /// @brief The id of the edge
         std::string id;
@@ -370,12 +386,43 @@ protected:
     };
 
 
+    /** @brief A class for sorting lane sections by their s-value */
+    class sections_by_s_sorter {
+    public:
+        /// @brief Constructor
+        explicit sections_by_s_sorter() { }
+
+        /// @brief Sorting function; compares OpenDriveLaneSection::s
+        int operator()(const OpenDriveLaneSection& ls1, const OpenDriveLaneSection& ls2) {
+            return ls1.s < ls2.s;
+        }
+    };
+
+    /* @brief A class for search in position/speed tuple vectors for the given position */
+    class same_position_finder {
+    public:
+        /** @brief constructor */
+        explicit same_position_finder(SUMOReal pos) : myPosition(pos) { }
+
+        /** @brief the comparing function */
+        bool operator()(const std::pair<SUMOReal, SUMOReal> &ps) {
+            return ps.first==myPosition;
+        }
+
+    private:
+        same_position_finder& operator=(const same_position_finder&); // just to avoid a compiler warning
+    private:
+        /// @brief The position to search for
+        SUMOReal myPosition;
+
+    };
 
 protected:
     /** @brief Constructor
-     * @param[in] nc The node control to fill
+     * @param[in] tc The type container used to determine whether a lane shall kept
+     * @param[in] nc The edge map to fill
      */
-    NIImporter_OpenDrive(std::map<std::string, OpenDriveEdge*>& edges);
+    NIImporter_OpenDrive(const NBTypeCont &tc, std::map<std::string, OpenDriveEdge*>& edges);
 
 
     /// @brief Destructor
@@ -396,8 +443,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs);
+    void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when a closing tag occurs
@@ -419,6 +465,7 @@ private:
     static void buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into);
     friend bool operator<(const Connection& c1, const Connection& c2);
     static std::string revertID(const std::string& id);
+	const NBTypeCont &myTypeContainer;
     OpenDriveEdge myCurrentEdge;
 
     std::map<std::string, OpenDriveEdge*>& myEdges;
@@ -430,9 +477,8 @@ private:
     ContactPoint myCurrentContactPoint;
     bool myConnectionWasEmpty;
 
-    static std::set<std::string> myLaneTypes2Import;
     static bool myImportAllTypes;
-    static bool myImportWidths;
+	static bool myImportWidths;
 
 
 protected:
@@ -461,7 +507,19 @@ protected:
     static void calcPointOnCurve(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,
                                  SUMOReal ad_r, SUMOReal ad_length);
 
+
+    /** @brief Computes a polygon representation of each edge's geometry
+     * @param[in] edges The edges which geometries shall be converted
+     */
     static void computeShapes(std::map<std::string, OpenDriveEdge*>& edges);
+
+    /** @brief Rechecks lane sections of the given edges
+     *
+     *
+     * @param[in] edges The edges which lane sections shall be reviewed
+     */
+    static void revisitLaneSections(const NBTypeCont &tc, std::map<std::string, OpenDriveEdge*>& edges);
+
     static void setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
                               const std::string& nodeID, NIImporter_OpenDrive::LinkType lt);
 

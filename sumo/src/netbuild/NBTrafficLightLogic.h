@@ -40,6 +40,7 @@
 #include "NBConnectionDefs.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
+#include <utils/common/Parameterised.h>
 
 
 // ===========================================================================
@@ -55,7 +56,7 @@ class OutputDevice;
  * @class NBTrafficLightLogic
  * @brief A SUMO-compliant built logic for a traffic light
  */
-class NBTrafficLightLogic : public Named {
+class NBTrafficLightLogic : public Named, public Parameterised {
 public:
     /**
      * @class PhaseDefinition

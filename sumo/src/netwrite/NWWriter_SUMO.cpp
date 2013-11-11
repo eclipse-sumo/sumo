@@ -614,6 +614,14 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
         into.writeAttr(SUMO_ATTR_TYPE, (*it)->getType());
         into.writeAttr(SUMO_ATTR_PROGRAMID, (*it)->getProgramID());
         into.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime((*it)->getOffset()));
+        // write params
+        const std::map<std::string, std::string> &params = (*it)->getMap();
+        for(std::map<std::string, std::string>::const_iterator i=params.begin(); i!=params.end(); ++i) {
+            into.openTag(SUMO_TAG_PARAM);
+            into.writeAttr(SUMO_ATTR_KEY, (*i).first);
+            into.writeAttr(SUMO_ATTR_VALUE, (*i).second);
+            into.closeTag();
+        }
         // write the phases
         const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = (*it)->getPhases();
         for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator j = phases.begin(); j != phases.end(); ++j) {

@@ -54,17 +54,23 @@
 NBOwnTLDef::NBOwnTLDef(const std::string& id,
                        const std::vector<NBNode*>& junctions, SUMOTime offset,
                        TrafficLightType type) :
-    NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type) {}
+    NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type),
+    myHaveSinglePhase(false)
+{}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string& id, NBNode* junction, SUMOTime offset,
                        TrafficLightType type) :
-    NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type) {}
+    NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type),
+    myHaveSinglePhase(false)
+{}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string& id, SUMOTime offset,
                        TrafficLightType type) :
-    NBTrafficLightDefinition(id, DefaultProgramID, offset, type) {}
+    NBTrafficLightDefinition(id, DefaultProgramID, offset, type),
+    myHaveSinglePhase(false)
+{}
 
 
 NBOwnTLDef::~NBOwnTLDef() {}
@@ -304,7 +310,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont&,
             logic->addStep(brakingTime, state);
         }
 
-        if (haveForbiddenLeftMover) {
+        if (haveForbiddenLeftMover && !myHaveSinglePhase) {
             // build left green
             for (unsigned int i1 = 0; i1 < pos; ++i1) {
                 if (state[i1] == 'Y' || state[i1] == 'y') {
