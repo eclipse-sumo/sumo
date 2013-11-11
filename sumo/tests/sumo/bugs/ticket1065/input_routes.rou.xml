@@ -1,0 +1,10 @@
+<routes>
+    <vehicle id="v1" depart="0" departPos="-5" departLane="1" departSpeed="max">
+        <route edges="NC CS CS2"/>
+    </vehicle>
+    <vehicle id="v0" depart="0" departPos="-1">
+        <route edges="NC CW"/>
+        <stop lane="CW_1" endPos="3" duration="10"/>
+    </vehicle>
+        
+</routes>
