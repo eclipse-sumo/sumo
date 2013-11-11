@@ -31,6 +31,7 @@
 #endif
 
 #include <iostream>
+#include <algorithm>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSNet.h"
 #include "MSLink.h"
@@ -68,7 +69,8 @@ MSLink::MSLink(MSLane* succLane, MSLane* via,
     myLane(succLane),
     myRequestIdx(0), myRespondIdx(0),
     myState(state), myDirection(dir), myLength(length),
-    myJunctionInlane(via) {}
+    myJunctionInlane(via)
+{}
 #endif
 
 
@@ -78,13 +80,52 @@ MSLink::~MSLink() {}
 void
 MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
                               const std::vector<MSLink*>& foeLinks,
-                              const std::vector<MSLane*>& foeLanes) {
+                              const std::vector<MSLane*>& foeLanes,
+                              MSLane* internalLaneBefore) 
+{
     myRequestIdx = requestIdx;
     myRespondIdx = respondIdx;
     myIsCrossing = isCrossing;
     myAmCont = isCont;
     myFoeLinks = foeLinks;
     myFoeLanes = foeLanes;
+#ifdef HAVE_INTERNAL_LANES
+    if (internalLaneBefore != 0) {
+        // this is an exit link. compute crossing points with all foeLanes
+        for (std::vector<MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
+            if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
+                // this foeLane has the same target
+                myLengthsBehindCrossing.push_back(std::make_pair(0, 0)); // dummy value, never used
+            } else {
+                std::vector<SUMOReal> intersections1 = internalLaneBefore->getShape().intersectsAtLengths2D((*it_lane)->getShape());
+                //std::cout << " number of intersections1=" << intersections1.size() << "\n";
+                if (intersections1.size() == 0) {
+                    intersections1.push_back(0);
+                } else if (intersections1.size() > 1) {
+                    std::sort(intersections1.begin(), intersections1.end());
+                }
+                std::vector<SUMOReal> intersections2 = (*it_lane)->getShape().intersectsAtLengths2D(internalLaneBefore->getShape());
+                //std::cout << " number of intersections2=" << intersections2.size() << "\n";
+                if (intersections2.size() == 0) {
+                    intersections2.push_back(0);
+                } else if (intersections2.size() > 1) {
+                    std::sort(intersections2.begin(), intersections2.end());
+                }
+                myLengthsBehindCrossing.push_back(std::make_pair(
+                            internalLaneBefore->getLength() - intersections1.back(), 
+                            (*it_lane)->getLength() - intersections2.back()));
+                //std::cout 
+                //    << " intersection of " << internalLaneBefore->getID() 
+                //    << " totalLength=" << internalLaneBefore->getLength() 
+                //    << " with " << (*it_lane)->getID() 
+                //    << " totalLength=" << (*it_lane)->getLength() 
+                //    << " dist1=" << myLengthsBehindCrossing.back().first
+                //    << " dist2=" << myLengthsBehindCrossing.back().second
+                //    << "\n";
+            }
+        }
+    }
+#endif
 }
 
 
@@ -319,40 +360,74 @@ MSLink::getViaLane() const {
 
 
 MSLink::LinkLeaders
-MSLink::getLeaderInfo(SUMOReal dist) const {
+MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap) const {
     LinkLeaders result;
-    if (MSGlobals::gUsingInternalLanes && myJunctionInlane == 0) {
+    if (MSGlobals::gUsingInternalLanes && myJunctionInlane == 0 &&
+            getLane()->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+        //std::cout << " getLeaderInfo link=" << getViaLaneOrLane()->getID() << "\n";
         // this is an exit link
-
-        for (std::vector<MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
+        for (size_t i = 0; i < myFoeLanes.size(); ++i) {
+            MSLane* foeLane = myFoeLanes[i];
+            // distance from the querying vehicle to the crossing point with foeLane
+            const SUMOReal distToCrossing = dist - myLengthsBehindCrossing[i].first;
+            //std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << "\n";
+            if (distToCrossing < 0) {
+                continue; // vehicle is behind the crossing point, continue with next foe lane
+            }
+            const SUMOReal foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].second;
             // it is not sufficient to return the last vehicle on the foeLane because ego might be its leader
             // therefore we return all vehicles on the lane
             //
             // special care must be taken for continuation lanes. (next lane is also internal)
             // vehicles on these lanes should always block (gap = -1)
-            const bool contLane = ((*it_lane)->getLinkCont()[0]->getViaLaneOrLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL);
+            const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL);
+            const bool sameTarget = (myLane == foeLane->getLinkCont()[0]->getLane());
             // vehicles on cont. lanes or on internal lanes with the same target as this link can never be ignored
-            const bool cannotIgnore = contLane || (myLane == (*it_lane)->getLinkCont()[0]->getLane());
-            const MSLane::VehCont& vehicles = (*it_lane)->getVehiclesSecure();
-            (*it_lane)->releaseVehicles();
+            const bool cannotIgnore = contLane || sameTarget;
+            const MSLane::VehCont& vehicles = foeLane->getVehiclesSecure();
+            foeLane->releaseVehicles();
             for (MSLane::VehCont::const_iterator it_veh = vehicles.begin(); it_veh != vehicles.end(); ++it_veh) {
                 MSVehicle* leader = *it_veh;
-                // XXX apply viaLane/foeLane specific distance offset
-                // to account for the fact that the crossing point has different distances from the lane ends
                 if (cannotIgnore || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {
-                    result.push_back(std::make_pair(leader,
-                                contLane ? -1 :
-                                dist - ((*it_lane)->getLength() - leader->getPositionOnLane()) - leader->getVehicleType().getLength()));
+                    // compute distance between vehicles on the the superimposition of both lanes
+                    // where the crossing point is the common point
+                    SUMOReal gap;
+                    if (contLane) {
+                        gap = -1; // always break for vehicles which are on a continuation lane
+                    } else {
+                        const SUMOReal leaderBack = leader->getPositionOnLane() - leader->getVehicleType().getLength();
+                        const SUMOReal leaderBackDist = foeDistToCrossing - leaderBack;
+                        //std::cout << " distToCrossing=" << distToCrossing << " leader backDist=" << leaderBackDist << "\n";
+                        if (leaderBackDist < 0) {
+                            // leader is completely past the crossing point
+                            assert(!sameTarget);
+                            continue; // next vehicle
+                        }
+                        gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
+                    }
+                    result.push_back(std::make_pair(leader, gap));
                 }
 
             }
-            // XXX partial occupates should be ignored if they do not extend past the crossing point
-            MSVehicle* leader = (*it_lane)->getPartialOccupator();
+            MSVehicle* leader = foeLane->getPartialOccupator();
             if (leader != 0) {
                 if (cannotIgnore || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {
-                    result.push_back(std::make_pair(leader,
-                                contLane ? -1 :
-                                dist - ((*it_lane)->getLength() - (*it_lane)->getPartialOccupatorEnd())));
+                    // compute distance between vehicles on the the superimposition of both lanes
+                    // where the crossing point is the common point
+                    SUMOReal gap;
+                    if (contLane) {
+                        gap = -1; // always break for vehicles which are on a continuation lane
+                    } else {
+                        const SUMOReal leaderBackDist = foeDistToCrossing - foeLane->getPartialOccupatorEnd();
+                        //std::cout << " distToCrossing=" << distToCrossing << " leader (partialOccupator) backDist=" << leaderBackDist << "\n";
+                        if (leaderBackDist < 0) {
+                            // leader is completely past the crossing point
+                            assert(!sameTarget);
+                            continue; // next lane
+                        } 
+                        gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
+                    }
+                    result.push_back(std::make_pair(leader, gap));
                 }
             }
         }

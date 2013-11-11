@@ -169,7 +169,7 @@ MSRightOfWayJunction::postloadInit() {
                 assert((*j)->getViaLane()->getLinkCont().size() == 1);
                 MSLink* exitLink = (*j)->getViaLane()->getLinkCont()[0];
                 exitLink->setRequestInformation(requestPos, requestPos, false, false, std::vector<MSLink*>(),
-                                                myLinkFoeInternalLanes[*j]);
+                                                myLinkFoeInternalLanes[*j], (*j)->getViaLane());
             }
 #endif
             for (std::vector<MSLink*>::const_iterator k = foes.begin(); k != foes.end(); ++k) {

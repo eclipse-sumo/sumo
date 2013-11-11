@@ -1526,7 +1526,7 @@ GUIVehicle::selectBlockingFoes() const {
         gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
     }
 #ifdef HAVE_INTERNAL_LANES
-    const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(myLane->getLength() - getPositionOnLane() - getVehicleType().getMinGap());
+    const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(myLane->getLength() - getPositionOnLane(), getVehicleType().getMinGap());
     for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
         // the vehicle to enter the junction first has priority
         const MSVehicle* leader = it->first;

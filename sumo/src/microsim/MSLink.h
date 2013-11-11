@@ -157,7 +157,8 @@ public:
      * @todo Unsecure!
      */
     void setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
-                               const std::vector<MSLink*>& foeLinks, const std::vector<MSLane*>& foeLanes);
+                               const std::vector<MSLink*>& foeLinks, const std::vector<MSLane*>& foeLanes, 
+                               MSLane* internalLaneBefore=0);
 
 
     /** @brief Sets the information about an approaching vehicle
@@ -307,9 +308,10 @@ public:
     /** @brief Returns all potential link leaders (vehicles on foeLanes)
      * Valid during the planMove() phase
      * @param[in] dist The distance of the vehicle who is asking about the leader to this link
+     * @param[in] dist The minGap of the vehicle who is asking about the leader to this link
      * @return The all vehicles on foeLanes and their (virtual) distances to the asking vehicle
      */
-    LinkLeaders getLeaderInfo(SUMOReal dist) const;
+    LinkLeaders getLeaderInfo(SUMOReal dist, SUMOReal minGap) const;
 #endif
 
     /// @brief return the via lane if it exists and the lane otherwise
@@ -364,6 +366,12 @@ private:
     /// @brief The following junction-internal lane if used
     MSLane* const myJunctionInlane;
 
+    /* @brief lengths after the crossing point with foeLane
+     * (lengthOnThis, lengthOnFoe)
+     * (index corresponds to myFoeLanes) 
+     * empty vector for entry links
+     * */
+    std::vector<std::pair<SUMOReal, SUMOReal> > myLengthsBehindCrossing;
 #endif
 
     std::vector<MSLink*> myFoeLinks;
