@@ -335,7 +335,6 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     if (getChosenSpeedFactor() != 1) {
         ret->mkItem("speed factor", false, getChosenSpeedFactor());
     }
-    ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
     ret->mkItem("waiting time [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
     ret->mkItem("last lane change [s]", true,
