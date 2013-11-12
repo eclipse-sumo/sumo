@@ -140,7 +140,7 @@ protected:
     void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    inline bool saveBlockerLength(SUMOReal length) {
+    inline void saveBlockerLength(SUMOReal length) {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
     };
 
