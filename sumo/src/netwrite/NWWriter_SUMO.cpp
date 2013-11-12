@@ -198,7 +198,14 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
             bool haveVia = false;
             NBEdge* toEdge = 0;
             std::string internalEdgeID = "";
-            // first pass: write non-via edges
+            // first pass: compute average lengths of non-via edges
+            std::map<NBEdge*, SUMOReal> lengthSum;
+            std::map<NBEdge*, int> numLanes;
+            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
+                lengthSum[(*k).toEdge] += MAX2((*k).shape.length(), (SUMOReal)POSITION_EPS);
+                numLanes[(*k).toEdge] += 1;
+            }
+            // second pass: write non-via edges
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
                 if ((*k).toEdge == 0) {
                     assert(false); // should never happen. tell me when it does
@@ -219,16 +226,16 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
                 // to avoid changing to an internal lane which has a successor
                 // with the wrong permissions we need to inherit them from the successor
                 const NBEdge::Lane& successor = (*k).toEdge->getLanes()[(*k).toLane];
+                const SUMOReal length = lengthSum[toEdge] / numLanes[toEdge];
                 writeLane(into, internalEdgeID, (*k).getInternalLaneID(), (*k).vmax, 
                         successor.permissions, successor.preferred, 
                         NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_WIDTH, (*k).shape, (*k).origID,
-                        MAX2((*k).shape.length(), (SUMOReal)POSITION_EPS), // microsim needs positive length
-                        (*k).internalLaneIndex, origNames);
+                        length, (*k).internalLaneIndex, origNames);
                 haveVia = haveVia || (*k).haveVia;
             }
             ret = true;
             into.closeTag(); // close the last edge
-            // second pass: write via edges
+            // third pass: write via edges
             if (haveVia) {
                 for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
                     if (!(*k).haveVia) {
