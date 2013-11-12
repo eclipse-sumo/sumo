@@ -10,6 +10,10 @@ check_remaining_space
 # across a straight-running internal lane with a parallel internal lane
 internal_lane_straight
 
+# check that a continuous lane change does not happen on internal lanes of
+# old-style networks with unmerged internal lanes
+internal_lane_straight_midpoint_oldnet
+
 # check that a continuous lane change can proceed 
 # across a straight-running internal lane with a parallel internal lane
 # even if the midpoint of the change is reached on an internal lane
