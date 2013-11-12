@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:20:03 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Tue Nov 12 16:54:05 2013 by SUMO netconvert Version dev-SVN-r15089
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -22,15 +22,15 @@
     <location netOffset="0.00,3.30" convBoundary="0.00,0.00,100.00,3.30" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
     <edge id=":1.-20_0" function="internal">
-        <lane id=":1.-20_0_0" index="0" speed="28.00" length="3.00" shape="78.50,-8.25 81.50,-8.25"/>
-        <lane id=":1.-20_0_1" index="1" speed="28.00" length="3.00" shape="78.50,-4.95 81.50,-4.95"/>
-        <lane id=":1.-20_0_2" index="2" speed="28.00" length="3.00" shape="78.50,-1.65 81.50,-1.65"/>
-        <lane id=":1.-20_0_3" index="3" speed="28.00" length="4.46" shape="78.50,-1.65 81.50,1.65"/>
+        <lane id=":1.-20_0_0" index="0" speed="28.00" length="3.36" shape="78.50,-8.25 81.50,-8.25"/>
+        <lane id=":1.-20_0_1" index="1" speed="28.00" length="3.36" shape="78.50,-4.95 81.50,-4.95"/>
+        <lane id=":1.-20_0_2" index="2" speed="28.00" length="3.36" shape="78.50,-1.65 81.50,-1.65"/>
+        <lane id=":1.-20_0_3" index="3" speed="28.00" length="3.36" shape="78.50,-1.65 81.50,1.65"/>
     </edge>
     <edge id=":1.-40_0" function="internal">
-        <lane id=":1.-40_0_0" index="0" speed="28.00" length="7.25" shape="58.50,-1.65 61.50,-8.25"/>
-        <lane id=":1.-40_0_1" index="1" speed="28.00" length="7.25" shape="58.50,1.65 61.50,-4.95"/>
-        <lane id=":1.-40_0_2" index="2" speed="28.00" length="4.46" shape="58.50,1.65 61.50,-1.65"/>
+        <lane id=":1.-40_0_0" index="0" speed="28.00" length="6.32" shape="58.50,-1.65 61.50,-8.25"/>
+        <lane id=":1.-40_0_1" index="1" speed="28.00" length="6.32" shape="58.50,1.65 61.50,-4.95"/>
+        <lane id=":1.-40_0_2" index="2" speed="28.00" length="6.32" shape="58.50,1.65 61.50,-1.65"/>
     </edge>
 
     <edge id="1" from="0" to="1.-40" priority="-1">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:20:26 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Tue Nov 12 16:54:20 2013 by SUMO netconvert Version dev-SVN-r15089
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -78,21 +78,21 @@
         <lane id=":m1_0_0" index="0" speed="13.89" length="3.00" shape="51.38,191.10 48.39,190.89"/>
     </edge>
     <edge id=":m1_1" function="internal">
-        <lane id=":m1_1_0" index="0" speed="13.89" length="7.25" shape="48.62,187.60 52.08,181.23"/>
-        <lane id=":m1_1_1" index="1" speed="13.89" length="4.46" shape="48.62,187.60 51.85,184.52"/>
-        <lane id=":m1_1_2" index="2" speed="13.89" length="3.00" shape="48.62,187.60 51.61,187.81"/>
+        <lane id=":m1_1_0" index="0" speed="13.89" length="4.90" shape="48.62,187.60 52.08,181.23"/>
+        <lane id=":m1_1_1" index="1" speed="13.89" length="4.90" shape="48.62,187.60 51.85,184.52"/>
+        <lane id=":m1_1_2" index="2" speed="13.89" length="4.90" shape="48.62,187.60 51.61,187.81"/>
     </edge>
     <edge id=":m2_0" function="internal">
-        <lane id=":m2_0_0" index="0" speed="13.89" length="7.25" shape="351.38,212.40 347.92,218.77"/>
-        <lane id=":m2_0_1" index="1" speed="13.89" length="4.46" shape="351.38,212.40 348.15,215.48"/>
-        <lane id=":m2_0_2" index="2" speed="13.89" length="3.00" shape="351.38,212.40 348.39,212.19"/>
+        <lane id=":m2_0_0" index="0" speed="13.89" length="4.90" shape="351.38,212.40 347.92,218.77"/>
+        <lane id=":m2_0_1" index="1" speed="13.89" length="4.90" shape="351.38,212.40 348.15,215.48"/>
+        <lane id=":m2_0_2" index="2" speed="13.89" length="4.90" shape="351.38,212.40 348.39,212.19"/>
     </edge>
     <edge id=":m2_3" function="internal">
         <lane id=":m2_3_0" index="0" speed="13.89" length="3.00" shape="348.62,208.90 351.61,209.11"/>
     </edge>
     <edge id=":m3_0" function="internal">
-        <lane id=":m3_0_0" index="0" speed="13.89" length="4.46" shape="212.40,48.62 215.48,51.85"/>
-        <lane id=":m3_0_1" index="1" speed="13.89" length="3.00" shape="212.40,48.62 212.19,51.61"/>
+        <lane id=":m3_0_0" index="0" speed="13.89" length="3.73" shape="212.40,48.62 215.48,51.85"/>
+        <lane id=":m3_0_1" index="1" speed="13.89" length="3.73" shape="212.40,48.62 212.19,51.61"/>
     </edge>
     <edge id=":m3_2" function="internal">
         <lane id=":m3_2_0" index="0" speed="13.89" length="3.00" shape="208.90,51.38 209.11,48.39"/>
@@ -101,8 +101,8 @@
         <lane id=":m4_0_0" index="0" speed="13.89" length="3.00" shape="191.10,348.62 190.89,351.61"/>
     </edge>
     <edge id=":m4_1" function="internal">
-        <lane id=":m4_1_0" index="0" speed="13.89" length="4.46" shape="187.60,351.38 184.52,348.15"/>
-        <lane id=":m4_1_1" index="1" speed="13.89" length="3.00" shape="187.60,351.38 187.81,348.39"/>
+        <lane id=":m4_1_0" index="0" speed="13.89" length="3.73" shape="187.60,351.38 184.52,348.15"/>
+        <lane id=":m4_1_1" index="1" speed="13.89" length="3.73" shape="187.60,351.38 187.81,348.39"/>
     </edge>
 
     <edge id="1fi" from="1" to="m1" priority="46">

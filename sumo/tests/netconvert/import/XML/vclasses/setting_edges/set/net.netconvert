@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:20:06 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Tue Nov 12 16:54:09 2013 by SUMO netconvert Version dev-SVN-r15089
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -98,24 +98,24 @@
         <lane id=":4_0_0" index="0" speed="11.11" length="4.82" shape="501.65,1000.00 500.82,1001.24 500.00,1001.65 499.18,1001.24 498.35,1000.00"/>
     </edge>
     <edge id=":m1_0" function="internal">
-        <lane id=":m1_0_0" index="0" allow="bus" speed="12.50" length="4.46" shape="248.50,495.05 251.50,491.75"/>
-        <lane id=":m1_0_1" index="1" allow="bus" speed="12.50" length="3.00" shape="248.50,495.05 251.50,495.05"/>
-        <lane id=":m1_0_2" index="2" allow="bus" speed="12.50" length="3.00" shape="248.50,498.35 251.50,498.35"/>
+        <lane id=":m1_0_0" index="0" allow="bus" speed="12.50" length="3.49" shape="248.50,495.05 251.50,491.75"/>
+        <lane id=":m1_0_1" index="1" allow="bus" speed="12.50" length="3.49" shape="248.50,495.05 251.50,495.05"/>
+        <lane id=":m1_0_2" index="2" allow="bus" speed="12.50" length="3.49" shape="248.50,498.35 251.50,498.35"/>
     </edge>
     <edge id=":m2_0" function="internal">
-        <lane id=":m2_0_0" index="0" disallow="bus" speed="12.50" length="4.46" shape="751.50,504.95 748.50,508.25"/>
-        <lane id=":m2_0_1" index="1" disallow="bus" speed="12.50" length="3.00" shape="751.50,504.95 748.50,504.95"/>
-        <lane id=":m2_0_2" index="2" disallow="bus" speed="12.50" length="3.00" shape="751.50,501.65 748.50,501.65"/>
+        <lane id=":m2_0_0" index="0" disallow="bus" speed="12.50" length="3.49" shape="751.50,504.95 748.50,508.25"/>
+        <lane id=":m2_0_1" index="1" disallow="bus" speed="12.50" length="3.49" shape="751.50,504.95 748.50,504.95"/>
+        <lane id=":m2_0_2" index="2" disallow="bus" speed="12.50" length="3.49" shape="751.50,501.65 748.50,501.65"/>
     </edge>
     <edge id=":m3_0" function="internal">
-        <lane id=":m3_0_0" index="0" allow="pedestrian" speed="12.50" length="4.46" shape="504.95,248.50 508.25,251.50"/>
-        <lane id=":m3_0_1" index="1" allow="pedestrian" speed="12.50" length="3.00" shape="504.95,248.50 504.95,251.50"/>
-        <lane id=":m3_0_2" index="2" allow="pedestrian" speed="12.50" length="3.00" shape="501.65,248.50 501.65,251.50"/>
+        <lane id=":m3_0_0" index="0" allow="pedestrian" speed="12.50" length="3.49" shape="504.95,248.50 508.25,251.50"/>
+        <lane id=":m3_0_1" index="1" allow="pedestrian" speed="12.50" length="3.49" shape="504.95,248.50 504.95,251.50"/>
+        <lane id=":m3_0_2" index="2" allow="pedestrian" speed="12.50" length="3.49" shape="501.65,248.50 501.65,251.50"/>
     </edge>
     <edge id=":m4_0" function="internal">
-        <lane id=":m4_0_0" index="0" disallow="pedestrian" speed="12.50" length="4.46" shape="495.05,751.50 491.75,748.50"/>
-        <lane id=":m4_0_1" index="1" disallow="pedestrian" speed="12.50" length="3.00" shape="495.05,751.50 495.05,748.50"/>
-        <lane id=":m4_0_2" index="2" disallow="pedestrian" speed="12.50" length="3.00" shape="498.35,751.50 498.35,748.50"/>
+        <lane id=":m4_0_0" index="0" disallow="pedestrian" speed="12.50" length="3.49" shape="495.05,751.50 491.75,748.50"/>
+        <lane id=":m4_0_1" index="1" disallow="pedestrian" speed="12.50" length="3.49" shape="495.05,751.50 495.05,748.50"/>
+        <lane id=":m4_0_2" index="2" disallow="pedestrian" speed="12.50" length="3.49" shape="498.35,751.50 498.35,748.50"/>
     </edge>
 
     <edge id="1fi" from="1" to="m1" priority="2">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:21:08 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Tue Nov 12 16:54:56 2013 by SUMO netconvert Version dev-SVN-r15089
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -42,8 +42,8 @@
         <lane id=":cluster_301292612_38919945_56231397_59993001_11_0" index="0" speed="13.89" length="5.05" shape="47.51,53.25 49.02,52.04 52.10,51.55"/>
     </edge>
     <edge id=":cluster_301292612_38919945_56231397_59993001_3" function="internal">
-        <lane id=":cluster_301292612_38919945_56231397_59993001_3_0" index="0" speed="13.89" length="4.78" shape="51.67,44.64 51.47,45.89 51.70,46.96 52.37,47.85 53.47,48.55"/>
-        <lane id=":cluster_301292612_38919945_56231397_59993001_3_1" index="1" speed="13.89" length="9.48" shape="48.47,43.82 48.08,46.29 48.55,48.40 49.89,50.15 52.10,51.55"/>
+        <lane id=":cluster_301292612_38919945_56231397_59993001_3_0" index="0" speed="13.89" length="7.13" shape="51.67,44.64 51.47,45.89 51.70,46.96 52.37,47.85 53.47,48.55"/>
+        <lane id=":cluster_301292612_38919945_56231397_59993001_3_1" index="1" speed="13.89" length="7.13" shape="48.47,43.82 48.08,46.29 48.55,48.40 49.89,50.15 52.10,51.55"/>
     </edge>
     <edge id=":cluster_301292612_38919945_56231397_59993001_5" function="internal">
         <lane id=":cluster_301292612_38919945_56231397_59993001_5_0" index="0" speed="18.05" length="5.67" shape="48.47,43.82 45.85,48.84"/>
