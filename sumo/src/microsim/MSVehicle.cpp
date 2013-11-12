@@ -374,6 +374,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     myState(0, 0), //
     myLane(0),
     myLastBestLanesEdge(0),
+    myLastBestLanesInternalLane(0),
     myPersonDevice(0),
     myAcceleration(0),
     mySignals(0),
@@ -458,6 +459,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) {
     // assign new route
     myRoute = newRoute;
     myLastBestLanesEdge = 0;
+    myLastBestLanesInternalLane = 0;
     if (!onInit) {
         getBestLanes(true);
     }
@@ -1254,13 +1256,16 @@ MSVehicle::executeMove() {
                 ++i;
             }
         }
+        getBestLanes();
+        // bestLanes need to be updated before lane changing starts
         if (getLaneChangeModel().isChangingLanes()) {
             getLaneChangeModel().continueLaneChangeManeuver(moved);
         }
-        setBlinkerInformation();
+        setBlinkerInformation(); // needs updated bestLanes
+        // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
+        getLaneChangeModel().prepareStep();
     }
     // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
-    getLaneChangeModel().prepareStep();
     return moved;
 }
 
@@ -1494,8 +1499,6 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         ++myCurrEdge;
     }
     if (!onTeleporting) {
-        // may be optimized: compute only, if the current or the next have more than one lane...!!!
-        getBestLanes(true);
         activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
 #ifndef NO_TRACI
         if (myInfluencer != 0) {
@@ -1656,10 +1659,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
         startLane = myLane;
     }
     assert(startLane != 0);
-    // update occupancy and current lane index, only, if the vehicle has not moved to a new lane
-    // (never for internal lanes)
-    if ((myLastBestLanesEdge == &startLane->getEdge() && !forceRebuild) ||
-            (startLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL && myBestLanes.size() > 0)) {
+    if (myBestLanes.size() > 0 && !forceRebuild && myLastBestLanesEdge == &startLane->getEdge()) {
         std::vector<LaneQ>& lanes = *myBestLanes.begin();
         std::vector<LaneQ>::iterator i;
         for (i = lanes.begin(); i != lanes.end(); ++i) {
@@ -1673,6 +1673,59 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
             }
         }
         return *myBestLanes.begin();
+    }
+    if (startLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL && myBestLanes.size() > 0) {
+        if (myBestLanes.size() == 0 || forceRebuild) {
+            // rebuilt from previous non-internal lane (may backtrack twice if behind an internal junction)
+            getBestLanes(true, startLane->getLogicalPredecessorLane());
+        }
+        if (myLastBestLanesInternalLane == startLane && !forceRebuild) {
+            return *myBestLanes.begin();
+        }
+        std::vector<LaneQ>& lanes = *myBestLanes.begin();
+        // adapt best lanes to fit the current internal edge:
+        // keep the entries that are reachable from this edge
+        const MSEdge* nextEdge = &(startLane->getLinkCont()[0]->getLane()->getEdge());
+        assert(nextEdge->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL);
+        for (std::vector<std::vector<LaneQ> >::iterator it = myBestLanes.begin(); it != myBestLanes.end();) {
+            std::vector<LaneQ>& lanes = *it;
+            assert(lanes.size() > 0);
+            if (&(lanes[0].lane->getEdge()) == nextEdge) {
+                // drop the lanes which are not reachable from the current edge
+                for (std::vector<LaneQ>::iterator it_lane = lanes.begin(); it_lane != lanes.end();) {
+                    if (!(*it_lane).lane->isApproachedFrom(&(startLane->getEdge()))) {
+                        it_lane = lanes.erase(it_lane);
+                    } else {
+                        ++it_lane;
+                    }
+                }
+                assert(lanes.size() > 0);
+                // patch invalid bestLaneOffset and updated myCurrentLaneInBestLanes
+                for (size_t i = 0; i < lanes.size(); ++i) {
+                    if (i + lanes[i].bestLaneOffset < 0) {
+                        lanes[i].bestLaneOffset = -i;
+                    }
+                    if (i + lanes[i].bestLaneOffset >= lanes.size()) {
+                        lanes[i].bestLaneOffset = lanes.size() - i - 1;
+                    }
+                    assert(i + lanes[i].bestLaneOffset >= 0);
+                    assert(i + lanes[i].bestLaneOffset < lanes.size());
+                    if (lanes[i].lane->isApproachedFrom(&(startLane->getEdge()), startLane)) {
+                        if (lanes[i].bestContinuations[0] != 0) {
+                            // patch length of bestContinuation to match expectations (only once)
+                            lanes[i].bestContinuations.insert(lanes[i].bestContinuations.begin(), 0);
+                        }
+                        myCurrentLaneInBestLanes = lanes.begin() + i;
+                    }
+                }
+                myLastBestLanesInternalLane = startLane;
+                return lanes;
+            } else {
+                // remove passed edges
+                it = myBestLanes.erase(it); 
+            }
+        }
+        assert(false); // should always find the next edge
     }
     // start rebuilding
     myLastBestLanesEdge = &startLane->getEdge();
@@ -1892,17 +1945,6 @@ MSVehicle::getBestLaneOffset() const {
     } else {
         return (*myCurrentLaneInBestLanes).bestLaneOffset;
     }
-}
-
-
-bool
-MSVehicle::fixContinuations() {
-    std::vector<MSLane*>& bestLaneConts = (*myCurrentLaneInBestLanes).bestContinuations;
-    if (myLane->getLinkCont()[0]->getLane() != bestLaneConts[1]) {
-        bestLaneConts.erase(bestLaneConts.begin() + 1, bestLaneConts.end());
-        return true;
-    }
-    return false;
 }
 
 

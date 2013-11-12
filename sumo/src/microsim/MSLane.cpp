@@ -604,6 +604,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 
 void
 MSLane::forceVehicleInsertion(MSVehicle* veh, SUMOReal pos) {
+    veh->getBestLanes(true, this);
     incorporateVehicle(veh, pos, veh->getSpeed(), find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos)));
 }
 

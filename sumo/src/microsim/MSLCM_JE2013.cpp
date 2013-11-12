@@ -575,8 +575,13 @@ MSLCM_JE2013::_wantsChange(
     SUMOReal neighExtDist = 0;
     SUMOReal currExtDist = 0;
     int currIdx = 0;
+    MSLane* prebLane = myVehicle.getLane();
+    if (prebLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+        // internal edges are not kept inside the bestLanes structure
+        prebLane = prebLane->getLinkCont()[0]->getLane();
+    }
     for (int p = 0; p < (int) preb.size(); ++p) {
-        if (preb[p].lane == myVehicle.getLane()) {
+        if (preb[p].lane == prebLane) {
             curr = preb[p];
             currentDist = curr.length;
             currExtDist = curr.lane->getLength();

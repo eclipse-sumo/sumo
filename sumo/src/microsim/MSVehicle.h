@@ -483,8 +483,6 @@ public:
     /// @brief returns the current offset from the best lane
     int getBestLaneOffset() const;
 
-    /// @brief repair errors in bestLanes after changing between internal edges
-    bool fixContinuations();
     /// @}
 
     /// @brief repair errors in vehicle position after changing between internal edges
@@ -1028,6 +1026,8 @@ protected:
     MSAbstractLaneChangeModel* myLaneChangeModel;
 
     mutable const MSEdge* myLastBestLanesEdge;
+    mutable const MSLane* myLastBestLanesInternalLane;
+
     mutable std::vector<std::vector<LaneQ> > myBestLanes;
     mutable std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
     static std::vector<MSLane*> myEmptyLaneVector;

@@ -158,15 +158,6 @@ MSAbstractLaneChangeModel::continueLaneChangeManeuver(bool moved) {
         myVehicle.leaveLane(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
         myVehicle.enterLaneAtLaneChange(myShadowLane);
         myShadowLane = tmp;
-        if (myVehicle.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
-            // internal lanes do not appear in bestLanes so we need to update
-            // myCurrentLaneInBestLanes explicitly
-            myVehicle.getBestLanes(false, myVehicle.getLane()->getLogicalPredecessorLane());
-            if (myVehicle.fixContinuations()) {
-                WRITE_WARNING("vehicle '" + myVehicle.getID() + "' could not reconstruct bestLanes when changing lanes on lane '" + myVehicle.getLane()->getID() + " time="
-                              + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            }
-        }
         if (myVehicle.fixPosition()) {
             WRITE_WARNING("vehicle '" + myVehicle.getID() + "' set back by " + toString(myVehicle.getPositionOnLane() - myVehicle.getLane()->getLength()) +
                           "m when changing lanes on lane '" + myVehicle.getLane()->getID() + " time=" +

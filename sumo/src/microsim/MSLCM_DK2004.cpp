@@ -122,8 +122,13 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     SUMOReal neighExtDist = 0;
     SUMOReal currExtDist = 0;
     int currIdx = 0;
+    MSLane* prebLane = myVehicle.getLane();
+    if (prebLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+        // internal edges are not kept inside the bestLanes structure
+        prebLane = prebLane->getLinkCont()[0]->getLane();
+    }
     for (int p = 0; p < (int) preb.size(); ++p) {
-        if (preb[p].lane == myVehicle.getLane()) {
+        if (preb[p].lane == prebLane) {
             curr = preb[p];
             bestLaneOffset = curr.bestLaneOffset;
             currentDist = curr.length;
@@ -337,8 +342,13 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
     SUMOReal neighExtDist = 0;
     SUMOReal currExtDist = 0;
     int currIdx = 0;
+    MSLane* prebLane = myVehicle.getLane();
+    if (prebLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+        // internal edges are not kept inside the bestLanes structure
+        prebLane = prebLane->getLinkCont()[0]->getLane();
+    }
     for (int p = 0; p < (int) preb.size(); ++p) {
-        if (preb[p].lane == myVehicle.getLane()) {
+        if (preb[p].lane == prebLane) {
             curr = preb[p];
             bestLaneOffset = curr.bestLaneOffset;
             currentDist = curr.length;
