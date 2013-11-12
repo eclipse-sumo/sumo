@@ -581,7 +581,7 @@ MSLCM_JE2013::_wantsChange(
         prebLane = prebLane->getLinkCont()[0]->getLane();
     }
     for (int p = 0; p < (int) preb.size(); ++p) {
-        if (preb[p].lane == prebLane) {
+        if (preb[p].lane == prebLane && p + laneOffset >= 0) {
             curr = preb[p];
             currentDist = curr.length;
             currExtDist = curr.lane->getLength();

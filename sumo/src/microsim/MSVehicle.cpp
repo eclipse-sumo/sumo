@@ -1691,27 +1691,15 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
             std::vector<LaneQ>& lanes = *it;
             assert(lanes.size() > 0);
             if (&(lanes[0].lane->getEdge()) == nextEdge) {
-                // drop the lanes which are not reachable from the current edge
-                for (std::vector<LaneQ>::iterator it_lane = lanes.begin(); it_lane != lanes.end();) {
-                    if (!(*it_lane).lane->isApproachedFrom(&(startLane->getEdge()))) {
-                        it_lane = lanes.erase(it_lane);
-                    } else {
-                        ++it_lane;
-                    }
-                }
-                assert(lanes.size() > 0);
-                assert(lanes.size() <= startLane->getEdge().getLanes().size());
-                if (lanes.size() < startLane->getEdge().getLanes().size()) {
-                    // must be a network with unsafe connections. we need to duplicate some target lanes
-                    std::vector<LaneQ> uniqueLanes = lanes;
-                    lanes.clear();
-                    const std::vector<MSLane*>& sourceLanes = startLane->getEdge().getLanes();
-                    for (std::vector<MSLane*>::const_iterator it_source = sourceLanes.begin(); it_source != sourceLanes.end(); ++it_source) {
-                        for (std::vector<LaneQ>::iterator it_lane = uniqueLanes.begin(); it_lane != uniqueLanes.end();) {
-                            if ((*it_source)->getLinkCont()[0]->getLane() == (*it_lane).lane) {
-                                lanes.push_back(*it_lane);
-                                break;
-                            }
+                // keep those lanes which are successors of internal lanes from the edge of startLane
+                std::vector<LaneQ> oldLanes = lanes;
+                lanes.clear();
+                const std::vector<MSLane*>& sourceLanes = startLane->getEdge().getLanes();
+                for (std::vector<MSLane*>::const_iterator it_source = sourceLanes.begin(); it_source != sourceLanes.end(); ++it_source) {
+                    for (std::vector<LaneQ>::iterator it_lane = oldLanes.begin(); it_lane != oldLanes.end(); ++it_lane) {
+                        if ((*it_source)->getLinkCont()[0]->getLane() == (*it_lane).lane) {
+                            lanes.push_back(*it_lane);
+                            break;
                         }
                     }
                 }
@@ -1726,11 +1714,11 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
                     }
                     assert(i + lanes[i].bestLaneOffset >= 0);
                     assert(i + lanes[i].bestLaneOffset < lanes.size());
-                    if (lanes[i].lane->isApproachedFrom(&(startLane->getEdge()), startLane)) {
-                        if (lanes[i].bestContinuations[0] != 0) {
-                            // patch length of bestContinuation to match expectations (only once)
-                            lanes[i].bestContinuations.insert(lanes[i].bestContinuations.begin(), 0);
-                        }
+                    if (lanes[i].bestContinuations[0] != 0) {
+                        // patch length of bestContinuation to match expectations (only once)
+                        lanes[i].bestContinuations.insert(lanes[i].bestContinuations.begin(), 0);
+                    }
+                    if (startLane->getLinkCont()[0]->getLane() == lanes[i].lane) {
                         myCurrentLaneInBestLanes = lanes.begin() + i;
                     }
                 }

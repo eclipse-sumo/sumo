@@ -128,7 +128,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
         prebLane = prebLane->getLinkCont()[0]->getLane();
     }
     for (int p = 0; p < (int) preb.size(); ++p) {
-        if (preb[p].lane == prebLane) {
+        if (preb[p].lane == prebLane && p > 0) {
             curr = preb[p];
             bestLaneOffset = curr.bestLaneOffset;
             currentDist = curr.length;
