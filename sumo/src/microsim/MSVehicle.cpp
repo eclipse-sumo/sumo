@@ -1700,6 +1700,22 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
                     }
                 }
                 assert(lanes.size() > 0);
+                assert(lanes.size() <= startLane->getEdge().getLanes().size());
+                if (lanes.size() < startLane->getEdge().getLanes().size()) {
+                    // must be a network with unsafe connections. we need to duplicate some target lanes
+                    std::vector<LaneQ> uniqueLanes = lanes;
+                    lanes.clear();
+                    const std::vector<MSLane*>& sourceLanes = startLane->getEdge().getLanes();
+                    for (std::vector<MSLane*>::const_iterator it_source = sourceLanes.begin(); it_source != sourceLanes.end(); ++it_source) {
+                        for (std::vector<LaneQ>::iterator it_lane = uniqueLanes.begin(); it_lane != uniqueLanes.end();) {
+                            if ((*it_source)->getLinkCont()[0]->getLane() == (*it_lane).lane) {
+                                lanes.push_back(*it_lane);
+                                break;
+                            }
+                        }
+                    }
+                }
+                assert(lanes.size() == startLane->getEdge().getLanes().size());
                 // patch invalid bestLaneOffset and updated myCurrentLaneInBestLanes
                 for (size_t i = 0; i < lanes.size(); ++i) {
                     if (i + lanes[i].bestLaneOffset < 0) {
