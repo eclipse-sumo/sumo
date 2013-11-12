@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/10/13 09:46:06 by SUMO dfrouter Version dev-SVN-r14133
+<!-- generated on 11/12/13 13:06:49 by SUMO dfrouter Version dev-SVN-r15093
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
@@ -158,15 +158,15 @@
     <vehicle id="emitter_15_57446" depart="57.45" departLane="0" departPos="10.00" departSpeed="13.89" route="15_to_37"/>
     <vehicle id="emitter_15_58723" depart="58.72" departLane="0" departPos="10.00" departSpeed="13.89" route="15_to_25_56"/>
     <routeDistribution id="17">
-        <route refId="17_to_9" probability="0.31"/>
-        <route refId="17_to_40" probability="0.13"/>
-        <route refId="17_to_37" probability="0.40"/>
-        <route refId="17_to_39" probability="0.09"/>
-        <route refId="17_to_44" probability="0.06"/>
-        <route refId="17_to_15" probability="0.01"/>
+        <route refId="17_to_9" probability="0.49"/>
+        <route refId="17_to_40" probability="0.37"/>
+        <route refId="17_to_37" probability="0.63"/>
+        <route refId="17_to_39" probability="0.15"/>
+        <route refId="17_to_44" probability="0.17"/>
+        <route refId="17_to_15" probability="0.03"/>
     </routeDistribution>
     <vehicle id="emitter_17_0" depart="0.00" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_44"/>
-    <vehicle id="emitter_17_2307" depart="2.31" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_9"/>
+    <vehicle id="emitter_17_2307" depart="2.31" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_40"/>
     <vehicle id="emitter_17_4615" depart="4.62" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_40"/>
     <vehicle id="emitter_17_6923" depart="6.92" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_40"/>
     <vehicle id="emitter_17_9230" depart="9.23" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_37"/>
@@ -174,7 +174,7 @@
     <vehicle id="emitter_17_13846" depart="13.85" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_37"/>
     <vehicle id="emitter_17_16153" depart="16.15" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_37"/>
     <vehicle id="emitter_17_18461" depart="18.46" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_37"/>
-    <vehicle id="emitter_17_20769" depart="20.77" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_9"/>
+    <vehicle id="emitter_17_20769" depart="20.77" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_40"/>
     <vehicle id="emitter_17_23076" depart="23.08" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_37"/>
     <vehicle id="emitter_17_25384" depart="25.38" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_9"/>
     <vehicle id="emitter_17_27692" depart="27.69" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_37"/>
@@ -188,7 +188,7 @@
     <vehicle id="emitter_17_46153" depart="46.15" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_44"/>
     <vehicle id="emitter_17_48461" depart="48.46" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_39"/>
     <vehicle id="emitter_17_50769" depart="50.77" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_9"/>
-    <vehicle id="emitter_17_53076" depart="53.08" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_39"/>
+    <vehicle id="emitter_17_53076" depart="53.08" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_44"/>
     <vehicle id="emitter_17_55384" depart="55.38" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_40"/>
     <vehicle id="emitter_17_57692" depart="57.69" departLane="0" departPos="10.00" departSpeed="13.89" route="17_to_37"/>
     <routeDistribution id="19">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/10/13 09:46:01 by SUMO dfrouter Version dev-SVN-r14133
+<!-- generated on 11/12/13 13:06:45 by SUMO dfrouter Version dev-SVN-r15093
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
@@ -35,8 +35,8 @@
 
 <additional>
     <routeDistribution id="BO">
-        <route refId="a4_a5_to_20_10" probability="0.21"/>
-        <route refId="a4_a5_to_51_61" probability="0.21"/>
+        <route refId="a4_a5_to_20_10" probability="0.50"/>
+        <route refId="a4_a5_to_51_61" probability="0.50"/>
     </routeDistribution>
     <vehicle id="emitter_BO_0" depart="0.00" departLane="0" departPos="50.00" departSpeed="max" route="a4_a5_to_51_61"/>
     <vehicle id="emitter_BO_15000" depart="15.00" departLane="0" departPos="50.00" departSpeed="max" route="a4_a5_to_51_61"/>

@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r14764
+SUMO dfrouter Version dev-SVN-r15054
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Builds vehicle routes for SUMO using detector values.
 
@@ -65,6 +65,9 @@ Processing Options:
   --revalidate-flows                   
   --remove-empty-detectors             Removes empty detectors from the list
   --strict-sources                     
+  --respect-concurrent-inflows         Try to determine further inflows to an
+                                         inbetween detector when computing split
+                                         probabilities
   --scale FLOAT                        Scale factor for flows
 
 Defaults Options:

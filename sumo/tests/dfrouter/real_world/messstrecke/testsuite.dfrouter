@@ -5,5 +5,7 @@ plain
 begin
 
 # Messstrecke vtypes
-# 
 vtype
+
+# testing option respect-concurrent-inflows
+concurrent_inflows

@@ -52,6 +52,7 @@
         <revalidate-flows value="false" type="BOOL" help=""/>
         <remove-empty-detectors value="false" type="BOOL" help="Removes empty detectors from the list"/>
         <strict-sources value="false" type="BOOL" help=""/>
+        <respect-concurrent-inflows value="false" type="BOOL" help="Try to determine further inflows to an inbetween detector when computing split probabilities"/>
         <scale value="1" type="FLOAT" help="Scale factor for flows"/>
     </processing>
 

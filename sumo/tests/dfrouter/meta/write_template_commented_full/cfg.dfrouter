@@ -132,6 +132,9 @@
         <!--  -->
         <strict-sources value="false" type="BOOL"/>
 
+        <!-- Try to determine further inflows to an inbetween detector when computing split probabilities -->
+        <respect-concurrent-inflows value="false" type="BOOL"/>
+
         <!-- Scale factor for flows -->
         <scale value="1" type="FLOAT"/>
 

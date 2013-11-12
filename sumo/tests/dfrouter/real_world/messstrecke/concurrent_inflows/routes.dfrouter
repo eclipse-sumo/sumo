@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/02/13 14:01:09 by SUMO dfrouter Version 0.17.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_messstrecke.net.xml"/>
+        <detector-files value="input_messstrecke.det.xml"/>
+        <measure-files value="input_flows.txt"/>
+    </input>
+
+    <output>
+        <routes-output value="routes.rou.xml"/>
+        <emitters-output value="emitters.add.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<routes>
+
+    <route id="33_to_18" edges="33 -32 5 18"/>
+    <route id="33_to_35" edges="33 -32 5 6 7 35"/>
+    <route id="33_to_19" edges="33 -32 5 6 19"/>
+    <route id="33_to_20" edges="33 -32 5 6 7 20"/>
+
+    <route id="17_to_18" edges="17 5 18"/>
+    <route id="17_to_-33" edges="17 32 -33"/>
+    <route id="17_to_35" edges="17 5 6 7 35"/>
+    <route id="17_to_19" edges="17 5 6 19"/>
+    <route id="17_to_20" edges="17 5 6 7 20"/>
+
+    <route id="-19_to_35" edges="-19 7 35"/>
+    <route id="-19_to_18" edges="-19 -6 18"/>
+    <route id="-19_to_-33" edges="-19 -6 -5 32 -33"/>
+    <route id="-19_to_20" edges="-19 7 20"/>
+
+    <route id="-20_to_35" edges="-20 35"/>
+    <route id="-20_to_19" edges="-20 -7 19"/>
+    <route id="-20_to_18" edges="-20 -7 -6 18"/>
+    <route id="-20_to_-33" edges="-20 -7 -6 -5 32 -33"/>
+
+    <route id="-35_to_19" edges="-35 -7 19"/>
+    <route id="-35_to_18" edges="-35 -7 -6 18"/>
+    <route id="-35_to_20" edges="-35 20"/>
+    <route id="-35_to_-33" edges="-35 -7 -6 -5 32 -33"/>
+
+
+</routes>
