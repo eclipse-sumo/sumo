@@ -107,23 +107,51 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
     // compute edges to determine split probabilities
     const std::vector<RODFRouteDesc>& routes = myRoutes->get();
     std::vector<RODFEdge*> nextDetEdges;
+	std::set<ROEdge*> preSplitEdges;
     for (std::vector<RODFRouteDesc>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
         const RODFRouteDesc& rd = *i;
         bool hadSplit = false;
-        bool hadDetectorAfterSplit = false;
-        for (std::vector<ROEdge*>::const_iterator j = rd.edges2Pass.begin(); !hadDetectorAfterSplit && j != rd.edges2Pass.end(); ++j) {
-            if (hadSplit && !hadDetectorAfterSplit && net->hasDetector(*j)) {
-                hadDetectorAfterSplit = true;
+        for (std::vector<ROEdge*>::const_iterator j = rd.edges2Pass.begin(); j != rd.edges2Pass.end(); ++j) {
+            if (hadSplit && net->hasDetector(*j)) {
                 if (find(nextDetEdges.begin(), nextDetEdges.end(), *j) == nextDetEdges.end()) {
                     nextDetEdges.push_back(static_cast<RODFEdge*>(*j));
                 }
                 myRoute2Edge[rd.routename] = static_cast<RODFEdge*>(*j);
+				break;
             }
+			if (!hadSplit) {
+				preSplitEdges.insert(*j);
+			}
             if ((*j)->getNoFollowing() > 1) {
                 hadSplit = true;
             }
         }
     }
+	std::map<ROEdge*, SUMOReal> inFlows;
+	if (OptionsCont::getOptions().getBool("respect-concurrent-inflows")) {
+		for (std::vector<RODFEdge*>::const_iterator i = nextDetEdges.begin(); i != nextDetEdges.end(); ++i) {
+			std::set<ROEdge*> seen(preSplitEdges);
+			std::vector<ROEdge*> pending;
+			pending.push_back(*i);
+			seen.insert(*i);
+			while (!pending.empty()) {
+				ROEdge* e = pending.back();
+				pending.pop_back();
+				const unsigned int numAppr = e->getNumApproaching();
+				for (unsigned int j = 0; j < numAppr; j++) {
+					ROEdge* e2 = e->getApproaching(j);
+					if (e2->getNoFollowing() ==1 && seen.count(e2) == 0) {
+						if (net->hasDetector(e2)) {
+							inFlows[*i] += detectors.getAggFlowFor(e2, 0, 0, flows);
+						} else {
+							pending.push_back(e2);
+						}
+						seen.insert(e2);
+					}
+				}
+			}
+		}
+	}
     // compute the probabilities to use a certain direction
     int index = 0;
     for (SUMOTime time = startTime; time < endTime; time += stepOffset, ++index) {
@@ -131,7 +159,7 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
         SUMOReal overallProb = 0;
         // retrieve the probabilities
         for (std::vector<RODFEdge*>::const_iterator i = nextDetEdges.begin(); i != nextDetEdges.end(); ++i) {
-            SUMOReal flow = detectors.getAggFlowFor(*i, time, 60, flows);
+			SUMOReal flow = detectors.getAggFlowFor(*i, time, 60, flows) - inFlows[*i];
             overallProb += flow;
             mySplitProbabilities[index][*i] = flow;
         }
@@ -165,22 +193,32 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
         size_t index = 0;
         for (std::vector<RODFRouteDesc>::iterator ri = descs.begin(); ri != descs.end(); ++ri, index++) {
             SUMOReal prob = 1.;
-            for (std::vector<ROEdge*>::iterator j = (*ri).edges2Pass.begin(); j != (*ri).edges2Pass.end() && prob > 0; ++j) {
+            for (std::vector<ROEdge*>::iterator j = (*ri).edges2Pass.begin(); j != (*ri).edges2Pass.end() && prob > 0;) {
                 if (!net.hasDetector(*j)) {
+					++j;
                     continue;
                 }
                 const RODFDetector& det = detectors.getAnyDetectorForEdge(static_cast<RODFEdge*>(*j));
                 const std::vector<std::map<RODFEdge*, SUMOReal> >& probs = det.getSplitProbabilities();
                 if (probs.size() == 0) {
                     prob = 0;
+					++j;
                     continue;
                 }
                 const std::map<RODFEdge*, SUMOReal>& tprobs = probs[(time - startTime) / stepOffset];
+				RODFEdge* splitEdge = 0;
                 for (std::map<RODFEdge*, SUMOReal>::const_iterator k = tprobs.begin(); k != tprobs.end(); ++k) {
                     if (find(j, (*ri).edges2Pass.end(), (*k).first) != (*ri).edges2Pass.end()) {
                         prob *= (*k).second;
+						splitEdge = (*k).first;
+						break;
                     }
                 }
+				if (splitEdge != 0) {
+					j = find(j, (*ri).edges2Pass.end(), splitEdge);
+				} else {
+					++j;
+				}
             }
             into[time]->add(prob, index);
             (*ri).overallProb = prob;

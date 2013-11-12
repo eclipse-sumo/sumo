@@ -100,9 +100,7 @@ void
 ROEdge::addFollower(ROEdge* s, std::string) {
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
-#ifdef HAVE_INTERNAL // catchall for internal stuff
         s->myApproachingEdges.push_back(this);
-#endif
     }
 }
 
@@ -297,7 +295,6 @@ ROEdge::getNoFollowing() const {
 }
 
 
-#ifdef HAVE_INTERNAL // catchall for internal stuff
 unsigned int
 ROEdge::getNumApproaching() const {
     if (getType() == ET_SOURCE) {
@@ -305,7 +302,6 @@ ROEdge::getNumApproaching() const {
     }
     return (unsigned int) myApproachingEdges.size();
 }
-#endif
 
 
 void

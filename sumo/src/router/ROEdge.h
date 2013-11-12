@@ -274,7 +274,6 @@ public:
     }
 
 
-#ifdef HAVE_INTERNAL // catchall for internal stuff
     /** @brief Returns the number of edges this edge is connected to
      *
      * If this edge's type is set to "source", 0 is returned, otherwise
@@ -292,7 +291,6 @@ public:
     ROEdge* getApproaching(unsigned int pos) const {
         return myApproachingEdges[pos];
     }
-#endif
 
 
     /** @brief Returns the effort for this edge
@@ -420,10 +418,8 @@ protected:
     /// @brief List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;
 
-#ifdef HAVE_INTERNAL // catchall for internal stuff
     /// @brief List of edges that approached this edge
     std::vector<ROEdge*> myApproachingEdges;
-#endif
 
     /// @brief The type of the edge
     EdgeType myType;

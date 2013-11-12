@@ -203,6 +203,9 @@ RODFFrame::fillOptions() {
     oc.doRegister("strict-sources", new Option_Bool(false)); // !!!undescribed
     oc.addDescription("strict-sources", "Processing", "");
 
+    oc.doRegister("respect-concurrent-inflows", new Option_Bool(false));
+    oc.addDescription("respect-concurrent-inflows", "Processing", "Try to determine further inflows to an inbetween detector when computing split probabilities");
+
     /* disabled, see ticket #521
     oc.doRegister("join-lanes", new Option_Bool(false));
     oc.addSynonyme("join-lanes", "mesosim", true);
