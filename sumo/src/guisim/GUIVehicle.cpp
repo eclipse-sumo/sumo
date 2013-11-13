@@ -1341,8 +1341,17 @@ GUIVehicle::drawBestLanes() const {
 void
 GUIVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
     MSRouteIterator i = r.begin();
+    const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
+    // draw continuation lanes when drawing the current route where available
+    size_t bestLaneIndex = (&r == myRoute ? 0 : bestLaneConts.size());
     for (; i != r.end(); ++i) {
-        const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);
+        const GUILane* lane;
+        if (bestLaneIndex < bestLaneConts.size() && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {
+            lane = static_cast<GUILane*>(bestLaneConts[bestLaneIndex]);
+            ++bestLaneIndex;
+        } else {
+            lane = static_cast<GUILane*>((*i)->getLanes()[0]);
+        }
         GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
     }
 }
