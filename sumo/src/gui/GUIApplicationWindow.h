@@ -201,7 +201,7 @@ public:
     long onUpdAddView(FXObject*, FXSelector, void*);
 
     /// @brief Determines whether "play" is enabled
-    virtual long onUpdStart(FXObject*, FXSelector, void*);
+    long onUpdStart(FXObject* sender, FXSelector, void* ptr);
 
     /// @brief Determines whether "stop" is enabled
     long onUpdStop(FXObject*, FXSelector, void*);
@@ -209,14 +209,14 @@ public:
     /// @brief Determines whether "step" is enabled
     long onUpdStep(FXObject*, FXSelector, void*);
 
-    /// @brief Determines whether editing chosen is enabled
-    long onUpdEditChosen(FXObject* sender, FXSelector, void* ptr);
-
-    /// @brief Determines whether editing breakpoints is enabled
-    virtual long onUpdEditBreakpoints(FXObject*, FXSelector, void*);
+    /// @brief Determines whether some buttons which require an active simulation may be shown
+    long onUpdNeedsSimulation(FXObject*, FXSelector, void*);
 
     /// @brief Called if the message window shall be cleared
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu commands from the Locator menu
+    long onCmdLocate(FXObject*, FXSelector, void*);
 
     /// @brief Called on an event from the loading thread
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
@@ -275,8 +275,9 @@ protected:
     bool myAmLoading;
 
     /// the submenus
-    FXMenuPane* myFileMenu, *myEditMenu, *mySettingsMenu,
-                *myWindowsMenu, *myHelpMenu;
+    FXMenuPane* myFileMenu, *myEditMenu, *mySettingsMenu, 
+        *myLocatorMenu, *myControlMenu,
+        *myWindowsMenu, *myHelpMenu;
 
     /// A window to display messages, warnings and error in
     GUIMessageWindow* myMessageWindow;

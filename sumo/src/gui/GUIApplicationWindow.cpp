@@ -126,8 +126,24 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_START,             GUIApplicationWindow::onUpdStart),
     FXMAPFUNC(SEL_UPDATE,   MID_STOP,              GUIApplicationWindow::onUpdStop),
     FXMAPFUNC(SEL_UPDATE,   MID_STEP,              GUIApplicationWindow::onUpdStep),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,        GUIApplicationWindow::onUpdEditChosen),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdEditBreakpoints),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,        GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdNeedsSimulation),
+
+    // forward requests to the active view
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,      GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,     GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEJUNCTION, GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,     GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEVEHICLE,  GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,      GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEADD,      GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOI,      GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOLY,     GUIApplicationWindow::onUpdNeedsSimulation),
 
     FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0, GUIApplicationWindow::onClipboardRequest),
 
@@ -252,6 +268,8 @@ GUIApplicationWindow::create() {
     myFileMenu->create();
     myEditMenu->create();
     mySettingsMenu->create();
+    myLocatorMenu->create();
+    myControlMenu->create();
     myWindowsMenu->create();
     myHelpMenu->create();
 
@@ -282,6 +300,8 @@ GUIApplicationWindow::~GUIApplicationWindow() {
     delete myFileMenu;
     delete myEditMenu;
     delete mySettingsMenu;
+    delete myLocatorMenu;
+    delete myControlMenu;
     delete myWindowsMenu;
     delete myHelpMenu;
 
@@ -364,11 +384,11 @@ GUIApplicationWindow::fillMenuBar() {
     myEditMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Edit", NULL, myEditMenu);
     new FXMenuCommand(myEditMenu,
-                      "Edit Chosen...\t\tOpens a Dialog for editing the List of chosen Items.",
+                      "Edit Selected...\tCtl-S\tOpens a Dialog for editing the List of Selected Items.",
                       GUIIconSubSys::getIcon(ICON_FLAG), this, MID_EDITCHOSEN);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
-                      "Edit Breakpoints...\t\tOpens a Dialog for editing breakpoints.",
+                      "Edit Breakpoints...\tCtl-B\tOpens a Dialog for editing breakpoints.",
                       0, this, MID_EDIT_BREAKPOINTS);
 
     // build settings menu
@@ -380,15 +400,54 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCheck(mySettingsMenu,
                     "Gaming Mode\t\tToggle gaming mode on/off.",
                     this, MID_GAMING);
-    new FXMenuCheck(mySettingsMenu,
-                    "Locate Internal Structures\t\tList internal junctions and streets in the object locator.",
+    // build Locate menu
+    myLocatorMenu = new FXMenuPane(this);
+    new FXMenuTitle(myMenuBar, "&Locate", NULL, myLocatorMenu);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &Junctions\t\tOpen a Dialog for Locating a Junction.",
+                      NULL, this, MID_LOCATEJUNCTION);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &Edges\t\tOpen a Dialog for Locating an Edge.",
+                      NULL, this, MID_LOCATEEDGE);
+    if (!MSGlobals::gUseMesoSim) { // there are no gui-vehicles in mesosim
+        new FXMenuCommand(myLocatorMenu,
+                "Locate &Vehicles\t\tOpen a Dialog for Locating a Vehicle.",
+                NULL, this, MID_LOCATEVEHICLE);
+    }
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &TLS\t\tOpen a Dialog for Locating a Traffic Light.",
+                      NULL, this, MID_LOCATETLS);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &Additional\t\tOpen a Dialog for Locating an Additional Structure.",
+                      NULL, this, MID_LOCATEADD);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &POI\t\tOpen a Dialog for Locating a Point of Intereset.",
+                      NULL, this, MID_LOCATEPOI);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate P&olygon\t\tOpen a Dialog for Locating a Polygon.",
+                      NULL, this, MID_LOCATETLS);
+    new FXMenuSeparator(myLocatorMenu);
+    new FXMenuCheck(myLocatorMenu,
+                    "Show Internal Structures\t\tShow internal junctions and streets in locator Dialog.",
                     this, MID_LISTINTERNAL);
+    // build control menu
+    myControlMenu = new FXMenuPane(this);
+    new FXMenuTitle(myMenuBar, "Simulation", NULL, myControlMenu);
+    new FXMenuCommand(myControlMenu,
+                      "Run\tCtl-A\tStart running the simulation.",
+                      NULL, this, MID_START);
+    new FXMenuCommand(myControlMenu,
+                      "Stop\tCtl-S\tStop running the simulation.",
+                      NULL, this, MID_STOP);
+    new FXMenuCommand(myControlMenu,
+                      "Step\tCtl-D\tPerform one simulation step.",
+                      NULL, this, MID_STEP);
 
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Windows", NULL, myWindowsMenu);
     new FXMenuCheck(myWindowsMenu,
-                    "Show Status Line\t\tToggle this Status Bar on/off.",
+                    "Show Status Line\t\tToggle the Status Bar on/off.",
                     myStatusbar, FXWindow::ID_TOGGLESHOWN);
     new FXMenuCheck(myWindowsMenu,
                     "Show Message Window\t\tToggle the Message Window on/off.",
@@ -407,7 +466,7 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myWindowsMenu, "Tile &Vertically",
                       GUIIconSubSys::getIcon(ICON_WINDOWS_TILE_VERT),
                       myMDIClient, FXMDIClient::ID_MDI_TILEVERTICAL);
-    new FXMenuCommand(myWindowsMenu, "C&ascade",
+    new FXMenuCommand(myWindowsMenu, "Cascade",
                       GUIIconSubSys::getIcon(ICON_WINDOWS_CASCADE),
                       myMDIClient, FXMDIClient::ID_MDI_CASCADE);
     new FXMenuCommand(myWindowsMenu, "&Close", NULL,
@@ -760,7 +819,7 @@ GUIApplicationWindow::onUpdStep(FXObject* sender, FXSelector, void* ptr) {
 
 
 long
-GUIApplicationWindow::onUpdEditChosen(FXObject* sender, FXSelector, void* ptr) {
+GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* ptr) {
     sender->handle(this,
                    !myRunThread->simulationAvailable() || myAmLoading
                    ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
@@ -770,14 +829,15 @@ GUIApplicationWindow::onUpdEditChosen(FXObject* sender, FXSelector, void* ptr) {
 
 
 long
-GUIApplicationWindow::onUpdEditBreakpoints(FXObject* sender, FXSelector, void* ptr) {
-    sender->handle(this,
-                   !myRunThread->simulationAvailable() || myAmLoading
-                   ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
-                   ptr);
+GUIApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
+    if (myMDIClient->numChildren() > 0) {
+        GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild()); 
+        if (w != 0) {
+            w->onCmdLocate(0, sel, 0);
+        }
+    }
     return 1;
 }
-
 
 long
 GUIApplicationWindow::onCmdAppSettings(FXObject*, FXSelector, void*) {
