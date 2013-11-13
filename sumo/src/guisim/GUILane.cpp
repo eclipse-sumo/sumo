@@ -629,13 +629,14 @@ GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 4);
+        new GUIParameterTableWindow(app, *this, 5);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);
-    ret->mkItem("permissions", false, getAllowedVehicleClassNames(myPermissions));
     ret->mkItem("street name", false, myEdge->getStreetName());
     ret->mkItem("stored traveltime [s]", true, new FunctionBinding<GUILane, SUMOReal>(this, &GUILane::getStoredEdgeTravelTime));
+    ret->mkItem("allowed vehicle class", false, getAllowedVehicleClassNames(myPermissions));
+    ret->mkItem("disallowed vehicle class", false, getAllowedVehicleClassNames(~myPermissions));
     // close building
     ret->closeBuilding();
     return ret;

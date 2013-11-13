@@ -65,7 +65,7 @@ FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, A
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app,
         GUIGlObject& o, size_t noRows)
     : FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(),
-                   NULL, NULL, DECOR_ALL, 20, 20, 400, (FXint)(noRows * 20 + 60)),
+                   NULL, NULL, DECOR_ALL, 20, 20, 500, (FXint)(noRows * 20 + 60)),
     myObject(&o),
     myApplication(&app), myCurrentPos(0) {
     myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE | TABLE_ROW_SIZABLE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
@@ -79,9 +79,9 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app,
     myTable->getRowHeader()->setWidth(0);
     FXHeader* header = myTable->getColumnHeader();
     header->setItemJustify(0, JUSTIFY_CENTER_X);
-    header->setItemSize(0, 250);
+    header->setItemSize(0, 240);
     header->setItemJustify(1, JUSTIFY_CENTER_X);
-    header->setItemSize(1, 80);
+    header->setItemSize(1, 120);
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(2, 60);
     setIcon(GUIIconSubSys::getIcon(ICON_APP_TABLE));

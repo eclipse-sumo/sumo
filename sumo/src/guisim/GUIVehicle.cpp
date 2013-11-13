@@ -323,29 +323,31 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 21);
+        new GUIParameterTableWindow(app, *this, 27);
     // add items
-    ret->mkItem("type [NAME]", false, myType->getID());
+    ret->mkItem("lane [id]", false, myLane->getID());
+    ret->mkItem("position [m]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
+    ret->mkItem("speed [m/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getSpeed));
+    ret->mkItem("angle [degree]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getAngle));
+    if (getChosenSpeedFactor() != 1) {
+        ret->mkItem("speed factor", false, getChosenSpeedFactor());
+    }
+    ret->mkItem("waiting time [s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
+    ret->mkItem("impatience", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getImpatience));
+    ret->mkItem("last lane change [s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getLastLaneChangeOffset));
+    ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     if (getParameter().repetitionNumber > 0) {
         ret->mkItem("left same route [#]", false, (unsigned int) getParameter().repetitionNumber);
     }
     if (getParameter().repetitionOffset > 0) {
         ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
     }
-    if (getChosenSpeedFactor() != 1) {
-        ret->mkItem("speed factor", false, getChosenSpeedFactor());
-    }
-    ret->mkItem("waiting time [s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
-    ret->mkItem("last lane change [s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getLastLaneChangeOffset));
-    ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
-    ret->mkItem("position [m]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
-    ret->mkItem("speed [m/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getSpeed));
-    ret->mkItem("angle", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getAngle));
     ret->mkItem("stop info", false, getStopInfo());
     ret->mkItem("CO2 (HBEFA) [mg/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_CO2Emissions));
@@ -361,6 +363,17 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_FuelConsumption));
     ret->mkItem("noise (Harmonoise) [dB]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHarmonoise_NoiseEmissions));
+    ret->mkItem("", false, "");
+    ret->mkItem("Type Information:", false, "");
+    ret->mkItem("type [id]", false, myType->getID());
+    ret->mkItem("length", false, myType->getLength());
+    ret->mkItem("minGap", false, myType->getMinGap());
+    ret->mkItem("vehicle class", false, SumoVehicleClassStrings.getString(myType->getVehicleClass()));
+    ret->mkItem("emission class", false, SumoEmissionClassStrings.getString(myType->getEmissionClass()));
+    ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
+    ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
+    ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
+    ret->mkItem("reaction time (tau)", false, getCarFollowModel().getHeadwayTime());
     // close building
     ret->closeBuilding();
     return ret;
