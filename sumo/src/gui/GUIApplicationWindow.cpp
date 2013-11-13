@@ -384,7 +384,7 @@ GUIApplicationWindow::fillMenuBar() {
     myEditMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Edit", NULL, myEditMenu);
     new FXMenuCommand(myEditMenu,
-                      "Edit Selected...\tCtl-S\tOpens a Dialog for editing the List of Selected Items.",
+                      "Edit Selected...\tCtl-E\tOpens a Dialog for editing the List of Selected Items.",
                       GUIIconSubSys::getIcon(ICON_FLAG), this, MID_EDITCHOSEN);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
