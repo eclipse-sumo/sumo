@@ -1716,7 +1716,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
                     assert(i + lanes[i].bestLaneOffset < lanes.size());
                     if (lanes[i].bestContinuations[0] != 0) {
                         // patch length of bestContinuation to match expectations (only once)
-                        lanes[i].bestContinuations.insert(lanes[i].bestContinuations.begin(), 0);
+                        lanes[i].bestContinuations.insert(lanes[i].bestContinuations.begin(), (MSLane*)0);
                     }
                     if (startLane->getLinkCont()[0]->getLane() == lanes[i].lane) {
                         myCurrentLaneInBestLanes = lanes.begin() + i;
