@@ -182,8 +182,28 @@ inline std::string joinToString(const std::set<T>& s, const T_BETWEEN& between, 
 }
 
 template <>
-inline std::string toString(const std::set<std::string>& v, std::streamsize accuracy) {
-    return joinToString(v, " ", accuracy);
+inline std::string toString(const std::set<std::string>& v, std::streamsize) {
+    return joinToString(v, " ");
+}
+
+template <typename KEY, typename VAL, typename T_BETWEEN, typename T_BETWEEN_KEYVAL>
+inline std::string joinToString(const std::map<KEY, VAL>& s, const T_BETWEEN& between, const T_BETWEEN_KEYVAL& between_keyval, std::streamsize accuracy = OUTPUT_ACCURACY) {
+    std::ostringstream oss;
+    bool connect = false;
+    for (typename std::map<KEY, VAL>::const_iterator it = s.begin(); it != s.end(); ++it) {
+        if (connect) {
+            oss << toString(between);
+        } else {
+            connect = true;
+        }
+        oss << toString(it->first) << between_keyval << toString(it->second);
+    }
+    return oss.str();
+}
+
+template <>
+inline std::string toString(const std::map<std::string, std::string>& v, std::streamsize) {
+    return joinToString(v, ", ", ":");
 }
 
 
