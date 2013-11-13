@@ -445,6 +445,13 @@ public:
         }
     }
 
+    inline bool isRoundabout() const {
+        return myAmRoundabout;
+    }
+
+    void markAsRoundabout() {
+        myAmRoundabout = true;
+    }
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
@@ -571,11 +578,13 @@ protected:
     SVCPermissions myMinimumPermissions;
     /// @brief The union of lane permissions for this edge
     SVCPermissions myCombinedPermissions;
-
-    std::string myStreetName;
     /// @}
 
+    /// @brief the real-world name of this edge (need not be unique)
+    std::string myStreetName;
 
+    /// @brief whether this edge belongs to a roundabout
+    bool myAmRoundabout;
 
     /// @name Static edge container
     /// @{

@@ -72,7 +72,7 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
                const std::string& streetName) :
     Named(id), myNumericalID(numericalID), myLanes(0),
     myLaneChanger(0), myFunction(function), myVaporizationRequests(0),
-    myLastFailedInsertionTime(-1), myStreetName(streetName) {}
+    myLastFailedInsertionTime(-1), myStreetName(streetName), myAmRoundabout(false) {}
 
 
 MSEdge::~MSEdge() {

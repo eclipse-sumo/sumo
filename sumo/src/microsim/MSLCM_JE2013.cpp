@@ -80,9 +80,11 @@
 
 #define URGENCY (SUMOReal)2.0 
 
+#define ROUNDABOUT_DIST_BONUS (SUMOReal)80.0 
+
 //#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
 //#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_26966400" || myVehicle.getID() == "emitter_SST92-150 FG 1 DE 1_26932941" || myVehicle.getID() == "emitter_SST92-175 FG 1 DE 129_27105000") 
-//#define DEBUG_COND (myVehicle.getID() == "1502_46117142") // fail change to left
+//#define DEBUG_COND (myVehicle.getID() == "Togliatti_72_5") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "overtaking_right") // test stops_overtaking
 #define DEBUG_COND false
 
@@ -680,6 +682,19 @@ MSLCM_JE2013::_wantsChange(
     //        best.lane->getSpeedLimit());
     // @note: while this lets vehicles change earlier into the correct direction
     // it also makes the vehicles more "selfish" and prevents changes which are necessary to help others
+    
+    // VARIANT_15 (insideRoundabout)
+    int roundaboutEdgesAhead = 0;
+    for (std::vector<MSLane*>::iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
+        if ((*it) != 0 && (*it)->getEdge().isRoundabout()) {
+            roundaboutEdgesAhead += 1;
+            currentDist += ROUNDABOUT_DIST_BONUS;
+            neighDist += ROUNDABOUT_DIST_BONUS;
+        } else if (roundaboutEdgesAhead > 0) {
+            // only check the next roundabout
+            break;
+        }
+    }
 
     const SUMOReal usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);
             //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
@@ -777,6 +792,18 @@ MSLCM_JE2013::_wantsChange(
     if (bestLaneOffset == 0 && (neighLeftPlace * 2. < laDist)) {
         if (MSGlobals::gDebugFlag2) std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2) currExtDist=" << currExtDist << " neighExtDist=" << neighExtDist << " neighLeftPlace=" << neighLeftPlace << "\n";
         return ret | LCA_STAY | LCA_STRATEGIC;
+    }
+
+    // VARIANT_15
+    if (roundaboutEdgesAhead > 1) {
+        // try to use the inner lanes of a roundabout to increase throughput
+        // unless we are approaching the exit
+        if (MSGlobals::gDebugFlag2) std::cout << " inside roundabout\n";
+        if (lca == LCA_LEFT) {
+            return ret | lca | LCA_COOPERATIVE;
+        } else {
+            return ret | LCA_STAY | LCA_COOPERATIVE;
+        }
     }
 
     // let's also regard the case where the vehicle is driving on a highway...

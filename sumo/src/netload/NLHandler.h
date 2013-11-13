@@ -249,6 +249,11 @@ private:
      */
     void addDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource);
 
+    /** @begin Parses a roundabout and sets flags for the edges
+     * @param[in] attrs The attributes to parse
+     */
+    void addRoundabout(const SUMOSAXAttributes& attrs);
+
 
     void closeWAUT();
 
