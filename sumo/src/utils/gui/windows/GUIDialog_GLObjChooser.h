@@ -114,6 +114,9 @@ private:
     /// @brief The list that holds the ids
     FXList* myList;
 
+    /// @brief The button that triggers centering on the select object
+    FXButton* myCenterButton;
+
     /// @brief The artifact to choose
     GUIGlObjectType myObjectType;
 
