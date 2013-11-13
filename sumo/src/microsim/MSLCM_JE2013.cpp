@@ -319,7 +319,7 @@ MSLCM_JE2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                             SUMOReal remainingSeconds) 
 {
     SUMOReal plannedSpeed = MIN2(myVehicle.getSpeed(), 
-            myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace));
+            myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
     for (std::vector<SUMOReal>::const_iterator i = myVSafes.begin(); i != myVSafes.end(); ++i) {
         SUMOReal v = (*i);
         if (v >= myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())) {
@@ -720,13 +720,6 @@ MSLCM_JE2013::_wantsChange(
 
         // save the left space
         myLeftSpace = currentDist - myVehicle.getPositionOnLane();
-        const SUMOReal remainingSeconds = MAX2((SUMOReal)STEPS2TIME(TS), myLeftSpace / myLookAheadSpeed / abs(bestLaneOffset) / URGENCY);
-        const SUMOReal plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
-        if (plannedSpeed >= 0) {
-            // maybe we need to deal with a blocking follower
-            informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
-        }
-
         // VARIANT_14 (furtherBlock)
         if (changeToBest && abs(bestLaneOffset) > 1) {
             // there might be a vehicle which needs to counter-lane-change one lane further and we cannot see it yet
@@ -740,6 +733,14 @@ MSLCM_JE2013::_wantsChange(
         if (*firstBlocked != neighLead.first) {
             saveBlockerLength(*firstBlocked, lcaCounter);
         }
+
+        const SUMOReal remainingSeconds = MAX2((SUMOReal)STEPS2TIME(TS), myLeftSpace / myLookAheadSpeed / abs(bestLaneOffset) / URGENCY);
+        const SUMOReal plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
+        if (plannedSpeed >= 0) {
+            // maybe we need to deal with a blocking follower
+            informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
+        }
+
         if (MSGlobals::gDebugFlag2) {
             std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
                 << " veh=" << myVehicle.getID()
