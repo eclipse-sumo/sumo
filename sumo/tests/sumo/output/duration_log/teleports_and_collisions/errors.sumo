@@ -1,4 +1,4 @@
-Warning: Teleporting vehicle 'horizontal.0'; waited too long, lane='1si_1', time=329.00.
+Warning: Teleporting vehicle 'horizontal.0'; waited too long (yield), lane='1si_1', time=329.00.
 Warning: Vehicle 'horizontal.0' ends teleporting on edge '2o', simulation time 329.00.
-Warning: Teleporting vehicle 'always_right.19'; waited too long, lane='3si_0', time=405.00.
+Warning: Teleporting vehicle 'always_right.19'; waited too long (yield), lane='3si_0', time=405.00.
 Warning: Vehicle 'always_right.19' ends teleporting on edge '2o', simulation time 405.00.

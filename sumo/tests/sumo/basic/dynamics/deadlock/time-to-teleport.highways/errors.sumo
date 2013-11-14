@@ -1,2 +1,2 @@
-Warning: Teleporting vehicle 'blocked'; waited too long on highway, lane='beg_1', time=18.00.
+Warning: Teleporting vehicle 'blocked'; waited too long (wrong lane) (highway), lane='beg_1', time=18.00.
 Warning: Vehicle 'blocked' ends teleporting on edge 'end', simulation time 18.00.
