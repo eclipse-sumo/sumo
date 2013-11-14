@@ -779,20 +779,26 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
     }
     if (myVehicles.size() > 0) {
         if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0) {
-            MSVehicle* last = myVehicles.back();
-            bool r1 = MSGlobals::gTimeToGridlock > 0 && !last->isStopped() && last->getWaitingTime() > MSGlobals::gTimeToGridlock;
-            bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && !last->isStopped() && last->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && last->getLane()->getSpeedLimit() > 69. / 3.6 && !last->getLane()->appropriate(last);
-            if (r1 || r2) {
-                MSVehicle* veh = *(myVehicles.end() - 1);
-                myBruttoVehicleLengthSum -= veh->getVehicleType().getLengthWithGap();
-                myNettoVehicleLengthSum -= veh->getVehicleType().getLength();
-                myVehicles.erase(myVehicles.end() - 1);
-                WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long"
-                              + (r2 ? " on highway" : "")
-                              + ", lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-                MSNet::getInstance()->getVehicleControl().registerTeleport();
-                MSVehicleTransfer::getInstance()->addVeh(t, veh);
-            }
+            MSVehicle* veh = myVehicles.back(); // the vehice at the front of the queue
+            if (!veh->isStopped()) {
+                const bool wrongLane = !veh->getLane()->appropriate(veh);
+                const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
+                const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && wrongLane;
+                if (r1 || r2) {
+                    const bool minorLink = !wrongLane && !((*succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation()))->havePriority());
+                    const std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
+                    MSVehicle* veh = *(myVehicles.end() - 1);
+                    myBruttoVehicleLengthSum -= veh->getVehicleType().getLengthWithGap();
+                    myNettoVehicleLengthSum -= veh->getVehicleType().getLength();
+                    myVehicles.erase(myVehicles.end() - 1);
+                    WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long"
+                            + reason
+                            + (r2 ? " (highway)" : "")
+                            + ", lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                    MSNet::getInstance()->getVehicleControl().registerTeleport();
+                    MSVehicleTransfer::getInstance()->addVeh(t, veh);
+                }
+            } // else look for a vehicle that isn't stopped?
         }
     }
     return myVehicles.size() == 0;
