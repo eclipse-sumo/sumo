@@ -226,17 +226,26 @@ MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
     // check whether the vehicle is blocked
     if ((state & LCA_WANTS_LANECHANGE) != 0 && (state & LCA_BLOCKED) != 0) {
         if ((state & LCA_STRATEGIC) != 0) {
-            if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " LCA_WANTS_LANECHANGE (no vSafe)\n";
+            // necessary decelerations are controlled via vSafe. If there are
+            // none it means we should speed up
+            if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " LCA_WANTS_LANECHANGE (strat, no vSafe)\n";
             return (max + wanted) / (SUMOReal) 2.0;
         } else if ((state & LCA_COOPERATIVE) != 0) {
+            // only minor adjustments in speed should be done
             if ((state & LCA_BLOCKED_BY_LEADER) != 0) {
-                if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_LEADER\n";
+                if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_LEADER (coop)\n";
                 return (min + wanted) / (SUMOReal) 2.0;
             }
             if ((state & LCA_BLOCKED_BY_FOLLOWER) != 0) {
-                if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_FOLLOWER\n";
+                if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_FOLLOWER (coop)\n";
                 return (max + wanted) / (SUMOReal) 2.0;
             }
+        //} else { // VARIANT_16
+        //    // only accelerations should be performed
+        //    if ((state & LCA_BLOCKED_BY_FOLLOWER) != 0) {
+        //        if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " LCA_BLOCKED_BY_FOLLOWER\n";
+        //        return (max + wanted) / (SUMOReal) 2.0;
+        //    }
         }
     }
 
