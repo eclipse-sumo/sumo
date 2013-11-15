@@ -1707,10 +1707,10 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
                 // patch invalid bestLaneOffset and updated myCurrentLaneInBestLanes
                 for (size_t i = 0; i < lanes.size(); ++i) {
                     if (i + lanes[i].bestLaneOffset < 0) {
-                        lanes[i].bestLaneOffset = -i;
+                        lanes[i].bestLaneOffset = (int)-i;
                     }
                     if (i + lanes[i].bestLaneOffset >= lanes.size()) {
-                        lanes[i].bestLaneOffset = lanes.size() - i - 1;
+                        lanes[i].bestLaneOffset = (int)(lanes.size() - i - 1);
                     }
                     assert(i + lanes[i].bestLaneOffset >= 0);
                     assert(i + lanes[i].bestLaneOffset < lanes.size());
