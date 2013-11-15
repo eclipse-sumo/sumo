@@ -46,9 +46,6 @@
     <ClCompile Include="..\..\..\src\microsim\MSLaneChanger.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSLCM_DK2004.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\MSLink.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -112,7 +109,10 @@
     <ClCompile Include="..\..\..\src\microsim\MSLCM_JE2013.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\MSLCM_DK2013.cpp">
+    <ClCompile Include="..\..\..\src\microsim\MSLCM_DK2008.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\MSLCM_LC2013.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -157,9 +157,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSLaneChanger.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSLCM_DK2004.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\MSLink.h">
@@ -222,7 +219,10 @@
     <ClInclude Include="..\..\..\src\microsim\MSLCM_JE2013.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\MSLCM_DK2013.h">
+    <ClInclude Include="..\..\..\src\microsim\MSLCM_DK2008.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\MSLCM_LC2013.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

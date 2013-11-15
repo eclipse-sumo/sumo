@@ -179,9 +179,9 @@
     <ClCompile Include="..\..\..\src\microsim\MSJunctionLogic.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSLane.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSLaneChanger.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\MSLCM_DK2004.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\MSLCM_DK2013.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSLCM_DK2008.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSLCM_JE2013.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSLCM_LC2013.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSLink.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSLinkCont.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSLogicJunction.cpp" />
@@ -217,9 +217,9 @@
     <ClInclude Include="..\..\..\src\microsim\MSJunctionLogic.h" />
     <ClInclude Include="..\..\..\src\microsim\MSLane.h" />
     <ClInclude Include="..\..\..\src\microsim\MSLaneChanger.h" />
-    <ClInclude Include="..\..\..\src\microsim\MSLCM_DK2004.h" />
-    <ClInclude Include="..\..\..\src\microsim\MSLCM_DK2013.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSLCM_DK2008.h" />
     <ClInclude Include="..\..\..\src\microsim\MSLCM_JE2013.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSLCM_LC2013.h" />
     <ClInclude Include="..\..\..\src\microsim\MSLink.h" />
     <ClInclude Include="..\..\..\src\microsim\MSLinkCont.h" />
     <ClInclude Include="..\..\..\src\microsim\MSLogicJunction.h" />
