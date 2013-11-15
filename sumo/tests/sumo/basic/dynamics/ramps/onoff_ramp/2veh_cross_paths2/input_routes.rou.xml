@@ -3,8 +3,8 @@
     <route id="leave" edges="main_beg main_ramp ramp_end"/>
     <route id="stay" edges="main_beg main_ramp main_end"/>
     <route id="enter" edges="ramp_beg main_ramp main_end"/>
-    <vType id="t0" maxSpeed="30" sigma="0" laneChangeModel="JE2013"/>
-    <vType id="long" length="20" minGap="2.5" maxSpeed="30" sigma="0" laneChangeModel="JE2013"/>
+    <vType id="t0" maxSpeed="30" sigma="0"/>
+    <vType id="long" length="20" minGap="2.5" maxSpeed="30" sigma="0"/>
 
     <vehicle id="E" type="t0" route="stay" depart="0" departSpeed="max" color="yellow"/>
     <vehicle id="A" type="t0" route="leave" depart="0" departSpeed="max" color="yellow"/>

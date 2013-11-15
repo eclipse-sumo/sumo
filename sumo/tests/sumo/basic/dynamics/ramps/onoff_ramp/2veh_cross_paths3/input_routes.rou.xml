@@ -4,7 +4,7 @@
     <route id="right_to_left" edges="beg_right merge end_left"/>
     <route id="stay_left" edges="beg_left merge end_left"/>
     <route id="stay_right" edges="beg_right merge end_right"/>
-    <vType id="t0" sigma="0" laneChangeModel="JE2013"/>
+    <vType id="t0" sigma="0"/>
 
     <flow id="left0" type="t0" route="stay_left"      begin="0" end="20" period="2"  departLane="0" arrivalLane="0" departPos="0" departSpeed="max" color="green"/>
     <flow id="right1" type="t0" route="stay_right"    begin="0" end="20" period="2"  departLane="1" arrivalLane="1" departPos="0" departSpeed="max" color="yellow"/>

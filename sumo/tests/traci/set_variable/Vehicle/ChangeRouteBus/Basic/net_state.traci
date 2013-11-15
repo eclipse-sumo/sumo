@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:27:12 by SUMO sumo Version 0.17.0
+<!-- generated on Fri Nov 15 09:30:42 2013 by SUMO sumo Version dev-SVN-r15111
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -417,19 +417,19 @@
     </timestep>
     <timestep time="43.00">
         <edge id="e_m5">
-            <lane id="e_m5_0">
+            <lane id="e_m5_0"/>
+            <lane id="e_m5_1">
                 <vehicle id="bus_1" pos="305.46" speed="33.37"/>
             </lane>
-            <lane id="e_m5_1"/>
             <lane id="e_m5_2"/>
         </edge>
     </timestep>
     <timestep time="44.00">
         <edge id="e_m5">
-            <lane id="e_m5_0">
+            <lane id="e_m5_0"/>
+            <lane id="e_m5_1">
                 <vehicle id="bus_1" pos="341.14" speed="35.68"/>
             </lane>
-            <lane id="e_m5_1"/>
             <lane id="e_m5_2"/>
         </edge>
     </timestep>

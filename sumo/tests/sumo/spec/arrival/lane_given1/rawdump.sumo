@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:09:40 by SUMO sumo Version 0.17.0
+<!-- generated on Fri Nov 15 09:20:52 2013 by SUMO sumo Version dev-SVN-r15111
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -205,46 +205,46 @@
     </timestep>
     <timestep time="20.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="1" pos="426.10" speed="27.80"/>
             </lane>
-            <lane id="beg_1"/>
             <lane id="beg_2"/>
         </edge>
     </timestep>
     <timestep time="21.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="1" pos="453.90" speed="27.80"/>
             </lane>
-            <lane id="beg_1"/>
             <lane id="beg_2"/>
         </edge>
     </timestep>
     <timestep time="22.00">
         <edge id="beg">
-            <lane id="beg_0">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
                 <vehicle id="1" pos="481.70" speed="27.80"/>
             </lane>
-            <lane id="beg_1"/>
             <lane id="beg_2"/>
         </edge>
     </timestep>
     <timestep time="23.00">
         <edge id="end">
-            <lane id="end_0">
+            <lane id="end_0"/>
+            <lane id="end_1">
                 <vehicle id="1" pos="9.40" speed="27.80"/>
             </lane>
-            <lane id="end_1"/>
             <lane id="end_2"/>
         </edge>
     </timestep>
     <timestep time="24.00">
         <edge id="end">
-            <lane id="end_0">
+            <lane id="end_0"/>
+            <lane id="end_1">
                 <vehicle id="1" pos="37.20" speed="27.80"/>
             </lane>
-            <lane id="end_1"/>
             <lane id="end_2"/>
         </edge>
     </timestep>
