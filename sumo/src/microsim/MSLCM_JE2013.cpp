@@ -85,8 +85,8 @@
 //#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
 //#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_26966400" || myVehicle.getID() == "emitter_SST92-150 FG 1 DE 1_26932941" || myVehicle.getID() == "emitter_SST92-175 FG 1 DE 129_27105000") 
 //#define DEBUG_COND (myVehicle.getID() == "Costa_200_153" || myVehicle.getID() == "Costa_12_154") // fail change to left
-//#define DEBUG_COND (myVehicle.getID() == "overtaking_right") // test stops_overtaking
-#define DEBUG_COND false
+#define DEBUG_COND (myVehicle.getID() == "v3.6") // test stops_overtaking
+//#define DEBUG_COND false
 
 // debug function
 std::string 
@@ -577,7 +577,7 @@ MSLCM_JE2013::_wantsChange(
 {
     assert(laneOffset == 1 || laneOffset == -1);
     // compute bestLaneOffset
-    MSVehicle::LaneQ curr, best;
+    MSVehicle::LaneQ curr, neigh, best;
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
     SUMOReal neighDist = 0;
@@ -592,10 +592,11 @@ MSLCM_JE2013::_wantsChange(
     for (int p = 0; p < (int) preb.size(); ++p) {
         if (preb[p].lane == prebLane && p + laneOffset >= 0) {
             curr = preb[p];
+            neigh = preb[p + laneOffset];
             currentDist = curr.length;
             currExtDist = curr.lane->getLength();
-            neighDist = preb[p + laneOffset].length;
-            neighExtDist = preb[p + laneOffset].lane->getLength();
+            neighDist = neigh.length;
+            neighExtDist = neigh.lane->getLength();
             bestLaneOffset = curr.bestLaneOffset;
             // VARIANT_13 (equalBest)
             if (bestLaneOffset == 0 && preb[p + laneOffset].bestLaneOffset == 0) { 
@@ -700,9 +701,21 @@ MSLCM_JE2013::_wantsChange(
             break;
         }
     }
+    int roundaboutEdgesAheadNeigh = 0;
+    for (std::vector<MSLane*>::iterator it = neigh.bestContinuations.begin(); it != neigh.bestContinuations.end(); ++it) {
+        if ((*it) != 0 && (*it)->getEdge().isRoundabout()) {
+            roundaboutEdgesAheadNeigh += 1;
+        } else if (roundaboutEdgesAheadNeigh > 0) {
+            // only check the next roundabout
+            break;
+        }
+    }
     if (roundaboutEdgesAhead > 1) {
         const SUMOReal roundaboutDistBonus = roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS;
         currentDist += roundaboutDistBonus;
+    }
+    if (roundaboutEdgesAheadNeigh > 1) {
+        const SUMOReal roundaboutDistBonus = roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS;
         neighDist += roundaboutDistBonus;
     }
     if (roundaboutEdgesAhead > 0) {
@@ -947,7 +960,15 @@ MSLCM_JE2013::_wantsChange(
         // change towards the correct lane, speedwise it does not hurt
         return ret | lca | LCA_STRATEGIC;
     }
-
+    if (MSGlobals::gDebugFlag2) {
+        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            << " veh=" << myVehicle.getID()
+            << " mySpeedGainProbability=" << mySpeedGainProbability
+            << " myKeepRightProbability=" << myKeepRightProbability
+            << " thisLaneVSafe=" << thisLaneVSafe
+            << " neighLaneVSafe=" << neighLaneVSafe
+            << "\n";
+    }
     return ret;
 }
 

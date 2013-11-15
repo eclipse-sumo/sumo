@@ -394,7 +394,7 @@ MSLCM_LC2013::_wantsChange(
 {
     assert(laneOffset == 1 || laneOffset == -1);
     // compute bestLaneOffset
-    MSVehicle::LaneQ curr, best;
+    MSVehicle::LaneQ curr, neigh, best;
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
     SUMOReal neighDist = 0;
@@ -409,10 +409,11 @@ MSLCM_LC2013::_wantsChange(
     for (int p = 0; p < (int) preb.size(); ++p) {
         if (preb[p].lane == prebLane && p + laneOffset >= 0) {
             curr = preb[p];
+            neigh = preb[p + laneOffset];
             currentDist = curr.length;
             currExtDist = curr.lane->getLength();
-            neighDist = preb[p + laneOffset].length;
-            neighExtDist = preb[p + laneOffset].lane->getLength();
+            neighDist = neigh.length;
+            neighExtDist = neigh.lane->getLength();
             bestLaneOffset = curr.bestLaneOffset;
             if (bestLaneOffset == 0 && preb[p + laneOffset].bestLaneOffset == 0) { 
                 bestLaneOffset = laneOffset;
@@ -473,9 +474,21 @@ MSLCM_LC2013::_wantsChange(
             break;
         }
     }
+    int roundaboutEdgesAheadNeigh = 0;
+    for (std::vector<MSLane*>::iterator it = neigh.bestContinuations.begin(); it != neigh.bestContinuations.end(); ++it) {
+        if ((*it) != 0 && (*it)->getEdge().isRoundabout()) {
+            roundaboutEdgesAheadNeigh += 1;
+        } else if (roundaboutEdgesAheadNeigh > 0) {
+            // only check the next roundabout
+            break;
+        }
+    }
     if (roundaboutEdgesAhead > 1) {
         const SUMOReal roundaboutDistBonus = roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS;
         currentDist += roundaboutDistBonus;
+    }
+    if (roundaboutEdgesAheadNeigh > 1) {
+        const SUMOReal roundaboutDistBonus = roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS;
         neighDist += roundaboutDistBonus;
     }
 
