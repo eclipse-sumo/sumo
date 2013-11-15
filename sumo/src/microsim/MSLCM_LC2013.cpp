@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSLCM_DK2013.h
+/// @file    MSLCM_LC2013.h
 /// @author  Daniel Krajzewicz
 /// @author  Friedemann Wesner
 /// @author  Sascha Krieg
@@ -37,7 +37,7 @@
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSNet.h"
-#include "MSLCM_DK2013.h"
+#include "MSLCM_LC2013.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -68,7 +68,7 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLCM_DK2013::MSLCM_DK2013(MSVehicle& v) : 
+MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) : 
     MSAbstractLaneChangeModel(v),
     mySpeedGainProbability(0),
     myLeadingBlockerLength(0), 
@@ -76,13 +76,13 @@ MSLCM_DK2013::MSLCM_DK2013(MSVehicle& v) :
     myLastAccel(0)
 {}
 
-MSLCM_DK2013::~MSLCM_DK2013() {
+MSLCM_LC2013::~MSLCM_LC2013() {
     changed();
 }
 
 
 int
-MSLCM_DK2013::wantsChange(
+MSLCM_LC2013::wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         int blocked,
@@ -101,7 +101,7 @@ MSLCM_DK2013::wantsChange(
 
 
 SUMOReal
-MSLCM_DK2013::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
+MSLCM_LC2013::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
     const SUMOReal newSpeed = _patchSpeed(min, wanted, max, cfModel);
     myLastAccel = SPEED2ACCEL(newSpeed - myVehicle.getSpeed());
     return newSpeed;
@@ -109,7 +109,7 @@ MSLCM_DK2013::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
 
 
 SUMOReal
-MSLCM_DK2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
+MSLCM_LC2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
 
     int state = myOwnState;
 
@@ -193,7 +193,7 @@ MSLCM_DK2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
 
 
 void*
-MSLCM_DK2013::inform(void* info, MSVehicle* /*sender*/) {
+MSLCM_LC2013::inform(void* info, MSVehicle* /*sender*/) {
     /// XXX use info.first
     Info* pinfo = (Info*) info;
     //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
@@ -204,7 +204,7 @@ MSLCM_DK2013::inform(void* info, MSVehicle* /*sender*/) {
 
 
 void
-MSLCM_DK2013::changed() {
+MSLCM_LC2013::changed() {
     myOwnState = 0;
     myLastLaneChangeOffset = 0;
     mySpeedGainProbability = 0;
@@ -216,7 +216,7 @@ MSLCM_DK2013::changed() {
 
 
 void
-MSLCM_DK2013::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+MSLCM_LC2013::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                             int blocked,
                             int dir,
                             const std::pair<MSVehicle*, SUMOReal>& neighLead,
@@ -259,7 +259,7 @@ MSLCM_DK2013::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
 
 void
-MSLCM_DK2013::prepareStep() {
+MSLCM_LC2013::prepareStep() {
     myOwnState = 0;
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;
@@ -271,7 +271,7 @@ MSLCM_DK2013::prepareStep() {
 
 
 int
-MSLCM_DK2013::_wantsChange(
+MSLCM_LC2013::_wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         int blocked,

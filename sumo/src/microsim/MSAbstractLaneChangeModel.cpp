@@ -33,7 +33,7 @@
 
 #include "MSAbstractLaneChangeModel.h"
 #include "MSLCM_DK2004.h"
-#include "MSLCM_DK2013.h"
+#include "MSLCM_LC2013.h"
 #include "MSLCM_JE2013.h"
 #include "MSNet.h"
 #include "MSEdge.h"
@@ -50,7 +50,7 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
         case LCM_DK2008:
             return new MSLCM_DK2004(v);
         case LCM_DK2013:
-            return new MSLCM_DK2013(v);
+            return new MSLCM_LC2013(v);
         case LCM_JE2013:
             return new MSLCM_JE2013(v);
         default:
