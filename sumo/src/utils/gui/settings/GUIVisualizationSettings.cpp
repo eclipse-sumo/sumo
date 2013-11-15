@@ -149,7 +149,11 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     vehicleColorer.addScheme(GUIColorScheme("arrival position as HSV", RGBColor::YELLOW, "", true));
     vehicleColorer.addScheme(GUIColorScheme("direction/distance as HSV", RGBColor::YELLOW, "", true));
     scheme = GUIColorScheme("by speed", RGBColor::RED);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)(150.0 / 3.6));
+    scheme.addColor(RGBColor::YELLOW, (SUMOReal)(30 / 3.6));
+    scheme.addColor(RGBColor::GREEN, (SUMOReal)(55 / 3.6));
+    scheme.addColor(RGBColor::CYAN, (SUMOReal)(80 / 3.6));
+    scheme.addColor(RGBColor::BLUE, (SUMOReal)(120 / 3.6));
+    scheme.addColor(RGBColor::BLACK, (SUMOReal)(150 / 3.6));
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by waiting time", RGBColor::BLUE);
     scheme.addColor(RGBColor::RED, (SUMOReal)(5 * 60));
