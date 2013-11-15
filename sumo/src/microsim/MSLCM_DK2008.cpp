@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSLCM_DK2004.cpp
+/// @file    MSLCM_DK2008.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Friedemann Wesner
 /// @author  Sascha Krieg
@@ -36,7 +36,7 @@
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSNet.h"
-#include "MSLCM_DK2004.h"
+#include "MSLCM_DK2008.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -69,17 +69,17 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLCM_DK2004::MSLCM_DK2004(MSVehicle& v)
+MSLCM_DK2008::MSLCM_DK2008(MSVehicle& v)
     : MSAbstractLaneChangeModel(v),
       myChangeProbability(0),
       myLeadingBlockerLength(0), myLeftSpace(0) {}
 
-MSLCM_DK2004::~MSLCM_DK2004() {
+MSLCM_DK2008::~MSLCM_DK2008() {
     changed();
 }
 
 int 
-MSLCM_DK2004::wantsChange(
+MSLCM_DK2008::wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal>& leader,
@@ -99,7 +99,7 @@ MSLCM_DK2004::wantsChange(
 
 
 int
-MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                  int blocked,
                                  const std::pair<MSVehicle*, SUMOReal>& leader,
                                  const std::pair<MSVehicle*, SUMOReal>& neighLead,
@@ -319,7 +319,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
 
 
 int
-MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                 int blocked,
                                 const std::pair<MSVehicle*, SUMOReal>& leader,
                                 const std::pair<MSVehicle*, SUMOReal>& neighLead,
@@ -529,7 +529,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
 
 
 SUMOReal
-MSLCM_DK2004::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
+MSLCM_DK2008::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
         int bla = 0;
@@ -622,7 +622,7 @@ MSLCM_DK2004::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
 
 
 void*
-MSLCM_DK2004::inform(void* info, MSVehicle* /*sender*/) {
+MSLCM_DK2008::inform(void* info, MSVehicle* /*sender*/) {
     Info* pinfo = (Info*) info;
     //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
@@ -632,7 +632,7 @@ MSLCM_DK2004::inform(void* info, MSVehicle* /*sender*/) {
 
 
 void
-MSLCM_DK2004::changed() {
+MSLCM_DK2008::changed() {
     myOwnState = 0;
     myLastLaneChangeOffset = 0;
     myChangeProbability = 0;
@@ -644,7 +644,7 @@ MSLCM_DK2004::changed() {
 
 
 void
-MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+MSLCM_DK2008::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                             int& blocked,
                             int dir,
                             const std::pair<MSVehicle*, SUMOReal>& neighLead,
@@ -673,7 +673,7 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
 
 void
-MSLCM_DK2004::prepareStep() {
+MSLCM_DK2008::prepareStep() {
     myOwnState = 0;
     myLeadingBlockerLength = 0;
     myLeftSpace = 0;

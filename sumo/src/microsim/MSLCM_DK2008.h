@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSLCM_DK2004.h
+/// @file    MSLCM_DK2008.h
 /// @author  Daniel Krajzewicz
 /// @author  Friedemann Wesner
 /// @author  Sascha Krieg
@@ -20,8 +20,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSLCM_DK2004_h
-#define MSLCM_DK2004_h
+#ifndef MSLCM_DK2008_h
+#define MSLCM_DK2008_h
 
 
 // ===========================================================================
@@ -40,10 +40,10 @@
 // class definitions
 // ===========================================================================
 /**
- * @class MSLCM_DK2004
+ * @class MSLCM_DK2008
  * @brief A lane change model developed by D. Krajzewicz between 2004 and 2010
  */
-class MSLCM_DK2004 : public MSAbstractLaneChangeModel {
+class MSLCM_DK2008 : public MSAbstractLaneChangeModel {
 public:
 
     enum MyLCAEnum {
@@ -61,9 +61,9 @@ public:
         LCA_AMBACKBLOCKER_STANDING = 1 << 27                    
     };
 
-    MSLCM_DK2004(MSVehicle& v);
+    MSLCM_DK2008(MSVehicle& v);
 
-    virtual ~MSLCM_DK2004();
+    virtual ~MSLCM_DK2008();
 
     /** @brief Called to examine whether the vehicle wants to change 
      * using the given laneOffset. 
