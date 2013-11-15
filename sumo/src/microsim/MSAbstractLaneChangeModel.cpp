@@ -49,7 +49,7 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
     switch (lcm) {
         case LCM_DK2008:
             return new MSLCM_DK2008(v);
-        case LCM_DK2013:
+        case LCM_LC2013:
             return new MSLCM_LC2013(v);
         case LCM_JE2013:
             return new MSLCM_JE2013(v);
