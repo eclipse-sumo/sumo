@@ -484,12 +484,8 @@ MSLCM_LC2013::_wantsChange(
         }
     }
     if (roundaboutEdgesAhead > 1) {
-        const SUMOReal roundaboutDistBonus = roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS;
-        currentDist += roundaboutDistBonus;
-    }
-    if (roundaboutEdgesAheadNeigh > 1) {
-        const SUMOReal roundaboutDistBonus = roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS;
-        neighDist += roundaboutDistBonus;
+        currentDist += roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS;
+        neighDist += roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS;
     }
 
     const SUMOReal usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);

@@ -1299,7 +1299,7 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
     }
 #endif
 #ifdef HAVE_INTERNAL_LANES
-    if (MSGlobals::gUsingInternalLanes) {
+    if (MSGlobals::gUsingInternalLanes && !myLane->getEdge().isRoundabout()) {
         bool hadVehicle = false;
         SUMOReal seenSpace = -lengthsInFront;
 

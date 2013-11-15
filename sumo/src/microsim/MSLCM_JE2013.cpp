@@ -85,8 +85,8 @@
 //#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
 //#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_26966400" || myVehicle.getID() == "emitter_SST92-150 FG 1 DE 1_26932941" || myVehicle.getID() == "emitter_SST92-175 FG 1 DE 129_27105000") 
 //#define DEBUG_COND (myVehicle.getID() == "Costa_200_153" || myVehicle.getID() == "Costa_12_154") // fail change to left
-#define DEBUG_COND (myVehicle.getID() == "v3.6") // test stops_overtaking
-//#define DEBUG_COND false
+//#define DEBUG_COND (myVehicle.getID() == "v3.6") // test stops_overtaking
+#define DEBUG_COND false
 
 // debug function
 std::string 
@@ -711,15 +711,11 @@ MSLCM_JE2013::_wantsChange(
         }
     }
     if (roundaboutEdgesAhead > 1) {
-        const SUMOReal roundaboutDistBonus = roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS;
-        currentDist += roundaboutDistBonus;
-    }
-    if (roundaboutEdgesAheadNeigh > 1) {
-        const SUMOReal roundaboutDistBonus = roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS;
-        neighDist += roundaboutDistBonus;
+        currentDist += roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS;
+        neighDist += roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS;
     }
     if (roundaboutEdgesAhead > 0) {
-        if (MSGlobals::gDebugFlag2) std::cout << " roundaboutEdgesAhead=" << roundaboutEdgesAhead << "\n";
+        if (MSGlobals::gDebugFlag2) std::cout << " roundaboutEdgesAhead=" << roundaboutEdgesAhead << " roundaboutEdgesAheadNeigh=" << roundaboutEdgesAheadNeigh << "\n";
     }
 
     const SUMOReal usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);
