@@ -141,12 +141,13 @@ class SubscriptionResults:
 
 from . import constants
 from . import inductionloop, multientryexit, trafficlights
-from . import lane, vehicle, vehicletype, route
+from . import lane, vehicle, vehicletype, route, areal
 from . import poi, polygon, junction, edge, simulation, gui
 
 _modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:\
             multientryexit,
+            constants.RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE: areal,
             constants.RESPONSE_SUBSCRIBE_TL_VARIABLE: trafficlights,
             constants.RESPONSE_SUBSCRIBE_LANE_VARIABLE: lane,
             constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE: vehicle,
@@ -162,6 +163,7 @@ _modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT: inductionloop,
             constants.RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:\
             multientryexit,
+            constants.RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT: areal,
             constants.RESPONSE_SUBSCRIBE_TL_CONTEXT: trafficlights,
             constants.RESPONSE_SUBSCRIBE_LANE_CONTEXT: lane,
             constants.RESPONSE_SUBSCRIBE_VEHICLE_CONTEXT: vehicle,
@@ -177,6 +179,7 @@ _modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.CMD_GET_INDUCTIONLOOP_VARIABLE: inductionloop,
             constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:\
             multientryexit,
+            constants.CMD_GET_AREAL_DETECTOR_VARIABLE: areal,
             constants.CMD_GET_TL_VARIABLE: trafficlights,
             constants.CMD_GET_LANE_VARIABLE: lane,
             constants.CMD_GET_VEHICLE_VARIABLE: vehicle,
