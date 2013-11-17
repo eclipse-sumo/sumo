@@ -18,6 +18,12 @@
 
 package de.tudresden.ws.container;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class SumoTLSPhase {
 
 	public int duration;
@@ -43,6 +49,13 @@ public class SumoTLSPhase {
 		
 	}
 	
-	
+	public SumoTLSPhase(int duration, String phasedef){
+		
+		this.duration = duration;
+		this.duration1 = duration;
+		this.duration2 = duration;
+		this.phasedef = phasedef;
+		
+	}
 	
 }

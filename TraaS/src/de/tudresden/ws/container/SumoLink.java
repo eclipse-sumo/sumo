@@ -18,6 +18,12 @@
 
 package de.tudresden.ws.container;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class SumoLink {
 
 	public String from;

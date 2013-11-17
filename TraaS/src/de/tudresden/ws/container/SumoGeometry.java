@@ -20,6 +20,11 @@ package de.tudresden.ws.container;
 
 import java.util.LinkedList;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
 
 public class SumoGeometry {
 

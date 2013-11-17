@@ -33,6 +33,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "SumoLinkList")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SumoLinkList")
+
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class SumoLinkList implements List<SumoLink>, Serializable {
 
 	private static final long serialVersionUID = -6530046166179152137L;

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Evamarie Wießner, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -14,17 +14,23 @@
 
     You should have received a copy of the GNU General Public License
     along with TraaS.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
 package de.tudresden.sumo.cmd;
-
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 import de.tudresden.ws.container.SumoStringList;
 
+/**
+ * 
+ * @author Mario Krumnow
+ * @author Evamarie Wießner
+ *
+ */
+
 public class Route {
 
-	// getter methods
+	//getter methods
 
 	/**
 	 * Returns the IDs of the edges this route covers.
@@ -34,11 +40,8 @@ public class Route {
 	 * @return a list of IDs of the edges
 	 */
 
-	public static SumoCommand getEdges(String routeID) {
-		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE,
-				Constants.VAR_EDGES, routeID,
-				Constants.RESPONSE_GET_ROUTE_VARIABLE,
-				Constants.TYPE_STRINGLIST);
+	public static SumoCommand getEdges(String routeID){
+		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE, Constants.VAR_EDGES, routeID, Constants.RESPONSE_GET_ROUTE_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	/**
@@ -47,13 +50,20 @@ public class Route {
 	 * @return a list of ID's of all routes
 	 */
 
-	public static SumoCommand getIDList() {
-		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE,
-				Constants.ID_LIST, "", Constants.RESPONSE_GET_ROUTE_VARIABLE,
-				Constants.TYPE_STRINGLIST);
+	public static SumoCommand getIDList(){
+		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_ROUTE_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
-	// setter methods
+	/**
+	 * Returns the number of all Routes in the network.
+	 */
+
+	public static SumoCommand getIDCount(){
+		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_ROUTE_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	
+	//setter methods
 
 	/**
 	 * Add a new route.
@@ -64,10 +74,10 @@ public class Route {
 	 *            list of edges the new route is following
 	 */
 
-	public static SumoCommand add(String routeID, SumoStringList edges) {
+	public static SumoCommand add(String routeID, SumoStringList edges){
 
-		return new SumoCommand(Constants.CMD_SET_ROUTE_VARIABLE,
-				Constants.VAR_ROUTE, routeID, edges);
+		return new SumoCommand(Constants.CMD_SET_ROUTE_VARIABLE, Constants.VAR_ROUTE, routeID, edges);
 	}
+
 
 }

@@ -14,9 +14,16 @@
 
     You should have received a copy of the GNU General Public License
     along with TraaS.  If not, see <http://www.gnu.org/licenses/>.
+    
 */
 
 package de.tudresden.ws.container;
+
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
 
 public class SumoBoundingBox {
 	

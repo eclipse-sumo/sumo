@@ -18,6 +18,12 @@
 
 package de.tudresden.ws.container;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class SumoPosition2D {
 
 	public double x;

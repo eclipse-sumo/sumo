@@ -18,6 +18,12 @@
 
 package de.tudresden.ws.container;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class SumoColor {
 
 	public byte r;

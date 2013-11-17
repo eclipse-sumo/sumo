@@ -20,6 +20,12 @@ package de.tudresden.ws.container;
 
 import java.util.LinkedList;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class SumoTLSLogic {
 
 	public String subID;

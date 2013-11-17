@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Evamarie Wießner, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -19,6 +19,13 @@
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
+
+/**
+ * 
+ * @author Mario Krumnow
+ * @author Evamarie Wießner
+ *
+ */
 
 public class Simulation {
 
@@ -69,6 +76,86 @@ public class Simulation {
 
 	/**
 	 * Returns the current simulation time (in ms).
+	 */
+
+	public static SumoCommand getBusStopWaiting(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_BUS_STOP_WAITING, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
+	}
+
+	
+
+	/**
+	 * getParkingEndingVehiclesIDList()
+	 */
+
+	public static SumoCommand getParkingEndingVehiclesIDList(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_PARKING_ENDING_VEHICLES_IDS, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+
+	
+	/**
+	 * getParkingEndingVehiclesNumber()
+	 */
+
+	public static SumoCommand getParkingEndingVehiclesNumber(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_PARKING_ENDING_VEHICLES_NUMBER, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
+	}
+
+	/**
+	 * getParkingStartingVehiclesIDList()
+	 */
+
+	public static SumoCommand getParkingStartingVehiclesIDList(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_PARKING_STARTING_VEHICLES_IDS, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+	
+
+	/**
+	 * getParkingStartingVehiclesNumber()
+	 */
+
+	public static SumoCommand getParkingStartingVehiclesNumber(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_PARKING_STARTING_VEHICLES_NUMBER, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	
+	/**
+	 * getStopEndingVehiclesIDList()
+	 */
+
+	public static SumoCommand getStopEndingVehiclesIDList(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_STOP_ENDING_VEHICLES_IDS, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+	
+	
+	/**
+	 * getStopEndingVehiclesNumber()
+	 */
+
+	public static SumoCommand getStopEndingVehiclesNumber(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_STOP_ENDING_VEHICLES_NUMBER, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	/**
+	 * getStopStartingVehiclesIDList()
+	 */
+
+	public static SumoCommand getStopStartingVehiclesIDList(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_STOP_STARTING_VEHICLES_IDS, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+	
+
+	/**
+	 * getStopStartingVehiclesIDList()
+	 */
+
+	public static SumoCommand getStopStartingVehiclesNumber(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_STOP_STARTING_VEHICLES_NUMBER, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	
+	/**
+	 * getCurrentTime
 	 */
 
 	public static SumoCommand getCurrentTime(){

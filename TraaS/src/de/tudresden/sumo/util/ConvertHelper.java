@@ -18,6 +18,12 @@
 
 package de.tudresden.sumo.util;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 import de.tudresden.ws.container.SumoBoundingBox;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;

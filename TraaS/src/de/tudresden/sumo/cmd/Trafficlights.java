@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Evamarie Wießner, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -21,6 +21,14 @@ import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 import de.tudresden.ws.container.SumoTLSLogic;
 
+/**
+ * 
+ * @author Mario Krumnow
+ * @author Evamarie Wießner
+ *
+ */
+
+
 public class Trafficlights {
 
 	//getter methods
@@ -40,6 +48,26 @@ public class Trafficlights {
 	 * 
 	 * @param tlsID a string identifying the traffic light
 	 * @return list of controlled lanes
+	 */
+
+	public static SumoCommand getIDCount(){
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	/**
+	 * getPhaseDuration
+	 */
+
+	public static SumoCommand getPhaseDuration(String tlsID){
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_PHASE_DURATION, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	
+	/**
+	 * Returns the links controlled by the traffic light, sorted by the signal index and described by giving the incoming, outgoing, and via lane.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return list of controlled links
 	 */
 
 	public static SumoCommand getControlledLanes(String tlsID){

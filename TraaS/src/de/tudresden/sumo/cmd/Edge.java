@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Evamarie Wiessner, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -14,14 +14,21 @@
 
     You should have received a copy of the GNU General Public License
     along with TraaS.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
 package de.tudresden.sumo.cmd;
-
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 
+/**
+ * 
+ * @author Mario Krumnow
+ * @author Evamarie Wießner
+ *
+ */
+
 public class Edge {
+
 
 	/**
 	 * Returns the travel time value (in s) used for (re-)routing.
@@ -33,11 +40,9 @@ public class Edge {
 	 * @return the travel time value (in s)
 	 */
 
-	public static SumoCommand getAdaptedTraveltime(String edgeID, double time) {
-		Object[] array = new Object[] { time };
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.VAR_EDGE_TRAVELTIME, edgeID, array,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getAdaptedTraveltime(String edgeID, double time){
+		Object[] array = new Object[]{time};
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, edgeID, array, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -49,10 +54,8 @@ public class Edge {
 	 * @return the CO2 emissions (in mg)
 	 */
 
-	public static SumoCommand getCO2Emission(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.VAR_CO2EMISSION, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getCO2Emission(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_CO2EMISSION, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -64,10 +67,8 @@ public class Edge {
 	 * @return the CO emissions (in mg)
 	 */
 
-	public static SumoCommand getCOEmission(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.VAR_COEMISSION, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getCOEmission(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_COEMISSION, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -81,11 +82,9 @@ public class Edge {
 	 *         not exist
 	 */
 
-	public static SumoCommand getEffort(String edgeID, double time) {
-		Object[] array = new Object[] { time };
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.VAR_EDGE_EFFORT, edgeID, array,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getEffort(String edgeID, double time){
+		Object[] array = new Object[]{time};
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_EDGE_EFFORT, edgeID, array, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -97,10 +96,8 @@ public class Edge {
 	 * @return the fuel consumption (in ml)
 	 */
 
-	public static SumoCommand getFuelConsumption(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.VAR_FUELCONSUMPTION, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getFuelConsumption(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_FUELCONSUMPTION, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -112,10 +109,8 @@ public class Edge {
 	 * @return the HC emissions (in mg)
 	 */
 
-	public static SumoCommand getHCEmission(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.VAR_HCEMISSION, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getHCEmission(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_HCEMISSION, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -124,10 +119,8 @@ public class Edge {
 	 * @return the number of edges
 	 */
 
-	public static SumoCommand getIDCount() {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.ID_COUNT, "", Constants.RESPONSE_GET_EDGE_VARIABLE,
-				Constants.TYPE_INTEGER);
+	public static SumoCommand getIDCount(){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
 	/**
@@ -136,10 +129,8 @@ public class Edge {
 	 * @return a list of IDs of all edges
 	 */
 
-	public static SumoCommand getIDList() {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.ID_LIST, "", Constants.RESPONSE_GET_EDGE_VARIABLE,
-				Constants.TYPE_STRINGLIST);
+	public static SumoCommand getIDList(){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	/**
@@ -152,10 +143,8 @@ public class Edge {
 	 *         considered a halt
 	 */
 
-	public static SumoCommand getLastStepHaltingNumber(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_INTEGER);
+	public static SumoCommand getLastStepHaltingNumber(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
 	/**
@@ -167,10 +156,8 @@ public class Edge {
 	 * @return total vehicle length (in m)
 	 */
 
-	public static SumoCommand getLastStepLength(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.LAST_STEP_LENGTH, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getLastStepLength(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.LAST_STEP_LENGTH, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -182,10 +169,8 @@ public class Edge {
 	 * @return the average speed (in m/s)
 	 */
 
-	public static SumoCommand getLastStepMeanSpeed(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.LAST_STEP_MEAN_SPEED, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getLastStepMeanSpeed(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.LAST_STEP_MEAN_SPEED, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -197,10 +182,8 @@ public class Edge {
 	 * @return the occupancy (in %)
 	 */
 
-	public static SumoCommand getLastStepOccupancy(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.LAST_STEP_OCCUPANCY, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getLastStepOccupancy(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.LAST_STEP_OCCUPANCY, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -212,10 +195,8 @@ public class Edge {
 	 * @return the IDs of the vehicles
 	 */
 
-	public static SumoCommand getLastStepVehicleIDs(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.LAST_STEP_VEHICLE_ID_LIST, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_STRINGLIST);
+	public static SumoCommand getLastStepVehicleIDs(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.LAST_STEP_VEHICLE_ID_LIST, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	/**
@@ -227,10 +208,8 @@ public class Edge {
 	 * @return the total number of vehicles
 	 */
 
-	public static SumoCommand getLastStepVehicleNumber(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.LAST_STEP_VEHICLE_NUMBER, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_INTEGER);
+	public static SumoCommand getLastStepVehicleNumber(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.LAST_STEP_VEHICLE_NUMBER, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
 	/**
@@ -242,10 +221,8 @@ public class Edge {
 	 * @return the NOx emissions (in mg)
 	 */
 
-	public static SumoCommand getNOxEmission(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.VAR_NOXEMISSION, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getNOxEmission(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_NOXEMISSION, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -257,10 +234,8 @@ public class Edge {
 	 * @return the noise emissions (in db)
 	 */
 
-	public static SumoCommand getNoiseEmission(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.VAR_NOISEEMISSION, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getNoiseEmission(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_NOISEEMISSION, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -272,10 +247,8 @@ public class Edge {
 	 * @return the particular matter emissions(in mg)
 	 */
 
-	public static SumoCommand getPMxEmission(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.VAR_PMXEMISSION, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getPMxEmission(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_PMXEMISSION, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -287,13 +260,21 @@ public class Edge {
 	 * @return the estimated travel time
 	 */
 
-	public static SumoCommand getTraveltime(String edgeID) {
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE,
-				Constants.VAR_CURRENT_TRAVELTIME, edgeID,
-				Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
+	public static SumoCommand getTraveltime(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_CURRENT_TRAVELTIME, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
-	// setter methods
+	
+	/**
+	 * getWaitingTime
+	 */
+
+	public static SumoCommand getWaitingTime(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_WAITING_TIME, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	
+	//setter methods
 
 	/**
 	 * Adapt the travel time value (in s) used for (re-)routing on the given
@@ -305,10 +286,9 @@ public class Edge {
 	 *            travel time value (in s)
 	 */
 
-	public static SumoCommand adaptTraveltime(String edgeID, int time) {
+	public static SumoCommand adaptTraveltime(String edgeID, int time){
 
-		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE,
-				Constants.VAR_EDGE_TRAVELTIME, edgeID, time);
+		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, edgeID, time);
 	}
 
 	/**
@@ -320,10 +300,9 @@ public class Edge {
 	 *            effort value
 	 */
 
-	public static SumoCommand setEffort(String edgeID, double effort) {
+	public static SumoCommand setEffort(String edgeID, double effort){
 
-		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE,
-				Constants.VAR_EDGE_EFFORT, edgeID, effort);
+		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_EDGE_EFFORT, edgeID, effort);
 	}
 
 	/**
@@ -335,10 +314,10 @@ public class Edge {
 	 *            maximum speed (in m/s)
 	 */
 
-	public static SumoCommand setMaxSpeed(String edgeID, double speed) {
+	public static SumoCommand setMaxSpeed(String edgeID, double speed){
 
-		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE,
-				Constants.VAR_MAXSPEED, edgeID, speed);
+		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_MAXSPEED, edgeID, speed);
 	}
+
 
 }

@@ -16,9 +16,47 @@
     along with TraaS.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
 package de.tudresden.sumo.config;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class Constants {
+	
+
+	/** how lane changing is performed (set: vehicle)*/
+	public static final int VAR_LANECHANGE_MODE = 0x182;
+
+	/** maximum speed regarding max speed on the current lane and speed factor (get: vehicle)*/
+	public static final int VAR_ALLOWED_SPEED = 0x183;
+
+	/** number of vehicles starting to park (get: simulation)*/
+	public static final int VAR_STOP_STARTING_VEHICLES_NUMBER = 0x104;
+
+	/**ids of vehicles starting to park (get: simulation)*/
+	public static final int VAR_STOP_STARTING_VEHICLES_IDS = 0x105;
+
+	/**number of vehicles ending to park (get: simulation)*/
+	public static final int VAR_STOP_ENDING_VEHICLES_NUMBER = 0x106;
+
+	/**ids of vehicles ending to park (get: simulation)*/
+	public static final int VAR_STOP_ENDING_VEHICLES_IDS = 0x107;
+
+	/**number of vehicles starting to park (get: simulation)*/
+	public static final int VAR_PARKING_STARTING_VEHICLES_NUMBER = 0x108;
+
+	/**ids of vehicles starting to park (get: simulation)*/
+	public static final int VAR_PARKING_STARTING_VEHICLES_IDS = 0x109;
+
+	/**number of vehicles ending to park (get: simulation)*/
+	public static final int VAR_PARKING_ENDING_VEHICLES_NUMBER = 0x110;
+
+	/**ids of vehicles ending to park (get: simulation)*/
+	public static final int VAR_PARKING_ENDING_VEHICLES_IDS = 0x111;
 
 	/**vehicle finished route during teleport*/
 	public static final int REMOVE_TELEPORT_ARRIVED = 0x4;
@@ -131,6 +169,20 @@ public class Constants {
 	/**subscribe induction loop (e1) context*/
 	public static final int CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT = 0x80;
 
+	
+	/** command: subscribe areal detector (e2) context*/
+	public static final int CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x141;
+
+	/**response: subscribe areal detector (e2) context*/
+	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x157;
+
+	/**command: subscribe areal detector (e2) variable*/
+	public static final int CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x143;
+
+	/**response: subscribe areal detector (e2) variable*/
+	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x159;
+	
+	
 	/**route id (get & set: vehicles)*/
 	public static final int VAR_ROUTE_ID = 0x53;
 
@@ -176,6 +228,10 @@ public class Constants {
 	/**width (get: vehicle types, lanes)*/
 	public static final int VAR_WIDTH = 0x4d;
 
+	/**get area detector (e2) variable*/
+	public static final int CMD_GET_AREAL_DETECTOR_VARIABLE = 0xad;
+
+	
 	/**get multi-entry/multi-exit detector (e3) variable*/
 	public static final int CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xa1;
 
@@ -275,6 +331,9 @@ public class Constants {
 	/**stop state*/
 	public static final int VAR_STOPSTATE = 0xb5;
 	
+	/**waiting time*/	
+	public static final int VAR_WAITING_TIME = 0x7a;
+	
 	/**driver reaction time (get: vehicle types)*/
 	public static final int VAR_TAU = 0x48;
 
@@ -365,6 +424,14 @@ public class Constants {
 	/**last step occupancy (get: induction loops, lanes, edges)*/
 	public static final int LAST_STEP_OCCUPANCY = 0x13;
 
+	
+	/** last step jam length in meters */
+	public static final int JAM_LENGTH_VEHICLE = 0x10;
+
+	/** last step jam length in meters */
+	public static final int  JAM_LENGTH_METERS = 0x11;
+	
+	
 	/**set polygon variable*/
 	public static final int CMD_SET_POLYGON_VARIABLE = 0xc8;
 
@@ -673,8 +740,15 @@ public class Constants {
 	/**response: subscribe route variable*/
 	public static final int RESPONSE_SUBSCRIBE_ROUTE_VARIABLE = 0xe6;
 
-	/**response: get areal detector (e3) variable*/
+	
+	/**response: get area detector (e3) variable*/
+	public static final int RESPONSE_GET_AREAL_DETECTOR_VARIABLE = 0xbd;
+	
+	
+	/**response: get multi-/entry detector (e3) variable*/
 	public static final int RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xb1;
+	
+	
 
 	/**set vehicle variable*/
 	public static final int CMD_SET_VEHICLE_VARIABLE = 0xc4;
@@ -706,6 +780,9 @@ public class Constants {
 	/**distance between points or vehicles*/
 	public static final int DISTANCE_REQUEST = 0x83;
 
+	/**current distance in m*/
+	public static final int VAR_DISTANCE = 0x84;
+
 	/**last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)*/
 	public static final int LAST_STEP_VEHICLE_ID_LIST = 0x12;
 
@@ -717,5 +794,12 @@ public class Constants {
 
 	/**current PMx emission of a node (get: vehicle, lane, edge)*/
 	public static final int VAR_PMXEMISSION = 0x63;
+	
+		
+	
+	
+	
+	
+	
 
 }

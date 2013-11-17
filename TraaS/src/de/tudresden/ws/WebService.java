@@ -23,10 +23,12 @@ import javax.xml.ws.Endpoint;
 import de.tudresden.ws.conf.Config;
 import de.tudresden.ws.log.Log;
 
-
 /**
- * The Class WebService.
+ * 
+ * @author Mario Krumnow
+ *
  */
+
 public class WebService 
 {
 	
@@ -43,7 +45,7 @@ public class WebService
 			logger.write(conf.name + " is going to start", 1);			
 		    		
 			Service server = new Service_Impl(conf);
-			logger.write("Der Webservice (Version "+server.version()+") ist erreichbar unter: " + conf.get_url(),1);
+			logger.write("The webservice (Version "+server.version()+") is available under " + conf.get_url(),1);
 		        	
 			//start webservice
 			Endpoint endpoint = Endpoint.publish(conf.get_url(), server);

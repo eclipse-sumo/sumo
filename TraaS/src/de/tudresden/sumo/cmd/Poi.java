@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Evamarie Wießner, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -14,18 +14,23 @@
 
     You should have received a copy of the GNU General Public License
     along with TraaS.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
 package de.tudresden.sumo.cmd;
-
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 import de.tudresden.ws.container.SumoColor;
-import de.tudresden.ws.container.SumoPosition2D;
+
+/**
+ * 
+ * @author Mario Krumnow
+ * @author Evamarie Wießner
+ *
+ */
 
 public class Poi {
 
-	// getter methods
+	//getter methods
 
 	/**
 	 * Add a new point-of-interest.
@@ -44,14 +49,19 @@ public class Poi {
 	 *            an integer identifying the layer
 	 */
 
-	public static SumoCommand add(String poiID, double x, double y,
-			SumoColor color, String poiType, int layer) {
-		Object[] array = new Object[] { poiType, color, layer,
-				new SumoPosition2D(x, y) };
-		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.ADD,
-				poiID, array);
+	public static SumoCommand add(String poiID, double x, double y, SumoColor color, String poiType, int layer){
+		Object[] array = new Object[]{x, y, color, poiType, layer};
+		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.CMD_SET_POI_VARIABLE, poiID, array, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
+	/**
+	 * Returns the number of all Poi's in the network.
+	 */
+
+	public static SumoCommand getIDCount(){
+		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
 	/**
 	 * Returns the color of this poi.
 	 * 
@@ -60,10 +70,8 @@ public class Poi {
 	 * @return color value
 	 */
 
-	public static SumoCommand getColor(String poiID) {
-		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE,
-				Constants.VAR_COLOR, poiID,
-				Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_COLOR);
+	public static SumoCommand getColor(String poiID){
+		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.VAR_COLOR, poiID, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_COLOR);
 	}
 
 	/**
@@ -72,10 +80,8 @@ public class Poi {
 	 * @return a list of IDs of all points of interest
 	 */
 
-	public static SumoCommand getIDList() {
-		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE,
-				Constants.ID_LIST, "", Constants.RESPONSE_GET_POI_VARIABLE,
-				Constants.TYPE_STRINGLIST);
+	public static SumoCommand getIDList(){
+		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	/**
@@ -86,10 +92,8 @@ public class Poi {
 	 * @return position of the point
 	 */
 
-	public static SumoCommand getPosition(String poiID) {
-		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE,
-				Constants.VAR_POSITION, poiID,
-				Constants.RESPONSE_GET_POI_VARIABLE, Constants.POSITION_2D);
+	public static SumoCommand getPosition(String poiID){
+		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.VAR_POSITION, poiID, Constants.RESPONSE_GET_POI_VARIABLE, Constants.POSITION_2D);
 	}
 
 	/**
@@ -100,13 +104,11 @@ public class Poi {
 	 * @return type of the point
 	 */
 
-	public static SumoCommand getType(String poiID) {
-		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE,
-				Constants.VAR_TYPE, poiID, Constants.RESPONSE_GET_POI_VARIABLE,
-				Constants.TYPE_STRING);
+	public static SumoCommand getType(String poiID){
+		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.VAR_TYPE, poiID, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_STRING);
 	}
 
-	// setter methods
+	//setter methods
 
 	/**
 	 * Remove a poi.
@@ -117,10 +119,9 @@ public class Poi {
 	 *            an integer identifying the layer
 	 */
 
-	public static SumoCommand remove(String poiID, int layer) {
+	public static SumoCommand remove(String poiID, int layer){
 
-		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE,
-				Constants.REMOVE, poiID, layer);
+		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.REMOVE, poiID, layer);
 	}
 
 	/**
@@ -132,10 +133,9 @@ public class Poi {
 	 *            value (r,g,b,a) of color
 	 */
 
-	public static SumoCommand setColor(String poiID, SumoColor color) {
+	public static SumoCommand setColor(String poiID, SumoColor color){
 
-		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE,
-				Constants.VAR_COLOR, poiID, color);
+		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.VAR_COLOR, poiID, color);
 	}
 
 	/**
@@ -149,11 +149,10 @@ public class Poi {
 	 *            y-coordinate of the point
 	 */
 
-	public static SumoCommand setPosition(String poiID, double x, double y) {
+	public static SumoCommand setPosition(String poiID, double x, double y){
 
-		Object[] array = new Object[] { x, y };
-		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE,
-				Constants.CMD_SET_POI_VARIABLE, poiID, array);
+		Object[] array = new Object[]{x, y};
+		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.VAR_POSITION, poiID, array);
 	}
 
 	/**
@@ -165,10 +164,10 @@ public class Poi {
 	 *            a string identifying the type of a poi
 	 */
 
-	public static SumoCommand setType(String poiID, String poiType) {
+	public static SumoCommand setType(String poiID, String poiType){
 
-		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE,
-				Constants.CMD_SET_POI_VARIABLE, poiID, poiType);
+		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.CMD_SET_POI_VARIABLE, poiID, poiType);
 	}
+
 
 }

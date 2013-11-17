@@ -26,6 +26,7 @@ import de.tudresden.sumo.cmd.Gui;
 import de.tudresden.sumo.cmd.Inductionloop;
 import de.tudresden.sumo.cmd.Junction;
 
+import de.tudresden.sumo.cmd.ArealDetector;
 import de.tudresden.sumo.cmd.Lane;
 import de.tudresden.sumo.cmd.Multientryexit;
 import de.tudresden.sumo.cmd.Poi;
@@ -45,6 +46,12 @@ import de.tudresden.ws.container.SumoTLSLogic;
 import de.tudresden.ws.log.Log;
 import de.tudresden.sumo.util.ConvertHelper;
 import de.tudresden.sumo.util.Sumo;
+
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
 
 public class Traci{
 
@@ -103,7 +110,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Vehicle: Remove vehicle with the given ID for the give reason.  Reasons are defined in module constants and start with REMOVE_")
-	public void Vehicle_remove(@WebParam(name = "vehID") String vehID, @WebParam(name = "reason") int reason){
+	public void Vehicle_remove(@WebParam(name = "vehID") String vehID, @WebParam(name = "reason") byte reason){
 		this.sumo.set_cmd(Vehicle.remove(vehID, reason));
 	}
 
@@ -378,32 +385,32 @@ public class Traci{
 	}
 
 	@WebMethod(action="Gui: screenshot")
-	public void Gui_screenshot(@WebParam(name = "viewID") String viewID, @WebParam(name = "filename") String filename){
+	public void GUI_screenshot(@WebParam(name = "viewID") String viewID, @WebParam(name = "filename") String filename){
 		this.sumo.set_cmd(Gui.screenshot(viewID, filename));
 	}
 
 	@WebMethod(action="Gui: Set the current boundary for the given view (see getBoundary()).")
-	public void Gui_setBoundary(@WebParam(name = "viewID") String viewID, @WebParam(name = "xmin") double xmin, @WebParam(name = "ymin") double ymin, @WebParam(name = "xmax") double xmax, @WebParam(name = "ymax") double ymax){
+	public void GUI_setBoundary(@WebParam(name = "viewID") String viewID, @WebParam(name = "xmin") double xmin, @WebParam(name = "ymin") double ymin, @WebParam(name = "xmax") double xmax, @WebParam(name = "ymax") double ymax){
 		this.sumo.set_cmd(Gui.setBoundary(viewID, xmin, ymin, xmax, ymax));
 	}
 
 	@WebMethod(action="Gui: Set the current offset for the given view.")
-	public void Gui_setOffset(@WebParam(name = "viewID") String viewID, @WebParam(name = "x") double x, @WebParam(name = "y") double y){
+	public void GUI_setOffset(@WebParam(name = "viewID") String viewID, @WebParam(name = "x") double x, @WebParam(name = "y") double y){
 		this.sumo.set_cmd(Gui.setOffset(viewID, x, y));
 	}
 
 	@WebMethod(action="Gui: Set the current coloring scheme for the given view.")
-	public void Gui_setSchema(@WebParam(name = "viewID") String viewID, @WebParam(name = "schemeName") String schemeName){
+	public void GUI_setSchema(@WebParam(name = "viewID") String viewID, @WebParam(name = "schemeName") String schemeName){
 		this.sumo.set_cmd(Gui.setSchema(viewID, schemeName));
 	}
 
 	@WebMethod(action="Gui: Set the current zoom factor for the given view.")
-	public void Gui_setZoom(@WebParam(name = "viewID") String viewID, @WebParam(name = "zoom") double zoom){
+	public void GUI_setZoom(@WebParam(name = "viewID") String viewID, @WebParam(name = "zoom") double zoom){
 		this.sumo.set_cmd(Gui.setZoom(viewID, zoom));
 	}
 
 	@WebMethod(action="Gui: trackVehicle")
-	public void Gui_trackVehicle(@WebParam(name = "viewID") String viewID, @WebParam(name = "vehID") String vehID){
+	public void GUI_trackVehicle(@WebParam(name = "viewID") String viewID, @WebParam(name = "vehID") String vehID){
 		this.sumo.set_cmd(Gui.trackVehicle(viewID, vehID));
 	}
 
@@ -419,6 +426,11 @@ public class Traci{
 	@WebMethod(action="Multientryexit: Returns a list of all e3 detectors in the network.")
 	public SumoStringList Multientryexit_getIDList(){
 		return this.helper.getStringList(this.sumo.get_cmd(Multientryexit.getIDList()));
+	}
+
+	@WebMethod(action="Multientryexit: Returns the number of all e3 detectors in the network.")
+	public int Multientryexit_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Multientryexit.getIDCount()));
 	}
 
 	@WebMethod(action="Multientryexit: Returns the subscription results for the last time step and the given detector.")
@@ -531,6 +543,32 @@ public class Traci{
 		return this.helper.getDouble(this.sumo.get_cmd(Edge.getTraveltime(edgeID)));
 	}
 
+	@WebMethod(action="Edge: Returns the waiting time in s for the last time step on the given edge.")
+	public double Edge_getWaitingTime(@WebParam(name = "edgeID") String edgeID){
+		return this.helper.getDouble(this.sumo.get_cmd(Edge.getWaitingTime(edgeID)));
+	}
+	
+	
+	@WebMethod(action="ArealDetector: getIDList")
+	public SumoStringList ArealDetector_getIDList(){
+		return this.helper.getStringList(this.sumo.get_cmd(ArealDetector.getIDList()));
+	}
+	
+	@WebMethod(action="ArealDetector: getIDCount")
+	public int ArealDetector_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(ArealDetector.getIDCount()));
+	}
+	
+	@WebMethod(action="ArealDetector: getJamLengthVehicle")
+	public int ArealDetector_getJamLengthVehicle(@WebParam(name = "loopID") String loopID){
+		return this.helper.getInt(this.sumo.get_cmd(ArealDetector.getJamLengthVehicle(loopID)));
+	}
+	
+	@WebMethod(action="ArealDetector: getJamLengthMeters")
+	public double ArealDetector_getJamLengthMeters(@WebParam(name = "loopID") String loopID){
+		return this.helper.getDouble(this.sumo.get_cmd(ArealDetector.getJamLengthMeters(loopID)));
+	}
+	
 	@WebMethod(action="Vehicle: getAccel")
 	public double Vehicle_getAccel(@WebParam(name = "vehID") String vehID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getAccel(vehID)));
@@ -606,11 +644,36 @@ public class Traci{
 		return this.helper.getStringList(this.sumo.get_cmd(Vehicle.getIDList()));
 	}
 
+	@WebMethod(action="Vehicle: Returns the number of all known vehicles.")
+	public int Vehicle_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Vehicle.getIDCount()));
+	}
+	
 	@WebMethod(action="Vehicle: getImperfection")
 	public double Vehicle_getImperfection(@WebParam(name = "vehID") String vehID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getImperfection(vehID)));
 	}
 
+	@WebMethod(action="Vehicle: getAllowedSpeed")
+	public double Vehicle_getAllowedSpeed(@WebParam(name = "vehID") String vehID){
+		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getAllowedSpeed(vehID)));
+	}
+	
+	@WebMethod(action="Vehicle: getPersonNumber")
+	public int Vehicle_getPersonNumber(@WebParam(name = "vehID") String vehID){
+		return this.helper.getInt(this.sumo.get_cmd(Vehicle.getPersonNumber(vehID)));
+	}
+	
+	@WebMethod(action="Vehicle: getDistance")
+	public double Vehicle_getDistance(@WebParam(name = "vehID") String vehID){
+		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getDistance(vehID)));
+	}
+	
+	@WebMethod(action="Vehicle: getWaitingTime")
+	public int Vehicle_getWaitingTime(@WebParam(name = "vehID") String vehID){
+		return this.helper.getInt(this.sumo.get_cmd(Vehicle.getWaitingTime(vehID)));
+	}
+	
 	@WebMethod(action="Vehicle: getLaneID")
 	public String Vehicle_getLaneID(@WebParam(name = "vehID") String vehID){
 		return this.helper.getString(this.sumo.get_cmd(Vehicle.getLaneID(vehID)));
@@ -736,6 +799,16 @@ public class Traci{
 		return this.helper.getInt(this.sumo.get_cmd(Vehicle.setRoute(vehID, edgeList)));
 	}
 
+	@WebMethod(action="Vehicle: setLaneChangeMode")
+	public int Vehicle_setLaneChangeMode(@WebParam(name = "vehID") String vehID, @WebParam(name = "lcm") int lcm){
+		return this.helper.getInt(this.sumo.get_cmd(Vehicle.setLaneChangeMode(vehID, lcm)));
+	}
+	
+	@WebMethod(action="Vehicle: setType")
+	public int Vehicle_setType(@WebParam(name = "vehID") String vehID, @WebParam(name = "typeID") String typeID){
+		return this.helper.getInt(this.sumo.get_cmd(Vehicle.setType(vehID, typeID)));
+	}
+	
 	@WebMethod(action="Vehicle: slowDown")
 	public int Vehicle_slowDown(@WebParam(name = "vehID") String vehID, @WebParam(name = "speed") double speed, @WebParam(name = "duration") int duration){
 		return this.helper.getInt(this.sumo.get_cmd(Vehicle.slowDown(vehID, speed, duration)));
@@ -771,6 +844,54 @@ public class Traci{
 		return this.helper.getInt(this.sumo.get_cmd(Simulation.getCurrentTime()));
 	}
 
+	
+	@WebMethod(action="Simulation: getBusStopWaiting")
+	public int Simulation_getBusStopWaiting(){
+		return this.helper.getInt(this.sumo.get_cmd(Simulation.getBusStopWaiting()));
+	}
+
+	@WebMethod(action="Simulation: getParkingEndingVehiclesIDList")
+	public SumoStringList Simulation_getParkingEndingVehiclesIDList(){
+		return this.helper.getStringList(this.sumo.get_cmd(Simulation.getParkingEndingVehiclesIDList()));
+	}
+	
+	
+	@WebMethod(action="Simulation: getParkingEndingVehiclesNumber")
+	public int Simulation_getParkingEndingVehiclesNumber(){
+		return this.helper.getInt(this.sumo.get_cmd(Simulation.getParkingEndingVehiclesNumber()));
+	}
+	
+	@WebMethod(action="Simulation: getParkingStartingVehiclesIDList")
+	public SumoStringList Simulation_getParkingStartingVehiclesIDList(){
+		return this.helper.getStringList(this.sumo.get_cmd(Simulation.getParkingStartingVehiclesIDList()));
+	}
+	
+	@WebMethod(action="Simulation: getParkingStartingVehiclesNumber")
+	public int Simulation_getParkingStartingVehiclesNumber(){
+		return this.helper.getInt(this.sumo.get_cmd(Simulation.getParkingStartingVehiclesNumber()));
+	}
+	
+	@WebMethod(action="Simulation: getStopEndingVehiclesIDList")
+	public SumoStringList Simulation_getStopEndingVehiclesIDList(){
+		return this.helper.getStringList(this.sumo.get_cmd(Simulation.getStopEndingVehiclesIDList()));
+	}
+	
+	@WebMethod(action="Simulation: getStopEndingVehiclesNumber")
+	public int Simulation_getStopEndingVehiclesNumber(){
+		return this.helper.getInt(this.sumo.get_cmd(Simulation.getStopEndingVehiclesNumber()));
+	}
+	
+	@WebMethod(action="Simulation: getStopStartingVehiclesIDList")
+	public SumoStringList Simulation_getStopStartingVehiclesIDList(){
+		return this.helper.getStringList(this.sumo.get_cmd(Simulation.getStopStartingVehiclesIDList()));
+	}
+	
+	@WebMethod(action="Simulation: getStopStartingVehiclesNumber")
+	public int Simulation_getStopStartingVehiclesNumber(){
+		return this.helper.getInt(this.sumo.get_cmd(Simulation.getStopStartingVehiclesNumber()));
+	}
+	
+	
 	@WebMethod(action="Simulation: getDeltaT")
 	public int Simulation_getDeltaT(){
 		return this.helper.getInt(this.sumo.get_cmd(Simulation.getDeltaT()));
@@ -856,9 +977,19 @@ public class Traci{
 		return this.helper.getStringList(this.sumo.get_cmd(Trafficlights.getIDList()));
 	}
 
-	@WebMethod(action="Trafficlights: Returns the subscription results for the last time step and the given traffic light.")
+	@WebMethod(action="Trafficlights: Returns the number of all traffic lights in the network.")
+	public int Trafficlights_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Trafficlights.getIDCount()));
+	}
+	
+	@WebMethod(action="Trafficlights: Returns the next switch")
 	public int Trafficlights_getNextSwitch(@WebParam(name = "tlsID") String tlsID){
 		return this.helper.getInt(this.sumo.get_cmd(Trafficlights.getNextSwitch(tlsID)));
+	}
+	
+	@WebMethod(action="Trafficlights: Returns the phase duration")
+	public int Trafficlights_getPhaseDuration(@WebParam(name = "tlsID") String tlsID){
+		return this.helper.getInt(this.sumo.get_cmd(Trafficlights.getPhaseDuration(tlsID)));
 	}
 
 	@WebMethod(action="Trafficlights: getPhase")
@@ -901,6 +1032,11 @@ public class Traci{
 		return this.helper.getStringList(this.sumo.get_cmd(Vehicletype.getIDList()));
 	}
 
+	@WebMethod(action="Vehicletype: Returns the number of all known vehicle types.")
+	public int Vehicletype_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Vehicletype.getIDCount()));
+	}
+	
 	@WebMethod(action="Vehicletype: getImperfection")
 	public double Vehicletype_getImperfection(@WebParam(name = "typeID") String typeID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicletype.getImperfection(typeID)));
@@ -991,6 +1127,12 @@ public class Traci{
 		return this.helper.getStringList(this.sumo.get_cmd(Lane.getIDList()));
 	}
 
+	@WebMethod(action="Lane: Returns the number of all lanes in the network.")
+	public int Lane_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Lane.getIDCount()));
+	}
+
+	
 	@WebMethod(action="Lane: Returns the total number of halting vehicles for the last time step on the given lane.")
 	public int Lane_getLastStepHaltingNumber(@WebParam(name = "laneID") String laneID){
 		return this.helper.getInt(this.sumo.get_cmd(Lane.getLastStepHaltingNumber(laneID)));
@@ -1041,6 +1183,11 @@ public class Traci{
 		return this.helper.getDouble(this.sumo.get_cmd(Lane.getMaxSpeed(laneID)));
 	}
 
+	@WebMethod(action="Lane: getWaitingTime")
+	public int Lane_getWaitingTime(@WebParam(name = "laneID") String laneID){
+		return this.helper.getInt(this.sumo.get_cmd(Lane.getWaitingTime(laneID)));
+	}
+	
 	@WebMethod(action="Lane: Returns the NOx emission in mg for the last time step on the given lane.")
 	public double Lane_getNOxEmission(@WebParam(name = "laneID") String laneID){
 		return this.helper.getDouble(this.sumo.get_cmd(Lane.getNOxEmission(laneID)));
@@ -1081,6 +1228,11 @@ public class Traci{
 		return this.helper.getStringList(this.sumo.get_cmd(Polygon.getIDList()));
 	}
 
+	@WebMethod(action="Polygon: Returns the number of all polygons in the network.")
+	public int Polygon_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Polygon.getIDCount()));
+	}
+	
 	@WebMethod(action="Polygon: getShape")
 	public SumoGeometry Polygon_getShape(@WebParam(name = "polygonID") String polygonID){
 		return this.helper.getPolygon(this.sumo.get_cmd(Polygon.getShape(polygonID)));
@@ -1096,7 +1248,7 @@ public class Traci{
 		return this.helper.getInt(this.sumo.get_cmd(Poi.add(poiID, x, y, color, poiType, layer)));
 	}
 
-	@WebMethod(action="Poi: Returns the subscription results for the last time step and the given poi.")
+	@WebMethod(action="Poi: Returns the color of the given poi.")
 	public SumoColor Poi_getColor(@WebParam(name = "poiID") String poiID){
 		return this.helper.getColor(this.sumo.get_cmd(Poi.getColor(poiID)));
 	}
@@ -1106,6 +1258,11 @@ public class Traci{
 		return this.helper.getStringList(this.sumo.get_cmd(Poi.getIDList()));
 	}
 
+	@WebMethod(action="Poi: Returns the number of all pois in the network.")
+	public int Poi_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Poi.getIDCount()));
+	}
+	
 	@WebMethod(action="Poi: getPosition")
 	public SumoPosition2D Poi_getPosition(@WebParam(name = "poiID") String poiID){
 		return this.helper.getPosition2D(this.sumo.get_cmd(Poi.getPosition(poiID)));
@@ -1120,34 +1277,44 @@ public class Traci{
 	public SumoStringList Junction_getIDList(){
 		return this.helper.getStringList(this.sumo.get_cmd(Junction.getIDList()));
 	}
+	
+	@WebMethod(action="Junction: getShape")
+	public SumoGeometry Junction_getShape(@WebParam(name = "junctionID") String junctionID){
+		return this.helper.getPolygon(this.sumo.get_cmd(Junction.getShape(junctionID)));
+	}
 
+	@WebMethod(action="Junction: Returns the number of all junctions in the network.")
+	public int Junction_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Junction.getIDCount()));
+	}
+	
 	@WebMethod(action="Junction: Returns the subscription results for the last time step and the given junction.")
 	public SumoPosition2D Junction_getPosition(@WebParam(name = "junctionID") String junctionID){
 		return this.helper.getPosition2D(this.sumo.get_cmd(Junction.getPosition(junctionID)));
 	}
 
 	@WebMethod(action="Gui: Returns the subscription results for the last time step and the given view.")
-	public SumoBoundingBox Gui_getBoundary(@WebParam(name = "viewID") String viewID){
+	public SumoBoundingBox GUI_getBoundary(@WebParam(name = "viewID") String viewID){
 		return this.helper.getBoundingBox(this.sumo.get_cmd(Gui.getBoundary(viewID)));
 	}
 
 	@WebMethod(action="Gui: Returns the list of available views (open windows).")
-	public SumoStringList Gui_getIDList(){
+	public SumoStringList GUI_getIDList(){
 		return this.helper.getStringList(this.sumo.get_cmd(Gui.getIDList()));
 	}
 
 	@WebMethod(action="Gui: Returns the x and y offset of the center of the current view.")
-	public SumoPosition2D Gui_getOffset(@WebParam(name = "viewID") String viewID){
+	public SumoPosition2D GUI_getOffset(@WebParam(name = "viewID") String viewID){
 		return this.helper.getPosition2D(this.sumo.get_cmd(Gui.getOffset(viewID)));
 	}
 
 	@WebMethod(action="Gui: Returns the name of the current coloring scheme.")
-	public String Gui_getSchema(@WebParam(name = "viewID") String viewID){
+	public String GUI_getSchema(@WebParam(name = "viewID") String viewID){
 		return this.helper.getString(this.sumo.get_cmd(Gui.getSchema(viewID)));
 	}
 
 	@WebMethod(action="Gui: Returns the current zoom factor.")
-	public double Gui_getZoom(@WebParam(name = "viewID") String viewID){
+	public double GUI_getZoom(@WebParam(name = "viewID") String viewID){
 		return this.helper.getDouble(this.sumo.get_cmd(Gui.getZoom(viewID)));
 	}
 
@@ -1161,11 +1328,21 @@ public class Traci{
 		return this.helper.getStringList(this.sumo.get_cmd(Route.getIDList()));
 	}
 
+	@WebMethod(action="Route: Returns the number of all routes in the network.")
+	public int Route_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Route.getIDCount()));
+	}
+	
 	@WebMethod(action="Inductionloop: Returns a list of all induction loops in the network.")
 	public SumoStringList Inductionloop_getIDList(){
 		return this.helper.getStringList(this.sumo.get_cmd(Inductionloop.getIDList()));
 	}
 
+	@WebMethod(action="Inductionloop: Returns the number of induction loops in the network.")
+	public int Inductionloop_getIDCount(){
+		return this.helper.getInt(this.sumo.get_cmd(Inductionloop.getIDCount()));
+	}
+	
 	@WebMethod(action="Inductionloop: Returns the id of the lane the loop is on.")
 	public String Inductionloop_getLaneID(@WebParam(name = "loopID") String loopID){
 		return this.helper.getString(this.sumo.get_cmd(Inductionloop.getLaneID(loopID)));

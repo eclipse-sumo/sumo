@@ -29,6 +29,12 @@ import de.tudresden.ws.container.SumoTLSPhase;
 
 import it.polito.appeal.traci.protocol.Command;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class SumoCommand {
 	
 	Command cmd;
@@ -141,7 +147,7 @@ public class SumoCommand {
 			SumoGeometry ss = (SumoGeometry) array[0];
 			cmd.content().writeInt(ss.coords.size());	
 			
-			add_type(array[3]);
+			//add_type(array[3]);
 			add_variable(array[3]);
 	
 			//color
@@ -161,7 +167,13 @@ public class SumoCommand {
 			add_variable(array[0]);
 			
 		}
+		else if((Integer) input1 == Constants.CMD_SET_POI_VARIABLE && (Integer) input2 == Constants.VAR_POSITION){
 		
+			cmd.content().writeUnsignedByte(Constants.POSITION_2D);
+			add_variable(array[0]);
+			add_variable(array[1]);
+			
+		}
 		else{
 			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
 			cmd.content().writeInt(array.length);	
@@ -202,7 +214,6 @@ public class SumoCommand {
 		}else if(input.getClass().equals(SumoTLSLogic.class)){
 		
 			SumoTLSLogic stl = (SumoTLSLogic) input;
-			System.out.println("hier!");
 			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
 			cmd.content().writeInt(stl.phases.size());	
 		
@@ -226,18 +237,7 @@ public class SumoCommand {
 			}
 			
 		
-		}else if(input.getClass().equals(SumoGeometry.class)){
-
-			SumoGeometry sg = (SumoGeometry) input;
-			cmd.content().writeUnsignedByte(sg.coords.size());
-			
-			for(SumoPosition2D pos : sg.coords){		
-				cmd.content().writeDouble(pos.x);
-				cmd.content().writeDouble(pos.y);
-			}
-			
-		}
-		else{
+		}else{
 			add_type(input);
 			add_variable(input);
 		}

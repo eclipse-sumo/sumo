@@ -41,6 +41,7 @@ import de.tudresden.sumo.util.SumoCommand;
  * protocol.
  * 
  * @author Enrico Gueli &lt;enrico.gueli@gmail.com&gt;
+ * @author Mario Krumnow
  * 
  */
 public class SumoTraciConnection {
@@ -93,13 +94,13 @@ public class SumoTraciConnection {
 	private CommandProcessor cp;
 	
 	private Process sumoProcess;
-	private static final int CONNECT_RETRIES = 1;
+	private static final int CONNECT_RETRIES = 3;
 	@SuppressWarnings("unused")
 	private CloseQuery closeQuery;
 	private List<String> args = new ArrayList<String>();
 	
 	private boolean remote = false;
-		
+	
 	public SumoTraciConnection(String sumo_bin, String net_file, String route_file) {
 		this.sumoEXE=sumo_bin;
 		this.net_file=net_file;
@@ -242,16 +243,10 @@ public class SumoTraciConnection {
 		String[] argsArray = new String[args.size()];
 		args.toArray(argsArray);
 		
-		/*
-		for(int i=0; i<argsArray.length; i++){
-			System.out.println(argsArray[i]);
-		}
-		*/
 		
 		sumoProcess = Runtime.getRuntime().exec(argsArray);
 
-		// String logProcessName = SUMO_EXE.substring(SUMO_EXE.lastIndexOf("\\")
-		// + 1);
+		
 
 		StreamLogger errStreamLogger = new StreamLogger(sumoProcess.getErrorStream(), "SUMO-err:");
 		StreamLogger outStreamLogger = new StreamLogger(sumoProcess.getInputStream(), "SUMO-out:");

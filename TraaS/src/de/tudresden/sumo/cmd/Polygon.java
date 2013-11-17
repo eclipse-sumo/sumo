@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Evamarie Wießner, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -14,19 +14,25 @@
 
     You should have received a copy of the GNU General Public License
     along with TraaS.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
 package de.tudresden.sumo.cmd;
-
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoStringList;
 
+/**
+ * 
+ * @author Mario Krumnow
+ * @author Evamarie Wießner
+ *
+ */
+
 public class Polygon {
 
-	// getter methods
+	//getter methods
 
 	/**
 	 * Returns the color of this polygon.
@@ -36,10 +42,8 @@ public class Polygon {
 	 * @return color of the polygon
 	 */
 
-	public static SumoCommand getColor(String polygonID) {
-		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE,
-				Constants.VAR_COLOR, polygonID,
-				Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_COLOR);
+	public static SumoCommand getColor(String polygonID){
+		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE, Constants.VAR_COLOR, polygonID, Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_COLOR);
 	}
 
 	/**
@@ -48,10 +52,8 @@ public class Polygon {
 	 * @return a list of IDs of all polygons
 	 */
 
-	public static SumoCommand getIDList() {
-		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE,
-				Constants.ID_LIST, "", Constants.RESPONSE_GET_POLYGON_VARIABLE,
-				Constants.TYPE_STRINGLIST);
+	public static SumoCommand getIDList(){
+		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	/**
@@ -62,10 +64,16 @@ public class Polygon {
 	 *            polygon
 	 */
 
-	public static SumoCommand getShape(String polygonID) {
-		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE,
-				Constants.VAR_SHAPE, polygonID,
-				Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_POLYGON);
+	public static SumoCommand getIDCount(){
+		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	/**
+	 * getShape
+	 */
+
+	public static SumoCommand getShape(String polygonID){
+		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE, Constants.VAR_SHAPE, polygonID, Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_POLYGON);
 	}
 
 	/**
@@ -76,13 +84,11 @@ public class Polygon {
 	 * @return type of the polygon
 	 */
 
-	public static SumoCommand getType(String polygonID) {
-		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE,
-				Constants.VAR_TYPE, polygonID,
-				Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_STRING);
+	public static SumoCommand getType(String polygonID){
+		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE, Constants.VAR_TYPE, polygonID, Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_STRING);
 	}
 
-	// setter methods
+	//setter methods
 
 	/**
 	 * Add a new polygon.
@@ -101,12 +107,10 @@ public class Polygon {
 	 *            an integer identifying the layer
 	 */
 
-	public static SumoCommand add(String polygonID, SumoGeometry shape,
-			SumoColor color, boolean fill, String polygonType, int layer) {
+	public static SumoCommand add(String polygonID, SumoGeometry shape, SumoColor color, boolean fill, String polygonType, int layer){
 
-		Object[] array = new Object[] { shape, color, fill, polygonType, layer };
-		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE,
-				Constants.ADD, polygonID, array);
+		Object[] array = new Object[]{shape, color, fill, polygonType, layer};
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.ADD, polygonID, array);
 	}
 
 	/**
@@ -118,10 +122,9 @@ public class Polygon {
 	 *            an integer identifying the layer
 	 */
 
-	public static SumoCommand remove(String polygonID, int layer) {
+	public static SumoCommand remove(String polygonID, int layer){
 
-		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE,
-				Constants.CMD_SET_POLYGON_VARIABLE, polygonID, layer);
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.CMD_SET_POLYGON_VARIABLE, polygonID, layer);
 	}
 
 	/**
@@ -133,10 +136,9 @@ public class Polygon {
 	 *            value (r,g,b,a) of color
 	 */
 
-	public static SumoCommand setColor(String polygonID, SumoColor color) {
+	public static SumoCommand setColor(String polygonID, SumoColor color){
 
-		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE,
-				Constants.TYPE_COLOR, polygonID, color);
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.TYPE_COLOR, polygonID, color);
 	}
 
 	/**
@@ -148,10 +150,9 @@ public class Polygon {
 	 *            shape of the polygon
 	 */
 
-	public static SumoCommand setShape(String polygonID, SumoStringList shape) {
+	public static SumoCommand setShape(String polygonID, SumoStringList shape){
 
-		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE,
-				Constants.CMD_SET_POLYGON_VARIABLE, polygonID, shape);
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.CMD_SET_POLYGON_VARIABLE, polygonID, shape);
 	}
 
 	/**
@@ -163,10 +164,10 @@ public class Polygon {
 	 *            type of the polygon
 	 */
 
-	public static SumoCommand setType(String polygonID, String polygonType) {
+	public static SumoCommand setType(String polygonID, String polygonType){
 
-		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE,
-				Constants.CMD_SET_POLYGON_VARIABLE, polygonID, polygonType);
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.CMD_SET_POLYGON_VARIABLE, polygonID, polygonType);
 	}
+
 
 }

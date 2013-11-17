@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Evamarie Wießner, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -14,16 +14,22 @@
 
     You should have received a copy of the GNU General Public License
     along with TraaS.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
 package de.tudresden.sumo.cmd;
-
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 
+/**
+ * 
+ * @author Mario Krumnow
+ * @author Evamarie Wießner
+ *
+ */
+
 public class Multientryexit {
 
-	// getter methods
+	//getter methods
 
 	/**
 	 * Returns a list of IDs of all multi-entry/multi-exit detectors within the
@@ -32,14 +38,18 @@ public class Multientryexit {
 	 * @return list of IDs of all detectors
 	 */
 
-	public static SumoCommand getIDList() {
-		return new SumoCommand(
-				Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE,
-				Constants.ID_LIST, "",
-				Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE,
-				Constants.TYPE_STRINGLIST);
+	public static SumoCommand getIDList(){
+		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
+	/**
+	 * Returns the number of all multi-entry/multi-exit detectors in the network.
+	 */
+
+	public static SumoCommand getIDCount(){
+		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
 	/**
 	 * Returns the number of vehicles which were halting during the last time
 	 * step.
@@ -49,12 +59,8 @@ public class Multientryexit {
 	 * @return number of halting vehicles
 	 */
 
-	public static SumoCommand getLastStepHaltingNumber(String detID) {
-		return new SumoCommand(
-				Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE,
-				Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, detID,
-				Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE,
-				Constants.TYPE_INTEGER);
+	public static SumoCommand getLastStepHaltingNumber(String detID){
+		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, detID, Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
 	/**
@@ -66,12 +72,8 @@ public class Multientryexit {
 	 * @return average speed within the last time step
 	 */
 
-	public static SumoCommand getLastStepMeanSpeed(String detID) {
-		return new SumoCommand(
-				Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE,
-				Constants.LAST_STEP_MEAN_SPEED, detID,
-				Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE,
-				Constants.TYPE_DOUBLE);
+	public static SumoCommand getLastStepMeanSpeed(String detID){
+		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.LAST_STEP_MEAN_SPEED, detID, Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -83,12 +85,8 @@ public class Multientryexit {
 	 * @return list of IDs of all vehicles
 	 */
 
-	public static SumoCommand getLastStepVehicleIDs(String detID) {
-		return new SumoCommand(
-				Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE,
-				Constants.LAST_STEP_VEHICLE_ID_LIST, detID,
-				Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE,
-				Constants.TYPE_STRINGLIST);
+	public static SumoCommand getLastStepVehicleIDs(String detID){
+		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_ID_LIST, detID, Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	/**
@@ -100,14 +98,11 @@ public class Multientryexit {
 	 * @return number of vehicles
 	 */
 
-	public static SumoCommand getLastStepVehicleNumber(String detID) {
-		return new SumoCommand(
-				Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE,
-				Constants.LAST_STEP_VEHICLE_NUMBER, detID,
-				Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE,
-				Constants.TYPE_INTEGER);
+	public static SumoCommand getLastStepVehicleNumber(String detID){
+		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_NUMBER, detID, Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
-	// setter methods
+	//setter methods
+
 
 }

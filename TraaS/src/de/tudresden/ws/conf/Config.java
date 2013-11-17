@@ -33,6 +33,12 @@ import org.xml.sax.helpers.DefaultHandler;
 import de.tudresden.ws.log.Log;
 import de.tudresden.ws.log.Log_txt;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class Config {
 
     public boolean running = false;
@@ -48,7 +54,7 @@ public class Config {
 	public HashMap<String, String> sumo_output = new HashMap<String, String>();
 	public Date lastactiontime;
 
-	public String version = "1.0 alpha";
+	public String version = "1.1";
 	public Log logger;
 
 	public Config(){

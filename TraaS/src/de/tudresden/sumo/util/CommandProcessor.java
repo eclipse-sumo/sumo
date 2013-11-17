@@ -36,6 +36,11 @@ import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSLogic;
 import de.tudresden.ws.container.SumoTLSPhase;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
 
 public class CommandProcessor extends Query{
  
@@ -207,6 +212,10 @@ public class CommandProcessor extends Query{
 			
 			output = new SumoColor(r, g, b, a);
 		
+		}else if(sc.output_type == Constants.TYPE_UBYTE){
+			
+			output = resp.content().readUnsignedByte();
+			
 		}
 		
 		

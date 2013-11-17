@@ -24,6 +24,7 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
+
 import de.tudresden.sumo.util.ConvertHelper;
 import de.tudresden.sumo.util.Sumo;
 import de.tudresden.ws.conf.Config;
@@ -31,6 +32,13 @@ import de.tudresden.ws.log.Log;
 
 @WebService(serviceName = "Sumo-Webservice")
 @BindingType(value="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
+
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class Service_Impl extends Traci implements Service {
 
 	Log logger;
@@ -38,7 +46,6 @@ public class Service_Impl extends Traci implements Service {
 	Sumo sumo;
 	ConvertHelper helper;
 	
-	//Konstruktor
 	public Service_Impl(Config conf) {
 		this.conf = conf;
 		this.logger=conf.logger;
@@ -58,7 +65,7 @@ public class Service_Impl extends Traci implements Service {
 			sumo = new Sumo(this.conf);
 			sumo.start_ws();
 			
-			//Initialisation
+			//init super class
 			super.init(sumo, logger, helper);
 			
 			this.conf.refresh_actiontime();

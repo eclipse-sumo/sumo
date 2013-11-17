@@ -18,6 +18,12 @@
 
 package de.tudresden.ws;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public interface Service {
         
         public String start(String user);

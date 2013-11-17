@@ -34,6 +34,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SumoStringList")
 
+
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class SumoStringList implements List<String>, Serializable {
 
 	private static final long serialVersionUID = -6530046166179152137L;

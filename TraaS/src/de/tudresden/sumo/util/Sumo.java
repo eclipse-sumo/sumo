@@ -27,6 +27,12 @@ import de.tudresden.sumo.util.SumoCommand;
 import de.tudresden.ws.conf.Config;
 import de.tudresden.ws.log.Log;
 
+/**
+ * 
+ * @author Mario Krumnow
+ *
+ */
+
 public class Sumo {
 
 	Log logger;
@@ -111,7 +117,6 @@ public class Sumo {
 
 	}
 	
-	//In webservice
 	@SuppressWarnings("static-access")
 	public void start_ws(){
 

@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Evamarie Wießner, Dresden University of Technology
+    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -23,6 +23,13 @@ import de.tudresden.sumo.util.SumoCommand;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoStringList;
 
+/**
+ * 
+ * @author Mario Krumnow
+ * @author Evamarie Wießner
+ *
+ */
+
 public class Vehicle {
 
 	//getter methods
@@ -35,6 +42,15 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ACCEL, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
+	/**
+	 * Returns the number of all vehicles in the network.
+	 */
+
+	public static SumoCommand getIDCount(){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	
 	/**
 	 * Returns the edge travel time for the given time as stored in the vehicle's internal container.
 	 */
@@ -52,8 +68,27 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ANGLE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
+	
 	/**
-	 * Information about the wish to use subsequent edges' lanes.
+	 * Returns the maximum allowed speed on the current lane regarding speed factor in m/s for this vehicle.
+	 */
+
+	public static SumoCommand getAllowedSpeed(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ALLOWED_SPEED, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+	
+	/**
+	 * getPersonNumber
+	 */
+
+	public static SumoCommand getPersonNumber(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_PERSON_NUMBER, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+
+	/**
+	 * getBestLanes
 	 */
 
 	public static SumoCommand getBestLanes(String vehID){
@@ -61,7 +96,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * Returns the CO2 emissions (in mg) during the last time step.
+	 * Returns the CO2 emission in mg for the last time step.
 	 */
 
 	public static SumoCommand getCO2Emission(String vehID){
@@ -69,7 +104,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * Returns the CO emissions (in mg) during the last time step.
+	 * Returns the CO emission in mg for the last time step.
 	 */
 
 	public static SumoCommand getCOEmission(String vehID){
@@ -111,6 +146,17 @@ public class Vehicle {
 	}
 
 	/**
+	 * Get the distance to the starting point acts as a odometer 
+	 */
+
+	public static SumoCommand getDistance(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_DISTANCE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+
+	
+	
+
+	/**
 	 * Returns the edge effort for the given time as stored in the vehicle's internal container.
 	 */
 
@@ -128,7 +174,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * Returns the fuel consumption (in ml) during the last time step.
+	 * Returns the fuel consumption in ml for the last time step.
 	 */
 
 	public static SumoCommand getFuelConsumption(String vehID){
@@ -320,6 +366,15 @@ public class Vehicle {
 	}
 
 	/**
+	 * getWaitingTime
+	 */
+
+	public static SumoCommand getWaitingTime(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_WAITING_TIME, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	
+	/**
 	 * Returns the id of the type of the named vehicle.
 	 */
 
@@ -343,16 +398,15 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_WIDTH, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
+	
 	/**
 	 * Returns whether the Route is valid.
 	 */
 
 	public static SumoCommand isRouteValid(String vehID){
-		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ROUTE_VALID, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ROUTE_VALID, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_UBYTE);
 	}
 
-	//setter methods
-	
 	/**
 	 * Sets the IDs of the edges the vehicle's route is made of.
 	 */
@@ -370,6 +424,8 @@ public class Vehicle {
 		Object[] array = new Object[]{speed, duration};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_SLOWDOWN, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
 	}
+
+	//setter methods
 
 	/**
 	 * Add a new vehicle.
@@ -424,7 +480,7 @@ public class Vehicle {
 	 * Removes vehicle with the given ID for the given reason. Reasons are defined in module constants and start with REMOVE_
 	 */
 
-	public static SumoCommand remove(String vehID, int reason){
+	public static SumoCommand remove(String vehID, byte reason){
 
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.REMOVE, vehID, reason);
 	}
@@ -486,6 +542,25 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_DECEL, vehID, decel);
 	}
 
+	/**
+	 * Sets the vehicle's lane change mode as a bitset.
+	 */
+
+	public static SumoCommand setLaneChangeMode(String vehID, int lcm){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_LANECHANGE_MODE, vehID, lcm);
+	}
+	
+	
+	/**
+	 * Sets the id of the type for the named vehicle.
+	 */
+
+	public static SumoCommand setType(String vehID, String typeID){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_TYPE, vehID, typeID);
+	}
+
+	
+	
 	/**
 	 * Sets the edge effort for the given time as stored in the vehicle's internal container.
 	 */
