@@ -81,7 +81,9 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_IMPERFECTION:    traci.Storage.readDouble,
                       tc.VAR_TAU:             traci.Storage.readDouble,
                       tc.VAR_BEST_LANES:      _readBestLanes,
-                      tc.DISTANCE_REQUEST:    traci.Storage.readDouble}
+                      tc.DISTANCE_REQUEST:    traci.Storage.readDouble,
+                      tc.VAR_DISTANCE:        traci.Storage.readDouble}
+
 subscriptionResults = traci.SubscriptionResults(_RETURN_VALUE_FUNC)
 
 def _getUniversal(varID, vehID):
@@ -240,7 +242,7 @@ def getPersonNumber(vehID):
     
     .
     """
-    return _getUniversal(tc.VAR_PERSONNUMBER, vehID)
+    return _getUniversal(tc.VAR_PERSON_NUMBER, vehID)
 
 def getAdaptedTraveltime(vehID, time, edgeID):
     """getAdaptedTraveltime(string, double, string) -> double
@@ -405,6 +407,12 @@ def getDrivingDistance2D(vehID, x, y):
                                          tc.POSITION_2D, x, y, tc.REQUEST_DRIVINGDIST)
     return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readDouble()
 
+def getDistance(vehID):
+    """getDistance(string) -> double
+    
+    Returns the distance to the starting point like an odometer
+    """
+    return _getUniversal(tc.VAR_DISTANCE, vehID)
 
 def subscribe(vehID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31-1):
     """subscribe(string, list(integer), double, double) -> None
