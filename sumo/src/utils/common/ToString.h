@@ -192,11 +192,11 @@ inline std::string joinToString(const std::map<KEY, VAL>& s, const T_BETWEEN& be
     bool connect = false;
     for (typename std::map<KEY, VAL>::const_iterator it = s.begin(); it != s.end(); ++it) {
         if (connect) {
-            oss << toString(between);
+            oss << toString(between, accuracy);
         } else {
             connect = true;
         }
-        oss << toString(it->first) << between_keyval << toString(it->second);
+        oss << toString(it->first, accuracy) << between_keyval << toString(it->second, accuracy);
     }
     return oss.str();
 }

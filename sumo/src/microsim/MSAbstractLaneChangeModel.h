@@ -301,7 +301,9 @@ public:
     void removeLaneChangeShadow();
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    virtual void saveBlockerLength(SUMOReal length) {};
+    virtual void saveBlockerLength(SUMOReal length) {
+        UNUSED_PARAMETER(length);
+    };
 
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);

@@ -125,9 +125,6 @@ MSLCM_LC2013::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
 
 SUMOReal
 MSLCM_LC2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
-
-    const SUMOReal time = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-
     int state = myOwnState;
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
@@ -195,7 +192,7 @@ MSLCM_LC2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
 
 
 void*
-MSLCM_LC2013::inform(void* info, MSVehicle* sender) {
+MSLCM_LC2013::inform(void* info, MSVehicle* /* sender */) {
     Info* pinfo = (Info*) info;
     myVSafes.push_back(pinfo->first);
     myOwnState |= pinfo->second;
@@ -427,7 +424,6 @@ MSLCM_LC2013::_wantsChange(
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
-    const int myLcaCounter = (right ? LCA_MLEFT : LCA_MRIGHT);
     const bool changeToBest = (right && bestLaneOffset < 0) || (!right && bestLaneOffset > 0);
     // keep information about being a leader/follower
     int ret = (myOwnState & 0xffff0000);
