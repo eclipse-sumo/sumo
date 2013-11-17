@@ -24,7 +24,7 @@ import de.tudresden.ws.container.SumoColor;
 /**
  * 
  * @author Mario Krumnow
- * @author Evamarie Wießner
+ * @author Evamarie Wiessner
  *
  */
 

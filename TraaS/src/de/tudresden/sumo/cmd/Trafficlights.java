@@ -24,7 +24,7 @@ import de.tudresden.ws.container.SumoTLSLogic;
 /**
  * 
  * @author Mario Krumnow
- * @author Evamarie Wießner
+ * @author Evamarie Wiessner
  *
  */
 
@@ -43,13 +43,11 @@ public class Trafficlights {
 		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_COMPLETE_DEFINITION_RYG, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_COMPOUND);
 	}
 
+	
 	/**
-	 * Returns the list of lanes which are controlled by the named traffic light.
-	 * 
-	 * @param tlsID a string identifying the traffic light
-	 * @return list of controlled lanes
+	 * Returns the number of all traffic lights in the network.
 	 */
-
+	
 	public static SumoCommand getIDCount(){
 		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_INTEGER);
 	}
@@ -62,14 +60,14 @@ public class Trafficlights {
 		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_PHASE_DURATION, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_INTEGER);
 	}
 	
-	
 	/**
-	 * Returns the links controlled by the traffic light, sorted by the signal index and described by giving the incoming, outgoing, and via lane.
+	 * Returns the list of lanes which are controlled by the named traffic light.
 	 * 
 	 * @param tlsID a string identifying the traffic light
-	 * @return list of controlled links
+	 * @return list of controlled lanes
 	 */
-
+	
+	
 	public static SumoCommand getControlledLanes(String tlsID){
 		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_CONTROLLED_LANES, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_STRINGLIST);
 	}

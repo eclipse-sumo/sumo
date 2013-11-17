@@ -23,7 +23,7 @@ import de.tudresden.sumo.util.SumoCommand;
 /**
  * 
  * @author Mario Krumnow
- * @author Evamarie Wießner
+ * @author Evamarie Wiessner
  *
  */
 

@@ -26,7 +26,7 @@ import de.tudresden.ws.container.SumoStringList;
 /**
  * 
  * @author Mario Krumnow
- * @author Evamarie Wießner
+ * @author Evamarie Wiessner
  *
  */
 
@@ -56,12 +56,9 @@ public class Polygon {
 		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
+	
 	/**
-	 * Returns the shape of this polygon.
-	 * 
-	 * @param polygonID
-	 *            a string identifying the polygon return the shape of the
-	 *            polygon
+	 * Returns the number of all Polygons in the network.
 	 */
 
 	public static SumoCommand getIDCount(){
@@ -69,7 +66,11 @@ public class Polygon {
 	}
 	
 	/**
-	 * getShape
+	 * Returns the shape of this polygon.
+	 * 
+	 * @param polygonID
+	 *            a string identifying the polygon return the shape of the
+	 *            polygon
 	 */
 
 	public static SumoCommand getShape(String polygonID){
