@@ -29,3 +29,9 @@ The subfolders contain additional libraries used by SUMO:
  Used version: unknown
  Modifications: syntactic sugar for gcc compilation; different footprint for "Search" due to a different callback
  Original Page: http://www.superliminal.com/sources/RTreeTemplate.zip
+
+- EulerSpiral
+ Approximating curves
+ Used version: unknown
+ Modifications: fixing warnings (removing unused variables, initializing variables); relicensed under LGPL, see license file
+ Original page: http://www.lems.brown.edu/vision/researchAreas/EulerSpiral/

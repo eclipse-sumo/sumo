@@ -1,0 +1,9 @@
+You may feel free to re-release your code to sourceforge under the
+LGPL in this case. Ordinarily, the LGPL allows incorporation into
+proprietary products and so that might raise an eyebrow here about the
+intended use. If it is going to be a commercial product that earns
+revenue, you and Brown should be paid for the developed code. But in
+this case it is a free SourceForge project so our office sees no
+reason not to enable whatever implementation they want that you are
+willing to provide.
+
