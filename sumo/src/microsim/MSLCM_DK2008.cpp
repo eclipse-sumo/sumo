@@ -298,15 +298,7 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     SUMOReal vmax = MIN2(myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle), myVehicle.getVehicleType().getMaxSpeed());
     vmax -= (SUMOReal)(5. / 2.6);
     if (neighLaneVSafe >= vmax) {
-#ifndef NO_TRACI
-        /* if there was a request by TraCI for changing to this lane
-        and holding it, this rule is ignored */
-        if (!myVehicle.hasInfluencer() || myVehicle.getInfluencer().getChangeRequest() != MSVehicle::REQUEST_HOLD) {
-#endif
-            myChangeProbability -= (SUMOReal)((neighLaneVSafe - vmax) / (vmax));
-#ifndef NO_TRACI
-        }
-#endif
+        myChangeProbability -= (SUMOReal)((neighLaneVSafe - vmax) / (vmax));
     }
 
     if (myChangeProbability < -2 && neighDist / MAX2((SUMOReal) .1, myVehicle.getSpeed()) > 20.) { //./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // -.1

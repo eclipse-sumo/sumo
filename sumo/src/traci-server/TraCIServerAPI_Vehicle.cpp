@@ -522,7 +522,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
             laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + stickyTime, laneIndex));
             v->getInfluencer().setLaneTimeLine(laneTimeLine);
-            v->getInfluencer().checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), *v->getEdge(), v->getLaneIndex());
         }
         break;
         case CMD_SLOWDOWN: {

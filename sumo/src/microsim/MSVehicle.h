@@ -841,9 +841,6 @@ public:
          */
         SUMOReal influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMOReal vSafe, SUMOReal vMin, SUMOReal vMax);
 
-        /// @brief check for valid change requests in the current laneTimeLine
-        void checkForLaneChanges(SUMOTime currentTime, const MSEdge& currentEdge, unsigned int currentLaneIndex); 
-
         /** @brief Applies stored LaneChangeMode information and laneTimeLine
          *
          * @param[in] state The LaneChangeAction flags as computed by the laneChangeModel
@@ -852,11 +849,8 @@ public:
          * @param[in] currentLaneIndex The index of the lane the vehicle is currently on
          * @return The new LaneChangeAction flags to use
          */
-        int influenceChangeDecision(int state);
-
-        inline ChangeRequest getCurrentChangeRequest() {
-            return myChangeRequest;
-        }
+        int influenceChangeDecision(const SUMOTime currentTime, const MSEdge& currentEdge,
+                                    const unsigned int currentLaneIndex, int state);
 
         /** @brief Sets whether the safe velocity shall be regarded
          * @param[in] value Whether the safe velocity shall be regarded
@@ -903,10 +897,6 @@ public:
             return myAmVTDControlled;
         }
 
-        inline ChangeRequest getChangeRequest() const {
-            return myChangeRequest;
-        }
-
     private:
         /// @brief The velocity time line to apply
         std::vector<std::pair<SUMOTime, SUMOReal> > mySpeedTimeLine;
@@ -934,9 +924,6 @@ public:
         SUMOReal myVTDPos;
         int myVTDEdgeOffset;
         MSEdgeVector myVTDRoute;
-
-        /// @brief the currently active change request
-        ChangeRequest myChangeRequest;
 
     /// @name Flags for managing conflicts between the laneChangeModel and TraCI laneTimeLine 
     //@{
