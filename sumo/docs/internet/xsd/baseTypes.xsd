@@ -152,9 +152,10 @@
     </xsd:complexType>
 
     <xsd:complexType name="tlLogicType">
-        <xsd:sequence>
-            <xsd:element name="phase" type="phaseType" minOccurs="0" maxOccurs="unbounded"/>
-        </xsd:sequence>
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="phase" type="phaseType"/>
+            <xsd:element name="param" type="paramType"/>
+        </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="required"/>
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
