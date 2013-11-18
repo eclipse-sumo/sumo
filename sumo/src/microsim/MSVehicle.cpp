@@ -1039,6 +1039,9 @@ MSVehicle::executeMove() {
     // get safe velocities from DriveProcessItems
     SUMOReal vSafe = 0; // maximum safe velocity
     SUMOReal vSafeMin = 0; // minimum safe velocity
+    // the distance to a link which should either be crossed this step or in
+    // front of which we need to stop
+    SUMOReal vSafeMinDist = 0; 
     myHaveToWaitOnNextLink = false;
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
@@ -1082,12 +1085,13 @@ MSVehicle::executeMove() {
                     break; // could be revalidated
                 } else {
                     // past the point of no return. we need to drive fast enough
-                    // to make it accross the junction. However, minor slowdowns
+                    // to make it accross the link. However, minor slowdowns
                     // should be permissible to follow leading traffic safely
                     // There is a problem in subsecond simulation: If we cannot
                     // make it across the minor link in one step, new traffic
                     // could appear on a major foe link and cause a collision
                     vSafeMin = MIN2((SUMOReal) DIST2SPEED(myLane->getLength() - getPositionOnLane() + POSITION_EPS), (*i).myVLinkPass);
+                    vSafeMinDist = myLane->getLength() - getPositionOnLane();
                 }
             }
             // have waited; may pass if opened...
@@ -1110,8 +1114,8 @@ MSVehicle::executeMove() {
         }
     }
     if (vSafe + NUMERICAL_EPS < vSafeMin) {
-        // cannot drive safely, so we need to stop
-        vSafe = 0;
+        // cannot drive across a link so we need to stop before it
+        vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist));
         vSafeMin = 0;
         braking = true;
     }
