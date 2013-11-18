@@ -153,7 +153,7 @@ MSVehicle::Influencer::Influencer() :
     myCooperativeLC(LC_NOCONFLICT),
     mySpeedGainLC(LC_NOCONFLICT),
     myRightDriveLC(LC_NOCONFLICT),
-    myRespectGapLC(LC_ALWAYS)
+    myTraciLaneChangePriority(LCP_URGENT)
 {}
 
 
@@ -238,12 +238,15 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
             mode = mySpeedGainLC;
         } else if ((state & LCA_KEEPRIGHT) != 0) {
             mode = myRightDriveLC;
+        } else if ((state & LCA_TRACI) != 0) {
+            mode = LC_NEVER;
         } else {
-            WRITE_WARNING("Lane change model did not provide a reason for changing (state=" + toString(state) + ")");
+            WRITE_WARNING("Lane change model did not provide a reason for changing (state=" + toString(state) + ", time=" + time2string(currentTime) + "\n");
         }
         if (mode == LC_NEVER) {
             // cancel all lcModel requests
             state &= ~LCA_WANTS_LANECHANGE_OR_STAY;
+            state &= ~LCA_URGENT;
         } else if (mode == LC_NOCONFLICT && changeRequest != REQUEST_NONE) {
             if (
                     ((state & LCA_LEFT) != 0 && changeRequest != REQUEST_LEFT) ||
@@ -251,6 +254,7 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
                     ((state & LCA_STAY) != 0 && changeRequest != REQUEST_HOLD)) {
                 // cancel conflicting lcModel request
                 state &= ~LCA_WANTS_LANECHANGE_OR_STAY;
+                state &= ~LCA_URGENT;
             }
         } else if (mode == LC_ALWAYS) {
             // ignore any TraCI requests
@@ -258,18 +262,18 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
         }
     }
     // security checks
-    if ((state & LCA_OVERLAPPING) && myRespectGapLC != LC_NEVER) {
-        return state;
-    }
-    if (((state & LCA_BLOCKED) != 0) && myRespectGapLC == LC_ALWAYS) {
-        return state;
-    }
+    if ((myTraciLaneChangePriority == LCP_ALWAYS)
+            || (myTraciLaneChangePriority == LCP_NOOVERLAP && (state & LCA_OVERLAPPING) == 0)) {
+        state &= ~(LCA_BLOCKED | LCA_OVERLAPPING);
+    } 
     // apply traci requests
     if (changeRequest == REQUEST_NONE) {
         return state;
     } else {
-        state &= ~LCA_BLOCKED;
         state |= LCA_TRACI;
+        if (changeRequest != REQUEST_HOLD && myTraciLaneChangePriority != LCP_OPPORTUNISTIC) {
+            state |= LCA_URGENT;
+        }
         switch (changeRequest) {
             case REQUEST_HOLD:
                 return state | LCA_STAY;
@@ -281,6 +285,14 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
                 throw ProcessError("should not happen");
         }
     }
+}
+
+
+SUMOReal 
+MSVehicle::Influencer::changeRequestRemainingSeconds(const SUMOTime currentTime) const {
+    assert(myLaneTimeLine.size() >= 2);
+    assert(currentTime >= myLaneTimeLine[0].first);
+    return STEPS2TIME(myLaneTimeLine[1].first - currentTime);
 }
 
 
@@ -302,7 +314,7 @@ MSVehicle::Influencer::setLaneChangeMode(int value) {
     myCooperativeLC = (LaneChangeMode) ((value & (4+8)) >> 2);
     mySpeedGainLC = (LaneChangeMode) ((value & (16+32)) >> 4);
     myRightDriveLC = (LaneChangeMode) ((value & (64+128)) >> 6);
-    myRespectGapLC = (LaneChangeMode) ((value & (256+512)) >> 8);
+    myTraciLaneChangePriority = (TraciLaneChangePriority) ((value & (256+512)) >> 8);
 }
 
 
@@ -2082,8 +2094,8 @@ MSVehicle::replaceVehicleType(MSVehicleType* type) {
 
 unsigned int
 MSVehicle::getLaneIndex() const {
-    std::vector<MSLane*>::const_iterator laneP = std::find((*myCurrEdge)->getLanes().begin(), (*myCurrEdge)->getLanes().end(), myLane);
-    return (unsigned int) std::distance((*myCurrEdge)->getLanes().begin(), laneP);
+    std::vector<MSLane*>::const_iterator laneP = std::find(myLane->getEdge().getLanes().begin(), myLane->getEdge().getLanes().end(), myLane);
+    return (unsigned int) std::distance(myLane->getEdge().getLanes().begin(), laneP);
 }
 
 
@@ -2158,6 +2170,20 @@ MSVehicle::getSpeedWithoutTraciInfluence() const {
 }
 
 
+int 
+MSVehicle::influenceChangeDecision(int state) {
+    if (hasInfluencer()) {
+        state = getInfluencer().influenceChangeDecision(
+                MSNet::getInstance()->getCurrentTimeStep(), 
+                myLane->getEdge(), 
+                getLaneIndex(), 
+                state);
+    }
+    return state;
+}
+#endif
+
+
 void
 MSVehicle::saveState(OutputDevice& out) {
     MSBaseVehicle::saveState(out);
@@ -2188,8 +2214,6 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     myState.myPos = attrs.getFloat(SUMO_ATTR_POSITION);
     myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);
 }
-
-#endif
 
 
 /****************************************************************************/

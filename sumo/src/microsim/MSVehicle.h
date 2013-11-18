@@ -714,7 +714,7 @@ public:
     };
 
 
-    /* @brief modes for resolving conflicts between external control (traci)
+    /** @brief modes for resolving conflicts between external control (traci)
      * and vehicle control over lane changing. Each level of the lane-changing
      * hierarchy (strategic, cooperative, speedGain, keepRight) can be controlled
      * separately */
@@ -722,6 +722,15 @@ public:
         LC_NEVER      = 0,  // lcModel shall never trigger changes at this level
         LC_NOCONFLICT = 1,  // lcModel may trigger changes if not in conflict with TraCI request
         LC_ALWAYS     = 2   // lcModel may always trigger changes of this level regardless of requests
+    };
+
+
+    /// @brief modes for prioritizing traci lane change requests
+    enum TraciLaneChangePriority {
+        LCP_ALWAYS        = 0,  // change regardless of blockers, adapt own speed and speed of blockers 
+        LCP_NOOVERLAP     = 1,  // change unless overlapping with blockers, adapt own speed and speed of blockers 
+        LCP_URGENT        = 2,  // change if not blocked, adapt own speed and speed of blockers 
+        LCP_OPPORTUNISTIC = 3   // change if not blocked
     };
 
 
@@ -842,15 +851,21 @@ public:
         SUMOReal influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMOReal vSafe, SUMOReal vMin, SUMOReal vMax);
 
         /** @brief Applies stored LaneChangeMode information and laneTimeLine
-         *
-         * @param[in] state The LaneChangeAction flags as computed by the laneChangeModel
          * @param[in] currentTime The current simulation time
          * @param[in] currentEdge The current edge the vehicle is on
          * @param[in] currentLaneIndex The index of the lane the vehicle is currently on
+         * @param[in] state The LaneChangeAction flags as computed by the laneChangeModel
          * @return The new LaneChangeAction flags to use
          */
-        int influenceChangeDecision(const SUMOTime currentTime, const MSEdge& currentEdge,
-                                    const unsigned int currentLaneIndex, int state);
+        int influenceChangeDecision(const SUMOTime currentTime, const MSEdge& currentEdge, const unsigned int currentLaneIndex, int state);
+
+
+        /** @brief Return the remaining number of seconds of the current
+         * laneTimeLine assuming one exists
+         * @param[in] currentTime The current simulation time
+         * @return The remaining seconds to change lanes
+         */
+        SUMOReal changeRequestRemainingSeconds(const SUMOTime currentTime) const;
 
         /** @brief Sets whether the safe velocity shall be regarded
          * @param[in] value Whether the safe velocity shall be regarded
@@ -936,12 +951,8 @@ public:
         /// @brief changing to the rightmost lane 
         LaneChangeMode myRightDriveLC;
     //@}
-        /* @brief flags for influencing security precautions when following a TraCI change-request
-         * LC_NEVER : ignore other drivers
-         * LC_NOCONFLICT : avoid immediate collisions
-         * LC_ALWAYS : perform full security checks (front and rear gap)
-         */
-        LaneChangeMode myRespectGapLC;
+        ///* @brief flags for determining the priority of traci lane change requests
+        TraciLaneChangePriority myTraciLaneChangePriority;
 
     };
 
@@ -956,6 +967,9 @@ public:
     bool hasInfluencer() const {
         return myInfluencer != 0;
     }
+
+    /// @brief allow TraCI to influence a lane change decision
+    int influenceChangeDecision(int state);
 
 
 #endif

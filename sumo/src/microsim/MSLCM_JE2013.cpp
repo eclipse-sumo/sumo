@@ -85,7 +85,7 @@
 //#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
 //#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_26966400" || myVehicle.getID() == "emitter_SST92-150 FG 1 DE 1_26932941" || myVehicle.getID() == "emitter_SST92-175 FG 1 DE 129_27105000") 
 //#define DEBUG_COND (myVehicle.getID() == "Costa_200_153" || myVehicle.getID() == "Costa_12_154") // fail change to left
-//#define DEBUG_COND (myVehicle.getID() == "v3.6") // test stops_overtaking
+//#define DEBUG_COND (myVehicle.getID() == "veh1") // test stops_overtaking
 #define DEBUG_COND false
 
 // debug function
@@ -576,6 +576,7 @@ MSLCM_JE2013::_wantsChange(
         MSVehicle** firstBlocked) 
 {
     assert(laneOffset == 1 || laneOffset == -1);
+    const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     // compute bestLaneOffset
     MSVehicle::LaneQ curr, neigh, best;
     int bestLaneOffset = 0;
@@ -602,7 +603,7 @@ MSLCM_JE2013::_wantsChange(
             // VARIANT_13 (equalBest)
             if (bestLaneOffset == 0 && preb[p + laneOffset].bestLaneOffset == 0) { 
                 if (MSGlobals::gDebugFlag2) {
-                    std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                    std::cout << STEPS2TIME(currentTime)
                         << " veh=" << myVehicle.getID()
                         << " bestLaneOffsetOld=" << bestLaneOffset
                         << " bestLaneOffsetNew=" << laneOffset
@@ -642,7 +643,7 @@ MSLCM_JE2013::_wantsChange(
     */
 
     if (MSGlobals::gDebugFlag2) {
-        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        std::cout << STEPS2TIME(currentTime)
             << " veh=" << myVehicle.getID()
             << " firstBlocked=" << tryID(*firstBlocked)
             << " lastBlocked=" << tryID(*lastBlocked)
@@ -724,7 +725,7 @@ MSLCM_JE2013::_wantsChange(
             //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
 
     if (MSGlobals::gDebugFlag2) {
-        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        std::cout << STEPS2TIME(currentTime)
             << " veh=" << myVehicle.getID()
             << " laSpeed=" << myLookAheadSpeed
             << " laDist=" << laDist
@@ -735,9 +736,10 @@ MSLCM_JE2013::_wantsChange(
             << "\n";
     }
 
-    if (changeToBest && bestLaneOffset == curr.bestLaneOffset
-            && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
-
+    const bool urgentStrat = (changeToBest && bestLaneOffset == curr.bestLaneOffset
+            && currentDistDisallows(usableDist, bestLaneOffset, laDist));
+    ret = myVehicle.influenceChangeDecision(urgentStrat ? (ret | lca | LCA_STRATEGIC | LCA_URGENT) : ret);
+    if ((ret & LCA_URGENT) != 0) {
         // save the left space
         myLeftSpace = currentDist - myVehicle.getPositionOnLane();
         // VARIANT_14 (furtherBlock)
@@ -754,7 +756,9 @@ MSLCM_JE2013::_wantsChange(
             saveBlockerLength(*firstBlocked, lcaCounter);
         }
 
-        const SUMOReal remainingSeconds = MAX2((SUMOReal)STEPS2TIME(TS), myLeftSpace / myLookAheadSpeed / abs(bestLaneOffset) / URGENCY);
+        const SUMOReal remainingSeconds = ((ret & LCA_TRACI) == 0 ?
+                MAX2((SUMOReal)STEPS2TIME(TS), myLeftSpace / myLookAheadSpeed / abs(bestLaneOffset) / URGENCY) :
+                myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
         const SUMOReal plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
         if (plannedSpeed >= 0) {
             // maybe we need to deal with a blocking follower
@@ -762,7 +766,7 @@ MSLCM_JE2013::_wantsChange(
         }
 
         if (MSGlobals::gDebugFlag2) {
-            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            std::cout << STEPS2TIME(currentTime)
                 << " veh=" << myVehicle.getID()
                 << " myLeftSpace=" << myLeftSpace
                 << " remainingSeconds=" << remainingSeconds
@@ -770,7 +774,7 @@ MSLCM_JE2013::_wantsChange(
                 << "\n";
         }
         //
-        return ret | lca | LCA_STRATEGIC | LCA_URGENT;
+        return ret;
     }
 
     // VARIANT_20 (noOvertakeRight)
@@ -783,7 +787,7 @@ MSLCM_JE2013::_wantsChange(
                     &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
             mySpeedGainProbability += 0.3;
             if (MSGlobals::gDebugFlag2) {
-                std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                std::cout << STEPS2TIME(currentTime)
                     << " avoid overtaking on the right nv=" << nv->getID()
                     << " nvSpeed=" << nv->getSpeed()
                     << " mySpeedGainProbability=" << mySpeedGainProbability
@@ -852,7 +856,7 @@ MSLCM_JE2013::_wantsChange(
 
         // VARIANT_2 (nbWhenChangingToHelp)
         if (MSGlobals::gDebugFlag2) {
-            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            std::cout << STEPS2TIME(currentTime)
                 << " veh=" << myVehicle.getID()
                 << " wantsChangeToHelp=" << (right ? "right" : "left")
                 << " state=" << myOwnState
@@ -912,7 +916,7 @@ MSLCM_JE2013::_wantsChange(
         //keepRight(neighLead.first);
         keepRight(neighFollow.first);
         if (MSGlobals::gDebugFlag2) {
-            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+            std::cout << STEPS2TIME(currentTime)
                 << " veh=" << myVehicle.getID()
                 << " mySpeedGainProbability=" << mySpeedGainProbability
                 << " myKeepRightProbability=" << myKeepRightProbability
@@ -959,7 +963,7 @@ MSLCM_JE2013::_wantsChange(
         return ret | lca | LCA_STRATEGIC;
     }
     if (MSGlobals::gDebugFlag2) {
-        std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+        std::cout << STEPS2TIME(currentTime)
             << " veh=" << myVehicle.getID()
             << " mySpeedGainProbability=" << mySpeedGainProbability
             << " myKeepRightProbability=" << myKeepRightProbability
