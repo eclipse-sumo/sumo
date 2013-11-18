@@ -270,7 +270,7 @@ public class Edge {
 	 */
 
 	public static SumoCommand getWaitingTime(String edgeID){
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_WAITING_TIME, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_WAITING_TIME, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 	
 	

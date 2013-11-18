@@ -670,8 +670,8 @@ public class Traci{
 	}
 	
 	@WebMethod(action="Vehicle: getWaitingTime")
-	public int Vehicle_getWaitingTime(@WebParam(name = "vehID") String vehID){
-		return this.helper.getInt(this.sumo.get_cmd(Vehicle.getWaitingTime(vehID)));
+	public double Vehicle_getWaitingTime(@WebParam(name = "vehID") String vehID){
+		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getWaitingTime(vehID)));
 	}
 	
 	@WebMethod(action="Vehicle: getLaneID")
@@ -1184,8 +1184,8 @@ public class Traci{
 	}
 
 	@WebMethod(action="Lane: getWaitingTime")
-	public int Lane_getWaitingTime(@WebParam(name = "laneID") String laneID){
-		return this.helper.getInt(this.sumo.get_cmd(Lane.getWaitingTime(laneID)));
+	public double Lane_getWaitingTime(@WebParam(name = "laneID") String laneID){
+		return this.helper.getDouble(this.sumo.get_cmd(Lane.getWaitingTime(laneID)));
 	}
 	
 	@WebMethod(action="Lane: Returns the NOx emission in mg for the last time step on the given lane.")
@@ -1374,8 +1374,8 @@ public class Traci{
 	}
 
 	@WebMethod(action="Inductionloop: Returns the position measured from the beginning of the lane.")
-	public SumoPosition2D Inductionloop_getPosition(@WebParam(name = "loopID") String loopID){
-		return this.helper.getPosition2D(this.sumo.get_cmd(Inductionloop.getPosition(loopID)));
+	public double Inductionloop_getPosition(@WebParam(name = "loopID") String loopID){
+		return this.helper.getDouble(this.sumo.get_cmd(Inductionloop.getPosition(loopID)));
 	}
 
 	@WebMethod(action="Inductionloop: getTimeSinceDetection")

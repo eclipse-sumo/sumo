@@ -343,7 +343,7 @@ public class Lane {
 	 */
 
 	public static SumoCommand getWaitingTime(String laneID){
-		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.VAR_WAITING_TIME, laneID, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.VAR_WAITING_TIME, laneID, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 	
 	
