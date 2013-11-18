@@ -2,14 +2,14 @@
     <flow id="src_29_0" route="29_0.0" number="212" begin="0" end="3600"/>
     <flow id="src_35_65_1" route="35_65_1.0" number="2" begin="0" end="3600"/>
     <flow id="src_19_48_1" number="281" begin="0" end="3600">
-        <routeDistribution routes="19_48_1.0 19_48_1.1 19_48_1.2 19_48_1.3" probabilities="17 35 207 22"/>
+        <routeDistribution routes="19_48_1.0 19_48_1.1" probabilities="229 52"/>
     </flow>
     <flow id="src_10_0" route="10_0.0" number="18" begin="0" end="3600"/>
     <flow id="src_1_0" route="1_0.0" number="26" begin="0" end="3600"/>
     <flow id="src_32_63_1" route="32_63_1.0" number="13" begin="0" end="3600"/>
     <flow id="src_28_57_0" route="28_57_0.0" number="1" begin="0" end="3600"/>
     <flow id="src_17_0" number="26" begin="0" end="3600">
-        <routeDistribution routes="17_0.0 17_0.1" probabilities="24 2"/>
+        <routeDistribution routes="17_0.0 17_0.1" probabilities="2 24"/>
     </flow>
     <flow id="src_7_0" number="47" begin="0" end="3600">
         <routeDistribution routes="7_0.0 7_0.1" probabilities="24 23"/>
@@ -18,7 +18,7 @@
     <flow id="src_51_50_0" route="51_50_0.0" number="22" begin="0" end="3600"/>
     <flow id="src_51_50_1" route="51_50_1.0" number="119" begin="0" end="3600"/>
     <flow id="src_36_62_0" number="268" begin="0" end="3600">
-        <routeDistribution routes="36_62_0.0 36_62_0.1 36_62_0.2 36_62_0.3" probabilities="26 227 2 13"/>
+        <routeDistribution routes="36_62_0.0 36_62_0.1 36_62_0.2" probabilities="26 227 15"/>
     </flow>
     <flow id="src_36_62_1" route="36_62_1.0" number="43" begin="0" end="3600"/>
     <flow id="src_45_2_1" route="45_2_1.0" number="16" begin="0" end="3600"/>
@@ -26,7 +26,7 @@
     <flow id="src_33_60_61_2" route="33_60_61_2.0" number="5" begin="0" end="3600"/>
     <flow id="src_35_65_0" route="35_65_0.0" number="1" begin="0" end="3600"/>
     <flow id="src_33_60_61_0" number="69" begin="0" end="3600">
-        <routeDistribution routes="33_60_61_0.0 33_60_61_0.1" probabilities="22 47"/>
+        <routeDistribution routes="33_60_61_0.0 33_60_61_0.1" probabilities="47 22"/>
     </flow>
     <flow id="src_33_60_61_1" route="33_60_61_1.0" number="6" begin="0" end="3600"/>
 </additional>
