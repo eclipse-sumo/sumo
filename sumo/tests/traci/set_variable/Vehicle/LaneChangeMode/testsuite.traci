@@ -11,4 +11,10 @@ NoSpeedGain
 NoRight
 
 # tests urgency of traci lane change
-Urgent
+Prio_Always
+# tests urgency of traci lane change
+Prio_NoOverlap
+# tests urgency of traci lane change
+Prio_Urgent
+# tests urgency of traci lane change
+Prio_Opportunistic
