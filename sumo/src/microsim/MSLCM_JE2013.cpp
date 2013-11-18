@@ -591,6 +591,7 @@ MSLCM_JE2013::_wantsChange(
     }
     for (int p = 0; p < (int) preb.size(); ++p) {
         if (preb[p].lane == prebLane && p + laneOffset >= 0) {
+            assert(p + laneOffset < preb.size());
             curr = preb[p];
             neigh = preb[p + laneOffset];
             currentDist = curr.length;
@@ -611,6 +612,7 @@ MSLCM_JE2013::_wantsChange(
             }
             best = preb[p + bestLaneOffset];
             currIdx = p;
+            break;
         }
     }
     // direction specific constants

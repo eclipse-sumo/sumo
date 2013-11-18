@@ -137,6 +137,7 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
             neighExtDist = preb[p - 1].lane->getLength();
             best = preb[p + bestLaneOffset];
             currIdx = p;
+            break;
         }
     }
 
@@ -349,6 +350,7 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
             neighExtDist = preb[p + 1].lane->getLength();
             best = preb[p + bestLaneOffset];
             currIdx = p;
+            break;
         }
     }
     // keep information about being a leader/follower

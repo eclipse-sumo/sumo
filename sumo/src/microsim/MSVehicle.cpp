@@ -1706,6 +1706,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
                     if (startLane->getLinkCont()[0]->getLane() == lanes[i].lane) {
                         myCurrentLaneInBestLanes = lanes.begin() + i;
                     }
+                    assert(&(lanes[i].lane->getEdge()) == nextEdge);
                 }
                 myLastBestLanesInternalLane = startLane;
                 return lanes;
