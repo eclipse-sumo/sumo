@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu 30 May 2013 01:04:28 PM CEST by SUMO gui Version dev-SVN-r14060
+<!-- generated on Mon Nov 18 08:05:32 2013 by SUMO sumo Version dev-SVN-r15130
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -27,13 +27,15 @@
 -->
 
 <tripinfos>
-    <tripinfo id="blocker.0" depart="0.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="0.00" arrival="6.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="11.05" duration="6.00" routeLength="23.80" waitSteps="0" rerouteNo="0" devices="tripinfo_blocker.0" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="blocker.1" depart="2.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="0.00" arrival="8.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="11.36" duration="6.00" routeLength="23.80" waitSteps="1" rerouteNo="0" devices="tripinfo_blocker.1" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="blocker.2" depart="5.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="1.00" arrival="12.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="10.81" duration="7.00" routeLength="23.80" waitSteps="1" rerouteNo="0" devices="tripinfo_blocker.2" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="blocker.3" depart="8.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="2.00" arrival="14.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="11.17" duration="6.00" routeLength="23.80" waitSteps="1" rerouteNo="0" devices="tripinfo_blocker.3" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="across" depart="0.00" departLane="across1_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="15.00" arrivalLane="across2_0" arrivalPos="18.55" arrivalSpeed="10.86" duration="15.00" routeLength="108.70" waitSteps="0" rerouteNo="0" devices="tripinfo_across" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="blocker.4" depart="11.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="3.00" arrival="17.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="10.32" duration="6.00" routeLength="23.80" waitSteps="1" rerouteNo="0" devices="tripinfo_blocker.4" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="blocker.5" depart="14.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="4.00" arrival="20.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="11.50" duration="6.00" routeLength="23.80" waitSteps="1" rerouteNo="0" devices="tripinfo_blocker.5" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="blocker.6" depart="17.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="5.00" arrival="24.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="11.66" duration="7.00" routeLength="23.80" waitSteps="1" rerouteNo="0" devices="tripinfo_blocker.6" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="blocker.7" depart="20.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="6.00" arrival="26.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="10.77" duration="6.00" routeLength="23.80" waitSteps="1" rerouteNo="0" devices="tripinfo_blocker.7" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="blocker.0" depart="0.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="0.00" arrival="5.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="13.00" duration="5.00" routeLength="23.80" waitSteps="0" rerouteNo="0" devices="tripinfo_blocker.0" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="blocker.1" depart="2.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="0.00" arrival="8.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="13.38" duration="6.00" routeLength="23.80" waitSteps="0" rerouteNo="0" devices="tripinfo_blocker.1" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="blocker.2" depart="5.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="1.00" arrival="10.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="12.56" duration="5.00" routeLength="23.80" waitSteps="0" rerouteNo="0" devices="tripinfo_blocker.2" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="blocker.3" depart="7.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="1.00" arrival="13.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="13.00" duration="6.00" routeLength="23.80" waitSteps="1" rerouteNo="0" devices="tripinfo_blocker.3" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="across" depart="0.00" departLane="across1_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="14.00" arrivalLane="across2_0" arrivalPos="18.55" arrivalSpeed="13.75" duration="14.00" routeLength="108.70" waitSteps="0" rerouteNo="0" devices="tripinfo_across" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="blocker.4" depart="10.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="2.00" arrival="16.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="13.38" duration="6.00" routeLength="23.80" waitSteps="0" rerouteNo="0" devices="tripinfo_blocker.4" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="blocker.5" depart="13.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="3.00" arrival="18.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="12.56" duration="5.00" routeLength="23.80" waitSteps="0" rerouteNo="0" devices="tripinfo_blocker.5" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="blocker.6" depart="15.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="3.00" arrival="21.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="13.00" duration="6.00" routeLength="23.80" waitSteps="1" rerouteNo="0" devices="tripinfo_blocker.6" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="blocker.7" depart="18.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="4.00" arrival="24.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="13.38" duration="6.00" routeLength="23.80" waitSteps="0" rerouteNo="0" devices="tripinfo_blocker.7" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="blocker.8" depart="21.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="5.00" arrival="26.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="12.56" duration="5.00" routeLength="23.80" waitSteps="0" rerouteNo="0" devices="tripinfo_blocker.8" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="blocker.9" depart="23.00" departLane="across3_0" departPos="90.00" departSpeed="0.00" departDelay="5.00" arrival="29.00" arrivalLane="across4_0" arrivalPos="18.55" arrivalSpeed="13.00" duration="6.00" routeLength="23.80" waitSteps="1" rerouteNo="0" devices="tripinfo_blocker.9" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>

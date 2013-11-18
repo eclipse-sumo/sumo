@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 28 12:43:41 2013 by SUMO sumo Version dev-SVN-r14939
+<!-- generated on Fri Nov 15 16:06:49 2013 by SUMO sumo Version dev-SVN-r15111
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -40,7 +40,7 @@
     <tripinfo id="priority.9" depart="27.00" departLane="middle_0" departPos="800.00" departSpeed="27.37" departDelay="0.00" arrival="53.00" arrivalLane="end_0" arrivalPos="495.25" arrivalSpeed="27.37" duration="26.00" routeLength="685.75" waitSteps="0" rerouteNo="0" devices="tripinfo_priority.9" vType="tflow" vaporized=""/>
     <tripinfo id="priority.10" depart="30.00" departLane="middle_0" departPos="800.00" departSpeed="27.00" departDelay="0.00" arrival="56.00" arrivalLane="end_0" arrivalPos="495.25" arrivalSpeed="27.00" duration="26.00" routeLength="685.75" waitSteps="0" rerouteNo="0" devices="tripinfo_priority.10" vType="tflow" vaporized=""/>
     <tripinfo id="priority.11" depart="33.00" departLane="middle_0" departPos="800.00" departSpeed="29.28" departDelay="0.00" arrival="57.00" arrivalLane="end_0" arrivalPos="495.25" arrivalSpeed="29.28" duration="24.00" routeLength="685.75" waitSteps="0" rerouteNo="0" devices="tripinfo_priority.11" vType="tflow" vaporized=""/>
-    <tripinfo id="ego" depart="0.00" departLane="right2end_0" departPos="400.00" departSpeed="0.00" departDelay="0.00" arrival="63.00" arrivalLane="end_0" arrivalPos="495.25" arrivalSpeed="27.80" duration="63.00" routeLength="590.55" waitSteps="28" rerouteNo="0" devices="tripinfo_ego" vType="t" vaporized=""/>
+    <tripinfo id="ego" depart="0.00" departLane="right2end_0" departPos="400.00" departSpeed="0.00" departDelay="0.00" arrival="63.00" arrivalLane="end_0" arrivalPos="495.25" arrivalSpeed="27.80" duration="63.00" routeLength="590.55" waitSteps="27" rerouteNo="0" devices="tripinfo_ego" vType="t" vaporized=""/>
     <tripinfo id="priority.12" depart="36.00" departLane="middle_0" departPos="800.00" departSpeed="25.49" departDelay="0.00" arrival="66.00" arrivalLane="end_0" arrivalPos="495.25" arrivalSpeed="25.49" duration="30.00" routeLength="685.75" waitSteps="0" rerouteNo="0" devices="tripinfo_priority.12" vType="tflow" vaporized=""/>
     <tripinfo id="priority.13" depart="39.00" departLane="middle_0" departPos="800.00" departSpeed="27.95" departDelay="0.00" arrival="67.00" arrivalLane="end_0" arrivalPos="495.25" arrivalSpeed="27.95" duration="28.00" routeLength="685.75" waitSteps="0" rerouteNo="0" devices="tripinfo_priority.13" vType="tflow" vaporized=""/>
     <tripinfo id="priority.14" depart="42.00" departLane="middle_0" departPos="800.00" departSpeed="27.69" departDelay="0.00" arrival="68.00" arrivalLane="end_0" arrivalPos="495.25" arrivalSpeed="27.69" duration="26.00" routeLength="685.75" waitSteps="0" rerouteNo="0" devices="tripinfo_priority.14" vType="tflow" vaporized=""/>

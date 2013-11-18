@@ -1,6 +1,4 @@
-Warning: Teleporting vehicle 'flow_detour.0'; waited too long (yield), lane='2/2to2/1_0', time=343.00.
-Warning: Vehicle 'flow_detour.0' ends teleporting on edge '2/1to3/1', simulation time 343.00.
-Warning: Teleporting vehicle 'flow_detour.1'; waited too long (yield), lane='2/2to2/1_0', time=647.00.
-Warning: Teleporting vehicle 'flow_detour.0'; waited too long (yield), lane='2/1to3/1_0', time=725.00.
-Warning: Vehicle 'flow_detour.1' ends teleporting on edge '2/1to3/1', simulation time 725.00.
-Warning: Vehicle 'flow_detour.0' ends teleporting on edge '3/1to4/1', simulation time 725.00.
+Warning: Teleporting vehicle 'flow_detour.0'; waited too long (yield), lane='2/2to2/1_0', time=430.00.
+Warning: Teleporting vehicle 'flow_block.0'; waited too long (yield), lane='2/1to3/1_0', time=731.00.
+Warning: Vehicle 'flow_detour.0' ends teleporting on edge '2/1to3/1', simulation time 731.00.
+Warning: Vehicle 'flow_block.0' ends teleporting on edge '3/1to3/0', simulation time 731.00.
