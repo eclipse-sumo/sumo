@@ -9,3 +9,6 @@ NoSpeedGain
 
 # tests preventing right drive lane changing
 NoRight
+
+# tests urgency of traci lane change
+Urgent
