@@ -67,6 +67,8 @@ MSLinkContHelper::getConnectingLink(const MSLane& from, const MSLane& to) {
         MSLink* link = *j;
         if (link->getLane() == &to) {
             return link;
+        } else if (link->getViaLaneOrLane() == &to) {
+            return link;
         }
     }
     return 0;
