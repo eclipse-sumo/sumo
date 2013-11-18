@@ -453,6 +453,9 @@ public:
         myAmRoundabout = true;
     }
 
+    /// @brief whether lane changing may be performed on this edge
+    bool laneChangeAllowed() const;
+
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
         returns false. */

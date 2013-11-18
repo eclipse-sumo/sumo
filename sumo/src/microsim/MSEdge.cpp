@@ -103,6 +103,27 @@ MSEdge::initialize(std::vector<MSLane*>* lanes) {
 }
 
 
+bool 
+MSEdge::laneChangeAllowed() const {
+    if (myLanes == 0 || myLanes->size() < 2) {
+        return false;
+    }
+    if (myFunction != EDGEFUNCTION_INTERNAL) {
+        return true;
+    }
+    // allow changing only if all links leading to this internal lane have priority
+    for (std::vector<MSLane*>::iterator it = myLanes->begin(); it != myLanes->end(); ++it) {
+        MSLane* pred = (*it)->getLogicalPredecessorLane();
+        MSLink* link = MSLinkContHelper::getConnectingLink(*pred, **it);
+        assert(link != 0);
+        if (!link->havePriority()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 void
 MSEdge::closeBuilding() {
     myAllowed[0] = new std::vector<MSLane*>();
@@ -382,8 +403,9 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time) const {
 
 void
 MSEdge::changeLanes(SUMOTime t) {
-    assert(myLaneChanger != 0);
-    myLaneChanger->laneChange(t);
+    if (laneChangeAllowed()) {
+        myLaneChanger->laneChange(t);
+    }
 }
 
 
