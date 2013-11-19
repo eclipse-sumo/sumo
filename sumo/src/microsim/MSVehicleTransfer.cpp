@@ -64,12 +64,13 @@ MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) {
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_PARKING);
     } else {
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
-        if ((veh->succEdge(1) == 0) || veh->enterLaneAtMove(veh->succEdge(1)->getLanes()[0], true)) {
+        if (veh->succEdge(1) == 0) {
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             return;
         }
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
+        veh->enterLaneAtMove(veh->succEdge(1)->getLanes()[0], true);
     }
     myVehicles.push_back(VehicleInformation(veh,
                                             t + TIME2STEPS(veh->getEdge()->getCurrentTravelTime(TeleportMinSpeed)),
