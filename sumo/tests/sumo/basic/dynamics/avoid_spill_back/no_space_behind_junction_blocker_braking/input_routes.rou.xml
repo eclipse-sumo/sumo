@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="ego" depart="0" arrivalPos="4">
+   <vType id="ego" sigma="0" length="10"/>
+   <vType id="blocker" sigma="0" decel="2"/>
+
+    <vehicle id="ego" type="ego" depart="0" arrivalPos="4">
         <route edges="beg middle"/>
     </vehicle>
 
-    <vehicle id="blocker" depart="0" departPos="0">
+    <vehicle id="blocker" type="blocker" depart="0" departPos="0" departSpeed="7">
         <route edges="middle"/>
         <stop lane="middle_0" endPos="11" duration="1000"/>
     </vehicle>
