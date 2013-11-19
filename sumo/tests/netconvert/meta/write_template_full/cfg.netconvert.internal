@@ -133,7 +133,7 @@
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges"/>
         <osm.railway.oneway-default value="true" type="BOOL" help="Imports railway edges as one-way by default"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
-        <opendrive.import-widths value="false" type="BOOL" help="Whether lane widths shall be imported"/>
+        <opendrive.ignore-widths value="false" type="BOOL" help="Whether lane widths shall be ignored."/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <dismiss-vclasses value="false" type="BOOL" help="Removes vehicle class restrictions from imported edges"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
