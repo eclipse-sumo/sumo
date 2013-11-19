@@ -261,16 +261,16 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
             return state;
         }
     }
-    // security checks
-    if ((myTraciLaneChangePriority == LCP_ALWAYS)
-            || (myTraciLaneChangePriority == LCP_NOOVERLAP && (state & LCA_OVERLAPPING) == 0)) {
-        state &= ~(LCA_BLOCKED | LCA_OVERLAPPING);
-    } 
     // apply traci requests
     if (changeRequest == REQUEST_NONE) {
         return state;
     } else {
         state |= LCA_TRACI;
+        // security checks
+        if ((myTraciLaneChangePriority == LCP_ALWAYS)
+                || (myTraciLaneChangePriority == LCP_NOOVERLAP && (state & LCA_OVERLAPPING) == 0)) {
+            state &= ~(LCA_BLOCKED | LCA_OVERLAPPING);
+        } 
         if (changeRequest != REQUEST_HOLD && myTraciLaneChangePriority != LCP_OPPORTUNISTIC) {
             state |= LCA_URGENT;
         }
