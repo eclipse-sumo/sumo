@@ -362,7 +362,7 @@ NLDetectorBuilder::buildRouteProbe(const std::string& id, const std::string& edg
                                    const std::string& device) {
     checkSampleInterval(frequency, SUMO_TAG_ROUTEPROBE, id);
     MSEdge* e = getEdgeChecking(edge, SUMO_TAG_ROUTEPROBE, id);
-    MSRouteProbe* probe = new MSRouteProbe(id, e, begin);
+    MSRouteProbe* probe = new MSRouteProbe(id, e, id + "_" + toString(begin), id + "_" + toString(begin - frequency));
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_ROUTEPROBE, probe, device, frequency, begin);
 }

@@ -43,6 +43,7 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
+class MSRouteProbe;
 
 
 // ===========================================================================
@@ -59,7 +60,8 @@ public:
                  const MSEdge* const edge, const SUMOReal pos,
                  const std::string& aXMLFilename,
                  const std::string& outputFilename,
-                 const SUMOTime freq, const SUMOReal length, const bool addLaneMeanData=true);
+                 const SUMOTime freq, const SUMOReal length,
+                 const MSRouteProbe* probe, const bool addLaneMeanData=true);
 
     /** destructor */
     virtual ~MSCalibrator();
@@ -208,6 +210,8 @@ protected:
     const MSEdge* const myEdge;
     /// @brief the position on the edge where this calibrator lies
     const SUMOReal myPos;
+    /// @brief the route probe to retrieve routes from
+    const MSRouteProbe* const myProbe;
     /// @brief data collector for the calibrator
     std::vector<MSMeanData_Net::MSLaneMeanDataValues*> myLaneMeanData;
     /// @brief accumlated data for the whole edge

@@ -76,7 +76,7 @@ MSInsertionControl::add(SUMOVehicleParameter* pars) {
                       pars->departPosProcedure == DEPART_POS_RANDOM ||
                       MSNet::getInstance()->getVehicleControl().hasVTypeDistribution(pars->vtypeid);
     if (!flow.isVolatile) {
-        RandomDistributor<const MSRoute*>* dist = MSRoute::distDictionary(pars->routeid);
+        const RandomDistributor<const MSRoute*>* dist = MSRoute::distDictionary(pars->routeid);
         if (dist != 0) {
             const std::vector<const MSRoute*>& routes = dist->getVals();
             const MSEdge* e = 0;
@@ -241,7 +241,8 @@ MSInsertionControl::checkFlows(SUMOTime time,
         }
         if (pars->repetitionsDone == pars->repetitionNumber) {
             i = myFlows.erase(i);
-            delete(pars);
+            MSRoute::checkDist(pars->routeid);
+            delete pars;
         } else {
             ++i;
         }

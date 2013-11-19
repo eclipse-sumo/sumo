@@ -334,6 +334,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_NUMBER,
     SUMO_ATTR_DURATION,
     SUMO_ATTR_UNTIL,
+    SUMO_ATTR_ROUTEPROBE,
     /** trigger: the time of the step */
     SUMO_ATTR_TIME,
     /** weights: time range begin */

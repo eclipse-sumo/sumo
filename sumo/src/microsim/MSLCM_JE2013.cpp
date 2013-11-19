@@ -85,8 +85,8 @@
 //#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
 //#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_26966400" || myVehicle.getID() == "emitter_SST92-150 FG 1 DE 1_26932941" || myVehicle.getID() == "emitter_SST92-175 FG 1 DE 129_27105000") 
 //#define DEBUG_COND (myVehicle.getID() == "Costa_200_153" || myVehicle.getID() == "Costa_12_154") // fail change to left
-//#define DEBUG_COND (myVehicle.getID() == "veh1") // test stops_overtaking
-#define DEBUG_COND false
+#define DEBUG_COND (myVehicle.getID() == "150_3_36013043") // test stops_overtaking
+//#define DEBUG_COND false
 
 // debug function
 std::string 

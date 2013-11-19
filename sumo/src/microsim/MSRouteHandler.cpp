@@ -331,7 +331,12 @@ MSRouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         delete myActiveRouteColor;
         myActiveRouteColor = 0;
         if (myActiveRouteRefID != "" && myCurrentRouteDistribution != 0) {
-            myCurrentRouteDistribution->add(myActiveRouteProbability, MSRoute::dictionary(myActiveRouteRefID));
+            const MSRoute* route = MSRoute::dictionary(myActiveRouteRefID);
+            if (route != 0) {
+                if (myCurrentRouteDistribution->add(myActiveRouteProbability, route)) {
+                    route->addReference();
+                }
+            }
             myActiveRouteID = "";
             myActiveRouteRefID = "";
             return;
@@ -361,7 +366,9 @@ MSRouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         }
     } else {
         if (myCurrentRouteDistribution != 0) {
-            myCurrentRouteDistribution->add(myActiveRouteProbability, route);
+            if (myCurrentRouteDistribution->add(myActiveRouteProbability, route)) {
+                route->addReference();
+            }
         }
     }
     myActiveRouteID = "";
@@ -384,7 +391,7 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
             return;
         }
     }
-    myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>(MSRoute::getMaxRouteDistSize(), &MSRoute::releaseRoute);
+    myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
     std::vector<SUMOReal> probs;
     if (attrs.hasAttribute(SUMO_ATTR_PROBS)) {
         bool ok = true;
@@ -404,7 +411,9 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
                 throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID + "'.");
             }
             const SUMOReal prob = (probs.size() > probIndex ? probs[probIndex] : 1.0);
-            myCurrentRouteDistribution->add(prob, route, false);
+            if (myCurrentRouteDistribution->add(prob, route, false)) {
+                route->addReference();
+            }
             probIndex++;
         }
         if (probs.size() > 0 && probIndex != probs.size()) {

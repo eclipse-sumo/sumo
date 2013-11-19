@@ -54,19 +54,12 @@
 template<class T>
 class RandomDistributor {
 public:
-    typedef void(*Operation)(const T);
-    static void doNothing(const T) {}
-
     /** @brief Constructor for an empty distribution
      * @param[in] maximumSize The maximum size to maintain
      *   older entrys will be removed when adding more than the maximumSize
      */
-    RandomDistributor(unsigned int maximumSize = std::numeric_limits<unsigned int>::max(),
-                      Operation operation = &doNothing) :
-        myProb(0),
-        myMaximumSize(maximumSize),
-        myInsertionIndex(0),
-        myOperation(operation)
+    RandomDistributor() :
+        myProb(0)
     {}
 
     /// @brief Destructor
@@ -81,27 +74,22 @@ public:
      *
      * @param[in] prob The probability assigned to the value
      * @param[in] val The value to add to the distribution
+     * @return true if a new value was added, false if just the probability of an existing one was updated
      */
-    void add(SUMOReal prob, T val, bool checkDuplicates = true) {
+    bool add(SUMOReal prob, T val, bool checkDuplicates = true) {
         assert(prob >= 0);
         myProb += prob;
         if (checkDuplicates) {
             for (size_t i = 0; i < myVals.size(); i++) {
                 if (val == myVals[i]) {
                     myProbs[i] += prob;
-                    return;
+                    return false;
                 }
             }
         }
-        if (myVals.size() < myMaximumSize) {
-            myVals.push_back(val);
-            myProbs.push_back(prob);
-        } else {
-            myOperation(myVals[myInsertionIndex]);
-            myVals[myInsertionIndex] = val;
-            myProbs[myInsertionIndex] = prob;
-            myInsertionIndex = (myInsertionIndex + 1) % myMaximumSize;
-        }
+        myVals.push_back(val);
+        myProbs.push_back(prob);
+        return true;
     }
 
     /** @brief Draw a sample of the distribution.
@@ -138,9 +126,6 @@ public:
     /// @brief Clears the distribution
     void clear() {
         myProb = 0;
-        for (size_t i = 0; i < myVals.size(); i++) {
-            myOperation(myVals[i]);
-        }
         myVals.clear();
         myProbs.clear();
     }
@@ -170,12 +155,6 @@ public:
 private:
     /// @brief the total probability
     SUMOReal myProb;
-    /// @brief the maximumSize of the distribution that shall be maintained
-    unsigned int myMaximumSize;
-    /// @brief the index at which the next element shall be inserted if maximumSize is exceeded
-    unsigned int myInsertionIndex;
-    /// @brief the operation to perform with replaced elements
-    Operation myOperation;
     /// @brief the members (acts as a ring buffer if myMaximumSize is reached)
     std::vector<T> myVals;
     /// @brief the corresponding probabilities (acts as a ring buffer if myMaximumSize is reached)

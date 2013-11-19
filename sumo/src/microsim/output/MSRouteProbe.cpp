@@ -52,15 +52,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, SUMOTime begin) :
-    MSDetectorFileOutput(id),
-    MSMoveReminder(id),
-    myCurrentRouteDistribution(0) {
-    const std::string distID = id + "_" + toString(begin);
-    myCurrentRouteDistribution = MSRoute::distDictionary(distID);
-    if (myCurrentRouteDistribution == 0) {
-        myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>(MSRoute::getMaxRouteDistSize(), &MSRoute::releaseRoute);
-        MSRoute::dictionary(distID, myCurrentRouteDistribution);
+MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std::string& distID, const std::string& lastID) :
+    MSDetectorFileOutput(id), MSMoveReminder(id) {
+    myCurrentRouteDistribution = std::make_pair(distID, MSRoute::distDictionary(distID));
+    if (myCurrentRouteDistribution.second == 0) {
+        myCurrentRouteDistribution.second = new RandomDistributor<const MSRoute*>();
+        MSRoute::dictionary(distID, myCurrentRouteDistribution.second, false);
     }
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
@@ -84,9 +81,10 @@ MSRouteProbe::~MSRouteProbe() {
 
 bool
 MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
-    if (myCurrentRouteDistribution != 0 && reason != MSMoveReminder::NOTIFICATION_SEGMENT && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
-        veh.getRoute().addReference();
-        myCurrentRouteDistribution->add(1., &veh.getRoute());
+    if (reason != MSMoveReminder::NOTIFICATION_SEGMENT && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
+        if (myCurrentRouteDistribution.second->add(1., &veh.getRoute())) {
+            veh.getRoute().addReference();
+        }
     }
     return false;
 }
@@ -95,10 +93,10 @@ MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason)
 void
 MSRouteProbe::writeXMLOutput(OutputDevice& dev,
                              SUMOTime startTime, SUMOTime stopTime) {
-    if (myCurrentRouteDistribution->getOverallProb() > 0) {
+    if (myCurrentRouteDistribution.second->getOverallProb() > 0) {
         dev.openTag("routeDistribution") << " id=\"" << getID() + "_" + time2string(startTime) << "\"";
-        const std::vector<const MSRoute*>& routes = myCurrentRouteDistribution->getVals();
-        const std::vector<SUMOReal>& probs = myCurrentRouteDistribution->getProbs();
+        const std::vector<const MSRoute*>& routes = myCurrentRouteDistribution.second->getVals();
+        const std::vector<SUMOReal>& probs = myCurrentRouteDistribution.second->getProbs();
         for (unsigned int j = 0; j < routes.size(); ++j) {
             const MSRoute* r = routes[j];
             dev.openTag("route") << " id=\"" << r->getID() + "_" + time2string(startTime) << "\" edges=\"";
@@ -112,8 +110,13 @@ MSRouteProbe::writeXMLOutput(OutputDevice& dev,
             dev.closeTag();
         }
         dev.closeTag();
-        myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>(MSRoute::getMaxRouteDistSize(), &MSRoute::releaseRoute);
-        MSRoute::dictionary(getID() + "_" + toString(stopTime), myCurrentRouteDistribution);
+        if (myLastRouteDistribution.second != 0) {
+            MSRoute::checkDist(myLastRouteDistribution.first);
+        }
+        myLastRouteDistribution = myCurrentRouteDistribution;
+        myCurrentRouteDistribution.first = getID() + "_" + toString(stopTime);
+        myCurrentRouteDistribution.second = new RandomDistributor<const MSRoute*>();
+        MSRoute::dictionary(myCurrentRouteDistribution.first, myCurrentRouteDistribution.second, false);
     }
 }
 
@@ -121,4 +124,16 @@ MSRouteProbe::writeXMLOutput(OutputDevice& dev,
 void
 MSRouteProbe::writeXMLDetectorProlog(OutputDevice& dev) const {
     dev.writeXMLHeader("route-probes");
+}
+
+
+const MSRoute*
+MSRouteProbe::getRoute() const {
+    if (myLastRouteDistribution.second == 0) {
+        if (myCurrentRouteDistribution.second->getOverallProb() > 0) {
+            return myCurrentRouteDistribution.second->get();
+        }
+        return 0;
+    }
+    return myLastRouteDistribution.second->get();
 }

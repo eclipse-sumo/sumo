@@ -36,6 +36,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEventControl.h>
+#include <microsim/output/MSRouteProbe.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
@@ -67,10 +68,12 @@ MSCalibrator::MSCalibrator(const std::string& id,
                            const MSEdge* const edge, const SUMOReal pos,
                            const std::string& aXMLFilename,
                            const std::string& outputFilename,
-                           const SUMOTime freq, const SUMOReal length, const bool addLaneMeanData) :
+                           const SUMOTime freq, const SUMOReal length,
+                           const MSRouteProbe* probe,
+                           const bool addLaneMeanData) :
     MSTrigger(id),
     MSRouteHandler(aXMLFilename, false),
-    myEdge(edge), myPos(pos),
+    myEdge(edge), myPos(pos), myProbe(probe),
     myEdgeMeanData(0, length, false),
     myOutput(0), myFrequency(freq), myRemoved(0),
     myInserted(0), myClearedInJam(0),
@@ -344,10 +347,9 @@ MSCalibrator::execute(SUMOTime currentTime) {
 #endif
         while (wishedNum > adaptedNum + insertionSlack) {
             SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
-            const MSRoute* route = 0;
-            StringTokenizer st(pars->routeid);
-            while (route == 0 && st.hasNext()) {
-                route = MSRoute::dictionary(st.next());
+            const MSRoute* route = myProbe != 0 ? myProbe->getRoute() : 0;
+            if (route == 0) {
+                route = MSRoute::dictionary(pars->routeid);
             }
             if (route == 0) {
                 WRITE_WARNING("No valid routes in calibrator '" + myID + "'.");

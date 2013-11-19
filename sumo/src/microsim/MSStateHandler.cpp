@@ -126,7 +126,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_ROUTE_DISTRIBUTION: {
             const std::string id = attrs.getString(SUMO_ATTR_ID);
             if (MSRoute::dictionary(id) == 0) {
-                RandomDistributor<const MSRoute*>* dist = new RandomDistributor<const MSRoute*>(MSRoute::getMaxRouteDistSize(), &MSRoute::releaseRoute);
+                RandomDistributor<const MSRoute*>* dist = new RandomDistributor<const MSRoute*>();
                 std::vector<std::string> routeIDs;
                 std::istringstream iss(attrs.getString(SUMO_ATTR_PROBS));
                 SUMOSAXAttributes::parseStringVector(attrs.getString(SUMO_ATTR_ROUTES), routeIDs);

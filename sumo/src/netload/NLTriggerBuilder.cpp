@@ -38,6 +38,8 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/output/MSDetectorControl.h>
+#include <microsim/output/MSRouteProbe.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSCalibrator.h>
@@ -191,16 +193,21 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
     const SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
     const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
     std::string file = getFileName(attrs, base, true);
-    std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, 0, ok, "");
+    std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), ok, "");
+    std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), ok, "");
+    MSRouteProbe* probe = 0;
+    if (routeProbe != "") {
+        probe = dynamic_cast<MSRouteProbe*>(net.getDetectorControl().getTypedDetectors(SUMO_TAG_ROUTEPROBE).get(routeProbe));
+    }
     if (MSGlobals::gUseMesoSim) {
 #ifdef HAVE_INTERNAL
-        METriggeredCalibrator* trigger = buildMECalibrator(net, id, &lane->getEdge(), pos, file, outfile, freq);
+        METriggeredCalibrator* trigger = buildMECalibrator(net, id, &lane->getEdge(), pos, file, outfile, freq, probe);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
 #endif
     } else {
-        MSCalibrator* trigger = buildCalibrator(net, id, &lane->getEdge(), pos, file, outfile, freq);
+        MSCalibrator* trigger = buildCalibrator(net, id, &lane->getEdge(), pos, file, outfile, freq, probe);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
@@ -265,8 +272,8 @@ NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
                                     const MSEdge* edge, SUMOReal pos,
                                     const std::string& file,
                                     const std::string& outfile,
-                                    const SUMOTime freq) {
-    return new METriggeredCalibrator(id, edge, pos, file, outfile, freq, MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)->getLength());
+                                    const SUMOTime freq, MSRouteProbe* probe) {
+    return new METriggeredCalibrator(id, edge, pos, file, outfile, freq, MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)->getLength(), probe);
 }
 #endif
 
@@ -276,8 +283,8 @@ NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
                                   MSEdge* edge, SUMOReal pos,
                                   const std::string& file,
                                   const std::string& outfile,
-                                  const SUMOTime freq) {
-    return new MSCalibrator(id, edge, pos, file, outfile, freq, edge->getLength());
+                                  const SUMOTime freq, MSRouteProbe* probe) {
+    return new MSCalibrator(id, edge, pos, file, outfile, freq, edge->getLength(), probe);
 }
 
 

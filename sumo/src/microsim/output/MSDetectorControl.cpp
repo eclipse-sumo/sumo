@@ -77,12 +77,7 @@ MSDetectorControl::close(SUMOTime step) {
 
 void
 MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, int splInterval, SUMOTime begin) {
-    if (myDetectors.find(type) == myDetectors.end()) {
-        myDetectors[type] = NamedObjectCont<MSDetectorFileOutput*>();
-    }
-    NamedObjectCont<MSDetectorFileOutput*>& m = myDetectors.find(type)->second;
-    // insert object into dictionary
-    if (! m.add(d->getID(), d)) {
+    if (!myDetectors[type].add(d->getID(), d)) {
         throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
     }
     addDetectorAndInterval(d, &OutputDevice::getDevice(device), splInterval, begin);
@@ -92,12 +87,7 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::stri
 
 void
 MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d) {
-    if (myDetectors.find(type) == myDetectors.end()) {
-        myDetectors[type] = NamedObjectCont<MSDetectorFileOutput*>();
-    }
-    NamedObjectCont<MSDetectorFileOutput*>& m = myDetectors.find(type)->second;
-    // insert object into dictionary
-    if (! m.add(d->getID(), d)) {
+    if (!myDetectors[type].add(d->getID(), d)) {
         throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
     }
 }
@@ -115,10 +105,20 @@ MSDetectorControl::add(MSMeanData* mn, const std::string& device,
 }
 
 
+const std::vector<SumoXMLTag>
+MSDetectorControl::getAvailableTypes() const {
+    std::vector<SumoXMLTag> result;
+    for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
+        result.push_back(i->first);
+    }
+    return result;
+}
+
+
 const NamedObjectCont<MSDetectorFileOutput*>&
 MSDetectorControl::getTypedDetectors(SumoXMLTag type) const {
     if (myDetectors.find(type) == myDetectors.end()) {
-        return myEmptyContainer;//myDetectors[type] = NamedObjectCont<MSDetectorFileOutput*>();
+        return myEmptyContainer;
     }
     return myDetectors.find(type)->second;
 }

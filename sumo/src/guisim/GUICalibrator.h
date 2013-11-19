@@ -62,7 +62,8 @@ public:
                   MSEdge* edge, SUMOReal pos,
                   const std::string& aXMLFilename,
                   const std::string& outputFilename,
-                  const SUMOTime freq);
+                  const SUMOTime freq,
+                  const MSRouteProbe* probe);
 
 
     /** destructor */

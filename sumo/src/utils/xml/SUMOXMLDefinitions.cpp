@@ -270,6 +270,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "number",         SUMO_ATTR_NUMBER },
     { "duration",       SUMO_ATTR_DURATION },
     { "until",          SUMO_ATTR_UNTIL },
+    { "routeProbe",     SUMO_ATTR_ROUTEPROBE },
 
     { "time",           SUMO_ATTR_TIME },
     { "begin",          SUMO_ATTR_BEGIN },
