@@ -214,7 +214,11 @@ MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
             gotOne = true;
             if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " got nVSafe=" << nVSafe << "\n";
         } else {
-            if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " ignoring nVSafe=" << v << "\n";
+            if (v < min) {
+                if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " ignoring low nVSafe=" << v << " min=" << min << "\n";
+            } else {
+                if (MSGlobals::gDebugFlag1) std::cout << time << " veh=" << myVehicle.getID() << " ignoring high nVSafe=" << v << " max=" << max << "\n";
+            }
         }
     }
 
@@ -304,7 +308,9 @@ MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
 void*
 MSLCM_JE2013::inform(void* info, MSVehicle* sender) {
     Info* pinfo = (Info*) info;
-    myVSafes.push_back(pinfo->first);
+    if (pinfo->first >= 0) {
+        myVSafes.push_back(pinfo->first);
+    }
     //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
     if (MSGlobals::gDebugFlag2 || DEBUG_COND) {
@@ -749,9 +755,9 @@ MSLCM_JE2013::_wantsChange(
             // rather move left ourselves (unless congested)
             MSVehicle* nv = neighLead.first;
             if (nv->getSpeed() < myVehicle.getSpeed()) {
+                mySpeedGainProbability += 0.3;
                 myVSafes.push_back(myCarFollowModel.followSpeed(
                             &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
-                mySpeedGainProbability += 0.3;
                 if (MSGlobals::gDebugFlag2) {
                     std::cout << STEPS2TIME(currentTime)
                         << " avoid overtaking on the right nv=" << nv->getID()
