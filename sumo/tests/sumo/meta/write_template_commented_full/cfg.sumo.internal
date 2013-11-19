@@ -174,9 +174,6 @@
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
-        <!-- Restrict the maximum size of route distributions -->
-        <routeDist.maxsize value="" type="INT"/>
-
     </processing>
 
     <report>
