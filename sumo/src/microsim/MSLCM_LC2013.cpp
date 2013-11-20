@@ -241,8 +241,8 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                     &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
             if (targetSpeed < myVehicle.getSpeed()) {
                 // slow down smoothly to follow leader 
-                const SUMOReal decel = MIN2(myVehicle.getCarFollowModel().getMaxDecel(), 
-                        MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds));
+                const SUMOReal decel = ACCEL2SPEED(MIN2(myVehicle.getCarFollowModel().getMaxDecel(), 
+                        MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds)));
                 const SUMOReal nextSpeed = MIN2(plannedSpeed, myVehicle.getSpeed() - decel);
                 myVSafes.push_back(nextSpeed);
                 return nextSpeed;
@@ -303,11 +303,12 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         const SUMOReal helpDecel = nv->getCarFollowModel().getMaxDecel() * HELP_DECEL_FACTOR ;
 
         // change in the gap between ego and blocker over 1 second (not STEP!)
-        const SUMOReal neighNewSpeed = MAX2((SUMOReal)0, nv->getSpeed() - helpDecel);
-        const SUMOReal dv = plannedSpeed - neighNewSpeed; 
+        const SUMOReal neighNewSpeed = MAX2((SUMOReal)0, nv->getSpeed() - ACCEL2SPEED(helpDecel));
+        const SUMOReal neighNewSpeed1s = MAX2((SUMOReal)0, nv->getSpeed() - helpDecel);
+        const SUMOReal dv = plannedSpeed - neighNewSpeed1s; 
         // new gap between follower and self in case the follower does brake for 1s
         const SUMOReal decelGap = neighFollow.second + dv;
-        const SUMOReal secureGap = nv->getCarFollowModel().getSecureGap(neighNewSpeed, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
+        const SUMOReal secureGap = nv->getCarFollowModel().getSecureGap(neighNewSpeed1s, plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
         if (decelGap > 0 && decelGap >= secureGap) {
             // if the blocking neighbor brakes it could actually help
             // how hard does it actually need to be?
@@ -339,7 +340,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             // speed difference to create a sufficiently large gap
             const SUMOReal needDV = overtakeDist / remainingSeconds;
             // make sure the deceleration is not to strong
-            myVSafes.push_back(MAX2(vhelp - needDV, myVehicle.getSpeed() - myVehicle.getCarFollowModel().getMaxDecel()));
+            myVSafes.push_back(MAX2(vhelp - needDV, myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())));
         }
     }
 }
