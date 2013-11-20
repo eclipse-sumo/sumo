@@ -785,7 +785,8 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
                 const bool r1 = MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock;
                 const bool r2 = MSGlobals::gTimeToGridlockHighways > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlockHighways && veh->getLane()->getSpeedLimit() > 69. / 3.6 && wrongLane;
                 if (r1 || r2) {
-                    const bool minorLink = !wrongLane && !((*succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation()))->havePriority());
+                    const MSLinkCont::const_iterator link = succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation());
+                    const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
                     const std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
                     MSVehicle* veh = *(myVehicles.end() - 1);
                     myBruttoVehicleLengthSum -= veh->getVehicleType().getLengthWithGap();
@@ -866,6 +867,14 @@ bool
 MSLane::appropriate(const MSVehicle* veh) {
     if (myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         return true;
+    }
+    if (veh->succEdge(1) == 0) {
+        assert(veh->getBestLanes().size() > veh->getLaneIndex());
+        if (veh->getBestLanes()[veh->getLaneIndex()].bestLaneOffset == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
     MSLinkCont::const_iterator link = succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation());
     return (link != myLinks.end());
