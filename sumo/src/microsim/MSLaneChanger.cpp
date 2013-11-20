@@ -509,7 +509,9 @@ MSLaneChanger::checkChange(
     // let TraCI influence the wish to change lanes and the security to take
     //const int oldstate = state;
     state = vehicle->influenceChangeDecision(state);
-    //std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) << " veh=" << vehicle->getID() << " oldstate=" << oldstate << " newstate=" << state << "\n";
+    //if (vehicle->getID() == "150_2_36000000") {
+    //    std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) << " veh=" << vehicle->getID() << " oldstate=" << oldstate << " newstate=" << state << "\n";
+    //}
 #endif
     return state;
 }

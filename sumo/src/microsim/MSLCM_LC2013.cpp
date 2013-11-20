@@ -527,6 +527,10 @@ MSLCM_LC2013::_wantsChange(
     }
     // check for overriding TraCI requests
     ret = myVehicle.influenceChangeDecision(ret); 
+    if ((ret & lcaCounter) != 0) {
+        // we are not interested in traci requests for the opposite direction here
+        ret &= ~(LCA_TRACI | lcaCounter | LCA_URGENT); 
+    }
 
     if ((ret & LCA_STAY) != 0) {
         return ret;

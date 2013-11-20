@@ -791,7 +791,13 @@ MSLCM_JE2013::_wantsChange(
         }
     }
     // check for overriding TraCI requests
+    if (MSGlobals::gDebugFlag2) std::cout << STEPS2TIME(currentTime) << " veh=" << myVehicle.getID() << " ret=" << ret;
     ret = myVehicle.influenceChangeDecision(ret); 
+    if ((ret & lcaCounter) != 0) {
+        // we are not interested in traci requests for the opposite direction here
+        ret &= ~(LCA_TRACI | lcaCounter | LCA_URGENT); 
+    }
+    if (MSGlobals::gDebugFlag2) std::cout << " retAfterInfluence=" << ret << "\n";
 
     if ((ret & LCA_STAY) != 0) {
         return ret;
