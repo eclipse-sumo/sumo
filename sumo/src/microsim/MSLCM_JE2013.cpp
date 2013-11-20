@@ -66,6 +66,7 @@
 //#define JAM_FACTOR 2. // VARIANT_8 (makes vehicles more focused but also more "selfish")
 
 #define LCA_RIGHT_IMPATIENCE (SUMOReal)-1.
+#define CUT_IN_LEFT_SPEED_THRESHOLD (SUMOReal)27.
 
 #define LOOK_AHEAD_MIN_SPEED (SUMOReal)0.0
 #define LOOK_AHEAD_SPEED_MEMORY (SUMOReal)0.9
@@ -501,8 +502,10 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             if (MSGlobals::gDebugFlag2) std::cout << " wants to cut in before nv=" << nv->getID() << " (eventually)\n";
         } else { 
             SUMOReal vhelp = MAX2(nv->getSpeed(), myVehicle.getSpeed() + HELP_OVERTAKE);
-            if (dir == LCA_MRIGHT && myVehicle.getWaitingSeconds() > LCA_RIGHT_IMPATIENCE &&
-                    nv->getSpeed() > myVehicle.getSpeed()) {
+            if (nv->getSpeed() > myVehicle.getSpeed() && 
+                    ((dir == LCA_MRIGHT && myVehicle.getWaitingSeconds() > LCA_RIGHT_IMPATIENCE)
+                     || (dir == LCA_MLEFT && plannedSpeed > CUT_IN_LEFT_SPEED_THRESHOLD) // VARIANT_22 (slowDownLeft)
+                     )) {
                 // let the follower slow down to increase the likelyhood that later vehicles will be slow enough to help
                 // follower should still be fast enough to open a gap
                 vhelp = MAX2(neighNewSpeed, myVehicle.getSpeed() + HELP_OVERTAKE);
