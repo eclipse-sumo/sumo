@@ -59,6 +59,7 @@ MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std:
         myCurrentRouteDistribution.second = new RandomDistributor<const MSRoute*>();
         MSRoute::dictionary(distID, myCurrentRouteDistribution.second, false);
     }
+    myLastRouteDistribution = std::make_pair(lastID, MSRoute::distDictionary(lastID));
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge);

@@ -136,8 +136,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                     const MSRoute* r = MSRoute::dictionary(*it);
                     assert(r != 0);
                     dist->add(prob, r, false);
+                    r->addReference();
                 }
-                MSRoute::dictionary(id, dist);
+                MSRoute::dictionary(id, dist, attrs.getBool(SUMO_ATTR_STATE));
             }
             break;
         }
