@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r14876
+SUMO sumo Version dev-SVN-r15146
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -100,8 +100,6 @@ Processing Options:
                                          (default 0)
   --routing-algorithm STR              Select among routing algorithms
                                          ['dijkstra', 'astar']
-  --routeDist.maxsize INT              Restrict the maximum size of route
-                                         distributions
 
 Report Options:
   -v, --verbose                        Switches to verbose output
