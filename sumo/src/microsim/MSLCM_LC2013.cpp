@@ -407,7 +407,7 @@ MSLCM_LC2013::_wantsChange(
     }
     for (int p = 0; p < (int) preb.size(); ++p) {
         if (preb[p].lane == prebLane && p + laneOffset >= 0) {
-            assert(p + laneOffset < preb.size());
+            assert(p + laneOffset < (int)preb.size());
             curr = preb[p];
             neigh = preb[p + laneOffset];
             currentDist = curr.length;
