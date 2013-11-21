@@ -68,15 +68,13 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-namespace traci {
-
 /** @class TraCIServer
  * @brief TraCI server used to control sumo by a remote TraCI client
  */
 class TraCIServer : public MSNet::VehicleStateListener {
 public:
     /// @brief Definition of a method to be called for serving an associated commandID
-    typedef bool(*CmdExecutor)(traci::TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
+    typedef bool(*CmdExecutor)(TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
 
 
     SUMOTime getTargetTime() {
@@ -291,22 +289,10 @@ private:
     /** @brief Handles subscriptions to send after a simstep2 command
      */
     void postProcessSimulationStep2();
-
-
-    /** @brief Adds a vehicle
-     * @deprecated Vehicles shall be inserted using the vehicle-API
-    */
-    bool commandAddVehicle();
     /// @}
 
 
-
-
-
     int dispatchCommand();
-
-
-
 
 
 
@@ -332,9 +318,6 @@ private:
     /// @brief Whether a step is currently done
     /// @todo: What is this for?
     bool myDoingSimStep;
-
-    /// @brief Whether the usage of deprecated methods was already reported
-    bool myHaveWarnedDeprecation;
 
     /// @brief Whether the server runs in embedded mode
     const bool myAmEmbedded;
@@ -411,8 +394,6 @@ private:
     TraCIServer& operator=(const TraCIServer& s);
 
 };
-
-}
 
 
 #endif

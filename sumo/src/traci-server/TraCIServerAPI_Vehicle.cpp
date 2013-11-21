@@ -58,13 +58,10 @@
 
 
 // ===========================================================================
-// used namespaces
+// static member variables
 // ===========================================================================
-using namespace traci;
-
-
-
 std::map<std::string, std::vector<MSLane*> > TraCIServerAPI_Vehicle::gVTDMap;
+
 
 // ===========================================================================
 // method definitions
@@ -1193,7 +1190,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
 
 
 bool
-TraCIServerAPI_Vehicle::vtdMap_matchingNearest(const Position& pos, const std::string& origID, MSVehicle& v, traci::TraCIServer& server, bool report,
+TraCIServerAPI_Vehicle::vtdMap_matchingNearest(const Position& pos, const std::string& origID, MSVehicle& v, TraCIServer& server, bool report,
         SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, MSEdgeVector& edges) {
     unsigned int r = 0;
     SUMOReal minDist = 1 << (11);
@@ -1291,7 +1288,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingNearest(const Position& pos, const std::s
 
 
 bool
-TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+TraCIServerAPI_Vehicle::commandDistanceRequest(TraCIServer& server, tcpip::Storage& inputStorage,
         tcpip::Storage& outputStorage, const MSVehicle* v) {
     if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires a compound object.", outputStorage);

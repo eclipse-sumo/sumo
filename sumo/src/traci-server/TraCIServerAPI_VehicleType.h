@@ -53,7 +53,7 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+    static bool processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
 
 
@@ -72,14 +72,14 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processSet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+    static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
 
 
     /** @brief Processes a set value for the given type
      */
     static bool setVariable(const int cmd, const int variable,
-                            MSVehicleType& v, traci::TraCIServer& server,
+                            MSVehicleType& v, TraCIServer& server,
                             tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
 
 

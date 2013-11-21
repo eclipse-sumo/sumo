@@ -45,12 +45,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace traci;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 bool
@@ -198,7 +192,7 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
 
 bool
 TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
-                                        MSVehicleType& v, traci::TraCIServer& server,
+                                        MSVehicleType& v, TraCIServer& server,
                                         tcpip::Storage& inputStorage, tcpip::Storage& outputStorage) {
     switch (variable) {
         case VAR_LENGTH: {

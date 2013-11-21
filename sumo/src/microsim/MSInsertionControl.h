@@ -134,6 +134,10 @@ public:
     void descheduleDeparture(SUMOVehicle* veh);
 
 
+     /// @brief clears out all pending vehicles from a route, "" for all routes
+     void clearPendingVehicles(std::string& route);
+
+
 private:
     /** @brief Tries to emit the vehicle
      *

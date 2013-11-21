@@ -268,5 +268,29 @@ MSInsertionControl::descheduleDeparture(SUMOVehicle* veh) {
     myAbortedEmits.insert(veh);
 }
 
+void
+MSInsertionControl::clearPendingVehicles(std::string& route) {
+    //clear out the refused vehicle lists, deleting the vehicles entirely
+    MSVehicleContainer::VehicleVector::iterator veh;
+    for (veh = myRefusedEmits1.begin(); veh != myRefusedEmits1.end();) {
+        if ((*veh)->getRoute().getID() == route || route == "") {
+            myVehicleControl.deleteVehicle(*veh, true);
+            veh = myRefusedEmits1.erase(veh);
+        } else {
+            ++veh;
+        }
+    }
+
+    for (veh = myRefusedEmits2.begin(); veh != myRefusedEmits2.end();) {
+        if ((*veh)->getRoute().getID() == route || route == "") {
+            myVehicleControl.deleteVehicle(*veh, true);
+            veh = myRefusedEmits2.erase(veh);
+        } else {
+            ++veh;
+        }
+    }
+}
+
+
 /****************************************************************************/
 

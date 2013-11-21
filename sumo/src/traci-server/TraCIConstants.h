@@ -58,9 +58,6 @@
 // command: change target
 #define CMD_CHANGETARGET 0x31
 
-// command: add vehicle
-#define CMD_ADDVEHICLE 0x74
-
 // command: close sumo
 #define CMD_CLOSE 0x7F
 
@@ -687,6 +684,9 @@
 
 // ids of vehicles ending to park (get: simulation)
 #define VAR_PARKING_ENDING_VEHICLES_IDS 0x6f
+
+// clears the simulation of all not inserted vehicles (set: simulation)
+#define CMD_CLEAR_PENDING_VEHICLES 0x94
 
 
 

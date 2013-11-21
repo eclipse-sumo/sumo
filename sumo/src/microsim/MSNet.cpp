@@ -267,7 +267,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
 #ifndef NO_TRACI
 #ifdef HAVE_PYTHON
     if (OptionsCont::getOptions().isSet("python-script")) {
-        traci::TraCIServer::runEmbedded(OptionsCont::getOptions().getString("python-script"));
+        TraCIServer::runEmbedded(OptionsCont::getOptions().getString("python-script"));
         closeSimulation(start);
         WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
         WRITE_MESSAGE("Reason: Script ended");
@@ -286,7 +286,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         state = simulationState(stop);
 #ifndef NO_TRACI
         if (state != SIMSTATE_RUNNING) {
-            if (OptionsCont::getOptions().getInt("remote-port") != 0 && !traci::TraCIServer::wasClosed()) {
+            if (OptionsCont::getOptions().getInt("remote-port") != 0 && !TraCIServer::wasClosed()) {
                 state = SIMSTATE_RUNNING;
             }
         }
@@ -340,7 +340,7 @@ MSNet::closeSimulation(SUMOTime start) {
         MSDevice_Vehroutes::generateOutputForUnfinished();
     }
 #ifndef NO_TRACI
-    traci::TraCIServer::close();
+    TraCIServer::close();
 #endif
 }
 
@@ -348,8 +348,8 @@ MSNet::closeSimulation(SUMOTime start) {
 void
 MSNet::simulationStep() {
 #ifndef NO_TRACI
-    traci::TraCIServer::processCommandsUntilSimStep(myStep);
-    traci::TraCIServer* t = traci::TraCIServer::getInstance();
+    TraCIServer::processCommandsUntilSimStep(myStep);
+    TraCIServer* t = TraCIServer::getInstance();
     if (t != 0 && t->getTargetTime() != 0 && t->getTargetTime() < myStep) {
         return;
     }
@@ -417,8 +417,8 @@ MSNet::simulationStep() {
     myEndOfTimestepEvents->execute(myStep);
 
 #ifndef NO_TRACI
-    if (traci::TraCIServer::getInstance() != 0) {
-        traci::TraCIServer::getInstance()->postProcessVTD();
+    if (TraCIServer::getInstance() != 0) {
+        TraCIServer::getInstance()->postProcessVTD();
     }
 #endif
     // update and write (if needed) detector values
@@ -439,7 +439,7 @@ MSNet::simulationState(SUMOTime stopTime) const {
         return SIMSTATE_TOO_MANY_VEHICLES;
     }
 #ifndef NO_TRACI
-    if (traci::TraCIServer::wasClosed()) {
+    if (TraCIServer::wasClosed()) {
         return SIMSTATE_CONNECTION_CLOSED;
     }
     if (stopTime < 0 && OptionsCont::getOptions().getInt("remote-port") == 0) {

@@ -50,12 +50,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace traci;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 bool
@@ -213,8 +207,38 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
 }
 
 
+bool
+TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                      tcpip::Storage& outputStorage) {
+    std::string warning = ""; // additional description for response
+    // variable
+    int variable = inputStorage.readUnsignedByte();
+    if (variable != CMD_CLEAR_PENDING_VEHICLES) {
+        return server.writeErrorStatusCmd(CMD_SET_SIM_VARIABLE, "Set Simulation Variable: unsupported variable specified", outputStorage);
+    }
+    // id
+    std::string id = inputStorage.readString();
+    // process
+    switch (variable) {
+        case CMD_CLEAR_PENDING_VEHICLES: {
+            //clear any pending vehicle insertions
+            std::string route;
+            if (!server.readTypeCheckingString(inputStorage, route)) {
+                return server.writeErrorStatusCmd(CMD_SET_SIM_VARIABLE, "A string is needed for clearing pending vehicles.", outputStorage);
+            }
+            MSNet::getInstance()->getInsertionControl().clearPendingVehicles(route);
+        }
+        break;
+        default:
+            break;
+    }
+    server.writeStatusCmd(CMD_SET_SIM_VARIABLE, RTYPE_OK, warning, outputStorage);
+    return true;
+}
+
+
 void 
-TraCIServerAPI_Simulation::writeVehicleStateNumber(traci::TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state) {
+TraCIServerAPI_Simulation::writeVehicleStateNumber(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state) {
     const std::vector<std::string>& ids = server.getVehicleStateChanges().find(state)->second;
     outputStorage.writeUnsignedByte(TYPE_INTEGER);
     outputStorage.writeInt((int) ids.size());
@@ -222,7 +246,7 @@ TraCIServerAPI_Simulation::writeVehicleStateNumber(traci::TraCIServer& server, t
 
 
 void 
-TraCIServerAPI_Simulation::writeVehicleStateIDs(traci::TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state) {
+TraCIServerAPI_Simulation::writeVehicleStateIDs(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state) {
     const std::vector<std::string>& ids = server.getVehicleStateChanges().find(state)->second;
     outputStorage.writeUnsignedByte(TYPE_STRINGLIST);
     outputStorage.writeStringList(ids);
@@ -270,7 +294,7 @@ TraCIServerAPI_Simulation::getLaneChecking(std::string roadID, int laneIndex, SU
 
 
 bool
-TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip::Storage& inputStorage,
         tcpip::Storage& outputStorage, int commandId) {
     std::pair<MSLane*, SUMOReal> roadPos;
     Position cartesianPos;
@@ -361,7 +385,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server,
 /****************************************************************************/
 
 bool
-TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::Storage& inputStorage,
         tcpip::Storage& outputStorage, int commandId) {
     Position pos1;
     Position pos2;
@@ -453,6 +477,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer& server, tc
     outputStorage.writeDouble(distance);
     return true;
 }
+
 
 #endif
 

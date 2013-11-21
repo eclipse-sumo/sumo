@@ -953,11 +953,11 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
     GUIEvent_SimulationLoaded* ec = static_cast<GUIEvent_SimulationLoaded*>(e);
     if (ec->myNet != 0) {
 #ifndef NO_TRACI
-        std::map<int, traci::TraCIServer::CmdExecutor> execs;
+        std::map<int, TraCIServer::CmdExecutor> execs;
         execs[CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
         execs[CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
         try {
-            traci::TraCIServer::openSocket(execs);
+            TraCIServer::openSocket(execs);
         } catch (ProcessError& e) {
             myMessageWindow->appendText(EVENT_ERROR_OCCURED, e.what());
             WRITE_ERROR(e.what());

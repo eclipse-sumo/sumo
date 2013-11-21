@@ -50,19 +50,29 @@
  */
 class TraCIServerAPI_Simulation {
 public:
-    /** @brief Processes a get value command (Command 0xaa: Get Edge Variable)
+    /** @brief Processes a get value command (Command 0xab: Get Simulation Variable)
      *
      * @param[in] server The TraCI-server-instance which schedules this request
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+    static bool processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
+
+    /** @brief Processes a set value command (Command 0xcb: Set Simulation Variable)
+     *
+     * @param[in] server The TraCI-server-instance which schedules this request
+     * @param[in] inputStorage The storage to read the command from
+     * @param[out] outputStorage The storage to write the result to
+     */
+    static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                           tcpip::Storage& outputStorage);
+
 
     /**
      * Converts a cartesian position to the closest road map position
      *
-     * @param pos	cartesian position that is to be converted
+     * @param pos cartesian position that is to be converted
      * @return the closest road map position to the cartesian position
      */
     static std::pair<MSLane*, SUMOReal> convertCartesianToRoadMap(Position pos);
@@ -75,14 +85,14 @@ public:
      */
     static const MSLane* getLaneChecking(std::string roadID, int laneIndex, SUMOReal pos);
 
-    static bool commandPositionConversion(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+    static bool commandPositionConversion(TraCIServer& server, tcpip::Storage& inputStorage,
                                           tcpip::Storage& outputStorage, int commandId);
 
-    static bool commandDistanceRequest(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+    static bool commandDistanceRequest(TraCIServer& server, tcpip::Storage& inputStorage,
                                        tcpip::Storage& outputStorage, int commandId);
 
-    static void writeVehicleStateNumber(traci::TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
-    static void writeVehicleStateIDs(traci::TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
+    static void writeVehicleStateNumber(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
+    static void writeVehicleStateIDs(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
 
 private:
     /// @brief invalidated copy constructor
