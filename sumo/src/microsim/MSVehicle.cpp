@@ -1682,7 +1682,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
         }
         return *myBestLanes.begin();
     }
-    if (startLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL && myBestLanes.size() > 0) {
+    if (startLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         if (myBestLanes.size() == 0 || forceRebuild) {
             // rebuilt from previous non-internal lane (may backtrack twice if behind an internal junction)
             getBestLanes(true, startLane->getLogicalPredecessorLane());
