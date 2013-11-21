@@ -248,12 +248,17 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
 void
 MSRouteHandler::closeVehicleTypeDistribution() {
     if (myCurrentVTypeDistribution != 0) {
+        if (MSGlobals::gStateLoaded && MSNet::getInstance()->getVehicleControl().hasVTypeDistribution(myCurrentVTypeDistributionID)) {
+            delete myCurrentVTypeDistribution;
+            return;
+        }
         if (myCurrentVTypeDistribution->getOverallProb() == 0) {
             delete myCurrentVTypeDistribution;
-            WRITE_ERROR("Vehicle type distribution '" + myCurrentVTypeDistributionID + "' is empty.");
-        } else if (!MSNet::getInstance()->getVehicleControl().addVTypeDistribution(myCurrentVTypeDistributionID, myCurrentVTypeDistribution)) {
+            throw ProcessError("Vehicle type distribution '" + myCurrentVTypeDistributionID + "' is empty.");
+        }
+        if (!MSNet::getInstance()->getVehicleControl().addVTypeDistribution(myCurrentVTypeDistributionID, myCurrentVTypeDistribution)) {
             delete myCurrentVTypeDistribution;
-            WRITE_ERROR("Another vehicle type (or distribution) with the id '" + myCurrentVTypeDistributionID + "' exists.");
+            throw ProcessError("Another vehicle type (or distribution) with the id '" + myCurrentVTypeDistributionID + "' exists.");
         }
         myCurrentVTypeDistribution = 0;
     }
@@ -427,13 +432,20 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
 void
 MSRouteHandler::closeRouteDistribution() {
     if (myCurrentRouteDistribution != 0) {
+        const bool haveSameID = MSRoute::dictionary(myCurrentRouteDistributionID) != 0;
+        if (MSGlobals::gStateLoaded && haveSameID) {
+            delete myCurrentRouteDistribution;
+            return;
+        }
+        if (haveSameID) {
+            delete myCurrentRouteDistribution;
+            throw ProcessError("Another route (or distribution) with the id '" + myCurrentRouteDistributionID + "' exists.");
+        }
         if (myCurrentRouteDistribution->getOverallProb() == 0) {
             delete myCurrentRouteDistribution;
-            WRITE_ERROR("Route distribution '" + myCurrentRouteDistributionID + "' is empty.");
-        } else if (!MSRoute::dictionary(myCurrentRouteDistributionID, myCurrentRouteDistribution)) {
-            delete myCurrentRouteDistribution;
-            WRITE_ERROR("Another route (or distribution) with the id '" + myCurrentRouteDistributionID + "' exists.");
+            throw ProcessError("Route distribution '" + myCurrentRouteDistributionID + "' is empty.");
         }
+        MSRoute::dictionary(myCurrentRouteDistributionID, myCurrentRouteDistribution, myVehicleParameter == 0);
         myCurrentRouteDistribution = 0;
     }
 }
