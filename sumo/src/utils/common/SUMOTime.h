@@ -91,6 +91,7 @@ extern SUMOTime DELTA_T;
 
 #endif
 
+#define SIMTIME STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
 
 // ===========================================================================
 // method declarations
