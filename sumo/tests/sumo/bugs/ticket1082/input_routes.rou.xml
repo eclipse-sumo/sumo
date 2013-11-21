@@ -1,0 +1,12 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <vehicle id="v0" type="t0" depart="0" departPos="0" departSpeed="max">
+        <route edges="gneE0 gneE1 gneE2 gneE3 gneE6"/>
+    </vehicle>
+
+    <vType id="t1" sigma="0" decel="0.1" maxSpeed="6"/>
+    <vehicle id="v1" type="t1" depart="0" departPos="60" departSpeed="max">
+        <route edges="gneE5 gneE6 gneE7"/>
+    </vehicle>
+        
+</routes>
