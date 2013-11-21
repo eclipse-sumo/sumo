@@ -385,6 +385,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     myAmOnNet(false),
     myAmRegisteredAsWaitingForPerson(false),
     myHaveToWaitOnNextLink(false),
+    myCachedPosition(Position::INVALID),
     myEdgeWeights(0)
 #ifndef NO_TRACI
     , myInfluencer(0)
@@ -573,7 +574,7 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) {
 
 // ------------ Other getter methods
 Position
-MSVehicle::getPosition(SUMOReal offset) const {
+MSVehicle::getPosition(const SUMOReal offset) const {
     if (myLane == 0) {
         return Position::INVALID;
     }
@@ -582,8 +583,15 @@ MSVehicle::getPosition(SUMOReal offset) const {
         shp.move2side(SUMO_const_laneWidth);
         return shp.positionAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane() + offset));
     }
+    const bool changingLanes = getLaneChangeModel().isChangingLanes();
+    if (offset == 0. && !changingLanes) {
+        if (myCachedPosition == Position::INVALID) {
+            myCachedPosition = myLane->geometryPositionAtOffset(myState.myPos);
+        }
+        return myCachedPosition;
+    }
     Position result = myLane->geometryPositionAtOffset(getPositionOnLane() + offset);
-    if (getLaneChangeModel().isChangingLanes()) {
+    if (changingLanes) {
         const Position other = getLaneChangeModel().getShadowLane()->geometryPositionAtOffset(getPositionOnLane() + offset);
         Line line = getLaneChangeModel().isLaneChangeMidpointPassed() ?  Line(other, result) : Line(result, other);
         return line.getPositionAtDistance(getLaneChangeModel().getLaneChangeCompletion() * line.length());
@@ -1175,6 +1183,7 @@ MSVehicle::executeMove() {
     myAcceleration = SPEED2ACCEL(vNext - myState.mySpeed);
     myState.myPos += SPEED2DIST(vNext);
     myState.mySpeed = vNext;
+    myCachedPosition = Position::INVALID;
     std::vector<MSLane*> passedLanes;
     for (std::vector<MSLane*>::reverse_iterator i = myFurtherLanes.rbegin(); i != myFurtherLanes.rend(); ++i) {
         passedLanes.push_back(*i);
@@ -1512,6 +1521,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         activateReminders(MSMoveReminder::NOTIFICATION_TELEPORT);
         // normal move() isn't called so reset position here
         myState.myPos = 0;
+        myCachedPosition = Position::INVALID;
     }
     return hasArrived();
 }
@@ -1572,6 +1582,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
 void
 MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal speed, MSMoveReminder::Notification notification) {
     myState = State(pos, speed);
+    myCachedPosition = Position::INVALID;
     assert(myState.myPos >= 0);
     assert(myState.mySpeed >= 0);
     myWaitingTime = 0;
@@ -1954,6 +1965,7 @@ bool
 MSVehicle::fixPosition() {
     if (getPositionOnLane() > myLane->getLength()) {
         myState.myPos = myLane->getLength();
+        myCachedPosition = Position::INVALID;
         return true;
     }
     return false;
@@ -2213,6 +2225,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     }
     myState.myPos = attrs.getFloat(SUMO_ATTR_POSITION);
     myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);
+    // no need to reset myCachedPosition here since state loading happens directly after creation
 }
 
 

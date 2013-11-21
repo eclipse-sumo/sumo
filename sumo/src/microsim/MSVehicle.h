@@ -309,11 +309,11 @@ public:
     /** @brief Return current position (x/y, cartesian)
      *
      * If the vehicle's myLane is 0, Position::INVALID.
-     * @param[in] offset optional offset in longitudianl direction
+     * @param[in] offset optional offset in longitudinal direction
      * @return The current position (in cartesian coordinates)
      * @see myLane
      */
-    Position getPosition(SUMOReal offset = 0) const;
+    Position getPosition(const SUMOReal offset = 0) const;
 
 
     /** @brief Returns the lane the vehicle is on
@@ -1055,6 +1055,8 @@ protected:
     bool myAmRegisteredAsWaitingForPerson;
 
     bool myHaveToWaitOnNextLink;
+    
+    mutable Position myCachedPosition;
 
 protected:
     struct DriveProcessItem {
