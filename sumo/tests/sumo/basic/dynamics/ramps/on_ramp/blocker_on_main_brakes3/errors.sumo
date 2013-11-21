@@ -1,2 +1,2 @@
 Warning: Teleporting vehicle 'ramp'; waited too long (wrong lane), lane='merge_0', time=323.00.
-Warning: Vehicle 'ramp' ends teleporting on end edge 'main_end'.
+Warning: Vehicle 'ramp' teleports beyond end of route ('main_end'), time 329.00.
