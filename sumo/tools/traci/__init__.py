@@ -123,12 +123,13 @@ class SubscriptionResults:
             return self._results
         return self._results.get(refID, None)
 
-    def addContext(self, refID, domain, objID, varID, data):
+    def addContext(self, refID, domain, objID, varID=None, data=None):
         if refID not in self._contextResults:
             self._contextResults[refID] = {}
         if objID not in self._contextResults[refID]:
             self._contextResults[refID][objID] = {}
-        self._contextResults[refID][objID][varID] = domain._parse(varID, data)
+        if varID != None and data != None:
+            self._contextResults[refID][objID][varID] = domain._parse(varID, data)
         
     def getContext(self, refID=None):
         if refID == None:
@@ -307,9 +308,11 @@ def _readSubscription(result):
             numVars -= 1
     else:
         objectNo = result.read("!i")[0]
-        for o in range(0, objectNo):
+        for o in range(objectNo):
             oid = result.readString()
-            for v in range(0, numVars):
+            if numVars == 0:
+                _modules[response].subscriptionResults.addContext(objectID, _modules[domain].subscriptionResults, oid)
+            for v in range(numVars):
                 varID = result.read("!B")[0]
                 status, varType = result.read("!BB")
                 if status:
