@@ -1171,11 +1171,6 @@ private:
     Influencer* myInfluencer;
 #endif
 
-#ifdef HAVE_INTERNAL_LANES
-    /// @brief map from the links to link leader ids
-    mutable std::map<const MSLink*, std::string> myLeaderForLink;
-#endif
-
 private:
     /// @brief invalidated default constructor
     MSVehicle();

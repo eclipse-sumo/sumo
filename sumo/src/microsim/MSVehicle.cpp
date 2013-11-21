@@ -813,6 +813,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         }
     }
     lfLinks.clear();
+    myLinkLeaders.clear();
     //
     const MSCFModel& cfModel = getCarFollowModel();
     const SUMOReal vehicleLength = getVehicleType().getLength();
@@ -943,13 +944,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             const MSVehicle* leader = it->first;
             if (leader->myLinkLeaders.count(getID()) == 0) {
                 // leader isn't already following us, now we follow it
-                myLeaderForLink[*link] = leader->getID();
                 myLinkLeaders.insert(leader->getID());
                 adaptToLeader(*it, seen, lastLink, lane, v, vLinkPass);
-                if (view > 0) {
+                if (lastLink != 0) {
                     // we are not yet on the junction with this linkLeader.
-                    // at least we can drive up to the junction and stop there
-                    v = MAX2(v, vLinkWait);
+                    // at least we can drive up to the previous link and stop there
+                    v = MAX2(v, lastLink->myVLinkWait);
                 }
             }
         }
@@ -1023,6 +1023,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         vLinkPass = MIN2(estimateSpeedAfterDistance(lane->getLength(), v, getVehicleType().getCarFollowModel().getMaxAccel()), laneMaxV); // upper bound
         lastLink = &lfLinks.back();
     }
+
 }
 
 
@@ -1117,6 +1118,9 @@ MSVehicle::executeMove() {
             // have waited; may pass if opened...
             if (opened) {
                 vSafe = (*i).myVLinkPass;
+                if (vSafe <= (*i).myVLinkWait) {
+                    myHaveToWaitOnNextLink = true;
+                }
                 lastWasGreenCont = link->isCont() && (ls == LINKSTATE_TL_GREEN_MAJOR);
             } else {
                 lastWasGreenCont = false;
@@ -1227,13 +1231,6 @@ MSVehicle::executeMove() {
                             getLaneChangeModel().endLaneChangeManeuver();
                         }
                     }
-#ifdef HAVE_INTERNAL_LANES
-                    // erase leader for the past link
-                    if (myLeaderForLink.find(link) != myLeaderForLink.end()) {
-                        myLinkLeaders.erase(myLeaderForLink[link]);
-                        myLeaderForLink.erase(link);
-                    }
-#endif
                     moved = true;
                     if (approachedLane->getEdge().isVaporizing()) {
                         leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED);
