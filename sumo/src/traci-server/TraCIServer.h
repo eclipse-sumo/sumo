@@ -376,6 +376,9 @@ private:
     /// @brief A storage of objects
     std::map<int, NamedRTree*> myObjects;
 
+    /// @brief A storage of lanes
+    RTree<MSLane*, MSLane, float, 2, TraCIServerAPI_Lane::StoringVisitor>* myLaneTree;
+
 
 private:
     bool addObjectVariableSubscription(int commandId);

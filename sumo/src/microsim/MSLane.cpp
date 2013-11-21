@@ -848,8 +848,8 @@ MSLane::insertIDs(std::vector<std::string>& into) {
 }
 
 
-void 
-MSLane::fill(NamedRTree& into) {
+template<class RTREE> void 
+MSLane::fill(RTREE& into) {
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
         MSLane *l = (*i).second;
         Boundary b = l->getShape().getBoxBoundary();
@@ -860,7 +860,10 @@ MSLane::fill(NamedRTree& into) {
     }
 }
 
-
+template void MSLane::fill<NamedRTree>(NamedRTree& into);
+#ifndef NO_TRACI
+template void MSLane::fill<RTree<MSLane*, MSLane, float, 2, TraCIServerAPI_Lane::StoringVisitor> >(RTree<MSLane*, MSLane, float, 2, TraCIServerAPI_Lane::StoringVisitor>& into);
+#endif
 
 // ------   ------
 bool

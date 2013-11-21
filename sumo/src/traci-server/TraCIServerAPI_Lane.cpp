@@ -38,6 +38,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include "TraCIConstants.h"
+#include "TraCIServer.h"
 #include "TraCIServerAPI_Lane.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -355,6 +356,37 @@ TraCIServerAPI_Lane::getShape(const std::string& id, PositionVector& shape) {
     return true;
 }
 
+
+void
+TraCIServerAPI_Lane::StoringVisitor::add(const MSLane* const l) const {
+    switch (myDomain) {
+        case CMD_GET_VEHICLE_VARIABLE: {
+            const MSLane::VehCont& vehs = l->getVehiclesSecure();
+            for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
+                if (myShape.distance((*j)->getPosition()) <= myRange) {
+                    myIDs.insert((*j)->getID());
+                }
+            }
+            l->releaseVehicles();
+        }
+        break;
+        case CMD_GET_EDGE_VARIABLE: {
+            if (myShape.size() != 1 || l->getShape().distance(myShape[0]) <= myRange) {
+                myIDs.insert(l->getEdge().getID());
+            }
+        }
+        break;
+        case CMD_GET_LANE_VARIABLE: {
+            if (myShape.size() != 1 || l->getShape().distance(myShape[0]) <= myRange) {
+                myIDs.insert(l->getID());
+            }
+        }
+        break;
+        default:
+            break;
+
+    }
+}
 
 
 #endif

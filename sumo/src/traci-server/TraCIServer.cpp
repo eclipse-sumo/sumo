@@ -105,7 +105,7 @@ bool TraCIServer::myDoCloseConnection = false;
 // method definitions
 // ===========================================================================
 TraCIServer::TraCIServer(const SUMOTime begin, const int port)
-    : mySocket(0), myTargetTime(begin), myDoingSimStep(false), myAmEmbedded(port == 0) {
+    : mySocket(0), myTargetTime(begin), myDoingSimStep(false), myAmEmbedded(port == 0), myLaneTree(0) {
 
     myVehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
@@ -174,6 +174,7 @@ TraCIServer::~TraCIServer() {
     for (std::map<int, NamedRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
         delete(*i).second;
     }
+    delete myLaneTree;
 }
 
 
@@ -690,24 +691,14 @@ TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, SUMO
             case CMD_GET_INDUCTIONLOOP_VARIABLE:
                 myObjects[CMD_GET_INDUCTIONLOOP_VARIABLE] = TraCIServerAPI_InductionLoop::getTree();
                 break;
-            case CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
-                break;
-            case CMD_GET_TL_VARIABLE:
-                break;
+            case CMD_GET_EDGE_VARIABLE:
             case CMD_GET_LANE_VARIABLE:
-                myObjects[CMD_GET_LANE_VARIABLE] = new NamedRTree();
-                MSLane::fill(*myObjects[CMD_GET_LANE_VARIABLE]);
-                break;
             case CMD_GET_VEHICLE_VARIABLE:
-                if (myObjects.find(CMD_GET_LANE_VARIABLE) == myObjects.end()) {
-                    myObjects[CMD_GET_LANE_VARIABLE] = new NamedRTree();
-                    MSLane::fill(*myObjects[CMD_GET_LANE_VARIABLE]);
-                    myObjects[CMD_GET_VEHICLE_VARIABLE] = 0;
-                }
-                break;
-            case CMD_GET_VEHICLETYPE_VARIABLE:
-                break;
-            case CMD_GET_ROUTE_VARIABLE:
+                myObjects[CMD_GET_EDGE_VARIABLE] = 0;
+                myObjects[CMD_GET_LANE_VARIABLE] = 0;
+                myObjects[CMD_GET_VEHICLE_VARIABLE] = 0;
+                myLaneTree = new RTree<MSLane*, MSLane, float, 2, TraCIServerAPI_Lane::StoringVisitor>(&MSLane::visit);
+                MSLane::fill(*myLaneTree);
                 break;
             case CMD_GET_POI_VARIABLE:
                 myObjects[CMD_GET_POI_VARIABLE] = TraCIServerAPI_POI::getTree();
@@ -718,13 +709,6 @@ TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, SUMO
             case CMD_GET_JUNCTION_VARIABLE:
                 myObjects[CMD_GET_JUNCTION_VARIABLE] = TraCIServerAPI_Junction::getTree();
                 break;
-            case CMD_GET_EDGE_VARIABLE:
-                myObjects[CMD_GET_EDGE_VARIABLE] = TraCIServerAPI_Edge::getTree();
-                break;
-            case CMD_GET_SIM_VARIABLE:
-                break;
-            case CMD_GET_GUI_VARIABLE:
-                break;
             default:
                 break;
         }
@@ -733,76 +717,21 @@ TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, SUMO
     const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
     const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
     switch (domain) {
-        case CMD_GET_INDUCTIONLOOP_VARIABLE: {
-            Named::StoringVisitor sv(into);
-            myObjects[CMD_GET_INDUCTIONLOOP_VARIABLE]->Search(cmin, cmax, sv);
-        }
-        break;
-        case CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
-            break;
-        case CMD_GET_TL_VARIABLE:
-            break;
-        case CMD_GET_LANE_VARIABLE: {
-            Named::StoringVisitor sv(into);
-            myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
-            if (shape.size() == 1) {
-                for (std::set<std::string>::iterator i = into.begin(); i != into.end();) {
-                    const MSLane* const l = MSLane::dictionary(*i);
-                    if (l->getShape().distance(shape[0]) > range) {
-                        into.erase(i++);
-                    } else {
-                        ++i;
-                    }
-                }
-            }
-        }
-        break;
-        case CMD_GET_VEHICLE_VARIABLE: {
-            std::set<std::string> tmp;
-            Named::StoringVisitor sv(tmp);
-            myObjects[CMD_GET_LANE_VARIABLE]->Search(cmin, cmax, sv);
-            for (std::set<std::string>::const_iterator i = tmp.begin(); i != tmp.end(); ++i) {
-                MSLane* l = MSLane::dictionary(*i);
-                if (l != 0) {
-                    const MSLane::VehCont& vehs = l->getVehiclesSecure();
-                    for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                        if (shape.distance((*j)->getPosition()) <= range) {
-                            into.insert((*j)->getID());
-                        }
-                    }
-                    l->releaseVehicles();
-                }
-            }
-        }
-        break;
-        case CMD_GET_VEHICLETYPE_VARIABLE:
-            break;
-        case CMD_GET_ROUTE_VARIABLE:
-            break;
-        case CMD_GET_POI_VARIABLE: {
-            Named::StoringVisitor sv(into);
-            myObjects[CMD_GET_POI_VARIABLE]->Search(cmin, cmax, sv);
-        }
-        break;
-        case CMD_GET_POLYGON_VARIABLE: {
-            Named::StoringVisitor sv(into);
-            myObjects[CMD_GET_POLYGON_VARIABLE]->Search(cmin, cmax, sv);
-        }
-        break;
+        case CMD_GET_INDUCTIONLOOP_VARIABLE:
+        case CMD_GET_POI_VARIABLE:
+        case CMD_GET_POLYGON_VARIABLE:
         case CMD_GET_JUNCTION_VARIABLE: {
             Named::StoringVisitor sv(into);
-            myObjects[CMD_GET_JUNCTION_VARIABLE]->Search(cmin, cmax, sv);
+            myObjects[domain]->Search(cmin, cmax, sv);
         }
         break;
-        case CMD_GET_EDGE_VARIABLE: {
-            Named::StoringVisitor sv(into);
-            myObjects[CMD_GET_EDGE_VARIABLE]->Search(cmin, cmax, sv);
+        case CMD_GET_EDGE_VARIABLE:
+        case CMD_GET_LANE_VARIABLE:
+        case CMD_GET_VEHICLE_VARIABLE: {
+            TraCIServerAPI_Lane::StoringVisitor sv(into, shape, range, domain);
+            myLaneTree->Search(cmin, cmax, sv);
         }
         break;
-        case CMD_GET_SIM_VARIABLE:
-            break;
-        case CMD_GET_GUI_VARIABLE:
-            break;
         default:
             break;
     }
@@ -814,70 +743,70 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
                                        std::string& errors) {
     bool ok = true;
     tcpip::Storage outputStorage;
-    int getCommandId = s.contextVars ? s.contextDomain : s.commandId - 0x30;
+    const int getCommandId = s.contextVars ? s.contextDomain : s.commandId - 0x30;
     std::set<std::string> objIDs;
     if (s.contextVars) {
-        getCommandId = s.contextDomain;
         PositionVector shape;
         if (!findObjectShape(s.commandId, s.id, shape)) {
             return false;
         }
         collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
     } else {
-        getCommandId = s.commandId - 0x30;
         objIDs.insert(s.id);
     }
-
+    const int numVars = s.contextVars && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
     for (std::set<std::string>::iterator j = objIDs.begin(); j != objIDs.end(); ++j) {
         if (s.contextVars) {
             outputStorage.writeString(*j);
         }
-        for (std::vector<int>::const_iterator i = s.variables.begin(); i != s.variables.end(); ++i) {
-            tcpip::Storage message;
-            message.writeUnsignedByte(*i);
-            message.writeString(*j);
-            tcpip::Storage tmpOutput;
-            if (myExecutors.find(getCommandId) != myExecutors.end()) {
-                ok &= myExecutors[getCommandId](*this, message, tmpOutput);
-            } else {
-                writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
-                ok = false;
-            }
-            // copy response part
-            if (ok) {
-                int length = tmpOutput.readUnsignedByte();
-                while (--length > 0) {
+        if (numVars > 0) {
+            for (std::vector<int>::const_iterator i = s.variables.begin(); i != s.variables.end(); ++i) {
+                tcpip::Storage message;
+                message.writeUnsignedByte(*i);
+                message.writeString(*j);
+                tcpip::Storage tmpOutput;
+                if (myExecutors.find(getCommandId) != myExecutors.end()) {
+                    ok &= myExecutors[getCommandId](*this, message, tmpOutput);
+                } else {
+                    writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
+                    ok = false;
+                }
+                // copy response part
+                if (ok) {
+                    int length = tmpOutput.readUnsignedByte();
+                    while (--length > 0) {
+                        tmpOutput.readUnsignedByte();
+                    }
+                    int lengthLength = 1;
+                    length = tmpOutput.readUnsignedByte();
+                    if (length == 0) {
+                        lengthLength = 5;
+                        length = tmpOutput.readInt();
+                    }
+                    //read responseType
                     tmpOutput.readUnsignedByte();
+                    int variable = tmpOutput.readUnsignedByte();
+                    std::string id = tmpOutput.readString();
+                    outputStorage.writeUnsignedByte(variable);
+                    outputStorage.writeUnsignedByte(RTYPE_OK);
+                    length -= (lengthLength + 1 + 4 + (int)id.length());
+                    while (--length > 0) {
+                        outputStorage.writeUnsignedByte(tmpOutput.readUnsignedByte());
+                    }
+                } else {
+                    //read length
+                    tmpOutput.readUnsignedByte();
+                    //read cmd
+                    tmpOutput.readUnsignedByte();
+                    //read status
+                    tmpOutput.readUnsignedByte();
+                    std::string msg = tmpOutput.readString();
+                    outputStorage.writeUnsignedByte(*i);
+                    outputStorage.writeUnsignedByte(RTYPE_ERR);
+                    outputStorage.writeUnsignedByte(TYPE_STRING);
+                    outputStorage.writeString(msg);
+                    errors = errors + msg;
                 }
-                int lengthLength = 1;
-                length = tmpOutput.readUnsignedByte();
-                if (length == 0) {
-                    lengthLength = 5;
-                    length = tmpOutput.readInt();
-                }
-                //read responseType
-                tmpOutput.readUnsignedByte();
-                int variable = tmpOutput.readUnsignedByte();
-                std::string id = tmpOutput.readString();
-                outputStorage.writeUnsignedByte(variable);
-                outputStorage.writeUnsignedByte(RTYPE_OK);
-                length -= (lengthLength + 1 + 4 + (int)id.length());
-                while (--length > 0) {
-                    outputStorage.writeUnsignedByte(tmpOutput.readUnsignedByte());
-                }
-            } else {
-                //read length
-                tmpOutput.readUnsignedByte();
-                //read cmd
-                tmpOutput.readUnsignedByte();
-                //read status
-                tmpOutput.readUnsignedByte();
-                std::string msg = tmpOutput.readString();
-                outputStorage.writeUnsignedByte(*i);
-                outputStorage.writeUnsignedByte(RTYPE_ERR);
-                outputStorage.writeUnsignedByte(TYPE_STRING);
-                outputStorage.writeString(msg);
-                errors = errors + msg;
             }
         }
     }
@@ -892,7 +821,7 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
     if (s.contextVars) {
         writeInto.writeUnsignedByte(s.contextDomain);
     }
-    writeInto.writeUnsignedByte((int)(s.variables.size()));
+    writeInto.writeUnsignedByte(numVars);
     if (s.contextVars) {
         writeInto.writeInt((int)objIDs.size());
     }

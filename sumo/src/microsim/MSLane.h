@@ -47,6 +47,9 @@
 #include <utils/geom/PositionVector.h>
 #include "MSLinkCont.h"
 #include "MSMoveReminder.h"
+#ifndef NO_TRACI
+#include <traci-server/TraCIServerAPI_Lane.h>
+#endif
 
 
 // ===========================================================================
@@ -490,11 +493,12 @@ public:
     static void insertIDs(std::vector<std::string>& into);
 
 
-    /** @brief Fills the given NamedRTree with lane instances
-     * @param[in, filled] into The NamedRTree to fill
-     * @see NamedRTree
+    /** @brief Fills the given RTree with lane instances
+     * @param[in, filled] into The RTree to fill
+     * @see TraCILaneRTree
      */
-    static void fill(NamedRTree& into);
+    template<class RTREE>
+    static void fill(RTREE& into);
     /// @}
 
 
@@ -711,6 +715,18 @@ public:
     /// @}
 
 
+#ifndef NO_TRACI
+    /** @brief Callback for visiting the lane when traversing an RTree
+     *
+     * This is used in the TraCIServerAPI_Lane for context subscriptions. 
+     *
+     * @param[in] cont The context doing all the work
+     * @see TraCIServerAPI_Lane::StoringVisitor::add
+     */
+    void visit(const TraCIServerAPI_Lane::StoringVisitor& cont) const {
+        cont.add(this);
+    }
+#endif
 
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure

@@ -442,24 +442,6 @@ TraCIServerAPI_Edge::getShape(const std::string& id, PositionVector& shape) {
     return true;
 }
 
-
-NamedRTree*
-TraCIServerAPI_Edge::getTree() {
-    NamedRTree* t = new NamedRTree();
-    const std::vector<MSEdge*>& edges = MSNet::getInstance()->getEdgeControl().getEdges();
-    for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        const std::vector<MSLane*>& lanes = (*i)->getLanes();
-        Boundary b;
-        for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-            b.add((*j)->getShape().getBoxBoundary());
-        }
-        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-        t->Insert(cmin, cmax, *i);
-    }
-    return t;
-}
-
 #endif
 
 

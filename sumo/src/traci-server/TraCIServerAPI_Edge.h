@@ -74,12 +74,6 @@ public:
     static bool getShape(const std::string& id, PositionVector& shape);
 
 
-    /** @brief Returns a tree filled with edge instances
-     * @return The rtree of edges
-     */
-    static NamedRTree* getTree();
-
-
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Edge(const TraCIServerAPI_Edge& s);
