@@ -1,6 +1,12 @@
 <routes>
-   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vTypeDistribution id="testDist">
+        <vType id="type0" sigma="0"/>
+        <vType id="type1" sigma="0"/>
+    </vTypeDistribution>
+    <vType id="type2" sigma="0"/>
+
     <route id="r0" edges="beg middle end"/>
-    <vehicle id="v0" route="r0" depart="0"/>
-    <vehicle id="v1" route="r0" depart="0"/>
+
+    <vehicle id="v0" type="testDist" route="r0" depart="0"/>
+    <vehicle id="v1" type="type2" route="r0" depart="0"/>
 </routes>
