@@ -588,8 +588,9 @@ GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector , void* data) {
 
 
 long
-GUISUMOAbstractView::onRightBtnRelease(FXObject*, FXSelector , void* data) {
+GUISUMOAbstractView::onRightBtnRelease(FXObject* o, FXSelector sel, void* data) {
     destroyPopup();
+    onMouseMove(o, sel, data);
     if (!myChanger->onRightBtnRelease(data) && !myApp->isGaming()) {
         openObjectDialog();
     }
