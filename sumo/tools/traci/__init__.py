@@ -39,8 +39,21 @@ def _TIME2STEPS(time):
     """Conversion from (float) time in seconds to milliseconds as int"""
     return int(time*1000)
 
+class TraCIException(Exception):
+    """Exception class for all TraCI errors which keep the connection intact"""
+    def __init__(self, command, errorType, desc):
+        Exception.__init__(self, desc)
+        self._command = command
+        self._type = errorType
+    
+    def getCommand(self):
+        return self._command
+
+    def getType(self):
+        return self._type
+
 class FatalTraCIError(Exception):
-    """Exception class for all TraCI errors"""
+    """Exception class for all TraCI errors which do not allow for continuation"""
     def __init__(self, desc):
         Exception.__init__(self, desc)
 
@@ -229,7 +242,9 @@ def _sendExact():
         prefix = result.read("!BBB")
         err = result.readString()
         if prefix[2] or err:
-            print(prefix, _RESULTS[prefix[2]], err)
+            _message.string = ""
+            _message.queue = []
+            raise TraCIException(prefix[1], _RESULTS[prefix[2]], err)
         elif prefix[1] != command:
             raise FatalTraCIError("Received answer %s for command %s." % (prefix[1],
                                                                  command))
