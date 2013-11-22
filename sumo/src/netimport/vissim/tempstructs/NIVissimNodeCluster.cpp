@@ -47,17 +47,18 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-// ===========================================================================
-// used namespaces
-// ===========================================================================
 
-using namespace std;
 
+// ===========================================================================
+// static member variables
+// ===========================================================================
 NIVissimNodeCluster::DictType NIVissimNodeCluster::myDict;
 int NIVissimNodeCluster::myCurrentID = 1;
 
 
-
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimNodeCluster::NIVissimNodeCluster(int id, int nodeid, int tlid,
         const std::vector<int>& connectors,
         const std::vector<int>& disturbances,
@@ -252,7 +253,7 @@ void
 NIVissimNodeCluster::_debugOut(std::ostream& into) {
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimNodeCluster* c = (*i).second;
-        into << endl << c->myID << ":";
+        into << std::endl << c->myID << ":";
         for (std::vector<int>::iterator j = c->myConnectors.begin(); j != c->myConnectors.end(); j++) {
             if (j != c->myConnectors.begin()) {
                 into << ", ";
@@ -260,7 +261,7 @@ NIVissimNodeCluster::_debugOut(std::ostream& into) {
             into << (*j);
         }
     }
-    into << "=======================" << endl;
+    into << "=======================" << std::endl;
 }
 
 

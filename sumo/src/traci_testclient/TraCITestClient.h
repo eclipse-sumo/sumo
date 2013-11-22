@@ -35,8 +35,6 @@
 #include <utils/traci/TraCIAPI.h>
 
 
-namespace testclient {
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -190,7 +188,5 @@ private:
     std::stringstream answerLog;
 
 };
-
-}
 
 #endif

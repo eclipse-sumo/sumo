@@ -45,12 +45,11 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-// ===========================================================================
-// used namespaces
-// ===========================================================================
 
-using namespace std;
 
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimNodeDef_Poly::NIVissimNodeDef_Poly(int id, const std::string& name,
         const PositionVector& poly)
     : NIVissimNodeDef_Edges(id, name, NIVissimNodeParticipatingEdgeVector()),

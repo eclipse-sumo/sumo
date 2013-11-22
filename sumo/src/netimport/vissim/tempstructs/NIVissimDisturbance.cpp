@@ -51,18 +51,20 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-// ===========================================================================
-// used namespaces
-// ===========================================================================
 
-using namespace std;
 
+// ===========================================================================
+// static member variables
+// ===========================================================================
 NIVissimDisturbance::DictType NIVissimDisturbance::myDict;
 int NIVissimDisturbance::myRunningID = 100000000;
 
 int NIVissimDisturbance::refusedProhibits = 0;
 
 
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimDisturbance::NIVissimDisturbance(int id,
         const std::string& name,
         const NIVissimExtendedEdgePoint& edge,

@@ -51,15 +51,17 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
+
+
 // ===========================================================================
-// used namespaces
+// static member variables
 // ===========================================================================
-
-using namespace std;
-
-
 NIVissimTL::SignalDictType NIVissimTL::NIVissimTLSignal::myDict;
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimTL::NIVissimTLSignal::NIVissimTLSignal(int lsaid, int id,
         const std::string& name,
         const std::vector<int>& groupids,

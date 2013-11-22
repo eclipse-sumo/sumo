@@ -39,15 +39,18 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-// ===========================================================================
-// used namespaces
-// ===========================================================================
 
-using namespace std;
 
+// ===========================================================================
+// static member variables
+// ===========================================================================
 NIVissimNodeDef::DictType NIVissimNodeDef::myDict;
 int NIVissimNodeDef::myMaxID = 0;
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimNodeDef::NIVissimNodeDef(int id, const std::string& name)
     : myID(id), myName(name) {}
 
