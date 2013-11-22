@@ -1,9 +1,9 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-   <route id="1" edges="1fi 1si 1o 1fi 1si 1o"/>
-  <vehicle depart="1" id="veh0" route="1">
-      <stop lane="1fi_0" endPos="4" duration="10"/>
-      <stop lane="1si_0" endPos="4" duration="10"/>
-      <stop lane="1fi_0" endPos="3" duration="10"/>
-  </vehicle>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="1" edges="1fi 1si 1o 1fi 1si 1o"/>
+    <vehicle depart="1" id="veh0" route="1">
+        <stop lane="1fi_0" endPos="6" duration="10"/>
+        <stop lane="1si_0" endPos="4" duration="10"/>
+        <stop lane="1fi_0" endPos="3" duration="10"/>
+    </vehicle>
 </routes>

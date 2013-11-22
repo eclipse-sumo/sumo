@@ -3,7 +3,7 @@
     <route id="r1" edges="0/1to1/1 1/1to2/1 2/1to3/1"/>
     <route id="r2" edges="1/1to2/1 2/1to3/1"/>
     <vehicle id="0" depart="0" route="r2">
-        <stop lane="1/1to2/1_0" endPos="1" duration="500"/>
+        <stop lane="1/1to2/1_0" endPos="6" duration="500"/>
     </vehicle>
     <vehicle id="1" depart="1" route="r1"/>
 </routes>
