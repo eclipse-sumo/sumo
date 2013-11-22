@@ -1120,7 +1120,8 @@ MSVehicle::executeMove() {
             // have waited; may pass if opened...
             if (opened) {
                 vSafe = (*i).myVLinkPass;
-                if (vSafe <= (*i).myVLinkWait) {
+                if (vSafe < getCarFollowModel().getMaxDecel() && vSafe <= (*i).myVLinkWait & vSafe < getCarFollowModel().maxNextSpeed(getSpeed(), this)) {
+                    // this vehicle is probably not gonna drive accross the next junction (heuristic)
                     myHaveToWaitOnNextLink = true;
                 }
                 lastWasGreenCont = link->isCont() && (ls == LINKSTATE_TL_GREEN_MAJOR);
