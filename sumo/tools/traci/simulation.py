@@ -156,7 +156,12 @@ def getStopEndingVehiclesIDList():
 def getMinExpectedNumber():
     """getMinExpectedNumber() -> integer
     
-    Returns the number of vehicles which are in the net plus the ones still waiting to start. This number may be smaller than the actual number of vehicles still to come because of delayed route file parsing. If the number is 0 however, it is guaranteed that all route files have been parsed completely.
+    Returns the number of vehicles which are in the net plus the
+    ones still waiting to start. This number may be smaller than
+    the actual number of vehicles still to come because of delayed
+    route file parsing. If the number is 0 however, it is
+    guaranteed that all route files have been parsed completely
+    and all vehicles have left the network.
     """
     return _getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
 
@@ -290,3 +295,10 @@ def getSubscriptionResults():
     from the last time step.
     """
     return subscriptionResults.get("x")
+
+
+def clearPending(routeID=""):
+    traci._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_CLEAR_PENDING_VEHICLES, "",
+                        1+4+len(routeID))
+    traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(routeID)) + routeID
+    traci._sendExact()
