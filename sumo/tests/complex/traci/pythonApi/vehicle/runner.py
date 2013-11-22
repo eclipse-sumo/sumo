@@ -79,6 +79,10 @@ traci.vehicle.setMinGap(vehID, 1.1)
 traci.vehicle.setWidth(vehID, 1.1)
 traci.vehicle.setColor(vehID, (1, 0, 0, 1))
 check(vehID)
+try:
+    check("bla")
+except traci.TraCIException:
+    print "recovering from exception after asking for unknown vehicle"
 traci.vehicle.add("1", "horizontal")
 check("1")
 traci.vehicle.changeTarget("1", "4fi")

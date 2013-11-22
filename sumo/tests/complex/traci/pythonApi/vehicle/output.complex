@@ -97,6 +97,10 @@ driving dist 2980.22862056
 driving dist 2D 1075.40703196
 vehicles ['horiz']
 vehicle count 1
+examining bla
+speed recovering from exception after asking for unknown vehicle
+vehicles ['horiz']
+vehicle count 1
 examining 1
 speed -1001.0
 speed w/o traci -1001.0
