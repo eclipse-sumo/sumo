@@ -1938,11 +1938,16 @@ MSVehicle::getBestLanesContinuation() const {
 
 const std::vector<MSLane*>&
 MSVehicle::getBestLanesContinuation(const MSLane* const l) const {
+    const MSLane* lane = l;
+    if (lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+        // internal edges are not kept inside the bestLanes structure
+        lane = lane->getLinkCont()[0]->getLane();
+    }
     if (myBestLanes.size() == 0) {
         return myEmptyLaneVector;
     }
     for (std::vector<LaneQ>::const_iterator i = myBestLanes[0].begin(); i != myBestLanes[0].end(); ++i) {
-        if ((*i).lane == l) {
+        if ((*i).lane == lane) {
             return (*i).bestContinuations;
         }
     }
