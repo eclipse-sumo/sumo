@@ -21,6 +21,14 @@ print "#departed", traci.simulation.getDepartedNumber()
 print "departed", traci.simulation.getDepartedIDList()
 print "#arrived", traci.simulation.getArrivedNumber()
 print "arrived", traci.simulation.getArrivedIDList()
+print "#parkstart", traci.simulation.getParkingStartingVehiclesNumber()
+print "parkstart", traci.simulation.getParkingStartingVehiclesIDList()
+print "#parkend", traci.simulation.getParkingEndingVehiclesNumber()
+print "parkend", traci.simulation.getParkingEndingVehiclesIDList()
+print "#stopstart", traci.simulation.getStopStartingVehiclesNumber()
+print "stopstart", traci.simulation.getStopStartingVehiclesIDList()
+print "#stopend", traci.simulation.getStopEndingVehiclesNumber()
+print "stopend", traci.simulation.getStopEndingVehiclesIDList()
 print "min#expected", traci.simulation.getMinExpectedNumber()
 print "#teleportStart", traci.simulation.getStartingTeleportNumber()
 print "teleportStart", traci.simulation.getStartingTeleportIDList()
@@ -38,5 +46,11 @@ print "distance2D", traci.simulation.getDistance2D(488.65, 501.65, 498.65, 501.6
 print "drivingDistance2D", traci.simulation.getDistance2D(488.65, 501.65, 498.65, 501.65, isDriving=True)
 print "distanceRoad", traci.simulation.getDistanceRoad("o", 0., "2o", 0.)
 print "drivingDistanceRoad", traci.simulation.getDistanceRoad("o", 0., "2o", 0., isDriving=True)
+print "clearing pending"
+traci.simulation.clearPending()
+for step in range(6):
+    print "step", step
+    traci.simulationStep()
+    print traci.simulation.getSubscriptionResults()
 traci.close()
 

@@ -1,4 +1,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
    <route id="horizontal" edges="o"/>
    <vehicle id="horiz" route="horizontal" depart="0"/>
+   <vehicle id="horiz1" route="horizontal" depart="5"/>
+   <vehicle id="horiz2" route="horizontal" depart="5"/>
 </routes>
