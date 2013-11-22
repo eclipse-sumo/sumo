@@ -813,7 +813,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         }
     }
     lfLinks.clear();
+#ifdef HAVE_INTERNAL_LANES
     myLinkLeaders.clear();
+#endif
     //
     const MSCFModel& cfModel = getCarFollowModel();
     const SUMOReal vehicleLength = getVehicleType().getLength();
