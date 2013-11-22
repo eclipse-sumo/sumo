@@ -1,21 +1,2 @@
-Error: Invalid value '5' for toLane in connection from '1si' to '2o'.
+Error: Could not set connection from '1si_2' to '2o_5'.
 Quitting (on error).
-Leaked object at 0x8e0100 (size 16, 0x3a1c69cc09)
-Leaked object at 0x8e0df0 (size 60, 0x362109c3c9)
-Leaked object at 0x8e0eb0 (size 62, 0x362109c3c9)
-Leaked object at 0x8e0f70 (size 55, 0x362109c3c9)
-Leaked object at 0x8e1020 (size 59, 0x362109c3c9)
-Leaked object at 0x8e10e0 (size 78, 0x362109c3c9)
-Leaked object at 0x8e11b0 (size 61, 0x362109c3c9)
-Leaked object at 0x8e1270 (size 26, 0x362109c3c9)
-Leaked object at 0x8e1310 (size 782, 0x362109c3c9)
-*** 9 leaks found
-delete: freed 0x8e1310 (size 782, 417 bytes still allocated)
-delete: freed 0x8e1270 (size 26, 391 bytes still allocated)
-delete: freed 0x8e11b0 (size 61, 330 bytes still allocated)
-delete: freed 0x8e10e0 (size 78, 252 bytes still allocated)
-delete: freed 0x8e1020 (size 59, 193 bytes still allocated)
-delete: freed 0x8e0f70 (size 55, 138 bytes still allocated)
-delete: freed 0x8e0eb0 (size 62, 76 bytes still allocated)
-delete: freed 0x8e0df0 (size 60, 16 bytes still allocated)
-delete: freed 0x8e0100 (size 16, 0 bytes still allocated)
