@@ -80,7 +80,7 @@ RODFDetFlowLoader::read(const std::string& file) {
                 continue;
             }
             const SUMOTime time = TplConvert::_2int((myLineHandler.get("time").c_str())) * myTimeScale - myTimeOffset;
-            if (time < myStartTime || time > myEndTime) {
+            if (time < myStartTime || time >= myEndTime) {
                 if (!myHaveWarnedAboutOverridingBoundaries) {
                     myHaveWarnedAboutOverridingBoundaries = true;
                     WRITE_WARNING("At least one value lies beyond given time boundaries.");
