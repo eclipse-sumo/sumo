@@ -677,6 +677,21 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffs
     if (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed)) {
         return false;
     }
+    if (!hasDeparted() && myCurrEdge == stop.edge) {
+        SUMOReal pos = -1;
+        if (myParameter->departPosProcedure == DEPART_POS_GIVEN) {
+            pos = myParameter->departPos;
+            if (pos < 0.) {
+                pos += (*myCurrEdge)->getLength();
+            }
+        }
+        if (myParameter->departPosProcedure == DEPART_POS_BASE || myParameter->departPosProcedure == DEPART_POS_DEFAULT) {
+            pos = MIN2(static_cast<SUMOReal>(getVehicleType().getLength() + POSITION_EPS), (*myCurrEdge)->getLength());
+        }
+        if (pos > stop.endPos) {
+            return false;
+        }
+    }
     myStops.insert(iter, stop);
     return true;
 }
