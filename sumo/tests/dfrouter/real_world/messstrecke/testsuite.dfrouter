@@ -4,6 +4,9 @@ plain
 # with begin time
 begin
 
+# with begin and end time
+begin_end
+
 # Messstrecke vtypes
 vtype
 

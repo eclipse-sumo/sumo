@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11/22/13 21:49:04 by SUMO dfrouter Version dev-SVN-r15189
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_messstrecke.net.xml"/>
+        <detector-files value="input_messstrecke.det.xml"/>
+        <measure-files value="input_flows.txt"/>
+    </input>
+
+    <output>
+        <routes-output value="routes.rou.xml"/>
+        <emitters-output value="emitters.add.xml"/>
+    </output>
+
+    <time>
+        <begin value="25200"/>
+        <end value="25800"/>
+    </time>
+
+</configuration>
+-->
+
+<additional>
+    <routeDistribution id="1">
+        <route refId="33_to_18" probability="0.04"/>
+        <route refId="33_to_35" probability="0.76"/>
+        <route refId="33_to_19" probability="0.20"/>
+        <route refId="33_to_20" probability="0.76"/>
+    </routeDistribution>
+    <vehicle id="emitter_1_25200000" depart="25200.00" departLane="0" departPos="10.00" departSpeed="15.56" route="33_to_20"/>
+    <vehicle id="emitter_1_25208571" depart="25208.57" departLane="0" departPos="10.00" departSpeed="15.56" route="33_to_20"/>
+    <vehicle id="emitter_1_25217142" depart="25217.14" departLane="0" departPos="10.00" departSpeed="15.56" route="33_to_35"/>
+    <vehicle id="emitter_1_25225714" depart="25225.71" departLane="0" departPos="10.00" departSpeed="15.56" route="33_to_19"/>
+    <vehicle id="emitter_1_25234285" depart="25234.29" departLane="0" departPos="10.00" departSpeed="15.56" route="33_to_20"/>
+    <vehicle id="emitter_1_25242857" depart="25242.86" departLane="0" departPos="10.00" departSpeed="15.56" route="33_to_35"/>
+    <vehicle id="emitter_1_25251428" depart="25251.43" departLane="0" departPos="10.00" departSpeed="15.56" route="33_to_20"/>
+    <vehicle id="emitter_1_25260000" depart="25260.00" departLane="0" departPos="10.00" departSpeed="13.61" route="33_to_35"/>
+    <vehicle id="emitter_1_25280000" depart="25280.00" departLane="0" departPos="10.00" departSpeed="13.61" route="33_to_19"/>
+    <vehicle id="emitter_1_25300000" depart="25300.00" departLane="0" departPos="10.00" departSpeed="13.61" route="33_to_20"/>
+    <vehicle id="emitter_1_25380000" depart="25380.00" departLane="0" departPos="10.00" departSpeed="16.11" route="33_to_18"/>
+    <vehicle id="emitter_1_25387500" depart="25387.50" departLane="0" departPos="10.00" departSpeed="16.11" route="33_to_20"/>
+    <vehicle id="emitter_1_25395000" depart="25395.00" departLane="0" departPos="10.00" departSpeed="16.11" route="33_to_19"/>
+    <vehicle id="emitter_1_25402500" depart="25402.50" departLane="0" departPos="10.00" departSpeed="16.11" route="33_to_35"/>
+    <vehicle id="emitter_1_25410000" depart="25410.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_19"/>
+    <vehicle id="emitter_1_25417500" depart="25417.50" departLane="0" departPos="10.00" departSpeed="16.11" route="33_to_35"/>
+    <vehicle id="emitter_1_25425000" depart="25425.00" departLane="0" departPos="10.00" departSpeed="16.11" route="33_to_35"/>
+    <vehicle id="emitter_1_25432500" depart="25432.50" departLane="0" departPos="10.00" departSpeed="16.11" route="33_to_20"/>
+    <vehicle id="emitter_1_25440000" depart="25440.00" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_35"/>
+    <vehicle id="emitter_1_25445454" depart="25445.45" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_20"/>
+    <vehicle id="emitter_1_25450909" depart="25450.91" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_35"/>
+    <vehicle id="emitter_1_25456363" depart="25456.36" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_19"/>
+    <vehicle id="emitter_1_25461818" depart="25461.82" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_35"/>
+    <vehicle id="emitter_1_25467272" depart="25467.27" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_20"/>
+    <vehicle id="emitter_1_25472727" depart="25472.73" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_20"/>
+    <vehicle id="emitter_1_25478181" depart="25478.18" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_20"/>
+    <vehicle id="emitter_1_25483636" depart="25483.64" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_20"/>
+    <vehicle id="emitter_1_25489090" depart="25489.09" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_35"/>
+    <vehicle id="emitter_1_25494545" depart="25494.55" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_19"/>
+    <vehicle id="emitter_1_25500000" depart="25500.00" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_1_25512000" depart="25512.00" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_1_25524000" depart="25524.00" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_1_25536000" depart="25536.00" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_20"/>
+    <vehicle id="emitter_1_25548000" depart="25548.00" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_1_25560000" depart="25560.00" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_20"/>
+    <vehicle id="emitter_1_25567500" depart="25567.50" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_1_25575000" depart="25575.00" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_20"/>
+    <vehicle id="emitter_1_25582500" depart="25582.50" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_1_25590000" depart="25590.00" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_1_25597500" depart="25597.50" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_1_25605000" depart="25605.00" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_1_25612500" depart="25612.50" departLane="0" departPos="10.00" departSpeed="14.72" route="33_to_20"/>
+    <vehicle id="emitter_1_25620000" depart="25620.00" departLane="0" departPos="10.00" departSpeed="13.06" route="33_to_35"/>
+    <vehicle id="emitter_1_25630000" depart="25630.00" departLane="0" departPos="10.00" departSpeed="13.06" route="33_to_35"/>
+    <vehicle id="emitter_1_25640000" depart="25640.00" departLane="0" departPos="10.00" departSpeed="13.06" route="33_to_35"/>
+    <vehicle id="emitter_1_25650000" depart="25650.00" departLane="0" departPos="10.00" departSpeed="13.06" route="33_to_20"/>
+    <vehicle id="emitter_1_25660000" depart="25660.00" departLane="0" departPos="10.00" departSpeed="13.06" route="33_to_35"/>
+    <vehicle id="emitter_1_25670000" depart="25670.00" departLane="0" departPos="10.00" departSpeed="13.06" route="33_to_20"/>
+    <vehicle id="emitter_1_25680000" depart="25680.00" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_35"/>
+    <vehicle id="emitter_1_25710000" depart="25710.00" departLane="0" departPos="10.00" departSpeed="15.28" route="33_to_20"/>
+    <vehicle id="emitter_1_25740000" depart="25740.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_20"/>
+    <vehicle id="emitter_1_25745000" depart="25745.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_20"/>
+    <vehicle id="emitter_1_25750000" depart="25750.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_20"/>
+    <vehicle id="emitter_1_25755000" depart="25755.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_20"/>
+    <vehicle id="emitter_1_25760000" depart="25760.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_20"/>
+    <vehicle id="emitter_1_25765000" depart="25765.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_35"/>
+    <vehicle id="emitter_1_25770000" depart="25770.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_19"/>
+    <vehicle id="emitter_1_25775000" depart="25775.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_20"/>
+    <vehicle id="emitter_1_25780000" depart="25780.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_35"/>
+    <vehicle id="emitter_1_25785000" depart="25785.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_20"/>
+    <vehicle id="emitter_1_25790000" depart="25790.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_35"/>
+    <vehicle id="emitter_1_25795000" depart="25795.00" departLane="0" departPos="10.00" departSpeed="15.00" route="33_to_20"/>
+    <routeDistribution id="2">
+        <route refId="33_to_18" probability="0.04"/>
+        <route refId="33_to_35" probability="0.76"/>
+        <route refId="33_to_19" probability="0.20"/>
+        <route refId="33_to_20" probability="0.76"/>
+    </routeDistribution>
+    <vehicle id="emitter_2_25200000" depart="25200.00" departLane="1" departPos="10.00" departSpeed="16.39" route="33_to_35"/>
+    <vehicle id="emitter_2_25220000" depart="25220.00" departLane="1" departPos="10.00" departSpeed="16.39" route="33_to_35"/>
+    <vehicle id="emitter_2_25240000" depart="25240.00" departLane="1" departPos="10.00" departSpeed="16.39" route="33_to_35"/>
+    <vehicle id="emitter_2_25260000" depart="25260.00" departLane="1" departPos="10.00" departSpeed="14.72" route="33_to_19"/>
+    <vehicle id="emitter_2_25270000" depart="25270.00" departLane="1" departPos="10.00" departSpeed="14.72" route="33_to_20"/>
+    <vehicle id="emitter_2_25280000" depart="25280.00" departLane="1" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_2_25290000" depart="25290.00" departLane="1" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_2_25300000" depart="25300.00" departLane="1" departPos="10.00" departSpeed="14.72" route="33_to_20"/>
+    <vehicle id="emitter_2_25310000" depart="25310.00" departLane="1" departPos="10.00" departSpeed="14.72" route="33_to_35"/>
+    <vehicle id="emitter_2_25320000" depart="25320.00" departLane="1" departPos="10.00" departSpeed="13.89" route="33_to_35"/>
+    <vehicle id="emitter_2_25350000" depart="25350.00" departLane="1" departPos="10.00" departSpeed="13.89" route="33_to_35"/>
+    <vehicle id="emitter_2_25380000" depart="25380.00" departLane="1" departPos="10.00" departSpeed="14.17" route="33_to_19"/>
+    <vehicle id="emitter_2_25410000" depart="25410.00" departLane="1" departPos="10.00" departSpeed="14.17" route="33_to_35"/>
+    <vehicle id="emitter_2_25440000" depart="25440.00" departLane="1" departPos="10.00" departSpeed="17.22" route="33_to_35"/>
+    <vehicle id="emitter_2_25460000" depart="25460.00" departLane="1" departPos="10.00" departSpeed="17.22" route="33_to_35"/>
+    <vehicle id="emitter_2_25480000" depart="25480.00" departLane="1" departPos="10.00" departSpeed="17.22" route="33_to_35"/>
+    <vehicle id="emitter_2_25500000" depart="25500.00" departLane="1" departPos="10.00" departSpeed="16.11" route="33_to_20"/>
+    <vehicle id="emitter_2_25560000" depart="25560.00" departLane="1" departPos="10.00" departSpeed="15.83" route="33_to_35"/>
+    <vehicle id="emitter_2_25566000" depart="25566.00" departLane="1" departPos="10.00" departSpeed="15.83" route="33_to_35"/>
+    <vehicle id="emitter_2_25572000" depart="25572.00" departLane="1" departPos="10.00" departSpeed="15.83" route="33_to_35"/>
+    <vehicle id="emitter_2_25578000" depart="25578.00" departLane="1" departPos="10.00" departSpeed="15.83" route="33_to_20"/>
+    <vehicle id="emitter_2_25584000" depart="25584.00" departLane="1" departPos="10.00" departSpeed="15.83" route="33_to_35"/>
+    <vehicle id="emitter_2_25590000" depart="25590.00" departLane="1" departPos="10.00" departSpeed="15.83" route="33_to_20"/>
+    <vehicle id="emitter_2_25596000" depart="25596.00" departLane="1" departPos="10.00" departSpeed="15.83" route="33_to_35"/>
+    <vehicle id="emitter_2_25602000" depart="25602.00" departLane="1" departPos="10.00" departSpeed="15.83" route="33_to_19"/>
+    <vehicle id="emitter_2_25608000" depart="25608.00" departLane="1" departPos="10.00" departSpeed="15.83" route="33_to_20"/>
+    <vehicle id="emitter_2_25614000" depart="25614.00" departLane="1" departPos="10.00" departSpeed="15.83" route="33_to_20"/>
+    <vehicle id="emitter_2_25620000" depart="25620.00" departLane="1" departPos="10.00" departSpeed="15.00" route="33_to_35"/>
+    <vehicle id="emitter_2_25635000" depart="25635.00" departLane="1" departPos="10.00" departSpeed="15.00" route="33_to_35"/>
+    <vehicle id="emitter_2_25650000" depart="25650.00" departLane="1" departPos="10.00" departSpeed="15.00" route="33_to_20"/>
+    <vehicle id="emitter_2_25665000" depart="25665.00" departLane="1" departPos="10.00" departSpeed="15.00" route="33_to_18"/>
+    <vehicle id="emitter_2_25680000" depart="25680.00" departLane="1" departPos="10.00" departSpeed="16.11" route="33_to_35"/>
+    <vehicle id="emitter_2_25710000" depart="25710.00" departLane="1" departPos="10.00" departSpeed="16.11" route="33_to_35"/>
+    <vehicle id="emitter_2_25740000" depart="25740.00" departLane="1" departPos="10.00" departSpeed="16.39" route="33_to_20"/>
+    <vehicle id="emitter_2_25770000" depart="25770.00" departLane="1" departPos="10.00" departSpeed="16.39" route="33_to_20"/>
+    <routeDistribution id="24">
+        <route refId="17_to_18" probability="0.02"/>
+        <route refId="17_to_-33" probability="0.63"/>
+        <route refId="17_to_35" probability="0.28"/>
+        <route refId="17_to_19" probability="0.07"/>
+        <route refId="17_to_20" probability="0.28"/>
+    </routeDistribution>
+    <vehicle id="emitter_24_25500000" depart="25500.00" departLane="0" departPos="10.00" departSpeed="7.22" route="17_to_20"/>
+    <vehicle id="emitter_24_25680000" depart="25680.00" departLane="0" departPos="10.00" departSpeed="5.56" route="17_to_-33"/>
+    <routeDistribution id="25">
+        <route refId="17_to_18" probability="0.02"/>
+        <route refId="17_to_-33" probability="0.63"/>
+        <route refId="17_to_35" probability="0.28"/>
+        <route refId="17_to_19" probability="0.07"/>
+        <route refId="17_to_20" probability="0.28"/>
+    </routeDistribution>
+    <vehicle id="emitter_25_25500000" depart="25500.00" departLane="1" departPos="10.00" departSpeed="8.06" route="17_to_-33"/>
+    <routeDistribution id="37">
+        <route refId="-19_to_35" probability="0.31"/>
+        <route refId="-19_to_18" probability="0.02"/>
+        <route refId="-19_to_-33" probability="0.68"/>
+        <route refId="-19_to_20" probability="0.31"/>
+    </routeDistribution>
+    <vehicle id="emitter_37_25200000" depart="25200.00" departLane="0" departPos="250.00" departSpeed="3.89" route="-19_to_-33"/>
+    <vehicle id="emitter_37_25320000" depart="25320.00" departLane="0" departPos="250.00" departSpeed="3.33" route="-19_to_-33"/>
+    <vehicle id="emitter_37_25380000" depart="25380.00" departLane="0" departPos="250.00" departSpeed="3.61" route="-19_to_20"/>
+    <vehicle id="emitter_37_25410000" depart="25410.00" departLane="0" departPos="250.00" departSpeed="3.61" route="-19_to_-33"/>
+    <vehicle id="emitter_37_25500000" depart="25500.00" departLane="0" departPos="250.00" departSpeed="4.17" route="-19_to_20"/>
+    <vehicle id="emitter_37_25620000" depart="25620.00" departLane="0" departPos="250.00" departSpeed="5.00" route="-19_to_-33"/>
+    <routeDistribution id="52">
+        <route refId="-20_to_35" probability="0.42"/>
+        <route refId="-20_to_19" probability="0.06"/>
+        <route refId="-20_to_18" probability="0.01"/>
+        <route refId="-20_to_-33" probability="0.51"/>
+    </routeDistribution>
+    <vehicle id="emitter_52_25320000" depart="25320.00" departLane="0" departPos="640.00" departSpeed="6.94" route="-20_to_35"/>
+    <vehicle id="emitter_52_25330000" depart="25330.00" departLane="0" departPos="640.00" departSpeed="6.94" route="-20_to_35"/>
+    <vehicle id="emitter_52_25340000" depart="25340.00" departLane="0" departPos="640.00" departSpeed="3.61" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25350000" depart="25350.00" departLane="0" departPos="640.00" departSpeed="6.94" route="-20_to_35"/>
+    <vehicle id="emitter_52_25360000" depart="25360.00" departLane="0" departPos="640.00" departSpeed="3.61" route="-20_to_19"/>
+    <vehicle id="emitter_52_25370000" depart="25370.00" departLane="0" departPos="640.00" departSpeed="6.94" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25380000" depart="25380.00" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25387500" depart="25387.50" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_35"/>
+    <vehicle id="emitter_52_25395000" depart="25395.00" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25402500" depart="25402.50" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_35"/>
+    <vehicle id="emitter_52_25410000" depart="25410.00" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25417500" depart="25417.50" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_35"/>
+    <vehicle id="emitter_52_25425000" depart="25425.00" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25432500" depart="25432.50" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_35"/>
+    <vehicle id="emitter_52_25440000" depart="25440.00" departLane="0" departPos="640.00" departSpeed="7.78" route="-20_to_18"/>
+    <vehicle id="emitter_52_25460000" depart="25460.00" departLane="0" departPos="640.00" departSpeed="7.78" route="-20_to_35"/>
+    <vehicle id="emitter_52_25480000" depart="25480.00" departLane="0" departPos="640.00" departSpeed="7.78" route="-20_to_35"/>
+    <vehicle id="emitter_52_25500000" depart="25500.00" departLane="0" departPos="640.00" departSpeed="5.56" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25506666" depart="25506.67" departLane="0" departPos="640.00" departSpeed="5.56" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25513333" depart="25513.33" departLane="0" departPos="640.00" departSpeed="5.56" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25520000" depart="25520.00" departLane="0" departPos="640.00" departSpeed="5.56" route="-20_to_35"/>
+    <vehicle id="emitter_52_25526666" depart="25526.67" departLane="0" departPos="640.00" departSpeed="5.56" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25533333" depart="25533.33" departLane="0" departPos="640.00" departSpeed="5.56" route="-20_to_35"/>
+    <vehicle id="emitter_52_25540000" depart="25540.00" departLane="0" departPos="640.00" departSpeed="5.56" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25546666" depart="25546.67" departLane="0" departPos="640.00" departSpeed="5.56" route="-20_to_19"/>
+    <vehicle id="emitter_52_25553333" depart="25553.33" departLane="0" departPos="640.00" departSpeed="5.56" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25560000" depart="25560.00" departLane="0" departPos="640.00" departSpeed="4.44" route="-20_to_35"/>
+    <vehicle id="emitter_52_25575000" depart="25575.00" departLane="0" departPos="640.00" departSpeed="4.44" route="-20_to_35"/>
+    <vehicle id="emitter_52_25590000" depart="25590.00" departLane="0" departPos="640.00" departSpeed="4.44" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25605000" depart="25605.00" departLane="0" departPos="640.00" departSpeed="4.44" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25620000" depart="25620.00" departLane="0" departPos="640.00" departSpeed="7.22" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25680000" depart="25680.00" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_35"/>
+    <vehicle id="emitter_52_25685454" depart="25685.45" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25690909" depart="25690.91" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25696363" depart="25696.36" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25701818" depart="25701.82" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25707272" depart="25707.27" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25712727" depart="25712.73" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_35"/>
+    <vehicle id="emitter_52_25718181" depart="25718.18" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25723636" depart="25723.64" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25729090" depart="25729.09" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_18"/>
+    <vehicle id="emitter_52_25734545" depart="25734.55" departLane="0" departPos="640.00" departSpeed="5.83" route="-20_to_-33"/>
+    <vehicle id="emitter_52_25740000" depart="25740.00" departLane="0" departPos="640.00" departSpeed="3.06" route="-20_to_35"/>
+    <vehicle id="emitter_52_25760000" depart="25760.00" departLane="0" departPos="640.00" departSpeed="3.06" route="-20_to_35"/>
+    <vehicle id="emitter_52_25780000" depart="25780.00" departLane="0" departPos="640.00" departSpeed="3.06" route="-20_to_-33"/>
+    <routeDistribution id="46">
+        <route refId="-35_to_19" probability="0.10"/>
+        <route refId="-35_to_18" probability="0.02"/>
+        <route refId="-35_to_20" probability="1.00"/>
+        <route refId="-35_to_-33" probability="0.87"/>
+    </routeDistribution>
+    <vehicle id="emitter_46_25200000" depart="25200.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25204615" depart="25204.62" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25209230" depart="25209.23" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_19"/>
+    <vehicle id="emitter_46_25213846" depart="25213.85" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25218461" depart="25218.46" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25223076" depart="25223.08" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_19"/>
+    <vehicle id="emitter_46_25227692" depart="25227.69" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25232307" depart="25232.31" departLane="0" departPos="10.00" departSpeed="7.50" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25236923" depart="25236.92" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25241538" depart="25241.54" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25246153" depart="25246.15" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25250769" depart="25250.77" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25255384" depart="25255.38" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25260000" depart="25260.00" departLane="0" departPos="10.00" departSpeed="12.50" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25267500" depart="25267.50" departLane="0" departPos="10.00" departSpeed="12.50" route="-35_to_20"/>
+    <vehicle id="emitter_46_25275000" depart="25275.00" departLane="0" departPos="10.00" departSpeed="12.50" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25282500" depart="25282.50" departLane="0" departPos="10.00" departSpeed="12.50" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25290000" depart="25290.00" departLane="0" departPos="10.00" departSpeed="12.50" route="-35_to_20"/>
+    <vehicle id="emitter_46_25297500" depart="25297.50" departLane="0" departPos="10.00" departSpeed="12.50" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25305000" depart="25305.00" departLane="0" departPos="10.00" departSpeed="12.50" route="-35_to_20"/>
+    <vehicle id="emitter_46_25312500" depart="25312.50" departLane="0" departPos="10.00" departSpeed="12.50" route="-35_to_20"/>
+    <vehicle id="emitter_46_25320000" depart="25320.00" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_46_25335000" depart="25335.00" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_46_25350000" depart="25350.00" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_46_25365000" depart="25365.00" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25380000" depart="25380.00" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_46_25387500" depart="25387.50" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_46_25395000" depart="25395.00" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25402500" depart="25402.50" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_46_25410000" depart="25410.00" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25417500" depart="25417.50" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_46_25425000" depart="25425.00" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25432500" depart="25432.50" departLane="0" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_46_25440000" depart="25440.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25450000" depart="25450.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25460000" depart="25460.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25470000" depart="25470.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25480000" depart="25480.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25490000" depart="25490.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25500000" depart="25500.00" departLane="0" departPos="10.00" departSpeed="10.56" route="-35_to_20"/>
+    <vehicle id="emitter_46_25520000" depart="25520.00" departLane="0" departPos="10.00" departSpeed="10.56" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25540000" depart="25540.00" departLane="0" departPos="10.00" departSpeed="10.56" route="-35_to_20"/>
+    <vehicle id="emitter_46_25560000" depart="25560.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25566000" depart="25566.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25572000" depart="25572.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25578000" depart="25578.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25584000" depart="25584.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25590000" depart="25590.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25596000" depart="25596.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25602000" depart="25602.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25608000" depart="25608.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25614000" depart="25614.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25620000" depart="25620.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_19"/>
+    <vehicle id="emitter_46_25625000" depart="25625.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25630000" depart="25630.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25635000" depart="25635.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25640000" depart="25640.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25645000" depart="25645.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25650000" depart="25650.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_19"/>
+    <vehicle id="emitter_46_25655000" depart="25655.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25660000" depart="25660.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25665000" depart="25665.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25670000" depart="25670.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25675000" depart="25675.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25680000" depart="25680.00" departLane="0" departPos="10.00" departSpeed="11.39" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25695000" depart="25695.00" departLane="0" departPos="10.00" departSpeed="11.39" route="-35_to_20"/>
+    <vehicle id="emitter_46_25710000" depart="25710.00" departLane="0" departPos="10.00" departSpeed="11.39" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25725000" depart="25725.00" departLane="0" departPos="10.00" departSpeed="11.39" route="-35_to_20"/>
+    <vehicle id="emitter_46_25740000" depart="25740.00" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25743529" depart="25743.53" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25747058" depart="25747.06" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_19"/>
+    <vehicle id="emitter_46_25750588" depart="25750.59" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25754117" depart="25754.12" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25757647" depart="25757.65" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25761176" depart="25761.18" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25764705" depart="25764.71" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25768235" depart="25768.24" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25771764" depart="25771.76" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_46_25775294" depart="25775.29" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25778823" depart="25778.82" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25782352" depart="25782.35" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25785882" depart="25785.88" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25789411" depart="25789.41" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25792941" depart="25792.94" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_46_25796470" depart="25796.47" departLane="0" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <routeDistribution id="47">
+        <route refId="-35_to_19" probability="0.10"/>
+        <route refId="-35_to_18" probability="0.02"/>
+        <route refId="-35_to_20" probability="1.00"/>
+        <route refId="-35_to_-33" probability="0.87"/>
+    </routeDistribution>
+    <vehicle id="emitter_47_25200000" depart="25200.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25205000" depart="25205.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25210000" depart="25210.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25215000" depart="25215.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25220000" depart="25220.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_19"/>
+    <vehicle id="emitter_47_25225000" depart="25225.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25230000" depart="25230.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25235000" depart="25235.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_19"/>
+    <vehicle id="emitter_47_25240000" depart="25240.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_19"/>
+    <vehicle id="emitter_47_25245000" depart="25245.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_19"/>
+    <vehicle id="emitter_47_25250000" depart="25250.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25255000" depart="25255.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25260000" depart="25260.00" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_20"/>
+    <vehicle id="emitter_47_25264615" depart="25264.62" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_20"/>
+    <vehicle id="emitter_47_25269230" depart="25269.23" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_19"/>
+    <vehicle id="emitter_47_25273846" depart="25273.85" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25278461" depart="25278.46" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_20"/>
+    <vehicle id="emitter_47_25283076" depart="25283.08" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25287692" depart="25287.69" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_20"/>
+    <vehicle id="emitter_47_25292307" depart="25292.31" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_20"/>
+    <vehicle id="emitter_47_25296923" depart="25296.92" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25301538" depart="25301.54" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25306153" depart="25306.15" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_20"/>
+    <vehicle id="emitter_47_25310769" depart="25310.77" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_20"/>
+    <vehicle id="emitter_47_25315384" depart="25315.38" departLane="1" departPos="10.00" departSpeed="12.78" route="-35_to_20"/>
+    <vehicle id="emitter_47_25320000" depart="25320.00" departLane="1" departPos="10.00" departSpeed="11.11" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25350000" depart="25350.00" departLane="1" departPos="10.00" departSpeed="11.11" route="-35_to_20"/>
+    <vehicle id="emitter_47_25380000" depart="25380.00" departLane="1" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_47_25387500" depart="25387.50" departLane="1" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_47_25395000" depart="25395.00" departLane="1" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_47_25402500" depart="25402.50" departLane="1" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25410000" depart="25410.00" departLane="1" departPos="10.00" departSpeed="11.94" route="-35_to_20"/>
+    <vehicle id="emitter_47_25417500" depart="25417.50" departLane="1" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25425000" depart="25425.00" departLane="1" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25432500" depart="25432.50" departLane="1" departPos="10.00" departSpeed="11.94" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25440000" depart="25440.00" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_19"/>
+    <vehicle id="emitter_47_25444285" depart="25444.29" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25448571" depart="25448.57" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25452857" depart="25452.86" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_19"/>
+    <vehicle id="emitter_47_25457142" depart="25457.14" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_20"/>
+    <vehicle id="emitter_47_25461428" depart="25461.43" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25465714" depart="25465.71" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25470000" depart="25470.00" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25474285" depart="25474.29" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25478571" depart="25478.57" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_19"/>
+    <vehicle id="emitter_47_25482857" depart="25482.86" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25487142" depart="25487.14" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_20"/>
+    <vehicle id="emitter_47_25491428" depart="25491.43" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_20"/>
+    <vehicle id="emitter_47_25495714" depart="25495.71" departLane="1" departPos="10.00" departSpeed="11.39" route="-35_to_20"/>
+    <vehicle id="emitter_47_25500000" depart="25500.00" departLane="1" departPos="10.00" departSpeed="8.33" route="-35_to_20"/>
+    <vehicle id="emitter_47_25530000" depart="25530.00" departLane="1" departPos="10.00" departSpeed="8.33" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25560000" depart="25560.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25564285" depart="25564.29" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25568571" depart="25568.57" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25572857" depart="25572.86" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25577142" depart="25577.14" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25581428" depart="25581.43" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25585714" depart="25585.71" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25590000" depart="25590.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25594285" depart="25594.29" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25598571" depart="25598.57" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25602857" depart="25602.86" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25607142" depart="25607.14" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25611428" depart="25611.43" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25615714" depart="25615.71" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25620000" depart="25620.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25624285" depart="25624.29" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25628571" depart="25628.57" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_19"/>
+    <vehicle id="emitter_47_25632857" depart="25632.86" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25637142" depart="25637.14" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25641428" depart="25641.43" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25645714" depart="25645.71" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25650000" depart="25650.00" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25654285" depart="25654.29" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25658571" depart="25658.57" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25662857" depart="25662.86" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_19"/>
+    <vehicle id="emitter_47_25667142" depart="25667.14" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25671428" depart="25671.43" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25675714" depart="25675.71" departLane="1" departPos="10.00" departSpeed="13.06" route="-35_to_20"/>
+    <vehicle id="emitter_47_25680000" depart="25680.00" departLane="1" departPos="10.00" departSpeed="11.67" route="-35_to_18"/>
+    <vehicle id="emitter_47_25700000" depart="25700.00" departLane="1" departPos="10.00" departSpeed="11.67" route="-35_to_20"/>
+    <vehicle id="emitter_47_25720000" depart="25720.00" departLane="1" departPos="10.00" departSpeed="11.67" route="-35_to_20"/>
+    <vehicle id="emitter_47_25740000" depart="25740.00" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_19"/>
+    <vehicle id="emitter_47_25745454" depart="25745.45" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_47_25750909" depart="25750.91" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25756363" depart="25756.36" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25761818" depart="25761.82" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25767272" depart="25767.27" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_47_25772727" depart="25772.73" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25778181" depart="25778.18" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25783636" depart="25783.64" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <vehicle id="emitter_47_25789090" depart="25789.09" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_20"/>
+    <vehicle id="emitter_47_25794545" depart="25794.55" departLane="1" departPos="10.00" departSpeed="13.33" route="-35_to_-33"/>
+    <routeDistribution id="48">
+        <route refId="-35_to_19" probability="0.10"/>
+        <route refId="-35_to_18" probability="0.02"/>
+        <route refId="-35_to_20" probability="1.00"/>
+        <route refId="-35_to_-33" probability="0.87"/>
+    </routeDistribution>
+    <vehicle id="emitter_48_25200000" depart="25200.00" departLane="2" departPos="10.00" departSpeed="7.78" route="-35_to_20"/>
+    <vehicle id="emitter_48_25212000" depart="25212.00" departLane="2" departPos="10.00" departSpeed="7.78" route="-35_to_-33"/>
+    <vehicle id="emitter_48_25224000" depart="25224.00" departLane="2" departPos="10.00" departSpeed="7.78" route="-35_to_20"/>
+    <vehicle id="emitter_48_25236000" depart="25236.00" departLane="2" departPos="10.00" departSpeed="7.78" route="-35_to_20"/>
+    <vehicle id="emitter_48_25248000" depart="25248.00" departLane="2" departPos="10.00" departSpeed="7.78" route="-35_to_20"/>
+    <vehicle id="emitter_48_25260000" depart="25260.00" departLane="2" departPos="10.00" departSpeed="6.94" route="-35_to_20"/>
+    <vehicle id="emitter_48_25280000" depart="25280.00" departLane="2" departPos="10.00" departSpeed="6.94" route="-35_to_20"/>
+    <vehicle id="emitter_48_25300000" depart="25300.00" departLane="2" departPos="10.00" departSpeed="6.94" route="-35_to_20"/>
+    <vehicle id="emitter_48_25320000" depart="25320.00" departLane="2" departPos="10.00" departSpeed="6.39" route="-35_to_20"/>
+    <vehicle id="emitter_48_25340000" depart="25340.00" departLane="2" departPos="10.00" departSpeed="6.39" route="-35_to_-33"/>
+    <vehicle id="emitter_48_25360000" depart="25360.00" departLane="2" departPos="10.00" departSpeed="6.39" route="-35_to_20"/>
+    <vehicle id="emitter_48_25380000" depart="25380.00" departLane="2" departPos="10.00" departSpeed="8.61" route="-35_to_-33"/>
+    <vehicle id="emitter_48_25500000" depart="25500.00" departLane="2" departPos="10.00" departSpeed="2.78" route="-35_to_-33"/>
+    <vehicle id="emitter_48_25530000" depart="25530.00" departLane="2" departPos="10.00" departSpeed="2.78" route="-35_to_18"/>
+    <vehicle id="emitter_48_25560000" depart="25560.00" departLane="2" departPos="10.00" departSpeed="4.72" route="-35_to_-33"/>
+    <vehicle id="emitter_48_25575000" depart="25575.00" departLane="2" departPos="10.00" departSpeed="4.72" route="-35_to_20"/>
+    <vehicle id="emitter_48_25590000" depart="25590.00" departLane="2" departPos="10.00" departSpeed="4.72" route="-35_to_20"/>
+    <vehicle id="emitter_48_25605000" depart="25605.00" departLane="2" departPos="10.00" departSpeed="4.72" route="-35_to_20"/>
+    <vehicle id="emitter_48_25620000" depart="25620.00" departLane="2" departPos="10.00" departSpeed="8.33" route="-35_to_20"/>
+    <vehicle id="emitter_48_25650000" depart="25650.00" departLane="2" departPos="10.00" departSpeed="8.33" route="-35_to_-33"/>
+    <vehicle id="emitter_48_25680000" depart="25680.00" departLane="2" departPos="10.00" departSpeed="3.33" route="-35_to_20"/>
+    <vehicle id="emitter_48_25740000" depart="25740.00" departLane="2" departPos="10.00" departSpeed="9.17" route="-35_to_20"/>
+</additional>
