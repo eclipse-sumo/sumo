@@ -217,7 +217,16 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         if (!parseLaneInfo(attrs, from, to, &fromLane, &toLane)) {
             return;
         }
-        if (!validateLaneInfo(false /* canLanesBeNegative */, from, to, fromLane, toLane)) {
+        if (fromLane < 0) {
+            myErrorMsgHandler->inform("Invalid value '" + toString(fromLane) +
+                                      "' for " + toString(SUMO_ATTR_FROM_LANE) + " in connection from '" +
+                                      from->getID() + "' to '" + to->getID() + "'.");
+            return;
+        }
+        if (toLane < 0) {
+            myErrorMsgHandler->inform("Invalid value '" + toString(toLane) +
+                                      "' for " + toString(SUMO_ATTR_TO_LANE) + " in connection from '" +
+                                      from->getID() + "' to '" + to->getID() + "'.");
             return;
         }
         if (from->hasConnectionTo(to, toLane)) {
@@ -306,26 +315,6 @@ NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes& attributes
     *fromLane = attributes.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
     *toLane = attributes.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
     return ok;
-}
-
-
-bool
-NIXMLConnectionsHandler::validateLaneInfo(bool canLanesBeNegative, NBEdge* fromEdge, NBEdge* toEdge, int fromLane, int toLane) {
-    if ((!canLanesBeNegative && fromLane < 0) ||
-            static_cast<unsigned int>(fromLane) >= fromEdge->getNumLanes()) {
-        myErrorMsgHandler->inform("Invalid value '" + toString(fromLane) +
-                                  "' for " + toString(SUMO_ATTR_FROM_LANE) + " in connection from '" +
-                                  fromEdge->getID() + "' to '" + toEdge->getID() + "'.");
-        return false;
-    }
-    if ((!canLanesBeNegative && toLane < 0) ||
-            static_cast<unsigned int>(toLane) >= toEdge->getNumLanes()) {
-        myErrorMsgHandler->inform("Invalid value '" + toString(toLane) +
-                                  "' for " + toString(SUMO_ATTR_TO_LANE) + " in connection from '" +
-                                  fromEdge->getID() + "' to '" + toEdge->getID() + "'.");
-        return false;
-    }
-    return true;
 }
 
 /****************************************************************************/

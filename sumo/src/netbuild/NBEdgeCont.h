@@ -124,6 +124,19 @@ public:
 
     /** @brief Tries to retrieve an edge, even if it is splitted
      *
+     * The edge given with the id should exist and is followed downstream or upstream,
+     *  depending on the parameter to the last edge still starting with the id.
+     *
+     * @param[in] id The id of the edge to retrieve
+     * @param[in] downstream search direction
+     * @return The searched edge
+     * @todo Recheck usage
+     */
+    NBEdge* retrievePossiblySplit(const std::string& id, bool downstream) const;
+
+
+    /** @brief Tries to retrieve an edge, even if it is splitted
+     *
      * To describe which part of the edge shall be returned, the
      *  id of a second edge, participating at the node and the information
      *  whether to return the outgoing or the incoming is needed.
