@@ -392,3 +392,27 @@ del { color: #555555; }
   font-size: 12px; font-weight: normal; margin-top: -.8em; margin-bottom: 10px; 
 }
 .parss-description a { font-size: 12px; font-weight: normal; margin-top: -.8em; margin-bottom: 10px; }
+
+
+table.wikitable {
+        margin: 1em 0;
+        background-color: #f9f9f9;
+        border: 1px #aaa solid;
+        border-collapse: collapse;
+        color: black;
+}
+table.wikitable > tr > th,
+table.wikitable > tr > td,
+table.wikitable > * > tr > th,
+table.wikitable > * > tr > td {
+        border: 1px #aaa solid;
+        padding: 0.2em;
+}
+table.wikitable > tr > th,
+table.wikitable > * > tr > th {
+        background-color: #f2f2f2;
+        text-align: center;
+}
+table.wikitable > caption {
+        font-weight: bold;
+}
