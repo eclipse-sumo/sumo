@@ -1135,7 +1135,7 @@ MSVehicle::executeMove() {
             // have waited; may pass if opened...
             if (opened) {
                 vSafe = (*i).myVLinkPass;
-                if (vSafe < getCarFollowModel().getMaxDecel() && vSafe <= (*i).myVLinkWait & vSafe < getCarFollowModel().maxNextSpeed(getSpeed(), this)) {
+                if (vSafe < getCarFollowModel().getMaxDecel() && vSafe <= (*i).myVLinkWait && vSafe < getCarFollowModel().maxNextSpeed(getSpeed(), this)) {
                     // this vehicle is probably not gonna drive accross the next junction (heuristic)
                     myHaveToWaitOnNextLink = true;
                 }
