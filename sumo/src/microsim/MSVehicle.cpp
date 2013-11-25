@@ -1728,15 +1728,15 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
                 }
                 assert(lanes.size() == startLane->getEdge().getLanes().size());
                 // patch invalid bestLaneOffset and updated myCurrentLaneInBestLanes
-                for (size_t i = 0; i < lanes.size(); ++i) {
+                for (int i = 0; i < (int)lanes.size(); ++i) {
                     if (i + lanes[i].bestLaneOffset < 0) {
-                        lanes[i].bestLaneOffset = (int)-i;
+                        lanes[i].bestLaneOffset = -i;
                     }
-                    if (i + lanes[i].bestLaneOffset >= lanes.size()) {
-                        lanes[i].bestLaneOffset = (int)(lanes.size() - i - 1);
+                    if (i + lanes[i].bestLaneOffset >= (int)lanes.size()) {
+                        lanes[i].bestLaneOffset = (int)lanes.size() - i - 1;
                     }
                     assert(i + lanes[i].bestLaneOffset >= 0);
-                    assert(i + lanes[i].bestLaneOffset < lanes.size());
+                    assert(i + lanes[i].bestLaneOffset < (int)lanes.size());
                     if (lanes[i].bestContinuations[0] != 0) {
                         // patch length of bestContinuation to match expectations (only once)
                         lanes[i].bestContinuations.insert(lanes[i].bestContinuations.begin(), (MSLane*)0);
