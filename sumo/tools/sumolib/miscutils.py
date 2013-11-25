@@ -138,6 +138,10 @@ class Statistics:
     def median_abs(self):
         return self.mean_abs()
 
+    def quartiles(self):
+        s = sorted(self.values)
+        return s[len(self.values) / 4], s[len(self.values) / 2], s[3 * len(self.values) / 4]
+
     def rank(self, fraction):
         if len(self.values) > 0:
             return sorted(self.values)[int(round(len(self.values) * fraction + 0.5))]
