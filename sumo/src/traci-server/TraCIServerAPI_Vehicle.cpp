@@ -1095,6 +1095,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 bool
 TraCIServerAPI_Vehicle::vtdMap_matchingEdgeLane(const Position& pos, const std::string& origID, MSVehicle& v, bool report,
         SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, MSEdgeVector& edges) {
+    UNUSED_PARAMETER(edges);
     const std::map<std::string, std::vector<MSLane*> >&  vtdMap = getOrBuildVTDMap();
     if (vtdMap.find(origID) == vtdMap.end()) {
         if (report) {
@@ -1145,7 +1146,8 @@ TraCIServerAPI_Vehicle::vtdMap_matchingEdgeLane(const Position& pos, const std::
 bool
 TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID, MSVehicle& v, bool report,
         SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, MSEdgeVector& edges) {
-
+    UNUSED_PARAMETER(edges);
+    UNUSED_PARAMETER(origID);
     int lastBestRouteEdge = 0;
     int lastRouteEdge = 0;
     MSLane* bestRouteLane = 0;
@@ -1192,6 +1194,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
 bool
 TraCIServerAPI_Vehicle::vtdMap_matchingNearest(const Position& pos, const std::string& origID, MSVehicle& v, TraCIServer& server, bool report,
         SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, MSEdgeVector& edges) {
+    UNUSED_PARAMETER(bestDistance);
     unsigned int r = 0;
     SUMOReal minDist = 1 << (11);
     MSLane* minDistLane = 0;

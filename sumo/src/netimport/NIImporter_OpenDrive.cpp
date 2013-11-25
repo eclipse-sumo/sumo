@@ -1159,12 +1159,12 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildSpeedChanges(const NBTypeCont &
         }
     }
     // propagate speeds
-    for(int i=0; i!=(int) newSections.size(); ++i) {
+    for(int i = 0; i != (int)newSections.size(); ++i) {
         OpenDriveLaneSection &ls = newSections[i];
         std::map<OpenDriveXMLTag, std::vector<OpenDriveLane> > &lanesByDir = ls.lanesByDir;
         for(std::map<OpenDriveXMLTag, std::vector<OpenDriveLane> >::iterator k=lanesByDir.begin(); k!=lanesByDir.end(); ++k) {
             std::vector<OpenDriveLane> &lanes = (*k).second;
-            for(int j=0; j!=lanes.size(); ++j) {
+            for(int j = 0; j != (int)lanes.size(); ++j) {
                 OpenDriveLane &l = lanes[j];
                 if(l.speed!=0) {
                     continue;

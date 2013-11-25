@@ -397,8 +397,6 @@ MSLCM_LC2013::_wantsChange(
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
     SUMOReal neighDist = 0;
-    SUMOReal neighExtDist = 0;
-    SUMOReal currExtDist = 0;
     int currIdx = 0;
     MSLane* prebLane = myVehicle.getLane();
     if (prebLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -411,9 +409,7 @@ MSLCM_LC2013::_wantsChange(
             curr = preb[p];
             neigh = preb[p + laneOffset];
             currentDist = curr.length;
-            currExtDist = curr.lane->getLength();
             neighDist = neigh.length;
-            neighExtDist = neigh.lane->getLength();
             bestLaneOffset = curr.bestLaneOffset;
             if (bestLaneOffset == 0 && preb[p + laneOffset].bestLaneOffset == 0) { 
                 bestLaneOffset = laneOffset;

@@ -1705,7 +1705,6 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
         if (myLastBestLanesInternalLane == startLane && !forceRebuild) {
             return *myBestLanes.begin();
         }
-        std::vector<LaneQ>& lanes = *myBestLanes.begin();
         // adapt best lanes to fit the current internal edge:
         // keep the entries that are reachable from this edge
         const MSEdge* nextEdge = &(startLane->getLinkCont()[0]->getLane()->getEdge());

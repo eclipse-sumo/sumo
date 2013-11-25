@@ -125,6 +125,8 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
             }
         }
     }
+#else
+    UNUSED_PARAMETER(internalLaneBefore);
 #endif
 }
 

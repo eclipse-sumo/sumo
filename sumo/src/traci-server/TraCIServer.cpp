@@ -372,7 +372,8 @@ TraCIServer::runEmbedded(std::string pyFile) {
     Py_InitModule("traciemb", EmbMethods);
     if (pyFile.length() > 3 && !pyFile.compare(pyFile.length() - 3, 3, ".py")) {
         PyObject *sys_path, *path;
-        sys_path = PySys_GetObject("path");
+        char pathstr[] = "path";
+        sys_path = PySys_GetObject(pathstr);
         if (sys_path == NULL || !PyList_Check(sys_path)) {   
             throw ProcessError("Could not access python sys.path!");
         }

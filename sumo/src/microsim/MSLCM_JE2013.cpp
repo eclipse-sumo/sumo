@@ -594,8 +594,6 @@ MSLCM_JE2013::_wantsChange(
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
     SUMOReal neighDist = 0;
-    SUMOReal neighExtDist = 0;
-    SUMOReal currExtDist = 0;
     int currIdx = 0;
     MSLane* prebLane = myVehicle.getLane();
     if (prebLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -608,9 +606,7 @@ MSLCM_JE2013::_wantsChange(
             curr = preb[p];
             neigh = preb[p + laneOffset];
             currentDist = curr.length;
-            currExtDist = curr.lane->getLength();
             neighDist = neigh.length;
-            neighExtDist = neigh.lane->getLength();
             bestLaneOffset = curr.bestLaneOffset;
             // VARIANT_13 (equalBest)
             if (bestLaneOffset == 0 && preb[p + laneOffset].bestLaneOffset == 0) { 
@@ -789,7 +785,7 @@ MSLCM_JE2013::_wantsChange(
             //  of which we assume we will not be able to return to the lane we have to be on.
             // this rule prevents the vehicle from leaving the current, best lane when it is
             //  close to this lane's end
-            if (MSGlobals::gDebugFlag2) std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2) currExtDist=" << currExtDist << " neighExtDist=" << neighExtDist << " neighLeftPlace=" << neighLeftPlace << "\n";
+            if (MSGlobals::gDebugFlag2) std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2) neighLeftPlace=" << neighLeftPlace << "\n";
             ret = ret | LCA_STAY | LCA_STRATEGIC;
         }
     }
