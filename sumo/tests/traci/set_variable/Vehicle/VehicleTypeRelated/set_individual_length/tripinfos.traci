@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/07/13 19:09:37 by SUMO sumo Version 0.17.1
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="8808"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="0" depart="0.00" departLane="4/1to3/1_0" departPos="330.00" departSpeed="10.00" departDelay="0.00" arrival="46.00" arrivalLane="3/1to2/1_0" arrivalPos="390.50" arrivalSpeed="10.00" duration="46.00" routeLength="451.00" waitSteps="0" rerouteNo="0" devices="tripinfo_0" vType="t1@0" vaporized=""/>
+</tripinfos>

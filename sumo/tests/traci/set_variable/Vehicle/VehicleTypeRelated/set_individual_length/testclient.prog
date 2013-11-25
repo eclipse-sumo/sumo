@@ -1,0 +1,7 @@
+simstep2 5
+getvariable 0xa4 0x44 0
+setvalue 0xc4 0x44 0 <double> 7
+getvariable 0xa4 0x44 0
+getvariable 0xa5 0x44 t1
+simstep2 6
+simstep2 100
