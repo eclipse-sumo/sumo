@@ -108,15 +108,15 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
         const SUMOReal /*numLanes*/, const SUMOReal defaultTravelTime, const int /*numVehicles*/) const {
     const SUMOReal normFactor = SUMOReal(3600. / STEPS2TIME(period) / myLaneLength);
     dev.writeAttr("CO_abs", OutputDevice::realString(CO, 6)).writeAttr("CO2_abs", OutputDevice::realString(CO2, 6))
-        .writeAttr("HC_abs", OutputDevice::realString(HC, 6)).writeAttr("PMx_abs", OutputDevice::realString(PMx, 6))
-        .writeAttr("NOx_abs", OutputDevice::realString(NOx, 6)).writeAttr("fuel_abs", OutputDevice::realString(fuel, 6));
+    .writeAttr("HC_abs", OutputDevice::realString(HC, 6)).writeAttr("PMx_abs", OutputDevice::realString(PMx, 6))
+    .writeAttr("NOx_abs", OutputDevice::realString(NOx, 6)).writeAttr("fuel_abs", OutputDevice::realString(fuel, 6));
     dev << "\n           ";
     dev.writeAttr("CO_normed", OutputDevice::realString(normFactor * CO, 6))
-        .writeAttr("CO2_normed", OutputDevice::realString(normFactor * CO2, 6))
-        .writeAttr("HC_normed", OutputDevice::realString(normFactor * HC, 6))
-        .writeAttr("PMx_normed", OutputDevice::realString(normFactor * PMx, 6))
-        .writeAttr("NOx_normed", OutputDevice::realString(normFactor * NOx, 6))
-        .writeAttr("fuel_normed", OutputDevice::realString(normFactor * fuel, 6));
+    .writeAttr("CO2_normed", OutputDevice::realString(normFactor * CO2, 6))
+    .writeAttr("HC_normed", OutputDevice::realString(normFactor * HC, 6))
+    .writeAttr("PMx_normed", OutputDevice::realString(normFactor * PMx, 6))
+    .writeAttr("NOx_normed", OutputDevice::realString(normFactor * NOx, 6))
+    .writeAttr("fuel_normed", OutputDevice::realString(normFactor * fuel, 6));
     if (sampleSeconds > myParent->myMinSamples) {
         dev << "\n           ";
         SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
@@ -126,23 +126,23 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
         dev.writeAttr("traveltime", OutputDevice::realString(traveltime))
-            .writeAttr("CO_perVeh", OutputDevice::realString(CO * vehFactor, 6))
-            .writeAttr("CO2_perVeh", OutputDevice::realString(CO2 * vehFactor, 6))
-            .writeAttr("HC_perVeh", OutputDevice::realString(HC * vehFactor, 6))
-            .writeAttr("PMx_perVeh", OutputDevice::realString(PMx * vehFactor, 6))
-            .writeAttr("NOx_perVeh", OutputDevice::realString(NOx * vehFactor, 6))
-            .writeAttr("fuel_perVeh", OutputDevice::realString(fuel * vehFactor, 6));
+        .writeAttr("CO_perVeh", OutputDevice::realString(CO * vehFactor, 6))
+        .writeAttr("CO2_perVeh", OutputDevice::realString(CO2 * vehFactor, 6))
+        .writeAttr("HC_perVeh", OutputDevice::realString(HC * vehFactor, 6))
+        .writeAttr("PMx_perVeh", OutputDevice::realString(PMx * vehFactor, 6))
+        .writeAttr("NOx_perVeh", OutputDevice::realString(NOx * vehFactor, 6))
+        .writeAttr("fuel_perVeh", OutputDevice::realString(fuel * vehFactor, 6));
     } else if (defaultTravelTime >= 0.) {
         dev << "\n           ";
         const MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType();
         const SUMOReal speed = MIN2(myLaneLength / defaultTravelTime, t->getMaxSpeed());
         dev.writeAttr("traveltime", OutputDevice::realString(defaultTravelTime))
-            .writeAttr("CO_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultCO(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6))
-            .writeAttr("CO2_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultCO2(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6))
-            .writeAttr("HC_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultHC(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6))
-            .writeAttr("PMx_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultPMx(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6))
-            .writeAttr("NOx_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultNOx(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6))
-            .writeAttr("fuel_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultFuel(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6));
+        .writeAttr("CO_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultCO(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6))
+        .writeAttr("CO2_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultCO2(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6))
+        .writeAttr("HC_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultHC(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6))
+        .writeAttr("PMx_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultPMx(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6))
+        .writeAttr("NOx_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultNOx(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6))
+        .writeAttr("fuel_perVeh", OutputDevice::realString(HelpersHBEFA::computeDefaultFuel(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6));
     }
     dev.closeTag();
 }

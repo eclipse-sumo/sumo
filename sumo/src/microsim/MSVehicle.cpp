@@ -143,10 +143,10 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
  * methods of MSVehicle::Influencer
  * ----------------------------------------------------------------------- */
 #ifndef NO_TRACI
-MSVehicle::Influencer::Influencer() : 
-    mySpeedAdaptationStarted(true), 
+MSVehicle::Influencer::Influencer() :
+    mySpeedAdaptationStarted(true),
     myConsiderSafeVelocity(true),
-    myConsiderMaxAcceleration(true), 
+    myConsiderMaxAcceleration(true),
     myConsiderMaxDeceleration(true),
     myAmVTDControlled(false),
     myStrategicLC(LC_NOCONFLICT),
@@ -249,9 +249,9 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
             state &= ~LCA_URGENT;
         } else if (mode == LC_NOCONFLICT && changeRequest != REQUEST_NONE) {
             if (
-                    ((state & LCA_LEFT) != 0 && changeRequest != REQUEST_LEFT) ||
-                    ((state & LCA_RIGHT) != 0 && changeRequest != REQUEST_RIGHT) ||
-                    ((state & LCA_STAY) != 0 && changeRequest != REQUEST_HOLD)) {
+                ((state & LCA_LEFT) != 0 && changeRequest != REQUEST_LEFT) ||
+                ((state & LCA_RIGHT) != 0 && changeRequest != REQUEST_RIGHT) ||
+                ((state & LCA_STAY) != 0 && changeRequest != REQUEST_HOLD)) {
                 // cancel conflicting lcModel request
                 state &= ~LCA_WANTS_LANECHANGE_OR_STAY;
                 state &= ~LCA_URGENT;
@@ -270,7 +270,7 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
         if ((myTraciLaneChangePriority == LCP_ALWAYS)
                 || (myTraciLaneChangePriority == LCP_NOOVERLAP && (state & LCA_OVERLAPPING) == 0)) {
             state &= ~(LCA_BLOCKED | LCA_OVERLAPPING);
-        } 
+        }
         if (changeRequest != REQUEST_HOLD && myTraciLaneChangePriority != LCP_OPPORTUNISTIC) {
             state |= LCA_URGENT;
         }
@@ -288,7 +288,7 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
 }
 
 
-SUMOReal 
+SUMOReal
 MSVehicle::Influencer::changeRequestRemainingSeconds(const SUMOTime currentTime) const {
     assert(myLaneTimeLine.size() >= 2);
     assert(currentTime >= myLaneTimeLine[0].first);
@@ -310,11 +310,11 @@ MSVehicle::Influencer::setConsiderMaxAcceleration(bool value) {
 
 void
 MSVehicle::Influencer::setLaneChangeMode(int value) {
-    myStrategicLC = (LaneChangeMode) (value & (1+2));
-    myCooperativeLC = (LaneChangeMode) ((value & (4+8)) >> 2);
-    mySpeedGainLC = (LaneChangeMode) ((value & (16+32)) >> 4);
-    myRightDriveLC = (LaneChangeMode) ((value & (64+128)) >> 6);
-    myTraciLaneChangePriority = (TraciLaneChangePriority) ((value & (256+512)) >> 8);
+    myStrategicLC = (LaneChangeMode)(value & (1 + 2));
+    myCooperativeLC = (LaneChangeMode)((value & (4 + 8)) >> 2);
+    mySpeedGainLC = (LaneChangeMode)((value & (16 + 32)) >> 4);
+    myRightDriveLC = (LaneChangeMode)((value & (64 + 128)) >> 6);
+    myTraciLaneChangePriority = (TraciLaneChangePriority)((value & (256 + 512)) >> 8);
 }
 
 
@@ -1079,7 +1079,7 @@ MSVehicle::executeMove() {
     SUMOReal vSafeMin = 0; // minimum safe velocity
     // the distance to a link which should either be crossed this step or in
     // front of which we need to stop
-    SUMOReal vSafeMinDist = 0; 
+    SUMOReal vSafeMinDist = 0;
     myHaveToWaitOnNextLink = false;
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
@@ -1749,7 +1749,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
                 return lanes;
             } else {
                 // remove passed edges
-                it = myBestLanes.erase(it); 
+                it = myBestLanes.erase(it);
             }
         }
         assert(false); // should always find the next edge
@@ -1970,7 +1970,7 @@ MSVehicle::getBestLanesContinuation(const MSLane* const l) const {
 }
 
 
-int 
+int
 MSVehicle::getBestLaneOffset() const {
     if (myBestLanes.empty() || myBestLanes[0].empty()) {
         return 0;
@@ -2201,14 +2201,14 @@ MSVehicle::getSpeedWithoutTraciInfluence() const {
 }
 
 
-int 
+int
 MSVehicle::influenceChangeDecision(int state) {
     if (hasInfluencer()) {
         state = getInfluencer().influenceChangeDecision(
-                MSNet::getInstance()->getCurrentTimeStep(), 
-                myLane->getEdge(), 
-                getLaneIndex(), 
-                state);
+                    MSNet::getInstance()->getCurrentTimeStep(),
+                    myLane->getEdge(),
+                    getLaneIndex(),
+                    state);
     }
     return state;
 }

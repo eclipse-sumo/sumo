@@ -467,7 +467,9 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
     } else if (dataTypeS == "<string>") {
         std::string valueS;
         defFile >> valueS;
-        if (valueS == "\"\"") valueS = "";
+        if (valueS == "\"\"") {
+            valueS = "";
+        }
         into.writeUnsignedByte(TYPE_STRING);
         into.writeString(valueS);
         return 4 + 1 + (int) valueS.length();

@@ -45,7 +45,7 @@
 // ===========================================================================
 bool
 TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                        tcpip::Storage& outputStorage) {
+        tcpip::Storage& outputStorage) {
     // variable & id
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
@@ -70,8 +70,7 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
         MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
-    }
-	else {
+    } else {
         MSE2Collector* e2 = static_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id));
         if (e2 == 0) {
             return server.writeErrorStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, "Areal detector '" + id + "' is not known", outputStorage);
@@ -79,13 +78,13 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
         switch (variable) {
             case ID_LIST:
                 break;
-            case JAM_LENGTH_VEHICLE: 
+            case JAM_LENGTH_VEHICLE:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-				tempMsg.writeInt((int) e2->getCurrentJamLengthInVehicles());
-				break;
-			case JAM_LENGTH_METERS:
+                tempMsg.writeInt((int) e2->getCurrentJamLengthInVehicles());
+                break;
+            case JAM_LENGTH_METERS:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-				tempMsg.writeDouble(e2->getCurrentJamLengthInMeters());
+                tempMsg.writeDouble(e2->getCurrentJamLengthInMeters());
                 break;
 
             default:

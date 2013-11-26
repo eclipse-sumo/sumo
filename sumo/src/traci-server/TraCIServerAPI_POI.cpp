@@ -224,8 +224,8 @@ TraCIServerAPI_POI::getTree() {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     const std::map<std::string, PointOfInterest*>& pois = shapeCont.getPOIs().getMyMap();
     for (std::map<std::string, PointOfInterest*>::const_iterator i = pois.begin(); i != pois.end(); ++i) {
-        const float cmin[2] = {(float) (*i).second->x(), (float) (*i).second->y()};
-        const float cmax[2] = {(float) (*i).second->x(), (float) (*i).second->y()};
+        const float cmin[2] = {(float)(*i).second->x(), (float)(*i).second->y()};
+        const float cmax[2] = {(float)(*i).second->x(), (float)(*i).second->y()};
         t->Insert(cmin, cmax, (*i).second);
     }
     return t;

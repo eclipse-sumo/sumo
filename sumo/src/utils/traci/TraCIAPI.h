@@ -381,9 +381,9 @@ public:
     };
 
 
-	 /** @class AreaScope
-     * @brief Scope for interaction with areal detectors
-     */
+    /** @class AreaScope
+    * @brief Scope for interaction with areal detectors
+    */
     class AreaScope : public TraCIScopeWrapper {
     public:
         AreaScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}

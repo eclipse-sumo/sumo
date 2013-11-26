@@ -1252,9 +1252,9 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
             return getNumberReroutes();
         case 20:
             return gSelected.isSelected(GLO_VEHICLE, getGlID());
-        case 21: 
+        case 21:
             return getBestLaneOffset();
-        case 22: 
+        case 22:
             return getAcceleration();
     }
     return 0;

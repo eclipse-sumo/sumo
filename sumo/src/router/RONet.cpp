@@ -60,8 +60,7 @@ RONet::RONet()
       myRoutesOutput(0), myRouteAlternativesOutput(0), myTypesOutput(0),
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
       myHaveRestrictions(false),
-      myNumInternalEdges(0)
-{
+      myNumInternalEdges(0) {
     SUMOVTypeParameter* type = new SUMOVTypeParameter();
     type->id = DEFAULT_VTYPE_ID;
     type->onlyReferenced = true;
@@ -402,7 +401,7 @@ RONet::getEdgeNo() const {
 
 unsigned int
 RONet::getEdgeNoWithoutInternal() const {
-    return (unsigned int) (myEdges.size() - myNumInternalEdges);
+    return (unsigned int)(myEdges.size() - myNumInternalEdges);
 }
 
 

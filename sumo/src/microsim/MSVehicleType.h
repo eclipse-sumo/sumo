@@ -160,7 +160,7 @@ public:
     /** @brief Computes and returns the speed deviation
      * @return A new, random speed deviation
      */
-    SUMOReal computeChosenSpeedDeviation(MTRand& rng, const SUMOReal minDevFactor=0.2) const;
+    SUMOReal computeChosenSpeedDeviation(MTRand& rng, const SUMOReal minDevFactor = 0.2) const;
 
 
     /** @brief Get the default probability of this vehicle type

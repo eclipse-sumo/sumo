@@ -116,7 +116,7 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     }
     // assignment by abstract parameters
     bool haveByParameter = false;
-    if(v.getParameter().knowsParameter("has." + deviceName + ".device")) {
+    if (v.getParameter().knowsParameter("has." + deviceName + ".device")) {
         haveByParameter = TplConvert::_2bool(v.getParameter().getParameter("has." + deviceName + ".device", "false").c_str());
     } else {
         haveByParameter = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("has." + deviceName + ".device", "false").c_str());

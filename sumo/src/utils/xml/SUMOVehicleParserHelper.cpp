@@ -131,7 +131,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     if (attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
         ret->repetitionNumber = attrs.get<int>(SUMO_ATTR_NUMBER, id.c_str(), ok);
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        if(ret->repetitionNumber==0) {
+        if (ret->repetitionNumber == 0) {
             WRITE_WARNING("Flow '" + id + "' has 0 vehicles; will skip it...");
         } else {
             if (ok && ret->repetitionNumber < 0) {

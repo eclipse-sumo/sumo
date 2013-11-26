@@ -135,19 +135,19 @@ GeomHelper::intersects(const Position& p11, const Position& p12,
 }
 
 
-bool 
-GeomHelper::pointOnLine(const Position &p, const Position &from, const Position &to) {
-    if (p.x() >= MIN2(from.x(), to.x()) && p.x() <= MAX2(from.x(), to.x()) && 
-        p.y() >= MIN2(from.y(), to.y()) && p.y() <= MAX2(from.y(), to.y())) {
+bool
+GeomHelper::pointOnLine(const Position& p, const Position& from, const Position& to) {
+    if (p.x() >= MIN2(from.x(), to.x()) && p.x() <= MAX2(from.x(), to.x()) &&
+            p.y() >= MIN2(from.y(), to.y()) && p.y() <= MAX2(from.y(), to.y())) {
         return true;
     }
     return false;
 }
 
 
-void 
-GeomHelper::FindLineCircleIntersections(const Position &c, SUMOReal radius, const Position &p1, const Position &p2,
-                                        std::vector<SUMOReal> &into) {
+void
+GeomHelper::FindLineCircleIntersections(const Position& c, SUMOReal radius, const Position& p1, const Position& p2,
+                                        std::vector<SUMOReal>& into) {
     SUMOReal dx = p2.x() - p1.x();
     SUMOReal dy = p2.y() - p1.y();
 
@@ -163,7 +163,7 @@ GeomHelper::FindLineCircleIntersections(const Position &c, SUMOReal radius, cons
         // One solution.
         SUMOReal t = -B / (2 * A);
         Position intersection(p1.x() + t * dx, p1.y() + t * dy);
-        if(GeomHelper::pointOnLine(intersection, p1, p2)) {
+        if (GeomHelper::pointOnLine(intersection, p1, p2)) {
             into.push_back(t);
         }
         return;
@@ -171,12 +171,12 @@ GeomHelper::FindLineCircleIntersections(const Position &c, SUMOReal radius, cons
         // Two solutions.
         SUMOReal t = (float)((-B + sqrt(det)) / (2 * A));
         Position intersection(p1.x() + t * dx, p1.y() + t * dy);
-        if(GeomHelper::pointOnLine(intersection, p1, p2)) {
+        if (GeomHelper::pointOnLine(intersection, p1, p2)) {
             into.push_back(t);
         }
         t = (float)((-B - sqrt(det)) / (2 * A));
         intersection.set(p1.x() + t * dx, p1.y() + t * dy);
-        if(GeomHelper::pointOnLine(intersection, p1, p2)) {
+        if (GeomHelper::pointOnLine(intersection, p1, p2)) {
             into.push_back(t);
         }
         return;

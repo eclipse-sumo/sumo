@@ -163,7 +163,7 @@ public:
      * @param[in] permanent  whether the new route distribution survives more than one vehicle / flow
      * @return               whether adding was successful
      */
-    static bool dictionary(const std::string& id, RandomDistributor<const MSRoute*>* const routeDist, const bool permanent=true);
+    static bool dictionary(const std::string& id, RandomDistributor<const MSRoute*>* const routeDist, const bool permanent = true);
 
     /** @brief Returns the named route or a sample from the named distribution.
      *

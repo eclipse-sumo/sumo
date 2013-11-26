@@ -130,7 +130,7 @@ public:
         /* @brief sets the state to the given string get for the special program "online"
          * this program is instantiated only once */
         void setStateInstantiatingOnline(MSTLLogicControl& tlc,
-                const std::string& state);
+                                         const std::string& state);
 
 
         void executeOnSwitchActions() const;

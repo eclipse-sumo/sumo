@@ -341,8 +341,8 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("emission-output", "emission-export");
     OutputDevice::createDeviceByOption("full-output", "full-export");
     OutputDevice::createDeviceByOption("queue-output", "queue-export");
-    
-	//OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
+
+    //OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");
     OutputDevice::createDeviceByOption("bt-output", "bt-output");
 
@@ -416,8 +416,8 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
 #ifdef HAVE_INTERNAL_LANES
     // set whether internal lanes shall be used
     MSGlobals::gUsingInternalLanes = !oc.getBool("no-internal-links");
-    MSGlobals::gIgnoreJunctionBlocker = string2time(oc.getString("ignore-junction-blocker")) < 0 ? 
-            std::numeric_limits<SUMOTime>::max() : string2time(oc.getString("ignore-junction-blocker"));
+    MSGlobals::gIgnoreJunctionBlocker = string2time(oc.getString("ignore-junction-blocker")) < 0 ?
+                                        std::numeric_limits<SUMOTime>::max() : string2time(oc.getString("ignore-junction-blocker"));
 #else
     MSGlobals::gUsingInternalLanes = false;
     MSGlobals::gIgnoreJunctionBlocker = 0;

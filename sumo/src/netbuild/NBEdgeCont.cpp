@@ -227,7 +227,7 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
         if (myNeedGeoTransformedPrunningBoundary) {
             if (GeoConvHelper::getProcessing().usingGeoProjection()) {
                 NBNetBuilder::transformCoordinates(myPrunningBoundary, false);
-            } else if (GeoConvHelper::getLoaded().usingGeoProjection()) { 
+            } else if (GeoConvHelper::getLoaded().usingGeoProjection()) {
                 // XXX what if input file with different projections are loaded?
                 for (int i = 0; i < (int) myPrunningBoundary.size(); i++) {
                     GeoConvHelper::getLoaded().x2cartesian_const(myPrunningBoundary[i]);

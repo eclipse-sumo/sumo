@@ -727,9 +727,9 @@ public:
 
     /// @brief modes for prioritizing traci lane change requests
     enum TraciLaneChangePriority {
-        LCP_ALWAYS        = 0,  // change regardless of blockers, adapt own speed and speed of blockers 
-        LCP_NOOVERLAP     = 1,  // change unless overlapping with blockers, adapt own speed and speed of blockers 
-        LCP_URGENT        = 2,  // change if not blocked, adapt own speed and speed of blockers 
+        LCP_ALWAYS        = 0,  // change regardless of blockers, adapt own speed and speed of blockers
+        LCP_NOOVERLAP     = 1,  // change unless overlapping with blockers, adapt own speed and speed of blockers
+        LCP_URGENT        = 2,  // change if not blocked, adapt own speed and speed of blockers
         LCP_OPPORTUNISTIC = 3   // change if not blocked
     };
 
@@ -940,17 +940,17 @@ public:
         int myVTDEdgeOffset;
         MSEdgeVector myVTDRoute;
 
-    /// @name Flags for managing conflicts between the laneChangeModel and TraCI laneTimeLine 
-    //@{
+        /// @name Flags for managing conflicts between the laneChangeModel and TraCI laneTimeLine
+        //@{
         /// @brief lane changing which is necessary to follow the current route
         LaneChangeMode myStrategicLC;
         /// @brief lane changing with the intent to help other vehicles
         LaneChangeMode myCooperativeLC;
         /// @brief lane changing to travel with higher speed
         LaneChangeMode mySpeedGainLC;
-        /// @brief changing to the rightmost lane 
+        /// @brief changing to the rightmost lane
         LaneChangeMode myRightDriveLC;
-    //@}
+        //@}
         ///* @brief flags for determining the priority of traci lane change requests
         TraciLaneChangePriority myTraciLaneChangePriority;
 
@@ -1055,7 +1055,7 @@ protected:
     bool myAmRegisteredAsWaitingForPerson;
 
     bool myHaveToWaitOnNextLink;
-    
+
     mutable Position myCachedPosition;
 
 protected:
@@ -1082,8 +1082,7 @@ protected:
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed),
             myArrivalTimeBraking(arrivalTimeBraking), myArrivalSpeedBraking(arrivalSpeedBraking),
             myDistance(distance),
-            accelV(leaveSpeed), hadVehicle(false), availableSpace(-1.) 
-        { 
+            accelV(leaveSpeed), hadVehicle(false), availableSpace(-1.) {
             assert(vWait >= 0);
             assert(vPass >= 0);
         };
@@ -1094,8 +1093,7 @@ protected:
             myArrivalTime(0), myArrivalSpeed(0),
             myArrivalTimeBraking(0), myArrivalSpeedBraking(0),
             myDistance(distance),
-            accelV(-1), hadVehicle(false), availableSpace(-1.) 
-        {
+            accelV(-1), hadVehicle(false), availableSpace(-1.) {
             assert(vWait >= 0);
         };
 

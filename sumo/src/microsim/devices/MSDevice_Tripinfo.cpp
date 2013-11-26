@@ -117,16 +117,16 @@ MSDevice_Tripinfo::generateOutput() const {
     os.openTag("tripinfo").writeAttr("id", myHolder.getID());
     routeLength -= myDepartPos;
     os.writeAttr("depart", time2string(myHolder.getDeparture())).writeAttr("departLane", myDepartLane)
-        .writeAttr("departPos", myDepartPos).writeAttr("departSpeed", myDepartSpeed)
-        .writeAttr("departDelay", time2string(myHolder.getDeparture() - myHolder.getParameter().depart));
+    .writeAttr("departPos", myDepartPos).writeAttr("departSpeed", myDepartSpeed)
+    .writeAttr("departDelay", time2string(myHolder.getDeparture() - myHolder.getParameter().depart));
     if (myArrivalLane != "") {
         routeLength -= MSLane::dictionary(myArrivalLane)->getLength() - myArrivalPos;
     }
     os.writeAttr("arrival", time2string(myArrivalTime)).writeAttr("arrivalLane", myArrivalLane)
-        .writeAttr("arrivalPos", myArrivalPos).writeAttr("arrivalSpeed", myArrivalSpeed)
-        .writeAttr("duration", time2string(myArrivalTime - myHolder.getDeparture()))
-        .writeAttr("routeLength", routeLength).writeAttr("waitSteps", myWaitingSteps)
-        .writeAttr("rerouteNo", myHolder.getNumberReroutes());
+    .writeAttr("arrivalPos", myArrivalPos).writeAttr("arrivalSpeed", myArrivalSpeed)
+    .writeAttr("duration", time2string(myArrivalTime - myHolder.getDeparture()))
+    .writeAttr("routeLength", routeLength).writeAttr("waitSteps", myWaitingSteps)
+    .writeAttr("rerouteNo", myHolder.getNumberReroutes());
     const std::vector<MSDevice*>& devices = myHolder.getDevices();
     std::ostringstream str;
     for (std::vector<MSDevice*>::const_iterator i = devices.begin(); i != devices.end(); ++i) {
@@ -136,7 +136,7 @@ MSDevice_Tripinfo::generateOutput() const {
         str << (*i)->getID();
     }
     os.writeAttr("devices", str.str()).writeAttr("vType", myHolder.getVehicleType().getID())
-        .writeAttr("vaporized", (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0"));
+    .writeAttr("vaporized", (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0"));
 }
 
 

@@ -97,8 +97,8 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     // build the buttons
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
     myCenterButton = new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
-                 this, MID_CHOOSER_CENTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 4, 4);
+                                  this, MID_CHOOSER_CENTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
+                                  0, 0, 0, 0, 4, 4, 4, 4);
     new FXHorizontalSeparator(layout, SEPARATOR_GROOVE | LAYOUT_FILL_X);
     new FXButton(layout, "Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG),
                  this, MID_CHOOSER_FILTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,

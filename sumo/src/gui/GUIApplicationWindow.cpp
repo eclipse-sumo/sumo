@@ -411,8 +411,8 @@ GUIApplicationWindow::fillMenuBar() {
                       NULL, this, MID_LOCATEEDGE);
     if (!MSGlobals::gUseMesoSim) { // there are no gui-vehicles in mesosim
         new FXMenuCommand(myLocatorMenu,
-                "Locate &Vehicles\t\tOpen a Dialog for Locating a Vehicle.",
-                NULL, this, MID_LOCATEVEHICLE);
+                          "Locate &Vehicles\t\tOpen a Dialog for Locating a Vehicle.",
+                          NULL, this, MID_LOCATEVEHICLE);
     }
     new FXMenuCommand(myLocatorMenu,
                       "Locate &TLS\t\tOpen a Dialog for Locating a Traffic Light.",
@@ -831,7 +831,7 @@ GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* p
 long
 GUIApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
     if (myMDIClient->numChildren() > 0) {
-        GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild()); 
+        GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
         if (w != 0) {
             w->onCmdLocate(0, sel, 0);
         }
@@ -977,7 +977,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
         }
     } else {
         // initialise simulation thread
-        if(!myRunThread->init(ec->myNet, ec->myBegin, ec->myEnd)) {
+        if (!myRunThread->init(ec->myNet, ec->myBegin, ec->myEnd)) {
             if (GUIGlobals::gQuitOnEnd) {
                 closeAllWindows();
                 getApp()->exit(1);

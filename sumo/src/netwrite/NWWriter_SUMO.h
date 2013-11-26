@@ -133,10 +133,10 @@ protected:
      * @param[in] index The index of the lane within the edge
      * @param[in] origNames Whether original names shall be written as parameter
      */
-    static void writeLane(OutputDevice& into, const std::string& eID, const std::string& lID, 
-            SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
-            SUMOReal offset, SUMOReal width, const PositionVector& shape,
-            const std::string& origID, SUMOReal length, unsigned int index, bool origNames);
+    static void writeLane(OutputDevice& into, const std::string& eID, const std::string& lID,
+                          SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
+                          SUMOReal offset, SUMOReal width, const PositionVector& shape,
+                          const std::string& origID, SUMOReal length, unsigned int index, bool origNames);
 
 
     /** @brief Writes a junction (<junction ...)
@@ -185,7 +185,7 @@ private:
      * @param[in] via The (optional) via edge
      */
     static void writeInternalConnection(OutputDevice& into,
-                                        const std::string& from, const std::string& to, 
+                                        const std::string& from, const std::string& to,
                                         int fromLane, int toLane, const std::string& via);
 
     /// @brief writes a SUMOTime as int if possible, otherwise as a float

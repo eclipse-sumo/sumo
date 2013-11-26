@@ -382,7 +382,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             std::vector<std::string> types;
             while (tok.hasNext()) {
                 std::string t = tok.next();
-                if (tc.knows(t)) { 
+                if (tc.knows(t)) {
                     if (std::find(types.begin(), types.end(), t) == types.end()) {
                         types.push_back(t);
                     }
@@ -422,7 +422,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     type = newType;
                 }
             }
-        } 
+        }
     }
 
     // otherwise it is not an edge and will be ignored
@@ -613,8 +613,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     std::map<SUMOLong, Edge*>& toFill) :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
-    myEdgeMap(toFill) 
-{
+    myEdgeMap(toFill) {
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
     mySpeedMap["none"] = 300.;
     mySpeedMap["no"] = 300.;
@@ -757,7 +756,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 }
             } catch (NumberFormatException&) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                        toString(myCurrentEdge->id) + "'.");
+                              toString(myCurrentEdge->id) + "'.");
             }
         }
     }
@@ -786,8 +785,7 @@ NIImporter_OpenStreetMap::RelationHandler::RelationHandler(
     const std::map<SUMOLong, Edge*>& osmEdges) :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
-    myOSMEdges(osmEdges)
-{
+    myOSMEdges(osmEdges) {
     resetValues();
 }
 

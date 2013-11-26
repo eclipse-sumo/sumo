@@ -104,11 +104,11 @@ protected:
         OPENDRIVE_TAG_RIGHT,
         OPENDRIVE_TAG_LANE,
         OPENDRIVE_TAG_SIGNAL,
-		    OPENDRIVE_TAG_JUNCTION,
-		    OPENDRIVE_TAG_CONNECTION,
-		    OPENDRIVE_TAG_LANELINK,
-		    OPENDRIVE_TAG_WIDTH,
-		    OPENDRIVE_TAG_SPEED
+        OPENDRIVE_TAG_JUNCTION,
+        OPENDRIVE_TAG_CONNECTION,
+        OPENDRIVE_TAG_LANELINK,
+        OPENDRIVE_TAG_WIDTH,
+        OPENDRIVE_TAG_SPEED
     };
 
 
@@ -142,13 +142,13 @@ protected:
         OPENDRIVE_ATTR_LEVEL,
         OPENDRIVE_ATTR_ORIENTATION,
         OPENDRIVE_ATTR_DYNAMIC,
-		    OPENDRIVE_ATTR_INCOMINGROAD,
-		    OPENDRIVE_ATTR_CONNECTINGROAD,
-		    OPENDRIVE_ATTR_FROM,
-		    OPENDRIVE_ATTR_TO,
-		    OPENDRIVE_ATTR_MAX,
-            OPENDRIVE_ATTR_SOFFSET,
-            OPENDRIVE_ATTR_NAME
+        OPENDRIVE_ATTR_INCOMINGROAD,
+        OPENDRIVE_ATTR_CONNECTINGROAD,
+        OPENDRIVE_ATTR_FROM,
+        OPENDRIVE_ATTR_TO,
+        OPENDRIVE_ATTR_MAX,
+        OPENDRIVE_ATTR_SOFFSET,
+        OPENDRIVE_ATTR_NAME
     };
 
 
@@ -255,8 +255,8 @@ protected:
         int successor; //!< The lane's successor lane
         int predecessor; //!< The lane's predecessor lane
         std::vector<std::pair<SUMOReal, SUMOReal> > speeds; //!< List of positions/speeds of speed changes
-		SUMOReal speed; //!< The lane's speed (set in post-processing)
-		SUMOReal width; //!< The lane's width; @todo: this is the maximum width only
+        SUMOReal speed; //!< The lane's speed (set in post-processing)
+        SUMOReal width; //!< The lane's width; @todo: this is the maximum width only
     };
 
 
@@ -275,20 +275,20 @@ protected:
          *
          * Not all lanes are converted to SUMO-lanes; the mapping includes only those
          * which are included in the SUMO network.
-		 * @param[in] tc The type container needed to determine whether a lane shall be imported by using the lane's type
+         * @param[in] tc The type container needed to determine whether a lane shall be imported by using the lane's type
          */
-        void buildLaneMapping(const NBTypeCont &tc);
+        void buildLaneMapping(const NBTypeCont& tc);
 
 
-		/** @brief Returns the links from the previous to this lane section
-		 * @param[in] dir The OpenDrive-direction of drive
-		 * @param[in] pre The previous lane section
-		 * @return which lane is approached from which lane of the given previous lane section
-		 */
+        /** @brief Returns the links from the previous to this lane section
+         * @param[in] dir The OpenDrive-direction of drive
+         * @param[in] pre The previous lane section
+         * @return which lane is approached from which lane of the given previous lane section
+         */
         std::map<int, int> getInnerConnections(OpenDriveXMLTag dir, const OpenDriveLaneSection& prev);
 
 
-        bool buildSpeedChanges(const NBTypeCont &tc, std::vector<OpenDriveLaneSection> &newSections);
+        bool buildSpeedChanges(const NBTypeCont& tc, std::vector<OpenDriveLaneSection>& newSections);
         OpenDriveLaneSection buildLaneSection(SUMOReal startPos);
 
         /// @brief The starting offset of this lane section
@@ -299,8 +299,8 @@ protected:
         std::map<OpenDriveXMLTag, std::vector<OpenDriveLane> > lanesByDir;
         /// @brief The id (generic, without the optionally leading '-') of the edge generated for this section
         std::string sumoID;
-		/// @brief The number of lanes on the right and on the left side, respectively
-		unsigned int rightLaneNumber, leftLaneNumber;
+        /// @brief The number of lanes on the right and on the left side, respectively
+        unsigned int rightLaneNumber, leftLaneNumber;
     };
 
 
@@ -359,12 +359,12 @@ protected:
         }
 
 
-		/** @brief Returns the edge's priority, regarding the direction
-		 *
-		 * The priority is determined by evaluating the signs located at the road
-		 * @param[in] dir The direction which priority shall be returned
-		 * @return The priority of the given direction
-		 */
+        /** @brief Returns the edge's priority, regarding the direction
+         *
+         * The priority is determined by evaluating the signs located at the road
+         * @param[in] dir The direction which priority shall be returned
+         * @return The priority of the given direction
+         */
         int getPriority(OpenDriveXMLTag dir) const;
 
 
@@ -405,8 +405,8 @@ protected:
         explicit same_position_finder(SUMOReal pos) : myPosition(pos) { }
 
         /** @brief the comparing function */
-        bool operator()(const std::pair<SUMOReal, SUMOReal> &ps) {
-            return ps.first==myPosition;
+        bool operator()(const std::pair<SUMOReal, SUMOReal>& ps) {
+            return ps.first == myPosition;
         }
 
     private:
@@ -422,7 +422,7 @@ protected:
      * @param[in] tc The type container used to determine whether a lane shall kept
      * @param[in] nc The edge map to fill
      */
-    NIImporter_OpenDrive(const NBTypeCont &tc, std::map<std::string, OpenDriveEdge*>& edges);
+    NIImporter_OpenDrive(const NBTypeCont& tc, std::map<std::string, OpenDriveEdge*>& edges);
 
 
     /// @brief Destructor
@@ -465,7 +465,7 @@ private:
     static void buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into);
     friend bool operator<(const Connection& c1, const Connection& c2);
     static std::string revertID(const std::string& id);
-	const NBTypeCont &myTypeContainer;
+    const NBTypeCont& myTypeContainer;
     OpenDriveEdge myCurrentEdge;
 
     std::map<std::string, OpenDriveEdge*>& myEdges;
@@ -478,7 +478,7 @@ private:
     bool myConnectionWasEmpty;
 
     static bool myImportAllTypes;
-	static bool myImportWidths;
+    static bool myImportWidths;
 
 
 protected:
@@ -518,7 +518,7 @@ protected:
      *
      * @param[in] edges The edges which lane sections shall be reviewed
      */
-    static void revisitLaneSections(const NBTypeCont &tc, std::map<std::string, OpenDriveEdge*>& edges);
+    static void revisitLaneSections(const NBTypeCont& tc, std::map<std::string, OpenDriveEdge*>& edges);
 
     static void setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
                               const std::string& nodeID, NIImporter_OpenDrive::LinkType lt);

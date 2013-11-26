@@ -181,7 +181,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         newEdges.push_back(*(oldEdges.begin()));
         std::vector<const ROEdge*>::iterator nextMandatory = mandatory.begin() + 1;
         size_t lastMandatory = 0;
-        for (std::vector<const ROEdge*>::iterator i = oldEdges.begin() + 1; 
+        for (std::vector<const ROEdge*>::iterator i = oldEdges.begin() + 1;
                 i != oldEdges.end() && nextMandatory != mandatory.end(); ++i) {
             if ((*(i - 1))->isConnectedTo(*i)) {
                 /// XXX could be connected from a prohibited lane only
@@ -205,7 +205,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         }
                         newEdges.erase(newEdges.begin() + lastMandatory + 1, newEdges.end());
                     }
-                } 
+                }
                 std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
             }
             if (*i == *nextMandatory) {

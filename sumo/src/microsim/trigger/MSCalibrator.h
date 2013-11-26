@@ -61,7 +61,7 @@ public:
                  const std::string& aXMLFilename,
                  const std::string& outputFilename,
                  const SUMOTime freq, const SUMOReal length,
-                 const MSRouteProbe* probe, const bool addLaneMeanData=true);
+                 const MSRouteProbe* probe, const bool addLaneMeanData = true);
 
     /** destructor */
     virtual ~MSCalibrator();
@@ -201,7 +201,7 @@ protected:
     };
 
 
-    /** @brief remove any vehicles which are scheduled for removal. 
+    /** @brief remove any vehicles which are scheduled for removal.
      * return true if removals took place */
     bool removePending();
 

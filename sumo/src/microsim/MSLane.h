@@ -450,29 +450,29 @@ public:
 
 
 
-    /// @brief Static (sic!) container methods 
+    /// @brief Static (sic!) container methods
     /// {
 
     /** @brief Inserts a MSLane into the static dictionary
-     * 
+     *
      * Returns true if the key id isn't already in the dictionary.
-     *  Otherwise returns false. 
-     * @param[in] id The id of the lane 
+     *  Otherwise returns false.
+     * @param[in] id The id of the lane
      * @param[in] lane The lane itself
      * @return Whether the lane was added
      * @todo make non-static
      * @todo why is the id given? The lane is named
      */
-    static bool dictionary(const std::string &id, MSLane* lane);
+    static bool dictionary(const std::string& id, MSLane* lane);
 
 
-    /** @brief Returns the MSLane associated to the key id 
+    /** @brief Returns the MSLane associated to the key id
      *
      * The lane is returned if exists, otherwise 0 is returned.
-     * @param[in] id The id of the lane 
+     * @param[in] id The id of the lane
      * @return The lane
      */
-    static MSLane* dictionary(const std::string &id);
+    static MSLane* dictionary(const std::string& id);
 
 
     /** @brief Clears the dictionary */
@@ -621,13 +621,13 @@ public:
      */
     SUMOReal getMeanSpeed() const;
 
-	 /** @brief Returns the overall waiting time on this lane
-     * @return The sum of the waiting time of all vehicles during the last step;
-     */
+    /** @brief Returns the overall waiting time on this lane
+    * @return The sum of the waiting time of all vehicles during the last step;
+    */
     SUMOReal getWaitingSeconds() const;
 
 
-    /** @brief Returns the brutto (including minGaps) occupancy of this lane during the last step 
+    /** @brief Returns the brutto (including minGaps) occupancy of this lane during the last step
      * @return The occupancy during the last step
      */
     SUMOReal getBruttoOccupancy() const;
@@ -718,7 +718,7 @@ public:
 #ifndef NO_TRACI
     /** @brief Callback for visiting the lane when traversing an RTree
      *
-     * This is used in the TraCIServerAPI_Lane for context subscriptions. 
+     * This is used in the TraCIServerAPI_Lane for context subscriptions.
      *
      * @param[in] cont The context doing all the work
      * @see TraCIServerAPI_Lane::StoringVisitor::add

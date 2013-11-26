@@ -46,7 +46,7 @@
 // ===========================================================================
 class AGActivityTripWriter {
 public:
-    AGActivityTripWriter(OutputDevice &file) :
+    AGActivityTripWriter(OutputDevice& file) :
         routes(file) {
         initialize();
     }
@@ -55,7 +55,7 @@ public:
     void addTrip(AGTrip trip);
 
 private:
-    OutputDevice &routes;
+    OutputDevice& routes;
     std::map<std::string, std::string> colors;
 
     void vtypes();

@@ -100,11 +100,11 @@ MSDevice_HBEFA::generateOutput() const {
     }
     OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
     os.openTag("emissions").writeAttr("CO_abs", OutputDevice::realString(myCO, 6))
-        .writeAttr("CO2_abs", OutputDevice::realString(myCO2, 6))
-        .writeAttr("HC_abs", OutputDevice::realString(myHC, 6))
-        .writeAttr("PMx_abs", OutputDevice::realString(myPMx, 6))
-        .writeAttr("NOx_abs", OutputDevice::realString(myNOx, 6))
-        .writeAttr("fuel_abs", OutputDevice::realString(myFuel, 6)).closeTag();
+    .writeAttr("CO2_abs", OutputDevice::realString(myCO2, 6))
+    .writeAttr("HC_abs", OutputDevice::realString(myHC, 6))
+    .writeAttr("PMx_abs", OutputDevice::realString(myPMx, 6))
+    .writeAttr("NOx_abs", OutputDevice::realString(myNOx, 6))
+    .writeAttr("fuel_abs", OutputDevice::realString(myFuel, 6)).closeTag();
 }
 
 

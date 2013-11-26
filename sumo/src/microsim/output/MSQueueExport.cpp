@@ -77,9 +77,9 @@ MSQueueExport::writeEdge(OutputDevice& of) {
 void
 MSQueueExport::writeLane(OutputDevice& of, const MSLane& lane) {
     // maximum of all vehicle waiting times
-    SUMOReal queueing_time = 0.0; 
+    SUMOReal queueing_time = 0.0;
     // back of last stopped vehicle (XXX does not check for continuous queue)
-    SUMOReal queueing_length = 0.0; 
+    SUMOReal queueing_length = 0.0;
     // back of last slow vehicle (XXX does not check for continuous queue)
     SUMOReal queueing_length2 = 0.0;
     const SUMOReal threshold_velocity = 5 / 3.6; // slow

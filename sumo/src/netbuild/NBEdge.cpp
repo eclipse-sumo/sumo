@@ -69,7 +69,7 @@ const SUMOReal NBEdge::ANGLE_LOOKAHEAD = 10.0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-std::string 
+std::string
 NBEdge::Connection:: getInternalLaneID() const {
     return id + "_" + toString(internalLaneIndex);
 }

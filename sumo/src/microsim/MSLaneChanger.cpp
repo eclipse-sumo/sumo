@@ -463,12 +463,11 @@ MSLaneChanger::findCandidate() {
     return max;
 }
 
-int 
+int
 MSLaneChanger::checkChange(
-        int laneOffset,
-        const std::pair<MSVehicle* const, SUMOReal>& leader,
-        const std::vector<MSVehicle::LaneQ>& preb) const 
-{
+    int laneOffset,
+    const std::pair<MSVehicle* const, SUMOReal>& leader,
+    const std::vector<MSVehicle::LaneQ>& preb) const {
     std::pair<MSVehicle* const, SUMOReal> neighLead = getRealLeader(myCandi + laneOffset);
     std::pair<MSVehicle* const, SUMOReal> neighFollow = getRealFollower(myCandi + laneOffset);
     MSVehicle* vehicle = veh(myCandi);
@@ -503,7 +502,7 @@ MSLaneChanger::checkChange(
 
     MSAbstractLaneChangeModel::MSLCMessager msg(leader.first, neighLead.first, neighFollow.first);
     int state = blocked | vehicle->getLaneChangeModel().wantsChange(
-            laneOffset, msg, blocked, leader, neighLead, neighFollow, *(target->lane), preb, &(myCandi->lastBlocked), &(myCandi->firstBlocked));
+                    laneOffset, msg, blocked, leader, neighLead, neighFollow, *(target->lane), preb, &(myCandi->lastBlocked), &(myCandi->firstBlocked));
 
 #ifndef NO_TRACI
     // let TraCI influence the wish to change lanes and the security to take

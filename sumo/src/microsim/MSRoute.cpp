@@ -60,7 +60,7 @@ MSRoute::MSRoute(const std::string& id,
                  const MSEdgeVector& edges,
                  const bool isPermanent, const RGBColor* const c,
                  const std::vector<SUMOVehicleParameter::Stop>& stops)
-    : Named(id), myEdges(edges), myAmPermanent(isPermanent), 
+    : Named(id), myEdges(edges), myAmPermanent(isPermanent),
       myReferenceCounter(isPermanent ? 1 : 0),
       myColor(c), myStops(stops) {}
 
@@ -173,7 +173,7 @@ MSRoute::checkDist(const std::string& id) {
     RouteDistDict::iterator it = myDistDict.find(id);
     if (it != myDistDict.end() && !it->second.second) {
         const std::vector<const MSRoute*>& routes = it->second.first->getVals();
-        for (std::vector<const MSRoute*>::const_iterator i = routes.begin(); i!= routes.end(); ++i) {
+        for (std::vector<const MSRoute*>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
             (*i)->release();
         }
         delete it->second.first;

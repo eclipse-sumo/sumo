@@ -71,7 +71,7 @@ public:
      * @param[in] to The end position of the line
      * @return Whether the point lies on the line
      */
-    static bool pointOnLine(const Position &p, const Position &from, const Position &to);
+    static bool pointOnLine(const Position& p, const Position& from, const Position& to);
 
 
     /** @brief Returns the positions the given circle is crossed by the given line
@@ -83,8 +83,8 @@ public:
      * @see http://blog.csharphelper.com/2010/03/28/determine-where-a-line-intersects-a-circle-in-c.aspx
      * @see http://gamedev.stackexchange.com/questions/18333/circle-line-collision-detection-problem (jazzdawg)
      */
-    static void FindLineCircleIntersections(const Position &c, SUMOReal radius, const Position &p1, const Position &p2,
-        std::vector<SUMOReal> &into);
+    static void FindLineCircleIntersections(const Position& c, SUMOReal radius, const Position& p1, const Position& p2,
+                                            std::vector<SUMOReal>& into);
 
 
     /** @brief returns the intersection point

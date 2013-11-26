@@ -275,9 +275,9 @@ protected:
     bool myAmLoading;
 
     /// the submenus
-    FXMenuPane* myFileMenu, *myEditMenu, *mySettingsMenu, 
-        *myLocatorMenu, *myControlMenu,
-        *myWindowsMenu, *myHelpMenu;
+    FXMenuPane* myFileMenu, *myEditMenu, *mySettingsMenu,
+                *myLocatorMenu, *myControlMenu,
+                *myWindowsMenu, *myHelpMenu;
 
     /// A window to display messages, warnings and error in
     GUIMessageWindow* myMessageWindow;

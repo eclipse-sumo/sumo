@@ -81,8 +81,7 @@ void
 MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
                               const std::vector<MSLink*>& foeLinks,
                               const std::vector<MSLane*>& foeLanes,
-                              MSLane* internalLaneBefore) 
-{
+                              MSLane* internalLaneBefore) {
     myRequestIdx = requestIdx;
     myRespondIdx = respondIdx;
     myIsCrossing = isCrossing;
@@ -112,13 +111,13 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
                     std::sort(intersections2.begin(), intersections2.end());
                 }
                 myLengthsBehindCrossing.push_back(std::make_pair(
-                            internalLaneBefore->getLength() - intersections1.back(), 
-                            (*it_lane)->getLength() - intersections2.back()));
-                //std::cout 
-                //    << " intersection of " << internalLaneBefore->getID() 
-                //    << " totalLength=" << internalLaneBefore->getLength() 
-                //    << " with " << (*it_lane)->getID() 
-                //    << " totalLength=" << (*it_lane)->getLength() 
+                                                      internalLaneBefore->getLength() - intersections1.back(),
+                                                      (*it_lane)->getLength() - intersections2.back()));
+                //std::cout
+                //    << " intersection of " << internalLaneBefore->getID()
+                //    << " totalLength=" << internalLaneBefore->getLength()
+                //    << " with " << (*it_lane)->getID()
+                //    << " totalLength=" << (*it_lane)->getLength()
                 //    << " dist1=" << myLengthsBehindCrossing.back().first
                 //    << " dist2=" << myLengthsBehindCrossing.back().second
                 //    << "\n";
@@ -426,7 +425,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap) const {
                             // leader is completely past the crossing point
                             assert(!sameTarget);
                             continue; // next lane
-                        } 
+                        }
                         gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
                     }
                     result.push_back(std::make_pair(leader, gap));

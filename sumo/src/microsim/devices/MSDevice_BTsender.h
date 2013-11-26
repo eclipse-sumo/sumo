@@ -142,7 +142,7 @@ public:
          * @param[in] _laneID The id of the lane the vehicle is located at
          * @param[in] _lanePos The position of the vehicle along the lane
          */
-        VehicleState(SUMOReal _time, SUMOReal _speed, SUMOReal _angle, const Position &_position, const std::string &_laneID, SUMOReal _lanePos) 
+        VehicleState(SUMOReal _time, SUMOReal _speed, SUMOReal _angle, const Position& _position, const std::string& _laneID, SUMOReal _lanePos)
             : time(_time), speed(_speed), angle(_angle), position(_position), laneID(_laneID), lanePos(_lanePos) {}
 
         /// @brief Destructor
@@ -173,7 +173,7 @@ public:
         /** @brief Constructor
          * @param[in] id The id of the vehicle
          */
-        VehicleInformation(const std::string &id) : Named(id), amOnNet(true), haveArrived(false)  {}
+        VehicleInformation(const std::string& id) : Named(id), amOnNet(true), haveArrived(false)  {}
 
         /// @brief Destructor
         ~VehicleInformation() {}
@@ -183,7 +183,7 @@ public:
          */
         Boundary getBoxBoundary() const {
             Boundary ret;
-            for(std::vector<VehicleState>::const_iterator i=updates.begin(); i!=updates.end(); ++i) {
+            for (std::vector<VehicleState>::const_iterator i = updates.begin(); i != updates.end(); ++i) {
                 ret.add((*i).position);
             }
             return ret;

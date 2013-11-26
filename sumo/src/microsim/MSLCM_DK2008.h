@@ -48,25 +48,25 @@ public:
 
     enum MyLCAEnum {
         LCA_AMBLOCKINGLEADER = 1 << 16,
-        LCA_AMBLOCKINGFOLLOWER = 1 << 17,                          
-        LCA_MRIGHT = 1 << 18,                                     
-        LCA_MLEFT = 1 << 19,                                      
-        // !!! never set LCA_UNBLOCK = 1 << 20,                   
-        LCA_AMBLOCKINGFOLLOWER_DONTBRAKE = 1 << 21,               
+        LCA_AMBLOCKINGFOLLOWER = 1 << 17,
+        LCA_MRIGHT = 1 << 18,
+        LCA_MLEFT = 1 << 19,
+        // !!! never set LCA_UNBLOCK = 1 << 20,
+        LCA_AMBLOCKINGFOLLOWER_DONTBRAKE = 1 << 21,
         // !!! never used LCA_AMBLOCKINGSECONDFOLLOWER = 1 << 22,
-        
-        // !!! never read LCA_KEEP1 = 1 << 24,                   
-        // !!! never used LCA_KEEP2 = 1 << 25,                  
-        LCA_AMBACKBLOCKER = 1 << 26,                            
-        LCA_AMBACKBLOCKER_STANDING = 1 << 27                    
+
+        // !!! never read LCA_KEEP1 = 1 << 24,
+        // !!! never used LCA_KEEP2 = 1 << 25,
+        LCA_AMBACKBLOCKER = 1 << 26,
+        LCA_AMBACKBLOCKER_STANDING = 1 << 27
     };
 
     MSLCM_DK2008(MSVehicle& v);
 
     virtual ~MSLCM_DK2008();
 
-    /** @brief Called to examine whether the vehicle wants to change 
-     * using the given laneOffset. 
+    /** @brief Called to examine whether the vehicle wants to change
+     * using the given laneOffset.
      * This method gets the information about the surrounding vehicles
      * and whether another lane may be more preferable */
     int wantsChange(

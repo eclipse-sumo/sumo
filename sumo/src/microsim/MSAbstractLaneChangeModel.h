@@ -57,7 +57,7 @@ enum LaneChangeAction {
 
     /// @brief The action is needed to follow the route (navigational lc)
     LCA_STRATEGIC = 1 << 3,
-    /// @brief The action is done to help someone else 
+    /// @brief The action is done to help someone else
     LCA_COOPERATIVE = 1 << 4,
     /// @brief The action is due to the wish to be faster (tactical lc)
     LCA_SPEEDGAIN = 1 << 5,
@@ -95,7 +95,7 @@ enum LaneChangeAction {
     LCA_BLOCKED_BY_FOLLOWER = LCA_BLOCKED_BY_LEFT_FOLLOWER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
     LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT
 
-    /// @}
+                  /// @}
 
 };
 
@@ -199,8 +199,8 @@ public:
 
     virtual void prepareStep() { }
 
-    /** @brief Called to examine whether the vehicle wants to change 
-     * using the given laneOffset. 
+    /** @brief Called to examine whether the vehicle wants to change
+     * using the given laneOffset.
      * This method gets the information about the surrounding vehicles
      * and whether another lane may be more preferable */
     virtual int wantsChange(

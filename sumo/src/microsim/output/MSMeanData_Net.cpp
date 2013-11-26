@@ -174,9 +174,9 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
         const SUMOReal numLanes, const SUMOReal defaultTravelTime, const int numVehicles) const {
     if (myParent == 0) {
         if (sampleSeconds > 0) {
-            dev.writeAttr("density", sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / myLaneLength)
-                .writeAttr("occupancy", vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes *(SUMOReal) 100)
-                .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
+            dev.writeAttr("density", sampleSeconds / STEPS2TIME(period) * (SUMOReal) 1000 / myLaneLength)
+            .writeAttr("occupancy", vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes * (SUMOReal) 100)
+            .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
         dev.writeAttr("departed", nVehDeparted).writeAttr("arrived", nVehArrived).writeAttr("entered", nVehEntered).writeAttr("left", nVehLeft);
         if (nVehVaporized > 0) {
@@ -194,15 +194,15 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
             dev.writeAttr("traveltime", sampleSeconds / numVehicles).writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         } else {
             dev.writeAttr("traveltime", traveltime)
-                .writeAttr("density", sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / myLaneLength)
-                .writeAttr("occupancy", vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes *(SUMOReal) 100)
-                .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
+            .writeAttr("density", sampleSeconds / STEPS2TIME(period) * (SUMOReal) 1000 / myLaneLength)
+            .writeAttr("occupancy", vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes * (SUMOReal) 100)
+            .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
     } else if (defaultTravelTime >= 0.) {
         dev.writeAttr("traveltime", defaultTravelTime).writeAttr("speed", myLaneLength / defaultTravelTime);
     }
     dev.writeAttr("departed", nVehDeparted).writeAttr("arrived", nVehArrived).writeAttr("entered", nVehEntered).writeAttr("left", nVehLeft)
-        .writeAttr("laneChangedFrom", nVehLaneChangeFrom).writeAttr("laneChangedTo", nVehLaneChangeTo);
+    .writeAttr("laneChangedFrom", nVehLaneChangeFrom).writeAttr("laneChangedTo", nVehLaneChangeTo);
     if (nVehVaporized > 0) {
         dev.writeAttr("vaporized", nVehVaporized);
     }

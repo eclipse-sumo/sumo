@@ -511,13 +511,13 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             }
             // check next lane's maximum velocity
-            const SUMOReal nspeed = nextLane->getVehicleMaxSpeed(aVehicle); 
+            const SUMOReal nspeed = nextLane->getVehicleMaxSpeed(aVehicle);
             if (nspeed < speed) {
                 if (patchSpeed) {
                     speed = MIN2(cfModel.freeSpeed(aVehicle, speed, seen, nspeed), speed);
                     dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
-                    // we may not drive with the given velocity - we would be too fast on the next lane 
+                    // we may not drive with the given velocity - we would be too fast on the next lane
                     WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (slow lane ahead)!");
                     MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
                     return false;
@@ -775,7 +775,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
         myBruttoVehicleLengthSum -= length;
         myNettoVehicleLengthSum -= nettoLength;
         ++i;
-        i = VehCont::reverse_iterator(myVehicles.erase(i.base())); 
+        i = VehCont::reverse_iterator(myVehicles.erase(i.base()));
     }
     if (myVehicles.size() > 0) {
         if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0) {
@@ -793,9 +793,9 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
                     myNettoVehicleLengthSum -= veh->getVehicleType().getLength();
                     myVehicles.erase(myVehicles.end() - 1);
                     WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long"
-                            + reason
-                            + (r2 ? " (highway)" : "")
-                            + ", lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                                  + reason
+                                  + (r2 ? " (highway)" : "")
+                                  + ", lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                     MSNet::getInstance()->getVehicleControl().registerTeleport();
                     MSVehicleTransfer::getInstance()->addVeh(t, veh);
                 }
@@ -809,7 +809,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
 
 // ------ Static (sic!) container methods  ------
 bool
-MSLane::dictionary(const std::string &id, MSLane* ptr) {
+MSLane::dictionary(const std::string& id, MSLane* ptr) {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -821,7 +821,7 @@ MSLane::dictionary(const std::string &id, MSLane* ptr) {
 
 
 MSLane*
-MSLane::dictionary(const std::string &id) {
+MSLane::dictionary(const std::string& id) {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -848,10 +848,10 @@ MSLane::insertIDs(std::vector<std::string>& into) {
 }
 
 
-template<class RTREE> void 
+template<class RTREE> void
 MSLane::fill(RTREE& into) {
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
-        MSLane *l = (*i).second;
+        MSLane* l = (*i).second;
         Boundary b = l->getShape().getBoxBoundary();
         b.grow(3.);
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
@@ -969,8 +969,8 @@ MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
     }
     // the only case where this should happen is for a disconnected route (deliberately ignored)
 #ifdef _DEBUG
-    WRITE_WARNING("Could not find connection between '" + succLinkSource.getID() + "' and '" + conts[nRouteSuccs]->getID() + 
-            "' for vehicle '" + veh.getID() + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");   
+    WRITE_WARNING("Could not find connection between '" + succLinkSource.getID() + "' and '" + conts[nRouteSuccs]->getID() +
+                  "' for vehicle '" + veh.getID() + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
 #endif
     return succLinkSource.myLinks.end();
 }
@@ -1253,31 +1253,31 @@ MSLane::enteredByLaneChange(MSVehicle* v) {
 // ------------ Current state retrieval
 SUMOReal
 MSLane::getBruttoOccupancy() const {
-    SUMOReal fractions = myInlappingVehicle!=0 ? myLength - myInlappingVehicleEnd : 0;
+    SUMOReal fractions = myInlappingVehicle != 0 ? myLength - myInlappingVehicleEnd : 0;
     getVehiclesSecure();
-    if(myVehicles.size()!=0) {
-        MSVehicle *lastVeh = myVehicles.front();
-        if(lastVeh->getPositionOnLane()<lastVeh->getVehicleType().getLength()) {
-            fractions -= (lastVeh->getVehicleType().getLength()-lastVeh->getPositionOnLane());
+    if (myVehicles.size() != 0) {
+        MSVehicle* lastVeh = myVehicles.front();
+        if (lastVeh->getPositionOnLane() < lastVeh->getVehicleType().getLength()) {
+            fractions -= (lastVeh->getVehicleType().getLength() - lastVeh->getPositionOnLane());
         }
     }
     releaseVehicles();
-    return (myBruttoVehicleLengthSum+fractions) / myLength;
+    return (myBruttoVehicleLengthSum + fractions) / myLength;
 }
 
 
 SUMOReal
 MSLane::getNettoOccupancy() const {
-    SUMOReal fractions = myInlappingVehicle!=0 ? myLength - myInlappingVehicleEnd : 0;
+    SUMOReal fractions = myInlappingVehicle != 0 ? myLength - myInlappingVehicleEnd : 0;
     getVehiclesSecure();
-    if(myVehicles.size()!=0) {
-        MSVehicle *lastVeh = myVehicles.front();
-        if(lastVeh->getPositionOnLane()<lastVeh->getVehicleType().getLength()) {
-            fractions -= (lastVeh->getVehicleType().getLength()-lastVeh->getPositionOnLane());
+    if (myVehicles.size() != 0) {
+        MSVehicle* lastVeh = myVehicles.front();
+        if (lastVeh->getPositionOnLane() < lastVeh->getVehicleType().getLength()) {
+            fractions -= (lastVeh->getVehicleType().getLength() - lastVeh->getPositionOnLane());
         }
     }
     releaseVehicles();
-    return (myBruttoVehicleLengthSum+fractions) / myLength;
+    return (myBruttoVehicleLengthSum + fractions) / myLength;
 }
 
 
@@ -1294,7 +1294,7 @@ MSLane::getWaitingSeconds() const {
     }
     SUMOReal wtime = 0;
     for (VehCont::const_iterator i = myVehicles.begin(); i != myVehicles.end(); ++i) {
-		wtime += (*i)->getWaitingSeconds();
+        wtime += (*i)->getWaitingSeconds();
     }
     return wtime;
 }

@@ -83,43 +83,43 @@ MSDevice_BTsender::~MSDevice_BTsender() {
 }
 
 
-bool 
+bool
 MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason) {
-    if(reason==MSMoveReminder::NOTIFICATION_DEPARTED && sVehicles.find(veh.getID())==sVehicles.end()) {
+    if (reason == MSMoveReminder::NOTIFICATION_DEPARTED && sVehicles.find(veh.getID()) == sVehicles.end()) {
         sVehicles[veh.getID()] = new VehicleInformation(veh.getID());
     }
     sVehicles[veh.getID()]->updates.push_back(VehicleState(
-        MSNet::getInstance()->getCurrentTimeStep(), veh.getSpeed(), static_cast<MSVehicle&>(veh).getAngle(), static_cast<MSVehicle&>(veh).getPosition(), static_cast<MSVehicle&>(veh).getLane()->getID(), veh.getPositionOnLane()
-        ));
+                MSNet::getInstance()->getCurrentTimeStep(), veh.getSpeed(), static_cast<MSVehicle&>(veh).getAngle(), static_cast<MSVehicle&>(veh).getPosition(), static_cast<MSVehicle&>(veh).getLane()->getID(), veh.getPositionOnLane()
+            ));
     return true;
 }
 
 
-bool 
+bool
 MSDevice_BTsender::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal newPos, SUMOReal newSpeed) {
-    if(sVehicles.find(veh.getID())==sVehicles.end()) {
+    if (sVehicles.find(veh.getID()) == sVehicles.end()) {
         WRITE_WARNING("btsender: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
         return true;
     }
     sVehicles[veh.getID()]->updates.push_back(VehicleState(
-        MSNet::getInstance()->getCurrentTimeStep(), newSpeed, static_cast<MSVehicle&>(veh).getAngle(), static_cast<MSVehicle&>(veh).getPosition(), static_cast<MSVehicle&>(veh).getLane()->getID(), newPos
-        ));
+                MSNet::getInstance()->getCurrentTimeStep(), newSpeed, static_cast<MSVehicle&>(veh).getAngle(), static_cast<MSVehicle&>(veh).getPosition(), static_cast<MSVehicle&>(veh).getLane()->getID(), newPos
+            ));
     return true;
 }
 
 
-bool 
+bool
 MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, Notification reason) {
     if (reason < MSMoveReminder::NOTIFICATION_TELEPORT) {
         return true;
     }
-    if(sVehicles.find(veh.getID())==sVehicles.end()) {
+    if (sVehicles.find(veh.getID()) == sVehicles.end()) {
         WRITE_WARNING("btsender: Can not update position of a vehicle that is not within the road network (" + veh.getID() + ").");
         return true;
     }
     sVehicles[veh.getID()]->updates.push_back(VehicleState(
-        MSNet::getInstance()->getCurrentTimeStep(), veh.getSpeed(), static_cast<MSVehicle&>(veh).getAngle(), static_cast<MSVehicle&>(veh).getPosition(), static_cast<MSVehicle&>(veh).getLane()->getID(), veh.getPositionOnLane()
-        ));
+                MSNet::getInstance()->getCurrentTimeStep(), veh.getSpeed(), static_cast<MSVehicle&>(veh).getAngle(), static_cast<MSVehicle&>(veh).getPosition(), static_cast<MSVehicle&>(veh).getLane()->getID(), veh.getPositionOnLane()
+            ));
     if (reason >= MSMoveReminder::NOTIFICATION_TELEPORT) {
         sVehicles[veh.getID()]->amOnNet = false;
     }

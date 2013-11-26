@@ -502,7 +502,7 @@ public:
     /** @brief Returns an RTree that contains lane IDs
      * @return An Rtree containing lane IDs
      */
-    const NamedRTree &getLanesRTree() const;
+    const NamedRTree& getLanesRTree() const;
 
 
 protected:

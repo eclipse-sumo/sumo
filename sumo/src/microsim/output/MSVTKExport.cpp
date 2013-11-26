@@ -56,39 +56,39 @@
 void
 MSVTKExport::write(OutputDevice& of, SUMOTime /* timestep */) {
 
-	std::vector<double> speed = getSpeed();
+    std::vector<double> speed = getSpeed();
     std::vector<double> points = getPositions();
 
-	of << "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-	of << "<VTKFile type=\"PolyData\" version=\"0.1\" order=\"LittleEndian\">\n";
-	of << "<PolyData>\n";
-	of << " <Piece NumberOfPoints=\"" << speed.size() << "\" NumberOfVerts=\"1\" NumberOfLines=\"0\" NumberOfStrips=\"0\" NumberOfPolys=\"0\">\n";
-	of << "<PointData>\n";
-	of << " <DataArray type=\"Float64\" Name=\"speed\" format=\"ascii\">" << List2String(getSpeed()) << "</DataArray>\n";
-	of << "</PointData>\n";
-	of << "<CellData/>\n";
-	of << "<Points>\n";
+    of << "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
+    of << "<VTKFile type=\"PolyData\" version=\"0.1\" order=\"LittleEndian\">\n";
+    of << "<PolyData>\n";
+    of << " <Piece NumberOfPoints=\"" << speed.size() << "\" NumberOfVerts=\"1\" NumberOfLines=\"0\" NumberOfStrips=\"0\" NumberOfPolys=\"0\">\n";
+    of << "<PointData>\n";
+    of << " <DataArray type=\"Float64\" Name=\"speed\" format=\"ascii\">" << List2String(getSpeed()) << "</DataArray>\n";
+    of << "</PointData>\n";
+    of << "<CellData/>\n";
+    of << "<Points>\n";
     of << " <DataArray type=\"Float64\" Name=\"Points\" NumberOfComponents=\"3\" format=\"ascii\">" << List2String(getPositions()) << "</DataArray>\n";
-	of << "</Points>\n";
-	of << "<Verts>\n";
-	of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\">" <<  getOffset((int) speed.size()) << "</DataArray>\n";
+    of << "</Points>\n";
+    of << "<Verts>\n";
+    of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\">" <<  getOffset((int) speed.size()) << "</DataArray>\n";
     of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\">" << speed.size() << "</DataArray>\n";
     of << "</Verts>\n";
-	of << "<Lines>\n";
-	of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\"/>\n";
-	of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\"/>\n";
-	of << "</Lines>\n";
-	of << "<Stripes>\n";
-	of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\"/>\n";
-	of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\"/>\n";
-	of << "</Stripes>\n";
-	of << "<Polys>\n";
-	of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\"/>\n";
-	of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\"/>\n";
-	of << "</Polys>\n";
-	of << "</Piece>\n";
-	of << "</PolyData>\n";
-	of << "</VTKFile>";
+    of << "<Lines>\n";
+    of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\"/>\n";
+    of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\"/>\n";
+    of << "</Lines>\n";
+    of << "<Stripes>\n";
+    of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\"/>\n";
+    of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\"/>\n";
+    of << "</Stripes>\n";
+    of << "<Polys>\n";
+    of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\"/>\n";
+    of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\"/>\n";
+    of << "</Polys>\n";
+    of << "</Piece>\n";
+    of << "</PolyData>\n";
+    of << "</VTKFile>";
 
 }
 

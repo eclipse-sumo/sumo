@@ -237,14 +237,14 @@ MSPerson::MSPersonStage_Walking::routeOutput(OutputDevice& os) const {
 void
 MSPerson::MSPersonStage_Walking::beginEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "departure")
-        .writeAttr("agent", p.getID()).writeAttr("link", myRoute.front()->getID()).closeTag();
+    .writeAttr("agent", p.getID()).writeAttr("link", myRoute.front()->getID()).closeTag();
 }
 
 
 void
 MSPerson::MSPersonStage_Walking::endEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival")
-        .writeAttr("agent", p.getID()).writeAttr("link", myRoute.back()->getID()).closeTag();
+    .writeAttr("agent", p.getID()).writeAttr("link", myRoute.back()->getID()).closeTag();
 }
 
 
@@ -490,14 +490,14 @@ MSPerson::MSPersonStage_Waiting::routeOutput(OutputDevice& os) const {
 void
 MSPerson::MSPersonStage_Waiting::beginEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actstart " + myActType)
-        .writeAttr("agent", p.getID()).writeAttr("link", getEdge(t)->getID()).closeTag();
+    .writeAttr("agent", p.getID()).writeAttr("link", getEdge(t)->getID()).closeTag();
 }
 
 
 void
 MSPerson::MSPersonStage_Waiting::endEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actend " + myActType).writeAttr("agent", p.getID())
-        .writeAttr("link", getEdge(t)->getID()).closeTag();
+    .writeAttr("link", getEdge(t)->getID()).closeTag();
 }
 
 

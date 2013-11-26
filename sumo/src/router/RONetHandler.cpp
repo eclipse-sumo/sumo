@@ -129,7 +129,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         fromNode = 0;
         toNode = 0;
         priority = 0;
-    } else { 
+    } else {
         const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
         const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
         priority = attrs.get<int>(SUMO_ATTR_PRIORITY, myCurrentName.c_str(), ok);

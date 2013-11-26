@@ -103,7 +103,7 @@ MSEdge::initialize(std::vector<MSLane*>* lanes) {
 }
 
 
-bool 
+bool
 MSEdge::laneChangeAllowed() const {
     if (myLanes == 0 || myLanes->size() < 2) {
         return false;

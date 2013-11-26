@@ -70,7 +70,7 @@
 // ===========================================================================
 
 /// Loads the network
-void 
+void
 loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     OptionsCont& oc = OptionsCont::getOptions();
     std::string file = oc.getString("net-file");
@@ -92,7 +92,7 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
 }
 
 
-int 
+int
 main(int argc, char* argv[]) {
     int ret = 0;
     OptionsCont& oc = OptionsCont::getOptions();

@@ -165,7 +165,7 @@ MSCalibrator::myStartElement(int element,
             if (state.vehicleParameter->departLaneProcedure == DEPART_LANE_DEFAULT) {
                 state.vehicleParameter->departLaneProcedure = DEPART_LANE_ALLOWED_FREE;
             }
-            if (state.vehicleParameter->vtypeid != DEFAULT_VTYPE_ID && 
+            if (state.vehicleParameter->vtypeid != DEFAULT_VTYPE_ID &&
                     MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid) == 0) {
                 WRITE_ERROR("Unknown vehicle type '" + state.vehicleParameter->vtypeid + "' in calibrator '" + myID + "'.");
             }
@@ -253,7 +253,7 @@ MSCalibrator::totalWished() const {
 }
 
 
-bool 
+bool
 MSCalibrator::removePending() {
     if (myToRemove.size() > 0) {
         MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
@@ -493,7 +493,7 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification /*
         if (calibrateFlow && adaptedNum > totalWishedNum) {
 #ifdef MSCalibrator_DEBUG
             std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
-                << " vaporizing " << vehicle->getID() << " to reduce flow\n";
+                      << " vaporizing " << vehicle->getID() << " to reduce flow\n";
 #endif
             if (myParent->scheduleRemoval(vehicle)) {
                 myParent->myRemoved++;
@@ -501,11 +501,11 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification /*
         } else if (myParent->invalidJam(myLaneIndex)) {
 #ifdef MSCalibrator_DEBUG
             std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
-                << " vaporizing " << vehicle->getID() << " to clear jam\n";
+                      << " vaporizing " << vehicle->getID() << " to clear jam\n";
 #endif
             if (!myParent->myHaveWarnedAboutClearingJam) {
                 WRITE_WARNING("Clearing jam at calibrator '" + myParent->myID + "' at time "
-                        + time2string(MSNet::getInstance()->getCurrentTimeStep()));
+                              + time2string(MSNet::getInstance()->getCurrentTimeStep()));
                 myParent->myHaveWarnedAboutClearingJam = true;
             }
             if (myParent->scheduleRemoval(vehicle)) {

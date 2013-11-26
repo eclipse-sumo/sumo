@@ -237,7 +237,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
 }
 
 
-void 
+void
 TraCIServerAPI_Simulation::writeVehicleStateNumber(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state) {
     const std::vector<std::string>& ids = server.getVehicleStateChanges().find(state)->second;
     outputStorage.writeUnsignedByte(TYPE_INTEGER);
@@ -245,7 +245,7 @@ TraCIServerAPI_Simulation::writeVehicleStateNumber(TraCIServer& server, tcpip::S
 }
 
 
-void 
+void
 TraCIServerAPI_Simulation::writeVehicleStateIDs(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state) {
     const std::vector<std::string>& ids = server.getVehicleStateChanges().find(state)->second;
     outputStorage.writeUnsignedByte(TYPE_STRINGLIST);

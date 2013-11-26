@@ -105,8 +105,8 @@ RODFFrame::fillOptions() {
 
     oc.doRegister("emitters-output", new Option_FileName());
     oc.addDescription("emitters-output", "Output", "Saves emitter definitions for source detectors to FILE");
- 
-	oc.doRegister("vtype", new Option_Bool(false));
+
+    oc.doRegister("vtype", new Option_Bool(false));
     oc.addDescription("vtype", "Output", "Add vehicle types to the emitters file (PKW, LKW)");
 
     oc.doRegister("emitters-poi-output", new Option_FileName()); // !!! describe

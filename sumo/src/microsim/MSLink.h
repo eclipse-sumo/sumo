@@ -157,8 +157,8 @@ public:
      * @todo Unsecure!
      */
     void setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
-                               const std::vector<MSLink*>& foeLinks, const std::vector<MSLane*>& foeLanes, 
-                               MSLane* internalLaneBefore=0);
+                               const std::vector<MSLink*>& foeLinks, const std::vector<MSLane*>& foeLanes,
+                               MSLane* internalLaneBefore = 0);
 
 
     /** @brief Sets the information about an approaching vehicle
@@ -368,7 +368,7 @@ private:
 
     /* @brief lengths after the crossing point with foeLane
      * (lengthOnThis, lengthOnFoe)
-     * (index corresponds to myFoeLanes) 
+     * (index corresponds to myFoeLanes)
      * empty vector for entry links
      * */
     std::vector<std::pair<SUMOReal, SUMOReal> > myLengthsBehindCrossing;

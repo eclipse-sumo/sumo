@@ -556,13 +556,13 @@ MSNet::writeOutput() {
     if (OptionsCont::getOptions().isSet("summary-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("summary-output");
         unsigned int departedVehiclesNumber = myVehicleControl->getDepartedVehicleNo();
-        const SUMOReal meanWaitingTime = departedVehiclesNumber!=0 ? myVehicleControl->getTotalDepartureDelay() / (SUMOReal) departedVehiclesNumber : -1.;
+        const SUMOReal meanWaitingTime = departedVehiclesNumber != 0 ? myVehicleControl->getTotalDepartureDelay() / (SUMOReal) departedVehiclesNumber : -1.;
         unsigned int endedVehicleNumber = myVehicleControl->getEndedVehicleNo();
-        const SUMOReal meanTravelTime = endedVehicleNumber!=0 ? myVehicleControl->getTotalTravelTime() / (SUMOReal) endedVehicleNumber : -1.;
+        const SUMOReal meanTravelTime = endedVehicleNumber != 0 ? myVehicleControl->getTotalTravelTime() / (SUMOReal) endedVehicleNumber : -1.;
         od.openTag("step").writeAttr("time", time2string(myStep)).writeAttr("loaded", myVehicleControl->getLoadedVehicleNo())
-            .writeAttr("inserted", myVehicleControl->getDepartedVehicleNo()).writeAttr("running", myVehicleControl->getRunningVehicleNo())
-            .writeAttr("waiting", myInserter->getWaitingVehicleNo()).writeAttr("ended", myVehicleControl->getEndedVehicleNo())
-            .writeAttr("meanWaitingTime", meanWaitingTime).writeAttr("meanTravelTime", meanTravelTime);
+        .writeAttr("inserted", myVehicleControl->getDepartedVehicleNo()).writeAttr("running", myVehicleControl->getRunningVehicleNo())
+        .writeAttr("waiting", myInserter->getWaitingVehicleNo()).writeAttr("ended", myVehicleControl->getEndedVehicleNo())
+        .writeAttr("meanWaitingTime", meanWaitingTime).writeAttr("meanTravelTime", meanTravelTime);
         if (myLogExecutionTime) {
             od.writeAttr("duration", mySimStepDuration);
         }
@@ -737,9 +737,9 @@ MSNet::getRouterEffort(const std::vector<MSEdge*>& prohibited) const {
 }
 
 
-const NamedRTree &
+const NamedRTree&
 MSNet::getLanesRTree() const {
-    if(!myLanesRTree.first) {
+    if (!myLanesRTree.first) {
         MSLane::fill(myLanesRTree.second);
         myLanesRTree.first = true;
     }

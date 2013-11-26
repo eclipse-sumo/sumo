@@ -120,8 +120,8 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port)
     MSNet::getInstance()->addVehicleStateListener(this);
 
     myExecutors[CMD_GET_INDUCTIONLOOP_VARIABLE] = &TraCIServerAPI_InductionLoop::processGet;
-	myExecutors[CMD_GET_AREAL_DETECTOR_VARIABLE] = &TraCIServerAPI_ArealDetector::processGet;
-	myExecutors[CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE] = &TraCIServerAPI_MeMeDetector::processGet;
+    myExecutors[CMD_GET_AREAL_DETECTOR_VARIABLE] = &TraCIServerAPI_ArealDetector::processGet;
+    myExecutors[CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE] = &TraCIServerAPI_MeMeDetector::processGet;
 
     myExecutors[CMD_GET_TL_VARIABLE] = &TraCIServerAPI_TLS::processGet;
     myExecutors[CMD_SET_TL_VARIABLE] = &TraCIServerAPI_TLS::processSet;
@@ -371,10 +371,10 @@ TraCIServer::runEmbedded(std::string pyFile) {
     Py_Initialize();
     Py_InitModule("traciemb", EmbMethods);
     if (pyFile.length() > 3 && !pyFile.compare(pyFile.length() - 3, 3, ".py")) {
-        PyObject *sys_path, *path;
+        PyObject* sys_path, *path;
         char pathstr[] = "path";
         sys_path = PySys_GetObject(pathstr);
-        if (sys_path == NULL || !PyList_Check(sys_path)) {   
+        if (sys_path == NULL || !PyList_Check(sys_path)) {
             throw ProcessError("Could not access python sys.path!");
         }
         path = PyString_FromString(FileHelpers::getFilePath(pyFile).c_str());
@@ -526,8 +526,8 @@ TraCIServer::postProcessSimulationStep2() {
     int noActive = 0;
     for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
         const Subscription& s = *i;
-        bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT) 
-            && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
+        bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT)
+                                && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
         if ((s.endTime < t) || isArrivedVehicle) {
             i = mySubscriptions.erase(i);
             continue;
@@ -539,7 +539,7 @@ TraCIServer::postProcessSimulationStep2() {
         ++noActive;
     }
     myOutputStorage.writeInt(noActive);
-    for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end(); ) {
+    for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
         const Subscription& s = *i;
         if (s.beginTime > t) {
             ++i;
@@ -549,7 +549,7 @@ TraCIServer::postProcessSimulationStep2() {
         std::string errors;
         bool ok = processSingleSubscription(s, into, errors);
         myOutputStorage.writeStorage(into);
-        if(ok) {
+        if (ok) {
             ++i;
         } else {
             i = mySubscriptions.erase(i);
@@ -671,7 +671,7 @@ TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& 
             break;
         case CMD_SUBSCRIBE_EDGE_CONTEXT:
             if (TraCIServerAPI_Edge::getShape(id, shape)) {
-               return true;
+                return true;
             }
             break;
         case CMD_SUBSCRIBE_SIM_CONTEXT:

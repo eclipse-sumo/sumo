@@ -307,8 +307,8 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
     if (myInverseProjection != 0) {
         double x = from.x();
         double y = from.y();
-        if (pj_transform(myInverseProjection, myGeoProjection, 1, 1, &x, &y, NULL )) {
-            WRITE_WARNING("Could not transform (" + toString(x) + "," + toString(y) +")");
+        if (pj_transform(myInverseProjection, myGeoProjection, 1, 1, &x, &y, NULL)) {
+            WRITE_WARNING("Could not transform (" + toString(x) + "," + toString(y) + ")");
         }
         from.set(SUMOReal(x * RAD_TO_DEG), SUMOReal(y * RAD_TO_DEG));
     }
