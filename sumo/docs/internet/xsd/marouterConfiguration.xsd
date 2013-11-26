@@ -20,7 +20,7 @@
     <xsd:complexType name="inputType">
         <xsd:all>
             <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="taz-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="od-matrix-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lane-weight-files" type="fileOptionType" minOccurs="0"/>
@@ -52,10 +52,10 @@
             <xsd:element name="timeline" type="strOptionType" minOccurs="0"/>
             <xsd:element name="timeline.day-in-hours" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="assignment-method" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="left-turn-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="paths" type="intOptionType" minOccurs="0"/>
             <xsd:element name="paths.penalty" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="lambda" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="upperbound" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="lowerbound" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="max-iterations" type="intOptionType" minOccurs="0"/>

@@ -65,6 +65,7 @@
             <xsd:element name="proj.dhdn" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="proj" type="strOptionType" minOccurs="0"/>
             <xsd:element name="proj.inverse" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj.dhdnutm" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="proj.plain-geo" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -158,7 +159,7 @@
             <xsd:element name="osm.skip-duplicates-check" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.railway.oneway-default" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.import-all-lanes" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="opendrive.import-widths" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive.ignore-widths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="dismiss-vclasses" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds" type="boolOptionType" minOccurs="0"/>

@@ -49,6 +49,7 @@
             <xsd:element name="proj.dhdn" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="proj" type="strOptionType" minOccurs="0"/>
             <xsd:element name="proj.inverse" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj.dhdnutm" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

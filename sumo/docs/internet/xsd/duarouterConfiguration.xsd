@@ -20,7 +20,7 @@
     <xsd:complexType name="inputType">
         <xsd:all>
             <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="taz-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="alternative-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="flow-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
@@ -57,6 +57,7 @@
             <xsd:element name="keep-all-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="skip-new-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="logit" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="route-choice-method" type="strOptionType" minOccurs="0"/>
             <xsd:element name="logit.beta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.gamma" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.theta" type="floatOptionType" minOccurs="0"/>

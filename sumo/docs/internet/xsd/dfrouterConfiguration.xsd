@@ -32,6 +32,7 @@
             <xsd:element name="detector-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="detectors-poi-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="emitters-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="vtype" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="emitters-poi-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="variable-speed-sign-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="end-reroute-output" type="fileOptionType" minOccurs="0"/>
@@ -63,6 +64,7 @@
             <xsd:element name="revalidate-flows" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="remove-empty-detectors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="strict-sources" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="respect-concurrent-inflows" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

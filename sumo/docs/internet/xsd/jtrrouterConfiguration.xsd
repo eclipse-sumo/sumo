@@ -20,7 +20,7 @@
     <xsd:complexType name="inputType">
         <xsd:all>
             <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="taz-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="alternative-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="flow-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="turn-ratio-files" type="fileOptionType" minOccurs="0"/>
