@@ -64,11 +64,11 @@
 #define GEO_OUTPUT_ACCURACY 6
 
 /* Define if auto-generated version.h should be used. */
-//#define HAVE_VERSION_H 1
+#define HAVE_VERSION_H 1
 
 /* Version number of package */
 #ifndef HAVE_VERSION_H
-#define VERSION_STRING "0.19.0"
+#define VERSION_STRING "svn"
 #endif
 
 /* Define if junction internal lanes should be used. */
