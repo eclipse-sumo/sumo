@@ -780,7 +780,8 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                     busStopsMustHaveSpace = false;
                 }
             }
-            if (myState.pos() + getVehicleType().getMinGap() >= endPos - BUS_STOP_OFFSET && busStopsMustHaveSpace) {
+            if (myState.pos() + getVehicleType().getMinGap() >= endPos - BUS_STOP_OFFSET && busStopsMustHaveSpace
+                    && myLane == stop.lane) {
                 // ok, we may stop (have reached the stop)
                 stop.reached = true;
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
