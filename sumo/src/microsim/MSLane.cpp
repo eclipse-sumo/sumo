@@ -1098,29 +1098,29 @@ SUMOReal MSLane::getMissingRearGap(
 
 std::pair<MSVehicle* const, SUMOReal>
 MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed,
-                                 SUMOReal backOffset, SUMOReal predMaxDecel) const {
-    // ok, a vehicle has not noticed the lane about itself;
-    //  iterate as long as necessary to search for an approaching one
+                                 SUMOReal backOffset, SUMOReal leaderMaxDecel) const 
+{
+    // do a tree search among all follower lanes and check for the most
+    // important vehicle (the one requiring the largest reargap)
+    std::pair<MSVehicle*, SUMOReal> result(static_cast<MSVehicle*>(0), -1);
+    SUMOReal missingRearGapMax = 0;
     std::set<MSLane*> visited;
-    std::vector<std::pair<MSVehicle*, SUMOReal> > possible;
     std::vector<MSLane::IncomingLaneInfo> newFound;
     std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
     while (toExamine.size() != 0) {
         for (std::vector<MSLane::IncomingLaneInfo>::iterator i = toExamine.begin(); i != toExamine.end(); ++i) {
-            /*
-            if ((*i).viaLink->getState()==LINKSTATE_TL_RED) {
-                continue;
-            }
-            */
             MSLane* next = (*i).lane;
             if (next->getFirstVehicle() != 0) {
                 MSVehicle* v = (MSVehicle*) next->getFirstVehicle();
-                SUMOReal agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
-                if (agap <= v->getCarFollowModel().getSecureGap(v->getCarFollowModel().maxNextSpeed(v->getSpeed(), v), leaderSpeed, predMaxDecel)) {
-                    possible.push_back(std::make_pair(v, agap));
+                const SUMOReal agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
+                const SUMOReal missingRearGap = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - agap;
+                if (missingRearGap > missingRearGapMax) {
+                    missingRearGapMax = missingRearGap;
+                    result.first = v; 
+                    result.second = agap;
                 }
             } else {
-                if ((*i).length + seen < dist) {
+                if ((*i).length < dist) {
                     const std::vector<MSLane::IncomingLaneInfo>& followers = next->getIncomingLanes();
                     for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
                         if (visited.find((*j).lane) == visited.end()) {
@@ -1138,11 +1138,7 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSp
         toExamine.clear();
         swap(newFound, toExamine);
     }
-    if (possible.size() == 0) {
-        return std::pair<MSVehicle* const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
-    }
-    sort(possible.begin(), possible.end(), by_second_sorter());
-    return *(possible.begin());
+    return result;
 }
 
 
