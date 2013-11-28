@@ -34,18 +34,28 @@
 #include <foreign/rtree/RTree.h>
 #include <utils/common/Named.h>
 
-//#include "RTree.h"
-
 
 // specialized implementation for speedup and avoiding warnings
+#define NAMED_RTREE_QUAL RTree<Named*, Named, float, 2, Named::StoringVisitor, float, 8, 4>
+
 template<>
-inline float RTree<Named*, Named, float, 2, Named::StoringVisitor, float, 8, 4>::RectSphericalVolume(Rect* a_rect) {
+inline float NAMED_RTREE_QUAL::RectSphericalVolume(Rect* a_rect) {
     ASSERT(a_rect);
     const float extent0 = a_rect->m_max[0] - a_rect->m_min[0];
     const float extent1 = a_rect->m_max[1] - a_rect->m_min[1];
     return .78539816f * (extent0 * extent0 + extent1 * extent1);
 }
 
+template<>
+inline typename NAMED_RTREE_QUAL::Rect NAMED_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_rectB) {
+    ASSERT(a_rectA && a_rectB);
+    Rect newRect;
+    newRect.m_min[0] = rtree_min(a_rectA->m_min[0], a_rectB->m_min[0]);
+    newRect.m_max[0] = rtree_max(a_rectA->m_max[0], a_rectB->m_max[0]);
+    newRect.m_min[1] = rtree_min(a_rectA->m_min[1], a_rectB->m_min[1]);
+    newRect.m_max[1] = rtree_max(a_rectA->m_max[1], a_rectB->m_max[1]);
+    return newRect;
+}
 
 // ===========================================================================
 // class definitions

@@ -698,7 +698,7 @@ TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, SUMO
                 myObjects[CMD_GET_EDGE_VARIABLE] = 0;
                 myObjects[CMD_GET_LANE_VARIABLE] = 0;
                 myObjects[CMD_GET_VEHICLE_VARIABLE] = 0;
-                myLaneTree = new RTree<MSLane*, MSLane, float, 2, TraCIServerAPI_Lane::StoringVisitor>(&MSLane::visit);
+                myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
                 MSLane::fill(*myLaneTree);
                 break;
             case CMD_GET_POI_VARIABLE:

@@ -122,6 +122,27 @@ private:
 };
 
 
+#define LANE_RTREE_QUAL RTree<MSLane*, MSLane, float, 2, TraCIServerAPI_Lane::StoringVisitor>
+
+template<>
+inline float LANE_RTREE_QUAL::RectSphericalVolume(Rect* a_rect) {
+    ASSERT(a_rect);
+    const float extent0 = a_rect->m_max[0] - a_rect->m_min[0];
+    const float extent1 = a_rect->m_max[1] - a_rect->m_min[1];
+    return .78539816f * (extent0 * extent0 + extent1 * extent1);
+}
+
+template<>
+inline typename LANE_RTREE_QUAL::Rect LANE_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_rectB) {
+    ASSERT(a_rectA && a_rectB);
+    Rect newRect;
+    newRect.m_min[0] = rtree_min(a_rectA->m_min[0], a_rectB->m_min[0]);
+    newRect.m_max[0] = rtree_max(a_rectA->m_max[0], a_rectB->m_max[0]);
+    newRect.m_min[1] = rtree_min(a_rectA->m_min[1], a_rectB->m_min[1]);
+    newRect.m_max[1] = rtree_max(a_rectA->m_max[1], a_rectB->m_max[1]);
+    return newRect;
+}
+
 #endif
 
 #endif

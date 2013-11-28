@@ -377,7 +377,7 @@ private:
     std::map<int, NamedRTree*> myObjects;
 
     /// @brief A storage of lanes
-    RTree<MSLane*, MSLane, float, 2, TraCIServerAPI_Lane::StoringVisitor>* myLaneTree;
+    LANE_RTREE_QUAL* myLaneTree;
 
 
 private:
