@@ -84,9 +84,9 @@ def procFCDStream(fcdstream, options):
     e = FCDTimeEntry(lt)
     if q.vehicle:
       for v in q.vehicle:
-        if v not in chosen:
-          chosen[v] = random.random() < options.penetration
-        if chosen[v]:
+        if v.id not in chosen:
+          chosen[v.id] = random.random() < options.penetration
+        if chosen[v.id]:
           x, y = disturb_gps(float(v.x), float(v.y), options.blur)
           if v.z: z = v.z
           else: z = 0
