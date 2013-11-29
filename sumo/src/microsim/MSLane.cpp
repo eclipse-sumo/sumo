@@ -1105,7 +1105,7 @@ SUMOReal MSLane::getMissingRearGap(
 
 
 std::pair<MSVehicle* const, SUMOReal>
-MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed,
+MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal leaderSpeed,
                                  SUMOReal backOffset, SUMOReal leaderMaxDecel) const 
 {
     // do a tree search among all follower lanes and check for the most

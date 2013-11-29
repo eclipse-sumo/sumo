@@ -241,7 +241,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
     } else {
         WRITE_ERROR("Unknown traffic light type '" + typeS + "' for node '" + myID + "'.");
-        ok = false;
+        return;
     }
     if (tlID != "" && myTLLogicCont.getPrograms(tlID).size() > 0) {
         // we already have definitions for this tlID

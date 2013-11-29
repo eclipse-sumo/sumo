@@ -575,7 +575,7 @@ public:
 
 
 
-    std::pair<MSVehicle* const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen,
+    std::pair<MSVehicle* const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist,
             SUMOReal leaderSpeed, SUMOReal backOffset, SUMOReal predMaxDecel) const;
 
 
