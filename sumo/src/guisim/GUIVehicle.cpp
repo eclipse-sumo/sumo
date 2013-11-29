@@ -323,7 +323,7 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 33);
+        new GUIParameterTableWindow(app, *this, 34);
     // add items
     ret->mkItem("lane [id]", false, myLane->getID());
     ret->mkItem("position [m]", true,
@@ -371,6 +371,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("minGap", false, myType->getMinGap());
     ret->mkItem("vehicle class", false, SumoVehicleClassStrings.getString(myType->getVehicleClass()));
     ret->mkItem("emission class", false, SumoEmissionClassStrings.getString(myType->getEmissionClass()));
+    ret->mkItem("maximum speed [m/s]", false, getMaxSpeed());
     ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
     ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
     ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
