@@ -577,25 +577,13 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
         break;
         case SVS_BUS_CITY_FLEXIBLE:
         case SVS_BUS_OVERLAND:
-            drawAction_drawRailCarriages(s, 8.25, 0, 0, false); // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
-            break;
         case SVS_RAIL:
-            drawAction_drawRailCarriages(s, 24.5, 1, 1); // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
-            break;
         case SVS_RAIL_LIGHT:
-            drawAction_drawRailCarriages(s, 16.85, 1, 0); // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
-            break;
         case SVS_RAIL_CITY:
-            drawAction_drawRailCarriages(s, 5.71, 0, 0); // 40.0m overall, 7 modules http://de.wikipedia.org/wiki/Bombardier_Flexity_Berlin
-            break;
         case SVS_RAIL_SLOW:
-            drawAction_drawRailCarriages(s, 9.44, 1, 1); // actually length of the locomotive http://de.wikipedia.org/wiki/KJI_Nr._20_und_21
-            break;
         case SVS_RAIL_FAST:
-            drawAction_drawRailCarriages(s, 24.775, 0, 0); // http://de.wikipedia.org/wiki/ICE_3
-            break;
         case SVS_RAIL_CARGO:
-            drawAction_drawRailCarriages(s, 13.86, 1, 0); // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
+            drawAction_drawCarriageClass(s, shape, false);
             break;
         case SVS_E_VEHICLE:
             drawPoly(vehiclePoly_EVehicleBody, 4);
@@ -857,6 +845,37 @@ GUIVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUM
 }
 
 
+bool 
+GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const {
+    switch (guiShape) {
+        case SVS_BUS_CITY_FLEXIBLE:
+        case SVS_BUS_OVERLAND:
+            drawAction_drawRailCarriages(s, 8.25, 0, 0, asImage); // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
+            break;
+        case SVS_RAIL:
+            drawAction_drawRailCarriages(s, 24.5, 1, 1, asImage); // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
+            break;
+        case SVS_RAIL_LIGHT:
+            drawAction_drawRailCarriages(s, 16.85, 1, 0, asImage); // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
+            break;
+        case SVS_RAIL_CITY:
+            drawAction_drawRailCarriages(s, 5.71, 0, 0, asImage); // 40.0m overall, 7 modules http://de.wikipedia.org/wiki/Bombardier_Flexity_Berlin
+            break;
+        case SVS_RAIL_SLOW:
+            drawAction_drawRailCarriages(s, 9.44, 1, 1, asImage); // actually length of the locomotive http://de.wikipedia.org/wiki/KJI_Nr._20_und_21
+            break;
+        case SVS_RAIL_FAST:
+            drawAction_drawRailCarriages(s, 24.775, 0, 0, asImage); // http://de.wikipedia.org/wiki/ICE_3
+            break;
+        case SVS_RAIL_CARGO:
+            drawAction_drawRailCarriages(s, 13.86, 1, 0, asImage); // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
+            break;
+        default:
+            return false;
+    }
+    return true;
+}
+
 #define BLINKER_POS_FRONT .5
 #define BLINKER_POS_BACK .5
 
@@ -948,35 +967,12 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
         case 3:
         default:
             // draw as image but take special care for drawing trains
-            // XXX handle default carriage lenghts someplace else
-            switch (getVehicleType().getGuiShape()) {
-                case SVS_BUS_CITY_FLEXIBLE:
-                    drawAction_drawRailCarriages(s, 25.0, 0, 0, true);
-                    break;
-                case SVS_RAIL:
-                    drawAction_drawRailCarriages(s, 25.0, 1, 1, true);
-                    break;
-                case SVS_RAIL_LIGHT:
-                    drawAction_drawRailCarriages(s, 38.0, 1, 0, true);
-                    break;
-                case SVS_RAIL_CITY:
-                    drawAction_drawRailCarriages(s, 25.0, 0, 0, true);
-                    break;
-                case SVS_RAIL_SLOW:
-                    drawAction_drawRailCarriages(s, 15.0, 1, 1, true);
-                    break;
-                case SVS_RAIL_FAST:
-                    drawAction_drawRailCarriages(s, 40.0, 0, 0, true);
-                    break;
-                case SVS_RAIL_CARGO:
-                    drawAction_drawRailCarriages(s, 20.0, 1, 0, true);
-                    break;
-                default:
-                    // draw normal vehicle
-                    if (!drawAction_drawVehicleAsImage(s)) {
-                        drawAction_drawVehicleAsPoly(s);
-                    };
-            };
+            // fallback to simple shapes
+            if (!drawAction_drawCarriageClass(s, getVehicleType().getGuiShape(), true)) {
+                if (!drawAction_drawVehicleAsImage(s)) {
+                    drawAction_drawVehicleAsPoly(s);
+                };
+            }
             break;
     }
     if (s.drawMinGap) {

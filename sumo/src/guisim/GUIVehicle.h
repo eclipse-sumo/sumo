@@ -321,8 +321,11 @@ private:
      * determined from defaultLength of carriages and vehicle length
      * passengerSeats are computed beginning at firstPassengerCarriage */
     void drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, SUMOReal carriageGap, 
-            int firstPassengerCarriage, bool asImage = false) const;
+            int firstPassengerCarriage, bool asImage) const;
     /// @}
+
+    /// @brief draws the given guiShape if it has distinc carriages/modules and eturns true if so
+    bool drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const;
 
     /* @brief return the previous lane in this vehicles route including internal lanes
      * @param[in] current The lane of which the predecessor should be returned
