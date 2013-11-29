@@ -1374,29 +1374,11 @@ GUIVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
 
 
 MSLane*
-GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
-    const bool isInternal = current->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
-    if (isInternal) {
-        // route pointer still points to the previous lane
-        return myRoute->getEdges()[routeIndex]->getLanes()[0];
-    } else if (routeIndex == 0) {
-        // there is no previous lane because the route has just begun
-        return current;
+GUIVehicle::getPreviousLane(MSLane* current, int& furtherIndex) const {
+    if (furtherIndex < myFurtherLanes.size()) {
+        return myFurtherLanes[furtherIndex++];
     } else {
-        // retrieve the previous internal edge
-        routeIndex -= 1;
-        const MSEdge* previous = myRoute->getEdges()[routeIndex];
-#ifdef HAVE_INTERNAL_LANES
-        const MSEdge* previousInternal = previous->getInternalFollowingEdge(&current->getEdge());
-#else
-        const MSEdge* previousInternal = 0;
-#endif
-        if (previousInternal != 0) {
-            return previousInternal->getLanes()[0];
-        } else {
-            // network without internal links, use previous edge instead
-            return previous->getLanes()[0];
-        }
+        return current;
     }
 }
 
@@ -1421,10 +1403,10 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
     const SUMOReal carriageLength = carriageLengthWithGap - carriageGap;
     // lane on which the carriage front is situated
     MSLane* lane = myLane;
-    int routeIndex = myCurrEdge - myRoute->begin();
+    int furtherIndex = 0;
     // lane on which the carriage back is situated
     MSLane* backLane = myLane;
-    int backRouteIndex = routeIndex;
+    int backFurtherIndex = furtherIndex;
     // offsets of front and back
     SUMOReal carriageOffset = myState.pos();
     SUMOReal carriageBackOffset = myState.pos() - carriageLength;
@@ -1436,11 +1418,11 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
     // draw individual carriages
     for (int i = 0; i < numCarriages; ++i) {
         while (carriageOffset < 0) {
-            lane = getPreviousLane(lane, routeIndex);
+            lane = getPreviousLane(lane, furtherIndex);
             carriageOffset += lane->getLength();
         }
         while (carriageBackOffset < 0) {
-            backLane = getPreviousLane(backLane, backRouteIndex);
+            backLane = getPreviousLane(backLane, backFurtherIndex);
             carriageBackOffset += backLane->getLength();
         }
         const Position front = lane->getShape().positionAtOffset2D(carriageOffset);

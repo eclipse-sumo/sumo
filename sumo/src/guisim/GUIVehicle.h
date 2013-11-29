@@ -331,7 +331,7 @@ private:
      * @param[in] current The lane of which the predecessor should be returned
      * @param[in,out] routeIndex The index of the current or previous non-internal edge in the route
      */
-    MSLane* getPreviousLane(MSLane* current, int& routeIndex) const;
+    MSLane* getPreviousLane(MSLane* current, int& furtherIndex) const;
 
     /// @brief returns the seat position for the person with the given index
     const Position& getSeatPosition(size_t personIndex) const;
