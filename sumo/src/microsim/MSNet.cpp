@@ -311,6 +311,7 @@ MSNet::closeSimulation(SUMOTime start) {
     if (myLogExecutionTime) {
         long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
         std::ostringstream msg;
+        // print performance notice
         msg << "Performance: " << "\n" << " Duration: " << duration << " ms" << "\n";
         if (duration != 0) {
             msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (SUMOReal)duration) << "\n";
@@ -318,21 +319,31 @@ MSNet::closeSimulation(SUMOTime start) {
             msg.setf(std::ios::showpoint);    // print decimal point
             msg << " UPS: " << ((SUMOReal)myVehiclesMoved / ((SUMOReal)duration / 1000)) << "\n";
         }
-        // prepare optional statistics
+        // print vehicle statistics
         const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
                                            " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
-        const std::string collisionNotice = (
-                                                myVehicleControl->getCollisionCount() > 0 ?
-                                                " (Collisions: " + toString(myVehicleControl->getCollisionCount()) + ")" : "");
-        const std::string teleportNotice = (
-                                               myVehicleControl->getTeleportCount() > 0 ?
-                                               "Teleports: " + toString(myVehicleControl->getTeleportCount()) + collisionNotice + "\n" : "");
-        // print statistics
         msg << "Vehicles: " << "\n"
             << " Inserted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
             << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
-            << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n"
-            << teleportNotice;
+            << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
+
+        if (myVehicleControl->getTeleportCount() > 0) {
+            // print optional teleport statistics
+            std::vector<std::string> reasons;
+            if (myVehicleControl->getCollisionCount() > 0) {
+                reasons.push_back("Collisions: " + toString(myVehicleControl->getCollisionCount()));
+            }
+            if (myVehicleControl->getTeleportsJam() > 0) {
+                reasons.push_back("Jam: " + toString(myVehicleControl->getTeleportsJam()));
+            }
+            if (myVehicleControl->getTeleportsYield() > 0) {
+                reasons.push_back("Yield: " + toString(myVehicleControl->getTeleportsYield()));
+            }
+            if (myVehicleControl->getTeleportsWrongLane() > 0) {
+                reasons.push_back("Wrong Lane: " + toString(myVehicleControl->getTeleportsWrongLane()));
+            }
+            msg << "Teleports: " << myVehicleControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
+        }
         WRITE_MESSAGE(msg.str());
     }
     myDetectorControl->close(myStep);
