@@ -950,23 +950,26 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // draw as image but take special care for drawing trains
             // XXX handle default carriage lenghts someplace else
             switch (getVehicleType().getGuiShape()) {
+                case SVS_BUS_CITY_FLEXIBLE:
+                    drawAction_drawRailCarriages(s, 25.0, 0, 0, true);
+                    break;
                 case SVS_RAIL:
                     drawAction_drawRailCarriages(s, 25.0, 1, 1, true);
                     break;
                 case SVS_RAIL_LIGHT:
-                    drawAction_drawRailCarriages(s, 38.0, 0, 1, true);
+                    drawAction_drawRailCarriages(s, 38.0, 1, 0, true);
                     break;
                 case SVS_RAIL_CITY:
-                    drawAction_drawRailCarriages(s, 25.0, 0, 1, true);
+                    drawAction_drawRailCarriages(s, 25.0, 0, 0, true);
                     break;
                 case SVS_RAIL_SLOW:
                     drawAction_drawRailCarriages(s, 15.0, 1, 1, true);
                     break;
                 case SVS_RAIL_FAST:
-                    drawAction_drawRailCarriages(s, 40.0, 0, 1, true);
+                    drawAction_drawRailCarriages(s, 40.0, 0, 0, true);
                     break;
                 case SVS_RAIL_CARGO:
-                    drawAction_drawRailCarriages(s, 20.0, 0, 1, true);
+                    drawAction_drawRailCarriages(s, 20.0, 1, 0, true);
                     break;
                 default:
                     // draw normal vehicle
