@@ -529,7 +529,6 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             break;
         case SVS_BUS:
         case SVS_BUS_TROLLEY:
-        case SVS_BUS_CITY_FLEXIBLE:
         case SVS_BUS_CITY: {
             SUMOReal ml = length;
             glScaled(1. / (length), 1, 1.);
@@ -576,24 +575,27 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             glTranslated(0, 0, -.045);
         }
         break;
+        case SVS_BUS_CITY_FLEXIBLE:
         case SVS_BUS_OVERLAND:
+            drawAction_drawRailCarriages(s, 8.25, 0, 0, false); // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
+            break;
         case SVS_RAIL:
-            drawAction_drawRailCarriages(s, 25.0, 1);
+            drawAction_drawRailCarriages(s, 24.5, 1, 1); // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
             break;
         case SVS_RAIL_LIGHT:
-            drawAction_drawRailCarriages(s, 38.0);
+            drawAction_drawRailCarriages(s, 16.85, 1, 0); // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
             break;
         case SVS_RAIL_CITY:
-            drawAction_drawRailCarriages(s, 25.0);
+            drawAction_drawRailCarriages(s, 5.71, 0, 0); // 40.0m overall, 7 modules http://de.wikipedia.org/wiki/Bombardier_Flexity_Berlin
             break;
         case SVS_RAIL_SLOW:
-            drawAction_drawRailCarriages(s, 15.0, 1);
+            drawAction_drawRailCarriages(s, 9.44, 1, 1); // actually length of the locomotive http://de.wikipedia.org/wiki/KJI_Nr._20_und_21
             break;
         case SVS_RAIL_FAST:
-            drawAction_drawRailCarriages(s, 40.0, 1);
+            drawAction_drawRailCarriages(s, 24.775, 0, 0); // http://de.wikipedia.org/wiki/ICE_3
             break;
         case SVS_RAIL_CARGO:
-            drawAction_drawRailCarriages(s, 20.0);
+            drawAction_drawRailCarriages(s, 13.86, 1, 0); // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
             break;
         case SVS_E_VEHICLE:
             drawPoly(vehiclePoly_EVehicleBody, 4);
@@ -949,22 +951,22 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // XXX handle default carriage lenghts someplace else
             switch (getVehicleType().getGuiShape()) {
                 case SVS_RAIL:
-                    drawAction_drawRailCarriages(s, 25.0, 1, true);
+                    drawAction_drawRailCarriages(s, 25.0, 1, 1, true);
                     break;
                 case SVS_RAIL_LIGHT:
-                    drawAction_drawRailCarriages(s, 38.0, true);
+                    drawAction_drawRailCarriages(s, 38.0, 0, 1, true);
                     break;
                 case SVS_RAIL_CITY:
-                    drawAction_drawRailCarriages(s, 25.0, true);
+                    drawAction_drawRailCarriages(s, 25.0, 0, 1, true);
                     break;
                 case SVS_RAIL_SLOW:
-                    drawAction_drawRailCarriages(s, 15.0, 1, true);
+                    drawAction_drawRailCarriages(s, 15.0, 1, 1, true);
                     break;
                 case SVS_RAIL_FAST:
-                    drawAction_drawRailCarriages(s, 40.0, 1, true);
+                    drawAction_drawRailCarriages(s, 40.0, 0, 1, true);
                     break;
                 case SVS_RAIL_CARGO:
-                    drawAction_drawRailCarriages(s, 20.0, true);
+                    drawAction_drawRailCarriages(s, 20.0, 0, 1, true);
                     break;
                 default:
                     // draw normal vehicle
@@ -1401,7 +1403,7 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
 
 
 void
-GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, int firstPassengerCarriage, bool asImage) const {
+GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, SUMOReal carriageGap, int firstPassengerCarriage, bool asImage) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-51);
     const SUMOReal length = getVehicleType().getLength() * s.vehicleExaggeration;
@@ -1411,7 +1413,6 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
     glPushMatrix();
     glPushMatrix();
     GLHelper::setColor(darker);
-    const SUMOReal carriageGap = 1;
     const SUMOReal xCornerCut = 0.3;
     const SUMOReal yCornerCut = 0.4;
     // round to closest integer
