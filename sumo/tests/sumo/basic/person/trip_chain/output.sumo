@@ -1,4 +1,4 @@
-Loading net-file from 'net.net.xml'...  done (24ms).
+Loading net-file from 'net.net.xml'...  done (53ms).
 Loading additional-files from 'input_additional.add.xml'...  done (0ms).
 Loading done.
 Simulation started with time: 0.00
@@ -9,7 +9,7 @@ Performance:
  Real time factor: 127000
  UPS: 95500.000000
 Vehicles: 
- Emitted: 2
+ Inserted: 2
  Running: 0
  Waiting: 0
 

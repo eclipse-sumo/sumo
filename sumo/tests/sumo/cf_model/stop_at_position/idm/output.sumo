@@ -6,9 +6,9 @@ Reason: The final simulation step has been reached.
 Performance: 
  Duration: 1 ms
  Real time factor: 200000
- UPS: 35000.000000
+ UPS: 38000.000000
 Vehicles: 
- Emitted: 1
+ Inserted: 1
  Running: 0
  Waiting: 0
 

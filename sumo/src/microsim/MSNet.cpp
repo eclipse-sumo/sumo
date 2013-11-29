@@ -329,7 +329,7 @@ MSNet::closeSimulation(SUMOTime start) {
                                                "Teleports: " + toString(myVehicleControl->getTeleportCount()) + collisionNotice + "\n" : "");
         // print statistics
         msg << "Vehicles: " << "\n"
-            << " Emitted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
+            << " Inserted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
             << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
             << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n"
             << teleportNotice;

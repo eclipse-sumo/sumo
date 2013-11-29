@@ -1,4 +1,4 @@
-Loading net-file from 'three_split.net.xml'...  done (2ms).
+Loading net-file from 'three_split.net.xml'...  done (1ms).
 Loading additional-files from 'input_additional.add.xml'...  done (0ms).
 Loading done.
 Simulation started with time: 0.00
@@ -9,7 +9,7 @@ Performance:
  Real time factor: 10000
  UPS: 0.000000
 Vehicles: 
- Emitted: 0 (Loaded: 10)
+ Inserted: 0 (Loaded: 10)
  Running: 0
  Waiting: 0
 
