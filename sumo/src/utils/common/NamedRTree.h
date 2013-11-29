@@ -47,7 +47,7 @@ inline float NAMED_RTREE_QUAL::RectSphericalVolume(Rect* a_rect) {
 }
 
 template<>
-inline typename NAMED_RTREE_QUAL::Rect NAMED_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_rectB) {
+inline NAMED_RTREE_QUAL::Rect NAMED_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_rectB) {
     ASSERT(a_rectA && a_rectB);
     Rect newRect;
     newRect.m_min[0] = rtree_min(a_rectA->m_min[0], a_rectB->m_min[0]);
