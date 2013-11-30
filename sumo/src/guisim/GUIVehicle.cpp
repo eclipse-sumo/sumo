@@ -1376,7 +1376,7 @@ GUIVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
 
 MSLane*
 GUIVehicle::getPreviousLane(MSLane* current, int& furtherIndex) const {
-    if (furtherIndex < myFurtherLanes.size()) {
+    if (furtherIndex < (int)myFurtherLanes.size()) {
         return myFurtherLanes[furtherIndex++];
     } else {
         return current;
