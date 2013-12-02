@@ -471,23 +471,21 @@ MSLaneChanger::checkChange(
     std::pair<MSVehicle* const, SUMOReal> neighFollow = getRealFollower(myCandi + laneOffset);
     MSVehicle* vehicle = veh(myCandi);
     ChangerIt target = myCandi + laneOffset;
-    int blocked = overlapWithHopped(target)
-                  ? target->hoppedVeh->getPositionOnLane() < vehicle->getPositionOnLane()
-                  ? (LCA_BLOCKED_BY_RIGHT_FOLLOWER | LCA_OVERLAPPING)
-                  : (LCA_BLOCKED_BY_RIGHT_LEADER | LCA_OVERLAPPING)
-                  : 0;
+    int blocked = 0;
+    int blockedByLeader = (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_LEADER : LCA_BLOCKED_BY_LEFT_LEADER);
+    int blockedByFollower = (laneOffset == -1 ? LCA_BLOCKED_BY_RIGHT_FOLLOWER : LCA_BLOCKED_BY_LEFT_FOLLOWER);
     // overlap
     if (neighFollow.first != 0 && neighFollow.second < 0) {
-        blocked |= (LCA_BLOCKED_BY_RIGHT_FOLLOWER | LCA_OVERLAPPING);
+        blocked |= (blockedByFollower | LCA_OVERLAPPING);
     }
     if (neighLead.first != 0 && neighLead.second < 0) {
-        blocked |= (LCA_BLOCKED_BY_RIGHT_LEADER | LCA_OVERLAPPING);
+        blocked |= (blockedByLeader | LCA_OVERLAPPING);
     }
     // safe back gap
     if (neighFollow.first != 0) {
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         if (neighFollow.second < neighFollow.first->getCarFollowModel().getSecureGap(neighFollow.first->getSpeed(), vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxDecel())) {
-            blocked |= LCA_BLOCKED_BY_RIGHT_FOLLOWER;
+            blocked |= blockedByFollower;
         }
     }
 
@@ -495,7 +493,7 @@ MSLaneChanger::checkChange(
     if (neighLead.first != 0) {
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         if (neighLead.second < vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())) {
-            blocked |= LCA_BLOCKED_BY_RIGHT_LEADER;
+            blocked |= blockedByLeader;
         }
     }
 

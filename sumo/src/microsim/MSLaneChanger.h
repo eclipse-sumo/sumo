@@ -154,18 +154,6 @@ protected:
     ///  @brief start the lane change maneuver (and finish it instantly if gLaneChangeDuration == 0)
     void startChange(MSVehicle* vehicle, ChangerIt& from, int direction);
 
-
-    /** Returns true if candidate overlaps with a vehicle, that
-        already changed the lane.*/
-    bool overlapWithHopped(ChangerIt target) const {
-        MSVehicle* v1 = target->hoppedVeh;
-        MSVehicle* v2 = veh(myCandi);
-        if (v1 != 0 && v2 != 0) {
-            return MSVehicle::overlap(v1, v2);
-        }
-        return false;
-    }
-
     std::pair<MSVehicle* const, SUMOReal> getRealThisLeader(const ChangerIt& target) const;
 
     std::pair<MSVehicle* const, SUMOReal> getRealFollower(const ChangerIt& target) const;
