@@ -150,7 +150,7 @@ public:
      * @param[in] stage The current stage within the simulation step
      * @note see MSNet::simulationStep
      */
-    void detectCollisions(SUMOTime timestep, int stage);
+    void detectCollisions(SUMOTime timestep, const std::string& stage);
 
 
     /** @brief Returns loaded edges

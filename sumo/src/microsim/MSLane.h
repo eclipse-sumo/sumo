@@ -414,7 +414,7 @@ public:
 
 
     /// Check if vehicles are too close.
-    virtual void detectCollisions(SUMOTime timestep, int stage);
+    virtual void detectCollisions(SUMOTime timestep, const std::string& stage);
 
 
     /** Returns the information whether this lane may be used to continue

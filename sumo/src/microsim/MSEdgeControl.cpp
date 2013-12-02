@@ -168,7 +168,7 @@ MSEdgeControl::changeLanes(SUMOTime t) {
 
 
 void
-MSEdgeControl::detectCollisions(SUMOTime timestep, int stage) {
+MSEdgeControl::detectCollisions(SUMOTime timestep, const std::string& stage) {
     // Detections is made by the edge's lanes, therefore hand over.
     for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end(); ++i) {
         (*i)->detectCollisions(timestep, stage);

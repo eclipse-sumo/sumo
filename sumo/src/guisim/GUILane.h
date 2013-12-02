@@ -137,7 +137,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void detectCollisions(SUMOTime timestep, int stage);
+    void detectCollisions(SUMOTime timestep, const std::string& stage);
 
 
     /** the same as in MSLane, but locks the access for the visualisation

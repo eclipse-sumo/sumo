@@ -110,6 +110,10 @@
 // ===========================================================================
 MSNet* MSNet::myInstance = 0;
 
+const std::string MSNet::STAGE_EVENTS("events");
+const std::string MSNet::STAGE_MOVEMENTS("move");
+const std::string MSNet::STAGE_LANECHANGE("laneChange");
+const std::string MSNet::STAGE_INSERTIONS("insertion");
 
 // ===========================================================================
 // member method definitions
@@ -377,7 +381,7 @@ MSNet::simulationStep() {
     }
     myBeginOfTimestepEvents->execute(myStep);
     if (MSGlobals::gCheck4Accidents) {
-        myEdges->detectCollisions(myStep, 0);
+        myEdges->detectCollisions(myStep, STAGE_EVENTS);
     }
     // check whether the tls programs need to be switched
     myLogics->check2Switch(myStep);
@@ -398,14 +402,14 @@ MSNet::simulationStep() {
         // decide right-of-way and execute movements
         myEdges->executeMovements(myStep);
         if (MSGlobals::gCheck4Accidents) {
-            myEdges->detectCollisions(myStep, 1);
+            myEdges->detectCollisions(myStep, STAGE_MOVEMENTS);
         }
 
         // Vehicles change Lanes (maybe)
         myEdges->changeLanes(myStep);
 
         if (MSGlobals::gCheck4Accidents) {
-            myEdges->detectCollisions(myStep, 2);
+            myEdges->detectCollisions(myStep, STAGE_LANECHANGE);
         }
 #ifdef HAVE_INTERNAL
     }
@@ -416,11 +420,11 @@ MSNet::simulationStep() {
     if (myPersonControl != 0) {
         myPersonControl->checkWaitingPersons(this, myStep);
     }
-    // emit Vehicles
+    // insert Vehicles
     myInsertionEvents->execute(myStep);
     myInserter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {
-        myEdges->detectCollisions(myStep, 3);
+        myEdges->detectCollisions(myStep, STAGE_INSERTIONS);
     }
     MSVehicleTransfer::getInstance()->checkInsertions(myStep);
 

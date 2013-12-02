@@ -664,7 +664,7 @@ MSLane::planMovements(SUMOTime t) {
 
 
 void
-MSLane::detectCollisions(SUMOTime timestep, int stage) {
+MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     if (myVehicles.size() < 2) {
         return;
     }
@@ -686,7 +686,7 @@ MSLane::detectCollisions(SUMOTime timestep, int stage) {
             if (vehV->getLane() == this) {
                 WRITE_WARNING("Teleporting vehicle '" + vehV->getID() + "'; collision with '"
                               + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
-                              + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + toString(stage) + ".");
+                              + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
                 MSNet::getInstance()->getVehicleControl().registerCollision();
                 myBruttoVehicleLengthSum -= vehV->getVehicleType().getLengthWithGap();
                 myNettoVehicleLengthSum -= vehV->getVehicleType().getLength();
@@ -699,7 +699,7 @@ MSLane::detectCollisions(SUMOTime timestep, int stage) {
             } else {
                 WRITE_WARNING("Shadow of vehicle '" + vehV->getID() + "'; collision with '"
                               + (*pred)->getID() + "', lane='" + getID() + "', gap=" + toString(gap)
-                              + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + toString(stage) + ".");
+                              + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " stage=" + stage + ".");
                 veh = myVehicles.erase(veh); // remove current vehicle
                 lastVeh = myVehicles.end() - 1;
                 vehV->getLaneChangeModel().endLaneChangeManeuver();

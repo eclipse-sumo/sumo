@@ -155,7 +155,7 @@ GUILane::integrateNewVehicle(SUMOTime t) {
 
 
 void
-GUILane::detectCollisions(SUMOTime timestep, int stage) {
+GUILane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     AbstractMutex::ScopedLocker locker(myLock);
     MSLane::detectCollisions(timestep, stage);
 }

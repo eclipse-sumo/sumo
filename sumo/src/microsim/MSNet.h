@@ -604,6 +604,12 @@ protected:
     mutable std::pair<bool, NamedRTree> myLanesRTree;
 
 
+    /// @brief string constants for simstep stages
+    static const std::string STAGE_EVENTS;
+    static const std::string STAGE_MOVEMENTS;
+    static const std::string STAGE_LANECHANGE;
+    static const std::string STAGE_INSERTIONS;
+
 private:
     /// @brief Invalidated copy constructor.
     MSNet(const MSNet&);
