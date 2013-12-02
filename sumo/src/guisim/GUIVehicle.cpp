@@ -939,7 +939,6 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     mySeatPositions[0] = myLane->geometryPositionAtOffset(myState.pos() - getVehicleType().getLength() / 2);
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(getAngle(), 0, 0, 1);
-    std::cout << "drawGL: pushing pos=" << p1 << " angle=" << getAngle() << "\n";
     // set lane color
     setColor(s);
     // scale
@@ -1457,7 +1456,6 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
     myCarriageLength = front.distanceTo2D(back);
     // restore matrices
     glPushMatrix();
-    std::cout << "pushing pos=" << front << " angle=" << angle << "\n";
     glTranslated(front.x(), front.y(), getType());
     glRotated(angle, 0, 0, 1);
     glPushMatrix();
