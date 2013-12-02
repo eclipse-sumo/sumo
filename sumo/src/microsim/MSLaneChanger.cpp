@@ -372,7 +372,7 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     // check whether the hopped vehicle got the follower
     if (target->hoppedVeh != 0) {
         SUMOReal hoppedPos = target->hoppedVeh->getPositionOnLane();
-        if (hoppedPos <= veh(myCandi)->getPositionOnLane() && (neighFollow == 0 || neighFollow->getPositionOnLane() > hoppedPos)) {
+        if (hoppedPos <= veh(myCandi)->getPositionOnLane() && (neighFollow == 0 || neighFollow->getPositionOnLane() < hoppedPos)) {
             neighFollow = target->hoppedVeh;
         }
     }
