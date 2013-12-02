@@ -881,50 +881,50 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMO
 #define BLINKER_POS_BACK .5
 
 inline void
-drawAction_drawBlinker(const GUIVehicle& veh, double dir) {
+drawAction_drawBlinker(const GUIVehicle& veh, double dir, SUMOReal length) {
     glColor3d(1.f, .8f, 0);
     glPushMatrix();
     glTranslated(dir, BLINKER_POS_FRONT, -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
     glPushMatrix();
-    glTranslated(dir, veh.getVehicleType().getLength() - BLINKER_POS_BACK, -0.1);
+    glTranslated(dir, length - BLINKER_POS_BACK, -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
 }
 
 
 inline void
-drawAction_drawVehicleBlinker(const GUIVehicle& veh) {
+drawAction_drawVehicleBlinker(const GUIVehicle& veh, SUMOReal length) {
     if (!veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY)) {
         return;
     }
     const double offset = MAX2(.5 * veh.getVehicleType().getWidth(), .4);
     if (veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {
-        drawAction_drawBlinker(veh, -offset);
+        drawAction_drawBlinker(veh, -offset, length);
     }
     if (veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT)) {
-        drawAction_drawBlinker(veh, offset);;
+        drawAction_drawBlinker(veh, offset, length);;
     }
     if (veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY)) {
-        drawAction_drawBlinker(veh, -offset);
-        drawAction_drawBlinker(veh, offset);
+        drawAction_drawBlinker(veh, -offset, length);
+        drawAction_drawBlinker(veh, offset, length);
     }
 }
 
 
 inline void
-drawAction_drawVehicleBrakeLight(const GUIVehicle& veh) {
+drawAction_drawVehicleBrakeLight(const GUIVehicle& veh, SUMOReal length) {
     if (!veh.signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT)) {
         return;
     }
     glColor3f(1.f, .2f, 0);
     glPushMatrix();
-    glTranslated(-veh.getVehicleType().getWidth() * 0.5, veh.getVehicleType().getLength(), -0.1);
+    glTranslated(-veh.getVehicleType().getWidth() * 0.5, length, -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
     glPushMatrix();
-    glTranslated(veh.getVehicleType().getWidth() * 0.5, veh.getVehicleType().getLength(), -0.1);
+    glTranslated(veh.getVehicleType().getWidth() * 0.5, length, -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
 }
@@ -939,6 +939,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     mySeatPositions[0] = myLane->geometryPositionAtOffset(myState.pos() - getVehicleType().getLength() / 2);
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(getAngle(), 0, 0, 1);
+    std::cout << "drawGL: pushing pos=" << p1 << " angle=" << getAngle() << "\n";
     // set lane color
     setColor(s);
     // scale
@@ -955,6 +956,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
         }
         */
     // draw the vehicle
+    myCarriageLength = getVehicleType().getLength();
     switch (s.vehicleQuality) {
         case 0:
             drawAction_drawVehicleAsTrianglePlus();
@@ -1001,8 +1003,8 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // only SVS_RAIL_CITY has blinkers and brake lights
                 break;
             default:
-                drawAction_drawVehicleBlinker(*this);
-                drawAction_drawVehicleBrakeLight(*this);
+                drawAction_drawVehicleBlinker(*this, myCarriageLength);
+                drawAction_drawVehicleBrakeLight(*this, myCarriageLength);
                 break;
         }
     }
@@ -1392,8 +1394,6 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
     const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * s.vehicleExaggeration;
     glPopMatrix(); // undo scaling and 90 degree rotation
     glPopMatrix(); // undo initial translation and rotation
-    glPushMatrix();
-    glPushMatrix();
     GLHelper::setColor(darker);
     const SUMOReal xCornerCut = 0.3;
     const SUMOReal yCornerCut = 0.4;
@@ -1416,6 +1416,8 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
     if (requiredSeats > 0) {
         mySeatPositions.clear();
     }
+    Position front, back;
+    SUMOReal angle;
     // draw individual carriages
     for (int i = 0; i < numCarriages; ++i) {
         while (carriageOffset < 0) {
@@ -1426,9 +1428,9 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
             backLane = getPreviousLane(backLane, backFurtherIndex);
             carriageBackOffset += backLane->getLength();
         }
-        const Position front = lane->getShape().positionAtOffset2D(carriageOffset);
-        const Position back = backLane->getShape().positionAtOffset2D(carriageBackOffset);
-        const SUMOReal angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
+        front = lane->getShape().positionAtOffset2D(carriageOffset);
+        back = backLane->getShape().positionAtOffset2D(carriageBackOffset);
+        angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
         if (i >= firstPassengerCarriage) {
             computeSeats(front, back, requiredSeats);
         }
@@ -1452,6 +1454,13 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
         carriageBackOffset -= carriageLengthWithGap;
         GLHelper::setColor(current);
     }
+    myCarriageLength = front.distanceTo2D(back);
+    // restore matrices
+    glPushMatrix();
+    std::cout << "pushing pos=" << front << " angle=" << angle << "\n";
+    glTranslated(front.x(), front.y(), getType());
+    glRotated(angle, 0, 0, 1);
+    glPushMatrix();
 }
 
 

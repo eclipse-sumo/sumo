@@ -351,6 +351,9 @@ private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;
 
+    /// Variable to set with the length of the last drawn carriage or the vehicle length
+    mutable SUMOReal myCarriageLength;
+
     MSDevice_Vehroutes* myRoutes;
 
     /// @brief positions of seats in the vehicle (updated at every drawing step)
