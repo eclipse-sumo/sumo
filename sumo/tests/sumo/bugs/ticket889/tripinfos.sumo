@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  4 18:08:58 2013 by SUMO sumo Version dev-SVN-r14576
+<!-- generated on Tue Dec  3 16:34:41 2013 by SUMO sumo Version dev-SVN-r15233
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -28,5 +28,5 @@
 
 <tripinfos>
     <tripinfo id="priority" depart="0.00" departLane="gneE3_1" departPos="85.00" departSpeed="0.00" departDelay="0.00" arrival="11.00" arrivalLane="gneE1_0" arrivalPos="83.90" arrivalSpeed="13.89" duration="11.00" routeLength="94.12" waitSteps="0" rerouteNo="0" devices="tripinfo_priority" vType="DEFAULT_VEHTYPE" vaporized=""/>
-    <tripinfo id="yield" depart="0.00" departLane="gneE0_2" departPos="74.00" departSpeed="0.00" departDelay="0.00" arrival="13.00" arrivalLane="gneE5_0" arrivalPos="88.43" arrivalSpeed="13.89" duration="13.00" routeLength="98.33" waitSteps="0" rerouteNo="0" devices="tripinfo_yield" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="yield" depart="0.00" departLane="gneE0_2" departPos="74.00" departSpeed="0.00" departDelay="0.00" arrival="12.00" arrivalLane="gneE5_0" arrivalPos="88.43" arrivalSpeed="13.89" duration="12.00" routeLength="98.33" waitSteps="0" rerouteNo="0" devices="tripinfo_yield" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>

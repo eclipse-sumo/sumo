@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  9 12:03:16 2013 by SUMO sumo Version dev-SVN-r14625
+<!-- generated on Tue Dec  3 16:34:02 2013 by SUMO sumo Version dev-SVN-r15233
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -33,7 +33,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="0" type="KRAUSS_DEFAULT" depart="101.00" arrival="308.00">
+    <vehicle id="0" type="KRAUSS_DEFAULT" depart="101.00" arrival="306.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="101.00" probability="0" edges="beg rend"/>
             <route edges="beg beg2left left left2end end rend"/>

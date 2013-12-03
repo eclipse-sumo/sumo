@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  9 14:22:00 2013 by SUMO sumo Version dev-SVN-r14631
+<!-- generated on Tue Dec  3 16:35:38 2013 by SUMO sumo Version dev-SVN-r15233
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -10,6 +10,10 @@
         <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
     </input>
+
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
 
     <time>
         <step-length value="0.5"/>
@@ -27,6 +31,6 @@
     <instantOut id="beg_end" time="23.84" state="enter" vehID="leader" speed="20.00" length="5.00" type="leader"/>
     <instantOut id="beg_end" time="24.00" state="stay" vehID="leader" speed="20.00" length="5.00" type="leader"/>
     <instantOut id="beg_end" time="24.09" state="leave" vehID="leader" speed="20.00" length="5.00" type="leader" occupancy="0.25"/>
-    <instantOut id="beg_end" time="24.67" state="enter" vehID="follower" speed="20.24" length="5.00" type="follower" gap="0.58"/>
-    <instantOut id="beg_end" time="24.92" state="leave" vehID="follower" speed="20.24" length="5.00" type="follower" occupancy="0.25"/>
+    <instantOut id="beg_end" time="24.66" state="enter" vehID="follower" speed="20.29" length="5.00" type="follower" gap="0.56"/>
+    <instantOut id="beg_end" time="24.91" state="leave" vehID="follower" speed="20.29" length="5.00" type="follower" occupancy="0.25"/>
 </instantE1>

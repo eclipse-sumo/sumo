@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 11 08:37:40 2013 by SUMO sumo Version dev-SVN-r15052
+<!-- generated on Tue Dec  3 16:35:39 2013 by SUMO sumo Version dev-SVN-r15233
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -126,27 +126,29 @@
     <timestep time="11.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="veh" pos="175.49" speed="27.39"/>
+                <vehicle id="veh" pos="176.70" speed="28.60"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>
         </edge>
     </timestep>
     <timestep time="12.00">
-        <edge id="beg">
-            <lane id="beg_0">
-                <vehicle id="veh" pos="198.74" speed="23.25"/>
+        <edge id="middle">
+            <lane id="middle_0"/>
+            <lane id="middle_1">
+                <vehicle id="veh" pos="1.64" speed="24.94"/>
             </lane>
-            <lane id="beg_1"/>
-            <lane id="beg_2"/>
+            <lane id="middle_2"/>
+            <lane id="middle_3"/>
+            <lane id="middle_4"/>
         </edge>
     </timestep>
     <timestep time="13.00">
         <edge id="middle">
-            <lane id="middle_0"/>
-            <lane id="middle_1">
-                <vehicle id="veh" pos="17.93" speed="19.19"/>
+            <lane id="middle_0">
+                <vehicle id="veh" pos="22.08" speed="20.44"/>
             </lane>
+            <lane id="middle_1"/>
             <lane id="middle_2"/>
             <lane id="middle_3"/>
             <lane id="middle_4"/>
@@ -155,7 +157,7 @@
     <timestep time="14.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="veh" pos="32.61" speed="14.69"/>
+                <vehicle id="veh" pos="45.11" speed="23.04"/>
             </lane>
             <lane id="middle_1"/>
             <lane id="middle_2"/>
@@ -164,57 +166,39 @@
         </edge>
     </timestep>
     <timestep time="15.00">
-        <edge id="middle">
-            <lane id="middle_0">
-                <vehicle id="veh" pos="49.90" speed="17.29"/>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="veh" pos="9.42" speed="25.64"/>
             </lane>
-            <lane id="middle_1"/>
-            <lane id="middle_2"/>
-            <lane id="middle_3"/>
-            <lane id="middle_4"/>
         </edge>
     </timestep>
     <timestep time="16.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="veh" pos="8.46" speed="19.89"/>
+                <vehicle id="veh" pos="37.66" speed="28.24"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="17.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="veh" pos="30.94" speed="22.49"/>
+                <vehicle id="veh" pos="68.50" speed="30.84"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="18.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="veh" pos="56.03" speed="25.09"/>
+                <vehicle id="veh" pos="101.94" speed="33.44"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="19.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="veh" pos="83.72" speed="27.69"/>
+                <vehicle id="veh" pos="137.94" speed="36.00"/>
             </lane>
         </edge>
     </timestep>
-    <timestep time="20.00">
-        <edge id="end">
-            <lane id="end_0">
-                <vehicle id="veh" pos="114.00" speed="30.29"/>
-            </lane>
-        </edge>
-    </timestep>
-    <timestep time="21.00">
-        <edge id="end">
-            <lane id="end_0">
-                <vehicle id="veh" pos="146.89" speed="32.89"/>
-            </lane>
-        </edge>
-    </timestep>
-    <timestep time="22.00"/>
+    <timestep time="20.00"/>
 </netstate>

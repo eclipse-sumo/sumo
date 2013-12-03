@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:15:27 by SUMO sumo Version 0.17.0
+<!-- generated on Tue Dec  3 16:33:45 2013 by SUMO sumo Version dev-SVN-r15233
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -43,31 +43,31 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal04" depart="108.00" arrival="300.00">
+    <vehicle id="horizontal04" depart="107.00" arrival="300.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal05" depart="110.00" arrival="303.00">
+    <vehicle id="horizontal05" depart="110.00" arrival="302.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal06" depart="113.00" arrival="305.00">
+    <vehicle id="horizontal06" depart="112.00" arrival="305.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal07" depart="116.00" arrival="308.00">
+    <vehicle id="horizontal07" depart="115.00" arrival="307.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal08" depart="118.00" arrival="311.00">
+    <vehicle id="horizontal08" depart="117.00" arrival="310.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal09" depart="121.00" arrival="313.00">
+    <vehicle id="horizontal09" depart="120.00" arrival="312.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal10" depart="124.00" arrival="316.00">
+    <vehicle id="horizontal10" depart="122.00" arrival="315.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 

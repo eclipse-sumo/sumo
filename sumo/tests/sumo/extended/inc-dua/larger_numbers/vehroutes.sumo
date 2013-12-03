@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:15:28 by SUMO sumo Version 0.17.0
+<!-- generated on Tue Dec  3 16:33:45 2013 by SUMO sumo Version dev-SVN-r15233
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -39,7 +39,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="007" depart="70.00" arrival="295.00">
+    <vehicle id="007" depart="70.00" arrival="294.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -51,7 +51,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="016" depart="160.00" arrival="385.00">
+    <vehicle id="016" depart="160.00" arrival="384.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -63,7 +63,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="025" depart="250.00" arrival="475.00">
+    <vehicle id="025" depart="250.00" arrival="474.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -75,7 +75,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="034" depart="340.00" arrival="565.00">
+    <vehicle id="034" depart="340.00" arrival="564.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -87,7 +87,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="043" depart="430.00" arrival="655.00">
+    <vehicle id="043" depart="430.00" arrival="654.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -99,7 +99,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="052" depart="520.00" arrival="745.00">
+    <vehicle id="052" depart="520.00" arrival="744.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -111,7 +111,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="061" depart="610.00" arrival="835.00">
+    <vehicle id="061" depart="610.00" arrival="834.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -123,7 +123,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="070" depart="700.00" arrival="925.00">
+    <vehicle id="070" depart="700.00" arrival="924.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -135,7 +135,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="079" depart="790.00" arrival="1015.00">
+    <vehicle id="079" depart="790.00" arrival="1014.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -147,7 +147,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="088" depart="880.00" arrival="1105.00">
+    <vehicle id="088" depart="880.00" arrival="1104.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
@@ -159,7 +159,7 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="097" depart="970.00" arrival="1195.00">
+    <vehicle id="097" depart="970.00" arrival="1194.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 

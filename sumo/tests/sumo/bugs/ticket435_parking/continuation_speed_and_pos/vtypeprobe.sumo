@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  4 18:08:53 2013 by SUMO sumo Version dev-SVN-r14576
+<!-- generated on Tue Dec  3 16:34:35 2013 by SUMO sumo Version dev-SVN-r15233
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -31,30 +31,30 @@
         <vehicle id="veh_parking" lane="1to2_0" pos="47.80" x="47.80" y="-1.65" speed="5.20"/>
     </timestep>
     <timestep time="4.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" lane="1to2_0" pos="54.70" x="54.70" y="-1.65" speed="6.90"/>
+        <vehicle id="veh_parking" lane="1to2_0" pos="55.60" x="55.60" y="-1.65" speed="7.80"/>
     </timestep>
     <timestep time="5.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" lane="1to2_0" pos="58.44" x="58.44" y="-1.65" speed="3.74"/>
+        <vehicle id="veh_parking" lane="1to2_0" pos="59.90" x="59.90" y="-1.65" speed="4.30"/>
     </timestep>
     <timestep time="6.00" id="test1" vType="DEFAULT_VEHTYPE"/>
     <timestep time="7.00" id="test1" vType="DEFAULT_VEHTYPE"/>
     <timestep time="8.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" lane="1to2_0" pos="59.80" x="59.80" y="-1.65" speed="0.00"/>
+        <vehicle id="veh_parking" lane="1to2_0" pos="59.90" x="59.90" y="-1.65" speed="0.00"/>
     </timestep>
     <timestep time="9.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" lane="1to2_0" pos="62.40" x="62.40" y="-1.65" speed="2.60"/>
+        <vehicle id="veh_parking" lane="1to2_0" pos="62.50" x="62.50" y="-1.65" speed="2.60"/>
     </timestep>
     <timestep time="10.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" lane="1to2_0" pos="67.60" x="67.60" y="-1.65" speed="5.20"/>
+        <vehicle id="veh_parking" lane="1to2_0" pos="67.70" x="67.70" y="-1.65" speed="5.20"/>
     </timestep>
     <timestep time="11.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" lane="1to2_0" pos="75.40" x="75.40" y="-1.65" speed="7.80"/>
+        <vehicle id="veh_parking" lane="1to2_0" pos="75.50" x="75.50" y="-1.65" speed="7.80"/>
     </timestep>
     <timestep time="12.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" lane="1to2_0" pos="85.80" x="85.80" y="-1.65" speed="10.40"/>
+        <vehicle id="veh_parking" lane="1to2_0" pos="85.90" x="85.90" y="-1.65" speed="10.40"/>
     </timestep>
     <timestep time="13.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" lane="1to2_0" pos="98.80" x="98.80" y="-1.65" speed="13.00"/>
+        <vehicle id="veh_parking" lane="1to2_0" pos="98.90" x="98.90" y="-1.65" speed="13.00"/>
     </timestep>
     <timestep time="14.00" id="test1" vType="DEFAULT_VEHTYPE"/>
 </vehicle-type-probes>

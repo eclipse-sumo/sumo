@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  8 07:11:34 2013 by SUMO sumo Version dev-SVN-r15052
+<!-- generated on Tue Dec  3 16:35:38 2013 by SUMO sumo Version dev-SVN-r15233
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -128,17 +128,19 @@
             <lane id="beg_0"/>
             <lane id="beg_1"/>
             <lane id="beg_2">
-                <vehicle id="veh" pos="175.24" speed="27.14"/>
+                <vehicle id="veh" pos="176.70" speed="28.60"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="12.00">
-        <edge id="beg">
-            <lane id="beg_0"/>
-            <lane id="beg_1"/>
-            <lane id="beg_2">
-                <vehicle id="veh" pos="198.25" speed="23.01"/>
+        <edge id="middle">
+            <lane id="middle_0"/>
+            <lane id="middle_1"/>
+            <lane id="middle_2"/>
+            <lane id="middle_3">
+                <vehicle id="veh" pos="1.85" speed="24.65"/>
             </lane>
+            <lane id="middle_4"/>
         </edge>
     </timestep>
     <timestep time="13.00">
@@ -146,10 +148,10 @@
             <lane id="middle_0"/>
             <lane id="middle_1"/>
             <lane id="middle_2"/>
-            <lane id="middle_3">
-                <vehicle id="veh" pos="17.70" speed="18.95"/>
+            <lane id="middle_3"/>
+            <lane id="middle_4">
+                <vehicle id="veh" pos="21.99" speed="20.15"/>
             </lane>
-            <lane id="middle_4"/>
         </edge>
     </timestep>
     <timestep time="14.00">
@@ -159,55 +161,44 @@
             <lane id="middle_2"/>
             <lane id="middle_3"/>
             <lane id="middle_4">
-                <vehicle id="veh" pos="32.67" speed="14.97"/>
+                <vehicle id="veh" pos="44.74" speed="22.75"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="15.00">
-        <edge id="middle">
-            <lane id="middle_0"/>
-            <lane id="middle_1"/>
-            <lane id="middle_2"/>
-            <lane id="middle_3"/>
-            <lane id="middle_4">
-                <vehicle id="veh" pos="50.24" speed="17.57"/>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="veh" pos="10.01" speed="25.35"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="16.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="veh" pos="10.34" speed="20.17"/>
+                <vehicle id="veh" pos="37.95" speed="27.95"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="17.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="veh" pos="33.11" speed="22.77"/>
+                <vehicle id="veh" pos="68.50" speed="30.55"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="18.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="veh" pos="58.48" speed="25.37"/>
+                <vehicle id="veh" pos="101.65" speed="33.15"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="19.00">
         <edge id="end">
             <lane id="end_0">
-                <vehicle id="veh" pos="86.46" speed="27.97"/>
+                <vehicle id="veh" pos="137.39" speed="35.75"/>
             </lane>
         </edge>
     </timestep>
-    <timestep time="20.00">
-        <edge id="end">
-            <lane id="end_0">
-                <vehicle id="veh" pos="117.03" speed="30.57"/>
-            </lane>
-        </edge>
-    </timestep>
-    <timestep time="21.00"/>
+    <timestep time="20.00"/>
 </netstate>
