@@ -123,6 +123,9 @@ class _Running:
   """
   def __init__(self):
     """Contructor"""
+    # running index of assigned numerical IDs
+    self.index = 0 
+    # map from known IDs to assigned numerical IDs
     self._m = {}
     
   def g(self, id):
@@ -130,8 +133,8 @@ class _Running:
     If the given id is known, the numerical representation is returned,
     otherwise a new running number is assigned to the id and returned"""
     if id not in self._m:
-      self._m[id] = len(self._m)   
-      return len(self._m)-1
+      self._m[id] = self.index
+      self.index += 1
     return self._m[id]
 
   def k(self, id):
