@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed Sep 04 16:41:17 2013
+TraCITestClient output file. Date: Tue Dec  3 17:09:54 2013
 
 
 -> Command sent: <SimulationStep2>:
@@ -12,7 +12,7 @@ TraCITestClient output file. Date: Wed Sep 04 16:41:17 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 89.65
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 90.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -25,7 +25,7 @@ TraCITestClient output file. Date: Wed Sep 04 16:41:17 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 95.80
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 97.25
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -38,7 +38,7 @@ TraCITestClient output file. Date: Wed Sep 04 16:41:17 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 98.92
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -51,7 +51,7 @@ TraCITestClient output file. Date: Wed Sep 04 16:41:17 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 99.89
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -64,7 +64,7 @@ TraCITestClient output file. Date: Wed Sep 04 16:41:17 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 99.89
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -77,7 +77,7 @@ TraCITestClient output file. Date: Wed Sep 04 16:41:17 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 99.89
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
