@@ -799,8 +799,8 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                     stop.busstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
                 }
             }
-            // decelerate
-            return getCarFollowModel().stopSpeed(this, getSpeed(), endPos - myState.pos());
+            // decelerate (give some slack so stops at the end of the route can be reached)
+            return getCarFollowModel().stopSpeed(this, getSpeed(), endPos - myState.pos() - POSITION_EPS);
         }
     }
     return currentVelocity;

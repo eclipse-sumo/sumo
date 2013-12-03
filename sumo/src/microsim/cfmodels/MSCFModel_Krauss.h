@@ -107,6 +107,10 @@ private:
      */
     SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
 
+    /** @brief Returns the "safe" velocity for stopping within gap
+     */
+    SUMOReal _vstop(SUMOReal gap) const;
+
 
     /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] speed The speed with no dawdling
