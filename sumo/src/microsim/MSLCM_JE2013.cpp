@@ -85,8 +85,8 @@
 
 //#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
 //#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_26966400" || myVehicle.getID() == "emitter_SST92-150 FG 1 DE 1_26932941" || myVehicle.getID() == "emitter_SST92-175 FG 1 DE 129_27105000")
-//#define DEBUG_COND (myVehicle.getID() == "Costa_200_153" || myVehicle.getID() == "Costa_12_154") // fail change to left
-//#define DEBUG_COND (myVehicle.getID() == "150_2_36000000") // test stops_overtaking
+//#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
+//#define DEBUG_COND (myVehicle.getID() == "emitter_MQ11O_DS_FS1_ERU_67340000") // test stops_overtaking
 #define DEBUG_COND false
 
 // debug function
@@ -203,7 +203,7 @@ MSLCM_JE2013::_patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOR
             if (safe < wanted) {
                 // return this speed as the speed to use
                 if (MSGlobals::gDebugFlag1) {
-                    std::cout << time << " veh=" << myVehicle.getID() << " slowing down for leading blocker" << (safe < min ? " (not enough)" : "") << "\n";
+                    std::cout << time << " veh=" << myVehicle.getID() << " slowing down for leading blocker" << (safe + NUMERICAL_EPS < min ? " (not enough)" : "") << "\n";
                 }
                 return MAX2(min, safe);
             }
