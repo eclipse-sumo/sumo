@@ -566,6 +566,7 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                           << " overtakeDist=" << overtakeDist
                           << " vneigh=" << nv->getSpeed()
                           << " vhelp=" << vhelp
+                          << " needDV=" << needDV
                           << " vsafe=" << myVSafes.back()
                           << "\n";
             }
