@@ -1215,7 +1215,7 @@ MSVehicle::executeMove() {
         passedLanes.push_back(myLane);
     }
     bool moved = false;
-    std::string emergencyReason;
+    std::string emergencyReason = " for unknown reasons";
     // move on lane(s)
     if (myState.myPos <= myLane->getLength()) {
         // we are staying at our lane
@@ -1236,11 +1236,11 @@ MSVehicle::executeMove() {
                 if (link != 0) {
                     approachedLane = link->getViaLaneOrLane();
                     if (link->getState() == LINKSTATE_TL_RED) {
-                        emergencyReason = " of a red traffic light";
+                        emergencyReason = " because of a red traffic light";
                         break;
                     }
                 } else {
-                    emergencyReason = " there is no connection to the next edge";
+                    emergencyReason = " because there is no connection to the next edge";
                     approachedLane = 0;
                     break;
                 }
@@ -1282,7 +1282,7 @@ MSVehicle::executeMove() {
     if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
         if (myState.myPos > myLane->getLength()) {
             WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop at the end of lane '" + myLane->getID() 
-                    + " because" + emergencyReason 
+                    + emergencyReason 
                     + " (decel=" + toString(myAcceleration - myState.mySpeed) 
                     + "), time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             myState.myPos = myLane->getLength();
