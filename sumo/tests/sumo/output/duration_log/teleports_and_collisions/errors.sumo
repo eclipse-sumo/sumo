@@ -1,3 +1,4 @@
+Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
 Warning: Teleporting vehicle 'always_right.0'; collision with 'horizontal.0', lane='2o_0', gap=-5.00, time=27.00 stage=move.
 Warning: Vehicle 'always_right.0' teleports beyond end of route ('2o'), time 27.00.
 Warning: Teleporting vehicle 'always_right.1'; collision with 'horizontal.1', lane='2o_0', gap=-5.00, time=31.00 stage=move.

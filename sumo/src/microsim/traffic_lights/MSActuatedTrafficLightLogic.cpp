@@ -77,6 +77,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
 
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
+    MSTrafficLightLogic::init(nb);
     assert(myLanes.size() > 0);
     // change values for setting the loops and lanestate-detectors, here
     //SUMOTime inductLoopInterval = 1; //
