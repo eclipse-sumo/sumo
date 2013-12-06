@@ -16,13 +16,9 @@ the Free Software Foundation; either version 3 of the License, or
 
 This is a duplicate of tools/util/miscutils.py from the VABENE repository
 """
-import StringIO
 import sys
-import subprocess
 import time
 import os
-import imp
-import csv
 import math
 from collections import defaultdict
 
@@ -65,7 +61,7 @@ def benchmark(func):
 
 
 class Statistics:
-    def __init__(self, label=None, abs=False, histogram=False, printMin=True):
+    def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1):
         self.label = label
         self.min = uMax
         self.min_label = None
@@ -74,8 +70,9 @@ class Statistics:
         self.values = []
         self.abs = abs
         self.printMin = printMin
+        self.scale = scale
         if histogram:
-            self.counts = defaultdict(lambda:0)
+            self.counts = defaultdict(int)
         else:
             self.counts = None
 
@@ -88,7 +85,7 @@ class Statistics:
             self.max = v
             self.max_label = label
         if self.counts is not None:
-            self.counts[round(v)] += 1
+            self.counts[int(round(v/self.scale))] += 1
 
     def count(self):
         return len(self.values)
@@ -151,13 +148,14 @@ class Statistics:
     def __str__(self):
         if len(self.values) > 0:
             min = 'min %.2f (%s), ' % (self.min, self.min_label) if self.printMin else ''
-            result = '"%s": count %s, %smax %.2f (%s), mean %.2f, median %.2f' % (
+            result = '%s: count %s, %smax %.2f (%s), mean %.2f' % (
                     self.label, len(self.values), min,
-                    self.max, self.max_label, self.avg(), self.mean())
+                    self.max, self.max_label, self.avg())
+            result += '\n 1st quartile %.2f, median %.2f, 3rd quartile %.2f' % self.quartiles()
             if self.abs:
                 result += ', mean_abs %.2f, median_abs %.2f' % (self.avg_abs(), self.mean_abs())
             if self.counts is not None:
-                result += '\nhistogram: %s' % [(k,self.counts[k]) for k in sorted(self.counts.keys())]
+                result += '\n histogram: %s' % [(k * self.scale, self.counts[k]) for k in sorted(self.counts.keys())]
             return result
         else:
             return '"%s": no values' % self.label
