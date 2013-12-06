@@ -109,6 +109,8 @@ public:
     long onCmdFilter(FXObject*, FXSelector, void*);
     /// @}
 
+    /// @brief sets the focus after the window is created to work-around bug in libfox
+    void show();
 
 private:
     /// @brief The list that holds the ids
