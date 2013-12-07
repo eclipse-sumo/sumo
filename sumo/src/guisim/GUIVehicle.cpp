@@ -881,7 +881,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMO
 #define BLINKER_POS_BACK .5
 
 inline void
-drawAction_drawBlinker(const GUIVehicle& veh, double dir, SUMOReal length) {
+drawAction_drawBlinker(double dir, SUMOReal length) {
     glColor3d(1.f, .8f, 0);
     glPushMatrix();
     glTranslated(dir, BLINKER_POS_FRONT, -0.1);
@@ -901,14 +901,14 @@ drawAction_drawVehicleBlinker(const GUIVehicle& veh, SUMOReal length) {
     }
     const double offset = MAX2(.5 * veh.getVehicleType().getWidth(), .4);
     if (veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {
-        drawAction_drawBlinker(veh, -offset, length);
+        drawAction_drawBlinker(-offset, length);
     }
     if (veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT)) {
-        drawAction_drawBlinker(veh, offset, length);;
+        drawAction_drawBlinker(offset, length);;
     }
     if (veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY)) {
-        drawAction_drawBlinker(veh, -offset, length);
-        drawAction_drawBlinker(veh, offset, length);
+        drawAction_drawBlinker(-offset, length);
+        drawAction_drawBlinker(offset, length);
     }
 }
 
