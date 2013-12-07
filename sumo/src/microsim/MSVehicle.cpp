@@ -2021,6 +2021,40 @@ MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge) {
 }
 
 
+std::pair<const MSVehicle* const, SUMOReal>
+MSVehicle::getLeader(SUMOReal dist) const {
+    if (myLane == 0) {
+        return std::make_pair(static_cast<const MSVehicle*>(0), -1);
+    }
+    if (dist == 0) {
+        dist = getCarFollowModel().brakeGap(getSpeed()) + getVehicleType().getMinGap();
+    }
+    const MSVehicle* lead = 0;
+    const MSLane::VehCont& vehs = myLane->getVehiclesSecure();
+    MSLane::VehCont::const_iterator pred = std::find(vehs.begin(), vehs.end(), this) + 1;
+    if (pred != vehs.end()) {
+        lead = *pred;
+    }
+    myLane->releaseVehicles();
+    if (lead != 0) {
+        return std::make_pair(lead, lead->getPositionOnLane() - lead->getVehicleType().getLength() - getPositionOnLane() - getVehicleType().getMinGap());
+    }
+    const SUMOReal seen = myLane->getLength() - getPositionOnLane();
+    const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(myLane);
+    return myLane->getLeaderOnConsecutive(dist, seen, getSpeed(), *this, bestLaneConts);
+}
+
+
+SUMOReal
+MSVehicle::getTimeGap() const {
+    std::pair<const MSVehicle* const, SUMOReal> leaderInfo = getLeader(0);
+    if (leaderInfo.first == 0 || getSpeed() == 0) {
+        return -1;
+    }
+    return (leaderInfo.second + getVehicleType().getMinGap()) / getSpeed();
+}
+
+
 SUMOReal
 MSVehicle::getHBEFA_CO2Emissions() const {
     return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myAcceleration);

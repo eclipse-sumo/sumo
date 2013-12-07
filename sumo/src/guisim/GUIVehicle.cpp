@@ -335,6 +335,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     if (getChosenSpeedFactor() != 1) {
         ret->mkItem("speed factor", false, getChosenSpeedFactor());
     }
+    ret->mkItem("time gap [s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getTimeGap));
     ret->mkItem("waiting time [s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
     ret->mkItem("impatience", true,
@@ -1259,6 +1261,8 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
             return getBestLaneOffset();
         case 22:
             return getAcceleration();
+        case 23:
+            return getTimeGap();
     }
     return 0;
 }

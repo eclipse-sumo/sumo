@@ -609,6 +609,23 @@ public:
      */
     SUMOReal processNextStop(SUMOReal currentVelocity);
 
+    /** @brief Returns the leader of the vehicle looking for a fixed distance.
+     *
+     * If the distance is not given it is calculated from the brake gap.
+     * The gap returned does not include the minGap.
+     * @param dist		up to which distance to look for a leader
+     * @return The leading vehicle together with the gap; (0, -1) if no leader was found.
+     */
+    std::pair<const MSVehicle* const, SUMOReal> getLeader(SUMOReal dist=0) const;
+
+    /** @brief Returns the time gap in seconds to the leader of the vehicle looking for a fixed distance.
+     *
+     * If the distance is too big -1 is returned.
+     * The gap returned takes the minGap into account.
+     * @return The time gap in seconds; -1 if no leader was found or speed is 0.
+     */
+    SUMOReal getTimeGap() const;
+
 
     /// @name Emission retrieval
     //@{
@@ -1165,7 +1182,7 @@ private:
     MSCFModel::VehicleVariables* myCFVariables;
 
 #ifndef NO_TRACI
-    /// @brief An instance of a velicty/lane influencing instance; built in "getInfluencer"
+    /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     Influencer* myInfluencer;
 #endif
 
