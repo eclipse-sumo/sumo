@@ -211,6 +211,11 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(0, 255, 255, 255),  0.1);
     scheme.addColor(RGBColor(0,   0, 255, 255),  DEFAULT_VEH_ACCEL);
     vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by time gap", RGBColor(255, 255, 0, 255), "0");
+    scheme.addColor(RGBColor(179, 179, 179, 255), -1);
+    scheme.addColor(RGBColor(0, 255, 255, 255), 1);
+    scheme.addColor(RGBColor(0,   0, 255, 255), 2);
+    vehicleColorer.addScheme(scheme);
 
     /// add person coloring schemes
     personColorer.addScheme(GUIColorScheme("given person/type color", RGBColor::YELLOW, "", true));
