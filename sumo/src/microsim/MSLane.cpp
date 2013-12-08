@@ -1154,20 +1154,18 @@ std::pair<MSVehicle* const, SUMOReal>
 MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle& veh,
                                const std::vector<MSLane*>& bestLaneConts) const {
     if (seen > dist) {
-        return std::pair<MSVehicle* const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
+        return std::make_pair(static_cast<MSVehicle*>(0), -1);
     }
     unsigned int view = 1;
     // loop over following lanes
-    const MSLane* targetLane = this;
-    MSVehicle* leader = targetLane->getPartialOccupator();
-    if (leader != 0) {
-        return std::pair<MSVehicle* const, SUMOReal>(leader, seen - targetLane->getPartialOccupatorEnd() - veh.getVehicleType().getMinGap());
+    if (getPartialOccupator() != 0) {
+        return std::make_pair(getPartialOccupator(), seen - (getLength() - getPartialOccupatorEnd()) - veh.getVehicleType().getMinGap());
     }
-    const MSLane* nextLane = targetLane;
+    const MSLane* nextLane = this;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / speed);
     do {
         // get the next link used
-        MSLinkCont::const_iterator link = targetLane->succLinkSec(veh, view, *nextLane, bestLaneConts);
+        MSLinkCont::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
         if (nextLane->isLinkEnd(link) || !(*link)->opened(arrivalTime, speed, speed, veh.getVehicleType().getLength(),
                 veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0) || (*link)->getState() == LINKSTATE_TL_RED) {
             break;
@@ -1189,11 +1187,11 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         arrivalTime += TIME2STEPS(nextLane->getLength() / speed);
         MSVehicle* leader = nextLane->getLastVehicle();
         if (leader != 0) {
-            return std::pair<MSVehicle* const, SUMOReal>(leader, seen + leader->getPositionOnLane() - leader->getVehicleType().getLength() - veh.getVehicleType().getMinGap());
+            return std::make_pair(leader, seen + leader->getPositionOnLane() - leader->getVehicleType().getLength() - veh.getVehicleType().getMinGap());
         } else {
             leader = nextLane->getPartialOccupator();
             if (leader != 0) {
-                return std::pair<MSVehicle* const, SUMOReal>(leader, seen + nextLane->getPartialOccupatorEnd() - veh.getVehicleType().getMinGap());
+                return std::make_pair(leader, seen + nextLane->getPartialOccupatorEnd() - veh.getVehicleType().getMinGap());
             }
         }
         if (nextLane->getVehicleMaxSpeed(&veh) < speed) {
@@ -1208,7 +1206,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         view++;
 #endif
     } while (seen <= dist);
-    return std::pair<MSVehicle* const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
+    return std::make_pair(static_cast<MSVehicle*>(0), -1);
 }
 
 

@@ -1420,7 +1420,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
         mySeatPositions.clear();
     }
     Position front, back;
-    SUMOReal angle;
+    SUMOReal angle = 0.;
     // draw individual carriages
     for (int i = 0; i < numCarriages; ++i) {
         while (carriageOffset < 0) {
