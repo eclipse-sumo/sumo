@@ -104,6 +104,6 @@ windows_config.h
 
 if WITH_VERSION_H
 all: version.h
-version.h: ../.svn/entries
+version.h: ../.svn
 	../tools/build/version.py $(CURDIR)
 endif
