@@ -50,6 +50,7 @@
 	    <mkdir dir="${release}"/>
 		
 	    <copy file="${dist}/TraaS.jar" todir="${release}"/>
+		<copy file="${dist}/TraaS.jar" todir="${examples}"/>
 	    <copy file="license.txt" todir="${dist}"/>
 		
 		<zip basedir="${examples}" includes="**" destfile="${release}/TraaS_examples.zip"/>		

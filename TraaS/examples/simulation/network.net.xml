@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="gneE0_0" index="0" speed="33.33" length="15000" shape="0,0 15000,0"/>
+        <lane id="gneE0_1" index="1" speed="33.33" length="15000" shape="0,3.25 15000,3.25"/>
+         
+    </edge>
+
+
+</net>

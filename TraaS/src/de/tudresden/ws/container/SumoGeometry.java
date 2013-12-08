@@ -38,6 +38,28 @@ public class SumoGeometry {
 		this.coords.add(pos);
 	}
 	
+	public String toString(){
+		
+		StringBuilder sb = new StringBuilder();
+		for(SumoPosition2D pos : coords){
+			sb.append(pos.x+",");
+			sb.append(pos.y+" ");
+		}
+		
+		return sb.toString().trim();
+		
+	}
 	
+	public void fromString(String shape){
+		
+		String[] arr = shape.split(" ");
+		for(String s : arr){
+			String[] tmp = s.split(",");
+			double x = Double.valueOf(tmp[0]);
+			double y = Double.valueOf(tmp[1]);
+			this.add(new SumoPosition2D(x, y));
+		}
+		
+	}
 	
 }
