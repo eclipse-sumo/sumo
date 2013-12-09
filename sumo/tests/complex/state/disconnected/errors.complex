@@ -1,7 +1,7 @@
-Warning: Teleporting vehicle '0'; waited too long (wrong lane), lane='4/1to3/1_0', time=332.00.
-Warning: Vehicle '0' ends teleporting on edge '2/1to1/1', time 332.00.
-Warning: Teleporting vehicle '1'; waited too long (wrong lane), lane='4/1to3/1_0', time=637.00.
-Warning: Vehicle '1' ends teleporting on edge '2/1to1/1', time 637.00.
+Warning: Teleporting vehicle '0'; waited too long (wrong lane), lane='4/1to3/1_0', time=331.00.
+Warning: Vehicle '0' ends teleporting on edge '2/1to1/1', time 331.00.
+Warning: Teleporting vehicle '1'; waited too long (wrong lane), lane='4/1to3/1_0', time=636.00.
+Warning: Vehicle '1' ends teleporting on edge '2/1to1/1', time 636.00.
 Warning: Teleporting vehicle '0'; waited too long (wrong lane), lane='4/1to3/1_0', time=350.00.
 Warning: Vehicle '0' ends teleporting on edge '2/1to1/1', time 350.00.
 Warning: Teleporting vehicle '1'; waited too long (wrong lane), lane='4/1to3/1_0', time=655.00.
