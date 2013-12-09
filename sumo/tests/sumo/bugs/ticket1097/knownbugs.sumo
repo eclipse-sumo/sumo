@@ -4,5 +4,7 @@ search_string:Simulation ended at time: 3352.00
 use_regexp:0
 trigger_on_absence:1
 search_file:output
+ignore_other_errors:1
 full_description:vehicles use the wrong lane and thereby slow down the flow of traffic
 brief_description:see #1097
+
