@@ -80,12 +80,13 @@ class AttrFinder(NestingHandler):
 
 
 class CSVWriter(NestingHandler):
-    def __init__(self, attrs, renamedAttrs, depthTags, outfile, options,
+    def __init__(self, attrs, renamedAttrs, depthTags, tagAttrs, outfile, options,
             quote):
         NestingHandler.__init__(self)
         self.attrs = attrs
         self.renamedAttrs = renamedAttrs
         self.depthTags = depthTags
+        self.tagAttrs = tagAttrs
         self.outfile = outfile
         self.options = options
         self.quote = quote
@@ -94,9 +95,9 @@ class CSVWriter(NestingHandler):
     def startElement(self, name, attrs):
         NestingHandler.startElement(self, name, attrs)
         if self.depthTags[self.depth()] == name:
-            for a, v in attrs.items():
-                a = self.renamedAttrs.get((name, a), a)
-                self.currentValues[a] = v
+            for a in self.tagAttrs[name]:
+                a2 = self.renamedAttrs.get((name, a), a)
+                self.currentValues[a2] = attrs.get(a, "")
             if name == self.depthTags[-1]:
                 self.outfile.write(self.options.separator.join(
                     [self.quote(self.currentValues[a]) for a in self.attrs]) + "\n")
@@ -131,7 +132,7 @@ def main():
         f.write(options.separator.join(map(quote,attrFinder.attrs)) + "\n")
         # write records
         handler = CSVWriter(attrFinder.attrs, attrFinder.renamedAttrs,
-                attrFinder.depthTags, f, options, quote)
+                attrFinder.depthTags, attrFinder.tagAttrs, f, options, quote)
         xml.sax.parse(options.source, handler)
 
 
