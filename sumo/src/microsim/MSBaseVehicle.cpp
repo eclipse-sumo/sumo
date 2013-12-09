@@ -301,6 +301,13 @@ MSBaseVehicle::calculateArrivalPos() {
 }
 
 
+SUMOReal
+MSBaseVehicle::getImpatience() const {
+    return MAX2((SUMOReal)0, MIN2((SUMOReal)1, getVehicleType().getImpatience() +
+                                  (MSGlobals::gTimeToGridlock > 0 ? (SUMOReal)getWaitingTime() / MSGlobals::gTimeToGridlock : 0)));
+}
+
+
 MSDevice*
 MSBaseVehicle::getDevice(const std::type_info& type) const {
     for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {

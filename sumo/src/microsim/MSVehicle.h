@@ -688,9 +688,6 @@ public:
      */
     unsigned int getPersonNumber() const;
 
-    /// @brief Returns this vehicles impatience
-    SUMOReal getImpatience() const;
-
     /// @name Access to bool signals
     /// @{
 

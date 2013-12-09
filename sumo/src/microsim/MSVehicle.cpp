@@ -2173,13 +2173,6 @@ MSVehicle::getLaneIndex() const {
 }
 
 
-SUMOReal
-MSVehicle::getImpatience() const {
-    return MAX2((SUMOReal)0, MIN2((SUMOReal)1, getVehicleType().getImpatience() +
-                                  (MSGlobals::gTimeToGridlock > 0 ? (SUMOReal)myWaitingTime / MSGlobals::gTimeToGridlock : 0)));
-}
-
-
 #ifndef NO_TRACI
 bool
 MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTime duration, bool parking, bool triggered) {

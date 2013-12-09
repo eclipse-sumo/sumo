@@ -196,6 +196,10 @@ public:
         return myNumberReroutes;
     }
 
+    /// @brief Returns this vehicles impatience
+    SUMOReal getImpatience() const;
+
+
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
      */

@@ -206,6 +206,9 @@ public:
 
     virtual SUMOTime getWaitingTime() const = 0;
 
+    /// @brief Returns this vehicles impatience
+    virtual SUMOReal getImpatience() const = 0;
+
     /// @name state io
     //@{
 
