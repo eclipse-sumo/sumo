@@ -64,13 +64,15 @@ class AttrFinder(LevelHandler):
 
 
 class CSVWriter(LevelHandler):
-    def __init__(self, attrs, renamedAttrs, output_level, outfile, options):
+    def __init__(self, attrs, renamedAttrs, output_level, outfile, options,
+            quote):
         LevelHandler.__init__(self)
         self.attrs = attrs
         self.renamedAttrs = renamedAttrs
         self.output_level = output_level
         self.outfile = outfile
         self.options = options
+        self.quote = quote
         self.currentValues = defaultdict(lambda : "")
 
     def startElement(self, name, attrs):
@@ -81,7 +83,7 @@ class CSVWriter(LevelHandler):
                 self.currentValues[a] = v
             if self.lvl == self.output_level:
                 self.outfile.write(self.options.separator.join(
-                    [self.currentValues[a] for a in self.attrs]) + "\n")
+                    [self.quote(self.currentValues[a]) for a in self.attrs]) + "\n")
 
 
 def get_options():
@@ -91,6 +93,8 @@ def get_options():
             default=False, help="Give more output")
     optParser.add_option("-s", "--separator", default="\t",
              help="separating character for fields")
+    optParser.add_option("-q", "--quotechar", default='',
+             help="quoting character for fields")
     options, args = optParser.parse_args()
     if len(args) != 1:
         sys.exit(USAGE)
@@ -99,6 +103,8 @@ def get_options():
 
 def main():
     options = get_options()
+    def quote(s):
+        return "%s%s%s" % (options.quotechar, s, options.quotechar)
     # get attributes
     attrFinder = AttrFinder()
     xml.sax.parse(options.source, attrFinder)
@@ -106,10 +112,10 @@ def main():
     outfilename = os.path.splitext(options.source)[0] + ".csv"
     with open(outfilename, 'w') as f:
         # write header
-        f.write(options.separator.join(attrFinder.attrs) + "\n")
+        f.write(options.separator.join(map(quote,attrFinder.attrs)) + "\n")
         # write records
         handler = CSVWriter(attrFinder.attrs, attrFinder.renamedAttrs,
-                attrFinder.lvlmax, f, options)
+                attrFinder.lvlmax, f, options, quote)
         xml.sax.parse(options.source, handler)
 
 
