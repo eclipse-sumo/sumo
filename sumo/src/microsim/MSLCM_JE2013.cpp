@@ -84,7 +84,7 @@
 #define ROUNDABOUT_DIST_BONUS (SUMOReal)80.0
 
 //#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
-//#define DEBUG_COND (myVehicle.getID() == "emitter_SST92-150 FG 1 DE 3_26966400" || myVehicle.getID() == "emitter_SST92-150 FG 1 DE 1_26932941" || myVehicle.getID() == "emitter_SST92-175 FG 1 DE 129_27105000")
+//#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
 //#define DEBUG_COND (myVehicle.getID() == "emitter_MQ11O_DS_FS1_ERU_67340000") // test stops_overtaking
 #define DEBUG_COND false
@@ -776,6 +776,8 @@ MSLCM_JE2013::_wantsChange(
                   << " usableDist=" << usableDist
                   << " bestLaneOffset=" << bestLaneOffset
                   << " best.length=" << best.length
+                  << " maxJam=" << maxJam
+                  << " neighLeftPlace=" << neighLeftPlace
                   << "\n";
     }
 
@@ -822,6 +824,17 @@ MSLCM_JE2013::_wantsChange(
             //  close to this lane's end
             if (MSGlobals::gDebugFlag2) {
                 std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2) neighLeftPlace=" << neighLeftPlace << "\n";
+            }
+            ret = ret | LCA_STAY | LCA_STRATEGIC;
+        } else if (bestLaneOffset == 0 
+                && (leader.first == 0 || !leader.first->isStopped())
+                && neigh.bestContinuations.back()->getLinkCont().size() != 0
+                && roundaboutEdgesAhead == 0) {
+            // VARIANT_21 (stayOnBest)
+            // we do not want to leave the best lane for a lane which leads elsewhere
+            // unless our leader is stopped or we are approaching a roundabout
+            if (MSGlobals::gDebugFlag2) {
+                std::cout << " veh=" << myVehicle.getID() << " does not want to leave the bestLane\n";
             }
             ret = ret | LCA_STAY | LCA_STRATEGIC;
         }
