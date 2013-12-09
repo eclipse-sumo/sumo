@@ -1,35 +1,35 @@
-Warning: Teleporting vehicle 'horizontal.1'; waited too long, from '2si:1' to '1o:3', time 342.20!
-Warning: Teleporting vehicle 'long_jam.0'; waited too long, from '1si:1' to '2o:1', time 384.42!
-Warning: Teleporting vehicle 'horizontal.160'; waited too long, from '2fi:1', time 643.60!
-Warning: Teleporting vehicle 'horizontal.2'; waited too long, from '2si:1' to '1o:1', time 644.20!
-Warning: Vehicle 'horizontal.160' ends teleporting on segment '1o:1', time 665.97!
-Warning: Teleporting vehicle 'long_jam.1'; waited too long, from '1si:1' to '2o:1', time 687.42!
-Warning: Teleporting vehicle 'horizontal.162'; waited too long, from '2fi:1', time 974.20!
-Warning: Teleporting vehicle 'horizontal.3'; waited too long, from '2si:1', time 976.20!
-Warning: Teleporting vehicle 'long_jam.2'; waited too long, from '1si:1' to '2o:1', time 990.42!
-Warning: Vehicle 'horizontal.3' ends teleporting on segment '2o:0', time 1059.62!
-Warning: Vehicle 'horizontal.162' ends teleporting on segment '2o:0', time 1079.99!
-Warning: Teleporting vehicle 'horizontal.4'; waited too long, from '2si:1', time 1276.20!
-Warning: Teleporting vehicle 'long_jam.3'; waited too long, from '1si:1' to '2o:1', time 1293.39!
-Warning: Vehicle 'horizontal.4' ends teleporting on segment '2o:0', time 1359.62!
-Warning: Teleporting vehicle 'horizontal.5'; waited too long, from '2si:1', time 1576.20!
-Warning: Teleporting vehicle 'long_jam.4'; waited too long, from '1si:1' to '2o:1', time 1596.02!
-Warning: Vehicle 'horizontal.5' ends teleporting on segment '2o:0', time 1659.62!
-Warning: Teleporting vehicle 'horizontal.6'; waited too long, from '2si:1', time 1876.20!
-Warning: Teleporting vehicle 'long_jam.5'; waited too long, from '1si:1' to '2o:1', time 1898.02!
-Warning: Vehicle 'horizontal.6' ends teleporting on segment '2o:0', time 1959.62!
-Warning: Teleporting vehicle 'horizontal.7'; waited too long, from '2si:1', time 2176.20!
-Warning: Teleporting vehicle 'long_jam.6'; waited too long, from '1si:1' to '2o:1', time 2200.02!
-Warning: Vehicle 'horizontal.7' ends teleporting on segment '2o:0', time 2259.63!
-Warning: Teleporting vehicle 'horizontal.8'; waited too long, from '2si:1', time 2476.20!
-Warning: Teleporting vehicle 'long_jam.7'; waited too long, from '1si:1' to '2o:1', time 2502.02!
-Warning: Vehicle 'horizontal.8' ends teleporting on segment '2o:0', time 2559.63!
-Warning: Teleporting vehicle 'horizontal.9'; waited too long, from '2si:1', time 2776.20!
-Warning: Teleporting vehicle 'long_jam.8'; waited too long, from '1si:1' to '2o:1', time 2804.03!
-Warning: Vehicle 'horizontal.9' ends teleporting on segment '2o:0', time 2859.63!
-Warning: Teleporting vehicle 'horizontal.10'; waited too long, from '2si:1', time 3076.21!
-Warning: Teleporting vehicle 'long_jam.9'; waited too long, from '1si:1' to '2o:1', time 3106.03!
-Warning: Vehicle 'horizontal.10' ends teleporting on segment '2o:0', time 3159.63!
-Warning: Teleporting vehicle 'horizontal.11'; waited too long, from '2si:1', time 3376.21!
-Warning: Teleporting vehicle 'long_jam.10'; waited too long, from '1si:1' to '2o:1', time 3408.03!
-Warning: Vehicle 'horizontal.11' ends teleporting on segment '2o:0', time 3459.63!
+Warning: Teleporting vehicle 'horizontal.1'; waited too long, from '2si:1' to '1o:3', time 342.20.
+Warning: Teleporting vehicle 'long_jam.0'; waited too long, from '1si:1' to '2o:1', time 384.42.
+Warning: Teleporting vehicle 'horizontal.160'; waited too long, from '2fi:1', time 643.60.
+Warning: Teleporting vehicle 'horizontal.2'; waited too long, from '2si:1' to '1o:1', time 644.20.
+Warning: Vehicle 'horizontal.160' ends teleporting on segment '1o:1', time 665.97.
+Warning: Teleporting vehicle 'long_jam.1'; waited too long, from '1si:1' to '2o:1', time 687.42.
+Warning: Teleporting vehicle 'horizontal.162'; waited too long, from '2fi:1', time 974.20.
+Warning: Teleporting vehicle 'horizontal.3'; waited too long, from '2si:1', time 976.20.
+Warning: Teleporting vehicle 'long_jam.2'; waited too long, from '1si:1' to '2o:1', time 990.42.
+Warning: Vehicle 'horizontal.3' ends teleporting on segment '2o:0', time 1059.62.
+Warning: Vehicle 'horizontal.162' ends teleporting on segment '2o:0', time 1079.99.
+Warning: Teleporting vehicle 'horizontal.4'; waited too long, from '2si:1', time 1276.20.
+Warning: Teleporting vehicle 'long_jam.3'; waited too long, from '1si:1' to '2o:1', time 1293.39.
+Warning: Vehicle 'horizontal.4' ends teleporting on segment '2o:0', time 1359.62.
+Warning: Teleporting vehicle 'horizontal.5'; waited too long, from '2si:1', time 1576.20.
+Warning: Teleporting vehicle 'long_jam.4'; waited too long, from '1si:1' to '2o:1', time 1596.02.
+Warning: Vehicle 'horizontal.5' ends teleporting on segment '2o:0', time 1659.62.
+Warning: Teleporting vehicle 'horizontal.6'; waited too long, from '2si:1', time 1876.20.
+Warning: Teleporting vehicle 'long_jam.5'; waited too long, from '1si:1' to '2o:1', time 1898.02.
+Warning: Vehicle 'horizontal.6' ends teleporting on segment '2o:0', time 1959.62.
+Warning: Teleporting vehicle 'horizontal.7'; waited too long, from '2si:1', time 2176.20.
+Warning: Teleporting vehicle 'long_jam.6'; waited too long, from '1si:1' to '2o:1', time 2200.02.
+Warning: Vehicle 'horizontal.7' ends teleporting on segment '2o:0', time 2259.62.
+Warning: Teleporting vehicle 'horizontal.8'; waited too long, from '2si:1', time 2476.20.
+Warning: Teleporting vehicle 'long_jam.7'; waited too long, from '1si:1' to '2o:1', time 2502.02.
+Warning: Vehicle 'horizontal.8' ends teleporting on segment '2o:0', time 2559.63.
+Warning: Teleporting vehicle 'horizontal.9'; waited too long, from '2si:1', time 2776.20.
+Warning: Teleporting vehicle 'long_jam.8'; waited too long, from '1si:1' to '2o:1', time 2804.03.
+Warning: Vehicle 'horizontal.9' ends teleporting on segment '2o:0', time 2859.63.
+Warning: Teleporting vehicle 'horizontal.10'; waited too long, from '2si:1', time 3076.21.
+Warning: Teleporting vehicle 'long_jam.9'; waited too long, from '1si:1' to '2o:1', time 3106.03.
+Warning: Vehicle 'horizontal.10' ends teleporting on segment '2o:0', time 3159.63.
+Warning: Teleporting vehicle 'horizontal.11'; waited too long, from '2si:1', time 3376.21.
+Warning: Teleporting vehicle 'long_jam.10'; waited too long, from '1si:1' to '2o:1', time 3408.03.
+Warning: Vehicle 'horizontal.11' ends teleporting on segment '2o:0', time 3459.63.
