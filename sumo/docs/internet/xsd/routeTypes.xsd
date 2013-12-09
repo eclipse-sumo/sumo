@@ -87,8 +87,8 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="route" type="xsd:string"/>
-        <xsd:attribute name="toTaz" type="xsd:string"/>
         <xsd:attribute name="fromTaz" type="xsd:string"/>
+        <xsd:attribute name="toTaz" type="xsd:string"/>
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="depart" type="departType" use="required"/>
         <xsd:attribute name="color" type="colorType"/>
@@ -99,6 +99,9 @@
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
         <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
+        <xsd:attribute name="line" type="xsd:string"/>
+        <xsd:attribute name="personCapacity" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowWithoutIDType">
@@ -128,6 +131,8 @@
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
         <xsd:attribute name="line" type="xsd:string"/>
+        <xsd:attribute name="personCapacity" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowCalibratorType">
