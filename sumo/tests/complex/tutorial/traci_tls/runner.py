@@ -62,15 +62,15 @@ def generate_routefile():
         vehNr = 0
         for i in range(N):
             if random.uniform(0,1) < pWE:
-                print >> routes, '    <vehicle id="%i" type="typeWE" route="right" depart="%i" />' % (vehNr, i)
+                print >> routes, '    <vehicle id="right_%i" type="typeWE" route="right" depart="%i" />' % (vehNr, i)
                 vehNr += 1
                 lastVeh = i
             if random.uniform(0,1) < pEW:
-                print >> routes, '    <vehicle id="%i" type="typeWE" route="left" depart="%i" />' % (vehNr, i)
+                print >> routes, '    <vehicle id="left_%i" type="typeWE" route="left" depart="%i" />' % (vehNr, i)
                 vehNr += 1
                 lastVeh = i
             if random.uniform(0,1) < pNS:
-                print >> routes, '    <vehicle id="%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (vehNr, i)
+                print >> routes, '    <vehicle id="down_%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (vehNr, i)
                 vehNr += 1
                 lastVeh = i
         print >> routes, "</routes>"
@@ -83,9 +83,18 @@ def run():
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         programPointer = min(programPointer+1, len(PROGRAM)-1)
-        no = traci.inductionloop.getLastStepVehicleNumber("0")
-        if no > 0:
-            programPointer = (0 if programPointer == len(PROGRAM)-1 else 3)
+        numPriorityVehicles = traci.inductionloop.getLastStepVehicleNumber("0")
+        if numPriorityVehicles > 0:
+            if programPointer == len(PROGRAM)-1:
+                # we are in the WEGREEN phase. start the priority phase sequence
+                programPointer = 0
+            elif PROGRAM[programPointer] != WEYELLOW:
+                # horizontal traffic is already stopped. restart priority phase
+                # sequence at green
+                programPointer = 3
+            else:
+                # we are in the WEYELLOW phase. continue sequence
+                pass
         traci.trafficlights.setRedYellowGreenState("0", PROGRAM[programPointer])
         step += 1
     traci.close()
