@@ -1,9 +1,3 @@
-# Test repeated vehicle creation
-repeat_norepno
-
-# Test repeated vehicle creation
-repeat_noperiod
-
 # Test with a vehicle and no route given
 no_route
 
