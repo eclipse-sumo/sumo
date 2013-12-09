@@ -341,9 +341,12 @@ MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
             od.openTag("approaching");
             const ApproachingVehicleInformation& avi = myApproachingVehicles.find(it->second)->second;
             od.writeAttr(SUMO_ATTR_ID, it->second->getID());
+            od.writeAttr(SUMO_ATTR_IMPATIENCE, it->second->getImpatience());
             od.writeAttr("arrivalTime", time2string(avi.arrivalTime));
+            od.writeAttr("arrivalTimeBraking", time2string(avi.arrivalTimeBraking));
             od.writeAttr("leaveTime", time2string(avi.leavingTime));
             od.writeAttr("arrivalSpeed", toString(avi.arrivalSpeed));
+            od.writeAttr("arrivalSpeedBraking", toString(avi.arrivalSpeedBraking));
             od.writeAttr("leaveSpeed", toString(avi.leaveSpeed));
             od.writeAttr("willPass", toString(avi.willPass));
             od.closeTag();
