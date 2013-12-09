@@ -171,50 +171,19 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
     } else {
         id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     }
-    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) ^ attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
-        throw ProcessError("The attributes '" + attrs.getName(SUMO_ATTR_PERIOD) +
-                           "' and '" + attrs.getName(SUMO_ATTR_REPNUMBER) +
-                           "' have to be given both in the definition of '" + id + "'.");
-    }
     SUMOVehicleParameter* ret = new SUMOVehicleParameter();
     ret->id = id;
     try {
         parseCommonAttributes(attrs, ret, "vehicle");
+        if (!skipDepart) {
+            const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPART, 0, ok);
+            if (!ok || !SUMOVehicleParameter::parseDepart(helper, "vehicle", ret->id, ret->depart, ret->departProcedure, errorMsg)) {
+                throw ProcessError(errorMsg);
+            }
+        }
     } catch (ProcessError&) {
         delete ret;
         throw;
-    }
-    if (!skipDepart) {
-        const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPART, 0, ok);
-        if (helper == "triggered") {
-            ret->departProcedure = DEPART_TRIGGERED;
-        } else {
-            ret->departProcedure = DEPART_GIVEN;
-            ret->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, id.c_str(), ok);
-            if (ok && ret->depart < 0) {
-                errorMsg = "Negative departure time in the definition of '" + id + "'.";
-                ok = false;
-            }
-        }
-    }
-    // parse repetition information
-    if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
-        WRITE_WARNING("period and repno are deprecated in vehicle '" + id + "', use flows instead.");
-        ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-#ifdef HAVE_SUBSECOND_TIMESTEPS
-        ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
-#else
-        ret->repetitionOffset = attrs.get<SUMOReal>(SUMO_ATTR_PERIOD, id.c_str(), ok);
-#endif
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
-        ret->setParameter |= VEHPARS_PERIODNUM_SET;
-        ret->repetitionNumber = attrs.get<int>(SUMO_ATTR_REPNUMBER, id.c_str(), ok);
-    }
-
-    if (!ok) {
-        delete ret;
-        throw ProcessError(errorMsg);
     }
     return ret;
 }
@@ -309,15 +278,15 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     } else {
         ret->color = RGBColor::DEFAULT_COLOR;
     }
-    // parse person number
-    if (attrs.hasAttribute(SUMO_ATTR_PERSON_NUMBER)) {
-        ret->setParameter |= VEHPARS_PERSON_NUMBER_SET;
-        ret->personNumber = attrs.get<int>(SUMO_ATTR_PERSON_NUMBER, 0, ok);
-    }
     // parse person capacity
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
         ret->setParameter |= VEHPARS_PERSON_CAPACITY_SET;
         ret->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, 0, ok);
+    }
+    // parse person number
+    if (attrs.hasAttribute(SUMO_ATTR_PERSON_NUMBER)) {
+        ret->setParameter |= VEHPARS_PERSON_NUMBER_SET;
+        ret->personNumber = attrs.get<int>(SUMO_ATTR_PERSON_NUMBER, 0, ok);
     }
 }
 

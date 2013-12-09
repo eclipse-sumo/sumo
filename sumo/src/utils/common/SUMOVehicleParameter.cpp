@@ -280,6 +280,30 @@ SUMOVehicleParameter::writeStops(OutputDevice& dev) const {
 
 
 bool
+SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& element, const std::string& id,
+                                  SUMOTime& depart, DepartDefinition& dd, std::string& error) {
+    if (val == "triggered") {
+        dd = DEPART_TRIGGERED;
+    } else if (val == "now") {
+        dd = DEPART_NOW;
+    } else {
+        try {
+            depart = string2time(val);
+            dd = DEPART_GIVEN;
+            if (depart < 0) {
+                error = "Negative departure time in the definition of '" + id + "'.";
+                return false;
+            }
+        } catch (...) {
+            error = "Invalid departure time for " + element + " '" + id + "';\n must be one of (\"triggered\", \"now\", or a float >= 0)";
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool
 SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string& element, const std::string& id,
                                       int& lane, DepartLaneDefinition& dld, std::string& error) {
     bool ok = true;

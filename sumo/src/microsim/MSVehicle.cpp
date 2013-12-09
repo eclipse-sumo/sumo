@@ -2047,7 +2047,7 @@ MSVehicle::getLeader(SUMOReal dist) const {
 
 SUMOReal
 MSVehicle::getTimeGap() const {
-    std::pair<const MSVehicle* const, SUMOReal> leaderInfo = getLeader(0);
+    std::pair<const MSVehicle* const, SUMOReal> leaderInfo = getLeader();
     if (leaderInfo.first == 0 || getSpeed() == 0) {
         return -1;
     }

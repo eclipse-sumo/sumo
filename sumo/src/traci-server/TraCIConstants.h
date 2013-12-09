@@ -614,7 +614,11 @@
 // current person number (get: vehicle)
 #define VAR_PERSON_NUMBER 0x67
 
+// number of persons waiting at a defined bus stop (get: simulation)
 #define VAR_BUS_STOP_WAITING 0x67
+
+// current leader together with gap (get: vehicle)
+#define VAR_LEADER 0x68
 
 //current waiting time (get: vehicle, lane)
 #define VAR_WAITING_TIME 0x7a
@@ -694,7 +698,7 @@
 // add an instance (poi, polygon, vehicle, route)
 #define ADD 0x80
 
-// remove an instance (poi, polygon)
+// remove an instance (poi, polygon, vehicle)
 #define REMOVE 0x81
 
 // convert coordinates
@@ -705,6 +709,9 @@
 
 //the current driving distance
 #define VAR_DISTANCE 0x84
+
+// add a fully specified instance (vehicle)
+#define ADD_FULL 0x85
 
 // force rerouting based on travel time (vehicles)
 #define CMD_REROUTE_TRAVELTIME 0x90

@@ -39,6 +39,14 @@ def _readBestLanes(result):
         lanes.append( [laneID, length, occupation, offset, allowsContinuation, nextLanes ] )
     return lanes
 
+def _readLeader(result):
+    result.read("!iBi")
+    vehicleID = result.readString()
+    dist = result.readDouble()
+    if vehicleID:
+        return vehicleID, dist
+    return None
+
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.ID_COUNT:                  traci.Storage.readInt,
@@ -81,6 +89,7 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                       tc.VAR_IMPERFECTION:    traci.Storage.readDouble,
                       tc.VAR_TAU:             traci.Storage.readDouble,
                       tc.VAR_BEST_LANES:      _readBestLanes,
+                      tc.VAR_LEADER:          _readLeader,
                       tc.DISTANCE_REQUEST:    traci.Storage.readDouble,
                       tc.VAR_DISTANCE:        traci.Storage.readDouble}
 
@@ -386,6 +395,15 @@ def getBestLanes(vehID):
     """
     return _getUniversal(tc.VAR_BEST_LANES, vehID)
 
+def getLeader(vehID, dist=0.):
+    """getLeader(string, double) -> (string, double)
+    
+    Return the leading vehicle id together with the distance.
+    """
+    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID, 1+4+1+8)
+    traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, dist)
+    return _readLeader(traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID))
+
 def getDrivingDistance(vehID, edgeID, pos, laneID=0):
     """getDrivingDistance(string, string, double, integer) -> double
     
@@ -672,6 +690,22 @@ def add(vehID, routeID, depart=DEPART_NOW, pos=0, speed=0, lane=0, typeID="DEFAU
     traci._message.string += struct.pack("!Bi", tc.TYPE_INTEGER, depart)
     traci._message.string += struct.pack("!BdBd", tc.TYPE_DOUBLE, pos, tc.TYPE_DOUBLE, speed)
     traci._message.string += struct.pack("!BB", tc.TYPE_BYTE, lane)
+    traci._sendExact()
+
+def addFull(vehID, routeID, typeID="DEFAULT_VEHTYPE", depart=None,
+            departLane="0", departPos="base", departSpeed="0",
+            arrivalLane="current", arrivalPos="max", arrivalSpeed="current",
+            fromTaz="", toTaz="", line="", personCapacity=0, personNumber=0):
+    messageString = struct.pack("!Bi", tc.TYPE_COMPOUND, 14)
+    if depart is None:
+        depart = str(traci.simulation.getCurrentTime() / 1000.)
+    for val in (depart, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line):
+        messageString += struct.pack("!Bi", tc.TYPE_STRING, len(val)) + val
+    messageString += struct.pack("!Bi", tc.TYPE_INTEGER, personCapacity)
+    messageString += struct.pack("!Bi", tc.TYPE_INTEGER, personNumber)
+
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD_FULL, vehID, len(messageString))
+    traci._message.string += messageString
     traci._sendExact()
 
 def remove(vehID, reason=tc.REMOVE_VAPORIZED):
