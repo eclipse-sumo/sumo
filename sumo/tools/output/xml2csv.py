@@ -91,7 +91,7 @@ def get_options():
     optParser = OptionParser()
     optParser.add_option("-v", "--verbose", action="store_true",
             default=False, help="Give more output")
-    optParser.add_option("-s", "--separator", default="\t",
+    optParser.add_option("-s", "--separator", default=";",
              help="separating character for fields")
     optParser.add_option("-q", "--quotechar", default='',
              help="quoting character for fields")
