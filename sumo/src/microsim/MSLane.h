@@ -507,10 +507,10 @@ public:
         the succeeding link could not be found;
         Returns the myLinks.end() instead; Further, the number of edges to
         look forward may be given */
-    virtual MSLinkCont::const_iterator succLinkSec(const SUMOVehicle& veh,
+    static MSLinkCont::const_iterator succLinkSec(const SUMOVehicle& veh,
             unsigned int nRouteSuccs,
             const MSLane& succLinkSource,
-            const std::vector<MSLane*>& conts) const;
+            const std::vector<MSLane*>& conts);
 
 
     /** Returns the information whether the given link shows at the end
