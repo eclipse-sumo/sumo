@@ -50,7 +50,8 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable != ID_LIST && variable != ID_COUNT && variable != JAM_LENGTH_VEHICLE && variable != JAM_LENGTH_METERS) {
+    if (variable != ID_LIST && variable != ID_COUNT && variable != JAM_LENGTH_VEHICLE && variable != JAM_LENGTH_METERS
+		&& variable != LAST_STEP_MEAN_SPEED && variable != LAST_STEP_OCCUPANCY) {
         return server.writeErrorStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, "Get Areal Detector Variable: unsupported variable specified", outputStorage);
     }
 
@@ -86,7 +87,14 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(e2->getCurrentJamLengthInMeters());
                 break;
-
+			case LAST_STEP_MEAN_SPEED:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+				tempMsg.writeDouble(e2->getCurrentMeanSpeed());
+                break;
+			case LAST_STEP_OCCUPANCY:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+				tempMsg.writeDouble(e2->getCurrentOccupancy());
+                break;
             default:
                 break;
         }

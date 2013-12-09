@@ -70,7 +70,7 @@ CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x8D
 RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x9D
 # command: get areal detector (e2) variable
 CMD_GET_AREAL_DETECTOR_VARIABLE = 0x8E
-# response: get areal detector (e3) variable
+# response: get areal detector (e2) variable
 RESPONSE_GET_AREAL_DETECTOR_VARIABLE = 0x9E
 # command: subscribe areal detector (e2) variable
 CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x8F
@@ -78,9 +78,9 @@ CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x8F
 RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x9F
 
 
-# command: subscribe areal detector (e3) context
+# command: subscribe multi-entry/multi-exit detector (e3) context
 CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT = 0x81
-# response: subscribe areal detector (e3) context
+# response: subscribe multi-entry/multi-exit detector (e3) context
 RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT = 0x91
 # command: get multi-entry/multi-exit detector (e3) variable
 CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xa1
@@ -375,13 +375,13 @@ SURROUNDING_VARIABLES_SUBSCRIPTION = 0x03
 # last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 LAST_STEP_VEHICLE_NUMBER = 0x10
 
-# last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
+# last step vehicle number (get: induction loops, areal detectors, multi-entry/multi-exit detector, lanes, edges)
 LAST_STEP_MEAN_SPEED = 0x11
 
 # last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 LAST_STEP_VEHICLE_ID_LIST = 0x12
 
-# last step occupancy (get: induction loops, lanes, edges)
+# last step occupancy (get: induction loops, areal detectors, lanes, edges)
 LAST_STEP_OCCUPANCY = 0x13
 
 # last step vehicle halting number (get: multi-entry/multi-exit detector, lanes, edges)

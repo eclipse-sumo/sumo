@@ -82,7 +82,7 @@
 #define RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT 0x9D
 // command: get areal detector (e2) variable
 #define CMD_GET_AREAL_DETECTOR_VARIABLE 0x8E
-// response: get areal detector (e3) variable
+// response: get areal detector (e2) variable
 #define RESPONSE_GET_AREAL_DETECTOR_VARIABLE 0x9E
 // command: subscribe areal detector (e2) variable
 #define CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE 0x8F
@@ -90,17 +90,17 @@
 #define RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE 0x9F
 
 
-// command: subscribe areal detector (e3) context
+// command: subscribe multi-entry/multi-exit detector (e3) context
 #define CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT 0x81
-// response: subscribe areal detector (e3) context
+// response: subscribe multi-entry/multi-exit detector (e3) context
 #define RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT 0x91
 // command: get multi-entry/multi-exit detector (e3) variable
 #define CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xa1
-// response: get areal detector (e3) variable
+// response: get multi-entry/multi-exit detector (e3) variable
 #define RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xb1
 // command: subscribe multi-entry/multi-exit detector (e3) variable
 #define CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xd1
-// response: subscribe areal detector (e3) variable
+// response: subscribe multi-entry/multi-exit detector (e3) variable
 #define RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xe1
 
 
