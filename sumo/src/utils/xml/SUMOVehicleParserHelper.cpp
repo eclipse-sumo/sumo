@@ -176,7 +176,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
     try {
         parseCommonAttributes(attrs, ret, "vehicle");
         if (!skipDepart) {
-            const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPART, 0, ok);
+            const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPART, ret->id.c_str(), ok);
             if (!ok || !SUMOVehicleParameter::parseDepart(helper, "vehicle", ret->id, ret->depart, ret->departProcedure, errorMsg)) {
                 throw ProcessError(errorMsg);
             }
@@ -197,23 +197,23 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     // parse route information
     if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         ret->setParameter |= VEHPARS_ROUTE_SET; // !!! needed?
-        ret->routeid = attrs.get<std::string>(SUMO_ATTR_ROUTE, 0, ok);
+        ret->routeid = attrs.get<std::string>(SUMO_ATTR_ROUTE, ret->id.c_str(), ok);
     }
     // parse type information
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         ret->setParameter |= VEHPARS_VTYPE_SET; // !!! needed?
-        ret->vtypeid = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
+        ret->vtypeid = attrs.get<std::string>(SUMO_ATTR_TYPE, ret->id.c_str(), ok);
     }
     // parse line information
     if (attrs.hasAttribute(SUMO_ATTR_LINE)) {
         ret->setParameter |= VEHPARS_LINE_SET; // !!! needed?
-        ret->line = attrs.get<std::string>(SUMO_ATTR_LINE, 0, ok);
+        ret->line = attrs.get<std::string>(SUMO_ATTR_LINE, ret->id.c_str(), ok);
     }
     // parse zone information
     if (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) && attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
         ret->setParameter |= VEHPARS_TAZ_SET;
-        ret->fromTaz = attrs.get<std::string>(SUMO_ATTR_FROM_TAZ, 0, ok);
-        ret->toTaz = attrs.get<std::string>(SUMO_ATTR_TO_TAZ, 0, ok);
+        ret->fromTaz = attrs.get<std::string>(SUMO_ATTR_FROM_TAZ, ret->id.c_str(), ok);
+        ret->toTaz = attrs.get<std::string>(SUMO_ATTR_TO_TAZ, ret->id.c_str(), ok);
     }
     // parse reroute information
     if (attrs.getOpt<bool>(SUMO_ATTR_REROUTE, 0, ok, false)) {
@@ -224,7 +224,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     // parse depart lane information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
         ret->setParameter |= VEHPARS_DEPARTLANE_SET;
-        const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTLANE, 0, ok);
+        const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTLANE, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartLane(helper, element, ret->id, ret->departLane, ret->departLaneProcedure, error)) {
             throw ProcessError(error);
         }
@@ -232,7 +232,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     // parse depart position information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         ret->setParameter |= VEHPARS_DEPARTPOS_SET;
-        const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, 0, ok);
+        const std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartPos(helper, element, ret->id, ret->departPos, ret->departPosProcedure, error)) {
             throw ProcessError(error);
         }
@@ -240,7 +240,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     // parse depart speed information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)) {
         ret->setParameter |= VEHPARS_DEPARTSPEED_SET;
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTSPEED, 0, ok);
+        std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTSPEED, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseDepartSpeed(helper, element, ret->id, ret->departSpeed, ret->departSpeedProcedure, error)) {
             throw ProcessError(error);
         }
@@ -249,7 +249,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     // parse arrival lane information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
         ret->setParameter |= VEHPARS_ARRIVALLANE_SET;
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALLANE, 0, ok);
+        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALLANE, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalLane(helper, element, ret->id, ret->arrivalLane, ret->arrivalLaneProcedure, error)) {
             throw ProcessError(error);
         }
@@ -257,7 +257,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     // parse arrival position information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         ret->setParameter |= VEHPARS_ARRIVALPOS_SET;
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, 0, ok);
+        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalPos(helper, element, ret->id, ret->arrivalPos, ret->arrivalPosProcedure, error)) {
             throw ProcessError(error);
         }
@@ -265,7 +265,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     // parse arrival speed information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)) {
         ret->setParameter |= VEHPARS_ARRIVALSPEED_SET;
-        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALSPEED, 0, ok);
+        std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALSPEED, ret->id.c_str(), ok);
         if (!SUMOVehicleParameter::parseArrivalSpeed(helper, element, ret->id, ret->arrivalSpeed, ret->arrivalSpeedProcedure, error)) {
             throw ProcessError(error);
         }
@@ -281,12 +281,12 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     // parse person capacity
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
         ret->setParameter |= VEHPARS_PERSON_CAPACITY_SET;
-        ret->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, 0, ok);
+        ret->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, ret->id.c_str(), ok);
     }
     // parse person number
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_NUMBER)) {
         ret->setParameter |= VEHPARS_PERSON_NUMBER_SET;
-        ret->personNumber = attrs.get<int>(SUMO_ATTR_PERSON_NUMBER, 0, ok);
+        ret->personNumber = attrs.get<int>(SUMO_ATTR_PERSON_NUMBER, ret->id.c_str(), ok);
     }
 }
 
