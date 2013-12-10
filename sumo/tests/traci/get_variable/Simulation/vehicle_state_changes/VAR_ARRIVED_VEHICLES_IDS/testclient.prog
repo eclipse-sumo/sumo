@@ -1,9 +1,9 @@
 getvariable 0xab 0x7a 0
 simstep2 1
-simstep2 108
+simstep2 147
+getvariable 0xab 0x7a 0
+simstep2 148
 getvariable 0xab 0x7a 0
 simstep2 149
 getvariable 0xab 0x7a 0
 simstep2 150
-getvariable 0xab 0x7a 0
-simstep2 151
