@@ -95,5 +95,9 @@ for step in range(6):
     traci.simulationStep()
 check("2")
 print "leader", traci.vehicle.getLeader("2")
+traci.vehicle.subscribeLeader("2")
+for step in range(6):
+    traci.simulationStep()
+    print traci.vehicle.getSubscriptionResults("2")
 traci.vehicle.remove("1")
 traci.close()

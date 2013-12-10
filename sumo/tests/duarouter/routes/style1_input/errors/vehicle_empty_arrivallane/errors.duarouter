@@ -1,4 +1,4 @@
-Error: Attribute 'arrivalLane' in definition of a vehicle is empty.
+Error: Attribute 'arrivalLane' in definition of vehicle '0' is empty.
 Error: Invalid arrivalLane definition for vehicle '0';
  must be one of ("current", or an int>=0)
 Quitting (on error).

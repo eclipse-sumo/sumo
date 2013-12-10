@@ -1,4 +1,4 @@
-Error: Attribute 'departPos' in definition of a vehicle is empty.
+Error: Attribute 'departPos' in definition of vehicle '1' is empty.
 Error: Invalid departPos definition for vehicle '1';
  must be one of ("random", "random_free", "free", "base", "pwagSimple", "pwagGeneric", "maxSpeedGap", or a float)
 Quitting (on error).

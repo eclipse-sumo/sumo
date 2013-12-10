@@ -1,4 +1,4 @@
-Error: Attribute 'arrivalSpeed' in definition of a vehicle is empty.
+Error: Attribute 'arrivalSpeed' in definition of vehicle '1' is empty.
 Error: Invalid arrivalSpeed definition for vehicle '1';
  must be one of ("current", or a float>=0)
 Quitting (on error).

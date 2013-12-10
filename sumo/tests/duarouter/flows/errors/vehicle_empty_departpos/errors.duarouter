@@ -1,4 +1,4 @@
-Error: Attribute 'departPos' in definition of a flow is empty.
+Error: Attribute 'departPos' in definition of flow '0' is empty.
 Error: Invalid departPos definition for flow '0';
  must be one of ("random", "random_free", "free", "base", "pwagSimple", "pwagGeneric", "maxSpeedGap", or a float)
 Quitting (on error).

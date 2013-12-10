@@ -1,4 +1,4 @@
-Error: Attribute 'departSpeed' in definition of a vehicle is empty.
+Error: Attribute 'departSpeed' in definition of vehicle '1' is empty.
 Error: Invalid departSpeed definition for vehicle '1';
  must be one of ("random", "max", or a float>=0)
 Quitting (on error).
