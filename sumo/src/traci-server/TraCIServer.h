@@ -325,6 +325,9 @@ private:
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
     std::map<int, CmdExecutor> myExecutors;
 
+    /// @brief Map of variable ids to the size of the parameter in bytes
+    std::map<int, int> myParameterSizes;
+
     std::map<std::string, MSVehicle*> myVTDControlledVehicles;
 
 
@@ -343,9 +346,10 @@ private:
          * @param[in] contextDomainArg The domain ID of the context
          * @param[in] rangeArg The range of the context
          */
-        Subscription(int commandIdArg, const std::string& idArg, const std::vector<int>& variablesArg,
+        Subscription(int commandIdArg, const std::string& idArg,
+                     const std::vector<int>& variablesArg, const std::vector<std::vector<unsigned char> >& paramsArg,
                      SUMOTime beginTimeArg, SUMOTime endTimeArg, bool contextVarsArg, int contextDomainArg, SUMOReal rangeArg)
-            : commandId(commandIdArg), id(idArg), variables(variablesArg), beginTime(beginTimeArg), endTime(endTimeArg),
+                     : commandId(commandIdArg), id(idArg), variables(variablesArg), parameters(paramsArg), beginTime(beginTimeArg), endTime(endTimeArg),
               contextVars(contextVarsArg), contextDomain(contextDomainArg), range(rangeArg) {}
 
         /// @brief commandIdArg The command id of the subscription
@@ -354,6 +358,8 @@ private:
         std::string id;
         /// @brief The subscribed variables
         std::vector<int> variables;
+        /// @brief The parameters for the subscribed variables
+        std::vector<std::vector<unsigned char> > parameters;
         /// @brief The begin time of the subscription
         SUMOTime beginTime;
         /// @brief The end time of the subscription
@@ -381,8 +387,7 @@ private:
 
 
 private:
-    bool addObjectVariableSubscription(int commandId);
-    bool addObjectContextSubscription(int commandId);
+    bool addObjectVariableSubscription(const int commandId, const bool hasContext);
     void initialiseSubscription(const Subscription& s);
     void removeSubscription(int commandId, const std::string& identity, int domain);
     bool processSingleSubscription(const TraCIServer::Subscription& s, tcpip::Storage& writeInto,

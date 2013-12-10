@@ -400,10 +400,20 @@ def getLeader(vehID, dist=0.):
     """getLeader(string, double) -> (string, double)
     
     Return the leading vehicle id together with the distance.
+    The dist parameter defines the maximum lookahead, 0 calculates a lookahead from the brake gap.
     """
     traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID, 1+8)
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, dist)
     return _readLeader(traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID))
+
+def subscribeLeader(vehID, dist=0., begin=0, end=2**31-1):
+    """subscribeLeader(string, double) -> None
+    
+    Subscribe for the leading vehicle id together with the distance.
+    The dist parameter defines the maximum lookahead, 0 calculates a lookahead from the brake gap.
+    """
+    traci._subscribe(tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, begin, end, vehID,
+                     (tc.VAR_LEADER,), {tc.VAR_LEADER: struct.pack("!Bd", tc.TYPE_DOUBLE, dist)})
 
 def getDrivingDistance(vehID, edgeID, pos, laneID=0):
     """getDrivingDistance(string, string, double, integer) -> double

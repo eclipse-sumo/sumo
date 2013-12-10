@@ -338,10 +338,14 @@ def _readSubscription(result):
                     raise FatalTraCIError("Cannot handle subscription response %02x for %s." % (response, objectID))
     return objectID, response
 
-def _subscribe(cmdID, begin, end, objID, varIDs):
+def _subscribe(cmdID, begin, end, objID, varIDs, parameters=None):
     _message.queue.append(cmdID)
     length = 1+1+4+4+4+len(objID)+1+len(varIDs)
-    if length<=255:
+    if parameters:
+        for v in varIDs:
+            if v in parameters:
+                length += len(parameters[v])
+    if length <= 255:
         _message.string += struct.pack("!B", length)
     else:
         _message.string += struct.pack("!Bi", 0, length+4)
@@ -349,6 +353,8 @@ def _subscribe(cmdID, begin, end, objID, varIDs):
     _message.string += struct.pack("!B", len(varIDs))
     for v in varIDs:
         _message.string += struct.pack("!B", v)
+        if parameters and v in parameters:
+            _message.string += parameters[v]
     result = _sendExact()
     objectID, response = _readSubscription(result)
     if response - cmdID != 16 or objectID != objID:

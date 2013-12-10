@@ -57,6 +57,15 @@ inline std::string toString(const T& t, std::streamsize accuracy = OUTPUT_ACCURA
 }
 
 
+template<typename T>
+inline std::string toHex(const T i, std::streamsize numDigits=0) {
+    // taken from http://stackoverflow.com/questions/5100718/int-to-hex-string-in-c
+    std::stringstream stream;
+    stream << "0x" << std::setfill ('0') << std::setw(numDigits == 0 ? sizeof(T)*2 : numDigits) << std::hex << i;
+    return stream.str();
+}
+
+
 template <>
 inline std::string toString<SumoXMLTag>(const SumoXMLTag& tag, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);

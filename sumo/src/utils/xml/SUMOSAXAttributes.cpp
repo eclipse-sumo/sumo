@@ -122,12 +122,10 @@ void
 SUMOSAXAttributes::emitUngivenError(const std::string& attrname, const char* objectid) const {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' is missing in definition of ";
-    if (objectid == 0) {
-        oss << "a ";
-    }
-    oss << myObjectType;
-    if (objectid != 0) {
-        oss << " '" << objectid << "'";
+    if (objectid == 0 || objectid[0] == 0) {
+        oss << "a " << myObjectType;
+    } else {
+        oss << myObjectType << " '" << objectid << "'";
     }
     oss << ".";
     WRITE_ERROR(oss.str());
@@ -138,12 +136,10 @@ void
 SUMOSAXAttributes::emitEmptyError(const std::string& attrname, const char* objectid) const {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' in definition of ";
-    if (objectid == 0) {
-        oss << "a ";
-    }
-    oss << myObjectType;
-    if (objectid != 0) {
-        oss << " '" << objectid << "'";
+    if (objectid == 0 || objectid[0] == 0) {
+        oss << "a " << myObjectType;
+    } else {
+        oss << myObjectType << " '" << objectid << "'";
     }
     oss << " is empty.";
     WRITE_ERROR(oss.str());
@@ -154,12 +150,10 @@ void
 SUMOSAXAttributes::emitFormatError(const std::string& attrname, const std::string& type, const char* objectid) const {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' in definition of ";
-    if (objectid == 0) {
-        oss << "a ";
-    }
-    oss << myObjectType;
-    if (objectid != 0) {
-        oss << " '" << objectid << "'";
+    if (objectid == 0 || objectid[0] == 0) {
+        oss << "a " << myObjectType;
+    } else {
+        oss << myObjectType << " '" << objectid << "'";
     }
     oss << " is not " << type << ".";
     WRITE_ERROR(oss.str());
