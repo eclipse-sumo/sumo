@@ -40,8 +40,9 @@ def _readBestLanes(result):
     return lanes
 
 def _readLeader(result):
-    result.read("!iBi")
+    result.read("!iB")
     vehicleID = result.readString()
+    result.read("!B")
     dist = result.readDouble()
     if vehicleID:
         return vehicleID, dist
@@ -49,7 +50,7 @@ def _readLeader(result):
 
 
 _RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
-                      tc.ID_COUNT:                  traci.Storage.readInt,
+                      tc.ID_COUNT:            traci.Storage.readInt,
                       tc.VAR_SPEED:           traci.Storage.readDouble,
                       tc.VAR_SPEED_WITHOUT_TRACI: traci.Storage.readDouble,
                       tc.VAR_POSITION:        lambda result: result.read("!dd"),
@@ -400,7 +401,7 @@ def getLeader(vehID, dist=0.):
     
     Return the leading vehicle id together with the distance.
     """
-    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID, 1+4+1+8)
+    traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID, 1+8)
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, dist)
     return _readLeader(traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID))
 
@@ -538,16 +539,7 @@ def setEffort(vehID, begTime, endTime, edgeID, effort):
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, effort)
     traci._sendExact()
 
-def rerouteTraveltime(vehID, loadTravelTimes = False):
-    """rerouteTraveltime(string, bool) -> None
-    
-    Reroutes a vehicle according to the loaded travel times. If loadTravelTimes is False (default) 
-    then the travel times of a loaded weight file or the minimum travel time is used.
-    If loadTravelTimes is True then the current traveltime of the edges is loaded and used for rerouting.
-    """
-    if loadTravelTimes:
-        for edge in traci.edge.getIDList():
-            traci.edge.adaptTraveltime(edge, traci.edge.getTraveltime(edge)) 
+def rerouteTraveltime(vehID):
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_REROUTE_TRAVELTIME, vehID, 1+4)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
     traci._sendExact()
@@ -699,7 +691,8 @@ def addFull(vehID, routeID, typeID="DEFAULT_VEHTYPE", depart=None,
     messageString = struct.pack("!Bi", tc.TYPE_COMPOUND, 14)
     if depart is None:
         depart = str(traci.simulation.getCurrentTime() / 1000.)
-    for val in (depart, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line):
+    for val in (routeID, typeID, depart, departLane, departPos, departSpeed,
+                arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line):
         messageString += struct.pack("!Bi", tc.TYPE_STRING, len(val)) + val
     messageString += struct.pack("!Bi", tc.TYPE_INTEGER, personCapacity)
     messageString += struct.pack("!Bi", tc.TYPE_INTEGER, personNumber)

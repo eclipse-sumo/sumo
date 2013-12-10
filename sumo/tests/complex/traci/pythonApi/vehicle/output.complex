@@ -144,4 +144,48 @@ driving dist -1001.0
 driving dist 2D -1001.0
 routeID horizontal
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
-['horiz']
+['1', 'horiz']
+vehicles ['1', '2', 'horiz']
+vehicle count 3
+examining 2
+speed 4.23297691976
+speed w/o traci 4.23297691976
+pos (988.145357440738, 501.65000000000003)
+angle -90.0
+road 2fi
+lane 2fi_0
+laneIndex 0
+type DEFAULT_VEHTYPE
+routeID horizontal
+route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
+lanePos 11.8546425593
+color (255, 255, 0, 255)
+bestLanes [['2fi_0', 2922.9, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
+CO2 2401.90587559
+CO 30.470036025
+HC 0.842940126504
+PMx 0.251267937004
+NOx 4.78816728125
+fuel 0.957602412323
+noise 65.1740365457
+traveltime -1001.0
+effort -1001.0
+route valid True
+signals 0
+length 5.0
+maxSpeed 70.0
+speedFactor 1.0
+allowedSpeed 11.11
+accel 2.6
+decel 4.5
+imperfection 0.5
+tau 1.0
+vClass unknown
+emissionclass unknown
+shape 
+MinGap 2.5
+width 2.0
+waiting time 0.0
+driving dist 3000.75538735
+driving dist 2D 1095.93379876
+leader ('1', 20.709354118248452)

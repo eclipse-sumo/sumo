@@ -214,7 +214,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeInt(v->getPersonNumber());
                 break;
             case VAR_LEADER: {
-                std::pair<const MSVehicle* const, SUMOReal> leaderInfo = v->getLeader();
+                double dist = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, dist)) {
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Leader retrieval requires a double.", outputStorage);
+                }
+                std::pair<const MSVehicle* const, SUMOReal> leaderInfo = v->getLeader(dist);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tempMsg.writeInt(2);
                 tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -229,10 +233,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             case VAR_EDGE_TRAVELTIME: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Retrieval of travel time requires a compound object.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires a compound object.", outputStorage);
                 }
                 if (inputStorage.readInt() != 2) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Retrieval of travel time requires time, and edge as parameter.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires time, and edge as parameter.", outputStorage);
                 }
                 // time
                 SUMOTime time = 0;
@@ -261,10 +265,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             break;
             case VAR_EDGE_EFFORT: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Retrieval of travel time requires a compound object.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires a compound object.", outputStorage);
                 }
                 if (inputStorage.readInt() != 2) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Retrieval of travel time requires time, and edge as parameter.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires time, and edge as parameter.", outputStorage);
                 }
                 // time
                 SUMOTime time = 0;
@@ -414,7 +418,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
     }
     // id
     std::string id = inputStorage.readString();
-    const bool shouldExist = variable != ADD;
+    const bool shouldExist = variable != ADD && variable != ADD_FULL;
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (sumoVehicle == 0) {
         if (shouldExist) {
@@ -969,20 +973,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Adding a vehicle requires a compound object.", outputStorage);
             }
-            if (inputStorage.readInt() != 15) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Adding a fully specified vehicle needs fifteen parameters.", outputStorage);
+            if (inputStorage.readInt() != 14) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Adding a fully specified vehicle needs fourteen parameters.", outputStorage);
             }
             SUMOVehicleParameter vehicleParams;
             vehicleParams.id = id;
-
-            std::string vTypeID;
-            if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "First parameter (type) requires a string.", outputStorage);
-            }
-            MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
-            if (!vehicleType) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid type '" + vTypeID + "' for vehicle '" + id + "'", outputStorage);
-            }
 
             std::string routeID;
             if (!server.readTypeCheckingString(inputStorage, routeID)) {
@@ -991,6 +986,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             const MSRoute* route = MSRoute::dictionary(routeID);
             if (!route) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid route '" + routeID + "' for vehicle: '" + id + "'", outputStorage);
+            }
+
+            std::string vTypeID;
+            if (!server.readTypeCheckingString(inputStorage, vTypeID)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "First parameter (type) requires a string.", outputStorage);
+            }
+            MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vTypeID);
+            if (!vehicleType) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid type '" + vTypeID + "' for vehicle '" + id + "'", outputStorage);
             }
 
             std::string helper;
@@ -1053,16 +1057,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Twelth parameter (line) requires a string.", outputStorage);
             }
 
-            if (!server.readTypeCheckingColor(inputStorage, vehicleParams.color)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "13th parameter (color) must be given using the according type.", outputStorage);
-            }
             int num;
             if (!server.readTypeCheckingInt(inputStorage, num)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "14th parameter (person capacity) requires an int.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "13th parameter (person capacity) requires an int.", outputStorage);
             }
             vehicleParams.personCapacity = num;
             if (!server.readTypeCheckingInt(inputStorage, num)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "15th parameter (person number) requires an int.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "14th parameter (person number) requires an int.", outputStorage);
             }
             vehicleParams.personNumber = num;
 
