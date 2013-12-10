@@ -1,3 +1,2 @@
-#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
 Warning: Missing yellow phase in tlLogic '1/1', program 'prog1' for tl-index 0 when switching to phase 1
-Error: Answered with error to command 194: set program: 4/5. parameter (index) must be less than parameter (phase number).
+Error: Answered with error to command 0xc2: set program: 4/5. parameter (index) must be less than parameter (phase number).

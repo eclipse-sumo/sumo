@@ -1,2 +1,2 @@
-Error: Answered with error to command 164: Vehicle 'x' is not known
-Error: Answered with error to command 212: Could not add subscription (Vehicle 'x' is not known).
+Error: Answered with error to command 0xa4: Vehicle 'x' is not known
+Error: Answered with error to command 0xd4: Could not add subscription (Vehicle 'x' is not known).
