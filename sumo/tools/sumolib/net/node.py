@@ -77,3 +77,7 @@ class Node:
 
     def getCoord(self):
         return self._coord
+
+    def getType(self):
+        return self._type
+
