@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec  9 16:44:07 2013 by SUMO sumo Version dev-SVN-r15279
+<!-- generated on Wed Dec 11 07:37:57 2013 by SUMO sumo Version dev-SVN-r15307
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -130,7 +130,7 @@
     </timestep>
     <timestep id="20.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="26.97" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="26.00" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="4.50" leaveSpeed="27.80" willPass="1"/>
             <approaching id="1" impatience="0.00" arrivalTime="34.35" arrivalTimeBraking="64.35" leaveTime="34.99" arrivalSpeed="26.00" arrivalSpeedBraking="0.00" leaveSpeed="26.93" willPass="1"/>
         </link>
     </timestep>
@@ -184,7 +184,7 @@
     </timestep>
     <timestep id="30.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="36.97" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="36.00" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="4.50" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="31.00">

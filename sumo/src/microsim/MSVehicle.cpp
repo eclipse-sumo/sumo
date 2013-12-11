@@ -1004,6 +1004,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
                 arrivalSpeedBraking = arrivalSpeed; // no time left for braking after this step
             } else if (2 * seen * -getVehicleType().getCarFollowModel().getMaxDecel() + v * v >= 0) {
                 arrivalSpeedBraking = estimateSpeedAfterDistance(seen, v, -getVehicleType().getCarFollowModel().getMaxDecel());
+            } else {
+                arrivalSpeedBraking = getVehicleType().getCarFollowModel().getMaxDecel();
             }
             // due to discrecte/continuous mismatch we have to ensure that braking actually helps
             arrivalSpeedBraking = MIN2(arrivalSpeedBraking, arrivalSpeed);
