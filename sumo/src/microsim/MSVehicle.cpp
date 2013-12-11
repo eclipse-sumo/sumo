@@ -95,6 +95,8 @@
 
 #define CRLL_LOOK_AHEAD 5
 
+// @todo Calibrate with real-world values / make configurable
+#define DIST_TO_STOPLINE_EXPECT_PRIORITY 1.0
 
 // ===========================================================================
 // static value definitions
@@ -911,16 +913,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             break;
         }
         // check whether the lane is a dead end
-        // @todo: recheck propper value for laneStopOffset based on real-world
-        // measurements.
-        // For links that require stopping it is important that vehicles stop close to the stopping line
-        const SUMOReal laneStopOffset = ((lane->getLength() <= getVehicleType().getMinGap()
-                                          || (!lane->isLinkEnd(link) && (
-                                                  (*link)->getState() == LINKSTATE_ALLWAY_STOP || (*link)->getState() == LINKSTATE_STOP)))
-                                         ? POSITION_EPS : getVehicleType().getMinGap());
-        const SUMOReal stopDist = MAX2(SUMOReal(0), seen - laneStopOffset);
         if (lane->isLinkEnd(link)) {
-            SUMOReal va = MIN2(cfModel.stopSpeed(this, getSpeed(), stopDist), laneMaxV);
+            SUMOReal va = MIN2(cfModel.stopSpeed(this, getSpeed(), seen), laneMaxV);
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(va);
             }
@@ -928,6 +922,21 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             lfLinks.push_back(DriveProcessItem(v, seen));
             break;
         }
+        const bool yellowOrRed = (*link)->getState() == LINKSTATE_TL_RED ||
+                                 (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR ||
+                                 (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
+        // We distinguish 3 cases when determining the point at which a vehicle stops:
+        // - links that require stopping: here the vehicle needs to stop close to the stop line 
+        //   to ensure it gets onto the junction in the next step. Othwise the vehicle would 'forget' 
+        //   that it already stopped and need to stop again. This is necessary pending implementation of #999
+        // - red/yellow light: here the vehicle 'knows' that it will have priority eventually and does not need to stop on a precise spot
+        // - other types of minor links: the vehicle needs to stop as close to the junction as necessary 
+        //   to minimize the time window for passing the junction. If the
+        //   vehicle 'decides' to accelerate and cannot enter the junction in
+        //   the next step, new foes may appear and cause a collision (see #1096)
+        // - major links: stopping point is irrelevant
+        const SUMOReal laneStopOffset = yellowOrRed || (*link)->havePriority() ? DIST_TO_STOPLINE_EXPECT_PRIORITY : POSITION_EPS;
+        const SUMOReal stopDist = MAX2(SUMOReal(0), seen - laneStopOffset);
         // check whether we need to slow down in order to finish a continuous lane change
         if (getLaneChangeModel().isChangingLanes()) {
             if (    // slow down to finish lane change before a turn lane
@@ -941,9 +950,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             }
         }
 
-        const bool yellowOrRed = (*link)->getState() == LINKSTATE_TL_RED ||
-                                 (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR ||
-                                 (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
         const bool setRequest = v > 0; // even if red, if we cannot break we should issue a request
         const SUMOReal vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
         if (yellowOrRed && seen > cfModel.brakeGap(myState.mySpeed) - myState.mySpeed * cfModel.getHeadwayTime()) {
