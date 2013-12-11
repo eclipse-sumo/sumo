@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  3 17:10:46 2013 by SUMO sumo Version dev-SVN-r15233
+<!-- generated on Wed Dec 11 15:23:36 2013 by SUMO sumo Version dev-SVN-r15307
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -639,7 +639,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="232.81" speed="6.84"/>
+                <vehicle id="veh1" pos="233.31" speed="7.34"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -650,7 +650,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="2.34"/>
+                <vehicle id="veh1" pos="236.15" speed="2.84"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -661,7 +661,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -672,7 +672,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -683,7 +683,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -694,7 +694,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -705,7 +705,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -716,7 +716,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -727,7 +727,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -738,7 +738,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -749,7 +749,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -760,7 +760,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -771,7 +771,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -782,7 +782,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -793,7 +793,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -804,7 +804,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -815,7 +815,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -826,7 +826,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -837,7 +837,7 @@
                 <vehicle id="veh0" pos="199.90" speed="0.00"/>
             </lane>
             <lane id="1si_1">
-                <vehicle id="veh1" pos="235.15" speed="0.00"/>
+                <vehicle id="veh1" pos="236.15" speed="0.00"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
