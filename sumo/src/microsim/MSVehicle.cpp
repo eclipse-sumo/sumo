@@ -1008,10 +1008,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
             // we need to handle the mismatch with the discrete dynamics
             if (seen < v) {
                 arrivalSpeedBraking = arrivalSpeed; // no time left for braking after this step
-            } else if (2 * seen * -getVehicleType().getCarFollowModel().getMaxDecel() + v * v >= 0) {
-                arrivalSpeedBraking = estimateSpeedAfterDistance(seen, v, -getVehicleType().getCarFollowModel().getMaxDecel());
+            } else if (2 * (seen - v * cfModel.getHeadwayTime()) * -cfModel.getMaxDecel() + v * v >= 0) {
+                arrivalSpeedBraking = estimateSpeedAfterDistance(seen - v * cfModel.getHeadwayTime(), v, -cfModel.getMaxDecel());
             } else {
-                arrivalSpeedBraking = getVehicleType().getCarFollowModel().getMaxDecel();
+                arrivalSpeedBraking = cfModel.getMaxDecel();
             }
             // due to discrecte/continuous mismatch we have to ensure that braking actually helps
             arrivalSpeedBraking = MIN2(arrivalSpeedBraking, arrivalSpeed);
