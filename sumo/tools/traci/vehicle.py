@@ -512,6 +512,8 @@ def setRouteID(vehID, routeID):
 
 def setRoute(vehID, edgeList):
     """
+    setRoute(string, list) ->  None
+    
     changes the vehicle route to given edges list.
     The first edge in the list has to be the one that the vehicle is at at the moment.
     
@@ -520,6 +522,8 @@ def setRoute(vehID, edgeList):
     
     this changes route for vehicle id 1 to edges 1-2-4-6-7
     """
+    if isinstance(edgeList, str):
+        edgeList= [edgeList]
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ROUTE, vehID,
                         1+4+sum(map(len, edgeList))+4*len(edgeList))
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(edgeList))
