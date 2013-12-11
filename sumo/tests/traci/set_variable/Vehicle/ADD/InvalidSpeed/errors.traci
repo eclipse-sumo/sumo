@@ -1,6 +1,7 @@
-Error: Answered with error to command 196: Departure speed for vehicle 'veh1' is too high for the departure lane 'e_m0_0'.
-Error: Answered with error to command 164: Vehicle 'veh1' is not known
-Error: Answered with error to command 164: Vehicle 'veh1' is not known
-Error: Answered with error to command 164: Vehicle 'veh1' is not known
-Error: Answered with error to command 164: Vehicle 'veh1' is not known
-Error: Answered with error to command 164: Vehicle 'veh1' is not known
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Error: Answered with error to command 0xc4: Departure speed for vehicle 'veh1' is too high for the departure lane 'e_m0_0'.
+Error: Answered with error to command 0xa4: Vehicle 'veh1' is not known
+Error: Answered with error to command 0xa4: Vehicle 'veh1' is not known
+Error: Answered with error to command 0xa4: Vehicle 'veh1' is not known
+Error: Answered with error to command 0xa4: Vehicle 'veh1' is not known
+Error: Answered with error to command 0xa4: Vehicle 'veh1' is not known
