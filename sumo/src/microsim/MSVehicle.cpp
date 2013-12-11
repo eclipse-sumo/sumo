@@ -1100,7 +1100,6 @@ MSVehicle::executeMove() {
 
     assert(myLFLinkLanes.size() != 0 || (myInfluencer != 0 && myInfluencer->isVTDControlled()));
     DriveItemVector::iterator i;
-    bool braking = false;
     bool lastWasGreenCont = false;
     for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         MSLink* link = (*i).myLink;
@@ -1112,7 +1111,7 @@ MSVehicle::executeMove() {
             const SUMOReal brakeGap = getCarFollowModel().brakeGap(myState.mySpeed) - getCarFollowModel().getHeadwayTime() * myState.mySpeed;
             if (yellow && ((*i).myDistance > brakeGap || myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel()))) {
                 vSafe = (*i).myVLinkWait;
-                braking = true;
+                myHaveToWaitOnNextLink = true;
                 lastWasGreenCont = false;
                 link->removeApproaching(this);
                 break;
@@ -1124,7 +1123,7 @@ MSVehicle::executeMove() {
             if (opened && !lastWasGreenCont && !link->havePriority()) {
                 if ((*i).myDistance > getCarFollowModel().getMaxDecel()) {
                     vSafe = (*i).myVLinkWait;
-                    braking = true;
+                    myHaveToWaitOnNextLink = true;
                     lastWasGreenCont = false;
                     if (ls == LINKSTATE_EQUAL) {
                         link->removeApproaching(this);
@@ -1152,7 +1151,7 @@ MSVehicle::executeMove() {
             } else {
                 lastWasGreenCont = false;
                 vSafe = (*i).myVLinkWait;
-                braking = true;
+                myHaveToWaitOnNextLink = true;
                 if (ls == LINKSTATE_EQUAL) {
                     link->removeApproaching(this);
                 }
@@ -1160,7 +1159,9 @@ MSVehicle::executeMove() {
             }
         } else {
             vSafe = (*i).myVLinkWait;
-            braking = vSafe < getSpeed();
+            if (vSafe < getSpeed()) {
+                myHaveToWaitOnNextLink = true;
+            }
             break;
         }
     }
@@ -1168,14 +1169,13 @@ MSVehicle::executeMove() {
         // cannot drive across a link so we need to stop before it
         vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist));
         vSafeMin = 0;
-        braking = true;
-    }
-    if (braking) {
         myHaveToWaitOnNextLink = true;
     }
-
+    // XXX braking due to lane-changing is not registered
+    bool braking = vSafe < getSpeed();
     // apply speed reduction due to dawdling / lane changing but ensure minimum save speed
     SUMOReal vNext = MAX2(getCarFollowModel().moveHelper(this, vSafe), vSafeMin);
+
     //if (vNext > vSafe) {
     //    WRITE_WARNING("vehicle '" + getID() + "' cannot brake hard enough to reach safe speed "
     //            + toString(vSafe) + ", moving at " + toString(vNext) + " instead. time="
@@ -1198,9 +1198,6 @@ MSVehicle::executeMove() {
         braking = true;
     } else {
         myWaitingTime = 0;
-    }
-    if (myState.mySpeed < vNext) {
-        braking = false;
     }
     if (braking) {
         switchOnSignal(VEH_SIGNAL_BRAKELIGHT);
