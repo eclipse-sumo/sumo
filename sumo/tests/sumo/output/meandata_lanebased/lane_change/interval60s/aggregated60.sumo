@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  3 16:33:03 2013 by SUMO sumo Version dev-SVN-r15233
+<!-- generated on Wed Dec 11 10:00:03 2013 by SUMO sumo Version dev-SVN-r15307
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -28,10 +28,10 @@
         <edge id="1si">
             <lane id="1si_0" sampledSeconds="2.00" traveltime="31.62" density="0.14" occupancy="0.04" waitingTime="0.00" speed="7.50" departed="2" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="0"/>
             <lane id="1si_1" sampledSeconds="10.00" traveltime="31.62" density="0.70" occupancy="0.21" waitingTime="0.00" speed="7.50" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="2"/>
-            <lane id="1si_2" sampledSeconds="79.56" traveltime="99.15" density="5.59" occupancy="1.68" waitingTime="42.00" speed="2.39" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="2"/>
+            <lane id="1si_2" sampledSeconds="78.92" traveltime="98.35" density="5.55" occupancy="1.66" waitingTime="42.00" speed="2.41" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="2"/>
         </edge>
         <edge id="4o">
-            <lane id="4o_0" sampledSeconds="23.56" traveltime="82.12" density="0.80" occupancy="0.24" waitingTime="0.00" speed="5.95" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="4o_0" sampledSeconds="24.50" traveltime="84.19" density="0.84" occupancy="0.25" waitingTime="0.00" speed="5.80" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
