@@ -527,7 +527,7 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
         into.writeAttr(SUMO_ATTR_VIA, via);
     }
     into.writeAttr(SUMO_ATTR_DIR, "s");
-    into.writeAttr(SUMO_ATTR_STATE, "M");
+    into.writeAttr(SUMO_ATTR_STATE, (via != "" ? "m" : "M"));
     into.closeTag();
 }
 
