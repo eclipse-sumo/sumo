@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:20:43 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Thu Dec 12 07:34:57 2013 by SUMO netconvert Version dev-SVN-r15319
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -146,18 +146,18 @@
     <connection from="edge_up" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_2_0" tl="node_centertl" linkIndex="2" dir="t" state="o"/>
 
     <connection from=":node_centertl_0" to="-edge_left" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_centertl_1" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_9_0" dir="s" state="M"/>
+    <connection from=":node_centertl_1" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_9_0" dir="s" state="m"/>
     <connection from=":node_centertl_9" to="-edge_right" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_centertl_2" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_10_0" dir="s" state="M"/>
+    <connection from=":node_centertl_2" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_10_0" dir="s" state="m"/>
     <connection from=":node_centertl_10" to="-edge_up" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_centertl_3" to="-edge_up" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_centertl_4" to="-edge_left" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_centertl_5" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_11_0" dir="s" state="M"/>
+    <connection from=":node_centertl_5" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_11_0" dir="s" state="m"/>
     <connection from=":node_centertl_11" to="-edge_right" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_centertl_6" to="-edge_right" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_centertl_7" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_12_0" dir="s" state="M"/>
+    <connection from=":node_centertl_7" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_12_0" dir="s" state="m"/>
     <connection from=":node_centertl_12" to="-edge_up" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_centertl_8" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_13_0" dir="s" state="M"/>
+    <connection from=":node_centertl_8" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_13_0" dir="s" state="m"/>
     <connection from=":node_centertl_13" to="-edge_left" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_left_0" to="edge_left" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_right_0" to="edge_right" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 12 16:53:51 2013 by SUMO netconvert Version dev-SVN-r15089
+<!-- generated on Thu Dec 12 07:34:25 2013 by SUMO netconvert Version dev-SVN-r15319
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -511,10 +511,10 @@
     <connection from=":EinsteinEnd_1" to="EinsteinSinkN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaAltglienicker_0" to="ErnstRuska4W" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaAltglienicker_0" to="ErnstRuska4W" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":ErnstRuskaAltglienicker_2" to="AltglienickerBreitS" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_8_0" dir="s" state="M"/>
+    <connection from=":ErnstRuskaAltglienicker_2" to="AltglienickerBreitS" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_8_0" dir="s" state="m"/>
     <connection from=":ErnstRuskaAltglienicker_8" to="AltglienickerBreitS" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaAltglienicker_3" to="ErnstRuska5O" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":ErnstRuskaAltglienicker_4" to="ErnstRuska4W" fromLane="0" toLane="1" via=":ErnstRuskaAltglienicker_9_0" dir="s" state="M"/>
+    <connection from=":ErnstRuskaAltglienicker_4" to="ErnstRuska4W" fromLane="0" toLane="1" via=":ErnstRuskaAltglienicker_9_0" dir="s" state="m"/>
     <connection from=":ErnstRuskaAltglienicker_9" to="ErnstRuska4W" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":ErnstRuskaAltglienicker_5" to="AltglienickerBreitS" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaAltglienicker_6" to="ErnstRuska5O" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -526,7 +526,7 @@
     <connection from=":ErnstRuskaEinstein_3" to="ErnstRuska1W" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":ErnstRuskaEinstein_5" to="ErnstRuska2O" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaEinstein_5" to="ErnstRuska2O" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":ErnstRuskaEinstein_7" to="EinsteinN" fromLane="0" toLane="0" via=":ErnstRuskaEinstein_8_0" dir="s" state="M"/>
+    <connection from=":ErnstRuskaEinstein_7" to="EinsteinN" fromLane="0" toLane="0" via=":ErnstRuskaEinstein_8_0" dir="s" state="m"/>
     <connection from=":ErnstRuskaEinstein_8" to="EinsteinN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaEnd1_0" to="ErnstRuskaSink1W" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaEnd1_0" to="ErnstRuskaSink1W" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -545,7 +545,7 @@
     <connection from=":ErnstRuskaHavestadt_4" to="ErnstRuska231W" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":ErnstRuskaHavestadt_6" to="ErnstRuska232O" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaHavestadt_6" to="ErnstRuska232O" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":ErnstRuskaHavestadt_8" to="HavestadtN" fromLane="0" toLane="0" via=":ErnstRuskaHavestadt_9_0" dir="s" state="M"/>
+    <connection from=":ErnstRuskaHavestadt_8" to="HavestadtN" fromLane="0" toLane="0" via=":ErnstRuskaHavestadt_9_0" dir="s" state="m"/>
     <connection from=":ErnstRuskaHavestadt_9" to="HavestadtN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaHavestadtDiv1_0" to="ErnstRuska2W" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaHavestadtDiv1_0" to="ErnstRuska2W" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -563,7 +563,7 @@
     <connection from=":ErnstRuskaVolmer_3" to="ErnstRuska3W" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":ErnstRuskaVolmer_5" to="ErnstRuska4O" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaVolmer_5" to="ErnstRuska4O" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":ErnstRuskaVolmer_7" to="VolmerN" fromLane="0" toLane="0" via=":ErnstRuskaVolmer_8_0" dir="s" state="M"/>
+    <connection from=":ErnstRuskaVolmer_7" to="VolmerN" fromLane="0" toLane="0" via=":ErnstRuskaVolmer_8_0" dir="s" state="m"/>
     <connection from=":ErnstRuskaVolmer_8" to="VolmerN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":HavestadtEnd_0" to="HavestadtS" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":HavestadtEnd_0" to="HavestadtS" fromLane="1" toLane="1" dir="s" state="M"/>

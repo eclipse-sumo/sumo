@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 09:23:46 by SUMO netconvert Version dev-SVN-r13169
+<!-- generated on Thu Dec 12 07:35:15 2013 by SUMO netconvert Version dev-SVN-r15319
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -129,7 +129,7 @@
     <connection from=":gneJ1_2" to="s_out" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_3" to="e_out" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_4" to="n_out" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_5" to="w_out" fromLane="0" toLane="0" via=":gneJ1_12_0" dir="s" state="M"/>
+    <connection from=":gneJ1_5" to="w_out" fromLane="0" toLane="0" via=":gneJ1_12_0" dir="s" state="m"/>
     <connection from=":gneJ1_12" to="w_out" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_6" to="s_out" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_7" to="e_out" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:21:06 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Thu Dec 12 07:35:09 2013 by SUMO netconvert Version dev-SVN-r15319
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -66,7 +66,7 @@
         <lane id=":54525876_1_0" index="0" speed="16.66" length="6.26" shape="4293.30,2507.83 4291.48,2508.74 4290.11,2508.82 4289.18,2508.07 4288.69,2506.48"/>
     </edge>
     <edge id=":54525877_0" function="internal">
-        <lane id=":54525877_0_0" index="0" speed="19.44" length="9.83" shape="4298.49,2499.85 4299.84,2509.59"/>
+        <lane id=":54525877_0_0" index="0" speed="19.44" length="9.84" shape="4298.49,2499.85 4299.84,2509.59"/>
         <lane id=":54525877_0_1" index="1" speed="19.44" length="9.84" shape="4295.22,2500.30 4296.57,2510.04"/>
     </edge>
     <edge id=":54525877_2" function="internal">
@@ -175,7 +175,7 @@
     <connection from="51800061" to="-51800060" fromLane="0" toLane="0" via=":54525860_1_0" dir="l" state="m"/>
 
     <connection from=":54525860_0" to="-51800060" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54525860_1" to="-51800060" fromLane="0" toLane="0" via=":54525860_2_0" dir="s" state="M"/>
+    <connection from=":54525860_1" to="-51800060" fromLane="0" toLane="0" via=":54525860_2_0" dir="s" state="m"/>
     <connection from=":54525860_2" to="-51800060" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525871_0" to="-51800058" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525871_1" to="-51800059" fromLane="0" toLane="0" dir="s" state="M"/>

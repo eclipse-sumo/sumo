@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:21:02 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Thu Dec 12 07:35:06 2013 by SUMO netconvert Version dev-SVN-r15319
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -153,18 +153,18 @@
     <connection from=":n13_0" to="e21" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n3_0" to="e11" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n5_0" to="e10" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n5_1" to="e13" fromLane="0" toLane="0" via=":n5_9_0" dir="s" state="M"/>
+    <connection from=":n5_1" to="e13" fromLane="0" toLane="0" via=":n5_9_0" dir="s" state="m"/>
     <connection from=":n5_9" to="e13" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n5_2" to="e22" fromLane="0" toLane="0" via=":n5_10_0" dir="s" state="M"/>
+    <connection from=":n5_2" to="e22" fromLane="0" toLane="0" via=":n5_10_0" dir="s" state="m"/>
     <connection from=":n5_10" to="e22" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n5_3" to="e22" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n5_4" to="e10" fromLane="0" toLane="0" via=":n5_11_0" dir="s" state="M"/>
+    <connection from=":n5_4" to="e10" fromLane="0" toLane="0" via=":n5_11_0" dir="s" state="m"/>
     <connection from=":n5_11" to="e10" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n5_5" to="e13" fromLane="0" toLane="0" via=":n5_12_0" dir="s" state="M"/>
+    <connection from=":n5_5" to="e13" fromLane="0" toLane="0" via=":n5_12_0" dir="s" state="m"/>
     <connection from=":n5_12" to="e13" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n5_6" to="e13" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":n5_7" to="e22" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":n5_8" to="e10" fromLane="0" toLane="0" via=":n5_13_0" dir="s" state="M"/>
+    <connection from=":n5_8" to="e10" fromLane="0" toLane="0" via=":n5_13_0" dir="s" state="m"/>
     <connection from=":n5_13" to="e10" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

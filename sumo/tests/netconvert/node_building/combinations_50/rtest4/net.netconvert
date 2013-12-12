@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:19:48 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Thu Dec 12 07:34:24 2013 by SUMO netconvert Version dev-SVN-r15319
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -153,9 +153,9 @@
     <connection from=":0_7" to="1o" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":0_8" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":0_9" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":0_10" to="4o" fromLane="0" toLane="0" via=":0_12_0" dir="s" state="M"/>
+    <connection from=":0_10" to="4o" fromLane="0" toLane="0" via=":0_12_0" dir="s" state="m"/>
     <connection from=":0_12" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":0_11" to="1o" fromLane="0" toLane="0" via=":0_13_0" dir="s" state="M"/>
+    <connection from=":0_11" to="1o" fromLane="0" toLane="0" via=":0_13_0" dir="s" state="m"/>
     <connection from=":0_13" to="1o" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1_0" to="1i" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":3_0" to="3i" fromLane="0" toLane="0" dir="s" state="M"/>

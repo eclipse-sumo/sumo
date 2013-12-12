@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/18/12 09:23:45 by SUMO netconvert Version dev-SVN-r13169
+<!-- generated on Thu Dec 12 07:35:15 2013 by SUMO netconvert Version dev-SVN-r15319
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -128,16 +128,16 @@
     <connection from="1841" to="-1841" fromLane="0" toLane="0" via=":6365_7_0" tl="6365" linkIndex="7" dir="t" state="o"/>
 
     <connection from=":6365_0" to="-1841" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":6365_1" to="1839" fromLane="0" toLane="0" via=":6365_8_0" dir="s" state="M"/>
+    <connection from=":6365_1" to="1839" fromLane="0" toLane="0" via=":6365_8_0" dir="s" state="m"/>
     <connection from=":6365_8" to="1839" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":6365_2" to="-1841" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":6365_3" to="1839" fromLane="0" toLane="0" via=":6365_9_0" dir="s" state="M"/>
+    <connection from=":6365_3" to="1839" fromLane="0" toLane="0" via=":6365_9_0" dir="s" state="m"/>
     <connection from=":6365_9" to="1839" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":6365_4" to="1839" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":6365_5" to="-1841" fromLane="0" toLane="0" via=":6365_10_0" dir="s" state="M"/>
+    <connection from=":6365_5" to="-1841" fromLane="0" toLane="0" via=":6365_10_0" dir="s" state="m"/>
     <connection from=":6365_10" to="-1841" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":6365_6" to="1839" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":6365_7" to="-1841" fromLane="0" toLane="0" via=":6365_11_0" dir="s" state="M"/>
+    <connection from=":6365_7" to="-1841" fromLane="0" toLane="0" via=":6365_11_0" dir="s" state="m"/>
     <connection from=":6365_11" to="-1841" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":6454_0" to="-1839" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":6562_0" to="1841" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 14 10:40:44 2013 by SUMO netconvert Version dev-SVN-r13478
+<!-- generated on Thu Dec 12 07:34:57 2013 by SUMO netconvert Version dev-SVN-r15319
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -198,16 +198,16 @@
 
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_0" to="gneE7" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_1" to="gneE10" fromLane="0" toLane="0" via=":gneJ1_9_0" dir="s" state="M"/>
+    <connection from=":gneJ1_1" to="gneE10" fromLane="0" toLane="0" via=":gneJ1_9_0" dir="s" state="m"/>
     <connection from=":gneJ1_9" to="gneE10" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_2" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_3" to="gneE7" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_4" to="gneE10" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_5" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_6" to="gneE7" fromLane="0" toLane="0" via=":gneJ1_10_0" dir="s" state="M"/>
+    <connection from=":gneJ1_6" to="gneE7" fromLane="0" toLane="0" via=":gneJ1_10_0" dir="s" state="m"/>
     <connection from=":gneJ1_10" to="gneE7" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_7" to="gneE10" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_8" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_11_0" dir="s" state="M"/>
+    <connection from=":gneJ1_8" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_11_0" dir="s" state="m"/>
     <connection from=":gneJ1_11" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ2_0" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ2_1" to="gneE3" fromLane="0" toLane="0" dir="s" state="M"/>

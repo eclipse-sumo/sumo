@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:21:09 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Thu Dec 12 07:35:11 2013 by SUMO netconvert Version dev-SVN-r15319
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -166,9 +166,9 @@
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_3" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_4" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_5" to="gneE6" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_6" to="gneE8" fromLane="0" toLane="0" via=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0" dir="s" state="M"/>
+    <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_6" to="gneE8" fromLane="0" toLane="0" via=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0" dir="s" state="m"/>
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_16" to="gneE8" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_7" to="gneE4" fromLane="0" toLane="0" via=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0" dir="s" state="M"/>
+    <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_7" to="gneE4" fromLane="0" toLane="0" via=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0" dir="s" state="m"/>
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_17" to="gneE4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_8" to="gneE4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_9" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -176,9 +176,9 @@
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_11" to="gneE8" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_12" to="gneE8" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_13" to="gneE4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_14" to="gneE2" fromLane="0" toLane="0" via=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0" dir="s" state="M"/>
+    <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_14" to="gneE2" fromLane="0" toLane="0" via=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0" dir="s" state="m"/>
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_18" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_15" to="gneE6" fromLane="0" toLane="0" via=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0" dir="s" state="M"/>
+    <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_15" to="gneE6" fromLane="0" toLane="0" via=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0" dir="s" state="m"/>
     <connection from=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_19" to="gneE6" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

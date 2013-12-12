@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:20:12 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on Thu Dec 12 07:34:45 2013 by SUMO netconvert Version dev-SVN-r15319
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -128,9 +128,9 @@
 
     <connection from=":node_C_0" to="edge_C2U" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_C_1" to="edge_C2L" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_2" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_8_0" dir="s" state="M"/>
+    <connection from=":node_C_2" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_8_0" dir="s" state="m"/>
     <connection from=":node_C_8" to="edge_C2D" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_C_3" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_9_0" dir="s" state="M"/>
+    <connection from=":node_C_3" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_9_0" dir="s" state="m"/>
     <connection from=":node_C_9" to="edge_C2R" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_C_4" to="edge_C2R" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":node_C_5" to="edge_C2U" fromLane="0" toLane="0" dir="s" state="M"/>
