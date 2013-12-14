@@ -1,2 +1,1 @@
---no-step-log --no-duration-log --net-file=input_net.net.xml -a input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml  -b 0 -e 51
-tests/complex/sumo/output/runner.py
+10 3/1to2/1_0 -e 51 tests/complex/sumo/output/runner.py
