@@ -6,8 +6,9 @@
 #include <config.h>
 #endif
 #ifdef CHECK_MEMORY_LEAKS
+
 /*
- * Copyright (C) 2004-2008 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2011 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -36,7 +37,7 @@
  *
  * Implementation of debug versions of new and delete to check leakage.
  *
- * @version 4.14, 2008/10/20
+ * @version 4.22, 2011/07/12
  * @author  Wu Yongwei
  *
  */
@@ -107,14 +108,19 @@
  *
  * The length of file name stored if greater than zero.  If it is zero,
  * only a const char pointer will be stored.  Currently the default
- * behaviour is to copy the file name, because I found that the exit
- * leakage check cannot access the address of the file name sometimes
- * (in my case, a core dump will occur when trying to access the file
- * name in a shared library after a \c SIGINT).  The current default
- * value makes the size of new_ptr_list_t 64 on 32-bit platforms.
+ * value is non-zero (thus to copy the file name) on non-Windows
+ * platforms, because I once found that the exit leakage check could not
+ * access the address of the file name on Linux (in my case, a core dump
+ * occurred when check_leaks tried to access the file name in a shared
+ * library after a \c SIGINT).  This value makes the size of
+ * new_ptr_list_t \c 64 on non-Windows 32-bit platforms.
  */
 #ifndef _DEBUG_NEW_FILENAME_LEN
-#define _DEBUG_NEW_FILENAME_LEN 80
+#ifdef _WIN32
+#define _DEBUG_NEW_FILENAME_LEN 0
+#else
+#define _DEBUG_NEW_FILENAME_LEN 44
+#endif
 #endif
 
 /**
@@ -181,9 +187,12 @@
 #endif
 
 #ifdef _MSC_VER
-#pragma warning(disable: 4073)  // #pragma init_seg(lib) used
+#pragma warning(disable: 4074)  // #pragma init_seg(compiler) used
 #pragma warning(disable: 4290)  // C++ exception specification ignored
-#pragma init_seg(lib)
+#if _MSC_VER >= 1400            // Visual Studio 2005 or later
+#pragma warning(disable: 4996)  // Use the `unsafe' strncpy
+#endif
+#pragma init_seg(compiler)
 #endif
 
 #undef  _DEBUG_NEW_EMULATE_MALLOC
@@ -198,40 +207,50 @@
 /**
  * Gets the aligned value of memory block size.
  */
-#define align(s) \
+#define ALIGN(s) \
         (((s) + _DEBUG_NEW_ALIGNMENT - 1) & ~(_DEBUG_NEW_ALIGNMENT - 1))
+
+/**
+ * The platform memory alignment.  The current value works well in
+ * platforms I have tested: Windows XP, Windows 7 x64, and Mac OS X
+ * Leopard.  It may be smaller than the real alignment, but must be
+ * bigger than \c sizeof(size_t) for it work.  __debug_new_recorder uses
+ * it to detect misaligned pointer returned by `<code>new
+ * NonPODType[size]</code>'.
+ */
+const size_t PLATFORM_MEM_ALIGNMENT = sizeof(size_t) * 2;
 
 /**
  * Structure to store the position information where \c new occurs.
  */
 struct new_ptr_list_t
 {
-    new_ptr_list_t*     next;
-    new_ptr_list_t*     prev;
-    size_t              size;
+    new_ptr_list_t* next;       ///< Pointer to the next memory block
+    new_ptr_list_t* prev;       ///< Pointer to the previous memory block
+    size_t          size;       ///< Size of the memory block
     union
     {
 #if _DEBUG_NEW_FILENAME_LEN == 0
-    const char*         file;
+    const char*     file;       ///< Pointer to the file name of the caller
 #else
-    char                file[_DEBUG_NEW_FILENAME_LEN];
+    char            file[_DEBUG_NEW_FILENAME_LEN]; ///< File name of the caller
 #endif
-    void*               addr;
+    void*           addr;       ///< Address of the caller to \e new
     };
-    unsigned            line      :31;
-    unsigned            is_array  :1;
-    unsigned            magic;
+    unsigned        line   :31; ///< Line number of the caller; or \c 0
+    unsigned        is_array:1; ///< Non-zero iff <em>new[]</em> is used
+    unsigned        magic;      ///< Magic number for error detection
 };
 
 /**
- * Magic number for error detection.
+ * Definition of the constant magic number used for error detection.
  */
 const unsigned MAGIC = 0x4442474E;
 
 /**
  * The extra memory allocated by <code>operator new</code>.
  */
-const int ALIGNED_LIST_ITEM_SIZE = align(sizeof(new_ptr_list_t));
+const int ALIGNED_LIST_ITEM_SIZE = ALIGN(sizeof(new_ptr_list_t));
 
 /**
  * List of all new'd pointers.
@@ -457,6 +476,10 @@ static bool check_tail(new_ptr_list_t* ptr)
 static void* alloc_mem(size_t size, const char* file, int line, bool is_array)
 {
     assert(line >= 0);
+#if _DEBUG_NEW_TYPE == 1
+    STATIC_ASSERT(_DEBUG_NEW_ALIGNMENT >= PLATFORM_MEM_ALIGNMENT,
+                  Alignment_too_small);
+#endif
     STATIC_ASSERT((_DEBUG_NEW_ALIGNMENT & (_DEBUG_NEW_ALIGNMENT - 1)) == 0,
                   Alignment_must_be_power_of_two);
     STATIC_ASSERT(_DEBUG_NEW_TAILCHECK >= 0, Invalid_tail_check_length);
@@ -469,8 +492,8 @@ static void* alloc_mem(size_t size, const char* file, int line, bool is_array)
 #else
         fast_mutex_autolock lock(new_output_lock);
         fprintf(new_output_fp,
-                "Out of memory when allocating %u bytes\n",
-                size);
+                "Out of memory when allocating %lu bytes\n",
+                (unsigned long)size);
         fflush(new_output_fp);
         _DEBUG_NEW_ERROR_ACTION;
 #endif
@@ -506,7 +529,7 @@ static void* alloc_mem(size_t size, const char* file, int line, bool is_array)
         fprintf(new_output_fp,
                 "new%s: allocated %p (size %lu, ",
                 is_array ? "[]" : "",
-                pointer, size);
+                pointer, (unsigned long)size);
         if (line != 0)
             print_position(ptr->file, ptr->line);
         else
@@ -520,7 +543,7 @@ static void* alloc_mem(size_t size, const char* file, int line, bool is_array)
 /**
  * Frees memory and adjusts pointers.
  *
- * @param pointer   pointer to delete
+ * @param pointer   pointer to the previously allocated memory
  * @param addr      pointer to the caller
  * @param is_array  flag indicating whether it is invoked by a
  *                  <code>delete[]</code> call
@@ -556,7 +579,7 @@ static void free_pointer(void* pointer, void* addr, bool is_array)
                 "%s: pointer %p (size %lu)\n\tat ",
                 msg,
                 (char*)ptr + ALIGNED_LIST_ITEM_SIZE,
-                ptr->size);
+                (unsigned long)ptr->size);
         print_position(addr, 0);
         fprintf(new_output_fp, "\n\toriginally allocated at ");
         if (ptr->line != 0)
@@ -589,7 +612,7 @@ static void free_pointer(void* pointer, void* addr, bool is_array)
                 "delete%s: freed %p (size %lu, %lu bytes still allocated)\n",
                 is_array ? "[]" : "",
                 (char*)ptr + ALIGNED_LIST_ITEM_SIZE,
-                ptr->size, total_mem_alloc);
+                (unsigned long)ptr->size, (unsigned long)total_mem_alloc);
     }
     free(ptr);
     return;
@@ -626,7 +649,7 @@ int check_leaks()
         fprintf(new_output_fp,
                 "Leaked object at %p (size %lu, ",
                 pointer,
-                ptr->size);
+                (unsigned long)ptr->size);
         if (ptr->line != 0)
             print_position(ptr->file, ptr->line);
         else
@@ -670,15 +693,15 @@ int check_mem_corruption()
             fprintf(new_output_fp,
                     "Heap data corrupt near %p (size %lu, ",
                     pointer,
-                    ptr->size);
+                    (unsigned long)ptr->size);
 #if _DEBUG_NEW_TAILCHECK
         }
         else
         {
             fprintf(new_output_fp,
-                    "Overwritten past end of object at %p (size %u, ",
+                    "Overwritten past end of object at %p (size %lu, ",
                     pointer,
-                    ptr->size);
+                    (unsigned long)ptr->size);
         }
 #endif
         if (ptr->line != 0)
@@ -693,10 +716,30 @@ int check_mem_corruption()
     return corrupt_cnt;
 }
 
+/**
+ * Processes the allocated memory and inserts file/line informatin.
+ * It will only be done when it can ensure the memory is allocated by
+ * one of our operator new variants.
+ *
+ * @param pointer   pointer returned by a new-expression
+ */
 void __debug_new_recorder::_M_process(void* pointer)
 {
     if (pointer == NULL)
         return;
+
+    // In an expression `new NonPODType[size]', the pointer returned is
+    // not the pointer returned by operator new[], but offset by size_t
+    // to leave room for the size.  It needs to be compensated here.
+    size_t offset = (char*)pointer - (char*)NULL;
+    if (offset % PLATFORM_MEM_ALIGNMENT != 0) {
+        offset -= sizeof(size_t);
+        if (offset % PLATFORM_MEM_ALIGNMENT != 0) {
+            return;
+        }
+        pointer = (char*)pointer - sizeof(size_t);
+    }
+
     new_ptr_list_t* ptr =
             (new_ptr_list_t*)((char*)pointer - ALIGNED_LIST_ITEM_SIZE);
     if (ptr->magic != MAGIC || ptr->line != 0)
@@ -707,6 +750,12 @@ void __debug_new_recorder::_M_process(void* pointer)
                 _M_file, _M_line);
         return;
     }
+    if (new_verbose_flag) {
+        fast_mutex_autolock lock(new_output_lock);
+        fprintf(new_output_fp,
+                "info: pointer %p allocated from %s:%d\n",
+                pointer, _M_file, _M_line);
+    }
 #if _DEBUG_NEW_FILENAME_LEN == 0
     ptr->file = _M_file;
 #else
@@ -716,6 +765,16 @@ void __debug_new_recorder::_M_process(void* pointer)
     ptr->line = _M_line;
 }
 
+/**
+ * Allocates memory with file/line information.
+ *
+ * @param size  size of the required memory block
+ * @param file  null-terminated string of the file name
+ * @param line  line number
+ * @return      pointer to the memory allocated; or \c NULL if memory is
+ *              insufficient (#_DEBUG_NEW_STD_OPER_NEW is 0)
+ * @throw bad_alloc memory is insufficient (#_DEBUG_NEW_STD_OPER_NEW is 1)
+ */
 void* operator new(size_t size, const char* file, int line)
 {
     void* ptr = alloc_mem(size, file, line, false);
@@ -729,6 +788,16 @@ void* operator new(size_t size, const char* file, int line)
 #endif
 }
 
+/**
+ * Allocates array memory with file/line information.
+ *
+ * @param size  size of the required memory block
+ * @param file  null-terminated string of the file name
+ * @param line  line number
+ * @return      pointer to the memory allocated; or \c NULL if memory is
+ *              insufficient (#_DEBUG_NEW_STD_OPER_NEW is 0)
+ * @throw bad_alloc memory is insufficient (#_DEBUG_NEW_STD_OPER_NEW is 1)
+ */
 void* operator new[](size_t size, const char* file, int line)
 {
     void* ptr = alloc_mem(size, file, line, true);
@@ -742,39 +811,87 @@ void* operator new[](size_t size, const char* file, int line)
 #endif
 }
 
+/**
+ * Allocates memory without file/line information.
+ *
+ * @param size  size of the required memory block
+ * @return      pointer to the memory allocated; or \c NULL if memory is
+ *              insufficient (#_DEBUG_NEW_STD_OPER_NEW is 0)
+ * @throw bad_alloc memory is insufficient (#_DEBUG_NEW_STD_OPER_NEW is 1)
+ */
 void* operator new(size_t size) throw(std::bad_alloc)
 {
     return operator new(size, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0);
 }
 
+/**
+ * Allocates array memory without file/line information.
+ *
+ * @param size  size of the required memory block
+ * @return      pointer to the memory allocated; or \c NULL if memory is
+ *              insufficient (#_DEBUG_NEW_STD_OPER_NEW is 0)
+ * @throw bad_alloc memory is insufficient (#_DEBUG_NEW_STD_OPER_NEW is 1)
+ */
 void* operator new[](size_t size) throw(std::bad_alloc)
 {
     return operator new[](size, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0);
 }
 
-#if !defined(__BORLANDC__) || __BORLANDC__ > 0x551
+/**
+ * Allocates memory with no-throw guarantee.
+ *
+ * @param size  size of the required memory block
+ * @return      pointer to the memory allocated; or \c NULL if memory is
+ *              insufficient
+ */
 void* operator new(size_t size, const std::nothrow_t&) throw()
 {
     return alloc_mem(size, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0, false);
 }
 
+/**
+ * Allocates array memory with no-throw guarantee.
+ *
+ * @param size  size of the required memory block
+ * @return      pointer to the memory allocated; or \c NULL if memory is
+ *              insufficient
+ */
 void* operator new[](size_t size, const std::nothrow_t&) throw()
 {
     return alloc_mem(size, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0, true);
 }
-#endif
 
+/**
+ * Deallocates memory.
+ *
+ * @param pointer   pointer to the previously allocated memory
+ */
 void operator delete(void* pointer) throw()
 {
     free_pointer(pointer, _DEBUG_NEW_CALLER_ADDRESS, false);
 }
 
+/**
+ * Deallocates array memory.
+ *
+ * @param pointer   pointer to the previously allocated memory
+ */
 void operator delete[](void* pointer) throw()
 {
     free_pointer(pointer, _DEBUG_NEW_CALLER_ADDRESS, true);
 }
 
-#if HAVE_PLACEMENT_DELETE
+/**
+ * Placement deallocation function.  For details, please check Section
+ * 5.3.4 of the C++ 1998 Standard.
+ *
+ * @param pointer   pointer to the previously allocated memory
+ * @param file      null-terminated string of the file name
+ * @param line      line number
+ *
+ * @see   http://www.csci.csusb.edu/dick/c++std/cd2/expr.html#expr.new
+ * @see   http://wyw.dcweb.cn/leakage.htm
+ */
 void operator delete(void* pointer, const char* file, int line) throw()
 {
     if (new_verbose_flag)
@@ -789,6 +906,14 @@ void operator delete(void* pointer, const char* file, int line) throw()
     operator delete(pointer);
 }
 
+/**
+ * Placement deallocation function.  For details, please check Section
+ * 5.3.4 of the C++ 1998 Standard.
+ *
+ * @param pointer   pointer to the previously allocated memory
+ * @param file      null-terminated string of the file name
+ * @param line      line number
+ */
 void operator delete[](void* pointer, const char* file, int line) throw()
 {
     if (new_verbose_flag)
@@ -803,17 +928,31 @@ void operator delete[](void* pointer, const char* file, int line) throw()
     operator delete[](pointer);
 }
 
+/**
+ * Placement deallocation function.  For details, please check Section
+ * 5.3.4 of the C++ 1998 Standard.
+ *
+ * @param pointer   pointer to the previously allocated memory
+ */
 void operator delete(void* pointer, const std::nothrow_t&) throw()
 {
     operator delete(pointer, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0);
 }
 
+/**
+ * Placement deallocation function.  For details, please check Section
+ * 5.3.4 of the C++ 1998 Standard.
+ *
+ * @param pointer   pointer to the previously allocated memory
+ */
 void operator delete[](void* pointer, const std::nothrow_t&) throw()
 {
     operator delete[](pointer, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0);
 }
-#endif // HAVE_PLACEMENT_DELETE
 
+/**
+ * Count of source files that use debug_new.
+ */
 int __debug_new_counter::_S_count = 0;
 
 /**
@@ -844,6 +983,5 @@ __debug_new_counter::~__debug_new_counter()
 #endif
         }
 }
-
 
 #endif

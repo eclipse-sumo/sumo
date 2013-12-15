@@ -1,13 +1,8 @@
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
-#include <config.h>
-#endif
-#ifdef CHECK_MEMORY_LEAKS
+
 /*
- * Copyright (C) 2004-2008 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2010 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -36,7 +31,7 @@
  *
  * A fast mutex implementation for POSIX and Win32.
  *
- * @version 1.18, 2005/05/06
+ * @version 1.20, 2010/05/16
  * @author  Wu Yongwei
  *
  */
@@ -181,9 +176,10 @@
 # endif // _PTHREADS
 
 # ifdef _WIN32THREADS
-#   define NOMINMAX
+#   ifndef WIN32_LEAN_AND_MEAN
+#     define WIN32_LEAN_AND_MEAN
+#   endif /* WIN32_LEAN_AND_MEAN */
 #   include <windows.h>
-#   undef NOMINMAX
 /**
  * Macro alias to `volatile' semantics.  Here it is truly volatile since
  * it is in a multi-threaded (Win32 threads) environment.
@@ -302,7 +298,7 @@ class fast_mutex_autolock
 {
     fast_mutex& _M_mtx;
 public:
-    explicit fast_mutex_autolock(fast_mutex& __mtx) : _M_mtx(__mtx)
+    explicit fast_mutex_autolock(fast_mutex& mtx) : _M_mtx(mtx)
     {
         _M_mtx.lock();
     }
@@ -316,7 +312,3 @@ private:
 };
 
 #endif // _FAST_MUTEX_H
-
-
-#endif
-

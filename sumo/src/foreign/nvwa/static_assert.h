@@ -1,13 +1,8 @@
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
-#include <config.h>
-#endif
-#ifdef CHECK_MEMORY_LEAKS
+
 /*
- * Copyright (C) 2004-2008 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2010 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -53,6 +48,3 @@ template <>     struct __nvwa_compile_time_error<true> {};
     }
 
 #endif // STATIC_ASSERT
-
-
-#endif
