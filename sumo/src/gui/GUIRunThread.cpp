@@ -100,6 +100,7 @@ GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
     // preload the routes especially for TraCI
     mySimulationLock.lock();
     try {
+        net->setCurrentTimeStep(start);
         net->loadRoutes();
     } catch (ProcessError& e2) {
         if (std::string(e2.what()) != std::string("Process Error") && std::string(e2.what()) != std::string("")) {

@@ -204,10 +204,20 @@ public:
     static std::string getStateMessage(SimulationState state);
 
 
-    /** @brief Returns the current simulation step (in s)
+    /** @brief Returns the current simulation step
      * @return the current simulation step
      */
-    SUMOTime getCurrentTimeStep() const;
+    inline SUMOTime getCurrentTimeStep() const {
+        return myStep;
+    }
+
+
+    /** @brief Sets the current simulation step (used by state loading)
+     * @param step the current simulation step
+     */
+    inline void setCurrentTimeStep(const SUMOTime step) {
+        myStep = step;
+    }
 
 
     /** @brief Write netstate, summary and detector output

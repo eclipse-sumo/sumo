@@ -513,12 +513,6 @@ MSNet::clearAll() {
 }
 
 
-SUMOTime
-MSNet::getCurrentTimeStep() const {
-    return myStep;
-}
-
-
 void
 MSNet::writeOutput() {
     // update detector values
