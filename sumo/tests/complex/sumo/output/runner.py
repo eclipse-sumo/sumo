@@ -6,9 +6,9 @@ from collections import defaultdict
 
 class OutputHandler(handler.ContentHandler):
     
-    def __init__(self, edges):
-        self.edges = edges
-        self.speed = dict([(l, defaultdict(dict)) for l in edges.itervalues()])
+    def __init__(self, lanes):
+        self.lanes = lanes
+        self.speed = dict([(l, defaultdict(dict)) for l in lanes])
         self.intervals = set()
 
     def startElement(self, name, attrs):
@@ -25,9 +25,9 @@ class OutputHandler(handler.ContentHandler):
                 self.speed[lane]["e3"][self.interval] = float(attrs["meanSpeedWithin"])
                 if self.speed[lane]["e3"][self.interval] == -1.:
                     self.speed[lane]["e3"][self.interval] = float(attrs["meanSpeed"])
-        if name == "edge" and "id" in attrs and attrs["id"] in self.edges and "speed" in attrs:
-            self.speed[edges[attrs["id"]]]["edge"][self.interval] = float(attrs["speed"])
-        if name == "lane" and "id" in attrs and attrs["id"] in self.edges.values() and "speed" in attrs:
+        if name == "edge" and "id" in attrs and attrs["id"]+"_0" in self.lanes and "speed" in attrs:
+            self.speed[attrs["id"]+"_0"]["edge"][self.interval] = float(attrs["speed"])
+        if name == "lane" and "id" in attrs and attrs["id"] in self.lanes and "speed" in attrs:
             self.speed[attrs["id"]]["lane"][self.interval] = float(attrs["speed"])
 
 def generateDetectorDef(out, freq, enableLoop, laneIDs):
@@ -44,30 +44,40 @@ def generateDetectorDef(out, freq, enableLoop, laneIDs):
     <laneData id="dump_15" freq="%s" file="meandatalane.xml" excludeEmpty="true"/>
 </additional>""" % (freq, freq), file=out)
 
-withLoop = float(sys.argv[1]) > 50
+
+def checkOutput(args, withLoop, lanes):
+    handler = OutputHandler(lanes)
+    for f in ["detector.xml", "meandataedge.xml", "meandatalane.xml"]:
+        if os.path.exists(f):
+            parse(f, handler)
+    for i in sorted(handler.intervals):
+        for lane in lanes:
+            if withLoop:
+                vals = [handler.speed[lane][type].get(i, -1.) for type in ["e1", "e2", "e3", "edge", "lane"]]
+            else:
+                vals = [handler.speed[lane][type].get(i, -1.) for type in ["e2", "e3", "edge", "lane"]]
+            for v in vals[:-1]:
+                if abs(v - vals[-1]) > 0.001:
+                    print("failed", args, lane, i, vals)
+                    return
+    print("success", args, lanes)
+
+sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
 sumoArgStart = len(sys.argv)
 for idx, arg in enumerate(sys.argv):
     if arg[0] == "-":
         sumoArgStart = idx
         break
-lanes = sys.argv[2:sumoArgStart]
-edges = dict([(l[:-2], l) for l in lanes])
-with open("input_additional.add.xml", 'w') as out:
-    generateDetectorDef(out, sys.argv[1], withLoop, lanes)
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
-subprocess.call([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[sumoArgStart:], shell=(os.name=="nt"), stdout=sys.stdout, stderr=sys.stderr)
-handler = OutputHandler(edges)
-for f in ["detector.xml", "meandataedge.xml", "meandatalane.xml"]:
-    if os.path.exists(f):
-        parse(f, handler)
-
-for i in sorted(handler.intervals):
-    for lane in lanes:
-        if withLoop:
-            vals = [handler.speed[lane][type].get(i, -1.) for type in ["e1", "e2", "e3", "edge", "lane"]]
-        else:
-            vals = [handler.speed[lane][type].get(i, -1.) for type in ["e2", "e3", "edge", "lane"]]
-        for v in vals[:-1]:
-            if abs(v - vals[-1]) > 0.001:
-                print(lane, i, vals)
-                break
+lanes = sys.argv[1:sumoArgStart]
+for stepLength in [".1", "1"]:
+    for end in ["51", "100"]:
+        args = sys.argv[sumoArgStart:] + ["--step-length", stepLength, "--end", end]
+        for freq in [.1, 1, 10, 100]:
+            withLoop = freq > 50
+            for numLanes in range(1, len(lanes) + 1):
+                with open("input_additional.add.xml", 'w') as out:
+                    generateDetectorDef(out, freq, withLoop, lanes[:numLanes])
+                subprocess.call([sumoBinary, "-c", "sumo.sumocfg"] + args, shell=(os.name=="nt"), stdout=sys.stdout, stderr=sys.stderr)
+                sys.stdout.flush()
+                checkOutput(args, withLoop, lanes[:numLanes])
+                sys.stdout.flush()
