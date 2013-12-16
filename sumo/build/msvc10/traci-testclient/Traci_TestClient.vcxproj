@@ -157,6 +157,14 @@
     <ClInclude Include="..\..\..\src\utils\traci\TraCIAPI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
+      <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\zz_foreign_tcpip\zz_foreign_tcpip.vcxproj">
       <Project>{492b0b5a-0bbe-49ba-82e6-70a82dbc242f}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
