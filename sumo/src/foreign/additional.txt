@@ -39,5 +39,5 @@ The subfolders contain additional libraries used by SUMO:
 - gl2ps
  Printing screenshots as ps or pdf files
  Used version: 1.3.8
- Modifications: fixing warnings (casting, initializing variables)
+ Modifications: fixing warnings (casting, initializing variables), adding NOMINMAX define before windows.h include
  Original page: http://www.geuz.org/gl2ps/
