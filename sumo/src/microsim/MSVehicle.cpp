@@ -1100,7 +1100,6 @@ MSVehicle::executeMove() {
 
     assert(myLFLinkLanes.size() != 0 || (myInfluencer != 0 && myInfluencer->isVTDControlled()));
     DriveItemVector::iterator i;
-    bool lastWasGreenCont = false;
     for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         MSLink* link = (*i).myLink;
         // the vehicle must change the lane on one of the next lanes
@@ -1112,7 +1111,6 @@ MSVehicle::executeMove() {
             if (yellow && ((*i).myDistance > brakeGap || myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel()))) {
                 vSafe = (*i).myVLinkWait;
                 myHaveToWaitOnNextLink = true;
-                lastWasGreenCont = false;
                 link->removeApproaching(this);
                 break;
             }
@@ -1120,11 +1118,10 @@ MSVehicle::executeMove() {
             const bool opened = yellow || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
                                 getVehicleType().getLengthWithGap(), getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime());
             // vehicles should decelerate when approaching a minor link
-            if (opened && !lastWasGreenCont && !link->havePriority()) {
+            if (opened && !link->havePriority() && !link->lastWasContMajor()) {
                 if ((*i).myDistance > getCarFollowModel().getMaxDecel()) {
                     vSafe = (*i).myVLinkWait;
                     myHaveToWaitOnNextLink = true;
-                    lastWasGreenCont = false;
                     if (ls == LINKSTATE_EQUAL) {
                         link->removeApproaching(this);
                     }
@@ -1147,9 +1144,7 @@ MSVehicle::executeMove() {
                     // this vehicle is probably not gonna drive accross the next junction (heuristic)
                     myHaveToWaitOnNextLink = true;
                 }
-                lastWasGreenCont = link->isCont() && (ls == LINKSTATE_TL_GREEN_MAJOR);
             } else {
-                lastWasGreenCont = false;
                 vSafe = (*i).myVLinkWait;
                 myHaveToWaitOnNextLink = true;
                 if (ls == LINKSTATE_EQUAL) {

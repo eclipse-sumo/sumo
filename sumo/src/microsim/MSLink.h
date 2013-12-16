@@ -297,6 +297,11 @@ public:
         return myAmCont;
     }
 
+
+    /// @brief whether this is a link past an internal junction which currently has priority
+    bool lastWasContMajor() const;
+
+
 #ifdef HAVE_INTERNAL_LANES
     /** @brief Returns the following inner lane
      *

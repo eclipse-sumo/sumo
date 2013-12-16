@@ -320,6 +320,29 @@ MSLink::getLane() const {
 }
 
 
+bool    
+MSLink::lastWasContMajor() const {
+#ifdef HAVE_INTERNAL_LANES
+    if (myJunctionInlane == 0 || myAmCont) {
+        return false;
+    } else {
+        MSLane* pred = myJunctionInlane->getLogicalPredecessorLane();
+        if (pred->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+            return false;
+        } else {
+            MSLane* pred2 = pred->getLogicalPredecessorLane();
+            assert(pred2 != 0);
+            MSLink* predLink = MSLinkContHelper::getConnectingLink(*pred2, *pred);
+            assert(predLink != 0);
+            return predLink->havePriority();
+        }
+    }
+#else
+    return false;
+#endif  
+}       
+
+    
 void
 MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
     if (myApproachingVehicles.size() > 0) {
