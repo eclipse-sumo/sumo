@@ -35,3 +35,9 @@ The subfolders contain additional libraries used by SUMO:
  Used version: unknown
  Modifications: fixing warnings (removing unused variables, initializing variables); relicensed under LGPL, see license file
  Original page: http://www.lems.brown.edu/vision/researchAreas/EulerSpiral/
+
+- gl2ps
+ Printing screenshots as ps or pdf files
+ Used version: 1.3.8
+ Modifications: fixing warnings (casting, initializing variables)
+ Original page: http://www.geuz.org/gl2ps/

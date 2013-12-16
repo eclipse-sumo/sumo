@@ -1,9 +1,8 @@
 /*
  * GL2PS, an OpenGL to PostScript Printing Library
- * Copyright (C) 1999-2011 C. Geuzaine
+ * Copyright (C) 1999-2012 C. Geuzaine
  *
- * This file is part of SUMO.
-//   SUMO is free software: you can redistribute it and/or
+ * This program is free software; you can redistribute it and/or
  * modify it under the terms of either:
  *
  * a) the GNU Library General Public License as published by the Free
@@ -21,8 +20,8 @@
  *
  * You should have received a copy of the GNU Library General Public
  * License along with this library in the file named "COPYING.LGPL";
- * if not, write to the Free Software Foundation, Inc., 675 Mass Ave,
- * Cambridge, MA 02139, USA.
+ * if not, write to the Free Software Foundation, Inc., 51 Franklin
+ * Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  * You should have received a copy of the GL2PS License with this
  * library in the file named "COPYING.GL2PS"; if not, I will be glad
@@ -47,9 +46,7 @@
 #    pragma warning(disable:4115)
 #    pragma warning(disable:4996)
 #  endif
-#  define NOMINMAX
 #  include <windows.h>
-#  undef NOMINMAX
 #  if defined(GL2PSDLL)
 #    if defined(GL2PSDLL_EXPORTS)
 #      define GL2PSDLL_API __declspec(dllexport)
@@ -79,18 +76,22 @@
 #  endif
 #endif
 
+#if defined(HAVE_NO_VSNPRINTF)
+#  define GL2PS_HAVE_NO_VSNPRINTF
+#endif
+
 /* Version number */
 
 #define GL2PS_MAJOR_VERSION 1
 #define GL2PS_MINOR_VERSION 3
-#define GL2PS_PATCH_VERSION 6
+#define GL2PS_PATCH_VERSION 8
 #define GL2PS_EXTRA_VERSION ""
 
 #define GL2PS_VERSION (GL2PS_MAJOR_VERSION + \
                        0.01 * GL2PS_MINOR_VERSION + \
                        0.0001 * GL2PS_PATCH_VERSION)
 
-#define GL2PS_COPYRIGHT "(C) 1999-2011 C. Geuzaine"
+#define GL2PS_COPYRIGHT "(C) 1999-2012 C. Geuzaine"
 
 /* Output file formats (the values and the ordering are important!) */
 
@@ -178,6 +179,9 @@ GL2PSDLL_API GLint gl2psText(const char *str, const char *fontname,
                              GLshort fontsize);
 GL2PSDLL_API GLint gl2psTextOpt(const char *str, const char *fontname,
                                 GLshort fontsize, GLint align, GLfloat angle);
+GL2PSDLL_API GLint gl2psTextOptColor(const char *str, const char *fontname,
+                                     GLshort fontsize, GLint align, GLfloat angle,
+                                     GL2PSrgba color);
 GL2PSDLL_API GLint gl2psSpecial(GLint format, const char *str);
 GL2PSDLL_API GLint gl2psDrawPixels(GLsizei width, GLsizei height,
                                    GLint xorig, GLint yorig,
@@ -194,6 +198,7 @@ GL2PSDLL_API GLint gl2psDrawImageMap(GLsizei width, GLsizei height,
                                      const unsigned char *imagemap);
 GL2PSDLL_API const char *gl2psGetFileExtension(GLint format);
 GL2PSDLL_API const char *gl2psGetFormatDescription(GLint format);
+GL2PSDLL_API GLint gl2psGetFileFormat();
 
 #if defined(__cplusplus)
 }
