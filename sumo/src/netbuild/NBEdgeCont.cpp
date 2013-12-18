@@ -267,6 +267,9 @@ NBEdgeCont::retrieve(const std::string& id, bool retrieveExtracted) const {
 NBEdge*
 NBEdgeCont::retrievePossiblySplit(const std::string& id, bool downstream) const {
     NBEdge* edge = retrieve(id);
+    if (edge == 0) {
+        return 0;
+    }
     const EdgeVector* candidates = downstream ? &edge->getToNode()->getOutgoingEdges() : &edge->getFromNode()->getIncomingEdges();
     while (candidates->size() == 1) {
         const std::string& nextID = candidates->front()->getID();
