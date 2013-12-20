@@ -45,7 +45,7 @@ def fcd2ns2mobility(inpFCD, outSTRM, ignored):
         vehInfo[v.id] = [ nid, timestep.time, 0 ]
       nid = vIDm.g(v.id)        
       if outSTRM:
-        print('$ns_ at %s "$node_(%s) setdest %s %s %s"' % (timestep.time, nid, v.x, v.y, 0), file=outSTRM)
+        print('$ns_ at %s "$node_(%s) setdest %s %s %s"' % (timestep.time, nid, v.x, v.y, v.speed), file=outSTRM)
       if not area[0]:
         area[0] = v.x
         area[1] = v.y
