@@ -1,0 +1,1 @@
+--no-internal-links --osm-files osm.xml --output net.net.xml

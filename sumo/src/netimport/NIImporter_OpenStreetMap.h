@@ -81,7 +81,7 @@ protected:
      */
     struct NIOSMNode {
         NIOSMNode(SUMOLong _id, double _lon, double _lat) :
-            id(_id), lon(_lon), lat(_lat), tlsControlled(false), node(0) {}
+            id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), node(0) {}
 
         /// @brief The node's id
         SUMOLong id;
@@ -89,6 +89,8 @@ protected:
         double lon;
         /// @brief The latitude the node is located at
         double lat;
+        /// @brief The elevation of this node 
+        double ele;
         /// @brief Whether this is a tls controlled junction
         bool tlsControlled;
         /// @brief the NBNode that was instantiated

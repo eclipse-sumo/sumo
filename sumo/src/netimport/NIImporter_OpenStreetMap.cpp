@@ -300,7 +300,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(SUMOLong id, NBNodeCont& nc, NBTraf
     NBNode* node = nc.retrieve(toString(id));
     if (node == 0) {
         NIOSMNode* n = myOSMNodes.find(id)->second;
-        Position pos(n->lon, n->lat);
+        Position pos(n->lon, n->lat, n->ele);
         if (!NBNetBuilder::transformCoordinates(pos, true)) {
             WRITE_ERROR("Unable to project coordinates for node " + toString(id) + ".");
             return 0;
@@ -363,7 +363,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     PositionVector shape;
     for (std::vector<SUMOLong>::const_iterator i = passed.begin(); i != passed.end(); ++i) {
         NIOSMNode* n = myOSMNodes.find(*i)->second;
-        Position pos(n->lon, n->lat);
+        Position pos(n->lon, n->lat, n->ele);
         if (!NBNetBuilder::transformCoordinates(pos, true)) {
             WRITE_ERROR("Unable to project coordinates for edge " + id + ".");
         }
@@ -590,6 +590,13 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
         if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
             myToFill[myLastNodeID]->tlsControlled = true;
+        } else if (key == "ele") {
+            try {
+                myToFill[myLastNodeID]->ele = TplConvert::_2SUMOReal(value.c_str());
+            } catch (NumberFormatException&) {
+                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in node '" +
+                                      toString(myLastNodeID) + "'.");
+            }
         }
     }
 }
