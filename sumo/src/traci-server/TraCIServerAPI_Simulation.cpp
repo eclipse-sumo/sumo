@@ -328,6 +328,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
             SUMOReal pos = inputStorage.readDouble();
             int laneIdx = inputStorage.readUnsignedByte();
             try {
+                // convert edge,offset,laneIdx to cartesian position
                 cartesianPos = geoPos = getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtOffset(pos);
                 GeoConvHelper::getFinal().cartesian2geo(geoPos);
             } catch (TraCIException& e) {
@@ -349,7 +350,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
 
     switch (destPosType) {
         case POSITION_ROADMAP: {
-            // convert road map to 3D position
+            // convert cartesion position to edge,offset,lane_index
             roadPos = convertCartesianToRoadMap(cartesianPos);
             // write result that is added to response msg
             outputStorage.writeUnsignedByte(POSITION_ROADMAP);
