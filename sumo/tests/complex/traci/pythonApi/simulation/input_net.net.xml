@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May  7 15:49:16 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Sat Dec 21 13:34:39 2013 by SUMO netconvert Version dev-SVN-r15338
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/complex/traci/pythonApi/simulation/input_nodes.nod.xml"/>
-        <edge-files value="./tests/complex/traci/pythonApi/simulation/input_edges.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/complex/traci/pythonApi/simulation/input_net.net.xml"/>
+        <output-file value="input_net.net.xml"/>
     </output>
 
     <projection>
         <proj.utm value="true"/>
     </projection>
-
-    <report>
-        <verbose value="true"/>
-    </report>
 
 </configuration>
 -->
@@ -37,16 +33,16 @@
     </edge>
 
     <edge id="2o" from="1" to="0" priority="-1">
-        <lane id="2o_0" index="0" speed="13.90" length="5131.88" shape="3331.50,1.07 1.26,3905.63"/>
+        <lane id="2o_0" index="0" speed="13.90" length="5131.88" shape="3331.50,1.07,5.00 1.26,3905.63,2.00"/>
     </edge>
     <edge id="o" from="0" to="1" priority="-1">
-        <lane id="o_0" index="0" speed="13.90" length="5131.88" shape="-1.26,3903.49 3328.99,-1.07"/>
+        <lane id="o_0" index="0" speed="13.90" length="5131.88" shape="-1.26,3903.49,2.00 3328.99,-1.07,5.00"/>
     </edge>
 
-    <junction id="0" type="priority" x="0.00" y="3904.56" incLanes="2o_0" intLanes=":0_0_0" shape="-0.04,3904.53 -2.47,3902.45 2.47,3906.67 0.04,3904.60">
+    <junction id="0" type="priority" x="0.00" y="3904.56" z="2.00" incLanes="2o_0" intLanes=":0_0_0" shape="-0.04,3904.53,2.00 -2.47,3902.45,2.00 2.47,3906.67,2.00 0.04,3904.60,2.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="1" type="priority" x="3330.25" y="0.00" incLanes="o_0" intLanes=":1_0_0" shape="3330.28,0.03 3332.72,2.11 3327.77,-2.11 3330.21,-0.03">
+    <junction id="1" type="priority" x="3330.25" y="0.00" z="5.00" incLanes="o_0" intLanes=":1_0_0" shape="3330.28,0.03,5.00 3332.72,2.11,5.00 3327.77,-2.11,5.00 3330.21,-0.03,5.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
