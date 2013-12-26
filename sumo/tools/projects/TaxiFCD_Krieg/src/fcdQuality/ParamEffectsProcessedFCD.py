@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: Latin-1 -*-
 """
 @file    GenerateRawFCD.py
@@ -366,4 +367,4 @@ def getMean(list):
 
 #start the program
 #cProfile.run('main()')
-main()     
+main()

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: Latin-1 -*-
 """
 @file    GenerateRawFCD.py
@@ -190,4 +191,4 @@ def createOutput(edgeDumpDict, vtypeDict,vehSum, taxiSum):
 
 #start the program
 #profile.run('main()')
-main()     
+main()

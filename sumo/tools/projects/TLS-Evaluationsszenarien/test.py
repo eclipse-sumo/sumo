@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from evaluator import *
 from plotter import *
 

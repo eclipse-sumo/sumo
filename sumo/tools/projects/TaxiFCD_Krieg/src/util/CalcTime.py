@@ -29,13 +29,6 @@ formatTime="%H:%M:%S"
 simDate=mktime((2007,7,18,0,0,0,2,199,1))
 
 
-def main(): 
-    print "start program"
-    getSecsInTime(46861)
-   # print getTimeInSecs("2007-03-13 00:04:33")
-    print "end"
-
-     
 def getSecsInTime(time=85460):
     """calculates the Hour:Minutes:Seconds of the given time in seconds."""
     print strftime(formatTime,gmtime(time))
@@ -54,6 +47,3 @@ def getTimeInSecs(date):
 def getNiceTimeLabel(label='20070718000020'):
     #returns 2007-07-18 00:00:20
     return label[:4]+"-"+label[4:6]+"-"+label[6:8]+" "+label[8:10]+":"+label[10:12]+":"+label[12:]
-    
-#start the program
-#main()

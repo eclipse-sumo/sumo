@@ -69,10 +69,3 @@ FQvehPickle=newPath(main,"fcdQualitaet/vehiclePickleList.pickle")
 FQoutput=newPath(main,"fcdQualitaet/output/plotData/paramEffects_")
 FQrawFCD=newPath(main,"fcdQualitaet/output/rawData/rawData_")
 FQprocessedFCD=newPath(main,"fcdQualitaet/processedFCD/linkspeeds.NUREMBERG_FAKE_03.txt")
-
-
-
-
-
-
-   

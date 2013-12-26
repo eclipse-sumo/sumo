@@ -36,5 +36,3 @@ def isElmInListFaster(list,elm):
         else:                                     # Element gefunden
             return True;                          # Position zurückgeben
     return False;                                 # Element nicht gefunden
-
-

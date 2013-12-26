@@ -1,3 +1,4 @@
+#!/usr/bin/env perl
 sub getAttr($$) {
 	my $text = $_[0];
 	my $attrname = $_[1];
@@ -409,4 +410,3 @@ foreach $id (keys(%splitK)) {
 }
 print OUTDAT "</nodes>\n";
 close(OUTDAT);
-

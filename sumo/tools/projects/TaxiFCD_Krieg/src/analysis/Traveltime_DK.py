@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 
 from pylab import *
 
@@ -306,4 +306,4 @@ def plotBarChart(mode="relDiff"):
 
 #start the program
 #cProfile.run('main()')
-main()     		
+main()

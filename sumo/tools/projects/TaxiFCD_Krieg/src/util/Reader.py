@@ -114,4 +114,3 @@ def readEdgesLength():
     #pickles the edgeDict 
     dump(edgeDict, open(path.edgeLengthDict,'w'))               
     inputFile.close()
-        

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 from pylab import * 
 

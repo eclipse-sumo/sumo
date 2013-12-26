@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 from pylab import * 
 from os import walk

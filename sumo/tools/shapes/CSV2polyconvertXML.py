@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    CSV2polyconvertXML.py
 @author  Daniel Krajzewicz
@@ -42,5 +43,3 @@ for line in inpf:
 outf.write("</pois>\n")
 inpf.close()
 outf.close()
-
-        

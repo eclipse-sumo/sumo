@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: Latin-1 -*-
 """
 @file    GenerateRawFCD.py
@@ -229,4 +230,4 @@ def reduceVtype(vtypeDict,taxis,period):
 
 #start the program
 #profile.run('main()')
-main()     
+main()

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: Latin-1 -*-
 """
 @file    GenerateRawFCD.py
@@ -68,9 +69,3 @@ def getVehId(orgId):
 
 #start the program
 main()
-    
-    
-    
-    
-    
-    

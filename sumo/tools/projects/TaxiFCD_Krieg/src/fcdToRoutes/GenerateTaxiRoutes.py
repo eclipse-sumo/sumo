@@ -209,5 +209,3 @@ def writeRoutes():
        
     outputFile.write("</routes>")
     outputFile.close()
-    
-    

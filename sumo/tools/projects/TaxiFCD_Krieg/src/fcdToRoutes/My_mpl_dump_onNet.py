@@ -456,4 +456,3 @@ weights.norm(options.tendency_coloring, options.percentage_speed)
 if options.verbose:
     print "Plotting..."
 net.plot(weights, options, colorMap)
-
