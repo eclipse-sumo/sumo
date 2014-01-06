@@ -324,6 +324,11 @@ public:
         return myShape;
     }
 
+    /// @brief return shape.length() / myLength
+    inline SUMOReal getLengthGeometryFactor() const {
+        return myLengthGeometryFactor;
+    }
+
     /* @brief fit the given lane position to a visibly suitable geometry position
      * (lane length might differ from geometry length) */
     inline SUMOReal interpolateLanePosToGeometryPos(SUMOReal lanePos) const {

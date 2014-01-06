@@ -604,13 +604,19 @@ MSVehicle::getPosition(const SUMOReal offset) const {
 
 SUMOReal
 MSVehicle::getAngle() const {
-    Position p1 = myLane->getShape().positionAtOffset(myState.pos());
-    Position p2 = myFurtherLanes.size() > 0
-                  ? myFurtherLanes.back()->getShape().positionAtOffset(myFurtherLanes.back()->getPartialOccupatorEnd())
-                  : myLane->getShape().positionAtOffset(myState.pos() - myType->getLength());
+    Position p1 = getPosition();
+    Position p2;
+    if (getPositionOnLane() * myLane->getLengthGeometryFactor() > myType->getLength()) {
+        // vehicle is fully on the new lane (visually)
+        p2 = myLane->getShape().positionAtOffset(getPositionOnLane() * myLane->getLengthGeometryFactor() - myType->getLength());
+    } else {
+        p2 = myFurtherLanes.size() > 0
+            ? myFurtherLanes.back()->geometryPositionAtOffset(myFurtherLanes.back()->getPartialOccupatorEnd())
+            : getPosition(-myType->getLength());
+    }
     SUMOReal result = (p1 != p2 ?
                        atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / PI :
-                       -myLane->getShape().rotationDegreeAtOffset(getPositionOnLane()));
+                       -myLane->getShape().rotationDegreeAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
     if (getLaneChangeModel().isChangingLanes()) {
         const SUMOReal angleOffset = 60 / STEPS2TIME(MSGlobals::gLaneChangeDuration) * (getLaneChangeModel().isLaneChangeMidpointPassed() ? 1 - getLaneChangeModel().getLaneChangeCompletion() : getLaneChangeModel().getLaneChangeCompletion());
         result += getLaneChangeModel().getLaneChangeDirection() * angleOffset;
