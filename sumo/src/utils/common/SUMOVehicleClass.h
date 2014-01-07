@@ -356,7 +356,7 @@ extern int getVehicleClassCompoundID(const std::string& name);
  *
  * @param[in] classNames Space separated class names
  * @param[out] container The set of vehicle classes to fill
- * throws ProcessErrorr if parsing fails
+ * throws ProcessError if parsing fails
  */
 extern SVCPermissions parseVehicleClasses(const std::string& allowedS);
 
