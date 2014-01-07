@@ -749,13 +749,8 @@ GUILane::getColorValue(size_t activeScheme) const {
         case 1:
             return gSelected.isSelected(getType(), getGlID()) ||
                    gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());
-        case 2: {
-            if (allowsVehicleClass(SVC_PASSENGER)) {
-                return 0;
-            } else {
-                return 1;
-            }
-        }
+        case 2:
+            return (SUMOReal)myPermissions;
         case 3:
             return getSpeedLimit();
         case 4:
