@@ -993,7 +993,8 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
             continue;
         }
         if (con.toEdge != toEdge) {
-            // skip indices to keep some correspondence between edge ids and link indices
+            // skip indices to keep some correspondence between edge ids and link indices:
+            // internalEdgeIndex + internalLaneIndex = linkIndex
             edgeIndex = linkIndex;
             toEdge = (*i).toEdge;
             internalLaneIndex = 0;
