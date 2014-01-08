@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 11 10:00:58 2013 by SUMO sumo Version dev-SVN-r15307
+<!-- generated on Wed Jan  8 10:00:24 2014 by SUMO sumo Version dev-SVN-r15347
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -165,10 +165,10 @@
         <vehicle id="v0" x="495.60" y="496.88" angle="75.15" type="DEFAULT_VEHTYPE" speed="8.40" pos="7.17" lane=":0_16_0" slope="0.00"/>
     </timestep>
     <timestep time="22.00">
-        <vehicle id="v0" x="498.12" y="492.99" angle="34.04" type="DEFAULT_VEHTYPE" speed="9.70" pos="12.02" lane=":0_16_0" slope="0.00"/>
+        <vehicle id="v0" x="498.12" y="492.99" angle="34.07" type="DEFAULT_VEHTYPE" speed="9.70" pos="12.02" lane=":0_16_0" slope="0.00"/>
     </timestep>
     <timestep time="22.50">
-        <vehicle id="v0" x="498.35" y="487.52" angle="1.38" type="DEFAULT_VEHTYPE" speed="11.00" pos="4.43" lane="3o_1" slope="0.00"/>
+        <vehicle id="v0" x="498.35" y="487.52" angle="1.39" type="DEFAULT_VEHTYPE" speed="11.00" pos="4.43" lane="3o_1" slope="0.00"/>
     </timestep>
     <timestep time="23.00">
         <vehicle id="v0" x="498.35" y="481.96" angle="0.00" type="DEFAULT_VEHTYPE" speed="11.11" pos="9.99" lane="3o_1" slope="0.00"/>

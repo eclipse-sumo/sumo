@@ -604,15 +604,21 @@ MSVehicle::getPosition(const SUMOReal offset) const {
 
 SUMOReal
 MSVehicle::getAngle() const {
-    Position p1 = getPosition();
+    Position p1;
     Position p2;
+    if (getLaneChangeModel().isChangingLanes()) {
+        // cannot use getPosition() because it already includes the offset to the side and thus messes up the angle
+        p1 = myLane->geometryPositionAtOffset(myState.myPos);
+    } else {
+        p1 = getPosition();
+    }
     if (getPositionOnLane() * myLane->getLengthGeometryFactor() > myType->getLength()) {
         // vehicle is fully on the new lane (visually)
         p2 = myLane->getShape().positionAtOffset(getPositionOnLane() * myLane->getLengthGeometryFactor() - myType->getLength());
     } else {
         p2 = myFurtherLanes.size() > 0
             ? myFurtherLanes.back()->geometryPositionAtOffset(myFurtherLanes.back()->getPartialOccupatorEnd())
-            : getPosition(-myType->getLength());
+            : myLane->geometryPositionAtOffset(myState.myPos - myType->getLength());
     }
     SUMOReal result = (p1 != p2 ?
                        atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / PI :
