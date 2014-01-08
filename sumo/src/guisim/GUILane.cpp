@@ -37,6 +37,7 @@
 #include <utils/geom/Position.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -230,8 +231,7 @@ GUILane::drawLinkRules(const GUINet& net) const {
     const SUMOReal rot = RAD2DEG(atan2((s.x() - f.x()), (f.y() - s.y())));
     if (noLinks == 0) {
         glPushName(getGlID());
-        // draw a grey bar if no links are on the street
-        glColor3d(0.5, 0.5, 0.5);
+        GLHelper::setColor(getLinkColor(LINKSTATE_DEADEND));
         glPushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
@@ -273,44 +273,7 @@ GUILane::drawLinkRules(const GUINet& net) const {
                 glPushName(getGlID());
                 break;
         }
-        // select color
-        switch (link->getState()) {
-            case LINKSTATE_TL_GREEN_MAJOR:
-            case LINKSTATE_TL_GREEN_MINOR:
-                glColor3d(0, 1, 0);
-                break;
-            case LINKSTATE_TL_RED:
-                glColor3d(1, 0, 0);
-                break;
-            case LINKSTATE_TL_YELLOW_MAJOR:
-            case LINKSTATE_TL_YELLOW_MINOR:
-                glColor3d(1, 1, 0);
-                break;
-            case LINKSTATE_TL_OFF_BLINKING:
-                glColor3d(.7, .7, 0);
-                break;
-            case LINKSTATE_TL_OFF_NOSIGNAL:
-                glColor3d(0, 1, 1);
-                break;
-            case LINKSTATE_MAJOR:
-                glColor3d(1, 1, 1);
-                break;
-            case LINKSTATE_MINOR:
-                glColor3d(.2, .2, .2);
-                break;
-            case LINKSTATE_STOP:
-                glColor3d(.4, .2, .2);
-                break;
-            case LINKSTATE_EQUAL:
-                glColor3d(.5, .5, .5);
-                break;
-            case LINKSTATE_ALLWAY_STOP:
-                glColor3d(.2, .2, .4);
-                break;
-            case LINKSTATE_DEADEND:
-                glColor3d(0, 0, 0);
-                break;
-        }
+        GLHelper::setColor(getLinkColor(link->getState()));
         if (!railway || link->getState() != LINKSTATE_MAJOR) {
             // THE WHITE BAR SHOULD BE THE DEFAULT FOR MOST RAILWAY
             // LINKS AND LOOKS UGLY SO WE DO NOT DRAW IT

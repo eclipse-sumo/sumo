@@ -32,8 +32,12 @@
 #include <config.h>
 #endif
 
+#include <utils/xml/SUMOXMLDefinitions.h>
+
 /* avoiding compiler warning unreferenced parameter */
 #define UNUSED_PARAMETER(x)  ((void)(x))
+
+class RGBColor;
 
 /* -------------------------------------------------------------------------
  * some constant defaults used by SUMO
@@ -47,6 +51,10 @@ const SUMOReal SUMO_const_halfLaneAndOffset = (SUMOReal)(3.2 / 2. + .1);
 
 /// @brief the speed threshold at which vehicles are considered as halting
 const SUMOReal SUMO_const_haltingSpeed = (SUMOReal) 0.1;
+
+/* @brief map from LinkState to color constants (see above)
+ */
+const RGBColor& getLinkColor(const LinkState& ls);
 
 
 /* -------------------------------------------------------------------------
