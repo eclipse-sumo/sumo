@@ -108,12 +108,16 @@ XMLSubSys::runParser(GenericSAXHandler& handler,
         handler.setFileName(prevFile);
         myNextFreeReader--;
     } catch (ProcessError& e) {
-        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
-            WRITE_ERROR(e.what());
-        }
+        WRITE_ERROR(e.what() != "" ? std::string(e.what()) : std::string("Process Error"));
+        return false;
+    } catch(const std::runtime_error& re) {
+        WRITE_ERROR("Runtime error: " + std::string(re.what()) + " while parsing '" + file + "'");
+        return false;
+    } catch(const std::exception& ex) {
+        WRITE_ERROR("Error occurred: " + std::string(ex.what()) + " while parsing '" + file + "'");
         return false;
     } catch (...) {
-        WRITE_ERROR("An error occured.");
+        WRITE_ERROR("Unspefied error occured wile parsing '" + file + "'");
         return false;
     }
     return !MsgHandler::getErrorInstance()->wasInformed();
