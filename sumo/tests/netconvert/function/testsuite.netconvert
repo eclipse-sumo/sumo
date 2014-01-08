@@ -44,3 +44,6 @@ speed_modification
 
 # generate street signs based on edge priority at junctions
 street_sign_output
+
+# test right-of-way matrix when a right turning connection conflicts with a pedestrian crossing
+rightTurnConflict

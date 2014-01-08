@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 08 Jan 2014 04:20:45 PM CET by Netedit Version dev-SVN-r15351
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net6.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net6.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/sip-svn-trunk/projects/colombo/rightTurnConflict/input_plain"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="2" numLanes="2" speed="13.89" width="0.60"/>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="2" speed="13.89" width="0.60"/>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="13.89" width="0.60"/>
+</edges>
