@@ -335,8 +335,9 @@ def getEmissionClass(vehID):
 
 def getWaitingTime(vehID):
     """getWaitingTime() -> double
-    
-    .
+    The waiting time of a vehicle is defined as the time (in seconds) spent with a
+    speed below 0.1m/s since the last time it was faster than 0.1m/s.
+    (basically, the waiting time of a vehicle is reset to 0 every time it moves). 
     """
     return _getUniversal(tc.VAR_WAITING_TIME, vehID)
 

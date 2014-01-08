@@ -72,9 +72,9 @@ def getAdaptedTraveltime(edgeID, time):
                               tc.VAR_EDGE_TRAVELTIME, edgeID).readDouble()
 
 def getWaitingTime(edgeID):
-    """getWaitingTime() -> double
-    
-    .
+    """getWaitingTime() -> double 
+    Returns the sum of the waiting time of all vehicles currently on
+    that edge (see traci.vehicle.getWaitingTime).
     """
     return _getUniversal(tc.VAR_WAITING_TIME, edgeID) 
 
