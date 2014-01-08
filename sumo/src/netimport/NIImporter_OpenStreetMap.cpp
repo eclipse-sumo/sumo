@@ -593,7 +593,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         } else if (key == "ele") {
             try {
                 myToFill[myLastNodeID]->ele = TplConvert::_2SUMOReal(value.c_str());
-            } catch (NumberFormatException&) {
+            } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in node '" +
                                       toString(myLastNodeID) + "'.");
             }
@@ -712,11 +712,14 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                                       toString(myCurrentEdge->id) + "'.");
                     }
                 }
+            } catch (EmptyData&) {
+                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
+                        toString(myCurrentEdge->id) + "'.");
             }
         } else if (key == "lanes:forward") {
             try {
                 myCurrentEdge->myNoLanesForward = TplConvert::_2int(value.c_str());
-            } catch (NumberFormatException&) {
+            } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
             }
@@ -724,7 +727,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             try {
                 // denote backwards count with a negative sign
                 myCurrentEdge->myNoLanesForward = -TplConvert::_2int(value.c_str());
-            } catch (NumberFormatException&) {
+            } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
             }
@@ -741,7 +744,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 }
                 try {
                     myCurrentEdge->myMaxSpeed = TplConvert::_2SUMOReal(value.c_str()) * conversion;
-                } catch (NumberFormatException&) {
+                } catch (...) {
                     WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                                   toString(myCurrentEdge->id) + "'.");
                 }
@@ -761,7 +764,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 } else {
                     myCurrentEdge->myIsOneWay = "true";
                 }
-            } catch (NumberFormatException&) {
+            } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
             }
