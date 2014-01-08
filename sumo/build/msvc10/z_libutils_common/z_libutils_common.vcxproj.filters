@@ -59,6 +59,9 @@
     <ClCompile Include="..\..\..\src\utils\common\SysUtils.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\common\StdDefs.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\common\AbstractMutex.h">

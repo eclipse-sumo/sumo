@@ -146,6 +146,7 @@
     <ClCompile Include="..\..\..\src\utils\common\Parameterised.cpp" />
     <ClCompile Include="..\..\..\src\utils\common\RandHelper.cpp" />
     <ClCompile Include="..\..\..\src\utils\common\RGBColor.cpp" />
+    <ClCompile Include="..\..\..\src\utils\common\StdDefs.cpp" />
     <ClCompile Include="..\..\..\src\utils\common\StringTokenizer.cpp" />
     <ClCompile Include="..\..\..\src\utils\common\StringUtils.cpp" />
     <ClCompile Include="..\..\..\src\utils\common\SUMOTime.cpp" />
