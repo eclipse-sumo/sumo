@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-rUNKNOWN
+SUMO netconvert Version dev-SVN-r15362
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -198,6 +198,9 @@ Processing Options:
   --geometry.min-radius.fix           Straighten edge geometries to avoid
                                         turning radii less than
                                         geometry.min-radius
+  --geometry.junction-mismatch-threshold FLOAT  Warn if the junction shape is
+                                        to far away from the original node
+                                        position
   --offset.disable-normalization      Turn off normalizing node positions
   --offset.x FLOAT                    Adds FLOAT to net x-positions
   --offset.y FLOAT                    Adds FLOAT to net y-positions

@@ -381,6 +381,9 @@
         <!-- Straighten edge geometries to avoid turning radii less than geometry.min-radius -->
         <geometry.min-radius.fix value="false" type="BOOL"/>
 
+        <!-- Warn if the junction shape is to far away from the original node position -->
+        <geometry.junction-mismatch-threshold value="20" type="FLOAT"/>
+
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
 

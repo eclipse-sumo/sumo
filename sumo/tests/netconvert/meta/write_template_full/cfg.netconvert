@@ -145,6 +145,7 @@
         <geometry.max-angle value="99" type="FLOAT" help="Warn about edge geometries with an angle above DEGREES in successive segments"/>
         <geometry.min-radius value="9" type="FLOAT" help="Warn about edge geometries with a turning radius less than METERS at the start or end"/>
         <geometry.min-radius.fix value="false" type="BOOL" help="Straighten edge geometries to avoid turning radii less than geometry.min-radius"/>
+        <geometry.junction-mismatch-threshold value="20" type="FLOAT" help="Warn if the junction shape is to far away from the original node position"/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
         <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
