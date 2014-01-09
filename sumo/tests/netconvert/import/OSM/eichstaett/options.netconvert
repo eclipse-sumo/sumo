@@ -1,1 +1,1 @@
---no-internal-links --osm-files osm.xml -v --proj.utm --output.street-names --geometry.max-angle -1 --geometry.min-radius -1
+--no-internal-links --osm-files osm.xml -v --proj.utm --output.street-names --geometry.max-angle -1 --geometry.min-radius -1 --keep-edges.by-vclass passenger
