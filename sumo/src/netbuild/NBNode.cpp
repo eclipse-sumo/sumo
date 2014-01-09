@@ -617,13 +617,21 @@ NBNode::writeLogic(OutputDevice& into, const bool checkLaneFoes) const {
 
 
 void
-NBNode::computeNodeShape(bool leftHand) {
+NBNode::computeNodeShape(bool leftHand, SUMOReal mismatchThreshold) {
     if (myIncomingEdges.size() == 0 && myOutgoingEdges.size() == 0) {
         return;
     }
     try {
         NBNodeShapeComputer computer(*this);
         myPoly = computer.compute(leftHand);
+        if (myPoly.size() > 0) {
+            PositionVector tmp = myPoly;
+            tmp.push_back_noDoublePos(tmp[0]); // need closed shape
+            if (!tmp.around(myPosition)  
+                    && tmp.distance(myPosition) > mismatchThreshold) {
+                WRITE_WARNING("Junction shape for '" + myID + "' has distance " + toString(tmp.distance(myPosition)) + " to its given position");
+            }
+        }
     } catch (InvalidArgument&) {
         WRITE_WARNING("For node '" + getID() + "': could not compute shape.");
         // make sure our shape is not empty because our XML schema forbids empty attributes

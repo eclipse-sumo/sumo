@@ -299,7 +299,11 @@ NBNetBuilder::compute(OptionsCont& oc,
     // GEOMETRY COMPUTATION
     //
     PROGRESS_BEGIN_MESSAGE("Computing node shapes");
-    myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
+    if (oc.exists("geometry.junction-mismatch-threshold")) {
+        myNodeCont.computeNodeShapes(oc.getBool("lefthand"), oc.getFloat("geometry.junction-mismatch-threshold"));
+    } else {
+        myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
+    }
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Computing edge shapes");

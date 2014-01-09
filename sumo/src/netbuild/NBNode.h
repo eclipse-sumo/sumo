@@ -390,7 +390,11 @@ public:
     LinkState getLinkState(const NBEdge* incoming, NBEdge* outgoing,
                            int fromLane, bool mayDefinitelyPass, const std::string& tlID) const;
 
-    void computeNodeShape(bool leftHand);
+    /** @brief Compute the junction shape for this node
+     * @param[in] lefhand Whether the network uses left-hand traffic
+     * @param[in] mismatchThreshold The threshold for warning about shapes which are away from myPosition
+     */
+    void computeNodeShape(bool leftHand, SUMOReal mismatchThreshold=std::numeric_limits<SUMOReal>::max());
 
 
     const PositionVector& getShape() const;
