@@ -47,9 +47,26 @@
 std::vector<std::pair<SUMOReal, SUMOReal> > GLHelper::myCircleCoords;
 
 
+void APIENTRY combCallback(GLdouble coords[3],
+    GLdouble* vertex_data[4],
+    GLfloat weight[4], GLdouble** dataOut) {
+    UNUSED_PARAMETER(weight);
+    UNUSED_PARAMETER(*vertex_data);
+    GLdouble* vertex;
+
+    vertex = (GLdouble*)malloc(7 * sizeof(GLdouble));
+
+    vertex[0] = coords[0];
+    vertex[1] = coords[1];
+    vertex[2] = coords[2];
+    *dataOut = vertex;
+}
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+
 void
 GLHelper::drawFilledPoly(const PositionVector& v, bool close) {
     if (v.size() == 0) {
@@ -66,6 +83,36 @@ GLHelper::drawFilledPoly(const PositionVector& v, bool close) {
         glVertex2d(p.x(), p.y());
     }
     glEnd();
+}
+
+
+void
+GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
+    if (v.size() == 0) {
+        return;
+    }
+    GLUtesselator* tobj = gluNewTess();
+    gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
+    gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &glBegin);
+    gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &glEnd);
+    gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combCallback);
+    gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
+    gluTessBeginPolygon(tobj, NULL);
+    gluTessBeginContour(tobj);
+    double* points = new double[v.size() * 3];
+
+    for (size_t i = 0; i != v.size(); ++i) {
+        points[3 * i] = v[(int)i].x();
+        points[3 * i + 1] = v[(int)i].y();
+        points[3 * i + 2] = 0;
+        gluTessVertex(tobj, points + 3 * i, points + 3 * i);
+    }
+    if (close) {
+        gluTessVertex(tobj, points + 3, points + 3);
+    }
+    gluTessEndContour(tobj);
+    gluTessEndPolygon(tobj);
+    gluDeleteTess(tobj);
 }
 
 

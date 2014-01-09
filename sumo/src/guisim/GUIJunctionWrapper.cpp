@@ -123,7 +123,11 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         const SUMOReal colorValue = static_cast<SUMOReal>(s.junctionColorer.getActive() == 1 && gSelected.isSelected(getType(), getGlID()));
         GLHelper::setColor(s.junctionColorer.getScheme().getColor(colorValue));
         glTranslated(0, 0, getType());
-        GLHelper::drawFilledPoly(myJunction.getShape(), true);
+        if (s.scale * myMaxSize < 40.) {
+            GLHelper::drawFilledPoly(myJunction.getShape(), true);
+        } else {
+            GLHelper::drawFilledPolyTesselated(myJunction.getShape(), true);
+        }
         glPopMatrix();
     }
     if (myIsInner) {
