@@ -22,3 +22,7 @@ errors:attribute '(.*)' is already specified for element '(.*)'{REPLACE The attr
 
 [bug_system_location]
 trac:http://sumo-sim.org/trac.wsgi/
+
+[file_to_url]
+/home/delphi:http://sumo-sim.org/daily
+[end]
