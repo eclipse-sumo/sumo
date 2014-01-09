@@ -1843,10 +1843,8 @@ NBEdge::append(NBEdge* e) {
     myTurnDestination = e->myTurnDestination;
     // set the node
     myTo = e->myTo;
+    computeAngle(); // myEndAngle may be different now
 }
-
-
-
 
 
 bool
