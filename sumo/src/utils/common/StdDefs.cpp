@@ -36,7 +36,7 @@ const RGBColor SUMO_color_TL_GREEN_MAJOR(0,255,0);
 const RGBColor SUMO_color_TL_GREEN_MINOR(0,179,0);
 const RGBColor SUMO_color_TL_RED(255,0,0);
 const RGBColor SUMO_color_TL_YELLOW_MAJOR(255,255,0);
-const RGBColor SUMO_color_TL_YELLOW_MINOR(185,185,0);
+const RGBColor SUMO_color_TL_YELLOW_MINOR(255,255,0);
 const RGBColor SUMO_color_TL_OFF_BLINKING(255,140,0);
 const RGBColor SUMO_color_TL_OFF_NOSIGNAL(0,255,255);
 const RGBColor SUMO_color_MAJOR(255,255,255);
