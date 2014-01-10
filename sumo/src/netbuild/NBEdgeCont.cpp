@@ -738,7 +738,7 @@ void
 NBEdgeCont::recheckPostProcessConnections() {
     for (std::vector<PostProcessConnection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         NBEdge* from = retrievePossiblySplit((*i).from, true);
-        NBEdge* to = retrievePossiblySplit((*i).to, true);
+        NBEdge* to = retrievePossiblySplit((*i).to, false);
         if (from != 0 && to != 0) {
             if (!from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, false, (*i).mayDefinitelyPass)) {
                 WRITE_WARNING("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.");
