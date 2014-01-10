@@ -28,9 +28,11 @@ Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@id:
 Error: Attribute 'id' in definition of a edge is empty.
+Error: Process Error
 Quitting (on error).
 ------------------ net/edge[1]@id:
 Error: Attribute 'id' in definition of a edge is empty.
+Error: Process Error
 Quitting (on error).
 ------------------ net/edge[0]@id:a
 Error: unknown from-edge '1' in connection
@@ -40,9 +42,11 @@ Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@id:<remove>
 Error: Attribute 'id' is missing in definition of a edge.
+Error: Process Error
 Quitting (on error).
 ------------------ net/edge[1]@id:<remove>
 Error: Attribute 'id' is missing in definition of a edge.
+Error: Process Error
 Quitting (on error).
 ------------------ net/edge[0]@to:
 Error: Attribute 'to' in definition of edge '1' is empty.
