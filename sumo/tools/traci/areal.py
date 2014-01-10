@@ -3,7 +3,7 @@
 @file    areal.py
 @author  Mario Krumnow
 @date    2011-03-16
-@version $Id: areal.py 15031 2013-11-05 19:52:41Z krumnow $
+@version $Id$
 
 Python implementation of the TraCI interface.
 
