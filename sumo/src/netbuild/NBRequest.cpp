@@ -482,7 +482,7 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
         od.openTag(SUMO_TAG_REQUEST);
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
         od.writeAttr(SUMO_ATTR_RESPONSE, getResponseString(from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass, checkLaneFoes));
-        od.writeAttr(SUMO_ATTR_FOES, getFoesString(from, (*j).toEdge, (*j).toLane, checkLaneFoes));
+        od.writeAttr(SUMO_ATTR_FOES, getFoesString(from, (*j).toEdge, fromLane, (*j).toLane, checkLaneFoes));
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {
             od.writeAttr(SUMO_ATTR_CONT, j->haveVia);
         }
@@ -518,8 +518,9 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
                     assert(connected[k].toEdge != 0);
                     assert((size_t) getIndex(*i, connected[k].toEdge) < myIncoming.size()*myOutgoing.size());
                     // check whether the connection is prohibited by another one
-                    if (myForbids[getIndex(*i, connected[k].toEdge)][idx] &&
-                            (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane))) {
+                    if ((myForbids[getIndex(*i, connected[k].toEdge)][idx] &&
+                            (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
+                            || rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)) {
                         result += '1';
                         continue;
                     }
@@ -533,7 +534,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
 
 
 std::string
-NBRequest::getFoesString(NBEdge* from, NBEdge* to, int toLane, const bool checkLaneFoes) const {
+NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, const bool checkLaneFoes) const {
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
@@ -547,8 +548,9 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int toLane, const bool checkL
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
-                if (foes(from, to, (*i), connected[k].toEdge) &&
-                        (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane))) {
+                if ((foes(from, to, (*i), connected[k].toEdge) &&
+                        (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
+                        || rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)) {
                     result += '1';
                 } else {
                     result += '0';
@@ -579,6 +581,29 @@ NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
     const bool rightOfProhibitor = prohibitorFrom->isTurningDirectionAt(prohibitorFrom->getToNode(), to)
                                    || (angle > prohibitorAngle && !from->isTurningDirectionAt(from->getToNode(), to));
     return rightOfProhibitor ? toLane >= prohibitorToLane : toLane <= prohibitorToLane;
+}
+
+
+bool
+NBRequest::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
+                        const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const {
+    if (from != prohibitorFrom) {
+        return false;
+    }
+    if (from->isTurningDirectionAt(from->getToNode(), to)) {
+        // XXX should warn if there are any non-turning connections left of this
+        return false;
+    }
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+    if ((!lefthand && fromLane <= prohibitorFromLane) || 
+            (lefthand && fromLane >= prohibitorFromLane)) {
+        return false;
+    }
+    // conflict if to is between prohibitorTo and from when going clockwise
+    const SUMOReal toAngleAtNode = fmod(to->getStartAngle() + 180, (SUMOReal)360.0);
+    const SUMOReal prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (SUMOReal)360.0);
+    return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) < 
+        GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
 }
 
 

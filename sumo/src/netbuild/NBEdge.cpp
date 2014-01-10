@@ -290,6 +290,7 @@ NBEdge::reinitNodes(NBNode* from, NBNode* to) {
         myTo = to;
         myTo->addIncomingEdge(this);
     }
+    computeAngle();
 }
 
 
@@ -426,6 +427,7 @@ NBEdge::computeEdgeShape() {
         avgLength += myLanes[i].shape.length();
     }
     myLength = avgLength / (SUMOReal) myLanes.size();
+    computeAngle(); // update angles using the finalized node and lane shapes
 }
 
 
@@ -1261,14 +1263,27 @@ NBEdge::computeAngle() {
     // taking the angle at the first might be unstable, thus we take the angle
     // at a certain distance. (To compare two edges, additional geometry
     // segments are considered to resolve ambiguities)
-    const Position referencePosStart = myGeom.positionAtOffset2D(ANGLE_LOOKAHEAD);
+
+    const Position fromCenter = (myFrom->getShape().size() > 0 ? myFrom->getShape().getCentroid() : myFrom->getPosition());
+    const Position toCenter = (myTo->getShape().size() > 0 ? myTo->getShape().getCentroid() : myTo->getPosition());
+    PositionVector shape = myGeom;
+    // maybe the edge is actually somewhere else now
+    // we do not want to use lane shapes here because the spreadtype could interfere
+    if (myFrom->getShape().size() > 0) {
+        shape = startShapeAt(shape, myFrom);
+        if (shape.size() >= 2) {
+            shape = startShapeAt(shape.reverse(), myTo).reverse();
+        }
+    }
+
+    const Position referencePosStart = shape.positionAtOffset2D(ANGLE_LOOKAHEAD);
     myStartAngle = NBHelpers::angle(
-                       myFrom->getPosition().x(), myFrom->getPosition().y(),
+                       fromCenter.x(), fromCenter.y(),
                        referencePosStart.x(), referencePosStart.y());
-    const Position referencePosEnd = myGeom.positionAtOffset2D(myGeom.length() - ANGLE_LOOKAHEAD);
+    const Position referencePosEnd = shape.positionAtOffset2D(myGeom.length() - ANGLE_LOOKAHEAD);
     myEndAngle = NBHelpers::angle(
                      referencePosEnd.x(), referencePosEnd.y(),
-                     myTo->getPosition().x(), myTo->getPosition().y());
+                     toCenter.x(), toCenter.y());
     myTotalAngle = NBHelpers::angle(
                        myFrom->getPosition().x(), myFrom->getPosition().y(),
                        myTo->getPosition().x(), myTo->getPosition().y());
