@@ -627,7 +627,8 @@ NBNode::computeNodeShape(bool leftHand, SUMOReal mismatchThreshold) {
         if (myPoly.size() > 0) {
             PositionVector tmp = myPoly;
             tmp.push_back_noDoublePos(tmp[0]); // need closed shape
-            if (!tmp.around(myPosition)  
+            if (mismatchThreshold >= 0
+                    && !tmp.around(myPosition)  
                     && tmp.distance(myPosition) > mismatchThreshold) {
                 WRITE_WARNING("Junction shape for '" + myID + "' has distance " + toString(tmp.distance(myPosition)) + " to its given position");
             }

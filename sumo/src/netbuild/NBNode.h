@@ -394,7 +394,7 @@ public:
      * @param[in] lefhand Whether the network uses left-hand traffic
      * @param[in] mismatchThreshold The threshold for warning about shapes which are away from myPosition
      */
-    void computeNodeShape(bool leftHand, SUMOReal mismatchThreshold=std::numeric_limits<SUMOReal>::max());
+    void computeNodeShape(bool leftHand, SUMOReal mismatchThreshold);
 
 
     const PositionVector& getShape() const;
