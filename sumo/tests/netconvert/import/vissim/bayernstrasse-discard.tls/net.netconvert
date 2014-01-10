@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 30 15:49:23 2013 by SUMO netconvert Version dev-SVN-r14318
+<!-- generated on Fri Jan 10 13:18:00 2014 by SUMO netconvert Version dev-SVN-r15366
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,7 @@
 
     <processing>
         <no-internal-links value="true"/>
+        <geometry.junction-mismatch-threshold value="100"/>
     </processing>
 
     <report>
@@ -779,7 +780,7 @@
     <junction id="15" type="priority" x="1091.81" y="1488.54" incLanes="6[0]_0 6[0]_1" intLanes="" shape="1092.74,1497.18 1095.66,1491.37 1096.77,1486.51 1091.16,1483.22 1089.04,1483.88 1087.95,1490.55">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
-        <request index="2" response="0000" foes="0000"/>
+        <request index="2" response="0010" foes="0010"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="15-DestinationNode" type="unregulated" x="1028.35" y="1440.20" incLanes="15_0" intLanes="" shape="1029.02,1438.74 1027.68,1441.65"/>
@@ -794,7 +795,7 @@
     <junction id="17" type="priority" x="1414.57" y="1634.77" incLanes="6[1][1][0]_0 6[1][1][0]_1" intLanes="" shape="1461.24,1664.47 1463.14,1661.69 1462.11,1656.83 1459.00,1662.57">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
-        <request index="2" response="000" foes="000"/>
+        <request index="2" response="001" foes="001"/>
     </junction>
     <junction id="17-DestinationNode" type="unregulated" x="981.89" y="1470.03" incLanes="17_0" intLanes="" shape="981.23,1471.49 982.55,1468.57"/>
     <junction id="17-SourceNode" type="unregulated" x="1010.98" y="1483.20" incLanes="" intLanes="" shape="1011.64,1481.74 1010.31,1484.66"/>
@@ -964,7 +965,7 @@
         <request index="0" response="0000" foes="1100"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0001" foes="0001"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="3" response="0111" foes="0111"/>
     </junction>
     <junction id="34-DestinationNode" type="unregulated" x="1191.65" y="1493.06" incLanes="34_0" intLanes="" shape="1193.14,1492.49 1190.15,1493.64"/>
     <junction id="34-SourceNode" type="unregulated" x="1173.69" y="1476.96" incLanes="" intLanes="" shape="1172.92,1478.36 1174.46,1475.55"/>
