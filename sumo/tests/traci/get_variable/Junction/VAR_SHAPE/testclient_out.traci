@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:26:42 2013
+TraCITestClient output file. Date: Sun Jan 12 16:56:51 2014
 
 
 -> Command sent: <SimulationStep2>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:26:42 2013
 -> Command sent: <GetVariable>:
   domID=169 varID=78 objID=1/1
 .. Command acknowledged (169), [description: ]
-  CommandID=185  VariableID=78  ObjectID=1/1 valueDataType=6 PolygonValue: (396.75,404.75) (403.25,404.75) (404.75,403.25) (404.75,396.75) (403.25,395.25) (396.75,395.25) (395.25,396.75) (395.25,403.25) 
+  CommandID=185  VariableID=78  ObjectID=1/1 valueDataType=6 PolygonValue: (396.75,404.75) (403.25,404.75) (404.75,403.25) (404.75,396.75) (403.25,395.25) (396.75,395.25) (395.25,396.75) (395.25,403.25) (396.75,404.75) 
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
