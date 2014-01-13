@@ -141,7 +141,7 @@ MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {}
 
 
 const MSEdge*
-MSPerson::MSPersonStage_Walking::getEdge(SUMOTime /* now */) const {
+MSPerson::MSPersonStage_Walking::getEdge() const {
     return *myRouteStep;
 }
 
@@ -161,7 +161,7 @@ MSPerson::MSPersonStage_Walking::getEdgePos(SUMOTime now) const {
 
 Position
 MSPerson::MSPersonStage_Walking::getPosition(SUMOTime now) const {
-    const MSEdge* e = getEdge(now);
+    const MSEdge* e = getEdge();
     SUMOReal off = STEPS2TIME(now - myLastEntryTime);
     return getEdgePosition(e, myCurrentBeginPos + myCurrentLength / myCurrentDuration * off, SIDEWALK_OFFSET);
 }
@@ -169,7 +169,7 @@ MSPerson::MSPersonStage_Walking::getPosition(SUMOTime now) const {
 
 SUMOReal
 MSPerson::MSPersonStage_Walking::getAngle(SUMOTime now) const {
-    const MSEdge* e = getEdge(now);
+    const MSEdge* e = getEdge();
     SUMOReal off = STEPS2TIME(now - myLastEntryTime);
     return getEdgeAngle(e, myCurrentBeginPos + myCurrentLength / myCurrentDuration * off) + 90;
 }
@@ -286,7 +286,7 @@ MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 
 
 const MSEdge*
-MSPerson::MSPersonStage_Driving::getEdge(SUMOTime /* now */) const {
+MSPerson::MSPersonStage_Driving::getEdge() const {
     if (myVehicle != 0) {
         return myVehicle->getEdge();
     }
@@ -304,7 +304,7 @@ SUMOReal
 MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime now) const {
     if (myVehicle != 0) {
         // vehicle may already have passed the lane (check whether this is correct)
-        return MIN2(myVehicle->getPositionOnLane(), getEdge(now)->getLength());
+        return MIN2(myVehicle->getPositionOnLane(), getEdge()->getLength());
     }
     return myWaitingPos;
 }
@@ -394,13 +394,13 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
 
 void
 MSPerson::MSPersonStage_Driving::beginEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge(t)->getID()).closeTag();
+    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
 void
 MSPerson::MSPersonStage_Driving::endEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
-    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge(t)->getID()).closeTag();
+    os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "arrival").writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
@@ -424,7 +424,7 @@ MSPerson::MSPersonStage_Waiting::~MSPersonStage_Waiting() {}
 
 
 const MSEdge*
-MSPerson::MSPersonStage_Waiting::getEdge(SUMOTime /* now */) const {
+MSPerson::MSPersonStage_Waiting::getEdge() const {
     return &myDestination;
 }
 
@@ -490,14 +490,14 @@ MSPerson::MSPersonStage_Waiting::routeOutput(OutputDevice& os) const {
 void
 MSPerson::MSPersonStage_Waiting::beginEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actstart " + myActType)
-    .writeAttr("agent", p.getID()).writeAttr("link", getEdge(t)->getID()).closeTag();
+    .writeAttr("agent", p.getID()).writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
 void
 MSPerson::MSPersonStage_Waiting::endEventOutput(const MSPerson& p, SUMOTime t, OutputDevice& os) const {
     os.openTag("event").writeAttr("time", time2string(t)).writeAttr("type", "actend " + myActType).writeAttr("agent", p.getID())
-    .writeAttr("link", getEdge(t)->getID()).closeTag();
+    .writeAttr("link", getEdge()->getID()).closeTag();
 }
 
 
@@ -528,7 +528,7 @@ MSPerson::getID() const {
 
 bool
 MSPerson::proceed(MSNet* net, SUMOTime time) {
-    MSEdge* arrivedAt = (MSEdge*)(*myStep)->getEdge(time);
+    MSEdge* arrivedAt = (MSEdge*)(*myStep)->getEdge();
     SUMOReal atPos = (*myStep)->getEdgePos(time);
     //MSPersonPlan::iterator prior = myStep;
     (*myStep)->setArrived(time);
