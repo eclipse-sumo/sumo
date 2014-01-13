@@ -4,7 +4,7 @@
 @file    csv2xml.py
 @author  Jakob Erdmann
 @date    2013-12-08
-@version $Id: csv2xml.py 14677 2013-09-11 08:30:08Z namdre $
+@version $Id$
 
 Convert csv files to selected xml input files for SUMO
 

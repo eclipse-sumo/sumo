@@ -4,7 +4,7 @@
 @file    xml2csv.py
 @author  Jakob Erdmann
 @date    2013-12-08
-@version $Id: xml2csv.py 14677 2013-09-11 08:30:08Z namdre $
+@version $Id$
 
 Convert hierarchical xml files to csv. This only makes sense if the hirarchy has low depth.
 

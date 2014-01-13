@@ -2,7 +2,7 @@
 /// @file    StdDefs.cpp
 /// @author  Jakob Erdmann
 /// @date    2014-01-07
-/// @version $Id: StdDefs.cpp 15127 2013-11-15 12:43:31Z namdre $
+/// @version $Id$
 ///
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
