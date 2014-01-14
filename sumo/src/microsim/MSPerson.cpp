@@ -301,7 +301,7 @@ MSPerson::MSPersonStage_Driving::getFromEdge() const {
 
 
 SUMOReal
-MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime now) const {
+MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime /* now */) const {
     if (myVehicle != 0) {
         // vehicle may already have passed the lane (check whether this is correct)
         return MIN2(myVehicle->getPositionOnLane(), getEdge()->getLength());
