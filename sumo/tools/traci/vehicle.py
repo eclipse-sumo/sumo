@@ -23,6 +23,10 @@ import traci.constants as tc
 DEPART_TRIGGERED = -1
 DEPART_NOW = -2
 
+STOP_DEFAULT = 0
+STOP_PARKING = 1
+STOP_TRIGGERED = 2
+
 def _readBestLanes(result):
     result.read("!iB")
     nbLanes = result.read("!i")[0] # Length
@@ -477,11 +481,11 @@ def setMaxSpeed(vehID, speed):
     """
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED, vehID, speed)
 
-def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31-1):
-    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP, vehID, 1+4+1+4+len(edgeID)+1+8+1+1+1+4)
-    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
+def setStop(vehID, edgeID, pos=1., laneIndex=0, duration=2**31-1, flags=STOP_DEFAULT):
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP, vehID, 1+4+1+4+len(edgeID)+1+8+1+1+1+4+1+1)
+    traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(edgeID)) + edgeID
-    traci._message.string += struct.pack("!BdBBBi", tc.TYPE_DOUBLE, pos, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration)
+    traci._message.string += struct.pack("!BdBBBiBB", tc.TYPE_DOUBLE, pos, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, flags)
     traci._sendExact()
 
 def changeLane(vehID, laneIndex, duration):

@@ -8,9 +8,14 @@ sumoBinary = sumolib.checkBinary('sumo')
 
 sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, stdout=sys.stdout)
 traci.init(8813)
-for step in range(3):
-    print "step", step
+
+def step():
+    s = traci.simulation.getCurrentTime() / 1000
     traci.simulationStep()
+    return s
+
+for i in range(3):
+    print "step", step()
 
 def check(vehID):
     print "vehicles", traci.vehicle.getIDList()
@@ -61,15 +66,14 @@ vehID = "horiz"
 check(vehID)
 traci.vehicle.subscribe(vehID)
 print traci.vehicle.getSubscriptionResults(vehID)
-for step in range(3,6):
-    print "step", step
-    traci.simulationStep()
+for i in range(3):
+    print "step", step()
     print traci.vehicle.getSubscriptionResults(vehID)
 traci.vehicle.setLength(vehID, 1.0)
-traci.vehicle.setMaxSpeed(vehID, 1.0)
+traci.vehicle.setMaxSpeed(vehID, 9.0)
 traci.vehicle.setSpeedFactor(vehID, 1.1)
 traci.vehicle.setAccel(vehID, 1.1)
-traci.vehicle.setDecel(vehID, 1.1)
+traci.vehicle.setDecel(vehID, 5.1)
 traci.vehicle.setImperfection(vehID, 0.1)
 traci.vehicle.setTau(vehID, 1.1)
 traci.vehicle.setVehicleClass(vehID, "bicycle")
@@ -77,7 +81,8 @@ traci.vehicle.setEmissionClass(vehID, "zero")
 traci.vehicle.setShapeClass(vehID, "bicycle")
 traci.vehicle.setMinGap(vehID, 1.1)
 traci.vehicle.setWidth(vehID, 1.1)
-traci.vehicle.setColor(vehID, (1, 0, 0, 1))
+traci.vehicle.setColor(vehID, (255, 0, 0, 255))
+traci.vehicle.setStop(vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
 check(vehID)
 try:
     check("bla")
@@ -88,16 +93,18 @@ check("1")
 traci.vehicle.changeTarget("1", "4fi")
 print "routeID", traci.vehicle.getRouteID(vehID)
 print "route", traci.vehicle.getRoute(vehID)
-traci.simulationStep()
+print "step", step()
 traci.vehicle.addFull("2", "horizontal", line="t")
 print traci.vehicle.getIDList()
-for step in range(6):
-    traci.simulationStep()
+for i in range(6):
+    print "step", step()
+    print traci.vehicle.getSubscriptionResults(vehID)
 check("2")
 print "leader", traci.vehicle.getLeader("2")
 traci.vehicle.subscribeLeader("2")
-for step in range(6):
-    traci.simulationStep()
+for i in range(6):
+    print "step", step()
     print traci.vehicle.getSubscriptionResults("2")
+    print traci.vehicle.getSubscriptionResults(vehID)
 traci.vehicle.remove("1")
 traci.close()
