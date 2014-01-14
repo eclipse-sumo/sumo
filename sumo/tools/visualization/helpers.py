@@ -1,3 +1,24 @@
+#!/usr/bin/env python
+"""
+@file    helpers.py
+@author  Daniel Krajzewicz
+@date    2013-11-11
+@version $Id$
+
+
+Helper methods for plotting
+
+
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+"""
+
 from matplotlib import rcParams
 from pylab import *
 from matplotlib.ticker import FuncFormatter as ff
@@ -18,7 +39,7 @@ def addPlotOptions(optParser):
                          default=None, help="Defines the colors to use")
   optParser.add_option("--colormap", dest="colormap", 
                          default="spectral", help="Defines the colormap to use")
-  optParser.add_option("--labels", dest="labels", 
+  optParser.add_option("-l", "--labels", dest="labels", 
                          default=None, help="Defines the labels to use")
   optParser.add_option("--xlim", dest="xlim", 
                          default=None, help="Defines x-limits of the figure <XMIN>,<XMAX>")
@@ -134,7 +155,10 @@ def getLabel(f, i, options):
 
 
 def openFigure(options):
-  if options.size: fig = figure(figsize=(options.size.split(",")))
+  if options.size:
+    x = float(options.size.split(",")[0])
+    y = float(options.size.split(",")[1]) 
+    fig = figure(figsize=(x, y))
   else: fig = figure()
   ax = fig.add_subplot(111)
   return fig, ax
