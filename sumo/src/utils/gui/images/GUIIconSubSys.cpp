@@ -57,7 +57,8 @@
 #include "locate_vehicle.xpm"
 #include "locate_tls.xpm"
 #include "locate_add.xpm"
-#include "locate_shape.xpm"
+#include "locate_poi.xpm"
+#include "locate_poly.xpm"
 
 #include "colorwheel.xpm"
 #include "savedb.xpm"
@@ -166,7 +167,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_LOCATEVEHICLE] = new FXXPMIcon(a, locate_vehicle_xpm);
     myIcons[ICON_LOCATETLS] = new FXXPMIcon(a, locate_tls_xpm);
     myIcons[ICON_LOCATEADD] = new FXXPMIcon(a, locate_add_xpm);
-    myIcons[ICON_LOCATESHAPE] = new FXXPMIcon(a, locate_shape_xpm);
+    myIcons[ICON_LOCATEPOI] = new FXXPMIcon(a, locate_poi_xpm);
+    myIcons[ICON_LOCATEPOLY] = new FXXPMIcon(a, locate_poly_xpm);
 
     myIcons[ICON_COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);
     myIcons[ICON_SAVEDB] = new FXXPMIcon(a, savedb_xpm);

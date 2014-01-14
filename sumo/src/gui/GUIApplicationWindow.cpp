@@ -405,27 +405,27 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuTitle(myMenuBar, "&Locate", NULL, myLocatorMenu);
     new FXMenuCommand(myLocatorMenu,
                       "Locate &Junctions\t\tOpen a Dialog for Locating a Junction.",
-                      NULL, this, MID_LOCATEJUNCTION);
+                      GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
     new FXMenuCommand(myLocatorMenu,
                       "Locate &Edges\t\tOpen a Dialog for Locating an Edge.",
-                      NULL, this, MID_LOCATEEDGE);
+                      GUIIconSubSys::getIcon(ICON_LOCATEEDGE), this, MID_LOCATEEDGE);
     if (!MSGlobals::gUseMesoSim) { // there are no gui-vehicles in mesosim
         new FXMenuCommand(myLocatorMenu,
                           "Locate &Vehicles\t\tOpen a Dialog for Locating a Vehicle.",
-                          NULL, this, MID_LOCATEVEHICLE);
+                          GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), this, MID_LOCATEVEHICLE);
     }
     new FXMenuCommand(myLocatorMenu,
                       "Locate &TLS\t\tOpen a Dialog for Locating a Traffic Light.",
-                      NULL, this, MID_LOCATETLS);
+                      GUIIconSubSys::getIcon(ICON_LOCATETLS), this, MID_LOCATETLS);
     new FXMenuCommand(myLocatorMenu,
                       "Locate &Additional\t\tOpen a Dialog for Locating an Additional Structure.",
-                      NULL, this, MID_LOCATEADD);
+                      GUIIconSubSys::getIcon(ICON_LOCATEADD), this, MID_LOCATEADD);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &POI\t\tOpen a Dialog for Locating a Point of Intereset.",
-                      NULL, this, MID_LOCATEPOI);
+                      "Locate &PoI\t\tOpen a Dialog for Locating a Point of Intereset.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEPOI), this, MID_LOCATEPOI);
     new FXMenuCommand(myLocatorMenu,
                       "Locate P&olygon\t\tOpen a Dialog for Locating a Polygon.",
-                      NULL, this, MID_LOCATETLS);
+                      GUIIconSubSys::getIcon(ICON_LOCATEPOLY), this, MID_LOCATEPOLY);
     new FXMenuSeparator(myLocatorMenu);
     new FXMenuCheck(myLocatorMenu,
                     "Show Internal Structures\t\tShow internal junctions and streets in locator Dialog.",

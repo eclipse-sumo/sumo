@@ -10,7 +10,8 @@ edit_graph.xpm erode.xpm erase_stains.xpm ext.xpm \
 extract_streets.xpm eyedrop.xpm \
 fileopen.xpm fileprint.xpm filesave.xpm \
 flag.cpp flag_minus.cpp flag_plus.cpp halt.xpm locate.xpm \
-locate_add.xpm locate_edge.xpm locate_junction.xpm locate_shape.xpm \
+locate_add.xpm locate_edge.xpm locate_junction.xpm \
+locate_poi.xpm locate_poly.xpm \
 locate_tls.xpm locate_vehicle.xpm \
 magnify.xpm zoomstyle.xpm manip.cpp netopen.xpm new_window.xpm no.xpm \
 open_bmp_dialog.xpm opening.xpm \
