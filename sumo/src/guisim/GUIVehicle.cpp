@@ -1529,30 +1529,31 @@ GUIVehicle::getStopInfo() const {
 
 void
 GUIVehicle::selectBlockingFoes() const {
-    if (myLFLinkLanes.size() == 0) {
-        return;
-    }
-    const DriveProcessItem& dpi = myLFLinkLanes[0];
-    if (dpi.myLink == 0) {
-        return;
-    }
-    std::vector<const SUMOVehicle*> blockingFoes;
-    dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLengthWithGap(),
-                       getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), &blockingFoes);
-    for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
-        gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
-    }
-#ifdef HAVE_INTERNAL_LANES
-    const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(myLane->getLength() - getPositionOnLane(), getVehicleType().getMinGap());
-    for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
-        // the vehicle to enter the junction first has priority
-        const MSVehicle* leader = it->first.first;
-        if ((static_cast<const GUIVehicle*>(leader))->myLinkLeaders.count(getID()) == 0) {
-            // leader isn't already following us, now we follow it
-            gSelected.select(static_cast<const GUIVehicle*>(leader)->getGlID());
+    SUMOReal dist = myLane->getLength() - getPositionOnLane();
+    for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
+        const DriveProcessItem& dpi = *i;
+        if (dpi.myLink == 0) {
+            continue;
         }
-    }
+        std::vector<const SUMOVehicle*> blockingFoes;
+        dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLengthWithGap(),
+                getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), &blockingFoes);
+        for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
+            gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
+        }
+#ifdef HAVE_INTERNAL_LANES
+        const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(dist, getVehicleType().getMinGap());
+        for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
+            // the vehicle to enter the junction first has priority
+            const MSVehicle* leader = it->first.first;
+            if ((static_cast<const GUIVehicle*>(leader))->myLinkLeaders.count(getID()) == 0) {
+                // leader isn't already following us, now we follow it
+                gSelected.select(static_cast<const GUIVehicle*>(leader)->getGlID());
+            }
+        }
 #endif
+        dist += dpi.myLink->getViaLaneOrLane()->getLength();
+    }
 }
 
 
