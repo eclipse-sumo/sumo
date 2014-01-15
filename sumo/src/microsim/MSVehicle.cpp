@@ -977,11 +977,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(seen, getVehicleType().getMinGap());
         for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
             // the vehicle to enter the junction first has priority
-            const MSVehicle* leader = it->first;
+            const MSVehicle* leader = (*it).first.first;
             if (leader->myLinkLeaders.count(getID()) == 0) {
                 // leader isn't already following us, now we follow it
                 myLinkLeaders.insert(leader->getID());
-                adaptToLeader(*it, seen, lastLink, lane, v, vLinkPass);
+                adaptToLeader(it->first, seen, lastLink, lane, v, vLinkPass, it->second);
                 if (lastLink != 0) {
                     // we are not yet on the junction with this linkLeader.
                     // at least we can drive up to the previous link and stop there
@@ -1068,7 +1068,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
 void
 MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
                          const SUMOReal seen, DriveProcessItem* const lastLink,
-                         const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass) const {
+                         const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass,
+                         SUMOReal distToCrossing) const {
     if (leaderInfo.first != 0) {
         const MSCFModel& cfModel = getCarFollowModel();
         SUMOReal vsafeLeader = 0;
@@ -1078,6 +1079,10 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
             // the leading, in-lapping vehicle is occupying the complete next lane
             // stop before entering this lane
             vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - lane->getLength() - POSITION_EPS);
+        }
+        if (distToCrossing >= 0) {
+            // drive up to the crossing point with the current link leader
+            vsafeLeader = MAX2(vsafeLeader, cfModel.stopSpeed(this, getSpeed(), distToCrossing));
         }
         if (lastLink != 0) {
             lastLink->adaptLeaveSpeed(vsafeLeader);

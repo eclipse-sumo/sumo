@@ -1546,7 +1546,7 @@ GUIVehicle::selectBlockingFoes() const {
     const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(myLane->getLength() - getPositionOnLane(), getVehicleType().getMinGap());
     for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
         // the vehicle to enter the junction first has priority
-        const MSVehicle* leader = it->first;
+        const MSVehicle* leader = it->first.first;
         if ((static_cast<const GUIVehicle*>(leader))->myLinkLeaders.count(getID()) == 0) {
             // leader isn't already following us, now we follow it
             gSelected.select(static_cast<const GUIVehicle*>(leader)->getGlID());

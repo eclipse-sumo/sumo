@@ -432,7 +432,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap) const {
                         }
                         gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
                     }
-                    result.push_back(std::make_pair(leader, gap));
+                    result.push_back(std::make_pair(std::make_pair(leader, gap), sameTarget ? -1 : distToCrossing));
                 }
 
             }
@@ -454,7 +454,7 @@ MSLink::getLeaderInfo(SUMOReal dist, SUMOReal minGap) const {
                         }
                         gap = distToCrossing - leaderBackDist - (sameTarget ? minGap : 0);
                     }
-                    result.push_back(std::make_pair(leader, gap));
+                    result.push_back(std::make_pair(std::make_pair(leader, gap), sameTarget ? -1 : distToCrossing));
                 }
             }
         }

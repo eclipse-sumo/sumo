@@ -74,7 +74,7 @@ class OutputDevice;
 class MSLink {
 public:
 
-    typedef std::vector<std::pair<MSVehicle*, SUMOReal> > LinkLeaders;
+    typedef std::vector<std::pair<std::pair<MSVehicle*, SUMOReal>, SUMOReal> > LinkLeaders;
 
     /** @struct ApproachingVehicleInformation
      * @brief A structure holding the information about vehicles approaching a link

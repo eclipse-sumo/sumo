@@ -1160,10 +1160,12 @@ protected:
      * @param[in] lane The current Lane the vehicle is on
      * @param[in,out] the safe velocity for driving
      * @param[in,out] the safe velocity for arriving at the next link
+     * @param[in] distToCrossing The distance to the crossing point with the current leader where relevant or -1
      */
     void adaptToLeader(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
                        const SUMOReal seen, DriveProcessItem* const lastLink,
-                       const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass) const;
+                       const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass,
+                       SUMOReal distToCrossing=-1) const;
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief ids of vehicles being followed across a link (for resolving priority)
