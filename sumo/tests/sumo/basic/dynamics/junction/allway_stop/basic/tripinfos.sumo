@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  3 15:39:05 2013 by SUMO sumo Version dev-SVN-r15233
+<!-- generated on Wed Jan 15 08:43:49 2014 by SUMO sumo Version dev-SVN-r15378
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -25,6 +25,6 @@
 <tripinfos>
     <tripinfo id="v0" depart="0.00" departLane="1fi_0" departPos="400.00" departSpeed="16.00" departDelay="0.00" arrival="19.00" arrivalLane="2o_0" arrivalPos="100.00" arrivalSpeed="16.00" duration="19.00" routeLength="191.95" waitSteps="1" rerouteNo="0" devices="tripinfo_v0" vType="t0" vaporized=""/>
     <tripinfo id="v2" depart="2.00" departLane="4fi_0" departPos="400.00" departSpeed="16.00" departDelay="0.00" arrival="21.00" arrivalLane="3o_0" arrivalPos="100.00" arrivalSpeed="16.00" duration="19.00" routeLength="191.95" waitSteps="1" rerouteNo="0" devices="tripinfo_v2" vType="t0" vaporized=""/>
-    <tripinfo id="v1" depart="1.00" departLane="3fi_0" departPos="400.00" departSpeed="16.00" departDelay="0.00" arrival="22.00" arrivalLane="4o_0" arrivalPos="100.00" arrivalSpeed="16.00" duration="21.00" routeLength="191.95" waitSteps="3" rerouteNo="0" devices="tripinfo_v1" vType="t0" vaporized=""/>
-    <tripinfo id="v3" depart="3.00" departLane="2fi_0" departPos="400.00" departSpeed="16.00" departDelay="0.00" arrival="25.00" arrivalLane="1o_0" arrivalPos="100.00" arrivalSpeed="16.00" duration="22.00" routeLength="191.95" waitSteps="4" rerouteNo="0" devices="tripinfo_v3" vType="t0" vaporized=""/>
+    <tripinfo id="v1" depart="1.00" departLane="3fi_0" departPos="400.00" departSpeed="16.00" departDelay="0.00" arrival="23.00" arrivalLane="4o_0" arrivalPos="100.00" arrivalSpeed="16.00" duration="22.00" routeLength="191.95" waitSteps="2" rerouteNo="0" devices="tripinfo_v1" vType="t0" vaporized=""/>
+    <tripinfo id="v3" depart="3.00" departLane="2fi_0" departPos="400.00" departSpeed="16.00" departDelay="0.00" arrival="26.00" arrivalLane="1o_0" arrivalPos="100.00" arrivalSpeed="16.00" duration="23.00" routeLength="191.95" waitSteps="3" rerouteNo="0" devices="tripinfo_v3" vType="t0" vaporized=""/>
 </tripinfos>
