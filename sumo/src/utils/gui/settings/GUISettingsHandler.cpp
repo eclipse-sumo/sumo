@@ -172,8 +172,7 @@ GUISettingsHandler::myStartElement(int element,
                 if (myCurrentScheme->isFixed()) {
                     myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
                 } else {
-                    myCurrentScheme->addColor(color,
-                                              attrs.get<SUMOReal>(SUMO_ATTR_THRESHOLD, 0, ok));
+                    myCurrentScheme->addColor(color, attrs.getOpt<SUMOReal>(SUMO_ATTR_THRESHOLD, 0, ok, 0));
                 }
             }
             break;
