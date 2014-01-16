@@ -201,6 +201,6 @@ class Colorgen:
         
     def __call__(self):
         """return constant or randomized rgb-color string"""
-        return ','.join(map(str, colorsys.hsv_to_rgb(*map(self.get_value, self.hsv))))
+        return ','.join([str(int(round(255 * x))) for x in colorsys.hsv_to_rgb(*map(self.get_value, self.hsv))])
 
 
