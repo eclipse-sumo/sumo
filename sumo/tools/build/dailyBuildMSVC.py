@@ -175,8 +175,8 @@ for platform in ["Win32", "x64"]:
     if "SUMO_HOME" not in env:
         env["SUMO_HOME"] = os.path.join(os.path.dirname(__file__), '..', '..')
     shutil.rmtree(env["TEXTTEST_TMP"], True)
-    shutil.rmtree(env["SUMO_REPORT"], True)
-    os.mkdir(env["SUMO_REPORT"])
+    if not os.path.exists(env["SUMO_REPORT"]):
+        os.makedirs(env["SUMO_REPORT"])
     for name in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgenerate", "od2trips", "sumo", "polyconvert", "sumo-gui", "activitygen"]:
         binary = os.path.join(options.rootDir, options.binDir, name + programSuffix + ".exe")
         if name == "sumo-gui":
@@ -193,7 +193,7 @@ for platform in ["Win32", "x64"]:
         subprocess.call("texttest.py -b "+env["FILEPREFIX"]+nameopt, stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call("texttest.py -a sumo.gui -b "+env["FILEPREFIX"]+nameopt, stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call("texttest.py -b "+env["FILEPREFIX"]+" -coll", stdout=log, stderr=subprocess.STDOUT, shell=True)
-    ago = datetime.datetime.now() - datetime.timedelta(100)
+    ago = datetime.datetime.now() - datetime.timedelta(50)
     subprocess.call('texttest.py -s "batch.ArchiveRepository session='+env["FILEPREFIX"]+' before=%s"' % ago.strftime("%d%b%Y"),
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
