@@ -1,8 +1,6 @@
 Parsing nodes from 'input_nodes.nod.xml'... done.
 Parsing edges from 'input_edges.edg.xml'... done.
-Parsing edges from 'input_edges2.edg.xml'... 
-Duplicate edge id occured ('4fi'); assuming overwriting is wished.
-done.
+Parsing edges from 'input_edges2.edg.xml'... done.
  Import done:
    9 nodes loaded.
    9 edges loaded.

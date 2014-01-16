@@ -59,7 +59,7 @@
         <xsd:attribute name="priority" type="xsd:integer" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="shape" type="shapeType" use="optional"/>
+        <xsd:attribute name="shape" type="shapeTypeTwo" use="optional"/>
         <xsd:attribute name="spreadType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -83,7 +83,7 @@
         <xsd:attribute name="length" type="positiveFloatType" use="required"/>
         <xsd:attribute name="endOffset" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
-        <xsd:attribute name="shape" type="shapeType" use="required"/>
+        <xsd:attribute name="shape" type="shapeTypeTwo" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="junctionType">
@@ -111,7 +111,7 @@
         </xsd:attribute>
         <xsd:attribute name="incLanes" type="xsd:string" use="required"/>
         <xsd:attribute name="intLanes" type="xsd:string" use="required"/>
-        <xsd:attribute name="shape" type="shapeType" use="optional"/>
+        <xsd:attribute name="shape" type="shapeTypeTwo" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="requestType">

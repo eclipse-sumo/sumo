@@ -13,6 +13,7 @@
     <xsd:complexType name="edgesType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="edge" type="edgeType"/>
+            <xsd:element name="delete" type="deleteType"/>
         </xsd:choice>
         <xsd:attribute name="version" use="optional">
             <xsd:simpleType>
@@ -30,9 +31,9 @@
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
-        <xsd:attribute name="refId" type="xsd:string" use="optional"/>
-        <xsd:attribute name="from" type="xsd:string" use="required"/>
-        <xsd:attribute name="to" type="xsd:string" use="required"/>
+        <xsd:attribute name="refId" type="xsd:string"/>
+        <xsd:attribute name="from" type="xsd:string"/>
+        <xsd:attribute name="to" type="xsd:string"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="allow" type="xsd:string" use="optional"/>
@@ -76,6 +77,10 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="pos" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="deleteType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

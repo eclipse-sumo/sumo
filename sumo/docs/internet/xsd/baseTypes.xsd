@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xsd:schema [
     <!ENTITY FloatPattern "(\-)?(\d+|(\d*.\d+))">
+    <!ENTITY PositionPattern "(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?">
     <!ENTITY FloatPattern01 "(0|(0?.(\d+))|(1|1.0*))">
     <!ENTITY IntPattern255 "(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])">
 ]>
@@ -66,7 +67,15 @@
     <xsd:simpleType name="shapeType">
         <xsd:restriction base="xsd:string">
             <xsd:pattern
-                value="&FloatPattern;,&FloatPattern;(,&FloatPattern;)?(\s&FloatPattern;,&FloatPattern;(,&FloatPattern;)?)+">
+                value="(&PositionPattern;(\s&PositionPattern;)*)?">
+            </xsd:pattern>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="shapeTypeTwo">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern
+                value="&PositionPattern;\s&PositionPattern;(\s&PositionPattern;)*">
             </xsd:pattern>
         </xsd:restriction>
     </xsd:simpleType>

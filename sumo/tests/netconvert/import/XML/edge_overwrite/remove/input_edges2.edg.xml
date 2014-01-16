@@ -1,5 +1,5 @@
-<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
-    <edge id="4fi" remove="1"/>
-    <edge id="4si" remove="1"/>
-    <edge id="4o" remove="1"/>
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edgediff_file.xsd">
+    <delete id="4fi"/>
+    <delete id="4si"/>
+    <delete id="4o"/>
 </edges>

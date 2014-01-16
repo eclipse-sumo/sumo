@@ -380,6 +380,8 @@ def handle_children(xmlfile, handle_parsenode):
                 root_open = parsenode.toprettyxml(indent="")
                 # since we did not expand root_open contains the closing slash
                 root_open = root_open[:-3] + ">\n"
+                # change the schema for edge diffs
+                root_open = root_open.replace("edges_file.xsd", "edgediff_file.xsd")
                 root_close = "</%s>\n" % parsenode.localName
             if level == 1:
                 xml_doc.expandNode(parsenode) # consumes END_ELEMENT, no level increase
