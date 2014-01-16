@@ -3,7 +3,7 @@
 @file    plot_csv_timeline.py
 @author  Daniel Krajzewicz
 @date    2014-01-14
-@version $Id: plot_csv_timeline.py 14677 2013-09-11 08:30:08Z behrisch $
+@version $Id$
 
 
 This script plots selected columns from a given .csv file (';'-separated).
