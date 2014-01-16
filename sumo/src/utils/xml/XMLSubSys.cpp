@@ -47,7 +47,7 @@
 // ===========================================================================
 std::vector<SUMOSAXReader*> XMLSubSys::myReaders;
 unsigned int XMLSubSys::myNextFreeReader;
-bool XMLSubSys::myEnableValidation;
+XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes XMLSubSys::myValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
 
 
 // ===========================================================================
@@ -65,8 +65,16 @@ XMLSubSys::init() {
 
 
 void
-XMLSubSys::setValidation(bool enableValidation) {
-    myEnableValidation = enableValidation;
+XMLSubSys::setValidation(std::string validationScheme) {
+    if (validationScheme == "never") {
+        myValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never;
+    } else if (validationScheme == "auto") {
+        myValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
+    } else if (validationScheme == "always") {
+        myValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Always;
+    } else {
+        throw ProcessError("Unknown xml validation scheme + '" + validationScheme + "'.");
+    }
 }
 
 
@@ -82,7 +90,7 @@ XMLSubSys::close() {
 
 SUMOSAXReader*
 XMLSubSys::getSAXReader(SUMOSAXHandler& handler) {
-    return new SUMOSAXReader(handler, myEnableValidation);
+    return new SUMOSAXReader(handler, myValidationScheme);
 }
 
 
@@ -97,7 +105,7 @@ XMLSubSys::runParser(GenericSAXHandler& handler,
                      const std::string& file) {
     try {
         if (myNextFreeReader == myReaders.size()) {
-            myReaders.push_back(new SUMOSAXReader(handler, myEnableValidation));
+            myReaders.push_back(new SUMOSAXReader(handler, myValidationScheme));
         } else {
             myReaders[myNextFreeReader]->setHandler(handler);
         }

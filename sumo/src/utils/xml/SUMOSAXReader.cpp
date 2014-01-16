@@ -47,8 +47,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const bool enableValidation)
-    : myHandler(&handler), myEnableValidation(enableValidation),
+SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme)
+    : myHandler(&handler), myValidationScheme(validationScheme),
       myXMLReader(0), myBinaryInput(0)  {}
 
 
@@ -96,7 +96,7 @@ SUMOSAXReader::parseString(std::string content) {
 bool
 SUMOSAXReader::parseFirst(std::string systemID) {
     if (systemID.substr(systemID.length() - 4) == ".sbx") {
-        myBinaryInput = new BinaryInputDevice(systemID, true, myEnableValidation);
+        myBinaryInput = new BinaryInputDevice(systemID, true, myValidationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Always);
         char sbxVer;
         *myBinaryInput >> sbxVer;
         if (sbxVer != 1) {
@@ -174,13 +174,14 @@ SUMOSAXReader::getSAXReader() {
     if (reader == 0) {
         throw ProcessError("The XML-parser could not be build.");
     }
-    if (!myEnableValidation) {
+    // see here https://svn.apache.org/repos/asf/xerces/c/trunk/samples/src/SAX2Count/SAX2Count.cpp for the way to set features
+    if (myValidationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never) {
         reader->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesScannerName, (void*)XERCES_CPP_NAMESPACE::XMLUni::fgWFXMLScanner);
+    } else {
+        reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchema, true);
+        reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgSAX2CoreValidation, true);
+        reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesDynamic, myValidationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto);
     }
-// see here https://svn.apache.org/repos/asf/xerces/c/trunk/samples/src/SAX2Count/SAX2Count.cpp for the way to set features
-    reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchema, myEnableValidation);
-    reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgSAX2CoreValidation, myEnableValidation);
-    reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesDynamic, myEnableValidation);
     reader->setContentHandler(myHandler);
     reader->setErrorHandler(myHandler);
     return reader;

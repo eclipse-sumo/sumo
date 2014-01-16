@@ -128,7 +128,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        XMLSubSys::setValidation(oc.getBool("xml-validation"));
+        XMLSubSys::setValidation(oc.getString("xml-validation"));
         MsgHandler::initOutputOptions();
         if (!MSFrame::checkOptions()) {
             throw ProcessError();

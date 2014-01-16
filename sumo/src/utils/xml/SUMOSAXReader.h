@@ -58,7 +58,7 @@ public:
      *
      * @param[in] file The name of the processed file
      */
-    SUMOSAXReader(GenericSAXHandler& handler, const bool enableValidation = false);
+    SUMOSAXReader(GenericSAXHandler& handler, const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme);
 
     /// Destructor
     ~SUMOSAXReader();
@@ -96,7 +96,7 @@ private:
     GenericSAXHandler* myHandler;
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
-    const bool myEnableValidation;
+    const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myValidationScheme;
 
     XERCES_CPP_NAMESPACE::XMLPScanToken myToken;
 

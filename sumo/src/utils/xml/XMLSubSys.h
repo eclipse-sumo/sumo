@@ -32,6 +32,7 @@
 #endif
 
 #include <vector>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 
 
 // ===========================================================================
@@ -87,9 +88,9 @@ public:
      *
      * The setting is only valid for parsers created after the call. Existing parsers are not adapted.
      *
-     * @param[in] enableValidation Whether validation of XML-documents against schemata shall be enabled
+     * @param[in] validationScheme Whether validation of XML-documents against schemata shall be enabled
      */
-    static void setValidation(bool enableValidation);
+    static void setValidation(std::string validationScheme);
 
 
     /**
@@ -153,7 +154,7 @@ private:
     static unsigned int myNextFreeReader;
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
-    static bool myEnableValidation;
+    static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myValidationScheme;
 
 };
 
