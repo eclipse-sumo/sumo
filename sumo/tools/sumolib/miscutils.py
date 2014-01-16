@@ -21,6 +21,7 @@ import time
 import os
 import math
 import colorsys
+from random import random
 from collections import defaultdict
 
 # append import path stanca:

@@ -20,7 +20,6 @@ the Free Software Foundation; either version 3 of the License, or
 import sys
 import os
 import itertools
-from random import random
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.output import parse
