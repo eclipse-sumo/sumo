@@ -1,1 +1,1 @@
---no-step-log
+--no-step-log --xml-validation never
