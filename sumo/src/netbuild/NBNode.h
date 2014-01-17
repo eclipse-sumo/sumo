@@ -122,13 +122,6 @@ public:
     /** @brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node
-     */
-    NBNode(const std::string& id, const Position& position);
-
-
-    /** @brief Constructor
-     * @param[in] id The id of the node
-     * @param[in] position The position of the node
      * @param[in] type The type of the node
      */
     NBNode(const std::string& id, const Position& position, SumoXMLNodeType type);
@@ -137,9 +130,9 @@ public:
     /** @brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node
-     * @param[in] district The district this district node represents
+     * @param[in] district The district this district node represents, 0 means no district node
      */
-    NBNode(const std::string& id, const Position& position, NBDistrict* district);
+    NBNode(const std::string& id, const Position& position, NBDistrict* district=0);
 
 
     /// @brief Destructor

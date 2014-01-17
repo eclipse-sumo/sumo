@@ -65,7 +65,8 @@
 // method definitions
 // ===========================================================================
 NBNodeCont::NBNodeCont()
-    : myInternalID(1) {}
+    : myInternalID(1) {
+}
 
 
 NBNodeCont::~NBNodeCont() {
@@ -83,18 +84,8 @@ NBNodeCont::insert(const std::string& id, const Position& position,
     }
     NBNode* node = new NBNode(id, position, district);
     myNodes[id] = node;
-    return true;
-}
-
-
-bool
-NBNodeCont::insert(const std::string& id, const Position& position) {
-    NodeCont::iterator i = myNodes.find(id);
-    if (i != myNodes.end()) {
-        return false;
-    }
-    NBNode* node = new NBNode(id, position);
-    myNodes[id] = node;
+    const float pos[2] = {(float)position.x(), (float)position.y()};
+    myRTree.Insert(pos, pos, node);
     return true;
 }
 
@@ -108,6 +99,8 @@ NBNodeCont::insert(const std::string& id) {
     } else {
         NBNode* node = new NBNode(id, Position(-1.0, -1.0));
         myNodes[id] = node;
+        const float pos[2] = {(float)-1, (float)-1};
+        myRTree.Insert(pos, pos, node);
     }
     return Position(-1, -1);
 }
@@ -121,6 +114,8 @@ NBNodeCont::insert(NBNode* node) {
         return false;
     }
     myNodes[id] = node;
+    const float pos[2] = {(float)node->getPosition().x(), (float)node->getPosition().y()};
+    myRTree.Insert(pos, pos, node);
     return true;
 }
 
@@ -137,8 +132,14 @@ NBNodeCont::retrieve(const std::string& id) const {
 
 NBNode*
 NBNodeCont::retrieve(const Position& position, SUMOReal offset) const {
-    for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        NBNode* node = (*i).second;
+    offset += POSITION_EPS;
+    const float cmin[2] = {(float)(position.x() - offset), (float)(position.y() - offset)};
+    const float cmax[2] = {(float)(position.x() + offset), (float)(position.y() + offset)};
+    std::set<std::string> into;
+    Named::StoringVisitor sv(into);
+    myRTree.Search(cmin, cmax, sv);
+    for (std::set<std::string>::const_iterator i = into.begin(); i != into.end(); i++) {
+        NBNode* node = myNodes.find(*i)->second;
         if (fabs(node->getPosition().x() - position.x()) < offset
                 &&
                 fabs(node->getPosition().y() - position.y()) < offset) {
@@ -167,6 +168,8 @@ NBNodeCont::extract(NBNode* node, bool remember) {
         return false;
     }
     myNodes.erase(i);
+    const float pos[2] = {(float)node->getPosition().x(), (float)node->getPosition().y()};
+    myRTree.Remove(pos, pos, node);
     node->removeTrafficLights();
     if (remember) {
         myExtractedNodes.insert(node);
