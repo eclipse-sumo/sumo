@@ -1,0 +1,646 @@
+------------------ net/edge[0]@from:
+ Wrong error code returned (0)!
+------------------ net/edge[1]@from:
+ Wrong error code returned (0)!
+------------------ net/edge[0]@from:a
+ Wrong error code returned (0)!
+------------------ net/edge[1]@from:a
+ Wrong error code returned (0)!
+------------------ net/edge[0]@from:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[1]@from:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[0]@function:a
+Error: Edge '1' has an invalid type.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]@function:a
+Error: Edge '2' has an invalid type.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]@id:
+Error: Attribute 'id' in definition of a edge is empty.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]@id:
+Error: Attribute 'id' in definition of a edge is empty.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]@id:a
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]@id:a
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]@id:<remove>
+Error: Attribute 'id' is missing in definition of a edge.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]@id:<remove>
+Error: Attribute 'id' is missing in definition of a edge.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]@to:
+ Wrong error code returned (0)!
+------------------ net/edge[1]@to:
+ Wrong error code returned (0)!
+------------------ net/edge[0]@to:a
+ Wrong error code returned (0)!
+------------------ net/edge[1]@to:a
+ Wrong error code returned (0)!
+------------------ net/edge[0]@to:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[1]@to:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[0]:<remove>
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]:<remove>
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]:<duplicate>
+Error: Another edge with the id '1' exists.
+Quitting (on error).
+------------------ net/edge[1]:<duplicate>
+Error: Another edge with the id '2' exists.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@index:
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@index:
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@index:
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@index:
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@index:a
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@index:a
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@index:a
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@index:a
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@id:
+Error: Attribute 'id' in definition of a lane is empty.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@id:
+Error: Attribute 'id' in definition of a lane is empty.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@id:
+Error: Attribute 'id' in definition of a lane is empty.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@id:
+Error: Attribute 'id' in definition of a lane is empty.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@id:a_0
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@id:a_1
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@id:a_0
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@id:a_1
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@id:<remove>
+Error: Attribute 'id' is missing in definition of a lane.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@id:<remove>
+Error: Attribute 'id' is missing in definition of a lane.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@id:<remove>
+Error: Attribute 'id' is missing in definition of a lane.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@id:<remove>
+Error: Attribute 'id' is missing in definition of a lane.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@length:
+Error: Attribute 'length' in definition of lane '1_0' is empty.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@length:
+Error: Attribute 'length' in definition of lane '1_1' is empty.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@length:
+Error: Attribute 'length' in definition of lane '2_0' is empty.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@length:
+Error: Attribute 'length' in definition of lane '2_1' is empty.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@length:a
+Error: Attribute 'length' in definition of lane '1_0' is not of type float.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@length:a
+Error: Attribute 'length' in definition of lane '1_1' is not of type float.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@length:a
+Error: Attribute 'length' in definition of lane '2_0' is not of type float.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@length:a
+Error: Attribute 'length' in definition of lane '2_1' is not of type float.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@length:<remove>
+Error: Attribute 'length' is missing in definition of lane '1_0'.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@length:<remove>
+Error: Attribute 'length' is missing in definition of lane '1_1'.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@length:<remove>
+Error: Attribute 'length' is missing in definition of lane '2_0'.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@length:<remove>
+Error: Attribute 'length' is missing in definition of lane '2_1'.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:
+Error: Shape of lane '1_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:
+Error: Shape of lane '1_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:
+Error: Shape of lane '2_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:
+Error: Shape of lane '2_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:a
+Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: Shape of lane '1_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:a
+Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: Shape of lane '1_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:a
+Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: Shape of lane '2_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:a
+Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: Shape of lane '2_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:<remove>
+Error: Attribute 'shape' is missing in definition of lane '1_0'.
+Error: Shape of lane '1_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:<remove>
+Error: Attribute 'shape' is missing in definition of lane '1_1'.
+Error: Shape of lane '1_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:<remove>
+Error: Attribute 'shape' is missing in definition of lane '2_0'.
+Error: Shape of lane '2_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:<remove>
+Error: Attribute 'shape' is missing in definition of lane '2_1'.
+Error: Shape of lane '2_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:a,-4.95 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: Shape of lane '1_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:a,-4.95 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: Shape of lane '1_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:a,-4.95 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: Shape of lane '2_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:a,-4.95 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: Shape of lane '2_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:0.00,a 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: Shape of lane '1_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:0.00,a 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: Shape of lane '1_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:0.00,a 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: Shape of lane '2_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:0.00,a 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: Shape of lane '2_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a,-4.95
+Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: Shape of lane '1_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a,-4.95
+Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: Shape of lane '1_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a,-4.95
+Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: Shape of lane '2_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a,-4.95
+Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: Shape of lane '2_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: Shape of lane '1_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: Shape of lane '1_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: Shape of lane '2_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
+Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: Shape of lane '2_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:100.00,-4.95
+Error: Shape of lane '1_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:0100.00,-4.95
+Error: Shape of lane '1_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:100.00,-4.95
+Error: Shape of lane '2_0' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:100.00,-4.95
+Error: Shape of lane '2_1' is broken.
+ Can not build according edge.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[0]:<remove>
+Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
+Error: Invalid lane index in connection from '1' to '2'.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]:<remove>
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Invalid lane index in connection from '1' to '2'.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]:<remove>
+Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
+Error: Invalid lane index in connection from '1' to '2'.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]:<remove>
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Invalid lane index in connection from '1' to '2'.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]:<duplicate>
+Error: Another lane with the id '1_0' exists.
+Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[0]/lane[1]:<duplicate>
+Error: Another lane with the id '1_1' exists.
+Error: Unknown from-edge '1' in connection
+Error: Unknown from-edge '1' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[0]:<duplicate>
+Error: Another lane with the id '2_0' exists.
+Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/edge[1]/lane[1]:<duplicate>
+Error: Another lane with the id '2_1' exists.
+Error: Unknown to-edge '2' in connection
+Error: Unknown to-edge '2' in connection
+Quitting (on error).
+------------------ net/junction[0]@id:
+Error: Attribute 'id' in definition of a junction is empty.
+Quitting (on error).
+------------------ net/junction[1]@id:
+Error: Attribute 'id' in definition of a junction is empty.
+Quitting (on error).
+------------------ net/junction[2]@id:
+Error: Attribute 'id' in definition of a junction is empty.
+Quitting (on error).
+------------------ net/junction[0]@id:a
+ Wrong error code returned (0)!
+------------------ net/junction[1]@id:a
+ Wrong error code returned (0)!
+------------------ net/junction[2]@id:a
+ Wrong error code returned (0)!
+------------------ net/junction[0]@id:<remove>
+Error: Attribute 'id' is missing in definition of a junction.
+Quitting (on error).
+------------------ net/junction[1]@id:<remove>
+Error: Attribute 'id' is missing in definition of a junction.
+Quitting (on error).
+------------------ net/junction[2]@id:<remove>
+Error: Attribute 'id' is missing in definition of a junction.
+Quitting (on error).
+------------------ net/junction[0]@type:
+Error: An unknown or invalid junction type occured in junction '1'.
+Quitting (on error).
+------------------ net/junction[1]@type:
+Error: An unknown or invalid junction type occured in junction '2'.
+Quitting (on error).
+------------------ net/junction[2]@type:
+Error: An unknown or invalid junction type occured in junction '3'.
+Quitting (on error).
+------------------ net/junction[0]@type:a
+Error: An unknown or invalid junction type occured in junction '1'.
+Quitting (on error).
+------------------ net/junction[1]@type:a
+Error: An unknown or invalid junction type occured in junction '2'.
+Quitting (on error).
+------------------ net/junction[2]@type:a
+Error: An unknown or invalid junction type occured in junction '3'.
+Quitting (on error).
+------------------ net/junction[0]@type:<remove>
+Error: False junction logic type.
+Quitting (on error).
+------------------ net/junction[1]@type:<remove>
+Error: False junction logic type.
+Quitting (on error).
+------------------ net/junction[2]@type:<remove>
+Error: False junction logic type.
+Quitting (on error).
+------------------ net/junction[1]@incLanes:a_0 1_1
+Error: An unknown lane ('a_0') was tried to be set as incoming to junction '2'.
+Quitting (on error).
+------------------ net/junction[1]@incLanes:1_0 a_1
+Error: An unknown lane ('a_1') was tried to be set as incoming to junction '2'.
+Quitting (on error).
+------------------ net/junction[2]@incLanes:a_0 2_1
+Error: An unknown lane ('a_0') was tried to be set as incoming to junction '3'.
+Quitting (on error).
+------------------ net/junction[2]@incLanes:2_0 a_1
+Error: An unknown lane ('a_1') was tried to be set as incoming to junction '3'.
+Quitting (on error).
+------------------ net/junction[0]:<remove>
+ Wrong error code returned (0)!
+------------------ net/junction[1]:<remove>
+ Wrong error code returned (0)!
+------------------ net/junction[2]:<remove>
+ Wrong error code returned (0)!
+------------------ net/junction[0]:<duplicate>
+Error: Another junction with the id '1' exists.
+Quitting (on error).
+------------------ net/junction[1]:<duplicate>
+Error: Junction logic '2' was defined twice.
+Quitting (on error).
+------------------ net/junction[2]:<duplicate>
+Error: Another junction with the id '3' exists.
+Quitting (on error).
+------------------ net/connection[0]@from:
+Error: Attribute 'from' in definition of a connection is empty.
+Error: Unknown from-edge '' in connection
+Quitting (on error).
+------------------ net/connection[1]@from:
+Error: Attribute 'from' in definition of a connection is empty.
+Error: Unknown from-edge '' in connection
+Quitting (on error).
+------------------ net/connection[0]@from:a
+Error: Unknown from-edge 'a' in connection
+Quitting (on error).
+------------------ net/connection[1]@from:a
+Error: Unknown from-edge 'a' in connection
+Quitting (on error).
+------------------ net/connection[0]@from:<remove>
+Error: Attribute 'from' is missing in definition of a connection.
+Error: Unknown from-edge '' in connection
+Quitting (on error).
+------------------ net/connection[1]@from:<remove>
+Error: Attribute 'from' is missing in definition of a connection.
+Error: Unknown from-edge '' in connection
+Quitting (on error).
+------------------ net/connection[0]@to:
+Error: Attribute 'to' in definition of a connection is empty.
+Error: Unknown to-edge '' in connection
+Quitting (on error).
+------------------ net/connection[1]@to:
+Error: Attribute 'to' in definition of a connection is empty.
+Error: Unknown to-edge '' in connection
+Quitting (on error).
+------------------ net/connection[0]@to:a
+Error: Unknown to-edge 'a' in connection
+Quitting (on error).
+------------------ net/connection[1]@to:a
+Error: Unknown to-edge 'a' in connection
+Quitting (on error).
+------------------ net/connection[0]@to:<remove>
+Error: Attribute 'to' is missing in definition of a connection.
+Error: Unknown to-edge '' in connection
+Quitting (on error).
+------------------ net/connection[1]@to:<remove>
+Error: Attribute 'to' is missing in definition of a connection.
+Error: Unknown to-edge '' in connection
+Quitting (on error).
+------------------ net/connection[0]:<duplicate>
+Error: Found invalid logic position of a link (network error)
+Quitting (on error).
+------------------ net/connection[1]:<duplicate>
+Error: Found invalid logic position of a link (network error)
+Quitting (on error).

@@ -11,16 +11,16 @@
 ------------------ net/edge[1]@from:<remove>
  Wrong error code returned (0)!
 ------------------ net/edge[0]@function:a
-Error: Edge '1' has an invalid type.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value 'a' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 26/60.
+
 Quitting (on error).
 ------------------ net/edge[1]@function:a
-Error: Edge '2' has an invalid type.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value 'a' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 30/60.
+
 Quitting (on error).
 ------------------ net/edge[0]@id:
 Error: Attribute 'id' in definition of a edge is empty.
@@ -43,16 +43,16 @@ Error: Unknown to-edge '2' in connection
 Error: Unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@id:<remove>
-Error: Attribute 'id' is missing in definition of a edge.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 26/40.
+
 Quitting (on error).
 ------------------ net/edge[1]@id:<remove>
-Error: Attribute 'id' is missing in definition of a edge.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 30/40.
+
 Quitting (on error).
 ------------------ net/edge[0]@to:
  Wrong error code returned (0)!
@@ -83,21 +83,53 @@ Quitting (on error).
 Error: Another edge with the id '2' exists.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@index:
- Wrong error code returned (0)!
+Error: value '' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 27/96.
+
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@index:
- Wrong error code returned (0)!
+Error: value '' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 28/96.
+
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@index:
- Wrong error code returned (0)!
+Error: value '' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 31/98.
+
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@index:
- Wrong error code returned (0)!
+Error: value '' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 32/98.
+
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@index:a
- Wrong error code returned (0)!
+Error: value 'a' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 27/97.
+
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@index:a
- Wrong error code returned (0)!
+Error: value 'a' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 28/97.
+
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@index:a
- Wrong error code returned (0)!
+Error: value 'a' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 31/99.
+
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@index:a
- Wrong error code returned (0)!
+Error: value 'a' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 32/99.
+
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@id:
 Error: Attribute 'id' in definition of a lane is empty.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
@@ -135,348 +167,292 @@ Quitting (on error).
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@id:<remove>
-Error: Attribute 'id' is missing in definition of a lane.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 27/88.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@id:<remove>
-Error: Attribute 'id' is missing in definition of a lane.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 28/88.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@id:<remove>
-Error: Attribute 'id' is missing in definition of a lane.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 31/90.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@id:<remove>
-Error: Attribute 'id' is missing in definition of a lane.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 32/90.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@length:
-Error: Attribute 'length' in definition of lane '1_0' is empty.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: empty string encountered
+ In file 'mod.net.xml'
+ At line/column 27/91.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@length:
-Error: Attribute 'length' in definition of lane '1_1' is empty.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: empty string encountered
+ In file 'mod.net.xml'
+ At line/column 28/91.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@length:
-Error: Attribute 'length' in definition of lane '2_0' is empty.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: empty string encountered
+ In file 'mod.net.xml'
+ At line/column 31/93.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@length:
-Error: Attribute 'length' in definition of lane '2_1' is empty.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: empty string encountered
+ In file 'mod.net.xml'
+ At line/column 32/93.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@length:a
-Error: Attribute 'length' in definition of lane '1_0' is not of type float.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: invalid character encountered
+ In file 'mod.net.xml'
+ At line/column 27/92.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@length:a
-Error: Attribute 'length' in definition of lane '1_1' is not of type float.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: invalid character encountered
+ In file 'mod.net.xml'
+ At line/column 28/92.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@length:a
-Error: Attribute 'length' in definition of lane '2_0' is not of type float.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: invalid character encountered
+ In file 'mod.net.xml'
+ At line/column 31/94.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@length:a
-Error: Attribute 'length' in definition of lane '2_1' is not of type float.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: invalid character encountered
+ In file 'mod.net.xml'
+ At line/column 32/94.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@length:<remove>
-Error: Attribute 'length' is missing in definition of lane '1_0'.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: missing required attribute 'length'
+ In file 'mod.net.xml'
+ At line/column 27/81.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@length:<remove>
-Error: Attribute 'length' is missing in definition of lane '1_1'.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: missing required attribute 'length'
+ In file 'mod.net.xml'
+ At line/column 28/81.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@length:<remove>
-Error: Attribute 'length' is missing in definition of lane '2_0'.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: missing required attribute 'length'
+ In file 'mod.net.xml'
+ At line/column 31/83.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@length:<remove>
-Error: Attribute 'length' is missing in definition of lane '2_1'.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: missing required attribute 'length'
+ In file 'mod.net.xml'
+ At line/column 32/83.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:
-Error: Shape of lane '1_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 27/74.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:
-Error: Shape of lane '1_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 28/74.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:
-Error: Shape of lane '2_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 31/74.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:
-Error: Shape of lane '2_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 32/74.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a
-Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
-Error: Shape of lane '1_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 27/75.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a
-Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
-Error: Shape of lane '1_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 28/75.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a
-Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
-Error: Shape of lane '2_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 31/75.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a
-Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
-Error: Shape of lane '2_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 32/75.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:<remove>
-Error: Attribute 'shape' is missing in definition of lane '1_0'.
-Error: Shape of lane '1_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: missing required attribute 'shape'
+ In file 'mod.net.xml'
+ At line/column 27/65.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:<remove>
-Error: Attribute 'shape' is missing in definition of lane '1_1'.
-Error: Shape of lane '1_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: missing required attribute 'shape'
+ In file 'mod.net.xml'
+ At line/column 28/65.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:<remove>
-Error: Attribute 'shape' is missing in definition of lane '2_0'.
-Error: Shape of lane '2_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: missing required attribute 'shape'
+ In file 'mod.net.xml'
+ At line/column 31/65.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:<remove>
-Error: Attribute 'shape' is missing in definition of lane '2_1'.
-Error: Shape of lane '2_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: missing required attribute 'shape'
+ In file 'mod.net.xml'
+ At line/column 32/65.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a,-4.95 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
-Error: Shape of lane '1_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 27/94.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a,-4.95 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
-Error: Shape of lane '1_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 28/94.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a,-4.95 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
-Error: Shape of lane '2_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 31/94.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a,-4.95 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
-Error: Shape of lane '2_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 32/94.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
-Error: Shape of lane '1_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 27/93.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
-Error: Shape of lane '1_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 28/93.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
-Error: Shape of lane '2_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 31/93.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
-Error: Shape of lane '2_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 32/93.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a,-4.95
-Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
-Error: Shape of lane '1_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 27/92.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a,-4.95
-Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
-Error: Shape of lane '1_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 28/92.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a,-4.95
-Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
-Error: Shape of lane '2_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 31/92.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a,-4.95
-Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
-Error: Shape of lane '2_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 32/92.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
-Error: Shape of lane '1_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 27/99.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
-Error: Shape of lane '1_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 28/99.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
-Error: Shape of lane '2_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 31/99.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
-Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
-Error: Shape of lane '2_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 32/99.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:100.00,-4.95
-Error: Shape of lane '1_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 27/86.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0100.00,-4.95
-Error: Shape of lane '1_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Unknown from-edge '1' in connection
-Error: Unknown from-edge '1' in connection
+Error: value '0100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 28/87.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:100.00,-4.95
-Error: Shape of lane '2_0' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 31/86.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:100.00,-4.95
-Error: Shape of lane '2_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
-Error: Unknown to-edge '2' in connection
-Error: Unknown to-edge '2' in connection
+Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+ In file 'mod.net.xml'
+ At line/column 32/86.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]:<remove>
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
@@ -532,40 +508,76 @@ Quitting (on error).
 ------------------ net/junction[2]@id:a
  Wrong error code returned (0)!
 ------------------ net/junction[0]@id:<remove>
-Error: Attribute 'id' is missing in definition of a junction.
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 35/109.
+
 Quitting (on error).
 ------------------ net/junction[1]@id:<remove>
-Error: Attribute 'id' is missing in definition of a junction.
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 36/129.
+
 Quitting (on error).
 ------------------ net/junction[2]@id:<remove>
-Error: Attribute 'id' is missing in definition of a junction.
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 40/120.
+
 Quitting (on error).
 ------------------ net/junction[0]@type:
-Error: An unknown or invalid junction type occured in junction '1'.
+Error: value '' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 35/105.
+
 Quitting (on error).
 ------------------ net/junction[1]@type:
-Error: An unknown or invalid junction type occured in junction '2'.
+Error: value '' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 36/128.
+
 Quitting (on error).
 ------------------ net/junction[2]@type:
-Error: An unknown or invalid junction type occured in junction '3'.
+Error: value '' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 40/116.
+
 Quitting (on error).
 ------------------ net/junction[0]@type:a
-Error: An unknown or invalid junction type occured in junction '1'.
+Error: value 'a' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 35/106.
+
 Quitting (on error).
 ------------------ net/junction[1]@type:a
-Error: An unknown or invalid junction type occured in junction '2'.
+Error: value 'a' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 36/129.
+
 Quitting (on error).
 ------------------ net/junction[2]@type:a
-Error: An unknown or invalid junction type occured in junction '3'.
+Error: value 'a' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 40/117.
+
 Quitting (on error).
 ------------------ net/junction[0]@type:<remove>
-Error: False junction logic type.
+Error: missing required attribute 'type'
+ In file 'mod.net.xml'
+ At line/column 35/97.
+
 Quitting (on error).
 ------------------ net/junction[1]@type:<remove>
-Error: False junction logic type.
+Error: missing required attribute 'type'
+ In file 'mod.net.xml'
+ At line/column 36/120.
+
 Quitting (on error).
 ------------------ net/junction[2]@type:<remove>
-Error: False junction logic type.
+Error: missing required attribute 'type'
+ In file 'mod.net.xml'
+ At line/column 40/108.
+
 Quitting (on error).
 ------------------ net/junction[1]@incLanes:a_0 1_1
 Error: An unknown lane ('a_0') was tried to be set as incoming to junction '2'.
@@ -609,12 +621,16 @@ Quitting (on error).
 Error: Unknown from-edge 'a' in connection
 Quitting (on error).
 ------------------ net/connection[0]@from:<remove>
-Error: Attribute 'from' is missing in definition of a connection.
-Error: Unknown from-edge '' in connection
+Error: missing required attribute 'from'
+ In file 'mod.net.xml'
+ At line/column 42/67.
+
 Quitting (on error).
 ------------------ net/connection[1]@from:<remove>
-Error: Attribute 'from' is missing in definition of a connection.
-Error: Unknown from-edge '' in connection
+Error: missing required attribute 'from'
+ In file 'mod.net.xml'
+ At line/column 43/67.
+
 Quitting (on error).
 ------------------ net/connection[0]@to:
 Error: Attribute 'to' in definition of a connection is empty.
@@ -631,12 +647,16 @@ Quitting (on error).
 Error: Unknown to-edge 'a' in connection
 Quitting (on error).
 ------------------ net/connection[0]@to:<remove>
-Error: Attribute 'to' is missing in definition of a connection.
-Error: Unknown to-edge '' in connection
+Error: missing required attribute 'to'
+ In file 'mod.net.xml'
+ At line/column 42/69.
+
 Quitting (on error).
 ------------------ net/connection[1]@to:<remove>
-Error: Attribute 'to' is missing in definition of a connection.
-Error: Unknown to-edge '' in connection
+Error: missing required attribute 'to'
+ In file 'mod.net.xml'
+ At line/column 43/69.
+
 Quitting (on error).
 ------------------ net/connection[0]:<duplicate>
 Error: Found invalid logic position of a link (network error)

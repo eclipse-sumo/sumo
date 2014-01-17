@@ -210,7 +210,7 @@ elif sys.argv[1]=="jtrrouter":
             "-o", "dummy.xml", "-t", "input_additional.add.xml"]
 else:
     print >> sys.stderr, "Unsupported application defined"
-
+call += sys.argv[2:]
 
 netconvertBinary = checkBinary('netconvert')
 
@@ -218,17 +218,13 @@ netconvertBinary = checkBinary('netconvert')
 print ">>> Building the correct network"
 retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
 print ">>> Trying the correct network"
-call.append("-n")
-call.append("correct.net.xml")
-retcode = subprocess.call(call, stdout=sys.stdout, stderr=sys.stderr)
-if retcode!=0:
+retcode = subprocess.call(call + ["-n", "correct.net.xml"], stdout=sys.stdout, stderr=sys.stderr)
+if retcode != 0:
     print "Error on processing the 'correct' network!"
     sys.exit()
 print ">>> ok...\n"
 
 # check broken network processing
-call = call[:-1]
-call.append("mod.net.xml")
 print "Running broken net"
 for c in changes:
     tree = dom.parse("correct.net.xml")
@@ -238,9 +234,8 @@ for c in changes:
     writer.close()
     print >> sys.stderr, "------------------ " + c[0] + ":" + c[1]
     sys.stderr.flush()
-    retcode = subprocess.call(call, stdout=sys.stdout, stderr=sys.stderr)
+    retcode = subprocess.call(call + ["-n", "mod.net.xml"], stdout=sys.stdout, stderr=sys.stderr)
     sys.stderr.flush()
     sys.stdout.flush()
     if retcode != 1:
         print >> sys.stderr, " Wrong error code returned (%s)!" % retcode
-
