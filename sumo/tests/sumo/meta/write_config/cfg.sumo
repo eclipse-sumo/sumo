@@ -13,7 +13,6 @@
     </time>
 
     <report>
-        <xml-validation value="never"/>
         <no-duration-log value="true"/>
     </report>
 
