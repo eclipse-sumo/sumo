@@ -1,1 +1,1 @@
---save-configuration config.cfg --net-file=input_messstrecke.net.xml --detector-files=input_messstrecke.det.xml --detectors-poi-output detectors.poi.xml
+{CLEAR} --save-configuration config.cfg --net-file=input_messstrecke.net.xml --detector-files=input_messstrecke.det.xml --detectors-poi-output detectors.poi.xml
