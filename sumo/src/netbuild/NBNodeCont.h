@@ -125,7 +125,7 @@ public:
      * @param[in] offset An offset which can be applied in the case positions are blurred
      * @return The node at the given position, or 0 if no such node exists
      */
-    NBNode* retrieve(const Position& position, SUMOReal offset = 0.) const;
+    NBNode* retrieve(const Position& position, const SUMOReal offset = 0.) const;
 
 
     /** @brief Returns the pointer to the begin of the stored nodes

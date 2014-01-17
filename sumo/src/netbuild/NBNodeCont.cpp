@@ -131,18 +131,18 @@ NBNodeCont::retrieve(const std::string& id) const {
 
 
 NBNode*
-NBNodeCont::retrieve(const Position& position, SUMOReal offset) const {
-    offset += POSITION_EPS;
-    const float cmin[2] = {(float)(position.x() - offset), (float)(position.y() - offset)};
-    const float cmax[2] = {(float)(position.x() + offset), (float)(position.y() + offset)};
+NBNodeCont::retrieve(const Position& position, const SUMOReal offset) const {
+    const SUMOReal extOffset = offset + POSITION_EPS;
+    const float cmin[2] = {(float)(position.x() - extOffset), (float)(position.y() - extOffset)};
+    const float cmax[2] = {(float)(position.x() + extOffset), (float)(position.y() + extOffset)};
     std::set<std::string> into;
     Named::StoringVisitor sv(into);
     myRTree.Search(cmin, cmax, sv);
     for (std::set<std::string>::const_iterator i = into.begin(); i != into.end(); i++) {
-        NBNode* node = myNodes.find(*i)->second;
-        if (fabs(node->getPosition().x() - position.x()) < offset
+        NBNode* const node = myNodes.find(*i)->second;
+        if (fabs(node->getPosition().x() - position.x()) <= offset
                 &&
-                fabs(node->getPosition().y() - position.y()) < offset) {
+                fabs(node->getPosition().y() - position.y()) <= offset) {
             return node;
         }
     }
