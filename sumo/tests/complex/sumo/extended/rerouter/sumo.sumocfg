@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -12,8 +13,9 @@
     </output>
 
     <report>
-        <no-step-log value="true" />
-        <no-duration-log value="true" />
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
     </report>
 
 </configuration>

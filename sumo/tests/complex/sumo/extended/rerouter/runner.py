@@ -44,11 +44,11 @@ def writeRerouter(edge, t, rerouter, embedded):
     fdo = open("rerouter.xml", "w")
     fdo.write('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/additional_file.xsd">\n\n')
     if embedded:
-        fdo.write('<rerouter id="rerouter" edges="%s" pos="20">\n' % (edge))
+        fdo.write('<rerouter id="rerouter" edges="%s">\n' % (edge))
         writeRerouterDefinition(fdo, edge, t, rerouter)
         fdo.write('</rerouter>\n')
     else:
-        fdo.write('<rerouter id="rerouter" edges="%s" pos="20" file="input_definition.def.xml"/>\n' % (edge))
+        fdo.write('<rerouter id="rerouter" edges="%s" file="input_definition.def.xml"/>\n' % (edge))
     fdo.write('</additional>\n')
     fdo.close()
     if not embedded:
@@ -134,4 +134,3 @@ for r in rerouter:
                     try: os.remove("vehroutes.xml")
                     except: pass
     nd.close()
-
