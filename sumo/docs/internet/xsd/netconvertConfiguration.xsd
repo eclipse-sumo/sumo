@@ -172,6 +172,7 @@
             <xsd:element name="geometry.max-angle" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.min-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.min-radius.fix" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.junction-mismatch-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="offset.disable-normalization" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="offset.x" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="offset.y" type="floatOptionType" minOccurs="0"/>
@@ -203,7 +204,7 @@
             <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="xml-validation" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>

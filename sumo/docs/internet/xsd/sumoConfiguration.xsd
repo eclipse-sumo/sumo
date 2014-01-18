@@ -97,7 +97,7 @@
             <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="xml-validation" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
@@ -152,6 +152,7 @@
     <xsd:complexType name="traci_serverType">
         <xsd:all>
             <xsd:element name="remote-port" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="python-script" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
