@@ -45,7 +45,7 @@ plain_connections:<!--{[->]}-->
 plain_tllogic:<!--{[->]}-->
 joined_nodes:<!--{[->]}-->
 net:<!--{[->]}-->
-foreign:date="{[->]}"
+foreign:date="[^"]*"{REPLACE date="DATE"}
 pois:<!--{[->]}-->
 errors:Leaked object at 
 errors:*** 9 leaks found
