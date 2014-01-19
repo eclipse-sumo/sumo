@@ -814,6 +814,15 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
 }
 
 
+const MSEdge*
+MSLane::getInternalFollower() const {
+    const MSEdge* e = myEdge;
+    while (e->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+        e = e->getFollower(0);
+    }
+    return e;
+}
+
 
 // ------ Static (sic!) container methods  ------
 bool

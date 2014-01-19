@@ -179,7 +179,7 @@ public:
      * @param[in] route The new route to pass
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, bool onInit = false);
+    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset=0);
 
 
     /** @brief Returns whether the vehicle wil pass the given edge
@@ -329,6 +329,21 @@ public:
      */
     inline bool isOnRoad() const {
         return myAmOnNet;
+    }
+
+
+    /** @brief Returns the starting point for reroutes (usually the current edge)
+     * 
+     * This differs from *myCurrEdge only if the vehicle is on an internal edge
+     * @return The rerouting start point
+     */
+    const MSEdge* getRerouteOrigin() const {
+#ifdef HAVE_INTERNAL_LANES
+        if (myLane != 0) {
+            return myLane->getInternalFollower();
+        }
+#endif
+        return *myCurrEdge;
     }
 
 

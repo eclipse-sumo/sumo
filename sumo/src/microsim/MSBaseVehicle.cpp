@@ -140,7 +140,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
             edges.pop_back();
         }
     } else {
-        router.compute(*myCurrEdge, myRoute->getLastEdge(), this, t, edges);
+        router.compute(getRerouteOrigin(), myRoute->getLastEdge(), this, t, edges);
     }
     if (edges.empty()) {
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
@@ -151,7 +151,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
 
 
 bool
-MSBaseVehicle::replaceRouteEdges(const MSEdgeVector& edges, bool onInit) {
+MSBaseVehicle::replaceRouteEdges(MSEdgeVector& edges, bool onInit) {
     // build a new id, first
     std::string id = getID();
     if (id[0] != '!') {
@@ -162,13 +162,19 @@ MSBaseVehicle::replaceRouteEdges(const MSEdgeVector& edges, bool onInit) {
     } else {
         id = id + "!var#1";
     }
+    const MSEdge* const origin = getRerouteOrigin();
+    if (origin != *myCurrEdge && edges.front() == origin) {
+        edges.insert(edges.begin(), *myCurrEdge);
+    }
+    const int oldSize = (int)edges.size();
+    edges.insert(edges.begin(), myRoute->begin(), myCurrEdge);
     const RGBColor& c = myRoute->getColor();
     MSRoute* newRoute = new MSRoute(id, edges, false, &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), myRoute->getStops());
     if (!MSRoute::dictionary(id, newRoute)) {
         delete newRoute;
         return false;
     }
-    if (!replaceRoute(newRoute, onInit)) {
+    if (!replaceRoute(newRoute, onInit, (int)edges.size() - oldSize)) {
         newRoute->addReference();
         newRoute->release();
         return false;

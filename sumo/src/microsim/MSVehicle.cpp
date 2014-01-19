@@ -447,7 +447,7 @@ MSVehicle::hasArrived() const {
 
 
 bool
-MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) {
+MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
     const MSEdgeVector& edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
     if (!onInit && !newRoute->contains(*myCurrEdge)) {
@@ -458,7 +458,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) {
     if (onInit) {
         myCurrEdge = newRoute->begin();
     } else {
-        myCurrEdge = find(edges.begin(), edges.end(), *myCurrEdge);
+        myCurrEdge = find(edges.begin() + offset, edges.end(), *myCurrEdge);
     }
     // check whether the old route may be deleted (is not used by anyone else)
     newRoute->addReference();
@@ -1733,7 +1733,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
         }
         // adapt best lanes to fit the current internal edge:
         // keep the entries that are reachable from this edge
-        const MSEdge* nextEdge = &(startLane->getLinkCont()[0]->getLane()->getEdge());
+        const MSEdge* nextEdge = startLane->getInternalFollower();
         assert(nextEdge->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL);
         for (std::vector<std::vector<LaneQ> >::iterator it = myBestLanes.begin(); it != myBestLanes.end();) {
             std::vector<LaneQ>& lanes = *it;

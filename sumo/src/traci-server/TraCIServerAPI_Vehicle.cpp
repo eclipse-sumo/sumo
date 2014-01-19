@@ -573,7 +573,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             // build a new route between the vehicle's current edge and destination edge
             MSEdgeVector newRoute;
-            const MSEdge* currentEdge = v->getEdge();
+            const MSEdge* currentEdge = v->getRerouteOrigin();
             MSNet::getInstance()->getRouterTT().compute(
                 currentEdge, destEdge, (const MSVehicle * const) v, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
             // replace the vehicle's route by the new one

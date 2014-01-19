@@ -126,6 +126,16 @@ public:
     }
 
 
+    /** @brief Returns the starting point for reroutes (usually the current edge)
+     * 
+     * This differs from *myCurrEdge only if the vehicle is on an internal edge
+     * @return The rerouting start point
+     */
+    virtual const MSEdge* getRerouteOrigin() const {
+        return *myCurrEdge;
+    }
+
+
     /** @brief Performs a rerouting using the given router
      *
      * Tries to find a new route between the current edge and the destination edge, first.
@@ -148,7 +158,7 @@ public:
      * @param[in] simTime The time at which the route was replaced
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit = false);
+    bool replaceRouteEdges(MSEdgeVector& edges, bool onInit = false);
 
 
     /** @brief Returns the vehicle's acceleration

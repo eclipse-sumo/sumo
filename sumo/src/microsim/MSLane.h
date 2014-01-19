@@ -454,6 +454,11 @@ public:
     }
 
 
+    /** @brief Returns the lane's follower if it is an internal lane, the edge of the lane otherwise
+     * @return This lane's follower
+     */
+    const MSEdge* getInternalFollower() const;
+
 
     /// @brief Static (sic!) container methods
     /// {
