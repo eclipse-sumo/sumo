@@ -1,0 +1,5 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+   <vType id="car" accel="1.8" decel="3.5" sigma="0" minGap="1" maxSpeed="70"/>
+   <flow id="type1" color="1,1,0"  begin="0" end= "1000" period="1" from="gneE0" to="gneE1" type="car">
+</flow>
+</routes>
