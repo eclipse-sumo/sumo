@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:27:04 by SUMO sumo Version 0.17.0
+<!-- generated on 01/19/14 14:57:49 by SUMO sumo Version dev-SVN-r15432
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -11,7 +11,6 @@
     </input>
 
     <output>
-        <netstate-dump value="netstate_dump.xml"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
@@ -27,10 +26,10 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="veh0" type="vType1" depart="0.00" arrival="104.00">
+    <vehicle id="veh0" type="SUMO_DEFAULT_TYPE" depart="0.00" arrival="800.00">
         <routeDistribution>
-            <route replacedOnEdge="e_m6" replacedAtTime="50.00" probability="0" edges="e_m5 e_m6 e_shape1 e_u1 e_u0 e_vu0"/>
-            <route edges="e_m5 e_m6 e_shape0 e_o1 e_o0 e_vo0"/>
+            <route replacedOnEdge="1si" replacedAtTime="5.00" probability="0" edges="1si 2o"/>
+            <route edges="1si 2o 2fi 2si 3o 3fi"/>
         </routeDistribution>
     </vehicle>
 
