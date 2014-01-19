@@ -117,7 +117,7 @@ def main(args=None):
                          help="Defines the FCD-output file to use as input")
   optParser.add_option("-n", "--net-input", dest="net", metavar="FILE",
                          help="Defines the network file to use as input")
-  optParser.add_option("-p", "--penetration", dest="penetration", 
+  optParser.add_option("-p", "--penetration", type="float", dest="penetration", 
                          default=1., help="Defines the percentage (0-1) of vehicles to export")
   optParser.add_option("-b", "--begin", dest="begin", 
                          type="float", help="Defines the first step to export")
