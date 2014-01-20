@@ -18,7 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,sys
+import os, sys, socket
 from collections import defaultdict
 from optparse import OptionParser
 import xml.sax
@@ -144,9 +144,16 @@ class CSVWriter(NestingHandler):
                     self.outfiles[root].write(self.options.separator.join(
                         [self.quote(self.currentValues[a]) for a in self.attrs[root]]) + "\n")
 
-
+def getSocketStream(port):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("localhost", port))
+    s.listen(1)
+    conn, addr = s.accept()
+    print "connection", conn, addr
+    return conn.makefile()
+                        
 def get_options():
-    USAGE = "Usage: " + sys.argv[0] + " <input_file>"
+    USAGE = "Usage: " + sys.argv[0] + " <input_file_or_port>"
     optParser = OptionParser()
     optParser.add_option("-v", "--verbose", action="store_true",
             default=False, help="Give more output")
@@ -169,7 +176,10 @@ def main():
     # write csv
     handler = CSVWriter(attrFinder.attrs, attrFinder.renamedAttrs,
             attrFinder.depthTags, attrFinder.tagAttrs, options)
-    xml.sax.parse(options.source, handler)
+    if (options.source.isdigit()):
+        xml.sax.parse(getSocketStream(int(options.source)), handler)
+    else:
+        xml.sax.parse(options.source, handler)
 
 if __name__ == "__main__":
     main()
