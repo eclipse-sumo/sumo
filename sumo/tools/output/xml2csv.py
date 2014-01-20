@@ -58,8 +58,8 @@ class AttrFinder(NestingHandler):
                 self.depthTags[ele.tagText] = [None]
                 self.recursiveAttrFind(ele, ele, 1)
         else:
-            self.attrs = {"": []}
-            self.depthTags = {"": [None]} # child of root: depth of appearance -> tag
+            self.attrs = {}
+            self.depthTags = {} # child of root: depth of appearance -> tag
             xml.sax.parse(source, self)
 
     def recursiveAttrFind(self, root, currEle, depth):
@@ -77,14 +77,18 @@ class AttrFinder(NestingHandler):
     def startElement(self, name, attrs):
         NestingHandler.startElement(self, name, attrs)
         if self.depth() > 0:
+            root = self.tagstack[1]
+            if self.depth() == 1 and root not in self.attrs:
+                self.attrs[root] = []
+                self.depthTags[root] = [None]
             if not name in self.tagDepths:
-                if len(self.depthTags[""]) == self.depth():
+                if len(self.depthTags[root]) == self.depth():
                     self.tagDepths[name] = self.depth()
-                    self.depthTags[""].append(name)
+                    self.depthTags[root].append(name)
                 else:
                     print("Ignoring tag %s at depth %s" % (name, self.depth()))
                     return
-            elif self.depthTags[""][self.depth()] != name:
+            elif self.depthTags[root][self.depth()] != name:
                 print("Ignoring tag %s at depth %s" % (name, self.depth()))
                 return
             # collect attributes
@@ -98,34 +102,47 @@ class AttrFinder(NestingHandler):
                                 a, name, anew))
                             self.renamedAttrs[(name, a)] = anew
                             self.knownAttrs.add(anew)
-                            self.attrs[""].append(anew)
+                            self.attrs[root].append(anew)
                     else:
                         self.knownAttrs.add(a)
-                        self.attrs[""].append(a)
+                        self.attrs[root].append(a)
 
 
 class CSVWriter(NestingHandler):
-    def __init__(self, attrs, renamedAttrs, depthTags, tagAttrs, outfile, options,
-            quote):
+    def __init__(self, attrs, renamedAttrs, depthTags, tagAttrs, options):
         NestingHandler.__init__(self)
         self.attrs = attrs
         self.renamedAttrs = renamedAttrs
         self.depthTags = depthTags
         self.tagAttrs = tagAttrs
-        self.outfile = outfile
         self.options = options
-        self.quote = quote
         self.currentValues = defaultdict(lambda : "")
+        self.outfiles = {}
+        for root, depths in depthTags.iteritems():
+            suffix = ""
+            if len(depthTags) > 1:
+                suffix = root
+            if options.output:
+                outfilename = options.output + "%s.csv" % suffix
+            else:
+                outfilename = os.path.splitext(options.source)[0] + "%s.csv" % suffix
+            self.outfiles[root] = open(outfilename, 'w')
+            self.outfiles[root].write(options.separator.join(map(self.quote,attrs[root])) + "\n")
+
+    def quote(self, s):
+        return "%s%s%s" % (self.options.quotechar, s, self.options.quotechar)
 
     def startElement(self, name, attrs):
         NestingHandler.startElement(self, name, attrs)
-        if self.depthTags[self.depth()] == name:
-            for a in self.tagAttrs[name]:
-                a2 = self.renamedAttrs.get((name, a), a)
-                self.currentValues[a2] = attrs.get(a, "")
-            if name == self.depthTags[-1]:
-                self.outfile.write(self.options.separator.join(
-                    [self.quote(self.currentValues[a]) for a in self.attrs]) + "\n")
+        if self.depth() > 0:
+            root = self.tagstack[1]
+            if self.depthTags[root][self.depth()] == name:
+                for a in self.tagAttrs[name]:
+                    a2 = self.renamedAttrs.get((name, a), a)
+                    self.currentValues[a2] = attrs.get(a, "")
+                if name == self.depthTags[root][-1]:
+                    self.outfiles[root].write(self.options.separator.join(
+                        [self.quote(self.currentValues[a]) for a in self.attrs[root]]) + "\n")
 
 
 def get_options():
@@ -138,6 +155,7 @@ def get_options():
     optParser.add_option("-q", "--quotechar", default='',
              help="quoting character for fields")
     optParser.add_option("-x", "--xsd", help="xsd schema to use")
+    optParser.add_option("-o", "--output", help="base name for output")
     options, args = optParser.parse_args()
     if len(args) != 1:
         sys.exit(USAGE)
@@ -146,21 +164,12 @@ def get_options():
 
 def main():
     options = get_options()
-    def quote(s):
-        return "%s%s%s" % (options.quotechar, s, options.quotechar)
     # get attributes
     attrFinder = AttrFinder(options.xsd, options.source)
     # write csv
-    for root, depths in attrFinder.depthTags.iteritems():
-        outfilename = os.path.splitext(options.source)[0] + "%s.csv" % root
-        with open(outfilename, 'w') as f:
-            # write header
-            f.write(options.separator.join(map(quote,attrFinder.attrs[root])) + "\n")
-            # write records
-            handler = CSVWriter(attrFinder.attrs[root], attrFinder.renamedAttrs,
-                    attrFinder.depthTags[root], attrFinder.tagAttrs, f, options, quote)
-            xml.sax.parse(options.source, handler)
-
+    handler = CSVWriter(attrFinder.attrs, attrFinder.renamedAttrs,
+            attrFinder.depthTags, attrFinder.tagAttrs, options)
+    xml.sax.parse(options.source, handler)
 
 if __name__ == "__main__":
     main()
