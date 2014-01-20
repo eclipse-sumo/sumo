@@ -77,16 +77,16 @@ sumo/extended/wauts/errors/cross3ltl_error_missing_startprog/input_additional.ad
 sumo/extended/wauts/errors/cross3ltl_error_missing_to_prog/input_additional.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'wautSwitch': The attribute 'to' is required but missing.
 Error on parsing 'sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml'!
 Traceback (most recent call last):
-  File "/home/micha/programming/vabene/SE/extern/sumoInternal/sumo/tests/../tools/xml/schemaCheck.py", line 33, in validate
+  File "/home/micha/sumo/tests/../tools/xml/schemaCheck.py", line 33, in validate
     doc = etree.parse(f)
-  File "lxml.etree.pyx", line 2954, in lxml.etree.parse (src/lxml/lxml.etree.c:56220)
-  File "parser.pxi", line 1533, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:82303)
-  File "parser.pxi", line 1562, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:82596)
-  File "parser.pxi", line 1462, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:81635)
-  File "parser.pxi", line 1002, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:78544)
-  File "parser.pxi", line 569, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:74488)
-  File "parser.pxi", line 650, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:75379)
-  File "parser.pxi", line 590, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:74712)
+  File "lxml.etree.pyx", line 3201, in lxml.etree.parse (src/lxml/lxml.etree.c:65033)
+  File "parser.pxi", line 1571, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:93221)
+  File "parser.pxi", line 1600, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:93508)
+  File "parser.pxi", line 1500, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:92565)
+  File "parser.pxi", line 1047, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:89449)
+  File "parser.pxi", line 577, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:84831)
+  File "parser.pxi", line 676, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:85936)
+  File "parser.pxi", line 616, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:85258)
 XMLSyntaxError: Opening and ending tag mismatch: additional line 1 and calibrator, line 5, column 18
 sumo/extended/vaporizer/errors/id_missing/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vaporizer': The attribute 'id' is required but missing.
 sumo/extended/vaporizer/errors/begin_empty/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'begin': '' is not a valid value of the atomic type 'nonNegativeFloatType'.
@@ -97,4 +97,3 @@ sumo/extended/vaporizer/errors/end_negative/input_additional2.add.xml:3:0:ERROR:
 sumo/extended/vaporizer/errors/end_empty/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'end': '' is not a valid value of the atomic type 'nonNegativeFloatType'.
 sumo/extended/vaporizer/errors/begin_not_numeric/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'begin': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
 sumo/extended/vaporizer/errors/end_not_numeric/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'end': 'xxx' is not a valid value of the atomic type 'nonNegativeFloatType'.
-traci/get_variable/MeMeDetector/errors/UnknownAD/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detector': This element is not expected.
