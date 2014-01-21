@@ -24,36 +24,31 @@ import csv
 from collections import defaultdict
 from optparse import OptionParser
 
+import xsd
+
 def get_options():
-    optParser = OptionParser(usage="Usage: " + sys.argv[0])
+    optParser = OptionParser(usage=os.path.basename(sys.argv[0])+" [<options>] <input_file_or_port>")
     optParser.add_option("-v", "--verbose", action="store_true",
             default=False, help="Give more output")
-    #optParser.add_option("-d", "--delimiter", default="\t",
-    #         help="the field separator of the input file")
-    #optParser.add_option("-q", "--quotechar", default="\"",
-    #         help="the quoting character for fields")
+    optParser.add_option("-q", "--quotechar", default="",
+             help="the quoting character for fields")
     optParser.add_option("-d", "--delimiter", 
              help="the field separator of the input file")
-    optParser.add_option("-n", "--nodes", 
-             help="convert the given csv-file into plain.nod.xml format")
-    optParser.add_option("-e", "--edges", 
-             help="convert the given csv-file into plain.edg.xml format")
-    optParser.add_option("-c", "--connections", 
-             help="convert the given csv-file into plain.con.xml format")
-    optParser.add_option("-r", "--routes", 
-             help="convert the given csv-file into rou.xml format")
-    optParser.add_option("-f", "--flows", 
-             help="convert the given csv-file into rou.xml format with flows")
+    optParser.add_option("-t", "--type", 
+             help="convert the given csv-file into the specified format")
+    optParser.add_option("-x", "--xsd", help="xsd schema to use")
+    optParser.add_option("-o", "--output", help="name for generic output file")
     options, args = optParser.parse_args()
-    if len(args) != 0:
-        optParse.print_help()
+    if len(args) != 1:
+        optParser.print_help()
         sys.exit()
-    return options 
+    options.source = args[0]
+    return options
 
 
 def row2xml(row, tag):
     return ('    <%s %s/>\n' % (tag,
-        ' '.join(['%s="%s"' % (a, v) for a,v in row.items() if v != ""])))
+        ' '.join(['%s="%s"' % (a[len(tag)+1:], v) for a,v in row.items() if v != ""])))
 
 def row2vehicle_and_route(row, tag):
     if "route" in row:
@@ -78,18 +73,24 @@ def write_xml(csvfile, toptag, tag, ext, options, printer=row2xml):
 
 def main():
     options = get_options()
-    if options.nodes:
-        write_xml(options.nodes, 'nodes', 'node', '.nod.xml', options)
-    if options.edges:
-        write_xml(options.edges, 'edges', 'edge', '.edg.xml', options)
-    if options.connections:
-        write_xml(options.connections, 'connections', 'connection', '.con.xml', options)
-    if options.routes:
-        write_xml(options.routes, 'routes', 'vehicle', '.rou.xml', options,
+    out = sys.stdout
+    if options.output:
+        out = open(options.output, 'w')
+    if options.type in ["nodes", "node", "nod"]:
+        write_xml(options.source, 'nodes', 'node', '.nod.xml', options)
+    elif options.type in ["edges", "edge", "edg"]:
+        write_xml(options.source, 'edges', 'edge', '.edg.xml', options)
+    elif options.type in ["connections", "connection", "con"]:
+        write_xml(options.source, 'connections', 'connection', '.con.xml', options)
+    elif options.type in ["routes", "vehicles", "vehicle", "rou"]:
+        write_xml(options.source, 'routes', 'vehicle', '.rou.xml', options,
             row2vehicle_and_route)
-    if options.flows:
-        write_xml(options.flows, 'routes', 'flow', '.rou.xml', options,
+    elif options.type in ["flows", "flow"]:
+        write_xml(options.source, 'routes', 'flow', '.rou.xml', options,
             row2vehicle_and_route)
+    elif options.xsd:
+        xsdStruc = xsd.XsdStructure(options.xsd)
+        write_xml(options.source, xsdStruc.root.tagText, xsdStruc.root.children[0].tagText, '.xml', options)
 
 
 if __name__ == "__main__":

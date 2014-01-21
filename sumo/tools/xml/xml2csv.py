@@ -169,8 +169,7 @@ def getSocketStream(port):
     return conn.makefile()
                         
 def get_options():
-    USAGE = "Usage: " + sys.argv[0] + " <input_file_or_port>"
-    optParser = OptionParser()
+    optParser = OptionParser(usage=os.path.basename(sys.argv[0]) + "[<options>] <input_file_or_port>")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
     optParser.add_option("-s", "--separator", default=";",
@@ -181,7 +180,8 @@ def get_options():
     optParser.add_option("-o", "--output", help="base name for output")
     options, args = optParser.parse_args()
     if len(args) != 1:
-        sys.exit(USAGE)
+        optParser.print_help()
+        sys.exit()
     options.source = args[0]
     return options 
 
