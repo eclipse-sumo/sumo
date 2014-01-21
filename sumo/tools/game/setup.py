@@ -2,7 +2,7 @@ from distutils.core import setup
 import py2exe, sys, shutil, os, glob, zipfile
 import subprocess, tempfile
 
-nightlyDir="M:\\Daten\\Sumo\\Nightly"
+nightlyDir="O:\\Daten\\Sumo\\Nightly"
 
 if len(sys.argv) == 1:
     sys.argv.append("py2exe")
