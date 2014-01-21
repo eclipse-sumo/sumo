@@ -50,25 +50,29 @@ class AttrFinder(NestingHandler):
         self.renamedAttrs = {} # (name, attr) -> renamedAttr
         if xsdFile:
             xsdStruc = xsd.XsdStructure(xsdFile)
-            root = xsdStruc.baseElements[0]
             self.attrs = {}
             self.depthTags = {} # child of root: depth of appearance -> tag
-            for ele in root.children:
+            for ele in xsdStruc.root.children:
                 self.attrs[ele.tagText] = []
                 self.depthTags[ele.tagText] = [None]
                 self.recursiveAttrFind(ele, ele, 1)
+            print self.attrs, self.depthTags 
         else:
             self.attrs = {}
             self.depthTags = {} # child of root: depth of appearance -> tag
             xml.sax.parse(source, self)
 
     def recursiveAttrFind(self, root, currEle, depth):
-        self.tagDepths[currEle.tagText] = depth
-        self.depthTags[root.tagText].append(currEle.tagText)
+        if len(self.depthTags[root.tagText]) == depth:
+            self.tagDepths[currEle.tagText] = depth
+            self.depthTags[root.tagText].append(currEle.tagText)
+        else:
+            print("Ignoring tag %s at depth %s" % (currEle.tagText, depth))
+            return
         for a in currEle.attributes:
-            self.tagAttrs[currEle.tagText].add(a.name)
-            anew = "%s_%s" % (currEle.tagText, a.name)
-            self.renamedAttrs[(currEle.tagText, a.name)] = anew
+            self.tagAttrs[currEle.tagText].add(a)
+            anew = "%s_%s" % (currEle.tagText, a)
+            self.renamedAttrs[(currEle.tagText, a)] = anew
             self.knownAttrs.add(anew)
             self.attrs[root.tagText].append(anew)
         for ele in currEle.children:
@@ -116,7 +120,7 @@ class CSVWriter(NestingHandler):
         self.depthTags = depthTags
         self.tagAttrs = tagAttrs
         self.options = options
-        self.currentValues = defaultdict(lambda : "")
+        self.currentValues = defaultdict(string)
         self.outfiles = {}
         for root, depths in depthTags.iteritems():
             suffix = ""
@@ -132,17 +136,19 @@ class CSVWriter(NestingHandler):
     def quote(self, s):
         return "%s%s%s" % (self.options.quotechar, s, self.options.quotechar)
 
+    def write(self):
+        self.outfiles[root].write(self.options.separator.join(
+            [self.quote(self.currentValues[a]) for a in self.attrs[root]]) + "\n")
+        
     def startElement(self, name, attrs):
         NestingHandler.startElement(self, name, attrs)
         if self.depth() > 0:
-            root = self.tagstack[1]
+            self.root = self.tagstack[1]
             if self.depthTags[root][self.depth()] == name:
                 for a in self.tagAttrs[name]:
                     a2 = self.renamedAttrs.get((name, a), a)
                     self.currentValues[a2] = attrs.get(a, "")
                 if name == self.depthTags[root][-1]:
-                    self.outfiles[root].write(self.options.separator.join(
-                        [self.quote(self.currentValues[a]) for a in self.attrs[root]]) + "\n")
 
 def getSocketStream(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
