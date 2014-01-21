@@ -29,8 +29,6 @@ class XsdStructure():
                 el = self.getElementStructure(btEntity)
                 self._namedTypes[el.tagText] = el
         self.resolveRefs()
-        print self._namedElements
-        print self._namedTypes
 
     def getElementStructure(self, entity, checkNestedType=False):
         eleObj = XmlElement(entity)        

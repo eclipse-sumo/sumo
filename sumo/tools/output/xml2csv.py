@@ -3,6 +3,7 @@
 """
 @file    xml2csv.py
 @author  Jakob Erdmann
+@author  Michael Behrisch
 @date    2013-12-08
 @version $Id$
 
@@ -120,7 +121,8 @@ class CSVWriter(NestingHandler):
         self.depthTags = depthTags
         self.tagAttrs = tagAttrs
         self.options = options
-        self.currentValues = defaultdict(string)
+        self.currentValues = defaultdict(lambda: "")
+        self.haveUnsavedValues = False
         self.outfiles = {}
         for root, depths in depthTags.iteritems():
             suffix = ""
@@ -136,37 +138,45 @@ class CSVWriter(NestingHandler):
     def quote(self, s):
         return "%s%s%s" % (self.options.quotechar, s, self.options.quotechar)
 
-    def write(self):
-        self.outfiles[root].write(self.options.separator.join(
-            [self.quote(self.currentValues[a]) for a in self.attrs[root]]) + "\n")
-        
     def startElement(self, name, attrs):
         NestingHandler.startElement(self, name, attrs)
         if self.depth() > 0:
-            self.root = self.tagstack[1]
+            root = self.tagstack[1]
             if self.depthTags[root][self.depth()] == name:
+                for a, v in attrs.items():
+                    a2 = self.renamedAttrs.get((name, a), a)
+                    self.currentValues[a2] = v
+                    self.haveUnsavedValues = True
+
+    def endElement(self, name):
+        if self.depth() > 0:
+            root = self.tagstack[1]
+            if self.depthTags[root][self.depth()] == name:
+                if self.haveUnsavedValues:
+                    self.outfiles[root].write(self.options.separator.join(
+                        [self.quote(self.currentValues[a]) for a in self.attrs[root]]) + "\n")
+                    self.haveUnsavedValues = False
                 for a in self.tagAttrs[name]:
                     a2 = self.renamedAttrs.get((name, a), a)
-                    self.currentValues[a2] = attrs.get(a, "")
-                if name == self.depthTags[root][-1]:
+                    del self.currentValues[a2]
+        NestingHandler.endElement(self, name)
 
 def getSocketStream(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(("localhost", port))
     s.listen(1)
     conn, addr = s.accept()
-    print "connection", conn, addr
     return conn.makefile()
                         
 def get_options():
     USAGE = "Usage: " + sys.argv[0] + " <input_file_or_port>"
     optParser = OptionParser()
     optParser.add_option("-v", "--verbose", action="store_true",
-            default=False, help="Give more output")
+                         default=False, help="Give more output")
     optParser.add_option("-s", "--separator", default=";",
-             help="separating character for fields")
+                         help="separating character for fields")
     optParser.add_option("-q", "--quotechar", default='',
-             help="quoting character for fields")
+                         help="quoting character for fields")
     optParser.add_option("-x", "--xsd", help="xsd schema to use")
     optParser.add_option("-o", "--output", help="base name for output")
     options, args = optParser.parse_args()
