@@ -7,7 +7,7 @@
 @date    2013-12-08
 @version $Id$
 
-Convert hierarchical xml files to csv. This only makes sense if the hirarchy has low depth.
+Convert hierarchical xml files to csv. This only makes sense if the hierarchy has low depth.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
@@ -46,7 +46,6 @@ class AttrFinder(NestingHandler):
         NestingHandler.__init__(self)
         self.tagDepths = {} # tag -> depth of appearance
         self.ignoredTags = set()
-        self.knownAttrs = set()
         self.tagAttrs = defaultdict(set) # tag -> set of attrs
         self.renamedAttrs = {} # (name, attr) -> renamedAttr
         if xsdFile:
@@ -74,7 +73,6 @@ class AttrFinder(NestingHandler):
             self.tagAttrs[currEle.tagText].add(a)
             anew = "%s_%s" % (currEle.tagText, a)
             self.renamedAttrs[(currEle.tagText, a)] = anew
-            self.knownAttrs.add(anew)
             self.attrs[root.tagText].append(anew)
         for ele in currEle.children:
             self.recursiveAttrFind(root, ele, depth + 1)
@@ -100,17 +98,10 @@ class AttrFinder(NestingHandler):
             for a in attrs.keys():
                 if not a in self.tagAttrs[name]:
                     self.tagAttrs[name].add(a)
-                    if a in self.knownAttrs:
-                        if not (name, a) in self.renamedAttrs:
-                            anew = "%s_%s" % (name, a)
-                            print("warning: renaming attribute %s of tag %s to %s" % (
-                                a, name, anew))
-                            self.renamedAttrs[(name, a)] = anew
-                            self.knownAttrs.add(anew)
-                            self.attrs[root].append(anew)
-                    else:
-                        self.knownAttrs.add(a)
-                        self.attrs[root].append(a)
+                    if not (name, a) in self.renamedAttrs:
+                        anew = "%s_%s" % (name, a)
+                        self.renamedAttrs[(name, a)] = anew
+                        self.attrs[root].append(anew)
 
 
 class CSVWriter(NestingHandler):
@@ -167,7 +158,7 @@ def getSocketStream(port):
     s.listen(1)
     conn, addr = s.accept()
     return conn.makefile()
-                        
+
 def get_options():
     optParser = OptionParser(usage=os.path.basename(sys.argv[0]) + "[<options>] <input_file_or_port>")
     optParser.add_option("-v", "--verbose", action="store_true",
