@@ -70,7 +70,7 @@ def getSocketStream(port):
     conn, addr = s.accept()
     return conn.makefile()
 
-def write_xml(toptag, tag, ext, options, printer=row2xml):
+def write_xml(toptag, tag, options, printer=row2xml):
     with open(options.output, 'w') as outputf:
         outputf.write('<%s>\n' % toptag)
         if (options.source.isdigit()):
