@@ -10,7 +10,7 @@
 Convert csv files to selected xml input files for SUMO
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2013-2013 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -49,9 +49,9 @@ def get_options():
     return options
 
 
-def row2xml(row, tag):
-    return ('    <%s %s/>\n' % (tag,
-        ' '.join(['%s="%s"' % (a[len(tag)+1:], v) for a,v in row.items() if v != ""])))
+def row2xml(row, tag, close="/>\n", depth=1):
+    attrString = ' '.join(['%s="%s"' % (a[len(tag)+1:], v) for a,v in row.items() if v != "" and a.startswith(tag)])
+    return ('%s<%s %s%s' % ((depth * '    '), tag, attrString, close))
 
 def row2vehicle_and_route(row, tag):
     if "vehicle_route" in row:
@@ -81,6 +81,55 @@ def write_xml(toptag, tag, options, printer=row2xml):
             outputf.write(printer(row, tag))
         outputf.write('</%s>\n' % toptag)
 
+def checkChanges(out, old, new, currEle, tagStack, depth=1):
+    if depth >= len(tagStack):
+        for ele in currEle.children:
+            found = False
+            for attr in ele.attributes:
+                name = "%s_%s" % (ele.tagText, attr)
+                if new.get(name, "") != "":
+                    found = True
+                    break
+            if found:
+                out.write(">\n")
+                out.write(row2xml(new, ele.tagText, "", depth))
+                tagStack.append(ele.tagText)
+    else:
+        for ele in currEle.children:
+            changed = False
+            for attr in ele.attributes:
+                name = "%s_%s" % (ele.tagText, attr)
+                if old.get(name, "") != new.get(name, ""):
+                    changed = True
+                    break
+            if changed:
+                out.write("/>\n")
+                tagStack = tagStack[:-1]
+            while len(tagStack) > depth:
+                out.write("</%s>" % tagStack[-1])
+                tagStack = tagStack[:-1]
+            out.write(row2xml(new, ele.tagText, "", depth))
+            tagStack.append(ele.tagText)
+    if ele.children:
+        checkChanges(out, old, new, ele, tagStack, depth+1)
+
+
+def writeHierarchicalXml(struct, options):
+    with open(options.output, 'w') as outputf:
+        outputf.write('<%s' % struct.root.tagText)
+        if (options.source.isdigit()):
+            inputf = getSocketStream(int(options.source))
+        else:
+            inputf = open(options.source)
+        lastRow = {}
+        tagStack = [struct.root.tagText]
+        for row in csv.DictReader(inputf, delimiter=options.delimiter):
+            checkChanges(outputf, lastRow, row, struct.root, tagStack)
+            lastRow = row
+        outputf.write("/>\n")
+        for tag in reversed(tagStack[:-1]):
+            outputf.write("</%s>" % tag)
+
 
 def main():
     options = get_options()
@@ -95,8 +144,7 @@ def main():
     elif options.type in ["flows", "flow"]:
         write_xml('routes', 'flow', options, row2vehicle_and_route)
     elif options.xsd:
-        xsdStruc = xsd.XsdStructure(options.xsd)
-        write_xml(xsdStruc.root.tagText, xsdStruc.root.children[0].tagText, options)
+        writeHierarchicalXml(xsd.XsdStructure(options.xsd), options)
 
 
 if __name__ == "__main__":

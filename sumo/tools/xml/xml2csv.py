@@ -10,7 +10,7 @@
 Convert hierarchical xml files to csv. This only makes sense if the hierarchy has low depth.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -56,7 +56,6 @@ class AttrFinder(NestingHandler):
                 self.attrs[ele.tagText] = []
                 self.depthTags[ele.tagText] = [None]
                 self.recursiveAttrFind(ele, ele, 1)
-            print self.attrs, self.depthTags 
         else:
             self.attrs = {}
             self.depthTags = {} # child of root: depth of appearance -> tag
