@@ -19,8 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,sys
-import csv
+import os, sys, csv
 
 from collections import defaultdict
 from optparse import OptionParser
@@ -92,7 +91,6 @@ def checkChanges(out, old, new, currEle, tagStack, depth=1):
                     break
             if found:
                 out.write(">\n")
-                print "new", ele.tagText, depth
                 out.write(row2xml(new, ele.tagText, "", depth))
                 tagStack.append(ele.tagText)
                 break
@@ -109,7 +107,6 @@ def checkChanges(out, old, new, currEle, tagStack, depth=1):
                     found = True
             if changed:
                 out.write("/>\n")
-                print "changed", ele.tagText, depth
                 tagStack = tagStack[:-1]
                 while len(tagStack) > depth:
                     out.write("%s</%s>\n" % ((len(tagStack)-1) * '    ', tagStack[-1]))
