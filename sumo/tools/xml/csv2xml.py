@@ -92,24 +92,33 @@ def checkChanges(out, old, new, currEle, tagStack, depth=1):
                     break
             if found:
                 out.write(">\n")
+                print "new", ele.tagText, depth
                 out.write(row2xml(new, ele.tagText, "", depth))
                 tagStack.append(ele.tagText)
+                break
     else:
         for ele in currEle.children:
             changed = False
+            found = False
             for attr in ele.attributes:
                 name = "%s_%s" % (ele.tagText, attr)
                 if old.get(name, "") != new.get(name, ""):
                     changed = True
                     break
+                if new.get(name, "") != "":
+                    found = True
             if changed:
                 out.write("/>\n")
+                print "changed", ele.tagText, depth
                 tagStack = tagStack[:-1]
-            while len(tagStack) > depth:
-                out.write("</%s>" % tagStack[-1])
-                tagStack = tagStack[:-1]
-            out.write(row2xml(new, ele.tagText, "", depth))
-            tagStack.append(ele.tagText)
+                while len(tagStack) > depth:
+                    out.write("%s</%s>\n" % ((len(tagStack)-1) * '    ', tagStack[-1]))
+                    tagStack = tagStack[:-1]
+                out.write(row2xml(new, ele.tagText, "", depth))
+                tagStack.append(ele.tagText)
+                break
+            if found:
+                break
     if ele.children:
         checkChanges(out, old, new, ele, tagStack, depth+1)
 
