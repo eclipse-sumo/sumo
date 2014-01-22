@@ -85,21 +85,21 @@ def checkChanges(out, old, new, currEle, tagStack, depth=1):
         for ele in currEle.children:
             found = False
             for attr in ele.attributes:
-                name = "%s_%s" % (ele.tagText, attr)
+                name = "%s_%s" % (ele.name, attr)
                 if new.get(name, "") != "":
                     found = True
                     break
             if found:
                 out.write(">\n")
-                out.write(row2xml(new, ele.tagText, "", depth))
-                tagStack.append(ele.tagText)
+                out.write(row2xml(new, ele.name, "", depth))
+                tagStack.append(ele.name)
                 break
     else:
         for ele in currEle.children:
             changed = False
             found = False
             for attr in ele.attributes:
-                name = "%s_%s" % (ele.tagText, attr)
+                name = "%s_%s" % (ele.name, attr)
                 if old.get(name, "") != new.get(name, ""):
                     changed = True
                     break
@@ -111,8 +111,8 @@ def checkChanges(out, old, new, currEle, tagStack, depth=1):
                 while len(tagStack) > depth:
                     out.write("%s</%s>\n" % ((len(tagStack)-1) * '    ', tagStack[-1]))
                     tagStack = tagStack[:-1]
-                out.write(row2xml(new, ele.tagText, "", depth))
-                tagStack.append(ele.tagText)
+                out.write(row2xml(new, ele.name, "", depth))
+                tagStack.append(ele.name)
                 break
             if found:
                 break
@@ -122,13 +122,13 @@ def checkChanges(out, old, new, currEle, tagStack, depth=1):
 
 def writeHierarchicalXml(struct, options):
     with open(options.output, 'w') as outputf:
-        outputf.write('<%s' % struct.root.tagText)
+        outputf.write('<%s' % struct.root.name)
         if (options.source.isdigit()):
             inputf = getSocketStream(int(options.source))
         else:
             inputf = open(options.source)
         lastRow = {}
-        tagStack = [struct.root.tagText]
+        tagStack = [struct.root.name]
         for row in csv.DictReader(inputf, delimiter=options.delimiter):
             checkChanges(outputf, lastRow, row, struct.root, tagStack)
             lastRow = row

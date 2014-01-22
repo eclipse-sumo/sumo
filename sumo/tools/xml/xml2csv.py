@@ -19,10 +19,17 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os, sys, socket
 from collections import defaultdict
 from optparse import OptionParser
 import xml.sax
+try:
+    import lxml.etree
+    import lxml.sax
+    haveLxml = True
+except ImportError:
+    haveLxml = False
 
 import xsd
 
@@ -53,8 +60,8 @@ class AttrFinder(NestingHandler):
             self.attrs = {}
             self.depthTags = {} # child of root: depth of appearance -> tag
             for ele in xsdStruc.root.children:
-                self.attrs[ele.tagText] = []
-                self.depthTags[ele.tagText] = [None]
+                self.attrs[ele.name] = []
+                self.depthTags[ele.name] = [None]
                 self.recursiveAttrFind(ele, ele, 1)
         else:
             self.attrs = {}
@@ -62,17 +69,17 @@ class AttrFinder(NestingHandler):
             xml.sax.parse(source, self)
 
     def recursiveAttrFind(self, root, currEle, depth):
-        if len(self.depthTags[root.tagText]) == depth:
-            self.tagDepths[currEle.tagText] = depth
-            self.depthTags[root.tagText].append(currEle.tagText)
+        if len(self.depthTags[root.name]) == depth:
+            self.tagDepths[currEle.name] = depth
+            self.depthTags[root.name].append(currEle.name)
         else:
-            print("Ignoring tag %s at depth %s" % (currEle.tagText, depth))
+            print("Ignoring tag %s at depth %s" % (currEle.name, depth), file=sys.stderr)
             return
         for a in currEle.attributes:
-            self.tagAttrs[currEle.tagText].add(a)
-            anew = "%s_%s" % (currEle.tagText, a)
-            self.renamedAttrs[(currEle.tagText, a)] = anew
-            self.attrs[root.tagText].append(anew)
+            self.tagAttrs[currEle.name].add(a)
+            anew = "%s_%s" % (currEle.name, a)
+            self.renamedAttrs[(currEle.name, a)] = anew
+            self.attrs[root.name].append(anew)
         for ele in currEle.children:
             self.recursiveAttrFind(root, ele, depth + 1)
 
@@ -88,10 +95,10 @@ class AttrFinder(NestingHandler):
                     self.tagDepths[name] = self.depth()
                     self.depthTags[root].append(name)
                 else:
-                    print("Ignoring tag %s at depth %s" % (name, self.depth()))
+                    print("Ignoring tag %s at depth %s" % (name, self.depth()), file=sys.stderr)
                     return
             elif self.depthTags[root][self.depth()] != name:
-                print("Ignoring tag %s at depth %s" % (name, self.depth()))
+                print("Ignoring tag %s at depth %s" % (name, self.depth()), file=sys.stderr)
                 return
             # collect attributes
             for a in attrs.keys():
@@ -128,12 +135,20 @@ class CSVWriter(NestingHandler):
     def quote(self, s):
         return "%s%s%s" % (self.options.quotechar, s, self.options.quotechar)
 
+    def startElementNS(self, name, qname, attrs):
+        self.startElement(qname, attrs)
+
+    def endElementNS(self, name, qname):
+        self.endElement(qname)
+
     def startElement(self, name, attrs):
         NestingHandler.startElement(self, name, attrs)
         if self.depth() > 0:
             root = self.tagstack[1]
             if self.depthTags[root][self.depth()] == name:
                 for a, v in attrs.items():
+                    if isinstance(a, tuple):
+                        a = a[1]
                     a2 = self.renamedAttrs.get((name, a), a)
                     self.currentValues[a2] = v
                     self.haveUnsavedValues = True
@@ -167,11 +182,16 @@ def get_options():
     optParser.add_option("-q", "--quotechar", default='',
                          help="quoting character for fields")
     optParser.add_option("-x", "--xsd", help="xsd schema to use")
+    optParser.add_option("-a", "--validation", action="store_true",
+                         default=False, help="enable schema validation")
     optParser.add_option("-o", "--output", help="base name for output")
     options, args = optParser.parse_args()
     if len(args) != 1:
         optParser.print_help()
         sys.exit()
+    if options.validation and not haveLxml:
+        print("lxml not available, skipping validation", file=sys.stderr)
+        options.validation = False
     options.source = args[0]
     return options 
 
@@ -182,10 +202,19 @@ def main():
     # write csv
     handler = CSVWriter(attrFinder.attrs, attrFinder.renamedAttrs,
             attrFinder.depthTags, attrFinder.tagAttrs, options)
-    if (options.source.isdigit()):
-        xml.sax.parse(getSocketStream(int(options.source)), handler)
+    if options.validation:
+        schema = lxml.etree.XMLSchema(file=options.xsd)
+        parser = lxml.etree.XMLParser(schema=schema)
+        if options.source.isdigit():
+            tree = lxml.etree.parse(getSocketStream(int(options.source)), parser)
+        else:
+            tree = lxml.etree.parse(options.source, parser)
+        lxml.sax.saxify(tree, handler)
     else:
-        xml.sax.parse(options.source, handler)
+        if options.source.isdigit():
+            xml.sax.parse(getSocketStream(int(options.source)), handler)
+        else:
+            xml.sax.parse(options.source, handler)
 
 if __name__ == "__main__":
     main()

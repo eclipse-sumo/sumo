@@ -18,49 +18,58 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+import os
 from xml.dom import minidom
 
 class XmlElement:
     def __init__(self, entity):
-        self.tagText = entity.getAttribute('name')
+        self.name = entity.getAttribute('name')
         self.ref = entity.getAttribute('ref')
         self.type = entity.getAttribute('type')
-        self.attributes = {}
+        self.attributes = []
         self.children = []
 
     def __repr__(self):
-        childList = [c.tagText for c in self.children]
-        return "tagText '%s' ref '%s' type '%s' attrs %s %s"  % (self.tagText, self.ref, self.type, self.attributes, childList)
+        childList = [c.name for c in self.children]
+        return "name '%s' ref '%s' type '%s' attrs %s %s"  % (self.name, self.ref, self.type, self.attributes, childList)
 
 class XsdStructure():
     def __init__(self, xsdFile):        
         xmlDoc = minidom.parse(open(xsdFile))
         self.root = None
         self._namedElements = {}
+        self._namedTypes = {}
+        for btEntity in xmlDoc.getElementsByTagName('xsd:include'):
+            path = btEntity.getAttribute('schemaLocation')
+            fullPath = os.path.join(os.path.dirname(xsdFile), path)
+            subStruc = XsdStructure(fullPath)
+            self._namedElements.update(subStruc._namedElements)
+            self._namedTypes.update(subStruc._namedTypes)
         for btEntity in xmlDoc.getElementsByTagName('xsd:element'):
             if btEntity.nodeType == 1 and btEntity.hasAttribute('name'):
                 el = self.getElementStructure(btEntity, True)
-                self._namedElements[el.tagText] = el
+                self._namedElements[el.name] = el
                 if self.root is None:
                     self.root = el
-        self._namedTypes = {}
         for btEntity in xmlDoc.getElementsByTagName('xsd:complexType'):
             if btEntity.nodeType == 1 and btEntity.hasAttribute('name'):
                 el = self.getElementStructure(btEntity)
-                self._namedTypes[el.tagText] = el
+                self._namedTypes[el.name] = el
         self.resolveRefs()
+        #print self._namedElements
+        #print self._namedTypes
 
     def getElementStructure(self, entity, checkNestedType=False):
         eleObj = XmlElement(entity)        
         if checkNestedType:
             nestedTypes = entity.getElementsByTagName('xsd:complexType')
             if nestedTypes:
-                entity = nestedTypes[0] # remove xsd:complex-tag
+                entity = nestedTypes[0] # skip xsd:complex-tag
         for aa in entity.childNodes:
             if aa.nodeName =='xsd:attribute':
                 for attrss in range(aa.attributes.length):
                     if aa.attributes.item(attrss).nodeName == 'name':
-                        eleObj.attributes[aa.attributes.item(attrss).value] = None
+                        eleObj.attributes.append(aa.attributes.item(attrss).value)
                         break
             elif aa.nodeName =='xsd:sequence' or aa.nodeName =='xsd:choice':            
                 for aae in aa.getElementsByTagName('xsd:element'):
