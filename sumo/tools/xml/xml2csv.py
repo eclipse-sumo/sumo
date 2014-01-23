@@ -58,12 +58,13 @@ class AttrFinder(NestingHandler):
         self.attrs = {}
         self.depthTags = {} # child of root: depth of appearance -> tag
         if xsdFile:
-            xsdStruc = xsd.XsdStructure(xsdFile)
-            for ele in xsdStruc.root.children:
+            self.xsdStruc = xsd.XsdStructure(xsdFile)
+            for ele in self.xsdStruc.root.children:
                 self.attrs[ele.name] = []
                 self.depthTags[ele.name] = [None]
                 self.recursiveAttrFind(ele, ele, 1)
         else:
+            self.xsdStruc = None
             xml.sax.parse(source, self)
 
     def recursiveAttrFind(self, root, currEle, depth):

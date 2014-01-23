@@ -19,8 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys, socket, subprocess, importlib
-from collections import defaultdict
+import os, sys, socket, subprocess, importlib, struct
 from optparse import OptionParser
 import xml.sax
 try:
@@ -32,9 +31,8 @@ except ImportError:
 
 import xsd, xml2csv
 
-class ProtoWriter(xml2csv.NestingHandler):
+class ProtoWriter(xml.sax.handler.ContentHandler):
     def __init__(self, module, tagAttrs, output):
-        xml2csv.NestingHandler.__init__(self)
         self.module = module
         self.tagAttrs = tagAttrs
         self.out = open(output, 'wb')
@@ -55,36 +53,29 @@ class ProtoWriter(xml2csv.NestingHandler):
         self.endElement(qname)
 
     def startElement(self, name, attrs):
-        xml2csv.NestingHandler.startElement(self, name, attrs)
-        if self.depth() > 0:
-            if self.msgStack:
-                obj = getattr(self.msgStack[-1], name).add()
+        if len(self.msgStack) == 0:
+            obj = vars(self.module)[name.capitalize()]()
+        else:
+            if len(self.msgStack) == 1:
+                obj = getattr(self.msgStack[-1], name)
             else:
-                obj = vars(self.module)[name.capitalize()]()
+                obj = getattr(self.msgStack[-1], name).add()
             for a, v in attrs.items():
                 setattr(obj, a, self.convert(self.tagAttrs[name][a], v))
-            self.msgStack.append(obj)
+        self.msgStack.append(obj)
 
     def endElement(self, name):
         if len(self.msgStack) == 1:
+            self.out.write(struct.pack('>L', self.msgStack[0].ByteSize()))
             self.out.write(self.msgStack[0].SerializeToString())
         self.msgStack = self.msgStack[:-1]
-        xml2csv.NestingHandler.endElement(self, name)
 
     def endDocument(self):
+        self.out.write(struct.pack('>L', 0))
         self.out.close()
-
-def getSocketStream(port):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(("localhost", port))
-    s.listen(1)
-    conn, addr = s.accept()
-    return conn.makefile()
 
 def get_options():
     optParser = OptionParser(usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
-    optParser.add_option("-v", "--verbose", action="store_true",
-                         default=False, help="Give more output")
     optParser.add_option("-p", "--protodir", default=".",
                          help="where to put and read .proto files")
     optParser.add_option("-x", "--xsd", help="xsd schema to use")
@@ -112,9 +103,15 @@ def writeField(protof, use, type, name, tagNumber):
         type = type.capitalize()
     protof.write("  %s %s %s = %s;\n" % (use, type, name, tagNumber))
     
-def generateProto(tagAttrs, depthTags, protodir, base):
+def generateProto(root, tagAttrs, depthTags, protodir, base):
     with open(os.path.join(protodir, "%s.proto" % base), 'w') as protof:
         protof.write("package %s;\n" % base)
+        protof.write("\nmessage %s {\n" % root.capitalize())
+        count = 1
+        for tag in depthTags.iterkeys():
+            writeField(protof, "optional", tag, tag, count)
+            count += 1
+        protof.write("}\n")
         for tagList in depthTags.itervalues():
             next = 2
             for tag in tagList[1:]:
@@ -136,20 +133,20 @@ def main():
     attrFinder = xml2csv.AttrFinder(options.xsd, options.source)
     base = os.path.basename(options.source).split('.')[0]
     # generate proto format description
-    module = generateProto(attrFinder.tagAttrs, attrFinder.depthTags, options.protodir, base)
+    module = generateProto(attrFinder.xsdStruc.root.name, attrFinder.tagAttrs, attrFinder.depthTags, options.protodir, base)
     # write proto message
     handler = ProtoWriter(module, attrFinder.tagAttrs, options.output)
     if options.validation:
         schema = lxml.etree.XMLSchema(file=options.xsd)
         parser = lxml.etree.XMLParser(schema=schema)
         if options.source.isdigit():
-            tree = lxml.etree.parse(getSocketStream(int(options.source)), parser)
+            tree = lxml.etree.parse(xml2csv.getSocketStream(int(options.source)), parser)
         else:
             tree = lxml.etree.parse(options.source, parser)
         lxml.sax.saxify(tree, handler)
     else:
         if options.source.isdigit():
-            xml.sax.parse(getSocketStream(int(options.source)), handler)
+            xml.sax.parse(xml2csv.getSocketStream(int(options.source)), handler)
         else:
             xml.sax.parse(options.source, handler)
 

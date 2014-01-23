@@ -132,7 +132,7 @@ def writeHierarchicalXml(struct, options):
             lastRow = row
         outputf.write("/>\n")
         for tag in reversed(tagStack[:-1]):
-            outputf.write("</%s>" % tag)
+            outputf.write("</%s>\n" % tag)
 
 
 def main():
