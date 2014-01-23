@@ -53,7 +53,7 @@ class AttrFinder(NestingHandler):
         NestingHandler.__init__(self)
         self.tagDepths = {} # tag -> depth of appearance
         self.ignoredTags = set()
-        self.tagAttrs = defaultdict(set) # tag -> set of attrs
+        self.tagAttrs = defaultdict(dict) # tag -> set of attrs
         self.renamedAttrs = {} # (name, attr) -> renamedAttr
         self.attrs = {}
         self.depthTags = {} # child of root: depth of appearance -> tag
@@ -74,7 +74,7 @@ class AttrFinder(NestingHandler):
             print("Ignoring tag %s at depth %s" % (currEle.name, depth), file=sys.stderr)
             return
         for a in currEle.attributes:
-            self.tagAttrs[currEle.name].add(a)
+            self.tagAttrs[currEle.name][a.name] = a
             anew = "%s_%s" % (currEle.name, a.name)
             self.renamedAttrs[(currEle.name, a.name)] = anew
             self.attrs[root.name].append(anew)
@@ -101,7 +101,7 @@ class AttrFinder(NestingHandler):
             # collect attributes
             for a in attrs.keys():
                 if not a in self.tagAttrs[name]:
-                    self.tagAttrs[name].add(xsd.XmlAttribute(a))
+                    self.tagAttrs[name][a] = xsd.XmlAttribute(a)
                     if not (name, a) in self.renamedAttrs:
                         anew = "%s_%s" % (name, a)
                         self.renamedAttrs[(name, a)] = anew
@@ -160,7 +160,7 @@ class CSVWriter(NestingHandler):
                         [self.quote(self.currentValues[a]) for a in self.attrs[root]]) + "\n")
                     self.haveUnsavedValues = False
                 for a in self.tagAttrs[name]:
-                    a2 = self.renamedAttrs.get((name, a.name), a.name)
+                    a2 = self.renamedAttrs.get((name, a), a)
                     del self.currentValues[a2]
         NestingHandler.endElement(self, name)
 
@@ -172,7 +172,7 @@ def getSocketStream(port):
     return conn.makefile()
 
 def get_options():
-    optParser = OptionParser(usage=os.path.basename(sys.argv[0]) + "[<options>] <input_file_or_port>")
+    optParser = OptionParser(usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
     optParser.add_option("-s", "--separator", default=";",
                          help="separating character for fields")
     optParser.add_option("-q", "--quotechar", default='',
