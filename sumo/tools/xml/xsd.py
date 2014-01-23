@@ -21,6 +21,18 @@ the Free Software Foundation; either version 3 of the License, or
 import os
 from xml.dom import minidom
 
+class XmlAttribute:
+    def __init__(self, entity):
+        if hasattr(entity, "getAttribute"):
+            self.name = entity.getAttribute('name')
+            self.use = entity.getAttribute('use')
+            self.type = entity.getAttribute('type')
+        else:
+            self.name = entity
+
+    def __repr__(self):
+        return self.name
+
 class XmlElement:
     def __init__(self, entity):
         self.name = entity.getAttribute('name')
@@ -67,14 +79,10 @@ class XsdStructure():
                 entity = nestedTypes[0] # skip xsd:complex-tag
         for aa in entity.childNodes:
             if aa.nodeName =='xsd:attribute':
-                for attrss in range(aa.attributes.length):
-                    if aa.attributes.item(attrss).nodeName == 'name':
-                        eleObj.attributes.append(aa.attributes.item(attrss).value)
-                        break
+                eleObj.attributes.append(XmlAttribute(aa))
             elif aa.nodeName =='xsd:sequence' or aa.nodeName =='xsd:choice':            
                 for aae in aa.getElementsByTagName('xsd:element'):
-                    seqObj = XmlElement(aae)
-                    eleObj.children.append(seqObj)
+                    eleObj.children.append(XmlElement(aae))
         return eleObj
 
     def resolveRefs(self):

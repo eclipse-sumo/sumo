@@ -55,17 +55,15 @@ class AttrFinder(NestingHandler):
         self.ignoredTags = set()
         self.tagAttrs = defaultdict(set) # tag -> set of attrs
         self.renamedAttrs = {} # (name, attr) -> renamedAttr
+        self.attrs = {}
+        self.depthTags = {} # child of root: depth of appearance -> tag
         if xsdFile:
             xsdStruc = xsd.XsdStructure(xsdFile)
-            self.attrs = {}
-            self.depthTags = {} # child of root: depth of appearance -> tag
             for ele in xsdStruc.root.children:
                 self.attrs[ele.name] = []
                 self.depthTags[ele.name] = [None]
                 self.recursiveAttrFind(ele, ele, 1)
         else:
-            self.attrs = {}
-            self.depthTags = {} # child of root: depth of appearance -> tag
             xml.sax.parse(source, self)
 
     def recursiveAttrFind(self, root, currEle, depth):
@@ -77,8 +75,8 @@ class AttrFinder(NestingHandler):
             return
         for a in currEle.attributes:
             self.tagAttrs[currEle.name].add(a)
-            anew = "%s_%s" % (currEle.name, a)
-            self.renamedAttrs[(currEle.name, a)] = anew
+            anew = "%s_%s" % (currEle.name, a.name)
+            self.renamedAttrs[(currEle.name, a.name)] = anew
             self.attrs[root.name].append(anew)
         for ele in currEle.children:
             self.recursiveAttrFind(root, ele, depth + 1)
@@ -103,7 +101,7 @@ class AttrFinder(NestingHandler):
             # collect attributes
             for a in attrs.keys():
                 if not a in self.tagAttrs[name]:
-                    self.tagAttrs[name].add(a)
+                    self.tagAttrs[name].add(xsd.XmlAttribute(a))
                     if not (name, a) in self.renamedAttrs:
                         anew = "%s_%s" % (name, a)
                         self.renamedAttrs[(name, a)] = anew
@@ -162,7 +160,7 @@ class CSVWriter(NestingHandler):
                         [self.quote(self.currentValues[a]) for a in self.attrs[root]]) + "\n")
                     self.haveUnsavedValues = False
                 for a in self.tagAttrs[name]:
-                    a2 = self.renamedAttrs.get((name, a), a)
+                    a2 = self.renamedAttrs.get((name, a.name), a.name)
                     del self.currentValues[a2]
         NestingHandler.endElement(self, name)
 
@@ -175,8 +173,6 @@ def getSocketStream(port):
 
 def get_options():
     optParser = OptionParser(usage=os.path.basename(sys.argv[0]) + "[<options>] <input_file_or_port>")
-    optParser.add_option("-v", "--verbose", action="store_true",
-                         default=False, help="Give more output")
     optParser.add_option("-s", "--separator", default=";",
                          help="separating character for fields")
     optParser.add_option("-q", "--quotechar", default='',

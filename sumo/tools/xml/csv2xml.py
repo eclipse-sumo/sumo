@@ -28,8 +28,6 @@ import xsd
 
 def get_options():
     optParser = OptionParser(usage=os.path.basename(sys.argv[0])+" [<options>] <input_file_or_port>")
-    optParser.add_option("-v", "--verbose", action="store_true",
-            default=False, help="Give more output")
     optParser.add_option("-q", "--quotechar", default="",
              help="the quoting character for fields")
     optParser.add_option("-d", "--delimiter", default=";",
@@ -85,7 +83,7 @@ def checkChanges(out, old, new, currEle, tagStack, depth=1):
         for ele in currEle.children:
             found = False
             for attr in ele.attributes:
-                name = "%s_%s" % (ele.name, attr)
+                name = "%s_%s" % (ele.name, attr.name)
                 if new.get(name, "") != "":
                     found = True
                     break
@@ -99,7 +97,7 @@ def checkChanges(out, old, new, currEle, tagStack, depth=1):
             changed = False
             found = False
             for attr in ele.attributes:
-                name = "%s_%s" % (ele.name, attr)
+                name = "%s_%s" % (ele.name, attr.name)
                 if old.get(name, "") != new.get(name, ""):
                     changed = True
                     break
