@@ -65,9 +65,10 @@ class ProtoWriter(xml.sax.handler.ContentHandler):
         self.msgStack.append(obj)
 
     def endElement(self, name):
-        if len(self.msgStack) == 1:
+        if len(self.msgStack) == 2:
             self.out.write(struct.pack('>L', self.msgStack[0].ByteSize()))
             self.out.write(self.msgStack[0].SerializeToString())
+            self.msgStack[0].Clear()
         self.msgStack = self.msgStack[:-1]
 
     def endDocument(self):

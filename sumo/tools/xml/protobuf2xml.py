@@ -39,11 +39,6 @@ def get_options():
         options.output = os.path.splitext(options.source)[0] + ".xml"
     return options
 
-
-def row2xml(row, tag, close="/>\n", depth=1):
-    attrString = ' '.join(['%s="%s"' % (a[len(tag)+1:], v) for a,v in row.items() if v != "" and a.startswith(tag)])
-    return ('%s<%s %s%s' % ((depth * '    '), tag, attrString, close))
-
 def read_n(inputf, n):
     """ Read exactly n bytes from the input.
         Raise RuntimeError if the stream andedbefore
@@ -58,21 +53,25 @@ def read_n(inputf, n):
         n -= len(data)
     return buf
 
-def msg2xml(obj, out, depth=1):
-    for desc, cont in obj.ListFields():
-        out.write("%s<%s" % (depth*'    ', desc.name))
-        for attr, value in cont.ListFields():
-            print attr.name, attr.type, attr.label
-            if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
-                if attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
-                    for item in value:
-                        msg2xml(item, out, depth+1)
-            else:
-                out.write(" %s=%s" % (attr.name, value))
+def msg2xml(desc, cont, out, depth=1):
+    out.write(">\n%s<%s" % (depth*'    ', desc.name))
+    haveChildren = False
+    for attr, value in cont.ListFields():
+        if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
+            if attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
+                haveChildren = True
+                for item in value:
+                    msg2xml(attr, item, out, depth+1)
+        else:
+            out.write(' %s="%s"' % (attr.name, value))
+    if haveChildren:
+        out.write(">\n%s</%s" % (depth*'    ', desc.name))
+    else:
+        out.write("/")
 
 def writeXml(root, module, options):
     with open(options.output, 'w') as outputf:
-        outputf.write('<%s>\n' % root)
+        outputf.write('<%s' % root)
         if (options.source.isdigit()):
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
@@ -83,9 +82,10 @@ def writeXml(root, module, options):
                 break
             obj = vars(module)[root.capitalize()]()
             obj.ParseFromString(read_n(inputf, length))
-            msg2xml(obj, outputf)
+            for desc, cont in obj.ListFields():
+                msg2xml(desc, cont, outputf)
         inputf.close()
-        outputf.write("</%s>\n" % root)
+        outputf.write(">\n</%s>\n" % root)
 
 
 def main():
