@@ -41,9 +41,11 @@ if os.name != 'posix':
 
 client_args[0] = os.path.join(binaryDir, client)
 
-#start sumo as server    
+#start sumo as server
 serverprocess = subprocess.Popen(server_args, stdout=sys.stdout, stderr=sys.stderr)
-for retry in range(10):
+success = False
+for retry in range(7):
+    time.sleep(retry*retry)
     clientProcess = subprocess.Popen(client_args, stdout=sys.stdout, stderr=sys.stderr)
     if serverprocess.poll() != None and clientProcess.poll() == None:
         time.sleep(10)
@@ -52,8 +54,11 @@ for retry in range(10):
             clientProcess.kill()
             break
     if clientProcess.wait() == 0:
+        success = True
         break
-    time.sleep(1)
 
-#wait for the server to finish
-serverprocess.wait()
+if success:
+    serverprocess.wait()
+else:
+    print >> sys.stderr, "Server hangs and does not answer connection requests"
+    serverprocess.kill()
