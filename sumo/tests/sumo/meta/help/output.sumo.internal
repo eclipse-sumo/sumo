@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r15148
+SUMO sumo Version dev-SVN-r15420
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
@@ -106,7 +106,8 @@ Report Options:
   -p, --print-options                  Prints option values before processing
   -?, --help                           Prints this screen
   -V, --version                        Prints the current version
-  -X, --xml-validation                 Enable schema validation of XML inputs
+  -X, --xml-validation STR             Set schema validation scheme of XML
+                                         inputs ("never", "auto" or "always")
   -W, --no-warnings                    Disables output of warnings
   -l, --log FILE                       Writes all messages to FILE (implies
                                          verbose)
