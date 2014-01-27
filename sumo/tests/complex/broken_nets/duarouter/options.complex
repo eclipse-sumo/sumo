@@ -1,1 +1,1 @@
-duarouter tests/complex/broken_nets/runner.py
+duarouter --xml-validation.net auto tests/complex/broken_nets/runner.py

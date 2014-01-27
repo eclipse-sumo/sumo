@@ -253,49 +253,49 @@ Error: missing required attribute 'length'
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:
-Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 27/74.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:
-Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 28/74.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:
-Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 31/74.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:
-Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 32/74.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a
-Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 27/75.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a
-Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 28/75.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a
-Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 31/75.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a
-Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value 'a' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 32/75.
 
@@ -325,121 +325,121 @@ Error: missing required attribute 'shape'
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a,-4.95 100.00,-4.95
-Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 27/94.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a,-4.95 100.00,-4.95
-Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 28/94.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a,-4.95 100.00,-4.95
-Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 31/94.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a,-4.95 100.00,-4.95
-Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 32/94.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,a 100.00,-4.95
-Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 27/93.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,a 100.00,-4.95
-Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 28/93.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,a 100.00,-4.95
-Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 31/93.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,a 100.00,-4.95
-Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 32/93.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a,-4.95
-Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 27/92.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a,-4.95
-Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 28/92.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a,-4.95
-Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 31/92.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a,-4.95
-Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 32/92.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
-Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 27/99.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
-Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 28/99.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
-Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 31/99.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
-Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 32/99.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:100.00,-4.95
-Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 27/86.
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0100.00,-4.95
-Error: value '0100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '0100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 28/87.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:100.00,-4.95
-Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 31/86.
 
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:100.00,-4.95
-Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)+'
+Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(,(\-)?(\d+|(\d*.\d+)))?)*'
  In file 'mod.net.xml'
  At line/column 32/86.
 

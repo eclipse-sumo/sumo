@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r15328
+SUMO jtrrouter Version dev-SVN-r15485
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
@@ -72,6 +72,8 @@ Report Options:
   -V, --version                    Prints the current version
   -X, --xml-validation STR         Set schema validation scheme of XML inputs
                                      ("never", "auto" or "always")
+  --xml-validation.net STR         Set schema validation scheme of SUMO network
+                                     inputs ("never", "auto" or "always")
   -W, --no-warnings                Disables output of warnings
   -l, --log FILE                   Writes all messages to FILE (implies
                                      verbose)
