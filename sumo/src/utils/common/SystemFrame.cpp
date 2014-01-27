@@ -89,6 +89,9 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("xml-validation", 'X', new Option_String("auto"));
     oc.addDescription("xml-validation", "Report", "Set schema validation scheme of XML inputs (\"never\", \"auto\" or \"always\")");
 
+    oc.doRegister("xml-validation.net", new Option_String("never"));
+    oc.addDescription("xml-validation.net", "Report", "Set schema validation scheme of SUMO network inputs (\"never\", \"auto\" or \"always\")");
+
     oc.doRegister("no-warnings", 'W', new Option_Bool(false));
     oc.addSynonyme("no-warnings", "suppress-warnings", true);
     oc.addDescription("no-warnings", "Report", "Disables output of warnings");

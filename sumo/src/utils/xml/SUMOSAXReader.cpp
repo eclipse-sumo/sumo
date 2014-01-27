@@ -69,6 +69,22 @@ SUMOSAXReader::setHandler(GenericSAXHandler& handler) {
 
 
 void
+SUMOSAXReader::setValidation(const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme) {
+    if (myXMLReader != 0 && validationScheme != myValidationScheme) {
+        if (validationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never) {
+            myXMLReader->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesScannerName, (void*)XERCES_CPP_NAMESPACE::XMLUni::fgWFXMLScanner);
+        } else {
+            myXMLReader->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesScannerName, (void*)XERCES_CPP_NAMESPACE::XMLUni::fgIGXMLScanner);
+            myXMLReader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchema, true);
+            myXMLReader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgSAX2CoreValidation, true);
+            myXMLReader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesDynamic, myValidationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto);
+        }
+    }
+    myValidationScheme = validationScheme;
+}
+
+
+void
 SUMOSAXReader::parse(std::string systemID) {
     if (systemID.length() >= 4 && systemID.substr(systemID.length() - 4) == ".sbx") {
         if (parseFirst(systemID)) {

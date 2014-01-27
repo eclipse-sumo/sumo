@@ -136,7 +136,7 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     PROGRESS_BEGIN_MESSAGE("Loading net");
     RONetHandler handler(toFill, eb);
     handler.setFileName(file);
-    if (!XMLSubSys::runParser(handler, file)) {
+    if (!XMLSubSys::runParser(handler, file, true)) {
         PROGRESS_FAILED_MESSAGE();
         throw ProcessError();
     } else {

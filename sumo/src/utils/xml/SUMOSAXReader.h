@@ -70,6 +70,8 @@ public:
      */
     void setHandler(GenericSAXHandler& handler);
 
+    void setValidation(const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme);
+
     void parse(std::string systemID);
 
     void parseString(std::string content);
@@ -96,7 +98,7 @@ private:
     GenericSAXHandler* myHandler;
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
-    const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myValidationScheme;
+    XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myValidationScheme;
 
     XERCES_CPP_NAMESPACE::XMLPScanToken myToken;
 

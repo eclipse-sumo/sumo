@@ -89,8 +89,9 @@ public:
      * The setting is only valid for parsers created after the call. Existing parsers are not adapted.
      *
      * @param[in] validationScheme Whether validation of XML-documents against schemata shall be enabled
+     * @param[in] netValidationScheme Whether validation of SUMO networks against schemata shall be enabled
      */
-    static void setValidation(std::string validationScheme);
+    static void setValidation(const std::string& validationScheme, const std::string& netValidationScheme);
 
 
     /**
@@ -139,11 +140,12 @@ public:
      *  of the MsgHandler.
      *
      * @param[in] handler The handler to assign to the built reader
-     * @param[in] file The file to run the parser at
+     * @param[in] file    The file to run the parser at
+     * @param[in] isNet   whether a network gets loaded
      * @return true if the parsing was done without errors, false otherwise (error was printed)
      */
     static bool runParser(GenericSAXHandler& handler,
-                          const std::string& file);
+                          const std::string& file, const bool isNet=false);
 
 
 private:
@@ -155,6 +157,9 @@ private:
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
     static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myValidationScheme;
+
+    /// @brief Information whether built reader/parser shall validate SUMO networks against schemata
+    static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myNetValidationScheme;
 
 };
 

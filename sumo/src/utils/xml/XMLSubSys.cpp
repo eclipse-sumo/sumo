@@ -48,6 +48,7 @@
 std::vector<SUMOSAXReader*> XMLSubSys::myReaders;
 unsigned int XMLSubSys::myNextFreeReader;
 XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes XMLSubSys::myValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
+XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes XMLSubSys::myNetValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
 
 
 // ===========================================================================
@@ -65,7 +66,7 @@ XMLSubSys::init() {
 
 
 void
-XMLSubSys::setValidation(std::string validationScheme) {
+XMLSubSys::setValidation(const std::string& validationScheme, const std::string& netValidationScheme) {
     if (validationScheme == "never") {
         myValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never;
     } else if (validationScheme == "auto") {
@@ -74,6 +75,15 @@ XMLSubSys::setValidation(std::string validationScheme) {
         myValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Always;
     } else {
         throw ProcessError("Unknown xml validation scheme + '" + validationScheme + "'.");
+    }
+    if (netValidationScheme == "never") {
+        myNetValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never;
+    } else if (netValidationScheme == "auto") {
+        myNetValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
+    } else if (netValidationScheme == "always") {
+        myNetValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Always;
+    } else {
+        throw ProcessError("Unknown network validation scheme + '" + netValidationScheme + "'.");
     }
 }
 
@@ -102,11 +112,13 @@ XMLSubSys::setHandler(GenericSAXHandler& handler) {
 
 bool
 XMLSubSys::runParser(GenericSAXHandler& handler,
-                     const std::string& file) {
+                     const std::string& file, const bool isNet) {
     try {
+        XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme = isNet ? myNetValidationScheme : myValidationScheme;
         if (myNextFreeReader == myReaders.size()) {
-            myReaders.push_back(new SUMOSAXReader(handler, myValidationScheme));
+            myReaders.push_back(new SUMOSAXReader(handler, validationScheme));
         } else {
+            myReaders[myNextFreeReader]->setValidation(validationScheme);
             myReaders[myNextFreeReader]->setHandler(handler);
         }
         myNextFreeReader++;

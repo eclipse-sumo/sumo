@@ -217,7 +217,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        XMLSubSys::setValidation(oc.getString("xml-validation"));
+        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
         MsgHandler::initOutputOptions();
         // build the projection
         int shift = 0;
