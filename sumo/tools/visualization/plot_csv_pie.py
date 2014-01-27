@@ -48,7 +48,7 @@ def main(args=None):
   optParser.add_option("--shadow", dest="shadow", action="store_true",
                          default=False, help="Puts a shadow below the circle")
   optParser.add_option("--startangle", dest="startangle", 
-                         type="float", default=0, help="Set the start angle")
+                         type="float", default=0, help="Sets the start angle")
   optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="If set, the script says what it's doing")
   # standard plot options
