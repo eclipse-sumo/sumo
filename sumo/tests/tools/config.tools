@@ -47,6 +47,7 @@ copy_test_path:dest.con.xml
 copy_test_path:dest.tll.xml
 copy_test_path:dest.xml
 copy_test_path:fcd.xml
+copy_test_path:data.txt
 
 [collate_file]
 detectors:e1.add.xml
@@ -81,6 +82,7 @@ flt:test.flt
 str:test.str
 gpsdat:gpsdat.txt
 match:match.txt
+image:image.png
 
 [run_dependent_text]
 output:Begin time

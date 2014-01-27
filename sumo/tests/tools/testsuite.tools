@@ -33,3 +33,6 @@ detector
 
 # tests for district tools (especially visum and net mapping)
 district
+
+# tests for visualisation tools
+visualisation
