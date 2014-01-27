@@ -7,6 +7,7 @@
 
 
 This script plots selected columns from a given .csv file (';'-separated).
+The loaded time lines are visualised as lines.
 matplotlib (http://matplotlib.org/) has to be installed for this purpose
 
 
@@ -55,7 +56,7 @@ def main(args=None):
   optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="If set, the script says what it's doing")
   optParser.add_option("-c", "--columns", dest="columns", 
-                         default=None, help="Define which columns shall be plotted")
+                         default=None, help="Defines which columns shall be plotted")
   # standard plot options
   helpers.addInteractionOptions(optParser)
   helpers.addPlotOptions(optParser)

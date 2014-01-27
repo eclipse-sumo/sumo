@@ -141,7 +141,12 @@ def plotNet(net, colors, widths, options):
 
 
 def getColor(options, i, a):
-  if options.colors: return options.colors.split(",")[i]
+  if options.colors:
+    v = options.colors.split(",")
+    if i>=len(v):
+      print "Error: not enough colors given"
+      sys.exit(1) 
+    return v[i]
   cm = get_cmap(options.colormap) 
   cNorm  = matplotlib.colors.Normalize(vmin=0, vmax=a)
   scalarMap = matplotlib.cm.ScalarMappable(norm=cNorm, cmap=cm)
