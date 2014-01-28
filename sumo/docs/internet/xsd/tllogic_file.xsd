@@ -8,8 +8,8 @@
     <xsd:complexType name="tlLogicsType">
         <xsd:choice maxOccurs="unbounded">
             <xsd:element name="tlLogic" type="tlLogicType" minOccurs="0"/>
-            <xsd:element name="connection" type="connectionType" minOccurs="0"/>
-            <xsd:element name="delete" type="deleteType" minOccurs="0"/>
+            <xsd:element name="connection" type="connectionDeleteType" minOccurs="0"/>
+            <xsd:element name="delete" type="connectionDeleteType" minOccurs="0"/>
         </xsd:choice>
         <xsd:attribute name="version" use="optional">
             <xsd:simpleType>
@@ -20,16 +20,7 @@
         </xsd:attribute>
     </xsd:complexType>
 
-    <xsd:complexType name="connectionType">
-        <xsd:attribute name="from" type="xsd:string" use="required"/>
-        <xsd:attribute name="to" type="xsd:string" use="required"/>
-        <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="required"/>
-        <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="required"/>
-        <xsd:attribute name="tl" type="xsd:string" use="required"/>
-        <xsd:attribute name="linkIndex" type="xsd:nonNegativeInteger" use="required"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="deleteType">
+    <xsd:complexType name="connectionDeleteType">
         <xsd:attribute name="from" type="xsd:string" use="required"/>
         <xsd:attribute name="to" type="xsd:string" use="required"/>
         <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="required"/>
