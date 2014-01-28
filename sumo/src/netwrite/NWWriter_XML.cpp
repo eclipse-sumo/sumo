@@ -188,7 +188,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             edevice.writeAttr(SUMO_ATTR_WIDTH, e->getLaneWidth());
         }
         if (e->getOffset() != NBEdge::UNSPECIFIED_OFFSET && !e->hasLaneSpecificOffset()) {
-            edevice.writeAttr(SUMO_ATTR_OFFSET, e->getOffset());
+            edevice.writeAttr(SUMO_ATTR_ENDOFFSET, e->getOffset());
         }
         if (!e->needsLaneSpecificOutput()) {
             edevice.closeTag();
@@ -205,7 +205,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                     edevice.writeAttr(SUMO_ATTR_WIDTH, lane.width);
                 }
                 if (lane.offset != NBEdge::UNSPECIFIED_OFFSET && e->hasLaneSpecificOffset()) {
-                    edevice.writeAttr(SUMO_ATTR_OFFSET, lane.offset);
+                    edevice.writeAttr(SUMO_ATTR_ENDOFFSET, lane.offset);
                 }
                 if (e->hasLaneSpecificSpeed()) {
                     edevice.writeAttr(SUMO_ATTR_SPEED, lane.speed);
