@@ -27,18 +27,6 @@
         <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="required"/>
         <xsd:attribute name="tl" type="xsd:string" use="required"/>
         <xsd:attribute name="linkIndex" type="xsd:nonNegativeInteger" use="required"/>
-        <xsd:attribute name="dir" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="s"/>
-                    <xsd:enumeration value="t"/>
-                    <xsd:enumeration value="l"/>
-                    <xsd:enumeration value="r"/>
-                    <xsd:enumeration value="L"/>
-                    <xsd:enumeration value="R"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="deleteType">

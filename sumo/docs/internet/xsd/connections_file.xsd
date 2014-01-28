@@ -25,6 +25,7 @@
         <xsd:attribute name="to" type="xsd:string" use="optional"/>
         <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="optional"/>
         <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="pass" type="boolType" use="optional"/>
         <xsd:attribute name="uncontrolled" type="boolType" use="optional"/>
     </xsd:complexType>
 
