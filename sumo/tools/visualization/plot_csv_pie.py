@@ -3,7 +3,7 @@
 @file    plot_csv_pie.py
 @author  Daniel Krajzewicz
 @date    2014-01-15
-@version $Id: plot_csv_pie.py 14677 2013-09-11 08:30:08Z behrisch $
+@version $Id$
 
 
 This script plots name / value pairs from a given .csv file (';'-separated).
