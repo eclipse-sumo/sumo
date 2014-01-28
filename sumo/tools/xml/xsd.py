@@ -18,7 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os
+import os, pprint
 from xml.dom import minidom
 
 class XmlAttribute:
@@ -29,6 +29,7 @@ class XmlAttribute:
             self.type = entity.getAttribute('type')
         else:
             self.name = entity
+        self.resolved = False
 
     def __repr__(self):
         return self.name
@@ -46,7 +47,7 @@ class XmlElement:
         return "name '%s' ref '%s' type '%s' attrs %s %s"  % (self.name, self.ref, self.type, self.attributes, childList)
 
 class XsdStructure():
-    def __init__(self, xsdFile):        
+    def __init__(self, xsdFile):
         xmlDoc = minidom.parse(open(xsdFile))
         self.root = None
         self._namedElements = {}
@@ -68,8 +69,9 @@ class XsdStructure():
                 el = self.getElementStructure(btEntity)
                 self._namedTypes[el.name] = el
         self.resolveRefs()
-        print self._namedElements
-        print self._namedTypes
+#        pp = pprint.PrettyPrinter(indent=4)
+#        pp.pprint(self._namedElements)
+#        pp.pprint(self._namedTypes)
 
     def getElementStructure(self, entity, checkNestedType=False):
         eleObj = XmlElement(entity)
@@ -84,25 +86,23 @@ class XsdStructure():
         for aa in entity.childNodes:
             if aa.nodeName =='xsd:attribute':
                 eleObj.attributes.append(XmlAttribute(aa))
-            elif aa.nodeName =='xsd:sequence' or aa.nodeName =='xsd:choice':            
+            elif aa.nodeName =='xsd:sequence' or aa.nodeName =='xsd:choice':
                 for aae in aa.getElementsByTagName('xsd:element'):
                     eleObj.children.append(XmlElement(aae))
         return eleObj
 
     def resolveRefs(self):
         for ele in self._namedElements.itervalues():
-            if ele.type and ele.type in self._namedTypes:
+            if ele.type and ele.type in self._namedTypes and not ele.resolved:
                 t = self._namedTypes[ele.type]
                 ele.attributes += t.attributes
                 ele.children += t.children
+                ele.resolved = True
         for ele in self._namedElements.itervalues():
             newChildren = []
             for child in ele.children:
                 if child.ref:
                     newChildren.append(self._namedElements[child.ref])
-                elif child.type and child.type in self._namedTypes:
-                    t = self._namedTypes[child.type]
-                    child.attributes = t.attributes
-                    child.children = t.children
-                    newChildren.append(child)
+                else:
+                    newChildren.append(self._namedElements[child.name])
             ele.children = newChildren
