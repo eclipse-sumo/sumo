@@ -1,4 +1,4 @@
-<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tllogic_file.xsd">
     <!-- Deleted Elements -->
     <delete from="edge_R2C" to="edge_C2L" fromLane="0" toLane="1" tl="node_C" linkIndex="5"/>
     <delete from="edge_U2C" to="edge_C2L" fromLane="0" toLane="0" tl="node_C" linkIndex="0"/>

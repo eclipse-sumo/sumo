@@ -1,4 +1,4 @@
-<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tllogic_file.xsd">
     <!-- Deleted Elements -->
     <delete from="27437972" to="27441189" fromLane="0" toLane="2" tl="joinedS_0" linkIndex="0"/>
     <delete from="27437972" to="27441189" fromLane="1" toLane="3" tl="joinedS_0" linkIndex="1"/>
