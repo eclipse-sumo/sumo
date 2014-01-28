@@ -336,6 +336,9 @@ protected:
     /// returns the id of the object at position using GL_SELECT
     GUIGlID getObjectAtPosition(Position pos);
 
+    /// returns the ids of the object at position within the given (rectangular) radius using GL_SELECT
+    std::vector<GUIGlID> getObjectsAtPosition(Position pos, SUMOReal radius);
+
     /// returns the ids of all objects in the given boundary
     std::vector<GUIGlID> getObjectsInBoundary(const Boundary& bound);
 

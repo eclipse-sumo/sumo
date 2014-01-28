@@ -297,6 +297,36 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
 
 
 std::vector<GUIGlID>
+GUISUMOAbstractView::getObjectsAtPosition(Position pos, SUMOReal radius) {
+    Boundary selection;
+    selection.add(pos);
+    selection.grow(radius);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
+    std::vector<GUIGlID> result;
+    // Interpret results
+    unsigned int idMax = 0;
+    SUMOReal maxLayer = -std::numeric_limits<SUMOReal>::max();
+    for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
+        GUIGlID id = *it;
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        if (o == 0) {
+            continue;
+        }
+        if (o->getGlID() == 0) {
+            continue;
+        }
+        //std::cout << "point selection hit " << o->getMicrosimID() << "\n";
+        GUIGlObjectType type = o->getType();
+        if (type != 0) {
+            result.push_back(id);
+        }
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+    }
+    return result;
+}
+
+
+std::vector<GUIGlID>
 GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
     const int NB_HITS_MAX = 1024 * 1024;
     // Prepare the selection mode
