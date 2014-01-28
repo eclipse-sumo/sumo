@@ -29,7 +29,6 @@ class XmlAttribute:
             self.type = entity.getAttribute('type')
         else:
             self.name = entity
-        self.resolved = False
 
     def __repr__(self):
         return self.name
@@ -41,6 +40,7 @@ class XmlElement:
         self.type = entity.getAttribute('type')
         self.attributes = []
         self.children = []
+        self.resolved = False
 
     def __repr__(self):
         childList = [c.name for c in self.children]
@@ -52,6 +52,7 @@ class XsdStructure():
         self.root = None
         self._namedElements = {}
         self._namedTypes = {}
+        self._namedEnumerations = {}
         for btEntity in xmlDoc.getElementsByTagName('xsd:include'):
             path = btEntity.getAttribute('schemaLocation')
             fullPath = os.path.join(os.path.dirname(xsdFile), path)
@@ -68,10 +69,16 @@ class XsdStructure():
             if btEntity.nodeType == 1 and btEntity.hasAttribute('name'):
                 el = self.getElementStructure(btEntity)
                 self._namedTypes[el.name] = el
+        for btEntity in xmlDoc.getElementsByTagName('xsd:simpleType'):
+            if btEntity.nodeType == 1 and btEntity.hasAttribute('name'):
+                enum = [e.getAttribute('value') for e in btEntity.getElementsByTagName('xsd:enumeration')]
+                if enum:
+                    self._namedEnumerations[btEntity.getAttribute('name')] = enum
         self.resolveRefs()
 #        pp = pprint.PrettyPrinter(indent=4)
 #        pp.pprint(self._namedElements)
 #        pp.pprint(self._namedTypes)
+#        pp.pprint(self._namedEnumerations)
 
     def getElementStructure(self, entity, checkNestedType=False):
         eleObj = XmlElement(entity)
