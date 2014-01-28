@@ -477,10 +477,10 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
     // recheck stops
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
-        if (find(edges.begin(), edges.end(), &iter->lane->getEdge()) == edges.end()) {
+        if (find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
             iter = myStops.erase(iter);
         } else {
-            iter->edge = find(edges.begin(), edges.end(), &iter->lane->getEdge());
+            iter->edge = find(myCurrEdge, edges.end(), &iter->lane->getEdge());
             ++iter;
         }
     }
