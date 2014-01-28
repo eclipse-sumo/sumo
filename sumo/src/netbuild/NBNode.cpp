@@ -288,27 +288,19 @@ NBNode::isJoinedTLSControlled() const {
 void
 NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont) {
     if (isTLControlled()) {
-        std::set<NBTrafficLightDefinition*> newDefs;
-        for (std::set<NBTrafficLightDefinition*>::iterator it =  myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
+        std::set<NBTrafficLightDefinition*> oldDefs(myTrafficLights);
+        for (std::set<NBTrafficLightDefinition*>::iterator it = oldDefs.begin(); it != oldDefs.end(); ++it) {
             NBTrafficLightDefinition* orig = *it;
-            if (dynamic_cast<NBOwnTLDef*>(orig) != 0) {
-                // this definition will be guessed anyway. no need to invalidate
-                newDefs.insert(orig);
-            } else {
-                const std::string new_id = orig->getID() + "_reguessed";
-                NBTrafficLightDefinition* newDef = new NBOwnTLDef(new_id, orig->getOffset(), orig->getType());
-                if (!tlCont.insert(newDef)) {
-                    // the original definition was shared by other nodes and was already invalidated
-                    delete newDef;
-                    newDef = tlCont.getDefinition(new_id, orig->getProgramID());
-                    assert(newDef != 0);
+            if (dynamic_cast<NBOwnTLDef*>(orig) == 0) {
+                NBTrafficLightDefinition* newDef = new NBOwnTLDef(orig->getID(), orig->getOffset(), orig->getType());
+                const std::vector<NBNode*>& nodes = orig->getNodes();
+                while (!nodes.empty()) {
+                    nodes.front()->removeTrafficLight(orig);
+                    newDef->addNode(nodes.front());
                 }
-                newDefs.insert(newDef);
+                tlCont.removeFully(orig->getID());
+                tlCont.insert(newDef);
             }
-        }
-        removeTrafficLights();
-        for (std::set<NBTrafficLightDefinition*>::iterator it =  newDefs.begin(); it != newDefs.end(); ++it) {
-            (*it)->addNode(this);
         }
     }
 }
