@@ -1,0 +1,2 @@
+C:\Python27\lib\site-packages\matplotlib\axes.py:4602: UserWarning: No labeled objects found. Use label='...' kwarg on individual plots.
+  warnings.warn("No labeled objects found. "

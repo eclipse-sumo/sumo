@@ -1,0 +1,7 @@
+NN;2
+game\ntheory;2
+Q-learning;2
+fuzzy\nlogic;4
+genetic/\nevolutionary;7
+own\n(unique);14
+other;10

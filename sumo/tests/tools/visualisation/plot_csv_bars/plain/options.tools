@@ -1,0 +1,1 @@
+-i data.txt -o image.png -b tools/visualization/plot_csv_bars.py

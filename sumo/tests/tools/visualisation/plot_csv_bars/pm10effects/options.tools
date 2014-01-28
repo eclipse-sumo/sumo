@@ -1,0 +1,2 @@
+-i data.txt -b --colormap RdYlGn --no-legend --width .4 -s 8,4 --revert --xlim 0,50 --xticks 0,51,10,16 --yticks 16 --adjust .28,.1,.95,.9 --show-values -o image.png 
+tools/visualization/plot_csv_bars.py
