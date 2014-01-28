@@ -1359,7 +1359,7 @@ void RTREE_QUAL::InitParVars(PartitionVars* a_parVars, int a_maxRects, int a_min
 RTREE_TEMPLATE
 void RTREE_QUAL::PickSeeds(PartitionVars* a_parVars)
 {
-  int seed0, seed1;
+  int seed0=0, seed1=1;
   ELEMTYPEREAL worst, waste;
   ELEMTYPEREAL area[MAXNODES+1];
 

@@ -237,8 +237,7 @@ MSLaneChanger::change() {
                 // remove vehicle to swap with
                 MSLane::VehCont::iterator i = find(target->lane->myTmpVehicles.begin(), target->lane->myTmpVehicles.end(), prohibitor);
                 if (i != target->lane->myTmpVehicles.end()) {
-                    MSVehicle* bla = *i;
-                    assert(bla == prohibitor);
+                    assert(*i == prohibitor);
                     target->lane->myTmpVehicles.erase(i);
                     // set this vehicle
                     target->hoppedVeh = vehicle;
