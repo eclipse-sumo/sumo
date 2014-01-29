@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 15 12:04:35 2013 by SUMO netconvert Version dev-SVN-r14273
+<!-- generated on 01/28/14 19:42:55 by SUMO netconvert Version dev-SVN-r15519
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,10 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
     </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -57,7 +61,7 @@
         <lane id="gneE8_0" index="0" speed="13.89" length="50.00" shape="1.65,-50.00 1.65,-11.35"/>
     </edge>
 
-    <tlLogic id="gneJ1_reguessed" type="static" programID="0" offset="0">
+    <tlLogic id="gneJ1" type="static" programID="0" offset="0">
         <phase duration="31" state="GGgrrrGGgrrr"/>
         <phase duration="4" state="yygrrryygrrr"/>
         <phase duration="6" state="rrGrrrrrGrrr"/>
@@ -95,17 +99,17 @@
     <connection from="gneE0" to="gneE0.40" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE0" to="gneE0.40" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="gneE0" to="gneE0.40" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from="gneE0.40" to="gneE7" fromLane="0" toLane="0" tl="gneJ1_reguessed" linkIndex="9" dir="r" state="o"/>
-    <connection from="gneE0.40" to="gneE3" fromLane="1" toLane="0" tl="gneJ1_reguessed" linkIndex="10" dir="s" state="o"/>
-    <connection from="gneE0.40" to="gneE5" fromLane="2" toLane="0" tl="gneJ1_reguessed" linkIndex="11" dir="l" state="o"/>
-    <connection from="gneE4" to="gneE5" fromLane="0" toLane="0" tl="gneJ1_reguessed" linkIndex="3" dir="r" state="o"/>
-    <connection from="gneE4" to="gneE2" fromLane="0" toLane="0" tl="gneJ1_reguessed" linkIndex="4" dir="s" state="o"/>
-    <connection from="gneE4" to="gneE7" fromLane="0" toLane="0" tl="gneJ1_reguessed" linkIndex="5" dir="l" state="o"/>
-    <connection from="gneE6" to="gneE2" fromLane="0" toLane="0" tl="gneJ1_reguessed" linkIndex="0" dir="r" state="o"/>
-    <connection from="gneE6" to="gneE7" fromLane="0" toLane="0" tl="gneJ1_reguessed" linkIndex="1" dir="s" state="o"/>
-    <connection from="gneE6" to="gneE3" fromLane="0" toLane="0" tl="gneJ1_reguessed" linkIndex="2" dir="l" state="o"/>
-    <connection from="gneE8" to="gneE3" fromLane="0" toLane="0" tl="gneJ1_reguessed" linkIndex="6" dir="r" state="o"/>
-    <connection from="gneE8" to="gneE5" fromLane="0" toLane="0" tl="gneJ1_reguessed" linkIndex="7" dir="s" state="o"/>
-    <connection from="gneE8" to="gneE2" fromLane="0" toLane="0" tl="gneJ1_reguessed" linkIndex="8" dir="l" state="o"/>
+    <connection from="gneE0.40" to="gneE7" fromLane="0" toLane="0" tl="gneJ1" linkIndex="9" dir="r" state="o"/>
+    <connection from="gneE0.40" to="gneE3" fromLane="1" toLane="0" tl="gneJ1" linkIndex="10" dir="s" state="o"/>
+    <connection from="gneE0.40" to="gneE5" fromLane="2" toLane="0" tl="gneJ1" linkIndex="11" dir="l" state="o"/>
+    <connection from="gneE4" to="gneE5" fromLane="0" toLane="0" tl="gneJ1" linkIndex="3" dir="r" state="o"/>
+    <connection from="gneE4" to="gneE2" fromLane="0" toLane="0" tl="gneJ1" linkIndex="4" dir="s" state="o"/>
+    <connection from="gneE4" to="gneE7" fromLane="0" toLane="0" tl="gneJ1" linkIndex="5" dir="l" state="o"/>
+    <connection from="gneE6" to="gneE2" fromLane="0" toLane="0" tl="gneJ1" linkIndex="0" dir="r" state="o"/>
+    <connection from="gneE6" to="gneE7" fromLane="0" toLane="0" tl="gneJ1" linkIndex="1" dir="s" state="o"/>
+    <connection from="gneE6" to="gneE3" fromLane="0" toLane="0" tl="gneJ1" linkIndex="2" dir="l" state="o"/>
+    <connection from="gneE8" to="gneE3" fromLane="0" toLane="0" tl="gneJ1" linkIndex="6" dir="r" state="o"/>
+    <connection from="gneE8" to="gneE5" fromLane="0" toLane="0" tl="gneJ1" linkIndex="7" dir="s" state="o"/>
+    <connection from="gneE8" to="gneE2" fromLane="0" toLane="0" tl="gneJ1" linkIndex="8" dir="l" state="o"/>
 
 </net>
