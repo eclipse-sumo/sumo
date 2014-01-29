@@ -1117,6 +1117,7 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
                 // differ from the one it requests in setApproaching
                 MSLink::ApproachingVehicleInformation avi = (*i).myLink->getApproaching(this);
                 assert(avi.arrivalTime == (*i).myArrivalTime && avi.leavingTime == leaveTime);
+                UNUSED_PARAMETER(avi); // only used for assertion
             }
         }
     }

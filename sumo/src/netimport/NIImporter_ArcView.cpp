@@ -210,6 +210,7 @@ NIImporter_ArcView::load() {
         OGRGeometry* poGeometry = poFeature->GetGeometryRef();
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         assert(gtype == wkbLineString);
+        UNUSED_PARAMETER(gtype); // ony used for assertion
         OGRLineString* cgeom = (OGRLineString*) poGeometry;
         if (poCT != 0) {
             // try transform to wgs84

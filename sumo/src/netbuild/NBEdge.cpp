@@ -1634,6 +1634,7 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge* e, unsigned int laneOff) {
             assert(el.tlID == "");
             bool ok = addLane2LaneConnection(i + laneOff, el.toEdge, el.toLane, L2L_COMPUTED);
             assert(ok);
+            UNUSED_PARAMETER(ok); // only used for assertion
         }
     }
 }

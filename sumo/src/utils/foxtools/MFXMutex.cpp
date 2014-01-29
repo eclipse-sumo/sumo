@@ -55,6 +55,7 @@ MFXMutex::MFXMutex() : lock_(0) {
     FXMALLOC(&mutexHandle, pthread_mutex_t, 1);
     status = pthread_mutex_init((pthread_mutex_t*)mutexHandle, &attr);
     FXASSERT(status == 0);
+    (void)status; // only used for assertion
     pthread_mutexattr_destroy(&attr);
 #else
     mutexHandle = CreateMutex(NULL, FALSE, NULL);

@@ -328,6 +328,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
             } else {
                 bool ok = into.removeRouteDesc(*i);
                 assert(ok);
+                UNUSED_PARAMETER(ok); // ony used for assertion
             }
         }
     } else {
