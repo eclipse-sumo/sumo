@@ -52,7 +52,6 @@ class AttrFinder(NestingHandler):
     def __init__(self, xsdFile, source):
         NestingHandler.__init__(self)
         self.tagDepths = {} # tag -> depth of appearance
-        self.ignoredTags = set()
         self.tagAttrs = defaultdict(dict) # tag -> set of attrs
         self.renamedAttrs = {} # (name, attr) -> renamedAttr
         self.attrs = {}
@@ -110,30 +109,28 @@ class AttrFinder(NestingHandler):
 
 
 class CSVWriter(NestingHandler):
-    def __init__(self, attrs, renamedAttrs, depthTags, tagAttrs, options):
+    def __init__(self, attrFinder, options):
         NestingHandler.__init__(self)
-        self.attrs = attrs
-        self.renamedAttrs = renamedAttrs
-        self.depthTags = depthTags
-        self.tagAttrs = tagAttrs
+        self.attrFinder = attrFinder
         self.options = options
         self.currentValues = defaultdict(lambda: "")
         self.haveUnsavedValues = False
         self.outfiles = {}
-        for root, depths in depthTags.iteritems():
+        for root, depths in attrFinder.depthTags.iteritems():
             suffix = ""
-            if len(depthTags) > 1:
+            if len(attrFinder.depthTags) > 1:
                 suffix = root
             if options.output:
                 outfilename = options.output + "%s.csv" % suffix
             else:
                 outfilename = os.path.splitext(options.source)[0] + "%s.csv" % suffix
             self.outfiles[root] = open(outfilename, 'w')
-            self.outfiles[root].write(options.separator.join(map(self.quote,attrs[root])) + "\n")
+            self.outfiles[root].write(options.separator.join(map(self.quote,attrFinder.attrs[root])) + "\n")
 
     def quote(self, s):
         return "%s%s%s" % (self.options.quotechar, s, self.options.quotechar)
 
+# the following two are needed for the lxml saxify to work
     def startElementNS(self, name, qname, attrs):
         self.startElement(qname, attrs)
 
@@ -144,24 +141,29 @@ class CSVWriter(NestingHandler):
         NestingHandler.startElement(self, name, attrs)
         if self.depth() > 0:
             root = self.tagstack[1]
-            if self.depthTags[root][self.depth()] == name:
+            if self.attrFinder.depthTags[root][self.depth()] == name:
                 for a, v in attrs.items():
                     if isinstance(a, tuple):
                         a = a[1]
-                    a2 = self.renamedAttrs.get((name, a), a)
+                    if self.attrFinder.xsdStruc:
+                        enum = self.attrFinder.xsdStruc.getEnumeration(self.attrFinder.tagAttrs[name][a].type)
+                        print(self.attrFinder.tagAttrs[name][a].type, enum)
+                        if enum:
+                            v = enum.index(v)
+                    a2 = self.attrFinder.renamedAttrs.get((name, a), a)
                     self.currentValues[a2] = v
                     self.haveUnsavedValues = True
 
     def endElement(self, name):
         if self.depth() > 0:
             root = self.tagstack[1]
-            if self.depthTags[root][self.depth()] == name:
+            if self.attrFinder.depthTags[root][self.depth()] == name:
                 if self.haveUnsavedValues:
                     self.outfiles[root].write(self.options.separator.join(
-                        [self.quote(self.currentValues[a]) for a in self.attrs[root]]) + "\n")
+                        [self.quote(self.currentValues[a]) for a in self.attrFinder.attrs[root]]) + "\n")
                     self.haveUnsavedValues = False
-                for a in self.tagAttrs[name]:
-                    a2 = self.renamedAttrs.get((name, a), a)
+                for a in self.attrFinder.tagAttrs[name]:
+                    a2 = self.attrFinder.renamedAttrs.get((name, a), a)
                     del self.currentValues[a2]
         NestingHandler.endElement(self, name)
 
@@ -197,8 +199,7 @@ def main():
     # get attributes
     attrFinder = AttrFinder(options.xsd, options.source)
     # write csv
-    handler = CSVWriter(attrFinder.attrs, attrFinder.renamedAttrs,
-            attrFinder.depthTags, attrFinder.tagAttrs, options)
+    handler = CSVWriter(attrFinder, options)
     if options.validation:
         schema = lxml.etree.XMLSchema(file=options.xsd)
         parser = lxml.etree.XMLParser(schema=schema)

@@ -29,6 +29,8 @@ class XmlAttribute:
             self.type = entity.getAttribute('type')
         else:
             self.name = entity
+            self.use = None
+            self.type = None
 
     def __repr__(self):
         return self.name
@@ -79,6 +81,9 @@ class XsdStructure():
 #        pp.pprint(self._namedElements)
 #        pp.pprint(self._namedTypes)
 #        pp.pprint(self._namedEnumerations)
+
+    def getEnumeration(self, name):
+        return self._namedEnumerations.get(name, None)
 
     def getElementStructure(self, entity, checkNestedType=False):
         eleObj = XmlElement(entity)

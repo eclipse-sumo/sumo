@@ -96,15 +96,17 @@ def get_options():
     return options 
 
 def writeField(protof, use, type, name, tagNumber):
-    if type.startswith("xsd:"):
-        type = type[4:]
-    elif "Float" in type:
+    if "float" in type.lower():
         type = "float"
+    elif "integer" in type.lower() or type.endswith(":int"):
+        type = "int32"
+    elif type.startswith("xsd:"):
+        type = type[4:]
     else:
         type = type.capitalize()
     protof.write("  %s %s %s = %s;\n" % (use, type, name, tagNumber))
-    
-def generateProto(root, tagAttrs, depthTags, protodir, base):
+
+def generateProto(root, tagAttrs, depthTags, enums, protodir, base):
     with open(os.path.join(protodir, "%s.proto" % base), 'w') as protof:
         protof.write("package %s;\n" % base)
         protof.write("\nmessage %s {\n" % root.capitalize())
@@ -113,6 +115,11 @@ def generateProto(root, tagAttrs, depthTags, protodir, base):
             writeField(protof, "optional", tag, tag, count)
             count += 1
         protof.write("}\n")
+        for name, enum in enums.iteritems():
+            protof.write("\nenum %s {\n" % name.capitalize())
+            for idx, entry in enumerate(enum):
+                protof.write("  %s = %s;" % (entry.upper(), idx))
+            protof.write("}\n")
         for tagList in depthTags.itervalues():
             next = 2
             for tag in tagList[1:]:
@@ -125,7 +132,8 @@ def generateProto(root, tagAttrs, depthTags, protodir, base):
                     writeField(protof, "repeated", tagList[next], tagList[next], count)
                 next += 1
                 protof.write("}\n")
-    subprocess.call(["protoc", "%s.proto" % base, "--python_out=."])
+    subprocess.call(["protoc", "%s.proto" % base, "--python_out=%s" % protodir])
+    sys.path.append(protodir)
     return importlib.import_module("%s_pb2" % base)
 
 def main():
@@ -134,7 +142,8 @@ def main():
     attrFinder = xml2csv.AttrFinder(options.xsd, options.source)
     base = os.path.basename(options.source).split('.')[0]
     # generate proto format description
-    module = generateProto(attrFinder.xsdStruc.root.name, attrFinder.tagAttrs, attrFinder.depthTags, options.protodir, base)
+    module = generateProto(attrFinder.xsdStruc.root.name, attrFinder.tagAttrs, attrFinder.depthTags,
+                           attrFinder.xsdStruc._namedEnumerations, options.protodir, base)
     # write proto message
     handler = ProtoWriter(module, attrFinder.tagAttrs, options.output)
     if options.validation:
