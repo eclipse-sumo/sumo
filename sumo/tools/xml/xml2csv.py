@@ -147,7 +147,6 @@ class CSVWriter(NestingHandler):
                         a = a[1]
                     if self.attrFinder.xsdStruc:
                         enum = self.attrFinder.xsdStruc.getEnumeration(self.attrFinder.tagAttrs[name][a].type)
-                        print(self.attrFinder.tagAttrs[name][a].type, enum)
                         if enum:
                             v = enum.index(v)
                     a2 = self.attrFinder.renamedAttrs.get((name, a), a)

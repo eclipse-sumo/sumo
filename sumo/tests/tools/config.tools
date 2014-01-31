@@ -83,6 +83,7 @@ str:test.str
 gpsdat:gpsdat.txt
 match:match.txt
 image:image.png
+csv:out*.csv
 
 [run_dependent_text]
 output:Begin time

@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Dec  3 16:33:33 2013 by SUMO sumo Version dev-SVN-r15233
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <time>
+        <begin value="90"/>
+        <end value="120"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netstate_file.xsd">
+    <timestep time="90.00"/>
+    <timestep time="91.00"/>
+    <timestep time="92.00"/>
+    <timestep time="93.00"/>
+    <timestep time="94.00"/>
+    <timestep time="95.00"/>
+    <timestep time="96.00"/>
+    <timestep time="97.00"/>
+    <timestep time="98.00"/>
+    <timestep time="99.00"/>
+    <timestep time="100.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.0" pos="5.10" speed="0.00"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.0" pos="5.10" speed="0.00"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="always_right.0" pos="5.10" speed="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="101.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.0" pos="6.54" speed="1.44"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.0" pos="6.77" speed="1.67"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="always_right.0" pos="7.64" speed="2.54"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="102.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.0" pos="9.94" speed="3.40"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.0" pos="10.28" speed="3.51"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.0" pos="5.10" speed="0.00"/>
+                <vehicle id="always_right.0" pos="12.73" speed="5.08"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="103.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.0" pos="14.98" speed="5.04"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.0" pos="16.07" speed="5.79"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.0" pos="5.54" speed="0.44"/>
+                <vehicle id="always_right.0" pos="19.70" speed="6.98"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="104.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.0" pos="22.61" speed="7.63"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.0" pos="23.58" speed="7.51"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.0" pos="8.00" speed="2.46"/>
+                <vehicle id="always_right.0" pos="28.67" speed="8.97"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="105.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.0" pos="32.10" speed="9.49"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.0" pos="33.34" speed="9.77"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.0" pos="11.92" speed="3.92"/>
+                <vehicle id="always_right.0" pos="39.70" speed="11.03"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="106.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.0" pos="42.79" speed="10.69"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.0" pos="43.56" speed="10.22"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.0" pos="17.77" speed="5.85"/>
+                <vehicle id="always_right.0" pos="50.75" speed="11.05"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="107.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.0" pos="53.50" speed="10.71"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.0" pos="53.85" speed="10.29"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.0" pos="25.15" speed="7.38"/>
+                <vehicle id="always_right.0" pos="60.64" speed="9.89"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="108.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.0" pos="63.46" speed="9.96"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.0" pos="64.44" speed="10.59"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.0" pos="34.82" speed="9.67"/>
+                <vehicle id="always_right.0" pos="71.04" speed="10.40"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="109.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.0" pos="74.53" speed="11.07"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.0" pos="75.16" speed="10.72"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.0" pos="45.73" speed="10.90"/>
+                <vehicle id="always_right.0" pos="81.16" speed="10.12"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="110.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.1" pos="5.10" speed="0.00"/>
+                <vehicle id="always_left.0" pos="84.40" speed="9.87"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.1" pos="5.10" speed="0.00"/>
+                <vehicle id="horizontal.0" pos="86.23" speed="11.07"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="always_right.1" pos="5.10" speed="0.00"/>
+                <vehicle id="vertical.0" pos="56.41" speed="10.68"/>
+                <vehicle id="always_right.0" pos="91.38" speed="10.22"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="111.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.1" pos="7.54" speed="2.44"/>
+                <vehicle id="always_left.0" pos="95.34" speed="10.94"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.1" pos="6.45" speed="1.35"/>
+                <vehicle id="horizontal.0" pos="96.81" speed="10.58"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="always_right.1" pos="7.48" speed="2.38"/>
+                <vehicle id="vertical.0" pos="67.23" speed="10.82"/>
+                <vehicle id="always_right.0" pos="102.15" speed="10.77"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="112.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.1" pos="12.26" speed="4.72"/>
+                <vehicle id="always_left.0" pos="105.70" speed="10.37"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.1" pos="10.28" speed="3.83"/>
+                <vehicle id="horizontal.0" pos="106.86" speed="10.05"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="always_right.1" pos="11.69" speed="4.21"/>
+                <vehicle id="vertical.0" pos="77.41" speed="10.18"/>
+                <vehicle id="always_right.0" pos="112.39" speed="10.24"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="113.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.1" pos="18.37" speed="6.11"/>
+                <vehicle id="always_left.0" pos="115.91" speed="10.21"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.1" pos="16.31" speed="6.03"/>
+                <vehicle id="horizontal.0" pos="116.73" speed="9.86"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.1" pos="5.10" speed="0.00"/>
+                <vehicle id="always_right.1" pos="18.28" speed="6.59"/>
+                <vehicle id="vertical.0" pos="87.76" speed="10.36"/>
+                <vehicle id="always_right.0" pos="122.86" speed="10.47"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="114.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.1" pos="26.84" speed="8.47"/>
+                <vehicle id="always_left.0" pos="125.78" speed="9.87"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.1" pos="24.74" speed="8.43"/>
+                <vehicle id="horizontal.0" pos="127.00" speed="10.28"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.1" pos="6.49" speed="1.39"/>
+                <vehicle id="always_right.1" pos="26.75" speed="8.48"/>
+                <vehicle id="vertical.0" pos="98.51" speed="10.75"/>
+                <vehicle id="always_right.0" pos="133.93" speed="11.07"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="115.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.1" pos="37.67" speed="10.84"/>
+                <vehicle id="always_left.0" pos="136.81" speed="11.02"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.1" pos="35.36" speed="10.62"/>
+                <vehicle id="horizontal.0" pos="136.82" speed="9.82"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.1" pos="10.22" speed="3.72"/>
+                <vehicle id="always_right.1" pos="37.09" speed="10.34"/>
+                <vehicle id="vertical.0" pos="109.51" speed="11.00"/>
+                <vehicle id="always_right.0" pos="144.60" speed="10.67"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="116.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.1" pos="48.72" speed="11.05"/>
+                <vehicle id="always_left.0" pos="147.68" speed="10.88"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.1" pos="45.54" speed="10.17"/>
+                <vehicle id="horizontal.0" pos="147.83" speed="11.01"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.1" pos="15.66" speed="5.44"/>
+                <vehicle id="always_right.1" pos="47.93" speed="10.83"/>
+                <vehicle id="vertical.0" pos="120.24" speed="10.73"/>
+                <vehicle id="always_right.0" pos="155.25" speed="10.65"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="117.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.1" pos="59.03" speed="10.31"/>
+                <vehicle id="always_left.0" pos="158.24" speed="10.56"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.1" pos="55.98" speed="10.44"/>
+                <vehicle id="horizontal.0" pos="158.43" speed="10.60"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.1" pos="23.23" speed="7.57"/>
+                <vehicle id="always_right.1" pos="58.49" speed="10.57"/>
+                <vehicle id="vertical.0" pos="130.59" speed="10.35"/>
+                <vehicle id="always_right.0" pos="165.29" speed="10.04"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="118.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.1" pos="70.11" speed="11.08"/>
+                <vehicle id="always_left.0" pos="168.08" speed="9.84"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.1" pos="66.95" speed="10.97"/>
+                <vehicle id="horizontal.0" pos="169.15" speed="10.72"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.1" pos="32.75" speed="9.53"/>
+                <vehicle id="always_right.1" pos="68.40" speed="9.91"/>
+                <vehicle id="vertical.0" pos="140.89" speed="10.30"/>
+                <vehicle id="always_right.0" pos="175.26" speed="9.97"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="119.00">
+        <edge id="1fi">
+            <lane id="1fi_0">
+                <vehicle id="always_left.1" pos="80.30" speed="10.19"/>
+                <vehicle id="always_left.0" pos="178.64" speed="10.56"/>
+            </lane>
+        </edge>
+        <edge id="2fi">
+            <lane id="2fi_0">
+                <vehicle id="horizontal.1" pos="76.93" speed="9.97"/>
+                <vehicle id="horizontal.0" pos="179.66" speed="10.52"/>
+            </lane>
+        </edge>
+        <edge id="3fi">
+            <lane id="3fi_0">
+                <vehicle id="vertical.1" pos="43.33" speed="10.58"/>
+                <vehicle id="always_right.1" pos="79.13" speed="10.72"/>
+                <vehicle id="vertical.0" pos="150.73" speed="9.85"/>
+                <vehicle id="always_right.0" pos="185.62" speed="10.36"/>
+            </lane>
+        </edge>
+    </timestep>
+</netstate>
