@@ -607,15 +607,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSLCM_DK2004.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSLCM_DK2013.cpp"
+				RelativePath="..\..\..\src\microsim\MSLCM_DK2008.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSLCM_JE2013.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSLCM_LC2013.cpp"
 				>
 			</File>
 			<File
@@ -755,7 +755,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSLCM_DK2004.h"
+				RelativePath="..\..\..\src\microsim\MSLCM_DK2008.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSLCM_JE2013.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSLCM_LC2013.h"
 				>
 			</File>
 			<File
@@ -827,14 +835,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\..\..\src\microsim\MSLCM_DK2013.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\src\microsim\MSLCM_JE2013.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
