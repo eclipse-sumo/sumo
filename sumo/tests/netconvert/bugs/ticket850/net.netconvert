@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 18 15:43:02 2013 by SUMO netconvert Version dev-SVN-r13360
+<!-- generated on Mon Feb  3 13:13:51 2014 by SUMO netconvert Version dev-SVN-r15541
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -14,6 +14,10 @@
         <output-file value="net.net.xml"/>
     </output>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
@@ -22,7 +26,7 @@
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
     <edge id="allows_now" from="1" to="2" priority="-1">
-        <lane id="allows_now_0" index="0" disallow="private public_transport public_emergency public_authority public_army vip ignoring passenger hov taxi bus delivery transport lightrail cityrail rail_slow rail_fast motorcycle bicycle pedestrian" speed="13.90" length="100.00" shape="0.00,-1.65 100.00,-1.65"/>
+        <lane id="allows_now_0" index="0" allow="custom1 custom2" speed="13.90" length="100.00" shape="0.00,-1.65 100.00,-1.65"/>
     </edge>
 
     <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
