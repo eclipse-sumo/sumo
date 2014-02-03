@@ -220,7 +220,7 @@ StringBijection<SUMOEmissionClass> SumoEmissionClassStrings(
 // additional constants
 // ===========================================================================
 
-const int SUMOVehicleClass_MAX = SVC_PEDESTRIAN;
+const int SUMOVehicleClass_MAX = SVC_CUSTOM2;
 const SVCPermissions SVCFreeForAll = std::numeric_limits<SVCPermissions>::max(); // all bits set to 1
 
 // ===========================================================================
