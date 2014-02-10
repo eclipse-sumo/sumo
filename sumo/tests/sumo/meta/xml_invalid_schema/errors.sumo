@@ -1,0 +1,5 @@
+Error: unable to open file 'http://sumo-sim.org/xsd/blub_file.xsd'
+ In file 'input_routes.rou.xml'
+ At line/column 1/0.
+
+Quitting (on error).

@@ -22,6 +22,9 @@ bool_value
 # Tests xml validation
 xml_validation
 
+# Tests xml validation with invalid schema
+xml_invalid_schema
+
 # Tests deprecated options
 deprecated_option
 
