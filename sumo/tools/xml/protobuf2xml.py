@@ -34,6 +34,9 @@ def get_options():
     if len(args) != 1:
         optParser.print_help()
         sys.exit()
+    if not options.xsd:
+        print("a schema is mandatory", file=sys.stderr)
+        sys.exit()
     options.source = args[0]
     if not options.output:
         options.output = os.path.splitext(options.source)[0] + ".xml"
@@ -41,7 +44,7 @@ def get_options():
 
 def read_n(inputf, n):
     """ Read exactly n bytes from the input.
-        Raise RuntimeError if the stream andedbefore
+        Raise RuntimeError if the stream ended before
         n bytes were read.
     """
     buf = ''

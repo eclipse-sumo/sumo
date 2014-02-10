@@ -190,7 +190,13 @@ def get_options():
     if options.validation and not haveLxml:
         print("lxml not available, skipping validation", file=sys.stderr)
         options.validation = False
-    options.source = args[0]
+    if args[0].isdigit():
+        if not options.xsd:
+            print("a schema is mandatory for stream parsing", file=sys.stderr)
+            sys.exit()
+        options.source = getSocketStream(int(args[0]))
+    else:
+        options.source = args[0]
     return options 
 
 def main():
@@ -202,16 +208,10 @@ def main():
     if options.validation:
         schema = lxml.etree.XMLSchema(file=options.xsd)
         parser = lxml.etree.XMLParser(schema=schema)
-        if options.source.isdigit():
-            tree = lxml.etree.parse(getSocketStream(int(options.source)), parser)
-        else:
-            tree = lxml.etree.parse(options.source, parser)
+        tree = lxml.etree.parse(options.source, parser)
         lxml.sax.saxify(tree, handler)
     else:
-        if options.source.isdigit():
-            xml.sax.parse(getSocketStream(int(options.source)), handler)
-        else:
-            xml.sax.parse(options.source, handler)
+        xml.sax.parse(options.source, handler)
 
 if __name__ == "__main__":
     main()

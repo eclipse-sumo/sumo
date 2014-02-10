@@ -24,7 +24,7 @@ import os, sys, csv
 from collections import defaultdict
 from optparse import OptionParser
 
-import xsd
+import xsd, xml2csv
 
 def get_options():
     optParser = OptionParser(usage=os.path.basename(sys.argv[0])+" [<options>] <input_file_or_port>")
@@ -39,6 +39,9 @@ def get_options():
     options, args = optParser.parse_args()
     if len(args) != 1:
         optParser.print_help()
+        sys.exit()
+    if not options.xsd and not options.type:
+        print("either a schema or a type needs to be specified", file=sys.stderr)
         sys.exit()
     options.source = args[0]
     if not options.output:
@@ -59,13 +62,6 @@ def row2vehicle_and_route(row, tag):
             tag, 
             ' '.join(['%s="%s"' % (a, v) for a,v in row.items() if v != ""]),
             edges, tag))
-
-def getSocketStream(port):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(("localhost", port))
-    s.listen(1)
-    conn, addr = s.accept()
-    return conn.makefile()
 
 def write_xml(toptag, tag, options, printer=row2xml):
     with open(options.output, 'w') as outputf:
@@ -121,8 +117,8 @@ def checkChanges(out, old, new, currEle, tagStack, depth=1):
 def writeHierarchicalXml(struct, options):
     with open(options.output, 'w') as outputf:
         outputf.write('<%s' % struct.root.name)
-        if (options.source.isdigit()):
-            inputf = getSocketStream(int(options.source))
+        if options.source.isdigit():
+            inputf = xml2csv.getSocketStream(int(options.source))
         else:
             inputf = open(options.source)
         lastRow = {}

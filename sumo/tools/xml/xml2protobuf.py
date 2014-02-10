@@ -79,7 +79,7 @@ def get_options():
     optParser = OptionParser(usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
     optParser.add_option("-p", "--protodir", default=".",
                          help="where to put and read .proto files")
-    optParser.add_option("-x", "--xsd", help="xsd schema to use")
+    optParser.add_option("-x", "--xsd", help="xsd schema to use (mandatory)")
     optParser.add_option("-a", "--validation", action="store_true",
                          default=False, help="enable schema validation")
     optParser.add_option("-o", "--output", help="output file name")
@@ -87,10 +87,16 @@ def get_options():
     if len(args) != 1:
         optParser.print_help()
         sys.exit()
+    if not options.xsd:
+        print("a schema is mandatory", file=sys.stderr)
+        sys.exit()
     if options.validation and not haveLxml:
         print("lxml not available, skipping validation", file=sys.stderr)
         options.validation = False
-    options.source = args[0]
+    if args[0].isdigit():
+        options.source = xml2csv.getSocketStream(int(args[0]))
+    else:
+        options.source = args[0]
     if not options.output:
         options.output = os.path.splitext(options.source)[0] + ".protomsg"
     return options 
@@ -149,16 +155,10 @@ def main():
     if options.validation:
         schema = lxml.etree.XMLSchema(file=options.xsd)
         parser = lxml.etree.XMLParser(schema=schema)
-        if options.source.isdigit():
-            tree = lxml.etree.parse(xml2csv.getSocketStream(int(options.source)), parser)
-        else:
-            tree = lxml.etree.parse(options.source, parser)
+        tree = lxml.etree.parse(options.source, parser)
         lxml.sax.saxify(tree, handler)
     else:
-        if options.source.isdigit():
-            xml.sax.parse(xml2csv.getSocketStream(int(options.source)), handler)
-        else:
-            xml.sax.parse(options.source, handler)
+        xml.sax.parse(options.source, handler)
 
 if __name__ == "__main__":
     main()
