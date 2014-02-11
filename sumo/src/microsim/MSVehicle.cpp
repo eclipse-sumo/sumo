@@ -396,13 +396,13 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     for (std::vector<SUMOVehicleParameter::Stop>::iterator i = pars->stops.begin(); i != pars->stops.end(); ++i) {
         if (!addStop(*i)) {
             throw ProcessError("Stop for vehicle '" + pars->id +
-                               "' on lane '" + i->lane + "' is not downstream the current route.");
+                               "' on lane '" + i->lane + "' is too close or not downstream the current route.");
         }
     }
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = route->getStops().begin(); i != route->getStops().end(); ++i) {
         if (!addStop(*i)) {
             throw ProcessError("Stop for vehicle '" + pars->id +
-                               "' on lane '" + i->lane + "' is not downstream the current route.");
+                               "' on lane '" + i->lane + "' is too close or not downstream the current route.");
         }
     }
     const MSLane* const depLane = (*myCurrEdge)->getDepartLane(*this);
@@ -442,7 +442,7 @@ MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
 // ------------ interaction with the route
 bool
 MSVehicle::hasArrived() const {
-    return myCurrEdge == myRoute->end() - 1 && myState.myPos > myArrivalPos - POSITION_EPS;
+    return myCurrEdge == myRoute->end() - 1 && myStops.empty() && myState.myPos > myArrivalPos - POSITION_EPS;
 }
 
 
@@ -475,13 +475,20 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset) {
     // save information that the vehicle was rerouted
     myNumberReroutes++;
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
-    // recheck stops
+    // recheck old stops
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
         if (find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
             iter = myStops.erase(iter);
         } else {
             iter->edge = find(myCurrEdge, edges.end(), &iter->lane->getEdge());
             ++iter;
+        }
+    }
+    // add new stops
+    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = newRoute->getStops().begin(); i != newRoute->getStops().end(); ++i) {
+        if (!addStop(*i)) {
+            WRITE_WARNING("Stop for vehicle '" + getID() +
+                          "' on lane '" + i->lane + "' is too close or not downstream the new route.");
         }
     }
     return true;
@@ -662,6 +669,9 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffs
             prevStopPos = myStops.back().endPos;
             iter = myStops.end();
             stop.edge = find(prevStopEdge, myRoute->end(), &stop.lane->getEdge());
+            if (prevStopEdge == stop.edge && prevStopPos > stop.endPos) {
+                stop.edge = find(prevStopEdge+1, myRoute->end(), &stop.lane->getEdge());
+            }
         }
     } else {
         if (stopPar.index == STOP_INDEX_FIT) {
@@ -813,8 +823,8 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                     stop.busstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
                 }
             }
-            // decelerate (give some slack so stops at the end of the route can be reached)
-            return getCarFollowModel().stopSpeed(this, getSpeed(), endPos - myState.pos() - POSITION_EPS);
+            // decelerate
+            return getCarFollowModel().stopSpeed(this, getSpeed(), endPos - myState.pos());
         }
     }
     return currentVelocity;
@@ -897,8 +907,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge()) {
             // we are approaching a stop on the edge; must not drive further
             const Stop& stop = *myStops.begin();
-            SUMOReal stopDist = stop.busstop == 0 ? seen + stop.endPos - lane->getLength() : seen + stop.busstop->getLastFreePos(*this) - POSITION_EPS - lane->getLength();
-            SUMOReal stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist);
+            const SUMOReal endPos = stop.busstop == 0 ? stop.endPos : stop.busstop->getLastFreePos(*this);
+            const SUMOReal stopDist = seen + endPos - lane->getLength();
+            const SUMOReal stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist);
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(stopSpeed);
             }
