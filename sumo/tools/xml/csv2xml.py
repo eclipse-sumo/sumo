@@ -115,7 +115,7 @@ def checkChanges(out, old, new, currEle, tagStack, depth=1):
 
 
 def writeHierarchicalXml(struct, options):
-    with open(options.output, 'w') as outputf:
+    with xml2csv.getOutStream(options.output) as outputf:
         outputf.write('<%s' % struct.root.name)
         if options.source.isdigit():
             inputf = xml2csv.getSocketStream(int(options.source))

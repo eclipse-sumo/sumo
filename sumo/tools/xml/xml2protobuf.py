@@ -35,7 +35,7 @@ class ProtoWriter(xml.sax.handler.ContentHandler):
     def __init__(self, module, tagAttrs, output):
         self.module = module
         self.tagAttrs = tagAttrs
-        self.out = open(output, 'wb')
+        self.out = xml2csv.getOutStream(output, 'wb')
         self.msgStack = []
 
     def convert(self, attr, value):

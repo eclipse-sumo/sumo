@@ -73,7 +73,7 @@ def msg2xml(desc, cont, out, depth=1):
         out.write("/")
 
 def writeXml(root, module, options):
-    with open(options.output, 'w') as outputf:
+    with xml2csv.getOutStream(options.output) as outputf:
         outputf.write('<%s' % root)
         if (options.source.isdigit()):
             inputf = xml2csv.getSocketStream(int(options.source))

@@ -49,19 +49,25 @@ class NestingHandler(xml.sax.handler.ContentHandler):
         return len(self.tagstack) - 1
 
 class AttrFinder(NestingHandler):
-    def __init__(self, xsdFile, source):
+    def __init__(self, xsdFile, source, split):
         NestingHandler.__init__(self)
         self.tagDepths = {} # tag -> depth of appearance
         self.tagAttrs = defaultdict(dict) # tag -> set of attrs
         self.renamedAttrs = {} # (name, attr) -> renamedAttr
         self.attrs = {}
         self.depthTags = {} # child of root: depth of appearance -> tag
+        self.rootDepth = 1 if split else 0
         if xsdFile:
             self.xsdStruc = xsd.XsdStructure(xsdFile)
-            for ele in self.xsdStruc.root.children:
-                self.attrs[ele.name] = []
-                self.depthTags[ele.name] = [None]
-                self.recursiveAttrFind(ele, ele, 1)
+            if split:
+                for ele in self.xsdStruc.root.children:
+                    self.attrs[ele.name] = []
+                    self.depthTags[ele.name] = [None]
+                    self.recursiveAttrFind(ele, ele, 1)
+            else:
+                self.attrs[self.xsdStruc.root.name] = []
+                self.depthTags[self.xsdStruc.root.name] = []
+                self.recursiveAttrFind(self.xsdStruc.root, self.xsdStruc.root, 0)
         else:
             self.xsdStruc = None
             xml.sax.parse(source, self)
@@ -83,11 +89,11 @@ class AttrFinder(NestingHandler):
 
     def startElement(self, name, attrs):
         NestingHandler.startElement(self, name, attrs)
-        if self.depth() > 0:
-            root = self.tagstack[1]
-            if self.depth() == 1 and root not in self.attrs:
+        if self.depth() >= self.rootDepth:
+            root = self.tagstack[self.rootDepth]
+            if self.depth() == self.rootDepth and root not in self.attrs:
                 self.attrs[root] = []
-                self.depthTags[root] = [None]
+                self.depthTags[root] = [None] * self.rootDepth
             if not name in self.tagDepths:
                 if len(self.depthTags[root]) == self.depth():
                     self.tagDepths[name] = self.depth()
@@ -116,15 +122,20 @@ class CSVWriter(NestingHandler):
         self.currentValues = defaultdict(lambda: "")
         self.haveUnsavedValues = False
         self.outfiles = {}
+        self.rootDepth = 1 if options.split else 0
         for root, depths in attrFinder.depthTags.iteritems():
-            suffix = ""
-            if len(attrFinder.depthTags) > 1:
-                suffix = root
-            if options.output:
-                outfilename = options.output + "%s.csv" % suffix
+            if len(attrFinder.depthTags) == 1:
+                if not options.output:
+                    outfilename = os.path.splitext(options.source)[0]
+                if not options.output.endswith(".csv"):
+                    options.output += ".csv"
+                self.outfiles[root] = getOutStream(options.output)
             else:
-                outfilename = os.path.splitext(options.source)[0] + "%s.csv" % suffix
-            self.outfiles[root] = open(outfilename, 'w')
+                if options.output:
+                    outfilename = options.output + "%s.csv" % root
+                else:
+                    outfilename = os.path.splitext(options.source)[0] + "%s.csv" % root
+                self.outfiles[root] = open(outfilename, 'w')
             self.outfiles[root].write(options.separator.join(map(self.quote,attrFinder.attrs[root])) + "\n")
 
     def quote(self, s):
@@ -140,7 +151,7 @@ class CSVWriter(NestingHandler):
     def startElement(self, name, attrs):
         NestingHandler.startElement(self, name, attrs)
         if self.depth() > 0:
-            root = self.tagstack[1]
+            root = self.tagstack[self.rootDepth]
             if self.attrFinder.depthTags[root][self.depth()] == name:
                 for a, v in attrs.items():
                     if isinstance(a, tuple):
@@ -155,7 +166,7 @@ class CSVWriter(NestingHandler):
 
     def endElement(self, name):
         if self.depth() > 0:
-            root = self.tagstack[1]
+            root = self.tagstack[self.rootDepth]
             if self.attrFinder.depthTags[root][self.depth()] == name:
                 if self.haveUnsavedValues:
                     self.outfiles[root].write(self.options.separator.join(
@@ -166,13 +177,18 @@ class CSVWriter(NestingHandler):
                     del self.currentValues[a2]
         NestingHandler.endElement(self, name)
 
-def getSocketStream(port):
+def getSocketStream(port, mode='rb'):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(("localhost", port))
     s.listen(1)
     conn, addr = s.accept()
-    return conn.makefile()
+    return conn.makefile(mode)
 
+def getOutStream(output):
+    if output.isdigit():
+        return getSocketStream(int(output), 'wb')
+    return open(output, 'w')
+    
 def get_options():
     optParser = OptionParser(usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
     optParser.add_option("-s", "--separator", default=";",
@@ -182,6 +198,8 @@ def get_options():
     optParser.add_option("-x", "--xsd", help="xsd schema to use")
     optParser.add_option("-a", "--validation", action="store_true",
                          default=False, help="enable schema validation")
+    optParser.add_option("-p", "--split", action="store_true",
+                         default=False, help="split in different files for the first hierarchy level")
     optParser.add_option("-o", "--output", help="base name for output")
     options, args = optParser.parse_args()
     if len(args) != 1:
@@ -197,12 +215,15 @@ def get_options():
         options.source = getSocketStream(int(args[0]))
     else:
         options.source = args[0]
+    if options.output and options.output.isdigit() and options.split:
+        print("it is not possible to use splitting together with stream output", file=sys.stderr)
+        sys.exit()
     return options 
 
 def main():
     options = get_options()
     # get attributes
-    attrFinder = AttrFinder(options.xsd, options.source)
+    attrFinder = AttrFinder(options.xsd, options.source, options.split)
     # write csv
     handler = CSVWriter(attrFinder, options)
     if options.validation:

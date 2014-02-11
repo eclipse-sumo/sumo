@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<xsd:element name="trajectories">
+	  <xsd:complexType>
+		<xsd:sequence>
+			<xsd:element name="actorConfig" type="actorConfigType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="vehicleData" type="vehicleDataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="motionState" type="motionStateType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="timestep" use="required" type="xsd:double"/>
+	</xsd:complexType>
+	</xsd:element>
+ 
+	<xsd:complexType name="actorConfigType">
+		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
+		<xsd:attribute name="emissionClass" type="xsd:unsignedByte" use="optional"/>
+		<xsd:attribute name="fuelType" type="xsd:unsignedByte" use="optional"/>
+		<xsd:attribute name="vehicleClass" type="xsd:unsignedByte" use="optional"/>
+		<xsd:attribute name="vehicleLength" type="xsd:unsignedShort" use="optional"/>
+		<xsd:attribute name="vehicleWeight" type="xsd:unsignedShort" use="optional"/>
+		<xsd:attribute name="vehicleAge" type="xsd:unsignedByte" use="optional"/>
+		<xsd:attribute name="vehicleMake" type="xsd:unsignedShort" use="optional"/>
+		<xsd:attribute name="vehicleModel" type="xsd:unsignedShort" use="optional"/>
+	</xsd:complexType>
+	
+	<xsd:complexType name="vehicleDataType">
+		<xsd:attribute name="vehicleId" type="xsd:unsignedShort" use="required"/>
+		<xsd:attribute name="actorConfigId" type="xsd:unsignedShort" use="required"/>
+		<xsd:attribute name="startTime" type="xsd:double" use="required"/>
+	</xsd:complexType>
+		
+	<xsd:complexType name="motionStateType">
+		<xsd:attribute name="vehicleId" type="xsd:unsignedShort" use="required"/>
+		<xsd:attribute name="speed" type="xsd:unsignedShort" use="required"/>
+		<xsd:attribute name="time" type="xsd:unsignedInt"/>
+		<xsd:attribute name="acceleration" type="xsd:short"/>
+		<xsd:attribute name="gear" type="xsd:byte"/>
+		<xsd:attribute name="engineSpeed" type="xsd:unsignedShort"/>
+		<xsd:attribute name="worldLocationLong" type="xsd:int"/>
+		<xsd:attribute name="worldLocationLat" type="xsd:int"/>
+		<xsd:attribute name="worldLocationHeight" type="xsd:int"/>
+		<xsd:attribute name="cartesianX" type="xsd:int"/>
+		<xsd:attribute name="cartesianY" type="xsd:int"/>
+		<xsd:attribute name="cartesianZ" type="xsd:int"/>
+		<xsd:attribute name="linkId" type="xsd:unsignedInt"/>
+		<xsd:attribute name="laneNr" type="xsd:unsignedByte"/>
+		<xsd:attribute name="slope" type="xsd:short"/>
+		<xsd:attribute name="radiusOfCurvature" type="xsd:int"/>
+		<xsd:attribute name="roadType" type="xsd:unsignedByte"/>
+		<xsd:attribute name="speedLimit" type="xsd:unsignedByte"/>
+		<xsd:attribute name="airDragCoefficient" type="xsd:unsignedShort"/>
+		<xsd:attribute name="timeHeadway" type="xsd:unsignedShort"/>
+		<xsd:attribute name="timeToCollision" type="xsd:unsignedShort"/>
+		<xsd:attribute name="vehilceInFrontId" type="xsd:int"/>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="vehicleClassNameRecords">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="BMW" />
+			<xsd:enumeration value="Opel" />
+			<xsd:enumeration value="Renault" />
+		</xsd:restriction>
+	</xsd:simpleType>
+		
+</xsd:schema>
