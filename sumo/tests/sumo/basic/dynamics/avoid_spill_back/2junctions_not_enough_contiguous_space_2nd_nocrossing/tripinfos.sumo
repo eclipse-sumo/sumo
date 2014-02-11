@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  3 16:31:40 2013 by SUMO sumo Version dev-SVN-r15233
+<!-- generated on 02/11/14 14:47:49 by SUMO sumo Version dev-SVN-r15531
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -19,6 +19,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -27,5 +28,5 @@
 -->
 
 <tripinfos>
-    <tripinfo id="ego" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="5.00" arrivalLane="end_0" arrivalPos="3.00" arrivalSpeed="4.15" duration="5.00" routeLength="21.70" waitSteps="0" rerouteNo="0" devices="tripinfo_ego" vType="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="ego" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="5.00" arrivalLane="end_0" arrivalPos="3.00" arrivalSpeed="4.20" duration="5.00" routeLength="21.70" waitSteps="0" rerouteNo="0" devices="tripinfo_ego" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
