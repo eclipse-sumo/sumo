@@ -109,6 +109,7 @@ errors:\*\*\* \d+ leaks found
 errors:delete: freed
 errors:warning: debug_new used with placement new
 errors:Warning: State was written with sumo version
+errors:Cannot find local schema '[^']*'{REPLACE Cannot find local schema}
 
 [floating_point_tolerance]
 detector:0.0101
