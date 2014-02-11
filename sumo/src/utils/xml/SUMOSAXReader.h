@@ -31,6 +31,8 @@
 #endif
 
 #include <xercesc/sax2/SAX2XMLReader.hpp>
+#include <xercesc/sax/EntityResolver.hpp>
+#include <xercesc/sax/InputSource.hpp>
 
 
 // ===========================================================================
@@ -81,6 +83,12 @@ public:
     bool parseNext();
 
 private:
+    class LocalSchemaResolver : public XERCES_CPP_NAMESPACE::EntityResolver {
+    public:
+        XERCES_CPP_NAMESPACE::InputSource* resolveEntity(const XMLCh* const publicId, const XMLCh* const systemId);
+    };
+
+private:
     /**
      * @brief Builds a reader
      *
@@ -105,6 +113,8 @@ private:
     XERCES_CPP_NAMESPACE::SAX2XMLReader* myXMLReader;
 
     BinaryInputDevice* myBinaryInput;
+
+    LocalSchemaResolver mySchemaResolver;
 
 private:
     /// @brief invalidated copy constructor

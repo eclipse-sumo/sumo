@@ -31,8 +31,12 @@
 #include <string>
 #include <iostream>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
+#include <xercesc/framework/LocalFileInputSource.hpp>
 #include <xercesc/framework/MemBufInputSource.hpp>
+
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include <utils/iodevices/BinaryFormatter.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "SUMOSAXAttributesImpl_Binary.h"
@@ -72,8 +76,10 @@ void
 SUMOSAXReader::setValidation(const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme) {
     if (myXMLReader != 0 && validationScheme != myValidationScheme) {
         if (validationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never) {
+            myXMLReader->setEntityResolver(0);
             myXMLReader->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesScannerName, (void*)XERCES_CPP_NAMESPACE::XMLUni::fgWFXMLScanner);
         } else {
+            myXMLReader->setEntityResolver(&mySchemaResolver);
             myXMLReader->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesScannerName, (void*)XERCES_CPP_NAMESPACE::XMLUni::fgIGXMLScanner);
             myXMLReader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchema, true);
             myXMLReader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgSAX2CoreValidation, true);
@@ -194,6 +200,7 @@ SUMOSAXReader::getSAXReader() {
     if (myValidationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never) {
         reader->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesScannerName, (void*)XERCES_CPP_NAMESPACE::XMLUni::fgWFXMLScanner);
     } else {
+        reader->setEntityResolver(&mySchemaResolver);
         reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchema, true);
         reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgSAX2CoreValidation, true);
         reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesDynamic, myValidationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto);
@@ -201,6 +208,33 @@ SUMOSAXReader::getSAXReader() {
     reader->setContentHandler(myHandler);
     reader->setErrorHandler(myHandler);
     return reader;
+}
+
+
+XERCES_CPP_NAMESPACE::InputSource*
+SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId */, const XMLCh* const systemId) {
+    const std::string url = TplConvert::_2str(systemId);
+    const std::string::size_type pos = url.rfind("/");
+    if (pos != std::string::npos) {
+        const std::string dir = url.substr(0, pos);
+        if (dir == "http://sumo-sim.org/xsd") {
+            const char* sumoPath = std::getenv("SUMO_HOME");
+            if (sumoPath == 0) {
+                WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
+                return 0;
+            }
+            const std::string file = sumoPath + std::string("/docs/internet/xsd") + url.substr(pos);
+            if (FileHelpers::exists(file)) {
+                XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(file.c_str());
+                XERCES_CPP_NAMESPACE::InputSource* const result = new XERCES_CPP_NAMESPACE::LocalFileInputSource(t);
+                XERCES_CPP_NAMESPACE::XMLString::release(&t);
+                return result;
+            } else {
+                WRITE_WARNING("Cannot find local schema '" + file + "', will try website lookup.");
+            }
+        }
+    }
+    return 0;
 }
 
 
