@@ -30,6 +30,19 @@ sumo/errors/duplicates/route_newstyle_plainemission/input_routes.rou.xml:5:0:ERR
 sumo/errors/routes/emptyperson/input_routes.rou.xml:6:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'person': Missing child element(s). Expected is one of ( ride, walk, stop, param ).
 sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'vType', attribute 'laneChangeModel': [facet 'enumeration'] The value 'foo' is not an element of the set {'DK2008', 'DK2013', 'JE2013'}.
 sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'laneChangeModel': 'foo' is not a valid value of the local atomic type.
+Error on parsing 'sumo/meta/xml_invalid_schema/input_routes.rou.xml'!
+Traceback (most recent call last):
+  File "D:/behr_mi/Projekte/Vabene/trunk/SE/extern/sumoInternal/sumo/tests\..\tools/xml/schemaCheck.py", line 40, in validate
+    schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
+  File "lxml.etree.pyx", line 3201, in lxml.etree.parse (src\lxml\lxml.etree.c:65033)
+  File "parser.pxi", line 1571, in lxml.etree._parseDocument (src\lxml\lxml.etree.c:93221)
+  File "parser.pxi", line 1600, in lxml.etree._parseDocumentFromURL (src\lxml\lxml.etree.c:93508)
+  File "parser.pxi", line 1500, in lxml.etree._parseDocFromFile (src\lxml\lxml.etree.c:92565)
+  File "parser.pxi", line 1047, in lxml.etree._BaseParser._parseDocFromFile (src\lxml\lxml.etree.c:89449)
+  File "parser.pxi", line 577, in lxml.etree._ParserContext._handleParseResultDoc (src\lxml\lxml.etree.c:84831)
+  File "parser.pxi", line 676, in lxml.etree._handleParseResult (src\lxml\lxml.etree.c:85936)
+  File "parser.pxi", line 614, in lxml.etree._raiseParseError (src\lxml\lxml.etree.c:85230)
+IOError: Error reading file 'http://sumo-sim.org/xsd/blub_file.xsd': failed to load HTTP resource
 tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.
 tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'route': Character content other than whitespace is not allowed because the content type is 'element-only'.
 tools/route/routecheck/missing_edges_attribute_fix/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.

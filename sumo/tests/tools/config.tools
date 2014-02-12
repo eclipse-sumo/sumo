@@ -98,6 +98,7 @@ errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 errors:Traceback{->}XMLSyntaxError
+errors:Traceback{->}IOError
 omnet:<!-- generated on
 shawn:<!-- generated on
 
