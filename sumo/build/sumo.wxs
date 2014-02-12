@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Name='SUMO' Id='A63B306E-2B15-11E1-88C8-028037EC0200' UpgradeCode='A764BC4F-2B15-11E1-9E7E-028037EC0200'
-    Language='1033' Codepage='1252' Version='0.14.0' Manufacturer='DLR'>
+    Language='1033' Codepage='1252' Version='0.20.0' Manufacturer='DLR'>
 
-    <Package Id='*' Description="SUMO 0.14.0 Installer"
+    <Package Id='*' Description="SUMO 0.20.0 Installer"
       Comments='Simulation of Urban Mobility' Manufacturer='[Manufacturer]'
       InstallerVersion='300' Compressed='yes' />
 
@@ -11,12 +11,20 @@
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
+        <Directory Id="APPLICATIONFOLDER" Name="AppFolder" />
         <Directory Id='DLR' Name='DLR'>
           <Directory Id='INSTALLDIR' Name='Sumo'>
+            <Component Id='SumoHome' Guid='67D3110C-F900-461F-B836-177A7AE88BB9'>
+              <CreateFolder/>
+              <Environment Id="SUMO_HOME" Name="SUMO_HOME" Value="[INSTALLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
             <Directory Id='BINDIR' Name='bin'>
-
+              <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
+                <CreateFolder/>
+                <Environment Id="PATH" Name="PATH" Value="[BINDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+              </Component>
               <Component Id='MainExecutables' Guid='BD1FC8EE-2B15-11E1-BA48-028037EC0200'>
-                <File Id='sumoGuiEXE' Name='sumo-gui.exe' Source='M:\Daten\Sumo\Nightly\sumo-gui.exe' KeyPath='yes'>
+                <File Id='sumoGuiEXE' Name='sumo-gui.exe' Source='O:\Daten\Sumo\Nightly\sumo-gui.exe' KeyPath='yes'>
                   <Shortcut Id="startmenuSumoGui" Directory="ProgramMenuDir" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
                   <Shortcut Id="desktopSumoGui" Directory="DesktopFolder" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
                 </File>
@@ -48,27 +56,27 @@
         </Extension>
     </ProgId>
     <!-- End of copy -->
-                <File Id='sumoEXE' Name='sumo.exe' Source='M:\Daten\Sumo\Nightly\sumo.exe' />
-                <File Id='activitygenEXE' Name='activitygen.exe' Source='M:\Daten\Sumo\Nightly\activitygen.exe' />
-                <File Id='dfrouterEXE' Name='dfrouter.exe' Source='M:\Daten\Sumo\Nightly\dfrouter.exe' />
-                <File Id='duarouterEXE' Name='duarouter.exe' Source='M:\Daten\Sumo\Nightly\duarouter.exe' />
-                <File Id='jtrrouterEXE' Name='jtrrouter.exe' Source='M:\Daten\Sumo\Nightly\jtrrouter.exe' />
-                <File Id='netconvertEXE' Name='netconvert.exe' Source='M:\Daten\Sumo\Nightly\netconvert.exe' />
-                <File Id='netgenEXE' Name='netgenerate.exe' Source='M:\Daten\Sumo\Nightly\netgenerate.exe' />
-                <File Id='od2tripsEXE' Name='od2trips.exe' Source='M:\Daten\Sumo\Nightly\od2trips.exe' />
-                <File Id='polyconvertEXE' Name='polyconvert.exe' Source='M:\Daten\Sumo\Nightly\polyconvert.exe' />
+                <File Id='sumoEXE' Name='sumo.exe' Source='O:\Daten\Sumo\Nightly\sumo.exe' />
+                <File Id='activitygenEXE' Name='activitygen.exe' Source='O:\Daten\Sumo\Nightly\activitygen.exe' />
+                <File Id='dfrouterEXE' Name='dfrouter.exe' Source='O:\Daten\Sumo\Nightly\dfrouter.exe' />
+                <File Id='duarouterEXE' Name='duarouter.exe' Source='O:\Daten\Sumo\Nightly\duarouter.exe' />
+                <File Id='jtrrouterEXE' Name='jtrrouter.exe' Source='O:\Daten\Sumo\Nightly\jtrrouter.exe' />
+                <File Id='netconvertEXE' Name='netconvert.exe' Source='O:\Daten\Sumo\Nightly\netconvert.exe' />
+                <File Id='netgenEXE' Name='netgenerate.exe' Source='O:\Daten\Sumo\Nightly\netgenerate.exe' />
+                <File Id='od2tripsEXE' Name='od2trips.exe' Source='O:\Daten\Sumo\Nightly\od2trips.exe' />
+                <File Id='polyconvertEXE' Name='polyconvert.exe' Source='O:\Daten\Sumo\Nightly\polyconvert.exe' />
               </Component>
 
               <Component Id='HelperLibraries' Guid='FD4424A1-2B13-11E1-A04E-028037EC0200'>
-                <File Id='foxDLL' Name='FOXDLL-1.6.dll' Source='M:\Daten\Sumo\Nightly\FOXDLL-1.6.dll' KeyPath='yes' />
-                <File Id='pngDLL' Name='libpng15.dll' Source='M:\Daten\Sumo\Nightly\libpng15.dll' />
-                <File Id='gdalDLL' Name='gdal18.dll' Source='M:\Daten\Sumo\Nightly\gdal18.dll' />
-                <File Id='projDLL' Name='proj.dll' Source='M:\Daten\Sumo\Nightly\proj.dll' />
-                <File Id='xercesDLL' Name='xerces-c_3_1.dll' Source='M:\Daten\Sumo\Nightly\xerces-c_3_1.dll' />
+                <File Id='foxDLL' Name='FOXDLL-1.6.dll' Source='O:\Daten\Sumo\Nightly\FOXDLL-1.6.dll' KeyPath='yes' />
+                <File Id='pngDLL' Name='libpng15.dll' Source='O:\Daten\Sumo\Nightly\libpng15.dll' />
+                <File Id='gdalDLL' Name='gdal18.dll' Source='O:\Daten\Sumo\Nightly\gdal18.dll' />
+                <File Id='projDLL' Name='proj.dll' Source='O:\Daten\Sumo\Nightly\proj.dll' />
+                <File Id='xercesDLL' Name='xerces-c_3_1.dll' Source='O:\Daten\Sumo\Nightly\xerces-c_3_1.dll' />
               </Component>
 
               <Component Id='EnvironmentBatch' Guid='0F045CF0-2B14-11E1-9943-028037EC0200'>
-                <File Id='EnvBat' Name='start-command-line.bat' Source='M:\Daten\Sumo\Nightly\start-command-line.bat' KeyPath='yes'>
+                <File Id='EnvBat' Name='start-command-line.bat' Source='O:\Daten\Sumo\Nightly\start-command-line.bat' KeyPath='yes'>
                   <Shortcut Id="startmenuBat" Directory="ProgramMenuDir" Name="SUMO Command Line" Advertise="yes" />
                 </File>
               </Component>
@@ -101,23 +109,37 @@
         <ComponentRef Id='ProgramMenuDir' />
       </Feature>
 
-      <Feature Id='Documentation' Title='Documentation' Description='The instruction and programming manuals.' Level='2'>
+      <Feature Id='Documentation' Title='Documentation' Description='The instruction and programming manuals.' Level='1'>
         <ComponentGroupRef Id='userdoc' />
         <ComponentGroupRef Id='pydoc' />
         <ComponentGroupRef Id='tutorial' />
         <ComponentGroupRef Id='examples' />
       </Feature>
 
-      <Feature Id='Tools' Title='Tools' Description='Additional Python tools.' Level='3'>
+      <Feature Id='Tools' Title='Tools' Description='Additional Python tools.' Level='1'>
         <ComponentGroupRef Id='tools' />
+      </Feature>
+
+      <Feature Id='EnvironmentVariables' Title='EnvironmentVariables' Description='Set SUMO_HOME and adapt PATH.' Level='1'>
+        <ComponentRef Id='SumoHome' />
+        <ComponentRef Id='Path' />
       </Feature>
     </Feature>
 
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
-    <UIRef Id="WixUI_Mondo" />
+
+    <!-- CA to launch the exe after install -->
+    <CustomAction Id="CA.StartAppOnExit" FileKey="sumoGuiEXE" ExeCommand="" Execute="immediate" Impersonate="yes" Return="asyncNoWait" />
+
+    <UI>
+      <Publish Dialog="ExitDialog" Control="Finish" Order="1" Event="DoAction" Value="CA.StartAppOnExit">"Launch SUMO GUI with an example when setup exits."</Publish>
+    </UI>
+    <Property Id="ApplicationFolderName" Value="AppFolder" />
+    <Property Id="WixAppFolder" Value="WixPerUserFolder" />
+    <UIRef Id="WixUI_Advanced" />
     <UIRef Id="WixUI_ErrorProgressText" />
 
-    <Icon Id="sumogui.exe" SourceFile="M:\Daten\Sumo\Nightly\sumo-gui.exe" />
+    <Icon Id="sumogui.exe" SourceFile="O:\Daten\Sumo\Nightly\sumo-gui.exe" />
 
   </Product>
 </Wix>

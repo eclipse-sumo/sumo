@@ -18,8 +18,8 @@ the Free Software Foundation; either version 3 of the License, or
 """
 import optparse, subprocess, zipfile, os, sys, tempfile, glob, shutil
 
-INPUT_DEFAULT = r"M:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.zip"
-OUTPUT_DEFAULT = r"M:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.msi"
+INPUT_DEFAULT = r"O:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.zip"
+OUTPUT_DEFAULT = r"O:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.msi"
 WIX_DEFAULT = "%sbin" % os.environ.get("WIX", r"D:\Programme\Windows Installer XML v3.5\\")
 WXS_DEFAULT = os.path.join(os.path.dirname(__file__), "..", "..", "build", "sumo.wxs")
 LICENSE = os.path.join(os.path.dirname(__file__), "..", "..", "build", "License.rtf")
@@ -50,7 +50,7 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT
     for l in wxsIn:
         l = l.replace("License.rtf", license)
         l = l.replace(".exe' />", "%s.exe' />" % platformSuffix).replace(r"Nightly\sumo-gui.exe", r"Nightly\sumo-gui%s.exe" % platformSuffix)
-        wxsOut.write(l.replace(r"M:\Daten\Sumo\Nightly", os.path.join(sumoRoot, "bin")))
+        wxsOut.write(l.replace(r"O:\Daten\Sumo\Nightly", os.path.join(sumoRoot, "bin")))
     wxsOut.close()
     wxsIn.close()
     subprocess.call([os.path.join(wixBin, "candle.exe"), "-o", tmpDir+"\\", wxsOut.name] + fragments)
