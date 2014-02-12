@@ -55,14 +55,14 @@ class AttrFinder(NestingHandler):
         self.tagAttrs = defaultdict(dict) # tag -> set of attrs
         self.renamedAttrs = {} # (name, attr) -> renamedAttr
         self.attrs = {}
-        self.depthTags = {} # child of root: depth of appearance -> tag
+        self.depthTags = {} # child of root: depth of appearance -> tag list
         self.rootDepth = 1 if split else 0
         if xsdFile:
             self.xsdStruc = xsd.XsdStructure(xsdFile)
             if split:
                 for ele in self.xsdStruc.root.children:
                     self.attrs[ele.name] = []
-                    self.depthTags[ele.name] = [None]
+                    self.depthTags[ele.name] = [[]]
                     self.recursiveAttrFind(ele, ele, 1)
             else:
                 self.attrs[self.xsdStruc.root.name] = []
@@ -72,18 +72,26 @@ class AttrFinder(NestingHandler):
             self.xsdStruc = None
             xml.sax.parse(source, self)
 
+    def addElement(self, root, name, depth):
+        if name not in self.tagDepths:
+            if len(self.depthTags[root]) == depth:
+                self.tagDepths[name] = depth
+                self.depthTags[root].append([])
+            self.depthTags[root][depth].append(name)
+            return True
+        if name not in self.depthTags[root][depth]:
+            print("Ignoring tag %s at depth %s" % (name, depth), file=sys.stderr)
+        return False
+
     def recursiveAttrFind(self, root, currEle, depth):
-        if len(self.depthTags[root.name]) == depth:
-            self.tagDepths[currEle.name] = depth
-            self.depthTags[root.name].append(currEle.name)
-        else:
-            print("Ignoring tag %s at depth %s" % (currEle.name, depth), file=sys.stderr)
+        if not self.addElement(root.name, currEle.name, depth):
             return
         for a in currEle.attributes:
-            self.tagAttrs[currEle.name][a.name] = a
-            anew = "%s_%s" % (currEle.name, a.name)
-            self.renamedAttrs[(currEle.name, a.name)] = anew
-            self.attrs[root.name].append(anew)
+            if ":" not in a.name: # no namespace support yet
+                self.tagAttrs[currEle.name][a.name] = a
+                anew = "%s_%s" % (currEle.name, a.name)
+                self.renamedAttrs[(currEle.name, a.name)] = anew
+                self.attrs[root.name].append(anew)
         for ele in currEle.children:
             self.recursiveAttrFind(root, ele, depth + 1)
 
@@ -93,20 +101,12 @@ class AttrFinder(NestingHandler):
             root = self.tagstack[self.rootDepth]
             if self.depth() == self.rootDepth and root not in self.attrs:
                 self.attrs[root] = []
-                self.depthTags[root] = [None] * self.rootDepth
-            if not name in self.tagDepths:
-                if len(self.depthTags[root]) == self.depth():
-                    self.tagDepths[name] = self.depth()
-                    self.depthTags[root].append(name)
-                else:
-                    print("Ignoring tag %s at depth %s" % (name, self.depth()), file=sys.stderr)
-                    return
-            elif self.depthTags[root][self.depth()] != name:
-                print("Ignoring tag %s at depth %s" % (name, self.depth()), file=sys.stderr)
+                self.depthTags[root] = [[]] * self.rootDepth
+            if not self.addElement(root, name, self.depth()):
                 return
             # collect attributes
             for a in attrs.keys():
-                if not a in self.tagAttrs[name]:
+                if a not in self.tagAttrs[name] and ":" not in a:
                     self.tagAttrs[name][a] = xsd.XmlAttribute(a)
                     if not (name, a) in self.renamedAttrs:
                         anew = "%s_%s" % (name, a)
@@ -123,7 +123,7 @@ class CSVWriter(NestingHandler):
         self.haveUnsavedValues = False
         self.outfiles = {}
         self.rootDepth = 1 if options.split else 0
-        for root, depths in attrFinder.depthTags.iteritems():
+        for root in attrFinder.depthTags.iterkeys():
             if len(attrFinder.depthTags) == 1:
                 if not options.output:
                     outfilename = os.path.splitext(options.source)[0]
@@ -150,24 +150,25 @@ class CSVWriter(NestingHandler):
 
     def startElement(self, name, attrs):
         NestingHandler.startElement(self, name, attrs)
-        if self.depth() > 0:
+        if self.depth() >= self.rootDepth:
             root = self.tagstack[self.rootDepth]
-            if self.attrFinder.depthTags[root][self.depth()] == name:
+            if name in self.attrFinder.depthTags[root][self.depth()]:
                 for a, v in attrs.items():
                     if isinstance(a, tuple):
                         a = a[1]
-                    if self.attrFinder.xsdStruc:
-                        enum = self.attrFinder.xsdStruc.getEnumeration(self.attrFinder.tagAttrs[name][a].type)
-                        if enum:
-                            v = enum.index(v)
-                    a2 = self.attrFinder.renamedAttrs.get((name, a), a)
-                    self.currentValues[a2] = v
-                    self.haveUnsavedValues = True
+                    if a in self.attrFinder.tagAttrs[name]:
+                        if self.attrFinder.xsdStruc:
+                            enum = self.attrFinder.xsdStruc.getEnumeration(self.attrFinder.tagAttrs[name][a].type)
+                            if enum:
+                                v = enum.index(v)
+                        a2 = self.attrFinder.renamedAttrs.get((name, a), a)
+                        self.currentValues[a2] = v
+                        self.haveUnsavedValues = True
 
     def endElement(self, name):
-        if self.depth() > 0:
+        if self.depth() >= self.rootDepth:
             root = self.tagstack[self.rootDepth]
-            if self.attrFinder.depthTags[root][self.depth()] == name:
+            if name in self.attrFinder.depthTags[root][self.depth()]:
                 if self.haveUnsavedValues:
                     self.outfiles[root].write(self.options.separator.join(
                         [self.quote(self.currentValues[a]) for a in self.attrFinder.attrs[root]]) + "\n")
