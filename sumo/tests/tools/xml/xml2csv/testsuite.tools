@@ -11,7 +11,6 @@ cross3ltl_vtypeprobe
 cross3ltl_queue
 cross3ltl_emission
 cross3ltl_full
-
 cross3ltl_summary_schema
 cross3ltl_fcd_schema
 cross3ltl_inductloops_schema
@@ -25,3 +24,7 @@ cross3ltl_vtypeprobe_schema
 cross3ltl_queue_schema
 cross3ltl_emission_schema
 cross3ltl_full_schema
+amitran_trajectories
+
+# Copy of amitran_trajectories
+amitran_trajectories_schema
