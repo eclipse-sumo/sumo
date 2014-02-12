@@ -19,6 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+from __future__ import print_function
 import os, sys, csv
 
 from collections import defaultdict
@@ -35,6 +36,8 @@ def get_options():
     optParser.add_option("-t", "--type", 
              help="convert the given csv-file into the specified format")
     optParser.add_option("-x", "--xsd", help="xsd schema to use")
+    optParser.add_option("-p", "--skip-root", action="store_true",
+                         default=False, help="the root element is not contained")
     optParser.add_option("-o", "--output", help="name for generic output file")
     options, args = optParser.parse_args()
     if len(args) != 1:
@@ -74,7 +77,7 @@ def write_xml(toptag, tag, options, printer=row2xml):
             outputf.write(printer(row, tag))
         outputf.write('</%s>\n' % toptag)
 
-def checkChanges(out, old, new, currEle, tagStack, depth=1):
+def checkChanges(out, old, new, currEle, tagStack, depth):
     if depth >= len(tagStack):
         for ele in currEle.children:
             found = False
@@ -122,9 +125,11 @@ def writeHierarchicalXml(struct, options):
         else:
             inputf = open(options.source)
         lastRow = {}
-        tagStack = [struct.root.name]
+        tagStack = []
+        if options.skip_root:
+            tagStack.append(struct.root.name)
         for row in csv.DictReader(inputf, delimiter=options.delimiter):
-            checkChanges(outputf, lastRow, row, struct.root, tagStack)
+            checkChanges(outputf, lastRow, row, struct.root, tagStack, len(tagStack))
             lastRow = row
         outputf.write("/>\n")
         for tag in reversed(tagStack[:-1]):
