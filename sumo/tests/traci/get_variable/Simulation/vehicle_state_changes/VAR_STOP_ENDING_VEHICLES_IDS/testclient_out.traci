@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Dec  5 10:05:03 2013
+TraCITestClient output file. Date: Wed Feb 12 12:52:41 2014
 
 
 -> Command sent: <SimulationStep2>:
@@ -27,7 +27,7 @@ TraCITestClient output file. Date: Thu Dec  5 10:05:03 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 97.20
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 97.25
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -41,7 +41,7 @@ TraCITestClient output file. Date: Thu Dec  5 10:05:03 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 99.90
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -55,7 +55,7 @@ TraCITestClient output file. Date: Thu Dec  5 10:05:03 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 99.90
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -69,7 +69,7 @@ TraCITestClient output file. Date: Thu Dec  5 10:05:03 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 99.90
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -83,7 +83,7 @@ TraCITestClient output file. Date: Thu Dec  5 10:05:03 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 99.90
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
