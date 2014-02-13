@@ -80,9 +80,7 @@ def write_xml(toptag, tag, options, printer=row2xml):
 def checkAttributes(out, old, new, ele, tagStack, depth):
     for attr in ele.attributes:
         name = "%s_%s" % (ele.name, attr.name)
-#        print("checking", name, "in", new)
         if new.get(name, "") != "":
-#            print("printing", ele.name)
             if depth > 0:
                 out.write(">\n")
             out.write(row2xml(new, ele.name, "", depth))
@@ -90,34 +88,35 @@ def checkAttributes(out, old, new, ele, tagStack, depth):
     return False
 
 def checkChanges(out, old, new, currEle, tagStack, depth):
-#    print(depth, len(tagStack))
+#    print(depth, len(tagStack), new)
     if depth >= len(tagStack):
         for ele in currEle.children:
-#            print(depth, "adding", ele.name)
-            if checkAttributes(out, old, new, ele, tagStack, depth):
+#            print(depth, "try", ele.name)
+            if ele.name not in tagStack and checkAttributes(out, old, new, ele, tagStack, depth):
+#                print(depth, "adding", ele.name, ele.children)
                 tagStack.append(ele.name)
-                break
+                if ele.children:
+                    checkChanges(out, old, new, ele, tagStack, depth+1)
     else:
         for ele in currEle.children:
+            if ele.name in tagStack and tagStack.index(ele.name) != depth:
+                continue
             changed = False
-            found = False
             for attr in ele.attributes:
                 name = "%s_%s" % (ele.name, attr.name)
-                if old.get(name, "") != new.get(name, ""):
+                if old.get(name, "") != new.get(name, "") and new.get(name, "") != "":
                     changed = True
-                if new.get(name, "") != "":
-                    found = True
-#            print(depth, "seeing", ele.name, changed, found)
-            if found:
+#            print(depth, "seeing", ele.name, changed, tagStack)
+            if changed:
                 out.write("/>\n")
-                tagStack = tagStack[:-1]
+                del tagStack[-1]
                 while len(tagStack) > depth:
                     out.write("%s</%s>\n" % ((len(tagStack)-1) * '    ', tagStack[-1]))
-                    tagStack = tagStack[:-1]
+                    del tagStack[-1]
                 out.write(row2xml(new, ele.name, "", depth))
                 tagStack.append(ele.name)
-    if ele.children:
-        checkChanges(out, old, new, ele, tagStack, depth+1)
+            if ele.children:
+                checkChanges(out, old, new, ele, tagStack, depth+1)
 
 
 def writeHierarchicalXml(struct, options):
