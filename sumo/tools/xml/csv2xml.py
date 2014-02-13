@@ -77,18 +77,24 @@ def write_xml(toptag, tag, options, printer=row2xml):
             outputf.write(printer(row, tag))
         outputf.write('</%s>\n' % toptag)
 
+def checkAttributes(out, old, new, ele, tagStack, depth):
+    for attr in ele.attributes:
+        name = "%s_%s" % (ele.name, attr.name)
+#        print("checking", name, "in", new)
+        if new.get(name, "") != "":
+#            print("printing", ele.name)
+            if depth > 0:
+                out.write(">\n")
+            out.write(row2xml(new, ele.name, "", depth))
+            return True
+    return False
+
 def checkChanges(out, old, new, currEle, tagStack, depth):
+#    print(depth, len(tagStack))
     if depth >= len(tagStack):
         for ele in currEle.children:
-            found = False
-            for attr in ele.attributes:
-                name = "%s_%s" % (ele.name, attr.name)
-                if new.get(name, "") != "":
-                    found = True
-                    break
-            if found:
-                out.write(">\n")
-                out.write(row2xml(new, ele.name, "", depth))
+#            print(depth, "adding", ele.name)
+            if checkAttributes(out, old, new, ele, tagStack, depth):
                 tagStack.append(ele.name)
                 break
     else:
@@ -99,10 +105,10 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
                 name = "%s_%s" % (ele.name, attr.name)
                 if old.get(name, "") != new.get(name, ""):
                     changed = True
-                    break
                 if new.get(name, "") != "":
                     found = True
-            if changed:
+#            print(depth, "seeing", ele.name, changed, found)
+            if found:
                 out.write("/>\n")
                 tagStack = tagStack[:-1]
                 while len(tagStack) > depth:
@@ -110,26 +116,26 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
                     tagStack = tagStack[:-1]
                 out.write(row2xml(new, ele.name, "", depth))
                 tagStack.append(ele.name)
-                break
-            if found:
-                break
     if ele.children:
         checkChanges(out, old, new, ele, tagStack, depth+1)
 
 
 def writeHierarchicalXml(struct, options):
     with xml2csv.getOutStream(options.output) as outputf:
-        outputf.write('<%s' % struct.root.name)
         if options.source.isdigit():
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
             inputf = open(options.source)
         lastRow = {}
-        tagStack = []
+        tagStack = [struct.root.name]
         if options.skip_root:
-            tagStack.append(struct.root.name)
+            outputf.write('<%s' % struct.root.name)
+        first = True
         for row in csv.DictReader(inputf, delimiter=options.delimiter):
-            checkChanges(outputf, lastRow, row, struct.root, tagStack, len(tagStack))
+            if first and not options.skip_root:
+                checkAttributes(outputf, lastRow, row, struct.root, tagStack, 0)
+                first = False
+            checkChanges(outputf, lastRow, row, struct.root, tagStack, 1)
             lastRow = row
         outputf.write("/>\n")
         for tag in reversed(tagStack[:-1]):
