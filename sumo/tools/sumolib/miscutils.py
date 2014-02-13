@@ -198,9 +198,17 @@ class Colorgen:
             return random()
         else:
             return float(opt)
+
+    def floatTuple(self):
+        """return color as a tuple of floats each in [0,1]"""
+        return colorsys.hsv_to_rgb(*map(self.get_value, self.hsv))
+
+    def byteTuple(self):
+        """return color as a tuple of bytes each in [0,255]"""
+        return tuple([int(round(255 * x)) for x in self.floatTuple()])
         
     def __call__(self):
         """return constant or randomized rgb-color string"""
-        return ','.join([str(int(round(255 * x))) for x in colorsys.hsv_to_rgb(*map(self.get_value, self.hsv))])
+        return ','.join(map(str, self.byteTuple()))
 
 

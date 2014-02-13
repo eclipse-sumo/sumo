@@ -81,6 +81,7 @@ fzp:test.fzp
 flt:test.flt
 str:test.str
 gpsdat:gpsdat.txt
+gpx:output.gpx
 match:match.txt
 image:image.png
 csv:out*.csv
