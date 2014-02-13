@@ -129,7 +129,7 @@ def main(args=None):
                          type="float", help="Defines the export step length")
   optParser.add_option("--gps-blur", dest="blur", default=0,
                          type="float", help="Defines the GPS blur")
-  optParser.add_option("-s", "--seed", dest="seed", default=0,
+  optParser.add_option("-s", "--seed", dest="seed", default=42,
                          type="float", help="Defines the randomizer seed")
   optParser.add_option("--base-date", dest="base", default=-1, type="int", help="Defines the base date")
   # PHEM
