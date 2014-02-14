@@ -115,6 +115,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     poLayer->ResetReading();
     unsigned int runningID = 0;
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
+        std::vector<Parameterised*> parCont;
         // read in edge attributes
         std::string id = useRunningID ? toString(runningID) : poFeature->GetFieldAsString(idField.c_str());
         ++runningID;
@@ -144,6 +145,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     WRITE_ERROR("POI '" + id + "' could not be added.");
                     delete poi;
                 }
+                parCont.push_back(poi);
             }
             break;
             case wkbLineString: {
@@ -161,6 +163,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     WRITE_ERROR("Polygon '" + id + "' could not be added.");
                     delete poly;
                 }
+                parCont.push_back(poly);
             }
             break;
             case wkbPolygon: {
@@ -178,6 +181,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     WRITE_ERROR("Polygon '" + id + "' could not be added.");
                     delete poly;
                 }
+                parCont.push_back(poly);
             }
             break;
             case wkbMultiPoint: {
@@ -194,6 +198,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         WRITE_ERROR("POI '" + tid + "' could not be added.");
                         delete poi;
                     }
+                    parCont.push_back(poi);
                 }
             }
             break;
@@ -215,6 +220,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         WRITE_ERROR("Polygon '" + tid + "' could not be added.");
                         delete poly;
                     }
+                    parCont.push_back(poly);
                 }
             }
             break;
@@ -236,12 +242,28 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         WRITE_ERROR("Polygon '" + tid + "' could not be added.");
                         delete poly;
                     }
+                    parCont.push_back(poly);
                 }
             }
             break;
             default:
                 WRITE_WARNING("Unsupported shape type occured (id='" + id + "').");
                 break;
+        }
+        if (oc.getBool("shapefile.add-param")) {
+            for (std::vector<Parameterised*>::const_iterator it = parCont.begin(); it != parCont.end(); ++it) {
+                OGRFeatureDefn *poFDefn = poLayer->GetLayerDefn();
+                for (int iField = 0; iField < poFDefn->GetFieldCount(); iField++) {
+                    OGRFieldDefn *poFieldDefn = poFDefn->GetFieldDefn(iField);
+                    if (poFieldDefn->GetNameRef() != idField) {
+                        if (poFieldDefn->GetType() == OFTReal) {
+                            (*it)->addParameter(poFieldDefn->GetNameRef(), toString(poFeature->GetFieldAsDouble(iField)));
+                        } else {
+                            (*it)->addParameter(poFieldDefn->GetNameRef(), poFeature->GetFieldAsString(iField));
+                        }
+                    }
+                }
+            }
         }
         OGRFeature::DestroyFeature(poFeature);
     }
