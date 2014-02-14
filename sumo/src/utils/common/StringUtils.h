@@ -50,6 +50,9 @@ public:
     /// Transfers the content to lower case
     static std::string to_lower_case(std::string str);
 
+    /// Transfers from Latin 1 (ISO-8859-1) to UTF-8
+    static std::string latin1_to_utf8(std::string str);
+
     /// Converts german "Umlaute" to their latin-version
     static std::string convertUmlaute(std::string str);
 

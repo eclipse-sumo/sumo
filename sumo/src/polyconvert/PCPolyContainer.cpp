@@ -51,9 +51,9 @@
 // method definitions
 // ===========================================================================
 PCPolyContainer::PCPolyContainer(bool prune,
-                                 const Boundary& prunningBoundary,
+                                 const Boundary& pruningBoundary,
                                  const std::vector<std::string>& removeByNames)
-    : myPrunningBoundary(prunningBoundary), myDoPrunne(prune),
+    : myPruningBoundary(pruningBoundary), myDoPrune(prune),
       myRemoveByNames(removeByNames) {}
 
 
@@ -64,24 +64,26 @@ PCPolyContainer::~PCPolyContainer() {
 
 bool
 PCPolyContainer::insert(const std::string& id, Polygon* poly,
-                        int layer, bool ignorePrunning) {
+                        int layer, bool ignorePruning) {
     // check whether the polygon lies within the wished area
     //  - if such an area was given
-    if (myDoPrunne && !ignorePrunning) {
+    if (myDoPrune && !ignorePruning) {
         Boundary b = poly->getShape().getBoxBoundary();
-        if (!b.partialWithin(myPrunningBoundary)) {
+        if (!b.partialWithin(myPruningBoundary)) {
             delete poly;
-            return true;
+            return false;
         }
     }
     // check whether the polygon was named to be a removed one
     if (find(myRemoveByNames.begin(), myRemoveByNames.end(), id) != myRemoveByNames.end()) {
         delete poly;
-        return true;
+        return false;
     }
     //
     PolyCont::iterator i = myPolyCont.find(id);
     if (i != myPolyCont.end()) {
+        WRITE_ERROR("Polygon '" + id + "' could not be added.");
+        delete poly;
         return false;
     }
     myPolyCont[id] = poly;
@@ -92,23 +94,25 @@ PCPolyContainer::insert(const std::string& id, Polygon* poly,
 
 bool
 PCPolyContainer::insert(const std::string& id, PointOfInterest* poi,
-                        int layer, bool ignorePrunning) {
+                        int layer, bool ignorePruning) {
     // check whether the poi lies within the wished area
     //  - if such an area was given
-    if (myDoPrunne && !ignorePrunning) {
-        if (!myPrunningBoundary.around(*poi)) {
+    if (myDoPrune && !ignorePruning) {
+        if (!myPruningBoundary.around(*poi)) {
             delete poi;
-            return true;
+            return false;
         }
     }
     // check whether the polygon was named to be a removed one
     if (find(myRemoveByNames.begin(), myRemoveByNames.end(), id) != myRemoveByNames.end()) {
         delete poi;
-        return true;
+        return false;
     }
     //
     POICont::iterator i = myPOICont.find(id);
     if (i != myPOICont.end()) {
+        WRITE_ERROR("POI '" + id + "' could not be added.");
+        delete poi;
         return false;
     }
     myPOICont[id] = poi;

@@ -51,11 +51,11 @@ using namespace SUMO;
 class PCPolyContainer {
 public:
     /** @brief Constructor
-     * @param[in] prune Whether added polygons/pois shall be prunned
-     * @param[in] prunningBoundary The pruning boundary (onyl valid if prune==true)
+     * @param[in] prune Whether added polygons/pois shall be pruned
+     * @param[in] pruningBoundary The pruning boundary (only valid if prune==true)
      * @param[in] removeByNames Names of objects that shall not be added
      */
-    PCPolyContainer(bool prune, const Boundary& prunningBoundary,
+    PCPolyContainer(bool prune, const Boundary& pruningBoundary,
                     const std::vector<std::string>& removeByNames);
 
 
@@ -65,40 +65,40 @@ public:
 
     /** @brief Adds a polygon to the storage
      *
-     * If prunning if enabled, "ignorePrunning" is false and the polygon lies outside
-     *  the prunning boundary, or if the polygon's name is within the names of
-     *  objects to discard, the polygon is deleted and true is returned.
+     * If pruning if enabled, "ignorePruning" is false and the polygon lies outside
+     *  the pruning boundary, or if the polygon's name is within the names of
+     *  objects to discard, the polygon is deleted and false is returned.
      *
-     * Otherwise, it is tested whether a polygon with the same name is already stored.
-     *  If so, false is returned (the polygon is not deleted), otherwise true.
+     * Afterwards it is tested whether a polygon with the same name is already stored.
+     *  If so, an error message is printed, the polygon is deleted and false is returned, otherwise true.
      *
      * @param[in] id The id of the polygon to add
      * @param[in] poly The polygon to add
      * @param[in] layer The layer the polygon shall be located within
-     * @param[in] ignorePrunning Whether the polygon shall be kept, even though it would be prunned
-     * @return Whether the polygon could been added (no one with the same id was added before)
+     * @param[in] ignorePruning Whether the polygon shall be kept, even though it would be pruned
+     * @return Whether the polygon could be added
      */
     bool insert(const std::string& id, Polygon* poly, int layer,
-                bool ignorePrunning = false);
+                bool ignorePruning = false);
 
 
     /** @brief Adds a poi to the storage
      *
-     * If prunning if enabled, "ignorePrunning" is false and the poi lies outside
-     *  the prunning boundary, or if the poi's name is within the names of
-     *  objects to discard, the poi is deleted and true is returned.
+     * If pruning if enabled, "ignorePruning" is false and the poi lies outside
+     *  the pruning boundary, or if the poi's name is within the names of
+     *  objects to discard, the poi is deleted and false is returned.
      *
-     * Otherwise, it is tested whether a poi with the same name is already stored.
-     *  If so, false is returned (the poi is not deleted), otherwise true.
+     * Afterwards it is tested whether a poi with the same name is already stored.
+     *  If so, an error message is printed, the poi is deleted and false is returned, otherwise true.
      *
      * @param[in] id The id of the poi to add
      * @param[in] poly The poi to add
      * @param[in] layer The layer the poi shall be located within
-     * @param[in] ignorePrunning Whether the poi shall be kept, even though it would be prunned
-     * @return Whether the poi could been added (no one with the same id was added before)
+     * @param[in] ignorePruning Whether the poi shall be kept, even though it would be pruned
+     * @return Whether the poi could be added
      */
     bool insert(const std::string& id, PointOfInterest* poi, int layer,
-                bool ignorePrunning = false);
+                bool ignorePruning = false);
 
 
     /** @brief Returns the number of stored polygons
@@ -175,10 +175,10 @@ public:
 
 
     /// @brief The boundary that described the rectangle within which an object must be in order to be kept
-    Boundary myPrunningBoundary;
+    Boundary myPruningBoundary;
 
-    /// @brief Information whether the prunning boundary shall be used
-    bool myDoPrunne;
+    /// @brief Information whether the pruning boundary shall be used
+    bool myDoPrune;
 
     /// @brief List of names of polygons/pois that shall be removed
     std::vector<std::string> myRemoveByNames;

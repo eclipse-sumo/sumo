@@ -75,18 +75,35 @@ StringUtils::to_lower_case(std::string str) {
 
 
 std::string
+StringUtils::latin1_to_utf8(std::string str) {
+    // inspired by http://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c
+    std::string result;
+    for (size_t i = 0; i < str.length(); i++) {
+        const unsigned char c = str[i];
+        if (c < 128) {
+            result += c;
+        } else {
+            result += (char)(0xc2 + (c > 0xbf));
+            result += (char)((c & 0x3f) + 0x80);
+        }
+    }
+    return result;
+}
+
+
+std::string
 StringUtils::convertUmlaute(std::string str) {
-    str = replace(str, "ä", "ae");
-    str = replace(str, "Ä", "Ae");
-    str = replace(str, "ö", "oe");
-    str = replace(str, "Ö", "Oe");
-    str = replace(str, "ü", "ue");
-    str = replace(str, "Ü", "Ue");
-    str = replace(str, "ß", "ss");
-    str = replace(str, "É", "E");
-    str = replace(str, "é", "e");
-    str = replace(str, "È", "E");
-    str = replace(str, "è", "e");
+    str = replace(str, "\xE4", "ae");
+    str = replace(str, "\xC4", "Ae");
+    str = replace(str, "\xF6", "oe");
+    str = replace(str, "\xD6", "Oe");
+    str = replace(str, "\xFC", "ue");
+    str = replace(str, "\xDC", "Ue");
+    str = replace(str, "\xDF", "ss");
+    str = replace(str, "\xC9", "E");
+    str = replace(str, "\xE9", "e");
+    str = replace(str, "\xC8", "E");
+    str = replace(str, "\xE8", "e");
     return str;
 }
 

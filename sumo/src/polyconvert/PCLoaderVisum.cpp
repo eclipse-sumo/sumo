@@ -250,10 +250,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             }
             if (!discard) {
                 PointOfInterest* poi = new PointOfInterest(id, type, color, pos, (SUMOReal)layer);
-                if (!toFill.insert(id, poi, layer)) {
-                    WRITE_ERROR("POI '" + id + "' could not be added.");
-                    delete poi;
-                }
+                toFill.insert(id, poi, layer);
             }
         }
 
@@ -281,10 +278,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 }
                 if (!discard) {
                     Polygon* poly = new Polygon(id, type, color, vec, false, (SUMOReal)layer);
-                    if (!toFill.insert(id, poly, 1)) {
-                        WRITE_ERROR("Polygon '" + id + "' could not be added.");
-                        delete poly;
-                    }
+                    toFill.insert(id, poly, 1);
                 }
                 vec.clear();
             }
@@ -330,20 +324,14 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             if (!discard) {
                 if (teilflaechen[flaechenelemente[area]].size() > 0) {
                     Polygon* poly = new Polygon(id, type, color, teilflaechen[flaechenelemente[area]], false, (SUMOReal)layer);
-                    if (!toFill.insert(id, poly, layer)) {
-                        WRITE_ERROR("Polygon '" + id + "' could not be added.");
-                        delete poly;
-                    }
+                    toFill.insert(id, poly, layer);
                 } else {
                     Position pos(x, y);
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
                     }
                     PointOfInterest* poi = new PointOfInterest(id, type, color, pos, (SUMOReal)layer);
-                    if (!toFill.insert(id, poi, layer)) {
-                        WRITE_ERROR("POI '" + id + "' could not be added.");
-                        delete poi;
-                    }
+                    toFill.insert(id, poi, layer);
                 }
             }
         }

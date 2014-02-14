@@ -41,6 +41,14 @@ TEST(StringUtils, test_method_to_lower_case) {
 	EXPECT_EQ("", StringUtils::to_lower_case(str));
 }
 
+/* Tests the method to_lower_case.*/
+TEST(StringUtils, test_method_latin1_to_utf8) {
+	EXPECT_EQ("\xC3\xA4", StringUtils::latin1_to_utf8("ä"));
+	EXPECT_EQ("\xC3\xB6", StringUtils::latin1_to_utf8("ö"));
+	std::string str;
+	EXPECT_EQ("", StringUtils::latin1_to_utf8(str));
+}
+
 /* Tests the method convertUmlaute.*/
 TEST(StringUtils, test_method_convertUmlaute) {
 	EXPECT_EQ("ae", StringUtils::convertUmlaute("ä"));
