@@ -43,7 +43,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'route':
-            if 'id' in attrs:
+            if attrs.has_key('id'):
                 self._routes[attrs['id']] = attrs['edges'].split()
         if name == 'vehicle':
             for edge in self._routes[attrs['route']]:

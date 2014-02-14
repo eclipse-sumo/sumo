@@ -36,7 +36,7 @@ class ConfigurationReader(handler.ContentHandler):
             self._group = OptionGroup(self._opts, name)
         if self._group != self._opts and self._groups and self._group.title not in self._groups:
             return
-        if "type" in attrs and name != "help":
+        if attrs.has_key('type') and name != "help":
             if self._options and name not in self._options:
                 return
             help = attrs.get("help", "")

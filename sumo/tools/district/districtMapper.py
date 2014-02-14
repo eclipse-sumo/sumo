@@ -71,7 +71,7 @@ class DistrictMapper(handler.ContentHandler):
         if name == 'taz':    
             self._haveDistrict = True
             self._currentID = attrs['id']
-            if 'shape' in attrs:
+            if attrs.has_key('shape'):
                 self._shape = attrs['shape']
         elif name == 'shape' and self._haveDistrict:
             self._parsingDistrictShape = True

@@ -327,23 +327,23 @@ class NetReader(handler.ContentHandler):
         if name == 'edge':
             if 'function' not in attrs or attrs['function'] != 'internal':
                 prio = -1
-                if 'priority' in attrs:
+                if attrs.has_key('priority'):
                     prio = int(attrs['priority'])
                 function = ""
-                if 'function' in attrs:
+                if attrs.has_key('function'):
                     function = attrs['function']
                 name = ""
-                if 'name' in attrs:
+                if attrs.has_key('name'):
                     name = attrs['name']
                 self._currentEdge = self._net.addEdge(attrs['id'],
                     attrs['from'], attrs['to'], prio, function, name)
-                if 'shape' in attrs:
+                if attrs.has_key('shape'):
                     self.processShape(self._currentEdge, attrs['shape'])
             else:
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge!=None:
             self._currentLane = self._net.addLane(self._currentEdge, float(attrs['speed']), float(attrs['length']))
-            if 'shape' in attrs:
+            if attrs.has_key('shape'):
                 self._currentShape = attrs['shape'] # deprecated: at some time, this is mandatory
             else:
                 self._currentShape = ""
@@ -362,7 +362,7 @@ class NetReader(handler.ContentHandler):
             if lid[0]!=':' and lid!="SUMO_NO_DESTINATION" and self._currentEdge:
                 connected = self._net.getEdge(lid[:lid.rfind('_')])
                 tolane = int(lid[lid.rfind('_')+1:])
-                if 'tl' in attrs and attrs['tl']!="":
+                if attrs.has_key('tl') and attrs['tl']!="":
                     tl = attrs['tl']
                     tllink = int(attrs['linkIdx'])
                     tlid = attrs['tl']
@@ -381,7 +381,7 @@ class NetReader(handler.ContentHandler):
             toEdge = self._net.getEdge(attrs['to'])
             fromLane = fromEdge.getLane(int(attrs['fromLane']))
             toLane = toEdge.getLane(int(attrs['toLane']))
-            if 'tl' in attrs and attrs['tl']!="":
+            if attrs.has_key('tl') and attrs['tl']!="":
                 tl = attrs['tl']
                 tllink = int(attrs['linkIndex'])
                 tls = self._net.addTLS(tl, fromLane, toLane, tllink)
