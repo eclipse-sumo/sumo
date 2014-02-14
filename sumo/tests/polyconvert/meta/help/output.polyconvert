@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r15485
+SUMO polyconvert Version dev-SVN-r15531
  Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
@@ -33,6 +33,7 @@ Input Options:
   --shapefile.guess-projection     Guesses the shapefile's projection
   --shapefile.id-column STR        Defines in which column the id can be found
   --shapefile.use-running-id       A running number will be used as id
+  --shapefile.add-param            Extract all additonal columns as params
   --type-file FILE                 Reads types from FILE
 
 Output Options:

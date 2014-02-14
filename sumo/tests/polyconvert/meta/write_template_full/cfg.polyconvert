@@ -23,6 +23,7 @@
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guesses the shapefile&apos;s projection"/>
         <shapefile.id-column value="" synonymes="shape-files.id-name shapefile.id-name" type="STR" help="Defines in which column the id can be found"/>
         <shapefile.use-running-id value="" type="BOOL" help="A running number will be used as id"/>
+        <shapefile.add-param value="" type="BOOL" help="Extract all additonal columns as params"/>
         <type-file value="" synonymes="typemap" type="FILE" help="Reads types from FILE"/>
     </input>
 
