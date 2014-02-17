@@ -99,10 +99,6 @@ public:
 
 #endif
 
-    /// @brief global utility flags for debugging
-    static bool gDebugFlag1;
-    static bool gDebugFlag2;
-
 };
 
 

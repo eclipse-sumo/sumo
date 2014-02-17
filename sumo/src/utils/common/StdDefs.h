@@ -108,6 +108,9 @@ ISNAN(T a) {
     return d != d;
 }
 
+/// @brief global utility flags for debugging
+extern bool gDebugFlag1;
+extern bool gDebugFlag2;
 
 #endif
 

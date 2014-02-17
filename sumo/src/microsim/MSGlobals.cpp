@@ -62,8 +62,5 @@ MELoop* MSGlobals::gMesoNet;
 const bool MSGlobals::gUseMesoSim = false;
 #endif
 
-bool MSGlobals::gDebugFlag1 = false;
-bool MSGlobals::gDebugFlag2 = false;
-
 /****************************************************************************/
 

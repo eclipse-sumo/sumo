@@ -79,5 +79,8 @@ const RGBColor& getLinkColor(const LinkState& ls) {
     }
 }
 
+bool gDebugFlag1 = false;
+bool gDebugFlag2 = false;
+
 /****************************************************************************/
 
