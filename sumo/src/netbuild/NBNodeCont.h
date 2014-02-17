@@ -170,7 +170,7 @@ public:
 
     /** @brief Joins junctions that are very close together
      */
-    unsigned int joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+    unsigned int joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
     /// @}
 
 
