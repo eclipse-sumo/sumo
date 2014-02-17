@@ -131,6 +131,7 @@
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges"/>
         <osm.railway.oneway-default value="true" type="BOOL" help="Imports railway edges as one-way by default"/>
+        <osm.elevation value="false" type="BOOL" help="Imports elevation data"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
         <opendrive.ignore-widths value="false" type="BOOL" help="Whether lane widths shall be ignored."/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>

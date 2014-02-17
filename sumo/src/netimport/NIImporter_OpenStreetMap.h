@@ -218,7 +218,8 @@ protected:
          * @param[in] options The options to use
          */
         NodesHandler(std::map<SUMOLong, NIOSMNode*>& toFill,
-                     std::set<NIOSMNode*, CompareNodes>& uniqueNodes);
+                     std::set<NIOSMNode*, CompareNodes>& uniqueNodes,
+                     bool importElevation);
 
 
         /// @brief Destructor
@@ -265,6 +266,9 @@ protected:
 
         /// @brief the set of unique nodes (used for duplicate detection/substitution)
         std::set<NIOSMNode*, CompareNodes>& myUniqueNodes;
+
+        /// @brief whether elevation data should be imported
+        const bool myImportElevation;
 
 
     private:

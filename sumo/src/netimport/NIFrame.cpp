@@ -253,6 +253,8 @@ NIFrame::fillOptions() {
     oc.doRegister("osm.railway.oneway-default", new Option_Bool(true));
     oc.addDescription("osm.railway.oneway-default", "Processing", "Imports railway edges as one-way by default");
 
+    oc.doRegister("osm.elevation", new Option_Bool(false));
+    oc.addDescription("osm.elevation", "Processing", "Imports elevation data");
 
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));

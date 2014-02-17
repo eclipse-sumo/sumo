@@ -339,6 +339,9 @@
         <!-- Imports railway edges as one-way by default -->
         <osm.railway.oneway-default value="true" type="BOOL"/>
 
+        <!-- Imports elevation data -->
+        <osm.elevation value="false" type="BOOL"/>
+
         <!-- Imports all lane types -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
 

@@ -182,7 +182,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
      * Each file is parsed twice: first for nodes, second for edges. */
     std::vector<std::string> files = oc.getStringVector("osm-files");
     // load nodes, first
-    NodesHandler nodesHandler(myOSMNodes, myUniqueNodes);
+    NodesHandler nodesHandler(myOSMNodes, myUniqueNodes, oc.getBool("osm.elevation"));
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
@@ -511,14 +511,16 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(
     std::map<SUMOLong, NIOSMNode*>& toFill,
-    std::set<NIOSMNode*, CompareNodes>& uniqueNodes) :
+    std::set<NIOSMNode*, CompareNodes>& uniqueNodes,
+    bool importElevation) :
     SUMOSAXHandler("osm - file"),
     myToFill(toFill),
     myLastNodeID(-1),
     myIsInValidNodeTag(false),
     myHierarchyLevel(0),
-    myUniqueNodes(uniqueNodes) {
-}
+    myUniqueNodes(uniqueNodes),
+    myImportElevation(importElevation)
+{ }
 
 
 NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() {}
@@ -590,7 +592,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
         if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
             myToFill[myLastNodeID]->tlsControlled = true;
-        } else if (key == "ele") {
+        } else if (myImportElevation && key == "ele") {
             try {
                 myToFill[myLastNodeID]->ele = TplConvert::_2SUMOReal(value.c_str());
             } catch (...) {
