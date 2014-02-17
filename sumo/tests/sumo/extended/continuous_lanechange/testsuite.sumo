@@ -27,3 +27,4 @@ check_leader_on_both_lanes
 
 # test dynamics of continuous lane changing at speed 0
 change_while_stopped
+bugs
