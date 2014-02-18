@@ -559,15 +559,22 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
             // check for clusters which are to complex and probably won't work very well
             // we count the incoming edges of the final junction
             std::set<NBEdge*> finalIncoming;
+            std::set<NBEdge*> finalOutgoing;
             std::vector<std::string> nodeIDs;
             for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
                 nodeIDs.push_back((*j)->getID());
-                const EdgeVector& edges = (*j)->getIncomingEdges();
-                for (EdgeVector::const_iterator it_edge = edges.begin(); it_edge != edges.end(); ++it_edge) {
+                for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
                     NBEdge* edge = *it_edge;
                     if (cluster.count(edge->getFromNode()) == 0) {
                         // incoming edge, does not originate in the cluster
                         finalIncoming.insert(edge);
+                    }
+                }
+                for (EdgeVector::const_iterator it_edge = (*j)->getOutgoingEdges().begin(); it_edge != (*j)->getOutgoingEdges().end(); ++it_edge) {
+                    NBEdge* edge = *it_edge;
+                    if (cluster.count(edge->getToNode()) == 0) {
+                        // outgoing edge, does not end in the cluster
+                        finalOutgoing.insert(edge);
                     }
                 }
 
@@ -587,6 +594,20 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                             parallelEdgeIDs.push_back((*k)->getID());
                             std::sort(parallelEdgeIDs.begin(), parallelEdgeIDs.end());
                             WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (parallel incoming " 
+                                    + joinToString(parallelEdgeIDs, ',') + ")");
+                            foundParallel = true;
+                        }
+                    }
+                }
+                // check for outgoing parallel edges
+                for (std::set<NBEdge*>::const_iterator j = finalOutgoing.begin(); j != finalOutgoing.end() && !foundParallel; ++j) {
+                    for (std::set<NBEdge*>::const_iterator k = finalOutgoing.begin(); k != finalOutgoing.end() && !foundParallel; ++k) {
+                        if ((*j) != (*k) && fabs((*j)->getAngleAtNode((*j)->getFromNode()) - (*k)->getAngleAtNode((*k)->getFromNode())) < PARALLEL_INCOMING_THRESHOLD) {
+                            std::vector<std::string> parallelEdgeIDs;
+                            parallelEdgeIDs.push_back((*j)->getID());
+                            parallelEdgeIDs.push_back((*k)->getID());
+                            std::sort(parallelEdgeIDs.begin(), parallelEdgeIDs.end());
+                            WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing " 
                                     + joinToString(parallelEdgeIDs, ',') + ")");
                             foundParallel = true;
                         }
