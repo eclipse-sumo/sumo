@@ -126,8 +126,8 @@ class CSVWriter(NestingHandler):
         for root in attrFinder.depthTags.iterkeys():
             if len(attrFinder.depthTags) == 1:
                 if not options.output:
-                    outfilename = os.path.splitext(options.source)[0]
-                if not options.output.endswith(".csv"):
+                    options.output = os.path.splitext(options.source)[0]
+                if not options.output.isdigit() and not options.output.endswith(".csv"):
                     options.output += ".csv"
                 self.outfiles[root] = getOutStream(options.output)
             else:

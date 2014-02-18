@@ -19,7 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys, struct
+import os, sys, struct, contextlib
 
 from optparse import OptionParser
 import google.protobuf.descriptor
@@ -74,7 +74,7 @@ def msg2xml(desc, cont, out, depth=1):
         out.write("/")
 
 def writeXml(root, module, options):
-    with xml2csv.getOutStream(options.output) as outputf:
+    with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
         outputf.write('<%s' % root)
         if (options.source.isdigit()):
             inputf = xml2csv.getSocketStream(int(options.source))
@@ -95,10 +95,11 @@ def writeXml(root, module, options):
 def main():
     options = get_options()
     # get attributes
-    attrFinder = xml2csv.AttrFinder(options.xsd, options.source)
-    base = os.path.basename(options.source).split('.')[0]
+    attrFinder = xml2csv.AttrFinder(options.xsd, options.source, False)
+    base = os.path.basename(options.xsd).split('.')[0]
     # generate proto format description
-    module = xml2protobuf.generateProto(attrFinder.xsdStruc.root.name, attrFinder.tagAttrs, attrFinder.depthTags, options.protodir, base)
+    module = xml2protobuf.generateProto(attrFinder.xsdStruc.root.name, attrFinder.tagAttrs, attrFinder.depthTags,
+                                        attrFinder.xsdStruc._namedEnumerations, options.protodir, base)
     writeXml(attrFinder.xsdStruc.root.name, module, options)
 
 

@@ -19,7 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys, socket, subprocess, importlib, struct
+import os, sys, subprocess, importlib, struct
 from optparse import OptionParser
 import xml.sax
 try:
@@ -35,7 +35,7 @@ class ProtoWriter(xml.sax.handler.ContentHandler):
     def __init__(self, module, tagAttrs, output):
         self.module = module
         self.tagAttrs = tagAttrs
-        self.out = xml2csv.getOutStream(output, 'wb')
+        self.out = xml2csv.getOutStream(output)
         self.msgStack = []
 
     def convert(self, attr, value):
@@ -101,16 +101,21 @@ def get_options():
         options.output = os.path.splitext(options.source)[0] + ".protomsg"
     return options 
 
-def writeField(protof, use, type, name, tagNumber):
-    if "float" in type.lower():
-        type = "float"
-    elif "integer" in type.lower() or type.endswith(":int"):
-        type = "int32"
-    elif type.startswith("xsd:"):
-        type = type[4:]
-    else:
-        type = type.capitalize()
-    protof.write("  %s %s %s = %s;\n" % (use, type, name, tagNumber))
+def writeField(protof, use, typ, name, tagNumber):
+    if use == "":
+        use = "optional"
+    typ = typ.lower()
+    if ":" in typ:
+        typ = typ.split(":")[-1]
+    if typ == "decimal" or "float" in typ:
+        typ = "float"
+    elif "unsigned" in typ:
+        typ = "uint32"
+    elif "int" in typ or "short" in typ or "byte" in typ:
+        typ = "int32"
+    elif typ not in ["double", "string"]:
+        typ = typ.capitalize()
+    protof.write("  %s %s %s = %s;\n" % (use, typ, name, tagNumber))
 
 def generateProto(root, tagAttrs, depthTags, enums, protodir, base):
     with open(os.path.join(protodir, "%s.proto" % base), 'w') as protof:
@@ -128,16 +133,18 @@ def generateProto(root, tagAttrs, depthTags, enums, protodir, base):
             protof.write("}\n")
         for tagList in depthTags.itervalues():
             next = 2
-            for tag in tagList[1:]:
-                protof.write("\nmessage %s {\n" % tag.capitalize())
-                count = 1
-                for a in tagAttrs[tag].itervalues():
-                    writeField(protof, a.use, a.type, a.name, count)
-                    count += 1
-                if next != len(tagList):
-                    writeField(protof, "repeated", tagList[next], tagList[next], count)
-                next += 1
-                protof.write("}\n")
+            for tags in tagList[1:]:
+                for tag in tags:
+                    protof.write("\nmessage %s {\n" % tag.capitalize())
+                    count = 1
+                    for a in tagAttrs[tag].itervalues():
+                        writeField(protof, a.use, a.type, a.name, count)
+                        count += 1
+                    if next < len(tagList):
+                        for n in tagList[next]:
+                            writeField(protof, "repeated", n, n, count)
+                    next += 1
+                    protof.write("}\n")
     subprocess.call(["protoc", "%s.proto" % base, "--python_out=%s" % protodir])
     sys.path.append(protodir)
     return importlib.import_module("%s_pb2" % base)
@@ -145,8 +152,8 @@ def generateProto(root, tagAttrs, depthTags, enums, protodir, base):
 def main():
     options = get_options()
     # get attributes
-    attrFinder = xml2csv.AttrFinder(options.xsd, options.source)
-    base = os.path.basename(options.source).split('.')[0]
+    attrFinder = xml2csv.AttrFinder(options.xsd, options.source, False)
+    base = os.path.basename(options.xsd).split('.')[0]
     # generate proto format description
     module = generateProto(attrFinder.xsdStruc.root.name, attrFinder.tagAttrs, attrFinder.depthTags,
                            attrFinder.xsdStruc._namedEnumerations, options.protodir, base)

@@ -20,7 +20,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys, csv
+import os, sys, csv, contextlib
 
 from collections import defaultdict
 from optparse import OptionParser
@@ -120,7 +120,7 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
 
 
 def writeHierarchicalXml(struct, options):
-    with xml2csv.getOutStream(options.output) as outputf:
+    with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
         if options.source.isdigit():
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
