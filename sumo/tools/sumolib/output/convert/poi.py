@@ -2,7 +2,7 @@
 @file    poi.py
 @author  Jakob Erdmann
 @date    2014-02-13
-@version $Id: poi.py 15337 2013-12-20 11:17:02Z namdre $
+@version $Id$
 
 This module includes functions for converting SUMO's fcd-output into
 pois (useful for showing synthetic GPS disturtbances)
