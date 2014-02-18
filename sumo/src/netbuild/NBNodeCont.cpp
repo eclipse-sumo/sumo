@@ -568,7 +568,7 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 bool foundParallel = false;
                 for (std::set<NBEdge*>::const_iterator j = finalIncoming.begin(); j != finalIncoming.end() && !foundParallel; ++j) {
                     for (std::set<NBEdge*>::const_iterator k = finalIncoming.begin(); k != finalIncoming.end() && !foundParallel; ++k) {
-                        if ((*j) != (*k) && fabs((*j)->getEndAngle() - (*k)->getEndAngle()) < PARALLEL_INCOMING_THRESHOLD) {
+                        if ((*j) != (*k) && fabs((*j)->getAngleAtNode((*j)->getToNode()) - (*k)->getAngleAtNode((*k)->getToNode())) < PARALLEL_INCOMING_THRESHOLD) {
                             std::vector<std::string> parallelEdgeIDs;
                             parallelEdgeIDs.push_back((*j)->getID());
                             parallelEdgeIDs.push_back((*k)->getID());

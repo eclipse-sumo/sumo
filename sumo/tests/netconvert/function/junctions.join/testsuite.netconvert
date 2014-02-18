@@ -29,3 +29,6 @@ preserve_long_edge
 
 # joined junctions should not have multiple incoming edges with the same angle or multiple outgoing edges with the same angle
 same_angle_nojoin
+
+# a complex network
+adlershof_dlr
