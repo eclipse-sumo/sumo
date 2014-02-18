@@ -1,4 +1,4 @@
 Warning: Discarding unusable type "railway.platform" (first occurence for edge "48120356#0").
-Warning: Not joining junctions 436241843,436241848,449770,449797,449798,456826693 because the cluster is too complex
+Warning: Not joining junctions 436241843,436241848,449770,449797,449798,456826693 because the cluster is too complex (5 incoming edges)
 Warning: The traffic light '436241833' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '436241833'

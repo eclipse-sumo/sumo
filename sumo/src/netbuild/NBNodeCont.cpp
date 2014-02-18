@@ -561,9 +561,27 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
             }
             if (finalIncoming.size() > 4) {
                 std::sort(nodeIDs.begin(), nodeIDs.end());
-                WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex");
+                WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (" + toString(finalIncoming.size()) + " incoming edges)");
             } else {
-                clusters.push_back(cluster);
+                // check for incoming parallel edges
+                const SUMOReal PARALLEL_INCOMING_THRESHOLD = 10.0;
+                bool foundParallel = false;
+                for (std::set<NBEdge*>::const_iterator j = finalIncoming.begin(); j != finalIncoming.end() && !foundParallel; ++j) {
+                    for (std::set<NBEdge*>::const_iterator k = finalIncoming.begin(); k != finalIncoming.end() && !foundParallel; ++k) {
+                        if ((*j) != (*k) && fabs((*j)->getEndAngle() - (*k)->getEndAngle()) < PARALLEL_INCOMING_THRESHOLD) {
+                            std::vector<std::string> parallelEdgeIDs;
+                            parallelEdgeIDs.push_back((*j)->getID());
+                            parallelEdgeIDs.push_back((*k)->getID());
+                            std::sort(parallelEdgeIDs.begin(), parallelEdgeIDs.end());
+                            WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (parallel incoming " 
+                                    + joinToString(parallelEdgeIDs, ',') + ")");
+                            foundParallel = true;
+                        }
+                    }
+                }
+                if (!foundParallel) {
+                    clusters.push_back(cluster);
+                }
             }
         }
     }

@@ -26,3 +26,6 @@ roundabout
 
 # A node should not be added to the cluster if any of the edges within the cluster would then nexceed maxDist.
 preserve_long_edge
+
+# joined junctions should not have multiple incoming edges with the same angle or multiple outgoing edges with the same angle
+same_angle_nojoin
