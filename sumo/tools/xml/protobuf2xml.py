@@ -60,6 +60,7 @@ def read_n(inputf, n):
 def msg2xml(desc, cont, out, depth=1):
     out.write(">\n%s<%s" % (depth*'    ', desc.name))
     haveChildren = False
+    print(depth, cont)
     for attr, value in cont.ListFields():
         if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
             if attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
@@ -80,14 +81,21 @@ def writeXml(root, module, options):
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
             inputf = open(options.source, 'rb')
+        first = True
         while True:
             length = struct.unpack('>L', read_n(inputf, 4))[0]
             if length == 0:
                 break
             obj = vars(module)[root.capitalize()]()
             obj.ParseFromString(read_n(inputf, length))
-            for desc, cont in obj.ListFields():
-                msg2xml(desc, cont, outputf)
+            for attr, value in obj.ListFields():
+                if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
+                    if attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
+                        for item in value:
+                            msg2xml(attr, item, outputf)
+                elif first:
+                    outputf.write(' %s="%s"' % (attr.name, value))
+            first = False
         inputf.close()
         outputf.write(">\n</%s>\n" % root)
 

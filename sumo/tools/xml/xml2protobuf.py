@@ -37,12 +37,13 @@ class ProtoWriter(xml.sax.handler.ContentHandler):
         self.tagAttrs = tagAttrs
         self.out = xml2csv.getOutStream(output)
         self.msgStack = []
+        self.emptyRootMsg = None
 
     def convert(self, attr, value):
-        type = attr.type.lower()
-        if "float" in type or "double" in type:
+        typ = getProtobufType(attr.type)
+        if typ == "float" or typ == "double":
             return float(value)
-        if "int" in type or "long" in type:
+        if typ == "int32" or typ == "uint32":
             return int(value)
         return value
 
@@ -54,14 +55,14 @@ class ProtoWriter(xml.sax.handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if len(self.msgStack) == 0:
+            self.emptyRootMsg = vars(self.module)[name.capitalize()]()
             obj = vars(self.module)[name.capitalize()]()
         else:
-            if len(self.msgStack) == 1:
-                obj = getattr(self.msgStack[-1], name)
-            else:
-                obj = getattr(self.msgStack[-1], name).add()
-            for a, v in attrs.items():
-                setattr(obj, a, self.convert(self.tagAttrs[name][a], v))
+            obj = getattr(self.msgStack[-1], name).add()
+        for a, v in attrs.items():
+            setattr(obj, a, self.convert(self.tagAttrs[name][a], v))
+        if len(self.msgStack) == 0:
+            self.emptyRootMsg.CopyFrom(obj)
         self.msgStack.append(obj)
 
     def endElement(self, name):
@@ -69,6 +70,7 @@ class ProtoWriter(xml.sax.handler.ContentHandler):
             self.out.write(struct.pack('>L', self.msgStack[0].ByteSize()))
             self.out.write(self.msgStack[0].SerializeToString())
             self.msgStack[0].Clear()
+            self.msgStack[0].CopyFrom(self.emptyRootMsg)
         self.msgStack = self.msgStack[:-1]
 
     def endDocument(self):
@@ -101,39 +103,38 @@ def get_options():
         options.output = os.path.splitext(options.source)[0] + ".protomsg"
     return options 
 
-def writeField(protof, use, typ, name, tagNumber):
-    if use == "":
-        use = "optional"
+def getProtobufType(typ):
     typ = typ.lower()
     if ":" in typ:
         typ = typ.split(":")[-1]
-    if typ == "decimal" or "float" in typ:
-        typ = "float"
-    elif "unsigned" in typ:
-        typ = "uint32"
-    elif "int" in typ or "short" in typ or "byte" in typ:
-        typ = "int32"
-    elif typ not in ["double", "string"]:
-        typ = typ.capitalize()
-    protof.write("  %s %s %s = %s;\n" % (use, typ, name, tagNumber))
+    if typ == "decimal" or "double" in typ:
+        return "double"
+    if "float" in typ:
+        return "float"
+    if "unsigned" in typ:
+        return "uint32"
+    if "int" in typ or "short" in typ or "byte" in typ:
+        return "int32"
+    if typ in ["double", "string"]:
+        return typ
+    return typ.capitalize()
+    
+def writeField(protof, use, typ, name, tagNumber):
+    if use == "":
+        use = "optional"
+    protof.write("  %s %s %s = %s;\n" % (use, getProtobufType(typ), name, tagNumber))
 
 def generateProto(root, tagAttrs, depthTags, enums, protodir, base):
     with open(os.path.join(protodir, "%s.proto" % base), 'w') as protof:
         protof.write("package %s;\n" % base)
-        protof.write("\nmessage %s {\n" % root.capitalize())
-        count = 1
-        for tag in depthTags.iterkeys():
-            writeField(protof, "optional", tag, tag, count)
-            count += 1
-        protof.write("}\n")
         for name, enum in enums.iteritems():
             protof.write("\nenum %s {\n" % name.capitalize())
             for idx, entry in enumerate(enum):
-                protof.write("  %s = %s;" % (entry.upper(), idx))
+                protof.write("  %s = %s;\n" % (entry.upper(), idx))
             protof.write("}\n")
         for tagList in depthTags.itervalues():
-            next = 2
-            for tags in tagList[1:]:
+            next = 1
+            for tags in tagList:
                 for tag in tags:
                     protof.write("\nmessage %s {\n" % tag.capitalize())
                     count = 1
@@ -143,6 +144,7 @@ def generateProto(root, tagAttrs, depthTags, enums, protodir, base):
                     if next < len(tagList):
                         for n in tagList[next]:
                             writeField(protof, "repeated", n, n, count)
+                            count += 1
                     next += 1
                     protof.write("}\n")
     subprocess.call(["protoc", "%s.proto" % base, "--python_out=%s" % protodir])
