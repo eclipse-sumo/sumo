@@ -512,14 +512,27 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 std::set<NBNode*>::iterator check = j;
                 NBNode* n = *check;
                 ++j;
-                // remove nodes with degree <= 2 at fringe of the cluster (at least one edge leads to a non-cluster node)
-                if (
-                    (n->getIncomingEdges().size() <= 1 && n->getOutgoingEdges().size() <= 1) &&
-                    ((n->getIncomingEdges().size() == 0 ||
-                      (n->getIncomingEdges().size() == 1 && cluster.count(n->getIncomingEdges()[0]->getFromNode()) == 0)) ||
-                     (n->getOutgoingEdges().size() == 0 ||
-                      (n->getOutgoingEdges().size() == 1 && cluster.count(n->getOutgoingEdges()[0]->getToNode()) == 0)))
-                ) {
+                // remove geometry-like nodes at fringe of the cluster 
+                // (they have 1 neighbor in the cluster and at most 1 neighbor outside the cluster)
+                std::set<NBNode*> neighbors;
+                std::set<NBNode*> clusterNeigbors;
+                for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
+                    NBNode* neighbor = (*it_edge)->getToNode();
+                    if (cluster.count(neighbor) == 0) {
+                        neighbors.insert(neighbor);
+                    } else {
+                        clusterNeigbors.insert(neighbor);
+                    }
+                }
+                for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
+                    NBNode* neighbor = (*it_edge)->getFromNode();
+                    if (cluster.count(neighbor) == 0) {
+                        neighbors.insert(neighbor);
+                    } else {
+                        clusterNeigbors.insert(neighbor);
+                    }
+                }
+                if (neighbors.size() <= 1 && clusterNeigbors.size() == 1) {
                     cluster.erase(check);
                     pruneFringe = true; // other nodes could belong to the fringe now
                 }
