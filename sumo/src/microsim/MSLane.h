@@ -538,8 +538,10 @@ public:
 
 
 
-    /// @brief remove the vehicle from this lane
-    virtual MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification);
+    /* @brief remove the vehicle from this lane
+     * @param[notify] whether moveReminders of the vehicle shall be triggered
+     */
+    virtual MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify=true);
 
     /// The shape of the lane
     PositionVector myShape;

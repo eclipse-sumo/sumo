@@ -74,7 +74,9 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v) :
 
 
 MSAbstractLaneChangeModel::~MSAbstractLaneChangeModel() {
-    removeLaneChangeShadow();
+    if (myShadowLane != 0 && myHaveShadow) {
+        myShadowLane->removeVehicle(&myVehicle, MSMoveReminder::NOTIFICATION_VAPORIZED, false);
+    }
 }
 
 

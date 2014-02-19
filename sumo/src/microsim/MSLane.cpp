@@ -1008,10 +1008,12 @@ MSLane::swapAfterLaneChange(SUMOTime) {
 
 
 MSVehicle*
-MSLane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification) {
+MSLane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify) {
     for (MSLane::VehCont::iterator it = myVehicles.begin(); it < myVehicles.end(); it++) {
         if (remVehicle == *it) {
-            remVehicle->leaveLane(notification);
+            if (notify) {
+                remVehicle->leaveLane(notification);
+            }
             myVehicles.erase(it);
             myBruttoVehicleLengthSum -= remVehicle->getVehicleType().getLengthWithGap();
             myNettoVehicleLengthSum -= remVehicle->getVehicleType().getLength();
