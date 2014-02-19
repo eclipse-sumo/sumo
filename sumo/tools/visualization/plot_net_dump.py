@@ -40,8 +40,6 @@ def main(args=None):
                          help="Defines the network to read")
   optParser.add_option("-i", "--dump-inputs", dest="dumps", metavar="FILE",
                          help="Defines the dump-output files to use as input")
-  optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
   optParser.add_option("-m", "--measures", dest="measures", 
                          default="speed,entered", help="Define which measure to plot")
   optParser.add_option("-w", "--default-width", dest="defaultWidth", 
@@ -53,17 +51,19 @@ def main(args=None):
   optParser.add_option("--max-width", dest="maxWidth", 
                          type="float", default=3, help="Defines the maximum edge width")
   optParser.add_option("--log-colors", dest="logColors", action="store_true",
-                         default=False, help="Colors are log-scaled")
+                         default=False, help="If set, colors are log-scaled")
   optParser.add_option("--log-widths", dest="logWidths", action="store_true",
-                         default=False, help="Widths are log-scaled")
+                         default=False, help="If set, widths are log-scaled")
   optParser.add_option("--min-color-value", dest="colorMin", 
-                         type="float", default=None, help="Defines the minimum edge color value")
+                         type="float", default=None, help="If set, defines the minimum edge color value")
   optParser.add_option("--max-color-value", dest="colorMax", 
-                         type="float", default=None, help="Defines the maximum edge color value")
+                         type="float", default=None, help="If set, defines the maximum edge color value")
   optParser.add_option("--min-width-value", dest="widthMin", 
-                         type="float", default=None, help="Defines the minimum edge width value")
+                         type="float", default=None, help="If set, defines the minimum edge width value")
   optParser.add_option("--max-width-value", dest="widthMax", 
-                         type="float", default=None, help="Defines the maximum edge width value")
+                         type="float", default=None, help="If set, defines the maximum edge width value")
+  optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
+                         default=False, help="If set, the script says what it's doing")
   # standard plot options
   helpers.addInteractionOptions(optParser)
   helpers.addPlotOptions(optParser)
