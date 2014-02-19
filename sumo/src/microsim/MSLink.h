@@ -156,7 +156,7 @@ public:
      *  requests and responses after the initialisation.
      * @todo Unsecure!
      */
-    void setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
+    void setRequestInformation(unsigned int index, bool isCrossing, bool isCont,
                                const std::vector<MSLink*>& foeLinks, const std::vector<MSLane*>& foeLanes,
                                MSLane* internalLaneBefore = 0);
 
@@ -265,7 +265,9 @@ public:
      *
      * @return The respond index for this link
      */
-    unsigned int getRespondIndex() const;
+    inline unsigned int getIndex() const {
+        return myIndex;
+    }
 
 
     /** @brief Returns whether this link is a major link
@@ -347,11 +349,8 @@ private:
     std::map<const SUMOVehicle*, ApproachingVehicleInformation> myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
-    /// @brief The position of the link within this request
-    unsigned int myRequestIdx;
-
     /// @brief The position within this respond
-    unsigned int myRespondIdx;
+    unsigned int myIndex;
 
     /// @brief The state of the link
     LinkState myState;

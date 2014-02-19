@@ -182,7 +182,7 @@ GUILane::drawLinkNo() const {
     glRotated(rot, 0, 0, 1);
     for (int i = noLinks; --i >= 0;) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
-        GLHelper::drawText(toString(myLinks[i]->getRespondIndex()),
+        GLHelper::drawText(toString(myLinks[i]->getIndex()),
                            Position(x2, 0), 0, .6, RGBColor(128, 128, 255, 255), 180);
         x1 -= w;
     }

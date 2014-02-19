@@ -161,14 +161,14 @@ MSRightOfWayJunction::postloadInit() {
                 }
             }
 #endif
-            (*j)->setRequestInformation(requestPos, requestPos, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
+            (*j)->setRequestInformation(requestPos, isCrossing, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
 #ifdef HAVE_INTERNAL_LANES
             // the exit link for a link before an internal junction is handled in MSInternalJunction
             // so we need to skip if cont=true
             if (MSGlobals::gUsingInternalLanes && (*j)->getViaLane() != 0 && !cont) {
                 assert((*j)->getViaLane()->getLinkCont().size() == 1);
                 MSLink* exitLink = (*j)->getViaLane()->getLinkCont()[0];
-                exitLink->setRequestInformation(requestPos, requestPos, false, false, std::vector<MSLink*>(),
+                exitLink->setRequestInformation(requestPos, false, false, std::vector<MSLink*>(),
                                                 myLinkFoeInternalLanes[*j], (*j)->getViaLane());
             }
 #endif
