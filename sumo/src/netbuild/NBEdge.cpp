@@ -238,6 +238,8 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl) :
     for (unsigned int i = 0; i < getNumLanes(); i++) {
         setSpeed(i, tpl->getLaneSpeed(i));
         setPermissions(tpl->getPermissions(i), i);
+        setLaneWidth(i, tpl->getLaneWidth(i));
+        setOffset(i, tpl->getOffset(i));
     }
 }
 
