@@ -39,12 +39,16 @@ def main(args=None):
   optParser = OptionParser()
   optParser.add_option("-i", "--input", dest="input", metavar="FILE",
                          help="Defines the csv file to use as input")
+  optParser.add_option("-c", "--column", dest="column", 
+                         type="int", default=1, help="Selects the column to read values from")
   optParser.add_option("-r", "--revert", dest="revert", action="store_true",
                          default=False, help="Reverts the order of read values")
   optParser.add_option("-w", "--width", dest="width", 
                          type="float", default=.8, help="Defines the width of the bars")
   optParser.add_option("--space", dest="space", 
                          type="float", default=.2, help="Defines the space between the bars")
+  optParser.add_option("--norm", dest="norm", 
+                         type="float", default=1., help="Divides the read numbers by this value before plotting them")
   optParser.add_option("--show-values", dest="showValues", action="store_true", 
                          default=False, help="Shows the values")
   optParser.add_option("--values-offset", dest="valuesOffset",  
@@ -79,9 +83,10 @@ def main(args=None):
     if len(v)<2:
       continue
     labels.append(v[0].replace("\\n", "\n"))
-    vals.append(float(v[1]))
-    vlabels.append(str(float(v[1])) + "%")
-    total += float(v[1])
+    value = float(v[options.column]) / options.norm
+    vals.append(value)
+    vlabels.append(str(value) + "%")
+    total += value
     xs.append(x)
     ts.append(t)
     x = x + s 
