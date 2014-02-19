@@ -150,7 +150,7 @@ NLDetectorBuilder::buildInstantInductLoop(const std::string& id,
     // build the loop
     MSDetectorFileOutput* loop = createInstantInductLoop(id, clane, pos, device);
     // add the file output
-    myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop);
+    myNet.getDetectorControl().add(SUMO_TAG_INSTANT_INDUCTION_LOOP, loop);
 }
 
 
