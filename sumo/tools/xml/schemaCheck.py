@@ -10,7 +10,7 @@ Checks schema for files matching certain file names using either
 lxml or SAX2Count.exe depending on availability.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2009-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

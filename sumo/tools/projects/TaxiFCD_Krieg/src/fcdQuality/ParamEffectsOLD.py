@@ -11,7 +11,7 @@ Creates files with a comparison of speeds for each edge between the taxis and th
 Dependent of the frequency and the taxi quota.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

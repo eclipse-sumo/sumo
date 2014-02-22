@@ -10,7 +10,7 @@ This script is to retrive the network data, the district data and the vehicle da
 Besides, the class 'Net' is also definded here.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

@@ -13,7 +13,7 @@ The result is written to <CONNECTIONS>.mod.xml
 Call: xmlconnections_mapEdges.py <CONNECTIONS>
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2009-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

@@ -9,7 +9,7 @@ based on OrderedSet by Raymond Hettinger (c) , MIT-License
 [http://code.activestate.com/recipes/576694/]
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2011-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

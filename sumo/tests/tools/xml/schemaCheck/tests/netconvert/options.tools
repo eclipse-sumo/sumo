@@ -1,1 +1,1 @@
-$SUMO_HOME/tests *.edg.xml,*.nod.xml,*.con.xml,*.tll.xml,*.typ.xml tools/xml/schemaCheck.py
+$SUMO_HOME/tests *.edg.xml,*.nod.xml,*.con.xml,*.tll.xml,*.typ.xml,plain_*.netconvert tools/xml/schemaCheck.py

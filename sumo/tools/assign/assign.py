@@ -10,7 +10,7 @@ This script is for executing traffic assignment according to the required assign
 The incremental assignment model, the C-Logit assignment model and the Lohse assignment model are included in this script. 
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

@@ -22,7 +22,7 @@ The page is saved into MIRROR_FOLDER/<PAGE_PATH>.
 After mirroring all pages, the images are downloaded and stored into 
 MIRROR_FOLDER/images.
 
-Copyright (C) 2011-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

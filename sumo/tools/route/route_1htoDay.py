@@ -10,7 +10,7 @@ Uses "route_departOffset.py" for building 24 route files which describe
  a whole day assuming the given route files describes an hour.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

@@ -11,7 +11,7 @@ Fetches Information of the simulated Data and the FCD.
 For each taxi the time, speed and position of every step will be collected and stored in a file. 
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
