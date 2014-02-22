@@ -28,7 +28,7 @@ _TESTDATA_EXT = [".xml", ".prog", ".csv",
                  ".meso", ".tools", ".traci", ".activitygen", ".scenario",
                  ".sumocfg", ".netccfg", ".netgcfg"]
 _VS_EXT = [".vsprops", ".sln", ".vcproj", ".bat", ".props", ".vcxproj", ".filters"]
-_IGNORE = set(["binstate.sumo", "binstate.sumo.meso"])
+_IGNORE = set(["binstate.sumo", "binstate.sumo.meso", "image.tools"])
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
 class PropertyReader(xml.sax.handler.ContentHandler):
