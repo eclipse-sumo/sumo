@@ -555,9 +555,12 @@ MSRouteHandler::closePerson() {
 
 void
 MSRouteHandler::closeFlow() {
+    if (myVehicleParameter->repetitionNumber == 0) {
+        return;
+    }
     // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
-    SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
+    const SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
     while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
         myVehicleParameter->repetitionsDone++;
         if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {

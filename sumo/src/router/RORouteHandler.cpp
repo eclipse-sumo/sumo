@@ -407,13 +407,19 @@ RORouteHandler::closePerson() {
 void
 RORouteHandler::closeFlow() {
     // @todo: consider myScale?
+    if (myVehicleParameter->repetitionNumber == 0) {
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
+        return;
+    }
     // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
-    SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
+    const SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
     while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
         myVehicleParameter->repetitionsDone++;
         if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
             delete myVehicleParameter;
+            myVehicleParameter = 0;
             return;
         }
     }
@@ -422,11 +428,13 @@ RORouteHandler::closeFlow() {
     if (type == 0) {
         myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
         delete myVehicleParameter;
+        myVehicleParameter = 0;
         return;
     }
     if (route == 0) {
         myErrorOutput->inform("Vehicle '" + myVehicleParameter->id + "' has no route.");
         delete myVehicleParameter;
+        myVehicleParameter = 0;
         return;
     }
     myActiveRouteID = "";
