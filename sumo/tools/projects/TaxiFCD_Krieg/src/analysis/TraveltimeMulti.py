@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: Latin-1 -*-
 """
-@file    Traveltime.py
+@file    TraveltimeMulti.py
 @author  Sascha Krieg
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-04-21
+@version $Id$
 
 Compares the travel time of vtypeprobe and FCD. (avg=False)
 

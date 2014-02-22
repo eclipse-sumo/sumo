@@ -6,6 +6,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-05-29
+@version $Id$
 
 Shows the velocityCurve of the chosen taxi for all available sources, thereby the time duration per Edge is apparent.
 

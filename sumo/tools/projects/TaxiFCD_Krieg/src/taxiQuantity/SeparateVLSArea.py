@@ -6,6 +6,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-04-07
+@version $Id$
 
 Separates from an FCD-File (from Nürnberg) all routes which belongs to the VLS-Area and saves them in a new file. 
 

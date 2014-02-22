@@ -6,6 +6,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-04-29
+@version $Id$
 
 Creates a file with a comparison of velocities between Taxi-FCD and vtypeprobe.
 

@@ -6,6 +6,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-04-08
+@version $Id$
 
 Compares the FCD-route of an taxi with the generated route which is used in the simulation.
 The output data can be visualized with the script My_mpl_dump_onNet based on mpl_dump_onNet from Daniel.

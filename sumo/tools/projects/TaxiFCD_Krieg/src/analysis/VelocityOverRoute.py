@@ -6,6 +6,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-05-26
+@version $Id$
 
 Shows the velocity of the chosen taxi over the driven route for all available sources.
 

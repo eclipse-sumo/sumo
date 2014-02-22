@@ -5,6 +5,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-06-19
+@version $Id$
 
 A simple progress bar for the console
 

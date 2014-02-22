@@ -6,6 +6,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-04-01
+@version $Id$
 
 Counts for an given interval all unique taxis in an FCD file and draws the result as a bar chart. 
 

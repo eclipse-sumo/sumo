@@ -6,6 +6,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-05-13
+@version $Id$
 
 Shows a velocity time-variation curve for a given Taxi or for the hole day all average values.
 

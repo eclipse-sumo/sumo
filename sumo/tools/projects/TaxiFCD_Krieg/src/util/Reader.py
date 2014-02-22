@@ -5,6 +5,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-04-18
+@version $Id$
 
 Contains reader modules which are needed frequently
 

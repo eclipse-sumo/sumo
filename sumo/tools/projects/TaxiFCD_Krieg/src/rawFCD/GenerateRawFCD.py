@@ -6,6 +6,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-04-01
+@version $Id$
 
 Converts the vtypeProbe XML-File to the raw FCD-Format which can afterwards used to process FCD. 
 

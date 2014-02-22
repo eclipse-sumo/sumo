@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: Latin-1 -*-
 """
-@file    GenerateRawFCD.py
+@file    ParamEffects.py
 @author  Sascha Krieg
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-07-26
+@version $Id$
 
 Creates files with a comparison of speeds for each edge between the taxis and the average speed from the current edge.
 Dependent of the frequency and the taxi quota.

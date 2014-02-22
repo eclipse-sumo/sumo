@@ -5,6 +5,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-04-17
+@version $Id$
 
 Contains paths which are needed frequently
 
