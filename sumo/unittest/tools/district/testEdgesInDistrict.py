@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    testPolyfit.py
+@file    testEdgesInDistrict.py
 @author  Michael.Behrisch@dlr.de
 @date    2007-07-18
 @version $Id$
@@ -8,7 +8,7 @@
 Simple Unittest to check whether numpy is available and does not have the
 polyfit bug showing up in the 1.0.4 release
 
-Copyright (C) 2007 DLR/FS, Germany
+Copyright (C) 2007-2014 DLR, Germany
 All rights reserved
 """
 import os, sys, unittest

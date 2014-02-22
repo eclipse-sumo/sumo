@@ -9,7 +9,7 @@ Reads a sumo network and duplication descriptors (prefix:x-offset:y-offset)
 and creates a disconnected network of duplicates.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2013 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

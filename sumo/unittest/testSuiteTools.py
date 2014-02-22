@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 """
-@file    testSuiteDetector.py
+@file    testSuiteTools.py
 @author  Matthias.Wagner@dlr.de
 @date    2008-02-11
 @version $Id$
 
 Test suite to run all tests in the detector package.
 
-Copyright (C) 2008 DLR/FS, Germany
+Copyright (C) 2008-2014 DLR, Germany
 All rights reserved
 """
 import unittest, os, sys
