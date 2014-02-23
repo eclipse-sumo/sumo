@@ -150,6 +150,8 @@ MSVehicle::Influencer::Influencer() :
     myConsiderSafeVelocity(true),
     myConsiderMaxAcceleration(true),
     myConsiderMaxDeceleration(true),
+    myRespectJunctionPriority(true),
+    myEmergencyBrakeRedLight(true),
     myAmVTDControlled(false),
     myStrategicLC(LC_NOCONFLICT),
     myCooperativeLC(LC_NOCONFLICT),
@@ -311,18 +313,30 @@ MSVehicle::Influencer::setConsiderMaxAcceleration(bool value) {
 
 
 void
+MSVehicle::Influencer::setConsiderMaxDeceleration(bool value) {
+    myConsiderMaxDeceleration = value;
+}
+
+
+void
+MSVehicle::Influencer::setRespectJunctionPriority(bool value) {
+    myRespectJunctionPriority = value;
+}
+
+
+void
+MSVehicle::Influencer::setEmergencyBrakeRedLight(bool value) {
+    myEmergencyBrakeRedLight = value;
+}
+
+
+void
 MSVehicle::Influencer::setLaneChangeMode(int value) {
     myStrategicLC = (LaneChangeMode)(value & (1 + 2));
     myCooperativeLC = (LaneChangeMode)((value & (4 + 8)) >> 2);
     mySpeedGainLC = (LaneChangeMode)((value & (16 + 32)) >> 4);
     myRightDriveLC = (LaneChangeMode)((value & (64 + 128)) >> 6);
     myTraciLaneChangePriority = (TraciLaneChangePriority)((value & (256 + 512)) >> 8);
-}
-
-
-void
-MSVehicle::Influencer::setConsiderMaxDeceleration(bool value) {
-    myConsiderMaxDeceleration = value;
 }
 
 
@@ -1143,8 +1157,13 @@ MSVehicle::executeMove() {
                 break;
             }
             //
-            const bool opened = yellow || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
-                                getVehicleType().getLengthWithGap(), getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime());
+            const bool opened = yellow ||
+#ifndef NO_TRACI
+                                (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority()) ||
+#endif
+                                link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
+                                             getVehicleType().getLengthWithGap(), getImpatience(),
+                                             getCarFollowModel().getMaxDecel(), getWaitingTime());
             // vehicles should decelerate when approaching a minor link
             if (opened && !link->havePriority() && !link->lastWasContMajor()) {
                 if ((*i).myDistance > getCarFollowModel().getMaxDecel()) {
@@ -1263,10 +1282,16 @@ MSVehicle::executeMove() {
                 // proceed to the next lane
                 if (link != 0) {
                     approachedLane = link->getViaLaneOrLane();
-                    if (link->getState() == LINKSTATE_TL_RED) {
-                        emergencyReason = " because of a red traffic light";
-                        break;
+#ifndef NO_TRACI
+                    if (myInfluencer == 0 || myInfluencer->getEmergencyBrakeRedLight()) {
+#endif
+                        if (link->getState() == LINKSTATE_TL_RED) {
+                            emergencyReason = " because of a red traffic light";
+                            break;
+                        }
+#ifndef NO_TRACI
                     }
+#endif
                 } else {
                     emergencyReason = " because there is no connection to the next edge";
                     approachedLane = 0;
@@ -1443,6 +1468,9 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
         for (int i = (int)(lfLinks.size() - 1); i > 0; --i) {
             DriveProcessItem& item = lfLinks[i - 1];
             const bool opened = item.myLink != 0 && (item.myLink->havePriority() ||
+#ifndef NO_TRACI
+                                (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority()) ||
+#endif
                                 item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
                                                     item.getLeaveSpeed(), getVehicleType().getLengthWithGap(),
                                                     getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime()));

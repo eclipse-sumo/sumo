@@ -914,6 +914,34 @@ public:
         void setConsiderMaxDeceleration(bool value);
 
 
+        /** @brief Sets whether junction priority rules shall be respected
+         * @param[in] value Whether junction priority rules be respected
+         */
+        void setRespectJunctionPriority(bool value);
+
+
+        /** @brief Returns whether junction priority rules shall be respected
+         * @return Whether junction priority rules be respected
+         */
+        inline bool getRespectJunctionPriority() const {
+            return myRespectJunctionPriority;
+        }
+
+
+        /** @brief Sets whether red lights shall be a reason to brake
+         * @param[in] value Whether red lights shall be a reason to brake
+         */
+        void setEmergencyBrakeRedLight(bool value);
+
+
+        /** @brief Returns whether red lights shall be a reason to brake
+         * @return Whether red lights shall be a reason to brake
+         */
+        inline bool getEmergencyBrakeRedLight() const {
+            return myEmergencyBrakeRedLight;
+        }
+
+
         /** @brief Sets lane changing behavior
          * @param[in] value a bitset controlling the different modes
          */
@@ -923,7 +951,7 @@ public:
         /** @brief Returns the originally longitudinal speed to use
          * @return The speed given before influence
          */
-        SUMOReal getOriginalSpeed() const {
+        inline SUMOReal getOriginalSpeed() const {
             return myOriginalSpeed;
         }
 
@@ -962,6 +990,12 @@ public:
 
         /// @brief Whether the maximum deceleration shall be regarded
         bool myConsiderMaxDeceleration;
+
+        /// @brief Whether the junction priority rules are respected
+        bool myRespectJunctionPriority;
+
+        /// @brief Whether red lights are a reason to brake
+        bool myEmergencyBrakeRedLight;
 
         bool myAmVTDControlled;
         MSLane* myVTDLane;
