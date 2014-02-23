@@ -1157,15 +1157,17 @@ MSVehicle::executeMove() {
                 break;
             }
             //
-            const bool opened = yellow ||
-#ifndef NO_TRACI
-                                (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority()) ||
+#ifdef NO_TRACI
+            const bool influencerPrio = false;
+#else
+            const bool influencerPrio = (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority());
 #endif
+            const bool opened = yellow || influencerPrio ||
                                 link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
                                              getVehicleType().getLengthWithGap(), getImpatience(),
                                              getCarFollowModel().getMaxDecel(), getWaitingTime());
             // vehicles should decelerate when approaching a minor link
-            if (opened && !link->havePriority() && !link->lastWasContMajor()) {
+            if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor()) {
                 if ((*i).myDistance > getCarFollowModel().getMaxDecel()) {
                     vSafe = (*i).myVLinkWait;
                     myHaveToWaitOnNextLink = true;
@@ -1175,7 +1177,7 @@ MSVehicle::executeMove() {
                     break; // could be revalidated
                 } else {
                     // past the point of no return. we need to drive fast enough
-                    // to make it accross the link. However, minor slowdowns
+                    // to make it across the link. However, minor slowdowns
                     // should be permissible to follow leading traffic safely
                     // There is a problem in subsecond simulation: If we cannot
                     // make it across the minor link in one step, new traffic
