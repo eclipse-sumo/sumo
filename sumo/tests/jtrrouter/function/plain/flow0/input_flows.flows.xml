@@ -1,0 +1,5 @@
+<flowdefs>
+    <flow id="0" from="beg" begin="0" end="12" number="0"/>
+    <flow id="10" from="beg" begin="10" end="11" number="0"/>
+    <flow id="1" from="beg" begin="0" end="12" number="100"/>
+</flowdefs>

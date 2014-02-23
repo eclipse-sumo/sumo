@@ -22,4 +22,5 @@ multiple_sinks_in_defs
 # Same as multiple_sinks_in_defs but using a single xml-element
 multiple_sinks_in_defs__single
 
-
+# empty flows in input
+flow0
