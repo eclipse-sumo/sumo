@@ -1,0 +1,4 @@
+repeat 1 simstep2 0
+setvalue 0xc4 0xb3 0 <int> 23
+setvalue 0xc4 0x40 0 <double> 10
+repeat 149 simstep2 0
