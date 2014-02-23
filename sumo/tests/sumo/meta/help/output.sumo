@@ -1,5 +1,5 @@
 SUMO sumo Version dev-SVN-r15500
- Copyright (C) 2001-2013 DLR and contributors; http://sumo-sim.org
+ Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 A microscopic road traffic simulation.
 
 Usage: sumo [OPTION]*
