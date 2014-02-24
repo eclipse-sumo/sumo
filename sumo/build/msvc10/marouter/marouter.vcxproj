@@ -123,6 +123,14 @@
     <ProjectReference Include="..\z_libutils_distribution\z_libutils_distribution.vcxproj">
       <Project>{f5d8313c-621d-4cce-a6da-83effbde7ce6}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\z_libutils_emissions\z_libutils_emissions.vcxproj">
+      <Project>{fa4a6c00-dcae-43cb-a396-15daec3b0141}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\z_libutils_geom\z_libutils_geom.vcxproj">
       <Project>{334df447-d0b3-4cea-9693-f755eb11c18f}</Project>
     </ProjectReference>

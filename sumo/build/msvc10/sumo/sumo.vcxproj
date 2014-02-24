@@ -253,6 +253,7 @@
     </ProjectReference>
     <ProjectReference Include="..\z_libutils_emissions\z_libutils_emissions.vcxproj">
       <Project>{fa4a6c00-dcae-43cb-a396-15daec3b0141}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\z_libutils_geom\z_libutils_geom.vcxproj">
       <Project>{334df447-d0b3-4cea-9693-f755eb11c18f}</Project>
