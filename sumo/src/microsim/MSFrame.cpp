@@ -251,6 +251,8 @@ MSFrame::fillOptions() {
 
     // devices
     oc.addOptionSubTopic("Emissions");
+    oc.doRegister("phemlight-path", new Option_FileName("./PHEMlight/"));
+    oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
     oc.addOptionSubTopic("Communication");
     MSDevice::insertOptions(oc);
 

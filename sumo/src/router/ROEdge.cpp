@@ -40,8 +40,8 @@
 #include "ROEdge.h"
 #include "ROVehicle.h"
 #include <utils/common/SUMOVTypeParameter.h>
-#include <utils/common/HelpersHBEFA.h>
-#include <utils/common/HelpersHarmonoise.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/HelpersHarmonoise.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -184,7 +184,7 @@ ROEdge::getCOEffort(const ROVehicle* const veh, SUMOReal time) const {
     if (!getStoredEffort(time, ret)) {
         const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
         const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
-        ret = HelpersHBEFA::computeDefaultCO(veh->getType()->emissionClass, vMax, accel, getTravelTime(veh, time));
+        ret = PollutantsInterface::computeDefaultCO(veh->getType()->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -196,7 +196,7 @@ ROEdge::getCO2Effort(const ROVehicle* const veh, SUMOReal time) const {
     if (!getStoredEffort(time, ret)) {
         const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
         const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
-        ret = HelpersHBEFA::computeDefaultCO2(veh->getType()->emissionClass, vMax, accel, getTravelTime(veh, time));
+        ret = PollutantsInterface::computeDefaultCO2(veh->getType()->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -208,7 +208,7 @@ ROEdge::getPMxEffort(const ROVehicle* const veh, SUMOReal time) const {
     if (!getStoredEffort(time, ret)) {
         const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
         const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
-        ret = HelpersHBEFA::computeDefaultPMx(veh->getType()->emissionClass, vMax, accel, getTravelTime(veh, time));
+        ret = PollutantsInterface::computeDefaultPMx(veh->getType()->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -220,7 +220,7 @@ ROEdge::getHCEffort(const ROVehicle* const veh, SUMOReal time) const {
     if (!getStoredEffort(time, ret)) {
         const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
         const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
-        ret = HelpersHBEFA::computeDefaultHC(veh->getType()->emissionClass, vMax, accel, getTravelTime(veh, time));
+        ret = PollutantsInterface::computeDefaultHC(veh->getType()->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -232,7 +232,7 @@ ROEdge::getNOxEffort(const ROVehicle* const veh, SUMOReal time) const {
     if (!getStoredEffort(time, ret)) {
         const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
         const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
-        ret = HelpersHBEFA::computeDefaultNOx(veh->getType()->emissionClass, vMax, accel, getTravelTime(veh, time));
+        ret = PollutantsInterface::computeDefaultNOx(veh->getType()->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -244,7 +244,7 @@ ROEdge::getFuelEffort(const ROVehicle* const veh, SUMOReal time) const {
     if (!getStoredEffort(time, ret)) {
         const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
         const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
-        ret = HelpersHBEFA::computeDefaultFuel(veh->getType()->emissionClass, vMax, accel, getTravelTime(veh, time));
+        ret = PollutantsInterface::computeDefaultFuel(veh->getType()->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -315,22 +315,22 @@ ROEdge::buildTimeLines(const std::string& measure) {
     if (myUsingETimeLine) {
         SUMOReal value = (SUMOReal)(myLength / mySpeed);
         if (measure == "CO") {
-            value = HelpersHBEFA::computeCO(SVE_UNKNOWN, mySpeed, 0) * value;
+            value = PollutantsInterface::computeCO(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "CO2") {
-            value = HelpersHBEFA::computeCO2(SVE_UNKNOWN, mySpeed, 0) * value;
+            value = PollutantsInterface::computeCO2(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "HC") {
-            value = HelpersHBEFA::computeHC(SVE_UNKNOWN, mySpeed, 0) * value;
+            value = PollutantsInterface::computeHC(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "PMx") {
-            value = HelpersHBEFA::computePMx(SVE_UNKNOWN, mySpeed, 0) * value;
+            value = PollutantsInterface::computePMx(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "NOx") {
-            value = HelpersHBEFA::computeNOx(SVE_UNKNOWN, mySpeed, 0) * value;
+            value = PollutantsInterface::computeNOx(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "fuel") {
-            value = HelpersHBEFA::computeFuel(SVE_UNKNOWN, mySpeed, 0) * value;
+            value = PollutantsInterface::computeFuel(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);
     }

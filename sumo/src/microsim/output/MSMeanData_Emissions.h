@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    MSMeanData_HBEFA.h
+/// @file    MSMeanData_Emissions.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
@@ -7,7 +7,7 @@
 ///
 // Emission data collector for edges/lanes
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSMeanData_HBEFA_h
-#define MSMeanData_HBEFA_h
+#ifndef MSMeanData_Emissions_h
+#define MSMeanData_Emissions_h
 
 
 // ===========================================================================
@@ -48,17 +48,18 @@ class MSLane;
 // class definitions
 // ===========================================================================
 /**
- * @class MSMeanData_HBEFA
+ * @class MSMeanData_Emissions
  * @brief Emission data collector for edges/lanes
  *
  * This structure does not contain the data itself, it is stored within
  *  MSLaneMeanDataValues-MoveReminder objects.
+ * 
  * This class is used to build the output, optionally, in the case
  *  of edge-based dump, aggregated over the edge's lanes.
  *
  * @todo consider error-handling on write (using IOError)
  */
-class MSMeanData_HBEFA : public MSMeanData {
+class MSMeanData_Emissions : public MSMeanData {
 public:
     /**
      * @class MSLaneMeanDataValues
@@ -72,7 +73,7 @@ public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
                              const std::set<std::string>* const vTypes = 0,
-                             const MSMeanData_HBEFA* parent = 0);
+                             const MSMeanData_Emissions* parent = 0);
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues();
@@ -82,11 +83,13 @@ public:
          */
         void reset(bool afterWrite = false);
 
+
         /** @brief Add the values of this to the given one and store them there
          *
          * @param[in] val The meandata to add to
          */
         void addTo(MSMeanData::MeanDataValues& val) const;
+
 
         /** @brief Writes output values into the given stream
          *
@@ -99,6 +102,7 @@ public:
         void write(OutputDevice& dev, const SUMOTime period,
                    const SUMOReal numLanes, const SUMOReal defaultTravelTime,
                    const int numVehicles = -1) const;
+
 
     protected:
         /** @brief Internal notification about the vehicle moves
@@ -113,6 +117,7 @@ public:
          */
         void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane,
                                 SUMOReal speed);
+
 
     private:
         /// @name Collected values
@@ -131,7 +136,7 @@ public:
         SUMOReal fuel;
         //@}
         /// @brief The meandata parent
-        const MSMeanData_HBEFA* myParent;
+        const MSMeanData_Emissions* myParent;
 
     };
 
@@ -151,7 +156,7 @@ public:
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] vTypes the set of vehicle types to consider
      */
-    MSMeanData_HBEFA(const std::string& id,
+    MSMeanData_Emissions(const std::string& id,
                      const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                      const bool useLanes, const bool withEmpty,
                      const bool printDefaults, const bool withInternal,
@@ -161,7 +166,9 @@ public:
 
 
     /// @brief Destructor
-    virtual ~MSMeanData_HBEFA();
+    virtual ~MSMeanData_Emissions();
+
+
 
 protected:
     /** @brief Create an instance of MeanDataValues
@@ -171,12 +178,14 @@ protected:
      */
     MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const;
 
+
+
 private:
     /// @brief Invalidated copy constructor.
-    MSMeanData_HBEFA(const MSMeanData_HBEFA&);
+    MSMeanData_Emissions(const MSMeanData_Emissions&);
 
     /// @brief Invalidated assignment operator.
-    MSMeanData_HBEFA& operator=(const MSMeanData_HBEFA&);
+    MSMeanData_Emissions& operator=(const MSMeanData_Emissions&);
 
 };
 

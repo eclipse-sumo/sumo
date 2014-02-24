@@ -107,28 +107,28 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::BLUE, (SUMOReal)5);
     laneColorer.addScheme(scheme);
     // ... emissions ...
-    scheme = GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by CO2 emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)(10. / 7.5 / 5.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by CO emissions (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by CO emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)(0.05 / 7.5 / 2.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by PMx emissions (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by PMx emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)(.005 / 7.5 / 5.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by NOx emissions (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by NOx emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)(.125 / 7.5 / 5.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by HC emissions (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by HC emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)(.02 / 7.5 / 4.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by fuel consumption (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by fuel consumption", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)(.005 / 7.5 * 100.));
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)100);
     laneColorer.addScheme(scheme);
-    // ... weights (experimental) ...
+	// ... weights (experimental) ...
     scheme = GUIColorScheme("by global travel time", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)100);
     scheme.setAllowsNegativeValues(true);
@@ -176,22 +176,22 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::BLUE, (SUMOReal)(150.0 / 3.6));
     vehicleColorer.addScheme(scheme);
     // ... emissions ...
-    scheme = GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by CO2 emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)5.);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by CO emissions (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by CO emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)0.05);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by PMx emissions (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by PMx emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal).005);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by NOx emissions (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by NOx emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal).125);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by HC emissions (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by HC emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal).02);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by fuel consumption (HBEFA)", RGBColor::GREEN);
+    scheme = GUIColorScheme("by fuel consumption", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal).005);
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor::GREEN);

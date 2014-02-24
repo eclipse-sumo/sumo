@@ -651,43 +651,6 @@ GUILane::getEdgeLaneNumber() const {
 }
 
 
-// ------------ Current state retrieval
-SUMOReal
-GUILane::getNormedHBEFA_CO2Emissions() const {
-    return getHBEFA_CO2Emissions() / getLength();
-}
-
-
-SUMOReal
-GUILane::getNormedHBEFA_COEmissions() const {
-    return getHBEFA_COEmissions() / getLength();
-}
-
-
-SUMOReal
-GUILane::getNormedHBEFA_PMxEmissions() const {
-    return getHBEFA_PMxEmissions() / getLength();
-}
-
-
-SUMOReal
-GUILane::getNormedHBEFA_NOxEmissions() const {
-    return getHBEFA_NOxEmissions() / getLength();
-}
-
-
-SUMOReal
-GUILane::getNormedHBEFA_HCEmissions() const {
-    return getHBEFA_HCEmissions() / getLength();
-}
-
-
-SUMOReal
-GUILane::getNormedHBEFA_FuelConsumption() const {
-    return getHBEFA_FuelConsumption() / getLength();
-}
-
-
 void
 GUILane::setColor(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive())));
@@ -725,17 +688,17 @@ GUILane::getColorValue(size_t activeScheme) const {
         case 7:
             return getEdgeLaneNumber();
         case 8:
-            return getNormedHBEFA_CO2Emissions();
+            return getCO2Emissions() / myLength;
         case 9:
-            return getNormedHBEFA_COEmissions();
+            return getCOEmissions() / myLength;
         case 10:
-            return getNormedHBEFA_PMxEmissions();
+            return getPMxEmissions() / myLength;
         case 11:
-            return getNormedHBEFA_NOxEmissions();
+            return getNOxEmissions() / myLength;
         case 12:
-            return getNormedHBEFA_HCEmissions();
+            return getHCEmissions() / myLength;
         case 13:
-            return getNormedHBEFA_FuelConsumption();
+            return getFuelConsumption() / myLength;
         case 14:
             return getHarmonoise_NoiseEmissions();
         case 15: {

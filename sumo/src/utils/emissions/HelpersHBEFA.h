@@ -7,8 +7,8 @@
 ///
 // Helper methods for HBEFA-based emission computation
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -32,18 +32,11 @@
 #endif
 
 #include <vector>
-#include "StdDefs.h"
-#include "SUMOVehicleClass.h"
 #include <limits>
 #include <cmath>
-
-
-// ===========================================================================
-// definitions
-// ===========================================================================
-#ifndef PI
-#define PI 3.1415926535897932384626433832795
-#endif
+#include <utils/common/StdDefs.h>
+#include <utils/geom/GeomHelper.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 // ===========================================================================
@@ -116,70 +109,10 @@ public:
     static SUMOReal computeFuel(SUMOEmissionClass c, double v, double a);
 
 
-    /** @brief Returns the amount of emitted CO given the vehicle type and default values for the state (in mg)
-     * @param[in] c The vehicle emission class
-     * @param[in] v The vehicle's average velocity
-     * @param[in] a The vehicle's average acceleration
-     * @param{in] tt the time the vehicle travels
-     * @return The amount of CO emitted by the given vehicle class [mg]
-     */
-    static SUMOReal computeDefaultCO(SUMOEmissionClass c, double v, double a, SUMOReal tt);
-
-
-    /** @brief Returns the amount of emitted CO2 given the vehicle type and default values for the state (in mg)
-     * @param[in] c The vehicle emission class
-     * @param[in] v The vehicle's average velocity
-     * @param[in] a The vehicle's average acceleration
-     * @param{in] tt the time the vehicle travels
-     * @return The amount of CO2 emitted by the given vehicle class [mg]
-     */
-    static SUMOReal computeDefaultCO2(SUMOEmissionClass c, double v, double a, SUMOReal tt);
-
-
-    /** @brief Returns the amount of emitted HC given the vehicle type and default values for the state (in mg)
-     * @param[in] c The vehicle emission class
-     * @param[in] v The vehicle's average velocity
-     * @param[in] a The vehicle's average acceleration
-     * @param{in] tt the time the vehicle travels
-     * @return The amount of HC emitted by the given vehicle class [mg]
-     */
-    static SUMOReal computeDefaultHC(SUMOEmissionClass c, double v, double a, SUMOReal tt);
-
-
-    /** @brief Returns the amount of emitted NOx given the vehicle type and default values for the state (in mg)
-     * @param[in] c The vehicle emission class
-     * @param[in] v The vehicle's average velocity
-     * @param[in] a The vehicle's average acceleration
-     * @param{in] tt the time the vehicle travels
-     * @return The amount of NOx emitted by the given vehicle class [mg]
-     */
-    static SUMOReal computeDefaultNOx(SUMOEmissionClass c, double v, double a, SUMOReal tt);
-
-
-    /** @brief Returns the amount of emitted PMx given the vehicle type and default values for the state (in mg)
-     * @param[in] c The vehicle emission class
-     * @param[in] v The vehicle's average velocity
-     * @param[in] a The vehicle's average acceleration
-     * @param{in] tt the time the vehicle travels
-     * @return The amount of PMx emitted by the given vehicle class [mg]
-     */
-    static SUMOReal computeDefaultPMx(SUMOEmissionClass c, double v, double a, SUMOReal tt);
-
-
-    /** @brief Returns the amount of fuel given the vehicle type and default values for the state (in ml)
-     * @param[in] c The vehicle emission class
-     * @param[in] v The vehicle's average velocity
-     * @param[in] a The vehicle's average acceleration
-     * @param{in] tt the time the vehicle travels
-     * @return The amount of fuel emitted by the given vehicle class [ml]
-     */
-    static SUMOReal computeDefaultFuel(SUMOEmissionClass c, double v, double a, SUMOReal tt);
-
-
 private:
     /** @brief Computes the emitted pollutant amount using the given speed and acceleration
      *
-     * As the functions are defining emissions(in g)/hour, the function's result is normed
+     * As the functions are defining emissions in g/hour, the function's result is normed
      *  by 3.6 (seconds in an hour/1000) yielding mg/s. Negative acceleration
      *  results directly in zero emission.
      *
@@ -207,7 +140,7 @@ private:
             return 0.;
         }
         const double* f = myFunctionParameter[c] + offset;
-        const double alpha = asin(a / 9.81) * 180. / PI;
+        const double alpha = asin(a / 9.81) * 180. / M_PI;
         return (SUMOReal) MAX2((f[0] + f[1] * alpha * v + f[2] * alpha * alpha * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / 3.6, 0.);
     }
 

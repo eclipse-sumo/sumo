@@ -39,3 +39,6 @@ vtypes
 
 # two vehicles sampling at 15s with internal lanes
 internal
+
+# tests for deprecated attributes
+_deprecated_

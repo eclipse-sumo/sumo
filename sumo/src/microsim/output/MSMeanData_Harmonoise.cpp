@@ -36,7 +36,7 @@
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Harmonoise.h"
-#include <utils/common/HelpersHarmonoise.h>
+#include <utils/emissions/HelpersHarmonoise.h>
 #include <limits>
 
 #ifdef CHECK_MEMORY_LEAKS

@@ -8,8 +8,8 @@
 ///
 // Noise data collector for edges/lanes
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -107,7 +107,7 @@ SUMOReal
 HelpersHarmonoise::computeNoise(SUMOEmissionClass c, double v, double a) {
     double* alphaT, *betaT, *alphaR, *betaR;
     double ac = 0;
-    if (c >= SVE_HDV_3_1 && c <= SVE_HDV_12_12) {
+    if ((c >= SVE_HDV_3_1 && c <= SVE_HDV_12_12) || (c >= SVE_LNF_D_EU0 &&  c <= SVE_SB_D_EU6) ) {
         alphaT = myT_A_C3_Parameter;
         betaT = myT_B_C3_Parameter;
         alphaR = myR_A_C3_Parameter;

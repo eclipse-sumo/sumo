@@ -92,6 +92,9 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
         oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
         oc.addSynonyme("weight-attribute", "measure", true);
         oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
+
+        oc.doRegister("phemlight-path", new Option_FileName("./PHEMlight/"));
+        oc.addDescription("phemlight-path", "Input", "Determines where to load PHEMlight definitions from.");
     }
 
     // register the time settings

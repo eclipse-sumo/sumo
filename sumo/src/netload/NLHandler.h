@@ -48,6 +48,7 @@
 #include "NLDiscreteEventBuilder.h"
 
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -61,7 +62,7 @@ class MSTrafficLightLogic;
 // class definitions
 // ===========================================================================
 /**
- * @class NLNetHandler
+ * @class NLHandler
  * @brief The XML-Handler for network loading
  *
  * The SAX2-handler responsible for parsing networks and routes to load.

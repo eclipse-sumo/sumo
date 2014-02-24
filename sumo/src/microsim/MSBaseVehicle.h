@@ -168,6 +168,13 @@ public:
      */
     virtual SUMOReal getAcceleration() const;
 
+    /** @brief Returns the slope of the road at vehicle's position
+     *
+     * This default implementation returns always 0.
+     * @return The acceleration
+     */
+    virtual SUMOReal getSlope() const;
+
     /** @brief Called when the vehicle is inserted into the network
      *
      * Sets optional information about departure time, informs the vehicle

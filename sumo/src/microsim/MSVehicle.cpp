@@ -48,10 +48,11 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/HelpersHBEFA.h>
-#include <utils/common/HelpersHarmonoise.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/geom/Line.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/BinaryInputDevice.h>
@@ -596,6 +597,17 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) {
 
 
 // ------------ Other getter methods
+SUMOReal 
+MSVehicle::getSlope() const {
+    if (myLane == 0) {
+        return 0;
+    }
+    const SUMOReal lp = getPositionOnLane();
+    const SUMOReal gp = myLane->interpolateLanePosToGeometryPos(lp);
+    return myLane->getShape().slopeDegreeAtOffset(gp);
+}
+
+
 Position
 MSVehicle::getPosition(const SUMOReal offset) const {
     if (myLane == 0) {
@@ -642,7 +654,7 @@ MSVehicle::getAngle() const {
             : myLane->geometryPositionAtOffset(myState.myPos - myType->getLength());
     }
     SUMOReal result = (p1 != p2 ?
-                       atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / PI :
+                       atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / M_PI :
                        -myLane->getShape().rotationDegreeAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
     if (getLaneChangeModel().isChangingLanes()) {
         const SUMOReal angleOffset = 60 / STEPS2TIME(MSGlobals::gLaneChangeDuration) * (getLaneChangeModel().isLaneChangeMidpointPassed() ? 1 - getLaneChangeModel().getLaneChangeCompletion() : getLaneChangeModel().getLaneChangeCompletion());
@@ -2114,38 +2126,38 @@ MSVehicle::getTimeGap() const {
 
 
 SUMOReal
-MSVehicle::getHBEFA_CO2Emissions() const {
-    return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myAcceleration);
+MSVehicle::getCO2Emissions() const {
+    return PollutantsInterface::computeCO2(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
 }
 
 
 SUMOReal
-MSVehicle::getHBEFA_COEmissions() const {
-    return HelpersHBEFA::computeCO(myType->getEmissionClass(), myState.speed(), myAcceleration);
+MSVehicle::getCOEmissions() const {
+    return PollutantsInterface::computeCO(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
 }
 
 
 SUMOReal
-MSVehicle::getHBEFA_HCEmissions() const {
-    return HelpersHBEFA::computeHC(myType->getEmissionClass(), myState.speed(), myAcceleration);
+MSVehicle::getHCEmissions() const {
+    return PollutantsInterface::computeHC(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
 }
 
 
 SUMOReal
-MSVehicle::getHBEFA_NOxEmissions() const {
-    return HelpersHBEFA::computeNOx(myType->getEmissionClass(), myState.speed(), myAcceleration);
+MSVehicle::getNOxEmissions() const {
+    return PollutantsInterface::computeNOx(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
 }
 
 
 SUMOReal
-MSVehicle::getHBEFA_PMxEmissions() const {
-    return HelpersHBEFA::computePMx(myType->getEmissionClass(), myState.speed(), myAcceleration);
+MSVehicle::getPMxEmissions() const {
+    return PollutantsInterface::computePMx(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
 }
 
 
 SUMOReal
-MSVehicle::getHBEFA_FuelConsumption() const {
-    return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myAcceleration);
+MSVehicle::getFuelConsumption() const {
+    return PollutantsInterface::computeFuel(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
 }
 
 

@@ -124,6 +124,11 @@ public:
      */
     virtual SUMOReal getAcceleration() const = 0;
 
+    /** @brief Returns the slope of the road at vehicle's position
+     * @return The slope
+     */
+    virtual SUMOReal getSlope() const = 0;
+
     /** @brief Returns the edge the vehicle is currently at
      *
      * @return The current edge in the vehicle's route

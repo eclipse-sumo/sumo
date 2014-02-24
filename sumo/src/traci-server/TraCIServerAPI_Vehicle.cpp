@@ -44,8 +44,8 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/DijkstraRouterEffort.h>
-#include <utils/common/HelpersHBEFA.h>
-#include <utils/common/HelpersHarmonoise.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/common/SUMOVehicleParameter.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"
@@ -183,27 +183,27 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             case VAR_CO2EMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(onRoad ? v->getHBEFA_CO2Emissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(onRoad ? v->getCO2Emissions() : INVALID_DOUBLE_VALUE);
                 break;
             case VAR_COEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(onRoad ? v->getHBEFA_COEmissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(onRoad ? v->getCOEmissions() : INVALID_DOUBLE_VALUE);
                 break;
             case VAR_HCEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(onRoad ? v->getHBEFA_HCEmissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(onRoad ? v->getHCEmissions() : INVALID_DOUBLE_VALUE);
                 break;
             case VAR_PMXEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(onRoad ? v->getHBEFA_PMxEmissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(onRoad ? v->getPMxEmissions() : INVALID_DOUBLE_VALUE);
                 break;
             case VAR_NOXEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(onRoad ? v->getHBEFA_NOxEmissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(onRoad ? v->getNOxEmissions() : INVALID_DOUBLE_VALUE);
                 break;
             case VAR_FUELCONSUMPTION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(onRoad ? v->getHBEFA_FuelConsumption() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(onRoad ? v->getFuelConsumption() : INVALID_DOUBLE_VALUE);
                 break;
             case VAR_NOISEEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);

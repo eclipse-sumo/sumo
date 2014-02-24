@@ -189,6 +189,12 @@ MSBaseVehicle::getAcceleration() const {
 }
 
 
+SUMOReal
+MSBaseVehicle::getSlope() const {
+    return 0;
+}
+
+
 void
 MSBaseVehicle::onDepart() {
     myDeparture = MSNet::getInstance()->getCurrentTimeStep();

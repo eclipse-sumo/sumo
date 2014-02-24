@@ -1,13 +1,13 @@
 /****************************************************************************/
-/// @file    MSDevice_HBEFA.h
+/// @file    MSDevice_Emissions.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Fri, 30.01.2009
 /// @version $Id$
 ///
-// A device which collects vehicular emissions (using HBEFA-reformulation)
+// A device which collects vehicular emissions
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSDevice_HBEFA_h
-#define MSDevice_HBEFA_h
+#ifndef MSDevice_Emissions_h
+#define MSDevice_Emissions_h
 
 
 // ===========================================================================
@@ -50,27 +50,27 @@ class MSLane;
 // class definitions
 // ===========================================================================
 /**
- * @class MSDevice_HBEFA
- * @brief A device which collects vehicular emissions (using HBEFA-reformulation)
+ * @class MSDevice_Emissions
+ * @brief A device which collects vehicular emissions
  *
  * Each device collects the vehicular emissions / fuel consumption by being
- *  called each time step, computing the current values using HelpersHBEFA, and
- *  aggregating them into internal storages over the whol journey.
+ *  called each time step, computing the current values using 
+ *  PollutantsInterface, and aggregating them into internal storages over 
+ *  the complete journey.
  *
  * @see MSDevice
- * @see HelpersHBEFA
+ * @see PollutantsInterface
  */
-class MSDevice_HBEFA : public MSDevice {
+class MSDevice_Emissions : public MSDevice {
 public:
-    /** @brief Inserts MSDevice_HBEFA-options
-     * @param[filled] oc The options container to add the options to
+    /** @brief Inserts MSDevice_Emissions-options
      */
-    static void insertOptions(OptionsCont& oc);
+    static void insertOptions();
 
 
     /** @brief Build devices for the given vehicle, if needed
      *
-     * The options are read and evaluated whether hbefa-devices shall be built
+     * The options are read and evaluated whether emissions-devices shall be built
      *  for the given vehicle.
      *
      * For each seen vehicle, the global vehicle index is increased.
@@ -78,18 +78,12 @@ public:
      * The built device is stored in the given vector.
      *
      * @param[in] v The vehicle for which a device may be built
-     * @param[filled] into The vector to store the built device in
+     * @param[in, filled] into The vector to store the built device in
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
 
-
 public:
-    /// @brief Destructor.
-    ~MSDevice_HBEFA();
-
-
-
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
 
@@ -105,11 +99,10 @@ public:
         * @return false, if the vehicle is beyond the lane, true otherwise
         * @see MSMoveReminder
         * @see MSMoveReminder::notifyMove
-        * @see HelpersHBEFA
+        * @see PollutantsInterface
         */
     bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
     /// @}
-
 
 
     /** @brief Called on writing tripinfo output
@@ -121,13 +114,17 @@ public:
     void generateOutput() const;
 
 
+    /// @brief Destructor.
+    ~MSDevice_Emissions();
+
+
 private:
     /** @brief Constructor
      *
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_HBEFA(SUMOVehicle& holder, const std::string& id);
+    MSDevice_Emissions(SUMOVehicle& holder, const std::string& id);
 
 
 private:
@@ -135,15 +132,16 @@ private:
     /// @{
 
     SUMOReal myCO2, myCO, myHC, myPMx, myNOx, myFuel;
+
     /// @}
 
 
 private:
     /// @brief Invalidated copy constructor.
-    MSDevice_HBEFA(const MSDevice_HBEFA&);
+    MSDevice_Emissions(const MSDevice_Emissions&);
 
     /// @brief Invalidated assignment operator.
-    MSDevice_HBEFA& operator=(const MSDevice_HBEFA&);
+    MSDevice_Emissions& operator=(const MSDevice_Emissions&);
 
 
 };

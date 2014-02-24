@@ -209,11 +209,70 @@ StringBijection<SUMOEmissionClass>::Entry SumoEmissionClassStringInitializer[] =
     {"P_A0_14_11",             SVE_P_LDV_A0_14_11},
     {"P_A0_14_12",             SVE_P_LDV_A0_14_12},
     {"P_A0_14_13",             SVE_P_LDV_A0_14_13},
-    {"P_A0_14_14",             SVE_P_LDV_A0_14_14}
+    {"P_A0_14_14",             SVE_P_LDV_A0_14_14},
+
+    // PHEMlight
+    {"PKW_D_EU0",              SVE_PKW_D_EU0},
+    {"PKW_D_EU1",              SVE_PKW_D_EU1},
+    {"PKW_D_EU2",              SVE_PKW_D_EU2},
+    {"PKW_D_EU3",              SVE_PKW_D_EU3},
+    {"PKW_D_EU4",              SVE_PKW_D_EU4},
+    {"PKW_D_EU5",              SVE_PKW_D_EU5},
+    {"PKW_D_EU6",              SVE_PKW_D_EU6},
+    {"PKW_G_EU0",              SVE_PKW_G_EU0},
+    {"PKW_G_EU1",              SVE_PKW_G_EU1},
+    {"PKW_G_EU2",              SVE_PKW_G_EU2},
+    {"PKW_G_EU3",              SVE_PKW_G_EU3},
+    {"PKW_G_EU4",              SVE_PKW_G_EU4},
+    {"PKW_G_EU5",              SVE_PKW_G_EU5},
+    {"PKW_G_EU6",              SVE_PKW_G_EU6},
+
+    {"LNF_D_EU0",              SVE_LNF_D_EU0},
+    {"LNF_D_EU1",              SVE_LNF_D_EU1},
+    {"LNF_D_EU2",              SVE_LNF_D_EU2},
+    {"LNF_D_EU3",              SVE_LNF_D_EU3},
+    {"LNF_D_EU4",              SVE_LNF_D_EU4},
+    {"LNF_D_EU5",              SVE_LNF_D_EU5},
+    {"LNF_D_EU6",              SVE_LNF_D_EU6},
+    {"LNF_G_EU0",              SVE_LNF_G_EU0},
+    {"LNF_G_EU1",              SVE_LNF_G_EU1},
+    {"LNF_G_EU2",              SVE_LNF_G_EU2},
+    {"LNF_G_EU3",              SVE_LNF_G_EU3},
+    {"LNF_G_EU4",              SVE_LNF_G_EU4},
+    {"LNF_G_EU5",              SVE_LNF_G_EU5},
+    {"LNF_G_EU6",              SVE_LNF_G_EU6},
+    {"LSZ_D_EU0",              SVE_LSZ_D_EU0},
+    {"LSZ_D_EU1",              SVE_LSZ_D_EU1},
+    {"LSZ_D_EU2",              SVE_LSZ_D_EU2},
+    {"LSZ_D_EU3",              SVE_LSZ_D_EU3},
+    {"LSZ_D_EU4_EGR",          SVE_LSZ_D_EU4_EGR},
+    {"LSZ_D_EU4_SCR",          SVE_LSZ_D_EU4_SCR},
+    {"LSZ_D_EU5_EGR",          SVE_LSZ_D_EU5_EGR},
+    {"LSZ_D_EU5_SCR",          SVE_LSZ_D_EU5_SCR},
+    {"LSZ_D_EU6",              SVE_LSZ_D_EU6},
+    {"RB_D_EU0",               SVE_RB_D_EU0}, 
+    {"RB_D_EU1",               SVE_RB_D_EU1},
+    {"RB_D_EU2",               SVE_RB_D_EU2},
+    {"RB_D_EU3",               SVE_RB_D_EU3},
+    {"RB_D_EU4_EGR",           SVE_RB_D_EU4_EGR},
+    {"RB_D_EU4_SCR",           SVE_RB_D_EU4_SCR},
+    {"RB_D_EU5_EGR",           SVE_RB_D_EU5_EGR},
+    {"RB_D_EU5_SCR",           SVE_RB_D_EU5_SCR},
+    {"RB_D_EU6",               SVE_RB_D_EU6},
+    {"SB_D_EU0",               SVE_SB_D_EU0},
+    {"SB_D_EU1",               SVE_SB_D_EU1},
+    {"SB_D_EU2",               SVE_SB_D_EU2},
+    {"SB_D_EU3",               SVE_SB_D_EU3},
+    {"SB_D_EU4_EGR",           SVE_SB_D_EU4_EGR},
+    {"SB_D_EU4_SCR",           SVE_SB_D_EU4_SCR},
+    {"SB_D_EU5_EGR",           SVE_SB_D_EU5_EGR},
+    {"SB_D_EU5_SCR",           SVE_SB_D_EU5_SCR},
+    {"SB_D_EU6",               SVE_SB_D_EU6}
+
 };
 
 StringBijection<SUMOEmissionClass> SumoEmissionClassStrings(
-    SumoEmissionClassStringInitializer, SVE_P_LDV_A0_14_14);
+    SumoEmissionClassStringInitializer, SVE_SB_D_EU6);
 
 
 // ===========================================================================

@@ -24,7 +24,7 @@
     </report>
 
     <emissions>
-        <device.hbefa.probability value="0.5"/>
+        <device.emissions.probability value="0.5"/>
     </emissions>
 
 </configuration>

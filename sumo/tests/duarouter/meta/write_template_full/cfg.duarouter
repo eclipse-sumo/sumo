@@ -18,6 +18,7 @@
         <weight-files value="" synonymes="w weights" type="FILE" help="Read network weights from FILE(s)"/>
         <lane-weight-files value="" type="FILE" help="Read lane-based network weights from FILE(s)"/>
         <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
+        <phemlight-path value="./PHEMlight/" type="FILE" help="Determines where to load PHEMlight definitions from."/>
         <trip-files value="" synonymes="t trip-defs trips" type="FILE" help="Read trip-definitions from FILE(s)"/>
         <route-files value="" synonymes="r sumo sumo-input" type="FILE" help="Read sumo-routes from FILE(s)"/>
     </input>

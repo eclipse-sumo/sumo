@@ -20,6 +20,7 @@ jtrrouter_LDADD   = ../router/librouter.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
 ../utils/geom/libgeom.a \
+../utils/emissions/libemissions.a \
 ../foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES)

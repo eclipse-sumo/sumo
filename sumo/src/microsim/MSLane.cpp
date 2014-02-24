@@ -64,7 +64,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/common/HelpersHarmonoise.h>
+#include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 
@@ -1330,11 +1330,11 @@ MSLane::getMeanSpeed() const {
 
 
 SUMOReal
-MSLane::getHBEFA_CO2Emissions() const {
+MSLane::getCO2Emissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getHBEFA_CO2Emissions();
+        ret += (*i)->getCO2Emissions();
     }
     releaseVehicles();
     return ret;
@@ -1342,11 +1342,11 @@ MSLane::getHBEFA_CO2Emissions() const {
 
 
 SUMOReal
-MSLane::getHBEFA_COEmissions() const {
+MSLane::getCOEmissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getHBEFA_COEmissions();
+        ret += (*i)->getCOEmissions();
     }
     releaseVehicles();
     return ret;
@@ -1354,11 +1354,11 @@ MSLane::getHBEFA_COEmissions() const {
 
 
 SUMOReal
-MSLane::getHBEFA_PMxEmissions() const {
+MSLane::getPMxEmissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getHBEFA_PMxEmissions();
+        ret += (*i)->getPMxEmissions();
     }
     releaseVehicles();
     return ret;
@@ -1366,11 +1366,11 @@ MSLane::getHBEFA_PMxEmissions() const {
 
 
 SUMOReal
-MSLane::getHBEFA_NOxEmissions() const {
+MSLane::getNOxEmissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getHBEFA_NOxEmissions();
+        ret += (*i)->getNOxEmissions();
     }
     releaseVehicles();
     return ret;
@@ -1378,11 +1378,11 @@ MSLane::getHBEFA_NOxEmissions() const {
 
 
 SUMOReal
-MSLane::getHBEFA_HCEmissions() const {
+MSLane::getHCEmissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getHBEFA_HCEmissions();
+        ret += (*i)->getHCEmissions();
     }
     releaseVehicles();
     return ret;
@@ -1390,11 +1390,11 @@ MSLane::getHBEFA_HCEmissions() const {
 
 
 SUMOReal
-MSLane::getHBEFA_FuelConsumption() const {
+MSLane::getFuelConsumption() const {
     SUMOReal ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        ret += (*i)->getHBEFA_FuelConsumption();
+        ret += (*i)->getFuelConsumption();
     }
     releaseVehicles();
     return ret;

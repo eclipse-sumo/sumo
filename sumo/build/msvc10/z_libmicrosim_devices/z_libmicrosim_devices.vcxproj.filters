@@ -20,7 +20,7 @@
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Example.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.h">
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Emissions.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Person.h">
@@ -49,7 +49,7 @@
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Example.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp">
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Emissions.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Person.cpp">

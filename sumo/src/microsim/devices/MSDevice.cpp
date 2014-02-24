@@ -35,7 +35,7 @@
 #include "MSDevice_Tripinfo.h"
 #include "MSDevice_Routing.h"
 #include "MSDevice_Person.h"
-#include "MSDevice_HBEFA.h"
+#include "MSDevice_Emissions.h"
 #include "MSDevice_BTreceiver.h"
 #include "MSDevice_BTsender.h"
 #include "MSDevice_Example.h"
@@ -60,7 +60,7 @@ std::map<std::string, std::set<std::string> > MSDevice::myExplicitIDs;
 void
 MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Routing::insertOptions(oc);
-    MSDevice_HBEFA::insertOptions(oc);
+    MSDevice_Emissions::insertOptions();
     MSDevice_BTreceiver::insertOptions(oc);
     MSDevice_BTsender::insertOptions(oc);
     MSDevice_Example::insertOptions(oc);
@@ -72,7 +72,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     MSDevice_Vehroutes::buildVehicleDevices(v, into);
     MSDevice_Tripinfo::buildVehicleDevices(v, into);
     MSDevice_Routing::buildVehicleDevices(v, into);
-    MSDevice_HBEFA::buildVehicleDevices(v, into);
+    MSDevice_Emissions::buildVehicleDevices(v, into);
     MSDevice_BTreceiver::buildVehicleDevices(v, into);
     MSDevice_BTsender::buildVehicleDevices(v, into);
     MSDevice_Example::buildVehicleDevices(v, into);

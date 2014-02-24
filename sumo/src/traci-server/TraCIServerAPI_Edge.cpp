@@ -43,7 +43,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Edge.h"
 #include <microsim/MSEdgeWeightsStorage.h>
-#include <utils/common/HelpersHarmonoise.h>
+#include <utils/emissions/HelpersHarmonoise.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -153,7 +153,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 SUMOReal sum = 0;
                 const std::vector<MSLane*>& lanes = e->getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    sum += (*i)->getHBEFA_CO2Emissions();
+                    sum += (*i)->getCO2Emissions();
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(sum);
@@ -163,7 +163,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 SUMOReal sum = 0;
                 const std::vector<MSLane*>& lanes = e->getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    sum += (*i)->getHBEFA_COEmissions();
+                    sum += (*i)->getCOEmissions();
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(sum);
@@ -173,7 +173,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 SUMOReal sum = 0;
                 const std::vector<MSLane*>& lanes = e->getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    sum += (*i)->getHBEFA_HCEmissions();
+                    sum += (*i)->getHCEmissions();
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(sum);
@@ -183,7 +183,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 SUMOReal sum = 0;
                 const std::vector<MSLane*>& lanes = e->getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    sum += (*i)->getHBEFA_PMxEmissions();
+                    sum += (*i)->getPMxEmissions();
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(sum);
@@ -193,7 +193,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 SUMOReal sum = 0;
                 const std::vector<MSLane*>& lanes = e->getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    sum += (*i)->getHBEFA_NOxEmissions();
+                    sum += (*i)->getNOxEmissions();
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(sum);
@@ -203,7 +203,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 SUMOReal sum = 0;
                 const std::vector<MSLane*>& lanes = e->getLanes();
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    sum += (*i)->getHBEFA_FuelConsumption();
+                    sum += (*i)->getFuelConsumption();
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(sum);

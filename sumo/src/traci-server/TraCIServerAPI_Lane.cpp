@@ -181,27 +181,27 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 break;
             case VAR_CO2EMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getHBEFA_CO2Emissions());
+                tempMsg.writeDouble(lane->getCO2Emissions());
                 break;
             case VAR_COEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getHBEFA_COEmissions());
+                tempMsg.writeDouble(lane->getCOEmissions());
                 break;
             case VAR_HCEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getHBEFA_HCEmissions());
+                tempMsg.writeDouble(lane->getHCEmissions());
                 break;
             case VAR_PMXEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getHBEFA_PMxEmissions());
+                tempMsg.writeDouble(lane->getPMxEmissions());
                 break;
             case VAR_NOXEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getHBEFA_NOxEmissions());
+                tempMsg.writeDouble(lane->getNOxEmissions());
                 break;
             case VAR_FUELCONSUMPTION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getHBEFA_FuelConsumption());
+                tempMsg.writeDouble(lane->getFuelConsumption());
                 break;
             case VAR_NOISEEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);

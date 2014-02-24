@@ -278,6 +278,9 @@
       <Project>{72cdb11a-ec19-4be2-bbe9-1fa33deccb20}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\z_libutils_emissions\z_libutils_emissions.vcxproj">
+      <Project>{fa4a6c00-dcae-43cb-a396-15daec3b0141}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\z_libutils_foxtools\z_libutils_foxtools.vcxproj">
       <Project>{ecaebbbd-18b0-4e40-9507-4ad2b018c1cd}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

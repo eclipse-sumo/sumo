@@ -32,9 +32,6 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Harmonoise.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_HBEFA.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Net.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -50,8 +47,7 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSInstantInductLoop.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-	
-	<ClCompile Include="..\..\..\src\microsim\output\MSFCDExport.cpp">
+    <ClCompile Include="..\..\..\src\microsim\output\MSFCDExport.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\output\MSVTKExport.cpp">
@@ -66,7 +62,9 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSQueueExport.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-	
+    <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Emissions.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.h">
@@ -96,9 +94,6 @@
     <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Harmonoise.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_HBEFA.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Net.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
@@ -114,8 +109,7 @@
     <ClInclude Include="..\..\..\src\microsim\output\MSInstantInductLoop.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-	
-	<ClInclude Include="..\..\..\src\microsim\output\MSFCDExport.h">
+    <ClInclude Include="..\..\..\src\microsim\output\MSFCDExport.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\output\MSFullExport.h">
@@ -127,9 +121,11 @@
     <ClInclude Include="..\..\..\src\microsim\output\MSEmissionExport.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-	 <ClInclude Include="..\..\..\src\microsim\output\MSQueueExport.h">
+    <ClInclude Include="..\..\..\src\microsim\output\MSQueueExport.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    
+    <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Emissions.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

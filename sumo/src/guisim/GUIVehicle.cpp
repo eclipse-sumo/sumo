@@ -351,18 +351,18 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("insertion period [s]", false, time2string(getParameter().repetitionOffset));
     }
     ret->mkItem("stop info", false, getStopInfo());
-    ret->mkItem("CO2 (HBEFA) [mg/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_CO2Emissions));
-    ret->mkItem("CO (HBEFA) [mg/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_COEmissions));
-    ret->mkItem("HC (HBEFA) [mg/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_HCEmissions));
-    ret->mkItem("NOx (HBEFA) [mg/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_NOxEmissions));
-    ret->mkItem("PMx (HBEFA) [mg/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_PMxEmissions));
-    ret->mkItem("fuel (HBEFA) [ml/s]", true,
-                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_FuelConsumption));
+    ret->mkItem("CO2 [mg/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getCO2Emissions));
+    ret->mkItem("CO [mg/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getCOEmissions));
+    ret->mkItem("HC [mg/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHCEmissions));
+    ret->mkItem("NOx [mg/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getNOxEmissions));
+    ret->mkItem("PMx [mg/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPMxEmissions));
+    ret->mkItem("fuel [ml/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getFuelConsumption));
     ret->mkItem("noise (Harmonoise) [dB]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHarmonoise_NoiseEmissions));
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
@@ -1238,20 +1238,20 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
         case 11:
             return getMaxSpeed();
         case 12:
-            return getHBEFA_CO2Emissions();
+            return getCO2Emissions();
         case 13:
-            return getHBEFA_COEmissions();
+            return getCOEmissions();
         case 14:
-            return getHBEFA_PMxEmissions();
+            return getPMxEmissions();
         case 15:
-            return getHBEFA_NOxEmissions();
+            return getNOxEmissions();
         case 16:
-            return getHBEFA_HCEmissions();
+            return getHCEmissions();
         case 17:
-            return getHBEFA_FuelConsumption();
+            return getFuelConsumption();
         case 18:
             return getHarmonoise_NoiseEmissions();
-        case 19:
+        case 19: // !!! unused!?
             if (getNumberReroutes() == 0) {
                 return -1;
             }

@@ -83,7 +83,6 @@ public:
      * @return false, if the vehicle is beyond the lane, true otherwise
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyMove
-     * @see HelpersHBEFA
      */
     bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
 

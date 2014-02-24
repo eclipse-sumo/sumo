@@ -47,7 +47,7 @@
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_BTreceiver.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_BTsender.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Example.h" />
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.h" />
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Emissions.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Person.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Routing.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.h" />
@@ -58,7 +58,7 @@
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_BTreceiver.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_BTsender.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Example.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Emissions.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Person.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Routing.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.cpp" />

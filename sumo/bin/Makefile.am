@@ -28,7 +28,7 @@ sumo-unittest sumo-unittestD \
 netedit neteditD marouter marouterD
 
 install: all
-all: sumo dfrouter duarouter jtrrouter netconvert netgenerate od2trips polyconvert activitygen $(GUI_APP) $(NETEDIT_APP) $(MAROUTER_APP) $(TRACI_TESTCLIENT_APP)
+all: sumo dfrouter duarouter jtrrouter netconvert netgenerate od2trips polyconvert activitygen emissionsDrivingCycle emissionsMap $(GUI_APP) $(NETEDIT_APP) $(MAROUTER_APP) $(TRACI_TESTCLIENT_APP)
 sumo: ../src/sumo
 	cp ../src/sumo ./`echo sumo | sed '$(transform)'`
 	if [ ! -e sumo -a -e meso ]; then ln -s meso sumo; fi
@@ -74,6 +74,16 @@ activitygen: ../src/activitygen/activitygen
 	if [ ! -e activitygen -a -e activitygenInt ]; then ln -s activitygenInt activitygen; fi
 	if [ ! -e activitygenD -a -e activitygenIntD ]; then ln -s activitygenIntD activitygenD; fi
 	if [ ! -e activitygen -a -e activitygenD ]; then ln -s activitygenD activitygen; fi
+emissionsDrivingCycle: ../src/tools/emissionsDrivingCycle
+	cp ../src/tools/emissionsDrivingCycle ./`echo emissionsDrivingCycle | sed '$(transform)'`
+	if [ ! -e emissionsDrivingCycle -a -e emissionsDrivingCycleInt ]; then ln -s emissionsDrivingCycleInt emissionsDrivingCycle; fi
+	if [ ! -e emissionsDrivingCycleD -a -e emissionsDrivingCycleIntD ]; then ln -s emissionsDrivingCycleIntD emissionsDrivingCycleD; fi
+	if [ ! -e emissionsDrivingCycle -a -e emissionsDrivingCycleD ]; then ln -s emissionsDrivingCycleD emissionsDrivingCycle; fi
+emissionsMap: ../src/tools/emissionsMap
+	cp ../src/tools/emissionsMap ./`echo emissionsMap | sed '$(transform)'`
+	if [ ! -e emissionsMap -a -e emissionsMapInt ]; then ln -s emissionsMapInt emissionsMap; fi
+	if [ ! -e emissionsMapD -a -e emissionsMapIntD ]; then ln -s emissionsMapIntD emissionsMapD; fi
+	if [ ! -e emissionsMap -a -e emissionsMapD ]; then ln -s emissionsMapD emissionsMap; fi
 $(GUI_APP): ../src/$(GUI_APP)
 	cp ../src/$(GUI_APP) ./`echo $(GUI_APP) | sed '$(transform)'`
 	if [ ! -e $(GUI_APP) -a -e meso-gui ]; then ln -s meso-gui $(GUI_APP); fi

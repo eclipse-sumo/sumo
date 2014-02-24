@@ -11,4 +11,8 @@
         <save-state.prefix value="state"/>
     </output>
 
+    <emissions>
+        <phemlight-path value="./PHEMlight/"/>
+    </emissions>
+
 </configuration>

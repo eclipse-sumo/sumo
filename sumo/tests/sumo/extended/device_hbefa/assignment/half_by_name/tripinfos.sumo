@@ -24,7 +24,7 @@
     </report>
 
     <emissions>
-        <device.hbefa.explicit value="0,2,4,6,8"/>
+        <device.emissions.explicit value="0,2,4,6,8"/>
     </emissions>
 
 </configuration>

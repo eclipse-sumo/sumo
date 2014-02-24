@@ -199,22 +199,23 @@ extern const SVCPermissions SVCFreeForAll;
  * @brief Definition of vehicle emission classes
  *
  * The order is important - HBEFA computation helper use it.
- * @see HelpersHBEFA
+ * @see PollutantsInterface
  */
 enum SUMOEmissionClass {
     SVE_UNKNOWN = -1,
-    // heavy duty vehicles; 3 clusters
+    // HBEFA
+    //  HBEFA heavy duty vehicles; 3 clusters
     SVE_HDV_3_1 = 0,
     SVE_HDV_3_2,
     SVE_HDV_3_3,
-    // heavy duty vehicles; 6 clusters
+    //  HBEFA heavy duty vehicles; 6 clusters
     SVE_HDV_6_1,
     SVE_HDV_6_2,
     SVE_HDV_6_3,
     SVE_HDV_6_4,
     SVE_HDV_6_5,
     SVE_HDV_6_6,
-    // heavy duty vehicles; 12 clusters
+    //  HBEFA heavy duty vehicles; 12 clusters
     SVE_HDV_12_1,
     SVE_HDV_12_2,
     SVE_HDV_12_3,
@@ -227,7 +228,7 @@ enum SUMOEmissionClass {
     SVE_HDV_12_10,
     SVE_HDV_12_11,
     SVE_HDV_12_12,
-    // passenger & light duty vehicles; 7 clusters
+    //  HBEFA passenger & light duty vehicles; 7 clusters
     SVE_P_LDV_7_1,
     SVE_P_LDV_7_2,
     SVE_P_LDV_7_3,
@@ -235,7 +236,7 @@ enum SUMOEmissionClass {
     SVE_P_LDV_7_5,
     SVE_P_LDV_7_6,
     SVE_P_LDV_7_7,
-    // passenger & light duty vehicles; 14 clusters
+    //  HBEFA passenger & light duty vehicles; 14 clusters
     SVE_P_LDV_14_1,
     SVE_P_LDV_14_2,
     SVE_P_LDV_14_3,
@@ -250,20 +251,20 @@ enum SUMOEmissionClass {
     SVE_P_LDV_14_12,
     SVE_P_LDV_14_13,
     SVE_P_LDV_14_14,
-    // no emissions
+    //  HBEFA no emissions
     SVE_ZERO_EMISSIONS,
-    // heavy duty vehicles, no accel; 3 clusters
+    //  HBEFA heavy duty vehicles, no accel; 3 clusters
     SVE_HDV_A0_3_1,
     SVE_HDV_A0_3_2,
     SVE_HDV_A0_3_3,
-    // heavy duty vehicles, no accel; 6 clusters
+    //  HBEFA heavy duty vehicles, no accel; 6 clusters
     SVE_HDV_A0_6_1,
     SVE_HDV_A0_6_2,
     SVE_HDV_A0_6_3,
     SVE_HDV_A0_6_4,
     SVE_HDV_A0_6_5,
     SVE_HDV_A0_6_6,
-    // heavy duty vehicles, no accel; 12 clusters
+    //  HBEFA heavy duty vehicles, no accel; 12 clusters
     SVE_HDV_A0_12_1,
     SVE_HDV_A0_12_2,
     SVE_HDV_A0_12_3,
@@ -276,7 +277,7 @@ enum SUMOEmissionClass {
     SVE_HDV_A0_12_10,
     SVE_HDV_A0_12_11,
     SVE_HDV_A0_12_12,
-    // passenger & light duty vehicles, no accel; 7 clusters
+    //  HBEFA passenger & light duty vehicles, no accel; 7 clusters
     SVE_P_LDV_A0_7_1,
     SVE_P_LDV_A0_7_2,
     SVE_P_LDV_A0_7_3,
@@ -284,7 +285,7 @@ enum SUMOEmissionClass {
     SVE_P_LDV_A0_7_5,
     SVE_P_LDV_A0_7_6,
     SVE_P_LDV_A0_7_7,
-    // passenger & light duty vehicles, no accel; 14 clusters
+    //  HBEFA passenger & light duty vehicles, no accel; 14 clusters
     SVE_P_LDV_A0_14_1,
     SVE_P_LDV_A0_14_2,
     SVE_P_LDV_A0_14_3,
@@ -298,7 +299,72 @@ enum SUMOEmissionClass {
     SVE_P_LDV_A0_14_11,
     SVE_P_LDV_A0_14_12,
     SVE_P_LDV_A0_14_13,
-    SVE_P_LDV_A0_14_14
+    SVE_P_LDV_A0_14_14,
+
+    SVE_META_HBEFA21_END, // end of iTETRIS' HBEFA 2.1 classes
+
+
+
+    // PHEMlight
+    SVE_PKW_D_EU0,
+    SVE_PKW_D_EU1,
+    SVE_PKW_D_EU2,
+    SVE_PKW_D_EU3,
+    SVE_PKW_D_EU4,
+    SVE_PKW_D_EU5,
+    SVE_PKW_D_EU6,
+    SVE_PKW_G_EU0,
+    SVE_PKW_G_EU1,
+    SVE_PKW_G_EU2,
+    SVE_PKW_G_EU3,
+    SVE_PKW_G_EU4,
+    SVE_PKW_G_EU5,
+    SVE_PKW_G_EU6,
+
+    SVE_LNF_D_EU0,
+    SVE_LNF_D_EU1,
+    SVE_LNF_D_EU2,
+    SVE_LNF_D_EU3,
+    SVE_LNF_D_EU4,
+    SVE_LNF_D_EU5,
+    SVE_LNF_D_EU6,
+    SVE_LNF_G_EU0,
+    SVE_LNF_G_EU1,
+    SVE_LNF_G_EU2,
+    SVE_LNF_G_EU3,
+    SVE_LNF_G_EU4,
+    SVE_LNF_G_EU5,
+    SVE_LNF_G_EU6,
+    SVE_LSZ_D_EU0,
+    SVE_LSZ_D_EU1,
+    SVE_LSZ_D_EU2,
+    SVE_LSZ_D_EU3,
+    SVE_LSZ_D_EU4_EGR,
+    SVE_LSZ_D_EU4_SCR,
+    SVE_LSZ_D_EU5_EGR,
+    SVE_LSZ_D_EU5_SCR,
+    SVE_LSZ_D_EU6,
+    SVE_RB_D_EU0,
+    SVE_RB_D_EU1,
+    SVE_RB_D_EU2,
+    SVE_RB_D_EU3,
+    SVE_RB_D_EU4_EGR,
+    SVE_RB_D_EU4_SCR,
+    SVE_RB_D_EU5_EGR,
+    SVE_RB_D_EU5_SCR,
+    SVE_RB_D_EU6,
+    SVE_SB_D_EU0,
+    SVE_SB_D_EU1,
+    SVE_SB_D_EU2,
+    SVE_SB_D_EU3,
+    SVE_SB_D_EU4_EGR,
+    SVE_SB_D_EU4_SCR,
+    SVE_SB_D_EU5_EGR,
+    SVE_SB_D_EU5_SCR,
+    SVE_SB_D_EU6,
+
+    SVE_META_PHEMLIGHT_END // end of COLOMBO's PHEMlight classes
+
 };
 
 extern StringBijection<SUMOEmissionClass> SumoEmissionClassStrings;

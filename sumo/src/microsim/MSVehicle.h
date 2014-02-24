@@ -306,6 +306,12 @@ public:
     /// @name Other getter methods
     //@{
 
+    /** @brief Returns the slope of the road at vehicle's position
+     * @return The slope
+     */
+    SUMOReal getSlope() const;
+
+
     /** @brief Return current position (x/y, cartesian)
      *
      * If the vehicle's myLane is 0, Position::INVALID.
@@ -648,40 +654,40 @@ public:
     /** @brief Returns CO2 emission of the current state
      * @return The current CO2 emission
      */
-    SUMOReal getHBEFA_CO2Emissions() const;
+    SUMOReal getCO2Emissions() const;
 
 
     /** @brief Returns CO emission of the current state
      * @return The current CO emission
      */
-    SUMOReal getHBEFA_COEmissions() const;
+    SUMOReal getCOEmissions() const;
 
 
     /** @brief Returns HC emission of the current state
      * @return The current HC emission
      */
-    SUMOReal getHBEFA_HCEmissions() const;
+    SUMOReal getHCEmissions() const;
 
 
     /** @brief Returns NOx emission of the current state
      * @return The current NOx emission
      */
-    SUMOReal getHBEFA_NOxEmissions() const;
+    SUMOReal getNOxEmissions() const;
 
 
     /** @brief Returns PMx emission of the current state
      * @return The current PMx emission
      */
-    SUMOReal getHBEFA_PMxEmissions() const;
+    SUMOReal getPMxEmissions() const;
 
 
     /** @brief Returns fuel consumption of the current state
      * @return The current fuel consumption
      */
-    SUMOReal getHBEFA_FuelConsumption() const;
+    SUMOReal getFuelConsumption() const;
 
-
-    /** @brief Returns noise emissions of the current state
+	
+	/** @brief Returns noise emissions of the current state
      * @return The noise produced
      */
     SUMOReal getHarmonoise_NoiseEmissions() const;

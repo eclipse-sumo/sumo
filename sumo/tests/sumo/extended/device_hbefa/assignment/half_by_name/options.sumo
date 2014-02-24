@@ -1,1 +1,1 @@
---device.hbefa.explicit 0,2,4,6,8 --no-step-log -b 0 --no-duration-log --net-file=three_split.net.xml -a=input_routes.rou.xml --tripinfo-output=tripinfos.xml
+--device.emissions.explicit 0,2,4,6,8 --no-step-log -b 0 --no-duration-log --net-file=three_split.net.xml -a=input_routes.rou.xml --tripinfo-output=tripinfos.xml

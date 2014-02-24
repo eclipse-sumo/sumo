@@ -6,6 +6,6 @@ if TRACI
 TRACI_DIRS = traci
 endif
 
-SUBDIRS = common distribution  \
+SUBDIRS = common distribution emissions \
 geom importio iodevices options shapes \
 xml $(GUI_DIRS) $(TRACI_DIRS)

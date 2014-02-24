@@ -53,7 +53,7 @@ std::string StringUtils::emptyString;
 // method definitions
 // ===========================================================================
 std::string
-StringUtils::prune(std::string str) {
+StringUtils::prune(const std::string &str) {
     const size_t endpos = str.find_last_not_of(" \t\n\r");
     if (std::string::npos != endpos) {
         const size_t startpos = str.find_first_not_of(" \t\n\r");

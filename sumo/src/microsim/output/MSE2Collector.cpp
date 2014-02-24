@@ -5,7 +5,8 @@
 /// @author  Laura Bieker
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
-/// @date    Tue Dec 02 2003 22:13 CET
+/// @author  Robbin Blokpoel
+/// @date    Mon Feb 03 2014 10:13 CET
 /// @version $Id$
 ///
 // An areal (along a single lane) detector
@@ -61,7 +62,8 @@ MSE2Collector::MSE2Collector(const std::string& id, DetectorUsage usage,
     myUsage(usage),
     myCurrentOccupancy(0), myCurrentMeanSpeed(-1), myCurrentJamNo(0),
     myCurrentMaxJamLengthInMeters(0), myCurrentMaxJamLengthInVehicles(0),
-    myCurrentJamLengthInMeters(0), myCurrentJamLengthInVehicles(0), myCurrentStartedHalts(0)
+    myCurrentJamLengthInMeters(0), myCurrentJamLengthInVehicles(0), myCurrentStartedHalts(0),
+	myCurrentHaltingsNumber(0)
 
 {
     assert(myLane != 0);
@@ -164,6 +166,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     myCurrentMeanSpeed = 0;
     myCurrentMeanLength = 0;
     myCurrentStartedHalts = 0;
+	myCurrentHaltingsNumber = 0;
 
     // go through the (sorted) list of vehicles positioned on the detector
     //  sum up values and prepare the list of jams
@@ -198,6 +201,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
         bool isInJam = false;
         // first, check whether the vehicle is slow enough to be states as halting
         if (veh->getSpeed() < myJamHaltingSpeedThreshold) {
+			myCurrentHaltingsNumber++;
             // we have to track the time it was halting;
             //  so let's look up whether it was halting before and compute the overall halting time
             bool wasHalting = myHaltingVehicleDurations.find(veh) != myHaltingVehicleDurations.end();
@@ -464,6 +468,23 @@ MSE2Collector::by_vehicle_position_sorter::operator()(const SUMOVehicle* v1, con
         return false;
     }
     return v1->getPositionOnLane() > v2->getPositionOnLane();
+}
+
+SUMOReal
+MSE2Collector::getCurrentHaltingNumber() const {
+    return myCurrentHaltingsNumber;
+}
+
+
+std::vector<std::string>
+MSE2Collector::getCurrentVehicleIDs() const {
+    std::vector<std::string> ret;
+     for (std::list<SUMOVehicle*>::const_iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
+        MSVehicle* veh = static_cast<MSVehicle*>(*i);
+        ret.push_back(veh->getID());
+    }
+    std::sort(ret.begin(), ret.end());
+    return ret;
 }
 
 /****************************************************************************/
