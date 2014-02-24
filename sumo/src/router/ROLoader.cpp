@@ -212,7 +212,7 @@ ROLoader::processRoutes(SUMOTime start, SUMOTime end,
 
 #ifdef HAVE_INTERNAL // catchall for internal stuff
 void
-ROLoader::processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
+ROLoader::processAllRoutesWithBulkRouter(SUMOTime /* start */, SUMOTime end,
         RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle>& router) {
     myLoaders.loadNext(SUMOTime_MAX);
     RouteAggregator::processAllRoutes(net, router);
