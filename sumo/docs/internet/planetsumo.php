@@ -153,7 +153,7 @@ if (isset($_POST["submit"])) {
 </form>
 </div>
  <div id="footer">
-   <div>(c) 2011-2013, German Aerospace Center, Institute of Transportation Systems</div>
+   <div>(c) 2011-2014, German Aerospace Center, Institute of Transportation Systems</div>
    <div>Layout based on <a href="http://www.oswd.org/design/preview/id/3365">"Three Quarters"</a> by "SimplyGold"</div>
  </div>
  

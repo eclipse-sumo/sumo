@@ -48,6 +48,7 @@ foreach (glob("*status.log") as $filename) {
     $cells[$column][1] = '';
     $cells[$column][3] = '';
     $row = 0;
+    $haveIndex = FALSE;
     $statusdata = file($filename);
     foreach ($statusdata as $line) {
         if (chop($line) == "--") {
@@ -59,14 +60,23 @@ foreach (glob("*status.log") as $filename) {
         }
         $br = strstr($line, "batchreport");
         if ($br) {
-            $br_arr = split(' ', $br);
-            $br_sub = explode('.', substr($br_arr[0], 12));
-            if (count($br_sub) == 1) {
-                $br_dir = $br_sub[0].'/test_default.html';
-            } else {
-                $br_dir = $br_sub[0].'/test_default.html#'.$br_sub[1];
+            if (!$haveIndex) {
+                $haveTable = FALSE;
+                $testIndex = file($prefix.'report/index.html');
+                foreach ($testIndex as $iline) {
+                    if (strstr($iline, '</center')) {
+                        break;
+                    }
+                    if (strstr($iline, '<table')) {
+                        $haveTable = TRUE;
+                    }
+                    if ($haveTable) {
+                        $iline = str_replace("href=\"", "href=\"".$prefix."report/", $iline);
+                        $cells[$column][$row] .= str_replace(array("<h3>", "</h3>"), "", $iline);
+                    }
+                }
+                $haveIndex = TRUE;
             }
-            $cells[$column][$row] .= '<a href="'.$prefix.'report/'.$br_dir.'">'.substr($br, 12).'</a><br/>';
         } else {
             if ($cells[$column][$row] == '' && $row > 0) {
                 $cells[$column][$row] = '<a href="'.$line.'"><pre>';
@@ -94,7 +104,7 @@ for ($j = 0; $j < count($cells[0]); $j++) {
  </div>
 
  <div id="footer">
-   <div>(c) 2011-2013, German Aerospace Center, Institute of Transportation Systems</div>
+   <div>(c) 2011-2014, German Aerospace Center, Institute of Transportation Systems</div>
    <div>Layout based on <a href="http://www.oswd.org/design/preview/id/3365">"Three Quarters"</a> by "SimplyGold"</div>
  </div>
                                                        
