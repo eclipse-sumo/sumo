@@ -83,7 +83,7 @@ ODDistrictCont::loadDistricts(std::string districtfile) {
     PROGRESS_BEGIN_MESSAGE("Loading districts from '" + districtfile + "'");
     // build the xml-parser and handler
     ODDistrictHandler handler(*this, districtfile);
-    if (!XMLSubSys::runParser(handler, districtfile)) {
+    if (!XMLSubSys::runParser(handler, districtfile, true)) {
         PROGRESS_FAILED_MESSAGE();
     } else {
         PROGRESS_DONE_MESSAGE();
