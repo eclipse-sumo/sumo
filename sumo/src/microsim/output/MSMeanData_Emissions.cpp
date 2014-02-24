@@ -107,7 +107,7 @@ void
 MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
         const SUMOReal /*numLanes*/, const SUMOReal defaultTravelTime, const int /*numVehicles*/) const {
     const SUMOReal normFactor = SUMOReal(3600. / STEPS2TIME(period) / myLaneLength);
-    dev << "\" CO_abs=\"" << OutputDevice::realString(CO, 6) <<
+    dev << " CO_abs=\"" << OutputDevice::realString(CO, 6) <<
         "\" CO2_abs=\"" << OutputDevice::realString(CO2, 6) <<
         "\" HC_abs=\"" << OutputDevice::realString(HC, 6) <<
         "\" PMx_abs=\"" << OutputDevice::realString(PMx, 6) <<
