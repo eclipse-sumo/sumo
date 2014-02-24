@@ -2110,4 +2110,15 @@ NBEdge::dismissVehicleClassInformation() {
 }
 
 
+bool 
+NBEdge::connections_sorter(const Connection& c1, const Connection& c2) {
+    if (c1.fromLane != c2.fromLane) {
+        return c1.fromLane < c2.fromLane;
+    }
+    if (c1.toEdge != c2.toEdge) {
+        return false; // do not change ordering among toEdges as this is determined by angle in an earlier step 
+    }
+    return c1.toLane < c2.toLane;
+}
+
 /****************************************************************************/

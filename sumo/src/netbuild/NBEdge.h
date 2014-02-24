@@ -1379,17 +1379,9 @@ public:
     };
 
     /**
-     * connections_sorter
+     * connections_sorter sort by fromLane, toEdge and toLane
      */
-    static bool connections_sorter(const Connection& c1, const Connection& c2) {
-        if (c1.fromLane != c2.fromLane) {
-            return c1.fromLane < c2.fromLane;
-        }
-        if (c1.toEdge != c2.toEdge) {
-            return c1.toEdge->getID().compare(c1.toEdge->getID()) < 0;
-        }
-        return c1.toLane < c2.toLane;
-    }
+    static bool connections_sorter(const Connection& c1, const Connection& c2);
 
     /**
      * connections_relative_edgelane_sorter
