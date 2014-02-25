@@ -2,7 +2,7 @@
 /// @file    HelpersPHEMlight.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sat, 20.04.2013
-/// @version $Id: HelpersPHEMlight.cpp 13107 2012-12-02 13:57:34Z behrisch $
+/// @version $Id$
 ///
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/

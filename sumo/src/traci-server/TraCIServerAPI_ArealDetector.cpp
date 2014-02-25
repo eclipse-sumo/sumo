@@ -3,7 +3,7 @@
 /// @author  Mario Krumnow
 /// @author  Robbin Blokpoel
 /// @date    03.02.2014
-/// @version $Id: TraCIServerAPI_ArealDetector.cpp 15218 2013-11-26 21:09:51Z behrisch $
+/// @version $Id$
 ///
 // APIs for getting/setting areal detector values via TraCI
 /****************************************************************************/
