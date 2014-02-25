@@ -230,8 +230,29 @@ NBNetBuilder::compute(OptionsCont& oc,
             oc.getFloat("geometry.min-radius"),
             oc.getBool("geometry.min-radius.fix"));
     }
+
+    // GEOMETRY COMPUTATION
     //
+    PROGRESS_BEGIN_MESSAGE("Computing turning directions");
+    NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
+    PROGRESS_DONE_MESSAGE();
+    //
+    PROGRESS_BEGIN_MESSAGE("Sorting nodes' edges");
+    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
+    PROGRESS_DONE_MESSAGE();
     myEdgeCont.computeLaneShapes();
+    //
+    PROGRESS_BEGIN_MESSAGE("Computing node shapes");
+    if (oc.exists("geometry.junction-mismatch-threshold")) {
+        myNodeCont.computeNodeShapes(oc.getBool("lefthand"), oc.getFloat("geometry.junction-mismatch-threshold"));
+    } else {
+        myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
+    }
+    PROGRESS_DONE_MESSAGE();
+    //
+    PROGRESS_BEGIN_MESSAGE("Computing edge shapes");
+    myEdgeCont.computeEdgeShapes();
+    PROGRESS_DONE_MESSAGE();
 
     // APPLY SPEED MODIFICATIONS
     if (oc.exists("speed.offset")) {
@@ -247,14 +268,6 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
 
     // CONNECTIONS COMPUTATION
-    //
-    PROGRESS_BEGIN_MESSAGE("Computing turning directions");
-    NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
-    PROGRESS_DONE_MESSAGE();
-    //
-    PROGRESS_BEGIN_MESSAGE("Sorting nodes' edges");
-    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
-    PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Computing node types");
     NBNodeTypeComputer::computeNodeTypes(myNodeCont);
@@ -293,21 +306,6 @@ NBNetBuilder::compute(OptionsCont& oc,
     //
     PROGRESS_BEGIN_MESSAGE("Rechecking of lane endings");
     myEdgeCont.recheckLanes();
-    PROGRESS_DONE_MESSAGE();
-
-
-    // GEOMETRY COMPUTATION
-    //
-    PROGRESS_BEGIN_MESSAGE("Computing node shapes");
-    if (oc.exists("geometry.junction-mismatch-threshold")) {
-        myNodeCont.computeNodeShapes(oc.getBool("lefthand"), oc.getFloat("geometry.junction-mismatch-threshold"));
-    } else {
-        myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
-    }
-    PROGRESS_DONE_MESSAGE();
-    //
-    PROGRESS_BEGIN_MESSAGE("Computing edge shapes");
-    myEdgeCont.computeEdgeShapes();
     PROGRESS_DONE_MESSAGE();
 
 

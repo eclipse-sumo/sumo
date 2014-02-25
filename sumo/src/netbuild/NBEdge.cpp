@@ -1278,11 +1278,12 @@ NBEdge::computeAngle() {
         }
     }
 
-    const Position referencePosStart = shape.positionAtOffset2D(ANGLE_LOOKAHEAD);
+    const SUMOReal angleLookahead = MIN2(shape.length2D() / 2, ANGLE_LOOKAHEAD);
+    const Position referencePosStart = shape.positionAtOffset2D(angleLookahead);
     myStartAngle = NBHelpers::angle(
                        fromCenter.x(), fromCenter.y(),
                        referencePosStart.x(), referencePosStart.y());
-    const Position referencePosEnd = shape.positionAtOffset2D(myGeom.length() - ANGLE_LOOKAHEAD);
+    const Position referencePosEnd = shape.positionAtOffset2D(shape.length() - angleLookahead);
     myEndAngle = NBHelpers::angle(
                      referencePosEnd.x(), referencePosEnd.y(),
                      toCenter.x(), toCenter.y());
