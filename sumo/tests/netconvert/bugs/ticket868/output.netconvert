@@ -20,6 +20,8 @@ Removing sharp turn with radius 5.54 at the start of edge 151059738#0
 Removing sharp turn with radius 8.22 at the start of edge 151059738#0
 Computing turning directions... done.
 Sorting nodes' edges... done.
+Computing node shapes... done.
+Computing edge shapes... done.
 Computing node types... done.
 Computing priorities... done.
 Computing approached edges... done.
@@ -28,8 +30,6 @@ Computing approaching lanes... done.
 Dividing of lanes on approached lanes... done.
 Processing turnarounds... done.
 Rechecking of lane endings... done.
-Computing node shapes... done.
-Computing edge shapes... done.
 Assigning nodes to traffic lights... done.
 Computing traffic light control information... done.
 Computing node logics... done.

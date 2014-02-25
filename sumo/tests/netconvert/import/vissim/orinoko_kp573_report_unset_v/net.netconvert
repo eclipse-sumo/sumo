@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 10 13:17:59 2014 by SUMO netconvert Version dev-SVN-r15366
+<!-- generated on Tue Feb 25 13:07:55 2014 by SUMO netconvert Version dev-SVN-r15728
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -22,6 +22,7 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
     </report>
 
 </configuration>
@@ -341,7 +342,7 @@
     <junction id="605000014" type="priority" x="1751.45" y="1609.15" incLanes="52_0 52_1 6_0 6_1" intLanes="" shape="1756.99,1613.29 1746.14,1605.26 1746.32,1605.03 1756.88,1613.43">
         <request index="0" response="00000000" foes="10100000"/>
         <request index="1" response="01010000" foes="01010000"/>
-        <request index="2" response="00000000" foes="10100000"/>
+        <request index="2" response="00000010" foes="10100010"/>
         <request index="3" response="01010000" foes="01010000"/>
         <request index="4" response="00000000" foes="00001010"/>
         <request index="5" response="00000101" foes="00000101"/>
