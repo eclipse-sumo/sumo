@@ -1425,8 +1425,14 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMO
     // draw individual carriages
     for (int i = 0; i < numCarriages; ++i) {
         while (carriageOffset < 0) {
-            lane = getPreviousLane(lane, furtherIndex);
-            carriageOffset += lane->getLength();
+            MSLane* prev = getPreviousLane(lane, furtherIndex);
+            if (prev != lane) {
+                carriageOffset += lane->getLength();
+            } else {
+                // no lane available for drawing.
+                carriageOffset = 0;
+            }
+            lane = prev;
         }
         while (carriageBackOffset < 0) {
             backLane = getPreviousLane(backLane, backFurtherIndex);
