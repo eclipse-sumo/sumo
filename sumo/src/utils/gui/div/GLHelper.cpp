@@ -99,7 +99,7 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
     gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
     gluTessBeginPolygon(tobj, NULL);
     gluTessBeginContour(tobj);
-    double* points = new double[v.size() * 3];
+    double* points = new double[(v.size() + int(close)) * 3];
 
     for (size_t i = 0; i != v.size(); ++i) {
         points[3 * i] = v[(int)i].x();
@@ -108,7 +108,11 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
         gluTessVertex(tobj, points + 3 * i, points + 3 * i);
     }
     if (close) {
-        gluTessVertex(tobj, points + 3, points + 3);
+        const size_t i = v.size();
+        points[3 * i] = v[0].x();
+        points[3 * i + 1] = v[0].y();
+        points[3 * i + 2] = 0;
+        gluTessVertex(tobj, points + 3 * i, points + 3 * i);
     }
     gluTessEndContour(tobj);
     gluTessEndPolygon(tobj);
