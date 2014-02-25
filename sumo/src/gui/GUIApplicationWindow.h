@@ -275,7 +275,7 @@ protected:
     bool myAmLoading;
 
     /// the submenus
-    FXMenuPane* myFileMenu, *myEditMenu, *mySettingsMenu,
+    FXMenuPane* myFileMenu, *myEditMenu, *mySelectByPermissions, *mySettingsMenu,
                 *myLocatorMenu, *myControlMenu,
                 *myWindowsMenu, *myHelpMenu;
 

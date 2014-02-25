@@ -40,6 +40,8 @@
 #include <algorithm>
 
 #include <guisim/GUINet.h>
+#include <guisim/GUILane.h>
+#include <microsim/MSEdge.h>
 
 #include "GUISUMOViewParent.h"
 #include "GUILoadThread.h"
@@ -266,6 +268,7 @@ GUIApplicationWindow::create() {
     myToolBarDrag1->create();
     myToolBarDrag2->create();
     myFileMenu->create();
+    mySelectByPermissions->create();
     myEditMenu->create();
     mySettingsMenu->create();
     myLocatorMenu->create();
@@ -299,6 +302,7 @@ GUIApplicationWindow::~GUIApplicationWindow() {
     delete myRunThread;
     delete myFileMenu;
     delete myEditMenu;
+    delete mySelectByPermissions;
     delete mySettingsMenu;
     delete myLocatorMenu;
     delete myControlMenu;
@@ -381,11 +385,21 @@ GUIApplicationWindow::fillMenuBar() {
                       0, this, MID_QUIT, 0);
 
     // build edit menu
+    mySelectByPermissions = new FXMenuPane(this);
+    std::vector<std::string> vehicleClasses = SumoVehicleClassStrings.getStrings();
+    for (std::vector<std::string>::iterator it = vehicleClasses.begin(); it != vehicleClasses.end(); ++it) {
+        new FXMenuCommand(mySelectByPermissions,
+                (*it).c_str(), NULL, this, MID_EDITCHOSEN);
+    }
+
     myEditMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Edit", NULL, myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Edit Selected...\tCtl-E\tOpens a Dialog for editing the List of Selected Items.",
                       GUIIconSubSys::getIcon(ICON_FLAG), this, MID_EDITCHOSEN);
+    new FXMenuCascade(myEditMenu,
+                      "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by which to selected lanes.",
+                      GUIIconSubSys::getIcon(ICON_FLAG), mySelectByPermissions);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Edit Breakpoints...\tCtl-B\tOpens a Dialog for editing breakpoints.",
@@ -599,11 +613,29 @@ GUIApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
 
 
 long
-GUIApplicationWindow::onCmdEditChosen(FXObject*, FXSelector, void*) {
-    GUIDialog_GLChosenEditor* chooser =
-        new GUIDialog_GLChosenEditor(this, &gSelected);
-    chooser->create();
-    chooser->show();
+GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
+    FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
+    if (mc->getText() == "Edit Selected...") {
+        GUIDialog_GLChosenEditor* chooser =
+            new GUIDialog_GLChosenEditor(this, &gSelected);
+        chooser->create();
+        chooser->show();
+    } else {
+        if (!myAmLoading && myRunThread->simulationAvailable()) {
+            const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
+            for (size_t i = 0; i < MSEdge::dictSize(); ++i) {
+                const std::vector<MSLane*>& lanes = MSEdge::dictionary(i)->getLanes();
+                for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
+                    GUILane* lane = dynamic_cast<GUILane*>(*it);
+                    assert(lane != 0);
+                    if ((lane->getPermissions() & svc) != 0) {
+                        gSelected.select(lane->getGlID());
+                    }
+                }
+            }
+        }
+        updateChildren();
+    }
     return 1;
 }
 
