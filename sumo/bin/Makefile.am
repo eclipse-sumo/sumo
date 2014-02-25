@@ -25,7 +25,9 @@ polyconvert polyconvertD polyconvertInt polyconvertIntD \
 activitygen activitygenD activitygenInt activitygenIntD \
 TraCITestClient TraCITestClientD TraCITestClientInt TraCITestClientIntD \
 sumo-unittest sumo-unittestD \
-netedit neteditD marouter marouterD
+netedit neteditD marouter marouterD \
+emissionsDrivingCycle emissionsDrivingCycleD emissionsDrivingCycleInt emissionsDrivingCycleIntD \
+emissionsMap emissionsMapD emissionsMapInt emissionsMapIntD
 
 install: all
 all: sumo dfrouter duarouter jtrrouter netconvert netgenerate od2trips polyconvert activitygen emissionsDrivingCycle emissionsMap $(GUI_APP) $(NETEDIT_APP) $(MAROUTER_APP) $(TRACI_TESTCLIENT_APP)
