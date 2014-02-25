@@ -699,7 +699,7 @@ GUILaneWrapper::getNormedPHEMlight_FuelConsumption() const {
 }
 
 
-// ------------ 
+// ------------
 void
 GUILaneWrapper::setColor(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive())));

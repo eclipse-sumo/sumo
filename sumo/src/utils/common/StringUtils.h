@@ -45,7 +45,7 @@
 class StringUtils {
 public:
     /// Removes trailing and leading whitechars
-    static std::string prune(const std::string &str);
+    static std::string prune(const std::string& str);
 
     /// Transfers the content to lower case
     static std::string to_lower_case(std::string str);

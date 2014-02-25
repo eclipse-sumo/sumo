@@ -66,9 +66,9 @@
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv) {
+main(int argc, char** argv) {
     // build options
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     //  give some application descriptions
     oc.setApplicationDescription("Computes emission by driving a time line.");
     oc.setApplicationName("emissionsTimeline", "SUMO emissionsTimeline Version " + (std::string)VERSION_STRING);
@@ -81,7 +81,7 @@ main(int argc, char **argv) {
 
     oc.doRegister("emission-class", 'e', new Option_String());
     oc.addDescription("emission-class", "Input", "Defines for which emission class the emissions shall be generated. ");
-    
+
 
     oc.addOptionSubTopic("Processing");
     oc.doRegister("compute-a", 'a', new Option_Bool(false));
@@ -118,12 +118,12 @@ main(int argc, char **argv) {
         // initialise the application system (messaging, xml, options)
         XMLSubSys::init();
         OptionsIO::getOptions(true, argc, argv);
-        OptionsCont &oc = OptionsCont::getOptions();
+        OptionsCont& oc = OptionsCont::getOptions();
 
-        if(!oc.isSet("timeline-file")) {
+        if (!oc.isSet("timeline-file")) {
             throw ProcessError("The timeline file must be given.");
         }
-        if(!oc.isSet("output-file")) {
+        if (!oc.isSet("output-file")) {
             throw ProcessError("The output file must be given.");
         }
 
@@ -141,9 +141,9 @@ main(int argc, char **argv) {
         std::ofstream o(oc.getString("output-file").c_str());
         LineReader lr(oc.getString("timeline-file"));
         SUMOReal lastV = 0;
-        while(lr.hasMore()) {
+        while (lr.hasMore()) {
             std::string line = lr.readLine();
-            if(skipFirst) {
+            if (skipFirst) {
                 skipFirst = false;
                 continue;
             }
@@ -151,19 +151,19 @@ main(int argc, char **argv) {
             try {
                 SUMOReal t = TplConvert::_2SUMOReal<char>(st.next().c_str());
                 SUMOReal v = TplConvert::_2SUMOReal<char>(st.next().c_str());
-                if(inKMH) {
+                if (inKMH) {
                     v = v / 3.6;
                 }
                 l += v;
                 SUMOReal a = 0;
-                if(!computeA) {
+                if (!computeA) {
                     a = TplConvert::_2SUMOReal<char>(st.next().c_str());
                 } else {
                     a = v - lastV;
                 }
                 lastV = v;
                 SUMOReal s = oc.getFloat("slope");
-                if(haveSlope) {
+                if (haveSlope) {
                     s = TplConvert::_2SUMOReal<char>(st.next().c_str());
                 }
 
@@ -179,28 +179,28 @@ main(int argc, char **argv) {
                 sumNOx += aNOx;
                 sumPMx += aPMx;
                 sumFuel += aFuel;
-                o << t << ";" << v << ";" << a << ";" << s 
-                    << ";" << aCO << ";" << aCO2 << ";" << aHC << ";" << aPMx << ";" << aNOx << ";" << aFuel << std::endl;
-            } catch (EmptyData &) {
+                o << t << ";" << v << ";" << a << ";" << s
+                  << ";" << aCO << ";" << aCO2 << ";" << aHC << ";" << aPMx << ";" << aNOx << ";" << aFuel << std::endl;
+            } catch (EmptyData&) {
                 throw ProcessError("Missing an entry in line '" + line + "'.");
-            } catch (NumberFormatException &) {
+            } catch (NumberFormatException&) {
                 throw ProcessError("Not numeric entry in line '" + line + "'.");
             }
         }
         std::cout << "sums"  << std::endl
-            << "length:" << l << std::endl
-            << "CO:" << sumCO << std::endl
-            << "CO2:" << sumCO2 << std::endl
-            << "HC:" << sumHC << std::endl
-            << "NOx:" << sumNOx << std::endl
-            << "PMx:" << sumPMx << std::endl 
-            << "fuel:" << sumFuel << std::endl;
-    } catch (InvalidArgument &e) {
+                  << "length:" << l << std::endl
+                  << "CO:" << sumCO << std::endl
+                  << "CO2:" << sumCO2 << std::endl
+                  << "HC:" << sumHC << std::endl
+                  << "NOx:" << sumNOx << std::endl
+                  << "PMx:" << sumPMx << std::endl
+                  << "fuel:" << sumFuel << std::endl;
+    } catch (InvalidArgument& e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
-    } catch (ProcessError &e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+    } catch (ProcessError& e) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -212,7 +212,7 @@ main(int argc, char **argv) {
 #endif
     }
     SystemFrame::close();
-    if (ret==0) {
+    if (ret == 0) {
         std::cout << "Success." << std::endl;
     }
     return ret;

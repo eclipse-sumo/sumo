@@ -240,9 +240,9 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         }
         if (oc.getBool("shapefile.add-param")) {
             for (std::vector<Parameterised*>::const_iterator it = parCont.begin(); it != parCont.end(); ++it) {
-                OGRFeatureDefn *poFDefn = poLayer->GetLayerDefn();
+                OGRFeatureDefn* poFDefn = poLayer->GetLayerDefn();
                 for (int iField = 0; iField < poFDefn->GetFieldCount(); iField++) {
-                    OGRFieldDefn *poFieldDefn = poFDefn->GetFieldDefn(iField);
+                    OGRFieldDefn* poFieldDefn = poFDefn->GetFieldDefn(iField);
                     if (poFieldDefn->GetNameRef() != idField) {
                         if (poFieldDefn->GetType() == OFTReal) {
                             (*it)->addParameter(poFieldDefn->GetNameRef(), toString(poFeature->GetFieldAsDouble(iField)));

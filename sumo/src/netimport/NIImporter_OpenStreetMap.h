@@ -89,7 +89,7 @@ protected:
         double lon;
         /// @brief The latitude the node is located at
         double lat;
-        /// @brief The elevation of this node 
+        /// @brief The elevation of this node
         double ele;
         /// @brief Whether this is a tls controlled junction
         bool tlsControlled;

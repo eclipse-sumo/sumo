@@ -193,7 +193,7 @@ public:
      */
     SUMOReal getNormedHBEFA_FuelConsumption() const;
 
-	
+
 
     /** @brief Returns the sum of last step CO2 emissions normed by the lane's length
      * @return CO2 emissions of vehicles on this lane during the last step, normed by the lane length
@@ -229,7 +229,7 @@ public:
      * @return Fuel comsumption of vehicles on this lane during the last step, normed by the lane length
      */
     SUMOReal getNormedPHEMlight_FuelConsumption() const;
-	/// @}
+    /// @}
 
 
     SUMOReal getEdgeLaneNumber() const;

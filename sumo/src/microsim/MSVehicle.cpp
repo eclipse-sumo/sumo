@@ -597,7 +597,7 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) {
 
 
 // ------------ Other getter methods
-SUMOReal 
+SUMOReal
 MSVehicle::getSlope() const {
     if (myLane == 0) {
         return 0;
@@ -650,8 +650,8 @@ MSVehicle::getAngle() const {
         p2 = myLane->getShape().positionAtOffset(getPositionOnLane() * myLane->getLengthGeometryFactor() - myType->getLength());
     } else {
         p2 = myFurtherLanes.size() > 0
-            ? myFurtherLanes.back()->geometryPositionAtOffset(myFurtherLanes.back()->getPartialOccupatorEnd())
-            : myLane->geometryPositionAtOffset(myState.myPos - myType->getLength());
+             ? myFurtherLanes.back()->geometryPositionAtOffset(myFurtherLanes.back()->getPartialOccupatorEnd())
+             : myLane->geometryPositionAtOffset(myState.myPos - myType->getLength());
     }
     SUMOReal result = (p1 != p2 ?
                        atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / M_PI :
@@ -696,7 +696,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffs
             iter = myStops.end();
             stop.edge = find(prevStopEdge, myRoute->end(), &stop.lane->getEdge());
             if (prevStopEdge == stop.edge && prevStopPos > stop.endPos) {
-                stop.edge = find(prevStopEdge+1, myRoute->end(), &stop.lane->getEdge());
+                stop.edge = find(prevStopEdge + 1, myRoute->end(), &stop.lane->getEdge());
             }
         }
     } else {
@@ -975,11 +975,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, const MSVehicle* pred, DriveItemVe
                                  (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR ||
                                  (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
         // We distinguish 3 cases when determining the point at which a vehicle stops:
-        // - links that require stopping: here the vehicle needs to stop close to the stop line 
-        //   to ensure it gets onto the junction in the next step. Othwise the vehicle would 'forget' 
+        // - links that require stopping: here the vehicle needs to stop close to the stop line
+        //   to ensure it gets onto the junction in the next step. Othwise the vehicle would 'forget'
         //   that it already stopped and need to stop again. This is necessary pending implementation of #999
         // - red/yellow light: here the vehicle 'knows' that it will have priority eventually and does not need to stop on a precise spot
-        // - other types of minor links: the vehicle needs to stop as close to the junction as necessary 
+        // - other types of minor links: the vehicle needs to stop as close to the junction as necessary
         //   to minimize the time window for passing the junction. If the
         //   vehicle 'decides' to accelerate and cannot enter the junction in
         //   the next step, new foes may appear and cause a collision (see #1096)
@@ -1348,10 +1348,10 @@ MSVehicle::executeMove() {
 
     if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
         if (myState.myPos > myLane->getLength()) {
-            WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop at the end of lane '" + myLane->getID() 
-                    + emergencyReason 
-                    + " (decel=" + toString(myAcceleration - myState.mySpeed) 
-                    + "), time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop at the end of lane '" + myLane->getID()
+                          + emergencyReason
+                          + " (decel=" + toString(myAcceleration - myState.mySpeed)
+                          + "), time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             myState.myPos = myLane->getLength();
             myState.mySpeed = 0;
         }

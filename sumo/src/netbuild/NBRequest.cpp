@@ -586,7 +586,7 @@ NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
 
 bool
 NBRequest::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                        const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const {
+                             const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane) const {
     if (from != prohibitorFrom) {
         return false;
     }
@@ -595,15 +595,15 @@ NBRequest::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
         return false;
     }
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-    if ((!lefthand && fromLane <= prohibitorFromLane) || 
+    if ((!lefthand && fromLane <= prohibitorFromLane) ||
             (lefthand && fromLane >= prohibitorFromLane)) {
         return false;
     }
     // conflict if to is between prohibitorTo and from when going clockwise
     const SUMOReal toAngleAtNode = fmod(to->getStartAngle() + 180, (SUMOReal)360.0);
     const SUMOReal prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (SUMOReal)360.0);
-    return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) < 
-        GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
+    return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) <
+                         GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
 }
 
 

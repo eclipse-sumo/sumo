@@ -172,7 +172,7 @@ private:
 
 
     /** writes which participating links are foes to the given */
-    std::string getFoesString(NBEdge* from, NBEdge* to, 
+    std::string getFoesString(NBEdge* from, NBEdge* to,
                               int fromLane, int toLane, const bool checkLaneFoes) const;
 
 

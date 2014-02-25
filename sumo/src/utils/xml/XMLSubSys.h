@@ -145,7 +145,7 @@ public:
      * @return true if the parsing was done without errors, false otherwise (error was printed)
      */
     static bool runParser(GenericSAXHandler& handler,
-                          const std::string& file, const bool isNet=false);
+                          const std::string& file, const bool isNet = false);
 
 
 private:

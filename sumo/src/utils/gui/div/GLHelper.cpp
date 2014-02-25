@@ -48,8 +48,8 @@ std::vector<std::pair<SUMOReal, SUMOReal> > GLHelper::myCircleCoords;
 
 
 void APIENTRY combCallback(GLdouble coords[3],
-    GLdouble* vertex_data[4],
-    GLfloat weight[4], GLdouble** dataOut) {
+                           GLdouble* vertex_data[4],
+                           GLfloat weight[4], GLdouble** dataOut) {
     UNUSED_PARAMETER(weight);
     UNUSED_PARAMETER(*vertex_data);
     GLdouble* vertex;

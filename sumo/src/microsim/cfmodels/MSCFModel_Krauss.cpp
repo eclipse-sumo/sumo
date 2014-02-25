@@ -89,16 +89,16 @@ MSCFModel_Krauss::_vstop(SUMOReal gap) const {
     } else if (gap <= ACCEL2SPEED(myDecel)) {
         return gap;
     }
-    const SUMOReal g = gap; 
+    const SUMOReal g = gap;
     const SUMOReal b = ACCEL2SPEED(myDecel);
     const SUMOReal t = myHeadwayTime;
     const SUMOReal s = TS;
     // h = the distance that would be covered if it were possible to stop
     // exactly after gap and decelerate with b every simulation step
     // h = 0.5 * n * (n-1) * b * s + n * b * t (solve for n)
-    //n = ((1.0/2.0) - ((t + (pow(((s*s) + (4.0*((s*((2.0*h/b) - t)) + (t*t)))), (1.0/2.0))*sign/2.0))/s)); 
-    const SUMOReal n = floor((1.0/2.0) - ((t + (pow(((s*s) + (4.0*((s*((2.0*g/b) - t)) + (t*t)))), (1.0/2.0))*-0.5))/s));
-    const SUMOReal h = 0.5 * n * (n-1) * b * s + n * b * t;
+    //n = ((1.0/2.0) - ((t + (pow(((s*s) + (4.0*((s*((2.0*h/b) - t)) + (t*t)))), (1.0/2.0))*sign/2.0))/s));
+    const SUMOReal n = floor((1.0 / 2.0) - ((t + (pow(((s * s) + (4.0 * ((s * ((2.0 * g / b) - t)) + (t * t)))), (1.0 / 2.0)) * -0.5)) / s));
+    const SUMOReal h = 0.5 * n * (n - 1) * b * s + n * b * t;
     assert(h <= g + NUMERICAL_EPS);
     // compute the additional speed that must be used during deceleration to fix
     // the discrepancy between g and h

@@ -132,7 +132,7 @@ public:
      * @param[in] position The position of the node
      * @param[in] district The district this district node represents, 0 means no district node
      */
-    NBNode(const std::string& id, const Position& position, NBDistrict* district=0);
+    NBNode(const std::string& id, const Position& position, NBDistrict* district = 0);
 
 
     /// @brief Destructor

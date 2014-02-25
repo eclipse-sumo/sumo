@@ -763,7 +763,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
             veh->leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION);
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
         } else if (veh->getPositionOnLane() > getLength()) {
-            // for any reasons the vehicle is beyond its lane... 
+            // for any reasons the vehicle is beyond its lane...
             // this should never happen because it is handled in MSVehicle::executeMove
             assert(false);
             WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; beyond end of lane, targetLane='" + getID() + "', time=" +
@@ -1117,8 +1117,7 @@ SUMOReal MSLane::getMissingRearGap(
 
 std::pair<MSVehicle* const, SUMOReal>
 MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal leaderSpeed,
-                                 SUMOReal backOffset, SUMOReal leaderMaxDecel) const 
-{
+                                 SUMOReal backOffset, SUMOReal leaderMaxDecel) const {
     // do a tree search among all follower lanes and check for the most
     // important vehicle (the one requiring the largest reargap)
     std::pair<MSVehicle*, SUMOReal> result(static_cast<MSVehicle*>(0), -1);
@@ -1135,7 +1134,7 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal leaderSpeed,
                 const SUMOReal missingRearGap = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - agap;
                 if (missingRearGap > missingRearGapMax) {
                     missingRearGapMax = missingRearGap;
-                    result.first = v; 
+                    result.first = v;
                     result.second = agap;
                 }
             } else {

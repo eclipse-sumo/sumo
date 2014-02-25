@@ -127,7 +127,7 @@ public:
 
 
     /** @brief Returns the starting point for reroutes (usually the current edge)
-     * 
+     *
      * This differs from *myCurrEdge only if the vehicle is on an internal edge
      * @return The rerouting start point
      */

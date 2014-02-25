@@ -110,7 +110,7 @@ protected:
      * @param[in] isNet   whether a network gets loaded
      * @return Whether loading of all files was successfull
      */
-    bool load(const std::string& mmlWhat, const bool isNet=false);
+    bool load(const std::string& mmlWhat, const bool isNet = false);
 
 
     /** @brief Closes the net building process

@@ -99,7 +99,7 @@ NBNodeCont::insert(const std::string& id) {
     } else {
         NBNode* node = new NBNode(id, Position(-1.0, -1.0));
         myNodes[id] = node;
-        const float pos[2] = {(float)-1, (float)-1};
+        const float pos[2] = {(float) - 1, (float) - 1};
         myRTree.Insert(pos, pos, node);
     }
     return Position(-1, -1);
@@ -512,7 +512,7 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 std::set<NBNode*>::iterator check = j;
                 NBNode* n = *check;
                 ++j;
-                // remove geometry-like nodes at fringe of the cluster 
+                // remove geometry-like nodes at fringe of the cluster
                 // (they have 1 neighbor in the cluster and at most 1 neighbor outside the cluster)
                 std::set<NBNode*> neighbors;
                 std::set<NBNode*> clusterNeigbors;
@@ -538,7 +538,7 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 }
             }
         }
-        // exclude the fromNode of a long edge if the toNode is in the cluster (and they were both added via an alternative path). 
+        // exclude the fromNode of a long edge if the toNode is in the cluster (and they were both added via an alternative path).
         std::set<NBNode*> toRemove;
         for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end(); ++j) {
             NBNode* n = *j;
@@ -593,8 +593,8 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                             parallelEdgeIDs.push_back((*j)->getID());
                             parallelEdgeIDs.push_back((*k)->getID());
                             std::sort(parallelEdgeIDs.begin(), parallelEdgeIDs.end());
-                            WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (parallel incoming " 
-                                    + joinToString(parallelEdgeIDs, ',') + ")");
+                            WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (parallel incoming "
+                                          + joinToString(parallelEdgeIDs, ',') + ")");
                             foundParallel = true;
                         }
                     }
@@ -607,8 +607,8 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                             parallelEdgeIDs.push_back((*j)->getID());
                             parallelEdgeIDs.push_back((*k)->getID());
                             std::sort(parallelEdgeIDs.begin(), parallelEdgeIDs.end());
-                            WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing " 
-                                    + joinToString(parallelEdgeIDs, ',') + ")");
+                            WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing "
+                                          + joinToString(parallelEdgeIDs, ',') + ")");
                             foundParallel = true;
                         }
                     }

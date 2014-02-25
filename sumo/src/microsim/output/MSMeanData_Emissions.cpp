@@ -154,15 +154,15 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOT
 // MSMeanData_Emissions - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Emissions::MSMeanData_Emissions(const std::string& id,
-                                   const SUMOTime dumpBegin,
-                                   const SUMOTime dumpEnd,
-                                   const bool useLanes, const bool withEmpty,
-                                   const bool printDefaults,
-                                   const bool withInternal,
-                                   const bool trackVehicles,
-                                   const SUMOReal maxTravelTime,
-                                   const SUMOReal minSamples,
-                                   const std::set<std::string> vTypes)
+        const SUMOTime dumpBegin,
+        const SUMOTime dumpEnd,
+        const bool useLanes, const bool withEmpty,
+        const bool printDefaults,
+        const bool withInternal,
+        const bool trackVehicles,
+        const SUMOReal maxTravelTime,
+        const SUMOReal minSamples,
+        const std::set<std::string> vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                  withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }

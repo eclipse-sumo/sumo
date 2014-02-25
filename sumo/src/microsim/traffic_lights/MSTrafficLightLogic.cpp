@@ -126,9 +126,9 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 if ((LinkState)state2[j] == LINKSTATE_TL_RED && (
                             (LinkState)state1[j] == LINKSTATE_TL_GREEN_MAJOR
                             || (LinkState)state1[j] == LINKSTATE_TL_GREEN_MINOR)) {
-                    WRITE_WARNING("Missing yellow phase in tlLogic '" + getID() 
-                            + "', program '" + getProgramID() + "' for tl-index " + toString(j) 
-                            + " when switching to phase " + toString(iNext));
+                    WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
+                                  + "', program '" + getProgramID() + "' for tl-index " + toString(j)
+                                  + " when switching to phase " + toString(iNext));
                     return; // one warning per program is enough
                 }
             }

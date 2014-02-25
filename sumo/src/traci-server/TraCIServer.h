@@ -349,7 +349,7 @@ private:
         Subscription(int commandIdArg, const std::string& idArg,
                      const std::vector<int>& variablesArg, const std::vector<std::vector<unsigned char> >& paramsArg,
                      SUMOTime beginTimeArg, SUMOTime endTimeArg, bool contextVarsArg, int contextDomainArg, SUMOReal rangeArg)
-                     : commandId(commandIdArg), id(idArg), variables(variablesArg), parameters(paramsArg), beginTime(beginTimeArg), endTime(endTimeArg),
+            : commandId(commandIdArg), id(idArg), variables(variablesArg), parameters(paramsArg), beginTime(beginTimeArg), endTime(endTimeArg),
               contextVars(contextVarsArg), contextDomain(contextDomainArg), range(rangeArg) {}
 
         /// @brief commandIdArg The command id of the subscription

@@ -848,7 +848,7 @@ GUIVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUM
 }
 
 
-bool 
+bool
 GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const {
     switch (guiShape) {
         case SVS_BUS_CITY_FLEXIBLE:
@@ -1538,7 +1538,7 @@ GUIVehicle::selectBlockingFoes() const {
         }
         std::vector<const SUMOVehicle*> blockingFoes;
         dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLengthWithGap(),
-                getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), &blockingFoes);
+                           getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), &blockingFoes);
         for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
             gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
         }

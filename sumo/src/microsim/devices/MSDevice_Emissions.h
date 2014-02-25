@@ -54,8 +54,8 @@ class MSLane;
  * @brief A device which collects vehicular emissions
  *
  * Each device collects the vehicular emissions / fuel consumption by being
- *  called each time step, computing the current values using 
- *  PollutantsInterface, and aggregating them into internal storages over 
+ *  called each time step, computing the current values using
+ *  PollutantsInterface, and aggregating them into internal storages over
  *  the complete journey.
  *
  * @see MSDevice

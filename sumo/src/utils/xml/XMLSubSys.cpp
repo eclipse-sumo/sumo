@@ -130,10 +130,10 @@ XMLSubSys::runParser(GenericSAXHandler& handler,
     } catch (ProcessError& e) {
         WRITE_ERROR(std::string(e.what()) != std::string("") ? std::string(e.what()) : std::string("Process Error"));
         return false;
-    } catch(const std::runtime_error& re) {
+    } catch (const std::runtime_error& re) {
         WRITE_ERROR("Runtime error: " + std::string(re.what()) + " while parsing '" + file + "'");
         return false;
-    } catch(const std::exception& ex) {
+    } catch (const std::exception& ex) {
         WRITE_ERROR("Error occurred: " + std::string(ex.what()) + " while parsing '" + file + "'");
         return false;
     } catch (...) {

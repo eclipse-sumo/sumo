@@ -53,7 +53,7 @@ class MSLane;
  *
  * This structure does not contain the data itself, it is stored within
  *  MSLaneMeanDataValues-MoveReminder objects.
- * 
+ *
  * This class is used to build the output, optionally, in the case
  *  of edge-based dump, aggregated over the edge's lanes.
  *
@@ -157,12 +157,12 @@ public:
      * @param[in] vTypes the set of vehicle types to consider
      */
     MSMeanData_Emissions(const std::string& id,
-                     const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                     const bool useLanes, const bool withEmpty,
-                     const bool printDefaults, const bool withInternal,
-                     const bool trackVehicles,
-                     const SUMOReal minSamples, const SUMOReal maxTravelTime,
-                     const std::set<std::string> vTypes);
+                         const SUMOTime dumpBegin, const SUMOTime dumpEnd,
+                         const bool useLanes, const bool withEmpty,
+                         const bool printDefaults, const bool withInternal,
+                         const bool trackVehicles,
+                         const SUMOReal minSamples, const SUMOReal maxTravelTime,
+                         const std::set<std::string> vTypes);
 
 
     /// @brief Destructor

@@ -82,7 +82,7 @@ public:
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
     bool insert(const std::string& id, const Position& position,
-                NBDistrict* district=0);
+                NBDistrict* district = 0);
 
 
     /** @brief Inserts a node into the map
@@ -287,7 +287,7 @@ public:
      * @param[in] lefhand Whether the network uses left-hand traffic
      * @param[in] mismatchThreshold The threshold for warning about shapes which are away from myPosition
      */
-    void computeNodeShapes(bool leftHand, SUMOReal mismatchThreshold=-1);
+    void computeNodeShapes(bool leftHand, SUMOReal mismatchThreshold = -1);
 
     /** @brief Prints statistics about built nodes
      *

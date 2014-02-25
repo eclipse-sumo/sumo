@@ -106,7 +106,7 @@ public:
     virtual bool replaceRouteEdges(MSEdgeVector& edges, bool onInit = false) = 0;
 
     /// Replaces the current route by the given one
-    virtual bool replaceRoute(const MSRoute* route, bool onInit = false, int offset=0) = 0;
+    virtual bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0) = 0;
 
     /** @brief Performs a rerouting using the given router
      *

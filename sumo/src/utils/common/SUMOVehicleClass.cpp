@@ -250,7 +250,7 @@ StringBijection<SUMOEmissionClass>::Entry SumoEmissionClassStringInitializer[] =
     {"LSZ_D_EU5_EGR",          SVE_LSZ_D_EU5_EGR},
     {"LSZ_D_EU5_SCR",          SVE_LSZ_D_EU5_SCR},
     {"LSZ_D_EU6",              SVE_LSZ_D_EU6},
-    {"RB_D_EU0",               SVE_RB_D_EU0}, 
+    {"RB_D_EU0",               SVE_RB_D_EU0},
     {"RB_D_EU1",               SVE_RB_D_EU1},
     {"RB_D_EU2",               SVE_RB_D_EU2},
     {"RB_D_EU3",               SVE_RB_D_EU3},

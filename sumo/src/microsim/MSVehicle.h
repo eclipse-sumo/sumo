@@ -179,7 +179,7 @@ public:
      * @param[in] route The new route to pass
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset=0);
+    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0);
 
 
     /** @brief Returns whether the vehicle wil pass the given edge
@@ -339,7 +339,7 @@ public:
 
 
     /** @brief Returns the starting point for reroutes (usually the current edge)
-     * 
+     *
      * This differs from *myCurrEdge only if the vehicle is on an internal edge
      * @return The rerouting start point
      */
@@ -637,7 +637,7 @@ public:
      * @param dist		up to which distance to look for a leader
      * @return The leading vehicle together with the gap; (0, -1) if no leader was found.
      */
-    std::pair<const MSVehicle* const, SUMOReal> getLeader(SUMOReal dist=0) const;
+    std::pair<const MSVehicle* const, SUMOReal> getLeader(SUMOReal dist = 0) const;
 
     /** @brief Returns the time gap in seconds to the leader of the vehicle looking for a fixed distance.
      *
@@ -686,8 +686,8 @@ public:
      */
     SUMOReal getFuelConsumption() const;
 
-	
-	/** @brief Returns noise emissions of the current state
+
+    /** @brief Returns noise emissions of the current state
      * @return The noise produced
      */
     SUMOReal getHarmonoise_NoiseEmissions() const;
@@ -1220,7 +1220,7 @@ protected:
     void adaptToLeader(const std::pair<const MSVehicle*, SUMOReal> leaderInfo,
                        const SUMOReal seen, DriveProcessItem* const lastLink,
                        const MSLane* const lane, SUMOReal& v, SUMOReal& vLinkPass,
-                       SUMOReal distToCrossing=-1) const;
+                       SUMOReal distToCrossing = -1) const;
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief ids of vehicles being followed across a link (for resolving priority)

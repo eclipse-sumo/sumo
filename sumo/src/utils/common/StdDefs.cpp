@@ -32,21 +32,21 @@
 /* -------------------------------------------------------------------------
  * color constants for link states
  * ----------------------------------------------------------------------- */
-const RGBColor SUMO_color_TL_GREEN_MAJOR(0,255,0);
-const RGBColor SUMO_color_TL_GREEN_MINOR(0,179,0);
-const RGBColor SUMO_color_TL_RED(255,0,0);
-const RGBColor SUMO_color_TL_YELLOW_MAJOR(255,255,0);
-const RGBColor SUMO_color_TL_YELLOW_MINOR(255,255,0);
-const RGBColor SUMO_color_TL_OFF_BLINKING(255,140,0);
-const RGBColor SUMO_color_TL_OFF_NOSIGNAL(0,255,255);
-const RGBColor SUMO_color_MAJOR(255,255,255);
-const RGBColor SUMO_color_MINOR(51,51,51);
-const RGBColor SUMO_color_EQUAL(128,128,128);
-const RGBColor SUMO_color_STOP(102,51,51);
-const RGBColor SUMO_color_ALLWAY_STOP(51,51,102);
-const RGBColor SUMO_color_DEADEND(0,0,0);
+const RGBColor SUMO_color_TL_GREEN_MAJOR(0, 255, 0);
+const RGBColor SUMO_color_TL_GREEN_MINOR(0, 179, 0);
+const RGBColor SUMO_color_TL_RED(255, 0, 0);
+const RGBColor SUMO_color_TL_YELLOW_MAJOR(255, 255, 0);
+const RGBColor SUMO_color_TL_YELLOW_MINOR(255, 255, 0);
+const RGBColor SUMO_color_TL_OFF_BLINKING(255, 140, 0);
+const RGBColor SUMO_color_TL_OFF_NOSIGNAL(0, 255, 255);
+const RGBColor SUMO_color_MAJOR(255, 255, 255);
+const RGBColor SUMO_color_MINOR(51, 51, 51);
+const RGBColor SUMO_color_EQUAL(128, 128, 128);
+const RGBColor SUMO_color_STOP(102, 51, 51);
+const RGBColor SUMO_color_ALLWAY_STOP(51, 51, 102);
+const RGBColor SUMO_color_DEADEND(0, 0, 0);
 
-const RGBColor& getLinkColor(const LinkState& ls) { 
+const RGBColor& getLinkColor(const LinkState& ls) {
     switch (ls) {
         case LINKSTATE_TL_GREEN_MAJOR:
             return SUMO_color_TL_GREEN_MAJOR;

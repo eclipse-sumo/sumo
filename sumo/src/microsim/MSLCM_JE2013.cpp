@@ -371,7 +371,7 @@ MSLCM_JE2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         assert(neighLead.first != 0);
         MSVehicle* nv = neighLead.first;
         if (gDebugFlag2) std::cout << " blocked by leader nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
-                                                  << myVehicle.getCarFollowModel().getSecureGap(myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()) << "\n";
+                                       << myVehicle.getCarFollowModel().getSecureGap(myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()) << "\n";
         // decide whether we want to overtake the leader or follow it
         const SUMOReal dv = plannedSpeed - nv->getSpeed();
         const SUMOReal overtakeDist = (neighLead.second // drive to back of follower
@@ -471,7 +471,7 @@ MSLCM_JE2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         assert(neighFollow.first != 0);
         MSVehicle* nv = neighFollow.first;
         if (gDebugFlag2) std::cout << " blocked by follower nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
-                                                  << nv->getCarFollowModel().getSecureGap(nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()) << "\n";
+                                       << nv->getCarFollowModel().getSecureGap(nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()) << "\n";
 
         // are we fast enough to cut in without any help?
         if (plannedSpeed - nv->getSpeed() >= HELP_OVERTAKE) {
@@ -826,10 +826,10 @@ MSLCM_JE2013::_wantsChange(
                 std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2) neighLeftPlace=" << neighLeftPlace << "\n";
             }
             ret = ret | LCA_STAY | LCA_STRATEGIC;
-        } else if (bestLaneOffset == 0 
-                && (leader.first == 0 || !leader.first->isStopped())
-                && neigh.bestContinuations.back()->getLinkCont().size() != 0
-                && roundaboutEdgesAhead == 0) {
+        } else if (bestLaneOffset == 0
+                   && (leader.first == 0 || !leader.first->isStopped())
+                   && neigh.bestContinuations.back()->getLinkCont().size() != 0
+                   && roundaboutEdgesAhead == 0) {
             // VARIANT_21 (stayOnBest)
             // we do not want to leave the best lane for a lane which leads elsewhere
             // unless our leader is stopped or we are approaching a roundabout

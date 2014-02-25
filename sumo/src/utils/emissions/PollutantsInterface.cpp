@@ -44,9 +44,9 @@
 // ===========================================================================
 SUMOReal
 PollutantsInterface::getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return -1;
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return HelpersPHEMlight::getMaxAccel(c, v, a, slope);
     } else {
         return 0;
@@ -56,9 +56,9 @@ PollutantsInterface::getMaxAccel(SUMOEmissionClass c, double v, double a, double
 
 SUMOReal
 PollutantsInterface::computeCO(SUMOEmissionClass c, double v, double a, double slope) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return HelpersHBEFA::computeCO(c, v, a);
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return HelpersPHEMlight::computeCO(c, v, a, slope);
     } else {
         return 0;
@@ -68,9 +68,9 @@ PollutantsInterface::computeCO(SUMOEmissionClass c, double v, double a, double s
 
 SUMOReal
 PollutantsInterface::computeCO2(SUMOEmissionClass c, double v, double a, double slope) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return HelpersHBEFA::computeCO2(c, v, a);
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return HelpersPHEMlight::computeCO2(c, v, a, slope);
     } else {
         return 0;
@@ -80,9 +80,9 @@ PollutantsInterface::computeCO2(SUMOEmissionClass c, double v, double a, double 
 
 SUMOReal
 PollutantsInterface::computeHC(SUMOEmissionClass c, double v, double a, double slope) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return HelpersHBEFA::computeHC(c, v, a);
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return HelpersPHEMlight::computeHC(c, v, a, slope);
     } else {
         return 0;
@@ -92,9 +92,9 @@ PollutantsInterface::computeHC(SUMOEmissionClass c, double v, double a, double s
 
 SUMOReal
 PollutantsInterface::computeNOx(SUMOEmissionClass c, double v, double a, double slope) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return HelpersHBEFA::computeNOx(c, v, a);
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return HelpersPHEMlight::computeNOx(c, v, a, slope);
     } else {
         return 0;
@@ -104,9 +104,9 @@ PollutantsInterface::computeNOx(SUMOEmissionClass c, double v, double a, double 
 
 SUMOReal
 PollutantsInterface::computePMx(SUMOEmissionClass c, double v, double a, double slope) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return HelpersHBEFA::computePMx(c, v, a);
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return HelpersPHEMlight::computePMx(c, v, a, slope);
     } else {
         return 0;
@@ -116,9 +116,9 @@ PollutantsInterface::computePMx(SUMOEmissionClass c, double v, double a, double 
 
 SUMOReal
 PollutantsInterface::computeFuel(SUMOEmissionClass c, double v, double a, double slope) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return HelpersHBEFA::computeFuel(c, v, a);
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return HelpersPHEMlight::computeFuel(c, v, a, slope);
     } else {
         return 0;
@@ -130,9 +130,9 @@ PollutantsInterface::computeFuel(SUMOEmissionClass c, double v, double a, double
 
 SUMOReal
 PollutantsInterface::computeDefaultCO(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return (HelpersHBEFA::computeCO(c, v, 0) + HelpersHBEFA::computeCO(c, v - a, a)) * tt / 2.;
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return (HelpersPHEMlight::computeCO(c, v, 0, slope) + HelpersPHEMlight::computeCO(c, v - a, a, slope)) * tt / 2.;
     } else {
         return 0;
@@ -142,9 +142,9 @@ PollutantsInterface::computeDefaultCO(SUMOEmissionClass c, double v, double a, d
 
 SUMOReal
 PollutantsInterface::computeDefaultCO2(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return (HelpersHBEFA::computeCO2(c, v, 0) + HelpersHBEFA::computeCO2(c, v - a, a)) * tt / 2.;
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return (HelpersPHEMlight::computeCO2(c, v, 0, slope) + HelpersPHEMlight::computeCO2(c, v - a, a, slope)) * tt / 2.;
     } else {
         return 0;
@@ -154,9 +154,9 @@ PollutantsInterface::computeDefaultCO2(SUMOEmissionClass c, double v, double a, 
 
 SUMOReal
 PollutantsInterface::computeDefaultHC(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return (HelpersHBEFA::computeHC(c, v, 0) + HelpersHBEFA::computeHC(c, v - a, a)) * tt / 2.;
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return (HelpersPHEMlight::computeHC(c, v, 0, slope) + HelpersPHEMlight::computeHC(c, v - a, a, slope)) * tt / 2.;
     } else {
         return 0;
@@ -166,9 +166,9 @@ PollutantsInterface::computeDefaultHC(SUMOEmissionClass c, double v, double a, d
 
 SUMOReal
 PollutantsInterface::computeDefaultNOx(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return (HelpersHBEFA::computeNOx(c, v, 0) + HelpersHBEFA::computeNOx(c, v - a, a)) * tt / 2.;
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return (HelpersPHEMlight::computeNOx(c, v, 0, slope) + HelpersPHEMlight::computeNOx(c, v - a, a, slope)) * tt / 2.;
     } else {
         return 0;
@@ -178,9 +178,9 @@ PollutantsInterface::computeDefaultNOx(SUMOEmissionClass c, double v, double a, 
 
 SUMOReal
 PollutantsInterface::computeDefaultPMx(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return (HelpersHBEFA::computePMx(c, v, 0) + HelpersHBEFA::computePMx(c, v - a, a)) * tt / 2.;
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return (HelpersPHEMlight::computePMx(c, v, 0, slope) + HelpersPHEMlight::computePMx(c, v - a, a, slope)) * tt / 2.;
     } else {
         return 0;
@@ -190,9 +190,9 @@ PollutantsInterface::computeDefaultPMx(SUMOEmissionClass c, double v, double a, 
 
 SUMOReal
 PollutantsInterface::computeDefaultFuel(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if(c<SVE_META_HBEFA21_END) {
+    if (c < SVE_META_HBEFA21_END) {
         return (HelpersHBEFA::computeFuel(c, v, 0) + HelpersHBEFA::computeFuel(c, v - a, a)) * tt / 2.;
-    } else if(c>SVE_META_HBEFA21_END && c<SVE_META_PHEMLIGHT_END) {
+    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
         return (HelpersPHEMlight::computeFuel(c, v, 0, slope) + HelpersPHEMlight::computeFuel(c, v - a, a, slope)) * tt / 2.;
     } else {
         return 0;

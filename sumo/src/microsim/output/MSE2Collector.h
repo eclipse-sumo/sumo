@@ -259,15 +259,15 @@ public:
     /** @brief Returns the length of all jams in meters */
     unsigned getCurrentStartedHalts() const;
 
-	 /** @brief Returns the number of current haltings within the area
-     *
-     * If no vehicle is within the area, 0 is returned.
-     *
-     * @return The mean number of haltings within the area
-     */
+    /** @brief Returns the number of current haltings within the area
+    *
+    * If no vehicle is within the area, 0 is returned.
+    *
+    * @return The mean number of haltings within the area
+    */
     SUMOReal getCurrentHaltingNumber() const;
-	
-	/** @brief Returns the IDs of the vehicles within the area
+
+    /** @brief Returns the IDs of the vehicles within the area
      *
      * @return The IDs of the vehicles that have passed the entry, but not yet an exit point
      */
@@ -376,7 +376,7 @@ private:
     SUMOReal mySpeedSum;
     /// @brief The number of started halts [#]
     SUMOReal myStartedHalts;
-	/// @brief The number of halted vehicles [#]
+    /// @brief The number of halted vehicles [#]
     SUMOReal myCurrentHaltingsNumber;
     /// @brief The sum of jam lengths [m]
     SUMOReal myJamLengthInMetersSum;
