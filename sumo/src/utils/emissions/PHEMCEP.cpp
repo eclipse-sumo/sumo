@@ -69,7 +69,7 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
 	std::vector< std::vector<double> > pollutantMeasures;
 
 	// init pollutant identifiers
-	for(int i=0; i<headerLinePollutants.size(); i++)
+	for(int i=0; i<(int)headerLinePollutants.size(); i++)
 	{
 		pollutantIdentifier.push_back(headerLinePollutants[i]);
 	} // end for
@@ -79,7 +79,7 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
 	_sizeOfPatternPollutants = matrixPollutants.size();
 
 	// initialize measures
-	for(int i=0; i<headerLinePollutants.size(); i++)
+	for(int i=0; i<(int)headerLinePollutants.size(); i++)
 	{
 		pollutantMeasures.push_back(std::vector<double>());
 	} // end for
@@ -87,7 +87,7 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
 	// looping through matrix and assigning values for speed rotational table
 	_speedCurveRotational.clear();
 	_speedPatternRotational.clear();
-	for(int i=0; i<matrixSpeedRotational.size(); i++)
+	for(int i=0; i<(int)matrixSpeedRotational.size(); i++)
 	{
 		if(matrixSpeedRotational[i].size() != 2)
 			throw InvalidArgument("Error loading vehicle file for: " + SumoEmissionClassStrings.getString(emissionClass));
@@ -99,7 +99,7 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
 	
 	// looping through matrix and assigning values for Fuel consumption
 	_cepCurveFC.clear();
-	for(int i=0; i<matrixFC.size(); i++)
+	for(int i=0; i<(int)matrixFC.size(); i++)
 	{
 		if(matrixFC[i].size() != 2)
 			throw InvalidArgument("Error loading vehicle file for: " + SumoEmissionClassStrings.getString(emissionClass));
@@ -123,9 +123,9 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
 	} // end if
 
 	int headerCount = headerLinePollutants.size();
-	for(int i=0; i<matrixPollutants.size(); i++)
+	for(int i=0; i<(int)matrixPollutants.size(); i++)
 	{
-		for(int j=0; j<matrixPollutants[i].size(); j++)
+		for(int j=0; j<(int)matrixPollutants[i].size(); j++)
 		{
 			if(matrixPollutants[i].size() != headerCount + 1)
 				return;
@@ -143,7 +143,7 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
 		} // end for
 	} // end for
 
-	for(int i=0; i<headerLinePollutants.size(); i++)
+	for(int i=0; i<(int)headerLinePollutants.size(); i++)
 	{
 		_cepCurvePollutants.insert(pollutantIdentifier[i], pollutantMeasures[i]);
 	} // end for
