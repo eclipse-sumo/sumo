@@ -66,7 +66,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       drawLinkTLIndex(false), drawLinkJunctionIndex(false),
       junctionName(false, 50, RGBColor(0, 255, 128, 255)),
       internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
-      showLane2Lane(false), addMode(0), minAddSize(1), addExaggeration(1),
+      showLane2Lane(false), drawJunctionShape(true), addMode(0), minAddSize(1), addExaggeration(1),
       addName(false, 50, RGBColor(255, 0, 128, 255)),
       minPOISize(0), poiExaggeration(1), poiName(false, 50, RGBColor(255, 0, 128, 255)),
       minPolySize(0), polyExaggeration(1), polyName(false, 50, RGBColor(255, 0, 128, 255)),
@@ -338,7 +338,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
         << "\" drawLinkJunctionIndex=\"" << drawLinkJunctionIndex << "\"\n"
         << "                  " << junctionName.print("junctionName") << "\n"
         << "                  " << internalJunctionName.print("internalJunctionName") << "\n"
-        << " showLane2Lane=\"" << showLane2Lane << "\">\n";
+        << " showLane2Lane=\"" << showLane2Lane << "\""
+        << " drawShape=\"" << drawJunctionShape << "\">\n";
     junctionColorer.save(dev);
     dev << "        </junctions>\n";
 
@@ -473,6 +474,10 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     }
 
     if (showLane2Lane != v2.showLane2Lane) {
+        return false;
+    }
+
+    if (drawJunctionShape != v2.drawJunctionShape) {
         return false;
     }
 

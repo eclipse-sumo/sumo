@@ -183,11 +183,11 @@ public:
     bool drawLinkJunctionIndex;
     // Setting bundles for optional drawing junction names
     GUIVisualizationTextSettings junctionName, internalJunctionName;
-    //@}
-
-
     /// @brief Information whether lane-to-lane arrows shall be drawn
     bool showLane2Lane;
+    /// @brief whether the shape of the junction should be drawn
+    bool drawJunctionShape;
+    //@}
 
 
     /// @name Additional structures visualization settings

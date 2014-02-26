@@ -117,7 +117,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * myMaxSize < 1.) {
         return;
     }
-    if (!myIsInner) {
+    if (!myIsInner && s.drawJunctionShape) {
         glPushName(getGlID());
         glPushMatrix();
         const SUMOReal colorValue = static_cast<SUMOReal>(s.junctionColorer.getActive() == 1 && gSelected.isSelected(getType(), getGlID()));

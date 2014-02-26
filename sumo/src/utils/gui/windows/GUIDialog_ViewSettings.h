@@ -269,6 +269,7 @@ private:
     FXRealSpinDial* myPolyMinSizeDialer, *myPolyUpscaleDialer;
 
     FXCheckButton* myShowLane2Lane;
+    FXCheckButton* myDrawJunctionShape;
     FXCheckButton* myAntialiase;
     FXCheckButton* myDither;
     FXCheckButton* myShowSizeLegend;
