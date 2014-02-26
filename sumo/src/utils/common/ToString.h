@@ -172,6 +172,17 @@ inline std::string joinToStringSorting(const std::vector<T>& v, const T_BETWEEN&
 }
 
 
+template <typename V>
+inline std::string toString(const std::set<V*>& v, std::streamsize accuracy = OUTPUT_ACCURACY) {
+    UNUSED_PARAMETER(accuracy);
+    std::vector<std::string> ids;
+    for (typename std::set<V*>::const_iterator it = v.begin(); it != v.end(); ++it) {
+        ids.push_back((*it)->getID());
+    }
+    return joinToStringSorting(ids, " ");
+}
+
+
 template <>
 inline std::string toString(const std::vector<int>& v, std::streamsize accuracy) {
     return joinToString(v, " ", accuracy);
