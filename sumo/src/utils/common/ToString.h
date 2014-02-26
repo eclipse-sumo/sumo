@@ -163,6 +163,14 @@ inline std::string joinToString(const std::vector<T>& v, const T_BETWEEN& betwee
 }
 
 
+template <typename T, typename T_BETWEEN>
+inline std::string joinToStringSorting(const std::vector<T>& v, const T_BETWEEN& between, std::streamsize accuracy = OUTPUT_ACCURACY) {
+    std::vector<T> sorted(v);
+    std::sort(sorted.begin(), sorted.end());
+    return joinToString(sorted, between, accuracy);
+}
+
+
 template <>
 inline std::string toString(const std::vector<int>& v, std::streamsize accuracy) {
     return joinToString(v, " ", accuracy);

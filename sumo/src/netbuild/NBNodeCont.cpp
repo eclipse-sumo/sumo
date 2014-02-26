@@ -581,7 +581,7 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
             }
             if (finalIncoming.size() > 4) {
                 std::sort(nodeIDs.begin(), nodeIDs.end());
-                WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (" + toString(finalIncoming.size()) + " incoming edges)");
+                WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (" + toString(finalIncoming.size()) + " incoming edges)");
             } else {
                 // check for incoming parallel edges
                 const SUMOReal PARALLEL_INCOMING_THRESHOLD = 10.0;
@@ -593,7 +593,7 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                             parallelEdgeIDs.push_back((*j)->getID());
                             parallelEdgeIDs.push_back((*k)->getID());
                             std::sort(parallelEdgeIDs.begin(), parallelEdgeIDs.end());
-                            WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (parallel incoming "
+                            WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel incoming "
                                           + joinToString(parallelEdgeIDs, ',') + ")");
                             foundParallel = true;
                         }
@@ -607,8 +607,8 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                             parallelEdgeIDs.push_back((*j)->getID());
                             parallelEdgeIDs.push_back((*k)->getID());
                             std::sort(parallelEdgeIDs.begin(), parallelEdgeIDs.end());
-                            WRITE_WARNING("Not joining junctions " + joinToString(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing "
-                                          + joinToString(parallelEdgeIDs, ',') + ")");
+                            WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing "
+                                          + joinToStringSorting(parallelEdgeIDs, ',') + ")");
                             foundParallel = true;
                         }
                     }
