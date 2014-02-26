@@ -613,8 +613,42 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                         }
                     }
                 }
-                if (!foundParallel) {
-                    clusters.push_back(cluster);
+                if (!foundParallel && cluster.size() > 1) {
+                    // compute all connected components of this cluster
+                    // (may be more than 1 if intermediate nodes were removed)
+                    NodeClusters components;
+                    for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end(); ++j) {
+                        // merge all connected components into newComp
+                        std::set<NBNode*> newComp;
+                        NBNode* current = *j;
+                        //std::cout << "checking connectivity for " << current->getID() << "\n";
+                        newComp.insert(current);
+                        for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end();) {
+                            NodeClusters::iterator check = it_comp;
+                            //std::cout << "   connected with " << toString(*check) << "?\n";
+                            bool connected = false;
+                            for (std::set<NBNode*>::iterator k = (*check).begin(); k != (*check).end(); ++k) {
+                                if (current->getConnectionTo(*k) != 0 || (*k)->getConnectionTo(current) != 0) {
+                                    //std::cout << "joining with connected component " << toString(*check) << "\n";
+                                    newComp.insert((*check).begin(), (*check).end());
+                                    it_comp = components.erase(check);
+                                    connected = true;
+                                    break;
+                                }
+                            }
+                            if (!connected) {
+                                it_comp++;
+                            }
+                        }
+                        //std::cout << "adding new component " << toString(newComp) << "\n";
+                        components.push_back(newComp);
+                    }
+                    for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end(); ++it_comp) {
+                        if ((*it_comp).size() > 1) {
+                            //std::cout << "adding cluster " << toString(*it_comp) << "\n";
+                            clusters.push_back(*it_comp);
+                        }
+                    }
                 }
             }
         }
