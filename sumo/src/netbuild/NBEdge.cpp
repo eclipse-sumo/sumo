@@ -1265,18 +1265,15 @@ NBEdge::computeAngle() {
     // taking the angle at the first might be unstable, thus we take the angle
     // at a certain distance. (To compare two edges, additional geometry
     // segments are considered to resolve ambiguities)
-
-    const Position fromCenter = (myFrom->getShape().size() > 0 ? myFrom->getShape().getCentroid() : myFrom->getPosition());
-    const Position toCenter = (myTo->getShape().size() > 0 ? myTo->getShape().getCentroid() : myTo->getPosition());
-    PositionVector shape = myGeom;
-    // maybe the edge is actually somewhere else now
-    // we do not want to use lane shapes here because the spreadtype could interfere
-    if (myFrom->getShape().size() > 0) {
-        shape = startShapeAt(shape, myFrom);
-        if (shape.size() >= 2) {
-            shape = startShapeAt(shape.reverse(), myTo).reverse();
-        }
-    }
+    const bool hasFromShape = myFrom->getShape().size() > 0; 
+    const bool hasToShape = myTo->getShape().size() > 0; 
+    const Position fromCenter = (hasFromShape ? myFrom->getShape().getCentroid() : myFrom->getPosition());
+    const Position toCenter = (hasToShape ? myTo->getShape().getCentroid() : myTo->getPosition());
+    const PositionVector shape = ((hasFromShape || hasToShape) && getNumLanes() > 0 ? 
+            (myLaneSpreadFunction == LANESPREAD_RIGHT ? 
+             myLanes[getNumLanes() - 1].shape 
+             : myLanes[getNumLanes() / 2].shape)
+            : myGeom);
 
     const SUMOReal angleLookahead = MIN2(shape.length2D() / 2, ANGLE_LOOKAHEAD);
     const Position referencePosStart = shape.positionAtOffset2D(angleLookahead);

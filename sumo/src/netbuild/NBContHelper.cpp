@@ -152,9 +152,9 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
     if (e1 == 0 || e2 == 0) {
         return -1;
     }
-    SUMOReal relAngle1 = NBHelpers::normRelAngle(
+    SUMOReal relAngle1 = NBHelpers::relAngle(
                              myEdge->getEndAngle(), e1->getStartAngle());
-    SUMOReal relAngle2 = NBHelpers::normRelAngle(
+    SUMOReal relAngle2 = NBHelpers::relAngle(
                              myEdge->getEndAngle(), e2->getStartAngle());
 
     SUMOReal lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
@@ -162,10 +162,10 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
         // look at further geometry segments to resolve ambiguity
         const Position referencePos1 = e1->getGeometry().positionAtOffset2D(lookAhead);
         const Position referencePos2 = e2->getGeometry().positionAtOffset2D(lookAhead);
-        relAngle1 = NBHelpers::normRelAngle(myEdge->getEndAngle(), NBHelpers::angle(
+        relAngle1 = NBHelpers::relAngle(myEdge->getEndAngle(), NBHelpers::angle(
                                                 e1->getFromNode()->getPosition().x(), e1->getFromNode()->getPosition().y(),
                                                 referencePos1.x(), referencePos1.y()));
-        relAngle2 = NBHelpers::normRelAngle(myEdge->getEndAngle(), NBHelpers::angle(
+        relAngle2 = NBHelpers::relAngle(myEdge->getEndAngle(), NBHelpers::angle(
                                                 e2->getFromNode()->getPosition().x(), e2->getFromNode()->getPosition().y(),
                                                 referencePos2.x(), referencePos2.y()));
         if (lookAhead > MAX2(e1->getLength(), e2->getLength())) {
@@ -185,9 +185,9 @@ NBContHelper::relative_incoming_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
     if (e1 == 0 || e2 == 0) {
         return -1;
     }
-    SUMOReal relAngle1 = NBHelpers::normRelAngle(
+    SUMOReal relAngle1 = NBHelpers::relAngle(
                              myEdge->getStartAngle(), e1->getEndAngle());
-    SUMOReal relAngle2 = NBHelpers::normRelAngle(
+    SUMOReal relAngle2 = NBHelpers::relAngle(
                              myEdge->getStartAngle(), e2->getEndAngle());
 
     SUMOReal lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
@@ -195,10 +195,10 @@ NBContHelper::relative_incoming_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
         // look at further geometry segments to resolve ambiguity
         const Position referencePos1 = e1->getGeometry().positionAtOffset2D(e1->getGeometry().length() - lookAhead);
         const Position referencePos2 = e2->getGeometry().positionAtOffset2D(e2->getGeometry().length() - lookAhead);
-        relAngle1 = NBHelpers::normRelAngle(myEdge->getStartAngle(), NBHelpers::angle(
+        relAngle1 = NBHelpers::relAngle(myEdge->getStartAngle(), NBHelpers::angle(
                                                 referencePos1.x(), referencePos1.y(),
                                                 e1->getToNode()->getPosition().x(), e1->getToNode()->getPosition().y()));
-        relAngle2 = NBHelpers::normRelAngle(myEdge->getStartAngle(), NBHelpers::angle(
+        relAngle2 = NBHelpers::relAngle(myEdge->getStartAngle(), NBHelpers::angle(
                                                 referencePos2.x(), referencePos2.y(),
                                                 e2->getToNode()->getPosition().x(), e2->getToNode()->getPosition().y()));
         if (lookAhead > MAX2(e1->getLength(), e2->getLength())) {

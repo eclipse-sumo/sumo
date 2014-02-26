@@ -45,3 +45,6 @@ delayed_report
 
 # tests using delete while no other connections are loaded (only forbid right turn)
 delete
+
+# a two-way streat meets an 1-way street at a 3 arm junction
+3arm
