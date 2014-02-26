@@ -35,6 +35,7 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
+#include <algorithm>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "StdDefs.h"
