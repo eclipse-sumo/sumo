@@ -185,7 +185,7 @@ for row in range(DOUBLE_ROWS):
 for edge in ["cyberin", "cyberout"]:
     print >> stops, '    <busStop id="%sstop" lane="%s_0"' % (edge, edge),
     print >> stops, 'startPos="%s" endPos="%s"/>' % (90-2*CYBER_LENGTH-1, 90)
-print >> stops, '    <edgeData id="dump" freq="3600" file="aggregated.xml" excludeEmpty="true" type="hbefa"/>' 
+print >> stops, '    <edgeData id="dump" freq="3600" file="aggregated.xml" excludeEmpty="true" type="emissions"/>' 
 print >> stops, "</additional>"
 stops.close()
 
