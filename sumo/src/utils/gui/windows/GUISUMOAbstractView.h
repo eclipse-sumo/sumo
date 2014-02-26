@@ -302,7 +302,7 @@ public:
     }
 
 
-    const GUIVisualizationSettings* getVisualisationSettings() {
+    GUIVisualizationSettings* getVisualisationSettings() {
         return myVisualizationSettings;
     }
 

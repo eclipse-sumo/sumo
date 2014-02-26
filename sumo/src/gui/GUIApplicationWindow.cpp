@@ -633,6 +633,13 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
                     }
                 }
             }
+            if (myMDIClient->numChildren() > 0) {
+                GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+                if (w != 0) {
+                    // color by selection
+                    w->getView()->getVisualisationSettings()->laneColorer.setActive(1);
+                }
+            }
         }
         updateChildren();
     }
