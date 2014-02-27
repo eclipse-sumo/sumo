@@ -147,12 +147,14 @@ class Edge:
     def getToNode(self):
         return self._to
 
-    def is_fringe(self):
-        """true if this edge has no incoming or no outgoing connections (except turnarounds)"""
-        incoming = sum([c for c in self._incoming.values()], [])
-        outgoing = sum([c for c in self._outgoing.values()], [])
-        return (len([c for c in incoming if c._direction != Connection.LINKDIR_TURN]) == 0
-                or len([c for c in outgoing if c._direction != Connection.LINKDIR_TURN]) == 0)
+    def is_fringe(self, connections=None):
+        """true if this edge has no incoming or no outgoing connections (except turnarounds)
+           If connections is given, only those connections are considered"""
+        if connections is None:
+            return self.is_fringe(self._incoming) or self.is_fringe(self._outgoing)
+        else:
+            cons = sum([c for c in connections.values()], [])
+            return len([c for c in cons if c._direction != Connection.LINKDIR_TURN]) == 0
 
     def allows(self, vClass):
         """true if this edge has a lane which allows the given vehicle class"""
