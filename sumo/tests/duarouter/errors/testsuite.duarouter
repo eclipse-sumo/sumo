@@ -19,7 +19,6 @@ unknown_option
 # Tests what happens if an unknown measure is passed as weights attribute
 unknown_measure
 
-
 # Tests what happens if the given alternatives do not exist
 false_input_alts
 
@@ -31,7 +30,6 @@ false_input_sumo
 
 # Tests what happens if the given trip-definitions do not exist
 false_input_trips
-
 
 # Default departlane is false
 default_departlane_false
@@ -51,6 +49,11 @@ default_arrivalpos_false
 # Default arrivalspeed is false
 default_arrivalspeed_false
 
-
 # Tests for importing trips with an empty vehicle class
 empty_vclass
+
+# given an unknown vType should be an error
+unknown_vType
+
+# unknown vType should be replaced by DEFAULT_VEHTYPE when ignoring errors
+unknown_vType_ignore
