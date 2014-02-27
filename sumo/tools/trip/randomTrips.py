@@ -19,7 +19,7 @@ the Free Software Foundation; either version 3 of the License, or
 
 import os, sys, random, bisect, datetime, subprocess
 import math
-from optparse import OptionParser
+import optparse
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
@@ -72,7 +72,7 @@ class RandomEdgeGenerator:
 
 
 def get_options():
-    optParser = OptionParser()
+    optParser = optparse.OptionParser()
     optParser.add_option("-n", "--net-file", dest="netfile",
                             help="define the net file (mandatory)")
     optParser.add_option("-o", "--output-trip-file", dest="tripfile",
@@ -99,20 +99,24 @@ def get_options():
                          default=0.0, help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
     optParser.add_option("--min-distance", type="float", dest="min_distance",
                          default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m appart (default 0)")
+    optParser.add_option("-c", "--vclass", 
+                         help="only from and to edges which permit <vClass>")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args()
+    if not options.netfile:
+        optParser.print_help()
+        sys.exit()
     return options
 
 
 def main(options):
-    if not options.netfile:
-        optParser.print_help()
-        sys.exit()
     if options.seed:
         random.seed(options.seed)
 
     def edge_probability(edge):
+        if options.vclass and not edge.allows(options.vclass):
+            return 0
         prob = 1
         if options.length:
             prob *= edge.getLength()

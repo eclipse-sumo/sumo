@@ -154,5 +154,12 @@ class Edge:
         return (len([c for c in incoming if c._direction != Connection.LINKDIR_TURN]) == 0
                 or len([c for c in outgoing if c._direction != Connection.LINKDIR_TURN]) == 0)
 
+    def allows(self, vClass):
+        """true if this edge has a lane which allows the given vehicle class"""
+        for lane in self._lanes:
+            if vClass in lane._allowed:
+                return True
+        return False
+
     def __repr__(self):
         return '<edge id="%s" from="%s" to="%s"/>' % (self._id, self._from.getID(), self._to.getID())
