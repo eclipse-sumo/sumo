@@ -42,8 +42,11 @@ class Lane:
     def getShape(self):
         return self._shape 
 
+    def getIndex(self):
+        return self._edge._lanes.index(self)
+
     def getID(self):
-        return self._edge._id + "_" + str(self._edge._lanes.index(self))
+        return "%s_%s" % (self._edge._id, self.getIndex())
 
     def getEdge(self):
         return self._edge

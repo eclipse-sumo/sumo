@@ -29,7 +29,7 @@ def euclidean(a, b):
 
 # assigns a weight to each edge using weight_fun and then draws from a discrete
 # distribution with these weights
-class randomEdgeGenerator:
+class RandomEdgeGenerator:
     def __init__(self, netfile, weight_fun):
         self.net = sumolib.net.readNet(netfile)
         self.net_diameter = self.net.getBBoxDiameter()
@@ -125,7 +125,7 @@ def main(options):
             prob *= options.fringe_factor
         return prob
 
-    edge_generator = randomEdgeGenerator(options.netfile, edge_probability)
+    edge_generator = RandomEdgeGenerator(options.netfile, edge_probability)
     idx = 0
     with open(options.tripfile, 'w') as fouttrips:
         print >> fouttrips, """<?xml version="1.0"?>

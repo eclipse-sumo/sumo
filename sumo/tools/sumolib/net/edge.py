@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from connection import Connection
+
 class Edge:
     """ Edges from a sumo network """
 
@@ -146,7 +148,11 @@ class Edge:
         return self._to
 
     def is_fringe(self):
-        return len(self.getIncoming()) == 0 or len(self.getOutgoing()) == 0
+        """true if this edge has no incoming or no outgoing connections (except turnarounds)"""
+        incoming = sum([c for c in self._incoming.values()], [])
+        outgoing = sum([c for c in self._outgoing.values()], [])
+        return (len([c for c in incoming if c._direction != Connection.LINKDIR_TURN]) == 0
+                or len([c for c in outgoing if c._direction != Connection.LINKDIR_TURN]) == 0)
 
     def __repr__(self):
         return '<edge id="%s" from="%s" to="%s"/>' % (self._id, self._from.getID(), self._to.getID())
