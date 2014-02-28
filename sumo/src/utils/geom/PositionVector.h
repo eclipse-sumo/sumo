@@ -180,8 +180,11 @@ public:
     /** @brief Returns the centroid (closes the polygon if unclosed) */
     Position getCentroid() const;
 
-    /** @brief enlarges/shrinks the polygon based at the centroid */
-    void scaleSize(SUMOReal factor);
+    /** @brief enlarges/shrinks the polygon by a factor based at the centroid */
+    void scaleRelative(SUMOReal factor);
+
+    /** @brief enlarges/shrinks the polygon by an absolute offset based at the centroid */
+    void scaleAbsolute(SUMOReal offset);
 
     Position getLineCenter() const;
 

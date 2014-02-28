@@ -42,6 +42,18 @@ TEST_F(PositionVectorTest, test_method_around) {
 
 	EXPECT_FALSE(vectorLine->around(Position(1,1)));
 	EXPECT_FALSE(vectorLine->around(Position(0,2)));
+
+    // with positive offset
+	EXPECT_TRUE(vectorPolygon->around(Position(4,2), 1));
+	EXPECT_FALSE(vectorPolygon->around(Position(5,2), 1));
+    // what was true remains true
+	EXPECT_TRUE(vectorPolygon->around(Position(1,1), POSITION_EPS));
+	EXPECT_TRUE(vectorPolygon->around(Position(1,2), POSITION_EPS));
+
+    // with negative offset
+	EXPECT_FALSE(vectorPolygon->around(Position(4,2), -POSITION_EPS));
+	EXPECT_TRUE(vectorPolygon->around(Position(1,1), -1));
+	EXPECT_FALSE(vectorPolygon->around(Position(0.5,0.5), -1));
 }
 
 /* Test the method 'area'*/
@@ -56,8 +68,8 @@ TEST_F(PositionVectorTest, test_method_area) {
     EXPECT_DOUBLE_EQ(square.area(), 1); 
 }
 
-/* Test the method 'scaleSize'.*/
-TEST_F(PositionVectorTest, test_method_scaleSize) {
+/* Test the method 'scaleRelative'.*/
+TEST_F(PositionVectorTest, test_method_scaleRelative) {
     PositionVector square;
     square.push_back(Position(0,0));
     square.push_back(Position(1,0));
@@ -65,7 +77,7 @@ TEST_F(PositionVectorTest, test_method_scaleSize) {
     square.push_back(Position(0,1));
     square.push_back(Position(0,0));
     EXPECT_DOUBLE_EQ(square.area(), 1);
-    square.scaleSize(3);
+    square.scaleRelative(3);
     EXPECT_DOUBLE_EQ(square.area(), 9);
 
     PositionVector expected;
@@ -95,6 +107,23 @@ TEST_F(PositionVectorTest, test_method_getCentroid) {
 	EXPECT_DOUBLE_EQ(1, pos2.x());
 	EXPECT_DOUBLE_EQ(1, pos2.y());
 	
+    PositionVector nodeShape;
+    nodeShape.push_back(Position(7.8899999999557622, 7.75));
+    nodeShape.push_back(Position(9.2599999999511056, 4.849999999627471));
+    nodeShape.push_back(Position(8.5599999999976717, 2.8700000001117587));
+    nodeShape.push_back(Position(2.7299999999813735, 0.0));
+    nodeShape.push_back(Position(0.0, 5.5099999997764826));
+    nodeShape.push_back(Position(5.8099999999976717, 8.4199999999254942));
+    EXPECT_EQ(Position(4.8155467817276252,4.4694335968861143), nodeShape.getCentroid());
+
+    PositionVector nodeShape2;
+    nodeShape2.push_back(Position(399923.42,5810023.32));
+    nodeShape2.push_back(Position(399924.79,5810020.42));
+    nodeShape2.push_back(Position(399924.09,5810018.44));
+    nodeShape2.push_back(Position(399918.26,5810015.57));
+    nodeShape2.push_back(Position(399915.53,5810021.08));
+    nodeShape2.push_back(Position(399921.34,5810023.99));
+    EXPECT_EQ(Position(399919.81191845721,5810012.2865175782), nodeShape2.getCentroid());
 }
 
 /* Test the method 'getPolygonCenter'.*/

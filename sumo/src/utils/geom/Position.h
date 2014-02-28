@@ -186,7 +186,18 @@ public:
         return Position(myX - p2.myX,  myY - p2.myY, myZ - p2.myZ);
     }
 
+    /// @brief keep the direction but modify the length of the (location) vector to length * scalar
     Position operator*(SUMOReal scalar) const {
+        return Position(myX * scalar, myY * scalar, myZ * scalar);
+    }
+
+    /// @brief keep the direction but modify the length of the (location) vector to length + scalar
+    Position operator+(SUMOReal offset) const {
+        const SUMOReal length = distanceTo(Position(0,0,0));
+        if (length == 0) {
+            return *this;
+        }
+        const SUMOReal scalar = (length + offset) / length;
         return Position(myX * scalar, myY * scalar, myZ * scalar);
     }
 

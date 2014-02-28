@@ -92,7 +92,9 @@ PositionVector::pop_front() {
 bool
 PositionVector::around(const Position& p, SUMOReal offset) const {
     if (offset != 0) {
-        //throw 1; // !!! not yet implemented
+        PositionVector tmp(*this);
+        tmp.scaleAbsolute(offset);
+        return tmp.around(p);
     }
     SUMOReal angle = 0;
     for (const_iterator i = begin(); i != end() - 1; i++) {
@@ -348,10 +350,19 @@ PositionVector::getCentroid() const {
 
 
 void
-PositionVector::scaleSize(SUMOReal factor) {
+PositionVector::scaleRelative(SUMOReal factor) {
     Position centroid = getCentroid();
     for (int i = 0; i < static_cast<int>(size()); i++) {
         (*this)[i] = centroid + (((*this)[i] - centroid) * factor);
+    }
+}
+
+
+void
+PositionVector::scaleAbsolute(SUMOReal offset) {
+    Position centroid = getCentroid();
+    for (int i = 0; i < static_cast<int>(size()); i++) {
+        (*this)[i] = centroid + (((*this)[i] - centroid) + offset);
     }
 }
 
