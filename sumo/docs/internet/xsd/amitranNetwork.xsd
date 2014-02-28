@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<xsd:element name="network">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="node" type="nodeType" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="link" type="linkType" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+ 
+	<xsd:complexType name="nodeType">
+		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
+		<xsd:attribute name="type" type="xsd:nodeTypeType" use="optional"/>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="nodeTypeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="traffic_light" />
+			<xsd:enumeration value="priority" />
+			<xsd:enumeration value="priority_stop" />
+			<xsd:enumeration value="right_before_left" />
+			<xsd:enumeration value="allway_stop" />
+			<xsd:enumeration value="roundabout" />
+			<xsd:enumeration value="dead_end" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="linkType">
+		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
+		<xsd:attribute name="from" type="xsd:unsignedInt" use="optional"/>
+		<xsd:attribute name="to" type="xsd:unsignedInt" use="optional"/>
+		<xsd:attribute name="roadClass" type="xsd:unsignedByte" use="required"/>
+		<xsd:attribute name="length" type="xsd:unsignedInt" use="required"/>
+		<xsd:attribute name="speedLimitKmh" type="xsd:unsignedByte" use="optional"/>
+		<xsd:attribute name="laneNr" type="xsd:unsignedByte" use="optional"/>
+	</xsd:complexType>
+	
+</xsd:schema>

@@ -14,18 +14,18 @@
  
 	<xsd:complexType name="actorConfigType">
 		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
-		<xsd:attribute name="emissionClass" type="xsd:unsignedByte" use="optional"/>
-		<xsd:attribute name="fuelType" type="xsd:unsignedByte" use="optional"/>
-		<xsd:attribute name="vehicleClass" type="xsd:unsignedByte" use="optional"/>
+		<xsd:attribute name="emissionClass" type="emissionClassType" use="optional"/>
+		<xsd:attribute name="fuelType" type="fuelTypeType" use="optional"/>
+		<xsd:attribute name="vehicleClass" type="vehicleClassType" use="optional"/>
 		<xsd:attribute name="vehicleLength" type="xsd:unsignedShort" use="optional"/>
 		<xsd:attribute name="vehicleWeight" type="xsd:unsignedShort" use="optional"/>
 		<xsd:attribute name="vehicleAge" type="xsd:unsignedByte" use="optional"/>
-		<xsd:attribute name="vehicleMake" type="xsd:unsignedShort" use="optional"/>
-		<xsd:attribute name="vehicleModel" type="xsd:unsignedShort" use="optional"/>
+		<xsd:attribute name="vehicleMake" type="vehicleMakeType" use="optional"/>
+		<xsd:attribute name="vehicleModel" type="xsd:string" use="optional"/>
 	</xsd:complexType>
 	
 	<xsd:complexType name="vehicleDataType">
-		<xsd:attribute name="vehicleId" type="xsd:unsignedShort" use="required"/>
+		<xsd:attribute name="vehicleId" type="xsd:unsignedInt" use="required"/>
 		<xsd:attribute name="actorConfigId" type="xsd:unsignedShort" use="required"/>
 		<xsd:attribute name="startTime" type="xsd:double" use="required"/>
 	</xsd:complexType>
@@ -47,15 +47,50 @@
 		<xsd:attribute name="laneNr" type="xsd:unsignedByte"/>
 		<xsd:attribute name="slope" type="xsd:short"/>
 		<xsd:attribute name="radiusOfCurvature" type="xsd:int"/>
-		<xsd:attribute name="roadType" type="xsd:unsignedByte"/>
-		<xsd:attribute name="speedLimit" type="xsd:unsignedByte"/>
+		<xsd:attribute name="roadType" type="roadTypeType"/>
+		<xsd:attribute name="speedLimitKmh" type="xsd:unsignedByte"/>
 		<xsd:attribute name="airDragCoefficient" type="xsd:unsignedShort"/>
 		<xsd:attribute name="timeHeadway" type="xsd:unsignedShort"/>
 		<xsd:attribute name="timeToCollision" type="xsd:unsignedShort"/>
-		<xsd:attribute name="vehilceInFrontId" type="xsd:int"/>
+		<xsd:attribute name="vehicleInFrontId" type="xsd:int"/>
 	</xsd:complexType>
 	
-	<xsd:simpleType name="vehicleClassNameRecords">
+	<xsd:simpleType name="emissionClassType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Euro0" />
+			<xsd:enumeration value="Euro1" />
+			<xsd:enumeration value="Euro2" />
+			<xsd:enumeration value="Euro3" />
+			<xsd:enumeration value="Euro4" />
+			<xsd:enumeration value="Euro5" />
+			<xsd:enumeration value="Euro6" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="fuelTypeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Gasoline" />
+			<xsd:enumeration value="Diesel" />
+			<xsd:enumeration value="LPG" />
+			<xsd:enumeration value="CNG" />
+			<xsd:enumeration value="Battery" />
+			<xsd:enumeration value="Fuelcell" />
+			<xsd:enumeration value="Hybrid" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="vehicleClassType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Passenger" />
+			<xsd:enumeration value="Bus" />
+			<xsd:enumeration value="Delivery" />
+			<xsd:enumeration value="Transport" />
+			<xsd:enumeration value="Bicycle" />
+			<xsd:enumeration value="Motorcycle" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="vehicleMakeType">
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="BMW" />
 			<xsd:enumeration value="Opel" />
@@ -63,4 +98,11 @@
 		</xsd:restriction>
 	</xsd:simpleType>
 		
+	<xsd:simpleType name="roadTypeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="urban" />
+			<xsd:enumeration value="motorway" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
 </xsd:schema>
