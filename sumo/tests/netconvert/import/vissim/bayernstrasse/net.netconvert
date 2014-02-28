@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 26 10:51:47 2014 by SUMO netconvert Version dev-SVN-r15729
+<!-- generated on Fri Feb 28 15:51:12 2014 by SUMO netconvert Version dev-SVN-r15771
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -790,7 +790,7 @@
     <junction id="10" type="priority" x="985.25" y="1456.40" incLanes="3[1][1][1][1][1][1][1][1][1][1][0]_0 3[1][1][1][1][1][1][1][1][1][1][0]_1" intLanes="" shape="980.69,1461.91 978.11,1455.95 975.39,1455.88 973.97,1458.75">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
-        <request index="2" response="000" foes="000"/>
+        <request index="2" response="010" foes="010"/>
     </junction>
     <junction id="10-DestinationNode" type="unregulated" x="1341.27" y="1853.85" incLanes="10_0" intLanes="" shape="1342.61,1854.72 1339.93,1852.98"/>
     <junction id="10-SourceNode" type="unregulated" x="701.94" y="1951.75" incLanes="" intLanes="" shape="702.79,1953.11 701.09,1950.40"/>
@@ -1008,10 +1008,10 @@
     <junction id="33-DestinationNode" type="unregulated" x="1202.56" y="1487.29" incLanes="33_0" intLanes="" shape="1203.34,1485.89 1201.77,1488.68"/>
     <junction id="33-SourceNode" type="unregulated" x="1176.61" y="1472.69" incLanes="" intLanes="" shape="1175.83,1474.08 1177.40,1471.29"/>
     <junction id="34" type="priority" x="1532.39" y="1914.69" incLanes="82[0]_0 84[1][0]+85[1][1][1][1][1][1][0]_0 84[1][0]+85[1][1][1][1][1][1][0]_1" intLanes="" shape="1532.19,1918.28 1535.62,1917.86 1535.55,1914.64 1533.89,1911.90 1535.94,1911.96 1530.79,1912.30 1528.66,1914.81 1530.13,1917.65">
-        <request index="0" response="0000" foes="1010"/>
-        <request index="1" response="0001" foes="0001"/>
-        <request index="2" response="0000" foes="0000"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="0000" foes="1100"/>
+        <request index="1" response="0000" foes="0000"/>
+        <request index="2" response="0001" foes="0001"/>
+        <request index="3" response="0101" foes="0101"/>
     </junction>
     <junction id="34-DestinationNode" type="unregulated" x="1191.65" y="1493.06" incLanes="34_0" intLanes="" shape="1193.14,1492.49 1190.15,1493.64"/>
     <junction id="34-SourceNode" type="unregulated" x="1173.69" y="1476.96" incLanes="" intLanes="" shape="1172.92,1478.36 1174.46,1475.55"/>
@@ -1046,7 +1046,7 @@
         <request index="0" response="0000" foes="1100"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0001" foes="0001"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="3" response="0101" foes="0101"/>
     </junction>
     <junction id="39-end" type="unregulated" x="1543.16" y="1692.66" incLanes="39_0" intLanes="" shape="1543.73,1691.16 1542.59,1694.15"/>
     <junction id="4" type="priority" x="1524.42" y="1875.53" incLanes="20004_0 3[1][1][0]_0 3[1][1][0]_1" intLanes="" shape="1524.64,1881.02 1527.66,1879.97 1528.34,1880.01 1528.84,1871.89 1526.90,1867.23 1520.42,1867.84">
@@ -1204,10 +1204,10 @@
     <junction id="58-SourceNode" type="unregulated" x="1462.96" y="1704.83" incLanes="" intLanes="" shape="1463.73,1706.23 1462.19,1703.43"/>
     <junction id="59" type="traffic_light" x="486.79" y="979.77" incLanes="30007[1][0]_0 30007[1][0]_1 30017_0 30017_1" intLanes="" shape="491.73,1053.87 498.19,1053.16 506.84,935.47 500.65,931.03 492.62,931.58 491.85,938.03 485.07,1054.35 491.56,1054.81">
         <request index="0" response="00000" foes="01000"/>
-        <request index="1" response="00001" foes="01001"/>
+        <request index="1" response="00000" foes="01000"/>
         <request index="2" response="00000" foes="01000"/>
         <request index="3" response="00111" foes="00111"/>
-        <request index="4" response="01000" foes="01000"/>
+        <request index="4" response="00000" foes="00000"/>
     </junction>
     <junction id="59-DestinationNode" type="unregulated" x="1466.00" y="1705.72" incLanes="59_0" intLanes="" shape="1466.75,1707.13 1465.25,1704.31"/>
     <junction id="59-SourceNode" type="unregulated" x="1488.61" y="1693.69" incLanes="" intLanes="" shape="1487.86,1692.27 1489.36,1695.10"/>
@@ -1223,7 +1223,7 @@
     <junction id="60" type="priority" x="494.96" y="1053.52" incLanes="30007[1][1][0]_0 30007[1][1][0]_1" intLanes="" shape="501.54,1083.48 495.08,1084.20 495.12,1087.18 498.31,1087.45">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
-        <request index="2" response="000" foes="000"/>
+        <request index="2" response="010" foes="010"/>
     </junction>
     <junction id="60-DestinationNode" type="unregulated" x="1474.98" y="1666.98" incLanes="60_0" intLanes="" shape="1473.60,1667.81 1476.35,1666.16"/>
     <junction id="60-SourceNode" type="unregulated" x="1487.37" y="1687.59" incLanes="" intLanes="" shape="1488.74,1686.77 1485.99,1688.41"/>
@@ -1385,10 +1385,10 @@
     <connection from="30007[0]" to="30022" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="30007[0]" to="30022" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="30007[1][0]" to="30007[1][1][0]" fromLane="0" toLane="0" tl="532" linkIndex="6" dir="r" state="o"/>
-    <connection from="30007[1][0]" to="30014" fromLane="1" toLane="0" tl="532" linkIndex="8" dir="s" state="o"/>
     <connection from="30007[1][0]" to="30007[1][1][0]" fromLane="1" toLane="1" tl="532" linkIndex="7" dir="r" state="o"/>
-    <connection from="30007[1][1][0]" to="30021" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="30007[1][0]" to="30014" fromLane="1" toLane="0" tl="532" linkIndex="8" dir="s" state="o"/>
     <connection from="30007[1][1][0]" to="30007[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="30007[1][1][0]" to="30021" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30007[1][1][0]" to="30007[1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="30007[1][1][1][0]" to="30007[1][1][1][1]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30007[1][1][1][0]" to="30007[1][1][1][1]" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -1476,8 +1476,8 @@
     <connection from="3[1][1][1][1][1][1][1][1][0]" to="1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="r" state="m"/>
-    <connection from="3[1][1][1][1][1][1][1][1][1][1][0]" to="20005" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="3[1][1][1][1][1][1][1][1][1][1][0]" to="20005" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][1][1]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="3[1][1][1][1][1][1][1][1][1][1][1][0]" to="3[1][1][1][1][1][1][1][1][1][1][1][1]" fromLane="1" toLane="1" dir="l" state="M"/>
@@ -1557,8 +1557,8 @@
     <connection from="83[1][0]" to="83[1][1]" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="84[0]" to="84[1][0]+85[1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="84[0]" to="84[1][0]+85[1][1][1][1][1][1][0]" fromLane="0" toLane="1" dir="l" state="m"/>
-    <connection from="84[1][0]+85[1][1][1][1][1][1][0]" to="82[1]" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="84[1][0]+85[1][1][1][1][1][1][0]" to="84[1][1][0]" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="84[1][0]+85[1][1][1][1][1][1][0]" to="82[1]" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="84[1][0]+85[1][1][1][1][1][1][0]" to="85[1][1][1][1][1][1][1]" fromLane="1" toLane="0" dir="l" state="m"/>
     <connection from="84[1][1][0]" to="85[1][1][1][1][0]+84[1][1][1][0]" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="84[1][1][1][1][0]" to="84[1][1][1][1][1][0]+85[1][1][0]" fromLane="0" toLane="0" dir="l" state="m"/>

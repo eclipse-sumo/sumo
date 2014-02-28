@@ -1267,13 +1267,23 @@ NBEdge::computeAngle() {
     // segments are considered to resolve ambiguities)
     const bool hasFromShape = myFrom->getShape().size() > 0; 
     const bool hasToShape = myTo->getShape().size() > 0; 
-    const Position fromCenter = (hasFromShape ? myFrom->getShape().getCentroid() : myFrom->getPosition());
-    const Position toCenter = (hasToShape ? myTo->getShape().getCentroid() : myTo->getPosition());
-    const PositionVector shape = ((hasFromShape || hasToShape) && getNumLanes() > 0 ? 
+    Position fromCenter = (hasFromShape ? myFrom->getShape().getCentroid() : myFrom->getPosition());
+    Position toCenter = (hasToShape ? myTo->getShape().getCentroid() : myTo->getPosition());
+    PositionVector shape = ((hasFromShape || hasToShape) && getNumLanes() > 0 ? 
             (myLaneSpreadFunction == LANESPREAD_RIGHT ? 
              myLanes[getNumLanes() - 1].shape 
              : myLanes[getNumLanes() / 2].shape)
             : myGeom);
+
+    // if the junction shape is suspicious we cannot trust the angle to the centroid
+    if ((hasFromShape && (myFrom->getShape().distance(shape[0]) > 2 * POSITION_EPS
+                || myFrom->getShape().around(shape[-1]))) 
+            || (hasToShape && (myTo->getShape().distance(shape[-1]) > 2 * POSITION_EPS
+                || myTo->getShape().around(shape[0])))) {
+        fromCenter = myFrom->getPosition();
+        toCenter = myTo->getPosition();
+        shape = myGeom;
+    }
 
     const SUMOReal angleLookahead = MIN2(shape.length2D() / 2, ANGLE_LOOKAHEAD);
     const Position referencePosStart = shape.positionAtOffset2D(angleLookahead);
@@ -1287,6 +1297,7 @@ NBEdge::computeAngle() {
     myTotalAngle = NBHelpers::angle(
                        myFrom->getPosition().x(), myFrom->getPosition().y(),
                        myTo->getPosition().x(), myTo->getPosition().y());
+
 }
 
 
