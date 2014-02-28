@@ -2,12 +2,12 @@
 /// @file    PHEMCEP.cpp
 /// @author  Nikolaus Furian
 /// @date    Thu, 13.06.2013
-/// @version $$
+/// @version $Id$
 ///
 // Helper class for PHEM Light, holds a specific CEP for a PHEM emission class
 /****************************************************************************/
-// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
+// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -33,8 +33,14 @@
 #include <utils/common/UtilExceptions.h>
 #include "PHEMCEP.h"
 
-using std::string;
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
                  double vehicleMass, double vehicleLoading, double vehicleMassRot,
                  double crossArea, double cWValue,
@@ -116,10 +122,10 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
         normalizingPower = PHEMCEP::CalcPower(NORMALIZING_SPEED, NORMALIZING_ACCELARATION, 0);
     } // end if
 
-    int headerCount = headerLinePollutants.size();
+    const int headerCount = headerLinePollutants.size();
     for (int i = 0; i < (int)matrixPollutants.size(); i++) {
         for (int j = 0; j < (int)matrixPollutants[i].size(); j++) {
-            if (matrixPollutants[i].size() != headerCount + 1) {
+            if ((int)matrixPollutants[i].size() != headerCount + 1) {
                 return;
             }
 
@@ -128,17 +134,14 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
             } else {
                 pollutantMeasures[j - 1].push_back(matrixPollutants[i][j]);
             } // end if
-
-
         } // end for
     } // end for
 
-    for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
+    for (int i = 0; i < headerCount; i++) {
         _cepCurvePollutants.insert(pollutantIdentifier[i], pollutantMeasures[i]);
     } // end for
 
 } // end of Cep
-
 
 
 PHEMCEP::~PHEMCEP() {
@@ -150,28 +153,24 @@ PHEMCEP::~PHEMCEP() {
     _speedPatternRotational.clear();
 } // end of ~Cep
 
+
 double
 PHEMCEP::CalcPower(double v, double a, double slope) const {
-    double power = 0;
-
-    double rotFactor = PHEMCEP::GetRotationalCoeffecient(v);
-    power += (_massVehicle + _vehicleLoading) * GRAVITY_CONST * (_resistanceF0 + _resistanceF1 * v + _resistanceF4 * pow(v, 4)) * v;
+    const double rotFactor = GetRotationalCoeffecient(v);
+    double power = (_massVehicle + _vehicleLoading) * GRAVITY_CONST * (_resistanceF0 + _resistanceF1 * v + _resistanceF4 * pow(v, 4)) * v;
     power += (_crossSectionalArea * _cwValue * AIR_DENSITY_CONST / 2) * pow(v, 3);
     power += (_massVehicle * rotFactor + _massRot + _vehicleLoading) * a * v;
     power += (_massVehicle + _vehicleLoading) * slope * 0.01 * v;
-
     return power / 950.;
 }
 
+
 double
 PHEMCEP::GetMaxAccel(double v, double a, double gradient) const {
-    double rotFactor = GetRotationalCoeffecient(v);
-    double pMaxNorm = GetPMaxNorm(v);
-    double pMaxForAcc = GetPMaxNorm(v) * _ratedPower - PHEMCEP::CalcPower(v, 0, gradient);
+    const double pMaxForAcc = GetPMaxNorm(v) * _ratedPower - PHEMCEP::CalcPower(v, 0, gradient);
+    return (pMaxForAcc * 1000) / ((_massVehicle * GetRotationalCoeffecient(v) + _massRot + _vehicleLoading) * v);
+}
 
-    return (pMaxForAcc * 1000) / ((_massVehicle * rotFactor + _massRot + _vehicleLoading) * v);
-
-} // end of GetMaxAccel
 
 double
 PHEMCEP::GetEmission(const std::string& pollutant, double power) const {
@@ -235,6 +234,7 @@ PHEMCEP::Interpolate(double px, double p1, double p2, double e1, double e2) cons
     }
     return e1 + (px - p1) / (p2 - p1) * (e2 - e1);
 } // end of Interpolate
+
 
 double
 PHEMCEP::GetRotationalCoeffecient(double speed) const {

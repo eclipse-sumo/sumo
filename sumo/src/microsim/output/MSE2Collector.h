@@ -376,8 +376,6 @@ private:
     SUMOReal mySpeedSum;
     /// @brief The number of started halts [#]
     SUMOReal myStartedHalts;
-    /// @brief The number of halted vehicles [#]
-    SUMOReal myCurrentHaltingsNumber;
     /// @brief The sum of jam lengths [m]
     SUMOReal myJamLengthInMetersSum;
     /// @brief The sum of jam lengths [#veh]
@@ -426,6 +424,8 @@ private:
     unsigned myCurrentJamLengthInVehicles;
     /// @brief The number of started halts in the last step
     unsigned myCurrentStartedHalts;
+    /// @brief The number of halted vehicles [#]
+    SUMOReal myCurrentHaltingsNumber;
     /// @}
 
 
