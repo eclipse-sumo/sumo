@@ -132,16 +132,20 @@ def writeHierarchicalXml(struct, options):
         if options.skip_root:
             outputf.write('<%s' % struct.root.name)
         fields = None
+        enums = {}
         first = True
         for raw in csv.reader(inputf, delimiter=options.delimiter):
             if not fields:
                 fields = raw
+                for f in fields:
+                    enum = struct.getEnumerationByAttr(*f.split('_', 1))
+                    if enum:
+                        enums[f] = enum
             else:
                 row = OrderedDict()
                 for field, entry in zip(fields,raw):
-                    enum = struct.getEnumeration(*field.split('_', 1))
-                    if enum and entry.isdigit():
-                        entry = enum[int(entry)]
+                    if field in enums and entry.isdigit():
+                        entry = enums[field][int(entry)]
                     row[field] = entry
                 if first and not options.skip_root:
                     checkAttributes(outputf, lastRow, row, struct.root, tagStack, 0)
