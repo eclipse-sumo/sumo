@@ -85,6 +85,13 @@ class XsdStructure():
     def getEnumeration(self, name):
         return self._namedEnumerations.get(name, None)
 
+    def getEnumeration(self, ele, attr):
+        if ele in self._namedElements:
+            for a in self._namedElements[ele].attributes:
+                if a.name == attr:
+                    return self._namedEnumerations.get(a.type, None)
+        return None
+
     def getElementStructure(self, entity, checkNestedType=False):
         eleObj = XmlElement(entity)
         if checkNestedType:

@@ -22,7 +22,7 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import print_function
 import os, sys, csv, contextlib
 
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 from optparse import OptionParser
 
 import xsd, xml2csv
@@ -120,25 +120,37 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
 
 
 def writeHierarchicalXml(struct, options):
+    if not struct.root.attributes:
+        options.skip_root = True
     with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
         if options.source.isdigit():
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
             inputf = open(options.source)
-        lastRow = {}
+        lastRow = OrderedDict()
         tagStack = [struct.root.name]
         if options.skip_root:
             outputf.write('<%s' % struct.root.name)
+        fields = None
         first = True
-        for row in csv.DictReader(inputf, delimiter=options.delimiter):
-            if first and not options.skip_root:
-                checkAttributes(outputf, lastRow, row, struct.root, tagStack, 0)
-                first = False
-            checkChanges(outputf, lastRow, row, struct.root, tagStack, 1)
-            lastRow = row
+        for raw in csv.reader(inputf, delimiter=options.delimiter):
+            if not fields:
+                fields = raw
+            else:
+                row = OrderedDict()
+                for field, entry in zip(fields,raw):
+                    enum = struct.getEnumeration(*field.split('_'))
+                    if enum and entry.isdigit():
+                        entry = enum[int(entry)]
+                    row[field] = entry
+                if first and not options.skip_root:
+                    checkAttributes(outputf, lastRow, row, struct.root, tagStack, 0)
+                    first = False
+                checkChanges(outputf, lastRow, row, struct.root, tagStack, 1)
+                lastRow = row
         outputf.write("/>\n")
-        for tag in reversed(tagStack[:-1]):
-            outputf.write("</%s>\n" % tag)
+        for idx in range(len(tagStack)-2, -1, -1):
+            outputf.write("%s</%s>\n" % (idx * '    ', tagStack[idx]))
 
 
 def main():
