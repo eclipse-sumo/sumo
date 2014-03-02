@@ -864,7 +864,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         case VAR_COLOR: {
             RGBColor col;
             if (!server.readTypeCheckingColor(inputStorage, col)) {
-                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The color must be given using the according type.", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The color must be given using the according type.", outputStorage);
             }
             v->getParameter().color.set(col.red(), col.green(), col.blue(), col.alpha());
             v->getParameter().setParameter |= VEHPARS_COLOR_SET;
