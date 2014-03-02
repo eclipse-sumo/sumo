@@ -139,7 +139,7 @@ def writeHierarchicalXml(struct, options):
             else:
                 row = OrderedDict()
                 for field, entry in zip(fields,raw):
-                    enum = struct.getEnumeration(*field.split('_'))
+                    enum = struct.getEnumeration(*field.split('_', 1))
                     if enum and entry.isdigit():
                         entry = enum[int(entry)]
                     row[field] = entry
