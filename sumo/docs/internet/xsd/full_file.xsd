@@ -6,7 +6,7 @@
     <xsd:element name="full-export">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="timestep"/>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="data"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
