@@ -1,32 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- generated on Wed Jan 15 08:45:05 2014 by SUMO sumo Version dev-SVN-r15378
-<?xml version="1.0" encoding="UTF-8"?>
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
-
-    <input>
-        <net-file value="net.net.xml"/>
-        <route-files value="input_routes.rou.xml"/>
-    </input>
-
-    <output>
-        <summary-output value="summary.xml"/>
-    </output>
-
-    <time>
-        <begin value="0"/>
-        <end value="1000"/>
-    </time>
-
-    <report>
-        <no-duration-log value="true"/>
-        <no-step-log value="true"/>
-    </report>
-
-</configuration>
--->
-
 <summary>
     <step time="0.00" loaded="0" inserted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00"/>
     <step time="1.00" loaded="0" inserted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00"/>

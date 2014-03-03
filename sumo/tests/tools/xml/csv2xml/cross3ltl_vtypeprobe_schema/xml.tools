@@ -1,29 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- generated on Wed Sep 11 09:14:48 2013 by SUMO sumo Version dev-SVN-r14643
-<?xml version="1.0" encoding="UTF-8"?>
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
-
-    <input>
-        <net-file value="net.net.xml"/>
-        <route-files value="input_routes.rou.xml"/>
-        <additional-files value="input_additional.add.xml"/>
-    </input>
-
-    <time>
-        <begin value="0"/>
-        <end value="220"/>
-    </time>
-
-    <report>
-        <no-duration-log value="true"/>
-        <no-step-log value="true"/>
-    </report>
-
-</configuration>
--->
-
 <vehicle-type-probes>
     <timestep time="0.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
     <timestep time="10.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
