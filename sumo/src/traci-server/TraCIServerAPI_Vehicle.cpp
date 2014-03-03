@@ -469,20 +469,20 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             // check
             if (pos < 0) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Position on lane must not be negative", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Position on lane must not be negative.", outputStorage);
             }
             // get the actual lane that is referenced by laneIndex
             MSEdge* road = MSEdge::dictionary(roadId);
             if (road == 0) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Unable to retrieve road with given id", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Unable to retrieve road with given id.", outputStorage);
             }
             const std::vector<MSLane*>& allLanes = road->getLanes();
             if ((laneIndex < 0) || laneIndex >= (int)(allLanes.size())) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane existing with such id on the given road", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane with index '" + toString(laneIndex) + "' on road '" + roadId + "'.", outputStorage);
             }
             // Forward command to vehicle
             if (!v->addTraciStop(allLanes[laneIndex], pos, 0, waitTime, parking, triggered)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Vehicle is too close or behind the stop on " + allLanes[laneIndex]->getID(), outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Vehicle is too close or behind the stop on '" + allLanes[laneIndex]->getID() + "'.", outputStorage);
             }
         }
         break;
@@ -526,7 +526,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second lane change parameter must be the duration given as an integer.", outputStorage);
             }
             if ((laneIndex < 0) || (laneIndex >= (int)(v->getEdge()->getLanes().size()))) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane existing with given id on the current road", outputStorage);
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane with index '" + toString(laneIndex) + "' on road '" + v->getEdge()->getID() + "'.", outputStorage);
             }
             // Forward command to vehicle
             std::vector<std::pair<SUMOTime, unsigned int> > laneTimeLine;
