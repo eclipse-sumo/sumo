@@ -98,6 +98,7 @@
             <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
@@ -109,9 +110,10 @@
 
     <xsd:complexType name="emissionsType">
         <xsd:all>
-            <xsd:element name="device.hbefa.probability" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="device.hbefa.explicit" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="device.hbefa.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="device.emissions.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.emissions.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.emissions.deterministic" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

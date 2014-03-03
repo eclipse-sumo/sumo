@@ -158,6 +158,7 @@
             <xsd:element name="visum.verbose-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.skip-duplicates-check" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.railway.oneway-default" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.elevation" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.import-all-lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.ignore-widths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
@@ -205,6 +206,7 @@
             <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
