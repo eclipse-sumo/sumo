@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xsd:include schemaLocation="baseTypes.xsd"/>
+
+    <xsd:element name="tripinfos">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="tripinfo"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="tripinfo">
+        <xsd:complexType>
+            <xsd:attribute name="id" use="required" type="xsd:string"/>
+            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="departLane" use="required" type="xsd:string"/>
+            <xsd:attribute name="departPos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="departSpeed" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="departDelay" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrivalLane" use="required" type="xsd:string"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrivalSpeed" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="duration" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="waitSteps" use="required" type="xsd:nonNegativeInteger"/>
+            <xsd:attribute name="rerouteNo" type="xsd:nonNegativeInteger" use="required"/>
+            <xsd:attribute name="devices" use="required" type="xsd:string"/>
+            <xsd:attribute name="vType" use="required" type="xsd:string"/>
+            <xsd:attribute name="vaporized" type="xsd:nonNegativeInteger" use="optional"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
