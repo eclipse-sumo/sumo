@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  3 15:38:30 2013 by SUMO sumo Version dev-SVN-r15233
+<!-- generated on Mon Mar  3 10:26:49 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -17,6 +17,7 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -57,8 +58,8 @@
         <edge id="end" sampledSeconds="1262.21" traveltime="17.01" density="25.24" occupancy="4.21" waitingTime="0.00" speed="29.39" departed="0" arrived="73" entered="73" left="0" laneChangedFrom="2" laneChangedTo="2"/>
     </interval>
     <interval begin="800.00" end="900.00" id="dump_15">
-        <edge id="beg" sampledSeconds="1270.17" traveltime="17.23" density="25.40" occupancy="4.23" waitingTime="0.00" speed="29.02" departed="80" arrived="0" entered="0" left="80" laneChangedFrom="53" laneChangedTo="53"/>
-        <edge id="end" sampledSeconds="1423.71" traveltime="17.41" density="28.47" occupancy="4.75" waitingTime="0.00" speed="28.73" departed="0" arrived="80" entered="80" left="0" laneChangedFrom="1" laneChangedTo="1"/>
+        <edge id="beg" sampledSeconds="1270.19" traveltime="17.23" density="25.40" occupancy="4.23" waitingTime="0.00" speed="29.02" departed="80" arrived="0" entered="0" left="80" laneChangedFrom="53" laneChangedTo="53"/>
+        <edge id="end" sampledSeconds="1423.77" traveltime="17.41" density="28.48" occupancy="4.75" waitingTime="0.00" speed="28.72" departed="0" arrived="80" entered="80" left="0" laneChangedFrom="1" laneChangedTo="1"/>
     </interval>
     <interval begin="900.00" end="1000.00" id="dump_15">
         <edge id="beg" sampledSeconds="1183.26" traveltime="16.33" density="23.67" occupancy="3.94" waitingTime="0.00" speed="30.62" departed="77" arrived="0" entered="0" left="79" laneChangedFrom="44" laneChangedTo="44"/>

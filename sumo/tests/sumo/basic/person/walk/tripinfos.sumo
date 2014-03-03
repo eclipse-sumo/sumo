@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:10:37 by SUMO sumo Version 0.17.0
+<!-- generated on Mon Mar  3 10:27:16 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -15,6 +15,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -25,6 +26,6 @@
 <tripinfos>
     <personinfo id="p1" depart="0.00">
         <stop arrival="0.00"/>
-        <walk arrival="494.00"/>
+        <walk arrival="499.00"/>
     </personinfo>
 </tripinfos>

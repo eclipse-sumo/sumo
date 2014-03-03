@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  9 12:03:14 2013 by SUMO sumo Version dev-SVN-r14625
+<!-- generated on Mon Mar  3 12:15:08 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -19,6 +19,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -32,7 +33,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" arrival="94.00">
+    <vehicle id="0" depart="0.00" arrival="95.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" replacedAtTime="5.00" probability="0" edges="beg middle end rend"/>
@@ -53,11 +54,12 @@
             <route replacedOnEdge="rend" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="85.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="90.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="95.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="1" depart="20.00" arrival="114.00">
+    <vehicle id="1" depart="20.00" arrival="115.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="20.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" replacedAtTime="25.00" probability="0" edges="beg middle end rend"/>
@@ -78,11 +80,12 @@
             <route replacedOnEdge="rend" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="105.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="115.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="2" depart="40.00" arrival="134.00">
+    <vehicle id="2" depart="40.00" arrival="135.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="40.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" replacedAtTime="45.00" probability="0" edges="beg middle end rend"/>
@@ -103,11 +106,12 @@
             <route replacedOnEdge="rend" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="125.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="135.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="3" depart="60.00" arrival="154.00">
+    <vehicle id="3" depart="60.00" arrival="155.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" replacedAtTime="65.00" probability="0" edges="beg middle end rend"/>
@@ -128,11 +132,12 @@
             <route replacedOnEdge="rend" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="145.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="155.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="4" depart="80.00" arrival="174.00">
+    <vehicle id="4" depart="80.00" arrival="175.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" replacedAtTime="85.00" probability="0" edges="beg middle end rend"/>
@@ -153,11 +158,12 @@
             <route replacedOnEdge="rend" replacedAtTime="160.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="165.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="170.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="175.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="5" depart="100.00" arrival="194.00">
+    <vehicle id="5" depart="100.00" arrival="195.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" replacedAtTime="105.00" probability="0" edges="beg middle end rend"/>
@@ -178,11 +184,12 @@
             <route replacedOnEdge="rend" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="185.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="190.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="195.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="6" depart="120.00" arrival="214.00">
+    <vehicle id="6" depart="120.00" arrival="215.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" replacedAtTime="125.00" probability="0" edges="beg middle end rend"/>
@@ -203,11 +210,12 @@
             <route replacedOnEdge="rend" replacedAtTime="200.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="205.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="210.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="215.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="7" depart="140.00" arrival="234.00">
+    <vehicle id="7" depart="140.00" arrival="235.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" replacedAtTime="145.00" probability="0" edges="beg middle end rend"/>
@@ -228,11 +236,12 @@
             <route replacedOnEdge="rend" replacedAtTime="220.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="225.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="230.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="235.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="8" depart="160.00" arrival="254.00">
+    <vehicle id="8" depart="160.00" arrival="255.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="160.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" replacedAtTime="165.00" probability="0" edges="beg middle end rend"/>
@@ -253,11 +262,12 @@
             <route replacedOnEdge="rend" replacedAtTime="240.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="245.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="250.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="255.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="9" depart="180.00" arrival="274.00">
+    <vehicle id="9" depart="180.00" arrival="275.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="beg" replacedAtTime="185.00" probability="0" edges="beg middle end rend"/>
@@ -278,6 +288,7 @@
             <route replacedOnEdge="rend" replacedAtTime="260.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="265.00" probability="0" edges="beg middle end rend"/>
             <route replacedOnEdge="rend" replacedAtTime="270.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="rend" replacedAtTime="275.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 11 15:09:50 2013 by SUMO sumo Version dev-SVN-r15307
+<!-- generated on Mon Mar  3 10:29:24 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -15,6 +15,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -26,180 +27,180 @@
     <timestep id="0.00"/>
     <timestep id="1.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.02" arrivalTimeBraking="53.02" leaveTime="23.64" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.20" arrivalTimeBraking="53.20" leaveTime="23.81" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="2.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.07" arrivalTimeBraking="53.07" leaveTime="23.68" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.24" arrivalTimeBraking="53.24" leaveTime="23.85" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="3.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.12" arrivalTimeBraking="53.12" leaveTime="23.73" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.29" arrivalTimeBraking="53.29" leaveTime="23.90" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="4.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.16" arrivalTimeBraking="53.16" leaveTime="23.77" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.34" arrivalTimeBraking="53.34" leaveTime="23.95" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="5.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.21" arrivalTimeBraking="53.21" leaveTime="23.82" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.38" arrivalTimeBraking="53.38" leaveTime="23.99" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="6.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.26" arrivalTimeBraking="53.26" leaveTime="23.87" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.43" arrivalTimeBraking="53.43" leaveTime="24.04" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="7.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.30" arrivalTimeBraking="53.30" leaveTime="23.91" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.48" arrivalTimeBraking="53.48" leaveTime="24.09" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="8.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.35" arrivalTimeBraking="53.35" leaveTime="23.96" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.52" arrivalTimeBraking="53.52" leaveTime="24.13" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="9.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.40" arrivalTimeBraking="53.40" leaveTime="24.01" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.57" arrivalTimeBraking="53.57" leaveTime="24.18" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="10.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.45" arrivalTimeBraking="53.45" leaveTime="24.06" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.61" arrivalTimeBraking="53.62" leaveTime="24.23" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="11.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="53.49" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="199.52" arrivalTimeBraking="229.52" leaveTime="202.89" arrivalSpeed="2.60" arrivalSpeedBraking="0.00" leaveSpeed="7.49" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="53.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="201.35" arrivalTimeBraking="231.35" leaveTime="204.71" arrivalSpeed="2.60" arrivalSpeedBraking="0.00" leaveSpeed="7.49" willPass="1"/>
         </link>
     </timestep>
     <timestep id="12.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="53.49" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="105.76" arrivalTimeBraking="135.76" leaveTime="108.20" arrivalSpeed="5.20" arrivalSpeedBraking="0.00" leaveSpeed="8.74" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="53.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="106.67" arrivalTimeBraking="136.67" leaveTime="109.11" arrivalSpeed="5.20" arrivalSpeedBraking="0.00" leaveSpeed="8.74" willPass="1"/>
         </link>
     </timestep>
     <timestep id="13.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="53.49" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="74.84" arrivalTimeBraking="104.84" leaveTime="76.70" arrivalSpeed="7.80" arrivalSpeedBraking="0.00" leaveSpeed="10.50" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="53.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="75.45" arrivalTimeBraking="105.45" leaveTime="77.31" arrivalSpeed="7.80" arrivalSpeedBraking="0.00" leaveSpeed="10.50" willPass="1"/>
         </link>
     </timestep>
     <timestep id="14.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="53.49" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="59.63" arrivalTimeBraking="89.63" leaveTime="61.11" arrivalSpeed="10.40" arrivalSpeedBraking="0.00" leaveSpeed="12.55" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="53.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="60.09" arrivalTimeBraking="90.09" leaveTime="61.57" arrivalSpeed="10.40" arrivalSpeedBraking="0.00" leaveSpeed="12.55" willPass="1"/>
         </link>
     </timestep>
     <timestep id="15.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="53.49" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="50.70" arrivalTimeBraking="80.70" leaveTime="51.93" arrivalSpeed="13.00" arrivalSpeedBraking="0.00" leaveSpeed="14.78" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="53.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="51.07" arrivalTimeBraking="81.07" leaveTime="52.29" arrivalSpeed="13.00" arrivalSpeedBraking="0.00" leaveSpeed="14.78" willPass="1"/>
         </link>
     </timestep>
     <timestep id="16.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="53.49" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="44.92" arrivalTimeBraking="74.92" leaveTime="45.96" arrivalSpeed="15.60" arrivalSpeedBraking="0.00" leaveSpeed="17.11" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="53.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="45.22" arrivalTimeBraking="75.22" leaveTime="46.26" arrivalSpeed="15.60" arrivalSpeedBraking="0.00" leaveSpeed="17.11" willPass="1"/>
         </link>
     </timestep>
     <timestep id="17.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="53.49" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="40.93" arrivalTimeBraking="70.93" leaveTime="41.83" arrivalSpeed="18.20" arrivalSpeedBraking="0.00" leaveSpeed="19.51" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="53.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="41.19" arrivalTimeBraking="71.19" leaveTime="42.09" arrivalSpeed="18.20" arrivalSpeedBraking="0.00" leaveSpeed="19.51" willPass="1"/>
         </link>
     </timestep>
     <timestep id="18.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="53.49" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="38.06" arrivalTimeBraking="68.06" leaveTime="38.86" arrivalSpeed="20.80" arrivalSpeedBraking="0.00" leaveSpeed="21.96" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="53.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="38.29" arrivalTimeBraking="68.29" leaveTime="39.09" arrivalSpeed="20.80" arrivalSpeedBraking="0.00" leaveSpeed="21.96" willPass="1"/>
         </link>
     </timestep>
     <timestep id="19.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="53.49" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="35.95" arrivalTimeBraking="65.95" leaveTime="36.66" arrivalSpeed="23.40" arrivalSpeedBraking="0.00" leaveSpeed="24.43" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="53.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="36.15" arrivalTimeBraking="66.15" leaveTime="36.86" arrivalSpeed="23.40" arrivalSpeedBraking="0.00" leaveSpeed="24.43" willPass="1"/>
         </link>
     </timestep>
     <timestep id="20.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="24.84" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="12.27" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="34.35" arrivalTimeBraking="64.35" leaveTime="34.99" arrivalSpeed="26.00" arrivalSpeedBraking="0.00" leaveSpeed="26.93" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="53.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="34.53" arrivalTimeBraking="64.53" leaveTime="35.18" arrivalSpeed="26.00" arrivalSpeedBraking="0.00" leaveSpeed="26.93" willPass="1"/>
         </link>
     </timestep>
     <timestep id="21.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="23.89" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="20.02" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="63.49" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="24.16" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="18.92" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="63.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="22.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="23.55" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="25.51" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="63.49" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="23.76" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="24.66" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="63.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="23.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="0" impatience="0.00" arrivalTime="23.49" arrivalTimeBraking="23.49" leaveTime="24.10" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="63.49" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="23.66" arrivalTimeBraking="23.66" leaveTime="24.27" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="63.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="24.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="63.49" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="63.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="25.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="63.49" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="63.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="26.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="63.49" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="63.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="27.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="63.49" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="63.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="28.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="63.49" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="63.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="29.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="63.49" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="63.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="30.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="34.84" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="12.27" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="63.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="0.00" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="31.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="33.89" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="20.02" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="34.16" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="18.92" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="32.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="33.55" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="25.51" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="33.76" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="24.66" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="33.00">
         <link from="beg_0" via="" to="middle_0">
-            <approaching id="1" impatience="0.00" arrivalTime="33.49" arrivalTimeBraking="33.49" leaveTime="34.10" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="33.66" arrivalTimeBraking="33.66" leaveTime="34.27" arrivalSpeed="27.80" arrivalSpeedBraking="27.80" leaveSpeed="27.80" willPass="1"/>
         </link>
     </timestep>
     <timestep id="34.00"/>

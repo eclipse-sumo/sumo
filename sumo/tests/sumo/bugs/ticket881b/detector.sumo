@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  4 18:08:58 2013 by SUMO sumo Version dev-SVN-r14576
+<!-- generated on Mon Mar  3 14:00:14 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -12,6 +12,7 @@
     </input>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -20,5 +21,5 @@
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/det_e1_file.xsd">
-   <interval begin="0.00" end="42.00" id="test" nVehContrib="1" flow="85.71" occupancy="1.07" speed="11.11" length="5.00" nVehEntered="1"/>
+   <interval begin="0.00" end="43.00" id="test" nVehContrib="1" flow="83.72" occupancy="1.01" speed="11.46" length="5.00" nVehEntered="1"/>
 </detector>

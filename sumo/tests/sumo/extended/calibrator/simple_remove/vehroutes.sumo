@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  3 16:34:07 2013 by SUMO sumo Version dev-SVN-r15233
+<!-- generated on Mon Mar  3 12:15:14 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -16,6 +16,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -204,27 +205,27 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.0" depart="1.00" arrival="95.00">
+    <vehicle id="veh.0" depart="1.00" arrival="96.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.1" depart="3.00" arrival="98.00">
+    <vehicle id="veh.1" depart="3.00" arrival="99.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.2" depart="6.00" arrival="100.00">
+    <vehicle id="veh.2" depart="6.00" arrival="101.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.3" depart="8.00" arrival="103.00">
+    <vehicle id="veh.3" depart="8.00" arrival="104.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.4" depart="11.00" arrival="105.00">
+    <vehicle id="veh.4" depart="11.00" arrival="106.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.5" depart="13.00" arrival="108.00">
+    <vehicle id="veh.5" depart="13.00" arrival="109.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 

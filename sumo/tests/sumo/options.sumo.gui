@@ -1,1 +1,1 @@
---message-log stdout --error-log stderr -S -Q
+--message-log stdout --error-log stderr

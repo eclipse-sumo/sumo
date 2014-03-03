@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:14:49 by SUMO sumo Version 0.17.0
+<!-- generated on Mon Mar  3 10:28:57 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -16,6 +16,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -26,26 +27,26 @@
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" sampledSeconds="29.95" noise="58.76" traveltime="39.05"/>
+            <lane id="3/1to2/1_0" sampledSeconds="29.00" noise="58.62" traveltime="40.00"/>
         </edge>
         <edge id="4/1to3/1">
-            <lane id="4/1to3/1_0" sampledSeconds="29.35" noise="58.76" traveltime="39.05"/>
+            <lane id="4/1to3/1_0" sampledSeconds="30.30" noise="58.91" traveltime="40.00"/>
         </edge>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
         <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="11.85" noise="54.79" traveltime="39.05"/>
+            <lane id="1/1to0/1_0" sampledSeconds="9.00" noise="53.54" traveltime="40.00"/>
         </edge>
         <edge id="2/1to1/1">
-            <lane id="2/1to1/1_0" sampledSeconds="39.35" noise="60.01" traveltime="39.05"/>
+            <lane id="2/1to1/1_0" sampledSeconds="40.30" noise="60.12" traveltime="40.00"/>
         </edge>
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" sampledSeconds="9.40" noise="53.99" traveltime="39.05"/>
+            <lane id="3/1to2/1_0" sampledSeconds="11.30" noise="54.79" traveltime="40.00"/>
         </edge>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
         <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="27.50" noise="61.48" traveltime="39.05"/>
+            <lane id="1/1to0/1_0" sampledSeconds="30.00" noise="61.77" traveltime="40.00"/>
         </edge>
     </interval>
 </meandata>

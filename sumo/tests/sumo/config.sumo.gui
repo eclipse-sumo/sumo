@@ -1,5 +1,5 @@
 binary:$GUISIM_BINARY
-use_case_record_mode:GUI
+#use_case_record_mode:GUI
 
 [batch_extra_version]
 default:{CLEAR perf}

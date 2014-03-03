@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  9 14:22:50 2013 by SUMO sumo Version dev-SVN-r14631
+<!-- generated on Mon Mar  3 10:27:32 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -16,6 +16,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -24,9 +25,11 @@
 -->
 
 <instantE1>
-    <instantOut id="3/1to2/1" time="50.05" state="enter" vehID="0" speed="10.00" length="3.00" type="t1"/>
-    <instantOut id="3/1to2/1" time="50.35" state="leave" vehID="0" speed="10.00" length="3.00" type="t1" occupancy="0.30"/>
-    <instantOut id="3/1to2/1" time="55.05" state="enter" vehID="1" speed="10.00" length="13.00" type="t2" gap="4.70"/>
+    <instantOut id="3/1to2/1" time="51.00" state="enter" vehID="0" speed="10.00" length="3.00" type="t1"/>
+    <instantOut id="3/1to2/1" time="51.00" state="stay" vehID="0" speed="10.00" length="3.00" type="t1"/>
+    <instantOut id="3/1to2/1" time="51.30" state="leave" vehID="0" speed="10.00" length="3.00" type="t1" occupancy="0.30"/>
+    <instantOut id="3/1to2/1" time="56.00" state="enter" vehID="1" speed="10.00" length="13.00" type="t2" gap="4.70"/>
     <instantOut id="3/1to2/1" time="56.00" state="stay" vehID="1" speed="10.00" length="13.00" type="t2"/>
-    <instantOut id="3/1to2/1" time="56.35" state="leave" vehID="1" speed="10.00" length="13.00" type="t2" occupancy="1.30"/>
+    <instantOut id="3/1to2/1" time="57.00" state="stay" vehID="1" speed="10.00" length="13.00" type="t2"/>
+    <instantOut id="3/1to2/1" time="57.30" state="leave" vehID="1" speed="10.00" length="13.00" type="t2" occupancy="1.30"/>
 </instantE1>

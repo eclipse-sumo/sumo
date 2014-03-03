@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May  7 15:49:14 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Mon Mar  3 10:23:20 2014 by SUMO netconvert Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -30,19 +30,19 @@
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,500.00,0.00" origBoundary="0.00,0.00,500.00,0.00" projParameter="!"/>
 
     <edge id="1" from="0" to="1" priority="-1">
-        <lane id="1_0" index="0" speed="20.00" length="134.96" shape="0.00,-1.65 90.63,-1.65,100.00"/>
+        <lane id="1_0" index="0" speed="20.00" length="241.87" shape="0.00,-1.65 90.63,-1.65,100.00"/>
     </edge>
     <edge id="2" from="1" to="2" priority="-1">
-        <lane id="2_0" index="0" speed="20.00" length="120.25" shape="90.63,-1.65,100.00 200.00,-1.65,50.00"/>
+        <lane id="2_0" index="0" speed="20.00" length="212.25" shape="90.63,-1.65,100.00 200.00,-1.65,50.00"/>
     </edge>
     <edge id="3" from="2" to="3" priority="-1">
-        <lane id="3_0" index="0" speed="20.00" length="120.25" shape="200.00,-1.65,50.00 309.37,-1.65,100.00"/>
+        <lane id="3_0" index="0" speed="20.00" length="212.25" shape="200.00,-1.65,50.00 309.37,-1.65,100.00"/>
     </edge>
     <edge id="4" from="3" to="4" priority="-1">
-        <lane id="4_0" index="0" speed="20.00" length="128.86" shape="309.37,-1.65,100.00 390.63,-1.65"/>
+        <lane id="4_0" index="0" speed="20.00" length="251.30" shape="309.37,-1.65,100.00 390.63,-1.65"/>
     </edge>
     <edge id="5" from="4" to="5" priority="-1">
-        <lane id="5_0" index="0" speed="20.00" length="120.25" shape="390.63,-1.65 500.00,-1.65,50.00"/>
+        <lane id="5_0" index="0" speed="20.00" length="121.24" shape="390.63,-1.65 500.00,-1.65,50.00"/>
     </edge>
 
     <junction id="0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>

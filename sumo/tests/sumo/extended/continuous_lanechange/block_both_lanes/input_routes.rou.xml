@@ -4,7 +4,7 @@
     <vehicle id="v0" type="slow" depart="0" departLane="0" arrivalLane="2">
         <route edges="1si"/>
     </vehicle>
-    <vehicle id="v1" type="fast" depart="20" departPos="125" departLane="0" arrivalLane="0" departSpeed="max">
+    <vehicle id="v1" type="fast" depart="15" departPos="100" departLane="1" arrivalLane="1" departSpeed="max">
         <route edges="1si"/>
     </vehicle>
 </routes>

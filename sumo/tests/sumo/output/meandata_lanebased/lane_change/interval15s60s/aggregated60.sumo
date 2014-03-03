@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 11 10:00:04 2013 by SUMO sumo Version dev-SVN-r15307
+<!-- generated on Mon Mar  3 10:28:28 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -16,6 +16,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -26,22 +27,22 @@
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
         <edge id="1si">
-            <lane id="1si_0" sampledSeconds="2.00" traveltime="31.62" density="0.14" occupancy="0.04" waitingTime="0.00" speed="7.50" departed="2" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="0"/>
-            <lane id="1si_1" sampledSeconds="10.00" traveltime="31.62" density="0.70" occupancy="0.21" waitingTime="0.00" speed="7.50" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="2"/>
-            <lane id="1si_2" sampledSeconds="78.92" traveltime="98.35" density="5.55" occupancy="1.66" waitingTime="42.00" speed="2.41" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="2"/>
+            <lane id="1si_0" sampledSeconds="3.00" traveltime="35.53" density="0.20" occupancy="0.06" waitingTime="0.00" speed="7.04" departed="2" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="0"/>
+            <lane id="1si_1" sampledSeconds="22.00" traveltime="49.15" density="1.47" occupancy="0.44" waitingTime="0.00" speed="5.09" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="2"/>
+            <lane id="1si_2" sampledSeconds="65.92" traveltime="95.27" density="4.39" occupancy="1.32" waitingTime="28.00" speed="2.62" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="2"/>
         </edge>
         <edge id="4o">
-            <lane id="4o_0" sampledSeconds="24.50" traveltime="84.19" density="0.84" occupancy="0.25" waitingTime="0.00" speed="5.80" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="4o_0" sampledSeconds="24.50" traveltime="109.76" density="0.82" occupancy="0.24" waitingTime="0.00" speed="4.56" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
         <edge id="4o">
-            <lane id="4o_0" sampledSeconds="100.00" traveltime="69.81" density="3.41" occupancy="1.02" waitingTime="0.00" speed="7.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="4o_0" sampledSeconds="120.00" traveltime="100.00" density="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
         <edge id="4o">
-            <lane id="4o_0" sampledSeconds="28.00" traveltime="97.73" density="1.91" occupancy="0.57" waitingTime="0.00" speed="5.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="4o_0" sampledSeconds="57.97" traveltime="99.20" density="3.86" occupancy="1.16" waitingTime="0.00" speed="5.04" departed="0" arrived="2" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
 </meandata>

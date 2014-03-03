@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 11 10:01:01 2013 by SUMO sumo Version dev-SVN-r15307
+<!-- generated on Mon Mar  3 13:54:54 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -20,6 +20,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -35,8 +36,14 @@
 
 <bt-output>
     <bt id="right">
-        <seen id="left" tBeg="180.04" observerPosBeg="1512.31,498.35" observerSpeedBeg="13.27" observerLaneIDBeg="end_0" observerLanePosBeg="2506.22" seenPosBeg="1498.35,546.36" seenSpeedBeg="13.89" seenLaneIDBeg="left2end_0" seenLanePosBeg="2447.74" tEnd="182.50" observerPosEnd="1545.84,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="end_0" observerLanePosEnd="2534.00" seenPosEnd="1498.35,514.00" seenSpeedEnd="10.37" seenLaneIDEnd="left2end_0" seenLanePosEnd="2472.00">
-            <recognitionPoint t="182.00" observerPos="1538.91,498.35" observerSpeed="13.89" observerLaneID="end_0" observerLanePos="2520.11" seenPos="1498.35,519.17" seenSpeed="13.89" seenLaneID="left2end_0" seenLanePos="2461.63"/>
+        <seen id="left" tBeg="3.00" observerPosBeg="44.34,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="beg_0" observerLanePosBeg="44.77" seenPosBeg="3.07,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="beg_0" seenLanePosBeg="3.10" tEnd="35.38" observerPosEnd="498.35,500.81" observerSpeedEnd="13.89" observerLaneIDEnd="beg2right_0" observerLanePosEnd="503.14" seenPosEnd="448.41,498.35" seenSpeedEnd="13.89" seenLaneIDEnd="beg_0" seenLanePosEnd="461.47">
+            <recognitionPoint t="5.00" observerPos="71.86,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="72.55" seenPos="30.59,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="30.88"/>
+        </seen>
+        <seen id="left" tBeg="37.00" observerPosBeg="498.35,478.38" observerSpeedBeg="13.89" observerLaneIDBeg="beg2right_0" observerLanePosBeg="517.03" seenPosBeg="470.84,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="beg_0" seenLanePosBeg="475.36" tEnd="38.86" observerPosEnd="498.35,452.76" observerSpeedEnd="13.89" observerLaneIDEnd="beg2right_0" observerLanePosEnd="544.81" seenPosEnd="501.65,502.65" seenSpeedEnd="13.89" seenLaneIDEnd="beg2left_0" seenLanePosEnd="503.14">
+            <recognitionPoint t="38.00" observerPos="498.35,464.62" observerSpeed="13.89" observerLaneID="beg2right_0" observerLanePos="530.92" seenPos="484.60,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="489.25"/>
+        </seen>
+        <seen id="left" tBeg="180.26" observerPosBeg="1503.69,498.35" observerSpeedBeg="10.73" observerLaneIDBeg="end_0" observerLanePosBeg="2507.00" seenPosBeg="1498.35,548.06" seenSpeedBeg="13.89" seenLaneIDBeg="left2end_0" seenLanePosBeg="2475.52" tEnd="183.65" observerPosEnd="1547.55,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="end_0" observerLanePosEnd="2548.11" seenPosEnd="1498.35,507.28" seenSpeedEnd="7.62" seenLaneIDEnd="left2end_0" seenLanePosEnd="2509.14">
+            <recognitionPoint t="182.00" observerPos="1524.88,498.35" observerSpeed="13.33" observerLaneID="end_0" observerLanePos="2520.33" seenPos="1498.35,524.04" seenSpeed="13.89" seenLaneID="left2end_0" seenLanePos="2489.41"/>
         </seen>
     </bt>
 </bt-output>

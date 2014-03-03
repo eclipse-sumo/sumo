@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Feb 23 22:42:06 2014 by SUMO netgenerate Version dev-SVN-r15699
+<!-- generated on Mon Mar  3 10:25:27 2014 by SUMO netgenerate Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netgenerateConfiguration.xsd">
@@ -13,7 +13,7 @@
     </grid_network>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="./tests/traci/set_variable/Vehicle/ignore_junction/net.net.xml"/>
     </output>
 
     <processing>
@@ -24,6 +24,10 @@
         <default.lanenumber value="1"/>
         <default.speed value="10"/>
     </building_defaults>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

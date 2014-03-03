@@ -4,7 +4,7 @@
 	<vehicle id="right" depart="0" departSpeed="13.89">
 		<route edges="beg beg2right right right2end end rend"/>
 	</vehicle>
-	<vehicle id="left" depart="5" departSpeed="13.89">
+	<vehicle id="left" depart="3" departSpeed="13.89">
 		<route edges="beg beg2left left left2end end rend"/>
 	</vehicle>
 
