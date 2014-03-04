@@ -117,6 +117,7 @@ GUILoadThread::run() {
     MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     // do this once again to get parsed options
     MsgHandler::initOutputOptions();
+    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
     GUIGlobals::gRunAfterLoad = oc.getBool("start");
     GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
 
