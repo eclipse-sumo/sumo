@@ -152,11 +152,11 @@ class Statistics:
             min = ''
             if self.printMin:
                 min = 'min %.2f%s, ' % (self.min, 
-                        ('' if self.min_label is None else ' (%s)' % self.min_label))
+                        ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
             result = '%s: count %s, %smax %.2f%s, mean %.2f' % (
                     self.label, len(self.values), min,
                     self.max, 
-                    ('' if self.max_label is None else ' (%s)' % self.max_label), 
+                    ('' if self.max_label is None else ' (%s)' % (self.max_label,)), 
                     self.avg())
             result += ' Q1 %.2f, median %.2f, Q3 %.2f' % self.quartiles()
             if self.abs:
