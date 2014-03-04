@@ -234,24 +234,24 @@ RODFDetector::getRouteVector() const {
 
 
 void
-RODFDetector::addPriorDetector(RODFDetector* det) {
-    myPriorDetectors.push_back(det);
+RODFDetector::addPriorDetector(const RODFDetector* det) {
+    myPriorDetectors.insert(det);
 }
 
 
 void
-RODFDetector::addFollowingDetector(RODFDetector* det) {
-    myFollowingDetectors.push_back(det);
+RODFDetector::addFollowingDetector(const RODFDetector* det) {
+    myFollowingDetectors.insert(det);
 }
 
 
-const std::vector<RODFDetector*>&
+const std::set<const RODFDetector*>&
 RODFDetector::getPriorDetectors() const {
     return myPriorDetectors;
 }
 
 
-const std::vector<RODFDetector*>&
+const std::set<const RODFDetector*>&
 RODFDetector::getFollowerDetectors() const {
     return myFollowingDetectors;
 }
@@ -605,6 +605,12 @@ RODFDetectorCon::getDetector(const std::string& id) const {
 }
 
 
+RODFDetector&
+RODFDetectorCon::getModifiableDetector(const std::string& id) const {
+    return *(myDetectorMap.find(id)->second);
+}
+
+
 bool
 RODFDetectorCon::knows(const std::string& id) const {
     return myDetectorMap.find(id) != myDetectorMap.end();
@@ -841,41 +847,42 @@ RODFDetectorCon::guessEmptyFlows(RODFDetectorFlows& flows) {
     // routes must be built (we have ensured this in main)
     // detector followers/prior must be build (we have ensured this in main)
     //
-    bool changed = true;
-    while (changed) {
-        for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-            RODFDetector* det = *i;
-            const std::vector<RODFDetector*>& prior = det->getPriorDetectors();
-            const std::vector<RODFDetector*>& follower = det->getFollowerDetectors();
-            size_t noFollowerWithRoutes = 0;
-            size_t noPriorWithRoutes = 0;
-            // count occurences of detectors with/without routes
-            std::vector<RODFDetector*>::const_iterator j;
-            for (j = prior.begin(); j != prior.end(); ++j) {
-                if (flows.knows((*j)->getID())) {
-                    ++noPriorWithRoutes;
-                }
+    for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
+        RODFDetector* det = *i;
+        const std::set<const RODFDetector*>& prior = det->getPriorDetectors();
+        const std::set<const RODFDetector*>& follower = det->getFollowerDetectors();
+        size_t noFollowerWithRoutes = 0;
+        size_t noPriorWithRoutes = 0;
+        // count occurences of detectors with/without routes
+        std::set<const RODFDetector*>::const_iterator j;
+        for (j = prior.begin(); j != prior.end(); ++j) {
+            if (flows.knows((*j)->getID())) {
+                ++noPriorWithRoutes;
             }
-            assert(noPriorWithRoutes <= prior.size());
-            for (j = follower.begin(); j != follower.end(); ++j) {
-                if (flows.knows((*j)->getID())) {
-                    ++noFollowerWithRoutes;
-                }
-            }
-            assert(noFollowerWithRoutes <= follower.size());
-
-            // do not process detectors which have no routes
-            if (!flows.knows(det->getID())) {
-                continue;
-            }
-
-            // plain case: some of the following detectors have no routes
-            if (noFollowerWithRoutes == follower.size()) {
-                // the number of vehicles is the sum of all vehicles on prior
-                continue;
-            }
-
         }
+        for (j = follower.begin(); j != follower.end(); ++j) {
+            if (flows.knows((*j)->getID())) {
+                ++noFollowerWithRoutes;
+            }
+        }
+
+        // do not process detectors which have no routes
+        if (!flows.knows(det->getID())) {
+            continue;
+        }
+
+        // plain case: all of the prior detectors have routes
+        if (noPriorWithRoutes == prior.size()) {
+            // the number of vehicles is the sum of all vehicles on prior
+            continue;
+        }
+
+        // plain case: all of the follower detectors have routes
+        if (noFollowerWithRoutes == follower.size()) {
+            // the number of vehicles is the sum of all vehicles on follower
+            continue;
+        }
+
     }
 }
 

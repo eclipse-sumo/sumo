@@ -128,8 +128,8 @@ RODFFrame::fillOptions() {
 
     // register processing options
     // to guess empty flows
-    oc.doRegister("guess-empty-flows", new Option_Bool(false)); // !!! describe
-    oc.addDescription("guess-empty-flows", "Processing", "");
+    oc.doRegister("guess-empty-flows", new Option_Bool(false));
+    oc.addDescription("guess-empty-flows", "Processing", "Derive missing flow values from upstream or downstream (not working!)");
 
     // for guessing source/sink detectors
     oc.doRegister("highway-mode", 'h', new Option_Bool(false)); // !!! describe
