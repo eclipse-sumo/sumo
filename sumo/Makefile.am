@@ -84,7 +84,7 @@ dist-complete: dist dist-doc dist-tests
 	$(am__remove_distdir)
 
 examples:
-	tests/extractTest.py -f tests/examples.txt
+	tests/extractTest.py -x -f tests/examples.txt
 
 sumo$(EXEEXT) netconvert$(EXEEXT) \
         netgenerate$(EXEEXT) duarouter$(EXEEXT) \
