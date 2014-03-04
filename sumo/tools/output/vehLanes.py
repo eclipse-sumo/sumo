@@ -4,7 +4,7 @@
 @file    vehlanes.py
 @author  Jakob Erdmann
 @date    2012-11-20
-@version $Id: vehlanes.py 15692 2014-02-22 09:17:02Z behrisch $
+@version $Id$
 
 Compute a vehroute-like output for lanes based on a sumo netstate-dump
 
@@ -62,4 +62,6 @@ def trackLanes(netstate, out):
         f.write("</routeDiff>\n")
 
 if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        sys.exit("call %s <netstate-dump> <output-file>" % sys.argv[0])
     trackLanes(*sys.argv[1:])
