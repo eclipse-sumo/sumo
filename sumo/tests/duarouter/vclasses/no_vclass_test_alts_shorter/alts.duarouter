@@ -27,7 +27,7 @@
     </vType>
     <vehicle id="0_0" type="0" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="absBeg middle end absEnd"/>
+            <route cost="125.90" probability="1.00000000" edges="absBeg middle end absEnd"/>
         </routeDistribution>
     </vehicle>
 </routes>

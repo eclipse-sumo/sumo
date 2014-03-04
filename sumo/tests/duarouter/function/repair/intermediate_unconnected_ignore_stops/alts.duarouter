@@ -29,7 +29,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <vehicle id="0_0" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="absBeg middle end absEnd"/>
+            <route cost="125.90" probability="1.00000000" edges="absBeg middle end absEnd"/>
         </routeDistribution>
         <stop lane="middle_0" endPos="10.00" duration="10.00"/>
     </vehicle>

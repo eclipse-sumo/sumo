@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:01:43 by SUMO duarouter Version 0.17.0
+<!-- generated on Mon Mar  3 14:00:33 2014 by SUMO duarouter Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <taz-files value="input_districts.taz.xml"/>
+        <additional-files value="input_districts.taz.xml"/>
         <trip-files value="input_trips.trips.xml"/>
     </input>
 
@@ -20,6 +20,7 @@
     </processing>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -29,7 +30,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <vehicle id="0" depart="3.00" fromTaz="1" toTaz="2">
         <routeDistribution last="0">
-            <route cost="91.30" probability="1.00000000" edges="beg2left left left2end end"/>
+            <route cost="92.37" probability="1.00000000" edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 </routes>

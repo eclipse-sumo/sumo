@@ -24,102 +24,102 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <vehicle id="0.0" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.1" depart="0.50">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.2" depart="1.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.3" depart="1.50">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.4" depart="2.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.5" depart="2.50">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.6" depart="3.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.7" depart="3.50">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.8" depart="4.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.9" depart="4.50">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.10" depart="5.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.11" depart="5.50">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.12" depart="6.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.13" depart="6.50">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.14" depart="7.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.15" depart="7.50">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.16" depart="8.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.17" depart="8.50">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.18" depart="9.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="0.19" depart="9.50">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 </routes>
