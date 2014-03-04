@@ -48,7 +48,7 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="DK2008"/>
-                    <xsd:enumeration value="DK2013"/>
+                    <xsd:enumeration value="LC2013"/>
                     <xsd:enumeration value="JE2013"/>
                 </xsd:restriction>
             </xsd:simpleType> 
