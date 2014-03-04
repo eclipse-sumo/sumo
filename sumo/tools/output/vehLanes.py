@@ -25,6 +25,8 @@ from sumolib.output import parse
 def trackLanes(netstate, out):
     # veh_id -> values
     laneTimes = defaultdict(list)
+    laneChanges = defaultdict(lambda: 0)
+    lastEdge = defaultdict(lambda: None)
     arrivals = {}
     running = set()
 
@@ -43,14 +45,20 @@ def trackLanes(netstate, out):
                                     if not vehicle.id in running or laneTimes[vehicle.id][-1][1] != lane.id:
                                         laneTimes[vehicle.id].append((timestep.time, lane.id))
                                         running.add(vehicle.id)
+                                        if lastEdge[vehicle.id] == edge.id:
+                                            laneChanges[vehicle.id] += 1
+                                        lastEdge[vehicle.id] = edge.id
             for veh_id in running:
                 if not veh_id in seen:
                     arrivals[veh_id] = timestep.time
             running = running - set(arrivals.keys())
 
         for veh_id, lt in laneTimes.items():
-            f.write('    <vehicle id="%s" laneTimes="%s" arrival="%s"/>\n' % (
-                veh_id, ' '.join(['%s,%s' % (t,l) for t,l in lt]), arrivals.get(veh_id)))
+            f.write('    <vehicle id="%s" laneTimes="%s" arrival="%s" laneChanges="%s"/>\n' % (
+                veh_id, 
+                ' '.join(['%s,%s' % (t,l) for t,l in lt]), 
+                arrivals.get(veh_id),
+                laneChanges[veh_id]))
         f.write("</routeDiff>\n")
 
 if __name__ == "__main__":
