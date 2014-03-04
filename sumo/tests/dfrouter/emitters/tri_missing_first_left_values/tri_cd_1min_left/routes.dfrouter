@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:00:52 by SUMO dfrouter Version 0.17.0
+<!-- generated on Mon Mar  3 14:00:14 2014 by SUMO dfrouter Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
@@ -27,6 +27,7 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
         <report-empty-detectors value="true"/>
     </report>
 
@@ -36,7 +37,7 @@
 <routes>
 
     <route id="beg_to_end" edges="beg middle end"/>
-    <route id="beg_to_end_1" edges="beg 1toL L Lto2 end"/>
-    <route id="beg_to_end_2" edges="beg 1toR R Rto2 end"/>
+    <route id="beg_to_end_1" edges="beg 1toR R Rto2 end"/>
+    <route id="beg_to_end_2" edges="beg 1toL L Lto2 end"/>
 
 </routes>

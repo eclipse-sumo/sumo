@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May  7 15:49:16 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Mon Mar  3 10:23:22 2014 by SUMO netconvert Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -30,31 +30,31 @@
     <location netOffset="0.00,200.00" convBoundary="0.00,0.00,1300.00,400.00" origBoundary="0.00,-200.00,1300.00,200.00" projParameter="!"/>
 
     <edge id="1toL" from="1" to="L1" priority="-1">
-        <lane id="1toL_0" index="0" speed="19.44" length="195.30" shape="101.65,201.45 101.65,396.75"/>
+        <lane id="1toL_0" index="0" speed="19.44" length="203.09" shape="101.65,201.45 101.65,396.75"/>
     </edge>
     <edge id="1toR" from="1" to="R1" priority="-1">
-        <lane id="1toR_0" index="0" speed="19.44" length="195.30" shape="98.35,195.25 98.35,-0.05"/>
+        <lane id="1toR_0" index="0" speed="19.44" length="200.00" shape="98.35,195.25 98.35,-0.05"/>
     </edge>
     <edge id="L" from="L1" to="L2" priority="-1">
-        <lane id="L_0" index="0" speed="19.44" length="993.50" shape="103.25,398.35 1096.75,398.35"/>
+        <lane id="L_0" index="0" speed="19.44" length="1006.18" shape="103.25,398.35 1096.75,398.35"/>
     </edge>
     <edge id="Lto2" from="L2" to="2" priority="-1">
-        <lane id="Lto2_0" index="0" speed="19.44" length="195.30" shape="1098.35,396.75 1098.35,201.45"/>
+        <lane id="Lto2_0" index="0" speed="19.44" length="203.09" shape="1098.35,396.75 1098.35,201.45"/>
     </edge>
     <edge id="R" from="R1" to="R2" priority="-1">
-        <lane id="R_0" index="0" speed="19.44" length="1000.10" shape="99.95,-1.65 1100.05,-1.65"/>
+        <lane id="R_0" index="0" speed="19.44" length="1000.00" shape="99.95,-1.65 1100.05,-1.65"/>
     </edge>
     <edge id="Rto2" from="R2" to="2" priority="-1">
-        <lane id="Rto2_0" index="0" speed="19.44" length="195.30" shape="1101.65,-0.05 1101.65,195.25"/>
+        <lane id="Rto2_0" index="0" speed="19.44" length="200.00" shape="1101.65,-0.05 1101.65,195.25"/>
     </edge>
     <edge id="beg" from="beg" to="1" priority="-1">
-        <lane id="beg_0" index="0" speed="19.44" length="95.25" shape="0.00,198.35 95.25,198.35"/>
+        <lane id="beg_0" index="0" speed="19.44" length="100.00" shape="0.00,198.35 95.25,198.35"/>
     </edge>
     <edge id="end" from="2" to="end" priority="-1">
-        <lane id="end_0" index="0" speed="19.44" length="95.25" shape="1104.75,198.35 1200.00,198.35"/>
+        <lane id="end_0" index="0" speed="19.44" length="100.00" shape="1104.75,198.35 1200.00,198.35"/>
     </edge>
     <edge id="middle" from="1" to="2" priority="-1">
-        <lane id="middle_0" index="0" speed="19.44" length="990.50" shape="104.75,198.35 1095.25,198.35"/>
+        <lane id="middle_0" index="0" speed="19.44" length="1000.00" shape="104.75,198.35 1095.25,198.35"/>
     </edge>
     <edge id="rend" from="end" to="rend" priority="-1">
         <lane id="rend_0" index="0" speed="19.44" length="100.00" shape="1200.00,198.35 1300.00,198.35"/>

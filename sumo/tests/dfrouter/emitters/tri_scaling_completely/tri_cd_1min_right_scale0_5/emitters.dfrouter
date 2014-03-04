@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/10/13 09:45:52 by SUMO dfrouter Version dev-SVN-r14133
+<!-- generated on Mon Mar  3 14:00:17 2014 by SUMO dfrouter Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
@@ -26,18 +26,22 @@
         <end value="60"/>
     </time>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
 <additional>
     <routeDistribution id="MQ_beg">
         <route refId="beg_to_end" probability="0.00"/>
-        <route refId="beg_to_end_1" probability="0.00"/>
-        <route refId="beg_to_end_2" probability="1.00"/>
+        <route refId="beg_to_end_1" probability="1.00"/>
+        <route refId="beg_to_end_2" probability="0.00"/>
     </routeDistribution>
-    <vehicle id="emitter_MQ_beg_0" depart="0.00" departLane="0" departPos="5.00" departSpeed="max" route="beg_to_end_2"/>
-    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departLane="0" departPos="5.00" departSpeed="max" route="beg_to_end_2"/>
-    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departLane="0" departPos="5.00" departSpeed="max" route="beg_to_end_2"/>
-    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departLane="0" departPos="5.00" departSpeed="max" route="beg_to_end_2"/>
-    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departLane="0" departPos="5.00" departSpeed="max" route="beg_to_end_2"/>
+    <vehicle id="emitter_MQ_beg_0" depart="0.00" departLane="0" departPos="5.00" departSpeed="max" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_12000" depart="12.00" departLane="0" departPos="5.00" departSpeed="max" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_24000" depart="24.00" departLane="0" departPos="5.00" departSpeed="max" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_36000" depart="36.00" departLane="0" departPos="5.00" departSpeed="max" route="beg_to_end_1"/>
+    <vehicle id="emitter_MQ_beg_48000" depart="48.00" departLane="0" departPos="5.00" departSpeed="max" route="beg_to_end_1"/>
 </additional>

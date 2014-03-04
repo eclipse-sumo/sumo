@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:01:11 by SUMO dfrouter Version 0.17.0
+<!-- generated on Mon Mar  3 14:00:25 2014 by SUMO dfrouter Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
@@ -15,6 +15,10 @@
         <routes-output value="routes.rou.xml"/>
         <emitters-output value="emitters.add.xml"/>
     </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -77,8 +81,8 @@
     <route id="34_66_to_39" edges="34_66 31_59 39"/>
     <route id="34_66_to_9" edges="34_66 31_59 46_13 9"/>
     <route id="34_66_to_44" edges="34_66 31_59 46_13 44"/>
-    <route id="34_66_to_15" edges="34_66 31_59 46_13 12 15"/>
     <route id="34_66_to_18" edges="34_66 21_49 18"/>
+    <route id="34_66_to_15" edges="34_66 31_59 46_13 12 15"/>
     <route id="34_66_to_24" edges="34_66 21_49 20 24"/>
     <route id="34_66_to_25_56" edges="34_66 21_49 20 25_56"/>
 
@@ -87,8 +91,8 @@
     <route id="35_65_to_39" edges="35_65 31_59 39"/>
     <route id="35_65_to_9" edges="35_65 31_59 46_13 9"/>
     <route id="35_65_to_44" edges="35_65 31_59 46_13 44"/>
-    <route id="35_65_to_15" edges="35_65 31_59 46_13 12 15"/>
     <route id="35_65_to_18" edges="35_65 21_49 18"/>
+    <route id="35_65_to_15" edges="35_65 31_59 46_13 12 15"/>
     <route id="35_65_to_24" edges="35_65 21_49 20 24"/>
     <route id="35_65_to_25_56" edges="35_65 21_49 20 25_56"/>
 
