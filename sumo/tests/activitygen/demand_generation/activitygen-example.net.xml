@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 25 09:19:58 2014 by SUMO netconvert Version dev-SVN-r15699
+<!-- generated on Mon Mar  3 10:23:23 2014 by SUMO netconvert Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./activitygen/demand_generation/activitygen-example.nod.xml"/>
-        <edge-files value="./activitygen/demand_generation/activitygen-example.edg.xml"/>
+        <node-files value="./tests/activitygen/demand_generation/activitygen-example.nod.xml"/>
+        <edge-files value="./tests/activitygen/demand_generation/activitygen-example.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./activitygen/demand_generation/activitygen-example.net.xml"/>
+        <output-file value="./tests/activitygen/demand_generation/activitygen-example.net.xml"/>
     </output>
 
     <report>
