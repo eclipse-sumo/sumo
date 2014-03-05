@@ -111,7 +111,7 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="emissions"/>
-		    <xsd:enumeration value="hbefa"/> <!-- deprecated in favor of emissions -->
+                    <xsd:enumeration value="hbefa"/> <!-- deprecated in favor of emissions -->
                     <xsd:enumeration value="harmonoise"/>
                 </xsd:restriction>
             </xsd:simpleType>

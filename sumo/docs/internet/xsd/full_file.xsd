@@ -52,14 +52,11 @@
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="CO" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="CO2" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="HC" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="PMx" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="NOx" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="fuel" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="PMx" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="HC" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="noise" use="required" type="nonNegativeFloatType"/>
-
-            <xsd:attribute name="route" use="required" type="xsd:string"/>
-            <xsd:attribute name="type" use="required" type="xsd:string"/>
+            <xsd:attribute name="fuel" use="required" type="nonNegativeFloatType"/>
 
             <xsd:attribute name="maxspeed" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="meanspeed" use="required" type="nonNegativeFloatType"/>
@@ -71,20 +68,20 @@
         <xsd:complexType>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="eclass" use="required" type="xsd:string"/>
-            <xsd:attribute name="CO" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="CO2" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="CO" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="HC" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="PMx" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="NOx" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="fuel" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="PMx" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="noise" use="required" type="nonNegativeFloatType"/>
+            <!-- xsd:attribute name="fuel" use="required" type="nonNegativeFloatType"/ -->
 
             <xsd:attribute name="route" use="required" type="xsd:string"/>
             <xsd:attribute name="type" use="required" type="xsd:string"/>
 
             <xsd:attribute name="waiting" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="lane" use="required" type="xsd:string"/>
-            <xsd:attribute name="pos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="pos_lane" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="speed" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="angle" type="xsd:float" use="required"/>
             <xsd:attribute name="x" type="xsd:float" use="required"/>
