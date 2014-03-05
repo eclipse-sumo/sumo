@@ -39,6 +39,9 @@
 
             <xsd:element name="interval" type="intervalType" minOccurs="0"/>
 
+            <xsd:element name="polygon" type="polygonType" minOccurs="0"/>
+            <xsd:element name="poi" type="poiType" minOccurs="0"/>
+
             <xsd:element name="include" minOccurs="0">
                 <xsd:complexType>
                     <xsd:attribute name="href" type="xsd:string"/>
@@ -260,6 +263,40 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="begin" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="end" type="nonNegativeFloatType" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="polygonType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="color" type="colorType" use="required"/>
+        <xsd:attribute name="fill" type="boolType" use="optional"/>
+        <xsd:attribute name="layer" type="xsd:float" use="optional"/>
+        <xsd:attribute name="shape" type="shapeType" use="required"/>
+        <xsd:attribute name="angle" type="xsd:float" use="optional"/>
+        <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="poiType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="color" type="colorType" use="required"/>
+        <xsd:attribute name="layer" type="xsd:float" use="optional"/>
+        <xsd:attribute name="x" type="xsd:float" use="optional"/>
+        <xsd:attribute name="y" type="xsd:float" use="optional"/>
+        <xsd:attribute name="lon" type="xsd:float" use="optional"/>
+        <xsd:attribute name="lat" type="xsd:float" use="optional"/>
+        <xsd:attribute name="lane" type="xsd:string" use="optional"/>
+        <xsd:attribute name="pos" type="xsd:float" use="optional"/>
+        <xsd:attribute name="angle" type="xsd:float" use="optional"/>
+        <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
+        <xsd:attribute name="width" type="xsd:float" use="optional"/>
+        <xsd:attribute name="height" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>
