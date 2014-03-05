@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/22/13 17:39:43 by SUMO polyconvert Version dev-SVN-r13532
+<!-- generated on 03/05/14 13:14:22 by SUMO polyconvert Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/polyconvertConfiguration.xsd">
@@ -20,11 +20,12 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
     </report>
 
 </configuration>
 -->
 
-<shapes>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <poly id="-974" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="399863.40,5809422.23 399824.64,5809486.66 399823.45,5809472.85 399862.26,5809457.18 399986.69,5809471.75"/>
-</shapes>
+</additional>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:27:17 2014 by SUMO sumo Version dev-SVN-r15793
+<!-- generated on 03/05/14 13:15:55 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -27,7 +27,7 @@
 </configuration>
 -->
 
-<tripinfos>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
     <personinfo id="p1" depart="25.00">
         <stop arrival="25.00"/>
         <ride depart="26.00" arrival="213.00"/>

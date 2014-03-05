@@ -31,7 +31,7 @@
     </output>
 
     <processing>
-        <guess-empty-flows value="false" type="BOOL" help=""/>
+        <guess-empty-flows value="false" type="BOOL" help="Derive missing flow values from upstream or downstream (not working!)"/>
         <highway-mode value="false" synonymes="h" type="BOOL" help="Switches to highway-mode"/>
         <ignore-invalid-detectors value="false" type="BOOL" help="Only warn about unparseable detectors"/>
         <revalidate-detectors value="false" type="BOOL" help="Recomputes detector types even if given"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:26:55 2014 by SUMO sumo Version dev-SVN-r15793
+<!-- generated on 03/05/14 13:15:06 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -28,7 +28,7 @@
 </configuration>
 -->
 
-<summary>
+<summary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/summary_file.xsd">
     <step time="0.00" loaded="11" inserted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00"/>
     <step time="1.00" loaded="11" inserted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00"/>
     <step time="2.00" loaded="11" inserted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00"/>
@@ -415,18 +415,18 @@
     <step time="383.00" loaded="11" inserted="7" running="0" waiting="0" ended="7" meanWaitingTime="0.71" meanTravelTime="95.14"/>
     <step time="384.00" loaded="11" inserted="7" running="0" waiting="0" ended="7" meanWaitingTime="0.71" meanTravelTime="95.14"/>
     <step time="385.00" loaded="11" inserted="7" running="0" waiting="0" ended="7" meanWaitingTime="0.71" meanTravelTime="95.14"/>
-    <step time="386.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="387.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="388.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="389.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="390.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="391.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="392.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="393.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="394.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="395.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="396.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="397.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
-    <step time="398.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.62" meanTravelTime="95.14"/>
+    <step time="386.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="387.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="388.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="389.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="390.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="391.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="392.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="393.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="394.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="395.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="396.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="397.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
+    <step time="398.00" loaded="11" inserted="8" running="1" waiting="0" ended="7" meanWaitingTime="0.63" meanTravelTime="95.14"/>
     <step time="399.00" loaded="11" inserted="9" running="2" waiting="0" ended="7" meanWaitingTime="0.56" meanTravelTime="95.14"/>
 </summary>

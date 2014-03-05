@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02.05.2013 13:54:12 by SUMO gui Version 0.17.0
+<!-- generated on 05.03.2014 13:04:05 by SUMO gui Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
@@ -13,6 +13,7 @@
     <output>
         <netstate-dump value="state.xml"/>
         <tripinfo-output value="tripinfo.xml"/>
+        <save-state.prefix value="state"/>
     </output>
 
     <time>
@@ -24,6 +25,10 @@
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <emissions>
+        <phemlight-path value="./PHEMlight/"/>
+    </emissions>
 
     <traci_server>
         <remote-port value="8813"/>
@@ -37,5 +42,5 @@
 </configuration>
 -->
 
-<tripinfos>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
 </tripinfos>

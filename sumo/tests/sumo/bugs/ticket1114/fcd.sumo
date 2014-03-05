@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan  6 13:32:47 2014 by SUMO sumo Version dev-SVN-r15344
+<!-- generated on 03/05/14 13:22:28 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -15,13 +15,14 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
 </configuration>
 -->
 
-<fcd-export>
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/fcd_file.xsd">
     <timestep time="0.00">
         <vehicle id="v0" x="14.85" y="-17.45" angle="180.00" type="t" speed="0.00" pos="32.55" lane="beg_0" slope="0.00"/>
         <vehicle id="v2" x="8.25" y="-17.45" angle="180.00" type="t" speed="0.00" pos="32.55" lane="beg_2" slope="0.00"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/19/14 22:04:31 by SUMO sumo Version dev-SVN-r15432
+<!-- generated on 03/05/14 13:22:29 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -22,7 +22,12 @@
 
     <report>
         <xml-validation value="never"/>
+        <no-step-log value="true"/>
     </report>
+
+    <emissions>
+        <phemlight-path value="./PHEMlight/"/>
+    </emissions>
 
     <routing>
         <device.rerouting.probability value="1"/>
@@ -33,7 +38,7 @@
 </configuration>
 -->
 
-<tripinfos>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
     <tripinfo id="type1.0" depart="0.00" departLane="gneE0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="116.00" arrivalLane="gneE1_1" arrivalPos="100.00" arrivalSpeed="13.89" duration="116.00" routeLength="956.90" waitSteps="33" rerouteNo="1" devices="vehroute_type1.0 tripinfo_type1.0 routing_type1.0" vType="car" vaporized=""/>
     <tripinfo id="type1.7" depart="15.00" departLane="gneE0_0" departPos="5.10" departSpeed="0.00" departDelay="8.00" arrival="117.00" arrivalLane="gneE1_1" arrivalPos="100.00" arrivalSpeed="13.89" duration="102.00" routeLength="956.90" waitSteps="21" rerouteNo="1" devices="vehroute_type1.7 tripinfo_type1.7 routing_type1.7" vType="car" vaporized=""/>
     <tripinfo id="type1.1" depart="3.00" departLane="gneE0_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="186.00" arrivalLane="gneE1_1" arrivalPos="100.00" arrivalSpeed="13.89" duration="183.00" routeLength="956.90" waitSteps="90" rerouteNo="1" devices="vehroute_type1.1 tripinfo_type1.1 routing_type1.1" vType="car" vaporized=""/>

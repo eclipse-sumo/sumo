@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 11:07:58 2014 by SUMO sumo Version dev-SVN-r15793
+<!-- generated on 03/05/14 13:15:38 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -28,7 +28,7 @@
 </configuration>
 -->
 
-<tripinfos>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
     <tripinfo id="priority.0" depart="0.00" departLane="middle_0" departPos="800.00" departSpeed="26.11" departDelay="0.00" arrival="27.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="26.11" duration="27.00" routeLength="700.00" waitSteps="0" rerouteNo="0" devices="tripinfo_priority.0" vType="tflow" vaporized=""/>
     <tripinfo id="priority.1" depart="4.00" departLane="middle_0" departPos="800.00" departSpeed="34.95" departDelay="1.70" arrival="29.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="31.61" duration="25.00" routeLength="700.00" waitSteps="0" rerouteNo="0" devices="tripinfo_priority.1" vType="tflow" vaporized=""/>
     <tripinfo id="priority.2" depart="5.00" departLane="middle_0" departPos="800.00" departSpeed="27.94" departDelay="0.40" arrival="31.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.94" duration="26.00" routeLength="700.00" waitSteps="0" rerouteNo="0" devices="tripinfo_priority.2" vType="tflow" vaporized=""/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 12:15:23 2014 by SUMO sumo Version dev-SVN-r15793
+<!-- generated on 03/05/14 13:21:19 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -31,7 +31,7 @@
 </configuration>
 -->
 
-<tripinfos>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
     <tripinfo id="HDV_3_1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="8.34" departDelay="0.00" arrival="421.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="8.34" duration="421.00" routeLength="3500.00" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_3_1 emissions_HDV_3_1" vType="HDV_3_1" vaporized="">
         <emissions CO_abs="5654.019833" CO2_abs="2070096.571511" HC_abs="1956.009933" PMx_abs="698.287463" NOx_abs="22061.219240" fuel_abs="825.314797"/>
     </tripinfo>

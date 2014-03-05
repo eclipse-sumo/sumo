@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r15699
+SUMO dfrouter Version dev-SVN-r15814
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Builds vehicle routes for SUMO using detector values.
 
@@ -36,7 +36,8 @@ Output Options:
   --validation-output.add-sources      
 
 Processing Options:
-  --guess-empty-flows                  
+  --guess-empty-flows                  Derive missing flow values from upstream
+                                         or downstream (not working!)
   -h, --highway-mode                   Switches to highway-mode
   --ignore-invalid-detectors           Only warn about unparseable detectors
   --revalidate-detectors               Recomputes detector types even if given

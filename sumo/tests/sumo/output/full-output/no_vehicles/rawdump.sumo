@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:29:24 2014 by SUMO sumo Version dev-SVN-r15793
+<!-- generated on 03/05/14 13:19:46 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -29,7 +29,7 @@
 </configuration>
 -->
 
-<full-export>
+<full-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/full_file.xsd">
     <data timestep="0.00">
         <vehicles/>
         <edges>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/10/13 21:23:53 by SUMO gui Version Codename: Phoenix
+<!-- generated on 03/05/14 13:19:51 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="../net.net.xml"/>
-        <route-files value="no_vehicles/input_routes.rou.xml"/>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional2.add.xml"/>
     </input>
 
     <output>
-        <queue-output value="output.xml"/>
+        <queue-output value="rawdump.xml"/>
     </output>
 
     <time>
@@ -21,6 +21,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -28,7 +29,7 @@
 </configuration>
 -->
 
-<queue-export>
+<queue-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/queue_file.xsd">
     <data timestep="0.00">
         <lanes/>
     </data>

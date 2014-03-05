@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 12 07:45:08 2013 by SUMO sumo Version dev-SVN-r15319
+<!-- generated on 03/05/14 13:05:24 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -25,6 +25,10 @@
         <no-step-log value="true"/>
     </report>
 
+    <emissions>
+        <phemlight-path value="data/./PHEMlight/"/>
+    </emissions>
+
     <traci_server>
         <remote-port value="8813"/>
     </traci_server>
@@ -32,7 +36,7 @@
 </configuration>
 -->
 
-<tripinfos>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
     <tripinfo id="left_0" depart="0.00" departLane="52o_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="92.00" arrivalLane="51i_0" arrivalPos="10.00" arrivalSpeed="11.75" duration="92.00" routeLength="1005.40" waitSteps="0" rerouteNo="0" devices="tripinfo_left_0" vType="typeWE" vaporized=""/>
     <tripinfo id="right_2" depart="3.00" departLane="51o_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="94.00" arrivalLane="52i_0" arrivalPos="10.00" arrivalSpeed="11.45" duration="91.00" routeLength="1005.40" waitSteps="0" rerouteNo="0" devices="tripinfo_right_2" vType="typeWE" vaporized=""/>
     <tripinfo id="left_1" depart="4.00" departLane="52o_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="95.00" arrivalLane="51i_0" arrivalPos="10.00" arrivalSpeed="11.45" duration="91.00" routeLength="1005.40" waitSteps="1" rerouteNo="0" devices="tripinfo_left_1" vType="typeWE" vaporized=""/>

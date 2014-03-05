@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 14:00:11 2014 by SUMO dfrouter Version dev-SVN-r15793
+<!-- generated on 03/05/14 13:05:36 by SUMO dfrouter Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
@@ -32,7 +32,7 @@
 </configuration>
 -->
 
-<additional>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <routeDistribution id="MQ_beg">
         <route refId="beg_to_end" probability="0.25"/>
         <route refId="beg_to_end_1" probability="0.50"/>

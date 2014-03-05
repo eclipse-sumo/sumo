@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/12/13 13:06:45 by SUMO dfrouter Version dev-SVN-r15093
+<!-- generated on 03/05/14 13:06:16 by SUMO dfrouter Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
@@ -28,12 +28,13 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
     </report>
 
 </configuration>
 -->
 
-<additional>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <routeDistribution id="BO">
         <route refId="a4_a5_to_20_10" probability="0.50"/>
         <route refId="a4_a5_to_51_61" probability="0.50"/>

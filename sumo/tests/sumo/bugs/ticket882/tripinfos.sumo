@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 14:00:14 2014 by SUMO sumo Version dev-SVN-r15793
+<!-- generated on 03/05/14 13:22:20 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -23,6 +23,6 @@
 </configuration>
 -->
 
-<tripinfos>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
     <tripinfo id="lane_change_before_leaving" depart="0.00" departLane="1si_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="20.00" arrivalLane="1si_1" arrivalPos="250.00" arrivalSpeed="13.89" duration="20.00" routeLength="244.90" waitSteps="0" rerouteNo="0" devices="tripinfo_lane_change_before_leaving" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
