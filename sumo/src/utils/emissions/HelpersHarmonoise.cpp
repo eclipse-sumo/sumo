@@ -107,7 +107,7 @@ SUMOReal
 HelpersHarmonoise::computeNoise(SUMOEmissionClass c, double v, double a) {
     double* alphaT, *betaT, *alphaR, *betaR;
     double ac = 0;
-    if ((c >= SVE_HDV_3_1 && c <= SVE_HDV_12_12) || (c >= SVE_LNF_D_EU0 &&  c <= SVE_SB_D_EU6)) {
+    if ((c >= SVE_HDV_3_1 && c <= SVE_HDV_12_12) || (c >= SVE_RB_D_EU0 &&  c <= SVE_Solo_LKW_D_EU6_II) ) {
         alphaT = myT_A_C3_Parameter;
         betaT = myT_B_C3_Parameter;
         alphaR = myR_A_C3_Parameter;
