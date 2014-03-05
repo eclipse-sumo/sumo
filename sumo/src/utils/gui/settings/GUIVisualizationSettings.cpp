@@ -161,7 +161,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::GREEN, (SUMOReal)(55 / 3.6));
     scheme.addColor(RGBColor::CYAN, (SUMOReal)(80 / 3.6));
     scheme.addColor(RGBColor::BLUE, (SUMOReal)(120 / 3.6));
-    scheme.addColor(RGBColor::BLACK, (SUMOReal)(150 / 3.6));
+    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(150 / 3.6));
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by waiting time", RGBColor::BLUE);
     scheme.addColor(RGBColor::CYAN, (SUMOReal)30);
