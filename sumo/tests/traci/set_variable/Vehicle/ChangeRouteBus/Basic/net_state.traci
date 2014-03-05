@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/12/14 12:53:16 by SUMO sumo Version dev-SVN-r15531
+<!-- generated on Wed Mar  5 22:14:17 2014 by SUMO sumo Version dev-SVN-r15830
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -409,10 +409,10 @@
     </timestep>
     <timestep time="42.00">
         <edge id="e_m5">
-            <lane id="e_m5_0"/>
-            <lane id="e_m5_1">
+            <lane id="e_m5_0">
                 <vehicle id="bus_1" pos="294.91" speed="32.56"/>
             </lane>
+            <lane id="e_m5_1"/>
             <lane id="e_m5_2"/>
         </edge>
     </timestep>
@@ -453,19 +453,19 @@
         </edge>
     </timestep>
     <timestep time="47.00">
-        <edge id="e_m6">
-            <lane id="e_m6_0"/>
-            <lane id="e_m6_1">
-                <vehicle id="bus_1" pos="7.46" speed="43.65"/>
+        <edge id="e_m5">
+            <lane id="e_m5_0"/>
+            <lane id="e_m5_1">
+                <vehicle id="bus_1" pos="491.36" speed="43.65"/>
             </lane>
-            <lane id="e_m6_2"/>
+            <lane id="e_m5_2"/>
         </edge>
     </timestep>
     <timestep time="48.00">
         <edge id="e_m6">
             <lane id="e_m6_0"/>
             <lane id="e_m6_1">
-                <vehicle id="bus_1" pos="52.65" speed="45.19"/>
+                <vehicle id="bus_1" pos="36.55" speed="45.19"/>
             </lane>
             <lane id="e_m6_2"/>
         </edge>
@@ -474,7 +474,7 @@
         <edge id="e_m6">
             <lane id="e_m6_0"/>
             <lane id="e_m6_1">
-                <vehicle id="bus_1" pos="100.33" speed="47.68"/>
+                <vehicle id="bus_1" pos="84.23" speed="47.68"/>
             </lane>
             <lane id="e_m6_2"/>
         </edge>
@@ -483,7 +483,7 @@
         <edge id="e_m6">
             <lane id="e_m6_0"/>
             <lane id="e_m6_1">
-                <vehicle id="bus_1" pos="149.74" speed="49.41"/>
+                <vehicle id="bus_1" pos="133.64" speed="49.41"/>
             </lane>
             <lane id="e_m6_2"/>
         </edge>
@@ -492,7 +492,7 @@
         <edge id="e_m6">
             <lane id="e_m6_0"/>
             <lane id="e_m6_1">
-                <vehicle id="bus_1" pos="200.81" speed="51.08"/>
+                <vehicle id="bus_1" pos="184.71" speed="51.08"/>
             </lane>
             <lane id="e_m6_2"/>
         </edge>
@@ -501,7 +501,7 @@
         <edge id="e_m6">
             <lane id="e_m6_0"/>
             <lane id="e_m6_1">
-                <vehicle id="bus_1" pos="253.72" speed="52.90"/>
+                <vehicle id="bus_1" pos="237.62" speed="52.90"/>
             </lane>
             <lane id="e_m6_2"/>
         </edge>
@@ -510,7 +510,7 @@
         <edge id="e_m6">
             <lane id="e_m6_0"/>
             <lane id="e_m6_1">
-                <vehicle id="bus_1" pos="308.32" speed="54.60"/>
+                <vehicle id="bus_1" pos="292.22" speed="54.60"/>
             </lane>
             <lane id="e_m6_2"/>
         </edge>
@@ -519,7 +519,7 @@
         <edge id="e_m6">
             <lane id="e_m6_0"/>
             <lane id="e_m6_1">
-                <vehicle id="bus_1" pos="364.31" speed="55.99"/>
+                <vehicle id="bus_1" pos="348.21" speed="55.99"/>
             </lane>
             <lane id="e_m6_2"/>
         </edge>
@@ -528,24 +528,24 @@
         <edge id="e_m6">
             <lane id="e_m6_0"/>
             <lane id="e_m6_1">
-                <vehicle id="bus_1" pos="421.65" speed="57.34"/>
+                <vehicle id="bus_1" pos="405.55" speed="57.34"/>
             </lane>
             <lane id="e_m6_2"/>
         </edge>
     </timestep>
     <timestep time="56.00">
-        <edge id="e_shape0">
-            <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="0.59" speed="59.54"/>
+        <edge id="e_m6">
+            <lane id="e_m6_0"/>
+            <lane id="e_m6_1">
+                <vehicle id="bus_1" pos="465.09" speed="59.54"/>
             </lane>
-            <lane id="e_shape0_1"/>
-            <lane id="e_shape0_2"/>
+            <lane id="e_m6_2"/>
         </edge>
     </timestep>
     <timestep time="57.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="59.95" speed="59.36"/>
+                <vehicle id="bus_1" pos="24.45" speed="59.36"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -554,7 +554,7 @@
     <timestep time="58.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="119.20" speed="59.25"/>
+                <vehicle id="bus_1" pos="83.70" speed="59.25"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -563,7 +563,7 @@
     <timestep time="59.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="178.98" speed="59.78"/>
+                <vehicle id="bus_1" pos="143.48" speed="59.78"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -572,7 +572,7 @@
     <timestep time="60.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="237.74" speed="58.76"/>
+                <vehicle id="bus_1" pos="202.24" speed="58.76"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -581,7 +581,7 @@
     <timestep time="61.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="297.50" speed="59.76"/>
+                <vehicle id="bus_1" pos="262.00" speed="59.76"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -590,7 +590,7 @@
     <timestep time="62.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="356.66" speed="59.17"/>
+                <vehicle id="bus_1" pos="321.16" speed="59.17"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -599,7 +599,7 @@
     <timestep time="63.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="416.47" speed="59.80"/>
+                <vehicle id="bus_1" pos="380.97" speed="59.80"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -608,7 +608,7 @@
     <timestep time="64.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="476.43" speed="59.96"/>
+                <vehicle id="bus_1" pos="440.93" speed="59.96"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -617,7 +617,7 @@
     <timestep time="65.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="536.07" speed="59.64"/>
+                <vehicle id="bus_1" pos="500.57" speed="59.64"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -626,7 +626,7 @@
     <timestep time="66.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="595.36" speed="59.29"/>
+                <vehicle id="bus_1" pos="559.86" speed="59.29"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -635,7 +635,7 @@
     <timestep time="67.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="654.15" speed="58.79"/>
+                <vehicle id="bus_1" pos="618.65" speed="58.79"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -644,7 +644,7 @@
     <timestep time="68.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="714.06" speed="59.91"/>
+                <vehicle id="bus_1" pos="678.56" speed="59.91"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -653,7 +653,7 @@
     <timestep time="69.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="773.83" speed="59.77"/>
+                <vehicle id="bus_1" pos="738.33" speed="59.77"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>
@@ -662,7 +662,7 @@
     <timestep time="70.00">
         <edge id="e_shape0">
             <lane id="e_shape0_0">
-                <vehicle id="bus_1" pos="832.54" speed="58.71"/>
+                <vehicle id="bus_1" pos="797.04" speed="58.71"/>
             </lane>
             <lane id="e_shape0_1"/>
             <lane id="e_shape0_2"/>

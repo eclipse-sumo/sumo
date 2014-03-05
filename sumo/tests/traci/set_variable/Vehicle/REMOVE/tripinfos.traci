@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:27:36 by SUMO sumo Version 0.17.0
+<!-- generated on Wed Mar  5 22:14:45 2014 by SUMO sumo Version dev-SVN-r15830
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -16,6 +16,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -26,10 +27,10 @@
 </configuration>
 -->
 
-<tripinfos>
-    <tripinfo id="veh0" depart="0.00" departLane="e_m0_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="25.00" arrivalLane="e_m0_0" arrivalPos="480.60" arrivalSpeed="19.20" duration="25.00" routeLength="3420.95" waitSteps="0" rerouteNo="0" devices="tripinfo_veh0" vType="DEFAULT_VEHTYPE" vaporized="0"/>
-    <tripinfo id="veh1" depart="4.00" departLane="e_m0_0" departPos="0.00" departSpeed="0.00" departDelay="3.00" arrival="26.00" arrivalLane="e_m0_0" arrivalPos="480.60" arrivalSpeed="16.80" duration="22.00" routeLength="3420.95" waitSteps="0" rerouteNo="0" devices="tripinfo_veh1" vType="DEFAULT_VEHTYPE" vaporized="0"/>
-    <tripinfo id="veh2" depart="8.00" departLane="e_m0_0" departPos="0.00" departSpeed="0.00" departDelay="6.00" arrival="27.00" arrivalLane="e_m0_0" arrivalPos="480.60" arrivalSpeed="14.40" duration="19.00" routeLength="3420.95" waitSteps="0" rerouteNo="0" devices="tripinfo_veh2" vType="DEFAULT_VEHTYPE" vaporized="0"/>
-    <tripinfo id="veh3" depart="12.00" departLane="e_m0_0" departPos="0.00" departSpeed="0.00" departDelay="9.00" arrival="28.00" arrivalLane="e_m0_0" arrivalPos="480.60" arrivalSpeed="12.00" duration="16.00" routeLength="3420.95" waitSteps="0" rerouteNo="0" devices="tripinfo_veh3" vType="DEFAULT_VEHTYPE" vaporized="0"/>
-    <tripinfo id="veh4" depart="16.00" departLane="e_m0_0" departPos="0.00" departSpeed="0.00" departDelay="12.00" arrival="29.00" arrivalLane="e_m0_0" arrivalPos="480.60" arrivalSpeed="9.60" duration="13.00" routeLength="3420.95" waitSteps="0" rerouteNo="0" devices="tripinfo_veh4" vType="DEFAULT_VEHTYPE" vaporized="0"/>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tripinfo_file.xsd">
+    <tripinfo id="veh0" depart="0.00" departLane="e_m0_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="25.00" arrivalLane="e_m0_0" arrivalPos="500.00" arrivalSpeed="19.20" duration="25.00" routeLength="3500.00" waitSteps="0" rerouteNo="0" devices="tripinfo_veh0" vType="DEFAULT_VEHTYPE" vaporized="0"/>
+    <tripinfo id="veh1" depart="4.00" departLane="e_m0_0" departPos="0.00" departSpeed="0.00" departDelay="3.00" arrival="26.00" arrivalLane="e_m0_0" arrivalPos="500.00" arrivalSpeed="16.80" duration="22.00" routeLength="3500.00" waitSteps="0" rerouteNo="0" devices="tripinfo_veh1" vType="DEFAULT_VEHTYPE" vaporized="0"/>
+    <tripinfo id="veh2" depart="8.00" departLane="e_m0_0" departPos="0.00" departSpeed="0.00" departDelay="6.00" arrival="27.00" arrivalLane="e_m0_0" arrivalPos="500.00" arrivalSpeed="14.40" duration="19.00" routeLength="3500.00" waitSteps="0" rerouteNo="0" devices="tripinfo_veh2" vType="DEFAULT_VEHTYPE" vaporized="0"/>
+    <tripinfo id="veh3" depart="12.00" departLane="e_m0_0" departPos="0.00" departSpeed="0.00" departDelay="9.00" arrival="28.00" arrivalLane="e_m0_0" arrivalPos="500.00" arrivalSpeed="12.00" duration="16.00" routeLength="3500.00" waitSteps="0" rerouteNo="0" devices="tripinfo_veh3" vType="DEFAULT_VEHTYPE" vaporized="0"/>
+    <tripinfo id="veh4" depart="16.00" departLane="e_m0_0" departPos="0.00" departSpeed="0.00" departDelay="12.00" arrival="29.00" arrivalLane="e_m0_0" arrivalPos="500.00" arrivalSpeed="9.60" duration="13.00" routeLength="3500.00" waitSteps="0" rerouteNo="0" devices="tripinfo_veh4" vType="DEFAULT_VEHTYPE" vaporized="0"/>
 </tripinfos>
