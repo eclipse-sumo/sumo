@@ -119,7 +119,7 @@ for platform in ["Win32", "x64"]:
                 if f.count('/') == 1:
                     write = False
                 if f.endswith('/') and f.count('/') == 2:
-                    write = (f.endswith('/bin/') or f.endswith('/examples/') or f.endswith('/tools/'))
+                    write = (f.endswith('/bin/') or f.endswith('/examples/') or f.endswith('/tools/') or f.endswith('/data/'))
                     if f.endswith('/bin/'):
                         binDir = f
                 elif write or os.path.basename(f) in ["COPYING", "README"]:
