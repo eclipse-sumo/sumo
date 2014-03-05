@@ -41,6 +41,7 @@
 #include <guinetload/GUITriggerBuilder.h>
 #include <guisim/GUIVehicleControl.h>
 #include <microsim/output/MSDetectorControl.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
