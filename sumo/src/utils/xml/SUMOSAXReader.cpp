@@ -223,7 +223,7 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
                 WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
                 return 0;
             }
-            const std::string file = sumoPath + std::string("/docs/internet/xsd") + url.substr(pos);
+            const std::string file = sumoPath + std::string("/data/xsd") + url.substr(pos);
             if (FileHelpers::exists(file)) {
                 XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(file.c_str());
                 XERCES_CPP_NAMESPACE::InputSource* const result = new XERCES_CPP_NAMESPACE::LocalFileInputSource(t);
