@@ -334,15 +334,15 @@ MSFrame::fillOptions() {
 void
 MSFrame::buildStreams() {
     // standard outputs
-    OutputDevice::createDeviceByOption("netstate-dump", "netstate");
-    OutputDevice::createDeviceByOption("summary-output", "summary");
-    OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
+    OutputDevice::createDeviceByOption("netstate-dump", "netstate", "netstate_file.xsd");
+    OutputDevice::createDeviceByOption("summary-output", "summary", "summary_file.xsd");
+    OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos", "tripinfo_file.xsd");
 
     //extended
-    OutputDevice::createDeviceByOption("fcd-output", "fcd-export");
-    OutputDevice::createDeviceByOption("emission-output", "emission-export");
-    OutputDevice::createDeviceByOption("full-output", "full-export");
-    OutputDevice::createDeviceByOption("queue-output", "queue-export");
+    OutputDevice::createDeviceByOption("fcd-output", "fcd-export", "fcd_file.xsd");
+    OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
+    OutputDevice::createDeviceByOption("full-output", "full-export", "full_file.xsd");
+    OutputDevice::createDeviceByOption("queue-output", "queue-export", "queue_file.xsd");
 
     //OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");

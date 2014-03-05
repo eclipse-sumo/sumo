@@ -97,13 +97,15 @@ public:
      *  within XML-declarations of structures which paths already is aware of the
      *  cwd.
      *
-     * @param[in] optionName The name of the option to use for retrieving the output definition
+     * @param[in] optionName  The name of the option to use for retrieving the output definition
      * @param[in] rootElement The root element to use (XML-output)
+     * @param[in] schemaFile  The basename of the schema file to use (XML-output)
      * @return Whether a device was built (the option was set)
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
     static bool createDeviceByOption(const std::string& optionName,
-                                     const std::string& rootElement = "");
+                                     const std::string& rootElement = "",
+                                     const std::string& schemaFile = "");
 
 
     /** @brief Returns the device described by the option
