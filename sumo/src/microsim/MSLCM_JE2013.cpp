@@ -81,11 +81,11 @@
 
 #define URGENCY (SUMOReal)2.0
 
-#define ROUNDABOUT_DIST_BONUS (SUMOReal)80.0
+#define ROUNDABOUT_DIST_BONUS (SUMOReal)100.0
 
 #define CHANGE_PROB_THRESHOLD_RIGHT (SUMOReal)2.0
 #define CHANGE_PROB_THRESHOLD_LEFT (SUMOReal)0.2
-#define KEEP_RIGHT_TIME (SUMOReal)6.0 // the number of seconds after which a vehicle should move to the right lane
+#define KEEP_RIGHT_TIME (SUMOReal)5.0 // the number of seconds after which a vehicle should move to the right lane
 #define KEEP_RIGHT_ACCEPTANCE (SUMOReal)2.0 // calibration factor for determining the desire to keep right
 
 #define OVERTAKE_RIGHT_FORBIDDEN true // This holds true for german traffic but should be made configurable to model american traffic
@@ -93,7 +93,7 @@
 //#define DEBUG_COND (myVehicle.getID() == "pkw22806" || myVehicle.getID() == "pkw22823")
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
-//#define DEBUG_COND (myVehicle.getID() == "2762") // test stops_overtaking
+//#define DEBUG_COND (myVehicle.getID() == "Costa_12_13") // test stops_overtaking
 #define DEBUG_COND false
 
 // debug function
@@ -840,6 +840,7 @@ MSLCM_JE2013::_wantsChange(
                    && neigh.bestContinuations.back()->getLinkCont().size() != 0
                    && roundaboutEdgesAhead == 0) {
             // VARIANT_21 (stayOnBest)
+            // XXX this should depend on distance somehow
             // we do not want to leave the best lane for a lane which leads elsewhere
             // unless our leader is stopped or we are approaching a roundabout
             if (gDebugFlag2) {
