@@ -70,8 +70,11 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     authorFiles[self._currAuthor] = set()
                 authorFiles[self._currAuthor].add(self._out.name)
             if "thank" in msg:
-                print >> self._out, "THANKS", " ".join(msg.splitlines())
-                print >> log, "thank %s %s" % (msg, self._out.name)
+                try:
+                    print >> self._out, "THANKS", " ".join(msg.splitlines())
+                    print >> log, "thank %s %s" % (msg, self._out.name)
+                except UnicodeEncodeError:
+                    pass
                 authorFiles["thank"].add(self._out.name)
 
 def checkAuthors(fullName, pattern):

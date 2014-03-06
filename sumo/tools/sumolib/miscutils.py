@@ -1,6 +1,6 @@
 """
 @file    miscutils.py
-@author  Jakob.Erdmann@dlr.de
+@author  Jakob Erdmann
 @date    2012-05-08
 @version $Id$
 
