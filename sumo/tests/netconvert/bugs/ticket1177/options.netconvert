@@ -1,2 +1,2 @@
---no-internal-links  --ramps.guess --ramps.ramp-length 250 --edge-files=input_plain.edg.xml --node-files=input_plain.nod.xml --plain-output-prefix=plain
+--no-internal-links  --ramps.guess --ramps.ramp-length 250 --edge-files=input_plain.edg.xml --node-files=input_plain.nod.xml --plain-output-prefix=ignore
 
