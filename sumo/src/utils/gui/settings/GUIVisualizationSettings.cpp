@@ -179,7 +179,6 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor::BLUE, (SUMOReal)(120 / 3.6));
     scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(150 / 3.6));
     vehicleColorer.addScheme(scheme);
-    vehicleColorer.addScheme(scheme);
     // ... emissions ...
     scheme = GUIColorScheme("by CO2 emissions", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (SUMOReal)5.);
