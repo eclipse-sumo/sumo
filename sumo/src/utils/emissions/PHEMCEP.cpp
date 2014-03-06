@@ -79,8 +79,8 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
     } // end for
 
     // get size of powerPatterns
-    _sizeOfPatternFC = matrixFC.size();
-    _sizeOfPatternPollutants = matrixPollutants.size();
+    _sizeOfPatternFC = (int)matrixFC.size();
+    _sizeOfPatternPollutants = (int)matrixPollutants.size();
 
     // initialize measures
     for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
@@ -122,7 +122,7 @@ PHEMCEP::PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
         normalizingPower = PHEMCEP::CalcPower(NORMALIZING_SPEED, NORMALIZING_ACCELARATION, 0);
     } // end if
 
-    const int headerCount = headerLinePollutants.size();
+    const int headerCount = (int)headerLinePollutants.size();
     for (int i = 0; i < (int)matrixPollutants.size(); i++) {
         for (int j = 0; j < (int)matrixPollutants[i].size(); j++) {
             if ((int)matrixPollutants[i].size() != headerCount + 1) {
@@ -260,14 +260,14 @@ PHEMCEP::FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, std::vector<d
     } // end if
 
     if (value >= pattern.back()) {
-        lowerIndex = pattern.size() - 1;
-        upperIndex = pattern.size() - 1;
+        lowerIndex = (int)pattern.size() - 1;
+        upperIndex = (int)pattern.size() - 1;
         return;
     } // end if
 
     // bisection search to find correct position in power pattern
-    int middleIndex = (pattern.size() - 1) / 2;
-    upperIndex = pattern.size() - 1;
+    int middleIndex = ((int)pattern.size() - 1) / 2;
+    upperIndex = (int)pattern.size() - 1;
     lowerIndex = 0;
 
     while (upperIndex - lowerIndex > 1) {
