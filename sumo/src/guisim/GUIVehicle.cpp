@@ -1236,7 +1236,7 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
         case 10:
             return getLastLaneChangeOffset();
         case 11:
-            return getMaxSpeed();
+            return MIN2(getMaxSpeed(), getLane()->getVehicleMaxSpeed(this));
         case 12:
             return getCO2Emissions();
         case 13:
