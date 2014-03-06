@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 06 Mar 2014 08:50:57 AM CET by Netedit Version dev-SVN-r15841
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/scr1/erdm_ja/debug/1177/net.net.xml"/>
+        <plain-output-prefix value="/scr1/erdm_ja/debug/1177/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-200.00,0.00,200.00,0.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <node id="C" x="0.00" y="0.00" type="priority"/>
+    <node id="E" x="200.00" y="0.00" type="dead_end"/>
+    <node id="W" x="-200.00" y="0.00" type="dead_end"/>
+</nodes>

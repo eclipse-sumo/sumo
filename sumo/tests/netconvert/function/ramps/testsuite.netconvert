@@ -38,3 +38,4 @@ off_ramp_nosplit
 
 # if edges in opposite directions are involved no ramp should be built
 off_turnaround_noramp
+on_turnaround_noramp

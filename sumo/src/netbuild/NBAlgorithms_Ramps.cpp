@@ -429,11 +429,24 @@ NBRampsComputer::fulfillsRampConstraints(
     if (potHighway->getNumLanes() + potRamp->getNumLanes() <= other->getNumLanes()) {
         return false;
     }
-    // check conditions
     // is it really a highway?
     SUMOReal maxSpeed = MAX3(potHighway->getSpeed(), other->getSpeed(), potRamp->getSpeed());
     if (maxSpeed < minHighwaySpeed) {
         return false;
+    }
+    // is any of the connections a turnaround?
+    if (other->getToNode() == potHighway->getFromNode()) {
+        // off ramp
+        if (other->isTurningDirectionAt(other->getToNode(), potHighway) ||
+                other->isTurningDirectionAt(other->getToNode(), potRamp)) {
+            return false;
+        }
+    } else {
+        // on ramp
+        if (other->isTurningDirectionAt(other->getFromNode(), potHighway) ||
+                other->isTurningDirectionAt(other->getFromNode(), potRamp)) {
+            return false;
+        }
     }
     /*
     if (potHighway->getSpeed() < minHighwaySpeed || other->getSpeed() < minHighwaySpeed) {
