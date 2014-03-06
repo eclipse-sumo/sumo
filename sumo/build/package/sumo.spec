@@ -63,9 +63,10 @@ find . -name "*.jar" | xargs rm
 %makeinstall
 %__mkdir_p %{buildroot}%{_prefix}/lib/sumo
 rm -rf tools/contributed/traci4j
-cp -a tools/* %{buildroot}%{_prefix}/lib/sumo
+cp -a tools data %{buildroot}%{_prefix}/lib/sumo
 %__mkdir_p %{buildroot}%{_bindir}
-%__ln_s ../lib/sumo/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
+%__ln_s ../../bin %{buildroot}%{_prefix}/lib/sumo
+%__ln_s ../lib/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
 install -d -m 755 %{buildroot}%{_mandir}/man1
 install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
 install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/applications/%{name}.desktop
