@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -76,6 +76,19 @@ public class Vehicle {
 	public static SumoCommand getAllowedSpeed(String vehID){
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ALLOWED_SPEED, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
+	
+	
+	/**
+	 * Return the leading vehicle id together with the distance.
+      The dist parameter defines the maximum lookahead, 0 calculates a lookahead from the brake gap.
+	 */
+
+	public static SumoCommand getLeader(String vehID, double dist){
+		Object[] array = new Object[]{dist};
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_LEADER, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_COMPOUND);
+	}
+	
+	
 	
 	
 	/**
@@ -366,7 +379,7 @@ public class Vehicle {
 	}
 
 	/**
-	 * getWaitingTime
+	 * The waiting time of a vehicle is defined as the time (in seconds) spent with a speed below 0.1m/s since the last time it was faster than 0.1m/s. (basically, the waiting time of a vehicle is reset to 0 every time it moves).
 	 */
 
 	public static SumoCommand getWaitingTime(String vehID){

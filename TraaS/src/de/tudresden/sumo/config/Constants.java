@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -27,48 +27,55 @@ package de.tudresden.sumo.config;
 
 public class Constants {
 	
+	
+	public static final int ADD_FULL = 0x85;
+	
+	public static final int CMD_CLEAR_PENDING_VEHICLES = 0x94;
+	   
+	public static final int VAR_LEADER = 0x68;
 
+	
 	/** how lane changing is performed (set: vehicle)*/
-	public static final int VAR_LANECHANGE_MODE = 0x182;
+	public static final int VAR_LANECHANGE_MODE = 0xb6;
 
 	/** maximum speed regarding max speed on the current lane and speed factor (get: vehicle)*/
-	public static final int VAR_ALLOWED_SPEED = 0x183;
+	public static final int VAR_ALLOWED_SPEED = 0xb7;
 
 	/** number of vehicles starting to park (get: simulation)*/
-	public static final int VAR_STOP_STARTING_VEHICLES_NUMBER = 0x104;
+	public static final int VAR_STOP_STARTING_VEHICLES_NUMBER = 0x68;
 
 	/**ids of vehicles starting to park (get: simulation)*/
-	public static final int VAR_STOP_STARTING_VEHICLES_IDS = 0x105;
+	public static final int VAR_STOP_STARTING_VEHICLES_IDS = 0x69;
 
 	/**number of vehicles ending to park (get: simulation)*/
-	public static final int VAR_STOP_ENDING_VEHICLES_NUMBER = 0x106;
+	public static final int VAR_STOP_ENDING_VEHICLES_NUMBER = 0x6a;
 
 	/**ids of vehicles ending to park (get: simulation)*/
-	public static final int VAR_STOP_ENDING_VEHICLES_IDS = 0x107;
+	public static final int VAR_STOP_ENDING_VEHICLES_IDS = 0x6b;
 
 	/**number of vehicles starting to park (get: simulation)*/
-	public static final int VAR_PARKING_STARTING_VEHICLES_NUMBER = 0x108;
+	public static final int VAR_PARKING_STARTING_VEHICLES_NUMBER = 0x6c;
 
 	/**ids of vehicles starting to park (get: simulation)*/
-	public static final int VAR_PARKING_STARTING_VEHICLES_IDS = 0x109;
+	public static final int VAR_PARKING_STARTING_VEHICLES_IDS = 0x6d;
 
 	/**number of vehicles ending to park (get: simulation)*/
-	public static final int VAR_PARKING_ENDING_VEHICLES_NUMBER = 0x110;
+	public static final int VAR_PARKING_ENDING_VEHICLES_NUMBER = 0x6e;
 
 	/**ids of vehicles ending to park (get: simulation)*/
-	public static final int VAR_PARKING_ENDING_VEHICLES_IDS = 0x111;
+	public static final int VAR_PARKING_ENDING_VEHICLES_IDS = 0x6f;
 
 	/**vehicle finished route during teleport*/
-	public static final int REMOVE_TELEPORT_ARRIVED = 0x4;
+	public static final int REMOVE_TELEPORT_ARRIVED = 0x04;
 
 	/**subscribe junction variable*/
 	public static final int CMD_SUBSCRIBE_JUNCTION_VARIABLE = 0xd9;
 
 	/**subscribe object variables (get: all)*/
-	public static final int OBJECT_VARIABLES_SUBSCRIPTION = 0x2;
+	public static final int OBJECT_VARIABLES_SUBSCRIPTION = 0x02;
 
 	/**yellow phase*/
-	public static final int TLPHASE_YELLOW = 0x2;
+	public static final int TLPHASE_YELLOW = 0x02;
 
 	/**response: get simulation variable*/
 	public static final int RESPONSE_GET_SIM_VARIABLE = 0xbb;
@@ -83,7 +90,7 @@ public class Constants {
 	public static final int REMOVE = 0x81;
 
 	/**subscribe context variables (get: all)*/
-	public static final int SURROUNDING_VARIABLES_SUBSCRIPTION = 0x3;
+	public static final int SURROUNDING_VARIABLES_SUBSCRIPTION = 0x03;
 
 	/**subscribe areal detector (e3) context*/
 	public static final int CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT = 0x81;
@@ -98,7 +105,7 @@ public class Constants {
 	public static final int VAR_TELEPORT_STARTING_VEHICLES_IDS = 0x76;
 
 	/**result type: not implemented*/
-	public static final int RTYPE_NOTIMPLEMENTED = 0x1;
+	public static final int RTYPE_NOTIMPLEMENTED = 0x01;
 
 	/**signals state (get/set: vehicle)*/
 	public static final int VAR_SIGNALS = 0x5b;
@@ -107,19 +114,19 @@ public class Constants {
 	public static final int VAR_ROUTE_VALID = 0x92;
 
 	/**Position on road map*/
-	public static final int POSITION_ROADMAP = 0x4;
+	public static final int POSITION_ROADMAP = 0x04;
 
 	/**response: subscribe polygon context*/
 	public static final int RESPONSE_SUBSCRIBE_POLYGON_CONTEXT = 0x98;
 
 	/**get version*/
-	public static final int CMD_GETVERSION = 0x0;
+	public static final int CMD_GETVERSION = 0x00;
 
 	/**delta t (get: simulation)*/
 	public static final int VAR_DELTA_T = 0x7b;
 
 	/**3D cartesian coordinates*/
-	public static final int POSITION_3D = 0x3;
+	public static final int POSITION_3D = 0x03;
 
 	/**view schema*/
 	public static final int VAR_VIEW_SCHEMA = 0xa2;
@@ -131,13 +138,13 @@ public class Constants {
 	public static final int CMD_SET_ROUTE_VARIABLE = 0xc6;
 
 	/**32 bit signed integer*/
-	public static final int TYPE_INTEGER = 0x9;
+	public static final int TYPE_INTEGER = 0x09;
 
 	/**last step travel time (get: edge, lane)*/
 	public static final int VAR_CURRENT_TRAVELTIME = 0x5a;
 
 	/**signed byte*/
-	public static final int TYPE_BYTE = 0x8;
+	public static final int TYPE_BYTE = 0x08;
 
 	/**road id (get: vehicles)*/
 	public static final int VAR_ROAD_ID = 0x50;
@@ -158,7 +165,7 @@ public class Constants {
 	public static final int CMD_REROUTE_EFFORT = 0x91;
 
 	/**8 bit ASCII string*/
-	public static final int TYPE_STRING = 0xc;
+	public static final int TYPE_STRING = 0x0c;
 
 	/**name of the current program (get: traffic lights)*/
 	public static final int TL_CURRENT_PROGRAM = 0x29;
@@ -171,16 +178,16 @@ public class Constants {
 
 	
 	/** command: subscribe areal detector (e2) context*/
-	public static final int CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x141;
+	public static final int CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x8d;
 
 	/**response: subscribe areal detector (e2) context*/
-	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x157;
+	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x9d;
 
 	/**command: subscribe areal detector (e2) variable*/
-	public static final int CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x143;
+	public static final int CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x8f;
 
 	/**response: subscribe areal detector (e2) variable*/
-	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x159;
+	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0x9f;
 	
 	
 	/**route id (get & set: vehicles)*/
@@ -190,7 +197,7 @@ public class Constants {
 	public static final int RESPONSE_SUBSCRIBE_POI_CONTEXT = 0x97;
 
 	/**2D cartesian coordinates*/
-	public static final int POSITION_2D = 0x1;
+	public static final int POSITION_2D = 0x01;
 
 	/**number of vehicles starting to teleport (get: simulation)*/
 	public static final int VAR_TELEPORT_STARTING_VEHICLES_NUMBER = 0x75;
@@ -229,7 +236,7 @@ public class Constants {
 	public static final int VAR_WIDTH = 0x4d;
 
 	/**get area detector (e2) variable*/
-	public static final int CMD_GET_AREAL_DETECTOR_VARIABLE = 0xad;
+	public static final int CMD_GET_AREAL_DETECTOR_VARIABLE = 0x8e;
 
 	
 	/**get multi-entry/multi-exit detector (e3) variable*/
@@ -305,7 +312,7 @@ public class Constants {
 	public static final int CMD_SUBSCRIBE_POI_CONTEXT = 0x87;
 
 	/**Position in geo-coordinates with altitude*/
-	public static final int POSITION_LON_LAT_ALT = 0x2;
+	public static final int POSITION_LON_LAT_ALT = 0x02;
 
 	/**set poi variable*/
 	public static final int CMD_SET_POI_VARIABLE = 0xc7;
@@ -320,7 +327,7 @@ public class Constants {
 	public static final int ADD = 0x80;
 
 	/**Polygon (2*n doubles)*/
-	public static final int TYPE_POLYGON = 0x6;
+	public static final int TYPE_POLYGON = 0x06;
 
 	/**subscribe polygon variable*/
 	public static final int CMD_SUBSCRIBE_POLYGON_VARIABLE = 0xd8;
@@ -350,7 +357,7 @@ public class Constants {
 	public static final int VAR_MOVE_TO = 0x5c;
 
 	/**compound object*/
-	public static final int TYPE_COMPOUND = 0xf;
+	public static final int TYPE_COMPOUND = 0x0f;
 
 	/**response: get junction variable*/
 	public static final int RESPONSE_GET_JUNCTION_VARIABLE = 0xb9;
@@ -374,7 +381,7 @@ public class Constants {
 	public static final int VAR_DEPARTED_VEHICLES_NUMBER = 0x73;
 
 	/**tl is off and not blinking*/
-	public static final int TLPHASE_NOSIGNAL = 0x5;
+	public static final int TLPHASE_NOSIGNAL = 0x05;
 
 	/**response: get vehicle type variable*/
 	public static final int RESPONSE_GET_VEHICLETYPE_VARIABLE = 0xb5;
@@ -407,7 +414,7 @@ public class Constants {
 	public static final int CMD_GET_POI_VARIABLE = 0xa7;
 
 	/**green phase*/
-	public static final int TLPHASE_GREEN = 0x3;
+	public static final int TLPHASE_GREEN = 0x03;
 
 	/**minimum gap (get: vehicle types)*/
 	public static final int VAR_MINGAP = 0x4c;
@@ -426,17 +433,17 @@ public class Constants {
 
 	
 	/** last step jam length in meters */
-	public static final int JAM_LENGTH_VEHICLE = 0x10;
+	public static final int JAM_LENGTH_VEHICLE = 0x18;
 
 	/** last step jam length in meters */
-	public static final int  JAM_LENGTH_METERS = 0x11;
+	public static final int  JAM_LENGTH_METERS = 0x19;
 	
 	
 	/**set polygon variable*/
 	public static final int CMD_SET_POLYGON_VARIABLE = 0xc8;
 
 	/**tl is blinking*/
-	public static final int TLPHASE_BLINKING = 0x4;
+	public static final int TLPHASE_BLINKING = 0x04;
 
 	/**current HC emission of a node (get: vehicle, lane, edge)*/
 	public static final int VAR_HCEMISSION = 0x62;
@@ -445,10 +452,10 @@ public class Constants {
 	public static final int RESPONSE_SUBSCRIBE_GUI_VARIABLE = 0xec;
 
 	/**air distance*/
-	public static final int REQUEST_AIRDIST = 0x0;
+	public static final int REQUEST_AIRDIST = 0x00;
 
 	/**double*/
-	public static final int TYPE_DOUBLE = 0xb;
+	public static final int TYPE_DOUBLE = 0x0b;
 
 	/**shape class (get: vehicle types)*/
 	public static final int VAR_SHAPECLASS = 0x4b;
@@ -472,16 +479,16 @@ public class Constants {
 	public static final int VAR_VEHICLECLASS = 0x49;
 
 	/**driving distance*/
-	public static final int REQUEST_DRIVINGDIST = 0x1;
+	public static final int REQUEST_DRIVINGDIST = 0x01;
 
 	/**simulation step*/
-	public static final int CMD_SIMSTEP2 = 0x2;
+	public static final int CMD_SIMSTEP2 = 0x02;
 
 	/**set traffic lights variable*/
 	public static final int CMD_SET_TL_VARIABLE = 0xc2;
 
 	/**vehicle started teleport*/
-	public static final int REMOVE_TELEPORT = 0x0;
+	public static final int REMOVE_TELEPORT = 0x00;
 
 	/**subscribe edge variable*/
 	public static final int CMD_SUBSCRIBE_EDGE_VARIABLE = 0xda;
@@ -517,7 +524,7 @@ public class Constants {
 	public static final int CMD_SET_EDGE_VARIABLE = 0xca;
 
 	/**list of strings*/
-	public static final int TYPE_STRINGLIST = 0xe;
+	public static final int TYPE_STRINGLIST = 0x0e;
 
 	/**position (2D) (get: vehicle, poi, set: poi)*/
 	public static final int VAR_POSITION = 0x42;
@@ -532,7 +539,7 @@ public class Constants {
 	public static final int VAR_NOISEEMISSION = 0x66;
 
 	/**Boundary Box (4 doubles)*/
-	public static final int TYPE_BOUNDINGBOX = 0x5;
+	public static final int TYPE_BOUNDINGBOX = 0x05;
 
 	/**response: subscribe vehicle type context*/
 	public static final int RESPONSE_SUBSCRIBE_VEHICLETYPE_CONTEXT = 0x95;
@@ -542,9 +549,6 @@ public class Constants {
 
 	/**response: subscribe lane variable*/
 	public static final int RESPONSE_SUBSCRIBE_LANE_VARIABLE = 0xe3;
-
-	/**add vehicle*/
-	public static final int CMD_ADDVEHICLE = 0x74;
 
 	/**controlled links (get: traffic lights)*/
 	public static final int TL_CONTROLLED_LINKS = 0x27;
@@ -577,10 +581,10 @@ public class Constants {
 	public static final int CMD_SUBSCRIBE_TL_CONTEXT = 0x82;
 
 	/**count of instances (get: all)*/
-	public static final int ID_COUNT = 0x1;
+	public static final int ID_COUNT = 0x01;
 
 	/**red phase*/
-	public static final int TLPHASE_RED = 0x1;
+	public static final int TLPHASE_RED = 0x01;
 
 	/**subscribe lane variable*/
 	public static final int CMD_SUBSCRIBE_LANE_VARIABLE = 0xd3;
@@ -607,19 +611,19 @@ public class Constants {
 	public static final int RESPONSE_SUBSCRIBE_SIM_CONTEXT = 0x9b;
 
 	/**vehicle was vaporized*/
-	public static final int REMOVE_VAPORIZED = 0x3;
+	public static final int REMOVE_VAPORIZED = 0x03;
 
 	/**list of traffic light phases*/
-	public static final int TYPE_TLPHASELIST = 0xd;
+	public static final int TYPE_TLPHASELIST = 0x0d;
 
 	/**minimum number of expected vehicles (get: simulation)*/
 	public static final int VAR_MIN_EXPECTED_VEHICLES = 0x7d;
 
 	/**list of instances' ids (get: all)*/
-	public static final int ID_LIST = 0x0;
+	public static final int ID_LIST = 0x00;
 
 	/**result type: Ok*/
-	public static final int RTYPE_OK = 0x0;
+	public static final int RTYPE_OK = 0x00;
 
 	/**traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)*/
 	public static final int TL_RED_YELLOW_GREEN_STATE = 0x20;
@@ -694,12 +698,12 @@ public class Constants {
 	public static final int CMD_GET_ROUTE_VARIABLE = 0xa6;
 
 	/**Position in geo-coordinates*/
-	public static final int POSITION_LON_LAT = 0x0;
+	public static final int POSITION_LON_LAT = 0x00;
 	
 	
 
 	/**vehicle arrived*/
-	public static final int REMOVE_ARRIVED = 0x2;
+	public static final int REMOVE_ARRIVED = 0x02;
 
 	/**lane id (get: vehicles)*/
 	public static final int VAR_LANE_ID = 0x51;
@@ -714,7 +718,7 @@ public class Constants {
 	public static final int CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE = 0xd5;
 
 	/**float*/
-	public static final int TYPE_FLOAT = 0xa;
+	public static final int TYPE_FLOAT = 0x0a;
 
 	/**subscribe junction context*/
 	public static final int CMD_SUBSCRIBE_JUNCTION_CONTEXT = 0x89;
@@ -726,7 +730,7 @@ public class Constants {
 	public static final int VAR_SPEEDSETMODE = 0xb3;
 
 	/**unsigned byte*/
-	public static final int TYPE_UBYTE = 0x7;
+	public static final int TYPE_UBYTE = 0x07;
 
 	/**color (get: vehicles, vehicle types, polygons, pois)*/
 	public static final int VAR_COLOR = 0x45;
@@ -742,7 +746,7 @@ public class Constants {
 
 	
 	/**response: get area detector (e3) variable*/
-	public static final int RESPONSE_GET_AREAL_DETECTOR_VARIABLE = 0xbd;
+	public static final int RESPONSE_GET_AREAL_DETECTOR_VARIABLE = 0x9e;
 	
 	
 	/**response: get multi-/entry detector (e3) variable*/
@@ -769,7 +773,7 @@ public class Constants {
 	public static final int VAR_DECEL = 0x47;
 
 	/**vehicle removed while parking*/
-	public static final int REMOVE_PARKING = 0x1;
+	public static final int REMOVE_PARKING = 0x01;
 
 	/**subscribe vehicle context*/
 	public static final int CMD_SUBSCRIBE_VEHICLE_CONTEXT = 0x84;

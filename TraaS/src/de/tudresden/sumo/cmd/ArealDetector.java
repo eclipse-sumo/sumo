@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -64,5 +64,21 @@ public class ArealDetector {
 		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.JAM_LENGTH_METERS, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 	
+	/**
+	 * getLastStepMeanSpeed
+	 */
 
+	public static SumoCommand getLastStepMeanSpeed(String loopID){
+		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_MEAN_SPEED, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+
+	
+	/**
+	 * getLastStepOccupancy
+	 */
+
+	public static SumoCommand getLastStepOccupancy(String loopID){
+		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_OCCUPANCY, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
 }

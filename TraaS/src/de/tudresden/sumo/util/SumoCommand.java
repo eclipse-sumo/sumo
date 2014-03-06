@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2013 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2014 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -75,11 +75,16 @@ public class SumoCommand {
 		cmd.content().writeUnsignedByte((Integer) input2);
 		cmd.content().writeStringASCII(String.valueOf(input3));
 		
-		cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
-		cmd.content().writeInt(array.length);	
-		for(int i=0; i<array.length; i++){
-			add_type(array[i]);
-			add_variable(array[i]);
+		if(array.length == 1){
+			add_type(array[0]);
+			add_variable(array[0]);
+		}else{
+			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+			cmd.content().writeInt(array.length);	
+			for(int i=0; i<array.length; i++){
+				add_type(array[i]);
+				add_variable(array[i]);
+			}
 		}
 		
 		this.input1=(Integer) input1;
