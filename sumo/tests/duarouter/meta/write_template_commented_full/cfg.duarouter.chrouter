@@ -42,6 +42,9 @@
         <!-- Name of the xml attribute which gives the edge weight -->
         <weight-attribute value="traveltime" synonymes="measure x" type="STR"/>
 
+        <!-- Determines where to load PHEMlight definitions from. -->
+        <phemlight-path value="./PHEMlight/" type="FILE"/>
+
         <!-- Read trip-definitions from FILE(s) -->
         <trip-files value="" synonymes="t trip-defs trips" type="FILE"/>
 
