@@ -29,6 +29,7 @@
 
 #include <cmath>
 #include <string>
+#include <utils/common/StdDefs.h>
 #include <utils/common/StringBijection.h>
 #include <utils/common/UtilExceptions.h>
 #include "PHEMCEP.h"
@@ -167,6 +168,7 @@ PHEMCEP::CalcPower(double v, double a, double slope) const {
 
 double
 PHEMCEP::GetMaxAccel(double v, double a, double gradient) const {
+    UNUSED_PARAMETER(a);
     const double pMaxForAcc = GetPMaxNorm(v) * _ratedPower - PHEMCEP::CalcPower(v, 0, gradient);
     return (pMaxForAcc * 1000) / ((_massVehicle * GetRotationalCoeffecient(v) + _massRot + _vehicleLoading) * v);
 }
