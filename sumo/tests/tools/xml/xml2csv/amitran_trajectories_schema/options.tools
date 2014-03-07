@@ -1,1 +1,1 @@
--x $SUMO_HOME/docs/internet/xsd/amitran/trajectories.xsd
+-x $SUMO_HOME/data/xsd/amitran/trajectories.xsd

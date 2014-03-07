@@ -1,1 +1,1 @@
--x $SUMO_HOME/docs/internet/xsd/meandata_file.xsd
+-x $SUMO_HOME/data/xsd/meandata_file.xsd

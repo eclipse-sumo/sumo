@@ -1,1 +1,1 @@
--x $SUMO_HOME/docs/internet/xsd/queue_file.xsd
+-x $SUMO_HOME/data/xsd/queue_file.xsd
