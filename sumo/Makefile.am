@@ -86,6 +86,10 @@ dist-complete: dist dist-doc dist-tests
 examples:
 	tests/extractTest.py -x -f tests/examples.txt
 
+traas:
+	ant -f tools/contributed/traas/build.xml release
+	cp tools/contributed/traas/dist/TraaS.jar bin
+
 sumo$(EXEEXT) netconvert$(EXEEXT) \
         netgenerate$(EXEEXT) duarouter$(EXEEXT) \
         dfrouter$(EXEEXT) jtrrouter$(EXEEXT) \
