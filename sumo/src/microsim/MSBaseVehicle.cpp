@@ -88,10 +88,10 @@ MSBaseVehicle::~MSBaseVehicle() {
     if (myParameter->repetitionNumber == 0) {
         MSRoute::checkDist(myParameter->routeid);
     }
-    delete myParameter;
     for (std::vector< MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
         delete *dev;
     }
+    delete myParameter;
 }
 
 

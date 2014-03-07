@@ -77,6 +77,18 @@ public:
         }
     };
 
+    /// @brief Function-object for stable sorting of objects acting like Named without being derived (SUMOVehicle)
+    template <class NamedLike>
+    struct NamedLikeComparatorIdLess {
+        bool operator()(const NamedLike* const a, const NamedLike* const b) const {
+            if (a == 0) {
+                return a;
+            } else if (b == 0) {
+                return b;
+            }
+            return a->getID() < b->getID();
+        }
+    };
 
 
     /** @class StoringVisitor
