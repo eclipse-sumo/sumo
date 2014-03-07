@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 25 11:01:13 2014 by SUMO sumo Version dev-SVN-r15699
+<!-- generated on Fri Mar  7 10:56:10 2014 by SUMO sumo Version dev-SVN-r15863
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -426,19 +426,19 @@
     </timestep>
     <timestep time="49.00">
         <edge id="1si">
-            <lane id="1si_0"/>
-            <lane id="1si_1">
+            <lane id="1si_0">
                 <vehicle id="veh0" pos="50.41" speed="10.00"/>
             </lane>
+            <lane id="1si_1"/>
             <lane id="1si_2"/>
         </edge>
     </timestep>
     <timestep time="50.00">
         <edge id="1si">
-            <lane id="1si_0"/>
-            <lane id="1si_1">
+            <lane id="1si_0">
                 <vehicle id="veh0" pos="60.41" speed="10.00"/>
             </lane>
+            <lane id="1si_1"/>
             <lane id="1si_2"/>
         </edge>
     </timestep>

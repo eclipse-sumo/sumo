@@ -1,5 +1,6 @@
 % see http://sumo-sim.org/wiki/TraCI/Change_Vehicle_State
  the default for lane change mode is 0b 10 01 01 01 01 = 0x 2 5 5 %
+setvalue 0xc4 0x13 veh1 <compound> 2 <byte> 1 <int> 100000
 repeat 53 simstep2 0
 setvalue 0xc4 0x13 veh1 <compound> 2 <byte> 0 <int> 1000
 repeat 25 simstep2 0

@@ -1,8 +1,9 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-   <vType id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="10"/>
+    <!-- drive fast to get a smaller test-->
+   <vType id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" speedFactor="3"/>
 
-   <vehicle id="veh0" type="SUMO_DEFAULT_TYPE" depart="0" departPos="0">
-       <route edges="1fi 1si 4o 4fi 4si"/>
+   <vehicle id="veh0" type="SUMO_DEFAULT_TYPE" depart="0" departPos="200">
+       <route edges="1si 4o 4fi 4si 1o"/>
    </vehicle>
 
 </routes>
