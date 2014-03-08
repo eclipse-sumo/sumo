@@ -2,7 +2,6 @@ cross3ltl_vehroutes
 cross3ltl_summary_schema
 cross3ltl_fcd_schema
 cross3ltl_inductloops_schema
-cross3ltl_meandata_constrained_schema
 cross3ltl_meandata_edges_schema
 cross3ltl_meandata_lanes_schema
 cross3ltl_rawdump_schema
