@@ -39,7 +39,7 @@
 
             <xsd:element name="interval" type="intervalType" minOccurs="0"/>
 
-            <xsd:element name="polygon" type="polygonType" minOccurs="0"/>
+            <xsd:element name="poly" type="polygonType" minOccurs="0"/>
             <xsd:element name="poi" type="poiType" minOccurs="0"/>
 
             <xsd:element name="include" minOccurs="0">
