@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "duarouter", "duarouter\duarouter.vcxproj", "{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo-gui", "guisim\guisim.vcxproj", "{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
