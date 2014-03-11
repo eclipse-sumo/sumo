@@ -43,6 +43,8 @@ optParser.add_option("-m", "--remote-dir", dest="remoteDir", default=r"O:\Daten\
                      help="directory to move the results to")
 optParser.add_option("-a", "--add-build-config-prefix", dest="addConf",
                      help="prefix of an additional configuration to build")
+optParser.add_option("-l", "--add-solution", dest="addSln", default=r"trunk\sumo\build\msvc10\tools.sln",
+                     help="path to an additional solution to build")
 optParser.add_option("-f", "--force", action="store_true",
                      default=False, help="force rebuild even if no source changed")
 (options, args) = optParser.parse_args()
@@ -98,6 +100,8 @@ for platform in ["Win32", "x64"]:
     subprocess.call(compiler+" /rebuild Release|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeLog))
     if options.addConf:
         subprocess.call(compiler+" /rebuild %sRelease|%s %s\\%s /out %s" % (options.addConf, platform, options.rootDir, options.project, makeLog))
+    if options.addSln:
+        subprocess.call(compiler+" /rebuild Release|%s %s\\%s /out %s" % (platform, options.rootDir, options.addSln, makeLog))
     programSuffix = envSuffix = ""
     if platform == "x64":
         envSuffix="_64"
