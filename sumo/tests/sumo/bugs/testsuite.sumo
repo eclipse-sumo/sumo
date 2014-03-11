@@ -65,6 +65,8 @@ ticket604
 ticket609
 ticket611
 ticket651
+# testing route length in tripinfos and vehroute output with rerouting 
+ticket676 
 
 # test junction deadlock
 ticket699
@@ -146,6 +148,7 @@ ticket1096
 ticket1096b
 ticket1096c
 ticket1097
+ticket1114
 
 # fast leader should be insertable directly before slow follower
 ticket1176
