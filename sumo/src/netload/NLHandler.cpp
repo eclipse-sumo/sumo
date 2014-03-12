@@ -562,7 +562,7 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
         if (laneID != "") {
             MSLane* lane = MSLane::dictionary(laneID);
             if (lane == 0) {
-                WRITE_ERROR("Lane '" + laneID + "' to place a poi '" + id + "'on is not known.");
+                WRITE_ERROR("Lane '" + laneID + "' to place poi '" + id + "' on is not known.");
                 return;
             }
             if (lanePos < 0) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/22/13 17:39:42 by SUMO polyconvert Version dev-SVN-r13532
+<!-- generated on 03/05/14 13:14:19 by SUMO polyconvert Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/polyconvertConfiguration.xsd">
@@ -18,12 +18,13 @@
 
     <report>
         <verbose value="true"/>
+        <xml-validation value="never"/>
     </report>
 
 </configuration>
 -->
 
-<shapes>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <poi id="115543889" type="amenity.bank" color="237,199,199" layer="-1.00" x="100765.49" y="490.94"/>
     <poi id="115544715" type="amenity.cafe" color="237,199,199" layer="-1.00" x="100741.39" y="467.93"/>
     <poi id="115546494" type="amenity.restaurant" color="237,199,199" layer="-1.00" x="100712.70" y="443.59"/>
@@ -31,4 +32,4 @@
     <poi id="289631159" type="amenity.wlan" color="237,199,199" layer="-1.00" x="100770.88" y="370.52"/>
     <poi id="294830283" type="amenity.parking" color="184,184,179" layer="-1.00" x="100945.51" y="478.40"/>
     <poi id="294831640" type="amenity.parking" color="184,184,179" layer="-1.00" x="100522.64" y="266.87"/>
-</shapes>
+</additional>

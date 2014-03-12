@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan  8 10:00:24 2014 by SUMO sumo Version dev-SVN-r15347
+<!-- generated on 03/05/14 13:21:24 by SUMO sumo Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -24,6 +24,7 @@
     </processing>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -31,7 +32,7 @@
 </configuration>
 -->
 
-<fcd-export>
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/fcd_file.xsd">
     <timestep time="0.00">
         <vehicle id="v0" x="256.60" y="495.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="5.10" lane="1si_0" slope="0.00"/>
     </timestep>
@@ -69,7 +70,7 @@
         <vehicle id="v0" x="299.30" y="495.32" angle="90.42" type="DEFAULT_VEHTYPE" speed="13.89" pos="47.80" lane="1si_0" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="v0" x="306.24" y="495.46" angle="90.62" type="DEFAULT_VEHTYPE" speed="13.89" pos="54.74" lane="1si_0" slope="0.00"/>
+        <vehicle id="v0" x="306.24" y="495.46" angle="90.63" type="DEFAULT_VEHTYPE" speed="13.89" pos="54.74" lane="1si_0" slope="0.00"/>
     </timestep>
     <timestep time="6.50">
         <vehicle id="v0" x="313.19" y="495.60" angle="90.83" type="DEFAULT_VEHTYPE" speed="13.89" pos="61.69" lane="1si_0" slope="0.00"/>
@@ -123,7 +124,7 @@
         <vehicle id="v0" x="424.30" y="497.80" angle="90.83" type="DEFAULT_VEHTYPE" speed="13.89" pos="172.80" lane="1si_1" slope="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="v0" x="431.25" y="497.94" angle="90.62" type="DEFAULT_VEHTYPE" speed="13.89" pos="179.75" lane="1si_1" slope="0.00"/>
+        <vehicle id="v0" x="431.25" y="497.94" angle="90.63" type="DEFAULT_VEHTYPE" speed="13.89" pos="179.75" lane="1si_1" slope="0.00"/>
     </timestep>
     <timestep time="15.50">
         <vehicle id="v0" x="438.19" y="498.08" angle="90.42" type="DEFAULT_VEHTYPE" speed="13.89" pos="186.69" lane="1si_1" slope="0.00"/>

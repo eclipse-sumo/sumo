@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/12/13 13:06:49 by SUMO dfrouter Version dev-SVN-r15093
+<!-- generated on 03/05/14 13:06:22 by SUMO dfrouter Version dev-SVN-r15814
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/dfrouterConfiguration.xsd">
@@ -16,10 +16,14 @@
         <emitters-output value="emitters.add.xml"/>
     </output>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
-<additional>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/additional_file.xsd">
     <routeDistribution id="1">
         <route refId="1_to_3" probability="1.00"/>
         <route refId="1_to_43" probability="1.00"/>
@@ -495,8 +499,8 @@
         <route refId="34_66_to_39" probability="0.17"/>
         <route refId="34_66_to_9" probability="0.12"/>
         <route refId="34_66_to_44" probability="0.14"/>
-        <route refId="34_66_to_15" probability="0.02"/>
         <route refId="34_66_to_18" probability="0.69"/>
+        <route refId="34_66_to_15" probability="0.02"/>
         <route refId="34_66_to_24" probability="0.69"/>
         <route refId="34_66_to_25_56" probability="0.69"/>
     </routeDistribution>
@@ -506,8 +510,8 @@
         <route refId="35_65_to_39" probability="0.17"/>
         <route refId="35_65_to_9" probability="0.12"/>
         <route refId="35_65_to_44" probability="0.14"/>
-        <route refId="35_65_to_15" probability="0.02"/>
         <route refId="35_65_to_18" probability="0.69"/>
+        <route refId="35_65_to_15" probability="0.02"/>
         <route refId="35_65_to_24" probability="0.69"/>
         <route refId="35_65_to_25_56" probability="0.69"/>
     </routeDistribution>
@@ -1382,8 +1386,8 @@
         <route refId="35_65_to_39" probability="0.17"/>
         <route refId="35_65_to_9" probability="0.12"/>
         <route refId="35_65_to_44" probability="0.14"/>
-        <route refId="35_65_to_15" probability="0.02"/>
         <route refId="35_65_to_18" probability="0.69"/>
+        <route refId="35_65_to_15" probability="0.02"/>
         <route refId="35_65_to_24" probability="0.69"/>
         <route refId="35_65_to_25_56" probability="0.69"/>
     </routeDistribution>
@@ -1395,8 +1399,8 @@
         <route refId="34_66_to_39" probability="0.17"/>
         <route refId="34_66_to_9" probability="0.12"/>
         <route refId="34_66_to_44" probability="0.14"/>
-        <route refId="34_66_to_15" probability="0.02"/>
         <route refId="34_66_to_18" probability="0.69"/>
+        <route refId="34_66_to_15" probability="0.02"/>
         <route refId="34_66_to_24" probability="0.69"/>
         <route refId="34_66_to_25_56" probability="0.69"/>
     </routeDistribution>

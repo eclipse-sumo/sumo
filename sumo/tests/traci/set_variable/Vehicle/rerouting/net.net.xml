@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May  7 15:49:18 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Mon Mar  3 10:25:28 2014 by SUMO netconvert Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/traci/ChangeVehicleValue/rerouting/input_net.nod.xml"/>
-        <edge-files value="./tests/traci/ChangeVehicleValue/rerouting/input_net.edg.xml"/>
+        <node-files value="./tests/traci/set_variable/Vehicle/rerouting/input_net.nod.xml"/>
+        <edge-files value="./tests/traci/set_variable/Vehicle/rerouting/input_net.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/traci/ChangeVehicleValue/rerouting/net.net.xml"/>
+        <output-file value="./tests/traci/set_variable/Vehicle/rerouting/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,35 +30,35 @@
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,2500.00,1000.00" origBoundary="-500.00,-500.00,2000.00,500.00" projParameter="!"/>
 
     <edge id="beg" from="absBeg" to="beg" priority="-1">
-        <lane id="beg_0" index="0" speed="27.80" length="495.25" shape="0.00,495.05 495.25,495.05"/>
-        <lane id="beg_1" index="1" speed="27.80" length="495.25" shape="0.00,498.35 495.25,498.35"/>
+        <lane id="beg_0" index="0" speed="27.80" length="500.00" shape="0.00,495.05 495.25,495.05"/>
+        <lane id="beg_1" index="1" speed="27.80" length="500.00" shape="0.00,498.35 495.25,498.35"/>
     </edge>
     <edge id="beg2left" from="beg" to="begleft" priority="-1">
-        <lane id="beg2left_0" index="0" speed="27.80" length="490.50" shape="501.65,501.45 501.65,991.95"/>
+        <lane id="beg2left_0" index="0" speed="27.80" length="506.52" shape="501.65,501.45 501.65,991.95"/>
     </edge>
     <edge id="beg2right" from="beg" to="begright" priority="-1">
-        <lane id="beg2right_0" index="0" speed="27.80" length="491.95" shape="498.35,491.95 498.35,0.00"/>
+        <lane id="beg2right_0" index="0" speed="27.80" length="500.00" shape="498.35,491.95 498.35,0.00"/>
     </edge>
     <edge id="end" from="end" to="absEnd" priority="-1">
-        <lane id="end_0" index="0" speed="27.80" length="495.25" shape="1504.75,495.05 2000.00,495.05"/>
-        <lane id="end_1" index="1" speed="27.80" length="495.25" shape="1504.75,498.35 2000.00,498.35"/>
+        <lane id="end_0" index="0" speed="27.80" length="500.00" shape="1504.75,495.05 2000.00,495.05"/>
+        <lane id="end_1" index="1" speed="27.80" length="500.00" shape="1504.75,498.35 2000.00,498.35"/>
     </edge>
     <edge id="left+right" from="begleft" to="endleft" priority="0">
-        <lane id="left+right_0" index="0" speed="27.80" length="990.50" shape="504.75,995.05 1495.25,995.05"/>
-        <lane id="left+right_1" index="1" speed="27.80" length="990.50" shape="504.75,998.35 1495.25,998.35"/>
+        <lane id="left+right_0" index="0" speed="27.80" length="1013.03" shape="504.75,995.05 1495.25,995.05"/>
+        <lane id="left+right_1" index="1" speed="27.80" length="1013.03" shape="504.75,998.35 1495.25,998.35"/>
     </edge>
     <edge id="left2end" from="endleft" to="end" priority="-1">
-        <lane id="left2end_0" index="0" speed="27.80" length="490.50" shape="1498.35,991.95 1498.35,501.45"/>
+        <lane id="left2end_0" index="0" speed="27.80" length="506.52" shape="1498.35,991.95 1498.35,501.45"/>
     </edge>
     <edge id="middle" from="beg" to="end" priority="-1">
-        <lane id="middle_0" index="0" speed="13.90" length="990.50" shape="504.75,498.35 1495.25,498.35"/>
+        <lane id="middle_0" index="0" speed="13.90" length="1000.00" shape="504.75,498.35 1495.25,498.35"/>
     </edge>
     <edge id="rend" from="absEnd" to="rabsEnd" priority="-1">
         <lane id="rend_0" index="0" speed="27.80" length="500.00" shape="2000.00,495.05 2500.00,495.05"/>
         <lane id="rend_1" index="1" speed="27.80" length="500.00" shape="2000.00,498.35 2500.00,498.35"/>
     </edge>
     <edge id="right2end" from="endright" to="end" priority="-1">
-        <lane id="right2end_0" index="0" speed="27.80" length="491.95" shape="1501.65,0.00 1501.65,491.95"/>
+        <lane id="right2end_0" index="0" speed="27.80" length="500.00" shape="1501.65,0.00 1501.65,491.95"/>
     </edge>
 
     <junction id="absBeg" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="-0.00,499.95 -0.00,493.45"/>

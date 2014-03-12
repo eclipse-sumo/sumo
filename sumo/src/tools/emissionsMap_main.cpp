@@ -133,6 +133,8 @@ main(int argc, char** argv) {
     oc.addOptionSubTopic("Report");
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.addDescription("verbose", "Report", "Switches to verbose output.");
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.addDescription("help", "Report", "Prints a help screen.");
 
     // run
     int ret = 0;
@@ -141,7 +143,10 @@ main(int argc, char** argv) {
         XMLSubSys::init();
         OptionsIO::getOptions(true, argc, argv);
         OptionsCont& oc = OptionsCont::getOptions();
-
+        if (oc.processMetaOptions(argc < 2)) {
+            SystemFrame::close();
+            return 0;
+        }
 
         SUMOReal vMin = oc.getFloat("v-min");
         SUMOReal vMax = oc.getFloat("v-max");

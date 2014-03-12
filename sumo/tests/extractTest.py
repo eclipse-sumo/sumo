@@ -42,6 +42,9 @@ def get_options(args=None):
     optParser.add_option("-s", "--skip-configuration",
             dest="skip_configuration", default=False, action="store_true",
             help="skips creation of an application config from the options.app file")
+    optParser.add_option("-x", "--skip-validation",
+            dest="skip_validation", default=False, action="store_true",
+            help="remove all options related to XML validation")
     options, args = optParser.parse_args(args=args)
     if not options.file and len(args) == 0:
         optParser.print_help()
@@ -121,14 +124,21 @@ def main(options):
         if not os.path.exists(testPath):
             os.makedirs(testPath)
         net = None
+        skip = False
         appOptions = []
         for f in optionsFiles:
-            appOptions += open(f).read().split()
-        for o in appOptions:
-            if "=" in o:
-                o = o.split("=")[-1]
-            if o[-8:] == ".net.xml":
-                net = o
+            for o in open(f).read().split():
+                if skip:
+                    skip = False
+                    continue
+                if o == "--xml-validation" and options.skip_validation:
+                    skip = True
+                    continue
+                appOptions.append(o)
+                if "=" in o:
+                    o = o.split("=")[-1]
+                if o[-8:] == ".net.xml":
+                    net = o
         nameBase = "test"
         if options.names:
             nameBase = os.path.basename(target)

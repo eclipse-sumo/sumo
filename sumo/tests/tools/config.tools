@@ -48,6 +48,7 @@ copy_test_path:dest.tll.xml
 copy_test_path:dest.xml
 copy_test_path:fcd.xml
 copy_test_path:data.txt
+copy_test_path:source.csv
 
 [collate_file]
 detectors:e1.add.xml
@@ -85,6 +86,7 @@ gpx:output.gpx
 match:match.txt
 image:image.png
 csv:out*.csv
+xml:out.xml
 
 [run_dependent_text]
 output:Begin time

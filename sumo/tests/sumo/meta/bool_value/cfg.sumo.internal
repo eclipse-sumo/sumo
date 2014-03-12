@@ -15,4 +15,8 @@
         <no-duration-log value="true"/>
     </report>
 
+    <emissions>
+        <phemlight-path value="./PHEMlight/"/>
+    </emissions>
+
 </configuration>

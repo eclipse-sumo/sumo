@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May  7 15:49:12 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Mon Mar  3 10:23:17 2014 by SUMO netconvert Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -27,12 +27,8 @@
 
     <edge id=":center_0" function="internal">
         <lane id=":center_0_0" index="0" speed="27.80" length="0.10" shape="500.00,-8.25 500.00,-8.25"/>
-    </edge>
-    <edge id=":center_1" function="internal">
-        <lane id=":center_1_0" index="0" speed="27.80" length="0.10" shape="500.00,-4.95 500.00,-4.95"/>
-    </edge>
-    <edge id=":center_2" function="internal">
-        <lane id=":center_2_0" index="0" speed="27.80" length="0.10" shape="500.00,-1.65 500.00,-1.65"/>
+        <lane id=":center_0_1" index="1" speed="27.80" length="0.10" shape="500.00,-4.95 500.00,-4.95"/>
+        <lane id=":center_0_2" index="2" speed="27.80" length="0.10" shape="500.00,-1.65 500.00,-1.65"/>
     </edge>
 
     <edge id="beg" from="beg" to="center" priority="-1">
@@ -47,7 +43,7 @@
     </edge>
 
     <junction id="beg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-9.85"/>
-    <junction id="center" type="priority" x="500.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes=":center_0_0 :center_1_0 :center_2_0" shape="500.00,-0.05 500.00,-9.85 500.00,-0.05">
+    <junction id="center" type="priority" x="500.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes=":center_0_0 :center_0_1 :center_0_2" shape="500.00,-0.05 500.00,-9.85 500.00,-0.05">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -55,11 +51,11 @@
     <junction id="end" type="unregulated" x="1000.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="1000.00,-9.85 1000.00,-0.05"/>
 
     <connection from="beg" to="end" fromLane="0" toLane="0" via=":center_0_0" dir="s" state="M"/>
-    <connection from="beg" to="end" fromLane="1" toLane="1" via=":center_1_0" dir="s" state="M"/>
-    <connection from="beg" to="end" fromLane="2" toLane="2" via=":center_2_0" dir="s" state="M"/>
+    <connection from="beg" to="end" fromLane="1" toLane="1" via=":center_0_1" dir="s" state="M"/>
+    <connection from="beg" to="end" fromLane="2" toLane="2" via=":center_0_2" dir="s" state="M"/>
 
     <connection from=":center_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":center_1" to="end" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":center_2" to="end" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":center_0" to="end" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":center_0" to="end" fromLane="2" toLane="2" dir="s" state="M"/>
 
 </net>

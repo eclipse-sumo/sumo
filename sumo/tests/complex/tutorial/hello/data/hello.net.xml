@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08/26/13 12:02:42 by SUMO netconvert Version dev-SVN-r14476
+<!-- generated on Mon Mar  3 10:23:22 2014 by SUMO netconvert Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="hello.nod.xml"/>
-        <edge-files value="hello.edg.xml"/>
+        <node-files value="./tests/complex/tutorial/hello/data/hello.nod.xml"/>
+        <edge-files value="./tests/complex/tutorial/hello/data/hello.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="hello.net.xml"/>
+        <output-file value="./tests/complex/tutorial/hello/data/hello.net.xml"/>
     </output>
 
     <report>

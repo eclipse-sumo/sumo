@@ -64,8 +64,7 @@ public:
 
     void computeTypes(RODFDetectorCon& dets,
                       bool sourcesStrict) const;
-    void buildRoutes(RODFDetectorCon& det, bool allEndFollower,
-                     bool keepUnfoundEnds, bool includeInBetween,
+    void buildRoutes(RODFDetectorCon& det, bool keepUnfoundEnds, bool includeInBetween,
                      bool keepShortestOnly, int maxFollowingLength) const;
     SUMOReal getAbsPos(const RODFDetector& det) const;
 

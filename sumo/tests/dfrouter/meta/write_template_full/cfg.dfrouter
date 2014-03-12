@@ -31,12 +31,11 @@
     </output>
 
     <processing>
-        <guess-empty-flows value="false" type="BOOL" help=""/>
+        <guess-empty-flows value="false" type="BOOL" help="Derive missing flow values from upstream or downstream (not working!)"/>
         <highway-mode value="false" synonymes="h" type="BOOL" help="Switches to highway-mode"/>
         <ignore-invalid-detectors value="false" type="BOOL" help="Only warn about unparseable detectors"/>
         <revalidate-detectors value="false" type="BOOL" help="Recomputes detector types even if given"/>
         <revalidate-routes value="false" type="BOOL" help="Recomputes routes even if given"/>
-        <all-end-follower value="false" type="BOOL" help="Continues routes till the first street after a sink"/>
         <keep-unfinished-routes value="false" synonymes="keep-unfound-ends" type="BOOL" help="Keeps routes even if they have exhausted max-search-depth"/>
         <keep-longer-routes value="false" type="BOOL" help="Keeps routes even if a shorter one exists"/>
         <max-search-depth value="30" synonymes="max-nodet-follower" type="INT" help="Number of edges to follow a route without passing a detector"/>

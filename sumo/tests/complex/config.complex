@@ -31,21 +31,18 @@ results:results.csv
 
 [run_dependent_text]
 output:\r{REPLACE \n}
+output:<!--{[->]}-->
 output:\([0-9]*ms\){REPLACE (TIME)}
+output:[0-9]* ms{REPLACE TIME}
 output:^Performance:{->}^Vehicles:
+output:visible boundary
+output:uncheck:
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
 state:<!--{[->]}-->
 state:snapshot version="[^"]*"{REPLACE snapshot}
-output:visible boundary
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
-output:\r{REPLACE \n}
-output:\([0-9]*ms\){REPLACE (TIME)}
-output:[0-9]* ms{REPLACE TIME}
-output: UPS:
-output: time factor:
-output:uncheck:
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed

@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r15485
+SUMO duarouter Version dev-SVN-r15769
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -23,6 +23,8 @@ Input Options:
   --lane-weight-files FILE         Read lane-based network weights from FILE(s)
   -x, --weight-attribute STR       Name of the xml attribute which gives the
                                      edge weight
+  --phemlight-path FILE            Determines where to load PHEMlight
+                                     definitions from.
   -t, --trip-files FILE            Read trip-definitions from FILE(s)
   -r, --route-files FILE           Read sumo-routes from FILE(s)
 

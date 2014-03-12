@@ -1,5 +1,2 @@
-# Tests for behaviour of --all-end-follower
-all_end_follower
-
 # Tests for default arrival and depart parameters
 defaults

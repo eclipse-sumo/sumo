@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May  7 15:49:11 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Mon Mar  3 10:23:15 2014 by SUMO netconvert Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -27,9 +27,7 @@
 
     <edge id=":absEnd_0" function="internal">
         <lane id=":absEnd_0_0" index="0" speed="27.80" length="0.10" shape="2000.00,-4.95 2000.00,-4.95"/>
-    </edge>
-    <edge id=":absEnd_1" function="internal">
-        <lane id=":absEnd_1_0" index="0" speed="27.80" length="0.10" shape="2000.00,-1.65 2000.00,-1.65"/>
+        <lane id=":absEnd_0_1" index="1" speed="27.80" length="0.10" shape="2000.00,-1.65 2000.00,-1.65"/>
     </edge>
     <edge id=":beg_0" function="internal">
         <lane id=":beg_0_0" index="0" speed="20.85" length="7.02" shape="498.55,-4.95 504.75,-1.65"/>
@@ -76,7 +74,7 @@
     </edge>
 
     <junction id="absBeg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-6.55"/>
-    <junction id="absEnd" type="priority" x="2000.00" y="0.00" incLanes="end_0 end_1" intLanes=":absEnd_0_0 :absEnd_1_0" shape="2000.00,-0.05 2000.00,-6.55 2000.00,-0.05">
+    <junction id="absEnd" type="priority" x="2000.00" y="0.00" incLanes="end_0 end_1" intLanes=":absEnd_0_0 :absEnd_0_1" shape="2000.00,-0.05 2000.00,-6.55 2000.00,-0.05">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
@@ -100,13 +98,13 @@
     <connection from="beg" to="beg2left" fromLane="1" toLane="0" pass="1" via=":beg_1_0" dir="l" state="M"/>
     <connection from="beg2left" to="left" fromLane="0" toLane="0" via=":begleft_0_0" dir="r" state="M"/>
     <connection from="end" to="rend" fromLane="0" toLane="0" via=":absEnd_0_0" dir="s" state="M"/>
-    <connection from="end" to="rend" fromLane="1" toLane="1" via=":absEnd_1_0" dir="s" state="M"/>
+    <connection from="end" to="rend" fromLane="1" toLane="1" via=":absEnd_0_1" dir="s" state="M"/>
     <connection from="left" to="left2end" fromLane="0" toLane="0" via=":endleft_0_0" dir="r" state="M"/>
     <connection from="left2end" to="end" fromLane="0" toLane="1" pass="1" via=":end_0_0" dir="l" state="M"/>
     <connection from="middle" to="end" fromLane="0" toLane="0" pass="1" via=":end_1_0" dir="s" state="M"/>
 
     <connection from=":absEnd_0" to="rend" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":absEnd_1" to="rend" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":absEnd_0" to="rend" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":beg_0" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":beg_1" to="beg2left" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":begleft_0" to="left" fromLane="0" toLane="0" dir="s" state="M"/>

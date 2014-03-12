@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:26:54 by SUMO sumo Version 0.17.0
+<!-- generated on Mon Mar  3 14:07:30 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -15,6 +15,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -1325,7 +1326,7 @@
     <timestep time="144.00">
         <edge id="e_m4">
             <lane id="e_m4_0">
-                <vehicle id="veh0" pos="17.55" speed="27.20"/>
+                <vehicle id="veh0" pos="9.50" speed="27.20"/>
             </lane>
             <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
@@ -1334,7 +1335,7 @@
     <timestep time="145.00">
         <edge id="e_m4">
             <lane id="e_m4_0">
-                <vehicle id="veh0" pos="45.55" speed="28.00"/>
+                <vehicle id="veh0" pos="37.50" speed="28.00"/>
             </lane>
             <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
@@ -1343,7 +1344,7 @@
     <timestep time="146.00">
         <edge id="e_m4">
             <lane id="e_m4_0">
-                <vehicle id="veh0" pos="74.35" speed="28.80"/>
+                <vehicle id="veh0" pos="66.30" speed="28.80"/>
             </lane>
             <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
@@ -1352,7 +1353,7 @@
     <timestep time="147.00">
         <edge id="e_m4">
             <lane id="e_m4_0">
-                <vehicle id="veh0" pos="103.95" speed="29.60"/>
+                <vehicle id="veh0" pos="95.90" speed="29.60"/>
             </lane>
             <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
@@ -1361,7 +1362,7 @@
     <timestep time="148.00">
         <edge id="e_m4">
             <lane id="e_m4_0">
-                <vehicle id="veh0" pos="134.35" speed="30.40"/>
+                <vehicle id="veh0" pos="126.30" speed="30.40"/>
             </lane>
             <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
@@ -1370,7 +1371,7 @@
     <timestep time="149.00">
         <edge id="e_m4">
             <lane id="e_m4_0">
-                <vehicle id="veh0" pos="165.55" speed="31.20"/>
+                <vehicle id="veh0" pos="157.50" speed="31.20"/>
             </lane>
             <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
@@ -1379,7 +1380,7 @@
     <timestep time="150.00">
         <edge id="e_m4">
             <lane id="e_m4_0">
-                <vehicle id="veh0" pos="197.55" speed="32.00"/>
+                <vehicle id="veh0" pos="189.50" speed="32.00"/>
             </lane>
             <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>

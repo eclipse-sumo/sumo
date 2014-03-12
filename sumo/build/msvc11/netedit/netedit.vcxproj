@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="InternalDebug|Win32">
+      <Configuration>InternalDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="InternalDebug|x64">
+      <Configuration>InternalDebug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="InternalFastbuild|Win32">
+      <Configuration>InternalFastbuild</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="InternalFastbuild|x64">
+      <Configuration>InternalFastbuild</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="InternalRelease|Win32">
+      <Configuration>InternalRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="InternalRelease|x64">
+      <Configuration>InternalRelease</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{813B2D7E-CC23-4650-892F-553B1AFD912C}</ProjectGuid>
+    <Keyword>MFCProj</Keyword>
+    <ProjectName>netedit</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\Fastbuild.props" />
+    <Import Project="..\exe.props" />
+    <Import Project="..\internal.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\Release.props" />
+    <Import Project="..\exe.props" />
+    <Import Project="..\internal.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\exe.props" />
+    <Import Project="..\internal.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\Fastbuild.props" />
+    <Import Project="..\exe.props" />
+    <Import Project="..\internal.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\Release.props" />
+    <Import Project="..\exe.props" />
+    <Import Project="..\internal.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\exe.props" />
+    <Import Project="..\internal.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'">$(ProjectName)D</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'">$(ProjectName)64D</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">$(ProjectName)64</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'">$(ProjectName)F</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">$(ProjectName)64F</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|Win32'">
+    <Link>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libinternal\InternalDebug\y_libinternal.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalDebug|x64'">
+    <Link>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libinternal\x64\InternalDebug\y_libinternal.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">
+    <Link>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libinternal\InternalRelease\y_libinternal.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">
+    <Link>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libinternal\x64\InternalRelease\y_libinternal.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|Win32'">
+    <Link>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalFastbuild|x64'">
+    <Link>
+      <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\netedit\GNEApplicationWindow.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEAttributeCarrier.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Attribute.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Connection.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Edge.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Junction.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Lane.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_TLS.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEConnector.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_About.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_Wizard.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEEdge.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEInspector.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEInternalLane.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEJunction.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNELane.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNELoadThread.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNENet.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEPOI.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNESelector.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNETLSEditor.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEUndoList.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEViewNet.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEViewParent.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\netedit_main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\src\netedit\netedit.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\netedit\GNEApplicationWindow.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEAttributeCarrier.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Attribute.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Connection.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Edge.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Junction.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Lane.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEConnector.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_About.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_Wizard.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEEdge.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEEvent_NetworkLoaded.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEInspector.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEInternalLane.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEJunction.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNELane.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNELoadThread.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNENet.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEPOI.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEReferenceCounter.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNESelector.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNETLSEditor.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEUndoList.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEViewNet.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEViewParent.h" />
+    <ClInclude Include="..\..\..\src\version.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\y_libnetbuild\y_libnetbuild.vcxproj">
+      <Project>{bd855404-fa32-48ae-9ab3-fb8b3d71c8c6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\y_libnetimport\y_libnetimport.vcxproj">
+      <Project>{91422fef-2369-45e6-87aa-8b38709ad823}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\y_libnetwrite\y_libnetwrite.vcxproj">
+      <Project>{91422fef-2369-45e6-87aa-8b38709ad824}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_eulerspiral\zz_foreign_eulerspiral.vcxproj">
+      <Project>{50b2c273-2b6a-4a3a-be24-83e3202de180}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_gl2ps\zz_foreign_gl2ps.vcxproj">
+      <Project>{272d2367-13fe-45c2-84ad-8480861db43e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
+      <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_polyfonts\zz_foreign_polyfonts.vcxproj">
+      <Project>{306768a4-b73e-4b81-9ec0-b4836efe0504}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_tcpip\zz_foreign_tcpip.vcxproj">
+      <Project>{492b0b5a-0bbe-49ba-82e6-70a82dbc242f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libnetimport_vissim\z_libnetimport_vissim.vcxproj">
+      <Project>{f7f13336-3e29-4219-8580-a17c71e69718}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_common\z_libutils_common.vcxproj">
+      <Project>{72cdb11a-ec19-4be2-bbe9-1fa33deccb20}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_distribution\z_libutils_distribution.vcxproj">
+      <Project>{f5d8313c-621d-4cce-a6da-83effbde7ce6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_foxtools\z_libutils_foxtools.vcxproj">
+      <Project>{ecaebbbd-18b0-4e40-9507-4ad2b018c1cd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_geom\z_libutils_geom.vcxproj">
+      <Project>{334df447-d0b3-4cea-9693-f755eb11c18f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_div\z_libutils_gui_div.vcxproj">
+      <Project>{e3ab9c37-6b5a-4d8c-88f3-df750a493511}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_globjects\z_libutils_gui_globjects.vcxproj">
+      <Project>{39f2dfde-76c6-46fd-a20a-6c8fd52c9db1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_images\z_libutils_gui_images.vcxproj">
+      <Project>{5f818af6-963e-40b3-93f3-35e145fde30b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_settings\z_libutils_gui_settings.vcxproj">
+      <Project>{8c2f733c-1c8e-45c9-a546-17ef0146718d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_tracker\z_libutils_gui_tracker.vcxproj">
+      <Project>{67e76d22-3c3e-44fc-9253-3fe583db7848}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_windows\z_libutils_gui_windows.vcxproj">
+      <Project>{25af2c06-8b08-4b33-8775-657e27c304d9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_importio\z_libutils_importio.vcxproj">
+      <Project>{9fcf1caf-0189-4242-88ba-47706e741119}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_iodevices\z_libutils_iodevices.vcxproj">
+      <Project>{fc588f88-ffc4-4ebd-a790-1b1fe06e1fc8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_options\z_libutils_options.vcxproj">
+      <Project>{ee29af87-7317-488d-bf6d-ec422d1dbad6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_xml\z_libutils_xml.vcxproj">
+      <Project>{508f0bff-83fe-444c-9509-a359bca83bc4}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

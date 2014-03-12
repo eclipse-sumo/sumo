@@ -1,0 +1,6 @@
+
+[Reported by behr_mi at 03Mär14:26:09]
+search_string:meanSpeedWithin="(inf|1.#J)"
+search_file:detector
+full_description:inconsistent output
+brief_description:see #1171

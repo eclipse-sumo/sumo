@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Fastbuild|Win32">
+      <Configuration>Fastbuild</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Fastbuild|x64">
+      <Configuration>Fastbuild</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F7F13336-3E29-4219-8580-A17C71E69718}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\Fastbuild.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\Release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\Fastbuild.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\Release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\netimport\vissim\NIImporter_Vissim.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimAbstractEdge.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimBoundedClusterObject.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosedLaneDef.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosures.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnection.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimEdge.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimEdgePosMap.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimExtendedEdgePoint.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeCluster.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef_Edges.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef_Poly.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeParticipatingEdge.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XKurvedefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XVerteilungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Auswertungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Detektordefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_DynUml.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Einheitendefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Emission.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrtverlaufdateien.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrverhaltendefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugklassendefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugtypdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fensterdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gefahrwarnungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gelbverhaltendefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Haltestellendefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kantensperrung.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kennungszeile.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Knotendefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Laengenverteilungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Langsamfahrbereichdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Lichtsignalanlagendefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Liniendefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Linksverkehr.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_LSAKopplungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Messungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Netzobjektdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Parkplatzdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Querschnittsmessungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Rautedefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Reisezeitmessungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Richtungsentscheidungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Richtungspfeildefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Routenentscheidungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgeberdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Simdauer.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_SimRate.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startuhrzeit.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startzufallszahl.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stauparameterdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stauzaehlerdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stopschilddefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckendefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckentypdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_TEAPACDefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verbindungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verlustzeitmessungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_VWunschentscheidungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitenverteilungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitschrittfaktor.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zuflussdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zusammensetzungsdefinition.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimSource.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimTL.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimTrafficDescription.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehicleClass.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehicleType.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehTypeClass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\netimport\vissim\NIImporter_Vissim.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimAbstractEdge.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimBoundedClusterObject.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosedLaneDef.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosedLanesVector.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosures.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnection.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnectionCluster.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimDistrictConnection.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimDisturbance.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimEdge.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimEdgePosMap.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\NIVissimElements.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimExtendedEdgePoint.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimExtendedEdgePointVector.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeCluster.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef_Edges.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef_Poly.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeParticipatingEdge.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeParticipatingEdgeVector.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XKurvedefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XVerteilungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Auswertungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Detektordefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_DynUml.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Einheitendefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Emission.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrtverlaufdateien.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrverhaltendefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugklassendefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugtypdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fensterdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gefahrwarnungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gelbverhaltendefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Haltestellendefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kantensperrung.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kennungszeile.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Knotendefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Laengenverteilungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Langsamfahrbereichdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Lichtsignalanlagendefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Liniendefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Linksverkehr.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_LSAKopplungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Messungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Netzobjektdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Parkplatzdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Querschnittsmessungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Rautedefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Reisezeitmessungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Richtungsentscheidungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Richtungspfeildefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Routenentscheidungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgeberdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Simdauer.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_SimRate.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startuhrzeit.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startzufallszahl.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stauparameterdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stauzaehlerdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stopschilddefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckendefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckentypdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_TEAPACDefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verbindungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verlustzeitmessungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_VWunschentscheidungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitschrittfaktor.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zuflussdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zusammensetzungsdefinition.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimSource.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimTL.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimTrafficDescription.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehicleClass.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehicleClassVector.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehicleType.h" />
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehTypeClass.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

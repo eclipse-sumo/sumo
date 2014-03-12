@@ -343,8 +343,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
 
 
 void
-RODFNet::buildRoutes(RODFDetectorCon& detcont, bool allEndFollower,
-                     bool keepUnfoundEnds, bool includeInBetween,
+RODFNet::buildRoutes(RODFDetectorCon& detcont, bool keepUnfoundEnds, bool includeInBetween,
                      bool keepShortestOnly, int maxFollowingLength) const {
     // build needed information first
     buildDetectorEdgeDependencies(detcont);
@@ -376,9 +375,6 @@ RODFNet::buildRoutes(RODFDetectorCon& detcont, bool allEndFollower,
         visited.push_back(e);
         computeRoutesFor(e, rd, 0, keepUnfoundEnds, keepShortestOnly,
                          visited, **i, *routes, detcont, maxFollowingLength, seen);
-        if (allEndFollower) {
-            routes->addAllEndFollower();
-        }
         //!!!routes->removeIllegal(illegals);
         (*i)->addRoutes(routes);
 
@@ -1025,7 +1021,7 @@ RODFNet::buildDetectorDependencies(RODFDetectorCon& detectors) {
         {
             const std::vector<std::string>& detNames = myDetectorsOnEdges.find((*i).second)->second;
             for (std::vector<std::string>::const_iterator j = detNames.begin(); j != detNames.end(); ++j) {
-                last.push_back((RODFDetector*) &detectors.getDetector(*j));
+                last.push_back(&detectors.getModifiableDetector(*j));
             }
         }
         // iterate over the current detector's routes
@@ -1039,13 +1035,13 @@ RODFNet::buildDetectorDependencies(RODFDetectorCon& detectors) {
                     for (std::vector<RODFDetector*>::iterator l = last.begin(); l != last.end(); ++l) {
                         // mark as follower of current
                         for (std::vector<std::string>::const_iterator m = detNames.begin(); m != detNames.end(); ++m) {
-                            ((RODFDetector*) &detectors.getDetector(*m))->addPriorDetector((RODFDetector*) & (*l));
-                            (*l)->addFollowingDetector((RODFDetector*) &detectors.getDetector(*m));
+                            detectors.getModifiableDetector(*m).addPriorDetector(*l);
+                            (*l)->addFollowingDetector(&detectors.getDetector(*m));
                         }
                     }
                     last.clear();
                     for (std::vector<std::string>::const_iterator m = detNames.begin(); m != detNames.end(); ++m) {
-                        last.push_back((RODFDetector*) &detectors.getDetector(*m));
+                        last.push_back(&detectors.getModifiableDetector(*m));
                     }
                 }
             }

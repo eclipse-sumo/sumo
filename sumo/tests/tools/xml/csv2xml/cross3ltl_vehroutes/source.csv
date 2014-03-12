@@ -1,0 +1,184 @@
+vehicle_arrival;vehicle_depart;vehicle_id;route_edges
+310.00;100.00;horizontal.0;2fi 2si 1o 1fi 1si 2o 2fi
+320.00;110.00;horizontal.1;2fi 2si 1o 1fi 1si 2o 2fi
+346.00;102.00;vertical.0;3fi 3si 4o 4fi 4si 3o 3fi
+348.00;113.00;vertical.1;3fi 3si 4o 4fi 4si 3o 3fi
+350.00;123.00;vertical.2;3fi 3si 4o 4fi 4si 3o 3fi
+353.00;133.00;vertical.3;3fi 3si 4o 4fi 4si 3o 3fi
+355.00;143.00;vertical.4;3fi 3si 4o 4fi 4si 3o 3fi
+364.00;153.00;vertical.5;3fi 3si 4o 4fi 4si 3o 3fi
+372.00;163.00;vertical.6;3fi 3si 4o 4fi 4si 3o 3fi
+390.00;120.00;horizontal.2;2fi 2si 1o 1fi 1si 2o 2fi
+392.00;130.00;horizontal.3;2fi 2si 1o 1fi 1si 2o 2fi
+394.00;140.00;horizontal.4;2fi 2si 1o 1fi 1si 2o 2fi
+396.00;150.00;horizontal.5;2fi 2si 1o 1fi 1si 2o 2fi
+399.00;160.00;horizontal.6;2fi 2si 1o 1fi 1si 2o 2fi
+401.00;170.00;horizontal.7;2fi 2si 1o 1fi 1si 2o 2fi
+403.00;180.00;horizontal.8;2fi 2si 1o 1fi 1si 2o 2fi
+405.00;190.00;horizontal.9;2fi 2si 1o 1fi 1si 2o 2fi
+410.00;200.00;horizontal.10;2fi 2si 1o 1fi 1si 2o 2fi
+436.00;173.00;vertical.7;3fi 3si 4o 4fi 4si 3o 3fi
+439.00;183.00;vertical.8;3fi 3si 4o 4fi 4si 3o 3fi
+441.00;193.00;vertical.9;3fi 3si 4o 4fi 4si 3o 3fi
+443.00;203.00;vertical.10;3fi 3si 4o 4fi 4si 3o 3fi
+445.00;213.00;vertical.11;3fi 3si 4o 4fi 4si 3o 3fi
+447.00;223.00;vertical.12;3fi 3si 4o 4fi 4si 3o 3fi
+449.00;233.00;vertical.13;3fi 3si 4o 4fi 4si 3o 3fi
+452.00;243.00;vertical.14;3fi 3si 4o 4fi 4si 3o 3fi
+461.00;253.00;vertical.15;3fi 3si 4o 4fi 4si 3o 3fi
+480.00;210.00;horizontal.11;2fi 2si 1o 1fi 1si 2o 2fi
+482.00;220.00;horizontal.12;2fi 2si 1o 1fi 1si 2o 2fi
+484.00;244.00;horizontal.13;2fi 2si 1o 1fi 1si 2o 2fi
+486.00;247.00;horizontal.14;2fi 2si 1o 1fi 1si 2o 2fi
+488.00;254.00;horizontal.15;2fi 2si 1o 1fi 1si 2o 2fi
+491.00;260.00;horizontal.16;2fi 2si 1o 1fi 1si 2o 2fi
+494.00;270.00;horizontal.17;2fi 2si 1o 1fi 1si 2o 2fi
+496.00;280.00;horizontal.18;2fi 2si 1o 1fi 1si 2o 2fi
+499.00;290.00;horizontal.19;2fi 2si 1o 1fi 1si 2o 2fi
+510.00;300.00;horizontal.20;2fi 2si 1o 1fi 1si 2o 2fi
+527.00;263.00;vertical.16;3fi 3si 4o 4fi 4si 3o 3fi
+529.00;273.00;vertical.17;3fi 3si 4o 4fi 4si 3o 3fi
+531.00;283.00;vertical.18;3fi 3si 4o 4fi 4si 3o 3fi
+533.00;293.00;vertical.19;3fi 3si 4o 4fi 4si 3o 3fi
+536.00;303.00;vertical.20;3fi 3si 4o 4fi 4si 3o 3fi
+538.00;313.00;vertical.21;3fi 3si 4o 4fi 4si 3o 3fi
+544.00;335.00;vertical.22;3fi 3si 4o 4fi 4si 3o 3fi
+553.00;344.00;vertical.23;3fi 3si 4o 4fi 4si 3o 3fi
+572.00;310.00;horizontal.21;2fi 2si 1o 1fi 1si 2o 2fi
+574.00;344.00;horizontal.22;2fi 2si 1o 1fi 1si 2o 2fi
+576.00;356.00;horizontal.23;2fi 2si 1o 1fi 1si 2o 2fi
+578.00;359.00;horizontal.24;2fi 2si 1o 1fi 1si 2o 2fi
+580.00;362.00;horizontal.25;2fi 2si 1o 1fi 1si 2o 2fi
+592.00;382.00;horizontal.26;2fi 2si 1o 1fi 1si 2o 2fi
+596.00;387.00;horizontal.27;2fi 2si 1o 1fi 1si 2o 2fi
+601.00;390.00;horizontal.28;2fi 2si 1o 1fi 1si 2o 2fi
+616.00;352.00;vertical.24;3fi 3si 4o 4fi 4si 3o 3fi
+618.00;358.00;vertical.25;3fi 3si 4o 4fi 4si 3o 3fi
+620.00;364.00;vertical.26;3fi 3si 4o 4fi 4si 3o 3fi
+623.00;373.00;vertical.27;3fi 3si 4o 4fi 4si 3o 3fi
+625.00;383.00;vertical.28;3fi 3si 4o 4fi 4si 3o 3fi
+627.00;393.00;vertical.29;3fi 3si 4o 4fi 4si 3o 3fi
+630.00;403.00;vertical.30;3fi 3si 4o 4fi 4si 3o 3fi
+633.00;100.00;always_left.0;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+635.00;110.00;always_left.1;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+637.00;120.00;always_left.2;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+641.00;432.00;vertical.31;3fi 3si 4o 4fi 4si 3o 3fi
+643.00;130.00;always_left.3;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+659.00;100.00;always_right.0;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+661.00;393.00;horizontal.29;2fi 2si 1o 1fi 1si 2o 2fi
+661.00;110.00;always_right.1;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+663.00;400.00;horizontal.30;2fi 2si 1o 1fi 1si 2o 2fi
+663.00;120.00;always_right.2;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+665.00;422.00;horizontal.31;2fi 2si 1o 1fi 1si 2o 2fi
+665.00;130.00;always_right.3;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+667.00;427.00;horizontal.32;2fi 2si 1o 1fi 1si 2o 2fi
+668.00;140.00;always_right.4;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+670.00;436.00;horizontal.33;2fi 2si 1o 1fi 1si 2o 2fi
+670.00;150.00;always_right.5;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+672.00;451.00;horizontal.34;2fi 2si 1o 1fi 1si 2o 2fi
+672.00;160.00;always_right.6;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+685.00;477.00;horizontal.35;2fi 2si 1o 1fi 1si 2o 2fi
+691.00;480.00;horizontal.36;2fi 2si 1o 1fi 1si 2o 2fi
+707.00;442.00;vertical.32;3fi 3si 4o 4fi 4si 3o 3fi
+709.00;448.00;vertical.33;3fi 3si 4o 4fi 4si 3o 3fi
+712.00;454.00;vertical.34;3fi 3si 4o 4fi 4si 3o 3fi
+714.00;460.00;vertical.35;3fi 3si 4o 4fi 4si 3o 3fi
+716.00;466.00;vertical.36;3fi 3si 4o 4fi 4si 3o 3fi
+718.00;483.00;vertical.37;3fi 3si 4o 4fi 4si 3o 3fi
+720.00;489.00;vertical.38;3fi 3si 4o 4fi 4si 3o 3fi
+722.00;495.00;vertical.39;3fi 3si 4o 4fi 4si 3o 3fi
+725.00;140.00;always_left.4;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+727.00;150.00;always_left.5;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+731.00;522.00;vertical.40;3fi 3si 4o 4fi 4si 3o 3fi
+733.00;160.00;always_left.6;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+735.00;170.00;always_left.7;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+737.00;180.00;always_left.8;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+739.00;190.00;always_left.9;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+749.00;170.00;always_right.7;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+750.00;487.00;horizontal.37;2fi 2si 1o 1fi 1si 2o 2fi
+751.00;180.00;always_right.8;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+753.00;190.00;always_right.9;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+754.00;490.00;horizontal.38;2fi 2si 1o 1fi 1si 2o 2fi
+755.00;200.00;always_right.10;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+756.00;493.00;horizontal.39;2fi 2si 1o 1fi 1si 2o 2fi
+757.00;210.00;always_right.11;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+759.00;523.00;horizontal.40;2fi 2si 1o 1fi 1si 2o 2fi
+759.00;220.00;always_right.12;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+761.00;526.00;horizontal.41;2fi 2si 1o 1fi 1si 2o 2fi
+761.00;230.00;always_right.13;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+763.00;540.00;horizontal.42;2fi 2si 1o 1fi 1si 2o 2fi
+763.00;240.00;always_right.14;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+765.00;543.00;horizontal.43;2fi 2si 1o 1fi 1si 2o 2fi
+765.00;250.00;always_right.15;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+767.00;558.00;horizontal.44;2fi 2si 1o 1fi 1si 2o 2fi
+770.00;561.00;horizontal.45;2fi 2si 1o 1fi 1si 2o 2fi
+773.00;564.00;horizontal.46;2fi 2si 1o 1fi 1si 2o 2fi
+796.00;530.00;vertical.41;3fi 3si 4o 4fi 4si 3o 3fi
+799.00;536.00;vertical.42;3fi 3si 4o 4fi 4si 3o 3fi
+801.00;542.00;vertical.43;3fi 3si 4o 4fi 4si 3o 3fi
+803.00;548.00;vertical.44;3fi 3si 4o 4fi 4si 3o 3fi
+805.00;554.00;vertical.45;3fi 3si 4o 4fi 4si 3o 3fi
+807.00;572.00;vertical.46;3fi 3si 4o 4fi 4si 3o 3fi
+809.00;580.00;vertical.47;3fi 3si 4o 4fi 4si 3o 3fi
+811.00;586.00;vertical.48;3fi 3si 4o 4fi 4si 3o 3fi
+814.00;200.00;always_left.10;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+818.00;610.00;vertical.49;3fi 3si 4o 4fi 4si 3o 3fi
+820.00;210.00;always_left.11;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+822.00;220.00;always_left.12;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+825.00;230.00;always_left.13;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+827.00;240.00;always_left.14;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+829.00;250.00;always_left.15;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+831.00;260.00;always_left.16;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+839.00;260.00;always_right.16;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+841.00;270.00;always_right.17;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+842.00;573.00;horizontal.47;2fi 2si 1o 1fi 1si 2o 2fi
+844.00;580.00;horizontal.48;2fi 2si 1o 1fi 1si 2o 2fi
+844.00;280.00;always_right.18;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+846.00;610.00;horizontal.49;2fi 2si 1o 1fi 1si 2o 2fi
+846.00;290.00;always_right.19;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+848.00;618.00;horizontal.50;2fi 2si 1o 1fi 1si 2o 2fi
+848.00;300.00;always_right.20;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+850.00;310.00;always_right.21;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+851.00;631.00;horizontal.51;2fi 2si 1o 1fi 1si 2o 2fi
+852.00;332.00;always_right.22;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+854.00;341.00;always_right.23;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+858.00;649.00;horizontal.52;2fi 2si 1o 1fi 1si 2o 2fi
+861.00;652.00;horizontal.53;2fi 2si 1o 1fi 1si 2o 2fi
+864.00;655.00;horizontal.54;2fi 2si 1o 1fi 1si 2o 2fi
+886.00;618.00;vertical.50;3fi 3si 4o 4fi 4si 3o 3fi
+889.00;624.00;vertical.51;3fi 3si 4o 4fi 4si 3o 3fi
+891.00;630.00;vertical.52;3fi 3si 4o 4fi 4si 3o 3fi
+893.00;662.00;vertical.53;3fi 3si 4o 4fi 4si 3o 3fi
+895.00;676.00;vertical.54;3fi 3si 4o 4fi 4si 3o 3fi
+907.00;270.00;always_left.17;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+909.00;699.00;vertical.55;3fi 3si 4o 4fi 4si 3o 3fi
+911.00;290.00;always_left.18;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+914.00;295.00;always_left.19;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+915.00;300.00;always_left.20;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+917.00;310.00;always_left.21;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+920.00;320.00;always_left.22;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+929.00;349.00;always_right.24;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+931.00;662.00;horizontal.55;2fi 2si 1o 1fi 1si 2o 2fi
+931.00;355.00;always_right.25;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+933.00;668.00;horizontal.56;2fi 2si 1o 1fi 1si 2o 2fi
+933.00;361.00;always_right.26;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+936.00;671.00;horizontal.57;2fi 2si 1o 1fi 1si 2o 2fi
+936.00;370.00;always_right.27;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+938.00;694.00;horizontal.58;2fi 2si 1o 1fi 1si 2o 2fi
+938.00;380.00;always_right.28;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+940.00;702.00;horizontal.59;2fi 2si 1o 1fi 1si 2o 2fi
+940.00;390.00;always_right.29;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+942.00;707.00;horizontal.60;2fi 2si 1o 1fi 1si 2o 2fi
+942.00;400.00;always_right.30;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+944.00;429.00;always_right.31;3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi
+945.00;721.00;horizontal.61;2fi 2si 1o 1fi 1si 2o 2fi
+959.00;750.00;horizontal.62;2fi 2si 1o 1fi 1si 2o 2fi
+976.00;708.00;vertical.56;3fi 3si 4o 4fi 4si 3o 3fi
+980.00;714.00;vertical.57;3fi 3si 4o 4fi 4si 3o 3fi
+982.00;720.00;vertical.58;3fi 3si 4o 4fi 4si 3o 3fi
+984.00;746.00;vertical.59;3fi 3si 4o 4fi 4si 3o 3fi
+986.00;767.00;vertical.60;3fi 3si 4o 4fi 4si 3o 3fi
+993.00;330.00;always_left.23;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+995.00;340.00;always_left.24;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+997.00;350.00;always_left.25;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi
+999.00;360.00;always_left.26;1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi

@@ -38,6 +38,7 @@
 #include <iomanip>
 #include <fstream>
 #include <ctime>
+#include <stdlib.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/common/MsgHandler.h>
@@ -251,7 +252,8 @@ MSFrame::fillOptions() {
 
     // devices
     oc.addOptionSubTopic("Emissions");
-    oc.doRegister("phemlight-path", new Option_FileName("./PHEMlight/"));
+    std::string plp = getenv("PHEMLIGHT_PATH")==0 ? "./PHEMlight/" : std::string(getenv("PHEMLIGHT_PATH"));
+    oc.doRegister("phemlight-path", new Option_FileName(plp));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
     oc.addOptionSubTopic("Communication");
     MSDevice::insertOptions(oc);
@@ -334,15 +336,15 @@ MSFrame::fillOptions() {
 void
 MSFrame::buildStreams() {
     // standard outputs
-    OutputDevice::createDeviceByOption("netstate-dump", "netstate");
-    OutputDevice::createDeviceByOption("summary-output", "summary");
-    OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
+    OutputDevice::createDeviceByOption("netstate-dump", "netstate", "netstate_file.xsd");
+    OutputDevice::createDeviceByOption("summary-output", "summary", "summary_file.xsd");
+    OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos", "tripinfo_file.xsd");
 
     //extended
-    OutputDevice::createDeviceByOption("fcd-output", "fcd-export");
-    OutputDevice::createDeviceByOption("emission-output", "emission-export");
-    OutputDevice::createDeviceByOption("full-output", "full-export");
-    OutputDevice::createDeviceByOption("queue-output", "queue-export");
+    OutputDevice::createDeviceByOption("fcd-output", "fcd-export", "fcd_file.xsd");
+    OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
+    OutputDevice::createDeviceByOption("full-output", "full-export", "full_file.xsd");
+    OutputDevice::createDeviceByOption("queue-output", "queue-export", "queue_file.xsd");
 
     //OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");

@@ -1,0 +1,1 @@
+-x $SUMO_HOME/data/xsd/summary_file.xsd

@@ -120,7 +120,7 @@ main(int argc, char* argv[]) {
         }
 
         std::string statFile = oc.getString("stat-file");
-        OutputDevice::createDeviceByOption("output-file", "routes");
+        OutputDevice::createDeviceByOption("output-file", "routes", "routes_file.xsd");
         AGTime duration(1, 0, 0);
         AGTime begin(0);
         AGTime end(0);

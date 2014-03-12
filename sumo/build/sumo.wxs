@@ -120,6 +120,10 @@
         <ComponentGroupRef Id='tools' />
       </Feature>
 
+      <Feature Id='Data' Title='Data' Description='Additional data like XML schemata and edge type maps.' Level='1'>
+        <ComponentGroupRef Id='data' />
+      </Feature>
+
       <Feature Id='EnvironmentVariables' Title='EnvironmentVariables' Description='Set SUMO_HOME and adapt PATH.' Level='1'>
         <ComponentRef Id='SumoHome' />
         <ComponentRef Id='Path' />

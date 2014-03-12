@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:02:20 by SUMO duarouter Version 0.17.0
+<!-- generated on Mon Mar  3 14:00:38 2014 by SUMO duarouter Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
@@ -16,6 +16,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -24,33 +25,33 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <vehicle id="0" depart="0.00">
-        <route edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+        <route edges="beg middle end rend" exitTimes="17.99 89.93 107.91 125.90"/>
     </vehicle>
     <vehicle id="1" depart="0.00">
-        <route edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+        <route edges="beg middle end rend" exitTimes="17.99 89.93 107.91 125.90"/>
     </vehicle>
     <vehicle id="2" depart="0.00">
-        <route edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+        <route edges="beg middle end rend" exitTimes="17.99 89.93 107.91 125.90"/>
     </vehicle>
     <vehicle id="3" depart="0.00">
-        <route edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+        <route edges="beg middle end rend" exitTimes="17.99 89.93 107.91 125.90"/>
     </vehicle>
     <vehicle id="4" depart="0.00">
-        <route edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+        <route edges="beg middle end rend" exitTimes="17.99 89.93 107.91 125.90"/>
     </vehicle>
     <vehicle id="5" depart="0.00">
-        <route edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+        <route edges="beg middle end rend" exitTimes="17.99 89.93 107.91 125.90"/>
     </vehicle>
     <vehicle id="6" depart="0.00">
-        <route edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+        <route edges="beg middle end rend" exitTimes="17.99 89.93 107.91 125.90"/>
     </vehicle>
     <vehicle id="7" depart="0.00">
-        <route edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+        <route edges="beg middle end rend" exitTimes="17.99 89.93 107.91 125.90"/>
     </vehicle>
     <vehicle id="8" depart="0.00">
-        <route edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+        <route edges="beg middle end rend" exitTimes="17.99 89.93 107.91 125.90"/>
     </vehicle>
     <vehicle id="9" depart="0.00">
-        <route edges="beg middle end rend" exitTimes="17.93 89.19 107.13 125.11"/>
+        <route edges="beg middle end rend" exitTimes="17.99 89.93 107.91 125.90"/>
     </vehicle>
 </routes>

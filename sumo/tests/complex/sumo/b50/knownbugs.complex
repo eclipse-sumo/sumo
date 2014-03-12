@@ -1,0 +1,7 @@
+
+[Reported by Windows at 07Mar11:13:35]
+search_string:emergency stop .* for unknown reason
+search_file:errors
+ignore_other_errors:1
+bug_system:trac
+bug_id:1186

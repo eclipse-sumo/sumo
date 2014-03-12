@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:12:42 by SUMO sumo Version 0.17.0
+<!-- generated on Mon Mar  3 10:28:03 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -16,6 +16,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -35,30 +36,30 @@
         <vehicle id="1" lane="4/1to3/1_0" pos="325.00" x="1270.25" y="401.65" speed="9.00"/>
     </timestep>
     <timestep time="40.00" id="test1" vType="t2">
-        <vehicle id="1" lane="3/1to2/1_0" pos="24.50" x="1170.75" y="401.65" speed="9.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="15.00" x="1180.25" y="401.65" speed="9.00"/>
     </timestep>
     <timestep time="50.00" id="test1" vType="t2">
-        <vehicle id="1" lane="3/1to2/1_0" pos="114.50" x="1080.75" y="401.65" speed="9.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="105.00" x="1090.25" y="401.65" speed="9.00"/>
     </timestep>
     <timestep time="60.00" id="test1" vType="t2">
-        <vehicle id="1" lane="3/1to2/1_0" pos="204.50" x="990.75" y="401.65" speed="9.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="195.00" x="1000.25" y="401.65" speed="9.00"/>
     </timestep>
     <timestep time="70.00" id="test1" vType="t2">
-        <vehicle id="1" lane="3/1to2/1_0" pos="294.50" x="900.75" y="401.65" speed="9.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="285.00" x="910.25" y="401.65" speed="9.00"/>
     </timestep>
     <timestep time="80.00" id="test1" vType="t2">
-        <vehicle id="1" lane="3/1to2/1_0" pos="384.50" x="810.75" y="401.65" speed="9.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="375.00" x="820.25" y="401.65" speed="9.00"/>
     </timestep>
     <timestep time="90.00" id="test1" vType="t2">
-        <vehicle id="1" lane="2/1to1/1_0" pos="84.00" x="711.25" y="401.65" speed="9.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="65.00" x="730.25" y="401.65" speed="9.00"/>
     </timestep>
     <timestep time="100.00" id="test1" vType="t2">
-        <vehicle id="1" lane="2/1to1/1_0" pos="174.00" x="621.25" y="401.65" speed="9.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="155.00" x="640.25" y="401.65" speed="9.00"/>
     </timestep>
     <timestep time="110.00" id="test1" vType="t2">
-        <vehicle id="1" lane="2/1to1/1_0" pos="264.00" x="531.25" y="401.65" speed="9.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="245.00" x="550.25" y="401.65" speed="9.00"/>
     </timestep>
     <timestep time="120.00" id="test1" vType="t2">
-        <vehicle id="1" lane="2/1to1/1_0" pos="354.00" x="441.25" y="401.65" speed="9.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="335.00" x="460.25" y="401.65" speed="9.00"/>
     </timestep>
 </vehicle-type-probes>

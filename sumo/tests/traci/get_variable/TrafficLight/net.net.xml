@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May  7 15:49:17 2013 by SUMO netconvert Version dev-SVN-rUNKNOWN
+<!-- generated on Mon Mar  3 10:25:29 2014 by SUMO netconvert Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tests/traci/VariableRetrieval/TrafficLight/net.nod.xml"/>
-        <edge-files value="./tests/traci/VariableRetrieval/TrafficLight/net.edg.xml"/>
+        <node-files value="./tests/traci/get_variable/TrafficLight/net.nod.xml"/>
+        <edge-files value="./tests/traci/get_variable/TrafficLight/net.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tests/traci/VariableRetrieval/TrafficLight/net.net.xml"/>
+        <output-file value="./tests/traci/get_variable/TrafficLight/net.net.xml"/>
     </output>
 
     <processing>
@@ -31,48 +31,48 @@
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
     <edge id="1fi" from="1" to="m1" priority="2">
-        <lane id="1fi_0" index="0" speed="11.11" length="248.50" shape="0.00,498.35 248.50,498.35"/>
+        <lane id="1fi_0" index="0" speed="11.11" length="250.00" shape="0.00,498.35 248.50,498.35"/>
     </edge>
     <edge id="1o" from="0" to="1" priority="1">
-        <lane id="1o_0" index="0" speed="11.11" length="488.65" shape="488.65,501.65 0.00,501.65"/>
+        <lane id="1o_0" index="0" speed="11.11" length="500.00" shape="488.65,501.65 0.00,501.65"/>
     </edge>
     <edge id="1si" from="m1" to="0" priority="3">
-        <lane id="1si_0" index="0" speed="13.89" length="237.15" shape="251.50,491.75 488.65,491.75"/>
-        <lane id="1si_1" index="1" speed="13.89" length="237.15" shape="251.50,495.05 488.65,495.05"/>
-        <lane id="1si_2" index="2" speed="13.89" length="237.15" shape="251.50,498.35 488.65,498.35"/>
+        <lane id="1si_0" index="0" speed="13.89" length="250.00" shape="251.50,491.75 488.65,491.75"/>
+        <lane id="1si_1" index="1" speed="13.89" length="250.00" shape="251.50,495.05 488.65,495.05"/>
+        <lane id="1si_2" index="2" speed="13.89" length="250.00" shape="251.50,498.35 488.65,498.35"/>
     </edge>
     <edge id="2fi" from="2" to="m2" priority="2">
-        <lane id="2fi_0" index="0" speed="11.11" length="248.50" shape="1000.00,501.65 751.50,501.65"/>
+        <lane id="2fi_0" index="0" speed="11.11" length="250.00" shape="1000.00,501.65 751.50,501.65"/>
     </edge>
     <edge id="2o" from="0" to="2" priority="1">
-        <lane id="2o_0" index="0" speed="11.11" length="488.65" shape="511.35,498.35 1000.00,498.35"/>
+        <lane id="2o_0" index="0" speed="11.11" length="500.00" shape="511.35,498.35 1000.00,498.35"/>
     </edge>
     <edge id="2si" from="m2" to="0" priority="3">
-        <lane id="2si_0" index="0" speed="13.89" length="237.15" shape="748.50,508.25 511.35,508.25"/>
-        <lane id="2si_1" index="1" speed="13.89" length="237.15" shape="748.50,504.95 511.35,504.95"/>
-        <lane id="2si_2" index="2" speed="13.89" length="237.15" shape="748.50,501.65 511.35,501.65"/>
+        <lane id="2si_0" index="0" speed="13.89" length="250.00" shape="748.50,508.25 511.35,508.25"/>
+        <lane id="2si_1" index="1" speed="13.89" length="250.00" shape="748.50,504.95 511.35,504.95"/>
+        <lane id="2si_2" index="2" speed="13.89" length="250.00" shape="748.50,501.65 511.35,501.65"/>
     </edge>
     <edge id="3fi" from="3" to="m3" priority="2">
-        <lane id="3fi_0" index="0" speed="11.11" length="248.50" shape="501.65,0.00 501.65,248.50"/>
+        <lane id="3fi_0" index="0" speed="11.11" length="250.00" shape="501.65,0.00 501.65,248.50"/>
     </edge>
     <edge id="3o" from="0" to="3" priority="1">
-        <lane id="3o_0" index="0" speed="11.11" length="488.65" shape="498.35,488.65 498.35,0.00"/>
+        <lane id="3o_0" index="0" speed="11.11" length="500.00" shape="498.35,488.65 498.35,0.00"/>
     </edge>
     <edge id="3si" from="m3" to="0" priority="3">
-        <lane id="3si_0" index="0" speed="13.89" length="237.15" shape="508.25,251.50 508.25,488.65"/>
-        <lane id="3si_1" index="1" speed="13.89" length="237.15" shape="504.95,251.50 504.95,488.65"/>
-        <lane id="3si_2" index="2" speed="13.89" length="237.15" shape="501.65,251.50 501.65,488.65"/>
+        <lane id="3si_0" index="0" speed="13.89" length="250.00" shape="508.25,251.50 508.25,488.65"/>
+        <lane id="3si_1" index="1" speed="13.89" length="250.00" shape="504.95,251.50 504.95,488.65"/>
+        <lane id="3si_2" index="2" speed="13.89" length="250.00" shape="501.65,251.50 501.65,488.65"/>
     </edge>
     <edge id="4fi" from="4" to="m4" priority="2">
-        <lane id="4fi_0" index="0" speed="11.11" length="248.50" shape="498.35,1000.00 498.35,751.50"/>
+        <lane id="4fi_0" index="0" speed="11.11" length="250.00" shape="498.35,1000.00 498.35,751.50"/>
     </edge>
     <edge id="4o" from="0" to="4" priority="1">
-        <lane id="4o_0" index="0" speed="11.11" length="488.65" shape="501.65,511.35 501.65,1000.00"/>
+        <lane id="4o_0" index="0" speed="11.11" length="500.00" shape="501.65,511.35 501.65,1000.00"/>
     </edge>
     <edge id="4si" from="m4" to="0" priority="3">
-        <lane id="4si_0" index="0" speed="13.89" length="237.15" shape="491.75,748.50 491.75,511.35"/>
-        <lane id="4si_1" index="1" speed="13.89" length="237.15" shape="495.05,748.50 495.05,511.35"/>
-        <lane id="4si_2" index="2" speed="13.89" length="237.15" shape="498.35,748.50 498.35,511.35"/>
+        <lane id="4si_0" index="0" speed="13.89" length="250.00" shape="491.75,748.50 491.75,511.35"/>
+        <lane id="4si_1" index="1" speed="13.89" length="250.00" shape="495.05,748.50 495.05,511.35"/>
+        <lane id="4si_2" index="2" speed="13.89" length="250.00" shape="498.35,748.50 498.35,511.35"/>
     </edge>
 
     <tlLogic id="0" type="static" programID="0" offset="0">

@@ -65,7 +65,7 @@ std::map<const SUMOTime, std::string> MSDevice_Vehroutes::myRouteInfos;
 void
 MSDevice_Vehroutes::init() {
     if (OptionsCont::getOptions().isSet("vehroute-output")) {
-        OutputDevice::createDeviceByOption("vehroute-output", "routes");
+        OutputDevice::createDeviceByOption("vehroute-output", "routes", "routes_file.xsd");
         mySaveExits = OptionsCont::getOptions().getBool("vehroute-output.exit-times");
         myLastRouteOnly = OptionsCont::getOptions().getBool("vehroute-output.last-route");
         mySorted = OptionsCont::getOptions().getBool("vehroute-output.sorted");
@@ -278,7 +278,7 @@ MSDevice_Vehroutes::addRoute() {
 
 void
 MSDevice_Vehroutes::generateOutputForUnfinished() {
-    for (std::map<const SUMOVehicle*, MSDevice_Vehroutes*>::iterator it = myStateListener.myDevices.begin();
+    for (std::map<const SUMOVehicle*, MSDevice_Vehroutes*, Named::NamedLikeComparatorIdLess<SUMOVehicle> >::const_iterator it = myStateListener.myDevices.begin();
             it != myStateListener.myDevices.end(); ++it) {
         if (it->first->hasDeparted()) {
             it->second->generateOutput();

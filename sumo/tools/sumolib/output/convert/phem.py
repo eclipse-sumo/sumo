@@ -18,8 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import print_function
 import math
-import sumolib.output
-import sumolib.net
+import sumolib
 
 def _convType(tID):
   if tID.lower().startswith("passenger") or tID.lower().startswith("PKW"):

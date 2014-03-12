@@ -27,22 +27,22 @@
     </vType>
     <vehicle id="0" type="KRAUSS_DEFAULT" depart="0.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="1" type="KRAUSS_DEFAULT" depart="10.00">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" color="red" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" color="red" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="2" type="KRAUSS_DEFAULT" depart="20.00" color="red">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="3" type="KRAUSS_DEFAULT" depart="30.00" color="red">
         <routeDistribution last="0">
-            <route cost="125.11" probability="1.00000000" color="red" edges="beg middle end rend"/>
+            <route cost="125.90" probability="1.00000000" color="red" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 </routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:12:04 by SUMO sumo Version 0.17.0
+<!-- generated on Mon Mar  3 10:27:46 2014 by SUMO sumo Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -16,6 +16,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -28,8 +29,8 @@
    <interval begin="10.00" end="20.00" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
    <interval begin="20.00" end="30.00" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
    <interval begin="30.00" end="40.00" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
-   <interval begin="40.00" end="50.00" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="10.00" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="7.45" vehicleSumWithin="2" meanIntervalSpeedWithin="10.00" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="7.45"/>
-   <interval begin="50.00" end="60.00" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="10.00" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="17.45" vehicleSumWithin="2" meanIntervalSpeedWithin="10.00" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="10.00"/>
+   <interval begin="40.00" end="50.00" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="10.00" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="6.50" vehicleSumWithin="2" meanIntervalSpeedWithin="10.00" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="6.50"/>
+   <interval begin="50.00" end="60.00" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="10.00" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="16.50" vehicleSumWithin="2" meanIntervalSpeedWithin="10.00" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="10.00"/>
    <interval begin="60.00" end="70.00" id="3/1to2/1" meanTravelTime="20.00" meanSpeed="10.00" meanHaltsPerVehicle="0.00" vehicleSum="2" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
    <interval begin="70.00" end="80.00" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
    <interval begin="80.00" end="90.00" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>

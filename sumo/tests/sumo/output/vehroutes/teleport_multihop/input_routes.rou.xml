@@ -4,6 +4,6 @@
     <vehicle id="0" depart="0" departSpeed="10" departPos="100" route="r1">
         <stop lane="1/1to0/1_0" duration="1000"/>
     </vehicle>
-    <flow id="1" begin="5" end="50" number="51" departPos="100" route="r1"/>
+    <flow id="1" begin="5" end="50" number="52" departPos="100" route="r1"/>
     <vehicle id="2" depart="160" departSpeed="10" departPos="100" route="r1"/>
 </routes>

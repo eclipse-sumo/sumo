@@ -1,2 +1,3 @@
-Warning: Teleporting vehicle 'veh1'; collision with 'veh0', lane='1si_0', gap=-1.40, time=55.00 stage=move.
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Warning: Teleporting vehicle 'veh1'; collision with 'veh0', lane='1si_0', gap=-0.91, time=55.00 stage=move.
 Warning: Vehicle 'veh1' ends teleporting on edge '2o', time 55.00.

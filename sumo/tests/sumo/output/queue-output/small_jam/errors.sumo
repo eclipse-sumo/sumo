@@ -1,4 +1,0 @@
-Warning: Missing yellow phase in tlLogic '3/1', program 't1' for tl-index 0 when switching to phase 0
-Warning: Vehicle '0' performs emergency stop at the end of lane '4/1to3/1_0 because of a red traffic light (decel=-10.00), time=40.00.
-Warning: Teleporting vehicle '1'; collision with '0', lane='4/1to3/1_0', gap=-1.00, time=42.00 stage=move.
-Warning: Vehicle '1' ends teleporting on edge '3/1to2/1', time 42.00.

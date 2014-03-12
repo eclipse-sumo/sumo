@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 25 09:19:59 2014 by SUMO netconvert Version dev-SVN-r15699
+<!-- generated on Mon Mar  3 10:23:25 2014 by SUMO netconvert Version dev-SVN-r15793
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <osm-files value="./polyconvert/typemap/osm/osm.xml"/>
+        <osm-files value="./tests/polyconvert/typemap/osm/osm.xml"/>
     </input>
 
     <output>
-        <output-file value="./polyconvert/typemap/osm/input_net.net.xml"/>
+        <output-file value="./tests/polyconvert/typemap/osm/input_net.net.xml"/>
     </output>
 
     <projection>

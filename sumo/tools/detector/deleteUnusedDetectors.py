@@ -3,6 +3,7 @@
 @file    deleteUnusedDetektors.py
 @author  Laura Bieker
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
 @date    2010-03-03
 @version $Id$
 

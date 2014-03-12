@@ -22,7 +22,7 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import print_function
 import os, sys, csv, contextlib
 
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 from optparse import OptionParser
 
 import xsd, xml2csv
@@ -63,7 +63,7 @@ def row2vehicle_and_route(row, tag):
         edges = row.get("route_edges", "MISSING_VALUE")
         return ('    <%s %s>\n        <route edges="%s"/>\n    </%s>\n' % (
             tag, 
-            ' '.join(['%s="%s"' % (a, v) for a,v in row.items() if v != ""]),
+            ' '.join(['%s="%s"' % (a[len(tag)+1:], v) for a,v in row.items() if v != "" and a != "route_edges"]),
             edges, tag))
 
 def write_xml(toptag, tag, options, printer=row2xml):
@@ -120,25 +120,41 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
 
 
 def writeHierarchicalXml(struct, options):
+    if not struct.root.attributes:
+        options.skip_root = True
     with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
         if options.source.isdigit():
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
             inputf = open(options.source)
-        lastRow = {}
+        lastRow = OrderedDict()
         tagStack = [struct.root.name]
         if options.skip_root:
             outputf.write('<%s' % struct.root.name)
+        fields = None
+        enums = {}
         first = True
-        for row in csv.DictReader(inputf, delimiter=options.delimiter):
-            if first and not options.skip_root:
-                checkAttributes(outputf, lastRow, row, struct.root, tagStack, 0)
-                first = False
-            checkChanges(outputf, lastRow, row, struct.root, tagStack, 1)
-            lastRow = row
+        for raw in csv.reader(inputf, delimiter=options.delimiter):
+            if not fields:
+                fields = raw
+                for f in fields:
+                    enum = struct.getEnumerationByAttr(*f.split('_', 1))
+                    if enum:
+                        enums[f] = enum
+            else:
+                row = OrderedDict()
+                for field, entry in zip(fields,raw):
+                    if field in enums and entry.isdigit():
+                        entry = enums[field][int(entry)]
+                    row[field] = entry
+                if first and not options.skip_root:
+                    checkAttributes(outputf, lastRow, row, struct.root, tagStack, 0)
+                    first = False
+                checkChanges(outputf, lastRow, row, struct.root, tagStack, 1)
+                lastRow = row
         outputf.write("/>\n")
-        for tag in reversed(tagStack[:-1]):
-            outputf.write("</%s>\n" % tag)
+        for idx in range(len(tagStack)-2, -1, -1):
+            outputf.write("%s</%s>\n" % (idx * '    ', tagStack[idx]))
 
 
 def main():

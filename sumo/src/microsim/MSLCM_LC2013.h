@@ -148,9 +148,6 @@ protected:
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
     };
 
-    /// @brief updated myKeepRightProbability and mySpeedGainProbability if the right neighbours are faster
-    void keepRight(MSVehicle* neigh);
-
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;
     }
@@ -178,7 +175,9 @@ protected:
 protected:
     /// @brief a value for tracking the probability that a change to the offset with the same sign is beneficial
     SUMOReal mySpeedGainProbability;
-    /// @brief a value for tracking the probability of following the/"Rechtsfahrgebot" (never a positive value)
+    /* @brief a value for tracking the probability of following the/"Rechtsfahrgebot"
+     * A larger negative value indicates higher probability for moving to the
+     * right (as in mySpeedGainProbability) */
     SUMOReal myKeepRightProbability;
 
     SUMOReal myLeadingBlockerLength;

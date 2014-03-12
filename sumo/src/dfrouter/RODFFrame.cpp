@@ -128,8 +128,8 @@ RODFFrame::fillOptions() {
 
     // register processing options
     // to guess empty flows
-    oc.doRegister("guess-empty-flows", new Option_Bool(false)); // !!! describe
-    oc.addDescription("guess-empty-flows", "Processing", "");
+    oc.doRegister("guess-empty-flows", new Option_Bool(false));
+    oc.addDescription("guess-empty-flows", "Processing", "Derive missing flow values from upstream or downstream (not working!)");
 
     // for guessing source/sink detectors
     oc.doRegister("highway-mode", 'h', new Option_Bool(false)); // !!! describe
@@ -146,9 +146,6 @@ RODFFrame::fillOptions() {
     // for route computation
     oc.doRegister("revalidate-routes", new Option_Bool(false));
     oc.addDescription("revalidate-routes", "Processing", "Recomputes routes even if given");
-
-    oc.doRegister("all-end-follower", new Option_Bool(false));
-    oc.addDescription("all-end-follower", "Processing", "Continues routes till the first street after a sink");
 
     oc.doRegister("keep-unfinished-routes", new Option_Bool(false));
     oc.addSynonyme("keep-unfinished-routes", "keep-unfound-ends", true);

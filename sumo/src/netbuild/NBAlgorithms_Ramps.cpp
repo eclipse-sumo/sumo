@@ -165,6 +165,12 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
                 if (curr->getNumLanes() != firstLaneNumber) {
                     // the number of lanes changes along the computation; we'll stop...
                     curr = 0;
+                } else if (curr->isTurningDirectionAt(nextN, last)) {
+                    // turnarounds certainly should not be included in a ramp
+                    curr = 0;
+                } else if (curr == potHighway || curr == potRamp) {
+                    // circular connectivity. do not split!
+                    curr = 0;
                 }
             } else {
                 // ambigous; and, in fact, what should it be? ...stop
@@ -249,6 +255,12 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
                 curr = prevN->getIncomingEdges()[0];
                 if (curr->getNumLanes() != firstLaneNumber) {
                     // the number of lanes changes along the computation; we'll stop...
+                    curr = 0;
+                } else if (last->isTurningDirectionAt(prevN, curr)) {
+                    // turnarounds certainly should not be included in a ramp
+                    curr = 0;
+                } else if (curr == potHighway || curr == potRamp) {
+                    // circular connectivity. do not split!
                     curr = 0;
                 }
             } else {
@@ -417,11 +429,24 @@ NBRampsComputer::fulfillsRampConstraints(
     if (potHighway->getNumLanes() + potRamp->getNumLanes() <= other->getNumLanes()) {
         return false;
     }
-    // check conditions
     // is it really a highway?
     SUMOReal maxSpeed = MAX3(potHighway->getSpeed(), other->getSpeed(), potRamp->getSpeed());
     if (maxSpeed < minHighwaySpeed) {
         return false;
+    }
+    // is any of the connections a turnaround?
+    if (other->getToNode() == potHighway->getFromNode()) {
+        // off ramp
+        if (other->isTurningDirectionAt(other->getToNode(), potHighway) ||
+                other->isTurningDirectionAt(other->getToNode(), potRamp)) {
+            return false;
+        }
+    } else {
+        // on ramp
+        if (other->isTurningDirectionAt(other->getFromNode(), potHighway) ||
+                other->isTurningDirectionAt(other->getFromNode(), potRamp)) {
+            return false;
+        }
     }
     /*
     if (potHighway->getSpeed() < minHighwaySpeed || other->getSpeed() < minHighwaySpeed) {

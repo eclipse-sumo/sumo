@@ -3,4 +3,7 @@ specify_lcm
 
 # change towards the best continuation lane if the current lane does not continue
 change_towards_best
+
+# vehicles should keep right if there is no reason against it (assuming right-hand driving)
+keep_right
 errors

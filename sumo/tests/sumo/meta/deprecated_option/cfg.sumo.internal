@@ -11,6 +11,10 @@
         <save-state.prefix value="state"/>
     </output>
 
+    <emissions>
+        <phemlight-path value="./PHEMlight/"/>
+    </emissions>
+
     <random_number>
         <random value="true"/>
     </random_number>

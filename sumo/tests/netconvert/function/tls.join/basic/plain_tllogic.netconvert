@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 22 14:41:57 2012 by SUMO netconvert Version dev-SVN-r13008
+<!-- generated on Wed Mar  5 09:11:48 2014 by SUMO netconvert Version dev-SVN-r15812
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,10 @@
         <tls.join value="true"/>
     </tls_building>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
@@ -30,8 +34,8 @@
         <phase duration="4" state="yyyrryy"/>
     </tlLogic>
 
-    <connection from="27437972" to="27441189" fromLane="0" toLane="0" pass="1" tl="joinedS_0" linkIndex="0"/>
-    <connection from="27437972" to="27441189" fromLane="1" toLane="1" pass="1" tl="joinedS_0" linkIndex="1"/>
+    <connection from="27437972" to="27441189" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="0"/>
+    <connection from="27437972" to="27441189" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="1"/>
     <connection from="27441289.95" to="27445015#0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="2"/>
     <connection from="27441289.95" to="27445003" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="3"/>
     <connection from="27441289.95" to="27445003" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="4"/>

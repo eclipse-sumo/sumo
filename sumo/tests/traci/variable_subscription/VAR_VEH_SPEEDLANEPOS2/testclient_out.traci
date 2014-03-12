@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
+TraCITestClient output file. Date: Wed Mar  5 22:16:08 2014
 
 
 -> Command sent: <SimulationStep2>:
@@ -32,7 +32,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   domID=212 objID=0 with 1 variables
 .. Command acknowledged (212), [description: ]
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1455.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1458.58,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -41,7 +41,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1445.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1448.81,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -50,7 +50,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1435.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1439.05,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -59,7 +59,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1425.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1429.29,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -68,7 +68,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1415.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1419.53,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -77,7 +77,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1405.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1409.76,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -86,7 +86,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1395.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1400.00,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -95,7 +95,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1385.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1390.24,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -104,7 +104,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1375.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1380.47,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -113,7 +113,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1365.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1370.71,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -122,7 +122,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1355.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1360.95,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -131,7 +131,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1345.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1351.19,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -140,7 +140,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1335.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1341.42,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -149,7 +149,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1325.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1331.66,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -158,7 +158,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1315.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1321.90,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -167,7 +167,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1305.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1312.14,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -176,7 +176,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1295.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1302.38,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -185,7 +185,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1285.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1292.61,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -194,7 +194,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1275.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1282.85,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -203,7 +203,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1265.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1273.09,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -212,7 +212,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1255.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1263.33,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -221,7 +221,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1245.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1253.56,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -230,7 +230,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1235.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1243.80,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -239,7 +239,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1225.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1234.04,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -248,7 +248,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1215.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1224.28,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -257,7 +257,16 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1205.25,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1214.51,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=1
+      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
+  CommandID=228  ObjectID=0  #variables=1
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+  CommandID=228  ObjectID=0  #variables=1
+      VariableID=66      ok=1 valueDataType=1 position value: (1204.75,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -266,7 +275,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1185.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1185.49,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -275,7 +284,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1175.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1175.72,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -284,7 +293,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1165.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1165.96,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -293,7 +302,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1155.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1156.20,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -302,7 +311,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1145.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1146.44,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -311,7 +320,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1135.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1136.67,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -320,7 +329,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1125.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1126.91,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -329,7 +338,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1115.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1117.15,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -338,7 +347,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1105.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1107.39,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -347,7 +356,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1095.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1097.62,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -356,7 +365,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1085.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1087.86,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -365,7 +374,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1075.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1078.10,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -374,7 +383,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1065.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1068.34,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -383,7 +392,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1055.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1058.58,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -392,7 +401,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1045.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1048.81,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -401,7 +410,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1035.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1039.05,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -410,7 +419,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1025.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1029.29,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -419,7 +428,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1015.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1019.52,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -428,7 +437,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (1005.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1009.76,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -437,7 +446,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (995.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (1000.00,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -446,7 +455,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (985.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (990.24,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -455,7 +464,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (975.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (980.48,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -464,7 +473,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (965.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (970.71,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -473,7 +482,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (955.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (960.95,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -482,7 +491,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (945.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (951.19,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -491,7 +500,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (935.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (941.42,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -500,7 +509,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (925.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (931.66,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -509,7 +518,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (915.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (921.90,401.65)
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
@@ -518,16 +527,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:27 2013
   CommandID=228  ObjectID=0  #variables=1
       VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
   CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (905.75,401.65)
-
--> Command sent: <SimulationStep2>:
-.. Command acknowledged (2), [description: ]
-  CommandID=228  ObjectID=0  #variables=1
-      VariableID=64      ok=1 valueDataType=11 Double value: 10.00
-  CommandID=228  ObjectID=0  #variables=1
-      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
-  CommandID=228  ObjectID=0  #variables=1
-      VariableID=66      ok=1 valueDataType=1 position value: (895.75,401.65)
+      VariableID=66      ok=1 valueDataType=1 position value: (912.14,401.65)
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: ]

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+    <Import Project="defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+    <XERCES_LIB>$(XERCES_64)\lib\xerces-c_3.lib</XERCES_LIB>
+    <XERCES_DEBUG_LIB>$(XERCES_64)\lib\xerces-c_3D.lib</XERCES_DEBUG_LIB>
+    <PROJ_LIB>$(PROJ_GDAL_64)\lib\proj_i.lib</PROJ_LIB>
+    <GDAL_LIB>$(PROJ_GDAL_64)\lib\gdal_i.lib</GDAL_LIB>
+    <FOX16_LIB>$(FOX16_64)\lib\FOXDLL-1.6.lib</FOX16_LIB>
+    <FOX16_DEBUG_LIB>$(FOX16_64)\lib\FOXDLLD-1.6.lib</FOX16_DEBUG_LIB>
+    <OSG_LIB>$(OSG_64)\lib\osgUtil.lib;$(OSG_64)\lib\osgDB.lib;$(OSG_64)\lib\osgGA.lib;$(OSG_64)\lib\osg.lib;$(OSG_64)\lib\osgViewer.lib</OSG_LIB>
+    <OSG_DEBUG_LIB>$(OSG_64)\lib\osgUtild.lib;$(OSG_64)\lib\osgDBd.lib;$(OSG_64)\lib\osgGAd.lib;$(OSG_64)\lib\osgd.lib;$(OSG_64)\lib\osgViewerd.lib</OSG_DEBUG_LIB>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(PlatformName)\$(Configuration)\</OutDir>
+    <IntDir>$(PlatformName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(XERCES_64)\include;$(PROJ_GDAL_64)\include;$(FOX16_64)\include;$(OSG_64)\include;..\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_PROJ;HAVE_GDAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="XERCES_LIB">
+      <Value>$(XERCES_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XERCES_DEBUG_LIB">
+      <Value>$(XERCES_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PROJ_LIB">
+      <Value>$(PROJ_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GDAL_LIB">
+      <Value>$(GDAL_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FOX16_LIB">
+      <Value>$(FOX16_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FOX16_DEBUG_LIB">
+      <Value>$(FOX16_DEBUG_LIB)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

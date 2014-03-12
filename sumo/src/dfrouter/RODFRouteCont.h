@@ -133,11 +133,6 @@ public:
     void removeIllegal(const std::vector<std::vector<ROEdge*> >& illegals);
 
 
-    /** @brief All routes are replaced by their versions extended by follower edges
-    */
-    void addAllEndFollower();
-
-
 protected:
     /** @brief Computes and sets the id of a route
      *

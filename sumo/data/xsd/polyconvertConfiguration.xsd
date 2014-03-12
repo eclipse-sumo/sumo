@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:include schemaLocation="baseTypes.xsd"/>
+    <xsd:element name="configuration" type="configurationType"/>
+
+    <xsd:complexType name="configurationType">
+        <xsd:all>
+            <xsd:element name="input" type="inputType" minOccurs="0"/>
+            <xsd:element name="output" type="outputType" minOccurs="0"/>
+            <xsd:element name="projection" type="projectionType" minOccurs="0"/>
+            <xsd:element name="pruning" type="pruningType" minOccurs="0"/>
+            <xsd:element name="processing" type="processingType" minOccurs="0"/>
+            <xsd:element name="building_defaults" type="building_defaultsType" minOccurs="0"/>
+            <xsd:element name="report" type="reportType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="inputType">
+        <xsd:all>
+            <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-navteq-poly-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-navteq-poi-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="visum-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="xml-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="osm-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="osm.keep-full-type" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.use-name" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile-prefixes" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.guess-projection" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.id-column" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.use-running-id" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.add-param" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="type-file" type="fileOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="outputType">
+        <xsd:all>
+            <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="projectionType">
+        <xsd:all>
+            <xsd:element name="simple-projection" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj.scale" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="proj.utm" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj.dhdn" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="proj.inverse" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="proj.dhdnutm" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="pruningType">
+        <xsd:all>
+            <xsd:element name="prune.in-net" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="prune.in-net.offsets" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prune.boundary" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prune.keep-list" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prune.explicit" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="processingType">
+        <xsd:all>
+            <xsd:element name="offset.x" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="offset.y" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="all-attributes" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="building_defaultsType">
+        <xsd:all>
+            <xsd:element name="color" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="type" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="layer" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="discard" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="reportType">
+        <xsd:all>
+            <xsd:element name="verbose" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+</xsd:schema>

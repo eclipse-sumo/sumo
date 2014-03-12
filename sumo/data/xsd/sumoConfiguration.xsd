@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:include schemaLocation="baseTypes.xsd"/>
+    <xsd:element name="configuration" type="configurationType"/>
+
+    <xsd:complexType name="configurationType">
+        <xsd:all>
+            <xsd:element name="input" type="inputType" minOccurs="0"/>
+            <xsd:element name="output" type="outputType" minOccurs="0"/>
+            <xsd:element name="time" type="timeType" minOccurs="0"/>
+            <xsd:element name="processing" type="processingType" minOccurs="0"/>
+            <xsd:element name="report" type="reportType" minOccurs="0"/>
+            <xsd:element name="emissions" type="emissionsType" minOccurs="0"/>
+            <xsd:element name="communication" type="communicationType" minOccurs="0"/>
+            <xsd:element name="routing" type="routingType" minOccurs="0"/>
+            <xsd:element name="example_device" type="example_deviceType" minOccurs="0"/>
+            <xsd:element name="traci_server" type="traci_serverType" minOccurs="0"/>
+            <xsd:element name="mesoscopic" type="mesoscopicType" minOccurs="0"/>
+            <xsd:element name="random_number" type="random_numberType" minOccurs="0"/>
+            <xsd:element name="gui_only" type="gui_onlyType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="inputType">
+        <xsd:all>
+            <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="load-state" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="load-state.offset" type="timeOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="outputType">
+        <xsd:all>
+            <xsd:element name="netstate-dump" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="netstate-dump.empty-edges" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="emission-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output.geo" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output.signals" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="full-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="queue-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="vtk-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="summary-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="tripinfo-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output.exit-times" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output.last-route" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output.sorted" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="bt-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="save-state.times" type="intArrayOptionType" minOccurs="0"/>
+            <xsd:element name="save-state.prefix" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="save-state.files" type="fileOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="timeType">
+        <xsd:all>
+            <xsd:element name="begin" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="end" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="step-length" type="timeOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="processingType">
+        <xsd:all>
+            <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-junction-blocker" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-accidents" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-route-errors" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="max-num-vehicles" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="incremental-dua-step" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="incremental-dua-base" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-teleport" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-teleport.highways" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="max-depart-delay" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="sloppy-insert" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="eager-insert" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="lanechange.allow-swap" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="lanechange.duration" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="reportType">
+        <xsd:all>
+            <xsd:element name="verbose" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="no-duration-log" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionsType">
+        <xsd:all>
+            <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="device.emissions.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.emissions.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.emissions.deterministic" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="communicationType">
+        <xsd:all>
+            <xsd:element name="device.btreceiver.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.btreceiver.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.btreceiver.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.btreceiver.range" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.btreceiver.all-recognitions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.btsender.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.btsender.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.btsender.deterministic" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="routingType">
+        <xsd:all>
+            <xsd:element name="device.rerouting.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.pre-period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.adaptation-weight" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.adaptation-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.with-taz" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.init-with-loaded-weights" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="example_deviceType">
+        <xsd:all>
+            <xsd:element name="device.example.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.example.parameter" type="floatOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="traci_serverType">
+        <xsd:all>
+            <xsd:element name="remote-port" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="python-script" type="strOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="mesoscopicType">
+        <xsd:all>
+            <xsd:element name="mesosim" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-edgelength" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="meso-tauff" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="meso-taufj" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="meso-taujf" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="meso-taujj" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="meso-jam-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="meso-multi-queue" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-junction-control" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-junction-control.limited" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-recheck" type="timeOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="random_numberType">
+        <xsd:all>
+            <xsd:element name="random" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="seed" type="intOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="gui_onlyType">
+        <xsd:all>
+            <xsd:element name="gui-settings-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="quit-on-end" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="game" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="start" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="disable-textures" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+</xsd:schema>
