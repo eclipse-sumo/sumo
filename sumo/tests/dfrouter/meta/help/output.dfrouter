@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r15814
+SUMO dfrouter Version dev-SVN-rUNKNOWN
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Builds vehicle routes for SUMO using detector values.
 
@@ -42,8 +42,6 @@ Processing Options:
   --ignore-invalid-detectors           Only warn about unparseable detectors
   --revalidate-detectors               Recomputes detector types even if given
   --revalidate-routes                  Recomputes routes even if given
-  --all-end-follower                   Continues routes till the first street
-                                         after a sink
   --keep-unfinished-routes             Keeps routes even if they have exhausted
                                          max-search-depth
   --keep-longer-routes                 Keeps routes even if a shorter one
