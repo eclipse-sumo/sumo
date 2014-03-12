@@ -137,12 +137,12 @@ public:
     //@}
 
 
-    void addPerson(MSPerson* p) {
+    void addPerson(MSPerson* p) const {
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::addPerson(p);
     }
 
-    void removePerson(MSPerson* p) {
+    void removePerson(MSPerson* p) const {
         AbstractMutex::ScopedLocker locker(myLock);
         MSEdge::removePerson(p);
     }
