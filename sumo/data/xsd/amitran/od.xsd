@@ -34,6 +34,7 @@
 	
 	<xsd:complexType name="routeCostType">
 		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
+		<xsd:attribute name="amount" type="xsd:double" use="optional"/>
 		<xsd:attribute name="avgTraveltime" type="xsd:unsignedInt" use="required"/>
 		<xsd:attribute name="stdDevTraveltime" type="xsd:unsignedInt" use="optional"/>
 		<xsd:attribute name="fixedCost" type="xsd:unsignedInt" use="optional"/>

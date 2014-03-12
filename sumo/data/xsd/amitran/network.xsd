@@ -13,6 +13,7 @@
 	<xsd:complexType name="nodeType">
 		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
 		<xsd:attribute name="type" type="xsd:nodeTypeType" use="optional"/>
+		<xsd:attribute name="od_zone" type="xsd:unsignedInt" use="optional"/>
 	</xsd:complexType>
 	
 	<xsd:simpleType name="nodeTypeType">
@@ -23,6 +24,7 @@
 			<xsd:enumeration value="right_before_left" />
 			<xsd:enumeration value="allway_stop" />
 			<xsd:enumeration value="roundabout" />
+			<xsd:enumeration value="roundabout_dual" />
 			<xsd:enumeration value="dead_end" />
 		</xsd:restriction>
 	</xsd:simpleType>

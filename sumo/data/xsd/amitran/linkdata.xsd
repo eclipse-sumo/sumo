@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
-	<xsd:element name="linkdata">
+	<xsd:element name="linkData">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="linkStat" type="linkStatType" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="linkStatData" type="linkStatData" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
- 
-	<xsd:complexType name="linkStatType">
-		<xsd:sequence>
-			<xsd:element name="timeSlice" type="timeSliceType" minOccurs="0" maxOccurs="unbounded"/>
-		</xsd:sequence>
-		<xsd:attribute name="id" type="xsd:unsignedShort" use="required"/>
-	</xsd:complexType>
 	
-	<xsd:complexType name="timeSliceType">
+	<xsd:complexType name="linkStatData">
 		<xsd:sequence>
-			<xsd:element name="actorConfig" type="actorConfigType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="linkActorData" type="linkActorData" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 		<xsd:attribute name="startTime" type="xsd:unsignedInt" use="required"/>
 		<xsd:attribute name="duration" type="xsd:unsignedInt" use="required"/>
 	</xsd:complexType>
 	
-	<xsd:complexType name="actorConfigType">
-		<xsd:attribute name="id" type="xsd:unsignedShort" use="required"/>
-		<xsd:attribute name="amount" type="xsd:unsignedShort" use="required"/>
-		<xsd:attribute name="speed" type="xsd:unsignedShort" use="required"/>
+	<xsd:complexType name="linkActorData">
+		<xsd:sequence>
+			<xsd:element name="actorInfo" type="actorInfo" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="linkId" type="xsd:unsignedInt" use="required"/>
+		<xsd:attribute name="linkAmount" type="xsd:unsignedShort" use="required"/>
+		<xsd:attribute name="linkAverageSpeed" type="xsd:unsignedShort" use="required"/>
 	</xsd:complexType>
 	
-</xsd:schema
+	<xsd:complexType name="actorInfo">
+		<xsd:attribute name="actorConfigId" type="xsd:unsignedShort" use="required"/>
+		<xsd:attribute name="amount" type="xsd:unsignedShort" use="required"/>
+		<xsd:attribute name="speedAveraged" type="xsd:unsignedShort" use="required"/>
+	</xsd:complexType>
+	
+</xsd:schema>
