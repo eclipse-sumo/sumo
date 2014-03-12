@@ -147,9 +147,6 @@ RODFFrame::fillOptions() {
     oc.doRegister("revalidate-routes", new Option_Bool(false));
     oc.addDescription("revalidate-routes", "Processing", "Recomputes routes even if given");
 
-    oc.doRegister("all-end-follower", new Option_Bool(false));
-    oc.addDescription("all-end-follower", "Processing", "Continues routes till the first street after a sink");
-
     oc.doRegister("keep-unfinished-routes", new Option_Bool(false));
     oc.addSynonyme("keep-unfinished-routes", "keep-unfound-ends", true);
     oc.addDescription("keep-unfinished-routes", "Processing", "Keeps routes even if they have exhausted max-search-depth");
