@@ -17,6 +17,7 @@ MSRouteProbe.cpp MSRouteProbe.h \
 MSVTypeProbe.cpp MSVTypeProbe.h \
 MSXMLRawOut.cpp MSXMLRawOut.h \
 MSFCDExport.cpp MSFCDExport.h \
+MSAmitranTrajectories.cpp MSAmitranTrajectories.h  \
 MSEmissionExport.cpp MSEmissionExport.h  \
 MSVTKExport.cpp MSVTKExport.h \
 MSFullExport.cpp MSFullExport.h \
