@@ -12,7 +12,7 @@
  
 	<xsd:complexType name="nodeType">
 		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
-		<xsd:attribute name="type" type="xsd:nodeTypeType" use="optional"/>
+		<xsd:attribute name="type" type="nodeTypeType" use="optional"/>
 		<xsd:attribute name="odZone" type="xsd:unsignedInt" use="optional"/>
 	</xsd:complexType>
 	
