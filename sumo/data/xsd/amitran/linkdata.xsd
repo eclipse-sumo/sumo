@@ -4,32 +4,32 @@
 	<xsd:element name="linkData">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="linkStatData" type="linkStatData" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="timeSlice" type="timeSliceType" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
 	
-	<xsd:complexType name="linkStatData">
+	<xsd:complexType name="timeSliceType">
 		<xsd:sequence>
-			<xsd:element name="linkActorData" type="linkActorData" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="link" type="linkType" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 		<xsd:attribute name="startTime" type="xsd:unsignedInt" use="required"/>
 		<xsd:attribute name="duration" type="xsd:unsignedInt" use="required"/>
 	</xsd:complexType>
 	
-	<xsd:complexType name="linkActorData">
+	<xsd:complexType name="link">
 		<xsd:sequence>
-			<xsd:element name="actorInfo" type="actorInfo" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="actorConfig" type="actorConfigType" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
-		<xsd:attribute name="linkId" type="xsd:unsignedInt" use="required"/>
-		<xsd:attribute name="linkAmount" type="xsd:unsignedShort" use="required"/>
-		<xsd:attribute name="linkAverageSpeed" type="xsd:unsignedShort" use="required"/>
+		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
+		<xsd:attribute name="amount" type="xsd:unsignedInt" use="required"/>
+		<xsd:attribute name="averageSpeed" type="xsd:unsignedInt" use="required"/>
 	</xsd:complexType>
 	
-	<xsd:complexType name="actorInfo">
-		<xsd:attribute name="actorConfigId" type="xsd:unsignedShort" use="required"/>
-		<xsd:attribute name="amount" type="xsd:unsignedShort" use="required"/>
-		<xsd:attribute name="speedAveraged" type="xsd:unsignedShort" use="required"/>
+	<xsd:complexType name="actorConfigType">
+		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
+		<xsd:attribute name="amount" type="xsd:unsignedInt" use="required"/>
+		<xsd:attribute name="averageSpeed" type="xsd:unsignedInt" use="required"/>
 	</xsd:complexType>
 	
 </xsd:schema>
