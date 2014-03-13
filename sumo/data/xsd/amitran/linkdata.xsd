@@ -17,7 +17,7 @@
 		<xsd:attribute name="duration" type="xsd:unsignedInt" use="required"/>
 	</xsd:complexType>
 	
-	<xsd:complexType name="link">
+	<xsd:complexType name="linkType">
 		<xsd:sequence>
 			<xsd:element name="actorConfig" type="actorConfigType" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
