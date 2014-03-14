@@ -41,24 +41,46 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+std::map<std::string, int> MSAmitranTrajectories::myWrittenTypes;
+std::map<std::string, int> MSAmitranTrajectories::myWrittenVehicles;
+
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 void
-MSAmitranTrajectories::write(OutputDevice& of, const MSVehicleControl& vc,
-                             const SUMOTime timestep) {
+MSAmitranTrajectories::write(OutputDevice& of, const SUMOTime timestep) {
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt v = vc.loadedVehBegin(); v != vc.loadedVehEnd(); ++v) {
-        writeVehicle(of, *v->second);
+        writeVehicle(of, *v->second, timestep);
     }
 }
 
 
 void
-MSAmitranTrajectories::writeVehicle(OutputDevice& of, const SUMOVehicle& veh) {
+MSAmitranTrajectories::writeVehicle(OutputDevice& of, const SUMOVehicle& veh, const SUMOTime timestep) {
     if (veh.isOnRoad()) {
-        of.openTag("vehicle") << " id=\"" << veh.getID() << "\" pos=\""
-                              << veh.getPositionOnLane() << "\" speed=\"" << veh.getSpeed() << "\"";
+        const std::string& type = veh.getVehicleType().getID();
+        if (myWrittenTypes.count(type) == 0) {
+            const int index = (int)myWrittenTypes.size();
+            of.openTag("actorConfig") << " id=\"" << index << "\"";
+            of.closeTag();
+            myWrittenTypes[type] = index;
+        }
+        if (myWrittenVehicles.count(veh.getID()) == 0) {
+            const int index = (int)myWrittenVehicles.size();
+            of.openTag("vehicle") << " id=\"" << index
+                                  << "\" actorConfig=\"" << myWrittenTypes[type]
+                                  << "\" startTime=\"" << time2string(veh.getDeparture()) << "\"";
+            of.closeTag();
+            myWrittenVehicles[veh.getID()] = index;
+        }
+        of.openTag("motionState") << " vehicle=\"" << myWrittenVehicles[veh.getID()]
+                                  << "\" speed=\"" << int(100*veh.getSpeed() + 0.5)
+                                  << "\" time=\"" << timestep << "\"";
         of.closeTag();
     }
 }

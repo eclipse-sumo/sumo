@@ -11,3 +11,6 @@ cross3ltl_vtypeprobe
 cross3ltl_queue
 cross3ltl_emission
 cross3ltl_full
+
+# testing amitran trajectories
+cross3ltl_amitran

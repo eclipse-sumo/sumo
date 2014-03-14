@@ -132,6 +132,8 @@ MSFrame::fillOptions() {
     oc.addDescription("queue-output", "Output", "Save the vehicle queues at the junctions (experimental)");
     oc.doRegister("vtk-output", new Option_FileName());
     oc.addDescription("vtk-output", "Output", "Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)");
+    oc.doRegister("amitran-output", new Option_FileName());
+    oc.addDescription("amitran-output", "Output", "Save the vehicle trajectories in the Amitran format");
 
 
     oc.doRegister("summary-output", new Option_FileName());
@@ -345,6 +347,7 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
     OutputDevice::createDeviceByOption("full-output", "full-export", "full_file.xsd");
     OutputDevice::createDeviceByOption("queue-output", "queue-export", "queue_file.xsd");
+    OutputDevice::createDeviceByOption("amitran-output", "trajectories", "amitran/trajectories.xsd\" timeStepSize=\"" + time2string(DELTA_T));
 
     //OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");

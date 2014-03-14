@@ -57,18 +57,16 @@ class MSLane;
  */
 class MSAmitranTrajectories {
 public:
-    /** @brief Writes the complete network state of the given edges into the given device
+    /** @brief Writes the complete network state into the given device
      *
-     * Opens the current time step, goes through the edges and writes each using
-     *  writeEdge.
+     * Opens the current time step, goes through the vehicles and writes each using
+     *  writeVehicle.
      *
      * @param[in] of The output device to use
-     * @param[in] vc The vehicle control which holds the vehicles to write
      * @param[in] timestep The current time step
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    static void write(OutputDevice& of, const MSVehicleControl& vc,
-                      const SUMOTime timestep);
+    static void write(OutputDevice& of, const SUMOTime timestep);
 
 
 private:
@@ -76,9 +74,10 @@ private:
      *
      * @param[in] of The output device to use
      * @param[in] veh The vehicle to dump
+     * @param[in] timestep The current time step
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    static void writeVehicle(OutputDevice& of, const SUMOVehicle& veh);
+    static void writeVehicle(OutputDevice& of, const SUMOVehicle& veh, const SUMOTime timestep);
 
 
 private:
