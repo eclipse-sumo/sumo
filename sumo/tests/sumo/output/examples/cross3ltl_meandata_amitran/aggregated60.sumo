@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 14 14:42:40 2014 by SUMO sumo Version svn
+<!-- generated on Fri Mar 14 14:58:47 2014 by SUMO sumo Version svn
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -26,47 +26,21 @@
 -->
 
 <linkData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/amitran/linkdata.xsd">
-    <timeSlice startTime="0" duration="60000">
-        <link id="32"/>
-        <link id="33"/>
-        <link id="34"/>
-        <link id="35"/>
-        <link id="36"/>
-        <link id="37"/>
-        <link id="38"/>
-        <link id="39"/>
-        <link id="40"/>
-        <link id="41"/>
-        <link id="42"/>
-        <link id="43"/>
-    </timeSlice>
+    <timeSlice startTime="0" duration="60000"/>
     <timeSlice startTime="60000" duration="60000">
         <link id="32" amount="2" averageSpeed="888"/>
-        <link id="33"/>
-        <link id="34"/>
         <link id="35" amount="2" averageSpeed="879"/>
-        <link id="36"/>
-        <link id="37"/>
         <link id="38" amount="4" averageSpeed="859"/>
-        <link id="39"/>
-        <link id="40"/>
-        <link id="41"/>
-        <link id="42"/>
-        <link id="43"/>
     </timeSlice>
     <timeSlice startTime="120000" duration="60000">
         <link id="32" amount="6" averageSpeed="946"/>
         <link id="33" amount="3" averageSpeed="1043"/>
         <link id="34" amount="6" averageSpeed="1254"/>
         <link id="35" amount="6" averageSpeed="944"/>
-        <link id="36"/>
         <link id="37" amount="6" averageSpeed="1233"/>
         <link id="38" amount="12" averageSpeed="942"/>
-        <link id="39"/>
         <link id="40" amount="11" averageSpeed="677"/>
-        <link id="41"/>
         <link id="42" amount="4" averageSpeed="1043"/>
-        <link id="43"/>
     </timeSlice>
     <timeSlice startTime="180000" duration="60000">
         <link id="32" amount="9" averageSpeed="964"/>
@@ -76,7 +50,6 @@
         <link id="36" amount="8" averageSpeed="1040"/>
         <link id="37" amount="6" averageSpeed="660"/>
         <link id="38" amount="12" averageSpeed="948"/>
-        <link id="39"/>
         <link id="40" amount="13" averageSpeed="763"/>
         <link id="41" amount="8" averageSpeed="1044"/>
         <link id="42" amount="7" averageSpeed="1044"/>

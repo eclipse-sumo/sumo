@@ -132,6 +132,8 @@ MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTim
         dev.writeAttr("amount", amount).writeAttr("averageSpeed", int(100 * travelledDistance / sampleSeconds));
     } else if (defaultTravelTime >= 0.) {
         dev.writeAttr("amount", amount).writeAttr("averageSpeed", int(100 * myLaneLength / defaultTravelTime));
+    } else {
+        dev.writeAttr("amount", amount).writeAttr("averageSpeed", "-1");
     }
     if (myVehicleTypes != 0 && !myVehicleTypes->empty()) {
         for (std::map<const MSVehicleType*, unsigned>::const_iterator it = typedAmount.begin(); it != typedAmount.end(); ++it) {
