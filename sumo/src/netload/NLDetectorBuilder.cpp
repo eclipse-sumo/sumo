@@ -45,6 +45,7 @@
 #include <microsim/output/MSMeanData_Net.h>
 #include <microsim/output/MSMeanData_Emissions.h>
 #include <microsim/output/MSMeanData_Harmonoise.h>
+#include <microsim/output/MSMeanData_Amitran.h>
 #include <microsim/output/MSInstantInductLoop.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/actions/Command_SaveTLCoupledDet.h>
@@ -488,10 +489,15 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
     if (end <= begin) {
         throw InvalidArgument("End before or at begin for meandata dump '" + id + "'.");
     }
-    std::set<std::string> vt;
+    std::map<std::string, unsigned> vt;
     StringTokenizer st(vTypes);
+    unsigned index = 0;
     while (st.hasNext()) {
-        vt.insert(st.next());
+        std::string t = st.next();
+        if (vt.count(t) == 0) {
+            vt[t] = index;
+        }
+        index++;
     }
     MSMeanData* det = 0;
     if (type == "" || type == "performance" || type == "traffic") {
@@ -506,6 +512,9 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
     } else if (type == "harmonoise") {
         det = new MSMeanData_Harmonoise(id, begin, end, useLanes, withEmpty,
                                         printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vt);
+    } else if (type == "amitran") {
+        det = new MSMeanData_Amitran(id, begin, end, useLanes, withEmpty,
+                                     printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, haltSpeed, vt);
     } else {
         throw InvalidArgument("Invalid type '" + type + "' for meandata dump '" + id + "'.");
     }

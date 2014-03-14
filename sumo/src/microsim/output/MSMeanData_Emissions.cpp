@@ -52,7 +52,7 @@
 // ---------------------------------------------------------------------------
 MSMeanData_Emissions::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const SUMOReal length, const bool doAdd,
-        const std::set<std::string>* const vTypes,
+        const std::map<std::string, unsigned>* const vTypes,
         const MSMeanData_Emissions* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
       CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0), myParent(parent) {}
@@ -162,7 +162,7 @@ MSMeanData_Emissions::MSMeanData_Emissions(const std::string& id,
         const bool trackVehicles,
         const SUMOReal maxTravelTime,
         const SUMOReal minSamples,
-        const std::set<std::string> vTypes)
+        const std::map<std::string, unsigned> vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                  withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }

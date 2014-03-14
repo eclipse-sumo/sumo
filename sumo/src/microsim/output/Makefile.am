@@ -13,6 +13,7 @@ MSMeanData.cpp MSMeanData.h \
 MSMeanData_Emissions.cpp MSMeanData_Emissions.h \
 MSMeanData_Harmonoise.cpp MSMeanData_Harmonoise.h \
 MSMeanData_Net.cpp MSMeanData_Net.h \
+MSMeanData_Amitran.cpp MSMeanData_Amitran.h \
 MSRouteProbe.cpp MSRouteProbe.h \
 MSVTypeProbe.cpp MSVTypeProbe.h \
 MSXMLRawOut.cpp MSXMLRawOut.h \

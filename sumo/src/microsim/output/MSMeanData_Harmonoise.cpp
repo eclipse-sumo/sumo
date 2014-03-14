@@ -51,7 +51,7 @@
 // MSMeanData_Harmonoise::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Harmonoise::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
-        const std::set<std::string>* const vTypes, const MSMeanData_Harmonoise* parent)
+        const std::map<std::string, unsigned>* const vTypes, const MSMeanData_Harmonoise* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
       currentTimeN(0), meanNTemp(0), myParent(parent) {}
 
@@ -129,7 +129,7 @@ MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string& id,
         const bool printDefaults, const bool withInternal,
         const bool trackVehicles,
         const SUMOReal maxTravelTime, const SUMOReal minSamples,
-        const std::set<std::string> vTypes)
+        const std::map<std::string, unsigned> vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                  withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }

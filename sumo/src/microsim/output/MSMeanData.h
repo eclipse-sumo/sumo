@@ -75,7 +75,7 @@ public:
     class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes = 0);
+        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::map<std::string, unsigned>* const vTypes = 0);
 
         /** @brief Destructor */
         virtual ~MeanDataValues();
@@ -180,9 +180,9 @@ public:
         SUMOReal travelledDistance;
         //@}
 
-    private:
+    protected:
         /// @brief The vehicle types to look for (0 or empty means all)
-        const std::set<std::string>* const myVehicleTypes;
+        const std::map<std::string, unsigned>* const myVehicleTypes;
 
     };
 
@@ -195,7 +195,7 @@ public:
     public:
         /** @brief Constructor */
         MeanDataValueTracker(MSLane* const lane, const SUMOReal length,
-                             const std::set<std::string>* const vTypes = 0,
+                             const std::map<std::string, unsigned>* const vTypes = 0,
                              const MSMeanData* const parent = 0);
 
         /** @brief Destructor */
@@ -322,7 +322,7 @@ public:
                const bool printDefaults, const bool withInternal,
                const bool trackVehicles, const SUMOReal minSamples,
                const SUMOReal maxTravelTime,
-               const std::set<std::string> vTypes);
+               const std::map<std::string, unsigned> vTypes);
 
 
     /// @brief Destructor
@@ -357,7 +357,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice& dev) const;
+    virtual void writeXMLDetectorProlog(OutputDevice& dev) const;
     /// @}
 
     /** @brief Updates the detector
@@ -406,8 +406,8 @@ protected:
      * @return whether further output should be generated
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    bool writePrefix(OutputDevice& dev, const MeanDataValues& values,
-                     const SumoXMLTag tag, const std::string id) const;
+    virtual bool writePrefix(OutputDevice& dev, const MeanDataValues& values,
+                             const SumoXMLTag tag, const std::string id) const;
 
 protected:
     /// @brief the minimum sample seconds
@@ -417,10 +417,13 @@ protected:
     const SUMOReal myMaxTravelTime;
 
     /// @brief The vehicle types to look for (empty means all)
-    const std::set<std::string> myVehicleTypes;
+    const std::map<std::string, unsigned> myVehicleTypes;
 
     /// @brief Value collectors; sorted by edge, then by lane
     std::vector<std::vector<MeanDataValues*> > myMeasures;
+
+    /// @brief Whether empty lanes/edges shall be written
+    const bool myDumpEmpty;
 
 private:
     /// @brief Information whether the output shall be edge-based (not lane-based)
@@ -431,9 +434,6 @@ private:
 
     /// @brief The corresponding first edges
     std::vector<MSEdge*> myEdges;
-
-    /// @brief Whether empty lanes/edges shall be written
-    const bool myDumpEmpty;
 
     /// @brief Whether empty lanes/edges shall be written
     const bool myPrintDefaults;
