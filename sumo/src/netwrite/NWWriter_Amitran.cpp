@@ -63,35 +63,50 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write nodes
     int index = 0;
     NBNodeCont& nc = nb.getNodeCont();
-    std::set<NBNode*> roundaboutNodes;
+    std::set<NBNode*> singleRoundaboutNodes;
+    std::set<NBNode*> multiRoundaboutNodes;
     const std::vector<EdgeVector>& roundabouts = nb.getRoundabouts();
     for (std::vector<EdgeVector>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
         for (EdgeVector::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
-            roundaboutNodes.insert((*j)->getToNode());
+            if ((*j)->getNumLanes() > 1) {
+                multiRoundaboutNodes.insert((*j)->getFromNode());
+            } else {
+                singleRoundaboutNodes.insert((*j)->getFromNode());
+            }
         }
     }
+    std::map<NBNode*, int> nodeIds;
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        device << "    <node id=\"" << index++;
+        device << "    <node id=\"" << index;
+        nodeIds[i->second] = index++;
+        if (singleRoundaboutNodes.count(i->second) > 0) {
+            device << "\" type=\"roundaboutSingle\"/>\n";
+            continue;
+        }
+        if (multiRoundaboutNodes.count(i->second) > 0) {
+            device << "\" type=\"roundaboutMulti\"/>\n";
+            continue;
+        }
         switch (i->second->getType()) {
             case NODETYPE_TRAFFIC_LIGHT:
             case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
-               device << "trafficLight\"/>\n";
+               device << "\" type=\"trafficLight";
                break;
             case NODETYPE_PRIORITY:
-               device << "priority\"/>\n";
+               device << "\" type=\"priority";
                break;
             case NODETYPE_PRIORITY_STOP:
-               device << "priorityStop\"/>\n";
+               device << "\" type=\"priorityStop";
                break;
             case NODETYPE_RIGHT_BEFORE_LEFT:
-               device << "rightBeforeLeft\"/>\n";
+               device << "\" type=\"rightBeforeLeft";
                break;
             case NODETYPE_ALLWAY_STOP:
-               device << "allwayStop\"/>\n";
+               device << "\" type=\"allwayStop";
                break;
             case NODETYPE_DEAD_END:
             case NODETYPE_DEAD_END_DEPRECATED:
-               device << "deadEnd\"/>\n";
+               device << "\" type=\"deadEnd";
                break;
             case NODETYPE_DISTRICT:
             case NODETYPE_NOJUNCTION:
@@ -106,11 +121,11 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NBEdgeCont& ec = nb.getEdgeCont();
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         device << "    <link id=\"" << index++
-               << "\" from=\"" << (*i).second->getFromNode()->getID()
-               << "\" to=\"" << (*i).second->getToNode()->getID()
+               << "\" from=\"" << nodeIds[i->second->getFromNode()]
+               << "\" to=\"" << nodeIds[i->second->getToNode()]
                << "\" roadClass=\"" << NWWriter_DlrNavteq::getRoadClass((*i).second)
-               << "\" length=\"" << (*i).second->getLoadedLength()
-               << "\" speedLimitKmh=\"" << int(3.6*(*i).second->getSpeed())
+               << "\" length=\"" << int(1000 * i->second->getLoadedLength())
+               << "\" speedLimitKmh=\"" << int(3.6 * (*i).second->getSpeed() + 0.5)
                << "\" laneNr=\"" << (*i).second->getNumLanes()
                << "\"/>\n";
     }
