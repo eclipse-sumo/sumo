@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
-	<xsd:element name="network">
-		<xsd:complexType>
-			<xsd:sequence>
-				<xsd:element name="node" type="nodeType" minOccurs="0" maxOccurs="unbounded"/>
-				<xsd:element name="link" type="linkType" minOccurs="0" maxOccurs="unbounded"/>
-			</xsd:sequence>
-		</xsd:complexType>
-	</xsd:element>
+    <xsd:element name="network">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="node" type="nodeType" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element name="link" type="linkType" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
  
-	<xsd:complexType name="nodeType">
-		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
-		<xsd:attribute name="type" type="nodeTypeType" use="optional"/>
-		<xsd:attribute name="odZone" type="xsd:unsignedInt" use="optional"/>
-	</xsd:complexType>
-	
-	<xsd:simpleType name="nodeTypeType">
-		<xsd:restriction base="xsd:string">
-			<xsd:enumeration value="trafficLight" />
-			<xsd:enumeration value="priority" />
-			<xsd:enumeration value="priorityStop" />
-			<xsd:enumeration value="rightBeforeLeft" />
-			<xsd:enumeration value="allwayStop" />
-			<xsd:enumeration value="roundaboutSingle" />
-			<xsd:enumeration value="roundaboutMulti" />
-			<xsd:enumeration value="deadEnd" />
-		</xsd:restriction>
-	</xsd:simpleType>
-	
-	<xsd:complexType name="linkType">
-		<xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
-		<xsd:attribute name="from" type="xsd:unsignedInt" use="optional"/>
-		<xsd:attribute name="to" type="xsd:unsignedInt" use="optional"/>
-		<xsd:attribute name="roadClass" type="xsd:unsignedInt" use="required"/> <!-- functional road class in the Navteq sense -->
-		<xsd:attribute name="length" type="xsd:unsignedInt" use="required"/>
-		<xsd:attribute name="speedLimitKmh" type="xsd:unsignedInt" use="optional"/>
-		<xsd:attribute name="laneNr" type="xsd:unsignedInt" use="optional"/>
-	</xsd:complexType>
-	
+    <xsd:complexType name="nodeType">
+        <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
+        <xsd:attribute name="type" type="nodeTypeType" use="optional"/>
+        <xsd:attribute name="odZone" type="xsd:unsignedInt" use="optional"/>
+    </xsd:complexType>
+    
+    <xsd:simpleType name="nodeTypeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="trafficLight" />
+            <xsd:enumeration value="priority" />
+            <xsd:enumeration value="priorityStop" />
+            <xsd:enumeration value="rightBeforeLeft" />
+            <xsd:enumeration value="allwayStop" />
+            <xsd:enumeration value="roundaboutSingle" />
+            <xsd:enumeration value="roundaboutMulti" />
+            <xsd:enumeration value="deadEnd" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:complexType name="linkType">
+        <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
+        <xsd:attribute name="from" type="xsd:unsignedInt" use="optional"/>
+        <xsd:attribute name="to" type="xsd:unsignedInt" use="optional"/>
+        <xsd:attribute name="roadClass" type="xsd:unsignedInt" use="required"/> <!-- functional road class in the Navteq sense -->
+        <xsd:attribute name="length" type="xsd:unsignedInt" use="required"/>
+        <xsd:attribute name="speedLimitKmh" type="xsd:unsignedInt" use="optional"/>
+        <xsd:attribute name="laneNr" type="xsd:unsignedInt" use="optional"/>
+    </xsd:complexType>
+    
 </xsd:schema>
