@@ -1,0 +1,111 @@
+/****************************************************************************/
+/// @file    TrajectoriesHandler.h
+/// @author  Michael Behrisch
+/// @date    14.03.2014
+/// @version $Id$
+///
+// An XML-Handler for amitran and netstate trajectories
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation, either version 3 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+#ifndef TrajectoriesHandler_h
+#define TrajectoriesHandler_h
+
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
+#include <string>
+#include <utility>
+#include <utils/xml/SUMOSAXHandler.h>
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class TrajectoriesHandler
+ * @brief An XML-Handler for amitran and netstate trajectories
+ *
+ * This SUMOSAXHandler parses vehicles and their speeds.
+ */
+class TrajectoriesHandler : public SUMOSAXHandler {
+public:
+    /** @brief Constructor
+     *
+     * @param[in] file The file that will be processed
+     */
+    TrajectoriesHandler(const bool computeA, const SUMOEmissionClass defaultClass,
+                        const SUMOReal defaultSlope);
+
+
+    /// @brief Destructor
+    ~TrajectoriesHandler();
+
+    void writeEmissions(std::ostream& o, const std::string id,
+                        SUMOEmissionClass c,
+                        const SUMOReal t, const SUMOReal v,
+                        SUMOReal a, SUMOReal s);
+
+    void writeSums(std::ostream& o, const std::string id);
+
+
+protected:
+    /// @name inherited from GenericSAXHandler
+    //@{
+
+    /** @brief Called when an opening-tag occurs
+     *
+     * Processes vehicle and motionState elements.
+     *
+     * @param[in] element The enum of the currently opened element
+     * @param[in] attrs Attributes of the currently opened element
+     * @exception ProcessError If an error within the parsed file occurs
+     * @see GenericSAXHandler::myStartElement
+     */
+    void myStartElement(int element,
+                        const SUMOSAXAttributes& attrs);
+    //@}
+
+public:
+    static const SUMOReal INVALID_VALUE = -999999.;
+
+
+private:
+    const bool myComputeA;
+    const SUMOEmissionClass myDefaultClass;
+    const SUMOReal myDefaultSlope;
+    SUMOReal myLastV;
+    std::map<std::string, SUMOReal> mySumCO, mySumCO2, mySumHC, mySumNOx, mySumPMx, mySumFuel;
+
+    
+private:
+    /// @brief invalidated copy constructor
+    TrajectoriesHandler(const TrajectoriesHandler& s);
+
+    /// @brief invalidated assignment operator
+    TrajectoriesHandler& operator=(const TrajectoriesHandler& s);
+
+
+};
+
+
+#endif
+
+/****************************************************************************/
+

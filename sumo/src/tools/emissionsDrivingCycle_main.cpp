@@ -1,13 +1,13 @@
 /****************************************************************************/
-/// @file    emissionsMap_main.cpp
+/// @file    emissionsDrivingCycle_main.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 21.08.2013
 /// @version $Id$
 ///
-// Main for an emissions map writer
+// Main for an emissions calculator
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -41,7 +41,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/emissions/PollutantsInterface.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
@@ -51,6 +50,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
+#include "TrajectoriesHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -70,14 +70,22 @@ main(int argc, char** argv) {
     // build options
     OptionsCont& oc = OptionsCont::getOptions();
     //  give some application descriptions
-    oc.setApplicationDescription("Computes emission by driving a time line.");
-    oc.setApplicationName("emissionsTimeline", "SUMO emissionsTimeline Version " + (std::string)VERSION_STRING);
+    oc.setApplicationDescription("Computes emissions by driving a time line.");
+    oc.setApplicationName("emissionsDrivingCycle", "SUMO emissionsDrivingCycle Version " + (std::string)VERSION_STRING);
     //  add options
 
     oc.addOptionSubTopic("Input");
     oc.doRegister("timeline-file", 't', new Option_FileName());
     oc.addSynonyme("timeline", "timeline-file");
     oc.addDescription("timeline-file", "Input", "Defines the file to read the driving cycle from.");
+
+    oc.doRegister("netstate-file", 'n', new Option_FileName());
+    oc.addSynonyme("netstate", "netstate-file");
+    oc.addDescription("netstate-file", "Input", "Defines the netstate to read the driving cycles from.");
+
+    oc.doRegister("amitran-file", 'm', new Option_FileName());
+    oc.addSynonyme("amitran", "amitran-file");
+    oc.addDescription("amitran-file", "Input", "Defines the Amitran trajectories file to read the driving cycles from.");
 
     oc.doRegister("emission-class", 'e', new Option_String());
     oc.addDescription("emission-class", "Input", "Defines for which emission class the emissions shall be generated. ");
@@ -126,90 +134,53 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
+        TrajectoriesHandler handler(oc.getBool("compute-a"), getVehicleEmissionTypeID(oc.getString("emission-class")), oc.getFloat("slope"));
 
         quiet = oc.getBool("quiet");
-        if (!oc.isSet("timeline-file")) {
-            throw ProcessError("The timeline file must be given.");
-        }
         if (!oc.isSet("output-file")) {
             throw ProcessError("The output file must be given.");
         }
-
-        bool skipFirst = oc.getBool("skip-first");
-        bool computeA = oc.getBool("compute-a");
-        bool inKMH = oc.getBool("kmh");
-        bool haveSlope = oc.getBool("have-slope");
-
-        SUMOReal sumCO, sumCO2, sumHC, sumNOx, sumPMx, sumFuel;
-        sumCO = sumCO2 = sumHC = sumNOx = sumPMx = sumFuel = 0;
-        SUMOReal l = 0;
-
-
-        SUMOEmissionClass c = getVehicleEmissionTypeID(oc.getString("emission-class"));
         std::ofstream o(oc.getString("output-file").c_str());
-        LineReader lr(oc.getString("timeline-file"));
-        SUMOReal lastV = 0;
-        while (lr.hasMore()) {
-            std::string line = lr.readLine();
-            if (skipFirst) {
-                skipFirst = false;
-                continue;
-            }
-            StringTokenizer st(StringUtils::prune(line), ";");
-            if(st.size()<2) {
-                throw ProcessError("Each line must at least include the time and the speed.");
-            }
-            try {
-                SUMOReal t = TplConvert::_2SUMOReal<char>(st.next().c_str());
-                SUMOReal v = TplConvert::_2SUMOReal<char>(st.next().c_str());
-                if (inKMH) {
-                    v = v / 3.6;
-                }
-                l += v;
-                SUMOReal a = 0;
-                if (!computeA) {
-                    if(!st.hasNext()) {
-                        throw ProcessError("Acceleration information is missing; try running with --compute-a.");
-                    }
-                    a = TplConvert::_2SUMOReal<char>(st.next().c_str());
-                } else {
-                    a = v - lastV;
-                }
-                lastV = v;
-                SUMOReal s = oc.getFloat("slope");
-                if (haveSlope) {
-                    s = TplConvert::_2SUMOReal<char>(st.next().c_str());
-                }
 
-                SUMOReal aCO = PollutantsInterface::computeCO(c, v, a, s);
-                SUMOReal aCO2 = PollutantsInterface::computeCO2(c, v, a, s);
-                SUMOReal aHC = PollutantsInterface::computeHC(c, v, a, s);
-                SUMOReal aNOx = PollutantsInterface::computeNOx(c, v, a, s);
-                SUMOReal aPMx = PollutantsInterface::computePMx(c, v, a, s);
-                SUMOReal aFuel = PollutantsInterface::computeFuel(c, v, a, s);
-                sumCO += aCO;
-                sumCO2 += aCO2;
-                sumHC += aHC;
-                sumNOx += aNOx;
-                sumPMx += aPMx;
-                sumFuel += aFuel;
-                o << t << ";" << v << ";" << a << ";" << s
-                  << ";" << aCO << ";" << aCO2 << ";" << aHC << ";" << aPMx << ";" << aNOx << ";" << aFuel << std::endl;
-            } catch (EmptyData&) {
-                throw ProcessError("Missing an entry in line '" + line + "'.");
-            } catch (NumberFormatException&) {
-                throw ProcessError("Not numeric entry in line '" + line + "'.");
+        if (oc.isSet("timeline-file")) {
+            bool skipFirst = oc.getBool("skip-first");
+            const bool computeA = oc.getBool("compute-a");
+            const bool inKMH = oc.getBool("kmh");
+            const bool haveSlope = oc.getBool("have-slope");
+            SUMOReal l = 0;
+
+            LineReader lr(oc.getString("timeline-file"));
+            while (lr.hasMore()) {
+                std::string line = lr.readLine();
+                if (skipFirst) {
+                    skipFirst = false;
+                    continue;
+                }
+                StringTokenizer st(StringUtils::prune(line), ";");
+                if (st.size()<2) {
+                    throw ProcessError("Each line must at least include the time and the speed.");
+                }
+                try {
+                    const SUMOReal t = TplConvert::_2SUMOReal<char>(st.next().c_str());
+                    SUMOReal v = TplConvert::_2SUMOReal<char>(st.next().c_str());
+                    if (inKMH) {
+                        v /= 3.6;
+                    }
+                    l += v;
+                    const SUMOReal a = !computeA && st.hasNext() ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
+                    const SUMOReal s = haveSlope ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
+                    handler.writeEmissions(o, "", SVE_UNKNOWN, t, v, a, s);
+                } catch (EmptyData&) {
+                    throw ProcessError("Missing an entry in line '" + line + "'.");
+                } catch (NumberFormatException&) {
+                    throw ProcessError("Not numeric entry in line '" + line + "'.");
+                }
             }
-        }
-        if(!quiet) {
-            std::cout << "sums"  << std::endl
-                  << "length:" << l << std::endl
-                  << "CO:" << sumCO << std::endl
-                  << "CO2:" << sumCO2 << std::endl
-                  << "HC:" << sumHC << std::endl
-                  << "NOx:" << sumNOx << std::endl
-                  << "PMx:" << sumPMx << std::endl
-                  << "fuel:" << sumFuel << std::endl;
+            if (!quiet) {
+                std::cout << "sums"  << std::endl
+                    << "length:" << l << std::endl;
+                handler.writeSums(std::cout, "");
+            }
         }
     } catch (InvalidArgument& e) {
         MsgHandler::getErrorInstance()->inform(e.what());

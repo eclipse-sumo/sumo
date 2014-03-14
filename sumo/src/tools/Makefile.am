@@ -4,7 +4,8 @@ endif
 
 bin_PROGRAMS = emissionsDrivingCycle emissionsMap
 
-emissionsDrivingCycle_SOURCES = emissionsDrivingCycle_main.cpp
+emissionsDrivingCycle_SOURCES = emissionsDrivingCycle_main.cpp \
+TrajectoriesHandler.cpp TrajectoriesHandler.h
 
 emissionsDrivingCycle_LDFLAGS = $(XERCES_LDFLAGS)
 
@@ -20,7 +21,7 @@ $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 
-emissionsMap_SOURCES = emissionsMap_main.cpp 
+emissionsMap_SOURCES = emissionsMap_main.cpp
 
 emissionsMap_LDFLAGS = $(XERCES_LDFLAGS)
 
