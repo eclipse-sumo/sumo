@@ -39,7 +39,7 @@ class ConfigReader(handler.ContentHandler):
                     currSect = line
                 elif line[:2] == "{|":
                     self._intro[currSect] = (start, idx)
-                elif line[:4] == "----" or line[:2] == "=S":
+                elif line[:4] == "----" or (len(line) > 2 and line[0] == "=" and line[1] != "="):
                     self._end = idx
                     break
             if currSect == "":
