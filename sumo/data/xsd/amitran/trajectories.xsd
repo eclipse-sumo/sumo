@@ -8,26 +8,28 @@
                 <xsd:element name="vehicle" type="vehicleType" minOccurs="0"/>
                 <xsd:element name="motionState" type="motionStateType" minOccurs="0"/>
             </xsd:choice>
-            <xsd:attribute name="timeStepSize" use="required" type="xsd:double"/> <!-- unit: seconds -->
+            <xsd:attribute name="timeStepSize" use="required" type="xsd:unsignedInt"/> <!-- unit: 0.001s -->
         </xsd:complexType>
     </xsd:element>
  
     <xsd:complexType name="actorConfigType">
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/> <!-- unique ID -->
         <xsd:attribute name="emissionClass" type="emissionClassType" use="optional"/>
-        <xsd:attribute name="fuelType" type="fuelTypeType" use="optional"/>
+        <xsd:attribute name="fuel" type="fuelType" use="optional"/>
         <xsd:attribute name="vehicleClass" type="vehicleClassType" use="optional"/>
-        <xsd:attribute name="vehicleLength" type="xsd:unsignedInt" use="optional"/> <!-- unit: 0.01m -->
-        <xsd:attribute name="vehicleWeight" type="xsd:unsignedInt" use="optional"/> <!-- unit: 10kg -->
-        <xsd:attribute name="vehicleAge" type="xsd:unsignedInt" use="optional"/> <!-- unit: years -->
-        <xsd:attribute name="vehicleBrand" type="vehicleBrandType" use="optional"/>
-        <xsd:attribute name="vehicleModel" type="xsd:string" use="optional"/>
+        <xsd:attribute name="length" type="xsd:unsignedInt" use="optional"/> <!-- unit: 0.01m -->
+        <xsd:attribute name="weight" type="xsd:unsignedInt" use="optional"/> <!-- unit: 10kg -->
+        <xsd:attribute name="age" type="xsd:unsignedInt" use="optional"/> <!-- unit: years -->
+        <xsd:attribute name="brand" type="xsd:string" use="optional"/>
+        <xsd:attribute name="model" type="xsd:string" use="optional"/>
+        <xsd:attribute name="ref" type="xsd:string" use="optional"/>
     </xsd:complexType>
     
     <xsd:complexType name="vehicleType">
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/> <!-- unique ID -->
         <xsd:attribute name="actorConfig" type="xsd:unsignedInt" use="required"/> <!-- reference to actorConfig id -->
-        <xsd:attribute name="startTime" type="xsd:double" use="required"/> <!-- unit: seconds -->
+        <xsd:attribute name="startTime" type="xsd:unsignedInt" use="required"/> <!-- unit: 0.001s -->
+        <xsd:attribute name="ref" type="xsd:string" use="optional"/>
     </xsd:complexType>
         
     <xsd:complexType name="motionStateType">
@@ -67,7 +69,7 @@
         </xsd:restriction>
     </xsd:simpleType>
     
-    <xsd:simpleType name="fuelTypeType">
+    <xsd:simpleType name="fuelType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Gasoline" />
             <xsd:enumeration value="Diesel" />
@@ -75,29 +77,24 @@
             <xsd:enumeration value="CNG" />
             <xsd:enumeration value="Battery" />
             <xsd:enumeration value="Fuelcell" />
-            <xsd:enumeration value="Hybrid" />
+            <xsd:enumeration value="HybridGasoline" />
+            <xsd:enumeration value="HybridDiesel" />
         </xsd:restriction>
     </xsd:simpleType>
     
     <xsd:simpleType name="vehicleClassType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Passenger" />
-            <xsd:enumeration value="Bus" />
-            <xsd:enumeration value="Delivery" />
-            <xsd:enumeration value="Transport" />
-            <xsd:enumeration value="Bicycle" />
+            <xsd:enumeration value="TwoWheeler" />
             <xsd:enumeration value="Motorcycle" />
+            <xsd:enumeration value="Delivery" />
+            <xsd:enumeration value="UrbanBus" />
+            <xsd:enumeration value="Coach" />
+            <xsd:enumeration value="Truck" />
+            <xsd:enumeration value="Trailer" />
         </xsd:restriction>
     </xsd:simpleType>
     
-    <xsd:simpleType name="vehicleBrandType">
-        <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="BMW" />
-            <xsd:enumeration value="Opel" />
-            <xsd:enumeration value="Renault" />
-        </xsd:restriction>
-    </xsd:simpleType>
-        
     <xsd:simpleType name="roadTypeType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="urban" />

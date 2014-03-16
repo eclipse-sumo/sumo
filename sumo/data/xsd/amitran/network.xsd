@@ -14,6 +14,7 @@
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
         <xsd:attribute name="type" type="nodeTypeType" use="optional"/>
         <xsd:attribute name="odZone" type="xsd:unsignedInt" use="optional"/>
+        <xsd:attribute name="ref" type="xsd:string" use="optional"/>
     </xsd:complexType>
     
     <xsd:simpleType name="nodeTypeType">
@@ -37,6 +38,7 @@
         <xsd:attribute name="length" type="xsd:unsignedInt" use="required"/>
         <xsd:attribute name="speedLimitKmh" type="xsd:unsignedInt" use="optional"/>
         <xsd:attribute name="laneNr" type="xsd:unsignedInt" use="optional"/>
+        <xsd:attribute name="ref" type="xsd:string" use="optional"/>
     </xsd:complexType>
     
 </xsd:schema>
