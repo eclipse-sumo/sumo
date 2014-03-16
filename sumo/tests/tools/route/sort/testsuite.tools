@@ -1,5 +1,8 @@
 # in memory sort
 normal
 
+# in memory sort
+dfrouter
+
 # memory-efficient sort
 big_file
