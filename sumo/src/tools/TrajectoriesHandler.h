@@ -46,6 +46,9 @@
  */
 class TrajectoriesHandler : public SUMOSAXHandler {
 public:
+    static const SUMOReal INVALID_VALUE = -999999.;
+
+public:
     /** @brief Constructor
      *
      * @param[in] file The file that will be processed
@@ -60,7 +63,7 @@ public:
     void writeEmissions(std::ostream& o, const std::string id,
                         SUMOEmissionClass c,
                         const SUMOReal t, const SUMOReal v,
-                        SUMOReal a, SUMOReal s);
+                        SUMOReal a=INVALID_VALUE, SUMOReal s=INVALID_VALUE);
 
     void writeSums(std::ostream& o, const std::string id);
 
@@ -82,16 +85,16 @@ protected:
                         const SUMOSAXAttributes& attrs);
     //@}
 
-public:
-    static const SUMOReal INVALID_VALUE = -999999.;
-
 
 private:
     const bool myComputeA;
     const SUMOEmissionClass myDefaultClass;
     const SUMOReal myDefaultSlope;
-    SUMOReal myLastV;
+    std::map<std::string, SUMOReal> myLastV;
+    SUMOTime myCurrentTime;
     std::map<std::string, SUMOReal> mySumCO, mySumCO2, mySumHC, mySumNOx, mySumPMx, mySumFuel;
+    std::map<std::string, SUMOEmissionClass> myEmissionClassByType;
+    std::map<std::string, SUMOEmissionClass> myEmissionClassByVehicle;
 
     
 private:

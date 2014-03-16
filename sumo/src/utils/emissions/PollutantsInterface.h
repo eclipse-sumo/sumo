@@ -57,6 +57,46 @@ public:
     static SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope);
 
 
+    /** @brief Returns the emission class fittig the given parameters
+     * @param[in] base The base emission class to derive from
+     * @param[in] vClass The vehicle class description (like "truck")
+     * @param[in] eClass The emission class description (like "Euro5")
+     * @param[in] fuel The fuel type (like "Diesel")
+     * @param[in] weight The weight in kg
+     * @return The best fitting emission class related to the base
+     */
+    static SUMOEmissionClass getClass(SUMOEmissionClass base, std::string& vClass, std::string& fuel, std::string& eClass, double weight);
+
+
+    /** @brief Returns the vehicle class described by the given emission class
+     * @param[in] c The vehicle emission class
+     * @return The Amitran string describing the vehicle class
+     */
+    static std::string getAmitranVehicleClass(SUMOEmissionClass c);
+
+
+    /** @brief Returns the fuel type of the given emission class
+     * @param[in] c The vehicle emission class
+     * @return "Diesel", "Gasoline", "HybridDiesel", or "HybridGasoline"
+     */
+    static std::string getFuel(SUMOEmissionClass c);
+
+
+    /** @brief Returns the Euro norm described by the given emission class
+     * @param[in] c The vehicle emission class
+     * @return A value between 0 and 6 (inclusive)
+     */
+    static int getEuroClass(SUMOEmissionClass c);
+
+
+    /** @brief Returns a representative weight for the given emission class
+     * see http://colombo-fp7.eu/deliverables/COLOMBO_D4.2_ExtendedPHEMSUMO_v1.7.pdf
+     * @param[in] c The vehicle emission class
+     * @return the weight in kg if it matters, 0 otherwise
+     */
+    static SUMOReal getWeight(SUMOEmissionClass c);
+
+
     /** @brief Returns the amount of emitted CO given the vehicle type and state (in mg/s)
      * @param[in] c The vehicle emission class
      * @param[in] v The vehicle's current velocity

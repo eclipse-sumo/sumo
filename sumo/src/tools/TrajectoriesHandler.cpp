@@ -50,7 +50,7 @@
 TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const SUMOEmissionClass defaultClass,
                                          const SUMOReal defaultSlope)
     : SUMOSAXHandler(""), myComputeA(computeA), myDefaultClass(defaultClass),
-      myDefaultSlope(defaultSlope), myLastV(0) {}
+      myDefaultSlope(defaultSlope) {}
 
 
 TrajectoriesHandler::~TrajectoriesHandler() {}
@@ -59,13 +59,36 @@ TrajectoriesHandler::~TrajectoriesHandler() {}
 void
 TrajectoriesHandler::myStartElement(int element,
                                     const SUMOSAXAttributes& attrs) {
+    bool ok = true;
     switch (element) {
-        case SUMO_TAG_TAZ:
+        case SUMO_TAG_TIMESTEP:
+            myCurrentTime = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, 0, ok);
             break;
-        case SUMO_TAG_TAZSOURCE:
+        case SUMO_TAG_VEHICLE:
+            if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+                writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, myCurrentTime, attrs.getFloat(SUMO_ATTR_SPEED));
+            } else {
+                myEmissionClassByVehicle[attrs.getString(SUMO_ATTR_ID)] = myEmissionClassByType[attrs.getString(SUMO_ATTR_ACTORCONFIG)];
+            }
             break;
-        case SUMO_TAG_TAZSINK:
+        case SUMO_TAG_ACTORCONFIG: {
+            const std::string id = attrs.getString(SUMO_ATTR_ID);
+            std::string vClass = attrs.getString(SUMO_ATTR_VEHICLECLASS);
+            std::string fuel = attrs.getString(SUMO_ATTR_FUEL);
+            std::string eClass = attrs.getString(SUMO_ATTR_EMISSIONCLASS);
+            SUMOReal weight = attrs.getOpt(SUMO_ATTR_WEIGHT, id.c_str(), ok, 0.) * 10.;
+            myEmissionClassByType[id] = PollutantsInterface::getClass(myDefaultClass, vClass, fuel, eClass, weight);
             break;
+        }
+        case SUMO_TAG_MOTIONSTATE: {
+            const std::string id = attrs.getString(SUMO_ATTR_ID);
+            const SUMOEmissionClass c = myEmissionClassByVehicle[id];
+            const SUMOReal v = attrs.getFloat(SUMO_ATTR_SPEED);
+            const SUMOReal a = attrs.getOpt(SUMO_ATTR_ACCELERATION, id.c_str(), ok, INVALID_VALUE);
+            const SUMOReal s = attrs.getOpt(SUMO_ATTR_SLOPE, id.c_str(), ok, INVALID_VALUE);
+            writeEmissions(std::cout, id, c, myCurrentTime, v);
+            break;
+        }
         default:
             break;
     }
@@ -81,8 +104,8 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
         c = myDefaultClass;
     }
     if (myComputeA) {
-        a = v - myLastV;
-        myLastV = v;
+        a = v - myLastV[id];
+        myLastV[id] = v;
     }
     if (a == INVALID_VALUE) {
         throw ProcessError("Acceleration information is missing; try running with --compute-a.");

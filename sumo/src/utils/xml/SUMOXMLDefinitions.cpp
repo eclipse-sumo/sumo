@@ -158,6 +158,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "ride",             SUMO_TAG_RIDE },
     { "walk",             SUMO_TAG_WALK },
 
+    { "timestep",         SUMO_TAG_TIMESTEP },
+    { "actorConfig",      SUMO_TAG_ACTORCONFIG },
+    { "motionState",      SUMO_TAG_MOTIONSTATE },
+    
     // ActivityGen statistics file
     { "general",          AGEN_TAG_GENERAL },
     { "street",           AGEN_TAG_STREET },
@@ -304,12 +308,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speedThreshold", SUMO_ATTR_HALTING_SPEED_THRESHOLD },
     { "jamThreshold",   SUMO_ATTR_JAM_DIST_THRESHOLD },
 
-    { "wautID",		    SUMO_ATTR_WAUT_ID },
+    { "wautID",         SUMO_ATTR_WAUT_ID },
     { "junctionID",     SUMO_ATTR_JUNCTION_ID },
-    { "procedure",	    SUMO_ATTR_PROCEDURE },
-    { "synchron",	    SUMO_ATTR_SYNCHRON },
-    { "refTime",	    SUMO_ATTR_REF_TIME },
-    { "startProg",	    SUMO_ATTR_START_PROG },
+    { "procedure",      SUMO_ATTR_PROCEDURE },
+    { "synchron",       SUMO_ATTR_SYNCHRON },
+    { "refTime",        SUMO_ATTR_REF_TIME },
+    { "startProg",      SUMO_ATTR_START_PROG },
     { "off",            SUMO_ATTR_OFF },
     { "friendlyPos",    SUMO_ATTR_FRIENDLY_POS },
     { "splitByType",    SUMO_ATTR_SPLIT_VTYPE },
@@ -378,6 +382,11 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "actType",        SUMO_ATTR_ACTTYPE },
     { "slope",          SUMO_ATTR_SLOPE },
     { "version",        SUMO_ATTR_VERSION },
+
+    { "actorConfig",    SUMO_ATTR_ACTORCONFIG },
+    { "vehicleClass",   SUMO_ATTR_VEHICLECLASS },
+    { "fuel",           SUMO_ATTR_FUEL },
+    { "acceleration",   SUMO_ATTR_ACCELERATION },
 
     // ActivityGen statistics file
     { "inhabitants",    AGEN_ATTR_INHABITANTS },

@@ -1,13 +1,14 @@
 /****************************************************************************/
 /// @file    emissionsDrivingCycle_main.cpp
 /// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @date    Wed, 21.08.2013
 /// @version $Id$
 ///
 // Main for an emissions calculator
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -81,11 +82,8 @@ main(int argc, char** argv) {
 
     oc.doRegister("netstate-file", 'n', new Option_FileName());
     oc.addSynonyme("netstate", "netstate-file");
-    oc.addDescription("netstate-file", "Input", "Defines the netstate to read the driving cycles from.");
-
-    oc.doRegister("amitran-file", 'm', new Option_FileName());
-    oc.addSynonyme("amitran", "amitran-file");
-    oc.addDescription("amitran-file", "Input", "Defines the Amitran trajectories file to read the driving cycles from.");
+    oc.addSynonyme("amitran", "netstate-file");
+    oc.addDescription("netstate-file", "Input", "Defines the netstate, route and trajectory files to read the driving cycles from.");
 
     oc.doRegister("emission-class", 'e', new Option_String());
     oc.addDescription("emission-class", "Input", "Defines for which emission class the emissions shall be generated. ");

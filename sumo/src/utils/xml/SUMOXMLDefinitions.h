@@ -199,6 +199,10 @@ enum SumoXMLTag {
     SUMO_TAG_RIDE,
     SUMO_TAG_WALK,
 
+    SUMO_TAG_TIMESTEP,
+    SUMO_TAG_ACTORCONFIG,
+    SUMO_TAG_MOTIONSTATE,
+
     /**
      * ActivityGen Tags
      **/
@@ -460,6 +464,11 @@ enum SumoXMLAttr {
     SUMO_ATTR_ACTTYPE,
     SUMO_ATTR_SLOPE,
     SUMO_ATTR_VERSION,
+
+    SUMO_ATTR_ACTORCONFIG,
+    SUMO_ATTR_VEHICLECLASS,
+    SUMO_ATTR_FUEL,
+    SUMO_ATTR_ACCELERATION,
 
 
     /**
