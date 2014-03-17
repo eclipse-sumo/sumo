@@ -5,7 +5,7 @@
 /// @date    2009-11-30
 /// @version $Id$
 ///
-// The base class for polygons
+// 
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 // Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors

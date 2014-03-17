@@ -1,13 +1,30 @@
+/****************************************************************************/
+/// @file    MSCFModelTest.cpp
+/// @author  Jakob Erdmann
+/// @author  Michael Behrisch
+/// @date    2013-06-05
+/// @version $Id$
+///
+// Tests the cfmodel functions 
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation, either version 3 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+
 #include <gtest/gtest.h>
 #include <utils/common/SUMOVTypeParameter.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/cfmodels/MSCFModel.h>
 #include <microsim/cfmodels/MSCFModel_Krauss.h>
 
-
-/*
-Tests the cfmodel functions
-*/
 
 class MSCFModelTest : public testing::Test {
 	protected :

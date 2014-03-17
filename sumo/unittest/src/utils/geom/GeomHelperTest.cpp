@@ -1,12 +1,31 @@
+/****************************************************************************/
+/// @file    GeomHelperTest.cpp
+/// @author  Jakob Erdmann
+/// @author  Laura Bieker
+/// @author  Michael Behrisch
+/// @date    2011-12-12
+/// @version $Id$
+///
+// Tests the class GeomHelper
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation, either version 3 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+
 #include <gtest/gtest.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
 
 using namespace std;
 
-/*
-Tests the class GeomHelper
-*/
 
 TEST(GeomHelper, test_method_intersects) {
     // on the same line but non-overlapping segments

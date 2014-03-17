@@ -1,6 +1,23 @@
 #!/usr/bin/python
 #-*- encoding: utf-8 -*-
-""" Generates mean data files for given detectors. """
+"""
+@file    generateMeanDataDefinitions.py
+@author  Karol Stosiek
+@author  Michael Behrisch
+@date    2011-10-25
+@version $Id$
+
+Generates mean data files for given detectors.
+
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+"""
 
 import xml.dom.minidom
 

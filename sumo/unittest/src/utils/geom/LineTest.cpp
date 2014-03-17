@@ -1,10 +1,29 @@
+/****************************************************************************/
+/// @file    LineTest.cpp
+/// @author  Matthias Heppner
+/// @author  Michael Behrisch
+/// @author  Jakob Erdmann
+/// @date    2009-11-11
+/// @version $Id$
+///
+// Tests the class Line
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation, either version 3 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+
 #include <gtest/gtest.h>
 #include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 
-/*
-Tests the class Line
-*/
 
 /* Test the method 'intersectsAt' with no intersection, expected thrown exception*/
 //TODO must return NULL

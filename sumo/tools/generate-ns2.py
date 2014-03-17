@@ -1,14 +1,24 @@
 #!/usr/bin/env python
-#
-# automating generation of ns2-tracefiles
-# author: thimor bohn <bohn@itm.uni-luebeck.de>
-# date: 2006/08/07
-#
+"""
+@file    generate-ns2.py
+@author  Thimor Bohn
+@author  Axel Wegener
+@author  Michael Behrisch
+@date    2006-08-07
+@version $Id$
 
+automating generation of ns2-tracefiles
 
-#
-# BEGIN: change to your needs
-#
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+"""
+
 exporter   = "H:\\itm\\sumo\\tools\\traceExporter\\traceExporter.jar"
 sumo       = "H:\\itm\\sumo\\bin\\sumo.exe"
 netconvert = "H:\\itm\\sumo\\bin\\netconvert.exe"

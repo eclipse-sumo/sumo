@@ -1,6 +1,7 @@
 """
 @file    miscutils.py
 @author  Jakob Erdmann
+@author  Michael Behrisch
 @date    2012-05-08
 @version $Id$
 

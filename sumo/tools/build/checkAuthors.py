@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 """
-@file    checkSvnProps.py
+@file    checkAuthors.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
+@date    2011-11-07
 @version $Id$
 
 Checks authors for all files.

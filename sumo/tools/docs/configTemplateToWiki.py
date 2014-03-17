@@ -2,6 +2,7 @@
 """
 @file    configTemplateToWiki.py
 @author  Michael Behrisch
+@date    2012-01-26
 @version $Id$
 
 Generate Wiki table from configuration template.

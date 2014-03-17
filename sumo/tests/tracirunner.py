@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """
 @file    tracirunner.py
-@author  Michael Behrisch
-@author  Daniel Krajzewicz
 @author  Friedemann Wesner
+@author  Michael Behrisch
+@author  Jakob Erdmann
+@date    2008-05-12
 @version $Id$
 
 Wrapper script for running TraCI tests with TextTest.
@@ -17,6 +18,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+
 import os,subprocess,sys,time
 
 args = sys.argv[1:]
