@@ -45,6 +45,7 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/common/ValueRetriever.h>
 #include <utils/common/ValueSource.h>
+#include <utils/common/RandomDistributor.h>
 #include "GUISUMOViewParent.h"
 
 
@@ -244,6 +245,9 @@ private:
     /** opens a new simulation display */
     GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL);
 
+    /// @brief handles additional game-related events
+    void checkGamingEvents();
+
 protected:
     /// FOX needs this for static members
     GUIApplicationWindow() { }
@@ -330,6 +334,16 @@ protected:
 
     /// @brief whether to show time as hour:minute:second
     bool myShowTimeAsHMS;
+
+
+    /// @name game related things
+    /// {
+    RandomDistributor<std::string> myJamSounds;
+    /// @brief waiting time after which vehicles trigger jam sounds
+    SUMOReal myJamSoundTime;
+    /// @brief A random number generator used to choose a gaming sound
+    static MTRand myGamingRNG;
+    ////}
 
 };
 
