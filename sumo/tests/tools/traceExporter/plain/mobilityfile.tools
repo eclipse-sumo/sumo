@@ -1,7 +1,0 @@
-$ns_ at 0.0 "$node_(1) setdest 0.0 15.05 0.0"
-  $node_(1)   set X_ 0.0	# SUMO-ID: 0
-  $node_(1)   set Y_ 15.050000190734863 
-  $node_(1)   set Z_ 0.0 
-  $node_(0)   set X_ null	# SUMO-ID: 1
-  $node_(0)   set Y_ null 
-  $node_(0)   set Z_ 0.0 

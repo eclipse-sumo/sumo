@@ -1,4 +1,0 @@
-$ns_ at 0.0 "$g(1) start"	;# SUMO-ID: 0
-$ns_ at 40.0 "$g(1) stop"	;# SUMO-ID: 0
-$ns_ at 20.0 "$g(0) start"	;# SUMO-ID: 1
-$ns_ at 40.0 "$g(0) stop"	;# SUMO-ID: 1
