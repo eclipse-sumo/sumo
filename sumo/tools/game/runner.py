@@ -28,17 +28,18 @@ _SCOREFILE = "scores.pkl"
 _SCORESERVER = "sumo-sim.org"
 _SCORESCRIPT = "/scores.php?game=TLS&"
 _DEBUG = False
+_SCORES= 30
 
 def loadHighscore():
     try:
         conn = httplib.HTTPConnection(_SCORESERVER)
-        conn.request("GET", _SCORESCRIPT + "top=10")
+        conn.request("GET", _SCORESCRIPT + "top=" + str(_SCORES))
         response = conn.getresponse()
         if response.status == httplib.OK:
             scores = {}
             for line in response.read().splitlines():
                 category, values = line.split()
-                scores[category] = 10*[("", "", -1.)]
+                scores[category] = _SCORES*[("", "", -1.)]
                 for idx, item in enumerate(values.split(':')):
                     name, game, points = item.split(',')
                     scores[category][idx] = (name, game, int(float(points)))
@@ -138,7 +139,7 @@ class ScoreDialog:
         self.root.minsize(250, 50)
 
         if not category in high:
-            high[category] = 10*[("", "", -1.)]
+            high[category] = _SCORES*[("", "", -1.)]
         idx = 0
         for n, g, p in high[category]:
             if not haveHigh and p < points:
@@ -151,7 +152,7 @@ class ScoreDialog:
                 haveHigh = True
                 self.root.title("Congratulations!")
                 idx += 1
-            if p == -1 or idx == 10:
+            if p == -1 or idx == _SCORES:
                 break
             Tkinter.Label(self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
             Tkinter.Label(self.root, text=n, padx=5).grid(row=idx, sticky=Tkinter.W, column=1)
@@ -245,17 +246,17 @@ while True:
         m = re.search('arrived="([^"]*)"', line)
         if m:
             totalArrived += float(m.group(1))
-    switch = []
-    lastProg = {}
-    for line in open(os.path.join(base, "tlsstate.xml")):
-        m = re.search('tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
-        if m:
-            tls = m.group(3)
-            program = m.group(4)
-            if tls not in lastProg or lastProg[tls] != program:
-                lastProg[tls] = program
-                switch += [m.group(3), m.group(1)]
-    score = int(25000 - 100000 * totalFuel / totalDistance)
+    # switch = []
+    # lastProg = {}
+    # for line in open(os.path.join(base, "tlsstate.xml")):
+        # m = re.search('tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
+        # if m:
+            # tls = m.group(3)
+            # program = m.group(4)
+            # if tls not in lastProg or lastProg[tls] != program:
+                # lastProg[tls] = program
+                # switch += [m.group(3), m.group(1)]
+    score = totalArrived
     if _DEBUG:
         print switch, score, totalArrived, complete
     if complete:
