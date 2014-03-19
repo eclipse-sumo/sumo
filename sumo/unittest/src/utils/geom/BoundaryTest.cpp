@@ -1,9 +1,27 @@
+/****************************************************************************/
+/// @file    BoundaryTest.cpp
+/// @author  Matthias Heppner
+/// @author  Michael Behrisch
+/// @date    2009-05-27
+/// @version $Id$
+///
+// Tests the class Boundary
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation, either version 3 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+
 #include <gtest/gtest.h>
 #include <utils/geom/Boundary.h>
 
-/*
-Tests the class Boundary
-*/
 
 /* Test the method 'add'*/
 TEST(Boundary, test_method_add) {

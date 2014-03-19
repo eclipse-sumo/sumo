@@ -33,6 +33,7 @@
 #endif
 
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/common/RandomDistributor.h>
 
 
 // ===========================================================================
@@ -139,6 +140,10 @@ public:
         return myViewType;
     }
 
+    RandomDistributor<std::string> getEventDistribution(const std::string &id);
+    SUMOReal getJamSoundTime() {
+        return myJamSoundTime;
+    }
 
 private:
     /// @brief The settings to fill
@@ -170,6 +175,10 @@ private:
 
     /// @brief The parsed breakpoints
     std::vector<SUMOTime> myBreakpoints;
+
+    /// @brief The parsed event distributions
+    std::map<std::string, RandomDistributor<std::string> > myEventDistributions;
+    SUMOReal myJamSoundTime;
 
 private:
 

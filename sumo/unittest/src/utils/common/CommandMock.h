@@ -1,3 +1,24 @@
+/****************************************************************************/
+/// @file    CommandMock.h
+/// @author  Matthias Heppner
+/// @author  Michael Behrisch
+/// @date    2009-11-30
+/// @version $Id$
+///
+// 
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation, either version 3 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+
 #ifndef Command_Mock_h
 #define Command_Mock_h
 

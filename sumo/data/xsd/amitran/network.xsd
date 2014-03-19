@@ -5,7 +5,7 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element name="node" type="nodeType" minOccurs="0" maxOccurs="unbounded"/>
-                <xsd:element name="link" type="linkType" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element name="link" type="linkProperties" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -30,15 +30,26 @@
         </xsd:restriction>
     </xsd:simpleType>
     
-    <xsd:complexType name="linkType">
+    <xsd:complexType name="linkProperties">
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
         <xsd:attribute name="from" type="xsd:unsignedInt" use="optional"/>
         <xsd:attribute name="to" type="xsd:unsignedInt" use="optional"/>
-        <xsd:attribute name="roadClass" type="xsd:unsignedInt" use="required"/> <!-- functional road class in the Navteq sense -->
+        <xsd:attribute name="roadClass" type="roadClassType" use="required"/> <!-- functional road class in the Navteq sense -->
         <xsd:attribute name="length" type="xsd:unsignedInt" use="required"/>
         <xsd:attribute name="speedLimitKmh" type="xsd:unsignedInt" use="optional"/>
-        <xsd:attribute name="laneNr" type="xsd:unsignedInt" use="optional"/>
+        <xsd:attribute name="numberOfLanes" type="xsd:unsignedInt" use="optional"/>
         <xsd:attribute name="ref" type="xsd:string" use="optional"/>
     </xsd:complexType>
+    
+    <xsd:simpleType name="roadClassType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="0" />
+            <xsd:enumeration value="1" />
+            <xsd:enumeration value="2" />
+            <xsd:enumeration value="3" />
+            <xsd:enumeration value="4" />
+            <xsd:enumeration value="5" />
+        </xsd:restriction>
+    </xsd:simpleType>
     
 </xsd:schema>

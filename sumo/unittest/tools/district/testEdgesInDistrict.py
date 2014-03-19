@@ -1,15 +1,21 @@
 #!/usr/bin/env python
 """
 @file    testEdgesInDistrict.py
-@author  Michael.Behrisch@dlr.de
-@date    2007-07-18
+@author  Michael Behrisch
+@date    2013-10-16
 @version $Id$
 
 Simple Unittest to check whether numpy is available and does not have the
 polyfit bug showing up in the 1.0.4 release
 
-Copyright (C) 2007-2014 DLR, Germany
-All rights reserved
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
 """
 import os, sys, unittest
 TOOLS_DIR = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'tools', 'district')

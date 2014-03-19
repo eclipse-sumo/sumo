@@ -2,8 +2,8 @@
 """
 @file    toolrunner.py
 @author  Michael Behrisch
-@author  Daniel Krajzewicz
 @author  Jakob Erdmann
+@date    2008-03-29
 @version $Id$
 
 Wrapper script for running tool tests with TextTest.

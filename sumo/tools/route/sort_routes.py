@@ -3,6 +3,7 @@
 @file    sort_routes.py
 @author  Jakob Erdmann
 @author  Michael Behrisch
+@author  Pieter Loof
 @date    2011-07-14
 @version $Id$
 
@@ -132,12 +133,17 @@ def main(args=None):
         copy_elements(options.routefile, options.outfile, element_lines, line_offsets)
     else:
         outfile = open(options.outfile, 'w')
+        close_line = ''
         for line in open(options.routefile):
-            outfile.write(line)
             if '<routes' in line:
+                close_line = '</routes>'
+            if '<additional' in line:
+                close_line = '</additional>'
+            if '<vehicle ' in line or '<flow ' in line:
                 break
+            outfile.write(line)
         sort_departs(options.routefile, outfile)
-        outfile.write('</routes>')
+        outfile.write(close_line)
         outfile.close()
 
 

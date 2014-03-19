@@ -51,6 +51,7 @@
 #include "GUIEvent_SimulationEnded.h"
 
 #include <utils/common/ToString.h>
+#include <utils/common/RandHelper.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/foxtools/FXRealSpinDial.h>
@@ -159,6 +160,11 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 FXIMPLEMENT(GUIApplicationWindow, FXMainWindow, GUIApplicationWindowMap, ARRAYNUMBER(GUIApplicationWindowMap))
 
 // ===========================================================================
+// static members
+// ===========================================================================
+MTRand GUIApplicationWindow::myGamingRNG;
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
@@ -169,7 +175,9 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
       myAlternateSimDelay(0),
       myRecentNets(a, "nets"), myConfigPattern(configPattern),
       hadDependentBuild(false),
-      myShowTimeAsHMS(false) {
+      myShowTimeAsHMS(false),
+      myJamSoundTime(60)
+{
     GUIIconSubSys::init(a);
 }
 
@@ -1053,6 +1061,10 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     if (settings.getBreakpoints().size() > 0) {
                         GUIGlobals::gBreakpoints = settings.getBreakpoints();
                     }
+                    myJamSounds = settings.getEventDistribution("jam");
+                    if (settings.getJamSoundTime() > 0) {
+                        myJamSoundTime = settings.getJamSoundTime();
+                    }
                 }
             } else {
                 openNewView(defaultType);
@@ -1082,6 +1094,9 @@ void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
     updateChildren();
     updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
+    if (myAmGaming) {
+        checkGamingEvents();
+    }
     update();
 }
 
@@ -1108,6 +1123,29 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
     }
 }
 
+
+void 
+GUIApplicationWindow::checkGamingEvents() {
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    MSVehicleControl::constVehIt it = vc.loadedVehBegin();
+    MSVehicleControl::constVehIt end = vc.loadedVehEnd();
+    if (myJamSounds.getOverallProb() > 0) {
+        // play honking sound if some vehicle is waiting to long
+        for (; it != end; ++it) {
+            // XXX use impatience instead of waiting time ?
+            if (it->second->getWaitingTime() > TIME2STEPS(myJamSoundTime)) {
+                const std::string cmd = myJamSounds.get(&myGamingRNG);
+                if (cmd != "")
+                    // yay! fun with dangerous commands... Never use this over the internet
+                    system(cmd.c_str());
+                //system("play /home/erdm_ja/Downloads/vehicle040.wav &"); // linux
+                //system("start /min vlc -Idummy D:\\erdm_ja\\Downloads\\vehicle040.wav &"); // windows
+            }
+            // one sound per simulation step is enough
+            break;
+        }
+    }
+}
 
 
 void

@@ -133,6 +133,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "pois",             SUMO_TAG_VIEWSETTINGS_POIS },
     { "polys",            SUMO_TAG_VIEWSETTINGS_POLYS },
     { "legend",           SUMO_TAG_VIEWSETTINGS_LEGEND },
+    { "event",            SUMO_TAG_VIEWSETTINGS_EVENT },
+    { "jamTime",          SUMO_TAG_VIEWSETTINGS_EVENT_JAM_TIME },
     { "include",          SUMO_TAG_INCLUDE },
     { "xi:include",       SUMO_TAG_INCLUDE },
     { "delay",            SUMO_TAG_DELAY },
@@ -387,6 +389,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "vehicleClass",   SUMO_ATTR_VEHICLECLASS },
     { "fuel",           SUMO_ATTR_FUEL },
     { "acceleration",   SUMO_ATTR_ACCELERATION },
+
+#ifndef WIN32
+    { "commandPosix",   SUMO_ATTR_COMMAND },
+#else
+    { "commandWindows", SUMO_ATTR_COMMAND },
+#endif
 
     // ActivityGen statistics file
     { "inhabitants",    AGEN_ATTR_INHABITANTS },
