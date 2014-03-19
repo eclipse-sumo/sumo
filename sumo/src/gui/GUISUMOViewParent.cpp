@@ -129,6 +129,16 @@ GUISUMOViewParent::~GUISUMOViewParent() {
 }
 
 
+void 
+GUISUMOViewParent::toggleGaming() {
+    if (myParent->isGaming()) {
+        myNavigationToolBar->hide();
+    } else {
+        myNavigationToolBar->show();
+    }
+}
+
+
 long
 GUISUMOViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     // get the new file name

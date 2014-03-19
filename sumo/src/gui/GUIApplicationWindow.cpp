@@ -243,15 +243,6 @@ GUIApplicationWindow::dependentBuild(bool game) {
     fillMenuBar();
     if (game) {
         onCmdGaming(0, 0, 0);
-        myMenuBar->hide();
-        myToolBar1->hide();
-        myToolBar2->hide();
-        myToolBar4->hide();
-        myToolBar5->hide();
-        myMessageWindow->hide();
-        myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
-        myWaitingTimeLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
-        myTimeLossLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
     } else {
         myToolBar6->hide();
         myToolBar7->hide();
@@ -429,7 +420,7 @@ GUIApplicationWindow::fillMenuBar() {
                       "Application Settings...\t\tOpen a Dialog for Application Settings editing.",
                       NULL, this, MID_APPSETTINGS);
     new FXMenuCheck(mySettingsMenu,
-                    "Gaming Mode\t\tToggle gaming mode on/off.",
+                    "Gaming Mode\tCtl-G\tToggle gaming mode on/off.",
                     this, MID_GAMING);
     // build Locate menu
     myLocatorMenu = new FXMenuPane(this);
@@ -939,9 +930,41 @@ GUIApplicationWindow::onCmdAppSettings(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
     myAmGaming = !myAmGaming;
+    GUISUMOViewParent* w = 0;
     if (myAmGaming) {
-        mySimDelayTarget->setValue(1000);
+        myMenuBar->hide();
+        myToolBar1->hide();
+        myToolBar2->hide();
+        myToolBar4->hide();
+        myToolBar5->hide();
+        myToolBar6->show();
+        myToolBar7->show();
+        myMessageWindow->hide();
+        myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
+        myWaitingTimeLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
+        myTimeLossLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
+    } else {
+        myMenuBar->show();
+        myToolBar1->show();
+        myToolBar2->show();
+        myToolBar4->show();
+        myToolBar5->show();
+        myToolBar6->hide();
+        myToolBar7->hide();
+        myMessageWindow->show();
+        myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::GREEN));
     }
+    if (myMDIClient->numChildren() > 0) {
+        w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+        if (w != 0) {
+            // need to restore size (don't know why)
+            const FXint width = getWidth();
+            const FXint height = getHeight();
+            w->toggleGaming();
+            resize(width, height);
+        }
+    }
+    update();
     return 1;
 }
 

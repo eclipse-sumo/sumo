@@ -119,6 +119,9 @@ public:
     /// @brief true if the object is selected (may include extra logic besides calling gSelected)
     bool isSelected(GUIGlObject* o) const;
 
+    /// @notify about toggled gaming status
+    void toggleGaming();
+
 protected:
     /// @brief FOX needs this
     GUISUMOViewParent() { }
