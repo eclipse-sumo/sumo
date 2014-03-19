@@ -240,7 +240,7 @@ private:
     void closeAllWindows();
 
     /// @brief updates the simulation time display
-    void updateTimeLCD(const SUMOTime time);
+    void updateTimeLCD(SUMOTime time);
 
     /** opens a new simulation display */
     GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL);
@@ -291,8 +291,7 @@ protected:
 
     /// for some menu detaching fun
     FXToolBarShell* myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
-                    *myToolBarDrag4, *myToolBarDrag5,
-                    *myMenuBarDrag;
+                    *myToolBarDrag4, *myToolBarDrag5, *myToolBarDrag6;
 
     ///
     FXRealSpinDial* mySimDelayTarget;
@@ -343,6 +342,14 @@ protected:
     SUMOReal myJamSoundTime;
     /// @brief A random number generator used to choose a gaming sound
     static MTRand myGamingRNG;
+
+    /// performance indicators
+    FXEX::FXLCDLabel* myWaitingTimeLabel;
+    FXEX::FXLCDLabel* myTimeLossLabel;
+    SUMOTime myWaitingTime;
+    SUMOTime myTimeLoss;
+    FXToolBar *myToolBar6, *myToolBar7;
+    FXToolBarShell *myToolBarDrag7, *myMenuBarDrag;
     ////}
 
 };

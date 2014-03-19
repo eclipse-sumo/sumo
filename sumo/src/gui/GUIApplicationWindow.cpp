@@ -176,7 +176,10 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
       myRecentNets(a, "nets"), myConfigPattern(configPattern),
       hadDependentBuild(false),
       myShowTimeAsHMS(false),
-      myJamSoundTime(60)
+      // game specific
+      myJamSoundTime(60),
+      myWaitingTime(0),
+      myTimeLoss(0)
 {
     GUIIconSubSys::init(a);
 }
@@ -246,6 +249,12 @@ GUIApplicationWindow::dependentBuild(bool game) {
         myToolBar4->hide();
         myToolBar5->hide();
         myMessageWindow->hide();
+        myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
+        myWaitingTimeLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
+        myTimeLossLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
+    } else {
+        myToolBar6->hide();
+        myToolBar7->hide();
     }
     // build additional threads
     myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent);
@@ -601,6 +610,38 @@ GUIApplicationWindow::buildToolBars() {
                      GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_OSGVIEW,
                      ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
 #endif
+    }
+    {
+        /// game specific stuff
+        // total waitingTime
+        myToolBarDrag6 = new FXToolBarShell(this, FRAME_NORMAL);
+        myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6,
+                                   LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
+        new FXToolBarGrip(myToolBar6, myToolBar6, FXToolBar::ID_TOOLBARGRIP,
+                          TOOLBARGRIP_DOUBLE);
+        new FXButton(myToolBar6, "Waiting Time:\t\tTime spent waiting accumulated for all vehicles", 0, this, 0,
+                     BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+        myWaitingTimeLabel = new FXEX::FXLCDLabel(myToolBar6, 13, 0, 0, JUSTIFY_RIGHT);
+        myWaitingTimeLabel->setHorizontal(2);
+        myWaitingTimeLabel->setVertical(6);
+        myWaitingTimeLabel->setThickness(2);
+        myWaitingTimeLabel->setGroove(2);
+        myWaitingTimeLabel->setText("-------------");
+
+        // idealistic time loss
+        myToolBarDrag7 = new FXToolBarShell(this, FRAME_NORMAL);
+        myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7,
+                                   LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
+        new FXToolBarGrip(myToolBar7, myToolBar7, FXToolBar::ID_TOOLBARGRIP,
+                          TOOLBARGRIP_DOUBLE);
+        new FXButton(myToolBar7, "Time Loss:\t\tTime lost due to being unable to drive with maximum speed for all vehicles", 0, this, 0,
+                     BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+        myTimeLossLabel = new FXEX::FXLCDLabel(myToolBar7, 13, 0, 0, JUSTIFY_RIGHT);
+        myTimeLossLabel->setHorizontal(2);
+        myTimeLossLabel->setVertical(6);
+        myTimeLossLabel->setThickness(2);
+        myTimeLossLabel->setGroove(2);
+        myTimeLossLabel->setText("-------------");
     }
 }
 
@@ -1145,6 +1186,20 @@ GUIApplicationWindow::checkGamingEvents() {
             break;
         }
     }
+    // updated peformance indicators
+    
+    for (it = vc.loadedVehBegin(); it != end; ++it) {
+        const MSVehicle* veh = dynamic_cast<MSVehicle*>(it->second);
+        assert(veh != 0);
+        const SUMOReal vmax = MIN2(veh->getVehicleType().getMaxSpeed(), veh->getEdge()->getSpeedLimit());
+        if (veh->isOnRoad() && veh->getSpeed() < SUMO_const_haltingSpeed) {
+            myWaitingTime += DELTA_T;
+        }
+        myTimeLoss += TS * TIME2STEPS(vmax - veh->getSpeed()) / vmax; // may be negative with speedFactor > 1
+        myWaitingTimeLabel->setText(time2string(myWaitingTime).c_str());
+        myTimeLossLabel->setText(time2string(myTimeLoss).c_str());
+    }
+
 }
 
 
@@ -1262,7 +1317,11 @@ GUIApplicationWindow::setStatusBarText(const std::string& text) {
 
 
 void
-GUIApplicationWindow::updateTimeLCD(const SUMOTime time) {
+GUIApplicationWindow::updateTimeLCD(SUMOTime time) {
+    if (myAmGaming) {
+        // show time counting backwards
+        time = myRunThread->getSimEndTime() - time;
+    } 
     SUMOReal fracSeconds = STEPS2TIME(time);
     const bool hideFraction = myAmGaming || fmod(TS, 1.) == 0.;
     const int BuffSize = 100;
