@@ -380,7 +380,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "actType",        SUMO_ATTR_ACTTYPE },
     { "slope",          SUMO_ATTR_SLOPE },
     { "version",        SUMO_ATTR_VERSION },
-    { "command",        SUMO_ATTR_COMMAND },
+
+#ifndef WIN32
+    { "commandPosix",   SUMO_ATTR_COMMAND },
+#else
+    { "commandWindows", SUMO_ATTR_COMMAND },
+#endif
 
     // ActivityGen statistics file
     { "inhabitants",    AGEN_ATTR_INHABITANTS },
