@@ -46,7 +46,7 @@
  */
 class TrajectoriesHandler : public SUMOSAXHandler {
 public:
-    static const SUMOReal INVALID_VALUE = -999999.;
+    static const int INVALID_VALUE = -999999;
 
 public:
     /** @brief Constructor

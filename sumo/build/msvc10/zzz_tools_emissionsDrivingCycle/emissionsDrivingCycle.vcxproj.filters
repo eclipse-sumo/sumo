@@ -14,5 +14,13 @@
     <ClCompile Include="..\..\..\src\tools\emissionsDrivingCycle_main.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\tools\TrajectoriesHandler.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\tools\TrajectoriesHandler.h">
+      <Filter>Header-Dateien</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -65,6 +65,12 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Emissions.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\output\MSAmitranTrajectories.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Amitran.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.h">
@@ -125,6 +131,12 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Emissions.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\output\MSAmitranTrajectories.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Amitran.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
