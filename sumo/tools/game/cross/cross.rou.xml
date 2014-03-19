@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+<routes>
     <vTypeDistribution id="DEFAULT_VEHTYPE">
         <vType id="passenger" length="5.0" minGap="2.5" guiShape="passenger" osgFile="vw_golf.3ds" probability="20" /> 
         <vType id="bus" length="12.5" minGap="2.5" guiShape="bus" osgFile="tour_bus.3ds" width="2.4" probability="2"/> 

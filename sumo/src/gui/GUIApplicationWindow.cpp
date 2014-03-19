@@ -1201,9 +1201,7 @@ GUIApplicationWindow::checkGamingEvents() {
                 const std::string cmd = myJamSounds.get(&myGamingRNG);
                 if (cmd != "")
                     // yay! fun with dangerous commands... Never use this over the internet
-                    system(cmd.c_str());
-                //system("play /home/erdm_ja/Downloads/vehicle040.wav &"); // linux
-                //system("start /min vlc -Idummy D:\\erdm_ja\\Downloads\\vehicle040.wav &"); // windows
+                    SysUtils::runHiddenCommand(cmd);
             }
             // one sound per simulation step is enough
             break;
