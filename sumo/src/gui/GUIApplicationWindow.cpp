@@ -932,6 +932,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
     GUISUMOViewParent* w = 0;
     if (myAmGaming) {
         myMenuBar->hide();
+        myStatusbar->hide();
         myToolBar1->hide();
         myToolBar2->hide();
         myToolBar4->hide();
@@ -944,6 +945,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myTimeLossLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
     } else {
         myMenuBar->show();
+        myStatusbar->show();
         myToolBar1->show();
         myToolBar2->show();
         myToolBar4->show();
