@@ -291,7 +291,7 @@ protected:
 
     /// for some menu detaching fun
     FXToolBarShell* myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
-                    *myToolBarDrag4, *myToolBarDrag5, *myToolBarDrag6;
+                    *myToolBarDrag4, *myToolBarDrag5, *myMenuBarDrag;
 
     ///
     FXRealSpinDial* mySimDelayTarget;
@@ -349,7 +349,7 @@ protected:
     SUMOTime myWaitingTime;
     SUMOTime myTimeLoss;
     FXToolBar *myToolBar6, *myToolBar7;
-    FXToolBarShell *myToolBarDrag7, *myMenuBarDrag;
+    FXToolBarShell *myToolBarDrag6, *myToolBarDrag7;
     ////}
 
 };

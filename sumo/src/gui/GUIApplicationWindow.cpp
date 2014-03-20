@@ -275,6 +275,11 @@ GUIApplicationWindow::create() {
     myMenuBarDrag->create();
     myToolBarDrag1->create();
     myToolBarDrag2->create();
+    myToolBarDrag3->create();
+    myToolBarDrag4->create();
+    myToolBarDrag5->create();
+    myToolBarDrag6->create();
+    myToolBarDrag7->create();
     myFileMenu->create();
     mySelectByPermissions->create();
     myEditMenu->create();
@@ -606,12 +611,9 @@ GUIApplicationWindow::buildToolBars() {
         /// game specific stuff
         // total waitingTime
         myToolBarDrag6 = new FXToolBarShell(this, FRAME_NORMAL);
-        myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6,
-                                   LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
-        new FXToolBarGrip(myToolBar6, myToolBar6, FXToolBar::ID_TOOLBARGRIP,
-                          TOOLBARGRIP_DOUBLE);
-        new FXButton(myToolBar6, "Waiting Time:\t\tTime spent waiting accumulated for all vehicles", 0, this, 0,
-                     BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+        myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6, LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
+        new FXToolBarGrip(myToolBar6, myToolBar6, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
+        new FXLabel(myToolBar6, "Waiting Time:\t\tTime spent waiting accumulated for all vehicles", 0, LAYOUT_TOP | LAYOUT_LEFT);
         myWaitingTimeLabel = new FXEX::FXLCDLabel(myToolBar6, 13, 0, 0, JUSTIFY_RIGHT);
         myWaitingTimeLabel->setHorizontal(2);
         myWaitingTimeLabel->setVertical(6);
@@ -621,12 +623,9 @@ GUIApplicationWindow::buildToolBars() {
 
         // idealistic time loss
         myToolBarDrag7 = new FXToolBarShell(this, FRAME_NORMAL);
-        myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7,
-                                   LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
-        new FXToolBarGrip(myToolBar7, myToolBar7, FXToolBar::ID_TOOLBARGRIP,
-                          TOOLBARGRIP_DOUBLE);
-        new FXButton(myToolBar7, "Time Loss:\t\tTime lost due to being unable to drive with maximum speed for all vehicles", 0, this, 0,
-                     BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+        myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7, LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED);
+        new FXToolBarGrip(myToolBar7, myToolBar7, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
+        new FXLabel(myToolBar7, "Time Loss:\t\tTime lost due to being unable to drive with maximum speed for all vehicles", 0, LAYOUT_TOP | LAYOUT_LEFT);
         myTimeLossLabel = new FXEX::FXLCDLabel(myToolBar7, 13, 0, 0, JUSTIFY_RIGHT);
         myTimeLossLabel->setHorizontal(2);
         myTimeLossLabel->setVertical(6);
@@ -953,16 +952,6 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myToolBar7->hide();
         myMessageWindow->show();
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::GREEN));
-    }
-    if (myMDIClient->numChildren() > 0) {
-        w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
-        if (w != 0) {
-            // need to restore size (don't know why)
-            const FXint width = getWidth();
-            const FXint height = getHeight();
-            w->toggleGaming();
-            resize(width, height);
-        }
     }
     update();
     return 1;
