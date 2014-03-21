@@ -73,9 +73,11 @@
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Gasoline" />
             <xsd:enumeration value="Diesel" />
+            <xsd:enumeration value="Gasoline2S" />
+            <xsd:enumeration value="Diesel2S" />
             <xsd:enumeration value="LPG" />
             <xsd:enumeration value="CNG" />
-            <xsd:enumeration value="Battery" />
+            <xsd:enumeration value="Electric" />
             <xsd:enumeration value="Fuelcell" />
             <xsd:enumeration value="HybridGasoline" />
             <xsd:enumeration value="HybridDiesel" />
@@ -85,7 +87,7 @@
     <xsd:simpleType name="vehicleClassType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Passenger" />
-            <xsd:enumeration value="TwoWheeler" />
+            <xsd:enumeration value="Moped" />
             <xsd:enumeration value="Motorcycle" />
             <xsd:enumeration value="Delivery" />
             <xsd:enumeration value="UrbanBus" />
