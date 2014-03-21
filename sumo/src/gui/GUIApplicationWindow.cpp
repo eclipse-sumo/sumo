@@ -929,7 +929,6 @@ GUIApplicationWindow::onCmdAppSettings(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
     myAmGaming = !myAmGaming;
-    GUISUMOViewParent* w = 0;
     if (myAmGaming) {
         myMenuBar->hide();
         myStatusbar->hide();
