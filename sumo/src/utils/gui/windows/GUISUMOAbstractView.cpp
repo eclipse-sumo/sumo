@@ -629,19 +629,21 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject* o, FXSelector sel, void* data) 
 
 long
 GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
-    myChanger->onMouseWheel(data);
+    if (!myApp->isGaming()) {
+        myChanger->onMouseWheel(data);
+    }
     return 1;
 }
 
 
 long
 GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
-    SUMOReal xpos = myChanger->getXPos();
-    SUMOReal ypos = myChanger->getYPos();
-    SUMOReal zoom = myChanger->getZoom();
     if (myViewportChooser == 0 || !myViewportChooser->haveGrabbed()) {
         myChanger->onMouseMove(data);
     }
+    const SUMOReal xpos = myChanger->getXPos();
+    const SUMOReal ypos = myChanger->getYPos();
+    const SUMOReal zoom = myChanger->getZoom();
     if (myViewportChooser != 0 &&
             (xpos != myChanger->getXPos() || ypos != myChanger->getYPos() || zoom != myChanger->getZoom())) {
         myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
