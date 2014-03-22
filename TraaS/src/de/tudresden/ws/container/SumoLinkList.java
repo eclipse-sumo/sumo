@@ -157,4 +157,13 @@ public class SumoLinkList implements List<SumoLink>, Serializable {
 		return list.iterator();
 	}
 	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		for(SumoLink sl : this.list){
+			sb.append(sl.toString()+"#");
+		}	
+		
+		return sb.toString();
+	}
+	
 }

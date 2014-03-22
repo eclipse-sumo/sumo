@@ -58,4 +58,8 @@ public class SumoTLSPhase {
 		
 	}
 	
+	public String toString(){
+		return this.phasedef+"#"+this.duration+"#"+this.duration1+"#"+this.duration2;
+	}
+	
 }

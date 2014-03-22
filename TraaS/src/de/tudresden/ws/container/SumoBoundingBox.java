@@ -49,5 +49,9 @@ public class SumoBoundingBox {
 		
 	}
 	
+	public String toString(){
+		return this.x_min +"#"+this.y_min+"#"+this.x_max+"#"+this.y_max;
+	}
+	
 	
 }

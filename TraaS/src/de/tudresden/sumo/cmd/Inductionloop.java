@@ -19,7 +19,6 @@
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoStringList;
 
 /**
  * 
@@ -162,7 +161,7 @@ public class Inductionloop {
 	 *            a SumoStringList containing induction loops
 	 */
 
-	public static SumoCommand getVehicleData(SumoStringList loopID){
+	public static SumoCommand getVehicleData(String loopID){
 		return new SumoCommand(Constants.CMD_GET_INDUCTIONLOOP_VARIABLE, Constants.LAST_STEP_VEHICLE_DATA, loopID, Constants.RESPONSE_GET_INDUCTIONLOOP_VARIABLE, Constants.TYPE_INTEGER);
 	}
 

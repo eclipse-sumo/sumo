@@ -43,5 +43,9 @@ public class SumoLink {
 		this.over = over;
 	}
 	
+	public String toString(){
+		return this.from+"#"+this.over+"#"+this.to;
+	}
+	
 	
 }

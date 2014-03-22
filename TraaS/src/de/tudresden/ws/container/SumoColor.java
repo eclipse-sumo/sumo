@@ -45,4 +45,9 @@ public class SumoColor {
 		this.a = (byte) a;
 	}
 	
+	public String toString(){
+		return r+"#"+g+"#"+b+"#"+a;
+	}
+	
+	
 }

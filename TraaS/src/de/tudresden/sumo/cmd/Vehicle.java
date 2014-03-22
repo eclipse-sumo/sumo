@@ -55,7 +55,7 @@ public class Vehicle {
 	 * Returns the edge travel time for the given time as stored in the vehicle's internal container.
 	 */
 
-	public static SumoCommand getAdaptedTraveltime(String vehID, double time, String edgeID){
+	public static SumoCommand getAdaptedTraveltime(String vehID, int time, String edgeID){
 		Object[] array = new Object[]{time, edgeID};
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
@@ -105,7 +105,7 @@ public class Vehicle {
 	 */
 
 	public static SumoCommand getBestLanes(String vehID){
-		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_BEST_LANES, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_STRINGLIST);
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_BEST_LANES, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_COMPOUND);
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class Vehicle {
 	 * Returns the edge effort for the given time as stored in the vehicle's internal container.
 	 */
 
-	public static SumoCommand getEffort(String vehID, double time, String edgeID){
+	public static SumoCommand getEffort(String vehID, int time, String edgeID){
 		Object[] array = new Object[]{time, edgeID};
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_EDGE_EFFORT, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}

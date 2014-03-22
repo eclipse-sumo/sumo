@@ -57,5 +57,16 @@ public class SumoTLSLogic {
 		this.phases.add(phase);
 	}
 	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.subID+"#");
+		sb.append(this.type+"#");
+		sb.append(this.subParameter+"#");
+		sb.append(this.currentPhaseIndex+"#");
+		for(SumoTLSPhase sp : this.phases){
+			sb.append(sp.toString()+"#");
+		}	
+		return sb.toString();
+	}
 	
 }

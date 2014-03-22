@@ -454,7 +454,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Edge: Returns the travel time value (in s) used for (re-)routing")
-	public double Edge_getAdaptedTraveltime(@WebParam(name = "edgeID") String edgeID, @WebParam(name = "time") double time){
+	public double Edge_getAdaptedTraveltime(@WebParam(name = "edgeID") String edgeID, @WebParam(name = "time") int time){
 		return this.helper.getDouble(this.sumo.get_cmd(Edge.getAdaptedTraveltime(edgeID, time)));
 	}
 
@@ -469,7 +469,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Edge: Returns the effort value used for (re-)routing")
-	public double Edge_getEffort(@WebParam(name = "edgeID") String edgeID, @WebParam(name = "time") double time){
+	public double Edge_getEffort(@WebParam(name = "edgeID") String edgeID, @WebParam(name = "time") int time){
 		return this.helper.getDouble(this.sumo.get_cmd(Edge.getEffort(edgeID, time)));
 	}
 
@@ -575,7 +575,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Vehicle: getAdaptedTraveltime")
-	public double Vehicle_getAdaptedTraveltime(@WebParam(name = "vehID") String vehID, @WebParam(name = "time") double time, @WebParam(name = "edgeID") String edgeID){
+	public double Vehicle_getAdaptedTraveltime(@WebParam(name = "vehID") String vehID, @WebParam(name = "time") int time, @WebParam(name = "edgeID") String edgeID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getAdaptedTraveltime(vehID, time, edgeID)));
 	}
 
@@ -620,7 +620,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Vehicle: getEffort")
-	public double Vehicle_getEffort(@WebParam(name = "vehID") String vehID, @WebParam(name = "time") double time, @WebParam(name = "edgeID") String edgeID){
+	public double Vehicle_getEffort(@WebParam(name = "vehID") String vehID, @WebParam(name = "time") int time, @WebParam(name = "edgeID") String edgeID){
 		return this.helper.getDouble(this.sumo.get_cmd(Vehicle.getEffort(vehID, time, edgeID)));
 	}
 
@@ -1384,7 +1384,7 @@ public class Traci{
 	}
 
 	@WebMethod(action="Inductionloop: Returns the subscription results for the last time step and the given loop.")
-	public int Inductionloop_getVehicleData(@WebParam(name = "loopID") SumoStringList loopID){
+	public int Inductionloop_getVehicleData(@WebParam(name = "loopID") String loopID){
 		return this.helper.getInt(this.sumo.get_cmd(Inductionloop.getVehicleData(loopID)));
 	}
 
