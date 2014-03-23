@@ -31,6 +31,7 @@
 #include <config.h>
 #endif
 
+#include <utils/options/OptionsCont.h>
 #include "MSAbstractLaneChangeModel.h"
 #include "MSLCM_DK2008.h"
 #include "MSLCM_LC2013.h"
@@ -41,8 +42,19 @@
 #include "MSGlobals.h"
 
 /* -------------------------------------------------------------------------
+ * static members
+ * ----------------------------------------------------------------------- */
+bool MSAbstractLaneChangeModel::myAllowOvertakingRight(false);
+
+/* -------------------------------------------------------------------------
  * MSAbstractLaneChangeModel-methods
  * ----------------------------------------------------------------------- */
+
+void 
+MSAbstractLaneChangeModel::initGlobalOptions(const OptionsCont& oc) {
+    myAllowOvertakingRight = oc.getBool("lanechange.overtake-right");
+}
+
 
 MSAbstractLaneChangeModel*
 MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {

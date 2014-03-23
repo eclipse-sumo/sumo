@@ -51,6 +51,7 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <utils/common/RandHelper.h>
@@ -246,6 +247,9 @@ MSFrame::fillOptions() {
     oc.doRegister("lanechange.duration", new Option_String("0", "TIME"));
     oc.addDescription("lanechange.duration", "Processing", "Duration of a lane change maneuver (default 0)");
 
+    oc.doRegister("lanechange.overtake-right", new Option_Bool(false));
+    oc.addDescription("lanechange.overtake-right", "Processing", "Whether overtaking on the right on motorways is permitted");
+
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Processing",
                       "Select among routing algorithms ['dijkstra', 'astar']");
@@ -440,6 +444,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
         MSGlobals::gUsingInternalLanes = false;
     }
 #endif
+    MSAbstractLaneChangeModel::initGlobalOptions(oc);
 
 #ifdef HAVE_SUBSECOND_TIMESTEPS
     DELTA_T = string2time(oc.getString("step-length"));

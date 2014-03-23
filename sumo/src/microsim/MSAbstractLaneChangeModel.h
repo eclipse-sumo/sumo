@@ -175,6 +175,9 @@ public:
 
     };
 
+    /// @brief init global model parameters
+    void static initGlobalOptions(const OptionsCont& oc);
+
     /** @brief Factory method for instantiating new lane changing models
      * @param[in] lcm The type of model to build
      * @param[in] vehicle The vehicle for which this model shall be built
@@ -341,6 +344,9 @@ protected:
 
     /// @brief The vehicle's car following model
     const MSCFModel& myCarFollowModel;
+
+    /// @brief whether overtaking on the right is permitted
+    static bool myAllowOvertakingRight;
 
 private:
     /// @brief Invalidated assignment operator

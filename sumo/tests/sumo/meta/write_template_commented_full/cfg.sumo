@@ -171,6 +171,9 @@
         <!-- Duration of a lane change maneuver (default 0) -->
         <lanechange.duration value="0" type="TIME"/>
 
+        <!-- Whether overtaking on the right on motorways is permitted -->
+        <lanechange.overtake-right value="false" type="BOOL"/>
+
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
