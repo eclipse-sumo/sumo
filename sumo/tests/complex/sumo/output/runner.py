@@ -79,6 +79,10 @@ def checkOutput(args, withLoop, lanes):
                     return
     print("success", args, lanes)
 
+def flush():
+    sys.stdout.flush()
+    sys.stderr.flush()
+
 sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
 sumoArgStart = len(sys.argv)
 for idx, arg in enumerate(sys.argv):
@@ -87,14 +91,16 @@ for idx, arg in enumerate(sys.argv):
         break
 lanes = sys.argv[1:sumoArgStart]
 for stepLength in [".1", "1"]:
-    for end in ["51", "100"]:
+    for end in ["51", "100", "1000"]:
         args = sys.argv[sumoArgStart:] + ["--step-length", stepLength, "--end", end]
         for freq in [.1, 1, 10, 100]:
             withLoop = freq > 50
             for numLanes in range(1, len(lanes) + 1):
                 with open("input_additional.add.xml", 'w') as out:
                     generateDetectorDef(out, freq, withLoop, lanes[:numLanes])
-                subprocess.call([sumoBinary, "-c", "sumo.sumocfg"] + args, shell=(os.name=="nt"), stdout=sys.stdout, stderr=sys.stderr)
-                sys.stdout.flush()
+                exitCode = subprocess.call([sumoBinary, "-c", "sumo.sumocfg"] + args)
+                flush()
+                if exitCode:
+                    sys.exit(exitCode)
                 checkOutput(args, withLoop, lanes[:numLanes])
-                sys.stdout.flush()
+                flush()
