@@ -5,6 +5,7 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @author  Felix Brack
+/// @author  Jakob Erdmann
 /// @date    Mon, 17 Dec 2001
 /// @version $Id$
 ///

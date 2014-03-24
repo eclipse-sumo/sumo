@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """
 @file    detector.py
+@author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2007-06-28
 @version $Id$

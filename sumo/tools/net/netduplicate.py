@@ -2,6 +2,7 @@
 """
 @file    netduplicate.py
 @author  Michael Behrisch
+@author  Jakob Erdmann
 @date    2013-04-01
 @version $Id$
 

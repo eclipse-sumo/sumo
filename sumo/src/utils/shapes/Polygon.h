@@ -2,13 +2,15 @@
 /// @file    Polygon.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Jakob Erdmann
+/// @author  Melanie Knocke
 /// @date    Jun 2004
 /// @version $Id$
 ///
 // A 2D- or 3D-polygon
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2004-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

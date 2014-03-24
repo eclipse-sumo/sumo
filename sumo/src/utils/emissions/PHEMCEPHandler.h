@@ -1,13 +1,16 @@
 /****************************************************************************/
 /// @file    PHEMCEPHandler.h
 /// @author  Nikolaus Furian
+/// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
+/// @author  Marek Heinrich
 /// @date    Thu, 13.06.2013
 /// @version $$
 ///
 // Helper singelton class for PHEM Light, holds CEP data for emission computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

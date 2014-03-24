@@ -2,6 +2,7 @@
 """
 @file    route2poly.py
 @author  Jakob Erdmann
+@author  Michael Behrisch
 @date    2012-11-15
 @version $Id$
 
@@ -9,7 +10,7 @@ From a sumo network and a route file, this script generates a polygon (polyline)
 which can be loaded with sumo-gui for visualization
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

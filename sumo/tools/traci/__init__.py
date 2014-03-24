@@ -3,6 +3,9 @@
 @file    __init__.py
 @author  Michael Behrisch
 @author  Lena Kalleske
+@author  Mario Krumnow
+@author  Daniel Krajzewicz
+@author  Jakob Erdmann
 @date    2008-10-09
 @version $Id$
 

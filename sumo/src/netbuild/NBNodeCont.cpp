@@ -2,7 +2,7 @@
 /// @file    NBNodeCont.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
-/// @author  Yun-Pang Wang
+/// @author  Yun-Pang Floetteroed
 /// @author  Walter Bamberger
 /// @author  Laura Bieker
 /// @author  Michael Behrisch

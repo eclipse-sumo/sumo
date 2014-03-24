@@ -3,6 +3,7 @@
 """
 @file    turndefinitions.py
 @author  Karol Stosiek
+@author  Michael Behrisch
 @date    2011-10-26
 @version $Id$
 

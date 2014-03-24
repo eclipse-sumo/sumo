@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """
 @file    odConnectionsCheck.py
-@author  Yun-Pang Wang
+@author  Daniel Krajzewicz
+@author  Yun-Pang Floetteroed
 @author  Michael Behrisch
 @date    2007-03-20
 @version $Id$
@@ -9,7 +10,7 @@
 This script checks if at least one route for a given OD pair exists.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

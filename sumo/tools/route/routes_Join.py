@@ -2,6 +2,7 @@
 """
 @file    routes_Join.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    11.09.2009
 @version $Id$
 

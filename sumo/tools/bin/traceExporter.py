@@ -4,6 +4,8 @@ A script for converting SUMO's fcd-output into files readable by PHEM and commun
 
 @file    traceExporter.py
 @author  Daniel Krajzewicz
+@author  Jakob Erdmann
+@author  Michael Behrisch
 @date    2013-01-15
 @version $Id$
 

@@ -1,6 +1,6 @@
 """
 @file    statisticsElements.py
-@author  Yun-Pang Wang
+@author  Yun-Pang Floetteroed
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-07-10

@@ -8,13 +8,16 @@
 /// @author  Tino Morenz
 /// @author  Michael Behrisch
 /// @author  Christoph Sommer
+/// @author  Mario Krumnow
+/// @author  Jakob Erdmann
+/// @author  Laura Bieker
 /// @date    2007/10/24
 /// @version $Id$
 ///
 /// holds codes used for TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

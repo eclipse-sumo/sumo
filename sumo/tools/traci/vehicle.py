@@ -3,6 +3,11 @@
 @file    vehicle.py
 @author  Michael Behrisch
 @author  Lena Kalleske
+@author  Mario Krumnow
+@author  Lena Kalleske
+@author  Jakob Erdmann
+@author  Laura Bieker
+@author  Daniel Krajzewicz
 @date    2011-03-09
 @version $Id$
 

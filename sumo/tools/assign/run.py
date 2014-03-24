@@ -3,7 +3,7 @@
 @file    run.py
 @author  Michael Behrisch
 @author  Daniel Krajzewicz
-@author  Yun-Pang Wang
+@author  Yun-Pang Floetteroed
 @date    2008-03-10
 @version $Id$
 

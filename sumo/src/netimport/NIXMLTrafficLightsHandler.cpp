@@ -1,5 +1,7 @@
 /****************************************************************************/
 /// @file    NIXMLTrafficLightsHandler.h
+/// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2011-10-05
 /// @version $Id$
@@ -7,7 +9,7 @@
 // Importer for traffic lights stored in XML
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

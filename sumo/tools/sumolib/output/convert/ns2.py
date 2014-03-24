@@ -1,6 +1,8 @@
 """
 @file    ns2.py
 @author  Daniel Krajzewicz
+@author  Jakob Erdmann
+@author  Michael Behrisch
 @date    2013-01-15
 @version $Id$
 

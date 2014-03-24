@@ -3,7 +3,7 @@
 @file    one-shot.py
 @author  Daniel Krajzewicz
 @author  Jakob Erdmann
-@author  Yun-Pang Wang
+@author  Yun-Pang Floetteroed
 @author  Michael Behrisch
 @date    2008-03-10
 @version $Id$

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    kShortest.py
+@author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2008-02-14
 @version $Id$

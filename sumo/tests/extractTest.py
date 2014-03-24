@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
 @file    extractTest.py
+@author  Daniel Krajzewicz
+@author  Jakob Erdmann
 @author  Michael Behrisch
 @date    2009-07-08
 @version $Id$

@@ -3,6 +3,7 @@
 @file    schemaCheck.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
+@author  Jakob Erdmann
 @date    03.12.2009
 @version $Id$
 

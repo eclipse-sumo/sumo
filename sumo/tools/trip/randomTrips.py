@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
 @file    randomTrips.py
+@author  Daniel Krajzewicz
+@author  Jakob Erdmann
 @author  Michael Behrisch
 @date    2010-03-06
 @version $Id$

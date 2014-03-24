@@ -1,13 +1,14 @@
 /****************************************************************************/
 /// @file    MSDevice_BTsender.cpp
 /// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @date    14.08.2013
 /// @version $Id$
 ///
 // A BT sender
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

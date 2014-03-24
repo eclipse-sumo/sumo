@@ -2,7 +2,7 @@
 /// @file    NBNode.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
-/// @author  Yun-Pang Wang
+/// @author  Yun-Pang Floetteroed
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$

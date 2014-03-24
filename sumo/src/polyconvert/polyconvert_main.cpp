@@ -4,13 +4,14 @@
 /// @author  Jakob Erdmann
 /// @author  Christoph Sommer
 /// @author  Michael Behrisch
+/// @author  Melanie Knocke
 /// @date    Mon, 05 Dec 2005
 /// @version $Id$
 ///
 // Main for POLYCONVERT
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2005-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

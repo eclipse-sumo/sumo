@@ -2,6 +2,7 @@
 """
 @file    edge.py
 @author  Michael Behrisch
+@author  Jakob Erdmann
 @date    2011-03-17
 @version $Id$
 

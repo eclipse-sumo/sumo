@@ -2,13 +2,15 @@
 /// @file    RODUAEdgeBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Jakob Erdmann
+/// @author  Yun-Pang Floetteroed
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
 // Interface for building instances of duarouter-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2004-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

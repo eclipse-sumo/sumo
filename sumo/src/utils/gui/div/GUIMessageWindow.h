@@ -1,13 +1,14 @@
 /****************************************************************************/
 /// @file    GUIMessageWindow.h
 /// @author  Daniel Krajzewicz
+/// @author  Jakob Erdmann
 /// @date    Tue, 25 Nov 2003
 /// @version $Id$
 ///
 // A logging window for the gui
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2003-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

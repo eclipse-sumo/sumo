@@ -3,13 +3,14 @@
 /// @author  Daniel Krajzewicz
 /// @author  Eric Nicolay
 /// @author  Michael Behrisch
+/// @author  Yun-Pang Floetteroed
 /// @date    Thu, 16.03.2006
 /// @version $Id$
 ///
 // Interface for building instances of dfrouter-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2006-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

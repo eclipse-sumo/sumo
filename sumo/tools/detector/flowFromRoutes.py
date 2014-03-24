@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
 @file    flowFromRoutes.py
+@author  Daniel Krajzewicz
+@author  Jakob Erdmann
 @author  Michael Behrisch
 @date    2007-06-28
 @version $Id$

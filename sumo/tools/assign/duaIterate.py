@@ -5,7 +5,7 @@
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @author  Jakob Erdmann
-@author  Yun-Pang Wang
+@author  Yun-Pang Floetteroed
 @date    2008-02-13
 @version $Id$
 

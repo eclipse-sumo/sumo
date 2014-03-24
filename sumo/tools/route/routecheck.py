@@ -3,7 +3,7 @@
 @file    routecheck.py
 @author  Michael Behrisch
 @author  Jakob Erdmann
-@author  Yun-Pang Wang
+@author  Yun-Pang Floetteroed
 @date    2007-03-09
 @version $Id$
 

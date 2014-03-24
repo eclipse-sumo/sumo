@@ -2,6 +2,8 @@
 @file    poi.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
+@author  Jakob Erdmann
+@author  Melanie Knocke
 @date    2010-02-18
 @version $Id$
 

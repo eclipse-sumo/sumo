@@ -1,13 +1,16 @@
 /****************************************************************************/
 /// @file    MSQueueExport.cpp
+/// @author  Daniel Krajzewicz
+/// @author  Jakob Erdmann
 /// @author  Mario Krumnow
+/// @author  Michael Behrisch
 /// @date    2012-04-26
 /// @version $Id$
 ///
 // Export the queueing length in front of a junction (very experimental!)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

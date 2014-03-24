@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 """
 @file    generateTripsXml.py
-@author  Yun-Pang Wang
+@author  Daniel Krajzewicz
+@author  Yun-Pang Floetteroed
+@author  Eric Melde
 @author  Michael Behrisch
 @date    2009-02-09
 @version $Id$
@@ -9,7 +11,7 @@
 This script generate a trip file as input data in sumo
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

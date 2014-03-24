@@ -2,6 +2,7 @@
 """
 @file    areal.py
 @author  Mario Krumnow
+@author  Laura Bieker
 @date    2011-03-16
 @version $Id$
 

@@ -1,6 +1,10 @@
 /****************************************************************************/
 /// @file    PHEMCEP.cpp
 /// @author  Nikolaus Furian
+/// @author  Daniel Krajzewicz
+/// @author  Jakob Erdmann
+/// @author  Michael Behrisch
+/// @author  Marek Heinrich
 /// @date    Thu, 13.06.2013
 /// @version $Id$
 ///

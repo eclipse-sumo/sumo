@@ -1,13 +1,14 @@
 /****************************************************************************/
 /// @file    MSLinkCont.cpp
 /// @author  Daniel Krajzewicz
+/// @author  Jakob Erdmann
 /// @date    15 Feb 2004
 /// @version $Id$
 ///
 // Helpers for link vector
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2004-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

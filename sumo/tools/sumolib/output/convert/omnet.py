@@ -1,6 +1,7 @@
 """
 @file    omnet.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2013-01-15
 @version $Id$
 

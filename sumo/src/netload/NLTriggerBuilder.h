@@ -4,13 +4,14 @@
 /// @author  Tino Morenz
 /// @author  Eric Nicolay
 /// @author  Michael Behrisch
+/// @author  Jakob Erdmann
 /// @date    Thu, 17 Oct 2002
 /// @version $Id$
 ///
 // Builds trigger objects for microsim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2002-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

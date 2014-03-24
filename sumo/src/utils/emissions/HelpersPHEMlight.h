@@ -1,13 +1,14 @@
 /****************************************************************************/
 /// @file    HelpersPHEMlight.h
 /// @author  Daniel Krajzewicz
+/// @author  Nikolaus Furian
 /// @date    Sat, 20.04.2013
 /// @version $Id$
 ///
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2012 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

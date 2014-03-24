@@ -7,6 +7,7 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @author  Christoph Sommer
+/// @author  Mario Krumnow
 /// @date    Mon, 05 Mar 2001
 /// @version $Id$
 ///

@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
 @file    netdiff.py
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
 @author  Jakob Erdmann
 @date    2011-10-04
 @version $Id$

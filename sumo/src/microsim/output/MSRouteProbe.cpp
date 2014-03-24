@@ -3,13 +3,14 @@
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
 /// @author  Tino Morenz
+/// @author  Jakob Erdmann
 /// @date    Thu, 04.12.2008
 /// @version $Id$
 ///
 // Writes route distributions at a certain edge
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

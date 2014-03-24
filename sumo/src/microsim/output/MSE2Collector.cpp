@@ -6,13 +6,14 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Robbin Blokpoel
+/// @author  Jakob Erdmann
 /// @date    Mon Feb 03 2014 10:13 CET
 /// @version $Id$
 ///
 // An areal (along a single lane) detector
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

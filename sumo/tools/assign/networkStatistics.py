@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    networkStatistics.py
-@author  Yun-Pang Wang
+@author  Yun-Pang Floetteroed
 @author  Michael Behrisch
 @date    2007-02-27
 @version $Id$
@@ -18,7 +18,7 @@ The analyzed parameters include:
 - stop time
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

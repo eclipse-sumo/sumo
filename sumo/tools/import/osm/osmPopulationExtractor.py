@@ -3,6 +3,7 @@
 @file    osmPopulationExactor.py
 @author  Yun-Pang Floetteroed
 @author  Melanie Knocke
+@author  Michael Behrisch
 @date    2013-02-08
 @version $Id$
 
@@ -13,7 +14,7 @@ The redundant information is removed and saved in the output file *_redundantOSM
 If there are data entries without names, they will be saved in *_nameNone.txt.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

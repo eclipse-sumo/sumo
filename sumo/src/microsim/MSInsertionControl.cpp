@@ -4,6 +4,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
+/// @author  Jakob Erdmann
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///

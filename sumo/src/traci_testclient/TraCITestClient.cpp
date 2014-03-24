@@ -5,13 +5,14 @@
 /// @author  Laura Bieker
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
+/// @author  Jakob Erdmann
 /// @date    2008/04/07
 /// @version $Id$
 ///
 /// A test execution class
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
