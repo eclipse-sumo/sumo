@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersHarmonoise.cpp" />
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersHBEFA.cpp" />
+    <ClCompile Include="..\..\..\src\utils\emissions\HelpersHBEFA3.cpp" />
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersPHEMlight.cpp" />
     <ClCompile Include="..\..\..\src\utils\emissions\PHEMCEP.cpp" />
     <ClCompile Include="..\..\..\src\utils\emissions\PHEMCEPHandler.cpp" />
@@ -148,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\emissions\HelpersHarmonoise.h" />
     <ClInclude Include="..\..\..\src\utils\emissions\HelpersHBEFA.h" />
+    <ClInclude Include="..\..\..\src\utils\emissions\HelpersHBEFA3.h" />
     <ClInclude Include="..\..\..\src\utils\emissions\HelpersPHEMlight.h" />
     <ClInclude Include="..\..\..\src\utils\emissions\PHEMCEP.h" />
     <ClInclude Include="..\..\..\src\utils\emissions\PHEMCEPHandler.h" />

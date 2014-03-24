@@ -29,6 +29,9 @@
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_DlrNavteq.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netwrite\NWWriter_Amitran.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netwrite\NWFrame.h">
@@ -47,6 +50,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netwrite\NWWriter_DlrNavteq.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netwrite\NWWriter_Amitran.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
