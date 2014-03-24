@@ -1,0 +1,5 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+    <vType id="t0" sigma="0" speedDev="0.1" maxSpeed="20"/>
+    <route id="r0" edges="beg2"/>
+    <flow id="f" route="r0" type="t0" begin="0" end="900" period="0.5" departPos="free" departLane="best" departSpeed="max"/>
+</routes>
