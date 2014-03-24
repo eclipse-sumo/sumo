@@ -357,10 +357,10 @@ private:
     std::list<SUMOVehicle*> myKnownVehicles;
 
     /// @brief Storage for halting durations of known vehicles (for halting vehicles)
-    std::map<SUMOVehicle*, SUMOTime> myHaltingVehicleDurations;
+    std::map<const SUMOVehicle*, SUMOTime> myHaltingVehicleDurations;
 
     /// @brief Storage for halting durations of known vehicles (current interval)
-    std::map<SUMOVehicle*, SUMOTime> myIntervalHaltingVehicleDurations;
+    std::map<const SUMOVehicle*, SUMOTime> myIntervalHaltingVehicleDurations;
 
     /// @brief Halting durations of ended halts [s]
     std::vector<SUMOTime> myPastStandingDurations;

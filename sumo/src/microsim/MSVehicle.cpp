@@ -1681,6 +1681,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
     assert(myState.mySpeed >= 0);
     myWaitingTime = 0;
     myLane = enteredLane;
+    myAmOnNet = true;
     // set and activate the new lane's reminders
     for (std::vector< MSMoveReminder* >::const_iterator rem = enteredLane->getMoveReminders().begin(); rem != enteredLane->getMoveReminders().end(); ++rem) {
         addReminder(*rem);
@@ -1690,7 +1691,6 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
     if (MSGlobals::gCheckRoutes && !hasValidRoute(msg)) {
         throw ProcessError("Vehicle '" + getID() + "' has no valid route. " + msg);
     }
-    myAmOnNet = true;
     // build the list of lanes the vehicle is lapping into
     SUMOReal leftLength = myType->getLength() - pos;
     MSLane* clane = enteredLane;
