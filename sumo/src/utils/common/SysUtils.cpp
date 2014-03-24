@@ -1,13 +1,14 @@
 /****************************************************************************/
 /// @file    SysUtils.cpp
 /// @author  Daniel Krajzewicz
+/// @author  Jakob Erdmann
 /// @date    Tue, 29.05.2005
 /// @version $Id$
 ///
 // A few system-specific functions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2005-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -26,6 +27,7 @@
 #include <config.h>
 #endif
 
+#include <stdlib.h>
 #include "SysUtils.h"
 
 #ifndef WIN32
@@ -69,6 +71,43 @@ SysUtils::getWindowsTicks() {
 #endif
 
 
+unsigned long 
+SysUtils::runHiddenCommand(const std::string& cmd) {
+#ifndef WIN32
+    return (unsigned long)system(cmd.c_str());
+#else
+    // code inspired by http://www.codeproject.com/Articles/2537/Running-console-applications-silently
+	STARTUPINFO StartupInfo;
+	PROCESS_INFORMATION ProcessInfo;
+	unsigned long rc;
+	
+	memset(&StartupInfo, 0, sizeof(StartupInfo));
+	StartupInfo.cb = sizeof(STARTUPINFO);
+	StartupInfo.dwFlags = STARTF_USESHOWWINDOW;
+	StartupInfo.wShowWindow = SW_HIDE;
+
+	// "/c" option - Do the command then terminate the command window
+    std::string winCmd = "CMD.exe /c " + cmd;
+    char* args = new char[winCmd.size()];
+    args[0] = 0;
+    strcpy(args, winCmd.c_str());
+	if (!CreateProcess( NULL, args, NULL, NULL, FALSE,
+		CREATE_NEW_CONSOLE, NULL, NULL, &StartupInfo, &ProcessInfo)) {
+        delete args;
+        return (unsigned long)GetLastError();		
+	}
+
+	WaitForSingleObject(ProcessInfo.hProcess, INFINITE);
+	if(!GetExitCodeProcess(ProcessInfo.hProcess, &rc))
+		rc = 0;
+
+	CloseHandle(ProcessInfo.hThread);
+	CloseHandle(ProcessInfo.hProcess);
+
+    delete args;
+	return rc;
+#endif
+}
 
 /****************************************************************************/
 

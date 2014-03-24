@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """
 @file    Assignment.py
-@author  Yun-Pang Wang
+@author  Jakob Erdmann
+@author  Yun-Pang Floetteroed
 @author  Michael Behrisch
 @date    2008-03-28
 @version $Id$

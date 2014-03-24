@@ -3,6 +3,8 @@
 """
 @file    protobuf2xml.py
 @author  Michael Behrisch
+@author  Laura Bieker
+@author  Jakob Erdmann
 @date    2014-01-23
 @version $Id$
 

@@ -3,6 +3,7 @@
 @file    districtMapper.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
+@author  Jakob Erdmann
 @date    2007-07-26
 @version $Id$
 

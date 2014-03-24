@@ -2,6 +2,7 @@
 """
 @file    xmledges_applyOffset.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2009-08-01
 @version $Id$
 

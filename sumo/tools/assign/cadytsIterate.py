@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 @file    cadytsIterate.py
-@author  Yun-Pang Wang
+@author  Jakob Erdmann
+@author  Yun-Pang Floetteroed
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2010-09-15
@@ -12,7 +13,7 @@ Run cadyts to calibrate the simulation with given routes and traffic measurement
 Respective traffic zones information has to exist in the given route files.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

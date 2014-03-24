@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 @file    __init__.py
+@author  Daniel Krajzewicz
+@author  Jakob Erdmann
 @author  Michael Behrisch
 @date    2011-06-23
 @version $Id$

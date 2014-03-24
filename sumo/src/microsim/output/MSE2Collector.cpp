@@ -6,13 +6,14 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Robbin Blokpoel
+/// @author  Jakob Erdmann
 /// @date    Mon Feb 03 2014 10:13 CET
 /// @version $Id$
 ///
 // An areal (along a single lane) detector
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -116,6 +117,10 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::N
 
 bool
 MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) {
+    if (!veh.isOnRoad()) {
+        // vehicle is teleporting over the edge
+        return false;
+    }
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
         // vehicle is on detector
         myKnownVehicles.push_back(&veh);
@@ -146,7 +151,7 @@ MSE2Collector::reset() {
     myTimeSamples = 0;
     myMeanVehicleNumber = 0;
     myMaxVehicleNumber = 0;
-    for (std::map<SUMOVehicle*, SUMOTime>::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
+    for (std::map<const SUMOVehicle*, SUMOTime>::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
         (*i).second = 0;
     }
     myPastStandingDurations.clear();
@@ -158,8 +163,8 @@ MSE2Collector::reset() {
 void
 MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     JamInfo* currentJam = 0;
-    std::map<SUMOVehicle*, SUMOTime> haltingVehicles;
-    std::map<SUMOVehicle*, SUMOTime> intervalHaltingVehicles;
+    std::map<const SUMOVehicle*, SUMOTime> haltingVehicles;
+    std::map<const SUMOVehicle*, SUMOTime> intervalHaltingVehicles;
     std::vector<JamInfo*> jams;
 
     SUMOReal lengthSum = 0;
@@ -172,7 +177,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     //  sum up values and prepare the list of jams
     myKnownVehicles.sort(by_vehicle_position_sorter(getLane()));
     for (std::list<SUMOVehicle*>::const_iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
-        MSVehicle* veh = static_cast<MSVehicle*>(*i);
+        const MSVehicle* const veh = static_cast<MSVehicle*>(*i);
 
         SUMOReal length = veh->getVehicleType().getLength();
         if (veh->getLane() == getLane()) {
@@ -221,7 +226,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
             }
         } else {
             // is not standing anymore; keep duration information
-            std::map<SUMOVehicle*, SUMOTime>::iterator v = myHaltingVehicleDurations.find(veh);
+            std::map<const SUMOVehicle*, SUMOTime>::iterator v = myHaltingVehicleDurations.find(veh);
             if (v != myHaltingVehicleDurations.end()) {
                 myPastStandingDurations.push_back((*v).second);
                 myHaltingVehicleDurations.erase(v);
@@ -346,7 +351,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         maxHaltingDuration = MAX2(maxHaltingDuration, (*i));
         haltingNo++;
     }
-    for (std::map<SUMOVehicle*, SUMOTime> ::iterator i = myHaltingVehicleDurations.begin(); i != myHaltingVehicleDurations.end(); ++i) {
+    for (std::map<const SUMOVehicle*, SUMOTime> ::iterator i = myHaltingVehicleDurations.begin(); i != myHaltingVehicleDurations.end(); ++i) {
         haltingDurationSum += (*i).second;
         maxHaltingDuration = MAX2(maxHaltingDuration, (*i).second);
         haltingNo++;
@@ -361,7 +366,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i));
         intervalHaltingNo++;
     }
-    for (std::map<SUMOVehicle*, SUMOTime> ::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
+    for (std::map<const SUMOVehicle*, SUMOTime> ::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
         intervalHaltingDurationSum += (*i).second;
         intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i).second);
         intervalHaltingNo++;

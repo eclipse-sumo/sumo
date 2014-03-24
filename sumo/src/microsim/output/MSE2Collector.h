@@ -5,13 +5,14 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Robbin Blokpoel
+/// @author  Jakob Erdmann
 /// @date    Mon Feb 03 2014 14:13 CET
 /// @version $Id$
 ///
 // An areal (along a single lane) detector
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -357,10 +358,10 @@ private:
     std::list<SUMOVehicle*> myKnownVehicles;
 
     /// @brief Storage for halting durations of known vehicles (for halting vehicles)
-    std::map<SUMOVehicle*, SUMOTime> myHaltingVehicleDurations;
+    std::map<const SUMOVehicle*, SUMOTime> myHaltingVehicleDurations;
 
     /// @brief Storage for halting durations of known vehicles (current interval)
-    std::map<SUMOVehicle*, SUMOTime> myIntervalHaltingVehicleDurations;
+    std::map<const SUMOVehicle*, SUMOTime> myIntervalHaltingVehicleDurations;
 
     /// @brief Halting durations of ended halts [s]
     std::vector<SUMOTime> myPastStandingDurations;

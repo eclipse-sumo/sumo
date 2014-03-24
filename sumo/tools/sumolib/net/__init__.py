@@ -4,6 +4,7 @@
 @author  Laura Bieker
 @author  Karol Stosiek
 @author  Michael Behrisch
+@author  Jakob Erdmann
 @date    2008-03-27
 @version $Id$
 

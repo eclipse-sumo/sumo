@@ -2,6 +2,7 @@ import_config_file:../config_all
 binary:$SUMO_BINARY
 copy_test_path:net.net.xml
 copy_test_path:three_split.net.xml
+copy_test_path:motorway.net.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
@@ -110,6 +111,9 @@ errors:delete: freed
 errors:warning: debug_new used with placement new
 errors:Warning: State was written with sumo version
 errors:Cannot find local schema '[^']*'{REPLACE Cannot find local schema}
+output:movereminder-output{LINES 2}
+cfg:<movereminder{LINES 2}
+cfg:movereminder
 
 [floating_point_tolerance]
 detector:0.0101

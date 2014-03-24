@@ -95,6 +95,8 @@ class StartDialog:
                 text = "Four Junctions" 
             elif text == "kuehne":
                 text = "Prof. Kühne" 
+            elif text == "highway":
+                text = "Highway" 
             # lambda must make a copy of cfg argument
             Tkinter.Button(self.root, text=text, width=bWidth_start, 
                     command=lambda cfg=cfg:self.start_cfg(cfg)).grid(row=row, column=COL_START)

@@ -4,6 +4,7 @@
 @author  Friedemann Wesner
 @author  Michael Behrisch
 @author  Jakob Erdmann
+@author  Jakob Erdmann
 @date    2008-05-12
 @version $Id$
 

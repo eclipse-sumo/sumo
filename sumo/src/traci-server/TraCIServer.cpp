@@ -9,13 +9,14 @@
 /// @author  Tino Morenz
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
+/// @author  Mario Krumnow
 /// @date    2007/10/24
 /// @version $Id$
 ///
 /// TraCI server used to control sumo by a remote TraCI client (e.g., ns2)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

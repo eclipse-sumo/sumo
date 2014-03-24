@@ -3,6 +3,7 @@
 /// @author  Christian Roessel
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Jakob Erdmann
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///

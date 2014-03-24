@@ -30,6 +30,7 @@
 #include <config.h>
 #endif
 
+#include <string>
 
 // ===========================================================================
 // class definitions
@@ -54,8 +55,10 @@ public:
     static long getWindowsTicks();
 #endif
 
-};
 
+    /// @brief run a shell command without popping up any windows (particuarly on win32)
+    static unsigned long runHiddenCommand(const std::string& cmd);
+};
 
 #endif
 

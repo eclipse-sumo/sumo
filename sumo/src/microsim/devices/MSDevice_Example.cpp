@@ -1,5 +1,7 @@
 /****************************************************************************/
 /// @file    MSDevice_Example.cpp
+/// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    11.06.2013
 /// @version $Id$
@@ -7,7 +9,7 @@
 // A device which stands as an implementation example and which outputs movereminder calls
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

@@ -2,6 +2,7 @@
 """
 @file    vissim_parseBusStops.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2009-05-27
 @version $Id$
 

@@ -1,5 +1,6 @@
 /****************************************************************************/
 /// @file    MSCFModel_PWag2009.h
+/// @author  Peter Wagner
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    03.04.2010
@@ -8,7 +9,7 @@
 // Scalable model based on Krauﬂ by Peter Wagner
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2010-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

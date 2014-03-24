@@ -1,5 +1,7 @@
 /****************************************************************************/
 /// @file    AStarRouter.h
+/// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    January 2012
 /// @version $Id$
@@ -8,7 +10,7 @@
 // Based on DijkstraRouterTT. For routing by effort a novel heuristic would be needed.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

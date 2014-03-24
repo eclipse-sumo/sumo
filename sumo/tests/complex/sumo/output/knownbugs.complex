@@ -2,6 +2,5 @@
 [Reported by Windows at 05Mar21:12:03]
 search_string:[10
 search_file:output
-ignore_other_errors:1
 full_description:different outputs from detectors which should detect the same
 brief_description:see #254

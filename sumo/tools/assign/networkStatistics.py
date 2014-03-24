@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    networkStatistics.py
-@author  Yun-Pang Wang
+@author  Yun-Pang Floetteroed
 @author  Michael Behrisch
 @date    2007-02-27
 @version $Id$
@@ -18,7 +18,7 @@ The analyzed parameters include:
 - stop time
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -60,11 +60,13 @@ def getBasicStats(verbose, method, vehicles, assignments):
         totalDepartDelay += veh.departdelay  
     if verbose:    
         print 'totalVeh:', totalVeh
-    avgTravelTime = totalTravelTime/totalVeh
-    avgTravelLength = totalTravelLength/totalVeh
-    avgTravelSpeed = totalTravelSpeed/totalVeh
-    avgWaitTime = totalWaitTime/totalVeh
-    avgDepartDelay = totalDepartDelay/totalVeh
+
+    totalVehDivisor = max(1, totalVeh) # avoid division by 0
+    avgTravelTime = totalTravelTime/totalVehDivisor
+    avgTravelLength = totalTravelLength/totalVehDivisor
+    avgTravelSpeed = totalTravelSpeed/totalVehDivisor
+    avgWaitTime = totalWaitTime/totalVehDivisor
+    avgDepartDelay = totalDepartDelay/totalVehDivisor
     for veh in vehicles:
         totalDiffTravelTime += (veh.traveltime - avgTravelTime)**2
         totalDiffSpeed += (veh.speed - avgTravelSpeed)**2
@@ -72,10 +74,10 @@ def getBasicStats(verbose, method, vehicles, assignments):
         totalDiffWaitTime += (veh.waittime - avgWaitTime)**2
     
     #SD: standard deviation
-    SDTravelTime = (totalDiffTravelTime/totalVeh)**(0.5)
-    SDLength = (totalDiffLength/totalVeh)**(0.5)
-    SDSpeed = (totalDiffSpeed/totalVeh)**(0.5)
-    SDWaitTime = (totalDiffWaitTime/totalVeh)**(0.5)
+    SDTravelTime = (totalDiffTravelTime/totalVehDivisor)**(0.5)
+    SDLength = (totalDiffLength/totalVehDivisor)**(0.5)
+    SDSpeed = (totalDiffSpeed/totalVehDivisor)**(0.5)
+    SDWaitTime = (totalDiffWaitTime/totalVehDivisor)**(0.5)
 
     assignments[method] = Assign(method, totalVeh, totalTravelTime, totalTravelLength,
                                  totalDepartDelay, totalWaitTime, avgTravelTime,

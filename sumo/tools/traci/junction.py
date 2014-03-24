@@ -2,6 +2,8 @@
 """
 @file    junction.py
 @author  Michael Behrisch
+@author  Mario Krumnow
+@author  Jakob Erdmann
 @date    2011-03-17
 @version $Id$
 

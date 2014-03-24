@@ -86,9 +86,6 @@
 #define KEEP_RIGHT_TIME (SUMOReal)5.0 // the number of seconds after which a vehicle should move to the right lane
 #define KEEP_RIGHT_ACCEPTANCE (SUMOReal)2.0 // calibration factor for determining the desire to keep right
 
-#define OVERTAKE_RIGHT_FORBIDDEN true // This holds true for german traffic but should be made configurable to model american traffic
-
-
 
 // ===========================================================================
 // member method definitions
@@ -503,7 +500,7 @@ MSLCM_LC2013::_wantsChange(
         ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
     } else {
 
-        if (OVERTAKE_RIGHT_FORBIDDEN && !right && !myVehicle.congested() && neighLead.first != 0) {
+        if (!myAllowOvertakingRight && !right && !myVehicle.congested() && neighLead.first != 0) {
             // check for slower leader on the left. we should not overtake but
             // rather move left ourselves (unless congested)
             MSVehicle* nv = neighLead.first;

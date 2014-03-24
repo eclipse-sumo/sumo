@@ -1,5 +1,6 @@
 /****************************************************************************/
 /// @file    MSCFModel_Wiedemann.cpp
+/// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    June 2011
@@ -12,7 +13,7 @@
 // Olstam, Tapani - Comparison of Car-following models
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="highway/highway.net.xml"/> 
+        <gui-settings-file value="highway/settings.xml"/>
+        <route-files value="highway/highway.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+
+    <time>
+        <begin value="0"/>
+        <end value="180"/>
+        <step-length value=".2"/>
+    </time>
+
+</configuration>
+
+

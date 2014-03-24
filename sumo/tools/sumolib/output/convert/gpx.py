@@ -1,6 +1,7 @@
 """
 @file    gpx.py
 @author  Jakob Erdmann
+@author  Laura Bieker
 @date    2014-02-13
 @version $Id$
 

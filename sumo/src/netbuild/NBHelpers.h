@@ -3,6 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
+/// @author  Jakob Erdmann
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///

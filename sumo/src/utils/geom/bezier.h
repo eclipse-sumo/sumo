@@ -1,6 +1,5 @@
 /****************************************************************************/
 /// @file    bezier.h
-/// @author  unknown_author
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2003-11-19
@@ -9,7 +8,7 @@
 // missing_desc
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2003-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

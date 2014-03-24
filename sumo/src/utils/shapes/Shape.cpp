@@ -1,13 +1,14 @@
 /****************************************************************************/
 /// @file    Shape.cpp
 /// @author  Jakob Erdmann
+/// @author  Michael Behrisch
 /// @date    Oct 2012
 /// @version $Id$
 ///
 // A 2D- or 3D-Shape
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

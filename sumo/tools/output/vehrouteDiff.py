@@ -3,13 +3,14 @@
 """
 @file    vehrouteDiff.py
 @author  Jakob Erdmann
+@author  Michael Behrisch
 @date    2012-11-20
 @version $Id$
 
 Compute differences between two vehroute-output files
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

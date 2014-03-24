@@ -37,7 +37,7 @@
         <xsd:attribute name="roadClass" type="roadClassType" use="required"/> <!-- functional road class in the Navteq sense -->
         <xsd:attribute name="length" type="xsd:unsignedInt" use="required"/>
         <xsd:attribute name="speedLimitKmh" type="xsd:unsignedInt" use="optional"/>
-        <xsd:attribute name="numberOfLanes" type="xsd:unsignedInt" use="optional"/>
+        <xsd:attribute name="numberOfLanes" type="xsd:unsignedInt" use="required"/>
         <xsd:attribute name="ref" type="xsd:string" use="optional"/>
     </xsd:complexType>
     

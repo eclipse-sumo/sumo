@@ -3,6 +3,8 @@
 @file    lane.py
 @author  Michael Behrisch
 @author  Daniel Krajzewicz
+@author  Laura Bieker
+@author  Jakob Erdmann
 @date    2011-03-17
 @version $Id$
 

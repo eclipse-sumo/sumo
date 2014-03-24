@@ -2,6 +2,7 @@
 /// @file    FileHelpers.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Jakob Erdmann
 /// @date    Mon, 17 Dec 2001
 /// @version $Id$
 ///

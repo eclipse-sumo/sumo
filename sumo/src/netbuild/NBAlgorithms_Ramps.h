@@ -1,13 +1,14 @@
 /****************************************************************************/
 /// @file    NBAlgorithms_Ramps.h
 /// @author  Daniel Krajzewicz
+/// @author  Jakob Erdmann
 /// @date    29. March 2012
 /// @version $Id$
 ///
 // Algorithms for highway on-/off-ramps computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2012-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

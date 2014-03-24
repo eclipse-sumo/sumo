@@ -107,6 +107,10 @@ public:
     /// Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
 
+    SUMOTime getSimEndTime() const {
+        return mySimEndTime;
+    }
+
 protected:
     void makeStep();
 

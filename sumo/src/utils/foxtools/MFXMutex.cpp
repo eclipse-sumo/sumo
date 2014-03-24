@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    MFXMutex.cpp
-/// @author  Daniel Krajzewicz
+/// @author  Mathew Robertson
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2007-02-19
@@ -9,7 +9,7 @@
 // 
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

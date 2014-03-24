@@ -1,6 +1,6 @@
 """
 @file    dijkstra.py
-@author  Yun-Pang Wang
+@author  Yun-Pang Floetteroed
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @author  Jakob Erdmann
@@ -14,7 +14,7 @@ the link information about the shortest paths and the corresponding travel times
 will be stored in the lists P and D respectively.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

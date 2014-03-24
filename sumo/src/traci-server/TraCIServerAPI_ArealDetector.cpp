@@ -2,13 +2,15 @@
 /// @file    TraCIServerAPI_AreaDetector.cpp
 /// @author  Mario Krumnow
 /// @author  Robbin Blokpoel
+/// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @date    03.02.2014
 /// @version $Id$
 ///
 // APIs for getting/setting areal detector values via TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.

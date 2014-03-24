@@ -1,3 +1,18 @@
+# avoid spill back of jams onto a junction (checkRewindLinkLanes)
+avoid_spill_back
+
+# tests for driver impatience
+impatience
+
+# test proper behavior at junctions (collision avoidance, efficent usage)
+junction
+
+# test behavior when vehicles cannot drive
+deadlock
+
+# tests for dynamics at ramps leading to and from motorways
+ramps
+
 # One vehicle moving along not yielding edges (achived through tls); should move constantly with 10m/s
 one_vehicle_10m_per_s_high_prio
 
@@ -19,17 +34,11 @@ approach_slow_lane_dawdle
 # one vehicle approaching a lane with a lower max speed and step-length 0.1
 approach_slow_subsecond
 
-# avoid spill back of jams onto a junction (checkRewindLinkLanes)
-avoid_spill_back
+# very high flow on 2-lanes
+high_flow1
 
-# tests for driver impatience
-impatience
+# very high flow on 2-lanes
+high_flow2
 
-# test proper behavior at junctions (collision avoidance, efficent usage)
-junction
-
-# test behavior when vehicles cannot drive
-deadlock
-
-# tests for dynamics at ramps leading to and from motorways
-ramps
+# very high flow on 2-lanes
+high_flow1_extreme

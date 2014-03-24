@@ -199,7 +199,7 @@ GUIDanielPerspectiveChanger::onMouseMove(void* data) {
     const int xdiff = myMouseXPosition - e->win_x;
     const int ydiff = myMouseYPosition - e->win_y;
     const bool moved = xdiff != 0 || ydiff != 0;
-    const bool pastDelay = FXThread::time() > (myMouseDownTime + myDragDelay);
+    const bool pastDelay = !gSchemeStorage.getDefault().gaming && FXThread::time() > (myMouseDownTime + myDragDelay);
     switch (myMouseButtonState) {
         case MOUSEBTN_LEFT:
             if (pastDelay) {

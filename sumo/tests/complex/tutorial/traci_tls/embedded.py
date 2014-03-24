@@ -4,6 +4,7 @@
 @author  Lena Kalleske
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
+@author  Jakob Erdmann
 @date    2009-03-26
 @version $Id$
 

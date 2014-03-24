@@ -2,6 +2,7 @@
 """
 @file    plot_csv_timeline.py
 @author  Daniel Krajzewicz
+@author  Laura Bieker
 @date    2014-01-14
 @version $Id$
 
@@ -12,7 +13,7 @@ matplotlib (http://matplotlib.org/) has to be installed for this purpose
 
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

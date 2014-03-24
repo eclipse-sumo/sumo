@@ -1,6 +1,6 @@
 """
 @file    outputs.py
-@author  Yun-Pang Wang
+@author  Yun-Pang Floetteroed
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2007-12-25
@@ -9,7 +9,7 @@
 This script is for generating the outputs from the choosed traffic assignment.
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2007-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify

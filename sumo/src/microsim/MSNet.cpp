@@ -7,6 +7,8 @@
 /// @author  Eric Nicolay
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
+/// @author  Mario Krumnow
+/// @author  Christoph Sommer
 /// @date    Tue, 06 Mar 2001
 /// @version $Id$
 ///

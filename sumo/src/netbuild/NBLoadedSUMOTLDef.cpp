@@ -1,5 +1,7 @@
 /****************************************************************************/
 /// @file    NBLoadedSUMOTLDef.h
+/// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
 /// @version $Id$
@@ -8,7 +10,7 @@
 // since NBLoadedTLDef is quite vissim specific)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-// Copyright (C) 2001-2014 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
