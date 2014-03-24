@@ -2,10 +2,8 @@
     <delay value="50"/>
     <viewport zoom="800" x="1290.00" y="800.00"/>
     <decal filename="highway_bremen.gif" centerX="1290.00" centerY="800.00" centerZ="0.00" width="385.00" height="217.00" altitude="0.00" rotation="0.00" tilt="0.00" roll="0.00" layer="0.00"/>
-    <scheme name="game_square">
+    <scheme name="game_highway">
         <opengl antialiase="0" dither="0"/>
-        <background backgroundColor="0.20,0.50,0.20"
-                    showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
         <vehicles vehicleMode="9" vehicleQuality="2" minVehicleSize="1.00" vehicleExaggeration="1.00" showBlinker="1"
                   vehicleName_show="0" vehicleName_size="50.00" vehicleName_color="0.80,0.60,0.00" >
             <colorScheme name="uniform">
@@ -81,4 +79,10 @@
         </vehicles>
         <legend showSizeLegend="1"/>
     </scheme>
+
+    <event id="jam" commandPosix="play sounds/car_horn1.wav &#x26;"  commandWindows="start /min vlc.exe -Idummy --play-and-exit sounds/car_horn1.wav" probability="0.1"/>
+    <event id="jam" commandPosix="play sounds/car_horn2.wav &#x26;"  commandWindows="start /min vlc.exe -Idummy --play-and-exit sounds/car_horn2.wav" probability="0.1"/>
+    <event id="jam" commandPosix="play sounds/car_horn3.wav &#x26;"  commandWindows="start /min vlc.exe -Idummy --play-and-exit sounds/car_horn3.wav" probability="0.1"/>
+    <jamTime value="40"/>
+
 </viewsettings>
