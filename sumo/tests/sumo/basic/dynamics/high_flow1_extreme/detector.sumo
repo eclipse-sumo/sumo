@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Mar 24 12:58:55 2014 by SUMO sumo Version dev-SVN-r16000
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <processing>
+        <max-depart-delay value="1"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/det_e1_file.xsd">
+   <interval begin="0.00" end="900.00" id="end2_0" nVehContrib="799" flow="3196.00" occupancy="9.52" speed="28.22" length="3.00" nVehEntered="799"/>
+   <interval begin="900.00" end="1800.00" id="end2_0" nVehContrib="906" flow="3624.00" occupancy="10.37" speed="29.29" length="3.00" nVehEntered="906"/>
+   <interval begin="1800.00" end="1902.00" id="end2_0" nVehContrib="95" flow="3352.94" occupancy="9.62" speed="29.05" length="3.00" nVehEntered="95"/>
+</detector>
