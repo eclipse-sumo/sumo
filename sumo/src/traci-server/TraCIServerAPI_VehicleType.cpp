@@ -34,6 +34,7 @@
 #ifndef NO_TRACI
 
 #include <limits>
+#include <utils/emissions/PollutantsInterface.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include "TraCIConstants.h"
@@ -245,6 +246,9 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             std::string eclass;
             if (!server.readTypeCheckingString(inputStorage, eclass)) {
                 return server.writeErrorStatusCmd(cmd, "Setting emission class requires a string.", outputStorage);
+            }
+            if (!PollutantsInterface::knowsClass(eclass)) {
+                return server.writeErrorStatusCmd(cmd, "Unknown emission class '" + eclass + "'.", outputStorage);
             }
             v.setEmissionClass(getVehicleEmissionTypeID(eclass));
         }

@@ -78,6 +78,12 @@ public:
     }
 
 
+    void remove(const std::string str, const T key) {
+        myString2T.erase(str);
+        myT2String.erase(key);
+    }
+
+
     T get(const std::string& str) const {
         if (hasString(str)) {
             return myString2T.find(str)->second;

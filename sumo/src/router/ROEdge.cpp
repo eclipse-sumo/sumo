@@ -313,30 +313,30 @@ ROEdge::setType(ROEdge::EdgeType type) {
 void
 ROEdge::buildTimeLines(const std::string& measure) {
     if (myUsingETimeLine) {
-        SUMOReal value = (SUMOReal)(myLength / mySpeed);
+        SUMOReal value = myLength / mySpeed;
+        const SUMOEmissionClass c = SumoEmissionClassStrings.get("HBEFA/unknown");
         if (measure == "CO") {
-            value = PollutantsInterface::computeCO(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::computeCO(c, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "CO2") {
-            value = PollutantsInterface::computeCO2(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::computeCO2(c, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "HC") {
-            value = PollutantsInterface::computeHC(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::computeHC(c, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "PMx") {
-            value = PollutantsInterface::computePMx(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::computePMx(c, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "NOx") {
-            value = PollutantsInterface::computeNOx(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::computeNOx(c, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "fuel") {
-            value = PollutantsInterface::computeFuel(SVE_UNKNOWN, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::computeFuel(c, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);
     }
     if (myUsingTTTimeLine) {
-        SUMOReal value = (SUMOReal)(myLength / mySpeed);
-        myTravelTimes.fillGaps(value, myUseBoundariesOnOverrideTT);
+        myTravelTimes.fillGaps(myLength / mySpeed, myUseBoundariesOnOverrideTT);
     }
 }
 

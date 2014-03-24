@@ -38,6 +38,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/emissions/PollutantsInterface.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -52,7 +53,7 @@ SUMOVTypeParameter::SUMOVTypeParameter()
       minGap(DEFAULT_VEH_MINGAP), maxSpeed(DEFAULT_VEH_MAXSPEED),
       defaultProbability(DEFAULT_VEH_PROB),
       speedFactor(DEFAULT_VEH_SPEEDFACTOR), speedDev(DEFAULT_VEH_SPEEDDEV),
-      emissionClass(SVE_UNKNOWN), color(RGBColor::DEFAULT_COLOR),
+      emissionClass(0), color(RGBColor::DEFAULT_COLOR),
       vehicleClass(SVC_UNKNOWN),
       impatience(0),
       width(DEFAULT_VEH_WIDTH),

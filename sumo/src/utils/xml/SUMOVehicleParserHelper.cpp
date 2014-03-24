@@ -37,6 +37,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOVehicleParameter.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include "SUMOVehicleParserHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -532,10 +533,13 @@ SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes& attrs, cons
     try {
         bool ok = true;
         std::string eClassS = attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, "");
+        if (!PollutantsInterface::knowsClass(eClassS)) {
+            throw ProcessError();
+        }
         return getVehicleEmissionTypeID(eClassS);
     } catch (...) {
         WRITE_ERROR("The emission class for " + attrs.getObjectType() + " '" + id + "' is not known.");
-        return SVE_UNKNOWN;
+        return 0;
     }
 }
 

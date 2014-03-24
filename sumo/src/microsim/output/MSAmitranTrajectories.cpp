@@ -35,6 +35,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSGlobals.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include "MSAmitranTrajectories.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -66,21 +67,32 @@ MSAmitranTrajectories::writeVehicle(OutputDevice& of, const SUMOVehicle& veh, co
         const std::string& type = veh.getVehicleType().getID();
         if (myWrittenTypes.count(type) == 0) {
             const int index = (int)myWrittenTypes.size();
-            of.openTag("actorConfig") << " id=\"" << index << "\"";
-            of.closeTag();
+            of.openTag(SUMO_TAG_ACTORCONFIG).writeAttr(SUMO_ATTR_ID, index);
+            const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
+            if (c != 0) {
+                of.writeAttr(SUMO_ATTR_VEHICLECLASS, PollutantsInterface::getAmitranVehicleClass(c));
+                of.writeAttr("fuel", PollutantsInterface::getFuel(c));
+                of.writeAttr(SUMO_ATTR_EMISSIONCLASS, "Euro" + toString(PollutantsInterface::getEuroClass(c)));
+                const SUMOReal weight = PollutantsInterface::getWeight(c);
+                if (weight > 0.) {
+                    of.writeAttr(SUMO_ATTR_WEIGHT, int(weight / 10. + 0.5));
+                }
+            }
+            of.writeAttr(SUMO_ATTR_REF, type).closeTag();
             myWrittenTypes[type] = index;
         }
         if (myWrittenVehicles.count(veh.getID()) == 0) {
             const int index = (int)myWrittenVehicles.size();
-            of.openTag("vehicle") << " id=\"" << index
-                                  << "\" actorConfig=\"" << myWrittenTypes[type]
-                                  << "\" startTime=\"" << time2string(veh.getDeparture()) << "\"";
-            of.closeTag();
+            of.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, index)
+                                        .writeAttr(SUMO_ATTR_ACTORCONFIG, myWrittenTypes[type])
+                                        .writeAttr(SUMO_ATTR_STARTTIME, int(1000.*STEPS2TIME(veh.getDeparture()) + 0.5));
+            of.writeAttr(SUMO_ATTR_REF, veh.getID()).closeTag();
             myWrittenVehicles[veh.getID()] = index;
         }
-        of.openTag("motionState") << " vehicle=\"" << myWrittenVehicles[veh.getID()]
-                                  << "\" speed=\"" << int(100*veh.getSpeed() + 0.5)
-                                  << "\" time=\"" << timestep << "\"";
+        of.openTag(SUMO_TAG_MOTIONSTATE).writeAttr(SUMO_ATTR_VEHICLE, myWrittenVehicles[veh.getID()])
+                                        .writeAttr(SUMO_ATTR_SPEED, int(100.*veh.getSpeed() + 0.5))
+                                        .writeAttr(SUMO_ATTR_ACCELERATION, int(1000.*veh.getAcceleration() + 0.5))
+                                        .writeAttr(SUMO_ATTR_TIME, int(1000.*STEPS2TIME(timestep) + 0.5)) ;
         of.closeTag();
     }
 }

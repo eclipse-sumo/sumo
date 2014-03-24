@@ -386,6 +386,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "version",        SUMO_ATTR_VERSION },
 
     { "actorConfig",    SUMO_ATTR_ACTORCONFIG },
+    { "vehicle",        SUMO_ATTR_VEHICLE },
+    { "startTime",      SUMO_ATTR_STARTTIME },
     { "vehicleClass",   SUMO_ATTR_VEHICLECLASS },
     { "fuel",           SUMO_ATTR_FUEL },
     { "acceleration",   SUMO_ATTR_ACCELERATION },

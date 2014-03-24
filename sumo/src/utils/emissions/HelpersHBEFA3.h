@@ -1,11 +1,11 @@
 /****************************************************************************/
-/// @file    HelpersHBEFA.h
+/// @file    HelpersHBEFA3.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-// Helper methods for HBEFA-based emission computation
+// Helper methods for HBEFA3-based emission computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2013 DLR (http://www.dlr.de/) and contributors
@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef HelpersHBEFA_h
-#define HelpersHBEFA_h
+#ifndef HelpersHBEFA3_h
+#define HelpersHBEFA3_h
 
 
 // ===========================================================================
@@ -44,18 +44,23 @@
 // class definitions
 // ===========================================================================
 /**
- * @class HelpersHBEFA
- * @brief Helper methods for HBEFA-based emission computation
+ * @class HelpersHBEFA3
+ * @brief Helper methods for HBEFA3-based emission computation
  *
  * The parameter are stored per vehicle class; 6*6 parameter are used, sorted by
  *  the pollutant (CO2, CO, HC, fuel, NOx, PMx), and the function part
  *  (c0, cav1, cav2, c1, c2, c3).
  */
-class HelpersHBEFA : public PollutantsInterface::Helper {
+class HelpersHBEFA3 : public PollutantsInterface::Helper {
 public:
+
+
+    static const int HBEFA3_BASE = 1 << 16;
+
+
     /** @brief Constructor (initializes SumoEmissionClassStrings)
      */
-    HelpersHBEFA();
+    HelpersHBEFA3();
 
 
     /** @brief Computes the emitted pollutant amount using the given speed and acceleration
@@ -70,16 +75,13 @@ public:
      * @param[in] a The vehicle's current acceleration
      */
     inline SUMOReal compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
-        const SUMOReal kmh = v * 3.6;
-        const SUMOReal scale = (e == PollutantsInterface::FUEL) ? 3.6 * 790. : 3.6;
-        if (c > 42) {
-            const double* f = myFunctionParameter[c - 42] + 6 * e;
-            return (SUMOReal) MAX2((f[0] + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
-        }
         if (a < 0.) {
             return 0.;
         }
-        const double* f = myFunctionParameter[c] + 6 * e;
+        const int index = c - HBEFA3_BASE - 2;
+        const SUMOReal kmh = v * 3.6;
+        const SUMOReal scale = (e == PollutantsInterface::FUEL) ? 3.6 * 790. : 3.6;
+        const double* f = myFunctionParameter[c][e];
         const double alpha = asin(a / 9.81) * 180. / M_PI;
         return (SUMOReal) MAX2((f[0] + f[1] * alpha * kmh + f[2] * alpha * alpha * kmh + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
     }
@@ -87,7 +89,7 @@ public:
 
 private:
     /// @brief The function parameter
-    static double myFunctionParameter[42][36];
+    static double myFunctionParameter[45][6][6];
 
 };
 

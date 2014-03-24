@@ -47,6 +47,62 @@
  */
 class PollutantsInterface {
 public:
+
+    enum EmissionType { CO, CO2, HC, NO_X, PM_X, FUEL };
+
+    class Helper {
+    public:
+        virtual bool knowsClass(const std::string& eClass) {
+            return SumoEmissionClassStrings.hasString(eClass);
+        }
+        virtual bool isSilent(const SUMOEmissionClass c) {
+            return (c & 0xffffffff) == 1;
+        }
+        virtual SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight) const {
+            return base;
+        }
+        virtual std::string getAmitranVehicleClass(const SUMOEmissionClass c) const {
+            return "Passenger";
+        }
+        virtual std::string getFuel(const SUMOEmissionClass c) const {
+            return "Gasoline";
+        }
+        virtual int getEuroClass(const SUMOEmissionClass c) const {
+            return 0;
+        }
+        virtual SUMOReal getWeight(const SUMOEmissionClass c) const {
+            return -1.;
+        }
+        virtual SUMOReal compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope) const = 0;
+        virtual SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) const {
+            return -1.;
+        }
+        static Helper* myHelpers[];
+    };
+
+    static const int HEAVY_BIT = 1 << 15;
+
+    /** @brief Checks whether the string describes a known vehicle class
+     * @param[in] eClass The string describing the vehicle emission class
+     * @return whether it describes a valid emission class
+     */
+    static bool knowsClass(const std::string& eClass);
+
+
+    /** @brief Checks whether the emission class describes a bus truck or similar
+     * @param[in] c The vehicle emission class
+     * @return whether it describes a heavy vehicle
+     */
+    static bool isHeavy(const SUMOEmissionClass c);
+
+
+    /** @brief Checks whether the emission class describes an electric or simlar silent vehicle
+     * @param[in] c The vehicle emission class
+     * @return whether it describes a silent vehicle
+     */
+    static bool isSilent(const SUMOEmissionClass c);
+
+
     /** @brief Returns the maximum possible acceleration
      * @param[in] c The vehicle emission class
      * @param[in] v The vehicle's current velocity
@@ -65,28 +121,28 @@ public:
      * @param[in] weight The weight in kg
      * @return The best fitting emission class related to the base
      */
-    static SUMOEmissionClass getClass(SUMOEmissionClass base, std::string& vClass, std::string& fuel, std::string& eClass, double weight);
+    static SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight);
 
 
     /** @brief Returns the vehicle class described by the given emission class
      * @param[in] c The vehicle emission class
      * @return The Amitran string describing the vehicle class
      */
-    static std::string getAmitranVehicleClass(SUMOEmissionClass c);
+    static std::string getAmitranVehicleClass(const SUMOEmissionClass c);
 
 
     /** @brief Returns the fuel type of the given emission class
      * @param[in] c The vehicle emission class
      * @return "Diesel", "Gasoline", "HybridDiesel", or "HybridGasoline"
      */
-    static std::string getFuel(SUMOEmissionClass c);
+    static std::string getFuel(const SUMOEmissionClass c);
 
 
     /** @brief Returns the Euro norm described by the given emission class
      * @param[in] c The vehicle emission class
      * @return A value between 0 and 6 (inclusive)
      */
-    static int getEuroClass(SUMOEmissionClass c);
+    static int getEuroClass(const SUMOEmissionClass c);
 
 
     /** @brief Returns a representative weight for the given emission class
@@ -94,7 +150,7 @@ public:
      * @param[in] c The vehicle emission class
      * @return the weight in kg if it matters, 0 otherwise
      */
-    static SUMOReal getWeight(SUMOEmissionClass c);
+    static SUMOReal getWeight(const SUMOEmissionClass c);
 
 
     /** @brief Returns the amount of emitted CO given the vehicle type and state (in mg/s)
