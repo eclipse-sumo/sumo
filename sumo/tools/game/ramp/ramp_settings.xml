@@ -1,6 +1,6 @@
 <viewsettings>
     <delay value="50"/>
-    <viewport zoom="600" x="-10" y="20"/>
+    <viewport zoom="400" x="-10" y="20"/>
     <scheme name="game_ramp">
         <opengl antialiase="0" dither="0"/>
         <background backgroundColor="0.20,0.50,0.20"

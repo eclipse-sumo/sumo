@@ -6,13 +6,13 @@
     </vTypeDistribution>
     
     <route id="highway" edges="gneE2 gneE3 gneE7 gneE8 gneE11"/>
-    <flow id="highway1" route="highway" begin="0" end="90000" vehsPerHour="3000" departSpeed="27.78" departLane="0"/>
-    <flow id="highway2" route="highway" begin="0" end="90000" vehsPerHour="2000" departSpeed="27.78" departLane="1"/>
+    <flow id="highway1" route="highway" begin="0" end="90000" vehsPerHour="3000" departSpeed="22.22" departLane="0"/>
+    <flow id="highway2" route="highway" begin="0" end="90000" vehsPerHour="2000" departSpeed="22.22" departLane="1"/>
 
-    <route id="onramp" edges="gneE5 gneE13 gneE14 gneE7 gneE8 gneE11"/>
+    <route id="onramp" edges="gneE15 gneE18 gneE13 gneE14 gneE7 gneE8 gneE11"/>
     <flow id="onramp" route="onramp" begin="0" end="90000" vehsPerHour="2000" departSpeed="13.89"/>
     
-    <route id="offramp" edges="gneE2 gneE4 gneE5 gneE9"/>
-    <flow id="offramp" route="offramp" begin="0" end="90000" vehsPerHour="1000" departSpeed="27.78"/>
+    <route id="offramp" edges="gneE2 gneE4 gneE16 gneE18 gneE9"/>
+    <flow id="offramp" route="offramp" begin="0" end="90000" vehsPerHour="1000" departSpeed="22.22"/>
     
 </routes>
