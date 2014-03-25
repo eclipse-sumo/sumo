@@ -32,7 +32,7 @@ EdgeEffortInfo
 Signalling
 
 # for setting vehicle speed
-SetSpeed
+SetSpeed_SpeedMode
 
 # for moving the vehicle to a different place
 MoveTo
@@ -55,7 +55,4 @@ VehicleTypeRelated
 # checking SlowDown and SetSpeed
 SlowDownAndSetSpeed
 
-# check whether a vehicle may be forced to run at red light
-runs_at_red_forced
 resume_from_stop
-ignore_junction
