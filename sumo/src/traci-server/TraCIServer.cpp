@@ -249,7 +249,7 @@ TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::Vehicl
 void
 TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     if (myInstance == 0) {
-        throw ProcessError("TraciServer not initialized");
+        return;
     }
     try {
         if (myInstance->myAmEmbedded || step < myInstance->myTargetTime) {
