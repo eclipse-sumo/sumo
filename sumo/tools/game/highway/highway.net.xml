@@ -299,10 +299,13 @@
     </edge>
 
     <tlLogic id="1658965318" type="static" programID="0" offset="0">
-        <phase duration="43" state="GGGrrr"/>
-        <phase duration="2" state="yyyrrr"/>
-        <phase duration="43" state="rrrGGG"/>
-        <phase duration="2" state="rrryyy"/>
+        <phase duration="2.00" state="yyy"/>
+        <phase duration="10000.00" state="rrr"/>
+    </tlLogic>
+    
+    <tlLogic id="1658965318" type="static" programID="1" offset="0">
+        <phase duration="2.00" state="yyy"/>
+        <phase duration="10000.00" state="ggg"/>
     </tlLogic>
 
     <junction id="1285389396" type="unregulated" x="272.55" y="199.05" incLanes="145354804_0" intLanes="" shape="271.67,200.39 273.43,197.71"/>
@@ -437,9 +440,9 @@
     <connection from="153190017" to="153180756" fromLane="0" toLane="1" pass="1" via=":1659040835_1_0" dir="s" state="M"/>
     <connection from="17098081" to="153189949" fromLane="0" toLane="0" via=":1659040831_0_0" dir="s" state="M"/>
     <connection from="17098081" to="153189949" fromLane="1" toLane="1" via=":1659040831_1_0" dir="s" state="M"/>
-    <connection from="189597495" to="189604289" fromLane="0" toLane="1" via=":1658965318_3_0" tl="1658965318" linkIndex="3" dir="s" state="o"/>
-    <connection from="189597495" to="189604289" fromLane="1" toLane="2" via=":1658965318_4_0" tl="1658965318" linkIndex="4" dir="s" state="o"/>
-    <connection from="189597495" to="189604289" fromLane="2" toLane="3" via=":1658965318_5_0" tl="1658965318" linkIndex="5" dir="s" state="o"/>
+    <connection from="189597495" to="189604289" fromLane="0" toLane="1" via=":1658965318_3_0" dir="s" state="M"/>
+    <connection from="189597495" to="189604289" fromLane="1" toLane="2" via=":1658965318_4_0" dir="s" state="M"/>
+    <connection from="189597495" to="189604289" fromLane="2" toLane="3" via=":1658965318_5_0" dir="s" state="M"/>
     <connection from="189604289" to="191842213" fromLane="0" toLane="0" via=":2024041878_0_0" dir="s" state="M"/>
     <connection from="189604289" to="191842213" fromLane="1" toLane="1" via=":2024041878_1_0" dir="s" state="M"/>
     <connection from="189604289" to="191842213" fromLane="2" toLane="2" via=":2024041878_2_0" dir="s" state="M"/>
