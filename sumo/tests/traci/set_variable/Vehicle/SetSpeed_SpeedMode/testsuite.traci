@@ -12,3 +12,5 @@ runs_at_red_forced
 # check whether a vehicle may be forced to ignore junction foes
 ignore_junction
 
+# check whether a vehicle may be forced to collide by setting unsafe speed
+SetSpeed_NoSafetyCheck
