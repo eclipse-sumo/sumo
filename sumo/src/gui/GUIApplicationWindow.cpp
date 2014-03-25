@@ -942,6 +942,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myWaitingTimeLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myTimeLossLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
+        gSchemeStorage.getDefault().gaming = true;
     } else {
         myMenuBar->show();
         myStatusbar->show();
@@ -953,6 +954,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myToolBar7->hide();
         myMessageWindow->show();
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::GREEN));
+        gSchemeStorage.getDefault().gaming = false;
     }
     update();
     return 1;
