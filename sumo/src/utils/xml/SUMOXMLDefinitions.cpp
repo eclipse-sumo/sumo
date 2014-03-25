@@ -136,7 +136,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "event",            SUMO_TAG_VIEWSETTINGS_EVENT },
     { "jamTime",          SUMO_TAG_VIEWSETTINGS_EVENT_JAM_TIME },
     { "include",          SUMO_TAG_INCLUDE },
-    { "xi:include",       SUMO_TAG_INCLUDE },
     { "delay",            SUMO_TAG_DELAY },
     { "viewport",         SUMO_TAG_VIEWPORT },
     { "snapshot",         SUMO_TAG_SNAPSHOT },

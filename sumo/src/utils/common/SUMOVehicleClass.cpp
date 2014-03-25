@@ -112,9 +112,6 @@ StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
     sumoVehicleShapeStringInitializer, SVS_UNKNOWN);
 
 
-StringBijection<SUMOEmissionClass> SumoEmissionClassStrings;
-
-
 // ===========================================================================
 // additional constants
 // ===========================================================================
@@ -276,21 +273,6 @@ getVehicleShapeName(SUMOVehicleShape id) {
 bool isRailway(SVCPermissions permissions) {
     const int anyRail = SVC_RAIL_FAST + SVC_RAIL_SLOW + SVC_CITYRAIL + SVC_LIGHTRAIL;
     return (permissions & anyRail) > 0 && (permissions & SVC_PASSENGER) == 0;
-}
-
-// ------------ Conversion of SUMOEmissionClass
-SUMOEmissionClass
-getVehicleEmissionTypeID(const std::string& name) {
-    if (SumoEmissionClassStrings.hasString(name)) {
-        return SumoEmissionClassStrings.get(name);
-    } else {
-        throw ProcessError("Unknown emission type '" + name + "'.");
-    }
-}
-
-std::string
-getVehicleEmissionTypeName(SUMOEmissionClass id) {
-    return SumoEmissionClassStrings.getString(id);
 }
 
 

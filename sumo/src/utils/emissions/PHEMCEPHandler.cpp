@@ -64,10 +64,7 @@ PHEMCEPHandler::getHandlerInstance() {
 
 
 bool
-PHEMCEPHandler::Load(SUMOEmissionClass emissionClass) {
-    // get string identifier for PHEM emission class
-    std::string emissionClassIdentifier = SumoEmissionClassStrings.getString(emissionClass);
-
+PHEMCEPHandler::Load(SUMOEmissionClass emissionClass, const std::string& emissionClassIdentifier) {
     // to hold everything.
     std::vector< std::vector<double> > matrixSpeedInertiaTable;
     std::vector< std::vector<double> > matrixFC;
@@ -109,7 +106,7 @@ PHEMCEPHandler::Load(SUMOEmissionClass emissionClass) {
     }
 
     _ceps[emissionClass] = new PHEMCEP(vehicleMassType == "HV",
-                                       emissionClass,
+                                       emissionClass, emissionClassIdentifier,
                                        vehicleMass, vehicleLoading, vehicleMassRot,
                                        crosssectionalArea, cwValue,
                                        f0, f1, f2, f3, f4,
@@ -124,9 +121,7 @@ PHEMCEP*
 PHEMCEPHandler::GetCep(SUMOEmissionClass emissionClass) {
     // check if Cep has been loaded
     if (_ceps.find(emissionClass) == _ceps.end()) {
-        if (!PHEMCEPHandler::Load(emissionClass)) {
-            throw InvalidArgument("File for PHEM emission class " + SumoEmissionClassStrings.getString(emissionClass) + " not found.");
-        }
+        return 0;
     } // end if
 
     return _ceps[emissionClass];

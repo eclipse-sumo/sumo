@@ -144,36 +144,36 @@ HelpersHBEFA::myFunctionParameter[42][36] = {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-HelpersHBEFA::HelpersHBEFA() {
-    SumoEmissionClassStrings.insert("HBEFA/unknown", 0);
-    SumoEmissionClassStrings.insert("HBEFA/zero", 1);
+HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA") {
+    myEmissionClassStrings.insert("zero", PollutantsInterface::ZERO_EMISSIONS);
     int clusterSizesH[] = {3, 6, 12};
     int clusterSizesP[] = {7, 14};
-    int index = 2;
+    int index = 1;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < clusterSizesH[i]; j++) {
-            SumoEmissionClassStrings.insert("HBEFA/HDV_" + toString(clusterSizesH[i]) + "_" + toString(j), index | PollutantsInterface::HEAVY_BIT);
+            myEmissionClassStrings.insert("HDV_" + toString(clusterSizesH[i]) + "_" + toString(j+1), index | PollutantsInterface::HEAVY_BIT);
             index++;
         }
     }
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < clusterSizesP[i]; j++) {
-            SumoEmissionClassStrings.insert("HBEFA/P_" + toString(clusterSizesH[i]) + "_" + toString(j), index);
+            myEmissionClassStrings.insert("P_" + toString(clusterSizesP[i]) + "_" + toString(j+1), index);
             index++;
         }
     }
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < clusterSizesH[i]; j++) {
-            SumoEmissionClassStrings.insert("HBEFA/HDV_A0_" + toString(clusterSizesH[i]) + "_" + toString(j), index | PollutantsInterface::HEAVY_BIT);
+            myEmissionClassStrings.insert("HDV_A0_" + toString(clusterSizesH[i]) + "_" + toString(j+1), index | PollutantsInterface::HEAVY_BIT);
             index++;
         }
     }
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < clusterSizesP[i]; j++) {
-            SumoEmissionClassStrings.insert("HBEFA/P_A0_" + toString(clusterSizesH[i]) + "_" + toString(j), index);
+            myEmissionClassStrings.insert("P_A0_" + toString(clusterSizesP[i]) + "_" + toString(j+1), index);
             index++;
         }
     }
+    myEmissionClassStrings.addAlias("unknown", myEmissionClassStrings.get("P_7_7"));
 }
 
 

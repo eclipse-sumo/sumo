@@ -6,7 +6,7 @@
 /// @date    Mar 2011
 /// @version $Id$
 ///
-// Bijective Container between string and something else
+// Bidirectional map between string and something else
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
 // Copyright (C) 2011-2014 DLR (http://www.dlr.de/) and contributors
@@ -42,7 +42,10 @@
 // class definitions
 // ===========================================================================
 /**
- * Template container for maintaining a bijection between strings and something else
+ * Template container for maintaining a bidirectional map between strings and something else
+ * It is not always a bijection since it allows for duplicate entries on both sides if either
+ * checkDuplicates is set to false in the constructor or the insert function or if
+ * the addAlias function is used.
  */
 
 template< class T  >
@@ -66,17 +69,31 @@ public:
     StringBijection() {}
 
 
-    StringBijection(Entry entries[], T terminatorKey) {
+    StringBijection(Entry entries[], T terminatorKey, bool checkDuplicates=true) {
         int i = 0;
         do {
-            insert(entries[i].str, entries[i].key);
+            insert(entries[i].str, entries[i].key, checkDuplicates);
         } while (entries[i++].key != terminatorKey);
     }
 
 
-    void insert(const std::string str, const T key) {
+    void insert(const std::string str, const T key, bool checkDuplicates=true) {
+        if (checkDuplicates) {
+            if (has(key)) {
+                // cannot use toString(key) because that might create an infinite loop
+                throw InvalidArgument("Duplicate key.");
+            }
+            if (hasString(str)) {
+                throw InvalidArgument("Duplicate string '" + str + "'.");
+            }
+        }
         myString2T[str] = key;
         myT2String[key] = str;
+    }
+
+
+    void addAlias(const std::string str, const T key) {
+        myString2T[str] = key;
     }
 
 

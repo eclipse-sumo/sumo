@@ -293,7 +293,7 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
     // build edge-internal time lines
     const std::map<std::string, ROEdge*>& edges = net.getEdgeMap();
     for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        (*i).second->buildTimeLines(measure);
+        (*i).second->buildTimeLines(OptionsCont::getOptions().getString("emission-model"), measure);
     }
     return true;
 }

@@ -58,7 +58,7 @@ public:
     static const int HBEFA3_BASE = 1 << 16;
 
 
-    /** @brief Constructor (initializes SumoEmissionClassStrings)
+    /** @brief Constructor (initializes myEmissionClassStrings)
      */
     HelpersHBEFA3();
 
@@ -78,7 +78,7 @@ public:
         if (a < 0.) {
             return 0.;
         }
-        const int index = c - HBEFA3_BASE - 2;
+        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE - 2;
         const SUMOReal kmh = v * 3.6;
         const SUMOReal scale = (e == PollutantsInterface::FUEL) ? 3.6 * 790. : 3.6;
         const double* f = myFunctionParameter[c][e];

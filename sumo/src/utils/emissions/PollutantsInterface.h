@@ -48,15 +48,23 @@
 class PollutantsInterface {
 public:
 
-    enum EmissionType { CO, CO2, HC, NO_X, PM_X, FUEL };
+    enum EmissionType { CO2, CO, HC, FUEL, NO_X, PM_X };
 
     class Helper {
     public:
-        virtual bool knowsClass(const std::string& eClass) {
-            return SumoEmissionClassStrings.hasString(eClass);
+        Helper::Helper(std::string name) : myName(name) {}
+        
+        const std::string& getName() const {
+            return myName;
+        }
+        virtual SUMOEmissionClass getClassByName(const std::string& eClass) {
+            return myEmissionClassStrings.get(eClass);
+        }
+        const std::string getClassName(const SUMOEmissionClass c) const {
+            return myName + "/" + myEmissionClassStrings.getString(c);
         }
         virtual bool isSilent(const SUMOEmissionClass c) {
-            return (c & 0xffffffff) == 1;
+            return (c & 0xffffffff & ~HEAVY_BIT) == 1;
         }
         virtual SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight) const {
             return base;
@@ -77,26 +85,39 @@ public:
         virtual SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) const {
             return -1.;
         }
-        static Helper* myHelpers[];
-    };
+    protected:
+        const std::string myName;
+        StringBijection<SUMOEmissionClass> myEmissionClassStrings;
 
+
+};
+
+    static Helper* myHelpers[];
+    static const int ZERO_EMISSIONS = 0;
     static const int HEAVY_BIT = 1 << 15;
 
     /** @brief Checks whether the string describes a known vehicle class
      * @param[in] eClass The string describing the vehicle emission class
      * @return whether it describes a valid emission class
      */
-    static bool knowsClass(const std::string& eClass);
+    static SUMOEmissionClass getClassByName(std::string model, std::string eClass);
 
 
-    /** @brief Checks whether the emission class describes a bus truck or similar
+    /** @brief Checks whether the string describes a known vehicle class
+     * @param[in] eClass The string describing the vehicle emission class
+     * @return whether it describes a valid emission class
+     */
+    static std::string getName(const SUMOEmissionClass c);
+
+
+    /** @brief Checks whether the emission class describes a bus, truck or similar vehicle
      * @param[in] c The vehicle emission class
      * @return whether it describes a heavy vehicle
      */
     static bool isHeavy(const SUMOEmissionClass c);
 
 
-    /** @brief Checks whether the emission class describes an electric or simlar silent vehicle
+    /** @brief Checks whether the emission class describes an electric or similar silent vehicle
      * @param[in] c The vehicle emission class
      * @return whether it describes a silent vehicle
      */

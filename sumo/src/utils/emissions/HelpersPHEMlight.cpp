@@ -44,14 +44,19 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-HelpersPHEMlight::HelpersPHEMlight() : myIndex(PHEMLIGHT_BASE) {
-    SumoEmissionClassStrings.insert("PHEMlight/unknown", myIndex++);
-    SumoEmissionClassStrings.insert("PHEMlight/zero", myIndex++);
+HelpersPHEMlight::HelpersPHEMlight() : PollutantsInterface::Helper("PHEMlight"), myIndex(PHEMLIGHT_BASE) {
+    myEmissionClassStrings.insert("zero", myIndex++);
 }
 
 
-bool
-HelpersPHEMlight::knowsClass(const std::string& eClass) {
+SUMOEmissionClass
+HelpersPHEMlight::getClassByName(const std::string& eClass) {
+    if (eClass == "unknown" && !myEmissionClassStrings.hasString("unknown")) {
+        myEmissionClassStrings.addAlias("unknown", getClassByName("PKW_G_EU4"));
+    }
+    if (myEmissionClassStrings.hasString(eClass)) {
+        return myEmissionClassStrings.get(eClass);
+    }
     if (eClass.size() < 8 || (eClass.find("_D_EU") == std::string::npos && eClass.find("_G_EU") == std::string::npos)) {
         return false;
     }
@@ -60,21 +65,22 @@ HelpersPHEMlight::knowsClass(const std::string& eClass) {
     if (type == "LB_" || type == "RB_" || type == "LSZ" || eClass.find("LKW") != std::string::npos) {
         index |= PollutantsInterface::HEAVY_BIT;
     }
-    SumoEmissionClassStrings.insert(eClass, index);
-    try {
-        PHEMCEPHandler::getHandlerInstance().GetCep(index);
-    } catch (InvalidArgument e) {
-        SumoEmissionClassStrings.remove(eClass, index);
+    myEmissionClassStrings.insert(eClass, index);
+    if (!PHEMCEPHandler::getHandlerInstance().Load(index, eClass)) {
+        myEmissionClassStrings.remove(eClass, index);
         myIndex--;
-        return false;
+        throw InvalidArgument("File for PHEM emission class " + eClass + " not found.");
     }
-    return true;
+    return index;
 }
 
 
 SUMOReal
 HelpersPHEMlight::getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) {
     PHEMCEP* currCep = PHEMCEPHandler::getHandlerInstance().GetCep(c);
+    if (currCep == 0) {
+        return -1.;
+    }
 	return currCep->GetMaxAccel(v, a, slope); 
 }
 
@@ -135,8 +141,8 @@ HelpersPHEMlight::getClass(const SUMOEmissionClass base, const std::string& vCla
     } else if (vClass == "Trailer") {
         desc = "LSZ_D_EU" + eClassOffset;
     }
-    if (SumoEmissionClassStrings.hasString(desc)) {
-        return SumoEmissionClassStrings.get(desc);
+    if (myEmissionClassStrings.hasString(desc)) {
+        return myEmissionClassStrings.get(desc);
     }
     return base;
 }
@@ -144,7 +150,7 @@ HelpersPHEMlight::getClass(const SUMOEmissionClass base, const std::string& vCla
 
 std::string
 HelpersPHEMlight::getAmitranVehicleClass(const SUMOEmissionClass c) const {
-    const std::string name = getVehicleEmissionTypeName(c);
+    const std::string name = myEmissionClassStrings.getString(c);
     if (name.find("KKR_") != std::string::npos) {
         return "Moped";
     } else if (name.find("RB_") != std::string::npos) {
@@ -166,7 +172,7 @@ HelpersPHEMlight::getAmitranVehicleClass(const SUMOEmissionClass c) const {
 
 std::string
 HelpersPHEMlight::getFuel(const SUMOEmissionClass c) const {
-    const std::string name = getVehicleEmissionTypeName(c);
+    const std::string name = myEmissionClassStrings.getString(c);
     std::string fuel = "Gasoline";
     if (name.find("_D_") != std::string::npos) {
         fuel = "Diesel";
@@ -180,7 +186,7 @@ HelpersPHEMlight::getFuel(const SUMOEmissionClass c) const {
 
 int
 HelpersPHEMlight::getEuroClass(const SUMOEmissionClass c) const {
-    const std::string name = getVehicleEmissionTypeName(c);
+    const std::string name = myEmissionClassStrings.getString(c);
     if (name.find("_EU1") != std::string::npos) {
         return 1;
     } else if (name.find("_EU2") != std::string::npos) {
@@ -200,7 +206,7 @@ HelpersPHEMlight::getEuroClass(const SUMOEmissionClass c) const {
 
 SUMOReal
 HelpersPHEMlight::getWeight(const SUMOEmissionClass c) const {
-    const std::string name = getVehicleEmissionTypeName(c);
+    const std::string name = myEmissionClassStrings.getString(c);
     if (name.find("LNF_") != std::string::npos) {
         if (name.find("_III") != std::string::npos) {
             return 2630.;
@@ -224,6 +230,9 @@ HelpersPHEMlight::getWeight(const SUMOEmissionClass c) const {
 SUMOReal
 HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
     const PHEMCEP* const currCep = PHEMCEPHandler::getHandlerInstance().GetCep(c);
+    if (currCep == 0) {
+        return 0.;
+    }
     const double power = currCep->CalcPower(v, a, slope);
     switch (e) {
         case PollutantsInterface::CO:

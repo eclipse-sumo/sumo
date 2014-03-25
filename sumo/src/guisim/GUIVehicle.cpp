@@ -40,6 +40,7 @@
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOVehicleParameter.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -372,7 +373,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("length", false, myType->getLength());
     ret->mkItem("minGap", false, myType->getMinGap());
     ret->mkItem("vehicle class", false, SumoVehicleClassStrings.getString(myType->getVehicleClass()));
-    ret->mkItem("emission class", false, SumoEmissionClassStrings.getString(myType->getEmissionClass()));
+    ret->mkItem("emission class", false, PollutantsInterface::getName(myType->getEmissionClass()));
     ret->mkItem("maximum speed [m/s]", false, getMaxSpeed());
     ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
     ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());

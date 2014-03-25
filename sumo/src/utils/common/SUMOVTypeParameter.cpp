@@ -53,7 +53,7 @@ SUMOVTypeParameter::SUMOVTypeParameter()
       minGap(DEFAULT_VEH_MINGAP), maxSpeed(DEFAULT_VEH_MAXSPEED),
       defaultProbability(DEFAULT_VEH_PROB),
       speedFactor(DEFAULT_VEH_SPEEDFACTOR), speedDev(DEFAULT_VEH_SPEEDDEV),
-      emissionClass(0), color(RGBColor::DEFAULT_COLOR),
+      emissionClass(PollutantsInterface::getClassByName(OptionsCont::getOptions().getString("emission-model"), "unknown")), color(RGBColor::DEFAULT_COLOR),
       vehicleClass(SVC_UNKNOWN),
       impatience(0),
       width(DEFAULT_VEH_WIDTH),
@@ -92,7 +92,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_VCLASS, toString(vehicleClass));
     }
     if (wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
-        dev.writeAttr(SUMO_ATTR_EMISSIONCLASS, getVehicleEmissionTypeName(emissionClass));
+        dev.writeAttr(SUMO_ATTR_EMISSIONCLASS, PollutantsInterface::getName(emissionClass));
     }
     if (wasSet(VTYPEPARS_IMPATIENCE_SET)) {
         if (impatience == -std::numeric_limits<SUMOReal>::max()) {

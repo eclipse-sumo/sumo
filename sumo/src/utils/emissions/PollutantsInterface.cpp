@@ -45,15 +45,31 @@
 // ===========================================================================
 // static definitions
 // ===========================================================================
-PollutantsInterface::Helper* PollutantsInterface::Helper::myHelpers[] = {new HelpersHBEFA(), new HelpersHBEFA3(), new HelpersPHEMlight()};
+PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {new HelpersHBEFA(), new HelpersHBEFA3(), new HelpersPHEMlight()};
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool
-PollutantsInterface::knowsClass(const std::string& eClass) {
-    return Helper::myHelpers[0]->knowsClass(eClass) || Helper::myHelpers[1]->knowsClass(eClass) || Helper::myHelpers[2]->knowsClass(eClass);
+SUMOEmissionClass
+PollutantsInterface::getClassByName(std::string model, std::string eClass) {
+    int sep = eClass.find("/");
+    if (sep != std::string::npos) {
+        model = eClass.substr(0, sep);
+        eClass = eClass.substr(sep + 1);
+    }
+    for (int i = 0; i < 3; i++) {
+        if (myHelpers[i]->getName() == model) {
+            return myHelpers[i]->getClassByName(eClass);
+        }
+    }
+    throw InvalidArgument("Unknown emission model '" + model + "' or emission class '" + eClass + "'.");
+}
+
+
+std::string
+PollutantsInterface::getName(const SUMOEmissionClass c) {
+    return myHelpers[c >> 16]->getClassName(c);
 }
 
 
@@ -65,80 +81,80 @@ PollutantsInterface::isHeavy(const SUMOEmissionClass c) {
 
 bool
 PollutantsInterface::isSilent(const SUMOEmissionClass c) {
-    return Helper::myHelpers[c >> 16]->isSilent(c);
+    return myHelpers[c >> 16]->isSilent(c);
 }
 
 
 SUMOReal
 PollutantsInterface::getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) {
-    return Helper::myHelpers[c >> 16]->getMaxAccel(c, v, a, slope);
+    return myHelpers[c >> 16]->getMaxAccel(c, v, a, slope);
 }
 
 
 SUMOEmissionClass
 PollutantsInterface::getClass(const SUMOEmissionClass base, const std::string& vClass,
                               const std::string& fuel, const std::string& eClass, const double weight) {
-    return Helper::myHelpers[base >> 16]->getClass(base, vClass, fuel, eClass, weight);
+    return myHelpers[base >> 16]->getClass(base, vClass, fuel, eClass, weight);
 }
 
 
 std::string
 PollutantsInterface::getAmitranVehicleClass(const SUMOEmissionClass c) {
-    return Helper::myHelpers[c >> 16]->getAmitranVehicleClass(c);
+    return myHelpers[c >> 16]->getAmitranVehicleClass(c);
 }
 
 
 std::string
 PollutantsInterface::getFuel(const SUMOEmissionClass c) {
-    return Helper::myHelpers[c >> 16]->getFuel(c);
+    return myHelpers[c >> 16]->getFuel(c);
 }
 
 
 int
 PollutantsInterface::getEuroClass(const SUMOEmissionClass c) {
-    return Helper::myHelpers[c >> 16]->getEuroClass(c);
+    return myHelpers[c >> 16]->getEuroClass(c);
 }
 
 
 SUMOReal
 PollutantsInterface::getWeight(const SUMOEmissionClass c) {
-    return Helper::myHelpers[c >> 16]->getWeight(c);
+    return myHelpers[c >> 16]->getWeight(c);
 }
 
 
 SUMOReal
 PollutantsInterface::computeCO(SUMOEmissionClass c, double v, double a, double slope) {
-    return Helper::myHelpers[c >> 16]->compute(c, CO, v, a, slope);
+    return myHelpers[c >> 16]->compute(c, CO, v, a, slope);
 }
 
 
 SUMOReal
 PollutantsInterface::computeCO2(SUMOEmissionClass c, double v, double a, double slope) {
-    return Helper::myHelpers[c >> 16]->compute(c, CO2, v, a, slope);
+    return myHelpers[c >> 16]->compute(c, CO2, v, a, slope);
 }
 
 
 SUMOReal
 PollutantsInterface::computeHC(SUMOEmissionClass c, double v, double a, double slope) {
-    return Helper::myHelpers[c >> 16]->compute(c, HC, v, a, slope);
+    return myHelpers[c >> 16]->compute(c, HC, v, a, slope);
 }
 
 
 SUMOReal
 PollutantsInterface::computeNOx(SUMOEmissionClass c, double v, double a, double slope) {
-    return Helper::myHelpers[c >> 16]->compute(c, NO_X, v, a, slope);
+    return myHelpers[c >> 16]->compute(c, NO_X, v, a, slope);
 }
 
 
 SUMOReal
 PollutantsInterface::computePMx(SUMOEmissionClass c, double v, double a, double slope) {
-    return Helper::myHelpers[c >> 16]->compute(c, PM_X, v, a, slope);
+    return myHelpers[c >> 16]->compute(c, PM_X, v, a, slope);
 }
 
 
 SUMOReal
 PollutantsInterface::computeFuel(SUMOEmissionClass c, double v, double a, double slope) {
-    return Helper::myHelpers[c >> 16]->compute(c, FUEL, v, a, slope);
+    return myHelpers[c >> 16]->compute(c, FUEL, v, a, slope);
 }
 
 
@@ -146,37 +162,37 @@ PollutantsInterface::computeFuel(SUMOEmissionClass c, double v, double a, double
 
 SUMOReal
 PollutantsInterface::computeDefaultCO(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    return (Helper::myHelpers[c >> 16]->compute(c, CO, v, 0, slope) + Helper::myHelpers[c >> 16]->compute(c, CO, v-a, a, slope)) * tt / 2.;
+    return (myHelpers[c >> 16]->compute(c, CO, v, 0, slope) + myHelpers[c >> 16]->compute(c, CO, v-a, a, slope)) * tt / 2.;
 }
 
 
 SUMOReal
 PollutantsInterface::computeDefaultCO2(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    return (Helper::myHelpers[c >> 16]->compute(c, CO2, v, 0, slope) + Helper::myHelpers[c >> 16]->compute(c, CO2, v-a, a, slope)) * tt / 2.;
+    return (myHelpers[c >> 16]->compute(c, CO2, v, 0, slope) + myHelpers[c >> 16]->compute(c, CO2, v-a, a, slope)) * tt / 2.;
 }
 
 
 SUMOReal
 PollutantsInterface::computeDefaultHC(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    return (Helper::myHelpers[c >> 16]->compute(c, HC, v, 0, slope) + Helper::myHelpers[c >> 16]->compute(c, HC, v-a, a, slope)) * tt / 2.;
+    return (myHelpers[c >> 16]->compute(c, HC, v, 0, slope) + myHelpers[c >> 16]->compute(c, HC, v-a, a, slope)) * tt / 2.;
 }
 
 
 SUMOReal
 PollutantsInterface::computeDefaultNOx(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    return (Helper::myHelpers[c >> 16]->compute(c, NO_X, v, 0, slope) + Helper::myHelpers[c >> 16]->compute(c, NO_X, v-a, a, slope)) * tt / 2.;
+    return (myHelpers[c >> 16]->compute(c, NO_X, v, 0, slope) + myHelpers[c >> 16]->compute(c, NO_X, v-a, a, slope)) * tt / 2.;
 }
 
 
 SUMOReal
 PollutantsInterface::computeDefaultPMx(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    return (Helper::myHelpers[c >> 16]->compute(c, PM_X, v, 0, slope) + Helper::myHelpers[c >> 16]->compute(c, PM_X, v-a, a, slope)) * tt / 2.;
+    return (myHelpers[c >> 16]->compute(c, PM_X, v, 0, slope) + myHelpers[c >> 16]->compute(c, PM_X, v-a, a, slope)) * tt / 2.;
 }
 
 
 SUMOReal
 PollutantsInterface::computeDefaultFuel(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    return (Helper::myHelpers[c >> 16]->compute(c, FUEL, v, 0, slope) + Helper::myHelpers[c >> 16]->compute(c, FUEL, v-a, a, slope)) * tt / 2.;
+    return (myHelpers[c >> 16]->compute(c, FUEL, v, 0, slope) + myHelpers[c >> 16]->compute(c, FUEL, v-a, a, slope)) * tt / 2.;
 }
 
 

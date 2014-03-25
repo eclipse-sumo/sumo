@@ -200,7 +200,6 @@ extern const SVCPermissions SVCFreeForAll;
  * @see PollutantsInterface
  */
 typedef int SUMOEmissionClass;
-extern StringBijection<SUMOEmissionClass> SumoEmissionClassStrings;
 
 
 // ===========================================================================
@@ -297,23 +296,6 @@ extern std::string getVehicleShapeName(SUMOVehicleShape id);
  * @return The internal representation of this class
  */
 extern SUMOVehicleShape getVehicleShapeID(const std::string& name);
-
-
-// ---------------------------------------------------------------------------
-// emission class
-// ---------------------------------------------------------------------------
-/** @brief Returns the class name of the emission class given by its id
- * @param[in] id The id of the emission class
- * @return The string representation of this class
- */
-extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id);
-
-
-/** @brief Returns the class id of the emission class given by its name
- * @param[in] name The name of the emission class
- * @return The internal representation of this class
- */
-extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string& name);
 
 
 /** @brief Returns whether an edge with the given permission is a railway edge

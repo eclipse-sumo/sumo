@@ -60,7 +60,7 @@ public:
      * @param[in] eClass The string describing the vehicle emission class
      * @return whether it describes a valid emission class
      */
-    bool knowsClass(const std::string& eClass);
+    SUMOEmissionClass getClassByName(const std::string& eClass);
 
 
     SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight) const;

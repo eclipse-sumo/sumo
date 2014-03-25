@@ -146,7 +146,7 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
 
 #ifdef HAVE_INTERNAL // catchall for internal stuff
         oc.doRegister("weight-period", new Option_String("3600", "TIME"));
-        oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hirarchy");
+        oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy");
 #endif
     }
 
@@ -168,6 +168,9 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
 
     oc.doRegister("arrivalspeed", new Option_String());
     oc.addDescription("arrivalspeed", "Defaults", "Assigns a default arrival speed");
+
+    oc.doRegister("emission-model", new Option_String("HBEFA"));
+    oc.addDescription("emission-model", "Defaults", "Use the model given as default for emission calculations");
 
     oc.doRegister("defaults-override", new Option_Bool(false));
     oc.addDescription("defaults-override", "Defaults", "Defaults will override given values");

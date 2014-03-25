@@ -53,7 +53,7 @@
  */
 class HelpersHBEFA : public PollutantsInterface::Helper {
 public:
-    /** @brief Constructor (initializes SumoEmissionClassStrings)
+    /** @brief Constructor (initializes myEmissionClassStrings)
      */
     HelpersHBEFA();
 
@@ -70,16 +70,21 @@ public:
      * @param[in] a The vehicle's current acceleration
      */
     inline SUMOReal compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
+        if (c == PollutantsInterface::ZERO_EMISSIONS) {
+            return 0.;
+        }
+        int index = c;
+        index = (index & ~PollutantsInterface::HEAVY_BIT) - 1;
         const SUMOReal kmh = v * 3.6;
         const SUMOReal scale = (e == PollutantsInterface::FUEL) ? 3.6 * 790. : 3.6;
-        if (c > 42) {
-            const double* f = myFunctionParameter[c - 42] + 6 * e;
+        if (index > 42) {
+            const double* f = myFunctionParameter[index - 42] + 6 * e;
             return (SUMOReal) MAX2((f[0] + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
         }
         if (a < 0.) {
             return 0.;
         }
-        const double* f = myFunctionParameter[c] + 6 * e;
+        const double* f = myFunctionParameter[index] + 6 * e;
         const double alpha = asin(a / 9.81) * 180. / M_PI;
         return (SUMOReal) MAX2((f[0] + f[1] * alpha * kmh + f[2] * alpha * alpha * kmh + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
     }
