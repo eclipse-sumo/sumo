@@ -42,6 +42,7 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUILane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSVehicle.h>
 
 #include "GUISUMOViewParent.h"
 #include "GUILoadThread.h"
@@ -76,11 +77,6 @@
 #include "dialogs/GUIDialog_AboutSUMO.h"
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
-
-#ifndef NO_TRACI
-#include <traci-server/TraCIServer.h>
-#include "TraCIServerAPI_GUI.h"
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -1054,22 +1050,6 @@ void
 GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
     myAmLoading = false;
     GUIEvent_SimulationLoaded* ec = static_cast<GUIEvent_SimulationLoaded*>(e);
-    if (ec->myNet != 0) {
-#ifndef NO_TRACI
-        std::map<int, TraCIServer::CmdExecutor> execs;
-        execs[CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
-        execs[CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
-        try {
-            TraCIServer::openSocket(execs);
-        } catch (ProcessError& e) {
-            myMessageWindow->appendText(EVENT_ERROR_OCCURED, e.what());
-            WRITE_ERROR(e.what());
-            delete ec->myNet;
-            ec->myNet = 0;
-        }
-#endif
-    }
-
     // check whether the loading was successfull
     if (ec->myNet == 0) {
         // report failure

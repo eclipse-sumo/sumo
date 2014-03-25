@@ -248,15 +248,10 @@ TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::Vehicl
 
 void
 TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
+    if (myInstance == 0) {
+        throw ProcessError("TraciServer not initialized");
+    }
     try {
-        if (myInstance == 0) {
-            if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
-                myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
-                                             OptionsCont::getOptions().getInt("remote-port"));
-            } else {
-                return;
-            }
-        }
         if (myInstance->myAmEmbedded || step < myInstance->myTargetTime) {
             return;
         }
