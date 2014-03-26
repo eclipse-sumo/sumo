@@ -54,6 +54,8 @@ enum SUMOVehicleShape {
     SVS_PEDESTRIAN,
     /// @brief render as a bicycle
     SVS_BICYCLE,
+    /// @brief render as a moped
+    SVS_MOPED,
     /// @brief render as a motorcycle
     SVS_MOTORCYCLE,
     /// @brief render as a passenger vehicle
@@ -69,11 +71,11 @@ enum SUMOVehicleShape {
     /// @brief render as a delivery vehicle
     SVS_DELIVERY,
     /// @brief render as a transport vehicle
-    SVS_TRANSPORT,
+    SVS_TRUCK,
     /// @brief render as a semi-trailer transport vehicle ("Sattelschlepper")
-    SVS_TRANSPORT_SEMITRAILER,
+    SVS_TRUCK_SEMITRAILER,
     /// @brief render as a transport vehicle with one trailer
-    SVS_TRANSPORT_1TRAILER,
+    SVS_TRUCK_1TRAILER,
     /// @brief render as a bus
     SVS_BUS,
     /// @brief render as a city bus
@@ -161,28 +163,32 @@ enum SUMOVehicleClass {
     /// @brief vehicle is a small delivery vehicle
     SVC_DELIVERY = 1 << 11,
     /// @brief vehicle is a large transport vehicle
-    SVC_TRANSPORT = 1 << 12,
+    SVC_TRUCK = 1 << 12,
+    /// @brief vehicle is a large transport vehicle
+    SVC_TRAILER = 1 << 13,
     /// @brief vehicle is a light rail
-    SVC_LIGHTRAIL = 1 << 13,
+    SVC_LIGHTRAIL = 1 << 14,
     /// @brief vehicle is a city rail
-    SVC_CITYRAIL = 1 << 14,
+    SVC_CITYRAIL = 1 << 15,
     /// @brief vehicle is a slow moving transport rail
-    SVC_RAIL_SLOW = 1 << 15,
+    SVC_RAIL_SLOW = 1 << 16,
     /// @brief vehicle is a fast moving rail
-    SVC_RAIL_FAST = 1 << 16,
+    SVC_RAIL_FAST = 1 << 17,
 
     /// @brief vehicle is a motorcycle
-    SVC_MOTORCYCLE = 1 << 17,
+    SVC_MOTORCYCLE = 1 << 18,
     /// @brief vehicle is a moped
-    SVC_MOPED = 1 << 18,
+    SVC_MOPED = 1 << 19,
     /// @brief vehicle is a bicycle
-    SVC_BICYCLE = 1 << 19,
+    SVC_BICYCLE = 1 << 20,
     /// @brief is a pedestrian
-    SVC_PEDESTRIAN = 1 << 20,
+    SVC_PEDESTRIAN = 1 << 21,
+    /// @brief is an electric vehicle
+    SVC_E_VEHICLE = 1 << 22,
     /// @brief is a user-defined type
-    SVC_CUSTOM1 = 1 << 21,
+    SVC_CUSTOM1 = 1 << 23,
     /// @brief is a user-defined type
-    SVC_CUSTOM2 = 1 << 22
+    SVC_CUSTOM2 = 1 << 24
                   //@}
 };
 
@@ -311,11 +317,8 @@ extern bool isRailway(SVCPermissions permissions);
 // default vehicle type parameter
 // ---------------------------------------------------------------------------
 extern const std::string DEFAULT_VTYPE_ID;
-extern const SUMOReal DEFAULT_VEH_ACCEL;
-extern const SUMOReal DEFAULT_VEH_SIGMA;
 
 extern const SUMOReal DEFAULT_VEH_PROB; // !!! does this belong here?
-extern const SUMOReal DEFAULT_PERSON_SPEED; // !!! does this belong here?
 
 #endif
 

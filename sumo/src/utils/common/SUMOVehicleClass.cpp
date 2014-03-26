@@ -62,7 +62,8 @@ StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"taxi",              SVC_TAXI},
     {"bus",               SVC_BUS},
     {"delivery",          SVC_DELIVERY},
-    {"transport",         SVC_TRANSPORT},
+    {"truck",             SVC_TRUCK},
+    {"trailer",           SVC_TRAILER},
     {"lightrail",         SVC_LIGHTRAIL},
     {"cityrail",          SVC_CITYRAIL},
     {"rail_slow",         SVC_RAIL_SLOW},
@@ -71,6 +72,7 @@ StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"moped",             SVC_MOPED},
     {"bicycle",           SVC_BICYCLE},
     {"pedestrian",        SVC_PEDESTRIAN},
+    {"evehicle",          SVC_E_VEHICLE},
     {"custom1",           SVC_CUSTOM1},
     {"custom2",           SVC_CUSTOM2}
 };
@@ -82,6 +84,7 @@ StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
 StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"pedestrian",            SVS_PEDESTRIAN},
     {"bicycle",               SVS_BICYCLE},
+    {"moped",                 SVS_MOPED},
     {"motorcycle",            SVS_MOTORCYCLE},
     {"passenger",             SVS_PASSENGER},
     {"passenger/sedan",       SVS_PASSENGER_SEDAN},
@@ -89,9 +92,9 @@ StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"passenger/wagon",       SVS_PASSENGER_WAGON},
     {"passenger/van",         SVS_PASSENGER_VAN},
     {"delivery",              SVS_DELIVERY},
-    {"transport",             SVS_TRANSPORT},
-    {"transport/semitrailer", SVS_TRANSPORT_SEMITRAILER},
-    {"transport/trailer",     SVS_TRANSPORT_1TRAILER},
+    {"truck",                 SVS_TRUCK},
+    {"truck/semitrailer",     SVS_TRUCK_SEMITRAILER},
+    {"truck/trailer",         SVS_TRUCK_1TRAILER},
     {"bus",                   SVS_BUS},
     {"bus/city",              SVS_BUS_CITY},
     {"bus/flexible",          SVS_BUS_CITY_FLEXIBLE},
@@ -278,11 +281,8 @@ bool isRailway(SVCPermissions permissions) {
 
 
 const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
-const SUMOReal DEFAULT_VEH_ACCEL(2.6);
-const SUMOReal DEFAULT_VEH_SIGMA(0.5);
 
 const SUMOReal DEFAULT_VEH_PROB(1.);
-const SUMOReal DEFAULT_PERSON_SPEED(5. / 3.6);
 
 /****************************************************************************/
 

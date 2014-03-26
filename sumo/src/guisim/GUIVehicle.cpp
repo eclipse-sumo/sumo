@@ -477,6 +477,7 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             glTranslated(0, 0, -.04);
             break;
         case SVS_BICYCLE:
+        case SVS_MOPED:
         case SVS_MOTORCYCLE: {
             glPushMatrix();
             glTranslated(.5, 0, 0);
@@ -521,9 +522,9 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             drawPoly(vehiclePoly_DeliveryMediumRightGlass, 4.5);
             drawPoly(vehiclePoly_DeliveryMediumLeftGlass, 4.5);
             break;
-        case SVS_TRANSPORT:
-        case SVS_TRANSPORT_SEMITRAILER:
-        case SVS_TRANSPORT_1TRAILER:
+        case SVS_TRUCK:
+        case SVS_TRUCK_SEMITRAILER:
+        case SVS_TRUCK_1TRAILER:
             glScaled(1. / (length), 1, 1.);
             drawPoly(vehiclePoly_TransportBody, 4);
             glColor3d(0, 0, 0);
@@ -675,6 +676,7 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             glVertex2d(0, 0);
             glEnd();
             break;
+        case SVS_MOPED:
         case SVS_MOTORCYCLE:
             //glScaled(length, 1, 1.);
             glBegin(GL_TRIANGLE_FAN);
@@ -710,15 +712,15 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
         case SVS_PASSENGER_VAN:
         case SVS_DELIVERY:
             break;
-        case SVS_TRANSPORT:
+        case SVS_TRUCK:
             GLHelper::setColor(current);
             GLHelper::drawBoxLine(Position(2.3, 0), 90., length - 2.3, .5);
             break;
-        case SVS_TRANSPORT_SEMITRAILER:
+        case SVS_TRUCK_SEMITRAILER:
             GLHelper::setColor(current);
             GLHelper::drawBoxLine(Position(2.8, 0), 90., length - 2.8, .5);
             break;
-        case SVS_TRANSPORT_1TRAILER: {
+        case SVS_TRUCK_1TRAILER: {
             GLHelper::setColor(current);
             SUMOReal l = length - 2.3;
             l = l / 2.;

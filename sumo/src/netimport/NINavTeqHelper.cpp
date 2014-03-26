@@ -144,9 +144,10 @@ NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS) {
     if (classS[6] == '1') {
         e.allowVehicleClass(-1, SVC_DELIVERY);
     }
-    // Transport Truck -- becomes SVC_TRANSPORT
+    // Transport Truck -- becomes SVC_TRUCK|SVC_TRAILER
     if (classS[7] == '1') {
-        e.allowVehicleClass(-1, SVC_TRANSPORT);
+        e.allowVehicleClass(-1, SVC_TRUCK);
+        e.allowVehicleClass(-1, SVC_TRAILER);
     }
     // Bicycle -- becomes SVC_BICYCLE
     if (classS[8] == '1') {
@@ -200,9 +201,10 @@ NINavTeqHelper::addVehicleClassesV6(NBEdge& e, const std::string& oclassS) {
     if (classS[7] == '1') {
         e.allowVehicleClass(-1, SVC_DELIVERY);
     }
-    // Transport Truck -- becomes SVC_TRANSPORT
+    // Transport Truck -- becomes SVC_TRUCK|SVC_TRAILER
     if (classS[8] == '1') {
-        e.allowVehicleClass(-1, SVC_TRANSPORT);
+        e.allowVehicleClass(-1, SVC_TRUCK);
+        e.allowVehicleClass(-1, SVC_TRAILER);
     }
     // Motorcycle -- becomes SVC_MOTORCYCLE
     if (classS[9] == '1') {
