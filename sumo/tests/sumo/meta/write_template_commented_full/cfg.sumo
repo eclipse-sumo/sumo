@@ -72,6 +72,9 @@
         <!-- Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) -->
         <vtk-output value="" type="FILE"/>
 
+        <!-- Save the vehicle trajectories in the Amitran format -->
+        <amitran-output value="" type="FILE"/>
+
         <!-- Save aggregated vehicle departure info into FILE -->
         <summary-output value="" synonymes="emissions emissions-output summary" type="FILE"/>
 
@@ -221,6 +224,9 @@
     <emissions>
         <!-- Determines where to load PHEMlight definitions from. -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
+
+        <!-- Use the model given as default for emission calculations -->
+        <emission-model value="HBEFA2" type="STR"/>
 
         <!-- The probability for a vehicle to have an emission logging device -->
         <device.emissions.probability value="0" type="FLOAT"/>

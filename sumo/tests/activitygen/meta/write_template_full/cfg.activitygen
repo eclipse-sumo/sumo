@@ -20,6 +20,7 @@
     </output>
 
     <processing>
+        <emission-model value="HBEFA2" type="STR" help="Use the model given as default for emission calculations"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
     </processing>

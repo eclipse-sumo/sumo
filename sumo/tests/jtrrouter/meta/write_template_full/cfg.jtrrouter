@@ -48,6 +48,7 @@
         <arrivallane value="" type="STR" help="Assigns a default arrival lane"/>
         <arrivalpos value="" type="STR" help="Assigns a default arrival position"/>
         <arrivalspeed value="" type="STR" help="Assigns a default arrival speed"/>
+        <emission-model value="HBEFA2" type="STR" help="Use the model given as default for emission calculations"/>
         <defaults-override value="false" type="BOOL" help="Defaults will override given values"/>
     </defaults>
 

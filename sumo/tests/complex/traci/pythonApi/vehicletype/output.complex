@@ -14,7 +14,7 @@ decel 4.5
 imperfection 0.5
 tau 1.0
 vClass unknown
-emissionclass unknown
+emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
 width 2.0
@@ -35,7 +35,7 @@ decel 1.1
 imperfection 0.1
 tau 1.1
 vClass bicycle
-emissionclass zero
+emissionclass HBEFA2/zero
 shape bicycle
 MinGap 1.1
 width 1.1

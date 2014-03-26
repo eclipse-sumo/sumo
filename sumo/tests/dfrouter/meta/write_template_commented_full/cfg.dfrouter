@@ -156,6 +156,9 @@
         <!-- Assigns a default arrival speed -->
         <arrivalspeed value="" type="STR"/>
 
+        <!-- Use the model given as default for emission calculations -->
+        <emission-model value="HBEFA2" type="STR"/>
+
     </defaults>
 
     <time>

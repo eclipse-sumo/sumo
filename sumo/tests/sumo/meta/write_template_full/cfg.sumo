@@ -30,6 +30,7 @@
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>
         <vtk-output value="" type="FILE" help="Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"/>
+        <amitran-output value="" type="FILE" help="Save the vehicle trajectories in the Amitran format"/>
         <summary-output value="" synonymes="emissions emissions-output summary" type="FILE" help="Save aggregated vehicle departure info into FILE"/>
         <tripinfo-output value="" synonymes="tripinfo" type="FILE" help="Save single vehicle trip info into FILE"/>
         <vehroute-output value="" synonymes="vehroutes" type="FILE" help="Save single vehicle route info into FILE"/>
@@ -88,6 +89,7 @@
 
     <emissions>
         <phemlight-path value="./PHEMlight/" type="FILE" help="Determines where to load PHEMlight definitions from."/>
+        <emission-model value="HBEFA2" type="STR" help="Use the model given as default for emission calculations"/>
         <device.emissions.probability value="0" type="FLOAT" help="The probability for a vehicle to have an emission logging device"/>
         <device.emissions.explicit value="" synonymes="device.emissions.knownveh" type="STR" help="Assign a device to named vehicles"/>
         <device.emissions.deterministic value="false" type="BOOL" help="The devices are set deterministic using a fraction of 1000"/>

@@ -76,6 +76,8 @@ Defaults Options:
   --arrivallane STR                    Assigns a default arrival lane
   --arrivalpos STR                     Assigns a default arrival position
   --arrivalspeed STR                   Assigns a default arrival speed
+  --emission-model STR                 Use the model given as default for
+                                         emission calculations
 
 Time Options:
   -b, --begin TIME                     Defines the begin time;
