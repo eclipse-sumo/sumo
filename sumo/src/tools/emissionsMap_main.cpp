@@ -100,6 +100,8 @@ main(int argc, char** argv) {
     oc.doRegister("iterate", 'i', new Option_Bool(false));
     oc.addDescription("iterate", "Processing", "If set, maps for all available emissions are written.");
 
+    oc.doRegister("emission-model", 'm', new Option_String("HBEFA2"));
+    oc.addDescription("emission-model", "Processing", "Defines the name of the default emission model to generate the map for.");
     oc.doRegister("emission-class", 'e', new Option_String());
     oc.addDescription("emission-class", "Processing", "Defines the name of the emission class to generate the map for.");
 
@@ -125,7 +127,7 @@ main(int argc, char** argv) {
     oc.addOptionSubTopic("Output");
     oc.doRegister("output-file", 'o', new Option_String());
     oc.addSynonyme("output", "output-file");
-    oc.addDescription("emission-class", "Output", "Defines the file (or the path if --iterate was set) to write the map(s) into.");
+    oc.addDescription("output", "Output", "Defines the file (or the path if --iterate was set) to write the map(s) into.");
 
     oc.addOptionSubTopic("Emissions");
     oc.doRegister("phemlight-path", 'p', new Option_FileName("./PHEMlight/"));
@@ -165,20 +167,18 @@ main(int argc, char** argv) {
             if (!oc.isSet("output-file")) {
                 throw ProcessError("The output file (-o) must be given.");
             }
-            SUMOEmissionClass c = getVehicleEmissionTypeID(oc.getString("emission-class"));
+            const SUMOEmissionClass c = PollutantsInterface::getClassByName(oc.getString("emission-model"), oc.getString("emission-class"));
             single(oc.getString("output-file"), oc.getString("emission-class"),
                    c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
         } else {
             if (!oc.isSet("output-file")) {
                 oc.set("output-file", "./");
             }
-            // let's assume it's an old, plain enum
-            for (int ci = SVE_UNKNOWN; ci != SVE_META_PHEMLIGHT_END; ++ci) {
-                SUMOEmissionClass c = (SUMOEmissionClass) ci;
-                if (SumoEmissionClassStrings.has(c)) {
-                    single(oc.getString("output-file") + getVehicleEmissionTypeName(c) + ".csv", getVehicleEmissionTypeName(c),
-                           c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
-                }
+            const std::vector<SUMOEmissionClass> classes = PollutantsInterface::getAllClasses();
+            for (std::vector<SUMOEmissionClass>::const_iterator ci = classes.begin(); ci != classes.end(); ++ci) {
+                SUMOEmissionClass c = *ci;
+                single(oc.getString("output-file") + PollutantsInterface::getName(c) + ".csv", PollutantsInterface::getName(c),
+                        c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
             }
         }
     } catch (InvalidArgument& e) {

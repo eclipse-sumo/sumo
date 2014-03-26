@@ -61,7 +61,7 @@ public:
     ~TrajectoriesHandler();
 
     void writeEmissions(std::ostream& o, const std::string id,
-                        SUMOEmissionClass c,
+                        const SUMOEmissionClass c,
                         const SUMOReal t, const SUMOReal v,
                         SUMOReal a=INVALID_VALUE, SUMOReal s=INVALID_VALUE);
 

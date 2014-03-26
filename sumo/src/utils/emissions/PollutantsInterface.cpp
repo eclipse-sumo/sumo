@@ -67,6 +67,16 @@ PollutantsInterface::getClassByName(std::string model, std::string eClass, const
 }
 
 
+const std::vector<SUMOEmissionClass>
+PollutantsInterface::getAllClasses() {
+    std::vector<SUMOEmissionClass> result;
+    for (int i = 0; i < 3; i++) {
+        myHelpers[i]->addAllClassesInto(result);
+    }
+    return result;
+}
+
+
 std::string
 PollutantsInterface::getName(const SUMOEmissionClass c) {
     return myHelpers[c >> 16]->getClassName(c);

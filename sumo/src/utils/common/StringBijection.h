@@ -147,6 +147,14 @@ public:
     }
 
 
+    void addKeysInto(std::vector<T>& list) const {
+        typename std::map<T, std::string>::const_iterator it; // learn something new every day
+        for (it = myT2String.begin(); it != myT2String.end(); it++) {
+            list.push_back(it->first);
+        }
+    }
+
+
 private:
     std::map<std::string, T> myString2T;
     std::map<T, std::string> myT2String;

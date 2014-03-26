@@ -97,12 +97,9 @@ TrajectoriesHandler::myStartElement(int element,
 
 void
 TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
-                                    SUMOEmissionClass c,
+                                    const SUMOEmissionClass c,
                                     const SUMOReal t, const SUMOReal v,
                                     SUMOReal a, SUMOReal s) {
-    if (c == SVE_UNKNOWN) {
-        c = myDefaultClass;
-    }
     if (myComputeA) {
         a = v - myLastV[id];
         myLastV[id] = v;

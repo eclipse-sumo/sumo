@@ -49,6 +49,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
 #include "TrajectoriesHandler.h"
@@ -85,7 +86,9 @@ main(int argc, char** argv) {
     oc.addSynonyme("amitran", "netstate-file");
     oc.addDescription("netstate-file", "Input", "Defines the netstate, route and trajectory files to read the driving cycles from.");
 
-    oc.doRegister("emission-class", 'e', new Option_String());
+    oc.doRegister("emission-model", 'm', new Option_String("HBEFA2"));
+    oc.addDescription("emission-model", "Processing", "Defines the name of the default emission model to generate the map for.");
+    oc.doRegister("emission-class", 'e', new Option_String("unknown"));
     oc.addDescription("emission-class", "Input", "Defines for which emission class the emissions shall be generated. ");
 
 
@@ -132,7 +135,8 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        TrajectoriesHandler handler(oc.getBool("compute-a"), getVehicleEmissionTypeID(oc.getString("emission-class")), oc.getFloat("slope"));
+        const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-model"), oc.getString("emission-class"));
+        TrajectoriesHandler handler(oc.getBool("compute-a"), defaultClass, oc.getFloat("slope"));
 
         quiet = oc.getBool("quiet");
         if (!oc.isSet("output-file")) {
@@ -167,7 +171,7 @@ main(int argc, char** argv) {
                     l += v;
                     const SUMOReal a = !computeA && st.hasNext() ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
                     const SUMOReal s = haveSlope ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
-                    handler.writeEmissions(o, "", SVE_UNKNOWN, t, v, a, s);
+                    handler.writeEmissions(o, "", defaultClass, t, v, a, s);
                 } catch (EmptyData&) {
                     throw ProcessError("Missing an entry in line '" + line + "'.");
                 } catch (NumberFormatException&) {
