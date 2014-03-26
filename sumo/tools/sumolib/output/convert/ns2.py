@@ -29,14 +29,23 @@ def fcd2ns2mobility(inpFCD, outSTRM, ignored):
   end = None
   area = [None, None, None, None]
   vehInfo = {}
+  removed = set()
+  ignoring = set()
   for timestep in inpFCD:
     if begin<0: begin = timestep.time
     end = timestep.time
     seen = set()
     if not timestep.vehicle:
-      _writeMissing(timestep.time, vIDm, seen, vehInfo)
+      _writeMissing(timestep.time, vIDm, seen, vehInfo, removed)
       continue
     for v in timestep.vehicle:
+      if v.id in ignoring:
+        continue
+      if v.id in removed:
+        print("Warning: vehicle %s reappeared after being gone and will be ignored" % v.id)
+        ignoring.add(v.id)
+        continue
+
       seen.add(v.id)
       if not vIDm.k(v.id):
         nid = vIDm.g(v.id)
@@ -57,7 +66,7 @@ def fcd2ns2mobility(inpFCD, outSTRM, ignored):
       area[1] = min(area[1], v.y)
       area[2] = max(area[2], v.x)
       area[3] = max(area[3], v.y)
-    _writeMissing(timestep.time, vIDm, seen, vehInfo)
+    _writeMissing(timestep.time, vIDm, seen, vehInfo, removed)
   return vIDm, vehInfo, begin, end, area
 
 def writeNS2activity(outSTRM, vehInfo):
@@ -80,7 +89,7 @@ def writeNS2config(outSTRM, vehInfo, ns2activityfile, ns2mobilityfile, begin, en
   print("# set floor size\nset opt(x) %s\nset opt(y) %s\nset opt(min-x) %s\nset opt(min-y) %s\n" % (xmax, ymax, xmin, ymin), file=outSTRM)
 
 
-def _writeMissing(t, vIDm, seen, vehInfo):
+def _writeMissing(t, vIDm, seen, vehInfo, removed):
   toDel = []
   for v in vIDm._m:
     if v in seen:
@@ -88,6 +97,7 @@ def _writeMissing(t, vIDm, seen, vehInfo):
     nid = vIDm.g(v)        
     vehInfo[v][2] = t
     toDel.append(v)
+    removed.add(v)
   for v in toDel:
     vIDm.d(v) 
 
