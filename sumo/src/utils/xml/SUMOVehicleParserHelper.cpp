@@ -295,9 +295,13 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
 
 SUMOVTypeParameter*
 SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file) {
-    SUMOVTypeParameter* vtype = new SUMOVTypeParameter();
     bool ok = true;
-    vtype->id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    SUMOVehicleClass vClass = SVC_UNKNOWN;
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
+        vClass = parseVehicleClass(attrs, id);
+    }
+    SUMOVTypeParameter* vtype = new SUMOVTypeParameter(id, vClass);
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
         vtype->length = attrs.get<SUMOReal>(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_LENGTH_SET;
@@ -331,7 +335,6 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->setParameter |= VTYPEPARS_IMPATIENCE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
-        vtype->vehicleClass = parseVehicleClass(attrs, vtype->id);
         vtype->setParameter |= VTYPEPARS_VEHICLECLASS_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {

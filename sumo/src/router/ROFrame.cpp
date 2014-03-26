@@ -169,7 +169,7 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
     oc.doRegister("arrivalspeed", new Option_String());
     oc.addDescription("arrivalspeed", "Defaults", "Assigns a default arrival speed");
 
-    oc.doRegister("emission-model", new Option_String("HBEFA"));
+    oc.doRegister("emission-model", new Option_String("HBEFA2"));
     oc.addDescription("emission-model", "Defaults", "Use the model given as default for emission calculations");
 
     oc.doRegister("defaults-override", new Option_Bool(false));

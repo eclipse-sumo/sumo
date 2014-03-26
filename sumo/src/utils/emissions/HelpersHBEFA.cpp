@@ -144,7 +144,7 @@ HelpersHBEFA::myFunctionParameter[42][36] = {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA") {
+HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA2") {
     myEmissionClassStrings.insert("zero", PollutantsInterface::ZERO_EMISSIONS);
     int clusterSizesH[] = {3, 6, 12};
     int clusterSizesP[] = {7, 14};

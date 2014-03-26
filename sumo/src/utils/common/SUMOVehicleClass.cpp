@@ -68,6 +68,7 @@ StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"rail_slow",         SVC_RAIL_SLOW},
     {"rail_fast",         SVC_RAIL_FAST},
     {"motorcycle",        SVC_MOTORCYCLE},
+    {"moped",             SVC_MOPED},
     {"bicycle",           SVC_BICYCLE},
     {"pedestrian",        SVC_PEDESTRIAN},
     {"custom1",           SVC_CUSTOM1},
@@ -277,28 +278,10 @@ bool isRailway(SVCPermissions permissions) {
 
 
 const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
-const SUMOReal DEFAULT_VEH_MAXSPEED(70.0);
 const SUMOReal DEFAULT_VEH_ACCEL(2.6);
-const SUMOReal DEFAULT_VEH_DECEL(4.5);
 const SUMOReal DEFAULT_VEH_SIGMA(0.5);
-const SUMOReal DEFAULT_VEH_LENGTH(5.);
-const SUMOReal DEFAULT_VEH_MINGAP(2.5);
-const SUMOReal DEFAULT_VEH_TAU(1.);
-const SUMOVehicleClass DEFAULT_VEH_CLASS(SVC_UNKNOWN);
-const SUMOReal DEFAULT_VEH_PROB(1.);
-const SUMOReal DEFAULT_VEH_SPEEDFACTOR(1.);
-const SUMOReal DEFAULT_VEH_SPEEDDEV(0.);
-const SUMOReal DEFAULT_VEH_WIDTH(2.);
-const SUMOReal DEFAULT_VEH_HEIGHT(1.5);
-const SumoXMLTag DEFAULT_VEH_FOLLOW_MODEL(SUMO_TAG_CF_KRAUSS);
-const LaneChangeModel DEFAULT_VEH_LANE_CHANGE_MODEL(LCM_LC2013);
-const SUMOVehicleShape DEFAULT_VEH_SHAPE(SVS_UNKNOWN);
-const SUMOReal DEFAULT_VEH_TMP1(1.);
-const SUMOReal DEFAULT_VEH_TMP2(1.);
-const SUMOReal DEFAULT_VEH_TMP3(1.);
-const SUMOReal DEFAULT_VEH_TMP4(1.);
-const SUMOReal DEFAULT_VEH_TMP5(1.);
 
+const SUMOReal DEFAULT_VEH_PROB(1.);
 const SUMOReal DEFAULT_PERSON_SPEED(5. / 3.6);
 
 /****************************************************************************/

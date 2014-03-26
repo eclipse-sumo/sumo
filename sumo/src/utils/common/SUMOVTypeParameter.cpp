@@ -48,17 +48,17 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-SUMOVTypeParameter::SUMOVTypeParameter()
-    : id(DEFAULT_VTYPE_ID), length(DEFAULT_VEH_LENGTH),
-      minGap(DEFAULT_VEH_MINGAP), maxSpeed(DEFAULT_VEH_MAXSPEED),
+SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass)
+    : id(vtid), length(getDefaultLength(vclass)),
+      minGap(getDefaultMinGap(vclass)), maxSpeed(getDefaultMaxSpeed(vclass)),
       defaultProbability(DEFAULT_VEH_PROB),
-      speedFactor(DEFAULT_VEH_SPEEDFACTOR), speedDev(DEFAULT_VEH_SPEEDDEV),
-      emissionClass(PollutantsInterface::getClassByName(OptionsCont::getOptions().getString("emission-model"), "unknown")), color(RGBColor::DEFAULT_COLOR),
-      vehicleClass(SVC_UNKNOWN),
-      impatience(0),
-      width(DEFAULT_VEH_WIDTH),
-      height(DEFAULT_VEH_HEIGHT), shape(DEFAULT_VEH_SHAPE),
-      cfModel(DEFAULT_VEH_FOLLOW_MODEL), lcModel(DEFAULT_VEH_LANE_CHANGE_MODEL),
+      speedFactor(getDefaultSpeedFactor(vclass)), speedDev(getDefaultSpeedDev(vclass)),
+      emissionClass(getDefaultEmissionClass(vclass)), color(RGBColor::DEFAULT_COLOR),
+      vehicleClass(vclass),
+      impatience(getDefaultImpatience(vclass)),
+      width(getDefaultWidth(vclass)),
+      height(getDefaultHeight(vclass)), shape(getDefaultShape(vclass)),
+      cfModel(getDefaultFollowModel(vclass)), lcModel(getDefaultLaneChangeModel(vclass)),
       setParameter(0), saved(false), onlyReferenced(false) {
 }
 
@@ -151,5 +151,454 @@ SUMOVTypeParameter::get(const SumoXMLAttr attr, const SUMOReal defaultValue) con
 }
 
 
-/****************************************************************************/
+SUMOReal
+SUMOVTypeParameter::getDefaultMaxSpeed(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 70.;
+}
 
+
+SUMOReal
+SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 2.6;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 4.5;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultSigma(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 0.5;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultLength(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 5.;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultMinGap(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 2.5;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultTau(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 1.;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultImpatience(const SUMOVehicleClass vc) {
+    return 0.;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultSpeedFactor(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 1.;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultSpeedDev(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 0.;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultWidth(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 2.;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultHeight(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return 1.5;
+}
+
+
+SumoXMLTag
+SUMOVTypeParameter::getDefaultFollowModel(const SUMOVehicleClass vc) {
+    return SUMO_TAG_CF_KRAUSS;
+}
+
+
+LaneChangeModel
+SUMOVTypeParameter::getDefaultLaneChangeModel(const SUMOVehicleClass vc) {
+    return LCM_LC2013;
+}
+
+
+SUMOVehicleShape
+SUMOVTypeParameter::getDefaultShape(const SUMOVehicleClass vc) {
+    switch(vc) {
+        case SVC_UNKNOWN:
+        case SVC_PRIVATE:
+        case SVC_PUBLIC_TRANSPORT:
+        case SVC_PUBLIC_EMERGENCY:
+        case SVC_PUBLIC_AUTHORITY:
+        case SVC_PUBLIC_ARMY:
+        case SVC_VIP:
+        case SVC_IGNORING:
+        case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_TAXI:
+        case SVC_BUS:
+        case SVC_DELIVERY:
+        case SVC_TRANSPORT:
+        case SVC_LIGHTRAIL:
+        case SVC_CITYRAIL:
+        case SVC_RAIL_SLOW:
+        case SVC_RAIL_FAST:
+        case SVC_MOTORCYCLE:
+        case SVC_MOPED:
+        case SVC_BICYCLE:
+        case SVC_PEDESTRIAN:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            break;
+    }
+    return SVS_UNKNOWN;
+}
+
+
+SUMOEmissionClass
+SUMOVTypeParameter::getDefaultEmissionClass(const SUMOVehicleClass vc) {
+    return PollutantsInterface::getClassByName(OptionsCont::getOptions().getString("emission-model"), "unknown", vc);
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultTmp1(const SUMOVehicleClass vc) {
+    return 1.;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultTmp2(const SUMOVehicleClass vc) {
+    return 1.;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultTmp3(const SUMOVehicleClass vc) {
+    return 1.;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultTmp4(const SUMOVehicleClass vc) {
+    return 1.;
+}
+
+
+SUMOReal
+SUMOVTypeParameter::getDefaultTmp5(const SUMOVehicleClass vc) {
+    return 1.;
+}
+
+
+/****************************************************************************/

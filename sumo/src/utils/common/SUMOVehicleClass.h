@@ -133,17 +133,17 @@ enum SUMOVehicleClass {
     /// @brief private vehicles
     SVC_PRIVATE = 1,
     /// @brief public transport vehicles
-    SVC_PUBLIC_TRANSPORT = 2,
+    SVC_PUBLIC_TRANSPORT = 1 << 1,
     /// @brief public emergency vehicles
-    SVC_PUBLIC_EMERGENCY = 4,
+    SVC_PUBLIC_EMERGENCY = 1 << 2,
     /// @brief authorities vehicles
-    SVC_PUBLIC_AUTHORITY = 8,
+    SVC_PUBLIC_AUTHORITY = 1 << 3,
     /// @brief army vehicles
-    SVC_PUBLIC_ARMY = 16,
+    SVC_PUBLIC_ARMY = 1 << 4,
     /// @brief vip vehicles
-    SVC_VIP = 32,
+    SVC_VIP = 1 << 5,
     /// @brief vehicles ignoring classes
-    SVC_IGNORING = 64,
+    SVC_IGNORING = 1 << 6,
     //@}
 
 
@@ -151,36 +151,38 @@ enum SUMOVehicleClass {
     //@{
 
     /// @brief vehicle is a passenger car (a "normal" car)
-    SVC_PASSENGER = 128,
+    SVC_PASSENGER = 1 << 7,
     /// @brief vehicle is a HOV
-    SVC_HOV = 256,
+    SVC_HOV = 1 << 8,
     /// @brief vehicle is a taxi
-    SVC_TAXI = 512,
+    SVC_TAXI = 1 << 9,
     /// @brief vehicle is a bus
-    SVC_BUS = 1024,
+    SVC_BUS = 1 << 10,
     /// @brief vehicle is a small delivery vehicle
-    SVC_DELIVERY = 2048,
+    SVC_DELIVERY = 1 << 11,
     /// @brief vehicle is a large transport vehicle
-    SVC_TRANSPORT = 4096,
+    SVC_TRANSPORT = 1 << 12,
     /// @brief vehicle is a light rail
-    SVC_LIGHTRAIL = 8192,
+    SVC_LIGHTRAIL = 1 << 13,
     /// @brief vehicle is a city rail
-    SVC_CITYRAIL = 16384,
+    SVC_CITYRAIL = 1 << 14,
     /// @brief vehicle is a slow moving transport rail
-    SVC_RAIL_SLOW = 32768,
+    SVC_RAIL_SLOW = 1 << 15,
     /// @brief vehicle is a fast moving rail
-    SVC_RAIL_FAST = 65536,
+    SVC_RAIL_FAST = 1 << 16,
 
     /// @brief vehicle is a motorcycle
-    SVC_MOTORCYCLE = 131072,
+    SVC_MOTORCYCLE = 1 << 17,
+    /// @brief vehicle is a moped
+    SVC_MOPED = 1 << 18,
     /// @brief vehicle is a bicycle
-    SVC_BICYCLE = 262144,
+    SVC_BICYCLE = 1 << 19,
     /// @brief is a pedestrian
-    SVC_PEDESTRIAN = 524288,
+    SVC_PEDESTRIAN = 1 << 20,
     /// @brief is a user-defined type
-    SVC_CUSTOM1 = 1048576,
+    SVC_CUSTOM1 = 1 << 21,
     /// @brief is a user-defined type
-    SVC_CUSTOM2 = 2097152
+    SVC_CUSTOM2 = 1 << 22
                   //@}
 };
 
@@ -309,29 +311,11 @@ extern bool isRailway(SVCPermissions permissions);
 // default vehicle type parameter
 // ---------------------------------------------------------------------------
 extern const std::string DEFAULT_VTYPE_ID;
-extern const SUMOReal DEFAULT_VEH_MAXSPEED;
 extern const SUMOReal DEFAULT_VEH_ACCEL;
-extern const SUMOReal DEFAULT_VEH_DECEL;
 extern const SUMOReal DEFAULT_VEH_SIGMA;
-extern const SUMOReal DEFAULT_VEH_LENGTH;
-extern const SUMOReal DEFAULT_VEH_MINGAP;
-extern const SUMOReal DEFAULT_VEH_TAU;
-extern const SUMOVehicleClass DEFAULT_VEH_CLASS;
-extern const SUMOReal DEFAULT_VEH_PROB;
-extern const SUMOReal DEFAULT_VEH_SPEEDFACTOR;
-extern const SUMOReal DEFAULT_VEH_SPEEDDEV;
-extern const SUMOReal DEFAULT_VEH_WIDTH;
-extern const SUMOReal DEFAULT_VEH_HEIGHT;
-extern const SumoXMLTag DEFAULT_VEH_FOLLOW_MODEL;
-extern const LaneChangeModel DEFAULT_VEH_LANE_CHANGE_MODEL;
-extern const SUMOVehicleShape DEFAULT_VEH_SHAPE;
-extern const SUMOReal DEFAULT_VEH_TMP1;
-extern const SUMOReal DEFAULT_VEH_TMP2;
-extern const SUMOReal DEFAULT_VEH_TMP3;
-extern const SUMOReal DEFAULT_VEH_TMP4;
-extern const SUMOReal DEFAULT_VEH_TMP5;
 
-extern const SUMOReal DEFAULT_PERSON_SPEED;
+extern const SUMOReal DEFAULT_VEH_PROB; // !!! does this belong here?
+extern const SUMOReal DEFAULT_PERSON_SPEED; // !!! does this belong here?
 
 #endif
 

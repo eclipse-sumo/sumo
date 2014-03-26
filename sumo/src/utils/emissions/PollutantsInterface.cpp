@@ -52,7 +52,7 @@ PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {new HelpersHBEF
 // method definitions
 // ===========================================================================
 SUMOEmissionClass
-PollutantsInterface::getClassByName(std::string model, std::string eClass) {
+PollutantsInterface::getClassByName(std::string model, std::string eClass, const SUMOVehicleClass vc) {
     int sep = eClass.find("/");
     if (sep != std::string::npos) {
         model = eClass.substr(0, sep);
@@ -60,7 +60,7 @@ PollutantsInterface::getClassByName(std::string model, std::string eClass) {
     }
     for (int i = 0; i < 3; i++) {
         if (myHelpers[i]->getName() == model) {
-            return myHelpers[i]->getClassByName(eClass);
+            return myHelpers[i]->getClassByName(eClass, vc);
         }
     }
     throw InvalidArgument("Unknown emission model '" + model + "' or emission class '" + eClass + "'.");

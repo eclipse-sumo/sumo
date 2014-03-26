@@ -227,8 +227,7 @@ public:
      * @param[in] decel The maximum deceleration of the checking vehicle
      * @return Whether a foe of this link is approaching
      */
-    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed,
-                           SUMOReal decel = DEFAULT_VEH_DECEL) const;
+    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal speed, SUMOReal decel) const;
 
 
     /** @brief Returns the current state of the link

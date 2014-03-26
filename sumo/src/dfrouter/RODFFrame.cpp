@@ -233,6 +233,9 @@ RODFFrame::fillOptions() {
     oc.doRegister("arrivalspeed", new Option_String());
     oc.addDescription("arrivalspeed", "Defaults", "Assigns a default arrival speed");
 
+    oc.doRegister("emission-model", new Option_String("HBEFA2"));
+    oc.addDescription("emission-model", "Defaults", "Use the model given as default for emission calculations");
+
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));

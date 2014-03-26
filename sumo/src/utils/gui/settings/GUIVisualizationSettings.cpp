@@ -32,6 +32,7 @@
 
 #include <map>
 #include <vector>
+#include <utils/common/SUMOVTypeParameter.h>
 #include "GUIVisualizationSettings.h"
 #include "GUIColorScheme.h"
 
@@ -215,10 +216,10 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(0,   0, 255, 255),  3,  "3");
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by acceleration", RGBColor(179, 179, 179, 255), "0");
-    scheme.addColor(RGBColor(255,   0, 0, 255), -DEFAULT_VEH_DECEL);
+    scheme.addColor(RGBColor(255,   0, 0, 255), -SUMOVTypeParameter::getDefaultDecel());
     scheme.addColor(RGBColor(255, 255, 0, 255), -0.1);
     scheme.addColor(RGBColor(0, 255, 255, 255),  0.1);
-    scheme.addColor(RGBColor(0,   0, 255, 255),  DEFAULT_VEH_ACCEL);
+    scheme.addColor(RGBColor(0,   0, 255, 255),  SUMOVTypeParameter::getDefaultAccel());
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by time gap", RGBColor(255, 255, 0, 255), "0");
     scheme.addColor(RGBColor(179, 179, 179, 255), -1);

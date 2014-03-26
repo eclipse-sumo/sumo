@@ -52,37 +52,49 @@ public:
 
     class Helper {
     public:
-        Helper::Helper(std::string name) : myName(name) {}
+        Helper(std::string name) : myName(name) {}
         
         const std::string& getName() const {
             return myName;
         }
-        virtual SUMOEmissionClass getClassByName(const std::string& eClass) {
+        virtual SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
             return myEmissionClassStrings.get(eClass);
         }
         const std::string getClassName(const SUMOEmissionClass c) const {
             return myName + "/" + myEmissionClassStrings.getString(c);
         }
         virtual bool isSilent(const SUMOEmissionClass c) {
-            return (c & 0xffffffff & ~HEAVY_BIT) == 1;
+            return (c & 0xffffffff & ~HEAVY_BIT) == 0;
         }
         virtual SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight) const {
+            UNUSED_PARAMETER(vClass);
+            UNUSED_PARAMETER(fuel);
+            UNUSED_PARAMETER(eClass);
+            UNUSED_PARAMETER(weight);
             return base;
         }
         virtual std::string getAmitranVehicleClass(const SUMOEmissionClass c) const {
+            UNUSED_PARAMETER(c);
             return "Passenger";
         }
         virtual std::string getFuel(const SUMOEmissionClass c) const {
+            UNUSED_PARAMETER(c);
             return "Gasoline";
         }
         virtual int getEuroClass(const SUMOEmissionClass c) const {
+            UNUSED_PARAMETER(c);
             return 0;
         }
         virtual SUMOReal getWeight(const SUMOEmissionClass c) const {
+            UNUSED_PARAMETER(c);
             return -1.;
         }
         virtual SUMOReal compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope) const = 0;
         virtual SUMOReal getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) const {
+            UNUSED_PARAMETER(c);
+            UNUSED_PARAMETER(v);
+            UNUSED_PARAMETER(a);
+            UNUSED_PARAMETER(slope);
             return -1.;
         }
     protected:
@@ -100,7 +112,7 @@ public:
      * @param[in] eClass The string describing the vehicle emission class
      * @return whether it describes a valid emission class
      */
-    static SUMOEmissionClass getClassByName(std::string model, std::string eClass);
+    static SUMOEmissionClass getClassByName(std::string model, std::string eClass, const SUMOVehicleClass vc=SVC_UNKNOWN);
 
 
     /** @brief Checks whether the string describes a known vehicle class

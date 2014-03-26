@@ -261,7 +261,7 @@ MSFrame::fillOptions() {
     std::string plp = getenv("PHEMLIGHT_PATH")==0 ? "./PHEMlight/" : std::string(getenv("PHEMLIGHT_PATH"));
     oc.doRegister("phemlight-path", new Option_FileName(plp));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
-    oc.doRegister("emission-model", new Option_String("HBEFA"));
+    oc.doRegister("emission-model", new Option_String("HBEFA2"));
     oc.addDescription("emission-model", "Emissions", "Use the model given as default for emission calculations");
 
     oc.addOptionSubTopic("Communication");
