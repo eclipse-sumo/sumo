@@ -113,6 +113,14 @@ public:
     bool closeTag(std::ostream& into);
 
 
+    /** @brief writes a preformatted tag to the device but ensures that any
+     * pending tags are closed
+     * @param[in] into The output stream to use
+     * @param[in] val The preformatted data
+     */
+    void writePreformattedTag(std::ostream& into, const std::string& val);
+
+
     /** @brief writes an arbitrary attribute
      *
      * @param[in] into The output stream to use

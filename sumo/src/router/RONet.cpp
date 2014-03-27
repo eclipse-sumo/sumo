@@ -376,9 +376,9 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
             }
             myVehicles.erase(veh->getID());
         } else {
-            (*myRoutesOutput) << person->second;
+            myRoutesOutput->writePreformattedTag(person->second);
             if (myRouteAlternativesOutput != 0) {
-                (*myRouteAlternativesOutput) << person->second;
+                myRouteAlternativesOutput->writePreformattedTag(person->second);
             }
             myPersons.erase(person);
         }
@@ -389,7 +389,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
 
 bool
 RONet::furtherStored() {
-    return myVehicles.size() > 0 || myFlows.size() > 0;
+    return myVehicles.size() > 0 || myFlows.size() > 0 || myPersons.size() > 0;
 }
 
 

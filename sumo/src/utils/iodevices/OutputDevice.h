@@ -295,6 +295,17 @@ public:
     }
 
 
+    /** @brief writes a preformatted tag to the device but ensures that any
+     * pending tags are closed
+     * @param[in] val The preformatted data
+     * @return The OutputDevice for further processing
+     */
+    OutputDevice& writePreformattedTag(const std::string& val) {
+        myFormatter->writePreformattedTag(getOStream(), val);
+        return *this;
+    }
+
+
     /** @brief Retrieves a message to this device.
      *
      * Implementation of the MessageRetriever interface. Writes the given message to the output device.
