@@ -49,36 +49,44 @@
 // static members
 // ===========================================================================
 StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
-    {"unknown",           SVC_UNKNOWN},
-    {"private",           SVC_PRIVATE},
-    {"public_transport",  SVC_PUBLIC_TRANSPORT},
-    {"public_emergency",  SVC_PUBLIC_EMERGENCY},
-    {"public_authority",  SVC_PUBLIC_AUTHORITY},
-    {"public_army",       SVC_PUBLIC_ARMY},
-    {"vip",               SVC_VIP},
     {"ignoring",          SVC_IGNORING},
+    {"private",           SVC_PRIVATE},
+    {"public_emergency",  SVC_EMERGENCY}, // !!! deprecated
+    {"emergency",         SVC_EMERGENCY},
+    {"public_authority",  SVC_AUTHORITY}, // !!! deprecated
+    {"authority",         SVC_AUTHORITY},
+    {"public_army",       SVC_ARMY}, // !!! deprecated
+    {"army",              SVC_ARMY},
+    {"vip",               SVC_VIP},
     {"passenger",         SVC_PASSENGER},
     {"hov",               SVC_HOV},
     {"taxi",              SVC_TAXI},
+    {"public_transport",  SVC_BUS}, // !!! deprecated
     {"bus",               SVC_BUS},
+    {"coach",             SVC_COACH},
     {"delivery",          SVC_DELIVERY},
+    {"transport",         SVC_TRUCK},
     {"truck",             SVC_TRUCK},
     {"trailer",           SVC_TRAILER},
-    {"lightrail",         SVC_LIGHTRAIL},
-    {"cityrail",          SVC_CITYRAIL},
-    {"rail_slow",         SVC_RAIL_SLOW},
-    {"rail_fast",         SVC_RAIL_FAST},
+    {"lightrail",         SVC_TRAM}, // !!! deprecated
+    {"tram",              SVC_TRAM},
+    {"cityrail",          SVC_RAIL_URBAN}, // !!! deprecated 
+    {"railUrban",         SVC_RAIL_URBAN}, 
+    {"rail_slow",         SVC_RAIL}, // !!! deprecated
+    {"rail",              SVC_RAIL},
+    {"rail_fast",         SVC_RAIL_ELECTRIC}, // !!! deprecated
+    {"railElectric",      SVC_RAIL_ELECTRIC},
     {"motorcycle",        SVC_MOTORCYCLE},
     {"moped",             SVC_MOPED},
     {"bicycle",           SVC_BICYCLE},
     {"pedestrian",        SVC_PEDESTRIAN},
-    {"evehicle",          SVC_E_VEHICLE},
+    {"eVehicle",          SVC_E_VEHICLE},
     {"custom1",           SVC_CUSTOM1},
     {"custom2",           SVC_CUSTOM2}
 };
 
 StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
-    sumoVehicleClassStringInitializer, SVC_CUSTOM2);
+    sumoVehicleClassStringInitializer, SVC_CUSTOM2, false);
 
 
 StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
@@ -92,28 +100,33 @@ StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"passenger/wagon",       SVS_PASSENGER_WAGON},
     {"passenger/van",         SVS_PASSENGER_VAN},
     {"delivery",              SVS_DELIVERY},
+    {"transport",             SVS_TRUCK}, // !!! deprecated
     {"truck",                 SVS_TRUCK},
+    {"transport/semitrailer", SVS_TRUCK_SEMITRAILER}, // !!! deprecated
     {"truck/semitrailer",     SVS_TRUCK_SEMITRAILER},
+    {"transport/trailer",     SVS_TRUCK_1TRAILER}, // !!! deprecated
     {"truck/trailer",         SVS_TRUCK_1TRAILER},
-    {"bus",                   SVS_BUS},
-    {"bus/city",              SVS_BUS_CITY},
-    {"bus/flexible",          SVS_BUS_CITY_FLEXIBLE},
-    {"bus/overland",          SVS_BUS_OVERLAND},
+    {"bus/city",              SVS_BUS}, // !!! deprecated
+    {"bus/overland",          SVS_BUS}, // !!! deprecated
+    {"bus",                   SVS_BUS}, // default class for SVC bus and coach
+    {"bus/flexible",          SVS_BUS_FLEXIBLE},
     {"bus/trolley",           SVS_BUS_TROLLEY},
-    {"rail",                  SVS_RAIL},
-    {"rail/light",            SVS_RAIL_LIGHT},
-    {"rail/city",             SVS_RAIL_CITY},
-    {"rail/slow",             SVS_RAIL_SLOW},
-    {"rail/fast",             SVS_RAIL_FAST},
+    {"rail/light",            SVS_RAIL}, // !!! deprecated
+    {"rail/slow",             SVS_RAIL}, // !!! deprecated
+    {"rail/fast",             SVS_RAIL}, // !!! deprecated
+    {"rail",                  SVS_RAIL}, // -> introduce carriageCount (includes lok)
+    {"rail/city",             SVS_RAIL_CAR}, // !!! deprecated
+    {"rail/railcar",          SVS_RAIL_CAR},
     {"rail/cargo",            SVS_RAIL_CARGO},
-    {"evehicle",              SVS_E_VEHICLE},
+    {"evehicle",              SVS_E_VEHICLE}, // !!! deprecated
+    {"eVehicle",              SVS_E_VEHICLE},
     {"ant",                   SVS_ANT},
     {"",                      SVS_UNKNOWN}
 };
 
 
 StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
-    sumoVehicleShapeStringInitializer, SVS_UNKNOWN);
+    sumoVehicleShapeStringInitializer, SVS_UNKNOWN, false);
 
 
 // ===========================================================================
@@ -121,7 +134,7 @@ StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
 // ===========================================================================
 
 const int SUMOVehicleClass_MAX = SVC_CUSTOM2;
-const SVCPermissions SVCFreeForAll = std::numeric_limits<SVCPermissions>::max(); // all bits set to 1
+const SVCPermissions SVCFreeForAll = 2 * SUMOVehicleClass_MAX - 1; // all relevant bits set to 1
 
 
 // ===========================================================================
@@ -148,6 +161,9 @@ getVehicleClassCompoundName(int id) {
 
 std::string
 getAllowedVehicleClassNames(SVCPermissions permissions) {
+    if (permissions == SVCFreeForAll) {
+        return "all";
+    }
     return joinToString(getAllowedVehicleClassNamesList(permissions), ' ');
 }
 
@@ -159,7 +175,7 @@ getAllowedVehicleClassNamesList(SVCPermissions permissions) {
     std::vector<std::string> result;
     for (std::vector<std::string>::const_iterator it = classNames.begin(); it != classNames.end(); it++) {
         const int svc = (int)SumoVehicleClassStrings.get(*it);
-        if ((svc & permissions) == svc && svc != SVC_UNKNOWN) {
+        if ((svc & permissions) == svc && svc != SVC_IGNORING) {
             result.push_back(*it);
         }
     }
@@ -200,7 +216,7 @@ getVehicleClassID(const std::string& name) {
 
 int
 getVehicleClassCompoundID(const std::string& name) {
-    int ret = SVC_UNKNOWN;
+    int ret = SVC_IGNORING;
     const std::vector<std::string> names = SumoVehicleClassStrings.getStrings();
     for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
         if (name.find(*it) != std::string::npos) {
@@ -275,7 +291,7 @@ getVehicleShapeName(SUMOVehicleShape id) {
 
 
 bool isRailway(SVCPermissions permissions) {
-    const int anyRail = SVC_RAIL_FAST + SVC_RAIL_SLOW + SVC_CITYRAIL + SVC_LIGHTRAIL;
+    const int anyRail = SVC_RAIL_ELECTRIC + SVC_RAIL + SVC_RAIL_URBAN + SVC_TRAM;
     return (permissions & anyRail) > 0 && (permissions & SVC_PASSENGER) == 0;
 }
 

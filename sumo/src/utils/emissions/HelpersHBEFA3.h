@@ -63,6 +63,10 @@ public:
     HelpersHBEFA3();
 
 
+    SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight) const;
+    std::string getAmitranVehicleClass(const SUMOEmissionClass c) const;
+    std::string getFuel(const SUMOEmissionClass c) const;
+    int getEuroClass(const SUMOEmissionClass c) const;
     /** @brief Computes the emitted pollutant amount using the given speed and acceleration
      *
      * As the functions are defining emissions in g/hour, the function's result is normed

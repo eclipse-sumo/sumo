@@ -78,24 +78,14 @@ enum SUMOVehicleShape {
     SVS_TRUCK_1TRAILER,
     /// @brief render as a bus
     SVS_BUS,
-    /// @brief render as a city bus
-    SVS_BUS_CITY,
     /// @brief render as a flexible city bus
-    SVS_BUS_CITY_FLEXIBLE,
-    /// @brief render as a overland bus
-    SVS_BUS_OVERLAND,
+    SVS_BUS_FLEXIBLE,
     /// @brief render as a trolley bus
     SVS_BUS_TROLLEY,
     /// @brief render as a rail
     SVS_RAIL,
-    /// @brief render as a light rail
-    SVS_RAIL_LIGHT,
-    /// @brief render as a city rail
-    SVS_RAIL_CITY,
-    /// @brief render as a slow (passenger) train
-    SVS_RAIL_SLOW,
-    /// @brief render as a fast (passenger) train
-    SVS_RAIL_FAST,
+    /// @brief render as a (city) rail without locomotive
+    SVS_RAIL_CAR,
     /// @brief render as a cargo train
     SVS_RAIL_CARGO,
     /// @brief render as a (futuristic) e-vehicle
@@ -127,25 +117,22 @@ enum SUMOVehicleShape {
  * @arg [9] Pedestrian
  */
 enum SUMOVehicleClass {
-    SVC_UNKNOWN = 0,
+    /// @brief vehicles ignoring classes
+    SVC_IGNORING = 0,
 
     /// @name vehicle ownership
     //@{
 
     /// @brief private vehicles
     SVC_PRIVATE = 1,
-    /// @brief public transport vehicles
-    SVC_PUBLIC_TRANSPORT = 1 << 1,
     /// @brief public emergency vehicles
-    SVC_PUBLIC_EMERGENCY = 1 << 2,
+    SVC_EMERGENCY = 1 << 1,
     /// @brief authorities vehicles
-    SVC_PUBLIC_AUTHORITY = 1 << 3,
+    SVC_AUTHORITY = 1 << 2,
     /// @brief army vehicles
-    SVC_PUBLIC_ARMY = 1 << 4,
+    SVC_ARMY = 1 << 3,
     /// @brief vip vehicles
-    SVC_VIP = 1 << 5,
-    /// @brief vehicles ignoring classes
-    SVC_IGNORING = 1 << 6,
+    SVC_VIP = 1 << 4,
     //@}
 
 
@@ -153,42 +140,44 @@ enum SUMOVehicleClass {
     //@{
 
     /// @brief vehicle is a passenger car (a "normal" car)
-    SVC_PASSENGER = 1 << 7,
+    SVC_PASSENGER = 1 << 5,
     /// @brief vehicle is a HOV
-    SVC_HOV = 1 << 8,
+    SVC_HOV = 1 << 6,
     /// @brief vehicle is a taxi
-    SVC_TAXI = 1 << 9,
+    SVC_TAXI = 1 << 7,
     /// @brief vehicle is a bus
-    SVC_BUS = 1 << 10,
+    SVC_BUS = 1 << 8,
+    /// @brief vehicle is a coach
+    SVC_COACH = 1 << 9,
     /// @brief vehicle is a small delivery vehicle
-    SVC_DELIVERY = 1 << 11,
+    SVC_DELIVERY = 1 << 10,
     /// @brief vehicle is a large transport vehicle
-    SVC_TRUCK = 1 << 12,
+    SVC_TRUCK = 1 << 11,
     /// @brief vehicle is a large transport vehicle
-    SVC_TRAILER = 1 << 13,
+    SVC_TRAILER = 1 << 12,
     /// @brief vehicle is a light rail
-    SVC_LIGHTRAIL = 1 << 14,
+    SVC_TRAM = 1 << 13,
     /// @brief vehicle is a city rail
-    SVC_CITYRAIL = 1 << 15,
-    /// @brief vehicle is a slow moving transport rail
-    SVC_RAIL_SLOW = 1 << 16,
-    /// @brief vehicle is a fast moving rail
-    SVC_RAIL_FAST = 1 << 17,
+    SVC_RAIL_URBAN = 1 << 14,
+    /// @brief vehicle is a not electrified rail
+    SVC_RAIL = 1 << 15,
+    /// @brief vehicle is a (possibly fast moving) electric rail
+    SVC_RAIL_ELECTRIC = 1 << 16,
 
     /// @brief vehicle is a motorcycle
-    SVC_MOTORCYCLE = 1 << 18,
+    SVC_MOTORCYCLE = 1 << 17,
     /// @brief vehicle is a moped
-    SVC_MOPED = 1 << 19,
+    SVC_MOPED = 1 << 18,
     /// @brief vehicle is a bicycle
-    SVC_BICYCLE = 1 << 20,
+    SVC_BICYCLE = 1 << 19,
     /// @brief is a pedestrian
-    SVC_PEDESTRIAN = 1 << 21,
+    SVC_PEDESTRIAN = 1 << 20,
     /// @brief is an electric vehicle
-    SVC_E_VEHICLE = 1 << 22,
+    SVC_E_VEHICLE = 1 << 21,
     /// @brief is a user-defined type
-    SVC_CUSTOM1 = 1 << 23,
+    SVC_CUSTOM1 = 1 << 22,
     /// @brief is a user-defined type
-    SVC_CUSTOM2 = 1 << 24
+    SVC_CUSTOM2 = 1 << 23
                   //@}
 };
 

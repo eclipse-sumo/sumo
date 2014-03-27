@@ -129,7 +129,7 @@ NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS) {
     }
     // Emergency Vehicle -- becomes SVC_PUBLIC_EMERGENCY
     if (classS[3] == '1') {
-        e.allowVehicleClass(-1, SVC_PUBLIC_EMERGENCY);
+        e.allowVehicleClass(-1, SVC_EMERGENCY);
     }
     // Taxi -- becomes SVC_TAXI
     if (classS[4] == '1') {
@@ -137,7 +137,7 @@ NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS) {
     }
     // Public Bus -- becomes SVC_BUS|SVC_PUBLIC_TRANSPORT
     if (classS[5] == '1') {
-        e.allowVehicleClass(-1, SVC_PUBLIC_TRANSPORT);
+        e.allowVehicleClass(-1, SVC_COACH);
         e.allowVehicleClass(-1, SVC_BUS);
     }
     // Delivery Truck -- becomes SVC_DELIVERY
@@ -186,7 +186,7 @@ NINavTeqHelper::addVehicleClassesV6(NBEdge& e, const std::string& oclassS) {
     }
     // Emergency Vehicle -- becomes SVC_PUBLIC_EMERGENCY
     if (classS[4] == '1') {
-        e.allowVehicleClass(-1, SVC_PUBLIC_EMERGENCY);
+        e.allowVehicleClass(-1, SVC_EMERGENCY);
     }
     // Taxi -- becomes SVC_TAXI
     if (classS[5] == '1') {
@@ -194,7 +194,7 @@ NINavTeqHelper::addVehicleClassesV6(NBEdge& e, const std::string& oclassS) {
     }
     // Public Bus -- becomes SVC_BUS|SVC_PUBLIC_TRANSPORT
     if (classS[6] == '1') {
-        e.allowVehicleClass(-1, SVC_PUBLIC_TRANSPORT);
+        e.allowVehicleClass(-1, SVC_COACH);
         e.allowVehicleClass(-1, SVC_BUS);
     }
     // Delivery Truck -- becomes SVC_DELIVERY

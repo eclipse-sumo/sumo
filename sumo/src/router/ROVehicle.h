@@ -121,7 +121,7 @@ public:
 
 
     inline SUMOVehicleClass getVClass() const {
-        return getType() != 0 ? getType()->vehicleClass : SVC_UNKNOWN;
+        return getType() != 0 ? getType()->vehicleClass : SVC_IGNORING;
     }
 
 

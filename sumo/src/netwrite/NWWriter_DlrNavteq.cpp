@@ -187,17 +187,17 @@ NWWriter_DlrNavteq::getAllowedTypes(SVCPermissions permissions) {
     }
     std::ostringstream oss;
     oss << "0";
-    oss << ((permissions & SVC_PASSENGER)                    > 0 ? 1 : 0);
-    oss << ((permissions & SVC_PASSENGER)                    > 0 ? 1 : 0); // residential
-    oss << ((permissions & SVC_HOV)                          > 0 ? 1 : 0);
-    oss << ((permissions & SVC_PUBLIC_EMERGENCY)             > 0 ? 1 : 0);
-    oss << ((permissions & SVC_TAXI)                         > 0 ? 1 : 0);
-    oss << ((permissions & (SVC_PUBLIC_TRANSPORT | SVC_BUS)) > 0 ? 1 : 0);
-    oss << ((permissions & SVC_DELIVERY)                     > 0 ? 1 : 0);
-    oss << ((permissions & (SVC_TRUCK | SVC_TRAILER))        > 0 ? 1 : 0);
-    oss << ((permissions & SVC_MOTORCYCLE)                   > 0 ? 1 : 0);
-    oss << ((permissions & SVC_BICYCLE)                      > 0 ? 1 : 0);
-    oss << ((permissions & SVC_PEDESTRIAN)                   > 0 ? 1 : 0);
+    oss << ((permissions & SVC_PASSENGER)              > 0 ? 1 : 0);
+    oss << ((permissions & SVC_PASSENGER)              > 0 ? 1 : 0); // residential
+    oss << ((permissions & SVC_HOV)                    > 0 ? 1 : 0);
+    oss << ((permissions & SVC_EMERGENCY)              > 0 ? 1 : 0);
+    oss << ((permissions & SVC_TAXI)                   > 0 ? 1 : 0);
+    oss << ((permissions & (SVC_COACH | SVC_BUS))      > 0 ? 1 : 0);
+    oss << ((permissions & SVC_DELIVERY)               > 0 ? 1 : 0);
+    oss << ((permissions & (SVC_TRUCK | SVC_TRAILER))  > 0 ? 1 : 0);
+    oss << ((permissions & SVC_MOTORCYCLE)             > 0 ? 1 : 0);
+    oss << ((permissions & SVC_BICYCLE)                > 0 ? 1 : 0);
+    oss << ((permissions & SVC_PEDESTRIAN)             > 0 ? 1 : 0);
     return oss.str();
 }
 

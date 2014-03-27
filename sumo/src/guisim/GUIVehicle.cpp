@@ -533,8 +533,7 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             drawPoly(vehiclePoly_TransportLeftGlass, 4.5);
             break;
         case SVS_BUS:
-        case SVS_BUS_TROLLEY:
-        case SVS_BUS_CITY: {
+        case SVS_BUS_TROLLEY: {
             SUMOReal ml = length;
             glScaled(1. / (length), 1, 1.);
             glTranslated(0, 0, .04);
@@ -580,13 +579,9 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             glTranslated(0, 0, -.045);
         }
         break;
-        case SVS_BUS_CITY_FLEXIBLE:
-        case SVS_BUS_OVERLAND:
+        case SVS_BUS_FLEXIBLE:
         case SVS_RAIL:
-        case SVS_RAIL_LIGHT:
-        case SVS_RAIL_CITY:
-        case SVS_RAIL_SLOW:
-        case SVS_RAIL_FAST:
+        case SVS_RAIL_CAR:
         case SVS_RAIL_CARGO:
             drawAction_drawCarriageClass(s, shape, false);
             break;
@@ -742,14 +737,9 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             glPopMatrix();
             break;
         case SVS_BUS:
-        case SVS_BUS_CITY:
-        case SVS_BUS_CITY_FLEXIBLE:
-        case SVS_BUS_OVERLAND:
+        case SVS_BUS_FLEXIBLE:
         case SVS_RAIL:
-        case SVS_RAIL_LIGHT:
-        case SVS_RAIL_CITY:
-        case SVS_RAIL_SLOW:
-        case SVS_RAIL_FAST:
+        case SVS_RAIL_CAR:
         case SVS_RAIL_CARGO:
         case SVS_E_VEHICLE:
         case SVS_ANT:
@@ -854,24 +844,17 @@ GUIVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUM
 bool
 GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const {
     switch (guiShape) {
-        case SVS_BUS_CITY_FLEXIBLE:
-        case SVS_BUS_OVERLAND:
+        case SVS_BUS_FLEXIBLE:
             drawAction_drawRailCarriages(s, 8.25, 0, 0, asImage); // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
             break;
         case SVS_RAIL:
             drawAction_drawRailCarriages(s, 24.5, 1, 1, asImage); // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
             break;
-        case SVS_RAIL_LIGHT:
+        case SVS_RAIL_CAR:
             drawAction_drawRailCarriages(s, 16.85, 1, 0, asImage); // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
-            break;
-        case SVS_RAIL_CITY:
-            drawAction_drawRailCarriages(s, 5.71, 0, 0, asImage); // 40.0m overall, 7 modules http://de.wikipedia.org/wiki/Bombardier_Flexity_Berlin
-            break;
-        case SVS_RAIL_SLOW:
-            drawAction_drawRailCarriages(s, 9.44, 1, 1, asImage); // actually length of the locomotive http://de.wikipedia.org/wiki/KJI_Nr._20_und_21
-            break;
-        case SVS_RAIL_FAST:
-            drawAction_drawRailCarriages(s, 24.775, 0, 0, asImage); // http://de.wikipedia.org/wiki/ICE_3
+//            drawAction_drawRailCarriages(s, 5.71, 0, 0, asImage); // 40.0m overall, 7 modules http://de.wikipedia.org/wiki/Bombardier_Flexity_Berlin
+//            drawAction_drawRailCarriages(s, 9.44, 1, 1, asImage); // actually length of the locomotive http://de.wikipedia.org/wiki/KJI_Nr._20_und_21
+//            drawAction_drawRailCarriages(s, 24.775, 0, 0, asImage); // http://de.wikipedia.org/wiki/ICE_3
             break;
         case SVS_RAIL_CARGO:
             drawAction_drawRailCarriages(s, 13.86, 1, 0, asImage); // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
@@ -1000,11 +983,8 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             case SVS_BICYCLE:
             case SVS_ANT:
             case SVS_RAIL:
-            case SVS_RAIL_LIGHT:
-            case SVS_RAIL_SLOW:
-            case SVS_RAIL_FAST:
             case SVS_RAIL_CARGO:
-                // only SVS_RAIL_CITY has blinkers and brake lights
+                // only SVS_RAIL_CAR has blinkers and brake lights
                 break;
             default:
                 drawAction_drawVehicleBlinker(*this, myCarriageLength);

@@ -160,8 +160,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "walk",             SUMO_TAG_WALK },
 
     { "timestep",         SUMO_TAG_TIMESTEP },
+    { "timeSlice",        SUMO_TAG_TIMESLICE },
     { "actorConfig",      SUMO_TAG_ACTORCONFIG },
     { "motionState",      SUMO_TAG_MOTIONSTATE },
+    { "odPair",           SUMO_TAG_OD_PAIR },
     
     // ActivityGen statistics file
     { "general",          AGEN_TAG_GENERAL },
@@ -390,6 +392,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "vehicleClass",   SUMO_ATTR_VEHICLECLASS },
     { "fuel",           SUMO_ATTR_FUEL },
     { "acceleration",   SUMO_ATTR_ACCELERATION },
+    { "amount",         SUMO_ATTR_AMOUNT },
+    { "origin",         SUMO_ATTR_ORIGIN },
+    { "destination",    SUMO_ATTR_DESTINATION },
 
 #ifndef WIN32
     { "commandPosix",   SUMO_ATTR_COMMAND },

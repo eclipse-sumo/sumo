@@ -428,5 +428,95 @@ HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3") {
 }
 
 
+SUMOEmissionClass
+HelpersHBEFA3::getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight) const {
+    std::string eClassOffset = "0";
+    if (eClass.length() == 5 && eClass.substr(0, 4) == "Euro") {
+        if (eClass[4] >= '0' && eClass[4] <= '6') {
+            eClassOffset = eClass.substr(4, 1);
+        }
+    }
+    std::string desc;
+    if (vClass == "Passenger") {
+        desc = "PKW_";
+        if (fuel == "Gasoline") {
+            desc += "B_";
+        } else if (fuel == "Diesel") {
+            desc += "D_";
+        }
+        desc += "Euro_" + eClassOffset;
+    } else if (vClass == "Delivery") {
+        desc = "LNF_";
+        if (fuel == "Gasoline") {
+            desc += "B_";
+        } else if (fuel == "Diesel") {
+            desc += "D_";
+        }
+        desc += "Euro_" + eClassOffset;
+    } else if (vClass == "UrbanBus") {
+        desc = "LBus";
+    } else if (vClass == "Coach") {
+        desc = "RBus";
+    } else if (vClass == "Truck" || vClass == "Trailer") {
+        if (fuel == "Gasoline") {
+            desc = "SNF_B";
+        } else if (fuel == "Diesel") {
+            desc = "SNF_D_Euro_" + eClassOffset;
+        }
+    }
+    if (myEmissionClassStrings.hasString(desc)) {
+        return myEmissionClassStrings.get(desc);
+    }
+    return myEmissionClassStrings.get("unknown");
+}
+
+
+std::string
+HelpersHBEFA3::getAmitranVehicleClass(const SUMOEmissionClass c) const {
+    const std::string name = myEmissionClassStrings.getString(c);
+    if (name.find("RBus") != std::string::npos) {
+        return "Coach";
+    } else if (name.find("LBus") != std::string::npos) {
+        return "UrbanBus";
+    } else if (name.find("LNF") != std::string::npos) {
+        return "Delivery";
+    } else if (name.find("SNF") != std::string::npos) {
+        return "Truck";
+    }
+    return "Passenger";
+}
+
+
+std::string
+HelpersHBEFA3::getFuel(const SUMOEmissionClass c) const {
+    const std::string name = myEmissionClassStrings.getString(c);
+    std::string fuel = "Gasoline";
+    if (name.find("_D_") != std::string::npos) {
+        fuel = "Diesel";
+    }
+    return fuel;
+}
+
+
+int
+HelpersHBEFA3::getEuroClass(const SUMOEmissionClass c) const {
+    const std::string name = myEmissionClassStrings.getString(c);
+    if (name.find("_Euro_1") != std::string::npos) {
+        return 1;
+    } else if (name.find("_Euro_2") != std::string::npos) {
+        return 2;
+    } else if (name.find("_Euro_3") != std::string::npos) {
+        return 3;
+    } else if (name.find("_Euro_4") != std::string::npos) {
+        return 4;
+    } else if (name.find("_Euro_5") != std::string::npos) {
+        return 5;
+    } else if (name.find("_Euro_6") != std::string::npos) {
+        return 6;
+    }
+    return 0;
+}
+
+
 /****************************************************************************/
 

@@ -71,7 +71,7 @@ SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
         return -1;
     }
     try {
-        return (SUMOTime)(getFloat(attr) * 1000.);
+        return TIME2STEPS(getFloat(attr));
     } catch (NumberFormatException&) {
         if (report) {
             emitFormatError(getName(attr), "a time value", objectid);

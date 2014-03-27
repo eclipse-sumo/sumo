@@ -115,7 +115,7 @@ public:
      * @param[in] eClass The string describing the vehicle emission class
      * @return whether it describes a valid emission class
      */
-    static SUMOEmissionClass getClassByName(std::string model, std::string eClass, const SUMOVehicleClass vc=SVC_UNKNOWN);
+    static SUMOEmissionClass getClassByName(std::string model, std::string eClass, const SUMOVehicleClass vc=SVC_IGNORING);
 
 
     /** @brief Checks whether the string describes a known vehicle class

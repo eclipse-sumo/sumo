@@ -165,20 +165,19 @@ SUMOVTypeParameter::getDefaultMaxSpeed(const SUMOVehicleClass vc) {
         case SVC_TRAILER:
         case SVC_BUS:
             return 140./3.6;
-        case SVC_LIGHTRAIL:
+        case SVC_TRAM:
             return 70./3.6;
-        case SVC_CITYRAIL:
+        case SVC_RAIL_URBAN:
             return 100./3.6;
-        case SVC_RAIL_SLOW:
+        case SVC_RAIL:
             return 160./3.6;
-        case SVC_RAIL_FAST:
+        case SVC_RAIL_ELECTRIC:
             return 330./3.6;
-        case SVC_UNKNOWN:
         case SVC_PRIVATE:
-        case SVC_PUBLIC_TRANSPORT:
-        case SVC_PUBLIC_EMERGENCY:
-        case SVC_PUBLIC_AUTHORITY:
-        case SVC_PUBLIC_ARMY:
+        case SVC_COACH:
+        case SVC_EMERGENCY:
+        case SVC_AUTHORITY:
+        case SVC_ARMY:
         case SVC_VIP:
         case SVC_IGNORING:
         case SVC_PASSENGER:
@@ -210,18 +209,17 @@ SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
             return 1.5;
         case SVC_BUS:
             return 2.;
-        case SVC_LIGHTRAIL:
-        case SVC_CITYRAIL:
-        case SVC_RAIL_SLOW:
+        case SVC_TRAM:
+        case SVC_RAIL_URBAN:
+        case SVC_RAIL:
             return 1.;
-        case SVC_RAIL_FAST:
+        case SVC_RAIL_ELECTRIC:
         case SVC_MOPED:
-        case SVC_UNKNOWN:
         case SVC_PRIVATE:
-        case SVC_PUBLIC_TRANSPORT:
-        case SVC_PUBLIC_EMERGENCY:
-        case SVC_PUBLIC_AUTHORITY:
-        case SVC_PUBLIC_ARMY:
+        case SVC_COACH:
+        case SVC_EMERGENCY:
+        case SVC_AUTHORITY:
+        case SVC_ARMY:
         case SVC_VIP:
         case SVC_IGNORING:
         case SVC_PASSENGER:
@@ -252,19 +250,18 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
             return 2.5;
         case SVC_BUS:
             return 3.;
-        case SVC_LIGHTRAIL:
-        case SVC_CITYRAIL:
+        case SVC_TRAM:
+        case SVC_RAIL_URBAN:
             return 1.3;
-        case SVC_RAIL_SLOW:
+        case SVC_RAIL:
             return 1.1;
-        case SVC_RAIL_FAST:
+        case SVC_RAIL_ELECTRIC:
         case SVC_MOPED:
-        case SVC_UNKNOWN:
         case SVC_PRIVATE:
-        case SVC_PUBLIC_TRANSPORT:
-        case SVC_PUBLIC_EMERGENCY:
-        case SVC_PUBLIC_AUTHORITY:
-        case SVC_PUBLIC_ARMY:
+        case SVC_COACH:
+        case SVC_EMERGENCY:
+        case SVC_AUTHORITY:
+        case SVC_ARMY:
         case SVC_VIP:
         case SVC_IGNORING:
         case SVC_PASSENGER:
@@ -283,10 +280,10 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
 SUMOReal
 SUMOVTypeParameter::getDefaultSigma(const SUMOVehicleClass vc) {
     switch(vc) {
-        case SVC_LIGHTRAIL:
-        case SVC_CITYRAIL:
-        case SVC_RAIL_SLOW:
-        case SVC_RAIL_FAST:
+        case SVC_TRAM:
+        case SVC_RAIL_URBAN:
+        case SVC_RAIL:
+        case SVC_RAIL_ELECTRIC:
             return 0.;
         case SVC_PEDESTRIAN:
         case SVC_BICYCLE:
@@ -295,12 +292,11 @@ SUMOVTypeParameter::getDefaultSigma(const SUMOVehicleClass vc) {
         case SVC_TRAILER:
         case SVC_BUS:
         case SVC_MOPED:
-        case SVC_UNKNOWN:
         case SVC_PRIVATE:
-        case SVC_PUBLIC_TRANSPORT:
-        case SVC_PUBLIC_EMERGENCY:
-        case SVC_PUBLIC_AUTHORITY:
-        case SVC_PUBLIC_ARMY:
+        case SVC_COACH:
+        case SVC_EMERGENCY:
+        case SVC_AUTHORITY:
+        case SVC_ARMY:
         case SVC_VIP:
         case SVC_IGNORING:
         case SVC_PASSENGER:
@@ -332,20 +328,19 @@ SUMOVTypeParameter::getDefaultLength(const SUMOVehicleClass vc) {
             return 16.5;
         case SVC_BUS:
             return 14.;
-        case SVC_LIGHTRAIL:
+        case SVC_TRAM:
             return 22.;
-        case SVC_CITYRAIL:
+        case SVC_RAIL_URBAN:
             return 36.5*3;
-        case SVC_RAIL_SLOW:
+        case SVC_RAIL:
             return 67.5*2;
-        case SVC_RAIL_FAST:
+        case SVC_RAIL_ELECTRIC:
             return 25.*8;
-        case SVC_UNKNOWN:
         case SVC_PRIVATE:
-        case SVC_PUBLIC_TRANSPORT:
-        case SVC_PUBLIC_EMERGENCY:
-        case SVC_PUBLIC_AUTHORITY:
-        case SVC_PUBLIC_ARMY:
+        case SVC_COACH:
+        case SVC_EMERGENCY:
+        case SVC_AUTHORITY:
+        case SVC_ARMY:
         case SVC_VIP:
         case SVC_IGNORING:
         case SVC_PASSENGER:
@@ -372,16 +367,15 @@ SUMOVTypeParameter::getDefaultMinGap(const SUMOVehicleClass vc) {
         case SVC_TRUCK:
         case SVC_TRAILER:
         case SVC_BUS:
-        case SVC_LIGHTRAIL:
-        case SVC_CITYRAIL:
-        case SVC_RAIL_SLOW:
-        case SVC_RAIL_FAST:
-        case SVC_UNKNOWN:
+        case SVC_TRAM:
+        case SVC_RAIL_URBAN:
+        case SVC_RAIL:
+        case SVC_RAIL_ELECTRIC:
         case SVC_PRIVATE:
-        case SVC_PUBLIC_TRANSPORT:
-        case SVC_PUBLIC_EMERGENCY:
-        case SVC_PUBLIC_AUTHORITY:
-        case SVC_PUBLIC_ARMY:
+        case SVC_COACH:
+        case SVC_EMERGENCY:
+        case SVC_AUTHORITY:
+        case SVC_ARMY:
         case SVC_VIP:
         case SVC_IGNORING:
         case SVC_PASSENGER:
@@ -436,22 +430,21 @@ SUMOVTypeParameter::getDefaultWidth(const SUMOVehicleClass vc) {
         case SVC_TRAILER:
         case SVC_BUS:
             return 2.55;
-        case SVC_LIGHTRAIL:
+        case SVC_TRAM:
             return 2.4;
-        case SVC_CITYRAIL:
+        case SVC_RAIL_URBAN:
             return 3.0;
-        case SVC_RAIL_SLOW:
+        case SVC_RAIL:
             return 2.84;
-        case SVC_RAIL_FAST:
+        case SVC_RAIL_ELECTRIC:
             return 2.95;
         case SVC_DELIVERY:
             return 1.9;
-        case SVC_UNKNOWN:
         case SVC_PRIVATE:
-        case SVC_PUBLIC_TRANSPORT:
-        case SVC_PUBLIC_EMERGENCY:
-        case SVC_PUBLIC_AUTHORITY:
-        case SVC_PUBLIC_ARMY:
+        case SVC_COACH:
+        case SVC_EMERGENCY:
+        case SVC_AUTHORITY:
+        case SVC_ARMY:
         case SVC_VIP:
         case SVC_IGNORING:
         case SVC_PASSENGER:
@@ -481,22 +474,21 @@ SUMOVTypeParameter::getDefaultHeight(const SUMOVehicleClass vc) {
         case SVC_TRAILER:
         case SVC_BUS:
             return 4.;
-        case SVC_LIGHTRAIL:
+        case SVC_TRAM:
             return 3.2;
-        case SVC_CITYRAIL:
+        case SVC_RAIL_URBAN:
             return 3.6;
-        case SVC_RAIL_SLOW:
+        case SVC_RAIL:
             return 3.75;
-        case SVC_RAIL_FAST:
+        case SVC_RAIL_ELECTRIC:
             return 3.89;
         case SVC_DELIVERY:
             return 2.2;
-        case SVC_UNKNOWN:
         case SVC_PRIVATE:
-        case SVC_PUBLIC_TRANSPORT:
-        case SVC_PUBLIC_EMERGENCY:
-        case SVC_PUBLIC_AUTHORITY:
-        case SVC_PUBLIC_ARMY:
+        case SVC_COACH:
+        case SVC_EMERGENCY:
+        case SVC_AUTHORITY:
+        case SVC_ARMY:
         case SVC_VIP:
         case SVC_IGNORING:
         case SVC_PASSENGER:
@@ -539,33 +531,30 @@ SUMOVTypeParameter::getDefaultShape(const SUMOVehicleClass vc) {
         case SVC_TRAILER:
             return SVS_TRUCK_SEMITRAILER;
         case SVC_BUS:
-        case SVC_PUBLIC_TRANSPORT:
+        case SVC_COACH:
             return SVS_BUS;
-        case SVC_LIGHTRAIL:
-            return SVS_RAIL_LIGHT;
-        case SVC_CITYRAIL:
-            return SVS_RAIL_CITY;
-        case SVC_RAIL_SLOW:
-            return SVS_RAIL_SLOW;
-        case SVC_RAIL_FAST:
-            return SVS_RAIL_FAST;
+        case SVC_TRAM:
+        case SVC_RAIL_URBAN:
+            return SVS_RAIL_CAR;
+        case SVC_RAIL:
+        case SVC_RAIL_ELECTRIC:
+            return SVS_RAIL;
         case SVC_PASSENGER:
             return SVS_PASSENGER;
         case SVC_DELIVERY:
-        case SVC_PUBLIC_EMERGENCY:
+        case SVC_EMERGENCY:
             return SVS_DELIVERY;
         case SVC_E_VEHICLE:
             return SVS_E_VEHICLE;
         case SVC_PRIVATE:
-        case SVC_PUBLIC_AUTHORITY:
-        case SVC_PUBLIC_ARMY:
+        case SVC_AUTHORITY:
+        case SVC_ARMY:
         case SVC_VIP:
         case SVC_IGNORING:
         case SVC_HOV:
         case SVC_TAXI:
         case SVC_CUSTOM1:
         case SVC_CUSTOM2:
-        case SVC_UNKNOWN:
             break;
     }
     return SVS_UNKNOWN;

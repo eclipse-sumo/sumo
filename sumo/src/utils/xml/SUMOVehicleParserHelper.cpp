@@ -297,7 +297,7 @@ SUMOVTypeParameter*
 SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    SUMOVehicleClass vClass = SVC_UNKNOWN;
+    SUMOVehicleClass vClass = SVC_IGNORING;
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
         vClass = parseVehicleClass(attrs, id);
     }
@@ -517,7 +517,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
 SUMOVehicleClass
 SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes& attrs,
         const std::string& id) {
-    SUMOVehicleClass vclass = SVC_UNKNOWN;
+    SUMOVehicleClass vclass = SVC_IGNORING;
     try {
         bool ok = true;
         std::string vclassS = attrs.getOpt<std::string>(SUMO_ATTR_VCLASS, id.c_str(), ok, "");
