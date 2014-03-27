@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 25Mar17:04:47]
+search_string:<connection from="gneE0" to="gneE2" fromLane="0" toLane="0"/>
+trigger_on_absence:1
+search_file:plain_connections
+full_description:connection missing
+brief_description:see #1219

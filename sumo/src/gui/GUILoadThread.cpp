@@ -65,6 +65,11 @@
 #include <mesogui/GUIMEVehicleControl.h>
 #endif
 
+#ifndef NO_TRACI
+#include <traci-server/TraCIServer.h>
+#include "TraCIServerAPI_GUI.h"
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -149,6 +154,14 @@ GUILoadThread::run() {
             new GUIEventControl(),
             new GUIEventControl(),
             new GUIEventControl());
+#ifndef NO_TRACI
+        // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
+        std::map<int, TraCIServer::CmdExecutor> execs;
+        execs[CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
+        execs[CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
+        TraCIServer::openSocket(execs);
+#endif
+
         eb = new GUIEdgeControlBuilder();
         GUIDetectorBuilder db(*net);
         NLJunctionControlBuilder jb(*net, db);

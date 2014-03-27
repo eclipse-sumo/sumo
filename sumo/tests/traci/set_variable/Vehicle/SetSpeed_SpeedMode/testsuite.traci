@@ -1,0 +1,16 @@
+# Test error on specifying an invalid node id
+InvalidNodeId
+
+# Checking speed mode influence
+SetSpeed_Basic
+SetSpeed_NoAccelCheck
+SetSpeed_NoDecelCheck
+
+# check whether a vehicle may be forced to run at red light
+runs_at_red_forced
+
+# check whether a vehicle may be forced to ignore junction foes
+ignore_junction
+
+# check whether a vehicle may be forced to collide by setting unsafe speed
+SetSpeed_NoSafetyCheck

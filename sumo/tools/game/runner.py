@@ -95,8 +95,8 @@ class StartDialog:
                 text = "Four Junctions" 
             elif text == "kuehne":
                 text = "Prof. Kühne" 
-            elif text == "highway":
-                text = "Highway" 
+            elif text == "ramp":
+                text = "Highway Scenario" 
             # lambda must make a copy of cfg argument
             Tkinter.Button(self.root, text=text, width=bWidth_start, 
                     command=lambda cfg=cfg:self.start_cfg(cfg)).grid(row=row, column=COL_START)
@@ -248,16 +248,16 @@ while True:
         m = re.search('arrived="([^"]*)"', line)
         if m:
             totalArrived += float(m.group(1))
-    # switch = []
-    # lastProg = {}
-    # for line in open(os.path.join(base, "tlsstate.xml")):
-        # m = re.search('tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
-        # if m:
-            # tls = m.group(3)
-            # program = m.group(4)
-            # if tls not in lastProg or lastProg[tls] != program:
-                # lastProg[tls] = program
-                # switch += [m.group(3), m.group(1)]
+    switch = []
+    lastProg = {}
+    for line in open(os.path.join(base, "tlsstate.xml")):
+        m = re.search('tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
+        if m:
+            tls = m.group(3)
+            program = m.group(4)
+            if tls not in lastProg or lastProg[tls] != program:
+                lastProg[tls] = program
+                switch += [m.group(3), m.group(1)]
     score = totalArrived
     if _DEBUG:
         print switch, score, totalArrived, complete

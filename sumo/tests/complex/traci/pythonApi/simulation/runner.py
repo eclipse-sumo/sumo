@@ -27,7 +27,7 @@ sumoBinary = sumolib.checkBinary('sumo')
 
 sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, stdout=sys.stdout)
 traci.init(8813)
-traci.simulation.subscribe()
+traci.simulation.subscribe((traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS))
 print traci.simulation.getSubscriptionResults()
 for step in range(6):
     print "step", step

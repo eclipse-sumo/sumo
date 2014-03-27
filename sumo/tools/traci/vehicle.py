@@ -564,11 +564,11 @@ def setEffort(vehID, begTime, endTime, edgeID, effort):
     traci._sendExact()
 
 def rerouteTraveltime(vehID, currentTravelTimes = True):
-    """rerouteTraveltime(string, bool) -> None
-    
-    Reroutes a vehicle according to the loaded travel times. If loadTravelTimes is False  
-    then the travel times of a loaded weight file or the minimum travel time is used.
-    If loadTravelTimes is True (default) then the current traveltime of the edges is loaded and used for rerouting.
+    """rerouteTraveltime(string, bool) -> None Reroutes a vehicle. If
+    currentTravelTimes is True (default) then the current traveltime of the
+    edges is loaded and used for rerouting. If currentTravelTimes is False,
+    travel times loaded from a weight file are used. In the absence of loaded
+    weights, the minimum travel time is used (speed limit). 
     """
     if currentTravelTimes:
         for edge in traci.edge.getIDList():
