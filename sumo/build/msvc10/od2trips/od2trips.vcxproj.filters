@@ -14,6 +14,9 @@
     <ClCompile Include="..\..\..\src\od2trips\od2trips_main.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\od2trips\ODAmitranHandler.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\od2trips\ODDistrict.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -29,6 +32,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\od2trips\ODCell.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\od2trips\ODAmitranHandler.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\od2trips\ODDistrict.h">
