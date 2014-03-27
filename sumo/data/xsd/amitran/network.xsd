@@ -11,9 +11,9 @@
     </xsd:element>
  
     <xsd:complexType name="nodeType">
-        <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
+        <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/> <!-- unique ID -->
         <xsd:attribute name="type" type="nodeTypeType" use="optional"/>
-        <xsd:attribute name="odZone" type="xsd:unsignedInt" use="optional"/>
+        <xsd:attribute name="odZone" type="xsd:unsignedInt" use="optional"/> <!-- reference to OD zone id -->
         <xsd:attribute name="ref" type="xsd:string" use="optional"/>
     </xsd:complexType>
     
@@ -31,12 +31,12 @@
     </xsd:simpleType>
     
     <xsd:complexType name="linkProperties">
-        <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
-        <xsd:attribute name="from" type="xsd:unsignedInt" use="optional"/>
-        <xsd:attribute name="to" type="xsd:unsignedInt" use="optional"/>
+        <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/> <!-- unique ID -->
+        <xsd:attribute name="from" type="xsd:unsignedInt" use="optional"/> <!-- reference to node id -->
+        <xsd:attribute name="to" type="xsd:unsignedInt" use="optional"/> <!-- reference to node id -->
         <xsd:attribute name="roadClass" type="roadClassType" use="required"/> <!-- functional road class in the Navteq sense -->
-        <xsd:attribute name="length" type="xsd:unsignedInt" use="required"/>
-        <xsd:attribute name="speedLimitKmh" type="xsd:unsignedInt" use="optional"/>
+        <xsd:attribute name="length" type="xsd:unsignedInt" use="required"/> <!-- unit: 0.01m -->
+        <xsd:attribute name="speedLimitKmh" type="xsd:unsignedInt" use="optional"/> <!-- unit: km/h -->
         <xsd:attribute name="numberOfLanes" type="xsd:unsignedInt" use="required"/>
         <xsd:attribute name="ref" type="xsd:string" use="optional"/>
     </xsd:complexType>
