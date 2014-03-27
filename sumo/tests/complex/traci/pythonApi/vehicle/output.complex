@@ -30,7 +30,7 @@ effort -1001.0
 route valid True
 signals 0
 length 5.0
-maxSpeed 70.0
+maxSpeed 55.5555555556
 speedFactor 1.0
 allowedSpeed 11.11
 accel 2.6
@@ -41,7 +41,7 @@ vClass unknown
 emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 2.0
+width 1.7
 waiting time 0.0
 driving dist 3002.95289395
 driving dist 2D 1098.13130535
@@ -127,7 +127,7 @@ effort -1001.0
 route valid True
 signals 0
 length 5.0
-maxSpeed 70.0
+maxSpeed 55.5555555556
 speedFactor 1.0
 allowedSpeed -1001.0
 accel 2.6
@@ -138,7 +138,7 @@ vClass unknown
 emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 2.0
+width 1.7
 waiting time 0.0
 driving dist -1001.0
 driving dist 2D -1001.0
@@ -186,7 +186,7 @@ effort -1001.0
 route valid True
 signals 0
 length 5.0
-maxSpeed 70.0
+maxSpeed 55.5555555556
 speedFactor 1.0
 allowedSpeed 11.11
 accel 2.6
@@ -197,7 +197,7 @@ vClass unknown
 emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 2.0
+width 1.7
 waiting time 0.0
 driving dist 3002.32060554
 driving dist 2D 1097.49901695
