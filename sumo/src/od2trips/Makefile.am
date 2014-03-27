@@ -15,8 +15,11 @@ $(XERCES_LIBS)
 
 bin_PROGRAMS = od2trips
 
-od2trips_SOURCES = od2trips_main.cpp ODDistrict.cpp ODDistrict.h \
-ODDistrictCont.cpp ODDistrictCont.h ODDistrictHandler.cpp ODDistrictHandler.h \
+od2trips_SOURCES = od2trips_main.cpp \
+ODDistrict.cpp ODDistrict.h \
+ODDistrictCont.cpp ODDistrictCont.h \
+ODAmitranHandler.cpp ODAmitranHandler.h \
+ODDistrictHandler.cpp ODDistrictHandler.h \
 ODCell.h ODMatrix.h ODMatrix.cpp
 
 od2trips_LDFLAGS = $(XERCES_LDFLAGS)
