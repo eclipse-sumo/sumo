@@ -198,6 +198,17 @@ public:
     static void writeAttr(dummy& into, const std::string& attr, const T& val);
 
 
+    /** @brief writes a preformatted tag to the device but ensures that any
+     * pending tags are closed
+     * @param[in] into The output stream to use
+     * @param[in] val The preformatted data
+     */
+    void writePreformattedTag(std::ostream& into, const std::string& val) {
+        FileHelpers::writeString(into, val);
+    }
+
+
+
     /* we need to use dummy templating here to compile those functions where they get
         called to avoid an explicit dependency of utils/iodevices on the edge implementations */
     template <typename dummy>
@@ -294,7 +305,6 @@ void BinaryFormatter::writeAttr(dummy& into, const std::string& attr, const T& v
         writeAttr(into, (const SumoXMLAttr)(SUMOXMLDefinitions::Attrs.get(attr)), val);
     }
 }
-
 
 template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const bool& val);
 template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SUMOReal& val);

@@ -111,5 +111,14 @@ PlainXMLFormatter::closeTag(std::ostream& into) {
 }
 
 
+void 
+PlainXMLFormatter::writePreformattedTag(std::ostream& into, const std::string& val) {
+    if (myHavePendingOpener) {
+        into << ">\n";
+        myHavePendingOpener = false;
+    }
+    into << val;
+}
+
 /****************************************************************************/
 

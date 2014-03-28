@@ -77,7 +77,8 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 bool
 MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, SUMOReal, MSMoveReminder::Notification reason) {
-    if (reason == MSMoveReminder::NOTIFICATION_ARRIVED) {
+    if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
+        WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
         myCollector.myEnteredContainer.erase(&veh);
         return false;
     }

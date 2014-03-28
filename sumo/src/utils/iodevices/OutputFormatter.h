@@ -110,6 +110,7 @@ public:
      */
     virtual bool closeTag(std::ostream& into) = 0;
 
+    virtual void writePreformattedTag(std::ostream& into, const std::string& val) = 0;
 
 };
 
