@@ -5,7 +5,7 @@
 @author  Michael Behrisch
 @author  Jakob Erdmann
 @date    2010-01-30
-@version $Id: runner.py 16025 2014-03-25 12:43:29Z bieker $
+@version $Id$
 
 This script runs the gaming GUI for the LNdW traffic light game.
 It checks for possible scenarios in the current working directory
