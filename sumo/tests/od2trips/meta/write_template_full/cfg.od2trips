@@ -13,6 +13,7 @@
     <input>
         <net-file value="" synonymes="n net" type="FILE" help="Loads network (districts) from FILE"/>
         <od-matrix-files value="" synonymes="d od od-files" type="FILE" help="Loads O/D-files from FILE(s)"/>
+        <od-amitran-files value="" synonymes="amitran amitran-files" type="FILE" help="Loads O/D-matrix in Amitran format from FILE(s)"/>
     </input>
 
     <output>

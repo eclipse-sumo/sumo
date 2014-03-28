@@ -13,7 +13,7 @@ accel 2.6
 decel 4.5
 imperfection 0.5
 tau 1.0
-vClass unknown
+vClass ignoring
 emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5

@@ -669,15 +669,19 @@ NWWriter_SUMO::writePermissions(OutputDevice& into, SVCPermissions permissions) 
     if (permissions == SVCFreeForAll) {
         return;
     } else if (permissions == 0) {
-        // special case: since all-empty encodes FreeForAll we must list all disallowed
-        into.writeAttr(SUMO_ATTR_DISALLOW, getAllowedVehicleClassNames(SVCFreeForAll));
+        into.writeAttr(SUMO_ATTR_DISALLOW, "all");
         return;
     } else {
-        std::pair<std::string, bool> encoding = getPermissionEncoding(permissions);
-        if (encoding.second) {
-            into.writeAttr(SUMO_ATTR_ALLOW, encoding.first);
+        size_t num_allowed = 0;
+        for (int mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
+            if ((mask & permissions) == mask) {
+                ++num_allowed;
+            }
+        }
+        if (num_allowed <= (SumoVehicleClassStrings.size() - num_allowed) && num_allowed > 0) {
+            into.writeAttr(SUMO_ATTR_ALLOW, getAllowedVehicleClassNames(permissions));
         } else {
-            into.writeAttr(SUMO_ATTR_DISALLOW, encoding.first);
+            into.writeAttr(SUMO_ATTR_DISALLOW, getAllowedVehicleClassNames(~permissions));
         }
     }
 }

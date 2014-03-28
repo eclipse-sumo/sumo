@@ -27,6 +27,9 @@
         <!-- Loads O/D-files from FILE(s) -->
         <od-matrix-files value="" synonymes="d od od-files" type="FILE"/>
 
+        <!-- Loads O/D-matrix in Amitran format from FILE(s) -->
+        <od-amitran-files value="" synonymes="amitran amitran-files" type="FILE"/>
+
     </input>
 
     <output>

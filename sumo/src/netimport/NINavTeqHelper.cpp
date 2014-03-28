@@ -135,10 +135,10 @@ NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS) {
     if (classS[4] == '1') {
         e.allowVehicleClass(-1, SVC_TAXI);
     }
-    // Public Bus -- becomes SVC_BUS|SVC_PUBLIC_TRANSPORT
+    // Public Bus -- becomes SVC_BUS|SVC_COACH
     if (classS[5] == '1') {
-        e.allowVehicleClass(-1, SVC_COACH);
         e.allowVehicleClass(-1, SVC_BUS);
+        e.allowVehicleClass(-1, SVC_COACH);
     }
     // Delivery Truck -- becomes SVC_DELIVERY
     if (classS[6] == '1') {
@@ -192,10 +192,10 @@ NINavTeqHelper::addVehicleClassesV6(NBEdge& e, const std::string& oclassS) {
     if (classS[5] == '1') {
         e.allowVehicleClass(-1, SVC_TAXI);
     }
-    // Public Bus -- becomes SVC_BUS|SVC_PUBLIC_TRANSPORT
+    // Public Bus -- becomes SVC_BUS|SVC_COACH
     if (classS[6] == '1') {
-        e.allowVehicleClass(-1, SVC_COACH);
         e.allowVehicleClass(-1, SVC_BUS);
+        e.allowVehicleClass(-1, SVC_COACH);
     }
     // Delivery Truck -- becomes SVC_DELIVERY
     if (classS[7] == '1') {

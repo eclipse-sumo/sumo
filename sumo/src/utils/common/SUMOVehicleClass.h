@@ -227,12 +227,6 @@ extern std::string getAllowedVehicleClassNames(SVCPermissions permissions);
  */
 extern std::vector<std::string> getAllowedVehicleClassNamesList(SVCPermissions permissions);
 
-/** @brief returns the shorter encoding of the given permissions
- * (selects automatically wether to use allow or disallow attribute)
- * @return the string and true for allow, false for disallow
- */
-extern std::pair<std::string, bool> getPermissionEncoding(SVCPermissions permissions);
-
 
 /** @brief Returns the class id of the abstract class given by its name
  * @param[in] name The name of the abstract vehicle class

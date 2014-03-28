@@ -192,7 +192,7 @@ NWWriter_DlrNavteq::getAllowedTypes(SVCPermissions permissions) {
     oss << ((permissions & SVC_HOV)                    > 0 ? 1 : 0);
     oss << ((permissions & SVC_EMERGENCY)              > 0 ? 1 : 0);
     oss << ((permissions & SVC_TAXI)                   > 0 ? 1 : 0);
-    oss << ((permissions & (SVC_COACH | SVC_BUS))      > 0 ? 1 : 0);
+    oss << ((permissions & (SVC_BUS | SVC_COACH))      > 0 ? 1 : 0);
     oss << ((permissions & SVC_DELIVERY)               > 0 ? 1 : 0);
     oss << ((permissions & (SVC_TRUCK | SVC_TRAILER))  > 0 ? 1 : 0);
     oss << ((permissions & SVC_MOTORCYCLE)             > 0 ? 1 : 0);

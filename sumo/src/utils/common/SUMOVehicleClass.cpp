@@ -183,28 +183,6 @@ getAllowedVehicleClassNamesList(SVCPermissions permissions) {
 }
 
 
-std::pair<std::string, bool>
-getPermissionEncoding(SVCPermissions permissions) {
-    // shortcut the common cases
-    if (permissions == SVCFreeForAll) {
-        return std::pair<std::string, bool>("", false); // nothing disallowed
-    }
-    // figure out whether its shorter to write allow or disallow
-    // @note: this code assumes that enum values are assigned contiguous powers of 2 from 1 to SUMOVehicleClass_MAX
-    size_t num_allowed = 0;
-    for (int mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
-        if ((mask & permissions) == mask) {
-            ++num_allowed;
-        }
-    }
-    if (num_allowed <= (SumoVehicleClassStrings.size() - num_allowed) && num_allowed > 0) {
-        return std::pair<std::string, bool>(getAllowedVehicleClassNames(permissions), true);
-    } else {
-        return std::pair<std::string, bool>(getAllowedVehicleClassNames(~permissions), false);
-    }
-}
-
-
 SUMOVehicleClass
 getVehicleClassID(const std::string& name) {
     if (SumoVehicleClassStrings.hasString(name)) {
@@ -229,6 +207,9 @@ getVehicleClassCompoundID(const std::string& name) {
 
 SVCPermissions
 parseVehicleClasses(const std::string& allowedS) {
+    if (allowedS == "all") {
+        return SVCFreeForAll;
+    }
     SVCPermissions result = 0;
     StringTokenizer sta(allowedS, " ");
     while (sta.hasNext()) {
@@ -240,6 +221,9 @@ parseVehicleClasses(const std::string& allowedS) {
 
 bool
 canParseVehicleClasses(const std::string& classes) {
+    if (classes == "all") {
+        return true;
+    }
     StringTokenizer sta(classes, " ");
     while (sta.hasNext()) {
         if (!SumoVehicleClassStrings.hasString(sta.next())) {

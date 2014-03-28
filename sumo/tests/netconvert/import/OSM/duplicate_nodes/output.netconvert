@@ -6,7 +6,7 @@ Removing duplicate edges... done.
 Parsing relations from osm-file 'osm.xml'... done.
  Import done:
    14 nodes loaded.
-   34 types loaded.
+   33 types loaded.
    26 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done.

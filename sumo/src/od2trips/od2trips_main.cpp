@@ -97,6 +97,11 @@ fillOptions() {
     oc.addSynonyme("od-matrix-files", "od");
     oc.addDescription("od-matrix-files", "Input", "Loads O/D-files from FILE(s)");
 
+    oc.doRegister("od-amitran-files", new Option_FileName());
+    oc.addSynonyme("od-amitran-files", "amitran-files");
+    oc.addSynonyme("od-amitran-files", "amitran");
+    oc.addDescription("od-amitran-files", "Input", "Loads O/D-matrix in Amitran format from FILE(s)");
+
 
     // register the file output options
     oc.doRegister("output-file", 'o', new Option_FileName());
@@ -177,7 +182,7 @@ checkOptions() {
         WRITE_ERROR("No net input file (-n) specified.");
         ok = false;
     }
-    if (!oc.isSet("od-matrix-files")) {
+    if (!oc.isSet("od-matrix-files") && !oc.isSet("od-amitran-files")) {
         WRITE_ERROR("No input specified.");
         ok = false;
     }
