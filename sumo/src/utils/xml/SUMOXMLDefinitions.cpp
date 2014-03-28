@@ -122,6 +122,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
 
     { "viewsettings",     SUMO_TAG_VIEWSETTINGS },
     { "decal",            SUMO_TAG_VIEWSETTINGS_DECAL },
+    { "light",            SUMO_TAG_VIEWSETTINGS_LIGHT },
     { "scheme",           SUMO_TAG_VIEWSETTINGS_SCHEME },
     { "opengl",           SUMO_TAG_VIEWSETTINGS_OPENGL },
     { "background",       SUMO_TAG_VIEWSETTINGS_BACKGROUND },

@@ -243,6 +243,23 @@ GUISettingsHandler::myStartElement(int element,
             myDecals.push_back(d);
         }
             break;
+        case SUMO_TAG_VIEWSETTINGS_LIGHT: {
+            GUISUMOAbstractView::Decal d;
+            d.filename = "light" + attrs.getOpt<std::string>(SUMO_ATTR_INDEX, 0, ok, "0");
+            d.centerX = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_X, 0, ok, d.centerX);
+            d.centerY = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Y, 0, ok, d.centerY);
+            d.centerZ = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Z, 0, ok, d.centerZ);
+            d.width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, 0, ok, d.width);
+            d.height = attrs.getOpt<SUMOReal>(SUMO_ATTR_HEIGHT, 0, ok, d.height);
+            d.altitude = TplConvert::_2SUMOReal(attrs.getStringSecure("altitude", toString(d.height)).c_str());
+            d.rot = TplConvert::_2SUMOReal(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
+            d.tilt = TplConvert::_2SUMOReal(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
+            d.roll = TplConvert::_2SUMOReal(attrs.getStringSecure("roll", toString(d.roll)).c_str());
+            d.layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, 0, ok, d.layer);
+            d.initialised = false;
+            myDecals.push_back(d);
+        }
+            break;
         case SUMO_TAG_VIEWSETTINGS_EVENT: {
             const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
             const std::string cmd = attrs.get<std::string>(SUMO_ATTR_COMMAND, 0, ok);
