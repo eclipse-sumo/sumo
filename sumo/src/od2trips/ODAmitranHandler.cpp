@@ -55,8 +55,9 @@ ODAmitranHandler::myStartElement(int element,
             myVehicleType = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
             break;
         case SUMO_TAG_TIMESLICE:
-            myBegin = attrs.getSUMOTimeReporting(SUMO_ATTR_STARTTIME, myVehicleType.c_str(), ok);
-            myEnd = myBegin + attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myVehicleType.c_str(), ok);
+            myBegin = attrs.get<int>(SUMO_ATTR_STARTTIME, myVehicleType.c_str(), ok);
+            myEnd = myBegin + attrs.get<int>(SUMO_ATTR_DURATION, myVehicleType.c_str(), ok);
+            break;
         case SUMO_TAG_OD_PAIR:
             myMatrix.add(attrs.get<SUMOReal>(SUMO_ATTR_AMOUNT, myVehicleType.c_str(), ok),
                          myBegin, myEnd, attrs.get<std::string>(SUMO_ATTR_ORIGIN, myVehicleType.c_str(), ok),

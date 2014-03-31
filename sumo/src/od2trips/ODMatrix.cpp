@@ -508,7 +508,7 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
         }
         PROGRESS_BEGIN_MESSAGE("Loading matrix in Amitran format from '" + *i + "'");
         ODAmitranHandler handler(*this, *i);
-        if (!XMLSubSys::runParser(handler, *i, true)) {
+        if (!XMLSubSys::runParser(handler, *i)) {
             PROGRESS_FAILED_MESSAGE();
         } else {
             PROGRESS_DONE_MESSAGE();

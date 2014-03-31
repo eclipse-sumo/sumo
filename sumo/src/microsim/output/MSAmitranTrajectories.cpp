@@ -85,14 +85,14 @@ MSAmitranTrajectories::writeVehicle(OutputDevice& of, const SUMOVehicle& veh, co
             const int index = (int)myWrittenVehicles.size();
             of.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, index)
                                         .writeAttr(SUMO_ATTR_ACTORCONFIG, myWrittenTypes[type])
-                                        .writeAttr(SUMO_ATTR_STARTTIME, int(1000.*STEPS2TIME(veh.getDeparture()) + 0.5));
+                                        .writeAttr(SUMO_ATTR_STARTTIME, STEPS2MS(veh.getDeparture());
             of.writeAttr(SUMO_ATTR_REF, veh.getID()).closeTag();
             myWrittenVehicles[veh.getID()] = index;
         }
         of.openTag(SUMO_TAG_MOTIONSTATE).writeAttr(SUMO_ATTR_VEHICLE, myWrittenVehicles[veh.getID()])
                                         .writeAttr(SUMO_ATTR_SPEED, int(100.*veh.getSpeed() + 0.5))
                                         .writeAttr(SUMO_ATTR_ACCELERATION, int(1000.*veh.getAcceleration() + 0.5))
-                                        .writeAttr(SUMO_ATTR_TIME, int(1000.*STEPS2TIME(timestep) + 0.5)) ;
+                                        .writeAttr(SUMO_ATTR_TIME, STEPS2MS(timestep)) ;
         of.closeTag();
     }
 }
