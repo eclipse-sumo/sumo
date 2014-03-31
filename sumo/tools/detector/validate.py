@@ -1,4 +1,22 @@
 #!/usr/bin/env python
+"""
+@file    validate.py
+@author  Michael Behrisch
+@date    2013-06-12
+@version $Id$
+
+This script validates detector data resulting from dfrouter 
+validation detectors against the original data fed into dfrouter
+
+SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
+Copyright (C) 2013-2014 DLR (http://www.dlr.de/) and contributors
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+"""
 from __future__ import print_function
 import sys, os, collections
 from optparse import OptionParser
@@ -7,10 +25,6 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib
-
-#D:\2013_VMM_SIM\vmm sim\TestSzenario_MUC>count_muc.py -d Test_Szenario_lang_Vero
-#rtungDetektore_input_detektor2.xml -v validation_dets.xml Loop_Daten_Muenchen_20
-#13-07-01.txt 
 
 optParser = OptionParser(usage="usage: %prog [options] <input_flows.csv>")
 optParser.add_option("-d", "--detectorfile", help="read detector list from file")
