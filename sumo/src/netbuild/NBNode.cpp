@@ -604,6 +604,9 @@ NBNode::writeLogic(OutputDevice& into, const bool checkLaneFoes) const {
 void
 NBNode::computeNodeShape(bool leftHand, SUMOReal mismatchThreshold) {
     if (myIncomingEdges.size() == 0 && myOutgoingEdges.size() == 0) {
+        // may be an intermediate step during network editing
+        myPoly.clear();
+        myPoly.push_back(myPosition);
         return;
     }
     try {
