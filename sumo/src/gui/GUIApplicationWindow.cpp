@@ -1114,7 +1114,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
             }
             // set simulation step begin information
-            updateTimeLCD(ec->myNet->getCurrentTimeStep());
+            myLCDLabel->setText("-------------");
         }
     }
     getApp()->endWaitCursor();
@@ -1311,6 +1311,7 @@ GUIApplicationWindow::setStatusBarText(const std::string& text) {
 
 void
 GUIApplicationWindow::updateTimeLCD(SUMOTime time) {
+    time -= DELTA_T; // synchronize displayed time with netstate output
     if (myAmGaming) {
         // show time counting backwards
         time = myRunThread->getSimEndTime() - time;
