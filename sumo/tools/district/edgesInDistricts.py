@@ -20,9 +20,9 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+import sys, math
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
-import math
 
 
 def parseShape(shape):
@@ -89,7 +89,7 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
         self._numLanes = {}
 
     def startElement(self, name, attrs):
-        if name == 'taz':    
+        if name == 'taz' or name == 'poly':    
             self._haveDistrict = True
             self._currentID = attrs['id']
             self._districtEdges[self._currentID] = []
@@ -118,7 +118,7 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
             self._shape += content
 
     def endElement(self, name):
-        if name == 'taz':    
+        if name == 'taz' or name == 'poly':    
             self._haveDistrict = False
             if self._shape != '':
                 self._districtShapes[self._currentID] = parseShape(self._shape)
@@ -132,18 +132,26 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
                 self._edgeShapes[self._currentID] = parseShape(self._shape)
                 self._shape = ""
 
-    def computeWithin(self, complete, maxspeed):
-        for edge, shape in self._edgeShapes.iteritems():
+    def computeWithin(self, complete, maxspeed, assignFrom):
+        for idx, (edge, shape) in enumerate(self._edgeShapes.iteritems()):
             if self._edgeSpeeds[edge] < maxspeed:
                 min, max = getBoundingBox(shape)
                 for district, dshape in self._districtShapes.iteritems():
                     dmin, dmax = self._districtBoxes[district]
                     if dmin[0] <= max[0] and dmin[1] <= max[1] and dmax[0] >= min[0] and dmax[1] >= min[1]:
-                        for pos in shape:
-                            if isWithin(pos, dshape):
+                        if assignFrom:
+                            if isWithin(shape[0], dshape):
                                 self._districtEdges[district].append(edge)
                                 self._edgeDistricts[edge].append(district)
                                 break
+                        else:
+                            for pos in shape:
+                                if isWithin(pos, dshape):
+                                    self._districtEdges[district].append(edge)
+                                    self._edgeDistricts[edge].append(district)
+                                    break
+            if options.verbose:
+                sys.stdout.write("%s/%s\r" % (idx, len(self._edgeShapes)))
         if complete:
             for edge, districts in self._edgeDistricts.iteritems():
                 if len(districts) > 1:
@@ -185,8 +193,10 @@ if __name__ == "__main__":
                          help="write results to FILE (default: %default)", metavar="FILE")
     optParser.add_option("-m", "--max-speed", type="float", dest="maxspeed",
                          default=1000.0, help="use lanes where speed is not greater than this (m/s) (default: %default)")
-    optParser.add_option("-w", "--weighted", action="store_true", dest="weighted",
+    optParser.add_option("-w", "--weighted", action="store_true",
                          default=False, help="Weights sources/sinks by lane number and length")
+    optParser.add_option("-f", "--assign-from", action="store_true",
+                         default=False, help="Assign the edge always to the district where the \"from\" node is located")
     (options, args) = optParser.parse_args()
     if not options.netfiles:
         optParser.print_help()
@@ -201,7 +211,7 @@ if __name__ == "__main__":
         parser.parse(netfile)
     if options.verbose:
         print "Calculating"
-    reader.computeWithin(options.complete, options.maxspeed)
+    reader.computeWithin(options.complete, options.maxspeed, options.assign_from)
     if options.verbose:
         print "Writing results"
     reader.writeResults(options.output, options.weighted)
