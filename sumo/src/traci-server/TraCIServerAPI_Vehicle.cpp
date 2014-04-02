@@ -257,7 +257,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 // retrieve
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 SUMOReal value;
-                if (!v->getWeightsStorage().retrieveExistingTravelTime(edge, 0, time, value)) {
+                if (!v->getWeightsStorage().retrieveExistingTravelTime(edge, time, value)) {
                     tempMsg.writeDouble(INVALID_DOUBLE_VALUE);
                 } else {
                     tempMsg.writeDouble(value);
@@ -289,7 +289,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 // retrieve
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 SUMOReal value;
-                if (!v->getWeightsStorage().retrieveExistingEffort(edge, 0, time, value)) {
+                if (!v->getWeightsStorage().retrieveExistingEffort(edge, time, value)) {
                     tempMsg.writeDouble(INVALID_DOUBLE_VALUE);
                 } else {
                     tempMsg.writeDouble(value);

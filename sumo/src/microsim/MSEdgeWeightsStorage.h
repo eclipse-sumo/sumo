@@ -61,24 +61,20 @@ public:
 
     /** @brief Returns a travel time for an edge and time if stored
      * @param[in] e The edge for which the travel time shall be retrieved
-     * @param[in] v Unused
      * @param[in] t The time for which the travel time shall be retrieved
      * @param[in] value The value if the requested edge/time is described
      * @return Whether the requested edge/time is described
      */
-    bool retrieveExistingTravelTime(const MSEdge* const e, const SUMOVehicle* const v,
-                                    SUMOReal t, SUMOReal& value) const;
+    bool retrieveExistingTravelTime(const MSEdge* const e, const SUMOReal t, SUMOReal& value) const;
 
 
     /** @brief Returns an effort for an edge and time if stored
      * @param[in] e The edge for which the effort shall be retrieved
-     * @param[in] v Unused
      * @param[in] t The time for which the effort shall be retrieved
      * @param[in] value The value if the requested edge/time is described
      * @return Whether the requested edge/time is described
      */
-    bool retrieveExistingEffort(const MSEdge* const e, const SUMOVehicle* const v,
-                                SUMOReal t, SUMOReal& value) const;
+    bool retrieveExistingEffort(const MSEdge* const e, const SUMOReal t, SUMOReal& value) const;
 
 
     /** @brief Adds a travel time information for an edge and a time span
@@ -127,10 +123,10 @@ public:
 
 private:
     /// @brief A map of edge->time->travel time
-    std::map<MSEdge*, ValueTimeLine<SUMOReal> > myTravelTimes;
+    std::map<const MSEdge*, ValueTimeLine<SUMOReal> > myTravelTimes;
 
     /// @brief A map of edge->time->effort
-    std::map<MSEdge*, ValueTimeLine<SUMOReal> > myEfforts;
+    std::map<const MSEdge*, ValueTimeLine<SUMOReal> > myEfforts;
 
 
 private:

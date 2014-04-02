@@ -124,10 +124,10 @@ SUMOReal
 MSNet::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) {
     SUMOReal value;
     const MSVehicle* const veh = dynamic_cast<const MSVehicle* const>(v);
-    if (veh != 0 && veh->getWeightsStorage().retrieveExistingEffort(e, v, t, value)) {
+    if (veh != 0 && veh->getWeightsStorage().retrieveExistingEffort(e, t, value)) {
         return value;
     }
-    if (getInstance()->getWeightsStorage().retrieveExistingEffort(e, v, t, value)) {
+    if (getInstance()->getWeightsStorage().retrieveExistingEffort(e, t, value)) {
         return value;
     }
     return 0;
@@ -138,10 +138,10 @@ SUMOReal
 MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) {
     SUMOReal value;
     const MSVehicle* const veh = dynamic_cast<const MSVehicle* const>(v);
-    if (veh != 0 && veh->getWeightsStorage().retrieveExistingTravelTime(e, v, t, value)) {
+    if (veh != 0 && veh->getWeightsStorage().retrieveExistingTravelTime(e, t, value)) {
         return value;
     }
-    if (getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, v, t, value)) {
+    if (getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, t, value)) {
         return value;
     }
     return e->getMinimumTravelTime(v);
