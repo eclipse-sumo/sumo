@@ -273,9 +273,6 @@ private:
     /// @brief The coordinate transformation which was used to build the loaded network.
     GeoConvHelper* myLocation;
 
-    /// @brief whether we suspect a net that was built with xml.keep-shape
-    bool mySuspectKeepShape;
-
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
 

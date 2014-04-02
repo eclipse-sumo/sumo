@@ -82,7 +82,6 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCurrentLane(0),
       myCurrentTL(0),
       myLocation(0),
-      mySuspectKeepShape(false),
       myHaveSeenInternalEdge(false)
 {}
 
@@ -139,7 +138,6 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         PositionVector geom;
         if (ed->shape.size() > 0) {
             geom = ed->shape;
-            mySuspectKeepShape = false; // no problem with reconstruction if edge shape is given explicit
         } else {
             // either the edge has default shape consisting only of the two node
             // positions or we have a legacy network
@@ -235,11 +233,6 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (!myHaveSeenInternalEdge && oc.isDefault("no-internal-links")) {
         oc.set("no-internal-links", "true");
     }
-    // final warning
-    if (mySuspectKeepShape) {
-        WRITE_WARNING("The input network may have been built using option 'xml.keep-shape'.\n... Accuracy of junction positions cannot be guaranteed.");
-    }
-
 }
 
 
@@ -432,18 +425,6 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     }
     Position pos = readPosition(attrs, id, ok);
     NBNetBuilder::transformCoordinates(pos, true, myLocation);
-    // the network may have non-default edge geometry.
-    // accurate reconstruction of legacy networks is not possible. We ought to warn about this
-    if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-        PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok, PositionVector());
-        if (shape.size() > 0) {
-            shape.push_back_noDoublePos(shape[0]); // need closed shape
-            if (!shape.around(pos) && shape.distance(pos) > 1) { // MAGIC_THRESHOLD
-                // WRITE_WARNING("Junction '" + id + "': distance between pos and shape is " + toString(shape.distance(pos)));
-                mySuspectKeepShape = true;
-            }
-        }
-    }
     NBNode* node = new NBNode(id, pos, type);
     if (!myNodeCont.insert(node)) {
         WRITE_ERROR("Problems on adding junction '" + id + "'.");
