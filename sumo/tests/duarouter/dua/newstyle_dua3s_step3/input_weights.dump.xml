@@ -1,52 +1,59 @@
-<!--
-- noVehContrib is the number of vehicles have been on the lane for
-  at least one timestep during the current intervall.
-  They contribute to speed, speedsquare and density.
-  They may not have passed the entire lane.
-- noVehEntireLane is the number of vehicles that have passed the
-  entire lane and left the lane during the current intervall. They
-  may have started their journey on this lane in a previous intervall.
-  Only those vehicles contribute to traveltime.
-- noVehEntered is the number of vehicles that entered this lane
-  during the current intervall either by move, emit or lanechange.
-  Note that noVehEntered might be high if vehicles are emitted on
-  this lane.
-- noVehLeft is the number of vehicles that left this lane during
-  the current intervall by move.
-- traveltime [s]
-  If noVehContrib==0 then traveltime is set to laneLength / laneMaxSpeed.
-  If noVehContrib!=0 && noVehEntireLane==0 then traveltime is set to
-  laneLength / speed.
-  Else traveltime is calculated from the data of the vehicles that
-  passed the entire lane.
-- speed [m/s]
-  If noVehContrib==0 then speed is set to laneMaxSpeed.
-- speedsquare [(m/s)^2]
-  If noVehContrib==0 then speedsquare is set to -1.
-- density [veh/km]
-  If noVehContrib==0 then density is set to 0.
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 04/01/14 16:12:57 by SUMO sumo Version dev-SVN-r16088
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_trips_001.rou.xml"/>
+        <additional-files value="dua_dump_001.add.xml"/>
+    </input>
+
+    <output>
+        <summary-output value="summary_001.xml"/>
+        <tripinfo-output value="tripinfo_001.xml"/>
+        <save-state.prefix value="state"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <processing>
+        <route-steps value="200"/>
+        <no-internal-links value="false"/>
+        <time-to-teleport value="300"/>
+        <time-to-teleport.highways value="0"/>
+        <eager-insert value="false"/>
+        <lanechange.allow-swap value="false"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <no-warnings value="false"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <emissions>
+        <phemlight-path value="./PHEMlight/"/>
+    </emissions>
+
+    <random_number>
+        <random value="false"/>
+    </random_number>
+
+</configuration>
 -->
-<netstats>
-<interval begin="0" end="300" >
-      <edge id="beg" traveltime="21.6326" noVehContrib="2022" density="0.17575" noStops="0" speed="8.86393"/>
-      <edge id="beg2left" traveltime="2.891" noVehContrib="250" density="0.0905797" noStops="0" speed="15.9114"/>
-      <edge id="beg2right" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
-      <edge id="end" traveltime="14.3252" noVehContrib="62" density="0.00538896" noStops="0" speed="13.3855"/>
-      <edge id="left" traveltime="84.6603" noVehContrib="5151" density="0.21817" noStops="2481" speed="4.64799"/>
-      <edge id="left2end" traveltime="40.0117" noVehContrib="1879" density="0.680797" noStops="1421" speed="1.14966"/>
-      <edge id="middle" traveltime="128.512" noVehContrib="7646" density="0.3255" noStops="4490" speed="3.0464"/>
-      <edge id="right" traveltime="11.1111" noVehContrib="0" density="0" noStops="0" speed="36"/>
-      <edge id="right2end" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
-</interval>
-<interval begin="300" end="594" >
-      <edge id="beg" traveltime="5.32639" noVehContrib="0" density="0" noStops="0" speed="36"/>
-      <edge id="beg2left" traveltime="1.27778" noVehContrib="0" density="0" noStops="0" speed="36"/>
-      <edge id="beg2right" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
-      <edge id="end" traveltime="22.6786" noVehContrib="66" density="0.00583387" noStops="0" speed="8.4551"/>
-      <edge id="left" traveltime="651.722" noVehContrib="2016" density="0.0868348" noStops="1471" speed="0.603785"/>
-      <edge id="left2end" traveltime="63.5768" noVehContrib="1861" density="0.685704" noStops="1488" speed="0.723534"/>
-      <edge id="middle" traveltime="507.487" noVehContrib="4413" density="0.191051" noStops="3232" speed="0.771448"/>
-      <edge id="right" traveltime="11.1111" noVehContrib="0" density="0" noStops="0" speed="36"/>
-      <edge id="right2end" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
-</interval>
-</netstats>
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="535.00" id="dump_001_900">
+        <edge id="beg" sampledSeconds="2727.86" traveltime="27.28" density="10.20" occupancy="5.10" waitingTime="0.00" speed="18.33" departed="100" arrived="0" entered="0" left="100" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2right" sampledSeconds="1715.72" traveltime="37.75" density="6.41" occupancy="3.21" waitingTime="0.00" speed="13.25" departed="0" arrived="0" entered="45" left="45" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="2296.70" traveltime="22.74" density="8.59" occupancy="4.29" waitingTime="0.00" speed="21.98" departed="0" arrived="100" entered="100" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="8315.53" traveltime="150.44" density="15.54" occupancy="7.77" waitingTime="0.00" speed="6.65" departed="0" arrived="0" entered="55" left="55" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="right" sampledSeconds="3412.64" traveltime="75.46" density="6.38" occupancy="3.19" waitingTime="0.00" speed="13.25" departed="0" arrived="0" entered="45" left="45" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="right2end" sampledSeconds="4684.28" traveltime="103.06" density="17.51" occupancy="8.76" waitingTime="1525.00" speed="4.85" departed="0" arrived="0" entered="45" left="45" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+</meandata>

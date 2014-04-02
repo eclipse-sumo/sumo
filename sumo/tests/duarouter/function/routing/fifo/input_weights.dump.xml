@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <netstats>
    <interval begin="0" end="900" id="dump_9_900">
-      <edge id="beg" traveltime="10"/>
-      <edge id="beg2left" traveltime="20"/>
-      <edge id="left" traveltime="40"/>
-      <edge id="left2end" traveltime="20"/>
-      <edge id="middle" traveltime="75"/>
+      <edge id="beg" traveltime="100"/>
+      <edge id="beg2left" traveltime="200"/>
+      <edge id="left" traveltime="400"/>
+      <edge id="left2end" traveltime="200"/>
+      <edge id="middle" traveltime="750"/>
    </interval>
    <interval begin="900" end="1800" id="dump_9_900">
-      <edge id="beg" traveltime="10"/>
-      <edge id="beg2left" traveltime="10"/>
-      <edge id="left" traveltime="40"/>
-      <edge id="left2end" traveltime="20"/>
-      <edge id="middle" traveltime="75"/>
+      <edge id="beg" traveltime="100"/>
+      <edge id="beg2left" traveltime="100"/>
+      <edge id="left" traveltime="400"/>
+      <edge id="left2end" traveltime="200"/>
+      <edge id="middle" traveltime="750"/>
    </interval>
 </netstats>
