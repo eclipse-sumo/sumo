@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:03:05 by SUMO duarouter Version 0.17.0
+<!-- generated on 04/01/14 18:24:48 by SUMO duarouter Version dev-SVN-r16088
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
@@ -16,6 +16,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -138,7 +139,7 @@
         <route edges="beg beg2right right right2end end"/>
     </vehicle>
     <vehicle id="17" type="KRAUSS_DEFAULT" depart="0.00">
-        <route edges="beg beg2left left left2end end"/>
+        <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="18" type="KRAUSS_DEFAULT" depart="0.00">
         <route edges="beg middle end"/>

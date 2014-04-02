@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:03:10 by SUMO duarouter Version 0.17.0
+<!-- generated on 04/01/14 13:45:06 by SUMO duarouter Version dev-SVN-r16088
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
@@ -16,11 +16,12 @@
     </output>
 
     <processing>
-        <logit value="true"/>
+        <route-choice-method value="logit"/>
         <logit.theta value="0.01"/>
     </processing>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -30,10 +31,10 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <vehicle id="0" depart="0.00">
         <routeDistribution last="2">
-            <route cost="540.00" probability="0.57424572" edges="oa ab bd"/>
-            <route cost="600.00" probability="0.31512351" edges="oa ab by yd"/>
-            <route cost="720.00" probability="0.09492666" edges="oa ax xy yd"/>
-            <route cost="900.00" probability="0.01570412" edges="ox xy yd"/>
+            <route cost="656.30" probability="0.58017079" edges="oa ab bd"/>
+            <route cost="728.92" probability="0.28062804" edges="oa ab by yd"/>
+            <route cost="825.33" probability="0.10702659" edges="oa ax xy yd"/>
+            <route cost="945.62" probability="0.03217458" edges="ox xy yd"/>
         </routeDistribution>
     </vehicle>
 </routes>

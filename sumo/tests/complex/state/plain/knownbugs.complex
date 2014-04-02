@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 02Apr10:08:15]
+search_string:<tlsState time="50.00" id="0/0" programID="0" phase="2" state="GrGg"/>
+search_file:tls_state
+full_description:to many tls events
+brief_description:see #1229

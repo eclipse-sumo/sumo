@@ -66,7 +66,7 @@ std::vector<ROEdge*> ROEdge::myEdges;
 // ===========================================================================
 ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index, const int priority)
     : Named(id), myFromNode(from), myToNode(to), myIndex(index), myPriority(priority),
-      mySpeed(-1), myLength(-1),
+      mySpeed(-1), myLength(0),
       myUsingTTTimeLine(false),
       myUsingETimeLine(false),
       myCombinedPermissions(0) {
@@ -86,10 +86,9 @@ ROEdge::~ROEdge() {
 
 void
 ROEdge::addLane(ROLane* lane) {
-    SUMOReal length = lane->getLength();
-    assert(myLength == -1 || length == myLength);
-    myLength = length;
-    SUMOReal speed = lane->getSpeed();
+    assert(myLanes.empty() || lane->getLength() == myLength);
+    myLength = lane->getLength();
+    const SUMOReal speed = lane->getSpeed();
     mySpeed = speed > mySpeed ? speed : mySpeed;
     myLanes.push_back(lane);
 
@@ -144,39 +143,25 @@ ROEdge::getDistanceTo(const ROEdge* other) const {
 
 SUMOReal
 ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
-    return getTravelTime(veh->getType()->maxSpeed, time);
-}
-
-
-SUMOReal
-ROEdge::getTravelTime(const SUMOReal maxSpeed, SUMOReal time) const {
-    return MAX2(myLength / maxSpeed, getTravelTime(time));
-}
-
-
-SUMOReal
-ROEdge::getTravelTime(SUMOReal time) const {
     if (myUsingTTTimeLine) {
-        if (!myHaveTTWarned && !myTravelTimes.describesTime(time)) {
-            WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
-            myHaveTTWarned = true;
-        }
-        if (myInterpolate) {
-            SUMOReal inTT = myTravelTimes.getValue(time);
-            SUMOReal split = (SUMOReal)(myTravelTimes.getSplitTime(time, time + (SUMOTime)inTT) - time);
-            if (split >= 0) {
-                return myTravelTimes.getValue(time + (SUMOTime)inTT) * ((SUMOReal)1. - split / inTT) + split;
+        if (myTravelTimes.describesTime(time)) {
+            SUMOReal lineTT = myTravelTimes.getValue(time);
+            if (myInterpolate) {
+                const SUMOReal inTT = lineTT;
+                const SUMOReal split = (SUMOReal)(myTravelTimes.getSplitTime(time, time + inTT) - time);
+                if (split >= 0) {
+                    lineTT = myTravelTimes.getValue(time + inTT) * ((SUMOReal)1. - split / inTT) + split;
+                }
+            }
+            return MAX2(getMinimumTravelTime(veh), lineTT);
+        } else {
+            if (!myHaveTTWarned) {
+                WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / max speed.");
+                myHaveTTWarned = true;
             }
         }
-        return myTravelTimes.getValue(time);
     }
-    return myLength / mySpeed;
-}
-
-
-SUMOReal
-ROEdge::getMinimumTravelTime(const ROVehicle* const veh) const {
-    return (SUMOReal)(myLength / MIN2(veh->getType()->maxSpeed, mySpeed));
+    return (SUMOReal)(myLength / MIN2(veh->getType()->maxSpeed, veh->getType()->speedFactor * mySpeed));
 }
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  5 21:37:31 2014 by SUMO sumo Version dev-SVN-r15830
+<!-- generated on Wed Apr  2 10:08:38 2014 by SUMO sumo Version dev-SVN-r16088
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -27,11 +27,11 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" arrival="430.00">
+    <vehicle id="0" depart="0.00" arrival="475.00">
         <route edges="4/1to3/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 
-    <vehicle id="1" depart="5.00" arrival="752.00">
+    <vehicle id="1" depart="5.00" arrival="735.00">
         <route edges="4/1to3/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 

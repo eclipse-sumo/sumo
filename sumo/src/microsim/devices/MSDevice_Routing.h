@@ -230,7 +230,7 @@ private:
     static Command* myEdgeWeightSettingCommand;
 
     /// @brief The container of edge efforts
-    static std::map<const MSEdge*, SUMOReal> myEdgeEfforts;
+    static std::vector<SUMOReal> myEdgeEfforts;
 
     /// @brief Information which weight prior edge efforts have
     static SUMOReal myAdaptationWeight;

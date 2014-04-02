@@ -100,7 +100,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 SUMOReal value;
-                if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, 0, time, value)) {
+                if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, time, value)) {
                     tempMsg.writeDouble(-1);
                 } else {
                     tempMsg.writeDouble(value);
@@ -115,7 +115,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 SUMOReal value;
-                if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, time, value)) {
+                if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, time, value)) {
                     tempMsg.writeDouble(-1);
                 } else {
                     tempMsg.writeDouble(value);

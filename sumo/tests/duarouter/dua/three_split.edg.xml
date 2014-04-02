@@ -1,0 +1,20 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+
+   <edge id="beg" speed="27.80" numLanes="1" from="absBeg" to="beg"/>
+
+   <edge id="beg2left" speed="13.9" numLanes="1" from="beg" to="begleft"/>
+   <edge id="beg2right" speed="13.9" numLanes="1" from="beg" to="begright"/>
+
+   <edge id="left" speed="13.9" numLanes="1" from="begleft" to="endleft"/>
+   <edge id="middle" speed="7.30" numLanes="1" from="beg" to="end"/>
+   <edge id="right" speed="13.9" numLanes="1" from="begright" to="endright"/>
+
+
+   <edge id="left2end" speed="13.9" numLanes="1" from="endleft" to="end"/>
+   <edge id="right2end" speed="13.9" numLanes="1" from="endright" to="end"/>
+
+   <edge id="end" speed="27.80" numLanes="1" from="end" to="absEnd"/>
+   <edge id="rend" speed="27.80" numLanes="1" from="absEnd" to="rabsEnd"/>
+
+</edges>
+

@@ -98,7 +98,7 @@ MSEventControl::execute(SUMOTime execTime) {
                 }
                 delete currEvent.first;
             } else {
-                currEvent.second = execTime + time;
+                currEvent.second += time;
                 myEvents.push(currEvent);
             }
         } else {

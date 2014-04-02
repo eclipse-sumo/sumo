@@ -7,7 +7,7 @@
 @date    2007-07-26
 @version $Id$
 
-Maps the geomtetry of the districts of two networks by calculating 
+Maps the geometry of the districts of two networks by calculating 
 translation and scale parameters from junctions which have been 
 identified by the user as reference points.
 

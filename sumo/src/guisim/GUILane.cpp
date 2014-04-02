@@ -664,7 +664,7 @@ GUILane::getStoredEdgeTravelTime() const {
         return -1;
     } else {
         SUMOReal value(0);
-        ews.retrieveExistingTravelTime(myEdge, 0, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), value);
+        ews.retrieveExistingTravelTime(myEdge, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), value);
         return value;
     }
 }
@@ -710,7 +710,7 @@ GUILane::getColorValue(size_t activeScheme) const {
                 return -1;
             } else {
                 SUMOReal value(0);
-                ews.retrieveExistingTravelTime(myEdge, 0, 0, value);
+                ews.retrieveExistingTravelTime(myEdge, 0, value);
                 return 100 * myLength / value / getSpeedLimit();
             }
         }

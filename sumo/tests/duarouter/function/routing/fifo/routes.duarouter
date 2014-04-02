@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 14:00:49 2014 by SUMO duarouter Version dev-SVN-r15793
+<!-- generated on 04/01/14 15:40:41 by SUMO duarouter Version dev-SVN-r16088
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
@@ -30,10 +30,10 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
-    <vehicle id="0" type="0" depart="888.00">
-        <route edges="beg middle end rend" exitTimes="898.00 973.00 990.99 1008.97"/>
+    <vehicle id="0" type="0" depart="780.00">
+        <route edges="beg middle end rend" exitTimes="880.00 1630.00 1647.99 1665.97"/>
     </vehicle>
-    <vehicle id="1" type="0" depart="892.00">
-        <route edges="beg beg2left left left2end end rend" exitTimes="902.00 912.00 952.00 972.00 989.99 1007.97"/>
+    <vehicle id="1" type="0" depart="810.00">
+        <route edges="beg beg2left left left2end end rend" exitTimes="910.00 1010.00 1410.00 1610.00 1627.99 1645.97"/>
     </vehicle>
 </routes>

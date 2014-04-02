@@ -49,4 +49,15 @@
       <edge id="end" traveltime="1" CO_perVeh="0"/>
       <edge id="rend" traveltime="1" CO_perVeh="0"/>
    </interval>
+
+   <interval begin="300" end="400" id="dump_300">
+      <edge id="beg2left" traveltime="1" CO_perVeh="100"/>
+      <edge id="left" traveltime="1" CO_perVeh="100"/>
+      <edge id="left2end" traveltime="1" CO_perVeh="100"/>
+      <edge id="middle" traveltime="1" CO_perVeh="200"/>
+
+      <edge id="beg" traveltime="1" CO_perVeh="0"/>
+      <edge id="end" traveltime="1" CO_perVeh="0"/>
+      <edge id="rend" traveltime="1" CO_perVeh="0"/>
+   </interval>
 </netstats>
