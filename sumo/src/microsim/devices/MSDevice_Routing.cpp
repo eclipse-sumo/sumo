@@ -121,7 +121,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
             const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
             const SUMOReal currentSecond = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
             for (std::vector<MSEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-                while ((*i)->getNumericalID() >= myEdgeEfforts.size()) {
+                while ((*i)->getNumericalID() >= (int)myEdgeEfforts.size()) {
                     myEdgeEfforts.push_back(0);
                 }
                 if (useLoaded) {
@@ -228,7 +228,7 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
 SUMOReal
 MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal) {
     const int id = e->getNumericalID();
-    if (id < myEdgeEfforts.size()) {
+    if (id < (int)myEdgeEfforts.size()) {
         return MAX2(myEdgeEfforts[id], e->getMinimumTravelTime(v));
     }
     return 0;

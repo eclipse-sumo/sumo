@@ -320,7 +320,7 @@ public:
      * @param[in] time The time for which the effort shall be returned [s]
      */
     inline SUMOReal getMinimumTravelTime(const ROVehicle* const veh) const {
-        return (SUMOReal)(myLength / MIN2(veh->getType()->maxSpeed, (2. * veh->getType()->speedDev + 1.) * veh->getType()->speedFactor * mySpeed));
+        return myLength / MIN2(veh->getType()->maxSpeed, SUMOReal(2. * veh->getType()->speedDev + 1.) * veh->getType()->speedFactor * mySpeed);
     }
 
 
