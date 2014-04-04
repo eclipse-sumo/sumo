@@ -20,6 +20,8 @@ copy_test_path:sumo_log.sumocfg
 copy_test_path:osm.xml
 copy_test_path:data
 copy_test_path:runner.py
+copy_test_path:classes.txt
+copy_test_path:nefz.csv
 test_data_ignore:.svn
 
 [collate_file]

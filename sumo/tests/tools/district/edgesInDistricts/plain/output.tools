@@ -13,3 +13,5 @@ Options:
                         use lanes where speed is not greater than this (m/s)
                         (default: 1000.0)
   -w, --weighted        Weights sources/sinks by lane number and length
+  -f, --assign-from     Assign the edge always to the district where the
+                        "from" node is located

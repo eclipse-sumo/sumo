@@ -80,7 +80,7 @@ def msg2xml(desc, cont, out, depth=1):
 
 def writeXml(root, module, options):
     with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
-        outputf.write('<%s' % root)
+        outputf.write('<?xml version="1.0" encoding="UTF-8"?>\n\n<%s' % root)
         if (options.source.isdigit()):
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
