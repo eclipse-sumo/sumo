@@ -1,0 +1,422 @@
+Running 'HDV_3_1'
+sums
+length:11041.9
+CO:13650.8
+CO2:6.61059e+006
+HC:4606.3
+NOx:66375.9
+PMx:1883.96
+fuel:2635.54
+Success.
+Running 'HDV_3_2'
+sums
+length:11041.9
+CO:27731.6
+CO2:1.079e+007
+HC:9002.29
+NOx:134199
+PMx:5044.41
+fuel:4301.82
+Success.
+Running 'HDV_3_3'
+sums
+length:11041.9
+CO:19604.5
+CO2:1.09844e+007
+HC:5628.14
+NOx:107234
+PMx:2234.52
+fuel:4358.87
+Success.
+Running 'HDV_6_1'
+sums
+length:11041.9
+CO:12670.3
+CO2:6.36953e+006
+HC:4191.6
+NOx:63601.9
+PMx:1586.56
+fuel:2539.43
+Success.
+Running 'HDV_6_2'
+sums
+length:11041.9
+CO:18137.2
+CO2:1.08384e+007
+HC:5105.43
+NOx:99895.6
+PMx:1723.93
+fuel:4321.1
+Success.
+Running 'HDV_6_3'
+sums
+length:11041.9
+CO:22069.8
+CO2:1.10624e+007
+HC:6138.59
+NOx:116672
+PMx:3009.63
+fuel:4333.98
+Success.
+Running 'HDV_6_4'
+sums
+length:11041.9
+CO:26753.3
+CO2:1.19109e+007
+HC:7735.44
+NOx:158078
+PMx:5459.59
+fuel:4748.71
+Success.
+Running 'HDV_6_5'
+sums
+length:11041.9
+CO:29816.3
+CO2:1.25028e+007
+HC:10378.3
+NOx:166979
+PMx:6035
+fuel:4886.86
+Success.
+Running 'HDV_6_6'
+sums
+length:11041.9
+CO:26035.7
+CO2:9.43322e+006
+HC:9177.49
+NOx:107216
+PMx:4444.51
+fuel:3760.88
+Success.
+Running 'HDV_12_1'
+sums
+length:11041.9
+CO:12053.5
+CO2:6.67884e+006
+HC:3311.2
+NOx:73028.1
+PMx:1366.65
+fuel:2662.75
+Success.
+Running 'HDV_12_2'
+sums
+length:11041.9
+CO:8081.64
+CO2:4.51064e+006
+HC:2462.65
+NOx:45857.1
+PMx:1223.42
+fuel:1798.32
+Success.
+Running 'HDV_12_3'
+sums
+length:11041.9
+CO:19098.3
+CO2:7.99489e+006
+HC:6896.2
+NOx:82472.3
+PMx:3613.72
+fuel:3187.44
+Success.
+Running 'HDV_12_4'
+sums
+length:11041.9
+CO:27349.6
+CO2:1.22107e+007
+HC:7814.36
+NOx:162511
+PMx:5590.53
+fuel:4868.21
+Success.
+Running 'HDV_12_5'
+sums
+length:11041.9
+CO:17941.8
+CO2:1.05103e+007
+HC:5003.86
+NOx:126233
+PMx:1999.15
+fuel:4190.29
+Success.
+Running 'HDV_12_6'
+sums
+length:11041.9
+CO:25956.1
+CO2:1.13301e+007
+HC:8779.12
+NOx:117081
+PMx:4853.16
+fuel:4517.16
+Success.
+Running 'HDV_12_7'
+sums
+length:11041.9
+CO:22952.8
+CO2:5.40787e+006
+HC:9434.36
+NOx:72858.3
+PMx:3505.92
+fuel:2156.02
+Success.
+Running 'HDV_12_8'
+sums
+length:11041.9
+CO:33612.7
+CO2:8.19628e+006
+HC:12057.3
+NOx:120857
+PMx:4691.24
+fuel:3267.74
+Success.
+Running 'HDV_12_9'
+sums
+length:11041.9
+CO:29816.3
+CO2:1.25028e+007
+HC:10378.3
+NOx:166979
+PMx:6035
+fuel:4886.86
+Success.
+Running 'HDV_12_10'
+sums
+length:11041.9
+CO:18276.8
+CO2:1.10728e+007
+HC:5176.06
+NOx:81083.3
+PMx:1527.53
+fuel:4414.54
+Success.
+Running 'HDV_12_11'
+sums
+length:11041.9
+CO:22069.8
+CO2:1.10624e+007
+HC:6138.59
+NOx:116672
+PMx:3009.63
+fuel:4333.98
+Success.
+Running 'HDV_12_12'
+sums
+length:11041.9
+CO:16817.4
+CO2:9.53431e+006
+HC:5562.11
+NOx:86173.8
+PMx:1909.57
+fuel:3801.18
+Success.
+Running 'P_7_1'
+sums
+length:11041.9
+CO:253797
+CO2:2.83252e+006
+HC:17814.1
+NOx:27800.6
+PMx:0
+fuel:1129.3
+Success.
+Running 'P_7_2'
+sums
+length:11041.9
+CO:114836
+CO2:3.07917e+006
+HC:2682.76
+NOx:14390
+PMx:0
+fuel:1227.64
+Success.
+Running 'P_7_3'
+sums
+length:11041.9
+CO:55842.7
+CO2:2.2656e+006
+HC:4983.33
+NOx:8401.02
+PMx:0
+fuel:902.2
+Success.
+Running 'P_7_4'
+sums
+length:11041.9
+CO:127792
+CO2:2.47643e+006
+HC:16088.7
+NOx:24058.3
+PMx:0
+fuel:987.298
+Success.
+Running 'P_7_5'
+sums
+length:11041.9
+CO:3254.9
+CO2:2.189e+006
+HC:485.479
+NOx:5608.69
+PMx:697.266
+fuel:872.728
+Success.
+Running 'P_7_6'
+sums
+length:11041.9
+CO:3916.1
+CO2:3.02216e+006
+HC:708.31
+NOx:10040.5
+PMx:1051.6
+fuel:1204.87
+Success.
+Running 'P_7_7'
+sums
+length:11041.9
+CO:13910.9
+CO2:1.96662e+006
+HC:509.518
+NOx:3545.62
+PMx:136.41
+fuel:784.063
+Success.
+Running 'P_14_1'
+sums
+length:11041.9
+CO:100347
+CO2:2.95743e+006
+HC:1417.95
+NOx:11660.9
+PMx:0
+fuel:1179.1
+Success.
+Running 'P_14_2'
+sums
+length:11041.9
+CO:253797
+CO2:2.83252e+006
+HC:17814.1
+NOx:27800.6
+PMx:0
+fuel:1129.3
+Success.
+Running 'P_14_3'
+sums
+length:11041.9
+CO:131186
+CO2:3.20091e+006
+HC:3962.25
+NOx:17119.6
+PMx:0
+fuel:1276.18
+Success.
+Running 'P_14_4'
+sums
+length:11041.9
+CO:3804.59
+CO2:2.18518e+006
+HC:947.893
+NOx:7584.2
+PMx:432.587
+fuel:871.204
+Success.
+Running 'P_14_5'
+sums
+length:11041.9
+CO:1449.05
+CO2:3.02216e+006
+HC:369.156
+NOx:5812.9
+PMx:380.051
+fuel:1204.87
+Success.
+Running 'P_14_6'
+sums
+length:11041.9
+CO:4699.93
+CO2:3.02216e+006
+HC:803.488
+NOx:10908.7
+PMx:1232.8
+fuel:1204.87
+Success.
+Running 'P_14_7'
+sums
+length:11041.9
+CO:43332.9
+CO2:2.28308e+006
+HC:3338.53
+NOx:6125.09
+PMx:0
+fuel:910.226
+Success.
+Running 'P_14_8'
+sums
+length:11041.9
+CO:1744.88
+CO2:1.58459e+006
+HC:348.355
+NOx:5160.74
+PMx:266.36
+fuel:631.758
+Success.
+Running 'P_14_9'
+sums
+length:11041.9
+CO:23464.4
+CO2:1.96421e+006
+HC:512.52
+NOx:1261.93
+PMx:0
+fuel:783.109
+Success.
+Running 'P_14_10'
+sums
+length:11041.9
+CO:3737.51
+CO2:1.98071e+006
+HC:527.855
+NOx:5963.37
+PMx:810.826
+fuel:789.692
+Success.
+Running 'P_14_11'
+sums
+length:11041.9
+CO:108990
+CO2:2.01724e+006
+HC:12128.6
+NOx:15839.5
+PMx:0
+fuel:799.991
+Success.
+Running 'P_14_12'
+sums
+length:11041.9
+CO:127792
+CO2:2.47643e+006
+HC:16088.7
+NOx:24058.3
+PMx:0
+fuel:987.298
+Success.
+Running 'P_14_13'
+sums
+length:11041.9
+CO:22135.3
+CO2:2.78575e+006
+HC:310.485
+NOx:1620.29
+PMx:0
+fuel:1110.62
+Success.
+Running 'P_14_14'
+sums
+length:11041.9
+CO:29665.5
+CO2:2.24041e+006
+HC:1202.98
+NOx:5852.71
+PMx:0
+fuel:893.215
+Success.
+Running 'ZERO_EMISSIONS'
+Error on building PHEMlight measurements
