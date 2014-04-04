@@ -16,7 +16,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
-import os,subprocess,sys,time,threading,socket
+import os,subprocess,sys,time,threading,socket,difflib
 toolDir = os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools")
 sys.path.append(toolDir)
 import sumolib
@@ -48,3 +48,7 @@ pPro = subprocess.Popen(['python', protoXmlPy, '-x', schema, str(OUT_PORT)])
 threading.Thread(target=lambda:connect(IN_PORT, OUT_PORT)).start()
 subprocess.call([sumoBinary, "sumo.sumocfg"])
 xPro.wait()
+pPro.wait()
+
+for line in difflib.unified_diff(open('direct.xml').readlines(), open('%s.xml' % OUT_PORT).readlines(), n=0):
+    sys.stdout.write(line)
