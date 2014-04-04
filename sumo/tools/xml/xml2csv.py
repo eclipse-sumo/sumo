@@ -21,8 +21,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 from __future__ import print_function
-import os, sys, socket
-from collections import defaultdict
+import os, sys, socket, collections
 from optparse import OptionParser
 import xml.sax
 try:
@@ -53,7 +52,7 @@ class AttrFinder(NestingHandler):
     def __init__(self, xsdFile, source, split):
         NestingHandler.__init__(self)
         self.tagDepths = {} # tag -> depth of appearance
-        self.tagAttrs = defaultdict(dict) # tag -> set of attrs
+        self.tagAttrs = collections.defaultdict(collections.OrderedDict) # tag -> set of attrs
         self.renamedAttrs = {} # (name, attr) -> renamedAttr
         self.attrs = {}
         self.depthTags = {} # child of root: depth of appearance -> tag list
