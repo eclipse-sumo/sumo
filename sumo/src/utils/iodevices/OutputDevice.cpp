@@ -45,6 +45,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -125,10 +126,31 @@ OutputDevice::getDeviceByOption(const std::string& optionName) {
 
 void
 OutputDevice::closeAll() {
-    while (myOutputDevices.size() != 0) {
-        myOutputDevices.begin()->second->close();
+    std::vector<OutputDevice*> errorDevices;
+    std::vector<OutputDevice*> nonErrorDevices;
+    for (std::map<std::string, OutputDevice*>::iterator i = myOutputDevices.begin(); i != myOutputDevices.end(); ++i) {
+        if (MsgHandler::getErrorInstance()->isRetriever(i->second)) {
+            errorDevices.push_back(i->second);
+        } else {
+            nonErrorDevices.push_back(i->second);
+        }
     }
-    myOutputDevices.clear();
+    for (std::vector<OutputDevice*>::iterator i = nonErrorDevices.begin(); i != nonErrorDevices.end(); ++i) {
+        try {
+            (*i)->close();
+        } catch (const IOError& e) {
+            WRITE_ERROR("Error on closing output devices.");
+            WRITE_ERROR(e.what());
+        }
+    }
+    for (std::vector<OutputDevice*>::iterator i = errorDevices.begin(); i != errorDevices.end(); ++i) {
+        try {
+            (*i)->close();
+        } catch (const IOError& e) {
+            std::cerr << "Error on closing error output devices." << std::endl;
+            std::cerr << e.what() << std::endl;
+        }
+    }
 }
 
 

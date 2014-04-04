@@ -162,9 +162,7 @@ MsgHandler::addRetriever(OutputDevice* retriever) {
     if (myLock != 0) {
         myLock->lock();
     }
-    RetrieverVector::iterator i =
-        find(myRetrievers.begin(), myRetrievers.end(), retriever);
-    if (i == myRetrievers.end()) {
+    if (!isRetriever(retriever)) {
         myRetrievers.push_back(retriever);
     }
     if (myLock != 0) {
@@ -186,6 +184,12 @@ MsgHandler::removeRetriever(OutputDevice* retriever) {
     if (myLock != 0) {
         myLock->unlock();
     }
+}
+
+
+bool
+MsgHandler::isRetriever(OutputDevice* retriever) const {
+    return find(myRetrievers.begin(), myRetrievers.end(), retriever) != myRetrievers.end();
 }
 
 

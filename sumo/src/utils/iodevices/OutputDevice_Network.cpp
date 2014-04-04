@@ -71,7 +71,11 @@ OutputDevice_Network::postWriteHook() {
     std::string toSend = myMessage.str();
     std::vector<unsigned char> msg;
     msg.insert(msg.end(), toSend.begin(), toSend.end());
-    mySocket->send(msg);
+    try {
+        mySocket->send(msg);
+    } catch (tcpip::SocketException& e) {
+        throw IOError(toString(e.what()));
+    }
     myMessage.str("");
 }
 

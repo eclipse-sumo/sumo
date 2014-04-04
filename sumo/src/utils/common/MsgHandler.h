@@ -101,8 +101,11 @@ public:
     /// Adds a further retriever to the instance responsible for a certain msg type
     void addRetriever(OutputDevice* retriever);
 
-    /// Removes the retriever from the
+    /// Removes the retriever from the handler
     void removeRetriever(OutputDevice* retriever);
+
+    /// Returns whether the given output device retrieves messages from the handler
+    bool isRetriever(OutputDevice* retriever) const;
 
     /// Returns the information whether any messages were added
     bool wasInformed() const;
