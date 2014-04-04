@@ -1,6 +1,7 @@
 import_config_file:../config_all
 binary:$OD2TRIPS_BINARY
 copy_test_path:input_taz.taz.xml
+copy_test_path:input_od.xml
 copy_test_path:input_od_vm.fma
 copy_test_path:input_od_v.fma
 copy_test_path:input_od_om.fma
