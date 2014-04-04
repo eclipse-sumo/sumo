@@ -96,6 +96,7 @@ main(int argc, char** argv) {
     oc.setApplicationDescription("Builds and writes an emissions map.");
     oc.setApplicationName("emissionsMap", "SUMO emissionsMap Version " + (std::string)VERSION_STRING);
     //  add options
+    SystemFrame::addConfigurationOptions(oc);
     oc.addOptionSubTopic("Processing");
     oc.doRegister("iterate", 'i', new Option_Bool(false));
     oc.addDescription("iterate", "Processing", "If set, maps for all available emissions are written.");
@@ -131,11 +132,7 @@ main(int argc, char** argv) {
     oc.doRegister("phemlight-path", 'p', new Option_FileName("./PHEMlight/"));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
 
-    oc.addOptionSubTopic("Report");
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.addDescription("verbose", "Report", "Switches to verbose output.");
-    oc.doRegister("help", '?', new Option_Bool(false));
-    oc.addDescription("help", "Report", "Prints a help screen.");
+    SystemFrame::addReportOptions(oc, true);
 
     // run
     int ret = 0;

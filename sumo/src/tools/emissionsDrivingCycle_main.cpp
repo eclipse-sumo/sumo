@@ -75,6 +75,7 @@ main(int argc, char** argv) {
     oc.setApplicationName("emissionsTimeline", "SUMO emissionsTimeline Version " + (std::string)VERSION_STRING);
     //  add options
 
+    SystemFrame::addConfigurationOptions(oc);
     oc.addOptionSubTopic("Input");
     oc.doRegister("timeline-file", 't', new Option_FileName());
     oc.addSynonyme("timeline", "timeline-file");
@@ -109,11 +110,9 @@ main(int argc, char** argv) {
     oc.doRegister("phemlight-path", 'p', new Option_FileName("./PHEMlight/"));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
 
-    oc.addOptionSubTopic("Report");
+    SystemFrame::addReportOptions(oc, true);
     oc.doRegister("quiet", 'q', new Option_Bool(false));
     oc.addDescription("quiet", "Report", "Not writing anything.");
-    oc.doRegister("help", '?', new Option_Bool(false));
-    oc.addDescription("help", "Report", "Writes a help screen.");
 
     // run
     int ret = 0;
