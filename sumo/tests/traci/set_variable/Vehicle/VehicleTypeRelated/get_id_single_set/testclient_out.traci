@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:28:45 2013
+TraCITestClient output file. Date: Fri Mar 28 14:14:05 2014
 
 
 -> Command sent: <SimulationStep2>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:28:45 2013
 -> Command sent: <GetVariable>:
   domID=164 varID=73 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=73  ObjectID=0 valueDataType=12 string value: unknown
+  CommandID=180  VariableID=73  ObjectID=0 valueDataType=12 string value: ignoring
 
 -> Command sent: <SetValue>:
   domID=196 varID=73 objID=0
