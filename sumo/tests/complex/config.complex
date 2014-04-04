@@ -29,6 +29,7 @@ tripinfo:tripinfo.xml
 net:net.net.xml
 vss:vss.xml
 results:results.csv
+tls_state:tls_state.xml
 
 [run_dependent_text]
 output:\r{REPLACE \n}

@@ -62,7 +62,7 @@ def read_n(inputf, n):
 def msg2xml(desc, cont, out, depth=1):
     out.write(">\n%s<%s" % (depth*'    ', desc.name))
     haveChildren = False
-    print(depth, cont)
+#    print(depth, cont)
     for attr, value in cont.ListFields():
         if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
             if attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
@@ -70,6 +70,8 @@ def msg2xml(desc, cont, out, depth=1):
                 for item in value:
                     msg2xml(attr, item, out, depth+1)
         else:
+            if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_ENUM:
+                value = attr.enum_type.values_by_number[value].name
             out.write(' %s="%s"' % (attr.name, value))
     if haveChildren:
         out.write(">\n%s</%s" % (depth*'    ', desc.name))
@@ -108,7 +110,7 @@ def main():
     attrFinder = xml2csv.AttrFinder(options.xsd, options.source, False)
     base = os.path.basename(options.xsd).split('.')[0]
     # generate proto format description
-    module = xml2protobuf.generateProto(attrFinder.xsdStruc.root.name, attrFinder.tagAttrs, attrFinder.depthTags,
+    module = xml2protobuf.generateProto(attrFinder.tagAttrs, attrFinder.depthTags,
                                         attrFinder.xsdStruc._namedEnumerations, options.protodir, base)
     writeXml(attrFinder.xsdStruc.root.name, module, options)
 

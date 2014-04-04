@@ -33,10 +33,13 @@ except ImportError:
 
 import xsd, xml2csv
 
+def capitalFirst(s):
+    return s[0].upper() + s[1:]
+
 class ProtoWriter(xml.sax.handler.ContentHandler):
-    def __init__(self, module, tagAttrs, output):
+    def __init__(self, module, attrFinder, output):
         self.module = module
-        self.tagAttrs = tagAttrs
+        self.attrFinder = attrFinder
         self.out = xml2csv.getOutStream(output)
         self.msgStack = []
         self.emptyRootMsg = None
@@ -57,12 +60,16 @@ class ProtoWriter(xml.sax.handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if len(self.msgStack) == 0:
-            self.emptyRootMsg = vars(self.module)[name.capitalize()]()
-            obj = vars(self.module)[name.capitalize()]()
+            self.emptyRootMsg = vars(self.module)[capitalFirst(name)]()
+            obj = vars(self.module)[capitalFirst(name)]()
         else:
             obj = getattr(self.msgStack[-1], name).add()
         for a, v in attrs.items():
-            setattr(obj, a, self.convert(self.tagAttrs[name][a], v))
+            if a in self.attrFinder.tagAttrs[name]:
+                enum = self.attrFinder.xsdStruc.getEnumeration(self.attrFinder.tagAttrs[name][a].type)
+                if enum:
+                    v = enum.index(v)
+                setattr(obj, a, self.convert(self.attrFinder.tagAttrs[name][a], v))
         if len(self.msgStack) == 0:
             self.emptyRootMsg.CopyFrom(obj)
         self.msgStack.append(obj)
@@ -102,43 +109,43 @@ def get_options():
     else:
         options.source = args[0]
     if not options.output:
-        options.output = os.path.splitext(options.source)[0] + ".protomsg"
+        options.output = os.path.splitext(args[0])[0] + ".protomsg"
     return options 
 
 def getProtobufType(typ):
-    typ = typ.lower()
     if ":" in typ:
         typ = typ.split(":")[-1]
-    if typ == "decimal" or "double" in typ:
+    ltyp = typ.lower()
+    if ltyp == "decimal" or "double" in ltyp:
         return "double"
-    if "float" in typ:
+    if "float" in ltyp:
         return "float"
-    if "unsigned" in typ:
+    if "unsigned" in ltyp:
         return "uint32"
-    if "int" in typ or "short" in typ or "byte" in typ:
+    if "int" in ltyp or "short" in ltyp or "byte" in ltyp:
         return "int32"
-    if typ in ["double", "string"]:
-        return typ
-    return typ.capitalize()
+    if ltyp in ["double", "string"]:
+        return ltyp
+    return capitalFirst(typ)
     
 def writeField(protof, use, typ, name, tagNumber):
     if use == "":
         use = "optional"
     protof.write("  %s %s %s = %s;\n" % (use, getProtobufType(typ), name, tagNumber))
 
-def generateProto(root, tagAttrs, depthTags, enums, protodir, base):
+def generateProto(tagAttrs, depthTags, enums, protodir, base):
     with open(os.path.join(protodir, "%s.proto" % base), 'w') as protof:
         protof.write("package %s;\n" % base)
         for name, enum in enums.iteritems():
-            protof.write("\nenum %s {\n" % name.capitalize())
+            protof.write("\nenum %s {\n" % capitalFirst(name))
             for idx, entry in enumerate(enum):
-                protof.write("  %s = %s;\n" % (entry.upper(), idx))
+                protof.write("  %s = %s;\n" % (entry, idx))
             protof.write("}\n")
         for tagList in depthTags.itervalues():
             next = 1
             for tags in tagList:
                 for tag in tags:
-                    protof.write("\nmessage %s {\n" % tag.capitalize())
+                    protof.write("\nmessage %s {\n" % capitalFirst(tag))
                     count = 1
                     for a in tagAttrs[tag].itervalues():
                         writeField(protof, a.use, a.type, a.name, count)
@@ -159,10 +166,10 @@ def main():
     attrFinder = xml2csv.AttrFinder(options.xsd, options.source, False)
     base = os.path.basename(options.xsd).split('.')[0]
     # generate proto format description
-    module = generateProto(attrFinder.xsdStruc.root.name, attrFinder.tagAttrs, attrFinder.depthTags,
+    module = generateProto(attrFinder.tagAttrs, attrFinder.depthTags,
                            attrFinder.xsdStruc._namedEnumerations, options.protodir, base)
     # write proto message
-    handler = ProtoWriter(module, attrFinder.tagAttrs, options.output)
+    handler = ProtoWriter(module, attrFinder, options.output)
     if options.validation:
         schema = lxml.etree.XMLSchema(file=options.xsd)
         parser = lxml.etree.XMLParser(schema=schema)

@@ -1,7 +1,8 @@
 Loading configuration... done.
+Loading configuration... done.
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 30 09:03:36 2013 by SUMO sumo Version dev-SVN-r14507
+<!-- generated on 04/04/14 12:08:01 by SUMO sumo Version dev-SVN-r16105
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -24,6 +25,10 @@ Loading configuration... done.
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <emissions>
+        <phemlight-path value="./PHEMlight/"/>
+    </emissions>
 
 </configuration>
 -->

@@ -14,7 +14,7 @@
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/> <!-- unique ID -->
         <xsd:attribute name="type" type="nodeTypeType" use="optional"/>
         <xsd:attribute name="odZone" type="xsd:unsignedInt" use="optional"/> <!-- reference to OD zone id -->
-        <xsd:attribute name="ref" type="xsd:string" use="optional"/>
+        <xsd:attribute name="ref" type="xsd:string" use="optional"/> <!-- this may be used to refer to the equivalent node in the original model -->
     </xsd:complexType>
     
     <xsd:simpleType name="nodeTypeType">
@@ -38,7 +38,7 @@
         <xsd:attribute name="length" type="xsd:unsignedInt" use="required"/> <!-- unit: 0.01m -->
         <xsd:attribute name="speedLimitKmh" type="xsd:unsignedInt" use="optional"/> <!-- unit: km/h -->
         <xsd:attribute name="numberOfLanes" type="xsd:unsignedInt" use="required"/>
-        <xsd:attribute name="ref" type="xsd:string" use="optional"/>
+        <xsd:attribute name="ref" type="xsd:string" use="optional"/> <!-- this may be used to refer to the equivalent link in the original model -->
     </xsd:complexType>
     
     <xsd:simpleType name="roadClassType">

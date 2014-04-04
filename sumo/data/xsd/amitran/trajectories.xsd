@@ -14,22 +14,22 @@
  
     <xsd:complexType name="actorConfigType">
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/> <!-- unique ID -->
-        <xsd:attribute name="emissionClass" type="emissionClassType" use="optional"/>
-        <xsd:attribute name="fuel" type="fuelType" use="optional"/>
         <xsd:attribute name="vehicleClass" type="vehicleClassType" use="optional"/>
+        <xsd:attribute name="fuel" type="fuelType" use="optional"/>
+        <xsd:attribute name="emissionClass" type="emissionClassType" use="optional"/>
         <xsd:attribute name="length" type="xsd:unsignedInt" use="optional"/> <!-- unit: 0.01m -->
         <xsd:attribute name="weight" type="xsd:unsignedInt" use="optional"/> <!-- unit: 10kg -->
         <xsd:attribute name="age" type="xsd:unsignedInt" use="optional"/> <!-- unit: years -->
         <xsd:attribute name="brand" type="xsd:string" use="optional"/>
         <xsd:attribute name="model" type="xsd:string" use="optional"/>
-        <xsd:attribute name="ref" type="xsd:string" use="optional"/>
+        <xsd:attribute name="ref" type="xsd:string" use="optional"/> <!-- this may be used to refer to the equivalent type in the original model -->
     </xsd:complexType>
     
     <xsd:complexType name="vehicleType">
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/> <!-- unique ID -->
         <xsd:attribute name="actorConfig" type="xsd:unsignedInt" use="required"/> <!-- reference to actorConfig id -->
         <xsd:attribute name="startTime" type="xsd:unsignedInt" use="required"/> <!-- unit: 0.001s -->
-        <xsd:attribute name="ref" type="xsd:string" use="optional"/>
+        <xsd:attribute name="ref" type="xsd:string" use="optional"/> <!-- this may be used to refer to the equivalent vehicle in the original model -->
     </xsd:complexType>
         
     <xsd:complexType name="motionStateType">

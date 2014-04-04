@@ -23,7 +23,7 @@ import sumolib
 PORT = 8088
 sumoBinary = sumolib.checkBinary('sumo')
 
-def main():
+def main(bailOut=False):
     #create an INET, STREAMing socket
     serversocket = socket.socket(
         socket.AF_INET, socket.SOCK_STREAM)
@@ -36,6 +36,8 @@ def main():
         msg = ''
         while len(msg) < 100:
             chunk = clientsocket.recv(100-len(msg))
+            if bailOut:
+                return
             if chunk == '':
                 sys.stdout.write(msg)
                 return
@@ -43,5 +45,9 @@ def main():
         sys.stdout.write(msg)
 
 threading.Thread(target=main).start()
+time.sleep(1)
+subprocess.call([sumoBinary, "sumo.sumocfg"])
+
+threading.Thread(target=lambda:main(True)).start()
 time.sleep(1)
 subprocess.call([sumoBinary, "sumo.sumocfg"])
