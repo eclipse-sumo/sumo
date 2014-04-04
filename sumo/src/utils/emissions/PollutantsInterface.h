@@ -58,6 +58,7 @@ public:
             return myName;
         }
         virtual SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
+            UNUSED_PARAMETER(vc);
             return myEmissionClassStrings.get(eClass);
         }
         const std::string getClassName(const SUMOEmissionClass c) const {
