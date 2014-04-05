@@ -5,7 +5,7 @@ import sys,os,subprocess
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "tools"))
 from sumolib import checkBinary
 
-EDC = checkBinary("emissionsDrivingCycle")
+EDC = checkBinary("emissionsDrivingCycleD", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "bin"))
 PHEMLIGHTp = os.path.join(os.environ["SUMO_HOME"], "data", "emissions", "PHEMlightV3")
 if not os.path.exists(PHEMLIGHTp):
     PHEMLIGHTp = os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "data", "emissions", "PHEMlight")
