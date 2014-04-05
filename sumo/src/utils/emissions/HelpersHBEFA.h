@@ -73,11 +73,10 @@ public:
         if (c == PollutantsInterface::ZERO_EMISSIONS) {
             return 0.;
         }
-        int index = c;
-        index = (index & ~PollutantsInterface::HEAVY_BIT) - 1;
+        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - 1;
         const SUMOReal kmh = v * 3.6;
         const SUMOReal scale = (e == PollutantsInterface::FUEL) ? 3.6 * 790. : 3.6;
-        if (index > 42) {
+        if (index >= 42) {
             const double* f = myFunctionParameter[index - 42] + 6 * e;
             return (SUMOReal) MAX2((f[0] + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
         }

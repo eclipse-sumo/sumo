@@ -79,15 +79,14 @@ public:
      * @param[in] a The vehicle's current acceleration
      */
     inline SUMOReal compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
-        if (a < 0.) {
+        if (c == HBEFA3_BASE || a < 0.) {
             return 0.;
         }
-        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE - 2;
-        const SUMOReal kmh = v * 3.6;
+        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE - 1;
         const SUMOReal scale = (e == PollutantsInterface::FUEL) ? 3.6 * 790. : 3.6;
-        const double* f = myFunctionParameter[c][e];
+        const double* f = myFunctionParameter[index][e];
         const double alpha = asin(a / 9.81) * 180. / M_PI;
-        return (SUMOReal) MAX2((f[0] + f[1] * alpha * kmh + f[2] * alpha * alpha * kmh + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
+        return (SUMOReal) MAX2((f[0] + f[1] * alpha * v + f[2] * alpha * alpha * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / scale, 0.);
     }
 
 

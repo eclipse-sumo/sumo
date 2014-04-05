@@ -88,7 +88,7 @@ main(int argc, char** argv) {
     oc.addDescription("netstate-file", "Input", "Defines the netstate, route and trajectory files to read the driving cycles from.");
 
     oc.doRegister("emission-model", 'm', new Option_String("HBEFA2"));
-    oc.addDescription("emission-model", "Processing", "Defines the name of the default emission model to generate the map for.");
+    oc.addDescription("emission-model", "Input", "Defines the name of the default emission model to generate the map for.");
     oc.doRegister("emission-class", 'e', new Option_String("unknown"));
     oc.addDescription("emission-class", "Input", "Defines for which emission class the emissions shall be generated. ");
 
