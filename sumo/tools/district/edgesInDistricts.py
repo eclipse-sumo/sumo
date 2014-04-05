@@ -21,7 +21,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 import sys, math
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import parse, handler
 from optparse import OptionParser
 
 
@@ -132,10 +132,13 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
                 self._edgeShapes[self._currentID] = parseShape(self._shape)
                 self._shape = ""
 
-    def computeWithin(self, complete, maxspeed, assignFrom):
+    def computeWithin(self, complete, maxspeed, assignFrom, verbose):
         for idx, (edge, shape) in enumerate(self._edgeShapes.iteritems()):
             if self._edgeSpeeds[edge] < maxspeed:
-                min, max = getBoundingBox(shape)
+                if assignFrom:
+                    min = max = shape[0]
+                else:
+                    min, max = getBoundingBox(shape)
                 for district, dshape in self._districtShapes.iteritems():
                     dmin, dmax = self._districtBoxes[district]
                     if dmin[0] <= max[0] and dmin[1] <= max[1] and dmax[0] >= min[0] and dmax[1] >= min[1]:
@@ -150,12 +153,19 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
                                     self._districtEdges[district].append(edge)
                                     self._edgeDistricts[edge].append(district)
                                     break
-            if options.verbose:
+            if verbose and idx % 100 == 0:
                 sys.stdout.write("%s/%s\r" % (idx, len(self._edgeShapes)))
         if complete:
             for edge, districts in self._edgeDistricts.iteritems():
                 if len(districts) > 1:
                     self._invalidatedEdges.append(edge)
+
+    def getEdgeDistrictMap(self, d):
+        result = {}
+        for edge, districts in self._edgeDistricts:
+            if len(districts) == 1:
+                result[edge] = districts[0]
+        return result
 
     def writeResults(self, output, weighted):
         fd = open(output, "w")
@@ -202,16 +212,14 @@ if __name__ == "__main__":
         optParser.print_help()
         optParser.exit("Error! Providing networks is mandatory")
 
-    parser = make_parser()
     reader = NetDistrictEdgeHandler()
-    parser.setContentHandler(reader)
     for netfile in options.netfiles.split(","):
         if options.verbose:
             print "Reading net '" + netfile + "'"
-        parser.parse(netfile)
+        parse(netfile, reader)
     if options.verbose:
         print "Calculating"
-    reader.computeWithin(options.complete, options.maxspeed, options.assign_from)
+    reader.computeWithin(options.complete, options.maxspeed, options.assign_from, options.verbose)
     if options.verbose:
         print "Writing results"
     reader.writeResults(options.output, options.weighted)
