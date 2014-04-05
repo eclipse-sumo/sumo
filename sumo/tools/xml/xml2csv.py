@@ -119,7 +119,7 @@ class CSVWriter(NestingHandler):
         NestingHandler.__init__(self)
         self.attrFinder = attrFinder
         self.options = options
-        self.currentValues = defaultdict(lambda: "")
+        self.currentValues = collections.defaultdict(lambda: "")
         self.haveUnsavedValues = False
         self.outfiles = {}
         self.rootDepth = 1 if options.split else 0
