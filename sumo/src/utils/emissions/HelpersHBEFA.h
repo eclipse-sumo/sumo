@@ -132,8 +132,8 @@ private:
                 break;
         }
         v *= 3.6;
-        if (c > 42) {
-            const double* f = myFunctionParameter[c - 42] + offset;
+        if (c >= SVE_HDV_A0_3_1) {
+            const double* f = myFunctionParameter[c - SVE_HDV_A0_3_1] + offset;
             return (SUMOReal) MAX2((f[0] + f[3] * v + f[4] * v * v + f[5] * v * v * v) / 3.6, 0.);
         }
         if (a < 0.) {
