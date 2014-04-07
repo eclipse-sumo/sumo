@@ -160,9 +160,9 @@ class NetDistrictEdgeHandler(handler.ContentHandler):
                 if len(districts) > 1:
                     self._invalidatedEdges.append(edge)
 
-    def getEdgeDistrictMap(self, d):
+    def getEdgeDistrictMap(self):
         result = {}
-        for edge, districts in self._edgeDistricts:
+        for edge, districts in self._edgeDistricts.iteritems():
             if len(districts) == 1:
                 result[edge] = districts[0]
         return result
