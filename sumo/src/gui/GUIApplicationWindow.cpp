@@ -1166,17 +1166,18 @@ GUIApplicationWindow::checkGamingEvents() {
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
     if (myJamSounds.getOverallProb() > 0) {
-        // play honking sound if some vehicle is waiting to long
+        // play honking sound if some vehicle is waiting too long
         for (; it != end; ++it) {
             // XXX use impatience instead of waiting time ?
             if (it->second->getWaitingTime() > TIME2STEPS(myJamSoundTime)) {
                 const std::string cmd = myJamSounds.get(&myGamingRNG);
-                if (cmd != "")
+                if (cmd != "") {
                     // yay! fun with dangerous commands... Never use this over the internet
                     SysUtils::runHiddenCommand(cmd);
+                    // one sound per simulation step is enough
+                    break;
+                }
             }
-            // one sound per simulation step is enough
-            break;
         }
     }
     // updated peformance indicators
