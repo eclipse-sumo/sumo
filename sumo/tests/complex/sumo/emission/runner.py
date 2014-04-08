@@ -31,24 +31,14 @@ def connect(inPort, outPort):
         if not data: break
         o.sendall(data)
 
-SUMO_PORT = 8089
-IN_PORT = 8090
-OUT_PORT = 8091
 sumoBinary = os.path.join(toolDir, '..', 'bin', 'sumo')
-xmlProtoPy = os.path.join(toolDir, 'xml', 'xml2protobuf.py')
-protoXmlPy = os.path.join(toolDir, 'xml', 'protobuf2xml.py')
-schema = os.path.join(toolDir, '..', 'data', 'xsd', 'amitran', 'trajectories.xsd')
+driveCycleBinary = os.path.join(toolDir, '..', 'bin', 'emissionsDrivingCycle')
 
 # file output direct
-subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "direct.xml"])
+subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "trajectory.xml", "--emission-output", "emissions.xml"])
+# filter trajectories and compare results
+subprocess.call([driveCycleBinary, "--amitran", "trajectory.xml", "--emission-output", "emissionsCycle.xml"])
+subprocess.call([driveCycleBinary, "--compute-a", "--amitran", "trajectory.xml", "--emission-output", "emissionsCycleNoA.xml"])
 
-# protobuf roundtrip
-xPro = subprocess.Popen(['python', xmlProtoPy, '-x', schema, '-o', str(IN_PORT), str(SUMO_PORT)])
-pPro = subprocess.Popen(['python', protoXmlPy, '-x', schema, str(OUT_PORT)])
-threading.Thread(target=lambda:connect(IN_PORT, OUT_PORT)).start()
-subprocess.call([sumoBinary, "sumo.sumocfg"])
-xPro.wait()
-pPro.wait()
-
-for line in difflib.unified_diff(open('direct.xml').readlines(), open('%s.xml' % OUT_PORT).readlines(), n=0):
-    sys.stdout.write(line)
+#for line in difflib.unified_diff(open('emissions.xml').readlines(), open('emissionsCycle.xml').readlines(), n=0):
+#    sys.stdout.write(line)
