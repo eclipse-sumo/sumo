@@ -91,8 +91,7 @@ MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
 // MSDevice_Emissions-methods
 // ---------------------------------------------------------------------------
 MSDevice_Emissions::MSDevice_Emissions(SUMOVehicle& holder, const std::string& id)
-    : MSDevice(holder, id),
-      myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0) {
+    : MSDevice(holder, id), myEmissions() {
 }
 
 
@@ -105,12 +104,7 @@ MSDevice_Emissions::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /
     const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
     const SUMOReal a = veh.getAcceleration();
     const SUMOReal slope = veh.getSlope();
-    myCO2 += TS * PollutantsInterface::computeCO2(c, newSpeed, a, slope);
-    myCO += TS * PollutantsInterface::computeCO(c, newSpeed, a, slope);
-    myHC += TS * PollutantsInterface::computeHC(c, newSpeed, a, slope);
-    myPMx += TS * PollutantsInterface::computePMx(c, newSpeed, a, slope);
-    myNOx += TS * PollutantsInterface::computeNOx(c, newSpeed, a, slope);
-    myFuel += TS * PollutantsInterface::computeFuel(c, newSpeed, a, slope);
+    myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, a, slope), TS);
     return true;
 }
 
@@ -120,12 +114,12 @@ MSDevice_Emissions::generateOutput() const {
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
         (os.openTag("emissions") <<
-         " CO_abs=\"" << OutputDevice::realString(myCO, 6) <<
-         "\" CO2_abs=\"" << OutputDevice::realString(myCO2, 6) <<
-         "\" HC_abs=\"" << OutputDevice::realString(myHC, 6) <<
-         "\" PMx_abs=\"" << OutputDevice::realString(myPMx, 6) <<
-         "\" NOx_abs=\"" << OutputDevice::realString(myNOx, 6) <<
-         "\" fuel_abs=\"" << OutputDevice::realString(myFuel, 6) <<
+         " CO_abs=\"" << OutputDevice::realString(myEmissions.CO, 6) <<
+         "\" CO2_abs=\"" << OutputDevice::realString(myEmissions.CO2, 6) <<
+         "\" HC_abs=\"" << OutputDevice::realString(myEmissions.HC, 6) <<
+         "\" PMx_abs=\"" << OutputDevice::realString(myEmissions.PMx, 6) <<
+         "\" NOx_abs=\"" << OutputDevice::realString(myEmissions.NOx, 6) <<
+         "\" fuel_abs=\"" << OutputDevice::realString(myEmissions.fuel, 6) <<
          "\"").closeTag();
     }
 }

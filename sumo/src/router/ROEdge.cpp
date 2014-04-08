@@ -172,7 +172,7 @@ ROEdge::getCOEffort(const ROVehicle* const veh, SUMOReal time) const {
         const SUMOVTypeParameter* const type = veh->getType();
         const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
         const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultSigma(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefaultCO(type->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
+        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::CO, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -185,7 +185,7 @@ ROEdge::getCO2Effort(const ROVehicle* const veh, SUMOReal time) const {
         const SUMOVTypeParameter* const type = veh->getType();
         const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
         const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultSigma(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefaultCO2(type->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
+        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::CO2, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -198,7 +198,7 @@ ROEdge::getPMxEffort(const ROVehicle* const veh, SUMOReal time) const {
         const SUMOVTypeParameter* const type = veh->getType();
         const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
         const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultSigma(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefaultPMx(type->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
+        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::PM_X, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -211,7 +211,7 @@ ROEdge::getHCEffort(const ROVehicle* const veh, SUMOReal time) const {
         const SUMOVTypeParameter* const type = veh->getType();
         const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
         const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultSigma(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefaultHC(type->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
+        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::HC, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -224,7 +224,7 @@ ROEdge::getNOxEffort(const ROVehicle* const veh, SUMOReal time) const {
         const SUMOVTypeParameter* const type = veh->getType();
         const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
         const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultSigma(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefaultNOx(type->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
+        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::NO_X, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -237,7 +237,7 @@ ROEdge::getFuelEffort(const ROVehicle* const veh, SUMOReal time) const {
         const SUMOVTypeParameter* const type = veh->getType();
         const SUMOReal vMax = MIN2(type->maxSpeed, mySpeed);
         const SUMOReal accel = type->get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultSigma(type->vehicleClass)) / 2.;
-        ret = PollutantsInterface::computeDefaultFuel(type->emissionClass, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
+        ret = PollutantsInterface::computeDefault(type->emissionClass, PollutantsInterface::FUEL, vMax, accel, 0, getTravelTime(veh, time)); // @todo: give correct slope
     }
     return ret;
 }
@@ -309,22 +309,22 @@ ROEdge::buildTimeLines(const std::string& model, const std::string& measure) {
         SUMOReal value = myLength / mySpeed;
         const SUMOEmissionClass c = PollutantsInterface::getClassByName(model, "unknown");
         if (measure == "CO") {
-            value = PollutantsInterface::computeCO(c, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::CO, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "CO2") {
-            value = PollutantsInterface::computeCO2(c, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::CO2, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "HC") {
-            value = PollutantsInterface::computeHC(c, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::HC, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "PMx") {
-            value = PollutantsInterface::computePMx(c, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::PM_X, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "NOx") {
-            value = PollutantsInterface::computeNOx(c, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::NO_X, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         if (measure == "fuel") {
-            value = PollutantsInterface::computeFuel(c, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::FUEL, mySpeed, 0, 0) * value; // @todo: give correct slope
         }
         myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);
     }

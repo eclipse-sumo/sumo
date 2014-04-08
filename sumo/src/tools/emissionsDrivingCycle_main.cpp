@@ -112,7 +112,10 @@ main(int argc, char** argv) {
     oc.addOptionSubTopic("Output");
     oc.doRegister("output-file", 'o', new Option_String());
     oc.addSynonyme("output", "output-file");
-    oc.addDescription("emission-class", "Output", "Defines the file to write the emission cycle results into. ");
+    oc.addDescription("output", "Output", "Defines the file to write the emission cycle results into. ");
+
+    oc.doRegister("emission-output", new Option_FileName());
+    oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle in XML");
 
     oc.addOptionSubTopic("Emissions");
     oc.doRegister("phemlight-path", 'p', new Option_FileName("./PHEMlight/"));
@@ -134,14 +137,20 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-model"), oc.getString("emission-class"));
-        TrajectoriesHandler handler(oc.getBool("compute-a"), defaultClass, oc.getFloat("slope"));
 
         quiet = oc.getBool("quiet");
-        if (!oc.isSet("output-file")) {
+        if (!oc.isSet("output-file") && (oc.isSet("timeline-file") || !oc.isSet("emission-output"))) {
             throw ProcessError("The output file must be given.");
         }
         std::ofstream o(oc.getString("output-file").c_str());
+        OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
+        OutputDevice* xmlOut = 0;
+        if (oc.isSet("emission-output")) {
+            xmlOut = &OutputDevice::getDeviceByOption("emission-output");
+        }
+
+        const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-model"), oc.getString("emission-class"));
+        TrajectoriesHandler handler(oc.getBool("compute-a"), defaultClass, oc.getFloat("slope"), xmlOut);
 
         if (oc.isSet("timeline-file")) {
             bool skipFirst = oc.getBool("skip-first");
@@ -182,6 +191,9 @@ main(int argc, char** argv) {
                     << "length:" << l << std::endl;
                 handler.writeSums(std::cout, "");
             }
+        }
+        if (oc.isSet("netstate-file")) {
+            XMLSubSys::runParser(handler, oc.getString("netstate-file"));
         }
     } catch (InvalidArgument& e) {
         MsgHandler::getErrorInstance()->inform(e.what());

@@ -54,16 +54,25 @@ public:
      * @param[in] file The file that will be processed
      */
     TrajectoriesHandler(const bool computeA, const SUMOEmissionClass defaultClass,
-                        const SUMOReal defaultSlope);
+                        const SUMOReal defaultSlope, OutputDevice* xmlOut);
 
 
     /// @brief Destructor
     ~TrajectoriesHandler();
 
+    const PollutantsInterface::Emissions computeEmissions(const std::string id,
+                        const SUMOEmissionClass c, const SUMOReal v,
+                        SUMOReal& a, SUMOReal& s);
+
     void writeEmissions(std::ostream& o, const std::string id,
                         const SUMOEmissionClass c,
                         const SUMOReal t, const SUMOReal v,
                         SUMOReal a=INVALID_VALUE, SUMOReal s=INVALID_VALUE);
+
+    void writeXMLEmissions(const std::string id,
+                           const SUMOEmissionClass c,
+                           const SUMOTime t, const SUMOReal v,
+                           SUMOReal a=INVALID_VALUE, SUMOReal s=INVALID_VALUE);
 
     void writeSums(std::ostream& o, const std::string id);
 
@@ -90,9 +99,10 @@ private:
     const bool myComputeA;
     const SUMOEmissionClass myDefaultClass;
     const SUMOReal myDefaultSlope;
+    OutputDevice* myXMLOut;
     std::map<std::string, SUMOReal> myLastV;
     SUMOTime myCurrentTime;
-    std::map<std::string, SUMOReal> mySumCO, mySumCO2, mySumHC, mySumNOx, mySumPMx, mySumFuel;
+    std::map<std::string, PollutantsInterface::Emissions> mySums;
     std::map<std::string, SUMOEmissionClass> myEmissionClassByType;
     std::map<std::string, SUMOEmissionClass> myEmissionClassByVehicle;
 

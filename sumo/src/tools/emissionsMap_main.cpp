@@ -74,12 +74,13 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
     for (SUMOReal v = vMin; v <= vMax; v += vStep) {
         for (SUMOReal a = aMin; a <= aMax; a += aStep) {
             for (SUMOReal s = sMin; s <= sMax; s += sStep) {
-                o << v << ";" << a << ";" << s << ";" << "CO" << ";" << PollutantsInterface::computeCO(c, v, a, s) << std::endl;
-                o << v << ";" << a << ";" << s << ";" << "CO2" << ";" << PollutantsInterface::computeCO2(c, v, a, s) << std::endl;
-                o << v << ";" << a << ";" << s << ";" << "HC" << ";" << PollutantsInterface::computeHC(c, v, a, s) << std::endl;
-                o << v << ";" << a << ";" << s << ";" << "PMx" << ";" << PollutantsInterface::computePMx(c, v, a, s) << std::endl;
-                o << v << ";" << a << ";" << s << ";" << "NOx" << ";" << PollutantsInterface::computeNOx(c, v, a, s) << std::endl;
-                o << v << ";" << a << ";" << s << ";" << "fuel" << ";" << PollutantsInterface::computeFuel(c, v, a, s) << std::endl;
+                const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s);
+                o << v << ";" << a << ";" << s << ";" << "CO" << ";" << result.CO << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "CO2" << ";" << result.CO2 << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "HC" << ";" << result.HC << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "PMx" << ";" << result.PMx << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "NOx" << ";" << result.NOx << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "fuel" << ";" << result.fuel << std::endl;
             }
         }
     }

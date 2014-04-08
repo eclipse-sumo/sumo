@@ -35,6 +35,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "TrajectoriesHandler.h"
@@ -48,9 +49,9 @@
 // method definitions
 // ===========================================================================
 TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const SUMOEmissionClass defaultClass,
-                                         const SUMOReal defaultSlope)
+                                         const SUMOReal defaultSlope, OutputDevice* xmlOut)
     : SUMOSAXHandler(""), myComputeA(computeA), myDefaultClass(defaultClass),
-      myDefaultSlope(defaultSlope) {}
+    myDefaultSlope(defaultSlope), myXMLOut(xmlOut), myCurrentTime(-1) {}
 
 
 TrajectoriesHandler::~TrajectoriesHandler() {}
@@ -81,12 +82,17 @@ TrajectoriesHandler::myStartElement(int element,
             break;
         }
         case SUMO_TAG_MOTIONSTATE: {
-            const std::string id = attrs.getString(SUMO_ATTR_ID);
+            const std::string id = attrs.getString(SUMO_ATTR_VEHICLE);
             const SUMOEmissionClass c = myEmissionClassByVehicle[id];
-            const SUMOReal v = attrs.getFloat(SUMO_ATTR_SPEED);
+            const SUMOReal v = attrs.getFloat(SUMO_ATTR_SPEED) / 100.;
             const SUMOReal a = attrs.getOpt(SUMO_ATTR_ACCELERATION, id.c_str(), ok, INVALID_VALUE);
             const SUMOReal s = attrs.getOpt(SUMO_ATTR_SLOPE, id.c_str(), ok, INVALID_VALUE);
-            writeEmissions(std::cout, id, c, myCurrentTime, v);
+            const SUMOTime time = attrs.getOpt<int>(SUMO_ATTR_TIME, id.c_str(), ok, INVALID_VALUE);
+            if (myXMLOut != 0) {
+                writeXMLEmissions(id, c, time, v, a);
+            } else {
+                writeEmissions(std::cout, id, c, time, v, a);
+            }
             break;
         }
         default:
@@ -95,13 +101,15 @@ TrajectoriesHandler::myStartElement(int element,
 }
 
 
-void
-TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
-                                    const SUMOEmissionClass c,
-                                    const SUMOReal t, const SUMOReal v,
-                                    SUMOReal a, SUMOReal s) {
+const PollutantsInterface::Emissions
+TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionClass c,
+                                      const SUMOReal v, SUMOReal& a, SUMOReal& s) {
     if (myComputeA) {
-        a = v - myLastV[id];
+        if (myLastV.count(id) == 0) {
+            a = 0.;
+        } else {
+            a = v - myLastV[id];
+        }
         myLastV[id] = v;
     }
     if (a == INVALID_VALUE) {
@@ -110,31 +118,51 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
     if (s == INVALID_VALUE) {
         s = myDefaultSlope;
     }
-    const SUMOReal aCO = PollutantsInterface::computeCO(c, v, a, s);
-    const SUMOReal aCO2 = PollutantsInterface::computeCO2(c, v, a, s);
-    const SUMOReal aHC = PollutantsInterface::computeHC(c, v, a, s);
-    const SUMOReal aNOx = PollutantsInterface::computeNOx(c, v, a, s);
-    const SUMOReal aPMx = PollutantsInterface::computePMx(c, v, a, s);
-    const SUMOReal aFuel = PollutantsInterface::computeFuel(c, v, a, s);
-    mySumCO[id] += aCO;
-    mySumCO2[id] += aCO2;
-    mySumHC[id] += aHC;
-    mySumNOx[id] += aNOx;
-    mySumPMx[id] += aPMx;
-    mySumFuel[id] += aFuel;
+    const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s);
+    mySums[id].addScaled(result);
+    return result;
+}
+
+
+void
+TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
+                                    const SUMOEmissionClass c,
+                                    const SUMOReal t, const SUMOReal v,
+                                    SUMOReal a, SUMOReal s) {
+    const PollutantsInterface::Emissions e = computeEmissions(id, c, v, a, s);
     o << t << ";" << v << ";" << a << ";" << s
-    << ";" << aCO << ";" << aCO2 << ";" << aHC << ";" << aPMx << ";" << aNOx << ";" << aFuel << std::endl;
+    << ";" << e.CO << ";" << e.CO2 << ";" << e.HC << ";" << e.PMx << ";" << e.NOx << ";" << e.fuel << std::endl;
+}
+
+
+void
+TrajectoriesHandler::writeXMLEmissions(const std::string id,
+                                       const SUMOEmissionClass c,
+                                       const SUMOTime t, const SUMOReal v,
+                                       SUMOReal a, SUMOReal s) {
+    if (myCurrentTime != t) {
+        if (myCurrentTime != -1) {
+            myXMLOut->closeTag();
+        }
+        myCurrentTime = t;
+        myXMLOut->openTag(SUMO_TAG_TIMESTEP).writeAttr(SUMO_ATTR_TIME, time2string(t));
+    }
+    const PollutantsInterface::Emissions e = computeEmissions(id, c, v, a, s);
+    myXMLOut->openTag("vehicle").writeAttr("id", id).writeAttr("eclass", PollutantsInterface::getName(c));
+    myXMLOut->writeAttr("CO2", e.CO2).writeAttr("CO", e.CO).writeAttr("HC", e.HC).writeAttr("NOx", e.NOx);
+    myXMLOut->writeAttr("PMx", e.PMx).writeAttr("fuel", e.fuel);
+    myXMLOut->writeAttr("speed", v).closeTag();
 }
 
 
 void
 TrajectoriesHandler::writeSums(std::ostream& o, const std::string id) {
-    o << "CO:" << mySumCO[id] << std::endl
-    << "CO2:" << mySumCO2[id] << std::endl
-    << "HC:" << mySumHC[id] << std::endl
-    << "NOx:" << mySumNOx[id] << std::endl
-    << "PMx:" << mySumPMx[id] << std::endl
-    << "fuel:" << mySumFuel[id] << std::endl;
+    o << "CO:" << mySums[id].CO << std::endl
+    << "CO2:" << mySums[id].CO2 << std::endl
+    << "HC:" << mySums[id].HC << std::endl
+    << "NOx:" << mySums[id].NOx << std::endl
+    << "PMx:" << mySums[id].PMx << std::endl
+    << "fuel:" << mySums[id].fuel << std::endl;
 }
 
 

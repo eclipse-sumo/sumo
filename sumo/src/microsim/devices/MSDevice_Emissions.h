@@ -34,10 +34,11 @@
 #include <set>
 #include <vector>
 #include <map>
-#include "MSDevice.h"
 #include <utils/common/SUMOTime.h>
-#include <microsim/MSVehicle.h>
 #include <utils/common/WrappingCommand.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <microsim/MSVehicle.h>
+#include "MSDevice.h"
 
 
 // ===========================================================================
@@ -128,12 +129,8 @@ private:
 
 
 private:
-    /// @name Internal storages for pollutant/fuel sum in mg or ml
-    /// @{
-
-    SUMOReal myCO2, myCO, myHC, myPMx, myNOx, myFuel;
-
-    /// @}
+    /// @brief Internal storages for pollutant/fuel sum in mg or ml
+    PollutantsInterface::Emissions myEmissions;
 
 
 private:

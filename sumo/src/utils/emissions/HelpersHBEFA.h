@@ -65,9 +65,10 @@ public:
      *  results directly in zero emission.
      *
      * @param[in] c emission class for the function parameters to use
-     * @param[in] offset the offset in the function parameters for the correct pollutant
+     * @param[in] e the type of emission (CO, CO2, ...)
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
+     * @param[in] slope The road's slope at vehicle's position [°]
      */
     inline SUMOReal compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
         if (c == PollutantsInterface::ZERO_EMISSIONS) {
