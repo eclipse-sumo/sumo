@@ -1,6 +1,6 @@
 <types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/types_file.xsd">
   <type id="highway.motorway" priority="13" numLanes="2" speed="41.667"
-		oneway="true" disallow="bicycle pedestrian"/>
+		oneway="true" disallow="moped bicycle pedestrian"/>
   <type id="highway.motorway_link" priority="8" numLanes="1" speed="13.889"/>
   <type id="highway.trunk" priority="12" numLanes="1" speed="13.889"/>
   <type id="highway.trunk_link" priority="8" numLanes="1" speed="13.889"/>
@@ -31,19 +31,19 @@
   <type id="highway.steps" priority="2" numLanes="1" speed="1.389"
 		allow="pedestrian"/>
   <type id="railway.rail" priority="7" numLanes="1" speed="22.222"
-		allow="rail_fast"/>
+		allow="rail rail_electric"/>
   <type id="railway.tram" priority="7" numLanes="1" speed="16.667"
-		allow="cityrail"/>
+		allow="tram"/>
   <type id="railway.light_rail" priority="7" numLanes="1" speed="33.333"
-		allow="lightrail"/>
+		allow="rail_urban"/>
   <type id="railway.subway" priority="7" numLanes="1" speed="22.222"
-		allow="cityrail"/>
+		allow="rail_urban"/>
   <type id="railway.preserved" priority="7" numLanes="1" speed="8.333"
-		allow="lightrail"/>
+		allow="tram"/>
   <type id="railway.narrow_gauge" priority="7" numLanes="1" speed="33.333"
-		allow="lightrail"/>
+		allow="tram"/>
   <type id="railway.monorail" priority="7" numLanes="1" speed="16.667"
-		allow="lightrail"/>
+		allow="tram"/>
   <type id="railway.funicular" priority="7" numLanes="1" speed="16.667"
-		allow="cityrail"/>
+		allow="rail_urban"/>
 </types>
