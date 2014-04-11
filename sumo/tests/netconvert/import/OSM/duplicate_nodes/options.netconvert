@@ -1,1 +1,1 @@
---osm-files osm.xml --output net.net.xml -v -R --tls.join --proj.utm --ramps.guess --remove-edges.isolated --remove-edges.by-vclass hov,taxi,bus,delivery,transport,lightrail,cityrail,rail_slow,rail_fast,motorcycle,bicycle,pedestrian --output.street-names
+--osm-files osm.xml --output net.net.xml -v -R --tls.join --proj.utm --ramps.guess --remove-edges.isolated --remove-edges.by-vclass hov,taxi,bus,delivery,truck,tram,rail_urban,rail,rail_electric,motorcycle,bicycle,pedestrian --output.street-names

@@ -107,7 +107,7 @@ Processing Options:
 
 Report Options:
   -v, --verbose                        Switches to verbose output
-  -p, --print-options                  Prints option values before processing
+  --print-options                      Prints option values before processing
   -?, --help                           Prints this screen
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
@@ -129,8 +129,6 @@ Report Options:
 Emissions Options:
   --phemlight-path FILE                Determines where to load PHEMlight
                                          definitions from.
-  --emission-model STR                 Use the model given as default for
-                                         emission calculations
   --device.emissions.probability FLOAT  The probability for a vehicle to have an
                                          emission logging device
   --device.emissions.explicit STR      Assign a device to named vehicles

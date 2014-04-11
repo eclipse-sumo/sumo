@@ -2,12 +2,12 @@
 """
 @file    runner.py
 @author  Michael Behrisch
-@date    2012-01-14
+@date    2014-03-14
 @version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo-sim.org/
-Copyright (C) 2008-2014 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2014-2014 DLR (http://www.dlr.de/) and contributors
 
 This file is part of SUMO.
 SUMO is free software; you can redistribute it and/or modify
@@ -45,6 +45,7 @@ subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "direct.x
 # protobuf roundtrip
 xPro = subprocess.Popen(['python', xmlProtoPy, '-x', schema, '-o', str(IN_PORT), str(SUMO_PORT)])
 pPro = subprocess.Popen(['python', protoXmlPy, '-x', schema, str(OUT_PORT)])
+time.sleep(1) # wait for all servers to start
 threading.Thread(target=lambda:connect(IN_PORT, OUT_PORT)).start()
 subprocess.call([sumoBinary, "sumo.sumocfg"])
 xPro.wait()

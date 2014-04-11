@@ -156,9 +156,6 @@
         <!-- Assigns a default arrival speed -->
         <arrivalspeed value="" type="STR"/>
 
-        <!-- Use the model given as default for emission calculations -->
-        <emission-model value="HBEFA2" type="STR"/>
-
     </defaults>
 
     <time>
@@ -175,7 +172,7 @@
         <verbose value="false" synonymes="v" type="BOOL"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false" synonymes="p" type="BOOL"/>
+        <print-options value="false" type="BOOL"/>
 
         <!-- Prints this screen -->
         <help value="false" synonymes="?" type="BOOL"/>

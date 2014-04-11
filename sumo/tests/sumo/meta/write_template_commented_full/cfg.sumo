@@ -187,7 +187,7 @@
         <verbose value="false" synonymes="v" type="BOOL"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false" synonymes="p" type="BOOL"/>
+        <print-options value="false" type="BOOL"/>
 
         <!-- Prints this screen -->
         <help value="false" synonymes="?" type="BOOL"/>
@@ -224,9 +224,6 @@
     <emissions>
         <!-- Determines where to load PHEMlight definitions from. -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
-
-        <!-- Use the model given as default for emission calculations -->
-        <emission-model value="HBEFA2" type="STR"/>
 
         <!-- The probability for a vehicle to have an emission logging device -->
         <device.emissions.probability value="0" type="FLOAT"/>

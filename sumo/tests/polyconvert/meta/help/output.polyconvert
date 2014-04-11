@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r15699
+SUMO polyconvert Version dev-SVN-rUNKNOWN
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
@@ -77,7 +77,7 @@ Building Defaults Options:
 
 Report Options:
   -v, --verbose                    Switches to verbose output
-  -p, --print-options              Prints option values before processing
+  --print-options                  Prints option values before processing
   -?, --help                       Prints this screen
   -V, --version                    Prints the current version
   -X, --xml-validation STR         Set schema validation scheme of XML inputs

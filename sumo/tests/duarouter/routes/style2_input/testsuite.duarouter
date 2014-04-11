@@ -28,6 +28,9 @@ withparams
 # Checks whether the vehicle class is processed
 with_vehtype_withclass
 
+# Checks whether a deprecated vehicle class is processed
+with_vehtype_withclass_deprecated
+
 # Checks whether the vehicle type can be omitted
 no_vehtype
 

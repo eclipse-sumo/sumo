@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon 11 Feb 2013 01:59:10 PM CET by Netedit Version dev-SVN-r13140
+<!-- generated on 04/11/14 10:50:24 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/kobo/dlr/szenarien/braunschweig/bs.net.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/kobo/dlr/debug/ticket855b/input_net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -23,22 +23,22 @@
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
 
-    <location netOffset="-593345.09,-5779253.43" convBoundary="0.00,0.00,26922.79,27398.44" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-593345.09,-5779253.43" convBoundary="4215.39,2341.00,4331.69,2716.03" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":54525860_0" function="internal">
-        <lane id=":54525860_0_0" index="0" speed="13.89" length="6.70" shape="4220.72,2542.43 4218.58,2542.63 4217.49,2542.12 4217.45,2540.92 4218.45,2539.02"/>
+        <lane id=":54525860_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="6.70" shape="4220.72,2542.43 4218.58,2542.63 4217.49,2542.12 4217.45,2540.92 4218.45,2539.02"/>
     </edge>
     <edge id=":54525860_1" function="internal">
-        <lane id=":54525860_1_0" index="0" speed="13.89" length="2.99" shape="4220.21,2540.58 4218.29,2541.59 4217.47,2541.65"/>
+        <lane id=":54525860_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="2.99" shape="4220.21,2540.58 4218.29,2541.59 4217.47,2541.65"/>
     </edge>
     <edge id=":54525860_2" function="internal">
         <lane id=":54525860_2_0" index="0" speed="13.89" length="3.03" shape="4217.47,2541.65 4217.36,2541.66 4217.41,2540.81 4218.45,2539.02"/>
     </edge>
     <edge id=":54525871_0" function="internal">
-        <lane id=":54525871_0_0" index="0" speed="13.89" length="5.33" shape="4256.15,2510.06 4258.50,2505.28"/>
+        <lane id=":54525871_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="5.33" shape="4256.15,2510.06 4258.50,2505.28"/>
     </edge>
     <edge id=":54525871_1" function="internal">
-        <lane id=":54525871_1_0" index="0" speed="13.89" length="5.01" shape="4256.15,2510.06 4260.87,2508.39"/>
+        <lane id=":54525871_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="5.01" shape="4256.15,2510.06 4260.87,2508.39"/>
     </edge>
     <edge id=":54525873_0" function="internal">
         <lane id=":54525873_0_0" index="0" speed="19.44" length="13.32" shape="4282.99,2462.83 4282.54,2459.37 4282.14,2456.22 4281.73,2453.08 4281.27,2449.62"/>
@@ -50,34 +50,32 @@
         <lane id=":54525875_0_0" index="0" speed="19.44" length="7.15" shape="4288.58,2505.67 4287.64,2498.59"/>
     </edge>
     <edge id=":54525875_1" function="internal">
-        <lane id=":54525875_1_0" index="0" speed="16.66" length="4.16" shape="4288.58,2505.67 4288.34,2503.87 4288.17,2502.58 4288.06,2501.81 4288.03,2501.55"/>
+        <lane id=":54525875_1_0" index="0" speed="16.66" length="6.33" shape="4288.58,2505.67 4288.63,2503.98 4289.33,2503.01 4290.69,2502.78 4292.69,2503.28"/>
     </edge>
     <edge id=":54525875_2" function="internal">
         <lane id=":54525875_2_0" index="0" speed="16.66" length="5.10" shape="4284.88,2502.19 4286.23,2501.73 4287.15,2500.97 4287.62,2499.92 4287.64,2498.59"/>
     </edge>
     <edge id=":54525875_3" function="internal">
-        <lane id=":54525875_3_0" index="0" speed="13.89" length="3.21" shape="4284.88,2502.19 4288.03,2501.55"/>
+        <lane id=":54525875_3_0" index="0" speed="13.89" length="7.89" shape="4284.88,2502.19 4292.69,2503.28"/>
     </edge>
     <edge id=":54525876_0" function="internal">
         <lane id=":54525876_0_0" index="0" speed="19.44" length="7.38" shape="4289.63,2513.81 4288.69,2506.48"/>
     </edge>
     <edge id=":54525876_1" function="internal">
-        <lane id=":54525876_1_0" index="0" speed="16.66" length="4.03" shape="4289.22,2510.48 4289.19,2510.23 4289.09,2509.48 4288.92,2508.23 4288.69,2506.48"/>
+        <lane id=":54525876_1_0" index="0" speed="16.66" length="6.26" shape="4293.30,2507.83 4291.48,2508.74 4290.11,2508.82 4289.18,2508.07 4288.69,2506.48"/>
     </edge>
     <edge id=":54525877_0" function="internal">
-        <lane id=":54525877_0_0" index="0" speed="19.44" length="9.83" shape="4298.49,2499.85 4299.84,2509.59"/>
-    </edge>
-    <edge id=":54525877_1" function="internal">
-        <lane id=":54525877_1_0" index="0" speed="19.44" length="9.84" shape="4295.22,2500.30 4296.57,2510.04"/>
+        <lane id=":54525877_0_0" index="0" speed="19.44" length="9.84" shape="4298.49,2499.85 4299.84,2509.59"/>
+        <lane id=":54525877_0_1" index="1" speed="19.44" length="9.84" shape="4295.22,2500.30 4296.57,2510.04"/>
     </edge>
     <edge id=":54525877_2" function="internal">
-        <lane id=":54525877_2_0" index="0" speed="16.66" length="5.93" shape="4295.22,2500.30 4295.66,2502.76 4296.19,2504.38 4296.82,2505.15 4297.54,2505.08"/>
+        <lane id=":54525877_2_0" index="0" speed="16.66" length="8.01" shape="4295.22,2500.30 4295.41,2502.93 4295.18,2505.04 4294.53,2506.64 4293.46,2507.73"/>
     </edge>
     <edge id=":54525877_3" function="internal">
-        <lane id=":54525877_3_0" index="0" speed="16.66" length="5.73" shape="4297.54,2505.08 4296.82,2505.15 4296.42,2506.00 4296.33,2507.63 4296.57,2510.04"/>
+        <lane id=":54525877_3_0" index="0" speed="16.66" length="7.99" shape="4292.88,2503.35 4294.20,2504.17 4295.25,2505.56 4296.04,2507.52 4296.57,2510.04"/>
     </edge>
     <edge id=":54525877_4" function="internal">
-        <lane id=":54525877_4_0" index="0" speed="13.89" length="0.10" shape="4297.54,2505.08 4297.54,2505.08"/>
+        <lane id=":54525877_4_0" index="0" speed="13.89" length="6.43" shape="4292.88,2503.35 4294.66,2504.27 4295.36,2505.31 4294.96,2506.46 4293.46,2507.73"/>
     </edge>
 
     <edge id="-51800054" from="54525876" to="54525875" priority="-1" spreadType="center">
@@ -90,16 +88,16 @@
         <lane id="-51800057_0" index="0" speed="19.44" length="109.36" shape="4281.27,2449.62 4270.17,2366.58 4270.67,2341.00"/>
     </edge>
     <edge id="-51800058" from="54525871" to="54525873" priority="-1" spreadType="center" shape="4254.33,2510.90 4269.79,2490.07 4276.91,2475.75 4281.50,2451.36">
-        <lane id="-51800058_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="13.89" length="48.19" shape="4258.50,2505.28 4269.79,2490.07 4276.91,2475.75 4279.36,2462.72"/>
+        <lane id="-51800058_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="48.19" shape="4258.50,2505.28 4269.79,2490.07 4276.91,2475.75 4279.36,2462.72"/>
     </edge>
     <edge id="-51800059" from="54525871" to="54525875" priority="-1" spreadType="center" shape="4254.33,2510.90 4268.12,2505.61 4288.03,2501.55">
-        <lane id="-51800059_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="13.89" length="24.87" shape="4260.87,2508.39 4268.12,2505.61 4284.88,2502.19"/>
+        <lane id="-51800059_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="24.87" shape="4260.87,2508.39 4268.12,2505.61 4284.88,2502.19"/>
     </edge>
     <edge id="-51800060" from="54525860" to="54525871" priority="-1" spreadType="center" shape="4215.39,2543.52 4227.36,2525.95 4240.53,2517.31 4254.33,2510.90">
-        <lane id="-51800060_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="13.89" length="48.79" shape="4218.45,2539.02 4227.36,2525.95 4240.53,2517.31 4256.15,2510.06"/>
+        <lane id="-51800060_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="48.79" shape="4218.45,2539.02 4227.36,2525.95 4240.53,2517.31 4256.15,2510.06"/>
     </edge>
     <edge id="-51800062" from="54525882" to="54525860" priority="-1" spreadType="center" shape="4296.89,2572.94 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4215.39,2543.52">
-        <lane id="-51800062_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="13.89" length="82.39" shape="4292.42,2567.26 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4220.72,2542.43"/>
+        <lane id="-51800062_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="82.39" shape="4292.42,2567.26 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4220.72,2542.43"/>
     </edge>
     <edge id="-51800063" from="54525882" to="54525876" priority="-1" spreadType="center">
         <lane id="-51800063_0" index="0" speed="19.44" length="52.35" shape="4296.01,2565.77 4289.63,2513.81"/>
@@ -109,13 +107,13 @@
         <lane id="51800052_1" index="1" speed="19.44" length="161.52" shape="4269.10,2341.49 4276.83,2366.12 4295.22,2500.30"/>
     </edge>
     <edge id="51800053" from="54525875" to="54525877" priority="-1" spreadType="center">
-        <lane id="51800053_0" index="0" speed="13.89" length="10.14" shape="4288.03,2501.55 4297.54,2505.08"/>
+        <lane id="51800053_0" index="0" speed="13.89" length="0.20" shape="4292.69,2503.28 4292.88,2503.35"/>
     </edge>
     <edge id="51800055" from="54525877" to="54525876" priority="-1" spreadType="center">
-        <lane id="51800055_0" index="0" speed="13.89" length="9.92" shape="4297.54,2505.08 4289.22,2510.48"/>
+        <lane id="51800055_0" index="0" speed="13.89" length="0.20" shape="4293.46,2507.73 4293.30,2507.83"/>
     </edge>
     <edge id="51800061" from="54525876" to="54525860" priority="-1" spreadType="center" shape="4289.22,2510.48 4266.53,2516.71 4247.23,2524.12 4215.39,2543.52">
-        <lane id="51800061_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="13.89" length="72.49" shape="4285.99,2511.37 4266.53,2516.71 4247.23,2524.12 4220.21,2540.58"/>
+        <lane id="51800061_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="72.49" shape="4285.99,2511.37 4266.53,2516.71 4247.23,2524.12 4220.21,2540.58"/>
     </edge>
     <edge id="51800087" from="54525877" to="54525903" priority="-1" spreadType="center" shape="4297.54,2505.08 4316.13,2637.85 4318.56,2653.47 4331.69,2716.03">
         <lane id="51800087_0" index="0" speed="19.44" length="209.01" shape="4299.84,2509.59 4317.76,2637.62 4320.19,2653.22 4333.30,2715.69"/>
@@ -145,17 +143,15 @@
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
-    <junction id="54525877" type="priority" x="4297.54" y="2505.08" incLanes="51800052_0 51800052_1 51800053_0" intLanes=":54525877_0_0 :54525877_1_0 :54525877_2_0 :54525877_3_0 :54525877_4_0" shape="4294.98,2510.27 4301.42,2509.37 4300.07,2499.63 4293.63,2500.51 4292.43,2501.48 4291.32,2504.48 4291.78,2506.91 4293.52,2509.60">
+    <junction id="54525877" type="priority" x="4297.54" y="2505.08" incLanes="51800052_0 51800052_1 51800053_0" intLanes=":54525877_0_0 :54525877_0_1 :54525877_2_0 :54525877_3_0 :54525877_4_0" shape="4294.98,2510.27 4301.42,2509.37 4300.07,2499.63 4293.63,2500.51 4292.43,2501.48 4291.32,2504.48 4291.78,2506.91 4293.52,2509.60">
         <request index="0" response="00000" foes="01000" cont="0"/>
         <request index="1" response="00000" foes="01000" cont="0"/>
         <request index="2" response="00000" foes="11000" cont="0"/>
         <request index="3" response="00111" foes="00111" cont="0"/>
         <request index="4" response="00100" foes="00100" cont="0"/>
     </junction>
-    <junction id="54525882" type="unregulated" x="4296.89" y="2572.94" incLanes="" intLanes="" shape="4297.60,2565.57 4294.42,2565.96 4293.68,2566.27 4291.16,2568.25">
-    </junction>
-    <junction id="54525903" type="unregulated" x="4331.69" y="2716.03" incLanes="51800087_0 51800087_1" intLanes="" shape="4334.87,2715.36 4328.51,2716.70">
-    </junction>
+    <junction id="54525882" type="unregulated" x="4296.89" y="2572.94" incLanes="" intLanes="" shape="4297.60,2565.57 4294.42,2565.96 4293.68,2566.27 4291.16,2568.25"/>
+    <junction id="54525903" type="unregulated" x="4331.69" y="2716.03" incLanes="51800087_0 51800087_1" intLanes="" shape="4334.87,2715.36 4328.51,2716.70"/>
 
     <junction id=":54525860_2_0" type="internal" x="4217.47" y="2541.65" incLanes=":54525860_1_0 -51800062_0" intLanes=":54525860_0_0"/>
 
@@ -170,7 +166,7 @@
     <connection from="-51800062" to="-51800060" fromLane="0" toLane="0" via=":54525860_0_0" dir="l" state="M"/>
     <connection from="-51800063" to="-51800054" fromLane="0" toLane="0" via=":54525876_0_0" dir="s" state="M"/>
     <connection from="51800052" to="51800087" fromLane="0" toLane="0" via=":54525877_0_0" dir="s" state="M"/>
-    <connection from="51800052" to="51800087" fromLane="1" toLane="1" via=":54525877_1_0" dir="s" state="M"/>
+    <connection from="51800052" to="51800087" fromLane="1" toLane="1" via=":54525877_0_1" dir="s" state="M"/>
     <connection from="51800052" to="51800055" fromLane="1" toLane="0" via=":54525877_2_0" dir="l" state="M"/>
     <connection from="51800053" to="51800087" fromLane="0" toLane="1" via=":54525877_3_0" dir="L" state="m"/>
     <connection from="51800053" to="51800055" fromLane="0" toLane="0" via=":54525877_4_0" dir="l" state="m"/>
@@ -178,7 +174,7 @@
     <connection from="51800061" to="-51800060" fromLane="0" toLane="0" via=":54525860_1_0" dir="l" state="m"/>
 
     <connection from=":54525860_0" to="-51800060" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54525860_1" to="-51800060" fromLane="0" toLane="0" via=":54525860_2_0" dir="s" state="M"/>
+    <connection from=":54525860_1" to="-51800060" fromLane="0" toLane="0" via=":54525860_2_0" dir="s" state="m"/>
     <connection from=":54525860_2" to="-51800060" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525871_0" to="-51800058" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525871_1" to="-51800059" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -191,7 +187,7 @@
     <connection from=":54525876_0" to="-51800054" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525876_1" to="-51800054" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525877_0" to="51800087" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54525877_1" to="51800087" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":54525877_0" to="51800087" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":54525877_2" to="51800055" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525877_3" to="51800087" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":54525877_4" to="51800055" fromLane="0" toLane="0" dir="s" state="M"/>

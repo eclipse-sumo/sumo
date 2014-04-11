@@ -23,7 +23,7 @@ for i,ec in enumerate(emissionClasses):
     print "Running '%s'" % ec
     sys.stdout.flush()
     sys.stderr.flush()
-    call = [EDC, "-e", ec, "-t", drivingCycle, "-o", "tmp.csv", "-p", PHEMLIGHTp, "--kmh", "--compute-a"]
+    call = [EDC, "-e", ec, "-t", drivingCycle, "-o", "tmp.csv", "--phemlight-path", PHEMLIGHTp, "--kmh", "--compute-a"]
     retCode = subprocess.call(call)
     sys.stdout.flush()
     sys.stderr.flush()
