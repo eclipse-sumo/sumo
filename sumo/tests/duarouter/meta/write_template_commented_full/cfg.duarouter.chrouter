@@ -93,7 +93,7 @@
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;bulkstar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="" type="STR"/>
 
-        <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hirarchy -->
+        <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy -->
         <weight-period value="3600" type="TIME"/>
 
         <!-- Expand weights behind the simulation&apos;s end -->
@@ -166,7 +166,7 @@
         <verbose value="false" synonymes="v" type="BOOL"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false" synonymes="p" type="BOOL"/>
+        <print-options value="false" type="BOOL"/>
 
         <!-- Prints this screen -->
         <help value="false" synonymes="?" type="BOOL"/>

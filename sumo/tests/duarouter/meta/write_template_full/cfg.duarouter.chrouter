@@ -39,7 +39,7 @@
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
         <routing-algorithm value="" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;bulkstar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
-        <weight-period value="3600" type="TIME" help="Aggregation period for the given weight files; triggers rebuilding of Contraction Hirarchy"/>
+        <weight-period value="3600" type="TIME" help="Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
         <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron&apos;s beta"/>
         <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>
@@ -69,7 +69,7 @@
 
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
-        <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
+        <print-options value="false" type="BOOL" help="Prints option values before processing"/>
         <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>

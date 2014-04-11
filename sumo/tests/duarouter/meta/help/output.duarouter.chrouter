@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r15769
+SUMO duarouter Version dev-SVN-r16170
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -51,7 +51,8 @@ Processing Options:
                                      'astar', 'bulkstar', 'CH', 'CHWrapper']
   --weight-period TIME             Aggregation period for the given weight
                                      files;
-                                     triggers rebuilding of Contraction Hirarchy
+                                     triggers rebuilding of Contraction
+                                     Hierarchy
   --weights.expand                 Expand weights behind the simulation's end
   --gawron.beta FLOAT              Use FLOAT as Gawron's beta
   --gawron.a FLOAT                 Use FLOAT as Gawron's a
@@ -86,7 +87,7 @@ Time Options:
 
 Report Options:
   -v, --verbose                    Switches to verbose output
-  -p, --print-options              Prints option values before processing
+  --print-options                  Prints option values before processing
   -?, --help                       Prints this screen
   -V, --version                    Prints the current version
   -X, --xml-validation STR         Set schema validation scheme of XML inputs

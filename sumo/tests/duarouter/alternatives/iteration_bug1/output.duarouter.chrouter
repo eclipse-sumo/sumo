@@ -1,7 +1,7 @@
 Loading net... done.
 Loading precomputed net weights from 'input_weights.dump.xml'... done.
 Skipped until: 1.00
-Building Contraction Hierarchy for vClass='unknown' and time=0.00 (32 edges)
+Building Contraction Hierarchy for vClass='ignoring' and time=0.00 (32 edges)
 ... 
 Created 44 shortcuts.
 Recomputed priority 56 times.
