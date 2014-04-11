@@ -48,7 +48,6 @@
             <xsd:element name="ignore-invalid-detectors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="revalidate-detectors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="revalidate-routes" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="all-end-follower" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="keep-unfinished-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="keep-longer-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="max-search-depth" type="intOptionType" minOccurs="0"/>

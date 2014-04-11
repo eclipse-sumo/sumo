@@ -21,6 +21,7 @@
         <xsd:all>
             <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="od-matrix-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="od-amitran-files" type="fileOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

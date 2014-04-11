@@ -22,6 +22,7 @@
             <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="od-matrix-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="od-amitran-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lane-weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>

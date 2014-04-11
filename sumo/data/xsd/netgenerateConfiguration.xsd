@@ -69,6 +69,7 @@
             <xsd:element name="plain-output-prefix" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="map-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="matsim-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="dlr-navteq-output" type="fileOptionType" minOccurs="0"/>

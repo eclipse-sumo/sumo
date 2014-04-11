@@ -46,6 +46,7 @@
             <xsd:element name="full-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="queue-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vtk-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="summary-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output" type="fileOptionType" minOccurs="0"/>
@@ -87,6 +88,7 @@
             <xsd:element name="eager-insert" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.allow-swap" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.duration" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="lanechange.overtake-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
