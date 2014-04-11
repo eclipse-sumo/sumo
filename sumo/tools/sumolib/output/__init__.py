@@ -70,20 +70,25 @@ def compound_object(element_name, attrnames):
 
 def parse(xmlfile, element_names, element_attrs={}, attr_conversions={}):
     """
-    parses the given element_names from xmlfile and yield compound objects for
+    Parses the given element_names from xmlfile and yield compound objects for
     their xml subtrees (no extra objects are returned if element_names appear in
-    the subtree) The compound objects follow provide all element attributes of
-    the first read element as attributes unless attr_names are supplied. In this
+    the subtree) The compound objects provide all element attributes of
+    the root of the subtree as attributes unless attr_names are supplied. In this
     case attr_names maps element names to a list of attributes which are
     supplied. If attr_conversions is not empty it must map attribute names to
     callables which will be called upon the attribute value before storing under
-    the attribute name (attribute names may be modified to avoid name clashes
-    with python keywords). 
+    the attribute name. 
     The compound objects gives dictionary style access to list of compound
     objects o for any children with the given element name 
     o['child_element_name'] = [osub0, osub1, ...]
-    @Note: all elements with the same name must have the same type regardless of
+    As a shorthand, attribute style access to the list of child elements is
+    provided unless an attribute with the same name as the child elements
+    exists (i.e. o.child_element_name = [osub0, osub1, ...])
+    @Note: All elements with the same name must have the same type regardless of
     the subtree in which they occur
+    @Note: Attribute names may be modified to avoid name clashes
+    with python keywords.
+    @Example: parse('plain.edg.xml', ['edge'])
     """
     elementTypes = {}
     xml_doc = pulldom.parse(xmlfile)
@@ -151,10 +156,12 @@ def average(elements, attrname):
 
 
 def parse_fast(xmlfile, element_name, attrnames, warn=False):
-    # parses the given attribute from all elements with element_name
-    # note that the element must be on its own line and 
-    # the attributes must appear in the given order
-    # example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
+    """
+    Parses the given attrnames from all elements with element_name
+    @Note: The element must be on its own line and the attributes must appear in
+    the given order.
+    @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
+    """
     pattern = '.*'.join(['<%s' % element_name] +
         ['%s="([^"]*)"' % attr for attr in attrnames])
     attrnames = [_prefix_keyword(a, warn) for a in attrnames]
