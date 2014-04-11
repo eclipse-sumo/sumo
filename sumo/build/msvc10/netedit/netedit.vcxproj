@@ -210,6 +210,9 @@
     <ProjectReference Include="..\z_libutils_distribution\z_libutils_distribution.vcxproj">
       <Project>{f5d8313c-621d-4cce-a6da-83effbde7ce6}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\z_libutils_emissions\z_libutils_emissions.vcxproj">
+      <Project>{fa4a6c00-dcae-43cb-a396-15daec3b0141}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\z_libutils_foxtools\z_libutils_foxtools.vcxproj">
       <Project>{ecaebbbd-18b0-4e40-9507-4ad2b018c1cd}</Project>
     </ProjectReference>
