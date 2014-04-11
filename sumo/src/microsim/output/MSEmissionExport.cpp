@@ -31,19 +31,11 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSEdgeControl.h>
-#include <microsim/MSEdge.h>
-#include <microsim/MSLane.h>
-#include <microsim/MSGlobals.h>
 #include <utils/iodevices/OutputDevice.h>
-#include "MSEmissionExport.h"
+#include <utils/emissions/PollutantsInterface.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
-
-#ifdef HAVE_MESOSIM
-#include <mesosim/MELoop.h>
-#include <mesosim/MESegment.h>
-#endif
+#include "MSEmissionExport.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -71,7 +63,7 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
         fclass = fclass.substr(0, fclass.find_first_of("@"));
 
         Position pos = veh->getLane()->getShape().positionAtOffset(veh->getPositionOnLane());
-        of.openTag("vehicle").writeAttr("id", veh->getID()).writeAttr("eclass", veh->getVehicleType().getEmissionClass()).writeAttr("CO2", veh->getCO2Emissions());
+        of.openTag("vehicle").writeAttr("id", veh->getID()).writeAttr("eclass", PollutantsInterface::getName(veh->getVehicleType().getEmissionClass())).writeAttr("CO2", veh->getCO2Emissions());
         of.writeAttr("CO", veh->getCOEmissions()).writeAttr("HC", veh->getHCEmissions()).writeAttr("NOx", veh->getNOxEmissions());
         of.writeAttr("PMx", veh->getPMxEmissions()).writeAttr("fuel", veh->getFuelConsumption()).writeAttr("noise", veh->getHarmonoise_NoiseEmissions());
         of.writeAttr("route", veh->getRoute().getID()).writeAttr("type", fclass).writeAttr("waiting", veh->getWaitingSeconds());

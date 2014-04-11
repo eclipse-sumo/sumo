@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue 27 Nov 2012 04:34:16 PM CET by Netedit Version dev-SVN-r13063
+<!-- generated on 04/11/14 10:59:04 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/erdm_ja/debug/ticket803/net.net.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/erdm_ja/debug/ticket803/net.net.xml"/>
+        <output-file value="n"/>
     </output>
 
     <processing>
@@ -26,50 +26,34 @@
     <location netOffset="-593345.09,-5779253.43" convBoundary="17425.07,17395.08,17944.72,17486.14" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":-554712454-AddedOffRampNode_0" function="internal">
-        <lane id=":-554712454-AddedOffRampNode_0_0" index="0" speed="55.56" length="4.50" shape="17554.31,17479.92 17557.34,17476.59"/>
-    </edge>
-    <edge id=":-554712454-AddedOffRampNode_1" function="internal">
-        <lane id=":-554712454-AddedOffRampNode_1_0" index="0" speed="55.56" length="3.00" shape="17554.31,17479.92 17557.31,17479.89"/>
-    </edge>
-    <edge id=":-554712454-AddedOffRampNode_2" function="internal">
-        <lane id=":-554712454-AddedOffRampNode_2_0" index="0" speed="55.56" length="3.00" shape="17554.29,17483.22 17557.29,17483.19"/>
-    </edge>
-    <edge id=":-554712454-AddedOffRampNode_3" function="internal">
-        <lane id=":-554712454-AddedOffRampNode_3_0" index="0" speed="55.56" length="3.00" shape="17554.26,17486.52 17557.26,17486.49"/>
+        <lane id=":-554712454-AddedOffRampNode_0_0" index="0" speed="55.56" length="3.37" shape="17554.31,17479.92 17557.34,17476.59"/>
+        <lane id=":-554712454-AddedOffRampNode_0_1" index="1" speed="55.56" length="3.37" shape="17554.31,17479.92 17557.31,17479.89"/>
+        <lane id=":-554712454-AddedOffRampNode_0_2" index="2" speed="55.56" length="3.37" shape="17554.29,17483.22 17557.29,17483.19"/>
+        <lane id=":-554712454-AddedOffRampNode_0_3" index="3" speed="55.56" length="3.37" shape="17554.26,17486.52 17557.26,17486.49"/>
     </edge>
     <edge id=":54543608_0" function="internal">
-        <lane id=":54543608_0_0" index="0" speed="55.56" length="0.10" shape="17649.55,17477.29 17649.55,17477.29"/>
-    </edge>
-    <edge id=":54543608_1" function="internal">
-        <lane id=":54543608_1_0" index="0" speed="55.56" length="0.10" shape="17649.47,17480.59 17649.49,17480.59"/>
-    </edge>
-    <edge id=":54543608_2" function="internal">
-        <lane id=":54543608_2_0" index="0" speed="55.56" length="0.10" shape="17649.42,17483.89 17649.41,17483.89"/>
-    </edge>
-    <edge id=":54543608_3" function="internal">
-        <lane id=":54543608_3_0" index="0" speed="55.56" length="0.10" shape="17649.39,17487.19 17649.34,17487.19"/>
+        <lane id=":54543608_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="0.10" shape="17649.55,17477.29 17649.55,17477.29"/>
+        <lane id=":54543608_0_1" index="1" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="0.10" shape="17649.47,17480.59 17649.49,17480.59"/>
+        <lane id=":54543608_0_2" index="2" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="0.10" shape="17649.42,17483.89 17649.41,17483.89"/>
+        <lane id=":54543608_0_3" index="3" speed="55.56" length="0.10" shape="17649.39,17487.19 17649.34,17487.19"/>
     </edge>
     <edge id=":54544332_0" function="internal">
-        <lane id=":54544332_0_0" index="0" speed="37.50" length="1.40" shape="17724.43,17478.98 17725.83,17479.02"/>
+        <lane id=":54544332_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="37.50" length="1.40" shape="17724.43,17478.98 17725.83,17479.02"/>
     </edge>
     <edge id=":54544332_1" function="internal">
-        <lane id=":54544332_1_0" index="0" speed="55.56" length="2.93" shape="17724.35,17482.28 17727.28,17482.36"/>
-    </edge>
-    <edge id=":54544332_2" function="internal">
-        <lane id=":54544332_2_0" index="0" speed="55.56" length="3.00" shape="17724.28,17485.58 17727.27,17485.66"/>
-    </edge>
-    <edge id=":54544332_3" function="internal">
-        <lane id=":54544332_3_0" index="0" speed="55.56" length="3.06" shape="17724.20,17488.88 17727.27,17488.96"/>
+        <lane id=":54544332_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="3.00" shape="17724.35,17482.28 17727.28,17482.36"/>
+        <lane id=":54544332_1_1" index="1" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="3.00" shape="17724.28,17485.58 17727.27,17485.66"/>
+        <lane id=":54544332_1_2" index="2" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="3.00" shape="17724.20,17488.88 17727.27,17488.96"/>
     </edge>
     <edge id=":54544339_0" function="internal">
-        <lane id=":54544339_0_0" index="0" speed="19.44" length="8.69" shape="17803.34,17387.09 17803.74,17390.15 17803.41,17391.36 17802.33,17390.71 17800.52,17388.21"/>
+        <lane id=":54544339_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="19.44" length="8.69" shape="17803.34,17387.09 17803.74,17390.15 17803.41,17391.36 17802.33,17390.71 17800.52,17388.21"/>
     </edge>
 
     <edge id="-51807545" from="54544332" to="54544339" priority="-1" spreadType="center" shape="17725.91,17479.01 17763.53,17474.27 17774.54,17470.07 17784.23,17463.61 17793.25,17457.14 17800.26,17448.39 17805.26,17438.49 17808.26,17426.32 17808.54,17414.08 17804.88,17395.08">
-        <lane id="-51807545_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="19.44" length="147.10" shape="17725.83,17479.02 17763.53,17474.27 17774.54,17470.07 17784.23,17463.61 17793.25,17457.14 17800.26,17448.39 17805.26,17438.49 17808.26,17426.32 17808.54,17414.08 17803.34,17387.09"/>
+        <lane id="-51807545_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="19.44" length="147.10" shape="17725.83,17479.02 17763.53,17474.27 17774.54,17470.07 17784.23,17463.61 17793.25,17457.14 17800.26,17448.39 17805.26,17438.49 17808.26,17426.32 17808.54,17414.08 17803.34,17387.09"/>
     </edge>
     <edge id="51807544" from="54544339" to="54544372" priority="-1" spreadType="center" shape="17804.88,17395.08 17821.34,17421.05 17831.87,17437.98 17840.51,17448.19 17849.85,17457.30 17860.58,17465.33 17873.41,17471.18 17888.31,17475.97 17906.66,17478.61 17944.72,17479.49">
-        <lane id="51807544_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="19.44" length="185.13" shape="17800.52,17388.21 17821.34,17421.05 17831.87,17437.98 17840.51,17448.19 17849.85,17457.30 17860.58,17465.33 17873.41,17471.18 17888.31,17475.97 17906.66,17478.61 17944.84,17479.49"/>
+        <lane id="51807544_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="19.44" length="185.13" shape="17800.52,17388.21 17821.34,17421.05 17831.87,17437.98 17840.51,17448.19 17849.85,17457.30 17860.58,17465.33 17873.41,17471.18 17888.31,17475.97 17906.66,17478.61 17944.84,17479.49"/>
     </edge>
     <edge id="beg" from="617506817" to="-554712454-AddedOffRampNode" priority="-1" spreadType="center">
         <lane id="beg_0" index="0" speed="55.56" length="129.22" shape="17425.09,17478.94 17554.31,17479.92"/>
@@ -83,30 +67,30 @@
         <lane id="e2_3" index="3" speed="55.56" length="92.16" shape="17557.26,17486.49 17649.39,17487.19"/>
     </edge>
     <edge id="e3" from="54543608" to="54544332" priority="-1" spreadType="center" shape="17649.45,17482.24 17682.86,17482.99 17725.80,17483.96">
-        <lane id="e3_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="55.56" length="74.89" shape="17649.55,17477.29 17682.97,17478.04 17724.43,17478.98"/>
-        <lane id="e3_1" index="1" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="55.56" length="74.89" shape="17649.49,17480.59 17682.90,17481.34 17724.35,17482.28"/>
-        <lane id="e3_2" index="2" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="55.56" length="74.89" shape="17649.41,17483.89 17682.82,17484.64 17724.28,17485.58"/>
+        <lane id="e3_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="74.89" shape="17649.55,17477.29 17682.97,17478.04 17724.43,17478.98"/>
+        <lane id="e3_1" index="1" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="74.89" shape="17649.49,17480.59 17682.90,17481.34 17724.35,17482.28"/>
+        <lane id="e3_2" index="2" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="74.89" shape="17649.41,17483.89 17682.82,17484.64 17724.28,17485.58"/>
         <lane id="e3_3" index="3" speed="55.56" length="74.89" shape="17649.34,17487.19 17682.75,17487.94 17724.20,17488.88"/>
     </edge>
     <edge id="end" from="54544332" to="54544372" priority="-1" spreadType="center">
-        <lane id="end_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="55.56" length="217.42" shape="17727.28,17482.36 17944.70,17482.84"/>
-        <lane id="end_1" index="1" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="55.56" length="217.42" shape="17727.27,17485.66 17944.69,17486.14"/>
-        <lane id="end_2" index="2" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="55.56" length="217.42" shape="17727.27,17488.96 17944.68,17489.44"/>
+        <lane id="end_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="217.42" shape="17727.28,17482.36 17944.70,17482.84"/>
+        <lane id="end_1" index="1" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="217.42" shape="17727.27,17485.66 17944.69,17486.14"/>
+        <lane id="end_2" index="2" allow="emergency passenger hov taxi bus delivery truck" speed="55.56" length="217.42" shape="17727.27,17488.96 17944.68,17489.44"/>
     </edge>
 
-    <junction id="-554712454-AddedOffRampNode" type="priority" x="17555.79" y="17483.23" incLanes="beg_0 beg_1 beg_2" intLanes=":-554712454-AddedOffRampNode_0_0 :-554712454-AddedOffRampNode_1_0 :-554712454-AddedOffRampNode_2_0 :-554712454-AddedOffRampNode_3_0" shape="17557.25,17488.09 17557.35,17474.99 17554.33,17478.32 17554.25,17488.12">
+    <junction id="-554712454-AddedOffRampNode" type="priority" x="17555.79" y="17483.23" incLanes="beg_0 beg_1 beg_2" intLanes=":-554712454-AddedOffRampNode_0_0 :-554712454-AddedOffRampNode_0_1 :-554712454-AddedOffRampNode_0_2 :-554712454-AddedOffRampNode_0_3" shape="17557.25,17488.09 17557.35,17474.99 17554.33,17478.32 17554.25,17488.12">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="54543608" type="priority" x="17649.42" y="17483.94" incLanes="e2_0 e2_1 e2_2 e2_3" intLanes=":54543608_0_0 :54543608_1_0 :54543608_2_0 :54543608_3_0" shape="17649.29,17488.79 17649.58,17475.69 17649.40,17488.79">
+    <junction id="54543608" type="priority" x="17649.42" y="17483.94" incLanes="e2_0 e2_1 e2_2 e2_3" intLanes=":54543608_0_0 :54543608_0_1 :54543608_0_2 :54543608_0_3" shape="17649.29,17488.79 17649.58,17475.69 17649.40,17488.79">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="54544332" type="priority" x="17725.77" y="17485.66" incLanes="e3_0 e3_1 e3_2 e3_3" intLanes=":54544332_0_0 :54544332_1_0 :54544332_2_0 :54544332_3_0" shape="17727.26,17490.56 17727.28,17480.76 17724.46,17477.38 17724.17,17490.47">
+    <junction id="54544332" type="priority" x="17725.77" y="17485.66" incLanes="e3_0 e3_1 e3_2 e3_3" intLanes=":54544332_0_0 :54544332_1_0 :54544332_1_1 :54544332_1_2" shape="17727.26,17490.56 17727.28,17480.76 17724.46,17477.38 17724.17,17490.47">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -115,37 +99,35 @@
     <junction id="54544339" type="priority" x="17804.88" y="17395.08" incLanes="-51807545_0" intLanes=":54544339_0_0" shape="17801.71,17387.09 17804.85,17386.49 17799.01,17388.81 17801.71,17387.09">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="54544372" type="unregulated" x="17944.69" y="17486.14" incLanes="51807544_0 end_0 end_1 end_2" intLanes="" shape="17944.88,17477.89 17944.81,17481.09 17944.70,17481.24 17944.68,17491.04">
-    </junction>
-    <junction id="617506817" type="unregulated" x="17425.07" y="17482.24" incLanes="" intLanes="" shape="17425.03,17487.14 17425.11,17477.34">
-    </junction>
+    <junction id="54544372" type="unregulated" x="17944.69" y="17486.14" incLanes="51807544_0 end_0 end_1 end_2" intLanes="" shape="17944.88,17477.89 17944.81,17481.09 17944.70,17481.24 17944.68,17491.04"/>
+    <junction id="617506817" type="unregulated" x="17425.07" y="17482.24" incLanes="" intLanes="" shape="17425.03,17487.14 17425.11,17477.34"/>
 
     <connection from="-51807545" to="51807544" fromLane="0" toLane="0" via=":54544339_0_0" dir="l" state="M"/>
     <connection from="beg" to="e2" fromLane="0" toLane="0" via=":-554712454-AddedOffRampNode_0_0" dir="s" state="M"/>
-    <connection from="beg" to="e2" fromLane="0" toLane="1" via=":-554712454-AddedOffRampNode_1_0" dir="s" state="M"/>
-    <connection from="beg" to="e2" fromLane="1" toLane="2" via=":-554712454-AddedOffRampNode_2_0" dir="s" state="M"/>
-    <connection from="beg" to="e2" fromLane="2" toLane="3" via=":-554712454-AddedOffRampNode_3_0" dir="s" state="M"/>
+    <connection from="beg" to="e2" fromLane="0" toLane="1" via=":-554712454-AddedOffRampNode_0_1" dir="s" state="M"/>
+    <connection from="beg" to="e2" fromLane="1" toLane="2" via=":-554712454-AddedOffRampNode_0_2" dir="s" state="M"/>
+    <connection from="beg" to="e2" fromLane="2" toLane="3" via=":-554712454-AddedOffRampNode_0_3" dir="s" state="M"/>
     <connection from="e2" to="e3" fromLane="0" toLane="0" via=":54543608_0_0" dir="s" state="M"/>
-    <connection from="e2" to="e3" fromLane="1" toLane="1" via=":54543608_1_0" dir="s" state="M"/>
-    <connection from="e2" to="e3" fromLane="2" toLane="2" via=":54543608_2_0" dir="s" state="M"/>
-    <connection from="e2" to="e3" fromLane="3" toLane="3" via=":54543608_3_0" dir="s" state="M"/>
+    <connection from="e2" to="e3" fromLane="1" toLane="1" via=":54543608_0_1" dir="s" state="M"/>
+    <connection from="e2" to="e3" fromLane="2" toLane="2" via=":54543608_0_2" dir="s" state="M"/>
+    <connection from="e2" to="e3" fromLane="3" toLane="3" via=":54543608_0_3" dir="s" state="M"/>
     <connection from="e3" to="-51807545" fromLane="0" toLane="0" via=":54544332_0_0" dir="s" state="M"/>
     <connection from="e3" to="end" fromLane="1" toLane="0" via=":54544332_1_0" dir="s" state="M"/>
-    <connection from="e3" to="end" fromLane="2" toLane="1" via=":54544332_2_0" dir="s" state="M"/>
-    <connection from="e3" to="end" fromLane="3" toLane="2" via=":54544332_3_0" dir="s" state="M"/>
+    <connection from="e3" to="end" fromLane="2" toLane="1" via=":54544332_1_1" dir="s" state="M"/>
+    <connection from="e3" to="end" fromLane="3" toLane="2" via=":54544332_1_2" dir="s" state="M"/>
 
     <connection from=":-554712454-AddedOffRampNode_0" to="e2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":-554712454-AddedOffRampNode_1" to="e2" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":-554712454-AddedOffRampNode_2" to="e2" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":-554712454-AddedOffRampNode_3" to="e2" fromLane="0" toLane="3" dir="s" state="M"/>
+    <connection from=":-554712454-AddedOffRampNode_0" to="e2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":-554712454-AddedOffRampNode_0" to="e2" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":-554712454-AddedOffRampNode_0" to="e2" fromLane="3" toLane="3" dir="s" state="M"/>
     <connection from=":54543608_0" to="e3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54543608_1" to="e3" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":54543608_2" to="e3" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":54543608_3" to="e3" fromLane="0" toLane="3" dir="s" state="M"/>
+    <connection from=":54543608_0" to="e3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":54543608_0" to="e3" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":54543608_0" to="e3" fromLane="3" toLane="3" dir="s" state="M"/>
     <connection from=":54544332_0" to="-51807545" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54544332_1" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":54544332_2" to="end" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":54544332_3" to="end" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":54544332_1" to="end" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":54544332_1" to="end" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":54544339_0" to="51807544" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

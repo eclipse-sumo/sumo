@@ -74,12 +74,13 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
     for (SUMOReal v = vMin; v <= vMax; v += vStep) {
         for (SUMOReal a = aMin; a <= aMax; a += aStep) {
             for (SUMOReal s = sMin; s <= sMax; s += sStep) {
-                o << v << ";" << a << ";" << s << ";" << "CO" << ";" << PollutantsInterface::computeCO(c, v, a, s) << std::endl;
-                o << v << ";" << a << ";" << s << ";" << "CO2" << ";" << PollutantsInterface::computeCO2(c, v, a, s) << std::endl;
-                o << v << ";" << a << ";" << s << ";" << "HC" << ";" << PollutantsInterface::computeHC(c, v, a, s) << std::endl;
-                o << v << ";" << a << ";" << s << ";" << "PMx" << ";" << PollutantsInterface::computePMx(c, v, a, s) << std::endl;
-                o << v << ";" << a << ";" << s << ";" << "NOx" << ";" << PollutantsInterface::computeNOx(c, v, a, s) << std::endl;
-                o << v << ";" << a << ";" << s << ";" << "fuel" << ";" << PollutantsInterface::computeFuel(c, v, a, s) << std::endl;
+                const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s);
+                o << v << ";" << a << ";" << s << ";" << "CO" << ";" << result.CO << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "CO2" << ";" << result.CO2 << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "HC" << ";" << result.HC << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "PMx" << ";" << result.PMx << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "NOx" << ";" << result.NOx << std::endl;
+                o << v << ";" << a << ";" << s << ";" << "fuel" << ";" << result.fuel << std::endl;
             }
         }
     }
@@ -126,13 +127,13 @@ main(int argc, char** argv) {
     oc.addOptionSubTopic("Output");
     oc.doRegister("output-file", 'o', new Option_String());
     oc.addSynonyme("output", "output-file");
-    oc.addDescription("emission-class", "Output", "Defines the file (or the path if --iterate was set) to write the map(s) into.");
+    oc.addDescription("output", "Output", "Defines the file (or the path if --iterate was set) to write the map(s) into.");
 
     oc.addOptionSubTopic("Emissions");
-    oc.doRegister("phemlight-path", 'p', new Option_FileName("./PHEMlight/"));
+    oc.doRegister("phemlight-path", new Option_FileName("./PHEMlight/"));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
 
-    SystemFrame::addReportOptions(oc, true);
+    SystemFrame::addReportOptions(oc);
 
     // run
     int ret = 0;
@@ -162,20 +163,18 @@ main(int argc, char** argv) {
             if (!oc.isSet("output-file")) {
                 throw ProcessError("The output file (-o) must be given.");
             }
-            SUMOEmissionClass c = getVehicleEmissionTypeID(oc.getString("emission-class"));
+            const SUMOEmissionClass c = PollutantsInterface::getClassByName(oc.getString("emission-class"));
             single(oc.getString("output-file"), oc.getString("emission-class"),
                    c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
         } else {
             if (!oc.isSet("output-file")) {
                 oc.set("output-file", "./");
             }
-            // let's assume it's an old, plain enum
-            for (int ci = SVE_UNKNOWN; ci != SVE_META_PHEMLIGHT_END; ++ci) {
-                SUMOEmissionClass c = (SUMOEmissionClass) ci;
-                if (SumoEmissionClassStrings.has(c)) {
-                    single(oc.getString("output-file") + getVehicleEmissionTypeName(c) + ".csv", getVehicleEmissionTypeName(c),
-                           c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
-                }
+            const std::vector<SUMOEmissionClass> classes = PollutantsInterface::getAllClasses();
+            for (std::vector<SUMOEmissionClass>::const_iterator ci = classes.begin(); ci != classes.end(); ++ci) {
+                SUMOEmissionClass c = *ci;
+                single(oc.getString("output-file") + PollutantsInterface::getName(c) + ".csv", PollutantsInterface::getName(c),
+                        c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
             }
         }
     } catch (InvalidArgument& e) {

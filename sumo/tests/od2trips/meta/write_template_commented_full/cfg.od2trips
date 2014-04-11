@@ -27,6 +27,9 @@
         <!-- Loads O/D-files from FILE(s) -->
         <od-matrix-files value="" synonymes="d od od-files" type="FILE"/>
 
+        <!-- Loads O/D-matrix in Amitran format from FILE(s) -->
+        <od-amitran-files value="" synonymes="amitran amitran-files" type="FILE"/>
+
     </input>
 
     <output>
@@ -103,7 +106,7 @@
         <verbose value="false" synonymes="v" type="BOOL"/>
 
         <!-- Prints option values before processing -->
-        <print-options value="false" synonymes="p" type="BOOL"/>
+        <print-options value="false" type="BOOL"/>
 
         <!-- Prints this screen -->
         <help value="false" synonymes="?" type="BOOL"/>

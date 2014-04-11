@@ -2127,37 +2127,37 @@ MSVehicle::getTimeGap() const {
 
 SUMOReal
 MSVehicle::getCO2Emissions() const {
-    return PollutantsInterface::computeCO2(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::CO2, myState.speed(), myAcceleration, getSlope());
 }
 
 
 SUMOReal
 MSVehicle::getCOEmissions() const {
-    return PollutantsInterface::computeCO(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::CO, myState.speed(), myAcceleration, getSlope());
 }
 
 
 SUMOReal
 MSVehicle::getHCEmissions() const {
-    return PollutantsInterface::computeHC(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::HC, myState.speed(), myAcceleration, getSlope());
 }
 
 
 SUMOReal
 MSVehicle::getNOxEmissions() const {
-    return PollutantsInterface::computeNOx(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::NO_X, myState.speed(), myAcceleration, getSlope());
 }
 
 
 SUMOReal
 MSVehicle::getPMxEmissions() const {
-    return PollutantsInterface::computePMx(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::PM_X, myState.speed(), myAcceleration, getSlope());
 }
 
 
 SUMOReal
 MSVehicle::getFuelConsumption() const {
-    return PollutantsInterface::computeFuel(myType->getEmissionClass(), myState.speed(), myAcceleration, getSlope());
+    return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::FUEL, myState.speed(), myAcceleration, getSlope());
 }
 
 

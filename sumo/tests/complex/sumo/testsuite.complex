@@ -16,6 +16,12 @@ b50
 # testing socket output
 socketout
 
+# testing protobuf conversion and roundtrip
+protobuf
+
+# chaining amitran output and emission calculation
+emission
+
 # testing 'extended' sumo features
 extended
 

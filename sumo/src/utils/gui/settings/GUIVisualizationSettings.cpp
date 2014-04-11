@@ -32,6 +32,7 @@
 
 #include <map>
 #include <vector>
+#include <utils/common/SUMOVTypeParameter.h>
 #include "GUIVisualizationSettings.h"
 #include "GUIColorScheme.h"
 
@@ -85,7 +86,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(192, 66, 44), (SUMOReal)SVC_BICYCLE, "bicycle");
     scheme.addColor(RGBColor(40, 100, 40), (SUMOReal)SVC_BUS, "bus");
     scheme.addColor(RGBColor(166, 147, 26), (SUMOReal)SVC_TAXI, "taxi");
-    scheme.addColor(RGBColor::BLACK, (SUMOReal)SVCFreeForAll, "all");
+    scheme.addColor(RGBColor::BLACK, (SUMOReal)SVCAll, "all");
     laneColorer.addScheme(scheme);
     // ... traffic states ...
     scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor::RED);
@@ -215,10 +216,10 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(0,   0, 255, 255),  3,  "3");
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by acceleration", RGBColor(179, 179, 179, 255), "0");
-    scheme.addColor(RGBColor(255,   0, 0, 255), -DEFAULT_VEH_DECEL);
+    scheme.addColor(RGBColor(255,   0, 0, 255), -SUMOVTypeParameter::getDefaultDecel());
     scheme.addColor(RGBColor(255, 255, 0, 255), -0.1);
     scheme.addColor(RGBColor(0, 255, 255, 255),  0.1);
-    scheme.addColor(RGBColor(0,   0, 255, 255),  DEFAULT_VEH_ACCEL);
+    scheme.addColor(RGBColor(0,   0, 255, 255),  SUMOVTypeParameter::getDefaultAccel());
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by time gap", RGBColor(255, 255, 0, 255), "0");
     scheme.addColor(RGBColor(179, 179, 179, 255), -1);

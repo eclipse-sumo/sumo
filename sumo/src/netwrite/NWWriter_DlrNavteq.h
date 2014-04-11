@@ -67,6 +67,9 @@ public:
      */
     static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
+    /// @brief get the navteq road class
+    static int getRoadClass(NBEdge* edge);
+
 private:
     /** @brief Writes the nodes_unsplitted file
      * @param[in] oc The options to use
@@ -94,9 +97,6 @@ private:
 
     /// @brief build the ascii-bit-vector for column vehicle_type
     static std::string getAllowedTypes(SVCPermissions permissions);
-
-    /// @brief get the navteq road class
-    static int getRoadClass(NBEdge* edge);
 
     /// @brief get the navteq speed class based on the speed in km/h
     static int getSpeedCategory(int kph);

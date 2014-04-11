@@ -180,7 +180,7 @@ public:
         SUMOReal travelledDistance;
         //@}
 
-    private:
+    protected:
         /// @brief The vehicle types to look for (0 or empty means all)
         const std::set<std::string>* const myVehicleTypes;
 
@@ -357,7 +357,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice& dev) const;
+    virtual void writeXMLDetectorProlog(OutputDevice& dev) const;
     /// @}
 
     /** @brief Updates the detector
@@ -376,9 +376,15 @@ protected:
     /** @brief Resets network value in order to allow processing of the next interval
      *
      * Goes through the lists of edges and starts "resetOnly" for each edge.
-     * @param [in] edge The last time step that is reported
+     * @param[in] edge The last time step that is reported
      */
     void resetOnly(SUMOTime stopTime);
+
+    /** @brief Return the relevant edge id
+     *
+     * @param[in] edge The edge to retrieve the id for
+     */
+    virtual std::string getEdgeID(const MSEdge* const edge);
 
     /** @brief Writes edge values into the given stream
      *
@@ -397,6 +403,14 @@ protected:
     void writeEdge(OutputDevice& dev, const std::vector<MeanDataValues*>& edgeValues,
                    MSEdge* edge, SUMOTime startTime, SUMOTime stopTime);
 
+    /** @brief Writes the interval opener
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     */
+    virtual void openInterval(OutputDevice& dev, const SUMOTime startTime, const SUMOTime stopTime);
+
     /** @brief Checks for emptiness and writes prefix into the given stream
      *
      * @param[in] dev The output device to write the data into
@@ -406,8 +420,8 @@ protected:
      * @return whether further output should be generated
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    bool writePrefix(OutputDevice& dev, const MeanDataValues& values,
-                     const SumoXMLTag tag, const std::string id) const;
+    virtual bool writePrefix(OutputDevice& dev, const MeanDataValues& values,
+                             const SumoXMLTag tag, const std::string id) const;
 
 protected:
     /// @brief the minimum sample seconds
@@ -422,6 +436,9 @@ protected:
     /// @brief Value collectors; sorted by edge, then by lane
     std::vector<std::vector<MeanDataValues*> > myMeasures;
 
+    /// @brief Whether empty lanes/edges shall be written
+    const bool myDumpEmpty;
+
 private:
     /// @brief Information whether the output shall be edge-based (not lane-based)
     const bool myAmEdgeBased;
@@ -431,9 +448,6 @@ private:
 
     /// @brief The corresponding first edges
     std::vector<MSEdge*> myEdges;
-
-    /// @brief Whether empty lanes/edges shall be written
-    const bool myDumpEmpty;
 
     /// @brief Whether empty lanes/edges shall be written
     const bool myPrintDefaults;

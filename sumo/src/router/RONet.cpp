@@ -61,8 +61,7 @@ RONet::RONet()
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
       myHaveRestrictions(false),
       myNumInternalEdges(0) {
-    SUMOVTypeParameter* type = new SUMOVTypeParameter();
-    type->id = DEFAULT_VTYPE_ID;
+    SUMOVTypeParameter* type = new SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_IGNORING);
     type->onlyReferenced = true;
     myVehicleTypes.add(type->id, type);
 }
@@ -176,8 +175,7 @@ RONet::getVehicleTypeSecure(const std::string& id) {
     }
     // Assume, the user will define the type somewhere else
     //  return a type which contains the id only
-    type = new SUMOVTypeParameter();
-    type->id = id;
+    type = new SUMOVTypeParameter(id, SVC_IGNORING);
     type->onlyReferenced = true;
     addVehicleType(type);
     return type;

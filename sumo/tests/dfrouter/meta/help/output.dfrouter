@@ -86,7 +86,7 @@ Time Options:
 
 Report Options:
   -v, --verbose                        Switches to verbose output
-  -p, --print-options                  Prints option values before processing
+  --print-options                      Prints option values before processing
   -?, --help                           Prints this screen
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML

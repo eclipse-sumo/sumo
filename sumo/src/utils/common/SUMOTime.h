@@ -65,6 +65,7 @@ typedef int SUMOTime;
 #define STEPS2TIME(x) (static_cast<SUMOReal>(x))
 #define TIME2STEPS(x) (static_cast<SUMOTime>(x))
 #define STEPFLOOR(x) (x)
+#define STEPS2MS(x) ((x)*1000)
 
 #else
 
@@ -88,6 +89,7 @@ extern SUMOTime DELTA_T;
 #define STEPS2TIME(x) (static_cast<SUMOReal>((x)/1000.))
 #define TIME2STEPS(x) (static_cast<SUMOTime>((x)*1000))
 #define STEPFLOOR(x) (int(x/DELTA_T)*DELTA_T)
+#define STEPS2MS(x) (x)
 
 #endif
 

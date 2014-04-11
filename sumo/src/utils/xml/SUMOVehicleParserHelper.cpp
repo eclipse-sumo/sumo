@@ -37,6 +37,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOVehicleParameter.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/options/OptionsCont.h>
 #include "SUMOVehicleParserHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -48,7 +50,6 @@
 // static members
 // ===========================================================================
 SUMOVehicleParserHelper::CFAttrMap SUMOVehicleParserHelper::allowedCFModelAttrs;
-
 
 
 // ===========================================================================
@@ -293,9 +294,13 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
 
 SUMOVTypeParameter*
 SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file) {
-    SUMOVTypeParameter* vtype = new SUMOVTypeParameter();
     bool ok = true;
-    vtype->id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    SUMOVehicleClass vClass = SVC_IGNORING;
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
+        vClass = parseVehicleClass(attrs, id);
+    }
+    SUMOVTypeParameter* vtype = new SUMOVTypeParameter(id, vClass);
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
         vtype->length = attrs.get<SUMOReal>(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_LENGTH_SET;
@@ -329,7 +334,6 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->setParameter |= VTYPEPARS_IMPATIENCE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
-        vtype->vehicleClass = parseVehicleClass(attrs, vtype->id);
         vtype->setParameter |= VTYPEPARS_VEHICLECLASS_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
@@ -369,7 +373,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         const std::string lcmS = attrs.get<std::string>(SUMO_ATTR_LANE_CHANGE_MODEL, vtype->id.c_str(), ok);
         if (SUMOXMLDefinitions::LaneChangeModels.hasString(lcmS)) {
             vtype->lcModel = SUMOXMLDefinitions::LaneChangeModels.get(lcmS);
-            vtype->setParameter |= VTYPEPARS_LCM_SET;
+            vtype->setParameter |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
         } else {
             WRITE_ERROR("Unknown lane change model '" + lcmS + "' when parsing vtype '" + vtype->id + "'");
             throw ProcessError();
@@ -512,14 +516,19 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
 SUMOVehicleClass
 SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes& attrs,
         const std::string& id) {
-    SUMOVehicleClass vclass = SVC_UNKNOWN;
+    SUMOVehicleClass vclass = SVC_IGNORING;
     try {
         bool ok = true;
         std::string vclassS = attrs.getOpt<std::string>(SUMO_ATTR_VCLASS, id.c_str(), ok, "");
         if (vclassS == "") {
             return vclass;
         }
-        return getVehicleClassID(vclassS);
+        const SUMOVehicleClass result = getVehicleClassID(vclassS);
+        const std::string& realName = SumoVehicleClassStrings.getString(result);
+        if (realName != vclassS) {
+            WRITE_WARNING("The vehicle class '" + vclassS + "' for " + attrs.getObjectType() + " '" + id + "' is deprecated, use '" + realName + "' instead.");
+        }
+        return result;
     } catch (...) {
         WRITE_ERROR("The class for " + attrs.getObjectType() + " '" + id + "' is not known.");
     }
@@ -532,10 +541,10 @@ SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes& attrs, cons
     try {
         bool ok = true;
         std::string eClassS = attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, "");
-        return getVehicleEmissionTypeID(eClassS);
+        return PollutantsInterface::getClassByName(eClassS);
     } catch (...) {
         WRITE_ERROR("The emission class for " + attrs.getObjectType() + " '" + id + "' is not known.");
-        return SVE_UNKNOWN;
+        return 0;
     }
 }
 
@@ -545,7 +554,12 @@ SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes& attrs, const std
     bool ok = true;
     std::string vclassS = attrs.getOpt<std::string>(SUMO_ATTR_GUISHAPE, id.c_str(), ok, "");
     if (SumoVehicleShapeStrings.hasString(vclassS)) {
-        return SumoVehicleShapeStrings.get(vclassS);
+        const SUMOVehicleShape result = SumoVehicleShapeStrings.get(vclassS);
+        const std::string& realName = SumoVehicleShapeStrings.getString(result);
+        if (realName != vclassS) {
+            WRITE_WARNING("The shape '" + vclassS + "' for " + attrs.getObjectType() + " '" + id + "' is deprecated, use '" + realName + "' instead.");
+        }
+        return result;
     } else {
         WRITE_ERROR("The shape '" + vclassS + "' for " + attrs.getObjectType() + " '" + id + "' is not known.");
         return SVS_UNKNOWN;

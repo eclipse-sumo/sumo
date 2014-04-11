@@ -70,7 +70,7 @@ MSVehicleControl::MSVehicleControl() :
     myDefaultVTypeMayBeDeleted(true),
     myWaitingForPerson(0),
     myScale(-1) {
-    SUMOVTypeParameter defType;
+    SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_IGNORING);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("incremental-dua-step")) {

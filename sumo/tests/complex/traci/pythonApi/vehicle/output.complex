@@ -17,7 +17,7 @@ routeID horizontal
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 lanePos 9.65713596621
 color (255, 255, 0, 255)
-bestLanes [['2fi_0', 2922.9000000000001, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
+bestLanes [['2fi_0', 2922.9, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
 CO2 1904.97775406
 CO 23.3928317774
 HC 0.701641785426
@@ -30,34 +30,34 @@ effort -1001.0
 route valid True
 signals 0
 length 5.0
-maxSpeed 70.0
+maxSpeed 55.5555555556
 speedFactor 1.0
 allowedSpeed 11.11
 accel 2.6
 decel 4.5
 imperfection 0.5
 tau 1.0
-vClass unknown
-emissionclass unknown
+vClass ignoring
+emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 2.0
+width 1.7
 waiting time 0.0
 driving dist 3002.95289395
 driving dist 2D 1098.13130535
-{80: '2fi', 86: 9.6571359662106264}
+{80: '2fi', 86: 9.657135966210626}
 step 3
 {80: '2fi', 86: 15.313460015063175}
 step 4
 {80: '2fi', 86: 22.93090530233458}
 step 5
-{80: '2fi', 86: 32.381409354787323}
+{80: '2fi', 86: 32.38140935478732}
 vehicles ['horiz']
 vehicle count 1
 examining horiz
 speed 9.45050405245
 speed w/o traci 9.45050405245
-pos (967.61859064521263, 501.65000000000003)
+pos (967.6185906452126, 501.65000000000003)
 angle -90.0
 road 2fi
 lane 2fi_0
@@ -67,7 +67,7 @@ routeID horizontal
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 lanePos 32.3814093548
 color (255, 0, 0, 255)
-bestLanes [['2fi_0', 2922.9000000000001, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
+bestLanes [['2fi_0', 2922.9, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
 CO2 0.0
 CO 0.0
 HC 0.0
@@ -88,7 +88,7 @@ decel 5.1
 imperfection 0.1
 tau 1.1
 vClass bicycle
-emissionclass zero
+emissionclass HBEFA2/zero
 shape bicycle
 MinGap 1.1
 width 1.1
@@ -127,18 +127,18 @@ effort -1001.0
 route valid True
 signals 0
 length 5.0
-maxSpeed 70.0
+maxSpeed 55.5555555556
 speedFactor 1.0
 allowedSpeed -1001.0
 accel 2.6
 decel 4.5
 imperfection 0.5
 tau 1.0
-vClass unknown
-emissionclass unknown
+vClass ignoring
+emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 2.0
+width 1.7
 waiting time 0.0
 driving dist -1001.0
 driving dist 2D -1001.0
@@ -147,9 +147,9 @@ route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 step 6
 ['1', 'horiz']
 step 7
-{80: '2fi', 86: 47.829324192150409}
+{80: '2fi', 86: 47.82932419215041}
 step 8
-{80: '2fi', 86: 49.939019724781161}
+{80: '2fi', 86: 49.93901972478116}
 step 9
 {80: '', 86: -1001.0}
 step 10
@@ -157,13 +157,13 @@ step 10
 step 11
 {80: '2fi', 86: 49.998963801368525}
 step 12
-{80: '2fi', 86: 51.069867096030073}
+{80: '2fi', 86: 51.06986709603007}
 vehicles ['1', '2', 'horiz']
 vehicle count 3
 examining 2
 speed 3.32558268388
 speed w/o traci 3.32558268388
-pos (989.71057563137731, 501.65000000000003)
+pos (989.7105756313773, 501.65000000000003)
 angle -90.0
 road 2fi
 lane 2fi_0
@@ -173,7 +173,7 @@ routeID horizontal
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
 lanePos 10.2894243686
 color (255, 255, 0, 255)
-bestLanes [['2fi_0', 2922.9000000000001, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
+bestLanes [['2fi_0', 2922.9, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
 CO2 1822.51280195
 CO 20.4811719966
 HC 0.656485469865
@@ -186,37 +186,37 @@ effort -1001.0
 route valid True
 signals 0
 length 5.0
-maxSpeed 70.0
+maxSpeed 55.5555555556
 speedFactor 1.0
 allowedSpeed 11.11
 accel 2.6
 decel 4.5
 imperfection 0.5
 tau 1.0
-vClass unknown
-emissionclass unknown
+vClass ignoring
+emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 2.0
+width 1.7
 waiting time 0.0
 driving dist 3002.32060554
 driving dist 2D 1097.49901695
 leader ('1', 21.526320178424136)
 step 13
 {104: ('1', 21.384402135832485)}
-{80: '2fi', 86: 53.205354347016119}
+{80: '2fi', 86: 53.20535434701612}
 step 14
 {104: ('1', 17.92571363588128)}
-{80: '2fi', 86: 56.384415297996178}
+{80: '2fi', 86: 56.38441529799618}
 step 15
 {104: ('1', 11.426764563349934)}
-{80: '2fi', 86: 60.560181946341338}
+{80: '2fi', 86: 60.56018194634134}
 step 16
 {104: ('1', 7.9376910143119375)}
-{80: '2fi', 86: 65.792325030727241}
+{80: '2fi', 86: 65.79232503072724}
 step 17
 {104: ('1', 7.7936959446307625)}
-{80: '2fi', 86: 72.120902195064275}
+{80: '2fi', 86: 72.12090219506428}
 step 18
 {104: ('1', 6.7973466742903526)}
-{80: '2fi', 86: 79.531977638820109}
+{80: '2fi', 86: 79.53197763882011}

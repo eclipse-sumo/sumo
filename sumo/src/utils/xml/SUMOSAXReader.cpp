@@ -219,13 +219,13 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
     const std::string::size_type pos = url.rfind("/");
     if (pos != std::string::npos) {
         const std::string dir = url.substr(0, pos);
-        if (dir == "http://sumo-sim.org/xsd" || dir == "http://sumo.sf.net/xsd") {
+        if (dir == "http://sumo-sim.org/xsd" || dir == "http://sumo.sf.net/xsd" || dir == "http://sumo-sim.org/xsd/amitran") {
             const char* sumoPath = std::getenv("SUMO_HOME");
             if (sumoPath == 0) {
                 WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
                 return 0;
             }
-            const std::string file = sumoPath + std::string("/data/xsd") + url.substr(pos);
+            const std::string file = sumoPath + std::string("/data/xsd") + url.substr(url.find("/xsd/")+4);
             if (FileHelpers::exists(file)) {
                 XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(file.c_str());
                 XERCES_CPP_NAMESPACE::InputSource* const result = new XERCES_CPP_NAMESPACE::LocalFileInputSource(t);

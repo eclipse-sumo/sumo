@@ -2,7 +2,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
     <vType id="car" accel="5.0" decel="6.0" sigma="0" length="4.5" minGap="1.5" maxSpeed="50" guiShape="passenger"/>
     <vType id="car_trailer" accel="3.5" decel="5.0" sigma="0.0" length="7.5" minGap="1.5" maxSpeed="50" guiShape="passenger"/>
-    <vType id="truck" accel="3.0" decel="4.0" sigma="0.0" length="12.0" minGap="1.5" maxSpeed="50" guiShape="transport"/>
+    <vType id="truck" accel="3.0" decel="4.0" sigma="0.0" length="12.0" minGap="1.5" maxSpeed="50" guiShape="truck"/>
 
     <vehicle arrival="12.00" depart="1.00" id="s1_car_0" type="car">
         <route edges="gneE6 gneE5"/>

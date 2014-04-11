@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r15589
+SUMO netconvert Version dev-SVN-rUNKNOWN
  Copyright (C) 2001-2014 DLR and contributors; http://sumo-sim.org
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -40,6 +40,8 @@ Output Options:
                                         to FILE (can be loaded as additional
                                         node-file to reproduce joins
   -M, --map-output FILE               Writes joined edges information to FILE
+  --amitran-output FILE               The generated net will be written to FILE
+                                        using Amitran format
   --matsim-output FILE                The generated net will be written to FILE
                                         using MATsim format
   --opendrive-output FILE             The generated net will be written to FILE
@@ -233,7 +235,7 @@ Building Defaults Options:
 
 Report Options:
   -v, --verbose                       Switches to verbose output
-  -p, --print-options                 Prints option values before processing
+  --print-options                     Prints option values before processing
   -?, --help                          Prints this screen
   -V, --version                       Prints the current version
   -X, --xml-validation STR            Set schema validation scheme of XML

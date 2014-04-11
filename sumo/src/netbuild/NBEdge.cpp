@@ -1304,7 +1304,7 @@ NBEdge::computeAngle() {
 bool
 NBEdge::hasRestrictions() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        if ((*i).permissions != SVCFreeForAll) {
+        if ((*i).permissions != SVCAll) {
             return true;
         }
     }
@@ -2113,7 +2113,7 @@ NBEdge::setLoadedLength(SUMOReal val) {
 void
 NBEdge::dismissVehicleClassInformation() {
     for (std::vector<Lane>::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        (*i).permissions = SVCFreeForAll;
+        (*i).permissions = SVCAll;
         (*i).preferred = 0;
     }
 }

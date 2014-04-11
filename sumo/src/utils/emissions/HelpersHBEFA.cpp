@@ -30,9 +30,8 @@
 #include <config.h>
 #endif
 
+#include <utils/common/ToString.h>
 #include "HelpersHBEFA.h"
-#include <limits>
-#include <cmath>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -42,20 +41,6 @@
 // ===========================================================================
 // static definitions
 // ===========================================================================
-// ---------------------------------------------------------------------------
-// offsets to the pollutant parameter
-// ---------------------------------------------------------------------------
-#define CO2_OFFSET 0
-#define CO_OFFSET 6
-#define HC_OFFSET 12
-#define FUEL_OFFSET 18
-#define NOx_OFFSET 24
-#define PMx_OFFSET 30
-
-
-// ---------------------------------------------------------------------------
-// function parameter
-// ---------------------------------------------------------------------------
 double
 HelpersHBEFA::myFunctionParameter[42][36] = {
     // HDV; 3 clusters
@@ -159,42 +144,37 @@ HelpersHBEFA::myFunctionParameter[42][36] = {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOReal
-HelpersHBEFA::computeCO(SUMOEmissionClass c, double v, double a) {
-    return compute(c, CO_OFFSET, v, a);
+HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA2") {
+    myEmissionClassStrings.insert("zero", PollutantsInterface::ZERO_EMISSIONS);
+    int clusterSizesH[] = {3, 6, 12};
+    int clusterSizesP[] = {7, 14};
+    int index = 1;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < clusterSizesH[i]; j++) {
+            myEmissionClassStrings.insert("HDV_" + toString(clusterSizesH[i]) + "_" + toString(j+1), index | PollutantsInterface::HEAVY_BIT);
+            index++;
+        }
+    }
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < clusterSizesP[i]; j++) {
+            myEmissionClassStrings.insert("P_" + toString(clusterSizesP[i]) + "_" + toString(j+1), index);
+            index++;
+        }
+    }
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < clusterSizesH[i]; j++) {
+            myEmissionClassStrings.insert("HDV_A0_" + toString(clusterSizesH[i]) + "_" + toString(j+1), index | PollutantsInterface::HEAVY_BIT);
+            index++;
+        }
+    }
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < clusterSizesP[i]; j++) {
+            myEmissionClassStrings.insert("P_A0_" + toString(clusterSizesP[i]) + "_" + toString(j+1), index);
+            index++;
+        }
+    }
+    myEmissionClassStrings.addAlias("unknown", myEmissionClassStrings.get("P_7_7"));
 }
-
-
-SUMOReal
-HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) {
-    return compute(c, CO2_OFFSET, v, a);
-}
-
-
-SUMOReal
-HelpersHBEFA::computeHC(SUMOEmissionClass c, double v, double a) {
-    return compute(c, HC_OFFSET, v, a);
-}
-
-
-SUMOReal
-HelpersHBEFA::computeNOx(SUMOEmissionClass c, double v, double a) {
-    return compute(c, NOx_OFFSET, v, a);
-}
-
-
-SUMOReal
-HelpersHBEFA::computePMx(SUMOEmissionClass c, double v, double a) {
-    return compute(c, PMx_OFFSET, v, a);
-}
-
-
-SUMOReal
-HelpersHBEFA::computeFuel(SUMOEmissionClass c, double v, double a) {
-    return compute(c, FUEL_OFFSET, v, a) / 790.;
-}
-
 
 
 /****************************************************************************/
-

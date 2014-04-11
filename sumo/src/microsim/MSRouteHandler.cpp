@@ -157,7 +157,7 @@ MSRouteHandler::myStartElement(int element,
             if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
                 throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
             }
-            SUMOReal speed = DEFAULT_PERSON_SPEED;
+            SUMOReal speed = SUMOVTypeParameter::getDefaultMaxSpeed(SVC_PEDESTRIAN);
             if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
                 speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, 0, ok, speed);
                 if (speed <= 0) {

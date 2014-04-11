@@ -39,6 +39,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include "NWFrame.h"
 #include "NWWriter_SUMO.h"
+#include "NWWriter_Amitran.h"
 #include "NWWriter_MATSim.h"
 #include "NWWriter_XML.h"
 #include "NWWriter_OpenDrive.h"
@@ -85,6 +86,9 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.doRegister("map-output", 'M', new Option_FileName());
     oc.addDescription("map-output", "Output", "Writes joined edges information to FILE");
 
+    oc.doRegister("amitran-output", new Option_FileName());
+    oc.addDescription("amitran-output", "Output", "The generated net will be written to FILE using Amitran format");
+
     oc.doRegister("matsim-output", new Option_FileName());
     oc.addDescription("matsim-output", "Output", "The generated net will be written to FILE using MATsim format");
 
@@ -112,6 +116,7 @@ NWFrame::checkOptions() {
     // check whether the output is valid and can be build
     if (!oc.isSet("output-file")
             && !oc.isSet("plain-output-prefix")
+            && !oc.isSet("amitran-output")
             && !oc.isSet("matsim-output")
             && !oc.isSet("opendrive-output")
             && !oc.isSet("dlr-navteq-output")) {
@@ -129,6 +134,7 @@ NWFrame::checkOptions() {
 void
 NWFrame::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NWWriter_SUMO::writeNetwork(oc, nb);
+    NWWriter_Amitran::writeNetwork(oc, nb);
     NWWriter_MATSim::writeNetwork(oc, nb);
     NWWriter_OpenDrive::writeNetwork(oc, nb);
     NWWriter_DlrNavteq::writeNetwork(oc, nb);

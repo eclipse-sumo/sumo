@@ -233,6 +233,10 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (!myHaveSeenInternalEdge && oc.isDefault("no-internal-links")) {
         oc.set("no-internal-links", "true");
     }
+    if (!deprecatedVehicleClassesSeen.empty()) {
+        WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        deprecatedVehicleClassesSeen.clear();
+    }
 }
 
 

@@ -33,8 +33,9 @@
 
 #include <vector>
 #include <set>
-#include "MSMeanData.h"
 #include <limits>
+#include <utils/emissions/PollutantsInterface.h>
+#include "MSMeanData.h"
 
 
 // ===========================================================================
@@ -120,21 +121,8 @@ public:
 
 
     private:
-        /// @name Collected values
-        /// @{
-        /// @brief Sum of CO2 emissions in mg
-        SUMOReal CO2;
-        /// @brief Sum of CO emissions in mg
-        SUMOReal CO;
-        /// @brief Sum of HC emissions in mg
-        SUMOReal HC;
-        /// @brief Sum of NOx emissions in mg
-        SUMOReal NOx;
-        /// @brief Sum of PMx emissions in mg
-        SUMOReal PMx;
-        /// @brief  Sum of consumed fuel in ml
-        SUMOReal fuel;
-        //@}
+        /// @brief Collected values
+        PollutantsInterface::Emissions myEmissions;
         /// @brief The meandata parent
         const MSMeanData_Emissions* myParent;
 

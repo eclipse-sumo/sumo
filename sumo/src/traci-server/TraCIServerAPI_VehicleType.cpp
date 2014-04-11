@@ -34,6 +34,7 @@
 #ifndef NO_TRACI
 
 #include <limits>
+#include <utils/emissions/PollutantsInterface.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include "TraCIConstants.h"
@@ -134,7 +135,7 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType&
             break;
         case VAR_EMISSIONCLASS:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(getVehicleEmissionTypeName(v.getEmissionClass()));
+            tempMsg.writeString(PollutantsInterface::getName(v.getEmissionClass()));
             break;
         case VAR_SHAPECLASS:
             tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -246,7 +247,11 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             if (!server.readTypeCheckingString(inputStorage, eclass)) {
                 return server.writeErrorStatusCmd(cmd, "Setting emission class requires a string.", outputStorage);
             }
-            v.setEmissionClass(getVehicleEmissionTypeID(eclass));
+            try {
+                v.setEmissionClass(PollutantsInterface::getClassByName(eclass));
+            } catch (InvalidArgument e) {
+                return server.writeErrorStatusCmd(cmd, "Unknown emission class '" + eclass + "'.", outputStorage);
+            }
         }
         break;
         case VAR_WIDTH: {

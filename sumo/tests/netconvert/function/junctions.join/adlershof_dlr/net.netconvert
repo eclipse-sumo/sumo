@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 28 15:51:30 2014 by SUMO netconvert Version dev-SVN-r15771
+<!-- generated on 04/09/14 13:50:06 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -1721,10 +1721,10 @@
         <lane id="156294408_0" index="0" allow="delivery pedestrian" speed="5.56" length="72.11" shape="4499.35,871.94 4470.97,927.66"/>
     </edge>
     <edge id="158236729#0" from="1704693343" to="1789928382" priority="15" type="railway.tram" spreadType="center" shape="4414.49,1050.06 4441.78,1020.36 4449.17,1011.97 4455.41,1002.99">
-        <lane id="158236729#0_0" index="0" allow="cityrail" speed="27.78" length="62.45" shape="4414.49,1050.06 4441.78,1020.36 4449.17,1011.97 4451.15,1009.13"/>
+        <lane id="158236729#0_0" index="0" allow="rail_urban" speed="27.78" length="62.45" shape="4414.49,1050.06 4441.78,1020.36 4449.17,1011.97 4451.15,1009.13"/>
     </edge>
     <edge id="158236729#1" from="1789928382" to="1704693564" priority="15" type="railway.tram" spreadType="center" shape="4455.41,1002.99 4457.17,999.76 4458.88,996.15 4589.05,734.79 4591.99,729.80 4595.84,724.44 4598.66,722.36 4603.45,719.44 4610.14,717.38 4616.46,717.14 4625.87,717.75 4633.90,720.62 4652.28,731.54 4670.62,745.56">
-        <lane id="158236729#1_0" index="0" allow="cityrail" speed="27.78" length="396.91" shape="4458.87,996.17 4589.05,734.79 4591.99,729.80 4595.84,724.44 4598.66,722.36 4603.45,719.44 4610.14,717.38 4616.46,717.14 4625.87,717.75 4633.90,720.62 4652.28,731.54 4670.62,745.56"/>
+        <lane id="158236729#1_0" index="0" allow="rail_urban" speed="27.78" length="396.91" shape="4458.87,996.17 4589.05,734.79 4591.99,729.80 4595.84,724.44 4598.66,722.36 4603.45,719.44 4610.14,717.38 4616.46,717.14 4625.87,717.75 4633.90,720.62 4652.28,731.54 4670.62,745.56"/>
     </edge>
     <edge id="161788770" from="1568241639" to="1568241637" priority="1" type="highway.footway" spreadType="center">
         <lane id="161788770_0" index="0" allow="pedestrian" speed="8.33" length="28.26" shape="4159.25,876.95 4173.22,875.89"/>

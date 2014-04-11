@@ -65,7 +65,7 @@ const int VTYPEPARS_SHAPE_SET = 2 << 11;
 const int VTYPEPARS_OSGFILE_SET = 2 << 12;
 const int VTYPEPARS_IMGFILE_SET = 2 << 13;
 const int VTYPEPARS_IMPATIENCE_SET = 2 << 14;
-const int VTYPEPARS_LCM_SET = 2 << 15;
+const int VTYPEPARS_LANE_CHANGE_MODEL_SET = 2 << 15;
 
 
 // ===========================================================================
@@ -81,7 +81,7 @@ public:
      *
      * Initialises the structure with default values
      */
-    SUMOVTypeParameter();
+    SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vc = SVC_IGNORING);
 
 
     /** @brief Returns whether the given parameter was set
@@ -105,7 +105,7 @@ public:
     void validateCFParameter() const;
 
 
-    /** @brief Returns the named value from the map, or the default if it is ot contained there
+    /** @brief Returns the named value from the map, or the default if it is not contained there
      * @param[in] attr The corresponding xml attribute
      * @param[in] defaultValue The value to return if the given map does not contain the named variable
      * @return The named value from the map or the default if it does not exist there
@@ -136,6 +136,14 @@ public:
     SUMOVehicleClass vehicleClass;
     /// @brief The vehicle's impatience (willingness to obstruct others)
     SUMOReal impatience;
+    /* /// @brief The vehicle's minimum headway time (tau) // will be moved here from the cfModel eventually
+    SUMOReal headwayTime;
+    /// @brief The vehicle's maximum acceleration
+    SUMOReal maxAccel;
+    /// @brief The vehicle's maximum deceleration
+    SUMOReal maxDecel;
+    /// @brief The driver's imperfection (dawdling factor in Krauss-like models)
+    SUMOReal imperfection; */
 
 
     /// @name Values for drawing this class' vehicles
@@ -177,6 +185,29 @@ public:
 
     /// @brief Information whether this is a type-stub, being only referenced but not defined (needed by routers)
     mutable bool onlyReferenced;
+
+    static SUMOReal getDefaultMaxSpeed(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultAccel(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultDecel(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultSigma(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultLength(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultMinGap(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultTau(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultImpatience(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultSpeedFactor(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultSpeedDev(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultWidth(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultHeight(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SumoXMLTag getDefaultFollowModel(const SUMOVehicleClass vc = SVC_IGNORING);
+    static LaneChangeModel getDefaultLaneChangeModel(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOVehicleShape getDefaultShape(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOEmissionClass getDefaultEmissionClass(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultTmp1(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultTmp2(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultTmp3(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultTmp4(const SUMOVehicleClass vc = SVC_IGNORING);
+    static SUMOReal getDefaultTmp5(const SUMOVehicleClass vc = SVC_IGNORING);
+        
 
 };
 

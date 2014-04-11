@@ -5,7 +5,7 @@ import sys,os,subprocess
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "tools"))
 from sumolib import checkBinary
 
-EDC = checkBinary("emissionsDrivingCycle")
+EDC = checkBinary("emissionsDrivingCycle", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "bin"))
 PHEMLIGHTp = os.path.join(os.environ["SUMO_HOME"], "data", "emissions", "PHEMlightV3")
 if not os.path.exists(PHEMLIGHTp):
     PHEMLIGHTp = os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "data", "emissions", "PHEMlight")
@@ -23,7 +23,7 @@ for i,ec in enumerate(emissionClasses):
     print "Running '%s'" % ec
     sys.stdout.flush()
     sys.stderr.flush()
-    call = [EDC, "-e", ec, "-t", drivingCycle, "-o", "tmp.csv", "-p", PHEMLIGHTp, "--kmh", "--compute-a"]
+    call = [EDC, "-e", ec, "-t", drivingCycle, "-o", "tmp.csv", "--phemlight-path", PHEMLIGHTp, "--kmh", "--compute-a"]
     retCode = subprocess.call(call)
     sys.stdout.flush()
     sys.stderr.flush()

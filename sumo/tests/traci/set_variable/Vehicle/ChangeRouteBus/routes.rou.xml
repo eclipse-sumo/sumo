@@ -1,6 +1,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">   
 
-	<vType id="bus" accel="2.6" decel="4.5" sigma="0.5" length="12" minGap="3" maxSpeed="70" emissionClass="HDV_6_2" guiShape="bus/city" vClass="bus"/>
+	<vType id="bus" accel="2.6" decel="4.5" sigma="0.5" length="12" minGap="3" maxSpeed="70" emissionClass="HDV_6_2" guiShape="bus" vClass="bus"/>
 	
 	<vehicle id="bus_1" depart="0" departPos="0" departLane="free" arrivalPos="-1" type="bus" color="0,1,0">
 		<route edges="e_m5 e_m6 e_shape1"/>

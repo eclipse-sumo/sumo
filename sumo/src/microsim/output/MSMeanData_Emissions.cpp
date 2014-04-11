@@ -55,7 +55,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const l
         const std::set<std::string>* const vTypes,
         const MSMeanData_Emissions* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
-      CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0), myParent(parent) {}
+      myEmissions(), myParent(parent) {}
 
 
 MSMeanData_Emissions::MSLaneMeanDataValues::~MSLaneMeanDataValues() {
@@ -66,12 +66,7 @@ void
 MSMeanData_Emissions::MSLaneMeanDataValues::reset(bool) {
     sampleSeconds = 0.;
     travelledDistance = 0.;
-    CO2 = 0;
-    CO = 0;
-    HC = 0;
-    NOx = 0;
-    PMx = 0;
-    fuel = 0;
+    myEmissions = PollutantsInterface::Emissions();
 }
 
 
@@ -80,12 +75,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& va
     MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
     v.sampleSeconds += sampleSeconds;
     v.travelledDistance += travelledDistance;
-    v.CO2 += CO2;
-    v.CO += CO;
-    v.HC += HC;
-    v.NOx += NOx;
-    v.PMx += PMx;
-    v.fuel += fuel;
+    v.myEmissions.addScaled(myEmissions);
 }
 
 
@@ -94,12 +84,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh,
     sampleSeconds += timeOnLane;
     travelledDistance += speed * timeOnLane;
     const double a = veh.getAcceleration();
-    CO += (timeOnLane * PollutantsInterface::computeCO(veh.getVehicleType().getEmissionClass(), (double) speed, a, veh.getSlope()));
-    CO2 += (timeOnLane * PollutantsInterface::computeCO2(veh.getVehicleType().getEmissionClass(), (double) speed, a, veh.getSlope()));
-    HC += (timeOnLane * PollutantsInterface::computeHC(veh.getVehicleType().getEmissionClass(), (double) speed, a, veh.getSlope()));
-    NOx += (timeOnLane * PollutantsInterface::computeNOx(veh.getVehicleType().getEmissionClass(), (double) speed, a, veh.getSlope()));
-    PMx += (timeOnLane * PollutantsInterface::computePMx(veh.getVehicleType().getEmissionClass(), (double) speed, a, veh.getSlope()));
-    fuel += (timeOnLane * PollutantsInterface::computeFuel(veh.getVehicleType().getEmissionClass(), (double) speed, a, veh.getSlope()));
+    myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(), speed, a, veh.getSlope()), timeOnLane);
 }
 
 
@@ -107,18 +92,18 @@ void
 MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
         const SUMOReal /*numLanes*/, const SUMOReal defaultTravelTime, const int /*numVehicles*/) const {
     const SUMOReal normFactor = SUMOReal(3600. / STEPS2TIME(period) / myLaneLength);
-    dev << " CO_abs=\"" << OutputDevice::realString(CO, 6) <<
-        "\" CO2_abs=\"" << OutputDevice::realString(CO2, 6) <<
-        "\" HC_abs=\"" << OutputDevice::realString(HC, 6) <<
-        "\" PMx_abs=\"" << OutputDevice::realString(PMx, 6) <<
-        "\" NOx_abs=\"" << OutputDevice::realString(NOx, 6) <<
-        "\" fuel_abs=\"" << OutputDevice::realString(fuel, 6) <<
-        "\"\n            CO_normed=\"" << OutputDevice::realString(normFactor * CO, 6) <<
-        "\" CO2_normed=\"" << OutputDevice::realString(normFactor * CO2, 6) <<
-        "\" HC_normed=\"" << OutputDevice::realString(normFactor * HC, 6) <<
-        "\" PMx_normed=\"" << OutputDevice::realString(normFactor * PMx, 6) <<
-        "\" NOx_normed=\"" << OutputDevice::realString(normFactor * NOx, 6) <<
-        "\" fuel_normed=\"" << OutputDevice::realString(normFactor * fuel, 6);
+    dev << " CO_abs=\"" << OutputDevice::realString(myEmissions.CO, 6) <<
+        "\" CO2_abs=\"" << OutputDevice::realString(myEmissions.CO2, 6) <<
+        "\" HC_abs=\"" << OutputDevice::realString(myEmissions.HC, 6) <<
+        "\" PMx_abs=\"" << OutputDevice::realString(myEmissions.PMx, 6) <<
+        "\" NOx_abs=\"" << OutputDevice::realString(myEmissions.NOx, 6) <<
+        "\" fuel_abs=\"" << OutputDevice::realString(myEmissions.fuel, 6) <<
+        "\"\n            CO_normed=\"" << OutputDevice::realString(normFactor * myEmissions.CO, 6) <<
+        "\" CO2_normed=\"" << OutputDevice::realString(normFactor * myEmissions.CO2, 6) <<
+        "\" HC_normed=\"" << OutputDevice::realString(normFactor * myEmissions.HC, 6) <<
+        "\" PMx_normed=\"" << OutputDevice::realString(normFactor * myEmissions.PMx, 6) <<
+        "\" NOx_normed=\"" << OutputDevice::realString(normFactor * myEmissions.NOx, 6) <<
+        "\" fuel_normed=\"" << OutputDevice::realString(normFactor * myEmissions.fuel, 6);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
         SUMOReal traveltime = myParent->myMaxTravelTime;
@@ -127,22 +112,22 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOT
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
         dev << "\"\n            traveltime=\"" << OutputDevice::realString(traveltime) <<
-            "\" CO_perVeh=\"" << OutputDevice::realString(CO * vehFactor, 6) <<
-            "\" CO2_perVeh=\"" << OutputDevice::realString(CO2 * vehFactor, 6) <<
-            "\" HC_perVeh=\"" << OutputDevice::realString(HC * vehFactor, 6) <<
-            "\" PMx_perVeh=\"" << OutputDevice::realString(PMx * vehFactor, 6) <<
-            "\" NOx_perVeh=\"" << OutputDevice::realString(NOx * vehFactor, 6) <<
-            "\" fuel_perVeh=\"" << OutputDevice::realString(fuel * vehFactor, 6);
+            "\" CO_perVeh=\"" << OutputDevice::realString(myEmissions.CO * vehFactor, 6) <<
+            "\" CO2_perVeh=\"" << OutputDevice::realString(myEmissions.CO2 * vehFactor, 6) <<
+            "\" HC_perVeh=\"" << OutputDevice::realString(myEmissions.HC * vehFactor, 6) <<
+            "\" PMx_perVeh=\"" << OutputDevice::realString(myEmissions.PMx * vehFactor, 6) <<
+            "\" NOx_perVeh=\"" << OutputDevice::realString(myEmissions.NOx * vehFactor, 6) <<
+            "\" fuel_perVeh=\"" << OutputDevice::realString(myEmissions.fuel * vehFactor, 6);
     } else if (defaultTravelTime >= 0.) {
         const MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType();
         const SUMOReal speed = MIN2(myLaneLength / defaultTravelTime, t->getMaxSpeed());
         dev << "\"\n            traveltime=\"" << OutputDevice::realString(defaultTravelTime) <<
-            "\" CO_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefaultCO(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" CO2_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefaultCO2(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" HC_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefaultHC(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" PMx_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefaultPMx(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" NOx_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefaultNOx(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" fuel_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefaultFuel(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6); // @todo: give correct slope
+            "\" CO_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
+            "\" CO2_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO2, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
+            "\" HC_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::HC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
+            "\" PMx_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::PM_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
+            "\" NOx_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
+            "\" fuel_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6); // @todo: give correct slope
     }
     dev << "\"";
     dev.closeTag();

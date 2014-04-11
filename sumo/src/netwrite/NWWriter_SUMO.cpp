@@ -249,7 +249,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n, bool orig
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, (*k).viaID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
-                    writeLane(into, (*k).viaID, (*k).viaID + "_0", (*k).viaVmax, SVCFreeForAll, SVCFreeForAll,
+                    writeLane(into, (*k).viaID, (*k).viaID + "_0", (*k).viaVmax, SVCAll, SVCAll,
                               NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).viaShape, (*k).origID,
                               MAX2((*k).viaShape.length(), (SUMOReal)POSITION_EPS), // microsim needs positive length
                               0, origNames);
@@ -666,18 +666,22 @@ NWWriter_SUMO::writeLocation(OutputDevice& into) {
 
 void
 NWWriter_SUMO::writePermissions(OutputDevice& into, SVCPermissions permissions) {
-    if (permissions == SVCFreeForAll) {
+    if (permissions == SVCAll) {
         return;
     } else if (permissions == 0) {
-        // special case: since all-empty encodes FreeForAll we must list all disallowed
-        into.writeAttr(SUMO_ATTR_DISALLOW, getAllowedVehicleClassNames(SVCFreeForAll));
+        into.writeAttr(SUMO_ATTR_DISALLOW, "all");
         return;
     } else {
-        std::pair<std::string, bool> encoding = getPermissionEncoding(permissions);
-        if (encoding.second) {
-            into.writeAttr(SUMO_ATTR_ALLOW, encoding.first);
+        size_t num_allowed = 0;
+        for (int mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
+            if ((mask & permissions) == mask) {
+                ++num_allowed;
+            }
+        }
+        if (num_allowed <= (SumoVehicleClassStrings.size() - num_allowed) && num_allowed > 0) {
+            into.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(permissions));
         } else {
-            into.writeAttr(SUMO_ATTR_DISALLOW, encoding.first);
+            into.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(~permissions));
         }
     }
 }
@@ -685,10 +689,10 @@ NWWriter_SUMO::writePermissions(OutputDevice& into, SVCPermissions permissions) 
 
 void
 NWWriter_SUMO::writePreferences(OutputDevice& into, SVCPermissions preferred) {
-    if (preferred == SVCFreeForAll || preferred == 0) {
+    if (preferred == SVCAll || preferred == 0) {
         return;
     } else {
-        into.writeAttr(SUMO_ATTR_PREFER, getAllowedVehicleClassNames(preferred));
+        into.writeAttr(SUMO_ATTR_PREFER, getVehicleClassNames(preferred));
     }
 }
 /****************************************************************************/

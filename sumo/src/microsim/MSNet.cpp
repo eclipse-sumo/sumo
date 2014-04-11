@@ -82,6 +82,7 @@
 #include "output/MSQueueExport.h"
 #include "output/MSVTKExport.h"
 #include "output/MSXMLRawOut.h"
+#include "output/MSAmitranTrajectories.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SysUtils.h>
 #include <utils/common/WrappingCommand.h>
@@ -543,6 +544,11 @@ MSNet::writeOutput() {
     // check queue dumps
     if (OptionsCont::getOptions().isSet("queue-output")) {
         MSQueueExport::write(OutputDevice::getDeviceByOption("queue-output"), myStep);
+    }
+
+    // check amitran dumps
+    if (OptionsCont::getOptions().isSet("amitran-output")) {
+        MSAmitranTrajectories::write(OutputDevice::getDeviceByOption("amitran-output"), myStep);
     }
 
     // check vtk dumps

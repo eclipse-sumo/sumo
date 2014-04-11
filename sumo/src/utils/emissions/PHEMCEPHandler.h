@@ -63,14 +63,14 @@ public:
     PHEMCEP* GetCep(SUMOEmissionClass emissionClass);
 
 
-private:
     /** @brief Helper method to load CEP and vehicle files from file system
     * @param[in] emissionClass desired PHEM emission class
     * @return Indicator if loading was successul
     */
-    bool Load(SUMOEmissionClass emissionClass);
+    bool Load(SUMOEmissionClass emissionClass, const std::string& emissionClassIdentifier);
 
 
+private:
     /** @brief Helper method to read a vehicle file from file system
     * @param[in] path The path to PHEMlight data files
     * @param[in] emissionClass desired PHEM emission class

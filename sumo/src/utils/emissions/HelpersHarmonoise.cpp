@@ -30,6 +30,7 @@
 #include <config.h>
 #endif
 
+#include "PollutantsInterface.h"
 #include "HelpersHarmonoise.h"
 #include <limits>
 #include <cmath>
@@ -107,13 +108,13 @@ SUMOReal
 HelpersHarmonoise::computeNoise(SUMOEmissionClass c, double v, double a) {
     double* alphaT, *betaT, *alphaR, *betaR;
     double ac = 0;
-    if ((c >= SVE_HDV_3_1 && c <= SVE_HDV_12_12) || (c >= SVE_RB_D_EU0 &&  c <= SVE_Solo_LKW_D_EU6_II) ) {
+    if (PollutantsInterface::isHeavy(c)) {
         alphaT = myT_A_C3_Parameter;
         betaT = myT_B_C3_Parameter;
         alphaR = myR_A_C3_Parameter;
         betaR = myR_B_C3_Parameter;
         ac = 5.6;
-    } else if (c != SVE_ZERO_EMISSIONS) {
+    } else if (!PollutantsInterface::isSilent(c)) {
         alphaT = myT_A_C1_Parameter;
         betaT = myT_B_C1_Parameter;
         alphaR = myR_A_C1_Parameter;

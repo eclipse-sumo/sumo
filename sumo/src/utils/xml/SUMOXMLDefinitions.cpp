@@ -137,7 +137,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "event",            SUMO_TAG_VIEWSETTINGS_EVENT },
     { "jamTime",          SUMO_TAG_VIEWSETTINGS_EVENT_JAM_TIME },
     { "include",          SUMO_TAG_INCLUDE },
-    { "xi:include",       SUMO_TAG_INCLUDE },
     { "delay",            SUMO_TAG_DELAY },
     { "viewport",         SUMO_TAG_VIEWPORT },
     { "snapshot",         SUMO_TAG_SNAPSHOT },
@@ -161,6 +160,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "ride",             SUMO_TAG_RIDE },
     { "walk",             SUMO_TAG_WALK },
 
+    { "timestep",         SUMO_TAG_TIMESTEP },
+    { "timeSlice",        SUMO_TAG_TIMESLICE },
+    { "actorConfig",      SUMO_TAG_ACTORCONFIG },
+    { "motionState",      SUMO_TAG_MOTIONSTATE },
+    { "odPair",           SUMO_TAG_OD_PAIR },
+    
     // ActivityGen statistics file
     { "general",          AGEN_TAG_GENERAL },
     { "street",           AGEN_TAG_STREET },
@@ -307,12 +312,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speedThreshold", SUMO_ATTR_HALTING_SPEED_THRESHOLD },
     { "jamThreshold",   SUMO_ATTR_JAM_DIST_THRESHOLD },
 
-    { "wautID",		    SUMO_ATTR_WAUT_ID },
+    { "wautID",         SUMO_ATTR_WAUT_ID },
     { "junctionID",     SUMO_ATTR_JUNCTION_ID },
-    { "procedure",	    SUMO_ATTR_PROCEDURE },
-    { "synchron",	    SUMO_ATTR_SYNCHRON },
-    { "refTime",	    SUMO_ATTR_REF_TIME },
-    { "startProg",	    SUMO_ATTR_START_PROG },
+    { "procedure",      SUMO_ATTR_PROCEDURE },
+    { "synchron",       SUMO_ATTR_SYNCHRON },
+    { "refTime",        SUMO_ATTR_REF_TIME },
+    { "startProg",      SUMO_ATTR_START_PROG },
     { "off",            SUMO_ATTR_OFF },
     { "friendlyPos",    SUMO_ATTR_FRIENDLY_POS },
     { "splitByType",    SUMO_ATTR_SPLIT_VTYPE },
@@ -381,6 +386,16 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "actType",        SUMO_ATTR_ACTTYPE },
     { "slope",          SUMO_ATTR_SLOPE },
     { "version",        SUMO_ATTR_VERSION },
+
+    { "actorConfig",    SUMO_ATTR_ACTORCONFIG },
+    { "vehicle",        SUMO_ATTR_VEHICLE },
+    { "startTime",      SUMO_ATTR_STARTTIME },
+    { "vehicleClass",   SUMO_ATTR_VEHICLECLASS },
+    { "fuel",           SUMO_ATTR_FUEL },
+    { "acceleration",   SUMO_ATTR_ACCELERATION },
+    { "amount",         SUMO_ATTR_AMOUNT },
+    { "origin",         SUMO_ATTR_ORIGIN },
+    { "destination",    SUMO_ATTR_DESTINATION },
 
 #ifndef WIN32
     { "commandPosix",   SUMO_ATTR_COMMAND },

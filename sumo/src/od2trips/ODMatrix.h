@@ -75,7 +75,7 @@ class ODMatrix {
 public:
     /** @brief Constructor
      *
-     * @param[in] dc The district container to obtain referenced distrivts from
+     * @param[in] dc The district container to obtain referenced districts from
      */
     ODMatrix(const ODDistrictCont& dc);
 

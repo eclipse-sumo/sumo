@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/05/14 13:19:47 by SUMO sumo Version dev-SVN-r15814
+<!-- generated on 03/27/14 13:39:35 by SUMO sumo Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -32,7 +32,7 @@
 <full-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/full_file.xsd">
     <data timestep="0.00">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="100.00" speed="10.00" angle="-90.00" x="1495.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="100.00" speed="10.00" angle="-90.00" x="1495.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -188,7 +188,7 @@
     </data>
     <data timestep="0.10">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="101.00" speed="10.00" angle="-90.00" x="1494.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="101.00" speed="10.00" angle="-90.00" x="1494.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -344,7 +344,7 @@
     </data>
     <data timestep="0.20">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="102.00" speed="10.00" angle="-90.00" x="1493.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="102.00" speed="10.00" angle="-90.00" x="1493.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -500,7 +500,7 @@
     </data>
     <data timestep="0.30">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="103.00" speed="10.00" angle="-90.00" x="1492.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="103.00" speed="10.00" angle="-90.00" x="1492.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -656,7 +656,7 @@
     </data>
     <data timestep="0.40">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="104.00" speed="10.00" angle="-90.00" x="1491.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="104.00" speed="10.00" angle="-90.00" x="1491.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -812,7 +812,7 @@
     </data>
     <data timestep="0.50">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="105.00" speed="10.00" angle="-90.00" x="1490.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="105.00" speed="10.00" angle="-90.00" x="1490.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -968,7 +968,7 @@
     </data>
     <data timestep="0.60">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="106.00" speed="10.00" angle="-90.00" x="1489.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="106.00" speed="10.00" angle="-90.00" x="1489.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1124,7 +1124,7 @@
     </data>
     <data timestep="0.70">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="107.00" speed="10.00" angle="-90.00" x="1488.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="107.00" speed="10.00" angle="-90.00" x="1488.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1280,7 +1280,7 @@
     </data>
     <data timestep="0.80">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="108.00" speed="10.00" angle="-90.00" x="1487.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="108.00" speed="10.00" angle="-90.00" x="1487.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1436,7 +1436,7 @@
     </data>
     <data timestep="0.90">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="109.00" speed="10.00" angle="-90.00" x="1486.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="109.00" speed="10.00" angle="-90.00" x="1486.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1592,7 +1592,7 @@
     </data>
     <data timestep="1.00">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="110.00" speed="10.00" angle="-90.00" x="1485.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="110.00" speed="10.00" angle="-90.00" x="1485.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1748,7 +1748,7 @@
     </data>
     <data timestep="1.10">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="111.00" speed="10.00" angle="-90.00" x="1484.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="111.00" speed="10.00" angle="-90.00" x="1484.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -1904,7 +1904,7 @@
     </data>
     <data timestep="1.20">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="112.00" speed="10.00" angle="-90.00" x="1483.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="112.00" speed="10.00" angle="-90.00" x="1483.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2060,7 +2060,7 @@
     </data>
     <data timestep="1.30">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="113.00" speed="10.00" angle="-90.00" x="1482.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="113.00" speed="10.00" angle="-90.00" x="1482.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2216,7 +2216,7 @@
     </data>
     <data timestep="1.40">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="114.00" speed="10.00" angle="-90.00" x="1481.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="114.00" speed="10.00" angle="-90.00" x="1481.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2372,7 +2372,7 @@
     </data>
     <data timestep="1.50">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="115.00" speed="10.00" angle="-90.00" x="1480.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="115.00" speed="10.00" angle="-90.00" x="1480.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2528,7 +2528,7 @@
     </data>
     <data timestep="1.60">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="116.00" speed="10.00" angle="-90.00" x="1479.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="116.00" speed="10.00" angle="-90.00" x="1479.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2684,7 +2684,7 @@
     </data>
     <data timestep="1.70">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="117.00" speed="10.00" angle="-90.00" x="1478.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="117.00" speed="10.00" angle="-90.00" x="1478.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2840,7 +2840,7 @@
     </data>
     <data timestep="1.80">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="118.00" speed="10.00" angle="-90.00" x="1477.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="118.00" speed="10.00" angle="-90.00" x="1477.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">
@@ -2996,7 +2996,7 @@
     </data>
     <data timestep="1.90">
         <vehicles>
-            <vehicle id="0" eclass="-1" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="119.00" speed="10.00" angle="-90.00" x="1476.25" y="401.65"/>
+            <vehicle id="0" eclass="HBEFA2/P_7_7" CO2="1680.07" CO="0.00" HC="0.29" NOx="2.67" PMx="0.10" noise="61.77" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00" lane="4/1to3/1_0" pos_lane="119.00" speed="10.00" angle="-90.00" x="1476.25" y="401.65"/>
         </vehicles>
         <edges>
             <edge id="0/0to0/1" traveltime="40.00">

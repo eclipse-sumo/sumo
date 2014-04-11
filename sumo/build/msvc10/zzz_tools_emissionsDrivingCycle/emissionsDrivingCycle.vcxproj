@@ -233,6 +233,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\tools\emissionsDrivingCycle_main.cpp" />
+    <ClCompile Include="..\..\..\src\tools\TrajectoriesHandler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\tools\TrajectoriesHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

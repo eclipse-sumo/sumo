@@ -54,6 +54,8 @@ enum SUMOVehicleShape {
     SVS_PEDESTRIAN,
     /// @brief render as a bicycle
     SVS_BICYCLE,
+    /// @brief render as a moped
+    SVS_MOPED,
     /// @brief render as a motorcycle
     SVS_MOTORCYCLE,
     /// @brief render as a passenger vehicle
@@ -69,31 +71,23 @@ enum SUMOVehicleShape {
     /// @brief render as a delivery vehicle
     SVS_DELIVERY,
     /// @brief render as a transport vehicle
-    SVS_TRANSPORT,
+    SVS_TRUCK,
     /// @brief render as a semi-trailer transport vehicle ("Sattelschlepper")
-    SVS_TRANSPORT_SEMITRAILER,
+    SVS_TRUCK_SEMITRAILER,
     /// @brief render as a transport vehicle with one trailer
-    SVS_TRANSPORT_1TRAILER,
+    SVS_TRUCK_1TRAILER,
     /// @brief render as a bus
     SVS_BUS,
-    /// @brief render as a city bus
-    SVS_BUS_CITY,
+    /// @brief render as a coach
+    SVS_BUS_COACH,
     /// @brief render as a flexible city bus
-    SVS_BUS_CITY_FLEXIBLE,
-    /// @brief render as a overland bus
-    SVS_BUS_OVERLAND,
+    SVS_BUS_FLEXIBLE,
     /// @brief render as a trolley bus
     SVS_BUS_TROLLEY,
     /// @brief render as a rail
     SVS_RAIL,
-    /// @brief render as a light rail
-    SVS_RAIL_LIGHT,
-    /// @brief render as a city rail
-    SVS_RAIL_CITY,
-    /// @brief render as a slow (passenger) train
-    SVS_RAIL_SLOW,
-    /// @brief render as a fast (passenger) train
-    SVS_RAIL_FAST,
+    /// @brief render as a (city) rail without locomotive
+    SVS_RAIL_CAR,
     /// @brief render as a cargo train
     SVS_RAIL_CARGO,
     /// @brief render as a (futuristic) e-vehicle
@@ -125,25 +119,22 @@ enum SUMOVehicleShape {
  * @arg [9] Pedestrian
  */
 enum SUMOVehicleClass {
-    SVC_UNKNOWN = 0,
+    /// @brief vehicles ignoring classes
+    SVC_IGNORING = 0,
 
     /// @name vehicle ownership
     //@{
 
     /// @brief private vehicles
     SVC_PRIVATE = 1,
-    /// @brief public transport vehicles
-    SVC_PUBLIC_TRANSPORT = 2,
     /// @brief public emergency vehicles
-    SVC_PUBLIC_EMERGENCY = 4,
+    SVC_EMERGENCY = 1 << 1,
     /// @brief authorities vehicles
-    SVC_PUBLIC_AUTHORITY = 8,
+    SVC_AUTHORITY = 1 << 2,
     /// @brief army vehicles
-    SVC_PUBLIC_ARMY = 16,
+    SVC_ARMY = 1 << 3,
     /// @brief vip vehicles
-    SVC_VIP = 32,
-    /// @brief vehicles ignoring classes
-    SVC_IGNORING = 64,
+    SVC_VIP = 1 << 4,
     //@}
 
 
@@ -151,280 +142,64 @@ enum SUMOVehicleClass {
     //@{
 
     /// @brief vehicle is a passenger car (a "normal" car)
-    SVC_PASSENGER = 128,
+    SVC_PASSENGER = 1 << 5,
     /// @brief vehicle is a HOV
-    SVC_HOV = 256,
+    SVC_HOV = 1 << 6,
     /// @brief vehicle is a taxi
-    SVC_TAXI = 512,
+    SVC_TAXI = 1 << 7,
     /// @brief vehicle is a bus
-    SVC_BUS = 1024,
+    SVC_BUS = 1 << 8,
+    /// @brief vehicle is a coach
+    SVC_COACH = 1 << 9,
     /// @brief vehicle is a small delivery vehicle
-    SVC_DELIVERY = 2048,
+    SVC_DELIVERY = 1 << 10,
     /// @brief vehicle is a large transport vehicle
-    SVC_TRANSPORT = 4096,
+    SVC_TRUCK = 1 << 11,
+    /// @brief vehicle is a large transport vehicle
+    SVC_TRAILER = 1 << 12,
     /// @brief vehicle is a light rail
-    SVC_LIGHTRAIL = 8192,
+    SVC_TRAM = 1 << 13,
     /// @brief vehicle is a city rail
-    SVC_CITYRAIL = 16384,
-    /// @brief vehicle is a slow moving transport rail
-    SVC_RAIL_SLOW = 32768,
-    /// @brief vehicle is a fast moving rail
-    SVC_RAIL_FAST = 65536,
+    SVC_RAIL_URBAN = 1 << 14,
+    /// @brief vehicle is a not electrified rail
+    SVC_RAIL = 1 << 15,
+    /// @brief vehicle is a (possibly fast moving) electric rail
+    SVC_RAIL_ELECTRIC = 1 << 16,
 
     /// @brief vehicle is a motorcycle
-    SVC_MOTORCYCLE = 131072,
+    SVC_MOTORCYCLE = 1 << 17,
+    /// @brief vehicle is a moped
+    SVC_MOPED = 1 << 18,
     /// @brief vehicle is a bicycle
-    SVC_BICYCLE = 262144,
+    SVC_BICYCLE = 1 << 19,
     /// @brief is a pedestrian
-    SVC_PEDESTRIAN = 524288,
+    SVC_PEDESTRIAN = 1 << 20,
+    /// @brief is an electric vehicle
+    SVC_E_VEHICLE = 1 << 21,
     /// @brief is a user-defined type
-    SVC_CUSTOM1 = 1048576,
+    SVC_CUSTOM1 = 1 << 22,
     /// @brief is a user-defined type
-    SVC_CUSTOM2 = 2097152
+    SVC_CUSTOM2 = 1 << 23
                   //@}
 };
 
 extern const int SUMOVehicleClass_MAX;
 extern StringBijection<SUMOVehicleClass> SumoVehicleClassStrings;
+extern std::set<std::string> deprecatedVehicleClassesSeen;
 extern StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings;
 
 /* @brief bitset where each bit declares whether a certain SVC may use this edge/lane
  */
 typedef int SVCPermissions;
-extern const SVCPermissions SVCFreeForAll;
+extern const SVCPermissions SVCAll;
 
 
 /**
  * @enum SUMOEmissionClass
  * @brief Definition of vehicle emission classes
- *
- * The order is important - HBEFA computation helper use it.
  * @see PollutantsInterface
  */
-enum SUMOEmissionClass {
-    SVE_UNKNOWN = -1,
-    // HBEFA
-    //  HBEFA heavy duty vehicles; 3 clusters
-    SVE_HDV_3_1 = 0,
-    SVE_HDV_3_2,
-    SVE_HDV_3_3,
-    //  HBEFA heavy duty vehicles; 6 clusters
-    SVE_HDV_6_1,
-    SVE_HDV_6_2,
-    SVE_HDV_6_3,
-    SVE_HDV_6_4,
-    SVE_HDV_6_5,
-    SVE_HDV_6_6,
-    //  HBEFA heavy duty vehicles; 12 clusters
-    SVE_HDV_12_1,
-    SVE_HDV_12_2,
-    SVE_HDV_12_3,
-    SVE_HDV_12_4,
-    SVE_HDV_12_5,
-    SVE_HDV_12_6,
-    SVE_HDV_12_7,
-    SVE_HDV_12_8,
-    SVE_HDV_12_9,
-    SVE_HDV_12_10,
-    SVE_HDV_12_11,
-    SVE_HDV_12_12,
-    //  HBEFA passenger & light duty vehicles; 7 clusters
-    SVE_P_LDV_7_1,
-    SVE_P_LDV_7_2,
-    SVE_P_LDV_7_3,
-    SVE_P_LDV_7_4,
-    SVE_P_LDV_7_5,
-    SVE_P_LDV_7_6,
-    SVE_P_LDV_7_7,
-    //  HBEFA passenger & light duty vehicles; 14 clusters
-    SVE_P_LDV_14_1,
-    SVE_P_LDV_14_2,
-    SVE_P_LDV_14_3,
-    SVE_P_LDV_14_4,
-    SVE_P_LDV_14_5,
-    SVE_P_LDV_14_6,
-    SVE_P_LDV_14_7,
-    SVE_P_LDV_14_8,
-    SVE_P_LDV_14_9,
-    SVE_P_LDV_14_10,
-    SVE_P_LDV_14_11,
-    SVE_P_LDV_14_12,
-    SVE_P_LDV_14_13,
-    SVE_P_LDV_14_14,
-    //  HBEFA no emissions
-    SVE_ZERO_EMISSIONS,
-    //  HBEFA heavy duty vehicles, no accel; 3 clusters
-    SVE_HDV_A0_3_1,
-    SVE_HDV_A0_3_2,
-    SVE_HDV_A0_3_3,
-    //  HBEFA heavy duty vehicles, no accel; 6 clusters
-    SVE_HDV_A0_6_1,
-    SVE_HDV_A0_6_2,
-    SVE_HDV_A0_6_3,
-    SVE_HDV_A0_6_4,
-    SVE_HDV_A0_6_5,
-    SVE_HDV_A0_6_6,
-    //  HBEFA heavy duty vehicles, no accel; 12 clusters
-    SVE_HDV_A0_12_1,
-    SVE_HDV_A0_12_2,
-    SVE_HDV_A0_12_3,
-    SVE_HDV_A0_12_4,
-    SVE_HDV_A0_12_5,
-    SVE_HDV_A0_12_6,
-    SVE_HDV_A0_12_7,
-    SVE_HDV_A0_12_8,
-    SVE_HDV_A0_12_9,
-    SVE_HDV_A0_12_10,
-    SVE_HDV_A0_12_11,
-    SVE_HDV_A0_12_12,
-    //  HBEFA passenger & light duty vehicles, no accel; 7 clusters
-    SVE_P_LDV_A0_7_1,
-    SVE_P_LDV_A0_7_2,
-    SVE_P_LDV_A0_7_3,
-    SVE_P_LDV_A0_7_4,
-    SVE_P_LDV_A0_7_5,
-    SVE_P_LDV_A0_7_6,
-    SVE_P_LDV_A0_7_7,
-    //  HBEFA passenger & light duty vehicles, no accel; 14 clusters
-    SVE_P_LDV_A0_14_1,
-    SVE_P_LDV_A0_14_2,
-    SVE_P_LDV_A0_14_3,
-    SVE_P_LDV_A0_14_4,
-    SVE_P_LDV_A0_14_5,
-    SVE_P_LDV_A0_14_6,
-    SVE_P_LDV_A0_14_7,
-    SVE_P_LDV_A0_14_8,
-    SVE_P_LDV_A0_14_9,
-    SVE_P_LDV_A0_14_10,
-    SVE_P_LDV_A0_14_11,
-    SVE_P_LDV_A0_14_12,
-    SVE_P_LDV_A0_14_13,
-    SVE_P_LDV_A0_14_14,
-
-    SVE_META_HBEFA21_END, // end of iTETRIS' HBEFA 2.1 classes
-
-
-
-    // PHEMlight
-    SVE_H_PKW_D_EU5,
-    SVE_H_PKW_D_EU6,
-    SVE_H_PKW_G_EU5,
-    SVE_H_PKW_G_EU6,
-    SVE_KKR_G_EU0,
-    SVE_KKR_G_EU1,
-    SVE_KKR_G_EU2,
-    SVE_KKR_G_EU3,
-    SVE_KKR_G_EU4,
-    SVE_PKW_D_EU0,
-    SVE_PKW_D_EU1,
-    SVE_PKW_D_EU2,
-    SVE_PKW_D_EU3,
-    SVE_PKW_D_EU4,
-    SVE_PKW_D_EU5,
-    SVE_PKW_D_EU6,
-    SVE_PKW_G_EU0,
-    SVE_PKW_G_EU1,
-    SVE_PKW_G_EU2,
-    SVE_PKW_G_EU3,
-    SVE_PKW_G_EU4,
-    SVE_PKW_G_EU5,
-    SVE_PKW_G_EU6,
-
-    SVE_RB_D_EU0,
-    SVE_RB_D_EU1,
-    SVE_RB_D_EU2,
-    SVE_RB_D_EU3,
-    SVE_RB_D_EU4,
-    SVE_RB_D_EU5,
-    SVE_RB_D_EU6,
-    SVE_LB_D_EU0,
-    SVE_LB_D_EU1,
-    SVE_LB_D_EU2,
-    SVE_LB_D_EU3,
-    SVE_LB_D_EU4,
-    SVE_LB_D_EU5,
-    SVE_LB_D_EU6,
-    SVE_LNF_D_EU0_I,
-    SVE_LNF_D_EU0_II,
-    SVE_LNF_D_EU0_III,
-    SVE_LNF_D_EU1_I,
-    SVE_LNF_D_EU1_II,
-    SVE_LNF_D_EU1_III,
-    SVE_LNF_D_EU2_I,
-    SVE_LNF_D_EU2_II,
-    SVE_LNF_D_EU2_III,
-    SVE_LNF_D_EU3_I,
-    SVE_LNF_D_EU3_II,
-    SVE_LNF_D_EU3_III,
-    SVE_LNF_D_EU4_I,
-    SVE_LNF_D_EU4_II,
-    SVE_LNF_D_EU4_III,
-    SVE_LNF_D_EU5_I,
-    SVE_LNF_D_EU5_II,
-    SVE_LNF_D_EU5_III,
-    SVE_LNF_D_EU6_I,
-    SVE_LNF_D_EU6_II,
-    SVE_LNF_D_EU6_III,
-    SVE_LNF_G_EU0_I,
-    SVE_LNF_G_EU0_II,
-    SVE_LNF_G_EU0_III,
-    SVE_LNF_G_EU1_I,
-    SVE_LNF_G_EU1_II,
-    SVE_LNF_G_EU1_III,
-    SVE_LNF_G_EU2_I,
-    SVE_LNF_G_EU2_II,
-    SVE_LNF_G_EU2_III,
-    SVE_LNF_G_EU3_I,
-    SVE_LNF_G_EU3_II,
-    SVE_LNF_G_EU3_III,
-    SVE_LNF_G_EU4_I,
-    SVE_LNF_G_EU4_II,
-    SVE_LNF_G_EU4_III,
-    SVE_LNF_G_EU5_I,
-    SVE_LNF_G_EU5_II,
-    SVE_LNF_G_EU5_III,
-    SVE_LNF_G_EU6_I,
-    SVE_LNF_G_EU6_II,
-    SVE_LNF_G_EU6_III,
-    SVE_LSZ_D_EU0,
-    SVE_LSZ_D_EU1,
-    SVE_LSZ_D_EU2,
-    SVE_LSZ_D_EU3,
-    SVE_LSZ_D_EU4,
-    SVE_LSZ_D_EU5,
-    SVE_LSZ_D_EU6,
-    SVE_MR_G_EU0_2T,
-    SVE_MR_G_EU0_4T,
-    SVE_MR_G_EU1_2T,
-    SVE_MR_G_EU1_4T,
-    SVE_MR_G_EU2_2T,
-    SVE_MR_G_EU2_4T,
-    SVE_MR_G_EU3_2T,
-    SVE_MR_G_EU3_4T,
-    SVE_MR_G_EU4_2T,
-    SVE_MR_G_EU4_4T,
-    SVE_MR_G_EU5_2T,
-    SVE_MR_G_EU5_4T,
-    SVE_Solo_LKW_D_EU0_I,
-    SVE_Solo_LKW_D_EU0_II,
-    SVE_Solo_LKW_D_EU1_I,
-    SVE_Solo_LKW_D_EU1_II,
-    SVE_Solo_LKW_D_EU2_I,
-    SVE_Solo_LKW_D_EU2_II,
-    SVE_Solo_LKW_D_EU3_I,
-    SVE_Solo_LKW_D_EU3_II,
-    SVE_Solo_LKW_D_EU4_I,
-    SVE_Solo_LKW_D_EU4_II,
-    SVE_Solo_LKW_D_EU5_I,
-    SVE_Solo_LKW_D_EU5_II,
-    SVE_Solo_LKW_D_EU6_I,
-    SVE_Solo_LKW_D_EU6_II,
-
-    SVE_META_PHEMLIGHT_END // end of COLOMBO's PHEMlight classes
-
-};
-
-extern StringBijection<SUMOEmissionClass> SumoEmissionClassStrings;
+typedef int SUMOEmissionClass;
 
 
 // ===========================================================================
@@ -446,20 +221,14 @@ extern std::string getVehicleClassCompoundName(int id);
  * @param[in] the permissions to encode
  * @return The string representation of these classes
  */
-extern std::string getAllowedVehicleClassNames(SVCPermissions permissions);
+extern std::string getVehicleClassNames(SVCPermissions permissions);
 
 
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] the permissions to encode
  * @return The string representation of these classes as a vector
  */
-extern std::vector<std::string> getAllowedVehicleClassNamesList(SVCPermissions permissions);
-
-/** @brief returns the shorter encoding of the given permissions
- * (selects automatically wether to use allow or disallow attribute)
- * @return the string and true for allow, false for disallow
- */
-extern std::pair<std::string, bool> getPermissionEncoding(SVCPermissions permissions);
+extern std::vector<std::string> getVehicleClassNamesList(SVCPermissions permissions);
 
 
 /** @brief Returns the class id of the abstract class given by its name
@@ -476,6 +245,7 @@ extern SUMOVehicleClass getVehicleClassID(const std::string& name);
 extern int getVehicleClassCompoundID(const std::string& name);
 
 /** @brief Parses the given definition of allowed vehicle classes into the given containers
+ * Deprecated classes go into a separate container.
  *
  * @param[in] classNames Space separated class names
  * @param[out] container The set of vehicle classes to fill
@@ -488,12 +258,7 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS);
  */
 extern bool canParseVehicleClasses(const std::string& classes);
 
-/** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
- *
- * @param[in] allowedS Definition which classes are allowed
- * @param[in] disallowedS Definition which classes are not allowed
- */
-/** @brief Encodes the given vector of allowed and disallowed classs into a bitset
+/** @brief Encodes the given vector of allowed and disallowed classes into a bitset
  * @param[in] allowedS Definition which classes are allowed
  * @param[in] disallowedS Definition which classes are not allowed
  */
@@ -501,6 +266,7 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std
 
 
 /** @brief Encodes the given vector of allowed classs into a bitset
+ * Unlike the methods which parse a string it gives immediately a warning output on deprecated vehicle classes.
  * @param[in] classesS The names vector to parse
  */
 extern SVCPermissions parseVehicleClasses(const std::vector<std::string>& allowedS);
@@ -523,23 +289,6 @@ extern std::string getVehicleShapeName(SUMOVehicleShape id);
 extern SUMOVehicleShape getVehicleShapeID(const std::string& name);
 
 
-// ---------------------------------------------------------------------------
-// emission class
-// ---------------------------------------------------------------------------
-/** @brief Returns the class name of the emission class given by its id
- * @param[in] id The id of the emission class
- * @return The string representation of this class
- */
-extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id);
-
-
-/** @brief Returns the class id of the emission class given by its name
- * @param[in] name The name of the emission class
- * @return The internal representation of this class
- */
-extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string& name);
-
-
 /** @brief Returns whether an edge with the given permission is a railway edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is a railway edge
@@ -551,29 +300,8 @@ extern bool isRailway(SVCPermissions permissions);
 // default vehicle type parameter
 // ---------------------------------------------------------------------------
 extern const std::string DEFAULT_VTYPE_ID;
-extern const SUMOReal DEFAULT_VEH_MAXSPEED;
-extern const SUMOReal DEFAULT_VEH_ACCEL;
-extern const SUMOReal DEFAULT_VEH_DECEL;
-extern const SUMOReal DEFAULT_VEH_SIGMA;
-extern const SUMOReal DEFAULT_VEH_LENGTH;
-extern const SUMOReal DEFAULT_VEH_MINGAP;
-extern const SUMOReal DEFAULT_VEH_TAU;
-extern const SUMOVehicleClass DEFAULT_VEH_CLASS;
-extern const SUMOReal DEFAULT_VEH_PROB;
-extern const SUMOReal DEFAULT_VEH_SPEEDFACTOR;
-extern const SUMOReal DEFAULT_VEH_SPEEDDEV;
-extern const SUMOReal DEFAULT_VEH_WIDTH;
-extern const SUMOReal DEFAULT_VEH_HEIGHT;
-extern const SumoXMLTag DEFAULT_VEH_FOLLOW_MODEL;
-extern const LaneChangeModel DEFAULT_VEH_LANE_CHANGE_MODEL;
-extern const SUMOVehicleShape DEFAULT_VEH_SHAPE;
-extern const SUMOReal DEFAULT_VEH_TMP1;
-extern const SUMOReal DEFAULT_VEH_TMP2;
-extern const SUMOReal DEFAULT_VEH_TMP3;
-extern const SUMOReal DEFAULT_VEH_TMP4;
-extern const SUMOReal DEFAULT_VEH_TMP5;
 
-extern const SUMOReal DEFAULT_PERSON_SPEED;
+extern const SUMOReal DEFAULT_VEH_PROB; // !!! does this belong here?
 
 #endif
 

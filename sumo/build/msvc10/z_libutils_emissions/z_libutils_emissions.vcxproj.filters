@@ -17,6 +17,9 @@
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersHBEFA.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\emissions\HelpersHBEFA3.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersPHEMlight.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -35,6 +38,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\emissions\HelpersHBEFA.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\emissions\HelpersHBEFA3.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\emissions\HelpersPHEMlight.h">

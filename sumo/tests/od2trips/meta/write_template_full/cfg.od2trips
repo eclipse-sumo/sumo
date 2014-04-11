@@ -13,6 +13,7 @@
     <input>
         <net-file value="" synonymes="n net" type="FILE" help="Loads network (districts) from FILE"/>
         <od-matrix-files value="" synonymes="d od od-files" type="FILE" help="Loads O/D-files from FILE(s)"/>
+        <od-amitran-files value="" synonymes="amitran amitran-files" type="FILE" help="Loads O/D-matrix in Amitran format from FILE(s)"/>
     </input>
 
     <output>
@@ -48,7 +49,7 @@
 
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
-        <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
+        <print-options value="false" type="BOOL" help="Prints option values before processing"/>
         <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>

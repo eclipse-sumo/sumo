@@ -1,0 +1,460 @@
+Running 'HBEFA3/zero'
+sums
+length:11041.9
+CO:0
+CO2:0
+HC:0
+NOx:0
+PMx:0
+fuel:0
+Success.
+Running 'HBEFA3/LNF'
+sums
+length:11041.9
+CO:165856
+CO2:2.97448e+006
+HC:10458.7
+NOx:0
+PMx:1170.76
+fuel:1271.9
+Success.
+Running 'HBEFA3/LNF_B_Euro_0'
+sums
+length:11041.9
+CO:354999
+CO2:3.46308e+006
+HC:19534.4
+NOx:0
+PMx:350.971
+fuel:1488.41
+Success.
+Running 'HBEFA3/LNF_B_Euro_1'
+sums
+length:11041.9
+CO:409500
+CO2:2.89648e+006
+HC:6592.16
+NOx:9599.7
+PMx:220.741
+fuel:1245.27
+Success.
+Running 'HBEFA3/LNF_B_Euro_2'
+sums
+length:11041.9
+CO:226895
+CO2:2.89911e+006
+HC:2444.58
+NOx:3337.81
+PMx:496.326
+fuel:1246.38
+Success.
+Running 'HBEFA3/LNF_B_Euro_3'
+sums
+length:11041.9
+CO:128869
+CO2:2.92682e+006
+HC:700.763
+NOx:772.623
+PMx:163.458
+fuel:1257.95
+Success.
+Running 'HBEFA3/LNF_B_Euro_4'
+sums
+length:11041.9
+CO:90507.9
+CO2:2.79212e+006
+HC:390.172
+NOx:596.847
+PMx:122.112
+fuel:1200.45
+Success.
+Running 'HBEFA3/LNF_B_Euro_5'
+sums
+length:11041.9
+CO:97940
+CO2:2.67607e+006
+HC:413.428
+NOx:587.116
+PMx:127.21
+fuel:1150.53
+Success.
+Running 'HBEFA3/LNF_B_Euro_6'
+sums
+length:11041.9
+CO:96969.2
+CO2:2.53718e+006
+HC:412.222
+NOx:583.513
+PMx:123.549
+fuel:1090.73
+Success.
+Running 'HBEFA3/LNF_B_Ost'
+sums
+length:11041.9
+CO:451948
+CO2:2.66994e+006
+HC:340344
+NOx:0
+PMx:0
+fuel:1147.57
+Success.
+Running 'HBEFA3/LNF_D_Euro_0'
+sums
+length:11041.9
+CO:9385.52
+CO2:0
+HC:2621.76
+NOx:24622.9
+PMx:4971.66
+fuel:0
+Success.
+Running 'HBEFA3/LNF_D_Euro_1'
+sums
+length:11041.9
+CO:6086.7
+CO2:0
+HC:1434.65
+NOx:21400.8
+PMx:3305.3
+fuel:0
+Success.
+Running 'HBEFA3/LNF_D_Euro_2'
+sums
+length:11041.9
+CO:1842.53
+CO2:0
+HC:624.367
+NOx:19271.3
+PMx:1626.79
+fuel:0
+Success.
+Running 'HBEFA3/LNF_D_Euro_3'
+sums
+length:11041.9
+CO:433.962
+CO2:2.40009e+006
+HC:122.804
+NOx:14376.1
+PMx:552.093
+fuel:903.116
+Success.
+Running 'HBEFA3/LNF_D_Euro_4'
+sums
+length:11041.9
+CO:404.247
+CO2:2.48635e+006
+HC:81.5173
+NOx:13751.1
+PMx:0
+fuel:935.408
+Success.
+Running 'HBEFA3/LNF_D_Euro_5'
+sums
+length:11041.9
+CO:267.514
+CO2:2.40187e+006
+HC:81.3049
+NOx:13074.7
+PMx:26.7972
+fuel:903.666
+Success.
+Running 'HBEFA3/LNF_D_Euro_6'
+sums
+length:11041.9
+CO:389.652
+CO2:2.30696e+006
+HC:78.507
+NOx:4537.08
+PMx:0
+fuel:867.932
+Success.
+Running 'HBEFA3/PKW'
+sums
+length:11041.9
+CO:94428.4
+CO2:2.94554e+006
+HC:9946.19
+NOx:0
+PMx:377.407
+fuel:1290.04
+Success.
+Running 'HBEFA3/PKW_Alternative'
+sums
+length:11041.9
+CO:66940.2
+CO2:2.50514e+006
+HC:707.049
+NOx:1711.54
+PMx:111.154
+fuel:1294.13
+Success.
+Running 'HBEFA3/PKW_B_Euro_0'
+sums
+length:11041.9
+CO:204425
+CO2:3.7016e+006
+HC:13881.8
+NOx:0
+PMx:375.827
+fuel:1590.72
+Success.
+Running 'HBEFA3/PKW_B_Euro_1'
+sums
+length:11041.9
+CO:54574.4
+CO2:3.45209e+006
+HC:3033.06
+NOx:7286.34
+PMx:229.337
+fuel:1484.04
+Success.
+Running 'HBEFA3/PKW_B_Euro_2'
+sums
+length:11041.9
+CO:88684.1
+CO2:3.28159e+006
+HC:0
+NOx:4434.45
+PMx:387.8
+fuel:1411.16
+Success.
+Running 'HBEFA3/PKW_B_Euro_3'
+sums
+length:11041.9
+CO:84370.9
+CO2:3.11349e+006
+HC:506.322
+NOx:1341
+PMx:122.46
+fuel:1338.27
+Success.
+Running 'HBEFA3/PKW_B_Euro_4'
+sums
+length:11041.9
+CO:75510.2
+CO2:2.9905e+006
+HC:405.317
+NOx:1134.51
+PMx:49.5275
+fuel:1285.52
+Success.
+Running 'HBEFA3/PKW_B_Euro_5'
+sums
+length:11041.9
+CO:63751.5
+CO2:2.81081e+006
+HC:357.994
+NOx:1080.65
+PMx:51.7111
+fuel:1208.12
+Success.
+Running 'HBEFA3/PKW_B_Euro_6'
+sums
+length:11041.9
+CO:51797.8
+CO2:2.6625e+006
+HC:292.468
+NOx:978.432
+PMx:52.7146
+fuel:1144.84
+Success.
+Running 'HBEFA3/PKW_B_Ost'
+sums
+length:11041.9
+CO:523940
+CO2:2.96758e+006
+HC:192899
+NOx:0
+PMx:416.909
+fuel:1275.66
+Success.
+Running 'HBEFA3/PKW_D_Euro_0'
+sums
+length:11041.9
+CO:16897.7
+CO2:2.84491e+006
+HC:2061.64
+NOx:12362.4
+PMx:3389.59
+fuel:1070.45
+Success.
+Running 'HBEFA3/PKW_D_Euro_1'
+sums
+length:11041.9
+CO:3623.41
+CO2:0
+HC:721.126
+NOx:12607.4
+PMx:1434.41
+fuel:0
+Success.
+Running 'HBEFA3/PKW_D_Euro_2'
+sums
+length:11041.9
+CO:1889.13
+CO2:2.15108e+006
+HC:386.673
+NOx:14651.6
+PMx:785.546
+fuel:809.404
+Success.
+Running 'HBEFA3/PKW_D_Euro_3'
+sums
+length:11041.9
+CO:939.374
+CO2:1.9987e+006
+HC:187.954
+NOx:16557.1
+PMx:485.844
+fuel:752.107
+Success.
+Running 'HBEFA3/PKW_D_Euro_4'
+sums
+length:11041.9
+CO:492.114
+CO2:2.37174e+006
+HC:97.693
+NOx:11218.5
+PMx:0
+fuel:892.525
+Success.
+Running 'HBEFA3/PKW_D_Euro_5'
+sums
+length:11041.9
+CO:325.317
+CO2:1.9733e+006
+HC:100.116
+NOx:11097.9
+PMx:91.4388
+fuel:742.592
+Success.
+Running 'HBEFA3/PKW_D_Euro_6'
+sums
+length:11041.9
+CO:490.073
+CO2:1.8991e+006
+HC:96.3891
+NOx:3848.64
+PMx:77.2832
+fuel:714.418
+Success.
+Running 'HBEFA3/LBus'
+sums
+length:11041.9
+CO:24145.6
+CO2:1.2887e+007
+HC:5733.16
+NOx:105441
+PMx:2570.43
+fuel:5495.95
+Success.
+Running 'HBEFA3/RBus'
+sums
+length:11041.9
+CO:25499.1
+CO2:1.40951e+007
+HC:0
+NOx:127658
+PMx:2922.63
+fuel:5975.19
+Success.
+Running 'HBEFA3/SNF'
+sums
+length:11041.9
+CO:22082.3
+CO2:1.43278e+007
+HC:0
+NOx:127823
+PMx:2786.65
+fuel:6074.1
+Success.
+Running 'HBEFA3/SNF_B'
+sums
+length:11041.9
+CO:82199.4
+CO2:6.99494e+006
+HC:46859.6
+NOx:63825.3
+PMx:0
+fuel:3007.01
+Success.
+Running 'HBEFA3/SNF_D_Euro_0'
+sums
+length:11041.9
+CO:30800.4
+CO2:1.56976e+007
+HC:8760.44
+NOx:216940
+PMx:6402.47
+fuel:5908.08
+Success.
+Running 'HBEFA3/SNF_D_Euro_1'
+sums
+length:11041.9
+CO:23755.6
+CO2:1.38276e+007
+HC:6822.57
+NOx:144459
+PMx:4898.64
+fuel:5202.51
+Success.
+Running 'HBEFA3/SNF_D_Euro_2'
+sums
+length:11041.9
+CO:16754.7
+CO2:1.37083e+007
+HC:4593.62
+NOx:145313
+PMx:2165.51
+fuel:5157.69
+Success.
+Running 'HBEFA3/SNF_D_Euro_3'
+sums
+length:11041.9
+CO:18373.1
+CO2:1.39727e+007
+HC:4007.51
+NOx:113864
+PMx:2092.04
+fuel:5257.71
+Success.
+Running 'HBEFA3/SNF_D_Euro_4'
+sums
+length:11041.9
+CO:18379.6
+CO2:1.39548e+007
+HC:451.383
+NOx:93298.8
+PMx:375.988
+fuel:5250.02
+Success.
+Running 'HBEFA3/SNF_D_Euro_5'
+sums
+length:11041.9
+CO:18690.7
+CO2:1.39685e+007
+HC:453.481
+NOx:75327.5
+PMx:383.461
+fuel:5255.37
+Success.
+Running 'HBEFA3/SNF_D_Euro_6'
+sums
+length:11041.9
+CO:11670.5
+CO2:1.39042e+007
+HC:330.39
+NOx:24230
+PMx:49.4222
+fuel:5231.03
+Success.
+Running 'HBEFA3/SNF_D_Ost'
+sums
+length:11041.9
+CO:37177.1
+CO2:1.21264e+007
+HC:17668.8
+NOx:179611
+PMx:8644.09
+fuel:4562.16
+Success.

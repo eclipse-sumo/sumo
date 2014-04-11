@@ -1,1 +1,1 @@
---osm-files osm.xml -t=input_types.typ.xml --proj.utm --remove-edges.by-vclass=rail_slow,rail_fast,bicycle,pedestrian --no-turnarounds  --offset.disable-normalization --offset.x -280900 --offset.y -4153600 --output.street-names
+--osm-files osm.xml -t=input_types.typ.xml --proj.utm --remove-edges.by-vclass=rail,rail_electric,bicycle,pedestrian --no-turnarounds  --offset.disable-normalization --offset.x -280900 --offset.y -4153600 --output.street-names

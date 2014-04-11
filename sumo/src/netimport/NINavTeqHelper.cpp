@@ -113,7 +113,7 @@ NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS) {
     classS = classS.substr(classS.length() - 10);
     // 0: allow all vehicle types
     if (classS[0] == '1') {
-        e.setPermissions(SVCFreeForAll);
+        e.setPermissions(SVCAll);
         return;
     }
     // we have some restrictions. disallow all and then add classes indiviually
@@ -129,24 +129,25 @@ NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS) {
     }
     // Emergency Vehicle -- becomes SVC_PUBLIC_EMERGENCY
     if (classS[3] == '1') {
-        e.allowVehicleClass(-1, SVC_PUBLIC_EMERGENCY);
+        e.allowVehicleClass(-1, SVC_EMERGENCY);
     }
     // Taxi -- becomes SVC_TAXI
     if (classS[4] == '1') {
         e.allowVehicleClass(-1, SVC_TAXI);
     }
-    // Public Bus -- becomes SVC_BUS|SVC_PUBLIC_TRANSPORT
+    // Public Bus -- becomes SVC_BUS|SVC_COACH
     if (classS[5] == '1') {
-        e.allowVehicleClass(-1, SVC_PUBLIC_TRANSPORT);
         e.allowVehicleClass(-1, SVC_BUS);
+        e.allowVehicleClass(-1, SVC_COACH);
     }
     // Delivery Truck -- becomes SVC_DELIVERY
     if (classS[6] == '1') {
         e.allowVehicleClass(-1, SVC_DELIVERY);
     }
-    // Transport Truck -- becomes SVC_TRANSPORT
+    // Transport Truck -- becomes SVC_TRUCK|SVC_TRAILER
     if (classS[7] == '1') {
-        e.allowVehicleClass(-1, SVC_TRANSPORT);
+        e.allowVehicleClass(-1, SVC_TRUCK);
+        e.allowVehicleClass(-1, SVC_TRAILER);
     }
     // Bicycle -- becomes SVC_BICYCLE
     if (classS[8] == '1') {
@@ -165,7 +166,7 @@ NINavTeqHelper::addVehicleClassesV6(NBEdge& e, const std::string& oclassS) {
     classS = classS.substr(classS.length() - 12);
     // 0: allow all vehicle types
     if (classS[0] == '1') {
-        e.setPermissions(SVCFreeForAll);
+        e.setPermissions(SVCAll);
         return;
     }
     // we have some restrictions. disallow all and then add classes indiviually
@@ -185,24 +186,25 @@ NINavTeqHelper::addVehicleClassesV6(NBEdge& e, const std::string& oclassS) {
     }
     // Emergency Vehicle -- becomes SVC_PUBLIC_EMERGENCY
     if (classS[4] == '1') {
-        e.allowVehicleClass(-1, SVC_PUBLIC_EMERGENCY);
+        e.allowVehicleClass(-1, SVC_EMERGENCY);
     }
     // Taxi -- becomes SVC_TAXI
     if (classS[5] == '1') {
         e.allowVehicleClass(-1, SVC_TAXI);
     }
-    // Public Bus -- becomes SVC_BUS|SVC_PUBLIC_TRANSPORT
+    // Public Bus -- becomes SVC_BUS|SVC_COACH
     if (classS[6] == '1') {
-        e.allowVehicleClass(-1, SVC_PUBLIC_TRANSPORT);
         e.allowVehicleClass(-1, SVC_BUS);
+        e.allowVehicleClass(-1, SVC_COACH);
     }
     // Delivery Truck -- becomes SVC_DELIVERY
     if (classS[7] == '1') {
         e.allowVehicleClass(-1, SVC_DELIVERY);
     }
-    // Transport Truck -- becomes SVC_TRANSPORT
+    // Transport Truck -- becomes SVC_TRUCK|SVC_TRAILER
     if (classS[8] == '1') {
-        e.allowVehicleClass(-1, SVC_TRANSPORT);
+        e.allowVehicleClass(-1, SVC_TRUCK);
+        e.allowVehicleClass(-1, SVC_TRAILER);
     }
     // Motorcycle -- becomes SVC_MOTORCYCLE
     if (classS[9] == '1') {

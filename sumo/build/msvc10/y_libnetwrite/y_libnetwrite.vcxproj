@@ -141,6 +141,7 @@
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_SUMO.cpp" />
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_MATSim.cpp" />
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_XML.cpp" />
+    <ClCompile Include="..\..\..\src\netwrite\NWWriter_Amitran.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netwrite\NWFrame.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="..\..\..\src\netwrite\NWWriter_SUMO.h" />
     <ClInclude Include="..\..\..\src\netwrite\NWWriter_MATSim.h" />
     <ClInclude Include="..\..\..\src\netwrite\NWWriter_XML.h" />
+    <ClInclude Include="..\..\..\src\netwrite\NWWriter_Amitran.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

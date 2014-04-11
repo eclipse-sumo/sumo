@@ -6,26 +6,26 @@ vehicletypes ['DEFAULT_VEHTYPE']
 vehicletype count 1
 examining DEFAULT_VEHTYPE
 length 5.0
-maxSpeed 70.0
+maxSpeed 55.5555555556
 speedFactor 1.0
 speedDev 0.0
 accel 2.6
 decel 4.5
 imperfection 0.5
 tau 1.0
-vClass unknown
-emissionclass unknown
+vClass ignoring
+emissionclass HBEFA2/P_7_7
 shape 
 MinGap 2.5
-width 2.0
+width 1.7
 color (255, 255, 0, 255)
-{65: 70.0}
+{65: 55.55555555555556}
 step 3
-{65: 70.0}
+{65: 55.55555555555556}
 step 4
-{65: 70.0}
+{65: 55.55555555555556}
 step 5
-{65: 70.0}
+{65: 55.55555555555556}
 length 1.0
 maxSpeed 1.0
 speedFactor 1.1
@@ -35,7 +35,7 @@ decel 1.1
 imperfection 0.1
 tau 1.1
 vClass bicycle
-emissionclass zero
+emissionclass HBEFA2/zero
 shape bicycle
 MinGap 1.1
 width 1.1

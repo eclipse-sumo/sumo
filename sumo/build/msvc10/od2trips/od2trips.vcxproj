@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\od2trips\od2trips_main.cpp" />
+    <ClCompile Include="..\..\..\src\od2trips\ODAmitranHandler.cpp" />
     <ClCompile Include="..\..\..\src\od2trips\ODDistrict.cpp" />
     <ClCompile Include="..\..\..\src\od2trips\ODDistrictCont.cpp" />
     <ClCompile Include="..\..\..\src\od2trips\ODDistrictHandler.cpp" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\od2trips\ODCell.h" />
+    <ClInclude Include="..\..\..\src\od2trips\ODAmitranHandler.h" />
     <ClInclude Include="..\..\..\src\od2trips\ODDistrict.h" />
     <ClInclude Include="..\..\..\src\od2trips\ODDistrictCont.h" />
     <ClInclude Include="..\..\..\src\od2trips\ODDistrictHandler.h" />

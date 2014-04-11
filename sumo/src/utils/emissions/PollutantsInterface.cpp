@@ -29,11 +29,13 @@
 #include <config.h>
 #endif
 
-#include "PollutantsInterface.h"
-#include "HelpersHBEFA.h"
-#include "HelpersPHEMlight.h"
 #include <limits>
 #include <cmath>
+#include <utils/common/SUMOVehicleClass.h>
+#include "PollutantsInterface.h"
+#include "HelpersHBEFA.h"
+#include "HelpersHBEFA3.h"
+#include "HelpersPHEMlight.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -41,163 +43,119 @@
 
 
 // ===========================================================================
+// static definitions
+// ===========================================================================
+HelpersHBEFA PollutantsInterface::myHBEFA2Helper;
+HelpersHBEFA3 PollutantsInterface::myHBEFA3Helper;
+HelpersPHEMlight PollutantsInterface::myPHEMlightHelper;
+PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {&PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper, &PollutantsInterface::myPHEMlightHelper};
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
+SUMOEmissionClass
+PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
+    int sep = eClass.find("/");
+    if (sep != std::string::npos) {
+        const std::string model = eClass.substr(0, sep);
+        const std::string subClass = eClass.substr(sep + 1);
+        for (int i = 0; i < 3; i++) {
+            if (myHelpers[i]->getName() == model) {
+                return myHelpers[i]->getClassByName(subClass, vc);
+            }
+        }
+    } else {
+        // default HBEFA2
+        return myHelpers[0]->getClassByName(eClass, vc);
+    }
+    throw InvalidArgument("Unknown emission class '" + eClass + "'.");
+}
+
+
+const std::vector<SUMOEmissionClass>
+PollutantsInterface::getAllClasses() {
+    std::vector<SUMOEmissionClass> result;
+    for (int i = 0; i < 3; i++) {
+        myHelpers[i]->addAllClassesInto(result);
+    }
+    return result;
+}
+
+
+std::string
+PollutantsInterface::getName(const SUMOEmissionClass c) {
+    return myHelpers[c >> 16]->getClassName(c);
+}
+
+
+bool
+PollutantsInterface::isHeavy(const SUMOEmissionClass c) {
+    return (c & HEAVY_BIT) != 0;
+}
+
+
+bool
+PollutantsInterface::isSilent(const SUMOEmissionClass c) {
+    return myHelpers[c >> 16]->isSilent(c);
+}
+
+
 SUMOReal
 PollutantsInterface::getMaxAccel(SUMOEmissionClass c, double v, double a, double slope) {
-    if (c < SVE_META_HBEFA21_END) {
-        return -1;
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return HelpersPHEMlight::getMaxAccel(c, v, a, slope);
-    } else {
-        return 0;
-    }
+    return myHelpers[c >> 16]->getMaxAccel(c, v, a, slope);
+}
+
+
+SUMOEmissionClass
+PollutantsInterface::getClass(const SUMOEmissionClass base, const std::string& vClass,
+                              const std::string& fuel, const std::string& eClass, const double weight) {
+    return myHelpers[base >> 16]->getClass(base, vClass, fuel, eClass, weight);
+}
+
+
+std::string
+PollutantsInterface::getAmitranVehicleClass(const SUMOEmissionClass c) {
+    return myHelpers[c >> 16]->getAmitranVehicleClass(c);
+}
+
+
+std::string
+PollutantsInterface::getFuel(const SUMOEmissionClass c) {
+    return myHelpers[c >> 16]->getFuel(c);
+}
+
+
+int
+PollutantsInterface::getEuroClass(const SUMOEmissionClass c) {
+    return myHelpers[c >> 16]->getEuroClass(c);
 }
 
 
 SUMOReal
-PollutantsInterface::computeCO(SUMOEmissionClass c, double v, double a, double slope) {
-    if (c < SVE_META_HBEFA21_END) {
-        return HelpersHBEFA::computeCO(c, v, a);
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return HelpersPHEMlight::computeCO(c, v, a, slope);
-    } else {
-        return 0;
-    }
+PollutantsInterface::getWeight(const SUMOEmissionClass c) {
+    return myHelpers[c >> 16]->getWeight(c);
 }
 
 
 SUMOReal
-PollutantsInterface::computeCO2(SUMOEmissionClass c, double v, double a, double slope) {
-    if (c < SVE_META_HBEFA21_END) {
-        return HelpersHBEFA::computeCO2(c, v, a);
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return HelpersPHEMlight::computeCO2(c, v, a, slope);
-    } else {
-        return 0;
-    }
+PollutantsInterface::compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope) {
+    return myHelpers[c >> 16]->compute(c, e, v, a, slope);
+}
+
+
+PollutantsInterface::Emissions
+PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope) {
+    const Helper* const h = myHelpers[c >> 16];
+    return Emissions(h->compute(c, CO2, v, a, slope), h->compute(c, CO, v, a, slope), h->compute(c, HC, v, a, slope), 
+                     h->compute(c, FUEL, v, a, slope), h->compute(c, NO_X, v, a, slope), h->compute(c, PM_X, v, a, slope));
 }
 
 
 SUMOReal
-PollutantsInterface::computeHC(SUMOEmissionClass c, double v, double a, double slope) {
-    if (c < SVE_META_HBEFA21_END) {
-        return HelpersHBEFA::computeHC(c, v, a);
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return HelpersPHEMlight::computeHC(c, v, a, slope);
-    } else {
-        return 0;
-    }
-}
-
-
-SUMOReal
-PollutantsInterface::computeNOx(SUMOEmissionClass c, double v, double a, double slope) {
-    if (c < SVE_META_HBEFA21_END) {
-        return HelpersHBEFA::computeNOx(c, v, a);
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return HelpersPHEMlight::computeNOx(c, v, a, slope);
-    } else {
-        return 0;
-    }
-}
-
-
-SUMOReal
-PollutantsInterface::computePMx(SUMOEmissionClass c, double v, double a, double slope) {
-    if (c < SVE_META_HBEFA21_END) {
-        return HelpersHBEFA::computePMx(c, v, a);
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return HelpersPHEMlight::computePMx(c, v, a, slope);
-    } else {
-        return 0;
-    }
-}
-
-
-SUMOReal
-PollutantsInterface::computeFuel(SUMOEmissionClass c, double v, double a, double slope) {
-    if (c < SVE_META_HBEFA21_END) {
-        return HelpersHBEFA::computeFuel(c, v, a);
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return HelpersPHEMlight::computeFuel(c, v, a, slope);
-    } else {
-        return 0;
-    }
-}
-
-
-
-
-SUMOReal
-PollutantsInterface::computeDefaultCO(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if (c < SVE_META_HBEFA21_END) {
-        return (HelpersHBEFA::computeCO(c, v, 0) + HelpersHBEFA::computeCO(c, v - a, a)) * tt / 2.;
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return (HelpersPHEMlight::computeCO(c, v, 0, slope) + HelpersPHEMlight::computeCO(c, v - a, a, slope)) * tt / 2.;
-    } else {
-        return 0;
-    }
-}
-
-
-SUMOReal
-PollutantsInterface::computeDefaultCO2(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if (c < SVE_META_HBEFA21_END) {
-        return (HelpersHBEFA::computeCO2(c, v, 0) + HelpersHBEFA::computeCO2(c, v - a, a)) * tt / 2.;
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return (HelpersPHEMlight::computeCO2(c, v, 0, slope) + HelpersPHEMlight::computeCO2(c, v - a, a, slope)) * tt / 2.;
-    } else {
-        return 0;
-    }
-}
-
-
-SUMOReal
-PollutantsInterface::computeDefaultHC(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if (c < SVE_META_HBEFA21_END) {
-        return (HelpersHBEFA::computeHC(c, v, 0) + HelpersHBEFA::computeHC(c, v - a, a)) * tt / 2.;
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return (HelpersPHEMlight::computeHC(c, v, 0, slope) + HelpersPHEMlight::computeHC(c, v - a, a, slope)) * tt / 2.;
-    } else {
-        return 0;
-    }
-}
-
-
-SUMOReal
-PollutantsInterface::computeDefaultNOx(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if (c < SVE_META_HBEFA21_END) {
-        return (HelpersHBEFA::computeNOx(c, v, 0) + HelpersHBEFA::computeNOx(c, v - a, a)) * tt / 2.;
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return (HelpersPHEMlight::computeNOx(c, v, 0, slope) + HelpersPHEMlight::computeNOx(c, v - a, a, slope)) * tt / 2.;
-    } else {
-        return 0;
-    }
-}
-
-
-SUMOReal
-PollutantsInterface::computeDefaultPMx(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if (c < SVE_META_HBEFA21_END) {
-        return (HelpersHBEFA::computePMx(c, v, 0) + HelpersHBEFA::computePMx(c, v - a, a)) * tt / 2.;
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return (HelpersPHEMlight::computePMx(c, v, 0, slope) + HelpersPHEMlight::computePMx(c, v - a, a, slope)) * tt / 2.;
-    } else {
-        return 0;
-    }
-}
-
-
-SUMOReal
-PollutantsInterface::computeDefaultFuel(SUMOEmissionClass c, double v, double a, double slope, SUMOReal tt) {
-    if (c < SVE_META_HBEFA21_END) {
-        return (HelpersHBEFA::computeFuel(c, v, 0) + HelpersHBEFA::computeFuel(c, v - a, a)) * tt / 2.;
-    } else if (c > SVE_META_HBEFA21_END && c < SVE_META_PHEMLIGHT_END) {
-        return (HelpersPHEMlight::computeFuel(c, v, 0, slope) + HelpersPHEMlight::computeFuel(c, v - a, a, slope)) * tt / 2.;
-    } else {
-        return 0;
-    }
+PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const SUMOReal tt) {
+    const Helper* const h = myHelpers[c >> 16];
+    return (h->compute(c, e, v, 0, slope) + h->compute(c, e, v-a, a, slope)) * tt / 2.;
 }
 
 

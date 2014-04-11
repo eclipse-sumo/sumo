@@ -59,7 +59,7 @@ NBTypeCont::setDefaults(int defaultNoLanes,
 bool
 NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
                    SUMOReal width, SUMOVehicleClass vClass, bool oneWayIsDefault) {
-    SVCPermissions permissions = (vClass == SVC_UNKNOWN ? SVCFreeForAll : vClass);
+    SVCPermissions permissions = (vClass == SVC_IGNORING ? SVCAll : vClass);
     return insert(id, noLanes, maxSpeed, prio, permissions, width, oneWayIsDefault);
 }
 

@@ -178,7 +178,7 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane* l) {
         MSEdge* e = *i;
         assert(e != 0);
         typedef std::vector<MSLane*> LaneVector;
-        const LaneVector* cl = e->allowedLanes(l->getEdge(), SVC_UNKNOWN);
+        const LaneVector* cl = e->allowedLanes(l->getEdge(), SVC_IGNORING);
         bool fastAbort = false;
         if (cl != 0) {
             for (LaneVector::const_iterator j = cl->begin(); !fastAbort && j != cl->end(); j++) {

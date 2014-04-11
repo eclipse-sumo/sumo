@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 25 08:21:06 2013 by SUMO netconvert Version dev-SVN-r14913
+<!-- generated on 03/28/14 12:31:41 by SUMO netconvert Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,10 @@
         <roundabouts.guess value="true"/>
     </processing>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
@@ -27,32 +31,32 @@
     <location netOffset="-593345.09,-5779253.43" convBoundary="22505.06,17291.07,22652.47,17362.98" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":54544854_0" function="internal">
-        <lane id=":54544854_0_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="6.33" shape="22650.60,17309.15 22651.17,17315.45"/>
+        <lane id=":54544854_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="6.33" shape="22650.60,17309.15 22651.17,17315.45"/>
     </edge>
     <edge id=":552609822_0" function="internal">
-        <lane id=":552609822_0_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="6.15" shape="22558.69,17298.60 22558.81,17296.64 22559.33,17295.21 22560.26,17294.32 22561.59,17293.97"/>
+        <lane id=":552609822_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="6.15" shape="22558.69,17298.60 22558.81,17296.64 22559.33,17295.21 22560.26,17294.32 22561.59,17293.97"/>
     </edge>
     <edge id=":552609822_1" function="internal">
-        <lane id=":552609822_1_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="7.26" shape="22554.88,17296.74 22561.59,17293.97"/>
+        <lane id=":552609822_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="7.26" shape="22554.88,17296.74 22561.59,17293.97"/>
     </edge>
     <edge id=":662904038_0" function="internal">
-        <lane id=":662904038_0_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="0.10" shape="22617.93,17291.07 22617.93,17291.07"/>
+        <lane id=":662904038_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="0.10" shape="22617.93,17291.07 22617.93,17291.07"/>
     </edge>
 
     <edge id="-572217565" from="552609826" to="552609822" priority="-1" spreadType="center" shape="22505.06,17362.98 22525.56,17332.30 22541.76,17310.43 22549.50,17300.59 22558.52,17294.13">
-        <lane id="-572217565_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="83.25" shape="22505.06,17362.98 22525.56,17332.30 22541.76,17310.43 22549.50,17300.59 22554.88,17296.74"/>
+        <lane id="-572217565_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="83.25" shape="22505.06,17362.98 22525.56,17332.30 22541.76,17310.43 22549.50,17300.59 22554.88,17296.74"/>
     </edge>
     <edge id="-572217566" from="54544854" to="552609822" priority="-1" spreadType="center" shape="22650.87,17311.88 22636.42,17317.10 22580.44,17319.12 22566.83,17317.69 22562.14,17314.24 22558.94,17305.27 22558.52,17294.13">
-        <lane id="-572217566_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="103.50" shape="22647.50,17313.10 22636.42,17317.10 22580.44,17319.12 22566.83,17317.69 22562.14,17314.24 22558.94,17305.27 22558.69,17298.60"/>
+        <lane id="-572217566_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="103.50" shape="22647.50,17313.10 22636.42,17317.10 22580.44,17319.12 22566.83,17317.69 22562.14,17314.24 22558.94,17305.27 22558.69,17298.60"/>
     </edge>
     <edge id="-572217567" from="552609822" to="662904038" priority="-1" spreadType="center">
-        <lane id="-572217567_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="56.41" shape="22561.59,17293.97 22617.93,17291.07"/>
+        <lane id="-572217567_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="56.41" shape="22561.59,17293.97 22617.93,17291.07"/>
     </edge>
     <edge id="572217564" from="662904038" to="54544854" priority="-1" spreadType="center" shape="22617.93,17291.07 22637.70,17291.54 22645.80,17295.07 22649.76,17300.72 22650.87,17311.88">
-        <lane id="572217564_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="43.98" shape="22617.93,17291.07 22637.70,17291.54 22645.80,17295.07 22649.76,17300.72 22650.60,17309.15"/>
+        <lane id="572217564_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="43.98" shape="22617.93,17291.07 22637.70,17291.54 22645.80,17295.07 22649.76,17300.72 22650.60,17309.15"/>
     </edge>
     <edge id="572217616" from="54544854" to="662904109" priority="-1" spreadType="center">
-        <lane id="572217616_0" index="0" allow="public_transport public_emergency passenger hov taxi bus delivery transport" speed="8.33" length="15.43" shape="22651.17,17315.45 22652.47,17330.83"/>
+        <lane id="572217616_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="8.33" length="15.43" shape="22651.17,17315.45 22652.47,17330.83"/>
     </edge>
 
     <junction id="54544854" type="priority" x="22650.87" y="17311.88" incLanes="572217564_0" intLanes=":54544854_0_0" shape="22649.58,17315.59 22652.77,17315.32 22652.19,17308.99 22649.01,17309.31 22646.95,17311.59 22648.04,17314.60">

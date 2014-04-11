@@ -72,7 +72,7 @@ public:
      * @param[in] matrixPollutants Coefficients of the pollutants
      * @param[in] matrixSpeedRotational Table for rotational coefficients over speed
      */
-    PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass,
+    PHEMCEP(bool heavyVehicel, SUMOEmissionClass emissionClass, const std::string& emissionClassIdentifier,
             double vehicleMass, double vehicleLoading, double vehicleMassRot,
             double crossArea, double cWValue,
             double f0, double f1, double f2, double f3, double f4,

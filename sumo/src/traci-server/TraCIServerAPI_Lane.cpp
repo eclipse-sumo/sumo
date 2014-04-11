@@ -136,11 +136,12 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     // opened
                     tempContent.writeUnsignedByte(TYPE_UBYTE);
                     const SUMOReal speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
-                    tempContent.writeUnsignedByte(link->opened(currTime, speed, speed, DEFAULT_VEH_LENGTH, 0.0, DEFAULT_VEH_DECEL, 0) ? 1 : 0);
+                    tempContent.writeUnsignedByte(link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefaultLength(),
+                                                               SUMOVTypeParameter::getDefaultImpatience(), SUMOVTypeParameter::getDefaultDecel(), 0) ? 1 : 0);
                     ++cnt;
                     // approaching foe
                     tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->hasApproachingFoe(currTime, currTime, 0) ? 1 : 0);
+                    tempContent.writeUnsignedByte(link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel()) ? 1 : 0);
                     ++cnt;
                     // state (not implemented, yet)
                     tempContent.writeUnsignedByte(TYPE_STRING);
@@ -162,14 +163,14 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             case LANE_ALLOWED: {
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                 SVCPermissions permissions = lane->getPermissions();
-                if (permissions == SVCFreeForAll) {  // special case: write nothing
+                if (permissions == SVCAll) {  // special case: write nothing
                     permissions = 0;
                 }
-                tempMsg.writeStringList(getAllowedVehicleClassNamesList(permissions));
+                tempMsg.writeStringList(getVehicleClassNamesList(permissions));
             }
             case LANE_DISALLOWED: {
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(getAllowedVehicleClassNamesList(~(lane->getPermissions()))); // negation yields disallowed
+                tempMsg.writeStringList(getVehicleClassNamesList(~(lane->getPermissions()))); // negation yields disallowed
             }
             break;
             case VAR_SHAPE:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:01:44 by SUMO duarouter Version 0.17.0
+<!-- generated on 03/26/14 12:21:13 by SUMO duarouter Version dev-SVN-rUNKNOWN
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
@@ -15,6 +15,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -64,7 +65,7 @@
     <vehicle id="7" type="7" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vType id="8" emissionClass="P_7_1"/>
+    <vType id="8" emissionClass="HBEFA2/P_7_1"/>
     <vehicle id="8" type="8" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
