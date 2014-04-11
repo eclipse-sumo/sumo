@@ -96,7 +96,9 @@ GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
     // register message callbacks
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
-    MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    if (!OptionsCont::getOptions().getBool("no-warnings")) {
+        MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    }
     // preload the routes especially for TraCI
     mySimulationLock.lock();
     try {
