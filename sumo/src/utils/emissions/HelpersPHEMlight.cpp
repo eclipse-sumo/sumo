@@ -247,10 +247,10 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
             return currCep->GetEmission("PM", power) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::FUEL: {
             std::string fuelType = currCep->GetVehicleFuelType();
-	        if(fuelType == "D") {
-		        return currCep->GetEmission("FC", power) / 0.836 / SECONDS_PER_HOUR * 1000.;
-            } else if(fuelType == "G") {
-		        return currCep->GetEmission("FC", power) / 0.742 / SECONDS_PER_HOUR * 1000.;
+	        if(fuelType == "D") { // divide by average diesel density of 836 g/l
+		        return currCep->GetEmission("FC", power) / 836. / SECONDS_PER_HOUR * 1000.;
+            } else if(fuelType == "G") { // divide by average gasoline density of 742 g/l
+		        return currCep->GetEmission("FC", power) / 742. / SECONDS_PER_HOUR * 1000.;
             } else {
 		        return currCep->GetEmission("FC", power) / SECONDS_PER_HOUR * 1000.; // surely false, but at least not additionally modified
             }

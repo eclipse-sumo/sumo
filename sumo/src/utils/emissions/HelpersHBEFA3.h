@@ -83,10 +83,16 @@ public:
             return 0.;
         }
         const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE - 1;
-        const SUMOReal scale = (e == PollutantsInterface::FUEL) ? 3.6 * 790. : 3.6;
+        SUMOReal scale = 3.6;
+        if (e == PollutantsInterface::FUEL) {
+            if (getFuel(c) == "Diesel") {
+                scale *= 836.;
+            } else {
+                scale *= 742.;
+            }
+        }
         const double* f = myFunctionParameter[index][e];
-        const double alpha = asin(a / 9.81) * 180. / M_PI;
-        return (SUMOReal) MAX2((f[0] + f[1] * alpha * v + f[2] * alpha * alpha * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / scale, 0.);
+        return (SUMOReal) MAX2((f[0] + f[1] * a * v + f[2] * a * a * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / scale, 0.);
     }
 
 
