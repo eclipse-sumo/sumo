@@ -113,7 +113,7 @@ NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS) {
     classS = classS.substr(classS.length() - 10);
     // 0: allow all vehicle types
     if (classS[0] == '1') {
-        e.setPermissions(SVCFreeForAll);
+        e.setPermissions(SVCAll);
         return;
     }
     // we have some restrictions. disallow all and then add classes indiviually
@@ -166,7 +166,7 @@ NINavTeqHelper::addVehicleClassesV6(NBEdge& e, const std::string& oclassS) {
     classS = classS.substr(classS.length() - 12);
     // 0: allow all vehicle types
     if (classS[0] == '1') {
-        e.setPermissions(SVCFreeForAll);
+        e.setPermissions(SVCAll);
         return;
     }
     // we have some restrictions. disallow all and then add classes indiviually

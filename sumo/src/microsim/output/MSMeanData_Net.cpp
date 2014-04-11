@@ -60,7 +60,7 @@
 MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const SUMOReal length,
         const bool doAdd,
-        const std::map<std::string, unsigned>* const vTypes,
+        const std::set<std::string>* const vTypes,
         const MSMeanData_Net* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
       nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
@@ -222,7 +222,7 @@ MSMeanData_Net::MSMeanData_Net(const std::string& id,
                                const SUMOReal maxTravelTime,
                                const SUMOReal minSamples,
                                const SUMOReal haltSpeed,
-                               const std::map<std::string, unsigned> vTypes)
+                               const std::set<std::string> vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                  withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
     myHaltSpeed(haltSpeed) {

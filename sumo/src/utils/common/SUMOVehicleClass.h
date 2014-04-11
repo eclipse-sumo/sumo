@@ -78,6 +78,8 @@ enum SUMOVehicleShape {
     SVS_TRUCK_1TRAILER,
     /// @brief render as a bus
     SVS_BUS,
+    /// @brief render as a coach
+    SVS_BUS_COACH,
     /// @brief render as a flexible city bus
     SVS_BUS_FLEXIBLE,
     /// @brief render as a trolley bus
@@ -183,12 +185,13 @@ enum SUMOVehicleClass {
 
 extern const int SUMOVehicleClass_MAX;
 extern StringBijection<SUMOVehicleClass> SumoVehicleClassStrings;
+extern std::set<std::string> deprecatedVehicleClassesSeen;
 extern StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings;
 
 /* @brief bitset where each bit declares whether a certain SVC may use this edge/lane
  */
 typedef int SVCPermissions;
-extern const SVCPermissions SVCFreeForAll;
+extern const SVCPermissions SVCAll;
 
 
 /**
@@ -218,14 +221,14 @@ extern std::string getVehicleClassCompoundName(int id);
  * @param[in] the permissions to encode
  * @return The string representation of these classes
  */
-extern std::string getAllowedVehicleClassNames(SVCPermissions permissions);
+extern std::string getVehicleClassNames(SVCPermissions permissions);
 
 
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] the permissions to encode
  * @return The string representation of these classes as a vector
  */
-extern std::vector<std::string> getAllowedVehicleClassNamesList(SVCPermissions permissions);
+extern std::vector<std::string> getVehicleClassNamesList(SVCPermissions permissions);
 
 
 /** @brief Returns the class id of the abstract class given by its name
@@ -242,6 +245,7 @@ extern SUMOVehicleClass getVehicleClassID(const std::string& name);
 extern int getVehicleClassCompoundID(const std::string& name);
 
 /** @brief Parses the given definition of allowed vehicle classes into the given containers
+ * Deprecated classes go into a separate container.
  *
  * @param[in] classNames Space separated class names
  * @param[out] container The set of vehicle classes to fill
@@ -254,12 +258,7 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS);
  */
 extern bool canParseVehicleClasses(const std::string& classes);
 
-/** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
- *
- * @param[in] allowedS Definition which classes are allowed
- * @param[in] disallowedS Definition which classes are not allowed
- */
-/** @brief Encodes the given vector of allowed and disallowed classs into a bitset
+/** @brief Encodes the given vector of allowed and disallowed classes into a bitset
  * @param[in] allowedS Definition which classes are allowed
  * @param[in] disallowedS Definition which classes are not allowed
  */
@@ -267,6 +266,7 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std
 
 
 /** @brief Encodes the given vector of allowed classs into a bitset
+ * Unlike the methods which parse a string it gives immediately a warning output on deprecated vehicle classes.
  * @param[in] classesS The names vector to parse
  */
 extern SVCPermissions parseVehicleClasses(const std::vector<std::string>& allowedS);

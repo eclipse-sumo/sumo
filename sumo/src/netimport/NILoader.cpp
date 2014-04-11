@@ -156,6 +156,9 @@ NILoader::loadXML(OptionsCont& oc) {
                                       myNetBuilder.getTLLogicCont(),
                                       oc),
                 oc.getStringVector("edge-files"), "edges");
+    if (!deprecatedVehicleClassesSeen.empty()) {
+        WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input edge files.");
+    }
     // load the connections
     loadXMLType(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont(), myNetBuilder.getTLLogicCont()),
                 oc.getStringVector("connection-files"), "connections");

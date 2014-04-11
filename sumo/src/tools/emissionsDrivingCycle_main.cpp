@@ -87,8 +87,6 @@ main(int argc, char** argv) {
     oc.addSynonyme("amitran", "netstate-file");
     oc.addDescription("netstate-file", "Input", "Defines the netstate, route and trajectory files to read the driving cycles from.");
 
-    oc.doRegister("emission-model", 'm', new Option_String("HBEFA2"));
-    oc.addDescription("emission-model", "Input", "Defines the name of the default emission model to generate the map for.");
     oc.doRegister("emission-class", 'e', new Option_String("unknown"));
     oc.addDescription("emission-class", "Input", "Defines for which emission class the emissions shall be generated. ");
 
@@ -118,10 +116,10 @@ main(int argc, char** argv) {
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle in XML");
 
     oc.addOptionSubTopic("Emissions");
-    oc.doRegister("phemlight-path", 'p', new Option_FileName("./PHEMlight/"));
+    oc.doRegister("phemlight-path", new Option_FileName("./PHEMlight/"));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
 
-    SystemFrame::addReportOptions(oc, true);
+    SystemFrame::addReportOptions(oc);
     oc.doRegister("quiet", 'q', new Option_Bool(false));
     oc.addDescription("quiet", "Report", "Not writing anything.");
 
@@ -139,6 +137,9 @@ main(int argc, char** argv) {
         }
 
         quiet = oc.getBool("quiet");
+        if (!oc.isSet("timeline-file") && !oc.isSet("netstate-file")) {
+            throw ProcessError("Either a timeline or a netstate / amitran file must be given.");
+        }
         if (!oc.isSet("output-file") && (oc.isSet("timeline-file") || !oc.isSet("emission-output"))) {
             throw ProcessError("The output file must be given.");
         }
@@ -149,7 +150,7 @@ main(int argc, char** argv) {
             xmlOut = &OutputDevice::getDeviceByOption("emission-output");
         }
 
-        const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-model"), oc.getString("emission-class"));
+        const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
         TrajectoriesHandler handler(oc.getBool("compute-a"), defaultClass, oc.getFloat("slope"), xmlOut);
 
         if (oc.isSet("timeline-file")) {

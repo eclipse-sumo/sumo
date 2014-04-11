@@ -75,7 +75,7 @@ public:
     class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::map<std::string, unsigned>* const vTypes = 0);
+        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes = 0);
 
         /** @brief Destructor */
         virtual ~MeanDataValues();
@@ -182,7 +182,7 @@ public:
 
     protected:
         /// @brief The vehicle types to look for (0 or empty means all)
-        const std::map<std::string, unsigned>* const myVehicleTypes;
+        const std::set<std::string>* const myVehicleTypes;
 
     };
 
@@ -195,7 +195,7 @@ public:
     public:
         /** @brief Constructor */
         MeanDataValueTracker(MSLane* const lane, const SUMOReal length,
-                             const std::map<std::string, unsigned>* const vTypes = 0,
+                             const std::set<std::string>* const vTypes = 0,
                              const MSMeanData* const parent = 0);
 
         /** @brief Destructor */
@@ -322,7 +322,7 @@ public:
                const bool printDefaults, const bool withInternal,
                const bool trackVehicles, const SUMOReal minSamples,
                const SUMOReal maxTravelTime,
-               const std::map<std::string, unsigned> vTypes);
+               const std::set<std::string> vTypes);
 
 
     /// @brief Destructor
@@ -376,9 +376,15 @@ protected:
     /** @brief Resets network value in order to allow processing of the next interval
      *
      * Goes through the lists of edges and starts "resetOnly" for each edge.
-     * @param [in] edge The last time step that is reported
+     * @param[in] edge The last time step that is reported
      */
     void resetOnly(SUMOTime stopTime);
+
+    /** @brief Return the relevant edge id
+     *
+     * @param[in] edge The edge to retrieve the id for
+     */
+    virtual std::string getEdgeID(const MSEdge* const edge);
 
     /** @brief Writes edge values into the given stream
      *
@@ -396,6 +402,14 @@ protected:
      */
     void writeEdge(OutputDevice& dev, const std::vector<MeanDataValues*>& edgeValues,
                    MSEdge* edge, SUMOTime startTime, SUMOTime stopTime);
+
+    /** @brief Writes the interval opener
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     */
+    virtual void openInterval(OutputDevice& dev, const SUMOTime startTime, const SUMOTime stopTime);
 
     /** @brief Checks for emptiness and writes prefix into the given stream
      *
@@ -417,7 +431,7 @@ protected:
     const SUMOReal myMaxTravelTime;
 
     /// @brief The vehicle types to look for (empty means all)
-    const std::map<std::string, unsigned> myVehicleTypes;
+    const std::set<std::string> myVehicleTypes;
 
     /// @brief Value collectors; sorted by edge, then by lane
     std::vector<std::vector<MeanDataValues*> > myMeasures;

@@ -163,14 +163,14 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             case LANE_ALLOWED: {
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                 SVCPermissions permissions = lane->getPermissions();
-                if (permissions == SVCFreeForAll) {  // special case: write nothing
+                if (permissions == SVCAll) {  // special case: write nothing
                     permissions = 0;
                 }
-                tempMsg.writeStringList(getAllowedVehicleClassNamesList(permissions));
+                tempMsg.writeStringList(getVehicleClassNamesList(permissions));
             }
             case LANE_DISALLOWED: {
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(getAllowedVehicleClassNamesList(~(lane->getPermissions()))); // negation yields disallowed
+                tempMsg.writeStringList(getVehicleClassNamesList(~(lane->getPermissions()))); // negation yields disallowed
             }
             break;
             case VAR_SHAPE:

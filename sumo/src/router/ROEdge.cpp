@@ -304,10 +304,10 @@ ROEdge::setType(ROEdge::EdgeType type) {
 
 
 void
-ROEdge::buildTimeLines(const std::string& model, const std::string& measure) {
+ROEdge::buildTimeLines(const std::string& measure) {
     if (myUsingETimeLine) {
         SUMOReal value = myLength / mySpeed;
-        const SUMOEmissionClass c = PollutantsInterface::getClassByName(model, "unknown");
+        const SUMOEmissionClass c = PollutantsInterface::getClassByName("unknown");
         if (measure == "CO") {
             value = PollutantsInterface::compute(c, PollutantsInterface::CO, mySpeed, 0, 0) * value; // @todo: give correct slope
         }

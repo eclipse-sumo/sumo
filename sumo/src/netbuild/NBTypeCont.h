@@ -194,7 +194,7 @@ private:
         /// @brief Constructor
         TypeDefinition() :
             noLanes(1), speed((SUMOReal) 13.9), priority(-1),
-            permissions(SVCFreeForAll),
+            permissions(SVCAll),
             oneWay(true), discard(false), width(NBEdge::UNSPECIFIED_WIDTH) { }
 
         /// @brief Constructor

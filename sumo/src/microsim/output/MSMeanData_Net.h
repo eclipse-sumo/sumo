@@ -77,7 +77,7 @@ public:
          * @param[in] length The length of the object for which the data gets collected
          */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
-                             const std::map<std::string, unsigned>* const vTypes = 0,
+                             const std::set<std::string>* const vTypes = 0,
                              const MSMeanData_Net* parent = 0);
 
         /** @brief Destructor */
@@ -211,7 +211,7 @@ public:
                    const bool useLanes, const bool withEmpty, const bool printDefaults,
                    const bool withInternal, const bool trackVehicles,
                    const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                   const SUMOReal haltSpeed, const std::map<std::string, unsigned> vTypes);
+                   const SUMOReal haltSpeed, const std::set<std::string> vTypes);
 
 
     /// @brief Destructor

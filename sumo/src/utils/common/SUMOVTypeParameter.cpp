@@ -119,7 +119,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_IMGFILE_SET)) {
         dev.writeAttr(SUMO_ATTR_IMGFILE, imgFile);
     }
-    if (wasSet(VTYPEPARS_LCM_SET)) {
+    if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
     }
 
@@ -563,7 +563,7 @@ SUMOVTypeParameter::getDefaultShape(const SUMOVehicleClass vc) {
 
 SUMOEmissionClass
 SUMOVTypeParameter::getDefaultEmissionClass(const SUMOVehicleClass vc) {
-    return PollutantsInterface::getClassByName(OptionsCont::getOptions().getString("emission-model"), "unknown", vc);
+    return PollutantsInterface::getClassByName("unknown", vc);
 }
 
 

@@ -35,7 +35,6 @@
 
 #include <limits>
 #include <utils/emissions/PollutantsInterface.h>
-#include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include "TraCIConstants.h"
@@ -249,7 +248,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "Setting emission class requires a string.", outputStorage);
             }
             try {
-                v.setEmissionClass(PollutantsInterface::getClassByName(OptionsCont::getOptions().getString("emission-model"), eclass));
+                v.setEmissionClass(PollutantsInterface::getClassByName(eclass));
             } catch (InvalidArgument e) {
                 return server.writeErrorStatusCmd(cmd, "Unknown emission class '" + eclass + "'.", outputStorage);
             }

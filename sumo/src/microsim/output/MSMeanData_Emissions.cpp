@@ -52,7 +52,7 @@
 // ---------------------------------------------------------------------------
 MSMeanData_Emissions::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const SUMOReal length, const bool doAdd,
-        const std::map<std::string, unsigned>* const vTypes,
+        const std::set<std::string>* const vTypes,
         const MSMeanData_Emissions* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
       myEmissions(), myParent(parent) {}
@@ -84,7 +84,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh,
     sampleSeconds += timeOnLane;
     travelledDistance += speed * timeOnLane;
     const double a = veh.getAcceleration();
-    myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(), (double) speed, a, veh.getSlope()), timeOnLane);
+    myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(), speed, a, veh.getSlope()), timeOnLane);
 }
 
 
@@ -147,7 +147,7 @@ MSMeanData_Emissions::MSMeanData_Emissions(const std::string& id,
         const bool trackVehicles,
         const SUMOReal maxTravelTime,
         const SUMOReal minSamples,
-        const std::map<std::string, unsigned> vTypes)
+        const std::set<std::string> vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                  withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }

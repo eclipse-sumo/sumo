@@ -45,25 +45,31 @@
 // ===========================================================================
 // static definitions
 // ===========================================================================
-PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {new HelpersHBEFA(), new HelpersHBEFA3(), new HelpersPHEMlight()};
+HelpersHBEFA PollutantsInterface::myHBEFA2Helper;
+HelpersHBEFA3 PollutantsInterface::myHBEFA3Helper;
+HelpersPHEMlight PollutantsInterface::myPHEMlightHelper;
+PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {&PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper, &PollutantsInterface::myPHEMlightHelper};
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 SUMOEmissionClass
-PollutantsInterface::getClassByName(std::string model, std::string eClass, const SUMOVehicleClass vc) {
+PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     int sep = eClass.find("/");
     if (sep != std::string::npos) {
-        model = eClass.substr(0, sep);
-        eClass = eClass.substr(sep + 1);
-    }
-    for (int i = 0; i < 3; i++) {
-        if (myHelpers[i]->getName() == model) {
-            return myHelpers[i]->getClassByName(eClass, vc);
+        const std::string model = eClass.substr(0, sep);
+        const std::string subClass = eClass.substr(sep + 1);
+        for (int i = 0; i < 3; i++) {
+            if (myHelpers[i]->getName() == model) {
+                return myHelpers[i]->getClassByName(subClass, vc);
+            }
         }
+    } else {
+        // default HBEFA2
+        return myHelpers[0]->getClassByName(eClass, vc);
     }
-    throw InvalidArgument("Unknown emission model '" + model + "' or emission class '" + eClass + "'.");
+    throw InvalidArgument("Unknown emission class '" + eClass + "'.");
 }
 
 
@@ -148,7 +154,8 @@ PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const
 
 SUMOReal
 PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const SUMOReal tt) {
-    return (myHelpers[c >> 16]->compute(c, e, v, 0, slope) + myHelpers[c >> 16]->compute(c, e, v-a, a, slope)) * tt / 2.;
+    const Helper* const h = myHelpers[c >> 16];
+    return (h->compute(c, e, v, 0, slope) + h->compute(c, e, v-a, a, slope)) * tt / 2.;
 }
 
 

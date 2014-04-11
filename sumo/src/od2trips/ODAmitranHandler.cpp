@@ -28,6 +28,7 @@
 #include <config.h>
 #endif
 
+#include <utils/common/MsgHandler.h>
 #include "ODMatrix.h"
 #include "ODAmitranHandler.h"
 
@@ -47,8 +48,7 @@ ODAmitranHandler::~ODAmitranHandler() {}
 
 
 void
-ODAmitranHandler::myStartElement(int element,
-                                  const SUMOSAXAttributes& attrs) {
+ODAmitranHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     bool ok = true;
     switch (element) {
         case SUMO_TAG_ACTORCONFIG:
@@ -57,6 +57,9 @@ ODAmitranHandler::myStartElement(int element,
         case SUMO_TAG_TIMESLICE:
             myBegin = attrs.get<int>(SUMO_ATTR_STARTTIME, myVehicleType.c_str(), ok);
             myEnd = myBegin + attrs.get<int>(SUMO_ATTR_DURATION, myVehicleType.c_str(), ok);
+            if (myBegin >= myEnd) {
+                WRITE_ERROR("Invalid duration for timeSlice starting " + toString(myBegin) + ".");
+            }
             break;
         case SUMO_TAG_OD_PAIR:
             myMatrix.add(attrs.get<SUMOReal>(SUMO_ATTR_AMOUNT, myVehicleType.c_str(), ok),

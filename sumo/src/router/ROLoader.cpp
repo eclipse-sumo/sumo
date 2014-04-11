@@ -142,6 +142,10 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     } else {
         PROGRESS_DONE_MESSAGE();
     }
+    if (!deprecatedVehicleClassesSeen.empty()) {
+        WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        deprecatedVehicleClassesSeen.clear();
+    }
     if (myOptions.isSet("additional-files", false)) { // dfrouter does not register this option
         std::vector<std::string> files = myOptions.getStringVector("additional-files");
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
@@ -293,7 +297,7 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
     // build edge-internal time lines
     const std::map<std::string, ROEdge*>& edges = net.getEdgeMap();
     for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        (*i).second->buildTimeLines(OptionsCont::getOptions().getString("emission-model"), measure);
+        (*i).second->buildTimeLines(measure);
     }
     return true;
 }

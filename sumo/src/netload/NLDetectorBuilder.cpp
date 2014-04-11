@@ -490,15 +490,10 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
     if (end <= begin) {
         throw InvalidArgument("End before or at begin for meandata dump '" + id + "'.");
     }
-    std::map<std::string, unsigned> vt;
+    std::set<std::string> vt;
     StringTokenizer st(vTypes);
-    unsigned index = 0;
     while (st.hasNext()) {
-        std::string t = st.next();
-        if (vt.count(t) == 0) {
-            vt[t] = index;
-        }
-        index++;
+        vt.insert(st.next());
     }
     MSMeanData* det = 0;
     if (type == "" || type == "performance" || type == "traffic") {

@@ -68,10 +68,9 @@ public:
     /** @brief Adds reporting options to the given container
      *
      * @param[in] oc The options container to add the options to
-     * @param[in] forTools whether less important options may be skipped
      * @todo let the container be retrieved
      */
-    static void addReportOptions(OptionsCont& oc, const bool forTools=false);
+    static void addReportOptions(OptionsCont& oc);
 
 
     /** @brief Closes all of an applications subsystems

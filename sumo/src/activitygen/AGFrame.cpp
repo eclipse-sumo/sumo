@@ -98,9 +98,6 @@ void AGFrame::fillOptions() {
     oc.addDescription("duration-d", "Time", "Sets the duration of the simulation in days");
 
     // Options needed by the router
-    oc.doRegister("emission-model", new Option_String("HBEFA2"));
-    oc.addDescription("emission-model", "Processing", "Use the model given as default for emission calculations");
-
     oc.doRegister("weights.interpolate", new Option_Bool(false));
     oc.addSynonyme("weights.interpolate", "interpolate", true);
     oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");

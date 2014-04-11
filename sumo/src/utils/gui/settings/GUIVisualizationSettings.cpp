@@ -86,7 +86,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.addColor(RGBColor(192, 66, 44), (SUMOReal)SVC_BICYCLE, "bicycle");
     scheme.addColor(RGBColor(40, 100, 40), (SUMOReal)SVC_BUS, "bus");
     scheme.addColor(RGBColor(166, 147, 26), (SUMOReal)SVC_TAXI, "taxi");
-    scheme.addColor(RGBColor::BLACK, (SUMOReal)SVCFreeForAll, "all");
+    scheme.addColor(RGBColor::BLACK, (SUMOReal)SVCAll, "all");
     laneColorer.addScheme(scheme);
     // ... traffic states ...
     scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor::RED);

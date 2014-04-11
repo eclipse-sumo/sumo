@@ -73,7 +73,7 @@ public:
     public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
-                             const std::map<std::string, unsigned>* const vTypes = 0,
+                             const std::set<std::string>* const vTypes = 0,
                              const MSMeanData_Emissions* parent = 0);
 
         /** @brief Destructor */
@@ -150,7 +150,7 @@ public:
                          const bool printDefaults, const bool withInternal,
                          const bool trackVehicles,
                          const SUMOReal minSamples, const SUMOReal maxTravelTime,
-                         const std::map<std::string, unsigned> vTypes);
+                         const std::set<std::string> vTypes);
 
 
     /// @brief Destructor

@@ -59,7 +59,7 @@
 MSMeanData_Amitran::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const SUMOReal length,
         const bool doAdd,
-        const std::map<std::string, unsigned>* const vTypes,
+        const std::set<std::string>* const vTypes,
         const MSMeanData_Amitran* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes), amount(0) {}
 
@@ -137,7 +137,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTim
     }
     if (myVehicleTypes != 0 && !myVehicleTypes->empty()) {
         for (std::map<const MSVehicleType*, unsigned>::const_iterator it = typedAmount.begin(); it != typedAmount.end(); ++it) {
-            dev.openTag("actorConfig").writeAttr(SUMO_ATTR_ID, myVehicleTypes->find(it->first->getID())->second);
+            dev.openTag("actorConfig").writeAttr(SUMO_ATTR_ID, it->first->getNumericalID());
             dev.writeAttr("amount", it->second).writeAttr("averageSpeed", int(100 * typedTravelDistance.find(it->first)->second / typedSamples.find(it->first)->second));
             dev.closeTag();
         }
@@ -157,7 +157,7 @@ MSMeanData_Amitran::MSMeanData_Amitran(const std::string& id,
                                const SUMOReal maxTravelTime,
                                const SUMOReal minSamples,
                                const SUMOReal haltSpeed,
-                               const std::map<std::string, unsigned> vTypes)
+                               const std::set<std::string> vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                  withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
     myHaltSpeed(haltSpeed) {
@@ -170,6 +170,19 @@ MSMeanData_Amitran::~MSMeanData_Amitran() {}
 void
 MSMeanData_Amitran::writeXMLDetectorProlog(OutputDevice& dev) const {
     dev.writeXMLHeader("linkData", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo-sim.org/xsd/amitran/linkdata.xsd\"");
+}
+
+
+std::string
+MSMeanData_Amitran::getEdgeID(const MSEdge* const edge) {
+    return toString(edge->getNumericalID());
+}
+
+
+void
+MSMeanData_Amitran::openInterval(OutputDevice& dev, const SUMOTime startTime, const SUMOTime stopTime) {
+    const int duration = int(1000 * STEPS2TIME(stopTime - startTime) + 0.5);
+    dev.openTag(SUMO_TAG_TIMESLICE).writeAttr(SUMO_ATTR_STARTTIME, int(1000 * STEPS2TIME(startTime) + 0.5)).writeAttr(SUMO_ATTR_DURATION, duration);
 }
 
 

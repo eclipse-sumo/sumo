@@ -98,7 +98,7 @@ MSEdge::initialize(std::vector<MSLane*>* lanes) {
         myLaneChanger = new MSLaneChanger(myLanes, OptionsCont::getOptions().getBool("lanechange.allow-swap"));
     }
     if (myFunction == EDGEFUNCTION_DISTRICT) {
-        myCombinedPermissions = SVCFreeForAll;
+        myCombinedPermissions = SVCAll;
     }
 }
 
@@ -172,7 +172,7 @@ MSEdge::rebuildAllowedLanes() {
     }
     myClassedAllowed.clear();
     // rebuild myMinimumPermissions and myCombinedPermissions
-    myMinimumPermissions = SVCFreeForAll;
+    myMinimumPermissions = SVCAll;
     myCombinedPermissions = 0;
     for (std::vector<MSLane*>::iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
         myMinimumPermissions &= (*i)->getPermissions();

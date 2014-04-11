@@ -137,10 +137,9 @@ public:
      * In the case "weight-attribute" is one of "CO", "CO2", "HC", "NOx", "PMx", or "fuel"
      *  the proper value (departs/s) is computed and multiplied with the travel time.
      *
-     * @param[in] model The emission model to use.
      * @param[in] measure The name of the measure to use.
      */
-    void buildTimeLines(const std::string& model, const std::string& measure);
+    void buildTimeLines(const std::string& measure);
     //@}
 
 

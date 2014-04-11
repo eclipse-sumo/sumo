@@ -95,16 +95,10 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
         myEdges2Remove.insert(edges.begin(), edges.end());
     }
     if (oc.exists("keep-edges.by-vclass") && oc.isSet("keep-edges.by-vclass")) {
-        const std::vector<std::string> classes = oc.getStringVector("keep-edges.by-vclass");
-        for (std::vector<std::string>::const_iterator i = classes.begin(); i != classes.end(); ++i) {
-            myVehicleClasses2Keep |= getVehicleClassID(*i);
-        }
+        myVehicleClasses2Keep = parseVehicleClasses(oc.getStringVector("keep-edges.by-vclass"));
     }
     if (oc.exists("remove-edges.by-vclass") && oc.isSet("remove-edges.by-vclass")) {
-        const std::vector<std::string> classes = oc.getStringVector("remove-edges.by-vclass");
-        for (std::vector<std::string>::const_iterator i = classes.begin(); i != classes.end(); ++i) {
-            myVehicleClasses2Remove |= getVehicleClassID(*i);
-        }
+        myVehicleClasses2Remove = parseVehicleClasses(oc.getStringVector("remove-edges.by-vclass"));
     }
     if (oc.exists("keep-edges.by-type") && oc.isSet("keep-edges.by-type")) {
         const std::vector<std::string> types = oc.getStringVector("keep-edges.by-type");

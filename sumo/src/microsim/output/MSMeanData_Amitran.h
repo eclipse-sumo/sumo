@@ -76,7 +76,7 @@ public:
          * @param[in] length The length of the object for which the data gets collected
          */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
-                             const std::map<std::string, unsigned>* const vTypes = 0,
+                             const std::set<std::string>* const vTypes = 0,
                              const MSMeanData_Amitran* parent = 0);
 
         /** @brief Destructor */
@@ -178,7 +178,7 @@ public:
                    const bool useLanes, const bool withEmpty, const bool printDefaults,
                    const bool withInternal, const bool trackVehicles,
                    const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                   const SUMOReal haltSpeed, const std::map<std::string, unsigned> vTypes);
+                   const SUMOReal haltSpeed, const std::set<std::string> vTypes);
 
 
     /// @brief Destructor
@@ -195,6 +195,20 @@ public:
      */
     virtual void writeXMLDetectorProlog(OutputDevice& dev) const;
     /// @}
+
+    /** @brief Return the relevant edge id
+     *
+     * @param[in] edge The edge to retrieve the id for
+     */
+    virtual std::string getEdgeID(const MSEdge* const edge);
+
+    /** @brief Writes the interval opener
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     */
+    virtual void openInterval(OutputDevice& dev, const SUMOTime startTime, const SUMOTime stopTime);
 
     /** @brief Checks for emptiness and writes prefix into the given stream
      *

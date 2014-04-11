@@ -39,6 +39,14 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class HelpersHBEFA;
+class HelpersHBEFA3;
+class HelpersPHEMlight;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -137,7 +145,7 @@ public:
      * @param[in] eClass The string describing the vehicle emission class
      * @return whether it describes a valid emission class
      */
-    static SUMOEmissionClass getClassByName(std::string model, std::string eClass, const SUMOVehicleClass vc=SVC_IGNORING);
+    static SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc=SVC_IGNORING);
 
 
     /** @brief Checks whether the string describes a known vehicle class
@@ -250,6 +258,13 @@ public:
      */
     static SUMOReal computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const SUMOReal tt);
 
+private:
+    /// @brief Instance of HBEFA2Helper which gets cleaned up automatically
+    static HelpersHBEFA myHBEFA2Helper;
+    /// @brief Instance of HBEFA3Helper which gets cleaned up automatically
+    static HelpersHBEFA3 myHBEFA3Helper;
+    /// @brief Instance of PHEMlightHelper which gets cleaned up automatically
+    static HelpersPHEMlight myPHEMlightHelper;
 
 };
 

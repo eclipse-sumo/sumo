@@ -122,7 +122,7 @@ public:
      */
     struct Lane {
         Lane(NBEdge* e) :
-            speed(e->getSpeed()), permissions(SVCFreeForAll), preferred(0),
+            speed(e->getSpeed()), permissions(SVCAll), preferred(0),
             offset(e->getOffset()), width(e->getLaneWidth()) {}
         /// @brief The lane's shape
         PositionVector shape;

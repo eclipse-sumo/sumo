@@ -104,6 +104,14 @@ public:
     }
 
 
+    /** @brief Returns the running index of the vehicle type
+     * @return This type's numerical id
+     */
+    const int getNumericalID() const {
+        return myIndex;
+    }
+
+
     /** @brief Get vehicle's length [m]
      * @return The length vehicles of this type have in m
      */
@@ -408,11 +416,17 @@ private:
     /// @brief the parameter container
     SUMOVTypeParameter myParameter;
 
+    /// @brief the running index
+    const int myIndex;
+
     /// @brief ID of the car following model.
     MSCFModel* myCarFollowModel;
 
     /// @brief The original type
     const MSVehicleType* myOriginalType;
+
+    /// @brief next value for the running index
+    static int myNextIndex;
 
 
 private:

@@ -182,7 +182,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec) 
 
 std::string
 NWWriter_DlrNavteq::getAllowedTypes(SVCPermissions permissions) {
-    if (permissions == SVCFreeForAll) {
+    if (permissions == SVCAll) {
         return "100000000000";
     }
     std::ostringstream oss;

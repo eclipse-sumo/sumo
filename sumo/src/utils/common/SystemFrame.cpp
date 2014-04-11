@@ -71,16 +71,14 @@ SystemFrame::addConfigurationOptions(OptionsCont& oc) {
 
 
 void
-SystemFrame::addReportOptions(OptionsCont& oc, const bool forTools) {
+SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Report");
 
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.addDescription("verbose", "Report", "Switches to verbose output");
 
-    if (!forTools) {
-        oc.doRegister("print-options", 'p', new Option_Bool(false));
-        oc.addDescription("print-options", "Report", "Prints option values before processing");
-    }
+    oc.doRegister("print-options", new Option_Bool(false));
+    oc.addDescription("print-options", "Report", "Prints option values before processing");
 
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.addDescription("help", "Report", "Prints this screen");
@@ -88,13 +86,11 @@ SystemFrame::addReportOptions(OptionsCont& oc, const bool forTools) {
     oc.doRegister("version", 'V', new Option_Bool(false));
     oc.addDescription("version", "Report", "Prints the current version");
 
-    if (!forTools) {
-        oc.doRegister("xml-validation", 'X', new Option_String("auto"));
-        oc.addDescription("xml-validation", "Report", "Set schema validation scheme of XML inputs (\"never\", \"auto\" or \"always\")");
+    oc.doRegister("xml-validation", 'X', new Option_String("auto"));
+    oc.addDescription("xml-validation", "Report", "Set schema validation scheme of XML inputs (\"never\", \"auto\" or \"always\")");
 
-        oc.doRegister("xml-validation.net", new Option_String("never"));
-        oc.addDescription("xml-validation.net", "Report", "Set schema validation scheme of SUMO network inputs (\"never\", \"auto\" or \"always\")");
-    }
+    oc.doRegister("xml-validation.net", new Option_String("never"));
+    oc.addDescription("xml-validation.net", "Report", "Set schema validation scheme of SUMO network inputs (\"never\", \"auto\" or \"always\")");
 
     oc.doRegister("no-warnings", 'W', new Option_Bool(false));
     oc.addSynonyme("no-warnings", "suppress-warnings", true);

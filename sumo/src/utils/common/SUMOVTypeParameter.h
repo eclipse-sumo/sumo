@@ -65,7 +65,7 @@ const int VTYPEPARS_SHAPE_SET = 2 << 11;
 const int VTYPEPARS_OSGFILE_SET = 2 << 12;
 const int VTYPEPARS_IMGFILE_SET = 2 << 13;
 const int VTYPEPARS_IMPATIENCE_SET = 2 << 14;
-const int VTYPEPARS_LCM_SET = 2 << 15;
+const int VTYPEPARS_LANE_CHANGE_MODEL_SET = 2 << 15;
 
 
 // ===========================================================================
@@ -136,6 +136,14 @@ public:
     SUMOVehicleClass vehicleClass;
     /// @brief The vehicle's impatience (willingness to obstruct others)
     SUMOReal impatience;
+    /* /// @brief The vehicle's minimum headway time (tau) // will be moved here from the cfModel eventually
+    SUMOReal headwayTime;
+    /// @brief The vehicle's maximum acceleration
+    SUMOReal maxAccel;
+    /// @brief The vehicle's maximum deceleration
+    SUMOReal maxDecel;
+    /// @brief The driver's imperfection (dawdling factor in Krauss-like models)
+    SUMOReal imperfection; */
 
 
     /// @name Values for drawing this class' vehicles

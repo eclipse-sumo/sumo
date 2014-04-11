@@ -200,7 +200,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     // get the length
     // get the vehicle classes
     SVCPermissions permissions = parseVehicleClasses(allow, disallow);
-    if (permissions != SVCFreeForAll) {
+    if (permissions != SVCAll) {
         myNet.setRestrictionFound();
     }
     // add when both values are valid

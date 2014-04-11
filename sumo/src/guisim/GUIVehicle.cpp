@@ -533,6 +533,7 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             drawPoly(vehiclePoly_TransportLeftGlass, 4.5);
             break;
         case SVS_BUS:
+        case SVS_BUS_COACH:
         case SVS_BUS_TROLLEY: {
             SUMOReal ml = length;
             glScaled(1. / (length), 1, 1.);
@@ -737,6 +738,7 @@ GUIVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) cons
             glPopMatrix();
             break;
         case SVS_BUS:
+        case SVS_BUS_COACH:
         case SVS_BUS_FLEXIBLE:
         case SVS_RAIL:
         case SVS_RAIL_CAR:

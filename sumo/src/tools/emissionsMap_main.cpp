@@ -102,8 +102,6 @@ main(int argc, char** argv) {
     oc.doRegister("iterate", 'i', new Option_Bool(false));
     oc.addDescription("iterate", "Processing", "If set, maps for all available emissions are written.");
 
-    oc.doRegister("emission-model", 'm', new Option_String("HBEFA2"));
-    oc.addDescription("emission-model", "Processing", "Defines the name of the default emission model to generate the map for.");
     oc.doRegister("emission-class", 'e', new Option_String());
     oc.addDescription("emission-class", "Processing", "Defines the name of the emission class to generate the map for.");
 
@@ -132,10 +130,10 @@ main(int argc, char** argv) {
     oc.addDescription("output", "Output", "Defines the file (or the path if --iterate was set) to write the map(s) into.");
 
     oc.addOptionSubTopic("Emissions");
-    oc.doRegister("phemlight-path", 'p', new Option_FileName("./PHEMlight/"));
+    oc.doRegister("phemlight-path", new Option_FileName("./PHEMlight/"));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
 
-    SystemFrame::addReportOptions(oc, true);
+    SystemFrame::addReportOptions(oc);
 
     // run
     int ret = 0;
@@ -165,7 +163,7 @@ main(int argc, char** argv) {
             if (!oc.isSet("output-file")) {
                 throw ProcessError("The output file (-o) must be given.");
             }
-            const SUMOEmissionClass c = PollutantsInterface::getClassByName(oc.getString("emission-model"), oc.getString("emission-class"));
+            const SUMOEmissionClass c = PollutantsInterface::getClassByName(oc.getString("emission-class"));
             single(oc.getString("output-file"), oc.getString("emission-class"),
                    c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
         } else {
