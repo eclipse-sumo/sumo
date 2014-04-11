@@ -62,6 +62,9 @@ class DumpReader(handler.ContentHandler):
     def get(self, what):
         return self._values[what]
 
+    def getIntervalStarts(self):
+        return self._intervalBegins
+
     def _singleJoin(self, what, how):
         ret = {}
         no = {}
