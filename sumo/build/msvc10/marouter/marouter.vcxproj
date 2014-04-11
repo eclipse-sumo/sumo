@@ -88,6 +88,7 @@
     <ClCompile Include="..\..\..\src\marouter\ROMAEdge.cpp" />
     <ClCompile Include="..\..\..\src\marouter\ROMAEdgeBuilder.cpp" />
     <ClCompile Include="..\..\..\src\marouter\ROMAFrame.cpp" />
+    <ClCompile Include="..\..\..\src\od2trips\ODAmitranHandler.cpp" />
     <ClCompile Include="..\..\..\src\od2trips\ODDistrict.cpp" />
     <ClCompile Include="..\..\..\src\od2trips\ODDistrictCont.cpp" />
     <ClCompile Include="..\..\..\src\od2trips\ODDistrictHandler.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="..\..\..\src\marouter\ROMAEdge.h" />
     <ClInclude Include="..\..\..\src\marouter\ROMAEdgeBuilder.h" />
     <ClInclude Include="..\..\..\src\marouter\ROMAFrame.h" />
+    <ClInclude Include="..\..\..\src\od2trips\ODAmitranHandler.h" />
     <ClInclude Include="..\..\..\src\od2trips\ODCell.h" />
     <ClInclude Include="..\..\..\src\od2trips\ODDistrict.h" />
     <ClInclude Include="..\..\..\src\od2trips\ODDistrictCont.h" />
