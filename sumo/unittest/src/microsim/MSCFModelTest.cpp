@@ -40,7 +40,7 @@ class MSCFModelTest : public testing::Test {
             decel = 4;
             dawdle = 0;
             tau = 1;
-            type = new MSVehicleType(SUMOVTypeParameter());
+            type = new MSVehicleType(SUMOVTypeParameter("0"));
             m = new MSCFModel_Krauss(type,
                     accel, decel, dawdle, tau);
 		}
