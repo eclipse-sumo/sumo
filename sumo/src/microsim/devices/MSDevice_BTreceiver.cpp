@@ -309,7 +309,8 @@ MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(SUMOReal tEnd, const 
         const std::string& otherID, const Position& otherPos, SUMOReal otherSpeed, const std::string& otherLaneID, SUMOReal otherLanePos,
         std::map<std::string, SeenDevice*>& currentlySeen) {
     SUMOReal t = tEnd - currentlySeen.find(otherID)->second->lastView;
-    if (sRecognitionRNG.rand() <= 1 - exp(-0.24 * pow(t, 2.68))) {
+    // probability of a miss 0.5 (may be in the wrong train), backoff time 0.64s
+    if (sRecognitionRNG.rand() <= 1 - pow(0.5, t / 0.64)) {
         currentlySeen.find(otherID)->second->lastView = tEnd;
         MeetingPoint* mp = new MeetingPoint(tEnd, thisPos, thisSpeed, thisLaneID, thisLanePos, otherPos, otherSpeed, otherLaneID, otherLanePos);
         std::map<std::string, SeenDevice*>::iterator i = currentlySeen.find(otherID);
