@@ -107,7 +107,7 @@ public:
     /** @brief Returns the running index of the vehicle type
      * @return This type's numerical id
      */
-    const int getNumericalID() const {
+    int getNumericalID() const {
         return myIndex;
     }
 

@@ -45,7 +45,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-std::map<std::string, int> MSAmitranTrajectories::myWrittenTypes;
+std::set<std::string> MSAmitranTrajectories::myWrittenTypes;
 std::map<std::string, int> MSAmitranTrajectories::myWrittenVehicles;
 
 
@@ -66,8 +66,7 @@ MSAmitranTrajectories::writeVehicle(OutputDevice& of, const SUMOVehicle& veh, co
     if (veh.isOnRoad()) {
         const std::string& type = veh.getVehicleType().getID();
         if (myWrittenTypes.count(type) == 0) {
-            const int index = (int)myWrittenTypes.size();
-            of.openTag(SUMO_TAG_ACTORCONFIG).writeAttr(SUMO_ATTR_ID, index);
+            of.openTag(SUMO_TAG_ACTORCONFIG).writeAttr(SUMO_ATTR_ID, veh.getVehicleType().getNumericalID());
             const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
             if (c != 0) {
                 of.writeAttr(SUMO_ATTR_VEHICLECLASS, PollutantsInterface::getAmitranVehicleClass(c));
@@ -79,12 +78,12 @@ MSAmitranTrajectories::writeVehicle(OutputDevice& of, const SUMOVehicle& veh, co
                 }
             }
             of.writeAttr(SUMO_ATTR_REF, type).closeTag();
-            myWrittenTypes[type] = index;
+            myWrittenTypes.insert(type);
         }
         if (myWrittenVehicles.count(veh.getID()) == 0) {
             const int index = (int)myWrittenVehicles.size();
             of.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, index)
-                                        .writeAttr(SUMO_ATTR_ACTORCONFIG, myWrittenTypes[type])
+                                        .writeAttr(SUMO_ATTR_ACTORCONFIG, veh.getVehicleType().getNumericalID())
                                         .writeAttr(SUMO_ATTR_STARTTIME, STEPS2MS(veh.getDeparture()));
             of.writeAttr(SUMO_ATTR_REF, veh.getID()).closeTag();
             myWrittenVehicles[veh.getID()] = index;

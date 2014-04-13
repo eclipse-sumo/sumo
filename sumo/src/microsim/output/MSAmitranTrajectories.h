@@ -81,7 +81,7 @@ private:
 
 
 private:
-    static std::map<std::string, int> myWrittenTypes;
+    static std::set<std::string> myWrittenTypes;
     static std::map<std::string, int> myWrittenVehicles;
 
 

@@ -77,7 +77,7 @@ TrajectoriesHandler::myStartElement(int element,
             const std::string vClass = attrs.getString(SUMO_ATTR_VEHICLECLASS);
             const std::string fuel = attrs.getString(SUMO_ATTR_FUEL);
             const std::string eClass = attrs.getString(SUMO_ATTR_EMISSIONCLASS);
-            const SUMOReal weight = attrs.getOpt(SUMO_ATTR_WEIGHT, id.c_str(), ok, 0.) * 10.;
+            const SUMOReal weight = attrs.getOpt<SUMOReal>(SUMO_ATTR_WEIGHT, id.c_str(), ok, 0.) * 10.;
             myEmissionClassByType[id] = PollutantsInterface::getClass(myDefaultClass, vClass, fuel, eClass, weight);
             break;
         }
