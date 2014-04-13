@@ -74,10 +74,10 @@ TrajectoriesHandler::myStartElement(int element,
             break;
         case SUMO_TAG_ACTORCONFIG: {
             const std::string id = attrs.getString(SUMO_ATTR_ID);
-            std::string vClass = attrs.getString(SUMO_ATTR_VEHICLECLASS);
-            std::string fuel = attrs.getString(SUMO_ATTR_FUEL);
-            std::string eClass = attrs.getString(SUMO_ATTR_EMISSIONCLASS);
-            SUMOReal weight = attrs.getOpt(SUMO_ATTR_WEIGHT, id.c_str(), ok, 0.) * 10.;
+            const std::string vClass = attrs.getString(SUMO_ATTR_VEHICLECLASS);
+            const std::string fuel = attrs.getString(SUMO_ATTR_FUEL);
+            const std::string eClass = attrs.getString(SUMO_ATTR_EMISSIONCLASS);
+            const SUMOReal weight = attrs.getOpt(SUMO_ATTR_WEIGHT, id.c_str(), ok, 0.) * 10.;
             myEmissionClassByType[id] = PollutantsInterface::getClass(myDefaultClass, vClass, fuel, eClass, weight);
             break;
         }
@@ -89,9 +89,9 @@ TrajectoriesHandler::myStartElement(int element,
             const SUMOReal s = attrs.getOpt(SUMO_ATTR_SLOPE, id.c_str(), ok, INVALID_VALUE);
             const SUMOTime time = attrs.getOpt<int>(SUMO_ATTR_TIME, id.c_str(), ok, INVALID_VALUE);
             if (myXMLOut != 0) {
-                writeXMLEmissions(id, c, time, v, a);
+                writeXMLEmissions(id, c, time, v, a, s);
             } else {
-                writeEmissions(std::cout, id, c, time, v, a);
+                writeEmissions(std::cout, id, c, time, v, a, s);
             }
             break;
         }
