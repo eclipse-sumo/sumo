@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/05/13 13:28:38 by SUMO sumo Version dev-SVN-rUNKNOWN
+<!-- generated on Mon Apr 14 08:37:35 2014 by SUMO sumo Version dev-SVN-r16187
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -20,6 +20,7 @@
     </time>
 
     <report>
+        <xml-validation value="never"/>
         <no-duration-log value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -41,7 +42,7 @@
     </bt>
     <bt id="2">
         <seen id="1" tBeg="0.00" observerPosBeg="9.99,5001.65" observerSpeedBeg="10.00" observerLaneIDBeg="1i_1" observerLanePosBeg="10.00" seenPosBeg="9.99,4998.35" seenSpeedBeg="10.00" seenLaneIDBeg="1i_0" seenLanePosBeg="10.00" tEnd="10.00" observerPosEnd="109.90,5001.65" observerSpeedEnd="10.00" observerLaneIDEnd="1i_1" observerLanePosEnd="110.00" seenPosEnd="109.90,4998.35" seenSpeedEnd="10.00" seenLaneIDEnd="1i_0" seenLanePosEnd="110.00">
-            <recognitionPoint t="2.00" observerPos="29.97,5001.65" observerSpeed="10.00" observerLaneID="1i_1" observerLanePos="30.00" seenPos="29.97,4998.35" seenSpeed="10.00" seenLaneID="1i_0" seenLanePos="30.00"/>
+            <recognitionPoint t="1.00" observerPos="19.98,5001.65" observerSpeed="10.00" observerLaneID="1i_1" observerLanePos="20.00" seenPos="19.98,4998.35" seenSpeed="10.00" seenLaneID="1i_0" seenLanePos="20.00"/>
         </seen>
     </bt>
 </bt-output>
