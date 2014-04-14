@@ -109,15 +109,15 @@ StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"transport/trailer",     SVS_TRUCK_1TRAILER}, // !!! deprecated
     {"truck/trailer",         SVS_TRUCK_1TRAILER},
     {"bus/city",              SVS_BUS}, // !!! deprecated
-    {"bus/overland",          SVS_BUS}, // !!! deprecated
-    {"bus/coach",             SVS_BUS_COACH},
     {"bus",                   SVS_BUS},
+    {"bus/overland",          SVS_BUS_COACH}, // !!! deprecated
+    {"bus/coach",             SVS_BUS_COACH},
     {"bus/flexible",          SVS_BUS_FLEXIBLE},
     {"bus/trolley",           SVS_BUS_TROLLEY},
-    {"rail/light",            SVS_RAIL}, // !!! deprecated
     {"rail/slow",             SVS_RAIL}, // !!! deprecated
     {"rail/fast",             SVS_RAIL}, // !!! deprecated
     {"rail",                  SVS_RAIL},
+    {"rail/light",            SVS_RAIL_CAR}, // !!! deprecated
     {"rail/city",             SVS_RAIL_CAR}, // !!! deprecated
     {"rail/railcar",          SVS_RAIL_CAR},
     {"rail/cargo",            SVS_RAIL_CARGO},

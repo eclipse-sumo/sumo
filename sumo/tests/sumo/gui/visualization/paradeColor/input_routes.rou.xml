@@ -6,8 +6,8 @@
    <vehicle id="passenger" route="always_right" depart="0" type="passenger"/>
    <vehicle id="passenger2" route="always_right" depart="0" type="passenger" color="0,0,1"/>
 
-   <vType sigma="0" id="transport" length="8" minGap="2" guiShape="transport" width="2.5"/>
-   <vehicle id="transport" route="always_left" depart="0" type="transport"/>
-   <vehicle id="transport2" route="always_right" depart="0" type="transport"/>
+   <vType sigma="0" id="truck" length="8" minGap="2" guiShape="truck" width="2.5"/>
+   <vehicle id="truck" route="always_left" depart="0" type="truck"/>
+   <vehicle id="truck2" route="always_right" depart="0" type="truck"/>
 
 </routes>

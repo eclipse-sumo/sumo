@@ -42,14 +42,14 @@
 
 
 
-   <vType sigma="0" id="transport" length="8" minGap="2" guiShape="transport" width="2.5"/>
-   <vehicle id="transport" route="always_right" depart="0" type="transport"/>
+   <vType sigma="0" id="truck" length="8" minGap="2" guiShape="truck" width="2.5"/>
+   <vehicle id="truck" route="always_right" depart="0" type="truck"/>
 
-   <vType sigma="0" id="transport/semitrailer" length="16.25" minGap="2.5" guiShape="transport/semitrailer" width="2.6"/>
-   <vehicle id="transport/semitrailer" route="always_right" depart="0" type="transport/semitrailer"/>
+   <vType sigma="0" id="truck/semitrailer" length="16.25" minGap="2.5" guiShape="truck/semitrailer" width="2.6"/>
+   <vehicle id="truck/semitrailer" route="always_right" depart="0" type="truck/semitrailer"/>
 
-   <vType sigma="0" id="transport/trailer" length="16.25" minGap="2.5" guiShape="transport/trailer" width="2.6"/>
-   <vehicle id="transport/trailer" route="always_right" depart="0" type="transport/trailer"/>
+   <vType sigma="0" id="truck/trailer" length="16.25" minGap="2.5" guiShape="truck/trailer" width="2.6"/>
+   <vehicle id="truck/trailer" route="always_right" depart="0" type="truck/trailer"/>
 
 
 
@@ -57,34 +57,22 @@
    <vType sigma="0" id="bus" length="13" minGap="2" guiShape="bus" width="2.4"/>
    <vehicle id="bus" route="always_right" depart="0" type="bus"/>
 
-   <vType sigma="0" id="bus/city" length="13" minGap="2" guiShape="bus/city" width="2.4"/>
-   <vehicle id="bus/city" route="always_right" depart="0" type="bus/city"/>
+   <vType sigma="0" id="bus/trolley" length="13" minGap="2" guiShape="bus/trolley" width="2.4"/>
+   <vehicle id="bus/trolley" route="always_right" depart="0" type="bus/trolley"/>
 
    <vType sigma="0" id="bus/flexible" length="15" minGap="2" guiShape="bus/flexible" width="2.4"/>
    <vehicle id="bus/flexible" route="always_right" depart="0" type="bus/flexible"/>
 
-   <vType sigma="0" id="bus/overland" length="15" minGap="2" guiShape="bus/overland" width="2.6"/>
-   <vehicle id="bus/overland" route="always_right" depart="0" type="bus/overland"/>
+   <vType sigma="0" id="bus/coach" length="15" minGap="2" guiShape="bus/coach" width="2.6"/>
+   <vehicle id="bus/coach" route="always_right" depart="0" type="bus/coach"/>
 
 
 
    <vType sigma="0" id="rail" length="15" minGap="0.4" guiShape="rail"/>
    <vehicle id="rail" route="always_right" depart="0" type="rail"/>
 
-   <vType sigma="0" id="rail/light" length="12" minGap="0.4" guiShape="rail/light"/>
-   <vehicle id="rail/light" route="always_right" depart="0" type="rail/light"/>
-
-   <vType sigma="0" id="rail/city" length="12" minGap="0.4" guiShape="rail/city"/>
-   <vehicle id="rail/city" route="always_right" depart="0" type="rail/city"/>
-
-   <vType sigma="0" id="rail/slow" length="15" minGap="0.4" guiShape="rail/slow"/>
-   <vehicle id="rail/slow" route="always_right" depart="0" type="rail/slow"/>
-
-   <vType sigma="0" id="rail/fast" length="15" minGap="0.4" guiShape="rail/fast"/>
-   <vehicle id="rail/fast" route="always_right" depart="0" type="rail/fast"/>
-
-   <vType sigma="0" id="rail/cargo" length="15" minGap="0.4" guiShape="rail/cargo"/>
-   <vehicle id="rail/cargo" route="always_right" depart="0" type="rail/cargo"/>
+   <vType sigma="0" id="rail/railcar" length="12" minGap="0.4" guiShape="rail/railcar"/>
+   <vehicle id="rail/railcar" route="always_right" depart="0" type="rail/railcar"/>
 
 
 

@@ -11,19 +11,15 @@
        <vType id="passenger/wagon"       probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="2.0" guiShape="passenger/wagon"/>
        <vType id="passenger/van"         probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="2.0" guiShape="passenger/van"/>
        <vType id="delivery"              probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="2.0" guiShape="delivery"/>
-       <vType id="transport"             probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="7.5"   minGap="2.5" guiShape="transport" width="2.5"/>
-       <vType id="transport/semitrailer" probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.25" minGap="2.5" guiShape="transport/semitrailer" width="2.6"/>
-       <vType id="transport/trailer"     probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.25" minGap="2.5" guiShape="transport/trailer" width="2.6"/>
+       <vType id="truck"                 probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="7.5"   minGap="2.5" guiShape="truck" width="2.5"/>
+       <vType id="truck/semitrailer"     probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.25" minGap="2.5" guiShape="truck/semitrailer" width="2.6"/>
+       <vType id="truck/trailer"         probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.25" minGap="2.5" guiShape="truck/trailer" width="2.6"/>
        <vType id="bus"                   probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="12.5"  minGap="2.5" guiShape="bus" width="2.4"/>
-       <vType id="bus/city"              probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="12.5"  minGap="2.5" guiShape="bus/city" width="2.4"/>
        <vType id="bus/flexible"          probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.5"  minGap="2.5" guiShape="bus/flexible" width="2.4"/>
-       <vType id="bus/overland"          probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.5"  minGap="2.5" guiShape="bus/overland" width="2.6"/>
-       <vType id="rail"                  probability="5" speedFactor="1.1" speedDev="0.1" sigma="0" length="200"   minGap="25.0" guiShape="rail"/>
-       <vType id="rail/light"            probability="5" speedFactor="1.1" speedDev="0.1" sigma="0" length="64"    minGap="25.0" guiShape="rail/light"/>
-       <vType id="rail/city"             probability="5" speedFactor="1.1" speedDev="0.1" sigma="0" length="40"    minGap="25.0" guiShape="rail/city"/>
-       <vType id="rail/slow"             probability="5" speedFactor="1.1" speedDev="0.1" sigma="0" length="60"    minGap="25.0" guiShape="rail/slow"/>
-       <vType id="rail/fast"             probability="5" speedFactor="1.1" speedDev="0.1" sigma="0" length="250"   minGap="25.0" guiShape="rail/fast"/>
-       <vType id="rail/cargo"            probability="5" speedFactor="1.1" speedDev="0.1" sigma="0" length="350"   minGap="25.0" guiShape="rail/cargo"/>
+       <vType id="bus/overland"          probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.5"  minGap="2.5" guiShape="bus/coach" width="2.6"/>
+       <vType id="rail"                  probability="15"  speedFactor="1.1" speedDev="0.1" sigma="0" length="200"   minGap="25.0" guiShape="rail"/>
+       <vType id="rail/railcar"          probability="15"  speedFactor="1.1" speedDev="0.1" sigma="0" length="40"    minGap="25.0" guiShape="rail/railcar"/>
+       <vType id="rail/cargo"            probability="5"   speedFactor="1.1" speedDev="0.1" sigma="0" length="350"   minGap="25.0" guiShape="rail/cargo"/>
        <vType id="evehicle"              probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="1.0" guiShape="evehicle"/>
    </vTypeDistribution>
 
