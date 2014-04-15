@@ -45,6 +45,9 @@ bus_test_alts_correct
 # Tests for importing bus-alternatives (previous was false)
 bus_test_alts_false
 
+# the vehicle type is defined in an additional file
+bus_test_trips_additional
+
 # Tests for importing trips with no vehicle class given
 no_vclass_test_trips
 
