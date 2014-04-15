@@ -251,7 +251,7 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std
     } else if (allowedS.size() > 0) {
         return parseVehicleClasses(allowedS);
     } else {
-        return ~parseVehicleClasses(disallowedS);
+        return SVCAll & ~parseVehicleClasses(disallowedS);
     }
 }
 
