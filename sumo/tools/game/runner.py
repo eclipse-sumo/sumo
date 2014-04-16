@@ -30,6 +30,8 @@ _SCORESCRIPT = "/scores.php?game=TLS&"
 _DEBUG = False
 _SCORES= 30
 
+_language= "deutsch"
+
 def loadHighscore():
     try:
         conn = httplib.HTTPConnection(_SCORESERVER)
@@ -60,19 +62,35 @@ def parseEndTime(cfg):
             return float(parsenode.getAttribute('value'))
             break
 
+# class LaguageDialog: 
+    # def __init__(self):
+        # tkMessageBox.showinfo( "Choose _language:")
+        # Tkinter.Label(self.root, text="deutsch") 
+        # Tkinter.Label(self.root, text="english") 
+        
+# def change_language(_language):    
+    # if _language== 'deutsch':
+        # _language= 'english'
+    # else:
+        # _language= 'deutsch'
+    # print _language
+    
 class StartDialog:
     def __init__(self):
+        # set _language = english
+        #_language = "english"
+        _language_text = {'english':['Interactive Traffic Light','Simple Junction','Four Junctions','Highway Scenario','Highscore','Reset Highscore','deutsch','Quit'],'deutsch':['Interaktives Ampelspiel','Einfache Kreuzung','Vier Kreuzungen','Autobahn Auffahrt','Highscore','Highscore zurück setzen','deutsch','Beenden']}  
         # misc variables
         self.name = ''
         # setup gui
         self.root = Tkinter.Tk()
-        self.root.title("Interactive Traffic Light")
+        self.root.title(_language_text[_language][0])
         self.root.minsize(250, 50)
         # we use a grid layout with 4 columns
         COL_DLRLOGO, COL_START, COL_HIGH, COL_SUMOLOGO = range(4)
         # there is one column for every config, +2 more columns for control buttons
         configs = glob.glob(os.path.join(base, "*.sumocfg"))
-        numButtons = len(configs) + 2
+        numButtons = len(configs) + 3
         # button dimensions
         bWidth_start = 15
         bWidth_high = 7
@@ -90,33 +108,35 @@ class StartDialog:
         for row, cfg in enumerate(configs):
             text = category = os.path.basename(cfg)[:-8]
             if text == "cross":
-                text = "Simple Junction" 
+                text = _language_text[_language][1]
             elif text == "square":
-                text = "Four Junctions" 
+                text = _language_text[_language][2]
             elif text == "kuehne":
                 text = "Prof. Kühne" 
             elif text == "ramp":
-                text = "Highway Scenario" 
+                text = _language_text[_language][3] 
             # lambda must make a copy of cfg argument
             Tkinter.Button(self.root, text=text, width=bWidth_start, 
                     command=lambda cfg=cfg:self.start_cfg(cfg)).grid(row=row, column=COL_START)
-            Tkinter.Button(self.root, text="Highscore", width=bWidth_high,
+            Tkinter.Button(self.root, text=_language_text[_language][4], width=bWidth_high,
                     command=lambda cfg=cfg:ScoreDialog([], None, self.category_name(cfg))).grid(row=row, column=COL_HIGH)
 
         # control buttons
-        Tkinter.Button(self.root, text="Reset Highscore", width=bWidth_control,
-                       command=high.clear).grid(row=numButtons - 2, column=COL_START, columnspan=2)
-        Tkinter.Button(self.root, text="Quit", width=bWidth_control,
+        Tkinter.Button(self.root, text=_language_text[_language][5], width=bWidth_control,
+                       command=high.clear).grid(row=numButtons - 3, column=COL_START, columnspan=2)
+        Tkinter.Button(self.root, text=_language_text[_language][7], width=bWidth_control,
                        command=sys.exit).grid(row=numButtons - 1, column=COL_START, columnspan = 2)
 
+        # Tkinter.Button(self.root, text=_language_text[_language][6], width=bWidth_control, command=change_language(_language)).grid(row=numButtons - 2, column=COL_START, columnspan=2) 
+                       
         self.root.grid()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.root.iconify()
         self.root.update()
         self.root.deiconify()
-        self.root.mainloop()
-
+        self.root.mainloop()      
+        
     def category_name(self, cfg):
         return os.path.basename(cfg)[:-8]
 
@@ -127,6 +147,7 @@ class StartDialog:
         self.gametime = parseEndTime(cfg)
         self.ret = subprocess.call([guisimPath, "-S", "-G", "-Q", "-c", cfg])
         self.category = self.category_name(cfg) # remember which which cfg was launched
+
 
 
 class ScoreDialog:
@@ -228,7 +249,8 @@ else:
     guisimPath = os.environ.get("GUISIM_BINARY", os.path.join(base, '..', '..', 'bin', guisimBinary))
 if not os.path.exists(guisimPath):
     guisimPath = guisimBinary
-
+  
+    
 while True:
     start = StartDialog()
     totalDistance = 0
