@@ -30,8 +30,6 @@ _SCORESCRIPT = "/scores.php?game=TLS&"
 _DEBUG = False
 _SCORES= 30
 
-_language= "deutsch"
-
 def loadHighscore():
     try:
         conn = httplib.HTTPConnection(_SCORESERVER)
@@ -61,31 +59,21 @@ def parseEndTime(cfg):
         if event == pulldom.START_ELEMENT and parsenode.localName == 'end':
             return float(parsenode.getAttribute('value'))
             break
-
-# class LaguageDialog: 
-    # def __init__(self):
-        # tkMessageBox.showinfo( "Choose _language:")
-        # Tkinter.Label(self.root, text="deutsch") 
-        # Tkinter.Label(self.root, text="english") 
-        
-# def change_language(_language):    
-    # if _language== 'deutsch':
-        # _language= 'english'
-    # else:
-        # _language= 'deutsch'
-    # print _language
     
 class StartDialog:
     def __init__(self):
-        # set _language = english
-        #_language = "english"
-        _language_text = {'english':['Interactive Traffic Light','Simple Junction','Four Junctions','Highway Scenario','Highscore','Reset Highscore','deutsch','Quit'],'deutsch':['Interaktives Ampelspiel','Einfache Kreuzung','Vier Kreuzungen','Autobahn Auffahrt','Highscore','Highscore zurück setzen','deutsch','Beenden']}  
+        # variables for changing language
+        self._language = "english"
+        self._language_text = {'english':['Interactive Traffic Light','Simple Junction','Four Junctions','Highway Scenario','Highscore','Reset Highscore','deutsch','Quit'],'deutsch':['Interaktives Ampelspiel','Einfache Kreuzung','Vier Kreuzungen','Autobahn Auffahrt','Highscore','Highscore zurück setzen','english','Beenden']}  
+        self.buttons= []
+        self.textIDs= []
         # misc variables
         self.name = ''
         # setup gui
         self.root = Tkinter.Tk()
-        self.root.title(_language_text[_language][0])
+        self.root.title(self._language_text[self._language][0])
         self.root.minsize(250, 50)
+
         # we use a grid layout with 4 columns
         COL_DLRLOGO, COL_START, COL_HIGH, COL_SUMOLOGO = range(4)
         # there is one column for every config, +2 more columns for control buttons
@@ -94,7 +82,7 @@ class StartDialog:
         # button dimensions
         bWidth_start = 15
         bWidth_high = 7
-        bWidth_control = 26
+        bWidth_control = 26   
 
         self.gametime = 0
         self.ret = 0
@@ -108,27 +96,46 @@ class StartDialog:
         for row, cfg in enumerate(configs):
             text = category = os.path.basename(cfg)[:-8]
             if text == "cross":
-                text = _language_text[_language][1]
+                text = self._language_text[self._language][1]
+                self.textIDs.append(1)
             elif text == "square":
-                text = _language_text[_language][2]
+                text = self._language_text[self._language][2]
+                self.textIDs.append(2)
             elif text == "kuehne":
                 text = "Prof. Kühne" 
             elif text == "ramp":
-                text = _language_text[_language][3] 
+                text = self._language_text[self._language][3] 
+                self.textIDs.append(3)
             # lambda must make a copy of cfg argument
-            Tkinter.Button(self.root, text=text, width=bWidth_start, 
-                    command=lambda cfg=cfg:self.start_cfg(cfg)).grid(row=row, column=COL_START)
-            Tkinter.Button(self.root, text=_language_text[_language][4], width=bWidth_high,
-                    command=lambda cfg=cfg:ScoreDialog([], None, self.category_name(cfg))).grid(row=row, column=COL_HIGH)
+            button=Tkinter.Button(self.root, text=text, width=bWidth_start, 
+                    command=lambda cfg=cfg:self.start_cfg(cfg))
+            self.buttons.append(button)
+            button.grid(row=row, column=COL_START)
+            
+            button=Tkinter.Button(self.root, text=self._language_text[self._language][4], width=bWidth_high,
+                    command=lambda cfg=cfg:ScoreDialog([], None, self.category_name(cfg)))#.grid(row=row, column=COL_HIGH)
+            button.grid(row=row, column=COL_HIGH)
+            self.buttons.append(button)
+            self.textIDs.append(4)
 
         # control buttons
-        Tkinter.Button(self.root, text=_language_text[_language][5], width=bWidth_control,
-                       command=high.clear).grid(row=numButtons - 3, column=COL_START, columnspan=2)
-        Tkinter.Button(self.root, text=_language_text[_language][7], width=bWidth_control,
-                       command=sys.exit).grid(row=numButtons - 1, column=COL_START, columnspan = 2)
-
-        # Tkinter.Button(self.root, text=_language_text[_language][6], width=bWidth_control, command=change_language(_language)).grid(row=numButtons - 2, column=COL_START, columnspan=2) 
-                       
+        button=Tkinter.Button(self.root, text=self._language_text[self._language][5], width=bWidth_control,
+                       command=high.clear)
+        self.buttons.append(button)
+        button.grid(row=numButtons - 3, column=COL_START, columnspan=2)
+        self.textIDs.append(5)
+        
+        button=Tkinter.Button(self.root, text=self._language_text[self._language][7], width=bWidth_control,
+                       command=sys.exit)
+        self.buttons.append(button)
+        button.grid(row=numButtons - 1, column=COL_START, columnspan = 2)
+        self.textIDs.append(7)
+        
+        button=Tkinter.Button(self.root, text=self._language_text[self._language][6], width=bWidth_control, command=lambda cfg=cfg:self.change_language())
+        self.buttons.append(button)
+        button.grid(row=numButtons - 2, column=COL_START, columnspan=2) 
+        self.textIDs.append(6)
+        
         self.root.grid()
         # The following three commands are needed so the window pops
         # up on top on Windows...
@@ -137,6 +144,17 @@ class StartDialog:
         self.root.deiconify()
         self.root.mainloop()      
         
+    def change_language(self):      
+        if self._language== 'deutsch':
+            self._language= 'english'
+        else:
+            self._language= 'deutsch'
+        i = 0
+        for button in self.buttons:
+            button["text"]= self._language_text[self._language][self.textIDs[i]]  
+            i+=1
+            
+    
     def category_name(self, cfg):
         return os.path.basename(cfg)[:-8]
 
