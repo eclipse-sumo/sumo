@@ -196,8 +196,8 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
     MSVehicleType* vtype = new MSVehicleType(from);
     const SUMOReal accel = from.get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(from.vehicleClass));
     const SUMOReal decel = from.get(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass));
-    const SUMOReal sigma = from.get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultSigma(from.vehicleClass));
-    const SUMOReal tau = from.get(SUMO_ATTR_TAU, SUMOVTypeParameter::getDefaultTau(from.vehicleClass));
+    const SUMOReal sigma = from.get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(from.vehicleClass));
+    const SUMOReal tau = from.get(SUMO_ATTR_TAU, 1.);
     switch (from.cfModel) {
         case SUMO_TAG_CF_IDM:
             vtype->myCarFollowModel = new MSCFModel_IDM(vtype, accel, decel, tau,
@@ -223,19 +223,19 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
         case SUMO_TAG_CF_SMART_SK:
             vtype->myCarFollowModel = new MSCFModel_SmartSK(vtype, accel, decel, sigma, tau,
-                                          from.get(SUMO_ATTR_TMP1, SUMOVTypeParameter::getDefaultTmp1(from.vehicleClass)),
-                                          from.get(SUMO_ATTR_TMP2, SUMOVTypeParameter::getDefaultTmp2(from.vehicleClass)),
-                                          from.get(SUMO_ATTR_TMP3, SUMOVTypeParameter::getDefaultTmp3(from.vehicleClass)),
-                                          from.get(SUMO_ATTR_TMP4, SUMOVTypeParameter::getDefaultTmp4(from.vehicleClass)),
-                                          from.get(SUMO_ATTR_TMP5, SUMOVTypeParameter::getDefaultTmp5(from.vehicleClass)));
+                                          from.get(SUMO_ATTR_TMP1, 1.),
+                                          from.get(SUMO_ATTR_TMP2, 1.),
+                                          from.get(SUMO_ATTR_TMP3, 1.),
+                                          from.get(SUMO_ATTR_TMP4, 1.),
+                                          from.get(SUMO_ATTR_TMP5, 1.));
             break;
         case SUMO_TAG_CF_DANIEL1:
             vtype->myCarFollowModel = new MSCFModel_Daniel1(vtype, accel, decel, sigma, tau,
-                                          from.get(SUMO_ATTR_TMP1, SUMOVTypeParameter::getDefaultTmp1(from.vehicleClass)),
-                                          from.get(SUMO_ATTR_TMP2, SUMOVTypeParameter::getDefaultTmp2(from.vehicleClass)),
-                                          from.get(SUMO_ATTR_TMP3, SUMOVTypeParameter::getDefaultTmp3(from.vehicleClass)),
-                                          from.get(SUMO_ATTR_TMP4, SUMOVTypeParameter::getDefaultTmp4(from.vehicleClass)),
-                                          from.get(SUMO_ATTR_TMP5, SUMOVTypeParameter::getDefaultTmp5(from.vehicleClass)));
+                                          from.get(SUMO_ATTR_TMP1, 1.),
+                                          from.get(SUMO_ATTR_TMP2, 1.),
+                                          from.get(SUMO_ATTR_TMP3, 1.),
+                                          from.get(SUMO_ATTR_TMP4, 1.),
+                                          from.get(SUMO_ATTR_TMP5, 1.));
             break;
         case SUMO_TAG_CF_PWAGNER2009:
             vtype->myCarFollowModel = new MSCFModel_PWag2009(vtype, accel, decel, sigma, tau,

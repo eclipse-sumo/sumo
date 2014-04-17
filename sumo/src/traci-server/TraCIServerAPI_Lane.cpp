@@ -136,8 +136,8 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     // opened
                     tempContent.writeUnsignedByte(TYPE_UBYTE);
                     const SUMOReal speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
-                    tempContent.writeUnsignedByte(link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefaultLength(),
-                                                               SUMOVTypeParameter::getDefaultImpatience(), SUMOVTypeParameter::getDefaultDecel(), 0) ? 1 : 0);
+                    tempContent.writeUnsignedByte(link->opened(currTime, speed, speed, SUMOVTypeParameter::DEFAULT.length,
+                                                               SUMOVTypeParameter::DEFAULT.impatience, SUMOVTypeParameter::getDefaultDecel(), 0) ? 1 : 0);
                     ++cnt;
                     // approaching foe
                     tempContent.writeUnsignedByte(TYPE_UBYTE);

@@ -186,28 +186,12 @@ public:
     /// @brief Information whether this is a type-stub, being only referenced but not defined (needed by routers)
     mutable bool onlyReferenced;
 
-    static SUMOReal getDefaultMaxSpeed(const SUMOVehicleClass vc = SVC_IGNORING);
     static SUMOReal getDefaultAccel(const SUMOVehicleClass vc = SVC_IGNORING);
     static SUMOReal getDefaultDecel(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultSigma(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultLength(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultMinGap(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultTau(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultImpatience(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultSpeedFactor(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultSpeedDev(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultWidth(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultHeight(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SumoXMLTag getDefaultFollowModel(const SUMOVehicleClass vc = SVC_IGNORING);
-    static LaneChangeModel getDefaultLaneChangeModel(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOVehicleShape getDefaultShape(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOEmissionClass getDefaultEmissionClass(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultTmp1(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultTmp2(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultTmp3(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultTmp4(const SUMOVehicleClass vc = SVC_IGNORING);
-    static SUMOReal getDefaultTmp5(const SUMOVehicleClass vc = SVC_IGNORING);
-        
+    static SUMOReal getDefaultImperfection(const SUMOVehicleClass vc = SVC_IGNORING);
+
+    static const SUMOVTypeParameter DEFAULT;
+    static const SUMOVTypeParameter PEDESTRIAN;
 
 };
 
