@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/26/14 12:21:19 by SUMO duarouter Version dev-SVN-rUNKNOWN
+<!-- generated on Fri Apr 18 18:54:59 2014 by SUMO duarouter Version dev-SVN-r16220
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/duarouterConfiguration.xsd">
@@ -74,7 +74,7 @@
     <vType id="7" vClass="bus"/>
     <vehicle id="7.0" type="7" depart="30.00" departLane="0">
         <routeDistribution last="0">
-            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
+            <route cost="125.94" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vType id="8" emissionClass="HBEFA2/P_7_1"/>
