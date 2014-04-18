@@ -155,6 +155,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
         case SVC_E_VEHICLE:
             shape = SVS_E_VEHICLE;
             break;
+        default:
+            break;
     }
 }
 
@@ -266,8 +268,9 @@ SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
         case SVC_RAIL_URBAN:
         case SVC_RAIL:
             return 1.;
+        default:
+            return 2.6;
     }
-    return 2.6;
 }
 
 
@@ -291,8 +294,9 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
             return 1.3;
         case SVC_RAIL:
             return 1.1;
+        default:
+            return 4.5;
     }
-    return 4.5;
 }
 
 
@@ -304,8 +308,9 @@ SUMOVTypeParameter::getDefaultImperfection(const SUMOVehicleClass vc) {
         case SVC_RAIL:
         case SVC_RAIL_ELECTRIC:
             return 0.;
+        default:
+            return 0.5;
     }
-    return 0.5;
 }
 
 
