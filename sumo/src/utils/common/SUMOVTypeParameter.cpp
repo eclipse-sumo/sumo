@@ -46,13 +46,6 @@
 
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-const SUMOVTypeParameter SUMOVTypeParameter::DEFAULT("");
-const SUMOVTypeParameter SUMOVTypeParameter::PEDESTRIAN("", SVC_PEDESTRIAN);
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass)
@@ -68,7 +61,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
         case SVC_PEDESTRIAN:
             length = 0.215;
             minGap = 0.3;
-            maxSpeed = 5./3.6;
+            maxSpeed = DEFAULT_PEDESTRIAN_SPEED;
             width = 0.478;
             height = 1.719;
             shape = SVS_PEDESTRIAN;
@@ -313,6 +306,13 @@ SUMOVTypeParameter::getDefaultImperfection(const SUMOVehicleClass vc) {
             return 0.;
     }
     return 0.5;
+}
+
+
+const SUMOVTypeParameter&
+SUMOVTypeParameter::getDefault() {
+    static SUMOVTypeParameter defaultParams("");
+    return defaultParams;
 }
 
 

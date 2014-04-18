@@ -303,6 +303,8 @@ extern const std::string DEFAULT_VTYPE_ID;
 
 extern const SUMOReal DEFAULT_VEH_PROB; // !!! does this belong here?
 
+extern const SUMOReal DEFAULT_PEDESTRIAN_SPEED;
+
 #endif
 
 /****************************************************************************/

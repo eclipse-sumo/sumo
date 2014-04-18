@@ -296,5 +296,7 @@ const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
 
 const SUMOReal DEFAULT_VEH_PROB(1.);
 
+const SUMOReal DEFAULT_PEDESTRIAN_SPEED(5./3.6);
+
 /****************************************************************************/
 
