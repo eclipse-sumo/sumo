@@ -512,10 +512,10 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             }
             // check next lane's maximum velocity
-            const SUMOReal nspeed = nextLane->getVehicleMaxSpeed(aVehicle);
+            const SUMOReal nspeed = cfModel.freeSpeed(aVehicle, speed, seen, nextLane->getVehicleMaxSpeed(aVehicle));
             if (nspeed < speed) {
                 if (patchSpeed) {
-                    speed = MIN2(cfModel.freeSpeed(aVehicle, speed, seen, nspeed), speed);
+                    speed = nspeed;
                     dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
                     // we may not drive with the given velocity - we would be too fast on the next lane
