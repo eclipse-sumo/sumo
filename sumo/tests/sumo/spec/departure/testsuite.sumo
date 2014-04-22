@@ -22,6 +22,9 @@ lane_given1
 # checks using a random lane
 lane_random
 
+# one vehicle approaching a lane with a lower max speed
+approach_slow_lane
+
 # checks using the default position (0)
 pos_default
 
