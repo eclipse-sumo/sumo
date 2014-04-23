@@ -83,9 +83,9 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent)
+GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, MFXMutex& breakpointLock)
     : FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20, 20, 300, 300),
-      myParent(parent) {
+      myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
 
     // build the table
@@ -102,7 +102,9 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent)
     }
     myTable->setNumberCellParams(0, begin / 1000, end / 1000, 1, 10, 100, "%.2f");
     myTable->getRowHeader()->setWidth(0);
+    myBreakpointLock->lock();
     rebuildList();
+    myBreakpointLock->unlock();
     // build the layout
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
     // "Load"
@@ -129,9 +131,9 @@ GUIDialog_Breakpoints::~GUIDialog_Breakpoints() {
 void
 GUIDialog_Breakpoints::rebuildList() {
     myTable->clearItems();
-    sort(GUIGlobals::gBreakpoints.begin(), GUIGlobals::gBreakpoints.end());
+    sort(myBreakpoints->begin(), myBreakpoints->end());
     // set table attributes
-    myTable->setTableSize((FXint) GUIGlobals::gBreakpoints.size() + 1, 1);
+    myTable->setTableSize((FXint) myBreakpoints->size() + 1, 1);
     myTable->setColumnText(0, "Time");
     FXHeader* header = myTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent());
@@ -142,7 +144,7 @@ GUIDialog_Breakpoints::rebuildList() {
     // insert into table
     FXint row = 0;
     std::vector<int>::iterator j;
-    for (j = GUIGlobals::gBreakpoints.begin(); j != GUIGlobals::gBreakpoints.end(); ++j) {
+    for (j = myBreakpoints->begin(); j != myBreakpoints->end(); ++j) {
         myTable->setItemText(row, 0, time2string(*j).c_str());
         row++;
     }
@@ -165,8 +167,11 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        GUIGlobals::gBreakpoints = GUISettingsHandler::loadBreakpoints(file);
+        std::vector<SUMOTime> newBreakpoints = GUISettingsHandler::loadBreakpoints(file);
+        myBreakpointLock->lock();
+        myBreakpoints->assign(newBreakpoints.begin(), newBreakpoints.end());
         rebuildList();
+        myBreakpointLock->unlock();
     }
     return 1;
 }
@@ -192,21 +197,25 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
 
 std::string
 GUIDialog_Breakpoints::encode2TXT() {
+    myBreakpointLock->lock();
     std::ostringstream strm;
-    std::sort(GUIGlobals::gBreakpoints.begin(), GUIGlobals::gBreakpoints.end());
-    for (std::vector<int>::iterator j = GUIGlobals::gBreakpoints.begin(); j != GUIGlobals::gBreakpoints.end(); ++j) {
+    std::sort(myBreakpoints->begin(), myBreakpoints->end());
+    for (std::vector<int>::iterator j = myBreakpoints->begin(); j != myBreakpoints->end(); ++j) {
         if ((*j) != INVALID_VALUE) {
             strm << time2string(*j) << std::endl;
         }
     }
+    myBreakpointLock->unlock();
     return strm.str();
 }
 
 
 long
 GUIDialog_Breakpoints::onCmdClear(FXObject*, FXSelector, void*) {
-    GUIGlobals::gBreakpoints.clear();
+    myBreakpointLock->lock();
+    myBreakpoints->clear();
     rebuildList();
+    myBreakpointLock->unlock();
     return 1;
 }
 
@@ -221,6 +230,7 @@ GUIDialog_Breakpoints::onCmdClose(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
+    myBreakpointLock->lock();
     MFXEditedTableItem* i = (MFXEditedTableItem*) data;
     std::string value = i->item->getText().text();
     // check whether the inserted value is empty
@@ -229,14 +239,14 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
         value = INVALID_VALUE_STR;
     }
     int row = i->row;
-    if (row == (int) GUIGlobals::gBreakpoints.size()) {
-        GUIGlobals::gBreakpoints.push_back(INVALID_VALUE);
+    if (row == (int) myBreakpoints->size()) {
+        myBreakpoints->push_back(INVALID_VALUE);
     }
 
     switch (i->col) {
         case 0:
             try {
-                GUIGlobals::gBreakpoints[row] = string2time(value);
+                (*myBreakpoints)[row] = string2time(value);
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be an int, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -248,6 +258,7 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
     if (!i->updateOnly) {
         rebuildList();
     }
+    myBreakpointLock->unlock();
     return 1;
 }
 

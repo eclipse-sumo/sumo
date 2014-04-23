@@ -54,8 +54,6 @@ public:
     /// the window shall be closed when the simulation has ended
     static bool gQuitOnEnd;
 
-    /// List of breakpoints
-    static std::vector<SUMOTime> gBreakpoints;
 };
 
 #endif

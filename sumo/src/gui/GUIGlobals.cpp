@@ -45,7 +45,5 @@ bool GUIGlobals::gQuitOnEnd;
 bool GUIGlobals::gRunAfterLoad;
 
 
-std::vector<SUMOTime> GUIGlobals::gBreakpoints;
-
 
 /****************************************************************************/

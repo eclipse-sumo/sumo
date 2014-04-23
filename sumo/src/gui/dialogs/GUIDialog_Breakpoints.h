@@ -61,7 +61,7 @@ public:
     /** @brief Constructor
      * @param[in] parent The parent window
      */
-    GUIDialog_Breakpoints(GUIMainWindow* parent);
+    GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, MFXMutex& breakpointLock);
 
 
     /// @brief Destructor
@@ -105,6 +105,12 @@ private:
 
     /// @brief The parent window
     GUIMainWindow* myParent;
+
+    /// @brief List of breakpoints
+    std::vector<SUMOTime>* myBreakpoints;
+
+    /// @brief Lock for modifying the list of breakpoints
+    MFXMutex* myBreakpointLock;
 
 
 protected:

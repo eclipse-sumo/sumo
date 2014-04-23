@@ -684,7 +684,7 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdEditBreakpoints(FXObject*, FXSelector, void*) {
-    GUIDialog_Breakpoints* chooser = new GUIDialog_Breakpoints(this);
+    GUIDialog_Breakpoints* chooser = new GUIDialog_Breakpoints(this, myRunThread->getBreakpoints(), myRunThread->getBreakpointLock());
     chooser->create();
     chooser->show();
     return 1;
@@ -1095,7 +1095,9 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                         mySimDelayTarget->setValue(settings.getDelay());
                     }
                     if (settings.getBreakpoints().size() > 0) {
-                        GUIGlobals::gBreakpoints = settings.getBreakpoints();
+                        myRunThread->getBreakpointLock().lock();
+                        myRunThread->getBreakpoints().assign(settings.getBreakpoints().begin(), settings.getBreakpoints().end());
+                        myRunThread->getBreakpointLock().unlock();
                     }
                     myJamSounds = settings.getEventDistribution("jam");
                     if (settings.getJamSoundTime() > 0) {

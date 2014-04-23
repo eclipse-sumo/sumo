@@ -139,7 +139,9 @@ GUIRunThread::run() {
                 }
             }
             // check whether we shall stop at this step
-            const bool haltAfter = find(GUIGlobals::gBreakpoints.begin(), GUIGlobals::gBreakpoints.end(), myNet->getCurrentTimeStep()) != GUIGlobals::gBreakpoints.end();
+            myBreakpointLock.lock();
+            const bool haltAfter = find(myBreakpoints.begin(), myBreakpoints.end(), myNet->getCurrentTimeStep()) != myBreakpoints.end();
+            myBreakpointLock.unlock();
             // do the step
             makeStep();
             // stop if wished
