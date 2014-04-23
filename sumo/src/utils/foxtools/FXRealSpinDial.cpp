@@ -461,7 +461,7 @@ FXRealSpinDial::FXRealSpinDial(FXComposite* p, FXint cols, FXObject* tgt, FXSele
     dial->setRevolutionIncrement(DIALINCR);
     upButton = new FXRealSpinDialBtn(this, this, ID_INCREMENT, FRAME_RAISED | FRAME_THICK | ARROW_UP | ARROW_REPEAT, 0, 0, 0, 0, 0, 0, 0, 0);
     downButton = new FXRealSpinDialBtn(this, this, ID_DECREMENT, FRAME_RAISED | FRAME_THICK | ARROW_DOWN | ARROW_REPEAT, 0, 0, 0, 0, 0, 0, 0, 0);
-    textField = new FXRealSpinDialText(this, cols, this, ID_ENTRY, (opts & FRAME_RIDGE) | TEXTFIELD_REAL | JUSTIFY_RIGHT, 0, 0, 0, 0, pl, pr, pt, pb);
+    textField = new FXRealSpinDialText(this, cols, this, ID_ENTRY, opts | TEXTFIELD_REAL | JUSTIFY_RIGHT, 0, 0, 0, 0, pl, pr, pt, pb);
     textField->setText("0");
     range[0] = (options & SPINDIAL_NOMIN) ? -DBL_MAX : 0;
     range[1] = (options & SPINDIAL_NOMAX) ?  DBL_MAX : 100;
