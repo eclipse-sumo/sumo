@@ -248,11 +248,14 @@ public:
     virtual void setParticipantsInformation();
 
 
-    /** @brief Adds the given ids into the list of edges not controlled by the tls
-     * @param[in] edges The list of edge ids to add the inner edges to
+    /** @brief Adds the given ids into the list of inner edges controlled by the tls
+     * @param[in] edges The list of edge ids which shall be controlled despite lying with the jointly controlled node cluster
      */
     void addControlledInnerEdges(const std::vector<std::string>& edges);
 
+    /** @brief Retrieve the ids of edges explicitly controlled by the tls
+     */
+    std::vector<std::string> getControlledInnerEdges() const;
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
      * @param[in] removed The removed edge
