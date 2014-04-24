@@ -162,11 +162,12 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
         }
         assert(newDef != 0);
         loadedDef = new NBLoadedSUMOTLDef(id, programID, offset, type);
-        // copy nodes
+        // copy nodes and controlled inner edges
         std::vector<NBNode*> nodes = newDef->getNodes();
         for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
             loadedDef->addNode(*it);
         }
+        loadedDef->addControlledInnerEdges(newDef->getControlledInnerEdges());
         if (programID == NBTrafficLightDefinition::DefaultProgramID) {
             // replace default Program
             std::vector<NBNode*> nodes = newDef->getNodes();
