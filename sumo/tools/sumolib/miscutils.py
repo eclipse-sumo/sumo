@@ -89,6 +89,19 @@ class Statistics:
         if self.counts is not None:
             self.counts[int(round(v/self.scale))] += 1
 
+    def update(self, other):
+        for v in other.values:
+            self.add(v)
+
+    def clear(self):
+        self.min = uMax
+        self.min_label = None
+        self.max = uMin
+        self.max_label = None
+        self.values = []
+        if self.counts:
+            self.counts.clear()
+
     def count(self):
         return len(self.values)
 
