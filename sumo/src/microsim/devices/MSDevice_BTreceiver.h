@@ -398,31 +398,21 @@ private:
 
 
 
-        /** @brief Determines whether the other vehicle got visible until the given time
-         * @param[in] otherID The ID of the other vehicle
-         * @param[in] tEnd The end of contact
-         * @param[changed] currentlySeen Contact information, updated if the sender was recognized
-         * @return The recognition time
-         */
-        //SUMOReal recognizedAt(const std::string &otherID, SUMOReal tEnd, std::map<std::string, SeenDevice*> &currentlySeen);
-
-
         /** @brief Adds a point of recognition
+         * @param[in] tEnd The time of the recognition
          * @param[in] thisPos The receiver's position at the time
          * @param[in] thisSpeed The receiver's speed at the time
          * @param[in] thisLaneID The lane the observer was at
          * @param[in] thisLanePos The position at the lane of the observer
-         * @param[in] otherID The ID of the entering sender
          * @param[in] otherPos The position of the entering sender
          * @param[in] otherSpeed The speed of the entering sender
          * @param[in] otherLaneID The lane the sender was at
          * @param[in] otherLanePos The position at the lane of the sender
-         * @param[in] tOffset The time offset to the current time step
-         * @param[filled] currentlySeen The contact information storage for saving the contact point
+         * @param[in] otherDevice The device of the entering sender
          */
-        void addRecognitionPoint(SUMOReal tEnd, const Position& thisPos, SUMOReal thisSpeed, const std::string& thisLaneID, SUMOReal thisLanePos,
-                                 const std::string& otherID, const Position& otherPos, SUMOReal otherSpeed, const std::string& otherLaneID, SUMOReal otherLanePos,
-                                 std::map<std::string, SeenDevice*>& currentlySeen);
+        void addRecognitionPoint(const SUMOReal tEnd, const Position& thisPos, const SUMOReal thisSpeed, const std::string& thisLaneID, const SUMOReal thisLanePos,
+                                 const Position& otherPos, const SUMOReal otherSpeed, const std::string& otherLaneID, const SUMOReal otherLanePos,
+                                 SeenDevice* otherDevice) const;
 
 
         /** @brief Writes the output
