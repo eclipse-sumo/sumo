@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 14 08:37:36 2014 by SUMO sumo Version dev-SVN-r16187
+<!-- generated on 04/25/14 09:13:40 by SUMO sumo Version dev-SVN-r16231
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -55,7 +55,6 @@
             <recognitionPoint t="24.00" observerPos="333.26,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="336.46" seenPos="291.99,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="294.79"/>
             <recognitionPoint t="25.00" observerPos="347.02,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="350.35" seenPos="305.75,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="308.68"/>
             <recognitionPoint t="26.00" observerPos="360.78,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="364.24" seenPos="319.51,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="322.57"/>
-            <recognitionPoint t="28.00" observerPos="388.30,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="392.02" seenPos="347.02,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="350.35"/>
             <recognitionPoint t="30.00" observerPos="415.81,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="419.80" seenPos="374.54,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="378.13"/>
             <recognitionPoint t="31.00" observerPos="429.57,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="433.69" seenPos="388.30,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="392.02"/>
             <recognitionPoint t="32.00" observerPos="443.33,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="447.58" seenPos="402.05,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="405.91"/>

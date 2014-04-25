@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 14 08:37:35 2014 by SUMO sumo Version dev-SVN-r16187
+<!-- generated on 04/25/14 09:13:37 by SUMO sumo Version dev-SVN-r16231
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -54,10 +54,8 @@
             <recognitionPoint t="6.00" observerPos="69.93,5001.65" observerSpeed="10.00" observerLaneID="1i_1" observerLanePos="70.00" seenPos="69.93,4998.35" seenSpeed="10.00" seenLaneID="1i_0" seenLanePos="70.00"/>
             <recognitionPoint t="7.00" observerPos="79.92,5001.65" observerSpeed="10.00" observerLaneID="1i_1" observerLanePos="80.00" seenPos="79.92,4998.35" seenSpeed="10.00" seenLaneID="1i_0" seenLanePos="80.00"/>
             <recognitionPoint t="8.00" observerPos="89.91,5001.65" observerSpeed="10.00" observerLaneID="1i_1" observerLanePos="90.00" seenPos="89.91,4998.35" seenSpeed="10.00" seenLaneID="1i_0" seenLanePos="90.00"/>
-            <recognitionPoint t="10.00" observerPos="109.90,5001.65" observerSpeed="10.00" observerLaneID="1i_1" observerLanePos="110.00" seenPos="109.90,4998.35" seenSpeed="10.00" seenLaneID="1i_0" seenLanePos="110.00"/>
             <recognitionPoint t="11.00" observerPos="119.89,5001.65" observerSpeed="10.00" observerLaneID="1i_1" observerLanePos="120.00" seenPos="119.89,4998.35" seenSpeed="10.00" seenLaneID="1i_0" seenLanePos="120.00"/>
             <recognitionPoint t="12.00" observerPos="129.88,5001.65" observerSpeed="10.00" observerLaneID="1i_1" observerLanePos="130.00" seenPos="129.88,4998.35" seenSpeed="10.00" seenLaneID="1i_0" seenLanePos="130.00"/>
-            <recognitionPoint t="14.00" observerPos="149.86,5001.65" observerSpeed="10.00" observerLaneID="1i_1" observerLanePos="150.00" seenPos="149.86,4998.35" seenSpeed="10.00" seenLaneID="1i_0" seenLanePos="150.00"/>
             <recognitionPoint t="15.00" observerPos="159.85,5001.65" observerSpeed="10.00" observerLaneID="1i_1" observerLanePos="160.00" seenPos="159.85,4998.35" seenSpeed="10.00" seenLaneID="1i_0" seenLanePos="160.00"/>
         </seen>
     </bt>

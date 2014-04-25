@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 14 08:37:35 2014 by SUMO sumo Version dev-SVN-r16187
+<!-- generated on 04/25/14 09:13:38 by SUMO sumo Version dev-SVN-r16231
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumoConfiguration.xsd">
@@ -41,10 +41,8 @@
             <recognitionPoint t="4.00" observerPos="58.10,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="58.66" seenPos="16.83,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="16.99"/>
             <recognitionPoint t="5.00" observerPos="71.86,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="72.55" seenPos="30.59,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="30.88"/>
             <recognitionPoint t="6.00" observerPos="85.62,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="86.44" seenPos="44.34,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="44.77"/>
-            <recognitionPoint t="8.00" observerPos="113.13,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="114.22" seenPos="71.86,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="72.55"/>
             <recognitionPoint t="9.00" observerPos="126.89,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="128.11" seenPos="85.62,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="86.44"/>
             <recognitionPoint t="10.00" observerPos="140.65,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="142.00" seenPos="99.38,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="100.33"/>
-            <recognitionPoint t="12.00" observerPos="168.17,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="169.78" seenPos="126.89,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="128.11"/>
             <recognitionPoint t="13.00" observerPos="181.93,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="183.67" seenPos="140.65,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="142.00"/>
             <recognitionPoint t="14.00" observerPos="195.68,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="197.56" seenPos="154.41,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="155.89"/>
             <recognitionPoint t="16.00" observerPos="223.20,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="225.34" seenPos="181.93,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="183.67"/>
@@ -56,7 +54,6 @@
             <recognitionPoint t="22.00" observerPos="305.75,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="308.68" seenPos="264.47,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="267.01"/>
             <recognitionPoint t="24.00" observerPos="333.26,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="336.46" seenPos="291.99,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="294.79"/>
             <recognitionPoint t="25.00" observerPos="347.02,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="350.35" seenPos="305.75,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="308.68"/>
-            <recognitionPoint t="27.00" observerPos="374.54,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="378.13" seenPos="333.26,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="336.46"/>
             <recognitionPoint t="28.00" observerPos="388.30,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="392.02" seenPos="347.02,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="350.35"/>
             <recognitionPoint t="30.00" observerPos="415.81,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="419.80" seenPos="374.54,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="378.13"/>
             <recognitionPoint t="31.00" observerPos="429.57,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="433.69" seenPos="388.30,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="392.02"/>
@@ -90,14 +87,12 @@
             <recognitionPoint t="14.00" observerPos="154.41,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="155.89" seenPos="195.68,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="197.56"/>
             <recognitionPoint t="17.00" observerPos="195.68,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="197.56" seenPos="236.96,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="239.23"/>
             <recognitionPoint t="18.00" observerPos="209.44,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="211.45" seenPos="250.72,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="253.12"/>
-            <recognitionPoint t="21.00" observerPos="250.72,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="253.12" seenPos="291.99,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="294.79"/>
             <recognitionPoint t="22.00" observerPos="264.47,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="267.01" seenPos="305.75,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="308.68"/>
             <recognitionPoint t="23.00" observerPos="278.23,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="280.90" seenPos="319.51,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="322.57"/>
             <recognitionPoint t="24.00" observerPos="291.99,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="294.79" seenPos="333.26,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="336.46"/>
             <recognitionPoint t="25.00" observerPos="305.75,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="308.68" seenPos="347.02,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="350.35"/>
             <recognitionPoint t="26.00" observerPos="319.51,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="322.57" seenPos="360.78,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="364.24"/>
             <recognitionPoint t="27.00" observerPos="333.26,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="336.46" seenPos="374.54,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="378.13"/>
-            <recognitionPoint t="29.00" observerPos="360.78,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="364.24" seenPos="402.05,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="405.91"/>
             <recognitionPoint t="31.00" observerPos="388.30,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="392.02" seenPos="429.57,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="433.69"/>
             <recognitionPoint t="32.00" observerPos="402.05,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="405.91" seenPos="443.33,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="447.58"/>
             <recognitionPoint t="33.00" observerPos="415.81,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="419.80" seenPos="457.09,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="461.47"/>
