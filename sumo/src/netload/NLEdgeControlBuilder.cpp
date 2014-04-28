@@ -113,6 +113,19 @@ NLEdgeControlBuilder::build() {
         }
 #endif
     }
+    // mark internal edges belonging to a roundabout (after all edges are build)
+    if (MSGlobals::gUsingInternalLanes) {
+        for (EdgeCont::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
+            MSEdge* edge = *i1;
+            if (edge->isInternal()) {
+                assert(edge->getNoFollowing() == 1);
+                assert(edge->getIncomingEdges().size() == 1);
+                if (edge->getFollower(0)->isRoundabout() || edge->getIncomingEdges()[0]->isRoundabout()) {
+                    edge->markAsRoundabout();
+                }
+            }
+        }
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();

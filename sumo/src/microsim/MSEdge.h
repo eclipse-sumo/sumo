@@ -205,6 +205,10 @@ public:
         return myFunction;
     }
 
+    /// @brief return whether this edge is an internal edge
+    inline bool isInternal() const {
+        return myFunction == EDGEFUNCTION_INTERNAL;
+    }
 
     /** @brief Returns the numerical id of the edge
      * @return This edge's numerical id
