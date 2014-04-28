@@ -60,7 +60,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lan
         const SUMOReal length,
         const bool doAdd,
         const std::set<std::string>* const vTypes,
-        const MSMeanData_Amitran* parent)
+        const MSMeanData_Amitran* /* parent */)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes), amount(0) {}
 
 
@@ -127,7 +127,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::isEmpty() const {
 
 void
 MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
-        const SUMOReal numLanes, const SUMOReal defaultTravelTime, const int numVehicles) const {
+        const SUMOReal /* numLanes */, const SUMOReal defaultTravelTime, const int /* numVehicles */) const {
     if (sampleSeconds > 0) {
         dev.writeAttr("amount", amount).writeAttr("averageSpeed", int(100 * travelledDistance / sampleSeconds));
     } else if (defaultTravelTime >= 0.) {
@@ -187,7 +187,7 @@ MSMeanData_Amitran::openInterval(OutputDevice& dev, const SUMOTime startTime, co
 
 
 bool
-MSMeanData_Amitran::writePrefix(OutputDevice& dev, const MeanDataValues& values, const SumoXMLTag tag, const std::string id) const {
+MSMeanData_Amitran::writePrefix(OutputDevice& dev, const MeanDataValues& values, const SumoXMLTag /* tag */, const std::string id) const {
     if (myDumpEmpty || !values.isEmpty()) {
         dev.openTag("link").writeAttr(SUMO_ATTR_ID, id);
         return true;

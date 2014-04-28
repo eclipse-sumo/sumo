@@ -118,7 +118,7 @@ public:
             return myName;
         }
  
-        /** @brief Returns emission class associated with the given name, aliases are possible
+        /** @brief Returns the emission class associated with the given name, aliases are possible
          * If this method is asked for the "unknown" class it should return the default
          * (possibly depending on the given vehicle class).
          * @param[in] eClass the name of the emission class (string after the '/' in the emission class attribute)
@@ -217,7 +217,7 @@ public:
          * @param[in] v The vehicle's current velocity
          * @param[in] a The vehicle's current acceleration
          * @param[in] slope The road's slope at vehicle's position [°]
-         * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
+         * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
          */
         virtual SUMOReal compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope) const = 0;
 

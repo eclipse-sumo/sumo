@@ -429,7 +429,7 @@ HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3") {
 
 
 SUMOEmissionClass
-HelpersHBEFA3::getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight) const {
+HelpersHBEFA3::getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double /* weight */) const {
     std::string eClassOffset = "0";
     if (eClass.length() == 5 && eClass.substr(0, 4) == "Euro") {
         if (eClass[4] >= '0' && eClass[4] <= '6') {
@@ -467,7 +467,7 @@ HelpersHBEFA3::getClass(const SUMOEmissionClass base, const std::string& vClass,
     if (myEmissionClassStrings.hasString(desc)) {
         return myEmissionClassStrings.get(desc);
     }
-    return myEmissionClassStrings.get("unknown");
+    return base;
 }
 
 
