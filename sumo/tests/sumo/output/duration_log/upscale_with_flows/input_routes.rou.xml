@@ -1,0 +1,5 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="10"/>
+    <route id="r" edges="beg middle end"/>
+    <flow id="flow" route="r" begin="0" vehsPerHour="3600" number="10"/>
+</routes>

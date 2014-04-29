@@ -1,0 +1,14 @@
+Loading net-file from 'three_split.net.xml'...  done (0ms).
+Loading done.
+Simulation started with time: 0.00
+Simulation ended at time: 303.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 8 ms
+ Real time factor: 37875
+ UPS: 643750.000000
+Vehicles: 
+ Inserted: 25
+ Running: 0
+ Waiting: 0
+
