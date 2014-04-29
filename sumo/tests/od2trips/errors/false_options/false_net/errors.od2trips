@@ -1,2 +1,2 @@
-Error: Could not find network 'xxx/input_taz.taz.xml' to load.
+Error: Could not access network file 'xxx/input_taz.taz.xml' to load.
 Quitting (on error).
