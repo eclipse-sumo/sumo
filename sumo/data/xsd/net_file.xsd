@@ -111,7 +111,7 @@
         </xsd:attribute>
         <xsd:attribute name="incLanes" type="xsd:string" use="required"/>
         <xsd:attribute name="intLanes" type="xsd:string" use="required"/>
-        <xsd:attribute name="shape" type="shapeTypeTwo" use="optional"/>
+        <xsd:attribute name="shape" type="shapeType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="requestType">
