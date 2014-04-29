@@ -496,12 +496,21 @@ MSRouteHandler::closeVehicle() {
     if (vehControl.getVehicle(myVehicleParameter->id) == 0) {
         vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype);
         // maybe we do not want this vehicle to be inserted due to scaling
-        if (vehControl.isInQuota()) {
-            // add the vehicle to the vehicle control
+        unsigned int quota = vehControl.getQuota();
+        if (quota > 0) {
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
             if (myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
                 vehControl.addWaiting(*route->begin(), vehicle);
                 vehControl.registerOneWaitingForPerson();
+            } else {
+                // !!! no scaling for triggered vehicles yet
+                for (unsigned int i = 1; i < quota; i++) {
+                    MSNet::getInstance()->getInsertionControl().add(vehicle);
+                    SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
+                    newPars->id = myVehicleParameter->id + "." + toString(i);
+                    vehicle = vehControl.buildVehicle(newPars, route, vtype);
+                    vehControl.addVehicle(newPars->id, vehicle);
+                }
             }
             registerLastDepart();
             myVehicleParameter = 0;

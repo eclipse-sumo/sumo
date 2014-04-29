@@ -50,36 +50,13 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_Emissions::insertOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
-
-    oc.doRegister("device.emissions.probability", new Option_Float(0.));//!!! describe
-    oc.addDescription("device.emissions.probability", "Emissions", "The probability for a vehicle to have an emission logging device");
-
-    oc.doRegister("device.emissions.explicit", new Option_String());//!!! describe
-    oc.addSynonyme("device.emissions.explicit", "device.emissions.knownveh", true);
-    oc.addDescription("device.emissions.explicit", "Emissions", "Assign a device to named vehicles");
-
-    oc.doRegister("device.emissions.deterministic", new Option_Bool(false)); //!!! describe
-    oc.addDescription("device.emissions.deterministic", "Emissions", "The devices are set deterministic using a fraction of 1000");
+    insertDefaultAssignmentOptions("emissions", "Emissions", OptionsCont::getOptions());
 }
 
 
 void
 MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
-    OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.getFloat("device.emissions.probability") == 0 && !oc.isSet("device.emissions.explicit")) {
-        // no route computation is modelled
-        return;
-    }
-    // route computation is enabled
-    bool haveByNumber = false;
-    if (oc.getBool("device.emissions.deterministic")) {
-        haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device.emissions.probability"));
-    } else {
-        haveByNumber = RandHelper::rand() <= oc.getFloat("device.emissions.probability");
-    }
-    bool haveByName = oc.isSet("device.emissions.explicit") && OptionsCont::getOptions().isInStringVector("device.emissions.explicit", v.getID());
-    if (haveByNumber || haveByName) {
+    if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "emissions", v)) {
         // build the device
         MSDevice_Emissions* device = new MSDevice_Emissions(v, "emissions_" + v.getID());
         into.push_back(device);

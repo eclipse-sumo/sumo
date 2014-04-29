@@ -74,7 +74,6 @@ public:
      * @arg the network-file was specified (otherwise no simulation is existing)
      * @arg the begin and the end of the simulation must be given
      * @arg The default lane change model must be known
-     * @arg incremental-dua-step must be lower than incremental-dua-base
      * If one is not, false is returned.
      *
      * @return Whether the settings are valid

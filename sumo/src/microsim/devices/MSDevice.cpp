@@ -99,7 +99,7 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     // assignment by number
     bool haveByNumber = false;
     if (oc.exists("device." + deviceName + ".deterministic") && oc.getBool("device." + deviceName + ".deterministic")) {
-        haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device." + deviceName + ".probability"));
+        haveByNumber = MSNet::getInstance()->getVehicleControl().getQuota(oc.getFloat("device." + deviceName + ".probability")) == 1;
     } else {
         if (oc.exists("device." + deviceName + ".probability") && oc.getFloat("device." + deviceName + ".probability") != 0) {
             haveByNumber = RandHelper::rand() <= oc.getFloat("device." + deviceName + ".probability");

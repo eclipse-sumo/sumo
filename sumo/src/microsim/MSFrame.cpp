@@ -222,10 +222,6 @@ MSFrame::fillOptions() {
     oc.addSynonyme("max-num-vehicles", "too-many-vehicles", true);
     oc.addDescription("max-num-vehicles", "Processing", "Quit simulation if this number of vehicles is exceeded");
 
-    oc.doRegister("incremental-dua-step", new Option_Integer());//!!! deprecated
-    oc.addDescription("incremental-dua-step", "Processing", "Perform the simulation as a step in incremental DUA");
-    oc.doRegister("incremental-dua-base", new Option_Integer(10));//!!! deprecated
-    oc.addDescription("incremental-dua-base", "Processing", "Base value for incremental DUA");
     oc.doRegister("scale", new Option_Float());
     oc.addDescription("scale", "Processing", "Scale demand by the given factor (0..1)");
 
@@ -373,15 +369,8 @@ MSFrame::checkOptions() {
         WRITE_ERROR("No network file (-n) specified.");
         ok = false;
     }
-    if (oc.isSet("incremental-dua-step") && oc.isSet("incremental-dua-base")) {
-        WRITE_WARNING("The options 'incremental-dua-step' and 'incremental-dua-base' are deprecated, use 'scale' instead.");
-        if (oc.getInt("incremental-dua-step") > oc.getInt("incremental-dua-base")) {
-            WRITE_ERROR("Invalid dua step.");
-            ok = false;
-        }
-    }
     if (!oc.isDefault("scale")) {
-        if (oc.getFloat("scale") < 0. || oc.getFloat("scale") > 1.) {
+        if (oc.getFloat("scale") < 0.) {
             WRITE_ERROR("Invalid scaling factor.");
             ok = false;
         }

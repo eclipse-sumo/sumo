@@ -206,6 +206,8 @@ private:
         bool isVolatile;
         /// @brief The last created vehicle
         SUMOVehicle* vehicle;
+        /// @brief the running index
+        unsigned int index;
     };
 
     /// @brief Container for periodical vehicle parameters

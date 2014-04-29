@@ -223,13 +223,13 @@ public:
     }
 
 
-    /** @brief Returns the information whether the currently vehicle number shall be emitted
-     * considering that only frac of all vehicles shall be emitted overall
+    /** @brief Returns the number of instances of the current vehicle that shall be emitted
+     * considering that "frac" of all vehicles shall be emitted overall
      * if a negative fraction is given the demand scaling factor is used
-     * (--scale or --incremental-dua-step / --incremental-dua-base)
-     * @return True iff the vehicle number is acceptable
+     * (--scale)
+     * @return the number of vehicles to create (something between 0 and ceil(frac))
      */
-    bool isInQuota(SUMOReal frac = -1) const;
+    unsigned int getQuota(SUMOReal frac = -1) const;
 
 
     /** @brief Returns the number of build vehicles that have not been removed
