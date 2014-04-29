@@ -252,6 +252,9 @@ public:
         /// @brief Mapping between emission class names and integer representations
         StringBijection<SUMOEmissionClass> myEmissionClassStrings;
 
+    private:
+        Helper& operator=(const Helper&); // just to avoid a compiler warning
+
 
     };
 

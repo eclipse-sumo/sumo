@@ -126,7 +126,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::isEmpty() const {
 
 
 void
-MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
+MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime /* period */,
         const SUMOReal /* numLanes */, const SUMOReal defaultTravelTime, const int /* numVehicles */) const {
     if (sampleSeconds > 0) {
         dev.writeAttr("amount", amount).writeAttr("averageSpeed", int(100 * travelledDistance / sampleSeconds));
