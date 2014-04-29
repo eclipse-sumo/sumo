@@ -108,7 +108,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     NodesHandler nodesHandler(nodes, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
-        if (!FileHelpers::exists(*file)) {
+        if (!FileHelpers::isReadable(*file)) {
             WRITE_ERROR("Could not open osm-file '" + *file + "'.");
             return;
         }

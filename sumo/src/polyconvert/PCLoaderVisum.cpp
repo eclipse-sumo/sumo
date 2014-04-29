@@ -71,7 +71,7 @@ PCLoaderVisum::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("visum-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-        if (!FileHelpers::exists(*file)) {
+        if (!FileHelpers::isReadable(*file)) {
             throw ProcessError("Could not open visum-file '" + *file + "'.");
         }
         PROGRESS_BEGIN_MESSAGE("Parsing from visum-file '" + *file + "'");

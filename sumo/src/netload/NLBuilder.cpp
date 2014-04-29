@@ -271,8 +271,8 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
     if (oc.isSet("route-files") && string2time(oc.getString("route-steps")) > 0) {
         std::vector<std::string> files = oc.getStringVector("route-files");
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-            if (!FileHelpers::exists(*fileIt)) {
-                throw ProcessError("The route file '" + *fileIt + "' does not exist.");
+            if (!FileHelpers::isReadable(*fileIt)) {
+                throw ProcessError("The route file '" + *fileIt + "' is not accessible.");
             }
         }
         // open files for reading

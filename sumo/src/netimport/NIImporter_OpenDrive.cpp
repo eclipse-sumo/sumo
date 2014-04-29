@@ -165,7 +165,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("opendrive-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-        if (!FileHelpers::exists(*file)) {
+        if (!FileHelpers::isReadable(*file)) {
             WRITE_ERROR("Could not open opendrive file '" + *file + "'.");
             return;
         }

@@ -503,8 +503,8 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
     }
     std::vector<std::string> amitranFiles = oc.getStringVector("od-amitran-files");
     for (std::vector<std::string>::iterator i = amitranFiles.begin(); i != amitranFiles.end(); ++i) {
-        if (!FileHelpers::exists(*i)) {
-            throw ProcessError("Could not find matrix '" + *i + "' to load.");
+        if (!FileHelpers::isReadable(*i)) {
+            throw ProcessError("Could not access matrix file '" + *i + "' to load.");
         }
         PROGRESS_BEGIN_MESSAGE("Loading matrix in Amitran format from '" + *i + "'");
         ODAmitranHandler handler(*this, *i);

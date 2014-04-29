@@ -51,12 +51,12 @@ public:
     /// @name file access functions
     //@{
 
-    /** @brief Checks whether the given file exists
+    /** @brief Checks whether the given file is readable
      *
      * @param[in] path The path to the file that shall be examined
-     * @return Whether the named file exists
+     * @return Whether the named file is readable
      */
-    static bool exists(std::string path);
+    static bool isReadable(std::string path);
     //@}
 
 

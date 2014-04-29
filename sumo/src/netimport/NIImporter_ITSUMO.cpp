@@ -125,7 +125,7 @@ NIImporter_ITSUMO::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     Handler Handler(nb);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
-        if (!FileHelpers::exists(*file)) {
+        if (!FileHelpers::isReadable(*file)) {
             WRITE_ERROR("Could not open itsumo-file '" + *file + "'.");
             return;
         }

@@ -130,8 +130,8 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     if (file == "") {
         throw ProcessError("Missing definition of network to load!");
     }
-    if (!FileHelpers::exists(file)) {
-        throw ProcessError("The network file '" + file + "' could not be found.");
+    if (!FileHelpers::isReadable(file)) {
+        throw ProcessError("The network file '" + file + "' is not accessible.");
     }
     PROGRESS_BEGIN_MESSAGE("Loading net");
     RONetHandler handler(toFill, eb);
@@ -149,8 +149,8 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     if (myOptions.isSet("additional-files", false)) { // dfrouter does not register this option
         std::vector<std::string> files = myOptions.getStringVector("additional-files");
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-            if (!FileHelpers::exists(*fileIt)) {
-                throw ProcessError("The additional file '" + *fileIt + "' could not be found.");
+            if (!FileHelpers::isReadable(*fileIt)) {
+                throw ProcessError("The additional file '" + *fileIt + "' is not accessible.");
             }
             PROGRESS_BEGIN_MESSAGE("Loading additional file '" + *fileIt + "' ");
             handler.setFileName(*fileIt);

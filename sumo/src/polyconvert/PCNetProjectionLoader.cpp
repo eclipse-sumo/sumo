@@ -63,7 +63,7 @@
 // ---------------------------------------------------------------------------
 void
 PCNetProjectionLoader::load(const std::string& file, int shift) {
-    if (!FileHelpers::exists(file)) {
+    if (!FileHelpers::isReadable(file)) {
         throw ProcessError("Could not open net-file '" + file + "'.");
     }
     // build handler and parser

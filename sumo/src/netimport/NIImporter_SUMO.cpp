@@ -107,7 +107,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-        if (!FileHelpers::exists(*file)) {
+        if (!FileHelpers::isReadable(*file)) {
             WRITE_ERROR("Could not open sumo-net-file '" + *file + "'.");
             return;
         }

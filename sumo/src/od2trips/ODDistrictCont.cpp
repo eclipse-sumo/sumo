@@ -78,8 +78,8 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string& name) const {
 
 void
 ODDistrictCont::loadDistricts(std::string districtfile) {
-    if (!FileHelpers::exists(districtfile)) {
-        throw ProcessError("Could not find network '" + districtfile + "' to load.");
+    if (!FileHelpers::isReadable(districtfile)) {
+        throw ProcessError("Could not access network file '" + districtfile + "' to load.");
     }
     PROGRESS_BEGIN_MESSAGE("Loading districts from '" + districtfile + "'");
     // build the xml-parser and handler

@@ -74,7 +74,7 @@ NIImporter_RobocupRescue::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         std::string nodesName = (*file) + "/node.bin";
-        if (!FileHelpers::exists(nodesName)) {
+        if (!FileHelpers::isReadable(nodesName)) {
             WRITE_ERROR("Could not open robocup-node-file '" + nodesName + "'.");
             return;
         }
@@ -83,7 +83,7 @@ NIImporter_RobocupRescue::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         PROGRESS_DONE_MESSAGE();
         // edges
         std::string edgesName = (*file) + "/road.bin";
-        if (!FileHelpers::exists(edgesName)) {
+        if (!FileHelpers::isReadable(edgesName)) {
             WRITE_ERROR("Could not open robocup-road-file '" + edgesName + "'.");
             return;
         }

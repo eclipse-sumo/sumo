@@ -340,9 +340,9 @@ OptionsCont::isUsableFileList(const std::string& name) const {
         ok = false;
     }
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-        if (!FileHelpers::exists(*fileIt)) {
+        if (!FileHelpers::isReadable(*fileIt)) {
             if (*fileIt != "") {
-                WRITE_ERROR("File '" + *fileIt + "' does not exist.");
+                WRITE_ERROR("File '" + *fileIt + "' is not accessible.");
                 ok = false;
             } else {
                 WRITE_WARNING("Empty file name given; ignoring.");

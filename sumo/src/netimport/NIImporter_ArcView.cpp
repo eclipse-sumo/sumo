@@ -78,14 +78,14 @@ NIImporter_ArcView::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     std::string shp_file = oc.getString("shapefile-prefix") + ".shp";
     std::string shx_file = oc.getString("shapefile-prefix") + ".shx";
     // check whether the files do exist
-    if (!FileHelpers::exists(dbf_file)) {
-        WRITE_ERROR("File not found: " + dbf_file);
+    if (!FileHelpers::isReadable(dbf_file)) {
+        WRITE_ERROR("File not accessible: " + dbf_file);
     }
-    if (!FileHelpers::exists(shp_file)) {
-        WRITE_ERROR("File not found: " + shp_file);
+    if (!FileHelpers::isReadable(shp_file)) {
+        WRITE_ERROR("File not accessible: " + shp_file);
     }
-    if (!FileHelpers::exists(shx_file)) {
-        WRITE_ERROR("File not found: " + shx_file);
+    if (!FileHelpers::isReadable(shx_file)) {
+        WRITE_ERROR("File not accessible: " + shx_file);
     }
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         return;

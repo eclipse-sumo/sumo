@@ -226,7 +226,7 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
                 return 0;
             }
             const std::string file = sumoPath + std::string("/data/xsd") + url.substr(url.find("/xsd/")+4);
-            if (FileHelpers::exists(file)) {
+            if (FileHelpers::isReadable(file)) {
                 XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(file.c_str());
                 XERCES_CPP_NAMESPACE::InputSource* const result = new XERCES_CPP_NAMESPACE::LocalFileInputSource(t);
                 XERCES_CPP_NAMESPACE::XMLString::release(&t);

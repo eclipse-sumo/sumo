@@ -80,7 +80,7 @@ PCLoaderDlrNavteq::loadPOIFiles(OptionsCont& oc, PCPolyContainer& toFill,
                                 PCTypeMap& tm) {
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poi-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-        if (!FileHelpers::exists(*file)) {
+        if (!FileHelpers::isReadable(*file)) {
             throw ProcessError("Could not open dlr-navteq-poi-file '" + *file + "'.");
         }
         PROGRESS_BEGIN_MESSAGE("Parsing pois from dlr-navteq-poi-file '" + *file + "'");
@@ -95,7 +95,7 @@ PCLoaderDlrNavteq::loadPolyFiles(OptionsCont& oc, PCPolyContainer& toFill,
                                  PCTypeMap& tm) {
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poly-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-        if (!FileHelpers::exists(*file)) {
+        if (!FileHelpers::isReadable(*file)) {
             throw ProcessError("Could not open dlr-navteq-poly-file '" + *file + "'.");
         }
         PROGRESS_BEGIN_MESSAGE("Parsing pois from dlr-navteq-poly-file '" + *file + "'");

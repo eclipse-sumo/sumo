@@ -34,6 +34,7 @@
 // this is how fox does it in xincs.h
 #include <io.h>
 #define access _access
+#define R_OK    4       /* Test for read permission.  */
 #else
 #include <unistd.h>
 #endif
@@ -54,7 +55,7 @@
 // file access functions
 // ---------------------------------------------------------------------------
 bool
-FileHelpers::exists(std::string path) {
+FileHelpers::isReadable(std::string path) {
     if (path.length() == 0) {
         return false;
     }
@@ -64,7 +65,7 @@ FileHelpers::exists(std::string path) {
     if (path.length() == 0) {
         return false;
     }
-    return access(path.c_str(), 0) != -1;
+    return access(path.c_str(), R_OK) == 0;
 }
 
 
