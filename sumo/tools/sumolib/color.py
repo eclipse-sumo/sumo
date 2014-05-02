@@ -26,12 +26,14 @@ class RGBAColor:
         self.g = g
         self.b = b
         self.a = a
+
     def toXML(self):
         if self.a!=None:
             return "%s,%s,%s,%s" % (self.r, self.g, self.b, self.a)
         else:
             return "%s,%s,%s" % (self.r, self.g, self.b)
-    def decodeXML(c):
-        return [float(x) for x in c.split(",")]
-        
-          
+
+      
+def decodeXML(c):
+    return RGBAColor(*[float(x) for x in c.split(",")])
+

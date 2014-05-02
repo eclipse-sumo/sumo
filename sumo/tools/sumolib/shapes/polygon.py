@@ -31,7 +31,20 @@ class Polygon:
         self.fill = fill
         self.shape = shape
         self.attributes = {}
-        
+
+    def getBoundingBox(self):
+        xmin = self.shape[0][0]
+        xmax = self.shape[0][0]
+        ymin = self.shape[0][1]
+        ymax = self.shape[0][1]
+        for p in self.shape[1:]:
+            xmin = min(xmin, p[0])
+            xmax = max(xmax, p[0])
+            ymin = min(ymin, p[1])
+            ymax = max(ymax, p[1])
+        assert(xmin != xmax or ymin != ymax)
+        return xmin, ymin, xmax, ymax
+
     def toXML(self):
         s = []
         for e in self.shape:
