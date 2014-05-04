@@ -329,8 +329,8 @@ MSVehicleControl::getQuota(SUMOReal frac) const {
         return 1;
     }
     // the vehicle in question has already been loaded, hence  the '-1'
-    const unsigned int loaded = frac > 1. ? myLoadedVehNo / frac : myLoadedVehNo - 1;
-    unsigned int base = (unsigned int)frac;
+    const unsigned int loaded = frac > 1. ? (unsigned int)(myLoadedVehNo / frac) : myLoadedVehNo - 1;
+    const unsigned int base = (unsigned int)frac;
     const unsigned int resolution = 1000;
     const unsigned int intFrac = (unsigned int)floor((frac-base) * resolution + 0.5);
     // apply % twice to avoid integer overflow
